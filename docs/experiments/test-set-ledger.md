@@ -52,7 +52,8 @@ Diagnosis, from the same report (no further run):
 
 - No confident detection is wrong. The strongest detection that matched no
   track had 24 hits in 3 windows (weakest credited: 209 hits, Sick Note, the
-  last track, cut off by the end of the file after 46 s).
+  last track; the file ends 27 s after its listed start, and the detection
+  covers the last 46 s).
 - Track 22, Fibre Optix "Sin": two chains of 84 hits each (2 and 4 windows)
   at a consistent +5.4% inside its slot, 82:22 to 84:29. The record was found
   but the evidence stays below the rule (200 hits and 3 windows in one
