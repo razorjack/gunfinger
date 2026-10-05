@@ -15,6 +15,9 @@ gunfinger-core = { path = "crates/gunfinger-core" }
 unsafe_code = "forbid"
 
 [workspace.lints.clippy]
+# DSP loops index several arrays with the same bin or frame index, written to
+# follow the algorithm as published; iterator chains would hide that.
+needless_range_loop = "allow"
 # Production paths report errors instead of panicking. Tests may unwrap
 # (see clippy.toml).
 unwrap_used = "warn"
