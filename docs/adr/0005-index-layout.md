@@ -60,9 +60,11 @@ the measured margin loss.
 ## Consequences
 
 - Size grows linearly with the collection; so do posting-list lengths and
-  therefore query time (about 25 s per hour of mix today, dominated by the 41
-  STFTs, not by lookups). At 25,000 tracks the lookups will dominate; the
-  next measurement to make is query time against library size.
+  therefore lookup time. Today a 56-minute mix takes 22 s, of which lookups,
+  lines and chains are 2.6 s and the 41 STFTs most of the rest (experiment
+  0005). With 95 times the postings at 25,000 tracks the lookups are likely
+  to dominate; the next measurement to make is query time against library
+  size.
 - The offsets table is a fixed 8.4 MB at any size.
 - The hash design is part of the index format: changing fan-out or
   quantisation means rebuilding the index from peaks, which takes about a

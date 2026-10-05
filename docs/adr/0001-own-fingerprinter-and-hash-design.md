@@ -53,8 +53,10 @@ Candidate A, implemented from Wang (2003):
 - Development bar met on the first build: sweep recall 100% at all speeds
   with zero wrong answers, development set 11/11 with zero wrong; candidate B
   was not built.
-- Query cost is 41 STFTs plus lookups: about 25 s for a 56-minute mix on 10
-  cores. Lookup cost grows with the library; it has not been measured beyond
+- Query cost is one decode, 41 STFTs and the lookups: 22 to 26 s for the
+  56-minute development mix on 10 cores, of which the ladder takes about
+  15.8 s and lookups, lines and chains about 2.6 s at 262 tracks (experiment
+  0005). Lookup cost grows with the library; it has not been measured beyond
   262 tracks.
 - Key-locked (time-stretched without pitch change) sets are out of reach of
   this design; see the roadmap.

@@ -37,6 +37,6 @@ window and hop scaled by the rung (S), peak coordinates transformed (T).
 
 **Conclusion.** Realise a rung with an STFT whose window and hop are scaled by
 the rung (one decode, one STFT per rung, same quality as resampling). Anchor
-frequency in hybrid-log steps of 2% above bin 50 (9 bits). Ladder step 0.4%
-(residual at most ±0.2%, survival ≥ 45% of hashes on clean audio), 41 rungs
-over 0.92 to 1.08. The transform realisation is dropped.
+frequency in hybrid-log steps of 2% above bin 50 (167 levels, 8 bits). Ladder
+step 0.4% (residual at most ±0.2%, survival ≥ 45% of hashes on clean audio),
+41 rungs over 0.92 to 1.08. The transform realisation is dropped.
