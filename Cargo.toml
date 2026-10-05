@@ -1,0 +1,49 @@
+[workspace]
+resolver = "3"
+members = ["crates/gunfinger-core", "crates/gunfinger", "crates/gunfinger-eval"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+
+[workspace.dependencies]
+gunfinger-core = { path = "crates/gunfinger-core" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+# Production paths report errors instead of panicking. Tests may unwrap
+# (see clippy.toml).
+unwrap_used = "warn"
+expect_used = "warn"
+# A curated subset of the pedantic group: lints that catch real mistakes or
+# make code read more plainly. Numeric-cast lints are left out because DSP code
+# converts between sample counts, frames and seconds on purpose.
+cast_lossless = "warn"
+cloned_instead_of_copied = "warn"
+explicit_into_iter_loop = "warn"
+explicit_iter_loop = "warn"
+flat_map_option = "warn"
+if_not_else = "warn"
+implicit_clone = "warn"
+inefficient_to_string = "warn"
+items_after_statements = "warn"
+manual_let_else = "warn"
+map_unwrap_or = "warn"
+match_wildcard_for_single_variants = "warn"
+needless_pass_by_value = "warn"
+range_plus_one = "warn"
+redundant_closure_for_method_calls = "warn"
+redundant_else = "warn"
+semicolon_if_nothing_returned = "warn"
+trivially_copy_pass_by_ref = "warn"
+uninlined_format_args = "warn"
+unnested_or_patterns = "warn"
+unused_self = "warn"
+used_underscore_binding = "warn"
+
+[profile.release]
+debug = "line-tables-only"

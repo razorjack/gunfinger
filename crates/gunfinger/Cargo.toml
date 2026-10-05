@@ -1,0 +1,18 @@
+[package]
+name = "gunfinger"
+description = "Identify tracks from a personal collection inside DJ mixes"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+gunfinger-core.workspace = true
+clap = { version = "4", features = ["derive", "env"] }
+miette = { version = "7", features = ["fancy"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+
+[lints]
+workspace = true
