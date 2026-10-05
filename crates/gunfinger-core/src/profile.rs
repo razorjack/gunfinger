@@ -42,7 +42,7 @@ impl Profile {
     /// A stable textual identifier, stored in every peak record.
     pub fn id(&self) -> String {
         format!(
-            "peaks-v1 rate={} fft={} hop={} bins={}..{} nbhd={}x{} floor={}",
+            "peaks-v2 rate={} fft={} hop={} bins={}..{} nbhd={}x{} floor={}",
             self.sample_rate,
             self.fft_size,
             self.hop,

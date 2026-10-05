@@ -1,0 +1,225 @@
+//! Duplicate clusters: library files that are the same recording.
+//!
+//! Each file is searched against the whole library on a narrow ladder (rips
+//! of one recording differ in speed by a percent at most). Two files are the
+//! same recording when a single alignment covers nearly all of the shorter
+//! one. The criterion is deliberately strict: a remix or VIP that shares some
+//! sections with the original must stay separate. Clusters depend on library
+//! audio alone, never on what a set scan returned.
+
+use std::collections::{BTreeMap, BTreeSet};
+use std::fs;
+use std::path::Path;
+use std::sync::atomic::{AtomicUsize, Ordering};
+
+use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::index::Index;
+use gunfinger_core::indexing::load_records;
+use gunfinger_core::library::Library;
+use gunfinger_core::parallel::map_in_order;
+use gunfinger_core::profile::Profile;
+use gunfinger_core::search::search;
+use gunfinger_core::speed::SpeedRatio;
+use gunfinger_core::store::PeakStore;
+use serde::{Deserialize, Serialize};
+
+/// The alignment must cover this share of the shorter file.
+const MIN_COVERAGE: f64 = 0.8;
+/// Pairs above this coverage but below `MIN_COVERAGE` are reported for review.
+const REPORTED_COVERAGE: f64 = 0.2;
+/// Rips of one recording play within this speed of each other.
+const SPEEDS: [f64; 11] = [
+    0.98, 0.984, 0.988, 0.992, 0.996, 1.0, 1.004, 1.008, 1.012, 1.016, 1.02,
+];
+
+/// Every library asset's cluster. Assets without a duplicate form a cluster
+/// of their own.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Clusters {
+    pub criterion: String,
+    /// Clusters with more than one member, each sorted, ordered by first member.
+    pub duplicates: Vec<Vec<String>>,
+    /// The evidence for every pair considered, strongest first.
+    pub pairs: Vec<Pair>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Pair {
+    pub query: String,
+    pub found: String,
+    /// Share of the shorter file covered by the alignment.
+    pub coverage: f64,
+    pub speed: f64,
+    pub hits: u32,
+    pub same_recording: bool,
+}
+
+impl Clusters {
+    pub fn load(path: &Path) -> Result<Clusters, String> {
+        let text = fs::read_to_string(path).map_err(|error| {
+            format!(
+                "cannot read {} ({error}); run `gunfinger-eval clusters` first",
+                path.display()
+            )
+        })?;
+        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
+    }
+
+    /// The members of the cluster holding `asset`, including itself.
+    pub fn cluster_of(&self, asset: &str) -> BTreeSet<String> {
+        self.duplicates
+            .iter()
+            .find(|members| members.iter().any(|member| member == asset))
+            .map_or_else(
+                || BTreeSet::from([asset.to_owned()]),
+                |members| members.iter().cloned().collect(),
+            )
+    }
+}
+
+pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Clusters, String> {
+    let profile = Profile::CURRENT;
+    let (records, problems) = load_records(library, store, &profile, &BTreeSet::new());
+    for problem in &problems {
+        eprintln!("left out: {problem}");
+    }
+    let index = Index::build(&records).map_err(|error| error.to_string())?;
+    let ladder: Vec<SpeedRatio> = SPEEDS.into_iter().map(SpeedRatio).collect();
+    let durations: BTreeMap<&str, f64> = records
+        .iter()
+        .map(|record| {
+            (
+                record.header.source.path.as_str(),
+                record.header.duration_seconds,
+            )
+        })
+        .collect();
+
+    // One file per thread, each searched on a single thread.
+    let finished = AtomicUsize::new(0);
+    let found: Vec<Result<Vec<Pair>, String>> = map_in_order(&records, jobs, |record| {
+        let query = &record.header.source.path;
+        let audio = decode(
+            &library.root.join(query),
+            profile.sample_rate,
+            Excerpt::default(),
+        )
+        .map_err(|error| error.to_string())?;
+        let mut pairs = Vec::new();
+        for detection in search(&index, &audio.samples, &profile, &ladder, 1) {
+            let found = &index.asset(detection.asset).path;
+            if found == query {
+                continue;
+            }
+            let shorter = durations[query.as_str()].min(durations[found.as_str()]);
+            let coverage = (detection.end_seconds - detection.start_seconds) / shorter;
+            if coverage >= REPORTED_COVERAGE {
+                pairs.push(Pair {
+                    query: query.clone(),
+                    found: found.clone(),
+                    coverage,
+                    speed: detection.speed.0,
+                    hits: detection.evidence.hits,
+                    same_recording: coverage >= MIN_COVERAGE,
+                });
+            }
+        }
+        let count = finished.fetch_add(1, Ordering::Relaxed) + 1;
+        eprintln!("[{count}/{}] {query}", records.len());
+        Ok(pairs)
+    });
+    let mut pairs = Vec::new();
+    for result in found {
+        pairs.extend(result?);
+    }
+    pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage));
+
+    Ok(Clusters {
+        criterion: format!(
+            "one alignment at speed {:.2}..{:.2} covers at least {:.0}% of the shorter file",
+            SPEEDS[0],
+            SPEEDS[SPEEDS.len() - 1],
+            MIN_COVERAGE * 100.0
+        ),
+        duplicates: merge(&pairs),
+        pairs,
+    })
+}
+
+/// Follows parent links up to the representative of `node`'s set.
+fn root<'a>(parent: &BTreeMap<&'a str, &'a str>, mut node: &'a str) -> &'a str {
+    while let Some(&up) = parent.get(node).filter(|&&up| up != node) {
+        node = up;
+    }
+    node
+}
+
+/// Transitive closure of the same-recording pairs (union-find over paths).
+fn merge(pairs: &[Pair]) -> Vec<Vec<String>> {
+    let mut parent: BTreeMap<&str, &str> = BTreeMap::new();
+    for pair in pairs.iter().filter(|pair| pair.same_recording) {
+        for node in [pair.query.as_str(), pair.found.as_str()] {
+            parent.entry(node).or_insert(node);
+        }
+        let (a, b) = (root(&parent, &pair.query), root(&parent, &pair.found));
+        if a != b {
+            parent.insert(a.max(b), a.min(b));
+        }
+    }
+    let mut clusters: BTreeMap<&str, Vec<String>> = BTreeMap::new();
+    for &node in parent.keys() {
+        clusters
+            .entry(root(&parent, node))
+            .or_default()
+            .push(node.to_owned());
+    }
+    clusters.into_values().collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn pair(query: &str, found: &str, same_recording: bool) -> Pair {
+        Pair {
+            query: query.to_owned(),
+            found: found.to_owned(),
+            coverage: 0.0,
+            speed: 1.0,
+            hits: 0,
+            same_recording,
+        }
+    }
+
+    #[test]
+    fn same_recording_pairs_merge_transitively() {
+        let pairs = [
+            pair("c.mp3", "a.mp3", true),
+            pair("d.mp3", "e.mp3", false),
+            pair("b.mp3", "c.mp3", true),
+            pair("x.mp3", "y.mp3", true),
+        ];
+
+        let clusters = merge(&pairs);
+
+        assert_eq!(
+            clusters,
+            [vec!["a.mp3", "b.mp3", "c.mp3"], vec!["x.mp3", "y.mp3"]]
+        );
+    }
+
+    #[test]
+    fn an_asset_without_duplicates_is_its_own_cluster() {
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec!["a.mp3".to_owned(), "b.mp3".to_owned()]],
+            pairs: Vec::new(),
+        };
+
+        assert_eq!(clusters.cluster_of("b.mp3").len(), 2);
+        assert_eq!(
+            clusters.cluster_of("z.mp3"),
+            BTreeSet::from(["z.mp3".to_owned()])
+        );
+    }
+}

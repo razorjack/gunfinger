@@ -16,8 +16,9 @@
 //! source mtime    i64 seconds + u32 nanoseconds
 //! duration        f64 seconds of decoded audio
 //! peak count      u32
-//! peaks           per peak: frame delta (LEB128 varint), bin (u16, 1/64
-//!                 bin), magnitude (u8, 0.5 dB steps from -20 dB)
+//! peaks           per peak: frame delta (LEB128 varint), offset from the
+//!                 frame (i8, 1/64 frame), bin (u16, 1/64 bin), magnitude
+//!                 (u8, 0.5 dB steps from -20 dB)
 //! ```
 
 use std::fs::{self, File};
@@ -25,11 +26,11 @@ use std::io::{self, BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
 
 use crate::library::{Asset, Timestamp};
-use crate::peaks::{BIN_STEPS, MAGNITUDE_STEPS_PER_DB, Peak};
+use crate::peaks::{BIN_STEPS, FRAME_STEPS, MAGNITUDE_STEPS_PER_DB, Peak};
 use crate::profile::Profile;
 
 const MAGIC: &[u8; 8] = b"GUNFPEAK";
-pub const FORMAT_VERSION: u16 = 1;
+pub const FORMAT_VERSION: u16 = 2;
 /// The quietest magnitude a `u8` field can hold. The peak picker's floor is
 /// above it and STFT power of audio in [-1, 1] stays below its ceiling of
 /// 107.5 dB, so clamping never happens in practice.
@@ -93,6 +94,15 @@ impl PeakStore {
     pub fn record_path(&self, asset_path: &str) -> PathBuf {
         self.dir
             .join(format!("{:016x}.peaks", fnv1a(asset_path.as_bytes())))
+    }
+
+    /// Size of an asset's record on disk.
+    pub fn record_bytes(&self, asset_path: &str) -> Result<u64, StoreError> {
+        let path = self.record_path(asset_path);
+        match fs::metadata(&path) {
+            Ok(metadata) => Ok(metadata.len()),
+            Err(source) => Err(StoreError::Io { path, source }),
+        }
     }
 
     /// Whether a current record exists, reading only its header.
@@ -164,17 +174,20 @@ fn write_record(out: &mut impl Write, record: &PeakRecord) -> io::Result<()> {
 
     let mut previous_frame = 0;
     for peak in &record.peaks {
-        let delta = peak.frame.checked_sub(previous_frame).ok_or_else(|| {
+        let frame = peak.frame.round() as u32;
+        let delta = frame.checked_sub(previous_frame).ok_or_else(|| {
             io::Error::new(
                 io::ErrorKind::InvalidInput,
                 "peaks are not ordered by frame",
             )
         })?;
         write_varint(out, delta)?;
+        let offset = ((peak.frame - f64::from(frame)) * f64::from(FRAME_STEPS)).round() as i8;
+        out.write_all(&offset.to_le_bytes())?;
         out.write_all(&((peak.bin * BIN_STEPS) as u16).to_le_bytes())?;
         let magnitude = (peak.magnitude - MAGNITUDE_ORIGIN_DB) * MAGNITUDE_STEPS_PER_DB;
         out.write_all(&[magnitude.clamp(0.0, 255.0) as u8])?;
-        previous_frame = peak.frame;
+        previous_frame = frame;
     }
     Ok(())
 }
@@ -214,10 +227,11 @@ fn read_peaks(input: &mut impl Read) -> io::Result<Vec<Peak>> {
         frame = frame
             .checked_add(read_varint(input)?)
             .ok_or_else(|| invalid("frame index overflows"))?;
+        let offset = f64::from(i8::from_le_bytes(read_array(input)?)) / f64::from(FRAME_STEPS);
         let bin = f32::from(u16::from_le_bytes(read_array(input)?)) / BIN_STEPS;
         let [magnitude] = read_array(input)?;
         peaks.push(Peak {
-            frame,
+            frame: f64::from(frame) + offset,
             bin,
             magnitude: f32::from(magnitude) / MAGNITUDE_STEPS_PER_DB + MAGNITUDE_ORIGIN_DB,
         });
@@ -326,17 +340,22 @@ mod tests {
     fn a_record_survives_a_round_trip() {
         let original = record(vec![
             Peak {
-                frame: 0,
+                frame: 0.0,
                 bin: 5.0,
                 magnitude: -10.0,
             },
             Peak {
-                frame: 0,
+                frame: 0.0,
                 bin: 499.0 + 63.0 / 64.0,
                 magnitude: 54.5,
             },
             Peak {
-                frame: 70_000,
+                frame: 1.0 - 31.0 / 64.0,
+                bin: 6.0,
+                magnitude: 0.0,
+            },
+            Peak {
+                frame: 70_000.0 + 31.0 / 64.0,
                 bin: 123.5,
                 magnitude: 12.0,
             },
@@ -374,7 +393,7 @@ mod tests {
         let dir = std::env::temp_dir().join(format!("gunfinger-store-{}", std::process::id()));
         let store = PeakStore::open(&dir).unwrap();
         let original = record(vec![Peak {
-            frame: 3,
+            frame: 3.25,
             bin: 64.25,
             magnitude: 1.5,
         }]);
@@ -391,15 +410,15 @@ mod tests {
     proptest! {
         #[test]
         fn quantised_peaks_round_trip_exactly(
-            raw in prop::collection::vec((0_u32..2_000, 0_u16..32_000, 0_u8..=255), 0..200)
+            raw in prop::collection::vec((0_u32..2_000, -31_i8..=31, 0_u16..32_000, 0_u8..=255), 0..200)
         ) {
             let mut frame = 0;
             let peaks: Vec<Peak> = raw
                 .into_iter()
-                .map(|(delta, bin, magnitude)| {
+                .map(|(delta, offset, bin, magnitude)| {
                     frame += delta;
                     Peak {
-                        frame,
+                        frame: f64::from(frame) + f64::from(offset) / f64::from(FRAME_STEPS),
                         bin: f32::from(bin) / BIN_STEPS,
                         magnitude: f32::from(magnitude) / MAGNITUDE_STEPS_PER_DB + MAGNITUDE_ORIGIN_DB,
                     }

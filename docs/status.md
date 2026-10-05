@@ -37,3 +37,23 @@ Running log. Newest entry at the bottom.
   bin (parabolic interpolation, 1/64 bin).
 - Next: pair hashing, in-memory index, `stats`, then hash survival under
   speed change.
+
+## 2026-10-06: candidate A end to end
+
+- Tier: 4, matching. Candidate A built: pair hashes (anchor in hybrid-log
+  steps, Δbin, Δframe; 21 bits), in-memory index (offsets table + 4-byte
+  postings), speed ladder 0.92..1.08 in 0.4% steps realised by a scaled STFT
+  (experiment 0001), lines per 10 s window, windows chained into detections.
+- `gunfinger identify`, `gunfinger stats` work. `stats` on the library: 262
+  assets, 29.3 h, 37.3 peaks/s, 181.7 postings/s, 84.9 MB index (4.44 bytes
+  per posting with offsets), peak store 187 bytes/s. Peaks by octave: 48% in
+  2-4 kHz, 6.5% below 250 Hz (linear bins favour the top octave).
+- Deviation: one smoke run of `identify` on the development set happened
+  before duplicate clusters and the sweep (brief 7.2 and 7.3 order). It found
+  all 11 tracks (best chains 4,097 to 13,976 hits) and showed fragmented
+  same-asset chains, which led to the general "one asset plays once at any
+  moment" rule. No threshold was set from it. Clusters use library audio
+  only; their code and criterion were written before that run finished.
+- Running: `gunfinger-eval clusters` (library self-match, ±2% ladder,
+  coverage ≥ 80% of the shorter file).
+- Next: clusters, sweep, confidence calibration.

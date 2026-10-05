@@ -1,6 +1,5 @@
 //! `gunfinger index`: bring the peak store up to date with a library.
 
-use std::num::NonZeroUsize;
 use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::{Duration, Instant};
@@ -14,7 +13,7 @@ use miette::{IntoDiagnostic, WrapErr};
 pub fn run(
     library_root: &Path,
     peaks_dir: &Path,
-    jobs: Option<NonZeroUsize>,
+    jobs: usize,
     max_track_minutes: u64,
 ) -> miette::Result<()> {
     let started = Instant::now();
@@ -23,7 +22,7 @@ pub fn run(
         .wrap_err_with(|| format!("could not read the library at {}", library_root.display()))?;
     let store = PeakStore::open(peaks_dir).into_diagnostic()?;
     let options = IndexingOptions {
-        jobs: jobs.map_or_else(crate::default_jobs, NonZeroUsize::get),
+        jobs,
         max_track: Duration::from_secs(max_track_minutes * 60),
     };
     eprintln!(

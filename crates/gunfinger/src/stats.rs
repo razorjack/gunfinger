@@ -1,0 +1,231 @@
+//! `gunfinger stats`: size and shape of the peak store and the index.
+
+use std::path::Path;
+
+use gunfinger_core::index::Index;
+use gunfinger_core::profile::Profile;
+use miette::IntoDiagnostic;
+use serde::Serialize;
+
+use crate::Format;
+use crate::catalog::Catalog;
+
+/// The collection size the index must eventually hold.
+const PROJECTED_TRACKS: f64 = 25_000.0;
+/// Upper edges of the frequency bands peaks are counted in, in Hz: octaves
+/// from the bass up.
+const BAND_EDGES_HZ: [f64; 6] = [125.0, 250.0, 500.0, 1000.0, 2000.0, 4000.0];
+
+#[derive(Serialize)]
+struct Stats {
+    schema_version: u32,
+    assets: usize,
+    audio_seconds: f64,
+    mean_track_seconds: f64,
+    peaks: Peaks,
+    index: IndexSize,
+    buckets: Buckets,
+    projection: Projection,
+}
+
+#[derive(Serialize)]
+struct Peaks {
+    count: usize,
+    per_second: f64,
+    store_bytes: u64,
+    store_bytes_per_second: f64,
+    /// Share of peaks per octave band, lowest first.
+    band_shares: Vec<Band>,
+}
+
+#[derive(Serialize)]
+struct Band {
+    up_to_hz: f64,
+    share: f64,
+}
+
+#[derive(Serialize)]
+struct IndexSize {
+    postings: usize,
+    postings_per_second: f64,
+    bytes: usize,
+    /// Including the offsets table.
+    bytes_per_posting: f64,
+}
+
+#[derive(Serialize)]
+struct Buckets {
+    count: usize,
+    mean: f64,
+    p99: u32,
+    max: u32,
+    /// Share of all postings held by the fullest 1% of buckets.
+    fullest_percent_share: f64,
+}
+
+#[derive(Serialize)]
+struct Projection {
+    tracks: f64,
+    audio_seconds: f64,
+    postings: f64,
+    index_bytes: f64,
+    peak_store_bytes: f64,
+}
+
+pub fn run(library: &Path, peaks_dir: &Path, format: Format) -> miette::Result<()> {
+    let catalog = Catalog::open(library, peaks_dir, None)?;
+    let stats = measure(&catalog)?;
+    match format {
+        Format::Human => print_human(&stats),
+        Format::Json => println!(
+            "{}",
+            serde_json::to_string_pretty(&stats).into_diagnostic()?
+        ),
+    }
+    Ok(())
+}
+
+fn measure(catalog: &Catalog) -> miette::Result<Stats> {
+    let profile = Profile::CURRENT;
+    let audio_seconds: f64 = catalog
+        .records
+        .iter()
+        .map(|record| record.header.duration_seconds)
+        .sum();
+    let mut store_bytes = 0;
+    for record in &catalog.records {
+        store_bytes += catalog
+            .store
+            .record_bytes(&record.header.source.path)
+            .into_diagnostic()?;
+    }
+    let peak_count: usize = catalog
+        .records
+        .iter()
+        .map(|record| record.peaks.len())
+        .sum();
+    let postings = catalog.index.posting_count();
+    let index_bytes = catalog.index.size_bytes();
+    let mean_track_seconds = audio_seconds / catalog.records.len() as f64;
+    let projected_seconds = PROJECTED_TRACKS * mean_track_seconds;
+    let postings_per_second = postings as f64 / audio_seconds;
+    let posting_bytes = size_of::<u32>() as f64;
+    let offsets_bytes = (index_bytes as f64) - posting_bytes * postings as f64;
+
+    Ok(Stats {
+        schema_version: 1,
+        assets: catalog.records.len(),
+        audio_seconds,
+        mean_track_seconds,
+        peaks: Peaks {
+            count: peak_count,
+            per_second: peak_count as f64 / audio_seconds,
+            store_bytes,
+            store_bytes_per_second: store_bytes as f64 / audio_seconds,
+            band_shares: band_shares(catalog, &profile),
+        },
+        index: IndexSize {
+            postings,
+            postings_per_second,
+            bytes: index_bytes,
+            bytes_per_posting: index_bytes as f64 / postings as f64,
+        },
+        buckets: buckets(&catalog.index),
+        projection: Projection {
+            tracks: PROJECTED_TRACKS,
+            audio_seconds: projected_seconds,
+            postings: postings_per_second * projected_seconds,
+            index_bytes: offsets_bytes + posting_bytes * postings_per_second * projected_seconds,
+            peak_store_bytes: store_bytes as f64 / audio_seconds * projected_seconds,
+        },
+    })
+}
+
+fn band_shares(catalog: &Catalog, profile: &Profile) -> Vec<Band> {
+    let mut counts = [0_usize; BAND_EDGES_HZ.len()];
+    let mut total = 0_usize;
+    for peak in catalog.records.iter().flat_map(|record| &record.peaks) {
+        let hz = f64::from(peak.bin) * profile.bin_hz();
+        let band = BAND_EDGES_HZ
+            .iter()
+            .position(|&edge| hz < edge)
+            .unwrap_or(BAND_EDGES_HZ.len() - 1);
+        counts[band] += 1;
+        total += 1;
+    }
+    BAND_EDGES_HZ
+        .iter()
+        .zip(counts)
+        .map(|(&up_to_hz, count)| Band {
+            up_to_hz,
+            share: count as f64 / total.max(1) as f64,
+        })
+        .collect()
+}
+
+fn buckets(index: &Index) -> Buckets {
+    let mut sizes: Vec<u32> = index.bucket_sizes().collect();
+    sizes.sort_unstable();
+    let total: u64 = sizes.iter().map(|&size| u64::from(size)).sum();
+    let fullest = sizes.len().div_ceil(100);
+    let in_fullest: u64 = sizes[sizes.len() - fullest..]
+        .iter()
+        .map(|&size| u64::from(size))
+        .sum();
+    Buckets {
+        count: sizes.len(),
+        mean: total as f64 / sizes.len() as f64,
+        p99: sizes[sizes.len() * 99 / 100],
+        max: sizes[sizes.len() - 1],
+        fullest_percent_share: in_fullest as f64 / total.max(1) as f64,
+    }
+}
+
+fn print_human(stats: &Stats) {
+    let megabytes = |bytes: f64| bytes / 1e6;
+    println!(
+        "assets            {} ({:.1} h of audio, mean track {:.0} s)",
+        stats.assets,
+        stats.audio_seconds / 3600.0,
+        stats.mean_track_seconds
+    );
+    println!(
+        "peaks             {} ({:.1} per second)",
+        stats.peaks.count, stats.peaks.per_second
+    );
+    println!(
+        "peak store        {:.1} MB ({:.0} bytes per second of audio)",
+        megabytes(stats.peaks.store_bytes as f64),
+        stats.peaks.store_bytes_per_second
+    );
+    print!("peak bands        ");
+    for band in &stats.peaks.band_shares {
+        print!("<{:.0} Hz {:.1}%  ", band.up_to_hz, band.share * 100.0);
+    }
+    println!();
+    println!(
+        "postings          {} ({:.1} per second of audio)",
+        stats.index.postings, stats.index.postings_per_second
+    );
+    println!(
+        "index             {:.1} MB ({:.2} bytes per posting with the offsets table)",
+        megabytes(stats.index.bytes as f64),
+        stats.index.bytes_per_posting
+    );
+    println!(
+        "hash buckets      {}: mean {:.2}, p99 {}, max {}, fullest 1% hold {:.1}% of postings",
+        stats.buckets.count,
+        stats.buckets.mean,
+        stats.buckets.p99,
+        stats.buckets.max,
+        stats.buckets.fullest_percent_share * 100.0
+    );
+    println!(
+        "{:.0} tracks      {:.0} h of audio, {:.2e} postings, index {:.0} MB, peak store {:.0} MB",
+        stats.projection.tracks,
+        stats.projection.audio_seconds / 3600.0,
+        stats.projection.postings,
+        megabytes(stats.projection.index_bytes),
+        megabytes(stats.projection.peak_store_bytes)
+    );
+}

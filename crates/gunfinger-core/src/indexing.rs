@@ -1,14 +1,14 @@
 //! Extracting the peaks of every library asset into the peak store.
 
-use std::sync::atomic::{AtomicUsize, Ordering};
-use std::thread;
+use std::collections::BTreeSet;
 use std::time::Duration;
 
 use crate::decode::{Excerpt, decode};
 use crate::library::{Asset, Library};
+use crate::parallel::map_in_order;
 use crate::peaks::extract_peaks;
 use crate::profile::Profile;
-use crate::store::{PeakRecord, PeakStore, RecordHeader};
+use crate::store::{PeakRecord, PeakStore, RecordHeader, StoreError};
 
 /// What indexing did with one asset.
 #[derive(Debug)]
@@ -29,9 +29,9 @@ pub struct IndexingOptions {
     pub max_track: Duration,
 }
 
-/// Brings the store up to date with the library. Each worker thread takes
-/// the next unprocessed asset; `report` is called from the workers as each
-/// asset finishes. Returns the outcomes in library order.
+/// Brings the store up to date with the library, one asset per worker
+/// thread. `report` is called from the workers as each asset finishes.
+/// Returns the outcomes in library order.
 pub fn index_library(
     library: &Library,
     store: &PeakStore,
@@ -39,33 +39,11 @@ pub fn index_library(
     options: &IndexingOptions,
     report: impl Fn(&Asset, &Outcome) + Sync,
 ) -> Vec<Outcome> {
-    let next = AtomicUsize::new(0);
-    let mut outcomes: Vec<(usize, Outcome)> = thread::scope(|scope| {
-        let workers: Vec<_> = (0..options.jobs.max(1))
-            .map(|_| {
-                scope.spawn(|| {
-                    let mut done = Vec::new();
-                    loop {
-                        let position = next.fetch_add(1, Ordering::Relaxed);
-                        let Some(asset) = library.assets.get(position) else {
-                            break;
-                        };
-                        let outcome =
-                            index_asset(library, asset, store, profile, options.max_track);
-                        report(asset, &outcome);
-                        done.push((position, outcome));
-                    }
-                    done
-                })
-            })
-            .collect();
-        workers
-            .into_iter()
-            .flat_map(|worker| worker.join().unwrap_or_default())
-            .collect()
-    });
-    outcomes.sort_by_key(|(position, _)| *position);
-    outcomes.into_iter().map(|(_, outcome)| outcome).collect()
+    map_in_order(&library.assets, options.jobs, |asset| {
+        let outcome = index_asset(library, asset, store, profile, options.max_track);
+        report(asset, &outcome);
+        outcome
+    })
 }
 
 fn index_asset(
@@ -111,4 +89,27 @@ fn index_asset(
             reason: error.to_string(),
         },
     }
+}
+
+/// The current peak records of the library's assets, in library order,
+/// leaving out the paths in `excluded`. Assets without a current record are
+/// returned as errors rather than failing the whole load.
+pub fn load_records(
+    library: &Library,
+    store: &PeakStore,
+    profile: &Profile,
+    excluded: &BTreeSet<String>,
+) -> (Vec<PeakRecord>, Vec<StoreError>) {
+    let mut records = Vec::new();
+    let mut problems = Vec::new();
+    for asset in &library.assets {
+        if excluded.contains(&asset.path) {
+            continue;
+        }
+        match store.load(asset, profile) {
+            Ok(record) => records.push(record),
+            Err(problem) => problems.push(problem),
+        }
+    }
+    (records, problems)
 }
