@@ -13,29 +13,41 @@ mod scoring;
 mod survival;
 mod sweep;
 
-use std::path::PathBuf;
+use std::fs;
+use std::num::NonZeroUsize;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use clap::{Parser, Subcommand};
 use gunfinger_core::library::Library;
 use gunfinger_core::store::PeakStore;
-use gunfinger_core::timecode::format_timecode;
+use serde::Serialize;
+
+use crate::clusters::Clusters;
+use crate::scan::LeaveOut;
 
 #[derive(Parser)]
 #[command(name = "gunfinger-eval")]
 struct Cli {
+    #[command(flatten)]
+    paths: Paths,
+
+    #[command(subcommand)]
+    command: Command,
+}
+
+/// Where the harness reads from and writes to.
+#[derive(clap::Args)]
+struct Paths {
     /// Corpus root containing `library/` and `sets/`.
     #[arg(long, default_value = "corpus")]
     corpus: PathBuf,
-    /// Directory for derived data: rendered audio, reports.
+    /// Directory for derived data: rendered audio and `reports/`.
     #[arg(long, default_value = "work")]
     work: PathBuf,
     /// Peak store of the library, as written by `gunfinger index`.
     #[arg(long, default_value = "work/peaks")]
     peaks_dir: PathBuf,
-
-    #[command(subcommand)]
-    command: Command,
 }
 
 #[derive(Subcommand)]
@@ -75,27 +87,8 @@ enum Command {
 }
 
 fn main() -> ExitCode {
-    let cli = Cli::parse();
-    let result = match cli.command {
-        Command::Validate => validate(&cli.corpus),
-        Command::Survival { assets } => open_library(&cli.corpus, &cli.peaks_dir)
-            .and_then(|(library, store)| survival::run(&library, &store, &assets, &cli.work)),
-        Command::Clusters => find_clusters(&cli),
-        Command::Sweep { seed } => run_sweep(&cli, seed),
-        Command::Calibrate { ref set } => calibrate::run(&cli.work.join("reports"), set),
-        Command::Scan {
-            ref set,
-            leave_out,
-            seed,
-        } => run_scan(
-            &cli,
-            set,
-            leave_out
-                .map(|count| scan::LeaveOut { count, seed })
-                .as_ref(),
-        ),
-    };
-    match result {
+    let Cli { paths, command } = Cli::parse();
+    match run(&paths, command) {
         Ok(()) => ExitCode::SUCCESS,
         Err(message) => {
             eprintln!("error: {message}");
@@ -104,111 +97,58 @@ fn main() -> ExitCode {
     }
 }
 
-fn validate(corpus: &std::path::Path) -> Result<(), String> {
-    let library = Library::scan(&corpus.join("library")).map_err(|error| error.to_string())?;
-    let sets_dir = corpus.join("sets");
-    let mut failures = 0;
-    for name in manifest::set_names(&sets_dir)? {
-        match manifest::load_set(&sets_dir, &name, &library) {
-            Ok(set) => {
-                let referenced = set
-                    .tracks
-                    .iter()
-                    .filter(|track| track.is_referenced())
-                    .count();
-                let references: usize = set.tracks.iter().map(|track| track.references.len()).sum();
-                println!(
-                    "{name}: valid; {} tracks, {referenced} referenced ({references} reference files), {} absent",
-                    set.tracks.len(),
-                    set.tracks.len() - referenced
-                );
-                eprintln!("{name}: {} ({})", set.title, set.audio.display());
-                for track in &set.tracks {
-                    eprintln!(
-                        "  {} {} [{} references]",
-                        format_timecode(track.start),
-                        track.label(),
-                        track.references.len()
-                    );
-                }
-            }
-            Err(problems) => {
-                failures += 1;
-                println!("{name}: {} problems", problems.len());
-                for problem in problems {
-                    println!("  {problem}");
-                }
-            }
+fn run(paths: &Paths, command: Command) -> Result<(), String> {
+    match command {
+        Command::Validate => manifest::validate_all(&paths.sets(), &paths.library()?),
+        Command::Survival { assets } => {
+            survival::run(&paths.library()?, &paths.store()?, &assets, &paths.work)
         }
+        Command::Clusters => find_clusters(paths),
+        Command::Sweep { seed } => run_sweep(paths, seed),
+        Command::Scan {
+            set,
+            leave_out,
+            seed,
+        } => run_scan(
+            paths,
+            &set,
+            leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
+        ),
+        Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
     }
-    if failures == 0 {
-        Ok(())
-    } else {
-        Err(format!("{failures} manifests are invalid"))
-    }
 }
 
-fn open_library(
-    corpus: &std::path::Path,
-    peaks_dir: &std::path::Path,
-) -> Result<(Library, PeakStore), String> {
-    let library = Library::scan(&corpus.join("library")).map_err(|error| error.to_string())?;
-    let store = PeakStore::open(peaks_dir).map_err(|error| error.to_string())?;
-    Ok((library, store))
-}
-
-fn jobs() -> usize {
-    std::thread::available_parallelism().map_or(1, std::num::NonZeroUsize::get)
-}
-
-fn clusters_path(cli: &Cli) -> PathBuf {
-    cli.work.join("reports").join("duplicate-clusters.json")
-}
-
-fn find_clusters(cli: &Cli) -> Result<(), String> {
-    let (library, store) = open_library(&cli.corpus, &cli.peaks_dir)?;
-    let clusters = clusters::find(&library, &store, jobs())?;
-    write_json(&clusters_path(cli), &clusters)?;
-    println!("{}", clusters.criterion);
-    println!("{} clusters with duplicates:", clusters.duplicates.len());
-    for members in &clusters.duplicates {
-        println!("  {}", members.join("  |  "));
-    }
+fn find_clusters(paths: &Paths) -> Result<(), String> {
+    let clusters = clusters::find(&paths.library()?, &paths.store()?, jobs())?;
+    write_json(&paths.clusters_file(), &clusters)?;
+    clusters::print_summary(&clusters);
     Ok(())
 }
 
-fn run_sweep(cli: &Cli, seed: u64) -> Result<(), String> {
-    let (library, store) = open_library(&cli.corpus, &cli.peaks_dir)?;
-    let clusters = clusters::Clusters::load(&clusters_path(cli))?;
-    let report = sweep::run(&library, &store, &clusters, &cli.work, seed, jobs())?;
+fn run_sweep(paths: &Paths, seed: u64) -> Result<(), String> {
+    let report = sweep::run(
+        &paths.library()?,
+        &paths.store()?,
+        &paths.clusters()?,
+        &paths.work,
+        seed,
+        jobs(),
+    )?;
     write_json(
-        &cli.work
-            .join("reports")
-            .join(format!("sweep-seed-{seed}.json")),
+        &paths.reports().join(format!("sweep-seed-{seed}.json")),
         &report,
     )?;
     sweep::print_summary(&report);
     Ok(())
 }
 
-fn write_json(path: &std::path::Path, value: &impl serde::Serialize) -> Result<(), String> {
-    if let Some(dir) = path.parent() {
-        std::fs::create_dir_all(dir).map_err(|error| error.to_string())?;
-    }
-    let text = serde_json::to_string_pretty(value).map_err(|error| error.to_string())?;
-    std::fs::write(path, text).map_err(|error| format!("cannot write {}: {error}", path.display()))
-}
-
-fn run_scan(cli: &Cli, set: &str, leave_out: Option<&scan::LeaveOut>) -> Result<(), String> {
-    let (library, store) = open_library(&cli.corpus, &cli.peaks_dir)?;
-    let clusters = clusters::Clusters::load(&clusters_path(cli))?;
-    let sets_dir = cli.corpus.join("sets");
+fn run_scan(paths: &Paths, set: &str, leave_out: Option<&LeaveOut>) -> Result<(), String> {
     let report = scan::run(
-        &sets_dir,
+        &paths.sets(),
         set,
-        &library,
-        &store,
-        &clusters,
+        &paths.library()?,
+        &paths.store()?,
+        &paths.clusters()?,
         leave_out,
         jobs(),
     )?;
@@ -219,7 +159,49 @@ fn run_scan(cli: &Cli, set: &str, leave_out: Option<&scan::LeaveOut>) -> Result<
         ),
         None => format!("scan-{set}.json"),
     };
-    write_json(&cli.work.join("reports").join(name), &report)?;
+    write_json(&paths.reports().join(name), &report)?;
     scan::print_summary(&report);
     Ok(())
+}
+
+impl Paths {
+    fn library(&self) -> Result<Library, String> {
+        let root = self.corpus.join("library");
+        Library::scan(&root)
+            .map_err(|error| format!("cannot read the library at {}: {error}", root.display()))
+    }
+
+    fn store(&self) -> Result<PeakStore, String> {
+        PeakStore::open(&self.peaks_dir).map_err(|error| error.to_string())
+    }
+
+    fn sets(&self) -> PathBuf {
+        self.corpus.join("sets")
+    }
+
+    fn reports(&self) -> PathBuf {
+        self.work.join("reports")
+    }
+
+    fn clusters_file(&self) -> PathBuf {
+        self.reports().join("duplicate-clusters.json")
+    }
+
+    fn clusters(&self) -> Result<Clusters, String> {
+        Clusters::load(&self.clusters_file())
+    }
+}
+
+/// Worker threads: one per core.
+fn jobs() -> usize {
+    std::thread::available_parallelism().map_or(1, NonZeroUsize::get)
+}
+
+fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {
+    if let Some(dir) = path.parent() {
+        fs::create_dir_all(dir)
+            .map_err(|error| format!("cannot create {}: {error}", dir.display()))?;
+    }
+    let text = serde_json::to_string_pretty(value).map_err(|error| error.to_string())?;
+    fs::write(path, text).map_err(|error| format!("cannot write {}: {error}", path.display()))
 }

@@ -22,8 +22,8 @@ pub struct Evidence {
 /// About twice the strongest false candidate measured and two and a half
 /// times below the weakest identifying detection.
 pub const MIN_HITS: u32 = 200;
-/// At least 20 seconds of continuous alignment (windows are 10 s); a 30 s
-/// excerpt spans 3.
+/// Hits in three 10 s windows of one chain span at least 20 s of query time;
+/// a 30 s excerpt covers 3.
 pub const MIN_WINDOWS: u32 = 3;
 
 impl Evidence {

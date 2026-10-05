@@ -146,6 +146,14 @@ pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Cluster
     })
 }
 
+pub fn print_summary(clusters: &Clusters) {
+    println!("{}", clusters.criterion);
+    println!("{} clusters with duplicates:", clusters.duplicates.len());
+    for members in &clusters.duplicates {
+        println!("  {}", members.join("  |  "));
+    }
+}
+
 /// Follows parent links up to the representative of `node`'s set.
 fn root<'a>(parent: &BTreeMap<&'a str, &'a str>, mut node: &'a str) -> &'a str {
     while let Some(&up) = parent.get(node).filter(|&&up| up != node) {

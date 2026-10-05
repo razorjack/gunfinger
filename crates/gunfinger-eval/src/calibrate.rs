@@ -12,7 +12,13 @@ use gunfinger_core::confidence::{Evidence, MIN_HITS, MIN_WINDOWS};
 use serde::de::DeserializeOwned;
 
 use crate::scan::ScanReport;
+use crate::scoring::Found;
 use crate::sweep::SweepReport;
+
+const NO_EVIDENCE: Evidence = Evidence {
+    windows: 0,
+    hits: 0,
+};
 
 /// One detection's evidence and where it came from.
 struct Sample {
@@ -50,10 +56,7 @@ pub fn run(reports: &Path, development_set: &str) -> Result<(), String> {
             }
             if !query.held_out {
                 identifying.push(best.unwrap_or(Sample {
-                    evidence: Evidence {
-                        windows: 0,
-                        hits: 0,
-                    },
+                    evidence: NO_EVIDENCE,
                     source: format!("{source}: nothing found"),
                 }));
             }
@@ -70,27 +73,17 @@ pub fn run(reports: &Path, development_set: &str) -> Result<(), String> {
             if !track.referenced || left_out {
                 continue;
             }
-            let evidence = track.strongest_candidate.as_ref().map_or(
-                Evidence {
-                    windows: 0,
-                    hits: 0,
-                },
-                |found| Evidence {
-                    windows: found.windows,
-                    hits: found.hits,
-                },
-            );
             identifying.push(Sample {
-                evidence,
+                evidence: track
+                    .strongest_candidate
+                    .as_ref()
+                    .map_or(NO_EVIDENCE, Found::evidence),
                 source: format!("{name}: {}", track.label),
             });
         }
         for found in &scan.score.false_candidates {
             false_candidates.push(Sample {
-                evidence: Evidence {
-                    windows: found.windows,
-                    hits: found.hits,
-                },
+                evidence: found.evidence(),
                 source: format!("{name}: {} at {:.0} s", found.asset, found.start_seconds),
             });
         }

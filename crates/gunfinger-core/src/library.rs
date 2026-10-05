@@ -9,7 +9,7 @@ use std::io;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-pub const AUDIO_EXTENSIONS: [&str; 7] = ["mp3", "m4a", "opus", "ogg", "flac", "wav", "aiff"];
+const AUDIO_EXTENSIONS: [&str; 7] = ["mp3", "m4a", "opus", "ogg", "flac", "wav", "aiff"];
 
 /// An audio file in the library, as found on disk.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -115,13 +115,7 @@ impl Library {
         self.assets.push(Asset {
             path: relative,
             size: metadata.len(),
-            modified: metadata.modified().map_or(
-                Timestamp {
-                    seconds: 0,
-                    nanos: 0,
-                },
-                Timestamp::of,
-            ),
+            modified: Timestamp::of(metadata.modified().unwrap_or(UNIX_EPOCH)),
         });
     }
 

@@ -15,7 +15,7 @@ pub const FRAME_STEPS: f32 = 64.0;
 pub const BIN_STEPS: f32 = 64.0;
 /// A refined frame stays within this distance of its STFT frame, so the
 /// frame is recovered by rounding.
-pub const MAX_FRAME_OFFSET: f32 = 31.0 / FRAME_STEPS;
+const MAX_FRAME_OFFSET: f32 = 31.0 / FRAME_STEPS;
 /// Magnitudes are kept to half a decibel, enough to rank peaks by strength.
 pub const MAGNITUDE_STEPS_PER_DB: f32 = 2.0;
 
@@ -108,14 +108,11 @@ impl<'p> PeakPicker<'p> {
             let frame_offset = match (before, after) {
                 (Some(before), Some(after)) => vertex_offset(before[bin], value, after[bin]),
                 _ => 0.0,
-            };
+            }
+            .clamp(-MAX_FRAME_OFFSET, MAX_FRAME_OFFSET);
             let bin_offset = vertex_offset(row[bin - 1], value, row[bin + 1]);
             self.peaks.push(Peak {
-                frame: centre as f64
-                    + f64::from(quantise(
-                        frame_offset.clamp(-MAX_FRAME_OFFSET, MAX_FRAME_OFFSET),
-                        FRAME_STEPS,
-                    )),
+                frame: centre as f64 + f64::from(quantise(frame_offset, FRAME_STEPS)),
                 bin: bin as f32 + quantise(bin_offset, BIN_STEPS),
                 magnitude: quantise(value, MAGNITUDE_STEPS_PER_DB),
             });

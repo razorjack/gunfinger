@@ -30,7 +30,7 @@ use crate::peaks::{BIN_STEPS, FRAME_STEPS, MAGNITUDE_STEPS_PER_DB, Peak};
 use crate::profile::Profile;
 
 const MAGIC: &[u8; 8] = b"GUNFPEAK";
-pub const FORMAT_VERSION: u16 = 2;
+const FORMAT_VERSION: u16 = 2;
 /// The quietest magnitude a `u8` field can hold. The peak picker's floor is
 /// above it and STFT power of audio in [-1, 1] stays below its ceiling of
 /// 107.5 dB, so clamping never happens in practice.

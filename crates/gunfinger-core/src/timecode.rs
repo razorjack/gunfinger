@@ -9,38 +9,40 @@ pub struct TimecodeError(pub String);
 /// Parses plain seconds, `M:SS` or `H:MM:SS`. Seconds may carry a fraction.
 pub fn parse_timecode(text: &str) -> Result<Duration, TimecodeError> {
     let invalid = || TimecodeError(text.to_owned());
-    let parts: Vec<&str> = text.trim().split(':').collect();
-    let (whole_minutes, seconds) = match parts.as_slice() {
-        [seconds] => (0, *seconds),
-        [minutes, seconds] => (parse_count(minutes).ok_or_else(invalid)?, *seconds),
-        [hours, minutes, seconds] => {
-            let minutes = parse_count(minutes)
-                .filter(|&m| m < 60)
+    let mut fields: Vec<&str> = text.trim().split(':').collect();
+    let seconds = fields.pop().and_then(decimal).ok_or_else(invalid)?;
+    let minutes = match fields.as_slice() {
+        [] => 0,
+        [minutes] => whole(minutes).ok_or_else(invalid)?,
+        [hours, minutes] => {
+            let minutes = whole(minutes)
+                .filter(|&minutes| minutes < 60)
                 .ok_or_else(invalid)?;
-            (
-                parse_count(hours).ok_or_else(invalid)? * 60 + minutes,
-                *seconds,
-            )
+            whole(hours).ok_or_else(invalid)? * 60 + minutes
         }
         _ => return Err(invalid()),
     };
-    let seconds: f64 = seconds
-        .parse()
-        .ok()
-        .filter(|s: &f64| s.is_finite() && *s >= 0.0)
-        .ok_or_else(invalid)?;
-    if parts.len() > 1 && (seconds >= 60.0 || !parts[parts.len() - 1].starts_with(char::is_numeric))
-    {
+    if !fields.is_empty() && seconds >= 60.0 {
         return Err(invalid());
     }
-    Ok(Duration::from_secs(whole_minutes * 60) + Duration::from_secs_f64(seconds))
+    Ok(Duration::from_secs(minutes * 60) + Duration::from_secs_f64(seconds))
 }
 
-fn parse_count(text: &str) -> Option<u64> {
-    if text.is_empty() || !text.bytes().all(|byte| byte.is_ascii_digit()) {
-        return None;
-    }
-    text.parse().ok()
+/// Digits only: no sign, no fraction.
+fn whole(text: &str) -> Option<u64> {
+    is_digits(text).then(|| text.parse().ok()).flatten()
+}
+
+/// Digits with an optional fraction: no sign, exponent or `inf`.
+fn decimal(text: &str) -> Option<f64> {
+    let (integer, fraction) = text.split_once('.').unwrap_or((text, "0"));
+    (is_digits(integer) && is_digits(fraction))
+        .then(|| text.parse().ok())
+        .flatten()
+}
+
+fn is_digits(text: &str) -> bool {
+    !text.is_empty() && text.bytes().all(|byte| byte.is_ascii_digit())
 }
 
 /// Formats as `M:SS` or `H:MM:SS`, rounding down to the second.
