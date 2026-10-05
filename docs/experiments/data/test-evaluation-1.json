@@ -1,0 +1,745 @@
+{
+ "set": "ed-rush-optical-essential-mix",
+ "audio_file": "Ed Rush & Optical Essential Mix 07-02-99 [156154576].m4a",
+ "duration_seconds": 7091.768875,
+ "wall_seconds": 52.834476625,
+ "left_out_tracks": [],
+ "left_out_assets": [],
+ "score": {
+  "referenced": 17,
+  "identified": 15,
+  "wrong": 0,
+  "tracks": [
+   {
+    "label": " 1. Optical & Ryme Tyme - Headhunters",
+    "start_seconds": 0.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": " 2. Bad Company - The Nine",
+    "start_seconds": 175.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Bad Company - The Nine.mp3",
+      "start_seconds": 143.44649999999996,
+      "end_seconds": 397.977,
+      "speed": 1.0064863224532983,
+      "windows": 26,
+      "hits": 762,
+      "confident": true
+     },
+     {
+      "asset": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+      "start_seconds": 143.44649999999996,
+      "end_seconds": 397.977,
+      "speed": 1.0064863224532983,
+      "windows": 26,
+      "hits": 762,
+      "confident": true
+     },
+     {
+      "asset": "extra/A- The_Nine.mp3",
+      "start_seconds": 143.44649999999996,
+      "end_seconds": 397.526123046875,
+      "speed": 1.006480672326033,
+      "windows": 26,
+      "hits": 747,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Bad Company - The Nine.mp3",
+     "start_seconds": 143.44649999999996,
+     "end_seconds": 397.977,
+     "speed": 1.0064863224532983,
+     "windows": 26,
+     "hits": 762,
+     "confident": true
+    }
+   },
+   {
+    "label": " 3. Ram Trilogy - Terminal 1",
+    "start_seconds": 405.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": " 4. Jonny L - The Bells",
+    "start_seconds": 560.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": " 5. Ed Rush & Optical - Fixation",
+    "start_seconds": 848.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush & Optical - Fixation.mp3",
+      "start_seconds": 790.7060546875,
+      "end_seconds": 1123.1411191406248,
+      "speed": 1.0272920667954675,
+      "windows": 30,
+      "hits": 789,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Fixation.mp3",
+     "start_seconds": 790.7060546875,
+     "end_seconds": 1123.1411191406248,
+     "speed": 1.0272920667954675,
+     "windows": 30,
+     "hits": 789,
+     "confident": true
+    }
+   },
+   {
+    "label": " 6. Ram Trilogy - Mind Overload",
+    "start_seconds": 1146.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": " 7. DJ Trace - Sonar",
+    "start_seconds": 1460.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "DJ Trace - Sonar.m4a",
+      "start_seconds": 1381.9021171875,
+      "end_seconds": 1669.0000390625,
+      "speed": 1.0454088882722317,
+      "windows": 28,
+      "hits": 729,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "DJ Trace - Sonar.m4a",
+     "start_seconds": 1381.9021171875,
+     "end_seconds": 1669.0000390625,
+     "speed": 1.0454088882722317,
+     "windows": 28,
+     "hits": 729,
+     "confident": true
+    }
+   },
+   {
+    "label": " 8. Krust - Warhead (Ram Trilogy Remix)",
+    "start_seconds": 1665.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Krust - Warhead (Ram Trilogy Remix).m4a",
+      "start_seconds": 1590.356689453125,
+      "end_seconds": 1892.51025390625,
+      "speed": 1.024183950138155,
+      "windows": 29,
+      "hits": 854,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Krust - Warhead (Ram Trilogy Remix).m4a",
+     "start_seconds": 1590.356689453125,
+     "end_seconds": 1892.51025390625,
+     "speed": 1.024183950138155,
+     "windows": 29,
+     "hits": 854,
+     "confident": true
+    }
+   },
+   {
+    "label": " 9. Matrix - Airhead",
+    "start_seconds": 1900.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "10. Bad Company - The Pulse",
+    "start_seconds": 2110.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "extra/a-bad_company-pulse.mp3",
+      "start_seconds": 2177.95068359375,
+      "end_seconds": 2369.79200390625,
+      "speed": 1.0140200192598734,
+      "windows": 20,
+      "hits": 913,
+      "confident": true
+     },
+     {
+      "asset": "Bad Company - The Pulse.mp3",
+      "start_seconds": 2177.95068359375,
+      "end_seconds": 2368.46949609375,
+      "speed": 1.0140144302828131,
+      "windows": 20,
+      "hits": 901,
+      "confident": true
+     },
+     {
+      "asset": "Bad Company - The Pulse.mp3",
+      "start_seconds": 2091.9644648437497,
+      "end_seconds": 2176.95786328125,
+      "speed": 1.0123799594121112,
+      "windows": 8,
+      "hits": 313,
+      "confident": true
+     },
+     {
+      "asset": "extra/a-bad_company-pulse.mp3",
+      "start_seconds": 2090.3411210937497,
+      "end_seconds": 2176.95786328125,
+      "speed": 1.0124247199922243,
+      "windows": 7,
+      "hits": 293,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "extra/a-bad_company-pulse.mp3",
+     "start_seconds": 2177.95068359375,
+     "end_seconds": 2369.79200390625,
+     "speed": 1.0140200192598734,
+     "windows": 20,
+     "hits": 913,
+     "confident": true
+    }
+   },
+   {
+    "label": "11. Ed Rush & Optical - Bacteria",
+    "start_seconds": 2379.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush & Optical - Bacteria.mp3",
+      "start_seconds": 2353.546623046875,
+      "end_seconds": 2521.75830078125,
+      "speed": 1.0476091776196312,
+      "windows": 18,
+      "hits": 493,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Bacteria.mp3",
+     "start_seconds": 2353.546623046875,
+     "end_seconds": 2521.75830078125,
+     "speed": 1.0476091776196312,
+     "windows": 18,
+     "hits": 493,
+     "confident": true
+    }
+   },
+   {
+    "label": "12. DJ Phantasy & DJ Probe - Orders (DJ Reality Remix)",
+    "start_seconds": 2562.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "13. Ryme Tyme - Payback Pt. 1",
+    "start_seconds": 2820.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ryme Tyme - Payback Pt. 1.mp3",
+      "start_seconds": 2821.51611328125,
+      "end_seconds": 3135.534423828125,
+      "speed": 1.0323122818449721,
+      "windows": 29,
+      "hits": 1233,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ryme Tyme - Payback Pt. 1.mp3",
+     "start_seconds": 2821.51611328125,
+     "end_seconds": 3135.534423828125,
+     "speed": 1.0323122818449721,
+     "windows": 29,
+     "hits": 1233,
+     "confident": true
+    }
+   },
+   {
+    "label": "14. Roni Size / Reprazent - Watching Windows (DJ Die Remix)",
+    "start_seconds": 3046.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a",
+      "start_seconds": 3110.4648203124993,
+      "end_seconds": 3298.2661874999994,
+      "speed": 1.0534192763672179,
+      "windows": 19,
+      "hits": 458,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a",
+     "start_seconds": 3110.4648203124993,
+     "end_seconds": 3298.2661874999994,
+     "speed": 1.0534192763672179,
+     "windows": 19,
+     "hits": 458,
+     "confident": true
+    }
+   },
+   {
+    "label": "15. Matrix - Asylum",
+    "start_seconds": 3302.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "16. Ed Rush & Optical - Funktion",
+    "start_seconds": 3556.0,
+    "referenced": true,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Funktion.mp3",
+     "start_seconds": 3705.4669335937506,
+     "end_seconds": 3714.25169921875,
+     "speed": 0.9813333333333334,
+     "windows": 2,
+     "hits": 18,
+     "confident": false
+    }
+   },
+   {
+    "label": "17. Bad Company - China Cup",
+    "start_seconds": 3810.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Bad Company - China Cup.mp3",
+      "start_seconds": 3743.67575,
+      "end_seconds": 3968.022515625,
+      "speed": 1.0040129549886752,
+      "windows": 18,
+      "hits": 371,
+      "confident": true
+     },
+     {
+      "asset": "extra/02. Bad Company - China Cup.mp3",
+      "start_seconds": 3743.67575,
+      "end_seconds": 3968.022515625,
+      "speed": 1.0040129549886752,
+      "windows": 18,
+      "hits": 371,
+      "confident": true
+     },
+     {
+      "asset": "extra/b-bad_company-china_cup.mp3",
+      "start_seconds": 3743.67575,
+      "end_seconds": 3979.646947265625,
+      "speed": 1.0040045000081095,
+      "windows": 18,
+      "hits": 368,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Bad Company - China Cup.mp3",
+     "start_seconds": 3743.67575,
+     "end_seconds": 3968.022515625,
+     "speed": 1.0040129549886752,
+     "windows": 18,
+     "hits": 371,
+     "confident": true
+    }
+   },
+   {
+    "label": "18. Ram Trilogy - Iron Lung",
+    "start_seconds": 4015.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "19. Optical - Newoptic",
+    "start_seconds": 4190.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "20. Ed Rush & Optical - Dozer",
+    "start_seconds": 4450.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush & Optical - Dozer.mp3",
+      "start_seconds": 4405.749546875,
+      "end_seconds": 4707.570556640625,
+      "speed": 1.0306888819143225,
+      "windows": 31,
+      "hits": 1784,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Dozer.mp3",
+     "start_seconds": 4405.749546875,
+     "end_seconds": 4707.570556640625,
+     "speed": 1.0306888819143225,
+     "windows": 31,
+     "hits": 1784,
+     "confident": true
+    }
+   },
+   {
+    "label": "21. DJ Die - Clear Skyz",
+    "start_seconds": 4718.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "22. Fibre Optix - Sin",
+    "start_seconds": 4908.0,
+    "referenced": true,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Fibre Optix - Sin.m4a",
+     "start_seconds": 4941.980076171876,
+     "end_seconds": 4959.4072265625,
+     "speed": 1.0543333333333333,
+     "windows": 2,
+     "hits": 84,
+     "confident": false
+    }
+   },
+   {
+    "label": "23. Usual Suspects - Killa Beez",
+    "start_seconds": 5110.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "24. Ram Trilogy - Chase Scene",
+    "start_seconds": 5385.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "25. Ed Rush & Optical - Watermelon",
+    "start_seconds": 5573.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush & Optical - Watermelon.mp3",
+      "start_seconds": 5540.524890625,
+      "end_seconds": 5724.952609375,
+      "speed": 1.0365710455310562,
+      "windows": 18,
+      "hits": 714,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Watermelon.mp3",
+     "start_seconds": 5540.524890625,
+     "end_seconds": 5724.952609375,
+     "speed": 1.0365710455310562,
+     "windows": 18,
+     "hits": 714,
+     "confident": true
+    }
+   },
+   {
+    "label": "26. Ram Trilogy - System Error (Y2K)",
+    "start_seconds": 5726.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "27. Ed Rush & Optical - Gas Mask",
+    "start_seconds": 6019.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush & Optical - Gas Mask.m4a",
+      "start_seconds": 5946.774999999999,
+      "end_seconds": 6379.2595,
+      "speed": 1.0039772956225947,
+      "windows": 42,
+      "hits": 2010,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Gas Mask.m4a",
+     "start_seconds": 5946.774999999999,
+     "end_seconds": 6379.2595,
+     "speed": 1.0039772956225947,
+     "windows": 42,
+     "hits": 2010,
+     "confident": true
+    }
+   },
+   {
+    "label": "28. Infinite (Optical & Fierce) - Beachball",
+    "start_seconds": 6330.0,
+    "referenced": false,
+    "identified": false,
+    "credited": [],
+    "credited_through_cluster": [],
+    "strongest_candidate": null
+   },
+   {
+    "label": "29. Ed Rush, Optical & Fierce - Alien Girl",
+    "start_seconds": 6605.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+      "start_seconds": 6600.383861328126,
+      "end_seconds": 6919.554447265626,
+      "speed": 1.0564858833893866,
+      "windows": 27,
+      "hits": 1059,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+     "start_seconds": 6600.383861328126,
+     "end_seconds": 6919.554447265626,
+     "speed": 1.0564858833893866,
+     "windows": 27,
+     "hits": 1059,
+     "confident": true
+    }
+   },
+   {
+    "label": "30. Optical - Slip Thru",
+    "start_seconds": 6926.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Optical - Slip Thru.mp3",
+      "start_seconds": 6860.60693359375,
+      "end_seconds": 7064.882080078125,
+      "speed": 1.024139860272466,
+      "windows": 20,
+      "hits": 868,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Optical - Slip Thru.mp3",
+     "start_seconds": 6860.60693359375,
+     "end_seconds": 7064.882080078125,
+     "speed": 1.024139860272466,
+     "windows": 20,
+     "hits": 868,
+     "confident": true
+    }
+   },
+   {
+    "label": "31. Ed Rush & Optical - Sick Note",
+    "start_seconds": 7065.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Ed Rush & Optical - Sick Note.mp3",
+      "start_seconds": 7044.733046875,
+      "end_seconds": 7090.9817109375,
+      "speed": 1.0380574354494958,
+      "windows": 6,
+      "hits": 209,
+      "confident": true
+     },
+     {
+      "asset": "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+      "start_seconds": 7044.733046875,
+      "end_seconds": 7090.9817109375,
+      "speed": 1.0380574354494958,
+      "windows": 6,
+      "hits": 209,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Ed Rush & Optical - Sick Note.mp3",
+     "start_seconds": 7044.733046875,
+     "end_seconds": 7090.9817109375,
+     "speed": 1.0380574354494958,
+     "windows": 6,
+     "hits": 209,
+     "confident": true
+    }
+   }
+  ],
+  "wrong_identifications": [],
+  "false_candidates": [
+   {
+    "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "start_seconds": 4084.3710976562497,
+    "end_seconds": 4109.8714453125,
+    "speed": 1.013536053188515,
+    "windows": 3,
+    "hits": 24,
+    "confident": false
+   },
+   {
+    "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "start_seconds": 4032.0605390625,
+    "end_seconds": 4055.1132246093744,
+    "speed": 1.0138737771568975,
+    "windows": 3,
+    "hits": 22,
+    "confident": false
+   },
+   {
+    "asset": "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+    "start_seconds": 4001.8779296875,
+    "end_seconds": 4056.449951171875,
+    "speed": 1.024062548760629,
+    "windows": 4,
+    "hits": 21,
+    "confident": false
+   },
+   {
+    "asset": "extra/01-muffler-bleak_(original_mix).mp3",
+    "start_seconds": 6264.109453125,
+    "end_seconds": 6297.88153125,
+    "speed": 1.0289520833776018,
+    "windows": 4,
+    "hits": 19,
+    "confident": false
+   },
+   {
+    "asset": "extra/Cyb Orc - Simulant.mp3",
+    "start_seconds": 4021.329833984375,
+    "end_seconds": 4049.4912109375,
+    "speed": 1.0228307264185552,
+    "windows": 3,
+    "hits": 19,
+    "confident": false
+   },
+   {
+    "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "start_seconds": 4146.065564453124,
+    "end_seconds": 4168.862332031251,
+    "speed": 1.0140747318316992,
+    "windows": 3,
+    "hits": 19,
+    "confident": false
+   },
+   {
+    "asset": "extra/e-chris_su_and_skc-blackout-sour.mp3",
+    "start_seconds": 4017.3046796875,
+    "end_seconds": 4049.4912109375,
+    "speed": 1.0205161704606371,
+    "windows": 3,
+    "hits": 18,
+    "confident": false
+   },
+   {
+    "asset": "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+    "start_seconds": 4100.717041015625,
+    "end_seconds": 4115.2353046875,
+    "speed": 1.0183529411764705,
+    "windows": 2,
+    "hits": 17,
+    "confident": false
+   },
+   {
+    "asset": "extra/[AA]_-_Apollo_Creed.mp3",
+    "start_seconds": 2251.19654296875,
+    "end_seconds": 2315.871072265625,
+    "speed": 0.9703326969049207,
+    "windows": 5,
+    "hits": 17,
+    "confident": false
+   },
+   {
+    "asset": "extra/e-chris_su_and_skc-blackout-sour.mp3",
+    "start_seconds": 4083.03369140625,
+    "end_seconds": 4109.871337890625,
+    "speed": 1.02,
+    "windows": 2,
+    "hits": 17,
+    "confident": false
+   }
+  ]
+ }
+}
