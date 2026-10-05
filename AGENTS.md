@@ -37,6 +37,14 @@ Read, in this order:
 - `gunfinger`: the CLI.
 - `gunfinger-eval`: development harness (manifests, sweep, scoring).
 
+The core follows the pipeline: `decode` (FFmpeg) → `spectrogram` → `peaks` →
+`store` (the peak store, source of truth) → `hash` → `index` → `speed` (the
+ladder) → `search` (`lines` per window, `chains` across windows) →
+`confidence`. `profile` holds the front-end parameters; changing one
+invalidates every peak record. Around it: `library` finds the audio files,
+`indexing` brings the peak store up to date, `parallel` runs one item per
+worker thread, `timecode` parses and formats times.
+
 `gunfinger-eval` depends on `gunfinger-core`, never the reverse. The CLI and the
 core never see a manifest, a set name or a track title. No per-track, per-set
 or filename-derived logic anywhere.
@@ -48,7 +56,8 @@ complexity. Minimise conceptual complexity, not line count.
 
 - Code reads top to bottom in domain vocabulary, in small functions whose names
   reveal intent. Types carry meaning where they clarify (`AssetId`,
-  `FrameIndex`, `SpeedRatio`, `Peak`, `Posting`); no wrappers for ceremony.
+  `SpeedRatio`, `Peak`, `PairHash`, `Posting`, `Evidence`); no wrappers for
+  ceremony.
 - Ownership is obvious. No `clone()` to silence the borrow checker, no lifetime
   gymnastics to save a harmless clone, no reflexive `Arc<Mutex<_>>`, no
   `Box<dyn Trait>`, single-implementation traits or generics without need.

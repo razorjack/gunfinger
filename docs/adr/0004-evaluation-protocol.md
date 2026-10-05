@@ -32,14 +32,18 @@ All ground truth lives in `gunfinger-eval`, which depends on
    leave-outs (`--leave-out 3 --seed N`): the clusters of three seeded
    referenced tracks are removed from the index and their slots must then
    produce no confident detection.
-4. **Scoring**: only confident detections count. A referenced track is
+4. **Calibration** (`gunfinger-eval calibrate`): over the sweep, the
+   development scan and its leave-outs, the weakest detection that identifies
+   a track is compared with the strongest detection that matches none. The
+   rule is set between the two and frozen before the test set.
+5. **Scoring**: only confident detections count. A referenced track is
    identified when a confident detection of a reference or a cluster member
    overlaps the window from 90 s before its start to 90 s after the next
    track's start. Every other confident detection is wrong. Cluster credits
    are listed separately. Manifests are never edited.
-5. **Pass bar** per set: at least 80% of referenced tracks identified and
+6. **Pass bar** per set: at least 80% of referenced tracks identified and
    zero wrong identifications.
-6. **Freeze, then test**: tag `poc-freeze-1`, then scan the test set. At most
+7. **Freeze, then test**: tag `poc-freeze-1`, then scan the test set. At most
    five test evaluations in total, each logged in
    `docs/experiments/test-set-ledger.md`.
 

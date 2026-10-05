@@ -60,6 +60,7 @@ enum Command {
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
+        /// Output format.
         #[arg(long, value_enum, default_value_t = Format::Human)]
         format: Format,
     },
@@ -68,6 +69,7 @@ enum Command {
         /// Root directory of the indexed library.
         #[arg(long)]
         library: PathBuf,
+        /// Output format.
         #[arg(long, value_enum, default_value_t = Format::Human)]
         format: Format,
     },

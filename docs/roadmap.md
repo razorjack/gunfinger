@@ -18,6 +18,9 @@ that motivates it where one exists.
   (an unmounted NAS looks like an empty library). Failed and too-long assets
   should be recorded, so they are not decoded again on every run, and retried
   when their size or mtime changes.
+- **Database.** Not needed so far: the peak store is one file per asset and
+  the index is rebuilt from it in 0.4 s. Revisit when detections, owner
+  edits or the Track/AudioAsset model need to be stored.
 - **On-disk index.** The index is rebuilt in memory from the peak store on
   every run. The recommended layout for the next step is in
   `docs/adr/0005-index-layout.md`.
@@ -36,6 +39,18 @@ that motivates it where one exists.
 
 ## Matching
 
+- **Behaviour at scale (the best next task).** The confidence rule (200
+  hits, 3 windows) was calibrated against 262 tracks. With 25,000 tracks
+  there are about 95 times as many postings, so both chance alignments and
+  lookup time grow. Measure the strongest false candidate and query time
+  against library size (a larger real library, or the current one padded
+  with unrelated music) before trusting the rule at that size
+  (experiments 0004, 0005).
+- **Chains across longer gaps.** In the test set, Fibre Optix "Sin" was found
+  as two chains of 84 hits at the same speed, 34 s apart, each below the
+  rule; a chain bridges at most 2 empty windows. Joining chains that agree on
+  asset, speed and offset across a longer gap would credit it, but must first
+  be measured against the null.
 - **Key-locked (pitch-preserved) sets.** Digital DJs often change tempo
   without changing pitch. The speed ladder assumes the turntable model
   (pitch and tempo together). Key lock needs a time-stretch ladder or hashes
