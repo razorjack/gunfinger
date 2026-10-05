@@ -3,7 +3,7 @@
 
 use std::collections::BTreeSet;
 use std::path::Path;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
@@ -128,7 +128,7 @@ pub fn print_summary(report: &ScanReport) {
         score.identified,
         score.referenced,
         score.wrong,
-        format_timecode(std::time::Duration::from_secs_f64(report.duration_seconds)),
+        timecode(report.duration_seconds),
         report.wall_seconds
     );
     if !report.left_out_tracks.is_empty() {
@@ -152,8 +152,8 @@ pub fn print_summary(report: &ScanReport) {
                     found.hits,
                     found.windows,
                     (found.speed - 1.0) * 100.0,
-                    format_timecode(std::time::Duration::from_secs_f64(found.start_seconds)),
-                    format_timecode(std::time::Duration::from_secs_f64(found.end_seconds)),
+                    timecode(found.start_seconds),
+                    timecode(found.end_seconds),
                 )
             });
         println!("  {mark} {}{evidence}", track.label);
@@ -165,11 +165,15 @@ pub fn print_summary(report: &ScanReport) {
         println!(
             "  WRONG  {} {}-{} {:+.2}% {} hits/{} windows",
             wrong.asset,
-            format_timecode(std::time::Duration::from_secs_f64(wrong.start_seconds)),
-            format_timecode(std::time::Duration::from_secs_f64(wrong.end_seconds)),
+            timecode(wrong.start_seconds),
+            timecode(wrong.end_seconds),
             (wrong.speed - 1.0) * 100.0,
             wrong.hits,
             wrong.windows
         );
     }
+}
+
+fn timecode(seconds: f64) -> String {
+    format_timecode(Duration::from_secs_f64(seconds))
 }

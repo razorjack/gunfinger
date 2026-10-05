@@ -6,7 +6,7 @@ use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 use gunfinger_core::library::Library;
-use gunfinger_core::timecode::parse_timecode;
+use gunfinger_core::timecode::{format_timecode, parse_timecode};
 use serde::Deserialize;
 
 /// A set directory with its manifest, validated against the library.
@@ -64,7 +64,7 @@ struct RawTrack {
 
 /// Every set directory under `sets_dir` that has a `tracklist.toml`, sorted by
 /// name. Directories without one are ignored.
-pub fn set_names(sets_dir: &Path) -> Result<Vec<String>, String> {
+fn set_names(sets_dir: &Path) -> Result<Vec<String>, String> {
     let entries = fs::read_dir(sets_dir)
         .map_err(|error| format!("cannot read {}: {error}", sets_dir.display()))?;
     let mut names: Vec<String> = entries
@@ -142,6 +142,50 @@ pub fn load_set(sets_dir: &Path, name: &str, library: &Library) -> Result<Set, V
         })
     } else {
         Err(problems)
+    }
+}
+
+/// Validates every set under `sets_dir` against the library: a summary per
+/// set on stdout, the track lists on stderr.
+pub fn validate_all(sets_dir: &Path, library: &Library) -> Result<(), String> {
+    let mut invalid = 0;
+    for name in set_names(sets_dir)? {
+        match load_set(sets_dir, &name, library) {
+            Ok(set) => {
+                let referenced = set
+                    .tracks
+                    .iter()
+                    .filter(|track| track.is_referenced())
+                    .count();
+                let references: usize = set.tracks.iter().map(|track| track.references.len()).sum();
+                println!(
+                    "{name}: valid; {} tracks, {referenced} referenced ({references} reference files), {} absent",
+                    set.tracks.len(),
+                    set.tracks.len() - referenced
+                );
+                eprintln!("{name}: {} ({})", set.title, set.audio.display());
+                for track in &set.tracks {
+                    eprintln!(
+                        "  {} {} [{} references]",
+                        format_timecode(track.start),
+                        track.label(),
+                        track.references.len()
+                    );
+                }
+            }
+            Err(problems) => {
+                invalid += 1;
+                println!("{name}: {} problems", problems.len());
+                for problem in problems {
+                    println!("  {problem}");
+                }
+            }
+        }
+    }
+    if invalid == 0 {
+        Ok(())
+    } else {
+        Err(format!("{invalid} manifests are invalid"))
     }
 }
 

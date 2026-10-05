@@ -8,6 +8,7 @@
 
 use std::collections::BTreeSet;
 
+use gunfinger_core::confidence::Evidence;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
@@ -26,6 +27,15 @@ pub struct Found {
     pub windows: u32,
     pub hits: u32,
     pub confident: bool,
+}
+
+impl Found {
+    pub fn evidence(&self) -> Evidence {
+        Evidence {
+            windows: self.windows,
+            hits: self.hits,
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]

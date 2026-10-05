@@ -112,7 +112,7 @@ fn measure(catalog: &Catalog) -> miette::Result<Stats> {
     let mean_track_seconds = audio_seconds / catalog.records.len() as f64;
     let projected_seconds = PROJECTED_TRACKS * mean_track_seconds;
     let postings_per_second = postings as f64 / audio_seconds;
-    let posting_bytes = size_of::<u32>() as f64;
+    let posting_bytes = size_of::<Posting>() as f64;
     let offsets_bytes = (index_bytes as f64) - posting_bytes * postings as f64;
 
     Ok(Stats {

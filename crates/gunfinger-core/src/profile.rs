@@ -54,7 +54,7 @@ impl Profile {
         )
     }
 
-    pub fn frames_per_second(&self) -> f64 {
+    fn frames_per_second(&self) -> f64 {
         f64::from(self.sample_rate) / self.hop as f64
     }
 
