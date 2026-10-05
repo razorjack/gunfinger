@@ -2,7 +2,7 @@
 
 use std::path::Path;
 
-use gunfinger_core::index::Index;
+use gunfinger_core::index::{Index, Posting};
 use gunfinger_core::profile::Profile;
 use miette::IntoDiagnostic;
 use serde::Serialize;
@@ -51,6 +51,9 @@ struct IndexSize {
     bytes: usize,
     /// Including the offsets table.
     bytes_per_posting: f64,
+    /// The same postings if each list were stored delta-coded with varints
+    /// (an offline estimate for the on-disk layout), with the offsets table.
+    delta_varint_bytes_per_posting: f64,
 }
 
 #[derive(Serialize)]
@@ -129,6 +132,9 @@ fn measure(catalog: &Catalog) -> miette::Result<Stats> {
             postings_per_second,
             bytes: index_bytes,
             bytes_per_posting: index_bytes as f64 / postings as f64,
+            delta_varint_bytes_per_posting: (offsets_bytes
+                + delta_varint_bytes(&catalog.index) as f64)
+                / postings as f64,
         },
         buckets: buckets(&catalog.index),
         projection: Projection {
@@ -163,8 +169,44 @@ fn band_shares(catalog: &Catalog, profile: &Profile) -> Vec<Band> {
         .collect()
 }
 
+/// Bytes the posting lists would take delta-coded. A list is ordered by asset
+/// and then frame; each posting stores the gap to the previous asset as a
+/// varint, then its frame: as a varint gap when the asset repeats, in full
+/// (as a varint) when it changes.
+fn delta_varint_bytes(index: &Index) -> u64 {
+    let mut bytes = 0;
+    for list in index.posting_lists() {
+        let mut previous: Option<Posting> = None;
+        for &posting in list {
+            let (asset_gap, frame) = match previous {
+                Some(earlier) if earlier.asset() == posting.asset() => {
+                    (0, posting.frame() - earlier.frame())
+                }
+                Some(earlier) => (posting.asset().0 - earlier.asset().0, posting.frame()),
+                None => (posting.asset().0, posting.frame()),
+            };
+            bytes += varint_length(asset_gap) + varint_length(frame);
+            previous = Some(posting);
+        }
+    }
+    bytes
+}
+
+/// LEB128 length: one byte per started group of seven bits.
+fn varint_length(mut value: u32) -> u64 {
+    let mut length = 1;
+    while value >= 0x80 {
+        value >>= 7;
+        length += 1;
+    }
+    length
+}
+
 fn buckets(index: &Index) -> Buckets {
-    let mut sizes: Vec<u32> = index.bucket_sizes().collect();
+    let mut sizes: Vec<u32> = index
+        .posting_lists()
+        .map(|list| list.len() as u32)
+        .collect();
     sizes.sort_unstable();
     let total: u64 = sizes.iter().map(|&size| u64::from(size)).sum();
     let fullest = sizes.len().div_ceil(100);
@@ -211,6 +253,10 @@ fn print_human(stats: &Stats) {
         "index             {:.1} MB ({:.2} bytes per posting with the offsets table)",
         megabytes(stats.index.bytes as f64),
         stats.index.bytes_per_posting
+    );
+    println!(
+        "delta-varint      {:.2} bytes per posting with the offsets table (offline estimate)",
+        stats.index.delta_varint_bytes_per_posting
     );
     println!(
         "hash buckets      {}: mean {:.2}, p99 {}, max {}, fullest 1% hold {:.1}% of postings",

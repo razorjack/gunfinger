@@ -8,7 +8,7 @@
 
 use std::collections::BTreeSet;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::manifest::Set;
@@ -17,7 +17,7 @@ use crate::manifest::Set;
 pub const TOLERANCE_SECONDS: f64 = 90.0;
 
 /// A detection as the scorer sees it.
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Found {
     pub asset: String,
     pub start_seconds: f64,
@@ -28,7 +28,7 @@ pub struct Found {
     pub confident: bool,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Score {
     pub referenced: usize,
     pub identified: usize,
@@ -36,9 +36,15 @@ pub struct Score {
     pub tracks: Vec<TrackScore>,
     /// Confident detections credited to no track.
     pub wrong_identifications: Vec<Found>,
+    /// The strongest detections, confident or not, that match no track: the
+    /// measured null of this scan.
+    pub false_candidates: Vec<Found>,
 }
 
-#[derive(Debug, Serialize)]
+/// False candidates kept in a score.
+const FALSE_CANDIDATES_KEPT: usize = 10;
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct TrackScore {
     pub label: String,
     pub start_seconds: f64,
@@ -55,7 +61,9 @@ pub struct TrackScore {
 }
 
 pub fn score(set: &Set, duration_seconds: f64, found: &[Found], clusters: &Clusters) -> Score {
-    let mut credited_anywhere = vec![false; found.len()];
+    // Whether each detection is of an accepted asset inside a track's window,
+    // confident or not.
+    let mut matches_a_track = vec![false; found.len()];
     let mut tracks = Vec::new();
     for (position, track) in set.tracks.iter().enumerate() {
         let window_start = track.start.as_secs_f64() - TOLERANCE_SECONDS;
@@ -80,11 +88,11 @@ pub fn score(set: &Set, duration_seconds: f64, found: &[Found], clusters: &Clust
             if !overlaps || !accepted.contains(&detection.asset) {
                 continue;
             }
+            matches_a_track[index] = true;
             if strongest_candidate.is_none_or(|strongest| detection.hits > strongest.hits) {
                 strongest_candidate = Some(detection);
             }
             if detection.confident {
-                credited_anywhere[index] = true;
                 credited.push(detection.clone());
                 if !references.contains(detection.asset.as_str()) {
                     through_cluster.insert(detection.asset.clone());
@@ -102,11 +110,17 @@ pub fn score(set: &Set, duration_seconds: f64, found: &[Found], clusters: &Clust
         });
     }
 
-    let wrong_identifications: Vec<Found> = found
+    let mut unmatched: Vec<&Found> = found
         .iter()
-        .zip(&credited_anywhere)
-        .filter(|(detection, credited)| detection.confident && !**credited)
-        .map(|(detection, _)| detection.clone())
+        .zip(&matches_a_track)
+        .filter(|(_, matches)| !**matches)
+        .map(|(detection, _)| detection)
+        .collect();
+    unmatched.sort_by_key(|detection| std::cmp::Reverse(detection.hits));
+    let wrong_identifications: Vec<Found> = unmatched
+        .iter()
+        .filter(|detection| detection.confident)
+        .map(|detection| (*detection).clone())
         .collect();
     Score {
         referenced: tracks.iter().filter(|track| track.referenced).count(),
@@ -114,6 +128,11 @@ pub fn score(set: &Set, duration_seconds: f64, found: &[Found], clusters: &Clust
         wrong: wrong_identifications.len(),
         tracks,
         wrong_identifications,
+        false_candidates: unmatched
+            .into_iter()
+            .take(FALSE_CANDIDATES_KEPT)
+            .cloned()
+            .collect(),
     }
 }
 
@@ -211,6 +230,7 @@ mod tests {
 
         assert_eq!(score.wrong, 1);
         assert_eq!(score.wrong_identifications[0].asset, "x.mp3");
+        assert_eq!(score.false_candidates.len(), 2);
     }
 
     #[test]

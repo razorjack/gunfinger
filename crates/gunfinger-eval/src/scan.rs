@@ -14,7 +14,7 @@ use gunfinger_core::search::search;
 use gunfinger_core::speed::ladder;
 use gunfinger_core::store::PeakStore;
 use gunfinger_core::timecode::format_timecode;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::manifest::{Set, load_set};
@@ -28,7 +28,7 @@ pub struct LeaveOut {
     pub seed: u64,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct ScanReport {
     pub set: String,
     pub audio_file: String,

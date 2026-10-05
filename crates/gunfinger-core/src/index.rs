@@ -138,9 +138,11 @@ impl Index {
         self.postings.len()
     }
 
-    /// Postings per hash, for occupancy statistics.
-    pub fn bucket_sizes(&self) -> impl Iterator<Item = u32> + '_ {
-        self.offsets.windows(2).map(|pair| pair[1] - pair[0])
+    /// The posting list of every hash, in hash order.
+    pub fn posting_lists(&self) -> impl Iterator<Item = &[Posting]> {
+        self.offsets
+            .windows(2)
+            .map(|pair| &self.postings[pair[0] as usize..pair[1] as usize])
     }
 
     /// Bytes the index occupies: the offsets table and the postings.
@@ -222,6 +224,9 @@ mod tests {
         let index = Index::build(&[record("a.mp3", &[(0.0, 100.0), (5.0, 101.0)])]).unwrap();
 
         assert!(index.postings(PairHash(0)).is_empty());
-        assert_eq!(index.bucket_sizes().map(u64::from).sum::<u64>(), 1);
+        assert_eq!(
+            index.posting_lists().map(<[Posting]>::len).sum::<usize>(),
+            1
+        );
     }
 }

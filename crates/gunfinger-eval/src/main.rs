@@ -3,6 +3,7 @@
 //! This crate is the only one that reads ground truth. The core and the CLI
 //! never see a manifest.
 
+mod calibrate;
 mod clusters;
 mod manifest;
 mod render;
@@ -65,6 +66,12 @@ enum Command {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
     },
+    /// Report the confidence margin from the sweep and development reports.
+    Calibrate {
+        /// The development set whose scans (and leave-outs) are read.
+        #[arg(long, default_value = "stakka-skynet-knowledge")]
+        set: String,
+    },
 }
 
 fn main() -> ExitCode {
@@ -75,6 +82,7 @@ fn main() -> ExitCode {
             .and_then(|(library, store)| survival::run(&library, &store, &assets, &cli.work)),
         Command::Clusters => find_clusters(&cli),
         Command::Sweep { seed } => run_sweep(&cli, seed),
+        Command::Calibrate { ref set } => calibrate::run(&cli.work.join("reports"), set),
         Command::Scan {
             ref set,
             leave_out,

@@ -1,5 +1,6 @@
 //! Audio fingerprinting for finding library tracks inside DJ mixes.
 
+pub mod confidence;
 pub mod decode;
 pub mod hash;
 pub mod index;

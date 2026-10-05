@@ -57,3 +57,24 @@ Running log. Newest entry at the bottom.
 - Running: `gunfinger-eval clusters` (library self-match, ±2% ladder,
   coverage ≥ 80% of the shorter file).
 - Next: clusters, sweep, confidence calibration.
+
+## 2026-10-06: development bar met
+
+- Tier: 5 done, starting 6 (index size).
+- Duplicate clusters: 17 clusters with duplicates, criterion coverage ≥ 80%
+  of the shorter file; same-recording pairs ≥ 0.984, all others ≤ 0.39
+  (experiment 0002).
+- Sweep seed 2026: recall 100% at all 9 speeds, 0 wrong answers, speed error
+  ≤ 0.014% (experiment 0003).
+- Development set: 11/11, 0 wrong, 56:09 scanned in 30.6 s. Leave-out 3 and
+  leave-out 11: 0 wrong.
+- Confidence rule `hits >= 500 && windows >= 3`. Margin 5.24× (weakest
+  identifying 1,274 hits, strongest false 243 hits).
+- Commands:
+  `target/release/gunfinger index corpus/library`;
+  `target/release/gunfinger-eval clusters`;
+  `target/release/gunfinger-eval sweep --seed 2026`;
+  `target/release/gunfinger-eval scan stakka-skynet-knowledge [--leave-out N --seed 2026]`;
+  `target/release/gunfinger-eval calibrate`.
+- Next: section 8 (density against recall, posting width, delta coding),
+  then freeze and the test set.
