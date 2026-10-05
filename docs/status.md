@@ -78,3 +78,27 @@ Running log. Newest entry at the bottom.
   `target/release/gunfinger-eval calibrate`.
 - Next: section 8 (density against recall, posting width, delta coding),
   then freeze and the test set.
+
+## 2026-10-06: index size done; freeze
+
+- Tier: 6 done (section 8), 7 starting.
+- Density (experiment 0004): fan-out 2 with the ±12 neighbourhood is the
+  leanest variant no worse than the best: 74.4 postings/s (baseline 181.7),
+  sweep margin 5.27× (baseline 5.24×), development margin 20.2× (16.9×).
+  Wider neighbourhoods (±14, ±16, ±20) lose margin; fan-out 1 loses sweep
+  margin (4.87×).
+- Postings: 4 bytes (15-bit asset, 17-bit frame) are lossless (8-byte
+  postings gave the identical 4,181 detections). 16/16 with 32 ms frames
+  costs 14% of the sweep margin. Delta + varint lists: 3.12 bytes/posting.
+- `gunfinger stats`: 5.07 bytes/posting with the offsets table; buckets mean
+  3.74, p99 55, max 1,796, fullest 1% hold 30.7%; peak store 187 bytes/s.
+  25,000-track projection (402 s mean): 7.5e8 postings, 3.0 GB index
+  (about 2.3 GB delta-coded), 1.9 GB peak store.
+- Peak bands: share per octave follows bins per octave (48% in 2-4 kHz, 6.5%
+  below 250 Hz); local-maximum picking is level-independent, so the bass does
+  not monopolise the peaks and no spreading was applied.
+- Rule recalibrated: hits ≥ 200 and windows ≥ 3. Final evaluation: sweep 100%
+  at every speed, 0 wrong; development 11/11, 0 wrong (26.0 s); leave-out 3
+  and 11: 0 wrong; margin 5.27× (weakest identifying 501, strongest false 95).
+- ADRs 0001-0005 written; roadmap drafted.
+- Next: tag `poc-freeze-1`, then the first test-set evaluation.

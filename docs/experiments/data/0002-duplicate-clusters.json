@@ -1,0 +1,76 @@
+{
+ "criterion": "one alignment at speed 0.98..1.02 covers at least 80% of the shorter file",
+ "duplicates": [
+  [
+   "Bad Company - China Cup.mp3",
+   "extra/02. Bad Company - China Cup.mp3",
+   "extra/b-bad_company-china_cup.mp3"
+  ],
+  [
+   "Bad Company - The Nine.mp3",
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3"
+  ],
+  [
+   "Bad Company - The Pulse.mp3",
+   "extra/a-bad_company-pulse.mp3"
+  ],
+  [
+   "Ed Rush & Optical - Funktion.mp3",
+   "extra/01 - Ed Rush & Optical - Funktion.mp3"
+  ],
+  [
+   "Ed Rush & Optical - Sick Note.mp3",
+   "extra/a-ed_rush_and_optical-sicknote-sour.mp3"
+  ],
+  [
+   "Kraken - Dominion.opus",
+   "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3"
+  ],
+  [
+   "Skynet & Stakka - Clockwork.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Decoy.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Logistics.mp3",
+   "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Night Lore.mp3",
+   "extra/a-stakka_and_skynet-nightlore-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Pathogen.mp3",
+   "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3"
+  ],
+  [
+   "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3"
+  ],
+  [
+   "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+   "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+   "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3"
+  ],
+  [
+   "extra/201-origin_unknown-equinox-sour.mp3",
+   "extra/A-Origin_Unknown-Equinox-sour.mp3"
+  ],
+  [
+   "extra/A. SKC & Cord -- Swarm.mp3",
+   "extra/a-skc_and_cord-swarm-sour.mp3"
+  ],
+  [
+   "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+   "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3"
+  ],
+  [
+   "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+  ]
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "schema_version": 1,
+ "assets": 262,
+ "audio_seconds": 105303.25974999997,
+ "mean_track_seconds": 401.9208387404579,
+ "peaks": {
+  "count": 3926942,
+  "per_second": 37.29174205359774,
+  "store_bytes": 19676624,
+  "store_bytes_per_second": 186.85674163092568,
+  "band_shares": [
+   {
+    "up_to_hz": 125.0,
+    "share": 0.04533858661523394
+   },
+   {
+    "up_to_hz": 250.0,
+    "share": 0.020321665051330016
+   },
+   {
+    "up_to_hz": 500.0,
+    "share": 0.05330814664438639
+   },
+   {
+    "up_to_hz": 1000.0,
+    "share": 0.13517439269538487
+   },
+   {
+    "up_to_hz": 2000.0,
+    "share": 0.2667284110638762
+   },
+   {
+    "up_to_hz": 4000.0,
+    "share": 0.47912879792978863
+   }
+  ]
+ },
+ "index": {
+  "postings": 7836148,
+  "postings_per_second": 74.41505627274755,
+  "bytes": 39733204,
+  "bytes_per_posting": 5.070501986435172,
+  "delta_varint_bytes_per_posting": 4.193045996578931
+ },
+ "buckets": {
+  "count": 2097152,
+  "mean": 3.7365665435791016,
+  "p99": 55,
+  "max": 1796,
+  "fullest_percent_share": 0.30732638025723863
+ },
+ "projection": {
+  "tracks": 25000.0,
+  "audio_seconds": 10048020.968511447,
+  "postings": 747724045.8015267,
+  "index_bytes": 2999284795.2061067,
+  "peak_store_bytes": 1877540458.0152671
+ }
+}
