@@ -1,0 +1,88 @@
+{
+ "seed": 2026,
+ "held_out_clusters": 48,
+ "indexed_assets": 209,
+ "per_speed": [
+  {
+   "speed_percent": -8.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.001708252835128136,
+   "max_speed_error_percent": 0.004909439100979185
+  },
+  {
+   "speed_percent": -5.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.004066370493602974,
+   "max_speed_error_percent": 0.012431380156023408
+  },
+  {
+   "speed_percent": -3.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.0035371530862144877,
+   "max_speed_error_percent": 0.01333581281659768
+  },
+  {
+   "speed_percent": -1.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.0035051340271430977,
+   "max_speed_error_percent": 0.01191263534955267
+  },
+  {
+   "speed_percent": 0.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.0017745515953304647,
+   "max_speed_error_percent": 0.004255299702204951
+  },
+  {
+   "speed_percent": 1.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.003503659116296361,
+   "max_speed_error_percent": 0.009423261785968862
+  },
+  {
+   "speed_percent": 3.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.004138310661516501,
+   "max_speed_error_percent": 0.013951344978921476
+  },
+  {
+   "speed_percent": 5.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.003978323433296922,
+   "max_speed_error_percent": 0.011462231969643355
+  },
+  {
+   "speed_percent": 8.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 0,
+   "mean_speed_error_percent": 0.00172881775773653,
+   "max_speed_error_percent": 0.005876815427067861
+  }
+ ]
+}

@@ -19,7 +19,7 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, search};
 use gunfinger_core::speed::ladder;
 use gunfinger_core::store::{PeakRecord, PeakStore};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::render::{Encoding, render_excerpt};
@@ -31,7 +31,7 @@ const INDEXED_EXCERPTS: usize = 60;
 const HELD_OUT_EXCERPTS: usize = 20;
 const EXCERPT_SECONDS: f64 = 30.0;
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SweepReport {
     pub seed: u64,
     pub held_out_clusters: usize,
@@ -40,7 +40,7 @@ pub struct SweepReport {
     pub queries: Vec<Query>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct SpeedRow {
     pub speed_percent: f64,
     pub indexed_excerpts: usize,
@@ -52,7 +52,7 @@ pub struct SpeedRow {
 }
 
 /// One excerpt at one speed and what the search made of it.
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Query {
     pub asset: String,
     pub held_out: bool,
@@ -62,7 +62,7 @@ pub struct Query {
     pub detections: Vec<Outcome>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Outcome {
     pub asset: String,
     /// Whether the asset is in the excerpt's own cluster.

@@ -10,6 +10,7 @@
 //!    reference time are chained. A played record keeps its line for minutes;
 //!    chance coincidences and briefly shared samples do not.
 
+use crate::confidence::Evidence;
 use crate::hash::for_each_pair;
 use crate::index::{AssetId, Index};
 use crate::parallel::map_in_order;
@@ -45,22 +46,6 @@ pub struct Detection {
     pub end_seconds: f64,
     pub speed: SpeedRatio,
     pub evidence: Evidence,
-}
-
-/// How much aligned evidence supports a detection.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Evidence {
-    /// Windows of query time in which the line has hits.
-    pub windows: u32,
-    /// Hash hits on the line.
-    pub hits: u32,
-}
-
-impl Evidence {
-    /// Provisional rule, to be calibrated against the measured null.
-    pub fn is_confident(&self) -> bool {
-        self.windows >= 3 && self.hits >= 40
-    }
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of

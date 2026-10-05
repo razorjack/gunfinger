@@ -1,0 +1,468 @@
+{
+ "set": "stakka-skynet-knowledge",
+ "audio_file": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+ "duration_seconds": 3369.679875,
+ "wall_seconds": 30.054076458,
+ "left_out_tracks": [],
+ "left_out_assets": [],
+ "score": {
+  "referenced": 11,
+  "identified": 11,
+  "wrong": 0,
+  "tracks": [
+   {
+    "label": " 1. Skynet & Stakka - Night Lore",
+    "start_seconds": 0.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Skynet & Stakka - Night Lore.mp3",
+      "start_seconds": 0.122314453125,
+      "end_seconds": 303.93310546875,
+      "speed": 1.0267765386019079,
+      "windows": 31,
+      "hits": 8863,
+      "confident": true
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+      "start_seconds": 0.122314453125,
+      "end_seconds": 303.93310546875,
+      "speed": 1.0267765386019079,
+      "windows": 31,
+      "hits": 8863,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Skynet & Stakka - Night Lore.mp3",
+     "start_seconds": 0.122314453125,
+     "end_seconds": 303.93310546875,
+     "speed": 1.0267765386019079,
+     "windows": 31,
+     "hits": 8863,
+     "confident": true
+    }
+   },
+   {
+    "label": " 2. Skynet & Stakka - Decoy",
+    "start_seconds": 304.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Skynet & Stakka - Decoy.mp3",
+      "start_seconds": 255.4619140625,
+      "end_seconds": 628.213546875,
+      "speed": 1.0286908216624817,
+      "windows": 35,
+      "hits": 11914,
+      "confident": true
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+      "start_seconds": 261.2236328125,
+      "end_seconds": 605.70166015625,
+      "speed": 1.026985600275643,
+      "windows": 35,
+      "hits": 10134,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Skynet & Stakka - Decoy.mp3",
+     "start_seconds": 255.4619140625,
+     "end_seconds": 628.213546875,
+     "speed": 1.0286908216624817,
+     "windows": 35,
+     "hits": 11914,
+     "confident": true
+    }
+   },
+   {
+    "label": " 3. Kemal & Rob Data - Star Trails",
+    "start_seconds": 649.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Kemal & Rob Data - Star Trails.mp3",
+      "start_seconds": 571.3148203125,
+      "end_seconds": 929.205140625,
+      "speed": 1.0424428935006644,
+      "windows": 35,
+      "hits": 4097,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 571.3148203125,
+     "end_seconds": 929.205140625,
+     "speed": 1.0424428935006644,
+     "windows": 35,
+     "hits": 4097,
+     "confident": true
+    }
+   },
+   {
+    "label": " 4. Skynet & Stakka - Pathogen",
+    "start_seconds": 931.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Skynet & Stakka - Pathogen.mp3",
+      "start_seconds": 862.9095234375,
+      "end_seconds": 1085.107666015625,
+      "speed": 1.0159618302349407,
+      "windows": 23,
+      "hits": 5177,
+      "confident": true
+     },
+     {
+      "asset": "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+      "start_seconds": 862.9095234375,
+      "end_seconds": 1085.107666015625,
+      "speed": 1.0159618302349407,
+      "windows": 23,
+      "hits": 5177,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Skynet & Stakka - Pathogen.mp3",
+     "start_seconds": 862.9095234375,
+     "end_seconds": 1085.107666015625,
+     "speed": 1.0159618302349407,
+     "windows": 23,
+     "hits": 5177,
+     "confident": true
+    }
+   },
+   {
+    "label": " 5. Skynet & Stakka - Clockwork",
+    "start_seconds": 1084.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Skynet & Stakka - Clockwork.mp3",
+      "start_seconds": 1046.26585546875,
+      "end_seconds": 1318.92394921875,
+      "speed": 1.0140472201757516,
+      "windows": 28,
+      "hits": 6981,
+      "confident": true
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "start_seconds": 1046.26585546875,
+      "end_seconds": 1318.92394921875,
+      "speed": 1.0140472201757516,
+      "windows": 28,
+      "hits": 6981,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "start_seconds": 1046.26585546875,
+     "end_seconds": 1318.92394921875,
+     "speed": 1.0140472201757516,
+     "windows": 28,
+     "hits": 6981,
+     "confident": true
+    }
+   },
+   {
+    "label": " 6. Kraken - Side Effects (TeeBee Remix)",
+    "start_seconds": 1330.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+      "start_seconds": 1264.617630859375,
+      "end_seconds": 1576.396677734375,
+      "speed": 1.0034107367993597,
+      "windows": 32,
+      "hits": 5305,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "start_seconds": 1264.617630859375,
+     "end_seconds": 1576.396677734375,
+     "speed": 1.0034107367993597,
+     "windows": 32,
+     "hits": 5305,
+     "confident": true
+    }
+   },
+   {
+    "label": " 7. Kraken - Dominion",
+    "start_seconds": 1585.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Kraken - Dominion.opus",
+      "start_seconds": 1521.7965,
+      "end_seconds": 1920.8139804687498,
+      "speed": 1.016286262013226,
+      "windows": 39,
+      "hits": 8830,
+      "confident": true
+     },
+     {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "start_seconds": 1517.5597109375,
+      "end_seconds": 1919.9195859374997,
+      "speed": 1.016304425161669,
+      "windows": 39,
+      "hits": 8670,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Kraken - Dominion.opus",
+     "start_seconds": 1521.7965,
+     "end_seconds": 1920.8139804687498,
+     "speed": 1.016286262013226,
+     "windows": 39,
+     "hits": 8830,
+     "confident": true
+    }
+   },
+   {
+    "label": " 8. Kemal & Paul Reset - Kontempt",
+    "start_seconds": 1919.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Kemal & Paul Reset - Kontempt.mp3",
+      "start_seconds": 1862.5008281249998,
+      "end_seconds": 2282.48779296875,
+      "speed": 1.0293563015737623,
+      "windows": 43,
+      "hits": 9923,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "start_seconds": 1862.5008281249998,
+     "end_seconds": 2282.48779296875,
+     "speed": 1.0293563015737623,
+     "windows": 43,
+     "hits": 9923,
+     "confident": true
+    }
+   },
+   {
+    "label": " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+    "start_seconds": 2293.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+      "start_seconds": 2230.1701054687496,
+      "end_seconds": 2606.89151953125,
+      "speed": 1.010110720429437,
+      "windows": 38,
+      "hits": 11863,
+      "confident": true
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+      "start_seconds": 2230.1701054687496,
+      "end_seconds": 2606.89151953125,
+      "speed": 1.010110720429437,
+      "windows": 38,
+      "hits": 11863,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+     "start_seconds": 2230.1701054687496,
+     "end_seconds": 2606.89151953125,
+     "speed": 1.010110720429437,
+     "windows": 38,
+     "hits": 11863,
+     "confident": true
+    }
+   },
+   {
+    "label": "10. Skynet & Stakka - Logistics",
+    "start_seconds": 2621.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Skynet & Stakka - Logistics.mp3",
+      "start_seconds": 2594.217529296875,
+      "end_seconds": 2998.379150390625,
+      "speed": 1.0222471323736502,
+      "windows": 41,
+      "hits": 13976,
+      "confident": true
+     },
+     {
+      "asset": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+      "start_seconds": 2594.217529296875,
+      "end_seconds": 2998.379150390625,
+      "speed": 1.0222471323736502,
+      "windows": 41,
+      "hits": 13976,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Skynet & Stakka - Logistics.mp3",
+     "start_seconds": 2594.217529296875,
+     "end_seconds": 2998.379150390625,
+     "speed": 1.0222471323736502,
+     "windows": 41,
+     "hits": 13976,
+     "confident": true
+    }
+   },
+   {
+    "label": "11. Stakka & K.Tee - Auto Ignition",
+    "start_seconds": 2994.0,
+    "referenced": true,
+    "identified": true,
+    "credited": [
+     {
+      "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+      "start_seconds": 2983.942828125,
+      "end_seconds": 3362.0033671874994,
+      "speed": 1.0134050031774806,
+      "windows": 39,
+      "hits": 11349,
+      "confident": true
+     }
+    ],
+    "credited_through_cluster": [],
+    "strongest_candidate": {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "start_seconds": 2983.942828125,
+     "end_seconds": 3362.0033671874994,
+     "speed": 1.0134050031774806,
+     "windows": 39,
+     "hits": 11349,
+     "confident": true
+    }
+   }
+  ],
+  "wrong_identifications": [],
+  "false_candidates": [
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start_seconds": 1222.9134257812498,
+    "end_seconds": 1239.7843828125,
+    "speed": 1.0136790123456791,
+    "windows": 2,
+    "hits": 243,
+    "confident": false
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start_seconds": 1131.0034609375,
+    "end_seconds": 1153.7027265625,
+    "speed": 1.0131102908426537,
+    "windows": 3,
+    "hits": 71,
+    "confident": false
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start_seconds": 1172.49226171875,
+    "end_seconds": 1189.36543359375,
+    "speed": 1.014089552238806,
+    "windows": 2,
+    "hits": 67,
+    "confident": false
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start_seconds": 1240.460345703125,
+    "end_seconds": 1273.61525,
+    "speed": 1.013160644863267,
+    "windows": 4,
+    "hits": 62,
+    "confident": false
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start_seconds": 1156.759521484375,
+    "end_seconds": 1169.367609375,
+    "speed": 1.0175737704918033,
+    "windows": 2,
+    "hits": 61,
+    "confident": false
+   },
+   {
+    "asset": "extra/aa-kemal-mechanizm-sour.mp3",
+    "start_seconds": 762.461384765625,
+    "end_seconds": 778.6697578125,
+    "speed": 1.044,
+    "windows": 2,
+    "hits": 55,
+    "confident": false
+   },
+   {
+    "asset": "extra/aa-kemal-mechanizm-sour.mp3",
+    "start_seconds": 734.7635859375,
+    "end_seconds": 752.6933203125,
+    "speed": 1.0438367346938775,
+    "windows": 3,
+    "hits": 49,
+    "confident": false
+   },
+   {
+    "asset": "extra/aa-kemal-mechanizm-sour.mp3",
+    "start_seconds": 663.49323046875,
+    "end_seconds": 679.3763261718751,
+    "speed": 1.044,
+    "windows": 2,
+    "hits": 43,
+    "confident": false
+   },
+   {
+    "asset": "extra/03. Pieter K - Liquifaction (Stakka Remix).mp3",
+    "start_seconds": 342.736083984375,
+    "end_seconds": 396.785267578125,
+    "speed": 1.0285227518195765,
+    "windows": 4,
+    "hits": 42,
+    "confident": false
+   },
+   {
+    "asset": "extra/aa-kemal-mechanizm-sour.mp3",
+    "start_seconds": 593.60424609375,
+    "end_seconds": 609.1333710937499,
+    "speed": 1.0462,
+    "windows": 2,
+    "hits": 40,
+    "confident": false
+   }
+  ]
+ }
+}
