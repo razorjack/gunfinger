@@ -8,7 +8,7 @@ Accepted.
 
 Gunfinger must find library tracks inside vinyl DJ mixes, where the
 turntable resamples the record: pitch and tempo move together, within about
-±8%, and the DJ rides the pitch while beatmatching. Unknown audio must stay
+±8%, and the DJ adjusts the pitch while beatmatching. Unknown audio must stay
 unknown. The brief fixes that Gunfinger owns its fingerprinter (no
 third-party fingerprinting crate, no copied code) and names two candidates:
 A, exact pair hashes searched on a ladder of assumed speeds; B, hashes
@@ -41,7 +41,7 @@ Candidate A, implemented from Wang (2003):
   that predict the same reference time within 4 frames + 0.4% of the elapsed
   time are chained by dynamic programming. A chain is a detection; its slope,
   fitted through the lines, gives the speed (sweep error ≤ 0.016%). Slow
-  pitch rides change the rung from window to window without breaking the
+  pitch adjustments change the rung from window to window without breaking the
   chain. Weaker detections overlapping a stronger one of the same asset are
   dropped.
 - **Confidence** (`gunfinger-core/src/confidence.rs`): at least 200 hits and
