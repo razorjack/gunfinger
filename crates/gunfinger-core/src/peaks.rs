@@ -8,16 +8,23 @@
 use crate::profile::Profile;
 use crate::spectrogram::for_each_frame;
 
-/// Fractional bins are kept to 1/64 of a bin: finer than the interpolation is
-/// accurate, coarse enough for a 16-bit fixed-point field in the peak store.
+/// Positions are refined between frames and bins and kept to 1/64: finer
+/// than the interpolation is accurate, coarse enough for small fixed-point
+/// fields in the peak store.
+pub const FRAME_STEPS: f32 = 64.0;
 pub const BIN_STEPS: f32 = 64.0;
+/// A refined frame stays within this distance of its STFT frame, so the
+/// frame is recovered by rounding.
+pub const MAX_FRAME_OFFSET: f32 = 31.0 / FRAME_STEPS;
 /// Magnitudes are kept to half a decibel, enough to rank peaks by strength.
 pub const MAGNITUDE_STEPS_PER_DB: f32 = 2.0;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Peak {
-    /// Index of the STFT frame.
-    pub frame: u32,
+    /// Time in STFT frames, refined between frames and quantised to
+    /// `FRAME_STEPS`. Double precision keeps 1/64 frame exact in a mix of
+    /// several hours.
+    pub frame: f64,
     /// Frequency in bins, refined between bins and quantised to `BIN_STEPS`.
     pub bin: f32,
     /// Log power in dB, quantised to `MAGNITUDE_STEPS_PER_DB`.
@@ -78,22 +85,38 @@ impl<'p> PeakPicker<'p> {
 
     fn pick(&mut self, centre: usize) {
         let profile = self.profile;
-        let row = &self.rows[centre % self.rows.len()];
+        let height = self.rows.len();
+        let row = &self.rows[centre % height];
+        let before = (centre > 0).then(|| &self.rows[(centre - 1) % height]);
+        let after = (centre + 1 < self.received).then(|| &self.rows[(centre + 1) % height]);
         for bin in profile.min_bin..profile.max_bin {
             let value = row[bin];
+            // The four nearest neighbours reject most bins cheaply, before
+            // the whole neighbourhood is scanned.
             if value < profile.floor_db
                 || value <= row[bin - 1]
                 || value <= row[bin + 1]
+                || before.is_some_and(|before| value <= before[bin])
+                || after.is_some_and(|after| value <= after[bin])
                 || !self.dominates_neighbourhood(centre, bin)
             {
                 continue;
             }
+            // Without refinement, the time difference of two peaks jitters by
+            // a whole frame whenever the query's frame grid is offset from
+            // the reference's (experiment 0001).
+            let frame_offset = match (before, after) {
+                (Some(before), Some(after)) => vertex_offset(before[bin], value, after[bin]),
+                _ => 0.0,
+            };
+            let bin_offset = vertex_offset(row[bin - 1], value, row[bin + 1]);
             self.peaks.push(Peak {
-                frame: centre as u32,
-                bin: quantise(
-                    bin as f32 + vertex_offset(row[bin - 1], value, row[bin + 1]),
-                    BIN_STEPS,
-                ),
+                frame: centre as f64
+                    + f64::from(quantise(
+                        frame_offset.clamp(-MAX_FRAME_OFFSET, MAX_FRAME_OFFSET),
+                        FRAME_STEPS,
+                    )),
+                bin: bin as f32 + quantise(bin_offset, BIN_STEPS),
                 magnitude: quantise(value, MAGNITUDE_STEPS_PER_DB),
             });
         }
@@ -187,11 +210,9 @@ mod tests {
         let peaks = extract_peaks(&chord, &profile);
 
         assert!(peaks.len() >= 2);
-        assert!(
-            peaks
-                .windows(2)
-                .all(|pair| (pair[0].frame, pair[0].bin) < (pair[1].frame, pair[1].bin))
-        );
+        assert!(peaks.windows(2).all(
+            |pair| (pair[0].frame.round(), pair[0].bin) < (pair[1].frame.round(), pair[1].bin)
+        ));
     }
 
     #[test]
