@@ -91,6 +91,21 @@ fn seconds(play: &Value, field: &str) -> f64 {
     play[field].as_f64().unwrap()
 }
 
+/// Checks the reported position in the track against where the track was
+/// started (`track_from`) at mix time `mix_from`.
+fn assert_track_position(segment: &Value, mix_from: f64, track_from: f64, speed: f64) {
+    for (mix_field, track_field) in [
+        ("start_seconds", "track_start_seconds"),
+        ("end_seconds", "track_end_seconds"),
+    ] {
+        let expected = track_from + (seconds(segment, mix_field) - mix_from) * speed;
+        assert!(
+            (seconds(segment, track_field) - expected).abs() < 0.1,
+            "{track_field} should be {expected:.2}: {segment}"
+        );
+    }
+}
+
 #[test]
 fn a_synthetic_mix_is_identified_end_to_end() {
     if !ffmpeg_available() {
@@ -116,10 +131,10 @@ fn a_synthetic_mix_is_identified_end_to_end() {
     let report: Value = serde_json::from_slice(&output.stdout).unwrap();
     let plays = report["plays"].as_array().unwrap();
 
-    for (asset, speed, from, to) in [
-        ("a.wav", 1.03, 0.0, 42.0),
-        ("b.wav", 0.95, 38.0, 82.0),
-        ("c.wav", 1.06, 96.0, 140.0),
+    for (asset, speed, from, to, track_from) in [
+        ("a.wav", 1.03, 0.0, 42.0, 10.0),
+        ("b.wav", 0.95, 38.0, 82.0, 5.0),
+        ("c.wav", 1.06, 96.0, 140.0, 20.0),
     ] {
         let found = plays_of(plays, asset);
         assert_eq!(found.len(), 1, "{asset}: {found:?}");
@@ -135,6 +150,7 @@ fn a_synthetic_mix_is_identified_end_to_end() {
                 && (seconds(play, "end_seconds") - to).abs() < 5.0,
             "{asset}: {play}"
         );
+        assert_track_position(&play["segments"][0], from, track_from, speed);
     }
 
     let c = plays_of(plays, "c.wav")[0];
@@ -149,6 +165,8 @@ fn a_synthetic_mix_is_identified_end_to_end() {
             && (seconds(&segments[1], "start_seconds") - 112.0).abs() < 2.0,
         "the segments meet at the skip: {c}"
     );
+    let after_skip = 20.0 + 16.0 * 1.06 + 4.0;
+    assert_track_position(&segments[1], 112.0, after_skip, 1.06);
     assert!(plays_of(plays, "d.wav").is_empty(), "D is never played");
     for play in plays {
         let inside_insert =

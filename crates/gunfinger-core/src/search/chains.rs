@@ -80,19 +80,18 @@ fn links(earlier: &Line, later: &Line) -> bool {
     disagreement <= LINK_TOLERANCE_FRAMES + LINK_TOLERANCE_SLOPE * (at - earlier.centre()).abs()
 }
 
+/// `chain` is in window order, so its first and last lines hold the first
+/// and last hits.
 fn detection(chain: &[&Line], profile: &Profile) -> Detection {
-    let first = chain
-        .iter()
-        .map(|line| line.first)
-        .fold(f64::INFINITY, f64::min);
-    let last = chain
-        .iter()
-        .map(|line| line.last)
-        .fold(f64::NEG_INFINITY, f64::max);
+    let (opening, closing) = (chain[0], chain[chain.len() - 1]);
     Detection {
-        asset: chain[0].asset,
-        start_seconds: profile.seconds(first),
-        end_seconds: profile.seconds(last),
+        asset: opening.asset,
+        start_seconds: profile.seconds(opening.first),
+        end_seconds: profile.seconds(closing.last),
+        // A line's offset is fitted, so its first hit can map a fraction of a
+        // frame before the track's start.
+        track_start_seconds: profile.seconds(opening.reference_frame_at(opening.first).max(0.0)),
+        track_end_seconds: profile.seconds(closing.reference_frame_at(closing.last).max(0.0)),
         speed: SpeedRatio(chain_speed(chain)),
         evidence: Evidence {
             windows: chain.len() as u32,

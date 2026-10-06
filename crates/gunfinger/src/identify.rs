@@ -78,6 +78,9 @@ struct FoundPlay<'a> {
     asset: &'a str,
     start_seconds: f64,
     end_seconds: f64,
+    /// Where the first segment starts and the last ends in the track.
+    track_start_seconds: f64,
+    track_end_seconds: f64,
     /// The strongest segment's speed and confidence.
     speed: f64,
     confidence: &'static str,
@@ -91,6 +94,8 @@ struct FoundPlay<'a> {
 struct Segment {
     start_seconds: f64,
     end_seconds: f64,
+    track_start_seconds: f64,
+    track_end_seconds: f64,
     speed: f64,
     confidence: &'static str,
     windows: u32,
@@ -128,6 +133,8 @@ impl<'a> FoundPlay<'a> {
             asset: &catalog.index.asset(play.asset).path,
             start_seconds: offset + play.start_seconds(),
             end_seconds: offset + play.end_seconds(),
+            track_start_seconds: play.track_start_seconds(),
+            track_end_seconds: play.track_end_seconds(),
             speed: play.speed().0,
             confidence: label(play.confidence()),
             windows: total.windows,
@@ -138,6 +145,8 @@ impl<'a> FoundPlay<'a> {
                 .map(|segment| Segment {
                     start_seconds: offset + segment.start_seconds,
                     end_seconds: offset + segment.end_seconds,
+                    track_start_seconds: segment.track_start_seconds,
+                    track_end_seconds: segment.track_end_seconds,
                     speed: segment.speed.0,
                     confidence: label(segment.evidence.confidence()),
                     windows: segment.evidence.windows,
@@ -157,14 +166,16 @@ fn label(confidence: Confidence) -> &'static str {
 }
 
 /// One row per play; a play of several segments lists them underneath.
+/// `in track` is the part of the track that was heard.
 fn print_table(report: &Report) {
     println!(
-        "{:<19} {:>7}  {:<10} {:>6}  asset",
-        "time", "speed", "confidence", "hits"
+        "{:<19} {:<13} {:>7}  {:<10} {:>6}  asset",
+        "time", "in track", "speed", "confidence", "hits"
     );
     for play in &report.plays {
         print_row(
             &span(play.start_seconds, play.end_seconds),
+            &span(play.track_start_seconds, play.track_end_seconds),
             play.speed,
             play.confidence,
             play.hits,
@@ -174,6 +185,7 @@ fn print_table(report: &Report) {
             for segment in &play.segments {
                 print_row(
                     &format!("  {}", span(segment.start_seconds, segment.end_seconds)),
+                    &span(segment.track_start_seconds, segment.track_end_seconds),
                     segment.speed,
                     segment.confidence,
                     segment.hits,
@@ -184,11 +196,12 @@ fn print_table(report: &Report) {
     }
 }
 
-fn print_row(time: &str, speed: f64, confidence: &str, hits: u32, asset: &str) {
-    println!(
-        "{time:<19} {:>+6.2}%  {confidence:<10} {hits:>6}  {asset}",
+fn print_row(time: &str, track: &str, speed: f64, confidence: &str, hits: u32, asset: &str) {
+    let row = format!(
+        "{time:<19} {track:<13} {:>+6.2}%  {confidence:<10} {hits:>6}  {asset}",
         (speed - 1.0) * 100.0
     );
+    println!("{}", row.trim_end());
 }
 
 fn span(start_seconds: f64, end_seconds: f64) -> String {

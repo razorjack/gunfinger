@@ -27,6 +27,9 @@ pub struct Detection {
     /// Query time of the first and last aligned hit, in seconds.
     pub start_seconds: f64,
     pub end_seconds: f64,
+    /// Where those hits lie in the asset (reference time), in seconds.
+    pub track_start_seconds: f64,
+    pub track_end_seconds: f64,
     pub speed: SpeedRatio,
     pub evidence: Evidence,
 }
@@ -76,6 +79,8 @@ mod tests {
             asset: AssetId(asset),
             start_seconds,
             end_seconds,
+            track_start_seconds: 0.0,
+            track_end_seconds: end_seconds - start_seconds,
             speed: SpeedRatio(1.0),
             evidence: Evidence { windows: 5, hits },
         }

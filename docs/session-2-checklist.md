@@ -25,7 +25,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 ## 3. Command line
 
 - [ ] Colour
-- [ ] Position in the track
+- [x] Position in the track
 - [ ] Same-audio rows collapsed
 - [ ] Timeline view
 - [ ] `explain`
