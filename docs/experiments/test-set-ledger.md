@@ -65,3 +65,32 @@ Diagnosis, from the same report (no further run):
   barely aligns. Possibly a different version or mixdown was played.
 
 No further test evaluations: the first run passed.
+
+## Owner review of evaluation 1 (2026-10-06)
+
+The owner listened to the items listed for checking. No search was run; the
+evaluation count stays at 1.
+
+- **16. Funktion.** The version played is "Funktion (Remix)" from Planet V
+  (V Recordings, 1999), not the original from the Funktion / Naked Lunch
+  single (V026, 1998) that the library holds. Sources: the owner's listening,
+  and MixesDB and Dogs On Acid tracklists found in the owner's research (not
+  checked here). The remix is not in the library, so the slot is in effect
+  absent, and the outcome is correct: the original stayed far below the rule
+  (best 18 hits) while its remix played. The manifest still references the
+  original; changing it is the owner's decision (for example
+  `title = "Funktion (Remix)"`, `reference = []`). Under that manifest the
+  evaluation-1 detections score 15/16 (93.8%) with 0 wrong. That figure is
+  arithmetic on the stored report, not a new run.
+- **22. Sin.** The broadcast faded Sin out, played a station insert and
+  brought Sin back. The two chains at +5.4% are the record before and after
+  the insert. Joined, they would hold 168 hits, still below the 200-hit rule,
+  so the miss stands.
+- **31. Sick Note.** Played solo for under 30 s at the end of the broadcast,
+  after a blend out of Slip Thru. The detection (1:57:25 to 1:58:11) covers
+  the blend and the solo part.
+- **10. The Pulse.** A needle skip at 36:17. A skip moves the needle to
+  another point of the record, so the position in the track jumps while mix
+  time runs on. The hits move to a new line and a new chain starts, which is
+  the split at 36:17. The report's first reading, a pitch adjustment, was
+  wrong.

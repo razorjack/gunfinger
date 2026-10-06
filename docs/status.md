@@ -151,6 +151,10 @@ All numbers below were measured in this session on 262 library tracks
   and Kontempt with their clusters gives 8/11 and 0 wrong; leaving out all
   11 gives 0/11 and 0 wrong. No left-out slot produced a confident
   detection.
+- Owner review (after this report; see the ledger): track 16 was the Planet
+  V remix of Funktion, which is not in the library. With that slot marked
+  absent, the evaluation-1 detections score 15/16 (93.8%) with 0 wrong. No
+  new run was made.
 
 ### 2. Candidate
 
@@ -200,26 +204,36 @@ none):
   references in its window has 18 hits in 2 windows, at -1.87%, 1:01:45 to
   1:01:54. The slot holds many short chains of 8 to 18 hits that agree on a
   speed of about -1.8%, so related audio was playing, but the library
-  recording barely aligns with it.
+  recording barely aligns with it. Owner: the version played is the Planet V
+  remix, which is not in the library.
 - **22. Fibre Optix - Sin.** Two chains of 84 hits (2 and 4 windows) at
   +5.4%, between 1:22:22 and 1:24:29. Both lie on the same speed but are 34 s
   apart, more than the 2 empty windows a chain may bridge, and each stays
-  below 200 hits.
+  below 200 hits. Owner: the broadcast faded Sin out for a station insert and
+  brought it back.
 
 ### 5. For the owner to check
 
+The owner's answers to the first four items, given after the report, follow
+each item and are recorded in the test-set ledger.
+
 - **Funktion (test track 16):** whether the version played is the one in
   the library (`Ed Rush & Optical - Funktion.mp3` and its duplicate). The
-  evidence above suggests a different version or mixdown.
+  evidence above suggests a different version or mixdown. Owner: it is
+  "Funktion (Remix)" from Planet V (1999); the library has only the
+  original. Updating the manifest is the owner's decision.
 - **Sin (test track 22):** whether it was played only briefly or cut in and
   out between 1:21:48 and the next track; the record was found twice at the
-  same speed.
+  same speed. Owner: faded out for a station insert, then brought back.
 - **Sick Note (test track 31):** credited with 209 hits in 6 windows, just
   above the 200-hit rule. The recording ends 27 s after the track's listed
-  start (1:57:45); the detection covers its last 46 s, from 1:57:25.
+  start (1:57:45); the detection covers its last 46 s, from 1:57:25. Owner:
+  played solo for under 30 s after a blend out of Slip Thru; the detection
+  matches.
 - **The Pulse (test track 10):** found as two confident chains, 34:50 to
-  36:17 at +1.24% and 36:18 to 39:30 at +1.40%. This is consistent with a
-  pitch adjustment at 36:17; both are credited to the same track.
+  36:17 at +1.24% and 36:18 to 39:30 at +1.40%; both are credited to the
+  same track. Owner: a needle skip at 36:17. The skip moved the position in
+  the track, which starts a new chain.
 - **Cluster credits:** none. Every credited detection in both sets is of a
   listed reference.
 - **Duplicate clusters** (experiment 0002, `data/0002-duplicate-clusters.json`):
@@ -324,7 +338,9 @@ Query time on the development mix (experiment 0005): 3.7 s decoding, about
   test detection (209 hits) is within 5% of the threshold because the
   recording ends 27 s into the track.
 - A chain bridges at most 2 empty windows, so a track that is cut in and out
-  can fall apart into chains that are each below the rule (Sin).
+  can fall apart into chains that are each below the rule. Sin was faded out
+  for a station insert; even joined, its two chains hold 168 hits, below the
+  rule.
 - Remixes and VIPs that share long sections with the original are the
   strongest false candidates (95 hits). A remix sharing more material could
   cross the rule.
