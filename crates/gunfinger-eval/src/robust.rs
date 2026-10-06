@@ -1,6 +1,6 @@
 //! Robustness: the sweep's excerpts under what clubs, DJs and broadcasts do
 //! to a record (EQ, noise, low bitrates, blends, speech, skips, pitch rides,
-//! speeds outside the ladder, key lock). Every condition runs on the same
+//! wow, broadcast processing, speeds outside the ladder, key lock). Every condition runs on the same
 //! excerpts, so each can be compared with the untransformed control.
 //!
 //! The index and the excerpts are the sweep's (same seed): held-out clusters
@@ -28,6 +28,7 @@ use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_sam
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::synthetic;
+use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
 
 /// Excerpts per condition and speed: the sweep's first indexed and
 /// held-out draws.
@@ -40,6 +41,18 @@ const BASE_SPEEDS: [f64; 2] = [0.95, 1.03];
 const SKIP_SECONDS: f64 = 2.0;
 /// The pitch ride: speed rises by this much over the excerpt.
 const RAMP: f64 = 0.02;
+/// Wow: the speed swings by this much either way once per revolution. A
+/// worn deck's; a well-kept Technics 1200 stays near 0.01%.
+const WOW_DEPTH: f64 = 0.002;
+/// FM broadcast processing: slow gain riding, fast compression, then a hard
+/// limiter.
+const BROADCAST: &str = "acompressor=threshold=0.05:ratio=6:attack=20:release=250:makeup=4,acompressor=threshold=0.2:ratio=20:attack=0.5:release=40:makeup=2,alimiter=limit=0.7:attack=0.5:release=20:level=false";
+/// A beatmatched partner plays within this share of its native speed.
+const PARTNER_RANGE: f64 = 0.1;
+/// Combined damage: wow at 33 rpm, a beatmatched partner this far below,
+/// broadcast processing and a low-bitrate stream.
+const COMBINED_PARTNER_DB: i32 = -6;
+const COMBINED_ENCODING: Encoding = Encoding::Aac(64);
 /// Speech replaces the music for this span in `Insert`, and is laid over it
 /// in `VoiceOver`.
 const INSERT_SPAN: (f64, f64) = (11.0, 19.0);
@@ -70,11 +83,23 @@ enum Condition {
     Insert,
     Skip,
     Ramp,
+    /// Speed modulated once per revolution, at this many revolutions per
+    /// second: 0.55 at 33 rpm, 0.75 at 45 rpm.
+    Wow(f64),
+    Broadcast,
+    /// A second library track at the first one's tempo, its beats on the
+    /// first one's, at this level relative to it.
+    Beatmatched {
+        partner_db: i32,
+    },
+    /// Wow, a beatmatched partner, broadcast processing and a low bitrate
+    /// at once.
+    Combined,
     Speed(f64),
     KeyLock(f64),
 }
 
-const CONDITIONS: [Condition; 32] = [
+const CONDITIONS: [Condition; 38] = [
     Condition::Control,
     Condition::BassBoost,
     Condition::BassCut,
@@ -96,6 +121,12 @@ const CONDITIONS: [Condition; 32] = [
     Condition::Insert,
     Condition::Skip,
     Condition::Ramp,
+    Condition::Wow(0.55),
+    Condition::Wow(0.75),
+    Condition::Broadcast,
+    Condition::Beatmatched { partner_db: -6 },
+    Condition::Beatmatched { partner_db: 0 },
+    Condition::Combined,
     Condition::Speed(0.90),
     Condition::Speed(0.88),
     Condition::Speed(0.84),
@@ -133,6 +164,10 @@ impl Condition {
             Condition::Insert => "speech-insert-8s".into(),
             Condition::Skip => "needle-skip-2s".into(),
             Condition::Ramp => "pitch-ride-2pct".into(),
+            Condition::Wow(hz) => format!("wow-{hz:.2}hz"),
+            Condition::Broadcast => "broadcast".into(),
+            Condition::Beatmatched { partner_db } => format!("beatmatched-{partner_db}db"),
+            Condition::Combined => "combined".into(),
             Condition::Speed(speed) => format!("speed{:+.0}pct", (speed - 1.0) * 100.0),
             Condition::KeyLock(tempo) => format!("key-lock{:+.0}pct", (tempo - 1.0) * 100.0),
         }
@@ -164,6 +199,15 @@ impl Condition {
                 Some("highpass=f=300,highpass=f=300,lowpass=f=3400,lowpass=f=3400")
             }
             Condition::Echo => Some("aecho=0.8:0.6:120|250:0.4|0.25"),
+            Condition::Broadcast => Some(BROADCAST),
+            _ => None,
+        }
+    }
+
+    /// Applied to the finished query, after any blend.
+    fn final_filter(self) -> Option<&'static str> {
+        match self {
+            Condition::Combined => Some(BROADCAST),
             _ => None,
         }
     }
@@ -171,13 +215,17 @@ impl Condition {
     fn encoding(self) -> Encoding {
         match self {
             Condition::Codec(encoding) => encoding,
+            Condition::Combined => COMBINED_ENCODING,
             _ => Encoding::Mp3(128),
         }
     }
 
     /// The second track of a blend counts as correct too.
     fn has_partner(self) -> bool {
-        matches!(self, Condition::Blend { .. })
+        matches!(
+            self,
+            Condition::Blend { .. } | Condition::Beatmatched { .. } | Condition::Combined
+        )
     }
 }
 
@@ -414,6 +462,8 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
             let native = render_samples(&source, start, needed, Playback::Turntable(1.0), None)?;
             ramp(&native, job.speed, job.speed + RAMP)
         }
+        Condition::Wow(hz) => wow(&source, start, job.speed, hz)?,
+        Condition::Combined => wow(&source, start, job.speed, 0.55)?,
         Condition::Skip => {
             let longer = render_samples(
                 &source,
@@ -447,6 +497,14 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
             )?;
             mixed(&samples, &partner, f64::from(partner_db))
         }
+        Condition::Beatmatched { partner_db } => {
+            let partner = beatmatched_partner(&samples, job, library)?;
+            mixed(&samples, &partner, f64::from(partner_db))
+        }
+        Condition::Combined => {
+            let partner = beatmatched_partner(&samples, job, library)?;
+            mixed(&samples, &partner, f64::from(COMBINED_PARTNER_DB))
+        }
         Condition::VoiceOver => laid_over(&samples, speech, VOICE_OVER_SPAN),
         Condition::Insert => replaced(&samples, speech, INSERT_SPAN),
         Condition::Clipping => clipped(&samples),
@@ -455,7 +513,58 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
     if let Some(dir) = job.path.parent() {
         fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     }
-    encode(&limited(samples), condition.encoding(), &job.path)
+    encode(
+        &limited(samples),
+        condition.final_filter(),
+        condition.encoding(),
+        &job.path,
+    )
+}
+
+/// The excerpt played at `speed` with wow at `hz`: output time `t` holds
+/// source time `speed * (t + d * (1 - cos(2 pi hz t)) / (2 pi hz))`, the
+/// integral of a speed `speed * (1 + d * sin(2 pi hz t))`.
+fn wow(source: &Path, start: f64, speed: f64, hz: f64) -> Result<Vec<f32>, String> {
+    let needed = EXCERPT_SECONDS * speed * (1.0 + WOW_DEPTH) + 1.0;
+    let native = render_samples(source, start, needed, Playback::Turntable(1.0), None)?;
+    let angular = 2.0 * std::f64::consts::PI * hz;
+    Ok(resampled(&native, |t| {
+        speed * (t + WOW_DEPTH * (1.0 - (angular * t).cos()) / angular)
+    }))
+}
+
+/// The partner track at the excerpt's tempo, its beats on the excerpt's,
+/// as a DJ beatmatches the next record. Tempos come from onset envelopes.
+/// When a tempo cannot be found, or matching would take the partner more
+/// than `PARTNER_RANGE` from its native speed, it plays at the excerpt's
+/// speed unmatched, as in `Blend`; stderr says so.
+fn beatmatched_partner(samples: &[f32], job: &Job, library: &Library) -> Result<Vec<f32>, String> {
+    let source = library.root.join(&job.partner.asset);
+    let start = job.partner.start_seconds;
+    let render =
+        |seconds, speed| render_samples(&source, start, seconds, Playback::Turntable(speed), None);
+    let plain = render(EXCERPT_SECONDS, job.speed)?;
+    let ours = onset_envelope(samples, RENDER_RATE);
+    let periods = beat_period(&ours).zip(beat_period(&onset_envelope(&plain, RENDER_RATE)));
+    let partner_speed = periods
+        .map(|(ours, theirs)| job.speed * theirs / ours)
+        .filter(|speed| (speed - 1.0).abs() <= PARTNER_RANGE);
+    let (Some(partner_speed), Some((period, _))) = (partner_speed, periods) else {
+        eprintln!(
+            "{} {:03}: partner not beatmatched (tempo not found or too far)",
+            job.condition.name(),
+            job.number
+        );
+        return Ok(plain);
+    };
+    let longer = render(EXCERPT_SECONDS + period + 0.5, partner_speed)?;
+    let lag = best_lag(
+        &ours,
+        &onset_envelope(&longer, RENDER_RATE),
+        (period * ENVELOPE_RATE).ceil() as usize,
+    );
+    let skip = seconds_to_index(lag as f64 / ENVELOPE_RATE).min(longer.len());
+    Ok(longer[skip..].to_vec())
 }
 
 /// Speech from macOS `say`, once per seed directory.
@@ -557,15 +666,21 @@ fn skip(longer: &[f32]) -> Vec<f32> {
 
 /// Native-speed audio played with a speed rising linearly from `from` to
 /// `to` over the excerpt: output time `t` holds source time
-/// `from * t + (to - from) * t^2 / (2 T)`. Linear interpolation is enough
-/// here: the analysis band ends at 4 kHz, far below the 44.1 kHz rate.
+/// `from * t + (to - from) * t^2 / (2 T)`.
 fn ramp(native: &[f32], from: f64, to: f64) -> Vec<f32> {
+    resampled(native, |t| {
+        from * t + (to - from) * t * t / (2.0 * EXCERPT_SECONDS)
+    })
+}
+
+/// An excerpt of native-speed audio whose output time `t` (seconds) holds
+/// source time `source_time(t)`. Linear interpolation is enough here: the
+/// analysis band ends at 4 kHz, far below the 44.1 kHz rate.
+fn resampled(native: &[f32], source_time: impl Fn(f64) -> f64) -> Vec<f32> {
     let rate = f64::from(RENDER_RATE);
-    let length = seconds_to_index(EXCERPT_SECONDS);
-    (0..length)
+    (0..seconds_to_index(EXCERPT_SECONDS))
         .map(|index| {
-            let t = index as f64 / rate;
-            let source = (from * t + (to - from) * t * t / (2.0 * EXCERPT_SECONDS)) * rate;
+            let source = source_time(index as f64 / rate) * rate;
             let before = source.floor() as usize;
             let fraction = (source - source.floor()) as f32;
             match (native.get(before), native.get(before + 1)) {

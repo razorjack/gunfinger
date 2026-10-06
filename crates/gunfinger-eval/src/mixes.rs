@@ -113,7 +113,7 @@ pub fn render(mix: &PlannedMix, library: &Library, output: &Path) -> Result<(), 
     if let Some(dir) = output.parent() {
         fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     }
-    encode(&limited(samples), Encoding::Mp3(128), output)
+    encode(&limited(samples), None, Encoding::Mp3(128), output)
 }
 
 /// One play's audio as it sounds in the mix. Where the bass is cut, the

@@ -145,13 +145,24 @@ pub fn render_samples(
         .collect())
 }
 
-/// Encodes mono samples at `RENDER_RATE` into `output`.
-pub fn encode(samples: &[f32], encoding: Encoding, output: &Path) -> Result<(), String> {
+/// Encodes mono samples at `RENDER_RATE` into `output`, through `filter`
+/// (an FFmpeg filter chain) when one is given.
+pub fn encode(
+    samples: &[f32],
+    filter: Option<&str>,
+    encoding: Encoding,
+    output: &Path,
+) -> Result<(), String> {
     let wav = output.with_extension("render.wav");
     write_wav(&wav, samples)?;
-    let status = Command::new("ffmpeg")
+    let mut command = Command::new("ffmpeg");
+    command
         .args(["-nostdin", "-v", "error", "-y", "-i"])
-        .arg(&wav)
+        .arg(&wav);
+    if let Some(filter) = filter {
+        command.args(["-af", filter]);
+    }
+    let status = command
         .args(encoding.codec_args())
         .arg(output)
         .stdin(Stdio::null())

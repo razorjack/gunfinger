@@ -7,6 +7,7 @@ mod calibrate;
 mod clusters;
 mod grid;
 mod hash_cost;
+mod loss;
 mod manifest;
 mod memory;
 mod mixes;
@@ -20,6 +21,7 @@ mod scoring;
 mod survival;
 mod sweep;
 mod synthetic;
+mod tempo;
 
 use std::fs;
 use std::num::NonZeroUsize;
@@ -142,6 +144,14 @@ enum Command {
     Grid {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
+    },
+    /// Attribute where a set's identified plays lose evidence: hits per
+    /// window against the reference hashes heard, on the rung, at the
+    /// fitted and the best local speed, beside a clean render of the same
+    /// stretch. For the development set only.
+    Loss {
+        #[arg(long, default_value = "stakka-skynet-knowledge")]
+        set: String,
     },
     /// Save the reports of the standard evaluation (sweep, development scan
     /// and leave-outs) as a named baseline under `work/baselines/`.
@@ -293,6 +303,23 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &report,
             )?;
             grid::print_summary(&report);
+            Ok(())
+        }
+        Command::Loss { set } => {
+            let report = loss::run(
+                &paths.sets(),
+                &paths.library()?,
+                &paths.store()?,
+                &paths.clusters()?,
+                &paths.work,
+                &loss::Options {
+                    set: &set,
+                    ladder: &paths.ladder.rungs(),
+                    jobs,
+                },
+            )?;
+            write_json(&paths.reports().join(format!("loss-{set}.json")), &report)?;
+            loss::print_summary(&report);
             Ok(())
         }
         Command::Memory {
