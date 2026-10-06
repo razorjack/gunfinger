@@ -55,14 +55,14 @@ for scope and rules.
 
 ## 6. Default-change package (opt-in)
 
-- [ ] Second pass plus the common-hash filter; threshold from calibration
-  data alone
-- [ ] Every robust condition with the filter on and off, both ladders,
-  brief excerpts, combined damage
-- [ ] Confident recall, possible recall and false candidates reported
-  separately
-- [ ] Full protocol, including the padded index
-- [ ] Case for adoption in the notes
+- [x] Second pass plus the common-hash filter; threshold from calibration
+  data alone (dropped and skipped lists; `FITTED_RULE` 240; experiment 0026)
+- [x] Every robust condition with the filter on and off, both ladders,
+  brief excerpts, combined damage (experiments 0026, 0027)
+- [x] Confident recall, possible recall and false candidates reported
+  separately (experiment 0027)
+- [x] Full protocol, including the padded index (experiments 0026, 0027)
+- [x] Case for adoption in the notes
 
 ## 7. Before tracks are added
 

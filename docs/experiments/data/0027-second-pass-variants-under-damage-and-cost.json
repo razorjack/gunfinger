@@ -1,0 +1,4402 @@
+{
+ "description": "Experiment 0027: robust (seed 2026) for the default, the second pass, and the second pass with the fullest 1% of posting lists dropped or skipped for candidates; padded index (30 reversed copies); cost. Confident at 240 recomputed from saved hits. File names only.",
+ "robust_both_ladders": {
+  "default": {
+   "totals": {
+    "confident": 1959,
+    "possible_or_better": 2258,
+    "wrong_confident": 0,
+    "wrong_possible": 46,
+    "strongest_wrong_hits": 104
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "beatmatched--6db -5%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 82
+    },
+    "beatmatched--6db +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65
+    },
+    "beatmatched-0db -5%": {
+     "confident": 12,
+     "possible_or_better": 30,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 37
+    },
+    "beatmatched-0db +3%": {
+     "confident": 13,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 104
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78
+    },
+    "broadcast -5%": {
+     "confident": 32,
+     "possible_or_better": 39,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 69
+    },
+    "broadcast +3%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 103
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 98
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 40
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 80
+    },
+    "echo -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68
+    },
+    "echo +3%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67
+    },
+    "clipping-12db -5%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63
+    },
+    "clipping-12db +3%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 71
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 39,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 14,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 22
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 14,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56
+    },
+    "blend--6db -5%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56
+    },
+    "blend-0db -5%": {
+     "confident": 13,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33
+    },
+    "blend-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 30
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77
+    },
+    "needle-skip-2s -5%": {
+     "confident": 0,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 94
+    },
+    "needle-skip-2s +3%": {
+     "confident": 1,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 15
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10
+    },
+    "key-lock-2pct -2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 87
+    },
+    "key-lock+2pct +2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 97
+    },
+    "key-lock-5pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 83
+    },
+    "key-lock+5pct +5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "key-lock+8pct +8%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 71
+    }
+   }
+  },
+  "second_pass": {
+   "totals": {
+    "confident": 2031,
+    "possible_or_better": 2274,
+    "wrong_confident": 0,
+    "wrong_possible": 43,
+    "strongest_wrong_hits": 108,
+    "confident_at_240": 1997
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 98,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 83,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 97,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 80,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 40,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 40
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 86,
+     "confident_at_240": 40
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 80,
+     "confident_at_240": 40
+    },
+    "echo -5%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68,
+     "confident_at_240": 37
+    },
+    "echo +3%": {
+     "confident": 39,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 38
+    },
+    "clipping-12db -5%": {
+     "confident": 35,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63,
+     "confident_at_240": 32
+    },
+    "clipping-12db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 71,
+     "confident_at_240": 33
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 37
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 51,
+     "confident_at_240": 38
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 18,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 19,
+     "confident_at_240": 0
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 15,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21,
+     "confident_at_240": 0
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 40
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 40
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 39
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56,
+     "confident_at_240": 40
+    },
+    "blend--6db -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 64,
+     "confident_at_240": 36
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 36
+    },
+    "blend-0db -5%": {
+     "confident": 17,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 32,
+     "confident_at_240": 15
+    },
+    "blend-0db +3%": {
+     "confident": 17,
+     "possible_or_better": 37,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 36,
+     "confident_at_240": 15
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 36,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77,
+     "confident_at_240": 40
+    },
+    "needle-skip-2s -5%": {
+     "confident": 18,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93,
+     "confident_at_240": 18
+    },
+    "needle-skip-2s +3%": {
+     "confident": 15,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77,
+     "confident_at_240": 15
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 108,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "broadcast -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 33
+    },
+    "broadcast +3%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63,
+     "confident_at_240": 35
+    },
+    "beatmatched--6db -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 82,
+     "confident_at_240": 34
+    },
+    "beatmatched--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 35
+    },
+    "beatmatched-0db -5%": {
+     "confident": 16,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 41,
+     "confident_at_240": 14
+    },
+    "beatmatched-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 41,
+     "confident_at_240": 13
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 2
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 13,
+     "confident_at_240": 0
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 14,
+     "confident_at_240": 0
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10,
+     "confident_at_240": 0
+    },
+    "key-lock-2pct -2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "key-lock+2pct +2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 97,
+     "confident_at_240": 40
+    },
+    "key-lock-5pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 81,
+     "confident_at_240": 40
+    },
+    "key-lock+5pct +5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "key-lock+8pct +8%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    }
+   }
+  },
+  "drop": {
+   "totals": {
+    "confident": 1954,
+    "possible_or_better": 2230,
+    "wrong_confident": 0,
+    "wrong_possible": 23,
+    "strongest_wrong_hits": 76,
+    "confident_at_240": 1884
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 37,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 32,
+     "confident_at_240": 39
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 52,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    },
+    "echo -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 32
+    },
+    "echo +3%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 44,
+     "confident_at_240": 32
+    },
+    "clipping-12db -5%": {
+     "confident": 29,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 26
+    },
+    "clipping-12db +3%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 26
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 35,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 28
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 41,
+     "confident_at_240": 31
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 11,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 13,
+     "confident_at_240": 0
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 11,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11,
+     "confident_at_240": 0
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 51,
+     "confident_at_240": 40
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 40
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 53,
+     "confident_at_240": 39
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 49,
+     "confident_at_240": 39
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 37
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 44,
+     "confident_at_240": 39
+    },
+    "blend--6db -5%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 30
+    },
+    "blend--6db +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 32
+    },
+    "blend-0db -5%": {
+     "confident": 14,
+     "possible_or_better": 30,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 28,
+     "confident_at_240": 10
+    },
+    "blend-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 30,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 20,
+     "confident_at_240": 12
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 40
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 59,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 30,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 59,
+     "confident_at_240": 40
+    },
+    "needle-skip-2s -5%": {
+     "confident": 5,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70,
+     "confident_at_240": 5
+    },
+    "needle-skip-2s +3%": {
+     "confident": 4,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 4
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "broadcast -5%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 29
+    },
+    "broadcast +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 49,
+     "confident_at_240": 32
+    },
+    "beatmatched--6db -5%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 57,
+     "confident_at_240": 28
+    },
+    "beatmatched--6db +3%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 31
+    },
+    "beatmatched-0db -5%": {
+     "confident": 14,
+     "possible_or_better": 27,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 27,
+     "confident_at_240": 9
+    },
+    "beatmatched-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 28,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 27,
+     "confident_at_240": 11
+    },
+    "combined -5%": {
+     "confident": 2,
+     "possible_or_better": 25,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 1,
+     "possible_or_better": 28,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21,
+     "confident_at_240": 1
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11,
+     "confident_at_240": 0
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "key-lock-2pct -2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 40
+    },
+    "key-lock+2pct +2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 75,
+     "confident_at_240": 40
+    },
+    "key-lock-5pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "key-lock+5pct +5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 62,
+     "confident_at_240": 40
+    },
+    "key-lock+8pct +8%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    }
+   }
+  },
+  "skip": {
+   "totals": {
+    "confident": 2031,
+    "possible_or_better": 2273,
+    "wrong_confident": 0,
+    "wrong_possible": 44,
+    "strongest_wrong_hits": 108,
+    "confident_at_240": 1995
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 86,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 97,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 40,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68,
+     "confident_at_240": 40
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 87,
+     "confident_at_240": 40
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 40
+    },
+    "echo -5%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70,
+     "confident_at_240": 37
+    },
+    "echo +3%": {
+     "confident": 39,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 38
+    },
+    "clipping-12db -5%": {
+     "confident": 35,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 32
+    },
+    "clipping-12db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 33
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 37
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 38
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 18,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 15,
+     "confident_at_240": 0
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 15,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 18,
+     "confident_at_240": 0
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 40
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 39
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    },
+    "blend--6db -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 36
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 36
+    },
+    "blend-0db -5%": {
+     "confident": 17,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 15
+    },
+    "blend-0db +3%": {
+     "confident": 17,
+     "possible_or_better": 36,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 35,
+     "confident_at_240": 15
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77,
+     "confident_at_240": 40
+    },
+    "needle-skip-2s -5%": {
+     "confident": 16,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 95,
+     "confident_at_240": 16
+    },
+    "needle-skip-2s +3%": {
+     "confident": 15,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 15
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 108,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 94,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "broadcast -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 33
+    },
+    "broadcast +3%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 35
+    },
+    "beatmatched--6db -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 82,
+     "confident_at_240": 34
+    },
+    "beatmatched--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 35
+    },
+    "beatmatched-0db -5%": {
+     "confident": 16,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 39,
+     "confident_at_240": 14
+    },
+    "beatmatched-0db +3%": {
+     "confident": 16,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 42,
+     "confident_at_240": 13
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 26,
+     "confident_at_240": 2
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 20,
+     "confident_at_240": 0
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "key-lock-2pct -2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 85,
+     "confident_at_240": 40
+    },
+    "key-lock+2pct +2%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 102,
+     "confident_at_240": 40
+    },
+    "key-lock-5pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 86,
+     "confident_at_240": 40
+    },
+    "key-lock+5pct +5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "key-lock+8pct +8%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 69,
+     "confident_at_240": 40
+    }
+   }
+  }
+ },
+ "robust_turntable": {
+  "default": {
+   "totals": {
+    "confident": 1759,
+    "possible_or_better": 2128,
+    "wrong_confident": 0,
+    "wrong_possible": 41,
+    "strongest_wrong_hits": 104
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 104
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78
+    },
+    "broadcast -5%": {
+     "confident": 32,
+     "possible_or_better": 39,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 69
+    },
+    "broadcast +3%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66
+    },
+    "beatmatched--6db -5%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 82
+    },
+    "beatmatched--6db +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65
+    },
+    "beatmatched-0db -5%": {
+     "confident": 12,
+     "possible_or_better": 30,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 37
+    },
+    "beatmatched-0db +3%": {
+     "confident": 13,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 103
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 98
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 40
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 80
+    },
+    "echo -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68
+    },
+    "echo +3%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67
+    },
+    "clipping-12db -5%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63
+    },
+    "clipping-12db +3%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 71
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 39,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 14,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 22
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 14,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56
+    },
+    "blend--6db -5%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56
+    },
+    "blend-0db -5%": {
+     "confident": 13,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33
+    },
+    "blend-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 30
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77
+    },
+    "needle-skip-2s -5%": {
+     "confident": 0,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 94
+    },
+    "needle-skip-2s +3%": {
+     "confident": 1,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 15
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 7
+    },
+    "key-lock-2pct -2%": {
+     "confident": 0,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50
+    },
+    "key-lock+2pct +2%": {
+     "confident": 0,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50
+    },
+    "key-lock-5pct -5%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10
+    },
+    "key-lock+5pct +5%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 12
+    },
+    "key-lock+8pct +8%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10
+    }
+   }
+  },
+  "second_pass": {
+   "totals": {
+    "confident": 1861,
+    "possible_or_better": 2146,
+    "wrong_confident": 0,
+    "wrong_possible": 38,
+    "strongest_wrong_hits": 108,
+    "confident_at_240": 1805
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 98,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 83,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 97,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 80,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 40,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 40
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 86,
+     "confident_at_240": 40
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 80,
+     "confident_at_240": 40
+    },
+    "echo -5%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68,
+     "confident_at_240": 37
+    },
+    "echo +3%": {
+     "confident": 39,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 38
+    },
+    "clipping-12db -5%": {
+     "confident": 35,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63,
+     "confident_at_240": 32
+    },
+    "clipping-12db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 71,
+     "confident_at_240": 33
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 37
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 51,
+     "confident_at_240": 38
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 18,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 19,
+     "confident_at_240": 0
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 15,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21,
+     "confident_at_240": 0
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 40
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 40
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 39
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56,
+     "confident_at_240": 40
+    },
+    "blend--6db -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 64,
+     "confident_at_240": 36
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 36
+    },
+    "blend-0db -5%": {
+     "confident": 17,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 32,
+     "confident_at_240": 15
+    },
+    "blend-0db +3%": {
+     "confident": 17,
+     "possible_or_better": 37,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 36,
+     "confident_at_240": 15
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 36,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77,
+     "confident_at_240": 40
+    },
+    "needle-skip-2s -5%": {
+     "confident": 18,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93,
+     "confident_at_240": 18
+    },
+    "needle-skip-2s +3%": {
+     "confident": 15,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77,
+     "confident_at_240": 15
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 108,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "broadcast -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 33
+    },
+    "broadcast +3%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63,
+     "confident_at_240": 35
+    },
+    "beatmatched--6db -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 82,
+     "confident_at_240": 34
+    },
+    "beatmatched--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 35
+    },
+    "beatmatched-0db -5%": {
+     "confident": 16,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 41,
+     "confident_at_240": 14
+    },
+    "beatmatched-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 41,
+     "confident_at_240": 13
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 2
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 12,
+     "confident_at_240": 0
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 8,
+     "confident_at_240": 0
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 14,
+     "confident_at_240": 0
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 7,
+     "confident_at_240": 0
+    },
+    "key-lock-2pct -2%": {
+     "confident": 11,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 47,
+     "confident_at_240": 2
+    },
+    "key-lock+2pct +2%": {
+     "confident": 19,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 6
+    },
+    "key-lock-5pct -5%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11,
+     "confident_at_240": 0
+    },
+    "key-lock+5pct +5%": {
+     "confident": 0,
+     "possible_or_better": 2,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 14,
+     "confident_at_240": 0
+    },
+    "key-lock+8pct +8%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10,
+     "confident_at_240": 0
+    }
+   }
+  },
+  "drop": {
+   "totals": {
+    "confident": 1760,
+    "possible_or_better": 2097,
+    "wrong_confident": 0,
+    "wrong_possible": 20,
+    "strongest_wrong_hits": 76,
+    "confident_at_240": 1686
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 37,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 32,
+     "confident_at_240": 39
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 52,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    },
+    "echo -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 32
+    },
+    "echo +3%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 44,
+     "confident_at_240": 32
+    },
+    "clipping-12db -5%": {
+     "confident": 29,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 26
+    },
+    "clipping-12db +3%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 26
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 35,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 28
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 41,
+     "confident_at_240": 31
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 11,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 13,
+     "confident_at_240": 0
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 11,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11,
+     "confident_at_240": 0
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 51,
+     "confident_at_240": 40
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 40
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 53,
+     "confident_at_240": 39
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 49,
+     "confident_at_240": 39
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 37
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 44,
+     "confident_at_240": 39
+    },
+    "blend--6db -5%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 30
+    },
+    "blend--6db +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 32
+    },
+    "blend-0db -5%": {
+     "confident": 14,
+     "possible_or_better": 30,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 28,
+     "confident_at_240": 10
+    },
+    "blend-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 30,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 20,
+     "confident_at_240": 12
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 40
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 59,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 30,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 59,
+     "confident_at_240": 40
+    },
+    "needle-skip-2s -5%": {
+     "confident": 5,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70,
+     "confident_at_240": 5
+    },
+    "needle-skip-2s +3%": {
+     "confident": 4,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 65,
+     "confident_at_240": 4
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 63,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 40
+    },
+    "broadcast -5%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 29
+    },
+    "broadcast +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 49,
+     "confident_at_240": 32
+    },
+    "beatmatched--6db -5%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 57,
+     "confident_at_240": 28
+    },
+    "beatmatched--6db +3%": {
+     "confident": 33,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 31
+    },
+    "beatmatched-0db -5%": {
+     "confident": 14,
+     "possible_or_better": 27,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 27,
+     "confident_at_240": 9
+    },
+    "beatmatched-0db +3%": {
+     "confident": 14,
+     "possible_or_better": 28,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 27,
+     "confident_at_240": 11
+    },
+    "combined -5%": {
+     "confident": 2,
+     "possible_or_better": 25,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 1,
+     "possible_or_better": 28,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21,
+     "confident_at_240": 1
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 11,
+     "confident_at_240": 0
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "key-lock-2pct -2%": {
+     "confident": 2,
+     "possible_or_better": 31,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 36,
+     "confident_at_240": 1
+    },
+    "key-lock+2pct +2%": {
+     "confident": 4,
+     "possible_or_better": 36,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 1
+    },
+    "key-lock-5pct -5%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "key-lock+5pct +5%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10,
+     "confident_at_240": 0
+    },
+    "key-lock+8pct +8%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 8,
+     "confident_at_240": 0
+    }
+   }
+  },
+  "skip": {
+   "totals": {
+    "confident": 1860,
+    "possible_or_better": 2144,
+    "wrong_confident": 0,
+    "wrong_possible": 39,
+    "strongest_wrong_hits": 108,
+    "confident_at_240": 1802
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 86,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "bass-boost-12db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 97,
+     "confident_at_240": 40
+    },
+    "bass-cut-250hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 89,
+     "confident_at_240": 40
+    },
+    "low-pass-2khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 40
+    },
+    "low-pass-800hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 40,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "high-pass-1khz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 68,
+     "confident_at_240": 40
+    },
+    "telephone -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 87,
+     "confident_at_240": 40
+    },
+    "telephone +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 40
+    },
+    "echo -5%": {
+     "confident": 38,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 70,
+     "confident_at_240": 37
+    },
+    "echo +3%": {
+     "confident": 39,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 38
+    },
+    "clipping-12db -5%": {
+     "confident": 35,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 32
+    },
+    "clipping-12db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 33
+    },
+    "pink-noise-snr-10db -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 37
+    },
+    "pink-noise-snr-10db +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 58,
+     "confident_at_240": 38
+    },
+    "pink-noise-snr-0db -5%": {
+     "confident": 0,
+     "possible_or_better": 18,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 15,
+     "confident_at_240": 0
+    },
+    "pink-noise-snr-0db +3%": {
+     "confident": 0,
+     "possible_or_better": 15,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 18,
+     "confident_at_240": 0
+    },
+    "mp3-64k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "mp3-64k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 79,
+     "confident_at_240": 40
+    },
+    "mp3-32k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 78,
+     "confident_at_240": 40
+    },
+    "mp3-32k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 54,
+     "confident_at_240": 40
+    },
+    "aac-48k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "aac-48k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 40
+    },
+    "opus-24k -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 60,
+     "confident_at_240": 39
+    },
+    "opus-24k +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 50,
+     "confident_at_240": 40
+    },
+    "blend--6db -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 36
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 36
+    },
+    "blend-0db -5%": {
+     "confident": 17,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 15
+    },
+    "blend-0db +3%": {
+     "confident": 17,
+     "possible_or_better": 36,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 35,
+     "confident_at_240": 15
+    },
+    "voice-over -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "voice-over +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 76,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 46,
+     "confident_at_240": 40
+    },
+    "speech-insert-8s +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 77,
+     "confident_at_240": 40
+    },
+    "needle-skip-2s -5%": {
+     "confident": 16,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 95,
+     "confident_at_240": 16
+    },
+    "needle-skip-2s +3%": {
+     "confident": 15,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 15
+    },
+    "pitch-ride-2pct -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "pitch-ride-2pct +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 108,
+     "confident_at_240": 40
+    },
+    "wow-0.55hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 94,
+     "confident_at_240": 40
+    },
+    "wow-0.75hz +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 91,
+     "confident_at_240": 40
+    },
+    "broadcast -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 73,
+     "confident_at_240": 33
+    },
+    "broadcast +3%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 66,
+     "confident_at_240": 35
+    },
+    "beatmatched--6db -5%": {
+     "confident": 37,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 82,
+     "confident_at_240": 34
+    },
+    "beatmatched--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 72,
+     "confident_at_240": 35
+    },
+    "beatmatched-0db -5%": {
+     "confident": 16,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 39,
+     "confident_at_240": 14
+    },
+    "beatmatched-0db +3%": {
+     "confident": 16,
+     "possible_or_better": 35,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 42,
+     "confident_at_240": 13
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 26,
+     "confident_at_240": 2
+    },
+    "speed-10pct -10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 20,
+     "confident_at_240": 0
+    },
+    "speed-12pct -12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed-16pct -16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "speed+10pct +10%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 9,
+     "confident_at_240": 0
+    },
+    "speed+12pct +12%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "speed+16pct +16%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 0,
+     "confident_at_240": 0
+    },
+    "key-lock-2pct -2%": {
+     "confident": 8,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 47,
+     "confident_at_240": 2
+    },
+    "key-lock+2pct +2%": {
+     "confident": 21,
+     "possible_or_better": 36,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 5
+    },
+    "key-lock-5pct -5%": {
+     "confident": 0,
+     "possible_or_better": 2,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 6,
+     "confident_at_240": 0
+    },
+    "key-lock+5pct +5%": {
+     "confident": 0,
+     "possible_or_better": 1,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 10,
+     "confident_at_240": 0
+    },
+    "key-lock+8pct +8%": {
+     "confident": 0,
+     "possible_or_better": 0,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 8,
+     "confident_at_240": 0
+    }
+   }
+  }
+ },
+ "padded_robust": {
+  "default": {
+   "totals": {
+    "confident": 157,
+    "possible_or_better": 224,
+    "wrong_confident": 0,
+    "wrong_possible": 3,
+    "strongest_wrong_hits": 93
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 93
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 84
+    },
+    "blend--6db -5%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 61
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 56
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45
+    }
+   }
+  },
+  "drop": {
+   "totals": {
+    "confident": 150,
+    "possible_or_better": 210,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 67,
+    "confident_at_240": 141
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 55,
+     "confident_at_240": 40
+    },
+    "blend--6db -5%": {
+     "confident": 32,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 45,
+     "confident_at_240": 29
+    },
+    "blend--6db +3%": {
+     "confident": 34,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 30
+    },
+    "combined -5%": {
+     "confident": 2,
+     "possible_or_better": 25,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 33,
+     "confident_at_240": 1
+    },
+    "combined +3%": {
+     "confident": 2,
+     "possible_or_better": 25,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 21,
+     "confident_at_240": 1
+    }
+   }
+  },
+  "skip": {
+   "totals": {
+    "confident": 159,
+    "possible_or_better": 225,
+    "wrong_confident": 0,
+    "wrong_possible": 3,
+    "strongest_wrong_hits": 100,
+    "confident_at_240": 156
+   },
+   "rows": {
+    "control -5%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 100,
+     "confident_at_240": 40
+    },
+    "control +3%": {
+     "confident": 40,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 88,
+     "confident_at_240": 40
+    },
+    "blend--6db -5%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 1,
+     "strongest_wrong_hits": 67,
+     "confident_at_240": 36
+    },
+    "blend--6db +3%": {
+     "confident": 36,
+     "possible_or_better": 40,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 48,
+     "confident_at_240": 36
+    },
+    "combined -5%": {
+     "confident": 3,
+     "possible_or_better": 32,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 43,
+     "confident_at_240": 2
+    },
+    "combined +3%": {
+     "confident": 4,
+     "possible_or_better": 33,
+     "wrong_confident": 0,
+     "wrong_possible": 0,
+     "strongest_wrong_hits": 26,
+     "confident_at_240": 2
+    }
+   }
+  }
+ },
+ "padded_development_scan": {
+  "default": {
+   "identified": "11/11",
+   "user_cpu_seconds": 1844,
+   "detections": 125666,
+   "strongest_chance_on_reversed_copy": 31
+  },
+  "drop": {
+   "identified": "11/11",
+   "user_cpu_seconds": 686,
+   "detections": 2103,
+   "strongest_chance_on_reversed_copy": 18
+  },
+  "skip": {
+   "identified": "11/11",
+   "user_cpu_seconds": 689,
+   "detections": 2102,
+   "strongest_chance_on_reversed_copy": 25
+  }
+ },
+ "scale_proxy_26462_assets_5_minutes_1_worker": {
+  "default": {
+   "user_cpu_seconds": [
+    457,
+    460,
+    462
+   ],
+   "first_pass_distinct_lines": 1744450,
+   "first_pass_detections": 13439
+  },
+  "second_pass": {
+   "user_cpu_seconds": [
+    473
+   ]
+  },
+  "drop": {
+   "user_cpu_seconds": [
+    193,
+    194
+   ],
+   "first_pass_distinct_lines": 112114,
+   "first_pass_detections": 329,
+   "resident_mb_after_build": 5594
+  },
+  "skip": {
+   "user_cpu_seconds": [
+    190,
+    197
+   ],
+   "first_pass_distinct_lines": 112114,
+   "first_pass_detections": 329
+  },
+  "peak_footprint_note": "build of experiment 0021 (default) peaked at 6.5 GB here against 4.1 GB in 0021; current default 7.7-8.7 GB, second pass 4.9 GB, skip 4.7-5.1 GB, drop 5.5-7.3 GB; not comparable under memory pressure"
+ },
+ "user_cpu_seconds": {
+  "robust_both_ladders": {
+   "second_pass": 6836,
+   "drop": 6257,
+   "skip": 6667
+  },
+  "robust_turntable": {
+   "second_pass": 4718,
+   "drop": 4322,
+   "skip": 4105
+  },
+  "sweeps_2027_2029": {
+   "second_pass": [
+    1714,
+    1705,
+    1688
+   ],
+   "drop": [
+    1538,
+    1533,
+    1534
+   ],
+   "skip": [
+    1558,
+    1556,
+    1591
+   ]
+  },
+  "regress": {
+   "second_pass": 2425,
+   "drop": 2067,
+   "skip": 2227
+  },
+  "grid": {
+   "drop": 4399,
+   "skip": 4784
+  },
+  "mixes": {
+   "drop": 283,
+   "skip": 306
+  }
+ }
+}
