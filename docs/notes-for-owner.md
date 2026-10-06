@@ -72,3 +72,27 @@ checked the ffplay commands with `listen --print` and ran the same filters
 through FFmpeg into a null output, but I have not heard them. Please try
 `gunfinger listen <report> --at <time>` once; if ffplay misbehaves, the
 printed commands show exactly what runs.
+
+### A hundredfold library barely moves chance; memory is the first limit
+
+Experiment 0012 padded the index with reversed, stretched copies of every
+record (up to 21,109 assets, about 80 times your library). Chance
+alignments grow slowly: an excerpt's typical strongest wrong candidate went
+from 7 to 12 hits, and over the whole development mix at 8,122 assets the
+strongest chance alignment was 30 hits (possible needs 60, confident 200).
+Results on real tracks did not change at all. Reversed copies contain no
+shared breaks or remixes, so this is a lower bound; real false candidates
+(remixes, 91-95 hits) remain the ones that matter, and breakbeat hardcore
+is the case to measure when you add it.
+
+What did break: the development scan at 26,462 assets needed more memory
+than was free beside your open applications and swapped until I stopped
+it. At that size the on-disk index (ADR 0005) stops being optional.
+
+### Summing a play's segments is not worth it yet
+
+Experiment 0011 checked, on existing reports, what happens if a play's
+segments were added up. Summing every segment lets chance reach 109-125
+hits on long stretches; summing only segments of 60 hits or more creates no
+false group, but would not have helped any track we know about (Sin's two
+segments sum to 168, still under 200). No change.
