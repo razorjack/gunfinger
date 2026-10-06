@@ -41,11 +41,28 @@ Read, in this order:
 
 The core follows the pipeline: `decode` (FFmpeg) → `spectrogram` → `peaks` →
 `store` (the peak store, source of truth) → `hash` → `index` → `speed` (the
-ladder) → `search` (`lines` per window, `chains` across windows) →
-`confidence`. `profile` holds the front-end parameters; changing one
-invalidates every peak record. Around it: `library` finds the audio files,
-`indexing` brings the peak store up to date, `parallel` runs one item per
-worker thread, `timecode` parses and formats times.
+ladders of turntable and key-locked rungs) → `search` (`lines` per window,
+`chains` across windows) → `confidence` → `plays` (segments of one asset
+grouped, same-audio plays merged). `profile` holds the front-end
+parameters; changing one invalidates every peak record. Around it:
+`library` finds the audio files, `indexing` brings the peak store up to
+date (and remembers files that failed or are too long), `parallel` runs one
+item per worker thread, `timecode` parses and formats times.
+
+In the CLI, `identify` searches and builds a `report` (the JSON report),
+`explain` shows the evidence at one moment of a mix, and `show`, `listen`
+and `review` read a saved report. Reports render through `output`
+(`table`, `timeline`, `export`). `config` resolves
+flags, environment and the configuration file; `console` and `style` own
+messages and colour; `catalog` loads the index from the peak store;
+`survey` compares the peak store with the library for `doctor` and
+`prune`; `names` reads track names from tags; `playback` picks the ladder.
+
+The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
+(transformed excerpts), `synthetic` (the scale proxy), `clusters` and
+`related` (self-match of the library) on top of `manifest` and `scoring`.
+Python scripts that summarise harness reports for experiments live in
+`scripts/analysis/`.
 
 `gunfinger-eval` depends on `gunfinger-core`, never the reverse. The CLI and the
 core never see a manifest, a set name or a track title. No per-track, per-set
