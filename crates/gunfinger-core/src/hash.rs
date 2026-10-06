@@ -53,24 +53,32 @@ impl From<&Peak> for Point {
 /// Calls `emit(hash, anchor)` for every pair, where `anchor` indexes
 /// `points`. Points must be ordered by frame (to within a frame).
 pub fn for_each_pair(points: &[Point], mut emit: impl FnMut(PairHash, usize)) {
-    for (anchor, a) in points.iter().enumerate() {
-        let mut paired = 0;
-        for b in &points[anchor + 1..] {
-            let delta_frames = (b.frame - a.frame).round();
-            if delta_frames > MAX_DELTA_FRAMES {
-                break;
-            }
-            let delta_bins = (b.bin - a.bin).round();
-            if delta_frames < 1.0 || delta_bins.abs() > MAX_DELTA_BINS {
-                continue;
-            }
-            emit(pack(a.bin, delta_bins, delta_frames), anchor);
-            paired += 1;
-            if paired == FAN_OUT {
-                break;
-            }
+    for anchor in 0..points.len() {
+        for target in targets(points, anchor).take(FAN_OUT) {
+            emit(pair_hash(points[anchor], points[target]), anchor);
         }
     }
+}
+
+/// Indexes of the points in the target zone of `points[anchor]`, nearest
+/// in time first.
+pub fn targets(points: &[Point], anchor: usize) -> impl Iterator<Item = usize> + '_ {
+    let a = points[anchor];
+    (anchor + 1..points.len())
+        .take_while(move |&target| (points[target].frame - a.frame).round() <= MAX_DELTA_FRAMES)
+        .filter(move |&target| {
+            let b = points[target];
+            (b.frame - a.frame).round() >= 1.0 && (b.bin - a.bin).round().abs() <= MAX_DELTA_BINS
+        })
+}
+
+/// The hash of an anchor and a point in its target zone.
+pub fn pair_hash(anchor: Point, target: Point) -> PairHash {
+    pack(
+        anchor.bin,
+        (target.bin - anchor.bin).round(),
+        (target.frame - anchor.frame).round(),
+    )
 }
 
 fn pack(anchor_bin: f32, delta_bins: f32, delta_frames: f64) -> PairHash {

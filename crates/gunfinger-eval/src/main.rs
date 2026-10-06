@@ -5,6 +5,7 @@
 
 mod calibrate;
 mod clusters;
+mod hash_cost;
 mod manifest;
 mod regress;
 mod related;
@@ -68,6 +69,12 @@ enum Command {
     Survival {
         /// Library assets to measure, relative to the library root.
         assets: Vec<String>,
+    },
+    /// Estimate what pairs and triplets of peaks cost (postings, lookups)
+    /// and keep (hashes at the true alignment) on the robustness excerpts.
+    HashCost {
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
     },
     /// Find duplicate clusters by matching the library against itself.
     Clusters,
@@ -157,6 +164,14 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
         Command::Survival { assets } => {
             survival::run(&paths.library()?, &paths.store()?, &assets, &paths.work)
         }
+        Command::HashCost { seed } => hash_cost::run(
+            &paths.library()?,
+            &paths.store()?,
+            &paths.clusters()?,
+            seed,
+            &paths.work,
+            jobs(),
+        ),
         Command::Clusters => find_clusters(paths),
         Command::Related => {
             let related = related::find(
