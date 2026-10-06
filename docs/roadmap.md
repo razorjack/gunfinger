@@ -46,7 +46,14 @@ that motivates it where one exists.
   `docs/calibration.md` lists the procedure and what to change. The proxy
   with reversed copies (experiment 0012) shows chance alignments growing
   slowly up to 21,109 assets; shared breaks and remixes, which the proxy
-  lacks, need a larger real library.
+  lacks, need a larger real library (experiment 0015 lists the ones in
+  this library).
+- **Lookup cost.** Emptying the fullest 1% of posting lists cuts the
+  postings a query scans by 62% and passes the full protocol with a wider
+  margin (experiments 0013, 0017); adopt it before the library grows.
+  Triplet hashes would cut lookups 25-79 times at a cost in robustness
+  (experiment 0014, offline); a search variant is the next step if lookups
+  still dominate.
 - **Evidence summed across a play.** Plays (ADR 0006) show Fibre Optix
   "Sin", faded out for a station insert, as one possible play of two
   segments (168 hits). Experiment 0011 measured the null offline: summing
@@ -54,8 +61,9 @@ that motivates it where one exists.
   at least 60 hits gave no false group, but no measured track would gain.
   Revisit when a missed play's possible segments sum past 200.
 - **Key lock by default.** `identify --playback both` finds key-locked
-  plays (experiment 0010) at twice the search time. Making it the default
-  needs the full protocol with both ladders and an idle-machine timing.
+  plays (experiment 0010) and passes the full protocol with unchanged
+  thresholds (experiment 0016); the search takes about a third longer.
+  The owner decides whether it becomes the default.
 - **Robustness gaps.** Experiment 0009 found no false identification under
   32 kinds of damage. Still untested: scratching, doubles (two copies of a
   record played together), long blends of more than 30 s, and speeds

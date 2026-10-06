@@ -414,7 +414,25 @@ evaluation was spent (2 of 5 used).
   ladder.
 - **Key lock (0010).** Key-locked rungs (time stretched, frequency kept)
   find every key-locked excerpt at ±2-8% and leave turntable results as
-  they were. Opt-in: `identify --playback both`, twice the search time.
+  they were. Opt-in: `identify --playback both`; with both ladders the
+  full protocol passes with unchanged thresholds (0016), about a third
+  slower.
 - **Summed play evidence (0011).** Offline null: no change.
 - **Scale proxy (0012).** Reversed, stretched copies of the library up to
   21,109 assets: chance alignments grow slowly; memory runs out first.
+- **Lookup cost (0013, 0017).** Emptying the fullest 1% of posting lists
+  cuts the postings a query scans by 62% and own-track hits by 17%, and
+  removes most chance evidence; it passes the full protocol with a wider
+  margin (5.86×). Harness option only; adopting it is the owner's call.
+- **Triplet hashes (0014).** Estimated offline: 25-79 times fewer lookups,
+  about half the evidence under heavy damage. Not built into search.
+- **Related recordings (0015).** 21 pairs of different recordings share 30
+  or more hits, 5 reach the possible tier (strongest 130, two Aphrodite
+  drum versions), none 200.
+- **Key lock through the full protocol (0016).** Both ladders pass with
+  unchanged thresholds at about 1.3 times the search time. `playback` in
+  the configuration file sets the default per library; the built-in
+  default stays turntable.
+- Timings this night were noisy (load average above 100 while the
+  harness ran); relative timings were interleaved, lookup savings counted
+  exactly.
