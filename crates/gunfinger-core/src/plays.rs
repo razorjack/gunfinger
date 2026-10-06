@@ -38,6 +38,16 @@ impl Play {
         self.segments[self.segments.len() - 1].end_seconds
     }
 
+    /// Position in the track where the play's first segment starts.
+    pub fn track_start_seconds(&self) -> f64 {
+        self.segments[0].track_start_seconds
+    }
+
+    /// Position in the track where the play's last segment ends.
+    pub fn track_end_seconds(&self) -> f64 {
+        self.segments[self.segments.len() - 1].track_end_seconds
+    }
+
     /// The strongest segment's confidence. Segments are not pooled into a
     /// stronger claim: evidence summed across gaps has no calibrated null.
     pub fn confidence(&self) -> Confidence {
@@ -122,6 +132,8 @@ mod tests {
             asset: AssetId(asset),
             start_seconds,
             end_seconds,
+            track_start_seconds: 0.0,
+            track_end_seconds: end_seconds - start_seconds,
             speed: SpeedRatio(1.0 + f64::from(hits) / 1e5),
             evidence: Evidence { windows: 4, hits },
         }

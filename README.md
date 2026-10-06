@@ -67,10 +67,11 @@ the default is one per core. Files longer than 20 minutes are skipped by
 `index` (`--max-track-minutes`). `identify --exclude-from FILE` leaves the
 listed library paths out of the index.
 
-Human output is one table of plays in time order: time span, speed,
-confidence (`confident` or `possible`), hits and asset path. A play of
-several segments lists them underneath. `--format json` gives the same
-plays with their segments (`schema_version` 2).
+Human output is one table of plays in time order: time span in the
+recording, the part of the track that was heard, speed, confidence
+(`confident` or `possible`), hits and asset path. A play of several segments
+lists them underneath. `--format json` gives the same plays with their
+segments (`schema_version` 2; fields may be added without a version change).
 
 ## Development
 
