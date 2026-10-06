@@ -14,7 +14,6 @@ use std::time::Instant;
 
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::{Excerpt, decode};
-use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
@@ -283,14 +282,12 @@ pub fn run(
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let plan = Plan::draw(&records, clusters, seed);
-    let mut indexed: Vec<PeakRecord> = records
+    let indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !plan.held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let copies = synthetic::copies(&indexed, synthetic_copies, &profile);
-    indexed.extend(copies);
-    let index = Index::build(&indexed)
+    let index = synthetic::index_with_copies(&indexed, synthetic_copies, &profile)
         .map_err(|error| error.to_string())?
         .without_fullest(drop_fullest);
     drop(indexed);

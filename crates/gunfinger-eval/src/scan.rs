@@ -79,10 +79,8 @@ pub fn run(
         Some(leave_out) => draw_left_out(&set, clusters, leave_out),
         None => (Vec::new(), BTreeSet::new()),
     };
-    let (mut records, _) = load_records(library, store, &profile, &left_out_assets);
-    let copies = synthetic::copies(&records, synthetic_copies, &profile);
-    records.extend(copies);
-    let index = Index::build(&records)
+    let (records, _) = load_records(library, store, &profile, &left_out_assets);
+    let index = synthetic::index_with_copies(&records, synthetic_copies, &profile)
         .map_err(|error| error.to_string())?
         .without_fullest(drop_fullest);
     drop(records);

@@ -96,26 +96,16 @@ pub fn run(
 
 fn measure(catalog: &Catalog) -> miette::Result<Stats> {
     let profile = Profile::CURRENT;
-    let audio_seconds: f64 = catalog
-        .records
-        .iter()
-        .map(|record| record.header.duration_seconds)
-        .sum();
+    let assets = catalog.index.assets();
+    let audio_seconds: f64 = assets.iter().map(|asset| asset.duration_seconds).sum();
     let mut store_bytes = 0;
-    for record in &catalog.records {
-        store_bytes += catalog
-            .store
-            .record_bytes(&record.header.source.path)
-            .into_diagnostic()?;
+    for asset in assets {
+        store_bytes += catalog.store.record_bytes(&asset.path).into_diagnostic()?;
     }
-    let peak_count: usize = catalog
-        .records
-        .iter()
-        .map(|record| record.peaks.len())
-        .sum();
+    let census = peak_census(catalog, &profile);
     let postings = catalog.index.posting_count();
     let index_bytes = catalog.index.size_bytes();
-    let mean_track_seconds = audio_seconds / catalog.records.len() as f64;
+    let mean_track_seconds = audio_seconds / assets.len() as f64;
     let projected_seconds = PROJECTED_TRACKS * mean_track_seconds;
     let postings_per_second = postings as f64 / audio_seconds;
     let posting_bytes = size_of::<Posting>() as f64;
@@ -123,15 +113,22 @@ fn measure(catalog: &Catalog) -> miette::Result<Stats> {
 
     Ok(Stats {
         schema_version: 1,
-        assets: catalog.records.len(),
+        assets: assets.len(),
         audio_seconds,
         mean_track_seconds,
         peaks: Peaks {
-            count: peak_count,
-            per_second: peak_count as f64 / audio_seconds,
+            count: census.count,
+            per_second: census.count as f64 / audio_seconds,
             store_bytes,
             store_bytes_per_second: store_bytes as f64 / audio_seconds,
-            band_shares: band_shares(catalog, &profile),
+            band_shares: BAND_EDGES_HZ
+                .iter()
+                .zip(census.per_band)
+                .map(|(&up_to_hz, count)| Band {
+                    up_to_hz,
+                    share: count as f64 / census.count.max(1) as f64,
+                })
+                .collect(),
         },
         index: IndexSize {
             postings,
@@ -153,26 +150,33 @@ fn measure(catalog: &Catalog) -> miette::Result<Stats> {
     })
 }
 
-fn band_shares(catalog: &Catalog, profile: &Profile) -> Vec<Band> {
-    let mut counts = [0_usize; BAND_EDGES_HZ.len()];
-    let mut total = 0_usize;
-    for peak in catalog.records.iter().flat_map(|record| &record.peaks) {
-        let hz = f64::from(peak.bin) * profile.bin_hz();
-        let band = BAND_EDGES_HZ
-            .iter()
-            .position(|&edge| hz < edge)
-            .unwrap_or(BAND_EDGES_HZ.len() - 1);
-        counts[band] += 1;
-        total += 1;
+struct PeakCensus {
+    count: usize,
+    per_band: [usize; BAND_EDGES_HZ.len()],
+}
+
+/// Peaks of the indexed assets, counted per octave band. The catalog keeps
+/// no peak records, so they are read again one at a time.
+fn peak_census(catalog: &Catalog, profile: &Profile) -> PeakCensus {
+    let mut census = PeakCensus {
+        count: 0,
+        per_band: [0; BAND_EDGES_HZ.len()],
+    };
+    for asset in &catalog.library.assets {
+        let Ok(record) = catalog.store.load(asset, profile) else {
+            continue;
+        };
+        for peak in &record.peaks {
+            let hz = f64::from(peak.bin) * profile.bin_hz();
+            let band = BAND_EDGES_HZ
+                .iter()
+                .position(|&edge| hz < edge)
+                .unwrap_or(BAND_EDGES_HZ.len() - 1);
+            census.per_band[band] += 1;
+            census.count += 1;
+        }
     }
-    BAND_EDGES_HZ
-        .iter()
-        .zip(counts)
-        .map(|(&up_to_hz, count)| Band {
-            up_to_hz,
-            share: count as f64 / total.max(1) as f64,
-        })
-        .collect()
+    census
 }
 
 /// Bytes the posting lists would take delta-coded. A list is ordered by asset

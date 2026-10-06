@@ -9,6 +9,7 @@
 //! is a lower bound: a real library of the same size also holds remixes,
 //! shared breaks and samples.
 
+use gunfinger_core::index::{Index, IndexError};
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakRecord, RecordHeader};
@@ -22,9 +23,38 @@ const STRETCHES: [f64; 11] = [
 /// The most copies `copies` can make of each record.
 pub const MAX_COPIES: usize = STRETCHES.len() * STRETCHES.len();
 
+/// The index of `records` followed by `count` reversed copies of each. The
+/// copies are made one at a time, once for each pass of the build, so the
+/// padded index needs little more memory than the index itself.
+pub fn index_with_copies(
+    records: &[PeakRecord],
+    count: usize,
+    profile: &Profile,
+) -> Result<Index, IndexError> {
+    let mut counting = Index::counting();
+    for record in records {
+        counting.count(record)?;
+    }
+    for copy in copies(records, count, profile) {
+        counting.count(&copy)?;
+    }
+    let mut filling = counting.into_filling();
+    for record in records {
+        filling.fill(record)?;
+    }
+    for copy in copies(records, count, profile) {
+        filling.fill(&copy)?;
+    }
+    filling.finish()
+}
+
 /// `count` reversed copies of every record, the least stretched first,
-/// named `synthetic/<copy>/<path>`.
-pub fn copies(records: &[PeakRecord], count: usize, profile: &Profile) -> Vec<PeakRecord> {
+/// named `synthetic/<copy>/<path>`, made as they are taken.
+pub fn copies<'a>(
+    records: &'a [PeakRecord],
+    count: usize,
+    profile: &'a Profile,
+) -> impl Iterator<Item = PeakRecord> + 'a {
     let mut stretches: Vec<(f64, f64)> = STRETCHES
         .iter()
         .flat_map(|&time| STRETCHES.iter().map(move |&frequency| (time, frequency)))
@@ -33,16 +63,15 @@ pub fn copies(records: &[PeakRecord], count: usize, profile: &Profile) -> Vec<Pe
         let distance = |(time, frequency): (f64, f64)| (time - 1.0).abs() + (frequency - 1.0).abs();
         distance(*a).total_cmp(&distance(*b))
     });
+    stretches.truncate(count);
     stretches
-        .iter()
-        .take(count)
+        .into_iter()
         .enumerate()
-        .flat_map(|(copy, &(time, frequency))| {
+        .flat_map(move |(copy, (time, frequency))| {
             records
                 .iter()
                 .map(move |record| reversed(record, copy, time, frequency, profile))
         })
-        .collect()
 }
 
 fn reversed(
@@ -101,7 +130,7 @@ mod tests {
 
     #[test]
     fn the_first_copy_is_the_record_reversed_in_time() {
-        let copies = copies(&[record()], 1, &Profile::CURRENT);
+        let copies: Vec<PeakRecord> = copies(&[record()], 1, &Profile::CURRENT).collect();
 
         let peaks: Vec<(f64, f32)> = copies[0]
             .peaks
@@ -114,7 +143,7 @@ mod tests {
 
     #[test]
     fn later_copies_are_stretched_and_distinct() {
-        let copies = copies(&[record()], 5, &Profile::CURRENT);
+        let copies: Vec<PeakRecord> = copies(&[record()], 5, &Profile::CURRENT).collect();
 
         let mut shapes: Vec<String> = copies
             .iter()

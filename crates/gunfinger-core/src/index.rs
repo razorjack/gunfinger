@@ -47,12 +47,14 @@ pub struct IndexedAsset {
 
 #[derive(Debug, thiserror::Error)]
 pub enum IndexError {
-    #[error("the index holds at most {MAX_ASSETS} assets, but {count} were given")]
-    TooManyAssets { count: usize },
+    #[error("the index holds at most {MAX_ASSETS} assets")]
+    TooManyAssets,
     #[error(
         "{path} is longer than the index can address ({MAX_FRAMES} frames); lower --max-track-minutes"
     )]
     TooLong { path: String },
+    #[error("a peak record changed while the index was being built; run the command again")]
+    Changed,
 }
 
 pub struct Index {
@@ -62,62 +64,29 @@ pub struct Index {
 }
 
 impl Index {
-    /// Builds the index from peak records; asset `i` is `records[i]`.
-    ///
-    /// Two passes over the hashes: the first counts postings per hash to lay
-    /// out the offsets table, the second fills each hash's slots. Postings of
-    /// a hash end up ordered by asset and then by frame.
+    /// Builds the index from peak records in memory; asset `i` is
+    /// `records[i]`.
     pub fn build(records: &[PeakRecord]) -> Result<Index, IndexError> {
-        if records.len() > MAX_ASSETS {
-            return Err(IndexError::TooManyAssets {
-                count: records.len(),
-            });
+        let mut counting = Index::counting();
+        for record in records {
+            counting.count(record)?;
         }
-        let points: Vec<Vec<Point>> = records
-            .iter()
-            .map(|record| record.peaks.iter().map(Point::from).collect())
-            .collect();
-        for (record, points) in records.iter().zip(&points) {
-            if points
-                .last()
-                .is_some_and(|last| last.frame.round() >= f64::from(MAX_FRAMES))
-            {
-                return Err(IndexError::TooLong {
-                    path: record.header.source.path.clone(),
-                });
-            }
+        let mut filling = counting.into_filling();
+        for record in records {
+            filling.fill(record)?;
         }
+        filling.finish()
+    }
 
-        let mut offsets = vec![0_u32; (1 << HASH_BITS) + 1];
-        for points in &points {
-            for_each_pair(points, |hash, _| offsets[hash.0 as usize + 1] += 1);
+    /// Starts building an index in two passes over the peak records, each
+    /// reading one record at a time: the first counts the postings of every
+    /// hash to lay out the offsets table, the second fills each hash's
+    /// slots. Only the index and one record are in memory at once.
+    pub fn counting() -> Counting {
+        Counting {
+            assets: Vec::new(),
+            offsets: vec![0; (1 << HASH_BITS) + 1],
         }
-        for hash in 1..offsets.len() {
-            offsets[hash] += offsets[hash - 1];
-        }
-
-        let mut next_slot = offsets.clone();
-        let mut postings = vec![Posting(0); offsets[offsets.len() - 1] as usize];
-        for (asset, points) in (0..).map(AssetId).zip(&points) {
-            for_each_pair(points, |hash, anchor| {
-                let slot = &mut next_slot[hash.0 as usize];
-                postings[*slot as usize] = Posting::new(asset, points[anchor].frame.round() as u32);
-                *slot += 1;
-            });
-        }
-
-        let assets = records
-            .iter()
-            .map(|record| IndexedAsset {
-                path: record.header.source.path.clone(),
-                duration_seconds: record.header.duration_seconds,
-            })
-            .collect();
-        Ok(Index {
-            assets,
-            offsets,
-            postings,
-        })
     }
 
     pub fn postings(&self, hash: PairHash) -> &[Posting] {
@@ -182,6 +151,130 @@ impl Index {
     pub fn size_bytes(&self) -> usize {
         size_of_val(self.offsets.as_slice()) + size_of_val(self.postings.as_slice())
     }
+}
+
+/// The first pass of a build: the assets in order, and the number of
+/// postings of hash `h` at `offsets[h + 1]`.
+pub struct Counting {
+    assets: Vec<IndexedAsset>,
+    offsets: Vec<u32>,
+}
+
+impl Counting {
+    /// Counts the postings of the next asset's record.
+    pub fn count(&mut self, record: &PeakRecord) -> Result<(), IndexError> {
+        if self.assets.len() == MAX_ASSETS {
+            return Err(IndexError::TooManyAssets);
+        }
+        let points = points_of(record)?;
+        for_each_pair(&points, |hash, _| self.offsets[hash.0 as usize + 1] += 1);
+        self.assets.push(IndexedAsset {
+            path: record.header.source.path.clone(),
+            duration_seconds: record.header.duration_seconds,
+        });
+        Ok(())
+    }
+
+    /// Lays out the offsets table. The same records must then be filled in
+    /// the same order.
+    pub fn into_filling(self) -> Filling {
+        let Counting {
+            assets,
+            mut offsets,
+        } = self;
+        for hash in 1..offsets.len() {
+            offsets[hash] += offsets[hash - 1];
+        }
+        let next_slot = offsets[..offsets.len() - 1].to_vec();
+        let postings = vec![Posting(0); offsets[offsets.len() - 1] as usize];
+        Filling {
+            assets,
+            offsets,
+            next_slot,
+            postings,
+            filled: 0,
+        }
+    }
+}
+
+/// The second pass of a build: each record's postings placed in its
+/// hashes' slots, so that a hash's postings are ordered by asset and then
+/// by frame.
+pub struct Filling {
+    assets: Vec<IndexedAsset>,
+    offsets: Vec<u32>,
+    /// Where the next posting of each hash goes.
+    next_slot: Vec<u32>,
+    postings: Vec<Posting>,
+    /// Assets filled so far.
+    filled: usize,
+}
+
+impl Filling {
+    /// Places the postings of the next asset's record. A record that is not
+    /// the one counted in its place, or no longer has the same hashes, is an
+    /// error rather than a corrupt index.
+    pub fn fill(&mut self, record: &PeakRecord) -> Result<(), IndexError> {
+        let path = &record.header.source.path;
+        if self
+            .assets
+            .get(self.filled)
+            .is_none_or(|asset| asset.path != *path)
+        {
+            return Err(IndexError::Changed);
+        }
+        let points = points_of(record)?;
+        let asset = AssetId(self.filled as u32);
+        let mut overflowed = false;
+        for_each_pair(&points, |hash, anchor| {
+            let hash = hash.0 as usize;
+            let slot = self.next_slot[hash];
+            if slot == self.offsets[hash + 1] {
+                overflowed = true;
+                return;
+            }
+            self.postings[slot as usize] = Posting::new(asset, points[anchor].frame.round() as u32);
+            self.next_slot[hash] += 1;
+        });
+        if overflowed {
+            return Err(IndexError::Changed);
+        }
+        self.filled += 1;
+        Ok(())
+    }
+
+    /// The index, once every counted record has been filled.
+    pub fn finish(self) -> Result<Index, IndexError> {
+        let complete = self.filled == self.assets.len()
+            && self
+                .next_slot
+                .iter()
+                .zip(&self.offsets[1..])
+                .all(|(next, end)| next == end);
+        if !complete {
+            return Err(IndexError::Changed);
+        }
+        Ok(Index {
+            assets: self.assets,
+            offsets: self.offsets,
+            postings: self.postings,
+        })
+    }
+}
+
+/// A record's peaks as hashing points, checked against the frames a
+/// posting can address.
+fn points_of(record: &PeakRecord) -> Result<Vec<Point>, IndexError> {
+    let points: Vec<Point> = record.peaks.iter().map(Point::from).collect();
+    if points
+        .last()
+        .is_some_and(|last| last.frame.round() >= f64::from(MAX_FRAMES))
+    {
+        return Err(IndexError::TooLong {
+            path: record.header.source.path.clone(),
+        });
+    }
+    Ok(points)
 }
 
 #[cfg(test)]
@@ -272,6 +365,40 @@ mod tests {
 
         assert!(thinned.postings(hashes_of(&first)[0]).is_empty());
         assert_eq!(thinned.posting_count(), before - 2);
+    }
+
+    #[test]
+    fn filling_needs_the_records_counted_in_the_same_order() {
+        let first = record("a.mp3", &[(10.0, 100.0), (20.0, 110.0)]);
+        let second = record("b.mp3", &[(500.0, 100.0), (510.0, 110.0)]);
+        let mut counting = Index::counting();
+        counting.count(&first).unwrap();
+        counting.count(&second).unwrap();
+
+        let mut filling = counting.into_filling();
+        let swapped = filling.fill(&second);
+
+        assert!(matches!(swapped, Err(IndexError::Changed)));
+    }
+
+    #[test]
+    fn a_record_that_changed_between_the_passes_is_an_error() {
+        let counted = record("a.mp3", &[(10.0, 100.0), (20.0, 110.0)]);
+        let changed = record("a.mp3", &[(10.0, 100.0), (20.0, 110.0), (30.0, 120.0)]);
+        let fewer = record("a.mp3", &[(10.0, 100.0)]);
+
+        let mut counting = Index::counting();
+        counting.count(&counted).unwrap();
+        let mut more_hashes = counting.into_filling();
+        let filled_more = more_hashes.fill(&changed);
+
+        let mut counting = Index::counting();
+        counting.count(&counted).unwrap();
+        let mut fewer_hashes = counting.into_filling();
+        fewer_hashes.fill(&fewer).unwrap();
+
+        assert!(matches!(filled_more, Err(IndexError::Changed)));
+        assert!(matches!(fewer_hashes.finish(), Err(IndexError::Changed)));
     }
 
     #[test]
