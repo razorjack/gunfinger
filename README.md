@@ -60,6 +60,11 @@ target/release/gunfinger identify mix.m4a --library ~/Music/library \
 # Write a saved report in another format without searching again.
 target/release/gunfinger show mix.json --format tracklist
 
+# Hear the mix at 20:30, then each track found there, from the same place in
+# the track and at the speed it was played (needs ffplay; --print shows the
+# commands instead).
+target/release/gunfinger listen mix.json --at 20:30
+
 # Sizes of the peak store and the index, with a 25,000-track projection.
 target/release/gunfinger stats --library ~/Music/library
 ```

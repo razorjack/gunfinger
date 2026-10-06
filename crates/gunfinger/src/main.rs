@@ -5,6 +5,7 @@ mod console;
 mod export;
 mod identify;
 mod index;
+mod listen;
 mod names;
 mod output;
 mod report;
@@ -92,6 +93,24 @@ enum Command {
         #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
         format: ReportFormat,
     },
+    /// Play the recording at a moment, then each track found there from the
+    /// same place and at the same speed.
+    Listen {
+        /// A report written by `identify --format json`.
+        report: PathBuf,
+        /// The moment in the recording (seconds, M:SS or H:MM:SS).
+        #[arg(long, value_parser = parse_timecode)]
+        at: Duration,
+        /// Seconds of each clip.
+        #[arg(long, default_value_t = 8.0)]
+        seconds: f64,
+        /// Library root, when it has moved since the report was written.
+        #[arg(long)]
+        library: Option<PathBuf>,
+        /// Print the ffplay commands instead of playing.
+        #[arg(long)]
+        print: bool,
+    },
     /// Measure the peak store and the index of a library.
     Stats {
         /// Root directory of the indexed library.
@@ -149,6 +168,25 @@ fn main() -> miette::Result<()> {
                 output::render(&report, format, Style::for_stdout(cli.color))?
             );
             Ok(())
+        }
+        Command::Listen {
+            report,
+            at,
+            seconds,
+            library,
+            print,
+        } => {
+            let mut report = Report::read(&report)?;
+            if let Some(library) = library {
+                report.library = catalog::absolute(&library);
+            }
+            let clips = listen::clips(&report, at.as_secs_f64())?;
+            if print {
+                print!("{}", listen::commands(&clips, seconds));
+                Ok(())
+            } else {
+                listen::play(&clips, seconds, &console)
+            }
         }
         Command::Stats { library, format } => {
             stats::run(&library, &cli.peaks_dir, format, &console)
