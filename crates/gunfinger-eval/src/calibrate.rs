@@ -1,6 +1,7 @@
 //! The confidence margin: how far the evidence of correct detections lies
 //! above the strongest false candidate, over the sweep and the development
-//! set with its leave-outs. Test-set reports are never read.
+//! set with its leave-outs; and where the possible tier's threshold lies
+//! against the false candidates. Test-set reports are never read.
 //!
 //! Confidence is recomputed from the stored evidence with the current rule,
 //! so reports written under an earlier rule can be re-examined.
@@ -8,7 +9,7 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use gunfinger_core::confidence::{Evidence, MIN_HITS, MIN_WINDOWS};
+use gunfinger_core::confidence::{Evidence, MIN_HITS, MIN_POSSIBLE_HITS, MIN_WINDOWS};
 use serde::de::DeserializeOwned;
 
 use crate::scan::ScanReport;
@@ -31,6 +32,9 @@ pub fn run(reports: &Path, development_set: &str) -> Result<(), String> {
     // referenced development track: the one that identifies it.
     let mut identifying = Vec::new();
     let mut false_candidates = Vec::new();
+    // Every detection on a held-out sweep excerpt: audio whose recording is
+    // not in the index at all.
+    let mut not_indexed = Vec::new();
 
     for path in report_files(reports, "sweep-seed-")? {
         let sweep: SweepReport = read(&path)?;
@@ -45,6 +49,12 @@ pub fn run(reports: &Path, development_set: &str) -> Result<(), String> {
                     },
                     source: format!("{source}: {}", outcome.asset),
                 };
+                if query.held_out {
+                    not_indexed.push(Sample {
+                        evidence: sample.evidence,
+                        source: sample.source.clone(),
+                    });
+                }
                 if !outcome.correct {
                     false_candidates.push(sample);
                 } else if best
@@ -123,7 +133,52 @@ pub fn run(reports: &Path, development_set: &str) -> Result<(), String> {
         f64::from(MIN_HITS) / f64::from(strongest.evidence.hits),
         f64::from(weakest.evidence.hits) / f64::from(MIN_HITS)
     );
+    print_possible_tier(&false_candidates, &not_indexed);
     Ok(())
+}
+
+/// The possible tier (ADR 0006) claims "this recording, or one sharing
+/// material with it". Its rule: the threshold is at least twice every false
+/// candidate that is not a remix or version of the played recording. The
+/// harness cannot tell a remix from an unrelated record, so it lists every
+/// false candidate at half the threshold or more for a person to check.
+fn print_possible_tier(false_candidates: &[Sample], not_indexed: &[Sample]) {
+    println!();
+    println!("possible tier: hits >= {MIN_POSSIBLE_HITS}");
+    if let Some(strongest) = not_indexed.iter().max_by_key(|sample| sample.evidence.hits) {
+        println!(
+            "strongest on audio not in the index: {}; the threshold is {:.2}x that",
+            describe(strongest),
+            f64::from(MIN_POSSIBLE_HITS) / f64::from(strongest.evidence.hits)
+        );
+    }
+    let half = MIN_POSSIBLE_HITS / 2;
+    let mut strong: Vec<&Sample> = false_candidates
+        .iter()
+        .filter(|sample| sample.evidence.hits >= half)
+        .collect();
+    strong.sort_by_key(|sample| std::cmp::Reverse(sample.evidence.hits));
+    let shown = strong
+        .iter()
+        .filter(|sample| sample.evidence.hits >= MIN_POSSIBLE_HITS)
+        .count();
+    println!(
+        "false candidates at {half} hits or more: {} ({shown} shown as possible); each must be a remix or version of the played recording",
+        strong.len()
+    );
+    for sample in strong {
+        println!("  {}", describe(sample));
+    }
+    if let Some(strongest) = false_candidates
+        .iter()
+        .filter(|sample| sample.evidence.hits < half)
+        .max_by_key(|sample| sample.evidence.hits)
+    {
+        println!(
+            "strongest false candidate under {half} hits: {}",
+            describe(strongest)
+        );
+    }
 }
 
 fn describe(sample: &Sample) -> String {

@@ -3,7 +3,9 @@
 use std::path::Path;
 use std::time::{Duration, Instant};
 
+use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::plays::{self, Play};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, search};
 use gunfinger_core::speed::ladder;
@@ -13,11 +15,6 @@ use serde::Serialize;
 
 use crate::Format;
 use crate::catalog::Catalog;
-
-/// Sub-threshold candidates shown after the detections.
-const CANDIDATES_SHOWN: usize = 10;
-/// Candidates seen in a single window are almost always chance.
-const MIN_CANDIDATE_WINDOWS: u32 = 2;
 
 pub struct Request<'a> {
     pub audio: &'a Path,
@@ -65,10 +62,8 @@ pub fn run(request: &Request) -> miette::Result<()> {
 struct Report<'a> {
     schema_version: u32,
     query: Query<'a>,
-    /// Confident detections, in order of start time.
-    detections: Vec<Found<'a>>,
-    /// The strongest sub-threshold candidates.
-    candidates: Vec<Found<'a>>,
+    /// Every confident or possible play, in order of start time.
+    plays: Vec<FoundPlay<'a>>,
 }
 
 #[derive(Serialize)]
@@ -79,14 +74,27 @@ struct Query<'a> {
 }
 
 #[derive(Serialize)]
-struct Found<'a> {
+struct FoundPlay<'a> {
     asset: &'a str,
     start_seconds: f64,
     end_seconds: f64,
+    /// The strongest segment's speed and confidence.
     speed: f64,
+    confidence: &'static str,
+    /// Summed over the segments.
     windows: u32,
     hits: u32,
-    confident: bool,
+    segments: Vec<Segment>,
+}
+
+#[derive(Serialize)]
+struct Segment {
+    start_seconds: f64,
+    end_seconds: f64,
+    speed: f64,
+    confidence: &'static str,
+    windows: u32,
+    hits: u32,
 }
 
 impl<'a> Report<'a> {
@@ -97,70 +105,96 @@ impl<'a> Report<'a> {
         duration: Duration,
         detections: &[Detection],
     ) -> Report<'a> {
-        let found = |detection: &Detection| Found {
-            asset: &catalog.index.asset(detection.asset).path,
-            start_seconds: offset + detection.start_seconds,
-            end_seconds: offset + detection.end_seconds,
-            speed: detection.speed.0,
-            windows: detection.evidence.windows,
-            hits: detection.evidence.hits,
-            confident: detection.evidence.is_confident(),
-        };
-        let mut confident: Vec<Found> = detections
+        let plays = plays::group(detections)
             .iter()
-            .filter(|detection| detection.evidence.is_confident())
-            .map(found)
-            .collect();
-        confident.sort_by(|a, b| a.start_seconds.total_cmp(&b.start_seconds));
-        let candidates = detections
-            .iter()
-            .filter(|detection| {
-                !detection.evidence.is_confident()
-                    && detection.evidence.windows >= MIN_CANDIDATE_WINDOWS
-            })
-            .take(CANDIDATES_SHOWN)
-            .map(found)
+            .map(|play| FoundPlay::new(catalog, play, offset))
             .collect();
         Report {
-            schema_version: 1,
+            schema_version: 2,
             query: Query {
                 path: request.audio,
                 start_seconds: offset,
                 duration_seconds: duration.as_secs_f64(),
             },
-            detections: confident,
-            candidates,
+            plays,
         }
     }
 }
 
+impl<'a> FoundPlay<'a> {
+    fn new(catalog: &'a Catalog, play: &Play, offset: f64) -> FoundPlay<'a> {
+        let total = play.total_evidence();
+        FoundPlay {
+            asset: &catalog.index.asset(play.asset).path,
+            start_seconds: offset + play.start_seconds(),
+            end_seconds: offset + play.end_seconds(),
+            speed: play.speed().0,
+            confidence: label(play.confidence()),
+            windows: total.windows,
+            hits: total.hits,
+            segments: play
+                .segments()
+                .iter()
+                .map(|segment| Segment {
+                    start_seconds: offset + segment.start_seconds,
+                    end_seconds: offset + segment.end_seconds,
+                    speed: segment.speed.0,
+                    confidence: label(segment.evidence.confidence()),
+                    windows: segment.evidence.windows,
+                    hits: segment.evidence.hits,
+                })
+                .collect(),
+        }
+    }
+}
+
+fn label(confidence: Confidence) -> &'static str {
+    match confidence {
+        Confidence::Confident => "confident",
+        Confidence::Possible => "possible",
+        Confidence::Weak => "weak",
+    }
+}
+
+/// One row per play; a play of several segments lists them underneath.
 fn print_table(report: &Report) {
     println!(
-        "{:<17} {:>7}  {:<10} {:>6}  asset",
+        "{:<19} {:>7}  {:<10} {:>6}  asset",
         "time", "speed", "confidence", "hits"
     );
-    for found in &report.detections {
-        print_row(found);
-    }
-    if !report.candidates.is_empty() {
-        println!("\nsub-threshold candidates:");
-        for found in &report.candidates {
-            print_row(found);
+    for play in &report.plays {
+        print_row(
+            &span(play.start_seconds, play.end_seconds),
+            play.speed,
+            play.confidence,
+            play.hits,
+            play.asset,
+        );
+        if play.segments.len() > 1 {
+            for segment in &play.segments {
+                print_row(
+                    &format!("  {}", span(segment.start_seconds, segment.end_seconds)),
+                    segment.speed,
+                    segment.confidence,
+                    segment.hits,
+                    "",
+                );
+            }
         }
     }
 }
 
-fn print_row(found: &Found) {
-    let span = format!(
-        "{}-{}",
-        format_timecode(Duration::from_secs_f64(found.start_seconds)),
-        format_timecode(Duration::from_secs_f64(found.end_seconds))
-    );
-    let confidence = if found.confident { "confident" } else { "low" };
+fn print_row(time: &str, speed: f64, confidence: &str, hits: u32, asset: &str) {
     println!(
-        "{span:<17} {:>+6.2}%  {confidence:<10} {:>6}  {}",
-        (found.speed - 1.0) * 100.0,
-        found.hits,
-        found.asset
+        "{time:<19} {:>+6.2}%  {confidence:<10} {hits:>6}  {asset}",
+        (speed - 1.0) * 100.0
     );
+}
+
+fn span(start_seconds: f64, end_seconds: f64) -> String {
+    format!(
+        "{}-{}",
+        format_timecode(Duration::from_secs_f64(start_seconds)),
+        format_timecode(Duration::from_secs_f64(end_seconds))
+    )
 }

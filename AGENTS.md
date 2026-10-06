@@ -15,6 +15,8 @@ Read, in this order:
 3. `docs/adr/`: the decision records. Change a decision only with a new ADR
    that supersedes the old one.
 4. `docs/experiments/`: what has been measured, including what lost.
+5. `docs/calibration.md`: every number chosen against this library, what it
+   rests on and what to change when the library grows.
 
 ## Repository rules
 
@@ -88,7 +90,8 @@ the best. `gunfinger stats` reports the measurements.
 ## Evaluation rules
 
 - Only `confident` detections count. One frozen confidence rule for every
-  input.
+  input. `possible` plays are shown to help and scored apart; they never
+  identify a track or count as wrong (ADR 0006).
 - Duplicate clusters come from library audio alone, never from set results.
 - The sweep must clear its diagnostic bar (≥95% recall within ±5%, zero wrong
   answers) before any set is scanned.
