@@ -75,8 +75,10 @@ target/release/gunfinger identify mix.m4a --library ~/Music/library \
 target/release/gunfinger identify mix.m4a --playback turntable
 
 # Several recordings share one index build; --save-dir keeps a JSON report
-# of each and passes over recordings already reported there with the same
-# --playback (--again searches them anyway).
+# of each and passes over recordings already reported there, unless the
+# playback, the part of the recording, the peak profile, the hash design,
+# the matching settings, the confidence rule or the indexed library changed
+# since (--again searches them anyway).
 target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
 
 # Write a saved report in another format without searching again.
@@ -92,7 +94,9 @@ target/release/gunfinger listen mix.json --at 20:30
 target/release/gunfinger review mix.json
 
 # Every candidate within a minute of 20:30, weak ones included, with what
-# each lacks for the next level; --asset narrows it to matching paths.
+# each lacks for the next level; --asset narrows it to matching paths, and
+# --windows lists each 10 s window's lines of hits and the chain that took
+# them.
 target/release/gunfinger explain mix.m4a --library ~/Music/library --at 20:30
 
 # Sizes of the peak store and the index, with a 25,000-track projection.
@@ -220,6 +224,7 @@ of the repository:
 ```sh
 target/release/gunfinger-eval validate                 # check the manifests
 target/release/gunfinger-eval clusters                 # duplicate rips in the library
+target/release/gunfinger-eval clusters --from-peaks    # the same from stored peaks, compared
 target/release/gunfinger-eval sweep --seed 2026        # speed sweep
 target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
 target/release/gunfinger-eval calibrate                # confidence margin
@@ -228,15 +233,28 @@ target/release/gunfinger-eval regress <name>           # rerun them and show wha
 target/release/gunfinger-eval robust --seed 2026       # excerpts under EQ, noise, codecs, key lock...
 target/release/gunfinger-eval related                  # remixes and shared material in the library
 target/release/gunfinger-eval hash-cost                # pairs and triplets: postings, lookups, evidence
+target/release/gunfinger-eval mixes --count 12         # generated mixes with exact truth
+target/release/gunfinger-eval grid                     # brief plays slid across the 10 s windows
+target/release/gunfinger-eval loss                     # where the development mix loses evidence
+target/release/gunfinger-eval memory --synthetic-copies 30   # memory by phase (run under /usr/bin/time -l)
 ```
+
+The sweep's held-out recordings and excerpts for each seed are drawn the
+first time the seed is used and kept in `docs/panels/`, so the same
+queries are measured as the library grows; `robust`, `mixes`, `grid` and
+`hash-cost` use the same panels.
 
 `--ladder both|turntable|key-lock` (before the command) chooses the rungs
 every search uses; the default is `both`, as in `identify`, and other
-ladders keep their reports in `work/reports/ladder-<name>/`. `scan` and `robust` take `--synthetic-copies N`, which
-adds N time-reversed, stretched copies of every record to the index as a
-proxy for a larger library, and `--drop-fullest SHARE`, which empties the
-fullest posting lists; those reports are kept apart from the ones
-`calibrate` and `regress` read.
+ladders keep their reports in `work/reports/ladder-<name>/`. Two opt-in
+matching changes apply to every command in the same way:
+`--second-pass` measures each candidate again at its fitted speed, and
+`--drop-fullest SHARE` empties the fullest posting lists. Their reports go
+to `work/reports/variant-<name>/`, where `calibrate` and `regress` read
+them when given the same options. `scan` and `robust` take
+`--synthetic-copies N`, which adds N time-reversed, stretched copies of
+every record to the index as a proxy for a larger library; those reports
+are kept apart from the ones `calibrate` and `regress` read.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
 the crate boundaries and the evaluation rules.

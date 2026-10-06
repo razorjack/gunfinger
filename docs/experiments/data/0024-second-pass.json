@@ -1,0 +1,1496 @@
+{
+ "description": "Experiment 0024: the opt-in second pass (search_twice) with the frozen thresholds against the ladder alone; seed 2026, both ladders. File names only.",
+ "calibrate": {
+  "ladder": {
+   "weakest_identifying": 501,
+   "strongest_false": 97,
+   "margin": 5.16,
+   "strongest_not_indexed": 19
+  },
+  "second_pass": {
+   "weakest_identifying": 680,
+   "weakest_source": "sweep extra/A. SKC & Cord -- Swarm.mp3 at -3%",
+   "strongest_false": 97,
+   "strongest_false_source": "the Clockwork remix in the development mix at 1223 s",
+   "margin": 7.01,
+   "strongest_not_indexed": 20,
+   "strongest_false_under_30": 27
+  }
+ },
+ "sweep_own_hits": [
+  {
+   "speed_percent": -8.0,
+   "own_hits_median": {
+    "ladder": 1050.0,
+    "second_pass": 1050.5
+   },
+   "ratio_median": 1.0,
+   "ratio_min": 0.99
+  },
+  {
+   "speed_percent": -5.0,
+   "own_hits_median": {
+    "ladder": 724.5,
+    "second_pass": 1072.5
+   },
+   "ratio_median": 1.43,
+   "ratio_min": 1.28
+  },
+  {
+   "speed_percent": -3.0,
+   "own_hits_median": {
+    "ladder": 744.0,
+    "second_pass": 1037.0
+   },
+   "ratio_median": 1.38,
+   "ratio_min": 1.25
+  },
+  {
+   "speed_percent": -1.0,
+   "own_hits_median": {
+    "ladder": 754.0,
+    "second_pass": 1055.5
+   },
+   "ratio_median": 1.37,
+   "ratio_min": 1.24
+  },
+  {
+   "speed_percent": 0.0,
+   "own_hits_median": {
+    "ladder": 1100.5,
+    "second_pass": 1102.0
+   },
+   "ratio_median": 1.0,
+   "ratio_min": 0.99
+  },
+  {
+   "speed_percent": 1.0,
+   "own_hits_median": {
+    "ladder": 760.5,
+    "second_pass": 1084.5
+   },
+   "ratio_median": 1.41,
+   "ratio_min": 1.23
+  },
+  {
+   "speed_percent": 3.0,
+   "own_hits_median": {
+    "ladder": 760.5,
+    "second_pass": 1094.0
+   },
+   "ratio_median": 1.4,
+   "ratio_min": 1.22
+  },
+  {
+   "speed_percent": 5.0,
+   "own_hits_median": {
+    "ladder": 765.5,
+    "second_pass": 1069.0
+   },
+   "ratio_median": 1.39,
+   "ratio_min": 1.21
+  },
+  {
+   "speed_percent": 8.0,
+   "own_hits_median": {
+    "ladder": 1068.0,
+    "second_pass": 1070.0
+   },
+   "ratio_median": 1.0,
+   "ratio_min": 1.0
+  }
+ ],
+ "development_strongest_per_track": {
+  "ladder": {
+   " 1. Skynet & Stakka - Night Lore": 3694,
+   " 2. Skynet & Stakka - Decoy": 4733,
+   " 3. Kemal & Rob Data - Star Trails": 1839,
+   " 4. Skynet & Stakka - Pathogen": 2030,
+   " 5. Skynet & Stakka - Clockwork": 2651,
+   " 6. Kraken - Side Effects (TeeBee Remix)": 2241,
+   " 7. Kraken - Dominion": 3395,
+   " 8. Kemal & Paul Reset - Kontempt": 4464,
+   " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 4545,
+   "10. Skynet & Stakka - Logistics": 5779,
+   "11. Stakka & K.Tee - Auto Ignition": 4375
+  },
+  "second_pass": {
+   " 1. Skynet & Stakka - Night Lore": 3832,
+   " 2. Skynet & Stakka - Decoy": 4888,
+   " 3. Kemal & Rob Data - Star Trails": 1557,
+   " 4. Skynet & Stakka - Pathogen": 2048,
+   " 5. Skynet & Stakka - Clockwork": 3112,
+   " 6. Kraken - Side Effects (TeeBee Remix)": 2235,
+   " 7. Kraken - Dominion": 3514,
+   " 8. Kemal & Paul Reset - Kontempt": 4453,
+   " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 4923,
+   "10. Skynet & Stakka - Logistics": 6425,
+   "11. Stakka & K.Tee - Auto Ignition": 4742
+  }
+ },
+ "mixes": {
+  "confident": 106,
+  "possible": 9,
+  "plays": 115,
+  "wrong_confident": 0,
+  "strongest_false_hits": 41,
+  "ladder_for_comparison": {
+   "confident": 107,
+   "possible": 8,
+   "strongest_false_hits": 46
+  }
+ },
+ "grid": [
+  {
+   "seconds": 10,
+   "possible_or_better": 149,
+   "confident_3_windows": 0,
+   "confident_span_10s": 3
+  },
+  {
+   "seconds": 15,
+   "possible_or_better": 160,
+   "confident_3_windows": 67,
+   "confident_span_10s": 160
+  },
+  {
+   "seconds": 20,
+   "possible_or_better": 160,
+   "confident_3_windows": 146,
+   "confident_span_10s": 160
+  },
+  {
+   "seconds": 25,
+   "possible_or_better": 160,
+   "confident_3_windows": 160,
+   "confident_span_10s": 160
+  },
+  {
+   "seconds": 30,
+   "possible_or_better": 160,
+   "confident_3_windows": 160,
+   "confident_span_10s": 160
+  },
+  {
+   "seconds": 40,
+   "possible_or_better": 160,
+   "confident_3_windows": 160,
+   "confident_span_10s": 160
+  }
+ ],
+ "robust": [
+  {
+   "condition": "control",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 93,
+    "second_pass": 98
+   }
+  },
+  {
+   "condition": "control",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 84,
+    "second_pass": 89
+   }
+  },
+  {
+   "condition": "bass-boost-12db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 103,
+    "second_pass": 100
+   }
+  },
+  {
+   "condition": "bass-boost-12db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 84,
+    "second_pass": 83
+   }
+  },
+  {
+   "condition": "bass-cut-250hz",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 98,
+    "second_pass": 97
+   }
+  },
+  {
+   "condition": "bass-cut-250hz",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 84,
+    "second_pass": 80
+   }
+  },
+  {
+   "condition": "low-pass-2khz",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 79,
+    "second_pass": 89
+   }
+  },
+  {
+   "condition": "low-pass-2khz",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 76,
+    "second_pass": 67
+   }
+  },
+  {
+   "condition": "low-pass-800hz",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 45,
+    "second_pass": 46
+   }
+  },
+  {
+   "condition": "low-pass-800hz",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 40,
+    "second_pass": 40
+   }
+  },
+  {
+   "condition": "high-pass-1khz",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 79,
+    "second_pass": 76
+   }
+  },
+  {
+   "condition": "high-pass-1khz",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 76,
+    "second_pass": 73
+   }
+  },
+  {
+   "condition": "telephone",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 89,
+    "second_pass": 86
+   }
+  },
+  {
+   "condition": "telephone",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 80,
+    "second_pass": 80
+   }
+  },
+  {
+   "condition": "echo",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 37,
+    "second_pass": 38
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 68,
+    "second_pass": 68
+   }
+  },
+  {
+   "condition": "echo",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 38,
+    "second_pass": 39
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 67,
+    "second_pass": 67
+   }
+  },
+  {
+   "condition": "clipping-12db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 32,
+    "second_pass": 35
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 63,
+    "second_pass": 63
+   }
+  },
+  {
+   "condition": "clipping-12db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 33,
+    "second_pass": 36
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 71,
+    "second_pass": 71
+   }
+  },
+  {
+   "condition": "pink-noise-snr-10db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 38,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 66,
+    "second_pass": 67
+   }
+  },
+  {
+   "condition": "pink-noise-snr-10db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 39,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 60,
+    "second_pass": 51
+   }
+  },
+  {
+   "condition": "pink-noise-snr-0db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 14,
+    "second_pass": 18
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 22,
+    "second_pass": 19
+   }
+  },
+  {
+   "condition": "pink-noise-snr-0db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 14,
+    "second_pass": 15
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 21,
+    "second_pass": 21
+   }
+  },
+  {
+   "condition": "mp3-64k",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 88,
+    "second_pass": 88
+   }
+  },
+  {
+   "condition": "mp3-64k",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 79,
+    "second_pass": 79
+   }
+  },
+  {
+   "condition": "mp3-32k",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 78,
+    "second_pass": 78
+   }
+  },
+  {
+   "condition": "mp3-32k",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 66,
+    "second_pass": 72
+   }
+  },
+  {
+   "condition": "aac-48k",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 61,
+    "second_pass": 67
+   }
+  },
+  {
+   "condition": "aac-48k",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 63,
+    "second_pass": 54
+   }
+  },
+  {
+   "condition": "opus-24k",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 60,
+    "second_pass": 60
+   }
+  },
+  {
+   "condition": "opus-24k",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 56,
+    "second_pass": 56
+   }
+  },
+  {
+   "condition": "blend--6db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 34,
+    "second_pass": 36
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 61,
+    "second_pass": 64
+   }
+  },
+  {
+   "condition": "blend--6db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 36,
+    "second_pass": 36
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 56,
+    "second_pass": 46
+   }
+  },
+  {
+   "condition": "blend-0db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 13,
+    "second_pass": 17
+   },
+   "possible_or_better": {
+    "ladder": 32,
+    "second_pass": 32
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 33,
+    "second_pass": 32
+   }
+  },
+  {
+   "condition": "blend-0db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 14,
+    "second_pass": 17
+   },
+   "possible_or_better": {
+    "ladder": 33,
+    "second_pass": 37
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 33,
+    "second_pass": 36
+   }
+  },
+  {
+   "condition": "voice-over",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 88,
+    "second_pass": 88
+   }
+  },
+  {
+   "condition": "voice-over",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 70,
+    "second_pass": 76
+   }
+  },
+  {
+   "condition": "speech-insert-8s",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 30,
+    "second_pass": 36
+   }
+  },
+  {
+   "condition": "speech-insert-8s",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 77,
+    "second_pass": 77
+   }
+  },
+  {
+   "condition": "needle-skip-2s",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 18
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 94,
+    "second_pass": 93
+   }
+  },
+  {
+   "condition": "needle-skip-2s",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 1,
+    "second_pass": 15
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 77,
+    "second_pass": 77
+   }
+  },
+  {
+   "condition": "pitch-ride-2pct",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 91,
+    "second_pass": 91
+   }
+  },
+  {
+   "condition": "pitch-ride-2pct",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 88,
+    "second_pass": 88
+   }
+  },
+  {
+   "condition": "wow-0.55hz",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 104,
+    "second_pass": 108
+   }
+  },
+  {
+   "condition": "wow-0.55hz",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 79,
+    "second_pass": 79
+   }
+  },
+  {
+   "condition": "wow-0.75hz",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 78,
+    "second_pass": 93
+   }
+  },
+  {
+   "condition": "wow-0.75hz",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 78,
+    "second_pass": 78
+   }
+  },
+  {
+   "condition": "broadcast",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 32,
+    "second_pass": 37
+   },
+   "possible_or_better": {
+    "ladder": 39,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 69,
+    "second_pass": 58
+   }
+  },
+  {
+   "condition": "broadcast",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 33,
+    "second_pass": 37
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 66,
+    "second_pass": 63
+   }
+  },
+  {
+   "condition": "beatmatched--6db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 33,
+    "second_pass": 37
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 82,
+    "second_pass": 82
+   }
+  },
+  {
+   "condition": "beatmatched--6db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 34,
+    "second_pass": 36
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 65,
+    "second_pass": 65
+   }
+  },
+  {
+   "condition": "beatmatched-0db",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 12,
+    "second_pass": 16
+   },
+   "possible_or_better": {
+    "ladder": 30,
+    "second_pass": 32
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 37,
+    "second_pass": 41
+   }
+  },
+  {
+   "condition": "beatmatched-0db",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 13,
+    "second_pass": 14
+   },
+   "possible_or_better": {
+    "ladder": 32,
+    "second_pass": 35
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 43,
+    "second_pass": 41
+   }
+  },
+  {
+   "condition": "combined",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 3,
+    "second_pass": 3
+   },
+   "possible_or_better": {
+    "ladder": 32,
+    "second_pass": 32
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 48,
+    "second_pass": 43
+   }
+  },
+  {
+   "condition": "combined",
+   "speed": 1.03,
+   "confident": {
+    "ladder": 4,
+    "second_pass": 4
+   },
+   "possible_or_better": {
+    "ladder": 32,
+    "second_pass": 33
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 45,
+    "second_pass": 45
+   }
+  },
+  {
+   "condition": "speed-10pct",
+   "speed": 0.9,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 15,
+    "second_pass": 13
+   }
+  },
+  {
+   "condition": "speed-12pct",
+   "speed": 0.88,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 11,
+    "second_pass": 9
+   }
+  },
+  {
+   "condition": "speed-16pct",
+   "speed": 0.84,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 11,
+    "second_pass": 9
+   }
+  },
+  {
+   "condition": "speed+10pct",
+   "speed": 1.1,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 11,
+    "second_pass": 14
+   }
+  },
+  {
+   "condition": "speed+12pct",
+   "speed": 1.12,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 9,
+    "second_pass": 9
+   }
+  },
+  {
+   "condition": "speed+16pct",
+   "speed": 1.16,
+   "confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "possible_or_better": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 10,
+    "second_pass": 10
+   }
+  },
+  {
+   "condition": "key-lock-2pct",
+   "speed": 0.98,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 87,
+    "second_pass": 89
+   }
+  },
+  {
+   "condition": "key-lock+2pct",
+   "speed": 1.02,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 97,
+    "second_pass": 97
+   }
+  },
+  {
+   "condition": "key-lock-5pct",
+   "speed": 0.95,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 83,
+    "second_pass": 81
+   }
+  },
+  {
+   "condition": "key-lock+5pct",
+   "speed": 1.05,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 88,
+    "second_pass": 91
+   }
+  },
+  {
+   "condition": "key-lock+8pct",
+   "speed": 1.08,
+   "confident": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "possible_or_better": {
+    "ladder": 40,
+    "second_pass": 40
+   },
+   "wrong_confident": {
+    "ladder": 0,
+    "second_pass": 0
+   },
+   "strongest_wrong_hits": {
+    "ladder": 71,
+    "second_pass": 76
+   }
+  }
+ ],
+ "cost": {
+  "candidates_refined": 310,
+  "seconds_analysed_once": 23248,
+  "seconds_of_rung_analysis": 276314,
+  "regress_user_seconds": {
+   "ladder": [
+    2452.88,
+    2399.82
+   ],
+   "second_pass": 2424.83
+  },
+  "note": "user CPU of regress (sweep and three scans) under a load average near 100; the second pass adds about 7% of analysis, within that noise"
+ }
+}
