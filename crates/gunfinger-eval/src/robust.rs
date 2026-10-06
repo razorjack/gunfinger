@@ -303,6 +303,8 @@ pub struct Row {
 /// rungs searched.
 pub struct Options<'a> {
     pub seed: u64,
+    /// Where the seed's sweep panel is kept (`Plan::for_seed`).
+    pub panels: &'a Path,
     pub only: &'a [String],
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
@@ -321,6 +323,7 @@ pub fn run(
 ) -> Result<RobustReport, String> {
     let Options {
         seed,
+        panels,
         only,
         ladder_name,
         ladder,
@@ -330,7 +333,7 @@ pub fn run(
     } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let plan = Plan::draw(&records, clusters, seed);
+    let plan = Plan::for_seed(&records, clusters, seed, panels)?;
     let indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !plan.held_out.contains(&record.header.source.path))

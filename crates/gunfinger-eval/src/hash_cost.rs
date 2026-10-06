@@ -120,12 +120,13 @@ pub fn run(
     store: &PeakStore,
     clusters: &Clusters,
     seed: u64,
+    panels: &Path,
     work: &Path,
     jobs: usize,
 ) -> Result<(), String> {
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let plan = Plan::draw(&records, clusters, seed);
+    let plan = Plan::for_seed(&records, clusters, seed, panels)?;
     let library_seconds: f64 = records
         .iter()
         .map(|record| record.header.duration_seconds)

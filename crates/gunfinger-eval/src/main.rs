@@ -65,6 +65,10 @@ struct Paths {
     /// Peak store of the library, as written by `gunfinger index`.
     #[arg(long, default_value = "work/peaks")]
     peaks_dir: PathBuf,
+    /// Saved sweep panels: each seed's held-out recordings and excerpts,
+    /// drawn the first time the seed is used and kept as the library grows.
+    #[arg(long, default_value = "docs/panels")]
+    panels: PathBuf,
     /// Rungs searched by sweep, scan, robust and regress; the default is
     /// `identify`'s. Reports of other ladders go to `reports/ladder-<name>/`,
     /// so that calibrate and regress read one ladder at a time.
@@ -92,7 +96,13 @@ enum Command {
         seed: u64,
     },
     /// Find duplicate clusters by matching the library against itself.
-    Clusters,
+    Clusters {
+        /// Search each file's stored peaks instead of its decoded audio,
+        /// and compare the result with the clusters in use rather than
+        /// replacing them.
+        #[arg(long)]
+        from_peaks: bool,
+    },
     /// List recordings that share material (remixes, VIPs, samples) by
     /// matching the library against itself.
     Related,
@@ -230,10 +240,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             &paths.store()?,
             &paths.clusters()?,
             seed,
+            &paths.panels,
             &paths.work,
             jobs,
         ),
-        Command::Clusters => find_clusters(paths, jobs),
+        Command::Clusters { from_peaks } => find_clusters(paths, from_peaks, jobs),
         Command::Related => {
             let related =
                 related::find(&paths.library()?, &paths.store()?, &paths.clusters()?, jobs)?;
@@ -282,6 +293,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.work,
                 &mixes::Options {
                     seed,
+                    panels: &paths.panels,
                     count,
                     ladder_name: paths.ladder.name(),
                     ladder: &paths.ladder.rungs(),
@@ -304,6 +316,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.work,
                 &grid::Options {
                     seed,
+                    panels: &paths.panels,
                     ladder_name: paths.ladder.name(),
                     ladder: &paths.ladder.rungs(),
                     matching: &paths.matching,
@@ -443,6 +456,7 @@ fn run_robust(
         &paths.work,
         &robust::Options {
             seed,
+            panels: &paths.panels,
             only,
             ladder_name: ladder.name(),
             ladder: &ladder.rungs(),
@@ -478,10 +492,28 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
     Ok(())
 }
 
-fn find_clusters(paths: &Paths, jobs: usize) -> Result<(), String> {
-    let clusters = clusters::find(&paths.library()?, &paths.store()?, jobs)?;
-    write_json(&paths.clusters_file(), &clusters)?;
+fn find_clusters(paths: &Paths, from_peaks: bool, jobs: usize) -> Result<(), String> {
+    let source = if from_peaks {
+        clusters::Source::Peaks
+    } else {
+        clusters::Source::Audio
+    };
+    let clusters = clusters::find(&paths.library()?, &paths.store()?, source, jobs)?;
     clusters::print_summary(&clusters);
+    if from_peaks {
+        write_json(
+            &paths
+                .work
+                .join("reports")
+                .join("duplicate-clusters-from-peaks.json"),
+            &clusters,
+        )?;
+        if let Ok(in_use) = paths.clusters() {
+            clusters::print_differences("peaks", &clusters, "audio", &in_use);
+        }
+    } else {
+        write_json(&paths.clusters_file(), &clusters)?;
+    }
     Ok(())
 }
 
@@ -493,6 +525,7 @@ fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
         &paths.work,
         &sweep::Options {
             seed,
+            panels: &paths.panels,
             ladder: &paths.ladder.rungs(),
             matching: &paths.matching,
             jobs,

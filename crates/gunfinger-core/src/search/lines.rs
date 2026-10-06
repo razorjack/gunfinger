@@ -4,6 +4,7 @@
 use std::ops::Range;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
+use super::Query;
 use crate::hash::for_each_pair;
 use crate::index::{AssetId, Index};
 use crate::parallel::map_in_order;
@@ -66,7 +67,7 @@ struct Hit {
 /// number of rungs finished after each.
 pub(super) fn on_ladder(
     index: &Index,
-    samples: &[f32],
+    query: Query,
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
@@ -74,7 +75,7 @@ pub(super) fn on_ladder(
 ) -> Vec<Line> {
     let finished = AtomicUsize::new(0);
     map_in_order(ladder, jobs, |&rung| {
-        let lines = at_rung(index, samples, profile, rung);
+        let lines = at_rung(index, query, profile, rung);
         progress(finished.fetch_add(1, Ordering::Relaxed) + 1);
         lines
     })
@@ -85,8 +86,8 @@ pub(super) fn on_ladder(
 
 /// Looks up every query hash at one assumed speed and collects the lines
 /// each window's hits form.
-fn at_rung(index: &Index, samples: &[f32], profile: &Profile, rung: Rung) -> Vec<Line> {
-    let points = rung.points(samples, profile);
+fn at_rung(index: &Index, query: Query, profile: &Profile, rung: Rung) -> Vec<Line> {
+    let points = query.points(rung, profile);
     let speed = rung.speed();
     let window_frames = profile.frames(WINDOW_SECONDS);
     let mut lines = Vec::new();

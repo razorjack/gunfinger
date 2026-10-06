@@ -1,0 +1,461 @@
+{
+  "seed": 2026,
+  "drawn_from_assets": 262,
+  "held_out": [
+    "Bad Company - The Nine.mp3",
+    "Ed Rush & Optical - Dozer.mp3",
+    "Ed Rush & Optical - Funktion.mp3",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+    "Kemal & Paul Reset - Kontempt.mp3",
+    "Kemal & Rob Data - Star Trails.mp3",
+    "Optical - Millennium.mp3",
+    "Ryme Tyme - Payback Pt. 1.mp3",
+    "Skynet & Stakka - Night Lore.mp3",
+    "extra/01 - Ed Rush & Optical - Funktion.mp3",
+    "extra/01-muffler-bleak_(original_mix).mp3",
+    "extra/02_-_skinnah_-_figurehead.mp3",
+    "extra/03-aquasky-structure.mp3",
+    "extra/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+    "extra/07-item.code-magnetics-whoa.mp3",
+    "extra/2. Phace - Brainwave VIP.mp3",
+    "extra/201-origin_unknown-equinox-sour.mp3",
+    "extra/207-ant_miles-china_town-sour.mp3",
+    "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+    "extra/A- The_Nine.mp3",
+    "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "extra/A-Konflict-RoadBlock-sour.mp3",
+    "extra/A-Origin_Unknown-Equinox-sour.mp3",
+    "extra/A. ASC -- The Pursuit.mp3",
+    "extra/A. Pyro -- Time Is Broken.mp3",
+    "extra/AA-Amir-Bulletproof-sour.mp3",
+    "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3",
+    "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+    "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+    "extra/APH036-Aphrodite - 2000/a-aphrodite-aphro_vs_schooly_d.mp3",
+    "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3",
+    "extra/B-Cause_4_Concern-Peep_Show-sour.mp3",
+    "extra/B. falcon - reality.mp3",
+    "extra/Cyb Orc - Endorphine.mp3",
+    "extra/Cyb Orc - Simulant.mp3",
+    "extra/[AA]_-_Supersonic.mp3",
+    "extra/a-)eib(-miami-sour.mp3",
+    "extra/a-mo_funk-slipstream-sour.mp3",
+    "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+    "extra/a-usual_suspects-bleach-sour.mp3",
+    "extra/aa-cause_4_concern-epox-0db.mp3",
+    "extra/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+    "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "extra/aa-paul_b_and_subwave-break_through-sour.mp3",
+    "extra/aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3",
+    "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+    "extra/b-skc-flex-sour.mp3",
+    "extra/c-cause4concern-time_stopper-sour.mp3",
+    "extra/c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3",
+    "extra/f-skc-lobotomy-sour.mp3",
+    "extra/rawkuts-jo_s-rkt335-2001-sour/a-jo_s-afterburner-sour.mp3",
+    "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3"
+  ],
+  "draws": [
+    {
+      "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+      "held_out": false,
+      "start_seconds": 225.82647927269
+    },
+    {
+      "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+      "held_out": false,
+      "start_seconds": 195.80273877637705
+    },
+    {
+      "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+      "held_out": false,
+      "start_seconds": 222.18030515924698
+    },
+    {
+      "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+      "held_out": false,
+      "start_seconds": 219.3410426657571
+    },
+    {
+      "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+      "held_out": false,
+      "start_seconds": 110.7918978216014
+    },
+    {
+      "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+      "held_out": false,
+      "start_seconds": 267.8777551943323
+    },
+    {
+      "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+      "held_out": false,
+      "start_seconds": 117.48508015571501
+    },
+    {
+      "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+      "held_out": false,
+      "start_seconds": 221.72958556250666
+    },
+    {
+      "asset": "extra/a-dj_reality-reasons.mp3",
+      "held_out": false,
+      "start_seconds": 223.50136621337364
+    },
+    {
+      "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+      "held_out": false,
+      "start_seconds": 174.61490962492178
+    },
+    {
+      "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+      "held_out": false,
+      "start_seconds": 214.37494438135644
+    },
+    {
+      "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+      "held_out": false,
+      "start_seconds": 82.74627253437431
+    },
+    {
+      "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+      "held_out": false,
+      "start_seconds": 84.32056763677727
+    },
+    {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+      "held_out": false,
+      "start_seconds": 242.76863773105262
+    },
+    {
+      "asset": "extra/Cyb Orc - Looter.mp3",
+      "held_out": false,
+      "start_seconds": 280.642876867674
+    },
+    {
+      "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+      "held_out": false,
+      "start_seconds": 306.7728000687982
+    },
+    {
+      "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+      "held_out": false,
+      "start_seconds": 214.76910628653397
+    },
+    {
+      "asset": "extra/aa-black_sun_empire-bnegative-sour.mp3",
+      "held_out": false,
+      "start_seconds": 236.3084583412435
+    },
+    {
+      "asset": "extra/[AA]_-_Phoenix.mp3",
+      "held_out": false,
+      "start_seconds": 60.87582344089366
+    },
+    {
+      "asset": "extra/AA. Gridlok -- Struggle.mp3",
+      "held_out": false,
+      "start_seconds": 257.8354140324664
+    },
+    {
+      "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+      "held_out": false,
+      "start_seconds": 187.49506031058712
+    },
+    {
+      "asset": "extra/01 - Aquasky - Spectre.mp3",
+      "held_out": false,
+      "start_seconds": 244.99600804503348
+    },
+    {
+      "asset": "Skynet & Stakka - Decoy.mp3",
+      "held_out": false,
+      "start_seconds": 297.14894449904114
+    },
+    {
+      "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+      "held_out": false,
+      "start_seconds": 181.00310216667472
+    },
+    {
+      "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "held_out": false,
+      "start_seconds": 223.06021219098886
+    },
+    {
+      "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+      "held_out": false,
+      "start_seconds": 81.44186268376063
+    },
+    {
+      "asset": "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+      "held_out": false,
+      "start_seconds": 213.32449045527594
+    },
+    {
+      "asset": "extra/b-bulletproof-scarred-sour.mp3",
+      "held_out": false,
+      "start_seconds": 173.53589175297992
+    },
+    {
+      "asset": "extra/[A]_-_Mudslide.mp3",
+      "held_out": false,
+      "start_seconds": 204.46860583708565
+    },
+    {
+      "asset": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+      "held_out": false,
+      "start_seconds": 211.9102489946506
+    },
+    {
+      "asset": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+      "held_out": false,
+      "start_seconds": 264.74918748874893
+    },
+    {
+      "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+      "held_out": false,
+      "start_seconds": 291.83603022305715
+    },
+    {
+      "asset": "extra/a-kemal-animation-sour.mp3",
+      "held_out": false,
+      "start_seconds": 121.69475968766832
+    },
+    {
+      "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+      "held_out": false,
+      "start_seconds": 242.0173569760177
+    },
+    {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "held_out": false,
+      "start_seconds": 223.01841097512016
+    },
+    {
+      "asset": "extra/d. falcon - the stand.mp3",
+      "held_out": false,
+      "start_seconds": 238.1033406188264
+    },
+    {
+      "asset": "extra/01. Krot - Great Escape.mp3",
+      "held_out": false,
+      "start_seconds": 215.62815616618292
+    },
+    {
+      "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+      "held_out": false,
+      "start_seconds": 268.90688328512033
+    },
+    {
+      "asset": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+      "held_out": false,
+      "start_seconds": 150.87417148841652
+    },
+    {
+      "asset": "Skynet & Stakka - Clockwork.mp3",
+      "held_out": false,
+      "start_seconds": 209.8667565373522
+    },
+    {
+      "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+      "held_out": false,
+      "start_seconds": 330.7739729470481
+    },
+    {
+      "asset": "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+      "held_out": false,
+      "start_seconds": 206.9381427420971
+    },
+    {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "held_out": false,
+      "start_seconds": 73.09375233138628
+    },
+    {
+      "asset": "extra/a-bad_company-pulse.mp3",
+      "held_out": false,
+      "start_seconds": 121.70004224639104
+    },
+    {
+      "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+      "held_out": false,
+      "start_seconds": 88.09229644278508
+    },
+    {
+      "asset": "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+      "held_out": false,
+      "start_seconds": 88.93035523660382
+    },
+    {
+      "asset": "extra/xx-aquasky-i_cant_wait_(no_more)-sour.mp3",
+      "held_out": false,
+      "start_seconds": 74.26489040063178
+    },
+    {
+      "asset": "extra/a-rascal_and_klone-the_reprise-sour.mp3",
+      "held_out": false,
+      "start_seconds": 125.08228221020471
+    },
+    {
+      "asset": "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+      "held_out": false,
+      "start_seconds": 111.34900809621932
+    },
+    {
+      "asset": "extra/b-spinor-mutant_storm-sour.mp3",
+      "held_out": false,
+      "start_seconds": 145.77691938719144
+    },
+    {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "held_out": false,
+      "start_seconds": 78.65791607457284
+    },
+    {
+      "asset": "Ed Rush & Optical - Point Blank.mp3",
+      "held_out": false,
+      "start_seconds": 276.577776535131
+    },
+    {
+      "asset": "extra/[AA]_-_Apollo_Creed.mp3",
+      "held_out": false,
+      "start_seconds": 103.13250274370594
+    },
+    {
+      "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+      "held_out": false,
+      "start_seconds": 259.6460426397232
+    },
+    {
+      "asset": "extra/a-black_sun_empire-voltage-2000-sour.mp3",
+      "held_out": false,
+      "start_seconds": 177.38955946832832
+    },
+    {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "held_out": false,
+      "start_seconds": 117.4614888083091
+    },
+    {
+      "asset": "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+      "held_out": false,
+      "start_seconds": 121.53884680994516
+    },
+    {
+      "asset": "Kraken - Dominion.opus",
+      "held_out": false,
+      "start_seconds": 77.02819739607945
+    },
+    {
+      "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3",
+      "held_out": false,
+      "start_seconds": 197.79772747029355
+    },
+    {
+      "asset": "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3",
+      "held_out": false,
+      "start_seconds": 356.5347965982867
+    },
+    {
+      "asset": "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+      "held_out": true,
+      "start_seconds": 258.5938807848525
+    },
+    {
+      "asset": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+      "held_out": true,
+      "start_seconds": 59.274909500786606
+    },
+    {
+      "asset": "Optical - Millennium.mp3",
+      "held_out": true,
+      "start_seconds": 235.12885719631305
+    },
+    {
+      "asset": "extra/c-cause4concern-time_stopper-sour.mp3",
+      "held_out": true,
+      "start_seconds": 180.4511926367919
+    },
+    {
+      "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+      "held_out": true,
+      "start_seconds": 225.88073951880662
+    },
+    {
+      "asset": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+      "held_out": true,
+      "start_seconds": 144.4101760099985
+    },
+    {
+      "asset": "extra/b-skc-flex-sour.mp3",
+      "held_out": true,
+      "start_seconds": 78.41391045131742
+    },
+    {
+      "asset": "extra/07-item.code-magnetics-whoa.mp3",
+      "held_out": true,
+      "start_seconds": 145.13482129951643
+    },
+    {
+      "asset": "extra/2. Phace - Brainwave VIP.mp3",
+      "held_out": true,
+      "start_seconds": 203.40631143137813
+    },
+    {
+      "asset": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+      "held_out": true,
+      "start_seconds": 101.41019003427817
+    },
+    {
+      "asset": "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3",
+      "held_out": true,
+      "start_seconds": 147.0668524199936
+    },
+    {
+      "asset": "extra/aa-paul_b_and_subwave-break_through-sour.mp3",
+      "held_out": true,
+      "start_seconds": 91.77989019167563
+    },
+    {
+      "asset": "extra/A. ASC -- The Pursuit.mp3",
+      "held_out": true,
+      "start_seconds": 161.94086877339217
+    },
+    {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3",
+      "held_out": true,
+      "start_seconds": 247.30439571215493
+    },
+    {
+      "asset": "Skynet & Stakka - Night Lore.mp3",
+      "held_out": true,
+      "start_seconds": 263.1807104148103
+    },
+    {
+      "asset": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3",
+      "held_out": true,
+      "start_seconds": 69.1136186277749
+    },
+    {
+      "asset": "extra/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+      "held_out": true,
+      "start_seconds": 103.51696881494914
+    },
+    {
+      "asset": "extra/A-Konflict-RoadBlock-sour.mp3",
+      "held_out": true,
+      "start_seconds": 272.10459720013506
+    },
+    {
+      "asset": "Ed Rush & Optical - Funktion.mp3",
+      "held_out": true,
+      "start_seconds": 119.76716439880053
+    },
+    {
+      "asset": "Ryme Tyme - Payback Pt. 1.mp3",
+      "held_out": true,
+      "start_seconds": 122.34100491035935
+    }
+  ]
+}

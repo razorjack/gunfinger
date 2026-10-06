@@ -1,0 +1,363 @@
+{
+ "description": "Experiment 0023: duplicate clusters from stored peaks against the exhaustive search of decoded audio, on a controlled library rendered from three corpus tracks and on the library (262 assets). File names only.",
+ "controlled": {
+  "sources": {
+   "a": "Kemal & Rob Data - Star Trails.mp3",
+   "b": "Ryme Tyme - Payback Pt. 1.mp3",
+   "c": "Kemal & Paul Reset - Kontempt.mp3"
+  },
+  "files": {
+   "a-original.mp3": "a, MP3 192k",
+   "a-rip-fast.m4a": "a at 1.006, -3 dB, AAC 128k",
+   "a-cropped.mp3": "a from 40 s for 352.9 s",
+   "a-edit-middle.mp3": "a without 200-260 s",
+   "a-edit-late.mp3": "a without 380-420 s",
+   "b-first.mp3": "b, first 274 s",
+   "b-full.mp3": "b at 1.003",
+   "b-last.mp3": "b from 147.8 s",
+   "c.mp3": "c",
+   "c-mash.mp3": "c 100-190 s then a 50-260 s"
+  },
+  "expected": [
+   [
+    "a-cropped.mp3",
+    "a-edit-late.mp3",
+    "a-original.mp3",
+    "a-rip-fast.m4a"
+   ],
+   [
+    "b-first.mp3",
+    "b-full.mp3",
+    "b-last.mp3"
+   ]
+  ],
+  "audio": [
+   [
+    "a-cropped.mp3",
+    "a-edit-late.mp3",
+    "a-original.mp3",
+    "a-rip-fast.m4a"
+   ],
+   [
+    "b-first.mp3",
+    "b-full.mp3",
+    "b-last.mp3"
+   ]
+  ],
+  "peaks": [
+   [
+    "a-cropped.mp3",
+    "a-edit-late.mp3",
+    "a-original.mp3",
+    "a-rip-fast.m4a"
+   ],
+   [
+    "b-first.mp3",
+    "b-full.mp3",
+    "b-last.mp3"
+   ]
+  ],
+  "pairs": [
+   {
+    "pair": [
+     "a-cropped.mp3",
+     "a-edit-late.mp3"
+    ],
+    "audio": [
+     0.963,
+     13580
+    ],
+    "peaks": [
+     0.963,
+     13580
+    ]
+   },
+   {
+    "pair": [
+     "a-cropped.mp3",
+     "a-edit-middle.mp3"
+    ],
+    "audio": [
+     0.453,
+     6479
+    ],
+    "peaks": [
+     0.453,
+     6479
+    ]
+   },
+   {
+    "pair": [
+     "a-cropped.mp3",
+     "a-original.mp3"
+    ],
+    "audio": [
+     0.999,
+     14031
+    ],
+    "peaks": [
+     0.999,
+     14031
+    ]
+   },
+   {
+    "pair": [
+     "a-cropped.mp3",
+     "a-rip-fast.m4a"
+    ],
+    "audio": [
+     0.997,
+     6139
+    ],
+    "peaks": [
+     0.997,
+     5896
+    ]
+   },
+   {
+    "pair": [
+     "a-cropped.mp3",
+     "c-mash.mp3"
+    ],
+    "audio": [
+     0.698,
+     8968
+    ],
+    "peaks": [
+     0.698,
+     8968
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-late.mp3",
+     "a-edit-middle.mp3"
+    ],
+    "audio": [
+     0.508,
+     12902
+    ],
+    "peaks": [
+     0.508,
+     12902
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-late.mp3",
+     "a-original.mp3"
+    ],
+    "audio": [
+     0.918,
+     21490
+    ],
+    "peaks": [
+     0.918,
+     21490
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-late.mp3",
+     "a-rip-fast.m4a"
+    ],
+    "audio": [
+     0.917,
+     6853
+    ],
+    "peaks": [
+     0.917,
+     6417
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-late.mp3",
+     "c-mash.mp3"
+    ],
+    "audio": [
+     0.699,
+     9708
+    ],
+    "peaks": [
+     0.699,
+     9708
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-middle.mp3",
+     "a-original.mp3"
+    ],
+    "audio": [
+     0.508,
+     11350
+    ],
+    "peaks": [
+     0.508,
+     11350
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-middle.mp3",
+     "a-rip-fast.m4a"
+    ],
+    "audio": [
+     0.507,
+     3617
+    ],
+    "peaks": [
+     0.507,
+     3387
+    ]
+   },
+   {
+    "pair": [
+     "a-edit-middle.mp3",
+     "c-mash.mp3"
+    ],
+    "audio": [
+     0.5,
+     6737
+    ],
+    "peaks": [
+     0.5,
+     6737
+    ]
+   },
+   {
+    "pair": [
+     "a-original.mp3",
+     "a-rip-fast.m4a"
+    ],
+    "audio": [
+     1.002,
+     8210
+    ],
+    "peaks": [
+     1.002,
+     7668
+    ]
+   },
+   {
+    "pair": [
+     "a-original.mp3",
+     "c-mash.mp3"
+    ],
+    "audio": [
+     0.699,
+     9721
+    ],
+    "peaks": [
+     0.699,
+     9721
+    ]
+   },
+   {
+    "pair": [
+     "a-rip-fast.m4a",
+     "c-mash.mp3"
+    ],
+    "audio": [
+     0.699,
+     4215
+    ],
+    "peaks": [
+     0.699,
+     3999
+    ]
+   },
+   {
+    "pair": [
+     "b-first.mp3",
+     "b-full.mp3"
+    ],
+    "audio": [
+     0.998,
+     8861
+    ],
+    "peaks": [
+     0.998,
+     7792
+    ]
+   },
+   {
+    "pair": [
+     "b-first.mp3",
+     "b-last.mp3"
+    ],
+    "audio": [
+     0.459,
+     5142
+    ],
+    "peaks": [
+     0.459,
+     5142
+    ]
+   },
+   {
+    "pair": [
+     "b-full.mp3",
+     "b-last.mp3"
+    ],
+    "audio": [
+     0.993,
+     9384
+    ],
+    "peaks": [
+     0.993,
+     8038
+    ]
+   },
+   {
+    "pair": [
+     "c-mash.mp3",
+     "c.mp3"
+    ],
+    "audio": [
+     0.299,
+     5063
+    ],
+    "peaks": [
+     0.299,
+     5063
+    ]
+   }
+  ],
+  "user_seconds": {
+   "audio": 47.45,
+   "peaks": 2.68
+  }
+ },
+ "library": {
+  "assets": 262,
+  "clusters_with_duplicates": {
+   "audio": 17,
+   "peaks": 17,
+   "in_use": 17
+  },
+  "audio_equals_in_use": true,
+  "peaks_equals_audio": true,
+  "pairs_reported_at_20_percent": {
+   "audio": 35,
+   "peaks": 33
+  },
+  "pairs_disagreeing_on_80_percent": 0,
+  "pairs_between_40_and_80_percent": 0,
+  "same_recording_pairs": 23,
+  "hits_peaks_over_audio_median_min": [
+   1.0,
+   0.98
+  ],
+  "largest_coverage_difference_in_pairs_both_report": 0.094,
+  "user_seconds": {
+   "audio": 1558.6,
+   "peaks": 231.4
+  },
+  "wall_seconds": {
+   "audio_3_workers": 746.1,
+   "peaks_4_workers": 74.7
+  }
+ }
+}

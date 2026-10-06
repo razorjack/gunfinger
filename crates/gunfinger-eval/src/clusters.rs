@@ -6,6 +6,10 @@
 //! one. The criterion is deliberately strict: a remix or VIP that shares some
 //! sections with the original must stay separate. Clusters depend on library
 //! audio alone, never on what a set scan returned.
+//!
+//! With `Source::Peaks` each file's stored peaks are searched instead of its
+//! decoded audio: no decoding, so it scales to a large library, at the cost
+//! of the hashes that rescaled peaks lose (`search::search_peaks`).
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -18,7 +22,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::search;
+use gunfinger_core::search::{search, search_peaks};
 use gunfinger_core::speed::{Rung, SpeedRatio};
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
@@ -86,18 +90,36 @@ impl Clusters {
     }
 }
 
-pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Clusters, String> {
-    let mut pairs = self_match(library, store, jobs, |pair| {
+/// What each library file is searched with.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum Source {
+    /// Its decoded audio.
+    Audio,
+    /// Its stored peaks, rescaled to each speed.
+    Peaks,
+}
+
+pub fn find(
+    library: &Library,
+    store: &PeakStore,
+    source: Source,
+    jobs: usize,
+) -> Result<Clusters, String> {
+    let mut pairs = self_match(library, store, source, jobs, |pair| {
         pair.coverage >= REPORTED_COVERAGE
     })?;
     pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage));
 
     Ok(Clusters {
         criterion: format!(
-            "one alignment at speed {:.2}..{:.2} covers at least {:.0}% of the shorter file",
+            "one alignment at speed {:.2}..{:.2} covers at least {:.0}% of the shorter file{}",
             SPEEDS[0],
             SPEEDS[SPEEDS.len() - 1],
-            MIN_COVERAGE * 100.0
+            MIN_COVERAGE * 100.0,
+            match source {
+                Source::Audio => "",
+                Source::Peaks => " (stored peaks searched)",
+            }
         ),
         duplicates: merge(&pairs),
         pairs,
@@ -109,6 +131,7 @@ pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Cluster
 pub fn self_match(
     library: &Library,
     store: &PeakStore,
+    source: Source,
     jobs: usize,
     keep: impl Fn(&Pair) -> bool + Sync,
 ) -> Result<Vec<Pair>, String> {
@@ -135,14 +158,20 @@ pub fn self_match(
     let finished = AtomicUsize::new(0);
     let found: Vec<Result<Vec<Pair>, String>> = map_in_order(&records, jobs, |record| {
         let query = &record.header.source.path;
-        let audio = decode(
-            &library.root.join(query),
-            profile.sample_rate,
-            Excerpt::default(),
-        )
-        .map_err(|error| error.to_string())?;
+        let detections = match source {
+            Source::Audio => {
+                let audio = decode(
+                    &library.root.join(query),
+                    profile.sample_rate,
+                    Excerpt::default(),
+                )
+                .map_err(|error| error.to_string())?;
+                search(&index, &audio.samples, &profile, &ladder, 1)
+            }
+            Source::Peaks => search_peaks(&index, &record.peaks, &profile, &ladder, 1),
+        };
         let mut pairs = Vec::new();
-        for detection in search(&index, &audio.samples, &profile, &ladder, 1) {
+        for detection in detections {
             let found = &index.asset(detection.asset).path;
             if found == query {
                 continue;
@@ -181,6 +210,31 @@ pub fn print_summary(clusters: &Clusters) {
     println!("{} clusters with duplicates:", clusters.duplicates.len());
     for members in &clusters.duplicates {
         println!("  {}", members.join("  |  "));
+    }
+}
+
+/// Prints the clusters with duplicates that one set has and the other does
+/// not.
+pub fn print_differences(name: &str, clusters: &Clusters, other_name: &str, other: &Clusters) {
+    let only = |a: &Clusters, b: &Clusters| -> Vec<String> {
+        a.duplicates
+            .iter()
+            .filter(|members| !b.duplicates.contains(members))
+            .map(|members| members.join("  |  "))
+            .collect()
+    };
+    let (ours, theirs) = (only(clusters, other), only(other, clusters));
+    println!(
+        "against {other_name}: {} clusters the same, {} only in {name}, {} only in {other_name}",
+        clusters.duplicates.len() - ours.len(),
+        ours.len(),
+        theirs.len()
+    );
+    for members in ours {
+        println!("  only in {name}: {members}");
+    }
+    for members in theirs {
+        println!("  only in {other_name}: {members}");
     }
 }
 

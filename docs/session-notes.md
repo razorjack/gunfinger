@@ -325,3 +325,23 @@ or better. A beatmatched partner costs as much as an unmatched one.
 Everything together (wow, a beatmatched partner at -6 dB, broadcast
 processing, AAC at 64 kbit/s) leaves 3-4 of 40 confident and 32 of 40
 possible. There is no wrong answer in any of these.
+
+### Before adding tracks: fixed sweep panels and clusters without decoding
+
+The sweep's held-out recordings and excerpts are now saved per seed in
+`docs/panels/` the first time a seed is used, and reused after. Tracks
+added later are indexed; new rips of a held-out recording stay held out.
+Before this, adding tracks would have redrawn every excerpt while the
+cached renders (named by number and speed) stayed, so the harness would
+have scored old audio against new truth without noticing. `robust`,
+`mixes`, `grid` and `hash-cost` use the same panels.
+
+`gunfinger-eval clusters --from-peaks` searches each file's stored peaks
+instead of decoding it. It finds the same 17 duplicate clusters as the
+exhaustive search, with a seventh of the CPU, and on controlled cases (a
+faster AAC rip, a crop, two edits, an A-B-C chain, a mash-up) both give
+the designed clusters (experiment 0023). It compares with the clusters in
+use and does not replace them. One property of the criterion to know
+before adding edits: an edit that removes a section from the middle of a
+track is not a duplicate of the original, because no single alignment
+covers 80% of it.
