@@ -106,10 +106,7 @@ fn detection(chain: &[&Line], profile: &Profile) -> Detection {
         track_end_seconds: profile.seconds(closing.reference_frame_at(closing.last).max(0.0)),
         speed: SpeedRatio(chain_speed(chain)),
         playback: playback(chain),
-        evidence: Evidence {
-            windows: chain.len() as u32,
-            hits: chain.iter().map(|line| line.hits).sum(),
-        },
+        evidence: Evidence::new(chain.len() as u32, chain.iter().map(|line| line.hits).sum()),
     }
 }
 
@@ -133,7 +130,7 @@ fn playback(chain: &[&Line]) -> Playback {
 /// time against query time through the lines' centres,
 /// `cov(query, reference) / var(query)`. It resolves the speed far more
 /// finely than the ladder step. A short chain gives the mean of its rungs.
-fn chain_speed(chain: &[&Line]) -> f64 {
+pub(super) fn chain_speed(chain: &[&Line]) -> f64 {
     let span = chain[chain.len() - 1].centre() - chain[0].centre();
     if chain.len() < 3 || span < MIN_FIT_FRAMES {
         return weighted_mean(chain, |line| line.speed);

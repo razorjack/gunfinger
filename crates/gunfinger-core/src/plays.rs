@@ -77,6 +77,7 @@ impl Play {
                 .iter()
                 .map(|segment| segment.evidence.hits)
                 .sum(),
+            pass: self.strongest().evidence.pass,
         }
     }
 
@@ -180,7 +181,7 @@ mod tests {
             track_end_seconds: end_seconds - start_seconds,
             speed: SpeedRatio(1.0 + f64::from(hits) / 1e5),
             playback: Playback::Turntable,
-            evidence: Evidence { windows: 4, hits },
+            evidence: Evidence::new(4, hits),
         }
     }
 

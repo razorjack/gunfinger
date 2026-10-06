@@ -13,7 +13,7 @@
 
 use std::collections::BTreeSet;
 
-use gunfinger_core::confidence::{Confidence, Evidence};
+use gunfinger_core::confidence::{Confidence, Evidence, Pass};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
@@ -32,14 +32,24 @@ pub struct Found {
     pub windows: u32,
     pub hits: u32,
     pub confident: bool,
+    /// Counted by the second pass (`Pass::Fitted`).
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub fitted: bool,
 }
 
 impl Found {
     pub fn evidence(&self) -> Evidence {
-        Evidence {
-            windows: self.windows,
-            hits: self.hits,
-        }
+        evidence(self.windows, self.hits, self.fitted)
+    }
+}
+
+/// Evidence as reports store it: the counts, and whether the second pass
+/// counted them.
+pub fn evidence(windows: u32, hits: u32, fitted: bool) -> Evidence {
+    Evidence {
+        windows,
+        hits,
+        pass: if fitted { Pass::Fitted } else { Pass::Ladder },
     }
 }
 
@@ -299,6 +309,7 @@ mod tests {
             windows: 10,
             hits: 500,
             confident,
+            fitted: false,
         }
     }
 

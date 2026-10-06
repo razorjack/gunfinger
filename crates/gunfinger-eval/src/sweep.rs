@@ -10,18 +10,20 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use gunfinger_core::confidence::Pass;
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, search};
+use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::matching::Matching;
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
 
@@ -71,6 +73,9 @@ pub struct Outcome {
     pub windows: u32,
     pub hits: u32,
     pub speed_percent: f64,
+    /// Counted by the second pass (`Pass::Fitted`).
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub fitted: bool,
 }
 
 /// An excerpt to render: which asset, from where.
@@ -96,15 +101,26 @@ impl Plan {
     }
 }
 
+pub struct Options<'a> {
+    pub seed: u64,
+    pub ladder: &'a [Rung],
+    pub matching: &'a Matching,
+    pub jobs: usize,
+}
+
 pub fn run(
     library: &Library,
     store: &PeakStore,
     clusters: &Clusters,
     work: &Path,
-    seed: u64,
-    ladder: &[Rung],
-    jobs: usize,
+    options: &Options,
 ) -> Result<SweepReport, String> {
+    let Options {
+        seed,
+        ladder,
+        matching,
+        jobs,
+    } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let Plan { held_out, draws } = Plan::draw(&records, clusters, seed);
@@ -113,7 +129,7 @@ pub fn run(
         .filter(|record| !held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let index = Index::build(&indexed).map_err(|error| error.to_string())?;
+    let index = matching.index(Index::build(&indexed).map_err(|error| error.to_string())?);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let renders = render_all(library, &draws, &dir, jobs)?;
@@ -124,7 +140,7 @@ pub fn run(
             let audio = decode(path, profile.sample_rate, Excerpt::default())
                 .map_err(|error| error.to_string())?;
             let own_cluster = clusters.cluster_of(&draw.asset);
-            let detections = search(&index, &audio.samples, &profile, ladder, 1);
+            let detections = matching.search(&index, &audio.samples, &profile, ladder, 1);
             Ok(Query {
                 asset: draw.asset.clone(),
                 held_out: draw.held_out,
@@ -253,6 +269,7 @@ fn outcome(index: &Index, detection: &Detection, own_cluster: &BTreeSet<String>)
         windows: detection.evidence.windows,
         hits: detection.evidence.hits,
         speed_percent: (detection.speed.0 - 1.0) * 100.0,
+        fitted: detection.evidence.pass == Pass::Fitted,
     }
 }
 

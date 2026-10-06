@@ -14,7 +14,7 @@
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 
-use gunfinger_core::confidence::{Confidence, MIN_HITS};
+use gunfinger_core::confidence::Confidence;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::speed::Rung;
@@ -22,10 +22,12 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::matching::Matching;
 use crate::mixes::{
     MixFound, PlannedMix, PlannedPlay, Pools, draw_unused, search_mix, sweep_index,
 };
 use crate::rng::Rng;
+use crate::scoring::evidence;
 
 const LENGTHS: [f64; 6] = [10.0, 15.0, 20.0, 25.0, 30.0, 40.0];
 /// Offsets of the brief play from the window grid, in seconds.
@@ -82,6 +84,7 @@ pub struct Options<'a> {
     pub seed: u64,
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
+    pub matching: &'a Matching,
     pub jobs: usize,
 }
 
@@ -92,7 +95,8 @@ pub fn run(
     work: &Path,
     options: &Options,
 ) -> Result<GridReport, String> {
-    let (records, held_out, index) = sweep_index(library, store, clusters, options.seed)?;
+    let (records, held_out, index) =
+        sweep_index(library, store, clusters, options.seed, options.matching)?;
     let pools = Pools::new(&records, &held_out);
     let briefs = draw_briefs(&pools, clusters, &mut Rng::new(options.seed))
         .ok_or("the library has too few long tracks for the grid")?;
@@ -112,7 +116,15 @@ pub fn run(
         &planned,
         options.jobs,
         |(number, seconds, offset, mix, path)| {
-            let result = search_mix(mix, path, library, &index, clusters, options.ladder)?;
+            let result = search_mix(
+                mix,
+                path,
+                library,
+                &index,
+                clusters,
+                options.ladder,
+                options.matching,
+            )?;
             let brief = &result.score.plays[1];
             let accepted = clusters.cluster_of(&brief.truth.asset);
             Ok(GridQuery {
@@ -240,7 +252,14 @@ fn query(name: &str, brief: &Brief, seconds: f64, offset: u32) -> PlannedMix {
 pub fn confident_under(matching: &[MixFound], min_span: Option<f64>) -> bool {
     matching.iter().any(|found| match min_span {
         None => found.confidence() == Confidence::Confident,
-        Some(span) => found.hits >= MIN_HITS && found.end_seconds - found.start_seconds >= span,
+        Some(span) => {
+            found.hits
+                >= evidence(found.windows, found.hits, found.fitted)
+                    .pass
+                    .rule()
+                    .min_hits
+                && found.end_seconds - found.start_seconds >= span
+        }
     })
 }
 
@@ -361,6 +380,7 @@ mod tests {
             speed: 1.0,
             windows: 2,
             hits: 450,
+            fitted: false,
         };
 
         assert!(!confident_under(std::slice::from_ref(&found), None));

@@ -11,21 +11,23 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use gunfinger_core::confidence::{Confidence, Evidence};
+use gunfinger_core::confidence::{Confidence, Pass};
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, search};
+use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::matching::Matching;
 use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
 use crate::rng::Rng;
+use crate::scoring::evidence;
 use crate::sweep::Plan;
 
 /// Plays per generated mix, and the length of each, fades included.
@@ -185,6 +187,9 @@ pub struct MixFound {
     pub speed: f64,
     pub windows: u32,
     pub hits: u32,
+    /// Counted by the second pass (`Pass::Fitted`).
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub fitted: bool,
 }
 
 impl MixFound {
@@ -197,15 +202,12 @@ impl MixFound {
             speed: detection.speed.0,
             windows: detection.evidence.windows,
             hits: detection.evidence.hits,
+            fitted: detection.evidence.pass == Pass::Fitted,
         }
     }
 
     pub fn confidence(&self) -> Confidence {
-        Evidence {
-            windows: self.windows,
-            hits: self.hits,
-        }
-        .confidence()
+        evidence(self.windows, self.hits, self.fitted).confidence()
     }
 
     fn overlaps(&self, play: &PlannedPlay) -> bool {
@@ -479,6 +481,7 @@ pub struct Options<'a> {
     pub count: usize,
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
+    pub matching: &'a Matching,
     pub jobs: usize,
 }
 
@@ -489,6 +492,7 @@ pub fn sweep_index(
     store: &PeakStore,
     clusters: &Clusters,
     seed: u64,
+    matching: &Matching,
 ) -> Result<(Vec<PeakRecord>, BTreeSet<String>, Index), String> {
     let (records, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
     let held_out = Plan::draw(&records, clusters, seed).held_out;
@@ -498,7 +502,7 @@ pub fn sweep_index(
         .cloned()
         .collect();
     let index = Index::build(&indexed).map_err(|error| error.to_string())?;
-    Ok((records, held_out, index))
+    Ok((records, held_out, matching.index(index)))
 }
 
 /// Draws, renders, searches and scores `count` mixes, one per thread.
@@ -509,7 +513,8 @@ pub fn run(
     work: &Path,
     options: &Options,
 ) -> Result<MixesReport, String> {
-    let (records, held_out, index) = sweep_index(library, store, clusters, options.seed)?;
+    let (records, held_out, index) =
+        sweep_index(library, store, clusters, options.seed, options.matching)?;
     let index = &index;
     let pools = Pools::new(&records, &held_out);
     let mut rng = Rng::new(options.seed);
@@ -522,7 +527,15 @@ pub fn run(
         })
         .collect::<Result<_, _>>()?;
     let results = map_in_order(&planned, options.jobs, |(mix, path)| {
-        search_mix(mix, path, library, index, clusters, options.ladder)
+        search_mix(
+            mix,
+            path,
+            library,
+            index,
+            clusters,
+            options.ladder,
+            options.matching,
+        )
     });
     Ok(MixesReport {
         seed: options.seed,
@@ -541,6 +554,7 @@ pub fn search_mix(
     index: &Index,
     clusters: &Clusters,
     ladder: &[Rung],
+    matching: &Matching,
 ) -> Result<MixResult, String> {
     let truth_path = path.with_extension("truth.json");
     let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
@@ -553,7 +567,8 @@ pub fn search_mix(
     let profile = Profile::CURRENT;
     let audio =
         decode(path, profile.sample_rate, Excerpt::default()).map_err(|error| error.to_string())?;
-    let detections: Vec<MixFound> = search(index, &audio.samples, &profile, ladder, 1)
+    let detections: Vec<MixFound> = matching
+        .search(index, &audio.samples, &profile, ladder, 1)
         .iter()
         .map(|detection| MixFound::new(index, detection))
         .collect();
@@ -677,6 +692,7 @@ mod tests {
             speed: 1.02,
             windows: 4,
             hits,
+            fitted: false,
         }
     }
 

@@ -18,12 +18,12 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::search;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::matching::Matching;
 use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
@@ -308,8 +308,7 @@ pub struct Options<'a> {
     pub ladder: &'a [Rung],
     /// Reversed copies of every indexed record added to the index.
     pub synthetic_copies: usize,
-    /// Share of the fullest posting lists emptied (`Index::without_fullest`).
-    pub drop_fullest: f64,
+    pub matching: &'a Matching,
     pub jobs: usize,
 }
 
@@ -326,7 +325,7 @@ pub fn run(
         ladder_name,
         ladder,
         synthetic_copies,
-        drop_fullest,
+        matching,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
@@ -337,9 +336,10 @@ pub fn run(
         .filter(|record| !plan.held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let index = synthetic::index_with_copies(&indexed, synthetic_copies, &profile)
-        .map_err(|error| error.to_string())?
-        .without_fullest(drop_fullest);
+    let index = matching.index(
+        synthetic::index_with_copies(&indexed, synthetic_copies, &profile)
+            .map_err(|error| error.to_string())?,
+    );
     drop(indexed);
     drop(records);
     let draws: Vec<&Draw> = plan
@@ -390,7 +390,7 @@ pub fn run(
         let audio = decode(&job.path, profile.sample_rate, Excerpt::default())
             .map_err(|error| error.to_string())?;
         let started = Instant::now();
-        let detections = search(&index, &audio.samples, &profile, ladder, 1);
+        let detections = matching.search(&index, &audio.samples, &profile, ladder, 1);
         let search_seconds = started.elapsed().as_secs_f64();
         let own = clusters.cluster_of(&job.draw.asset);
         let partner = if job.condition.has_partner() {

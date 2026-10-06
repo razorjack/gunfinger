@@ -6,7 +6,7 @@
 use std::fs;
 use std::path::Path;
 
-use gunfinger_core::confidence::MIN_POSSIBLE_HITS;
+use gunfinger_core::confidence::Pass;
 
 use crate::calibrate::{Calibration, Sample, read};
 use crate::scan::ScanReport;
@@ -211,11 +211,13 @@ fn compare_calibrations(before: &Calibration, after: &Calibration) {
         before.accepted_false(),
         after.accepted_false()
     );
+    // One threshold on both sides, so the counts compare.
+    let rule = Pass::Ladder.rule();
     println!(
         "calibrate: false candidates at {} hits or more {} -> {}, strongest on audio not in the index {} -> {}",
-        MIN_POSSIBLE_HITS / 2,
-        before.near_possible().len(),
-        after.near_possible().len(),
+        rule.min_possible_hits / 2,
+        before.near_possible(rule).len(),
+        after.near_possible(rule).len(),
         hits(before.strongest_not_indexed()),
         hits(after.strongest_not_indexed())
     );

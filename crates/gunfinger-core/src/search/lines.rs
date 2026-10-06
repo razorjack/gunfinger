@@ -14,9 +14,9 @@ use crate::speed::{Playback, Rung};
 /// speed error of 0.2% drifts the offset by about one frame.
 pub(super) const WINDOW_SECONDS: f64 = 10.0;
 /// Hits whose offsets lie within this many frames belong to one line.
-const LINE_SPAN_FRAMES: f64 = 2.0;
+pub(super) const LINE_SPAN_FRAMES: f64 = 2.0;
 /// Fewer hits than this in a window are not worth keeping as a line.
-const MIN_LINE_HITS: usize = 3;
+pub(super) const MIN_LINE_HITS: usize = 3;
 /// A looped section matches its reference at several offsets; keep a few.
 const MAX_LINES_PER_ASSET: usize = 3;
 /// Lines from neighbouring rungs predicting reference times this close are

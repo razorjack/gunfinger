@@ -12,6 +12,7 @@
 
 mod chains;
 mod lines;
+mod refine;
 
 use std::cmp::Reverse;
 
@@ -113,6 +114,30 @@ pub fn search_with_progress(
         .collect()
 }
 
+/// Like `search`, then the second pass (opt-in, `refine`): each candidate
+/// with a few hits or more is measured again at its fitted speed, its
+/// evidence on that pass's scale (`Pass::Fitted`).
+pub fn search_twice(
+    index: &Index,
+    samples: &[f32],
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+) -> Vec<Detection> {
+    let (lines, chained) = lines_and_detections(index, samples, profile, ladder, jobs, |_| {});
+    let mut refined = refine::refine(index, samples, profile, &lines, &chained, jobs);
+    refined.sort_by_key(|detection| Reverse(detection.evidence.hits));
+    strongest_per_moment(
+        refined
+            .into_iter()
+            .map(|detection| (detection, Vec::new()))
+            .collect(),
+    )
+    .into_iter()
+    .map(|(detection, _)| detection)
+    .collect()
+}
+
 /// Like `search_with_progress`, keeping the evidence (`explain`).
 pub fn trace_with_progress(
     index: &Index,
@@ -194,7 +219,7 @@ mod tests {
             track_end_seconds: end_seconds - start_seconds,
             speed: SpeedRatio(1.0),
             playback: Playback::Turntable,
-            evidence: Evidence { windows: 5, hits },
+            evidence: Evidence::new(5, hits),
         }
     }
 

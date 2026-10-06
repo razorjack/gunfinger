@@ -5,13 +5,14 @@ use std::collections::BTreeSet;
 use std::path::Path;
 use std::time::{Duration, Instant};
 
+use gunfinger_core::confidence::Pass;
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::plays;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, search};
+use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use gunfinger_core::timecode::format_timecode;
@@ -19,6 +20,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::manifest::{Set, load_set};
+use crate::matching::Matching;
 use crate::rng::Rng;
 use crate::scoring::{Found, FoundPlay, Score, score};
 use crate::synthetic;
@@ -52,8 +54,7 @@ pub struct Options<'a> {
     /// Reversed copies of every indexed record added to the index
     /// (`synthetic`), to measure a larger library.
     pub synthetic_copies: usize,
-    /// Share of the fullest posting lists emptied (`Index::without_fullest`).
-    pub drop_fullest: f64,
+    pub matching: &'a Matching,
     pub ladder: &'a [Rung],
     pub jobs: usize,
 }
@@ -69,7 +70,7 @@ pub fn run(
     let Options {
         leave_out,
         synthetic_copies,
-        drop_fullest,
+        matching,
         ladder,
         jobs,
     } = *options;
@@ -80,15 +81,16 @@ pub fn run(
         None => (Vec::new(), BTreeSet::new()),
     };
     let (records, _) = load_records(library, store, &profile, &left_out_assets);
-    let index = synthetic::index_with_copies(&records, synthetic_copies, &profile)
-        .map_err(|error| error.to_string())?
-        .without_fullest(drop_fullest);
+    let index = matching.index(
+        synthetic::index_with_copies(&records, synthetic_copies, &profile)
+            .map_err(|error| error.to_string())?,
+    );
     drop(records);
 
     let started = Instant::now();
     let audio = decode(&set.audio, profile.sample_rate, Excerpt::default())
         .map_err(|error| error.to_string())?;
-    let detections = search(&index, &audio.samples, &profile, ladder, jobs);
+    let detections = matching.search(&index, &audio.samples, &profile, ladder, jobs);
     let wall_seconds = started.elapsed().as_secs_f64();
     let plays: Vec<FoundPlay> = plays::group(&detections)
         .iter()
@@ -135,6 +137,7 @@ fn found(index: &Index, detection: &Detection) -> Found {
         windows: detection.evidence.windows,
         hits: detection.evidence.hits,
         confident: detection.evidence.is_confident(),
+        fitted: detection.evidence.pass == Pass::Fitted,
     }
 }
 
