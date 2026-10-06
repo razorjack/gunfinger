@@ -18,12 +18,12 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::search;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
 use crate::manifest::load_set;
+use crate::matching::Matching;
 use crate::synthetic;
 
 /// The last phase to run.
@@ -45,6 +45,7 @@ pub struct Options<'a> {
     /// Search only this many minutes from the start of the set's audio.
     pub minutes: Option<u64>,
     pub ladder: &'a [Rung],
+    pub matching: Matching,
     pub jobs: usize,
 }
 
@@ -52,6 +53,8 @@ pub struct Options<'a> {
 pub struct MemoryReport {
     pub synthetic_copies: usize,
     pub jobs: usize,
+    /// The opt-in matcher's name; `None` for the default.
+    pub matching: Option<String>,
     pub assets: usize,
     /// Peaks of the library's own records (the copies have a few fewer).
     pub library_peaks: usize,
@@ -83,6 +86,7 @@ pub fn run(
     let mut report = MemoryReport {
         synthetic_copies: options.synthetic_copies,
         jobs: options.jobs,
+        matching: options.matching.name(),
         assets: 0,
         library_peaks: 0,
         postings: 0,
@@ -104,6 +108,7 @@ pub fn run(
     let started = Instant::now();
     let index = synthetic::index_with_copies(&records, options.synthetic_copies, &profile)
         .map_err(|error| error.to_string())?;
+    let index = options.matching.index(index);
     drop(records);
     report.assets = index.assets().len();
     report.library_peaks = peaks;
@@ -127,7 +132,7 @@ pub fn run(
     let audio =
         decode(&set.audio, profile.sample_rate, excerpt).map_err(|error| error.to_string())?;
     report.query_seconds = audio.duration().as_secs_f64();
-    search(
+    options.matching.search(
         &index,
         &audio.samples,
         &profile,
@@ -168,13 +173,14 @@ fn resident_bytes() -> Option<u64> {
 pub fn print_summary(report: &MemoryReport) {
     let megabytes = |bytes: u64| bytes as f64 / 1e6;
     println!(
-        "memory: {} assets ({} synthetic copies each), {} library peaks, {} postings, {} jobs, {:.0} s of query",
+        "memory: {} assets ({} synthetic copies each), {} library peaks, {} postings, {} jobs, {:.0} s of query, matcher {}",
         report.assets,
         report.synthetic_copies,
         report.library_peaks,
         report.postings,
         report.jobs,
-        report.query_seconds
+        report.query_seconds,
+        report.matching.as_deref().unwrap_or("default")
     );
     println!(
         "{:<9} {:>8} {:>11} {:>10} {:>10}",
