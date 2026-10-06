@@ -61,6 +61,8 @@ pub struct Index {
     assets: Vec<IndexedAsset>,
     offsets: Vec<u32>,
     postings: Vec<Posting>,
+    /// Lists longer than this are left out of `scanned_postings`.
+    longest_scanned: u32,
 }
 
 impl Index {
@@ -95,6 +97,17 @@ impl Index {
         &self.postings[start..end]
     }
 
+    /// The postings a search scans for candidates: all of them, unless
+    /// `skipping_fullest` set the fullest lists aside.
+    pub fn scanned_postings(&self, hash: PairHash) -> &[Posting] {
+        let list = self.postings(hash);
+        if list.len() as u32 > self.longest_scanned {
+            &[]
+        } else {
+            list
+        }
+    }
+
     pub fn asset(&self, id: AssetId) -> &IndexedAsset {
         &self.assets[id.0 as usize]
     }
@@ -119,18 +132,9 @@ impl Index {
     /// Such hashes occur all over the library, so they cost the most
     /// lookups and tell assets apart the least.
     pub fn without_fullest(self, share: f64) -> Index {
-        let mut lengths: Vec<u32> = self
-            .offsets
-            .windows(2)
-            .map(|pair| pair[1] - pair[0])
-            .filter(|&length| length > 0)
-            .collect();
-        let dropped = (share * lengths.len() as f64).round() as usize;
-        if dropped == 0 {
+        let Some(longest_kept) = self.longest_kept(share) else {
             return self;
-        }
-        lengths.sort_unstable_by(|a, b| b.cmp(a));
-        let longest_kept = lengths.get(dropped).copied().unwrap_or(0);
+        };
         let mut offsets = Vec::with_capacity(self.offsets.len());
         let mut postings = Vec::new();
         offsets.push(0);
@@ -144,7 +148,37 @@ impl Index {
             assets: self.assets,
             offsets,
             postings,
+            longest_scanned: u32::MAX,
         }
+    }
+
+    /// Like `without_fullest`, but keeps the lists: `scanned_postings`
+    /// leaves them out, `postings` still returns them.
+    pub fn skipping_fullest(self, share: f64) -> Index {
+        match self.longest_kept(share) {
+            Some(longest_scanned) => Index {
+                longest_scanned,
+                ..self
+            },
+            None => self,
+        }
+    }
+
+    /// The longest list kept when the `share` of fullest non-empty lists
+    /// is set aside; `None` when that share rounds to no list.
+    fn longest_kept(&self, share: f64) -> Option<u32> {
+        let mut lengths: Vec<u32> = self
+            .offsets
+            .windows(2)
+            .map(|pair| pair[1] - pair[0])
+            .filter(|&length| length > 0)
+            .collect();
+        let dropped = (share * lengths.len() as f64).round() as usize;
+        if dropped == 0 {
+            return None;
+        }
+        lengths.sort_unstable_by(|a, b| b.cmp(a));
+        Some(lengths.get(dropped).copied().unwrap_or(0))
     }
 
     /// Bytes the index occupies: the offsets table and the postings.
@@ -258,6 +292,7 @@ impl Filling {
             assets: self.assets,
             offsets: self.offsets,
             postings: self.postings,
+            longest_scanned: u32::MAX,
         })
     }
 }
@@ -365,6 +400,30 @@ mod tests {
 
         assert!(thinned.postings(hashes_of(&first)[0]).is_empty());
         assert_eq!(thinned.posting_count(), before - 2);
+    }
+
+    #[test]
+    fn skipping_the_fullest_lists_keeps_them_for_counting() {
+        let first = [(10.0, 100.0), (20.0, 110.0)];
+        let second = [
+            (500.2, 100.0),
+            (509.8, 110.0),
+            (900.0, 300.0),
+            (920.0, 300.0),
+        ];
+        let index = Index::build(&[record("a.mp3", &first), record("b.mp3", &second)]).unwrap();
+        let lists = index
+            .posting_lists()
+            .filter(|list| !list.is_empty())
+            .count();
+        let common = hashes_of(&first)[0];
+        let rare = *hashes_of(&second).last().unwrap();
+
+        let skipping = index.skipping_fullest(1.0 / lists as f64);
+
+        assert!(skipping.scanned_postings(common).is_empty());
+        assert_eq!(skipping.postings(common).len(), 2);
+        assert_eq!(skipping.scanned_postings(rare).len(), 1);
     }
 
     #[test]
