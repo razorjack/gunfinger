@@ -29,7 +29,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Same-audio rows collapsed
 - [x] Timeline view
 - [ ] `explain`
-- [ ] `listen`
+- [x] `listen`
 - [x] Export formats (csv, cue, tracklist; `show` renders saved reports)
 - [ ] Batch identification
 - [~] Completions, man page, `--quiet` (done), progress
