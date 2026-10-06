@@ -122,8 +122,12 @@ library: records are keyed by the path relative to the library root, and
 `prune` refuses to delete most of a store, which is what a shared store or
 a wrong `--library` looks like. `identify --exclude-from FILE` leaves the
 listed library paths out of the index. Human output is coloured on a terminal
-(`--color auto|always|never`; `NO_COLOR` turns `auto` off). `--quiet` keeps
-results, warnings and errors and drops progress and timing.
+(`--color auto|always|never`; `NO_COLOR` turns `auto` off). Results go to
+stdout, everything else to stderr. By default stderr shows a progress line
+on a terminal and warnings, such as library files that are not indexed yet.
+`--verbose` (`-v`) adds timings, the size of the index and every file left
+out of it, including the damaged and too-long files `index` passes over;
+`--quiet` (`-q`) keeps only results, warnings and errors.
 `gunfinger completions <shell>` prints a completion script (bash, zsh, fish,
 elvish, powershell) and `gunfinger man` prints the man page.
 
@@ -134,7 +138,7 @@ hold the same audio (copies, or rips with identical peaks), their plays are
 identical and shown once, with the other paths underneath (`also ...`). A play
 of several segments lists them underneath.
 
-`--format` (for `identify` and `show`) also takes:
+`--format` (`-f`, for `identify` and `show`) also takes:
 
 - `timeline`: each play as a bar across the recording.
 - `json`: the whole report: plays with their segments and `same_audio` paths

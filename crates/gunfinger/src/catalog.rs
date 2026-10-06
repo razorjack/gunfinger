@@ -9,7 +9,7 @@ use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::store::{PeakRecord, PeakStore};
+use gunfinger_core::store::{PeakRecord, PeakStore, StoreError};
 use miette::{IntoDiagnostic, WrapErr, miette};
 
 use crate::console::Console;
@@ -45,16 +45,7 @@ impl Catalog {
             None => BTreeSet::new(),
         };
         let (records, problems) = load_records(&library, &store, &Profile::CURRENT, &excluded);
-        if !problems.is_empty() {
-            let mut message = format!(
-                "{} assets are left out because they have no current peak record:",
-                problems.len()
-            );
-            for problem in &problems {
-                message.push_str(&format!("\n  {problem}"));
-            }
-            console.warning(message);
-        }
+        report_left_out(&problems, console);
         if records.is_empty() {
             return Err(miette!(
                 help = "run `gunfinger index {}` first",
@@ -63,7 +54,7 @@ impl Catalog {
             ));
         }
         let index = Index::build(&records).into_diagnostic()?;
-        console.info(format_args!(
+        console.detail(format_args!(
             "index: {} assets ({} excluded), {} postings, {:.1} MB, built in {:.1} s",
             records.len(),
             excluded.len(),
@@ -78,6 +69,84 @@ impl Catalog {
             index,
         })
     }
+}
+
+/// Library files without a current peak record. Files `index` passed over
+/// on purpose (damaged or too long) are listed with `--verbose` only, as
+/// indexing again would not change them. Files not indexed yet always get
+/// a warning, because the search silently misses their tracks; so do
+/// unreadable records.
+fn report_left_out(problems: &[StoreError], console: &Console) {
+    let mut passed_over = Vec::new();
+    let mut not_indexed = Vec::new();
+    let mut broken = Vec::new();
+    for problem in problems {
+        match problem {
+            StoreError::Skipped { asset, reason } => {
+                passed_over.push(format!("{asset} ({reason})"));
+            }
+            StoreError::Missing { asset } => not_indexed.push(asset.clone()),
+            StoreError::Stale { asset } => {
+                not_indexed.push(format!("{asset} (changed since it was indexed)"));
+            }
+            StoreError::Corrupt { .. } | StoreError::Io { .. } => broken.push(problem.to_string()),
+        }
+    }
+    if !passed_over.is_empty() {
+        console.detail(listed(
+            &format!(
+                "{} left out because `index` passed over {} (`index --retry-skipped` tries again):",
+                files(passed_over.len()),
+                if passed_over.len() == 1 { "it" } else { "them" }
+            ),
+            &passed_over,
+        ));
+    }
+    if !not_indexed.is_empty() {
+        let summary = if not_indexed.len() == 1 {
+            String::from("1 library file is not indexed, so its track cannot be found")
+        } else {
+            format!(
+                "{} library files are not indexed, so their tracks cannot be found",
+                not_indexed.len()
+            )
+        } + "; run `gunfinger index`";
+        if console.is_verbose() {
+            console.warning(listed(&format!("{summary}:"), &not_indexed));
+        } else {
+            console.warning(format_args!("{summary} (--verbose lists them)"));
+        }
+    }
+    if !broken.is_empty() {
+        console.warning(listed(
+            &format!("{} cannot be read:", records(broken.len())),
+            &broken,
+        ));
+    }
+}
+
+fn files(count: usize) -> String {
+    if count == 1 {
+        String::from("1 file")
+    } else {
+        format!("{count} files")
+    }
+}
+
+fn records(count: usize) -> String {
+    if count == 1 {
+        String::from("1 peak record")
+    } else {
+        format!("{count} peak records")
+    }
+}
+
+fn listed(heading: &str, items: &[String]) -> String {
+    let mut text = heading.to_owned();
+    for item in items {
+        text.push_str(&format!("\n  {item}"));
+    }
+    text
 }
 
 /// Reports outlive the working directory they were written in.

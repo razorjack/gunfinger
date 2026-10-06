@@ -157,7 +157,7 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
         },
     );
     request.console.progress_done();
-    request.console.info(format_args!(
+    request.console.detail(format_args!(
         "searched {} of audio in {:.1} s (decoding {:.1} s)",
         format_timecode(audio.duration()),
         started.elapsed().as_secs_f64(),
