@@ -37,8 +37,9 @@ pub enum Confidence {
 /// original) and two and a half times below the weakest identifying
 /// detection (501 hits, a 30 s excerpt between two rungs).
 pub const MIN_HITS: u32 = 200;
-/// Hits in three 10 s windows of one chain span at least 20 s of query time;
-/// a 30 s excerpt covers 3.
+/// Hits in three 10 s windows of one chain span more than 10 s of query
+/// time; a 30 s excerpt always covers 3, a 15-20 s play only at some places
+/// on the window grid (experiment 0020).
 pub const MIN_WINDOWS: u32 = 3;
 /// About twice the strongest detection of an unrelated recording measured
 /// (28 hits); only remixes of the played recording went higher (experiment

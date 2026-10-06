@@ -1,0 +1,1074 @@
+{
+ "generated_mixes": {
+  "seed": 2026,
+  "ladder": "both",
+  "indexed_assets": 209,
+  "mixes": 12,
+  "indexed_plays": 115,
+  "held_out_plays": 29,
+  "levels": {
+   "confident": 107,
+   "possible": 8,
+   "weak": 0,
+   "none": 0
+  },
+  "wrong_confident": 0,
+  "wrong_possible": 0,
+  "strongest_false_hits": 46,
+  "start_late_p10_p50_p90": [
+   -0.01,
+   2.7,
+   5.72
+  ],
+  "end_early_p10_p50_p90": [
+   0.22,
+   2.75,
+   5.4
+  ],
+  "not_confident": [
+   {
+    "mix": "mix-02",
+    "seconds": 22.1,
+    "speed": 1.0304,
+    "fade_in": 8.2,
+    "fade_out": 6.7,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 14.0,
+     "windows": 2,
+     "hits": 434
+    },
+    "start_late": 4.3,
+    "end_early": 3.84
+   },
+   {
+    "mix": "mix-03",
+    "seconds": 23.0,
+    "speed": 1.0007,
+    "fade_in": 11.5,
+    "fade_out": 9.9,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 13.1,
+     "windows": 2,
+     "hits": 374
+    },
+    "start_late": 6.3,
+    "end_early": 3.59
+   },
+   {
+    "mix": "mix-04",
+    "seconds": 26.4,
+    "speed": 0.9987,
+    "fade_in": 4.9,
+    "fade_out": 11.2,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 17.1,
+     "windows": 2,
+     "hits": 422
+    },
+    "start_late": 2.7,
+    "end_early": 6.64
+   },
+   {
+    "mix": "mix-06",
+    "seconds": 20.5,
+    "speed": 1.0134,
+    "fade_in": 10.2,
+    "fade_out": 8.7,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 11.9,
+     "windows": 2,
+     "hits": 164
+    },
+    "start_late": 4.44,
+    "end_early": 4.17
+   },
+   {
+    "mix": "mix-06",
+    "seconds": 20.1,
+    "speed": 1.0561,
+    "fade_in": 10.1,
+    "fade_out": 5.6,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 14.4,
+     "windows": 2,
+     "hits": 468
+    },
+    "start_late": 3.22,
+    "end_early": 2.51
+   },
+   {
+    "mix": "mix-07",
+    "seconds": 26.1,
+    "speed": 0.9818,
+    "fade_in": 0.0,
+    "fade_out": 12.9,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 19.7,
+     "windows": 2,
+     "hits": 490
+    },
+    "start_late": 0.03,
+    "end_early": 6.36
+   },
+   {
+    "mix": "mix-09",
+    "seconds": 21.0,
+    "speed": 1.0186,
+    "fade_in": 10.5,
+    "fade_out": 0.0,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 17.4,
+     "windows": 2,
+     "hits": 404
+    },
+    "start_late": 3.11,
+    "end_early": 0.32
+   },
+   {
+    "mix": "mix-10",
+    "seconds": 26.0,
+    "speed": 0.9772,
+    "fade_in": 13.0,
+    "fade_out": 13.0,
+    "bass_swap": true,
+    "level": "possible",
+    "found": {
+     "span": 14.1,
+     "windows": 2,
+     "hits": 265
+    },
+    "start_late": 6.6,
+    "end_early": 5.28
+   }
+  ]
+ },
+ "window_grid": {
+  "seed": 2026,
+  "ladder": "both",
+  "indexed_assets": 209,
+  "briefs": [
+   {
+    "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+    "source_start_seconds": 271.0880181150411,
+    "speed": 0.9861729303049246,
+    "before": "extra/Cyb Orc - Endorphine.mp3",
+    "before_ends_at_seconds": 253.53224310164146,
+    "after": "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+    "after_starts_at_seconds": 314.1754170096159
+   },
+   {
+    "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+    "source_start_seconds": 152.15495929922923,
+    "speed": 0.9676076769013424,
+    "before": "extra/a-usual_suspects-bleach-sour.mp3",
+    "before_ends_at_seconds": 338.5733626733913,
+    "after": "extra/03-aquasky-structure.mp3",
+    "after_starts_at_seconds": 153.83802093746866
+   },
+   {
+    "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+    "source_start_seconds": 132.59593551861235,
+    "speed": 0.9674639624204082,
+    "before": "extra/207-ant_miles-china_town-sour.mp3",
+    "before_ends_at_seconds": 240.6896495476177,
+    "after": "extra/Cyb Orc - Endorphine.mp3",
+    "after_starts_at_seconds": 194.19864255980656
+   },
+   {
+    "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+    "source_start_seconds": 94.62007695614753,
+    "speed": 1.0223944685737554,
+    "before": "extra/aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3",
+    "before_ends_at_seconds": 197.20095697721553,
+    "after": "extra/201-origin_unknown-equinox-sour.mp3",
+    "after_starts_at_seconds": 180.91598864521018
+   },
+   {
+    "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+    "source_start_seconds": 167.46117616188386,
+    "speed": 1.030282124896956,
+    "before": "Kemal & Rob Data - Star Trails.mp3",
+    "before_ends_at_seconds": 235.79162952963182,
+    "after": "Kemal & Paul Reset - Kontempt.mp3",
+    "after_starts_at_seconds": 185.22256207117118
+   },
+   {
+    "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+    "source_start_seconds": 230.48755466817704,
+    "speed": 0.9550532364801309,
+    "before": "extra/02_-_skinnah_-_figurehead.mp3",
+    "before_ends_at_seconds": 219.94372217127523,
+    "after": "extra/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+    "after_starts_at_seconds": 265.9904494782385
+   },
+   {
+    "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+    "source_start_seconds": 142.53419726647974,
+    "speed": 0.9623600120806024,
+    "before": "extra/03-aquasky-structure.mp3",
+    "before_ends_at_seconds": 175.9069984902267,
+    "after": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "after_starts_at_seconds": 269.18715286954034
+   },
+   {
+    "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+    "source_start_seconds": 154.45448500736174,
+    "speed": 1.0552661731081043,
+    "before": "extra/201-origin_unknown-equinox-sour.mp3",
+    "before_ends_at_seconds": 297.19072037553633,
+    "after": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+    "after_starts_at_seconds": 89.95625163063812
+   },
+   {
+    "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+    "source_start_seconds": 89.06805933744906,
+    "speed": 1.0169253432194165,
+    "before": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+    "before_ends_at_seconds": 243.53621717201656,
+    "after": "Ed Rush & Optical - Dozer.mp3",
+    "after_starts_at_seconds": 106.36873556424777
+   },
+   {
+    "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+    "source_start_seconds": 75.9504011988669,
+    "speed": 0.9937335160453286,
+    "before": "extra/01-muffler-bleak_(original_mix).mp3",
+    "before_ends_at_seconds": 148.08878588758068,
+    "after": "extra/A. Pyro -- Time Is Broken.mp3",
+    "after_starts_at_seconds": 176.5911520973138
+   },
+   {
+    "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+    "source_start_seconds": 275.0438899847409,
+    "speed": 0.9512320587310388,
+    "before": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "before_ends_at_seconds": 147.28202331766173,
+    "after": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+    "after_starts_at_seconds": 157.3757312114908
+   },
+   {
+    "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+    "source_start_seconds": 126.07838356418183,
+    "speed": 1.0089901126696843,
+    "before": "Ryme Tyme - Payback Pt. 1.mp3",
+    "before_ends_at_seconds": 282.9030934540164,
+    "after": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+    "after_starts_at_seconds": 285.09639938392445
+   },
+   {
+    "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+    "source_start_seconds": 145.86942106936948,
+    "speed": 1.054243333558698,
+    "before": "extra/AA-Amir-Bulletproof-sour.mp3",
+    "before_ends_at_seconds": 217.18084137506986,
+    "after": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+    "after_starts_at_seconds": 351.65649657504775
+   },
+   {
+    "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+    "source_start_seconds": 301.13311804786633,
+    "speed": 0.9789140019566924,
+    "before": "extra/aa-cause_4_concern-epox-0db.mp3",
+    "before_ends_at_seconds": 224.11291132626693,
+    "after": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3",
+    "after_starts_at_seconds": 169.60780888027875
+   },
+   {
+    "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+    "source_start_seconds": 79.88206746640927,
+    "speed": 1.0513983978470578,
+    "before": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+    "before_ends_at_seconds": 126.01498921136626,
+    "after": "extra/A-Konflict-RoadBlock-sour.mp3",
+    "after_starts_at_seconds": 300.053298814799
+   },
+   {
+    "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+    "source_start_seconds": 229.21751237668227,
+    "speed": 1.0427159268999415,
+    "before": "extra/Cyb Orc - Simulant.mp3",
+    "before_ends_at_seconds": 117.2944153964829,
+    "after": "extra/A-Origin_Unknown-Equinox-sour.mp3",
+    "after_starts_at_seconds": 97.55746353943314
+   }
+  ],
+  "offsets": 10,
+  "lead_in_seconds": "30 + offset",
+  "tail_seconds": 20,
+  "wrong_confident": 0,
+  "strongest_false_hits": 38,
+  "table": [
+   {
+    "seconds": 10,
+    "queries": 160,
+    "possible_or_better": 149,
+    "3 windows": {
+     "confident": 8,
+     "briefs_flipping": 1
+    },
+    "span 10 s": {
+     "confident": 10,
+     "briefs_flipping": 2
+    },
+    "span 15 s": {
+     "confident": 9,
+     "briefs_flipping": 1
+    },
+    "span 20 s": {
+     "confident": 9,
+     "briefs_flipping": 1
+    }
+   },
+   {
+    "seconds": 15,
+    "queries": 160,
+    "possible_or_better": 160,
+    "3 windows": {
+     "confident": 76,
+     "briefs_flipping": 16
+    },
+    "span 10 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 15 s": {
+     "confident": 12,
+     "briefs_flipping": 3
+    },
+    "span 20 s": {
+     "confident": 12,
+     "briefs_flipping": 3
+    }
+   },
+   {
+    "seconds": 20,
+    "queries": 160,
+    "possible_or_better": 160,
+    "3 windows": {
+     "confident": 148,
+     "briefs_flipping": 12
+    },
+    "span 10 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 15 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 20 s": {
+     "confident": 9,
+     "briefs_flipping": 1
+    }
+   },
+   {
+    "seconds": 25,
+    "queries": 160,
+    "possible_or_better": 160,
+    "3 windows": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 10 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 15 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 20 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    }
+   },
+   {
+    "seconds": 30,
+    "queries": 160,
+    "possible_or_better": 160,
+    "3 windows": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 10 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 15 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 20 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    }
+   },
+   {
+    "seconds": 40,
+    "queries": 160,
+    "possible_or_better": 160,
+    "3 windows": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 10 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 15 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    },
+    "span 20 s": {
+     "confident": 160,
+     "briefs_flipping": 0
+    }
+   }
+  ],
+  "start_late_p10_p50_p90": [
+   -0.03,
+   -0.02,
+   0.17
+  ],
+  "end_early_p10_p50_p90": [
+   0.14,
+   0.27,
+   0.46
+  ],
+  "chains_extended_over_2_s": {
+   "queries": 61,
+   "by_brief": {
+    "0": 55,
+    "3": 2,
+    "10": 3,
+    "11": 1
+   },
+   "cases": [
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 0,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 2,
+     "hits": 279,
+     "speed_error_percent": 0.15
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 1,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 283,
+     "speed_error_percent": -2.388
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 2,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 299,
+     "speed_error_percent": -2.114
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 3,
+     "start_late": -10.7,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 305,
+     "speed_error_percent": 0.105
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 5,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 310,
+     "speed_error_percent": -1.791
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 6,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 289,
+     "speed_error_percent": -1.861
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 7,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 308,
+     "speed_error_percent": -1.867
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 8,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 269,
+     "speed_error_percent": -2.097
+    },
+    {
+     "brief": 0,
+     "seconds": 10.0,
+     "offset": 9,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 3,
+     "hits": 293,
+     "speed_error_percent": -2.282
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 0,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 3,
+     "hits": 436,
+     "speed_error_percent": -1.064
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 1,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 3,
+     "hits": 430,
+     "speed_error_percent": -1.073
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 2,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 3,
+     "hits": 452,
+     "speed_error_percent": -0.995
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 3,
+     "start_late": -10.7,
+     "end_early": 0.1,
+     "windows": 3,
+     "hits": 438,
+     "speed_error_percent": 0.195
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 5,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 3,
+     "hits": 427,
+     "speed_error_percent": -1.093
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 6,
+     "start_late": -29.8,
+     "end_early": 0.2,
+     "windows": 4,
+     "hits": 412,
+     "speed_error_percent": -1.151
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 7,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 457,
+     "speed_error_percent": -1.077
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 8,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 441,
+     "speed_error_percent": -1.051
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 9,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 464,
+     "speed_error_percent": -1.036
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 0,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 3,
+     "hits": 582,
+     "speed_error_percent": -0.573
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 1,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 585,
+     "speed_error_percent": -0.549
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 2,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 583,
+     "speed_error_percent": -0.561
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 3,
+     "start_late": -10.7,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 589,
+     "speed_error_percent": 0.099
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 5,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 566,
+     "speed_error_percent": -0.549
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 6,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 560,
+     "speed_error_percent": -0.553
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 7,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 575,
+     "speed_error_percent": -0.533
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 8,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 556,
+     "speed_error_percent": -0.55
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 9,
+     "start_late": -29.8,
+     "end_early": 0.1,
+     "windows": 4,
+     "hits": 592,
+     "speed_error_percent": -0.554
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 0,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 4,
+     "hits": 751,
+     "speed_error_percent": -0.322
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 1,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 4,
+     "hits": 701,
+     "speed_error_percent": -0.333
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 2,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 4,
+     "hits": 726,
+     "speed_error_percent": -0.324
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 3,
+     "start_late": -10.7,
+     "end_early": 0.4,
+     "windows": 4,
+     "hits": 712,
+     "speed_error_percent": 0.058
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 4,
+     "start_late": 0.2,
+     "end_early": -10.9,
+     "windows": 4,
+     "hits": 715,
+     "speed_error_percent": 0.013
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 5,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 4,
+     "hits": 699,
+     "speed_error_percent": -0.334
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 6,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 683,
+     "speed_error_percent": -0.345
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 7,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 697,
+     "speed_error_percent": -0.327
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 8,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 689,
+     "speed_error_percent": -0.322
+    },
+    {
+     "brief": 0,
+     "seconds": 25.0,
+     "offset": 9,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 725,
+     "speed_error_percent": -0.335
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 0,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 4,
+     "hits": 887,
+     "speed_error_percent": -0.207
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 1,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 858,
+     "speed_error_percent": -0.196
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 2,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 867,
+     "speed_error_percent": -0.193
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 3,
+     "start_late": -10.7,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 832,
+     "speed_error_percent": 0.03
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 5,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 825,
+     "speed_error_percent": -0.198
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 6,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 848,
+     "speed_error_percent": -0.201
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 7,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 837,
+     "speed_error_percent": -0.199
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 8,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 816,
+     "speed_error_percent": -0.2
+    },
+    {
+     "brief": 0,
+     "seconds": 30.0,
+     "offset": 9,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 5,
+     "hits": 885,
+     "speed_error_percent": -0.197
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 0,
+     "start_late": -29.8,
+     "end_early": 0.2,
+     "windows": 5,
+     "hits": 1140,
+     "speed_error_percent": -0.096
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 1,
+     "start_late": -29.8,
+     "end_early": 0.2,
+     "windows": 6,
+     "hits": 1131,
+     "speed_error_percent": -0.092
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 2,
+     "start_late": -29.8,
+     "end_early": 0.3,
+     "windows": 6,
+     "hits": 1155,
+     "speed_error_percent": -0.091
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 3,
+     "start_late": -10.7,
+     "end_early": 0.2,
+     "windows": 6,
+     "hits": 1151,
+     "speed_error_percent": 0.018
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 5,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 6,
+     "hits": 1131,
+     "speed_error_percent": -0.091
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 6,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 6,
+     "hits": 1106,
+     "speed_error_percent": -0.098
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 7,
+     "start_late": -29.8,
+     "end_early": 0.2,
+     "windows": 6,
+     "hits": 1153,
+     "speed_error_percent": -0.087
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 8,
+     "start_late": -29.8,
+     "end_early": 0.4,
+     "windows": 6,
+     "hits": 1114,
+     "speed_error_percent": -0.095
+    },
+    {
+     "brief": 0,
+     "seconds": 40.0,
+     "offset": 9,
+     "start_late": -29.8,
+     "end_early": 0.2,
+     "windows": 6,
+     "hits": 1173,
+     "speed_error_percent": -0.094
+    },
+    {
+     "brief": 3,
+     "seconds": 10.0,
+     "offset": 0,
+     "start_late": -13.8,
+     "end_early": -9.8,
+     "windows": 2,
+     "hits": 6,
+     "speed_error_percent": -1.799
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 3,
+     "start_late": 0.0,
+     "end_early": -13.9,
+     "windows": 3,
+     "hits": 430,
+     "speed_error_percent": 0.012
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 0,
+     "start_late": 0.0,
+     "end_early": -18.1,
+     "windows": 3,
+     "hits": 606,
+     "speed_error_percent": -0.033
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 3,
+     "start_late": -0.0,
+     "end_early": -18.7,
+     "windows": 3,
+     "hits": 579,
+     "speed_error_percent": 0.103
+    },
+    {
+     "brief": 10,
+     "seconds": 40.0,
+     "offset": 9,
+     "start_late": -0.0,
+     "end_early": -11.9,
+     "windows": 6,
+     "hits": 1569,
+     "speed_error_percent": 0.004
+    },
+    {
+     "brief": 11,
+     "seconds": 10.0,
+     "offset": 0,
+     "start_late": -6.5,
+     "end_early": 1.8,
+     "windows": 2,
+     "hits": 45,
+     "speed_error_percent": -0.459
+    }
+   ]
+  }
+ }
+}

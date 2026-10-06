@@ -260,3 +260,30 @@ key-locked rung at +5.2%. Chains may join lines from distant rungs, so a
 weak chance line can supply the third window. It does not change any
 confident result here, but the 3-window rule is less strict than it
 looks.
+
+### Brief plays: whether 15-20 s counts depends on the window grid
+
+Generated mixes with exact truth (12 mixes, 115 plays of indexed tracks,
+seed 2026) found every play: 107 confident, 8 possible, no wrong answer
+(experiment 0020). All 8 possible plays last 20-26 s and span only 2 of
+the 10 s windows; 7 have 265-490 hits, well above 200. Sliding the same
+brief plays across the window grid in 1 s steps shows the cause: a 15 s
+play is confident at 76 of 160 positions and a 20 s play at 148, and
+every one of the 16 15 s plays changes verdict with the offset alone.
+
+Requiring 10 s between the first and last aligned hit, in place of 3
+windows, makes every 15 and 20 s play confident at every offset. It
+changes nothing in the sweep or the development scans (no detection
+there has 200 hits in fewer than 3 windows), and no false candidate in
+the generated audio came near 200 hits (46 at most). It is a change to
+the frozen rule, so it is only an offline comparison for now; adopting
+it needs the full protocol and your judgement on whether a 15 s play
+should count as an identification.
+
+The grid also shows chains taking a chance 3-hit line up to 30 s away
+(two empty windows are allowed between lines). That adds a window and up
+to 30 s of span, and it moved the fitted speed by up to 2.4%. All the
+confident 10 s plays in the grid come from this, almost all of one
+track. Both rules count such lines. Requiring linked lines to come from
+nearby rungs, or a stronger line across a gap, would close it; not yet
+tried.

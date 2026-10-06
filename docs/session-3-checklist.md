@@ -26,17 +26,18 @@ for scope and rules.
 - [x] Search settings in each report (profile and hash design, confidence
   rule, library revision); `--save-dir` searches again when any differ
   (commit a724809; also the recording's path and the excerpt)
-- [~] Evidence per window in `explain`
+- [x] Evidence per window in `explain` (commit 84fae7f)
 
 ## 3. Generated mixes and the window grid
 
-- [ ] Seeded renderer of library-track mixes with exact truth (speeds,
+- [x] Seeded renderer of library-track mixes with exact truth (speeds,
   crossfades, bass-swap EQ, plays of 20-60 s, cuts, a returning track,
   held-out tracks)
-- [ ] Window-grid sweep: brief plays slid in 1 s steps, length and source
+- [x] Window-grid sweep: brief plays slid in 1 s steps, length and source
   position varied
-- [ ] Minimum aligned span in seconds (opt-in), compared with 3 windows
-- [ ] Boundary error against the truth
+- [x] Minimum aligned span in seconds (offline comparison on the
+  harness's detections), compared with 3 windows (experiment 0020)
+- [x] Boundary error against the truth
 
 ## 4. Where real mixes lose evidence
 
