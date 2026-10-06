@@ -27,7 +27,13 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   calibrate). Queued by `work/scripts/queue-after-both.sh` (waits for the
   combined-ladder run): related, clusters check, then robust control and
   dev scan at 10, 30, 100 copies; logs `work/logs/scale-*`.
-- [ ] Lookup-cost levers
+- [~] Lookup-cost levers: `Index::without_fullest(share)` and
+  `--drop-fullest` on robust and scan (uncommitted). Queued in
+  `work/scripts/queue-2.sh` (starts after the scale queue): regress with
+  `--ladder both` (full protocol for key lock), related, clusters check into
+  `work/check-clusters`, drop 0.001/0.01/0.05 on robust control, dev scan
+  with drop 0.01, 30 copies with drop 0.01, idle timing scans at 0/10/30
+  copies. Logs `work/logs/q2-*.log` (timing in `.err`).
 - [~] Related recordings from the self-match. Code (uncommitted):
   `clusters::self_match` (refactor of `find`; check that
   `work/reports/duplicate-clusters.json` duplicates equal
