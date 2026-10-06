@@ -16,7 +16,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 ## 2. Experiments on transformed copies
 
-- [ ] Robustness harness and first runs
+- [x] Robustness harness and first runs (experiment 0009)
 - [ ] Key-lock: measure, then tempo-only ladder prototype
 - [ ] Scale proxy with reversed copies
 - [ ] Lookup-cost levers
