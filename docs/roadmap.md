@@ -46,11 +46,17 @@ that motivates it where one exists.
   against library size (a larger real library, or the current one padded
   with unrelated music) before trusting the rule at that size
   (experiments 0004, 0005).
-- **Chains across longer gaps.** In the test set, Fibre Optix "Sin" was found
-  as two chains of 84 hits at the same speed, 34 s apart, each below the
-  rule; a chain bridges at most 2 empty windows. Joining chains that agree on
-  asset, speed and offset across a longer gap would credit it, but must first
-  be measured against the null.
+- **Chains across longer gaps.** In the test set, Fibre Optix "Sin" was
+  faded out for a station insert and brought back: two chains of 84 hits at
+  the same speed, 34 s apart, each below the rule; a chain bridges at most 2
+  empty windows. Joining chains that agree on asset, speed and track position
+  across a longer gap would describe such plays as one, but would not have
+  credited Sin: joined, it holds 168 hits, below the rule.
+- **Position in the track.** A detection reports where it lies in the mix,
+  not which part of the track was played. The line's offset gives the track
+  position directly. Reporting it would show edits and intros, and how far a
+  needle skip jumped (The Pulse in the test set skipped at 36:17 and was
+  found as two chains).
 - **Key-locked (pitch-preserved) sets.** Digital DJs often change tempo
   without changing pitch. The speed ladder assumes the turntable model
   (pitch and tempo together). Key lock needs a time-stretch ladder or hashes
