@@ -9,8 +9,9 @@ use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
+use gunfinger_core::plays;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::search;
+use gunfinger_core::search::{Detection, search};
 use gunfinger_core::speed::ladder;
 use gunfinger_core::store::PeakStore;
 use gunfinger_core::timecode::format_timecode;
@@ -19,7 +20,7 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::manifest::{Set, load_set};
 use crate::rng::Rng;
-use crate::scoring::{Found, Score, score};
+use crate::scoring::{Found, FoundPlay, Score, score};
 
 /// Which referenced tracks to leave out of the index: `count` of them, drawn
 /// with `seed`.
@@ -40,6 +41,8 @@ pub struct ScanReport {
     pub score: Score,
     /// Every detection with at least two windows, strongest first.
     pub detections: Vec<Found>,
+    /// Every confident or possible play, in order of start time.
+    pub plays: Vec<FoundPlay>,
 }
 
 pub fn run(
@@ -63,19 +66,25 @@ pub fn run(
     let started = Instant::now();
     let audio = decode(&set.audio, profile.sample_rate, Excerpt::default())
         .map_err(|error| error.to_string())?;
-    let detections: Vec<Found> = search(&index, &audio.samples, &profile, &ladder(), jobs)
+    let detections = search(&index, &audio.samples, &profile, &ladder(), jobs);
+    let wall_seconds = started.elapsed().as_secs_f64();
+    let plays: Vec<FoundPlay> = plays::group(&detections)
         .iter()
-        .map(|detection| Found {
-            asset: index.asset(detection.asset).path.clone(),
-            start_seconds: detection.start_seconds,
-            end_seconds: detection.end_seconds,
-            speed: detection.speed.0,
-            windows: detection.evidence.windows,
-            hits: detection.evidence.hits,
-            confident: detection.evidence.is_confident(),
+        .map(|play| FoundPlay {
+            asset: index.asset(play.asset).path.clone(),
+            start_seconds: play.start_seconds(),
+            end_seconds: play.end_seconds(),
+            segments: play
+                .segments()
+                .iter()
+                .map(|segment| found(&index, segment))
+                .collect(),
         })
         .collect();
-    let wall_seconds = started.elapsed().as_secs_f64();
+    let detections: Vec<Found> = detections
+        .iter()
+        .map(|detection| found(&index, detection))
+        .collect();
     let duration_seconds = audio.duration().as_secs_f64();
 
     Ok(ScanReport {
@@ -89,9 +98,22 @@ pub fn run(
         wall_seconds,
         left_out_tracks,
         left_out_assets: left_out_assets.into_iter().collect(),
-        score: score(&set, duration_seconds, &detections, clusters),
+        score: score(&set, duration_seconds, &detections, &plays, clusters),
         detections,
+        plays,
     })
+}
+
+fn found(index: &Index, detection: &Detection) -> Found {
+    Found {
+        asset: index.asset(detection.asset).path.clone(),
+        start_seconds: detection.start_seconds,
+        end_seconds: detection.end_seconds,
+        speed: detection.speed.0,
+        windows: detection.evidence.windows,
+        hits: detection.evidence.hits,
+        confident: detection.evidence.is_confident(),
+    }
 }
 
 /// Draws referenced tracks and collects every member of their references'
@@ -131,6 +153,11 @@ pub fn print_summary(report: &ScanReport) {
         timecode(report.duration_seconds),
         report.wall_seconds
     );
+    println!(
+        "possible tier: {} more referenced tracks found as possible, {} possible plays match no track",
+        score.possible,
+        score.unmatched_possible.len()
+    );
     if !report.left_out_tracks.is_empty() {
         println!(
             "left out of the index: {}",
@@ -138,10 +165,11 @@ pub fn print_summary(report: &ScanReport) {
         );
     }
     for track in &score.tracks {
-        let mark = match (track.referenced, track.identified) {
-            (true, true) => "found ",
-            (true, false) => "MISSED",
-            (false, _) => "absent",
+        let mark = match (track.referenced, track.identified, track.possible) {
+            (true, true, _) => "found",
+            (true, false, true) => "possible",
+            (true, false, false) => "MISSED",
+            (false, _, _) => "absent",
         };
         let evidence = track
             .strongest_candidate
@@ -156,9 +184,9 @@ pub fn print_summary(report: &ScanReport) {
                     timecode(found.end_seconds),
                 )
             });
-        println!("  {mark} {}{evidence}", track.label);
+        println!("  {mark:<8} {}{evidence}", track.label);
         for asset in &track.credited_through_cluster {
-            println!("         credited through cluster: {asset}");
+            println!("           credited through cluster: {asset}");
         }
     }
     for wrong in &score.wrong_identifications {
@@ -170,6 +198,16 @@ pub fn print_summary(report: &ScanReport) {
             (wrong.speed - 1.0) * 100.0,
             wrong.hits,
             wrong.windows
+        );
+    }
+    for play in &score.unmatched_possible {
+        println!(
+            "  POSSIBLE, NO TRACK  {} {}-{} {} hits in {} segments",
+            play.asset,
+            timecode(play.start_seconds),
+            timecode(play.end_seconds),
+            play.hits(),
+            play.segments.len()
         );
     }
 }
