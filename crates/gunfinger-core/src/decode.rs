@@ -58,6 +58,21 @@ pub enum DecodeError {
     NoAudio { path: PathBuf },
 }
 
+impl DecodeError {
+    /// Whether the file's content is at fault, rather than FFmpeg or the
+    /// system: only then is the failure worth remembering.
+    pub fn is_about_the_file(&self) -> bool {
+        match self {
+            DecodeError::Failed { .. }
+            | DecodeError::Truncated { .. }
+            | DecodeError::NoAudio { .. } => true,
+            DecodeError::FfmpegMissing | DecodeError::Spawn { .. } | DecodeError::Pipe { .. } => {
+                false
+            }
+        }
+    }
+}
+
 /// Decodes the first audio stream of `path` to mono at `sample_rate`.
 ///
 /// Embedded cover art, subtitles and data streams are ignored. A failure is

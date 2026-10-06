@@ -194,3 +194,37 @@ fn a_synthetic_mix_is_identified_end_to_end() {
         assert!(!inside_insert, "nothing plays inside the insert: {play}");
     }
 }
+
+#[test]
+fn a_damaged_file_is_passed_over_until_it_changes() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("damaged-file");
+    let library = dir.join("library");
+    std::fs::create_dir_all(&library).unwrap();
+    let damaged = library.join("damaged.mp3");
+    std::fs::write(&damaged, b"not audio at all").unwrap();
+    let library = library.to_str().unwrap();
+    let index = || {
+        let output = Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+            .args(["index", library, "--peaks-dir"])
+            .arg(dir.join("peaks"))
+            .env("XDG_CONFIG_HOME", dir.join("config"))
+            .output()
+            .unwrap();
+        String::from_utf8_lossy(&output.stderr).into_owned()
+    };
+
+    let first = index();
+    let second = index();
+    std::fs::write(&damaged, b"still not audio, and changed").unwrap();
+    let after_change = index();
+
+    assert!(first.contains("1 failed, 0 passed over"), "{first}");
+    assert!(second.contains("0 failed, 1 passed over"), "{second}");
+    assert!(
+        after_change.contains("1 failed, 0 passed over"),
+        "{after_change}"
+    );
+}
