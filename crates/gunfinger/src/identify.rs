@@ -1,6 +1,7 @@
 //! `gunfinger identify`: find library tracks inside recordings. Several
 //! recordings share one index build; `--save-dir` keeps a JSON report of
-//! each, and recordings already reported there are passed over.
+//! each, and recordings already reported there with the same playback are
+//! passed over.
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -123,11 +124,29 @@ fn plan(request: &Request) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
                 report.display()
             ));
         }
-        if request.again || !report.exists() {
+        if request.again || !report.exists() || needs_new_report(request, audio, &report) {
             jobs.push((audio.clone(), Some(report)));
         }
     }
     Ok(jobs)
+}
+
+/// A saved report is replaced when it cannot be read or was searched with
+/// other playbacks than the ones asked for now.
+fn needs_new_report(request: &Request, audio: &Path, path: &Path) -> bool {
+    let reason = match Report::read(path) {
+        Ok(report) if report.query.playback == Some(request.playback) => return false,
+        Ok(report) => match report.query.playback {
+            Some(playback) => format!("was searched with `--playback {}`", playback.name()),
+            None => String::from("does not record its playback"),
+        },
+        Err(_) => String::from("cannot be read"),
+    };
+    request.console.info(format_args!(
+        "searching {} again: its report {reason}",
+        audio.display()
+    ));
+    true
 }
 
 fn report_path(dir: &Path, audio: &Path) -> PathBuf {
@@ -169,6 +188,7 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
         &absolute(audio_path),
         offset,
         audio.duration(),
+        request.playback,
         &detections,
     ))
 }

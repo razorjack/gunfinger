@@ -69,7 +69,8 @@ target/release/gunfinger identify mix.m4a --library ~/Music/library \
 target/release/gunfinger identify mix.m4a --playback both
 
 # Several recordings share one index build; --save-dir keeps a JSON report
-# of each and passes over recordings already reported there (--again).
+# of each and passes over recordings already reported there with the same
+# --playback (--again searches them anyway).
 target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
 
 # Write a saved report in another format without searching again.
@@ -141,8 +142,9 @@ of several segments lists them underneath.
 `--format` (`-f`, for `identify` and `show`) also takes:
 
 - `timeline`: each play as a bar across the recording.
-- `json`: the whole report: plays with their segments and `same_audio` paths
-  (`schema_version` 3; fields may be added without a version change).
+- `json`: the whole report: the playback searched (`query.playback`), plays
+  with their segments and `same_audio` paths (`schema_version` 3; fields may
+  be added without a version change).
 - `csv`: one row per play, times in seconds.
 - `tracklist`: a numbered list of recordings with start times, named
   `artist - title` from the files' tags (or the file name), possible ones

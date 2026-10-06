@@ -4,9 +4,9 @@
 
 use clap::ValueEnum;
 use gunfinger_core::speed::{Rung, key_lock_ladder, ladder};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum PlaybackChoice {
     /// Pitch and tempo together, as on vinyl.

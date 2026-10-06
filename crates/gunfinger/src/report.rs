@@ -13,6 +13,7 @@ use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::{Deserialize, Serialize};
 
 use crate::catalog::Catalog;
+use crate::playback::PlaybackChoice;
 
 /// Version 3 merged plays of the same audio; fields may be added without a
 /// new version.
@@ -35,6 +36,10 @@ pub struct Query {
     pub path: PathBuf,
     pub start_seconds: f64,
     pub duration_seconds: f64,
+    /// The playbacks searched for; absent in reports written before it was
+    /// recorded.
+    #[serde(default)]
+    pub playback: Option<PlaybackChoice>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -134,6 +139,7 @@ impl Report {
         audio: &Path,
         offset: f64,
         duration: Duration,
+        playback: PlaybackChoice,
         detections: &[Detection],
     ) -> Report {
         let plays = plays::merge_same_audio(plays::group(detections))
@@ -146,6 +152,7 @@ impl Report {
                 path: audio.to_path_buf(),
                 start_seconds: offset,
                 duration_seconds: duration.as_secs_f64(),
+                playback: Some(playback),
             },
             library: catalog.root.clone(),
             plays,

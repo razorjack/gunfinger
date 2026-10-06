@@ -85,6 +85,7 @@ pub mod tests {
     use std::path::PathBuf;
 
     use super::*;
+    use crate::playback::PlaybackChoice;
     use crate::report::{FoundPlay, Query, SCHEMA_VERSION, Segment};
     use crate::style::ColorChoice;
 
@@ -134,6 +135,7 @@ pub mod tests {
                 path: PathBuf::from("/mixes/mix.wav"),
                 start_seconds: 0.0,
                 duration_seconds: 150.0,
+                playback: Some(PlaybackChoice::Both),
             },
             library: PathBuf::from("/library"),
             plays: vec![
