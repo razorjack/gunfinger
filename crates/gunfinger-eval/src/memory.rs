@@ -18,6 +18,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
+use gunfinger_core::search::trace_with_progress;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
@@ -44,6 +45,8 @@ pub struct Options<'a> {
     pub until: Phase,
     /// Search only this many minutes from the start of the set's audio.
     pub minutes: Option<u64>,
+    /// Keep the first pass's lines and count them instead of searching.
+    pub count_lines: bool,
     pub ladder: &'a [Rung],
     pub matching: Matching,
     pub jobs: usize,
@@ -60,6 +63,10 @@ pub struct MemoryReport {
     pub library_peaks: usize,
     pub postings: usize,
     pub query_seconds: f64,
+    /// With `count_lines`: the first pass's distinct lines and its
+    /// detections.
+    pub lines: Option<usize>,
+    pub detections: Option<usize>,
     pub phases: Vec<PhaseRow>,
 }
 
@@ -91,6 +98,8 @@ pub fn run(
         library_peaks: 0,
         postings: 0,
         query_seconds: 0.0,
+        lines: None,
+        detections: None,
         phases: Vec::new(),
     };
 
@@ -132,13 +141,26 @@ pub fn run(
     let audio =
         decode(&set.audio, profile.sample_rate, excerpt).map_err(|error| error.to_string())?;
     report.query_seconds = audio.duration().as_secs_f64();
-    options.matching.search(
-        &index,
-        &audio.samples,
-        &profile,
-        options.ladder,
-        options.jobs,
-    );
+    if options.count_lines {
+        let trace = trace_with_progress(
+            &index,
+            &audio.samples,
+            &profile,
+            options.ladder,
+            options.jobs,
+            |_| {},
+        );
+        report.lines = Some(trace.lines.len());
+        report.detections = Some(trace.detections.len());
+    } else {
+        options.matching.search(
+            &index,
+            &audio.samples,
+            &profile,
+            options.ladder,
+            options.jobs,
+        );
+    }
     report
         .phases
         .push(row(Phase::Searched, started, 0, index_bytes));
@@ -182,6 +204,9 @@ pub fn print_summary(report: &MemoryReport) {
         report.query_seconds,
         report.matching.as_deref().unwrap_or("default")
     );
+    if let (Some(lines), Some(detections)) = (report.lines, report.detections) {
+        println!("first pass: {lines} distinct lines, {detections} detections");
+    }
     println!(
         "{:<9} {:>8} {:>11} {:>10} {:>10}",
         "phase", "seconds", "resident MB", "records MB", "index MB"
