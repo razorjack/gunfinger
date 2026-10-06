@@ -9,6 +9,7 @@ mod manifest;
 mod regress;
 mod render;
 mod rng;
+mod robust;
 mod scan;
 mod scoring;
 mod survival;
@@ -85,6 +86,16 @@ enum Command {
         #[arg(long, default_value = "stakka-skynet-knowledge")]
         set: String,
     },
+    /// Measure recall and wrong answers on the sweep's excerpts under
+    /// transformations: EQ, noise, codecs, blends, speech, skips, pitch rides,
+    /// speeds outside the ladder and key lock.
+    Robust {
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+        /// Run only these conditions (and the control), by name.
+        #[arg(long, value_delimiter = ',')]
+        only: Vec<String>,
+    },
     /// Save the reports of the standard evaluation (sweep, development scan
     /// and leave-outs) as a named baseline under `work/baselines/`.
     Baseline {
@@ -138,6 +149,7 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
         ),
         Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
+        Command::Robust { seed, only } => run_robust(paths, seed, &only),
         Command::Baseline { name, set, seed } => {
             regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
         }
@@ -153,6 +165,24 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
         }
     }
+}
+
+fn run_robust(paths: &Paths, seed: u64, only: &[String]) -> Result<(), String> {
+    let report = robust::run(
+        &paths.library()?,
+        &paths.store()?,
+        &paths.clusters()?,
+        &paths.work,
+        seed,
+        only,
+        jobs(),
+    )?;
+    write_json(
+        &paths.reports().join(format!("robust-seed-{seed}.json")),
+        &report,
+    )?;
+    robust::print_summary(&report);
+    Ok(())
 }
 
 /// The sweep, the development scan and its leave-outs.
