@@ -26,9 +26,11 @@ each with its data in `docs/experiments/data/`.
    chance (strongest 30 hits; experiment 0012), while two Aphrodite records
    that share a break give each other 130 hits in 19 s (0015). Jungle and
    breakbeat hardcore will have much more of that.
-2. Memory is the first wall: the in-memory index of 26,000 assets swapped
-   beside your open applications (0012). The on-disk index of ADR 0005
-   becomes necessary well before 100,000 tracks.
+2. Memory is the first wall: the scan at 26,000 assets swapped beside your
+   open applications (0012). I did not measure what used the memory: the
+   peak records stay loaded after the index is built, and building it
+   turns the whole library into points first, so an on-disk index alone
+   may not be the fix (roadmap, "Memory by phase").
 3. Emptying the fullest 1% of posting lists is worth adopting before the
    library grows: a query scans 62% fewer postings, own-track hits drop
    17%, chance evidence drops by more than half, and the full protocol
@@ -139,8 +141,9 @@ is the case to measure when you add it.
 
 What did break: the development scan at 26,462 assets needed more memory
 than was free beside your open applications; it swapped and was stopped
-before it finished. At that size the on-disk index (ADR 0005) stops being
-optional.
+before it finished. Later correction: what used the memory was not
+measured, so the on-disk index (ADR 0005) is not necessarily the fix; the
+roadmap lists the measurement.
 
 ### Summing a play's segments is not worth it yet
 

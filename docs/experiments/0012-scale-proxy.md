@@ -35,5 +35,5 @@ excerpt's typical strongest wrong candidate from 7 to 12 hits; over a
 whole mix at 8,122 assets the strongest is 30 hits, half the possible
 tier. (2) The proxy is a lower bound: it holds no shared breaks, remixes
 or samples, which give the real false candidates (91-95 hits; 0015).
-(3) Memory comes first (ADR 0005); query time grows linearly with the
-library, mostly in lookups (0013).
+(3) Memory comes first; what used it (records, points, index) was not
+measured. Query time grows linearly, mostly in lookups (0013).
