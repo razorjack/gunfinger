@@ -159,7 +159,15 @@ target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
 target/release/gunfinger-eval calibrate                # confidence margin
 target/release/gunfinger-eval baseline <name>          # save the standard reports
 target/release/gunfinger-eval regress <name>           # rerun them and show what changed
+target/release/gunfinger-eval robust --seed 2026       # excerpts under EQ, noise, codecs, key lock...
+target/release/gunfinger-eval related                  # remixes and shared material in the library
 ```
+
+`--ladder turntable|key-lock|both` (before the command) chooses the rungs
+every search uses. `scan` and `robust` take `--synthetic-copies N`, which
+adds N time-reversed, stretched copies of every record to the index as a
+proxy for a larger library; those reports are kept apart from the ones
+`calibrate` and `regress` read.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
 the crate boundaries and the evaluation rules.
