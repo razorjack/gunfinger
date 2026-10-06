@@ -112,6 +112,8 @@ fn continues(play: &Play, segment: &Detection) -> bool {
 
 #[cfg(test)]
 mod tests {
+    use proptest::prelude::*;
+
     use super::*;
     use crate::confidence::{MIN_HITS, MIN_POSSIBLE_HITS};
 
@@ -192,5 +194,43 @@ mod tests {
         let plays = group(&detections);
 
         assert_eq!(spans(&plays), [(1, 0.0, 300.0, 1)]);
+    }
+
+    proptest! {
+        #[test]
+        fn plays_partition_the_detections_at_their_gaps(
+            raw in prop::collection::vec((0_u32..3, 0.0_f64..2000.0, 5.0_f64..200.0, 0_u32..400), 0..40)
+        ) {
+            let detections: Vec<Detection> = raw
+                .iter()
+                .map(|&(asset, start, length, hits)| detection(asset, start, start + length, hits))
+                .collect();
+
+            let plays = group(&detections);
+
+            let kept = detections
+                .iter()
+                .filter(|detection| detection.evidence.confidence() >= Confidence::Possible)
+                .count();
+            let grouped: usize = plays.iter().map(|play| play.segments().len()).sum();
+            prop_assert_eq!(grouped, kept);
+            for play in &plays {
+                for pair in play.segments().windows(2) {
+                    prop_assert!(pair.iter().all(|segment| segment.asset == play.asset));
+                    prop_assert!(pair[1].start_seconds - pair[0].end_seconds <= MAX_GAP_SECONDS);
+                }
+            }
+            for pair in plays.windows(2) {
+                prop_assert!(pair[0].start_seconds() <= pair[1].start_seconds());
+            }
+            for (index, earlier) in plays.iter().enumerate() {
+                let next_of_same_asset = plays[index + 1..]
+                    .iter()
+                    .find(|later| later.asset == earlier.asset);
+                if let Some(later) = next_of_same_asset {
+                    prop_assert!(later.start_seconds() - earlier.end_seconds() > MAX_GAP_SECONDS);
+                }
+            }
+        }
     }
 }
