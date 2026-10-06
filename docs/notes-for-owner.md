@@ -33,3 +33,21 @@ tags), and the TeeBee remix of Side Effects has the artist repeated in its
 title. Gunfinger now drops a repeated artist; truncated tags it cannot fix.
 Retagging those files, or a tag-cleanup pass over the library, would make
 tracklists cleaner. Detection is unaffected: it never reads tags.
+
+### Robustness: no false identifications under 32 kinds of damage; key lock is the gap
+
+Experiment 0009 played 40 indexed and 10 held-out excerpts through EQ,
+filters, telephone band, echo, clipping, noise, low-bitrate MP3/AAC/Opus,
+blends with another track, voice-over, speech inserts, needle skips, pitch
+rides, speeds outside ±8% and key lock. Nothing produced a wrong confident
+answer, and the strongest false match on audio not in the index had 26 hits
+against the possible tier's 60. Damage only costs evidence: noise at 10 dB
+SNR, clipping, echo and a blend at -6 dB keep 30-40% of the hits, enough on
+any real play of a few minutes.
+
+Key lock (CDJ "master tempo": tempo changes, pitch does not) is the one
+realistic case the algorithm misses: at ±2% nothing is confident and 35 of
+40 excerpts are only possible; at ±5% nothing is found. Vinyl cannot do
+this, but CD and digital sets, and some radio edits, can. I am testing a
+tempo-only ladder next. If you know whether your target mixes include
+key-locked CDJ or digital sets, that decides how much this matters.
