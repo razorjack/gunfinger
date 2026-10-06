@@ -29,7 +29,7 @@ pub const SPEEDS_PERCENT: [f64; 9] = [-8.0, -5.0, -3.0, -1.0, 0.0, 1.0, 3.0, 5.0
 const HELD_OUT_SHARE: f64 = 0.2;
 const INDEXED_EXCERPTS: usize = 60;
 const HELD_OUT_EXCERPTS: usize = 20;
-const EXCERPT_SECONDS: f64 = 30.0;
+pub const EXCERPT_SECONDS: f64 = 30.0;
 
 #[derive(Serialize, Deserialize)]
 pub struct SweepReport {
@@ -74,10 +74,26 @@ pub struct Outcome {
 }
 
 /// An excerpt to render: which asset, from where.
-struct Draw {
-    asset: String,
-    held_out: bool,
-    start_seconds: f64,
+pub struct Draw {
+    pub asset: String,
+    pub held_out: bool,
+    pub start_seconds: f64,
+}
+
+/// The sweep's seeded choice: the held-out assets and the excerpts, indexed
+/// ones first. Other harness commands reuse it to work on the same audio.
+pub struct Plan {
+    pub held_out: BTreeSet<String>,
+    pub draws: Vec<Draw>,
+}
+
+impl Plan {
+    pub fn draw(records: &[PeakRecord], clusters: &Clusters, seed: u64) -> Plan {
+        let mut rng = Rng::new(seed);
+        let held_out = held_out_assets(records, clusters, &mut rng);
+        let draws = draw_excerpts(records, &held_out, &mut rng);
+        Plan { held_out, draws }
+    }
 }
 
 pub fn run(
@@ -90,15 +106,13 @@ pub fn run(
 ) -> Result<SweepReport, String> {
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let mut rng = Rng::new(seed);
-    let held_out = held_out_assets(&records, clusters, &mut rng);
+    let Plan { held_out, draws } = Plan::draw(&records, clusters, seed);
     let indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
     let index = Index::build(&indexed).map_err(|error| error.to_string())?;
-    let draws = draw_excerpts(&records, &held_out, &mut rng);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let renders = render_all(library, &draws, &dir, jobs)?;
@@ -199,7 +213,7 @@ fn render_all<'d>(
         .enumerate()
         .flat_map(|(number, draw)| {
             SPEEDS_PERCENT.iter().map(move |&speed| {
-                let name = format!("{number:03}-{speed:+.0}.{}", Encoding::Mp3.extension());
+                let name = format!("{number:03}-{speed:+.0}.{}", Encoding::Mp3(128).extension());
                 (draw, speed, dir.join(name))
             })
         })
@@ -215,7 +229,7 @@ fn render_all<'d>(
             draw.start_seconds,
             EXCERPT_SECONDS,
             speed_ratio,
-            Encoding::Mp3,
+            Encoding::Mp3(128),
             path,
         )
         .err()
