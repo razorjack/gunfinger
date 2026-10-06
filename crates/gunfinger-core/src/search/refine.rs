@@ -184,71 +184,16 @@ fn densest(hits: &[Hit]) -> Range<usize> {
 #[cfg(test)]
 mod tests {
     use crate::index::Index;
-    use crate::library::{Asset, Timestamp};
-    use crate::peaks::extract_peaks;
     use crate::profile::Profile;
+    use crate::search::test_audio::{played, record, track};
     use crate::search::{search, search_twice};
     use crate::speed::{Rung, SpeedRatio};
-    use crate::store::{PeakRecord, RecordHeader};
-
-    /// Tone bursts at pseudo-random frequencies, a new pair every 50 ms.
-    fn track(seconds: f64, rate: u32) -> Vec<f32> {
-        let mut state: u64 = 2026;
-        let mut next = move || {
-            state = state
-                .wrapping_mul(6_364_136_223_846_793_005)
-                .wrapping_add(1);
-            (state >> 33) as f64 / f64::from(1_u32 << 31)
-        };
-        let burst = (0.05 * f64::from(rate)) as usize;
-        let mut samples = vec![0.0_f32; (seconds * f64::from(rate)) as usize];
-        for chunk in samples.chunks_mut(burst) {
-            let tones = [200.0 + 3300.0 * next(), 200.0 + 3300.0 * next()];
-            for (i, sample) in chunk.iter_mut().enumerate() {
-                let t = i as f64 / f64::from(rate);
-                let envelope = (std::f64::consts::PI * i as f64 / burst as f64).sin();
-                let value: f64 = tones
-                    .iter()
-                    .map(|hz| (2.0 * std::f64::consts::PI * hz * t).sin())
-                    .sum();
-                *sample = (0.3 * envelope * value) as f32;
-            }
-        }
-        samples
-    }
-
-    /// `samples` played at `speed` from `from` seconds, for `seconds`.
-    fn played(samples: &[f32], speed: f64, from: f64, seconds: f64, rate: u32) -> Vec<f32> {
-        let rate = f64::from(rate);
-        (0..(seconds * rate) as usize)
-            .map(|i| {
-                let at = from * rate + i as f64 * speed;
-                let (whole, fraction) = (at.floor() as usize, (at.fract()) as f32);
-                samples[whole] * (1.0 - fraction) + samples[whole + 1] * fraction
-            })
-            .collect()
-    }
 
     #[test]
     fn the_second_pass_finds_the_speed_between_rungs_and_more_hits() {
         let profile = Profile::CURRENT;
         let reference = track(90.0, profile.sample_rate);
-        let record = PeakRecord {
-            header: RecordHeader {
-                profile: profile.id(),
-                source: Asset {
-                    path: String::from("a.wav"),
-                    size: 0,
-                    modified: Timestamp {
-                        seconds: 0,
-                        nanos: 0,
-                    },
-                },
-                duration_seconds: 90.0,
-            },
-            peaks: extract_peaks(&reference, &profile),
-        };
-        let index = Index::build(std::slice::from_ref(&record)).unwrap();
+        let index = Index::build(&[record("a.wav", &reference)]).unwrap();
         let query = played(&reference, 1.0018, 20.0, 40.0, profile.sample_rate);
         let ladder: Vec<Rung> = [0.996, 1.0, 1.004]
             .map(|speed| Rung::Turntable(SpeedRatio(speed)))

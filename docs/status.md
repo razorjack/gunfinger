@@ -504,3 +504,10 @@ Baseline `session-3-start` saved after a rerun that reproduced
   costs most, mostly at 1-4 kHz; blends three quarters more; the rung 7%.
   Robust conditions wow 0.55/0.75 Hz, broadcast, beatmatched -6/0 dB and
   combined; the beatmatcher accepts tempos found at a metrical factor.
+- **Second pass (commit 633da10).** `search::search_twice`, opt-in;
+  `Evidence` records its `Pass`, each with its own rule. Harness
+  `--second-pass` and `--drop-fullest` are global and write to
+  `reports/variant-<name>/`. `regress session-3-start`: identical.
+- **Panels and clusters from peaks (experiment 0023).** Sweep panels in
+  `docs/panels/`; `search::search_peaks`; `clusters --from-peaks` finds the
+  same 17 clusters at a seventh of the CPU.

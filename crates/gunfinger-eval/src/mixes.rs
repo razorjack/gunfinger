@@ -478,6 +478,8 @@ pub struct MixResult {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// Where the seed's sweep panel is kept (`Plan::for_seed`).
+    pub panels: &'a Path,
     pub count: usize,
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
@@ -492,10 +494,11 @@ pub fn sweep_index(
     store: &PeakStore,
     clusters: &Clusters,
     seed: u64,
+    panels: &Path,
     matching: &Matching,
 ) -> Result<(Vec<PeakRecord>, BTreeSet<String>, Index), String> {
     let (records, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
-    let held_out = Plan::draw(&records, clusters, seed).held_out;
+    let held_out = Plan::for_seed(&records, clusters, seed, panels)?.held_out;
     let indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !held_out.contains(&record.header.source.path))
@@ -513,8 +516,14 @@ pub fn run(
     work: &Path,
     options: &Options,
 ) -> Result<MixesReport, String> {
-    let (records, held_out, index) =
-        sweep_index(library, store, clusters, options.seed, options.matching)?;
+    let (records, held_out, index) = sweep_index(
+        library,
+        store,
+        clusters,
+        options.seed,
+        options.panels,
+        options.matching,
+    )?;
     let index = &index;
     let pools = Pools::new(&records, &held_out);
     let mut rng = Rng::new(options.seed);

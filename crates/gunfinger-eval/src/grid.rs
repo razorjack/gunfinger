@@ -82,6 +82,8 @@ pub struct GridQuery {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// Where the seed's sweep panel is kept (`Plan::for_seed`).
+    pub panels: &'a Path,
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
@@ -95,8 +97,14 @@ pub fn run(
     work: &Path,
     options: &Options,
 ) -> Result<GridReport, String> {
-    let (records, held_out, index) =
-        sweep_index(library, store, clusters, options.seed, options.matching)?;
+    let (records, held_out, index) = sweep_index(
+        library,
+        store,
+        clusters,
+        options.seed,
+        options.panels,
+        options.matching,
+    )?;
     let pools = Pools::new(&records, &held_out);
     let briefs = draw_briefs(&pools, clusters, &mut Rng::new(options.seed))
         .ok_or("the library has too few long tracks for the grid")?;

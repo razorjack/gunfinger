@@ -49,9 +49,9 @@ for scope and rules.
 
 ## 5. Second pass at the fitted speed
 
-- [ ] Opt-in second pass: one STFT at the fitted speed over each
-  candidate's span, hits against that asset alone
-- [ ] Its own null and calibration (items 3 and 4)
+- [x] Opt-in second pass: one STFT at the fitted speed over each
+  candidate's span, hits against that asset alone (commit 633da10)
+- [~] Its own null and calibration (items 3 and 4)
 
 ## 6. Default-change package (opt-in)
 
@@ -66,9 +66,10 @@ for scope and rules.
 
 ## 7. Before tracks are added
 
-- [ ] Fixed query panel with more sweep seeds
-- [ ] Duplicate clustering from stored peaks, checked against `clusters`
-  on controlled cases
+- [~] Fixed query panel with more sweep seeds (panels in `docs/panels/`;
+  more seeds to run)
+- [x] Duplicate clustering from stored peaks, checked against `clusters`
+  on controlled cases (experiment 0023)
 
 ## Wrap-up
 

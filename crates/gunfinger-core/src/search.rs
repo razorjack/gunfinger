@@ -17,7 +17,9 @@ mod refine;
 use std::cmp::Reverse;
 
 use crate::confidence::Evidence;
+use crate::hash::Point;
 use crate::index::{AssetId, Index};
+use crate::peaks::Peak;
 use crate::profile::Profile;
 use crate::speed::{self, Playback, Rung, SpeedRatio};
 
@@ -107,7 +109,14 @@ pub fn search_with_progress(
     jobs: usize,
     progress: impl Fn(usize) + Sync,
 ) -> Vec<Detection> {
-    let (_, chained) = lines_and_detections(index, samples, profile, ladder, jobs, progress);
+    let (_, chained) = lines_and_detections(
+        index,
+        Query::Samples(samples),
+        profile,
+        ladder,
+        jobs,
+        progress,
+    );
     chained
         .into_iter()
         .map(|(detection, _)| detection)
@@ -124,7 +133,14 @@ pub fn search_twice(
     ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
-    let (lines, chained) = lines_and_detections(index, samples, profile, ladder, jobs, |_| {});
+    let (lines, chained) = lines_and_detections(
+        index,
+        Query::Samples(samples),
+        profile,
+        ladder,
+        jobs,
+        |_| {},
+    );
     let mut refined = refine::refine(index, samples, profile, &lines, &chained, jobs);
     refined.sort_by_key(|detection| Reverse(detection.evidence.hits));
     strongest_per_moment(
@@ -138,6 +154,55 @@ pub fn search_twice(
     .collect()
 }
 
+/// Searches the stored peaks of a library file instead of audio, without
+/// decoding it: for finding duplicates. The peaks are rescaled to each rung
+/// rather than analysed again, which loses about half the hashes that
+/// survive (experiment 0001); whole recordings keep plenty.
+pub fn search_peaks(
+    index: &Index,
+    peaks: &[Peak],
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+) -> Vec<Detection> {
+    let (_, chained) =
+        lines_and_detections(index, Query::Peaks(peaks), profile, ladder, jobs, |_| {});
+    chained
+        .into_iter()
+        .map(|(detection, _)| detection)
+        .collect()
+}
+
+/// What is searched: audio, or the stored peaks of a library file.
+#[derive(Clone, Copy)]
+enum Query<'a> {
+    Samples(&'a [f32]),
+    Peaks(&'a [Peak]),
+}
+
+impl Query<'_> {
+    /// The query's peaks in reference coordinates under `rung`.
+    fn points(self, rung: Rung, profile: &Profile) -> Vec<Point> {
+        match self {
+            Query::Samples(samples) => rung.points(samples, profile),
+            Query::Peaks(peaks) => {
+                let tempo = rung.speed().0;
+                let pitch = match rung {
+                    Rung::Turntable(speed) => speed.0,
+                    Rung::KeyLocked(_) => 1.0,
+                };
+                peaks
+                    .iter()
+                    .map(|peak| Point {
+                        frame: peak.frame * tempo,
+                        bin: (f64::from(peak.bin) / pitch) as f32,
+                    })
+                    .collect()
+            }
+        }
+    }
+}
+
 /// Like `search_with_progress`, keeping the evidence (`explain`).
 pub fn trace_with_progress(
     index: &Index,
@@ -147,7 +212,14 @@ pub fn trace_with_progress(
     jobs: usize,
     progress: impl Fn(usize) + Sync,
 ) -> Trace {
-    let (lines, chained) = lines_and_detections(index, samples, profile, ladder, jobs, progress);
+    let (lines, chained) = lines_and_detections(
+        index,
+        Query::Samples(samples),
+        profile,
+        ladder,
+        jobs,
+        progress,
+    );
     let (detections, chains) = chained.into_iter().unzip();
     Trace {
         detections,
@@ -172,14 +244,14 @@ pub fn trace_with_progress(
 /// each with the indexes of its chain's lines.
 fn lines_and_detections(
     index: &Index,
-    samples: &[f32],
+    query: Query,
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
     progress: impl Fn(usize) + Sync,
 ) -> (Vec<lines::Line>, Vec<(Detection, Vec<usize>)>) {
     let lines = lines::distinct(lines::on_ladder(
-        index, samples, profile, ladder, jobs, progress,
+        index, query, profile, ladder, jobs, progress,
     ));
     let mut detections = chains::detections(&lines, profile);
     detections.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
@@ -206,6 +278,73 @@ fn strongest_per_moment(detections: Vec<(Detection, Vec<usize>)>) -> Vec<(Detect
     kept
 }
 
+/// Synthetic audio for tests of the search.
+#[cfg(test)]
+pub(crate) mod test_audio {
+    use crate::library::{Asset, Timestamp};
+    use crate::peaks::extract_peaks;
+    use crate::profile::Profile;
+    use crate::store::{PeakRecord, RecordHeader};
+
+    /// Tone bursts at pseudo-random frequencies, a new pair every 50 ms.
+    pub fn track(seconds: f64, rate: u32) -> Vec<f32> {
+        let mut state: u64 = 2026;
+        let mut next = move || {
+            state = state
+                .wrapping_mul(6_364_136_223_846_793_005)
+                .wrapping_add(1);
+            (state >> 33) as f64 / f64::from(1_u32 << 31)
+        };
+        let burst = (0.05 * f64::from(rate)) as usize;
+        let mut samples = vec![0.0_f32; (seconds * f64::from(rate)) as usize];
+        for chunk in samples.chunks_mut(burst) {
+            let tones = [200.0 + 3300.0 * next(), 200.0 + 3300.0 * next()];
+            for (i, sample) in chunk.iter_mut().enumerate() {
+                let t = i as f64 / f64::from(rate);
+                let envelope = (std::f64::consts::PI * i as f64 / burst as f64).sin();
+                let value: f64 = tones
+                    .iter()
+                    .map(|hz| (2.0 * std::f64::consts::PI * hz * t).sin())
+                    .sum();
+                *sample = (0.3 * envelope * value) as f32;
+            }
+        }
+        samples
+    }
+
+    /// `samples` played at `speed` from `from` seconds, for `seconds`.
+    pub fn played(samples: &[f32], speed: f64, from: f64, seconds: f64, rate: u32) -> Vec<f32> {
+        let rate = f64::from(rate);
+        (0..(seconds * rate) as usize)
+            .map(|i| {
+                let at = from * rate + i as f64 * speed;
+                let (whole, fraction) = (at.floor() as usize, (at.fract()) as f32);
+                samples[whole] * (1.0 - fraction) + samples[whole + 1] * fraction
+            })
+            .collect()
+    }
+
+    /// The peak record of `samples` as the library file `path`.
+    pub fn record(path: &str, samples: &[f32]) -> PeakRecord {
+        let profile = Profile::CURRENT;
+        PeakRecord {
+            header: RecordHeader {
+                profile: profile.id(),
+                source: Asset {
+                    path: path.to_owned(),
+                    size: 0,
+                    modified: Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds: samples.len() as f64 / f64::from(profile.sample_rate),
+            },
+            peaks: extract_peaks(samples, &profile),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -221,6 +360,31 @@ mod tests {
             playback: Playback::Turntable,
             evidence: Evidence::new(5, hits),
         }
+    }
+
+    #[test]
+    fn stored_peaks_find_another_rip_of_the_recording() {
+        let profile = Profile::CURRENT;
+        let original = test_audio::track(90.0, profile.sample_rate);
+        // Another rip: 0.8% fast, its first 10 s missing.
+        let rip = test_audio::played(&original, 1.008, 10.0, 75.0, profile.sample_rate);
+        let index = Index::build(&[test_audio::record("original.wav", &original)]).unwrap();
+        let ladder: Vec<Rung> = [0.996, 1.0, 1.004, 1.008, 1.012]
+            .map(|speed| Rung::Turntable(SpeedRatio(speed)))
+            .to_vec();
+
+        let found = search_peaks(
+            &index,
+            &test_audio::record("rip.wav", &rip).peaks,
+            &profile,
+            &ladder,
+            1,
+        );
+
+        let best = &found[0];
+        assert!((best.speed.0 - 1.008).abs() < 0.001, "{:?}", best.speed);
+        assert!((best.track_start_seconds - 10.0).abs() < 1.0);
+        assert!(best.end_seconds - best.start_seconds > 70.0);
     }
 
     #[test]

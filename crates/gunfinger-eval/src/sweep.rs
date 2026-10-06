@@ -79,6 +79,7 @@ pub struct Outcome {
 }
 
 /// An excerpt to render: which asset, from where.
+#[derive(Serialize, Deserialize)]
 pub struct Draw {
     pub asset: String,
     pub held_out: bool,
@@ -92,8 +93,76 @@ pub struct Plan {
     pub draws: Vec<Draw>,
 }
 
+/// A plan as first drawn for a seed, kept in `panels/` and reused, so that
+/// the same excerpts and held-out recordings are measured as the library
+/// grows. Assets added later are indexed, unless they are duplicates of a
+/// held-out one.
+#[derive(Serialize, Deserialize)]
+struct Panel {
+    seed: u64,
+    /// Library assets when the panel was drawn.
+    drawn_from_assets: usize,
+    held_out: BTreeSet<String>,
+    draws: Vec<Draw>,
+}
+
 impl Plan {
-    pub fn draw(records: &[PeakRecord], clusters: &Clusters, seed: u64) -> Plan {
+    /// The panel saved for `seed` in `panels`; drawn and saved there the
+    /// first time. It is always read back from the file, so that every run
+    /// sees the same rounding of its start times.
+    pub fn for_seed(
+        records: &[PeakRecord],
+        clusters: &Clusters,
+        seed: u64,
+        panels: &Path,
+    ) -> Result<Plan, String> {
+        let path = panels.join(format!("sweep-seed-{seed}.json"));
+        if !path.exists() {
+            let plan = Plan::draw(records, clusters, seed);
+            let panel = Panel {
+                seed,
+                drawn_from_assets: records.len(),
+                held_out: plan.held_out,
+                draws: plan.draws,
+            };
+            fs::create_dir_all(panels)
+                .map_err(|error| format!("cannot create {}: {error}", panels.display()))?;
+            let text = serde_json::to_string_pretty(&panel).map_err(|error| error.to_string())?;
+            fs::write(&path, text)
+                .map_err(|error| format!("cannot write {}: {error}", path.display()))?;
+        }
+        let text = fs::read_to_string(&path)
+            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
+        let panel: Panel =
+            serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+        let present: BTreeSet<&str> = records
+            .iter()
+            .map(|record| record.header.source.path.as_str())
+            .collect();
+        let missing: Vec<&str> = panel
+            .draws
+            .iter()
+            .map(|draw| draw.asset.as_str())
+            .filter(|asset| !present.contains(asset))
+            .collect();
+        if let Some(first) = missing.first() {
+            return Err(format!(
+                "{} draws an excerpt from {} assets no longer in the library, such as {first}",
+                path.display(),
+                missing.len()
+            ));
+        }
+        Ok(Plan {
+            held_out: panel
+                .held_out
+                .iter()
+                .flat_map(|asset| clusters.cluster_of(asset))
+                .collect(),
+            draws: panel.draws,
+        })
+    }
+
+    fn draw(records: &[PeakRecord], clusters: &Clusters, seed: u64) -> Plan {
         let mut rng = Rng::new(seed);
         let held_out = held_out_assets(records, clusters, &mut rng);
         let draws = draw_excerpts(records, &held_out, &mut rng);
@@ -103,6 +172,8 @@ impl Plan {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// Where the seed's panel is kept (`Plan::for_seed`).
+    pub panels: &'a Path,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
     pub jobs: usize,
@@ -117,13 +188,14 @@ pub fn run(
 ) -> Result<SweepReport, String> {
     let Options {
         seed,
+        panels,
         ladder,
         matching,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let Plan { held_out, draws } = Plan::draw(&records, clusters, seed);
+    let Plan { held_out, draws } = Plan::for_seed(&records, clusters, seed, panels)?;
     let indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !held_out.contains(&record.header.source.path))
@@ -324,6 +396,73 @@ pub fn print_summary(report: &SweepReport) {
             row.wrong_answers,
             row.mean_speed_error_percent,
             row.max_speed_error_percent
+        );
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use gunfinger_core::library::{Asset, Timestamp};
+    use gunfinger_core::store::RecordHeader;
+
+    use super::*;
+
+    fn record(path: &str) -> PeakRecord {
+        PeakRecord {
+            header: RecordHeader {
+                profile: String::new(),
+                source: Asset {
+                    path: path.to_owned(),
+                    size: 0,
+                    modified: Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds: 300.0,
+            },
+            peaks: Vec::new(),
+        }
+    }
+
+    fn clusters(duplicates: Vec<Vec<String>>) -> Clusters {
+        Clusters {
+            criterion: String::new(),
+            duplicates,
+            pairs: Vec::new(),
+        }
+    }
+
+    #[test]
+    fn a_panel_keeps_its_draws_as_the_library_grows() {
+        let panels = std::env::temp_dir().join(format!("gunfinger-panels-{}", std::process::id()));
+        let library: Vec<PeakRecord> = (0..50).map(|n| record(&format!("{n:02}.mp3"))).collect();
+        let first = Plan::for_seed(&library, &clusters(Vec::new()), 7, &panels).unwrap();
+        let held_out = first.held_out.first().unwrap().clone();
+
+        // A new rip of a held-out recording, and unrelated new tracks.
+        let rip = String::from("new rip.mp3");
+        let mut grown = library;
+        grown.extend((0..30).map(|n| record(&format!("new {n:02}.mp3"))));
+        grown.push(record(&rip));
+        let grown_clusters = clusters(vec![vec![held_out, rip.clone()]]);
+        let again = Plan::for_seed(&grown, &grown_clusters, 7, &panels).unwrap();
+        let removed = Plan::for_seed(&grown[1..], &grown_clusters, 7, &panels);
+        fs::remove_dir_all(&panels).unwrap();
+
+        let excerpts = |plan: &Plan| -> Vec<(String, u64)> {
+            plan.draws
+                .iter()
+                .map(|draw| (draw.asset.clone(), draw.start_seconds.to_bits()))
+                .collect()
+        };
+        assert_eq!(excerpts(&again), excerpts(&first));
+        assert!(again.held_out.is_superset(&first.held_out));
+        assert_eq!(again.held_out.len(), first.held_out.len() + 1);
+        assert!(again.held_out.contains(&rip));
+        assert!(
+            removed.is_err() == first.draws.iter().any(|draw| draw.asset == "00.mp3"),
+            "a panel whose excerpt's asset is gone is an error"
         );
     }
 }

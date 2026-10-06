@@ -11,7 +11,7 @@ use gunfinger_core::library::Library;
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
-use crate::clusters::{Clusters, Pair, self_match};
+use crate::clusters::{Clusters, Pair, Source, self_match};
 
 /// Pairs down to half the possible threshold are kept, to show what lies
 /// just under it.
@@ -30,7 +30,7 @@ pub fn find(
     clusters: &Clusters,
     jobs: usize,
 ) -> Result<Related, String> {
-    let pairs = self_match(library, store, jobs, |pair| {
+    let pairs = self_match(library, store, Source::Audio, jobs, |pair| {
         !pair.same_recording && pair.hits >= KEPT_HITS
     })?;
     Ok(Related {
