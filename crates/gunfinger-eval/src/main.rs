@@ -54,10 +54,10 @@ struct Paths {
     /// Peak store of the library, as written by `gunfinger index`.
     #[arg(long, default_value = "work/peaks")]
     peaks_dir: PathBuf,
-    /// Rungs searched by sweep, scan, robust and regress. Reports of other
-    /// ladders than the default go to `reports/ladder-<name>/`, so that
-    /// calibrate and regress read one ladder at a time.
-    #[arg(long, global = true, value_enum, default_value_t = Ladder::Turntable)]
+    /// Rungs searched by sweep, scan, robust and regress; the default is
+    /// `identify`'s. Reports of other ladders go to `reports/ladder-<name>/`,
+    /// so that calibrate and regress read one ladder at a time.
+    #[arg(long, global = true, value_enum, default_value_t = Ladder::Both)]
     ladder: Ladder,
 }
 
@@ -216,8 +216,8 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
     }
 }
 
-/// The default turntable ladder, key-locked rungs at the same tempos, or
-/// both.
+/// The turntable ladder, key-locked rungs at the same tempos, or both (the
+/// default, as for `identify`).
 #[derive(Clone, Copy, PartialEq, Eq, ValueEnum)]
 enum Ladder {
     Turntable,
@@ -415,7 +415,7 @@ impl Paths {
     fn reports(&self) -> PathBuf {
         let reports = self.work.join("reports");
         match self.ladder {
-            Ladder::Turntable => reports,
+            Ladder::Both => reports,
             other => reports.join(format!("ladder-{}", other.name())),
         }
     }

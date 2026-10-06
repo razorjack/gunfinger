@@ -99,9 +99,10 @@ enum Command {
         /// Length of the part to search.
         #[arg(long, value_parser = parse_timecode)]
         duration: Option<Duration>,
-        /// How the records were played; `both` also finds key-locked
-        /// (CDJ master tempo) playback and takes about a third longer [default:
-        /// `playback` in the configuration file, else turntable].
+        /// How the records were played: `turntable` (vinyl: pitch and tempo
+        /// together), `key-lock` (CDJ master tempo: tempo only) or `both`;
+        /// one alone searches about a third faster [default: `playback` in
+        /// the configuration file, else both].
         #[arg(long, value_enum)]
         playback: Option<PlaybackChoice>,
         /// File listing library paths to leave out of the index, one per line.
@@ -135,7 +136,7 @@ enum Command {
         #[arg(long, value_parser = parse_timecode, default_value = "60")]
         around: Duration,
         /// How the records were played [default: `playback` in the
-        /// configuration file, else turntable].
+        /// configuration file, else both].
         #[arg(long, value_enum)]
         playback: Option<PlaybackChoice>,
         /// Only assets whose path contains this text (ignoring case).
