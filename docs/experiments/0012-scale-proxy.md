@@ -36,4 +36,4 @@ whole mix at 8,122 assets the strongest is 30 hits, half the possible
 tier. (2) The proxy is a lower bound: it holds no shared breaks, remixes
 or samples, which give the real false candidates (91-95 hits; 0015).
 (3) Memory comes first; what used it (records, points, index) was not
-measured. Query time grows linearly, mostly in lookups (0013).
+measured. Query time grows linearly; where it goes was not profiled.
