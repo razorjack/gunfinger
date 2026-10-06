@@ -338,7 +338,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     gunfinger(&dir, &["index", library]);
     let mixes = [dir.join("mixes/first.wav"), dir.join("mixes/second.wav")];
     let reports = dir.join("reports");
-    let batch = |dir: &Path| {
+    let batch = |playback: &str| {
         let mut args = vec!["identify"];
         args.extend(mixes.iter().map(|mix| mix.to_str().unwrap()));
         args.extend([
@@ -346,12 +346,15 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
             library,
             "--save-dir",
             reports.to_str().unwrap(),
+            "--playback",
+            playback,
         ]);
-        gunfinger(dir, &args)
+        gunfinger(&dir, &args)
     };
 
-    let first = batch(&dir);
-    let second = batch(&dir);
+    let first = batch("both");
+    let second = batch("both");
+    let other_playback = batch("turntable");
 
     let first = String::from_utf8_lossy(&first.stdout);
     assert_eq!(first.matches("confident").count(), 2, "{first}");
@@ -363,6 +366,14 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     assert!(
         String::from_utf8_lossy(&second.stderr).contains("every recording already has a report")
     );
+    let other_playback = String::from_utf8_lossy(&other_playback.stderr);
+    assert!(
+        other_playback.contains("its report was searched with `--playback both`"),
+        "{other_playback}"
+    );
+    let report: Value =
+        serde_json::from_slice(&std::fs::read(reports.join("first.json")).unwrap()).unwrap();
+    assert_eq!(report["query"]["playback"], "turntable");
 }
 
 #[test]
