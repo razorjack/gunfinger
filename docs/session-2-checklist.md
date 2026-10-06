@@ -33,7 +33,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Export formats (csv, cue, tracklist; `show` renders saved reports)
 - [ ] Batch identification
 - [~] Completions, man page, `--quiet` (all done), progress
-- [ ] Configuration file
+- [x] Configuration file
 - [ ] `doctor`
 - [ ] `prune`
 - [ ] Remembered failed files

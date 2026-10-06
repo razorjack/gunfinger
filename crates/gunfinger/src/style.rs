@@ -4,8 +4,10 @@ use std::ffi::OsString;
 use std::io::IsTerminal;
 
 use clap::ValueEnum;
+use serde::Deserialize;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum, Deserialize)]
+#[serde(rename_all = "lowercase")]
 pub enum ColorChoice {
     /// Colour when writing to a terminal, unless `NO_COLOR` is set.
     Auto,
