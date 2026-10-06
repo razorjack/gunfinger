@@ -24,7 +24,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
-use crate::render::{Encoding, Playback, RENDER_RATE, encode, render_samples};
+use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::synthetic;
@@ -483,11 +483,6 @@ fn seconds_to_index(seconds: f64) -> usize {
     (seconds * f64::from(RENDER_RATE)) as usize
 }
 
-fn rms(samples: &[f32]) -> f64 {
-    let sum: f64 = samples.iter().map(|&x| f64::from(x) * f64::from(x)).sum();
-    (sum / samples.len().max(1) as f64).sqrt()
-}
-
 /// Pink noise (Paul Kellet's economy filter over white noise) at `snr_db`
 /// below the music's RMS level.
 fn with_noise(samples: &[f32], snr_db: f64, rng: &mut Rng) -> Vec<f32> {
@@ -589,15 +584,6 @@ fn clipped(samples: &[f32]) -> Vec<f32> {
         .iter()
         .map(|&x| (x * scale).clamp(-0.25, 0.25) * 2.0)
         .collect()
-}
-
-/// Keeps the 16-bit render from clipping where no clipping is intended.
-fn limited(samples: Vec<f32>) -> Vec<f32> {
-    let peak = samples.iter().fold(0.0_f32, |peak, &x| peak.max(x.abs()));
-    if peak <= 0.99 {
-        return samples;
-    }
-    samples.iter().map(|&x| x * 0.99 / peak).collect()
 }
 
 fn summarise(conditions: &[Condition], queries: &[QueryResult]) -> Vec<Row> {

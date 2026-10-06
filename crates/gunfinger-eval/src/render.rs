@@ -191,3 +191,17 @@ fn write_wav(path: &Path, samples: &[f32]) -> Result<(), String> {
     }
     fs::write(path, bytes).map_err(|error| format!("cannot write {}: {error}", path.display()))
 }
+
+pub fn rms(samples: &[f32]) -> f64 {
+    let sum: f64 = samples.iter().map(|&x| f64::from(x) * f64::from(x)).sum();
+    (sum / samples.len().max(1) as f64).sqrt()
+}
+
+/// Keeps the 16-bit render from clipping where no clipping is intended.
+pub fn limited(samples: Vec<f32>) -> Vec<f32> {
+    let peak = samples.iter().fold(0.0_f32, |peak, &x| peak.max(x.abs()));
+    if peak <= 0.99 {
+        return samples;
+    }
+    samples.iter().map(|&x| x * 0.99 / peak).collect()
+}

@@ -5,9 +5,11 @@
 
 mod calibrate;
 mod clusters;
+mod grid;
 mod hash_cost;
 mod manifest;
 mod memory;
+mod mixes;
 mod regress;
 mod related;
 mod render;
@@ -125,6 +127,22 @@ enum Command {
         #[command(flatten)]
         variant: IndexVariant,
     },
+    /// Render seeded mixes of library tracks with exact truth (speeds,
+    /// bass swaps, crossfades, cuts, plays of 20-60 s, a returning track,
+    /// held-out tracks), search them and score them against the truth.
+    Mixes {
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+        #[arg(long, default_value_t = 8)]
+        count: usize,
+    },
+    /// Slide brief plays of indexed tracks across the 10 s window grid in
+    /// 1 s steps, at several lengths and source positions, and compare
+    /// the frozen rule with minimum aligned spans.
+    Grid {
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+    },
     /// Save the reports of the standard evaluation (sweep, development scan
     /// and leave-outs) as a named baseline under `work/baselines/`.
     Baseline {
@@ -235,6 +253,47 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 run_standard_evaluation(paths, &set, seed, jobs)?;
             }
             regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
+        }
+        Command::Mixes { seed, count } => {
+            let report = mixes::run(
+                &paths.library()?,
+                &paths.store()?,
+                &paths.clusters()?,
+                &paths.work,
+                &mixes::Options {
+                    seed,
+                    count,
+                    ladder_name: paths.ladder.name(),
+                    ladder: &paths.ladder.rungs(),
+                    jobs,
+                },
+            )?;
+            write_json(
+                &paths.reports().join(format!("mixes-seed-{seed}.json")),
+                &report,
+            )?;
+            mixes::print_summary(&report);
+            Ok(())
+        }
+        Command::Grid { seed } => {
+            let report = grid::run(
+                &paths.library()?,
+                &paths.store()?,
+                &paths.clusters()?,
+                &paths.work,
+                &grid::Options {
+                    seed,
+                    ladder_name: paths.ladder.name(),
+                    ladder: &paths.ladder.rungs(),
+                    jobs,
+                },
+            )?;
+            write_json(
+                &paths.reports().join(format!("grid-seed-{seed}.json")),
+                &report,
+            )?;
+            grid::print_summary(&report);
+            Ok(())
         }
         Command::Memory {
             set,
