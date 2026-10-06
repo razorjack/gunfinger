@@ -18,24 +18,19 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 - [x] Robustness harness and first runs (experiment 0009)
 - [x] Key-lock: measured (0009), key-locked rungs (0010); `identify
-  --playback turntable|key-lock|both`, default unchanged. Cost on an idle
-  machine still to be timed.
+  --playback turntable|key-lock|both`, default unchanged; cost about 1.3×
+  (0016).
 - [x] Scale proxy with reversed copies (experiment 0012): chance grows
   slowly up to 21,109 assets; the scan at 100 copies swapped and was
-  stopped. Idle timings at 0/10/30 copies come from queue-2 (for 0013).
+  stopped.
 - [x] Summed play evidence, offline null (experiment 0011): no change.
-- [~] Lookup-cost levers: `Index::without_fullest(share)` and
-  `--drop-fullest` on robust and scan (uncommitted). Queued in
-  `work/scripts/queue-2.sh` (starts after the scale queue): regress with
-  `--ladder both` (full protocol for key lock), related, clusters check into
-  `work/check-clusters`, drop 0.001/0.01/0.05 on robust control, dev scan
-  with drop 0.01, 30 copies with drop 0.01, idle timing scans at 0/10/30
-  copies. Logs `work/logs/q2-*.log` (timing in `.err`).
-- [~] Related recordings from the self-match. Code (uncommitted):
-  `clusters::self_match` (refactor of `find`; check that
-  `work/reports/duplicate-clusters.json` duplicates equal
-  `duplicate-clusters-before-refactor.json`), `related.rs`, command
-  `gunfinger-eval related` -> `work/reports/related-recordings.json`.
+- [x] Lookup-cost levers: dropping the fullest lists (0013, full protocol
+  0017; harness option, default unchanged) and triplet hashes estimated
+  offline (0014, `gunfinger-eval hash-cost`).
+- [x] Related recordings (0015); the `clusters` refactor gives the same
+  duplicate clusters.
+- [x] Key lock: full protocol with both ladders (0016); `playback` key in
+  the configuration file.
 
 ## 3. Command line
 

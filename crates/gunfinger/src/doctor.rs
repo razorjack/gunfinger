@@ -73,6 +73,7 @@ pub fn run(settings: &Settings, library: Option<PathBuf>, style: Style) -> miett
     );
     checkup.setting("peak store", settings.peaks_dir.display());
     checkup.setting("jobs", settings.jobs);
+    checkup.setting("playback", settings.playback.name());
 
     match library {
         Some(library) => check_library(&mut checkup, &library, &settings.peaks_dir),

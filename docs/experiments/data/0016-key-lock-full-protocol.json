@@ -1,0 +1,253 @@
+{
+ "note": "Experiment 0016: full protocol with --ladder both (turntable and key-locked rungs) against the session-2-start baseline (turntable only). Wall seconds are not idle timings.",
+ "turntable": {
+  "scan-stakka-skynet-knowledge.json": {
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "possible": 0,
+   "unmatched_possible": 1,
+   "detections": 4181,
+   "wall_seconds": 22.3
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "identified": 8,
+   "referenced": 11,
+   "wrong": 0,
+   "possible": 0,
+   "unmatched_possible": 1,
+   "detections": 4127,
+   "wall_seconds": 22.5
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "identified": 0,
+   "referenced": 11,
+   "wrong": 0,
+   "possible": 0,
+   "unmatched_possible": 1,
+   "detections": 3913,
+   "wall_seconds": 22.2
+  },
+  "sweep": {
+   "indexed_assets": 209,
+   "per_speed": [
+    {
+     "speed_percent": -8.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0018413853802493978,
+     "max_speed_error_percent": 0.006206182347275657
+    },
+    {
+     "speed_percent": -5.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0040489704150399024,
+     "max_speed_error_percent": 0.015913199962296787
+    },
+    {
+     "speed_percent": -3.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.004931984248374429,
+     "max_speed_error_percent": 0.012496048169916119
+    },
+    {
+     "speed_percent": -1.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.004585260848367826,
+     "max_speed_error_percent": 0.014387853570484666
+    },
+    {
+     "speed_percent": 0.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0019246815713658272,
+     "max_speed_error_percent": 0.004690869886192495
+    },
+    {
+     "speed_percent": 1.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.003783788022672526,
+     "max_speed_error_percent": 0.012350263678827744
+    },
+    {
+     "speed_percent": 3.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0045354761772083306,
+     "max_speed_error_percent": 0.012479192243211479
+    },
+    {
+     "speed_percent": 5.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.004513007467312831,
+     "max_speed_error_percent": 0.011811904815313135
+    },
+    {
+     "speed_percent": 8.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0018789801341768293,
+     "max_speed_error_percent": 0.0065472802359103355
+    }
+   ]
+  }
+ },
+ "both": {
+  "scan-stakka-skynet-knowledge.json": {
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "possible": 0,
+   "unmatched_possible": 1,
+   "detections": 6114,
+   "wall_seconds": 53.1
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "identified": 8,
+   "referenced": 11,
+   "wrong": 0,
+   "possible": 0,
+   "unmatched_possible": 1,
+   "detections": 6037,
+   "wall_seconds": 53.6
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "identified": 0,
+   "referenced": 11,
+   "wrong": 0,
+   "possible": 0,
+   "unmatched_possible": 1,
+   "detections": 5736,
+   "wall_seconds": 35.8
+  },
+  "sweep": {
+   "indexed_assets": 209,
+   "per_speed": [
+    {
+     "speed_percent": -8.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0018413853802493978,
+     "max_speed_error_percent": 0.006206182347275657
+    },
+    {
+     "speed_percent": -5.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0040489704150399024,
+     "max_speed_error_percent": 0.015913199962296787
+    },
+    {
+     "speed_percent": -3.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.004931984248374429,
+     "max_speed_error_percent": 0.012496048169916119
+    },
+    {
+     "speed_percent": -1.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.004585260848367826,
+     "max_speed_error_percent": 0.014387853570484666
+    },
+    {
+     "speed_percent": 0.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0019246815713658272,
+     "max_speed_error_percent": 0.004690869886192495
+    },
+    {
+     "speed_percent": 1.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.003783788022672526,
+     "max_speed_error_percent": 0.012350263678827744
+    },
+    {
+     "speed_percent": 3.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0045354761772083306,
+     "max_speed_error_percent": 0.012479192243211479
+    },
+    {
+     "speed_percent": 5.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.004513007467312831,
+     "max_speed_error_percent": 0.011811904815313135
+    },
+    {
+     "speed_percent": 8.0,
+     "indexed_excerpts": 60,
+     "recalled": 60,
+     "recall": 1.0,
+     "wrong_answers": 0,
+     "mean_speed_error_percent": 0.0018789801341768293,
+     "max_speed_error_percent": 0.0065472802359103355
+    }
+   ]
+  }
+ },
+ "calibrate": {
+  "turntable": {
+   "weakest_identifying": 501,
+   "strongest_false": 95,
+   "margin": 5.27,
+   "strongest_not_in_index": 19,
+   "false_at_30_or_more": 18,
+   "all_remix": true,
+   "strongest_under_30": 28
+  },
+  "both": {
+   "weakest_identifying": 501,
+   "strongest_false": 97,
+   "margin": 5.16,
+   "strongest_not_in_index": 19,
+   "false_at_30_or_more": 15,
+   "all_remix": true,
+   "strongest_under_30": 28
+  }
+ }
+}

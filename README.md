@@ -58,7 +58,7 @@ target/release/gunfinger identify mix.m4a --library ~/Music/library \
     --start 45:00 --duration 10:00 --format json > mix.json
 
 # Also find records played with key lock (CDJ master tempo: tempo changes,
-# pitch does not); twice the search time. Such plays are marked (key lock).
+# pitch does not); about a third slower. Such plays are marked (key lock).
 target/release/gunfinger identify mix.m4a --playback both
 
 # Several recordings share one index build; --save-dir keeps a JSON report
@@ -102,6 +102,7 @@ library = "~/Music/library"   # used when --library is not given
 peaks_dir = "~/.local/share/gunfinger/peaks"
 jobs = 8
 color = "auto"
+playback = "turntable"         # "both" if the sets are from CDJs or software
 ```
 
 The peak store is in `work/peaks` by default (`--peaks-dir`,
@@ -189,7 +190,10 @@ index takes 74 postings per second of audio and 5.07 bytes per posting; for
 25,000 tracks that projects to 3.0 GB in memory, or about 2.3 GB with the
 delta-coded on-disk layout recommended in ADR 0005.
 
-Known limits: the thresholds have not been tested against a library larger
-than 262 tracks ([docs/calibration.md](docs/calibration.md) lists what to
-measure again), key-locked (pitch-preserved) mixes are not supported, and
-nothing has been done for heavy EQ or long blends.
+Known limits: the thresholds have been measured on 262 real tracks, and on
+up to 21,109 assets only with synthetic reversed copies, which lack the
+shared breaks and remixes of a real library
+([docs/calibration.md](docs/calibration.md) lists what to measure again).
+Key-locked (pitch-preserved) mixes need `--playback both`. Heavy damage
+(noise at 0 dB SNR, a blend at equal level) loses evidence but has not
+produced a false identification (experiment 0009).

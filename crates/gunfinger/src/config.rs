@@ -10,6 +10,7 @@
 //! peaks_dir = "~/.local/share/gunfinger/peaks"
 //! jobs = 8
 //! color = "auto"
+//! playback = "turntable"   # or "key-lock", or "both" for CD and digital sets
 //! ```
 
 use std::num::NonZeroUsize;
@@ -18,6 +19,7 @@ use std::path::{Path, PathBuf};
 use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::Deserialize;
 
+use crate::playback::PlaybackChoice;
 use crate::style::ColorChoice;
 
 const DEFAULT_PEAKS_DIR: &str = "work/peaks";
@@ -29,6 +31,7 @@ struct File {
     peaks_dir: Option<PathBuf>,
     jobs: Option<NonZeroUsize>,
     color: Option<ColorChoice>,
+    playback: Option<PlaybackChoice>,
 }
 
 /// What the flags and environment variables gave.
@@ -43,6 +46,9 @@ pub struct Settings {
     pub peaks_dir: PathBuf,
     pub jobs: usize,
     pub color: ColorChoice,
+    /// How searches assume the records were played, unless `--playback`
+    /// says otherwise.
+    pub playback: PlaybackChoice,
     library: Option<PathBuf>,
     /// The configuration file read, if any.
     pub file: Option<PathBuf>,
@@ -67,6 +73,7 @@ impl Settings {
                 NonZeroUsize::get,
             ),
             color: given.color.or(file.color).unwrap_or(ColorChoice::Auto),
+            playback: file.playback.unwrap_or(PlaybackChoice::Turntable),
             library: file.library.map(|library| expand_home(&library)),
             file: path,
         })
@@ -145,7 +152,7 @@ mod tests {
     fn the_file_fills_in_what_flags_leave_out() {
         let path = write_config(
             "fills",
-            "library = \"/music\"\npeaks_dir = \"/peaks\"\njobs = 3\ncolor = \"never\"\n",
+            "library = \"/music\"\npeaks_dir = \"/peaks\"\njobs = 3\ncolor = \"never\"\nplayback = \"both\"\n",
         );
         let flags = Given {
             config: Some(path),
@@ -162,6 +169,7 @@ mod tests {
         );
         assert_eq!(settings.map(|s| s.jobs), Some(5));
         assert_eq!(settings.map(|s| s.color), Some(ColorChoice::Never));
+        assert_eq!(settings.map(|s| s.playback), Some(PlaybackChoice::Both));
         assert_eq!(
             settings.and_then(|s| s.library(None).ok()),
             Some(PathBuf::from("/music"))

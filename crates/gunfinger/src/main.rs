@@ -95,9 +95,10 @@ enum Command {
         #[arg(long, value_parser = parse_timecode)]
         duration: Option<Duration>,
         /// How the records were played; `both` also finds key-locked
-        /// (CDJ master tempo) playback and takes twice as long.
-        #[arg(long, value_enum, default_value_t = PlaybackChoice::Turntable)]
-        playback: PlaybackChoice,
+        /// (CDJ master tempo) playback and takes about a third longer [default:
+        /// `playback` in the configuration file, else turntable].
+        #[arg(long, value_enum)]
+        playback: Option<PlaybackChoice>,
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
@@ -128,9 +129,10 @@ enum Command {
         /// How much to search on either side of the moment.
         #[arg(long, value_parser = parse_timecode, default_value = "60")]
         around: Duration,
-        /// How the records were played.
-        #[arg(long, value_enum, default_value_t = PlaybackChoice::Turntable)]
-        playback: PlaybackChoice,
+        /// How the records were played [default: `playback` in the
+        /// configuration file, else turntable].
+        #[arg(long, value_enum)]
+        playback: Option<PlaybackChoice>,
         /// Only assets whose path contains this text (ignoring case).
         #[arg(long)]
         asset: Option<String>,
@@ -270,7 +272,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             library: &settings.library(library)?,
             peaks_dir,
             excerpt: Excerpt { start, duration },
-            playback,
+            playback: playback.unwrap_or(settings.playback),
             exclude_from: exclude_from.as_deref(),
             format,
             save_dir: save_dir.as_deref(),
@@ -295,7 +297,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             exclude_from: exclude_from.as_deref(),
             at,
             around,
-            playback,
+            playback: playback.unwrap_or(settings.playback),
             asset: asset.as_deref(),
             limit,
             style: stdout_style,
