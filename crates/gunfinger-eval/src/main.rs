@@ -363,12 +363,17 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     until,
                     minutes,
                     ladder: &paths.ladder.rungs(),
+                    matching: paths.matching,
                     jobs,
                 },
             )?;
+            let variant = paths
+                .matching
+                .name()
+                .map_or_else(String::new, |name| format!("-{name}"));
             write_json(
                 &paths.work.join("memory").join(format!(
-                    "memory-copies-{synthetic_copies}-jobs-{jobs}-until-{}.json",
+                    "memory-copies-{synthetic_copies}-jobs-{jobs}-until-{}{variant}.json",
                     format!("{until:?}").to_lowercase()
                 )),
                 &report,
