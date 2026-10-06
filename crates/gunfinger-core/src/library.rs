@@ -20,6 +20,17 @@ pub struct Asset {
     pub modified: Timestamp,
 }
 
+impl Asset {
+    /// Whether the file at `path` still has this size and modification
+    /// time.
+    pub fn matches_file(&self, path: &Path) -> bool {
+        fs::metadata(path).is_ok_and(|metadata| {
+            metadata.len() == self.size
+                && Timestamp::of(metadata.modified().unwrap_or(UNIX_EPOCH)) == self.modified
+        })
+    }
+}
+
 /// A file modification time with nanosecond precision.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Timestamp {

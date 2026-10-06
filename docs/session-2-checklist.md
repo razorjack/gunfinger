@@ -36,7 +36,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Configuration file
 - [ ] `doctor`
 - [ ] `prune`
-- [ ] Remembered failed files
+- [x] Remembered failed files (and too-long files)
 - [ ] TUI
 
 ## Wrap-up

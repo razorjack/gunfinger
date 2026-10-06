@@ -68,6 +68,10 @@ enum Command {
         /// Files longer than this are mixes or album rips and are skipped.
         #[arg(long, default_value_t = 20)]
         max_track_minutes: u64,
+        /// Try files again that an earlier run failed on or found too long;
+        /// otherwise they are passed over until they change.
+        #[arg(long)]
+        retry_skipped: bool,
     },
     /// Find library tracks inside a recording.
     Identify {
@@ -187,11 +191,13 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
         Command::Index {
             library,
             max_track_minutes,
+            retry_skipped,
         } => index::run(
             &settings.library(library)?,
             peaks_dir,
             jobs,
             max_track_minutes,
+            retry_skipped,
             console,
         ),
         Command::Identify {

@@ -88,7 +88,9 @@ color = "auto"
 The peak store is in `work/peaks` by default (`--peaks-dir`,
 `GUNFINGER_PEAKS_DIR`). `--jobs` (`GUNFINGER_JOBS`) sets the worker threads;
 the default is one per core. Files longer than 20 minutes are skipped by
-`index` (`--max-track-minutes`). `identify --exclude-from FILE` leaves the
+`index` (`--max-track-minutes`). Files that fail to decode or are too long
+are remembered in the peak store and passed over on later runs until they
+change (`--retry-skipped` tries them again). `identify --exclude-from FILE` leaves the
 listed library paths out of the index. Human output is coloured on a terminal
 (`--color auto|always|never`; `NO_COLOR` turns `auto` off). `--quiet` keeps
 results, warnings and errors and drops progress and timing.
