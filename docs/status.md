@@ -496,3 +496,11 @@ Baseline `session-3-start` saved after a rerun that reproduced
   possible (20-26 s, 2 windows), none wrong. A 10 s minimum span would
   make all 15-20 s grid plays confident; offline only. Chains can take a
   chance line 30 s away.
+- **Search memory at scale (experiment 0021).** At 26,462 assets the
+  search state grows with the query (about 180 MB per minute), not with
+  workers: 4.9 GB peak for 10 minutes of query.
+- **Evidence loss and new conditions (experiment 0022).** `gunfinger-eval
+  loss` attributes the development mix's lost hashes: the mix itself
+  costs most, mostly at 1-4 kHz; blends three quarters more; the rung 7%.
+  Robust conditions wow 0.55/0.75 Hz, broadcast, beatmatched -6/0 dB and
+  combined; the beatmatcher accepts tempos found at a metrical factor.

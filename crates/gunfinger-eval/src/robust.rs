@@ -49,6 +49,8 @@ const WOW_DEPTH: f64 = 0.002;
 const BROADCAST: &str = "acompressor=threshold=0.05:ratio=6:attack=20:release=250:makeup=4,acompressor=threshold=0.2:ratio=20:attack=0.5:release=40:makeup=2,alimiter=limit=0.7:attack=0.5:release=20:level=false";
 /// A beatmatched partner plays within this share of its native speed.
 const PARTNER_RANGE: f64 = 0.1;
+/// Ratios between a found beat period and the true one.
+const METRICAL_FACTORS: [f64; 7] = [1.0, 2.0, 0.5, 1.5, 2.0 / 3.0, 4.0 / 3.0, 0.75];
 /// Combined damage: wow at 33 rpm, a beatmatched partner this far below,
 /// broadcast processing and a low-bitrate stream.
 const COMBINED_PARTNER_DB: i32 = -6;
@@ -546,12 +548,22 @@ fn beatmatched_partner(samples: &[f32], job: &Job, library: &Library) -> Result<
     let plain = render(EXCERPT_SECONDS, job.speed)?;
     let ours = onset_envelope(samples, RENDER_RATE);
     let periods = beat_period(&ours).zip(beat_period(&onset_envelope(&plain, RENDER_RATE)));
-    let partner_speed = periods
-        .map(|(ours, theirs)| job.speed * theirs / ours)
-        .filter(|speed| (speed - 1.0).abs() <= PARTNER_RANGE);
+    // A period found at a half, two thirds or three quarters of the beat
+    // (or the inverse) is still the right tempo, up to that factor.
+    let partner_speed = periods.and_then(|(ours, theirs)| {
+        METRICAL_FACTORS
+            .iter()
+            .map(|factor| job.speed * theirs / ours * factor)
+            .filter(|speed| (speed - 1.0).abs() <= PARTNER_RANGE)
+            .min_by(|a, b| (a - 1.0).abs().total_cmp(&(b - 1.0).abs()))
+    });
     let (Some(partner_speed), Some((period, _))) = (partner_speed, periods) else {
+        let tempos = periods.map_or_else(
+            || String::from("no tempo found"),
+            |(ours, theirs)| format!("{:.1} and {:.1} bpm", 60.0 / ours, 60.0 / theirs),
+        );
         eprintln!(
-            "{} {:03}: partner not beatmatched (tempo not found or too far)",
+            "{} {:03}: partner not beatmatched ({tempos})",
             job.condition.name(),
             job.number
         );
