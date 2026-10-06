@@ -1,0 +1,676 @@
+{
+ "script": "scripts/analysis/summed_null.py",
+ "gap_seconds": 90,
+ "reports": {
+  "scan-stakka-skynet-knowledge.json": [
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 192,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 91,
+      "segments": 3,
+      "windows": 9,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 51,
+      "segments": 3,
+      "windows": 6,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 433,
+    "strongest": [
+     {
+      "hits": 236,
+      "segments": 7,
+      "windows": 18,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 125,
+      "segments": 7,
+      "windows": 14,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     },
+     {
+      "hits": 96,
+      "segments": 8,
+      "windows": 17,
+      "asset": "Ed Rush & Optical - Wormhole.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 3,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 2,
+    "strongest": [
+     {
+      "hits": 199,
+      "segments": 4,
+      "windows": 11,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 171,
+      "segments": 3,
+      "windows": 8,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   }
+  ],
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": [
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 190,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 91,
+      "segments": 3,
+      "windows": 9,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 51,
+      "segments": 3,
+      "windows": 6,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 428,
+    "strongest": [
+     {
+      "hits": 236,
+      "segments": 7,
+      "windows": 18,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 125,
+      "segments": 7,
+      "windows": 14,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     },
+     {
+      "hits": 96,
+      "segments": 8,
+      "windows": 17,
+      "asset": "Ed Rush & Optical - Wormhole.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 3,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 2,
+    "strongest": [
+     {
+      "hits": 199,
+      "segments": 4,
+      "windows": 11,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 171,
+      "segments": 3,
+      "windows": 8,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   }
+  ],
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": [
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 184,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 91,
+      "segments": 3,
+      "windows": 9,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 51,
+      "segments": 3,
+      "windows": 6,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 410,
+    "strongest": [
+     {
+      "hits": 236,
+      "segments": 7,
+      "windows": 18,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 125,
+      "segments": 7,
+      "windows": 14,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     },
+     {
+      "hits": 96,
+      "segments": 8,
+      "windows": 17,
+      "asset": "Ed Rush & Optical - Wormhole.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 3,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 2,
+    "strongest": [
+     {
+      "hits": 199,
+      "segments": 4,
+      "windows": 11,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 171,
+      "segments": 3,
+      "windows": 8,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   }
+  ],
+  "scale-scan-stakka-skynet-knowledge-copies-10.json": [
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 1446,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 91,
+      "segments": 3,
+      "windows": 9,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 76,
+      "segments": 5,
+      "windows": 17,
+      "asset": "synthetic/007/extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 3140,
+    "strongest": [
+     {
+      "hits": 236,
+      "segments": 7,
+      "windows": 18,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 125,
+      "segments": 7,
+      "windows": 14,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     },
+     {
+      "hits": 109,
+      "segments": 12,
+      "windows": 27,
+      "asset": "synthetic/007/extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 3,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 2,
+    "strongest": [
+     {
+      "hits": 199,
+      "segments": 4,
+      "windows": 11,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 171,
+      "segments": 3,
+      "windows": 8,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   }
+  ],
+  "scale-scan-stakka-skynet-knowledge-copies-30.json": [
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 2708,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 91,
+      "segments": 3,
+      "windows": 9,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 76,
+      "segments": 5,
+      "windows": 17,
+      "asset": "synthetic/007/extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 0,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 6158,
+    "strongest": [
+     {
+      "hits": 236,
+      "segments": 7,
+      "windows": 18,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 125,
+      "segments": 7,
+      "windows": 14,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     },
+     {
+      "hits": 109,
+      "segments": 12,
+      "windows": 27,
+      "asset": "synthetic/007/extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 3,
+    "strongest": [
+     {
+      "hits": 119,
+      "segments": 2,
+      "windows": 5,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 20,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 2,
+    "strongest": [
+     {
+      "hits": 199,
+      "segments": 4,
+      "windows": 11,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     },
+     {
+      "hits": 42,
+      "segments": 2,
+      "windows": 4,
+      "asset": "extra/aa-kemal-mechanizm-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 80,
+      "segments": 2,
+      "windows": 6,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 30,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 1,
+    "strongest": [
+     {
+      "hits": 171,
+      "segments": 3,
+      "windows": 8,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+     }
+    ]
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.002,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   },
+   {
+    "min_segment_hits": 60,
+    "speed_tolerance": 0.005,
+    "false_multi_segment_groups": 0,
+    "strongest": []
+   }
+  ]
+ }
+}
