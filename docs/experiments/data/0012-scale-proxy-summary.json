@@ -1,0 +1,135 @@
+{
+ "note": "Experiment 0012. Robust: control condition, seed 2026, speeds 0.95 and 1.03; strongest wrong excludes the Skynet & Stakka - Clockwork excerpt (its remix shares material). Scan: development mix.",
+ "robust": [
+  {
+   "synthetic_copies": 0,
+   "indexed_assets": null,
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "strongest_wrong_median": 7.0,
+   "strongest_wrong_p90": 13,
+   "strongest_wrong_max": 29,
+   "held_out_strongest_median": 7.0,
+   "held_out_strongest_max": 24,
+   "own_hits_median": 858.0,
+   "own_hits_min": 654
+  },
+  {
+   "synthetic_copies": 10,
+   "indexed_assets": 2299,
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "strongest_wrong_median": 10.0,
+   "strongest_wrong_p90": 16,
+   "strongest_wrong_max": 29,
+   "held_out_strongest_median": 9.0,
+   "held_out_strongest_max": 24,
+   "own_hits_median": 858.0,
+   "own_hits_min": 654
+  },
+  {
+   "synthetic_copies": 30,
+   "indexed_assets": 6479,
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "strongest_wrong_median": 10.0,
+   "strongest_wrong_p90": 16,
+   "strongest_wrong_max": 29,
+   "held_out_strongest_median": 10.5,
+   "held_out_strongest_max": 24,
+   "own_hits_median": 858.0,
+   "own_hits_min": 654
+  },
+  {
+   "synthetic_copies": 100,
+   "indexed_assets": 21109,
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "strongest_wrong_median": 12.0,
+   "strongest_wrong_p90": 17,
+   "strongest_wrong_max": 29,
+   "held_out_strongest_median": 12.5,
+   "held_out_strongest_max": 24,
+   "own_hits_median": 858.0,
+   "own_hits_min": 654
+  }
+ ],
+ "scan": [
+  {
+   "synthetic_copies": 0,
+   "indexed_assets": 262,
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "detections": 4181,
+   "synthetic_detections": 0,
+   "strongest_synthetic": [],
+   "synthetic_at_least_20_hits": 0,
+   "synthetic_at_least_60_hits": 0
+  },
+  {
+   "synthetic_copies": 10,
+   "indexed_assets": 2882,
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "detections": 36233,
+   "synthetic_detections": 32052,
+   "strongest_synthetic": [
+    {
+     "hits": 25,
+     "windows": 6,
+     "asset": "synthetic/007/extra/a-bad_company-pulse.mp3"
+    },
+    {
+     "hits": 24,
+     "windows": 5,
+     "asset": "synthetic/008/Skynet & Stakka - Decoy.mp3"
+    },
+    {
+     "hits": 24,
+     "windows": 4,
+     "asset": "synthetic/009/extra/AA-Nu_Balance-Overheads-sour.mp3"
+    }
+   ],
+   "synthetic_at_least_20_hits": 14,
+   "synthetic_at_least_60_hits": 0
+  },
+  {
+   "synthetic_copies": 30,
+   "indexed_assets": 8122,
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "detections": 78179,
+   "synthetic_detections": 73998,
+   "strongest_synthetic": [
+    {
+     "hits": 30,
+     "windows": 6,
+     "asset": "synthetic/013/extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3"
+    },
+    {
+     "hits": 27,
+     "windows": 5,
+     "asset": "synthetic/028/extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3"
+    },
+    {
+     "hits": 25,
+     "windows": 6,
+     "asset": "synthetic/007/extra/a-bad_company-pulse.mp3"
+    }
+   ],
+   "synthetic_at_least_20_hits": 17,
+   "synthetic_at_least_60_hits": 0
+  },
+  {
+   "synthetic_copies": 100,
+   "stopped": "swapping at 26,462 assets next to desktop applications; killed with its queue"
+  }
+ ]
+}

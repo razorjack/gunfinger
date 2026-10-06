@@ -6,18 +6,10 @@ that motivates it where one exists.
 
 ## Library and storage
 
-- **Configuration.** An XDG location (`$XDG_CONFIG_HOME/gunfinger/config.toml`)
-  for the library root, the peak directory and defaults such as `--jobs`.
-  Today everything is a flag or an environment variable.
 - **NAS scanning with root-relative paths.** Asset identity is already the
   path relative to the library root. Missing: tolerance for slow `stat`
   calls, reconnects, and a library identifier in the peak store so two
   libraries cannot share a peak directory by accident.
-- **Prune safety and a failed state.** `index` never deletes records. A
-  `prune` command must refuse to act when the library root is unreachable
-  (an unmounted NAS looks like an empty library). Failed and too-long assets
-  should be recorded, so they are not decoded again on every run, and retried
-  when their size or mtime changes.
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.4 s. Revisit when detections, owner
   edits or the Track/AudioAsset model need to be stored.
@@ -36,11 +28,11 @@ that motivates it where one exists.
 
 ## Command line
 
-- **`doctor`.** Check FFmpeg and ffprobe versions, the peak store's
-  consistency, records whose source has vanished, and stale profiles.
-- **CLI polish.** Progress bars, `--quiet`, colour, shell completions, a
-  timeline view of a mix, export to cue sheets and tracklist formats.
-- **TUI.** Browsing detections against the mix's waveform.
+- **A full-screen TUI.** `review` steps through a report by ear in a line
+  loop. Browsing detections against the mix's waveform would need a terminal
+  UI dependency; worth it only if `review` proves too limited.
+- **Owner edits.** Confirming, rejecting or renaming plays in a report, and
+  keeping those edits when the mix is identified again.
 
 ## Matching
 
@@ -51,24 +43,23 @@ that motivates it where one exists.
   false candidate and query time against library size (a larger real
   library, or the current one padded with unrelated music) before trusting
   the thresholds at that size (experiments 0004, 0005, 0006).
-  `docs/calibration.md` lists the procedure and what to change.
+  `docs/calibration.md` lists the procedure and what to change. The proxy
+  with reversed copies (experiment 0012) shows chance alignments growing
+  slowly up to 21,109 assets; shared breaks and remixes, which the proxy
+  lacks, need a larger real library.
 - **Evidence summed across a play.** Plays (ADR 0006) show Fibre Optix
   "Sin", faded out for a station insert, as one possible play of two
-  segments (168 hits). Letting a play's summed evidence reach `confident`
-  would need a measured null for sums across gaps; requiring the segments to
-  agree on speed and track position would make chance sums rarer.
-- **Position in the track.** A detection reports where it lies in the mix,
-  not which part of the track was played. The line's offset gives the track
-  position directly. Reporting it would show edits and intros, and how far a
-  needle skip jumped (The Pulse in the test set skipped at 36:17 and was
-  found as two chains).
-- **Key-locked (pitch-preserved) sets.** Digital DJs often change tempo
-  without changing pitch. The speed ladder assumes the turntable model
-  (pitch and tempo together). Key lock needs a time-stretch ladder or hashes
-  invariant to time scaling only.
-- **EQ and blend robustness.** No work has gone into heavy EQ, filtering,
-  scratching, doubles or long blends beyond what the chained-window design
-  gives for free.
+  segments (168 hits). Experiment 0011 measured the null offline: summing
+  every segment is unsafe (chance sums reach 125 hits), summing segments of
+  at least 60 hits gave no false group, but no measured track would gain.
+  Revisit when a missed play's possible segments sum past 200.
+- **Key lock by default.** `identify --playback both` finds key-locked
+  plays (experiment 0010) at twice the search time. Making it the default
+  needs the full protocol with both ladders and an idle-machine timing.
+- **Robustness gaps.** Experiment 0009 found no false identification under
+  32 kinds of damage. Still untested: scratching, doubles (two copies of a
+  record played together), long blends of more than 30 s, and speeds
+  beyond ±8% (nothing is found there by design).
 - **Timeline polish.** Detection boundaries are the first and last aligned
   hit; they are approximate and often extend into the neighbouring tracks'
   overlap.

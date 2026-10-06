@@ -109,6 +109,10 @@ No option above reduces these; they set the practical ceiling:
    speeds. They have realistic peak statistics but cannot truly align with
    a forward mix, so a few thousand to 10,000 of them show how query time
    and chance alignments grow, without new music. A proxy, not a substitute.
+   Done in experiment 0012 (up to 21,109 assets): the strongest chance
+   alignment grows slowly (30 hits over a whole mix at 8,122 assets), and
+   memory is the first limit (an in-memory index of 26,462 assets swapped
+   beside a desktop session).
 2. As real tracks arrive, follow the procedure in `docs/calibration.md` at
    steps such as 1,000, 10,000 and 30,000 tracks, so a drifting threshold is
    seen before it fails.
