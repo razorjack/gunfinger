@@ -10,7 +10,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 ## 1. Test infrastructure
 
 - [x] Determinism check (experiment 0007: deterministic, no fix needed)
-- [ ] Synthetic fixtures and end-to-end test
+- [x] Synthetic fixtures and end-to-end test (experiment 0008: shared kicks extend chains)
 - [ ] Regression command with saved baselines
 - [ ] Property tests
 
