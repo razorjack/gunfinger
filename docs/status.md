@@ -436,3 +436,15 @@ evaluation was spent (2 of 5 used).
 - Timings this night were noisy (load average above 100 while the
   harness ran); relative timings were interleaved, lookup savings counted
   exactly.
+
+## 2026-10-06: owner checks by ear
+
+- `listen` and `review` work with real audio output: the owner ran them on
+  the development mix's saved report (`listen --at` at several moments,
+  `review` with play numbers, `start`, `end` and `at`).
+- The possible play of the Stakka remix of Clockwork at 20:22 is shared
+  material: at that moment the remix carries the original's lead exactly,
+  plus a pad. The owner considers the possible play correct and the
+  fragment indistinguishable on its own. It is the passage experiment 0015
+  found between the two recordings. Roadmap: show such a play as "shares
+  material with" the confident play around it.

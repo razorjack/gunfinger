@@ -76,10 +76,18 @@ marked as inferences were derived, not measured.
   moment. Showing each window's lines (hits, offset, rung, which chain
   took them) would make boundary and chaining errors visible, and is the
   tool for debugging brief plays and boundaries below.
+- **Shared material in the report.** The possible play of the Clockwork
+  remix at 20:22 in the development mix lies inside the confident play of
+  Clockwork itself, and the owner confirmed by ear that the passage is
+  shared (the original's lead plus a pad). A possible play that lies
+  entirely inside a confident play of another recording could be shown as
+  "shares material with Clockwork (play 6)" instead of as a play of its
+  own; display only, detection unchanged. It must not fold in a remix that
+  the DJ plays in its own right next to the original, whose other sections
+  form detections of their own.
 - **Owner edits.** Confirming, rejecting or renaming plays in a report, and
-  keeping those edits when the mix is identified again. First try `listen`
-  and `review` with real audio output (untested: no audio device during
-  session 2).
+  keeping those edits when the mix is identified again. `listen` and
+  `review` work with real audio output (owner, 2026-10-06).
 - **A full-screen TUI.** `review` steps through a report by ear in a line
   loop. Browsing detections against the mix's waveform would need a terminal
   UI dependency; worth it only if `review` proves too limited.

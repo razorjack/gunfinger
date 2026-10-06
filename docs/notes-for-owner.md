@@ -53,8 +53,8 @@ each with its data in `docs/experiments/data/`.
   the protocol, but every hit count changes, so I would confirm it with
   one test evaluation (3 left). `docs/calibration.md` ("Measured, not
   adopted") says how.
-- Try `gunfinger listen` and `review` once: I could not hear them (no
-  audio device here).
+- `listen` and `review`: tested by the owner on 2026-10-06; every snippet
+  worked.
 
 ## Findings
 
@@ -119,13 +119,15 @@ time-stretches them instead of resampling. If you identify CD or digital
 sets, use `--playback both`; making it the default would need the full
 evaluation with both ladders first.
 
-### `listen` and `review` are untested with real audio output
+### `listen` and `review` were untested with real audio output
 
 This session has no audio device: ffplay reported "audio open failed". I
 checked the ffplay commands with `listen --print` and ran the same filters
-through FFmpeg into a null output, but I have not heard them. Please try
-`gunfinger listen <report> --at <time>` once; if ffplay misbehaves, the
-printed commands show exactly what runs.
+through FFmpeg into a null output, but I have not heard them.
+
+Update, 2026-10-06: the owner ran `listen` at several moments of the
+development mix and `review` with play numbers, `start`, `end` and `at`;
+everything worked.
 
 ### A hundredfold library barely moves chance; memory is the first limit
 
@@ -179,3 +181,14 @@ was still full after the 26,000-asset scan), so the same development scan
 took between 25 and 72 s. I interleaved variants and report medians, and
 counted lookups exactly where it mattered. Absolute times in experiments
 0012-0017 should not be compared with the 22 s of experiment 0005.
+
+### Owner's verdict: the Clockwork remix at 20:22 is shared material
+
+`listen` at 20:30 of the development mix played the mix, Clockwork at 3:32
+and the Stakka remix at 6:46 (its possible play). Owner, by ear: at that
+moment the remix is the original's lead, an early neurofunk synth, exactly
+as in the original, plus a pad; the rest of the remix is a different track
+with its own bass and drums. The possible play is therefore a correct
+report of shared material, acceptable as it is, and that fragment alone
+cannot tell the two recordings apart. It is the same passage experiment
+0015 found (129 hits, remix 6:39-6:58 against the original 3:25-3:44).
