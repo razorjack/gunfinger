@@ -52,10 +52,13 @@ cargo build --release
 # Extract peaks for every audio file under the library root (incremental).
 target/release/gunfinger index ~/Music/library
 
-# Find library tracks in a mix; JSON goes to stdout.
+# Find library tracks in a mix.
 target/release/gunfinger identify mix.m4a --library ~/Music/library
 target/release/gunfinger identify mix.m4a --library ~/Music/library \
-    --start 45:00 --duration 10:00 --format json
+    --start 45:00 --duration 10:00 --format json > mix.json
+
+# Write a saved report in another format without searching again.
+target/release/gunfinger show mix.json --format tracklist
 
 # Sizes of the peak store and the index, with a 25,000-track projection.
 target/release/gunfinger stats --library ~/Music/library
@@ -74,9 +77,22 @@ recording, the part of the track that was heard, speed, confidence
 (`confident` or `possible`), hits and asset path. When several library files
 hold the same audio (copies, or rips with identical peaks), their plays are
 identical and shown once, with the other paths underneath (`also ...`). A play
-of several segments lists them underneath. `--format json` gives the same
-plays with their segments and `same_audio` paths (`schema_version` 3; fields
-may be added without a version change).
+of several segments lists them underneath.
+
+`--format` (for `identify` and `show`) also takes:
+
+- `timeline`: each play as a bar across the recording.
+- `json`: the whole report: plays with their segments and `same_audio` paths
+  (`schema_version` 3; fields may be added without a version change).
+- `csv`: one row per play, times in seconds.
+- `tracklist`: a numbered list of recordings with start times, named
+  `artist - title` from the files' tags (or the file name), possible ones
+  marked.
+- `cue`: a cue sheet of the confident recordings, for players and splitters.
+
+The tracklist and the cue sheet list recordings rather than plays: when two
+rips or masters of one recording are both found at the same time, speed and
+place in the track, they are one entry, named after the stronger.
 
 ## Development
 

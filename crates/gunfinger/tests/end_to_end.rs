@@ -132,6 +132,18 @@ fn a_synthetic_mix_is_identified_end_to_end() {
     let report: Value = serde_json::from_slice(&output.stdout).unwrap();
     let plays = report["plays"].as_array().unwrap();
 
+    let saved = dir.join("report.json");
+    std::fs::write(&saved, &output.stdout).unwrap();
+    let tracklist = gunfinger(
+        &dir,
+        &["show", saved.to_str().unwrap(), "--format", "tracklist"],
+    );
+    assert_eq!(
+        String::from_utf8_lossy(&tracklist.stdout),
+        " 1.    0:00  a\n 2.    0:38  b\n 3.    1:36  c\n",
+        "the saved report renders as a tracklist named after the untagged files"
+    );
+
     for (asset, speed, from, to, track_from) in [
         ("a.wav", 1.03, 0.0, 42.0, 10.0),
         ("b.wav", 0.95, 38.0, 82.0, 5.0),
