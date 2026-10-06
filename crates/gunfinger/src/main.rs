@@ -27,7 +27,7 @@ use std::time::Duration;
 
 use clap::{CommandFactory, Parser, Subcommand, ValueEnum};
 use config::{Given, Settings};
-use console::Console;
+use console::{Console, Verbosity};
 use gunfinger_core::decode::Excerpt;
 use gunfinger_core::timecode::parse_timecode;
 use miette::IntoDiagnostic;
@@ -57,8 +57,13 @@ struct Cli {
     color: Option<ColorChoice>,
 
     /// Print only results, warnings and errors.
-    #[arg(long, short, global = true)]
+    #[arg(long, short, global = true, conflicts_with = "verbose")]
     quiet: bool,
+
+    /// Also print timings, the size of the index and every library file
+    /// left out of it.
+    #[arg(long, short, global = true)]
+    verbose: bool,
 
     #[command(subcommand)]
     command: Command,
@@ -103,7 +108,7 @@ enum Command {
         #[arg(long)]
         exclude_from: Option<PathBuf>,
         /// Output format.
-        #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
+        #[arg(long, short, value_enum, default_value_t = ReportFormat::Human)]
         format: ReportFormat,
         /// Also write each recording's JSON report into this directory, as
         /// <recording name>.json; recordings with a report there are passed
@@ -148,7 +153,7 @@ enum Command {
         /// A report written by `identify --format json`.
         report: PathBuf,
         /// Output format.
-        #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
+        #[arg(long, short, value_enum, default_value_t = ReportFormat::Human)]
         format: ReportFormat,
     },
     /// Play the recording at a moment, then each track found there from the
@@ -214,7 +219,7 @@ enum Command {
         #[arg(long)]
         library: Option<PathBuf>,
         /// Output format.
-        #[arg(long, value_enum, default_value_t = Format::Human)]
+        #[arg(long, short, value_enum, default_value_t = Format::Human)]
         format: Format,
     },
 }
@@ -236,7 +241,12 @@ fn main() -> miette::Result<()> {
         color: cli.color,
     })?;
     color_error_reports(settings.color);
-    let console = Console::new(settings.color, cli.quiet);
+    let verbosity = match (cli.quiet, cli.verbose) {
+        (true, _) => Verbosity::Quiet,
+        (_, true) => Verbosity::Verbose,
+        _ => Verbosity::Normal,
+    };
+    let console = Console::new(settings.color, verbosity);
     run(cli.command, &settings, &console)
 }
 

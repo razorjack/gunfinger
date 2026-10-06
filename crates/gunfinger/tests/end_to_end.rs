@@ -230,6 +230,58 @@ fn a_damaged_file_is_passed_over_until_it_changes() {
 }
 
 #[test]
+fn only_files_that_need_indexing_are_warned_about() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("left-out");
+    let library = dir.join("library");
+    std::fs::create_dir_all(&library).unwrap();
+    let track = Track::random(1, 20.0);
+    write_wav(&library.join("a.wav"), &track.play(0.0, track.seconds, 1.0));
+    std::fs::write(library.join("damaged.mp3"), b"not audio at all").unwrap();
+    let library_arg = library.to_str().unwrap();
+    let _ = Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+        .args(["index", library_arg, "--peaks-dir"])
+        .arg(dir.join("peaks"))
+        .env("XDG_CONFIG_HOME", dir.join("config"))
+        .output()
+        .unwrap();
+    let late = Track::random(2, 20.0);
+    write_wav(
+        &library.join("late.wav"),
+        &late.play(0.0, late.seconds, 1.0),
+    );
+    let recording = library.join("a.wav");
+    let identify = |extra: &[&str]| {
+        let mut args = vec![
+            "identify",
+            recording.to_str().unwrap(),
+            "--library",
+            library_arg,
+        ];
+        args.extend_from_slice(extra);
+        String::from_utf8_lossy(&gunfinger(&dir, &args).stderr).into_owned()
+    };
+
+    let normal = identify(&[]);
+    let verbose = identify(&["--verbose"]);
+
+    assert!(
+        normal.contains("1 library file is not indexed") && normal.contains("--verbose lists them"),
+        "{normal}"
+    );
+    assert!(!normal.contains("damaged.mp3"), "{normal}");
+    assert!(!normal.contains("searched"), "{normal}");
+    assert!(verbose.contains("\n  late.wav"), "{verbose}");
+    assert!(
+        verbose.contains("damaged.mp3 (it failed to decode)"),
+        "{verbose}"
+    );
+    assert!(verbose.contains("searched"), "{verbose}");
+}
+
+#[test]
 fn prune_deletes_records_of_removed_files_only_when_asked() {
     if !ffmpeg_available() {
         return;

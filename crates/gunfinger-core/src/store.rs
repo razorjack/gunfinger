@@ -33,6 +33,7 @@
 //!                 UTF-8); 1 too long, then the limit exceeded (f64 seconds)
 //! ```
 
+use std::fmt;
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
@@ -89,6 +90,17 @@ pub enum SkipReason {
     TooLong { limit_seconds: f64 },
 }
 
+impl fmt::Display for SkipReason {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            SkipReason::Failed(_) => write!(f, "it failed to decode"),
+            SkipReason::TooLong { limit_seconds } => {
+                write!(f, "longer than {:.0} minutes", limit_seconds / 60.0)
+            }
+        }
+    }
+}
+
 /// A file in the store directory, as `PeakStore::survey` finds it.
 #[derive(Debug)]
 pub enum Stored {
@@ -126,6 +138,10 @@ impl Stored {
 pub enum StoreError {
     #[error("no peak record for {asset}; run `gunfinger index` on the library")]
     Missing { asset: String },
+    #[error(
+        "{asset} was passed over when the library was indexed ({reason}); `gunfinger index --retry-skipped` tries it again"
+    )]
+    Skipped { asset: String, reason: SkipReason },
     #[error("the peak record for {asset} is out of date; run `gunfinger index` on the library")]
     Stale { asset: String },
     #[error("peak record {path} is unreadable ({reason}); delete it and run `gunfinger index`")]
@@ -184,9 +200,9 @@ impl PeakStore {
         let file = match File::open(&path) {
             Ok(file) => file,
             Err(error) if error.kind() == io::ErrorKind::NotFound => {
-                return Err(StoreError::Missing {
+                return Err(self.passed_over(asset).unwrap_or(StoreError::Missing {
                     asset: asset.path.clone(),
-                });
+                }));
             }
             Err(source) => return Err(StoreError::Io { path, source }),
         };
@@ -197,12 +213,21 @@ impl PeakStore {
         let mut reader = BufReader::new(file);
         let header = read_header(&mut reader).map_err(corrupt)?;
         if !header.is_current(asset, profile) {
-            return Err(StoreError::Stale {
+            return Err(self.passed_over(asset).unwrap_or(StoreError::Stale {
                 asset: asset.path.clone(),
-            });
+            }));
         }
         let peaks = read_peaks(&mut reader).map_err(corrupt)?;
         Ok(PeakRecord { header, peaks })
+    }
+
+    /// `Skipped` when `index` remembered why this exact file has no current
+    /// record: running `index` again would not change that.
+    fn passed_over(&self, asset: &Asset) -> Option<StoreError> {
+        self.skip_note(asset).map(|note| StoreError::Skipped {
+            asset: asset.path.clone(),
+            reason: note.reason,
+        })
     }
 
     /// Writes `record` atomically, replacing any previous record, and
@@ -625,6 +650,8 @@ mod tests {
         store.save_skip(&failed).unwrap();
         let remembered = store.skip_note(&asset());
         let for_changed_file = store.skip_note(&touched);
+        let loaded = store.load(&asset(), &Profile::CURRENT);
+        let loaded_changed = store.load(&touched, &Profile::CURRENT);
         let surveyed = store.survey().unwrap().len();
         store.save(&record(Vec::new())).unwrap();
         let after_save = store.skip_note(&asset());
@@ -632,6 +659,14 @@ mod tests {
 
         assert_eq!(remembered, Some(failed));
         assert_eq!(for_changed_file, None);
+        assert!(
+            matches!(loaded, Err(StoreError::Skipped { .. })),
+            "{loaded:?}"
+        );
+        assert!(
+            matches!(loaded_changed, Err(StoreError::Missing { .. })),
+            "{loaded_changed:?}"
+        );
         assert_eq!(surveyed, 1);
         assert_eq!(after_save, None);
     }
