@@ -60,7 +60,8 @@ messages and colour; `catalog` loads the index from the peak store;
 
 The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
-`related` (self-match of the library) on top of `manifest` and `scoring`.
+`related` (self-match of the library), `survival` and `hash_cost` (hash
+measurements without a search) on top of `manifest` and `scoring`.
 Python scripts that summarise harness reports for experiments live in
 `scripts/analysis/`.
 
