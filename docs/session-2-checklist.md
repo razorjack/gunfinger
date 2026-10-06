@@ -26,7 +26,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 - [ ] Colour
 - [x] Position in the track
-- [ ] Same-audio rows collapsed
+- [x] Same-audio rows collapsed
 - [ ] Timeline view
 - [ ] `explain`
 - [ ] `listen`
