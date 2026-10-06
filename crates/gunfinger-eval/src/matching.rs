@@ -18,14 +18,24 @@ pub struct Matching {
     /// 1%), to measure what common hashes cost and contribute.
     #[arg(long, global = true, default_value_t = 0.0)]
     pub drop_fullest: f64,
+    /// Skip this share of the fullest posting lists when looking for
+    /// candidates, but keep them for the second pass's counts.
+    #[arg(long, global = true, default_value_t = 0.0)]
+    pub skip_fullest: f64,
 }
 
 impl Matching {
     pub fn check(&self) -> Result<(), String> {
-        if (0.0..1.0).contains(&self.drop_fullest) {
-            Ok(())
+        if !(0.0..1.0).contains(&self.drop_fullest) || !(0.0..1.0).contains(&self.skip_fullest) {
+            Err(String::from(
+                "--drop-fullest and --skip-fullest are shares below 1",
+            ))
+        } else if self.drop_fullest > 0.0 && self.skip_fullest > 0.0 {
+            Err(String::from(
+                "--drop-fullest and --skip-fullest exclude each other",
+            ))
         } else {
-            Err(String::from("--drop-fullest is a share below 1"))
+            Ok(())
         }
     }
 
@@ -38,12 +48,17 @@ impl Matching {
         if self.drop_fullest > 0.0 {
             parts.push(format!("drop-{}", self.drop_fullest));
         }
+        if self.skip_fullest > 0.0 {
+            parts.push(format!("skip-{}", self.skip_fullest));
+        }
         (!parts.is_empty()).then(|| parts.join("-"))
     }
 
     pub fn index(&self, index: Index) -> Index {
         if self.drop_fullest > 0.0 {
             index.without_fullest(self.drop_fullest)
+        } else if self.skip_fullest > 0.0 {
+            index.skipping_fullest(self.skip_fullest)
         } else {
             index
         }

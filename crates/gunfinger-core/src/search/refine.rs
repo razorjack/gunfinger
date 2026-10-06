@@ -1,6 +1,7 @@
 //! The second pass (opt-in): each candidate's span is analysed again with
 //! one STFT at its fitted speed, and its hits are counted against that asset
-//! alone.
+//! alone, in every posting list (also those `Index::skipping_fullest` keeps
+//! from the first pass).
 //!
 //! The ladder sees a play on the rung nearest its speed, up to half a step
 //! away. A clean render 0.1-0.25% from its rung keeps two thirds of the

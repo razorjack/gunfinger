@@ -103,7 +103,7 @@ fn at_rung(index: &Index, query: Query, profile: &Profile, rung: Rung) -> Vec<Li
             lines.extend(lines_in_window(&mut hits, window, rung));
             window = anchor_window;
         }
-        for posting in index.postings(hash) {
+        for posting in index.scanned_postings(hash) {
             hits.push(Hit {
                 asset: posting.asset(),
                 offset: f64::from(posting.frame()) - anchor.frame,
