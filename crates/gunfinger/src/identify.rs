@@ -5,7 +5,7 @@ use std::time::{Duration, Instant};
 
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::{Excerpt, decode};
-use gunfinger_core::plays::{self, Play};
+use gunfinger_core::plays::{self, Play, SameAudio};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, search};
 use gunfinger_core::speed::ladder;
@@ -62,7 +62,8 @@ pub fn run(request: &Request) -> miette::Result<()> {
 struct Report<'a> {
     schema_version: u32,
     query: Query<'a>,
-    /// Every confident or possible play, in order of start time.
+    /// Every confident or possible play, in order of start time. Plays of
+    /// assets with the same audio are one play.
     plays: Vec<FoundPlay<'a>>,
 }
 
@@ -76,6 +77,9 @@ struct Query<'a> {
 #[derive(Serialize)]
 struct FoundPlay<'a> {
     asset: &'a str,
+    /// Other assets with exactly the same detections: copies of the file or
+    /// rips with identical peaks.
+    same_audio: Vec<&'a str>,
     start_seconds: f64,
     end_seconds: f64,
     /// Where the first segment starts and the last ends in the track.
@@ -110,12 +114,12 @@ impl<'a> Report<'a> {
         duration: Duration,
         detections: &[Detection],
     ) -> Report<'a> {
-        let plays = plays::group(detections)
+        let plays = plays::merge_same_audio(plays::group(detections))
             .iter()
-            .map(|play| FoundPlay::new(catalog, play, offset))
+            .map(|same| FoundPlay::new(catalog, same, offset))
             .collect();
         Report {
-            schema_version: 2,
+            schema_version: 3,
             query: Query {
                 path: request.audio,
                 start_seconds: offset,
@@ -127,10 +131,13 @@ impl<'a> Report<'a> {
 }
 
 impl<'a> FoundPlay<'a> {
-    fn new(catalog: &'a Catalog, play: &Play, offset: f64) -> FoundPlay<'a> {
+    fn new(catalog: &'a Catalog, same: &SameAudio, offset: f64) -> FoundPlay<'a> {
+        let path = |asset| catalog.index.asset(asset).path.as_str();
+        let play: &Play = &same.play;
         let total = play.total_evidence();
         FoundPlay {
-            asset: &catalog.index.asset(play.asset).path,
+            asset: path(play.asset),
+            same_audio: same.also.iter().map(|&asset| path(asset)).collect(),
             start_seconds: offset + play.start_seconds(),
             end_seconds: offset + play.end_seconds(),
             track_start_seconds: play.track_start_seconds(),
@@ -165,8 +172,8 @@ fn label(confidence: Confidence) -> &'static str {
     }
 }
 
-/// One row per play; a play of several segments lists them underneath.
-/// `in track` is the part of the track that was heard.
+/// One row per play; assets with the same audio and a play's segments are
+/// listed underneath. `in track` is the part of the track that was heard.
 fn print_table(report: &Report) {
     println!(
         "{:<19} {:<13} {:>7}  {:<10} {:>6}  asset",
@@ -181,6 +188,9 @@ fn print_table(report: &Report) {
             play.hits,
             play.asset,
         );
+        for asset in &play.same_audio {
+            println!("{:62}also {asset}", "");
+        }
         if play.segments.len() > 1 {
             for segment in &play.segments {
                 print_row(

@@ -69,9 +69,12 @@ listed library paths out of the index.
 
 Human output is one table of plays in time order: time span in the
 recording, the part of the track that was heard, speed, confidence
-(`confident` or `possible`), hits and asset path. A play of several segments
-lists them underneath. `--format json` gives the same plays with their
-segments (`schema_version` 2; fields may be added without a version change).
+(`confident` or `possible`), hits and asset path. When several library files
+hold the same audio (copies, or rips with identical peaks), their plays are
+identical and shown once, with the other paths underneath (`also ...`). A play
+of several segments lists them underneath. `--format json` gives the same
+plays with their segments and `same_audio` paths (`schema_version` 3; fields
+may be added without a version change).
 
 ## Development
 

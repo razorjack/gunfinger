@@ -11,8 +11,8 @@
 //! | 96 to 112 s | track C from 20 s, at +6% |
 //! | 112 to 140 s | track C again, 4 s further on: a needle skip |
 //!
-//! Track D is in the library but never played. Skipped when FFmpeg is not
-//! installed.
+//! Track D is in the library but never played; `copy-of-a.wav` is a copy of
+//! track A's file. Skipped when FFmpeg is not installed.
 
 // Test helpers panic on failure: that is the clearest way to fail a test.
 #![allow(clippy::unwrap_used)]
@@ -70,6 +70,7 @@ fn build_corpus(dir: &Path) -> PathBuf {
             &track.play(0.0, track.seconds, 1.0),
         );
     }
+    std::fs::copy(dir.join("library/a.wav"), dir.join("library/copy-of-a.wav")).unwrap();
 
     let mut mix = Mix::new(150.0);
     mix.add(0.0, &a.play(10.0, 42.0, 1.03), 4.0);
@@ -152,6 +153,13 @@ fn a_synthetic_mix_is_identified_end_to_end() {
         );
         assert_track_position(&play["segments"][0], from, track_from, speed);
     }
+
+    let a = plays_of(plays, "a.wav")[0];
+    assert_eq!(
+        a["same_audio"],
+        serde_json::json!(["copy-of-a.wav"]),
+        "the copy is listed with A, not as a play of its own: {a}"
+    );
 
     let c = plays_of(plays, "c.wav")[0];
     let segments = c["segments"].as_array().unwrap();

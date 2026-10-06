@@ -120,6 +120,45 @@ fn continues(play: &Play, segment: &Detection) -> bool {
     play.asset == segment.asset && segment.start_seconds - play.end_seconds() <= MAX_GAP_SECONDS
 }
 
+/// A play and the other assets that hold the same audio.
+#[derive(Debug, Clone, PartialEq)]
+pub struct SameAudio {
+    pub play: Play,
+    pub also: Vec<AssetId>,
+}
+
+/// Merges plays that differ only in their asset. Two copies of one file, or
+/// two rips with identical peaks, share every hash, so each of their plays
+/// has exactly the same segments. The first play of a group (the lowest
+/// asset id for plays from `group`) is kept. Plays with merely similar
+/// evidence (another rip or master of the recording) stay separate.
+pub fn merge_same_audio(plays: Vec<Play>) -> Vec<SameAudio> {
+    let mut merged: Vec<SameAudio> = Vec::new();
+    for play in plays {
+        match merged
+            .iter_mut()
+            .find(|kept| same_segments(&kept.play, &play))
+        {
+            Some(kept) => kept.also.push(play.asset),
+            None => merged.push(SameAudio {
+                play,
+                also: Vec::new(),
+            }),
+        }
+    }
+    merged
+}
+
+fn same_segments(a: &Play, b: &Play) -> bool {
+    a.segments.len() == b.segments.len()
+        && a.segments.iter().zip(&b.segments).all(|(a, b)| {
+            Detection {
+                asset: b.asset,
+                ..a.clone()
+            } == *b
+        })
+}
+
 #[cfg(test)]
 mod tests {
     use proptest::prelude::*;
@@ -193,6 +232,30 @@ mod tests {
                 (1, 391.0, 500.0, 1)
             ]
         );
+    }
+
+    #[test]
+    fn plays_with_identical_segments_are_merged() {
+        let detections = [
+            detection(1, 0.0, 300.0, MIN_HITS + 5),
+            detection(2, 0.0, 300.0, MIN_HITS + 5),
+            // Another rip of the same recording: similar, not identical.
+            detection(3, 0.0, 301.0, MIN_HITS + 5),
+            detection(4, 280.0, 500.0, MIN_HITS),
+        ];
+
+        let merged = merge_same_audio(group(&detections));
+
+        let summary: Vec<(u32, Vec<u32>)> = merged
+            .iter()
+            .map(|same| {
+                (
+                    same.play.asset.0,
+                    same.also.iter().map(|asset| asset.0).collect(),
+                )
+            })
+            .collect();
+        assert_eq!(summary, [(1, vec![2]), (3, vec![]), (4, vec![])]);
     }
 
     #[test]
