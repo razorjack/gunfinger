@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/gunfinger-hand-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/gunfinger-hand-light.png">
+    <img src="docs/assets/gunfinger-hand-light.png" alt="Gunfinger's hand making a gunfinger gesture and holding a vinyl record with an orange label" width="320">
+  </picture>
+</p>
+
 # Gunfinger
 
 Gunfinger is a local command-line tool that finds tracks from your own music
@@ -7,8 +15,7 @@ reports a track only on sustained, aligned evidence: unknown audio should stay
 unknown, because a confident wrong answer is worse than a miss.
 
 **Status: proof of concept.** It has been evaluated on one library of 262
-tracks and two mixes. It is not packaged, has no configuration file and keeps
-its index in memory. See [docs/status.md](docs/status.md) for the full report
+tracks and two mixes. It is not packaged and keeps its index in memory. See [docs/status.md](docs/status.md) for the full report
 and [docs/roadmap.md](docs/roadmap.md) for what is missing.
 
 ## How it works
