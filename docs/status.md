@@ -387,3 +387,34 @@ build the on-disk index described in ADR 0005.
   for a two-hour mix) and what grows whatever the layout: query time, chance
   and shared-break alignments, and the cost of duplicate clustering.
 - No decision. The next measurements are listed in ADR 0007.
+
+## 2026-10-06: session 2, command line, test infrastructure, transformed copies
+
+Autonomous overnight session (`docs/brief-2.md`, checklist in
+`docs/session-2-checklist.md`, findings in `docs/notes-for-owner.md`).
+Default detection is unchanged: `regress session-2-start` reports
+identical detections after every change to the core. No test-set
+evaluation was spent (2 of 5 used).
+
+- **Test infrastructure.** Search is deterministic, bit for bit
+  (experiment 0007). A synthetic end-to-end test drives the real binary
+  through a generated library and mix, with no private corpus (0008).
+  `gunfinger-eval baseline` and `regress` save and compare the standard
+  reports. Property tests cover plays, timecodes and pair hashing.
+- **Command line.** Colour and `--quiet`; position in the track; plays of
+  files with the same audio shown once; `--format
+  human|timeline|json|csv|cue|tracklist` and `show` for saved reports;
+  `explain` (every candidate around a moment); `listen` and `review` (by
+  ear, via ffplay; not heard, as this machine has no audio device); batch
+  identification with `--save-dir`; completions and a man page; a
+  configuration file; `doctor`; `prune`; failed and too-long files are
+  remembered until they change. Report schema 3.
+- **Robustness (0009).** 32 transforms of 50 excerpts: no wrong
+  identification; damage only costs hits. Key lock defeated the turntable
+  ladder.
+- **Key lock (0010).** Key-locked rungs (time stretched, frequency kept)
+  find every key-locked excerpt at ±2-8% and leave turntable results as
+  they were. Opt-in: `identify --playback both`, twice the search time.
+- **Summed play evidence (0011).** Offline null: no change.
+- **Scale proxy (0012).** Reversed, stretched copies of the library up to
+  21,109 assets: chance alignments grow slowly; memory runs out first.
