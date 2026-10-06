@@ -24,15 +24,18 @@ pub(super) fn design() -> String {
     )
 }
 
-/// Chains each asset's lines (sorted by asset and window) into detections.
+/// Chains each asset's lines (sorted by asset and window) into detections,
+/// each with the indexes in `lines` of the lines its chain took, in window
+/// order.
 ///
 /// One pass of dynamic programming over the lines in window order finds,
 /// for every line, the chain with the most hits that ends there. Chains are
 /// then taken from the highest score down, each stopping where it would
 /// reuse a line already taken. A single window of hits is never evidence of
 /// a played record, so one-line chains are dropped.
-pub(super) fn detections(lines: &[Line], profile: &Profile) -> Vec<Detection> {
+pub(super) fn detections(lines: &[Line], profile: &Profile) -> Vec<(Detection, Vec<usize>)> {
     let mut detections = Vec::new();
+    let mut first_of_asset = 0;
     for same_asset in lines.chunk_by(|a, b| a.asset == b.asset) {
         let (score, previous) = best_chains(same_asset);
         let mut ends: Vec<usize> = (0..same_asset.len()).collect();
@@ -43,14 +46,17 @@ pub(super) fn detections(lines: &[Line], profile: &Profile) -> Vec<Detection> {
             let mut next = Some(end);
             while let Some(line) = next.filter(|&line| !taken[line]) {
                 taken[line] = true;
-                chain.push(&same_asset[line]);
+                chain.push(line);
                 next = previous[line];
             }
             if chain.len() >= 2 {
                 chain.reverse();
-                detections.push(detection(&chain, profile));
+                let chained: Vec<&Line> = chain.iter().map(|&line| &same_asset[line]).collect();
+                let indexes = chain.iter().map(|line| first_of_asset + line).collect();
+                detections.push((detection(&chained, profile), indexes));
             }
         }
+        first_of_asset += same_asset.len();
     }
     detections
 }
@@ -172,6 +178,28 @@ mod tests {
 
         assert_eq!(score, [20, 45, 4, 75, 30]);
         assert_eq!(previous, [None, Some(0), None, Some(1), None]);
+    }
+
+    #[test]
+    fn a_detection_names_the_lines_its_chain_took() {
+        let mut other = line(0, 1.0, 0.0, 9);
+        other.asset = crate::index::AssetId(1);
+        let lines = [
+            line(0, 1.0, 0.0, 50),
+            line(1, 1.0, 0.0, 40),
+            line(1, 1.0, 9000.0, 5),
+            other.clone(),
+            {
+                let mut later = other;
+                later.window = 1;
+                later
+            },
+        ];
+
+        let found = detections(&lines, &Profile::CURRENT);
+
+        let chains: Vec<&Vec<usize>> = found.iter().map(|(_, chain)| chain).collect();
+        assert_eq!(chains, [&vec![0, 1], &vec![3, 4]]);
     }
 
     #[test]

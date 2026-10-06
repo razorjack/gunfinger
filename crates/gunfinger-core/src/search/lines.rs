@@ -12,7 +12,7 @@ use crate::speed::{Playback, Rung};
 
 /// Query time is cut into windows this long. Within one window a residual
 /// speed error of 0.2% drifts the offset by about one frame.
-const WINDOW_SECONDS: f64 = 10.0;
+pub(super) const WINDOW_SECONDS: f64 = 10.0;
 /// Hits whose offsets lie within this many frames belong to one line.
 const LINE_SPAN_FRAMES: f64 = 2.0;
 /// Fewer hits than this in a window are not worth keeping as a line.
