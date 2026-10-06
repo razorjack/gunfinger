@@ -490,3 +490,9 @@ Baseline `session-3-start` saved after a rerun that reproduced
 - **explain --windows.** Each window's lines and the chain that took
   them; explain's excerpt starts on the 10 s grid. `regress
   session-3-start`: identical.
+- **Generated mixes and the window grid (experiment 0020).** `gunfinger-eval
+  mixes` renders seeded mixes of library tracks with exact truth; `grid`
+  slides brief plays across the 10 s grid. 107/115 plays confident, 8
+  possible (20-26 s, 2 windows), none wrong. A 10 s minimum span would
+  make all 15-20 s grid plays confident; offline only. Chains can take a
+  chance line 30 s away.
