@@ -95,8 +95,8 @@ marked as inferences were derived, not measured.
   false candidates, the second pass's evidence, more confident plays under
   damage than today except combined damage, and 57-63% less search CPU at
   8,122 and 26,462 assets (experiments 0026, 0027). Emptying the lists
-  instead (`--drop-fullest`) loses 4-28% of own-track evidence and is not
-  worth it. To adopt: call `search_twice` on an index from
+  instead (`--drop-fullest`) keeps 72-96% of today's own-track evidence
+  and is not worth it. To adopt: call `search_twice` on an index from
   `Index::skipping_fullest(0.01)` in `identify` and `explain`, make both the
   harness default, rerun the protocol, and spend one test evaluation: Sick
   Note (209 hits today) would most likely become possible (inference).
@@ -120,10 +120,12 @@ marked as inferences were derived, not measured.
   taken on a loaded machine, and the scan at 26,462 assets did not finish.
   On an idle machine, finish the scale proxy and profile the search:
   scanning postings, sorting each window's hits, clustering offsets,
-  chaining. Optimise only what the profile shows.
+  chaining. Optimise only what the profile shows. Skipping the fullest 1%
+  of posting lists already cuts search CPU by 57-63% at 8,122 and 26,462
+  assets (experiment 0027).
 - **Behaviour at scale.** *(larger library)* The confidence rule (200
-  hits, 3 windows) and the possible tier (60 hits) were calibrated against
-  262 tracks. Recalibrate at staged sizes such as 1,000, 10,000 and 30,000
+  hits, 3 windows; 240 for the opt-in second pass) and the possible tier
+  (60 hits) were calibrated against 262 tracks. Recalibrate at staged sizes such as 1,000, 10,000 and 30,000
   assets (`docs/calibration.md`): strongest false candidates, weakest true
   detections, the possible tier's use, query time and peak memory, on the
   saved sweep panels (seeds 2026-2029) and the normal protocol. At each

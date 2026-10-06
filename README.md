@@ -237,6 +237,7 @@ target/release/gunfinger-eval mixes --count 12         # generated mixes with ex
 target/release/gunfinger-eval grid                     # brief plays slid across the 10 s windows
 target/release/gunfinger-eval loss                     # where the development mix loses evidence
 target/release/gunfinger-eval memory --synthetic-copies 30   # memory by phase (run under /usr/bin/time -l)
+target/release/gunfinger-eval memory --count-lines     # the first pass's lines and detections instead
 ```
 
 The sweep's held-out recordings and excerpts for each seed are drawn the
@@ -248,7 +249,8 @@ queries are measured as the library grows; `robust`, `mixes`, `grid` and
 every search uses; the default is `both`, as in `identify`, and other
 ladders keep their reports in `work/reports/ladder-<name>/`. Opt-in
 matching changes apply to every command in the same way:
-`--second-pass` measures each candidate again at its fitted speed,
+`--second-pass` measures each candidate again at its fitted speed and
+applies that pass's own rule (240 hits in 3 windows),
 `--drop-fullest SHARE` empties the fullest posting lists, and
 `--skip-fullest SHARE` leaves them out of the search for candidates only,
 so the second pass still counts them. Their reports go
@@ -274,6 +276,14 @@ the default now, gives the same sweep, development and leave-out results
 | Development mix (56 min, 11 tracks) | 11/11 identified, 0 wrong, 22–26 s |
 | Development leave-outs (3 and 11 tracks removed from the index) | 0 wrong |
 | Held-out test mix (radio broadcast, 1 h 58 min, 31 tracks) | First run: 15/17 identified (88%), 0 wrong, 53 s. One miss was a remix not in the library; with the manifest corrected, 15/16 (94%). The other miss, cut by a radio insert, is shown as possible (second evaluation) |
+
+Over four sweep seeds (2026-2029, 2,160 excerpt queries) recall stays 100%
+with 0 wrong, and the margin between the weakest identifying detection and
+the strongest false candidate is 4.15× (experiment 0025). An opt-in second
+pass at each candidate's fitted speed, with the most common hashes skipped
+while looking for candidates, passes the same protocol with a rule of its
+own; it is not the default ("Measured, not adopted" in
+[docs/calibration.md](docs/calibration.md)).
 
 The pass bar was at least 80% identified and zero wrong on each mix. The
 index takes 74 postings per second of audio and 5.07 bytes per posting; for

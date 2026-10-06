@@ -73,5 +73,5 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] README, roadmap, calibration, status up to date
-- [ ] Summary at the top of `docs/session-notes.md`
+- [x] README, roadmap, calibration, status up to date
+- [x] Summary at the top of `docs/session-notes.md`
