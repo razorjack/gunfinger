@@ -51,3 +51,16 @@ realistic case the algorithm misses: at ±2% nothing is confident and 35 of
 this, but CD and digital sets, and some radio edits, can. I am testing a
 tempo-only ladder next. If you know whether your target mixes include
 key-locked CDJ or digital sets, that decides how much this matters.
+
+### Key lock is solved, at twice the search time; the default is unchanged
+
+Experiment 0010: rungs that stretch time but not frequency find every
+key-locked excerpt at ±2%, ±5% and +8% (40 of 40 each, hits as strong as
+untouched audio), and adding them to the turntable ladder changed nothing
+for vinyl-style audio and created no false identification. The cost is
+search time: 82 rungs instead of 41. I left the default on the turntable
+ladder because your sets are vinyl, and added `identify --playback both`
+(or `key-lock`); key-locked plays are marked `(key lock)`, and `listen`
+time-stretches them instead of resampling. If you identify CD or digital
+sets, use `--playback both`; making it the default would need the full
+evaluation with both ladders first.

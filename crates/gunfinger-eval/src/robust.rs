@@ -10,6 +10,7 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
+use std::time::Instant;
 
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::{Excerpt, decode};
@@ -19,7 +20,7 @@ use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::search;
-use gunfinger_core::speed::ladder;
+use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
@@ -27,6 +28,7 @@ use crate::clusters::Clusters;
 use crate::render::{Encoding, Playback, RENDER_RATE, encode, render_samples};
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
+use crate::synthetic;
 
 /// Excerpts per condition and speed: the sweep's first indexed and
 /// held-out draws.
@@ -193,6 +195,14 @@ struct Job<'a> {
 #[derive(Serialize, Deserialize)]
 pub struct RobustReport {
     pub seed: u64,
+    /// The rungs searched: `turntable`, `key-lock` or `both`.
+    #[serde(default)]
+    pub ladder: String,
+    #[serde(default)]
+    pub synthetic_copies: usize,
+    /// Assets in the index, synthetic copies included.
+    #[serde(default)]
+    pub indexed_assets: usize,
     pub rows: Vec<Row>,
     pub queries: Vec<QueryResult>,
 }
@@ -216,6 +226,10 @@ pub struct QueryResult {
     pub wrong_confident: usize,
     pub wrong_possible: usize,
     pub strongest_wrong_hits: u32,
+    /// Wall time of the search on one thread, other queries running
+    /// alongside.
+    #[serde(default)]
+    pub search_seconds: f64,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -232,6 +246,20 @@ pub struct Row {
     /// Median over indexed excerpts of the best hits against the control's
     /// best hits for the same excerpt (mean of the two base speeds).
     pub median_hit_retention: f64,
+    #[serde(default)]
+    pub median_search_seconds: f64,
+}
+
+/// What to run: the draw's seed, the conditions (all when empty) and the
+/// rungs searched.
+pub struct Options<'a> {
+    pub seed: u64,
+    pub only: &'a [String],
+    pub ladder_name: &'a str,
+    pub ladder: &'a [Rung],
+    /// Reversed copies of every indexed record added to the index.
+    pub synthetic_copies: usize,
+    pub jobs: usize,
 }
 
 pub fn run(
@@ -239,19 +267,29 @@ pub fn run(
     store: &PeakStore,
     clusters: &Clusters,
     work: &Path,
-    seed: u64,
-    only: &[String],
-    jobs: usize,
+    options: &Options,
 ) -> Result<RobustReport, String> {
+    let Options {
+        seed,
+        only,
+        ladder_name,
+        ladder,
+        synthetic_copies,
+        jobs,
+    } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let plan = Plan::draw(&records, clusters, seed);
-    let indexed: Vec<PeakRecord> = records
+    let mut indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !plan.held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
+    let copies = synthetic::copies(&indexed, synthetic_copies, &profile);
+    indexed.extend(copies);
     let index = Index::build(&indexed).map_err(|error| error.to_string())?;
+    drop(indexed);
+    drop(records);
     let draws: Vec<&Draw> = plan
         .draws
         .iter()
@@ -299,7 +337,9 @@ pub fn run(
         }
         let audio = decode(&job.path, profile.sample_rate, Excerpt::default())
             .map_err(|error| error.to_string())?;
-        let detections = search(&index, &audio.samples, &profile, &ladder(), 1);
+        let started = Instant::now();
+        let detections = search(&index, &audio.samples, &profile, ladder, 1);
+        let search_seconds = started.elapsed().as_secs_f64();
         let own = clusters.cluster_of(&job.draw.asset);
         let partner = if job.condition.has_partner() {
             clusters.cluster_of(&job.partner.asset)
@@ -321,6 +361,7 @@ pub fn run(
             wrong_confident: 0,
             wrong_possible: 0,
             strongest_wrong_hits: 0,
+            search_seconds,
         };
         for detection in &detections {
             let asset = &index.asset(detection.asset).path;
@@ -353,6 +394,9 @@ pub fn run(
     let rows = summarise(&conditions, &queries);
     Ok(RobustReport {
         seed,
+        ladder: ladder_name.to_owned(),
+        synthetic_copies,
+        indexed_assets: index.assets().len(),
         rows,
         queries,
     })
@@ -576,6 +620,8 @@ fn summarise(conditions: &[Condition], queries: &[QueryResult]) -> Vec<Row> {
                 .map(|query| f64::from(query.best_hits) / control_hits(query.number).max(1.0))
                 .collect();
             retention.sort_by(f64::total_cmp);
+            let mut seconds: Vec<f64> = here.iter().map(|query| query.search_seconds).collect();
+            seconds.sort_by(f64::total_cmp);
             rows.push(Row {
                 condition: condition.name(),
                 speed,
@@ -594,6 +640,7 @@ fn summarise(conditions: &[Condition], queries: &[QueryResult]) -> Vec<Row> {
                     .max()
                     .unwrap_or(0),
                 median_hit_retention: retention.get(retention.len() / 2).copied().unwrap_or(0.0),
+                median_search_seconds: seconds.get(seconds.len() / 2).copied().unwrap_or(0.0),
             });
         }
     }
@@ -602,11 +649,11 @@ fn summarise(conditions: &[Condition], queries: &[QueryResult]) -> Vec<Row> {
 
 pub fn print_summary(report: &RobustReport) {
     println!(
-        "robustness, seed {}: {INDEXED} indexed and {HELD_OUT} held-out excerpts per row",
-        report.seed
+        "robustness, seed {}, {} ladder: {INDEXED} indexed and {HELD_OUT} held-out excerpts per row",
+        report.seed, report.ladder
     );
     println!(
-        "{:<22} {:>6} {:>9} {:>9} {:>8} {:>6} {:>6} {:>7} {:>9}",
+        "{:<22} {:>6} {:>9} {:>9} {:>8} {:>6} {:>6} {:>7} {:>9} {:>7}",
         "condition",
         "speed",
         "confident",
@@ -615,11 +662,12 @@ pub fn print_summary(report: &RobustReport) {
         "wrong",
         "w.poss",
         "w.max",
-        "retention"
+        "retention",
+        "search"
     );
     for row in &report.rows {
         println!(
-            "{:<22} {:>+5.0}% {:>4}/{:<4} {:>4}/{:<4} {:>8} {:>6} {:>6} {:>7} {:>8.0}%",
+            "{:<22} {:>+5.0}% {:>4}/{:<4} {:>4}/{:<4} {:>8} {:>6} {:>6} {:>7} {:>8.0}% {:>6.2}s",
             row.condition,
             (row.speed - 1.0) * 100.0,
             row.confident,
@@ -630,7 +678,8 @@ pub fn print_summary(report: &RobustReport) {
             row.wrong_confident,
             row.wrong_possible,
             row.strongest_wrong_hits,
-            row.median_hit_retention * 100.0
+            row.median_hit_retention * 100.0,
+            row.median_search_seconds
         );
     }
 }

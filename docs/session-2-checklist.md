@@ -17,17 +17,9 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 ## 2. Experiments on transformed copies
 
 - [x] Robustness harness and first runs (experiment 0009)
-- [~] Key-lock: measure, then tempo-only ladder prototype. Measured in
-  0009. Prototype: `speed::Rung` (Turntable/KeyLocked), `key_lock_ladder()`,
-  `points_at_tempo` (hop scaled only), `gunfinger-eval robust --ladder
-  turntable|key-lock|both` (uncommitted in core and eval). Results so far:
-  key-lock ladder alone finds 40/40 key-locked excerpts at ±2, ±5, +8%
-  (median 656-973 hits, held-out max 12, wrong possible only the Clockwork
-  remix); turntable conditions need the turntable ladder. Dev scan with the
-  refactor: 4181 detections identical. Running: `robust --ladder both`
-  (log `work/logs/robust-both.log`, report
-  `work/reports/robust-seed-2026-both.json`). Then: experiment 0010, cost on
-  an idle machine, decide default vs `--key-lock` flag, commit.
+- [x] Key-lock: measured (0009), key-locked rungs (0010); `identify
+  --playback turntable|key-lock|both`, default unchanged. Cost on an idle
+  machine still to be timed.
 - [~] Scale proxy with reversed copies. Code (uncommitted):
   `crates/gunfinger-eval/src/synthetic.rs` (time-reversed copies stretched
   in time and frequency, up to 121), `--synthetic-copies N` on `robust` and
@@ -52,7 +44,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] `listen`
 - [x] Export formats (csv, cue, tracklist; `show` renders saved reports)
 - [x] Batch identification
-- [~] Completions, man page, `--quiet` (all done), progress
+- [x] Completions, man page, `--quiet`, progress line
 - [x] Configuration file
 - [x] `doctor`
 - [x] `prune`

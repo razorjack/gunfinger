@@ -17,7 +17,7 @@ use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, search};
-use gunfinger_core::speed::ladder;
+use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
@@ -102,6 +102,7 @@ pub fn run(
     clusters: &Clusters,
     work: &Path,
     seed: u64,
+    ladder: &[Rung],
     jobs: usize,
 ) -> Result<SweepReport, String> {
     let profile = Profile::CURRENT;
@@ -123,7 +124,7 @@ pub fn run(
             let audio = decode(path, profile.sample_rate, Excerpt::default())
                 .map_err(|error| error.to_string())?;
             let own_cluster = clusters.cluster_of(&draw.asset);
-            let detections = search(&index, &audio.samples, &profile, &ladder(), 1);
+            let detections = search(&index, &audio.samples, &profile, ladder, 1);
             Ok(Query {
                 asset: draw.asset.clone(),
                 held_out: draw.held_out,

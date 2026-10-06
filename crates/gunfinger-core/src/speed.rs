@@ -6,6 +6,11 @@
 //! frequency, so the query is analysed once per rung of a ladder of assumed
 //! speeds; on the rung nearest the true speed its hashes meet the reference
 //! hashes.
+//!
+//! Key lock (a CDJ's master tempo, a digital DJ's time stretch) changes
+//! tempo only: durations are divided by the tempo, frequencies stay. The
+//! turntable ladder cannot meet such audio past about 1% (experiment 0009);
+//! key-locked rungs rescale time alone.
 
 use crate::hash::Point;
 use crate::peaks::extract_peaks;
@@ -23,12 +28,60 @@ const FASTEST: f64 = 1.08;
 /// this step) about 45% of clean hashes survive (experiment 0001).
 const STEP: f64 = 0.004;
 
+/// How a record was played: on a turntable, pitch and tempo move together;
+/// under key lock, tempo moves alone.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Playback {
+    Turntable,
+    KeyLocked,
+}
+
+/// One assumed way the query was played.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Rung {
+    /// Pitch and tempo together, at this speed.
+    Turntable(SpeedRatio),
+    /// Tempo only, at this ratio; pitch unchanged.
+    KeyLocked(SpeedRatio),
+}
+
+impl Rung {
+    /// The ratio of time: reference duration over query duration.
+    pub fn speed(self) -> SpeedRatio {
+        match self {
+            Rung::Turntable(speed) | Rung::KeyLocked(speed) => speed,
+        }
+    }
+
+    pub fn playback(self) -> Playback {
+        match self {
+            Rung::Turntable(_) => Playback::Turntable,
+            Rung::KeyLocked(_) => Playback::KeyLocked,
+        }
+    }
+
+    /// The query's peaks in reference coordinates under this assumption.
+    pub fn points(self, samples: &[f32], profile: &Profile) -> Vec<Point> {
+        match self {
+            Rung::Turntable(speed) => points_at_speed(samples, profile, speed),
+            Rung::KeyLocked(tempo) => points_at_tempo(samples, profile, tempo),
+        }
+    }
+}
+
 /// The assumed speeds searched, slowest first.
-pub fn ladder() -> Vec<SpeedRatio> {
+pub fn ladder() -> Vec<Rung> {
+    speeds().map(Rung::Turntable).collect()
+}
+
+/// The same speeds as tempo ratios under key lock.
+pub fn key_lock_ladder() -> Vec<Rung> {
+    speeds().map(Rung::KeyLocked).collect()
+}
+
+fn speeds() -> impl Iterator<Item = SpeedRatio> {
     let rungs = ((FASTEST - SLOWEST) / STEP).round() as u32;
-    (0..=rungs)
-        .map(|rung| SpeedRatio(SLOWEST + f64::from(rung) * STEP))
-        .collect()
+    (0..=rungs).map(|rung| SpeedRatio(SLOWEST + f64::from(rung) * STEP))
 }
 
 /// The peaks of `samples` in reference coordinates, assuming the audio plays
@@ -61,6 +114,22 @@ pub fn points_at_speed(samples: &[f32], profile: &Profile, speed: SpeedRatio) ->
         .collect()
 }
 
+/// The peaks of `samples` in reference coordinates, assuming key-locked
+/// playback at `tempo`: only the hop shrinks, so frames follow the music
+/// while the window and the bins keep their native frequencies.
+pub fn points_at_tempo(samples: &[f32], profile: &Profile, tempo: SpeedRatio) -> Vec<Point> {
+    let hop = (profile.hop as f64 / tempo.0).round() as usize;
+    let scaled = Profile { hop, ..*profile };
+    let frame_scale = hop as f64 * tempo.0 / profile.hop as f64;
+    extract_peaks(samples, &scaled)
+        .iter()
+        .map(|peak| Point {
+            frame: peak.frame * frame_scale,
+            bin: peak.bin,
+        })
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use std::f32::consts::PI;
@@ -72,9 +141,9 @@ mod tests {
         let ladder = ladder();
 
         assert_eq!(ladder.len(), 41);
-        assert!((ladder[0].0 - 0.92).abs() < 1e-9);
-        assert!((ladder[20].0 - 1.0).abs() < 1e-9);
-        assert!((ladder[40].0 - 1.08).abs() < 1e-9);
+        assert!((ladder[0].speed().0 - 0.92).abs() < 1e-9);
+        assert!((ladder[20].speed().0 - 1.0).abs() < 1e-9);
+        assert!((ladder[40].speed().0 - 1.08).abs() < 1e-9);
     }
 
     #[test]

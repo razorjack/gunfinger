@@ -8,14 +8,14 @@ use std::time::Instant;
 
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::search;
-use gunfinger_core::speed::ladder;
+use gunfinger_core::search::search_with_progress;
 use gunfinger_core::timecode::format_timecode;
 use miette::{IntoDiagnostic, WrapErr, miette};
 
 use crate::catalog::{Catalog, absolute};
 use crate::console::Console;
 use crate::output::{ReportFormat, render};
+use crate::playback::PlaybackChoice;
 use crate::report::Report;
 use crate::style::Style;
 
@@ -24,6 +24,7 @@ pub struct Request<'a> {
     pub library: &'a Path,
     pub peaks_dir: &'a Path,
     pub excerpt: Excerpt,
+    pub playback: PlaybackChoice,
     pub exclude_from: Option<&'a Path>,
     pub format: ReportFormat,
     /// Where to write each recording's JSON report, named after it.
@@ -142,13 +143,20 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
     let started = Instant::now();
     let audio = decode(audio_path, profile.sample_rate, request.excerpt).into_diagnostic()?;
     let decoded = started.elapsed();
-    let detections = search(
+    let ladder = request.playback.rungs();
+    let detections = search_with_progress(
         &catalog.index,
         &audio.samples,
         &profile,
-        &ladder(),
+        &ladder,
         request.jobs,
+        |done| {
+            request
+                .console
+                .progress(format_args!("searching: {done} of {} rungs", ladder.len()));
+        },
     );
+    request.console.progress_done();
     request.console.info(format_args!(
         "searched {} of audio in {:.1} s (decoding {:.1} s)",
         format_timecode(audio.duration()),

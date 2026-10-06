@@ -3,12 +3,15 @@
 //! does not.
 
 use std::fmt::Display;
+use std::io::IsTerminal;
 
 use crate::style::{ColorChoice, Style};
 
 pub struct Console {
     style: Style,
     quiet: bool,
+    /// Progress lines rewrite themselves, which only a terminal shows well.
+    terminal: bool,
 }
 
 impl Console {
@@ -16,6 +19,21 @@ impl Console {
         Console {
             style: Style::for_stderr(color),
             quiet,
+            terminal: std::io::stderr().is_terminal(),
+        }
+    }
+
+    /// Rewrites the current line, on a terminal only.
+    pub fn progress(&self, message: impl Display) {
+        if self.terminal && !self.quiet {
+            eprint!("\r{message}\x1b[K");
+        }
+    }
+
+    /// Clears the progress line.
+    pub fn progress_done(&self) {
+        if self.terminal && !self.quiet {
+            eprint!("\r\x1b[K");
         }
     }
 

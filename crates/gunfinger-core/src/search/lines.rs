@@ -2,12 +2,13 @@
 //! agree.
 
 use std::ops::Range;
+use std::sync::atomic::{AtomicUsize, Ordering};
 
 use crate::hash::for_each_pair;
 use crate::index::{AssetId, Index};
 use crate::parallel::map_in_order;
 use crate::profile::Profile;
-use crate::speed::{SpeedRatio, points_at_speed};
+use crate::speed::{Playback, Rung};
 
 /// Query time is cut into windows this long. Within one window a residual
 /// speed error of 0.2% drifts the offset by about one frame.
@@ -29,6 +30,7 @@ pub(super) struct Line {
     pub window: u32,
     /// The rung the line was found on.
     pub speed: f64,
+    pub playback: Playback,
     /// Mean of the hits' reference frame minus `speed` times query frame.
     pub offset: f64,
     pub hits: u32,
@@ -54,16 +56,21 @@ struct Hit {
     query_frame: f64,
 }
 
-/// The lines of every rung, one rung per worker thread.
+/// The lines of every rung, one rung per worker thread. `progress` gets the
+/// number of rungs finished after each.
 pub(super) fn on_ladder(
     index: &Index,
     samples: &[f32],
     profile: &Profile,
-    ladder: &[SpeedRatio],
+    ladder: &[Rung],
     jobs: usize,
+    progress: impl Fn(usize) + Sync,
 ) -> Vec<Line> {
-    map_in_order(ladder, jobs, |&speed| {
-        at_speed(index, samples, profile, speed)
+    let finished = AtomicUsize::new(0);
+    map_in_order(ladder, jobs, |&rung| {
+        let lines = at_rung(index, samples, profile, rung);
+        progress(finished.fetch_add(1, Ordering::Relaxed) + 1);
+        lines
     })
     .into_iter()
     .flatten()
@@ -72,8 +79,9 @@ pub(super) fn on_ladder(
 
 /// Looks up every query hash at one assumed speed and collects the lines
 /// each window's hits form.
-fn at_speed(index: &Index, samples: &[f32], profile: &Profile, speed: SpeedRatio) -> Vec<Line> {
-    let points = points_at_speed(samples, profile, speed);
+fn at_rung(index: &Index, samples: &[f32], profile: &Profile, rung: Rung) -> Vec<Line> {
+    let points = rung.points(samples, profile);
+    let speed = rung.speed();
     let window_frames = profile.frames(WINDOW_SECONDS);
     let mut lines = Vec::new();
     let mut hits = Vec::new();
@@ -85,7 +93,7 @@ fn at_speed(index: &Index, samples: &[f32], profile: &Profile, speed: SpeedRatio
         // Anchors are ordered by frame to within a frame, so a window only
         // ever moves forward.
         if anchor_window > window {
-            lines.extend(lines_in_window(&mut hits, window, speed));
+            lines.extend(lines_in_window(&mut hits, window, rung));
             window = anchor_window;
         }
         for posting in index.postings(hash) {
@@ -96,13 +104,13 @@ fn at_speed(index: &Index, samples: &[f32], profile: &Profile, speed: SpeedRatio
             });
         }
     });
-    lines.extend(lines_in_window(&mut hits, window, speed));
+    lines.extend(lines_in_window(&mut hits, window, rung));
     lines
 }
 
 /// Groups one window's hits by asset and offset, turns the densest offset
 /// clusters into lines, and empties `hits` for the next window.
-fn lines_in_window(hits: &mut Vec<Hit>, window: u32, speed: SpeedRatio) -> Vec<Line> {
+fn lines_in_window(hits: &mut Vec<Hit>, window: u32, rung: Rung) -> Vec<Line> {
     hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
     let mut lines = Vec::new();
     for same_asset in hits.chunk_by(|a, b| a.asset == b.asset) {
@@ -112,7 +120,8 @@ fn lines_in_window(hits: &mut Vec<Hit>, window: u32, speed: SpeedRatio) -> Vec<L
             lines.push(Line {
                 asset: members[0].asset,
                 window,
-                speed: speed.0,
+                speed: rung.speed().0,
+                playback: rung.playback(),
                 offset: members.iter().map(|hit| hit.offset).sum::<f64>() / members.len() as f64,
                 hits: members.len() as u32,
                 first: query_frames.clone().fold(f64::INFINITY, f64::min),
@@ -203,6 +212,7 @@ pub(super) mod tests {
             asset: AssetId(0),
             window,
             speed,
+            playback: Playback::Turntable,
             offset,
             hits,
             first,

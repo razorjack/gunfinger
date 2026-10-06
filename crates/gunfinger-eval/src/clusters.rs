@@ -19,7 +19,7 @@ use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::search;
-use gunfinger_core::speed::SpeedRatio;
+use gunfinger_core::speed::{Rung, SpeedRatio};
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
 
@@ -52,6 +52,15 @@ pub struct Pair {
     pub speed: f64,
     pub hits: u32,
     pub same_recording: bool,
+    /// Where the alignment lies in each file, in seconds.
+    #[serde(default)]
+    pub query_start_seconds: f64,
+    #[serde(default)]
+    pub query_end_seconds: f64,
+    #[serde(default)]
+    pub found_start_seconds: f64,
+    #[serde(default)]
+    pub found_end_seconds: f64,
 }
 
 impl Clusters {
@@ -78,13 +87,41 @@ impl Clusters {
 }
 
 pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Clusters, String> {
+    let mut pairs = self_match(library, store, jobs, |pair| {
+        pair.coverage >= REPORTED_COVERAGE
+    })?;
+    pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage));
+
+    Ok(Clusters {
+        criterion: format!(
+            "one alignment at speed {:.2}..{:.2} covers at least {:.0}% of the shorter file",
+            SPEEDS[0],
+            SPEEDS[SPEEDS.len() - 1],
+            MIN_COVERAGE * 100.0
+        ),
+        duplicates: merge(&pairs),
+        pairs,
+    })
+}
+
+/// Searches every indexed file against the whole library, one file per
+/// thread, and returns its detections of other files that `keep` accepts.
+pub fn self_match(
+    library: &Library,
+    store: &PeakStore,
+    jobs: usize,
+    keep: impl Fn(&Pair) -> bool + Sync,
+) -> Result<Vec<Pair>, String> {
     let profile = Profile::CURRENT;
     let (records, problems) = load_records(library, store, &profile, &BTreeSet::new());
     for problem in &problems {
         eprintln!("left out: {problem}");
     }
     let index = Index::build(&records).map_err(|error| error.to_string())?;
-    let ladder: Vec<SpeedRatio> = SPEEDS.into_iter().map(SpeedRatio).collect();
+    let ladder: Vec<Rung> = SPEEDS
+        .into_iter()
+        .map(|speed| Rung::Turntable(SpeedRatio(speed)))
+        .collect();
     let durations: BTreeMap<&str, f64> = records
         .iter()
         .map(|record| {
@@ -95,7 +132,6 @@ pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Cluster
         })
         .collect();
 
-    // One file per thread, each searched on a single thread.
     let finished = AtomicUsize::new(0);
     let found: Vec<Result<Vec<Pair>, String>> = map_in_order(&records, jobs, |record| {
         let query = &record.header.source.path;
@@ -113,15 +149,20 @@ pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Cluster
             }
             let shorter = durations[query.as_str()].min(durations[found.as_str()]);
             let coverage = (detection.end_seconds - detection.start_seconds) / shorter;
-            if coverage >= REPORTED_COVERAGE {
-                pairs.push(Pair {
-                    query: query.clone(),
-                    found: found.clone(),
-                    coverage,
-                    speed: detection.speed.0,
-                    hits: detection.evidence.hits,
-                    same_recording: coverage >= MIN_COVERAGE,
-                });
+            let pair = Pair {
+                query: query.clone(),
+                found: found.clone(),
+                coverage,
+                speed: detection.speed.0,
+                hits: detection.evidence.hits,
+                same_recording: coverage >= MIN_COVERAGE,
+                query_start_seconds: detection.start_seconds,
+                query_end_seconds: detection.end_seconds,
+                found_start_seconds: detection.track_start_seconds,
+                found_end_seconds: detection.track_end_seconds,
+            };
+            if keep(&pair) {
+                pairs.push(pair);
             }
         }
         let count = finished.fetch_add(1, Ordering::Relaxed) + 1;
@@ -132,18 +173,7 @@ pub fn find(library: &Library, store: &PeakStore, jobs: usize) -> Result<Cluster
     for result in found {
         pairs.extend(result?);
     }
-    pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage));
-
-    Ok(Clusters {
-        criterion: format!(
-            "one alignment at speed {:.2}..{:.2} covers at least {:.0}% of the shorter file",
-            SPEEDS[0],
-            SPEEDS[SPEEDS.len() - 1],
-            MIN_COVERAGE * 100.0
-        ),
-        duplicates: merge(&pairs),
-        pairs,
-    })
+    Ok(pairs)
 }
 
 pub fn print_summary(clusters: &Clusters) {
@@ -196,6 +226,10 @@ mod tests {
             speed: 1.0,
             hits: 0,
             same_recording,
+            query_start_seconds: 0.0,
+            query_end_seconds: 0.0,
+            found_start_seconds: 0.0,
+            found_end_seconds: 0.0,
         }
     }
 

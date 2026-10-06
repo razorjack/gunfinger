@@ -7,7 +7,7 @@
 //! after the strongest.
 
 use crate::names::TrackName;
-use crate::report::{FoundPlay, Level, Report};
+use crate::report::{FoundPlay, Level, Playback, Report};
 use crate::table::timecode;
 
 /// Plays of different assets are one recording when they overlap for at
@@ -24,11 +24,11 @@ const CUE_FRAMES_PER_SECOND: f64 = 75.0;
 /// One row per play, times in seconds.
 pub fn csv(report: &Report) -> String {
     let mut lines = vec![String::from(
-        "start_seconds,end_seconds,track_start_seconds,track_end_seconds,speed_percent,confidence,hits,windows,segments,asset,same_audio",
+        "start_seconds,end_seconds,track_start_seconds,track_end_seconds,speed_percent,confidence,hits,windows,segments,playback,asset,same_audio",
     )];
     for play in &report.plays {
         lines.push(format!(
-            "{:.1},{:.1},{:.1},{:.1},{:.2},{},{},{},{},{},{}",
+            "{:.1},{:.1},{:.1},{:.1},{:.2},{},{},{},{},{},{},{}",
             play.start_seconds,
             play.end_seconds,
             play.track_start_seconds,
@@ -38,6 +38,10 @@ pub fn csv(report: &Report) -> String {
             play.hits,
             play.windows,
             play.segments.len(),
+            match play.playback {
+                Playback::Turntable => "turntable",
+                Playback::KeyLocked => "key-locked",
+            },
             csv_field(&play.asset),
             csv_field(&play.same_audio.join(";"))
         ));
@@ -223,9 +227,9 @@ mod tests {
         assert_eq!(lines.len(), 5);
         assert_eq!(
             lines[1],
-            "0.0,41.0,10.0,52.2,3.00,confident,853,4,1,a.wav,copy-of-a.wav"
+            "0.0,41.0,10.0,52.2,3.00,confident,853,4,1,turntable,a.wav,copy-of-a.wav"
         );
-        assert!(lines[2].ends_with(",\"b, the remix.wav\","));
+        assert!(lines[2].ends_with(",key-locked,\"b, the remix.wav\","));
     }
 
     #[test]

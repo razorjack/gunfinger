@@ -57,6 +57,10 @@ target/release/gunfinger identify mix.m4a --library ~/Music/library
 target/release/gunfinger identify mix.m4a --library ~/Music/library \
     --start 45:00 --duration 10:00 --format json > mix.json
 
+# Also find records played with key lock (CDJ master tempo: tempo changes,
+# pitch does not); twice the search time. Such plays are marked (key lock).
+target/release/gunfinger identify mix.m4a --playback both
+
 # Several recordings share one index build; --save-dir keeps a JSON report
 # of each and passes over recordings already reported there (--again).
 target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports

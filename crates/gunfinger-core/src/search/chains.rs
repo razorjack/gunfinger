@@ -5,7 +5,7 @@ use super::Detection;
 use super::lines::Line;
 use crate::confidence::Evidence;
 use crate::profile::Profile;
-use crate::speed::SpeedRatio;
+use crate::speed::{Playback, SpeedRatio};
 
 /// Windows without hits allowed inside a chain (a breakdown, a cut).
 const MAX_GAP_WINDOWS: u32 = 2;
@@ -93,10 +93,27 @@ fn detection(chain: &[&Line], profile: &Profile) -> Detection {
         track_start_seconds: profile.seconds(opening.reference_frame_at(opening.first).max(0.0)),
         track_end_seconds: profile.seconds(closing.reference_frame_at(closing.last).max(0.0)),
         speed: SpeedRatio(chain_speed(chain)),
+        playback: playback(chain),
         evidence: Evidence {
             windows: chain.len() as u32,
             hits: chain.iter().map(|line| line.hits).sum(),
         },
+    }
+}
+
+/// How most of the chain's hits were found.
+fn playback(chain: &[&Line]) -> Playback {
+    let hits = |playback| -> u32 {
+        chain
+            .iter()
+            .filter(|line| line.playback == playback)
+            .map(|line| line.hits)
+            .sum()
+    };
+    if hits(Playback::KeyLocked) > hits(Playback::Turntable) {
+        Playback::KeyLocked
+    } else {
+        Playback::Turntable
     }
 }
 

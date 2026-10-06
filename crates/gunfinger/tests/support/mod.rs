@@ -2,8 +2,9 @@
 //!
 //! A track is a list of procedural notes, so it can be played at any speed
 //! exactly as a turntable plays a record: at speed `s`, note times divide by
-//! `s` and frequencies multiply by it. No resampling is involved, and every
-//! track is reproducible from its seed.
+//! `s` and frequencies multiply by it. Under key lock only the times divide.
+//! No resampling is involved, and every track is reproducible from its
+//! seed.
 
 use std::fs;
 use std::path::Path;
@@ -79,8 +80,18 @@ impl Track {
         Track { notes, seconds }
     }
 
-    /// `seconds` of output starting at track time `from`, played at `speed`.
+    /// `seconds` of output starting at track time `from`, played at `speed`
+    /// on a turntable.
     pub fn play(&self, from: f64, seconds: f64, speed: f64) -> Vec<f32> {
+        self.render(from, seconds, speed, speed)
+    }
+
+    /// Like `play`, with key lock: the tempo changes, the pitch does not.
+    pub fn play_key_locked(&self, from: f64, seconds: f64, tempo: f64) -> Vec<f32> {
+        self.render(from, seconds, tempo, 1.0)
+    }
+
+    fn render(&self, from: f64, seconds: f64, speed: f64, pitch: f64) -> Vec<f32> {
         let rate = f64::from(RATE);
         let length = (seconds * rate) as usize;
         let mut out = vec![0.0_f64; length];
@@ -95,7 +106,7 @@ impl Track {
                 let envelope = (since / 0.005).min(1.0) * (-4.0 * since / duration).exp();
                 for &(hz, amplitude) in &note.partials {
                     *sample +=
-                        amplitude * envelope * (std::f64::consts::TAU * hz * speed * since).sin();
+                        amplitude * envelope * (std::f64::consts::TAU * hz * pitch * since).sin();
                 }
             }
         }

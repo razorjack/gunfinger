@@ -312,3 +312,58 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
         String::from_utf8_lossy(&second.stderr).contains("every recording already has a report")
     );
 }
+
+#[test]
+fn a_key_locked_play_needs_the_key_lock_rungs() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("key-lock");
+    let track = Track::random(1, 60.0);
+    write_wav(
+        &dir.join("library/1.wav"),
+        &track.play(0.0, track.seconds, 1.0),
+    );
+    let mut mix = Mix::new(40.0);
+    mix.add(0.0, &track.play_key_locked(5.0, 40.0, 1.05), 0.5);
+    let mix_path = dir.join("mix.wav");
+    write_wav(&mix_path, mix.samples());
+    let library = dir.join("library");
+    let library = library.to_str().unwrap();
+    gunfinger(&dir, &["index", library]);
+    let identify = |playback: &str| {
+        let output = gunfinger(
+            &dir,
+            &[
+                "identify",
+                mix_path.to_str().unwrap(),
+                "--library",
+                library,
+                "--playback",
+                playback,
+                "--format",
+                "json",
+            ],
+        );
+        let report: Value = serde_json::from_slice(&output.stdout).unwrap();
+        report["plays"].as_array().unwrap().clone()
+    };
+
+    let turntable = identify("turntable");
+    let both = identify("both");
+
+    assert!(
+        turntable
+            .iter()
+            .all(|play| play["confidence"] != "confident"),
+        "{turntable:?}"
+    );
+    assert_eq!(both.len(), 1, "{both:?}");
+    assert_eq!(both[0]["confidence"], "confident");
+    assert_eq!(both[0]["playback"], "key-locked");
+    assert!(
+        (seconds(&both[0], "speed") - 1.05).abs() < 0.001,
+        "{}",
+        both[0]
+    );
+}
