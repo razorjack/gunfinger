@@ -193,6 +193,35 @@ fn a_synthetic_mix_is_identified_end_to_end() {
             seconds(play, "start_seconds") > 84.0 && seconds(play, "end_seconds") < 94.0;
         assert!(!inside_insert, "nothing plays inside the insert: {play}");
     }
+
+    let explained = gunfinger(
+        &dir,
+        &[
+            "explain",
+            mix.to_str().unwrap(),
+            "--library",
+            library,
+            "--at",
+            "1:05",
+            "--around",
+            "0:30",
+            "--asset",
+            "b.wav",
+            "--windows",
+        ],
+    );
+    let explained = String::from_utf8_lossy(&explained.stdout);
+    let window_rows: Vec<&str> = explained
+        .lines()
+        .skip_while(|line| !line.starts_with("b.wav: lines per window"))
+        .filter(|line| line.starts_with("  0:"))
+        .collect();
+    assert!(
+        window_rows
+            .iter()
+            .any(|row| row.starts_with("  0:40-0:50") && row.ends_with("#1")),
+        "the window grid starts at 0:30, and B's play takes a line in 0:40-0:50:\n{explained}"
+    );
 }
 
 #[test]

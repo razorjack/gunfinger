@@ -145,6 +145,12 @@ enum Command {
         /// Candidates to list.
         #[arg(long, default_value_t = 12)]
         limit: usize,
+        /// Also list the evidence of each 10 s window for the candidates'
+        /// assets (or every asset matching --asset): its lines of hits, the
+        /// rung, the place in the track and the candidate whose chain took
+        /// them. Windows lie on the grid of a search of the whole recording.
+        #[arg(long)]
+        windows: bool,
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
@@ -300,6 +306,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             playback,
             asset,
             limit,
+            windows,
             exclude_from,
         } => explain::run(&explain::Request {
             audio: &audio,
@@ -311,6 +318,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             playback: playback.unwrap_or(settings.playback),
             asset: asset.as_deref(),
             limit,
+            windows,
             style: stdout_style,
             jobs,
             console,
