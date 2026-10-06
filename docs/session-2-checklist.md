@@ -24,7 +24,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 ## 3. Command line
 
-- [ ] Colour
+- [x] Colour
 - [x] Position in the track
 - [x] Same-audio rows collapsed
 - [ ] Timeline view
@@ -32,7 +32,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [ ] `listen`
 - [ ] Export formats
 - [ ] Batch identification
-- [ ] Completions, man page, `--quiet`, progress
+- [~] Completions, man page, `--quiet` (done), progress
 - [ ] Configuration file
 - [ ] `doctor`
 - [ ] `prune`

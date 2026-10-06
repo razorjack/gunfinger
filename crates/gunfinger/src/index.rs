@@ -10,11 +10,14 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::PeakStore;
 use miette::{IntoDiagnostic, WrapErr};
 
+use crate::console::Console;
+
 pub fn run(
     library_root: &Path,
     peaks_dir: &Path,
     jobs: usize,
     max_track_minutes: u64,
+    console: &Console,
 ) -> miette::Result<()> {
     let started = Instant::now();
     let library = Library::scan(library_root)
@@ -25,13 +28,13 @@ pub fn run(
         jobs,
         max_track: Duration::from_secs(max_track_minutes * 60),
     };
-    eprintln!(
+    console.info(format_args!(
         "indexing {} audio files from {} into {} with {} jobs",
         library.assets.len(),
         library_root.display(),
         store.dir().display(),
         options.jobs
-    );
+    ));
 
     let finished = AtomicUsize::new(0);
     let total = library.assets.len();
@@ -44,44 +47,48 @@ pub fn run(
             let count = finished.fetch_add(1, Ordering::Relaxed) + 1;
             match outcome {
                 Outcome::Extracted { peaks } => {
-                    eprintln!("[{count}/{total}] {peaks} peaks: {}", asset.path);
+                    console.info(format_args!(
+                        "[{count}/{total}] {peaks} peaks: {}",
+                        asset.path
+                    ));
                 }
                 Outcome::UpToDate => {}
-                Outcome::TooLong => {
-                    eprintln!(
-                        "[{count}/{total}] warning: skipped {}: longer than {max_track_minutes} minutes",
-                        asset.path
-                    );
-                }
+                Outcome::TooLong => console.warning(format_args!(
+                    "[{count}/{total}] skipped {}: longer than {max_track_minutes} minutes",
+                    asset.path
+                )),
                 Outcome::Failed { reason } => {
-                    eprintln!("[{count}/{total}] error: {reason}");
+                    console.error(format_args!("[{count}/{total}] {reason}"));
                 }
             }
         },
     );
 
-    print_summary(&library, &outcomes, started.elapsed());
+    print_summary(&library, &outcomes, started.elapsed(), console);
     Ok(())
 }
 
-fn print_summary(library: &Library, outcomes: &[Outcome], elapsed: Duration) {
+fn print_summary(library: &Library, outcomes: &[Outcome], elapsed: Duration, console: &Console) {
     let count =
         |wanted: fn(&Outcome) -> bool| outcomes.iter().filter(|outcome| wanted(outcome)).count();
-    eprintln!(
+    console.info(format_args!(
         "done in {:.1} s: {} extracted, {} up to date, {} too long, {} failed",
         elapsed.as_secs_f64(),
         count(|outcome| matches!(outcome, Outcome::Extracted { .. })),
         count(|outcome| matches!(outcome, Outcome::UpToDate)),
         count(|outcome| matches!(outcome, Outcome::TooLong)),
         count(|outcome| matches!(outcome, Outcome::Failed { .. })),
-    );
-    eprintln!("skipped {} other files:", library.skipped_total());
+    ));
+    console.info(format_args!(
+        "skipped {} other files:",
+        library.skipped_total()
+    ));
     for (reason, count) in &library.skipped {
-        eprintln!("  {count:>5}  {reason}");
+        console.info(format_args!("  {count:>5}  {reason}"));
     }
     for (asset, outcome) in library.assets.iter().zip(outcomes) {
         if let Outcome::Failed { reason } = outcome {
-            eprintln!("failed: {}: {reason}", asset.path);
+            console.error(format_args!("{}: {reason}", asset.path));
         }
     }
 }

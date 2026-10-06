@@ -9,6 +9,7 @@ use serde::Serialize;
 
 use crate::Format;
 use crate::catalog::Catalog;
+use crate::console::Console;
 
 /// The collection size the index must eventually hold.
 const PROJECTED_TRACKS: f64 = 25_000.0;
@@ -75,8 +76,13 @@ struct Projection {
     peak_store_bytes: f64,
 }
 
-pub fn run(library: &Path, peaks_dir: &Path, format: Format) -> miette::Result<()> {
-    let catalog = Catalog::open(library, peaks_dir, None)?;
+pub fn run(
+    library: &Path,
+    peaks_dir: &Path,
+    format: Format,
+    console: &Console,
+) -> miette::Result<()> {
+    let catalog = Catalog::open(library, peaks_dir, None, console)?;
     let stats = measure(&catalog)?;
     match format {
         Format::Human => print_human(&stats),

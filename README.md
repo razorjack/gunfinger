@@ -65,7 +65,9 @@ The peak store is in `work/peaks` by default (`--peaks-dir`,
 `GUNFINGER_PEAKS_DIR`). `--jobs` (`GUNFINGER_JOBS`) sets the worker threads;
 the default is one per core. Files longer than 20 minutes are skipped by
 `index` (`--max-track-minutes`). `identify --exclude-from FILE` leaves the
-listed library paths out of the index.
+listed library paths out of the index. Human output is coloured on a terminal
+(`--color auto|always|never`; `NO_COLOR` turns `auto` off). `--quiet` keeps
+results, warnings and errors and drops progress and timing.
 
 Human output is one table of plays in time order: time span in the
 recording, the part of the track that was heard, speed, confidence
