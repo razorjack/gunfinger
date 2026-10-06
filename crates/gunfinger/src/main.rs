@@ -3,6 +3,7 @@
 mod catalog;
 mod config;
 mod console;
+mod doctor;
 mod explain;
 mod export;
 mod identify;
@@ -10,9 +11,11 @@ mod index;
 mod listen;
 mod names;
 mod output;
+mod prune;
 mod report;
 mod stats;
 mod style;
+mod survey;
 mod table;
 mod timeline;
 
@@ -150,6 +153,27 @@ enum Command {
     Completions { shell: clap_complete::Shell },
     /// Print the man page, for example `gunfinger man > gunfinger.1`.
     Man,
+    /// Check FFmpeg, the settings, the library and the peak store.
+    Doctor {
+        /// Root directory of the library [default: `library` in the
+        /// configuration file].
+        #[arg(long)]
+        library: Option<PathBuf>,
+    },
+    /// Delete peak records of files no longer in the library, and leftovers
+    /// of interrupted runs. Lists them unless --yes is given.
+    Prune {
+        /// Root directory of the library [default: `library` in the
+        /// configuration file].
+        #[arg(long)]
+        library: Option<PathBuf>,
+        /// Delete what would be listed.
+        #[arg(long)]
+        yes: bool,
+        /// Prune even when most of the store would go.
+        #[arg(long)]
+        force: bool,
+    },
     /// Measure the peak store and the index of a library.
     Stats {
         /// Root directory of the indexed library [default: `library` in the
@@ -275,6 +299,18 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
         Command::Man => clap_mangen::Man::new(Cli::command())
             .render(&mut std::io::stdout())
             .into_diagnostic(),
+        Command::Doctor { library } => doctor::run(settings, library, stdout_style),
+        Command::Prune {
+            library,
+            yes,
+            force,
+        } => prune::run(&prune::Request {
+            library: &settings.library(library)?,
+            peaks_dir,
+            yes,
+            force,
+            console,
+        }),
         Command::Stats { library, format } => {
             stats::run(&settings.library(library)?, peaks_dir, format, console)
         }

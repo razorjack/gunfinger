@@ -228,3 +228,39 @@ fn a_damaged_file_is_passed_over_until_it_changes() {
         "{after_change}"
     );
 }
+
+#[test]
+fn prune_deletes_records_of_removed_files_only_when_asked() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("prune");
+    let library = dir.join("library");
+    for seed in [1, 2] {
+        let track = Track::random(seed, 10.0);
+        write_wav(
+            &library.join(format!("{seed}.wav")),
+            &track.play(0.0, track.seconds, 1.0),
+        );
+    }
+    let library_arg = library.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+    std::fs::remove_file(library.join("2.wav")).unwrap();
+
+    let listed = gunfinger(&dir, &["prune", "--library", library_arg]);
+    let doctor = gunfinger(&dir, &["doctor", "--library", library_arg]);
+    gunfinger(&dir, &["prune", "--library", library_arg, "--yes"]);
+    let records = std::fs::read_dir(dir.join("peaks")).unwrap().count();
+
+    let listed = String::from_utf8_lossy(&listed.stdout);
+    assert!(
+        listed.contains("would delete 1 files:\n  2.wav"),
+        "{listed}"
+    );
+    let doctor = String::from_utf8_lossy(&doctor.stdout);
+    assert!(
+        doctor.contains("1 records or notes are for files no longer in this library"),
+        "{doctor}"
+    );
+    assert_eq!(records, 1, "only 1.wav's record is left");
+}

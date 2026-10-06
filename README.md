@@ -71,6 +71,13 @@ target/release/gunfinger explain mix.m4a --library ~/Music/library --at 20:30
 
 # Sizes of the peak store and the index, with a 25,000-track projection.
 target/release/gunfinger stats --library ~/Music/library
+
+# Check FFmpeg, the settings, the library and the peak store.
+target/release/gunfinger doctor --library ~/Music/library
+
+# List, then delete, peak records of files no longer in the library.
+target/release/gunfinger prune --library ~/Music/library
+target/release/gunfinger prune --library ~/Music/library --yes
 ```
 
 Settings come from flags, then environment variables, then a TOML
@@ -90,7 +97,10 @@ The peak store is in `work/peaks` by default (`--peaks-dir`,
 the default is one per core. Files longer than 20 minutes are skipped by
 `index` (`--max-track-minutes`). Files that fail to decode or are too long
 are remembered in the peak store and passed over on later runs until they
-change (`--retry-skipped` tries them again). `identify --exclude-from FILE` leaves the
+change (`--retry-skipped` tries them again). Keep one peak store per
+library: records are keyed by the path relative to the library root, and
+`prune` refuses to delete most of a store, which is what a shared store or
+a wrong `--library` looks like. `identify --exclude-from FILE` leaves the
 listed library paths out of the index. Human output is coloured on a terminal
 (`--color auto|always|never`; `NO_COLOR` turns `auto` off). `--quiet` keeps
 results, warnings and errors and drops progress and timing.
