@@ -10,6 +10,7 @@ use std::time::Duration;
 use gunfinger_core::confidence::{Confidence, Evidence, MIN_HITS, MIN_POSSIBLE_HITS, MIN_WINDOWS};
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::{AssetId, Index};
+use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Trace, WINDOW_SECONDS, WindowLine, trace_with_progress};
 use gunfinger_core::speed::Playback;
@@ -26,6 +27,7 @@ pub struct Request<'a> {
     pub audio: &'a Path,
     pub library: &'a Path,
     pub peaks_dir: &'a Path,
+    pub track_length: TrackLength,
     pub exclude_from: Option<&'a Path>,
     pub at: Duration,
     pub around: Duration,
@@ -48,6 +50,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
         request.library,
         request.peaks_dir,
         request.exclude_from,
+        request.track_length,
         request.console,
     )?;
     let start = on_window_grid(request.at.saturating_sub(request.around));

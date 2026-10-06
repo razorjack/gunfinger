@@ -3,6 +3,7 @@
 use std::path::Path;
 
 use gunfinger_core::index::{Index, Posting};
+use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::profile::Profile;
 use miette::IntoDiagnostic;
 use serde::Serialize;
@@ -79,10 +80,11 @@ struct Projection {
 pub fn run(
     library: &Path,
     peaks_dir: &Path,
+    track_length: TrackLength,
     format: Format,
     console: &Console,
 ) -> miette::Result<()> {
-    let catalog = Catalog::open(library, peaks_dir, None, console)?;
+    let catalog = Catalog::open(library, peaks_dir, None, track_length, console)?;
     let stats = measure(&catalog)?;
     match format {
         Format::Human => print_human(&stats),

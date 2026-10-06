@@ -21,26 +21,29 @@
 //!                 (u8, 0.5 dB steps from -20 dB)
 //! ```
 //!
-//! An asset that has no record because decoding failed or it is longer than
-//! a track gets a skip note instead, so later runs pass over it until the
-//! file changes:
+//! An asset that has no record because decoding failed or its length is
+//! outside the track length range gets a skip note instead, so later runs
+//! pass over it until the file changes:
 //!
 //! ```text
 //! magic           8 bytes  "GUNFSKIP"
 //! format version  u16
 //! source path, size and mtime, as in a record
 //! reason          u8: 0 decoding failed, then the message (u16 length +
-//!                 UTF-8); 1 too long, then the limit exceeded (f64 seconds)
+//!                 UTF-8); 1 too long, then the limit exceeded (f64 seconds);
+//!                 2 too short, then the limit not reached (f64 seconds)
 //! ```
 
 use std::fmt;
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
+use std::time::Duration;
 
 use crate::library::{Asset, Timestamp};
 use crate::peaks::{BIN_STEPS, FRAME_STEPS, MAGNITUDE_STEPS_PER_DB, Peak};
 use crate::profile::Profile;
+use crate::timecode::format_timecode;
 
 const MAGIC: &[u8; 8] = b"GUNFPEAK";
 const FORMAT_VERSION: u16 = 2;
@@ -86,16 +89,19 @@ pub struct SkipNote {
 pub enum SkipReason {
     /// Decoding failed with this message.
     Failed(String),
-    /// Longer than this limit, in seconds, when it was indexed.
-    TooLong { limit_seconds: f64 },
+    /// Longer than the longest track allowed when it was indexed.
+    TooLong { limit: Duration },
+    /// Shorter than the shortest track allowed when it was indexed.
+    TooShort { limit: Duration },
 }
 
 impl fmt::Display for SkipReason {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             SkipReason::Failed(_) => write!(f, "it failed to decode"),
-            SkipReason::TooLong { limit_seconds } => {
-                write!(f, "longer than {:.0} minutes", limit_seconds / 60.0)
+            SkipReason::TooLong { limit } => write!(f, "longer than {}", format_timecode(*limit)),
+            SkipReason::TooShort { limit } => {
+                write!(f, "shorter than {}", format_timecode(*limit))
             }
         }
     }
@@ -187,11 +193,15 @@ impl PeakStore {
 
     /// Whether a current record exists, reading only its header.
     pub fn has_current(&self, asset: &Asset, profile: &Profile) -> bool {
-        let Ok(file) = File::open(self.record_path(&asset.path)) else {
-            return false;
-        };
-        let mut reader = BufReader::new(file);
-        read_header(&mut reader).is_ok_and(|header| header.is_current(asset, profile))
+        self.current_header(asset, profile).is_some()
+    }
+
+    /// The header of `asset`'s current record, read without its peaks.
+    pub fn current_header(&self, asset: &Asset, profile: &Profile) -> Option<RecordHeader> {
+        let file = File::open(self.record_path(&asset.path)).ok()?;
+        read_header(&mut BufReader::new(file))
+            .ok()
+            .filter(|header| header.is_current(asset, profile))
     }
 
     /// Loads the current record of `asset`.
@@ -371,9 +381,13 @@ fn write_skip(out: &mut impl Write, note: &SkipNote) -> io::Result<()> {
             }
             write_text(out, &message[..end])
         }
-        SkipReason::TooLong { limit_seconds } => {
+        SkipReason::TooLong { limit } => {
             out.write_all(&[1])?;
-            out.write_all(&limit_seconds.to_le_bytes())
+            out.write_all(&limit.as_secs_f64().to_le_bytes())
+        }
+        SkipReason::TooShort { limit } => {
+            out.write_all(&[2])?;
+            out.write_all(&limit.as_secs_f64().to_le_bytes())
         }
     }
 }
@@ -391,11 +405,19 @@ fn read_skip(input: &mut impl Read) -> io::Result<SkipNote> {
     let reason = match read_array(input)? {
         [0] => SkipReason::Failed(read_text(input)?),
         [1] => SkipReason::TooLong {
-            limit_seconds: f64::from_le_bytes(read_array(input)?),
+            limit: read_limit(input)?,
+        },
+        [2] => SkipReason::TooShort {
+            limit: read_limit(input)?,
         },
         _ => return Err(invalid("unknown skip reason")),
     };
     Ok(SkipNote { source, reason })
+}
+
+fn read_limit(input: &mut impl Read) -> io::Result<Duration> {
+    Duration::try_from_secs_f64(f64::from_le_bytes(read_array(input)?))
+        .map_err(|_| invalid("invalid length limit"))
 }
 
 fn write_record(out: &mut impl Write, record: &PeakRecord) -> io::Result<()> {
@@ -672,6 +694,38 @@ mod tests {
     }
 
     #[test]
+    fn length_notes_keep_their_limits() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-length-notes-{}", std::process::id()));
+        let store = PeakStore::open(&dir).unwrap();
+        let mut sample = asset();
+        sample.path = String::from("loops/amen.wav");
+        let short = SkipNote {
+            source: sample.clone(),
+            reason: SkipReason::TooShort {
+                limit: Duration::from_secs(90),
+            },
+        };
+        let long = SkipNote {
+            source: asset(),
+            reason: SkipReason::TooLong {
+                limit: Duration::from_secs(900),
+            },
+        };
+
+        store.save_skip(&short).unwrap();
+        store.save_skip(&long).unwrap();
+        let remembered_short = store.skip_note(&sample);
+        let remembered_long = store.skip_note(&asset());
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert_eq!(short.reason.to_string(), "shorter than 1:30");
+        assert_eq!(long.reason.to_string(), "longer than 15:00");
+        assert_eq!(remembered_short, Some(short));
+        assert_eq!(remembered_long, Some(long));
+    }
+
+    #[test]
     fn the_survey_tells_records_notes_and_leftovers_apart() {
         let dir = std::env::temp_dir().join(format!("gunfinger-survey-{}", std::process::id()));
         let store = PeakStore::open(&dir).unwrap();
@@ -682,7 +736,7 @@ mod tests {
             .save_skip(&SkipNote {
                 source: long,
                 reason: SkipReason::TooLong {
-                    limit_seconds: 1200.0,
+                    limit: Duration::from_secs(1200),
                 },
             })
             .unwrap();

@@ -110,9 +110,11 @@ target/release/gunfinger prune --library ~/Music/library
 target/release/gunfinger prune --library ~/Music/library --yes
 ```
 
-Files longer than 20 minutes are skipped by `index` (`--max-track-minutes`).
-Files that fail to decode or are too long are remembered in the peak store
-and passed over on later runs until they change (`--retry-skipped` tries them
+`index` takes files up to 20 minutes long; longer ones are mixes or album
+rips (`--min-track` and `--max-track` set the range; see
+[Tracks among sets and samples](#tracks-among-sets-and-samples)). Files that
+fail to decode or are outside the range are remembered in the peak store and
+passed over on later runs until they change (`--retry-skipped` tries them
 again). `identify --exclude-from FILE` leaves the listed library paths out of
 the index.
 
@@ -164,6 +166,8 @@ settings in effect and the file they came from.
 | `jobs` | `--jobs` | `GUNFINGER_JOBS` | one per core | Worker threads |
 | `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | Colour in human output: `auto` (on a terminal), `always` or `never` |
 | `playback` | `--playback` | | `both` | Playback searched by `identify` and `explain`: `both`, `turntable` or `key-lock` |
+| `min_track` | `--min-track` | | none | Shortest library file that counts as a track |
+| `max_track` | `--max-track` | | `20:00` | Longest library file that counts as a track |
 
 A complete file:
 
@@ -173,7 +177,12 @@ peaks_dir = "~/.local/share/gunfinger/peaks"
 jobs = 8
 color = "auto"
 playback = "both"
+min_track = "1:30"
+max_track = "15:00"
 ```
+
+Lengths are written as on the command line: seconds (`"90"`), `M:SS` or
+`H:MM:SS`.
 
 ### Key lock and vinyl
 
@@ -198,6 +207,25 @@ playback = "turntable"
 
 `--playback both` still searches the occasional digital set in full, and
 `playback = "key-lock"` suits a collection of digital sets only.
+
+### Tracks among sets and samples
+
+`index` takes only library files whose length is within the track length
+range: by default up to 20 minutes, with no minimum. A folder that also
+holds DJ sets, minimixes, samples and loops needs a narrower range:
+
+```toml
+min_track = "1:30"   # shorter files are samples and loops
+max_track = "15:00"  # longer files are minimixes and sets
+```
+
+`index` first reads the length a file declares in its header, so a set is
+passed over without being decoded; near a limit, the decoded length
+decides. Files outside the range are remembered in the peak store, and
+`index` takes them when the range is widened to include them. Narrowing
+the range needs no new index: `identify`, `explain` and `stats` leave out
+indexed files outside it, and `--verbose` lists them. `gunfinger doctor`
+shows the range in effect and how many files it passed over.
 
 ### One file per library
 

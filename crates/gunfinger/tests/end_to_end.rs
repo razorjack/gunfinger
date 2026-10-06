@@ -311,6 +311,81 @@ fn only_files_that_need_indexing_are_warned_about() {
 }
 
 #[test]
+fn files_outside_the_track_length_are_passed_over_and_left_out() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("track-length");
+    let library = dir.join("library");
+    for (name, seed, seconds) in [
+        ("loop.wav", 1, 4.0),
+        ("a.wav", 2, 20.0),
+        ("b.wav", 3, 30.0),
+        ("set.wav", 4, 80.0),
+    ] {
+        let track = Track::random(seed, seconds);
+        write_wav(&library.join(name), &track.play(0.0, track.seconds, 1.0));
+    }
+    let library_arg = library.to_str().unwrap();
+    let range = ["--min-track", "10", "--max-track", "1:00"];
+    let stderr = |output: Output| String::from_utf8_lossy(&output.stderr).into_owned();
+
+    let first = stderr(gunfinger(
+        &dir,
+        &[&["index", library_arg][..], &range].concat(),
+    ));
+    let again = stderr(gunfinger(
+        &dir,
+        &[&["index", library_arg][..], &range].concat(),
+    ));
+    let doctor = gunfinger(
+        &dir,
+        &[&["doctor", "--library", library_arg][..], &range].concat(),
+    );
+    let recording = library.join("a.wav");
+    let narrowed = stderr(gunfinger(
+        &dir,
+        &[
+            "identify",
+            recording.to_str().unwrap(),
+            "--library",
+            library_arg,
+            "--max-track",
+            "25",
+            "--verbose",
+        ],
+    ));
+    let widened = stderr(gunfinger(
+        &dir,
+        &["index", library_arg, "--max-track", "2:00"],
+    ));
+
+    assert!(
+        first.contains("skipped loop.wav: shorter than 0:10"),
+        "{first}"
+    );
+    assert!(
+        first.contains("skipped set.wav: longer than 1:00"),
+        "{first}"
+    );
+    assert!(first.contains(": 2 extracted"), "{first}");
+    assert!(again.contains("2 passed over as before"), "{again}");
+    let doctor = String::from_utf8_lossy(&doctor.stdout);
+    assert!(doctor.contains("track length 0:10 to 1:00"), "{doctor}");
+    assert!(
+        doctor.contains("2 files passed over: 0 failed to decode, 1 too short, 1 too long"),
+        "{doctor}"
+    );
+    assert!(
+        narrowed.contains(
+            "1 file left out because the track length is up to 0:25 (--min-track, --max-track):\n  b.wav (0:30)"
+        ),
+        "{narrowed}"
+    );
+    assert!(widened.contains(": 2 extracted"), "{widened}");
+}
+
+#[test]
 fn prune_deletes_records_of_removed_files_only_when_asked() {
     if !ffmpeg_available() {
         return;

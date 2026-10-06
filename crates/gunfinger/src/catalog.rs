@@ -3,13 +3,16 @@
 use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 use gunfinger_core::index::Index;
-use gunfinger_core::indexing::{BuiltIndex, build_index, indexable_assets, library_revision};
+use gunfinger_core::indexing::{
+    BuiltIndex, TrackLength, build_index, indexable_assets, library_revision,
+};
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, StoreError};
+use gunfinger_core::timecode::format_timecode;
 use miette::{IntoDiagnostic, WrapErr, miette};
 
 use crate::console::Console;
@@ -25,13 +28,14 @@ pub struct Catalog {
 
 impl Catalog {
     /// Scans the library and builds the index from the current peak record
-    /// of every asset not listed in `exclude_from`, reading one record at a
-    /// time. Assets without a current record are reported on stderr and
-    /// left out.
+    /// of every asset not listed in `exclude_from` and within
+    /// `track_length`, reading one record at a time. Assets without a
+    /// current record are reported on stderr and left out.
     pub fn open(
         library_root: &Path,
         peaks_dir: &Path,
         exclude_from: Option<&Path>,
+        track_length: TrackLength,
         console: &Console,
     ) -> miette::Result<Catalog> {
         let started = Instant::now();
@@ -49,8 +53,11 @@ impl Catalog {
             index,
             revision,
             problems,
-        } = build_index(&library, &store, &Profile::CURRENT, &excluded).into_diagnostic()?;
+            outside,
+        } = build_index(&library, &store, &Profile::CURRENT, &excluded, track_length)
+            .into_diagnostic()?;
         report_left_out(&problems, console);
+        report_outside(&outside, track_length, console);
         if index.assets().is_empty() {
             return Err(miette!(
                 help = "run `gunfinger index {}` first",
@@ -81,6 +88,7 @@ impl Catalog {
         library_root: &Path,
         peaks_dir: &Path,
         exclude_from: Option<&Path>,
+        track_length: TrackLength,
     ) -> miette::Result<String> {
         let library = Library::scan(library_root)
             .into_diagnostic()
@@ -97,6 +105,7 @@ impl Catalog {
             &store,
             &Profile::CURRENT,
             &excluded,
+            track_length,
         )))
     }
 }
@@ -153,6 +162,25 @@ fn report_left_out(problems: &[StoreError], console: &Console) {
             &broken,
         ));
     }
+}
+
+/// Indexed files the current range leaves out, with `--verbose` only: the
+/// range was set on purpose.
+fn report_outside(outside: &[(String, Duration)], track_length: TrackLength, console: &Console) {
+    if outside.is_empty() {
+        return;
+    }
+    let lengths: Vec<String> = outside
+        .iter()
+        .map(|(path, length)| format!("{path} ({})", format_timecode(*length)))
+        .collect();
+    console.detail(listed(
+        &format!(
+            "{} left out because the track length is {track_length} (--min-track, --max-track):",
+            files(outside.len())
+        ),
+        &lengths,
+    ));
 }
 
 fn files(count: usize) -> String {

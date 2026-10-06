@@ -1,15 +1,22 @@
 //! Extracting the peaks of every library asset into the peak store.
 
 use std::collections::BTreeSet;
+use std::fmt;
 use std::time::Duration;
 
-use crate::decode::{Excerpt, decode};
+use crate::decode::{Excerpt, declared_length, decode};
 use crate::index::{Index, IndexError};
 use crate::library::{Asset, Library};
 use crate::parallel::map_in_order;
 use crate::peaks::extract_peaks;
 use crate::profile::Profile;
 use crate::store::{PeakRecord, PeakStore, RecordHeader, SkipNote, SkipReason, StoreError, fnv1a};
+use crate::timecode::format_timecode;
+
+/// A declared length decides on its own only when it is this far outside
+/// the range, so that a bitrate estimate a little off cannot reject a
+/// track; nearer a limit, the decoded length decides.
+const DECLARED_LENGTH_MARGIN: f64 = 1.1;
 
 /// What indexing did with one asset.
 #[derive(Debug)]
@@ -18,20 +25,74 @@ pub enum Outcome {
         peaks: usize,
     },
     UpToDate,
-    /// Longer than the track limit: a mix or an album rip, not a track.
-    TooLong,
+    /// Not a track: `TooShort` or `TooLong` for the track length range.
+    Rejected(SkipReason),
     Failed {
         reason: String,
     },
-    /// Passed over because an earlier run failed on this exact file or
-    /// found it too long.
+    /// Passed over because an earlier run failed on or rejected this exact
+    /// file.
     Remembered(SkipReason),
+}
+
+/// The lengths of library files that count as tracks. Shorter files are
+/// samples and loops; longer ones are mixes and album rips.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TrackLength {
+    pub min: Duration,
+    pub max: Duration,
+}
+
+impl fmt::Display for TrackLength {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        if self.min.is_zero() {
+            write!(f, "up to {}", format_timecode(self.max))
+        } else {
+            write!(
+                f,
+                "{} to {}",
+                format_timecode(self.min),
+                format_timecode(self.max)
+            )
+        }
+    }
+}
+
+impl TrackLength {
+    pub fn admits(&self, length: Duration) -> bool {
+        self.rejects(length).is_none()
+    }
+
+    /// Why a file of this length is not a track, if it is not.
+    pub fn rejects(&self, length: Duration) -> Option<SkipReason> {
+        self.rejects_beyond(length, 1.0)
+    }
+
+    /// As `rejects`, for a length that may be off by up to `factor`.
+    fn rejects_beyond(&self, length: Duration, factor: f64) -> Option<SkipReason> {
+        if length.mul_f64(factor) < self.min {
+            Some(SkipReason::TooShort { limit: self.min })
+        } else if length > self.max.mul_f64(factor) {
+            Some(SkipReason::TooLong { limit: self.max })
+        } else {
+            None
+        }
+    }
+
+    /// The length of a peak record outside the range, if it is. Records
+    /// indexed under a wider range stay in the store, so widening it again
+    /// needs no decoding.
+    fn leaves_out(&self, header: &RecordHeader) -> Option<Duration> {
+        Duration::try_from_secs_f64(header.duration_seconds)
+            .ok()
+            .filter(|&length| !self.admits(length))
+    }
 }
 
 pub struct IndexingOptions {
     pub jobs: usize,
-    pub max_track: Duration,
-    /// Try files again that earlier runs failed on or found too long.
+    pub length: TrackLength,
+    /// Try files again that earlier runs failed on or rejected.
     pub retry_skipped: bool,
 }
 
@@ -62,26 +123,34 @@ fn index_asset(
     if store.has_current(asset, profile) {
         return Outcome::UpToDate;
     }
-    let max_track = options.max_track;
+    let length = options.length;
     if !options.retry_skipped
         && let Some(note) = store.skip_note(asset)
     {
         let still_applies = match note.reason {
             SkipReason::Failed(_) => true,
-            // A raised limit may admit the file now.
-            SkipReason::TooLong { limit_seconds } => max_track.as_secs_f64() <= limit_seconds,
+            // A widened range may admit the file now.
+            SkipReason::TooLong { limit } => length.max <= limit,
+            SkipReason::TooShort { limit } => length.min >= limit,
         };
         if still_applies {
             return Outcome::Remembered(note.reason);
         }
     }
-    // Decoding stops just past the limit, so a two-hour mix in the library
-    // costs little more than a long track.
+    let path = library.absolute_path(asset);
+    // A set in a folder of tracks is rejected from its header alone.
+    if let Some(reason) = declared_length(&path)
+        .and_then(|declared| length.rejects_beyond(declared, DECLARED_LENGTH_MARGIN))
+    {
+        remember(store, asset, reason.clone());
+        return Outcome::Rejected(reason);
+    }
+    // Decoding stops just past the limit, so a mix whose header declares no
+    // length costs little more than a long track.
     let excerpt = Excerpt {
         start: None,
-        duration: Some(max_track + Duration::from_secs(1)),
+        duration: Some(length.max + Duration::from_secs(1)),
     };
-    let path = library.absolute_path(asset);
     let audio = match decode(&path, profile.sample_rate, excerpt) {
         Ok(audio) => audio,
         Err(error) => {
@@ -94,15 +163,9 @@ fn index_asset(
             return Outcome::Failed { reason };
         }
     };
-    if audio.duration() > max_track {
-        remember(
-            store,
-            asset,
-            SkipReason::TooLong {
-                limit_seconds: max_track.as_secs_f64(),
-            },
-        );
-        return Outcome::TooLong;
+    if let Some(reason) = length.rejects(audio.duration()) {
+        remember(store, asset, reason.clone());
+        return Outcome::Rejected(reason);
     }
     let record = PeakRecord {
         header: RecordHeader {
@@ -160,31 +223,40 @@ pub struct BuiltIndex {
     pub revision: String,
     /// Assets left out because they have no current peak record.
     pub problems: Vec<StoreError>,
+    /// Assets left out because their length is outside the track length
+    /// range, with that length.
+    pub outside: Vec<(String, Duration)>,
 }
 
-/// The index of the library's current peak records, leaving out the paths
-/// in `excluded`. It is built in two passes that read one record at a time
-/// from the store (`Index::counting`), so it needs little more memory than
-/// the index itself. Assets without a current record are left out and
-/// returned as problems rather than failing the build.
+/// The index of the library's current peak records within `length`,
+/// leaving out the paths in `excluded`. It is built in two passes that read
+/// one record at a time from the store (`Index::counting`), so it needs
+/// little more memory than the index itself. Assets without a current
+/// record are left out and returned as problems rather than failing the
+/// build.
 pub fn build_index(
     library: &Library,
     store: &PeakStore,
     profile: &Profile,
     excluded: &BTreeSet<String>,
+    length: TrackLength,
 ) -> Result<BuiltIndex, IndexError> {
     let mut counting = Index::counting();
     let mut indexed = Vec::new();
     let mut problems = Vec::new();
+    let mut outside = Vec::new();
     for asset in &library.assets {
         if excluded.contains(&asset.path) {
             continue;
         }
         match store.load(asset, profile) {
-            Ok(record) => {
-                counting.count(&record)?;
-                indexed.push(asset);
-            }
+            Ok(record) => match length.leaves_out(&record.header) {
+                Some(duration) => outside.push((asset.path.clone(), duration)),
+                None => {
+                    counting.count(&record)?;
+                    indexed.push(asset);
+                }
+            },
             Err(problem) => problems.push(problem),
         }
     }
@@ -199,6 +271,7 @@ pub fn build_index(
         index: filling.finish()?,
         revision: library_revision(indexed),
         problems,
+        outside,
     })
 }
 
@@ -210,11 +283,14 @@ pub fn indexable_assets<'a>(
     store: &'a PeakStore,
     profile: &'a Profile,
     excluded: &'a BTreeSet<String>,
+    length: TrackLength,
 ) -> impl Iterator<Item = &'a Asset> {
-    library
-        .assets
-        .iter()
-        .filter(|asset| !excluded.contains(&asset.path) && store.has_current(asset, profile))
+    library.assets.iter().filter(move |asset| {
+        !excluded.contains(&asset.path)
+            && store
+                .current_header(asset, profile)
+                .is_some_and(|header| length.leaves_out(&header).is_none())
+    })
 }
 
 /// A digest of the files an index is made from: each asset's path, size and
@@ -230,4 +306,55 @@ pub fn library_revision<'a>(assets: impl IntoIterator<Item = &'a Asset>) -> Stri
         bytes.extend(asset.modified.nanos.to_le_bytes());
     }
     format!("{:016x}", fnv1a(&bytes))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const LENGTH: TrackLength = TrackLength {
+        min: Duration::from_secs(90),
+        max: Duration::from_secs(900),
+    };
+
+    #[test]
+    fn a_track_length_rejects_samples_and_sets() {
+        assert_eq!(
+            LENGTH.rejects(Duration::from_secs(12)),
+            Some(SkipReason::TooShort {
+                limit: Duration::from_secs(90)
+            })
+        );
+        assert_eq!(
+            LENGTH.rejects(Duration::from_secs(3600)),
+            Some(SkipReason::TooLong {
+                limit: Duration::from_secs(900)
+            })
+        );
+        assert!(LENGTH.admits(Duration::from_secs(90)));
+        assert!(LENGTH.admits(Duration::from_secs(900)));
+        assert_eq!(LENGTH.to_string(), "1:30 to 15:00");
+    }
+
+    #[test]
+    fn a_declared_length_near_a_limit_does_not_decide() {
+        let near = [Duration::from_secs(85), Duration::from_secs(960)];
+        let far = [Duration::from_secs(80), Duration::from_secs(1000)];
+
+        for length in near {
+            assert_eq!(
+                LENGTH.rejects_beyond(length, DECLARED_LENGTH_MARGIN),
+                None,
+                "{length:?}"
+            );
+        }
+        for length in far {
+            assert!(
+                LENGTH
+                    .rejects_beyond(length, DECLARED_LENGTH_MARGIN)
+                    .is_some(),
+                "{length:?}"
+            );
+        }
+    }
 }

@@ -4,7 +4,7 @@ use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::{Duration, Instant};
 
-use gunfinger_core::indexing::{IndexingOptions, Outcome, index_library};
+use gunfinger_core::indexing::{IndexingOptions, Outcome, TrackLength, index_library};
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, SkipReason};
@@ -16,7 +16,7 @@ pub fn run(
     library_root: &Path,
     peaks_dir: &Path,
     jobs: usize,
-    max_track_minutes: u64,
+    track_length: TrackLength,
     retry_skipped: bool,
     console: &Console,
 ) -> miette::Result<()> {
@@ -27,11 +27,11 @@ pub fn run(
     let store = PeakStore::open(peaks_dir).into_diagnostic()?;
     let options = IndexingOptions {
         jobs,
-        max_track: Duration::from_secs(max_track_minutes * 60),
+        length: track_length,
         retry_skipped,
     };
     console.info(format_args!(
-        "indexing {} audio files from {} into {} with {} jobs",
+        "indexing {} audio files from {} into {} with {} jobs; tracks are {track_length}",
         library.assets.len(),
         library_root.display(),
         store.dir().display(),
@@ -55,8 +55,8 @@ pub fn run(
                     ));
                 }
                 Outcome::UpToDate | Outcome::Remembered(_) => {}
-                Outcome::TooLong => console.warning(format_args!(
-                    "[{count}/{total}] skipped {}: longer than {max_track_minutes} minutes",
+                Outcome::Rejected(reason) => console.info(format_args!(
+                    "[{count}/{total}] skipped {}: {reason}",
                     asset.path
                 )),
                 Outcome::Failed { reason } => {
@@ -81,22 +81,24 @@ fn print_summary(library: &Library, outcomes: &[Outcome], elapsed: Duration, con
         })
         .collect();
     console.info(format_args!(
-        "done in {:.1} s: {} extracted, {} up to date, {} too long, {} failed, {} passed over as before",
+        "done in {:.1} s: {} extracted, {} up to date, {} too short, {} too long, {} failed, {} passed over as before",
         elapsed.as_secs_f64(),
         count(|outcome| matches!(outcome, Outcome::Extracted { .. })),
         count(|outcome| matches!(outcome, Outcome::UpToDate)),
-        count(|outcome| matches!(outcome, Outcome::TooLong)),
+        count(|outcome| matches!(outcome, Outcome::Rejected(SkipReason::TooShort { .. }))),
+        count(|outcome| matches!(outcome, Outcome::Rejected(SkipReason::TooLong { .. }))),
         count(|outcome| matches!(outcome, Outcome::Failed { .. })),
         remembered.len(),
     ));
     if !remembered.is_empty() {
-        let failed = remembered
-            .iter()
-            .filter(|reason| matches!(reason, SkipReason::Failed(_)))
-            .count();
+        let earlier = |wanted: fn(&SkipReason) -> bool| {
+            remembered.iter().filter(|reason| wanted(reason)).count()
+        };
         console.info(format_args!(
-            "  {failed} failed and {} were too long in an earlier run and have not changed since; --retry-skipped tries them again",
-            remembered.len() - failed
+            "  {} failed, {} were too short and {} too long in an earlier run and have not changed since; --retry-skipped tries them again",
+            earlier(|reason| matches!(reason, SkipReason::Failed(_))),
+            earlier(|reason| matches!(reason, SkipReason::TooShort { .. })),
+            earlier(|reason| matches!(reason, SkipReason::TooLong { .. })),
         ));
     }
     if library.skipped_total() > 0 {

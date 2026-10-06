@@ -52,6 +52,18 @@ struct Cli {
     #[arg(long, global = true, env = "GUNFINGER_JOBS")]
     jobs: Option<NonZeroUsize>,
 
+    /// Library files shorter than this are samples or loops: `index` passes
+    /// over them and searches leave them out [default: `min_track` in the
+    /// configuration file, else none].
+    #[arg(long, global = true, value_parser = parse_timecode)]
+    min_track: Option<Duration>,
+
+    /// Library files longer than this are mixes or album rips: `index`
+    /// passes over them and searches leave them out [default: `max_track`
+    /// in the configuration file, else 20:00].
+    #[arg(long, global = true, value_parser = parse_timecode)]
+    max_track: Option<Duration>,
+
     /// When to colour human output [default: auto].
     #[arg(long, global = true, value_enum)]
     color: Option<ColorChoice>,
@@ -76,11 +88,8 @@ enum Command {
         /// Root directory of the library; asset identities are relative to it
         /// [default: `library` in the configuration file].
         library: Option<PathBuf>,
-        /// Files longer than this are mixes or album rips and are skipped.
-        #[arg(long, default_value_t = 20)]
-        max_track_minutes: u64,
-        /// Try files again that an earlier run failed on or found too long;
-        /// otherwise they are passed over until they change.
+        /// Try files again that an earlier run failed on or found too short
+        /// or too long; otherwise they are passed over until they change.
         #[arg(long)]
         retry_skipped: bool,
     },
@@ -246,6 +255,8 @@ fn main() -> miette::Result<()> {
         peaks_dir: cli.peaks_dir,
         jobs: cli.jobs,
         color: cli.color,
+        min_track: cli.min_track,
+        max_track: cli.max_track,
     })?;
     color_error_reports(settings.color);
     let verbosity = match (cli.quiet, cli.verbose) {
@@ -264,13 +275,12 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
     match command {
         Command::Index {
             library,
-            max_track_minutes,
             retry_skipped,
         } => index::run(
             &settings.library(library)?,
             peaks_dir,
             jobs,
-            max_track_minutes,
+            settings.track_length,
             retry_skipped,
             console,
         ),
@@ -290,6 +300,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             peaks_dir,
             excerpt: Excerpt { start, duration },
             playback: playback.unwrap_or(settings.playback),
+            track_length: settings.track_length,
             exclude_from: exclude_from.as_deref(),
             format,
             save_dir: save_dir.as_deref(),
@@ -312,6 +323,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             audio: &audio,
             library: &settings.library(library)?,
             peaks_dir,
+            track_length: settings.track_length,
             exclude_from: exclude_from.as_deref(),
             at,
             around,
@@ -382,9 +394,13 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             force,
             console,
         }),
-        Command::Stats { library, format } => {
-            stats::run(&settings.library(library)?, peaks_dir, format, console)
-        }
+        Command::Stats { library, format } => stats::run(
+            &settings.library(library)?,
+            peaks_dir,
+            settings.track_length,
+            format,
+            console,
+        ),
     }
 }
 
