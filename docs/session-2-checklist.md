@@ -20,13 +20,10 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Key-lock: measured (0009), key-locked rungs (0010); `identify
   --playback turntable|key-lock|both`, default unchanged. Cost on an idle
   machine still to be timed.
-- [~] Scale proxy with reversed copies. Code (uncommitted):
-  `crates/gunfinger-eval/src/synthetic.rs` (time-reversed copies stretched
-  in time and frequency, up to 121), `--synthetic-copies N` on `robust` and
-  `scan` (scan report `scale-scan-<set>-copies-N.json`, never read by
-  calibrate). Queued by `work/scripts/queue-after-both.sh` (waits for the
-  combined-ladder run): related, clusters check, then robust control and
-  dev scan at 10, 30, 100 copies; logs `work/logs/scale-*`.
+- [x] Scale proxy with reversed copies (experiment 0012): chance grows
+  slowly up to 21,109 assets; the scan at 100 copies swapped and was
+  stopped. Idle timings at 0/10/30 copies come from queue-2 (for 0013).
+- [x] Summed play evidence, offline null (experiment 0011): no change.
 - [~] Lookup-cost levers: `Index::without_fullest(share)` and
   `--drop-fullest` on robust and scan (uncommitted). Queued in
   `work/scripts/queue-2.sh` (starts after the scale queue): regress with
