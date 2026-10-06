@@ -6,27 +6,26 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use gunfinger_core::index::Index;
-use gunfinger_core::indexing::load_records;
+use gunfinger_core::indexing::build_index;
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::store::{PeakRecord, PeakStore, StoreError};
+use gunfinger_core::store::{PeakStore, StoreError};
 use miette::{IntoDiagnostic, WrapErr, miette};
 
 use crate::console::Console;
 
-/// The peak records of a library and the index built from them.
+/// The index of a library, built from its peak store.
 pub struct Catalog {
-    /// The library root, absolute when it can be resolved.
-    pub root: PathBuf,
+    pub library: Library,
     pub store: PeakStore,
-    pub records: Vec<PeakRecord>,
     pub index: Index,
 }
 
 impl Catalog {
-    /// Scans the library, loads the current peak record of every asset not
-    /// listed in `exclude_from`, and builds the index. Assets without a
-    /// current record are reported on stderr and left out.
+    /// Scans the library and builds the index from the current peak record
+    /// of every asset not listed in `exclude_from`, reading one record at a
+    /// time. Assets without a current record are reported on stderr and
+    /// left out.
     pub fn open(
         library_root: &Path,
         peaks_dir: &Path,
@@ -44,28 +43,27 @@ impl Catalog {
             Some(path) => read_exclusions(path)?,
             None => BTreeSet::new(),
         };
-        let (records, problems) = load_records(&library, &store, &Profile::CURRENT, &excluded);
+        let (index, problems) =
+            build_index(&library, &store, &Profile::CURRENT, &excluded).into_diagnostic()?;
         report_left_out(&problems, console);
-        if records.is_empty() {
+        if index.assets().is_empty() {
             return Err(miette!(
                 help = "run `gunfinger index {}` first",
                 "no indexed assets in {}",
                 library_root.display()
             ));
         }
-        let index = Index::build(&records).into_diagnostic()?;
         console.detail(format_args!(
             "index: {} assets ({} excluded), {} postings, {:.1} MB, built in {:.1} s",
-            records.len(),
+            index.assets().len(),
             excluded.len(),
             index.posting_count(),
             index.size_bytes() as f64 / 1e6,
             started.elapsed().as_secs_f64()
         ));
         Ok(Catalog {
-            root: absolute(library_root),
+            library,
             store,
-            records,
             index,
         })
     }

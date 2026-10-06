@@ -12,7 +12,7 @@ use gunfinger_core::speed;
 use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::{Deserialize, Serialize};
 
-use crate::catalog::Catalog;
+use crate::catalog::{Catalog, absolute};
 use crate::playback::PlaybackChoice;
 
 /// Version 3 merged plays of the same audio; fields may be added without a
@@ -154,7 +154,7 @@ impl Report {
                 duration_seconds: duration.as_secs_f64(),
                 playback: Some(playback),
             },
-            library: catalog.root.clone(),
+            library: absolute(&catalog.library.root),
             plays,
         }
     }

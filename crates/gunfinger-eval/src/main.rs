@@ -7,6 +7,7 @@ mod calibrate;
 mod clusters;
 mod hash_cost;
 mod manifest;
+mod memory;
 mod regress;
 mod related;
 mod render;
@@ -37,6 +38,10 @@ use crate::scan::LeaveOut;
 struct Cli {
     #[command(flatten)]
     paths: Paths,
+
+    /// Worker threads [default: one per core].
+    #[arg(long, global = true)]
+    jobs: Option<NonZeroUsize>,
 
     #[command(subcommand)]
     command: Command,
@@ -129,6 +134,22 @@ enum Command {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
     },
+    /// Measure resident memory after loading the peak records, building the
+    /// index and searching a set's audio, the way `identify` does; with
+    /// `--synthetic-copies`, on the scale proxy. Run under
+    /// `/usr/bin/time -l` for the kernel's peak.
+    Memory {
+        #[arg(long, default_value = "stakka-skynet-knowledge")]
+        set: String,
+        #[arg(long, default_value_t = 0)]
+        synthetic_copies: usize,
+        /// Stop after this phase.
+        #[arg(long, value_enum, default_value_t = memory::Phase::Searched)]
+        until: memory::Phase,
+        /// Search only this many minutes from the start of the set's audio.
+        #[arg(long)]
+        minutes: Option<u64>,
+    },
     /// Rerun the standard evaluation and report what changed against a
     /// saved baseline.
     Regress {
@@ -145,8 +166,13 @@ enum Command {
 }
 
 fn main() -> ExitCode {
-    let Cli { paths, command } = Cli::parse();
-    match run(&paths, command) {
+    let Cli {
+        paths,
+        jobs,
+        command,
+    } = Cli::parse();
+    let jobs = jobs.map_or_else(available_parallelism, NonZeroUsize::get);
+    match run(&paths, jobs, command) {
         Ok(()) => ExitCode::SUCCESS,
         Err(message) => {
             eprintln!("error: {message}");
@@ -155,7 +181,7 @@ fn main() -> ExitCode {
     }
 }
 
-fn run(paths: &Paths, command: Command) -> Result<(), String> {
+fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     match command {
         Command::Validate => manifest::validate_all(&paths.sets(), &paths.library()?),
         Command::Survival { assets } => {
@@ -167,21 +193,17 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             &paths.clusters()?,
             seed,
             &paths.work,
-            jobs(),
+            jobs,
         ),
-        Command::Clusters => find_clusters(paths),
+        Command::Clusters => find_clusters(paths, jobs),
         Command::Related => {
-            let related = related::find(
-                &paths.library()?,
-                &paths.store()?,
-                &paths.clusters()?,
-                jobs(),
-            )?;
+            let related =
+                related::find(&paths.library()?, &paths.store()?, &paths.clusters()?, jobs)?;
             write_json(&paths.reports().join("related-recordings.json"), &related)?;
             related::print_summary(&related);
             Ok(())
         }
-        Command::Sweep { seed } => run_sweep(paths, seed),
+        Command::Sweep { seed } => run_sweep(paths, seed, jobs),
         Command::Scan {
             set,
             leave_out,
@@ -192,13 +214,14 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             &set,
             leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
             &variant,
+            jobs,
         ),
         Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
         Command::Robust {
             seed,
             only,
             variant,
-        } => run_robust(paths, seed, &only, &variant),
+        } => run_robust(paths, seed, &only, &variant, jobs),
         Command::Baseline { name, set, seed } => {
             regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
         }
@@ -209,9 +232,38 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             seed,
         } => {
             if !no_rerun {
-                run_standard_evaluation(paths, &set, seed)?;
+                run_standard_evaluation(paths, &set, seed, jobs)?;
             }
             regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
+        }
+        Command::Memory {
+            set,
+            synthetic_copies,
+            until,
+            minutes,
+        } => {
+            let report = memory::run(
+                &paths.sets(),
+                &paths.library()?,
+                &paths.store()?,
+                &memory::Options {
+                    set: &set,
+                    synthetic_copies,
+                    until,
+                    minutes,
+                    ladder: &paths.ladder.rungs(),
+                    jobs,
+                },
+            )?;
+            write_json(
+                &paths.work.join("memory").join(format!(
+                    "memory-copies-{synthetic_copies}-jobs-{jobs}-until-{}.json",
+                    format!("{until:?}").to_lowercase()
+                )),
+                &report,
+            )?;
+            memory::print_summary(&report);
+            Ok(())
         }
     }
 }
@@ -293,6 +345,7 @@ fn run_robust(
     seed: u64,
     only: &[String],
     variant: &IndexVariant,
+    jobs: usize,
 ) -> Result<(), String> {
     let ladder = paths.ladder;
     variant.check()?;
@@ -308,7 +361,7 @@ fn run_robust(
             ladder: &ladder.rungs(),
             synthetic_copies: variant.synthetic_copies,
             drop_fullest: variant.drop_fullest,
-            jobs: jobs(),
+            jobs,
         },
     )?;
     let suffix = variant.suffix();
@@ -323,28 +376,29 @@ fn run_robust(
 }
 
 /// The sweep, the development scan and its leave-outs.
-fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64) -> Result<(), String> {
-    run_sweep(paths, seed)?;
-    run_scan(paths, set, None, &UNCHANGED_INDEX)?;
+fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> Result<(), String> {
+    run_sweep(paths, seed, jobs)?;
+    run_scan(paths, set, None, &UNCHANGED_INDEX, jobs)?;
     for count in regress::LEAVE_OUTS {
         run_scan(
             paths,
             set,
             Some(&LeaveOut { count, seed }),
             &UNCHANGED_INDEX,
+            jobs,
         )?;
     }
     Ok(())
 }
 
-fn find_clusters(paths: &Paths) -> Result<(), String> {
-    let clusters = clusters::find(&paths.library()?, &paths.store()?, jobs())?;
+fn find_clusters(paths: &Paths, jobs: usize) -> Result<(), String> {
+    let clusters = clusters::find(&paths.library()?, &paths.store()?, jobs)?;
     write_json(&paths.clusters_file(), &clusters)?;
     clusters::print_summary(&clusters);
     Ok(())
 }
 
-fn run_sweep(paths: &Paths, seed: u64) -> Result<(), String> {
+fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
     let report = sweep::run(
         &paths.library()?,
         &paths.store()?,
@@ -352,7 +406,7 @@ fn run_sweep(paths: &Paths, seed: u64) -> Result<(), String> {
         &paths.work,
         seed,
         &paths.ladder.rungs(),
-        jobs(),
+        jobs,
     )?;
     write_json(
         &paths.reports().join(format!("sweep-seed-{seed}.json")),
@@ -367,6 +421,7 @@ fn run_scan(
     set: &str,
     leave_out: Option<&LeaveOut>,
     variant: &IndexVariant,
+    jobs: usize,
 ) -> Result<(), String> {
     variant.check()?;
     let report = scan::run(
@@ -380,7 +435,7 @@ fn run_scan(
             synthetic_copies: variant.synthetic_copies,
             drop_fullest: variant.drop_fullest,
             ladder: &paths.ladder.rungs(),
-            jobs: jobs(),
+            jobs,
         },
     )?;
     let suffix = variant.suffix();
@@ -434,8 +489,8 @@ impl Paths {
     }
 }
 
-/// Worker threads: one per core.
-fn jobs() -> usize {
+/// One worker thread per core.
+fn available_parallelism() -> usize {
     std::thread::available_parallelism().map_or(1, NonZeroUsize::get)
 }
 

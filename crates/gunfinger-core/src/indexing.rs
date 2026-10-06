@@ -4,6 +4,7 @@ use std::collections::BTreeSet;
 use std::time::Duration;
 
 use crate::decode::{Excerpt, decode};
+use crate::index::{Index, IndexError};
 use crate::library::{Asset, Library};
 use crate::parallel::map_in_order;
 use crate::peaks::extract_peaks;
@@ -150,4 +151,40 @@ pub fn load_records(
         }
     }
     (records, problems)
+}
+
+/// The index of the library's current peak records, leaving out the paths
+/// in `excluded`. It is built in two passes that read one record at a time
+/// from the store (`Index::counting`), so it needs little more memory than
+/// the index itself. Assets without a current record are left out and
+/// returned as problems rather than failing the build.
+pub fn build_index(
+    library: &Library,
+    store: &PeakStore,
+    profile: &Profile,
+    excluded: &BTreeSet<String>,
+) -> Result<(Index, Vec<StoreError>), IndexError> {
+    let mut counting = Index::counting();
+    let mut indexed = Vec::new();
+    let mut problems = Vec::new();
+    for asset in &library.assets {
+        if excluded.contains(&asset.path) {
+            continue;
+        }
+        match store.load(asset, profile) {
+            Ok(record) => {
+                counting.count(&record)?;
+                indexed.push(asset);
+            }
+            Err(problem) => problems.push(problem),
+        }
+    }
+    let mut filling = counting.into_filling();
+    for asset in indexed {
+        let record = store
+            .load(asset, profile)
+            .map_err(|_| IndexError::Changed)?;
+        filling.fill(&record)?;
+    }
+    Ok((filling.finish()?, problems))
 }
