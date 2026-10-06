@@ -97,11 +97,10 @@ enum Command {
         /// Seed for choosing the tracks to leave out.
         #[arg(long, default_value_t = 2026)]
         seed: u64,
-        /// Add this many time-reversed, stretched copies of every indexed
-        /// record to the index, to measure a larger library. The report is
-        /// named `scale-scan-...` so that calibrate never reads it.
-        #[arg(long, default_value_t = 0)]
-        synthetic_copies: usize,
+        /// A changed index; the report is then named `scale-scan-...` so
+        /// that calibrate and regress never read it.
+        #[command(flatten)]
+        variant: IndexVariant,
     },
     /// Report the confidence margin from the sweep and development reports.
     Calibrate {
@@ -118,10 +117,8 @@ enum Command {
         /// Run only these conditions (and the control), by name.
         #[arg(long, value_delimiter = ',')]
         only: Vec<String>,
-        /// Add this many time-reversed, stretched copies of every indexed
-        /// record to the index.
-        #[arg(long, default_value_t = 0)]
-        synthetic_copies: usize,
+        #[command(flatten)]
+        variant: IndexVariant,
     },
     /// Save the reports of the standard evaluation (sweep, development scan
     /// and leave-outs) as a named baseline under `work/baselines/`.
@@ -189,19 +186,19 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             set,
             leave_out,
             seed,
-            synthetic_copies,
+            variant,
         } => run_scan(
             paths,
             &set,
             leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
-            synthetic_copies,
+            &variant,
         ),
         Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
         Command::Robust {
             seed,
             only,
-            synthetic_copies,
-        } => run_robust(paths, seed, &only, synthetic_copies),
+            variant,
+        } => run_robust(paths, seed, &only, &variant),
         Command::Baseline { name, set, seed } => {
             regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
         }
@@ -246,14 +243,59 @@ impl Ladder {
     }
 }
 
+/// Changes to the index for scale and cost experiments.
+#[derive(clap::Args)]
+struct IndexVariant {
+    /// Add this many time-reversed, stretched copies of every indexed record
+    /// to the index, to measure a larger library.
+    #[arg(long, default_value_t = 0)]
+    synthetic_copies: usize,
+    /// Empty this share of the fullest posting lists (0.01 is the fullest
+    /// 1%), to measure what common hashes cost and contribute.
+    #[arg(long, default_value_t = 0.0)]
+    drop_fullest: f64,
+}
+
+impl IndexVariant {
+    fn check(&self) -> Result<(), String> {
+        if self.synthetic_copies > synthetic::MAX_COPIES {
+            return Err(format!(
+                "at most {} synthetic copies are distinct",
+                synthetic::MAX_COPIES
+            ));
+        }
+        if !(0.0..1.0).contains(&self.drop_fullest) {
+            return Err(String::from("--drop-fullest is a share below 1"));
+        }
+        Ok(())
+    }
+
+    /// Report name suffix; empty for the unchanged index.
+    fn suffix(&self) -> String {
+        let mut suffix = String::new();
+        if self.synthetic_copies > 0 {
+            suffix.push_str(&format!("-copies-{}", self.synthetic_copies));
+        }
+        if self.drop_fullest > 0.0 {
+            suffix.push_str(&format!("-drop-{}", self.drop_fullest));
+        }
+        suffix
+    }
+}
+
+const UNCHANGED_INDEX: IndexVariant = IndexVariant {
+    synthetic_copies: 0,
+    drop_fullest: 0.0,
+};
+
 fn run_robust(
     paths: &Paths,
     seed: u64,
     only: &[String],
-    synthetic_copies: usize,
+    variant: &IndexVariant,
 ) -> Result<(), String> {
     let ladder = paths.ladder;
-    check_copies(synthetic_copies)?;
+    variant.check()?;
     let report = robust::run(
         &paths.library()?,
         &paths.store()?,
@@ -264,15 +306,12 @@ fn run_robust(
             only,
             ladder_name: ladder.name(),
             ladder: &ladder.rungs(),
-            synthetic_copies,
+            synthetic_copies: variant.synthetic_copies,
+            drop_fullest: variant.drop_fullest,
             jobs: jobs(),
         },
     )?;
-    let suffix = if synthetic_copies > 0 {
-        format!("-copies-{synthetic_copies}")
-    } else {
-        String::new()
-    };
+    let suffix = variant.suffix();
     write_json(
         &paths
             .reports()
@@ -286,9 +325,14 @@ fn run_robust(
 /// The sweep, the development scan and its leave-outs.
 fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64) -> Result<(), String> {
     run_sweep(paths, seed)?;
-    run_scan(paths, set, None, 0)?;
+    run_scan(paths, set, None, &UNCHANGED_INDEX)?;
     for count in regress::LEAVE_OUTS {
-        run_scan(paths, set, Some(&LeaveOut { count, seed }), 0)?;
+        run_scan(
+            paths,
+            set,
+            Some(&LeaveOut { count, seed }),
+            &UNCHANGED_INDEX,
+        )?;
     }
     Ok(())
 }
@@ -318,23 +362,13 @@ fn run_sweep(paths: &Paths, seed: u64) -> Result<(), String> {
     Ok(())
 }
 
-fn check_copies(synthetic_copies: usize) -> Result<(), String> {
-    if synthetic_copies > synthetic::MAX_COPIES {
-        return Err(format!(
-            "at most {} synthetic copies are distinct",
-            synthetic::MAX_COPIES
-        ));
-    }
-    Ok(())
-}
-
 fn run_scan(
     paths: &Paths,
     set: &str,
     leave_out: Option<&LeaveOut>,
-    synthetic_copies: usize,
+    variant: &IndexVariant,
 ) -> Result<(), String> {
-    check_copies(synthetic_copies)?;
+    variant.check()?;
     let report = scan::run(
         &paths.sets(),
         set,
@@ -343,13 +377,15 @@ fn run_scan(
         &paths.clusters()?,
         &scan::Options {
             leave_out,
-            synthetic_copies,
+            synthetic_copies: variant.synthetic_copies,
+            drop_fullest: variant.drop_fullest,
             ladder: &paths.ladder.rungs(),
             jobs: jobs(),
         },
     )?;
+    let suffix = variant.suffix();
     let name = match leave_out {
-        _ if synthetic_copies > 0 => format!("scale-scan-{set}-copies-{synthetic_copies}.json"),
+        _ if !suffix.is_empty() => format!("scale-scan-{set}{suffix}.json"),
         Some(leave_out) => format!(
             "scan-{set}-leave-out-{}-seed-{}.json",
             leave_out.count, leave_out.seed

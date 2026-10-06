@@ -9,6 +9,7 @@
       "share_in_fullest_percent": 20.028743060898883,
       "query_hashes_per_second": 37.53,
       "lookups_per_second": 2155.7116666666666,
+      "lookups_per_second_fullest_dropped": 675.5066666666667,
       "aligned_per_second_on_rung": 21.1175,
       "aligned_per_second_between_rungs": 13.109791666666666
     },
@@ -20,6 +21,7 @@
       "share_in_fullest_percent": 16.31620536008253,
       "query_hashes_per_second": 74.84833333333333,
       "lookups_per_second": 4834.589166666667,
+      "lookups_per_second_fullest_dropped": 1852.8933333333334,
       "aligned_per_second_on_rung": 44.80291666666667,
       "aligned_per_second_between_rungs": 28.6
     },
@@ -31,6 +33,7 @@
       "share_in_fullest_percent": 13.999179336621049,
       "query_hashes_per_second": 111.75916666666667,
       "lookups_per_second": 7580.829166666666,
+      "lookups_per_second_fullest_dropped": 3538.8741666666665,
       "aligned_per_second_on_rung": 68.93166666666667,
       "aligned_per_second_between_rungs": 44.567083333333336
     },
@@ -42,6 +45,7 @@
       "share_in_fullest_percent": 7.996913493501218,
       "query_hashes_per_second": 37.318333333333335,
       "lookups_per_second": 60.81375,
+      "lookups_per_second_fullest_dropped": 26.539583333333333,
       "aligned_per_second_on_rung": 14.612083333333333,
       "aligned_per_second_between_rungs": 6.998958333333333
     },
@@ -53,6 +57,7 @@
       "share_in_fullest_percent": 8.172629124958224,
       "query_hashes_per_second": 111.14,
       "lookups_per_second": 196.83625,
+      "lookups_per_second_fullest_dropped": 92.61166666666666,
       "aligned_per_second_on_rung": 46.49666666666667,
       "aligned_per_second_between_rungs": 22.906041666666667
     }

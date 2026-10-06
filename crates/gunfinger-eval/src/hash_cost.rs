@@ -84,6 +84,9 @@ struct LibraryRow {
     /// On the control excerpts.
     query_hashes_per_second: f64,
     lookups_per_second: f64,
+    /// With the fullest 1% of distinct hashes emptied, as
+    /// `Index::without_fullest(0.01)` does (experiment 0013).
+    lookups_per_second_fullest_dropped: f64,
     aligned_per_second_on_rung: f64,
     aligned_per_second_between_rungs: f64,
 }
@@ -100,6 +103,7 @@ struct ConditionRow {
 struct Counts {
     query_hashes: u64,
     lookups: u64,
+    lookups_fullest_dropped: u64,
     on_rung: u64,
     between_rungs: u64,
 }
@@ -136,6 +140,7 @@ pub fn run(
         }
         counts
     });
+    let longest_kept: Vec<u32> = library_hashes.iter().map(longest_kept).collect();
 
     let dir = work.join("robust").join(format!("seed-{seed}"));
     let mut excerpts = Vec::new();
@@ -164,7 +169,13 @@ pub fn run(
             .ok_or_else(|| format!("{} has no peak record", excerpt.draw.asset))?;
         let audio = decode(&excerpt.path, profile.sample_rate, Excerpt::default())
             .map_err(|error| error.to_string())?;
-        Ok(measure(excerpt, record, &audio.samples, &library_hashes))
+        Ok(measure(
+            excerpt,
+            record,
+            &audio.samples,
+            &library_hashes,
+            &longest_kept,
+        ))
     });
     let measured = measured.into_iter().collect::<Result<Vec<_>, String>>()?;
 
@@ -176,6 +187,7 @@ pub fn run(
                 for (sum, count) in sums.iter_mut().zip(counts) {
                     sum.query_hashes += count.query_hashes;
                     sum.lookups += count.lookups;
+                    sum.lookups_fullest_dropped += count.lookups_fullest_dropped;
                     sum.on_rung += count.on_rung;
                     sum.between_rungs += count.between_rungs;
                 }
@@ -257,11 +269,20 @@ fn for_each_hash(points: &[Point], hashing: Hashing, mut emit: impl FnMut(u64, u
     }
 }
 
+/// The longest posting list `Index::without_fullest(0.01)` keeps.
+fn longest_kept(counts: &HashMap<u64, u32>) -> u32 {
+    let mut lengths: Vec<u32> = counts.values().copied().collect();
+    lengths.sort_unstable_by(|a, b| b.cmp(a));
+    let dropped = (0.01 * lengths.len() as f64).round() as usize;
+    lengths.get(dropped).copied().unwrap_or(0)
+}
+
 fn measure(
     excerpt: &Excerpt30,
     record: &PeakRecord,
     samples: &[f32],
     library_hashes: &[HashMap<u64, u32>],
+    longest_kept: &[u32],
 ) -> Vec<Counts> {
     let profile = Profile::CURRENT;
     let start_frame = profile.frames(excerpt.draw.start_seconds);
@@ -286,7 +307,8 @@ fn measure(
     HASHINGS
         .iter()
         .zip(library_hashes)
-        .map(|(&hashing, library)| {
+        .zip(longest_kept)
+        .map(|((&hashing, library), &longest_kept)| {
             let mut frames_of: HashMap<u64, Vec<f64>> = HashMap::new();
             for_each_hash(&reference, hashing, |hash, anchor| {
                 frames_of
@@ -306,7 +328,11 @@ fn measure(
                     });
                     if *residual == 0.0 {
                         counts.query_hashes += 1;
-                        counts.lookups += u64::from(library.get(&hash).copied().unwrap_or(0));
+                        let postings = library.get(&hash).copied().unwrap_or(0);
+                        counts.lookups += u64::from(postings);
+                        if postings <= longest_kept {
+                            counts.lookups_fullest_dropped += u64::from(postings);
+                        }
                         counts.on_rung += u64::from(aligned);
                     } else {
                         counts.between_rungs += u64::from(aligned);
@@ -341,6 +367,7 @@ fn library_row(
         share_in_fullest_percent: 100.0 * fullest as f64 / postings as f64,
         query_hashes_per_second: control.query_hashes as f64 / query_seconds,
         lookups_per_second: control.lookups as f64 / query_seconds,
+        lookups_per_second_fullest_dropped: control.lookups_fullest_dropped as f64 / query_seconds,
         aligned_per_second_on_rung: control.on_rung as f64 / query_seconds,
         aligned_per_second_between_rungs: control.between_rungs as f64 / (2.0 * query_seconds),
     }
@@ -348,7 +375,7 @@ fn library_row(
 
 fn print(report: &Report) {
     println!(
-        "{:<12} {:>7} {:>9} {:>6} {:>6} {:>8} {:>9} {:>7} {:>7}",
+        "{:<12} {:>7} {:>9} {:>6} {:>6} {:>8} {:>9} {:>9} {:>7} {:>7}",
         "hashing",
         "post/s",
         "distinct",
@@ -356,12 +383,13 @@ fn print(report: &Report) {
         "top1%",
         "query/s",
         "lookups/s",
+        "w/o top1%",
         "true/s",
         "between"
     );
     for row in &report.hashings {
         println!(
-            "{:<12} {:>7.1} {:>9} {:>6.1} {:>5.1}% {:>8.1} {:>9.0} {:>7.1} {:>7.1}",
+            "{:<12} {:>7.1} {:>9} {:>6.1} {:>5.1}% {:>8.1} {:>9.0} {:>9.0} {:>7.1} {:>7.1}",
             row.hashing,
             row.postings_per_second,
             row.distinct_hashes,
@@ -369,6 +397,7 @@ fn print(report: &Report) {
             row.share_in_fullest_percent,
             row.query_hashes_per_second,
             row.lookups_per_second,
+            row.lookups_per_second_fullest_dropped,
             row.aligned_per_second_on_rung,
             row.aligned_per_second_between_rungs
         );

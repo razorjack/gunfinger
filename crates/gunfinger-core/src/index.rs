@@ -145,6 +145,39 @@ impl Index {
             .map(|pair| &self.postings[pair[0] as usize..pair[1] as usize])
     }
 
+    /// Empties the posting lists of the most common hashes: the `share` of
+    /// non-empty lists with the most postings (ties at the cut are kept).
+    /// Such hashes occur all over the library, so they cost the most
+    /// lookups and tell assets apart the least.
+    pub fn without_fullest(self, share: f64) -> Index {
+        let mut lengths: Vec<u32> = self
+            .offsets
+            .windows(2)
+            .map(|pair| pair[1] - pair[0])
+            .filter(|&length| length > 0)
+            .collect();
+        let dropped = (share * lengths.len() as f64).round() as usize;
+        if dropped == 0 {
+            return self;
+        }
+        lengths.sort_unstable_by(|a, b| b.cmp(a));
+        let longest_kept = lengths.get(dropped).copied().unwrap_or(0);
+        let mut offsets = Vec::with_capacity(self.offsets.len());
+        let mut postings = Vec::new();
+        offsets.push(0);
+        for list in self.posting_lists() {
+            if list.len() as u32 <= longest_kept {
+                postings.extend_from_slice(list);
+            }
+            offsets.push(postings.len() as u32);
+        }
+        Index {
+            assets: self.assets,
+            offsets,
+            postings,
+        }
+    }
+
     /// Bytes the index occupies: the offsets table and the postings.
     pub fn size_bytes(&self) -> usize {
         size_of_val(self.offsets.as_slice()) + size_of_val(self.postings.as_slice())
@@ -217,6 +250,28 @@ mod tests {
         assert_eq!(found, [(AssetId(0), 10), (AssetId(1), 500)]);
         assert_eq!(index.posting_count(), 1 + hashes_of(&second).len());
         assert_eq!(index.asset(AssetId(1)).path, "b.mp3");
+    }
+
+    #[test]
+    fn dropping_the_fullest_lists_empties_the_common_hash_only() {
+        let first = [(10.0, 100.0), (20.0, 110.0)];
+        let second = [
+            (500.2, 100.0),
+            (509.8, 110.0),
+            (900.0, 300.0),
+            (920.0, 300.0),
+        ];
+        let index = Index::build(&[record("a.mp3", &first), record("b.mp3", &second)]).unwrap();
+        let lists = index
+            .posting_lists()
+            .filter(|list| !list.is_empty())
+            .count();
+        let before = index.posting_count();
+
+        let thinned = index.without_fullest(1.0 / lists as f64);
+
+        assert!(thinned.postings(hashes_of(&first)[0]).is_empty());
+        assert_eq!(thinned.posting_count(), before - 2);
     }
 
     #[test]

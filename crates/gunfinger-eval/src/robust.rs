@@ -259,6 +259,8 @@ pub struct Options<'a> {
     pub ladder: &'a [Rung],
     /// Reversed copies of every indexed record added to the index.
     pub synthetic_copies: usize,
+    /// Share of the fullest posting lists emptied (`Index::without_fullest`).
+    pub drop_fullest: f64,
     pub jobs: usize,
 }
 
@@ -275,6 +277,7 @@ pub fn run(
         ladder_name,
         ladder,
         synthetic_copies,
+        drop_fullest,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
@@ -287,7 +290,9 @@ pub fn run(
         .collect();
     let copies = synthetic::copies(&indexed, synthetic_copies, &profile);
     indexed.extend(copies);
-    let index = Index::build(&indexed).map_err(|error| error.to_string())?;
+    let index = Index::build(&indexed)
+        .map_err(|error| error.to_string())?
+        .without_fullest(drop_fullest);
     drop(indexed);
     drop(records);
     let draws: Vec<&Draw> = plan

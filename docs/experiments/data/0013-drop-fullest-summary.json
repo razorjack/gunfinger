@@ -1,0 +1,189 @@
+{
+ "note": "Experiment 0013. Robust control, seed 2026; 'wrong' leaves out the Skynet & Stakka - Clockwork excerpt (remix listed apart). Search seconds are not comparable between rows (machine load varied).",
+ "robust": [
+  {
+   "dropped": "none",
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "own_hits_median": 858.0,
+   "own_hits_min": 654,
+   "wrong_median": 7.0,
+   "wrong_max": 29,
+   "held_out_max": 24,
+   "remix": [
+    93,
+    84
+   ]
+  },
+  {
+   "dropped": "0.001",
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "own_hits_median": 823.0,
+   "own_hits_min": 648,
+   "wrong_median": 7.0,
+   "wrong_max": 28,
+   "held_out_max": 24,
+   "remix": [
+    93,
+    83
+   ]
+  },
+  {
+   "dropped": "0.01",
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "own_hits_median": 715.0,
+   "own_hits_min": 611,
+   "wrong_median": 0.0,
+   "wrong_max": 11,
+   "held_out_max": 11,
+   "remix": [
+    65,
+    60
+   ]
+  },
+  {
+   "dropped": "0.05",
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "own_hits_median": 550.5,
+   "own_hits_min": 399,
+   "wrong_median": 0.0,
+   "wrong_max": 9,
+   "held_out_max": 9,
+   "remix": [
+    42,
+    41
+   ]
+  },
+  {
+   "dropped": "0.01 at 30 copies",
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "own_hits_median": 691.0,
+   "own_hits_min": 579,
+   "wrong_median": 8.0,
+   "wrong_max": 25,
+   "held_out_max": 15,
+   "remix": [
+    58,
+    55
+   ]
+  },
+  {
+   "dropped": "none at 30 copies",
+   "confident": 80,
+   "indexed_queries": 80,
+   "wrong_confident": 0,
+   "own_hits_median": 858.0,
+   "own_hits_min": 654,
+   "wrong_median": 10.0,
+   "wrong_max": 29,
+   "held_out_max": 24,
+   "remix": [
+    93,
+    84
+   ]
+  }
+ ],
+ "scan_drop_0.01": {
+  "identified": 11,
+  "wrong": 0,
+  "best_hits": {
+   "1. Skynet & Stakka - Night Lore": [
+    3694,
+    3068
+   ],
+   "2. Skynet & Stakka - Decoy": [
+    4733,
+    3524
+   ],
+   "3. Kemal & Rob Data - Star Trails": [
+    1839,
+    1579
+   ],
+   "4. Skynet & Stakka - Pathogen": [
+    2030,
+    1797
+   ],
+   "5. Skynet & Stakka - Clockwork": [
+    2651,
+    2162
+   ],
+   "6. Kraken - Side Effects (TeeBee Remix)": [
+    2237,
+    1986
+   ],
+   "7. Kraken - Dominion": [
+    3395,
+    2731
+   ],
+   "8. Kemal & Paul Reset - Kontempt": [
+    4464,
+    3510
+   ],
+   "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": [
+    4542,
+    3373
+   ],
+   "10. Skynet & Stakka - Logistics": [
+    5779,
+    4703
+   ],
+   "11. Stakka & K.Tee - Auto Ignition": [
+    4375,
+    3745
+   ]
+  },
+  "false_candidates_top": [
+   [
+    73,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    25,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    24,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    17,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    15,
+    "extra/aa-kemal-mechanizm-sour.mp3"
+   ]
+  ],
+  "false_candidates_top_before": [
+   [
+    91,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    45,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    35,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    28,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    22,
+    "extra/aa-kemal-mechanizm-sour.mp3"
+   ]
+  ]
+ }
+}

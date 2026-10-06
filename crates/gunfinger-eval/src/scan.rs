@@ -52,6 +52,8 @@ pub struct Options<'a> {
     /// Reversed copies of every indexed record added to the index
     /// (`synthetic`), to measure a larger library.
     pub synthetic_copies: usize,
+    /// Share of the fullest posting lists emptied (`Index::without_fullest`).
+    pub drop_fullest: f64,
     pub ladder: &'a [Rung],
     pub jobs: usize,
 }
@@ -67,6 +69,7 @@ pub fn run(
     let Options {
         leave_out,
         synthetic_copies,
+        drop_fullest,
         ladder,
         jobs,
     } = *options;
@@ -79,7 +82,9 @@ pub fn run(
     let (mut records, _) = load_records(library, store, &profile, &left_out_assets);
     let copies = synthetic::copies(&records, synthetic_copies, &profile);
     records.extend(copies);
-    let index = Index::build(&records).map_err(|error| error.to_string())?;
+    let index = Index::build(&records)
+        .map_err(|error| error.to_string())?
+        .without_fullest(drop_fullest);
     drop(records);
 
     let started = Instant::now();
