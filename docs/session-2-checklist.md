@@ -41,7 +41,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] `explain`
 - [x] `listen`
 - [x] Export formats (csv, cue, tracklist; `show` renders saved reports)
-- [ ] Batch identification
+- [x] Batch identification
 - [~] Completions, man page, `--quiet` (all done), progress
 - [x] Configuration file
 - [x] `doctor`

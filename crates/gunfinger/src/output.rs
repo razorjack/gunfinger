@@ -26,6 +26,16 @@ pub enum ReportFormat {
     Tracklist,
 }
 
+impl ReportFormat {
+    /// Formats that can follow one another on stdout under a header.
+    pub fn is_for_people(self) -> bool {
+        matches!(
+            self,
+            ReportFormat::Human | ReportFormat::Timeline | ReportFormat::Tracklist
+        )
+    }
+}
+
 /// `style` colours the human formats only.
 pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Result<String> {
     let name = |asset: &str| TrackName::from_tags(&report.library, asset);

@@ -264,3 +264,51 @@ fn prune_deletes_records_of_removed_files_only_when_asked() {
     );
     assert_eq!(records, 1, "only 1.wav's record is left");
 }
+
+#[test]
+fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("batch");
+    let track = Track::random(1, 30.0);
+    write_wav(
+        &dir.join("library/1.wav"),
+        &track.play(0.0, track.seconds, 1.0),
+    );
+    let mut mix = Mix::new(25.0);
+    mix.add(0.0, &track.play(3.0, 25.0, 1.02), 0.5);
+    for name in ["first.wav", "second.wav"] {
+        write_wav(&dir.join("mixes").join(name), mix.samples());
+    }
+    let library = dir.join("library");
+    let library = library.to_str().unwrap();
+    gunfinger(&dir, &["index", library]);
+    let mixes = [dir.join("mixes/first.wav"), dir.join("mixes/second.wav")];
+    let reports = dir.join("reports");
+    let batch = |dir: &Path| {
+        let mut args = vec!["identify"];
+        args.extend(mixes.iter().map(|mix| mix.to_str().unwrap()));
+        args.extend([
+            "--library",
+            library,
+            "--save-dir",
+            reports.to_str().unwrap(),
+        ]);
+        gunfinger(dir, &args)
+    };
+
+    let first = batch(&dir);
+    let second = batch(&dir);
+
+    let first = String::from_utf8_lossy(&first.stdout);
+    assert_eq!(first.matches("confident").count(), 2, "{first}");
+    for name in ["first.json", "second.json"] {
+        let report: Value =
+            serde_json::from_slice(&std::fs::read(reports.join(name)).unwrap()).unwrap();
+        assert_eq!(report["plays"][0]["asset"], "1.wav", "{name}: {report}");
+    }
+    assert!(
+        String::from_utf8_lossy(&second.stderr).contains("every recording already has a report")
+    );
+}
