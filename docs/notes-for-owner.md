@@ -86,13 +86,13 @@ shared breaks or remixes, so this is a lower bound; real false candidates
 is the case to measure when you add it.
 
 What did break: the development scan at 26,462 assets needed more memory
-than was free beside your open applications and swapped until I stopped
-it. At that size the on-disk index (ADR 0005) stops being optional.
+than was free beside your open applications; it swapped and was stopped
+before it finished. At that size the on-disk index (ADR 0005) stops being optional.
 
 ### Summing a play's segments is not worth it yet
 
 Experiment 0011 checked, on existing reports, what happens if a play's
-segments were added up. Summing every segment lets chance reach 109-125
+segments were added up. Summing every segment lets unrelated audio reach 109-125
 hits on long stretches; summing only segments of 60 hits or more creates no
 false group, but would not have helped any track we know about (Sin's two
 segments sum to 168, still under 200). No change.
