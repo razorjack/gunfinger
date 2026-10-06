@@ -2,7 +2,7 @@
 
 use std::collections::BTreeSet;
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use gunfinger_core::index::Index;
@@ -16,6 +16,8 @@ use crate::console::Console;
 
 /// The peak records of a library and the index built from them.
 pub struct Catalog {
+    /// The library root, absolute when it can be resolved.
+    pub root: PathBuf,
     pub store: PeakStore,
     pub records: Vec<PeakRecord>,
     pub index: Index,
@@ -70,11 +72,17 @@ impl Catalog {
             started.elapsed().as_secs_f64()
         ));
         Ok(Catalog {
+            root: absolute(library_root),
             store,
             records,
             index,
         })
     }
+}
+
+/// Reports outlive the working directory they were written in.
+pub fn absolute(path: &Path) -> PathBuf {
+    path.canonicalize().unwrap_or_else(|_| path.to_path_buf())
 }
 
 /// One asset path per line, relative to the library root. Blank lines and

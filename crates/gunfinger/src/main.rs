@@ -2,10 +2,16 @@
 
 mod catalog;
 mod console;
+mod export;
 mod identify;
 mod index;
+mod names;
+mod output;
+mod report;
 mod stats;
 mod style;
+mod table;
+mod timeline;
 
 use std::num::NonZeroUsize;
 use std::path::PathBuf;
@@ -15,6 +21,8 @@ use clap::{Parser, Subcommand, ValueEnum};
 use console::Console;
 use gunfinger_core::decode::Excerpt;
 use gunfinger_core::timecode::parse_timecode;
+use output::ReportFormat;
+use report::Report;
 use style::{ColorChoice, Style};
 
 /// Identify tracks from your own collection inside DJ mixes.
@@ -73,8 +81,16 @@ enum Command {
         #[arg(long)]
         exclude_from: Option<PathBuf>,
         /// Output format.
-        #[arg(long, value_enum, default_value_t = Format::Human)]
-        format: Format,
+        #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
+        format: ReportFormat,
+    },
+    /// Write a saved JSON report of `identify` in another format.
+    Show {
+        /// A report written by `identify --format json`.
+        report: PathBuf,
+        /// Output format.
+        #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
+        format: ReportFormat,
     },
     /// Measure the peak store and the index of a library.
     Stats {
@@ -126,6 +142,14 @@ fn main() -> miette::Result<()> {
             jobs,
             console: &console,
         }),
+        Command::Show { report, format } => {
+            let report = Report::read(&report)?;
+            print!(
+                "{}",
+                output::render(&report, format, Style::for_stdout(cli.color))?
+            );
+            Ok(())
+        }
         Command::Stats { library, format } => {
             stats::run(&library, &cli.peaks_dir, format, &console)
         }
