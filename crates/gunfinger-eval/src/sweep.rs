@@ -62,7 +62,7 @@ pub struct Query {
     pub detections: Vec<Outcome>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(PartialEq, Serialize, Deserialize)]
 pub struct Outcome {
     pub asset: String,
     /// Whether the asset is in the excerpt's own cluster.

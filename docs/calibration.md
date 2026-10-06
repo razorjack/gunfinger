@@ -34,6 +34,9 @@ gap between segments of a play, and the 90 s scoring tolerance.
 
 ## After indexing more tracks
 
+0. Before indexing, `gunfinger-eval baseline <name>` keeps the reports at
+   the old size; `gunfinger-eval regress <name> --no-rerun` after step 4
+   shows what moved.
 1. `gunfinger index <library>`, then `gunfinger-eval clusters` (new rips
    join clusters).
 2. `gunfinger-eval sweep --seed 2026`. The draw depends on the library, so

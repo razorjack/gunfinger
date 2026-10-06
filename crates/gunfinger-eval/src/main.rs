@@ -6,6 +6,7 @@
 mod calibrate;
 mod clusters;
 mod manifest;
+mod regress;
 mod render;
 mod rng;
 mod scan;
@@ -84,6 +85,28 @@ enum Command {
         #[arg(long, default_value = "stakka-skynet-knowledge")]
         set: String,
     },
+    /// Save the reports of the standard evaluation (sweep, development scan
+    /// and leave-outs) as a named baseline under `work/baselines/`.
+    Baseline {
+        name: String,
+        #[arg(long, default_value = "stakka-skynet-knowledge")]
+        set: String,
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+    },
+    /// Rerun the standard evaluation and report what changed against a
+    /// saved baseline.
+    Regress {
+        /// Name of the baseline under `work/baselines/`.
+        name: String,
+        /// Compare the existing reports without running the evaluation.
+        #[arg(long)]
+        no_rerun: bool,
+        #[arg(long, default_value = "stakka-skynet-knowledge")]
+        set: String,
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+    },
 }
 
 fn main() -> ExitCode {
@@ -115,7 +138,31 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
         ),
         Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
+        Command::Baseline { name, set, seed } => {
+            regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
+        }
+        Command::Regress {
+            name,
+            no_rerun,
+            set,
+            seed,
+        } => {
+            if !no_rerun {
+                run_standard_evaluation(paths, &set, seed)?;
+            }
+            regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
+        }
     }
+}
+
+/// The sweep, the development scan and its leave-outs.
+fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64) -> Result<(), String> {
+    run_sweep(paths, seed)?;
+    run_scan(paths, set, None)?;
+    for count in regress::LEAVE_OUTS {
+        run_scan(paths, set, Some(&LeaveOut { count, seed }))?;
+    }
+    Ok(())
 }
 
 fn find_clusters(paths: &Paths) -> Result<(), String> {
@@ -181,6 +228,10 @@ impl Paths {
 
     fn reports(&self) -> PathBuf {
         self.work.join("reports")
+    }
+
+    fn baseline(&self, name: &str) -> PathBuf {
+        self.work.join("baselines").join(name)
     }
 
     fn clusters_file(&self) -> PathBuf {

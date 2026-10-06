@@ -88,6 +88,8 @@ target/release/gunfinger-eval clusters                 # duplicate rips in the l
 target/release/gunfinger-eval sweep --seed 2026        # speed sweep
 target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
 target/release/gunfinger-eval calibrate                # confidence margin
+target/release/gunfinger-eval baseline <name>          # save the standard reports
+target/release/gunfinger-eval regress <name>           # rerun them and show what changed
 ```
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,

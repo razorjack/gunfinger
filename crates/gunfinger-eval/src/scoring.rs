@@ -23,7 +23,7 @@ use crate::manifest::{Set, Track};
 pub const TOLERANCE_SECONDS: f64 = 90.0;
 
 /// A detection as the scorer sees it.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Found {
     pub asset: String,
     pub start_seconds: f64,
