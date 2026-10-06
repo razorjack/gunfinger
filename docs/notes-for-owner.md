@@ -380,3 +380,33 @@ instead of 3.16. Nothing crosses either threshold, but the safety factors
 are thinner than a single draw suggested. If you have a minute, listen to
 whether `a-unknown-udfr014-(synthesis_vip)` and Muffler - Bleak share
 material; if they do, the 28 is a near-version, not chance.
+
+### The second pass with the common-hash filter: skip, do not drop
+
+The package in item 6 is the second pass plus the fullest 1% of posting
+lists set aside. I measured two forms of it (experiment 0026). *Drop*
+empties those lists, as in session 2. *Skip* leaves them out only while
+looking for candidates; the second pass still counts them. Over four sweep
+seeds and the development scans both pass the protocol (every sweep
+540/540, development 11/11, no wrong answer), and both cut false
+candidates by 94% and the development scan's detections from 6,114 to
+232. Drop also lowers own-track evidence to 72-96% of today's; skip keeps
+the second pass's evidence (85-117% of today's).
+
+The threshold comes from calibration data alone, by the rule in
+`docs/calibration.md` (about twice the strongest false candidate, well
+below the weakest identifying detection). The frozen 200 does not satisfy
+it for skip: the Clockwork remix reaches 119 hits there, because with the
+fullest lists skipped the first pass finds its shared passage (the one you
+confirmed by ear) as one chain, and the second pass counts all of it. The
+opt-in second pass's rule is therefore now 240 hits in 3 windows (possible
+tier unchanged at 60). It sits 2.0-2.6 times above the strongest false
+candidate and 2.2-2.8 times below the weakest identifying detection for
+all three second-pass variants. Default detection is unchanged (`regress`:
+identical).
+
+What 240 means for the test set is an inference, not a measurement: Sick
+Note had 209 hits there. On the development mix the second pass changes
+own hits by -15% to +17%, so Sick Note would most likely be shown as
+possible, not confident, under any second-pass variant at 240. Only a
+test-set evaluation would show it; I did not spend one.

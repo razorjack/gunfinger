@@ -1,0 +1,376 @@
+{
+ "description": "Experiment 0026: the second pass with the fullest 1% of posting lists dropped or skipped for candidates; both ladders; calibration and the protocol. File names only.",
+ "strongest_false_asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+ "threshold_bounds": {
+  "second_pass": [
+   194,
+   330
+  ],
+  "drop": [
+   182,
+   260
+  ],
+  "skip": [
+   238,
+   329
+  ]
+ },
+ "fitted_rule": {
+  "min_hits": 240,
+  "min_windows": 3,
+  "min_possible_hits": 60
+ },
+ "sweeps": "seeds 2026-2029: 540 of 540 recalled per seed and matcher, 0 wrong",
+ "calibrate_seed_2026_and_development_at_200": {
+  "default": {
+   "weakest": 501,
+   "strongest_false": 97,
+   "margin": 5.16,
+   "not_indexed": 19
+  },
+  "second_pass": {
+   "weakest": 680,
+   "strongest_false": 97,
+   "margin": 7.01,
+   "not_indexed": 20
+  },
+  "drop": {
+   "weakest": 605,
+   "strongest_false": 91,
+   "margin": 6.65,
+   "not_indexed": 16
+  },
+  "skip": {
+   "weakest": 680,
+   "strongest_false": 119,
+   "margin": 5.71,
+   "not_indexed": 20
+  }
+ },
+ "calibrate_four_seeds_and_development": {
+  "default": {
+   "identifying": 2179,
+   "false_candidates": 70506,
+   "false_at_30_or_more": 55,
+   "shown_as_possible": 20,
+   "weakest": 403,
+   "weakest_asset": "Fibre Optix - Sin.m4a",
+   "strongest_false": 97,
+   "margin": 4.15,
+   "not_indexed": 28,
+   "rule_hits": 200
+  },
+  "second_pass": {
+   "identifying": 2179,
+   "false_candidates": 70448,
+   "false_at_30_or_more": 56,
+   "shown_as_possible": 19,
+   "weakest": 660,
+   "weakest_asset": "extra/4. Illuminati - Melange.mp3",
+   "strongest_false": 97,
+   "margin": 6.8,
+   "not_indexed": 24,
+   "rule_hits": 240,
+   "threshold_over_strongest_false": 2.47,
+   "weakest_over_threshold": 2.75
+  },
+  "drop": {
+   "identifying": 2179,
+   "false_candidates": 4503,
+   "false_at_30_or_more": 12,
+   "shown_as_possible": 10,
+   "weakest": 520,
+   "weakest_asset": "extra/03-drumsound_and_future_tech-apocalypse_(original_mix).mp3",
+   "strongest_false": 91,
+   "margin": 5.71,
+   "not_indexed": 24,
+   "rule_hits": 240,
+   "threshold_over_strongest_false": 2.64,
+   "weakest_over_threshold": 2.17
+  },
+  "skip": {
+   "identifying": 2179,
+   "false_candidates": 4503,
+   "false_at_30_or_more": 41,
+   "shown_as_possible": 18,
+   "weakest": 658,
+   "weakest_asset": "extra/4. Illuminati - Melange.mp3",
+   "strongest_false": 119,
+   "margin": 5.53,
+   "not_indexed": 24,
+   "rule_hits": 240,
+   "threshold_over_strongest_false": 2.02,
+   "weakest_over_threshold": 2.74
+  }
+ },
+ "matchers": {
+  "default": {
+   "development_own_hits": {
+    "1. Skynet & Stakka - Night Lore": 3694,
+    "2. Skynet & Stakka - Decoy": 4733,
+    "3. Kemal & Rob Data - Star Trails": 1839,
+    "4. Skynet & Stakka - Pathogen": 2030,
+    "5. Skynet & Stakka - Clockwork": 2651,
+    "6. Kraken - Side Effects (TeeBee Remix)": 2241,
+    "7. Kraken - Dominion": 3395,
+    "8. Kemal & Paul Reset - Kontempt": 4464,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 4545,
+    "10. Skynet & Stakka - Logistics": 5779,
+    "11. Stakka & K.Tee - Auto Ignition": 4375
+   },
+   "development_own_hits_against_default": {
+    "1. Skynet & Stakka - Night Lore": 1.0,
+    "2. Skynet & Stakka - Decoy": 1.0,
+    "3. Kemal & Rob Data - Star Trails": 1.0,
+    "4. Skynet & Stakka - Pathogen": 1.0,
+    "5. Skynet & Stakka - Clockwork": 1.0,
+    "6. Kraken - Side Effects (TeeBee Remix)": 1.0,
+    "7. Kraken - Dominion": 1.0,
+    "8. Kemal & Paul Reset - Kontempt": 1.0,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 1.0,
+    "10. Skynet & Stakka - Logistics": 1.0,
+    "11. Stakka & K.Tee - Auto Ignition": 1.0
+   },
+   "development_detections": 6114,
+   "mixes": {
+    "confident": 107,
+    "possible": 8,
+    "confident_at_240": 107,
+    "strongest_false": 46
+   },
+   "grid": {
+    "10 s": {
+     "confident": 8,
+     "confident_at_240": 8,
+     "of": 160
+    },
+    "15 s": {
+     "confident": 76,
+     "confident_at_240": 76,
+     "of": 160
+    },
+    "20 s": {
+     "confident": 148,
+     "confident_at_240": 148,
+     "of": 160
+    },
+    "25 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "30 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "40 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    }
+   }
+  },
+  "second_pass": {
+   "development_own_hits": {
+    "1. Skynet & Stakka - Night Lore": 3832,
+    "2. Skynet & Stakka - Decoy": 4888,
+    "3. Kemal & Rob Data - Star Trails": 1557,
+    "4. Skynet & Stakka - Pathogen": 2048,
+    "5. Skynet & Stakka - Clockwork": 3112,
+    "6. Kraken - Side Effects (TeeBee Remix)": 2235,
+    "7. Kraken - Dominion": 3514,
+    "8. Kemal & Paul Reset - Kontempt": 4453,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 4923,
+    "10. Skynet & Stakka - Logistics": 6425,
+    "11. Stakka & K.Tee - Auto Ignition": 4742
+   },
+   "development_own_hits_against_default": {
+    "1. Skynet & Stakka - Night Lore": 1.04,
+    "2. Skynet & Stakka - Decoy": 1.03,
+    "3. Kemal & Rob Data - Star Trails": 0.85,
+    "4. Skynet & Stakka - Pathogen": 1.01,
+    "5. Skynet & Stakka - Clockwork": 1.17,
+    "6. Kraken - Side Effects (TeeBee Remix)": 1.0,
+    "7. Kraken - Dominion": 1.04,
+    "8. Kemal & Paul Reset - Kontempt": 1.0,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 1.08,
+    "10. Skynet & Stakka - Logistics": 1.11,
+    "11. Stakka & K.Tee - Auto Ignition": 1.08
+   },
+   "development_detections": 6043,
+   "mixes": {
+    "confident": 106,
+    "possible": 9,
+    "confident_at_240": 106,
+    "strongest_false": 41
+   },
+   "grid": {
+    "10 s": {
+     "confident": 0,
+     "confident_at_240": 0,
+     "of": 160
+    },
+    "15 s": {
+     "confident": 67,
+     "confident_at_240": 67,
+     "of": 160
+    },
+    "20 s": {
+     "confident": 146,
+     "confident_at_240": 146,
+     "of": 160
+    },
+    "25 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "30 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "40 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    }
+   }
+  },
+  "drop": {
+   "development_own_hits": {
+    "1. Skynet & Stakka - Night Lore": 3165,
+    "2. Skynet & Stakka - Decoy": 3632,
+    "3. Kemal & Rob Data - Star Trails": 1331,
+    "4. Skynet & Stakka - Pathogen": 1830,
+    "5. Skynet & Stakka - Clockwork": 2544,
+    "6. Kraken - Side Effects (TeeBee Remix)": 2019,
+    "7. Kraken - Dominion": 2870,
+    "8. Kemal & Paul Reset - Kontempt": 3472,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 3615,
+    "10. Skynet & Stakka - Logistics": 5179,
+    "11. Stakka & K.Tee - Auto Ignition": 4092
+   },
+   "development_own_hits_against_default": {
+    "1. Skynet & Stakka - Night Lore": 0.86,
+    "2. Skynet & Stakka - Decoy": 0.77,
+    "3. Kemal & Rob Data - Star Trails": 0.72,
+    "4. Skynet & Stakka - Pathogen": 0.9,
+    "5. Skynet & Stakka - Clockwork": 0.96,
+    "6. Kraken - Side Effects (TeeBee Remix)": 0.9,
+    "7. Kraken - Dominion": 0.85,
+    "8. Kemal & Paul Reset - Kontempt": 0.78,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 0.8,
+    "10. Skynet & Stakka - Logistics": 0.9,
+    "11. Stakka & K.Tee - Auto Ignition": 0.94
+   },
+   "development_detections": 232,
+   "mixes": {
+    "confident": 104,
+    "possible": 11,
+    "confident_at_240": 104,
+    "strongest_false": 27
+   },
+   "grid": {
+    "10 s": {
+     "confident": 0,
+     "confident_at_240": 0,
+     "of": 160
+    },
+    "15 s": {
+     "confident": 66,
+     "confident_at_240": 66,
+     "of": 160
+    },
+    "20 s": {
+     "confident": 146,
+     "confident_at_240": 146,
+     "of": 160
+    },
+    "25 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "30 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "40 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    }
+   }
+  },
+  "skip": {
+   "development_own_hits": {
+    "1. Skynet & Stakka - Night Lore": 3832,
+    "2. Skynet & Stakka - Decoy": 4888,
+    "3. Kemal & Rob Data - Star Trails": 1558,
+    "4. Skynet & Stakka - Pathogen": 2078,
+    "5. Skynet & Stakka - Clockwork": 3112,
+    "6. Kraken - Side Effects (TeeBee Remix)": 2258,
+    "7. Kraken - Dominion": 3531,
+    "8. Kemal & Paul Reset - Kontempt": 4452,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 4865,
+    "10. Skynet & Stakka - Logistics": 6425,
+    "11. Stakka & K.Tee - Auto Ignition": 4742
+   },
+   "development_own_hits_against_default": {
+    "1. Skynet & Stakka - Night Lore": 1.04,
+    "2. Skynet & Stakka - Decoy": 1.03,
+    "3. Kemal & Rob Data - Star Trails": 0.85,
+    "4. Skynet & Stakka - Pathogen": 1.02,
+    "5. Skynet & Stakka - Clockwork": 1.17,
+    "6. Kraken - Side Effects (TeeBee Remix)": 1.01,
+    "7. Kraken - Dominion": 1.04,
+    "8. Kemal & Paul Reset - Kontempt": 1.0,
+    "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": 1.07,
+    "10. Skynet & Stakka - Logistics": 1.11,
+    "11. Stakka & K.Tee - Auto Ignition": 1.08
+   },
+   "development_detections": 232,
+   "mixes": {
+    "confident": 106,
+    "possible": 9,
+    "confident_at_240": 106,
+    "strongest_false": 42
+   },
+   "grid": {
+    "10 s": {
+     "confident": 0,
+     "confident_at_240": 0,
+     "of": 160
+    },
+    "15 s": {
+     "confident": 67,
+     "confident_at_240": 67,
+     "of": 160
+    },
+    "20 s": {
+     "confident": 146,
+     "confident_at_240": 146,
+     "of": 160
+    },
+    "25 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "30 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    },
+    "40 s": {
+     "confident": 160,
+     "confident_at_240": 160,
+     "of": 160
+    }
+   }
+  }
+ }
+}

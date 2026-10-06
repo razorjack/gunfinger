@@ -519,3 +519,9 @@ Baseline `session-3-start` saved after a rerun that reproduced
   100% recall, 0 wrong each. Calibrate over four draws: weakest
   identifying 403, strongest false 97, margin 4.15×; audio not in the
   index up to 28.
+- **Second pass with the filter (experiment 0026).** `--skip-fullest`
+  (`Index::skipping_fullest`): the fullest 1% left out of the search for
+  candidates, kept for the second pass. Drop and skip pass the protocol
+  over four seeds; false candidates -94%. Calibration alone puts the
+  opt-in `FITTED_RULE` at 240 hits (skip's strongest false is 119, the
+  Clockwork remix's shared passage). `regress session-3-start`: identical.
