@@ -12,6 +12,8 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use miette::{IntoDiagnostic, WrapErr, miette};
 
+use crate::console::Console;
+
 /// The peak records of a library and the index built from them.
 pub struct Catalog {
     pub store: PeakStore,
@@ -27,6 +29,7 @@ impl Catalog {
         library_root: &Path,
         peaks_dir: &Path,
         exclude_from: Option<&Path>,
+        console: &Console,
     ) -> miette::Result<Catalog> {
         let started = Instant::now();
         let library = Library::scan(library_root)
@@ -41,13 +44,14 @@ impl Catalog {
         };
         let (records, problems) = load_records(&library, &store, &Profile::CURRENT, &excluded);
         if !problems.is_empty() {
-            eprintln!(
-                "warning: {} assets are left out because they have no current peak record:",
+            let mut message = format!(
+                "{} assets are left out because they have no current peak record:",
                 problems.len()
             );
             for problem in &problems {
-                eprintln!("  {problem}");
+                message.push_str(&format!("\n  {problem}"));
             }
+            console.warning(message);
         }
         if records.is_empty() {
             return Err(miette!(
@@ -57,14 +61,14 @@ impl Catalog {
             ));
         }
         let index = Index::build(&records).into_diagnostic()?;
-        eprintln!(
+        console.info(format_args!(
             "index: {} assets ({} excluded), {} postings, {:.1} MB, built in {:.1} s",
             records.len(),
             excluded.len(),
             index.posting_count(),
             index.size_bytes() as f64 / 1e6,
             started.elapsed().as_secs_f64()
-        );
+        ));
         Ok(Catalog {
             store,
             records,
