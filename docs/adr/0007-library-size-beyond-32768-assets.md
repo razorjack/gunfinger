@@ -92,7 +92,11 @@ No option above reduces these; they set the practical ceiling:
   searched. Shards and libraries split the work but do not remove it, and
   the 41 rungs already use every core. Levers to measure: skipping the most
   common hashes (the fullest 1% of buckets hold 31% of postings) and longer,
-  more distinctive hashes that still survive the speed ladder.
+  more distinctive hashes that still survive the speed ladder. Measured
+  since: emptying the fullest 1% of non-empty lists cuts the postings a
+  query scans by 62% and passes the full protocol (experiments 0013,
+  0017); triplet hashes would cut them 25-79 times but halve the evidence
+  under heavy damage (experiment 0014, offline).
 - **Chance and shared-material alignments.** More tracks give more
   opportunities for an unrelated record to align, by chance or through a
   shared break. Both thresholds (`docs/calibration.md`) were set at 262

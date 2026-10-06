@@ -162,12 +162,14 @@ target/release/gunfinger-eval baseline <name>          # save the standard repor
 target/release/gunfinger-eval regress <name>           # rerun them and show what changed
 target/release/gunfinger-eval robust --seed 2026       # excerpts under EQ, noise, codecs, key lock...
 target/release/gunfinger-eval related                  # remixes and shared material in the library
+target/release/gunfinger-eval hash-cost                # pairs and triplets: postings, lookups, evidence
 ```
 
 `--ladder turntable|key-lock|both` (before the command) chooses the rungs
 every search uses. `scan` and `robust` take `--synthetic-copies N`, which
 adds N time-reversed, stretched copies of every record to the index as a
-proxy for a larger library; those reports are kept apart from the ones
+proxy for a larger library, and `--drop-fullest SHARE`, which empties the
+fullest posting lists; those reports are kept apart from the ones
 `calibrate` and `regress` read.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,

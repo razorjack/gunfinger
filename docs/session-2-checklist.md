@@ -53,5 +53,5 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 ## Wrap-up
 
-- [ ] README, AGENTS, roadmap, calibration, status up to date
-- [ ] Morning summary at the top of `docs/notes-for-owner.md`
+- [x] README, AGENTS, roadmap, calibration, status up to date
+- [x] Morning summary at the top of `docs/notes-for-owner.md`
