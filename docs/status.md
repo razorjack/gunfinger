@@ -152,9 +152,10 @@ All numbers below were measured in this session on 262 library tracks
   11 gives 0/11 and 0 wrong. No left-out slot produced a confident
   detection.
 - Owner review (after this report; see the ledger): track 16 was the Planet
-  V remix of Funktion, which is not in the library. With that slot marked
-  absent, the evaluation-1 detections score 15/16 (93.8%) with 0 wrong. No
-  new run was made.
+  V remix of Funktion, which is not in the library. The owner changed the
+  manifest to mark it absent (now 16 referenced, 15 absent). Under it, the
+  evaluation-1 detections score 15/16 (93.8%) with 0 wrong. No new run was
+  made.
 
 ### 2. Candidate
 
@@ -221,7 +222,7 @@ each item and are recorded in the test-set ledger.
   the library (`Ed Rush & Optical - Funktion.mp3` and its duplicate). The
   evidence above suggests a different version or mixdown. Owner: it is
   "Funktion (Remix)" from Planet V (1999); the library has only the
-  original. Updating the manifest is the owner's decision.
+  original. The owner has updated the manifest.
 - **Sin (test track 22):** whether it was played only briefly or cut in and
   out between 1:21:48 and the next track; the record was found twice at the
   same speed. Owner: faded out for a station insert, then brought back.

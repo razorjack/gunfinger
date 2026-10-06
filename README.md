@@ -95,7 +95,7 @@ Measured on 262 library tracks (29.3 hours) with the rule frozen at tag
 | Speed sweep (80 excerpts × 9 speeds, −8% to +8%, MP3) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development mix (56 min, 11 tracks) | 11/11 identified, 0 wrong, 22–26 s |
 | Development leave-outs (3 and 11 tracks removed from the index) | 0 wrong |
-| Held-out test mix (radio broadcast, 1 h 58 min, 17 of 31 tracks in the library) | 15/17 identified (88%), 0 wrong, 53 s; first and only run |
+| Held-out test mix (radio broadcast, 1 h 58 min, 31 tracks) | 15/17 identified (88%), 0 wrong, 53 s; first and only run. One miss was a remix not in the library; with the manifest corrected, 15/16 (94%) |
 
 The pass bar was at least 80% identified and zero wrong on each mix. The
 index takes 74 postings per second of audio and 5.07 bytes per posting; for

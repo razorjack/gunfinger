@@ -77,11 +77,11 @@ evaluation count stays at 1.
   and MixesDB and Dogs On Acid tracklists found in the owner's research (not
   checked here). The remix is not in the library, so the slot is in effect
   absent, and the outcome is correct: the original stayed far below the rule
-  (best 18 hits) while its remix played. The manifest still references the
-  original; changing it is the owner's decision (for example
-  `title = "Funktion (Remix)"`, `reference = []`). Under that manifest the
-  evaluation-1 detections score 15/16 (93.8%) with 0 wrong. That figure is
-  arithmetic on the stored report, not a new run.
+  (best 18 hits) while its remix played. The owner has since changed the
+  manifest: track 16 is `title = "Funktion (Remix)"`, `reference = []`
+  (`gunfinger-eval validate`: 31 tracks, 16 referenced, 15 absent). Under
+  that manifest the evaluation-1 detections score 15/16 (93.8%) with 0 wrong.
+  That figure is arithmetic on the stored report, not a new run.
 - **22. Sin.** The broadcast faded Sin out, played a station insert and
   brought Sin back. The two chains at +5.4% are the record before and after
   the insert. Joined, they would hold 168 hits, still below the 200-hit rule,
