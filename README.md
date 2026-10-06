@@ -80,6 +80,8 @@ the default is one per core. Files longer than 20 minutes are skipped by
 listed library paths out of the index. Human output is coloured on a terminal
 (`--color auto|always|never`; `NO_COLOR` turns `auto` off). `--quiet` keeps
 results, warnings and errors and drops progress and timing.
+`gunfinger completions <shell>` prints a completion script (bash, zsh, fish,
+elvish, powershell) and `gunfinger man` prints the man page.
 
 Human output is one table of plays in time order: time span in the
 recording, the part of the track that was heard, speed, confidence

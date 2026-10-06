@@ -19,10 +19,11 @@ use std::num::NonZeroUsize;
 use std::path::PathBuf;
 use std::time::Duration;
 
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{CommandFactory, Parser, Subcommand, ValueEnum};
 use console::Console;
 use gunfinger_core::decode::Excerpt;
 use gunfinger_core::timecode::parse_timecode;
+use miette::IntoDiagnostic;
 use output::ReportFormat;
 use report::Report;
 use style::{ColorChoice, Style};
@@ -136,6 +137,11 @@ enum Command {
         #[arg(long)]
         print: bool,
     },
+    /// Print a completion script for a shell, for example
+    /// `gunfinger completions zsh > ~/.zfunc/_gunfinger`.
+    Completions { shell: clap_complete::Shell },
+    /// Print the man page, for example `gunfinger man > gunfinger.1`.
+    Man,
     /// Measure the peak store and the index of a library.
     Stats {
         /// Root directory of the indexed library.
@@ -234,6 +240,18 @@ fn main() -> miette::Result<()> {
                 listen::play(&clips, seconds, &console)
             }
         }
+        Command::Completions { shell } => {
+            clap_complete::generate(
+                shell,
+                &mut Cli::command(),
+                "gunfinger",
+                &mut std::io::stdout(),
+            );
+            Ok(())
+        }
+        Command::Man => clap_mangen::Man::new(Cli::command())
+            .render(&mut std::io::stdout())
+            .into_diagnostic(),
         Command::Stats { library, format } => {
             stats::run(&library, &cli.peaks_dir, format, &console)
         }
