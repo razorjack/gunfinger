@@ -193,6 +193,10 @@ enum Command {
         /// Search only this many minutes from the start of the set's audio.
         #[arg(long)]
         minutes: Option<u64>,
+        /// Keep the first pass's lines and count them, instead of
+        /// searching the way `identify` does.
+        #[arg(long)]
+        count_lines: bool,
     },
     /// Rerun the standard evaluation and report what changed against a
     /// saved baseline.
@@ -352,6 +356,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             synthetic_copies,
             until,
             minutes,
+            count_lines,
         } => {
             let report = memory::run(
                 &paths.sets(),
@@ -362,6 +367,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     synthetic_copies,
                     until,
                     minutes,
+                    count_lines,
                     ladder: &paths.ladder.rungs(),
                     matching: paths.matching,
                     jobs,
@@ -373,8 +379,9 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 .map_or_else(String::new, |name| format!("-{name}"));
             write_json(
                 &paths.work.join("memory").join(format!(
-                    "memory-copies-{synthetic_copies}-jobs-{jobs}-until-{}{variant}.json",
-                    format!("{until:?}").to_lowercase()
+                    "memory-copies-{synthetic_copies}-jobs-{jobs}-until-{}{variant}{}.json",
+                    format!("{until:?}").to_lowercase(),
+                    if count_lines { "-lines" } else { "" }
                 )),
                 &report,
             )?;
