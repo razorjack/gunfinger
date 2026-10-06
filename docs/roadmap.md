@@ -21,6 +21,11 @@ that motivates it where one exists.
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.4 s. Revisit when detections, owner
   edits or the Track/AudioAsset model need to be stored.
+- **More than 32,768 assets.** The posting layout addresses 32,768 assets;
+  the owner may grow the collection to about 100,000 tracks with jungle and
+  breakbeat hardcore. Shards, separate libraries per genre and other layouts
+  are compared in ADR 0007, with the measurements that should decide. Not
+  decided.
 - **On-disk index.** The index is rebuilt in memory from the peak store on
   every run. The recommended layout for the next step is in
   `docs/adr/0005-index-layout.md`.

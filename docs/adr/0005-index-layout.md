@@ -53,9 +53,9 @@ Write it atomically (temporary file, then rename) and read it sequentially;
 no mmap, as for the peak store. Keep it on local disk when the library is on
 a NAS: a two-hour mix touches most lists on 41 rungs.
 
-Beyond 32,768 assets, either shard the index by asset range (two files of
-15-bit assets each) or switch to 16 asset bits with 32 ms frames, accepting
-the measured margin loss.
+Beyond 32,768 assets the layout must change. The options (shards,
+separate libraries, wider or narrower postings) are compared in ADR 0007,
+which is still open.
 
 ## Consequences
 

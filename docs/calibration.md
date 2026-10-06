@@ -14,7 +14,7 @@ measure it again, and what to change or undo if the measurement moves.
 | Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). |
 | Pairs per anchor and peak density | fan-out 2, ±12 × ±12 | `hash.rs` `FAN_OUT`, `profile.rs` | leanest variant with the best margins (experiment 0004) | If margins shrink at scale, rerun the density variants of experiment 0004 on the larger library. |
 | Duplicate clusters | one alignment covers ≥ 80% of the shorter file | `gunfinger-eval` `clusters.rs` | same-recording pairs ≥ 0.984, all others ≤ 0.39 (experiment 0002) | Rerun `clusters` after adding tracks; check that the gap holds. |
-| Posting layout | 15 asset bits | `index.rs` `Posting` | 32,768 assets at most (ADR 0005) | A hard limit: shard the index or switch to 16/16 before it is reached. |
+| Posting layout | 15 asset bits | `index.rs` `Posting` | 32,768 assets at most (ADR 0005) | A hard limit; the options for going past it are in ADR 0007 (open). |
 
 Not library-dependent: the speed ladder (0.4% steps, experiment 0001), the
 3-window minimum (a 30 s excerpt spans 3 windows), chain linking, the 90 s

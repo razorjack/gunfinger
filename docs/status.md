@@ -374,3 +374,15 @@ build the on-disk index described in ADR 0005.
 - `docs/calibration.md` lists every library-dependent choice, the baseline
   at 262 tracks and what to change or undo when the library grows.
 - Next: measure the thresholds against a larger library (roadmap).
+
+## 2026-10-06: library size beyond 32,768 assets (open)
+
+- The owner may grow the collection to about 100,000 tracks with jungle and
+  breakbeat hardcore. The posting layout addresses 32,768 assets. ADR 0007
+  (status open) compares the options: shards by asset range, separate
+  libraries per genre, shards by collection, wider or narrower postings, and
+  decoding delta-coded lists on every lookup. It records the linear
+  extrapolation to 100,000 tracks (12 GB index, about 35 minutes of lookups
+  for a two-hour mix) and what grows whatever the layout: query time, chance
+  and shared-break alignments, and the cost of duplicate clustering.
+- No decision. The next measurements are listed in ADR 0007.
