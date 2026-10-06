@@ -51,7 +51,7 @@ for scope and rules.
 
 - [x] Opt-in second pass: one STFT at the fitted speed over each
   candidate's span, hits against that asset alone (commit 633da10)
-- [~] Its own null and calibration (items 3 and 4)
+- [x] Its own null and calibration (items 3 and 4; experiment 0024)
 
 ## 6. Default-change package (opt-in)
 

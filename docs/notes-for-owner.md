@@ -345,3 +345,24 @@ use and does not replace them. One property of the criterion to know
 before adding edits: an edit that removes a section from the middle of a
 track is not a duplicate of the original, because no single alignment
 covers 80% of it.
+
+### The second pass at the fitted speed works, under the frozen rule
+
+`--second-pass` (harness only) analyses each candidate's span once more
+at the speed its chain fitted and counts hits against that recording
+alone (experiment 0024). Clean excerpts that sit between two rungs of the
+speed ladder gain about 40% of hits and reach the level of excerpts that
+sit on a rung; false candidates do not gain (strongest still 97 hits).
+The confidence margin widens from 5.16× to 7.01×. Under the frozen rule
+of 200 hits in 3 windows, recall rises under damage and falls nowhere:
+needle skips 1 → 16 of 40 on average, broadcast processing 32-33 → 37,
+a beatmatched partner at -6 dB 33-34 → 36-37, an equal-level blend 13-14
+→ 17; no wrong answer appears. The development set stays 11/11. It costs
+about 8% more analysis.
+
+Two limits. One fitted speed per play loses where the speed wanders
+during the play: Star Trails in the development mix plays 0.1-0.3% above
+its fitted speed in many windows and loses 15% of its hits (still
+identified). And the second pass does not change how the 3-window rule
+depends on the window grid; it does remove the chance lines that made
+10 s plays confident.

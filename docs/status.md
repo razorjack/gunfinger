@@ -511,3 +511,7 @@ Baseline `session-3-start` saved after a rerun that reproduced
 - **Panels and clusters from peaks (experiment 0023).** Sweep panels in
   `docs/panels/`; `search::search_peaks`; `clusters --from-peaks` finds the
   same 17 clusters at a seventh of the CPU.
+- **Second pass evaluated (experiment 0024).** With the frozen rule:
+  margin 5.16× → 7.01×, sweep excerpts between rungs +40% own hits,
+  recall up under damage (needle skip, broadcast, blends), no wrong
+  answer; Star Trails -15% (speed wanders within the play).
