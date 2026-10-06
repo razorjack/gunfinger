@@ -49,9 +49,7 @@ pub struct IndexedAsset {
 pub enum IndexError {
     #[error("the index holds at most {MAX_ASSETS} assets")]
     TooManyAssets,
-    #[error(
-        "{path} is longer than the index can address ({MAX_FRAMES} frames); lower --max-track-minutes"
-    )]
+    #[error("{path} is longer than the index can address ({MAX_FRAMES} frames); lower --max-track")]
     TooLong { path: String },
     #[error("a peak record changed while the index was being built; run the command again")]
     Changed,

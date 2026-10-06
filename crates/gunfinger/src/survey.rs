@@ -21,6 +21,7 @@ pub struct Survey {
     /// Library files with neither a current record nor a skip note.
     pub unindexed: usize,
     pub failed: usize,
+    pub too_short: usize,
     pub too_long: usize,
     /// Records and notes of files that are not in the library.
     pub orphans: Vec<Orphan>,
@@ -40,7 +41,12 @@ pub struct Orphan {
 
 impl Survey {
     pub fn records_and_notes(&self) -> usize {
-        self.current + self.stale + self.failed + self.too_long + self.orphans.len()
+        self.current
+            + self.stale
+            + self.failed
+            + self.too_short
+            + self.too_long
+            + self.orphans.len()
     }
 }
 
@@ -56,6 +62,7 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
         stale: 0,
         unindexed: 0,
         failed: 0,
+        too_short: 0,
         too_long: 0,
         orphans: Vec::new(),
         leftovers: Vec::new(),
@@ -81,6 +88,7 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
                 if applies {
                     match note.reason {
                         SkipReason::Failed(_) => survey.failed += 1,
+                        SkipReason::TooShort { .. } => survey.too_short += 1,
                         SkipReason::TooLong { .. } => survey.too_long += 1,
                     }
                 }

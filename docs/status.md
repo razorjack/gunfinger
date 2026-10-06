@@ -544,3 +544,17 @@ Baseline `session-3-start` saved after a rerun that reproduced
   ("Measured, not adopted") and the roadmap.
 - Measurements this session ran beside other sessions' load (load average
   up to about 200): CPU times compare, wall times and peak memory do not.
+
+## 2026-10-07: track length range
+
+- `--min-track` and `--max-track` (global, timecodes; `min_track` and
+  `max_track` in the configuration file) replace `index
+  --max-track-minutes`. Default unchanged: up to 20:00, no minimum.
+- `index` rejects a file from the length its header declares when that is
+  more than 10% outside the range (36 ms for the development mix's header
+  against about 1.1 s to decode its first 15 minutes); nearer a limit the
+  decoded length decides. Too-short files get skip notes (reason 2).
+- `build_index` and the library revision leave out records outside the
+  current range, so narrowing it needs no new index and `--save-dir`
+  searches again when the indexed set changes. The harness loads records
+  without a range: detection is unchanged (longest record 9:38).

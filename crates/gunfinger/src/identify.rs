@@ -10,6 +10,7 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::search_with_progress;
 use gunfinger_core::timecode::format_timecode;
@@ -28,6 +29,7 @@ pub struct Request<'a> {
     pub peaks_dir: &'a Path,
     pub excerpt: Excerpt,
     pub playback: PlaybackChoice,
+    pub track_length: TrackLength,
     pub exclude_from: Option<&'a Path>,
     pub format: ReportFormat,
     /// Where to write each recording's JSON report, named after it.
@@ -58,6 +60,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
         request.library,
         request.peaks_dir,
         request.exclude_from,
+        request.track_length,
         request.console,
     )?;
     let mut failed = 0;
@@ -126,6 +129,7 @@ fn plan(request: &Request) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
             request.library,
             request.peaks_dir,
             request.exclude_from,
+            request.track_length,
         )?))
     } else {
         None

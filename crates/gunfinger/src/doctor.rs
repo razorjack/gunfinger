@@ -74,6 +74,7 @@ pub fn run(settings: &Settings, library: Option<PathBuf>, style: Style) -> miett
     checkup.setting("peak store", settings.peaks_dir.display());
     checkup.setting("jobs", settings.jobs);
     checkup.setting("playback", settings.playback.name());
+    checkup.setting("track length", settings.track_length);
 
     match library {
         Some(library) => check_library(&mut checkup, &library, &settings.peaks_dir),
@@ -177,14 +178,13 @@ fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path) {
             survey.bytes as f64 / 1e6
         ),
     );
-    if survey.failed + survey.too_long > 0 {
+    let passed_over = survey.failed + survey.too_short + survey.too_long;
+    if passed_over > 0 {
         checkup.line(
             Status::Note,
             format!(
-                "{} files passed over: {} failed to decode, {} too long (`index --retry-skipped` tries again)",
-                survey.failed + survey.too_long,
-                survey.failed,
-                survey.too_long
+                "{passed_over} files passed over: {} failed to decode, {} too short, {} too long (`index --retry-skipped` tries again)",
+                survey.failed, survey.too_short, survey.too_long
             ),
         );
     }

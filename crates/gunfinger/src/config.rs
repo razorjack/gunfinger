@@ -11,18 +11,24 @@
 //! jobs = 8
 //! color = "auto"
 //! playback = "turntable"   # vinyl only; the default "both" also finds key lock
+//! min_track = "1:30"       # shorter files are samples and loops
+//! max_track = "15:00"      # longer files are mixes; the default is 20:00
 //! ```
 
 use std::num::NonZeroUsize;
 use std::path::{Path, PathBuf};
+use std::time::Duration;
 
+use gunfinger_core::indexing::TrackLength;
+use gunfinger_core::timecode::{format_timecode, parse_timecode};
 use miette::{IntoDiagnostic, WrapErr, miette};
-use serde::Deserialize;
+use serde::{Deserialize, Deserializer};
 
 use crate::playback::PlaybackChoice;
 use crate::style::ColorChoice;
 
 const DEFAULT_PEAKS_DIR: &str = "work/peaks";
+const DEFAULT_MAX_TRACK: Duration = Duration::from_secs(20 * 60);
 
 #[derive(Debug, Default, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -32,6 +38,10 @@ struct File {
     jobs: Option<NonZeroUsize>,
     color: Option<ColorChoice>,
     playback: Option<PlaybackChoice>,
+    #[serde(default, deserialize_with = "timecode")]
+    min_track: Option<Duration>,
+    #[serde(default, deserialize_with = "timecode")]
+    max_track: Option<Duration>,
 }
 
 /// What the flags and environment variables gave.
@@ -40,6 +50,8 @@ pub struct Given {
     pub peaks_dir: Option<PathBuf>,
     pub jobs: Option<NonZeroUsize>,
     pub color: Option<ColorChoice>,
+    pub min_track: Option<Duration>,
+    pub max_track: Option<Duration>,
 }
 
 pub struct Settings {
@@ -49,6 +61,8 @@ pub struct Settings {
     /// How searches assume the records were played, unless `--playback`
     /// says otherwise.
     pub playback: PlaybackChoice,
+    /// Library files outside it are not indexed and not searched.
+    pub track_length: TrackLength,
     library: Option<PathBuf>,
     /// The configuration file read, if any.
     pub file: Option<PathBuf>,
@@ -63,6 +77,21 @@ impl Settings {
             Some(path) => read(path)?,
             None => File::default(),
         };
+        let track_length = TrackLength {
+            min: given.min_track.or(file.min_track).unwrap_or_default(),
+            max: given
+                .max_track
+                .or(file.max_track)
+                .unwrap_or(DEFAULT_MAX_TRACK),
+        };
+        if track_length.min >= track_length.max {
+            return Err(miette!(
+                help = "set the shortest track (--min-track, `min_track`) below the longest (--max-track, `max_track`)",
+                "no file can be a track: the shortest track, {}, is not shorter than the longest, {}",
+                format_timecode(track_length.min),
+                format_timecode(track_length.max)
+            ));
+        }
         Ok(Settings {
             peaks_dir: given
                 .peaks_dir
@@ -74,6 +103,7 @@ impl Settings {
             ),
             color: given.color.or(file.color).unwrap_or(ColorChoice::Auto),
             playback: file.playback.unwrap_or(PlaybackChoice::Both),
+            track_length,
             library: file.library.map(|library| expand_home(&library)),
             file: path,
         })
@@ -103,6 +133,14 @@ fn read(path: &Path) -> miette::Result<File> {
     toml::from_str(&text)
         .into_diagnostic()
         .wrap_err_with(|| format!("{} is not a valid configuration file", path.display()))
+}
+
+/// A length such as `"1:30"` or `"15:00"`, as on the command line.
+fn timecode<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Option<Duration>, D::Error> {
+    let text = String::deserialize(deserializer)?;
+    parse_timecode(&text)
+        .map(Some)
+        .map_err(serde::de::Error::custom)
 }
 
 fn default_path() -> Option<PathBuf> {
@@ -137,6 +175,8 @@ mod tests {
             peaks_dir: None,
             jobs: None,
             color: None,
+            min_track: None,
+            max_track: None,
         }
     }
 
@@ -193,6 +233,68 @@ mod tests {
             settings.ok().map(|s| s.playback),
             Some(PlaybackChoice::Both)
         );
+    }
+
+    #[test]
+    fn track_lengths_come_from_flags_then_the_file() {
+        let path = write_config("lengths", "min_track = \"1:30\"\nmax_track = \"15:00\"\n");
+        let flags = Given {
+            config: Some(path.clone()),
+            max_track: Some(Duration::from_secs(600)),
+            ..given()
+        };
+
+        let from_file = Settings::resolve(Given {
+            config: Some(path),
+            ..given()
+        });
+        let with_flag = Settings::resolve(flags);
+        let by_default = Settings::resolve(Given {
+            config: Some(write_config("no-lengths", "")),
+            ..given()
+        });
+
+        assert_eq!(
+            from_file.ok().map(|s| s.track_length),
+            Some(TrackLength {
+                min: Duration::from_secs(90),
+                max: Duration::from_secs(900)
+            })
+        );
+        assert_eq!(
+            with_flag.ok().map(|s| s.track_length.max),
+            Some(Duration::from_secs(600))
+        );
+        assert_eq!(
+            by_default.ok().map(|s| s.track_length),
+            Some(TrackLength {
+                min: Duration::ZERO,
+                max: Duration::from_secs(1200)
+            })
+        );
+    }
+
+    #[test]
+    fn a_track_length_that_admits_nothing_is_an_error() {
+        let path = write_config(
+            "bad-lengths",
+            "min_track = \"15:00\"\nmax_track = \"1:30\"\n",
+        );
+        let not_a_time = write_config("not-a-time", "max_track = \"a quarter\"\n");
+
+        let empty = Settings::resolve(Given {
+            config: Some(path),
+            ..given()
+        });
+        let unreadable = Settings::resolve(Given {
+            config: Some(not_a_time),
+            ..given()
+        })
+        .err()
+        .map(|error| format!("{error:?}"));
+
+        assert!(empty.is_err());
+        assert!(unreadable.is_some_and(|error| error.contains("a quarter")));
     }
 
     #[test]
