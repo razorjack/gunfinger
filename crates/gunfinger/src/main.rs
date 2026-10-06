@@ -1,6 +1,7 @@
 //! Command-line interface of Gunfinger.
 
 mod catalog;
+mod config;
 mod console;
 mod explain;
 mod export;
@@ -20,6 +21,7 @@ use std::path::PathBuf;
 use std::time::Duration;
 
 use clap::{CommandFactory, Parser, Subcommand, ValueEnum};
+use config::{Given, Settings};
 use console::Console;
 use gunfinger_core::decode::Excerpt;
 use gunfinger_core::timecode::parse_timecode;
@@ -32,22 +34,21 @@ use style::{ColorChoice, Style};
 #[derive(Parser)]
 #[command(name = "gunfinger", version)]
 struct Cli {
-    /// Directory of the peak store.
-    #[arg(
-        long,
-        global = true,
-        env = "GUNFINGER_PEAKS_DIR",
-        default_value = "work/peaks"
-    )]
-    peaks_dir: PathBuf,
+    /// Configuration file [default: $XDG_CONFIG_HOME/gunfinger/config.toml].
+    #[arg(long, global = true, env = "GUNFINGER_CONFIG")]
+    config: Option<PathBuf>,
+
+    /// Directory of the peak store [default: work/peaks].
+    #[arg(long, global = true, env = "GUNFINGER_PEAKS_DIR")]
+    peaks_dir: Option<PathBuf>,
 
     /// Worker threads [default: available parallelism].
     #[arg(long, global = true, env = "GUNFINGER_JOBS")]
     jobs: Option<NonZeroUsize>,
 
-    /// When to colour human output.
-    #[arg(long, global = true, value_enum, default_value_t = ColorChoice::Auto)]
-    color: ColorChoice,
+    /// When to colour human output [default: auto].
+    #[arg(long, global = true, value_enum)]
+    color: Option<ColorChoice>,
 
     /// Print only results, warnings and errors.
     #[arg(long, short, global = true)]
@@ -61,8 +62,9 @@ struct Cli {
 enum Command {
     /// Extract the peaks of every audio file in a library into the peak store.
     Index {
-        /// Root directory of the library; asset identities are relative to it.
-        library: PathBuf,
+        /// Root directory of the library; asset identities are relative to it
+        /// [default: `library` in the configuration file].
+        library: Option<PathBuf>,
         /// Files longer than this are mixes or album rips and are skipped.
         #[arg(long, default_value_t = 20)]
         max_track_minutes: u64,
@@ -71,9 +73,10 @@ enum Command {
     Identify {
         /// The recording to search, typically a DJ mix.
         audio: PathBuf,
-        /// Root directory of the indexed library.
+        /// Root directory of the indexed library [default: `library` in the
+        /// configuration file].
         #[arg(long)]
-        library: PathBuf,
+        library: Option<PathBuf>,
         /// Start of the part to search (seconds, M:SS or H:MM:SS).
         #[arg(long, value_parser = parse_timecode)]
         start: Option<Duration>,
@@ -92,9 +95,10 @@ enum Command {
     Explain {
         /// The recording, typically a DJ mix.
         audio: PathBuf,
-        /// Root directory of the indexed library.
+        /// Root directory of the indexed library [default: `library` in the
+        /// configuration file].
         #[arg(long)]
-        library: PathBuf,
+        library: Option<PathBuf>,
         /// The moment to explain (seconds, M:SS or H:MM:SS).
         #[arg(long, value_parser = parse_timecode)]
         at: Duration,
@@ -144,9 +148,10 @@ enum Command {
     Man,
     /// Measure the peak store and the index of a library.
     Stats {
-        /// Root directory of the indexed library.
+        /// Root directory of the indexed library [default: `library` in the
+        /// configuration file].
         #[arg(long)]
-        library: PathBuf,
+        library: Option<PathBuf>,
         /// Output format.
         #[arg(long, value_enum, default_value_t = Format::Human)]
         format: Format,
@@ -163,17 +168,32 @@ pub enum Format {
 
 fn main() -> miette::Result<()> {
     let cli = Cli::parse();
-    color_error_reports(cli.color);
-    let console = Console::new(cli.color, cli.quiet);
-    let jobs = cli.jobs.map_or_else(
-        || std::thread::available_parallelism().map_or(1, NonZeroUsize::get),
-        NonZeroUsize::get,
-    );
-    match cli.command {
+    let settings = Settings::resolve(Given {
+        config: cli.config,
+        peaks_dir: cli.peaks_dir,
+        jobs: cli.jobs,
+        color: cli.color,
+    })?;
+    color_error_reports(settings.color);
+    let console = Console::new(settings.color, cli.quiet);
+    run(cli.command, &settings, &console)
+}
+
+fn run(command: Command, settings: &Settings, console: &Console) -> miette::Result<()> {
+    let peaks_dir = &settings.peaks_dir;
+    let jobs = settings.jobs;
+    let stdout_style = Style::for_stdout(settings.color);
+    match command {
         Command::Index {
             library,
             max_track_minutes,
-        } => index::run(&library, &cli.peaks_dir, jobs, max_track_minutes, &console),
+        } => index::run(
+            &settings.library(library)?,
+            peaks_dir,
+            jobs,
+            max_track_minutes,
+            console,
+        ),
         Command::Identify {
             audio,
             library,
@@ -183,14 +203,14 @@ fn main() -> miette::Result<()> {
             format,
         } => identify::run(&identify::Request {
             audio: &audio,
-            library: &library,
-            peaks_dir: &cli.peaks_dir,
+            library: &settings.library(library)?,
+            peaks_dir,
             excerpt: Excerpt { start, duration },
             exclude_from: exclude_from.as_deref(),
             format,
-            style: Style::for_stdout(cli.color),
+            style: stdout_style,
             jobs,
-            console: &console,
+            console,
         }),
         Command::Explain {
             audio,
@@ -202,23 +222,20 @@ fn main() -> miette::Result<()> {
             exclude_from,
         } => explain::run(&explain::Request {
             audio: &audio,
-            library: &library,
-            peaks_dir: &cli.peaks_dir,
+            library: &settings.library(library)?,
+            peaks_dir,
             exclude_from: exclude_from.as_deref(),
             at,
             around,
             asset: asset.as_deref(),
             limit,
-            style: Style::for_stdout(cli.color),
+            style: stdout_style,
             jobs,
-            console: &console,
+            console,
         }),
         Command::Show { report, format } => {
             let report = Report::read(&report)?;
-            print!(
-                "{}",
-                output::render(&report, format, Style::for_stdout(cli.color))?
-            );
+            print!("{}", output::render(&report, format, stdout_style)?);
             Ok(())
         }
         Command::Listen {
@@ -237,7 +254,7 @@ fn main() -> miette::Result<()> {
                 print!("{}", listen::commands(&clips, seconds));
                 Ok(())
             } else {
-                listen::play(&clips, seconds, &console)
+                listen::play(&clips, seconds, console)
             }
         }
         Command::Completions { shell } => {
@@ -253,12 +270,13 @@ fn main() -> miette::Result<()> {
             .render(&mut std::io::stdout())
             .into_diagnostic(),
         Command::Stats { library, format } => {
-            stats::run(&library, &cli.peaks_dir, format, &console)
+            stats::run(&settings.library(library)?, peaks_dir, format, console)
         }
     }
 }
 
-/// miette decides on colour by itself unless told.
+/// miette decides on colour by itself unless told. Errors in the
+/// configuration file itself are reported before this, with its choice.
 fn color_error_reports(color: ColorChoice) {
     let forced = match color {
         ColorChoice::Auto => return,

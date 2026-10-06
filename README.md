@@ -73,6 +73,18 @@ target/release/gunfinger explain mix.m4a --library ~/Music/library --at 20:30
 target/release/gunfinger stats --library ~/Music/library
 ```
 
+Settings come from flags, then environment variables, then a TOML
+configuration file (`$XDG_CONFIG_HOME/gunfinger/config.toml` or
+`~/.config/gunfinger/config.toml`; `--config FILE` or `GUNFINGER_CONFIG`
+for another, for example one per library):
+
+```toml
+library = "~/Music/library"   # used when --library is not given
+peaks_dir = "~/.local/share/gunfinger/peaks"
+jobs = 8
+color = "auto"
+```
+
 The peak store is in `work/peaks` by default (`--peaks-dir`,
 `GUNFINGER_PEAKS_DIR`). `--jobs` (`GUNFINGER_JOBS`) sets the worker threads;
 the default is one per core. Files longer than 20 minutes are skipped by
