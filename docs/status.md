@@ -324,8 +324,9 @@ Query time on the development mix (experiment 0005): 3.7 s decoding, about
   there is no nested parallelism.
 - **Code changed after the freeze.** The elegance pass changed code after
   `poc-freeze-1`. The sweep, the development scan and its leave-outs give
-  identical reports apart from wall times; the test set was not run
-  again.
+  identical reports apart from wall times and speeds that differ by at most
+  4.4e-16, because the speed fit was rewritten (experiment 0007); the test
+  set was not run again.
 
 ### 10. Limitations and the best next task
 

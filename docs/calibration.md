@@ -50,6 +50,6 @@ gap between segments of a play, and the 90 s scoring tolerance.
 
 | Change | Effect on results | To undo |
 |--------|-------------------|---------|
-| Elegance pass (commit 5559c99) | none: identical reports | nothing to undo |
+| Elegance pass (commit 5559c99) | none: identical reports, except speeds that differ by at most 4.4e-16 because the speed fit was rewritten (experiment 0007) | nothing to undo |
 | Owner corrected test track 16 to "Funktion (Remix)", absent from the library | test score 15/16 instead of 15/17 | revert the manifest |
 | Plays and the possible tier (ADR 0006, commit e87b79f) | `identify` output and JSON schema 2; scoring unchanged | the tier: delete `MIN_POSSIBLE_HITS` and `Confidence::Possible`; plays: delete `plays.rs` and restore the detection list in `identify.rs` |

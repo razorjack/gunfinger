@@ -28,9 +28,8 @@ development scan and its leave-outs; test-set reports are not read.
 - Development scan: 11/11, 0 wrong, detections identical to before; 0 tracks
   found only as possible; 1 possible play matching no track, the Stakka
   remix of Clockwork (20:22 to 20:39, 91 hits) while the original plays.
-  Same in both leave-outs. Speeds in the leave-out reports differ from the
-  earlier ones by at most 4.4e-16 (summation order); assets, hits and
-  windows are identical.
+  Same in both leave-outs, whose speeds differ from older reports by at
+  most 4.4e-16 (rewritten speed fit, experiment 0007).
 - `identify` on the development mix: 19 plays, the remix the only possible
   one.
 
