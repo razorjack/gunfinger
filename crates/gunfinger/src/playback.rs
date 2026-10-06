@@ -1,6 +1,6 @@
 //! Which playbacks a search assumes: the turntable ladder, key-locked rungs
-//! (tempo only, as on CDJs with master tempo) or both. Both makes the
-//! search about a third slower (experiment 0016).
+//! (tempo only, as on CDJs with master tempo) or both, the default. Both
+//! costs about half again the search time of one ladder (experiment 0016).
 
 use clap::ValueEnum;
 use gunfinger_core::speed::{Rung, key_lock_ladder, ladder};

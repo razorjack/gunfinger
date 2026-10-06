@@ -18,8 +18,8 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 - [x] Robustness harness and first runs (experiment 0009)
 - [x] Key-lock: measured (0009), key-locked rungs (0010); `identify
-  --playback turntable|key-lock|both`, default unchanged; cost about 1.3×
-  (0016).
+  --playback turntable|key-lock|both`; cost 1.57× in CPU time (0016,
+  0018). `both` is the default since 2026-10-06 (owner's decision).
 - [x] Scale proxy with reversed copies (experiment 0012): chance grows
   slowly up to 21,109 assets; the scan at 100 copies swapped and was
   stopped.
@@ -55,3 +55,13 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 - [x] README, AGENTS, roadmap, calibration, status up to date
 - [x] Morning summary at the top of `docs/notes-for-owner.md`
+
+## After the owner's review (2026-10-06)
+
+- [x] Startup details behind `--verbose`; the right advice for files
+  remembered as damaged or too long; `-f` for `--format`
+- [x] Reports record their playback; `--save-dir` searches again when it
+  differs
+- [x] Key lock on by default, in `identify`, `explain` and the harness;
+  the README documents the configuration file and the vinyl-only setting
+  (experiment 0018)

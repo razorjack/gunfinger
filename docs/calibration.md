@@ -10,7 +10,7 @@ measure it again, and what to change or undo if the measurement moves.
 
 | Choice | Value | Code | Rests on (at 262 tracks) | If it moves |
 |--------|-------|------|--------------------------|-------------|
-| Confident rule, hits | 200 | `confidence.rs` `MIN_HITS` | strongest false candidate 95 hits (a remix), weakest identifying 501 (experiment 0004) | Keep it about twice the strongest false candidate. If that collides with the weakest identifying detection, hits alone no longer separate them; the statistic needs rethinking (ADR 0001). |
+| Confident rule, hits | 200 | `confidence.rs` `MIN_HITS` | strongest false candidate 95 hits (a remix; 97 with both playbacks, experiment 0016), weakest identifying 501 (experiment 0004) | Keep it about twice the strongest false candidate. If that collides with the weakest identifying detection, hits alone no longer separate them; the statistic needs rethinking (ADR 0001). |
 | Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). |
 | Pairs per anchor and peak density | fan-out 2, ±12 × ±12 | `hash.rs` `FAN_OUT`, `profile.rs` | leanest variant with the best margins (experiment 0004) | If margins shrink at scale, rerun the density variants of experiment 0004 on the larger library. |
 | Duplicate clusters | one alignment covers ≥ 80% of the shorter file | `gunfinger-eval` `clusters.rs` | same-recording pairs ≥ 0.984, all others ≤ 0.39 (experiment 0002) | Rerun `clusters` after adding tracks; check that the gap holds. |
@@ -26,10 +26,10 @@ gap between segments of a play, and the 90 s scoring tolerance.
 |-------------|---------------|
 | Sweep (seed 2026) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development set | 11/11, 0 wrong; leave-out 3: 8/11, 0 wrong; leave-out 11: 0/11, 0 wrong |
-| Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2) |
-| `calibrate`, confident rule | weakest identifying 501 hits, strongest false 95, margin 5.27× |
+| Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2; turntable alone, not yet run with both playbacks) |
+| `calibrate`, confident rule | weakest identifying 501 hits, strongest false 97, margin 5.16× (both playbacks; turntable alone: 95, 5.27×) |
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |
-| Query time, development mix | 22 s, of which 2.6 s lookups, lines and chains (experiment 0005) |
+| Query time, development mix | turntable alone 22 s, of which 2.6 s lookups, lines and chains (experiment 0005); both playbacks 261 CPU seconds against 166 for turntable alone (experiment 0018) |
 | `gunfinger stats` | 74.4 postings/s, 5.07 bytes per posting, buckets p99 55 |
 
 ## After indexing more tracks
@@ -57,7 +57,8 @@ gap between segments of a play, and the 90 s scoring tolerance.
 | Owner corrected test track 16 to "Funktion (Remix)", absent from the library | test score 15/16 instead of 15/17 | revert the manifest |
 | Plays and the possible tier (ADR 0006, commit e87b79f) | `identify` output and JSON schema 2; scoring unchanged | the tier: delete `MIN_POSSIBLE_HITS` and `Confidence::Possible`; plays: delete `plays.rs` and restore the detection list in `identify.rs` |
 | Session 2 core changes: rungs as `Rung::{Turntable, KeyLocked}`, search progress, track positions, `hash::targets` and `hash::pair_hash` | none: `regress session-2-start` and the development scan give identical detections after each | nothing to undo |
-| Key-locked rungs, opt-in (`identify --playback both` or `key-lock`, `playback` in the configuration file; experiments 0010, 0016) | default unchanged. With both ladders the full protocol passes with the same thresholds: sweep 100%, development 11/11, leave-outs 0 wrong, margin 5.16× (strongest false 97), audio not in the index 19 | making `both` the default needs no recalibration at this library size; measure search time first |
+| Key-locked rungs, opt-in (`identify --playback both` or `key-lock`, `playback` in the configuration file; experiments 0010, 0016) | default unchanged. With both ladders the full protocol passes with the same thresholds: sweep 100%, development 11/11, leave-outs 0 wrong, margin 5.16× (strongest false 97), audio not in the index 19 | delete `Rung::KeyLocked` and `--playback` |
+| Both playbacks by default, the owner's decision of 2026-10-06 (`identify`, `explain` and the `gunfinger-eval` ladder; experiment 0018) | the protocol results of experiment 0016 become the baseline. On the development mix the same 14 plays, none with key lock; Side Effects starts 23 s later, Bios-Fear and the Clockwork remix gain 3 hits each. Search costs 1.57 times the CPU time | the default in `config.rs` (`PlaybackChoice::Both`) and the `--ladder` default in `gunfinger-eval`; move `work/reports/ladder-turntable/` back to `work/reports/` |
 
 ## Measured, not adopted
 

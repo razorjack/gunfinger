@@ -1,0 +1,316 @@
+{
+ "question": "Cost of searching both playbacks by default, measured with gunfinger identify on the development mix (56:09) on 2026-10-06",
+ "command": "/usr/bin/time -l target/release/gunfinger identify <development mix> --library corpus/library --playback turntable|both --format json",
+ "machine_note": "Apple Silicon laptop; other sessions were loading the CPU, so wall times are noisy and CPU (user) time is the comparison",
+ "cpu_time_run": {
+  "turntable": {
+   "real_s": 43.8,
+   "user_s": 166.24,
+   "sys_s": 3.06,
+   "max_rss_bytes": 387252224
+  },
+  "both": {
+   "real_s": 49.32,
+   "user_s": 260.6,
+   "sys_s": 2.9,
+   "max_rss_bytes": 460816384
+  }
+ },
+ "wall_time_runs": {
+  "loadavg_before": [
+   4.4,
+   5.88,
+   5.94
+  ],
+  "loadavg_after": [
+   81.91,
+   38.83,
+   19.39
+  ],
+  "rounds": [
+   {
+    "turntable_real_s": 23.76,
+    "both_real_s": 34.67
+   },
+   {
+    "turntable_real_s": 23.45,
+    "both_real_s": 64.03
+   }
+  ],
+  "note": "round 2 'both' ran while another session's load rose"
+ },
+ "plays": {
+  "turntable": [
+   {
+    "asset": "Skynet & Stakka - Night Lore.mp3",
+    "start": 0.1,
+    "end": 303.9,
+    "hits": 3694,
+    "windows": 31,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+    "start": 259.1,
+    "end": 605.1,
+    "hits": 4132,
+    "windows": 36,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Decoy.mp3",
+    "start": 259.6,
+    "end": 628.2,
+    "hits": 4733,
+    "windows": 36,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Kemal & Rob Data - Star Trails.mp3",
+    "start": 543.0,
+    "end": 927.6,
+    "hits": 1839,
+    "windows": 36,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Pathogen.mp3",
+    "start": 862.9,
+    "end": 1085.1,
+    "hits": 2030,
+    "windows": 23,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Clockwork.mp3",
+    "start": 1046.3,
+    "end": 1328.9,
+    "hits": 2651,
+    "windows": 29,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start": 1222.9,
+    "end": 1239.8,
+    "hits": 91,
+    "windows": 2,
+    "playback": "turntable",
+    "confidence": "possible"
+   },
+   {
+    "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+    "start": 1267.4,
+    "end": 1576.3,
+    "hits": 2237,
+    "windows": 31,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "start": 1518.9,
+    "end": 1919.8,
+    "hits": 3395,
+    "windows": 39,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Kraken - Dominion.opus",
+    "start": 1521.8,
+    "end": 1919.8,
+    "hits": 3204,
+    "windows": 38,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Kemal & Paul Reset - Kontempt.mp3",
+    "start": 1862.9,
+    "end": 2282.2,
+    "hits": 4464,
+    "windows": 43,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "start": 2232.0,
+    "end": 2606.5,
+    "hits": 4542,
+    "windows": 38,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Logistics.mp3",
+    "start": 2602.6,
+    "end": 2998.0,
+    "hits": 5779,
+    "windows": 40,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+    "start": 2981.5,
+    "end": 3362.0,
+    "hits": 4375,
+    "windows": 39,
+    "playback": "turntable",
+    "confidence": "confident"
+   }
+  ],
+  "both": [
+   {
+    "asset": "Skynet & Stakka - Night Lore.mp3",
+    "start": 0.1,
+    "end": 303.9,
+    "hits": 3694,
+    "windows": 31,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+    "start": 259.1,
+    "end": 605.1,
+    "hits": 4132,
+    "windows": 36,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Decoy.mp3",
+    "start": 259.6,
+    "end": 628.2,
+    "hits": 4733,
+    "windows": 36,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Kemal & Rob Data - Star Trails.mp3",
+    "start": 543.0,
+    "end": 927.6,
+    "hits": 1839,
+    "windows": 36,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Pathogen.mp3",
+    "start": 862.9,
+    "end": 1085.1,
+    "hits": 2030,
+    "windows": 23,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Clockwork.mp3",
+    "start": 1046.3,
+    "end": 1328.9,
+    "hits": 2651,
+    "windows": 29,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "start": 1222.9,
+    "end": 1240.8,
+    "hits": 94,
+    "windows": 3,
+    "playback": "turntable",
+    "confidence": "possible"
+   },
+   {
+    "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+    "start": 1290.2,
+    "end": 1576.3,
+    "hits": 2241,
+    "windows": 29,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "start": 1518.9,
+    "end": 1919.8,
+    "hits": 3395,
+    "windows": 39,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Kraken - Dominion.opus",
+    "start": 1521.8,
+    "end": 1919.8,
+    "hits": 3204,
+    "windows": 38,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Kemal & Paul Reset - Kontempt.mp3",
+    "start": 1862.9,
+    "end": 2282.2,
+    "hits": 4464,
+    "windows": 43,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "start": 2227.2,
+    "end": 2606.5,
+    "hits": 4545,
+    "windows": 39,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Skynet & Stakka - Logistics.mp3",
+    "start": 2602.6,
+    "end": 2998.0,
+    "hits": 5779,
+    "windows": 40,
+    "playback": "turntable",
+    "confidence": "confident"
+   },
+   {
+    "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+    "start": 2981.5,
+    "end": 3362.0,
+    "hits": 4375,
+    "windows": 39,
+    "playback": "turntable",
+    "confidence": "confident"
+   }
+  ]
+ },
+ "regress": {
+  "command": "gunfinger-eval regress key-lock-default (baseline: the both-ladder reports of experiment 0016)",
+  "sweep": "720 of 720 queries with identical detections",
+  "development": "identified 11, wrong 0; all 6114 detections identical",
+  "leave_out_3": "identified 8, wrong 0; all 6037 detections identical",
+  "leave_out_11": "identified 0, wrong 0; all 5736 detections identical",
+  "calibrate": {
+   "weakest_identifying_hits": 501,
+   "strongest_false_hits": 97,
+   "margin": 5.16,
+   "false_candidates_at_30_or_more": 15,
+   "all_the_clockwork_remix": true,
+   "strongest_on_audio_not_in_index": 19,
+   "strongest_false_under_30": 28
+  }
+ }
+}

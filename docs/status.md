@@ -414,9 +414,10 @@ evaluation was spent (2 of 5 used).
   ladder.
 - **Key lock (0010).** Key-locked rungs (time stretched, frequency kept)
   find every key-locked excerpt at ±2-8% and leave turntable results as
-  they were. Opt-in: `identify --playback both`; with both ladders the
-  full protocol passes with unchanged thresholds (0016), about a third
-  slower.
+  they were. Opt-in at first: `identify --playback both`; with both
+  ladders the full protocol passes with unchanged thresholds (0016) at
+  1.57 times the CPU time (0018). On by default since the owner's
+  decision below.
 - **Summed play evidence (0011).** Offline null: no change.
 - **Scale proxy (0012).** Reversed, stretched copies of the library up to
   21,109 assets: chance alignments grow slowly; memory runs out first.
@@ -430,9 +431,10 @@ evaluation was spent (2 of 5 used).
   or more hits, 5 reach the possible tier (strongest 130, two Aphrodite
   drum versions), none 200.
 - **Key lock through the full protocol (0016).** Both ladders pass with
-  unchanged thresholds at about 1.3 times the search time. `playback` in
-  the configuration file sets the default per library; the built-in
-  default stays turntable.
+  unchanged thresholds at about 1.5 times the search time (the first
+  estimate, 1.3, came from noisy wall times; experiment 0018 measured
+  1.57 times the CPU time). `playback` in the configuration file sets the
+  default per library.
 - Timings this night were noisy (load average above 100 while the
   harness ran); relative timings were interleaved, lookup savings counted
   exactly.
@@ -450,3 +452,19 @@ evaluation was spent (2 of 5 used).
   material with" the confident play around it.
 - The owner removed `stakka-skynet-clockwork-mix-cd` from `corpus/sets/`;
   it is not needed as an evaluation set.
+
+## 2026-10-06: quieter output; key lock on by default
+
+- `identify` and the other commands print timings, the index size and the
+  files left out of the index only with `--verbose` (`-v`). Library files
+  that need `gunfinger index` still get a one-line warning; a file
+  remembered as damaged or too long names `--retry-skipped` instead of
+  `gunfinger index`. `--format` has the short flag `-f`.
+- Saved reports record their playback (`query.playback`), and
+  `identify --save-dir` searches a recording again when it differs.
+- Key lock is on by default: `identify`, `explain` and the harness search
+  both playbacks unless `--playback` or `playback` in the configuration
+  file says otherwise (owner's decision, experiment 0018). It costs 1.57
+  times the CPU time; the earlier 1.3 came from noisy wall times. The
+  owner's configuration file sets `playback = "turntable"`. The README
+  documents the configuration file and the vinyl-only setting.

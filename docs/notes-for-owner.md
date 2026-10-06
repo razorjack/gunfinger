@@ -38,17 +38,19 @@ each with its data in `docs/experiments/data/`.
    0017). It saves no time at 262 tracks, where lookups are a small part
    of the search. Triplet hashes would scan 25-79 times fewer postings but
    lose about half their evidence under heavy damage (0014, offline).
-4. Key lock works: `--playback both` (or `playback = "both"` in the
-   configuration file) finds CDJ/master-tempo playback at ±2-8% (0010) and
-   passes the full protocol with unchanged thresholds at about 1.3 times
-   the search time (0016).
+4. Key lock works: `--playback both` finds CDJ/master-tempo playback at
+   ±2-8% (0010) and passes the full protocol with unchanged thresholds at
+   1.57 times the CPU time (0016, 0018). It is the default since
+   2026-10-06.
 5. Robustness: 32 kinds of damage, no false identification (0009).
 
 **Decisions for you.**
 
-- Should key lock be on by default? It costs about a third more search
-  time and your sets are vinyl, so I left it off; `playback = "both"` in
-  the configuration file turns it on for a library.
+- Key lock by default: decided on 2026-10-06, on. Your
+  `~/.config/gunfinger/config.toml` sets `playback = "turntable"`.
+- The test set has only been searched with turntable playback. One
+  evaluation (3 left) would confirm 15/16 with both; I did not spend it,
+  since the development protocol passes unchanged (0016).
 - Should the fullest 1% of posting lists be dropped by default? It passes
   the protocol, but every hit count changes, so I would confirm it with
   one test evaluation (3 left). `docs/calibration.md` ("Measured, not
@@ -111,8 +113,8 @@ Experiment 0010: rungs that stretch time but not frequency find every
 key-locked excerpt at ±2%, ±5% and +8% (40 of 40 each, hits as strong as
 untouched audio), and adding them to the turntable ladder changed nothing
 for vinyl-style audio and created no false identification. The cost is
-search time: 82 rungs instead of 41, measured later at about 1.3 times
-the search time (experiment 0016). I left the default on the turntable
+search time: 82 rungs instead of 41, measured later at 1.57 times the
+CPU time (experiments 0016, 0018). I left the default on the turntable
 ladder because your sets are vinyl, and added `identify --playback both`
 (or `key-lock`); key-locked plays are marked `(key lock)`, and `listen`
 time-stretches them instead of resampling. If you identify CD or digital
@@ -192,3 +194,21 @@ with its own bass and drums. The possible play is therefore a correct
 report of shared material, acceptable as it is, and that fragment alone
 cannot tell the two recordings apart. It is the same passage experiment
 0015 found (129 hits, remix 6:39-6:58 against the original 3:25-3:44).
+
+### Key lock on by default; its cost was 1.57×, not 1.3×
+
+Your decision: both playbacks by default, so digital DJs get key-locked
+plays without configuring anything, and vinyl users turn it off in the
+configuration file (README, "Key lock and vinyl"). Your own file sets
+`playback = "turntable"`, so your searches are unchanged. The harness
+default ladder is `both` too; turntable-only reports moved to
+`work/reports/ladder-turntable/`. Measured in CPU time on the development
+mix, both playbacks cost 261 s against 166 s, 1.57 times; the 1.3 I gave
+before came from wall times on a loaded machine (experiment 0018). Same 14
+plays, none with key lock.
+
+Two smaller command-line changes went with it: `identify` keeps quiet
+about timings and files left out of the index unless you pass `--verbose`
+(files that need `gunfinger index` still get a one-line warning), and
+saved reports record their playback, so `--save-dir` searches a recording
+again when the playback differs.

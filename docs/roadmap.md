@@ -64,11 +64,11 @@ marked as inferences were derived, not measured.
 
 ## Reports and command line
 
-- **Reports record how they were made.** A saved report holds no search
-  settings: playback, profile and hash design, the confidence rule, the
-  library's revision. `identify --save-dir` passes over a recording with a
-  report regardless of how it was made; it should search again when the
-  inputs or settings differ.
+- **Reports record how they were made.** A saved report records its
+  playback, and `identify --save-dir` searches a recording again when the
+  playback differs. It holds no other search settings: profile and hash
+  design, the confidence rule, the library's revision. It should record
+  them and search again when any of them differ.
 - **Atomic report writes.** Reports are written in place, so an
   interrupted run can leave a truncated file that a batch then treats as
   done. Write a temporary file and rename it, as the peak store does.
@@ -197,10 +197,6 @@ marked as inferences were derived, not measured.
   independently reviewed missed plays have strong, compatible segments that
   together pass 200, and test a restricted rule against related recordings
   and long unknown passages.
-- **Key lock by default.** `identify --playback both` finds key-locked
-  plays (experiment 0010) and passes the full protocol with unchanged
-  thresholds (experiment 0016); the search takes about a third longer.
-  The owner decides whether it becomes the default.
 
 ## Evaluation
 
@@ -225,9 +221,8 @@ marked as inferences were derived, not measured.
 
 ## Engineering
 
-- **Before publishing.** 13 committed files under `docs/` name library
-  files, including rip-group suffixes. Decide whether to keep, shorten or
-  replace those names; removing them from the current files does not
-  remove them from the history.
+- **Before publishing.** Check that the history holds no audio from
+  `corpus/` (`git log --all --stat`). The owner keeps the library file
+  names in `docs/` as they are (2026-10-06).
 - **GitHub Actions.** Run `scripts/check.sh` on push. FFmpeg must be
   installed in the runner for the codec tests.

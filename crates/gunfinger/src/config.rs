@@ -10,7 +10,7 @@
 //! peaks_dir = "~/.local/share/gunfinger/peaks"
 //! jobs = 8
 //! color = "auto"
-//! playback = "turntable"   # or "key-lock", or "both" for CD and digital sets
+//! playback = "turntable"   # vinyl only; the default "both" also finds key lock
 //! ```
 
 use std::num::NonZeroUsize;
@@ -73,7 +73,7 @@ impl Settings {
                 NonZeroUsize::get,
             ),
             color: given.color.or(file.color).unwrap_or(ColorChoice::Auto),
-            playback: file.playback.unwrap_or(PlaybackChoice::Turntable),
+            playback: file.playback.unwrap_or(PlaybackChoice::Both),
             library: file.library.map(|library| expand_home(&library)),
             file: path,
         })
@@ -177,6 +177,21 @@ mod tests {
         assert_eq!(
             settings.and_then(|s| s.library(Some(PathBuf::from("/other"))).ok()),
             Some(PathBuf::from("/other"))
+        );
+    }
+
+    #[test]
+    fn without_settings_both_playbacks_are_searched() {
+        let path = write_config("empty", "");
+
+        let settings = Settings::resolve(Given {
+            config: Some(path),
+            ..given()
+        });
+
+        assert_eq!(
+            settings.ok().map(|s| s.playback),
+            Some(PlaybackChoice::Both)
         );
     }
 
