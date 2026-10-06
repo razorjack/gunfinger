@@ -216,15 +216,6 @@ marked as inferences were derived, not measured.
   plays and boundary truth the matching items above need. Rendered by the
   same tools as the robustness excerpts, it complements real mixes rather
   than replacing them.
-- **The Clockwork mix CD.** `corpus/sets/stakka-skynet-clockwork-mix-cd/`
-  holds a 59:45 mix and a 13-track cue sheet but no `tracklist.toml`, so it
-  has never been scanned. By file name, 12 of its 13 tracks are in the
-  library (the Kemal & Rob Data remix of Side Effects appears absent; the
-  TeeBee remix is present). The owner writes its manifest and decides its
-  role before anyone scans it; one option is a second held-out set with its
-  own ledger, used to confirm default changes. It shares artists and tracks
-  with the development mix, so it is an easier test than the Essential
-  Mix.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The
@@ -236,7 +227,7 @@ marked as inferences were derived, not measured.
 
 - **Before publishing.** 13 committed files under `docs/` name library
   files, including rip-group suffixes. Decide whether to keep, shorten or
-  replace those names. `docs/assets/`, which the README uses, is not
-  committed yet.
+  replace those names; removing them from the current files does not
+  remove them from the history.
 - **GitHub Actions.** Run `scripts/check.sh` on push. FFmpeg must be
   installed in the runner for the codec tests.

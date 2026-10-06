@@ -448,3 +448,5 @@ evaluation was spent (2 of 5 used).
   fragment indistinguishable on its own. It is the passage experiment 0015
   found between the two recordings. Roadmap: show such a play as "shares
   material with" the confident play around it.
+- The owner removed `stakka-skynet-clockwork-mix-cd` from `corpus/sets/`;
+  it is not needed as an evaluation set.
