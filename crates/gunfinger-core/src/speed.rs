@@ -69,6 +69,12 @@ impl Rung {
     }
 }
 
+/// The ladder's speeds as reports record them; which ladders were searched
+/// is the playback.
+pub fn design() -> String {
+    format!("ladder={SLOWEST}..{FASTEST}/{STEP}")
+}
+
 /// The assumed speeds searched, slowest first.
 pub fn ladder() -> Vec<Rung> {
     speeds().map(Rung::Turntable).collect()

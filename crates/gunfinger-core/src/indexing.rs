@@ -9,7 +9,7 @@ use crate::library::{Asset, Library};
 use crate::parallel::map_in_order;
 use crate::peaks::extract_peaks;
 use crate::profile::Profile;
-use crate::store::{PeakRecord, PeakStore, RecordHeader, SkipNote, SkipReason, StoreError};
+use crate::store::{PeakRecord, PeakStore, RecordHeader, SkipNote, SkipReason, StoreError, fnv1a};
 
 /// What indexing did with one asset.
 #[derive(Debug)]
@@ -153,6 +153,15 @@ pub fn load_records(
     (records, problems)
 }
 
+/// An index built from the peak store.
+pub struct BuiltIndex {
+    pub index: Index,
+    /// The library revision of the assets indexed.
+    pub revision: String,
+    /// Assets left out because they have no current peak record.
+    pub problems: Vec<StoreError>,
+}
+
 /// The index of the library's current peak records, leaving out the paths
 /// in `excluded`. It is built in two passes that read one record at a time
 /// from the store (`Index::counting`), so it needs little more memory than
@@ -163,7 +172,7 @@ pub fn build_index(
     store: &PeakStore,
     profile: &Profile,
     excluded: &BTreeSet<String>,
-) -> Result<(Index, Vec<StoreError>), IndexError> {
+) -> Result<BuiltIndex, IndexError> {
     let mut counting = Index::counting();
     let mut indexed = Vec::new();
     let mut problems = Vec::new();
@@ -180,11 +189,45 @@ pub fn build_index(
         }
     }
     let mut filling = counting.into_filling();
-    for asset in indexed {
+    for &asset in &indexed {
         let record = store
             .load(asset, profile)
             .map_err(|_| IndexError::Changed)?;
         filling.fill(&record)?;
     }
-    Ok((filling.finish()?, problems))
+    Ok(BuiltIndex {
+        index: filling.finish()?,
+        revision: library_revision(indexed),
+        problems,
+    })
+}
+
+/// The assets an index built now would hold, reading only the headers of
+/// their peak records: `library_revision` of these is the revision
+/// `build_index` would give, unless a record's peaks turn out unreadable.
+pub fn indexable_assets<'a>(
+    library: &'a Library,
+    store: &'a PeakStore,
+    profile: &'a Profile,
+    excluded: &'a BTreeSet<String>,
+) -> impl Iterator<Item = &'a Asset> {
+    library
+        .assets
+        .iter()
+        .filter(|asset| !excluded.contains(&asset.path) && store.has_current(asset, profile))
+}
+
+/// A digest of the files an index is made from: each asset's path, size and
+/// modification time, in library order. Indexes of the same revision built
+/// under the same profile and hash design hold the same postings.
+pub fn library_revision<'a>(assets: impl IntoIterator<Item = &'a Asset>) -> String {
+    let mut bytes = Vec::new();
+    for asset in assets {
+        bytes.extend(asset.path.as_bytes());
+        bytes.push(0);
+        bytes.extend(asset.size.to_le_bytes());
+        bytes.extend(asset.modified.seconds.to_le_bytes());
+        bytes.extend(asset.modified.nanos.to_le_bytes());
+    }
+    format!("{:016x}", fnv1a(&bytes))
 }

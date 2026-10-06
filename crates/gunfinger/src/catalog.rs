@@ -6,7 +6,7 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use gunfinger_core::index::Index;
-use gunfinger_core::indexing::build_index;
+use gunfinger_core::indexing::{BuiltIndex, build_index, indexable_assets, library_revision};
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, StoreError};
@@ -19,6 +19,8 @@ pub struct Catalog {
     pub library: Library,
     pub store: PeakStore,
     pub index: Index,
+    /// The library revision of the indexed assets.
+    pub revision: String,
 }
 
 impl Catalog {
@@ -43,8 +45,11 @@ impl Catalog {
             Some(path) => read_exclusions(path)?,
             None => BTreeSet::new(),
         };
-        let (index, problems) =
-            build_index(&library, &store, &Profile::CURRENT, &excluded).into_diagnostic()?;
+        let BuiltIndex {
+            index,
+            revision,
+            problems,
+        } = build_index(&library, &store, &Profile::CURRENT, &excluded).into_diagnostic()?;
         report_left_out(&problems, console);
         if index.assets().is_empty() {
             return Err(miette!(
@@ -65,7 +70,34 @@ impl Catalog {
             library,
             store,
             index,
+            revision,
         })
+    }
+
+    /// The library revision an index built now would have, reading only the
+    /// headers of the peak records: enough to tell whether a saved report
+    /// is current without building the index.
+    pub fn revision_now(
+        library_root: &Path,
+        peaks_dir: &Path,
+        exclude_from: Option<&Path>,
+    ) -> miette::Result<String> {
+        let library = Library::scan(library_root)
+            .into_diagnostic()
+            .wrap_err_with(|| {
+                format!("could not read the library at {}", library_root.display())
+            })?;
+        let store = PeakStore::open(peaks_dir).into_diagnostic()?;
+        let excluded = match exclude_from {
+            Some(path) => read_exclusions(path)?,
+            None => BTreeSet::new(),
+        };
+        Ok(library_revision(indexable_assets(
+            &library,
+            &store,
+            &Profile::CURRENT,
+            &excluded,
+        )))
     }
 }
 

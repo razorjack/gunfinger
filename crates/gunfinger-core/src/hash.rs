@@ -29,6 +29,15 @@ pub const HASH_BITS: u32 = ANCHOR_BITS + DELTA_BIN_BITS + DELTA_FRAME_BITS;
 const ANCHOR_KNEE_BINS: f32 = 50.0;
 const ANCHOR_RELATIVE_STEP: f32 = 0.02;
 
+/// The hash design as reports record it: results made under another design
+/// are not comparable. The version changes when hashing changes in a way
+/// these numbers do not show.
+pub fn design() -> String {
+    format!(
+        "pairs-v1 fan-out={FAN_OUT} zone={MAX_DELTA_FRAMES}x{MAX_DELTA_BINS} anchor={ANCHOR_BITS}bit/knee={ANCHOR_KNEE_BINS}/step={ANCHOR_RELATIVE_STEP} dbin={DELTA_BIN_BITS}bit dframe={DELTA_FRAME_BITS}bit"
+    )
+}
+
 /// A packed pair hash: `anchor level | bin delta | frame delta`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PairHash(pub u32);
