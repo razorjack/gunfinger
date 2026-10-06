@@ -10,7 +10,8 @@ Our question is whether tracks can be found in real vinyl mixes
 without confident wrong answers. Two sets have manifests: a development set
 (`stakka-skynet-knowledge`, 11 tracks, all referenced) and a held-out test
 set (`ed-rush-optical-essential-mix`, 31 tracks, 17 referenced, 14 absent,
-radio broadcast). Tuning on the test set would make its verdict meaningless.
+radio broadcast; 16 and 15 since track 16 was corrected, a remix not
+in the library). Tuning on the test set would make its verdict meaningless.
 
 ## Decision
 
