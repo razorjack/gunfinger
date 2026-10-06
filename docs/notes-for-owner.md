@@ -410,3 +410,70 @@ Note had 209 hits there. On the development mix the second pass changes
 own hits by -15% to +17%, so Sick Note would most likely be shown as
 possible, not confident, under any second-pass variant at 240. Only a
 test-set evaluation would show it; I did not spend one.
+
+### Under damage and at scale, skip at 240 does better than today
+
+Every robust condition, with both ladders and with turntable alone, the
+padded index and the cost (experiment 0027). With both ladders, 2,600
+excerpts of indexed tracks: today's matcher confirms 1,959; skip at 240
+confirms 1,995 and drop at 240 confirms 1,884. Possible or better: 2,258
+today, 2,273 skip, 2,230 drop. No variant gives a wrong confident answer
+anywhere; the strongest wrong candidate is 104 today, 108 with skip and
+76 with drop. Skip gains on needle skips (1 → 31 of 80), beatmatched and
+plain blends and broadcast processing, and loses where little evidence is
+left: combined damage 7 → 4 of 80, pink noise at 10 dB 77 → 75, Opus
+80 → 79. The turntable ladder shows the same pattern.
+
+The filter pays at scale. On the padded index (8,122 assets) and the
+scale proxy (26,462) both filtered variants use 57-63% less search CPU
+than today's matcher, and the first pass keeps 112,000 distinct lines
+instead of 1.74 million for 5 minutes of the development mix. At 262
+tracks they save 2-10%. I could not measure peak memory reliably today:
+the build used in experiment 0021 peaked at 6.5 GB on this machine, against
+4.1 GB then.
+
+## The case for adopting the second pass with common hashes skipped
+
+What it is: `search_twice` on an index from `Index::skipping_fullest(0.01)`,
+confident at 240 hits in 3 windows, possible at 60. Today it is a harness
+option (`--second-pass --skip-fullest 0.01`); `identify` and `explain` do
+not use it.
+
+For it:
+
+- Evidence is measured at each play's own speed, so the ladder's rungs no
+  longer shape it: over four sweep draws the weakest identifying
+  detection rises from 403 to 658 hits and the margin from 4.15× to 5.53×
+  (experiment 0026).
+- Under damage 36 more excerpts are confirmed with both ladders, needle
+  skips most, and no wrong answer appears (experiment 0027).
+- False candidates fall by 94% and the development scan's detections from
+  6,114 to 232, so `explain` and the JSON report carry far less chance
+  evidence.
+- At 8,000-26,000 assets the search needs 57-63% less CPU and keeps 94%
+  fewer lines, which is the memory the search holds at that size.
+
+Against it:
+
+- The confident threshold rises from 200 to 240, set by shared material:
+  the Clockwork remix's shared passage measures 119 hits. Plays between
+  200 and 240 hits after the second pass become possible: combined damage
+  7 → 4 of 80. The generated mixes and the window grid do not change.
+- Sick Note had 209 hits on the test set; it would most likely be shown as
+  possible (inference from the development mix, where own hits change by
+  -15% to +17%). A test-set evaluation (3 left) would show it.
+- One fitted speed per play: a play whose speed wanders loses evidence
+  (Star Trails, -15%).
+- At 262 tracks it saves little time; most of the gain is in margin and
+  robustness.
+
+Dropping the lists instead (`--drop-fullest`) is not worth it: it keeps
+72-96% of today's own-track evidence and confirms 75 fewer damaged
+excerpts at 240.
+
+My recommendation, for you to decide: adopt skip with the second pass
+before the library grows past a few thousand tracks, after one test-set
+evaluation to see Sick Note and the rest of the test mix under it. If
+losing confident status for plays near 200-240 hits is not acceptable,
+keep today's matcher and revisit when the confidence statistic for shared
+material (roadmap) is solved, since that is what forced 240.

@@ -525,3 +525,8 @@ Baseline `session-3-start` saved after a rerun that reproduced
   over four seeds; false candidates -94%. Calibration alone puts the
   opt-in `FITTED_RULE` at 240 hits (skip's strongest false is 119, the
   Clockwork remix's shared passage). `regress session-3-start`: identical.
+- **Item 6 under damage and at scale (experiment 0027).** Robust with
+  both ladders: skip at 240 confirms 1,995 against 1,959 today, drop
+  1,884; no wrong answer. 57-63% less search CPU at 8,122 and 26,462
+  assets; first-pass lines 1.74 million → 112,000. `memory` takes the
+  matching options and `--count-lines`. Case for adoption in the notes.

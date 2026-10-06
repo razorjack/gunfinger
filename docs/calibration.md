@@ -10,14 +10,16 @@ measure it again, and what to change or undo if the measurement moves.
 
 | Choice | Value | Code | Rests on (at 262 tracks) | If it moves |
 |--------|-------|------|--------------------------|-------------|
-| Confident rule, hits | 200 | `confidence.rs` `MIN_HITS` | strongest false candidate 95 hits (a remix; 97 with both playbacks, experiment 0016), weakest identifying 501 (experiment 0004) | Keep it about twice the strongest false candidate. If that collides with the weakest identifying detection, hits alone no longer separate them; the statistic needs rethinking (ADR 0001). |
-| Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). |
+| Confident rule, hits | 200 | `confidence.rs` `MIN_HITS` | strongest false candidate 95 hits (a remix; 97 with both playbacks, experiment 0016), weakest identifying 501 (experiment 0004); over four sweep draws 97 and 403 (experiment 0025) | Keep it about twice the strongest false candidate. If that collides with the weakest identifying detection, hits alone no longer separate them; the statistic needs rethinking (ADR 0001). |
+| Second pass's rule (opt-in) | 240 hits, 3 windows | `confidence.rs` `FITTED_RULE` | over four sweep draws and the development scans: strongest false 119 (the passage the Clockwork remix shares with the original, with the fullest lists skipped), 97 without the filter, 91 with them dropped; weakest identifying 520-660 (experiment 0026) | Keep it about twice the strongest false candidate and well below the weakest identifying one, as for `MIN_HITS`. |
+| Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006), 28 over four sweep draws (experiment 0025); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). |
 | Pairs per anchor and peak density | fan-out 2, ±12 × ±12 | `hash.rs` `FAN_OUT`, `profile.rs` | leanest variant with the best margins (experiment 0004) | If margins shrink at scale, rerun the density variants of experiment 0004 on the larger library. |
-| Duplicate clusters | one alignment covers ≥ 80% of the shorter file | `gunfinger-eval` `clusters.rs` | same-recording pairs ≥ 0.984, all others ≤ 0.39 (experiment 0002) | Rerun `clusters` after adding tracks; check that the gap holds. |
+| Duplicate clusters | one alignment covers ≥ 80% of the shorter file | `gunfinger-eval` `clusters.rs` | same-recording pairs ≥ 0.984, all others ≤ 0.39 (experiment 0002); the same clusters from stored peaks (experiment 0023) | Rerun `clusters` after adding tracks (`clusters --from-peaks` first, to compare cheaply); check that the gap holds. An edit with a cut in the middle is never a duplicate under this criterion. |
 | Posting layout | 15 asset bits | `index.rs` `Posting` | 32,768 assets at most (ADR 0005) | A hard limit; the options for going past it are in ADR 0007 (open). |
 
 Not library-dependent: the speed ladder (0.4% steps, experiment 0001), the
-3-window minimum (a 30 s excerpt spans 3 windows), chain linking, the 90 s
+3-window minimum (a 30 s excerpt spans 3 windows; a 15-20 s play only at
+some places on the window grid, experiment 0020), chain linking, the 90 s
 gap between segments of a play, and the 90 s scoring tolerance.
 
 ## Baseline to compare against
@@ -29,6 +31,7 @@ gap between segments of a play, and the 90 s scoring tolerance.
 | Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2; turntable alone, not yet run with both playbacks) |
 | `calibrate`, confident rule | weakest identifying 501 hits, strongest false 97, margin 5.16× (both playbacks; turntable alone: 95, 5.27×) |
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |
+| `calibrate` over sweep seeds 2026-2029 | weakest identifying 403 (Fibre Optix - Sin at -3%), strongest false 97, margin 4.15×; audio not in the index 28 (experiment 0025) |
 | Query time, development mix | turntable alone 22 s, of which 2.6 s lookups, lines and chains (experiment 0005); both playbacks 261 CPU seconds against 166 for turntable alone (experiment 0018) |
 | `gunfinger stats` | 74.4 postings/s, 5.07 bytes per posting, buckets p99 55 |
 
@@ -38,9 +41,13 @@ gap between segments of a play, and the 90 s scoring tolerance.
    the old size; `gunfinger-eval regress <name> --no-rerun` after step 4
    shows what moved.
 1. `gunfinger index <library>`, then `gunfinger-eval clusters` (new rips
-   join clusters).
-2. `gunfinger-eval sweep --seed 2026`. The draw depends on the library, so
-   compare recall and wrong answers, not individual excerpts.
+   join clusters; `clusters --from-peaks` gives the same result at a
+   seventh of the CPU and compares).
+2. `gunfinger-eval sweep --seed N` for 2026 to 2029. Each seed's held-out
+   recordings and excerpts are kept in `docs/panels/`, so individual
+   excerpts compare across sizes; new tracks are indexed, and new rips of
+   a held-out recording stay held out once step 1 has clustered them. A
+   panel whose excerpt's file is gone is an error.
 3. `gunfinger-eval scan stakka-skynet-knowledge`, with `--leave-out 3
    --seed 2026` and `--leave-out 11 --seed 2026`.
 4. `gunfinger-eval calibrate`: compare both blocks with the baseline and
@@ -59,9 +66,14 @@ gap between segments of a play, and the 90 s scoring tolerance.
 | Session 2 core changes: rungs as `Rung::{Turntable, KeyLocked}`, search progress, track positions, `hash::targets` and `hash::pair_hash` | none: `regress session-2-start` and the development scan give identical detections after each | nothing to undo |
 | Key-locked rungs, opt-in (`identify --playback both` or `key-lock`, `playback` in the configuration file; experiments 0010, 0016) | default unchanged. With both ladders the full protocol passes with the same thresholds: sweep 100%, development 11/11, leave-outs 0 wrong, margin 5.16× (strongest false 97), audio not in the index 19 | delete `Rung::KeyLocked` and `--playback` |
 | Both playbacks by default, the owner's decision of 2026-10-06 (`identify`, `explain` and the `gunfinger-eval` ladder; experiment 0018) | the protocol results of experiment 0016 become the baseline. On the development mix the same 14 plays, none with key lock; Side Effects starts 23 s later, Bios-Fear and the Clockwork remix gain 3 hits each. Search costs 1.57 times the CPU time | the default in `config.rs` (`PlaybackChoice::Both`) and the `--ladder` default in `gunfinger-eval`; move `work/reports/ladder-turntable/` back to `work/reports/` |
+| Session 3 changes without effect on detections: the index built in two passes, reports that record their settings, atomic report writes, `explain --windows`, `Evidence::pass`, the opt-in `search::search_twice` and `search::search_peaks`, sweep panels, `Index::skipping_fullest` | none: `regress session-3-start` gives identical detections after each | nothing to undo |
+| The opt-in second pass's rule set from its own calibration: `FITTED_RULE` 240 hits in 3 windows, possible 60 (experiment 0026) | default unchanged (`regress session-3-start`: identical); applies only to `--second-pass` in the harness | set `FITTED_RULE.min_hits` back to `MIN_HITS` |
 
 ## Measured, not adopted
 
 | Candidate | Evidence | To adopt |
 |-----------|----------|----------|
 | Empty the fullest 1% of posting lists (`Index::without_fullest(0.01)`) | passes the full protocol (experiment 0017): sweep 100%, development 11/11, leave-outs 0 wrong; margin 5.86× (weakest identifying 445, strongest false 76); audio not in the index 15; 62% fewer postings scanned, no speed change at 262 tracks (0013) | call it in `catalog.rs` after `Index::build`, rerun the protocol and one test evaluation; every hit count drops by about 17% |
+| The second pass at the fitted speed (`search::search_twice`; harness `--second-pass`) | at 240 hits: sweeps 540/540 for seeds 2026-2029, development 11/11, leave-outs 0 wrong; weakest identifying 660, strongest false 97, margin 6.80×; audio not in the index 24; robust, both ladders, 1,997 confident against 1,959 today, no wrong answer (experiments 0024, 0026, 0027) | superseded by the row below, which keeps its evidence at lower cost |
+| The second pass with the fullest 1% of posting lists skipped for candidates (`Index::skipping_fullest(0.01)`, `--second-pass --skip-fullest 0.01`) | at 240 hits: sweeps 540/540 for seeds 2026-2029, development 11/11, leave-outs 0 wrong; weakest identifying 658, strongest false 119 (the Clockwork remix's shared passage), margin 5.53×; audio not in the index 24; 94% fewer false candidates; robust, both ladders, 1,995 confident against 1,959 today (combined damage 7 → 4 of 80), no wrong answer; 57-63% less search CPU at 8,122 and 26,462 assets (experiments 0026, 0027) | in `identify` and `explain`, build the index with `skipping_fullest(0.01)` and search with `search_twice`; make both the `gunfinger-eval` default; rerun the protocol and one test evaluation (Sick Note, 209 hits today, would most likely become possible) |
+| The second pass with the fullest 1% emptied (`--second-pass --drop-fullest 0.01`) | at 240 hits passes the protocol (weakest identifying 520, strongest false 91, margin 5.71×) but keeps 72-96% of today's own-track evidence; robust 1,884 confident against 1,959 today (experiments 0026, 0027) | not recommended; the skip variant is better |
