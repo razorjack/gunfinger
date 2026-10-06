@@ -65,6 +65,10 @@ target/release/gunfinger show mix.json --format tracklist
 # commands instead).
 target/release/gunfinger listen mix.json --at 20:30
 
+# Every candidate within a minute of 20:30, weak ones included, with what
+# each lacks for the next level; --asset narrows it to matching paths.
+target/release/gunfinger explain mix.m4a --library ~/Music/library --at 20:30
+
 # Sizes of the peak store and the index, with a 25,000-track projection.
 target/release/gunfinger stats --library ~/Music/library
 ```

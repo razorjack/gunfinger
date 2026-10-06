@@ -2,6 +2,7 @@
 
 mod catalog;
 mod console;
+mod explain;
 mod export;
 mod identify;
 mod index;
@@ -85,6 +86,30 @@ enum Command {
         #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
         format: ReportFormat,
     },
+    /// List every candidate around a moment of a recording, weak ones
+    /// included, with what each lacks for the next level.
+    Explain {
+        /// The recording, typically a DJ mix.
+        audio: PathBuf,
+        /// Root directory of the indexed library.
+        #[arg(long)]
+        library: PathBuf,
+        /// The moment to explain (seconds, M:SS or H:MM:SS).
+        #[arg(long, value_parser = parse_timecode)]
+        at: Duration,
+        /// How much to search on either side of the moment.
+        #[arg(long, value_parser = parse_timecode, default_value = "60")]
+        around: Duration,
+        /// Only assets whose path contains this text (ignoring case).
+        #[arg(long)]
+        asset: Option<String>,
+        /// Candidates to list.
+        #[arg(long, default_value_t = 12)]
+        limit: usize,
+        /// File listing library paths to leave out of the index, one per line.
+        #[arg(long)]
+        exclude_from: Option<PathBuf>,
+    },
     /// Write a saved JSON report of `identify` in another format.
     Show {
         /// A report written by `identify --format json`.
@@ -157,6 +182,27 @@ fn main() -> miette::Result<()> {
             excerpt: Excerpt { start, duration },
             exclude_from: exclude_from.as_deref(),
             format,
+            style: Style::for_stdout(cli.color),
+            jobs,
+            console: &console,
+        }),
+        Command::Explain {
+            audio,
+            library,
+            at,
+            around,
+            asset,
+            limit,
+            exclude_from,
+        } => explain::run(&explain::Request {
+            audio: &audio,
+            library: &library,
+            peaks_dir: &cli.peaks_dir,
+            exclude_from: exclude_from.as_deref(),
+            at,
+            around,
+            asset: asset.as_deref(),
+            limit,
             style: Style::for_stdout(cli.color),
             jobs,
             console: &console,
