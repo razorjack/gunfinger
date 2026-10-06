@@ -25,8 +25,14 @@ and [docs/roadmap.md](docs/roadmap.md) for what is missing.
    line through mix time and track time. Lines found in successive 10 s
    windows are chained; a chain is a detection, and its slope gives the speed.
 4. A detection is confident when its chain holds at least 200 hits in at
-   least 3 windows. The rule was calibrated against the strongest chance
-   alignment measured and then frozen.
+   least 3 windows. The rule was calibrated against the strongest false
+   alignment measured and then frozen. Below it, a detection with at least
+   60 hits is possible: the recording, or one sharing material with it,
+   probably plays there. Possible detections are shown but never count as
+   identifications.
+5. Detections of one file with gaps of up to 90 s are listed as one play,
+   so a needle skip or a radio insert does not split a record into
+   unrelated rows.
 
 The design decisions and the measurements behind them are in `docs/adr/` and
 `docs/experiments/`.
@@ -61,8 +67,10 @@ the default is one per core. Files longer than 20 minutes are skipped by
 `index` (`--max-track-minutes`). `identify --exclude-from FILE` leaves the
 listed library paths out of the index.
 
-Human output is a table of time span, speed, confidence, hits and asset path,
-followed by up to ten sub-threshold candidates.
+Human output is one table of plays in time order: time span, speed,
+confidence (`confident` or `possible`), hits and asset path. A play of
+several segments lists them underneath. `--format json` gives the same
+plays with their segments (`schema_version` 2).
 
 ## Development
 
@@ -95,13 +103,14 @@ Measured on 262 library tracks (29.3 hours) with the rule frozen at tag
 | Speed sweep (80 excerpts × 9 speeds, −8% to +8%, MP3) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development mix (56 min, 11 tracks) | 11/11 identified, 0 wrong, 22–26 s |
 | Development leave-outs (3 and 11 tracks removed from the index) | 0 wrong |
-| Held-out test mix (radio broadcast, 1 h 58 min, 31 tracks) | 15/17 identified (88%), 0 wrong, 53 s; first and only run. One miss was a remix not in the library; with the manifest corrected, 15/16 (94%) |
+| Held-out test mix (radio broadcast, 1 h 58 min, 31 tracks) | First run: 15/17 identified (88%), 0 wrong, 53 s. One miss was a remix not in the library; with the manifest corrected, 15/16 (94%). The other miss, cut by a radio insert, is shown as possible (second evaluation) |
 
 The pass bar was at least 80% identified and zero wrong on each mix. The
 index takes 74 postings per second of audio and 5.07 bytes per posting; for
 25,000 tracks that projects to 3.0 GB in memory, or about 2.3 GB with the
 delta-coded on-disk layout recommended in ADR 0005.
 
-Known limits: the rule has not been tested against a library larger than 262
-tracks, key-locked (pitch-preserved) mixes are not supported, and nothing has
-been done for heavy EQ or long blends.
+Known limits: the thresholds have not been tested against a library larger
+than 262 tracks ([docs/calibration.md](docs/calibration.md) lists what to
+measure again), key-locked (pitch-preserved) mixes are not supported, and
+nothing has been done for heavy EQ or long blends.

@@ -40,18 +40,18 @@ that motivates it where one exists.
 ## Matching
 
 - **Behaviour at scale (the best next task).** The confidence rule (200
-  hits, 3 windows) was calibrated against 262 tracks. With 25,000 tracks
-  there are about 95 times as many postings, so both chance alignments and
-  lookup time grow. Measure the strongest false candidate and query time
-  against library size (a larger real library, or the current one padded
-  with unrelated music) before trusting the rule at that size
-  (experiments 0004, 0005).
-- **Chains across longer gaps.** In the test set, Fibre Optix "Sin" was
-  faded out for a station insert and brought back: two chains of 84 hits at
-  the same speed, 34 s apart, each below the rule; a chain bridges at most 2
-  empty windows. Joining chains that agree on asset, speed and track position
-  across a longer gap would describe such plays as one, but would not have
-  credited Sin: joined, it holds 168 hits, below the rule.
+  hits, 3 windows) and the possible tier (60 hits) were calibrated against
+  262 tracks. With 25,000 tracks there are about 95 times as many postings,
+  so both chance alignments and lookup time grow. Measure the strongest
+  false candidate and query time against library size (a larger real
+  library, or the current one padded with unrelated music) before trusting
+  the thresholds at that size (experiments 0004, 0005, 0006).
+  `docs/calibration.md` lists the procedure and what to change.
+- **Evidence summed across a play.** Plays (ADR 0006) show Fibre Optix
+  "Sin", faded out for a station insert, as one possible play of two
+  segments (168 hits). Letting a play's summed evidence reach `confident`
+  would need a measured null for sums across gaps; requiring the segments to
+  agree on speed and track position would make chance sums rarer.
 - **Position in the track.** A detection reports where it lies in the mix,
   not which part of the track was played. The line's offset gives the track
   position directly. Reporting it would show edits and intros, and how far a

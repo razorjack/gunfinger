@@ -26,7 +26,7 @@ gap between segments of a play, and the 90 s scoring tolerance.
 |-------------|---------------|
 | Sweep (seed 2026) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development set | 11/11, 0 wrong; leave-out 3: 8/11, 0 wrong; leave-out 11: 0/11, 0 wrong |
-| Test set (owner-corrected manifest) | 15/16, 0 wrong (ledger) |
+| Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2) |
 | `calibrate`, confident rule | weakest identifying 501 hits, strongest false 95, margin 5.27× |
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |
 | Query time, development mix | 22 s, of which 2.6 s lookups, lines and chains (experiment 0005) |
@@ -52,4 +52,4 @@ gap between segments of a play, and the 90 s scoring tolerance.
 |--------|-------------------|---------|
 | Elegance pass (commit 5559c99) | none: identical reports | nothing to undo |
 | Owner corrected test track 16 to "Funktion (Remix)", absent from the library | test score 15/16 instead of 15/17 | revert the manifest |
-| Plays and the possible tier (ADR 0006) | `identify` output and JSON schema 2; scoring unchanged | the tier: delete `MIN_POSSIBLE_HITS` and `Confidence::Possible`; plays: delete `plays.rs` and restore the detection list in `identify.rs` |
+| Plays and the possible tier (ADR 0006, commit e87b79f) | `identify` output and JSON schema 2; scoring unchanged | the tier: delete `MIN_POSSIBLE_HITS` and `Confidence::Possible`; plays: delete `plays.rs` and restore the detection list in `identify.rs` |

@@ -94,3 +94,99 @@ evaluation count stays at 1.
   time runs on. The hits move to a new line and a new chain starts, which is
   the split at 36:17. The report's first reading, a pitch adjustment, was
   wrong.
+
+## Evaluation 2: plays and the possible tier
+
+- Code: commit e87b79f. Changes since evaluation 1: the elegance pass (no
+  change in results), the owner's correction of track 16 in the manifest
+  (now "Funktion (Remix)", absent from the library), and plays with a
+  possible tier (ADR 0006, experiment 0006). Search and the confident rule
+  are unchanged.
+- Commands: `target/release/gunfinger-eval scan ed-rush-optical-essential-mix`,
+  then `target/release/gunfinger identify <mix> --library corpus/library` on
+  the same build, as one evaluation.
+- Why: the possible tier can only be checked on a set with brief plays, and
+  this is the only one. Not blind for that tier: the evaluation-1 report,
+  with Sin's 84-hit chains, was inspected before the decision.
+- Result: **15/16 referenced tracks identified (93.8%), 0 wrong
+  identifications**, with all 5,923 detections identical to evaluation 1.
+  Possible tier: Sin found as possible (one play, two segments, 168 hits);
+  no possible play matches no track. 1:58:11 scanned in 48.8 s.
+
+Scan output, verbatim:
+
+```text
+ed-rush-optical-essential-mix: 15/16 referenced tracks identified, 0 wrong identifications; 1:58:11 of audio scanned in 48.8 s
+possible tier: 1 more referenced tracks found as possible, 0 possible plays match no track
+  absent    1. Optical & Ryme Tyme - Headhunters
+  found     2. Bad Company - The Nine  best 762 hits/26 windows at +0.65% 2:23-6:37
+  absent    3. Ram Trilogy - Terminal 1
+  absent    4. Jonny L - The Bells
+  found     5. Ed Rush & Optical - Fixation  best 789 hits/30 windows at +2.73% 13:10-18:43
+  absent    6. Ram Trilogy - Mind Overload
+  found     7. DJ Trace - Sonar  best 729 hits/28 windows at +4.54% 23:01-27:49
+  found     8. Krust - Warhead (Ram Trilogy Remix)  best 854 hits/29 windows at +2.42% 26:30-31:32
+  absent    9. Matrix - Airhead
+  found    10. Bad Company - The Pulse  best 913 hits/20 windows at +1.40% 36:17-39:29
+  found    11. Ed Rush & Optical - Bacteria  best 493 hits/18 windows at +4.76% 39:13-42:01
+  absent   12. DJ Phantasy & DJ Probe - Orders (DJ Reality Remix)
+  found    13. Ryme Tyme - Payback Pt. 1  best 1233 hits/29 windows at +3.23% 47:01-52:15
+  found    14. Roni Size / Reprazent - Watching Windows (DJ Die Remix)  best 458 hits/19 windows at +5.34% 51:50-54:58
+  absent   15. Matrix - Asylum
+  absent   16. Ed Rush & Optical - Funktion (Remix)
+  found    17. Bad Company - China Cup  best 371 hits/18 windows at +0.40% 1:02:23-1:06:08
+  absent   18. Ram Trilogy - Iron Lung
+  absent   19. Optical - Newoptic
+  found    20. Ed Rush & Optical - Dozer  best 1784 hits/31 windows at +3.07% 1:13:25-1:18:27
+  absent   21. DJ Die - Clear Skyz
+  possible 22. Fibre Optix - Sin  best 84 hits/2 windows at +5.43% 1:22:21-1:22:39
+  absent   23. Usual Suspects - Killa Beez
+  absent   24. Ram Trilogy - Chase Scene
+  found    25. Ed Rush & Optical - Watermelon  best 714 hits/18 windows at +3.66% 1:32:20-1:35:24
+  absent   26. Ram Trilogy - System Error (Y2K)
+  found    27. Ed Rush & Optical - Gas Mask  best 2010 hits/42 windows at +0.40% 1:39:06-1:46:19
+  absent   28. Infinite (Optical & Fierce) - Beachball
+  found    29. Ed Rush, Optical & Fierce - Alien Girl  best 1059 hits/27 windows at +5.65% 1:50:00-1:55:19
+  found    30. Optical - Slip Thru  best 868 hits/20 windows at +2.41% 1:54:20-1:57:44
+  found    31. Ed Rush & Optical - Sick Note  best 209 hits/6 windows at +3.81% 1:57:24-1:58:10
+```
+
+`identify` output, verbatim (trailing spaces removed). The Pulse is one play
+per rip, split at the needle skip; Watching Windows includes its possible
+first piece; Sin is one possible play of two segments:
+
+```text
+time                  speed  confidence   hits  asset
+2:23-6:37            +0.65%  confident     762  Bad Company - The Nine.mp3
+2:23-6:37            +0.65%  confident     747  extra/A- The_Nine.mp3
+2:23-6:37            +0.65%  confident     762  extra/A-Bad_Company-The_Nine-dmz.mp3
+13:10-18:43          +2.73%  confident     789  Ed Rush & Optical - Fixation.mp3
+23:01-27:49          +4.54%  confident     729  DJ Trace - Sonar.m4a
+26:30-31:32          +2.42%  confident     854  Krust - Warhead (Ram Trilogy Remix).m4a
+34:50-39:29          +1.40%  confident    1206  extra/a-bad_company-pulse.mp3
+  34:50-36:16        +1.24%  confident     293
+  36:17-39:29        +1.40%  confident     913
+34:51-39:28          +1.40%  confident    1214  Bad Company - The Pulse.mp3
+  34:51-36:16        +1.24%  confident     313
+  36:17-39:28        +1.40%  confident     901
+39:13-42:01          +4.76%  confident     493  Ed Rush & Optical - Bacteria.mp3
+47:01-52:15          +3.23%  confident    1233  Ryme Tyme - Payback Pt. 1.mp3
+50:13-54:58          +5.34%  confident     536  Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a
+  50:13-50:39        +5.40%  possible       78
+  51:50-54:58        +5.34%  confident     458
+1:02:23-1:06:08      +0.40%  confident     371  Bad Company - China Cup.mp3
+1:02:23-1:06:08      +0.40%  confident     371  extra/02. Bad Company - China Cup.mp3
+1:02:23-1:06:19      +0.40%  confident     368  extra/b-bad_company-china_cup.mp3
+1:13:25-1:18:27      +3.07%  confident    1784  Ed Rush & Optical - Dozer.mp3
+1:22:21-1:24:28      +5.43%  possible      168  Fibre Optix - Sin.m4a
+  1:22:21-1:22:39    +5.43%  possible       84
+  1:23:13-1:24:28    +5.37%  possible       84
+1:32:20-1:35:24      +3.66%  confident     714  Ed Rush & Optical - Watermelon.mp3
+1:39:06-1:46:19      +0.40%  confident    2010  Ed Rush & Optical - Gas Mask.m4a
+1:50:00-1:55:19      +5.65%  confident    1059  Ed Rush, Optical & Fierce - Alien Girl.mp3
+1:54:20-1:57:44      +2.41%  confident     868  Optical - Slip Thru.mp3
+1:57:24-1:58:10      +3.81%  confident     209  Ed Rush & Optical - Sick Note.mp3
+1:57:24-1:58:10      +3.81%  confident     209  extra/a-ed_rush_and_optical-sicknote-sour.mp3
+```
+
+Evaluations used: 2 of 5.

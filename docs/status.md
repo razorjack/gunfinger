@@ -1,7 +1,7 @@
 # Status
 
-Running log. Newest entry at the bottom; the final report is the last
-section.
+Running log, newest entry at the bottom. The proof-of-concept report is
+the section "Final report"; later entries follow it.
 
 ## 2026-10-05: seed
 
@@ -354,3 +354,23 @@ Query time on the development mix (experiment 0005): 3.7 s decoding, about
 against library size, by growing the library to thousands of tracks of
 unrelated music, before trusting the 200-hit rule at collection scale. Then
 build the on-disk index described in ADR 0005.
+
+## 2026-10-06: plays and a possible tier; test evaluation 2
+
+- After the owner's review of the test set (ledger), `identify` groups
+  detections into plays: segments of one asset with gaps up to 90 s, such as
+  The Pulse around its needle skip and Sin around a station insert. Below
+  the frozen rule, a detection with at least 60 hits is `possible`. ADR 0006,
+  experiment 0006.
+- Possible threshold: at least twice every unrelated false candidate on the
+  sweep and the development set (strongest 28 hits); the only false
+  candidates above half of it are the Stakka remix of Clockwork.
+- Scoring is unchanged. Development set: 11/11, 0 wrong, identical
+  detections; one possible play matches no track (the Clockwork remix while
+  the original plays).
+- Test evaluation 2 (commit e87b79f): 15/16 (93.8%), 0 wrong, identical
+  detections to evaluation 1; Sin found as possible; no possible play
+  matches no track. Evaluations used: 2 of 5.
+- `docs/calibration.md` lists every library-dependent choice, the baseline
+  at 262 tracks and what to change or undo when the library grows.
+- Next: measure the thresholds against a larger library (roadmap).
