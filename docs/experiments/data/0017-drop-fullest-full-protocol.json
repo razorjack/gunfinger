@@ -1,0 +1,243 @@
+{
+ "note": "Experiment 0017: full protocol with the fullest 1% of posting lists dropped (scratch build: Index::build followed by without_fullest(0.01)), against the same protocol without the drop run just before or after on the same machine.",
+ "without": {
+  "scan-stakka-skynet-knowledge.json": {
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "unmatched_possible": 1,
+   "detections": 4181,
+   "wall_seconds": 21.8
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "identified": 8,
+   "referenced": 11,
+   "wrong": 0,
+   "unmatched_possible": 1,
+   "detections": 4127,
+   "wall_seconds": 21.8
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "identified": 0,
+   "referenced": 11,
+   "wrong": 0,
+   "unmatched_possible": 1,
+   "detections": 3913,
+   "wall_seconds": 21.6
+  },
+  "sweep_per_speed": [
+   {
+    "speed_percent": -8.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0018413853802493978,
+    "max_speed_error_percent": 0.006206182347275657
+   },
+   {
+    "speed_percent": -5.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0040489704150399024,
+    "max_speed_error_percent": 0.015913199962296787
+   },
+   {
+    "speed_percent": -3.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004931984248374429,
+    "max_speed_error_percent": 0.012496048169916119
+   },
+   {
+    "speed_percent": -1.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004585260848367826,
+    "max_speed_error_percent": 0.014387853570484666
+   },
+   {
+    "speed_percent": 0.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0019246815713658272,
+    "max_speed_error_percent": 0.004690869886192495
+   },
+   {
+    "speed_percent": 1.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.003783788022672526,
+    "max_speed_error_percent": 0.012350263678827744
+   },
+   {
+    "speed_percent": 3.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0045354761772083306,
+    "max_speed_error_percent": 0.012479192243211479
+   },
+   {
+    "speed_percent": 5.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004513007467312831,
+    "max_speed_error_percent": 0.011811904815313135
+   },
+   {
+    "speed_percent": 8.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0018789801341768293,
+    "max_speed_error_percent": 0.0065472802359103355
+   }
+  ],
+  "regress_real_seconds": 182.29
+ },
+ "dropped": {
+  "scan-stakka-skynet-knowledge.json": {
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 0,
+   "unmatched_possible": 1,
+   "detections": 139,
+   "wall_seconds": 20.3
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "identified": 8,
+   "referenced": 11,
+   "wrong": 0,
+   "unmatched_possible": 1,
+   "detections": 148,
+   "wall_seconds": 20.2
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "identified": 0,
+   "referenced": 11,
+   "wrong": 0,
+   "unmatched_possible": 1,
+   "detections": 143,
+   "wall_seconds": 20.5
+  },
+  "sweep_per_speed": [
+   {
+    "speed_percent": -8.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0019488569852332235,
+    "max_speed_error_percent": 0.007083014229198881
+   },
+   {
+    "speed_percent": -5.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004327594666058987,
+    "max_speed_error_percent": 0.015691242683583795
+   },
+   {
+    "speed_percent": -3.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.005220570857723457,
+    "max_speed_error_percent": 0.012817507581921905
+   },
+   {
+    "speed_percent": -1.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004846614745362321,
+    "max_speed_error_percent": 0.0132464418494469
+   },
+   {
+    "speed_percent": 0.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.002129548789329879,
+    "max_speed_error_percent": 0.005728214381262031
+   },
+   {
+    "speed_percent": 1.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.00393222325462698,
+    "max_speed_error_percent": 0.012503375787619397
+   },
+   {
+    "speed_percent": 3.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004421180147915009,
+    "max_speed_error_percent": 0.013067056187907156
+   },
+   {
+    "speed_percent": 5.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.004844358935906401,
+    "max_speed_error_percent": 0.015847159245656606
+   },
+   {
+    "speed_percent": 8.0,
+    "indexed_excerpts": 60,
+    "recalled": 60,
+    "recall": 1.0,
+    "wrong_answers": 0,
+    "mean_speed_error_percent": 0.0020448843502087607,
+    "max_speed_error_percent": 0.0071053294452418925
+   }
+  ],
+  "regress_real_seconds": 189.46
+ },
+ "calibrate": {
+  "without": {
+   "weakest_identifying": 501,
+   "strongest_false": 95,
+   "margin": 5.27,
+   "strongest_not_in_index": 19,
+   "false_at_30_or_more": 18,
+   "strongest_under_30": 28
+  },
+  "dropped": {
+   "weakest_identifying": 445,
+   "strongest_false": 76,
+   "margin": 5.86,
+   "strongest_not_in_index": 15,
+   "false_at_30_or_more": 12,
+   "strongest_under_30": 25,
+   "false_candidates": 506,
+   "false_candidates_without": 8986
+  }
+ }
+}
