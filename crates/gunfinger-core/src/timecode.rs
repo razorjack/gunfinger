@@ -58,6 +58,8 @@ pub fn format_timecode(time: Duration) -> String {
 
 #[cfg(test)]
 mod tests {
+    use proptest::prelude::*;
+
     use super::*;
 
     fn seconds(text: &str) -> f64 {
@@ -89,5 +91,14 @@ mod tests {
         assert_eq!(format_timecode(Duration::from_secs(175)), "2:55");
         assert_eq!(format_timecode(Duration::from_secs(3723)), "1:02:03");
         assert_eq!(format_timecode(Duration::from_millis(59_999)), "0:59");
+    }
+
+    proptest! {
+        #[test]
+        fn formatted_whole_seconds_parse_back(whole_seconds in 0_u64..360_000) {
+            let duration = Duration::from_secs(whole_seconds);
+
+            prop_assert_eq!(parse_timecode(&format_timecode(duration)), Ok(duration));
+        }
     }
 }

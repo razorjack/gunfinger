@@ -96,6 +96,8 @@ fn anchor_level(bin: f32) -> f32 {
 
 #[cfg(test)]
 mod tests {
+    use proptest::prelude::*;
+
     use super::*;
 
     fn point(frame: f64, bin: f32) -> Point {
@@ -155,5 +157,39 @@ mod tests {
             .count();
 
         assert_eq!(from_first, FAN_OUT);
+    }
+
+    proptest! {
+        #[test]
+        fn anchor_levels_never_decrease_with_frequency(a in 0.0_f32..512.0, b in 0.0_f32..512.0) {
+            let (low, high) = if a <= b { (a, b) } else { (b, a) };
+
+            prop_assert!(anchor_level(low) <= anchor_level(high));
+        }
+
+        #[test]
+        fn every_pair_fits_its_fields_and_the_fan_out(
+            raw in prop::collection::vec((0.0_f64..2.0, 5.0_f32..500.0), 0..200)
+        ) {
+            let mut frame = 0.0;
+            let points: Vec<Point> = raw
+                .iter()
+                .map(|&(step, bin)| {
+                    frame += step;
+                    point(frame, bin)
+                })
+                .collect();
+
+            let mut per_anchor = vec![0; points.len()];
+            for (hash, anchor) in pairs(&points) {
+                per_anchor[anchor] += 1;
+                let delta_frames = hash.0 & ((1 << DELTA_FRAME_BITS) - 1);
+                let delta_bins = (hash.0 >> DELTA_FRAME_BITS) & ((1 << DELTA_BIN_BITS) - 1);
+                prop_assert!(hash.0 < 1 << HASH_BITS);
+                prop_assert!((1..=63).contains(&delta_frames));
+                prop_assert!(delta_bins <= 2 * MAX_DELTA_BINS as u32);
+            }
+            prop_assert!(per_anchor.iter().all(|&count| count <= FAN_OUT));
+        }
     }
 }
