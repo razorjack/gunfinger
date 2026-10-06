@@ -9,6 +9,7 @@ mod grid;
 mod hash_cost;
 mod loss;
 mod manifest;
+mod matching;
 mod memory;
 mod mixes;
 mod regress;
@@ -35,6 +36,7 @@ use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
 use crate::clusters::Clusters;
+use crate::matching::Matching;
 use crate::scan::LeaveOut;
 
 #[derive(Parser)]
@@ -68,6 +70,10 @@ struct Paths {
     /// so that calibrate and regress read one ladder at a time.
     #[arg(long, global = true, value_enum, default_value_t = Ladder::Both)]
     ladder: Ladder,
+    /// Opt-in matching changes; their reports go to
+    /// `reports/variant-<name>/`.
+    #[command(flatten)]
+    matching: Matching,
 }
 
 #[derive(Subcommand)]
@@ -200,7 +206,11 @@ fn main() -> ExitCode {
         command,
     } = Cli::parse();
     let jobs = jobs.map_or_else(available_parallelism, NonZeroUsize::get);
-    match run(&paths, jobs, command) {
+    match paths
+        .matching
+        .check()
+        .and_then(|()| run(&paths, jobs, command))
+    {
         Ok(()) => ExitCode::SUCCESS,
         Err(message) => {
             eprintln!("error: {message}");
@@ -244,7 +254,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             &variant,
             jobs,
         ),
-        Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
+        Command::Calibrate { set } => calibrate::run(&paths.reports(), &set, paths.matching.rule()),
         Command::Robust {
             seed,
             only,
@@ -275,6 +285,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     count,
                     ladder_name: paths.ladder.name(),
                     ladder: &paths.ladder.rungs(),
+                    matching: &paths.matching,
                     jobs,
                 },
             )?;
@@ -295,6 +306,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     seed,
                     ladder_name: paths.ladder.name(),
                     ladder: &paths.ladder.rungs(),
+                    matching: &paths.matching,
                     jobs,
                 },
             )?;
@@ -381,17 +393,13 @@ impl Ladder {
     }
 }
 
-/// Changes to the index for scale and cost experiments.
+/// A larger index for scale experiments.
 #[derive(clap::Args)]
 struct IndexVariant {
     /// Add this many time-reversed, stretched copies of every indexed record
     /// to the index, to measure a larger library.
     #[arg(long, default_value_t = 0)]
     synthetic_copies: usize,
-    /// Empty this share of the fullest posting lists (0.01 is the fullest
-    /// 1%), to measure what common hashes cost and contribute.
-    #[arg(long, default_value_t = 0.0)]
-    drop_fullest: f64,
 }
 
 impl IndexVariant {
@@ -402,28 +410,21 @@ impl IndexVariant {
                 synthetic::MAX_COPIES
             ));
         }
-        if !(0.0..1.0).contains(&self.drop_fullest) {
-            return Err(String::from("--drop-fullest is a share below 1"));
-        }
         Ok(())
     }
 
     /// Report name suffix; empty for the unchanged index.
     fn suffix(&self) -> String {
-        let mut suffix = String::new();
         if self.synthetic_copies > 0 {
-            suffix.push_str(&format!("-copies-{}", self.synthetic_copies));
+            format!("-copies-{}", self.synthetic_copies)
+        } else {
+            String::new()
         }
-        if self.drop_fullest > 0.0 {
-            suffix.push_str(&format!("-drop-{}", self.drop_fullest));
-        }
-        suffix
     }
 }
 
 const UNCHANGED_INDEX: IndexVariant = IndexVariant {
     synthetic_copies: 0,
-    drop_fullest: 0.0,
 };
 
 fn run_robust(
@@ -446,7 +447,7 @@ fn run_robust(
             ladder_name: ladder.name(),
             ladder: &ladder.rungs(),
             synthetic_copies: variant.synthetic_copies,
-            drop_fullest: variant.drop_fullest,
+            matching: &paths.matching,
             jobs,
         },
     )?;
@@ -490,9 +491,12 @@ fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
         &paths.store()?,
         &paths.clusters()?,
         &paths.work,
-        seed,
-        &paths.ladder.rungs(),
-        jobs,
+        &sweep::Options {
+            seed,
+            ladder: &paths.ladder.rungs(),
+            matching: &paths.matching,
+            jobs,
+        },
     )?;
     write_json(
         &paths.reports().join(format!("sweep-seed-{seed}.json")),
@@ -519,7 +523,7 @@ fn run_scan(
         &scan::Options {
             leave_out,
             synthetic_copies: variant.synthetic_copies,
-            drop_fullest: variant.drop_fullest,
+            matching: &paths.matching,
             ladder: &paths.ladder.rungs(),
             jobs,
         },
@@ -554,11 +558,14 @@ impl Paths {
     }
 
     fn reports(&self) -> PathBuf {
-        let reports = self.work.join("reports");
-        match self.ladder {
-            Ladder::Both => reports,
-            other => reports.join(format!("ladder-{}", other.name())),
+        let mut reports = self.work.join("reports");
+        if self.ladder != Ladder::Both {
+            reports.push(format!("ladder-{}", self.ladder.name()));
         }
+        if let Some(name) = self.matching.name() {
+            reports.push(format!("variant-{name}"));
+        }
+        reports
     }
 
     fn baseline(&self, name: &str) -> PathBuf {

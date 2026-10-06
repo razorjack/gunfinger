@@ -16,6 +16,26 @@ pub struct Evidence {
     pub windows: u32,
     /// Hash hits on the line.
     pub hits: u32,
+    pub pass: Pass,
+}
+
+/// The search that counted the evidence. Each counts hits on its own scale,
+/// so each has its own thresholds.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Pass {
+    /// The speed ladder: the default search.
+    Ladder,
+    /// Opt-in: each candidate's span analysed again at its fitted speed
+    /// (`search::search_twice`).
+    Fitted,
+}
+
+/// The thresholds of one pass.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Rule {
+    pub min_hits: u32,
+    pub min_windows: u32,
+    pub min_possible_hits: u32,
 }
 
 /// What a detection's evidence supports, weakest first.
@@ -46,18 +66,57 @@ pub const MIN_WINDOWS: u32 = 3;
 /// 0006).
 pub const MIN_POSSIBLE_HITS: u32 = 60;
 
+/// The second pass's rule. Opt-in and provisional: it is the frozen rule
+/// until the second pass's own null and calibration set it.
+pub const FITTED_RULE: Rule = Rule {
+    min_hits: MIN_HITS,
+    min_windows: MIN_WINDOWS,
+    min_possible_hits: MIN_POSSIBLE_HITS,
+};
+
 /// The rule as reports record it.
 pub fn rule() -> String {
-    format!(
-        "confident: {MIN_HITS} hits in {MIN_WINDOWS} windows; possible: {MIN_POSSIBLE_HITS} hits"
-    )
+    Pass::Ladder.rule().to_string()
+}
+
+impl Pass {
+    pub fn rule(self) -> Rule {
+        match self {
+            Pass::Ladder => Rule {
+                min_hits: MIN_HITS,
+                min_windows: MIN_WINDOWS,
+                min_possible_hits: MIN_POSSIBLE_HITS,
+            },
+            Pass::Fitted => FITTED_RULE,
+        }
+    }
+}
+
+impl std::fmt::Display for Rule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "confident: {} hits in {} windows; possible: {} hits",
+            self.min_hits, self.min_windows, self.min_possible_hits
+        )
+    }
 }
 
 impl Evidence {
+    /// Evidence of the default search.
+    pub const fn new(windows: u32, hits: u32) -> Evidence {
+        Evidence {
+            windows,
+            hits,
+            pass: Pass::Ladder,
+        }
+    }
+
     pub fn confidence(&self) -> Confidence {
-        if self.hits >= MIN_HITS && self.windows >= MIN_WINDOWS {
+        let rule = self.pass.rule();
+        if self.hits >= rule.min_hits && self.windows >= rule.min_windows {
             Confidence::Confident
-        } else if self.hits >= MIN_POSSIBLE_HITS {
+        } else if self.hits >= rule.min_possible_hits {
             Confidence::Possible
         } else {
             Confidence::Weak
@@ -75,18 +134,9 @@ mod tests {
 
     #[test]
     fn both_strength_and_persistence_are_required() {
-        let confident = Evidence {
-            windows: MIN_WINDOWS,
-            hits: MIN_HITS,
-        };
-        let brief = Evidence {
-            windows: MIN_WINDOWS - 1,
-            hits: 10 * MIN_HITS,
-        };
-        let faint = Evidence {
-            windows: 10 * MIN_WINDOWS,
-            hits: MIN_HITS - 1,
-        };
+        let confident = Evidence::new(MIN_WINDOWS, MIN_HITS);
+        let brief = Evidence::new(MIN_WINDOWS - 1, 10 * MIN_HITS);
+        let faint = Evidence::new(10 * MIN_WINDOWS, MIN_HITS - 1);
 
         assert!(confident.is_confident());
         assert!(!brief.is_confident());
@@ -95,18 +145,9 @@ mod tests {
 
     #[test]
     fn evidence_short_of_the_rule_can_still_be_possible() {
-        let possible = Evidence {
-            windows: 2,
-            hits: MIN_POSSIBLE_HITS,
-        };
-        let weak = Evidence {
-            windows: 10,
-            hits: MIN_POSSIBLE_HITS - 1,
-        };
-        let brief_but_strong = Evidence {
-            windows: MIN_WINDOWS - 1,
-            hits: 10 * MIN_HITS,
-        };
+        let possible = Evidence::new(2, MIN_POSSIBLE_HITS);
+        let weak = Evidence::new(10, MIN_POSSIBLE_HITS - 1);
+        let brief_but_strong = Evidence::new(MIN_WINDOWS - 1, 10 * MIN_HITS);
 
         assert_eq!(possible.confidence(), Confidence::Possible);
         assert_eq!(weak.confidence(), Confidence::Weak);

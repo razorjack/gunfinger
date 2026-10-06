@@ -314,7 +314,7 @@ mod tests {
 
     #[test]
     fn each_level_names_what_it_lacks() {
-        let evidence = |hits, windows| Evidence { windows, hits };
+        let evidence = |hits, windows| Evidence::new(windows, hits);
 
         assert_eq!(short_of(evidence(MIN_HITS, MIN_WINDOWS)), "");
         assert_eq!(

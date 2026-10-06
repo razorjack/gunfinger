@@ -9,17 +9,14 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use gunfinger_core::confidence::{Evidence, MIN_HITS, MIN_POSSIBLE_HITS, MIN_WINDOWS};
+use gunfinger_core::confidence::{Evidence, Rule};
 use serde::de::DeserializeOwned;
 
 use crate::scan::ScanReport;
-use crate::scoring::Found;
+use crate::scoring::{Found, evidence};
 use crate::sweep::SweepReport;
 
-const NO_EVIDENCE: Evidence = Evidence {
-    windows: 0,
-    hits: 0,
-};
+const NO_EVIDENCE: Evidence = Evidence::new(0, 0);
 
 /// One detection's evidence and where it came from.
 pub struct Sample {
@@ -39,10 +36,11 @@ pub struct Calibration {
     pub not_indexed: Vec<Sample>,
 }
 
-pub fn run(reports: &Path, development_set: &str) -> Result<(), String> {
+/// `rule` is the one the reports' matcher applies.
+pub fn run(reports: &Path, development_set: &str, rule: Rule) -> Result<(), String> {
     let calibration = Calibration::collect(reports, development_set)?;
-    calibration.print_rule()?;
-    calibration.print_possible_tier();
+    calibration.print_rule(rule)?;
+    calibration.print_possible_tier(rule);
     Ok(())
 }
 
@@ -72,10 +70,7 @@ impl Calibration {
             let mut best: Option<Sample> = None;
             for outcome in &query.detections {
                 let sample = Sample {
-                    evidence: Evidence {
-                        windows: outcome.windows,
-                        hits: outcome.hits,
-                    },
+                    evidence: evidence(outcome.windows, outcome.hits, outcome.fitted),
                     source: format!("{source}: {}", outcome.asset),
                 };
                 if query.held_out {
@@ -156,22 +151,25 @@ impl Calibration {
 
     /// False candidates at half the possible threshold or more, strongest
     /// first.
-    pub fn near_possible(&self) -> Vec<&Sample> {
+    pub fn near_possible(&self, rule: Rule) -> Vec<&Sample> {
         let mut strong: Vec<&Sample> = self
             .false_candidates
             .iter()
-            .filter(|sample| sample.evidence.hits >= MIN_POSSIBLE_HITS / 2)
+            .filter(|sample| sample.evidence.hits >= rule.min_possible_hits / 2)
             .collect();
         strong.sort_by_key(|sample| std::cmp::Reverse(sample.evidence.hits));
         strong
     }
 
-    fn print_rule(&self) -> Result<(), String> {
+    fn print_rule(&self, rule: Rule) -> Result<(), String> {
         let weakest = self
             .weakest_identifying()
             .ok_or("no sweep or development reports")?;
         let strongest = self.strongest_false().ok_or("no false candidates")?;
-        println!("rule: hits >= {MIN_HITS} and windows >= {MIN_WINDOWS}");
+        println!(
+            "rule: hits >= {} and windows >= {}",
+            rule.min_hits, rule.min_windows
+        );
         println!(
             "identifying detections: {} ({} below the rule)",
             self.identifying.len(),
@@ -187,8 +185,8 @@ impl Calibration {
         println!(
             "margin: {:.2}x in hits; the threshold is {:.2}x the strongest false and {:.2}x below the weakest identifying",
             f64::from(weakest.evidence.hits) / f64::from(strongest.evidence.hits),
-            f64::from(MIN_HITS) / f64::from(strongest.evidence.hits),
-            f64::from(weakest.evidence.hits) / f64::from(MIN_HITS)
+            f64::from(rule.min_hits) / f64::from(strongest.evidence.hits),
+            f64::from(weakest.evidence.hits) / f64::from(rule.min_hits)
         );
         Ok(())
     }
@@ -199,21 +197,22 @@ impl Calibration {
     /// recording. The harness cannot tell a remix from an unrelated record,
     /// so it lists every false candidate at half the threshold or more for a
     /// person to check.
-    fn print_possible_tier(&self) {
+    fn print_possible_tier(&self, rule: Rule) {
+        let possible = rule.min_possible_hits;
         println!();
-        println!("possible tier: hits >= {MIN_POSSIBLE_HITS}");
+        println!("possible tier: hits >= {possible}");
         if let Some(strongest) = self.strongest_not_indexed() {
             println!(
                 "strongest on audio not in the index: {}; the threshold is {:.2}x that",
                 describe(strongest),
-                f64::from(MIN_POSSIBLE_HITS) / f64::from(strongest.evidence.hits)
+                f64::from(possible) / f64::from(strongest.evidence.hits)
             );
         }
-        let half = MIN_POSSIBLE_HITS / 2;
-        let near = self.near_possible();
+        let half = possible / 2;
+        let near = self.near_possible(rule);
         let shown = near
             .iter()
-            .filter(|sample| sample.evidence.hits >= MIN_POSSIBLE_HITS)
+            .filter(|sample| sample.evidence.hits >= possible)
             .count();
         println!(
             "false candidates at {half} hits or more: {} ({shown} shown as possible); each must be a remix or version of the played recording",

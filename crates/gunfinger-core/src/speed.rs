@@ -26,7 +26,7 @@ const SLOWEST: f64 = 0.92;
 const FASTEST: f64 = 1.08;
 /// Hash survival falls quickly with residual speed error; at ±0.2% (half
 /// this step) about 45% of clean hashes survive (experiment 0001).
-const STEP: f64 = 0.004;
+pub(crate) const STEP: f64 = 0.004;
 
 /// How a record was played: on a turntable, pitch and tempo move together;
 /// under key lock, tempo moves alone.
