@@ -28,7 +28,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Position in the track
 - [x] Same-audio rows collapsed
 - [x] Timeline view
-- [ ] `explain`
+- [x] `explain`
 - [x] `listen`
 - [x] Export formats (csv, cue, tracklist; `show` renders saved reports)
 - [ ] Batch identification
