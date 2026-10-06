@@ -12,8 +12,8 @@ for scope and rules.
 
 ## 1. Memory by phase
 
-- [~] Peak memory while loading, building and searching, at several worker
-  counts, on the scale proxy
+- [x] Peak memory while loading, building and searching, at several worker
+  counts, on the scale proxy (experiments 0019, 0021)
 - [x] Two-pass index build reading one peak record at a time, if the
   inference holds (commit 3cb535f)
 - [x] Peak records dropped after the build in `identify` and `explain`
@@ -41,11 +41,11 @@ for scope and rules.
 
 ## 4. Where real mixes lose evidence
 
-- [ ] Per-play attribution on the development mix: solo against blended,
+- [x] Per-play attribution on the development mix: solo against blended,
   frequency band, distance from the nearest rung, speed variation within
   a window
-- [ ] Robust conditions: wow (0.55 and 0.75 Hz), broadcast compression,
-  beatmatched blends, combined damage
+- [x] Robust conditions: wow (0.55 and 0.75 Hz), broadcast compression,
+  beatmatched blends, combined damage (experiment 0022)
 
 ## 5. Second pass at the fitted speed
 

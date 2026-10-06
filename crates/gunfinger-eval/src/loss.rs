@@ -118,14 +118,23 @@ pub fn run(
         .flat_map(|track| &track.references)
         .flat_map(|reference| clusters.cluster_of(reference))
         .collect();
-    let identified: Vec<&Detection> = detections
-        .iter()
-        .filter(|detection| {
-            detection.evidence.confidence() == Confidence::Confident
-                && detection.playback == Played::Turntable
-                && accepted.contains(&index.asset(detection.asset).path)
-        })
-        .collect();
+    // Duplicate rips of one recording are found together; one play each.
+    let mut identified: Vec<&Detection> = Vec::new();
+    for detection in &detections {
+        let cluster = clusters.cluster_of(&index.asset(detection.asset).path);
+        let duplicate = identified.iter().any(|kept| {
+            cluster.contains(&index.asset(kept.asset).path)
+                && kept.start_seconds < detection.end_seconds
+                && detection.start_seconds < kept.end_seconds
+        });
+        if detection.evidence.confidence() == Confidence::Confident
+            && detection.playback == Played::Turntable
+            && accepted.contains(&index.asset(detection.asset).path)
+            && !duplicate
+        {
+            identified.push(detection);
+        }
+    }
     let dir = work.join("loss").join(set_name);
     let plays = map_in_order(&identified, jobs, |detection| {
         let record = records
@@ -140,7 +149,10 @@ pub fn run(
             })
             .map(|other| (other.start_seconds, other.end_seconds))
             .collect();
-        let clean_path = dir.join(format!("{:.0}.wav", detection.start_seconds));
+        let clean_path = dir.join(format!(
+            "{}-{:.0}.wav",
+            detection.asset.0, detection.start_seconds
+        ));
         analyse_play(
             detection,
             record,

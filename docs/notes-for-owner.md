@@ -287,3 +287,41 @@ confident 10 s plays in the grid come from this, almost all of one
 track. Both rules count such lines. Requiring linked lines to come from
 nearby rungs, or a stronger line across a gap, would close it; not yet
 tried.
+
+### At scale, search memory grows with the length of the mix
+
+At 26,462 assets (the scale proxy) a 10-minute query peaks at 4.9 GB, of
+which 3.0 GB is the index; a 5-minute query peaks at 4.1 GB, and a second
+worker changes nothing (experiment 0021). What grows is what the search
+keeps for the whole query, by inference the lines of every rung, since
+chance lines multiply with the library. An hour-long mix at that size
+would need about 14 GB. Fewer workers do not help there; the common-hash
+filter and merging the rungs' lines as each rung finishes would.
+
+### Where the development mix loses evidence
+
+The 11 identified plays of the development mix keep 13% of the reference
+hashes they could match. Clean renders of the same stretches at the same
+speeds keep 48% on the rung the search used and 63% at the exact speed
+(experiment 0022). The mix itself (the records, their mastering, the
+recording of the mix and its AAC encoding) costs most, and most in the
+top two octaves: 74% of reference hashes are anchored at 1-4 kHz, and the
+mix keeps 6% of those at 2-4 kHz against 36% below 250 Hz. Blended
+windows keep a quarter of what solo windows keep. Analysing a play at its
+exact speed instead of the nearest rung adds only 5% here (a third for
+the clean renders), so a second pass can do little for this mix.
+
+A question for later, not this session: the peak picker spends most of
+the hash budget where vinyl mixes keep least. Peaks spread more evenly
+over the bands might keep more evidence, but that changes the profile and
+means extracting all peaks again.
+
+### Wow, broadcast processing and beatmatched blends
+
+Wow at 0.55 and 0.75 Hz (±0.2%) costs nothing. FM-style broadcast
+processing (two compressors and a limiter) loses about two thirds of the
+hits; 32-33 of 40 excerpts stay confident and all but one are possible
+or better. A beatmatched partner costs as much as an unmatched one.
+Everything together (wow, a beatmatched partner at -6 dB, broadcast
+processing, AAC at 64 kbit/s) leaves 3-4 of 40 confident and 32 of 40
+possible. There is no wrong answer in any of these.

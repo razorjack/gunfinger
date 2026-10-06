@@ -1,0 +1,92 @@
+{
+ "description": "Experiment 0021: peak memory footprint (/usr/bin/time -l) of gunfinger-eval memory at 100 synthetic copies (26,462 assets), searching the start of the development mix on both ladders; code of commit 3cb535f (two-pass build). MB are 10^6 bytes, as in experiment 0019.",
+ "runs": [
+  {
+   "run": "1 worker, 10 min",
+   "assets": 26462,
+   "postings": 759940296,
+   "jobs": 1,
+   "query_seconds": 600.0,
+   "phases": [
+    {
+     "phase": "loaded",
+     "seconds": 0.1,
+     "resident_mb": 69,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "seconds": 53.2,
+     "resident_mb": 3132,
+     "index_mb": 3048
+    },
+    {
+     "phase": "searched",
+     "seconds": 1305.0,
+     "resident_mb": 4831,
+     "index_mb": 3048
+    }
+   ],
+   "peak_footprint_mb": 4945,
+   "user_seconds": 1030.56
+  },
+  {
+   "run": "2 workers, 10 min",
+   "assets": 26462,
+   "postings": 759940296,
+   "jobs": 2,
+   "query_seconds": 600.0,
+   "phases": [
+    {
+     "phase": "loaded",
+     "seconds": 0.1,
+     "resident_mb": 69,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "seconds": 54.5,
+     "resident_mb": 3131,
+     "index_mb": 3048
+    },
+    {
+     "phase": "searched",
+     "seconds": 534.9,
+     "resident_mb": 4826,
+     "index_mb": 3048
+    }
+   ],
+   "peak_footprint_mb": 4770,
+   "user_seconds": 1011.09
+  },
+  {
+   "run": "1 worker, 5 min",
+   "assets": 26462,
+   "postings": 759940296,
+   "jobs": 1,
+   "query_seconds": 300.0,
+   "phases": [
+    {
+     "phase": "loaded",
+     "seconds": 0.0,
+     "resident_mb": 69,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "seconds": 60.5,
+     "resident_mb": 3132,
+     "index_mb": 3048
+    },
+    {
+     "phase": "searched",
+     "seconds": 455.9,
+     "resident_mb": 3538,
+     "index_mb": 3048
+    }
+   ],
+   "peak_footprint_mb": 4096,
+   "user_seconds": 434.36
+  }
+ ]
+}

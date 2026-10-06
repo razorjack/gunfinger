@@ -1,0 +1,524 @@
+{
+ "description": "Experiment 0022: where the development mix loses evidence (gunfinger-eval loss), and the new robust conditions (seed 2026, both ladders). File names only.",
+ "loss": {
+  "set": "stakka-skynet-knowledge",
+  "identified_plays": 11,
+  "windows": 390,
+  "blended_windows": 107,
+  "kept_percent_of_reference_hashes": {
+   "all": {
+    "mix_rung": 13.0,
+    "mix_fitted": 13.7,
+    "mix_local": 14.5,
+    "clean_rung": 47.6,
+    "clean_fitted": 63.0
+   },
+   "solo": {
+    "mix_rung": 16.0,
+    "mix_fitted": 17.0,
+    "mix_local": 17.8,
+    "clean_rung": 46.6,
+    "clean_fitted": 63.0
+   },
+   "blended": {
+    "mix_rung": 4.3,
+    "mix_fitted": 4.3,
+    "mix_local": 4.9,
+    "clean_rung": 50.4,
+    "clean_fitted": 63.1
+   },
+   "rung_distance_under_0.1_percent": {
+    "mix_rung": 12.4,
+    "mix_fitted": 12.6,
+    "mix_local": 13.4,
+    "clean_rung": 57.5,
+    "clean_fitted": 59.2
+   },
+   "rung_distance_0.1_to_0.2_percent": {
+    "mix_rung": 13.2,
+    "mix_fitted": 14.2,
+    "mix_local": 15.0,
+    "clean_rung": 42.6,
+    "clean_fitted": 64.9
+   }
+  },
+  "by_band": {
+   "<125 Hz": {
+    "share_of_reference_hashes": 4,
+    "mix_rung": 36.2,
+    "mix_fitted": 36.5,
+    "mix_local": 37.2,
+    "clean_rung": 77.5,
+    "clean_fitted": 81.6
+   },
+   "125-250 Hz": {
+    "share_of_reference_hashes": 2,
+    "mix_rung": 36.8,
+    "mix_fitted": 37.7,
+    "mix_local": 38.7,
+    "clean_rung": 73.2,
+    "clean_fitted": 80.3
+   },
+   "250-500 Hz": {
+    "share_of_reference_hashes": 5,
+    "mix_rung": 28.5,
+    "mix_fitted": 29.9,
+    "mix_local": 30.7,
+    "clean_rung": 68.5,
+    "clean_fitted": 77.1
+   },
+   "500-1000 Hz": {
+    "share_of_reference_hashes": 14,
+    "mix_rung": 21.4,
+    "mix_fitted": 23.1,
+    "mix_local": 24.1,
+    "clean_rung": 57.7,
+    "clean_fitted": 72.7
+   },
+   "1-2 kHz": {
+    "share_of_reference_hashes": 27,
+    "mix_rung": 13.0,
+    "mix_fitted": 14.0,
+    "mix_local": 15.0,
+    "clean_rung": 47.7,
+    "clean_fitted": 66.9
+   },
+   "2-4 kHz": {
+    "share_of_reference_hashes": 47,
+    "mix_rung": 5.7,
+    "mix_fitted": 6.0,
+    "mix_local": 6.5,
+    "clean_rung": 38.5,
+    "clean_fitted": 54.0
+   }
+  },
+  "local_minus_fitted_speed_percent_p10_p50_p90": [
+   -0.2,
+   0.0,
+   0.2
+  ],
+  "plays": [
+   {
+    "asset": "Skynet & Stakka - Logistics.mp3",
+    "start_seconds": 2603,
+    "end_seconds": 2998,
+    "speed_percent": 2.225,
+    "rung_distance_percent": -0.175,
+    "available": 30272,
+    "mix_rung": 5796,
+    "mix_fitted": 6484,
+    "mix_local": 6726,
+    "clean_rung": 11830,
+    "clean_fitted": 20361
+   },
+   {
+    "asset": "Skynet & Stakka - Decoy.mp3",
+    "start_seconds": 260,
+    "end_seconds": 628,
+    "speed_percent": 2.869,
+    "rung_distance_percent": 0.069,
+    "available": 32609,
+    "mix_rung": 4738,
+    "mix_fitted": 4904,
+    "mix_local": 5111,
+    "clean_rung": 17564,
+    "clean_fitted": 18899
+   },
+   {
+    "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "start_seconds": 2227,
+    "end_seconds": 2606,
+    "speed_percent": 1.011,
+    "rung_distance_percent": -0.189,
+    "available": 31625,
+    "mix_rung": 4459,
+    "mix_fitted": 4873,
+    "mix_local": 5088,
+    "clean_rung": 14711,
+    "clean_fitted": 21249
+   },
+   {
+    "asset": "Kemal & Paul Reset - Kontempt.mp3",
+    "start_seconds": 1863,
+    "end_seconds": 2282,
+    "speed_percent": 2.936,
+    "rung_distance_percent": 0.136,
+    "available": 36806,
+    "mix_rung": 4390,
+    "mix_fitted": 4401,
+    "mix_local": 4761,
+    "clean_rung": 15787,
+    "clean_fitted": 24243
+   },
+   {
+    "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+    "start_seconds": 2981,
+    "end_seconds": 3362,
+    "speed_percent": 1.341,
+    "rung_distance_percent": 0.141,
+    "available": 31154,
+    "mix_rung": 4444,
+    "mix_fitted": 4752,
+    "mix_local": 5031,
+    "clean_rung": 11942,
+    "clean_fitted": 17927
+   },
+   {
+    "asset": "Skynet & Stakka - Night Lore.mp3",
+    "start_seconds": 0,
+    "end_seconds": 304,
+    "speed_percent": 2.678,
+    "rung_distance_percent": -0.122,
+    "available": 21492,
+    "mix_rung": 3680,
+    "mix_fitted": 3831,
+    "mix_local": 4023,
+    "clean_rung": 9954,
+    "clean_fitted": 13823
+   },
+   {
+    "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "start_seconds": 1519,
+    "end_seconds": 1920,
+    "speed_percent": 1.63,
+    "rung_distance_percent": 0.03,
+    "available": 31070,
+    "mix_rung": 3508,
+    "mix_fitted": 3500,
+    "mix_local": 3805,
+    "clean_rung": 18168,
+    "clean_fitted": 18282
+   },
+   {
+    "asset": "Skynet & Stakka - Clockwork.mp3",
+    "start_seconds": 1046,
+    "end_seconds": 1329,
+    "speed_percent": 1.405,
+    "rung_distance_percent": -0.195,
+    "available": 21393,
+    "mix_rung": 2588,
+    "mix_fitted": 3074,
+    "mix_local": 3177,
+    "clean_rung": 8769,
+    "clean_fitted": 14599
+   },
+   {
+    "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+    "start_seconds": 1290,
+    "end_seconds": 1576,
+    "speed_percent": 0.341,
+    "rung_distance_percent": -0.059,
+    "available": 19852,
+    "mix_rung": 2200,
+    "mix_fitted": 2239,
+    "mix_local": 2384,
+    "clean_rung": 11482,
+    "clean_fitted": 11791
+   },
+   {
+    "asset": "Skynet & Stakka - Pathogen.mp3",
+    "start_seconds": 863,
+    "end_seconds": 1085,
+    "speed_percent": 1.597,
+    "rung_distance_percent": -0.003,
+    "available": 16833,
+    "mix_rung": 2042,
+    "mix_fitted": 2044,
+    "mix_local": 2126,
+    "clean_rung": 10484,
+    "clean_fitted": 10489
+   },
+   {
+    "asset": "Kemal & Rob Data - Star Trails.mp3",
+    "start_seconds": 543,
+    "end_seconds": 928,
+    "speed_percent": 4.252,
+    "rung_distance_percent": -0.148,
+    "available": 26276,
+    "mix_rung": 926,
+    "mix_fitted": 925,
+    "mix_local": 1073,
+    "clean_rung": 11794,
+    "clean_fitted": 17046
+   }
+  ]
+ },
+ "robust": {
+  "seed": 2026,
+  "ladder": "both",
+  "run_1_wow_and_broadcast": [
+   {
+    "condition": "control",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 93,
+    "median_hit_retention": 0.9758971612212105
+   },
+   {
+    "condition": "control",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 84,
+    "median_hit_retention": 1.024743512371756
+   },
+   {
+    "condition": "wow-0.55hz",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 104,
+    "median_hit_retention": 0.9537537537537537
+   },
+   {
+    "condition": "wow-0.55hz",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 79,
+    "median_hit_retention": 1.0240384615384615
+   },
+   {
+    "condition": "wow-0.75hz",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 78,
+    "median_hit_retention": 0.8918073796122576
+   },
+   {
+    "condition": "wow-0.75hz",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 78,
+    "median_hit_retention": 0.9581294181620446
+   },
+   {
+    "condition": "broadcast",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 32,
+    "possible_or_better": 39,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 69,
+    "median_hit_retention": 0.34416622269579117
+   },
+   {
+    "condition": "broadcast",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 33,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 66,
+    "median_hit_retention": 0.38011049723756907
+   }
+  ],
+  "run_2_beatmatched_and_combined": [
+   {
+    "condition": "control",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 93,
+    "median_hit_retention": 0.9758971612212105
+   },
+   {
+    "condition": "control",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 84,
+    "median_hit_retention": 1.024743512371756
+   },
+   {
+    "condition": "beatmatched--6db",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 33,
+    "possible_or_better": 40,
+    "partner_confident": 1,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 82,
+    "median_hit_retention": 0.36445953593661573
+   },
+   {
+    "condition": "beatmatched--6db",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 34,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 65,
+    "median_hit_retention": 0.3768996960486322
+   },
+   {
+    "condition": "beatmatched-0db",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 12,
+    "possible_or_better": 30,
+    "partner_confident": 11,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 37,
+    "median_hit_retention": 0.13891531874405327
+   },
+   {
+    "condition": "beatmatched-0db",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 13,
+    "possible_or_better": 32,
+    "partner_confident": 13,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 43,
+    "median_hit_retention": 0.1482739105829089
+   },
+   {
+    "condition": "combined",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 3,
+    "possible_or_better": 32,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 48,
+    "median_hit_retention": 0.12463935372186959
+   },
+   {
+    "condition": "combined",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 4,
+    "possible_or_better": 32,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 45,
+    "median_hit_retention": 0.11673151750972763
+   }
+  ],
+  "beatmatching_fell_back_to_an_unmatched_partner": {
+   "run_2": "1 of 100 excerpts in each beatmatched condition, 2 in combined",
+   "run_1_before_the_metrical_fix": "26 of 100 (27 in combined); not used"
+  },
+  "earlier_unmatched_blends_for_comparison": [
+   {
+    "condition": "aac-48k",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 61,
+    "median_hit_retention": 0.3995171997585999
+   },
+   {
+    "condition": "aac-48k",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 40,
+    "possible_or_better": 40,
+    "partner_confident": 0,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 63,
+    "median_hit_retention": 0.421875
+   },
+   {
+    "condition": "blend--6db",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 34,
+    "possible_or_better": 40,
+    "partner_confident": 1,
+    "wrong_confident": 0,
+    "wrong_possible": 1,
+    "strongest_wrong_hits": 61,
+    "median_hit_retention": 0.37181764357608055
+   },
+   {
+    "condition": "blend--6db",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 36,
+    "possible_or_better": 40,
+    "partner_confident": 1,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 56,
+    "median_hit_retention": 0.41433224755700326
+   },
+   {
+    "condition": "blend-0db",
+    "speed": 0.95,
+    "indexed": 40,
+    "confident": 13,
+    "possible_or_better": 32,
+    "partner_confident": 11,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 33,
+    "median_hit_retention": 0.13445378151260504
+   },
+   {
+    "condition": "blend-0db",
+    "speed": 1.03,
+    "indexed": 40,
+    "confident": 14,
+    "possible_or_better": 33,
+    "partner_confident": 11,
+    "wrong_confident": 0,
+    "wrong_possible": 0,
+    "strongest_wrong_hits": 33,
+    "median_hit_retention": 0.15233698788228506
+   }
+  ]
+ }
+}
