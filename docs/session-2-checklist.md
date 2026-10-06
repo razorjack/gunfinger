@@ -49,7 +49,9 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] `doctor`
 - [x] `prune`
 - [x] Remembered failed files (and too-long files)
-- [ ] TUI
+- [x] TUI: `review`, a line-based interactive loop over a report (numbered
+  plays, listen by number or time). A full-screen TUI was not built: it
+  would add a terminal UI dependency for little beyond `review`.
 
 ## Wrap-up
 

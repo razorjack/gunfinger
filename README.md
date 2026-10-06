@@ -73,6 +73,10 @@ target/release/gunfinger show mix.json --format tracklist
 # commands instead).
 target/release/gunfinger listen mix.json --at 20:30
 
+# Step through a report by ear: list its plays, then type a play's number
+# (or `<n> start`, `<n> end`, `at 20:30`) to hear the mix and the tracks.
+target/release/gunfinger review mix.json
+
 # Every candidate within a minute of 20:30, weak ones included, with what
 # each lacks for the next level; --asset narrows it to matching paths.
 target/release/gunfinger explain mix.m4a --library ~/Music/library --at 20:30

@@ -14,6 +14,7 @@ mod output;
 mod playback;
 mod prune;
 mod report;
+mod review;
 mod stats;
 mod style;
 mod survey;
@@ -166,6 +167,18 @@ enum Command {
         #[arg(long)]
         print: bool,
     },
+    /// Step through a saved report by ear: list its plays, then play the
+    /// recording and the tracks found in any of them.
+    Review {
+        /// A report written by `identify --format json`.
+        report: PathBuf,
+        /// Seconds of each clip.
+        #[arg(long, default_value_t = 8.0)]
+        seconds: f64,
+        /// Library root, when it has moved since the report was written.
+        #[arg(long)]
+        library: Option<PathBuf>,
+    },
     /// Print a completion script for a shell, for example
     /// `gunfinger completions zsh > ~/.zfunc/_gunfinger`.
     Completions { shell: clap_complete::Shell },
@@ -312,6 +325,17 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             } else {
                 listen::play(&clips, seconds, console)
             }
+        }
+        Command::Review {
+            report,
+            seconds,
+            library,
+        } => {
+            let mut report = Report::read(&report)?;
+            if let Some(library) = library {
+                report.library = catalog::absolute(&library);
+            }
+            review::run(&report, seconds, stdout_style, console)
         }
         Command::Completions { shell } => {
             clap_complete::generate(
