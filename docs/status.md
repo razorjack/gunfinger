@@ -515,3 +515,7 @@ Baseline `session-3-start` saved after a rerun that reproduced
   margin 5.16× → 7.01×, sweep excerpts between rungs +40% own hits,
   recall up under damage (needle skip, broadcast, blends), no wrong
   answer; Star Trails -15% (speed wanders within the play).
+- **Four sweep seeds (experiment 0025).** Seeds 2027-2029 on new panels:
+  100% recall, 0 wrong each. Calibrate over four draws: weakest
+  identifying 403, strongest false 97, margin 4.15×; audio not in the
+  index up to 28.

@@ -355,7 +355,7 @@ speed ladder gain about 40% of hits and reach the level of excerpts that
 sit on a rung; false candidates do not gain (strongest still 97 hits).
 The confidence margin widens from 5.16× to 7.01×. Under the frozen rule
 of 200 hits in 3 windows, recall rises under damage and falls nowhere:
-needle skips 1 → 16 of 40 on average, broadcast processing 32-33 → 37,
+needle skips 0-1 → 15-18 of 40, broadcast processing 32-33 → 37,
 a beatmatched partner at -6 dB 33-34 → 36-37, an equal-level blend 13-14
 → 17; no wrong answer appears. The development set stays 11/11. It costs
 about 8% more analysis.
@@ -366,3 +366,17 @@ its fitted speed in many windows and loses 15% of its hits (still
 identified). And the second pass does not change how the 3-window rule
 depends on the window grid; it does remove the chance lines that made
 10 s plays confident.
+
+### Four sweep draws show narrower margins than one
+
+The sweep now runs on saved panels, and seeds 2027, 2028 and 2029 were
+added to 2026 (experiment 0025). Every draw recalls all 540 indexed
+excerpts with no wrong answer. Over the four draws the weakest
+identifying detection is 403 hits (Fibre Optix - Sin at -3%, between two
+rungs), so 200 sits 2.02 times below it instead of 2.5. The strongest hit
+on audio that is not in the index is 28 (a held-out VIP excerpt aligned
+with Muffler - Bleak), so the possible tier's 60 sits 2.14 times above it
+instead of 3.16. Nothing crosses either threshold, but the safety factors
+are thinner than a single draw suggested. If you have a minute, listen to
+whether `a-unknown-udfr014-(synthesis_vip)` and Muffler - Bleak share
+material; if they do, the 28 is a near-version, not chance.
