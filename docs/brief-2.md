@@ -33,6 +33,8 @@ is ambiguous, write the decision down, and continue.
   every experiment, `scripts/check.sh` green before every commit, commit at
   every milestone, never `git add -A` without checking, no remotes, no
   pushing, nothing published anywhere.
+- **Commit every standalone piece of work** as soon as it is finished and
+  the gate is green (owner's instruction), and tick it in the checklist.
 - House style from `AGENTS.md`. New dependencies must earn their place;
   record why in the commit message.
 - **Save every experiment immediately**: `docs/experiments/NNNN-slug.md`
