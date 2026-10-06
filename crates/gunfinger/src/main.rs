@@ -76,10 +76,11 @@ enum Command {
         #[arg(long)]
         retry_skipped: bool,
     },
-    /// Find library tracks inside a recording.
+    /// Find library tracks inside recordings.
     Identify {
-        /// The recording to search, typically a DJ mix.
-        audio: PathBuf,
+        /// The recordings to search, typically DJ mixes.
+        #[arg(required = true)]
+        audio: Vec<PathBuf>,
         /// Root directory of the indexed library [default: `library` in the
         /// configuration file].
         #[arg(long)]
@@ -96,6 +97,14 @@ enum Command {
         /// Output format.
         #[arg(long, value_enum, default_value_t = ReportFormat::Human)]
         format: ReportFormat,
+        /// Also write each recording's JSON report into this directory, as
+        /// <recording name>.json; recordings with a report there are passed
+        /// over.
+        #[arg(long)]
+        save_dir: Option<PathBuf>,
+        /// Search recordings again that already have a report in --save-dir.
+        #[arg(long, requires = "save_dir")]
+        again: bool,
     },
     /// List every candidate around a moment of a recording, weak ones
     /// included, with what each lacks for the next level.
@@ -231,6 +240,8 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             duration,
             exclude_from,
             format,
+            save_dir,
+            again,
         } => identify::run(&identify::Request {
             audio: &audio,
             library: &settings.library(library)?,
@@ -238,6 +249,8 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             excerpt: Excerpt { start, duration },
             exclude_from: exclude_from.as_deref(),
             format,
+            save_dir: save_dir.as_deref(),
+            again,
             style: stdout_style,
             jobs,
             console,
