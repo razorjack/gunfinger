@@ -28,9 +28,19 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   (log `work/logs/robust-both.log`, report
   `work/reports/robust-seed-2026-both.json`). Then: experiment 0010, cost on
   an idle machine, decide default vs `--key-lock` flag, commit.
-- [ ] Scale proxy with reversed copies
+- [~] Scale proxy with reversed copies. Code (uncommitted):
+  `crates/gunfinger-eval/src/synthetic.rs` (time-reversed copies stretched
+  in time and frequency, up to 121), `--synthetic-copies N` on `robust` and
+  `scan` (scan report `scale-scan-<set>-copies-N.json`, never read by
+  calibrate). Queued by `work/scripts/queue-after-both.sh` (waits for the
+  combined-ladder run): related, clusters check, then robust control and
+  dev scan at 10, 30, 100 copies; logs `work/logs/scale-*`.
 - [ ] Lookup-cost levers
-- [ ] Related recordings from the self-match
+- [~] Related recordings from the self-match. Code (uncommitted):
+  `clusters::self_match` (refactor of `find`; check that
+  `work/reports/duplicate-clusters.json` duplicates equal
+  `duplicate-clusters-before-refactor.json`), `related.rs`, command
+  `gunfinger-eval related` -> `work/reports/related-recordings.json`.
 
 ## 3. Command line
 
