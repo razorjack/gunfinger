@@ -1,0 +1,162 @@
+{
+  "seed": 2026,
+  "hashings": [
+    {
+      "hashing": "Pairs(1)",
+      "postings_per_second": 37.24802071001417,
+      "distinct_hashes": 436746,
+      "mean_list_scanned": 60.383544712362884,
+      "share_in_fullest_percent": 20.028743060898883,
+      "query_hashes_per_second": 37.53,
+      "lookups_per_second": 2155.7116666666666,
+      "aligned_per_second_on_rung": 21.1175,
+      "aligned_per_second_between_rungs": 13.109791666666666
+    },
+    {
+      "hashing": "Pairs(2)",
+      "postings_per_second": 74.41505627274755,
+      "distinct_hashes": 603816,
+      "mean_list_scanned": 67.86195666544327,
+      "share_in_fullest_percent": 16.31620536008253,
+      "query_hashes_per_second": 74.84833333333333,
+      "lookups_per_second": 4834.589166666667,
+      "aligned_per_second_on_rung": 44.80291666666667,
+      "aligned_per_second_between_rungs": 28.6
+    },
+    {
+      "hashing": "Pairs(3)",
+      "postings_per_second": 111.29557648855219,
+      "distinct_hashes": 732188,
+      "mean_list_scanned": 71.822224328821,
+      "share_in_fullest_percent": 13.999179336621049,
+      "query_hashes_per_second": 111.75916666666667,
+      "lookups_per_second": 7580.829166666666,
+      "aligned_per_second_on_rung": 68.93166666666667,
+      "aligned_per_second_between_rungs": 44.567083333333336
+    },
+    {
+      "hashing": "Triplets(2)",
+      "postings_per_second": 37.16703556273339,
+      "distinct_hashes": 3059509,
+      "mean_list_scanned": 2.806161770755351,
+      "share_in_fullest_percent": 7.996913493501218,
+      "query_hashes_per_second": 37.318333333333335,
+      "lookups_per_second": 60.81375,
+      "aligned_per_second_on_rung": 14.612083333333333,
+      "aligned_per_second_between_rungs": 6.998958333333333
+    },
+    {
+      "hashing": "Triplets(3)",
+      "postings_per_second": 110.92807599434265,
+      "distinct_hashes": 8921682,
+      "mean_list_scanned": 2.9026669433532217,
+      "share_in_fullest_percent": 8.172629124958224,
+      "query_hashes_per_second": 111.14,
+      "lookups_per_second": 196.83625,
+      "aligned_per_second_on_rung": 46.49666666666667,
+      "aligned_per_second_between_rungs": 22.906041666666667
+    }
+  ],
+  "conditions": [
+    {
+      "condition": "control",
+      "aligned_per_second_between_rungs": [
+        13.109791666666666,
+        28.6,
+        44.567083333333336,
+        6.998958333333333,
+        22.906041666666667
+      ]
+    },
+    {
+      "condition": "low-pass-800hz",
+      "aligned_per_second_between_rungs": [
+        5.44,
+        11.339375,
+        17.307708333333334,
+        3.0339583333333335,
+        9.525625
+      ]
+    },
+    {
+      "condition": "telephone",
+      "aligned_per_second_between_rungs": [
+        11.170625,
+        24.876875,
+        39.164791666666666,
+        5.397291666666667,
+        18.36895833333333
+      ]
+    },
+    {
+      "condition": "echo",
+      "aligned_per_second_between_rungs": [
+        4.537916666666667,
+        10.270625,
+        16.323333333333334,
+        1.2635416666666666,
+        4.429375
+      ]
+    },
+    {
+      "condition": "clipping-12db",
+      "aligned_per_second_between_rungs": [
+        4.54875,
+        10.159583333333334,
+        15.988958333333333,
+        1.5366666666666666,
+        5.134375
+      ]
+    },
+    {
+      "condition": "pink-noise-snr-10db",
+      "aligned_per_second_between_rungs": [
+        5.187291666666667,
+        11.610208333333333,
+        18.25875,
+        1.6527083333333332,
+        5.633333333333334
+      ]
+    },
+    {
+      "condition": "pink-noise-snr-0db",
+      "aligned_per_second_between_rungs": [
+        0.824375,
+        1.8860416666666666,
+        2.9789583333333334,
+        0.11833333333333333,
+        0.41375
+      ]
+    },
+    {
+      "condition": "mp3-32k",
+      "aligned_per_second_between_rungs": [
+        6.859166666666667,
+        15.020208333333333,
+        23.551458333333333,
+        2.87375,
+        9.521875
+      ]
+    },
+    {
+      "condition": "blend--6db",
+      "aligned_per_second_between_rungs": [
+        5.145625,
+        11.399166666666666,
+        17.957083333333333,
+        1.7125,
+        5.969166666666666
+      ]
+    },
+    {
+      "condition": "blend-0db",
+      "aligned_per_second_between_rungs": [
+        2.2504166666666667,
+        4.966875,
+        7.760208333333333,
+        0.5954166666666667,
+        2.049375
+      ]
+    }
+  ]
+}
