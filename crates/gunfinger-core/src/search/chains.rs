@@ -18,6 +18,12 @@ const LINK_TOLERANCE_SLOPE: f64 = 0.004;
 /// rather than by a fit.
 const MIN_FIT_FRAMES: f64 = 1000.0;
 
+pub(super) fn design() -> String {
+    format!(
+        "gap={MAX_GAP_WINDOWS} link={LINK_TOLERANCE_FRAMES}fr+{LINK_TOLERANCE_SLOPE} fit={MIN_FIT_FRAMES}fr"
+    )
+}
+
 /// Chains each asset's lines (sorted by asset and window) into detections.
 ///
 /// One pass of dynamic programming over the lines in window order finds,

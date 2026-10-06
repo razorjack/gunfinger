@@ -355,6 +355,13 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     let first = batch("both");
     let second = batch("both");
     let other_playback = batch("turntable");
+    let other = Track::random(2, 30.0);
+    write_wav(
+        &dir.join("library/2.wav"),
+        &other.play(0.0, other.seconds, 1.0),
+    );
+    gunfinger(&dir, &["index", library]);
+    let grown_library = batch("turntable");
 
     let first = String::from_utf8_lossy(&first.stdout);
     assert_eq!(first.matches("confident").count(), 2, "{first}");
@@ -371,9 +378,20 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
         other_playback.contains("its report was searched with `--playback both`"),
         "{other_playback}"
     );
+    let grown_library = String::from_utf8_lossy(&grown_library.stderr);
+    assert!(
+        grown_library.contains("its report was made with another revision of the library"),
+        "{grown_library}"
+    );
     let report: Value =
         serde_json::from_slice(&std::fs::read(reports.join("first.json")).unwrap()).unwrap();
     assert_eq!(report["query"]["playback"], "turntable");
+    assert_eq!(
+        report["search"]["confidence"],
+        "confident: 200 hits in 3 windows; possible: 60 hits"
+    );
+    let leftovers = std::fs::read_dir(&reports).unwrap().count();
+    assert_eq!(leftovers, 2, "only the two reports, no temporary files");
 }
 
 #[test]

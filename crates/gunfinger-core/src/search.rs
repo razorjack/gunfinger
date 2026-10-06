@@ -18,7 +18,7 @@ use std::cmp::Reverse;
 use crate::confidence::Evidence;
 use crate::index::{AssetId, Index};
 use crate::profile::Profile;
-use crate::speed::{Playback, Rung, SpeedRatio};
+use crate::speed::{self, Playback, Rung, SpeedRatio};
 
 /// A library asset found playing in the query.
 #[derive(Debug, Clone, PartialEq)]
@@ -35,6 +35,18 @@ pub struct Detection {
     /// unchanged.
     pub playback: Playback,
     pub evidence: Evidence,
+}
+
+/// The matching settings as reports record them: lines, chains and the
+/// ladder's speeds. The version changes when matching changes in a way
+/// these numbers do not show.
+pub fn design() -> String {
+    format!(
+        "lines-chains-v1 {} {} {}",
+        lines::design(),
+        chains::design(),
+        speed::design()
+    )
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of

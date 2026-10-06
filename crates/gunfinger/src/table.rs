@@ -136,8 +136,10 @@ pub mod tests {
                 start_seconds: 0.0,
                 duration_seconds: 150.0,
                 playback: Some(PlaybackChoice::Both),
+                requested_duration_seconds: None,
             },
             library: PathBuf::from("/library"),
+            search: None,
             plays: vec![
                 FoundPlay {
                     same_audio: vec![String::from("copy-of-a.wav")],

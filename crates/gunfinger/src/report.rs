@@ -5,9 +5,12 @@
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
-use gunfinger_core::confidence::Confidence;
+use gunfinger_core::confidence::{self, Confidence};
+use gunfinger_core::decode::Excerpt;
+use gunfinger_core::hash;
 use gunfinger_core::plays::{self, SameAudio};
-use gunfinger_core::search::Detection;
+use gunfinger_core::profile::Profile;
+use gunfinger_core::search::{self, Detection};
 use gunfinger_core::speed;
 use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::{Deserialize, Serialize};
@@ -26,6 +29,10 @@ pub struct Report {
     /// Root of the library the asset paths are relative to.
     #[serde(default)]
     pub library: PathBuf,
+    /// How the search was made; absent in reports written before it was
+    /// recorded.
+    #[serde(default)]
+    pub search: Option<SearchSettings>,
     /// Every confident or possible play, in order of start time. Plays of
     /// assets with the same audio are one play.
     pub plays: Vec<FoundPlay>,
@@ -40,6 +47,57 @@ pub struct Query {
     /// recorded.
     #[serde(default)]
     pub playback: Option<PlaybackChoice>,
+    /// The `--duration` asked for; absent when the search ran to the end
+    /// of the recording.
+    #[serde(default)]
+    pub requested_duration_seconds: Option<f64>,
+}
+
+/// Everything besides the recording and the playback that decides what a
+/// search finds.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct SearchSettings {
+    /// The front-end profile of the peaks.
+    pub profile: String,
+    pub hashes: String,
+    /// Lines, chains and the speeds of the ladder.
+    pub matching: String,
+    pub confidence: String,
+    /// A digest of the indexed files' paths, sizes and modification times:
+    /// it changes when files are added, changed, indexed, removed or
+    /// excluded.
+    pub library_revision: String,
+}
+
+impl SearchSettings {
+    pub fn current(library_revision: &str) -> SearchSettings {
+        SearchSettings {
+            profile: Profile::CURRENT.id(),
+            hashes: hash::design(),
+            matching: search::design(),
+            confidence: confidence::rule(),
+            library_revision: library_revision.to_owned(),
+        }
+    }
+
+    /// The first setting in which `self` differs from `other`, in words.
+    pub fn difference(&self, other: &SearchSettings) -> Option<&'static str> {
+        if self.profile != other.profile {
+            Some("another peak profile")
+        } else if self.hashes != other.hashes {
+            Some("another hash design")
+        } else if self.matching != other.matching {
+            Some("other matching settings")
+        } else if self.confidence != other.confidence {
+            Some("another confidence rule")
+        } else if self.library_revision != other.library_revision {
+            Some(
+                "another revision of the library (files added, changed, indexed or excluded since)",
+            )
+        } else {
+            None
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -132,16 +190,17 @@ impl From<Confidence> for Level {
 }
 
 impl Report {
-    /// `offset` is where the searched excerpt starts in the recording; the
-    /// detections' times are relative to it.
+    /// `excerpt` is the part of the recording searched; the detections'
+    /// times are relative to its start, and `duration` is what was decoded.
     pub fn new(
         catalog: &Catalog,
         audio: &Path,
-        offset: f64,
+        excerpt: Excerpt,
         duration: Duration,
         playback: PlaybackChoice,
         detections: &[Detection],
     ) -> Report {
+        let offset = excerpt.start.unwrap_or_default().as_secs_f64();
         let plays = plays::merge_same_audio(plays::group(detections))
             .iter()
             .map(|same| FoundPlay::new(catalog, same, offset))
@@ -153,8 +212,10 @@ impl Report {
                 start_seconds: offset,
                 duration_seconds: duration.as_secs_f64(),
                 playback: Some(playback),
+                requested_duration_seconds: excerpt.duration.map(|duration| duration.as_secs_f64()),
             },
             library: absolute(&catalog.library.root),
+            search: Some(SearchSettings::current(&catalog.revision)),
             plays,
         }
     }

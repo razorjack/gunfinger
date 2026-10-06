@@ -23,6 +23,12 @@ const MAX_LINES_PER_ASSET: usize = 3;
 /// the same alignment.
 const SAME_LINE_FRAMES: f64 = 4.0;
 
+pub(super) fn design() -> String {
+    format!(
+        "window={WINDOW_SECONDS}s line={LINE_SPAN_FRAMES}fr min-hits={MIN_LINE_HITS} per-asset={MAX_LINES_PER_ASSET} same={SAME_LINE_FRAMES}fr"
+    )
+}
+
 /// Hits of one asset along one line within one window.
 #[derive(Debug, Clone, PartialEq)]
 pub(super) struct Line {

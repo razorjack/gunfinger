@@ -45,6 +45,13 @@ pub const MIN_WINDOWS: u32 = 3;
 /// 0006).
 pub const MIN_POSSIBLE_HITS: u32 = 60;
 
+/// The rule as reports record it.
+pub fn rule() -> String {
+    format!(
+        "confident: {MIN_HITS} hits in {MIN_WINDOWS} windows; possible: {MIN_POSSIBLE_HITS} hits"
+    )
+}
+
 impl Evidence {
     pub fn confidence(&self) -> Confidence {
         if self.hits >= MIN_HITS && self.windows >= MIN_WINDOWS {
