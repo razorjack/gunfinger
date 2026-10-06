@@ -212,3 +212,51 @@ about timings and files left out of the index unless you pass `--verbose`
 (files that need `gunfinger index` still get a one-line warning), and
 saved reports record their playback, so `--save-dir` searches a recording
 again when the playback differs.
+
+## Session 3 findings
+
+### Memory: the index build is fixed; the search is the next limit
+
+The swap at 26,462 assets in session 2 came from building the index:
+every peak record, a copy of every peak as a hashing point, and the
+postings were in memory at once (5.0 GB at 8,122 assets, about 16 GB at
+26,462). The index is now built in two passes that read one peak record
+at a time (count, then fill), and `identify` keeps no records afterwards:
+the build at 26,462 assets peaks at 3.1 GB, which is the index itself
+(experiment 0019). Detections are identical. On your library, `identify`
+of the development mix peaks at 369 MB instead of 395 MB; the cost is
+reading the peak store twice (about 3% more CPU).
+
+At scale the search phase is now what limits memory. A 10-minute query
+at 8,122 assets peaks at 1.9 GB with 1 worker and 4.7 GB with 10: each
+worker holds one speed rung's hits for a 10 s window, about 300 MB at
+that size. On a 25,000-track library with 10 workers that would not fit
+beside other applications. Dropping the most common hashes (experiments
+0013, 0017) cuts the hits a query scans by 62% and is the obvious first
+lever; fewer workers (`--jobs`) is the immediate workaround.
+
+### Saved reports record how they were made
+
+Each JSON report now records the peak profile, hash design, matching
+settings, confidence rule and a library revision (a digest of the
+indexed files' paths, sizes and modification times), as well as the
+`--duration` asked for. `identify --save-dir` searches a recording again
+when any of these, the playback, the part of the recording or the
+recording's path differ. Reports you saved before today record none of
+this, so each will be searched once more. Reports are now written
+through a temporary file and a rename: an interrupted run leaves the
+previous report intact. (An interrupted write was already caught on the
+next batch run, because a truncated report cannot be read; it was lost,
+though.)
+
+### `explain --windows` shows each window's evidence
+
+`explain --windows` lists, per 10 s window, the lines of hits behind each
+candidate and which candidate's chain took them. It shows something
+worth knowing about the Clockwork remix at 20:22 in the development mix:
+its possible play (96 hits in 3 windows) takes two strong windows on the
++1.2% turntable rung and, as its third window, a 4-hit line on a
+key-locked rung at +5.2%. Chains may join lines from distant rungs, so a
+weak chance line can supply the third window. It does not change any
+confident result here, but the 3-window rule is less strict than it
+looks.

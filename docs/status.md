@@ -468,3 +468,25 @@ evaluation was spent (2 of 5 used).
   times the CPU time; the earlier 1.3 came from noisy wall times. The
   owner's configuration file sets `playback = "turntable"`. The README
   documents the configuration file and the vinyl-only setting.
+
+## 2026-10-06: session 3, memory and reports
+
+Session 3 (`docs/brief-3.md`, checklist `docs/session-3-checklist.md`).
+Baseline `session-3-start` saved after a rerun that reproduced
+`key-lock-default` exactly.
+
+- **Memory by phase (experiment 0019).** The build held records, points
+  and postings at once: 5.0 GB at 8,122 assets of the scale proxy. The
+  index is now built in two passes reading one peak record at a time
+  (`Index::counting`, `Counting::into_filling`, `indexing::build_index`);
+  `identify` and `explain` keep no records and `stats` reads them again.
+  Peak at 26,462 assets: 3.1 GB. `gunfinger-eval memory` measures resident
+  memory by phase; the harness has a global `--jobs`. The search is now
+  the peak at scale: 1.9 GB (1 worker) to 4.7 GB (10 workers) for 10
+  minutes of query at 8,122 assets. `regress session-3-start`: identical.
+- **Reports.** A `search` block (profile, hash design, matching settings,
+  confidence rule, library revision) and `query.requested_duration_seconds`;
+  `--save-dir` searches again when anything differs. Atomic writes.
+- **explain --windows.** Each window's lines and the chain that took
+  them; explain's excerpt starts on the 10 s grid. `regress
+  session-3-start`: identical.

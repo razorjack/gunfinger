@@ -1,0 +1,486 @@
+{
+ "description": "Experiment 0019: peak memory footprint (/usr/bin/time -l) by phase on the scale proxy and for identify; before = commit 82dcc3c, after = commit 3cb535f (two-pass build). Search runs: first 10 minutes of the development mix, both ladders.",
+ "harness_before_until_phase": [
+  {
+   "run": "copies 0 until loaded",
+   "assets": 262,
+   "postings": 0,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0,
+     "build_points_mb": 0
+    }
+   ],
+   "real_seconds": 0.7,
+   "user_seconds": 0.03,
+   "max_resident_mb": 69.0,
+   "peak_footprint_mb": 67.3
+  },
+  {
+   "run": "copies 0 until built",
+   "assets": 262,
+   "postings": 7836148,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0,
+     "build_points_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 182,
+     "records_mb": 63,
+     "index_mb": 40,
+     "build_points_mb": 63
+    }
+   ],
+   "real_seconds": 3.97,
+   "user_seconds": 0.52,
+   "max_resident_mb": 182.4,
+   "peak_footprint_mb": 180.7
+  },
+  {
+   "run": "copies 10 until loaded",
+   "assets": 2882,
+   "postings": 0,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 602,
+     "records_mb": 683,
+     "index_mb": 0,
+     "build_points_mb": 0
+    }
+   ],
+   "real_seconds": 8.42,
+   "user_seconds": 1.23,
+   "max_resident_mb": 625.4,
+   "peak_footprint_mb": 747.7
+  },
+  {
+   "run": "copies 10 until built",
+   "assets": 2882,
+   "postings": 85174016,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 750,
+     "records_mb": 683,
+     "index_mb": 0,
+     "build_points_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 838,
+     "records_mb": 683,
+     "index_mb": 349,
+     "build_points_mb": 683
+    }
+   ],
+   "real_seconds": 39.23,
+   "user_seconds": 6.1,
+   "max_resident_mb": 1445.8,
+   "peak_footprint_mb": 1815.0
+  },
+  {
+   "run": "copies 30 until loaded",
+   "assets": 8122,
+   "postings": 0,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 483,
+     "records_mb": 1911,
+     "index_mb": 0,
+     "build_points_mb": 0
+    }
+   ],
+   "real_seconds": 26.18,
+   "user_seconds": 3.55,
+   "max_resident_mb": 1462.8,
+   "peak_footprint_mb": 2095.6
+  },
+  {
+   "run": "copies 30 until built",
+   "assets": 8122,
+   "postings": 238241688,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 198,
+     "records_mb": 1911,
+     "index_mb": 0,
+     "build_points_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 2506,
+     "records_mb": 1911,
+     "index_mb": 961,
+     "build_points_mb": 1911
+    }
+   ],
+   "real_seconds": 105.8,
+   "user_seconds": 16.91,
+   "max_resident_mb": 2514.2,
+   "peak_footprint_mb": 5047.0
+  }
+ ],
+ "harness_after_until_built": [
+  {
+   "run": "copies 0 until built",
+   "assets": 262,
+   "postings": 7836148,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 119,
+     "records_mb": 0,
+     "index_mb": 40
+    }
+   ],
+   "real_seconds": 2.48,
+   "user_seconds": 0.53,
+   "max_resident_mb": 118.6,
+   "peak_footprint_mb": 116.9
+  },
+  {
+   "run": "copies 10 until built",
+   "assets": 2882,
+   "postings": 85174016,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 430,
+     "records_mb": 0,
+     "index_mb": 349
+    }
+   ],
+   "real_seconds": 14.97,
+   "user_seconds": 7.25,
+   "max_resident_mb": 430.3,
+   "peak_footprint_mb": 428.7
+  },
+  {
+   "run": "copies 30 until built",
+   "assets": 8122,
+   "postings": 238241688,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 1043,
+     "records_mb": 0,
+     "index_mb": 961
+    }
+   ],
+   "real_seconds": 41.48,
+   "user_seconds": 19.58,
+   "max_resident_mb": 1043.4,
+   "peak_footprint_mb": 1042.1
+  },
+  {
+   "run": "copies 100 until built",
+   "assets": 26462,
+   "postings": 759940296,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 3132,
+     "records_mb": 0,
+     "index_mb": 3048
+    }
+   ],
+   "real_seconds": 119.81,
+   "user_seconds": 67.64,
+   "max_resident_mb": 3132.4,
+   "peak_footprint_mb": 3132.1
+  }
+ ],
+ "harness_after_search": [
+  {
+   "run": "copies 0 jobs 1",
+   "assets": 262,
+   "postings": 7836148,
+   "jobs": 1,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 118,
+     "records_mb": 0,
+     "index_mb": 40
+    },
+    {
+     "phase": "searched",
+     "resident_mb": 166,
+     "records_mb": 0,
+     "index_mb": 40
+    }
+   ],
+   "real_seconds": 84.6,
+   "user_seconds": 44.93,
+   "max_resident_mb": 166.4,
+   "peak_footprint_mb": 143.5
+  },
+  {
+   "run": "copies 0 jobs 4",
+   "assets": 262,
+   "postings": 7836148,
+   "jobs": 4,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 118,
+     "records_mb": 0,
+     "index_mb": 40
+    },
+    {
+     "phase": "searched",
+     "resident_mb": 169,
+     "records_mb": 0,
+     "index_mb": 40
+    }
+   ],
+   "real_seconds": 11.94,
+   "user_seconds": 43.19,
+   "max_resident_mb": 168.7,
+   "peak_footprint_mb": 166.6
+  },
+  {
+   "run": "copies 0 jobs 10",
+   "assets": 262,
+   "postings": 7836148,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 118,
+     "records_mb": 0,
+     "index_mb": 40
+    },
+    {
+     "phase": "searched",
+     "resident_mb": 180,
+     "records_mb": 0,
+     "index_mb": 40
+    }
+   ],
+   "real_seconds": 9.87,
+   "user_seconds": 47.87,
+   "max_resident_mb": 179.7,
+   "peak_footprint_mb": 177.6
+  },
+  {
+   "run": "copies 30 jobs 10",
+   "assets": 8122,
+   "postings": 238241688,
+   "jobs": 10,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 1042,
+     "records_mb": 0,
+     "index_mb": 961
+    },
+    {
+     "phase": "searched",
+     "resident_mb": 1783,
+     "records_mb": 0,
+     "index_mb": 961
+    }
+   ],
+   "real_seconds": 61.0,
+   "user_seconds": 386.18,
+   "max_resident_mb": 4718.8,
+   "peak_footprint_mb": 4680.0
+  },
+  {
+   "run": "copies 30 jobs 4",
+   "assets": 8122,
+   "postings": 238241688,
+   "jobs": 4,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 1042,
+     "records_mb": 0,
+     "index_mb": 961
+    },
+    {
+     "phase": "searched",
+     "resident_mb": 1790,
+     "records_mb": 0,
+     "index_mb": 961
+    }
+   ],
+   "real_seconds": 113.25,
+   "user_seconds": 351.4,
+   "max_resident_mb": 2918.9,
+   "peak_footprint_mb": 2859.2
+  },
+  {
+   "run": "copies 30 jobs 1",
+   "assets": 8122,
+   "postings": 238241688,
+   "jobs": 1,
+   "phases": [
+    {
+     "phase": "loaded",
+     "resident_mb": 69,
+     "records_mb": 63,
+     "index_mb": 0
+    },
+    {
+     "phase": "built",
+     "resident_mb": 1043,
+     "records_mb": 0,
+     "index_mb": 961
+    },
+    {
+     "phase": "searched",
+     "resident_mb": 1599,
+     "records_mb": 0,
+     "index_mb": 961
+    }
+   ],
+   "real_seconds": 480.44,
+   "user_seconds": 353.9,
+   "max_resident_mb": 1919.0,
+   "peak_footprint_mb": 1917.9
+  }
+ ],
+ "identify_262_assets": [
+  {
+   "run": "gunfinger-before jobs 1 --duration 10:00",
+   "real_seconds": 78.81,
+   "user_seconds": 47.46,
+   "max_resident_mb": 235.8,
+   "peak_footprint_mb": 209.2,
+   "json_sha1": "ae55419be7248e25731aac1e41b6e07e4bd3f90b"
+  },
+  {
+   "run": "gunfinger-two-pass jobs 1 --duration 10:00",
+   "real_seconds": 69.07,
+   "user_seconds": 47.78,
+   "max_resident_mb": 111.5,
+   "peak_footprint_mb": 105.3,
+   "json_sha1": "ae55419be7248e25731aac1e41b6e07e4bd3f90b"
+  },
+  {
+   "run": "gunfinger-before jobs 4 --duration 10:00",
+   "real_seconds": 22.86,
+   "user_seconds": 46.04,
+   "max_resident_mb": 242.0,
+   "peak_footprint_mb": 225.7,
+   "json_sha1": "ae55419be7248e25731aac1e41b6e07e4bd3f90b"
+  },
+  {
+   "run": "gunfinger-two-pass jobs 4 --duration 10:00",
+   "real_seconds": 22.32,
+   "user_seconds": 45.45,
+   "max_resident_mb": 119.8,
+   "peak_footprint_mb": 117.8,
+   "json_sha1": "ae55419be7248e25731aac1e41b6e07e4bd3f90b"
+  },
+  {
+   "run": "gunfinger-before jobs 10 --duration 10:00",
+   "real_seconds": 8.96,
+   "user_seconds": 45.01,
+   "max_resident_mb": 250.9,
+   "peak_footprint_mb": 249.1,
+   "json_sha1": "ae55419be7248e25731aac1e41b6e07e4bd3f90b"
+  },
+  {
+   "run": "gunfinger-two-pass jobs 10 --duration 10:00",
+   "real_seconds": 6.9,
+   "user_seconds": 44.63,
+   "max_resident_mb": 133.3,
+   "peak_footprint_mb": 131.3,
+   "json_sha1": "ae55419be7248e25731aac1e41b6e07e4bd3f90b"
+  },
+  {
+   "run": "gunfinger-before jobs 10",
+   "real_seconds": 62.01,
+   "user_seconds": 248.69,
+   "max_resident_mb": 456.5,
+   "peak_footprint_mb": 395.0,
+   "json_sha1": "4acc80dfce59ee54b2e8b693c6c93b7d58361947"
+  },
+  {
+   "run": "gunfinger-two-pass jobs 10",
+   "real_seconds": 73.04,
+   "user_seconds": 256.6,
+   "max_resident_mb": 371.1,
+   "peak_footprint_mb": 369.3,
+   "json_sha1": "4acc80dfce59ee54b2e8b693c6c93b7d58361947"
+  }
+ ]
+}

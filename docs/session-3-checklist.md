@@ -7,23 +7,26 @@ for scope and rules.
 ## Setup
 
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build; baseline `session-3-start`
+- [x] Release build; baseline `session-3-start` (the rerun at the start
+  reproduced `key-lock-default` exactly)
 
 ## 1. Memory by phase
 
-- [ ] Peak memory while loading, building and searching, at several worker
+- [~] Peak memory while loading, building and searching, at several worker
   counts, on the scale proxy
-- [ ] Two-pass index build reading one peak record at a time, if the
-  inference holds
-- [ ] Peak records dropped after the build in `identify` and `explain`
-- [ ] `regress session-3-start`: identical detections
+- [x] Two-pass index build reading one peak record at a time, if the
+  inference holds (commit 3cb535f)
+- [x] Peak records dropped after the build in `identify` and `explain`
+  (none are kept; `stats` reads them again)
+- [x] `regress session-3-start`: identical detections
 
 ## 2. Reports and explain
 
-- [ ] Atomic report writes
-- [ ] Search settings in each report (profile and hash design, confidence
+- [x] Atomic report writes (commit a724809)
+- [x] Search settings in each report (profile and hash design, confidence
   rule, library revision); `--save-dir` searches again when any differ
-- [ ] Evidence per window in `explain`
+  (commit a724809; also the recording's path and the excerpt)
+- [~] Evidence per window in `explain`
 
 ## 3. Generated mixes and the window grid
 
