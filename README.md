@@ -246,10 +246,12 @@ queries are measured as the library grows; `robust`, `mixes`, `grid` and
 
 `--ladder both|turntable|key-lock` (before the command) chooses the rungs
 every search uses; the default is `both`, as in `identify`, and other
-ladders keep their reports in `work/reports/ladder-<name>/`. Two opt-in
+ladders keep their reports in `work/reports/ladder-<name>/`. Opt-in
 matching changes apply to every command in the same way:
-`--second-pass` measures each candidate again at its fitted speed, and
-`--drop-fullest SHARE` empties the fullest posting lists. Their reports go
+`--second-pass` measures each candidate again at its fitted speed,
+`--drop-fullest SHARE` empties the fullest posting lists, and
+`--skip-fullest SHARE` leaves them out of the search for candidates only,
+so the second pass still counts them. Their reports go
 to `work/reports/variant-<name>/`, where `calibrate` and `regress` read
 them when given the same options. `scan` and `robust` take
 `--synthetic-copies N`, which adds N time-reversed, stretched copies of

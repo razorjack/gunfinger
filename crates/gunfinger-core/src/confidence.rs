@@ -66,10 +66,13 @@ pub const MIN_WINDOWS: u32 = 3;
 /// 0006).
 pub const MIN_POSSIBLE_HITS: u32 = 60;
 
-/// The second pass's rule. Opt-in and provisional: it is the frozen rule
-/// until the second pass's own null and calibration set it.
+/// The second pass's rule (opt-in). Measured over a candidate's whole span
+/// in every posting list, the passage the Stakka remix of Clockwork shares
+/// with the original reaches 119 hits; 240 is about twice that and 2.2
+/// times below the weakest identifying detection over four sweep draws
+/// (experiment 0026).
 pub const FITTED_RULE: Rule = Rule {
-    min_hits: MIN_HITS,
+    min_hits: 240,
     min_windows: MIN_WINDOWS,
     min_possible_hits: MIN_POSSIBLE_HITS,
 };
