@@ -44,8 +44,8 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [ ] Batch identification
 - [~] Completions, man page, `--quiet` (all done), progress
 - [x] Configuration file
-- [ ] `doctor`
-- [ ] `prune`
+- [x] `doctor`
+- [x] `prune`
 - [x] Remembered failed files (and too-long files)
 - [ ] TUI
 

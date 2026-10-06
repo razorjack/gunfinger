@@ -44,16 +44,18 @@ pub struct Settings {
     pub jobs: usize,
     pub color: ColorChoice,
     library: Option<PathBuf>,
+    /// The configuration file read, if any.
+    pub file: Option<PathBuf>,
 }
 
 impl Settings {
     pub fn resolve(given: Given) -> miette::Result<Settings> {
-        let file = match given.config {
-            Some(path) => read(&path)?,
-            None => match default_path().filter(|path| path.is_file()) {
-                Some(path) => read(&path)?,
-                None => File::default(),
-            },
+        let path = given
+            .config
+            .or_else(|| default_path().filter(|path| path.is_file()));
+        let file = match &path {
+            Some(path) => read(path)?,
+            None => File::default(),
         };
         Ok(Settings {
             peaks_dir: given
@@ -66,6 +68,7 @@ impl Settings {
             ),
             color: given.color.or(file.color).unwrap_or(ColorChoice::Auto),
             library: file.library.map(|library| expand_home(&library)),
+            file: path,
         })
     }
 
