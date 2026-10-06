@@ -64,3 +64,11 @@ ladder because your sets are vinyl, and added `identify --playback both`
 time-stretches them instead of resampling. If you identify CD or digital
 sets, use `--playback both`; making it the default would need the full
 evaluation with both ladders first.
+
+### `listen` and `review` are untested with real audio output
+
+This session has no audio device: ffplay reported "audio open failed". I
+checked the ffplay commands with `listen --print` and ran the same filters
+through FFmpeg into a null output, but I have not heard them. Please try
+`gunfinger listen <report> --at <time>` once; if ffplay misbehaves, the
+printed commands show exactly what runs.
