@@ -1,9 +1,80 @@
 # Notes for the owner
 
-Findings from the autonomous session that are worth your attention, newest
-last, after a morning summary.
+Findings from the autonomous sessions that are worth your attention, newest
+last, after a summary of each session (session 3 first).
 
-## Morning summary
+## Session 3 summary
+
+**Default detection is unchanged and no test-set evaluation was spent** (2
+of 5 used, 3 left). Every change to the core was checked with `gunfinger-eval
+regress session-3-start`: identical detections.
+
+**Done.** All seven items (`docs/session-3-checklist.md` has the detail),
+in experiments 0019-0027, each with its data in `docs/experiments/data/`:
+
+1. Memory by phase: the index is built in two passes and nothing else
+   stays loaded, 3.1 GB at 26,462 assets instead of about 16 GB (0019);
+   search memory at scale measured (0021).
+2. Reports record the settings they were made with, `--save-dir` searches
+   again when any differ, writes are atomic; `explain --windows`.
+3. Generated mixes with exact truth, and brief plays slid across the
+   window grid (0020).
+4. Where the development mix loses evidence (0022); new robust
+   conditions: wow, broadcast processing, beatmatched blends, combined.
+5. The second pass at each candidate's fitted speed, opt-in, with its own
+   null and calibration (0024).
+6. The second pass with the most common hashes set aside: the protocol,
+   every robust condition, the padded index and the cost; its rule set at
+   240 hits from calibration data (0026, 0027). The case for adoption is
+   below.
+7. Sweep panels kept per seed and four seeds (0025); duplicate clusters
+   from stored peaks, a seventh of the CPU (0023).
+
+**What I learned**, in order of how much it should change plans:
+
+1. Shared material, not chance, now sets the threshold. Measured by the
+   second pass, the passage the Clockwork remix shares with the original
+   (you confirmed it by ear) reaches 119 hits, which put that pass's rule
+   at 240. Chance alignments with reversed copies stay at 18-31 hits.
+   Hits cannot tell a shared passage from the original; the roadmap's
+   "confidence statistic for shared material" is needed sooner than
+   expected.
+2. Skipping the most common hashes while looking for candidates, and
+   counting them again in the second pass, keeps the evidence and removes
+   most of the cost at scale: 94% fewer false candidates, 57-63% less
+   search CPU at 8,122 and 26,462 assets, and 94% fewer first-pass lines
+   at 26,462. Emptying those lists, as proposed in session 2, loses too
+   much evidence.
+3. The development mix keeps 13% of the reference hashes its plays could
+   match. The mix itself (records, mastering, recording, AAC) costs most,
+   and most at 1-4 kHz, where the peak picker spends three quarters of the
+   hash budget (0022).
+4. Whether a 15-20 s play is confident depends on where the 10 s windows
+   fall; a 10 s minimum span would fix that (0020, offline). Chains can
+   also take in a chance line up to 30 s away.
+5. Over four sweep draws the margins are narrower than one draw showed:
+   200 sits 2.0 times below the weakest identifying detection, not 2.5
+   (0025).
+
+**Decisions for you.**
+
+- Adopt the second pass with common hashes skipped, at 240 hits? The
+  case is in "The case for adopting the second pass with common hashes
+  skipped" below. I would confirm it with one test-set evaluation first.
+- Test-set evaluations (3 left): the test mix has never been searched
+  with both playbacks, and Sick Note (209 hits) would most likely drop to
+  possible under the second pass. One evaluation of each matcher would
+  show both; I spent none.
+- A 10 s minimum span instead of 3 windows: whether a 15 s play should
+  count is your call. Fixing chance lines in chains should come first;
+  both change detections and need the full protocol.
+- Peaks spread more evenly across frequency bands: it changes the peak
+  profile, so every peak record would be extracted again.
+- If you have a minute, listen to whether
+  `a-unknown-udfr014-(synthesis_vip)` shares material with Muffler -
+  Bleak (28 hits, the strongest on audio not in the index).
+
+## Session 2 summary
 
 **Default detection is unchanged and no test-set evaluation was spent** (2
 of 5 used). Every change to the core was checked with `gunfinger-eval

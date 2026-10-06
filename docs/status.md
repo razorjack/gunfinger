@@ -530,3 +530,17 @@ Baseline `session-3-start` saved after a rerun that reproduced
   1,884; no wrong answer. 57-63% less search CPU at 8,122 and 26,462
   assets; first-pass lines 1.74 million → 112,000. `memory` takes the
   matching options and `--count-lines`. Case for adoption in the notes.
+
+## 2026-10-07: session 3 wrap-up
+
+- All seven items done (experiments 0019-0027); checklist ticked.
+- Default detection unchanged since `session-3-start` (`regress`:
+  identical after every core change). Test set: 2 of 5 evaluations used,
+  none this session.
+- Opt-in, not adopted: the second pass (`search_twice`) with the fullest 1%
+  of posting lists skipped for candidates, rule 240 hits in 3 windows.
+  Case for adoption and the decisions for the owner at the top of
+  `docs/notes-for-owner.md`; adoption steps in `docs/calibration.md`
+  ("Measured, not adopted") and the roadmap.
+- Measurements this session ran beside other sessions' load (load average
+  up to about 200): CPU times compare, wall times and peak memory do not.
