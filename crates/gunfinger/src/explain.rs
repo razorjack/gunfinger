@@ -9,15 +9,15 @@ use gunfinger_core::confidence::{Confidence, Evidence, MIN_HITS, MIN_POSSIBLE_HI
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, search};
-use gunfinger_core::speed::ladder;
+use gunfinger_core::search::{Detection, search_with_progress};
 use miette::{IntoDiagnostic, WrapErr};
 
 use crate::catalog::Catalog;
 use crate::console::Console;
+use crate::playback::PlaybackChoice;
 use crate::report::Level;
 use crate::style::Style;
-use crate::table::{span, timecode};
+use crate::table::{named, span, timecode};
 
 pub struct Request<'a> {
     pub audio: &'a Path,
@@ -26,6 +26,7 @@ pub struct Request<'a> {
     pub exclude_from: Option<&'a Path>,
     pub at: Duration,
     pub around: Duration,
+    pub playback: PlaybackChoice,
     /// Only assets whose path contains this, ignoring case.
     pub asset: Option<&'a str>,
     pub limit: usize,
@@ -51,13 +52,20 @@ pub fn run(request: &Request) -> miette::Result<()> {
     };
     let profile = Profile::CURRENT;
     let audio = decode(request.audio, profile.sample_rate, excerpt).into_diagnostic()?;
-    let detections = search(
+    let ladder = request.playback.rungs();
+    let detections = search_with_progress(
         &catalog.index,
         &audio.samples,
         &profile,
-        &ladder(),
+        &ladder,
         request.jobs,
+        |done| {
+            request
+                .console
+                .progress(format_args!("searching: {done} of {} rungs", ladder.len()));
+        },
     );
+    request.console.progress_done();
 
     let offset = start.as_secs_f64();
     println!(
@@ -100,7 +108,10 @@ pub fn run(request: &Request) -> miette::Result<()> {
             detection.evidence.hits,
             detection.evidence.windows,
             short_of(detection.evidence),
-            catalog.index.asset(detection.asset).path
+            named(
+                &catalog.index.asset(detection.asset).path,
+                detection.playback.into()
+            )
         );
     }
     if candidates.len() > request.limit {

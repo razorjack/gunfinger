@@ -10,7 +10,7 @@
 use crate::confidence::{Confidence, Evidence};
 use crate::index::AssetId;
 use crate::search::Detection;
-use crate::speed::SpeedRatio;
+use crate::speed::{Playback, SpeedRatio};
 
 /// Longest gap between two segments of one play: room for a station ident,
 /// a cut or a skip, short enough that a later return of the record is a new
@@ -57,6 +57,11 @@ impl Play {
     /// The speed of the strongest segment.
     pub fn speed(&self) -> SpeedRatio {
         self.strongest().speed
+    }
+
+    /// How the strongest segment was played.
+    pub fn playback(&self) -> Playback {
+        self.strongest().playback
     }
 
     /// The evidence of all segments together, for display.
@@ -174,6 +179,7 @@ mod tests {
             track_start_seconds: 0.0,
             track_end_seconds: end_seconds - start_seconds,
             speed: SpeedRatio(1.0 + f64::from(hits) / 1e5),
+            playback: Playback::Turntable,
             evidence: Evidence { windows: 4, hits },
         }
     }

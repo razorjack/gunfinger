@@ -8,8 +8,8 @@ use std::process::{Command, Stdio};
 use miette::miette;
 
 use crate::console::Console;
-use crate::report::{FoundPlay, Report, Segment};
-use crate::table::{span, timecode};
+use crate::report::{FoundPlay, Playback, Report, Segment};
+use crate::table::{named, span, timecode};
 
 /// Rate the speed change is applied at; any common rate works.
 const PLAYBACK_RATE: f64 = 48_000.0;
@@ -22,6 +22,7 @@ pub struct Clip {
     pub start_seconds: f64,
     /// 1.0 for the recording itself; a track's play speed in the mix.
     pub speed: f64,
+    pub playback: Playback,
 }
 
 /// The recording at `at`, then every track playing at `at`, strongest
@@ -64,6 +65,7 @@ pub fn clips(report: &Report, at: f64) -> miette::Result<Vec<Clip>> {
         path: report.query.path.clone(),
         start_seconds: at,
         speed: 1.0,
+        playback: Playback::Turntable,
     }];
     for play in playing {
         let segment = nearest_segment(play, at);
@@ -71,13 +73,14 @@ pub fn clips(report: &Report, at: f64) -> miette::Result<Vec<Clip>> {
         clips.push(Clip {
             label: format!(
                 "{} at {}, {:+.2}%",
-                play.asset,
+                named(&play.asset, segment.playback),
                 timecode(in_track),
                 (segment.speed - 1.0) * 100.0
             ),
             path: report.library.join(&play.asset),
             start_seconds: in_track.max(0.0),
             speed: segment.speed,
+            playback: segment.playback,
         });
     }
     Ok(clips)
@@ -143,8 +146,9 @@ pub fn commands(clips: &[Clip], seconds: f64) -> String {
     lines.join("\n")
 }
 
-/// Reads `seconds` of the track, resampled so that pitch and tempo move
-/// together, as on a turntable.
+/// Reads `seconds` of the track and changes its speed the way it was
+/// played: resampled (pitch and tempo together) or time-stretched (tempo
+/// only).
 fn ffplay_args(clip: &Clip, seconds: f64) -> Vec<String> {
     let mut args: Vec<String> = ["-hide_banner", "-loglevel", "error", "-nodisp", "-autoexit"]
         .map(String::from)
@@ -156,13 +160,14 @@ fn ffplay_args(clip: &Clip, seconds: f64) -> Vec<String> {
         format!("{:.2}", seconds * clip.speed),
     ]);
     if clip.speed != 1.0 {
-        args.extend([
-            String::from("-af"),
-            format!(
+        let filter = match clip.playback {
+            Playback::Turntable => format!(
                 "aresample={PLAYBACK_RATE:.0},asetrate={:.0},aresample={PLAYBACK_RATE:.0}",
                 PLAYBACK_RATE * clip.speed
             ),
-        ]);
+            Playback::KeyLocked => format!("atempo={:.4}", clip.speed),
+        };
+        args.extend([String::from("-af"), filter]);
     }
     args.push(clip.path.to_string_lossy().into_owned());
     args
@@ -236,6 +241,7 @@ mod tests {
             path: PathBuf::from("/library/Skynet & Stakka - Decoy.mp3"),
             start_seconds: 42.5,
             speed: 1.03,
+            playback: Playback::Turntable,
         };
 
         assert_eq!(

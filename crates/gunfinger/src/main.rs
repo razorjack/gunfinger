@@ -11,6 +11,7 @@ mod index;
 mod listen;
 mod names;
 mod output;
+mod playback;
 mod prune;
 mod report;
 mod stats;
@@ -30,6 +31,7 @@ use gunfinger_core::decode::Excerpt;
 use gunfinger_core::timecode::parse_timecode;
 use miette::IntoDiagnostic;
 use output::ReportFormat;
+use playback::PlaybackChoice;
 use report::Report;
 use style::{ColorChoice, Style};
 
@@ -91,6 +93,10 @@ enum Command {
         /// Length of the part to search.
         #[arg(long, value_parser = parse_timecode)]
         duration: Option<Duration>,
+        /// How the records were played; `both` also finds key-locked
+        /// (CDJ master tempo) playback and takes twice as long.
+        #[arg(long, value_enum, default_value_t = PlaybackChoice::Turntable)]
+        playback: PlaybackChoice,
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
@@ -121,6 +127,9 @@ enum Command {
         /// How much to search on either side of the moment.
         #[arg(long, value_parser = parse_timecode, default_value = "60")]
         around: Duration,
+        /// How the records were played.
+        #[arg(long, value_enum, default_value_t = PlaybackChoice::Turntable)]
+        playback: PlaybackChoice,
         /// Only assets whose path contains this text (ignoring case).
         #[arg(long)]
         asset: Option<String>,
@@ -238,6 +247,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             library,
             start,
             duration,
+            playback,
             exclude_from,
             format,
             save_dir,
@@ -247,6 +257,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             library: &settings.library(library)?,
             peaks_dir,
             excerpt: Excerpt { start, duration },
+            playback,
             exclude_from: exclude_from.as_deref(),
             format,
             save_dir: save_dir.as_deref(),
@@ -260,6 +271,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             library,
             at,
             around,
+            playback,
             asset,
             limit,
             exclude_from,
@@ -270,6 +282,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             exclude_from: exclude_from.as_deref(),
             at,
             around,
+            playback,
             asset: asset.as_deref(),
             limit,
             style: stdout_style,

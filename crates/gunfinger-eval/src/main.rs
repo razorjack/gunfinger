@@ -7,6 +7,7 @@ mod calibrate;
 mod clusters;
 mod manifest;
 mod regress;
+mod related;
 mod render;
 mod rng;
 mod robust;
@@ -14,14 +15,16 @@ mod scan;
 mod scoring;
 mod survival;
 mod sweep;
+mod synthetic;
 
 use std::fs;
 use std::num::NonZeroUsize;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::library::Library;
+use gunfinger_core::speed::{Rung, key_lock_ladder, ladder};
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
@@ -50,6 +53,11 @@ struct Paths {
     /// Peak store of the library, as written by `gunfinger index`.
     #[arg(long, default_value = "work/peaks")]
     peaks_dir: PathBuf,
+    /// Rungs searched by sweep, scan, robust and regress. Reports of other
+    /// ladders than the default go to `reports/ladder-<name>/`, so that
+    /// calibrate and regress read one ladder at a time.
+    #[arg(long, global = true, value_enum, default_value_t = Ladder::Turntable)]
+    ladder: Ladder,
 }
 
 #[derive(Subcommand)]
@@ -63,6 +71,9 @@ enum Command {
     },
     /// Find duplicate clusters by matching the library against itself.
     Clusters,
+    /// List recordings that share material (remixes, VIPs, samples) by
+    /// matching the library against itself.
+    Related,
     /// Run the seeded speed sweep.
     Sweep {
         #[arg(long, default_value_t = 2026)]
@@ -79,6 +90,11 @@ enum Command {
         /// Seed for choosing the tracks to leave out.
         #[arg(long, default_value_t = 2026)]
         seed: u64,
+        /// Add this many time-reversed, stretched copies of every indexed
+        /// record to the index, to measure a larger library. The report is
+        /// named `scale-scan-...` so that calibrate never reads it.
+        #[arg(long, default_value_t = 0)]
+        synthetic_copies: usize,
     },
     /// Report the confidence margin from the sweep and development reports.
     Calibrate {
@@ -95,6 +111,10 @@ enum Command {
         /// Run only these conditions (and the control), by name.
         #[arg(long, value_delimiter = ',')]
         only: Vec<String>,
+        /// Add this many time-reversed, stretched copies of every indexed
+        /// record to the index.
+        #[arg(long, default_value_t = 0)]
+        synthetic_copies: usize,
     },
     /// Save the reports of the standard evaluation (sweep, development scan
     /// and leave-outs) as a named baseline under `work/baselines/`.
@@ -138,18 +158,35 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
             survival::run(&paths.library()?, &paths.store()?, &assets, &paths.work)
         }
         Command::Clusters => find_clusters(paths),
+        Command::Related => {
+            let related = related::find(
+                &paths.library()?,
+                &paths.store()?,
+                &paths.clusters()?,
+                jobs(),
+            )?;
+            write_json(&paths.reports().join("related-recordings.json"), &related)?;
+            related::print_summary(&related);
+            Ok(())
+        }
         Command::Sweep { seed } => run_sweep(paths, seed),
         Command::Scan {
             set,
             leave_out,
             seed,
+            synthetic_copies,
         } => run_scan(
             paths,
             &set,
             leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
+            synthetic_copies,
         ),
         Command::Calibrate { set } => calibrate::run(&paths.reports(), &set),
-        Command::Robust { seed, only } => run_robust(paths, seed, &only),
+        Command::Robust {
+            seed,
+            only,
+            synthetic_copies,
+        } => run_robust(paths, seed, &only, synthetic_copies),
         Command::Baseline { name, set, seed } => {
             regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
         }
@@ -167,18 +204,64 @@ fn run(paths: &Paths, command: Command) -> Result<(), String> {
     }
 }
 
-fn run_robust(paths: &Paths, seed: u64, only: &[String]) -> Result<(), String> {
+/// The default turntable ladder, key-locked rungs at the same tempos, or
+/// both.
+#[derive(Clone, Copy, PartialEq, Eq, ValueEnum)]
+enum Ladder {
+    Turntable,
+    KeyLock,
+    Both,
+}
+
+impl Ladder {
+    fn name(self) -> &'static str {
+        match self {
+            Ladder::Turntable => "turntable",
+            Ladder::KeyLock => "key-lock",
+            Ladder::Both => "both",
+        }
+    }
+
+    fn rungs(self) -> Vec<Rung> {
+        match self {
+            Ladder::Turntable => ladder(),
+            Ladder::KeyLock => key_lock_ladder(),
+            Ladder::Both => ladder().into_iter().chain(key_lock_ladder()).collect(),
+        }
+    }
+}
+
+fn run_robust(
+    paths: &Paths,
+    seed: u64,
+    only: &[String],
+    synthetic_copies: usize,
+) -> Result<(), String> {
+    let ladder = paths.ladder;
+    check_copies(synthetic_copies)?;
     let report = robust::run(
         &paths.library()?,
         &paths.store()?,
         &paths.clusters()?,
         &paths.work,
-        seed,
-        only,
-        jobs(),
+        &robust::Options {
+            seed,
+            only,
+            ladder_name: ladder.name(),
+            ladder: &ladder.rungs(),
+            synthetic_copies,
+            jobs: jobs(),
+        },
     )?;
+    let suffix = if synthetic_copies > 0 {
+        format!("-copies-{synthetic_copies}")
+    } else {
+        String::new()
+    };
     write_json(
-        &paths.reports().join(format!("robust-seed-{seed}.json")),
+        &paths
+            .reports()
+            .join(format!("robust-seed-{seed}{suffix}.json")),
         &report,
     )?;
     robust::print_summary(&report);
@@ -188,9 +271,9 @@ fn run_robust(paths: &Paths, seed: u64, only: &[String]) -> Result<(), String> {
 /// The sweep, the development scan and its leave-outs.
 fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64) -> Result<(), String> {
     run_sweep(paths, seed)?;
-    run_scan(paths, set, None)?;
+    run_scan(paths, set, None, 0)?;
     for count in regress::LEAVE_OUTS {
-        run_scan(paths, set, Some(&LeaveOut { count, seed }))?;
+        run_scan(paths, set, Some(&LeaveOut { count, seed }), 0)?;
     }
     Ok(())
 }
@@ -209,6 +292,7 @@ fn run_sweep(paths: &Paths, seed: u64) -> Result<(), String> {
         &paths.clusters()?,
         &paths.work,
         seed,
+        &paths.ladder.rungs(),
         jobs(),
     )?;
     write_json(
@@ -219,17 +303,38 @@ fn run_sweep(paths: &Paths, seed: u64) -> Result<(), String> {
     Ok(())
 }
 
-fn run_scan(paths: &Paths, set: &str, leave_out: Option<&LeaveOut>) -> Result<(), String> {
+fn check_copies(synthetic_copies: usize) -> Result<(), String> {
+    if synthetic_copies > synthetic::MAX_COPIES {
+        return Err(format!(
+            "at most {} synthetic copies are distinct",
+            synthetic::MAX_COPIES
+        ));
+    }
+    Ok(())
+}
+
+fn run_scan(
+    paths: &Paths,
+    set: &str,
+    leave_out: Option<&LeaveOut>,
+    synthetic_copies: usize,
+) -> Result<(), String> {
+    check_copies(synthetic_copies)?;
     let report = scan::run(
         &paths.sets(),
         set,
         &paths.library()?,
         &paths.store()?,
         &paths.clusters()?,
-        leave_out,
-        jobs(),
+        &scan::Options {
+            leave_out,
+            synthetic_copies,
+            ladder: &paths.ladder.rungs(),
+            jobs: jobs(),
+        },
     )?;
     let name = match leave_out {
+        _ if synthetic_copies > 0 => format!("scale-scan-{set}-copies-{synthetic_copies}.json"),
         Some(leave_out) => format!(
             "scan-{set}-leave-out-{}-seed-{}.json",
             leave_out.count, leave_out.seed
@@ -257,15 +362,20 @@ impl Paths {
     }
 
     fn reports(&self) -> PathBuf {
-        self.work.join("reports")
+        let reports = self.work.join("reports");
+        match self.ladder {
+            Ladder::Turntable => reports,
+            other => reports.join(format!("ladder-{}", other.name())),
+        }
     }
 
     fn baseline(&self, name: &str) -> PathBuf {
         self.work.join("baselines").join(name)
     }
 
+    /// Clusters come from library audio alone, whatever the ladder.
     fn clusters_file(&self) -> PathBuf {
-        self.reports().join("duplicate-clusters.json")
+        self.work.join("reports").join("duplicate-clusters.json")
     }
 
     fn clusters(&self) -> Result<Clusters, String> {

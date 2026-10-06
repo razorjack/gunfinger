@@ -8,6 +8,7 @@ use std::time::Duration;
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::plays::{self, SameAudio};
 use gunfinger_core::search::Detection;
+use gunfinger_core::speed;
 use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::{Deserialize, Serialize};
 
@@ -50,8 +51,10 @@ pub struct FoundPlay {
     pub track_start_seconds: f64,
     #[serde(default)]
     pub track_end_seconds: f64,
-    /// The strongest segment's speed and confidence.
+    /// The strongest segment's speed, playback and confidence.
     pub speed: f64,
+    #[serde(default)]
+    pub playback: Playback,
     pub confidence: Level,
     /// Summed over the segments.
     pub windows: u32,
@@ -68,9 +71,30 @@ pub struct Segment {
     #[serde(default)]
     pub track_end_seconds: f64,
     pub speed: f64,
+    #[serde(default)]
+    pub playback: Playback,
     pub confidence: Level,
     pub windows: u32,
     pub hits: u32,
+}
+
+/// How a play was played; under key lock `speed` is the tempo and the
+/// pitch is unchanged.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Playback {
+    #[default]
+    Turntable,
+    KeyLocked,
+}
+
+impl From<speed::Playback> for Playback {
+    fn from(playback: speed::Playback) -> Playback {
+        match playback {
+            speed::Playback::Turntable => Playback::Turntable,
+            speed::Playback::KeyLocked => Playback::KeyLocked,
+        }
+    }
 }
 
 /// `Confidence` as the report spells it.
@@ -160,6 +184,7 @@ impl FoundPlay {
             track_start_seconds: play.track_start_seconds(),
             track_end_seconds: play.track_end_seconds(),
             speed: play.speed().0,
+            playback: play.playback().into(),
             confidence: play.confidence().into(),
             windows: total.windows,
             hits: total.hits,
@@ -172,6 +197,7 @@ impl FoundPlay {
                     track_start_seconds: segment.track_start_seconds,
                     track_end_seconds: segment.track_end_seconds,
                     speed: segment.speed.0,
+                    playback: segment.playback.into(),
                     confidence: segment.evidence.confidence().into(),
                     windows: segment.evidence.windows,
                     hits: segment.evidence.hits,

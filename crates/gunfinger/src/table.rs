@@ -4,7 +4,7 @@ use std::time::Duration;
 
 use gunfinger_core::timecode::format_timecode;
 
-use crate::report::{Level, Report};
+use crate::report::{Level, Playback, Report};
 use crate::style::Style;
 
 /// Width of the columns before the asset path.
@@ -24,7 +24,7 @@ pub fn table(report: &Report, style: Style) -> String {
             play.speed,
             &paint(play.confidence, style),
             play.hits,
-            &play.asset,
+            &named(&play.asset, play.playback),
         ));
         for asset in &play.same_audio {
             lines.push(style.dim(&format!("{:ASSET_COLUMN$}also {asset}", "")));
@@ -44,6 +44,14 @@ pub fn table(report: &Report, style: Style) -> String {
     }
     lines.push(String::new());
     lines.join("\n")
+}
+
+/// A key-locked play's speed is its tempo; the name says so.
+pub fn named(name: &str, playback: Playback) -> String {
+    match playback {
+        Playback::Turntable => name.to_owned(),
+        Playback::KeyLocked => format!("{name}  (key lock)"),
+    }
 }
 
 /// The confidence padded to its column, then coloured.
@@ -87,6 +95,7 @@ pub mod tests {
             track_start_seconds,
             track_end_seconds: track_start_seconds + (end_seconds - start_seconds) * 1.06,
             speed: 1.06,
+            playback: Playback::Turntable,
             confidence: Level::Confident,
             windows: 4,
             hits: 400,
@@ -103,6 +112,7 @@ pub mod tests {
             track_start_seconds: track_start,
             track_end_seconds: track_start + (end - start) * speed,
             speed,
+            playback: Playback::Turntable,
             confidence,
             windows: 4,
             hits,
@@ -112,6 +122,7 @@ pub mod tests {
                 track_start_seconds: track_start,
                 track_end_seconds: track_start + (end - start) * speed,
                 speed,
+                playback: Playback::Turntable,
                 confidence,
                 windows: 4,
                 hits,
@@ -130,7 +141,10 @@ pub mod tests {
                     same_audio: vec![String::from("copy-of-a.wav")],
                     ..play("a.wav", 0.0, 41.0, 10.0, 1.03, Level::Confident, 853)
                 },
-                play("b.wav", 38.0, 81.0, 5.0, 0.95, Level::Confident, 818),
+                FoundPlay {
+                    playback: Playback::KeyLocked,
+                    ..play("b.wav", 38.0, 81.0, 5.0, 0.95, Level::Confident, 818)
+                },
                 play("insert.wav", 84.0, 94.0, 0.0, 1.0, Level::Possible, 75),
                 FoundPlay {
                     segments: vec![segment(96.0, 111.0, 20.0), segment(112.0, 140.0, 41.0)],
@@ -151,7 +165,7 @@ pub mod tests {
 time                in track        speed  confidence   hits  asset
 0:00-0:41           0:10-0:52      +3.00%  confident     853  a.wav
                                                               also copy-of-a.wav
-0:38-1:21           0:05-0:45      -5.00%  confident     818  b.wav
+0:38-1:21           0:05-0:45      -5.00%  confident     818  b.wav  (key lock)
 1:24-1:34           0:00-0:10      +0.00%  possible       75  insert.wav
 1:36-2:20           0:20-1:10      +6.00%  confident     800  c.wav
   1:36-1:51         0:20-0:35      +6.00%  confident     400

@@ -12,7 +12,7 @@ use gunfinger_core::library::Library;
 use gunfinger_core::plays;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, search};
-use gunfinger_core::speed::ladder;
+use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use gunfinger_core::timecode::format_timecode;
 use serde::{Deserialize, Serialize};
@@ -21,6 +21,7 @@ use crate::clusters::Clusters;
 use crate::manifest::{Set, load_set};
 use crate::rng::Rng;
 use crate::scoring::{Found, FoundPlay, Score, score};
+use crate::synthetic;
 
 /// Which referenced tracks to leave out of the index: `count` of them, drawn
 /// with `seed`.
@@ -45,28 +46,46 @@ pub struct ScanReport {
     pub plays: Vec<FoundPlay>,
 }
 
+/// How the index differs from the library's, and the worker threads.
+pub struct Options<'a> {
+    pub leave_out: Option<&'a LeaveOut>,
+    /// Reversed copies of every indexed record added to the index
+    /// (`synthetic`), to measure a larger library.
+    pub synthetic_copies: usize,
+    pub ladder: &'a [Rung],
+    pub jobs: usize,
+}
+
 pub fn run(
     sets_dir: &Path,
     set_name: &str,
     library: &Library,
     store: &PeakStore,
     clusters: &Clusters,
-    leave_out: Option<&LeaveOut>,
-    jobs: usize,
+    options: &Options,
 ) -> Result<ScanReport, String> {
+    let Options {
+        leave_out,
+        synthetic_copies,
+        ladder,
+        jobs,
+    } = *options;
     let set = load_set(sets_dir, set_name, library).map_err(|problems| problems.join("; "))?;
     let profile = Profile::CURRENT;
     let (left_out_tracks, left_out_assets) = match leave_out {
         Some(leave_out) => draw_left_out(&set, clusters, leave_out),
         None => (Vec::new(), BTreeSet::new()),
     };
-    let (records, _) = load_records(library, store, &profile, &left_out_assets);
+    let (mut records, _) = load_records(library, store, &profile, &left_out_assets);
+    let copies = synthetic::copies(&records, synthetic_copies, &profile);
+    records.extend(copies);
     let index = Index::build(&records).map_err(|error| error.to_string())?;
+    drop(records);
 
     let started = Instant::now();
     let audio = decode(&set.audio, profile.sample_rate, Excerpt::default())
         .map_err(|error| error.to_string())?;
-    let detections = search(&index, &audio.samples, &profile, &ladder(), jobs);
+    let detections = search(&index, &audio.samples, &profile, ladder, jobs);
     let wall_seconds = started.elapsed().as_secs_f64();
     let plays: Vec<FoundPlay> = plays::group(&detections)
         .iter()

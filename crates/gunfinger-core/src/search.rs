@@ -18,7 +18,7 @@ use std::cmp::Reverse;
 use crate::confidence::Evidence;
 use crate::index::{AssetId, Index};
 use crate::profile::Profile;
-use crate::speed::SpeedRatio;
+use crate::speed::{Playback, Rung, SpeedRatio};
 
 /// A library asset found playing in the query.
 #[derive(Debug, Clone, PartialEq)]
@@ -31,21 +31,39 @@ pub struct Detection {
     pub track_start_seconds: f64,
     pub track_end_seconds: f64,
     pub speed: SpeedRatio,
+    /// For a key-locked detection, `speed` is the tempo; pitch is
+    /// unchanged.
+    pub playback: Playback,
     pub evidence: Evidence,
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of
-/// `index` at each assumed speed of `ladder` (normally `speed::ladder()`),
+/// `index` on each rung of `ladder` (normally `speed::ladder()`),
 /// running rungs on `jobs` threads. Returns the detections strongest first;
 /// the caller decides which are confident.
 pub fn search(
     index: &Index,
     samples: &[f32],
     profile: &Profile,
-    ladder: &[SpeedRatio],
+    ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
-    let lines = lines::distinct(lines::on_ladder(index, samples, profile, ladder, jobs));
+    search_with_progress(index, samples, profile, ladder, jobs, |_| {})
+}
+
+/// Like `search`, calling `progress` from the workers with the number of
+/// rungs finished after each.
+pub fn search_with_progress(
+    index: &Index,
+    samples: &[f32],
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+    progress: impl Fn(usize) + Sync,
+) -> Vec<Detection> {
+    let lines = lines::distinct(lines::on_ladder(
+        index, samples, profile, ladder, jobs, progress,
+    ));
     let mut detections = chains::detections(&lines, profile);
     detections.sort_by_key(|detection| Reverse(detection.evidence.hits));
     strongest_per_moment(detections)
@@ -82,6 +100,7 @@ mod tests {
             track_start_seconds: 0.0,
             track_end_seconds: end_seconds - start_seconds,
             speed: SpeedRatio(1.0),
+            playback: Playback::Turntable,
             evidence: Evidence { windows: 5, hits },
         }
     }
