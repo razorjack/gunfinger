@@ -1,0 +1,158 @@
+{
+ "description": "Experiment 0025: the sweep with four seeds (2026-2029) on saved panels, default matcher, both ladders, frozen rule. File names only.",
+ "seeds": [
+  {
+   "seed": 2026,
+   "indexed_assets": 209,
+   "held_out_clusters": 48,
+   "recalled": 540,
+   "excerpts": 540,
+   "wrong": 0,
+   "max_speed_error_percent": 0.016
+  },
+  {
+   "seed": 2027,
+   "indexed_assets": 209,
+   "held_out_clusters": 48,
+   "recalled": 540,
+   "excerpts": 540,
+   "wrong": 0,
+   "max_speed_error_percent": 0.024
+  },
+  {
+   "seed": 2028,
+   "indexed_assets": 207,
+   "held_out_clusters": 48,
+   "recalled": 540,
+   "excerpts": 540,
+   "wrong": 0,
+   "max_speed_error_percent": 0.017
+  },
+  {
+   "seed": 2029,
+   "indexed_assets": 210,
+   "held_out_clusters": 48,
+   "recalled": 540,
+   "excerpts": 540,
+   "wrong": 0,
+   "max_speed_error_percent": 0.021
+  }
+ ],
+ "weakest_identifying": [
+  {
+   "hits": 403,
+   "seed": 2027,
+   "asset": "Fibre Optix - Sin.m4a",
+   "speed_percent": -3.0
+  },
+  {
+   "hits": 430,
+   "seed": 2027,
+   "asset": "Fibre Optix - Sin.m4a",
+   "speed_percent": 3.0
+  },
+  {
+   "hits": 435,
+   "seed": 2027,
+   "asset": "Fibre Optix - Sin.m4a",
+   "speed_percent": -1.0
+  },
+  {
+   "hits": 436,
+   "seed": 2028,
+   "asset": "extra/a-gridlok-v_ger-sour.mp3",
+   "speed_percent": -5.0
+  },
+  {
+   "hits": 449,
+   "seed": 2027,
+   "asset": "Fibre Optix - Sin.m4a",
+   "speed_percent": 1.0
+  },
+  {
+   "hits": 450,
+   "seed": 2027,
+   "asset": "Fibre Optix - Sin.m4a",
+   "speed_percent": -5.0
+  }
+ ],
+ "strongest_on_audio_not_indexed": [
+  {
+   "hits": 28,
+   "seed": 2028,
+   "excerpt": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+   "found": "extra/01-muffler-bleak_(original_mix).mp3",
+   "speed_percent": -5.0
+  },
+  {
+   "hits": 22,
+   "seed": 2029,
+   "excerpt": "extra/[A]_-_Tribal_Warfare.mp3",
+   "found": "Ed Rush & Optical - Point Blank.mp3",
+   "speed_percent": 1.0
+  },
+  {
+   "hits": 20,
+   "seed": 2028,
+   "excerpt": "extra/05 - Bad Company - Sentient.mp3",
+   "found": "extra/b-cause_4_concern-sarin-sour.mp3",
+   "speed_percent": 1.0
+  },
+  {
+   "hits": 20,
+   "seed": 2028,
+   "excerpt": "extra/05 - Bad Company - Sentient.mp3",
+   "found": "extra/a-stratus-like_this-sour.mp3",
+   "speed_percent": -8.0
+  }
+ ],
+ "strongest_false": [
+  {
+   "hits": 97,
+   "seed": 2026,
+   "excerpt": "Skynet & Stakka - Clockwork.mp3",
+   "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "speed_percent": 0.0
+  },
+  {
+   "hits": 95,
+   "seed": 2026,
+   "excerpt": "Skynet & Stakka - Clockwork.mp3",
+   "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "speed_percent": 1.0
+  },
+  {
+   "hits": 93,
+   "seed": 2026,
+   "excerpt": "Skynet & Stakka - Clockwork.mp3",
+   "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "speed_percent": -5.0
+  },
+  {
+   "hits": 86,
+   "seed": 2026,
+   "excerpt": "Skynet & Stakka - Clockwork.mp3",
+   "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "speed_percent": 8.0
+  }
+ ],
+ "distinct_excerpt_assets": 208,
+ "calibrate_seed_2026_and_development": {
+  "identifying": 559,
+  "weakest": 501,
+  "strongest_false": 97,
+  "margin": 5.16,
+  "strongest_not_indexed": 19
+ },
+ "calibrate_four_seeds_and_development": {
+  "identifying": 2179,
+  "false_candidates": 70506,
+  "weakest": 403,
+  "strongest_false": 97,
+  "margin": 4.15,
+  "strongest_not_indexed": 28,
+  "threshold_over_strongest_false": 2.06,
+  "weakest_over_threshold": 2.02,
+  "possible_over_not_indexed": 2.14
+ }
+}

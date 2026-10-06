@@ -66,8 +66,8 @@ for scope and rules.
 
 ## 7. Before tracks are added
 
-- [~] Fixed query panel with more sweep seeds (panels in `docs/panels/`;
-  more seeds to run)
+- [x] Fixed query panel with more sweep seeds (panels in `docs/panels/`;
+  seeds 2026-2029, experiment 0025)
 - [x] Duplicate clustering from stored peaks, checked against `clusters`
   on controlled cases (experiment 0023)
 
