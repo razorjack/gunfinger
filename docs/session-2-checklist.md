@@ -11,7 +11,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 - [x] Determinism check (experiment 0007: deterministic, no fix needed)
 - [x] Synthetic fixtures and end-to-end test (experiment 0008: shared kicks extend chains)
-- [ ] Regression command with saved baselines
+- [x] Regression command with saved baselines (`baseline`, `regress`; baseline `session-2-start`)
 - [ ] Property tests
 
 ## 2. Experiments on transformed copies

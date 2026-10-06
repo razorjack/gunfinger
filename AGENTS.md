@@ -89,6 +89,10 @@ the best. `gunfinger stats` reports the measurements.
 
 ## Evaluation rules
 
+- Before committing a change that can affect detection, run
+  `gunfinger-eval regress <baseline>` (after `gunfinger-eval baseline
+  <name>` on the previous commit) and record what changed. Search is
+  deterministic, so "identical" means bit for bit.
 - Only `confident` detections count. One frozen confidence rule for every
   input. `possible` plays are shown to help and scored apart; they never
   identify a track or count as wrong (ADR 0006).
