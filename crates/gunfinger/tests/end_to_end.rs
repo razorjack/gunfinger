@@ -447,6 +447,107 @@ fn prune_deletes_records_of_removed_files_only_when_asked() {
 }
 
 #[test]
+fn a_copy_of_the_peak_store_names_tracks_without_the_library() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("store-only");
+    let library = dir.join("library");
+    std::fs::create_dir_all(&library).unwrap();
+    let tracks: Vec<Track> = (1..=2).map(|seed| Track::random(seed, 40.0)).collect();
+    for (track, name, tags) in [
+        (
+            &tracks[0],
+            "a.flac",
+            &["artist=Test Artist", "title=First Tune"][..],
+        ),
+        (&tracks[1], "b.flac", &[][..]),
+    ] {
+        let plain = dir.join("plain.wav");
+        write_wav(&plain, &track.play(0.0, track.seconds, 1.0));
+        let mut ffmpeg = Command::new("ffmpeg");
+        ffmpeg.args(["-v", "error", "-y", "-i"]).arg(&plain);
+        for tag in tags {
+            ffmpeg.args(["-metadata", tag]);
+        }
+        assert!(ffmpeg.arg(library.join(name)).status().unwrap().success());
+    }
+    let mut mix = Mix::new(50.0);
+    mix.add(0.0, &tracks[0].play(5.0, 24.0, 1.02), 0.5);
+    mix.add(24.0, &tracks[1].play(5.0, 26.0, 0.98), 0.5);
+    let recording = dir.join("mix.wav");
+    write_wav(&recording, mix.samples());
+    let library_arg = library.to_str().unwrap();
+    let recording_arg = recording.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+    // The library goes away; a copy of its store goes to another computer
+    // with no configuration.
+    std::fs::rename(&library, dir.join("elsewhere")).unwrap();
+    let copy = dir.join("stick");
+    std::fs::create_dir_all(&copy).unwrap();
+    for entry in std::fs::read_dir(dir.join("peaks")).unwrap() {
+        let path = entry.unwrap().path();
+        std::fs::copy(&path, copy.join(path.file_name().unwrap())).unwrap();
+    }
+    let identify = |args: &[&str]| {
+        let output = Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+            .args([
+                "identify",
+                recording_arg,
+                "--playback",
+                "turntable",
+                "--peaks-dir",
+            ])
+            .arg(&copy)
+            .args(args)
+            .env("XDG_CONFIG_HOME", dir.join("no-config"))
+            .env("NO_COLOR", "1")
+            .output()
+            .unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        output
+    };
+
+    let tracklist = identify(&["--format", "tracklist"]);
+    let report = identify(&["--format", "json"]);
+    let unreadable = identify(&["--format", "tracklist", "--library", library_arg]);
+
+    let stdout = String::from_utf8_lossy(&tracklist.stdout);
+    assert!(stdout.contains("Test Artist - First Tune"), "{stdout}");
+    assert!(
+        stdout.lines().any(|line| line.ends_with("  b")),
+        "an untagged file is named by its file name: {stdout}"
+    );
+    let stderr = String::from_utf8_lossy(&tracklist.stderr);
+    assert!(
+        stderr.contains("no library given; searching the 2 records in the peak store"),
+        "{stderr}"
+    );
+    let report: Value = serde_json::from_slice(&report.stdout).unwrap();
+    assert!(
+        report["library"]
+            .as_str()
+            .is_some_and(|root| root.ends_with("store-only/library")),
+        "the report names the store's library: {}",
+        report["library"]
+    );
+    let plays = report["plays"].as_array().unwrap();
+    assert_eq!(plays_of(plays, "a.flac")[0]["tags"]["title"], "First Tune");
+    assert_eq!(plays_of(plays, "b.flac")[0]["tags"], serde_json::json!({}));
+    let stderr = String::from_utf8_lossy(&unreadable.stderr);
+    assert!(
+        stderr.contains("cannot read the library at")
+            && stderr.contains("records in its peak store instead"),
+        "{stderr}"
+    );
+    assert!(String::from_utf8_lossy(&unreadable.stdout).contains("Test Artist - First Tune"));
+}
+
+#[test]
 fn a_peak_store_holds_the_records_of_one_library() {
     if !ffmpeg_available() {
         return;
