@@ -620,3 +620,12 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   second pass): Star Trails +11% and the robust pitch ride +9% hits; wow
   unchanged; Dominion -3.2%; no level changes anywhere; no measurable CPU
   (development scan 241 s either way). Recommended to stay opt-in.
+- Item 5 under way. `loss` by band: anchors at 2-4 kHz are 64% of the
+  postings looked up and give 0.65 true hits per 1,000; at 125-250 Hz
+  18.05. Variant a (neighbourhoods of 9.4% of the bin, 4-24 bins; store in
+  `work/variants/band-a/`): 9% fewer postings; development mix +34% hits;
+  sweep 2026 and scans margin 5.16× → 6.44×. Robust and the full protocol
+  running.
+- Item 7: 3 extra rungs at each end recover every speed to ±9% (today's
+  ladders: 100% to ±8.4%, 0 confident at ±9%) for 14% more CPU; today's
+  matcher's sweeps and mixes are otherwise identical.

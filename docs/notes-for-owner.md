@@ -614,6 +614,30 @@ strongest false candidates by 10-19%. My recommendation:
 keep it opt-in, and look again if a real play near the 240-hit rule
 turns out to be a slow pitch ride.
 
+### High anchors cost most of the postings and give little evidence
+
+On the development mix's 11 identified plays (390 windows, the true rung
+only), `loss` now counts the postings looked up beside the true hits, by
+the anchor's band (commit d533142). Anchors at 2-4 kHz account for 64%
+of the postings looked up and 21% of the true hits: 0.65 hits per 1,000
+postings. Anchors at 125-250 Hz give 18.05 per 1,000, at 250-500 Hz
+13.09, at 500-1,000 Hz 8.16, at 1-2 kHz 2.64, and below 125 Hz 3.19
+(kicks are common, so their lists are long). Below 1 kHz, 15% of the
+postings give 52% of the hits. The mix keeps 45-47% of a clean render's
+hashes below 250 Hz and 11% at 2-4 kHz. Item 5's variant profiles move
+peaks from high to low bands to test whether that pays.
+
+First result (preliminary; robust and the four-seed protocol under both
+matchers are running): variant a widens each peak's neighbourhood in
+proportion to its frequency (9.4% of the bin, 4-24 bins either way; 12
+at 1 kHz as today), so the share of peaks at 2-4 kHz falls from 48% to
+27%. It has 8% fewer peaks and 9% fewer postings. Under today's matcher
+the development mix's eleven tracks gain 34% more hits (Star Trails +72%,
+Side Effects +67%, every track at least +12%); on sweep 2026 and the
+development scans the margin rises from 5.16× to 6.44× (weakest
+identifying 501 to 663, strongest false 97 to 103, the Clockwork remix's
+shared passage) and false candidates fall from 15,623 to 6,778.
+
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 
 On an idle machine, scanning the 56-minute development mix at 26,462
