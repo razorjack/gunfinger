@@ -80,7 +80,8 @@ below):
   chosen matcher with what you adopt would confirm it.
 - If you have a minute, listen to whether Bad Company - China Cup shares
   material with The Nine: with the band profile, China Cup held out
-  finds The Nine with 43-50 hits.
+  finds The Nine with 43-50 hits. Answered: they share their drums (see
+  "After session 4" at the end).
 
 ## Session 3 summary
 
@@ -809,3 +810,45 @@ For adoption: cheap insurance if a deck's fader goes past 8% (the
 classic Technics SL-1200 stops at ±8%; some decks and CDJs offer wider
 ranges). Against: 14% CPU for plays that may never happen in your
 mixes. My recommendation: adopt it only if you play past ±8%.
+
+## After session 4
+
+### Owner's verdict: China Cup and The Nine share their drums
+
+Asked in session 4 (experiment 0034: with the band profile, a held-out
+Bad Company - China Cup finds The Nine with 43-50 hits). Owner, as a DJ:
+they are definitely different tracks, but mixed into each other they are
+so alike that a listener who knows neither may not notice the change.
+They have the same rhythmic structure and a very similar snare, probably
+the same drum loop, or at least the same snare sample EQ'd differently.
+
+Reported, not checked here: producer forum threads (Dogs On Acid,
+2002-2012) say the two use the same drums, assembled from layered and
+resampled hits rather than a known break, and that Fresh & Vegas -
+Mekon, by two of Bad Company's members, has them too.
+
+So the 24-51 hits between them (experiment 0034, across profiles and
+matchers) are shared material, not chance, as with the Clockwork remix
+at 20:22: the kind of evidence the threshold must stay above, and the
+kind the band profile makes stronger. They stay
+separate recordings (no manifest or cluster change). Both are in the
+test mix (The Nine at 2:23, China Cup at 1:02:23), where a play of one
+reported during the other at the possible tier would be shared material.
+Step 5 of `docs/nas-plan.md` measures the pair at NAS scale, with Mekon
+if the collection holds it.
+
+### Identifying without the library; evaluating against the NAS
+
+Merged after session 4 (brief `docs/brief-nas.md`, checklist
+`docs/nas-checklist.md`). The peak store keeps each file's artist, title
+and album beside its record, reports carry them, and `identify`,
+`explain` and `stats` search the store's own records when no library is
+given or it cannot be read (`--store-only` forces it), so a copy of the
+store identifies and names tracks on another computer. The harness takes
+`--other-peaks-dir` with the NAS store: `map-library` pairs corpus files
+with their NAS copies, `clusters --from-peaks` finds the NAS's other rips
+of the corpus recordings, and the standard evaluation then runs at NAS
+scale, counting those rips as correct. `regress session-4-start`:
+identical. The analysis (`docs/nas-plan.md`) waits for your NAS index;
+its records predate tags, which a second `gunfinger index` fills in from
+the files' headers.

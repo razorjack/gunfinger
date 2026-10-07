@@ -12,3 +12,6 @@ anything else:
 3. `docs/notes-for-owner.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`
+6. for work on the owner's NAS collection: `docs/brief-nas.md`,
+   `docs/nas-checklist.md` and `docs/nas-plan.md` (the code is merged; the
+   analysis waits for the NAS index)

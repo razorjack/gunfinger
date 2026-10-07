@@ -645,3 +645,22 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   roadmap, calibration and the session 4 summary at the top of
   `docs/notes-for-owner.md` updated. No test-set evaluation spent; default
   detection unchanged.
+
+## 2026-10-07: portable peak store and NAS evaluation merged
+
+- Built in a worktree beside session 4 (`docs/brief-nas.md`,
+  `docs/nas-checklist.md`), rebased onto session 4's end and
+  fast-forwarded. `regress session-4-start`: identical detections.
+- The peak store keeps tags (`<hash>.tags`); reports carry each play's
+  tags; `identify`, `explain` and `stats` work from the store alone;
+  `doctor` checks a store without a library; listing a library shows
+  progress.
+- Harness: `--other-peaks-dir`, `map-library`, `clusters --from-peaks`
+  around the corpus recordings; `sweep`, `scan`, `robust` and `memory`
+  at the other library's scale; reports in
+  `work/reports/library-<store>/`.
+- Owner's verdict: Bad Company's China Cup and The Nine are different
+  tracks that share their drums (notes for the owner, "After session
+  4").
+- Next: the NAS analysis in `docs/nas-plan.md`, once the owner's index
+  of `/Volumes/atlas/Music/dnb` finishes.

@@ -6,22 +6,18 @@ worktree.
 
 ## Where the work happens
 
-- Worktree `/Users/razorjack/Projects/OpenSource/gunfinger-portable`,
-  branch `portable-store`, started from master at 2131970. Session 4 works
-  in the main checkout (`/Users/razorjack/Projects/OpenSource/gunfinger`):
-  never edit, build or commit there until this work is merged.
-- When done: rebase onto master once session 4 has finished, run
-  `scripts/check.sh`, fast-forward master (no merge commit), remove the
-  worktree and the branch. The owner decides when.
+- The code was written in a worktree beside session 4 (branch
+  `portable-store`, from master at 2131970), rebased onto session 4's end
+  and fast-forwarded into master on 2026-10-07; the worktree and branch
+  are removed. The analysis runs in the main checkout.
 - Progress: `docs/nas-checklist.md`. The analysis to run once the NAS is
   indexed: `docs/nas-plan.md`.
 
 ## Read after every compaction
 
 1. `docs/brief.md` (the owner's brief; never edit it) and `AGENTS.md`.
-2. This file and `docs/nas-checklist.md`, in the worktree.
+2. This file and `docs/nas-checklist.md`.
 3. `docs/nas-plan.md`.
-4. `git log --oneline master..portable-store` in the worktree.
 
 ## The owner's request
 
@@ -127,5 +123,5 @@ checklist.
   without checking. No remotes, no pushing, nothing published. No AI
   attribution. No em dashes anywhere.
 - House style from `AGENTS.md`. New dependencies must earn their place.
-- Session 4 and the owner's `index` share the CPU: no timing claims from
-  this worktree.
+- Timings only from an idle machine: the owner's `index` and other
+  sessions share the CPU.

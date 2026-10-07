@@ -38,6 +38,11 @@ with the indexed recording's rip found and counted correct and the
 held-out recording's copy and rip left out; the development scan 11/11
 and leave-out 3 8/11, no wrong identifications. `regress` stays identical.
 
+## Merge
+
+- [x] Rebased onto session 4's end, `scripts/check.sh` green,
+  fast-forwarded into master; worktree and branch removed
+
 ## After the NAS index (docs/nas-plan.md)
 
 - [ ] Steps 1-12, each measurement as an experiment

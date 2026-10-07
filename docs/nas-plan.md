@@ -38,12 +38,11 @@ steps need is in `docs/brief-nas.md`; this file is the analysis.
 
 ## Commands
 
-Built from the `portable-store` branch (this worktree) until it is merged;
-the corpus and its store are read from the main checkout. `E` stands for
-`target/release/gunfinger-eval --corpus ../gunfinger/corpus --peaks-dir
-../gunfinger/work/peaks --work work --other-peaks-dir
-~/.local/share/gunfinger/nas-dnb-peaks`; its map, clusters and reports go
-to `work/reports/library-nas-dnb-peaks/`.
+Run in the main checkout with a release build. `E` stands for
+`target/release/gunfinger-eval --other-peaks-dir
+~/.local/share/gunfinger/nas-dnb-peaks` (the corpus, its store and `work/`
+are the defaults); its map, clusters and reports go to
+`work/reports/library-nas-dnb-peaks/`.
 
 ```sh
 # Step 1: tags for the records indexed before tags were kept (NAS mounted).
@@ -93,7 +92,11 @@ target/release/gunfinger --config ~/.config/gunfinger/nas-dnb.toml identify <mix
    more with them, which reach the possible tier, and whether any reaches
    200 or 240. Label each pair from tags and paths as same artist or label
    (likely shared material) or unrelated (chance). This is the first real
-   test of "shared material, not chance, sets the threshold".
+   test of "shared material, not chance, sets the threshold". One known
+   case: Bad Company's China Cup and The Nine share their drums (owner,
+   by ear; 24-51 hits in experiment 0034), and Fresh & Vegas - Mekon
+   reportedly has the same drums; measure every pair of them the
+   collection holds.
 6. **The development set at NAS scale**, today's matcher and skip at 240:
    the development scan, leave-outs 3 and 11 (held-out recordings with all
    their NAS rips), `calibrate`. Identified, wrong, the strongest false
