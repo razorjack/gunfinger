@@ -633,3 +633,11 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   both matchers: sweeps, margins, scans, mixes and grid unchanged; false
   candidates +8-11%; every edge speed to ±9% 40/40. The grid was left out
   of later protocols (not in the brief's protocol; 37 minutes under load).
+- Item 5 done (experiment 0034): two band profiles in their own stores,
+  full protocol under both matchers. Variant a: 9% fewer postings, the
+  development mix +34% true hits, margins 4.15× → 4.96× and 5.53× →
+  5.82×, robust level; shared-material false candidates grow. The
+  restored full robust report under skip at 240 (2,031 confident) was of
+  unknown provenance; a fresh run gives 1,995, as in session 3, and is
+  the baseline used. CPU of the variants not measured: the machine was
+  loaded by other jobs from early afternoon.

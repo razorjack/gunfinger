@@ -105,12 +105,14 @@ marked as inferences were derived, not measured.
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
   nothing else measured. The owner decides whether decks go past ±8%.
-- **Peaks across frequency bands.** 74% of reference hashes are anchored
-  at 1-4 kHz, where the development mix keeps the least: 6% at 2-4 kHz
-  against 36% below 250 Hz; a clean render of the same stretch keeps 54%
-  and 82% (experiment 0022). Measure true hits per 1,000 postings scanned
-  by anchor band, then try peak budgets spread more evenly across bands.
-  It changes the profile, so every peak record is extracted again.
+- **Peaks across frequency bands.** Anchors at 2-4 kHz are 64% of the
+  postings the development mix's plays look up and 21% of their true
+  hits. A profile whose peak neighbourhoods widen with frequency (variant
+  a, experiment 0034) has 9% fewer postings, gives the mix 34% more true
+  hits and raises the margins under both matchers, but related records
+  (remixes, the same artist) reach the possible tier more easily. The
+  owner decides; it means extracting every peak record again, and one
+  test evaluation should confirm it. Measure its search cost at scale.
 - **Detection boundaries.** Boundaries are the first and last aligned hit.
   In generated mixes they lie within 0.5 s of hard cuts, and start or end
   a median 2.7 s inside crossfades and bass swaps (experiment 0020); shared

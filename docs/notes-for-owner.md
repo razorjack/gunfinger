@@ -614,7 +614,7 @@ strongest false candidates by 10-19%. My recommendation:
 keep it opt-in, and look again if a real play near the 240-hit rule
 turns out to be a slow pitch ride.
 
-### High anchors cost most of the postings and give little evidence
+### Peaks across bands: a third more evidence in the mix, and more shared material
 
 On the development mix's 11 identified plays (390 windows, the true rung
 only), `loss` now counts the postings looked up beside the true hits, by
@@ -624,27 +624,45 @@ postings. Anchors at 125-250 Hz give 18.05 per 1,000, at 250-500 Hz
 13.09, at 500-1,000 Hz 8.16, at 1-2 kHz 2.64, and below 125 Hz 3.19
 (kicks are common, so their lists are long). Below 1 kHz, 15% of the
 postings give 52% of the hits. The mix keeps 45-47% of a clean render's
-hashes below 250 Hz and 11% at 2-4 kHz. Item 5's variant profiles move
-peaks from high to low bands to test whether that pays.
+hashes below 250 Hz and 11% at 2-4 kHz.
 
-First result (preliminary; robust and the four-seed protocol under both
-matchers are running): variant a widens each peak's neighbourhood in
-proportion to its frequency (9.4% of the bin, 4-24 bins either way; 12
-at 1 kHz as today), so the share of peaks at 2-4 kHz falls from 48% to
-26%. It has 8% fewer peaks and 9% fewer postings. Under today's matcher
-the development mix's eleven tracks gain 34% more hits (Star Trails +72%,
-Side Effects +67%, every track at least +12%); on sweep 2026 and the
-development scans the margin rises from 5.16× to 6.44× (weakest
-identifying 501 to 663, strongest false 97 to 103, the Clockwork remix's
-shared passage) and false candidates fall from 15,623 to 6,778. On the
-true rung the mix keeps 19.0% of the reference hashes instead of 13.0%,
-and its plays look up 36% fewer postings (12.5 million instead of 19.4
-million) for 34% more true hits: 4.15 per 1,000 postings instead of 2.0.
-Under the robust conditions (clean library excerpts) it is level: 1,955
-confident of 2,600 against 1,959, 2,278 possible or better against
-2,258, no wrong answer; it gains on codecs and low-passes and loses on
-blends at equal level (9 fewer confident), where the partner's bass
-competes with the added low peaks (inference).
+Two variant profiles (experiment 0034) widen each peak's neighbourhood
+in proportion to its frequency, 9.4% of the bin either way (12 bins at
+1 kHz, as today), within 4-24 bins (a) or 4-16 (b), so the picker keeps
+more peaks below 1 kHz and fewer above. Each library was extracted into
+its own store under `work/variants/`; `work/peaks` is untouched. Both
+pass the full protocol under both matchers: sweeps 2,160/2,160,
+development 11/11, leave-outs and mixes 0 wrong, the same mix levels.
+
+Variant a has 9% fewer postings. The development mix keeps 19.0% of the
+reference hashes instead of 13.0%, and its plays look up 36% fewer
+postings for 34% more true hits (32% under skip at 240; Star Trails
++72%, every track at least +11%). Over four seeds the weakest
+identifying detection rises from 403 to 511 hits under today's matcher
+(skip at 240: 658 either way) and the margin from 4.15× to 4.96× (5.53×
+to 5.82×). Robust recall on clean excerpts is level (1,955 against 1,959
+confident; under skip 1,993 against 1,995); a loses on blends at equal
+level and gains on codecs and low-passes. Variant b keeps more high
+peaks: 6% more postings, 41% more true hits, the best robust recall
+(1,991 confident), but a stronger Clockwork remix (128 hits; 135 under
+skip), so smaller margins (4.31×, 5.64×).
+
+The cost is shared material. False candidates of 30 hits or more rise
+from 55 to 94 under today's matcher (41 to 65 under skip) with variant
+a; nearly all are remixes, VIPs and records of the same artist
+(Aphrodite, Kemal, Stakka & Skynet). The strongest on audio not in the
+index is a held-out Bad Company - China Cup finding The Nine: 28 to 43
+hits (24 to 50 under skip), near the possible tier's 60. Fewer postings
+looked up should also make search cheaper at scale; not measured, since
+the machine was loaded by then (inference).
+
+For adoption (variant a): the most evidence per posting, in the real
+mix, where it matters; better margins under both matchers. Against:
+every peak record must be extracted again (about 0.2 s per track), the
+gain rests on one development mix, and related records reach the
+possible tier more easily. My recommendation, for you to decide: adopt
+variant a after choosing the matcher, confirmed by one test-set
+evaluation, and listen to whether China Cup and The Nine share material.
 
 ### The edge of the ladder: three more rungs cover ±9% for 14% more CPU
 
@@ -661,8 +679,8 @@ otherwise unchanged.
 
 For adoption: cheap insurance if a deck's fader goes past 8% (the
 classic Technics SL-1200 stops at ±8%; some decks and CDJs offer wider
-ranges). Against: 14% CPU for plays that may never happen in your mixes. My recommendation:
-adopt it only if you play past ±8%; you know your decks.
+ranges). Against: 14% CPU for plays that may never happen in your
+mixes. My recommendation: adopt it only if you play past ±8%.
 
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 
