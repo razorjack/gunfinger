@@ -551,18 +551,51 @@ material (roadmap) is solved, since that is what forced 240.
 
 ## Session 4 findings
 
-### Search memory at scale is mostly the allocator's cache, not lines
+### Search memory at scale: lines, hit buffers and the allocator's cache
 
-At 26,462 assets (the scale proxy), 10 minutes of the development mix
-with 10 workers peak at 15.7 GB of memory footprint. An instrumented
-build counted what the search holds: the index 3.0 GB, each worker's hits
-for one window up to 201 MB, and the lines of every rung 579 MB (12.1
-million; merging neighbouring rungs' lines leaves 7.3 million). That is
-about 6 GB. The rest is freed memory: each rung grows its own hit buffer
-to about 200 MB and frees it, 82 times, and macOS's allocator keeps freed
-large blocks cached. With that cache turned off (`MallocLargeCache=0`)
-the same run peaks at 5.0 GB at the same CPU time. So the inference of
-experiment 0021 (lines of every rung, about 11 GB for an hour-long mix)
-was wrong about the cause; reusing one hit buffer per worker should keep
-detections identical and remove most of it. Measured on an idle machine
-(experiment 0028 has the numbers once the scale runs finish).
+On an idle machine, scanning the 56-minute development mix at 26,462
+assets (the scale proxy) with 10 workers peaks at 9.8 GB with today's
+code (three rounds, within 1 MB of each other), 4.4 GB with skip at 240.
+What it holds: the index (3.0 GB); each worker's hits for one window (up
+to 201 MB per worker); every rung's lines until chains are built (12.1
+million lines, 579 MB, per 10 minutes of query; 7.3 million after
+merging); and freed memory: each rung grew its own hit buffer and freed
+it, and macOS keeps freed large blocks cached. With that cache off
+(`MallocLargeCache=0`) the same scan peaks at 6.8 GB at the same CPU.
+On 10 minutes of query the cache was most of the peak (15.7 GB against
+5.0 GB). So experiment 0021's inference (lines of every rung, about 11
+GB for an hour-long mix) had the right ingredient and the wrong size.
+
+Item 2 (commit d4d8fb1) searches a block of 12 windows on every rung at
+a time, merges each block's lines once every rung has searched it, and
+gives each worker one hit buffer. Detections are identical (`regress`,
+and every scale report). Peaks fall from 5.3 to 2.9 GB at 8,122 assets
+and from 9.8 to 7.7 GB at 26,462 (skip at 240: 2.1 to 1.4 GB, 4.4 to 3.8
+GB); wall time falls 5-12% at under 1% more CPU (experiment 0029). What
+is left at 26,462 assets is the index (3.0 GB), the merged lines of the
+whole mix (29.3 million, 1.4 GB), the workers' hit buffers (about 2 GB)
+and the final sort of the lines. Two further identical changes would take
+off about 1.2 GB (16-byte hits, and sorting the lines without a half-size
+copy); not done.
+
+### Idle-machine reference: where the time goes, and what scale costs
+
+Measured without load this time (experiment 0028; three rounds each,
+wall times within 2%). The development scan (56 minutes) takes 34 s at
+262 assets, 4.4 minutes at 8,122, 12.8 at 26,462 and 15.2 at 31,964
+with today's matcher; skip at 240 takes 31 s, 1.7, 4.0 and 4.7 minutes.
+Search CPU grows by about 0.21 s per asset with today's matcher and 0.055
+s with skip at 240, which is 3.5× cheaper at 31,964 assets. Peaks: 11.2
+GB with today's matcher and 5.3 GB with skip at 31,964 assets, before
+item 2's change.
+
+Where the time goes depends on size. At 262 assets, 80-88% of the CPU
+analyses the query on 82 rungs (STFT and peak picking); sorting each
+window's hits is second (7-17%). At 26,462 assets sorting the hits is
+77-87% of the CPU and analysis 4-12%; looking up postings is 2%. Every
+window collects millions of hits (up to 201 MB per worker), and they are
+sorted by asset and offset to find the lines. Any correct sort gives the
+same lines, so a faster one (grouping by asset first, then sorting each
+asset's few hundred hits) would keep detections identical; not tried.
+Indexing takes 0.2 s per track at 10 workers: about 67 minutes for
+20,000 tracks on a local disk (inference).

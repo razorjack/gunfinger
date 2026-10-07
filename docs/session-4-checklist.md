@@ -12,11 +12,11 @@ for scope and rules.
 
 ## 1. Idle-machine measurements of today's code
 
-- [ ] Where search time goes: `identify` on the development mix profiled,
+- [x] Where search time goes: `identify` on the development mix profiled,
   time attributed to decoding, index build, posting scans, sorting hits,
   clustering offsets, chaining and the second pass; today's matcher and
   skip at 240
-- [ ] Peak memory and time at scale: development scan at 262, 8,122,
+- [x] Peak memory and time at scale: development scan at 262, 8,122,
   26,462 assets and as close to 32,768 as memory allows; today's matcher
   and skip at 240
 - [x] End-to-end `identify` at 262 assets: turntable only, both
@@ -30,8 +30,8 @@ for scope and rules.
   identical (commit d4d8fb1: merged a block of windows at a time once
   every rung has searched it, since a rung-by-rung merge cannot be exact;
   one hit buffer per worker)
-- [ ] Lines held (`memory --count-lines`) and peak memory against item 1
-  at 8,122 and 26,462 assets
+- [x] Lines held (`memory --count-lines`) and peak memory against item 1
+  at 8,122 and 26,462 assets (experiment 0029)
 
 ## 3. Chance lines in chains
 
