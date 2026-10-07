@@ -421,7 +421,17 @@ fn prune_deletes_records_of_removed_files_only_when_asked() {
     let listed = gunfinger(&dir, &["prune", "--library", library_arg]);
     let doctor = gunfinger(&dir, &["doctor", "--library", library_arg]);
     gunfinger(&dir, &["prune", "--library", library_arg, "--yes"]);
-    let records = std::fs::read_dir(dir.join("peaks")).unwrap().count();
+    let records = std::fs::read_dir(dir.join("peaks"))
+        .unwrap()
+        .filter(|entry| {
+            entry
+                .as_ref()
+                .unwrap()
+                .path()
+                .extension()
+                .is_some_and(|extension| extension == "peaks")
+        })
+        .count();
 
     let listed = String::from_utf8_lossy(&listed.stdout);
     assert!(
@@ -434,6 +444,44 @@ fn prune_deletes_records_of_removed_files_only_when_asked() {
         "{doctor}"
     );
     assert_eq!(records, 1, "only 1.wav's record is left");
+}
+
+#[test]
+fn a_peak_store_holds_the_records_of_one_library() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("two-libraries");
+    let (first, second) = (dir.join("first"), dir.join("second"));
+    for library in [&first, &second] {
+        let track = Track::random(1, 10.0);
+        write_wav(&library.join("a.wav"), &track.play(0.0, track.seconds, 1.0));
+    }
+
+    gunfinger(&dir, &["index", first.to_str().unwrap()]);
+    let refused = Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+        .args(["index", second.to_str().unwrap(), "--peaks-dir"])
+        .arg(dir.join("peaks"))
+        .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("NO_COLOR", "1")
+        .output()
+        .unwrap();
+    let doctor = gunfinger(&dir, &["doctor", "--library", first.to_str().unwrap()]);
+
+    assert!(!refused.status.success());
+    let message: String = String::from_utf8_lossy(&refused.stderr)
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ");
+    assert!(
+        message.contains("holds the records of the library at"),
+        "{message}"
+    );
+    let doctor = String::from_utf8_lossy(&doctor.stdout);
+    assert!(
+        doctor.contains("it names this library as its own"),
+        "{doctor}"
+    );
 }
 
 #[test]

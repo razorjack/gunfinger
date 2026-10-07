@@ -47,6 +47,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
         ));
     }
     let store = PeakStore::open(request.peaks_dir).into_diagnostic()?;
+    store.check_library(request.library).into_diagnostic()?;
     let survey = survey(&library, &store, &Profile::CURRENT)?;
     let share = survey.orphans.len() as f64 / survey.records_and_notes().max(1) as f64;
     if share > MAX_SHARE && !request.force {

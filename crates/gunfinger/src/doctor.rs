@@ -167,10 +167,27 @@ fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path, length: T
 
     checkup.section("peak store");
     let profile = Profile::CURRENT;
-    let survey = match PeakStore::open(peaks_dir)
-        .map_err(|error| miette!("{error}"))
-        .and_then(|store| survey(&library, &store, &profile))
-    {
+    let store = match PeakStore::open(peaks_dir) {
+        Ok(store) => store,
+        Err(error) => {
+            checkup.line(Status::Problem, error);
+            return;
+        }
+    };
+    match store.check_library(root) {
+        Err(error) => {
+            checkup.line(Status::Problem, error);
+            return;
+        }
+        Ok(()) if matches!(store.library(), Ok(Some(_))) => {
+            checkup.line(Status::Ok, "it names this library as its own");
+        }
+        Ok(()) => checkup.line(
+            Status::Note,
+            "it does not name its library yet; the next `gunfinger index` names this one",
+        ),
+    }
+    let survey = match survey(&library, &store, &profile) {
         Ok(survey) => survey,
         Err(error) => {
             checkup.line(Status::Problem, error);
