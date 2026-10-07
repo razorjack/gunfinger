@@ -51,10 +51,10 @@ for scope and rules.
 
 ## 5. Peaks across frequency bands
 
-- [ ] True hits per 1,000 postings scanned, by anchor band (offline)
-- [ ] Variant profiles with peak budgets spread across bands, each in its
+- [x] True hits per 1,000 postings scanned, by anchor band (offline)
+- [x] Variant profiles with peak budgets spread across bands, each in its
   own store under `work/variants/`
-- [ ] Recall under the robust conditions, the development mix's kept
+- [x] Recall under the robust conditions, the development mix's kept
   hashes, postings, margins, index size
 
 ## 6. Detection boundaries
