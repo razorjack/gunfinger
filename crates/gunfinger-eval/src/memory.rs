@@ -18,7 +18,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::trace_with_progress;
+use gunfinger_core::search::trace_with;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
@@ -145,12 +145,13 @@ pub fn run(
         decode(&set.audio, profile.sample_rate, excerpt).map_err(|error| error.to_string())?;
     report.query_seconds = audio.duration().as_secs_f64();
     if options.count_lines {
-        let trace = trace_with_progress(
+        let trace = trace_with(
             &index,
             &audio.samples,
             &profile,
             options.ladder,
             options.jobs,
+            options.matching.options(),
             |_, _| {},
         );
         report.lines = Some(trace.lines.len());

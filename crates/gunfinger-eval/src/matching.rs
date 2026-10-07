@@ -5,7 +5,7 @@
 use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, search, search_twice};
+use gunfinger_core::search::{Detection, Links, Options, search_with};
 use gunfinger_core::speed::Rung;
 
 #[derive(clap::Args, Clone, Copy, Debug, PartialEq)]
@@ -22,6 +22,20 @@ pub struct Matching {
     /// candidates, but keep them for the second pass's counts.
     #[arg(long, global = true, default_value_t = 0.0)]
     pub skip_fullest: f64,
+    /// Chains link only lines from rungs at most a step apart.
+    #[arg(long, global = true)]
+    pub nearby_rungs: bool,
+    /// Chains link across an empty window only lines with
+    /// `STRONG_LINE_HITS` hits or more.
+    #[arg(long, global = true)]
+    pub strong_gaps: bool,
+    /// The second pass measures each stretch of a few windows again at its
+    /// own speed when it drifts from the fitted one.
+    #[arg(long, global = true, requires = "second_pass")]
+    pub speed_per_stretch: bool,
+    /// Detections' boundaries leave out weak windows at either end.
+    #[arg(long, global = true)]
+    pub trim_ends: bool,
 }
 
 impl Matching {
@@ -51,7 +65,31 @@ impl Matching {
         if self.skip_fullest > 0.0 {
             parts.push(format!("skip-{}", self.skip_fullest));
         }
+        if self.nearby_rungs {
+            parts.push(String::from("nearby-rungs"));
+        }
+        if self.strong_gaps {
+            parts.push(String::from("strong-gaps"));
+        }
+        if self.speed_per_stretch {
+            parts.push(String::from("stretch"));
+        }
+        if self.trim_ends {
+            parts.push(String::from("trim"));
+        }
         (!parts.is_empty()).then(|| parts.join("-"))
+    }
+
+    pub fn options(&self) -> Options {
+        Options {
+            second_pass: self.second_pass,
+            links: Links {
+                nearby_rungs: self.nearby_rungs,
+                strong_across_gaps: self.strong_gaps,
+            },
+            speed_per_stretch: self.speed_per_stretch,
+            trim_weak_ends: self.trim_ends,
+        }
     }
 
     pub fn index(&self, index: Index) -> Index {
@@ -72,11 +110,7 @@ impl Matching {
         ladder: &[Rung],
         jobs: usize,
     ) -> Vec<Detection> {
-        if self.second_pass {
-            search_twice(index, samples, profile, ladder, jobs)
-        } else {
-            search(index, samples, profile, ladder, jobs)
-        }
+        search_with(index, samples, profile, ladder, jobs, self.options())
     }
 
     /// The thresholds its confident detections meet.

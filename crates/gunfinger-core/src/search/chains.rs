@@ -1,11 +1,13 @@
 //! Chains: lines of one asset in successive windows that predict the same
 //! reference time, joined into detections.
 
+use std::ops::Range;
+
 use super::Detection;
 use super::lines::Line;
 use crate::confidence::Evidence;
 use crate::profile::Profile;
-use crate::speed::{Playback, SpeedRatio};
+use crate::speed::{Playback, STEP, SpeedRatio};
 
 /// Windows without hits allowed inside a chain (a breakdown, a cut).
 const MAX_GAP_WINDOWS: u32 = 2;
@@ -17,6 +19,30 @@ const LINK_TOLERANCE_SLOPE: f64 = 0.004;
 /// A chain shorter than this (16 s) gives its speed as the mean of its rungs
 /// rather than by a fit.
 const MIN_FIT_FRAMES: f64 = 1000.0;
+/// With `Links::nearby_rungs`: the largest difference of speed between
+/// linked lines, one step of the ladder (and rounding).
+const NEARBY_SPEEDS: f64 = 1.5 * STEP;
+/// With `Links::strong_across_gaps`: the fewest hits of each line linked
+/// across an empty window.
+pub const STRONG_LINE_HITS: u32 = 10;
+
+/// With `Options::trim_weak_ends`: a line at either end of a chain with
+/// fewer hits than this share of the chain's median line is left out of
+/// the detection's boundaries.
+const WEAK_END_SHARE: f64 = 0.25;
+
+/// Which successive lines a chain may join, besides their agreeing on the
+/// reference time. Both restrictions are opt-in, against chance lines of
+/// 3 hits joining a play from a distant rung or across two empty windows
+/// (experiment 0020).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Links {
+    /// Only lines from rungs at most a step apart, on either ladder.
+    pub nearby_rungs: bool,
+    /// Across an empty window, only lines of `STRONG_LINE_HITS` hits or
+    /// more.
+    pub strong_across_gaps: bool,
+}
 
 pub(super) fn design() -> String {
     format!(
@@ -33,11 +59,16 @@ pub(super) fn design() -> String {
 /// then taken from the highest score down, each stopping where it would
 /// reuse a line already taken. A single window of hits is never evidence of
 /// a played record, so one-line chains are dropped.
-pub(super) fn detections(lines: &[Line], profile: &Profile) -> Vec<(Detection, Vec<usize>)> {
+pub(super) fn detections(
+    lines: &[Line],
+    profile: &Profile,
+    rules: Links,
+    trim_weak_ends: bool,
+) -> Vec<(Detection, Vec<usize>)> {
     let mut detections = Vec::new();
     let mut first_of_asset = 0;
     for same_asset in lines.chunk_by(|a, b| a.asset == b.asset) {
-        let (score, previous) = best_chains(same_asset);
+        let (score, previous) = best_chains(same_asset, rules);
         let mut ends: Vec<usize> = (0..same_asset.len()).collect();
         ends.sort_by(|&a, &b| score[b].cmp(&score[a]));
         let mut taken = vec![false; same_asset.len()];
@@ -53,7 +84,7 @@ pub(super) fn detections(lines: &[Line], profile: &Profile) -> Vec<(Detection, V
                 chain.reverse();
                 let chained: Vec<&Line> = chain.iter().map(|&line| &same_asset[line]).collect();
                 let indexes = chain.iter().map(|line| first_of_asset + line).collect();
-                detections.push((detection(&chained, profile), indexes));
+                detections.push((detection(&chained, profile, trim_weak_ends), indexes));
             }
         }
         first_of_asset += same_asset.len();
@@ -63,7 +94,7 @@ pub(super) fn detections(lines: &[Line], profile: &Profile) -> Vec<(Detection, V
 
 /// For each line (sorted by window), the hits of the best chain ending at it
 /// and the line before it on that chain.
-fn best_chains(lines: &[Line]) -> (Vec<u64>, Vec<Option<usize>>) {
+fn best_chains(lines: &[Line], rules: Links) -> (Vec<u64>, Vec<Option<usize>>) {
     let mut score = vec![0_u64; lines.len()];
     let mut previous = vec![None; lines.len()];
     for current in 0..lines.len() {
@@ -74,7 +105,9 @@ fn best_chains(lines: &[Line]) -> (Vec<u64>, Vec<Option<usize>>) {
             if lines[current].window - lines[earlier].window > MAX_GAP_WINDOWS + 1 {
                 break;
             }
-            if links(&lines[earlier], &lines[current]) && score[earlier] + hits > score[current] {
+            if links(&lines[earlier], &lines[current], rules)
+                && score[earlier] + hits > score[current]
+            {
                 score[current] = score[earlier] + hits;
                 previous[current] = Some(earlier);
             }
@@ -83,8 +116,17 @@ fn best_chains(lines: &[Line]) -> (Vec<u64>, Vec<Option<usize>>) {
     (score, previous)
 }
 
-fn links(earlier: &Line, later: &Line) -> bool {
+fn links(earlier: &Line, later: &Line, rules: Links) -> bool {
     if later.window <= earlier.window || later.window - earlier.window > MAX_GAP_WINDOWS + 1 {
+        return false;
+    }
+    if rules.nearby_rungs && (earlier.speed - later.speed).abs() > NEARBY_SPEEDS {
+        return false;
+    }
+    if rules.strong_across_gaps
+        && later.window - earlier.window > 1
+        && earlier.hits.min(later.hits) < STRONG_LINE_HITS
+    {
         return false;
     }
     let at = later.centre();
@@ -93,9 +135,15 @@ fn links(earlier: &Line, later: &Line) -> bool {
 }
 
 /// `chain` is in window order, so its first and last lines hold the first
-/// and last hits.
-fn detection(chain: &[&Line], profile: &Profile) -> Detection {
-    let (opening, closing) = (chain[0], chain[chain.len() - 1]);
+/// and last hits. With `trim_weak_ends`, the boundaries leave out weak
+/// lines at the ends; the evidence counts every line.
+fn detection(chain: &[&Line], profile: &Profile, trim_weak_ends: bool) -> Detection {
+    let ends = if trim_weak_ends {
+        without_weak_ends(chain, |line| line.hits)
+    } else {
+        0..chain.len()
+    };
+    let (opening, closing) = (chain[ends.start], chain[ends.end - 1]);
     Detection {
         asset: opening.asset,
         start_seconds: profile.seconds(opening.first),
@@ -108,6 +156,24 @@ fn detection(chain: &[&Line], profile: &Profile) -> Detection {
         playback: playback(chain),
         evidence: Evidence::new(chain.len() as u32, chain.iter().map(|line| line.hits).sum()),
     }
+}
+
+/// The range of `windows` (in window order, at least one) left after
+/// dropping, from either end, windows with fewer hits than
+/// `WEAK_END_SHARE` of the median window, keeping at least two.
+pub(super) fn without_weak_ends<T>(windows: &[T], hits: impl Fn(&T) -> u32) -> Range<usize> {
+    let mut sorted: Vec<u32> = windows.iter().map(&hits).collect();
+    sorted.sort_unstable();
+    let weak =
+        |window: &T| f64::from(hits(window)) < WEAK_END_SHARE * f64::from(sorted[sorted.len() / 2]);
+    let mut kept = 0..windows.len();
+    while kept.len() > 2 && weak(&windows[kept.start]) {
+        kept.start += 1;
+    }
+    while kept.len() > 2 && weak(&windows[kept.end - 1]) {
+        kept.end -= 1;
+    }
+    kept
 }
 
 /// How most of the chain's hits were found.
@@ -171,7 +237,7 @@ mod tests {
             line(9, 1.02, 5000.0, 30), // too long a gap
         ];
 
-        let (score, previous) = best_chains(&lines);
+        let (score, previous) = best_chains(&lines, Links::default());
 
         assert_eq!(score, [20, 45, 4, 75, 30]);
         assert_eq!(previous, [None, Some(0), None, Some(1), None]);
@@ -193,7 +259,7 @@ mod tests {
             },
         ];
 
-        let found = detections(&lines, &Profile::CURRENT);
+        let found = detections(&lines, &Profile::CURRENT, Links::default(), false);
 
         let chains: Vec<&Vec<usize>> = found.iter().map(|(_, chain)| chain).collect();
         assert_eq!(chains, [&vec![0, 1], &vec![3, 4]]);
@@ -203,7 +269,53 @@ mod tests {
     fn single_windows_are_not_detections() {
         let lines = [line(0, 1.0, 0.0, 50), line(5, 1.0, 0.0, 50)];
 
-        assert!(detections(&lines, &Profile::CURRENT).is_empty());
+        assert!(detections(&lines, &Profile::CURRENT, Links::default(), false).is_empty());
+    }
+
+    #[test]
+    fn opt_in_links_refuse_distant_rungs_and_weak_lines_across_gaps() {
+        // Reference frame = query frame + 5000 throughout.
+        let on_alignment = |window: u32, speed: f64, hits: u32| {
+            let mut line = line(window, speed, 0.0, hits);
+            line.offset = 5000.0 + (1.0 - speed) * line.centre();
+            line
+        };
+        let lines = [
+            on_alignment(0, 1.0, 40),
+            on_alignment(1, 1.004, 40), // the next rung
+            on_alignment(2, 1.04, 3),   // a chance line nine rungs away
+            on_alignment(4, 1.0, 4),    // a weak line across two empty windows
+            on_alignment(5, 1.0, 40),
+        ];
+        let previous = |rules| best_chains(&lines, rules).1;
+
+        // Extrapolated at 1.04, the chance line misses the line after it.
+        assert_eq!(
+            previous(Links::default()),
+            [None, Some(0), Some(1), Some(1), Some(3)]
+        );
+        let nearby = Links {
+            nearby_rungs: true,
+            ..Links::default()
+        };
+        assert_eq!(previous(nearby), [None, Some(0), None, Some(1), Some(3)]);
+        let strong = Links {
+            strong_across_gaps: true,
+            ..Links::default()
+        };
+        assert_eq!(previous(strong), [None, Some(0), Some(1), None, Some(3)]);
+    }
+
+    #[test]
+    fn weak_lines_at_the_ends_of_a_chain_are_left_out_of_its_boundaries() {
+        let hits = [3, 40, 6, 50, 45, 9, 4];
+
+        // The median is 9: windows of fewer than 2.25 hits are weak.
+        assert_eq!(without_weak_ends(&hits, |&hits| hits), 0..7);
+        let hits = [3, 40, 60, 50, 45, 9, 4];
+        // The median is 40: windows of fewer than 10 hits are weak.
+        assert_eq!(without_weak_ends(&hits, |&hits| hits), 1..5);
+        assert_eq!(without_weak_ends(&[3, 4], |&hits| hits), 0..2);
     }
 
     #[test]

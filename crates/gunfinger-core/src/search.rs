@@ -86,6 +86,24 @@ pub struct Trace {
 /// Window length in seconds, for showing where windows fall.
 pub const WINDOW_SECONDS: f64 = lines::WINDOW_SECONDS;
 
+pub use chains::{Links, STRONG_LINE_HITS};
+
+/// Opt-in changes to matching, under evaluation. The default is the
+/// matcher `search` runs.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Options {
+    /// Measure each candidate again at its fitted speed (`search_twice`).
+    pub second_pass: bool,
+    /// Which lines a chain may join.
+    pub links: Links,
+    /// In the second pass, measure each stretch of a few windows again at
+    /// its own speed when it drifts from the fitted one.
+    pub speed_per_stretch: bool,
+    /// Detections' boundaries leave out weak windows at either end; the
+    /// evidence still counts them.
+    pub trim_weak_ends: bool,
+}
+
 /// Searches `samples` (mono, at the profile's rate) for the assets of
 /// `index` on each rung of `ladder` (normally `speed::ladder()`),
 /// running rungs on `jobs` threads. Returns the detections strongest first;
@@ -116,6 +134,7 @@ pub fn search_with_progress(
         profile,
         ladder,
         jobs,
+        Options::default(),
         progress,
     );
     chained
@@ -134,15 +153,38 @@ pub fn search_twice(
     ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
+    let options = Options {
+        second_pass: true,
+        ..Options::default()
+    };
+    search_with(index, samples, profile, ladder, jobs, options)
+}
+
+/// Like `search`, with opt-in changes.
+pub fn search_with(
+    index: &Index,
+    samples: &[f32],
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+    options: Options,
+) -> Vec<Detection> {
     let (lines, chained) = lines_and_detections(
         index,
         Query::Samples(samples),
         profile,
         ladder,
         jobs,
+        options,
         |_, _| {},
     );
-    let mut refined = refine::refine(index, samples, profile, &lines, &chained, jobs);
+    if !options.second_pass {
+        return chained
+            .into_iter()
+            .map(|(detection, _)| detection)
+            .collect();
+    }
+    let mut refined = refine::refine(index, samples, profile, &lines, &chained, jobs, options);
     refined.sort_by_key(|detection| Reverse(detection.evidence.hits));
     strongest_per_moment(
         refined
@@ -166,8 +208,15 @@ pub fn search_peaks(
     ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
-    let (_, chained) =
-        lines_and_detections(index, Query::Peaks(peaks), profile, ladder, jobs, |_, _| {});
+    let (_, chained) = lines_and_detections(
+        index,
+        Query::Peaks(peaks),
+        profile,
+        ladder,
+        jobs,
+        Options::default(),
+        |_, _| {},
+    );
     chained
         .into_iter()
         .map(|(detection, _)| detection)
@@ -240,12 +289,35 @@ pub fn trace_with_progress(
     jobs: usize,
     progress: impl Fn(usize, usize) + Sync,
 ) -> Trace {
+    trace_with(
+        index,
+        samples,
+        profile,
+        ladder,
+        jobs,
+        Options::default(),
+        progress,
+    )
+}
+
+/// Like `trace_with_progress`, with opt-in changes to the first pass; the
+/// second pass is not traced.
+pub fn trace_with(
+    index: &Index,
+    samples: &[f32],
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+    options: Options,
+    progress: impl Fn(usize, usize) + Sync,
+) -> Trace {
     let (lines, chained) = lines_and_detections(
         index,
         Query::Samples(samples),
         profile,
         ladder,
         jobs,
+        options,
         progress,
     );
     let (detections, chains) = chained.into_iter().unzip();
@@ -276,10 +348,11 @@ fn lines_and_detections(
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
+    options: Options,
     progress: impl Fn(usize, usize) + Sync,
 ) -> (Vec<lines::Line>, Vec<(Detection, Vec<usize>)>) {
     let lines = lines::on_ladder(index, query, profile, ladder, jobs, progress);
-    let mut detections = chains::detections(&lines, profile);
+    let mut detections = chains::detections(&lines, profile, options.links, options.trim_weak_ends);
     detections.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
     let detections = strongest_per_moment(detections);
     (lines, detections)

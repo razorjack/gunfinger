@@ -292,7 +292,14 @@ matching changes apply to every command in the same way:
 applies that pass's own rule (240 hits in 3 windows),
 `--drop-fullest SHARE` empties the fullest posting lists, and
 `--skip-fullest SHARE` leaves them out of the search for candidates only,
-so the second pass still counts them. Their reports go
+so the second pass still counts them. Session 4's variants, none of them
+adopted: `--nearby-rungs` links only lines from rungs at most a step
+apart, and `--strong-gaps` links across an empty window only lines of 10
+hits or more, against chance lines joining a play; `--speed-per-stretch`
+(with `--second-pass`) measures each stretch of 3 windows again at its
+own speed when its hits drift from the fitted one; `--trim-ends` leaves
+weak windows at either end out of a detection's boundaries, its evidence
+unchanged. Their reports go
 to `work/reports/variant-<name>/`, where `calibrate` and `regress` read
 them when given the same options. `scan` and `robust` take
 `--synthetic-copies N`, which adds N time-reversed, stretched copies of
