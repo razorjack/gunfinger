@@ -8,11 +8,11 @@
 
 use std::path::Path;
 
-use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, Stored};
-use miette::{IntoDiagnostic, WrapErr, miette};
+use miette::{IntoDiagnostic, miette};
 
+use crate::catalog::scan_library;
 use crate::console::Console;
 use crate::survey::survey;
 
@@ -31,14 +31,7 @@ pub struct Request<'a> {
 }
 
 pub fn run(request: &Request) -> miette::Result<()> {
-    let library = Library::scan(request.library)
-        .into_diagnostic()
-        .wrap_err_with(|| {
-            format!(
-                "could not read the library at {}",
-                request.library.display()
-            )
-        })?;
+    let library = scan_library(request.library, request.console)?;
     if library.assets.is_empty() {
         return Err(miette!(
             help = "check --library, and that the share is mounted",
