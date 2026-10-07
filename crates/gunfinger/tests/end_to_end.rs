@@ -469,8 +469,10 @@ fn a_peak_store_holds_the_records_of_one_library() {
     let doctor = gunfinger(&dir, &["doctor", "--library", first.to_str().unwrap()]);
 
     assert!(!refused.status.success());
+    // The message is wrapped to the terminal's width between borders.
     let message: String = String::from_utf8_lossy(&refused.stderr)
         .split_whitespace()
+        .filter(|word| *word != "│")
         .collect::<Vec<_>>()
         .join(" ");
     assert!(
