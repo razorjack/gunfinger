@@ -973,3 +973,28 @@ new possible play at 10:27). Unrelated chance rises from 21-24 hits to
 6:11, skip at 240), below the possible tier of 60. Cost: today's matcher
 864.6 s, 6,097 s CPU, 8.37 GB; skip at 240 260.6 s, 1,963 s CPU, 4.01
 GB: 3.3 times faster at half the memory.
+
+### Skip at 240 over four sweep draws at NAS scale: recall holds, the rule-level margin is gone
+
+Experiment 0040. All 2,160 indexed excerpts are found (weakest 661 hits,
+658 at 262 tracks), but 523 confident detections are false under the
+rules. 507 of them are other uploads of the excerpted track with the
+same artist and title (47 pairs, by tags and paths; one is even titled
+"Falcon - The Stand (HD Audio & Speed Up)"). None appears at -8%, which
+fits uploads about 3% fast. For you to check by ear, the two pairs that
+are not:
+
+- `extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3` (Stakka & K.Tee -
+  Synthesis VIP) against `Underfire UDFRCD003 - Dangerous Drums Volume 2
+  (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3`, up to 511
+  hits: perhaps the same remix under two names.
+- `extra/02 Coma.mp3` (Bad Company - Coma, from `(2000) Coma & Spraycan
+  (DSCI4)`) against `__youtube_archivists/i-witness-dnb/Bad Company -
+  Spraycan.opus`, up to 341 hits; the NAS's own Coma and Spraycan share
+  2,318 hits over 229 s (experiment 0038), so one file is probably
+  mislabelled.
+
+If both pairs are confirmed as one recording each, the strongest false
+candidate is The Nine against its Evol Intent VIP (220 hits) and the
+margin 3.0×; at 262 tracks it was 5.53×. Unrelated chance (different
+artist and title) reaches 67-70 hits, above the possible tier of 60.

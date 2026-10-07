@@ -729,3 +729,9 @@ read; the store is frozen.
   wrong (fast uploads); leave-outs 8/11 and 0/11 with the same 6.
   Today's 864.6 s, 6,097 s CPU, 8.37 GB; skip 260.6 s, 1,963 s, 4.01 GB.
   Strongest unrelated 40 and 48 hits (21-24 at 262 tracks).
+- Item 6, skip at 240 (experiment 0040): sweeps 2026-2029 2,160/2,160,
+  weakest 661; 523 confident false (507 other uploads of the same track,
+  8 Synthesis VIP ~ mixed-CD "Synthesis (Remix)", 8 Coma ~ Spraycan);
+  margin 0.11x under the rules, 3.0x with those three groups confirmed
+  by the owner. 22 minutes per seed. Today's sweeps running (2026 from
+  22:27).
