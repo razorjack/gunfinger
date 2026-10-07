@@ -1,0 +1,690 @@
+{
+ "experiment": "0044",
+ "command": "gunfinger --config /dev/null --peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks --min-track 1:30 --max-track 15:00 identify <development mix> --store-only --playback both -f json -v",
+ "disk": "internal (no external disk attached)",
+ "index": {
+  "assets": 26890,
+  "excluded": 0,
+  "postings": 755152725,
+  "megabytes": 3029.0,
+  "build_s": 43.6
+ },
+ "time": {
+  "wall_s": 856.04,
+  "user_s": 6108.82,
+  "sys_s": 27.8,
+  "peak_footprint_bytes": 8349408144,
+  "max_rss_bytes": 8420687872,
+  "load_before": [
+   2.96,
+   30.32,
+   57.61
+  ]
+ },
+ "library_revision": "d709390272e41475",
+ "report_library": "/Volumes/atlas/Music/dnb",
+ "plays": [
+  {
+   "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "start_s": 0.1,
+   "end_s": 302.7,
+   "speed": 0.9972798219142376,
+   "confidence": "confident",
+   "hits": 3497,
+   "windows": 31,
+   "tags": {
+    "artist": "STAKKA and SKYNET",
+    "title": "knight lore"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "hits": 3497,
+     "windows": 31
+    }
+   ]
+  },
+  {
+   "asset": "Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+   "start_s": 0.1,
+   "end_s": 284.9,
+   "speed": 1.0245355398902265,
+   "confidence": "confident",
+   "hits": 3449,
+   "windows": 28,
+   "tags": {
+    "artist": "Stakka And Skynet",
+    "title": "Night Lore",
+    "album": "Dangerous Drums 2"
+   },
+   "harness": [
+    {
+     "asset": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+     "hits": 3449,
+     "windows": 28
+    }
+   ]
+  },
+  {
+   "asset": "underfire-stakka_and_skynet-(udfr016)-2000/a-stakka_and_skynet-nightlore-sour.mp3",
+   "start_s": 0.1,
+   "end_s": 303.9,
+   "speed": 1.0267767774651975,
+   "confidence": "confident",
+   "hits": 3694,
+   "windows": 31,
+   "tags": {
+    "artist": "Stakka And Skynet",
+    "title": "Nightlore",
+    "album": "Underfire (UDFR016)"
+   },
+   "harness": [
+    {
+     "asset": "Skynet & Stakka - Night Lore.mp3",
+     "hits": 3694,
+     "windows": 31
+    },
+    {
+     "asset": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+     "hits": 3694,
+     "windows": 31
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "start_s": 0.5,
+   "end_s": 304.0,
+   "speed": 0.9926769472171771,
+   "confidence": "confident",
+   "hits": 2677,
+   "windows": 31,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Nightlore"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "hits": 2677,
+     "windows": 31
+    }
+   ]
+  },
+  {
+   "asset": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+   "start_s": 259.1,
+   "end_s": 605.1,
+   "speed": 1.026985769535356,
+   "confidence": "confident",
+   "hits": 4132,
+   "windows": 36,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Decoy",
+    "album": "Clockwork"
+   },
+   "harness": [
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "hits": 4132,
+     "windows": 36
+    }
+   ]
+  },
+  {
+   "asset": "va-clockwork_lp_sampler-udfr_lps_04-2001-sour/a-stakka_and_skynet-decoy-sour.mp3",
+   "start_s": 259.6,
+   "end_s": 628.2,
+   "speed": 1.0286900898667721,
+   "confidence": "confident",
+   "hits": 4733,
+   "windows": 36,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Decoy",
+    "album": "Clockwork LP Samp. (UDFRLPS04)"
+   },
+   "harness": [
+    {
+     "asset": "Skynet & Stakka - Decoy.mp3",
+     "hits": 4733,
+     "windows": 36
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+   "start_s": 285.5,
+   "end_s": 628.2,
+   "speed": 1.0286680871831935,
+   "confidence": "confident",
+   "hits": 3289,
+   "windows": 34,
+   "tags": {
+    "artist": "STAKKA & SKYNET",
+    "title": "decoy"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+     "hits": 3289,
+     "windows": 34
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+   "start_s": 290.3,
+   "end_s": 605.1,
+   "speed": 1.0269884276902908,
+   "confidence": "confident",
+   "hits": 3222,
+   "windows": 32,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Decoy (Remastered)"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+     "hits": 3222,
+     "windows": 32
+    }
+   ]
+  },
+  {
+   "asset": "audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3",
+   "start_s": 543.0,
+   "end_s": 927.6,
+   "speed": 1.0425167135218987,
+   "confidence": "confident",
+   "hits": 1839,
+   "windows": 36,
+   "tags": {
+    "artist": "Konflict",
+    "title": "Star Trails",
+    "album": "Audio Blueprint (ABPR 013)"
+   },
+   "harness": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "hits": 1839,
+     "windows": 36
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "start_s": 583.8,
+   "end_s": 909.8,
+   "speed": 1.0126430936435977,
+   "confidence": "confident",
+   "hits": 2144,
+   "windows": 33,
+   "tags": {
+    "artist": "KEMAL & ROB DATA",
+    "title": "star trails"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "hits": 2144,
+     "windows": 33
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "start_s": 627.8,
+   "end_s": 662.3,
+   "speed": 1.0095810049808214,
+   "confidence": "possible",
+   "hits": 75,
+   "windows": 5,
+   "tags": {
+    "artist": "Kemal & Rob Data",
+    "title": "Star Trails (Synergy Remix)"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "hits": 75,
+     "windows": 5
+    }
+   ]
+  },
+  {
+   "asset": "audio_blueprint-stakka_and_skynet-abpr014-2001-sour/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+   "start_s": 862.9,
+   "end_s": 1085.1,
+   "speed": 1.0159683473376586,
+   "confidence": "confident",
+   "hits": 2030,
+   "windows": 23,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Pathogen",
+    "album": "Audio Blueprint (ABPR 014)"
+   },
+   "harness": [
+    {
+     "asset": "Skynet & Stakka - Pathogen.mp3",
+     "hits": 2030,
+     "windows": 23
+    },
+    {
+     "asset": "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+     "hits": 2030,
+     "windows": 23
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "start_s": 864.3,
+   "end_s": 1083.6,
+   "speed": 0.9774331824008448,
+   "confidence": "confident",
+   "hits": 1409,
+   "windows": 23,
+   "tags": {
+    "artist": "SKYNET & STAKKA",
+    "title": "pathogen"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "hits": 1409,
+     "windows": 23
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "start_s": 1046.3,
+   "end_s": 1328.9,
+   "speed": 1.0140417360856422,
+   "confidence": "confident",
+   "hits": 2174,
+   "windows": 29,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Clockwork (Remastered)"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "hits": 2174,
+     "windows": 29
+    }
+   ]
+  },
+  {
+   "asset": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "start_s": 1046.3,
+   "end_s": 1328.9,
+   "speed": 1.014045756538967,
+   "confidence": "confident",
+   "hits": 2651,
+   "windows": 29,
+   "tags": {
+    "artist": "Stakka & Skynet",
+    "title": "Clockwork",
+    "album": "Clockwork"
+   },
+   "harness": [
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 2651,
+     "windows": 29
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 2651,
+     "windows": 29
+    }
+   ]
+  },
+  {
+   "asset": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "start_s": 1222.9,
+   "end_s": 1240.8,
+   "speed": 1.0090638297872343,
+   "confidence": "possible",
+   "hits": 94,
+   "windows": 3,
+   "tags": {
+    "artist": "Stakka And Skynet",
+    "title": "Clockwork (Stakka Rmx)",
+    "album": "Clockwork Remix EP"
+   },
+   "harness": [
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "hits": 94,
+     "windows": 3
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+   "start_s": 1267.6,
+   "end_s": 1576.4,
+   "speed": 1.0033747294625948,
+   "confidence": "confident",
+   "hits": 1581,
+   "windows": 32,
+   "tags": {
+    "artist": "Kraken",
+    "title": "side effects, TeeBee Remix"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+     "hits": 1581,
+     "windows": 32
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+   "start_s": 1267.6,
+   "end_s": 1576.4,
+   "speed": 1.0034148287375286,
+   "confidence": "confident",
+   "hits": 1677,
+   "windows": 32,
+   "tags": {
+    "artist": "Kraken",
+    "title": "Side Effects (Teebee Remix)"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+     "hits": 1677,
+     "windows": 32
+    }
+   ]
+  },
+  {
+   "asset": "va-clockwork_lp_sampler-udfr_lps_04-2001-sour/d-kraken-side_effects_(teebee_remix)-sour.mp3",
+   "start_s": 1290.2,
+   "end_s": 1576.3,
+   "speed": 1.0034129548154225,
+   "confidence": "confident",
+   "hits": 2241,
+   "windows": 29,
+   "tags": {
+    "artist": "Kraken",
+    "title": "Kraken - Side Effects (Teebee remix)",
+    "album": "Clockwork LP Samp. (UDFRLPS04)"
+   },
+   "harness": [
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 2241,
+     "windows": 29
+    }
+   ]
+  },
+  {
+   "asset": "[ZEROG01] Kraken+Arkane - Dominion+Neuro - 2001 [192]/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+   "start_s": 1518.9,
+   "end_s": 1919.8,
+   "speed": 1.0162970800083775,
+   "confidence": "confident",
+   "hits": 3395,
+   "windows": 39,
+   "tags": {
+    "artist": "Kraken+Arkane",
+    "title": "Dominion",
+    "album": "Dominion+Neuro"
+   },
+   "harness": [
+    {
+     "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+     "hits": 3395,
+     "windows": 39
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+   "start_s": 1520.3,
+   "end_s": 1920.8,
+   "speed": 0.9926729132421739,
+   "confidence": "confident",
+   "hits": 2225,
+   "windows": 38,
+   "tags": {
+    "artist": "Kraken",
+    "title": "Dominion"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+     "hits": 2225,
+     "windows": 38
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/ZERO G RECORDINGS [ ZEROG01 \uff1a KRAKEN - dominion - ] drum and bass.opus",
+   "start_s": 1521.8,
+   "end_s": 1919.8,
+   "speed": 1.0162833589740898,
+   "confidence": "confident",
+   "hits": 3204,
+   "windows": 38,
+   "tags": {
+    "artist": "KRAKEN",
+    "title": "dominion"
+   },
+   "harness": [
+    {
+     "asset": "Kraken - Dominion.opus",
+     "hits": 3204,
+     "windows": 38
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "start_s": 1862.9,
+   "end_s": 2282.6,
+   "speed": 0.9835111518811659,
+   "confidence": "confident",
+   "hits": 4021,
+   "windows": 43,
+   "tags": {
+    "artist": "KEMAL & PAUL RESET",
+    "title": "kontempt"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "hits": 4021,
+     "windows": 43
+    }
+   ]
+  },
+  {
+   "asset": "underfire-kemal_stakka_and_k_tee-udfr017-2001-sour/a-kemal_and_paul_reset-kontempt-sour.mp3",
+   "start_s": 1862.9,
+   "end_s": 2282.2,
+   "speed": 1.0293554836033347,
+   "confidence": "confident",
+   "hits": 4464,
+   "windows": 43,
+   "tags": {
+    "artist": "Kemal And Paul Reset",
+    "title": "Kontempt",
+    "album": "Underfire UDFR017 (A)"
+   },
+   "harness": [
+    {
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "hits": 4464,
+     "windows": 43
+    }
+   ]
+  },
+  {
+   "asset": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+   "start_s": 2227.2,
+   "end_s": 2606.5,
+   "speed": 1.0101112337635827,
+   "confidence": "confident",
+   "hits": 4545,
+   "windows": 39,
+   "tags": {
+    "artist": "Stakka & Skynet feat. Kemal an",
+    "title": "Bios-Fear",
+    "album": "Clockwork"
+   },
+   "harness": [
+    {
+     "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+     "hits": 4545,
+     "windows": 39
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+     "hits": 4545,
+     "windows": 39
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+   "start_s": 2227.9,
+   "end_s": 2609.1,
+   "speed": 1.0101137678649463,
+   "confidence": "confident",
+   "hits": 3632,
+   "windows": 39,
+   "tags": {
+    "artist": "Stakka & Skynet feat. Kemal & Rob Data",
+    "title": "Biosfear (Remastered)"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+     "hits": 3632,
+     "windows": 39
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "start_s": 2602.6,
+   "end_s": 2998.0,
+   "speed": 0.9927460881723295,
+   "confidence": "confident",
+   "hits": 5785,
+   "windows": 40,
+   "tags": {
+    "artist": "SKYNET & STAKKA",
+    "title": "logistics"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "hits": 5785,
+     "windows": 40
+    }
+   ]
+  },
+  {
+   "asset": "audio_blueprint-stakka_and_skynet-ab012-2000-sour/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+   "start_s": 2602.6,
+   "end_s": 2998.0,
+   "speed": 1.0222472305690278,
+   "confidence": "confident",
+   "hits": 5779,
+   "windows": 40,
+   "tags": {
+    "artist": "Stakka + Skynet",
+    "title": "Logistics",
+    "album": "Audio Blueprint {AB012}"
+   },
+   "harness": [
+    {
+     "asset": "Skynet & Stakka - Logistics.mp3",
+     "hits": 5779,
+     "windows": 40
+    },
+    {
+     "asset": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+     "hits": 5779,
+     "windows": 40
+    }
+   ]
+  },
+  {
+   "asset": "audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "start_s": 2981.5,
+   "end_s": 3362.0,
+   "speed": 1.013406542077269,
+   "confidence": "confident",
+   "hits": 4375,
+   "windows": 39,
+   "tags": {
+    "artist": "Stakka & K.Tee",
+    "title": "Auto Ignition",
+    "album": "Audio Blueprint (ABPR011)"
+   },
+   "harness": [
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 4375,
+     "windows": 39
+    }
+   ]
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+   "start_s": 2983.9,
+   "end_s": 3360.6,
+   "speed": 0.997223209863254,
+   "confidence": "confident",
+   "hits": 4098,
+   "windows": 39,
+   "tags": {
+    "artist": "ALIEN5IVE",
+    "title": "AUDIO BLUEPRINT [ ABPR011 : STAKKA & K. TEE - auto ignition ] drum and bass"
+   },
+   "harness": [
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+     "hits": 4098,
+     "windows": 39
+    }
+   ]
+  }
+ ],
+ "tracklist": [
+  " 1.    0:00  STAKKA and SKYNET - knight lore",
+  " 2.    0:00  Stakka And Skynet - Nightlore",
+  " 3.    4:19  Stakka & Skynet - Decoy",
+  " 4.    9:02  Konflict - Star Trails",
+  " 5.    9:43  KEMAL & ROB DATA - star trails",
+  " 6.   10:27  Kemal & Rob Data - Star Trails (Synergy Remix) (possible; shares material with Konflict - Star Trails)",
+  " 7.   14:22  Stakka & Skynet - Pathogen",
+  " 8.   14:24  SKYNET & STAKKA - pathogen",
+  " 9.   17:26  Stakka & Skynet - Clockwork",
+  "10.   20:22  Stakka And Skynet - Clockwork (Stakka Rmx) (possible; shares material with Stakka & Skynet - Clockwork (Remastered))",
+  "11.   21:07  Kraken - Side Effects (Teebee remix)",
+  "12.   25:18  Kraken+Arkane - Dominion",
+  "13.   25:20  Kraken - Dominion",
+  "14.   31:02  KEMAL & PAUL RESET - kontempt",
+  "15.   31:02  Kemal And Paul Reset - Kontempt",
+  "16.   37:07  Stakka & Skynet feat. Kemal an - Bios-Fear",
+  "17.   43:22  SKYNET & STAKKA - logistics",
+  "18.   43:22  Stakka + Skynet - Logistics",
+  "19.   49:41  Stakka & K.Tee - Auto Ignition",
+  "20.   49:43  ALIEN5IVE - AUDIO BLUEPRINT [ ABPR011 : STAKKA & K. TEE - auto ignition ] drum and bass"
+ ],
+ "harness_only": "6 detections of second corpus rips standing for the same NAS record (9 NAS records stand for two corpus files)"
+}

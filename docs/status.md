@@ -735,3 +735,25 @@ read; the store is frozen.
   margin 0.11x under the rules, 3.0x with those three groups confirmed
   by the owner. 22 minutes per seed. Today's sweeps running (2026 from
   22:27).
+- 01:05: the first queue's monitor in the agent session was killed with
+  the session (exit 137); the detached queues ran on. Queue 1 finished
+  at 01:22, queue 2 (link rules, item 12) started then.
+- Item 6, today's matcher (experiment 0041): seeds 2026 and 2027
+  1,080/1,080, weakest 403 (as at 262 tracks); 285 confident false (276
+  same-name uploads, 8 Coma ~ Spraycan, 1 The Nine ~ its Evol Intent VIP
+  at exactly 200); margin 1.18x without same-name pairs, 3.20x without
+  both pairs. 66-69 minutes per seed. `calibrate` for today's ran while
+  `fullest` ran (the reports only; `fullest` is not a cost measurement).
+- Item 7 (experiment 0042): the proxy's postings within 0.5% of the NAS
+  index; NAS over proxy 1.18x wall, 1.05x CPU, 1.10x memory (today's),
+  1.13x, 1.14x, 1.06x (skip); chance 1.3-2.7x the copies'.
+- Item 8 (experiment 0043): the skipped 1% of lists hold 18.7% of the
+  postings, spread evenly (top 1% of records hold 1.9% of them); share
+  against false appearances 0.72 today's, 0.24 skip.
+- Item 9 (experiment 0044): store-only identify 856 s, 6,137 s CPU,
+  8.35 GB, revision d709390272e41475; every play equals the harness's.
+- Correction: the NAS-scale index holds 26,914 assets, not 26,905 (9 NAS
+  records stand for two corpus rips each); 0036, 0039 and the notes fixed.
+- No Rust code changed since the last green `scripts/check.sh` (commit
+  87c1206), so the analysis commits do not rerun it while timed runs are
+  active; it runs once at the end.

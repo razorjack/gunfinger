@@ -45,4 +45,24 @@ and leave-out 3 8/11, no wrong identifications. `regress` stays identical.
 
 ## After the NAS index (docs/nas-plan.md)
 
-- [ ] Steps 1-12, each measurement as an experiment
+Session 5 (`docs/brief-5.md`) ran the analysis from the NAS peak store
+alone; the NAS was not read.
+
+- [x] Step 1: indexing as it happened; the tags pass was run by the
+  owner (experiment 0035)
+- [x] Step 2: tag coverage (experiment 0035)
+- [x] Step 3: the content map: 247 of 262 corpus files have a NAS copy
+  (experiment 0036)
+- [x] Step 4: clusters at NAS scale: the 17 corpus clusters reappear,
+  170 further rips, 76 borderline pairs (experiment 0037)
+- [x] Step 5: related recordings (experiment 0038)
+- [x] Step 6: the development set, both matchers (experiment 0039)
+- [x] Step 7: the sweep: skip at 240 seeds 2026-2029 (experiment 0040);
+  today's matcher seeds 2026 and 2027 (experiment 0041)
+- [x] Step 8: the proxy against reality (experiment 0042)
+- [x] Step 9: posting lists and famous breaks (experiment 0043)
+- [x] Step 10: identifying without the NAS (experiment 0044; internal
+  disk only, no other disk attached)
+- [-] Step 11: references for the test set: the owner's part; not
+  started (ground truth does not change in session 5)
+- [ ] Step 12: calibration figures and the matcher decision

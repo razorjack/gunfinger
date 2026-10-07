@@ -885,7 +885,8 @@ WAV container: SKC & Cord - Swarm, SKC - Recharger (Black Sun Empire
 remix), Usual Suspects - Bleach, Cause 4 Concern - Give It 2 Em. The
 corpus copies decode, so they may be repaired versions. Dozer, Fixation
 and Slip Thru are test-set references: the NAS-scale evaluation keeps
-these 15 as corpus files, so the index holds 26,905 assets.
+these 15 as corpus files. The 247 copies are 238 NAS records, since 9
+stand for two corpus rips each, so the index holds 26,914 assets.
 
 ### The corpus clusters reappear on the NAS; 170 further rips
 
@@ -961,7 +962,7 @@ fixed this session).
 
 ### The development mix at NAS scale: every track found, chance at 40-48 hits
 
-Experiment 0039. Both matchers identify 11 of 11 against the 26,905
+Experiment 0039. Both matchers identify 11 of 11 against the 26,914
 assets, with the same weakest evidence as at 262 tracks (1,839 hits
 today, 1,557 with skip at 240); leave-outs 3 and 11 find nothing
 confident in the left-out slots besides the 6 fast uploads above, which
@@ -998,3 +999,60 @@ If both pairs are confirmed as one recording each, the strongest false
 candidate is The Nine against its Evol Intent VIP (220 hits) and the
 margin 3.0×; at 262 tracks it was 5.53×. Unrelated chance (different
 artist and title) reaches 67-70 hits, above the possible tier of 60.
+
+### Today's matcher over two sweep draws at NAS scale: the same picture
+
+Experiment 0041. Seeds 2026 and 2027 find all 1,080 indexed excerpts,
+with the same weakest evidence as at 262 tracks (403 hits, Fibre Optix -
+Sin at -3%). Of 285 confident false detections, 276 are other uploads
+with the same artist and title, 8 are Coma ~ Spraycan again (342 hits),
+and one is new for you to check by ear: `extra/A- The_Nine.mp3` (Bad
+Company - The Nine) against `__youtube_archivists/i-witness-dnb/Bad
+Company - The Nine (Evol Intent VIP).m4a`, 200 hits in 3 windows at +5%,
+exactly at the rule (skip at 240 keeps it out at 220). The margin is
+1.18× without the same-name pairs and 3.20× without the two pairs as
+well (Ant Miles - China Town ~ Sea Of Chaos, 126). Unrelated chance
+reaches 78 hits (Clockwork ~ Simon Static - Rubba Rock). Each seed takes
+about 66-69 minutes and 36,000-38,000 s of CPU, three times skip at 240.
+
+### The scale proxy predicted cost well and chance badly
+
+Experiment 0042. The 100 reversed copies of the corpus (26,462 assets)
+had 760 million postings; the NAS index has 756 million. At NAS scale
+the development mix takes 1.18 times the proxy's wall time under today's
+matcher (848 s), 1.05 times its CPU and 1.10 times its memory (8.4 GB);
+under skip at 240, 1.13, 1.14 and 1.06 (259 s, 4.0 GB). Chance is
+another matter: unrelated real tracks reach 1.3-2.7 times the hits of
+the copies, and every wrong identification at NAS scale is another rip
+or upload of the track played, which a reversed copy cannot be. Plan
+with the proxy for time and memory, not for margins.
+
+### The fullest posting lists are spread over the whole collection
+
+Experiment 0043. The 1% of lists that skip at 240 sets aside hold 18.7%
+of the postings, and a typical record has 18.6% of its postings there
+(at most 34%, Axis Of Evil - Ignition Sequence). No small set of
+"famous break" records holds them: the top 1% of records hold 1.9% of
+those postings. Under today's matcher, records with more postings in
+those lists are false candidates more often (rank correlation 0.72);
+skip at 240 removes most of that (0.24) and keeps 4.3% of the false
+candidates, while the heaviest records keep their own hits when played.
+
+### The store alone identifies the mix as the harness does
+
+Experiment 0044. `identify --store-only` against the NAS store (internal
+disk; no external disk was attached) builds a 3.0 GB index in 44 s and
+identifies the development mix in 856 s with 8.35 GB, with the store's
+revision `d709390272e41475` in the report. Its 30 plays have exactly the
+harness's hits. The tracklist has 20 lines for 11 tracks and 2 possible
+plays: a track found on several uploads appears once per tag spelling
+("STAKKA and SKYNET - knight lore" and "Stakka And Skynet - Nightlore").
+Grouping plays that cover the same mix time would list each track once;
+I have not implemented it.
+
+### Correction: the NAS-scale index holds 26,914 assets
+
+Experiments 0036 and 0039 said 26,905. The 247 corpus files with a copy
+are copies of 238 NAS records (9 records stand for two corpus rips
+each), so the index holds 262 + 26,890 - 238 = 26,914 assets, as
+`memory` reports. The earlier notes are corrected.

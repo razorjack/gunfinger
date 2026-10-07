@@ -1,6 +1,6 @@
 {
  "experiment": "0039-nas-development-set",
- "index": "corpus (262) + NAS records less the 247 stood-for copies = 26,905 assets",
+ "index": "corpus (262) + NAS records (26,890) less the 238 records standing for 247 corpus files = 26,914 assets (corrected from 26,905)",
  "commands": [
   "work/s5/E scan stakka-skynet-knowledge [--leave-out 3|11]",
   "work/s5/E --second-pass --skip-fullest 0.01 scan stakka-skynet-knowledge [--leave-out 3|11]"

@@ -20,8 +20,9 @@ Fanfare rips and SKC's Recharger remix twice). 15 have none:
 | Ed Rush & Optical - Compound, Dozer, Fixation, Glass Eye, Lithosphere, Mystery Machine, Point Blank, Wormhole; Fortran - Splinter; Optical - Millennium, Slip Thru (11, all at the corpus library's root) | no record and no skip note under these names: the NAS dnb library holds no copy. Other rips by name: `dfect-dnb/Optical - Millennium.m4a`, `dfect-dnb/Optical - Slip Thru.m4a`; remixes and bootlegs of Compound, Dozer, Fixation, Slip Thru |
 | SKC & Cord - Swarm; SKC - Recharger (Black Sun Empire remix); Usual Suspects - Bleach; Cause 4 Concern - Give It 2 Em (4) | the NAS copy failed to open: "Invalid data found when processing input", the failure of the 27 MP3s in a WAV container (inference; the corpus copies decode) |
 
-The 15 stay in the NAS-scale index under their corpus names, so it holds
-26,890 + 15 = 26,905 assets (82.1% of 32,768).
+The 15 stay in the NAS-scale index under their corpus names. The 247
+copies are 238 records (9 stand for two corpus rips each), so the index
+holds 262 + 26,890 - 238 = 26,914 assets (82.1% of 32,768; corrected).
 
 **Conclusions.** (1) The map works from the store alone. (2) The owner's
 "every corpus file is a copy of a NAS file" holds for 247: the

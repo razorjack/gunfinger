@@ -1,0 +1,424 @@
+{
+ "experiment": "0041",
+ "matcher": "today's (default)",
+ "runs": {
+  "sweep-seed-2026": {
+   "wall_s": 3972.13,
+   "user_s": 36221.7,
+   "sys_s": 173.63,
+   "peak_footprint_bytes": 8856461424,
+   "load_before": [
+    39.52,
+    115.24,
+    120.77
+   ]
+  },
+  "sweep-seed-2027": {
+   "wall_s": 4159.68,
+   "user_s": 38041.51,
+   "sys_s": 172.31,
+   "peak_footprint_bytes": 7256791712,
+   "load_before": [
+    22.78,
+    103.02,
+    139.76
+   ]
+  }
+ },
+ "load_note": "the load before each run is the tail of the previous run; timed one at a time",
+ "sweeps": {
+  "sweep-seed-2026.json": {
+   "recalled": 540,
+   "indexed_excerpts": 540,
+   "wrong": 88,
+   "max_speed_error_percent": 0.015913199962296787,
+   "indexed_assets": 26829,
+   "weakest_identifying": 501,
+   "false_candidates": 1185150,
+   "false_per_query_mean": 1646.0416666666667,
+   "false_per_query_max": 9693,
+   "false_30": 207,
+   "false_60": 122,
+   "strongest_not_indexed": 494
+  },
+  "sweep-seed-2027.json": {
+   "recalled": 540,
+   "indexed_excerpts": 540,
+   "wrong": 179,
+   "max_speed_error_percent": 0.023720045017974645,
+   "indexed_assets": 26828,
+   "weakest_identifying": 403,
+   "false_candidates": 1568060,
+   "false_per_query_mean": 2177.8611111111113,
+   "false_per_query_max": 9513,
+   "false_30": 359,
+   "false_60": 261,
+   "strongest_not_indexed": 545
+  }
+ },
+ "skip_at_240_same_seeds": {
+  "sweep-seed-2026.json": {
+   "wrong": 91,
+   "weakest_identifying": 680,
+   "false_candidates": 45278,
+   "false_per_query_mean": 62.88611111111111
+  },
+  "sweep-seed-2027.json": {
+   "wrong": 174,
+   "weakest_identifying": 671,
+   "false_candidates": 72683,
+   "false_per_query_mean": 100.9486111111111
+  }
+ },
+ "wrong_per_speed": {
+  "2026": {
+   "-8": 0,
+   "-5": 8,
+   "-3": 11,
+   "-1": 11,
+   "+0": 11,
+   "+1": 11,
+   "+3": 12,
+   "+5": 12,
+   "+8": 12
+  },
+  "2027": {
+   "-8": 0,
+   "-5": 17,
+   "-3": 22,
+   "-1": 22,
+   "+0": 22,
+   "+1": 23,
+   "+3": 24,
+   "+5": 25,
+   "+8": 24
+  }
+ },
+ "calibrate": {
+  "identifying": 1099,
+  "below_rule": 0,
+  "false_candidates": 2753240,
+  "accepted": 285,
+  "weakest": {
+   "hits": 403,
+   "where": "sweep 2027 Fibre Optix - Sin.m4a at -3%"
+  },
+  "strongest_false": {
+   "hits": 5785,
+   "where": "scan of the development mix at 2603 s: alien5ive upload of Logistics"
+  },
+  "margin": 0.07
+ },
+ "split": {
+  "confident_false_by_label": {
+   "same name": 276,
+   "same artist": 8,
+   "version": 1
+  },
+  "strongest": {
+   "all": {
+    "hits": 5785,
+    "windows": 40,
+    "query_name": "Skynet & Stakka - Logistics",
+    "found_name": "SKYNET & STAKKA - logistics",
+    "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+    "where": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json at 2603 s",
+    "label": "same name"
+   },
+   "without_same_name": {
+    "hits": 342,
+    "windows": 3,
+    "query_name": "Bad Company - Coma",
+    "found_name": "Bad Company - Spraycan",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "where": "sweep 2027 extra/02 Coma.mp3 at +8%",
+    "label": "same artist"
+   },
+   "unrelated": {
+    "hits": 123,
+    "windows": 3,
+    "query_name": "unknown - unknown",
+    "found_name": "Profound Noize - Luminous (Remix)",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+    "where": "sweep 2027 extra/b-unknown-udfr014-sour.mp3 at -3%",
+    "label": "unrelated"
+   },
+   "audio_not_in_the_index": {
+    "hits": 545,
+    "windows": 3,
+    "query_name": "Chris SU - Astro-Sine",
+    "found_name": "CHRIS SU - astro sine",
+    "found": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - astro sine - ] drum and bass.m4a",
+    "where": "sweep 2027 extra/A-Chris_SU-Astro_Sine-sour.mp3 at +3%",
+    "label": "same name"
+   },
+   "audio_not_in_the_index_without_same_name": {
+    "hits": 200,
+    "windows": 3,
+    "query_name": "Bad Company - The Nine",
+    "found_name": "Bad Company - The Nine (Evol Intent VIP)",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "where": "sweep 2027 extra/A- The_Nine.mp3 at +5%",
+    "label": "version"
+   }
+  },
+  "margins": {
+   "all": 0.0696629213483146,
+   "without_same_name": 1.1783625730994152,
+   "unrelated": 3.2764227642276422,
+   "audio_not_in_the_index": 0.7394495412844037,
+   "audio_not_in_the_index_without_same_name": 2.015
+  },
+  "by_label": {
+   "same name": {
+    "count": 453,
+    "confident": 276,
+    "at_60": 302
+   },
+   "version": {
+    "count": 705,
+    "confident": 1,
+    "at_60": 58
+   },
+   "same artist": {
+    "count": 15684,
+    "confident": 8,
+    "at_60": 22
+   },
+   "unrelated": {
+    "count": 2736398,
+    "confident": 0,
+    "at_60": 28
+   }
+  },
+  "without_same_name_and_the_two_pairs": {
+   "hits": 126,
+   "pair": "Ant Miles - China Town ~ Ant Miles - Sea Of Chaos",
+   "margin": 3.2
+  }
+ },
+ "confident_false_pairs": [
+  {
+   "query": " 1. Skynet & Stakka - Night Lore",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": " 1. Skynet & Stakka - Night Lore",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "label": "same name"
+  },
+  {
+   "query": " 3. Kemal & Rob Data - Star Trails",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": " 4. Skynet & Stakka - Pathogen",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": " 8. Kemal & Paul Reset - Kontempt",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "10. Skynet & Stakka - Logistics",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "Bad Company - China Cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "Bad Company - The Nine.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "Kemal & Paul Reset - Kontempt.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "Kemal & Rob Data - Star Trails.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "Skynet & Stakka - Logistics.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "Skynet & Stakka - Night Lore.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "Skynet & Stakka - Night Lore.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "Skynet & Stakka - Pathogen.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/02 Coma.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+   "label": "same artist"
+  },
+  {
+   "query": "extra/02. Bad Company - China Cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/02_-_skinnah_-_figurehead.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUFF LM 1 \uff1a SKINNAH - figurehead - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/06_-_skinnah_-_state_of_violance.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 \uff1a SKINNAH - state of violance - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/1.Kemal & Rob Data - The Mummy.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/NEGATIVE RECORDINGS [ NTV 001 \uff1a KEMAL & ROB DATA - the mummy - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/A- The_Nine.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/A- The_Nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "label": "version"
+  },
+  {
+   "query": "extra/A-Chris_SU-Astro_Sine-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - astro sine - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/AA-Chris_SU-Audiophile-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - audiophile - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 001 \uff1a DREAZZ & FALCON - do drop in - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/a-cause_4_concern-nightgasp-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 \uff1a CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/aa-cause_4_concern-synergy-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/aa-cause_4_concern-synergy-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 017 \uff1a STAKKA & K.TEE - rubber bullet - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/INDUSTRY RECORDINGS [ IND 005 \uff1a CAUSE 4 CONCERN RMX - innocence - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/CARGO INDUSTRIES [ CARG 01 \uff1a STAKKA & K. TEE - echo chamber - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/d. falcon - the stand.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/e-cause_4_concern-blindside-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+   "label": "same name"
+  },
+  {
+   "query": "extra/f-skc-lobotomy-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+   "label": "same name"
+  },
+  {
+   "query": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLP 04 \uff1a STAKKA & SKYNET feat. K.TEE - so confused - ] drum and bass.m4a",
+   "label": "same name"
+  }
+ ],
+ "hand_label_added": {
+  "extra/A- The_Nine.mp3|second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a": "version"
+ },
+ "strongest_unrelated_by_hand": [
+  {
+   "hits": 78,
+   "query": "Skynet & Stakka - Clockwork.mp3 (+0%, seed 2026)",
+   "found": "Simon Static - Rubba Rock"
+  },
+  {
+   "hits": 72,
+   "query": "extra/d. falcon - the stand.mp3 (+0%)",
+   "found": "second-library/1.mp3 (untagged)"
+  },
+  {
+   "hits": 66,
+   "query": "extra/05 - Bad Company - Sentient.mp3 (+1%)",
+   "found": "Shere Khan - Criminal Record"
+  }
+ ],
+ "not_chance": "75 hits: Star Trails (Synergy Remix) at 10:27 in the development mix, known shared material (0039)",
+ "at_262_0025": {
+  "weakest": 403,
+  "strongest_false": 97,
+  "margin": 4.15,
+  "audio_not_in_the_index": 28
+ }
+}

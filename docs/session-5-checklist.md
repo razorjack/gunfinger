@@ -31,24 +31,26 @@ for scope and rules. NAS plan steps in brackets.
 - [x] 5. The development set at NAS scale [6], both matchers: scan,
   leave-outs 3 and 11; identified, wrong, strongest false and margin,
   possible plays, wall, CPU, peak memory (experiment 0039)
-- [ ] 6. Sweeps at NAS scale [7]: seeds 2026-2029 under skip at 240,
+- [x] 6. Sweeps at NAS scale [7]: seeds 2026-2029 under skip at 240,
   2026 and 2027 under today's matcher; `calibrate` for each; strongest
-  false candidates named
-- [ ] 7. The proxy against reality [8]: `memory` at NAS scale under
+  false candidates named (experiments 0040, 0041)
+- [x] 7. The proxy against reality [8]: `memory` at NAS scale under
   `time -l`, both matchers, against experiments 0012, 0019, 0027-0029
-- [ ] 8. Posting lists and famous breaks [9]: `stats` figures; records
+  (experiment 0042)
+- [x] 8. Posting lists and famous breaks [9]: `stats` figures; records
   holding the fullest 1%; false candidates per track with and without
-  skip
-- [ ] 9. Identifying without the NAS [10]: store-only index build time
+  skip (experiment 0043)
+- [x] 9. Identifying without the NAS [10]: store-only index build time
   and memory; `identify --store-only` on the development mix with names
-  from the tags
+  from the tags (experiment 0044; internal disk only, no external disk
+  attached)
 - [ ] 10. Wrap-up: session 5 summary in the notes; NAS figures in
   calibration as measurements; roadmap, status, NAS checklist and plan
 
 ## Only if time remains
 
 - [ ] 11. Today's matcher, sweep seeds 2028 and 2029, calibrate again
-- [ ] 12. Link rules at NAS scale: development scan and sweep 2026, both
+- [~] 12. Link rules at NAS scale: development scan and sweep 2026, both
   matchers
 - [ ] 13. A scaling curve on real records (seeded subsets of the other
   library)
