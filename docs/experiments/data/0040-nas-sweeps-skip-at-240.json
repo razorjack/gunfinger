@@ -1,0 +1,519 @@
+{
+ "experiment": "0040-nas-sweeps-skip-at-240",
+ "matcher": "--second-pass --skip-fullest 0.01, rule 240 hits in 3 windows",
+ "runs": {
+  "2026": {
+   "wall_seconds": 1358.46,
+   "user_seconds": 12080.37,
+   "system_seconds": 72.32,
+   "peak_footprint_bytes": 5754475896,
+   "cpu_before": "CPU usage: 5.10% user, 5.61% sys, 89.28% idle"
+  },
+  "2027": {
+   "wall_seconds": 1366.35,
+   "user_seconds": 12132.95,
+   "system_seconds": 72.63,
+   "peak_footprint_bytes": 5712024688,
+   "cpu_before": "CPU usage: 6.40% user, 4.63% sys, 88.96% idle"
+  },
+  "2028": {
+   "wall_seconds": 1311.5,
+   "user_seconds": 11740.15,
+   "system_seconds": 68.11,
+   "peak_footprint_bytes": 5447750936,
+   "cpu_before": "CPU usage: 21.96% user, 3.64% sys, 74.39% idle"
+  },
+  "2029": {
+   "wall_seconds": 1355.15,
+   "user_seconds": 12103.25,
+   "system_seconds": 70.85,
+   "peak_footprint_bytes": 5623584216,
+   "cpu_before": "CPU usage: 4.18% user, 4.27% sys, 91.53% idle"
+  }
+ },
+ "sweeps": {
+  "sweep-seed-2026.json": {
+   "recalled": 540,
+   "indexed_excerpts": 540,
+   "wrong": 91,
+   "max_speed_error_percent": 0.015284704802914106,
+   "indexed_assets": 26829,
+   "weakest_identifying": 680,
+   "false_candidates": 45278,
+   "false_per_query_mean": 62.88611111111111,
+   "false_per_query_max": 814,
+   "false_30": 186,
+   "false_60": 122,
+   "strongest_not_indexed": 527,
+   "strongest_false": [
+    {
+     "hits": 754,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+     "name": "Falcon - The Stand (HD Audio & Speed Up)",
+     "where": "extra/d. falcon - the stand.mp3 at +8%"
+    },
+    {
+     "hits": 734,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+     "name": "Falcon - The Stand (HD Audio & Speed Up)",
+     "where": "extra/d. falcon - the stand.mp3 at +3%"
+    },
+    {
+     "hits": 712,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+     "name": "Falcon - The Stand (HD Audio & Speed Up)",
+     "where": "extra/d. falcon - the stand.mp3 at +5%"
+    },
+    {
+     "hits": 652,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +8%"
+    },
+    {
+     "hits": 646,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at -1%"
+    },
+    {
+     "hits": 639,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +0%"
+    },
+    {
+     "hits": 638,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +3%"
+    },
+    {
+     "hits": 636,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +5%"
+    }
+   ]
+  },
+  "sweep-seed-2027.json": {
+   "recalled": 540,
+   "indexed_excerpts": 540,
+   "wrong": 174,
+   "max_speed_error_percent": 0.022608414580563174,
+   "indexed_assets": 26828,
+   "weakest_identifying": 671,
+   "false_candidates": 72683,
+   "false_per_query_mean": 100.9486111111111,
+   "false_per_query_max": 976,
+   "false_30": 318,
+   "false_60": 263,
+   "strongest_not_indexed": 570,
+   "strongest_false": [
+    {
+     "hits": 918,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +0%"
+    },
+    {
+     "hits": 861,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +8%"
+    },
+    {
+     "hits": 843,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +3%"
+    },
+    {
+     "hits": 840,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at -3%"
+    },
+    {
+     "hits": 832,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at -1%"
+    },
+    {
+     "hits": 831,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +5%"
+    },
+    {
+     "hits": 824,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at +1%"
+    },
+    {
+     "hits": 796,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at -5%"
+    }
+   ]
+  },
+  "sweep-seed-2028.json": {
+   "recalled": 540,
+   "indexed_excerpts": 540,
+   "wrong": 126,
+   "max_speed_error_percent": 0.01878297142102081,
+   "indexed_assets": 26829,
+   "weakest_identifying": 661,
+   "false_candidates": 67715,
+   "false_per_query_mean": 94.04861111111111,
+   "false_per_query_max": 671,
+   "false_30": 211,
+   "false_60": 166,
+   "strongest_not_indexed": 666,
+   "strongest_false": [
+    {
+     "hits": 666,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +5%"
+    },
+    {
+     "hits": 662,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +1%"
+    },
+    {
+     "hits": 653,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +8%"
+    },
+    {
+     "hits": 637,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +0%"
+    },
+    {
+     "hits": 628,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +3%"
+    },
+    {
+     "hits": 617,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at -1%"
+    },
+    {
+     "hits": 611,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at -3%"
+    },
+    {
+     "hits": 589,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at -5%"
+    }
+   ]
+  },
+  "sweep-seed-2029.json": {
+   "recalled": 540,
+   "indexed_excerpts": 540,
+   "wrong": 114,
+   "max_speed_error_percent": 0.02070252007275286,
+   "indexed_assets": 26821,
+   "weakest_identifying": 732,
+   "false_candidates": 70943,
+   "false_per_query_mean": 98.53194444444445,
+   "false_per_query_max": 1207,
+   "false_30": 190,
+   "false_60": 146,
+   "strongest_not_indexed": 607,
+   "strongest_false": [
+    {
+     "hits": 679,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +5%"
+    },
+    {
+     "hits": 659,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +8%"
+    },
+    {
+     "hits": 654,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +3%"
+    },
+    {
+     "hits": 637,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +0%"
+    },
+    {
+     "hits": 629,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at -1%"
+    },
+    {
+     "hits": 628,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at -5%"
+    },
+    {
+     "hits": 624,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at -3%"
+    },
+    {
+     "hits": 617,
+     "windows": 3,
+     "asset": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+     "name": "BLACK SUN EMPIRE - recharger RMX",
+     "where": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +1%"
+    }
+   ]
+  }
+ },
+ "calibrate": [
+  "rule: hits >= 240 and windows >= 3",
+  "identifying detections: 2179 (0 below the rule)",
+  "false candidates: 256649 (523 accepted by the rule)",
+  "weakest identifying: 661 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+  "strongest false:     5845 hits, 40 windows (scan-stakka-skynet-knowledge.json: second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus at 2603 s)",
+  "margin: 0.11x in hits; the threshold is 0.04x the strongest false and 2.75x below the weakest identifying",
+  "",
+  "possible tier: hits >= 60",
+  "strongest on audio not in the index: 666 hits, 3 windows (sweep extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +5%: second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a); the threshold is 0.09x that",
+  "false candidates at 30 hits or more: 935 (724 shown as possible); each must be a remix or version of the played recording",
+  "  5845 hits, 40 windows (scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus at 2603 s)",
+  "  5845 hits, 40 windows (scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus at 2603 s)"
+ ],
+ "split": {
+  "weakest_identifying": {
+   "hits": 661,
+   "where": "sweep 2028 extra/4. Illuminati - Melange.mp3 at -3%"
+  },
+  "confident_false": {
+   "same name": 507,
+   "same artist": 8,
+   "version": 8
+  },
+  "strongest": {
+   "all": {
+    "hits": 5845,
+    "windows": 40,
+    "confident": true,
+    "query": "10. Skynet & Stakka - Logistics",
+    "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+    "where": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json at 2603 s",
+    "held_out": false,
+    "label": "same name",
+    "query_name": "Skynet & Stakka - Logistics",
+    "found_name": "SKYNET & STAKKA - logistics"
+   },
+   "without_same_name": {
+    "hits": 511,
+    "windows": 3,
+    "confident": true,
+    "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+    "where": "sweep 2029 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at -5%",
+    "held_out": false,
+    "label": "version",
+    "query_name": "Stakka + K.Tee - Synthesis VIP",
+    "found_name": "Stakka And K Tee - Synthesis"
+   },
+   "unrelated": {
+    "hits": 127,
+    "windows": 3,
+    "confident": false,
+    "query": "extra/b-unknown-udfr014-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+    "where": "sweep 2027 extra/b-unknown-udfr014-sour.mp3 at +5%",
+    "held_out": false,
+    "label": "unrelated",
+    "query_name": "unknown - unknown",
+    "found_name": "Profound Noize - Luminous (Remix)"
+   },
+   "audio_not_in_the_index": {
+    "hits": 666,
+    "windows": 3,
+    "confident": true,
+    "query": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+    "where": "sweep 2028 extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 at +5%",
+    "held_out": true,
+    "label": "same name",
+    "query_name": "SKC - Recharger (Black Sun Empire Remix)",
+    "found_name": "BLACK SUN EMPIRE - recharger RMX"
+   },
+   "audio_not_in_the_index_without_same_name": {
+    "hits": 197,
+    "windows": 3,
+    "confident": false,
+    "query": "extra/A- The_Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "where": "sweep 2027 extra/A- The_Nine.mp3 at +5%",
+    "held_out": true,
+    "label": "version",
+    "query_name": "Bad Company - The Nine",
+    "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+   }
+  },
+  "margins": {
+   "all": 0.11308810949529513,
+   "without_same_name": 1.2935420743639923,
+   "unrelated": 5.2047244094488185,
+   "audio_not_in_the_index": 0.9924924924924925,
+   "audio_not_in_the_index_without_same_name": 3.3553299492385786
+  }
+ },
+ "by_label": {
+  "same name": {
+   "count": 595,
+   "confident": 507,
+   "at_60": 556
+  },
+  "version": {
+   "count": 579,
+   "confident": 8,
+   "at_60": 104
+  },
+  "same artist": {
+   "count": 2849,
+   "confident": 8,
+   "at_60": 34
+  },
+  "unrelated": {
+   "count": 252626,
+   "confident": 0,
+   "at_60": 30
+  }
+ },
+ "hand_labels": {
+  " 1. Skynet & Stakka - Night Lore|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a": "same name",
+  " 1. Skynet & Stakka - Night Lore|second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a": "same name",
+  " 3. Kemal & Rob Data - Star Trails|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus": "same name",
+  " 4. Skynet & Stakka - Pathogen|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a": "same name",
+  " 8. Kemal & Paul Reset - Kontempt|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a": "same name",
+  "10. Skynet & Stakka - Logistics|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus": "same name",
+  "Kemal & Paul Reset - Kontempt.mp3|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a": "same name",
+  "Kemal & Rob Data - Star Trails.mp3|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus": "same name",
+  "Skynet & Stakka - Logistics.mp3|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus": "same name",
+  "Skynet & Stakka - Night Lore.mp3|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a": "same name",
+  "Skynet & Stakka - Night Lore.mp3|second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a": "same name",
+  "Skynet & Stakka - Pathogen.mp3|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a": "same name",
+  "extra/06_-_skinnah_-_state_of_violance.mp3|second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 \uff1a SKINNAH - state of violance - ] drum and bass.m4a": "same name",
+  "extra/aa-cause_4_concern-abduction-sour.mp3|second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a": "same name",
+  "extra/aa-cause_4_concern-synergy-sour.mp3|second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus": "same name",
+  "extra/aa-cause_4_concern-synergy-sour.mp3|second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a": "same name",
+  "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3|second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a": "same name",
+  "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 017 \uff1a STAKKA & K.TEE - rubber bullet - ] drum and bass.m4a": "same name",
+  "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3|second-library/__youtube_archivists/alien5ive/INDUSTRY RECORDINGS [ IND 005 \uff1a CAUSE 4 CONCERN RMX - innocence - ] drum and bass.opus": "same name",
+  "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3|second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a": "same name",
+  "extra/d. falcon - the stand.mp3|second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a": "same name",
+  "extra/e-cause_4_concern-blindside-sour.mp3|second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a": "same name",
+  "Bad Company - China Cup.mp3|second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus": "same name",
+  "Bad Company - The Nine.mp3|second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a": "same name",
+  "extra/02 Coma.mp3|second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus": "same artist",
+  "extra/02. Bad Company - China Cup.mp3|second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus": "same name",
+  "extra/02_-_skinnah_-_figurehead.mp3|second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUFF LM 1 \uff1a SKINNAH - figurehead - ] drum and bass.m4a": "same name",
+  "extra/1.Kemal & Rob Data - The Mummy.mp3|second-library/__youtube_archivists/alien5ive/NEGATIVE RECORDINGS [ NTV 001 \uff1a KEMAL & ROB DATA - the mummy - ] drum and bass.opus": "same name",
+  "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3|second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a": "same name",
+  "extra/A- The_Nine.mp3|second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a": "same name",
+  "extra/A-Chris_SU-Astro_Sine-sour.mp3|second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - astro sine - ] drum and bass.m4a": "same name",
+  "extra/AA-Chris_SU-Audiophile-sour.mp3|second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - audiophile - ] drum and bass.m4a": "same name",
+  "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3|second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a": "same name",
+  "extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3|second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 001 \uff1a DREAZZ & FALCON - do drop in - ] drum and bass.m4a": "same name",
+  "extra/a-cause_4_concern-nightgasp-sour.mp3|second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 \uff1a CAUSE 4 CONCERN - night gasp - ] drum and bass.opus": "same name",
+  "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3|second-library/__youtube_archivists/alien5ive/CARGO INDUSTRIES [ CARG 01 \uff1a STAKKA & K. TEE - echo chamber - ] drum and bass.opus": "same name",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLP 04 \uff1a STAKKA & SKYNET feat. K.TEE - so confused - ] drum and bass.m4a": "same name",
+  "extra/A-Bad_Company-The_Nine-dmz.mp3|second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a": "same name",
+  "extra/A-Matrix_and_Fierce-Tearaway-sour.mp3|second-library/__youtube_archivists/alien5ive/VIRUS RECORDINGS [ VRS 009 \uff1a MATRIX & FIERCE - tearaway - ] drum and bass.m4a": "same name",
+  "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus": "same name",
+  "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3|second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a STAKKA + SKYNET - molecular - ] drum and bass.m4a": "same name",
+  "extra/a-stakka_and_skynet-nightlore-sour.mp3|second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a": "same name",
+  "extra/a-stakka_and_skynet-nightlore-sour.mp3|second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a": "same name",
+  "extra/b-bad_company-china_cup.mp3|second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus": "same name",
+  "extra/f-skc-lobotomy-sour.mp3|second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus": "same name",
+  "extra/B-Cause_4_Concern-Peep_Show-sour.mp3|second-library/__youtube_archivists/alien5ive/VIRUS RECORDINGS [ VRS 009 \uff1a CAUSE 4 CONCERN - peep show - ] drum and bass.m4a": "same name",
+  "extra/B. falcon - reality.mp3|second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 005 \uff1a FALCON - reality - ] drum and bass.m4a": "same name",
+  "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3|second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3": "version",
+  "extra/aa-matrix-bad_dreams-sour.mp3|second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 001 \uff1a MATRIX - bad dreams - ] drum and bass.m4a": "same name"
+ },
+ "strongest_unrelated_by_hand": [
+  {
+   "hits": 68,
+   "query": "Skynet & Stakka - Clockwork.mp3 (+0%)",
+   "found": "Simon Static - Rubba Rock"
+  },
+  {
+   "hits": 67,
+   "query": "extra/05 - Bad Company - Sentient.mp3",
+   "found": "Shere Khan - Criminal Record"
+  },
+  {
+   "hits": 67,
+   "query": "Ed Rush & Optical - Mystery Machine.mp3",
+   "found": "NIL - Infectious"
+  },
+  {
+   "hits": 70,
+   "query": "extra/d. falcon - the stand.mp3 (+5%)",
+   "found": "second-library/1.mp3 (untagged, at the library root)"
+  }
+ ],
+ "at_262_0025_0026": {
+  "weakest_identifying": 658,
+  "strongest_false": 119,
+  "margin": 5.53,
+  "audio_not_in_the_index": 24
+ }
+}
