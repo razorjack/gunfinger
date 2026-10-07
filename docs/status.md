@@ -715,3 +715,13 @@ read; the store is frozen.
   hits or more, 63 at 60 or more, 22 at 200 or more (16 probably one
   recording kept apart by the 80% rule, 4 versions, 2 one artist's other
   title); the strongest unrelated 153.
+- Item 5 under way. Skip at 240 at NAS scale: development scan 11/11
+  with 6 wrong (YouTube uploads of the played tracks, 3-4.7% faster than
+  the corpus rips, outside the clustering ladder); leave-outs 3 and 11:
+  8/11 and 0/11, the same 6 wrong and nothing else confident. 260-266 s
+  wall, about 1,960 s CPU, 4.0 GB per scan. Notes for the owner updated.
+- Re-plan at 20:06 from the measured runs: clusters took 72 minutes, not
+  under an hour; skip scans 4.4 minutes. Expected: today's scans 3 x 13
+  minutes, skip sweeps 4 x 22, today's sweeps 2 x 64, then memory,
+  fullest and identify (35 minutes): the queue ends near 00:55. Items
+  11-13 will most likely not fit.

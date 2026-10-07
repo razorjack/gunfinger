@@ -931,3 +931,30 @@ in 40 s: a shared sample, perhaps.
 China Cup and The Nine do not reach 30 hits against each other in this
 search. The NAS holds Fresh & Vegas - "Meekon" (spelled so in its tags,
 `dfect-dnb`); The Nine finds it with 31-33 hits.
+
+### At NAS scale the development mix has 6 wrong identifications: faster uploads of the tracks played
+
+For you to check by ear. Under the rules every confident detection the
+clusters do not explain counts as wrong. The development scan at NAS
+scale with skip at 240 identifies 11 of 11 and has 6 such detections,
+each at the same time as the true play, of a YouTube upload of the same
+track (the full table with today's matcher follows in experiment 0039):
+
+| Mix time | Upload (NAS path under `__youtube_archivists/`) | Hits | Faster than the corpus rip |
+|---|---|--:|--:|
+| 0:00-5:02 | `alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a` | 3,383 | 2.95% |
+| 0:00-5:03 | `i-witness-dnb/Stakka & Skynet - Nightlore.m4a` | 2,687 | 3.44% |
+| 9:43-13:59 | `alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus` | 1,786 | 2.94% |
+| 14:27-18:04 | `alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a` | 1,350 | 3.94% |
+| 31:25-38:02 | `alien5ive/UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a` | 3,902 | 4.67% |
+| 43:22-49:57 | `alien5ive/AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus` | 5,845 | 2.97% |
+
+"Faster" is the ratio of the two detections' fitted speeds (an
+inference: the uploads would play 3-4.7% fast, perhaps sped up when they
+were uploaded). The clusters search rips within 0.98-1.02 of each other,
+so a rip 3% fast cannot join its recording's cluster, and the 80% rule
+never sees it. If you confirm these are the same recordings, they are
+correct identifications: the clustering ladder, not the matcher, is
+what calls them wrong. Widening the clustering ladder to the full ±8% of
+the speed ladder would be the general fix (not done: ground truth stays
+fixed this session).

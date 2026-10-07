@@ -20,12 +20,14 @@ for scope and rules. NAS plan steps in brackets.
   `stats` on the store alone (experiment 0035)
 - [x] 2. The content map [3]: `map-library`; corpus files with no copy
   or several (experiment 0036)
-- [ ] 3. Clusters of the corpus recordings at NAS scale [4]: do the 17
+- [x] 3. Clusters of the corpus recordings at NAS scale [4]: do the 17
   corpus clusters reappear; further rips, coverage, hits; borderline
-  pairs for the owner
-- [ ] 4. Related recordings at NAS scale [5]: pairs of 30 hits or more;
+  pairs for the owner (experiment 0037)
+- [x] 4. Related recordings at NAS scale [5]: pairs of 30 hits or more;
   possible tier, 200, 240; same artist or label against unrelated; China
-  Cup and The Nine; Fresh & Vegas - Mekon if present
+  Cup and The Nine; Fresh & Vegas - Mekon if present (experiment 0038;
+  labels from tags and artists, not record labels: YouTube paths name
+  none)
 - [ ] 5. The development set at NAS scale [6], both matchers: scan,
   leave-outs 3 and 11; identified, wrong, strongest false and margin,
   possible plays, wall, CPU, peak memory

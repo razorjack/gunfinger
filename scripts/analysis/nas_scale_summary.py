@@ -36,6 +36,8 @@ for path in sorted(glob.glob(os.path.join(reports, "scan-*.json"))):
     identifying = [(t["strongest_candidate"] or {"hits": 0})["hits"] for t in score["tracks"]
                    if t["referenced"] and t["label"] not in scan["left_out_tracks"]]
     false = score["false_candidates"]
+    credited = {(d["asset"], d["start_seconds"], d["end_seconds"]) for t in score["tracks"] for d in t["credited"]}
+    unmatched = [d for d in scan["detections"] if (d["asset"], d["start_seconds"], d["end_seconds"]) not in credited]
     for d in false:
         false_by_asset[d["asset"]] += 1
     strongest = sorted(false, key=lambda d: -d["hits"])[:8]
@@ -46,11 +48,13 @@ for path in sorted(glob.glob(os.path.join(reports, "scan-*.json"))):
         "wrong_identifications": [candidate(d, round(d["start_seconds"])) for d in score["wrong_identifications"]],
         "unmatched_possible_plays": [{"asset": p["asset"], "name": name(p["asset"]), "start": round(p["start_seconds"]),
                                       "end": round(p["end_seconds"])} for p in score["unmatched_possible"]],
-        "credited_through_cluster": sorted({d["asset"] for t in score["tracks"] for d in t["credited_through_cluster"]}),
+        "credited_through_cluster": sorted({asset for t in score["tracks"] for asset in t["credited_through_cluster"]}),
         "weakest_identifying": min(identifying, default=None),
-        "false_candidates": len(false),
-        "false_30": sum(d["hits"] >= 30 for d in false),
-        "false_60": sum(d["hits"] >= 60 for d in false),
+        # The score keeps the 10 strongest false candidates; the total is
+        # every detection credited to no track.
+        "false_candidates_total": len(unmatched),
+        "false_30": sum(d["hits"] >= 30 for d in unmatched),
+        "false_60": sum(d["hits"] >= 60 for d in unmatched),
         "strongest_false": [candidate(d, round(d["start_seconds"])) for d in strongest],
         "detections": len(scan["detections"]),
     }
