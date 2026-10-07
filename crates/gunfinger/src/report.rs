@@ -12,6 +12,7 @@ use gunfinger_core::plays::{self, SameAudio};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{self, Detection};
 use gunfinger_core::speed;
+use gunfinger_core::tags::Tags;
 use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::{Deserialize, Serialize};
 
@@ -130,6 +131,32 @@ pub struct FoundPlay {
     /// read.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub shares_material_with: Option<SharedWith>,
+    /// The asset's tags as the peak store held them. Absent in older
+    /// reports and for files indexed before tags were stored; their names
+    /// are read from the files.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tags: Option<PlayTags>,
+}
+
+/// A file's tags, empty when it has none.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+pub struct PlayTags {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub artist: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub album: Option<String>,
+}
+
+impl From<Tags> for PlayTags {
+    fn from(tags: Tags) -> PlayTags {
+        PlayTags {
+            artist: tags.artist,
+            title: tags.title,
+            album: tags.album,
+        }
+    }
 }
 
 /// The confident play a possible play lies inside.
@@ -293,8 +320,10 @@ impl FoundPlay {
         let path = |asset| catalog.index.asset(asset).path.clone();
         let play = &same.play;
         let total = play.total_evidence();
+        let asset = path(play.asset);
         FoundPlay {
-            asset: path(play.asset),
+            tags: catalog.tags(&asset).map(PlayTags::from),
+            asset,
             same_audio: same.also.iter().map(|&asset| path(asset)).collect(),
             start_seconds: offset + play.start_seconds(),
             end_seconds: offset + play.end_seconds(),

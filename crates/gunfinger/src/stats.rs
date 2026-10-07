@@ -164,7 +164,7 @@ fn peak_census(catalog: &Catalog, profile: &Profile) -> PeakCensus {
         count: 0,
         per_band: [0; BAND_EDGES_HZ.len()],
     };
-    for asset in &catalog.library.assets {
+    for asset in catalog.sources.values() {
         let Ok(record) = catalog.store.load(asset, profile) else {
             continue;
         };

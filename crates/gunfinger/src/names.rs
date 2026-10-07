@@ -1,9 +1,9 @@
-//! Track names for people, from the library files' tags.
+//! Track names for people, from the tags the peak store holds or, for older
+//! reports, from the library files' tags.
 
 use std::path::Path;
-use std::process::{Command, Stdio};
 
-use serde_json::Value;
+use gunfinger_core::decode::probe;
 
 /// `artist - title` from a file's tags when it has a title, otherwise its
 /// file name.
@@ -24,15 +24,21 @@ impl TrackName {
         }
     }
 
-    /// Reads the tags of `asset` under `library` with `ffprobe`; falls back
-    /// to the file name when the file, `ffprobe` or a title is missing.
-    pub fn from_tags(library: &Path, asset: &str) -> TrackName {
-        let tags = probe_tags(&library.join(asset));
-        let tag = |key: &str| tags.as_ref().and_then(|tags| find_tag(tags, key));
-        match tag("title") {
-            Some(title) => TrackName::tagged(tag("artist"), &title),
+    /// From tags already read; the file name of `asset` without a title.
+    pub fn named(artist: Option<&str>, title: Option<&str>, asset: &str) -> TrackName {
+        match title {
+            Some(title) => TrackName::tagged(artist.map(str::to_owned), title),
             None => TrackName::from_file_name(asset),
         }
+    }
+
+    /// Reads the tags of `asset` under `library` with `ffprobe`; falls back
+    /// to the file name when the file, `ffprobe` or a title is missing.
+    pub fn from_file(library: &Path, asset: &str) -> TrackName {
+        let tags = probe(&library.join(asset))
+            .map(|probe| probe.tags)
+            .unwrap_or_default();
+        TrackName::named(tags.artist.as_deref(), tags.title.as_deref(), asset)
     }
 
     /// Some files repeat the artist in the title (`Kraken - Side Effects`
@@ -57,55 +63,9 @@ impl TrackName {
     }
 }
 
-/// Container tags (MP3, MP4) and stream tags (Ogg, Opus) together.
-fn probe_tags(path: &Path) -> Option<Value> {
-    let output = Command::new("ffprobe")
-        .args(["-v", "error", "-show_entries", "format_tags:stream_tags"])
-        .args(["-of", "json"])
-        .arg(path)
-        .stdin(Stdio::null())
-        .output()
-        .ok()?;
-    serde_json::from_slice(&output.stdout).ok()
-}
-
-/// Tag keys differ in case between formats (`title`, `TITLE`).
-fn find_tag(probe: &Value, key: &str) -> Option<String> {
-    let format_tags = probe.get("format").and_then(|format| format.get("tags"));
-    let stream_tags = probe
-        .get("streams")
-        .and_then(Value::as_array)
-        .into_iter()
-        .flatten()
-        .filter_map(|stream| stream.get("tags"));
-    format_tags
-        .into_iter()
-        .chain(stream_tags)
-        .filter_map(Value::as_object)
-        .flat_map(|tags| tags.iter())
-        .find(|(name, _)| name.eq_ignore_ascii_case(key))
-        .and_then(|(_, value)| value.as_str())
-        .map(str::trim)
-        .filter(|value| !value.is_empty())
-        .map(str::to_owned)
-}
-
 #[cfg(test)]
 mod tests {
-    use serde_json::json;
-
     use super::*;
-
-    #[test]
-    fn tags_are_found_in_the_container_or_a_stream_in_any_case() {
-        let mp3 = json!({"format": {"tags": {"title": "Decoy", "artist": "Skynet & Stakka"}}});
-        let opus =
-            json!({"streams": [{"tags": {"TITLE": "Dominion", "ARTIST": "Kraken"}}], "format": {}});
-
-        assert_eq!(find_tag(&mp3, "artist").as_deref(), Some("Skynet & Stakka"));
-        assert_eq!(find_tag(&opus, "title").as_deref(), Some("Dominion"));
-        assert_eq!(find_tag(&opus, "album"), None);
-    }
 
     #[test]
     fn an_artist_repeated_in_the_title_is_dropped() {
@@ -118,8 +78,10 @@ mod tests {
 
     #[test]
     fn a_file_without_tags_is_named_by_its_file_name() {
-        let name = TrackName::from_tags(Path::new("/nonexistent"), "extra/Kraken - Dominion.opus");
+        let read = TrackName::from_file(Path::new("/nonexistent"), "extra/Kraken - Dominion.opus");
+        let stored = TrackName::named(Some("Kraken"), None, "extra/Kraken - Dominion.opus");
 
-        assert_eq!(name.full(), "Kraken - Dominion");
+        assert_eq!(read.full(), "Kraken - Dominion");
+        assert_eq!(stored.full(), "Kraken - Dominion");
     }
 }
