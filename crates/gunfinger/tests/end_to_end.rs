@@ -435,12 +435,12 @@ fn prune_deletes_records_of_removed_files_only_when_asked() {
 
     let listed = String::from_utf8_lossy(&listed.stdout);
     assert!(
-        listed.contains("would delete 1 files:\n  2.wav"),
+        listed.contains("would delete 2 files:\n  2.wav (peak record)\n  2.wav (tags)"),
         "{listed}"
     );
     let doctor = String::from_utf8_lossy(&doctor.stdout);
     assert!(
-        doctor.contains("1 records or notes are for files no longer in this library"),
+        doctor.contains("2 records or notes are for files no longer in this library"),
         "{doctor}"
     );
     assert_eq!(records, 1, "only 1.wav's record is left");

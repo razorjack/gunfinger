@@ -47,7 +47,8 @@ grouped, same-audio plays merged). `profile` holds the front-end
 parameters; changing one invalidates every peak record. Around it:
 `library` finds the audio files, `indexing` brings the peak store up to
 date (and remembers files that failed or are outside the track length
-range), `parallel` runs one item per worker thread, `timecode` parses and
+range), `tags` holds the artist, title and album the store keeps for each
+file, `parallel` runs one item per worker thread, `timecode` parses and
 formats times.
 
 In the CLI, `identify` searches and builds a `report` (the JSON report),

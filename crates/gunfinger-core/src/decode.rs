@@ -11,6 +11,8 @@ use std::process::{Child, ChildStderr, Command, ExitStatus, Stdio};
 use std::thread;
 use std::time::Duration;
 
+use crate::tags::Tags;
+
 /// The part of a file to decode. The default is the whole file.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Excerpt {
@@ -208,7 +210,7 @@ fn reject_if_truncated(
     diagnostics: &str,
 ) -> Result<(), DecodeError> {
     const TOLERANCE_SECONDS: f64 = 1.0;
-    let Some(container) = declared_length(path) else {
+    let Some(container) = probe(path).and_then(|probe| probe.length) else {
         return Ok(());
     };
     let start = excerpt.start.map_or(0.0, |start| start.as_secs_f64());
@@ -228,23 +230,89 @@ fn reject_if_truncated(
     Ok(())
 }
 
-/// The length the container declares, if `ffprobe` can tell. It reads only
-/// the header, so it costs a fraction of decoding. For an MP3 without a
-/// length header FFmpeg estimates it from the bitrate: within 0.3% on 60
-/// constant-bitrate library files, but a variable bitrate can throw it off.
-pub fn declared_length(path: &Path) -> Option<Duration> {
+/// What `ffprobe` reads from a file's header, without decoding the audio.
+#[derive(Debug, Default, PartialEq)]
+pub struct Probe {
+    /// The length the container declares. For an MP3 without a length
+    /// header FFmpeg estimates it from the bitrate: within 0.3% on 60
+    /// constant-bitrate library files, but a variable bitrate can throw it
+    /// off.
+    pub length: Option<Duration>,
+    /// Container tags first, then those of the streams (Ogg, Opus).
+    pub tags: Tags,
+}
+
+/// Reads the declared length and the tags of `path`, at a fraction of the
+/// cost of decoding. `None` when `ffprobe` cannot run or cannot read the
+/// file.
+pub fn probe(path: &Path) -> Option<Probe> {
     let output = Command::new("ffprobe")
-        .args(["-v", "error", "-show_entries", "format=duration"])
-        .args(["-of", "default=noprint_wrappers=1:nokey=1"])
+        .args(["-v", "error", "-of", "flat", "-show_entries"])
+        .arg("format=duration:format_tags:stream_tags")
         .arg(path)
         .stdin(Stdio::null())
         .output()
         .ok()?;
-    let seconds: f64 = String::from_utf8_lossy(&output.stdout)
-        .trim()
-        .parse()
-        .ok()?;
-    Duration::try_from_secs_f64(seconds).ok()
+    output
+        .status
+        .success()
+        .then(|| parse_probe(&String::from_utf8_lossy(&output.stdout)))
+}
+
+/// Parses `ffprobe -of flat`: one `key="value"` per line, such as
+/// `format.tags.title="China Cup"` or `streams.stream.0.tags.TITLE="..."`,
+/// with newlines and quotes inside values escaped.
+fn parse_probe(output: &str) -> Probe {
+    let mut length = None;
+    let mut format_tags = Tags::default();
+    let mut stream_tags = Tags::default();
+    for line in output.lines() {
+        let Some((key, value)) = line.split_once('=') else {
+            continue;
+        };
+        let value = unescape(value);
+        if key == "format.duration" {
+            length = value
+                .parse()
+                .ok()
+                .and_then(|seconds| Duration::try_from_secs_f64(seconds).ok());
+        } else if let Some(name) = key.strip_prefix("format.tags.") {
+            format_tags.offer(name, &value);
+        } else if let Some((_, name)) = key
+            .strip_prefix("streams.stream.")
+            .and_then(|rest| rest.split_once(".tags."))
+        {
+            stream_tags.offer(name, &value);
+        }
+    }
+    Probe {
+        length,
+        tags: format_tags.or(stream_tags),
+    }
+}
+
+/// A flat value without its quotes and backslash escapes.
+fn unescape(quoted: &str) -> String {
+    let inner = quoted
+        .strip_prefix('"')
+        .and_then(|rest| rest.strip_suffix('"'))
+        .unwrap_or(quoted);
+    let mut text = String::with_capacity(inner.len());
+    let mut characters = inner.chars();
+    while let Some(character) = characters.next() {
+        if character != '\\' {
+            text.push(character);
+            continue;
+        }
+        match characters.next() {
+            Some('n') => text.push('\n'),
+            Some('t') => text.push('\t'),
+            Some('r') => text.push('\r'),
+            Some(escaped) => text.push(escaped),
+            None => {}
+        }
+    }
+    text
 }
 
 /// The last few lines of FFmpeg's stderr: enough to see what went wrong
@@ -312,6 +380,39 @@ mod tests {
         data.extend([0, 0]);
 
         assert_eq!(read_samples(data.as_slice()).unwrap(), [1.0, 2.0]);
+    }
+
+    #[test]
+    fn a_probe_reads_the_length_and_prefers_container_tags() {
+        let output = [
+            r#"streams.stream.0.tags.TITLE="dominion""#,
+            r#"streams.stream.0.tags.ARTIST="KRAKEN""#,
+            r#"streams.stream.1.tags.comment="Cover (front)""#,
+            r#"format.duration="489.440000""#,
+            r#"format.tags.title="Dominion""#,
+        ]
+        .join("\n");
+
+        let probe = parse_probe(&output);
+
+        assert_eq!(probe.length, Some(Duration::from_secs_f64(489.44)));
+        assert_eq!(
+            probe.tags,
+            Tags {
+                artist: Some(String::from("KRAKEN")),
+                title: Some(String::from("Dominion")),
+                album: None,
+            }
+        );
+    }
+
+    #[test]
+    fn flat_values_lose_their_quotes_and_escapes() {
+        assert_eq!(
+            unescape(r#""one\ntwo \"quoted\" \\ end""#),
+            "one\ntwo \"quoted\" \\ end"
+        );
+        assert_eq!(unescape("bare"), "bare");
     }
 
     #[test]

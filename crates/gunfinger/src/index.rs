@@ -54,6 +54,9 @@ pub fn run(
                         asset.path
                     ));
                 }
+                Outcome::Tagged => {
+                    console.info(format_args!("[{count}/{total}] tags: {}", asset.path));
+                }
                 Outcome::UpToDate | Outcome::Remembered(_) => {}
                 Outcome::Rejected(reason) => console.info(format_args!(
                     "[{count}/{total}] skipped {}: {reason}",
@@ -81,10 +84,11 @@ fn print_summary(library: &Library, outcomes: &[Outcome], elapsed: Duration, con
         })
         .collect();
     console.info(format_args!(
-        "done in {:.1} s: {} extracted, {} up to date, {} too short, {} too long, {} failed, {} passed over as before",
+        "done in {:.1} s: {} extracted, {} up to date, {} tagged, {} too short, {} too long, {} failed, {} passed over as before",
         elapsed.as_secs_f64(),
         count(|outcome| matches!(outcome, Outcome::Extracted { .. })),
         count(|outcome| matches!(outcome, Outcome::UpToDate)),
+        count(|outcome| matches!(outcome, Outcome::Tagged)),
         count(|outcome| matches!(outcome, Outcome::Rejected(SkipReason::TooShort { .. }))),
         count(|outcome| matches!(outcome, Outcome::Rejected(SkipReason::TooLong { .. }))),
         count(|outcome| matches!(outcome, Outcome::Failed { .. })),

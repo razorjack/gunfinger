@@ -57,7 +57,12 @@ pub fn run(request: &Request) -> miette::Result<()> {
     let doomed: Vec<(&Stored, String)> = survey
         .orphans
         .iter()
-        .map(|orphan| (&orphan.stored, orphan.source.clone()))
+        .map(|orphan| {
+            (
+                &orphan.stored,
+                format!("{} ({})", orphan.source, kind(&orphan.stored)),
+            )
+        })
         .chain(survey.leftovers.iter().map(|stored| {
             (
                 stored,
@@ -91,4 +96,14 @@ pub fn run(request: &Request) -> miette::Result<()> {
         freed as f64 / 1e6
     );
     Ok(())
+}
+
+fn kind(stored: &Stored) -> &'static str {
+    match stored {
+        Stored::Record { .. } => "peak record",
+        Stored::Skip { .. } => "skip note",
+        Stored::Tags { .. } => "tags",
+        Stored::Unreadable { .. } => "unreadable",
+        Stored::Temporary { .. } => "temporary file",
+    }
 }

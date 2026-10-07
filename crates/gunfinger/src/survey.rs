@@ -23,6 +23,8 @@ pub struct Survey {
     pub failed: usize,
     pub too_short: usize,
     pub too_long: usize,
+    /// Library files whose tags the store holds.
+    pub tagged: usize,
     /// Records and notes of files that are not in the library.
     pub orphans: Vec<Orphan>,
     /// Left by writes that never finished, older than an hour.
@@ -46,6 +48,7 @@ impl Survey {
             + self.failed
             + self.too_short
             + self.too_long
+            + self.tagged
             + self.orphans.len()
     }
 }
@@ -64,6 +67,7 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
         failed: 0,
         too_short: 0,
         too_long: 0,
+        tagged: 0,
         orphans: Vec::new(),
         leftovers: Vec::new(),
         unreadable: Vec::new(),
@@ -96,6 +100,13 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
                 }
                 (&note.source.path, applies)
             }
+            Stored::Tags { note, .. } => {
+                let asset = assets.get(note.source.path.as_str());
+                (
+                    &note.source.path,
+                    asset.is_some_and(|asset| note.source == **asset),
+                )
+            }
             Stored::Temporary { .. } => {
                 let age = metadata
                     .and_then(|metadata| metadata.modified().ok())
@@ -111,13 +122,17 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
             }
         };
         match assets.get_key_value(source.as_str()) {
-            Some((&path, _)) if matches => {
-                if matches!(stored, Stored::Record { .. }) {
+            Some((&path, _)) if matches => match stored {
+                Stored::Tags { .. } => survey.tagged += 1,
+                Stored::Record { .. } => {
                     survey.current += 1;
+                    covered.insert(path);
                 }
-                covered.insert(path);
-            }
-            // A stale skip note is ignored by `index` and replaced in time.
+                _ => {
+                    covered.insert(path);
+                }
+            },
+            // A stale note is ignored by `index` and replaced in time.
             Some(_) => {
                 if matches!(stored, Stored::Record { .. }) {
                     survey.stale += 1;

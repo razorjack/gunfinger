@@ -12,7 +12,7 @@ blocked (with the reason). Scope and rules: `docs/brief-nas.md`.
 
 - [x] 1. Progress while `index` lists the library (also `identify`,
   `explain`, `stats`, `doctor`, `prune`)
-- [ ] 2. Tags in the peak store (probe, sidecar, `index` fills them in;
+- [x] 2. Tags in the peak store (probe, sidecar, `index` fills them in;
   survey, `prune`, `doctor`)
 - [ ] 3. Names in the report (schema version, renderers)
 - [ ] 4. A store-only index (`--store-only`, automatic without a library)
