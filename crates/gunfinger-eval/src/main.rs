@@ -5,6 +5,7 @@
 
 mod calibrate;
 mod clusters;
+mod fullest;
 mod grid;
 mod hash_cost;
 mod library_map;
@@ -222,6 +223,13 @@ enum Command {
         #[arg(long)]
         count_lines: bool,
     },
+    /// Count each indexed record's postings in the fullest posting lists,
+    /// the lists `--skip-fullest` sets aside when looking for candidates.
+    Fullest {
+        /// The share of non-empty lists, as for `--skip-fullest`.
+        #[arg(long, default_value_t = 0.01)]
+        share: f64,
+    },
     /// Rerun the standard evaluation and report what changed against a
     /// saved baseline.
     Regress {
@@ -269,10 +277,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Baseline { .. }
             | Command::Regress { .. }
             | Command::Memory { .. }
+            | Command::Fullest { .. }
     );
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress and memory do",
+            "this command does not take --other-peaks-dir; map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory and fullest do",
         ));
     }
     match command {
@@ -406,6 +415,23 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             )?;
             write_json(&paths.reports().join(format!("loss-{set}.json")), &report)?;
             loss::print_summary(&report);
+            Ok(())
+        }
+        Command::Fullest { share } => {
+            if !(share > 0.0 && share < 1.0) {
+                return Err(String::from("--share is a share above 0 and below 1"));
+            }
+            let report = fullest::run(
+                &paths.library()?,
+                &paths.store()?,
+                &paths.padding(&UNCHANGED_INDEX)?,
+                share,
+            )?;
+            write_json(
+                &paths.base_reports().join(format!("fullest-{share}.json")),
+                &report,
+            )?;
+            fullest::print_summary(&report);
             Ok(())
         }
         Command::Memory {
