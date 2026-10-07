@@ -631,7 +631,7 @@ First result (preliminary; robust and the four-seed protocol under both
 matchers are running): variant a widens each peak's neighbourhood in
 proportion to its frequency (9.4% of the bin, 4-24 bins either way; 12
 at 1 kHz as today), so the share of peaks at 2-4 kHz falls from 48% to
-27%. It has 8% fewer peaks and 9% fewer postings. Under today's matcher
+26%. It has 8% fewer peaks and 9% fewer postings. Under today's matcher
 the development mix's eleven tracks gain 34% more hits (Star Trails +72%,
 Side Effects +67%, every track at least +12%); on sweep 2026 and the
 development scans the margin rises from 5.16× to 6.44× (weakest
@@ -645,6 +645,24 @@ confident of 2,600 against 1,959, 2,278 possible or better against
 2,258, no wrong answer; it gains on codecs and low-passes and loses on
 blends at equal level (9 fewer confident), where the partner's bass
 competes with the added low peaks (inference).
+
+### The edge of the ladder: three more rungs cover ±9% for 14% more CPU
+
+Experiment 0033. With today's ladders (±8%) recall stays 40 of 40 to
+±8.4%, then falls: today's matcher has 39, 12 and 0 confident at -8.6%,
+-8.8% and -9% (+8.8%: 35); skip at 240 holds one step further (35 and 7
+at -8.8% and -9%). `--extra-rungs 3` adds three rungs at each end of both
+ladders (to ±9.2%, 94 rungs instead of 82): every edge speed is then 40
+of 40 under both matchers, with no wrong answer. It costs 14% more
+search CPU (development scan, three rounds: 268 to 306 s today's, 243 to
+278 s skip) and 8-11% more false candidates, all far below the rule;
+sweeps 2026-2029, margins, the development scans, mixes and grid are
+otherwise unchanged.
+
+For adoption: cheap insurance if a deck's fader goes past 8% (the
+classic Technics SL-1200 stops at ±8%; some decks and CDJs offer wider
+ranges). Against: 14% CPU for plays that may never happen in your mixes. My recommendation:
+adopt it only if you play past ±8%; you know your decks.
 
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 

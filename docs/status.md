@@ -629,3 +629,7 @@ baseline `session-4-start` saved; the session-start binaries are kept in
 - Item 7: 3 extra rungs at each end recover every speed to ±9% (today's
   ladders: 100% to ±8.4%, 0 confident at ±9%) for 14% more CPU; today's
   matcher's sweeps and mixes are otherwise identical.
+- Item 7 done (experiment 0033): full protocol with 3 extra rungs under
+  both matchers: sweeps, margins, scans, mixes and grid unchanged; false
+  candidates +8-11%; every edge speed to ±9% 40/40. The grid was left out
+  of later protocols (not in the brief's protocol; 37 minutes under load).

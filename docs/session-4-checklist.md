@@ -65,7 +65,7 @@ for scope and rules.
 
 ## 7. The edge of the ladder
 
-- [ ] Recall from ±8.2% to ±9%; the cost of extra rungs
+- [x] Recall from ±8.2% to ±9%; the cost of extra rungs (experiment 0033)
 
 ## 8. Small engineering
 

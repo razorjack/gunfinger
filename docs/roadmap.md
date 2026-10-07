@@ -101,9 +101,10 @@ marked as inferences were derived, not measured.
   `Index::skipping_fullest(0.01)` in `identify` and `explain`, make both the
   harness default, rerun the protocol, and spend one test evaluation: Sick
   Note (209 hits today) would most likely become possible (inference).
-- **The edge of the ladder.** Recall is 100% at ±8% and 0% at ±10%, with
-  nothing measured between. Measure ±8.2% to ±9%; if a deck's fader
-  reaches past 8%, a few more rungs may be cheap insurance.
+- **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
+  ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
+  3`) recover every speed to ±9% for 14% more search CPU and change
+  nothing else measured. The owner decides whether decks go past ±8%.
 - **Peaks across frequency bands.** 74% of reference hashes are anchored
   at 1-4 kHz, where the development mix keeps the least: 6% at 2-4 kHz
   against 36% below 250 Hz; a clean render of the same stretch keeps 54%
