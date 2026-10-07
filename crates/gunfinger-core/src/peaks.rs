@@ -162,8 +162,9 @@ impl<'p> PeakPicker<'p> {
         let value = self.rows[centre % self.rows.len()][bin];
         let first_frame = centre.saturating_sub(profile.neighbourhood_frames);
         let last_frame = (centre + profile.neighbourhood_frames).min(self.received - 1);
-        let first_bin = bin.saturating_sub(profile.neighbourhood_bins);
-        let last_bin = (bin + profile.neighbourhood_bins).min(self.rows[0].len() - 1);
+        let half = profile.neighbourhood_bins_at(bin);
+        let first_bin = bin.saturating_sub(half);
+        let last_bin = (bin + half).min(self.rows[0].len() - 1);
         for frame in first_frame..=last_frame {
             let row = &self.rows[frame % self.rows.len()];
             for other in first_bin..=last_bin {

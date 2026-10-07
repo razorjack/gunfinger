@@ -23,6 +23,20 @@ pub struct Profile {
     pub neighbourhood_bins: usize,
     /// Peaks quieter than this (in dB of STFT power) are noise floor.
     pub floor_db: f32,
+    /// With `Some`, the neighbourhood's half-size in bins grows with
+    /// frequency instead of `neighbourhood_bins` (a variant under
+    /// evaluation, spreading peaks more evenly across octaves).
+    pub spread: Option<Spread>,
+}
+
+/// A neighbourhood half-size in bins of `share` times the bin, within
+/// `min_bins..=max_bins`: the same width in octaves at every frequency
+/// between the limits.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Spread {
+    pub share: f32,
+    pub min_bins: usize,
+    pub max_bins: usize,
 }
 
 impl Profile {
@@ -37,12 +51,19 @@ impl Profile {
         neighbourhood_frames: 12,
         neighbourhood_bins: 12,
         floor_db: -10.0,
+        spread: None,
     };
 
     /// A stable textual identifier, stored in every peak record.
     pub fn id(&self) -> String {
+        let spread = self.spread.map_or_else(String::new, |spread| {
+            format!(
+                " spread={}:{}..{}",
+                spread.share, spread.min_bins, spread.max_bins
+            )
+        });
         format!(
-            "peaks-v2 rate={} fft={} hop={} bins={}..{} nbhd={}x{} floor={}",
+            "peaks-v2 rate={} fft={} hop={} bins={}..{} nbhd={}x{} floor={}{spread}",
             self.sample_rate,
             self.fft_size,
             self.hop,
@@ -52,6 +73,15 @@ impl Profile {
             self.neighbourhood_bins,
             self.floor_db,
         )
+    }
+
+    /// The neighbourhood's half-size in bins around `bin`.
+    pub fn neighbourhood_bins_at(&self, bin: usize) -> usize {
+        match self.spread {
+            None => self.neighbourhood_bins,
+            Some(spread) => ((bin as f32 * spread.share).round() as usize)
+                .clamp(spread.min_bins, spread.max_bins),
+        }
     }
 
     fn frames_per_second(&self) -> f64 {
@@ -68,5 +98,35 @@ impl Profile {
 
     pub fn bin_hz(&self) -> f64 {
         f64::from(self.sample_rate) / self.fft_size as f64
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_current_profile_keeps_the_identifier_its_records_carry() {
+        assert_eq!(
+            Profile::CURRENT.id(),
+            "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10"
+        );
+    }
+
+    #[test]
+    fn a_spread_neighbourhood_widens_with_frequency_within_its_limits() {
+        let spread = Profile {
+            spread: Some(Spread {
+                share: 0.094,
+                min_bins: 4,
+                max_bins: 24,
+            }),
+            ..Profile::CURRENT
+        };
+
+        assert_eq!(spread.neighbourhood_bins_at(10), 4);
+        assert_eq!(spread.neighbourhood_bins_at(128), 12);
+        assert_eq!(spread.neighbourhood_bins_at(400), 24);
+        assert!(spread.id().ends_with(" spread=0.094:4..24"));
     }
 }

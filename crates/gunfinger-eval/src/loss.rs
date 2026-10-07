@@ -80,6 +80,10 @@ pub struct WindowLoss {
     pub mix_fitted: Vec<u32>,
     pub mix_local: Vec<u32>,
     pub local_speed: f64,
+    /// Postings the mix's hashes on the nearest rung look up, per band of
+    /// their anchor: the search's cost of finding `mix_rung`.
+    #[serde(default)]
+    pub postings_rung: Vec<u64>,
     /// The same on a clean render of the stretch at the fitted speed.
     pub clean_rung: Vec<u32>,
     pub clean_fitted: Vec<u32>,
@@ -156,6 +160,7 @@ pub fn run(
         analyse_play(
             detection,
             record,
+            &index,
             &audio.samples,
             &others,
             library,
@@ -235,6 +240,7 @@ impl Alignment {
 fn analyse_play(
     detection: &Detection,
     record: &PeakRecord,
+    index: &Index,
     mix: &[f32],
     others: &[(f64, f64)],
     library: &Library,
@@ -319,6 +325,13 @@ fn analyse_play(
             mix_fitted: at(mix, 0.0, alignment.speed),
             mix_local: local.1,
             local_speed: local.0,
+            postings_rung: postings(
+                mix,
+                (from, to),
+                alignment.rung(nearest_rung),
+                index,
+                &profile,
+            ),
             clean_rung: at(&clean, clean_offset, nearest_rung),
             clean_fitted: at(&clean, clean_offset, alignment.speed),
         });
@@ -395,6 +408,36 @@ fn hits(
     counts
 }
 
+/// Postings looked up per band of the anchor, for the hashes anchored in
+/// query time `span` (seconds) of `samples` analysed on `rung`.
+fn postings(
+    samples: &[f32],
+    span: (f64, f64),
+    rung: Rung,
+    index: &Index,
+    profile: &Profile,
+) -> Vec<u64> {
+    let rate = f64::from(profile.sample_rate);
+    let slice_start = (span.0 - MARGIN_SECONDS).max(0.0);
+    let first = (slice_start * rate) as usize;
+    let last = (((span.1 + MARGIN_SECONDS) * rate) as usize).min(samples.len());
+    let mut counts = vec![0; BAND_EDGES_HZ.len()];
+    if first >= last {
+        return counts;
+    }
+    let speed = rung.speed().0;
+    let fps = profile.frames(1.0);
+    let points = rung.points(&samples[first..last], profile);
+    for_each_pair(&points, |hash, anchor| {
+        let point = points[anchor];
+        let seconds = slice_start + point.frame / speed / fps;
+        if (span.0..span.1).contains(&seconds) {
+            counts[band(point.bin, profile)] += index.postings(hash).len() as u64;
+        }
+    });
+    counts
+}
+
 pub fn print_summary(report: &LossReport) {
     let windows: Vec<(&PlayLoss, &WindowLoss)> = report
         .plays
@@ -442,6 +485,23 @@ pub fn print_summary(report: &LossReport) {
         print!(
             "  <{edge:.0} Hz {:.2}",
             sum(&|window| &window.mix_fitted) / sum(&|window| &window.clean_fitted).max(1.0)
+        );
+    }
+    println!();
+    print!("  by band, hits on the rung per 1,000 postings looked up:");
+    for (band, edge) in BAND_EDGES_HZ.iter().enumerate() {
+        let hits: f64 = windows
+            .iter()
+            .map(|(_, window)| f64::from(window.mix_rung[band]))
+            .sum();
+        let postings: f64 = windows
+            .iter()
+            .filter_map(|(_, window)| window.postings_rung.get(band))
+            .map(|&postings| postings as f64)
+            .sum();
+        print!(
+            "  <{edge:.0} Hz {:.2} ({postings:.0})",
+            1000.0 * hits / postings.max(1.0)
         );
     }
     println!();
