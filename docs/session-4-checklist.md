@@ -46,8 +46,8 @@ for scope and rules.
 
 - [x] Opt-in: the second pass fits the speed per stretch of a few windows
   (`--speed-per-stretch`; commit afc731c)
-- [ ] Star Trails, generated mixes, wow; extra analysis cost
-- [ ] Full protocol; case for adoption
+- [x] Star Trails, generated mixes, wow; extra analysis cost
+- [x] Full protocol; case for adoption
 
 ## 5. Peaks across frequency bands
 

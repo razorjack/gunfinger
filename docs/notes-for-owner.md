@@ -593,6 +593,27 @@ only 7.6 s of overshoot to remove, and trimming costs 221 s the same way.
 The link rules (0030) remove 78.4 s of overshoot at 22.2 s of true play.
 My recommendation: do not adopt trimming.
 
+### Speed per stretch: more hits where speed drifts, no level changes
+
+`--speed-per-stretch` (commit afc731c; experiment 0032) lets the second
+pass fit a speed for each stretch of 3 windows and measure it again when
+that speed is 0.05% or more from the play's. It exists only with the
+second pass, so it was measured under skip at 240. Star Trails gains 11%
+(1,558 to 1,733 hits) and the robust pitch ride (2% over 30 s) 9%; wow
+(±0.2% at 0.55 and 0.75 Hz) is too fast for a 30 s stretch and is
+unchanged, as are blends and beatmatched partners. Some plays lose a
+little (Dominion -3.2%, Pathogen -1.3%) because the new measurement
+replaces the old one, and false candidates gain too (strongest in the
+mixes 42 to 50, in sweep 2026 99 to 109). It costs no measurable CPU on
+the development scan (241 s either way, three rounds). Nothing changes
+level in the sweeps, development scans, mixes or grid.
+
+For adoption: it recovers evidence exactly where the brief expected, for
+free. Against: no detection in our sets needs it, and it lifts the
+strongest false candidates by 10-19%. My recommendation:
+keep it opt-in, and look again if a real play near the 240-hit rule
+turns out to be a slow pitch ride.
+
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 
 On an idle machine, scanning the 56-minute development mix at 26,462

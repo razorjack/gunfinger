@@ -616,3 +616,7 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   of true play on 72 of 115 plays; under skip at 240 it removes 0.5 s
   for 221 s. Not recommended; the link rules fix the overshoot at a
   tenth of the cost.
+- Item 4 measured (experiment 0032, under skip at 240, since it needs the
+  second pass): Star Trails +11% and the robust pitch ride +9% hits; wow
+  unchanged; Dominion -3.2%; no level changes anywhere; no measurable CPU
+  (development scan 241 s either way). Recommended to stay opt-in.
