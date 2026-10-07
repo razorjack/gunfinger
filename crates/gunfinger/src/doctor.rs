@@ -213,6 +213,16 @@ fn check_library(
             survey.bytes as f64 / 1e6
         ),
     );
+    if survey.tagged < survey.current {
+        checkup.line(
+            Status::Note,
+            format!(
+                "{} of {} current records have no stored tags; `gunfinger index` reads them from the files",
+                survey.current - survey.tagged,
+                survey.current
+            ),
+        );
+    }
     let passed_over = survey.failed + survey.too_short + survey.too_long;
     if passed_over > 0 {
         checkup.line(

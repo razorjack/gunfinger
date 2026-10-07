@@ -14,4 +14,5 @@ pub mod search;
 pub mod spectrogram;
 pub mod speed;
 pub mod store;
+pub mod tags;
 pub mod timecode;

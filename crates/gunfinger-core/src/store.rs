@@ -34,6 +34,17 @@
 //!                 2 too short, then the limit not reached (f64 seconds)
 //! ```
 //!
+//! The tags of an indexed file, which name its track when the library
+//! itself cannot be read, sit beside its record:
+//!
+//! ```text
+//! magic           8 bytes  "GUNFTAGS"
+//! format version  u16
+//! source path, size and mtime, as in a record
+//! artist, title, album: each u8 0 when absent, or 1 then u16 length +
+//!                 UTF-8
+//! ```
+//!
 //! Records are named by their path relative to the library root, so two
 //! libraries sharing a store would overwrite each other's records. The
 //! store therefore names its library in `library.txt`: the absolute path
@@ -51,6 +62,7 @@ use std::time::Duration;
 use crate::library::{Asset, Timestamp};
 use crate::peaks::{BIN_STEPS, FRAME_STEPS, MAGNITUDE_STEPS_PER_DB, Peak};
 use crate::profile::Profile;
+use crate::tags::Tags;
 use crate::timecode::format_timecode;
 
 const MAGIC: &[u8; 8] = b"GUNFPEAK";
@@ -59,8 +71,12 @@ const SKIP_MAGIC: &[u8; 8] = b"GUNFSKIP";
 /// Names the library whose records the store holds.
 const LIBRARY_FILE: &str = "library.txt";
 const SKIP_FORMAT_VERSION: u16 = 1;
+const TAGS_MAGIC: &[u8; 8] = b"GUNFTAGS";
+const TAGS_FORMAT_VERSION: u16 = 1;
 /// Longer decoder messages are cut; the start says what went wrong.
 const MAX_REASON_BYTES: usize = 2000;
+/// Longer tags are cut; no artist or title comes near it.
+const MAX_TAG_BYTES: usize = 1000;
 /// The quietest magnitude a `u8` field can hold. The peak picker's floor is
 /// above it and STFT power of audio in [-1, 1] stays below its ceiling of
 /// 107.5 dB, so clamping never happens in practice.
@@ -117,6 +133,13 @@ impl fmt::Display for SkipReason {
     }
 }
 
+/// The tags of an asset's file as `index` read them, possibly none.
+#[derive(Debug, Clone, PartialEq)]
+pub struct TagNote {
+    pub source: Asset,
+    pub tags: Tags,
+}
+
 /// A file in the store directory, as `PeakStore::survey` finds it.
 #[derive(Debug)]
 pub enum Stored {
@@ -128,7 +151,11 @@ pub enum Stored {
         file: PathBuf,
         note: SkipNote,
     },
-    /// Not a record or skip note this version can read.
+    Tags {
+        file: PathBuf,
+        note: TagNote,
+    },
+    /// Not a record or note this version can read.
     Unreadable {
         file: PathBuf,
         reason: String,
@@ -144,6 +171,7 @@ impl Stored {
         match self {
             Stored::Record { file, .. }
             | Stored::Skip { file, .. }
+            | Stored::Tags { file, .. }
             | Stored::Unreadable { file, .. }
             | Stored::Temporary { file } => file,
         }
@@ -335,6 +363,23 @@ impl PeakStore {
         })
     }
 
+    fn tags_path(&self, asset_path: &str) -> PathBuf {
+        self.record_path(asset_path).with_extension("tags")
+    }
+
+    /// The tags `index` read from this exact file, if it read them.
+    pub fn tags(&self, asset: &Asset) -> Option<Tags> {
+        let file = File::open(self.tags_path(&asset.path)).ok()?;
+        let note = read_tags(&mut BufReader::new(file)).ok()?;
+        (note.source == *asset).then_some(note.tags)
+    }
+
+    pub fn save_tags(&self, note: &TagNote) -> Result<(), StoreError> {
+        write_atomically(&self.tags_path(&note.source.path), |out| {
+            write_tags(out, note)
+        })
+    }
+
     fn forget_skip(&self, asset_path: &str) -> Result<(), StoreError> {
         let path = self.skip_path(asset_path);
         match fs::remove_file(&path) {
@@ -391,25 +436,34 @@ fn survey_file(file: PathBuf) -> Stored {
     if extension.starts_with("tmp") {
         return Stored::Temporary { file };
     }
-    let opened = File::open(&file).map(BufReader::new);
-    let read = match (extension, opened) {
-        ("peaks", Ok(mut reader)) => read_header(&mut reader).map(|header| (Some(header), None)),
-        ("skip", Ok(mut reader)) => read_skip(&mut reader).map(|note| (None, Some(note))),
-        (_, Ok(_)) => Err(invalid("not a gunfinger file")),
-        (_, Err(error)) => Err(error),
+    let mut reader = match File::open(&file) {
+        Ok(opened) => BufReader::new(opened),
+        Err(error) => {
+            return Stored::Unreadable {
+                file,
+                reason: error.to_string(),
+            };
+        }
     };
-    match read {
-        Ok((Some(header), _)) => Stored::Record { file, header },
-        Ok((_, Some(note))) => Stored::Skip { file, note },
-        Ok((None, None)) => Stored::Unreadable {
-            file,
-            reason: String::from("empty"),
-        },
-        Err(error) => Stored::Unreadable {
-            file,
-            reason: error.to_string(),
-        },
-    }
+    let read = match extension {
+        "peaks" => read_header(&mut reader).map(|header| Stored::Record {
+            file: file.clone(),
+            header,
+        }),
+        "skip" => read_skip(&mut reader).map(|note| Stored::Skip {
+            file: file.clone(),
+            note,
+        }),
+        "tags" => read_tags(&mut reader).map(|note| Stored::Tags {
+            file: file.clone(),
+            note,
+        }),
+        _ => Err(invalid("not a gunfinger file")),
+    };
+    read.unwrap_or_else(|error| Stored::Unreadable {
+        file,
+        reason: error.to_string(),
+    })
 }
 
 /// Writes through a temporary file and a rename, so a crash never leaves a
@@ -458,11 +512,7 @@ fn write_skip(out: &mut impl Write, note: &SkipNote) -> io::Result<()> {
     match &note.reason {
         SkipReason::Failed(message) => {
             out.write_all(&[0])?;
-            let mut end = message.len().min(MAX_REASON_BYTES);
-            while !message.is_char_boundary(end) {
-                end -= 1;
-            }
-            write_text(out, &message[..end])
+            write_text(out, clipped(message, MAX_REASON_BYTES))
         }
         SkipReason::TooLong { limit } => {
             out.write_all(&[1])?;
@@ -575,6 +625,61 @@ fn read_peaks(input: &mut impl Read) -> io::Result<Vec<Peak>> {
         return Err(invalid("trailing bytes after the last peak"));
     }
     Ok(peaks)
+}
+
+fn write_tags(out: &mut impl Write, note: &TagNote) -> io::Result<()> {
+    out.write_all(TAGS_MAGIC)?;
+    out.write_all(&TAGS_FORMAT_VERSION.to_le_bytes())?;
+    write_source(out, &note.source)?;
+    let Tags {
+        artist,
+        title,
+        album,
+    } = &note.tags;
+    for tag in [artist, title, album] {
+        match tag {
+            Some(text) => {
+                out.write_all(&[1])?;
+                write_text(out, clipped(text, MAX_TAG_BYTES))?;
+            }
+            None => out.write_all(&[0])?,
+        }
+    }
+    Ok(())
+}
+
+fn read_tags(input: &mut impl Read) -> io::Result<TagNote> {
+    let mut magic = [0; 8];
+    input.read_exact(&mut magic)?;
+    if &magic != TAGS_MAGIC {
+        return Err(invalid("not a tag note"));
+    }
+    if u16::from_le_bytes(read_array(input)?) != TAGS_FORMAT_VERSION {
+        return Err(invalid("unsupported tag note version"));
+    }
+    let source = read_source(input)?;
+    let mut tag = || -> io::Result<Option<String>> {
+        match read_array(input)? {
+            [0] => Ok(None),
+            [1] => read_text(input).map(Some),
+            _ => Err(invalid("unknown tag marker")),
+        }
+    };
+    let tags = Tags {
+        artist: tag()?,
+        title: tag()?,
+        album: tag()?,
+    };
+    Ok(TagNote { source, tags })
+}
+
+/// The start of `text`, at most `max` bytes, cut at a character boundary.
+fn clipped(text: &str, max: usize) -> &str {
+    let mut end = text.len().min(max);
+    while !text.is_char_boundary(end) {
+        end -= 1;
+    }
+    &text[..end]
 }
 
 fn write_text(out: &mut impl Write, text: &str) -> io::Result<()> {
@@ -777,6 +882,35 @@ mod tests {
     }
 
     #[test]
+    fn tags_are_kept_for_the_exact_file_and_surveyed() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-tags-{}", std::process::id()));
+        let store = PeakStore::open(&dir).unwrap();
+        let note = TagNote {
+            source: asset(),
+            tags: Tags {
+                artist: Some(String::from("Bad Company")),
+                title: Some(String::from("The Nine")),
+                album: None,
+            },
+        };
+        let mut touched = asset();
+        touched.size += 1;
+
+        store.save_tags(&note).unwrap();
+        let read = store.tags(&asset());
+        let for_changed_file = store.tags(&touched);
+        let surveyed = store.survey().unwrap();
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert_eq!(read, Some(note.tags));
+        assert_eq!(for_changed_file, None);
+        assert!(
+            matches!(&surveyed[..], [Stored::Tags { note: found, .. }] if found.source == asset()),
+            "{surveyed:?}"
+        );
+    }
+
+    #[test]
     fn length_notes_keep_their_limits() {
         let dir =
             std::env::temp_dir().join(format!("gunfinger-length-notes-{}", std::process::id()));
@@ -833,6 +967,7 @@ mod tests {
             .map(|stored| match stored {
                 Stored::Record { .. } => "record",
                 Stored::Skip { .. } => "skip",
+                Stored::Tags { .. } => "tags",
                 Stored::Unreadable { .. } => "unreadable",
                 Stored::Temporary { .. } => "temporary",
             })

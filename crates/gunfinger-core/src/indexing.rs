@@ -2,15 +2,18 @@
 
 use std::collections::BTreeSet;
 use std::fmt;
+use std::path::Path;
 use std::time::Duration;
 
-use crate::decode::{Excerpt, declared_length, decode};
+use crate::decode::{Excerpt, decode, probe};
 use crate::index::{Index, IndexError};
 use crate::library::{Asset, Library};
 use crate::parallel::map_in_order;
 use crate::peaks::extract_peaks;
 use crate::profile::Profile;
-use crate::store::{PeakRecord, PeakStore, RecordHeader, SkipNote, SkipReason, StoreError, fnv1a};
+use crate::store::{
+    PeakRecord, PeakStore, RecordHeader, SkipNote, SkipReason, StoreError, TagNote, fnv1a,
+};
 use crate::timecode::format_timecode;
 
 /// A declared length decides on its own only when it is this far outside
@@ -25,6 +28,9 @@ pub enum Outcome {
         peaks: usize,
     },
     UpToDate,
+    /// Up to date, and its tags, which the store lacked, were read from the
+    /// file's header.
+    Tagged,
     /// Not a track: `TooShort` or `TooLong` for the track length range.
     Rejected(SkipReason),
     Failed {
@@ -120,8 +126,12 @@ fn index_asset(
     profile: &Profile,
     options: &IndexingOptions,
 ) -> Outcome {
+    let path = library.absolute_path(asset);
     if store.has_current(asset, profile) {
-        return Outcome::UpToDate;
+        return match store.tags(asset) {
+            Some(_) => Outcome::UpToDate,
+            None => tag(store, asset, &path),
+        };
     }
     let length = options.length;
     if !options.retry_skipped
@@ -137,9 +147,11 @@ fn index_asset(
             return Outcome::Remembered(note.reason);
         }
     }
-    let path = library.absolute_path(asset);
+    let probe = probe(&path);
     // A set in a folder of tracks is rejected from its header alone.
-    if let Some(reason) = declared_length(&path)
+    if let Some(reason) = probe
+        .as_ref()
+        .and_then(|probe| probe.length)
         .and_then(|declared| length.rejects_beyond(declared, DECLARED_LENGTH_MARGIN))
     {
         remember(store, asset, reason.clone());
@@ -175,13 +187,36 @@ fn index_asset(
         },
         peaks: extract_peaks(&audio.samples, profile),
     };
-    match store.save(&record) {
-        Ok(()) => Outcome::Extracted {
-            peaks: record.peaks.len(),
-        },
-        Err(error) => Outcome::Failed {
+    if let Err(error) = store.save(&record) {
+        return Outcome::Failed {
             reason: error.to_string(),
-        },
+        };
+    }
+    // Without tags the record still serves; the next run reads them.
+    if let Some(probe) = probe {
+        let _ = store.save_tags(&TagNote {
+            source: asset.clone(),
+            tags: probe.tags,
+        });
+    }
+    Outcome::Extracted {
+        peaks: record.peaks.len(),
+    }
+}
+
+/// Stores the tags of an up-to-date asset, reading only its header. A file
+/// without tags gets an empty note, so it is not read again.
+fn tag(store: &PeakStore, asset: &Asset, path: &Path) -> Outcome {
+    let Some(probe) = probe(path) else {
+        return Outcome::UpToDate;
+    };
+    let saved = store.save_tags(&TagNote {
+        source: asset.clone(),
+        tags: probe.tags,
+    });
+    match saved {
+        Ok(()) => Outcome::Tagged,
+        Err(_) => Outcome::UpToDate,
     }
 }
 
