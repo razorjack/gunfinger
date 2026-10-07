@@ -61,7 +61,7 @@ impl Catalog {
         report_outside(&outside, track_length, console);
         if index.assets().is_empty() {
             return Err(miette!(
-                help = "run `gunfinger index {}` first",
+                help = format!("run `gunfinger index {}` first", library_root.display()),
                 "no indexed assets in {}",
                 library_root.display()
             ));

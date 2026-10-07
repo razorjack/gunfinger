@@ -487,6 +487,26 @@ fn a_peak_store_holds_the_records_of_one_library() {
 }
 
 #[test]
+fn an_unindexed_library_is_named_in_the_advice_to_index_it() {
+    let dir = scratch_dir("unindexed");
+    std::fs::create_dir_all(dir.join("library")).unwrap();
+    let output = Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+        .args(["stats", "--library", "library", "--peaks-dir", "peaks"])
+        .current_dir(&dir)
+        .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("NO_COLOR", "1")
+        .output()
+        .unwrap();
+
+    assert!(!output.status.success());
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(
+        stderr.contains("run `gunfinger index library` first"),
+        "{stderr}"
+    );
+}
+
+#[test]
 fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     if !ffmpeg_available() {
         return;
