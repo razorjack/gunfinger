@@ -639,3 +639,7 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   unknown provenance; a fresh run gives 1,995, as in session 3, and is
   the baseline used. CPU of the variants not measured:
   the machine had other load.
+- Session 4 complete: all eight items done and committed; README,
+  roadmap, calibration and the session 4 summary at the top of
+  `docs/session-notes.md` updated. No test-set evaluation spent; default
+  detection unchanged.
