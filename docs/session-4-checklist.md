@@ -60,7 +60,7 @@ for scope and rules.
 ## 6. Detection boundaries
 
 - [x] Opt-in trimming of weak chain ends (`--trim-ends`; commit afc731c)
-- [ ] Against the generated mixes' exact boundaries: true coverage lost
+- [x] Against the generated mixes' exact boundaries: true coverage lost
   beside the gain
 
 ## 7. The edge of the ladder

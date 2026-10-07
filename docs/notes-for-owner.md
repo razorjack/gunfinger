@@ -579,6 +579,20 @@ windows splits a play into segments (Star Trails at 13:20, +4.5% to
 recommendation, for you to decide: adopt both rules with whichever
 matcher you choose; with skip at 240 they add margin at no cost.
 
+### Trimming weak chain ends costs more true play than it removes
+
+`--trim-ends` (commit afc731c; experiment 0031) leaves lines at either
+end of a chain with under a quarter of the chain's median hits out of
+the boundaries. Detection levels are unchanged under both matchers. On
+the generated mixes' exact boundaries, under today's matcher, it removes
+84.7 s of overshoot from 6 plays (86.0 to 1.3 s) and cuts 218.8 s of
+true play from 72 of 115 plays (median 3.1 s, largest 8.2 s): a play's
+first and last windows are often partial or under a crossfade, so they
+are as weak as a chance line (inference). Under skip at 240 there was
+only 7.6 s of overshoot to remove, and trimming costs 221 s the same way.
+The link rules (0030) remove 78.4 s of overshoot at 22.2 s of true play.
+My recommendation: do not adopt trimming.
+
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 
 On an idle machine, scanning the 56-minute development mix at 26,462

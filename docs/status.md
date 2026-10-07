@@ -608,3 +608,11 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   Dominion and the grid's eight 10 s plays drop to possible (their third
   window was chance). Under skip at 240 the margin rises from 5.53× to
   6.65×. Star Trails splits into two segments at its speed change.
+- Small fix found while preparing item 5 (commit 0651b12): with no
+  indexed assets, the advice read "run `gunfinger index {}` first"; it now
+  names the library. Test added; `scripts/check.sh` green.
+- Item 6 measured (experiment 0031): `--trim-ends` takes the mixes'
+  overshoot from 86.0 to 1.3 s under today's matcher but loses 218.8 s
+  of true play on 72 of 115 plays; under skip at 240 it removes 0.5 s
+  for 221 s. Not recommended; the link rules fix the overshoot at a
+  tenth of the cost.
