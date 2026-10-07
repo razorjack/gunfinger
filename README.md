@@ -170,7 +170,7 @@ settings in effect and the file they came from.
 
 | Key | Flag | Environment | Default | Meaning |
 |-----|------|-------------|---------|---------|
-| `library` | `--library` | | none | Library root for `index`, `identify`, `explain`, `stats`, `doctor` and `prune` |
+| `library` | `--library` | | none | Library root for `index`, `identify`, `explain`, `stats`, `doctor` and `prune`; `identify`, `explain` and `stats` search the peak store alone without it ([Without the library](#without-the-library)) |
 | `peaks_dir` | `--peaks-dir` | `GUNFINGER_PEAKS_DIR` | `work/peaks`, relative to the current directory | The peak store |
 | `jobs` | `--jobs` | `GUNFINGER_JOBS` | one per core | Worker threads |
 | `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | Colour in human output: `auto` (on a terminal), `always` or `never` |
@@ -252,6 +252,32 @@ file:
 target/release/gunfinger --config ~/.config/gunfinger/jungle.toml index
 GUNFINGER_CONFIG=~/.config/gunfinger/jungle.toml target/release/gunfinger identify mix.m4a
 ```
+
+### Without the library
+
+Each peak record names its file, and `index` keeps each file's artist,
+title and album beside its record, so the peak store alone is enough to
+identify tracks and name them. When no library is given, or the library
+cannot be read (an unmounted network share, for example), `identify`,
+`explain` and `stats` search the store's current records and say so in one
+line; `--store-only` does the same when the library can be read. Reports
+name the library the store names, so `listen` and `review` play the tracks
+once it is back. Without the library there is no telling which files have
+changed or been deleted since they were indexed: their records are searched
+until `index` or `prune` replaces or removes them. A store indexed before
+it kept tags gets them from the next `index`, which reads only the files'
+headers.
+
+To identify tracks on another computer, run `prune` (and `index`), copy the
+store's directory, about 180 bytes per second of audio (`gunfinger stats`
+shows its size), install Gunfinger and FFmpeg there, and name the copy:
+
+```sh
+target/release/gunfinger --peaks-dir /Volumes/STICK/peaks identify mix.m4a --format tracklist
+```
+
+The track length range in effect there applies, as it does to a library.
+`gunfinger doctor --peaks-dir ...` checks the copy.
 
 ## Development
 
