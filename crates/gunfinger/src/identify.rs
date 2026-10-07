@@ -10,13 +10,12 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use gunfinger_core::decode::{Excerpt, decode};
-use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::search_with_progress;
 use gunfinger_core::timecode::format_timecode;
 use miette::{IntoDiagnostic, WrapErr, miette};
 
-use crate::catalog::{Catalog, absolute};
+use crate::catalog::{Catalog, Indexable, Source, absolute};
 use crate::console::Console;
 use crate::output::{ReportFormat, render};
 use crate::playback::PlaybackChoice;
@@ -25,12 +24,9 @@ use crate::style::Style;
 
 pub struct Request<'a> {
     pub audio: &'a [PathBuf],
-    pub library: &'a Path,
-    pub peaks_dir: &'a Path,
+    pub source: Source<'a>,
     pub excerpt: Excerpt,
     pub playback: PlaybackChoice,
-    pub track_length: TrackLength,
-    pub exclude_from: Option<&'a Path>,
     pub format: ReportFormat,
     /// Where to write each recording's JSON report, named after it.
     pub save_dir: Option<&'a Path>,
@@ -49,20 +45,22 @@ pub fn run(request: &Request) -> miette::Result<()> {
             "several recordings can only be printed in the human, timeline or tracklist format"
         ));
     }
-    let jobs = plan(request)?;
+    // Checked first: listing the library and building the index take
+    // seconds, and FFmpeg's own message for a missing file is hard to read.
+    for audio in request.audio {
+        File::open(audio)
+            .into_diagnostic()
+            .wrap_err_with(|| format!("cannot read {}", audio.display()))?;
+    }
+    let indexable = Indexable::find(&request.source, request.console)?;
+    let jobs = plan(request, &indexable)?;
     if jobs.is_empty() {
         request
             .console
             .info("every recording already has a report (--again searches them anyway)");
         return Ok(());
     }
-    let catalog = Catalog::open(
-        request.library,
-        request.peaks_dir,
-        request.exclude_from,
-        request.track_length,
-        request.console,
-    )?;
+    let catalog = Catalog::open(indexable, request.console)?;
     let mut failed = 0;
     for (audio, saved) in &jobs {
         if several {
@@ -100,14 +98,10 @@ pub fn run(request: &Request) -> miette::Result<()> {
 /// Each recording with the report file it gets, leaving out those already
 /// reported with the same settings. Two recordings with the same name would
 /// share a report file.
-fn plan(request: &Request) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
-    // Checked first: building the index takes seconds, and FFmpeg's own
-    // message for a missing file is hard to read.
-    for audio in request.audio {
-        File::open(audio)
-            .into_diagnostic()
-            .wrap_err_with(|| format!("cannot read {}", audio.display()))?;
-    }
+fn plan(
+    request: &Request,
+    indexable: &Indexable,
+) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
     let Some(dir) = request.save_dir else {
         return Ok(request
             .audio
@@ -125,13 +119,7 @@ fn plan(request: &Request) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
         .iter()
         .any(|audio| report_path(dir, audio).exists());
     let current = if any_saved && !request.again {
-        Some(SearchSettings::current(&Catalog::revision_now(
-            request.library,
-            request.peaks_dir,
-            request.exclude_from,
-            request.track_length,
-            request.console,
-        )?))
+        Some(SearchSettings::current(&indexable.revision()))
     } else {
         None
     };

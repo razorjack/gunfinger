@@ -11,7 +11,7 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::PeakStore;
 use miette::miette;
 
-use crate::catalog::scan_library;
+use crate::catalog::{scan_library, store_records};
 use crate::config::Settings;
 use crate::console::Console;
 use crate::style::Style;
@@ -94,9 +94,12 @@ pub fn run(
         ),
         None => {
             checkup.section("library");
-            checkup.line(
-                Status::Problem,
-                "no library given: pass --library or set `library` in the configuration file",
+            check_store_alone(
+                &mut checkup,
+                Status::Note,
+                "no library given (--library, or `library` in the configuration file)",
+                None,
+                &settings.peaks_dir,
             );
         }
     }
@@ -146,6 +149,86 @@ fn version(tool: &str) -> Option<String> {
     Some(first.split_whitespace().nth(2).unwrap_or(first).to_owned())
 }
 
+/// Without a library to read, `identify`, `explain` and `stats` search the
+/// store's own records: a problem only when it holds none.
+fn check_store_alone(
+    checkup: &mut Checkup,
+    status: Status,
+    reason: &str,
+    root: Option<&Path>,
+    peaks_dir: &Path,
+) {
+    let (store, (sources, unreadable)) = match store_records(peaks_dir) {
+        Ok(Some(found)) => found,
+        Ok(None) => {
+            checkup.line(
+                Status::Problem,
+                format!("{reason}, and the peak store holds no current records"),
+            );
+            return;
+        }
+        Err(error) => {
+            checkup.line(Status::Problem, format!("{reason}; {error}"));
+            return;
+        }
+    };
+    checkup.line(
+        status,
+        format!(
+            "{reason}; identify, explain and stats search the {} records in the peak store",
+            sources.len()
+        ),
+    );
+    checkup.section("peak store");
+    if let Some(root) = root
+        && let Err(error) = store.check_library(root)
+    {
+        checkup.line(Status::Problem, error);
+        return;
+    }
+    match store.library() {
+        Ok(Some(name)) => checkup.line(Status::Ok, format!("it names the library at {name}")),
+        _ => checkup.line(
+            Status::Note,
+            "it does not name its library, so reports cannot say where to listen to the tracks",
+        ),
+    }
+    let bytes: u64 = sources
+        .iter()
+        .filter_map(|source| store.record_bytes(&source.path).ok())
+        .sum();
+    checkup.line(
+        Status::Ok,
+        format!(
+            "{} current records, {:.1} MB on disk",
+            sources.len(),
+            bytes as f64 / 1e6
+        ),
+    );
+    let untagged = sources
+        .iter()
+        .filter(|source| store.tags(source).is_none())
+        .count();
+    if untagged > 0 {
+        checkup.line(
+            Status::Note,
+            format!(
+                "{untagged} of {} current records have no stored tags, so tracklists name them by file name",
+                sources.len()
+            ),
+        );
+    }
+    if !unreadable.is_empty() {
+        checkup.line(
+            Status::Problem,
+            format!(
+                "{} records cannot be read; `gunfinger index` with the library writes them again",
+                unreadable.len()
+            ),
+        );
+    }
+}
+
 fn check_library(
     checkup: &mut Checkup,
     root: &Path,
@@ -158,7 +241,13 @@ fn check_library(
         Ok(library) => library,
         Err(error) => {
             let causes: Vec<String> = error.chain().map(ToString::to_string).collect();
-            checkup.line(Status::Problem, causes.join(": "));
+            check_store_alone(
+                checkup,
+                Status::Warning,
+                &causes.join(": "),
+                Some(root),
+                peaks_dir,
+            );
             return;
         }
     };

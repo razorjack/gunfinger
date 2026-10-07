@@ -99,9 +99,14 @@ enum Command {
         #[arg(required = true)]
         audio: Vec<PathBuf>,
         /// Root directory of the indexed library [default: `library` in the
-        /// configuration file].
+        /// configuration file]. Without one, or when it cannot be read, the
+        /// peak store's own records are searched.
         #[arg(long)]
         library: Option<PathBuf>,
+        /// Search the peak store's own records without reading the library,
+        /// for example from a copy of the store on another computer.
+        #[arg(long, conflicts_with = "library")]
+        store_only: bool,
         /// Start of the part to search (seconds, M:SS or H:MM:SS).
         #[arg(long, value_parser = parse_timecode)]
         start: Option<Duration>,
@@ -135,9 +140,14 @@ enum Command {
         /// The recording, typically a DJ mix.
         audio: PathBuf,
         /// Root directory of the indexed library [default: `library` in the
-        /// configuration file].
+        /// configuration file]. Without one, or when it cannot be read, the
+        /// peak store's own records are searched.
         #[arg(long)]
         library: Option<PathBuf>,
+        /// Search the peak store's own records without reading the library,
+        /// for example from a copy of the store on another computer.
+        #[arg(long, conflicts_with = "library")]
+        store_only: bool,
         /// The moment to explain (seconds, M:SS or H:MM:SS).
         #[arg(long, value_parser = parse_timecode)]
         at: Duration,
@@ -231,9 +241,14 @@ enum Command {
     /// Measure the peak store and the index of a library.
     Stats {
         /// Root directory of the indexed library [default: `library` in the
-        /// configuration file].
+        /// configuration file]. Without one, or when it cannot be read, the
+        /// peak store's own records are searched.
         #[arg(long)]
         library: Option<PathBuf>,
+        /// Search the peak store's own records without reading the library,
+        /// for example from a copy of the store on another computer.
+        #[arg(long, conflicts_with = "library")]
+        store_only: bool,
         /// Output format.
         #[arg(long, short, value_enum, default_value_t = Format::Human)]
         format: Format,
@@ -287,6 +302,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
         Command::Identify {
             audio,
             library,
+            store_only,
             start,
             duration,
             playback,
@@ -296,12 +312,15 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             again,
         } => identify::run(&identify::Request {
             audio: &audio,
-            library: &settings.library(library)?,
-            peaks_dir,
+            source: catalog::Source {
+                library: settings.library_if_any(library).as_deref(),
+                peaks_dir,
+                store_only,
+                exclude_from: exclude_from.as_deref(),
+                track_length: settings.track_length,
+            },
             excerpt: Excerpt { start, duration },
             playback: playback.unwrap_or(settings.playback),
-            track_length: settings.track_length,
-            exclude_from: exclude_from.as_deref(),
             format,
             save_dir: save_dir.as_deref(),
             again,
@@ -312,6 +331,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
         Command::Explain {
             audio,
             library,
+            store_only,
             at,
             around,
             playback,
@@ -321,10 +341,13 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             exclude_from,
         } => explain::run(&explain::Request {
             audio: &audio,
-            library: &settings.library(library)?,
-            peaks_dir,
-            track_length: settings.track_length,
-            exclude_from: exclude_from.as_deref(),
+            source: catalog::Source {
+                library: settings.library_if_any(library).as_deref(),
+                peaks_dir,
+                store_only,
+                exclude_from: exclude_from.as_deref(),
+                track_length: settings.track_length,
+            },
             at,
             around,
             playback: playback.unwrap_or(settings.playback),
@@ -394,10 +417,18 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             force,
             console,
         }),
-        Command::Stats { library, format } => stats::run(
-            &settings.library(library)?,
-            peaks_dir,
-            settings.track_length,
+        Command::Stats {
+            library,
+            store_only,
+            format,
+        } => stats::run(
+            &catalog::Source {
+                library: settings.library_if_any(library).as_deref(),
+                peaks_dir,
+                store_only,
+                exclude_from: None,
+                track_length: settings.track_length,
+            },
             format,
             console,
         ),

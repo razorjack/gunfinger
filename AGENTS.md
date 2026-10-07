@@ -56,7 +56,8 @@ In the CLI, `identify` searches and builds a `report` (the JSON report),
 and `review` read a saved report. Reports render through `output`
 (`table`, `timeline`, `export`). `config` resolves
 flags, environment and the configuration file; `console` and `style` own
-messages and colour; `catalog` loads the index from the peak store;
+messages and colour; `catalog` loads the index from the peak store, for
+the library's files or, without a library, the store's own records;
 `survey` compares the peak store with the library for `doctor` and
 `prune`; `names` reads track names from tags; `playback` picks the ladder.
 

@@ -1,7 +1,10 @@
-//! Loading the in-memory index of a library from the peak store.
+//! Loading the in-memory index of a library from the peak store. Without a
+//! library to read, the index holds the store's own current records: each
+//! names its file, so the store alone is enough to identify tracks.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
+use std::io;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
@@ -16,11 +19,151 @@ use gunfinger_core::tags::Tags;
 use gunfinger_core::timecode::format_timecode;
 use miette::{IntoDiagnostic, WrapErr, miette};
 
+use crate::config;
 use crate::console::Console;
+
+/// What a search's index is built from: a library and its peak store, less
+/// the files excluded and those outside the track length range.
+pub struct Source<'a> {
+    /// The library given or configured, if any.
+    pub library: Option<&'a Path>,
+    pub peaks_dir: &'a Path,
+    /// Use the store's own records without reading the library.
+    pub store_only: bool,
+    pub exclude_from: Option<&'a Path>,
+    pub track_length: TrackLength,
+}
+
+/// The files an index can be built from: the library's, or those of the
+/// store's current records when there is no library to read.
+pub struct Indexable {
+    /// The library root that reports name, where the tracks can be played
+    /// from; empty when the store names none and none was given.
+    pub root: PathBuf,
+    pub store: PeakStore,
+    assets: Vec<Asset>,
+    /// Records whose header could not be read, without a library.
+    problems: Vec<StoreError>,
+    excluded: BTreeSet<String>,
+    track_length: TrackLength,
+    store_only: bool,
+}
+
+impl Indexable {
+    /// Lists the library, or the store's records when the library cannot be
+    /// read, none is given or `store_only` asks for it, saying which in one
+    /// line. A store that names another library is refused unless
+    /// `store_only` is given.
+    pub fn find(source: &Source, console: &Console) -> miette::Result<Indexable> {
+        let excluded = match source.exclude_from {
+            Some(path) => read_exclusions(path)?,
+            None => BTreeSet::new(),
+        };
+        let found =
+            |root: PathBuf, store: PeakStore, (assets, problems): Records, store_only| Indexable {
+                root,
+                store,
+                assets,
+                problems,
+                excluded,
+                track_length: source.track_length,
+                store_only,
+            };
+        let peaks_dir = source.peaks_dir;
+        if source.store_only {
+            let Some((store, records)) = store_records(peaks_dir)? else {
+                return Err(miette!(
+                    help = "`gunfinger index` fills it from a library",
+                    "no current peak records in {}",
+                    peaks_dir.display()
+                ));
+            };
+            let root = match store.library().into_diagnostic()? {
+                Some(name) => PathBuf::from(name),
+                None => source.library.map(Path::to_path_buf).unwrap_or_default(),
+            };
+            return Ok(found(root, store, records, true));
+        }
+        let Some(root) = source.library else {
+            let Some((store, records)) = store_records(peaks_dir)? else {
+                return Err(miette!(
+                    help = format!(
+                        "{}, or --peaks-dir with a peak store",
+                        config::library_help()
+                    ),
+                    "no library given, and no peak records in {}",
+                    peaks_dir.display()
+                ));
+            };
+            console.info(format_args!(
+                "no library given; searching the {} records in the peak store {}",
+                records.0.len(),
+                peaks_dir.display()
+            ));
+            let root = store.library().into_diagnostic()?.unwrap_or_default();
+            return Ok(found(PathBuf::from(root), store, records, true));
+        };
+        match list(root, console) {
+            Ok(library) => {
+                let store = PeakStore::open(peaks_dir).into_diagnostic()?;
+                store.check_library(root).into_diagnostic()?;
+                Ok(found(
+                    library.root,
+                    store,
+                    (library.assets, Vec::new()),
+                    false,
+                ))
+            }
+            Err(error) => {
+                let Some((store, records)) = store_records(peaks_dir)? else {
+                    return Err(error).into_diagnostic().wrap_err_with(|| {
+                        format!("could not read the library at {}", root.display())
+                    });
+                };
+                store.check_library(root).into_diagnostic()?;
+                console.warning(format_args!(
+                    "cannot read the library at {} ({error}); searching the {} records in its peak store instead",
+                    root.display(),
+                    records.0.len()
+                ));
+                Ok(found(root.to_path_buf(), store, records, true))
+            }
+        }
+    }
+
+    /// The library revision an index built now would have, reading only the
+    /// headers of the peak records: enough to tell whether a saved report
+    /// is current without building the index.
+    pub fn revision(&self) -> String {
+        library_revision(indexable_assets(
+            &self.assets,
+            &self.store,
+            &Profile::CURRENT,
+            &self.excluded,
+            self.track_length,
+        ))
+    }
+}
+
+/// The files of a store's current records, and the records whose header
+/// could not be read.
+pub type Records = (Vec<Asset>, Vec<StoreError>);
+
+/// The store at `dir` and its current records, unless it does not exist or
+/// holds none. A missing store is not created.
+pub fn store_records(dir: &Path) -> miette::Result<Option<(PeakStore, Records)>> {
+    if !dir.is_dir() {
+        return Ok(None);
+    }
+    let store = PeakStore::open(dir).into_diagnostic()?;
+    let records = store.current_sources(&Profile::CURRENT).into_diagnostic()?;
+    Ok((!records.0.is_empty()).then_some((store, records)))
+}
 
 /// The index of a library, built from its peak store.
 pub struct Catalog {
-    pub library: Library,
+    /// The library root, empty when not known (see `Indexable::root`).
+    pub root: PathBuf,
     pub store: PeakStore,
     pub index: Index,
     /// The library revision of the indexed assets.
@@ -30,41 +173,47 @@ pub struct Catalog {
 }
 
 impl Catalog {
-    /// Scans the library and builds the index from the current peak record
-    /// of every asset not listed in `exclude_from` and within
-    /// `track_length`, reading one record at a time. Assets without a
-    /// current record are reported on stderr and left out.
-    pub fn open(
-        library_root: &Path,
-        peaks_dir: &Path,
-        exclude_from: Option<&Path>,
-        track_length: TrackLength,
-        console: &Console,
-    ) -> miette::Result<Catalog> {
+    /// Builds the index from the current peak record of every indexable
+    /// file not excluded and within the track length range, reading one
+    /// record at a time. Files without a current record are reported on
+    /// stderr and left out.
+    pub fn open(indexable: Indexable, console: &Console) -> miette::Result<Catalog> {
         let started = Instant::now();
-        let library = scan_library(library_root, console)?;
-        let store = PeakStore::open(peaks_dir).into_diagnostic()?;
-        store.check_library(library_root).into_diagnostic()?;
-        let excluded = match exclude_from {
-            Some(path) => read_exclusions(path)?,
-            None => BTreeSet::new(),
-        };
+        let Indexable {
+            root,
+            store,
+            assets,
+            mut problems,
+            excluded,
+            track_length,
+            store_only,
+        } = indexable;
+        let built = build_index(&assets, &store, &Profile::CURRENT, &excluded, track_length)
+            .into_diagnostic()?;
         let BuiltIndex {
             index,
             revision,
-            problems,
             outside,
             sources,
-        } = build_index(&library, &store, &Profile::CURRENT, &excluded, track_length)
-            .into_diagnostic()?;
+            ..
+        } = built;
+        problems.extend(built.problems);
         report_left_out(&problems, console);
         report_outside(&outside, track_length, console);
         if index.assets().is_empty() {
-            return Err(miette!(
-                help = format!("run `gunfinger index {}` first", library_root.display()),
-                "no indexed assets in {}",
-                library_root.display()
-            ));
+            return Err(if store_only {
+                miette!(
+                    help = "--verbose lists the files left out",
+                    "none of the records in {} is searchable",
+                    store.dir().display()
+                )
+            } else {
+                miette!(
+                    help = format!("run `gunfinger index {}` first", root.display()),
+                    "no indexed assets in {}",
+                    root.display()
+                )
+            });
         }
         console.detail(format_args!(
             "index: {} assets ({} excluded), {} postings, {:.1} MB, built in {:.1} s",
@@ -75,7 +224,7 @@ impl Catalog {
             started.elapsed().as_secs_f64()
         ));
         Ok(Catalog {
-            library,
+            root,
             store,
             index,
             revision,
@@ -90,37 +239,17 @@ impl Catalog {
     pub fn tags(&self, path: &str) -> Option<Tags> {
         self.store.tags(self.sources.get(path)?)
     }
-
-    /// The library revision an index built now would have, reading only the
-    /// headers of the peak records: enough to tell whether a saved report
-    /// is current without building the index.
-    pub fn revision_now(
-        library_root: &Path,
-        peaks_dir: &Path,
-        exclude_from: Option<&Path>,
-        track_length: TrackLength,
-        console: &Console,
-    ) -> miette::Result<String> {
-        let library = scan_library(library_root, console)?;
-        let store = PeakStore::open(peaks_dir).into_diagnostic()?;
-        store.check_library(library_root).into_diagnostic()?;
-        let excluded = match exclude_from {
-            Some(path) => read_exclusions(path)?,
-            None => BTreeSet::new(),
-        };
-        Ok(library_revision(indexable_assets(
-            &library,
-            &store,
-            &Profile::CURRENT,
-            &excluded,
-            track_length,
-        )))
-    }
 }
 
 /// Scans the library, counting the files seen on a terminal: a large
 /// network share takes minutes to list.
 pub fn scan_library(root: &Path, console: &Console) -> miette::Result<Library> {
+    list(root, console)
+        .into_diagnostic()
+        .wrap_err_with(|| format!("could not read the library at {}", root.display()))
+}
+
+fn list(root: &Path, console: &Console) -> io::Result<Library> {
     let library = Library::scan_with_progress(root, |seen| {
         if seen % 100 == 0 {
             console.progress(format_args!("listing {}: {seen} files", root.display()));
@@ -128,8 +257,6 @@ pub fn scan_library(root: &Path, console: &Console) -> miette::Result<Library> {
     });
     console.progress_done();
     library
-        .into_diagnostic()
-        .wrap_err_with(|| format!("could not read the library at {}", root.display()))
 }
 
 /// Library files without a current peak record. Files `index` passed over
@@ -235,7 +362,9 @@ fn listed(heading: &str, items: &[String]) -> String {
 
 /// Reports outlive the working directory they were written in.
 pub fn absolute(path: &Path) -> PathBuf {
-    path.canonicalize().unwrap_or_else(|_| path.to_path_buf())
+    path.canonicalize()
+        .or_else(|_| std::path::absolute(path))
+        .unwrap_or_else(|_| path.to_path_buf())
 }
 
 /// One asset path per line, relative to the library root. Blank lines and

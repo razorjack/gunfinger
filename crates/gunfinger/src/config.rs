@@ -111,19 +111,25 @@ impl Settings {
 
     /// The library given on the command line, or the configured one.
     pub fn library(&self, given: Option<PathBuf>) -> miette::Result<PathBuf> {
-        given.or_else(|| self.library.clone()).ok_or_else(|| {
-            miette!(
-                help = format!(
-                    "pass --library, or set `library = \"...\"` in {}",
-                    default_path().map_or_else(
-                        || String::from("the configuration file"),
-                        |path| path.display().to_string()
-                    )
-                ),
-                "no library given"
-            )
-        })
+        self.library_if_any(given)
+            .ok_or_else(|| miette!(help = library_help(), "no library given"))
     }
+
+    /// The library given on the command line, the configured one, or none.
+    pub fn library_if_any(&self, given: Option<PathBuf>) -> Option<PathBuf> {
+        given.or_else(|| self.library.clone())
+    }
+}
+
+/// How to name a library.
+pub fn library_help() -> String {
+    format!(
+        "pass --library, or set `library = \"...\"` in {}",
+        default_path().map_or_else(
+            || String::from("the configuration file"),
+            |path| path.display().to_string()
+        )
+    )
 }
 
 fn read(path: &Path) -> miette::Result<File> {
