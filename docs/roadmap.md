@@ -8,17 +8,15 @@ marked as inferences were derived, not measured.
 
 ## Library and storage
 
-- **Search memory at scale.** The index is now built in two passes and
-  is the only large thing a build holds (experiment 0019). The search then
-  keeps every rung's lines for the whole query until chains are built:
-  about 180 MB per minute of query at 26,462 assets, independent of
-  workers (experiment 0021), so an hour-long mix there needs about 11 GB
-  beside the 3 GB index (inference). Skipping the fullest 1% of posting
-  lists in the first pass leaves 112,000 of its 1.74 million distinct
-  lines for 5 minutes of query there (experiment 0027). Measure the peak
-  again on an idle machine (today's peaks varied by half for the same
-  binary), then merge neighbouring rungs' lines as each rung finishes,
-  which can keep detections identical.
+- **Search memory at scale.** The search now runs a block of 12 windows
+  on every rung at a time and merges each block's lines once every rung
+  has searched it, with identical detections (experiment 0029). The
+  development scan (56 minutes) peaks at 2.9 GB at 8,122 assets and 7.7
+  GB at 26,462 (skip at 240: 1.4 and 3.8 GB). What is left at 26,462: the
+  index (3.0 GB), the merged lines of the whole mix (1.4 GB), the
+  workers' hit buffers (about 2 GB) and the final sort of the lines.
+  16-byte hits and sorting the lines without a half-size copy would take
+  off about 1.2 GB, also with identical detections; not done.
 - **On-disk index.** The index is rebuilt in memory from the peak store on
   every run. The recommended layout is in `docs/adr/0005-index-layout.md`.
   Audit its widths first: its `u32` byte offsets into delta-coded lists
@@ -67,13 +65,14 @@ marked as inferences were derived, not measured.
 
 ## Matching
 
-- **Chance lines in chains.** A chain may skip two empty windows and
-  link lines whose rungs are far apart, so a 3-hit chance line up to 30 s
-  away can join a real play: it adds a window and span, and moved the
-  fitted speed by up to 2.4% in the window grid (experiment 0020; the
-  Clockwork remix's third window in `explain --windows` is one too).
-  Require linked lines to come from nearby rungs, or a stronger line
-  across a gap, and run the protocol.
+- **Chance lines in chains.** Two opt-in link rules (`--nearby-rungs`,
+  `--strong-gaps`) pass the protocol under both matchers with every sweep
+  unchanged (experiment 0030). Under today's matcher they cut false
+  candidates by 68% and the mixes' overshoot from 86 to 7.6 s; plays
+  confident only through a chance window become possible. Under skip at
+  240 they raise the margin from 5.53× to 6.65×. A speed change of more
+  than 0.6% between windows splits a play into segments. The owner
+  decides; to adopt, pass the rules in `identify` and `explain`.
 - **A minimum span instead of 3 windows.** Whether a 15-20 s play is
   confident depends on where the 10 s windows fall: 76 of 160 grid
   positions at 15 s, 148 at 20 s; 200 hits over at least 10 s between the
@@ -114,15 +113,16 @@ marked as inferences were derived, not measured.
   a median 2.7 s inside crossfades and bass swaps (experiment 0020); shared
   kicks once extended a synthetic detection 26 s past its track
   (experiment 0008), and linked chance lines up to 30 s (experiment 0020).
-  Try trimming weak chain ends, reporting lost true coverage beside the
-  gain.
-- **Where search time goes.** Every timing in experiments 0012-0017 was
-  taken on a loaded machine, and the scan at 26,462 assets did not finish.
-  On an idle machine, finish the scale proxy and profile the search:
-  scanning postings, sorting each window's hits, clustering offsets,
-  chaining. Optimise only what the profile shows. Skipping the fullest 1%
-  of posting lists already cuts search CPU by 57-63% at 8,122 and 26,462
-  assets (experiment 0027).
+  Trimming weak chain ends (`--trim-ends`) removed the overshoot but cut
+  2.6 s of true play per second removed (experiment 0031); the link rules
+  of 0030 fix the overshoot at a tenth of the cost. Crossfade edges remain
+  a median 2.7 s inside the truth.
+- **Where search time goes.** Measured on an idle machine (experiment
+  0028): at 262 assets 80-88% of search CPU analyses the query on 82
+  rungs; at 26,462 assets 77-87% sorts each window's hits by asset and
+  offset. Any correct sort gives identical lines, so grouping hits by
+  asset before sorting each asset's few hundred would keep detections
+  identical; not tried. Skip at 240 is 3.5× cheaper at 31,964 assets.
 - **Behaviour at scale.** *(larger library)* The confidence rule (200
   hits, 3 windows; 240 for the opt-in second pass) and the possible tier
   (60 hits) were calibrated against 262 tracks. Recalibrate at staged sizes such as 1,000, 10,000 and 30,000
