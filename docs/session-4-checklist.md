@@ -37,9 +37,9 @@ for scope and rules.
 
 - [x] Opt-in: linked lines from nearby rungs, or a stronger line across a
   gap (`--nearby-rungs`, `--strong-gaps`; commit afc731c)
-- [ ] Checks: `explain --windows` on the Clockwork remix's third window;
+- [x] Checks: `explain --windows` on the Clockwork remix's third window;
   the window grid
-- [ ] Full protocol under today's matcher and skip at 240; case for
+- [x] Full protocol under today's matcher and skip at 240; case for
   adoption
 
 ## 4. Speed that wanders within a play

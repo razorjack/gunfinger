@@ -551,6 +551,34 @@ material (roadmap) is solved, since that is what forced 240.
 
 ## Session 4 findings
 
+### Chance lines in chains: two link rules, case for adoption
+
+Two opt-in rules (commit afc731c; experiment 0030): `--nearby-rungs`
+links only lines within 0.6% of speed (1.5 steps), and `--strong-gaps`
+links across an empty window only lines of 10 hits or more. On the
+Clockwork remix at 20:22 the chain's third window was a 3-hit key-locked
+line at -8.00% beside lines at +1.2-1.6%; with the rules the detection is
+102 hits in 2 windows instead of 105 in 3.
+
+Under today's matcher the rules change no sweep result (2,160/2,160,
+weakest identifying 403, margin 4.15×), cut false candidates by 68% and
+the mixes' boundary overshoot from 86 to 7.6 s. One mix play becomes
+possible: mix 10's Dominion (21.5 s, 537 hits in 2 windows), which was
+confident only through a chance line 23 s earlier. The grid's 10 s plays
+(8 confident, all through chance windows) become possible, and mean
+spans now match the true lengths. Today's matcher with the rules gives
+what skip at 240 already gives on mixes and grid. Under skip at 240 the
+rules raise the margin from 5.53× to 6.65× (the remix's 119-hit chain
+becomes 94 hits) and change nothing else.
+
+For adoption: no recall is lost except confidence that came from chance;
+boundaries are right; chaining is under 0.1% of the CPU, so the rules
+cost nothing measurable. Against: a speed change of more than 0.6% between
+windows splits a play into segments (Star Trails at 13:20, +4.5% to
++3.1%: two confident segments of one play in the report). My
+recommendation, for you to decide: adopt both rules with whichever
+matcher you choose; with skip at 240 they add margin at no cost.
+
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 
 On an idle machine, scanning the 56-minute development mix at 26,462

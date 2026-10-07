@@ -602,3 +602,9 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   26,462 assets sorting each window's hits is 77-87% of the search's CPU.
   Item 2's block-wise search lowers peaks by 36-45% at 8,122 assets and
   14-22% at 26,462 with every scale report identical.
+- Item 3 measured (experiment 0030): the link rules leave every sweep
+  unchanged under both matchers. Under today's matcher they cut false
+  candidates by 68% and the mixes' overshoot from 86 to 7.6 s; mix 10's
+  Dominion and the grid's eight 10 s plays drop to possible (their third
+  window was chance). Under skip at 240 the margin rises from 5.53× to
+  6.65×. Star Trails splits into two segments at its speed change.
