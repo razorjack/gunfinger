@@ -28,9 +28,9 @@ for scope and rules. NAS plan steps in brackets.
   Cup and The Nine; Fresh & Vegas - Mekon if present (experiment 0038;
   labels from tags and artists, not record labels: YouTube paths name
   none)
-- [ ] 5. The development set at NAS scale [6], both matchers: scan,
+- [x] 5. The development set at NAS scale [6], both matchers: scan,
   leave-outs 3 and 11; identified, wrong, strongest false and margin,
-  possible plays, wall, CPU, peak memory
+  possible plays, wall, CPU, peak memory (experiment 0039)
 - [ ] 6. Sweeps at NAS scale [7]: seeds 2026-2029 under skip at 240,
   2026 and 2027 under today's matcher; `calibrate` for each; strongest
   false candidates named
