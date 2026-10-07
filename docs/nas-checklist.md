@@ -16,12 +16,14 @@ blocked (with the reason). Scope and rules: `docs/brief-nas.md`.
   survey, `prune`, `doctor`)
 - [x] 3. Names in the report (renderers use them). No new schema version:
   the report's rule is that fields may be added without one
-- [ ] 4. A store-only index (`--store-only`, automatic without a library)
-- [ ] 5. Tests and README
-- [ ] 6. The harness against another library (`--library`,
-  `--library-map`)
+- [x] 4. A store-only index (`--store-only`, automatic without a library;
+  `doctor` checks the store alone)
+- [x] 5. Tests and README
+- [ ] 6. The harness against another library (`--other-peaks-dir`;
+  design in the brief)
 - [ ] 7. `gunfinger-eval map-library`
-- [ ] 8. Clusters from chosen queries
+- [ ] 8. Clusters from chosen queries (`clusters --from-peaks
+  --other-peaks-dir`)
 
 ## After the NAS index (docs/nas-plan.md)
 

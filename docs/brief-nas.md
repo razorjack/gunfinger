@@ -78,20 +78,42 @@ checklist.
    output. Unit tests for the tag sidecar and the probe parsing. README:
    identifying without the library, and taking a store to another
    machine.
-6. **The harness against another library** (`gunfinger-eval`).
-   `--library <root>` beside the existing `--peaks-dir`, and
-   `--library-map <map>`, which translates manifest references and the
-   sweep panels' held-out recordings to the other library's paths, so no
-   manifest is edited. Reports go to `work/reports/library-<name>/`.
-7. **`gunfinger-eval map-library`.** Pairs each corpus file with the
-   files of another peak store that have identical peak records (and
-   size, where it agrees). Needs no audio and no mount. Writes the map
-   (file names only) and lists corpus files with no copy or several.
-8. **Clusters from chosen queries.** `clusters --from-peaks` with a set of
-   query files (the mapped corpus files) searched against the whole other
-   library, repeated for newly found members until none appear, so chains
-   are found. Same criterion as today. Clustering every NAS file against
-   every other is out of scope.
+6. **The harness against another library** (`gunfinger-eval`). Design
+   settled while writing it (replaces the first sketch of `--library` and
+   path translation): a global `--other-peaks-dir <store>` names the other
+   library's peak store; its library is never read, so the NAS need not be
+   mounted (records come from `PeakStore::current_sources`). The corpus
+   stays the library: manifests, panels and excerpt rendering are
+   untouched. The index is the corpus records plus the other store's
+   records, streamed and named `second-library/<path>` as `--second-library`
+   does, less one copy per corpus file (from the map, item 7), so its
+   content equals the other library's. Clusters are the corpus clusters
+   merged with the other library's clusters of the corpus recordings (item
+   8), so a detection of a NAS rip counts as correct and held-out or
+   left-out recordings take their NAS rips with them. `Padding::index`
+   gains the excluded set; the sweep builds its index through it (the same
+   algorithm as `Index::build`, so default results do not change). Reports
+   go to `work/reports/library-<store dir name>/`, where `calibrate`,
+   `baseline` and `regress` read them. Supported by `sweep`, `scan`,
+   `robust`, `memory`, `calibrate`; other commands refuse the flag.
+7. **`gunfinger-eval map-library`** (with `--other-peaks-dir`). Pairs each
+   corpus file with the other store's files that have identical peak
+   records (duration first, from headers, then the peaks), noting whether
+   the size agrees. Needs no audio and no mount. Writes
+   `library-map.json` in the reports directory of item 6 (file names
+   only): every copy, the one copy each corpus file stands for in the
+   index, and the corpus files with no copy or several.
+8. **Clusters from chosen queries** (`clusters --from-peaks` with
+   `--other-peaks-dir`). The index is the other library alone (two-pass,
+   one record at a time). Each corpus file's stored peaks are searched on
+   the clustering ladder; same-recording members that are not copies of a
+   corpus file are searched in turn until none appear, so chains are
+   found. Same criterion as today. Pairs with 20% coverage or 30 hits are
+   kept (the related-recordings census of the plan's step 5). Writes
+   `duplicate-clusters.json` in the reports directory of item 6, in the
+   index's names, merged with the corpus clusters, and prints whether the
+   corpus clusters reappear. Clustering every NAS file against every
+   other is out of scope.
 
 ## Rules
 
