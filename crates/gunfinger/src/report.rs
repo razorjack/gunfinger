@@ -123,6 +123,22 @@ pub struct FoundPlay {
     pub windows: u32,
     pub hits: u32,
     pub segments: Vec<Segment>,
+    /// Set on a possible play that lies entirely inside a confident play
+    /// of another recording: most likely material the two recordings share
+    /// (a remix carrying the original's lead), not a play of its own.
+    /// Display only; derived from the plays whenever a report is made or
+    /// read.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub shares_material_with: Option<SharedWith>,
+}
+
+/// The confident play a possible play lies inside.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct SharedWith {
+    /// Its number, counted from 1 in the report's order (as `review`
+    /// numbers plays).
+    pub play: usize,
+    pub asset: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -201,10 +217,11 @@ impl Report {
         detections: &[Detection],
     ) -> Report {
         let offset = excerpt.start.unwrap_or_default().as_secs_f64();
-        let plays = plays::merge_same_audio(plays::group(detections))
+        let mut plays: Vec<FoundPlay> = plays::merge_same_audio(plays::group(detections))
             .iter()
             .map(|same| FoundPlay::new(catalog, same, offset))
             .collect();
+        mark_shared_material(&mut plays);
         Report {
             schema_version: SCHEMA_VERSION,
             query: Query {
@@ -224,7 +241,7 @@ impl Report {
         let text = std::fs::read_to_string(path)
             .into_diagnostic()
             .wrap_err_with(|| format!("cannot read {}", path.display()))?;
-        let report: Report = serde_json::from_str(&text)
+        let mut report: Report = serde_json::from_str(&text)
             .into_diagnostic()
             .wrap_err_with(|| format!("{} is not an identify report", path.display()))?;
         if report.schema_version < 2 || report.schema_version > SCHEMA_VERSION {
@@ -235,7 +252,39 @@ impl Report {
                 report.schema_version
             ));
         }
+        mark_shared_material(&mut report.plays);
         Ok(report)
+    }
+}
+
+/// Marks each possible play that lies entirely inside a confident play of
+/// another recording with the first such play. A remix played in its own
+/// right next to the original reaches past the original's play, or is
+/// confident itself, so it is not marked.
+fn mark_shared_material(plays: &mut [FoundPlay]) {
+    let marks: Vec<Option<SharedWith>> = plays
+        .iter()
+        .map(|play| {
+            if play.confidence != Level::Possible {
+                return None;
+            }
+            plays
+                .iter()
+                .position(|other| {
+                    other.confidence == Level::Confident
+                        && other.asset != play.asset
+                        && !other.same_audio.contains(&play.asset)
+                        && other.start_seconds <= play.start_seconds
+                        && play.end_seconds <= other.end_seconds
+                })
+                .map(|index| SharedWith {
+                    play: index + 1,
+                    asset: plays[index].asset.clone(),
+                })
+        })
+        .collect();
+    for (play, mark) in plays.iter_mut().zip(marks) {
+        play.shares_material_with = mark;
     }
 }
 
@@ -271,6 +320,49 @@ impl FoundPlay {
                     hits: segment.evidence.hits,
                 })
                 .collect(),
+            shares_material_with: None,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::table::tests::report;
+
+    fn marks(plays: &[FoundPlay]) -> Vec<Option<usize>> {
+        plays
+            .iter()
+            .map(|play| play.shares_material_with.as_ref().map(|shared| shared.play))
+            .collect()
+    }
+
+    #[test]
+    fn a_possible_play_inside_a_confident_play_of_another_recording_is_marked() {
+        let mut plays = report().plays;
+        // insert.wav (possible, 1:24-1:34) inside a stretched b.wav.
+        plays[1].end_seconds = 95.0;
+        // A copy of c.wav, possible, inside c.wav's play: the same audio.
+        let mut copy = plays[3].clone();
+        copy.asset = String::from("copy-of-c.wav");
+        copy.confidence = Level::Possible;
+        plays[3].same_audio.push(String::from("copy-of-c.wav"));
+        plays.push(copy);
+        // A remix that reaches past the original's play.
+        let mut remix = plays[2].clone();
+        remix.asset = String::from("remix.wav");
+        remix.end_seconds = 100.0;
+        plays.push(remix);
+
+        mark_shared_material(&mut plays);
+
+        assert_eq!(marks(&plays), [None, None, Some(2), None, None, None]);
+        assert_eq!(
+            plays[2].shares_material_with,
+            Some(SharedWith {
+                play: 2,
+                asset: String::from("b.wav")
+            })
+        );
     }
 }

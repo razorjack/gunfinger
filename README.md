@@ -131,14 +131,20 @@ recording, the part of the track that was heard, speed, confidence
 (`confident` or `possible`), hits and asset path. When several library files
 hold the same audio (copies, or rips with identical peaks), their plays are
 identical and shown once, with the other paths underneath (`also ...`). A play
-of several segments lists them underneath.
+of several segments lists them underneath. A possible play that lies
+entirely inside a confident play of another recording ends with `shares
+material with <asset> (play N)`, N counting plays as `review` does: most
+likely the two recordings share that passage, as a remix can carry the
+original's lead. This is display only; a remix played in its own right
+reaches past the original's play, or is confident itself, and is not
+marked.
 
 `--format` (`-f`, for `identify` and `show`) also takes:
 
 - `timeline`: each play as a bar across the recording.
 - `json`: the whole report: the playback searched (`query.playback`), plays
-  with their segments and `same_audio` paths (`schema_version` 3; fields may
-  be added without a version change).
+  with their segments, `same_audio` paths and `shares_material_with`
+  (`schema_version` 3; fields may be added without a version change).
 - `csv`: one row per play, times in seconds.
 - `tracklist`: a numbered list of recordings with start times, named
   `artist - title` from the files' tags (or the file name), possible ones

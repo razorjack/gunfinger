@@ -4,7 +4,7 @@ use std::time::Duration;
 
 use gunfinger_core::timecode::format_timecode;
 
-use crate::report::{Level, Playback, Report};
+use crate::report::{FoundPlay, Level, Playback, Report};
 use crate::style::Style;
 
 /// Width of the columns before the asset path.
@@ -24,7 +24,11 @@ pub fn table(report: &Report, style: Style) -> String {
             play.speed,
             &paint(play.confidence, style),
             play.hits,
-            &named(&play.asset, play.playback),
+            &format!(
+                "{}{}",
+                named(&play.asset, play.playback),
+                shared_material(play, str::to_owned)
+            ),
         ));
         for asset in &play.same_audio {
             lines.push(style.dim(&format!("{:ASSET_COLUMN$}also {asset}", "")));
@@ -52,6 +56,20 @@ pub fn named(name: &str, playback: Playback) -> String {
         Playback::Turntable => name.to_owned(),
         Playback::KeyLocked => format!("{name}  (key lock)"),
     }
+}
+
+/// "  shares material with <name> (play N)" for a possible play inside a
+/// confident play of another recording, else nothing.
+pub fn shared_material(play: &FoundPlay, name: impl Fn(&str) -> String) -> String {
+    play.shares_material_with
+        .as_ref()
+        .map_or_else(String::new, |shared| {
+            format!(
+                "  shares material with {} (play {})",
+                name(&shared.asset),
+                shared.play
+            )
+        })
 }
 
 /// The confidence padded to its column, then coloured.
@@ -86,7 +104,7 @@ pub mod tests {
 
     use super::*;
     use crate::playback::PlaybackChoice;
-    use crate::report::{FoundPlay, Query, SCHEMA_VERSION, Segment};
+    use crate::report::{Query, SCHEMA_VERSION, Segment, SharedWith};
     use crate::style::ColorChoice;
 
     fn segment(start_seconds: f64, end_seconds: f64, track_start_seconds: f64) -> Segment {
@@ -128,6 +146,7 @@ pub mod tests {
                 windows: 4,
                 hits,
             }],
+            shares_material_with: None,
         };
         Report {
             schema_version: SCHEMA_VERSION,
@@ -175,6 +194,22 @@ time                in track        speed  confidence   hits  asset
   1:36-1:51         0:20-0:35      +6.00%  confident     400
   1:52-2:20         0:41-1:10      +6.00%  confident     400
 "
+        );
+    }
+
+    #[test]
+    fn a_play_inside_a_confident_play_of_another_recording_says_so() {
+        let mut report = report();
+        report.plays[2].shares_material_with = Some(SharedWith {
+            play: 2,
+            asset: String::from("b.wav"),
+        });
+
+        let table = table(&report, Style::for_stdout(ColorChoice::Never));
+
+        assert!(
+            table.contains("possible       75  insert.wav  shares material with b.wav (play 2)\n"),
+            "{table}"
         );
     }
 
