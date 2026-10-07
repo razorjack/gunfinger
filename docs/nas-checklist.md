@@ -14,7 +14,8 @@ blocked (with the reason). Scope and rules: `docs/brief-nas.md`.
   `explain`, `stats`, `doctor`, `prune`)
 - [x] 2. Tags in the peak store (probe, sidecar, `index` fills them in;
   survey, `prune`, `doctor`)
-- [ ] 3. Names in the report (schema version, renderers)
+- [x] 3. Names in the report (renderers use them). No new schema version:
+  the report's rule is that fields may be added without one
 - [ ] 4. A store-only index (`--store-only`, automatic without a library)
 - [ ] 5. Tests and README
 - [ ] 6. The harness against another library (`--library`,

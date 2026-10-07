@@ -261,6 +261,8 @@ pub struct BuiltIndex {
     /// Assets left out because their length is outside the track length
     /// range, with that length.
     pub outside: Vec<(String, Duration)>,
+    /// The files indexed, in the order of their asset ids.
+    pub sources: Vec<Asset>,
 }
 
 /// The index of the library's current peak records within `length`,
@@ -304,9 +306,10 @@ pub fn build_index(
     }
     Ok(BuiltIndex {
         index: filling.finish()?,
-        revision: library_revision(indexed),
+        revision: library_revision(indexed.iter().copied()),
         problems,
         outside,
+        sources: indexed.into_iter().cloned().collect(),
     })
 }
 

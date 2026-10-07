@@ -147,6 +147,7 @@ pub mod tests {
                 hits,
             }],
             shares_material_with: None,
+            tags: None,
         };
         Report {
             schema_version: SCHEMA_VERSION,

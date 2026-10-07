@@ -1,6 +1,6 @@
 //! Loading the in-memory index of a library from the peak store.
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
@@ -9,9 +9,10 @@ use gunfinger_core::index::Index;
 use gunfinger_core::indexing::{
     BuiltIndex, TrackLength, build_index, indexable_assets, library_revision,
 };
-use gunfinger_core::library::Library;
+use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, StoreError};
+use gunfinger_core::tags::Tags;
 use gunfinger_core::timecode::format_timecode;
 use miette::{IntoDiagnostic, WrapErr, miette};
 
@@ -24,6 +25,8 @@ pub struct Catalog {
     pub index: Index,
     /// The library revision of the indexed assets.
     pub revision: String,
+    /// The indexed files by path.
+    pub sources: BTreeMap<String, Asset>,
 }
 
 impl Catalog {
@@ -51,6 +54,7 @@ impl Catalog {
             revision,
             problems,
             outside,
+            sources,
         } = build_index(&library, &store, &Profile::CURRENT, &excluded, track_length)
             .into_diagnostic()?;
         report_left_out(&problems, console);
@@ -75,7 +79,16 @@ impl Catalog {
             store,
             index,
             revision,
+            sources: sources
+                .into_iter()
+                .map(|source| (source.path.clone(), source))
+                .collect(),
         })
+    }
+
+    /// The tags the store holds for an indexed file.
+    pub fn tags(&self, path: &str) -> Option<Tags> {
+        self.store.tags(self.sources.get(path)?)
     }
 
     /// The library revision an index built now would have, reading only the

@@ -143,12 +143,15 @@ marked.
 
 - `timeline`: each play as a bar across the recording.
 - `json`: the whole report: the playback searched (`query.playback`), plays
-  with their segments, `same_audio` paths and `shares_material_with`
+  with their segments, `same_audio` paths, `shares_material_with` and the
+  file's `tags` (artist, title, album) as the peak store holds them
   (`schema_version` 3; fields may be added without a version change).
 - `csv`: one row per play, times in seconds.
 - `tracklist`: a numbered list of recordings with start times, named
-  `artist - title` from the files' tags (or the file name), possible ones
-  marked.
+  `artist - title` from their tags (or the file name), possible ones
+  marked. The tags come from the report, so `show` names tracks without the
+  library; for reports made before the store kept tags, they are read from
+  the files.
 - `cue`: a cue sheet of the confident recordings, for players and splitters.
 
 The tracklist and the cue sheet list recordings rather than plays: when two
