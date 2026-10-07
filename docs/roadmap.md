@@ -79,8 +79,9 @@ marked as inferences were derived, not measured.
   first and last hit makes all of them confident and changes nothing in
   the sweep or the development scans (experiment 0020, offline). It lowers
   the shortest identification from about 25 s to about 11 s, which is the
-  owner's call; fix chance lines in chains first, since a linked chance
-  line lengthens the span.
+  owner's call. The link rules of experiment 0030 (or skip at 240) keep
+  chance lines from lengthening the span; measure the minimum span with
+  them.
 - **Speed that wanders within a play.** The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
@@ -155,7 +156,9 @@ marked as inferences were derived, not measured.
   hit threshold would lose brief plays without resolving the ambiguity.
   It has started: the second pass measures the passage the Clockwork remix
   shares with the original at up to 119 hits, which set its rule at 240
-  (experiment 0026).
+  (experiment 0026). The band profile of experiment 0034 makes it more
+  pressing: related records (remixes, the same artist) reach up to 50
+  hits from audio not in the index, near the possible tier.
   Hold out a recording while keeping its versions and the tracks that share
   its breaks, and compare the current rule with rules that need evidence
   across more time regions or more distinct features; validate on

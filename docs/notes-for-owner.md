@@ -1,7 +1,86 @@
 # Notes for the owner
 
 Findings from the autonomous sessions that are worth your attention, newest
-last, after a summary of each session (session 3 first).
+last, after a summary of each session (session 4 first).
+
+## Session 4 summary
+
+**Default detection is unchanged and no test-set evaluation was spent** (2
+of 5 used, 3 left). The changes meant to keep results identical (item 2's
+block-wise search, item 8) were checked with `gunfinger-eval regress
+session-4-start`: identical detections. Everything that changes
+detections is opt-in and went through the full protocol under today's
+matcher and skip at 240: sweeps 2026-2029, the development scan,
+leave-outs 3 and 11, calibrate, regress, and the generated mixes.
+
+**Done.** All eight items (`docs/session-4-checklist.md` has the
+detail), in experiments 0028-0034, each with its data in
+`docs/experiments/data/`:
+
+1. Idle-machine reference: profiles, scale runs from 262 to 31,964
+   assets with both matchers, `identify`, indexing (0028).
+2. Search memory at scale: the search merges lines a block of 12 windows
+   at a time; identical detections, peaks 14-45% lower (0029).
+3. Chance lines in chains: two opt-in link rules (0030).
+4. Speed per stretch in the second pass, opt-in (0032).
+5. Peaks across bands: postings and true hits by band; two variant
+   profiles, each in its own store (0034).
+6. Trimming weak chain ends, opt-in (0031).
+7. The edge of the ladder and extra rungs, opt-in (0033).
+8. Small engineering: the peak store names its library, a second
+   library in the harness, `doctor` counts only files in the length
+   range, shared material shown in the report; and the advice to run
+   `gunfinger index` now names the library.
+
+**What I learned**, item 1 first, since it bears on the matcher decision:
+
+1. Search CPU grows linearly with the library: about 0.21 s per asset
+   for the 56-minute development mix with today's matcher, 0.055 s with
+   skip at 240. At 31,964 assets that mix takes 15.2 minutes today and
+   4.7 with skip at 240, 3.5× less, at half the memory. At scale 77-87%
+   of the CPU sorts each window's hits; at 262 assets analysing the
+   query on 82 rungs dominates. Indexing takes 0.2 s per track.
+2. Memory at scale was mostly freed hit buffers kept by macOS's
+   allocator, not lines. After item 2 the development mix at 26,462
+   assets peaks at 7.7 GB (3.8 GB with skip at 240).
+3. The peak picker spends most of the index on high anchors that the
+   mix does not keep: 2-4 kHz anchors are 64% of the postings the plays
+   look up and give 21% of their true hits. Neighbourhoods that widen
+   with frequency give the mix 34% more true hits from 36% fewer
+   postings looked up and raise both matchers' margins, but related
+   records find each other more easily.
+4. Chance lines: under today's matcher the link rules give what skip at
+   240 already gives (boundaries, 68% fewer false candidates); under skip
+   at 240 they raise the margin from 5.53× to 6.65×.
+5. The ladder holds to ±8.4% and is gone at ±9%; three extra rungs cover
+   ±9% for 14% more CPU and change nothing else.
+6. Speed per stretch recovers hits where speed drifts slowly (Star
+   Trails +11%) and changes no level. Trimming weak chain ends costs 2.6
+   s of true play per second of overshoot removed.
+
+**Opt-in results and their cases** (details in "Session 4 findings"
+below):
+
+| Variant | Case for and against | My recommendation |
+|---|---|---|
+| Link rules (`--nearby-rungs --strong-gaps`) | for: right boundaries and 68% fewer false candidates under today's matcher, margin 5.53× → 6.65× under skip, no CPU; against: a speed change over 0.6% between windows splits a play into segments | adopt, with either matcher |
+| Band profile, variant a (`Profile::spread`) | for: development mix +34% true hits, 9% fewer postings, margins 4.15× → 4.96× and 5.53× → 5.82×; against: every record extracted again, related records reach the possible tier more easily, one development mix | adopt after choosing the matcher, confirmed by one test evaluation |
+| Extra rungs (`--extra-rungs 3`) | for: every speed to ±9%; against: 14% more CPU | only if your decks go past ±8% |
+| Speed per stretch (`--speed-per-stretch`) | for: more evidence on drifting plays, no CPU; against: no level changes in any set, false candidates gain too | keep opt-in |
+| Trimming weak ends (`--trim-ends`) | against: 219 s of true play lost to remove 85 s of overshoot | do not adopt |
+
+**Decisions for you.**
+
+- Adopt skip at 240 (session 3's open decision)? Item 1 adds that it is
+  3.5× cheaper at 31,964 assets and peaks at half the memory.
+- The link rules, the band profile and extra rungs, as in the table.
+  Each changes detections; the band profile also means extracting every
+  peak record again.
+- Test-set evaluations (3 left): none spent. One evaluation of the
+  chosen matcher with what you adopt would confirm it.
+- If you have a minute, listen to whether Bad Company - China Cup shares
+  material with The Nine: with the band profile, China Cup held out
+  finds The Nine with 43-50 hits.
 
 ## Session 3 summary
 
@@ -551,6 +630,55 @@ material (roadmap) is solved, since that is what forced 240.
 
 ## Session 4 findings
 
+### Idle-machine reference: where the time goes, and what scale costs
+
+Measured without load this time (experiment 0028; three rounds each,
+wall times within 2%). The development scan (56 minutes) takes 34 s at
+262 assets, 4.4 minutes at 8,122, 12.8 at 26,462 and 15.2 at 31,964
+with today's matcher; skip at 240 takes 31 s, 1.7, 4.0 and 4.7 minutes.
+Search CPU grows by about 0.21 s per asset with today's matcher and 0.055
+s with skip at 240, which is 3.5× cheaper at 31,964 assets. Peaks: 11.2
+GB with today's matcher and 5.3 GB with skip at 31,964 assets, before
+item 2's change.
+
+Where the time goes depends on size. At 262 assets, 80-88% of the CPU
+analyses the query on 82 rungs (STFT and peak picking); sorting each
+window's hits is second (7-17%). At 26,462 assets sorting the hits is
+77-87% of the CPU and analysis 4-12%; looking up postings is 2%. Every
+window collects millions of hits (up to 201 MB per worker), and they are
+sorted by asset and offset to find the lines. Any correct sort gives the
+same lines, so a faster one (grouping by asset first, then sorting each
+asset's few hundred hits) would keep detections identical; not tried.
+Indexing takes 0.2 s per track at 10 workers: about 67 minutes for
+20,000 tracks on a local disk (inference).
+
+### Search memory at scale: lines, hit buffers and the allocator's cache
+
+On an idle machine, scanning the 56-minute development mix at 26,462
+assets (the scale proxy) with 10 workers peaks at 9.8 GB with today's
+code (three rounds, within 1 MB of each other), 4.4 GB with skip at 240.
+What it holds: the index (3.0 GB); each worker's hits for one window (up
+to 201 MB per worker); every rung's lines until chains are built (12.1
+million lines, 579 MB, per 10 minutes of query; 7.3 million after
+merging); and freed memory: each rung grew its own hit buffer and freed
+it, and macOS keeps freed large blocks cached. With that cache off
+(`MallocLargeCache=0`) the same scan peaks at 6.8 GB at the same CPU.
+On 10 minutes of query the cache was most of the peak (15.7 GB against
+5.0 GB). So experiment 0021's inference (lines of every rung, about 11
+GB for an hour-long mix) had the right ingredient and the wrong size.
+
+Item 2 (commit d4d8fb1) searches a block of 12 windows on every rung at
+a time, merges each block's lines once every rung has searched it, and
+gives each worker one hit buffer. Detections are identical (`regress`,
+and every scale report). Peaks fall from 5.3 to 2.9 GB at 8,122 assets
+and from 9.8 to 7.7 GB at 26,462 (skip at 240: 2.1 to 1.4 GB, 4.4 to 3.8
+GB); wall time falls 5-12% at under 1% more CPU (experiment 0029). What
+is left at 26,462 assets is the index (3.0 GB), the merged lines of the
+whole mix (29.3 million, 1.4 GB), the workers' hit buffers (about 2 GB)
+and the final sort of the lines. Two further identical changes would take
+off about 1.2 GB (16-byte hits, and sorting the lines without a half-size
+copy); not done.
+
 ### Chance lines in chains: two link rules, case for adoption
 
 Two opt-in rules (commit afc731c; experiment 0030): `--nearby-rungs`
@@ -578,20 +706,6 @@ windows splits a play into segments (Star Trails at 13:20, +4.5% to
 +3.1%: two confident segments of one play in the report). My
 recommendation, for you to decide: adopt both rules with whichever
 matcher you choose; with skip at 240 they add margin at no cost.
-
-### Trimming weak chain ends costs more true play than it removes
-
-`--trim-ends` (commit afc731c; experiment 0031) leaves lines at either
-end of a chain with under a quarter of the chain's median hits out of
-the boundaries. Detection levels are unchanged under both matchers. On
-the generated mixes' exact boundaries, under today's matcher, it removes
-84.7 s of overshoot from 6 plays (86.0 to 1.3 s) and cuts 218.8 s of
-true play from 72 of 115 plays (median 3.1 s, largest 8.2 s): a play's
-first and last windows are often partial or under a crossfade, so they
-are as weak as a chance line (inference). Under skip at 240 there was
-only 7.6 s of overshoot to remove, and trimming costs 221 s the same way.
-The link rules (0030) remove 78.4 s of overshoot at 22.2 s of true play.
-My recommendation: do not adopt trimming.
 
 ### Speed per stretch: more hits where speed drifts, no level changes
 
@@ -664,6 +778,20 @@ possible tier more easily. My recommendation, for you to decide: adopt
 variant a after choosing the matcher, confirmed by one test-set
 evaluation, and listen to whether China Cup and The Nine share material.
 
+### Trimming weak chain ends costs more true play than it removes
+
+`--trim-ends` (commit afc731c; experiment 0031) leaves lines at either
+end of a chain with under a quarter of the chain's median hits out of
+the boundaries. Detection levels are unchanged under both matchers. On
+the generated mixes' exact boundaries, under today's matcher, it removes
+84.7 s of overshoot from 6 plays (86.0 to 1.3 s) and cuts 218.8 s of
+true play from 72 of 115 plays (median 3.1 s, largest 8.2 s): a play's
+first and last windows are often partial or under a crossfade, so they
+are as weak as a chance line (inference). Under skip at 240 there was
+only 7.6 s of overshoot to remove, and trimming costs 221 s the same way.
+The link rules (0030) remove 78.4 s of overshoot at 22.2 s of true play.
+My recommendation: do not adopt trimming.
+
 ### The edge of the ladder: three more rungs cover ±9% for 14% more CPU
 
 Experiment 0033. With today's ladders (±8%) recall stays 40 of 40 to
@@ -681,52 +809,3 @@ For adoption: cheap insurance if a deck's fader goes past 8% (the
 classic Technics SL-1200 stops at ±8%; some decks and CDJs offer wider
 ranges). Against: 14% CPU for plays that may never happen in your
 mixes. My recommendation: adopt it only if you play past ±8%.
-
-### Search memory at scale: lines, hit buffers and the allocator's cache
-
-On an idle machine, scanning the 56-minute development mix at 26,462
-assets (the scale proxy) with 10 workers peaks at 9.8 GB with today's
-code (three rounds, within 1 MB of each other), 4.4 GB with skip at 240.
-What it holds: the index (3.0 GB); each worker's hits for one window (up
-to 201 MB per worker); every rung's lines until chains are built (12.1
-million lines, 579 MB, per 10 minutes of query; 7.3 million after
-merging); and freed memory: each rung grew its own hit buffer and freed
-it, and macOS keeps freed large blocks cached. With that cache off
-(`MallocLargeCache=0`) the same scan peaks at 6.8 GB at the same CPU.
-On 10 minutes of query the cache was most of the peak (15.7 GB against
-5.0 GB). So experiment 0021's inference (lines of every rung, about 11
-GB for an hour-long mix) had the right ingredient and the wrong size.
-
-Item 2 (commit d4d8fb1) searches a block of 12 windows on every rung at
-a time, merges each block's lines once every rung has searched it, and
-gives each worker one hit buffer. Detections are identical (`regress`,
-and every scale report). Peaks fall from 5.3 to 2.9 GB at 8,122 assets
-and from 9.8 to 7.7 GB at 26,462 (skip at 240: 2.1 to 1.4 GB, 4.4 to 3.8
-GB); wall time falls 5-12% at under 1% more CPU (experiment 0029). What
-is left at 26,462 assets is the index (3.0 GB), the merged lines of the
-whole mix (29.3 million, 1.4 GB), the workers' hit buffers (about 2 GB)
-and the final sort of the lines. Two further identical changes would take
-off about 1.2 GB (16-byte hits, and sorting the lines without a half-size
-copy); not done.
-
-### Idle-machine reference: where the time goes, and what scale costs
-
-Measured without load this time (experiment 0028; three rounds each,
-wall times within 2%). The development scan (56 minutes) takes 34 s at
-262 assets, 4.4 minutes at 8,122, 12.8 at 26,462 and 15.2 at 31,964
-with today's matcher; skip at 240 takes 31 s, 1.7, 4.0 and 4.7 minutes.
-Search CPU grows by about 0.21 s per asset with today's matcher and 0.055
-s with skip at 240, which is 3.5× cheaper at 31,964 assets. Peaks: 11.2
-GB with today's matcher and 5.3 GB with skip at 31,964 assets, before
-item 2's change.
-
-Where the time goes depends on size. At 262 assets, 80-88% of the CPU
-analyses the query on 82 rungs (STFT and peak picking); sorting each
-window's hits is second (7-17%). At 26,462 assets sorting the hits is
-77-87% of the CPU and analysis 4-12%; looking up postings is 2%. Every
-window collects millions of hits (up to 201 MB per worker), and they are
-sorted by asset and offset to find the lines. Any correct sort gives the
-same lines, so a faster one (grouping by asset first, then sorting each
-asset's few hundred hits) would keep detections identical; not tried.
-Indexing takes 0.2 s per track at 10 workers: about 67 minutes for
-20,000 tracks on a local disk (inference).
