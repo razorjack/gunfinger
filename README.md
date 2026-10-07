@@ -299,7 +299,9 @@ hits or more, against chance lines joining a play; `--speed-per-stretch`
 (with `--second-pass`) measures each stretch of 3 windows again at its
 own speed when its hits drift from the fitted one; `--trim-ends` leaves
 weak windows at either end out of a detection's boundaries, its evidence
-unchanged. Their reports go
+unchanged; `--extra-rungs N` extends both ladders by N rungs past ±8%
+(reports in `work/reports/extra-rungs-<n>/`), and `robust --only
+speed+8.2pct,...` runs speeds from ±8.2% to ±9%. Their reports go
 to `work/reports/variant-<name>/`, where `calibrate` and `regress` read
 them when given the same options. `scan` and `robust` take
 `--synthetic-copies N`, which adds N time-reversed, stretched copies of

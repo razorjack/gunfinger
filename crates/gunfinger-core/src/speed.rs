@@ -92,17 +92,28 @@ pub fn design() -> String {
 
 /// The assumed speeds searched, slowest first.
 pub fn ladder() -> Vec<Rung> {
-    speeds().map(Rung::Turntable).collect()
+    ladder_with_extra_rungs(0)
 }
 
 /// The same speeds as tempo ratios under key lock.
 pub fn key_lock_ladder() -> Vec<Rung> {
-    speeds().map(Rung::KeyLocked).collect()
+    key_lock_ladder_with_extra_rungs(0)
 }
 
-fn speeds() -> impl Iterator<Item = SpeedRatio> {
-    let rungs = ((FASTEST - SLOWEST) / STEP).round() as u32;
-    (0..=rungs).map(|rung| SpeedRatio(SLOWEST + f64::from(rung) * STEP))
+/// `ladder` with `extra` more rungs past either end, a step apart (under
+/// evaluation: speeds past 8%).
+pub fn ladder_with_extra_rungs(extra: u32) -> Vec<Rung> {
+    speeds(extra).map(Rung::Turntable).collect()
+}
+
+pub fn key_lock_ladder_with_extra_rungs(extra: u32) -> Vec<Rung> {
+    speeds(extra).map(Rung::KeyLocked).collect()
+}
+
+fn speeds(extra: u32) -> impl Iterator<Item = SpeedRatio> {
+    let rungs = ((FASTEST - SLOWEST) / STEP).round() as i32;
+    let extra = extra as i32;
+    (-extra..=rungs + extra).map(|rung| SpeedRatio(SLOWEST + f64::from(rung) * STEP))
 }
 
 /// The peaks of `samples` in reference coordinates, assuming the audio plays
@@ -183,6 +194,16 @@ mod tests {
         assert!((ladder[0].speed().0 - 0.92).abs() < 1e-9);
         assert!((ladder[20].speed().0 - 1.0).abs() < 1e-9);
         assert!((ladder[40].speed().0 - 1.08).abs() < 1e-9);
+    }
+
+    #[test]
+    fn extra_rungs_extend_the_ladder_a_step_at_a_time() {
+        let wider = ladder_with_extra_rungs(3);
+
+        assert_eq!(wider.len(), 47);
+        assert!((wider[0].speed().0 - 0.908).abs() < 1e-9);
+        assert_eq!(wider[3..44], ladder()[..]);
+        assert!((wider[46].speed().0 - 1.092).abs() < 1e-9);
     }
 
     #[test]

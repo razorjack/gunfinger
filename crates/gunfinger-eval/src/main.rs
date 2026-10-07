@@ -32,7 +32,7 @@ use std::process::ExitCode;
 
 use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::library::Library;
-use gunfinger_core::speed::{Rung, key_lock_ladder, ladder};
+use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
@@ -76,6 +76,10 @@ struct Paths {
     /// so that calibrate and regress read one ladder at a time.
     #[arg(long, global = true, value_enum, default_value_t = Ladder::Both)]
     ladder: Ladder,
+    /// Extend each ladder by this many rungs past either end, a step
+    /// (0.4%) apart; reports go to `reports/extra-rungs-<n>/`.
+    #[arg(long, global = true, default_value_t = 0)]
+    extra_rungs: u32,
     /// Opt-in matching changes; their reports go to
     /// `reports/variant-<name>/`.
     #[command(flatten)]
@@ -302,7 +306,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     panels: &paths.panels,
                     count,
                     ladder_name: paths.ladder.name(),
-                    ladder: &paths.ladder.rungs(),
+                    ladder: &paths.rungs(),
                     matching: &paths.matching,
                     jobs,
                 },
@@ -324,7 +328,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     seed,
                     panels: &paths.panels,
                     ladder_name: paths.ladder.name(),
-                    ladder: &paths.ladder.rungs(),
+                    ladder: &paths.rungs(),
                     matching: &paths.matching,
                     jobs,
                 },
@@ -345,7 +349,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.work,
                 &loss::Options {
                     set: &set,
-                    ladder: &paths.ladder.rungs(),
+                    ladder: &paths.rungs(),
                     jobs,
                 },
             )?;
@@ -370,7 +374,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     until,
                     minutes,
                     count_lines,
-                    ladder: &paths.ladder.rungs(),
+                    ladder: &paths.rungs(),
                     matching: paths.matching,
                     jobs,
                 },
@@ -412,11 +416,13 @@ impl Ladder {
         }
     }
 
-    fn rungs(self) -> Vec<Rung> {
+    fn rungs(self, extra: u32) -> Vec<Rung> {
+        let turntable = || ladder_with_extra_rungs(extra);
+        let key_lock = || key_lock_ladder_with_extra_rungs(extra);
         match self {
-            Ladder::Turntable => ladder(),
-            Ladder::KeyLock => key_lock_ladder(),
-            Ladder::Both => ladder().into_iter().chain(key_lock_ladder()).collect(),
+            Ladder::Turntable => turntable(),
+            Ladder::KeyLock => key_lock(),
+            Ladder::Both => turntable().into_iter().chain(key_lock()).collect(),
         }
     }
 }
@@ -500,7 +506,7 @@ fn run_robust(
             panels: &paths.panels,
             only,
             ladder_name: ladder.name(),
-            ladder: &ladder.rungs(),
+            ladder: &paths.rungs(),
             padding: &padding,
             matching: &paths.matching,
             jobs,
@@ -567,7 +573,7 @@ fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
         &sweep::Options {
             seed,
             panels: &paths.panels,
-            ladder: &paths.ladder.rungs(),
+            ladder: &paths.rungs(),
             matching: &paths.matching,
             jobs,
         },
@@ -598,7 +604,7 @@ fn run_scan(
             leave_out,
             padding: &padding,
             matching: &paths.matching,
-            ladder: &paths.ladder.rungs(),
+            ladder: &paths.rungs(),
             jobs,
         },
     )?;
@@ -631,10 +637,17 @@ impl Paths {
         self.corpus.join("sets")
     }
 
+    fn rungs(&self) -> Vec<Rung> {
+        self.ladder.rungs(self.extra_rungs)
+    }
+
     fn reports(&self) -> PathBuf {
         let mut reports = self.work.join("reports");
         if self.ladder != Ladder::Both {
             reports.push(format!("ladder-{}", self.ladder.name()));
+        }
+        if self.extra_rungs > 0 {
+            reports.push(format!("extra-rungs-{}", self.extra_rungs));
         }
         if let Some(name) = self.matching.name() {
             reports.push(format!("variant-{name}"));

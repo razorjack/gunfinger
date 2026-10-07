@@ -142,6 +142,20 @@ const CONDITIONS: [Condition; 38] = [
     Condition::KeyLock(1.08),
 ];
 
+/// Speeds just past the ladder's ends, run only when named in `--only`.
+const LADDER_EDGE: [Condition; 10] = [
+    Condition::Speed(0.918),
+    Condition::Speed(0.916),
+    Condition::Speed(0.914),
+    Condition::Speed(0.912),
+    Condition::Speed(0.91),
+    Condition::Speed(1.082),
+    Condition::Speed(1.084),
+    Condition::Speed(1.086),
+    Condition::Speed(1.088),
+    Condition::Speed(1.09),
+];
+
 impl Condition {
     fn name(self) -> String {
         match self {
@@ -170,7 +184,14 @@ impl Condition {
             Condition::Broadcast => "broadcast".into(),
             Condition::Beatmatched { partner_db } => format!("beatmatched-{partner_db}db"),
             Condition::Combined => "combined".into(),
-            Condition::Speed(speed) => format!("speed{:+.0}pct", (speed - 1.0) * 100.0),
+            Condition::Speed(speed) => {
+                let percent = (speed - 1.0) * 100.0;
+                if (percent - percent.round()).abs() < 1e-6 {
+                    format!("speed{percent:+.0}pct")
+                } else {
+                    format!("speed{percent:+.1}pct")
+                }
+            }
             Condition::KeyLock(tempo) => format!("key-lock{:+.0}pct", (tempo - 1.0) * 100.0),
         }
     }
@@ -365,6 +386,11 @@ pub fn run(
         .filter(|condition| {
             *condition == Condition::Control || only.is_empty() || only.contains(&condition.name())
         })
+        .chain(
+            LADDER_EDGE
+                .into_iter()
+                .filter(|condition| only.contains(&condition.name())),
+        )
         .collect();
     let mut work_items = Vec::new();
     for &condition in &conditions {
