@@ -24,10 +24,10 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::matching::Matching;
+use crate::padding::Padding;
 use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
-use crate::synthetic;
 use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
 
 /// Excerpts per condition and speed: the sweep's first indexed and
@@ -249,7 +249,10 @@ pub struct RobustReport {
     pub ladder: String,
     #[serde(default)]
     pub synthetic_copies: usize,
-    /// Assets in the index, synthetic copies included.
+    /// Assets of a second library in the index.
+    #[serde(default)]
+    pub second_library_assets: usize,
+    /// Assets in the index, synthetic copies and a second library included.
     #[serde(default)]
     pub indexed_assets: usize,
     pub rows: Vec<Row>,
@@ -308,8 +311,8 @@ pub struct Options<'a> {
     pub only: &'a [String],
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
-    /// Reversed copies of every indexed record added to the index.
-    pub synthetic_copies: usize,
+    /// What is added to the index to measure a larger library.
+    pub padding: &'a Padding,
     pub matching: &'a Matching,
     pub jobs: usize,
 }
@@ -327,7 +330,7 @@ pub fn run(
         only,
         ladder_name,
         ladder,
-        synthetic_copies,
+        padding,
         matching,
         jobs,
     } = *options;
@@ -339,10 +342,7 @@ pub fn run(
         .filter(|record| !plan.held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let index = matching.index(
-        synthetic::index_with_copies(&indexed, synthetic_copies, &profile)
-            .map_err(|error| error.to_string())?,
-    );
+    let index = matching.index(padding.index(&indexed, &profile)?);
     drop(indexed);
     drop(records);
     let draws: Vec<&Draw> = plan
@@ -450,7 +450,8 @@ pub fn run(
     Ok(RobustReport {
         seed,
         ladder: ladder_name.to_owned(),
-        synthetic_copies,
+        synthetic_copies: padding.copies,
+        second_library_assets: padding.second_assets(),
         indexed_assets: index.assets().len(),
         rows,
         queries,

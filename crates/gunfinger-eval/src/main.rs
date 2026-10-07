@@ -12,6 +12,7 @@ mod manifest;
 mod matching;
 mod memory;
 mod mixes;
+mod padding;
 mod regress;
 mod related;
 mod render;
@@ -37,6 +38,7 @@ use serde::Serialize;
 
 use crate::clusters::Clusters;
 use crate::matching::Matching;
+use crate::padding::{Padding, SecondLibrary};
 use crate::scan::LeaveOut;
 
 #[derive(Parser)]
@@ -185,8 +187,8 @@ enum Command {
     Memory {
         #[arg(long, default_value = "stakka-skynet-knowledge")]
         set: String,
-        #[arg(long, default_value_t = 0)]
-        synthetic_copies: usize,
+        #[command(flatten)]
+        variant: IndexVariant,
         /// Stop after this phase.
         #[arg(long, value_enum, default_value_t = memory::Phase::Searched)]
         until: memory::Phase,
@@ -353,7 +355,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
         }
         Command::Memory {
             set,
-            synthetic_copies,
+            variant,
             until,
             minutes,
             count_lines,
@@ -364,7 +366,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.store()?,
                 &memory::Options {
                     set: &set,
-                    synthetic_copies,
+                    padding: &variant.padding()?,
                     until,
                     minutes,
                     count_lines,
@@ -373,13 +375,14 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     jobs,
                 },
             )?;
-            let variant = paths
+            let matcher = paths
                 .matching
                 .name()
                 .map_or_else(String::new, |name| format!("-{name}"));
             write_json(
                 &paths.work.join("memory").join(format!(
-                    "memory-copies-{synthetic_copies}-jobs-{jobs}-until-{}{variant}{}.json",
+                    "memory{}-jobs-{jobs}-until-{}{matcher}{}.json",
+                    variant.suffix(),
                     format!("{until:?}").to_lowercase(),
                     if count_lines { "-lines" } else { "" }
                 )),
@@ -418,38 +421,64 @@ impl Ladder {
     }
 }
 
-/// A larger index for scale experiments.
+/// A larger index for scale experiments (`padding`).
 #[derive(clap::Args)]
 struct IndexVariant {
     /// Add this many time-reversed, stretched copies of every indexed record
     /// to the index, to measure a larger library.
     #[arg(long, default_value_t = 0)]
     synthetic_copies: usize,
+    /// Add the current peak records of a second library to the index, named
+    /// `second-library/<path>`, to measure a larger real library: the
+    /// library's root directory...
+    #[arg(long, requires = "second_peaks_dir")]
+    second_library: Option<PathBuf>,
+    /// ...and its peak store, as `gunfinger index <root> --peaks-dir`
+    /// wrote it.
+    #[arg(long, requires = "second_library")]
+    second_peaks_dir: Option<PathBuf>,
 }
 
 impl IndexVariant {
-    fn check(&self) -> Result<(), String> {
+    /// What to add to the index, with the second library opened.
+    fn padding(&self) -> Result<Padding, String> {
         if self.synthetic_copies > synthetic::MAX_COPIES {
             return Err(format!(
                 "at most {} synthetic copies are distinct",
                 synthetic::MAX_COPIES
             ));
         }
-        Ok(())
+        let second = match (&self.second_library, &self.second_peaks_dir) {
+            (Some(root), Some(peaks_dir)) => Some(SecondLibrary::open(root, peaks_dir)?),
+            _ => None,
+        };
+        Ok(Padding {
+            copies: self.synthetic_copies,
+            second,
+        })
     }
 
     /// Report name suffix; empty for the unchanged index.
     fn suffix(&self) -> String {
-        if self.synthetic_copies > 0 {
-            format!("-copies-{}", self.synthetic_copies)
-        } else {
-            String::new()
-        }
+        variant_suffix(self.synthetic_copies, self.second_library.is_some())
     }
+}
+
+fn variant_suffix(synthetic_copies: usize, second_library: bool) -> String {
+    let mut suffix = String::new();
+    if second_library {
+        suffix.push_str("-second-library");
+    }
+    if synthetic_copies > 0 {
+        suffix.push_str(&format!("-copies-{synthetic_copies}"));
+    }
+    suffix
 }
 
 const UNCHANGED_INDEX: IndexVariant = IndexVariant {
     synthetic_copies: 0,
+    second_library: None,
+    second_peaks_dir: None,
 };
 
 fn run_robust(
@@ -460,7 +489,7 @@ fn run_robust(
     jobs: usize,
 ) -> Result<(), String> {
     let ladder = paths.ladder;
-    variant.check()?;
+    let padding = variant.padding()?;
     let report = robust::run(
         &paths.library()?,
         &paths.store()?,
@@ -472,7 +501,7 @@ fn run_robust(
             only,
             ladder_name: ladder.name(),
             ladder: &ladder.rungs(),
-            synthetic_copies: variant.synthetic_copies,
+            padding: &padding,
             matching: &paths.matching,
             jobs,
         },
@@ -558,7 +587,7 @@ fn run_scan(
     variant: &IndexVariant,
     jobs: usize,
 ) -> Result<(), String> {
-    variant.check()?;
+    let padding = variant.padding()?;
     let report = scan::run(
         &paths.sets(),
         set,
@@ -567,7 +596,7 @@ fn run_scan(
         &paths.clusters()?,
         &scan::Options {
             leave_out,
-            synthetic_copies: variant.synthetic_copies,
+            padding: &padding,
             matching: &paths.matching,
             ladder: &paths.ladder.rungs(),
             jobs,
