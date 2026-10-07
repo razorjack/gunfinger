@@ -636,7 +636,15 @@ the development mix's eleven tracks gain 34% more hits (Star Trails +72%,
 Side Effects +67%, every track at least +12%); on sweep 2026 and the
 development scans the margin rises from 5.16× to 6.44× (weakest
 identifying 501 to 663, strongest false 97 to 103, the Clockwork remix's
-shared passage) and false candidates fall from 15,623 to 6,778.
+shared passage) and false candidates fall from 15,623 to 6,778. On the
+true rung the mix keeps 19.0% of the reference hashes instead of 13.0%,
+and its plays look up 36% fewer postings (12.5 million instead of 19.4
+million) for 34% more true hits: 4.15 per 1,000 postings instead of 2.0.
+Under the robust conditions (clean library excerpts) it is level: 1,955
+confident of 2,600 against 1,959, 2,278 possible or better against
+2,258, no wrong answer; it gains on codecs and low-passes and loses on
+blends at equal level (9 fewer confident), where the partner's bass
+competes with the added low peaks (inference).
 
 ### Search memory at scale: lines, hit buffers and the allocator's cache
 
