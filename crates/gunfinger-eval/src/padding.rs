@@ -1,11 +1,15 @@
 //! A larger index for scale experiments: the library's records, then the
 //! current records of a second library (a larger real library, when one
 //! exists), then reversed copies of the library's records (`synthetic`).
+//! The second library is either scanned (`--second-library`) or known from
+//! its store alone (`--other-peaks-dir`, less the copies corpus files
+//! stand for).
 //!
 //! The index is built in two passes over the same records in the same
 //! order, reading the second library one record at a time and making each
 //! copy as it is taken, so it needs little more memory than the index.
 
+use std::collections::BTreeSet;
 use std::path::Path;
 
 use gunfinger_core::index::Index;
@@ -64,24 +68,50 @@ impl SecondLibrary {
         Ok(SecondLibrary { store, assets })
     }
 
+    /// The current records of `store`, without reading its library, less
+    /// the files in `without` (paths in the store, unprefixed).
+    pub fn from_store(
+        store: PeakStore,
+        without: &BTreeSet<String>,
+    ) -> Result<SecondLibrary, String> {
+        let (assets, problems) = store
+            .current_sources(&Profile::CURRENT)
+            .map_err(|error| error.to_string())?;
+        for problem in &problems {
+            eprintln!("left out: {problem}");
+        }
+        Ok(SecondLibrary {
+            store,
+            assets: assets
+                .into_iter()
+                .filter(|asset| !without.contains(&asset.path))
+                .collect(),
+        })
+    }
+
     pub fn len(&self) -> usize {
         self.assets.len()
     }
 
-    /// Its records one at a time, their paths prefixed.
+    /// Its records one at a time, their paths prefixed, leaving out those
+    /// whose prefixed path is in `excluded`.
     fn records<'a>(
         &'a self,
         profile: &'a Profile,
+        excluded: &'a BTreeSet<String>,
     ) -> impl Iterator<Item = Result<PeakRecord, String>> + 'a {
-        self.assets.iter().map(move |asset| {
-            let mut record = self
-                .store
-                .load(asset, profile)
-                .map_err(|error| error.to_string())?;
-            record.header.source.path =
-                format!("{SECOND_LIBRARY_PREFIX}{}", record.header.source.path);
-            Ok(record)
-        })
+        self.assets
+            .iter()
+            .filter(|asset| !excluded.contains(&format!("{SECOND_LIBRARY_PREFIX}{}", asset.path)))
+            .map(move |asset| {
+                let mut record = self
+                    .store
+                    .load(asset, profile)
+                    .map_err(|error| error.to_string())?;
+                record.header.source.path =
+                    format!("{SECOND_LIBRARY_PREFIX}{}", record.header.source.path);
+                Ok(record)
+            })
     }
 }
 
@@ -92,14 +122,20 @@ impl Padding {
     }
 
     /// The index of `records` followed by the padding; asset `i` is
-    /// `records[i]` for `i < records.len()`.
-    pub fn index(&self, records: &[PeakRecord], profile: &Profile) -> Result<Index, String> {
+    /// `records[i]` for `i < records.len()`. Second-library files named in
+    /// `excluded` (held-out or left-out recordings' rips) are left out.
+    pub fn index(
+        &self,
+        records: &[PeakRecord],
+        profile: &Profile,
+        excluded: &BTreeSet<String>,
+    ) -> Result<Index, String> {
         let mut counting = Index::counting();
         for record in records {
             counting.count(record).map_err(|error| error.to_string())?;
         }
         if let Some(second) = &self.second {
-            for record in second.records(profile) {
+            for record in second.records(profile, excluded) {
                 counting
                     .count(&record?)
                     .map_err(|error| error.to_string())?;
@@ -113,7 +149,7 @@ impl Padding {
             filling.fill(record).map_err(|error| error.to_string())?;
         }
         if let Some(second) = &self.second {
-            for record in second.records(profile) {
+            for record in second.records(profile, excluded) {
                 filling.fill(&record?).map_err(|error| error.to_string())?;
             }
         }
@@ -173,7 +209,11 @@ mod tests {
             second: Some(SecondLibrary::open(&root, &dir.join("peaks")).unwrap()),
         };
         let index = padding
-            .index(&[record(first, &[200.0, 220.0, 190.0])], &Profile::CURRENT)
+            .index(
+                &[record(first, &[200.0, 220.0, 190.0])],
+                &Profile::CURRENT,
+                &BTreeSet::new(),
+            )
             .unwrap();
         fs::remove_dir_all(&dir).unwrap();
 

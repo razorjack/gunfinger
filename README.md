@@ -293,6 +293,7 @@ of the repository:
 target/release/gunfinger-eval validate                 # check the manifests
 target/release/gunfinger-eval clusters                 # duplicate rips in the library
 target/release/gunfinger-eval clusters --from-peaks    # the same from stored peaks, compared
+target/release/gunfinger-eval --other-peaks-dir STORE map-library   # corpus files' copies in a larger library
 target/release/gunfinger-eval sweep --seed 2026        # speed sweep
 target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
 target/release/gunfinger-eval calibrate                # confidence margin
@@ -341,6 +342,19 @@ library's peak records; those reports are kept apart from the ones
 widen with frequency (`Profile::spread`) need a build of their own and a
 store of their own under `work/variants/` (`--peaks-dir`, `--work`); `loss`
 reports postings and true hits by anchor band.
+
+A larger library the corpus was drawn from, which holds a copy of every
+corpus file, can be measured without being mounted: `--other-peaks-dir
+STORE` (before the command) names its peak store. `map-library` pairs each
+corpus file with its copies there (identical peak records), and `clusters
+--from-peaks` finds the other rips of the corpus recordings there,
+following chains of rips. Then `sweep`, `scan`, `robust` and `memory`
+search an index of the corpus and the other library's remaining records,
+named `second-library/<path>`, and count its rips of a recording as that
+recording; held-out and left-out recordings take their rips with them.
+The map, the clusters and the reports go to
+`work/reports/library-<store directory name>/`, where `calibrate` and
+`regress` read them when given the same option.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
 the crate boundaries and the evaluation rules.

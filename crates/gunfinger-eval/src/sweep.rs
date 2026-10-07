@@ -24,6 +24,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::matching::Matching;
+use crate::padding::Padding;
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
 
@@ -174,6 +175,8 @@ pub struct Options<'a> {
     pub seed: u64,
     /// Where the seed's panel is kept (`Plan::for_seed`).
     pub panels: &'a Path,
+    /// What is added to the index: another library's records.
+    pub padding: &'a Padding,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
     pub jobs: usize,
@@ -189,6 +192,7 @@ pub fn run(
     let Options {
         seed,
         panels,
+        padding,
         ladder,
         matching,
         jobs,
@@ -201,7 +205,7 @@ pub fn run(
         .filter(|record| !held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let index = matching.index(Index::build(&indexed).map_err(|error| error.to_string())?);
+    let index = matching.index(padding.index(&indexed, &profile, &held_out)?);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let renders = render_all(library, &draws, &dir, jobs)?;
@@ -231,7 +235,7 @@ pub fn run(
     Ok(SweepReport {
         seed,
         held_out_clusters: clusters_held_out(clusters, &held_out),
-        indexed_assets: indexed.len(),
+        indexed_assets: index.assets().len(),
         per_speed: SPEEDS_PERCENT
             .iter()
             .map(|&speed| speed_row(speed, &queries))

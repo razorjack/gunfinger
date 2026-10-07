@@ -80,7 +80,7 @@ pub fn run(
         None => (Vec::new(), BTreeSet::new()),
     };
     let (records, _) = load_records(library, store, &profile, &left_out_assets);
-    let index = matching.index(padding.index(&records, &profile)?);
+    let index = matching.index(padding.index(&records, &profile, &left_out_assets)?);
     drop(records);
 
     let started = Instant::now();

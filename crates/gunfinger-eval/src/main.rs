@@ -7,6 +7,7 @@ mod calibrate;
 mod clusters;
 mod grid;
 mod hash_cost;
+mod library_map;
 mod loss;
 mod manifest;
 mod matching;
@@ -25,18 +26,22 @@ mod sweep;
 mod synthetic;
 mod tempo;
 
+use std::collections::BTreeSet;
 use std::fs;
 use std::num::NonZeroUsize;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use clap::{Parser, Subcommand, ValueEnum};
+use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
+use gunfinger_core::profile::Profile;
 use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
 use crate::clusters::Clusters;
+use crate::library_map::LibraryMap;
 use crate::matching::Matching;
 use crate::padding::{Padding, SecondLibrary};
 use crate::scan::LeaveOut;
@@ -84,6 +89,16 @@ struct Paths {
     /// `reports/variant-<name>/`.
     #[command(flatten)]
     matching: Matching,
+    /// The peak store of a larger library the corpus was drawn from, which
+    /// holds a copy of every corpus file; its library need not be mounted.
+    /// `map-library` pairs corpus files with their copies there and
+    /// `clusters --from-peaks` finds the corpus recordings' other rips;
+    /// then `sweep`, `scan`, `robust` and `memory` search an index of the
+    /// corpus and the other library's remaining records (named
+    /// `second-library/<path>`), counting those rips as correct. Reports go
+    /// to `reports/library-<store directory name>/`.
+    #[arg(long, global = true)]
+    other_peaks_dir: Option<PathBuf>,
 }
 
 #[derive(Subcommand)]
@@ -101,6 +116,9 @@ enum Command {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
     },
+    /// Pair each corpus file with its copies in the store of
+    /// --other-peaks-dir: files with an identical peak record.
+    MapLibrary,
     /// Find duplicate clusters by matching the library against itself.
     Clusters {
         /// Search each file's stored peaks instead of its decoded audio,
@@ -240,6 +258,23 @@ fn main() -> ExitCode {
 }
 
 fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
+    let takes_other_library = matches!(
+        command,
+        Command::MapLibrary
+            | Command::Clusters { from_peaks: true }
+            | Command::Sweep { .. }
+            | Command::Scan { .. }
+            | Command::Calibrate { .. }
+            | Command::Robust { .. }
+            | Command::Baseline { .. }
+            | Command::Regress { .. }
+            | Command::Memory { .. }
+    );
+    if paths.other_peaks_dir.is_some() && !takes_other_library {
+        return Err(String::from(
+            "this command does not take --other-peaks-dir; map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress and memory do",
+        ));
+    }
     match command {
         Command::Validate => manifest::validate_all(&paths.sets(), &paths.library()?),
         Command::Survival { assets } => {
@@ -254,6 +289,22 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             &paths.work,
             jobs,
         ),
+        Command::MapLibrary => {
+            let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) else {
+                return Err(String::from("map-library needs --other-peaks-dir"));
+            };
+            let (other_assets, problems) = other
+                .current_sources(&Profile::CURRENT)
+                .map_err(|error| error.to_string())?;
+            for problem in &problems {
+                eprintln!("left out: {problem}");
+            }
+            let map =
+                library_map::build(&paths.library()?, &paths.store()?, &other, &other_assets)?;
+            write_json(&map_file, &map)?;
+            library_map::print_summary(&map);
+            Ok(())
+        }
         Command::Clusters { from_peaks } => find_clusters(paths, from_peaks, jobs),
         Command::Related => {
             let related =
@@ -370,7 +421,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.store()?,
                 &memory::Options {
                     set: &set,
-                    padding: &variant.padding()?,
+                    padding: &paths.padding(&variant)?,
                     until,
                     minutes,
                     count_lines,
@@ -385,7 +436,10 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 .map_or_else(String::new, |name| format!("-{name}"));
             write_json(
                 &paths.work.join("memory").join(format!(
-                    "memory{}-jobs-{jobs}-until-{}{matcher}{}.json",
+                    "memory{}{}-jobs-{jobs}-until-{}{matcher}{}.json",
+                    paths
+                        .other_name()
+                        .map_or_else(String::new, |name| format!("-library-{name}")),
                     variant.suffix(),
                     format!("{until:?}").to_lowercase(),
                     if count_lines { "-lines" } else { "" }
@@ -495,7 +549,8 @@ fn run_robust(
     jobs: usize,
 ) -> Result<(), String> {
     let ladder = paths.ladder;
-    let padding = variant.padding()?;
+    paths.check_panel(seed)?;
+    let padding = paths.padding(variant)?;
     let report = robust::run(
         &paths.library()?,
         &paths.store()?,
@@ -540,6 +595,9 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
 }
 
 fn find_clusters(paths: &Paths, from_peaks: bool, jobs: usize) -> Result<(), String> {
+    if let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) {
+        return find_clusters_around(paths, &other, &map_file, jobs);
+    }
     let source = if from_peaks {
         clusters::Source::Peaks
     } else {
@@ -564,7 +622,47 @@ fn find_clusters(paths: &Paths, from_peaks: bool, jobs: usize) -> Result<(), Str
     Ok(())
 }
 
+/// The corpus clusters with the other library's rips of the corpus
+/// recordings, which the evaluations against both libraries read.
+fn find_clusters_around(
+    paths: &Paths,
+    other: &PeakStore,
+    map_file: &Path,
+    jobs: usize,
+) -> Result<(), String> {
+    let map = LibraryMap::load(map_file)?;
+    let corpus = paths.corpus_clusters()?;
+    let profile = Profile::CURRENT;
+    let (other_assets, problems) = other
+        .current_sources(&profile)
+        .map_err(|error| error.to_string())?;
+    for problem in &problems {
+        eprintln!("left out: {problem}");
+    }
+    let (queries, _) = load_records(
+        &paths.library()?,
+        &paths.store()?,
+        &profile,
+        &BTreeSet::new(),
+    );
+    let copies = map.copied();
+    let pairs = clusters::find_around(queries, other, &other_assets, &copies, jobs)?;
+    clusters::print_around(&corpus, &pairs, &copies);
+    let name = map
+        .other_library
+        .unwrap_or_else(|| other.dir().display().to_string());
+    let merged = clusters::merged(&corpus, pairs, &name);
+    write_json(&paths.clusters_file(), &merged)?;
+    println!(
+        "{} clusters with duplicates, written to {}",
+        merged.duplicates.len(),
+        paths.clusters_file().display()
+    );
+    Ok(())
+}
+
 fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
+    paths.check_panel(seed)?;
     let report = sweep::run(
         &paths.library()?,
         &paths.store()?,
@@ -573,6 +671,7 @@ fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
         &sweep::Options {
             seed,
             panels: &paths.panels,
+            padding: &paths.padding(&UNCHANGED_INDEX)?,
             ladder: &paths.rungs(),
             matching: &paths.matching,
             jobs,
@@ -593,7 +692,7 @@ fn run_scan(
     variant: &IndexVariant,
     jobs: usize,
 ) -> Result<(), String> {
-    let padding = variant.padding()?;
+    let padding = paths.padding(variant)?;
     let report = scan::run(
         &paths.sets(),
         set,
@@ -642,7 +741,7 @@ impl Paths {
     }
 
     fn reports(&self) -> PathBuf {
-        let mut reports = self.work.join("reports");
+        let mut reports = self.base_reports();
         if self.ladder != Ladder::Both {
             reports.push(format!("ladder-{}", self.ladder.name()));
         }
@@ -659,13 +758,91 @@ impl Paths {
         self.work.join("baselines").join(name)
     }
 
-    /// Clusters come from library audio alone, whatever the ladder.
+    /// `reports/`, or with another library its own directory there.
+    fn base_reports(&self) -> PathBuf {
+        let reports = self.work.join("reports");
+        match self.other_name() {
+            Some(name) => reports.join(format!("library-{name}")),
+            None => reports,
+        }
+    }
+
+    /// Clusters come from library audio alone, whatever the ladder; with
+    /// another library, they are the corpus clusters with the other
+    /// library's rips of the corpus recordings (`clusters --from-peaks`).
     fn clusters_file(&self) -> PathBuf {
-        self.work.join("reports").join("duplicate-clusters.json")
+        self.base_reports().join("duplicate-clusters.json")
     }
 
     fn clusters(&self) -> Result<Clusters, String> {
         Clusters::load(&self.clusters_file())
+    }
+
+    /// The corpus clusters, also when another library is given.
+    fn corpus_clusters(&self) -> Result<Clusters, String> {
+        Clusters::load(&self.work.join("reports").join("duplicate-clusters.json"))
+    }
+
+    /// The name of the other library's store directory.
+    fn other_name(&self) -> Option<String> {
+        let dir = self.other_peaks_dir.as_ref()?;
+        let name = dir
+            .canonicalize()
+            .unwrap_or_else(|_| dir.clone())
+            .file_name()?
+            .to_string_lossy()
+            .into_owned();
+        Some(name)
+    }
+
+    /// The other library's store, which must exist.
+    fn other_store(&self) -> Result<Option<PeakStore>, String> {
+        let Some(dir) = &self.other_peaks_dir else {
+            return Ok(None);
+        };
+        if !dir.is_dir() {
+            return Err(format!("no peak store at {}", dir.display()));
+        }
+        PeakStore::open(dir)
+            .map(Some)
+            .map_err(|error| error.to_string())
+    }
+
+    fn map_file(&self) -> Option<PathBuf> {
+        self.other_peaks_dir
+            .as_ref()
+            .map(|_| self.base_reports().join("library-map.json"))
+    }
+
+    /// With another library, the seed's panel must have been drawn from
+    /// the corpus alone: its clusters would put the other library's files
+    /// among the held-out recordings.
+    fn check_panel(&self, seed: u64) -> Result<(), String> {
+        let panel = self.panels.join(format!("sweep-seed-{seed}.json"));
+        if self.other_peaks_dir.is_some() && !panel.exists() {
+            return Err(format!(
+                "{} does not exist; draw it with `sweep --seed {seed}` without --other-peaks-dir first",
+                panel.display()
+            ));
+        }
+        Ok(())
+    }
+
+    /// The variant's padding, with the other library's records less the
+    /// copies corpus files stand for.
+    fn padding(&self, variant: &IndexVariant) -> Result<Padding, String> {
+        let mut padding = variant.padding()?;
+        let (Some(store), Some(map_file)) = (self.other_store()?, self.map_file()) else {
+            return Ok(padding);
+        };
+        if padding.second.is_some() {
+            return Err(String::from(
+                "--second-library and --other-peaks-dir cannot be combined",
+            ));
+        }
+        let map = LibraryMap::load(&map_file)?;
+        padding.second = Some(SecondLibrary::from_store(store, &map.stood_for())?);
+        Ok(padding)
     }
 }
 
