@@ -36,6 +36,36 @@ steps need is in `docs/brief-nas.md`; this file is the analysis.
 - Measure wall time, CPU time and peak memory one run at a time, and record
   the load average; other sessions may be using the machine.
 
+## Commands
+
+Built from the `portable-store` branch (this worktree) until it is merged;
+the corpus and its store are read from the main checkout. `E` stands for
+`target/release/gunfinger-eval --corpus ../gunfinger/corpus --peaks-dir
+../gunfinger/work/peaks --work work --other-peaks-dir
+~/.local/share/gunfinger/nas-dnb-peaks`; its map, clusters and reports go
+to `work/reports/library-nas-dnb-peaks/`.
+
+```sh
+# Step 1: tags for the records indexed before tags were kept (NAS mounted).
+target/release/gunfinger --config ~/.config/gunfinger/nas-dnb.toml index
+target/release/gunfinger --config ~/.config/gunfinger/nas-dnb.toml doctor
+# Step 3: the content map (no mount needed from here on).
+$E map-library
+# Step 4: clusters of the corpus recordings at NAS scale.
+$E clusters --from-peaks
+# Steps 6 and 7: the standard evaluation at NAS scale, then the panels.
+$E sweep --seed 2026          # and 2027-2029
+$E scan stakka-skynet-knowledge
+$E scan stakka-skynet-knowledge --leave-out 3
+$E scan stakka-skynet-knowledge --leave-out 11
+$E calibrate
+# Step 10: identifying without the NAS.
+target/release/gunfinger --config ~/.config/gunfinger/nas-dnb.toml identify <mix> --store-only -f json
+```
+
+`clusters --from-peaks` with the other store also writes every pair with
+20% coverage or 30 hits, the input of step 5.
+
 ## Steps
 
 1. **Indexing as it happened.** From the `index` summary: how long the
