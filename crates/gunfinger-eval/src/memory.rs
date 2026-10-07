@@ -25,7 +25,7 @@ use serde::Serialize;
 
 use crate::manifest::load_set;
 use crate::matching::Matching;
-use crate::synthetic;
+use crate::padding::Padding;
 
 /// The last phase to run.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
@@ -41,7 +41,8 @@ pub enum Phase {
 
 pub struct Options<'a> {
     pub set: &'a str,
-    pub synthetic_copies: usize,
+    /// What is added to the index to measure a larger library.
+    pub padding: &'a Padding,
     pub until: Phase,
     /// Search only this many minutes from the start of the set's audio.
     pub minutes: Option<u64>,
@@ -55,6 +56,7 @@ pub struct Options<'a> {
 #[derive(Serialize)]
 pub struct MemoryReport {
     pub synthetic_copies: usize,
+    pub second_library_assets: usize,
     pub jobs: usize,
     /// The opt-in matcher's name; `None` for the default.
     pub matching: Option<String>,
@@ -91,7 +93,8 @@ pub fn run(
 ) -> Result<MemoryReport, String> {
     let profile = Profile::CURRENT;
     let mut report = MemoryReport {
-        synthetic_copies: options.synthetic_copies,
+        synthetic_copies: options.padding.copies,
+        second_library_assets: options.padding.second_assets(),
         jobs: options.jobs,
         matching: options.matching.name(),
         assets: 0,
@@ -115,9 +118,9 @@ pub fn run(
     }
 
     let started = Instant::now();
-    let index = synthetic::index_with_copies(&records, options.synthetic_copies, &profile)
-        .map_err(|error| error.to_string())?;
-    let index = options.matching.index(index);
+    let index = options
+        .matching
+        .index(options.padding.index(&records, &profile)?);
     drop(records);
     report.assets = index.assets().len();
     report.library_peaks = peaks;
@@ -195,9 +198,10 @@ fn resident_bytes() -> Option<u64> {
 pub fn print_summary(report: &MemoryReport) {
     let megabytes = |bytes: u64| bytes as f64 / 1e6;
     println!(
-        "memory: {} assets ({} synthetic copies each), {} library peaks, {} postings, {} jobs, {:.0} s of query, matcher {}",
+        "memory: {} assets ({} synthetic copies each, {} of a second library), {} library peaks, {} postings, {} jobs, {:.0} s of query, matcher {}",
         report.assets,
         report.synthetic_copies,
+        report.second_library_assets,
         report.library_peaks,
         report.postings,
         report.jobs,

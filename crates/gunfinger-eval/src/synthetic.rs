@@ -9,7 +9,6 @@
 //! is a lower bound: a real library of the same size also holds remixes,
 //! shared breaks and samples.
 
-use gunfinger_core::index::{Index, IndexError};
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakRecord, RecordHeader};
@@ -22,31 +21,6 @@ const STRETCHES: [f64; 11] = [
 
 /// The most copies `copies` can make of each record.
 pub const MAX_COPIES: usize = STRETCHES.len() * STRETCHES.len();
-
-/// The index of `records` followed by `count` reversed copies of each. The
-/// copies are made one at a time, once for each pass of the build, so the
-/// padded index needs little more memory than the index itself.
-pub fn index_with_copies(
-    records: &[PeakRecord],
-    count: usize,
-    profile: &Profile,
-) -> Result<Index, IndexError> {
-    let mut counting = Index::counting();
-    for record in records {
-        counting.count(record)?;
-    }
-    for copy in copies(records, count, profile) {
-        counting.count(&copy)?;
-    }
-    let mut filling = counting.into_filling();
-    for record in records {
-        filling.fill(record)?;
-    }
-    for copy in copies(records, count, profile) {
-        filling.fill(&copy)?;
-    }
-    filling.finish()
-}
 
 /// `count` reversed copies of every record, the least stretched first,
 /// named `synthetic/<copy>/<path>`, made as they are taken.

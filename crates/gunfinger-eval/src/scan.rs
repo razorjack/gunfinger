@@ -21,9 +21,9 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::manifest::{Set, load_set};
 use crate::matching::Matching;
+use crate::padding::Padding;
 use crate::rng::Rng;
 use crate::scoring::{Found, FoundPlay, Score, score};
-use crate::synthetic;
 
 /// Which referenced tracks to leave out of the index: `count` of them, drawn
 /// with `seed`.
@@ -51,9 +51,8 @@ pub struct ScanReport {
 /// How the index differs from the library's, and the worker threads.
 pub struct Options<'a> {
     pub leave_out: Option<&'a LeaveOut>,
-    /// Reversed copies of every indexed record added to the index
-    /// (`synthetic`), to measure a larger library.
-    pub synthetic_copies: usize,
+    /// What is added to the index to measure a larger library.
+    pub padding: &'a Padding,
     pub matching: &'a Matching,
     pub ladder: &'a [Rung],
     pub jobs: usize,
@@ -69,7 +68,7 @@ pub fn run(
 ) -> Result<ScanReport, String> {
     let Options {
         leave_out,
-        synthetic_copies,
+        padding,
         matching,
         ladder,
         jobs,
@@ -81,10 +80,7 @@ pub fn run(
         None => (Vec::new(), BTreeSet::new()),
     };
     let (records, _) = load_records(library, store, &profile, &left_out_assets);
-    let index = matching.index(
-        synthetic::index_with_copies(&records, synthetic_copies, &profile)
-            .map_err(|error| error.to_string())?,
-    );
+    let index = matching.index(padding.index(&records, &profile)?);
     drop(records);
 
     let started = Instant::now();
