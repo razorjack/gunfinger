@@ -45,6 +45,7 @@ impl Catalog {
                 format!("could not read the library at {}", library_root.display())
             })?;
         let store = PeakStore::open(peaks_dir).into_diagnostic()?;
+        store.check_library(library_root).into_diagnostic()?;
         let excluded = match exclude_from {
             Some(path) => read_exclusions(path)?,
             None => BTreeSet::new(),
@@ -96,6 +97,7 @@ impl Catalog {
                 format!("could not read the library at {}", library_root.display())
             })?;
         let store = PeakStore::open(peaks_dir).into_diagnostic()?;
+        store.check_library(library_root).into_diagnostic()?;
         let excluded = match exclude_from {
             Some(path) => read_exclusions(path)?,
             None => BTreeSet::new(),
@@ -128,7 +130,11 @@ fn report_left_out(problems: &[StoreError], console: &Console) {
             StoreError::Stale { asset } => {
                 not_indexed.push(format!("{asset} (changed since it was indexed)"));
             }
-            StoreError::Corrupt { .. } | StoreError::Io { .. } => broken.push(problem.to_string()),
+            StoreError::Corrupt { .. }
+            | StoreError::Io { .. }
+            | StoreError::OtherLibrary { .. } => {
+                broken.push(problem.to_string());
+            }
         }
     }
     if !passed_over.is_empty() {

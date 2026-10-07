@@ -25,6 +25,7 @@ pub fn run(
         .into_diagnostic()
         .wrap_err_with(|| format!("could not read the library at {}", library_root.display()))?;
     let store = PeakStore::open(peaks_dir).into_diagnostic()?;
+    store.claim_library(library_root).into_diagnostic()?;
     let options = IndexingOptions {
         jobs,
         length: track_length,

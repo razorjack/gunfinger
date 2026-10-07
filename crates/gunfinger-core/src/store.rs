@@ -33,6 +33,14 @@
 //!                 UTF-8); 1 too long, then the limit exceeded (f64 seconds);
 //!                 2 too short, then the limit not reached (f64 seconds)
 //! ```
+//!
+//! Records are named by their path relative to the library root, so two
+//! libraries sharing a store would overwrite each other's records. The
+//! store therefore names its library in `library.txt`: the absolute path
+//! of the library root, after `#` comment lines. `index` writes it the
+//! first time it indexes a library into the store (a store made before
+//! this keeps its records), and every command refuses a store that names
+//! another library.
 
 use std::fmt;
 use std::fs::{self, File};
@@ -48,6 +56,8 @@ use crate::timecode::format_timecode;
 const MAGIC: &[u8; 8] = b"GUNFPEAK";
 const FORMAT_VERSION: u16 = 2;
 const SKIP_MAGIC: &[u8; 8] = b"GUNFSKIP";
+/// Names the library whose records the store holds.
+const LIBRARY_FILE: &str = "library.txt";
 const SKIP_FORMAT_VERSION: u16 = 1;
 /// Longer decoder messages are cut; the start says what went wrong.
 const MAX_REASON_BYTES: usize = 2000;
@@ -154,6 +164,15 @@ pub enum StoreError {
     Corrupt { path: PathBuf, reason: String },
     #[error("could not access the peak store at {path}: {source}")]
     Io { path: PathBuf, source: io::Error },
+    #[error(
+        "the peak store at {store} holds the records of the library at {owner}, not {library}; give each library its own store (--peaks-dir), or, if the library moved there, put its new path in {file}"
+    )]
+    OtherLibrary {
+        store: PathBuf,
+        owner: String,
+        library: String,
+        file: PathBuf,
+    },
 }
 
 pub struct PeakStore {
@@ -173,6 +192,57 @@ impl PeakStore {
 
     pub fn dir(&self) -> &Path {
         &self.dir
+    }
+
+    /// The library this store holds the records of, if it names one.
+    pub fn library(&self) -> Result<Option<String>, StoreError> {
+        let path = self.dir.join(LIBRARY_FILE);
+        match fs::read_to_string(&path) {
+            Ok(text) => Ok(text
+                .lines()
+                .map(str::trim)
+                .find(|line| !line.is_empty() && !line.starts_with('#'))
+                .map(str::to_owned)),
+            Err(error) if error.kind() == io::ErrorKind::NotFound => Ok(None),
+            Err(source) => Err(StoreError::Io { path, source }),
+        }
+    }
+
+    /// Fails when the store names a library other than the one at `root`.
+    /// A store that names none passes: it predates the name, or nothing has
+    /// been indexed into it.
+    pub fn check_library(&self, root: &Path) -> Result<(), StoreError> {
+        let library = library_name(root);
+        match self.library()? {
+            Some(owner) if owner != library => Err(StoreError::OtherLibrary {
+                store: self.dir.clone(),
+                owner,
+                library,
+                file: self.dir.join(LIBRARY_FILE),
+            }),
+            _ => Ok(()),
+        }
+    }
+
+    /// Makes the library at `root` this store's library, unless the store
+    /// names another (an error). A store that names none adopts it, keeping
+    /// its records.
+    pub fn claim_library(&self, root: &Path) -> Result<(), StoreError> {
+        self.check_library(root)?;
+        if self.library()?.is_some() {
+            return Ok(());
+        }
+        write_atomically(&self.dir.join(LIBRARY_FILE), |out| {
+            writeln!(
+                out,
+                "# The peak records here describe the files of this library."
+            )?;
+            writeln!(
+                out,
+                "# If the library moves, put its new path here: the records stay valid."
+            )?;
+            writeln!(out, "{}", library_name(root))
+        })
     }
 
     /// Records are named by a hash of the asset path: library paths are long,
@@ -284,6 +354,10 @@ impl PeakStore {
         let mut files: Vec<PathBuf> = fs::read_dir(&self.dir)
             .map_err(io_error)?
             .map(|entry| entry.map(|entry| entry.path()))
+            .filter(|path| {
+                path.as_ref()
+                    .map_or(true, |path| !path.ends_with(LIBRARY_FILE))
+            })
             .collect::<Result<_, _>>()
             .map_err(io_error)?;
         files.sort();
@@ -298,6 +372,15 @@ impl PeakStore {
             source,
         })
     }
+}
+
+/// A library's name in the store: its root as an absolute path, so that the
+/// same library reached from another directory has the same name.
+fn library_name(root: &Path) -> String {
+    root.canonicalize()
+        .unwrap_or_else(|_| root.to_path_buf())
+        .to_string_lossy()
+        .into_owned()
 }
 
 fn survey_file(file: PathBuf) -> Stored {
@@ -759,6 +842,28 @@ mod tests {
         let mut sorted = kinds.clone();
         sorted.sort_unstable();
         assert_eq!(sorted, ["record", "skip", "temporary", "unreadable"]);
+    }
+
+    #[test]
+    fn a_store_adopts_the_first_library_indexed_into_it_and_refuses_others() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-claim-{}", std::process::id()));
+        let (first, second) = (dir.join("first"), dir.join("second"));
+        fs::create_dir_all(&first).unwrap();
+        fs::create_dir_all(&second).unwrap();
+        let store = PeakStore::open(&dir.join("peaks")).unwrap();
+        store.save(&record(Vec::new())).unwrap();
+
+        let before = store.check_library(&second);
+        store.claim_library(&first).unwrap();
+        let again = store.claim_library(&first.join("..").join("first"));
+        let other = store.check_library(&second);
+        let records = store.survey().unwrap().len();
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert!(before.is_ok(), "a store that names no library passes");
+        assert!(again.is_ok(), "the same library by another path");
+        assert!(matches!(other, Err(StoreError::OtherLibrary { .. })));
+        assert_eq!(records, 1, "the survey passes over library.txt");
     }
 
     proptest! {

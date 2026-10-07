@@ -237,9 +237,13 @@ only files within the range against the index's limit of 32,768 assets.
 ### One file per library
 
 Keep one peak store per library: records are keyed by the path relative to
-the library root, and `prune` refuses to delete most of a store, which is
-what a shared store or a wrong `--library` looks like. With several
-libraries, give each its own file:
+the library root. The store names its library in `library.txt`, which the
+first `index` writes (an older store keeps its records and adopts the
+library it is indexed with next), and every command refuses a store that
+names another library; `prune` also refuses to delete most of a store,
+which is what a wrong `--library` looks like. If the library moves, put
+its new path in `library.txt`. With several libraries, give each its own
+file:
 
 ```sh
 target/release/gunfinger --config ~/.config/gunfinger/jungle.toml index
