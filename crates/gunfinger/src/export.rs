@@ -24,11 +24,11 @@ const CUE_FRAMES_PER_SECOND: f64 = 75.0;
 /// One row per play, times in seconds.
 pub fn csv(report: &Report) -> String {
     let mut lines = vec![String::from(
-        "start_seconds,end_seconds,track_start_seconds,track_end_seconds,speed_percent,confidence,hits,windows,segments,playback,asset,same_audio",
+        "start_seconds,end_seconds,track_start_seconds,track_end_seconds,speed_percent,confidence,hits,windows,segments,playback,asset,same_audio,shares_material_with_play",
     )];
     for play in &report.plays {
         lines.push(format!(
-            "{:.1},{:.1},{:.1},{:.1},{:.2},{},{},{},{},{},{},{}",
+            "{:.1},{:.1},{:.1},{:.1},{:.2},{},{},{},{},{},{},{},{}",
             play.start_seconds,
             play.end_seconds,
             play.track_start_seconds,
@@ -43,7 +43,10 @@ pub fn csv(report: &Report) -> String {
                 Playback::KeyLocked => "key-locked",
             },
             csv_field(&play.asset),
-            csv_field(&play.same_audio.join(";"))
+            csv_field(&play.same_audio.join(";")),
+            play.shares_material_with
+                .as_ref()
+                .map_or_else(String::new, |shared| shared.play.to_string())
         ));
     }
     lines.push(String::new());
@@ -123,9 +126,13 @@ fn same_recording(a: &FoundPlay, b: &FoundPlay) -> bool {
 pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
     let mut lines = Vec::new();
     for (number, entry) in entries(report).iter().enumerate() {
-        let mark = match entry.confidence() {
-            Level::Confident => "",
-            Level::Possible | Level::Weak => " (possible)",
+        let mark = match (entry.confidence(), &entry.plays[0].shares_material_with) {
+            (Level::Confident, _) => String::new(),
+            (_, Some(shared)) => format!(
+                " (possible; shares material with {})",
+                name(&shared.asset).full()
+            ),
+            (Level::Possible | Level::Weak, None) => String::from(" (possible)"),
         };
         lines.push(format!(
             "{:>2}. {:>7}  {}{mark}",
@@ -227,9 +234,9 @@ mod tests {
         assert_eq!(lines.len(), 5);
         assert_eq!(
             lines[1],
-            "0.0,41.0,10.0,52.2,3.00,confident,853,4,1,turntable,a.wav,copy-of-a.wav"
+            "0.0,41.0,10.0,52.2,3.00,confident,853,4,1,turntable,a.wav,copy-of-a.wav,"
         );
-        assert!(lines[2].ends_with(",key-locked,\"b, the remix.wav\","));
+        assert!(lines[2].ends_with(",key-locked,\"b, the remix.wav\",,"));
     }
 
     #[test]

@@ -13,7 +13,7 @@ use crate::console::Console;
 use crate::listen::{clips, play};
 use crate::report::{FoundPlay, Report};
 use crate::style::Style;
-use crate::table::{named, span};
+use crate::table::{named, shared_material, span};
 
 /// Seconds inside a play's edges that `start` and `end` begin at.
 const EDGE_SECONDS: f64 = 5.0;
@@ -103,11 +103,12 @@ fn list(report: &Report, style: Style) -> String {
     let mut lines = Vec::new();
     for (number, play) in report.plays.iter().enumerate() {
         lines.push(format!(
-            "{:>3}  {:<19} {:<10} {}",
+            "{:>3}  {:<19} {:<10} {}{}",
             style.bold(&(number + 1).to_string()),
             span(play.start_seconds, play.end_seconds),
             play.confidence.label(),
-            named(&play.asset, play.playback)
+            named(&play.asset, play.playback),
+            shared_material(play, str::to_owned)
         ));
     }
     lines.push(String::new());

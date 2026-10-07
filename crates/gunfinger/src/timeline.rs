@@ -4,7 +4,7 @@ use std::path::Path;
 
 use crate::report::{FoundPlay, Level, Report};
 use crate::style::Style;
-use crate::table::{named, timecode};
+use crate::table::{named, shared_material, timecode};
 
 /// Columns of the bar; at 56 minutes, one column is about 53 seconds.
 const BAR_COLUMNS: usize = 64;
@@ -27,9 +27,10 @@ pub fn timeline(report: &Report, style: Style) -> String {
             Level::Weak => bar,
         };
         lines.push(format!(
-            "{:>TIME_COLUMN$} │{bar}│ {}",
+            "{:>TIME_COLUMN$} │{bar}│ {}{}",
             timecode(play.start_seconds),
-            named(file_name(&play.asset), play.playback)
+            named(file_name(&play.asset), play.playback),
+            shared_material(play, |asset| file_name(asset).to_owned())
         ));
     }
     lines.push(String::new());
