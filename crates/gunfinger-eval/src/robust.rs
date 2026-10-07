@@ -363,7 +363,7 @@ pub fn run(
         .filter(|record| !plan.held_out.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let index = matching.index(padding.index(&indexed, &profile)?);
+    let index = matching.index(padding.index(&indexed, &profile, &plan.held_out)?);
     drop(indexed);
     drop(records);
     let draws: Vec<&Draw> = plan

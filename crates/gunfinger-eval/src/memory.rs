@@ -118,9 +118,11 @@ pub fn run(
     }
 
     let started = Instant::now();
-    let index = options
-        .matching
-        .index(options.padding.index(&records, &profile)?);
+    let index = options.matching.index(options.padding.index(
+        &records,
+        &profile,
+        &BTreeSet::new(),
+    )?);
     drop(records);
     report.assets = index.assets().len();
     report.library_peaks = peaks;

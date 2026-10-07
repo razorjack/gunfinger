@@ -65,6 +65,10 @@ The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
 `related` (self-match of the library), `survival` and `hash_cost` (hash
 measurements without a search) on top of `manifest` and `scoring`.
+`padding` adds records to the index for scale experiments, including a
+larger library the corpus was drawn from (`--other-peaks-dir`), whose
+copies of corpus files `library_map` finds and whose rips of the corpus
+recordings `clusters::find_around` finds.
 Python scripts that summarise harness reports for experiments live in
 `scripts/analysis/`.
 
