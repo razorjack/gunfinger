@@ -1,8 +1,9 @@
 """Summarise `clusters --from-peaks --other-peaks-dir` against the corpus
 clusters: further rips of the corpus recordings, borderline pairs, and the
 census of related recordings (pairs of different recordings with 30 hits
-or more), each labelled from the tags as versions of one title, the same
-artist, or neither.
+or more), each labelled from the tags: the same name (artist and title, so
+probably another rip or edit of the recording below the 80% rule),
+versions of one title (remixes, VIPs), the same artist, or neither.
 
 usage: nas_pairs.py <reports dir of the other library> <corpus clusters>
                     <tags.json: other library path -> tags> <output.json>
@@ -44,6 +45,7 @@ def name(path):
 
 
 ARTIST_SPLIT = re.compile(r"\s*(?:&|,|\+|/|\band\b|\bfeat\.?|\bft\.?|\bfeaturing\b|\bvs\.?|\bx\b|\bpresents\b|\bmeets\b)\s*")
+NEUTRAL_WORDS = re.compile(r"\b(remaster(ed)?|digital remaster|original( mix)?|hq audio|hq|drum and bass|dnb)\b")
 VERSION_WORDS = re.compile(r"\b(vip|remix|rmx|mix|edit|dub|original|remaster(ed)?|version|bootleg|refix|rework|cut|clip|instrumental|dubstyle|remastered|digital)\b")
 
 
@@ -57,8 +59,16 @@ def base_title(title):
     return re.sub(r"[^a-z0-9]+", " ", title).strip()
 
 
+def full_title(title):
+    title = NEUTRAL_WORDS.sub(" ", title.lower())
+    return re.sub(r"[^a-z0-9]+", "", title)
+
+
 def label(a, b):
     (artist_a, title_a), (artist_b, title_b) = name(a), name(b)
+    same_artist = bool(artists(artist_a) & artists(artist_b))
+    if full_title(title_a) and full_title(title_a) == full_title(title_b) and (same_artist or not artist_a or not artist_b):
+        return "same name"
     if base_title(title_a) and base_title(title_a) == base_title(title_b):
         return "versions of one title"
     if artists(artist_a) & artists(artist_b):
