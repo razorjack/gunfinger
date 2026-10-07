@@ -1,0 +1,718 @@
+{
+ "fullest": {
+  "share": 0.01,
+  "lists": 1063552,
+  "skipped_lists": 10635,
+  "shortest_skipped": 6747,
+  "postings": 755853112,
+  "skipped_postings": 141495472
+ },
+ "skipped_share_of_postings": {
+  "median": 0.18611435435525864,
+  "p90": 0.2284528914804474,
+  "p99": 0.26545605982177367,
+  "max": 0.3401890269274208
+ },
+ "break_heavy": {
+  "definition": "the 1% of records with the highest share of postings in the fullest lists",
+  "records": 269,
+  "threshold_share": 0.26545765611633876
+ },
+ "top_records": [
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Axis Of Evil - Ignition Sequence.opus",
+   "name": "Axis Of Evil - Ignition Sequence",
+   "share": 0.34,
+   "false_today": 484,
+   "false_skip": 30
+  },
+  {
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Lemon D - Ghost Stories.opus",
+   "name": "Lemon D - Ghost Stories",
+   "share": 0.339,
+   "false_today": 381,
+   "false_skip": 14
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Wave & Sebass - Turtle in the Map.opus",
+   "name": "Wave & Sebass - Turtle in the Map",
+   "share": 0.321,
+   "false_today": 501,
+   "false_skip": 52
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/MC MC & Rushour - Music Maker (Original Mix).m4a",
+   "name": "MC MC & Rushour - Music Maker (Original Mix)",
+   "share": 0.32,
+   "false_today": 540,
+   "false_skip": 16
+  },
+  {
+   "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) MC MC & Rushour - Music Maker (Majistarte's Verdict).m4a",
+   "name": "(Drum'n'Bass) (Drum'n'Bass) MC MC & Rushour - Music Maker (Majistarte's Verdict)",
+   "share": 0.316,
+   "false_today": 498,
+   "false_skip": 21
+  },
+  {
+   "asset": "second-library/__youtube_archivists/unxplored-dnb/Flynn & Flora - Daybreak.m4a",
+   "name": "Flynn & Flora - Daybreak",
+   "share": 0.316,
+   "false_today": 121,
+   "false_skip": 16
+  },
+  {
+   "asset": "second-library/bad_company-fear_lp/06 bad company-seizure.mp3",
+   "name": "Bad Company - Seizure",
+   "share": 0.315,
+   "false_today": 409,
+   "false_skip": 9
+  },
+  {
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Embee - Get Funky In The Place.m4a",
+   "name": "Embee - Get Funky In The Place",
+   "share": 0.315,
+   "false_today": 202,
+   "false_skip": 14
+  },
+  {
+   "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) V-RAM - Nothing (Drum'n'Bass) (Drum'n'Bass).opus",
+   "name": "(Drum'n'Bass) (Drum'n'Bass) V - RAM - Nothing (Drum'n'Bass) (Drum'n'Bass)",
+   "share": 0.311,
+   "false_today": 279,
+   "false_skip": 14
+  },
+  {
+   "asset": "second-library/__youtube_archivists/unxplored-dnb/Chemical Agents - Alpha.m4a",
+   "name": "Chemical Agents - Alpha",
+   "share": 0.31,
+   "false_today": 354,
+   "false_skip": 31
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/En\uff1avy - Red Hot Flight.opus",
+   "name": "En:vy - Red Hot Flight",
+   "share": 0.31,
+   "false_today": 297,
+   "false_skip": 19
+  },
+  {
+   "asset": "second-library/virus-vrs006-twisted_ep-1999-sour/c-bad_company-seizure-sour.mp3",
+   "name": "Bad Company - Seizure",
+   "share": 0.309,
+   "false_today": 354,
+   "false_skip": 19
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/V-RAM - Nothing.m4a",
+   "name": "V - RAM - Nothing",
+   "share": 0.309,
+   "false_today": 326,
+   "false_skip": 7
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Myth - Spirits.m4a",
+   "name": "Myth - Spirits",
+   "share": 0.309,
+   "false_today": 204,
+   "false_skip": 20
+  },
+  {
+   "asset": "second-library/(1999) Twisted EP (VRS 006)/03. Bad Company - Seizure.mp3",
+   "name": "Bad Company - Seizure",
+   "share": 0.308,
+   "false_today": 340,
+   "false_skip": 18
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Serum - Species VIP.m4a",
+   "name": "Serum - Species VIP",
+   "share": 0.307,
+   "false_today": 348,
+   "false_skip": 16
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Identity & Sunchase - 4D.m4a",
+   "name": "Identity & Sunchase - 4D",
+   "share": 0.306,
+   "false_today": 403,
+   "false_skip": 15
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Miguel Ayala - Waterloo.opus",
+   "name": "Miguel Ayala - Waterloo",
+   "share": 0.306,
+   "false_today": 300,
+   "false_skip": 19
+  },
+  {
+   "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Dj Surreal & Parameter II \u200e\u2013 Millennium Funk (Drum'n'Bass) (Drum'n'Bass).m4a",
+   "name": "(Drum'n'Bass) (Drum'n'Bass) Dj Surreal & Parameter II \u200e - Millennium Funk (Drum'n'Bass) (Drum'n'Bass)",
+   "share": 0.305,
+   "false_today": 316,
+   "false_skip": 3
+  },
+  {
+   "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Fatal Forms - Abyss (Drum'n'Bass) (Drum'n'Bass).m4a",
+   "name": "(Drum'n'Bass) (Drum'n'Bass) Fatal Forms - Abyss (Drum'n'Bass) (Drum'n'Bass)",
+   "share": 0.303,
+   "false_today": 398,
+   "false_skip": 28
+  },
+  {
+   "asset": "second-library/__youtube_archivists/rootzdnb/Bredren - John Bacon.m4a",
+   "name": "Bredren - John Bacon",
+   "share": 0.302,
+   "false_today": 379,
+   "false_skip": 20
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Amex - Highhead.m4a",
+   "name": "Amex - Highhead",
+   "share": 0.302,
+   "false_today": 528,
+   "false_skip": 22
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/DLR - NADS.opus",
+   "name": "DLR - NADS",
+   "share": 0.302,
+   "false_today": 366,
+   "false_skip": 7
+  },
+  {
+   "asset": "second-library/__youtube_archivists/unxplored-dnb/DJ Axis - Movement.opus",
+   "name": "DJ Axis - Movement",
+   "share": 0.301,
+   "false_today": 262,
+   "false_skip": 16
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Ultravibe - The Swirl.m4a",
+   "name": "Ultravibe - The Swirl",
+   "share": 0.299,
+   "false_today": 392,
+   "false_skip": 26
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Random Movement & Ben Soundscape - Many Things (The Insiders Remix).m4a",
+   "name": "Random Movement & Ben Soundscape - Many Things (The Insiders Remix)",
+   "share": 0.299,
+   "false_today": 208,
+   "false_skip": 4
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Dom & Roland - Trauma (Shivaxi Remix).opus",
+   "name": "Dom & Roland - Trauma (Shivaxi Remix)",
+   "share": 0.299,
+   "false_today": 396,
+   "false_skip": 14
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Promo Zo - Pie & Mash [Premiere].opus",
+   "name": "Promo Zo - Pie & Mash [Premiere]",
+   "share": 0.299,
+   "false_today": 377,
+   "false_skip": 34
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Sion - Scatter [Premiere].opus",
+   "name": "Sion - Scatter [Premiere]",
+   "share": 0.299,
+   "false_today": 309,
+   "false_skip": 6
+  },
+  {
+   "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Amorph - Thing From Outerlands (Drum'n'Bass) (Drum'n'Bass).m4a",
+   "name": "(Drum'n'Bass) (Drum'n'Bass) Amorph - Thing From Outerlands (Drum'n'Bass) (Drum'n'Bass)",
+   "share": 0.298,
+   "false_today": 394,
+   "false_skip": 4
+  }
+ ],
+ "false_candidate_appearances": {
+  "today": 2753240,
+  "skip": 256649,
+  "today_break_heavy": 72498,
+  "skip_break_heavy": 4293,
+  "distinct_today": 26852,
+  "distinct_skip": 22979
+ },
+ "rank_correlation_share_vs_false_today": 0.7187766141952691,
+ "rank_correlation_share_vs_false_skip": 0.2376135308068011,
+ "most_frequent_false_today": [
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Fierce & Usual Suspects - Sawn Off.m4a",
+   "name": "Fierce & Usual Suspects - Sawn Off",
+   "times": 573,
+   "share": 0.286,
+   "skip_times": 44
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/MC MC & Rushour - Music Maker (Original Mix).m4a",
+   "name": "MC MC & Rushour - Music Maker (Original Mix)",
+   "times": 540,
+   "share": 0.32,
+   "skip_times": 16
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Amex - Highhead.m4a",
+   "name": "Amex - Highhead",
+   "times": 528,
+   "share": 0.302,
+   "skip_times": 22
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Stare & Phibbs - 34 43.m4a",
+   "name": "Stare & Phibbs - 34 43",
+   "times": 525,
+   "share": 0.24,
+   "skip_times": 67
+  },
+  {
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Falcon - Bug Bite.m4a",
+   "name": "Falcon - Bug Bite",
+   "times": 522,
+   "share": 0.26,
+   "skip_times": 48
+  },
+  {
+   "asset": "second-library/__youtube_archivists/unxplored-dnb/Mickey Finn & L Double - When The Morning Comes (Original Mix).m4a",
+   "name": "Mickey Finn & L Double - When The Morning Comes (Original Mix)",
+   "times": 521,
+   "share": 0.266,
+   "skip_times": 22
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Polarity & Shroombab - Neutron.opus",
+   "name": "Polarity & Shroombab - Neutron",
+   "times": 518,
+   "share": 0.241,
+   "skip_times": 24
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/S.I.N & Critikal - Dragon Chase.opus",
+   "name": "S.I.N & Critikal - Dragon Chase",
+   "times": 515,
+   "share": 0.28,
+   "skip_times": 21
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Wave & Sebass - Turtle in the Map.opus",
+   "name": "Wave & Sebass - Turtle in the Map",
+   "times": 501,
+   "share": 0.321,
+   "skip_times": 52
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Lutin - Remote Da Force.m4a",
+   "name": "Digital & Lutin - Remote Da Force",
+   "times": 500,
+   "share": 0.265,
+   "skip_times": 17
+  },
+  {
+   "asset": "second-library/[citrus002] Falcon - Bug Bite, Testdrive/a. falcon - bug bite.mp3",
+   "name": "falcon - bug bite",
+   "times": 499,
+   "share": 0.256,
+   "skip_times": 38
+  },
+  {
+   "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) MC MC & Rushour - Music Maker (Majistarte's Verdict).m4a",
+   "name": "(Drum'n'Bass) (Drum'n'Bass) MC MC & Rushour - Music Maker (Majistarte's Verdict)",
+   "times": 498,
+   "share": 0.316,
+   "skip_times": 21
+  },
+  {
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Digital & Lutin - Remote De Force.m4a",
+   "name": "Digital & Lutin - Remote De Force",
+   "times": 492,
+   "share": 0.269,
+   "skip_times": 26
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/D.T. - Fusion.m4a",
+   "name": "D.T. - Fusion",
+   "times": 486,
+   "share": 0.279,
+   "skip_times": 35
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Axis Of Evil - Ignition Sequence.opus",
+   "name": "Axis Of Evil - Ignition Sequence",
+   "times": 484,
+   "share": 0.34,
+   "skip_times": 30
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects & Universal Project - The Craft.m4a",
+   "name": "Usual Suspects & Universal Project - The Craft",
+   "times": 481,
+   "share": 0.268,
+   "skip_times": 15
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Counterstrike - Damaged.m4a",
+   "name": "Counterstrike - Damaged",
+   "times": 475,
+   "share": 0.249,
+   "skip_times": 14
+  },
+  {
+   "asset": "second-library/01 - usual suspects - shrapnel (stakka & skynet rmx).mp3",
+   "name": "usual suspects - shrapnel (stakka & skynet rmx)",
+   "times": 473,
+   "share": 0.262,
+   "skip_times": 29
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/dBridge - Belief.opus",
+   "name": "dBridge - Belief",
+   "times": 470,
+   "share": 0.268,
+   "skip_times": 49
+  },
+  {
+   "asset": "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/07-l_double_and_mickey_finn-when_the_morning_comes_(original_mix).mp3",
+   "name": "L Double and Mickey Finn - When the Morning Comes (Original Mix)",
+   "times": 464,
+   "share": 0.227,
+   "skip_times": 47
+  }
+ ],
+ "most_frequent_false_skip": [
+  {
+   "asset": "second-library/__youtube_archivists/rootzdnb/dBridge - Violent Plains.opus",
+   "name": "dBridge - Violent Plains",
+   "times": 174,
+   "share": 0.196,
+   "today_times": 319
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/dRamatic - Caroline.opus",
+   "name": "dRamatic - Caroline",
+   "times": 160,
+   "share": 0.145,
+   "today_times": 196
+  },
+  {
+   "asset": "second-library/__youtube_archivists/alien5ive/SAMURAI RED SEAL [ REDSEAL 015 \uff1a VILLEM & MC LEOD - hush - ] drum and bass.opus",
+   "name": "VILLEM & MC LEOD - hush",
+   "times": 158,
+   "share": 0.155,
+   "today_times": 209
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Atlantic Connection - Ovation.opus",
+   "name": "Atlantic Connection - Ovation",
+   "times": 155,
+   "share": 0.141,
+   "today_times": 140
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - Roll Over.m4a",
+   "name": "Falcon - Roll Over",
+   "times": 141,
+   "share": 0.193,
+   "today_times": 360
+  },
+  {
+   "asset": "second-library/__youtube_archivists/alien5ive/OHM RECORDINGS [ OHM 001 \uff1a FALCON - roll over - ] drum and bass.opus",
+   "name": "FALCON - roll over",
+   "times": 131,
+   "share": 0.193,
+   "today_times": 384
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Kargo - Abduction.opus",
+   "name": "Kargo - Abduction",
+   "times": 123,
+   "share": 0.178,
+   "today_times": 236
+  },
+  {
+   "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - firewalls - ] drum and bass.m4a",
+   "name": "FALCON - firewalls",
+   "times": 122,
+   "share": 0.226,
+   "today_times": 386
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Phobia - Voyager (feat. Baron Von Alias).m4a",
+   "name": "Phobia - Voyager (feat. Baron Von Alias)",
+   "times": 122,
+   "share": 0.178,
+   "today_times": 196
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+   "name": "Falcon - The Stand (HD Audio & Speed Up)",
+   "times": 120,
+   "share": 0.151,
+   "today_times": 201
+  },
+  {
+   "asset": "extra/d. falcon - the stand.mp3",
+   "name": "d. falcon - the stand.mp3",
+   "times": 116,
+   "share": 0.152,
+   "today_times": 193
+  },
+  {
+   "asset": "second-library/Citrus-CITRUS003-Falcon-2001-sour/A-Falcon-The_Stand-sour.mp3",
+   "name": "Falcon - The Stand",
+   "times": 116,
+   "share": 0.152,
+   "today_times": 193
+  },
+  {
+   "asset": "second-library/__youtube_archivists/rootzdnb/Satl - Self Reflection.opus",
+   "name": "Satl - Self Reflection",
+   "times": 115,
+   "share": 0.202,
+   "today_times": 209
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
+   "name": "Falcon - The Stand",
+   "times": 114,
+   "share": 0.152,
+   "today_times": 203
+  },
+  {
+   "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - the stand - ] drum and bass.m4a",
+   "name": "FALCON - the stand",
+   "times": 109,
+   "share": 0.209,
+   "today_times": 441
+  },
+  {
+   "asset": "second-library/subtitles-teebee_and_form-subtitles021-2002-sour/a-teebee_and_form-return_to_forever-sour.mp3",
+   "name": "Teebee & Form - Return To Forever",
+   "times": 109,
+   "share": 0.17,
+   "today_times": 293
+  },
+  {
+   "asset": "second-library/SAN-001CD VA - Ambassadors. The Santorin drum'n'bass anthology (2002)/06-the_green_man-technik-sumnix.mp3",
+   "name": "The Green Man - Technik",
+   "times": 107,
+   "share": 0.161,
+   "today_times": 164
+  },
+  {
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/FFF - World I Reject.opus",
+   "name": "FFF - World I Reject",
+   "times": 106,
+   "share": 0.218,
+   "today_times": 396
+  },
+  {
+   "asset": "second-library/__youtube_archivists/unxplored-dnb/Rude Bwoy Monty - Steppa Style.opus",
+   "name": "Rude Bwoy Monty - Steppa Style",
+   "times": 106,
+   "share": 0.22,
+   "today_times": 350
+  },
+  {
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Special Forces - Sidewinder.m4a",
+   "name": "Special Forces - Sidewinder",
+   "times": 105,
+   "share": 0.227,
+   "today_times": 458
+  }
+ ],
+ "own_excerpts": {
+  "excerpts_in_both": 1080,
+  "missed_today": 0,
+  "missed_skip": 0,
+  "heaviest_tenth": {
+   "excerpts": 108,
+   "median_share": 0.25275892406156275,
+   "median_hits_today": 826.0,
+   "median_hits_skip": 1028.0,
+   "below_rule_skip": 0
+  },
+  "rank_correlation_share_vs_skip_over_today": -0.04899496465427163
+ },
+ "experiment": "0043",
+ "fullest_run": {
+  "wall_s": 54.91,
+  "user_s": 42.51,
+  "sys_s": 4.18,
+  "peak_footprint_bytes": 3139979832
+ },
+ "stats_0035": {
+  "hash_slots": 2097152,
+  "mean": 360,
+  "p99": 4538,
+  "max": 106517,
+  "fullest_1pct_of_slots_share": 0.261
+ },
+ "concentration": {
+  "top_1pct_records_hold_of_set_aside": 0.019,
+  "top_10pct_records_hold_of_set_aside": 0.151
+ },
+ "reports_joined": {
+  "today": "3 scans, sweeps 2026-2027",
+  "skip": "3 scans, sweeps 2026-2029"
+ },
+ "same_draws_false_candidates": {
+  "today_2026_2027": 2753210,
+  "skip_2026_2027": 117961
+ },
+ "top_records_by_set_aside_postings": [
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/Axis Of Evil - Ignition Sequence.opus",
+   "postings": 33646,
+   "skipped": 11446
+  },
+  {
+   "path": "second-library/__youtube_archivists/dfect-dnb/Lemon D - Ghost Stories.opus",
+   "postings": 35602,
+   "skipped": 12068
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/Wave & Sebass - Turtle in the Map.opus",
+   "postings": 31752,
+   "skipped": 10191
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/MC MC & Rushour - Music Maker (Original Mix).m4a",
+   "postings": 34387,
+   "skipped": 10993
+  },
+  {
+   "path": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) MC MC & Rushour - Music Maker (Majistarte's Verdict).m4a",
+   "postings": 34457,
+   "skipped": 10902
+  },
+  {
+   "path": "second-library/__youtube_archivists/unxplored-dnb/Flynn & Flora - Daybreak.m4a",
+   "postings": 27844,
+   "skipped": 8795
+  },
+  {
+   "path": "second-library/bad_company-fear_lp/06 bad company-seizure.mp3",
+   "postings": 26205,
+   "skipped": 8257
+  },
+  {
+   "path": "second-library/__youtube_archivists/dfect-dnb/Embee - Get Funky In The Place.m4a",
+   "postings": 30396,
+   "skipped": 9560
+  },
+  {
+   "path": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) V-RAM - Nothing (Drum'n'Bass) (Drum'n'Bass).opus",
+   "postings": 23049,
+   "skipped": 7167
+  },
+  {
+   "path": "second-library/__youtube_archivists/unxplored-dnb/Chemical Agents - Alpha.m4a",
+   "postings": 26497,
+   "skipped": 8222
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/En\uff1avy - Red Hot Flight.opus",
+   "postings": 19566,
+   "skipped": 6062
+  },
+  {
+   "path": "second-library/virus-vrs006-twisted_ep-1999-sour/c-bad_company-seizure-sour.mp3",
+   "postings": 26282,
+   "skipped": 8134
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/V-RAM - Nothing.m4a",
+   "postings": 22962,
+   "skipped": 7096
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/Myth - Spirits.m4a",
+   "postings": 16469,
+   "skipped": 5087
+  },
+  {
+   "path": "second-library/(1999) Twisted EP (VRS 006)/03. Bad Company - Seizure.mp3",
+   "postings": 26259,
+   "skipped": 8081
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/Serum - Species VIP.m4a",
+   "postings": 28400,
+   "skipped": 8709
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/Identity & Sunchase - 4D.m4a",
+   "postings": 29607,
+   "skipped": 9049
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/Miguel Ayala - Waterloo.opus",
+   "postings": 37718,
+   "skipped": 11523
+  },
+  {
+   "path": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Dj Surreal & Parameter II \u200e\u2013 Millennium Funk (Drum'n'Bass) (Drum'n'Bass).m4a",
+   "postings": 30493,
+   "skipped": 9307
+  },
+  {
+   "path": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Fatal Forms - Abyss (Drum'n'Bass) (Drum'n'Bass).m4a",
+   "postings": 29629,
+   "skipped": 8970
+  },
+  {
+   "path": "second-library/__youtube_archivists/rootzdnb/Bredren - John Bacon.m4a",
+   "postings": 28460,
+   "skipped": 8609
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/Amex - Highhead.m4a",
+   "postings": 38995,
+   "skipped": 11795
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/DLR - NADS.opus",
+   "postings": 21545,
+   "skipped": 6506
+  },
+  {
+   "path": "second-library/__youtube_archivists/unxplored-dnb/DJ Axis - Movement.opus",
+   "postings": 28653,
+   "skipped": 8615
+  },
+  {
+   "path": "second-library/__youtube_archivists/3zb-gangstep-dnb/Ultravibe - The Swirl.m4a",
+   "postings": 32248,
+   "skipped": 9658
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/Random Movement & Ben Soundscape - Many Things (The Insiders Remix).m4a",
+   "postings": 24955,
+   "skipped": 7473
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/Dom & Roland - Trauma (Shivaxi Remix).opus",
+   "postings": 30311,
+   "skipped": 9076
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/Promo Zo - Pie & Mash [Premiere].opus",
+   "postings": 22229,
+   "skipped": 6637
+  },
+  {
+   "path": "second-library/__youtube_archivists/i-witness-dnb/Sion - Scatter [Premiere].opus",
+   "postings": 23824,
+   "skipped": 7112
+  },
+  {
+   "path": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Amorph - Thing From Outerlands (Drum'n'Bass) (Drum'n'Bass).m4a",
+   "postings": 27205,
+   "skipped": 8117
+  }
+ ]
+}

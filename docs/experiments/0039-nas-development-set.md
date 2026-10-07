@@ -6,8 +6,8 @@ and skip at 240, against the 262-track figures.
 
 **Command.** `work/s5/E [--second-pass --skip-fullest 0.01] scan
 stakka-skynet-knowledge [--leave-out 3|11]` (`E` is `gunfinger-eval
---other-peaks-dir <NAS store>`): 26,905 assets (corpus and NAS less the
-247 copies); clusters of 0037. Timed one at a time (`timed5.sh`, 86%
+--other-peaks-dir <NAS store>`): 26,914 assets (corpus and NAS less the
+238 records copying 247 corpus files); clusters of 0037. Timed one at a time (`timed5.sh`, 86%
 idle before). Data: `data/0039-nas-development-set.json`.
 
 | Development scan | Today's, NAS | Skip at 240, NAS | 262 tracks (today's; skip) |

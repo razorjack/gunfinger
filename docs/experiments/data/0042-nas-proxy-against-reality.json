@@ -1,0 +1,139 @@
+{
+ "experiment": "0042",
+ "proxy_0029_26462": {
+  "today": {
+   "wall_s": 718.6,
+   "cpu_s": 5841,
+   "peak_gb": 7.68
+  },
+  "skip": {
+   "wall_s": 229.0,
+   "cpu_s": 1719,
+   "peak_gb": 3.79
+  },
+  "postings": 759940296,
+  "built_resident_mb": 2986,
+  "build_s": 52.7,
+  "strongest_chance_reversed_copy": {
+   "today": 31,
+   "skip": 25
+  }
+ },
+ "nas_memory": {
+  "today": {
+   "load_before": "{ 27.04 57.74 86.84 }",
+   "wall_s": 848.28,
+   "user_s": 6079.76,
+   "sys_s": 26.66,
+   "peak_footprint_bytes": 8415517608,
+   "report": {
+    "synthetic_copies": 0,
+    "second_library_assets": 26652,
+    "jobs": 10,
+    "matching": null,
+    "assets": 26914,
+    "library_peaks": 3926942,
+    "postings": 755853112,
+    "query_seconds": 3369.679875,
+    "lines": null,
+    "detections": null,
+    "phases": [
+     {
+      "phase": "loaded",
+      "seconds": 0.034162334,
+      "resident_bytes": 79495168,
+      "records_bytes": 62831072,
+      "index_bytes": 0
+     },
+     {
+      "phase": "built",
+      "seconds": 41.909643792,
+      "resident_bytes": 3127197696,
+      "records_bytes": 0,
+      "index_bytes": 3031801060
+     },
+     {
+      "phase": "searched",
+      "seconds": 805.509292458,
+      "resident_bytes": 5202722816,
+      "records_bytes": 0,
+      "index_bytes": 3031801060
+     }
+    ]
+   }
+  },
+  "skip": {
+   "load_before": "{ 23.34 89.40 107.79 }",
+   "wall_s": 258.76,
+   "user_s": 1946.79,
+   "sys_s": 11.42,
+   "peak_footprint_bytes": 4014640512,
+   "report": {
+    "synthetic_copies": 0,
+    "second_library_assets": 26652,
+    "jobs": 10,
+    "matching": "second-pass-skip-0.01",
+    "assets": 26914,
+    "library_peaks": 3926942,
+    "postings": 755853112,
+    "query_seconds": 3369.679875,
+    "lines": null,
+    "detections": null,
+    "phases": [
+     {
+      "phase": "loaded",
+      "seconds": 0.104261792,
+      "resident_bytes": 79331328,
+      "records_bytes": 62831072,
+      "index_bytes": 0
+     },
+     {
+      "phase": "built",
+      "seconds": 48.825178375,
+      "resident_bytes": 3133079552,
+      "records_bytes": 0,
+      "index_bytes": 3031801060
+     },
+     {
+      "phase": "searched",
+      "seconds": 205.428728833,
+      "resident_bytes": 4014850048,
+      "records_bytes": 0,
+      "index_bytes": 3031801060
+     }
+    ]
+   }
+  }
+ },
+ "nas_scan_0039": {
+  "today": {
+   "wall_s": 864.6,
+   "cpu_s": 6097,
+   "peak_gb": 8.37
+  },
+  "skip": {
+   "wall_s": 260.6,
+   "cpu_s": 1963,
+   "peak_gb": 4.01
+  }
+ },
+ "store_only_identify_0044": {
+  "load_before": "{ 2.96 30.32 57.61 }",
+  "wall_s": 856.04,
+  "user_s": 6108.82,
+  "sys_s": 27.8,
+  "peak_footprint_bytes": 8349408144
+ },
+ "chance": {
+  "mix_unrelated": {
+   "today": 40,
+   "skip": 48
+  },
+  "sweeps_unrelated": {
+   "today": "66-78",
+   "skip": "67-70"
+  },
+  "proxy_0012_robust_real_tracks": 29
+ },
+ "note": "assets 26,914 = 262 corpus + 26,890 NAS records - 238 records standing for 247 corpus files"
+}

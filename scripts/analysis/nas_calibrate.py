@@ -115,7 +115,7 @@ for group in ("same name", "version", "same artist", "unrelated"):
     members = sorted((f for f in false if f["label"] == group), key=lambda f: -f["hits"])
     summary["by_label"][group] = {"count": len(members), "confident": sum(f["confident"] for f in members),
                                   "at_60": sum(f["hits"] >= 60 for f in members),
-                                  "strongest": members[:12]}
+                                  "strongest": members[:40]}
 everything = sorted(false, key=lambda f: -f["hits"])
 without_same_name = [f for f in everything if f["label"] != "same name"]
 unrelated = [f for f in everything if f["label"] == "unrelated"]
