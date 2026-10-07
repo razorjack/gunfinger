@@ -664,3 +664,18 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   4").
 - Next: the NAS analysis in `docs/nas-plan.md`, once the owner's index
   of `/Volumes/atlas/Music/dnb` finishes.
+
+## 2026-10-07: session 5 started
+
+Session 5 (`docs/brief-5.md`, checklist `docs/session-5-checklist.md`):
+measurements at the size of the owner's NAS collection, from its peak
+store `~/.local/share/gunfinger/nas-dnb-peaks` alone. The NAS is never
+read; the store is frozen.
+
+- The NAS store at the start: 26,890 `.peaks`, 26,890 `.tags`, 1,549
+  `.skip`, `library.txt` (naming `/Volumes/atlas/Music/dnb`), 1.9 GB.
+  Digest of every file's name, size and mtime (`cd <store>; find . -type
+  f -exec stat -f '%N %z %m' {} + | sort | shasum -a 256`):
+  `7055ad8e3b22b12bc6dc5037eca25f424ad536bd96f788e813cceb3688465a70`.
+- Machine: load average 2.3 and falling, swap 2.1 GB used of 3 GB (left
+  over), no local external disk attached.
