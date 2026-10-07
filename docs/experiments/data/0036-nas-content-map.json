@@ -1,0 +1,1432 @@
+{
+ "experiment": "0036-nas-content-map",
+ "command": "gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks map-library",
+ "run": {
+  "wall_seconds": 5.13,
+  "cpu_seconds": 1.76,
+  "peak_footprint_bytes": 79331760
+ },
+ "summary": [
+  "247 of 262 corpus files have a copy among the 26890 records of /Volumes/atlas/Music/dnb",
+  "0 copies differ in size (tags), 31 corpus files have several"
+ ],
+ "several_copies": [
+  "extra/01 - Aquasky - Spectre.mp3 = [SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/01 - Aquasky - Spectre.mp3 | aquasky-radium_ep-msxep006-2000-sour/y-aquasky-spectre-sour.mp3",
+  "extra/01-future_cut-the_specialist-trt.mp3 = Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3 | Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+  "extra/01-muffler-bleak_(original_mix).mp3 = 01-muffler-bleak_(original_mix).mp3 | VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/01-muffler-bleak_(original_mix).mp3",
+  "extra/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3 = 2008 - C4CUKLTD001 - Phatcap (Phace Remix), Synergy (BSE Remix) - 320/2.Cause 4 Concern - Synergy (Black Sun Empire Remix).mp3 | [2008] - [C4CUKLTD001] - Cause4Concern_-_Phatcap_Remix_Single-WEB-2009-BiLDERBERG/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3",
+  "extra/02-future_cut-razors_edge-trt.mp3 = Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3 | Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3",
+  "extra/04_Rec.mp3 = 2009 - MTRDEP009 - Krot - Resistance EP/04_Rec.mp3 | Krot-MTRDEP009-KOiNE/04_Rec.mp3",
+  "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3 = 08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3 | 2006 - BWCD03 - N.Phect And Dizplay - Beautiful Bytes - 320/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+  "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3 = 1. Noisia & Phace - Outsource (Misanthrop Remix).mp3 | 2007 - SYNDROME003 - Noisia & Phace, Mindscape - Outsource (Misanthrop Remix), New Deal - 320/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+  "extra/1.Kemal & Rob Data - The Mummy.mp3 = 2000 - NTV001 - The Mummy, Bleed - 192/1.Kemal & Rob Data - The Mummy.mp3 | negative-konflict-ntv001-2000-sour/a-konflict-the_mummy-sour.mp3",
+  "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3 = 2002 - NERVE005 - VA - 192/2. SKC - Recharger (Black Sun Empire Remix).mp3 | nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+  "extra/2.Kemal - Bleed.mp3 = 2000 - NTV001 - The Mummy, Bleed - 192/2.Kemal - Bleed.mp3 | negative-konflict-ntv001-2000-sour/aa-konflict-system_bleed-sour.mp3",
+  "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3 = 2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/4.Usual Suspects - Killa Bees (Konflict Remix).mp3 | d-usual_suspects-killa_bees_(konflict_rmx).mp3",
+  "extra/AA-Nu_Balance-Overheads-sour.mp3 = Trouble_On_Vinyl-TOV12040-Nu_Balance-2000-sour/AA-Nu_Balance-Overheads-sour.mp3 | trouble_on_vinyl-nu_balance-tov40-2000-sour/aa-nu_balance-overheads-sour.mp3",
+  "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 = APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 | Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+  "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3 = APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3 | Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+  "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3 = Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3 | APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+  "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3 = Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3 | APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+  "extra/D-Sinthetix-Cryogenic-sour.mp3 = D-Sinthetix-Cryogenic-sour.mp3 | va-spy_technologies_lp_part_one-dsci4lp002abcd-2002-sour/d-sinthetix-cryogenic-sour.mp3",
+  "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3 = [TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3 | various_artists-the_x_project_part_3-tech015-2002-sour/a-drumsound_and_bassline-dirty_dancing-sour.mp3",
+  "extra/[A]_-_Mudslide.mp3 = [TECH009]_-_Futuretech_-_Mudslide_&_Matchstick_Vinyl_(2001)/[A]_-_Mudslide.mp3 | technique-future_tech-tech009-2001-sour/a-future_tech-mudslide-sour.mp3",
+  "extra/[A]_-_Tribal_Warfare.mp3 = [TECH007]_-_Futuretech_-_Tribal_Warfare_&_Apollo_Creed_Vinyl_(2001)/[A]_-_Tribal_Warfare.mp3 | technique-future_tech-tech007-2001-sour/a-future_tech-tribal_warfare-sour.mp3",
+  "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 = a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 | various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+  "extra/a. falcon - fractles.mp3 = [citrus003] Falcon - Firewalls EP/a. falcon - fractles.mp3 | Citrus-CITRUS003-Falcon-2001-sour/B-Falcon-Fractals-sour.mp3",
+  "extra/a1-skynet-acid_drops-sour.mp3 = a1-skynet-acid_drops-sour.mp3 | skynet-skynet-sky006-2004-sour/a1-skynet-acid_drops-sour.mp3",
+  "extra/b-skc-eclipse-gdn.mp3 = b-skc-eclipse-gdn.mp3 | va-spy_technologies_lp_sampler-promo_vinyl-2002-gdn/b-skc-eclipse-gdn.mp3",
+  "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 = nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 | 2002 - NERVE005 - VA - 192/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+  "extra/b-subwave-digital_symphony-sour.mp3 = TI033 - Subwave - Bad Ambition; Digital Symphony [2002] (Tech Itch Records)/b-subwave-digital_symphony-sour.mp3 | tech_itch-subwave-ti033-2002-sour/b-subwave-digital_symphony-sour.mp3",
+  "extra/d-shimon-mutationz_iv-sour.mp3 = d-shimon-mutationz_iv-sour.mp3 | DSCI4-DSCI4EP001-Various_Artists-2001-sour/D-Shimon-Mutationz_IV-sour.mp3",
+  "extra/d. falcon - the stand.mp3 = [citrus003] Falcon - Firewalls EP/d. falcon - the stand.mp3 | Citrus-CITRUS003-Falcon-2001-sour/A-Falcon-The_Stand-sour.mp3",
+  "extra/f-skc-lobotomy-sour.mp3 = va-spy_technologies_lp_part_two-(dsci4lp002ef)-2002/f-skc-lobotomy-sour.mp3 | DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/F-SKC-Lobotomy-sour.mp3",
+  "extra/xx-aquasky-i_cant_wait_(no_more)-sour.mp3 = aquasky-radium_ep-msxep006-2000-sour/xx-aquasky-i_cant_wait_(no_more)-sour.mp3 | [SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/02 - Aquasky - I Can't Wait (No More).mp3"
+ ],
+ "without_copy": {
+  "nas_copy_failed_to_open": {
+   "files": [
+    "extra/A. SKC & Cord -- Swarm.mp3",
+    "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+    "extra/a-usual_suspects-bleach-sour.mp3",
+    "extra/b-cause_4_concern-give_it_2_em-sour.mp3"
+   ],
+   "nas_paths": [
+    "[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3",
+    "[NERVE 005] - [2002] - Paul Reset & SKC -- Crisis (Kemal remix) # Recharger (Black Sun Empire remix)/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+    "universal_project-usual_suspects-upr001-2001-sour/a-usual_suspects-bleach-sour.mp3",
+    "[2001] - [RH32] - Renegade_Hardware-Cause_4_Concern-RH32-2001-sour/b-cause_4_concern-give_it_2_em-sour.mp3"
+   ],
+   "skip_note": "failed: Error opening input: Invalid data found when processing input"
+  },
+  "no_record_or_skip_note_by_name": [
+   "Ed Rush & Optical - Compound.mp3",
+   "Ed Rush & Optical - Dozer.mp3",
+   "Ed Rush & Optical - Fixation.mp3",
+   "Ed Rush & Optical - Glass Eye.mp3",
+   "Ed Rush & Optical - Lithosphere.mp3",
+   "Ed Rush & Optical - Mystery Machine.mp3",
+   "Ed Rush & Optical - Point Blank.mp3",
+   "Ed Rush & Optical - Wormhole.mp3",
+   "Fortran - Splinter.mp3",
+   "Optical - Millennium.mp3",
+   "Optical - Slip Thru.mp3"
+  ],
+  "other_rips_by_name_on_the_nas": [
+   "__youtube_archivists/dfect-dnb/Optical - Millennium.m4a",
+   "__youtube_archivists/dfect-dnb/Optical - Slip Thru.m4a"
+  ]
+ },
+ "map": {
+  "other_library": "/Volumes/atlas/Music/dnb",
+  "corpus_records": 262,
+  "other_records": 26890,
+  "copies": [
+   {
+    "corpus": "Bad Company - China Cup.mp3",
+    "stands_for": "(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Bad Company - The Nine.mp3",
+    "stands_for": "(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Bad Company - The Pulse.mp3",
+    "stands_for": "(1999) The Pulse & China Cup (PRO001UK)/01. Bad Company - Pulse.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "DJ Trace - Sonar.m4a",
+    "stands_for": "__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+    "same_size": true
+   },
+   {
+    "corpus": "Ed Rush & Optical - Bacteria.mp3",
+    "stands_for": "A_-_Ed_Rush_%26_Optical_-_Bacteria.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Ed Rush & Optical - Funktion.mp3",
+    "stands_for": "1998 - V026 - Ed Rush & Optical - Funktion + Naked Lunch [V]/01 - Ed Rush & Optical - Funktion.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Ed Rush & Optical - Gas Mask.m4a",
+    "stands_for": "__youtube_archivists/alien5ive/VIRUS RECORDINS [ VRS 005 \uff1a ED RUSH + OPTICAL - gasmask - ] drum and bass.m4a",
+    "same_size": true
+   },
+   {
+    "corpus": "Ed Rush & Optical - Sick Note.mp3",
+    "stands_for": "virus-ed_rush_and_optical-vrs004-1999-sour/a-ed_rush_and_optical-sicknote-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Ed Rush & Optical - Watermelon.mp3",
+    "stands_for": "virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+    "stands_for": "1998 - PRO014 - Ed Rush, Optical & Fierce - Alien Girl + Cutslo (Lokuste Mix) [Prototype]/aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Fibre Optix - Sin.m4a",
+    "stands_for": "__youtube_archivists/dfect-dnb/Fibre Optix - Sin.m4a",
+    "same_size": true
+   },
+   {
+    "corpus": "Kemal & Paul Reset - Kontempt.mp3",
+    "stands_for": "underfire-kemal_stakka_and_k_tee-udfr017-2001-sour/a-kemal_and_paul_reset-kontempt-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Kemal & Rob Data - Star Trails.mp3",
+    "stands_for": "audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Kraken - Dominion.opus",
+    "stands_for": "__youtube_archivists/alien5ive/ZERO G RECORDINGS [ ZEROG01 \uff1a KRAKEN - dominion - ] drum and bass.opus",
+    "same_size": true
+   },
+   {
+    "corpus": "Kraken - Side Effects (TeeBee Remix).mp3",
+    "stands_for": "va-clockwork_lp_sampler-udfr_lps_04-2001-sour/d-kraken-side_effects_(teebee_remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Krust - Warhead (Ram Trilogy Remix).m4a",
+    "stands_for": "__youtube_archivists/i-witness-dnb/Krust - Warhead (Ram Trilogy Remix).m4a",
+    "same_size": true
+   },
+   {
+    "corpus": "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a",
+    "stands_for": "__youtube_archivists/i-witness-dnb/Roni Size & Reprazent - Watching Windows (DJ Die Gnarly Vocal Mix).m4a",
+    "same_size": true
+   },
+   {
+    "corpus": "Ryme Tyme - Payback Pt. 1.mp3",
+    "stands_for": "DSCI4-DSCI4002-Ryme_Tyme-1999-sour/A-Ryme_Tyme-Payback-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Skynet & Stakka - Clockwork.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Skynet & Stakka - Decoy.mp3",
+    "stands_for": "va-clockwork_lp_sampler-udfr_lps_04-2001-sour/a-stakka_and_skynet-decoy-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Skynet & Stakka - Logistics.mp3",
+    "stands_for": "audio_blueprint-stakka_and_skynet-ab012-2000-sour/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Skynet & Stakka - Night Lore.mp3",
+    "stands_for": "underfire-stakka_and_skynet-(udfr016)-2000/a-stakka_and_skynet-nightlore-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Skynet & Stakka - Pathogen.mp3",
+    "stands_for": "audio_blueprint-stakka_and_skynet-abpr014-2001-sour/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Stakka & K.Tee - Auto Ignition.mp3",
+    "stands_for": "audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/01 - Aquasky - Spectre.mp3",
+    "stands_for": "[SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/01 - Aquasky - Spectre.mp3",
+    "same_size": true,
+    "also": [
+     "aquasky-radium_ep-msxep006-2000-sour/y-aquasky-spectre-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+    "stands_for": "1998 - V026 - Ed Rush & Optical - Funktion + Naked Lunch [V]/01 - Ed Rush & Optical - Funktion.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/01 - Ryme Tyme - T-Minus.mp3",
+    "stands_for": "[SHADOW 145] - [2000] - Ryme Tyme - T-Minus/01 - Ryme Tyme - T-Minus.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/01-future_cut-the_specialist-trt.mp3",
+    "stands_for": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+    "same_size": true,
+    "also": [
+     "Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3",
+    "stands_for": "Item.Code-Drum_and_Bass_Models-2006-WHOA/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/01-muffler-bleak_(original_mix).mp3",
+    "stands_for": "01-muffler-bleak_(original_mix).mp3",
+    "same_size": true,
+    "also": [
+     "VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/01-muffler-bleak_(original_mix).mp3"
+    ]
+   },
+   {
+    "corpus": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+    "stands_for": "typecell_-_protogen-03-vinyl-2003-oma/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/01. Krot - Great Escape.mp3",
+    "stands_for": "Krot - Great Escape EP (C2DMP3019)-WEB-2011/01. Krot - Great Escape.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/02 Coma.mp3",
+    "stands_for": "(2000) Coma & Spraycan (DSCI4)/02 Coma.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/02-Decoder-Hord_39-sour.mp3",
+    "stands_for": "Decoder-Concussion_LP-tilpo01cd-2000-sour/02-Decoder-Hord_39-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/02-Spy-Z_Plane-sour.mp3",
+    "stands_for": "VA-The_Infantry_EP-UDFR013-1999-sour/02-Spy-Z_Plane-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3",
+    "stands_for": "2008 - C4CUKLTD001 - Phatcap (Phace Remix), Synergy (BSE Remix) - 320/2.Cause 4 Concern - Synergy (Black Sun Empire Remix).mp3",
+    "same_size": true,
+    "also": [
+     "[2008] - [C4CUKLTD001] - Cause4Concern_-_Phatcap_Remix_Single-WEB-2009-BiLDERBERG/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3"
+    ]
+   },
+   {
+    "corpus": "extra/02-chemical_frequency-death_trap-bpm.mp3",
+    "stands_for": "chemical_frequency-mega_byte_death_trap-nologo002-promo_vinyl-2002-bpm/02-chemical_frequency-death_trap-bpm.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/02-future_cut-razors_edge-trt.mp3",
+    "stands_for": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3",
+    "same_size": true,
+    "also": [
+     "Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/02. Bad Company - China Cup.mp3",
+    "stands_for": "(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/02_-_skinnah_-_figurehead.mp3",
+    "stands_for": "[RUFF 57] Various - Analog Steroids (CD)/02_-_skinnah_-_figurehead.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/03-aquasky-structure.mp3",
+    "stands_for": "VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/03-aquasky-structure.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/03-drumsound_and_future_tech-apocalypse_(original_mix).mp3",
+    "stands_for": "VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/03-drumsound_and_future_tech-apocalypse_(original_mix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/03-verbal-frozen_lake_(dephzac_remix).mp3",
+    "stands_for": "03-verbal-frozen_lake_(dephzac_remix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/03. Pieter K - Liquifaction (Stakka Remix).mp3",
+    "stands_for": "03. Pieter K - Liquifaction (Stakka Remix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/03_-_dj_ruffneck_-_jawbreaker.mp3",
+    "stands_for": "[RUFF 57] Various - Analog Steroids (CD)/03_-_dj_ruffneck_-_jawbreaker.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+    "stands_for": "VA-The_Infantry_EP-UDFR013-1999-sour/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/04_-_dj_hidden_-_skektics.mp3",
+    "stands_for": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/04_Rec.mp3",
+    "stands_for": "2009 - MTRDEP009 - Krot - Resistance EP/04_Rec.mp3",
+    "same_size": true,
+    "also": [
+     "Krot-MTRDEP009-KOiNE/04_Rec.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/05 - Bad Company - Sentient.mp3",
+    "stands_for": "(2000) Inside The Machine (VDBCRLP001)/05 - Bad Company - Sentient.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+    "stands_for": "Item.Code-Drum_and_Bass_Models-2006-WHOA/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/06_-_skinnah_-_state_of_violance.mp3",
+    "stands_for": "[RUFF 57] Various - Analog Steroids (CD)/06_-_skinnah_-_state_of_violance.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/07 - Bad Company - Oxygen.mp3",
+    "stands_for": "(2000) Inside The Machine (VDBCRLP001)/07 - Bad Company - Oxygen.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/07-item.code-magnetics-whoa.mp3",
+    "stands_for": "Item.Code-Drum_and_Bass_Models-2006-WHOA/07-item.code-magnetics-whoa.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/08-item.code-kosmic-whoa.mp3",
+    "stands_for": "Item.Code-Drum_and_Bass_Models-2006-WHOA/08-item.code-kosmic-whoa.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/08-kraken-analogue_spikes-minc.mp3",
+    "stands_for": "va-blazin_(udfrlp02)-1999-minc/08-kraken-analogue_spikes-minc.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+    "stands_for": "08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+    "same_size": true,
+    "also": [
+     "2006 - BWCD03 - N.Phect And Dizplay - Beautiful Bytes - 320/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3"
+    ]
+   },
+   {
+    "corpus": "extra/09-Decoder-Bountyhunter-sour.mp3",
+    "stands_for": "Decoder-Concussion_LP-tilpo01cd-2000-sour/09-Decoder-Bountyhunter-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/09-muffler-downfall_(original_mix).mp3",
+    "stands_for": "VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/09-muffler-downfall_(original_mix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+    "stands_for": "1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+    "same_size": true,
+    "also": [
+     "2007 - SYNDROME003 - Noisia & Phace, Mindscape - Outsource (Misanthrop Remix), New Deal - 320/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3"
+    ]
+   },
+   {
+    "corpus": "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+    "stands_for": "2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/1.Kemal & Rob Data - The Mummy.mp3",
+    "stands_for": "2000 - NTV001 - The Mummy, Bleed - 192/1.Kemal & Rob Data - The Mummy.mp3",
+    "same_size": true,
+    "also": [
+     "negative-konflict-ntv001-2000-sour/a-konflict-the_mummy-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/1.Kemal, Rob F & Impulse - Creature.mp3",
+    "stands_for": "2002 - CPT003 - Kemal vs. Rob F & Impulse - 256/1.Kemal, Rob F & Impulse - Creature.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/10-muffler-nutcracker_(original_mix).mp3",
+    "stands_for": "VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/10-muffler-nutcracker_(original_mix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/2. Bassrk - My Failure.mp3",
+    "stands_for": "2. Bassrk - My Failure.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/2. Konflict - Pendulum.mp3",
+    "stands_for": "2000 - DR001 - Obsidian, Pendulum - 192/2. Konflict - Pendulum.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/2. Noisia & Black Sun Empire - Infusion.mp3",
+    "stands_for": "2. Noisia & Black Sun Empire - Infusion.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/2. Phace - Brainwave VIP.mp3",
+    "stands_for": "2. Phace - Brainwave VIP.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/2. Phace - Fraxion.mp3",
+    "stands_for": "2. Phace - Fraxion.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+    "stands_for": "2002 - NERVE005 - VA - 192/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+    "same_size": true,
+    "also": [
+     "nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/2.Kemal - Bleed.mp3",
+    "stands_for": "2000 - NTV001 - The Mummy, Bleed - 192/2.Kemal - Bleed.mp3",
+    "same_size": true,
+    "also": [
+     "negative-konflict-ntv001-2000-sour/aa-konflict-system_bleed-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/201-origin_unknown-equinox-sour.mp3",
+    "stands_for": "andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/201-origin_unknown-equinox-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/203-moving_fusion_and_andy_c-foul_mouth-sour.mp3",
+    "stands_for": "andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/203-moving_fusion_and_andy_c-foul_mouth-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/207-ant_miles-china_town-sour.mp3",
+    "stands_for": "andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/207-ant_miles-china_town-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/208-shimon_and_andy_c-firewire-sour.mp3",
+    "stands_for": "andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/208-shimon_and_andy_c-firewire-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/209-origin_unknown-elevator-sour.mp3",
+    "stands_for": "andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/209-origin_unknown-elevator-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/212-red_one-kung_fu_fresh-sour.mp3",
+    "stands_for": "andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/212-red_one-kung_fu_fresh-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/310-future_cut-horns_2000-sour.mp3",
+    "stands_for": "310-future_cut-horns_2000-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/4. Illuminati - Melange.mp3",
+    "stands_for": "Cyb Orc/4. Illuminati - Melange.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+    "stands_for": "2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+    "same_size": true,
+    "also": [
+     "d-usual_suspects-killa_bees_(konflict_rmx).mp3"
+    ]
+   },
+   {
+    "corpus": "extra/A - Hak - Inside (Decoder remix).mp3",
+    "stands_for": "black_pearl-hak-bp002-2000/A - Hak - Inside (Decoder remix).mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A- The_Nine.mp3",
+    "stands_for": "(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "stands_for": "(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A-Chris_SU-Astro_Sine-sour.mp3",
+    "stands_for": "DSCI4-DSCI4005-Chris_SU-2002/A-Chris_SU-Astro_Sine-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A-Konflict-RoadBlock-sour.mp3",
+    "stands_for": "Renegade_Hardware-Konflict-RH019-1999/A-Konflict-RoadBlock-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A-Matrix_and_Fierce-Tearaway-sour.mp3",
+    "stands_for": "virus-matrix_and_fierce_vs_c4c-vrs009-2001-sour/A-Matrix_and_Fierce-Tearaway-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A-Origin_Unknown-Equinox-sour.mp3",
+    "stands_for": "va-ram_raiders_part_3-ramm32-2001-sour/A-Origin_Unknown-Equinox-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+    "stands_for": "audio_blueprint-stakka_and_skynet-abpr014-2001-sour/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A. ASC -- The Pursuit.mp3",
+    "stands_for": "[NERVE 021] - [2007] - ASC -- The Pursuit # Frozen Shores/A. ASC -- The Pursuit.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A. D-Struct -- Merkaba.mp3",
+    "stands_for": "[NERVE 020] - [2007] - D-Struct & SKC -- Merkaba # Recharger 2007/A. D-Struct -- Merkaba.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A. Pyro -- Tension.mp3",
+    "stands_for": "[NERVE 001] - [2001] - Pyro -- Tension # Spased/A. Pyro -- Tension.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A. Pyro -- Time Is Broken.mp3",
+    "stands_for": "[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A. SKC -- Recharger.mp3",
+    "stands_for": "[NERVE 002] - [2002] - SKC -- Recharger # Ancestry/A. SKC -- Recharger.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A. falcon - new frontier.mp3",
+    "stands_for": "[citrus007] Falcon - New Frontier,  Chine Delight/A. falcon - new frontier.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA-Amir-Bulletproof-sour.mp3",
+    "stands_for": "Synthetic-Amir-SYNTH001-2001-sour/AA-Amir-Bulletproof-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA-Chris_SU-Audiophile-sour.mp3",
+    "stands_for": "DSCI4-DSCI4005-Chris_SU-2002/AA-Chris_SU-Audiophile-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+    "stands_for": "Trouble_On_Vinyl-TOV12040-Nu_Balance-2000-sour/AA-Nu_Balance-Overheads-sour.mp3",
+    "same_size": true,
+    "also": [
+     "trouble_on_vinyl-nu_balance-tov40-2000-sour/aa-nu_balance-overheads-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+    "stands_for": "audio_blueprint-stakka_and_skynet-ab012-2000-sour/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+    "stands_for": "audio_blueprint-stakka_and_skynet-abpr014-2001-sour/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA. Gridlok -- Struggle.mp3",
+    "stands_for": "[NERVE 004] - [2002] - Gridlok -- Warhol # Struggle/AA. Gridlok -- Struggle.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA. Pyro -- Spaced.mp3",
+    "stands_for": "[NERVE 001] - [2001] - Pyro -- Tension # Spased/AA. Pyro -- Spaced.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/AA. SKC -- Recharger 2007.mp3",
+    "stands_for": "[NERVE 020] - [2007] - D-Struct & SKC -- Merkaba # Recharger 2007/AA. SKC -- Recharger 2007.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3",
+    "stands_for": "APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+    "stands_for": "APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "stands_for": "APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+    "stands_for": "APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+    "stands_for": "APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+    "same_size": true,
+    "also": [
+     "Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "stands_for": "APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "same_size": true,
+    "also": [
+     "Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/APH036-Aphrodite - 2000/a-aphrodite-aphro_vs_schooly_d.mp3",
+    "stands_for": "APH036-Aphrodite - 2000/a-aphrodite-aphro_vs_schooly_d.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+    "stands_for": "APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+    "stands_for": "APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+    "stands_for": "APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "stands_for": "APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+    "stands_for": "APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3",
+    "stands_for": "APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3",
+    "stands_for": "APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3",
+    "stands_for": "APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+    "stands_for": "APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3",
+    "stands_for": "APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "stands_for": "APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+    "stands_for": "APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+    "stands_for": "[citrus001] Dreazz & Falcon - Do Drop In!,  Retro/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+    "stands_for": "Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+    "stands_for": "Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+    "same_size": true,
+    "also": [
+     "APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "stands_for": "Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "same_size": true,
+    "also": [
+     "APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+    "stands_for": "B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/B-Bad_Company-Four_Days-dmz.mp3",
+    "stands_for": "(2007) Bad Company Classics (BCUK001LP)/B-Bad_Company-Four_Days-dmz.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/B-Cause_4_Concern-Peep_Show-sour.mp3",
+    "stands_for": "virus-matrix_and_fierce_vs_c4c-vrs009-2001-sour/B-Cause_4_Concern-Peep_Show-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/B. falcon - china delight.mp3",
+    "stands_for": "[citrus007] Falcon - New Frontier,  Chine Delight/B. falcon - china delight.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/B. falcon - reality.mp3",
+    "stands_for": "[citrus005] Falcon - Another World  Reality/B. falcon - reality.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+    "stands_for": "TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Cyb Orc - Agressor.mp3",
+    "stands_for": "Cyb Orc/Cyb Orc - Agressor.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Cyb Orc - Endorphine.mp3",
+    "stands_for": "Cyb Orc/Cyb Orc - Endorphine.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Cyb Orc - Looter.mp3",
+    "stands_for": "Cyb Orc/Cyb Orc - Looter.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Cyb Orc - No Peace.mp3",
+    "stands_for": "Cyb Orc/Cyb Orc - No Peace.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Cyb Orc - People From South.mp3",
+    "stands_for": "Cyb Orc/2004 - SHADYBRAIN01104002 - Cyb Orc - People From South - 320/Cyb Orc - People From South.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Cyb Orc - Simulant.mp3",
+    "stands_for": "Cyb Orc/2004 - SHADYBRAIN01104003 - Cyb Orc - Simulant - 320/Cyb Orc - Simulant.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+    "stands_for": "D-Sinthetix-Cryogenic-sour.mp3",
+    "same_size": true,
+    "also": [
+     "va-spy_technologies_lp_part_one-dsci4lp002abcd-2002-sour/d-sinthetix-cryogenic-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+    "stands_for": "renegade_hardware-usual_suspects-(rh33)-2001-sour/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Illuminati - The Rust.mp3",
+    "stands_for": "Cyb Orc/Illuminati - The Rust.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+    "stands_for": "J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "stands_for": "[ZEROG01] Kraken+Arkane - Dominion+Neuro - 2001 [192]/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/[AA]_-_Apollo_Creed.mp3",
+    "stands_for": "[TECH007]_-_Futuretech_-_Tribal_Warfare_&_Apollo_Creed_Vinyl_(2001)/[AA]_-_Apollo_Creed.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/[AA]_-_Phoenix.mp3",
+    "stands_for": "[TECH012]_-_Drumsound_&_Simon_Bassline_Smith_-_Badman_&_Phoenix_Vinyl_(2001)/[AA]_-_Phoenix.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/[AA]_-_Supersonic.mp3",
+    "stands_for": "[TECH008]_-_Drumsound_&_Simon_Bassline_Smith_-_Dubtrack_&_Supersonic_Vinyl_(2001)/[AA]_-_Supersonic.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+    "stands_for": "[TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+    "same_size": true,
+    "also": [
+     "various_artists-the_x_project_part_3-tech015-2002-sour/a-drumsound_and_bassline-dirty_dancing-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/[A]_-_Mudslide.mp3",
+    "stands_for": "[TECH009]_-_Futuretech_-_Mudslide_&_Matchstick_Vinyl_(2001)/[A]_-_Mudslide.mp3",
+    "same_size": true,
+    "also": [
+     "technique-future_tech-tech009-2001-sour/a-future_tech-mudslide-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/[A]_-_Tribal_Warfare.mp3",
+    "stands_for": "[TECH007]_-_Futuretech_-_Tribal_Warfare_&_Apollo_Creed_Vinyl_(2001)/[A]_-_Tribal_Warfare.mp3",
+    "same_size": true,
+    "also": [
+     "technique-future_tech-tech007-2001-sour/a-future_tech-tribal_warfare-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/[B]_-_Futuretech_-_Kashmir.mp3",
+    "stands_for": "[TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[B]_-_Futuretech_-_Kashmir.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-)eib(-miami-sour.mp3",
+    "stands_for": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/a-)eib(-miami-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-bad_company-pulse.mp3",
+    "stands_for": "prototype_uk_001-bad_company-sour/a-bad_company-pulse.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-black_sun_empire-voltage-2000-sour.mp3",
+    "stands_for": "PIRUH001 - Black_Sun_Empire-Voltage-PIRUH001-2000-sour/a-black_sun_empire-voltage-2000-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-break-day_one-sour.mp3",
+    "stands_for": "VA-Zenith_EP_Part_1-QRNUK004-VINYL-2007-sour/a-break-day_one-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+    "stands_for": "undiluted-brockie_and_ed_solo-vdud005-2000-sour/a-brockie_and_ed_solo-voices-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-bullet_proof-anthrax-sour.mp3",
+    "stands_for": "perspective-bullet_proof-pr009-2001-sour/a-bullet_proof-anthrax-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-cause_4_concern-nightgasp-sour.mp3",
+    "stands_for": "idioma-cause_4_concern-idioma002-2001-sour/a-cause_4_concern-nightgasp-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-cause_4_concern-relentless-sour.mp3",
+    "stands_for": "cause_4_concern-cause_4_concern-c4cltd003-2001-sour/a-cause_4_concern-relentless-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-cause_4_concern-skewer-sour.mp3",
+    "stands_for": "[2001] - [RH32] - Renegade_Hardware-Cause_4_Concern-RH32-2001-sour/a-cause_4_concern-skewer-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+    "stands_for": "Trouble_On_Vinyl-TOV49-Final_Judgement_EP-2002-rfl_int/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-dj_reality-reasons.mp3",
+    "stands_for": "modern_moves-dj_reality-rdj004-vinyl-2001-uc/a-dj_reality-reasons.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-ecco_and_sabotage-hazy_shades-sour.mp3",
+    "stands_for": "ratio-ecco_and_sabotage-ratio12006-2002-sour/a-ecco_and_sabotage-hazy_shades-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+    "stands_for": "virus-ed_rush_and_optical-vrs004-1999-sour/a-ed_rush_and_optical-sicknote-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-extreme_force-everytime_(original_mix)-sour.mp3",
+    "stands_for": "rizing-extreme_force-riz004-2001-sour/a-extreme_force-everytime_(original_mix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-gridlok-v_ger-sour.mp3",
+    "stands_for": "payload-gridlok-payload001-2003-sour/a-gridlok-v_ger-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-kemal-animation-sour.mp3",
+    "stands_for": "architecture-kemal-2000-sour/a-kemal-animation-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-mo_funk-slipstream-sour.mp3",
+    "stands_for": "argon-mo_funk-arg004-2002-sour/a-mo_funk-slipstream-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-rascal_and_klone-snake_eyes-sour.mp3",
+    "stands_for": "shakedown-rascal_and_klone-shake002-2002-sour/a-rascal_and_klone-snake_eyes-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-rascal_and_klone-the_reprise-sour.mp3",
+    "stands_for": "urban_takeover-rascal_and_klone-urbtake30-2002-sour/a-rascal_and_klone-the_reprise-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-sinthetix-neurotoxin-sour.mp3",
+    "stands_for": "shadow_law-sinthetix-slr001-2002-sour/a-sinthetix-neurotoxin-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-skc-devotee-sour.mp3",
+    "stands_for": "DSCI4-DSCI4EP003-SKC-Devotee_EP-2002-sour/a-skc-devotee-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-skc_and_cord-swarm-sour.mp3",
+    "stands_for": "Nerve-SKC_and_Cord_Vs_Stare-NERVE015-2004-sour/a-skc_and_cord-swarm-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "stands_for": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "same_size": true,
+    "also": [
+     "various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+    "stands_for": "underfire-stakka_and_skynet-(udfr016)-2000/a-stakka_and_skynet-nightlore-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-stratus-like_this-sour.mp3",
+    "stands_for": "incident-stratus-incident002-2001-sour/a-stratus-like_this-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "stands_for": "underfire-double_pack-udfr014-2000-sour/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/a. falcon - fractles.mp3",
+    "stands_for": "[citrus003] Falcon - Firewalls EP/a. falcon - fractles.mp3",
+    "same_size": true,
+    "also": [
+     "Citrus-CITRUS003-Falcon-2001-sour/B-Falcon-Fractals-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/a1-skynet-acid_drops-sour.mp3",
+    "stands_for": "a1-skynet-acid_drops-sour.mp3",
+    "same_size": true,
+    "also": [
+     "skynet-skynet-sky006-2004-sour/a1-skynet-acid_drops-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/aa-black_sun_empire-bnegative-sour.mp3",
+    "stands_for": "Black_Sun_Empire-Black_Sun_Empire-BSE001-2002-sour/aa-black_sun_empire-bnegative-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-cause_4_concern-abduction-sour.mp3",
+    "stands_for": "white_label-cause_4_concern-c4cltd002-2001-sour/aa-cause_4_concern-abduction-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-cause_4_concern-epox-0db.mp3",
+    "stands_for": "[1999] - [C4C002] - Cause_4_Concern-Cause_4_Concern-C4C002-VINYL-1999-0dB_iNT/aa-cause_4_concern-epox-0db.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-cause_4_concern-psyke-sour.mp3",
+    "stands_for": "[2002] - [1210 005] - 1210-Cause_4_Concern-1210_005-2002-sour/aa-cause_4_concern-psyke-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-cause_4_concern-synergy-sour.mp3",
+    "stands_for": "cause_4_concern-cause_4_concern-c4c005-2001-sour/aa-cause_4_concern-synergy-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+    "stands_for": "Orgone-JL-Orgone003-2000-sour/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-kemal-mechanizm-sour.mp3",
+    "stands_for": "architecture-kemal-2000-sour/aa-kemal-mechanizm-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-matrix-bad_dreams-sour.mp3",
+    "stands_for": "idioma-matrix-idioma001-2001-sour/aa-matrix-bad_dreams-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "stands_for": "argon-mo_funk-arg004-2002-sour/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3",
+    "stands_for": "frontline-pascal_and_monty-front050-2000-sour/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-paul_b_and_subwave-break_through-sour.mp3",
+    "stands_for": "aa-paul_b_and_subwave-break_through-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-sinthetix-fallout-sour.mp3",
+    "stands_for": "shadow_law-sinthetix-slr001-2002-sour/aa-sinthetix-fallout-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+    "stands_for": "underfire-kemal_stakka_and_k_tee-udfr017-2001-sour/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aa-stakka_and_k_tee-terratorial-sour.mp3",
+    "stands_for": "audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/aa-stakka_and_k_tee-terratorial-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+    "stands_for": "aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3",
+    "stands_for": "aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aph042 - aphrodite - ganja man/A - Aphrodite - Ganja Man.mp3",
+    "stands_for": "aph042 - aphrodite - ganja man/A - Aphrodite - Ganja Man.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aph042 - aphrodite - ganja man/B - Aphrodite - Heat Haze.mp3",
+    "stands_for": "aph042 - aphrodite - ganja man/B - Aphrodite - Heat Haze.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3",
+    "stands_for": "aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+    "stands_for": "aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-bad_company-china_cup.mp3",
+    "stands_for": "prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-bulletproof-scarred-sour.mp3",
+    "stands_for": "va-heads_of_industry_lp-indlp001-2002-sour/b-bulletproof-scarred-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-cause_4_concern-sarin-sour.mp3",
+    "stands_for": "true_playaz-cause_4_concern-tpr12040-2002-sour/b-cause_4_concern-sarin-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+    "stands_for": "[2002] - [12IND005] - Industry-David_Carbone-12IND005-2002-sour/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-extreme_force-everytime_(2001_mix)-sour.mp3",
+    "stands_for": "rizing-extreme_force-riz004-2001-sour/b-extreme_force-everytime_(2001_mix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-kemal_and_rob_data-linear-sour.mp3",
+    "stands_for": "timeless-kemal_and_rob_data-tyme019-2002-sour/b-kemal_and_rob_data-linear-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+    "stands_for": "terraformat_records-moth-tffm003-2001-sour/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+    "stands_for": "no_u_turn-silent_witness_and_break-nut034-2003-sour/b-silent_witness_and_break-again_and_again-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-skc-eclipse-gdn.mp3",
+    "stands_for": "b-skc-eclipse-gdn.mp3",
+    "same_size": true,
+    "also": [
+     "va-spy_technologies_lp_sampler-promo_vinyl-2002-gdn/b-skc-eclipse-gdn.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/b-skc-flex-sour.mp3",
+    "stands_for": "DSCI4-DSCI4EP003-SKC-Devotee_EP-2002-sour/b-skc-flex-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+    "stands_for": "nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+    "same_size": true,
+    "also": [
+     "2002 - NERVE005 - VA - 192/2. SKC - Recharger (Black Sun Empire Remix).mp3"
+    ]
+   },
+   {
+    "corpus": "extra/b-spinor-mutant_storm-sour.mp3",
+    "stands_for": "b-spinor-mutant_storm-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-spirit-out_of_control-sour.mp3",
+    "stands_for": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+    "stands_for": "the_militia-brainwash-carg01-promo_vls-2003-atm/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+    "stands_for": "underfire-stakka_and_skynet-(udfr016)-2000/b-stakka_and_skynet-global_report-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-stratus-waves-sour.mp3",
+    "stands_for": "incident-stratus-incident002-2001-sour/b-stratus-waves-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/b-subwave-digital_symphony-sour.mp3",
+    "stands_for": "TI033 - Subwave - Bad Ambition; Digital Symphony [2002] (Tech Itch Records)/b-subwave-digital_symphony-sour.mp3",
+    "same_size": true,
+    "also": [
+     "tech_itch-subwave-ti033-2002-sour/b-subwave-digital_symphony-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/b-unknown-udfr014-sour.mp3",
+    "stands_for": "underfire-double_pack-udfr014-2000-sour/b-unknown-udfr014-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/c-bad_company-the_fear-sour.mp3",
+    "stands_for": "(1999) The Fear EP (VDBCR 002)/c-bad_company-the_fear-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/c-black_sun_empire-1800_contact-sour.mp3",
+    "stands_for": "dsci4-black_sun_empire-dsci4ep002-2002/c-black_sun_empire-1800_contact-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/c-cause4concern-time_stopper-sour.mp3",
+    "stands_for": "va-heads_of_industry_lp-indlp001-2002-sour/c-cause4concern-time_stopper-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3",
+    "stands_for": "c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/c-total_science-yvon_is_on-sour.mp3",
+    "stands_for": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+    "stands_for": "Trouble_On_Vinyl-TOV49-Final_Judgement_EP-2002-rfl_int/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+    "stands_for": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/d-shimon-mutationz_iv-sour.mp3",
+    "stands_for": "d-shimon-mutationz_iv-sour.mp3",
+    "same_size": true,
+    "also": [
+     "DSCI4-DSCI4EP001-Various_Artists-2001-sour/D-Shimon-Mutationz_IV-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/d-skc-broken-sour.mp3",
+    "stands_for": "DSCI4-DSCI4EP003-SKC-Devotee_EP-2002-sour/d-skc-broken-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/d-the_militia-you_and_i_know-sour.mp3",
+    "stands_for": "the_militia-music_for_the_masses_ep-chrg019-2003-sour/d-the_militia-you_and_i_know-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/d. falcon - the stand.mp3",
+    "stands_for": "[citrus003] Falcon - Firewalls EP/d. falcon - the stand.mp3",
+    "same_size": true,
+    "also": [
+     "Citrus-CITRUS003-Falcon-2001-sour/A-Falcon-The_Stand-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/e-cause_4_concern-blindside-sour.mp3",
+    "stands_for": "va-the_harder_they_come_part_1-rh36-2001-sour/e-cause_4_concern-blindside-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/e-chris_su_and_skc-blackout-sour.mp3",
+    "stands_for": "va-spy_technologies_lp_part_two-(dsci4lp002ef)-2002/e-chris_su_and_skc-blackout-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/f-skc-lobotomy-sour.mp3",
+    "stands_for": "va-spy_technologies_lp_part_two-(dsci4lp002ef)-2002/f-skc-lobotomy-sour.mp3",
+    "same_size": true,
+    "also": [
+     "DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/F-SKC-Lobotomy-sour.mp3"
+    ]
+   },
+   {
+    "corpus": "extra/g-tee_bee-two_faced-sour.mp3",
+    "stands_for": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+    "stands_for": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+    "stands_for": "DSCI4-DSCI4LP002KL-va-spy_technologies_lp_kl_art_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3",
+    "stands_for": "rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/rawkuts-jo_s-rkt335-2001-sour/a-jo_s-afterburner-sour.mp3",
+    "stands_for": "rawkuts-jo_s-rkt335-2001-sour/a-jo_s-afterburner-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+    "stands_for": "rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/108-stakka_and_skynet_feat_shimon-spider_monkey-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/108-stakka_and_skynet_feat_shimon-spider_monkey-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+    "stands_for": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+    "same_size": true
+   },
+   {
+    "corpus": "extra/xx-aquasky-i_cant_wait_(no_more)-sour.mp3",
+    "stands_for": "aquasky-radium_ep-msxep006-2000-sour/xx-aquasky-i_cant_wait_(no_more)-sour.mp3",
+    "same_size": true,
+    "also": [
+     "[SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/02 - Aquasky - I Can't Wait (No More).mp3"
+    ]
+   }
+  ],
+  "without_copy": [
+   "Ed Rush & Optical - Compound.mp3",
+   "Ed Rush & Optical - Dozer.mp3",
+   "Ed Rush & Optical - Fixation.mp3",
+   "Ed Rush & Optical - Glass Eye.mp3",
+   "Ed Rush & Optical - Lithosphere.mp3",
+   "Ed Rush & Optical - Mystery Machine.mp3",
+   "Ed Rush & Optical - Point Blank.mp3",
+   "Ed Rush & Optical - Wormhole.mp3",
+   "Fortran - Splinter.mp3",
+   "Optical - Millennium.mp3",
+   "Optical - Slip Thru.mp3",
+   "extra/A. SKC & Cord -- Swarm.mp3",
+   "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+   "extra/a-usual_suspects-bleach-sour.mp3",
+   "extra/b-cause_4_concern-give_it_2_em-sour.mp3"
+  ]
+ }
+}
