@@ -5,6 +5,8 @@
 //! spectrum as a whole (Wang 2003), and they are the stored source of truth
 //! from which hashes and the index are derived.
 
+use std::ops::Range;
+
 use crate::profile::Profile;
 use crate::spectrogram::for_each_frame;
 
@@ -33,8 +35,28 @@ pub struct Peak {
 
 /// Extracts the peaks of `samples`, ordered by frame and then by bin.
 pub fn extract_peaks(samples: &[f32], profile: &Profile) -> Vec<Peak> {
-    let mut picker = PeakPicker::new(profile);
-    for_each_frame(samples, profile, |frame| picker.push(frame));
+    extract_peaks_in(samples, profile, 0..usize::MAX)
+}
+
+/// The peaks `extract_peaks` finds in the STFT frames `frames`, the same to
+/// the bit. Only the frames their neighbourhoods reach are transformed, so
+/// a long query can be analysed a stretch at a time.
+pub fn extract_peaks_in(samples: &[f32], profile: &Profile, frames: Range<usize>) -> Vec<Peak> {
+    let first = frames.start.saturating_sub(profile.neighbourhood_frames);
+    let start = first.saturating_mul(profile.hop);
+    if start >= samples.len() {
+        return Vec::new();
+    }
+    // Frame `n` ends at sample `n * hop + fft_size`.
+    let end = frames
+        .end
+        .saturating_add(profile.neighbourhood_frames)
+        .saturating_sub(1)
+        .saturating_mul(profile.hop)
+        .saturating_add(profile.fft_size)
+        .min(samples.len());
+    let mut picker = PeakPicker::new(profile, first, frames);
+    for_each_frame(&samples[start..end], profile, |frame| picker.push(frame));
     picker.finish()
 }
 
@@ -44,18 +66,25 @@ struct PeakPicker<'p> {
     profile: &'p Profile,
     /// Frame `n` lives at `rows[n % rows.len()]`.
     rows: Vec<Vec<f32>>,
+    /// The number of the next frame to be pushed.
     received: usize,
+    /// Peaks are picked in these frames only.
+    wanted: Range<usize>,
     peaks: Vec<Peak>,
 }
 
 impl<'p> PeakPicker<'p> {
-    fn new(profile: &'p Profile) -> Self {
+    /// A picker whose first frame pushed is frame `first`. Frames from
+    /// `wanted.start - neighbourhood_frames` on must be pushed, or frames
+    /// from 0 (the start of the audio).
+    fn new(profile: &'p Profile, first: usize, wanted: Range<usize>) -> Self {
         let height = 2 * profile.neighbourhood_frames + 1;
         let bins = profile.fft_size / 2 + 1;
         PeakPicker {
             profile,
             rows: vec![vec![f32::NEG_INFINITY; bins]; height],
-            received: 0,
+            received: first,
+            wanted,
             peaks: Vec::new(),
         }
     }
@@ -73,6 +102,9 @@ impl<'p> PeakPicker<'p> {
         }
     }
 
+    /// Picks the last frames, whose neighbourhoods the end of the audio
+    /// cuts short. Pushing must have stopped at the end of the audio or
+    /// `neighbourhood_frames` past the wanted frames.
     fn finish(mut self) -> Vec<Peak> {
         let first_unpicked = self
             .received
@@ -84,6 +116,9 @@ impl<'p> PeakPicker<'p> {
     }
 
     fn pick(&mut self, centre: usize) {
+        if !self.wanted.contains(&centre) {
+            return;
+        }
         let profile = self.profile;
         let height = self.rows.len();
         let row = &self.rows[centre % height];
@@ -210,6 +245,39 @@ mod tests {
         assert!(peaks.windows(2).all(
             |pair| (pair[0].frame.round(), pair[0].bin) < (pair[1].frame.round(), pair[1].bin)
         ));
+    }
+
+    #[test]
+    fn peaks_of_a_stretch_of_frames_are_those_of_the_whole() {
+        let profile = Profile::CURRENT;
+        let mut state: u32 = 7;
+        let noise: Vec<f32> = (0..20 * profile.sample_rate)
+            .map(|_| {
+                state = state.wrapping_mul(1_664_525).wrapping_add(1_013_904_223);
+                (state >> 8) as f32 / (1 << 24) as f32 - 0.5
+            })
+            .collect();
+        let whole = extract_peaks(&noise, &profile);
+        let frames = whole.last().unwrap().frame.round() as usize + 1;
+
+        for stretch in [
+            0..5,
+            3..40,
+            100..700,
+            600..frames + 50,
+            frames - 3..usize::MAX,
+        ] {
+            let expected: Vec<Peak> = whole
+                .iter()
+                .filter(|peak| stretch.contains(&(peak.frame.round() as usize)))
+                .copied()
+                .collect();
+            assert_eq!(
+                extract_peaks_in(&noise, &profile, stretch.clone()),
+                expected,
+                "{stretch:?}"
+            );
+        }
     }
 
     #[test]

@@ -13,7 +13,7 @@ use crate::peaks::Peak;
 /// (experiment 0004).
 pub const FAN_OUT: usize = 2;
 /// Target zone: frames after the anchor, and bins above or below it.
-const MAX_DELTA_FRAMES: f64 = 63.0;
+pub const MAX_DELTA_FRAMES: f64 = 63.0;
 const MAX_DELTA_BINS: f32 = 63.0;
 
 const ANCHOR_BITS: u32 = 8;

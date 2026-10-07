@@ -15,6 +15,7 @@ mod lines;
 mod refine;
 
 use std::cmp::Reverse;
+use std::ops::Range;
 
 use crate::confidence::Evidence;
 use crate::hash::Point;
@@ -96,18 +97,18 @@ pub fn search(
     ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
-    search_with_progress(index, samples, profile, ladder, jobs, |_| {})
+    search_with_progress(index, samples, profile, ladder, jobs, |_, _| {})
 }
 
-/// Like `search`, calling `progress` from the workers with the number of
-/// rungs finished after each.
+/// Like `search`, calling `progress` from the workers with the parts of the
+/// search finished and their number after each part.
 pub fn search_with_progress(
     index: &Index,
     samples: &[f32],
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
-    progress: impl Fn(usize) + Sync,
+    progress: impl Fn(usize, usize) + Sync,
 ) -> Vec<Detection> {
     let (_, chained) = lines_and_detections(
         index,
@@ -139,7 +140,7 @@ pub fn search_twice(
         profile,
         ladder,
         jobs,
-        |_| {},
+        |_, _| {},
     );
     let mut refined = refine::refine(index, samples, profile, &lines, &chained, jobs);
     refined.sort_by_key(|detection| Reverse(detection.evidence.hits));
@@ -166,7 +167,7 @@ pub fn search_peaks(
     jobs: usize,
 ) -> Vec<Detection> {
     let (_, chained) =
-        lines_and_detections(index, Query::Peaks(peaks), profile, ladder, jobs, |_| {});
+        lines_and_detections(index, Query::Peaks(peaks), profile, ladder, jobs, |_, _| {});
     chained
         .into_iter()
         .map(|(detection, _)| detection)
@@ -181,17 +182,27 @@ enum Query<'a> {
 }
 
 impl Query<'_> {
-    /// The query's peaks in reference coordinates under `rung`.
-    fn points(self, rung: Rung, profile: &Profile) -> Vec<Point> {
+    /// The query's peaks in reference coordinates under `rung` whose query
+    /// frames (reference frame over speed) lie in `query_frames`, with a few
+    /// more on either side. Each STFT frame's peaks are all in or all out.
+    fn points_near(self, rung: Rung, profile: &Profile, query_frames: Range<f64>) -> Vec<Point> {
         match self {
-            Query::Samples(samples) => rung.points(samples, profile),
+            Query::Samples(samples) => {
+                let step = rung.hop(profile) as f64 / profile.hop as f64;
+                rung.points_in(samples, profile, stft_frames(query_frames, step))
+            }
             Query::Peaks(peaks) => {
+                let frames = stft_frames(query_frames, 1.0);
+                // A refined peak lies within half a frame of its STFT frame.
+                let stft_frame = |peak: &Peak| peak.frame.round() as usize;
+                let first = peaks.partition_point(|peak| stft_frame(peak) < frames.start);
+                let end = peaks.partition_point(|peak| stft_frame(peak) < frames.end);
                 let tempo = rung.speed().0;
                 let pitch = match rung {
                     Rung::Turntable(speed) => speed.0,
                     Rung::KeyLocked(_) => 1.0,
                 };
-                peaks
+                peaks[first..end.max(first)]
                     .iter()
                     .map(|peak| Point {
                         frame: peak.frame * tempo,
@@ -201,6 +212,23 @@ impl Query<'_> {
             }
         }
     }
+
+    /// The query's length in query frames, at least.
+    fn frames(self, profile: &Profile) -> f64 {
+        match self {
+            Query::Samples(samples) => samples.len() as f64 / profile.hop as f64,
+            Query::Peaks(peaks) => peaks.last().map_or(0.0, |peak| peak.frame),
+        }
+    }
+}
+
+/// The STFT frames, `step` query frames apart, whose peaks may lie in
+/// `query_frames`, and two more either side.
+fn stft_frames(query_frames: Range<f64>, step: f64) -> Range<usize> {
+    let start = (query_frames.start / step).floor() - 2.0;
+    let end = (query_frames.end / step).ceil() + 2.0;
+    // Conversion saturates: an infinite end is `usize::MAX`.
+    (start.max(0.0) as usize)..(end as usize)
 }
 
 /// Like `search_with_progress`, keeping the evidence (`explain`).
@@ -210,7 +238,7 @@ pub fn trace_with_progress(
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
-    progress: impl Fn(usize) + Sync,
+    progress: impl Fn(usize, usize) + Sync,
 ) -> Trace {
     let (lines, chained) = lines_and_detections(
         index,
@@ -248,11 +276,9 @@ fn lines_and_detections(
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
-    progress: impl Fn(usize) + Sync,
+    progress: impl Fn(usize, usize) + Sync,
 ) -> (Vec<lines::Line>, Vec<(Detection, Vec<usize>)>) {
-    let lines = lines::distinct(lines::on_ladder(
-        index, query, profile, ladder, jobs, progress,
-    ));
+    let lines = lines::on_ladder(index, query, profile, ladder, jobs, progress);
     let mut detections = chains::detections(&lines, profile);
     detections.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
     let detections = strongest_per_moment(detections);

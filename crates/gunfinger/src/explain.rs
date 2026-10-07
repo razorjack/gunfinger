@@ -67,10 +67,10 @@ pub fn run(request: &Request) -> miette::Result<()> {
         &profile,
         &ladder,
         request.jobs,
-        |done| {
+        |done, parts| {
             request
                 .console
-                .progress(format_args!("searching: {done} of {} rungs", ladder.len()));
+                .progress(format_args!("searching: {}%", 100 * done / parts));
         },
     );
     request.console.progress_done();
