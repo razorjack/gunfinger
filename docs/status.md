@@ -594,3 +594,9 @@ baseline `session-4-start` saved; the session-start binaries are kept in
   `Profile::spread` and postings by band in `loss` (commit 718d861).
 - Timed runs wait up to 2 minutes for the 1-minute load average to fall
   and log `top`'s idle share.
+- Items 1 and 2 measured (experiments 0028 and 0029). Scale runs at 262,
+  8,122, 26,462 and 31,964 assets, both matchers, three rounds each,
+  stable to 2% in wall time and 1% in peak memory; no swap growth. At
+  26,462 assets sorting each window's hits is 77-87% of the search's CPU.
+  Item 2's block-wise search lowers peaks by 36-45% at 8,122 assets and
+  14-22% at 26,462 with every scale report identical.

@@ -1,0 +1,785 @@
+{
+ "before": {
+  "s4-scale-30-default": {
+   "runs": 3,
+   "wall": {
+    "median": 261.46,
+    "min": 260.8,
+    "max": 261.68,
+    "values": [
+     260.8,
+     261.68,
+     261.46
+    ]
+   },
+   "user": {
+    "median": 1925.61,
+    "min": 1918.12,
+    "max": 1927.08,
+    "values": [
+     1918.12,
+     1927.08,
+     1925.61
+    ]
+   },
+   "sys": {
+    "median": 32.11,
+    "min": 31.83,
+    "max": 34.99,
+    "values": [
+     32.11,
+     34.99,
+     31.83
+    ]
+   },
+   "peak_mb": {
+    "median": 5303.146448,
+    "min": 5292.382184,
+    "max": 5329.737896,
+    "values": [
+     5329.737896,
+     5292.382184,
+     5303.146448
+    ]
+   },
+   "rss_mb": {
+    "median": 5301.649408,
+    "min": 5290.868736,
+    "max": 5328.093184,
+    "values": [
+     5328.093184,
+     5290.868736,
+     5301.649408
+    ]
+   },
+   "load": {
+    "median": 3.37,
+    "min": 2.81,
+    "max": 3.76,
+    "values": [
+     2.81,
+     3.76,
+     3.37
+    ]
+   },
+   "idle": {
+    "median": 87.6,
+    "min": 81.63,
+    "max": 89.66,
+    "values": [
+     89.66,
+     87.6,
+     81.63
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  },
+  "s4-scale-30-skip": {
+   "runs": 3,
+   "wall": {
+    "median": 99.94,
+    "min": 99.77,
+    "max": 101.56,
+    "values": [
+     99.94,
+     99.77,
+     101.56
+    ]
+   },
+   "user": {
+    "median": 700.04,
+    "min": 699.75,
+    "max": 701.18,
+    "values": [
+     701.18,
+     700.04,
+     699.75
+    ]
+   },
+   "sys": {
+    "median": 12.05,
+    "min": 11.88,
+    "max": 12.36,
+    "values": [
+     12.05,
+     11.88,
+     12.36
+    ]
+   },
+   "peak_mb": {
+    "median": 2122.18932,
+    "min": 2120.190496,
+    "max": 2125.367816,
+    "values": [
+     2120.190496,
+     2122.18932,
+     2125.367816
+    ]
+   },
+   "rss_mb": {
+    "median": 2123.087872,
+    "min": 2121.07264,
+    "max": 2126.282752,
+    "values": [
+     2121.07264,
+     2123.087872,
+     2126.282752
+    ]
+   },
+   "load": {
+    "median": 3.89,
+    "min": 3.59,
+    "max": 4.56,
+    "values": [
+     4.56,
+     3.59,
+     3.89
+    ]
+   },
+   "idle": {
+    "median": 89.16,
+    "min": 87.9,
+    "max": 90.73,
+    "values": [
+     87.9,
+     90.73,
+     89.16
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  },
+  "s4-scale-100-default": {
+   "runs": 3,
+   "wall": {
+    "median": 765.58,
+    "min": 763.97,
+    "max": 778.46,
+    "values": [
+     778.46,
+     765.58,
+     763.97
+    ]
+   },
+   "user": {
+    "median": 5814.37,
+    "min": 5811.76,
+    "max": 5824.8,
+    "values": [
+     5824.8,
+     5814.37,
+     5811.76
+    ]
+   },
+   "sys": {
+    "median": 18.69,
+    "min": 18.17,
+    "max": 34.38,
+    "values": [
+     34.38,
+     18.69,
+     18.17
+    ]
+   },
+   "peak_mb": {
+    "median": 9796.067512,
+    "min": 9795.87088,
+    "max": 9797.443888,
+    "values": [
+     9796.067512,
+     9797.443888,
+     9795.87088
+    ]
+   },
+   "rss_mb": {
+    "median": 9891.692544,
+    "min": 9884.532736,
+    "max": 9895.673856,
+    "values": [
+     9884.532736,
+     9891.692544,
+     9895.673856
+    ]
+   },
+   "load": {
+    "median": 3.49,
+    "min": 2.29,
+    "max": 3.8,
+    "values": [
+     3.49,
+     2.29,
+     3.8
+    ]
+   },
+   "idle": {
+    "median": 89.12,
+    "min": 88.83,
+    "max": 95.63,
+    "values": [
+     89.12,
+     88.83,
+     95.63
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  },
+  "s4-scale-100-skip": {
+   "runs": 3,
+   "wall": {
+    "median": 240.27,
+    "min": 239.86,
+    "max": 240.68,
+    "values": [
+     240.68,
+     240.27,
+     239.86
+    ]
+   },
+   "user": {
+    "median": 1709.84,
+    "min": 1709.21,
+    "max": 1710.2,
+    "values": [
+     1709.21,
+     1710.2,
+     1709.84
+    ]
+   },
+   "sys": {
+    "median": 5.73,
+    "min": 5.7,
+    "max": 5.81,
+    "values": [
+     5.7,
+     5.73,
+     5.81
+    ]
+   },
+   "peak_mb": {
+    "median": 4429.041552,
+    "min": 4423.585656,
+    "max": 4430.434168,
+    "values": [
+     4429.041552,
+     4423.585656,
+     4430.434168
+    ]
+   },
+   "rss_mb": {
+    "median": 4430.381056,
+    "min": 4428.972032,
+    "max": 4433.215488,
+    "values": [
+     4428.972032,
+     4433.215488,
+     4430.381056
+    ]
+   },
+   "load": {
+    "median": 6.17,
+    "min": 2.77,
+    "max": 8.19,
+    "values": [
+     2.77,
+     6.17,
+     8.19
+    ]
+   },
+   "idle": {
+    "median": 93.24,
+    "min": 82.42,
+    "max": 93.68,
+    "values": [
+     93.24,
+     82.42,
+     93.68
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  }
+ },
+ "after": {
+  "s4i2-scale-100-default": {
+   "runs": 3,
+   "wall": {
+    "median": 718.56,
+    "min": 717.41,
+    "max": 720.02,
+    "values": [
+     717.41,
+     720.02,
+     718.56
+    ]
+   },
+   "user": {
+    "median": 5840.96,
+    "min": 5833.99,
+    "max": 5842.48,
+    "values": [
+     5833.99,
+     5840.96,
+     5842.48
+    ]
+   },
+   "sys": {
+    "median": 16.94,
+    "min": 16.68,
+    "max": 17.0,
+    "values": [
+     17.0,
+     16.68,
+     16.94
+    ]
+   },
+   "peak_mb": {
+    "median": 7679.531368,
+    "min": 7666.162048,
+    "max": 7682.660688,
+    "values": [
+     7682.660688,
+     7679.531368,
+     7666.162048
+    ]
+   },
+   "rss_mb": {
+    "median": 7804.1088,
+    "min": 7801.782272,
+    "max": 7818.723328,
+    "values": [
+     7804.1088,
+     7801.782272,
+     7818.723328
+    ]
+   },
+   "load": {
+    "median": 6.07,
+    "min": 2.42,
+    "max": 7.79,
+    "values": [
+     2.42,
+     7.79,
+     6.07
+    ]
+   },
+   "idle": {
+    "median": 93.39,
+    "min": 90.62,
+    "max": 94.43,
+    "values": [
+     90.62,
+     94.43,
+     93.39
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  },
+  "s4i2-scale-100-skip": {
+   "runs": 3,
+   "wall": {
+    "median": 229.04,
+    "min": 228.95,
+    "max": 229.13,
+    "values": [
+     228.95,
+     229.04,
+     229.13
+    ]
+   },
+   "user": {
+    "median": 1718.79,
+    "min": 1718.51,
+    "max": 1719.44,
+    "values": [
+     1718.79,
+     1718.51,
+     1719.44
+    ]
+   },
+   "sys": {
+    "median": 5.47,
+    "min": 5.46,
+    "max": 5.5,
+    "values": [
+     5.46,
+     5.47,
+     5.5
+    ]
+   },
+   "peak_mb": {
+    "median": 3790.589096,
+    "min": 3789.016256,
+    "max": 3795.455144,
+    "values": [
+     3790.589096,
+     3789.016256,
+     3795.455144
+    ]
+   },
+   "rss_mb": {
+    "median": 3791.159296,
+    "min": 3789.570048,
+    "max": 3796.025344,
+    "values": [
+     3791.159296,
+     3789.570048,
+     3796.025344
+    ]
+   },
+   "load": {
+    "median": 5.33,
+    "min": 4.61,
+    "max": 7.17,
+    "values": [
+     5.33,
+     4.61,
+     7.17
+    ]
+   },
+   "idle": {
+    "median": 84.26,
+    "min": 71.19,
+    "max": 92.22,
+    "values": [
+     92.22,
+     84.26,
+     71.19
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  },
+  "s4i2-scale-30-default": {
+   "runs": 3,
+   "wall": {
+    "median": 229.39,
+    "min": 229.11,
+    "max": 229.79,
+    "values": [
+     229.39,
+     229.79,
+     229.11
+    ]
+   },
+   "user": {
+    "median": 1943.53,
+    "min": 1940.79,
+    "max": 1943.94,
+    "values": [
+     1940.79,
+     1943.94,
+     1943.53
+    ]
+   },
+   "sys": {
+    "median": 6.1,
+    "min": 6.09,
+    "max": 6.11,
+    "values": [
+     6.09,
+     6.1,
+     6.11
+    ]
+   },
+   "peak_mb": {
+    "median": 2900.03644,
+    "min": 2883.14456,
+    "max": 2919.566192,
+    "values": [
+     2900.03644,
+     2883.14456,
+     2919.566192
+    ]
+   },
+   "rss_mb": {
+    "median": 3021.70112,
+    "min": 3019.81696,
+    "max": 3044.950016,
+    "values": [
+     3021.70112,
+     3019.81696,
+     3044.950016
+    ]
+   },
+   "load": {
+    "median": 5.22,
+    "min": 3.37,
+    "max": 6.19,
+    "values": [
+     6.19,
+     3.37,
+     5.22
+    ]
+   },
+   "idle": {
+    "median": 94.1,
+    "min": 84.5,
+    "max": 96.22,
+    "values": [
+     84.5,
+     96.22,
+     94.1
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  },
+  "s4i2-scale-30-skip": {
+   "runs": 3,
+   "wall": {
+    "median": 90.83,
+    "min": 90.83,
+    "max": 90.92,
+    "values": [
+     90.83,
+     90.83,
+     90.92
+    ]
+   },
+   "user": {
+    "median": 706.25,
+    "min": 706.16,
+    "max": 706.56,
+    "values": [
+     706.56,
+     706.16,
+     706.25
+    ]
+   },
+   "sys": {
+    "median": 2.48,
+    "min": 2.42,
+    "max": 2.5,
+    "values": [
+     2.42,
+     2.5,
+     2.48
+    ]
+   },
+   "peak_mb": {
+    "median": 1357.301272,
+    "min": 1357.170176,
+    "max": 1359.742488,
+    "values": [
+     1357.301272,
+     1359.742488,
+     1357.170176
+    ]
+   },
+   "rss_mb": {
+    "median": 1358.987264,
+    "min": 1358.905344,
+    "max": 1361.444864,
+    "values": [
+     1358.987264,
+     1361.444864,
+     1358.905344
+    ]
+   },
+   "load": {
+    "median": 7.01,
+    "min": 6.51,
+    "max": 10.56,
+    "values": [
+     6.51,
+     10.56,
+     7.01
+    ]
+   },
+   "idle": {
+    "median": 96.5,
+    "min": 93.32,
+    "max": 96.66,
+    "values": [
+     96.5,
+     93.32,
+     96.66
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0,
+     0,
+     0
+    ]
+   },
+   "stopped": false
+  }
+ },
+ "no_large_cache": {
+  "s4nlc-scale-100-default": {
+   "runs": 1,
+   "wall": {
+    "median": 764.75,
+    "min": 764.75,
+    "max": 764.75,
+    "values": [
+     764.75
+    ]
+   },
+   "user": {
+    "median": 5813.14,
+    "min": 5813.14,
+    "max": 5813.14,
+    "values": [
+     5813.14
+    ]
+   },
+   "sys": {
+    "median": 23.88,
+    "min": 23.88,
+    "max": 23.88,
+    "values": [
+     23.88
+    ]
+   },
+   "peak_mb": {
+    "median": 6827.889824,
+    "min": 6827.889824,
+    "max": 6827.889824,
+    "values": [
+     6827.889824
+    ]
+   },
+   "rss_mb": {
+    "median": 6899.679232,
+    "min": 6899.679232,
+    "max": 6899.679232,
+    "values": [
+     6899.679232
+    ]
+   },
+   "load": {
+    "median": 6.76,
+    "min": 6.76,
+    "max": 6.76,
+    "values": [
+     6.76
+    ]
+   },
+   "idle": {
+    "median": 95.24,
+    "min": 95.24,
+    "max": 95.24,
+    "values": [
+     95.24
+    ]
+   },
+   "swap_growth": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "values": [
+     0
+    ]
+   },
+   "stopped": false
+  }
+ },
+ "identity": {
+  "s4i2-scale-100-default-1": "0 differences",
+  "s4i2-scale-100-default-2": "0 differences",
+  "s4i2-scale-100-default-3": "0 differences",
+  "s4i2-scale-100-skip-1": "0 differences",
+  "s4i2-scale-100-skip-2": "0 differences",
+  "s4i2-scale-100-skip-3": "0 differences",
+  "s4i2-scale-30-default-1": "0 differences",
+  "s4i2-scale-30-default-2": "0 differences",
+  "s4i2-scale-30-default-3": "0 differences",
+  "s4i2-scale-30-skip-1": "0 differences",
+  "s4i2-scale-30-skip-2": "0 differences",
+  "s4i2-scale-30-skip-3": "0 differences"
+ },
+ "count_lines_full_mix": {
+  "copies 30": {
+   "distinct_lines": 12012286,
+   "detections": 125666,
+   "peak_mb": 3449.343168
+  },
+  "copies 30 --second-pass --skip-fullest 0.01": {
+   "distinct_lines": 684689,
+   "detections": 2119,
+   "peak_mb": 1386.939952
+  },
+  "copies 100": {
+   "distinct_lines": 29332650,
+   "detections": 273270,
+   "peak_mb": 7647.844664
+  },
+  "copies 100 --second-pass --skip-fullest 0.01": {
+   "distinct_lines": 1589609,
+   "detections": 4067,
+   "peak_mb": 3865.808112
+  }
+ },
+ "regress": " baseline work/baselines/session-4-start\nsweep-seed-2026.json: 720 of 720 queries with identical detections\nscan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1\n  all 6114 detections identical\nscan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1\n  all 6037 detections identical\nscan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1\n  all 5736 detections identical\ncalibrate: weakest identifying 501 -> 403, strongest false 97 -> 97, missed 0 -> 0, false accepted 0 -> 0\ncalibrate: false candidates at 30 hits or more 15 -> 55, strongest on audio not in the index 19 -> 28\n      297.09 real      2473.24 user        63.71 sys\n           740818944  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n              962162  page reclaims\n               58954  page faults\n                   0  swaps\n                   0  block input operations\n                   0  block output operations\n                   0  messages sent\n                   0  messages received\n                   0  signals received\n              823564  voluntary context switches\n            12484275  involuntary context switches\n      22780326307477  instructions retired\n       6988973413094  cycles elapsed\n           738591728  peak memory footprint\n"
+}
