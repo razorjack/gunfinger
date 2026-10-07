@@ -305,8 +305,13 @@ speed+8.2pct,...` runs speeds from ±8.2% to ±9%. Their reports go
 to `work/reports/variant-<name>/`, where `calibrate` and `regress` read
 them when given the same options. `scan` and `robust` take
 `--synthetic-copies N`, which adds N time-reversed, stretched copies of
-every record to the index as a proxy for a larger library; those reports
-are kept apart from the ones `calibrate` and `regress` read.
+every record to the index as a proxy for a larger library, and
+`--second-library <root> --second-peaks-dir <store>`, which adds another
+library's peak records; those reports are kept apart from the ones
+`calibrate` and `regress` read. Peak profiles with neighbourhoods that
+widen with frequency (`Profile::spread`) need a build of their own and a
+store of their own under `work/variants/` (`--peaks-dir`, `--work`); `loss`
+reports postings and true hits by anchor band.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
 the crate boundaries and the evaluation rules.
@@ -338,8 +343,14 @@ index takes 74 postings per second of audio and 5.07 bytes per posting; for
 25,000 tracks that projects to 3.0 GB in memory, or about 2.3 GB with the
 delta-coded on-disk layout recommended in ADR 0005.
 
+At scale, measured with synthetic copies on an idle machine (experiments
+0028, 0029): the development mix takes 3.8 minutes at 8,122 assets and
+12.0 at 26,462 (skip at 240: 1.5 and 3.8 minutes), and peaks at 2.9 and
+7.7 GB (1.4 and 3.8 GB) with 10 workers. Most of that CPU sorts each
+window's hits.
+
 Known limits: the thresholds have been measured on 262 real tracks, and on
-up to 21,109 assets only with synthetic reversed copies, which lack the
+up to 31,964 assets only with synthetic reversed copies, which lack the
 shared breaks and remixes of a real library
 ([docs/calibration.md](docs/calibration.md) lists what to measure again).
 A search of turntable playback alone misses key-locked (pitch-preserved)
