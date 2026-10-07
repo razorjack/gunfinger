@@ -1,0 +1,825 @@
+{
+ "experiment": "0035-nas-store-as-indexed",
+ "store": "~/.local/share/gunfinger/nas-dnb-peaks (library /Volumes/atlas/Music/dnb, never read this session)",
+ "index_run_owner": {
+  "audio_files": 28439,
+  "wall_seconds": 17317,
+  "jobs": 10,
+  "link": "Wi-Fi (SMB)",
+  "extracted": 26890,
+  "too_short": 108,
+  "too_long": 1285,
+  "failed": 156,
+  "tags_pass_seconds": 490
+ },
+ "throughput": {
+  "nas": {
+   "source_bytes_extracted": 181339455076,
+   "failed_bytes": 1088505199,
+   "too_long_bytes_not_decoded": 67973493872,
+   "hours": 2805.6079282638893,
+   "mbit_per_s": 83.77407406640874,
+   "s_per_track": 0.6439940498326515,
+   "s_per_audio_hour": 6.172280818551779,
+   "mean_kbit_per_s": 143.63253068111965
+  },
+  "local_0028": {
+   "tracks": 262,
+   "source_bytes": 2777511864,
+   "hours": 29.25090548611111,
+   "wall_seconds": 52.5,
+   "mbit_per_s": 423.2399030857143,
+   "s_per_track": 0.20038167938931298,
+   "s_per_audio_hour": 1.7948162331223558,
+   "mean_kbit_per_s": 211.01051348982577
+  },
+  "nas_at_local_rate_seconds_inference": 5035.550653424811
+ },
+ "composition": {
+  "records": 26890,
+  "hours": 2805.6079282638893,
+  "duration_minutes": {
+   "mean": 6.260188757747613,
+   "median": 6.291629166666667,
+   "min": 1.5005583333333334,
+   "max": 14.945912499999999,
+   "deciles": [
+    4.910633333333333,
+    5.417602083333334,
+    5.767558333333333,
+    6.034866666666667,
+    6.291629166666667,
+    6.518847916666667,
+    6.7678416666666665,
+    7.084408333333334,
+    7.53565
+   ]
+  },
+  "source_bytes": 181339455076,
+  "record_bytes": 1897136624,
+  "peaks": 378424809,
+  "skip_notes": {
+   "too short": 108,
+   "too long": 1285,
+   "failed": 156
+  },
+  "skip_bytes": {
+   "failed": 1088505199,
+   "too long": 67973493872,
+   "too short": 89737510
+  },
+  "tag_coverage": {
+   "artist_title": 26699,
+   "none": 144,
+   "title_only": 47
+  },
+  "records_without_current_tags": 0,
+  "formats": {
+   ".mp3": 2459,
+   ".opus": 7938,
+   ".m4a": 16493
+  }
+ },
+ "formats_by_source": {
+  "youtube": {
+   ".m4a": 16355,
+   ".opus": 7938
+  },
+  "other": {
+   ".mp3": 2459,
+   ".m4a": 138
+  }
+ },
+ "youtube_channels": {
+  "youtube/i-witness-dnb": {
+   "records": 6225,
+   "hours": 596.9378316666639,
+   "artist_title": 6208,
+   "title_only": 0,
+   "none": 17
+  },
+  "youtube/dfect-dnb": {
+   "records": 5596,
+   "hours": 608.6859411111157,
+   "artist_title": 5596,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/unxplored-dnb": {
+   "records": 3549,
+   "hours": 376.39238083333254,
+   "artist_title": 3547,
+   "title_only": 0,
+   "none": 2
+  },
+  "youtube/3zb-gangstep-dnb": {
+   "records": 3223,
+   "hours": 356.2283182986094,
+   "artist_title": 3223,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/rootzdnb": {
+   "records": 2596,
+   "hours": 260.9817831597219,
+   "artist_title": 2596,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/alien5ive": {
+   "records": 1391,
+   "hours": 139.12451913194457,
+   "artist_title": 1391,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/klaudia-kowol": {
+   "records": 1389,
+   "hours": 148.32781503472242,
+   "artist_title": 1389,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/michal-slabosz": {
+   "records": 319,
+   "hours": 39.60519989583336,
+   "artist_title": 319,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/dnbfreak0": {
+   "records": 4,
+   "hours": 0.4581729166666667,
+   "artist_title": 4,
+   "title_only": 0,
+   "none": 0
+  },
+  "youtube/butch-french": {
+   "records": 1,
+   "hours": 0.09418274305555556,
+   "artist_title": 1,
+   "title_only": 0,
+   "none": 0
+  }
+ },
+ "youtube_total": {
+  "records": 24293,
+  "hours": 2526.8,
+  "artist_title": 24274,
+  "title_only": 0,
+  "none": 19
+ },
+ "other_folders": {
+  "top_level_folders": 754,
+  "records": 2597,
+  "hours": 278.8,
+  "artist_title": 2425,
+  "title_only": 47,
+  "none": 125
+ },
+ "identical_peak_records": {
+  "groups": 101,
+  "files_beyond_the_first": 103,
+  "groups_list": [
+   [
+    "004_XXX-Facs-XXX004-2000-sour/a-facs-capture-sour.mp3",
+    "xxx-facs-xxx004-2000-sour/a-facs-capture-sour.mp3"
+   ],
+   [
+    "004_XXX-Facs-XXX004-2000-sour/b-facs-stark-sour.mp3",
+    "xxx-facs-xxx004-2000-sour/b-facs-stark-sour.mp3"
+   ],
+   [
+    "01-muffler-bleak_(original_mix).mp3",
+    "VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/01-muffler-bleak_(original_mix).mp3"
+   ],
+   [
+    "01.Agressor Bunx - Deception.mp3",
+    "Agressor Bunx - Bioshok EP-(NOBUSS034)-WEB-2012/01.Agressor Bunx - Deception.mp3"
+   ],
+   [
+    "011_Thermal_Recordings-K-THE011-2000-sour/a-k-total_recall-sour.mp3",
+    "thermal_recordings-k-the011-2000-sour/a-k-total_recall-sour.mp3"
+   ],
+   [
+    "011_Thermal_Recordings-K-THE011-2000-sour/b-k-trackspill-sour.mp3",
+    "thermal_recordings-k-the011-2000-sour/b-k-trackspill-sour.mp3"
+   ],
+   [
+    "02-muffler-last_straw_(original_mix).mp3",
+    "VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/02-muffler-last_straw_(original_mix).mp3"
+   ],
+   [
+    "06-dizplay-shining_through.mp3",
+    "2006 - BWCD03 - N.Phect And Dizplay - Beautiful Bytes - 320/06-dizplay-shining_through.mp3"
+   ],
+   [
+    "08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+    "2006 - BWCD03 - N.Phect And Dizplay - Beautiful Bytes - 320/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3"
+   ],
+   [
+    "09-rascal_and_klone-galactic_jam_(original_mix).mp3",
+    "VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/09-rascal_and_klone-galactic_jam_(original_mix).mp3"
+   ],
+   [
+    "1. N.Phect - Voices.mp3",
+    "[citrus038] N.Phect - Voices, Duplicity - 2009/N.Phect - Voices.mp3"
+   ],
+   [
+    "1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+    "2007 - SYNDROME003 - Noisia & Phace, Mindscape - Outsource (Misanthrop Remix), New Deal - 320/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3"
+   ],
+   [
+    "2000 - ARX007 - Kemal vs. Ink & JW - Alien Planet,Animation (Konflict Remix)/2. Kemal - Animation (Konflict Remix).mp3",
+    "b-kemal-animation_(konflict_remix)-sour.mp3"
+   ],
+   [
+    "2000 - NTV001 - The Mummy, Bleed - 192/1.Kemal & Rob Data - The Mummy.mp3",
+    "negative-konflict-ntv001-2000-sour/a-konflict-the_mummy-sour.mp3"
+   ],
+   [
+    "2000 - NTV001 - The Mummy, Bleed - 192/2.Kemal - Bleed.mp3",
+    "negative-konflict-ntv001-2000-sour/aa-konflict-system_bleed-sour.mp3"
+   ],
+   [
+    "2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+    "d-usual_suspects-killa_bees_(konflict_rmx).mp3"
+   ],
+   [
+    "2001 [FOKUZ 002] Drum Origins - Oracle + D.N.A. (Rework)/A. Drum Origins - Oracle.mp3",
+    "fokuz-drum_origins-fuck02-2001-sour/A-Drum_Origins-Oracle-sour.mp3"
+   ],
+   [
+    "2001 [FOKUZ 002] Drum Origins - Oracle + D.N.A. (Rework)/AA. Drum Origins - D.N.A. (Remake).mp3",
+    "fokuz-drum_origins-fuck02-2001-sour/AA-Drum_Origins-DNA_Rework-sour.mp3"
+   ],
+   [
+    "2002 - IND010 - Kemal vs. Bulletproof - 192/2. Bulletproof - Trapdoor.mp3",
+    "industry-kemal_vs_bulletproof-12ind010-2002-sour/b-bulletproof-trap_door-sour.mp3"
+   ],
+   [
+    "2002 - NERVE005 - VA - 192/1. Paul Reset - Crisis (Kemal Remix).mp3",
+    "nerve-paul_reset_and_skc-nerve005-2002-sour/a-paul_reset-crisis_(kemal_remix)-sour.mp3"
+   ],
+   [
+    "2002 - NERVE005 - VA - 192/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+    "nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3"
+   ],
+   [
+    "2003 - DSCI4LP001-1 - VA - 23\u00b0 From Vertical - Part 1 - 192/1. Kemal - Mutationz iii.mp3",
+    "A-Kemal-Mutationz_III-sour.mp3"
+   ],
+   [
+    "2003_Nerve-NERVE009-Noisia-2003-sour/A-Noisia-Silicon-sour.mp3",
+    "nerve-noisia-nerve009-2003-sour/a-noisia-silicon-sour.mp3"
+   ],
+   [
+    "2003_Nerve-NERVE009-Noisia-2003-sour/B-Noisia-Tomahawk_(Feat_Mayhem)-sour.mp3",
+    "nerve-noisia-nerve009-2003-sour/b-noisia-tomahawk_(feat_mayhem)-sour.mp3"
+   ],
+   [
+    "2005 - FF004 - Final Transmission (Phace Remix), Connection - 320/1. Full Force - Connection.mp3",
+    "Cyb Orc/2005 - FF004 - Full Force vs. Cyb Orc - Connection, Final Transmission (Phace Remix) - 320/1. Full Force - Connection.mp3"
+   ],
+   [
+    "2005_Sound_Trax-Noisia_and_Pacific-FILM006-2005-sour/a-noisia_and_pacific-on_your_mind-sour.mp3",
+    "[FILM006] Sound_Trax-Noisia_and_Pacific-2005-sour/a-noisia_and_pacific-on_your_mind-sour.mp3"
+   ],
+   [
+    "2005_Sound_Trax-Noisia_and_Pacific-FILM006-2005-sour/b-pacific-crippled-sour.mp3",
+    "[FILM006] Sound_Trax-Noisia_and_Pacific-2005-sour/b-pacific-crippled-sour.mp3"
+   ],
+   [
+    "2008 - C4CUKLTD001 - Phatcap (Phace Remix), Synergy (BSE Remix) - 320/1.Cause 4 Concern - Phatcap (Phace Remix).mp3",
+    "[2008] - [C4CUKLTD001] - Cause4Concern_-_Phatcap_Remix_Single-WEB-2009-BiLDERBERG/01-cause4concern_-_phatcap_(phace_remix).mp3"
+   ],
+   [
+    "2008 - C4CUKLTD001 - Phatcap (Phace Remix), Synergy (BSE Remix) - 320/2.Cause 4 Concern - Synergy (Black Sun Empire Remix).mp3",
+    "[2008] - [C4CUKLTD001] - Cause4Concern_-_Phatcap_Remix_Single-WEB-2009-BiLDERBERG/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3"
+   ],
+   [
+    "2008 - SUBTITLES068 - Phace & Misanthrop - 214/1. Phace & Misanthrop - Fortune.mp3",
+    "2008 - SUBTITLES068 - Phace & Misanthrop - Fortune, Hyzer - VBR/1. Phace & Misanthrop - Fortune.mp3"
+   ],
+   [
+    "2008 - SUBTITLES068 - Phace & Misanthrop - 214/2. Phace & Misanthrop - Hyzer.mp3",
+    "2008 - SUBTITLES068 - Phace & Misanthrop - Fortune, Hyzer - VBR/2. Phace & Misanthrop - Hyzer.mp3"
+   ],
+   [
+    "2009 - MTRDEP009 - Krot - Resistance EP/01_Rotten-Hem.mp3",
+    "Krot-MTRDEP009-KOiNE/01_Rotten-Hem.mp3"
+   ],
+   [
+    "2009 - MTRDEP009 - Krot - Resistance EP/02_Sorting-Method.mp3",
+    "Krot-MTRDEP009-KOiNE/02_Sorting-Method.mp3"
+   ],
+   [
+    "2009 - MTRDEP009 - Krot - Resistance EP/03_Resistance.mp3",
+    "Krot-MTRDEP009-KOiNE/03_Resistance.mp3"
+   ],
+   [
+    "2009 - MTRDEP009 - Krot - Resistance EP/04_Rec.mp3",
+    "Krot-MTRDEP009-KOiNE/04_Rec.mp3"
+   ],
+   [
+    "2009 - NSGNL003 - VA - Mammoth, Sore Point - 320/1. Phace & Misanthrop - Mammoth.mp3",
+    "Neosignal-Various_Artists-NSGNL003-VINYL-2009/A. Phace & Misanthrop - Mammoth.mp3"
+   ],
+   [
+    "2009 - NSGNL003 - VA - Mammoth, Sore Point - 320/2. Phace & Noisia - Sore Point.mp3",
+    "Neosignal-Various_Artists-NSGNL003-VINYL-2009/AA. Phace & Noisia - Sore Point.mp3"
+   ],
+   [
+    "9.Dizplay - Profiler.mp3",
+    "bwcd04 - va-basswerk sessions vol. 3 (2008)/3-09 Profiler.mp3"
+   ],
+   [
+    "A-Makai_Vs_Future_Forces_Inc-Cylon-sour 2.mp3",
+    "A-Makai_Vs_Future_Forces_Inc-Cylon-sour.mp3"
+   ],
+   [
+    "A-The_Architex-Titanium_Minds-sour.mp3",
+    "Architecture-The_Architex-ARX008-2001-sour/A-The_Architex-Titanium_Minds-sour.mp3"
+   ],
+   [
+    "APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+    "Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3"
+   ],
+   [
+    "APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+   ],
+   [
+    "BreakBeat_Science-BBS013-Third_Rail-2002-sour/A-Third_Rail-Space_Cameras-sour.mp3",
+    "breakbeat_science-third_rail-bbs013-2002-sour/A-Third_Rail-Space_Cameras-sour.mp3"
+   ],
+   [
+    "BreakBeat_Science-BBS013-Third_Rail-2002-sour/B-Third_Rail-Spirit_Combat-sour.mp3",
+    "breakbeat_science-third_rail-bbs013-2002-sour/B-Third_Rail-Spirit_Combat-sour.mp3"
+   ],
+   [
+    "Citrus-CITRUS003-Falcon-2001-sour/A-Falcon-The_Stand-sour.mp3",
+    "[citrus003] Falcon - Firewalls EP/d. falcon - the stand.mp3"
+   ],
+   [
+    "Citrus-CITRUS003-Falcon-2001-sour/B-Falcon-Fractals-sour.mp3",
+    "[citrus003] Falcon - Firewalls EP/a. falcon - fractles.mp3"
+   ],
+   [
+    "Citrus-CITRUS003-Falcon-2001-sour/C-Falcon-Firewall-sour.mp3",
+    "[citrus003] Falcon - Firewalls EP/b. falcon - firewalls.mp3"
+   ],
+   [
+    "Citrus-CITRUS003-Falcon-2001-sour/D-Falcon-Untitled-sour.mp3",
+    "[citrus003] Falcon - Firewalls EP/c. falcon - rotation.mp3"
+   ],
+   [
+    "Creative_Source-CRSE029-Teebee-2001-sour/A-Teebee-Dynasty_Warriors-sour.mp3",
+    "creative_source-teebee-crse029-2001-sour/a-teebee-dynasty_warriors-sour.mp3"
+   ],
+   [
+    "Creative_Source-CRSE029-Teebee-2001-sour/AA-Teebee-Lifeless-sour.mp3",
+    "creative_source-teebee-crse029-2001-sour/aa-teebee-lifeless-sour.mp3"
+   ],
+   [
+    "Creative_Source-CRSE031-Digital-2001/A-Digital-The_swamp-sour.mp3",
+    "Creative_Source-Digital-CRSE031-2001-sour/A-Digital-The_swamp-sour.mp3"
+   ],
+   [
+    "Creative_Source-CRSE031-Digital-2001/AA-Digital-Red_Mist-sour.mp3",
+    "Creative_Source-Digital-CRSE031-2001-sour/AA-Digital-Red_Mist-sour.mp3"
+   ],
+   [
+    "D-Sinthetix-Cryogenic-sour.mp3",
+    "va-spy_technologies_lp_part_one-dsci4lp002abcd-2002-sour/d-sinthetix-cryogenic-sour.mp3"
+   ],
+   [
+    "DSCI4-DSCI4EP001-Various_Artists-2001-sour/D-Shimon-Mutationz_IV-sour.mp3",
+    "d-shimon-mutationz_iv-sour.mp3"
+   ],
+   [
+    "DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/F-SKC-Lobotomy-sour.mp3",
+    "va-spy_technologies_lp_part_two-(dsci4lp002ef)-2002/f-skc-lobotomy-sour.mp3"
+   ],
+   [
+    "DSCI4-DSCI4LP002KL-va-spy_technologies_lp_kl_art_part_five-2002-sour/l-arqer_and_realtime-exhaust-sour.mp3",
+    "va-spy_technologies_lp_part_five-2002-sour/l-arqer_and_realtime-exhaust-sour.mp3"
+   ],
+   [
+    "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+    "Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3"
+   ],
+   [
+    "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3",
+    "Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3"
+   ],
+   [
+    "Infrared-INFRAS004-Sonic-Stars_Our_Destination_LP_Sampler-2002-sour/A-Sonic-Even_When_It_Rains_(Super_Disco_Mix)-sour.mp3",
+    "sonic-stars_our_destination_lp_sampler-infras004-2002-sour/a-sonic-even_when_it_rains_(super_disco_mix)-sour.mp3"
+   ],
+   [
+    "Infrared-INFRAS004-Sonic-Stars_Our_Destination_LP_Sampler-2002-sour/AA-Sonic-Even_When_It_Rains_(Original_Mix)-sour.mp3",
+    "sonic-stars_our_destination_lp_sampler-infras004-2002-sour/aa-sonic-even_when_it_rains_(original_mix)-sour.mp3"
+   ],
+   [
+    "METH038 Marcus Intalex & ST Files - Universe  Lose Control/AA_-_Marcus_Intalex_&_ST_Files_-_Lose_Control.mp3",
+    "Metalheadz - Universe [METH038] - 2001/B-Marcus_Intalex_and_ST_Files[METH038]-Lose_Control.mp3",
+    "Metalheadz-Marcus_Intalex_and_ST_Files-METH038-2001-sour/B-Marcus_Intalex_and_ST_Files-Lose_Control-sour.mp3"
+   ],
+   [
+    "METH038 Marcus Intalex & ST Files - Universe  Lose Control/A_-_Marcus_Intalex_&_ST_Files_-_Universe.mp3",
+    "Metalheadz - Universe [METH038] - 2001/A-Marcus_Intalex_and_ST_Files[METH038]-Universe.mp3",
+    "Metalheadz-Marcus_Intalex_and_ST_Files-METH038-2001-sour/A-Marcus_Intalex_and_ST_Files-Universe-sour.mp3"
+   ],
+   [
+    "METH041 John B - Up All Night  Take Control/AA_-_John_B_-_Take_Control.mp3",
+    "metalheadz-john_b-meth041-2001-sour/b-john_b-take_control-sour.mp3"
+   ],
+   [
+    "METH041 John B - Up All Night  Take Control/A_-_John_B_-_Up_All_Night.mp3",
+    "metalheadz-john_b-meth041-2001-sour/a-john_b-up_all_night-sour.mp3"
+   ],
+   [
+    "Rascal & Klone- Get Wild, Winner Takes All/A_-_Rascal_&_Klone_-_Get_Wild.mp3",
+    "[MSXEP004] - [2000] - Rascal & Klone - Winner Takes All EP/04 - Rascal & Klone - Get Wild.mp3"
+   ],
+   [
+    "Rascal & Klone- Get Wild, Winner Takes All/C_-_Rascal_&_Klone_-_Winner_Takes_All.mp3",
+    "[MSXEP004] - [2000] - Rascal & Klone - Winner Takes All EP/02 - Rascal & Klone - Winner Takes All.mp3"
+   ],
+   [
+    "Subtitles-Angelzero-SUBTITLES005-2001-sour/A-Angelzero-Laroux-sour.mp3",
+    "subtitles-angelzero-subtitles005-2001.sour/a-angelzero-laroux-sour.mp3"
+   ],
+   [
+    "Subtitles-Angelzero-SUBTITLES005-2001-sour/B1-Angelzero-Double_Edge-sour.mp3",
+    "subtitles-angelzero-subtitles005-2001.sour/b1-angelzero-double_edge-sour.mp3"
+   ],
+   [
+    "Subtitles-Angelzero-SUBTITLES005-2001-sour/B2-Angelzero-Now-sour.mp3",
+    "subtitles-angelzero-subtitles005-2001.sour/b2-angelzero-now-sour.mp3"
+   ],
+   [
+    "Subtitles-Teebee_vs_Future_Prophecies-SUBTITLES010-2001-sour/A-Teebee_vs_Future_Prophecies-Dimentional_Entity-sour.mp3",
+    "subtitles-teebee_vs_future_prophecies-subtitles010-2001/a-teebee_vs_future_prophecies-dimentional_entity-sour.mp3"
+   ],
+   [
+    "Subtitles-Teebee_vs_Future_Prophecies-SUBTITLES010-2001-sour/AA-Teebee_vs_Future_Prophecies-The_Path-sour.mp3",
+    "subtitles-teebee_vs_future_prophecies-subtitles010-2001/aa-teebee_vs_future_prophecies-the_path-sour.mp3"
+   ],
+   [
+    "TI033 - Subwave - Bad Ambition; Digital Symphony [2002] (Tech Itch Records)/b-subwave-digital_symphony-sour.mp3",
+    "tech_itch-subwave-ti033-2002-sour/b-subwave-digital_symphony-sour.mp3"
+   ],
+   [
+    "Trouble_On_Vinyl-TOV12040-Nu_Balance-2000-sour/A-Nu_Balance-Facility.mp3",
+    "trouble_on_vinyl-nu_balance-tov40-2000-sour/a-nu_balance-facility.mp3"
+   ],
+   [
+    "Trouble_On_Vinyl-TOV12040-Nu_Balance-2000-sour/AA-Nu_Balance-Overheads-sour.mp3",
+    "trouble_on_vinyl-nu_balance-tov40-2000-sour/aa-nu_balance-overheads-sour.mp3"
+   ],
+   [
+    "[RUFF 57] Various - Analog Steroids (CD)/13_-_skinnah_-_metaphysical.mp3",
+    "ruff-teck-skinnah-ruff058-2002-dbu/b-skinnah-metaphysical-dbu.mp3"
+   ],
+   [
+    "[SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/01 - Aquasky - Spectre.mp3",
+    "aquasky-radium_ep-msxep006-2000-sour/y-aquasky-spectre-sour.mp3"
+   ],
+   [
+    "[SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/02 - Aquasky - I Can't Wait (No More).mp3",
+    "aquasky-radium_ep-msxep006-2000-sour/xx-aquasky-i_cant_wait_(no_more)-sour.mp3"
+   ],
+   [
+    "[TECH006]_-_Drumsound_&_Bassline_Smith_-_I_Need_Your_Love_&_Breakdown_Vinyl_(2000)/[AA]_-_Breakdown.mp3",
+    "technique-drumsound_and_bassline_smith-tech006-2000-sour/aa-drumsound_and_simon_bassline_smith-breakdown-sour.mp3"
+   ],
+   [
+    "[TECH006]_-_Drumsound_&_Bassline_Smith_-_I_Need_Your_Love_&_Breakdown_Vinyl_(2000)/[A]_-_I_Need_Your_Love.mp3",
+    "technique-drumsound_and_bassline_smith-tech006-2000-sour/a-drumsound_and_simon_bassline_smith-i_need_your_love-sour.mp3"
+   ],
+   [
+    "[TECH007]_-_Futuretech_-_Tribal_Warfare_&_Apollo_Creed_Vinyl_(2001)/[A]_-_Tribal_Warfare.mp3",
+    "technique-future_tech-tech007-2001-sour/a-future_tech-tribal_warfare-sour.mp3"
+   ],
+   [
+    "[TECH009]_-_Futuretech_-_Mudslide_&_Matchstick_Vinyl_(2001)/[AA]_-_Matchstick.mp3",
+    "technique-future_tech-tech009-2001-sour/aa-future_tech-matchstick-sour.mp3"
+   ],
+   [
+    "[TECH009]_-_Futuretech_-_Mudslide_&_Matchstick_Vinyl_(2001)/[A]_-_Mudslide.mp3",
+    "technique-future_tech-tech009-2001-sour/a-future_tech-mudslide-sour.mp3"
+   ],
+   [
+    "[TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+    "various_artists-the_x_project_part_3-tech015-2002-sour/a-drumsound_and_bassline-dirty_dancing-sour.mp3"
+   ],
+   [
+    "[TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[C]_-_Drumsound_&_Simon_Bassline_Smith_-_Breakdown_(Twisted_Individual_rmx).mp3",
+    "various_artists-the_x_project_part_3-tech015-2002-sour/c-ds_and_sbs-breakdown_(twisted_individual_remix)-sour.mp3"
+   ],
+   [
+    "[citrus026] Dizplay  &  Lost Sequence, Morebeat - Freak Wave,  In Coma/a-dizplay_and_lost_sequence-freak_wave-xtc.mp3",
+    "a-dizplay_and_lost_sequence-freak_wave-xtc.mp3"
+   ],
+   [
+    "__youtube_archivists/dfect-dnb/Digital - Bitter Wind (Double O VIP).m4a",
+    "__youtube_archivists/rootzdnb/Digital - Bitter Wind (Double O VIP).m4a"
+   ],
+   [
+    "__youtube_archivists/i-witness-dnb/Artificial Intelligence - Side Track.m4a",
+    "__youtube_archivists/i-witness-dnb/Artificial Intelligence - The Other Side.m4a"
+   ],
+   [
+    "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+   ],
+   [
+    "a1-skynet-acid_drops-sour.mp3",
+    "skynet-skynet-sky006-2004-sour/a1-skynet-acid_drops-sour.mp3"
+   ],
+   [
+    "b-skc-eclipse-gdn.mp3",
+    "va-spy_technologies_lp_sampler-promo_vinyl-2002-gdn/b-skc-eclipse-gdn.mp3"
+   ],
+   [
+    "bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3",
+    "bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3"
+   ],
+   [
+    "basswerk-the_green_man-bw11-2001-sour/a-the_green_man-damn_wire-sour.mp3",
+    "bw011 - Basswerk-The_Green_Man-BW11-2001-sour/a-the_green_man-damn_wire-sour.mp3"
+   ],
+   [
+    "basswerk-the_green_man-bw11-2001-sour/b-the_green_man-copper_to_iron-sour.mp3",
+    "bw011 - Basswerk-The_Green_Man-BW11-2001-sour/b-the_green_man-copper_to_iron-sour.mp3"
+   ],
+   [
+    "e-stakka_and_skynet-spider_monkey_(c4c_rmx)-sour.mp3",
+    "various_artists-clockwork_remix_ep-udfr019-2003-sour/e-stakka_and_skynet-spider_monkey_(c4c_rmx)-sour.mp3"
+   ],
+   [
+    "f-dylan_and_loxy-nightmare_(digital_remix)-sour.mp3",
+    "va-the_harder_they_come_part_1-rh36-2001-sour/f-dylan_and_loxy-nightmare_(digital_remix)-sour.mp3"
+   ],
+   [
+    "j-dj_s_i_n_and_stare-highline-sour.mp3",
+    "va-spy_technologies_lp_part_four-dsci4lp002ij-2002-sour/j-dj_s_i_n_and_stare-highline-sour.mp3"
+   ],
+   [
+    "ram-bad_company-ramm37-2002-sour/A-Bad_Company-Spacehopper-sour.mp3",
+    "ram-bad_company-ramm37-sour/a-bad_company-spacehopper-sour.mp3"
+   ],
+   [
+    "subtitles-teebee-subtitles006-2000-sour/a-let_go-2000-sour.mp3",
+    "subtitles-teebee-subtitles006-sour/a-let_go-2000-sour.mp3"
+   ],
+   [
+    "subtitles-teebee-subtitles006-2000-sour/aa-deception-2000-sour.mp3",
+    "subtitles-teebee-subtitles006-sour/aa-deception-2000-sour.mp3"
+   ],
+   [
+    "technique-drumsound_and_bassline_smith-tech006-2000-sour/[TECH013]_-_Drumsound_&_Simon_Bassline_Smith_-_Stigmata_&_Time_Vinyl_(2002)/[A]_-_stigmata.mp3",
+    "technique-drumsound_and_simon_smith-tech013-2002-sour/a-drumsound_and_simon_smith-stigmata-sour.mp3"
+   ],
+   [
+    "technique-drumsound_and_bassline_smith-tech006-2000-sour/[TECH013]_-_Drumsound_&_Simon_Bassline_Smith_-_Stigmata_&_Time_Vinyl_(2002)/[B]_-_time.mp3",
+    "technique-drumsound_and_simon_smith-tech013-2002-sour/b-drumsound_and_simon_smith-time-sour.mp3"
+   ]
+  ],
+  "groups_within_other_folders": 99,
+  "groups_within_youtube": 2
+ },
+ "names_on_several_files": {
+  "names": 1519,
+  "files": 3220,
+  "names_across_folders": 1497,
+  "largest": [
+   [
+    6,
+    "bad company planet dust"
+   ],
+   [
+    5,
+    "kraken side effects"
+   ],
+   [
+    5,
+    "kemal mutationz iii"
+   ],
+   [
+    4,
+    "unknown artist untitled"
+   ],
+   [
+    4,
+    "sta paul b come closer"
+   ],
+   [
+    4,
+    "skinnah hyperbole"
+   ],
+   [
+    4,
+    "optiv draw breath"
+   ],
+   [
+    4,
+    "noisia silicon"
+   ],
+   [
+    4,
+    "matrix fierce tearaway"
+   ],
+   [
+    4,
+    "makai beneath the mask"
+   ],
+   [
+    4,
+    "kemal let it move you"
+   ],
+   [
+    4,
+    "gridlok v ger"
+   ],
+   [
+    4,
+    "future cut the specialist"
+   ],
+   [
+    4,
+    "falcon the stand"
+   ],
+   [
+    4,
+    "falcon another world"
+   ],
+   [
+    4,
+    "facs capture"
+   ],
+   [
+    4,
+    "dieselboy kaos karl k and jae kennedy"
+   ],
+   [
+    4,
+    "cause 4 concern soul"
+   ],
+   [
+    4,
+    "bad company the nine"
+   ],
+   [
+    4,
+    "bad company the fear"
+   ]
+  ]
+ },
+ "name_key": "artist and title tags, lowercased, non-alphanumerics folded to spaces",
+ "stats_nas": {
+  "schema_version": 1,
+  "assets": 26890,
+  "audio_seconds": 10100188.541750602,
+  "mean_track_seconds": 375.6113254648792,
+  "peaks": {
+   "count": 378424809,
+   "per_second": 37.46710345413116,
+   "store_bytes": 1897136624,
+   "store_bytes_per_second": 187.8318029567378,
+   "band_shares": [
+    {
+     "up_to_hz": 125.0,
+     "share": 0.04269159319308793
+    },
+    {
+     "up_to_hz": 250.0,
+     "share": 0.019580603131122937
+    },
+    {
+     "up_to_hz": 500.0,
+     "share": 0.05308389017380729
+    },
+    {
+     "up_to_hz": 1000.0,
+     "share": 0.1327833001562009
+    },
+    {
+     "up_to_hz": 2000.0,
+     "share": 0.2649975546397118
+    },
+    {
+     "up_to_hz": 4000.0,
+     "share": 0.48686305870606916
+    }
+   ]
+  },
+  "index": {
+   "postings": 755152725,
+   "postings_per_second": 74.76620083659489,
+   "bytes": 3028999512,
+   "bytes_per_posting": 4.011108497291061,
+   "delta_varint_bytes_per_posting": 3.1506821696233698
+  },
+  "buckets": {
+   "count": 2097152,
+   "mean": 360.08487939834595,
+   "p99": 4538,
+   "max": 106517,
+   "fullest_percent_share": 0.2614346852817091
+  },
+  "projection": {
+   "tracks": 25000.0,
+   "audio_seconds": 9390283.13662198,
+   "postings": 702075794.9051691,
+   "index_bytes": 2816691791.6206765,
+   "peak_store_bytes": 1763793811.8259575
+  }
+ },
+ "stats_corpus": {
+  "schema_version": 1,
+  "assets": 262,
+  "audio_seconds": 105303.25974999997,
+  "mean_track_seconds": 401.9208387404579,
+  "peaks": {
+   "count": 3926942,
+   "per_second": 37.29174205359774,
+   "store_bytes": 19676624,
+   "store_bytes_per_second": 186.85674163092568,
+   "band_shares": [
+    {
+     "up_to_hz": 125.0,
+     "share": 0.04533858661523394
+    },
+    {
+     "up_to_hz": 250.0,
+     "share": 0.020321665051330016
+    },
+    {
+     "up_to_hz": 500.0,
+     "share": 0.05330814664438639
+    },
+    {
+     "up_to_hz": 1000.0,
+     "share": 0.13517439269538487
+    },
+    {
+     "up_to_hz": 2000.0,
+     "share": 0.2667284110638762
+    },
+    {
+     "up_to_hz": 4000.0,
+     "share": 0.47912879792978863
+    }
+   ]
+  },
+  "index": {
+   "postings": 7836148,
+   "postings_per_second": 74.41505627274755,
+   "bytes": 39733204,
+   "bytes_per_posting": 5.070501986435172,
+   "delta_varint_bytes_per_posting": 4.193045996578931
+  },
+  "buckets": {
+   "count": 2097152,
+   "mean": 3.7365665435791016,
+   "p99": 55,
+   "max": 1796,
+   "fullest_percent_share": 0.30732638025723863
+  },
+  "projection": {
+   "tracks": 25000.0,
+   "audio_seconds": 10048020.968511447,
+   "postings": 747724045.8015267,
+   "index_bytes": 2999284795.2061067,
+   "peak_store_bytes": 1877540458.0152671
+  }
+ },
+ "stats_run": {
+  "wall_seconds": 78.2,
+  "user_seconds": 49.1,
+  "system_seconds": 7.39,
+  "peak_footprint_bytes": 3069069808
+ },
+ "doctor": [
+  "tools",
+  "  ok       ffmpeg 9.0.1",
+  "  ok       ffprobe 9.0.1",
+  "  ok       ffplay 9.0.1",
+  "settings",
+  "  config file  /dev/null",
+  "  library      none given",
+  "  peak store   /Users/razorjack/.local/share/gunfinger/nas-dnb-peaks",
+  "  jobs         10",
+  "  playback     both",
+  "  track length 1:30 to 15:00",
+  "library",
+  "  note     no library given (--library, or `library` in the configuration file); identify, explain and stats search the 26890 records in the peak store",
+  "peak store",
+  "  ok       it names the library at /Volumes/atlas/Music/dnb",
+  "  ok       26890 current records, 1897.1 MB on disk",
+  "target/release/gunfinger --config /dev/null --peaks-dir $S --min-track 1:30    0.19s user 1.52s system 52% cpu 3.229 total"
+ ]
+}

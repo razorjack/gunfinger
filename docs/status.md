@@ -679,3 +679,21 @@ read; the store is frozen.
   `7055ad8e3b22b12bc6dc5037eca25f424ad536bd96f788e813cceb3688465a70`.
 - Machine: load average 2.3 and falling, swap 2.1 GB used of 3 GB (left
   over), no local external disk attached.
+- `regress session-4-start`: 720 of 720 sweep queries and every
+  detection of the three scans identical. Baseline `session-5-start`
+  saved; session-start binaries in `work/bin/s5-start/`.
+- Harness `fullest` (commit d7db672): each indexed record's postings in
+  the lists `--skip-fullest` sets aside; `scripts/analysis/store_census.py`
+  summarises a store from headers, tags and skip notes. `regress
+  session-5-start`: identical.
+- Item 1 (experiment 0035): the owner's index run read 84 Mbit/s over
+  Wi-Fi, 3.4 times slower than the CPU allows (inference). `stats` on
+  the store: 755 M postings, 4.01 bytes per posting, bucket p99 4,538;
+  78 s, 3.07 GB.
+- Item 2 (experiment 0036): 247 of 262 corpus files have a NAS copy; 15
+  have none (11 not on the NAS, 4 failed to open there). The NAS-scale
+  index holds 26,905 assets.
+- Timed runs from here use `work/scripts/timed5.sh`: the same logging as
+  `timed.sh`, but it waits at most 60 s for the 1-minute load average to
+  fall below 3 (the machine idles near 2-3; the CPU idle share before
+  each run is logged).

@@ -852,3 +852,37 @@ scale, counting those rips as correct. `regress session-4-start`:
 identical. The analysis (`docs/nas-plan.md`) waits for your NAS index;
 its records predate tags, which a second `gunfinger index` fills in from
 the files' headers.
+
+## Session 5 findings
+
+Measurements at the size of your NAS collection, from its peak store
+alone (`docs/brief-5.md`). The NAS was never read and the store was not
+written.
+
+### The NAS index run was limited by reading the files, not by the CPU
+
+Your run read 181 GB of audio in 17,317 s: 84 Mbit/s, 6.2 s per hour of
+audio. The local disk run of experiment 0028 took 1.8 s per hour of
+audio, so the CPU would have finished the NAS in about 84 minutes
+instead of 4.8 hours (inference: it assumes AAC and Opus decode as
+cheaply as MP3). Peaks and postings per second equal the corpus's
+(37.5 and 74.8 per second), so the front end treats the YouTube AAC and
+Opus files like the scene MP3s. Tags cover 99.3% of records; 144 have
+none, 125 of them in the scene folders. Experiment 0035.
+
+### 15 corpus files have no copy on the NAS
+
+For you to check (experiment 0036). `map-library` finds an identical
+record for 247 of the 262 corpus files. Eleven files at the corpus
+library's root have no record and no skip note on the NAS, so the NAS
+dnb library seems not to hold them: Ed Rush & Optical - Compound, Dozer,
+Fixation, Glass Eye, Lithosphere, Mystery Machine, Point Blank and
+Wormhole; Fortran - Splinter; Optical - Millennium and Slip Thru. The
+NAS has other rips of Millennium and Slip Thru (`dfect-dnb`) and remixes
+of several. Four more have NAS copies that failed to open with "Invalid
+data found when processing input", probably among the 27 MP3s inside a
+WAV container: SKC & Cord - Swarm, SKC - Recharger (Black Sun Empire
+remix), Usual Suspects - Bleach, Cause 4 Concern - Give It 2 Em. The
+corpus copies decode, so they may be repaired versions. Dozer, Fixation
+and Slip Thru are test-set references: the NAS-scale evaluation keeps
+these 15 as corpus files, so the index holds 26,905 assets.
