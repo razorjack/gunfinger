@@ -697,3 +697,12 @@ read; the store is frozen.
   `timed.sh`, but it waits at most 60 s for the 1-minute load average to
   fall below 3 (the machine idles near 2-3; the CPU idle share before
   each run is logged).
+- Item 3 restarted at 18:37: the first clusters run was started under
+  the agent tool's 30-minute limit for background commands and would
+  have been stopped at about a third of round 1 (5.5 queries a minute).
+  Long runs now start with `nohup`. `work/scripts/s5-queue.sh` runs items
+  5-9 one timed run at a time once the clusters finish.
+- The NAS store's library revision at the start: `d709390272e41475`
+  (26,890 records), from `scripts/analysis/store_revision.py`, which
+  reproduces the CLI's revision of the corpus store (`575e370289be7883`,
+  as in session 4's `identify` reports).

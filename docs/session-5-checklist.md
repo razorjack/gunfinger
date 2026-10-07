@@ -6,20 +6,20 @@ for scope and rules. NAS plan steps in brackets.
 
 ## Setup
 
-- [ ] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build; `regress session-4-start` identical; baseline
-  `session-5-start`
-- [ ] The NAS store's file counts, digest and library revision recorded
-  at the start
+- [x] Brief, checklist; `CLAUDE.md` points to them
+- [x] Release build; `regress session-4-start` identical; baseline
+  `session-5-start` (binaries kept in `work/bin/s5-start/`)
+- [x] The NAS store's file counts, digest and library revision
+  (`d709390272e41475`) recorded at the start (`docs/status.md`)
 
 ## Items
 
-- [ ] 1. The store as indexed [1, 2]: throughput over Wi-Fi against
+- [x] 1. The store as indexed [1, 2]: throughput over Wi-Fi against
   experiment 0028; composition (channels and folders, formats, lengths,
   tag coverage, exact copies, names on several files); `doctor` and
-  `stats` on the store alone
-- [ ] 2. The content map [3]: `map-library`; corpus files with no copy
-  or several
+  `stats` on the store alone (experiment 0035)
+- [x] 2. The content map [3]: `map-library`; corpus files with no copy
+  or several (experiment 0036)
 - [ ] 3. Clusters of the corpus recordings at NAS scale [4]: do the 17
   corpus clusters reappear; further rips, coverage, hits; borderline
   pairs for the owner
