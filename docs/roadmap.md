@@ -84,9 +84,11 @@ marked as inferences were derived, not measured.
 - **Speed that wanders within a play.** The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
-  varies by ±0.2% in the development mix (experiment 0022). Fit the speed
-  per stretch of a few windows, at the cost of more analysis. This matters
-  most for brief or weak plays near the 240-hit rule.
+  varies by ±0.2% in the development mix (experiment 0022). The opt-in
+  `--speed-per-stretch` fits each stretch of 3 windows: Star Trails +11%,
+  a 2% pitch ride +9%, no measurable CPU, no level changes in any set
+  (experiment 0032). Wow is too fast for it. Adopt if a real play near
+  the 240-hit rule needs it.
 - **Adopting the second pass with common hashes skipped.** The second
   pass with the fullest 1% of posting lists left out of the search for
   candidates (`--second-pass --skip-fullest 0.01`) passes the protocol
