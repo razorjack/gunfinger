@@ -231,7 +231,8 @@ decides. Files outside the range are remembered in the peak store, and
 `index` takes them when the range is widened to include them. Narrowing
 the range needs no new index: `identify`, `explain` and `stats` leave out
 indexed files outside it, and `--verbose` lists them. `gunfinger doctor`
-shows the range in effect and how many files it passed over.
+shows the range in effect and how many files it passed over, and counts
+only files within the range against the index's limit of 32,768 assets.
 
 ### One file per library
 

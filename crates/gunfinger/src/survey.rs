@@ -29,8 +29,8 @@ pub struct Survey {
     pub leftovers: Vec<Stored>,
     pub unreadable: Vec<Stored>,
     pub bytes: u64,
-    /// The longest current record, in seconds.
-    pub longest_seconds: f64,
+    /// The length of the audio of each current record.
+    pub current_lengths: Vec<Duration>,
 }
 
 pub struct Orphan {
@@ -68,7 +68,7 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
         leftovers: Vec::new(),
         unreadable: Vec::new(),
         bytes: 0,
-        longest_seconds: 0.0,
+        current_lengths: Vec::new(),
     };
     for stored in store.survey().into_diagnostic()? {
         let metadata = std::fs::metadata(stored.file()).ok();
@@ -78,7 +78,9 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
                 let asset = assets.get(header.source.path.as_str());
                 let current = asset.is_some_and(|asset| header.is_current(asset, profile));
                 if current {
-                    survey.longest_seconds = survey.longest_seconds.max(header.duration_seconds);
+                    survey.current_lengths.push(
+                        Duration::try_from_secs_f64(header.duration_seconds).unwrap_or_default(),
+                    );
                 }
                 (&header.source.path, current)
             }

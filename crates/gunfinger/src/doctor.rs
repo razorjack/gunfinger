@@ -3,8 +3,10 @@
 
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
+use std::time::Duration;
 
 use gunfinger_core::index::{MAX_ASSETS, MAX_FRAMES};
+use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::PeakStore;
@@ -77,7 +79,12 @@ pub fn run(settings: &Settings, library: Option<PathBuf>, style: Style) -> miett
     checkup.setting("track length", settings.track_length);
 
     match library {
-        Some(library) => check_library(&mut checkup, &library, &settings.peaks_dir),
+        Some(library) => check_library(
+            &mut checkup,
+            &library,
+            &settings.peaks_dir,
+            settings.track_length,
+        ),
         None => {
             checkup.section("library");
             checkup.line(
@@ -132,7 +139,7 @@ fn version(tool: &str) -> Option<String> {
     Some(first.split_whitespace().nth(2).unwrap_or(first).to_owned())
 }
 
-fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path) {
+fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path, length: TrackLength) {
     checkup.section("library");
     let library = match Library::scan(root) {
         Ok(library) => library,
@@ -235,7 +242,16 @@ fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path) {
     }
 
     checkup.section("index limits");
-    let share = library.assets.len() as f64 / MAX_ASSETS as f64;
+    let within: Vec<Duration> = survey
+        .current_lengths
+        .iter()
+        .copied()
+        .filter(|&track| length.admits(track))
+        .collect();
+    // Files without a current record (not indexed yet, or changed since)
+    // are counted: `index` will most likely add them.
+    let indexed = within.len() + survey.unindexed;
+    let share = indexed as f64 / MAX_ASSETS as f64;
     checkup.line(
         if share > 0.8 {
             Status::Warning
@@ -243,21 +259,35 @@ fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path) {
             Status::Ok
         },
         format!(
-            "{} of {MAX_ASSETS} assets ({:.1}%); beyond that see docs/adr/0007",
-            library.assets.len(),
+            "{indexed} of {MAX_ASSETS} assets ({:.1}%); beyond that see docs/adr/0007",
             share * 100.0
         ),
     );
+    let left_out = library.assets.len() - indexed;
+    if left_out > 0 {
+        checkup.line(
+            Status::Note,
+            format!(
+                "{left_out} audio files not counted: their length is outside the track length range ({length}), or `index` passed over them"
+            ),
+        );
+    }
+    let longest = within
+        .iter()
+        .max()
+        .copied()
+        .unwrap_or_default()
+        .as_secs_f64();
     let addressable = profile.seconds(f64::from(MAX_FRAMES));
     checkup.line(
-        if survey.longest_seconds > addressable {
+        if longest > addressable {
             Status::Problem
         } else {
             Status::Ok
         },
         format!(
             "longest track {}; the index addresses {}",
-            timecode(survey.longest_seconds),
+            timecode(longest),
             timecode(addressable)
         ),
     );
