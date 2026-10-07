@@ -725,3 +725,7 @@ read; the store is frozen.
   minutes, skip sweeps 4 x 22, today's sweeps 2 x 64, then memory,
   fullest and identify (35 minutes): the queue ends near 00:55. Items
   11-13 will most likely not fit.
+- Item 5 done (experiment 0039): both matchers 11/11 with the same 6
+  wrong (fast uploads); leave-outs 8/11 and 0/11 with the same 6.
+  Today's 864.6 s, 6,097 s CPU, 8.37 GB; skip 260.6 s, 1,963 s, 4.01 GB.
+  Strongest unrelated 40 and 48 hits (21-24 at 262 tracks).

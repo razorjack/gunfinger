@@ -958,3 +958,18 @@ correct identifications: the clustering ladder, not the matcher, is
 what calls them wrong. Widening the clustering ladder to the full ±8% of
 the speed ladder would be the general fix (not done: ground truth stays
 fixed this session).
+
+### The development mix at NAS scale: every track found, chance at 40-48 hits
+
+Experiment 0039. Both matchers identify 11 of 11 against the 26,905
+assets, with the same weakest evidence as at 262 tracks (1,839 hits
+today, 1,557 with skip at 240); leave-outs 3 and 11 find nothing
+confident in the left-out slots besides the 6 fast uploads above, which
+appear in every scan. Without those 6, the strongest false candidates
+are the shared material you already know (the Stakka remix of Clockwork,
+94 and 119 hits) and the Synergy remix of Star Trails (75-79 hits, a
+new possible play at 10:27). Unrelated chance rises from 21-24 hits to
+40 (Heretik - Biodome at 39:12, today's) and 48 (Genetix - Crunch at
+6:11, skip at 240), below the possible tier of 60. Cost: today's matcher
+864.6 s, 6,097 s CPU, 8.37 GB; skip at 240 260.6 s, 1,963 s CPU, 4.01
+GB: 3.3 times faster at half the memory.

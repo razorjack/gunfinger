@@ -1,0 +1,687 @@
+{
+ "experiment": "0039-nas-development-set",
+ "index": "corpus (262) + NAS records less the 247 stood-for copies = 26,905 assets",
+ "commands": [
+  "work/s5/E scan stakka-skynet-knowledge [--leave-out 3|11]",
+  "work/s5/E --second-pass --skip-fullest 0.01 scan stakka-skynet-knowledge [--leave-out 3|11]"
+ ],
+ "runs": {
+  "scan-skip": {
+   "wall_seconds": 260.56,
+   "user_seconds": 1951.02,
+   "system_seconds": 11.6,
+   "peak_footprint_bytes": 4013886800,
+   "load_before": "{ 10.43 112.04 158.04 }",
+   "cpu_before": "CPU usage: 7.52% user, 6.17% sys, 86.29% idle"
+  },
+  "scan-skip-lo3": {
+   "wall_seconds": 264.25,
+   "user_seconds": 1945.4,
+   "system_seconds": 12.16,
+   "peak_footprint_bytes": 4035349864,
+   "load_before": "{ 28.98 70.90 123.88 }",
+   "cpu_before": "CPU usage: 4.58% user, 4.41% sys, 91.0% idle"
+  },
+  "scan-skip-lo11": {
+   "wall_seconds": 266.27,
+   "user_seconds": 1934.52,
+   "system_seconds": 12.49,
+   "peak_footprint_bytes": 4027895144,
+   "load_before": "{ 35.49 66.42 105.24 }",
+   "cpu_before": "CPU usage: 9.85% user, 9.26% sys, 80.87% idle"
+  },
+  "scan-today": {
+   "wall_seconds": 864.57,
+   "user_seconds": 6067.07,
+   "system_seconds": 30.2,
+   "peak_footprint_bytes": 8374213472,
+   "load_before": "{ 32.97 62.56 91.32 }",
+   "cpu_before": "CPU usage: 4.8% user, 3.82% sys, 92.8% idle"
+  },
+  "scan-today-lo3": {
+   "wall_seconds": 870.58,
+   "user_seconds": 6076.39,
+   "system_seconds": 32.34,
+   "peak_footprint_bytes": 8440110016,
+   "load_before": "{ 5.35 68.15 91.00 }",
+   "cpu_before": "CPU usage: 4.91% user, 4.99% sys, 90.9% idle"
+  },
+  "scan-today-lo11": {
+   "wall_seconds": 870.55,
+   "user_seconds": 6056.25,
+   "system_seconds": 35.15,
+   "peak_footprint_bytes": 8420268944,
+   "load_before": "{ 4.79 60.96 86.66 }",
+   "cpu_before": "CPU usage: 3.14% user, 2.89% sys, 93.96% idle"
+  }
+ },
+ "today": {
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "identified": 0,
+   "referenced": 11,
+   "wrong": 6,
+   "possible": 0,
+   "unmatched_possible": 3,
+   "wall_seconds": 815.950710042,
+   "wrong_identifications": [
+    {
+     "hits": 5785,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 4021,
+     "windows": 43,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1863
+    },
+    {
+     "hits": 3497,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2677,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 2144,
+     "windows": 33,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 584
+    },
+    {
+     "hits": 1409,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 864
+    }
+   ],
+   "unmatched_possible_plays": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+     "start": 628,
+     "end": 662
+    },
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start": 1223,
+     "end": 1241
+    },
+    {
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "start": 1223,
+     "end": 1241
+    }
+   ],
+   "credited_through_cluster": [],
+   "weakest_identifying": null,
+   "false_candidates_total": 413440,
+   "false_30": 16,
+   "false_60": 9,
+   "strongest_false": [
+    {
+     "hits": 5785,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 4021,
+     "windows": 43,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1863
+    },
+    {
+     "hits": 3497,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2677,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 2144,
+     "windows": 33,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 584
+    },
+    {
+     "hits": 1409,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 864
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "where": 1223
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "where": 1223
+    }
+   ],
+   "detections": 413440
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "identified": 8,
+   "referenced": 11,
+   "wrong": 6,
+   "possible": 0,
+   "unmatched_possible": 3,
+   "wall_seconds": 816.470582625,
+   "wrong_identifications": [
+    {
+     "hits": 5785,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 4021,
+     "windows": 43,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1863
+    },
+    {
+     "hits": 3497,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2677,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 2144,
+     "windows": 33,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 584
+    },
+    {
+     "hits": 1409,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 864
+    }
+   ],
+   "unmatched_possible_plays": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+     "start": 628,
+     "end": 662
+    },
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start": 1223,
+     "end": 1241
+    },
+    {
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "start": 1223,
+     "end": 1241
+    }
+   ],
+   "credited_through_cluster": [
+    "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+    "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+    "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+   ],
+   "weakest_identifying": 1839,
+   "false_candidates_total": 413872,
+   "false_30": 16,
+   "false_60": 9,
+   "strongest_false": [
+    {
+     "hits": 5785,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 4021,
+     "windows": 43,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1863
+    },
+    {
+     "hits": 3497,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2677,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 2144,
+     "windows": 33,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 584
+    },
+    {
+     "hits": 1409,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 864
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "where": 1223
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "where": 1223
+    }
+   ],
+   "detections": 413892
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 6,
+   "possible": 0,
+   "unmatched_possible": 3,
+   "wall_seconds": 804.37403625,
+   "wrong_identifications": [
+    {
+     "hits": 5785,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 4021,
+     "windows": 43,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1863
+    },
+    {
+     "hits": 3497,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2677,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 2144,
+     "windows": 33,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 584
+    },
+    {
+     "hits": 1409,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 864
+    }
+   ],
+   "unmatched_possible_plays": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+     "start": 628,
+     "end": 662
+    },
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start": 1223,
+     "end": 1241
+    },
+    {
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "start": 1223,
+     "end": 1241
+    }
+   ],
+   "credited_through_cluster": [
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+    "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+    "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+    "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+   ],
+   "weakest_identifying": 1839,
+   "false_candidates_total": 413989,
+   "false_30": 16,
+   "false_60": 9,
+   "strongest_false": [
+    {
+     "hits": 5785,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 4021,
+     "windows": 43,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1863
+    },
+    {
+     "hits": 3497,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2677,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 2144,
+     "windows": 33,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 584
+    },
+    {
+     "hits": 1409,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 864
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "where": 1223
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "where": 1223
+    }
+   ],
+   "detections": 414016
+  }
+ },
+ "skip_at_240": {
+  "scan-stakka-skynet-knowledge.json": {
+   "identified": 11,
+   "referenced": 11,
+   "wrong": 6,
+   "possible": 0,
+   "unmatched_possible": 3,
+   "wall_seconds": 209.01228,
+   "wrong_identifications": [
+    {
+     "hits": 5845,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 3902,
+     "windows": 41,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1885
+    },
+    {
+     "hits": 3383,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2687,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 1786,
+     "windows": 25,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 583
+    },
+    {
+     "hits": 1350,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 867
+    }
+   ],
+   "unmatched_possible_plays": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+     "start": 629,
+     "end": 660
+    },
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start": 1181,
+     "end": 1241
+    },
+    {
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "start": 1181,
+     "end": 1241
+    }
+   ],
+   "credited_through_cluster": [
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+    "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+    "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+    "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+   ],
+   "weakest_identifying": 1557,
+   "false_candidates_total": 8704,
+   "false_30": 16,
+   "false_60": 9,
+   "strongest_false": [
+    {
+     "hits": 5845,
+     "windows": 40,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "name": "SKYNET & STAKKA - logistics",
+     "where": 2603
+    },
+    {
+     "hits": 3902,
+     "windows": 41,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "name": "KEMAL & PAUL RESET - kontempt",
+     "where": 1885
+    },
+    {
+     "hits": 3383,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "name": "STAKKA and SKYNET - knight lore",
+     "where": 0
+    },
+    {
+     "hits": 2687,
+     "windows": 31,
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "name": "Stakka & Skynet - Nightlore",
+     "where": 0
+    },
+    {
+     "hits": 1786,
+     "windows": 25,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "name": "KEMAL & ROB DATA - star trails",
+     "where": 583
+    },
+    {
+     "hits": 1350,
+     "windows": 23,
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "name": "SKYNET & STAKKA - pathogen",
+     "where": 867
+    },
+    {
+     "hits": 119,
+     "windows": 5,
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "where": 1181
+    },
+    {
+     "hits": 119,
+     "windows": 5,
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+     "where": 1181
+    }
+   ],
+   "detections": 8731
+  }
+ },
+ "strongest_unrelated": {
+  "today": {
+   "hits": 40,
+   "name": "Heretik - Biodome",
+   "mix_time": "39:12"
+  },
+  "skip": {
+   "hits": 48,
+   "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+   "mix_time": "6:11"
+  },
+  "at_262_today": {
+   "hits": 24,
+   "name": "02 Coma.mp3"
+  },
+  "at_262_skip": {
+   "hits": 21,
+   "name": "aa-kemal-mechanizm-sour.mp3"
+  }
+ },
+ "proxy_26462_0029": {
+  "today": {
+   "wall": 718.6,
+   "cpu": 5841,
+   "peak_gb": 7.68,
+   "strongest_chance_on_copy": 31
+  },
+  "skip": {
+   "wall": 229.0,
+   "cpu": 1719,
+   "peak_gb": 3.79,
+   "strongest_chance_on_copy": 25
+  }
+ },
+ "at_262_0028": {
+  "today": {
+   "wall": 33.6,
+   "cpu": 264,
+   "peak_mb": 399
+  },
+  "skip": {
+   "wall": 31.1,
+   "cpu": 238,
+   "peak_mb": 293
+  }
+ },
+ "fast_uploads_speed_ratio": {
+  "knight lore (alien5ive)": 1.0295,
+  "Nightlore (i-witness)": 1.0344,
+  "star trails (alien5ive)": 1.0294,
+  "pathogen (alien5ive)": 1.0394,
+  "kontempt (alien5ive)": 1.0467,
+  "logistics (alien5ive)": 1.0297
+ }
+}
