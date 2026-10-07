@@ -10,13 +10,12 @@ use std::time::Duration;
 use gunfinger_core::confidence::{Confidence, Evidence, MIN_HITS, MIN_POSSIBLE_HITS, MIN_WINDOWS};
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::{AssetId, Index};
-use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Trace, WINDOW_SECONDS, WindowLine, trace_with_progress};
 use gunfinger_core::speed::Playback;
 use miette::{IntoDiagnostic, WrapErr};
 
-use crate::catalog::Catalog;
+use crate::catalog::{Catalog, Indexable, Source};
 use crate::console::Console;
 use crate::playback::PlaybackChoice;
 use crate::report::Level;
@@ -25,10 +24,7 @@ use crate::table::{named, span, timecode};
 
 pub struct Request<'a> {
     pub audio: &'a Path,
-    pub library: &'a Path,
-    pub peaks_dir: &'a Path,
-    pub track_length: TrackLength,
-    pub exclude_from: Option<&'a Path>,
+    pub source: Source<'a>,
     pub at: Duration,
     pub around: Duration,
     pub playback: PlaybackChoice,
@@ -47,10 +43,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
         .into_diagnostic()
         .wrap_err_with(|| format!("cannot read {}", request.audio.display()))?;
     let catalog = Catalog::open(
-        request.library,
-        request.peaks_dir,
-        request.exclude_from,
-        request.track_length,
+        Indexable::find(&request.source, request.console)?,
         request.console,
     )?;
     let start = on_window_grid(request.at.saturating_sub(request.around));

@@ -265,14 +265,14 @@ pub struct BuiltIndex {
     pub sources: Vec<Asset>,
 }
 
-/// The index of the library's current peak records within `length`,
-/// leaving out the paths in `excluded`. It is built in two passes that read
-/// one record at a time from the store (`Index::counting`), so it needs
-/// little more memory than the index itself. Assets without a current
-/// record are left out and returned as problems rather than failing the
-/// build.
+/// The index of the current peak records of `assets` (a library's, or a
+/// store's own `current_sources`) within `length`, leaving out the paths in
+/// `excluded`. It is built in two passes that read one record at a time
+/// from the store (`Index::counting`), so it needs little more memory than
+/// the index itself. Assets without a current record are left out and
+/// returned as problems rather than failing the build.
 pub fn build_index(
-    library: &Library,
+    assets: &[Asset],
     store: &PeakStore,
     profile: &Profile,
     excluded: &BTreeSet<String>,
@@ -282,7 +282,7 @@ pub fn build_index(
     let mut indexed = Vec::new();
     let mut problems = Vec::new();
     let mut outside = Vec::new();
-    for asset in &library.assets {
+    for asset in assets {
         if excluded.contains(&asset.path) {
             continue;
         }
@@ -317,13 +317,13 @@ pub fn build_index(
 /// their peak records: `library_revision` of these is the revision
 /// `build_index` would give, unless a record's peaks turn out unreadable.
 pub fn indexable_assets<'a>(
-    library: &'a Library,
+    assets: &'a [Asset],
     store: &'a PeakStore,
     profile: &'a Profile,
     excluded: &'a BTreeSet<String>,
     length: TrackLength,
 ) -> impl Iterator<Item = &'a Asset> {
-    library.assets.iter().filter(move |asset| {
+    assets.iter().filter(move |asset| {
         !excluded.contains(&asset.path)
             && store
                 .current_header(asset, profile)

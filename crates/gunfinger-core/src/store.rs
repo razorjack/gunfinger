@@ -392,11 +392,53 @@ impl PeakStore {
 
     /// Every file in the store, reading only headers, sorted by name.
     pub fn survey(&self) -> Result<Vec<Stored>, StoreError> {
+        let mut files = self.files()?;
+        files.sort();
+        Ok(files.into_iter().map(survey_file).collect())
+    }
+
+    /// The files this store holds a current record of under `profile`,
+    /// sorted by path as a library lists them, reading only headers. Without
+    /// the library there is no telling whether a file has since changed or
+    /// been deleted, so their records are among them. Records whose header
+    /// cannot be read are returned as errors.
+    pub fn current_sources(
+        &self,
+        profile: &Profile,
+    ) -> Result<(Vec<Asset>, Vec<StoreError>), StoreError> {
+        let mut sources = Vec::new();
+        let mut problems = Vec::new();
+        for file in self.files()? {
+            if file
+                .extension()
+                .is_none_or(|extension| extension != "peaks")
+            {
+                continue;
+            }
+            match survey_file(file) {
+                Stored::Record { file, header }
+                    if header.profile == profile.id()
+                        && file == self.record_path(&header.source.path) =>
+                {
+                    sources.push(header.source);
+                }
+                Stored::Unreadable { file, reason } => {
+                    problems.push(StoreError::Corrupt { path: file, reason });
+                }
+                _ => {}
+            }
+        }
+        sources.sort_by(|a, b| a.path.cmp(&b.path));
+        Ok((sources, problems))
+    }
+
+    /// The paths of the store's records and notes, unsorted.
+    fn files(&self) -> Result<Vec<PathBuf>, StoreError> {
         let io_error = |source| StoreError::Io {
             path: self.dir.clone(),
             source,
         };
-        let mut files: Vec<PathBuf> = fs::read_dir(&self.dir)
+        fs::read_dir(&self.dir)
             .map_err(io_error)?
             .map(|entry| entry.map(|entry| entry.path()))
             .filter(|path| {
@@ -404,9 +446,7 @@ impl PeakStore {
                     .map_or(true, |path| !path.ends_with(LIBRARY_FILE))
             })
             .collect::<Result<_, _>>()
-            .map_err(io_error)?;
-        files.sort();
-        Ok(files.into_iter().map(survey_file).collect())
+            .map_err(io_error)
     }
 
     /// Deletes a file `survey` listed.
@@ -420,9 +460,11 @@ impl PeakStore {
 }
 
 /// A library's name in the store: its root as an absolute path, so that the
-/// same library reached from another directory has the same name.
+/// same library reached from another directory has the same name. A root
+/// that cannot be read, such as an unmounted share, keeps its name.
 fn library_name(root: &Path) -> String {
     root.canonicalize()
+        .or_else(|_| std::path::absolute(root))
         .unwrap_or_else(|_| root.to_path_buf())
         .to_string_lossy()
         .into_owned()
@@ -940,6 +982,41 @@ mod tests {
         assert_eq!(long.reason.to_string(), "longer than 15:00");
         assert_eq!(remembered_short, Some(short));
         assert_eq!(remembered_long, Some(long));
+    }
+
+    #[test]
+    fn a_store_lists_the_files_of_its_current_records_by_path() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-sources-{}", std::process::id()));
+        let store = PeakStore::open(&dir).unwrap();
+        let mut first = record(Vec::new());
+        first.header.source.path = String::from("a/first.wav");
+        let mut old = record(Vec::new());
+        old.header.source.path = String::from("b/old.wav");
+        old.header.profile = Profile {
+            hop: 256,
+            ..Profile::CURRENT
+        }
+        .id();
+
+        store.save(&record(Vec::new())).unwrap();
+        store.save(&first).unwrap();
+        store.save(&old).unwrap();
+        store
+            .save_tags(&TagNote {
+                source: asset(),
+                tags: Tags::default(),
+            })
+            .unwrap();
+        fs::write(dir.join("0000000000000000.peaks"), "not a record").unwrap();
+        let listed = store.current_sources(&Profile::CURRENT);
+        fs::remove_dir_all(&dir).unwrap();
+
+        let (sources, problems) = listed.unwrap();
+        assert_eq!(sources, [first.header.source, asset()]);
+        assert!(
+            matches!(&problems[..], [StoreError::Corrupt { .. }]),
+            "{problems:?}"
+        );
     }
 
     #[test]

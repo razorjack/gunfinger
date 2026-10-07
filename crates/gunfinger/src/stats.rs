@@ -1,15 +1,12 @@
 //! `gunfinger stats`: size and shape of the peak store and the index.
 
-use std::path::Path;
-
 use gunfinger_core::index::{Index, Posting};
-use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::profile::Profile;
 use miette::IntoDiagnostic;
 use serde::Serialize;
 
 use crate::Format;
-use crate::catalog::Catalog;
+use crate::catalog::{Catalog, Indexable, Source};
 use crate::console::Console;
 
 /// The collection size the index must eventually hold.
@@ -77,14 +74,8 @@ struct Projection {
     peak_store_bytes: f64,
 }
 
-pub fn run(
-    library: &Path,
-    peaks_dir: &Path,
-    track_length: TrackLength,
-    format: Format,
-    console: &Console,
-) -> miette::Result<()> {
-    let catalog = Catalog::open(library, peaks_dir, None, track_length, console)?;
+pub fn run(source: &Source, format: Format, console: &Console) -> miette::Result<()> {
+    let catalog = Catalog::open(Indexable::find(source, console)?, console)?;
     let stats = measure(&catalog)?;
     match format {
         Format::Human => print_human(&stats),

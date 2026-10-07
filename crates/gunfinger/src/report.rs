@@ -258,7 +258,7 @@ impl Report {
                 playback: Some(playback),
                 requested_duration_seconds: excerpt.duration.map(|duration| duration.as_secs_f64()),
             },
-            library: absolute(&catalog.library.root),
+            library: absolute(&catalog.root),
             search: Some(SearchSettings::current(&catalog.revision)),
             plays,
         }
