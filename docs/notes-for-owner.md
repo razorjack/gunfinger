@@ -548,3 +548,21 @@ evaluation to see Sick Note and the rest of the test mix under it. If
 losing confident status for plays near 200-240 hits is not acceptable,
 keep today's matcher and revisit when the confidence statistic for shared
 material (roadmap) is solved, since that is what forced 240.
+
+## Session 4 findings
+
+### Search memory at scale is mostly the allocator's cache, not lines
+
+At 26,462 assets (the scale proxy), 10 minutes of the development mix
+with 10 workers peak at 15.7 GB of memory footprint. An instrumented
+build counted what the search holds: the index 3.0 GB, each worker's hits
+for one window up to 201 MB, and the lines of every rung 579 MB (12.1
+million; merging neighbouring rungs' lines leaves 7.3 million). That is
+about 6 GB. The rest is freed memory: each rung grows its own hit buffer
+to about 200 MB and frees it, 82 times, and macOS's allocator keeps freed
+large blocks cached. With that cache turned off (`MallocLargeCache=0`)
+the same run peaks at 5.0 GB at the same CPU time. So the inference of
+experiment 0021 (lines of every rung, about 11 GB for an hour-long mix)
+was wrong about the cause; reusing one hit buffer per worker should keep
+detections identical and remove most of it. Measured on an idle machine
+(experiment 0028 has the numbers once the scale runs finish).

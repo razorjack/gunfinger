@@ -558,3 +558,41 @@ Baseline `session-3-start` saved after a rerun that reproduced
   current range, so narrowing it needs no new index and `--save-dir`
   searches again when the indexed set changes. The harness loads records
   without a range: detection is unchanged (longest record 9:38).
+
+## 2026-10-07: session 4 started
+
+Session 4 (`docs/brief-4.md`, checklist `docs/session-4-checklist.md`).
+`regress session-3-start` reproduced it exactly (identical detections);
+baseline `session-4-start` saved; the session-start binaries are kept in
+`work/bin/s4-start/` for the idle-machine measurements.
+
+- Item 8 done first, in the gaps between timed runs, each its own commit:
+  reports mark a possible play inside a confident play of another
+  recording as sharing material with it (display only); `doctor` counts
+  only files within the track length range against the 32,768-asset
+  limit; the peak store names its library in `library.txt` (written by
+  `index`, checked by every command; `work/peaks` has none yet, since
+  this session never indexes into it); the harness's `--second-library`
+  adds another library's records to the index, tested with ten reversed
+  renders (development scan 11/11, 0 wrong).
+- Item 1 under way: `sample` profiles and timed `identify` runs at 262
+  assets done; scale runs running. Found: at 26,462 assets most of the
+  search's memory is freed hit buffers kept by macOS's allocator (15.7 GB
+  peak for 10 minutes of query with 10 workers, 5.0 GB with
+  `MallocLargeCache=0`), not lines.
+- Item 2 (commit d4d8fb1): the search runs a block of 12 windows on
+  every rung at a time and merges each block's lines once every rung has
+  searched it; each worker reuses one hit buffer. Merging rung by rung
+  cannot be exact (`distinct` is greedy, so its result depends on every
+  rung's lines of a window), merging by window can: a stretch of STFT
+  frames gives bit-identical peaks (`extract_peaks_in`). `regress
+  session-4-start`: every detection identical; the candidate matcher's
+  development scan: no difference. About 1% more analysis at block edges.
+- Items 3, 4, 6 and 7 are opt-in harness flags (commits afc731c, 804c65c):
+  `--nearby-rungs`, `--strong-gaps`, `--speed-per-stretch`, `--trim-ends`,
+  `--extra-rungs N` and `robust --only speed+8.2pct,...`; item 5's
+  `Profile::spread` and postings by band in `loss` (commit d533142).
+- Background on this machine tonight: the Aerial screensaver, an rsync
+  and a fetch script of the owner's, and system daemons use about a fifth
+  of the CPU; the 1-minute load average rarely falls below 2. Timed runs
+  wait up to 2 minutes for it and log `top`'s idle share.
