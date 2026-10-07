@@ -1,13 +1,15 @@
 //! Lines: hits of one asset, within one window of query time, whose offsets
 //! agree.
 
+use std::mem;
 use std::ops::Range;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::{Mutex, MutexGuard, PoisonError};
 
 use super::Query;
-use crate::hash::for_each_pair;
+use crate::hash::{MAX_DELTA_FRAMES, for_each_pair};
 use crate::index::{AssetId, Index};
-use crate::parallel::map_in_order;
+use crate::parallel::map_in_order_with;
 use crate::profile::Profile;
 use crate::speed::{Playback, Rung};
 
@@ -63,55 +65,155 @@ struct Hit {
     query_frame: f64,
 }
 
-/// The lines of every rung, one rung per worker thread. `progress` gets the
-/// number of rungs finished after each.
+/// Query windows searched on every rung before their lines are merged.
+/// Each block repeats the analysis of about 100 STFT frames at its edges
+/// (1% of a block of this length).
+const BLOCK_WINDOWS: u32 = 12;
+
+/// The distinct lines of every rung (`distinct`), sorted by asset and
+/// window. `progress` gets the parts of the search finished and their
+/// number after each.
+///
+/// The query is searched a block of windows at a time on every rung, each
+/// block and rung a job for the next free worker thread. Once every rung
+/// has searched a block, its lines are merged, so only the blocks being
+/// searched are held unmerged. The lines and their order are those of
+/// searching the whole query on each rung and merging at the end:
+/// `distinct` compares lines of one asset and window only, and a window's
+/// hits come from the same anchors in the same order.
+///
+/// Each thread keeps one buffer of hits for all its jobs. A window's hits
+/// reach 200 MB at 26,000 assets, and buffers freed after every rung were
+/// kept by the allocator: 15.7 GB instead of 5.0 GB for 10 minutes of
+/// query on 10 threads (experiment 0029).
 pub(super) fn on_ladder(
     index: &Index,
     query: Query,
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
-    progress: impl Fn(usize) + Sync,
+    progress: impl Fn(usize, usize) + Sync,
 ) -> Vec<Line> {
-    let finished = AtomicUsize::new(0);
-    map_in_order(ladder, jobs, |&rung| {
-        let lines = at_rung(index, query, profile, rung);
-        progress(finished.fetch_add(1, Ordering::Relaxed) + 1);
-        lines
-    })
-    .into_iter()
-    .flatten()
-    .collect()
+    in_blocks(index, query, profile, ladder, jobs, BLOCK_WINDOWS, progress)
 }
 
-/// Looks up every query hash at one assumed speed and collects the lines
-/// each window's hits form.
-fn at_rung(index: &Index, query: Query, profile: &Profile, rung: Rung) -> Vec<Line> {
-    let points = query.points(rung, profile);
+fn in_blocks(
+    index: &Index,
+    query: Query,
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+    block_windows: u32,
+    progress: impl Fn(usize, usize) + Sync,
+) -> Vec<Line> {
+    let windows = (query.frames(profile) / profile.frames(WINDOW_SECONDS)) as u32 + 1;
+    let blocks = windows.div_ceil(block_windows);
+    let work: Vec<(u32, usize)> = (0..blocks)
+        .flat_map(|block| (0..ladder.len()).map(move |rung| (block, rung)))
+        .collect();
+    let unmerged: Vec<Mutex<Unmerged>> = (0..blocks)
+        .map(|_| {
+            Mutex::new(Unmerged {
+                rungs: vec![None; ladder.len()],
+                missing: ladder.len(),
+            })
+        })
+        .collect();
+    let merged = Mutex::new(Vec::new());
+    let finished = AtomicUsize::new(0);
+    map_in_order_with(&work, jobs, Vec::new, |hits, &(block, rung)| {
+        let first = block * block_windows;
+        // The last block takes every window left, however long the query.
+        let end = if block + 1 == blocks {
+            u32::MAX
+        } else {
+            first + block_windows
+        };
+        let lines = in_windows(index, query, profile, ladder[rung], first..end, hits);
+        let complete = {
+            let mut block = lock(&unmerged[block as usize]);
+            block.rungs[rung] = Some(lines);
+            block.missing -= 1;
+            (block.missing == 0).then(|| mem::take(&mut block.rungs))
+        };
+        if let Some(rungs) = complete {
+            let mut lines = Vec::with_capacity(rungs.iter().flatten().map(Vec::len).sum());
+            for rung in rungs.into_iter().flatten() {
+                lines.extend(rung);
+            }
+            let kept = distinct(lines);
+            lock(&merged).extend(kept);
+        }
+        progress(finished.fetch_add(1, Ordering::Relaxed) + 1, work.len());
+    });
+    let mut lines = merged.into_inner().unwrap_or_else(PoisonError::into_inner);
+    // Blocks finish in any order. Their windows differ, so a stable sort
+    // gives the order merging all lines at once gives.
+    lines.sort_by_key(|line| (line.asset, line.window));
+    lines
+}
+
+/// One block's lines, by rung in ladder order, until every rung has
+/// searched it.
+struct Unmerged {
+    rungs: Vec<Option<Vec<Line>>>,
+    missing: usize,
+}
+
+fn lock<T>(mutex: &Mutex<T>) -> MutexGuard<'_, T> {
+    // A panicking worker is re-raised by `map_in_order_with`.
+    mutex.lock().unwrap_or_else(PoisonError::into_inner)
+}
+
+/// Looks up the query hashes of the anchors in `windows` at one assumed
+/// speed and collects the lines each window's hits form. `hits` is an empty
+/// buffer, left empty.
+fn in_windows(
+    index: &Index,
+    query: Query,
+    profile: &Profile,
+    rung: Rung,
+    windows: Range<u32>,
+    hits: &mut Vec<Hit>,
+) -> Vec<Line> {
     let speed = rung.speed();
     let window_frames = profile.frames(WINDOW_SECONDS);
+    // An anchor's targets lie up to `MAX_DELTA_FRAMES` reference frames
+    // after it.
+    let reach = (MAX_DELTA_FRAMES + 1.0) / speed.0;
+    let points = query.points_near(
+        rung,
+        profile,
+        f64::from(windows.start) * window_frames..f64::from(windows.end) * window_frames + reach,
+    );
     let mut lines = Vec::new();
-    let mut hits = Vec::new();
     let mut window = 0;
     for_each_pair(&points, |hash, anchor| {
         let anchor = points[anchor];
         let query_frame = anchor.frame / speed.0;
         let anchor_window = (query_frame / window_frames) as u32;
         // Anchors are ordered by frame to within a frame, so a window only
-        // ever moves forward.
+        // ever moves forward. Anchors of earlier STFT frames lie earlier, so
+        // the points before `points` cannot move it.
         if anchor_window > window {
-            lines.extend(lines_in_window(&mut hits, window, rung));
+            if windows.contains(&window) {
+                lines.extend(lines_in_window(hits, window, rung));
+            }
             window = anchor_window;
         }
-        for posting in index.scanned_postings(hash) {
-            hits.push(Hit {
-                asset: posting.asset(),
-                offset: f64::from(posting.frame()) - anchor.frame,
-                query_frame,
-            });
+        if windows.contains(&window) {
+            for posting in index.scanned_postings(hash) {
+                hits.push(Hit {
+                    asset: posting.asset(),
+                    offset: f64::from(posting.frame()) - anchor.frame,
+                    query_frame,
+                });
+            }
         }
     });
-    lines.extend(lines_in_window(&mut hits, window, rung));
+    if windows.contains(&window) {
+        lines.extend(lines_in_window(hits, window, rung));
+    }
     lines
 }
 
@@ -173,7 +275,7 @@ fn densest_clusters(hits: &[Hit]) -> Vec<Range<usize>> {
 
 /// Neighbouring rungs see the same alignment; keeps the strongest view of
 /// each. Returns the lines sorted by asset and window.
-pub(super) fn distinct(mut lines: Vec<Line>) -> Vec<Line> {
+fn distinct(mut lines: Vec<Line>) -> Vec<Line> {
     lines.sort_by(|a, b| {
         (a.asset, a.window)
             .cmp(&(b.asset, b.window))
@@ -203,6 +305,8 @@ pub(super) fn distinct(mut lines: Vec<Line>) -> Vec<Line> {
 #[cfg(test)]
 pub(super) mod tests {
     use super::*;
+    use crate::search::test_audio;
+    use crate::speed::SpeedRatio;
 
     fn hit(offset: f64) -> Hit {
         Hit {
@@ -257,5 +361,49 @@ pub(super) mod tests {
         let kept = distinct(vec![neighbour, strong.clone(), elsewhere.clone()]);
 
         assert_eq!(kept, [strong, elsewhere]);
+    }
+
+    #[test]
+    fn searching_in_blocks_finds_the_lines_of_searching_the_whole_query() {
+        let profile = Profile::CURRENT;
+        let rate = profile.sample_rate;
+        let original = test_audio::track(80.0, rate);
+        let index = Index::build(&[test_audio::record("original.wav", &original)]).unwrap();
+        // 45 s from 20.3 s in, 0.6% fast: windows hold partial alignments.
+        let played = test_audio::played(&original, 1.006, 20.3, 45.0, rate);
+        let peaks = test_audio::record("played.wav", &played).peaks;
+        let ladder: Vec<Rung> = [1.0, 1.004, 1.008]
+            .into_iter()
+            .flat_map(|speed| {
+                [
+                    Rung::Turntable(SpeedRatio(speed)),
+                    Rung::KeyLocked(SpeedRatio(speed)),
+                ]
+            })
+            .collect();
+
+        for query in [Query::Samples(&played), Query::Peaks(&peaks)] {
+            let whole = distinct(
+                ladder
+                    .iter()
+                    .flat_map(|&rung| {
+                        in_windows(&index, query, &profile, rung, 0..u32::MAX, &mut Vec::new())
+                    })
+                    .collect(),
+            );
+            assert!(whole.len() >= 4, "{}", whole.len());
+            for block_windows in [1, 2, 4] {
+                let blocks = in_blocks(
+                    &index,
+                    query,
+                    &profile,
+                    &ladder,
+                    3,
+                    block_windows,
+                    |_, _| {},
+                );
+                assert!(blocks == whole, "blocks of {block_windows} windows");
+            }
+        }
     }
 }

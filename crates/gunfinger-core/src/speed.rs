@@ -12,8 +12,10 @@
 //! turntable ladder cannot meet such audio past about 1% (experiment 0009);
 //! key-locked rungs rescale time alone.
 
+use std::ops::Range;
+
 use crate::hash::Point;
-use crate::peaks::extract_peaks;
+use crate::peaks::extract_peaks_in;
 use crate::profile::Profile;
 
 /// Playback speed relative to the recording's native speed: a record pitched
@@ -62,10 +64,23 @@ impl Rung {
 
     /// The query's peaks in reference coordinates under this assumption.
     pub fn points(self, samples: &[f32], profile: &Profile) -> Vec<Point> {
+        self.points_in(samples, profile, 0..usize::MAX)
+    }
+
+    /// Like `points`, for the peaks in the STFT frames `frames` of this
+    /// rung's analysis only.
+    pub fn points_in(self, samples: &[f32], profile: &Profile, frames: Range<usize>) -> Vec<Point> {
         match self {
-            Rung::Turntable(speed) => points_at_speed(samples, profile, speed),
-            Rung::KeyLocked(tempo) => points_at_tempo(samples, profile, tempo),
+            Rung::Turntable(speed) => points_at_speed_in(samples, profile, speed, frames),
+            Rung::KeyLocked(tempo) => points_at_tempo_in(samples, profile, tempo, frames),
         }
+    }
+
+    /// The hop of this rung's analysis in samples: the profile's, shrunk by
+    /// the speed or tempo. One STFT frame of it spans `hop / profile.hop`
+    /// frames of the query.
+    pub fn hop(self, profile: &Profile) -> usize {
+        (profile.hop as f64 / self.speed().0).round() as usize
     }
 }
 
@@ -99,8 +114,17 @@ fn speeds() -> impl Iterator<Item = SpeedRatio> {
 /// reference's. Transforming the coordinates of peaks picked on the query's
 /// own grid instead loses about half the surviving hashes (experiment 0001).
 pub fn points_at_speed(samples: &[f32], profile: &Profile, speed: SpeedRatio) -> Vec<Point> {
+    points_at_speed_in(samples, profile, speed, 0..usize::MAX)
+}
+
+fn points_at_speed_in(
+    samples: &[f32],
+    profile: &Profile,
+    speed: SpeedRatio,
+    frames: Range<usize>,
+) -> Vec<Point> {
     let fft_size = (profile.fft_size as f64 / speed.0).round() as usize;
-    let hop = (profile.hop as f64 / speed.0).round() as usize;
+    let hop = Rung::Turntable(speed).hop(profile);
     let scaled = Profile {
         fft_size,
         hop,
@@ -111,7 +135,7 @@ pub fn points_at_speed(samples: &[f32], profile: &Profile, speed: SpeedRatio) ->
     // Rounding the window and hop to whole samples is corrected here.
     let bin_scale = profile.fft_size as f64 / (fft_size as f64 * speed.0);
     let frame_scale = hop as f64 * speed.0 / profile.hop as f64;
-    extract_peaks(samples, &scaled)
+    extract_peaks_in(samples, &scaled, frames)
         .iter()
         .map(|peak| Point {
             frame: peak.frame * frame_scale,
@@ -124,10 +148,19 @@ pub fn points_at_speed(samples: &[f32], profile: &Profile, speed: SpeedRatio) ->
 /// playback at `tempo`: only the hop shrinks, so frames follow the music
 /// while the window and the bins keep their native frequencies.
 pub fn points_at_tempo(samples: &[f32], profile: &Profile, tempo: SpeedRatio) -> Vec<Point> {
-    let hop = (profile.hop as f64 / tempo.0).round() as usize;
+    points_at_tempo_in(samples, profile, tempo, 0..usize::MAX)
+}
+
+fn points_at_tempo_in(
+    samples: &[f32],
+    profile: &Profile,
+    tempo: SpeedRatio,
+    frames: Range<usize>,
+) -> Vec<Point> {
+    let hop = Rung::KeyLocked(tempo).hop(profile);
     let scaled = Profile { hop, ..*profile };
     let frame_scale = hop as f64 * tempo.0 / profile.hop as f64;
-    extract_peaks(samples, &scaled)
+    extract_peaks_in(samples, &scaled, frames)
         .iter()
         .map(|peak| Point {
             frame: peak.frame * frame_scale,

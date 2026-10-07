@@ -248,10 +248,10 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
         &profile,
         &ladder,
         request.jobs,
-        |done| {
+        |done, parts| {
             request
                 .console
-                .progress(format_args!("searching: {done} of {} rungs", ladder.len()));
+                .progress(format_args!("searching: {}%", 100 * done / parts));
         },
     );
     request.console.progress_done();

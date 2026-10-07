@@ -151,7 +151,7 @@ pub fn run(
             &profile,
             options.ladder,
             options.jobs,
-            |_| {},
+            |_, _| {},
         );
         report.lines = Some(trace.lines.len());
         report.detections = Some(trace.detections.len());
