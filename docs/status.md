@@ -706,3 +706,12 @@ read; the store is frozen.
   (26,890 records), from `scripts/analysis/store_revision.py`, which
   reproduces the CLI's revision of the corpus store (`575e370289be7883`,
   as in session 4's `identify` reports).
+- Item 3 (experiment 0037): `clusters --from-peaks` at NAS scale, 4,328
+  s wall, 38,056 s CPU, 6.7 GB; the 17 corpus clusters reappear exactly;
+  170 further rips; 233 clusters with duplicates; 76 borderline pairs.
+  The coverage gap narrowed: same recording from 0.825, different up to
+  0.737.
+- Item 4 (experiment 0038): 292 pairs of different recordings with 30
+  hits or more, 63 at 60 or more, 22 at 200 or more (16 probably one
+  recording kept apart by the 80% rule, 4 versions, 2 one artist's other
+  title); the strongest unrelated 153.

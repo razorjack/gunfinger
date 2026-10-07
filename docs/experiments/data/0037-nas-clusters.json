@@ -1,0 +1,2263 @@
+{
+ "experiment": "0037-nas-clusters",
+ "command": "gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks clusters --from-peaks",
+ "run": {
+  "wall_seconds": 4327.85,
+  "user_seconds": 38055.6,
+  "system_seconds": 168.8,
+  "peak_footprint_bytes": 6715414528,
+  "rounds": [
+   262,
+   164,
+   6
+  ],
+  "idle_before_percent": 86.22
+ },
+ "harness_summary": [
+  "against the corpus: 17 clusters the same, 0 only in the other library, 0 only in the corpus",
+  "170 further rips of corpus recordings (not copies of corpus files):",
+  "76 borderline pairs (40% to 80% coverage), for the owner:",
+  "1337 pairs below 20% coverage with 30 hits or more (related recordings)",
+  "233 clusters with duplicates, written to work/reports/library-nas-dnb-peaks/duplicate-clusters.json"
+ ],
+ "criterion": "one alignment at speed 0.98..1.02 covers at least 80% of the shorter file; with the rips of the corpus recordings in /Volumes/atlas/Music/dnb (stored peaks searched, named second-library/<path>)",
+ "coverage": {
+  "same_recording_min": 0.8255,
+  "other_pairs_max": 0.7365,
+  "other_pairs_from_0_6": 16,
+  "borderline_0_4_to_0_8": 76,
+  "at_262_tracks_0002": "same recording >= 0.984, others <= 0.39"
+ },
+ "clusters_with_duplicates": 233,
+ "members": 686,
+ "nas_members": 433,
+ "further_rips": [
+  "Ed Rush & Optical - Bacteria.mp3 = second-library/__youtube_archivists/alien5ive/VIRUS RECORDINS [ VRS 005 \uff1a ED RUSH + OPTICAL - bacteria - ] drum and bass.m4a (102%, 2342 hits)",
+  "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a FRICTION & SKINNY - depth charge - ] drum and bass.m4a (102%, 1426 hits)",
+  "extra/02-Spy-Z_Plane-sour.mp3 = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/09-Spy-Z_Plane-sour.mp3 (102%, 1830 hits)",
+  "second-library/VA-Syndrome_Down-SYNDROME007CD-2007/05-Noisia & Phace-Outsource (Misanthrop Remix).m4a = second-library/__youtube_archivists/alien5ive/SYNDROME AUDIO [ SYNDROME 003 \uff1a MINDSCAPE - new deal - ] drum and bass.m4a (102%, 3770 hits)",
+  "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3 = second-library/__youtube_archivists/alien5ive/SYNDROME AUDIO [ SYNDROME 003 \uff1a MINDSCAPE - new deal - ] drum and bass.m4a (102%, 3819 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Sarin.opus = second-library/__youtube_archivists/alien5ive/TRUE PLAYAZ RECs [ TPR 12040 \uff1a CAUSE4CONCERN - sarin - ] drum and bass.opus (102%, 1849 hits)",
+  "extra/aa-cause_4_concern-epox-0db.mp3 = second-library/cause 4 concern (c4c002) - cause 4 concern - infectious + e-pox/02. Cause 4 Concern - E-Pox.mp3 (101%, 6115 hits)",
+  "extra/1.Kemal, Rob F & Impulse - Creature.mp3 = second-library/__youtube_archivists/alien5ive/CRYPTIC AUDIO [ CPT 003 \uff1a KEMAL, ROB F & IMPULSE - creature - ] drum and bass.opus (101%, 3794 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a = second-library/__youtube_archivists/alien5ive/CRYPTIC AUDIO [ CPT 003 \uff1a KEMAL, ROB F & IMPULSE - creature - ] drum and bass.opus (101%, 3068 hits)",
+  "second-library/cryptic_audio-kemal_and_sinthetix-cpt003-2002-sour/a-kemal_and_sinthetix-creature-sour.mp3 = second-library/__youtube_archivists/alien5ive/CRYPTIC AUDIO [ CPT 003 \uff1a KEMAL, ROB F & IMPULSE - creature - ] drum and bass.opus (101%, 3336 hits)",
+  "second-library/__youtube_archivists/michal-slabosz/Dj Amir - Bulletproof Vest.m4a = second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a (101%, 1214 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Chris SU & SKC - Black Out.opus = second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a CHRIS SU & SKC - black out - ] drum and bass.m4a (101%, 4214 hits)",
+  "extra/aa-stakka_and_k_tee-terratorial-sour.mp3 = second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - terratorial ] drum and bass.opus (101%, 3611 hits)",
+  "Kraken - Dominion.opus = second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus (101%, 3316 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/09-Spy-Z_Plane-sour.mp3 (101%, 1356 hits)",
+  "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3 = second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus (101%, 3052 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Aquasky - I Can't Wait (No More).m4a = second-library/__youtube_archivists/alien5ive/MOVING SHADOW RECORDINGS [ SHADOW 148 \uff1a AQUASKY - can't wait no more - ] drum and bass.m4a (100%, 5614 hits)",
+  "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/07-stratus-like_this.mp3 = second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - like this - ] drum and bass.m4a (100%, 6071 hits)",
+  "second-library/[citrusdigi002] Falcon - Synthetic Catalogue - 2007/02_-_Falcon_-_Bulletproof_Vest.mp3 = second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a (100%, 1378 hits)",
+  "Stakka & K.Tee - Auto Ignition.mp3 = second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a (100%, 4629 hits)",
+  "extra/A-Matrix_and_Fierce-Tearaway-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Matrix & Fierce - Tearaway.opus (100%, 4086 hits)",
+  "extra/xx-aquasky-i_cant_wait_(no_more)-sour.mp3 = second-library/__youtube_archivists/alien5ive/MOVING SHADOW RECORDINGS [ SHADOW 148 \uff1a AQUASKY - can't wait no more - ] drum and bass.m4a (100%, 4330 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET feat DJ RED - 9000 Series -.opus = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - 9000 Series (Remastered).m4a (100%, 4473 hits)",
+  "extra/B-Bad_Company-Four_Days-dmz.mp3 = second-library/bad_company-fear_lp/11 bad company-four days.mp3 (100%, 4913 hits)",
+  "extra/04_-_dj_hidden_-_skektics.mp3 = second-library/04 - dj hidden - skektics.mp3 (100%, 10026 hits)",
+  "second-library/bad_company-the_fear_ep-vdbcr_002-sour/c-bad_company-the_fear-sour.mp3 = second-library/bad_company-fear_lp/09 bad company-the fear.mp3 (100%, 9445 hits)",
+  "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/C - Bad Company - The Fear.mp3 = second-library/bad_company-fear_lp/09 bad company-the fear.mp3 (100%, 9445 hits)",
+  "extra/a-stratus-like_this-sour.mp3 = second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - like this - ] drum and bass.m4a (100%, 4812 hits)",
+  "second-library/bad_company-fear_lp/09 bad company-the fear.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/c-bad_company-the_fear-sour.mp3 (100%, 9446 hits)",
+  "second-library/bad_company-fear_lp/09 bad company-the fear.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/C - Bad Company - The Fear.mp3 (100%, 9446 hits)",
+  "second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 = second-library/bad_company-fear_lp/11 bad company-four days.mp3 (100%, 4107 hits)",
+  "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 = second-library/bad_company-fear_lp/11 bad company-four days.mp3 (100%, 4107 hits)",
+  "second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 = second-library/bad_company-fear_lp/11 bad company-four days.mp3 (100%, 4109 hits)",
+  "second-library/bad_company-fear_lp/11 bad company-four days.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 (100%, 4122 hits)",
+  "second-library/bad_company-fear_lp/11 bad company-four days.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 (100%, 4122 hits)",
+  "second-library/bad_company-fear_lp/11 bad company-four days.mp3 = second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 (100%, 4113 hits)",
+  "extra/02_-_skinnah_-_figurehead.mp3 = second-library/va-ruff-teck_-_analog_steroids-(ruff057)-cd-2001-kroket/b_skinnah_-_figurehead-kroket.mp3 (100%, 11137 hits)",
+  "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Drumsound & Simon 'Bassline' Smith - Dirty Dancing.m4a (100%, 4918 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Skewer.opus = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Skewer.opus (100%, 10339 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Skewer.opus = second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Skewer.opus (100%, 10341 hits)",
+  "second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/c-stakka_skynet_and_dj_red-9000_series-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - 9000 Series (Remastered).m4a (100%, 3745 hits)",
+  "second-library/__youtube_archivists/rootzdnb/Matrix & Fierce - Tearaway.m4a = second-library/__youtube_archivists/i-witness-dnb/Matrix & Fierce - Tearaway.opus (100%, 4168 hits)",
+  "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Rubber Bullet.m4a (100%, 9301 hits)",
+  "second-library/bad_company-fear_lp/01 bad company-the pulse.mp3 = second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - the pulse - ] drum and bass.opus (100%, 7115 hits)",
+  "extra/b-cause_4_concern-give_it_2_em-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Give It 2 'Em.opus (100%, 8509 hits)",
+  "extra/c-bad_company-the_fear-sour.mp3 = second-library/bad_company-fear_lp/09 bad company-the fear.mp3 (100%, 9887 hits)",
+  "extra/[B]_-_Futuretech_-_Kashmir.mp3 = second-library/various_artists-the_x_project_part_3-tech015-2002-sour/b-futuretech-kashmir-sour.mp3 (100%, 32976 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - 9000 Series (Remastered).m4a = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET feat DJ RED - 9000 Series -.opus (100%, 4459 hits)",
+  "Bad Company - China Cup.mp3 = second-library/bad_company-fear_lp/07 bad company-china cup.mp3 (100%, 4647 hits)",
+  "extra/02. Bad Company - China Cup.mp3 = second-library/bad_company-fear_lp/07 bad company-china cup.mp3 (100%, 4647 hits)",
+  "extra/b-bad_company-china_cup.mp3 = second-library/bad_company-fear_lp/07 bad company-china cup.mp3 (100%, 4774 hits)",
+  "extra/2. Phace - Fraxion.mp3 = second-library/protogen-various_artists-protogen007-2004-xtc/b-phace_-_fraxion-xtc.mp3 (100%, 5672 hits)",
+  "extra/01-future_cut-the_specialist-trt.mp3 = second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3 (100%, 4525 hits)",
+  "extra/01-future_cut-the_specialist-trt.mp3 = second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus (100%, 2882 hits)",
+  "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3 = second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus (100%, 1463 hits)",
+  "extra/a-cause_4_concern-skewer-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Skewer.opus (100%, 6891 hits)",
+  "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Item Code & Fading Suns - Inspiration.opus (100%, 15305 hits)",
+  "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3 = second-library/bad_company-fear_lp/02 bad company-the nine.mp3 (100%, 4509 hits)",
+  "extra/A- The_Nine.mp3 = second-library/bad_company-fear_lp/02 bad company-the nine.mp3 (100%, 4436 hits)",
+  "Bad Company - The Nine.mp3 = second-library/bad_company-fear_lp/02 bad company-the nine.mp3 (100%, 4507 hits)",
+  "extra/A-Bad_Company-The_Nine-dmz.mp3 = second-library/bad_company-fear_lp/02 bad company-the nine.mp3 (100%, 4507 hits)",
+  "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus (100%, 10795 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus = second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3 (100%, 10795 hits)",
+  "extra/02-future_cut-razors_edge-trt.mp3 = second-library/Infrared-INFRA011-Future_Cut-2000-sour/aa-future_cut-specialist-sour.mp3 (100%, 5184 hits)",
+  "extra/02-future_cut-razors_edge-trt.mp3 = second-library/__youtube_archivists/i-witness-dnb/Future Cut - Razor's Edge.m4a (100%, 4718 hits)",
+  "extra/06_-_skinnah_-_state_of_violance.mp3 = second-library/Ruff-Teck-RUFF057-Analog_Steroids-CD-2001-KROKET/f_skinnah_-_state_of_violance-kroket.mp3 (100%, 10567 hits)",
+  "Optical - Millennium.mp3 = second-library/__youtube_archivists/dfect-dnb/Optical - Millennium.m4a (100%, 12914 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Futuretech - Kashmir.opus = second-library/various_artists-the_x_project_part_3-tech015-2002-sour/b-futuretech-kashmir-sour.mp3 (100%, 12635 hits)",
+  "extra/[B]_-_Futuretech_-_Kashmir.mp3 = second-library/__youtube_archivists/i-witness-dnb/Futuretech - Kashmir.opus (100%, 12638 hits)",
+  "second-library/various_artists-the_x_project_part_3-tech015-2002-sour/b-futuretech-kashmir-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Futuretech - Kashmir.opus (100%, 12634 hits)",
+  "extra/A - Hak - Inside (Decoder remix).mp3 = second-library/__youtube_archivists/dfect-dnb/Hak - Inside (Decoder Remix).m4a (100%, 5605 hits)",
+  "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3 = second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3 (100%, 2265 hits)",
+  "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3 = second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee RMX).m4a (100%, 2004 hits)",
+  "extra/[AA]_-_Supersonic.mp3 = second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Drumsound & Simon Bassline Smith \u200e\u2013 Supersonic.opus (100%, 7456 hits)",
+  "extra/a-ecco_and_sabotage-hazy_shades-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/DJ\uff1aEcco and Sabotage - Hazy Shades.opus (100%, 9313 hits)",
+  "extra/xx-aquasky-i_cant_wait_(no_more)-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Aquasky - I Can't Wait (No More).m4a (100%, 5235 hits)",
+  "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3 = second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3 (100%, 1663 hits)",
+  "Optical - Slip Thru.mp3 = second-library/__youtube_archivists/dfect-dnb/Optical - Slip Thru.m4a (100%, 5235 hits)",
+  "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Gridlok - Soul Sucker.opus (100%, 16856 hits)",
+  "second-library/Infrared-INFRA011-Future_Cut-2000-sour/aa-future_cut-specialist-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Future Cut - Razor's Edge.m4a (100%, 15344 hits)",
+  "second-library/bad_company-fear_lp/02 bad company-the nine.mp3 = second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3 (100%, 4523 hits)",
+  "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3 = second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a (100%, 2256 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Future Cut - Razor's Edge.m4a = second-library/Infrared-INFRA011-Future_Cut-2000-sour/aa-future_cut-specialist-sour.mp3 (100%, 15326 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - 9000 Series (Remastered).m4a (100%, 7567 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET feat DJ RED - 9000 Series -.opus (100%, 5502 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - 9000 Series (Remastered).m4a = second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/c-stakka_skynet_and_dj_red-9000_series-sour.mp3 (100%, 3692 hits)",
+  "extra/a1-skynet-acid_drops-sour.mp3 = second-library/__youtube_archivists/michal-slabosz/Skynet  - Acid Drops.m4a (100%, 12527 hits)",
+  "extra/a-extreme_force-everytime_(original_mix)-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Extreme Force \u200e\u2013 Everytime.m4a (100%, 8594 hits)",
+  "extra/aa-matrix-bad_dreams-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Matrix - Bad Dreams.opus (100%, 6103 hits)",
+  "extra/Cyb Orc - Agressor.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Cyb Orc - Aggressor.opus (100%, 5395 hits)",
+  "extra/4. Illuminati - Melange.mp3 = second-library/__youtube_archivists/michal-slabosz/Illuminati - Melange.m4a (100%, 7513 hits)",
+  "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3 = second-library/VA-Syndrome_Down-SYNDROME007CD-2007/05-Noisia & Phace-Outsource (Misanthrop Remix).m4a (100%, 21325 hits)",
+  "extra/rawkuts-jo_s-rkt335-2001-sour/a-jo_s-afterburner-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Jo-S - Afterburner.opus (100%, 7670 hits)",
+  "extra/a-bad_company-pulse.mp3 = second-library/bad_company-fear_lp/01 bad company-the pulse.mp3 (100%, 6623 hits)",
+  "extra/[AA]_-_Apollo_Creed.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Apollo Creed.m4a (100%, 9937 hits)",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Apollo Creed.m4a = second-library/technique-future_tech-tech007-2001-sour/aa-future_tech-apollo_creed-sour.mp3 (100%, 9917 hits)",
+  "second-library/technique-future_tech-tech007-2001-sour/aa-future_tech-apollo_creed-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Apollo Creed.m4a (100%, 9909 hits)",
+  "second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 = second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 (100%, 18971 hits)",
+  "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 = second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 (100%, 18971 hits)",
+  "extra/A- The_Nine.mp3 = second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3 (100%, 5870 hits)",
+  "Bad Company - The Nine.mp3 = second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3 (100%, 5886 hits)",
+  "extra/A-Bad_Company-The_Nine-dmz.mp3 = second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3 (100%, 5886 hits)",
+  "second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 (100%, 18972 hits)",
+  "second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 (100%, 18972 hits)",
+  "extra/03-aquasky-structure.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Aquasky - Structure.m4a (100%, 4653 hits)",
+  "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3 = second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Jo-S - Separation (Drum'n'Bass) (Drum'n'Bass).opus (100%, 5112 hits)",
+  "Kraken - Side Effects (TeeBee Remix).mp3 = second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus (100%, 5880 hits)",
+  "Bad Company - The Pulse.mp3 = second-library/bad_company-fear_lp/01 bad company-the pulse.mp3 (100%, 6300 hits)",
+  "Kraken - Side Effects (TeeBee Remix).mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus (100%, 2483 hits)",
+  "extra/[AA]_-_Apollo_Creed.mp3 = second-library/technique-future_tech-tech007-2001-sour/aa-future_tech-apollo_creed-sour.mp3 (100%, 31512 hits)",
+  "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/09-Spy-Z_Plane-sour.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a SPY - z-plane - ] drum and bass.opus (100%, 2853 hits)",
+  "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - the pulse - ] drum and bass.opus = second-library/bad_company-fear_lp/01 bad company-the pulse.mp3 (100%, 7107 hits)",
+  "extra/b-bulletproof-scarred-sour.mp3 = second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a (100%, 14313 hits)",
+  "extra/b-bulletproof-scarred-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a (100%, 14095 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3 = second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/c-stakka_skynet_and_dj_red-9000_series-sour.mp3 (100%, 6200 hits)",
+  "extra/a-bad_company-pulse.mp3 = second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - the pulse - ] drum and bass.opus (100%, 6073 hits)",
+  "Bad Company - The Pulse.mp3 = second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - the pulse - ] drum and bass.opus (100%, 5755 hits)",
+  "second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/c-stakka_skynet_and_dj_red-9000_series-sour.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET feat DJ RED - 9000 Series -.opus (100%, 5711 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET feat DJ RED - 9000 Series -.opus = second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/c-stakka_skynet_and_dj_red-9000_series-sour.mp3 (100%, 5713 hits)",
+  "second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 (100%, 33621 hits)",
+  "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 (100%, 33621 hits)",
+  "extra/b-spinor-mutant_storm-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Spinor - Mutant Storm.opus (100%, 8040 hits)",
+  "extra/Illuminati - The Rust.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Illuminati - The Rust.m4a (100%, 16156 hits)",
+  "extra/B-Bad_Company-Four_Days-dmz.mp3 = second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3 (100%, 7623 hits)",
+  "extra/a-mo_funk-slipstream-sour.mp3 = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/10-Mo_Funk-Slipstream-sour.mp3 (100%, 3793 hits)",
+  "extra/[A]_-_Mudslide.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Mudslide.m4a (100%, 9538 hits)",
+  "extra/[A]_-_Mudslide.mp3 = second-library/__youtube_archivists/dfect-dnb/Future Tech - Mudslide.m4a (100%, 11573 hits)",
+  "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a (100%, 6210 hits)",
+  "extra/03-drumsound_and_future_tech-apocalypse_(original_mix).mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Apocalypse.opus (100%, 4411 hits)",
+  "extra/aa-cause_4_concern-epox-0db.mp3 = second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Epox.opus (100%, 5241 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus (100%, 2046 hits)",
+  "extra/b-unknown-udfr014-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Profound Noize - Luminous Remix.opus (100%, 11995 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus = second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus (100%, 2051 hits)",
+  "extra/AA-Amir-Bulletproof-sour.mp3 = second-library/[citrusdigi002] Falcon - Synthetic Catalogue - 2007/02_-_Falcon_-_Bulletproof_Vest.mp3 (100%, 4444 hits)",
+  "extra/c-cause4concern-time_stopper-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Time Stopper.opus (100%, 11831 hits)",
+  "second-library/__youtube_archivists/alien5ive/SYNDROME AUDIO [ SYNDROME 003 \uff1a MINDSCAPE - new deal - ] drum and bass.m4a = second-library/VA-Syndrome_Down-SYNDROME007CD-2007/05-Noisia & Phace-Outsource (Misanthrop Remix).m4a (100%, 4035 hits)",
+  "extra/a-bullet_proof-anthrax-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a (100%, 19855 hits)",
+  "extra/aa-paul_b_and_subwave-break_through-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Paul B & Subwave - Break Through.opus (100%, 6642 hits)",
+  "extra/B-Bad_Company-Four_Days-dmz.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3 (100%, 7449 hits)",
+  "extra/B-Bad_Company-Four_Days-dmz.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3 (100%, 7449 hits)",
+  "extra/a-dj_reality-reasons.mp3 = second-library/__youtube_archivists/michal-slabosz/Modern Moves -  Reasons.m4a (100%, 17697 hits)",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Mudslide.m4a = second-library/__youtube_archivists/dfect-dnb/Future Tech - Mudslide.m4a (99%, 8740 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Future Tech - Mudslide.m4a = second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Mudslide.m4a (99%, 8740 hits)",
+  "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee RMX).m4a (99%, 13132 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee RMX).m4a = second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3 (99%, 13131 hits)",
+  "extra/A. falcon - new frontier.mp3 = second-library/__youtube_archivists/michal-slabosz/Falcon - A New Frontier.m4a (99%, 13480 hits)",
+  "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - like this - ] drum and bass.m4a = second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/07-stratus-like_this.mp3 (99%, 5963 hits)",
+  "second-library/__youtube_archivists/alien5ive/MOVING SHADOW RECORDINGS [ SHADOW 148 \uff1a AQUASKY - can't wait no more - ] drum and bass.m4a = second-library/__youtube_archivists/i-witness-dnb/Aquasky - I Can't Wait (No More).m4a (99%, 5646 hits)",
+  "extra/a-bullet_proof-anthrax-sour.mp3 = second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a (99%, 12220 hits)",
+  "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a (99%, 7222 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a = second-library/cryptic_audio-kemal_and_sinthetix-cpt003-2002-sour/a-kemal_and_sinthetix-creature-sour.mp3 (99%, 10752 hits)",
+  "second-library/cryptic_audio-kemal_and_sinthetix-cpt003-2002-sour/a-kemal_and_sinthetix-creature-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a (99%, 10752 hits)",
+  "extra/c-bad_company-the_fear-sour.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/c-bad_company-the_fear-sour.mp3 (99%, 19198 hits)",
+  "extra/c-bad_company-the_fear-sour.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/C - Bad Company - The Fear.mp3 (99%, 19198 hits)",
+  "second-library/bad_company-the_fear_ep-vdbcr_002-sour/c-bad_company-the_fear-sour.mp3 = second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/C - Bad Company - The Fear.mp3 (99%, 33231 hits)",
+  "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/C - Bad Company - The Fear.mp3 = second-library/bad_company-the_fear_ep-vdbcr_002-sour/c-bad_company-the_fear-sour.mp3 (99%, 33231 hits)",
+  "extra/2. Konflict - Pendulum.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Konflict - Pendulum.opus (99%, 8965 hits)",
+  "extra/A. falcon - new frontier.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - New Frontier (HQ Audio).m4a (99%, 4890 hits)",
+  "extra/[A]_-_Tribal_Warfare.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Tribal Warefare.opus (99%, 7404 hits)",
+  "extra/aa-cause_4_concern-psyke-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Psyke.m4a (99%, 4675 hits)",
+  "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a (99%, 4284 hits)",
+  "extra/b-extreme_force-everytime_(2001_mix)-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Extreme Force \u200e\u2013 Everytime Remix.opus (99%, 11691 hits)",
+  "extra/a-stratus-like_this-sour.mp3 = second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/07-stratus-like_this.mp3 (99%, 6162 hits)",
+  "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/09-Spy-Z_Plane-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a (99%, 1366 hits)",
+  "extra/a-cause_4_concern-relentless-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Relentless.m4a (99%, 5809 hits)",
+  "extra/a-usual_suspects-bleach-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Universal Project - Bleach.m4a (99%, 5523 hits)",
+  "extra/1.Kemal & Rob Data - The Mummy.mp3 = second-library/__youtube_archivists/rootzdnb/Kemal & Rob Data - The Mummy.m4a (99%, 5316 hits)",
+  "Skynet & Stakka - Decoy.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus (99%, 5352 hits)",
+  "extra/c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Future Cut - Horns 2000 (Dylan Remix).opus (99%, 6287 hits)",
+  "extra/1.Kemal, Rob F & Impulse - Creature.mp3 = second-library/cryptic_audio-kemal_and_sinthetix-cpt003-2002-sour/a-kemal_and_sinthetix-creature-sour.mp3 (99%, 5103 hits)",
+  "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Moth - Sugar Crashing (Kemal & Rob Data Remix).opus (99%, 15401 hits)",
+  "extra/a-usual_suspects-bleach-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Universal Project - Bleach (Digital Remaster).m4a (99%, 5098 hits)",
+  "extra/a-cause_4_concern-skewer-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Skewer.opus (99%, 7950 hits)",
+  "extra/A-Chris_SU-Astro_Sine-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Astro-Sine.opus (99%, 16991 hits)",
+  "second-library/[citrusdigi002] Falcon - Synthetic Catalogue - 2007/02_-_Falcon_-_Bulletproof_Vest.mp3 = second-library/__youtube_archivists/michal-slabosz/Dj Amir - Bulletproof Vest.m4a (99%, 4344 hits)",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - New Frontier (HQ Audio).m4a = second-library/__youtube_archivists/michal-slabosz/Falcon - A New Frontier.m4a (99%, 4079 hits)",
+  "extra/03. Pieter K - Liquifaction (Stakka Remix).mp3 = second-library/__youtube_archivists/dfect-dnb/Pieter K - Liquifaction (Stakka RMX).m4a (99%, 13464 hits)",
+  "Skynet & Stakka - Decoy.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a (99%, 5754 hits)",
+  "extra/b-cause_4_concern-sarin-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Sarin.opus (99%, 14754 hits)",
+  "extra/b-cause_4_concern-sarin-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Sarin.opus (99%, 7199 hits)",
+  "second-library/__youtube_archivists/michal-slabosz/Dj Amir - Bulletproof Vest.m4a = second-library/[citrusdigi002] Falcon - Synthetic Catalogue - 2007/02_-_Falcon_-_Bulletproof_Vest.mp3 (99%, 4356 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. K.Tee - So Confused (Remastered).m4a (99%, 7771 hits)",
+  "extra/B. falcon - reality.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - Reality.m4a (99%, 14454 hits)",
+  "extra/a-rascal_and_klone-the_reprise-sour.mp3 = second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/10-rascal_and_klone-the_reprise_(original_mix).mp3 (99%, 8118 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a = second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3 (99%, 4293 hits)",
+  "second-library/__youtube_archivists/michal-slabosz/Falcon - A New Frontier.m4a = second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - New Frontier (HQ Audio).m4a (99%, 4085 hits)",
+  "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus (99%, 4412 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus = second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3 (99%, 4574 hits)",
+  "extra/02-chemical_frequency-death_trap-bpm.mp3 = second-library/__youtube_archivists/michal-slabosz/Chemical Frequency - Death Trap.m4a (99%, 7541 hits)",
+  "extra/a-rascal_and_klone-snake_eyes-sour.mp3 = second-library/__youtube_archivists/alien5ive/SHAKEDOWN [ SHAKE002 \uff1a RASCAL & KLONE - snake eyes - ] drum and bass.opus (99%, 5235 hits)",
+  "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/10-Mo_Funk-Slipstream-sour.mp3 = second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - slipstream - ] drum and bass.m4a (99%, 2524 hits)",
+  "extra/B-Cause_4_Concern-Peep_Show-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Peep Show.m4a (99%, 5570 hits)",
+  "extra/AA. Gridlok -- Struggle.mp3 = second-library/nerve-gridlok-nerve004-2002-sour/b-gridlok-struggle-sour.mp3 (99%, 10353 hits)",
+  "extra/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/JL - Hymn (Dom & Roland RMX).m4a (99%, 11496 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/JL - Hymn (Dom & Roland RMX).m4a = second-library/__youtube_archivists/unxplored-dnb/JL - Hymn (Dom & Roland Remix).m4a (99%, 7491 hits)",
+  "second-library/__youtube_archivists/unxplored-dnb/JL - Hymn (Dom & Roland Remix).m4a = second-library/__youtube_archivists/dfect-dnb/JL - Hymn (Dom & Roland RMX).m4a (99%, 7490 hits)",
+  "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Aphrodite - Lava Flow.m4a (99%, 4531 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a (99%, 3892 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Moth - Sugar Crashing (Kemal & Rob Data Remix).opus = second-library/__youtube_archivists/dfect-dnb/Moth - Sugar Crashing (Kemal & Rob Data RMX).m4a (99%, 5604 hits)",
+  "second-library/__youtube_archivists/alien5ive/CRYPTIC AUDIO [ CPT 003 \uff1a KEMAL, ROB F & IMPULSE - creature - ] drum and bass.opus = second-library/cryptic_audio-kemal_and_sinthetix-cpt003-2002-sour/a-kemal_and_sinthetix-creature-sour.mp3 (99%, 3360 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a (99%, 10099 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Chris SU & SKC - Black Out.opus = second-library/DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/E-Chris_SU_and_SKC-Blackout-sour.mp3 (99%, 6354 hits)",
+  "extra/AA-Amir-Bulletproof-sour.mp3 = second-library/__youtube_archivists/michal-slabosz/Dj Amir - Bulletproof Vest.m4a (99%, 16670 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee RMX).m4a = second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a (99%, 3703 hits)",
+  "extra/a-gridlok-v_ger-sour.mp3 = second-library/__youtube_archivists/unxplored-dnb/Gridlok - V_Ger.opus (99%, 10262 hits)",
+  "extra/a-gridlok-v_ger-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Gridlok - V_Ger.m4a (99%, 6092 hits)",
+  "extra/a-gridlok-v_ger-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Gridlok - V_Ger.opus (99%, 6961 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Astro-Sine.opus = second-library/__youtube_archivists/3zb-gangstep-dnb/Chris.SU - Astrosine.m4a (99%, 4685 hits)",
+  "extra/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3 = second-library/__youtube_archivists/unxplored-dnb/JL - Hymn (Dom & Roland Remix).m4a (99%, 9296 hits)",
+  "second-library/__youtube_archivists/unxplored-dnb/Gridlok - V_Ger.opus = second-library/__youtube_archivists/i-witness-dnb/Gridlok - V_Ger.opus (99%, 5240 hits)",
+  "extra/AA-Amir-Bulletproof-sour.mp3 = second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a (99%, 1243 hits)",
+  "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 009 \uff1a PAUL B. & SUBWAVE - break through - ] drum and bass.opus = second-library/__youtube_archivists/i-witness-dnb/Paul B & Subwave - Break Through.opus (99%, 3570 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Matrix & Fierce - Tearaway.opus = second-library/__youtube_archivists/rootzdnb/Matrix & Fierce - Tearaway.m4a (99%, 4141 hits)",
+  "extra/A-Chris_SU-Astro_Sine-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Chris.SU - Astrosine.m4a (99%, 5086 hits)",
+  "second-library/__youtube_archivists/unxplored-dnb/Gridlok - V_Ger.opus = second-library/__youtube_archivists/dfect-dnb/Gridlok - V_Ger.m4a (99%, 4775 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a = second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee RMX).m4a (99%, 3770 hits)",
+  "extra/Cyb Orc - Endorphine.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Cyb Orc - Endorphine.m4a (99%, 11693 hits)",
+  "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Moth - Sugar Crashing (Kemal & Rob Data RMX).m4a (99%, 6188 hits)",
+  "extra/b-spirit-out_of_control-sour.mp3 = second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3 (99%, 2789 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a = second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a (99%, 10917 hits)",
+  "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a = second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a (99%, 10914 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Friction - Altitude (Remastered).m4a (99%, 8581 hits)",
+  "extra/e-chris_su_and_skc-blackout-sour.mp3 = second-library/DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/E-Chris_SU_and_SKC-Blackout-sour.mp3 (99%, 31331 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Gridlok - V_Ger.opus = second-library/__youtube_archivists/unxplored-dnb/Gridlok - V_Ger.opus (99%, 5229 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus (99%, 3844 hits)",
+  "extra/e-chris_su_and_skc-blackout-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Chris SU & SKC - Black Out.opus (99%, 6328 hits)",
+  "second-library/DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/E-Chris_SU_and_SKC-Blackout-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Chris SU & SKC - Black Out.opus (99%, 6330 hits)",
+  "extra/05 - Bad Company - Sentient.mp3 = second-library/__youtube_archivists/i-witness-dnb/Bad Company - Sentient.m4a (99%, 13123 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Sentient.m4a = second-library/__youtube_archivists/dfect-dnb/Bad Company - Sentient.m4a (99%, 11094 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Bad Company - Sentient.m4a = second-library/__youtube_archivists/i-witness-dnb/Bad Company - Sentient.m4a (99%, 11000 hits)",
+  "extra/k-sta_and_paul_b-come_closer-sour.mp3 = second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3 (99%, 27411 hits)",
+  "extra/A-Matrix_and_Fierce-Tearaway-sour.mp3 = second-library/__youtube_archivists/rootzdnb/Matrix & Fierce - Tearaway.m4a (99%, 4889 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus (99%, 4652 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Gridlok - V_Ger.m4a = second-library/__youtube_archivists/unxplored-dnb/Gridlok - V_Ger.opus (99%, 4795 hits)",
+  "Skynet & Stakka - Clockwork.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a (99%, 9157 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a (99%, 9157 hits)",
+  "extra/d. falcon - the stand.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a (99%, 19365 hits)",
+  "extra/05 - Bad Company - Sentient.mp3 = second-library/__youtube_archivists/dfect-dnb/Bad Company - Sentient.m4a (99%, 14828 hits)",
+  "extra/c-total_science-yvon_is_on-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a (99%, 6467 hits)",
+  "extra/b-stratus-waves-sour.mp3 = second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - waves - ] drum and bass.m4a (99%, 1914 hits)",
+  "extra/02-Spy-Z_Plane-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a (99%, 1622 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/108-stakka_and_skynet_feat_shimon-spider_monkey-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Shimon - Spider Monkey (Remastered).m4a (99%, 7671 hits)",
+  "extra/k-sta_and_paul_b-come_closer-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a (99%, 6014 hits)",
+  "second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a (99%, 6011 hits)",
+  "second-library/__youtube_archivists/alien5ive/CRYPTIC AUDIO [ CPT 003 \uff1a KEMAL, ROB F & IMPULSE - creature - ] drum and bass.opus = second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a (99%, 2985 hits)",
+  "extra/08-kraken-analogue_spikes-minc.mp3 = second-library/__youtube_archivists/dfect-dnb/Kraken - Analogue Spikes.m4a (99%, 6536 hits)",
+  "extra/d-shimon-mutationz_iv-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Shimon - Mutationz IV.opus (99%, 14470 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Skinny - Straight Jacket (Remastered).m4a (99%, 11828 hits)",
+  "extra/k-sta_and_paul_b-come_closer-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Sta & Paul B - Come Closer.m4a (99%, 3897 hits)",
+  "second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Sta & Paul B - Come Closer.m4a (99%, 3894 hits)",
+  "second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a = second-library/__youtube_archivists/michal-slabosz/Dj Amir - Bulletproof Vest.m4a (99%, 1028 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Africa Bambaata & The Soul Sonic Force - Planet Rock (Stakka & Skynet Remix) (Remastered).opus (99%, 5334 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Sarin.opus = second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Sarin.opus (99%, 6657 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Universal Project - Bleach.m4a = second-library/__youtube_archivists/i-witness-dnb/Universal Project - Bleach (Digital Remaster).m4a (99%, 11544 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Universal Project - Bleach (Digital Remaster).m4a = second-library/__youtube_archivists/dfect-dnb/Universal Project - Bleach.m4a (99%, 11544 hits)",
+  "extra/1.Kemal, Rob F & Impulse - Creature.mp3 = second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a (99%, 4785 hits)",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Chris.SU - Astrosine.m4a = second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Astro-Sine.opus (99%, 4682 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a = second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3 (99%, 6013 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a = second-library/__youtube_archivists/3zb-gangstep-dnb/Sta & Paul B - Come Closer.m4a (99%, 6501 hits)",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Sta & Paul B - Come Closer.m4a = second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a (99%, 6500 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Gridlok - V_Ger.m4a = second-library/__youtube_archivists/i-witness-dnb/Gridlok - V_Ger.opus (99%, 9541 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Gridlok - V_Ger.opus = second-library/__youtube_archivists/dfect-dnb/Gridlok - V_Ger.m4a (99%, 9536 hits)",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Sta & Paul B - Come Closer.m4a = second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3 (99%, 3894 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Timelines (Remastered).m4a (99%, 11698 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Keaton - Isolation (Remastered).m4a (99%, 7231 hits)",
+  "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a = second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a (99%, 11189 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a = second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a (99%, 11191 hits)",
+  "extra/AA-Chris_SU-Audiophile-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Audiophile.opus (99%, 10297 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet feat. Keaton - Isolation.m4a = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Keaton - Isolation (Remastered).m4a (99%, 6431 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Keaton - Isolation (Remastered).m4a = second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet feat. Keaton - Isolation.m4a (99%, 6435 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Moth - Sugar Crashing (Kemal & Rob Data RMX).m4a = second-library/__youtube_archivists/i-witness-dnb/Moth - Sugar Crashing (Kemal & Rob Data Remix).opus (99%, 5619 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet feat. Keaton - Isolation.m4a (98%, 11767 hits)",
+  "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a CHRIS SU & SKC - black out - ] drum and bass.m4a = second-library/__youtube_archivists/i-witness-dnb/Chris SU & SKC - Black Out.opus (98%, 4210 hits)",
+  "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus (98%, 8691 hits)",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus (98%, 8691 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a SPY - z-plane - ] drum and bass.opus = second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a (98%, 1024 hits)",
+  "extra/203-moving_fusion_and_andy_c-foul_mouth-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Moving Fusion & Andy C - Foul Mouth.m4a (98%, 15304 hits)",
+  "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a SPY - z-plane - ] drum and bass.opus (98%, 1093 hits)",
+  "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3 = second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a (98%, 910 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Sarin.opus = second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Sarin.opus (98%, 6585 hits)",
+  "extra/Cyb Orc - No Peace.mp3 = second-library/__youtube_archivists/michal-slabosz/Cyb Orc - No Peace.m4a (98%, 5698 hits)",
+  "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3 = second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3 (98%, 8388 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a SPY - z-plane - ] drum and bass.opus = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/09-Spy-Z_Plane-sour.mp3 (98%, 2874 hits)",
+  "extra/Cyb Orc - Looter.mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Cyb Orc - Looter.m4a (98%, 15601 hits)",
+  "second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a = second-library/[citrusdigi002] Falcon - Synthetic Catalogue - 2007/02_-_Falcon_-_Bulletproof_Vest.mp3 (98%, 1174 hits)",
+  "extra/J-Technical_Itch_and_Decoder-Abduction-sour.mp3 = second-library/__youtube_archivists/dfect-dnb/Technical Itch & Decoder - Abduction.m4a (97%, 3535 hits)",
+  "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3 (97%, 872 hits)",
+  "extra/aa-sinthetix-fallout-sour.mp3 = second-library/__youtube_archivists/i-witness-dnb/Rob F & Impulse - Fallout.opus (97%, 1664 hits)",
+  "extra/02_-_skinnah_-_figurehead.mp3 = second-library/ruff-teck-ancronix_vs_skinnah-ruflm1-2001-dbu/b-skinnah-figurehead-dbu.mp3 (97%, 6616 hits)",
+  "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - slipstream - ] drum and bass.m4a = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/10-Mo_Funk-Slipstream-sour.mp3 (97%, 2419 hits)",
+  "second-library/va-ruff-teck_-_analog_steroids-(ruff057)-cd-2001-kroket/b_skinnah_-_figurehead-kroket.mp3 = second-library/ruff-teck-ancronix_vs_skinnah-ruflm1-2001-dbu/b-skinnah-figurehead-dbu.mp3 (97%, 6064 hits)",
+  "extra/10-muffler-nutcracker_(original_mix).mp3 = second-library/__youtube_archivists/3zb-gangstep-dnb/Muffler \u200e- Nutcracker (Extended Mix).m4a (97%, 8348 hits)",
+  "second-library/ruff-teck-ancronix_vs_skinnah-ruflm1-2001-dbu/b-skinnah-figurehead-dbu.mp3 = second-library/va-ruff-teck_-_analog_steroids-(ruff057)-cd-2001-kroket/b_skinnah_-_figurehead-kroket.mp3 (95%, 6040 hits)",
+  "extra/02-Decoder-Hord_39-sour.mp3 = second-library/TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/A_-_Decoder_-_Hord_39.mp3 (93%, 5360 hits)",
+  "Skynet & Stakka - Night Lore.mp3 = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3 (93%, 7575 hits)",
+  "extra/a-stakka_and_skynet-nightlore-sour.mp3 = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3 (93%, 7575 hits)",
+  "extra/b-stakka_and_skynet-global_report-sour.mp3 = second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3 (93%, 545 hits)",
+  "second-library/__youtube_archivists/i-witness-dnb/Paul B & Subwave - Break Through.opus = second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 009 \uff1a PAUL B. & SUBWAVE - break through - ] drum and bass.opus (91%, 3660 hits)",
+  "extra/a-sinthetix-neurotoxin-sour.mp3 = second-library/__youtube_archivists/alien5ive/SHADOW LAW RECORDINGS [ SLR 001 \uff1a ROB F & IMPULSE & MECHA - neurotoxin - ] drum and bass.opus (89%, 1927 hits)",
+  "extra/[AA]_-_Phoenix.mp3 = second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a (87%, 790 hits)",
+  "Ed Rush & Optical - Funktion.mp3 = second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a (83%, 1235 hits)",
+  "extra/01 - Ed Rush & Optical - Funktion.mp3 = second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a (83%, 1235 hits)"
+ ],
+ "borderline": [
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - waves - ] drum and bass.m4a",
+   "found": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+   "query_name": "STRATUS - waves",
+   "found_name": "Stratus - Waves",
+   "coverage": 0.737,
+   "hits": 2601,
+   "speed": 1.0231,
+   "shared_seconds": 261.4
+  },
+  {
+   "query": "extra/aa-sinthetix-fallout-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/SHADOW LAW RECORDINGS [ SLR 001 \uff1a ROB F & IMPULSE - fallout - ] drum and bass.opus",
+   "query_name": "Sinthetix - Fallout",
+   "found_name": "ROB F & IMPULSE - fallout",
+   "coverage": 0.736,
+   "hits": 2642,
+   "speed": 0.9778,
+   "shared_seconds": 294.9
+  },
+  {
+   "query": "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a",
+   "query_name": "Ed Rush, Optical & Fierce - Alien Girl",
+   "found_name": "Ed Rush, Optical & Fierce - Alien Girl",
+   "coverage": 0.73,
+   "hits": 1213,
+   "speed": 1.0,
+   "shared_seconds": 308.2
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/underfire-stakka_and_skynet-(udfr016)-2000/b-stakka_and_skynet-global_report-sour.mp3",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Stakka And Skynet - Stakka And Skynet - Global Report",
+   "coverage": 0.724,
+   "hits": 493,
+   "speed": 1.0279,
+   "shared_seconds": 93.5
+  },
+  {
+   "query": "extra/b-stratus-waves-sour.mp3",
+   "found": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+   "query_name": "Stratus - Waves",
+   "found_name": "Stratus - Waves",
+   "coverage": 0.714,
+   "hits": 2148,
+   "speed": 1.004,
+   "shared_seconds": 258.9
+  },
+  {
+   "query": "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+   "query_name": "Bad Company - China Cup",
+   "found_name": "BAD COMPANY - china cup",
+   "coverage": 0.684,
+   "hits": 3219,
+   "speed": 0.9883,
+   "shared_seconds": 255.1
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "query_name": "Stakka And Skynet - Night Lore",
+   "found_name": "STAKKA and SKYNET - knight lore",
+   "coverage": 0.684,
+   "hits": 1275,
+   "speed": 0.974,
+   "shared_seconds": 212.9
+  },
+  {
+   "query": "extra/b-bad_company-china_cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+   "query_name": "Bad Company - China Cup",
+   "found_name": "BAD COMPANY - china cup",
+   "coverage": 0.683,
+   "hits": 2690,
+   "speed": 0.9871,
+   "shared_seconds": 254.9
+  },
+  {
+   "query": "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Sarin.opus",
+   "found": "second-library/__youtube_archivists/alien5ive/TRUE PLAYAZ RECs [ TPR 12040 \uff1a CAUSE4CONCERN - sarin - ] drum and bass.opus",
+   "query_name": "Cause4Concern - Sarin",
+   "found_name": "CAUSE4CONCERN - sarin",
+   "coverage": 0.683,
+   "hits": 991,
+   "speed": 0.9723,
+   "shared_seconds": 265.2
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/TRUE PLAYAZ RECs [ TPR 12040 \uff1a CAUSE4CONCERN - sarin - ] drum and bass.opus",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Sarin.opus",
+   "query_name": "CAUSE4CONCERN - sarin",
+   "found_name": "Cause 4 Concern - Sarin",
+   "coverage": 0.681,
+   "hits": 1372,
+   "speed": 1.0264,
+   "shared_seconds": 264.5
+  },
+  {
+   "query": "Bad Company - China Cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+   "query_name": "Bad Company - China Cup",
+   "found_name": "BAD COMPANY - china cup",
+   "coverage": 0.676,
+   "hits": 2610,
+   "speed": 0.9871,
+   "shared_seconds": 252.2
+  },
+  {
+   "query": "extra/02. Bad Company - China Cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+   "query_name": "Bad Company - China Cup",
+   "found_name": "BAD COMPANY - china cup",
+   "coverage": 0.676,
+   "hits": 2610,
+   "speed": 0.9871,
+   "shared_seconds": 252.2
+  },
+  {
+   "query": "extra/aa-cause_4_concern-synergy-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a",
+   "query_name": "Cause 4 Concern - Cause 4 Concern - Synergy",
+   "found_name": "C4C - synergy",
+   "coverage": 0.646,
+   "hits": 632,
+   "speed": 0.9719,
+   "shared_seconds": 222.5
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a",
+   "found": "second-library/Synthetic-Amir-SYNTH001-2001-sour/AA-Amir-Bulletproof-sour.mp3",
+   "query_name": "DJ AMIR - bulletproof vest",
+   "found_name": " - AA-Amir-Bulletproof-sour",
+   "coverage": 0.639,
+   "hits": 735,
+   "speed": 1.0243,
+   "shared_seconds": 299.8
+  },
+  {
+   "query": "extra/a-cause_4_concern-nightgasp-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 \uff1a CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+   "query_name": "Cause 4 Concern - Nightgasp",
+   "found_name": "CAUSE 4 CONCERN - night gasp",
+   "coverage": 0.625,
+   "hits": 1680,
+   "speed": 0.974,
+   "shared_seconds": 210.6
+  },
+  {
+   "query": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+   "query_name": "Mo-Funk - Slipstream (Gridlok remix)",
+   "found_name": "MO-FUNK - GRIDLOK RMX - slipstream",
+   "coverage": 0.604,
+   "hits": 1271,
+   "speed": 0.974,
+   "shared_seconds": 230.2
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Rob F & Impulse - Fallout.opus",
+   "found": "second-library/__youtube_archivists/alien5ive/SHADOW LAW RECORDINGS [ SLR 001 \uff1a ROB F & IMPULSE - fallout - ] drum and bass.opus",
+   "query_name": "Rob F & Impulse - Fallout",
+   "found_name": "ROB F & IMPULSE - fallout",
+   "coverage": 0.595,
+   "hits": 911,
+   "speed": 0.9791,
+   "shared_seconds": 238.4
+  },
+  {
+   "query": "extra/02 Coma.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+   "query_name": "Bad Company - Coma",
+   "found_name": "Bad Company - Spraycan",
+   "coverage": 0.594,
+   "hits": 2318,
+   "speed": 0.9836,
+   "shared_seconds": 228.8
+  },
+  {
+   "query": "extra/b-cause_4_concern-sarin-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/TRUE PLAYAZ RECs [ TPR 12040 \uff1a CAUSE4CONCERN - sarin - ] drum and bass.opus",
+   "query_name": "Cause 4 Concern - Sarin",
+   "found_name": "CAUSE4CONCERN - sarin",
+   "coverage": 0.58,
+   "hits": 908,
+   "speed": 0.9726,
+   "shared_seconds": 225.4
+  },
+  {
+   "query": "extra/aa-paul_b_and_subwave-break_through-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 009 \uff1a PAUL B. & SUBWAVE - break through - ] drum and bass.opus",
+   "query_name": "Paul B & Subwave - Break Through",
+   "found_name": "PAUL B. & SUBWAVE - break through",
+   "coverage": 0.561,
+   "hits": 1315,
+   "speed": 0.9728,
+   "shared_seconds": 211.6
+  },
+  {
+   "query": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/The Prodigy - Voodoo People (Delta Heavy Remix) [CUT].opus",
+   "query_name": "typecell - egomatric [rob f rmx]",
+   "found_name": "The Prodigy - Voodoo People (Delta Heavy Remix) [CUT]",
+   "coverage": 0.557,
+   "hits": 10,
+   "speed": 1.002,
+   "shared_seconds": 52.4
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/TRUE PLAYAZ RECs [ TPR 12040 \uff1a CAUSE4CONCERN - sarin - ] drum and bass.opus",
+   "found": "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Sarin.opus",
+   "query_name": "CAUSE4CONCERN - sarin",
+   "found_name": "Cause4Concern - Sarin",
+   "coverage": 0.553,
+   "hits": 844,
+   "speed": 1.0282,
+   "shared_seconds": 214.9
+  },
+  {
+   "query": "Kemal & Rob Data - Star Trails.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "query_name": "Konflict - Star Trails",
+   "found_name": "KEMAL & ROB DATA - star trails",
+   "coverage": 0.547,
+   "hits": 816,
+   "speed": 0.9717,
+   "shared_seconds": 241.7
+  },
+  {
+   "query": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+   "found": "second-library/__youtube_archivists/rootzdnb/Krust & Surge - Stuck In The Mud.m4a",
+   "query_name": "Brockie & Ed Solo - Voices",
+   "found_name": "Krust & Surge - Stuck In The Mud",
+   "coverage": 0.546,
+   "hits": 9,
+   "speed": 0.9917,
+   "shared_seconds": 53.0
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/subtitles-dj_teebee-subtitles001-2000/a-gathering_of_developers-2000-sour.mp3",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "DJ Teebee - Gathering of Developers",
+   "coverage": 0.532,
+   "hits": 13,
+   "speed": 1.0207,
+   "shared_seconds": 68.7
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/outbreak-pyro-outb008-2001-sour/AA-Pyro-Battleangel-sour.mp3",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Pyro - Battleangel",
+   "coverage": 0.531,
+   "hits": 20,
+   "speed": 1.004,
+   "shared_seconds": 68.6
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Clipz - 2Hi.opus",
+   "query_name": "Stakka & Skynet - Decoy (Remastered)",
+   "found_name": "Clipz - 2Hi",
+   "coverage": 0.53,
+   "hits": 9,
+   "speed": 0.9944,
+   "shared_seconds": 65.2
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Clipz - 2Hi.opus",
+   "query_name": "Stakka & Skynet - Decoy (Remastered)",
+   "found_name": "Clipz - 2Hi",
+   "coverage": 0.53,
+   "hits": 9,
+   "speed": 1.0056,
+   "shared_seconds": 65.2
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Kendo - Formulas.m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Kendo - Formulas",
+   "coverage": 0.515,
+   "hits": 9,
+   "speed": 0.9944,
+   "shared_seconds": 66.6
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+   "query_name": "Stakka & K.Tee - Synthesis (Remix)",
+   "found_name": "Stakka And K Tee - Synthesis",
+   "coverage": 0.512,
+   "hits": 1050,
+   "speed": 0.9872,
+   "shared_seconds": 87.8
+  },
+  {
+   "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+   "query_name": "Stakka + K.Tee - Synthesis VIP",
+   "found_name": "Stakka And K Tee - Synthesis",
+   "coverage": 0.508,
+   "hits": 1162,
+   "speed": 0.9858,
+   "shared_seconds": 87.0
+  },
+  {
+   "query": "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "query_name": " - A-Bad_Company-The_Nine-sour",
+   "found_name": "Bad Company - The Nine (Evol Intent VIP)",
+   "coverage": 0.504,
+   "hits": 1933,
+   "speed": 0.9957,
+   "shared_seconds": 212.6
+  },
+  {
+   "query": "Bad Company - The Nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "query_name": "Bad Company - The Nine",
+   "found_name": "Bad Company - The Nine (Evol Intent VIP)",
+   "coverage": 0.503,
+   "hits": 1811,
+   "speed": 0.9957,
+   "shared_seconds": 214.2
+  },
+  {
+   "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "query_name": "Bad Company - The Nine",
+   "found_name": "Bad Company - The Nine (Evol Intent VIP)",
+   "coverage": 0.503,
+   "hits": 1811,
+   "speed": 0.9957,
+   "shared_seconds": 214.2
+  },
+  {
+   "query": "extra/A- The_Nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "query_name": "Bad Company - The Nine",
+   "found_name": "Bad Company - The Nine (Evol Intent VIP)",
+   "coverage": 0.503,
+   "hits": 1775,
+   "speed": 0.9957,
+   "shared_seconds": 214.2
+  },
+  {
+   "query": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Clipz - 2Hi.opus",
+   "query_name": "Stakka And Skynet - Stakka And Skynet - Global Report",
+   "found_name": "Clipz - 2Hi",
+   "coverage": 0.5,
+   "hits": 10,
+   "speed": 1.0091,
+   "shared_seconds": 61.5
+  },
+  {
+   "query": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "query_name": "Bad Company - The Nine",
+   "found_name": "Bad Company - The Nine (Evol Intent VIP)",
+   "coverage": 0.499,
+   "hits": 4930,
+   "speed": 0.9974,
+   "shared_seconds": 209.5
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "query_name": "STAKKA and SKYNET - global report",
+   "found_name": "Stakka And Skynet - Globall Report",
+   "coverage": 0.496,
+   "hits": 723,
+   "speed": 1.0059,
+   "shared_seconds": 64.1
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Realtime - See You.m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Realtime - See You",
+   "coverage": 0.495,
+   "hits": 9,
+   "speed": 1.0194,
+   "shared_seconds": 63.9
+  },
+  {
+   "query": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "query_name": "Stakka And Skynet - Stakka And Skynet - Global Report",
+   "found_name": "Stakka And Skynet - Globall Report",
+   "coverage": 0.494,
+   "hits": 428,
+   "speed": 0.973,
+   "shared_seconds": 63.8
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Tango - Sent To Coventry (Total Science Remix).m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Tango - Sent To Coventry (Total Science Remix)",
+   "coverage": 0.458,
+   "hits": 10,
+   "speed": 1.0137,
+   "shared_seconds": 59.2
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 009 \uff1a PAUL B. & SUBWAVE - break through - ] drum and bass.opus",
+   "found": "second-library/aa-paul_b_and_subwave-break_through-sour.mp3",
+   "query_name": "PAUL B. & SUBWAVE - break through",
+   "found_name": "Paul B & Subwave - Break Through",
+   "coverage": 0.458,
+   "hits": 1025,
+   "speed": 1.0279,
+   "shared_seconds": 172.7
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) DJ Daze \u200e\u2013  Inflicted (Drum'n'Bass) (Drum'n'Bass).opus",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "(Drum'n'Bass) (Drum'n'Bass) DJ Daze \u200e - Inflicted (Drum'n'Bass) (Drum'n'Bass)",
+   "coverage": 0.448,
+   "hits": 10,
+   "speed": 0.9984,
+   "shared_seconds": 57.8
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/unxplored-dnb/DJ Sappo - Circumference.m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "DJ Sappo - Circumference",
+   "coverage": 0.446,
+   "hits": 10,
+   "speed": 1.0197,
+   "shared_seconds": 57.6
+  },
+  {
+   "query": "Skynet & Stakka - Night Lore.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "query_name": "Stakka And Skynet - Nightlore",
+   "found_name": "STAKKA and SKYNET - knight lore",
+   "coverage": 0.445,
+   "hits": 736,
+   "speed": 0.9723,
+   "shared_seconds": 164.2
+  },
+  {
+   "query": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "query_name": "Stakka And Skynet - Nightlore",
+   "found_name": "STAKKA and SKYNET - knight lore",
+   "coverage": 0.445,
+   "hits": 736,
+   "speed": 0.9723,
+   "shared_seconds": 164.2
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/aa-stare-runaway_(nosia_remix)-atm.mp3",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Stare - Runaway (Nosia Remix)",
+   "coverage": 0.445,
+   "hits": 16,
+   "speed": 1.0164,
+   "shared_seconds": 57.4
+  },
+  {
+   "query": "Skynet & Stakka - Logistics.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "query_name": "Stakka + Skynet - Logistics",
+   "found_name": "SKYNET & STAKKA - logistics",
+   "coverage": 0.443,
+   "hits": 848,
+   "speed": 0.9722,
+   "shared_seconds": 184.5
+  },
+  {
+   "query": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "query_name": "Stakka + Skynet - Logistics",
+   "found_name": "SKYNET & STAKKA - logistics",
+   "coverage": 0.443,
+   "hits": 848,
+   "speed": 0.9722,
+   "shared_seconds": 184.5
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+   "query_name": "STAKKA and SKYNET - global report",
+   "found_name": "Profound Noize - Luminous (Remix)",
+   "coverage": 0.443,
+   "hits": 56,
+   "speed": 1.0054,
+   "shared_seconds": 85.8
+  },
+  {
+   "query": "extra/A. Pyro -- Time Is Broken.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Glitch - Jet Lag (Clip).opus",
+   "query_name": "Pyro - Time Is Broken",
+   "found_name": "Glitch - Jet Lag (Clip)",
+   "coverage": 0.442,
+   "hits": 11,
+   "speed": 1.0173,
+   "shared_seconds": 49.4
+  },
+  {
+   "query": "extra/A. Pyro -- Time Is Broken.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Glitch - Jet Lag (Clip).opus",
+   "query_name": "Pyro - Time Is Broken",
+   "found_name": "Glitch - Jet Lag (Clip)",
+   "coverage": 0.442,
+   "hits": 11,
+   "speed": 1.0174,
+   "shared_seconds": 49.4
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/Item.Code-Drum_and_Bass_Models-2006-WHOA/08-item.code-kosmic-whoa.mp3",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Item.code - Kosmic",
+   "coverage": 0.438,
+   "hits": 11,
+   "speed": 1.0196,
+   "shared_seconds": 56.5
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/SUBTITLES MUSIC [ SUBTITLES 010 \uff1a TEEBEE vs FUTURE PROPHECIES - the path - ] drum and bass.m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "TEEBEE vs FUTURE PROPHECIES - the path",
+   "coverage": 0.438,
+   "hits": 9,
+   "speed": 1.0017,
+   "shared_seconds": 56.5
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/michal-slabosz/Cj IQ - F..K  U.m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Cj IQ - F..K  U",
+   "coverage": 0.437,
+   "hits": 14,
+   "speed": 0.9909,
+   "shared_seconds": 56.5
+  },
+  {
+   "query": "extra/A. Pyro -- Time Is Broken.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "query_name": "Pyro - Time Is Broken",
+   "found_name": "Pyro - Ignorance",
+   "coverage": 0.431,
+   "hits": 858,
+   "speed": 1.0,
+   "shared_seconds": 187.7
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/rootzdnb/Particle x Covert Garden - Silver Crown x Submersive.opus",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Particle x Covert Garden - Silver Crown x Submersive",
+   "coverage": 0.427,
+   "hits": 9,
+   "speed": 1.0018,
+   "shared_seconds": 55.1
+  },
+  {
+   "query": "extra/b-subwave-digital_symphony-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Dimension - UK (Amen Tearout Bootleg).m4a",
+   "query_name": "Subwave - Digital Symphony",
+   "found_name": "Dimension - UK (Amen Tearout Bootleg)",
+   "coverage": 0.426,
+   "hits": 17,
+   "speed": 0.9869,
+   "shared_seconds": 95.0
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/dfect-dnb/Genetix - Chrysalis.m4a",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "Genetix - Chrysalis",
+   "coverage": 0.424,
+   "hits": 9,
+   "speed": 1.0067,
+   "shared_seconds": 54.8
+  },
+  {
+   "query": "extra/a-mo_funk-slipstream-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - slipstream - ] drum and bass.m4a",
+   "query_name": "Mo-Funk - Slipstream",
+   "found_name": "MO-FUNK - slipstream",
+   "coverage": 0.423,
+   "hits": 759,
+   "speed": 0.9725,
+   "shared_seconds": 152.5
+  },
+  {
+   "query": "extra/b-spinor-mutant_storm-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Frenchi \u29f8 Proktah - Scarabeus.opus",
+   "query_name": "Spinor - Mutant Storm",
+   "found_name": "Frenchi / Proktah - Scarabeus",
+   "coverage": 0.422,
+   "hits": 10,
+   "speed": 0.996,
+   "shared_seconds": 39.7
+  },
+  {
+   "query": "second-library/__youtube_archivists/3zb-gangstep-dnb/Aquasky - Structure.m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Lamb - Gabriel (Logistics Bootleg) [CUT].m4a",
+   "query_name": "Aquasky - Structure",
+   "found_name": "Lamb - Gabriel (Logistics Bootleg) [CUT]",
+   "coverage": 0.419,
+   "hits": 10,
+   "speed": 1.0099,
+   "shared_seconds": 58.7
+  },
+  {
+   "query": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "found": "second-library/Defected-J_Majik_(feat_Kathy_Brown)-DFECT31-2001-sour/B-J_Majik-Love_Is_Not_A_Game_(Dillinja_Remix)-sour.mp3",
+   "query_name": "Aphrodite - Fanfare Dubstyle",
+   "found_name": " - B-J_Majik-Love_Is_Not_A_Game_(Dillinja_Remix)-sour",
+   "coverage": 0.416,
+   "hits": 6,
+   "speed": 1.002,
+   "shared_seconds": 38.4
+  },
+  {
+   "query": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "found": "second-library/Defected-J_Majik_(feat_Kathy_Brown)-DFECT31-2001-sour/B-J_Majik-Love_Is_Not_A_Game_(Dillinja_Remix)-sour.mp3",
+   "query_name": " - b-aphrodite-fanfare_dubstyle-sour",
+   "found_name": " - B-J_Majik-Love_Is_Not_A_Game_(Dillinja_Remix)-sour",
+   "coverage": 0.416,
+   "hits": 6,
+   "speed": 1.002,
+   "shared_seconds": 38.4
+  },
+  {
+   "query": "extra/09-muffler-downfall_(original_mix).mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Spherix - Pterion (Clip).m4a",
+   "query_name": "Muffler - Downfall (Original Mix)",
+   "found_name": "Spherix - Pterion (Clip)",
+   "coverage": 0.412,
+   "hits": 11,
+   "speed": 0.9973,
+   "shared_seconds": 63.9
+  },
+  {
+   "query": "extra/02 Coma.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Matrix - Temperament 23 [CUT].opus",
+   "query_name": "Bad Company - Coma",
+   "found_name": "Matrix - Temperament 23 [CUT]",
+   "coverage": 0.41,
+   "hits": 6,
+   "speed": 0.998,
+   "shared_seconds": 36.9
+  },
+  {
+   "query": "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Matrix - Temperament 23 [CUT].opus",
+   "query_name": "Drumsound & Simon Bassline Smith - Dirty Dancing",
+   "found_name": "Matrix - Temperament 23 [CUT]",
+   "coverage": 0.41,
+   "hits": 7,
+   "speed": 1.0017,
+   "shared_seconds": 36.9
+  },
+  {
+   "query": "extra/a-rascal_and_klone-snake_eyes-sour.mp3",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/03-Stakka_And_Skynet-Nu_Level_(Remix)-sour.mp3",
+   "query_name": "Rascal & Klone - Snake Eyes",
+   "found_name": "Stakka And Skynet - Nu Level",
+   "coverage": 0.405,
+   "hits": 23,
+   "speed": 0.992,
+   "shared_seconds": 48.8
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/SHAKEDOWN [ SHAKE002 \uff1a RASCAL & KLONE - snake eyes - ] drum and bass.opus",
+   "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/03-Stakka_And_Skynet-Nu_Level_(Remix)-sour.mp3",
+   "query_name": "RASCAL & KLONE - snake eyes",
+   "found_name": "Stakka And Skynet - Nu Level",
+   "coverage": 0.405,
+   "hits": 19,
+   "speed": 0.9919,
+   "shared_seconds": 48.8
+  },
+  {
+   "query": "second-library/__youtube_archivists/3zb-gangstep-dnb/Drumsound & Simon 'Bassline' Smith - Dirty Dancing.m4a",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Glitch - Jet Lag (Clip).opus",
+   "query_name": "Drumsound & Simon 'Bassline' Smith - Dirty Dancing",
+   "found_name": "Glitch - Jet Lag (Clip)",
+   "coverage": 0.405,
+   "hits": 10,
+   "speed": 1.0182,
+   "shared_seconds": 45.2
+  },
+  {
+   "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/DJ Friction - Photon Remix.opus",
+   "query_name": "Stakka And Skynet - Globall Report",
+   "found_name": "DJ Friction - Photon Remix",
+   "coverage": 0.404,
+   "hits": 10,
+   "speed": 0.9999,
+   "shared_seconds": 52.1
+  },
+  {
+   "query": "second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus",
+   "query_name": "Kemal & Sinthetix - Creature",
+   "found_name": "Ray Keith - Dark Soldier (Mr Explicit VIP Remix)",
+   "coverage": 0.403,
+   "hits": 6,
+   "speed": 1.0,
+   "shared_seconds": 37.0
+  },
+  {
+   "query": "extra/2. Phace - Fraxion.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus",
+   "query_name": "Phace - Fraxion",
+   "found_name": "Ray Keith - Dark Soldier (Mr Explicit VIP Remix)",
+   "coverage": 0.403,
+   "hits": 6,
+   "speed": 0.998,
+   "shared_seconds": 37.0
+  },
+  {
+   "query": "extra/aa-black_sun_empire-bnegative-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Clipz - 2Hi.opus",
+   "query_name": "Black Sun Empire - B'Negative",
+   "found_name": "Clipz - 2Hi",
+   "coverage": 0.402,
+   "hits": 15,
+   "speed": 0.9884,
+   "shared_seconds": 49.4
+  },
+  {
+   "query": "extra/207-ant_miles-china_town-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Lamb - Gabriel (Logistics Bootleg) [CUT].m4a",
+   "query_name": "Ant Miles - China Town",
+   "found_name": "Lamb - Gabriel (Logistics Bootleg) [CUT]",
+   "coverage": 0.401,
+   "hits": 10,
+   "speed": 1.008,
+   "shared_seconds": 56.2
+  },
+  {
+   "query": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Blu Mar Ten - Last Life In The Universe (SpectraSoul Remix).opus",
+   "query_name": "Aphrodite - Stalker",
+   "found_name": "Blu Mar Ten - Last Life In The Universe (SpectraSoul Remix)",
+   "coverage": 0.4,
+   "hits": 10,
+   "speed": 0.9978,
+   "shared_seconds": 38.8
+  }
+ ],
+ "tag_conflicts_in_clusters": [
+  "Future Cut - The Specialist cluster holds Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3 (tagged Sex Drive)",
+  "Future Cut - Razor's Edge cluster holds Infrared-INFRA011-Future_Cut-2000-sour/aa-future_cut-specialist-sour.mp3 (tagged Specialist)",
+  "Noisia & Phace - Outsource (Misanthrop Remix) cluster holds __youtube_archivists/alien5ive/SYNDROME AUDIO [ SYNDROME 003 : MINDSCAPE - new deal - ] drum and bass.m4a",
+  "DJ Ink - Ice Age (Digital & Spirit RMX) cluster holds __youtube_archivists/i-witness-dnb/Future Cut - Horns 2000 (Dylan Remix).opus",
+  "extra/b-unknown-udfr014-sour.mp3 (no tags) cluster holds __youtube_archivists/3zb-gangstep-dnb/Profound Noize - Luminous Remix.opus",
+  "DJ Reality - Reasons cluster holds __youtube_archivists/michal-slabosz/Modern Moves -  Reasons.m4a (10:11 against 6:25)",
+  "Stakka & Skynet - Global Report and Night Lore clusters hold tracks of the mixed CD Underfire UDFRCD003 - Dangerous Drums Volume 2 (2:09 and 5:11)"
+ ],
+ "duplicates": [
+  [
+   "Bad Company - China Cup.mp3",
+   "extra/02. Bad Company - China Cup.mp3",
+   "extra/b-bad_company-china_cup.mp3",
+   "second-library/(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+   "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "second-library/prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3"
+  ],
+  [
+   "Bad Company - The Nine.mp3",
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+  ],
+  [
+   "Bad Company - The Pulse.mp3",
+   "extra/a-bad_company-pulse.mp3",
+   "second-library/(1999) The Pulse & China Cup (PRO001UK)/01. Bad Company - Pulse.mp3",
+   "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - the pulse - ] drum and bass.opus",
+   "second-library/bad_company-fear_lp/01 bad company-the pulse.mp3",
+   "second-library/prototype_uk_001-bad_company-sour/a-bad_company-pulse.mp3"
+  ],
+  [
+   "DJ Trace - Sonar.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Bacteria.mp3",
+   "second-library/A_-_Ed_Rush_%26_Optical_-_Bacteria.mp3",
+   "second-library/__youtube_archivists/alien5ive/VIRUS RECORDINS [ VRS 005 \uff1a ED RUSH + OPTICAL - bacteria - ] drum and bass.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Funktion.mp3",
+   "extra/01 - Ed Rush & Optical - Funktion.mp3",
+   "second-library/1998 - V026 - Ed Rush & Optical - Funktion + Naked Lunch [V]/01 - Ed Rush & Optical - Funktion.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Gas Mask.m4a",
+   "second-library/__youtube_archivists/alien5ive/VIRUS RECORDINS [ VRS 005 \uff1a ED RUSH + OPTICAL - gasmask - ] drum and bass.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Sick Note.mp3",
+   "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+   "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/a-ed_rush_and_optical-sicknote-sour.mp3"
+  ],
+  [
+   "Ed Rush & Optical - Watermelon.mp3",
+   "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+  ],
+  [
+   "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+   "second-library/1998 - PRO014 - Ed Rush, Optical & Fierce - Alien Girl + Cutslo (Lokuste Mix) [Prototype]/aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3"
+  ],
+  [
+   "Fibre Optix - Sin.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Fibre Optix - Sin.m4a"
+  ],
+  [
+   "Kemal & Paul Reset - Kontempt.mp3",
+   "second-library/underfire-kemal_stakka_and_k_tee-udfr017-2001-sour/a-kemal_and_paul_reset-kontempt-sour.mp3"
+  ],
+  [
+   "Kemal & Rob Data - Star Trails.mp3",
+   "second-library/audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3"
+  ],
+  [
+   "Kraken - Dominion.opus",
+   "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+   "second-library/[ZEROG01] Kraken+Arkane - Dominion+Neuro - 2001 [192]/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+   "second-library/__youtube_archivists/alien5ive/ZERO G RECORDINGS [ ZEROG01 \uff1a KRAKEN - dominion - ] drum and bass.opus",
+   "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus"
+  ],
+  [
+   "Kraken - Side Effects (TeeBee Remix).mp3",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+   "second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/d-kraken-side_effects_(teebee_remix)-sour.mp3"
+  ],
+  [
+   "Krust - Warhead (Ram Trilogy Remix).m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Krust - Warhead (Ram Trilogy Remix).m4a"
+  ],
+  [
+   "Optical - Millennium.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Optical - Millennium.m4a"
+  ],
+  [
+   "Optical - Slip Thru.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Optical - Slip Thru.m4a"
+  ],
+  [
+   "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Roni Size & Reprazent - Watching Windows (DJ Die Gnarly Vocal Mix).m4a"
+  ],
+  [
+   "Ryme Tyme - Payback Pt. 1.mp3",
+   "second-library/DSCI4-DSCI4002-Ryme_Tyme-1999-sour/A-Ryme_Tyme-Payback-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Clockwork.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Decoy.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+   "second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/a-stakka_and_skynet-decoy-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Logistics.mp3",
+   "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+   "second-library/audio_blueprint-stakka_and_skynet-ab012-2000-sour/AA-Stakka_and_Skynet-Logistics-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Night Lore.mp3",
+   "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+   "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+   "second-library/underfire-stakka_and_skynet-(udfr016)-2000/a-stakka_and_skynet-nightlore-sour.mp3"
+  ],
+  [
+   "Skynet & Stakka - Pathogen.mp3",
+   "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+   "second-library/audio_blueprint-stakka_and_skynet-abpr014-2001-sour/A-Stakka_and_Skynet-Pathogen-sour.mp3"
+  ],
+  [
+   "Stakka & K.Tee - Auto Ignition.mp3",
+   "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+   "second-library/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3"
+  ],
+  [
+   "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3"
+  ],
+  [
+   "extra/01 - Aquasky - Spectre.mp3",
+   "second-library/[SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/01 - Aquasky - Spectre.mp3",
+   "second-library/aquasky-radium_ep-msxep006-2000-sour/y-aquasky-spectre-sour.mp3"
+  ],
+  [
+   "extra/01 - Ryme Tyme - T-Minus.mp3",
+   "second-library/[SHADOW 145] - [2000] - Ryme Tyme - T-Minus/01 - Ryme Tyme - T-Minus.mp3"
+  ],
+  [
+   "extra/01-future_cut-the_specialist-trt.mp3",
+   "second-library/Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus"
+  ],
+  [
+   "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3",
+   "second-library/Item.Code-Drum_and_Bass_Models-2006-WHOA/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Item Code & Fading Suns - Inspiration.opus"
+  ],
+  [
+   "extra/01-muffler-bleak_(original_mix).mp3",
+   "second-library/01-muffler-bleak_(original_mix).mp3",
+   "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/01-muffler-bleak_(original_mix).mp3"
+  ],
+  [
+   "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+   "second-library/typecell_-_protogen-03-vinyl-2003-oma/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3"
+  ],
+  [
+   "extra/01. Krot - Great Escape.mp3",
+   "second-library/Krot - Great Escape EP (C2DMP3019)-WEB-2011/01. Krot - Great Escape.mp3"
+  ],
+  [
+   "extra/02 Coma.mp3",
+   "second-library/(2000) Coma & Spraycan (DSCI4)/02 Coma.mp3"
+  ],
+  [
+   "extra/02-Decoder-Hord_39-sour.mp3",
+   "second-library/Decoder-Concussion_LP-tilpo01cd-2000-sour/02-Decoder-Hord_39-sour.mp3",
+   "second-library/TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/A_-_Decoder_-_Hord_39.mp3"
+  ],
+  [
+   "extra/02-Spy-Z_Plane-sour.mp3",
+   "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/09-Spy-Z_Plane-sour.mp3",
+   "second-library/VA-The_Infantry_EP-UDFR013-1999-sour/02-Spy-Z_Plane-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a SPY - z-plane - ] drum and bass.opus",
+   "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a"
+  ],
+  [
+   "extra/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3",
+   "second-library/2008 - C4CUKLTD001 - Phatcap (Phace Remix), Synergy (BSE Remix) - 320/2.Cause 4 Concern - Synergy (Black Sun Empire Remix).mp3",
+   "second-library/[2008] - [C4CUKLTD001] - Cause4Concern_-_Phatcap_Remix_Single-WEB-2009-BiLDERBERG/02-cause4concern_-_synergy_(black_sun_empire_remix).mp3"
+  ],
+  [
+   "extra/02-chemical_frequency-death_trap-bpm.mp3",
+   "second-library/__youtube_archivists/michal-slabosz/Chemical Frequency - Death Trap.m4a",
+   "second-library/chemical_frequency-mega_byte_death_trap-nologo002-promo_vinyl-2002-bpm/02-chemical_frequency-death_trap-bpm.mp3"
+  ],
+  [
+   "extra/02-future_cut-razors_edge-trt.mp3",
+   "second-library/Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3",
+   "second-library/Infrared-INFRA011-Future_Cut-2000-sour/aa-future_cut-specialist-sour.mp3",
+   "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/02-future_cut-razors_edge-trt.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Future Cut - Razor's Edge.m4a"
+  ],
+  [
+   "extra/02_-_skinnah_-_figurehead.mp3",
+   "second-library/[RUFF 57] Various - Analog Steroids (CD)/02_-_skinnah_-_figurehead.mp3",
+   "second-library/ruff-teck-ancronix_vs_skinnah-ruflm1-2001-dbu/b-skinnah-figurehead-dbu.mp3",
+   "second-library/va-ruff-teck_-_analog_steroids-(ruff057)-cd-2001-kroket/b_skinnah_-_figurehead-kroket.mp3"
+  ],
+  [
+   "extra/03-aquasky-structure.mp3",
+   "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/03-aquasky-structure.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Aquasky - Structure.m4a"
+  ],
+  [
+   "extra/03-drumsound_and_future_tech-apocalypse_(original_mix).mp3",
+   "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/03-drumsound_and_future_tech-apocalypse_(original_mix).mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Apocalypse.opus"
+  ],
+  [
+   "extra/03-verbal-frozen_lake_(dephzac_remix).mp3",
+   "second-library/03-verbal-frozen_lake_(dephzac_remix).mp3"
+  ],
+  [
+   "extra/03. Pieter K - Liquifaction (Stakka Remix).mp3",
+   "second-library/03. Pieter K - Liquifaction (Stakka Remix).mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Pieter K - Liquifaction (Stakka RMX).m4a"
+  ],
+  [
+   "extra/03_-_dj_ruffneck_-_jawbreaker.mp3",
+   "second-library/[RUFF 57] Various - Analog Steroids (CD)/03_-_dj_ruffneck_-_jawbreaker.mp3"
+  ],
+  [
+   "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+   "second-library/VA-The_Infantry_EP-UDFR013-1999-sour/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 013 \uff1a FRICTION & SKINNY - depth charge - ] drum and bass.m4a"
+  ],
+  [
+   "extra/04_-_dj_hidden_-_skektics.mp3",
+   "second-library/04 - dj hidden - skektics.mp3",
+   "second-library/[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3"
+  ],
+  [
+   "extra/04_Rec.mp3",
+   "second-library/2009 - MTRDEP009 - Krot - Resistance EP/04_Rec.mp3",
+   "second-library/Krot-MTRDEP009-KOiNE/04_Rec.mp3"
+  ],
+  [
+   "extra/05 - Bad Company - Sentient.mp3",
+   "second-library/(2000) Inside The Machine (VDBCRLP001)/05 - Bad Company - Sentient.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Bad Company - Sentient.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Sentient.m4a"
+  ],
+  [
+   "extra/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+   "second-library/Item.Code-Drum_and_Bass_Models-2006-WHOA/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3"
+  ],
+  [
+   "extra/06_-_skinnah_-_state_of_violance.mp3",
+   "second-library/Ruff-Teck-RUFF057-Analog_Steroids-CD-2001-KROKET/f_skinnah_-_state_of_violance-kroket.mp3",
+   "second-library/[RUFF 57] Various - Analog Steroids (CD)/06_-_skinnah_-_state_of_violance.mp3"
+  ],
+  [
+   "extra/07 - Bad Company - Oxygen.mp3",
+   "second-library/(2000) Inside The Machine (VDBCRLP001)/07 - Bad Company - Oxygen.mp3"
+  ],
+  [
+   "extra/07-item.code-magnetics-whoa.mp3",
+   "second-library/Item.Code-Drum_and_Bass_Models-2006-WHOA/07-item.code-magnetics-whoa.mp3"
+  ],
+  [
+   "extra/08-item.code-kosmic-whoa.mp3",
+   "second-library/Item.Code-Drum_and_Bass_Models-2006-WHOA/08-item.code-kosmic-whoa.mp3"
+  ],
+  [
+   "extra/08-kraken-analogue_spikes-minc.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Kraken - Analogue Spikes.m4a",
+   "second-library/va-blazin_(udfrlp02)-1999-minc/08-kraken-analogue_spikes-minc.mp3"
+  ],
+  [
+   "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+   "second-library/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+   "second-library/2006 - BWCD03 - N.Phect And Dizplay - Beautiful Bytes - 320/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3"
+  ],
+  [
+   "extra/09-Decoder-Bountyhunter-sour.mp3",
+   "second-library/Decoder-Concussion_LP-tilpo01cd-2000-sour/09-Decoder-Bountyhunter-sour.mp3"
+  ],
+  [
+   "extra/09-muffler-downfall_(original_mix).mp3",
+   "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/09-muffler-downfall_(original_mix).mp3"
+  ],
+  [
+   "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+   "second-library/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+   "second-library/2007 - SYNDROME003 - Noisia & Phace, Mindscape - Outsource (Misanthrop Remix), New Deal - 320/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+   "second-library/VA-Syndrome_Down-SYNDROME007CD-2007/05-Noisia & Phace-Outsource (Misanthrop Remix).m4a",
+   "second-library/__youtube_archivists/alien5ive/SYNDROME AUDIO [ SYNDROME 003 \uff1a MINDSCAPE - new deal - ] drum and bass.m4a"
+  ],
+  [
+   "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+   "second-library/2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3"
+  ],
+  [
+   "extra/1.Kemal & Rob Data - The Mummy.mp3",
+   "second-library/2000 - NTV001 - The Mummy, Bleed - 192/1.Kemal & Rob Data - The Mummy.mp3",
+   "second-library/__youtube_archivists/rootzdnb/Kemal & Rob Data - The Mummy.m4a",
+   "second-library/negative-konflict-ntv001-2000-sour/a-konflict-the_mummy-sour.mp3"
+  ],
+  [
+   "extra/1.Kemal, Rob F & Impulse - Creature.mp3",
+   "second-library/2002 - CPT003 - Kemal vs. Rob F & Impulse - 256/1.Kemal, Rob F & Impulse - Creature.mp3",
+   "second-library/__youtube_archivists/alien5ive/CRYPTIC AUDIO [ CPT 003 \uff1a KEMAL, ROB F & IMPULSE - creature - ] drum and bass.opus",
+   "second-library/__youtube_archivists/dfect-dnb/Kemal & Sinthetix - Creature.m4a",
+   "second-library/cryptic_audio-kemal_and_sinthetix-cpt003-2002-sour/a-kemal_and_sinthetix-creature-sour.mp3"
+  ],
+  [
+   "extra/10-muffler-nutcracker_(original_mix).mp3",
+   "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/10-muffler-nutcracker_(original_mix).mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Muffler \u200e- Nutcracker (Extended Mix).m4a"
+  ],
+  [
+   "extra/2. Bassrk - My Failure.mp3",
+   "second-library/2. Bassrk - My Failure.mp3"
+  ],
+  [
+   "extra/2. Konflict - Pendulum.mp3",
+   "second-library/2000 - DR001 - Obsidian, Pendulum - 192/2. Konflict - Pendulum.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Konflict - Pendulum.opus"
+  ],
+  [
+   "extra/2. Noisia & Black Sun Empire - Infusion.mp3",
+   "second-library/2. Noisia & Black Sun Empire - Infusion.mp3"
+  ],
+  [
+   "extra/2. Phace - Brainwave VIP.mp3",
+   "second-library/2. Phace - Brainwave VIP.mp3"
+  ],
+  [
+   "extra/2. Phace - Fraxion.mp3",
+   "second-library/2. Phace - Fraxion.mp3",
+   "second-library/protogen-various_artists-protogen007-2004-xtc/b-phace_-_fraxion-xtc.mp3"
+  ],
+  [
+   "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+   "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+   "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+   "second-library/2002 - NERVE005 - VA - 192/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+   "second-library/nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3"
+  ],
+  [
+   "extra/2.Kemal - Bleed.mp3",
+   "second-library/2000 - NTV001 - The Mummy, Bleed - 192/2.Kemal - Bleed.mp3",
+   "second-library/negative-konflict-ntv001-2000-sour/aa-konflict-system_bleed-sour.mp3"
+  ],
+  [
+   "extra/201-origin_unknown-equinox-sour.mp3",
+   "extra/A-Origin_Unknown-Equinox-sour.mp3",
+   "second-library/andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/201-origin_unknown-equinox-sour.mp3",
+   "second-library/va-ram_raiders_part_3-ramm32-2001-sour/A-Origin_Unknown-Equinox-sour.mp3"
+  ],
+  [
+   "extra/203-moving_fusion_and_andy_c-foul_mouth-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Moving Fusion & Andy C - Foul Mouth.m4a",
+   "second-library/andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/203-moving_fusion_and_andy_c-foul_mouth-sour.mp3"
+  ],
+  [
+   "extra/207-ant_miles-china_town-sour.mp3",
+   "second-library/andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/207-ant_miles-china_town-sour.mp3"
+  ],
+  [
+   "extra/208-shimon_and_andy_c-firewire-sour.mp3",
+   "second-library/andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/208-shimon_and_andy_c-firewire-sour.mp3"
+  ],
+  [
+   "extra/209-origin_unknown-elevator-sour.mp3",
+   "second-library/andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/209-origin_unknown-elevator-sour.mp3"
+  ],
+  [
+   "extra/212-red_one-kung_fu_fresh-sour.mp3",
+   "second-library/andy_c_presents_ram_raiders-the_mix-rammlp4cd-2001-sour/212-red_one-kung_fu_fresh-sour.mp3"
+  ],
+  [
+   "extra/310-future_cut-horns_2000-sour.mp3",
+   "second-library/310-future_cut-horns_2000-sour.mp3"
+  ],
+  [
+   "extra/4. Illuminati - Melange.mp3",
+   "second-library/Cyb Orc/4. Illuminati - Melange.mp3",
+   "second-library/__youtube_archivists/michal-slabosz/Illuminati - Melange.m4a"
+  ],
+  [
+   "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+   "second-library/2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+   "second-library/d-usual_suspects-killa_bees_(konflict_rmx).mp3"
+  ],
+  [
+   "extra/A - Hak - Inside (Decoder remix).mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Hak - Inside (Decoder Remix).m4a",
+   "second-library/black_pearl-hak-bp002-2000/A - Hak - Inside (Decoder remix).mp3"
+  ],
+  [
+   "extra/A-Chris_SU-Astro_Sine-sour.mp3",
+   "second-library/DSCI4-DSCI4005-Chris_SU-2002/A-Chris_SU-Astro_Sine-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Chris.SU - Astrosine.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Astro-Sine.opus"
+  ],
+  [
+   "extra/A-Konflict-RoadBlock-sour.mp3",
+   "second-library/Renegade_Hardware-Konflict-RH019-1999/A-Konflict-RoadBlock-sour.mp3"
+  ],
+  [
+   "extra/A-Matrix_and_Fierce-Tearaway-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Matrix & Fierce - Tearaway.opus",
+   "second-library/__youtube_archivists/rootzdnb/Matrix & Fierce - Tearaway.m4a",
+   "second-library/virus-matrix_and_fierce_vs_c4c-vrs009-2001-sour/A-Matrix_and_Fierce-Tearaway-sour.mp3"
+  ],
+  [
+   "extra/A. ASC -- The Pursuit.mp3",
+   "second-library/[NERVE 021] - [2007] - ASC -- The Pursuit # Frozen Shores/A. ASC -- The Pursuit.mp3"
+  ],
+  [
+   "extra/A. D-Struct -- Merkaba.mp3",
+   "second-library/[NERVE 020] - [2007] - D-Struct & SKC -- Merkaba # Recharger 2007/A. D-Struct -- Merkaba.mp3"
+  ],
+  [
+   "extra/A. Pyro -- Tension.mp3",
+   "second-library/[NERVE 001] - [2001] - Pyro -- Tension # Spased/A. Pyro -- Tension.mp3"
+  ],
+  [
+   "extra/A. Pyro -- Time Is Broken.mp3",
+   "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3"
+  ],
+  [
+   "extra/A. SKC & Cord -- Swarm.mp3",
+   "extra/a-skc_and_cord-swarm-sour.mp3",
+   "second-library/Nerve-SKC_and_Cord_Vs_Stare-NERVE015-2004-sour/a-skc_and_cord-swarm-sour.mp3"
+  ],
+  [
+   "extra/A. SKC -- Recharger.mp3",
+   "second-library/[NERVE 002] - [2002] - SKC -- Recharger # Ancestry/A. SKC -- Recharger.mp3"
+  ],
+  [
+   "extra/A. falcon - new frontier.mp3",
+   "second-library/[citrus007] Falcon - New Frontier,  Chine Delight/A. falcon - new frontier.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - New Frontier (HQ Audio).m4a",
+   "second-library/__youtube_archivists/michal-slabosz/Falcon - A New Frontier.m4a"
+  ],
+  [
+   "extra/AA-Amir-Bulletproof-sour.mp3",
+   "second-library/Synthetic-Amir-SYNTH001-2001-sour/AA-Amir-Bulletproof-sour.mp3",
+   "second-library/[citrusdigi002] Falcon - Synthetic Catalogue - 2007/02_-_Falcon_-_Bulletproof_Vest.mp3",
+   "second-library/__youtube_archivists/alien5ive/SYNTHETIC RECORDS [ SYNTHETIC 001 \uff1a DJ AMIR - bulletproof vest - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/michal-slabosz/Dj Amir - Bulletproof Vest.m4a"
+  ],
+  [
+   "extra/AA-Chris_SU-Audiophile-sour.mp3",
+   "second-library/DSCI4-DSCI4005-Chris_SU-2002/AA-Chris_SU-Audiophile-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Audiophile.opus"
+  ],
+  [
+   "extra/AA-Nu_Balance-Overheads-sour.mp3",
+   "second-library/Trouble_On_Vinyl-TOV12040-Nu_Balance-2000-sour/AA-Nu_Balance-Overheads-sour.mp3",
+   "second-library/trouble_on_vinyl-nu_balance-tov40-2000-sour/aa-nu_balance-overheads-sour.mp3"
+  ],
+  [
+   "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+   "second-library/audio_blueprint-stakka_and_skynet-abpr014-2001-sour/AA-Stakka_and_Skynet-Molecular-sour.mp3"
+  ],
+  [
+   "extra/AA. Gridlok -- Struggle.mp3",
+   "second-library/[NERVE 004] - [2002] - Gridlok -- Warhol # Struggle/AA. Gridlok -- Struggle.mp3",
+   "second-library/nerve-gridlok-nerve004-2002-sour/b-gridlok-struggle-sour.mp3"
+  ],
+  [
+   "extra/AA. Pyro -- Spaced.mp3",
+   "second-library/[NERVE 001] - [2001] - Pyro -- Tension # Spased/AA. Pyro -- Spaced.mp3"
+  ],
+  [
+   "extra/AA. SKC -- Recharger 2007.mp3",
+   "second-library/[NERVE 020] - [2007] - D-Struct & SKC -- Merkaba # Recharger 2007/AA. SKC -- Recharger 2007.mp3"
+  ],
+  [
+   "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3",
+   "second-library/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3"
+  ],
+  [
+   "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+   "second-library/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3"
+  ],
+  [
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+   "second-library/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3"
+  ],
+  [
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+   "second-library/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3"
+  ],
+  [
+   "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+   "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+   "second-library/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+   "second-library/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3"
+  ],
+  [
+   "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "second-library/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "second-library/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+  ],
+  [
+   "extra/APH036-Aphrodite - 2000/a-aphrodite-aphro_vs_schooly_d.mp3",
+   "second-library/APH036-Aphrodite - 2000/a-aphrodite-aphro_vs_schooly_d.mp3"
+  ],
+  [
+   "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+   "second-library/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3"
+  ],
+  [
+   "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+   "second-library/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3"
+  ],
+  [
+   "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+   "second-library/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3"
+  ],
+  [
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+   "second-library/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3"
+  ],
+  [
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+   "second-library/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3"
+  ],
+  [
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3",
+   "second-library/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3"
+  ],
+  [
+   "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3",
+   "second-library/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3"
+  ],
+  [
+   "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3",
+   "second-library/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3"
+  ],
+  [
+   "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+   "second-library/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Aphrodite - Lava Flow.m4a"
+  ],
+  [
+   "extra/APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3",
+   "second-library/APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3"
+  ],
+  [
+   "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+   "second-library/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3"
+  ],
+  [
+   "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+   "second-library/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3"
+  ],
+  [
+   "extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+   "second-library/[citrus001] Dreazz & Falcon - Do Drop In!,  Retro/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3"
+  ],
+  [
+   "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+   "second-library/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3"
+  ],
+  [
+   "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "second-library/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3"
+  ],
+  [
+   "extra/B-Bad_Company-Four_Days-dmz.mp3",
+   "second-library/(1999) The Fear EP (VDBCR 002)/a-bad_company-4_days-sour.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/B-Bad_Company-Four_Days-dmz.mp3",
+   "second-library/bad_company-fear_lp/11 bad company-four days.mp3",
+   "second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3",
+   "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3"
+  ],
+  [
+   "extra/B-Cause_4_Concern-Peep_Show-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Peep Show.m4a",
+   "second-library/virus-matrix_and_fierce_vs_c4c-vrs009-2001-sour/B-Cause_4_Concern-Peep_Show-sour.mp3"
+  ],
+  [
+   "extra/B. falcon - china delight.mp3",
+   "second-library/[citrus007] Falcon - New Frontier,  Chine Delight/B. falcon - china delight.mp3"
+  ],
+  [
+   "extra/B. falcon - reality.mp3",
+   "second-library/[citrus005] Falcon - Another World  Reality/B. falcon - reality.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - Reality.m4a"
+  ],
+  [
+   "extra/B_-_Decoder_-_Dead_Fall.mp3",
+   "second-library/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+  ],
+  [
+   "extra/Cyb Orc - Agressor.mp3",
+   "second-library/Cyb Orc/Cyb Orc - Agressor.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Cyb Orc - Aggressor.opus"
+  ],
+  [
+   "extra/Cyb Orc - Endorphine.mp3",
+   "second-library/Cyb Orc/Cyb Orc - Endorphine.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Cyb Orc - Endorphine.m4a"
+  ],
+  [
+   "extra/Cyb Orc - Looter.mp3",
+   "second-library/Cyb Orc/Cyb Orc - Looter.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Cyb Orc - Looter.m4a"
+  ],
+  [
+   "extra/Cyb Orc - No Peace.mp3",
+   "second-library/Cyb Orc/Cyb Orc - No Peace.mp3",
+   "second-library/__youtube_archivists/michal-slabosz/Cyb Orc - No Peace.m4a"
+  ],
+  [
+   "extra/Cyb Orc - People From South.mp3",
+   "second-library/Cyb Orc/2004 - SHADYBRAIN01104002 - Cyb Orc - People From South - 320/Cyb Orc - People From South.mp3"
+  ],
+  [
+   "extra/Cyb Orc - Simulant.mp3",
+   "second-library/Cyb Orc/2004 - SHADYBRAIN01104003 - Cyb Orc - Simulant - 320/Cyb Orc - Simulant.mp3"
+  ],
+  [
+   "extra/D-Sinthetix-Cryogenic-sour.mp3",
+   "second-library/D-Sinthetix-Cryogenic-sour.mp3",
+   "second-library/va-spy_technologies_lp_part_one-dsci4lp002abcd-2002-sour/d-sinthetix-cryogenic-sour.mp3"
+  ],
+  [
+   "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+   "second-library/renegade_hardware-usual_suspects-(rh33)-2001-sour/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3"
+  ],
+  [
+   "extra/Illuminati - The Rust.mp3",
+   "second-library/Cyb Orc/Illuminati - The Rust.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Illuminati - The Rust.m4a"
+  ],
+  [
+   "extra/J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+   "second-library/J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Technical Itch & Decoder - Abduction.m4a"
+  ],
+  [
+   "extra/[AA]_-_Apollo_Creed.mp3",
+   "second-library/[TECH007]_-_Futuretech_-_Tribal_Warfare_&_Apollo_Creed_Vinyl_(2001)/[AA]_-_Apollo_Creed.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Apollo Creed.m4a",
+   "second-library/technique-future_tech-tech007-2001-sour/aa-future_tech-apollo_creed-sour.mp3"
+  ],
+  [
+   "extra/[AA]_-_Phoenix.mp3",
+   "second-library/[TECH012]_-_Drumsound_&_Simon_Bassline_Smith_-_Badman_&_Phoenix_Vinyl_(2001)/[AA]_-_Phoenix.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a"
+  ],
+  [
+   "extra/[AA]_-_Supersonic.mp3",
+   "second-library/[TECH008]_-_Drumsound_&_Simon_Bassline_Smith_-_Dubtrack_&_Supersonic_Vinyl_(2001)/[AA]_-_Supersonic.mp3",
+   "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Drumsound & Simon Bassline Smith \u200e\u2013 Supersonic.opus"
+  ],
+  [
+   "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+   "second-library/[TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Drumsound & Simon 'Bassline' Smith - Dirty Dancing.m4a",
+   "second-library/various_artists-the_x_project_part_3-tech015-2002-sour/a-drumsound_and_bassline-dirty_dancing-sour.mp3"
+  ],
+  [
+   "extra/[A]_-_Mudslide.mp3",
+   "second-library/[TECH009]_-_Futuretech_-_Mudslide_&_Matchstick_Vinyl_(2001)/[A]_-_Mudslide.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Mudslide.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Future Tech - Mudslide.m4a",
+   "second-library/technique-future_tech-tech009-2001-sour/a-future_tech-mudslide-sour.mp3"
+  ],
+  [
+   "extra/[A]_-_Tribal_Warfare.mp3",
+   "second-library/[TECH007]_-_Futuretech_-_Tribal_Warfare_&_Apollo_Creed_Vinyl_(2001)/[A]_-_Tribal_Warfare.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Futuretech - Tribal Warefare.opus",
+   "second-library/technique-future_tech-tech007-2001-sour/a-future_tech-tribal_warfare-sour.mp3"
+  ],
+  [
+   "extra/[B]_-_Futuretech_-_Kashmir.mp3",
+   "second-library/[TECH015]_-_VA_-_The_X_Project_Pt.3_Vinyl_(2002)/[B]_-_Futuretech_-_Kashmir.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Futuretech - Kashmir.opus",
+   "second-library/various_artists-the_x_project_part_3-tech015-2002-sour/b-futuretech-kashmir-sour.mp3"
+  ],
+  [
+   "extra/a-)eib(-miami-sour.mp3",
+   "second-library/va-drum_n_bass_arena_lp-reactlp201-2001-sour/a-)eib(-miami-sour.mp3"
+  ],
+  [
+   "extra/a-black_sun_empire-voltage-2000-sour.mp3",
+   "second-library/PIRUH001 - Black_Sun_Empire-Voltage-PIRUH001-2000-sour/a-black_sun_empire-voltage-2000-sour.mp3"
+  ],
+  [
+   "extra/a-break-day_one-sour.mp3",
+   "second-library/VA-Zenith_EP_Part_1-QRNUK004-VINYL-2007-sour/a-break-day_one-sour.mp3"
+  ],
+  [
+   "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+   "second-library/undiluted-brockie_and_ed_solo-vdud005-2000-sour/a-brockie_and_ed_solo-voices-sour.mp3"
+  ],
+  [
+   "extra/a-bullet_proof-anthrax-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+   "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a",
+   "second-library/perspective-bullet_proof-pr009-2001-sour/a-bullet_proof-anthrax-sour.mp3"
+  ],
+  [
+   "extra/a-cause_4_concern-nightgasp-sour.mp3",
+   "second-library/idioma-cause_4_concern-idioma002-2001-sour/a-cause_4_concern-nightgasp-sour.mp3"
+  ],
+  [
+   "extra/a-cause_4_concern-relentless-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Relentless.m4a",
+   "second-library/cause_4_concern-cause_4_concern-c4cltd003-2001-sour/a-cause_4_concern-relentless-sour.mp3"
+  ],
+  [
+   "extra/a-cause_4_concern-skewer-sour.mp3",
+   "second-library/[2001] - [RH32] - Renegade_Hardware-Cause_4_Concern-RH32-2001-sour/a-cause_4_concern-skewer-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Skewer.opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Skewer.opus"
+  ],
+  [
+   "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+   "second-library/Trouble_On_Vinyl-TOV49-Final_Judgement_EP-2002-rfl_int/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+  ],
+  [
+   "extra/a-dj_reality-reasons.mp3",
+   "second-library/__youtube_archivists/michal-slabosz/Modern Moves -  Reasons.m4a",
+   "second-library/modern_moves-dj_reality-rdj004-vinyl-2001-uc/a-dj_reality-reasons.mp3"
+  ],
+  [
+   "extra/a-ecco_and_sabotage-hazy_shades-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/DJ\uff1aEcco and Sabotage - Hazy Shades.opus",
+   "second-library/ratio-ecco_and_sabotage-ratio12006-2002-sour/a-ecco_and_sabotage-hazy_shades-sour.mp3"
+  ],
+  [
+   "extra/a-extreme_force-everytime_(original_mix)-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Extreme Force \u200e\u2013 Everytime.m4a",
+   "second-library/rizing-extreme_force-riz004-2001-sour/a-extreme_force-everytime_(original_mix)-sour.mp3"
+  ],
+  [
+   "extra/a-gridlok-v_ger-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Gridlok - V_Ger.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Gridlok - V_Ger.opus",
+   "second-library/__youtube_archivists/unxplored-dnb/Gridlok - V_Ger.opus",
+   "second-library/payload-gridlok-payload001-2003-sour/a-gridlok-v_ger-sour.mp3"
+  ],
+  [
+   "extra/a-kemal-animation-sour.mp3",
+   "second-library/architecture-kemal-2000-sour/a-kemal-animation-sour.mp3"
+  ],
+  [
+   "extra/a-mo_funk-slipstream-sour.mp3",
+   "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/10-Mo_Funk-Slipstream-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - slipstream - ] drum and bass.m4a",
+   "second-library/argon-mo_funk-arg004-2002-sour/a-mo_funk-slipstream-sour.mp3"
+  ],
+  [
+   "extra/a-rascal_and_klone-snake_eyes-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/SHAKEDOWN [ SHAKE002 \uff1a RASCAL & KLONE - snake eyes - ] drum and bass.opus",
+   "second-library/shakedown-rascal_and_klone-shake002-2002-sour/a-rascal_and_klone-snake_eyes-sour.mp3"
+  ],
+  [
+   "extra/a-rascal_and_klone-the_reprise-sour.mp3",
+   "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/10-rascal_and_klone-the_reprise_(original_mix).mp3",
+   "second-library/urban_takeover-rascal_and_klone-urbtake30-2002-sour/a-rascal_and_klone-the_reprise-sour.mp3"
+  ],
+  [
+   "extra/a-sinthetix-neurotoxin-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/SHADOW LAW RECORDINGS [ SLR 001 \uff1a ROB F & IMPULSE & MECHA - neurotoxin - ] drum and bass.opus",
+   "second-library/shadow_law-sinthetix-slr001-2002-sour/a-sinthetix-neurotoxin-sour.mp3"
+  ],
+  [
+   "extra/a-skc-devotee-sour.mp3",
+   "second-library/DSCI4-DSCI4EP003-SKC-Devotee_EP-2002-sour/a-skc-devotee-sour.mp3"
+  ],
+  [
+   "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+  ],
+  [
+   "extra/a-stratus-like_this-sour.mp3",
+   "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/07-stratus-like_this.mp3",
+   "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - like this - ] drum and bass.m4a",
+   "second-library/incident-stratus-incident002-2001-sour/a-stratus-like_this-sour.mp3"
+  ],
+  [
+   "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+   "second-library/underfire-double_pack-udfr014-2000-sour/a-unknown-udfr014-(synthesis_vip)-sour.mp3"
+  ],
+  [
+   "extra/a-usual_suspects-bleach-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Universal Project - Bleach.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Universal Project - Bleach (Digital Remaster).m4a"
+  ],
+  [
+   "extra/a. falcon - fractles.mp3",
+   "second-library/Citrus-CITRUS003-Falcon-2001-sour/B-Falcon-Fractals-sour.mp3",
+   "second-library/[citrus003] Falcon - Firewalls EP/a. falcon - fractles.mp3"
+  ],
+  [
+   "extra/a1-skynet-acid_drops-sour.mp3",
+   "second-library/__youtube_archivists/michal-slabosz/Skynet  - Acid Drops.m4a",
+   "second-library/a1-skynet-acid_drops-sour.mp3",
+   "second-library/skynet-skynet-sky006-2004-sour/a1-skynet-acid_drops-sour.mp3"
+  ],
+  [
+   "extra/aa-black_sun_empire-bnegative-sour.mp3",
+   "second-library/Black_Sun_Empire-Black_Sun_Empire-BSE001-2002-sour/aa-black_sun_empire-bnegative-sour.mp3"
+  ],
+  [
+   "extra/aa-cause_4_concern-abduction-sour.mp3",
+   "second-library/white_label-cause_4_concern-c4cltd002-2001-sour/aa-cause_4_concern-abduction-sour.mp3"
+  ],
+  [
+   "extra/aa-cause_4_concern-epox-0db.mp3",
+   "second-library/[1999] - [C4C002] - Cause_4_Concern-Cause_4_Concern-C4C002-VINYL-1999-0dB_iNT/aa-cause_4_concern-epox-0db.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Epox.opus",
+   "second-library/cause 4 concern (c4c002) - cause 4 concern - infectious + e-pox/02. Cause 4 Concern - E-Pox.mp3"
+  ],
+  [
+   "extra/aa-cause_4_concern-psyke-sour.mp3",
+   "second-library/[2002] - [1210 005] - 1210-Cause_4_Concern-1210_005-2002-sour/aa-cause_4_concern-psyke-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Psyke.m4a"
+  ],
+  [
+   "extra/aa-cause_4_concern-synergy-sour.mp3",
+   "second-library/cause_4_concern-cause_4_concern-c4c005-2001-sour/aa-cause_4_concern-synergy-sour.mp3"
+  ],
+  [
+   "extra/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+   "second-library/Orgone-JL-Orgone003-2000-sour/aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/JL - Hymn (Dom & Roland RMX).m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/JL - Hymn (Dom & Roland Remix).m4a"
+  ],
+  [
+   "extra/aa-kemal-mechanizm-sour.mp3",
+   "second-library/architecture-kemal-2000-sour/aa-kemal-mechanizm-sour.mp3"
+  ],
+  [
+   "extra/aa-matrix-bad_dreams-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Matrix - Bad Dreams.opus",
+   "second-library/idioma-matrix-idioma001-2001-sour/aa-matrix-bad_dreams-sour.mp3"
+  ],
+  [
+   "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+   "second-library/argon-mo_funk-arg004-2002-sour/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3"
+  ],
+  [
+   "extra/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3",
+   "second-library/frontline-pascal_and_monty-front050-2000-sour/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3"
+  ],
+  [
+   "extra/aa-paul_b_and_subwave-break_through-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 009 \uff1a PAUL B. & SUBWAVE - break through - ] drum and bass.opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Paul B & Subwave - Break Through.opus",
+   "second-library/aa-paul_b_and_subwave-break_through-sour.mp3"
+  ],
+  [
+   "extra/aa-sinthetix-fallout-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Rob F & Impulse - Fallout.opus",
+   "second-library/shadow_law-sinthetix-slr001-2002-sour/aa-sinthetix-fallout-sour.mp3"
+  ],
+  [
+   "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Rubber Bullet.m4a",
+   "second-library/underfire-kemal_stakka_and_k_tee-udfr017-2001-sour/aa-stakka_and_k_tee-rubber_bullet-sour.mp3"
+  ],
+  [
+   "extra/aa-stakka_and_k_tee-terratorial-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - terratorial ] drum and bass.opus",
+   "second-library/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/aa-stakka_and_k_tee-terratorial-sour.mp3"
+  ],
+  [
+   "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+   "second-library/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3"
+  ],
+  [
+   "extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3",
+   "second-library/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3"
+  ],
+  [
+   "extra/aph042 - aphrodite - ganja man/A - Aphrodite - Ganja Man.mp3",
+   "second-library/aph042 - aphrodite - ganja man/A - Aphrodite - Ganja Man.mp3"
+  ],
+  [
+   "extra/aph042 - aphrodite - ganja man/B - Aphrodite - Heat Haze.mp3",
+   "second-library/aph042 - aphrodite - ganja man/B - Aphrodite - Heat Haze.mp3"
+  ],
+  [
+   "extra/aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3",
+   "second-library/aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3"
+  ],
+  [
+   "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+   "second-library/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3"
+  ],
+  [
+   "extra/b-bulletproof-scarred-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+   "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a",
+   "second-library/va-heads_of_industry_lp-indlp001-2002-sour/b-bulletproof-scarred-sour.mp3"
+  ],
+  [
+   "extra/b-cause_4_concern-give_it_2_em-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Give It 2 'Em.opus"
+  ],
+  [
+   "extra/b-cause_4_concern-sarin-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/TRUE PLAYAZ RECs [ TPR 12040 \uff1a CAUSE4CONCERN - sarin - ] drum and bass.opus",
+   "second-library/__youtube_archivists/dfect-dnb/Cause4Concern - Sarin.opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Sarin.opus",
+   "second-library/true_playaz-cause_4_concern-tpr12040-2002-sour/b-cause_4_concern-sarin-sour.mp3"
+  ],
+  [
+   "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+   "second-library/[2002] - [12IND005] - Industry-David_Carbone-12IND005-2002-sour/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3"
+  ],
+  [
+   "extra/b-extreme_force-everytime_(2001_mix)-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Extreme Force \u200e\u2013 Everytime Remix.opus",
+   "second-library/rizing-extreme_force-riz004-2001-sour/b-extreme_force-everytime_(2001_mix)-sour.mp3"
+  ],
+  [
+   "extra/b-kemal_and_rob_data-linear-sour.mp3",
+   "second-library/timeless-kemal_and_rob_data-tyme019-2002-sour/b-kemal_and_rob_data-linear-sour.mp3"
+  ],
+  [
+   "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Moth - Sugar Crashing (Kemal & Rob Data RMX).m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Moth - Sugar Crashing (Kemal & Rob Data Remix).opus",
+   "second-library/terraformat_records-moth-tffm003-2001-sour/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3"
+  ],
+  [
+   "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+   "second-library/no_u_turn-silent_witness_and_break-nut034-2003-sour/b-silent_witness_and_break-again_and_again-sour.mp3"
+  ],
+  [
+   "extra/b-skc-eclipse-gdn.mp3",
+   "second-library/b-skc-eclipse-gdn.mp3",
+   "second-library/va-spy_technologies_lp_sampler-promo_vinyl-2002-gdn/b-skc-eclipse-gdn.mp3"
+  ],
+  [
+   "extra/b-skc-flex-sour.mp3",
+   "second-library/DSCI4-DSCI4EP003-SKC-Devotee_EP-2002-sour/b-skc-flex-sour.mp3"
+  ],
+  [
+   "extra/b-spinor-mutant_storm-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Spinor - Mutant Storm.opus",
+   "second-library/b-spinor-mutant_storm-sour.mp3"
+  ],
+  [
+   "extra/b-spirit-out_of_control-sour.mp3",
+   "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+   "second-library/va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3"
+  ],
+  [
+   "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+   "second-library/the_militia-brainwash-carg01-promo_vls-2003-atm/b-stakka_and_k_tee-echo_chamber-atm.mp3"
+  ],
+  [
+   "extra/b-stakka_and_skynet-global_report-sour.mp3",
+   "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a",
+   "second-library/underfire-stakka_and_skynet-(udfr016)-2000/b-stakka_and_skynet-global_report-sour.mp3"
+  ],
+  [
+   "extra/b-stratus-waves-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - waves - ] drum and bass.m4a",
+   "second-library/incident-stratus-incident002-2001-sour/b-stratus-waves-sour.mp3"
+  ],
+  [
+   "extra/b-subwave-digital_symphony-sour.mp3",
+   "second-library/TI033 - Subwave - Bad Ambition; Digital Symphony [2002] (Tech Itch Records)/b-subwave-digital_symphony-sour.mp3",
+   "second-library/tech_itch-subwave-ti033-2002-sour/b-subwave-digital_symphony-sour.mp3"
+  ],
+  [
+   "extra/b-unknown-udfr014-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Profound Noize - Luminous Remix.opus",
+   "second-library/underfire-double_pack-udfr014-2000-sour/b-unknown-udfr014-sour.mp3"
+  ],
+  [
+   "extra/c-bad_company-the_fear-sour.mp3",
+   "second-library/(1999) The Fear EP (VDBCR 002)/c-bad_company-the_fear-sour.mp3",
+   "second-library/bad_company-fear_lp/09 bad company-the fear.mp3",
+   "second-library/bad_company-the_fear_ep-vdbcr_002-sour/c-bad_company-the_fear-sour.mp3",
+   "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/C - Bad Company - The Fear.mp3"
+  ],
+  [
+   "extra/c-black_sun_empire-1800_contact-sour.mp3",
+   "second-library/dsci4-black_sun_empire-dsci4ep002-2002/c-black_sun_empire-1800_contact-sour.mp3"
+  ],
+  [
+   "extra/c-cause4concern-time_stopper-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Time Stopper.opus",
+   "second-library/va-heads_of_industry_lp-indlp001-2002-sour/c-cause4concern-time_stopper-sour.mp3"
+  ],
+  [
+   "extra/c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Future Cut - Horns 2000 (Dylan Remix).opus",
+   "second-library/c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3"
+  ],
+  [
+   "extra/c-total_science-yvon_is_on-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+   "second-library/va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3"
+  ],
+  [
+   "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+   "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3",
+   "second-library/Trouble_On_Vinyl-TOV49-Final_Judgement_EP-2002-rfl_int/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee RMX).m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a"
+  ],
+  [
+   "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+   "second-library/va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3"
+  ],
+  [
+   "extra/d-shimon-mutationz_iv-sour.mp3",
+   "second-library/DSCI4-DSCI4EP001-Various_Artists-2001-sour/D-Shimon-Mutationz_IV-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Shimon - Mutationz IV.opus",
+   "second-library/d-shimon-mutationz_iv-sour.mp3"
+  ],
+  [
+   "extra/d-skc-broken-sour.mp3",
+   "second-library/DSCI4-DSCI4EP003-SKC-Devotee_EP-2002-sour/d-skc-broken-sour.mp3"
+  ],
+  [
+   "extra/d-the_militia-you_and_i_know-sour.mp3",
+   "second-library/the_militia-music_for_the_masses_ep-chrg019-2003-sour/d-the_militia-you_and_i_know-sour.mp3"
+  ],
+  [
+   "extra/d. falcon - the stand.mp3",
+   "second-library/Citrus-CITRUS003-Falcon-2001-sour/A-Falcon-The_Stand-sour.mp3",
+   "second-library/[citrus003] Falcon - Firewalls EP/d. falcon - the stand.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a"
+  ],
+  [
+   "extra/e-cause_4_concern-blindside-sour.mp3",
+   "second-library/va-the_harder_they_come_part_1-rh36-2001-sour/e-cause_4_concern-blindside-sour.mp3"
+  ],
+  [
+   "extra/e-chris_su_and_skc-blackout-sour.mp3",
+   "second-library/DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/E-Chris_SU_and_SKC-Blackout-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a CHRIS SU & SKC - black out - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Chris SU & SKC - Black Out.opus",
+   "second-library/va-spy_technologies_lp_part_two-(dsci4lp002ef)-2002/e-chris_su_and_skc-blackout-sour.mp3"
+  ],
+  [
+   "extra/f-skc-lobotomy-sour.mp3",
+   "second-library/DSCI4-DSCI4LP002EF-va-spy_technologies_lp_part_two-2002-sour/F-SKC-Lobotomy-sour.mp3",
+   "second-library/va-spy_technologies_lp_part_two-(dsci4lp002ef)-2002/f-skc-lobotomy-sour.mp3"
+  ],
+  [
+   "extra/g-tee_bee-two_faced-sour.mp3",
+   "second-library/va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3"
+  ],
+  [
+   "extra/h-carlito_and_addiction-into_music-sour.mp3",
+   "second-library/va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3"
+  ],
+  [
+   "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+   "second-library/DSCI4-DSCI4LP002KL-va-spy_technologies_lp_kl_art_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Sta & Paul B - Come Closer.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a",
+   "second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3"
+  ],
+  [
+   "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Gridlok - Soul Sucker.opus",
+   "second-library/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3"
+  ],
+  [
+   "extra/rawkuts-jo_s-rkt335-2001-sour/a-jo_s-afterburner-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Jo-S - Afterburner.opus",
+   "second-library/rawkuts-jo_s-rkt335-2001-sour/a-jo_s-afterburner-sour.mp3"
+  ],
+  [
+   "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+   "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Jo-S - Separation (Drum'n'Bass) (Drum'n'Bass).opus",
+   "second-library/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet feat. Keaton - Isolation.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Keaton - Isolation (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Skinny - Straight Jacket (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Timelines (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Friction - Altitude (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/108-stakka_and_skynet_feat_shimon-spider_monkey-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Shimon - Spider Monkey (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/108-stakka_and_skynet_feat_shimon-spider_monkey-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Africa Bambaata & The Soul Sonic Force - Planet Rock (Stakka & Skynet Remix) (Remastered).opus",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. K.Tee - So Confused (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3"
+  ],
+  [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET feat DJ RED - 9000 Series -.opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - 9000 Series (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+   "second-library/va-clockwork_lp_sampler-udfr_lps_04-2001-sour/c-stakka_skynet_and_dj_red-9000_series-sour.mp3"
+  ],
+  [
+   "extra/xx-aquasky-i_cant_wait_(no_more)-sour.mp3",
+   "second-library/[SHADOW 148] - [2001] - Aquasky - Spectre # I Can't Wait (No More)/02 - Aquasky - I Can't Wait (No More).mp3",
+   "second-library/__youtube_archivists/alien5ive/MOVING SHADOW RECORDINGS [ SHADOW 148 \uff1a AQUASKY - can't wait no more - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Aquasky - I Can't Wait (No More).m4a",
+   "second-library/aquasky-radium_ep-msxep006-2000-sour/xx-aquasky-i_cant_wait_(no_more)-sour.mp3"
+  ]
+ ]
+}

@@ -886,3 +886,48 @@ remix), Usual Suspects - Bleach, Cause 4 Concern - Give It 2 Em. The
 corpus copies decode, so they may be repaired versions. Dozer, Fixation
 and Slip Thru are test-set references: the NAS-scale evaluation keeps
 these 15 as corpus files, so the index holds 26,905 assets.
+
+### The corpus clusters reappear on the NAS; 170 further rips
+
+`clusters --from-peaks` against the NAS records (experiment 0037, 72
+minutes) finds the 17 corpus clusters exactly, and 170 NAS files that
+are further rips of corpus recordings (mostly YouTube uploads). The
+evaluation counts their detections as correct.
+
+The 80% rule has less room than at 262 tracks: rips of one recording now
+cover as little as 82.5% of each other, and two files the rule calls
+different reach 73.7% (at 262 tracks: 98.4% and 39%). For you to check
+by ear, the 76 pairs between 40% and 80% coverage, in
+`docs/experiments/data/0037-nas-clusters.json` (`borderline`). Many have
+the same artist and title, such as Bad Company - China Cup against the
+alien5ive upload "BAD COMPANY - china cup" (68%, 3,219 hits) and Night
+Lore against "STAKKA and SKYNET - knight lore" (68%). If they are rips,
+the rule keeps them apart, so a mix detection of one during the other
+counts as wrong; I expect such cases in the development scan below.
+
+Tags that disagree with the audio, found by content: the INFRA011 rips
+tagged "Sex Drive" and "Specialist" hold Future Cut - The Specialist and
+Razor's Edge; the alien5ive upload tagged "Mindscape - New Deal" holds
+Noisia & Phace - Outsource (Misanthrop Remix); the i-witness upload
+tagged "Future Cut - Horns 2000 (Dylan Remix)" holds DJ Ink - Ice Age
+(Digital & Spirit remix); the untagged `b-unknown-udfr014` matches an
+upload tagged "Profound Noize - Luminous Remix". Two clusters hold
+tracks of the mixed CD Underfire UDFRCD003 (Dangerous Drums Volume 2),
+which probably carry blends with their neighbours.
+
+### Related recordings at NAS scale: shared material, rarely unrelated
+
+From the same search (experiment 0038): 292 pairs of different
+recordings share 30 hits or more (21 at 262 tracks), 63 reach the
+possible tier and 22 reach 200. Of those 22, by tags and paths (not by
+ear), 16 are probably one recording under another name or credit, 4 are
+versions (The Nine against the Evol Intent VIP: 4,930 hits), and 2 are
+one artist's other title, for you to check: Bad Company - Coma against
+Spraycan (2,318 hits over 229 s, one release folder) and Pyro - Time Is
+Broken against Ignorance (858). The strongest unrelated pair is Stakka
+& K.Tee - Synthesis VIP against Dillinja - No Way Out (Remix), 153 hits
+in 40 s: a shared sample, perhaps.
+
+China Cup and The Nine do not reach 30 hits against each other in this
+search. The NAS holds Fresh & Vegas - "Meekon" (spelled so in its tags,
+`dfect-dnb`); The Nine finds it with 31-33 hits.
