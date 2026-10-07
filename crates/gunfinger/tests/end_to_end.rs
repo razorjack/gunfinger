@@ -342,6 +342,10 @@ fn files_outside_the_track_length_are_passed_over_and_left_out() {
         &dir,
         &[&["doctor", "--library", library_arg][..], &range].concat(),
     );
+    let doctor_narrowed = gunfinger(
+        &dir,
+        &["doctor", "--library", library_arg, "--max-track", "25"],
+    );
     let recording = library.join("a.wav");
     let narrowed = stderr(gunfinger(
         &dir,
@@ -375,6 +379,17 @@ fn files_outside_the_track_length_are_passed_over_and_left_out() {
     assert!(
         doctor.contains("2 files passed over: 0 failed to decode, 1 too short, 1 too long"),
         "{doctor}"
+    );
+    assert!(doctor.contains("2 of 32768 assets"), "{doctor}");
+    assert!(doctor.contains("2 audio files not counted"), "{doctor}");
+    let doctor_narrowed = String::from_utf8_lossy(&doctor_narrowed.stdout);
+    assert!(
+        doctor_narrowed.contains("1 of 32768 assets"),
+        "{doctor_narrowed}"
+    );
+    assert!(
+        doctor_narrowed.contains("longest track 0:20"),
+        "{doctor_narrowed}"
     );
     assert!(
         narrowed.contains(
