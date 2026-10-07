@@ -382,7 +382,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
         Command::Man => clap_mangen::Man::new(Cli::command())
             .render(&mut std::io::stdout())
             .into_diagnostic(),
-        Command::Doctor { library } => doctor::run(settings, library, stdout_style),
+        Command::Doctor { library } => doctor::run(settings, library, stdout_style, console),
         Command::Prune {
             library,
             yes,

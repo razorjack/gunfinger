@@ -7,12 +7,13 @@ use std::time::Duration;
 
 use gunfinger_core::index::{MAX_ASSETS, MAX_FRAMES};
 use gunfinger_core::indexing::TrackLength;
-use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::PeakStore;
 use miette::miette;
 
+use crate::catalog::scan_library;
 use crate::config::Settings;
+use crate::console::Console;
 use crate::style::Style;
 use crate::survey::survey;
 use crate::table::timecode;
@@ -53,7 +54,12 @@ impl Checkup {
     }
 }
 
-pub fn run(settings: &Settings, library: Option<PathBuf>, style: Style) -> miette::Result<()> {
+pub fn run(
+    settings: &Settings,
+    library: Option<PathBuf>,
+    style: Style,
+    console: &Console,
+) -> miette::Result<()> {
     let mut checkup = Checkup { style, problems: 0 };
     check_tools(&mut checkup);
 
@@ -84,6 +90,7 @@ pub fn run(settings: &Settings, library: Option<PathBuf>, style: Style) -> miett
             &library,
             &settings.peaks_dir,
             settings.track_length,
+            console,
         ),
         None => {
             checkup.section("library");
@@ -139,15 +146,19 @@ fn version(tool: &str) -> Option<String> {
     Some(first.split_whitespace().nth(2).unwrap_or(first).to_owned())
 }
 
-fn check_library(checkup: &mut Checkup, root: &Path, peaks_dir: &Path, length: TrackLength) {
+fn check_library(
+    checkup: &mut Checkup,
+    root: &Path,
+    peaks_dir: &Path,
+    length: TrackLength,
+    console: &Console,
+) {
     checkup.section("library");
-    let library = match Library::scan(root) {
+    let library = match scan_library(root, console) {
         Ok(library) => library,
         Err(error) => {
-            checkup.line(
-                Status::Problem,
-                format!("cannot read {}: {error}", root.display()),
-            );
+            let causes: Vec<String> = error.chain().map(ToString::to_string).collect();
+            checkup.line(Status::Problem, causes.join(": "));
             return;
         }
     };

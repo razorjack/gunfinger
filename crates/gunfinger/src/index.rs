@@ -8,8 +8,9 @@ use gunfinger_core::indexing::{IndexingOptions, Outcome, TrackLength, index_libr
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, SkipReason};
-use miette::{IntoDiagnostic, WrapErr};
+use miette::IntoDiagnostic;
 
+use crate::catalog::scan_library;
 use crate::console::Console;
 
 pub fn run(
@@ -21,9 +22,7 @@ pub fn run(
     console: &Console,
 ) -> miette::Result<()> {
     let started = Instant::now();
-    let library = Library::scan(library_root)
-        .into_diagnostic()
-        .wrap_err_with(|| format!("could not read the library at {}", library_root.display()))?;
+    let library = scan_library(library_root, console)?;
     let store = PeakStore::open(peaks_dir).into_diagnostic()?;
     store.claim_library(library_root).into_diagnostic()?;
     let options = IndexingOptions {

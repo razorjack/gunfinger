@@ -130,6 +130,7 @@ fn plan(request: &Request) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
             request.peaks_dir,
             request.exclude_from,
             request.track_length,
+            request.console,
         )?))
     } else {
         None

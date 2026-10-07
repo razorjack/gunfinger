@@ -67,11 +67,17 @@ impl Library {
     /// Walks `root` recursively. Directory symlinks are not followed, so a
     /// link loop cannot trap the scan.
     pub fn scan(root: &Path) -> io::Result<Library> {
+        Library::scan_with_progress(root, |_| {})
+    }
+
+    /// As `scan`, calling `progress` with the number of files seen so far
+    /// after each one: a large network share takes minutes to list.
+    pub fn scan_with_progress(root: &Path, mut progress: impl FnMut(usize)) -> io::Result<Library> {
         let mut library = Library {
             root: root.to_owned(),
             ..Library::default()
         };
-        library.scan_dir(root)?;
+        library.scan_dir(root, &mut progress)?;
         library.assets.sort_by(|a, b| a.path.cmp(&b.path));
         Ok(library)
     }
@@ -84,18 +90,21 @@ impl Library {
         self.skipped.values().sum()
     }
 
-    fn scan_dir(&mut self, dir: &Path) -> io::Result<()> {
+    fn scan_dir(&mut self, dir: &Path, progress: &mut impl FnMut(usize)) -> io::Result<()> {
         for entry in fs::read_dir(dir)? {
             let entry = entry?;
             let path = entry.path();
             let kind = entry.file_type()?;
             if kind.is_dir() {
-                self.scan_dir(&path)?;
-            } else if kind.is_file() {
+                self.scan_dir(&path, progress)?;
+                continue;
+            }
+            if kind.is_file() {
                 self.consider_file(&path, &entry.metadata()?);
             } else {
                 self.skip("symlink or special file");
             }
+            progress(self.assets.len() + self.skipped_total());
         }
         Ok(())
     }

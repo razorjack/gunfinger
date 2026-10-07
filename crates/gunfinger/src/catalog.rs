@@ -39,11 +39,7 @@ impl Catalog {
         console: &Console,
     ) -> miette::Result<Catalog> {
         let started = Instant::now();
-        let library = Library::scan(library_root)
-            .into_diagnostic()
-            .wrap_err_with(|| {
-                format!("could not read the library at {}", library_root.display())
-            })?;
+        let library = scan_library(library_root, console)?;
         let store = PeakStore::open(peaks_dir).into_diagnostic()?;
         store.check_library(library_root).into_diagnostic()?;
         let excluded = match exclude_from {
@@ -90,12 +86,9 @@ impl Catalog {
         peaks_dir: &Path,
         exclude_from: Option<&Path>,
         track_length: TrackLength,
+        console: &Console,
     ) -> miette::Result<String> {
-        let library = Library::scan(library_root)
-            .into_diagnostic()
-            .wrap_err_with(|| {
-                format!("could not read the library at {}", library_root.display())
-            })?;
+        let library = scan_library(library_root, console)?;
         let store = PeakStore::open(peaks_dir).into_diagnostic()?;
         store.check_library(library_root).into_diagnostic()?;
         let excluded = match exclude_from {
@@ -110,6 +103,20 @@ impl Catalog {
             track_length,
         )))
     }
+}
+
+/// Scans the library, counting the files seen on a terminal: a large
+/// network share takes minutes to list.
+pub fn scan_library(root: &Path, console: &Console) -> miette::Result<Library> {
+    let library = Library::scan_with_progress(root, |seen| {
+        if seen % 100 == 0 {
+            console.progress(format_args!("listing {}: {seen} files", root.display()));
+        }
+    });
+    console.progress_done();
+    library
+        .into_diagnostic()
+        .wrap_err_with(|| format!("could not read the library at {}", root.display()))
 }
 
 /// Library files without a current peak record. Files `index` passed over
