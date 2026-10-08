@@ -1,0 +1,721 @@
+{
+ "reports": [
+  "sweep-seed-2027.json",
+  "sweep-seed-2028.json",
+  "sweep-seed-2029.json",
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
+  "robust-seed-2026.json",
+  "mixes-seed-2026.json",
+  "grid-seed-2026.json"
+ ],
+ "detections": 7243,
+ "groups": {
+  "identifying": 3334,
+  "false: unrelated": 3131,
+  "false: related": 778
+ },
+ "by_tolerance": {
+  "1x1": {
+   "by_group": {
+    "identifying": {
+     "count": 3334,
+     "share_median": 0.848129698499892,
+     "support_median": 1.0,
+     "chance_share_median": 0.009881375819625542,
+     "chance_support_median": 0.2916666666666667,
+     "excess_median": 0.8268849483106067,
+     "support_excess_median": 0.703125,
+     "excess_min": 0.015825811982380738,
+     "excess_max": 0.932162604772089
+    },
+    "false: related": {
+     "count": 778,
+     "share_median": 0.08759041191998829,
+     "support_median": 0.9230769230769231,
+     "chance_share_median": 0.0043881509182792785,
+     "chance_support_median": 0.14473684210526316,
+     "excess_median": 0.07855073171388977,
+     "support_excess_median": 0.75,
+     "excess_min": -0.0044376268218991564,
+     "excess_max": 0.406254080224163
+    },
+    "false: unrelated": {
+     "count": 3131,
+     "share_median": 0.04129793510324484,
+     "support_median": 0.7777777777777778,
+     "chance_share_median": 0.005492206184520452,
+     "chance_support_median": 0.17857142857142855,
+     "excess_median": 0.03418984529295589,
+     "support_excess_median": 0.5735294117647058,
+     "excess_min": -0.007405894530339734,
+     "excess_max": 0.22831184242255023
+    }
+   },
+   "by_hits": [
+    {
+     "hits": "0-20",
+     "identifying": {
+      "count": 30,
+      "excess_median": 0.119,
+      "excess_range": [
+       0.0158,
+       0.1973
+      ],
+      "share_median": 0.1284,
+      "support_excess_median": 0.7368
+     },
+     "false: related": {
+      "count": 654,
+      "excess_median": 0.0605,
+      "excess_range": [
+       -0.0044,
+       0.2704
+      ],
+      "share_median": 0.0672,
+      "support_excess_median": 0.7016
+     },
+     "false: unrelated": {
+      "count": 3128,
+      "excess_median": 0.0342,
+      "excess_range": [
+       -0.0074,
+       0.2283
+      ],
+      "share_median": 0.0413,
+      "support_excess_median": 0.5735
+     },
+     "auc": {
+      "hits": 0.8602459016393442,
+      "excess": 0.9026088489335449,
+      "support_excess": 0.6342411422527763
+     },
+     "auc_related": {
+      "hits": 0.7113914373088684,
+      "excess": 0.7087665647298674,
+      "support_excess": 0.509072375127421
+     }
+    },
+    {
+     "hits": "20-40",
+     "identifying": {
+      "count": 32,
+      "excess_median": 0.1732,
+      "excess_range": [
+       0.0976,
+       0.2739
+      ],
+      "share_median": 0.1822,
+      "support_excess_median": 0.6682
+     },
+     "false: related": {
+      "count": 102,
+      "excess_median": 0.1746,
+      "excess_range": [
+       0.0866,
+       0.2981
+      ],
+      "share_median": 0.1774,
+      "support_excess_median": 0.8083
+     },
+     "false: unrelated": {
+      "count": 3,
+      "excess_median": 0.0794,
+      "excess_range": [
+       0.0653,
+       0.0866
+      ],
+      "share_median": 0.1189,
+      "support_excess_median": 0.3438
+     },
+     "auc": {
+      "hits": 0.6549107142857142,
+      "excess": 0.44047619047619047,
+      "support_excess": 0.14330357142857142
+     },
+     "auc_related": {
+      "hits": 0.6568627450980392,
+      "excess": 0.42401960784313725,
+      "support_excess": 0.11963848039215687
+     }
+    },
+    {
+     "hits": "40-60",
+     "identifying": {
+      "count": 16,
+      "excess_median": 0.2428,
+      "excess_range": [
+       0.1587,
+       0.3076
+      ],
+      "share_median": 0.2519,
+      "support_excess_median": 0.7286
+     },
+     "false: related": {
+      "count": 14,
+      "excess_median": 0.199,
+      "excess_range": [
+       0.1058,
+       0.2714
+      ],
+      "share_median": 0.2061,
+      "support_excess_median": 0.8625
+     },
+     "auc": {
+      "hits": 0.14955357142857142,
+      "excess": 0.8303571428571429,
+      "support_excess": 0.11830357142857142
+     },
+     "auc_related": {
+      "hits": 0.14955357142857142,
+      "excess": 0.8303571428571429,
+      "support_excess": 0.11830357142857142
+     }
+    },
+    {
+     "hits": "60-120",
+     "identifying": {
+      "count": 47,
+      "excess_median": 0.3256,
+      "excess_range": [
+       0.203,
+       0.4337
+      ],
+      "share_median": 0.3399,
+      "support_excess_median": 0.6983
+     },
+     "false: related": {
+      "count": 8,
+      "excess_median": 0.2461,
+      "excess_range": [
+       0.1866,
+       0.4063
+      ],
+      "share_median": 0.2533,
+      "support_excess_median": 0.7718
+     },
+     "auc": {
+      "hits": 0.6954787234042553,
+      "excess": 0.6196808510638298,
+      "support_excess": 0.34441489361702127
+     },
+     "auc_related": {
+      "hits": 0.6954787234042553,
+      "excess": 0.6196808510638298,
+      "support_excess": 0.34441489361702127
+     }
+    },
+    {
+     "hits": "120-240",
+     "identifying": {
+      "count": 71,
+      "excess_median": 0.4204,
+      "excess_range": [
+       0.2912,
+       0.7554
+      ],
+      "share_median": 0.4521,
+      "support_excess_median": 0.675
+     },
+     "auc": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     },
+     "auc_related": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     }
+    },
+    {
+     "hits": "240-",
+     "identifying": {
+      "count": 3138,
+      "excess_median": 0.8305,
+      "excess_range": [
+       0.3655,
+       0.9322
+      ],
+      "share_median": 0.8518,
+      "support_excess_median": 0.7083
+     },
+     "auc": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     },
+     "auc_related": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     }
+    }
+   ],
+   "separation": {
+    "overlap_hits": [
+     6,
+     100
+    ],
+    "identifying": 112,
+    "false": 3886,
+    "auc_hits": 0.9495372582898316,
+    "auc_share": 0.9575835416513492,
+    "auc_support": 0.8511874126902433,
+    "auc_excess": 0.9529492316741416,
+    "auc_support_excess": 0.6241223071832953,
+    "false: related": {
+     "hits": 0.8645057273235239,
+     "excess": 0.8274003538834047,
+     "support_excess": 0.4477672750977836
+    },
+    "false: unrelated": {
+     "hits": 0.9704475450006871,
+     "excess": 0.9838232263087986,
+     "support_excess": 0.6674901525214125
+    }
+   },
+   "weakest_identifying": [
+    {
+     "hits": 6,
+     "windows": 2,
+     "where": "robust combined extra/aa-cause_4_concern-synergy-sour.mp3 at 0.950",
+     "reference_peaks": 381,
+     "found": 26,
+     "share": 0.0682,
+     "support": 0.75,
+     "chance_share": 0.0091,
+     "chance_share_max": 0.0127,
+     "chance_support": 0.25,
+     "excess": 0.0591,
+     "support_excess": 0.5
+    },
+    {
+     "hits": 6,
+     "windows": 2,
+     "where": "robust combined extra/2. Phace - Brainwave VIP.mp3 at 0.950",
+     "reference_peaks": 484,
+     "found": 19,
+     "share": 0.0393,
+     "support": 0.6429,
+     "chance_share": 0.0234,
+     "chance_share_max": 0.0511,
+     "chance_support": 0.4286,
+     "excess": 0.0158,
+     "support_excess": 0.2143
+    },
+    {
+     "hits": 7,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 1311 s",
+     "reference_peaks": 749,
+     "found": 66,
+     "share": 0.0881,
+     "support": 0.9474,
+     "chance_share": 0.0064,
+     "chance_share_max": 0.0134,
+     "chance_support": 0.2105,
+     "excess": 0.0817,
+     "support_excess": 0.7368
+    },
+    {
+     "hits": 7,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 1311 s",
+     "reference_peaks": 749,
+     "found": 66,
+     "share": 0.0881,
+     "support": 0.9474,
+     "chance_share": 0.0064,
+     "chance_share_max": 0.0134,
+     "chance_support": 0.2105,
+     "excess": 0.0817,
+     "support_excess": 0.7368
+    },
+    {
+     "hits": 7,
+     "windows": 2,
+     "where": "robust combined extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3 at 0.950",
+     "reference_peaks": 237,
+     "found": 22,
+     "share": 0.0928,
+     "support": 0.8571,
+     "chance_share": 0.0224,
+     "chance_share_max": 0.0535,
+     "chance_support": 0.4286,
+     "excess": 0.0705,
+     "support_excess": 0.4286
+    },
+    {
+     "hits": 7,
+     "windows": 2,
+     "where": "robust combined extra/AA-Nu_Balance-Overheads-sour.mp3 at 1.030",
+     "reference_peaks": 502,
+     "found": 39,
+     "share": 0.0777,
+     "support": 1.0,
+     "chance_share": 0.0059,
+     "chance_share_max": 0.0076,
+     "chance_support": 0.1719,
+     "excess": 0.0718,
+     "support_excess": 0.8281
+    },
+    {
+     "hits": 7,
+     "windows": 2,
+     "where": "mix-11 at 173 s",
+     "reference_peaks": 470,
+     "found": 27,
+     "share": 0.0574,
+     "support": 0.9286,
+     "chance_share": 0.0052,
+     "chance_share_max": 0.0107,
+     "chance_support": 0.1786,
+     "excess": 0.0522,
+     "support_excess": 0.75
+    },
+    {
+     "hits": 8,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 261 s",
+     "reference_peaks": 613,
+     "found": 48,
+     "share": 0.0783,
+     "support": 0.9286,
+     "chance_share": 0.0004,
+     "chance_share_max": 0.0017,
+     "chance_support": 0.0179,
+     "excess": 0.0779,
+     "support_excess": 0.9107
+    },
+    {
+     "hits": 8,
+     "windows": 2,
+     "where": "robust combined extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3 at 1.030",
+     "reference_peaks": 674,
+     "found": 98,
+     "share": 0.1454,
+     "support": 1.0,
+     "chance_share": 0.0041,
+     "chance_share_max": 0.0059,
+     "chance_support": 0.1618,
+     "excess": 0.1413,
+     "support_excess": 0.8382
+    },
+    {
+     "hits": 8,
+     "windows": 2,
+     "where": "robust combined extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3 at 1.030",
+     "reference_peaks": 440,
+     "found": 61,
+     "share": 0.1386,
+     "support": 1.0,
+     "chance_share": 0.0171,
+     "chance_share_max": 0.0376,
+     "chance_support": 0.4615,
+     "excess": 0.1215,
+     "support_excess": 0.5385
+    }
+   ],
+   "strongest_false": [
+    {
+     "hits": 100,
+     "group": "false: related",
+     "label": "version",
+     "found": 225,
+     "where": "robust control Skynet & Stakka - Clockwork.mp3 at 0.950",
+     "reference_peaks": 549,
+     "share": 0.4098,
+     "support": 1.0,
+     "chance_share": 0.01,
+     "chance_share_max": 0.0135,
+     "chance_support": 0.2833,
+     "excess": 0.3999,
+     "support_excess": 0.7167
+    },
+    {
+     "hits": 94,
+     "group": "false: related",
+     "label": "version",
+     "found": 296,
+     "where": "stakka-skynet-knowledge at 1223 s",
+     "reference_peaks": 713,
+     "share": 0.4151,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0105,
+     "chance_support": 0.2778,
+     "excess": 0.4063,
+     "support_excess": 0.7222
+    },
+    {
+     "hits": 94,
+     "group": "false: related",
+     "label": "version",
+     "found": 296,
+     "where": "stakka-skynet-knowledge at 1223 s",
+     "reference_peaks": 713,
+     "share": 0.4151,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0105,
+     "chance_support": 0.2778,
+     "excess": 0.4063,
+     "support_excess": 0.7222
+    },
+    {
+     "hits": 86,
+     "group": "false: related",
+     "label": "version",
+     "found": 214,
+     "where": "robust control Skynet & Stakka - Clockwork.mp3 at 1.030",
+     "reference_peaks": 769,
+     "share": 0.2783,
+     "support": 0.85,
+     "chance_share": 0.0097,
+     "chance_share_max": 0.0151,
+     "chance_support": 0.3,
+     "excess": 0.2685,
+     "support_excess": 0.55
+    },
+    {
+     "hits": 62,
+     "group": "false: related",
+     "label": "same artist",
+     "found": 147,
+     "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +8%",
+     "reference_peaks": 771,
+     "share": 0.1907,
+     "support": 1.0,
+     "chance_share": 0.0041,
+     "chance_share_max": 0.0092,
+     "chance_support": 0.15,
+     "excess": 0.1866,
+     "support_excess": 0.85
+    },
+    {
+     "hits": 62,
+     "group": "false: related",
+     "label": "version",
+     "found": 147,
+     "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +8%",
+     "reference_peaks": 771,
+     "share": 0.1907,
+     "support": 1.0,
+     "chance_share": 0.0041,
+     "chance_share_max": 0.0092,
+     "chance_support": 0.15,
+     "excess": 0.1866,
+     "support_excess": 0.85
+    },
+    {
+     "hits": 61,
+     "group": "false: related",
+     "label": "same artist",
+     "found": 169,
+     "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +0%",
+     "reference_peaks": 740,
+     "share": 0.2284,
+     "support": 0.9524,
+     "chance_share": 0.0047,
+     "chance_share_max": 0.0088,
+     "chance_support": 0.131,
+     "excess": 0.2237,
+     "support_excess": 0.8214
+    },
+    {
+     "hits": 61,
+     "group": "false: related",
+     "label": "version",
+     "found": 169,
+     "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +0%",
+     "reference_peaks": 740,
+     "share": 0.2284,
+     "support": 0.9524,
+     "chance_share": 0.0047,
+     "chance_share_max": 0.0088,
+     "chance_support": 0.131,
+     "excess": 0.2237,
+     "support_excess": 0.8214
+    },
+    {
+     "hits": 59,
+     "group": "false: related",
+     "label": "same artist",
+     "found": 84,
+     "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -1%",
+     "reference_peaks": 773,
+     "share": 0.1087,
+     "support": 0.9545,
+     "chance_share": 0.0028,
+     "chance_share_max": 0.0039,
+     "chance_support": 0.0909,
+     "excess": 0.1058,
+     "support_excess": 0.8636
+    },
+    {
+     "hits": 59,
+     "group": "false: related",
+     "label": "version",
+     "found": 84,
+     "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -1%",
+     "reference_peaks": 773,
+     "share": 0.1087,
+     "support": 0.9545,
+     "chance_share": 0.0028,
+     "chance_share_max": 0.0039,
+     "chance_support": 0.0909,
+     "excess": 0.1058,
+     "support_excess": 0.8636
+    }
+   ],
+   "highest_excess_false": [
+    {
+     "hits": 94,
+     "group": "false: related",
+     "found": 296,
+     "where": "stakka-skynet-knowledge at 1223 s",
+     "reference_peaks": 713,
+     "share": 0.4151,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0105,
+     "chance_support": 0.2778,
+     "excess": 0.4063,
+     "support_excess": 0.7222
+    },
+    {
+     "hits": 94,
+     "group": "false: related",
+     "found": 296,
+     "where": "stakka-skynet-knowledge at 1223 s",
+     "reference_peaks": 713,
+     "share": 0.4151,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0105,
+     "chance_support": 0.2778,
+     "excess": 0.4063,
+     "support_excess": 0.7222
+    },
+    {
+     "hits": 100,
+     "group": "false: related",
+     "found": 225,
+     "where": "robust control Skynet & Stakka - Clockwork.mp3 at 0.950",
+     "reference_peaks": 549,
+     "share": 0.4098,
+     "support": 1.0,
+     "chance_share": 0.01,
+     "chance_share_max": 0.0135,
+     "chance_support": 0.2833,
+     "excess": 0.3999,
+     "support_excess": 0.7167
+    },
+    {
+     "hits": 26,
+     "group": "false: related",
+     "found": 169,
+     "where": "sweep 2029 Kemal & Rob Data - Star Trails.mp3 at +3%",
+     "reference_peaks": 556,
+     "share": 0.304,
+     "support": 1.0,
+     "chance_share": 0.0058,
+     "chance_share_max": 0.0107,
+     "chance_support": 0.2031,
+     "excess": 0.2981,
+     "support_excess": 0.7969
+    },
+    {
+     "hits": 27,
+     "group": "false: related",
+     "found": 184,
+     "where": "sweep 2029 Kemal & Rob Data - Star Trails.mp3 at -1%",
+     "reference_peaks": 653,
+     "share": 0.2818,
+     "support": 1.0,
+     "chance_share": 0.0042,
+     "chance_share_max": 0.0092,
+     "chance_support": 0.1447,
+     "excess": 0.2775,
+     "support_excess": 0.8553
+    },
+    {
+     "hits": 26,
+     "group": "false: related",
+     "found": 159,
+     "where": "sweep 2029 Kemal & Rob Data - Star Trails.mp3 at +0%",
+     "reference_peaks": 568,
+     "share": 0.2799,
+     "support": 1.0,
+     "chance_share": 0.0058,
+     "chance_share_max": 0.0107,
+     "chance_support": 0.1912,
+     "excess": 0.2742,
+     "support_excess": 0.8088
+    },
+    {
+     "hits": 43,
+     "group": "false: related",
+     "found": 155,
+     "where": "robust combined Skynet & Stakka - Clockwork.mp3 at 0.950",
+     "reference_peaks": 554,
+     "share": 0.2798,
+     "support": 1.0,
+     "chance_share": 0.0084,
+     "chance_share_max": 0.0102,
+     "chance_support": 0.25,
+     "excess": 0.2714,
+     "support_excess": 0.75
+    },
+    {
+     "hits": 15,
+     "group": "false: related",
+     "found": 155,
+     "where": "grid brief 4 10 s offset 4",
+     "reference_peaks": 559,
+     "share": 0.2773,
+     "support": 1.0,
+     "chance_share": 0.0069,
+     "chance_share_max": 0.0129,
+     "chance_support": 0.2031,
+     "excess": 0.2704,
+     "support_excess": 0.7969
+    },
+    {
+     "hits": 15,
+     "group": "false: related",
+     "found": 155,
+     "where": "grid brief 4 15 s offset 4",
+     "reference_peaks": 559,
+     "share": 0.2773,
+     "support": 1.0,
+     "chance_share": 0.0069,
+     "chance_share_max": 0.0129,
+     "chance_support": 0.2031,
+     "excess": 0.2704,
+     "support_excess": 0.7969
+    },
+    {
+     "hits": 15,
+     "group": "false: related",
+     "found": 155,
+     "where": "grid brief 4 20 s offset 4",
+     "reference_peaks": 559,
+     "share": 0.2773,
+     "support": 1.0,
+     "chance_share": 0.0069,
+     "chance_share_max": 0.0129,
+     "chance_support": 0.2031,
+     "excess": 0.2704,
+     "support_excess": 0.7969
+    }
+   ],
+   "listening_list": []
+  }
+ },
+ "related_given": [
+  "Kemal|kemal-mechanizm",
+  "Star Trails|Konflict"
+ ]
+}
