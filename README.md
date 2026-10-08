@@ -112,7 +112,13 @@ target/release/gunfinger prune --library ~/Music/library --yes
 
 `index` takes files up to 20 minutes long; longer ones are mixes or album
 rips (`--min-track` and `--max-track` set the range; see
-[Tracks among sets and samples](#tracks-among-sets-and-samples)). Files that
+[Tracks among sets and samples](#tracks-among-sets-and-samples)). Hidden
+files and folders (names starting with a dot, such as a downloader's
+`.incomplete/`) are passed over. A file whose audio stops short of the
+length its header declares by more than 1 s or 1% of that length, whichever
+is larger, counts as damaged. An MP3 inside a WAV container behind an ID3
+tag, which FFmpeg cannot open as it is, is read with the tag skipped and
+keeps the tag's names. Files that
 fail to decode or are outside the range are remembered in the peak store and
 passed over on later runs until they change (`--retry-skipped` tries them
 again). `identify --exclude-from FILE` leaves the listed library paths out of

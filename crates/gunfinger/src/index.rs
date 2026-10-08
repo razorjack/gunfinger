@@ -107,7 +107,7 @@ fn print_summary(library: &Library, outcomes: &[Outcome], elapsed: Duration, con
     }
     if library.skipped_total() > 0 {
         console.info(format_args!(
-            "skipped {} other files:",
+            "skipped {} other files and folders:",
             library.skipped_total()
         ));
         for (reason, count) in &library.skipped {

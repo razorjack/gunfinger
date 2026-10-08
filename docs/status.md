@@ -777,3 +777,16 @@ grouped tracklists.
 - The NAS store at the start (02:45): 27,010 `.peaks`, 27,010 `.tags`,
   1,429 `.skip`, `library.txt`; digest `1a7acf1b...07b38129` (full value
   in `docs/brief-6.md`), revision `3d16641d2ecb6956`.
+- `regress session-5-start` with the session-start binaries: 720 of 720
+  sweep queries and every detection of the three scans identical (5 min).
+  Baseline `session-6-start` saved; binaries in `work/bin/s6-start/`.
+  Timed runs log the CPU idle share, and CPU time is the figure to
+  compare.
+- Item 1 (store fixes): `decode::Container` finds an ID3v2 tag followed
+  by "RIFF" and opens such files with `-skip_initial_bytes` (decode,
+  probe, `listen`), tags from `ffprobe -f mp3`; hidden folders skipped
+  and counted; truncation tolerance max(1 s, 1%). Unit and codec tests
+  with generated fixtures. `regress session-6-start`: identical. Three
+  corpus files with skip notes would now pass the tolerance; not indexed
+  (session notes). `scripts/analysis/skip_notes.py` lists a store's
+  skip notes.

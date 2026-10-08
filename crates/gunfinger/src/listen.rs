@@ -5,6 +5,7 @@
 use std::path::PathBuf;
 use std::process::{Command, Stdio};
 
+use gunfinger_core::decode::Container;
 use miette::miette;
 
 use crate::console::Console;
@@ -169,6 +170,7 @@ fn ffplay_args(clip: &Clip, seconds: f64) -> Vec<String> {
         };
         args.extend([String::from("-af"), filter]);
     }
+    args.extend(Container::of(&clip.path).input_args());
     args.push(clip.path.to_string_lossy().into_owned());
     args
 }

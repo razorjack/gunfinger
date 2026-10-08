@@ -259,7 +259,7 @@ fn check_library(
     checkup.line(
         status,
         format!(
-            "{} audio files, {} other files passed over",
+            "{} audio files, {} other files and folders passed over",
             library.assets.len(),
             library.skipped_total()
         ),
