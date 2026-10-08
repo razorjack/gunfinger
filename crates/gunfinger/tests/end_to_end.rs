@@ -13,6 +13,14 @@
 //!
 //! Track D is in the library but never played; `copy-of-a.wav` is a copy of
 //! track A's file. Skipped when FFmpeg is not installed.
+//!
+//! The tracks repeat their kick every bar, as drum & bass does. The default
+//! matcher measures each candidate again over its span and up to 10 s
+//! before it; after the skip, the kicks of the 4 s before it lie within
+//! that measurement's reach of the new alignment, so the stronger part of C
+//! takes them in and the part before the skip, which overlaps it, is
+//! dropped. The single-pass matcher keeps both parts, as segments of one
+//! play.
 
 // Test helpers panic on failure: that is the clearest way to fail a test.
 #![allow(clippy::unwrap_used)]
@@ -118,19 +126,23 @@ fn a_synthetic_mix_is_identified_end_to_end() {
     let library = library.to_str().unwrap();
 
     gunfinger(&dir, &["index", library]);
-    let output = gunfinger(
-        &dir,
-        &[
+    let identify = |extra: &[&str]| {
+        let mut args = vec![
             "identify",
             mix.to_str().unwrap(),
             "--library",
             library,
             "--format",
             "json",
-        ],
-    );
+        ];
+        args.extend(extra);
+        gunfinger(&dir, &args)
+    };
+    let output = identify(&["--single-pass"]);
     let report: Value = serde_json::from_slice(&output.stdout).unwrap();
     let plays = report["plays"].as_array().unwrap();
+    let default: Value = serde_json::from_slice(&identify(&[]).stdout).unwrap();
+    let default_plays = default["plays"].as_array().unwrap();
 
     let saved = dir.join("report.json");
     std::fs::write(&saved, &output.stdout).unwrap();
@@ -144,10 +156,12 @@ fn a_synthetic_mix_is_identified_end_to_end() {
         "the saved report renders as a tracklist named after the untagged files"
     );
 
-    for (asset, speed, from, to, track_from) in [
-        ("a.wav", 1.03, 0.0, 42.0, 10.0),
-        ("b.wav", 0.95, 38.0, 82.0, 5.0),
-        ("c.wav", 1.06, 96.0, 140.0, 20.0),
+    for (plays, asset, speed, from, to, track_from) in [
+        (plays, "a.wav", 1.03, 0.0, 42.0, 10.0),
+        (plays, "b.wav", 0.95, 38.0, 82.0, 5.0),
+        (plays, "c.wav", 1.06, 96.0, 140.0, 20.0),
+        (default_plays, "a.wav", 1.03, 0.0, 42.0, 10.0),
+        (default_plays, "b.wav", 0.95, 38.0, 82.0, 5.0),
     ] {
         let found = plays_of(plays, asset);
         assert_eq!(found.len(), 1, "{asset}: {found:?}");
@@ -187,11 +201,22 @@ fn a_synthetic_mix_is_identified_end_to_end() {
     );
     let after_skip = 20.0 + 16.0 * 1.06 + 4.0;
     assert_track_position(&segments[1], 112.0, after_skip, 1.06);
-    assert!(plays_of(plays, "d.wav").is_empty(), "D is never played");
-    for play in plays {
-        let inside_insert =
-            seconds(play, "start_seconds") > 84.0 && seconds(play, "end_seconds") < 94.0;
-        assert!(!inside_insert, "nothing plays inside the insert: {play}");
+    let c = plays_of(default_plays, "c.wav");
+    assert_eq!(c.len(), 1, "{c:?}");
+    assert_eq!(c[0]["confidence"], "confident", "{}", c[0]);
+    assert!(
+        (seconds(c[0], "speed") - 1.06).abs() < 0.001
+            && (seconds(c[0], "end_seconds") - 140.0).abs() < 5.0,
+        "the default matcher finds C after the skip: {}",
+        c[0]
+    );
+    for plays in [plays, default_plays] {
+        assert!(plays_of(plays, "d.wav").is_empty(), "D is never played");
+        for play in plays {
+            let inside_insert =
+                seconds(play, "start_seconds") > 84.0 && seconds(play, "end_seconds") < 94.0;
+            assert!(!inside_insert, "nothing plays inside the insert: {play}");
+        }
     }
 
     let explained = gunfinger(
@@ -628,7 +653,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     gunfinger(&dir, &["index", library]);
     let mixes = [dir.join("mixes/first.wav"), dir.join("mixes/second.wav")];
     let reports = dir.join("reports");
-    let batch = |playback: &str| {
+    let batch = |playback: &str, extra: &[&str]| {
         let mut args = vec!["identify"];
         args.extend(mixes.iter().map(|mix| mix.to_str().unwrap()));
         args.extend([
@@ -639,19 +664,23 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
             "--playback",
             playback,
         ]);
+        args.extend(extra);
         gunfinger(&dir, &args)
     };
 
-    let first = batch("both");
-    let second = batch("both");
-    let other_playback = batch("turntable");
+    let first = batch("both", &[]);
+    let second = batch("both", &[]);
+    let single_pass = batch("both", &["--single-pass"]);
+    let single_pass_report: Value =
+        serde_json::from_slice(&std::fs::read(reports.join("first.json")).unwrap()).unwrap();
+    let other_playback = batch("turntable", &[]);
     let other = Track::random(2, 30.0);
     write_wav(
         &dir.join("library/2.wav"),
         &other.play(0.0, other.seconds, 1.0),
     );
     gunfinger(&dir, &["index", library]);
-    let grown_library = batch("turntable");
+    let grown_library = batch("turntable", &[]);
 
     let first = String::from_utf8_lossy(&first.stdout);
     assert_eq!(first.matches("confident").count(), 2, "{first}");
@@ -662,6 +691,15 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     }
     assert!(
         String::from_utf8_lossy(&second.stderr).contains("every recording already has a report")
+    );
+    let single_pass = String::from_utf8_lossy(&single_pass.stderr);
+    assert!(
+        single_pass.contains("its report was made with other matching settings"),
+        "{single_pass}"
+    );
+    assert_eq!(
+        single_pass_report["search"]["confidence"],
+        "confident: 200 hits in 3 windows; possible: 60 hits"
     );
     let other_playback = String::from_utf8_lossy(&other_playback.stderr);
     assert!(
@@ -678,7 +716,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     assert_eq!(report["query"]["playback"], "turntable");
     assert_eq!(
         report["search"]["confidence"],
-        "confident: 200 hits in 3 windows; possible: 60 hits"
+        "confident: 240 hits in 3 windows; possible: 60 hits"
     );
     let leftovers = std::fs::read_dir(&reports).unwrap().count();
     assert_eq!(leftovers, 2, "only the two reports, no temporary files");

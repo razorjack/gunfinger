@@ -5,12 +5,12 @@
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
-use gunfinger_core::confidence::{self, Confidence};
+use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::Excerpt;
 use gunfinger_core::hash;
 use gunfinger_core::plays::{self, SameAudio};
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{self, Detection};
+use gunfinger_core::search::{self, Detection, Matcher};
 use gunfinger_core::speed;
 use gunfinger_core::tags::Tags;
 use miette::{IntoDiagnostic, WrapErr, miette};
@@ -71,12 +71,12 @@ pub struct SearchSettings {
 }
 
 impl SearchSettings {
-    pub fn current(library_revision: &str) -> SearchSettings {
+    pub fn current(matcher: Matcher, library_revision: &str) -> SearchSettings {
         SearchSettings {
             profile: Profile::CURRENT.id(),
             hashes: hash::design(),
-            matching: search::design(),
-            confidence: confidence::rule(),
+            matching: search::design(matcher),
+            confidence: matcher.pass().rule().to_string(),
             library_revision: library_revision.to_owned(),
         }
     }
@@ -259,7 +259,7 @@ impl Report {
                 requested_duration_seconds: excerpt.duration.map(|duration| duration.as_secs_f64()),
             },
             library: absolute(&catalog.root),
-            search: Some(SearchSettings::current(&catalog.revision)),
+            search: Some(SearchSettings::current(catalog.matcher, &catalog.revision)),
             plays,
         }
     }

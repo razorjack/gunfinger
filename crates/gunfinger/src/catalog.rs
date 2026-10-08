@@ -14,6 +14,7 @@ use gunfinger_core::indexing::{
 };
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::profile::Profile;
+use gunfinger_core::search::Matcher;
 use gunfinger_core::store::{PeakStore, StoreError};
 use gunfinger_core::tags::Tags;
 use gunfinger_core::timecode::format_timecode;
@@ -160,12 +161,13 @@ pub fn store_records(dir: &Path) -> miette::Result<Option<(PeakStore, Records)>>
     Ok((!records.0.is_empty()).then_some((store, records)))
 }
 
-/// The index of a library, built from its peak store.
+/// The index of a library, built from its peak store for a matcher.
 pub struct Catalog {
     /// The library root, empty when not known (see `Indexable::root`).
     pub root: PathBuf,
     pub store: PeakStore,
     pub index: Index,
+    pub matcher: Matcher,
     /// The library revision of the indexed assets.
     pub revision: String,
     /// The indexed files by path.
@@ -177,7 +179,11 @@ impl Catalog {
     /// file not excluded and within the track length range, reading one
     /// record at a time. Files without a current record are reported on
     /// stderr and left out.
-    pub fn open(indexable: Indexable, console: &Console) -> miette::Result<Catalog> {
+    pub fn open(
+        indexable: Indexable,
+        matcher: Matcher,
+        console: &Console,
+    ) -> miette::Result<Catalog> {
         let started = Instant::now();
         let Indexable {
             root,
@@ -226,7 +232,8 @@ impl Catalog {
         Ok(Catalog {
             root,
             store,
-            index,
+            index: matcher.index(index),
+            matcher,
             revision,
             sources: sources
                 .into_iter()

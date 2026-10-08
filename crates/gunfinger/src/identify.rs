@@ -11,7 +11,7 @@ use std::time::Instant;
 
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::search_with_progress;
+use gunfinger_core::search::{Matcher, search_with_progress};
 use gunfinger_core::timecode::format_timecode;
 use miette::{IntoDiagnostic, WrapErr, miette};
 
@@ -27,6 +27,7 @@ pub struct Request<'a> {
     pub source: Source<'a>,
     pub excerpt: Excerpt,
     pub playback: PlaybackChoice,
+    pub matcher: Matcher,
     pub format: ReportFormat,
     /// Where to write each recording's JSON report, named after it.
     pub save_dir: Option<&'a Path>,
@@ -60,7 +61,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
             .info("every recording already has a report (--again searches them anyway)");
         return Ok(());
     }
-    let catalog = Catalog::open(indexable, request.console)?;
+    let catalog = Catalog::open(indexable, request.matcher, request.console)?;
     let mut failed = 0;
     for (audio, saved) in &jobs {
         if several {
@@ -119,7 +120,10 @@ fn plan(
         .iter()
         .any(|audio| report_path(dir, audio).exists());
     let current = if any_saved && !request.again {
-        Some(SearchSettings::current(&indexable.revision()))
+        Some(SearchSettings::current(
+            request.matcher,
+            &indexable.revision(),
+        ))
     } else {
         None
     };
@@ -237,6 +241,7 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
         &profile,
         &ladder,
         request.jobs,
+        catalog.matcher.options(),
         |done, parts| {
             request
                 .console

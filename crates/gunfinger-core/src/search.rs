@@ -17,7 +17,7 @@ mod refine;
 use std::cmp::Reverse;
 use std::ops::Range;
 
-use crate::confidence::Evidence;
+use crate::confidence::{Evidence, Pass};
 use crate::hash::Point;
 use crate::index::{AssetId, Index};
 use crate::peaks::Peak;
@@ -41,12 +41,13 @@ pub struct Detection {
     pub evidence: Evidence,
 }
 
-/// The matching settings as reports record them: lines, chains and the
-/// ladder's speeds. The version changes when matching changes in a way
-/// these numbers do not show.
-pub fn design() -> String {
+/// The matching settings as reports record them: the matcher, lines,
+/// chains and the ladder's speeds. The version changes when matching
+/// changes in a way these numbers do not show.
+pub fn design(matcher: Matcher) -> String {
     format!(
-        "lines-chains-v1 {} {} {}",
+        "lines-chains-v1 {} {} {} {}",
+        matcher.name(),
         lines::design(),
         chains::design(),
         speed::design()
@@ -88,11 +89,77 @@ pub const WINDOW_SECONDS: f64 = lines::WINDOW_SECONDS;
 
 pub use chains::{Links, STRONG_LINE_HITS};
 
-/// Opt-in changes to matching, under evaluation. The default is the
-/// matcher `search` runs.
+/// The two matchers (ADR 0008). Both look for candidates on the speed
+/// ladder; they differ in which posting lists that search scans, which
+/// lines chains may join, and how the evidence is measured.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Matcher {
+    /// The default since session 6. Candidates come from the ladder with
+    /// the fullest `SKIPPED_SHARE` of posting lists set aside, chains join
+    /// only lines from nearby rungs and cross an empty window only on a
+    /// strong line, and each candidate is measured again at its fitted
+    /// speed in every list (`Pass::Fitted`, 240 hits in 3 windows).
+    #[default]
+    Fitted,
+    /// The matcher before session 6: one pass over the ladder with every
+    /// posting list and any chain of lines (`Pass::Ladder`, 200 hits in 3
+    /// windows).
+    SinglePass,
+}
+
+/// The share of the fullest posting lists `Matcher::Fitted` sets aside
+/// when looking for candidates: 18.7% of the postings of a large
+/// collection, which find most chance candidates and little evidence
+/// (experiments 0026, 0043).
+pub const SKIPPED_SHARE: f64 = 0.01;
+
+impl Matcher {
+    pub fn options(self) -> Options {
+        match self {
+            Matcher::Fitted => Options {
+                second_pass: true,
+                links: Links {
+                    nearby_rungs: true,
+                    strong_across_gaps: true,
+                },
+                ..Options::default()
+            },
+            Matcher::SinglePass => Options::default(),
+        }
+    }
+
+    /// The index this matcher searches, made from a freshly built one.
+    pub fn index(self, index: Index) -> Index {
+        match self {
+            Matcher::Fitted => index.skipping_fullest(SKIPPED_SHARE),
+            Matcher::SinglePass => index,
+        }
+    }
+
+    /// The pass whose rule its detections meet.
+    pub fn pass(self) -> Pass {
+        match self {
+            Matcher::Fitted => Pass::Fitted,
+            Matcher::SinglePass => Pass::Ladder,
+        }
+    }
+
+    pub fn name(self) -> &'static str {
+        match self {
+            Matcher::Fitted => "fitted-skip-0.01-links",
+            Matcher::SinglePass => "single-pass",
+        }
+    }
+}
+
+/// Changes to matching. `Options::default()` is `Matcher::SinglePass`;
+/// `Matcher::options` gives each matcher's, and the harness adds opt-in
+/// changes under evaluation.
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Options {
-    /// Measure each candidate again at its fitted speed (`search_twice`).
+    /// The second pass (`refine`): each candidate with a few hits or more
+    /// is measured again at its fitted speed, its evidence on that pass's
+    /// scale (`Pass::Fitted`).
     pub second_pass: bool,
     /// Which lines a chain may join.
     pub links: Links,
@@ -105,9 +172,9 @@ pub struct Options {
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of
-/// `index` on each rung of `ladder` (normally `speed::ladder()`),
-/// running rungs on `jobs` threads. Returns the detections strongest first;
-/// the caller decides which are confident.
+/// `index` on each rung of `ladder` (normally `speed::ladder()`) in one
+/// pass (`Matcher::SinglePass`), running rungs on `jobs` threads. Returns
+/// the detections strongest first; the caller decides which are confident.
 pub fn search(
     index: &Index,
     samples: &[f32],
@@ -115,52 +182,28 @@ pub fn search(
     ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
-    search_with_progress(index, samples, profile, ladder, jobs, |_, _| {})
+    search_with(index, samples, profile, ladder, jobs, Options::default())
 }
 
-/// Like `search`, calling `progress` from the workers with the parts of the
-/// search finished and their number after each part.
+/// Like `search_with`, calling `progress` from the workers with the parts
+/// of the first pass finished and their number after each part.
 pub fn search_with_progress(
     index: &Index,
     samples: &[f32],
     profile: &Profile,
     ladder: &[Rung],
     jobs: usize,
+    options: Options,
     progress: impl Fn(usize, usize) + Sync,
 ) -> Vec<Detection> {
-    let (_, chained) = lines_and_detections(
-        index,
-        Query::Samples(samples),
-        profile,
-        ladder,
-        jobs,
-        Options::default(),
-        progress,
-    );
-    chained
+    detections_and_chains(index, samples, profile, ladder, jobs, options, progress)
+        .1
         .into_iter()
         .map(|(detection, _)| detection)
         .collect()
 }
 
-/// Like `search`, then the second pass (opt-in, `refine`): each candidate
-/// with a few hits or more is measured again at its fitted speed, its
-/// evidence on that pass's scale (`Pass::Fitted`).
-pub fn search_twice(
-    index: &Index,
-    samples: &[f32],
-    profile: &Profile,
-    ladder: &[Rung],
-    jobs: usize,
-) -> Vec<Detection> {
-    let options = Options {
-        second_pass: true,
-        ..Options::default()
-    };
-    search_with(index, samples, profile, ladder, jobs, options)
-}
-
-/// Like `search`, with opt-in changes.
+/// Like `search`, with a matcher's options or opt-in changes.
 pub fn search_with(
     index: &Index,
     samples: &[f32],
@@ -169,6 +212,21 @@ pub fn search_with(
     jobs: usize,
     options: Options,
 ) -> Vec<Detection> {
+    search_with_progress(index, samples, profile, ladder, jobs, options, |_, _| {})
+}
+
+/// The first pass's lines, and the detections strongest first, each with
+/// the indexes of its chain's lines. With the second pass, each detection
+/// is measured again at its fitted speed and keeps its first-pass chain.
+fn detections_and_chains(
+    index: &Index,
+    samples: &[f32],
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+    options: Options,
+    progress: impl Fn(usize, usize) + Sync,
+) -> (Vec<lines::Line>, Vec<(Detection, Vec<usize>)>) {
     let (lines, chained) = lines_and_detections(
         index,
         Query::Samples(samples),
@@ -176,25 +234,14 @@ pub fn search_with(
         ladder,
         jobs,
         options,
-        |_, _| {},
+        progress,
     );
     if !options.second_pass {
-        return chained
-            .into_iter()
-            .map(|(detection, _)| detection)
-            .collect();
+        return (lines, chained);
     }
-    let mut refined = refine::refine(index, samples, profile, &lines, &chained, jobs, options);
-    refined.sort_by_key(|detection| Reverse(detection.evidence.hits));
-    strongest_per_moment(
-        refined
-            .into_iter()
-            .map(|detection| (detection, Vec::new()))
-            .collect(),
-    )
-    .into_iter()
-    .map(|(detection, _)| detection)
-    .collect()
+    let mut refined = refine::refine(index, samples, profile, &lines, chained, jobs, options);
+    refined.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
+    (lines, strongest_per_moment(refined))
 }
 
 /// Searches the stored peaks of a library file instead of audio, without
@@ -280,28 +327,9 @@ fn stft_frames(query_frames: Range<f64>, step: f64) -> Range<usize> {
     (start.max(0.0) as usize)..(end as usize)
 }
 
-/// Like `search_with_progress`, keeping the evidence (`explain`).
-pub fn trace_with_progress(
-    index: &Index,
-    samples: &[f32],
-    profile: &Profile,
-    ladder: &[Rung],
-    jobs: usize,
-    progress: impl Fn(usize, usize) + Sync,
-) -> Trace {
-    trace_with(
-        index,
-        samples,
-        profile,
-        ladder,
-        jobs,
-        Options::default(),
-        progress,
-    )
-}
-
-/// Like `trace_with_progress`, with opt-in changes to the first pass; the
-/// second pass is not traced.
+/// Like `search_with_progress`, keeping the evidence (`explain`). With the
+/// second pass, the detections carry its evidence and each keeps the
+/// first-pass lines of its chain.
 pub fn trace_with(
     index: &Index,
     samples: &[f32],
@@ -311,15 +339,8 @@ pub fn trace_with(
     options: Options,
     progress: impl Fn(usize, usize) + Sync,
 ) -> Trace {
-    let (lines, chained) = lines_and_detections(
-        index,
-        Query::Samples(samples),
-        profile,
-        ladder,
-        jobs,
-        options,
-        progress,
-    );
+    let (lines, chained) =
+        detections_and_chains(index, samples, profile, ladder, jobs, options, progress);
     let (detections, chains) = chained.into_iter().unzip();
     Trace {
         detections,

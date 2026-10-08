@@ -23,10 +23,10 @@ pub struct Evidence {
 /// so each has its own thresholds.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Pass {
-    /// The speed ladder: the default search.
+    /// The speed ladder (`Matcher::SinglePass`).
     Ladder,
-    /// Opt-in: each candidate's span analysed again at its fitted speed
-    /// (`search::search_twice`).
+    /// Each candidate's span analysed again at its fitted speed
+    /// (`Matcher::Fitted`, the default).
     Fitted,
 }
 
@@ -76,11 +76,6 @@ pub const FITTED_RULE: Rule = Rule {
     min_windows: MIN_WINDOWS,
     min_possible_hits: MIN_POSSIBLE_HITS,
 };
-
-/// The rule as reports record it.
-pub fn rule() -> String {
-    Pass::Ladder.rule().to_string()
-}
 
 impl Pass {
     pub fn rule(self) -> Rule {

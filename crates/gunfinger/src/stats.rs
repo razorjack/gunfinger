@@ -2,6 +2,7 @@
 
 use gunfinger_core::index::{Index, Posting};
 use gunfinger_core::profile::Profile;
+use gunfinger_core::search::Matcher;
 use miette::IntoDiagnostic;
 use serde::Serialize;
 
@@ -75,7 +76,11 @@ struct Projection {
 }
 
 pub fn run(source: &Source, format: Format, console: &Console) -> miette::Result<()> {
-    let catalog = Catalog::open(Indexable::find(source, console)?, console)?;
+    let catalog = Catalog::open(
+        Indexable::find(source, console)?,
+        Matcher::default(),
+        console,
+    )?;
     let stats = measure(&catalog)?;
     match format {
         Format::Human => print_human(&stats),
