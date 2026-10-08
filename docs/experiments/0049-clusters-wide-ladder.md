@@ -17,9 +17,9 @@ follow a drifting rip. Now the refit joins 10 pairs the ladder misses
 | Corpus clusters reappear | 17 | 17 | 17 | 17 |
 | Files in clusters; further rips | | | 686; 170 | 732; 216 |
 | Weakest same recording | 0.984 | 0.984 | 0.825 | 0.840 (Phoenix upload) |
-| Strongest different | 0.385 | 0.210 | 0.737 | 0.766 |
+| Strongest different | 0.385 | 0.302 | 0.737 | 0.766 |
 | Borderline pairs (40-80%) | 0 | 0 | 76 | 28 |
-| Wall; CPU; peak | | 535 s; 4,951 s | 4,328 s; 38,056 s | 5,106 s; 46,736 s; 4.5 GB |
+| Wall; CPU; peak | | 530 s; 4,961 s | 4,328 s; 38,056 s | 5,106 s; 46,736 s; 4.5 GB |
 
 The 46 new NAS members are uploads (pairs at 0.928-1.078, 220 beyond
 ±2%); none dropped; two spell the title differently (the same tracks).

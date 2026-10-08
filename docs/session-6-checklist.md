@@ -42,9 +42,11 @@ for scope and rules.
   confident sweep detections explained; `docs/pair-verdicts.txt` empty;
   `pair` command; the harness's `--other-sample` for item 8 in the same
   commit)
-- [ ] 6. The NAS-scale protocol under the new default and clusters:
+- [x] 6. The NAS-scale protocol under the new default and clusters:
   scan, leave-outs 3 and 11, sweeps 2026 and 2027, calibrate; against
-  0039, 0040, 0045; the listening list in the notes
+  0039, 0040, 0045; the listening list in the notes (experiment 0051:
+  development 11/11 with 0 wrong, sweeps 0 and 24 wrong, margin 1.64×,
+  3.41× without the two borderline pairs)
 - [x] 7. Grouped tracklists: plays over the same stretch at any speed as
   one entry, `(also: ...)`, cue sheet; unit tests; JSON unchanged; one
   timed `identify --store-only` (13 lines expected); README example and
