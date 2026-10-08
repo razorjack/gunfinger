@@ -33,6 +33,6 @@ alignments both cover. `supported_time.py`; `data/0057-supported-time.json`.
 differently. The Sonar joins rest on one ladder line with 0.7 hits per
 second; at the fitted speed only 0.39-0.43 of the file holds hits. Pairs
 the clusters keep apart are held almost whole at two offsets (China
-Cup, The Specialist: an edit or a moved section) or several (The Nine's
-VIP). Neither measure tells same from different recordings; both go to
+Cup, The Specialist; one cut or moved section would do this) or several
+(The Nine's VIP). Neither measure tells same from different recordings; both go to
 the owner with the listening list. Nothing changed in the clusters.
