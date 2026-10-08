@@ -1,0 +1,4220 @@
+{
+ "command": "gunfinger-eval --other-peaks-dir <NAS store> [--extra-rungs 3] sweep --seed {2026..2029} --other-rips (commit 1c289ee); scripts/analysis/relative_speed.py",
+ "reports": {
+  "default": {
+   "queries": 1305,
+   "recalled": 1213,
+   "without_speed": 0,
+   "wrong_confident": 24,
+   "wrong_list": [
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -4.999963167330002,
+     "recalled": true,
+     "best_hits": 981,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -5.0060095072940065,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       339
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -2.999962391905364,
+     "recalled": true,
+     "best_hits": 952,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -3.000937636644685,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       345
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -0.9999616164807379,
+     "recalled": true,
+     "best_hits": 919,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -0.9992005030076245,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       382
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 0.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 3.711377503101687e-05,
+     "recalled": true,
+     "best_hits": 1049,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -0.0027590941105160027,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       373
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 0.8797010969443964,
+     "recalled": true,
+     "best_hits": 999,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 1.006214489939694,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       408
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 2.877318940448248,
+     "recalled": true,
+     "best_hits": 984,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 2.9951690073776405,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       373
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 4.8749367839521,
+     "recalled": true,
+     "best_hits": 977,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 4.9971485400665205,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       386
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 7.871363549207877,
+     "recalled": true,
+     "best_hits": 998,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 7.997943390601736,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       407
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -4.999963167330002,
+     "recalled": true,
+     "best_hits": 947,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -4.9969404135901785,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       313
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -2.999962391905364,
+     "recalled": true,
+     "best_hits": 950,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -3.0062020616517526,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       333
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -0.9999616164807379,
+     "recalled": true,
+     "best_hits": 847,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -1.0024393753056748,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       305
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 0.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 3.711377503101687e-05,
+     "recalled": true,
+     "best_hits": 939,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -0.0035902020165123893,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       346
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 0.8797010969443964,
+     "recalled": true,
+     "best_hits": 989,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 0.9932486323580125,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       334
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 2.877318940448248,
+     "recalled": true,
+     "best_hits": 975,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 2.9947843279047204,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       333
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 4.8749367839521,
+     "recalled": true,
+     "best_hits": 944,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 4.999102487313545,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       331
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 7.871363549207877,
+     "recalled": true,
+     "best_hits": 973,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 7.998901995904917,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       365
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.160574242721461,
+     "recalled": true,
+     "best_hits": 429,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -5.160017066970479,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       511
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.1639547530945444,
+     "recalled": true,
+     "best_hits": 436,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -3.167256295686094,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       482
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.1673352634676282,
+     "recalled": true,
+     "best_hits": 424,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -1.1678387397106138,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       483
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.16902551865416449,
+     "recalled": true,
+     "best_hits": 428,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -0.17592592592592382,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       503
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.8292842261592881,
+     "recalled": true,
+     "best_hits": 467,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 0.8280460665402112,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       499
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.8259037157862155,
+     "recalled": true,
+     "best_hits": 450,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 2.8217972135535785,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       465
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.822523205413121,
+     "recalled": true,
+     "best_hits": 450,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 4.821541845118915,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       485
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.817452439853501,
+     "recalled": true,
+     "best_hits": 451,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 7.8001143794546035,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       468
+      ]
+     ]
+    }
+   ],
+   "by_relative_speed": [
+    {
+     "relative_percent": "0-4",
+     "queries": 746,
+     "recalled": 718
+    },
+    {
+     "relative_percent": "4-6",
+     "queries": 277,
+     "recalled": 264
+    },
+    {
+     "relative_percent": "6-7",
+     "queries": 19,
+     "recalled": 16
+    },
+    {
+     "relative_percent": "7-8",
+     "queries": 128,
+     "recalled": 124
+    },
+    {
+     "relative_percent": "8-8.4",
+     "queries": 88,
+     "recalled": 81
+    },
+    {
+     "relative_percent": "8.4-9",
+     "queries": 12,
+     "recalled": 10
+    },
+    {
+     "relative_percent": "9-9.2",
+     "queries": 0,
+     "recalled": 0
+    },
+    {
+     "relative_percent": "9.2-10",
+     "queries": 4,
+     "recalled": 0
+    },
+    {
+     "relative_percent": "10-15",
+     "queries": 31,
+     "recalled": 0
+    },
+    {
+     "relative_percent": "15-100",
+     "queries": 0,
+     "recalled": 0
+    }
+   ],
+   "misses": [
+    {
+     "seed": 2027,
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -12.080629474979865,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -12.080629474979865,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.493023450141992,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.493023450141992,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.467659267762553,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.467659267762553,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.188174936506368,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.16762731810671,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.16762731810671,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.16762731810671,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 10.927953950721125,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.922085865783504,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.922085865783504,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.910255881339504,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+     "speed_percent": 8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": 10.707552199432202,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -10.681215721658432,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -10.681215721658432,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.663990038009397,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.640727821866214,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "Skynet & Stakka - Logistics.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.640727821866214,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.633045596229952,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.52594015264442,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.52594015264442,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 10.51123003384713,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 10.51123003384713,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -10.491509081127703,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "Ed Rush & Optical - Bacteria.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.194318209619357,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-stakka_and_k_tee-terratorial-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -9.692013624002527,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -9.46224352854167,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -9.213693479598783,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+      56,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -9.213693479598783,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.516913848447539,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      239,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.516913848447539,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      213,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/02-Spy-Z_Plane-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -8.333498589767775,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a",
+      143,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.2921371626968,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      170,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.197341837591143,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      27,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -8.143856700290343,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[NERVE 005] - [2002] - Paul Reset & SKC -- Crisis (Kemal remix) # Recharger (Black Sun Empire remix)/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+      190,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.017371274450358,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      198,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.008938822234201,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      146,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.008938822234201,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      124,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.9895065999859405,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      166,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.9895065999859405,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      170,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.846621896534445,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      238,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.768337842827799,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      45,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -6.590954139993799,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      236,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -6.361445313490421,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      182,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -6.080894880228261,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      204,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 5.792400527076635,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      230,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.50581700494126,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      229,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.203776897512602,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      25,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.009230305567936,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      163,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.009230305567936,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      137,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.989798083319652,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      174,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.989798083319652,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      153,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.774772902749236,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      47,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -4.664994431540059,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      238,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.569725287993287,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      213,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -4.430753464284032,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      188,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.257359857144705,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      187,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -4.144418486006163,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      187,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.702014577313195,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      232,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.4654075396808426,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      179,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.20806693746023,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      44,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.176180288895114,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      192,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.0094246277904135,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      169,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.0094246277904135,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      142,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.989992405542141,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      177,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.989992405542141,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      155,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.779062942696875,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      47,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.739034723086331,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      225,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.5000616150776533,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      188,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.4244849507545685,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      239,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.2079420917840653,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      196,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.683957788161039,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      233,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.6650106966601408,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      203,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.3613220833351258,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      202,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.212356977407858,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      40,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.112884693821159,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      228,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.0096189500128916,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      169,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.0096189500128916,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      150,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.9901867277646303,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      160,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.9901867277646303,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      147,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.783352982644514,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      41,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.5693697658712638,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      182,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.2714656975619678,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      213,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.21450199738167752,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      39,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.009716111124136173,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      182,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.009716111124136173,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      147,
+      3
+     ],
+     "wrong": []
+    }
+   ]
+  },
+  "extra-rungs-3": {
+   "queries": 1305,
+   "recalled": 1216,
+   "without_speed": 0,
+   "wrong_confident": 26,
+   "wrong_list": [
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -7.9999643304669465,
+     "recalled": true,
+     "best_hits": 976,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -7.999881732933045,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       318
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -4.999963167330002,
+     "recalled": true,
+     "best_hits": 981,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -5.0060095072940065,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       339
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -2.999962391905364,
+     "recalled": true,
+     "best_hits": 952,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -3.000937636644685,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       345
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": -1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -0.9999616164807379,
+     "recalled": true,
+     "best_hits": 919,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -0.9992005030076245,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       382
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 0.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 3.711377503101687e-05,
+     "recalled": true,
+     "best_hits": 1049,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -0.0027590941105160027,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       373
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 0.8797010969443964,
+     "recalled": true,
+     "best_hits": 999,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 1.006214489939694,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       408
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 2.877318940448248,
+     "recalled": true,
+     "best_hits": 984,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 2.9951690073776405,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       373
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 4.8749367839521,
+     "recalled": true,
+     "best_hits": 977,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 4.9971485400665205,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       386
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "Bad Company - China Cup.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 7.871363549207877,
+     "recalled": true,
+     "best_hits": 998,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 7.997943390601736,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       407
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -7.9999643304669465,
+     "recalled": true,
+     "best_hits": 859,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -8.006084303697703,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       306
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -4.999963167330002,
+     "recalled": true,
+     "best_hits": 947,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -4.9969404135901785,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       313
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -2.999962391905364,
+     "recalled": true,
+     "best_hits": 950,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -3.0062020616517526,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       333
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": -1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -0.9999616164807379,
+     "recalled": true,
+     "best_hits": 847,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -1.0024393753056748,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       305
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 0.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 3.711377503101687e-05,
+     "recalled": true,
+     "best_hits": 939,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": -0.0035902020165123893,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       346
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 1.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 0.8797010969443964,
+     "recalled": true,
+     "best_hits": 989,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 0.9932486323580125,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       334
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 3.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 2.877318940448248,
+     "recalled": true,
+     "best_hits": 975,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 2.9947843279047204,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       333
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 5.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 4.8749367839521,
+     "recalled": true,
+     "best_hits": 944,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 4.999102487313545,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       331
+      ]
+     ]
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/02. Bad Company - China Cup.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 7.871363549207877,
+     "recalled": true,
+     "best_hits": 973,
+     "found": "extra/b-bad_company-china_cup.mp3",
+     "found_speed_percent": 7.998901995904917,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+       365
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.160574242721461,
+     "recalled": true,
+     "best_hits": 429,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -5.160017066970479,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       511
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.1639547530945444,
+     "recalled": true,
+     "best_hits": 436,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -3.167256295686094,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       482
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.1673352634676282,
+     "recalled": true,
+     "best_hits": 424,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -1.1678387397106138,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       483
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.16902551865416449,
+     "recalled": true,
+     "best_hits": 428,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": -0.17592592592592382,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       503
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.8292842261592881,
+     "recalled": true,
+     "best_hits": 467,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 0.8280460665402112,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       499
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.8259037157862155,
+     "recalled": true,
+     "best_hits": 450,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 2.8217972135535785,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       465
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.822523205413121,
+     "recalled": true,
+     "best_hits": 450,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 4.821541845118915,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       485
+      ]
+     ]
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.817452439853501,
+     "recalled": true,
+     "best_hits": 451,
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+     "found_speed_percent": 7.8001143794546035,
+     "weak_correct": null,
+     "wrong": [
+      [
+       "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+       468
+      ]
+     ]
+    }
+   ],
+   "by_relative_speed": [
+    {
+     "relative_percent": "0-4",
+     "queries": 746,
+     "recalled": 718
+    },
+    {
+     "relative_percent": "4-6",
+     "queries": 277,
+     "recalled": 264
+    },
+    {
+     "relative_percent": "6-7",
+     "queries": 19,
+     "recalled": 16
+    },
+    {
+     "relative_percent": "7-8",
+     "queries": 128,
+     "recalled": 124
+    },
+    {
+     "relative_percent": "8-8.4",
+     "queries": 88,
+     "recalled": 81
+    },
+    {
+     "relative_percent": "8.4-9",
+     "queries": 12,
+     "recalled": 10
+    },
+    {
+     "relative_percent": "9-9.2",
+     "queries": 0,
+     "recalled": 0
+    },
+    {
+     "relative_percent": "9.2-10",
+     "queries": 4,
+     "recalled": 3
+    },
+    {
+     "relative_percent": "10-15",
+     "queries": 31,
+     "recalled": 0
+    },
+    {
+     "relative_percent": "15-100",
+     "queries": 0,
+     "recalled": 0
+    }
+   ],
+   "misses": [
+    {
+     "seed": 2027,
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -12.080629474979865,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -12.080629474979865,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.493023450141992,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.493023450141992,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.467659267762553,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.467659267762553,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.405853411128131,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.188174936506368,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.16762731810671,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.16762731810671,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -11.16762731810671,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 10.927953950721125,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.922085865783504,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.922085865783504,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      12,
+      2
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.910255881339504,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+     "speed_percent": 8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": 10.707552199432202,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      33,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -10.681215721658432,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a",
+      8,
+      2
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -10.681215721658432,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a",
+      30,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.663990038009397,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.640727821866214,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+      18,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "Skynet & Stakka - Logistics.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.640727821866214,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+      8,
+      2
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.633045596229952,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.52594015264442,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+      60,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.52594015264442,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+      22,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 10.51123003384713,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": null,
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "speed_percent": 8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": 10.51123003384713,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/d-friction_and_nu_balance-movement(stakka_and_ktee_rmx)-sour.mp3",
+      12,
+      2
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -10.491509081127703,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+      34,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "Ed Rush & Optical - Bacteria.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -10.194318209619357,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/VIRUS RECORDINS [ VRS 005 \uff1a ED RUSH + OPTICAL - bacteria - ] drum and bass.m4a",
+      44,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/aa-stakka_and_k_tee-terratorial-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -9.692013624002527,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - terratorial ] drum and bass.opus",
+      236,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.516913848447539,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      238,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.516913848447539,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      214,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/02-Spy-Z_Plane-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 3,
+     "rips_with_speed": 3,
+     "relative_percent": -8.333498589767775,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/dfect-dnb/Stakka & Skynet - Z-Plane.m4a",
+      143,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.2921371626968,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      186,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.197341837591143,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      36,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+     "speed_percent": -8.0,
+     "rips": 2,
+     "rips_with_speed": 2,
+     "relative_percent": -8.143856700290343,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[NERVE 005] - [2002] - Paul Reset & SKC -- Crisis (Kemal remix) # Recharger (Black Sun Empire remix)/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+      188,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.017371274450358,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      198,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.008938822234201,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      148,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -8.008938822234201,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      126,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.9895065999859405,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      164,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.9895065999859405,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      169,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.846621896534445,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      238,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 7.768337842827799,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      45,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -6.590954139993799,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      236,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -6.361445313490421,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      182,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -6.080894880228261,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      204,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 5.792400527076635,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      230,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": -8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.50581700494126,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      229,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.203776897512602,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      25,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.009230305567936,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      163,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -5.009230305567936,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      137,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.989798083319652,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      174,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.989798083319652,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      153,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.774772902749236,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      47,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -4.664994431540059,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      238,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.569725287993287,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      213,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -4.430753464284032,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      188,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 8.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 4.257359857144705,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      187,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -4.144418486006163,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      187,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.702014577313195,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      232,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.4654075396808426,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      179,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.20806693746023,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      44,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.176180288895114,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      192,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.0094246277904135,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      169,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -3.0094246277904135,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      142,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.989992405542141,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      177,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.989992405542141,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      155,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 2.779062942696875,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      47,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.739034723086331,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      225,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.5000616150776533,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      188,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": -5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.4244849507545685,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      239,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -2.2079420917840653,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      196,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/01 - Ed Rush & Optical - Funktion.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.683957788161039,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+      233,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.6650106966601408,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      203,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.3613220833351258,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      202,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.212356977407858,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      40,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "speed_percent": 5.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 1.112884693821159,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      228,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.0096189500128916,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      169,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": -1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -1.0096189500128916,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      150,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.9901867277646303,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      160,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.9901867277646303,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      147,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 1.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": 0.783352982644514,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      41,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.5693697658712638,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+      182,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2027,
+     "asset": "extra/f-skc-lobotomy-sour.mp3",
+     "speed_percent": 3.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.2714656975619678,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+      213,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2026,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.21450199738167752,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      39,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2028,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.009716111124136173,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      182,
+      3
+     ],
+     "wrong": []
+    },
+    {
+     "seed": 2029,
+     "asset": "extra/b-spirit-out_of_control-sour.mp3",
+     "speed_percent": 0.0,
+     "rips": 1,
+     "rips_with_speed": 1,
+     "relative_percent": -0.009716111124136173,
+     "recalled": false,
+     "best_hits": 0,
+     "found": null,
+     "found_speed_percent": null,
+     "weak_correct": [
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      147,
+      3
+     ],
+     "wrong": []
+    }
+   ]
+  }
+ },
+ "spread": {
+  "clusters": 233,
+  "over_2_percent": 55,
+  "over_4_percent": 7,
+  "over_6_percent": 1,
+  "largest": [
+   [
+    0.11503285767547733,
+    6,
+    6,
+    "extra/d. falcon - the stand.mp3"
+   ],
+   [
+    0.05132219656710779,
+    5,
+    5,
+    "extra/A-Matrix_and_Fierce-Tearaway-sour.mp3"
+   ],
+   [
+    0.046413315411745426,
+    3,
+    3,
+    "Kemal & Paul Reset - Kontempt.mp3"
+   ],
+   [
+    0.04628067137216285,
+    4,
+    4,
+    "extra/B. falcon - reality.mp3"
+   ],
+   [
+    0.04247334514852441,
+    4,
+    4,
+    "extra/B-Cause_4_Concern-Peep_Show-sour.mp3"
+   ],
+   [
+    0.04088791972348815,
+    3,
+    3,
+    "extra/03_-_dj_ruffneck_-_jawbreaker.mp3"
+   ],
+   [
+    0.04038160024895099,
+    4,
+    4,
+    "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3"
+   ],
+   [
+    0.03972213593027063,
+    4,
+    4,
+    "Skynet & Stakka - Pathogen.mp3"
+   ],
+   [
+    0.039466265256933086,
+    3,
+    3,
+    "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3"
+   ],
+   [
+    0.03943008109835677,
+    5,
+    5,
+    "extra/02_-_skinnah_-_figurehead.mp3"
+   ],
+   [
+    0.039168277254188366,
+    3,
+    3,
+    "extra/AA-Stakka_and_Skynet-Molecular-sour.mp3"
+   ],
+   [
+    0.03899298984388322,
+    4,
+    4,
+    "extra/06_-_skinnah_-_state_of_violance.mp3"
+   ],
+   [
+    0.03845266924465518,
+    4,
+    4,
+    "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3"
+   ],
+   [
+    0.038443503990016614,
+    3,
+    3,
+    "extra/e-cause_4_concern-blindside-sour.mp3"
+   ],
+   [
+    0.038281985529352136,
+    4,
+    4,
+    "extra/03. Pieter K - Liquifaction (Stakka Remix).mp3"
+   ]
+  ],
+  "members_without_speed": 0
+ }
+}
