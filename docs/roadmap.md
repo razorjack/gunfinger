@@ -56,6 +56,12 @@ marked as inferences were derived, not measured.
   own; display only, detection unchanged. It must not fold in a remix that
   the DJ plays in its own right next to the original, whose other sections
   form detections of their own.
+- **One line per track in a large collection's tracklist.** At NAS scale
+  a track is found on 2-4 records (rips and uploads) and the tracklist
+  lists it once per tag spelling: 20 lines for the development mix's 11
+  tracks and 2 possible plays (experiment 0044). Plays of different
+  records over the same mix time and track position could be grouped
+  into one line naming every record; display only.
 - **Owner edits.** Confirming, rejecting or renaming plays in a report, and
   keeping those edits when the mix is identified again. `listen` and
   `review` work with real audio output (owner, 2026-10-06).
@@ -181,6 +187,18 @@ marked as inferences were derived, not measured.
   and long unknown passages.
 
 ## Evaluation
+
+- **Clusters that join fast uploads.** At NAS scale many YouTube uploads
+  are 2.9-4.7% faster than the rips; `clusters` searches 0.98-1.02, so
+  they stay apart and count as wrong identifications (experiments 0037,
+  0039). Searching the search's own range (±8%) would join them; the
+  coverage gap narrowed too (same recording down to 0.825, different up
+  to 0.737). Changes ground truth, so it is the owner's call; then rerun
+  `clusters` and the NAS-scale protocol. *(larger library)*
+- **The possible tier at NAS scale.** Unrelated chance reaches 67-78 hits
+  over the NAS sweeps (experiments 0040, 0041), above the tier of 60; the
+  register's rule would raise it to about 150 (`docs/calibration.md`).
+  *(larger library)*
 
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development

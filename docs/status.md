@@ -757,3 +757,17 @@ read; the store is frozen.
 - No Rust code changed since the last green `scripts/check.sh` (commit
   87c1206), so the analysis commits do not rerun it while timed runs are
   active; it runs once at the end.
+- Item 12, in part (experiment 0045): link rules at NAS scale. Skip at
+  240: scan 11/11, 6 wrong, weakest 1,539; sweep 2026 540/540, 91 wrong,
+  weakest 680, false candidates halved. Today's: scan 11/11 but 7 wrong
+  (Star Trails split at 13:20). Today's sweep with the rules not run.
+- Wrap-up (item 10): session 5 summary at the top of the notes; NAS-scale
+  figures in `docs/calibration.md` as measurements (no rule changed);
+  roadmap (tracklist grouping, clusters for fast uploads, possible tier);
+  NAS plan outcome; NAS checklist steps 7-10 and 12.
+- Items 11 and 13 not run: no time left (today's sweeps take 66-69
+  minutes each at NAS scale).
+- End check at 02:04: the NAS store has 26,890 records, 26,890 tags,
+  1,549 skip notes and `library.txt`; digest 7055ad8e...65a70 and
+  revision d709390272e41475, unchanged. Queues finished at 02:03:57.
+  `scripts/check.sh` at the end: green.

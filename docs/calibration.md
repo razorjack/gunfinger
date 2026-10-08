@@ -35,6 +35,38 @@ gap between segments of a play, and the 90 s scoring tolerance.
 | Query time, development mix | turntable alone 22 s, of which 2.6 s lookups, lines and chains (experiment 0005); both playbacks 261 CPU seconds against 166 for turntable alone (experiment 0018) |
 | `gunfinger stats` | 74.4 postings/s, 5.07 bytes per posting, buckets p99 55 |
 
+## Measured at NAS scale (session 5)
+
+The owner's NAS collection from its peak store alone: 26,890 records,
+2,806 hours; the harness index is the corpus plus those records less
+the 238 that copy corpus files, 26,914 assets (experiments 0035-0044).
+These are measurements; no rule was changed. Under the rules every
+detection of a record the clusters do not join is false, so the figures
+are given with and without the groups the owner has to confirm by ear.
+
+| Measurement | Today's matcher | Skip at 240 | At 262 tracks (today's; skip) |
+|---|---|---|---|
+| Sweeps | seeds 2026-2027: 1,080/1,080 | seeds 2026-2029: 2,160/2,160 | the same |
+| Weakest identifying | 403 | 661 | 403; 658 |
+| Strongest false, under the rules | 5,785 (another upload), 0.07× | 5,845, 0.11× | 97; 119 |
+| Without other uploads with the same artist and title | 342 (Coma ~ Spraycan), 1.18× | 511 (Synthesis VIP ~ "Synthesis (Remix)"), 1.29× | |
+| Without those two pairs as well | 200 (The Nine ~ Evol Intent VIP), 2.02×; without it 126, 3.20× | 220 (The Nine ~ Evol Intent VIP), 3.0× | 4.15×; 5.53× |
+| Strongest unrelated (different artist and title) | 78 | 67-70 | 28; 21-24 in the mix |
+| Development scan | 11/11, 6 wrong (faster uploads), unrelated 40 | 11/11, the same 6, unrelated 48 | 11/11, 0 wrong |
+| Duplicate clusters | same recording down to 0.825, different up to 0.737; uploads 2.9-4.7% fast never join (ladder 0.98-1.02) | | ≥ 0.984; ≤ 0.39 |
+| Development mix: wall; CPU; peak | 848 s; 6,106 s; 8.42 GB | 259 s; 1,958 s; 4.01 GB | 34 s; 264 s; 399 MB / 31 s; 238 s; 293 MB |
+| `stats` | 755.9 M postings, 4.01 bytes per posting, buckets p99 4,538 | | 5.07 bytes, p99 55 |
+
+What the "If it moves" column would say (not applied): the confident
+rule collides with the weakest identifying detection only through other
+uploads of the same track, a question for the clusters, not the
+statistic; without them, twice the strongest false candidate is 400
+under today's matcher (403 weakest) and 440 under skip at 240 (661). The
+possible tier's condition is met: twice the strongest unrelated false
+candidate is 140-156 hits, still below 200. The clusters' gap narrowed
+and the ladder misses fast uploads; widening it to ±8% is proposed in
+`docs/notes-for-owner.md`.
+
 ## After indexing more tracks
 
 0. Before indexing, `gunfinger-eval baseline <name>` keeps the reports at

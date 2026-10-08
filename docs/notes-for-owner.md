@@ -1,7 +1,68 @@
 # Notes for the owner
 
 Findings from the autonomous sessions that are worth your attention, newest
-last, after a summary of each session (session 4 first).
+last, after a summary of each session (session 5 first).
+
+## Session 5 summary
+
+**Default detection is unchanged and no test-set evaluation was spent**
+(3 left). The only code added is harness and analysis code (`gunfinger-
+eval fullest`, scripts in `scripts/analysis/`); `regress session-5-start`
+stayed identical. Everything comes from the NAS peak store and `corpus/`:
+the NAS was never read, and the store was not written. At the end its
+file counts, digest and library revision `d709390272e41475` were as at
+the start.
+
+**Done.** Items 1-10 of `docs/brief-5.md` (experiments 0035-0044, data
+in `docs/experiments/data/`) and item 12 in part: the link rules'
+development scan under both matchers and sweep 2026 under skip at 240
+(experiment 0045). Today's sweep with the rules, item 11 (two more of
+today's sweeps) and item 13 (a scaling curve) did not fit: one of
+today's sweeps takes 66-69 minutes at this size.
+
+**What I learned.**
+
+1. Recall holds at NAS scale (26,914 assets) under both matchers: every
+   indexed sweep excerpt (2,160 under skip at 240, 1,080 under today's)
+   and every development track, with the same weakest evidence as at
+   262 tracks (661 and 403 hits).
+2. Under the rules the margins are gone, because other uploads of the
+   same tracks count as false: the clusters do not join them. Many
+   YouTube uploads are 2.9-4.7% faster than the rips, beyond the
+   clustering ladder of 0.98-1.02; they cause the 6 wrong
+   identifications in the development mix. Without the same-name
+   uploads and two pairs for you to check, the margin is 3.0× under skip
+   at 240 and 2.02× under today's matcher, where The Nine against its
+   Evol Intent VIP reaches the rule of 200 exactly.
+3. Unrelated chance reaches 67-78 hits, above the possible tier of 60.
+   The calibration register's condition for raising the tier (to about
+   twice that, 140-156) is met; I did not change it.
+4. Skip at 240 keeps its lead at this size: 3.3× less wall time, 3.1×
+   less CPU, 48% of the memory, 4.3% of the false candidates, and higher
+   weakest evidence. The fullest lists it skips are spread over the
+   whole collection, so it hides no record (0043).
+5. The scale proxy predicted time and memory within 5-18% and chance
+   badly (real tracks reach 1.3-2.7 times the copies' hits).
+6. `identify --store-only` gives the harness's plays exactly, in 14
+   minutes and 8.4 GB under today's matcher; its tracklist lists a track
+   once per tag spelling.
+7. The NAS index run over Wi-Fi read 84 Mbit/s, limited by reading.
+
+The band profile (`Profile::spread`) could not be measured at NAS scale:
+it needs new peak records, which means reading the NAS audio.
+
+**Decisions for you.**
+
+- Listen to the pairs in "Session 5 findings" below: the 6 wrong
+  identifications, Synthesis VIP ~ "Synthesis (Remix)", Coma ~ Spraycan,
+  The Nine ~ Evol Intent VIP, and the borderline cluster pairs.
+- Widen the clustering ladder to ±8% (the search's range), so fast
+  uploads join their recordings, then rerun `clusters` at NAS scale. A
+  proposal, not implemented; it changes ground truth, which is yours.
+- Adopt skip at 240: NAS scale strengthens the case of session 4. The
+  link rules with it changed no level or answer at NAS scale (0045).
+- The possible tier: keep 60, or raise it to about 150 as the register
+  says.
 
 ## Session 4 summary
 
@@ -1056,3 +1117,14 @@ Experiments 0036 and 0039 said 26,905. The 247 corpus files with a copy
 are copies of 238 NAS records (9 records stand for two corpus rips
 each), so the index holds 262 + 26,890 - 238 = 26,914 assets, as
 `memory` reports. The earlier notes are corrected.
+
+### The link rules at NAS scale: fewer chance lines, one split under today's matcher
+
+Experiment 0045. Under skip at 240 the link rules change no level and
+no answer at NAS scale: the development scan keeps 11/11 with the same 6
+wrong uploads, sweep seed 2026 keeps 540/540 with the same 91 wrong
+answers and weakest 680, and false candidates halve (66% fewer in the
+mix; unrelated chance 48 → 32 there). Under today's matcher they remove
+80% of the mix's chance detections but split Star Trails at 13:20 into
+two segments, so the alien5ive upload counts as wrong twice (7 wrong).
+The case for adopting them together with skip at 240 holds.

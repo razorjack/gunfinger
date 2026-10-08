@@ -140,6 +140,19 @@ target/release/gunfinger --config ~/.config/gunfinger/nas-dnb.toml identify <mix
     and apply its "If it moves" column; record whether the matcher
     decision (today's against skip at 240) looks different at this size.
 
+## Outcome (session 5)
+
+Steps 1-10 and 12 ran from the peak store alone, in experiments 0035
+(steps 1-2), 0036 (3), 0037 (4), 0038 (5), 0039 (6), 0040 and 0041 (7),
+0042 (8), 0043 (9) and 0044 (10). Step 10 used the internal disk only;
+no external disk was attached. Step 11 is the owner's. Step 12: the
+NAS-scale figures are in `docs/calibration.md` as measurements; session
+5's brief kept every rule as it was, so the "If it moves" column was
+not applied, and the matcher decision stays with the owner (the case for
+skip at 240 is stronger at this size). The idea on duplicates below was
+answered in part: 101 groups of identical peak records hold 103 extra
+files (experiment 0035).
+
 ## Further ideas
 
 - **Duplicates across the collection.** Clustering every NAS file against

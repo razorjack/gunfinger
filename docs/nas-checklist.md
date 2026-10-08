@@ -65,4 +65,6 @@ alone; the NAS was not read.
   disk only, no other disk attached)
 - [-] Step 11: references for the test set: the owner's part; not
   started (ground truth does not change in session 5)
-- [ ] Step 12: calibration figures and the matcher decision
+- [x] Step 12: calibration figures and the matcher decision: figures in
+  `docs/calibration.md` as measurements; no rule changed (brief 5); the
+  decision is the owner's
