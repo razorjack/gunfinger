@@ -784,3 +784,17 @@ grouped tracklists.
   in `docs/brief-6.md`), revision `3d16641d2ecb6956`. `/Volumes/atlas`
   mounted.
 - Machine: load average 4.4 and falling, swap 2.0 GB used of 3 GB.
+- `regress session-5-start` with the session-start binaries: 720 of 720
+  sweep queries and every detection of the three scans identical (5 min).
+  Baseline `session-6-start` saved; binaries in `work/bin/s6-start/`.
+  The machine's load average sits at 30-140 with the CPU 70-90% idle
+  (Spotlight, blocked threads); timed runs log the idle share and CPU
+  time is the figure to compare.
+- Item 1 (store fixes): `decode::Container` finds an ID3v2 tag followed
+  by "RIFF" and opens such files with `-skip_initial_bytes` (decode,
+  probe, `listen`), tags from `ffprobe -f mp3`; hidden folders skipped
+  and counted; truncation tolerance max(1 s, 1%). Unit and codec tests
+  with generated fixtures. `regress session-6-start`: identical. Three
+  corpus files with skip notes would now pass the tolerance; not indexed
+  (notes for the owner). `scripts/analysis/skip_notes.py` lists a store's
+  skip notes.

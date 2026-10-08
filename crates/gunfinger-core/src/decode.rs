@@ -5,7 +5,8 @@
 //! shell) and streams raw 32-bit float samples from its stdout.
 
 use std::ffi::OsString;
-use std::io::{self, Read};
+use std::fs::File;
+use std::io::{self, Read, Seek, SeekFrom};
 use std::path::{Path, PathBuf};
 use std::process::{Child, ChildStderr, Command, ExitStatus, Stdio};
 use std::thread;
@@ -124,6 +125,7 @@ fn spawn_ffmpeg(path: &Path, sample_rate: u32, excerpt: Excerpt) -> Result<Child
         command.arg("-t").arg(seconds_arg(duration));
     }
     command
+        .args(Container::of(path).input_args())
         .arg("-i")
         .arg(path)
         .args(["-map", "0:a:0", "-vn", "-sn", "-dn", "-ac", "1"])
@@ -200,6 +202,68 @@ pub(crate) fn read_samples(mut source: impl Read) -> io::Result<Vec<f32>> {
     Ok(samples)
 }
 
+/// How FFmpeg must open a file.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Container {
+    /// FFmpeg recognises the file as it is: every file but the one below.
+    AsIs,
+    /// An MP3 stream in a WAV (RIFF) container, with an ID3v2 tag written
+    /// in front of the container. FFmpeg's format probe looks past the tag,
+    /// recognises the RIFF header and picks the WAV reader, which then
+    /// starts at byte 0 and rejects the tag ("Invalid data found when
+    /// processing input"). Skipping the tag opens the container.
+    RiffBehindId3 { tag_bytes: u64 },
+}
+
+impl Container {
+    /// Reads the first bytes of `path`. A file that cannot be read opens
+    /// as it is, so FFmpeg reports the problem.
+    pub fn of(path: &Path) -> Container {
+        File::open(path)
+            .ok()
+            .and_then(|mut file| riff_behind_id3(&mut file))
+            .map_or(Container::AsIs, |tag_bytes| Container::RiffBehindId3 {
+                tag_bytes,
+            })
+    }
+
+    /// FFmpeg input options that go before `-i`.
+    pub fn input_args(self) -> Vec<String> {
+        match self {
+            Container::AsIs => Vec::new(),
+            Container::RiffBehindId3 { tag_bytes } => {
+                vec![String::from("-skip_initial_bytes"), tag_bytes.to_string()]
+            }
+        }
+    }
+}
+
+/// The length of an ID3v2 tag at the start of `file` when "RIFF" follows
+/// it. The tag's 10-byte header ends with its size as a 28-bit syncsafe
+/// integer (7 bits per byte), which leaves out the header itself and the
+/// 10-byte footer that flag bit 4 announces (ID3v2.4).
+fn riff_behind_id3(file: &mut (impl Read + Seek)) -> Option<u64> {
+    const FOOTER_PRESENT: u8 = 0x10;
+    let mut header = [0_u8; 10];
+    file.read_exact(&mut header).ok()?;
+    if &header[..3] != b"ID3" {
+        return None;
+    }
+    let size = header[6..]
+        .iter()
+        .fold(0_u64, |size, byte| (size << 7) | u64::from(byte & 0x7F));
+    let footer = if header[5] & FOOTER_PRESENT == 0 {
+        0
+    } else {
+        10
+    };
+    let tag_bytes = 10 + size + footer;
+    let mut next = [0_u8; 4];
+    file.seek(SeekFrom::Start(tag_bytes)).ok()?;
+    file.read_exact(&mut next).ok()?;
+    (&next == b"RIFF").then_some(tag_bytes)
+}
+
 /// FFmpeg reports recoverable glitches (a damaged frame in an otherwise good
 /// MP3) on stderr and still exits successfully. Such a file is accepted unless
 /// the audio stops well short of the length the container declares.
@@ -209,7 +273,6 @@ fn reject_if_truncated(
     excerpt: Excerpt,
     diagnostics: &str,
 ) -> Result<(), DecodeError> {
-    const TOLERANCE_SECONDS: f64 = 1.0;
     let Some(container) = probe(path).and_then(|probe| probe.length) else {
         return Ok(());
     };
@@ -219,7 +282,7 @@ fn reject_if_truncated(
         expected = expected.min(duration.as_secs_f64());
     }
     let decoded = audio.duration().as_secs_f64();
-    if decoded + TOLERANCE_SECONDS < expected {
+    if decoded + truncation_tolerance(expected) < expected {
         return Err(DecodeError::Truncated {
             path: path.to_owned(),
             decoded,
@@ -228,6 +291,16 @@ fn reject_if_truncated(
         });
     }
     Ok(())
+}
+
+/// How far decoded audio may fall short of the expected length: the larger
+/// of 1 s and 1%. Rips damaged only in their last frames lose 1.3-2.4 s of
+/// 5-8 minutes (0.3-0.5%) and are worth keeping; a file cut off by a
+/// failed copy or download loses far more.
+fn truncation_tolerance(expected_seconds: f64) -> f64 {
+    const MINIMUM_SECONDS: f64 = 1.0;
+    const SHARE: f64 = 0.01;
+    (expected_seconds * SHARE).max(MINIMUM_SECONDS)
 }
 
 /// What `ffprobe` reads from a file's header, without decoding the audio.
@@ -246,9 +319,25 @@ pub struct Probe {
 /// cost of decoding. `None` when `ffprobe` cannot run or cannot read the
 /// file.
 pub fn probe(path: &Path) -> Option<Probe> {
+    match Container::of(path) {
+        Container::AsIs => run_ffprobe(path, &[]),
+        container @ Container::RiffBehindId3 { .. } => {
+            let mut probe = run_ffprobe(path, &container.input_args())?;
+            // The tags are in the ID3 tag the WAV reader skips; FFmpeg's
+            // MP3 reader parses it.
+            if let Some(tagged) = run_ffprobe(path, &["-f".into(), "mp3".into()]) {
+                probe.tags = tagged.tags.or(probe.tags);
+            }
+            Some(probe)
+        }
+    }
+}
+
+fn run_ffprobe(path: &Path, input_args: &[String]) -> Option<Probe> {
     let output = Command::new("ffprobe")
         .args(["-v", "error", "-of", "flat", "-show_entries"])
         .arg("format=duration:format_tags:stream_tags")
+        .args(input_args)
         .arg(path)
         .stdin(Stdio::null())
         .output()
@@ -413,6 +502,71 @@ mod tests {
             "one\ntwo \"quoted\" \\ end"
         );
         assert_eq!(unescape("bare"), "bare");
+    }
+
+    fn id3_header(version: u8, flags: u8, size: u32) -> Vec<u8> {
+        let syncsafe = [
+            (size >> 21) as u8 & 0x7F,
+            (size >> 14) as u8 & 0x7F,
+            (size >> 7) as u8 & 0x7F,
+            size as u8 & 0x7F,
+        ];
+        let mut header = b"ID3".to_vec();
+        header.extend([version, 0, flags]);
+        header.extend(syncsafe);
+        header
+    }
+
+    #[test]
+    fn riff_right_after_an_id3_tag_is_found_past_the_tag() {
+        let mut file = id3_header(3, 0, 300);
+        file.extend([0; 300]);
+        file.extend(b"RIFF\0\0\0\0WAVE");
+
+        assert_eq!(riff_behind_id3(&mut io::Cursor::new(file)), Some(310));
+    }
+
+    #[test]
+    fn a_flagged_id3_footer_counts_towards_the_tag() {
+        let mut file = id3_header(4, 0x10, 200);
+        file.extend([0; 200]);
+        file.extend(b"3DI\x04\0\x10\0\0\x01\x48");
+        file.extend(b"RIFF\0\0\0\0WAVE");
+
+        assert_eq!(riff_behind_id3(&mut io::Cursor::new(file)), Some(220));
+    }
+
+    #[test]
+    fn an_id3_tag_before_mp3_frames_or_no_tag_opens_as_it_is() {
+        let mut tagged_mp3 = id3_header(3, 0, 20);
+        tagged_mp3.extend([0; 20]);
+        tagged_mp3.extend([0xFF, 0xFB, 0x90, 0x64]);
+        let plain_wav = b"RIFF\0\0\0\0WAVEfmt ".to_vec();
+
+        assert_eq!(riff_behind_id3(&mut io::Cursor::new(tagged_mp3)), None);
+        assert_eq!(riff_behind_id3(&mut io::Cursor::new(plain_wav)), None);
+        assert_eq!(riff_behind_id3(&mut io::Cursor::new(b"ID3".to_vec())), None);
+    }
+
+    #[test]
+    fn the_truncation_tolerance_is_a_second_or_a_hundredth() {
+        assert!((truncation_tolerance(60.0) - 1.0).abs() < 1e-9);
+        assert!((truncation_tolerance(100.0) - 1.0).abs() < 1e-9);
+        assert!((truncation_tolerance(490.9) - 4.909).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_tolerance_keeps_damaged_last_frames_and_rejects_cut_files() {
+        // Lengths decoded and declared for rips in the owner's collection.
+        let damaged_at_the_end = [(488.5, 490.9), (398.3, 399.8), (291.0, 292.4)];
+        let cut_off = [(311.3, 332.5), (393.2, 409.4)];
+
+        for (decoded, expected) in damaged_at_the_end {
+            assert!(decoded + truncation_tolerance(expected) >= expected);
+        }
+        for (decoded, expected) in cut_off {
+            assert!(decoded + truncation_tolerance(expected) < expected);
+        }
     }
 
     #[test]

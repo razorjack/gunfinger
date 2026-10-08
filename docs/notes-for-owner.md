@@ -1128,3 +1128,35 @@ mix; unrelated chance 48 → 32 there). Under today's matcher they remove
 80% of the mix's chance detections but split Star Trails at 13:20 into
 two segments, so the alien5ive upload counts as wrong twice (7 wrong).
 The case for adopting them together with skip at 240 holds.
+
+## Session 6 findings
+
+Session 6 (`docs/brief-6.md`): the store fixes, skip at 240 with the link
+rules as the default matcher, clusters that join fast uploads, the
+NAS-scale protocol under both, and grouped tracklists.
+
+### Store fixes: three corpus files would now be indexable; not indexed
+
+`index` now reads an MP3 inside a WAV (RIFF) container behind an ID3v2
+tag with the tag skipped (`-skip_initial_bytes`), and takes the file's
+artist and title from the tag (`ffprobe -f mp3`); passes over folders
+whose name starts with a dot ("hidden folder" in the skipped files); and
+accepts audio that stops short of its declared length by up to the
+larger of 1 s and 1% of that length. Probes of the 8 NAS files in
+question (read-only): the 6 damaged at the end fall 1.27-2.38 s short
+against tolerances of 2.92-4.91 s and now pass; the 2 truncated files
+fall 16.18 and 21.19 s short against 4.09 and 3.32 s and still fail.
+
+For you to know: three corpus files failed in session 1 under the 1 s
+tolerance and would pass now: `extra/03-Profound_Noize-Dropzone-sour.mp3`
+(1.3 s of 445.1 s missing), `extra/kosheen [resist] -02- hide u.mp3` (1.4
+of 292.4) and `extra/rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3`
+(1.3 of 459.2). The rules of this session forbid re-extracting
+`work/peaks`, so they stay unindexed there (their skip notes remain), and
+the 262-track results do not change. A plain `gunfinger index` of the
+corpus would not retry them either (the skip notes still apply);
+`--retry-skipped` would. Their NAS copies are among the six that item 3
+indexes, so at NAS scale they are searchable as NAS records.
+No corpus file is an MP3 inside a WAV container (checked: none of the 219
+corpus files with an ID3v2 tag has "RIFF" after it), and the corpus has
+no hidden folders, so neither fix touches the corpus.

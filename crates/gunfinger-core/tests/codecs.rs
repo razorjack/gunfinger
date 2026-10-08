@@ -11,7 +11,7 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use gunfinger_core::decode::{Audio, DecodeError, Excerpt, decode};
+use gunfinger_core::decode::{Audio, Container, DecodeError, Excerpt, decode, probe};
 
 const RATE: u32 = 8000;
 const TONE_SECONDS: f64 = 2.0;
@@ -257,5 +257,82 @@ fn a_truncated_file_is_rejected() {
             Err(DecodeError::Truncated { .. } | DecodeError::Failed { .. })
         ),
         "{result:?}"
+    );
+}
+
+/// An ID3v2.3 tag with text frames in ISO-8859-1, as rippers write them.
+fn id3_tag(frames: &[(&str, &str)]) -> Vec<u8> {
+    let mut body = Vec::new();
+    for (id, text) in frames {
+        body.extend(id.as_bytes());
+        body.extend(u32::try_from(text.len() + 1).unwrap().to_be_bytes());
+        body.extend([0, 0, 0]);
+        body.extend(text.as_bytes());
+    }
+    let size = u32::try_from(body.len()).unwrap();
+    let mut tag = b"ID3\x03\x00\x00".to_vec();
+    for shift in [21, 14, 7, 0] {
+        tag.push(u8::try_from((size >> shift) & 0x7F).unwrap());
+    }
+    tag.extend(body);
+    tag
+}
+
+#[test]
+fn mp3_in_wav_behind_an_id3_tag() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = fixture_dir("mp3-in-wav-behind-id3");
+    let wav = tone(
+        &dir,
+        "mp3.wav",
+        &["-c:a", "libmp3lame", "-b:a", "128k", "-f", "wav"],
+    );
+    let tag = id3_tag(&[("TPE1", "Drum Kru"), ("TIT2", "Thin Air")]);
+    let path = dir.join("tagged.mp3");
+    let mut bytes = tag.clone();
+    bytes.extend(std::fs::read(&wav).unwrap());
+    std::fs::write(&path, bytes).unwrap();
+
+    let audio = decode_whole(&path);
+    let probe = probe(&path).unwrap();
+
+    assert_eq!(
+        Container::of(&path),
+        Container::RiffBehindId3 {
+            tag_bytes: tag.len() as u64
+        }
+    );
+    assert_eq!(audio.samples, decode_whole(&wav).samples);
+    assert_eq!(probe.tags.artist.as_deref(), Some("Drum Kru"));
+    assert_eq!(probe.tags.title.as_deref(), Some("Thin Air"));
+    let length = probe.length.unwrap().as_secs_f64();
+    assert!((length - TONE_SECONDS).abs() < 0.1, "declared {length} s");
+}
+
+#[test]
+fn an_ordinary_tagged_mp3_opens_as_it_is() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = fixture_dir("tagged-mp3");
+    let path = tone(
+        &dir,
+        "tagged.mp3",
+        &[
+            "-c:a",
+            "libmp3lame",
+            "-metadata",
+            "title=Thin Air",
+            "-id3v2_version",
+            "3",
+        ],
+    );
+
+    assert_eq!(Container::of(&path), Container::AsIs);
+    assert_eq!(
+        probe(&path).unwrap().tags.title.as_deref(),
+        Some("Thin Air")
     );
 }

@@ -59,7 +59,8 @@ impl Timestamp {
 pub struct Library {
     pub root: PathBuf,
     pub assets: Vec<Asset>,
-    /// Skipped files by reason, such as `extension .nfo` or `hidden file`.
+    /// Skipped files and folders by reason, such as `extension .nfo`,
+    /// `hidden file` or `hidden folder`.
     pub skipped: BTreeMap<String, usize>,
 }
 
@@ -96,7 +97,12 @@ impl Library {
             let path = entry.path();
             let kind = entry.file_type()?;
             if kind.is_dir() {
-                self.scan_dir(&path, progress)?;
+                if is_hidden(&path) {
+                    // Such as a downloader's `.incomplete/` of partial files.
+                    self.skip("hidden folder");
+                } else {
+                    self.scan_dir(&path, progress)?;
+                }
                 continue;
             }
             if kind.is_file() {
@@ -110,8 +116,7 @@ impl Library {
     }
 
     fn consider_file(&mut self, path: &Path, metadata: &fs::Metadata) {
-        let name = path.file_name().map(|name| name.to_string_lossy());
-        if name.is_some_and(|name| name.starts_with('.')) {
+        if is_hidden(path) {
             // Includes `.DS_Store` and the `._*` resource forks macOS leaves
             // on network shares, which carry audio extensions but no audio.
             self.skip("hidden file");
@@ -150,6 +155,11 @@ impl Library {
     }
 }
 
+fn is_hidden(path: &Path) -> bool {
+    path.file_name()
+        .is_some_and(|name| name.to_string_lossy().starts_with('.'))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -184,5 +194,27 @@ mod tests {
         assert_eq!(library.skipped["extension .mp3_bad_or_incomplete"], 1);
         assert_eq!(library.skipped["hidden file"], 1);
         assert_eq!(library.skipped_total(), 4);
+    }
+
+    #[test]
+    fn hidden_folders_are_passed_over_whole() {
+        let root = std::env::temp_dir().join(format!("gunfinger-hidden-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        touch(&root.join("channel/Artist - Title.m4a"));
+        touch(&root.join("channel/.incomplete/Artist - Partial.m4a"));
+        touch(&root.join("channel/.incomplete/nested/Artist - Other.m4a"));
+        touch(&root.join(".trash/Artist - Deleted.mp3"));
+
+        let library = Library::scan(&root).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        let paths: Vec<&str> = library
+            .assets
+            .iter()
+            .map(|asset| asset.path.as_str())
+            .collect();
+        assert_eq!(paths, ["channel/Artist - Title.m4a"]);
+        assert_eq!(library.skipped["hidden folder"], 2);
+        assert_eq!(library.skipped_total(), 2);
     }
 }
