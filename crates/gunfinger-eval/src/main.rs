@@ -23,6 +23,7 @@ mod rng;
 mod robust;
 mod scan;
 mod scoring;
+mod shared;
 mod survival;
 mod sweep;
 mod synthetic;
@@ -163,10 +164,27 @@ enum Command {
         /// --other-peaks-dir. The report is `pairs-<file stem>.json`.
         pairs: PathBuf,
     },
+    /// Search queries cut from a passage two different recordings share
+    /// (alone, looped, and reaching into the played file's own material),
+    /// with the played recording in the index and left out, and measure
+    /// every detection with the peak verifier.
+    Shared {
+        /// The scenarios: JSON with `scenarios`, each naming `name`,
+        /// `played`, `related`, `passage_start_seconds` and
+        /// `passage_end_seconds`.
+        plan: PathBuf,
+    },
     /// Run the seeded speed sweep.
     Sweep {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
+        /// With --other-peaks-dir: search only the indexed excerpts whose
+        /// recording has another rip that is not an identical copy, with
+        /// each such excerpt's source file and its identical copies left
+        /// out of the index, so that only the other rips can answer
+        /// (`sweep-seed-<seed>-other-rips.json`).
+        #[arg(long)]
+        other_rips: bool,
     },
     /// Search a set's audio and score it against its manifest.
     Scan {
@@ -372,6 +390,27 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             related::print_summary(&related);
             Ok(())
         }
+        Command::Shared { plan } => {
+            let text = fs::read_to_string(&plan)
+                .map_err(|error| format!("cannot read {}: {error}", plan.display()))?;
+            let plan: shared::Plan = serde_json::from_str(&text)
+                .map_err(|error| format!("{}: {error}", plan.display()))?;
+            let report = shared::run(
+                &plan,
+                &paths.library()?,
+                &paths.store()?,
+                &paths.clusters()?,
+                &paths.work,
+                &shared::Options {
+                    ladder: &paths.rungs(),
+                    matching: &paths.matching,
+                    jobs,
+                },
+            )?;
+            write_json(&paths.reports().join("shared-material.json"), &report)?;
+            shared::print_summary(&report);
+            Ok(())
+        }
         Command::Pair { pairs } => {
             let text = fs::read_to_string(&pairs)
                 .map_err(|error| format!("cannot read {}: {error}", pairs.display()))?;
@@ -404,7 +443,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             pair::print_summary(&reports);
             Ok(())
         }
-        Command::Sweep { seed } => run_sweep(paths, seed, jobs),
+        Command::Sweep { seed, other_rips } => run_sweep(paths, seed, other_rips, jobs),
         Command::Scan {
             set,
             leave_out,
@@ -691,7 +730,7 @@ fn run_robust(
 
 /// The sweep, the development scan and its leave-outs.
 fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> Result<(), String> {
-    run_sweep(paths, seed, jobs)?;
+    run_sweep(paths, seed, false, jobs)?;
     run_scan(paths, set, None, &UNCHANGED_INDEX, jobs)?;
     for count in regress::LEAVE_OUTS {
         run_scan(
@@ -840,8 +879,13 @@ fn check_verdicts_against_last_run(
         })
 }
 
-fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
+fn run_sweep(paths: &Paths, seed: u64, other_rips: bool, jobs: usize) -> Result<(), String> {
     paths.check_panel(seed)?;
+    let map = match (other_rips, paths.map_file()) {
+        (false, _) => None,
+        (true, Some(map_file)) => Some(LibraryMap::load(&map_file)?),
+        (true, None) => return Err(String::from("--other-rips needs --other-peaks-dir")),
+    };
     let report = sweep::run(
         &paths.library()?,
         &paths.store()?,
@@ -854,13 +898,16 @@ fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
             ladder: &paths.rungs(),
             matching: &paths.matching,
             verify: paths.verify,
+            other_rips: map.as_ref(),
             jobs,
         },
     )?;
-    write_json(
-        &paths.reports().join(format!("sweep-seed-{seed}.json")),
-        &report,
-    )?;
+    let name = if other_rips {
+        format!("sweep-seed-{seed}-other-rips.json")
+    } else {
+        format!("sweep-seed-{seed}.json")
+    };
+    write_json(&paths.reports().join(name), &report)?;
     sweep::print_summary(&report);
     Ok(())
 }
