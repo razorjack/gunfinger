@@ -27,6 +27,7 @@ use crate::matching::Matching;
 use crate::padding::Padding;
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
+use crate::verifier::{Verification, Verifier};
 
 pub const SPEEDS_PERCENT: [f64; 9] = [-8.0, -5.0, -3.0, -1.0, 0.0, 1.0, 3.0, 5.0, 8.0];
 const HELD_OUT_SHARE: f64 = 0.2;
@@ -77,6 +78,9 @@ pub struct Outcome {
     /// Counted by the second pass (`Pass::Fitted`).
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
+    /// The peak verifier's measures, with `--verify`.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verified: Vec<Verification>,
 }
 
 /// An excerpt to render: which asset, from where.
@@ -179,6 +183,8 @@ pub struct Options<'a> {
     pub padding: &'a Padding,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
+    /// Measure every detection with the peak verifier.
+    pub verify: bool,
     pub jobs: usize,
 }
 
@@ -195,10 +201,12 @@ pub fn run(
         padding,
         ladder,
         matching,
+        verify,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
+    let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     let Plan { held_out, draws } = Plan::for_seed(&records, clusters, seed, panels)?;
     let indexed: Vec<PeakRecord> = records
         .iter()
@@ -224,7 +232,12 @@ pub fn run(
                 speed_percent: *speed_percent,
                 detections: detections
                     .iter()
-                    .map(|detection| outcome(&index, detection, &own_cluster))
+                    .map(|detection| {
+                        let verified = verifier.as_ref().map_or_else(Vec::new, |verifier| {
+                            verifier.verify(&index, detection, &audio.samples, &profile)
+                        });
+                        outcome(&index, detection, &own_cluster, verified)
+                    })
                     .collect(),
             })
         });
@@ -336,7 +349,12 @@ fn render_all<'d>(
     }
 }
 
-fn outcome(index: &Index, detection: &Detection, own_cluster: &BTreeSet<String>) -> Outcome {
+fn outcome(
+    index: &Index,
+    detection: &Detection,
+    own_cluster: &BTreeSet<String>,
+    verified: Vec<Verification>,
+) -> Outcome {
     let asset = &index.asset(detection.asset).path;
     Outcome {
         asset: asset.clone(),
@@ -346,6 +364,7 @@ fn outcome(index: &Index, detection: &Detection, own_cluster: &BTreeSet<String>)
         hits: detection.evidence.hits,
         speed_percent: (detection.speed.0 - 1.0) * 100.0,
         fitted: detection.evidence.pass == Pass::Fitted,
+        verified,
     }
 }
 

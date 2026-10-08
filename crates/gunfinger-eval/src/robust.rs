@@ -29,6 +29,7 @@ use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_sam
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
+use crate::verifier::{Verification, Verifier};
 
 /// Excerpts per condition and speed: the sweep's first indexed and
 /// held-out draws.
@@ -303,6 +304,23 @@ pub struct QueryResult {
     /// alongside.
     #[serde(default)]
     pub search_seconds: f64,
+    /// With `--verify`: every detection, measured by the peak verifier.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verified: Vec<RobustFound>,
+}
+
+/// A detection of a robust query with the peak verifier's measures.
+#[derive(Serialize, Deserialize)]
+pub struct RobustFound {
+    pub asset: String,
+    /// `own` (the excerpt's cluster), `partner` (the blended track's) or
+    /// `other`.
+    pub role: String,
+    pub windows: u32,
+    pub hits: u32,
+    pub level: String,
+    pub speed: f64,
+    pub verified: Vec<Verification>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -335,6 +353,8 @@ pub struct Options<'a> {
     /// What is added to the index to measure a larger library.
     pub padding: &'a Padding,
     pub matching: &'a Matching,
+    /// Measure every detection with the peak verifier.
+    pub verify: bool,
     pub jobs: usize,
 }
 
@@ -353,10 +373,12 @@ pub fn run(
         ladder,
         padding,
         matching,
+        verify,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
+    let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     let plan = Plan::for_seed(&records, clusters, seed, panels)?;
     let indexed: Vec<PeakRecord> = records
         .iter()
@@ -443,10 +465,29 @@ pub fn run(
             wrong_possible: 0,
             strongest_wrong_hits: 0,
             search_seconds,
+            verified: Vec::new(),
         };
         for detection in &detections {
             let asset = &index.asset(detection.asset).path;
             let level = detection.evidence.confidence();
+            if let Some(verifier) = &verifier {
+                let role = if own.contains(asset) {
+                    "own"
+                } else if partner.contains(asset) {
+                    "partner"
+                } else {
+                    "other"
+                };
+                result.verified.push(RobustFound {
+                    asset: asset.clone(),
+                    role: role.to_owned(),
+                    windows: detection.evidence.windows,
+                    hits: detection.evidence.hits,
+                    level: format!("{level:?}").to_lowercase(),
+                    speed: detection.speed.0,
+                    verified: verifier.verify(&index, detection, &audio.samples, &profile),
+                });
+            }
             if own.contains(asset) {
                 if detection.evidence.hits > result.best_hits {
                     result.best_hits = detection.evidence.hits;

@@ -27,6 +27,7 @@ mod survival;
 mod sweep;
 mod synthetic;
 mod tempo;
+mod verifier;
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -111,6 +112,11 @@ struct Paths {
     /// the map and the clusters are the whole library's.
     #[arg(long, global = true, requires = "other_peaks_dir")]
     other_sample: Option<usize>,
+    /// Measure every detection of sweep, scan, robust, mixes and grid with
+    /// the peak verifier, a diagnostic that leaves detections unchanged.
+    /// Reports go to `reports/verified/` below the usual directory.
+    #[arg(long, global = true)]
+    verify: bool,
 }
 
 #[derive(Subcommand)]
@@ -444,6 +450,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     ladder_name: paths.ladder.name(),
                     ladder: &paths.rungs(),
                     matching: &paths.matching,
+                    verify: paths.verify,
                     jobs,
                 },
             )?;
@@ -466,6 +473,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     ladder_name: paths.ladder.name(),
                     ladder: &paths.rungs(),
                     matching: &paths.matching,
+                    verify: paths.verify,
                     jobs,
                 },
             )?;
@@ -666,6 +674,7 @@ fn run_robust(
             ladder: &paths.rungs(),
             padding: &padding,
             matching: &paths.matching,
+            verify: paths.verify,
             jobs,
         },
     )?;
@@ -844,6 +853,7 @@ fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {
             padding: &paths.padding(&UNCHANGED_INDEX)?,
             ladder: &paths.rungs(),
             matching: &paths.matching,
+            verify: paths.verify,
             jobs,
         },
     )?;
@@ -874,6 +884,7 @@ fn run_scan(
             padding: &padding,
             matching: &paths.matching,
             ladder: &paths.rungs(),
+            verify: paths.verify,
             jobs,
         },
     )?;
@@ -920,6 +931,9 @@ impl Paths {
         }
         if let Some(name) = self.matching.name() {
             reports.push(format!("variant-{name}"));
+        }
+        if self.verify {
+            reports.push("verified");
         }
         reports
     }

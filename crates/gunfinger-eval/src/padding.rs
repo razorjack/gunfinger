@@ -108,6 +108,18 @@ impl SecondLibrary {
         self.assets.len()
     }
 
+    /// The record of the asset the index names `path` (prefixed); `None`
+    /// when it is not one of this library's.
+    pub fn record(&self, path: &str) -> Option<Result<PeakRecord, String>> {
+        let path = path.strip_prefix(SECOND_LIBRARY_PREFIX)?;
+        let asset = self.assets.iter().find(|asset| asset.path == path)?;
+        Some(
+            self.store
+                .load(asset, &Profile::CURRENT)
+                .map_err(|error| error.to_string()),
+        )
+    }
+
     /// Its records one at a time, their paths prefixed, leaving out those
     /// whose prefixed path is in `excluded`.
     fn records<'a>(

@@ -24,10 +24,11 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::matching::Matching;
 use crate::mixes::{
-    MixFound, PlannedMix, PlannedPlay, Pools, draw_unused, search_mix, sweep_index,
+    MixFound, PlannedMix, PlannedPlay, Pools, Searcher, draw_unused, search_mix, sweep_index,
 };
 use crate::rng::Rng;
 use crate::scoring::evidence;
+use crate::verifier::Verifier;
 
 const LENGTHS: [f64; 6] = [10.0, 15.0, 20.0, 25.0, 30.0, 40.0];
 /// Offsets of the brief play from the window grid, in seconds.
@@ -78,6 +79,9 @@ pub struct GridQuery {
     /// Confident detections that match no play.
     pub wrong_confident: usize,
     pub strongest_false_hits: u32,
+    /// With `--verify`: every detection that matches no play.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub false_candidates: Vec<MixFound>,
 }
 
 pub struct Options<'a> {
@@ -87,6 +91,8 @@ pub struct Options<'a> {
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
+    /// Measure every detection with the peak verifier.
+    pub verify: bool,
     pub jobs: usize,
 }
 
@@ -105,6 +111,7 @@ pub fn run(
         options.panels,
         options.matching,
     )?;
+    let verifier = options.verify.then(|| Verifier::new(&records, None));
     let pools = Pools::new(&records, &held_out);
     let briefs = draw_briefs(&pools, clusters, &mut Rng::new(options.seed))
         .ok_or("the library has too few long tracks for the grid")?;
@@ -120,19 +127,17 @@ pub fn run(
             }
         }
     }
+    let searcher = Searcher {
+        index: &index,
+        ladder: options.ladder,
+        matching: options.matching,
+        verifier: verifier.as_ref(),
+    };
     let queries = map_in_order(
         &planned,
         options.jobs,
         |(number, seconds, offset, mix, path)| {
-            let result = search_mix(
-                mix,
-                path,
-                library,
-                &index,
-                clusters,
-                options.ladder,
-                options.matching,
-            )?;
+            let result = search_mix(mix, path, library, clusters, &searcher)?;
             let brief = &result.score.plays[1];
             let accepted = clusters.cluster_of(&brief.truth.asset);
             Ok(GridQuery {
@@ -156,6 +161,11 @@ pub fn run(
                     .false_candidates
                     .first()
                     .map_or(0, |found| found.hits),
+                false_candidates: if verifier.is_some() {
+                    result.score.false_candidates.clone()
+                } else {
+                    Vec::new()
+                },
             })
         },
     );
@@ -389,6 +399,7 @@ mod tests {
             windows: 2,
             hits: 450,
             fitted: false,
+            verified: Vec::new(),
         };
 
         assert!(!confident_under(std::slice::from_ref(&found), None));
