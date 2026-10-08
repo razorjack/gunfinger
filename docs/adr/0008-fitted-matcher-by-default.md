@@ -60,6 +60,7 @@ matcher in `search.matching` and the rule in `search.confidence`, so
 - Sick Note in the held-out test mix reached 209 hits under the single
   pass; with the fullest lists skipped it would most likely become
   possible (inference, experiment 0026). The next test-set evaluation
-  should measure this matcher.
+  should measure this matcher. Evaluation 3 did (test-set ledger): 14/16
+  with 0 wrong, Sick Note possible at 233 hits in 4 windows.
 - Calibration figures before this ADR describe `--single-pass`; the
   register keeps both (`docs/calibration.md`).

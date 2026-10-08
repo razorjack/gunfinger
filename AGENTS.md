@@ -66,8 +66,12 @@ the library's files or, without a library, the store's own records;
 
 The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
-`related` (self-match of the library), `survival` and `hash_cost` (hash
+`related` (self-match of the library), `pair` (two files' alignments and
+the time their hits support), `survival` and `hash_cost` (hash
 measurements without a search) on top of `manifest` and `scoring`.
+`verifier` is a peak verifier after Qfp, a diagnostic behind `--verify`
+that leaves detections unchanged; `shared` searches queries cut from a
+passage two recordings share.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus

@@ -1051,3 +1051,20 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   it newer than the session's brief. Unchanged. `/Volumes/atlas` was
   mounted by the owner during the session; nothing here read it.
   `scripts/check.sh` green.
+
+## 2026-10-08: after session 7: documents brought in line
+
+- AGENTS.md lists the harness's `pair`, `verifier` and `shared`; the
+  README lists `--verify`, `shared` and `sweep --other-rips`; ADR 0008
+  records that test-set evaluation 3 confirmed its Sick Note prediction
+  (14/16, Sick Note possible at 233 hits).
+- Roadmap: the edge of the ladder reflowed and stated as deck speed
+  plus copy offset past 9%; what step 1 of "Evidence beyond exact pair
+  hashes" means for steps 2 and 3 (recall of weak copies rather than
+  separation); the looped shared passage as the case any summing rule
+  must handle (experiment 0055); Sick Note at 233 hits in the
+  shared-material item.
+- Calibration register: the verifier rule under "Measured, not
+  adopted". References: what `--verify` found against Qfp's design, and
+  that Mixotic needs a browser download.
+- Documents only; no code changed.

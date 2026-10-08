@@ -119,8 +119,11 @@ marked as inferences were derived, not measured.
   speed and is gone from 10.2%; `--extra-rungs 3` adds 9.2-9.5% only.
   Inside 9% every miss is a weak copy (lossy uploads, one other vinyl
   rip) found below the rule. Of the 233 NAS clusters, 7 span more than
-  4% in speed. The choice now depends on how far the owner's decks go. Replay speed also changes by accident when analogue
-  media is digitised (Six & Leman 2014, §1).
+  4% in speed (Falcon - The Stand 11.5%, its "Speed Up" upload against a
+  slow rip). A play is lost only when the deck's speed and the
+  remaining copy's offset add up past 9%, so the choice depends on how
+  far the owner's decks go beyond about ±5%. Replay speed also changes
+  by accident when analogue media is digitised (Six & Leman 2014, §1).
 - **Peaks across frequency bands.** Anchors at 2-4 kHz are 64% of the
   postings the development mix's plays look up and 21% of their true
   hits. A profile whose peak neighbourhoods widen with frequency (variant
@@ -200,7 +203,10 @@ marked as inferences were derived, not measured.
   its Evol Intent VIP at 197 hits: the rule of 240 is only 1.22× above
   it, where the calibration register asks for about 2×. Raising the
   rule to about 400 would lose brief plays without resolving the
-  ambiguity. Method: a challenge set of originals, VIPs, remixes and
+  ambiguity. The held-out mix shows the cost already: Sick Note, a true
+  play, is possible at 233 hits, 7 below the rule (test-set evaluation
+  3), so true plays and shared material now meet in the same range of
+  hits. Method: a challenge set of originals, VIPs, remixes and
   tracks sharing breaks, each pair confirmed by the owner's ear;
   excerpts from shared and from distinctive passages at several
   durations, with the played recording in the index and left out.
@@ -277,6 +283,16 @@ marked as inferences were derived, not measured.
      Use the extra peaks in the verifier first, so that the pairs the
      first pass forms stay as they are; measure peaks recovered under EQ
      and blends, accidental agreement, and CPU.
+
+  After step 1, most reference peaks are found in the query (median
+  share 0.84 for the source file, 0.65 for another upload, experiment
+  0058); how many of them the exact hashes miss is what step 2
+  measures. Since more evidence did not separate true from related
+  candidates at equal hits, steps 2 and 3 matter more for recall than
+  for separation: the 57 misses within 9% of relative speed in
+  experiment 0059 are weak copies found at 25-239 hits, below the rule.
+  Measure those copies and the shared-material scenarios (experiment
+  0055) together, since both would gain.
 - **Longer hashes.** Triplet hashes would scan 25-79 times fewer postings
   but lose about half their evidence under heavy damage (experiment 0014,
   estimated offline, no search). Revisit if profiling on a real large
@@ -297,7 +313,12 @@ marked as inferences were derived, not measured.
   no false group, but no measured track would gain. Revisit when several
   independently reviewed missed plays have strong, compatible segments that
   together pass 200, and test a restricted rule against related recordings
-  and long unknown passages.
+  and long unknown passages. A looped shared passage is the case to beat:
+  the passage Clockwork shares with its Stakka remix, looped to 240 s,
+  gives the other recording 13-22 detections of up to 144 hits each,
+  which summed would be confident (experiment 0055). A rule that counts
+  only segments advancing through the reference would leave the repeats
+  out (proposal, not measured).
 
 ## Evaluation
 
