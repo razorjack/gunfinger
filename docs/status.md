@@ -1024,3 +1024,11 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   thread and 25 MB, runs beside it. An owner process
   (`fetch-all.sh` under `caffeinate`) was running on the machine; I left
   it alone.
+- Item 5 (19:00-19:25, experiment 0057): `pair` at NAS scale on 4 sparse
+  joins, 28 borderline pairs and 8 control joins; supported time and
+  coverage order the pairs differently.
+- Item 1 at NAS scale (19:00-19:31): scan 343 s, sweep 2027 1,553 s
+  (540/540, 24 wrong, as in session 6); experiment 0058. The proposal
+  (no verifier rule) and the listening list after session 7 are in the
+  notes; roadmap, README and the calibration register updated.
+- Item 3's sweeps run from 19:31 (`work/scripts/s7-nas-queue.sh`).
