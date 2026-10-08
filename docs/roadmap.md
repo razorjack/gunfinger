@@ -83,7 +83,9 @@ marked as inferences were derived, not measured.
   confident under the default, experiment 0047). The span from the
   first to the last hit counts gaps as evidence; compare it with the
   time that hits support (for example, the seconds holding aligned
-  hits), including sparse alignments and repeated breaks. Keep the hit
+  hits), including sparse alignments and repeated breaks. `pair` now
+  reports that supported time; for whole files it orders pairs
+  differently from coverage (experiment 0057). Keep the hit
   threshold fixed to isolate the change. Success: fewer level changes
   caused only by where a play falls on the window grid (silence put
   before the same audio should not change its level), more brief plays
@@ -216,6 +218,12 @@ marked as inferences were derived, not measured.
   specificity (Sonnleitner & Widmer 2016, §VI; Sonnleitner et al. 2016,
   §6). Run the challenge set before adopting anything that adds
   evidence (the items below, the band profile, a minimum span).
+  Session 7 ran the four scenarios on two judged pairs (`gunfinger-eval
+  shared`, experiment 0055): nothing reaches the rule; looping a shared
+  passage to 240 s does not add hits, because each repeat starts a new
+  alignment (summing a play's segments would change that); running into
+  distinctive material adds hits only to the played file. More judged
+  pairs (the owner's verdicts) would make it a challenge set.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away
@@ -239,6 +247,12 @@ marked as inferences were derived, not measured.
      confident; experiment 0027). Success: better separation of true and
      false candidates on recordings not used to develop it. Shared
      passages may verify as strongly as the played recording.
+     Done in session 7 as `gunfinger-eval --verify` (tolerance ±1 bin,
+     ±1 frame; experiments 0054, 0056, 0058). At equal hits its share
+     separates no better than hits (AUC 0.953 against 0.950 at 262
+     tracks) and worse against related records: weak blend partners
+     (0.16-0.24) verify like shared passages (0.11-0.41). Kept as a
+     diagnostic; no rule. Its share could order a listening list.
   2. What exact quantisation loses after fitting: on the same
      alignments, count exact pair hashes, pair hashes that allow a
      neighbouring value in each component (as Panako 2.0's near-exact
@@ -300,8 +314,13 @@ marked as inferences were derived, not measured.
   6.5 for the 5th percentile. `clusters` now lists joins below a tenth
   of the median for the owner's ear (at NAS scale the two Sonar
   revision pairs and one Phoenix upload pair; none at 262 tracks).
-  Still to do: compare coverage with the time that hits support,
-  inspect long sparse alignments and chains through mixed-CD tracks,
+  Supported time (experiment 0057): the Sonar joins hold aligned hits
+  on 0.39-0.43 of the file, Phoenix's on 0.63-0.72, random joins
+  0.98-1.00; China Cup and The Specialist against the uploads the
+  clusters keep apart, 0.96-0.99 at two offsets. A rule on supported
+  time would need the owner's verdicts to set it. Still to do: inspect
+  long sparse alignments and chains through mixed-CD tracks (a mixed
+  CD's track can hold the start of the next one, experiment 0058),
   and have the owner check a sample of joins, not only the pairs the
   clusters keep apart. Evaluations at scale elsewhere meet the same
   effect: with 430,000 added tracks, a copy of a played song among them
@@ -341,7 +360,7 @@ marked as inferences were derived, not measured.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The
-  held-out test mix has three evaluations left (ADR 0004). *(larger
+  held-out test mix has two evaluations left (ADR 0004). *(larger
   library)* Each new genre needs its own development and held-out mixes;
   check the speed range those DJs used.
 - **Public DJ-mix datasets and per-second scoring.** Mixotic (10
@@ -363,7 +382,9 @@ marked as inferences were derived, not measured.
   current scoring for continuity. These measures would also judge the
   minimum span and the time that hits support (Matching). Published
   scores do not compare with Gunfinger's track recall; compare systems
-  only by running them under one protocol.
+  only by running them under one protocol. Session 7 could not download
+  Mixotic: the three archives are Google Drive files that answer with a
+  sign-in page; a browser download is needed.
 
 ## Engineering
 
