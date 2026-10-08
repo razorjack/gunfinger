@@ -86,8 +86,15 @@ doi:10.1109/TASLP.2015.2509248.
   of them, so extra and missing peaks are tolerated. The paper calls this
   essential for precision on large collections with repetitive material.
   The idea is adapted from Astrometry.net (Lang et al. 2010).
-- Gunfinger: roadmap, "Evidence beyond exact pair hashes" and "Longer
-  hashes".
+- Gunfinger: `gunfinger-eval --verify` (`verifier.rs`) applies §VI-C to
+  every detection as a diagnostic, with a box of ±1 bin and ±1 frame
+  (experiment 0054). The right recording's detections find a median 0.84
+  of their reference peaks against about 0.01 by chance, but at equal
+  hits the share separated true from false detections no better than
+  hits did, and worse against related records (experiments 0056, 0058).
+  Qfp's search tolerance and verification are tied to its quad hashes;
+  on Gunfinger's exact pair hashes the verifier adds no rule so far.
+  Roadmap: "Evidence beyond exact pair hashes" and "Longer hashes".
 
 **Sonnleitner et al. 2016** (DJ-mix monitoring). R. Sonnleitner, A.
 Arzt and G. Widmer, "Landmark-Based Audio Fingerprinting for DJ Mix
@@ -149,7 +156,9 @@ arXiv:2506.14684. <https://arxiv.org/abs/2506.14684>
 techno and house (11 h 23 min), 723 reference tracks of which 118 are
 played, with song-border annotations.
 <https://www.cp.jku.at/datasets/fingerprinting/> (about 1 GB of mixes,
-9.4 GB of references).
+9.4 GB of references). The three archives are Google Drive files that
+return a sign-in page to scripts (session 7); download them in a
+browser into `work/datasets/mixotic/`.
 
 **UnmixDB.** D. Schwarz and D. Fourer, "UnmixDB: A Dataset for DJ-Mix
 Information Retrieval," 2018, doi:10.5281/zenodo.1422385 (CC BY-NC-ND

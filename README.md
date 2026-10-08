@@ -324,8 +324,11 @@ target/release/gunfinger-eval validate                 # check the manifests
 target/release/gunfinger-eval clusters                 # duplicate rips in the library
 target/release/gunfinger-eval clusters --from-peaks    # the same from stored peaks, compared
 target/release/gunfinger-eval --other-peaks-dir STORE map-library   # corpus files' copies in a larger library
-target/release/gunfinger-eval pair PAIRS.tsv           # two files' alignments on several ladders
+target/release/gunfinger-eval pair PAIRS.tsv           # two files' alignments and supported time
 target/release/gunfinger-eval sweep --seed 2026        # speed sweep
+target/release/gunfinger-eval --other-peaks-dir STORE sweep --seed 2026 --other-rips   # only other rips can answer
+target/release/gunfinger-eval --verify sweep --seed 2026   # every detection measured by the peak verifier
+target/release/gunfinger-eval shared PLAN.json         # queries from a passage two recordings share
 target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
 target/release/gunfinger-eval calibrate                # confidence margin
 target/release/gunfinger-eval baseline <name>          # save the standard reports
