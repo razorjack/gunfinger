@@ -1038,3 +1038,16 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   below the rule from weak uploads or one other vinyl rip; 24 wrong
   answers, all from China Cup's Prototype upload and Synthesis VIP's
   mixed-CD version. `--extra-rungs 3` runs from 20:21.
+- Item 3 with `--extra-rungs 3` (20:21-21:14): 1,216 of 1,305; 3 of the
+  4 queries at 9.2-10% relative speed recovered, none of 31 beyond; 2
+  more wrong answers, both China Cup's Prototype upload at -8%
+  (experiment 0059). Notes, roadmap and calibration register updated.
+- Wrap-up (21:16): no change to `gunfinger-core` or the CLI since
+  cc81599, so `regress` was not needed. The NAS peak store at the end:
+  27,042 `.peaks`, 27,042 `.tags`, 1,396 `.skip`, `library.txt`; digest
+  `bf35ea64...e9ae4f5` (computed inside the store: `find . -type f
+  -exec stat -f '%N %z %m' {} + | sort | shasum -a 256`); revision
+  `d428ee9585936326` (`scripts/analysis/store_revision.py`); no file in
+  it newer than the session's brief. Unchanged. `/Volumes/atlas` was
+  mounted by the owner during the session; nothing here read it.
+  `scripts/check.sh` green.

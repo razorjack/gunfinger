@@ -11,7 +11,8 @@ left them; `gunfinger-core` and the CLI were not touched. New harness
 diagnostics: `gunfinger-eval --verify` (a peak verifier), `gunfinger-eval
 shared` (shared-material scenarios), `sweep --other-rips` (other rips
 only) and supported time in `pair`. Nothing was listened to. The NAS was
-not read; its peak store was used read-only (revision at the end below).
+not read; its peak store was used read-only and is unchanged at the end
+(27,042 records, revision `d428ee9585936326`, digest `bf35ea64...e9ae4f5`).
 
 **Test-set evaluation 3** (you approved it): 14/16, 0 wrong, pass. Sick
 Note is possible at 233 hits, 7 below the rule, as predicted; Sin is

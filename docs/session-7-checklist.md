@@ -40,14 +40,13 @@ for scope and rules.
   10/20/30 s; b. looped 60/120/240 s; c. into distinctive material
   10/20/30 s; d. played recording and rips left out, and the positive
   control; hits, windows, level, verifier measures (experiment 0055)
-- [~] 3. Relative speed at NAS scale: panels' indexed excerpts with a
+- [x] 3. Relative speed at NAS scale: panels' indexed excerpts with a
   non-identical rip, source and identical copies left out; recall
   against relative speed, wrong answers; again with `--extra-rungs 3`;
-  NAS clusters with members more than 4% apart (counted: 7; sweeps
-  queued after item 1's NAS runs)
-- [ ] 4. Wrap-up: experiments, session 7 summary in the notes, roadmap,
-  calibration if moved, status, checklist, NAS store revision, gate,
-  commit
+  NAS clusters with members more than 4% apart (experiment 0059)
+- [x] 4. Wrap-up: experiments, session 7 summary in the notes, roadmap,
+  calibration (measurements added, nothing moved), status, checklist, NAS
+  store revision (unchanged), `scripts/check.sh` green, commit
 - [x] 5. (If time remains) supported time for joins: `pair` prints the
   seconds of the shorter file that hold aligned hits (e9562ea); 4 sparse
   joins, 28 borderline pairs, 8 controls at NAS scale (experiment 0057);
