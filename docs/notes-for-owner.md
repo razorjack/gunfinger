@@ -1,7 +1,52 @@
 # Notes for the owner
 
 Findings from the autonomous sessions that are worth your attention, newest
-last, after a summary of each session (session 6 first).
+last, after a summary of each session (session 7 first).
+
+## Session 7 summary
+
+**Nothing changed for users.** The default matcher, the confidence rule,
+the clusters, the manifests and `docs/pair-verdicts.txt` are as session 6
+left them; `gunfinger-core` and the CLI were not touched. New harness
+diagnostics: `gunfinger-eval --verify` (a peak verifier), `gunfinger-eval
+shared` (shared-material scenarios), `sweep --other-rips` (other rips
+only) and supported time in `pair`. Nothing was listened to. The NAS was
+not read; its peak store was used read-only (revision at the end below).
+
+**Test-set evaluation 3** (you approved it): 14/16, 0 wrong, pass. Sick
+Note is possible at 233 hits, 7 below the rule, as predicted; Sin is
+possible at 123. 2 evaluations are left.
+
+**The peak verifier** (experiments 0054, 0056, 0058): identifying
+detections find a median 0.85 of the found file's peaks, chance about
+0.01. But at equal hits its share separates true from false detections no
+better than hits (AUC 0.953 against 0.950 at 262 tracks), and worse
+against related records: weak blend partners (0.16-0.24) look like
+shared passages (0.11-0.41). **Proposal: no verifier rule**; keep it as a
+diagnostic and as an aid for ordering what you listen to.
+
+**Shared material** (experiment 0055): Clockwork ~ its remix and China
+Cup ~ The Nine, alone, looped to 240 s, into distinctive material, with
+the played recording left out: nothing reaches the rule, and looping
+does not add hits.
+
+**Supported time** (experiment 0057): coverage and the seconds that hold
+aligned hits order pairs differently. The Sonar revision joins hold hits
+on 0.39-0.43 of the file; China Cup and The Specialist against the
+uploads the clusters keep apart, 0.96-0.99 at two offsets.
+
+**Relative speed at NAS scale** (item 3): running; first seed: 318 of 333 excerpts recalled from other rips alone, 0 wrong; the misses are beyond the ladder or Phoenix's i-witness upload.
+
+**Decisions for you.**
+
+- The listening list after session 7 (at the end): the same pairs, now
+  with supported time and verifier shares beside them. China Cup ~ its
+  Prototype upload is held almost whole at two offsets and verifies like
+  another upload of one recording; it causes most wrong answers left.
+- Whether to adopt the verifier in any form (proposed: no rule).
+- Mixotic could not be downloaded: Google Drive answers with a sign-in
+  page. A browser download into `work/datasets/mixotic/` would let a
+  later session record its layout.
 
 ## Session 6 summary
 
