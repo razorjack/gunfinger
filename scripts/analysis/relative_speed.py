@@ -87,6 +87,8 @@ for report_dir in report_dirs:
             relative = {m: speeds[m] * (1 + q["speed_percent"] / 100) - 1 for m in rips if m in speeds}
             nearest = min(relative.values(), key=abs) if relative else None
             correct = [d for d in q["detections"] if d["correct"] and d["confident"]]
+            weak = max((d for d in q["detections"] if d["correct"] and not d["confident"]),
+                       key=lambda d: d["hits"], default=None)
             wrong = [d for d in q["detections"] if not d["correct"] and d["confident"]]
             rows.append({"seed": report["seed"], "asset": q["asset"], "speed_percent": q["speed_percent"],
                          "rips": len(rips), "rips_with_speed": len(relative),
@@ -94,6 +96,7 @@ for report_dir in report_dirs:
                          "recalled": bool(correct), "best_hits": max((d["hits"] for d in correct), default=0),
                          "found": correct[0]["asset"] if correct else None,
                          "found_speed_percent": correct[0]["speed_percent"] if correct else None,
+                         "weak_correct": None if weak is None else (weak["asset"], weak["hits"], weak["windows"]),
                          "wrong": [(d["asset"], d["hits"]) for d in wrong]})
     table = []
     for low, high in BINS:
@@ -116,8 +119,9 @@ for report_dir in report_dirs:
     for cell in table:
         if cell["queries"]:
             print(f"  |relative| {cell['relative_percent']:>9}%: {cell['recalled']}/{cell['queries']}")
-    for r in misses[:15]:
-        print(f"  missed {r['asset'][:60]} at {r['speed_percent']:+.0f}%: relative {r['relative_percent']}")
+    for r in misses[:40]:
+        print(f"  missed {r['asset'][:60]} at {r['speed_percent']:+.0f}%: relative {r['relative_percent']:+.2f}%, "
+              f"weaker correct detection {r['weak_correct']}")
 
 # Clusters whose members differ by more than 4% in speed.
 spreads = []
