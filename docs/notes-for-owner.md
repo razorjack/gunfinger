@@ -1244,8 +1244,8 @@ the shorter file's own seconds (an upload 4% fast is 4% shorter).
 better of two alignments per pair: the one on the ladder and the pair
 measured again alone at its fitted speed (experiment 0049). At 262
 tracks the 17 clusters are unchanged and the gap widened (the strongest
-different pair falls from 0.385 to 0.210 coverage: the old pairs above
-20% were chance). At NAS scale the 17 corpus clusters reappear; 46 more
+different pair falls from 0.385 to 0.302 coverage, two Aphrodite records
+with shared breaks: the old pairs above 30% were chance). At NAS scale the 17 corpus clusters reappear; 46 more
 NAS files join, nearly all uploads 3-7% off their rips' speed, so 732
 files form the 233 clusters, and the borderline pairs fall from 76 to 28.
 All 6 uploads that were the development mix's wrong identifications now
@@ -1269,3 +1269,42 @@ or `different`, then the two paths, separated by tabs (format in its
 header). `clusters` follows a verdict over the 80% rule; rerun
 `clusters --from-peaks` with `--other-peaks-dir` after editing it (85
 minutes for the NAS).
+
+### At NAS scale the development mix has no wrong identification; the margin comes back
+
+Experiment 0051 ran the NAS-scale protocol under the new default and
+the new clusters. The development scan identifies 11 of 11 with 0
+wrong (session 5: 6), leave-outs 3 and 11 have 0 wrong, sweep 2026
+recalls 540 of 540 with 0 wrong (91), sweep 2027 540 of 540 with 24
+wrong (174). Calibrate's margin is 1.64× under the rules (session 5:
+0.11×); the strongest false candidate is now a borderline pair, not an
+unclustered upload. Without China Cup's Prototype upload it is 1.97×,
+without Coma ~ Spraycan as well 3.41× (The Nine's VIP, 197 hits on
+audio not in the index). Unrelated chance stays at 63-70 hits. Costs
+match session 5: the development scan 255 s and 1,950 s CPU, a sweep
+1,300 s and 12,100 s CPU.
+
+### Listening list after session 6
+
+Pairs the clusters keep apart, by ear. `same` or `different` for any of
+them goes into `docs/pair-verdicts.txt`. The first three cause every
+wrong answer left in the NAS-scale protocol (experiment 0051).
+
+| Pair (tags; path under the NAS root, `second-library/` left out) | Coverage | Confident false; strongest; where |
+|---|--:|---|
+| Bad Company - China Cup (corpus `Bad Company - China Cup.mp3`, `extra/02. Bad Company - China Cup.mp3`) ~ "BAD COMPANY - china cup" (`__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus`) | 65% | 16; 408 hits; sweep 2027, excerpts at 2:52 and 2:37 |
+| Bad Company - Coma (`extra/02 Coma.mp3`) ~ Bad Company - Spraycan (`__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus`) | 58% | 8; 341 hits; sweep 2027, excerpt at 4:16 |
+| Bad Company - The Nine (corpus rips) ~ Bad Company - The Nine (Evol Intent VIP) (`__youtube_archivists/i-witness-dnb/...`) | 48-50% | 0; 197 hits (possible) |
+| Stakka + K.Tee - Synthesis VIP (`extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3`) ~ "Synthesis (Remix)" on the mixed CD (`Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3`) | 59% | 0; 115 hits (possible) |
+| Future Cut - The Specialist (corpus `extra/01-future_cut-the_specialist-trt.mp3`; the INFRA011 rip tagged "Sex Drive"; i-witness) ~ alien5ive INFRA 012 upload | 77% | 0 |
+| Ed Rush, Optical & Fierce - Alien Girl (corpus) ~ i-witness upload | 76% | 0 |
+| Stratus - Waves (`extra/b-stratus-waves-sour.mp3`, the Sonix WEB file) ~ each other and the alien5ive INCIDENT 002 upload | 74% | 0 |
+| Falcon - The Stand (3zb upload ~ alien5ive CITRUS 003 upload); falcon - fractles (`extra/a. falcon - fractles.mp3` ~ alien5ive CITRUS 003 upload) | 64%; 57% | 0; fractles 134 hits (possible) |
+| Pyro - Time Is Broken (`extra/A. Pyro -- Time Is Broken.mp3`) ~ Pyro - Ignorance (3zb upload) | 44% | 0 |
+| Ed Rush & Optical - Dozer (corpus) ~ "Dozer (2025 Notjamie Bootleg)" (i-witness) | 48% | 0 |
+| DJ Trace - Sonar (corpus) ~ "Sonar (Mark System Revision)" (i-witness): joined at 91% with 246 hits | 91% | joined; check that it is the same recording |
+
+Two borderline pairs are chance spans of 6 and 15 hits (Aphrodite -
+Playground Shades ~ Critikal - Interlude; Cause 4 Concern - Night Gasp ~
+Ray Keith - Dark Soldier VIP) and need no verdict; two more are the
+mixed CD's Luminous remix against Global Report next to it (44-45%).

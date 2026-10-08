@@ -897,3 +897,14 @@ grouped tracklists.
   sweep detections explained, the development scan's 6 of 6.
 - Item 6 started 07:53 (`work/scripts/s6-nas-protocol.sh` under
   timed6.sh, binary work/bin/s6-item5c).
+- Item 6 scans (07:53-08:06): development 11/11, 0 wrong (session 5: 6
+  wrong); leave-outs 8/11 and 0/11, 0 wrong; 3 possible plays matching
+  no track (shared material); 255 s, 1,950 s CPU each; false candidates
+  2,990, 8 of 30 hits or more; strongest unrelated 32. Sweeps from 08:06.
+- Item 6 done 08:49 (experiment 0051): development 11/11, 0 wrong; sweeps
+  540/540 with 0 and 24 wrong; margin 1.64× (3.41× without the two
+  borderline pairs); unrelated 63-70. Listening list in the notes.
+- 262 clusters rerun with the better-of rule (08:50-08:59, 530 s): the
+  same 17 clusters; strongest different 0.302 (the Aphrodite pair by
+  the ladder's alignment; 0.210 refitted), not 0.210 as in the first
+  run. Item 8 started 09:00 (`work/scripts/s6-scaling.sh`).

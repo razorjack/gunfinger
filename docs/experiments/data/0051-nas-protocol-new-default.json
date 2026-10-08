@@ -1,0 +1,1179 @@
+{
+ "experiment": "0051-nas-protocol-new-default",
+ "command": "work/scripts/s6-nas-protocol.sh under timed6.sh (work/bin/s6-item5c): gunfinger-eval --other-peaks-dir <NAS store> scan stakka-skynet-knowledge [--leave-out 3|11 --seed 2026]; sweep --seed 2026, 2027; calibrate",
+ "store_revision": "d428ee9585936326",
+ "clusters": "experiment 0049",
+ "timing": {
+  "scan": {
+   "wall_s": 255.47,
+   "user_s": 1949.53
+  },
+  "leave_out_3": {
+   "wall_s": 241.93,
+   "user_s": 1925.48
+  },
+  "leave_out_11": {
+   "wall_s": 240.04,
+   "user_s": 1916.29
+  },
+  "sweep_2026": {
+   "wall_s": 1296.41,
+   "user_s": 12077.29
+  },
+  "sweep_2027": {
+   "wall_s": 1306.47,
+   "user_s": 12161.51
+  },
+  "protocol": {
+   "wall_s": 3340.74,
+   "user_s": 30030.19,
+   "max_rss_bytes": 5644582912
+  }
+ },
+ "summary": {
+  "reports": "work/reports/library-nas-dnb-peaks",
+  "rule_hits": 240,
+  "scans": {
+   "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": 3,
+    "wall_seconds": 196.887332333,
+    "wrong_identifications": [],
+    "unmatched_possible_plays": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "start": 629,
+      "end": 660
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start": 1223,
+      "end": 1241
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "start": 1223,
+      "end": 1241
+     }
+    ],
+    "credited_through_cluster": [],
+    "weakest_identifying": null,
+    "false_candidates_total": 3002,
+    "false_30": 8,
+    "false_60": 3,
+    "strongest_false": [
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1223
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1223
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "where": 629
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1172
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1172
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1139
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1139
+     },
+     {
+      "hits": 32,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/[genetix] - Crunch.opus",
+      "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+      "where": 396
+     }
+    ],
+    "detections": 3002
+   },
+   "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": 3,
+    "wall_seconds": 198.882346209,
+    "wrong_identifications": [],
+    "unmatched_possible_plays": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "start": 629,
+      "end": 660
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start": 1223,
+      "end": 1241
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "start": 1223,
+      "end": 1241
+     }
+    ],
+    "credited_through_cluster": [
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+     "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+    ],
+    "weakest_identifying": 1764,
+    "false_candidates_total": 3010,
+    "false_30": 8,
+    "false_60": 3,
+    "strongest_false": [
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1223
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1223
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "where": 629
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1172
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1172
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1139
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1139
+     },
+     {
+      "hits": 32,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/[genetix] - Crunch.opus",
+      "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+      "where": 396
+     }
+    ],
+    "detections": 3033
+   },
+   "scan-stakka-skynet-knowledge.json": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": 3,
+    "wall_seconds": 202.30753725,
+    "wrong_identifications": [],
+    "unmatched_possible_plays": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "start": 629,
+      "end": 660
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start": 1223,
+      "end": 1241
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "start": 1223,
+      "end": 1241
+     }
+    ],
+    "credited_through_cluster": [
+     "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+     "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+    ],
+    "weakest_identifying": 1764,
+    "false_candidates_total": 2990,
+    "false_30": 8,
+    "false_60": 3,
+    "strongest_false": [
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1223
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1223
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "where": 629
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1172
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1172
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1139
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1139
+     },
+     {
+      "hits": 32,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/[genetix] - Crunch.opus",
+      "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+      "where": 396
+     }
+    ],
+    "detections": 3023
+   }
+  },
+  "sweeps": {
+   "sweep-seed-2026.json": {
+    "recalled": 540,
+    "indexed_excerpts": 540,
+    "wrong": 0,
+    "max_speed_error_percent": 0.015284704802914106,
+    "indexed_assets": 26969,
+    "weakest_identifying": 703,
+    "false_candidates": 22569,
+    "false_per_query_mean": 31.345833333333335,
+    "false_per_query_max": 415,
+    "false_30": 60,
+    "false_60": 24,
+    "strongest_not_indexed": 72,
+    "strongest_false": [
+     {
+      "hits": 99,
+      "windows": 2,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "Skynet & Stakka - Clockwork.mp3 at -5%"
+     },
+     {
+      "hits": 99,
+      "windows": 2,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": "Skynet & Stakka - Clockwork.mp3 at -5%"
+     },
+     {
+      "hits": 97,
+      "windows": 2,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "Skynet & Stakka - Clockwork.mp3 at +1%"
+     },
+     {
+      "hits": 97,
+      "windows": 2,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": "Skynet & Stakka - Clockwork.mp3 at +1%"
+     },
+     {
+      "hits": 86,
+      "windows": 2,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "Skynet & Stakka - Clockwork.mp3 at +0%"
+     },
+     {
+      "hits": 86,
+      "windows": 2,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": "Skynet & Stakka - Clockwork.mp3 at +0%"
+     },
+     {
+      "hits": 85,
+      "windows": 2,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "Skynet & Stakka - Clockwork.mp3 at -8%"
+     },
+     {
+      "hits": 85,
+      "windows": 2,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": "Skynet & Stakka - Clockwork.mp3 at -8%"
+     }
+    ]
+   },
+   "sweep-seed-2027.json": {
+    "recalled": 540,
+    "indexed_excerpts": 540,
+    "wrong": 24,
+    "max_speed_error_percent": 0.022608414580563174,
+    "indexed_assets": 26972,
+    "weakest_identifying": 671,
+    "false_candidates": 36033,
+    "false_per_query_mean": 50.045833333333334,
+    "false_per_query_max": 404,
+    "false_30": 118,
+    "false_60": 81,
+    "strongest_not_indexed": 197,
+    "strongest_false": [
+     {
+      "hits": 408,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "Bad Company - China Cup.mp3 at +1%"
+     },
+     {
+      "hits": 407,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "Bad Company - China Cup.mp3 at +8%"
+     },
+     {
+      "hits": 386,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "Bad Company - China Cup.mp3 at +5%"
+     },
+     {
+      "hits": 382,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "Bad Company - China Cup.mp3 at -1%"
+     },
+     {
+      "hits": 373,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "Bad Company - China Cup.mp3 at +0%"
+     },
+     {
+      "hits": 373,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "Bad Company - China Cup.mp3 at +3%"
+     },
+     {
+      "hits": 365,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "extra/02. Bad Company - China Cup.mp3 at +8%"
+     },
+     {
+      "hits": 346,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+      "name": "BAD COMPANY - china cup",
+      "where": "extra/02. Bad Company - China Cup.mp3 at +0%"
+     }
+    ]
+   }
+  },
+  "most_frequent_false_assets": [
+   {
+    "asset": "second-library/__youtube_archivists/rootzdnb/dBridge - Violent Plains.opus",
+    "name": "dBridge - Violent Plains",
+    "times": 50
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/SAMURAI RED SEAL [ REDSEAL 015 \uff1a VILLEM & MC LEOD - hush - ] drum and bass.opus",
+    "name": "VILLEM & MC LEOD - hush",
+    "times": 40
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/dRamatic - Caroline.opus",
+    "name": "dRamatic - Caroline",
+    "times": 37
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Frenzy - Evilman - Hoostey Film.opus",
+    "name": "Frenzy - Evilman - Hoostey Film",
+    "times": 35
+   },
+   {
+    "asset": "second-library/SAN-001CD VA - Ambassadors. The Santorin drum'n'bass anthology (2002)/06-the_green_man-technik-sumnix.mp3",
+    "name": "The Green Man - Technik",
+    "times": 34
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Yali - VPN (Pulsar41 Remix).opus",
+    "name": "Yali - VPN (Pulsar41 Remix)",
+    "times": 32
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Atlantic Connection - Ovation.opus",
+    "name": "Atlantic Connection - Ovation",
+    "times": 31
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - firewalls - ] drum and bass.m4a",
+    "name": "FALCON - firewalls",
+    "times": 31
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Phobia - Voyager (feat. Baron Von Alias).m4a",
+    "name": "Phobia - Voyager (feat. Baron Von Alias)",
+    "times": 31
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Alix Perez - Stray.m4a",
+    "name": "Alix Perez - Stray",
+    "times": 30
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Jodeci - Forever My Lady (SlickTapes \u29f8 dBridge Edit).opus",
+    "name": "Jodeci - Forever My Lady (SlickTapes / dBridge Edit)",
+    "times": 28
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - Roll Over.m4a",
+    "name": "Falcon - Roll Over",
+    "times": 28
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Drumsound & Simon Bassline - Databass.m4a",
+    "name": "Drumsound & Simon Bassline - Databass",
+    "times": 28
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Special Forces - Sidewinder.m4a",
+    "name": "Special Forces - Sidewinder",
+    "times": 28
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/DJ Abstract & Juju - Resist.opus",
+    "name": "DJ Abstract & Juju - Resist",
+    "times": 27
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/OHM RECORDINGS [ OHM 001 \uff1a FALCON - roll over - ] drum and bass.opus",
+    "name": "FALCON - roll over",
+    "times": 27
+   },
+   {
+    "asset": "second-library/__youtube_archivists/dfect-dnb/Hazard - Godzilla.opus",
+    "name": "Hazard - Godzilla",
+    "times": 27
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Dr. Mac - Blunt.opus",
+    "name": "Dr. Mac - Blunt",
+    "times": 27
+   },
+   {
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "times": 26
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Scale - Starbugs.opus",
+    "name": "Scale - Starbugs",
+    "times": 26
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/CJ iQ - Rudeness.m4a",
+    "name": "CJ iQ - Rudeness",
+    "times": 26
+   },
+   {
+    "asset": "second-library/__youtube_archivists/dfect-dnb/Falcon - Retro (Noisia Remix).opus",
+    "name": "Falcon - Retro (Noisia Remix)",
+    "times": 25
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/DYkast & Funktion - Obsidian.m4a",
+    "name": "DYkast & Funktion - Obsidian",
+    "times": 25
+   },
+   {
+    "asset": "second-library/__youtube_archivists/dfect-dnb/Kemal - Time's Up.m4a",
+    "name": "Kemal - Time's Up",
+    "times": 25
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Nymfo - Dizzy.opus",
+    "name": "Nymfo - Dizzy",
+    "times": 25
+   },
+   {
+    "asset": "second-library/__youtube_archivists/dfect-dnb/Usual Suspects - Spawn Punch (Future Cut RMX).m4a",
+    "name": "Usual Suspects - Spawn Punch (Future Cut RMX)",
+    "times": 24
+   },
+   {
+    "asset": "second-library/subtitles-teebee_and_form-subtitles021-2002-sour/a-teebee_and_form-return_to_forever-sour.mp3",
+    "name": "Teebee & Form - Return To Forever",
+    "times": 24
+   },
+   {
+    "asset": "second-library/__youtube_archivists/unxplored-dnb/Rude Bwoy Monty - Steppa Style.opus",
+    "name": "Rude Bwoy Monty - Steppa Style",
+    "times": 24
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Jade & Matt U - Nightmare.m4a",
+    "name": "Jade & Matt U - Nightmare",
+    "times": 24
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Sal - Beskar.opus",
+    "name": "Sal - Beskar",
+    "times": 24
+   }
+  ]
+ },
+ "calibrate": {
+  "rule": "240 hits, 3 windows",
+  "identifying": 1099,
+  "false_candidates": 58632,
+  "accepted": 24,
+  "weakest": {
+   "hits": 671,
+   "what": "sweep 2027 extra/AA-Chris_SU-Audiophile-sour.mp3 at +0%"
+  },
+  "strongest_false": {
+   "hits": 408,
+   "what": "China Cup ~ PROTOTYPE PRO 001 upload (borderline 65%)"
+  },
+  "margin": 1.64,
+  "without_china_cup_prototype": {
+   "hits": 341,
+   "what": "Coma ~ Spraycan",
+   "margin": 1.97
+  },
+  "without_both": {
+   "hits": 197,
+   "what": "The Nine ~ Evol Intent VIP (audio not in the index)",
+   "margin": 3.41
+  },
+  "strongest_unrelated": {
+   "hits": 112,
+   "what": "b-unknown-udfr014 (Luminous Remix) ~ Kraken - Meatball on the mixed CD Dangerous Drums 2: a blend, not chance"
+  },
+  "unrelated_chance": [
+   {
+    "hits": 70,
+    "what": "Falcon - The Stand ~ untagged root file 1.mp3"
+   },
+   {
+    "hits": 67,
+    "what": "Mystery Machine ~ NIL - Infectious"
+   },
+   {
+    "hits": 64,
+    "what": "Clockwork ~ Simon Static - Rubba Rock"
+   },
+   {
+    "hits": 63,
+    "what": "Sentient ~ Shere Khan - Criminal Record"
+   }
+  ],
+  "split": {
+   "same name": {
+    "count": 34,
+    "confident": 16,
+    "at_60": 23
+   },
+   "version": {
+    "count": 230,
+    "confident": 0,
+    "at_60": 55
+   },
+   "same artist": {
+    "count": 814,
+    "confident": 8,
+    "at_60": 17
+   },
+   "unrelated": {
+    "count": 57554,
+    "confident": 0,
+    "at_60": 19
+   }
+  }
+ },
+ "listening_list": [
+  {
+   "files": [
+    "Bad Company - China Cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   "tags": [
+    "Bad Company - China Cup",
+    "BAD COMPANY - china cup"
+   ],
+   "coverage": 0.6513971949014525,
+   "confident_false": 8,
+   "strongest_hits": 408,
+   "heard": [
+    {
+     "where": "sweep-seed-2027.json: excerpt at 172 s, +1%",
+     "hits": 408
+    },
+    {
+     "where": "sweep-seed-2027.json: excerpt at 172 s, +8%",
+     "hits": 407
+    },
+    {
+     "where": "sweep-seed-2027.json: excerpt at 172 s, +5%",
+     "hits": 386
+    }
+   ]
+  },
+  {
+   "files": [
+    "extra/02. Bad Company - China Cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   "tags": [
+    "Bad Company - China Cup",
+    "BAD COMPANY - china cup"
+   ],
+   "coverage": 0.6513971949014525,
+   "confident_false": 8,
+   "strongest_hits": 365,
+   "heard": [
+    {
+     "where": "sweep-seed-2027.json: excerpt at 157 s, +8%",
+     "hits": 365
+    },
+    {
+     "where": "sweep-seed-2027.json: excerpt at 157 s, +0%",
+     "hits": 346
+    },
+    {
+     "where": "sweep-seed-2027.json: excerpt at 157 s, +1%",
+     "hits": 334
+    }
+   ]
+  },
+  {
+   "files": [
+    "extra/02 Coma.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus"
+   ],
+   "tags": [
+    "Bad Company - Coma",
+    "Bad Company - Spraycan"
+   ],
+   "coverage": 0.5846630706916844,
+   "confident_false": 8,
+   "strongest_hits": 341,
+   "heard": [
+    {
+     "where": "sweep-seed-2027.json: excerpt at 256 s, +8%",
+     "hits": 341
+    },
+    {
+     "where": "sweep-seed-2027.json: excerpt at 256 s, +5%",
+     "hits": 337
+    },
+    {
+     "where": "sweep-seed-2027.json: excerpt at 256 s, +0%",
+     "hits": 336
+    }
+   ]
+  },
+  {
+   "files": [
+    "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a"
+   ],
+   "tags": [
+    "Future Cut - Sex Drive",
+    "FUTURE CUT - the specialist"
+   ],
+   "coverage": 0.7659239334646781,
+   "confident_false": 0,
+   "strongest_hits": 2773,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus"
+   ],
+   "tags": [
+    "FUTURE CUT - the specialist",
+    "Future Cut - The Specialist"
+   ],
+   "coverage": 0.765470124197674,
+   "confident_false": 0,
+   "strongest_hits": 1858,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/01-future_cut-the_specialist-trt.mp3",
+    "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a"
+   ],
+   "tags": [
+    "Future Cut - The Specialist",
+    "FUTURE CUT - the specialist"
+   ],
+   "coverage": 0.7651744557919474,
+   "confident_false": 0,
+   "strongest_hits": 2339,
+   "heard": []
+  },
+  {
+   "files": [
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a"
+   ],
+   "tags": [
+    "Ed Rush, Optical & Fierce - Alien Girl",
+    "Ed Rush, Optical & Fierce - Alien Girl"
+   ],
+   "coverage": 0.7624936695739732,
+   "confident_false": 0,
+   "strongest_hits": 922,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+    "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - waves - ] drum and bass.m4a"
+   ],
+   "tags": [
+    "Stratus - Waves",
+    "STRATUS - waves"
+   ],
+   "coverage": 0.7365151570648912,
+   "confident_false": 0,
+   "strongest_hits": 2563,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/b-stratus-waves-sour.mp3",
+    "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3"
+   ],
+   "tags": [
+    "Stratus - Waves",
+    "Stratus - Waves"
+   ],
+   "coverage": 0.7353500931586648,
+   "confident_false": 0,
+   "strongest_hits": 1747,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "second-library/bad_company-fear_lp/07 bad company-china cup.mp3"
+   ],
+   "tags": [
+    "BAD COMPANY - china cup",
+    "Bad Company - China Cup"
+   ],
+   "coverage": 0.6759529999383528,
+   "confident_false": 0,
+   "strongest_hits": 2628,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/b-bad_company-china_cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   "tags": [
+    "Bad Company - China Cup",
+    "BAD COMPANY - china cup"
+   ],
+   "coverage": 0.6602590070794062,
+   "confident_false": 0,
+   "strongest_hits": 2211,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
+    "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - the stand - ] drum and bass.m4a"
+   ],
+   "tags": [
+    "Falcon - The Stand",
+    "FALCON - the stand"
+   ],
+   "coverage": 0.6411172870831674,
+   "confident_false": 0,
+   "strongest_hits": 979,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3"
+   ],
+   "tags": [
+    "Stakka + K.Tee - Synthesis VIP",
+    "Stakka And K Tee - Synthesis"
+   ],
+   "coverage": 0.5938016226599675,
+   "confident_false": 0,
+   "strongest_hits": 1199,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal \u2022 03 \u2022 Interlude.opus"
+   ],
+   "tags": [
+    "Aphrodite - Playground Shades",
+    "Critikal - 03 \u2022 Interlude"
+   ],
+   "coverage": 0.5717819714082191,
+   "confident_false": 0,
+   "strongest_hits": 15,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/a. falcon - fractles.mp3",
+    "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus"
+   ],
+   "tags": [
+    "falcon - fractles",
+    "FALCON - fractles"
+   ],
+   "coverage": 0.5697059366898306,
+   "confident_false": 0,
+   "strongest_hits": 717,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a"
+   ],
+   "tags": [
+    "Stakka And K Tee - Synthesis",
+    "Stakka & K.Tee - Synthesis (Remix)"
+   ],
+   "coverage": 0.5280250645059436,
+   "confident_false": 0,
+   "strongest_hits": 968,
+   "heard": []
+  },
+  {
+   "files": [
+    "Bad Company - The Nine.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "tags": [
+    "Bad Company - The Nine",
+    "Bad Company - The Nine (Evol Intent VIP)"
+   ],
+   "coverage": 0.5032158019093044,
+   "confident_false": 0,
+   "strongest_hits": 1801,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "tags": [
+    "Bad Company - The Nine",
+    "Bad Company - The Nine (Evol Intent VIP)"
+   ],
+   "coverage": 0.5032158019093044,
+   "confident_false": 0,
+   "strongest_hits": 1801,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/A- The_Nine.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "tags": [
+    "Bad Company - The Nine",
+    "Bad Company - The Nine (Evol Intent VIP)"
+   ],
+   "coverage": 0.503214627133503,
+   "confident_false": 0,
+   "strongest_hits": 1742,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+   ],
+   "tags": [
+    "Bad Company - The Nine (Evol Intent VIP)",
+    "Bad Company - The Nine"
+   ],
+   "coverage": 0.4989168492759147,
+   "confident_false": 0,
+   "strongest_hits": 4390,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "tags": [
+    "(no tags)",
+    "Bad Company - The Nine (Evol Intent VIP)"
+   ],
+   "coverage": 0.49682916374937086,
+   "confident_false": 0,
+   "strongest_hits": 1906,
+   "heard": []
+  },
+  {
+   "files": [
+    "Ed Rush & Optical - Dozer.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+   ],
+   "tags": [
+    "(no tags)",
+    "Ed Rush & Optical - Dozer (2025 Notjamie Bootleg)"
+   ],
+   "coverage": 0.48496398672324703,
+   "confident_false": 0,
+   "strongest_hits": 266,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "tags": [
+    "BAD COMPANY - the nine",
+    "Bad Company - The Nine (Evol Intent VIP)"
+   ],
+   "coverage": 0.48367848131830177,
+   "confident_false": 0,
+   "strongest_hits": 1555,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/b-stakka_and_skynet-global_report-sour.mp3",
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3"
+   ],
+   "tags": [
+    "Stakka And Skynet - Stakka And Skynet - Global Report",
+    "Profound Noize - Luminous (Remix)"
+   ],
+   "coverage": 0.4455525720352251,
+   "confident_false": 0,
+   "strongest_hits": 66,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a"
+   ],
+   "tags": [
+    "Profound Noize - Luminous (Remix)",
+    "STAKKA and SKYNET - global report"
+   ],
+   "coverage": 0.4449295110658083,
+   "confident_false": 0,
+   "strongest_hits": 49,
+   "heard": []
+  },
+  {
+   "files": [
+    "extra/A. Pyro -- Time Is Broken.mp3",
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+   ],
+   "tags": [
+    "Pyro - Time Is Broken",
+    "Pyro - Ignorance"
+   ],
+   "coverage": 0.44446649471208044,
+   "confident_false": 0,
+   "strongest_hits": 682,
+   "heard": []
+  },
+  {
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 \uff1a CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus"
+   ],
+   "tags": [
+    "CAUSE 4 CONCERN - night gasp",
+    "Ray Keith - Dark Soldier (Mr Explicit VIP Remix)"
+   ],
+   "coverage": 0.41744865669857134,
+   "confident_false": 0,
+   "strongest_hits": 6,
+   "heard": []
+  }
+ ],
+ "session_5": {
+  "0039_0045_scan_skip_links": {
+   "identified": "11/11",
+   "wrong": 6,
+   "unmatched_possible": 3,
+   "weakest": 1539,
+   "false": 2981,
+   "false_30": 14,
+   "unrelated": 32,
+   "wall_s": 272.9,
+   "user_s": 1963
+  },
+  "0040_sweeps_skip": {
+   "2026": {
+    "wrong": 91,
+    "weakest": 680,
+    "wall_s": 1358,
+    "user_s": 12153
+   },
+   "2027": {
+    "wrong": 174,
+    "weakest": 671,
+    "wall_s": 1366,
+    "user_s": 12206
+   },
+   "calibrate": {
+    "weakest": 661,
+    "strongest_false": 5845,
+    "margin": 0.11,
+    "without_same_name": {
+     "hits": 511,
+     "margin": 1.29
+    },
+    "without_those_pairs": {
+     "hits": 220,
+     "margin": 3.0
+    },
+    "unrelated": "67-70"
+   }
+  },
+  "0045_sweep_2026_links": {
+   "wrong": 91,
+   "weakest": 680,
+   "false": 22561,
+   "false_30": 159,
+   "wall_s": 1351,
+   "user_s": 12135
+  }
+ }
+}

@@ -7,7 +7,7 @@
   "user_s": 4951.35,
   "sys_s": 108.69,
   "peak_bytes": 752632912,
-  "note": "a unit-test build overlapped the first minute",
+  "note": "a unit-test build overlapped the first minute; the refit alone, before the better-of rule (superseded by run_262_final)",
   "criterion": "one alignment at the pair's fitted speed covers at least 80% of the shorter file (candidates on the turntable ladder 0.92..1.08, the fullest 1% of posting lists skipped); the owner's verdicts override it",
   "duplicates_identical_to_session_5": true,
   "clusters": 17,
@@ -834,6 +834,24 @@
    "wrong_confident": 6,
    "explained": 6,
    "not_explained": []
+  }
+ },
+ "run_262_final": {
+  "command": "gunfinger-eval clusters (work/bin/s6-item5c, the better of the two alignments)",
+  "wall_s": 530.17,
+  "user_s": 4961.46,
+  "peak_bytes": 498484016,
+  "duplicates_identical_to_session_5": true,
+  "pairs": 47,
+  "same_pairs": 46,
+  "weakest_same": 0.984009731685203,
+  "strongest_different": {
+   "query": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+   "found": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+   "coverage": 0.30228830239693033,
+   "hits": 44,
+   "speed": 1.0002778225089057,
+   "ladder_coverage": 0.30228830239693033
   }
  }
 }
