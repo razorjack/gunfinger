@@ -6,17 +6,15 @@ judged different make the related one confident (alone, repeated, into
 distinctive material, played one indexed or not)? What does the verifier
 (0054) measure?
 
-**Passages** (`gunfinger-eval pair`): Clockwork 205.4-224.1 s ~ its
-Stakka remix 399.5-418.2 s (112-124 hits); China Cup 46.0-68.4 s ~ The
-Nine 28.6-51.6 s at 1.024 (38 hits, the shared drums); The Nine
-30.8-53.6 s ~ China Cup (29). Each direction is a scenario.
-
-**Command.** `gunfinger-eval shared work/s7/shared-material.json` (commit
-1c289ee): 262 tracks, default matcher, native speed. Queries: the
-passage for 10 s and whole (18.7-22.8 s); looped to 60, 120, 240 s; to
-10, 20, 30 s past its end. Indexes: everything; the played cluster left
-out; the played file alone left out, another rip kept (not for the
-remix). 96 searches; data `data/0055-shared-material.json`.
+**Command.** Passages from `gunfinger-eval pair`: Clockwork 205.4-224.1 s
+~ its Stakka remix 399.5-418.2 s (112-124 hits); China Cup 46.0-68.4 s ~
+The Nine 28.6-51.6 s at 1.024 (38 hits, the shared drums), and back (29).
+`gunfinger-eval shared work/s7/shared-material.json` (commit 1c289ee),
+262 tracks, default matcher, native speed. Queries: the passage for 10 s
+and whole (18.7-22.8 s); looped to 60, 120, 240 s; to 10, 20, 30 s past
+its end. Indexes: everything; the played cluster left out; the played
+file alone left out, another rip kept (not for the remix). 96 searches;
+data `data/0055-shared-material.json`.
 
 | Played → related | Related, played left out: hits, level; share (chance) | Played: hits; share |
 |---|---|---|
