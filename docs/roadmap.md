@@ -47,21 +47,6 @@ marked as inferences were derived, not measured.
 
 ## Reports and command line
 
-- **Shared material in the report.** The possible play of the Clockwork
-  remix at 20:22 in the development mix lies inside the confident play of
-  Clockwork itself, and the owner confirmed by ear that the passage is
-  shared (the original's lead plus a pad). A possible play that lies
-  entirely inside a confident play of another recording could be shown as
-  "shares material with Clockwork (play 6)" instead of as a play of its
-  own; display only, detection unchanged. It must not fold in a remix that
-  the DJ plays in its own right next to the original, whose other sections
-  form detections of their own.
-- **One line per track in a large collection's tracklist.** At NAS scale
-  a track is found on 2-4 records (rips and uploads) and the tracklist
-  lists it once per tag spelling: 20 lines for the development mix's 11
-  tracks and 2 possible plays (experiment 0044). Plays of different
-  records over the same mix time and track position could be grouped
-  into one line naming every record; display only.
 - **Owner edits.** Confirming, rejecting or renaming plays in a report, and
   keeping those edits when the mix is identified again. `listen` and
   `review` work with real audio output (owner, 2026-10-06).
@@ -71,23 +56,16 @@ marked as inferences were derived, not measured.
 
 ## Matching
 
-- **Chance lines in chains.** Two opt-in link rules (`--nearby-rungs`,
-  `--strong-gaps`) pass the protocol under both matchers with every sweep
-  unchanged (experiment 0030). Under today's matcher they cut false
-  candidates by 68% and the mixes' overshoot from 86 to 7.6 s; plays
-  confident only through a chance window become possible. Under skip at
-  240 they raise the margin from 5.53× to 6.65×. A speed change of more
-  than 0.6% between windows splits a play into segments. The owner
-  decides; to adopt, pass the rules in `identify` and `explain`.
 - **A minimum span instead of 3 windows.** Whether a 15-20 s play is
   confident depends on where the 10 s windows fall: 76 of 160 grid
   positions at 15 s, 148 at 20 s; 200 hits over at least 10 s between the
   first and last hit makes all of them confident and changes nothing in
   the sweep or the development scans (experiment 0020, offline). It lowers
   the shortest identification from about 25 s to about 11 s, which is the
-  owner's call. The link rules of experiment 0030 (or skip at 240) keep
-  chance lines from lengthening the span; measure the minimum span with
-  them.
+  owner's call. The default matcher's link rules (experiment 0030, ADR
+  0008) keep chance lines from lengthening the span; measure the minimum
+  span with them (the grid's 15 and 20 s plays: 67 and 146 of 160
+  confident under the default, experiment 0047).
 - **Speed that wanders within a play.** The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
@@ -95,19 +73,8 @@ marked as inferences were derived, not measured.
   `--speed-per-stretch` fits each stretch of 3 windows: Star Trails +11%,
   a 2% pitch ride +9%, no measurable CPU, no level changes in any set
   (experiment 0032). Wow is too fast for it. Adopt if a real play near
-  the 240-hit rule needs it.
-- **Adopting the second pass with common hashes skipped.** The second
-  pass with the fullest 1% of posting lists left out of the search for
-  candidates (`--second-pass --skip-fullest 0.01`) passes the protocol
-  over four sweep seeds with its own rule, 240 hits in 3 windows: 94% fewer
-  false candidates, the second pass's evidence, more confident plays under
-  damage than today except combined damage, and 57-63% less search CPU at
-  8,122 and 26,462 assets (experiments 0026, 0027). Emptying the lists
-  instead (`--drop-fullest`) keeps 72-96% of today's own-track evidence
-  and is not worth it. To adopt: call `search_twice` on an index from
-  `Index::skipping_fullest(0.01)` in `identify` and `explain`, make both the
-  harness default, rerun the protocol, and spend one test evaluation: Sick
-  Note (209 hits today) would most likely become possible (inference).
+  the 240-hit rule needs it. Under the default matcher (ADR 0008) it is
+  one field of `Matcher::Fitted`'s options; rerun the protocol.
 - **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
@@ -135,8 +102,8 @@ marked as inferences were derived, not measured.
   offset. Any correct sort gives identical lines, so grouping hits by
   asset before sorting each asset's few hundred would keep detections
   identical; not tried. Skip at 240 is 3.5× cheaper at 31,964 assets.
-- **Behaviour at scale.** *(larger library)* The confidence rule (200
-  hits, 3 windows; 240 for the opt-in second pass) and the possible tier
+- **Behaviour at scale.** *(larger library)* The confidence rule (240
+  hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Recalibrate at staged sizes such as 1,000, 10,000 and 30,000
   assets (`docs/calibration.md`): strongest false candidates, weakest true
   detections, the possible tier's use, query time and peak memory, on the

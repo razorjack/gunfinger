@@ -40,10 +40,11 @@ for scope and rules.
 - [ ] 6. The NAS-scale protocol under the new default and clusters:
   scan, leave-outs 3 and 11, sweeps 2026 and 2027, calibrate; against
   0039, 0040, 0045; the listening list in the notes
-- [ ] 7. Grouped tracklists: plays over the same stretch at any speed as
+- [x] 7. Grouped tracklists: plays over the same stretch at any speed as
   one entry, `(also: ...)`, cue sheet; unit tests; JSON unchanged; one
   timed `identify --store-only` (13 lines expected); README example and
-  roadmap
+  roadmap (experiment 0050: 13 lines, 263 s and 4 GB under the default;
+  a possible play names the entry it shares material with)
 - [ ] 8. A scaling curve on real records: seeded subsets of the other
   library (1,000, 3,000, 9,000); scan and sweep 2026 at each; a proposed
   possible tier as a function of size
