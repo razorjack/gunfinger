@@ -908,3 +908,7 @@ grouped tracklists.
   same 17 clusters; strongest different 0.302 (the Aphrodite pair by
   the ladder's alignment; 0.210 refitted), not 0.210 as in the first
   run. Item 8 started 09:00 (`work/scripts/s6-scaling.sh`).
+- Item 8 (09:00-09:21, 1,213 s): `--other-sample` 1,000, 3,000 and 9,000;
+  experiment 0052. Item 10 (NAS sweeps 2028 and 2029, calibrate over four
+  seeds) started 09:21, expected end 10:06; item 9's writing meanwhile,
+  its build and tests after.

@@ -1308,3 +1308,23 @@ Two borderline pairs are chance spans of 6 and 15 hits (Aphrodite -
 Playground Shades ~ Critikal - Interlude; Cause 4 Concern - Night Gasp ~
 Ray Keith - Dark Soldier VIP) and need no verdict; two more are the
 mixed CD's Luminous remix against Global Report next to it (44-45%).
+
+### Chance against index size: the possible tier holds to about 3,000 tracks
+
+Experiment 0052 ran the development scan and sweep 2026 with 1,000,
+3,000 and 9,000 of the NAS records (a seeded draw, each part of the
+next). Recall stays 540/540 with 0 wrong and the development mix 11/11
+at every size. The strongest unrelated false candidate (different artist
+and title) is 21 hits at 262 tracks, 27 at 1,200 assets, 34 at 3,200 and
+64 from 9,200: one coincidence (Clockwork against Simon Static - Rubba
+Rock) sets it from 9,000 on, and two sweep draws at full size reach
+63-70. Cost grows linearly: about 0.39 CPU seconds per indexed record
+per sweep and 0.064 per record for the 56-minute mix.
+
+Proposal (the tier stays at 60 this session): keep 60 while the
+strongest unrelated chance measured at the library's size stays below
+30 hits, otherwise make the tier twice that chance and measure again
+when the library doubles. That gives 60 up to about 3,000 assets and
+130-140 for the NAS collection. At 140 the development mix's two
+shared-material notes (Star Trails' Synergy remix at 79 hits, the
+Clockwork remix at 94) would no longer be shown. Your call.

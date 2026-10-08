@@ -1,0 +1,199 @@
+{
+ "experiment": "0052-scaling-curve",
+ "command": "work/scripts/s6-scaling.sh under timed6.sh (work/bin/s6-item5c): gunfinger-eval --other-peaks-dir <NAS store> --other-sample N scan stakka-skynet-knowledge; sweep --seed 2026; N = 1000, 3000, 9000 (seed 2026 draw, nested); 262 and full NAS from experiments 0047 and 0051",
+ "recall": "540/540 and 0 wrong at every size",
+ "rows": [
+  {
+   "directory": "work/reports",
+   "indexed_assets": 209,
+   "sweep_false": 362,
+   "sweep_false_30": 9,
+   "sweep_false_60": 9,
+   "sweep_wrong": 0,
+   "strongest_not_indexed": 20,
+   "scan_identified": 11,
+   "scan_wrong": 0,
+   "scan_false_kept": 10,
+   "sweep_unrelated": {
+    "hits": 21,
+    "query": "Ed Rush & Optical - Point Blank",
+    "found": "Future Tech - Tribal Warfare",
+    "where": "sweep 2026 Ed Rush & Optical - Point Blank.mp3 at +1%"
+   },
+   "scan_unrelated": {
+    "hits": 23,
+    "query": "Konflict - Star Trails",
+    "found": "Kemal - Mechanizm",
+    "where": "scan-stakka-skynet-knowledge.json at 662 s"
+   },
+   "cost": {
+    "scan": {
+     "wall_s": 31,
+     "user_s": 238,
+     "peak_bytes": 293000000.0,
+     "source": "calibration register, 0028/0029, skip at 240"
+    },
+    "sweep": {
+     "wall_s": 180,
+     "user_s": 1555,
+     "source": "experiment 0047, seeds 2027-2029"
+    }
+   }
+  },
+  {
+   "directory": "work/reports/library-nas-dnb-peaks/sample-1000",
+   "indexed_assets": 1205,
+   "sweep_false": 1295,
+   "sweep_false_30": 18,
+   "sweep_false_60": 14,
+   "sweep_wrong": 0,
+   "strongest_not_indexed": 72,
+   "scan_identified": 11,
+   "scan_wrong": 0,
+   "scan_false_kept": 10,
+   "sweep_unrelated": {
+    "hits": 27,
+    "query": "Decoder - Dead Fall",
+    "found": "Lemon D - Pursuit Thru The Darkness",
+    "where": "sweep 2026 extra/B_-_Decoder_-_Dead_Fall.mp3 at -3%"
+   },
+   "scan_unrelated": {
+    "hits": 20,
+    "query": "Konflict - Star Trails",
+    "found": "Kemal - Mechanizm",
+    "where": "scan-stakka-skynet-knowledge.json at 665 s"
+   },
+   "cost": {
+    "scan": {
+     "wall_s": 36.76,
+     "user_s": 302.79,
+     "peak_bytes": 395395792
+    },
+    "sweep": {
+     "wall_s": 204.2,
+     "user_s": 1929.76,
+     "peak_bytes": 368231096
+    }
+   }
+  },
+  {
+   "directory": "work/reports/library-nas-dnb-peaks/sample-3000",
+   "indexed_assets": 3202,
+   "sweep_false": 3112,
+   "sweep_false_30": 26,
+   "sweep_false_60": 14,
+   "sweep_wrong": 0,
+   "strongest_not_indexed": 72,
+   "scan_identified": 11,
+   "scan_wrong": 0,
+   "scan_false_kept": 10,
+   "sweep_unrelated": {
+    "hits": 34,
+    "query": "Decoder - Dead Fall",
+    "found": "Trend - Old Skool",
+    "where": "sweep 2026 extra/B_-_Decoder_-_Dead_Fall.mp3 at +5%"
+   },
+   "scan_unrelated": {
+    "hits": 20,
+    "query": "Konflict - Star Trails",
+    "found": "Kemal - Mechanizm",
+    "where": "scan-stakka-skynet-knowledge.json at 665 s"
+   },
+   "cost": {
+    "scan": {
+     "wall_s": 52.19,
+     "user_s": 426.51,
+     "peak_bytes": 663258024
+    },
+    "sweep": {
+     "wall_s": 286.96,
+     "user_s": 2689.41,
+     "peak_bytes": 898450656
+    }
+   }
+  },
+  {
+   "directory": "work/reports/library-nas-dnb-peaks/sample-9000",
+   "indexed_assets": 9196,
+   "sweep_false": 8204,
+   "sweep_false_30": 32,
+   "sweep_false_60": 15,
+   "sweep_wrong": 0,
+   "strongest_not_indexed": 72,
+   "scan_identified": 11,
+   "scan_wrong": 0,
+   "scan_false_kept": 10,
+   "sweep_unrelated": {
+    "hits": 64,
+    "query": "Stakka & Skynet - Clockwork",
+    "found": "Simon Static - Rubba Rock",
+    "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at +0%"
+   },
+   "scan_unrelated": {
+    "hits": 21,
+    "query": "Stakka And Skynet - Nightlore",
+    "found": "John Tejada / J.T. - Reset All Devices",
+    "where": "scan-stakka-skynet-knowledge.json at 132 s"
+   },
+   "cost": {
+    "scan": {
+     "wall_s": 99.51,
+     "user_s": 802.27,
+     "peak_bytes": 1520109152
+    },
+    "sweep": {
+     "wall_s": 533.36,
+     "user_s": 4980.95,
+     "peak_bytes": 2183236200
+    }
+   }
+  },
+  {
+   "directory": "work/reports/library-nas-dnb-peaks",
+   "indexed_assets": 26969,
+   "sweep_false": 22569,
+   "sweep_false_30": 60,
+   "sweep_false_60": 24,
+   "sweep_wrong": 0,
+   "strongest_not_indexed": 72,
+   "scan_identified": 11,
+   "scan_wrong": 0,
+   "scan_false_kept": 10,
+   "sweep_unrelated": {
+    "hits": 64,
+    "query": "Stakka & Skynet - Clockwork",
+    "found": "Simon Static - Rubba Rock",
+    "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at +0%"
+   },
+   "scan_unrelated": {
+    "hits": 79,
+    "query": "Stakka & Skynet - Decoy",
+    "found": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+    "where": "scan-stakka-skynet-knowledge.json at 629 s"
+   },
+   "cost": {
+    "scan": {
+     "wall_s": 255.47,
+     "user_s": 1949.53,
+     "peak_bytes": 3981790568,
+     "source": "peak from experiment 0050's identify"
+    },
+    "sweep": {
+     "wall_s": 1296.41,
+     "user_s": 12077.29,
+     "source": "experiment 0051; peak not kept"
+    }
+   }
+  }
+ ],
+ "postings_estimate": "about 28,000 postings per NAS record (759.4 M for 27,042, experiment 0050); inference",
+ "proposal": {
+  "rule": "possible tier at least twice the strongest unrelated chance measured at the library's size",
+  "by_size": {
+   "up to about 3,200 assets": 60,
+   "about 9,200 assets": 130,
+   "about 27,000 assets": 140
+  },
+  "not_applied": true
+ }
+}
