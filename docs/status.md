@@ -771,3 +771,16 @@ read; the store is frozen.
   1,549 skip notes and `library.txt`; digest 7055ad8e...65a70 and
   revision d709390272e41475, unchanged. Queues finished at 02:03:57.
   `scripts/check.sh` at the end: green.
+
+## 2026-10-08: session 6 started
+
+Session 6 (`docs/brief-6.md`, checklist `docs/session-6-checklist.md`):
+the store fixes, skip at 240 with the link rules as the default matcher,
+clusters that join fast uploads, the NAS-scale protocol under both, and
+grouped tracklists.
+
+- The NAS store at the start (02:45): 27,010 `.peaks`, 27,010 `.tags`,
+  1,429 `.skip`, `library.txt`; digest `1a7acf1b...07b38129` (full value
+  in `docs/brief-6.md`), revision `3d16641d2ecb6956`. `/Volumes/atlas`
+  mounted.
+- Machine: load average 4.4 and falling, swap 2.0 GB used of 3 GB.
