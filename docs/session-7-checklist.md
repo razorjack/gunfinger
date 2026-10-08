@@ -49,4 +49,6 @@ for scope and rules.
   calibration if moved, status, checklist, NAS store revision, checks,
   commit
 - [~] 5. (If time remains) supported time for joins: `pair` prints the
-  seconds of the shorter file that hold aligned hits (0999919)
+  seconds of the shorter file that hold aligned hits (0999919); 4 sparse
+  joins, 28 borderline pairs, 8 controls at NAS scale (experiment 0057);
+  findings into the listening list at the wrap-up
