@@ -46,9 +46,10 @@ wrong answers all come from two listening-list pairs.
 **Decisions for you.**
 
 - The listening list after session 7 (under "Session 7 findings"): the
-  same pairs, now with supported time and verifier shares beside them. China Cup ~ its
-  Prototype upload is held almost whole at two offsets and verifies like
-  another upload of one recording; it causes most wrong answers left.
+  same pairs, now with supported time and verifier shares beside them.
+  China Cup ~ its Prototype upload is held almost whole at two offsets
+  and verifies like another upload of one recording; it causes most
+  wrong answers left.
 - Whether to adopt the verifier in any form (proposed: no rule).
 - How far your decks go past ±5-6%: that decides whether a wider or a
   targeted speed search is worth its cost for plays against an
