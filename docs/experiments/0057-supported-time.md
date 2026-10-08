@@ -12,8 +12,8 @@ controls. At the fitted speed `pair` lists each alignment at its own
 offset; supported time is the share of the shorter file's seconds
 holding a hit in an alignment's densest run per 10 s window (as the
 second pass forms lines), summed over the alignments. Coverage is the
-clusters' (one alignment's first to last hit). `supported_time.py`; data
-`data/0057-supported-time.json`.
+clusters' (one alignment's first to last hit). "Twice": the share two
+alignments both cover. `supported_time.py`; `data/0057-supported-time.json`.
 
 | Pairs | Clusters' coverage | Alignments at the fitted speed | Supported time |
 |---|--:|--:|--:|
@@ -28,9 +28,6 @@ clusters' (one alignment's first to last hit). `supported_time.py`; data
 | Synthesis VIP, i-witness upload ~ "Synthesis (Remix)" | 0.594, 0.528 | 12, 8 | 1.360, 1.027 (0.225, 0.208 twice) |
 | Fractles; Pyro; Dozer ~ bootleg | 0.444-0.570 | 5-9 | 0.338-0.510 |
 | Global Report ~ Luminous (3); Aphrodite ~ Critikal; Night Gasp ~ Dark Soldier | 0.417-0.572 | 0-6 | 0-0.304 |
-
-"Twice": the share of the shorter file two alignments both cover
-(repeated sections); the sum counts it twice.
 
 **Conclusions.** Coverage and supported time order the pairs
 differently. The Sonar joins rest on one ladder line with 0.7 hits per
