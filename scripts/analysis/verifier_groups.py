@@ -58,10 +58,15 @@ def listed(query, found, given):
     return None
 
 
-def labelled(query, found):
-    if listed(query, found, related_pairs):
-        return "same artist (given)"
-    return label(name(query, tags, stands_for), name(found, tags, stands_for))
+def labelled(query, found, context=()):
+    """The closest relation between the found file and any audio in the query."""
+    labels = []
+    for played in (query, *context):
+        if listed(played, found, related_pairs):
+            labels.append("same artist (given)")
+        else:
+            labels.append(label(name(played, tags, stands_for), name(found, tags, stands_for)))
+    return next((x for x in labels if x != "unrelated"), "unrelated")
 
 
 def listening_pair(query, found):
@@ -71,7 +76,7 @@ def listening_pair(query, found):
 rows = []
 
 
-def add(group, source, query, found_detection, where):
+def add(group, source, query, found_detection, where, context=()):
     verified = found_detection.get("verified") or []
     if isinstance(verified, dict):  # one tolerance since experiment 0054
         verified = [verified]
@@ -81,8 +86,9 @@ def add(group, source, query, found_detection, where):
            "hits": found_detection["hits"], "windows": found_detection["windows"], "measures": {}}
     if group != "identifying":
         pair = listening_pair(query, found_detection["asset"])
-        row["group"] = "listening list" if pair else "false: " + ("unrelated" if labelled(query, found_detection["asset"]) == "unrelated" else "related")
-        row["label"] = pair or labelled(query, found_detection["asset"])
+        relation = labelled(query, found_detection["asset"], context)
+        row["group"] = "listening list" if pair else "false: " + ("unrelated" if relation == "unrelated" else "related")
+        row["label"] = pair or relation
     for v in verified:
         shifted = v["shifted"]
         chance_share = statistics.mean(s["share"] for s in shifted)
@@ -134,12 +140,14 @@ for path in reports:
             middle = (d["start_seconds"] + d["end_seconds"]) / 2
             slot = max((s for s in slots if s["start"] <= middle), key=lambda s: s["start"], default=slots[0])
             played = slot["label"]
-            add("identifying" if covering else "false", source, played, d, f"{report['set']} at {d['start_seconds']:.0f} s")
+            overlapping = [s["label"] for s in slots if d["start_seconds"] < s["end"] and s["start"] < d["end_seconds"]]
+            add("identifying" if covering else "false", source, played, d, f"{report['set']} at {d['start_seconds']:.0f} s", overlapping)
     elif "conditions" in report or ("rows" in report and "queries" in report):  # robust
         for q in report["queries"]:
+            partners = [d["asset"] for d in q.get("verified", []) if d["role"] == "partner"]
             for d in q.get("verified", []):
                 where = f"robust {q['condition']} {q['asset']} at {q['speed']:.3f}"
-                add("identifying" if d["role"] in ("own", "partner") else "false", source, q["asset"], d, where)
+                add("identifying" if d["role"] in ("own", "partner") else "false", source, q["asset"], d, where, partners)
     elif "mixes" in report:
         for result in report["mixes"]:
             plays = result["mix"]["plays"]
@@ -148,15 +156,16 @@ for path in reports:
                             and d["start_seconds"] < p["end_seconds"] and p["start_seconds"] < d["end_seconds"]]
                 middle = (d["start_seconds"] + d["end_seconds"]) / 2
                 played = next((p["asset"] for p in plays if p["start_seconds"] <= middle <= p["end_seconds"]), plays[0]["asset"])
-                add("identifying" if matching else "false", source, played, d, f"{result['mix']['name']} at {d['start_seconds']:.0f} s")
+                overlapping = [p["asset"] for p in plays if d["start_seconds"] < p["end_seconds"] and p["start_seconds"] < d["end_seconds"]]
+                add("identifying" if matching else "false", source, played, d, f"{result['mix']['name']} at {d['start_seconds']:.0f} s", overlapping)
     elif "briefs" in report:  # grid
         for q in report["queries"]:
             brief = report["briefs"][q["brief"]]
             where = f"grid brief {q['brief']} {q['seconds']:.0f} s offset {q['offset_seconds']}"
             for d in q["matching"]:
                 add("identifying", source, brief["asset"], d, where)
-            for d in q.get("false_candidates", []):
-                add("false", source, brief["asset"], d, where)
+            for d in q.get("false_candidates", []):  # the held-out neighbours are in the query too
+                add("false", source, brief["asset"], d, where, (brief["before"], brief["after"]))
     else:
         print(f"unknown report kind: {path}", file=sys.stderr)
 
@@ -199,6 +208,12 @@ for t in tolerances:
                            "excess_range": [round(min(x["excess"] for x in members), 4), round(max(x["excess"] for x in members), 4)],
                            "share_median": round(statistics.median(x["share"] for x in members), 4),
                            "support_excess_median": round(statistics.median(x["support_excess"] for x in members), 4)}
+        within = {g: [r for r in rows if r["group"] == g and low <= r["hits"] < high] for g in groups}
+        within_false = within["false: related"] + within["false: unrelated"]
+        for name_, negatives in (("auc", within_false), ("auc_related", within["false: related"])):
+            cell[name_] = {k: auc([r["measures"][t][k] if k != "hits" else r["hits"] for r in within["identifying"]],
+                                  [r["measures"][t][k] if k != "hits" else r["hits"] for r in negatives])
+                           for k in ("hits", "excess", "support_excess")}
         per["by_hits"].append(cell)
     # At equal hits: only detections in the hit range both groups reach.
     true_rows = [r for r in rows if r["group"] == "identifying"]
@@ -245,5 +260,6 @@ for t, per in summary["by_tolerance"].items():
             if sep.get(kind):
                 print(f"    vs {kind}: " + ", ".join(f"{k} {v:.3f}" for k, v in sep[kind].items()))
     for cell in per["by_hits"]:
-        parts = [f"{g.split(': ')[-1]} {c['count']} ex {c['excess_median']:+.3f} {c['excess_range']}" for g, c in cell.items() if g != "hits"]
-        print(f"  hits {cell['hits']:>8}: " + "; ".join(parts))
+        parts = [f"{g.split(': ')[-1]} {c['count']} ex {c['excess_median']:+.3f} {c['excess_range']}" for g, c in cell.items() if g in groups]
+        aucs = " ".join(f"{k} {v:.2f}" for k, v in cell["auc"].items() if v is not None)
+        print(f"  hits {cell['hits']:>8}: " + "; ".join(parts) + (f"  (AUC {aucs})" if aucs else ""))
