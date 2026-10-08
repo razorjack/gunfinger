@@ -1160,3 +1160,24 @@ indexes, so at NAS scale they are searchable as NAS records.
 No corpus file is an MP3 inside a WAV container (checked: none of the 219
 corpus files with an ID3v2 tag has "RIFF" after it), and the corpus has
 no hidden folders, so neither fix touches the corpus.
+
+### The NAS store re-indexed: 32 more records, frozen at revision d428ee9585936326
+
+Experiment 0046: the one `index --retry-skipped` of the session added
+32 records (26 MP3s in a WAV container and the 6 files damaged at the
+end); the two truncated files still fail, as intended, and `prune
+--yes` removed only the stale note of the `.incomplete` download. Two
+things for you:
+
+- `sety/-_MaYdaY_-15.Grudzien.2000...RADIO_LODZ_NOCNY_TRANS.mp3` was one
+  of the 27 RIFF files; it opens now and is a radio show longer than
+  15:00, so it has a "too long" note instead of a record.
+- Six of the RIFF files have no artist or title after indexing (Drum
+  Kru - Thin Air and Poltergeist, Cause 4 Concern - Give It 2 Em, RAM
+  Trilogy - Incarnate, Reflections and Titan); tracklists show their
+  file names. I did not look further, since the NAS was read only by
+  `index` and `prune`.
+
+The four corpus files whose NAS copies were among the RIFF files still
+have no identical NAS record: the NAS files now decode, but not to the
+same peaks as the corpus copies (which are plain MP3s).

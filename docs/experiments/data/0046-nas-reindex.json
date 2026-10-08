@@ -1,0 +1,383 @@
+{
+ "experiment": "0046-nas-reindex",
+ "command": "gunfinger --config ~/.config/gunfinger/nas-dnb.toml index --retry-skipped; prune; prune --yes (binary work/bin/s6-item1)",
+ "store_before": {
+  "peaks": 27010,
+  "tags": 27010,
+  "skip": 1429,
+  "skip_failed": 36,
+  "skip_too_long": 1285,
+  "skip_too_short": 108,
+  "digest": "1a7acf1b37b0c67389fee082f9f079967e181f20a19a357ba3f32df407b38129",
+  "revision": "3d16641d2ecb6956"
+ },
+ "store_after": {
+  "peaks": 27042,
+  "tags": 27042,
+  "skip": 1396,
+  "skip_failed": 2,
+  "skip_too_long": 1286,
+  "skip_too_short": 108,
+  "digest": "bf35ea642d5574ba1782c6da8688dc170ff6fb1ad0db83b04916ed901e9ae4f5",
+  "revision": "d428ee9585936326"
+ },
+ "index_run": {
+  "audio_files": 28438,
+  "extracted": 32,
+  "up_to_date": 27010,
+  "too_short": 108,
+  "too_long": 1286,
+  "failed": 2,
+  "hidden_folders": 2,
+  "hidden_files": 39,
+  "wall_seconds": 386.96,
+  "user_seconds": 158.61,
+  "system_seconds": 98.73,
+  "peak_footprint_bytes": 732513912
+ },
+ "prune_listed": [
+  "__youtube_archivists/unxplored-dnb/.incomplete/Critical Adjustment - Boomstick.m4a (skip note)"
+ ],
+ "failed_to_too_long": [
+  "sety/-_MaYdaY_-15.Grudzien.2000...RADIO_LODZ_NOCNY_TRANS.mp3"
+ ],
+ "still_failing": [
+  "04 - paul b & dissident - technecium.mp3",
+  "TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/B_-_Decoder_-_Cobra.mp3"
+ ],
+ "truncation_probes": [
+  {
+   "path": "04 - paul b & dissident - technecium.mp3",
+   "declared_seconds": 332.49,
+   "decoded_seconds": 311.3,
+   "short_seconds": 21.19,
+   "tolerance_seconds": 3.32,
+   "accepted": false
+  },
+  {
+   "path": "04 - raiden - fallin.mp3",
+   "declared_seconds": 490.88,
+   "decoded_seconds": 488.5,
+   "short_seconds": 2.38,
+   "tolerance_seconds": 4.91,
+   "accepted": true
+  },
+  {
+   "path": "Cyb Orc/Illuminati - Leech.mp3",
+   "declared_seconds": 399.79,
+   "decoded_seconds": 398.3,
+   "short_seconds": 1.49,
+   "tolerance_seconds": 4.0,
+   "accepted": true
+  },
+  {
+   "path": "TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/B_-_Decoder_-_Cobra.mp3",
+   "declared_seconds": 409.38,
+   "decoded_seconds": 393.2,
+   "short_seconds": 16.18,
+   "tolerance_seconds": 4.09,
+   "accepted": false
+  },
+  {
+   "path": "VA-The_Infantry_EP-UDFR013-1999-sour/03-Profound_Noize-Dropzone-sour.mp3",
+   "declared_seconds": 445.07,
+   "decoded_seconds": 443.8,
+   "short_seconds": 1.27,
+   "tolerance_seconds": 4.45,
+   "accepted": true
+  },
+  {
+   "path": "[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/AA. Stare -- Underdog.mp3",
+   "declared_seconds": 393.54,
+   "decoded_seconds": 392.2,
+   "short_seconds": 1.34,
+   "tolerance_seconds": 3.94,
+   "accepted": true
+  },
+  {
+   "path": "kosheen [resist] -02- hide u.mp3",
+   "declared_seconds": 292.45,
+   "decoded_seconds": 291.0,
+   "short_seconds": 1.45,
+   "tolerance_seconds": 2.92,
+   "accepted": true
+  },
+  {
+   "path": "rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3",
+   "declared_seconds": 459.19,
+   "decoded_seconds": 457.9,
+   "short_seconds": 1.29,
+   "tolerance_seconds": 4.59,
+   "accepted": true
+  }
+ ],
+ "new_records": [
+  {
+   "path": "04 - raiden - fallin.mp3",
+   "kind": "damaged at the end",
+   "tags": {
+    "artist": "raiden",
+    "title": "fallin",
+    "album": "2002 - [Renegade Hardware - rh041] - Various - The Four Elements - Air"
+   }
+  },
+  {
+   "path": "1210-Drum_Kru-HYB003-2001-sour/A-Drum_Kru-Thin_Air-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {}
+  },
+  {
+   "path": "1210-Drum_Kru-HYB003-2001-sour/B-Drum_Kru-Poltergeist-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {}
+  },
+  {
+   "path": "Advocate - Apocalypse (demon12004)/A - Apocalypse - Advocate .mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Advocate",
+    "title": "Apocalypse",
+    "album": "DEMON 12004"
+   }
+  },
+  {
+   "path": "Advocate - Apocalypse (demon12004)/AA - Unknown - Advocate .mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Advocate",
+    "title": "Unknown",
+    "album": "DEMON 120004"
+   }
+  },
+  {
+   "path": "Audio_Couture-Teebee-AC003-1998-sour/A-Teebee-Droids-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Teebee",
+    "title": "Droids",
+    "album": "Audio Couture 003 (AC003)"
+   }
+  },
+  {
+   "path": "Audio_Couture-Teebee-AC003-1998-sour/AA-K-Otrivin-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "K",
+    "title": "Otrivin",
+    "album": "Audio Couture 003 (AC003)"
+   }
+  },
+  {
+   "path": "Cyb Orc/Illuminati - Leech.mp3",
+   "kind": "damaged at the end",
+   "tags": {
+    "artist": "Illuminati",
+    "title": "Leech"
+   }
+  },
+  {
+   "path": "Konter-Exocet-KONTER001-1997-sour/A-Exocet-Target_One-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Exocet",
+    "title": "Target One",
+    "album": "Konter (KONTER001)"
+   }
+  },
+  {
+   "path": "Konter-Exocet-KONTER001-1997-sour/AA-Exocet-Demonseed-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Exocet",
+    "title": "Demonseed",
+    "album": "Konter (KONTER001)"
+   }
+  },
+  {
+   "path": "VA-The_Infantry_EP-UDFR013-1999-sour/03-Profound_Noize-Dropzone-sour.mp3",
+   "kind": "damaged at the end",
+   "tags": {
+    "artist": "Profound Noize",
+    "title": "Dropzone",
+    "album": "The Infantry EP"
+   }
+  },
+  {
+   "path": "[2001] - [RH32] - Renegade_Hardware-Cause_4_Concern-RH32-2001-sour/b-cause_4_concern-give_it_2_em-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {}
+  },
+  {
+   "path": "[2001] - [RH32] - Renegade_Hardware-Cause_4_Concern-RH32-2001-sour/d-cause_4_concern-research_(usual_suspects_rmx)-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Cause 4 Concern",
+    "title": "Research (Usual Suspects Remix)",
+    "album": "Symptom - EP"
+   }
+  },
+  {
+   "path": "[NERVE 005] - [2002] - Paul Reset & SKC -- Crisis (Kemal remix) # Recharger (Black Sun Empire remix)/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "SKC",
+    "title": "Recharger (Black Sun Empire remix)",
+    "album": "Crisis (Kemal Rmx) / Recharger (Black Sun Empire Rmx) [NERVE 005]"
+   }
+  },
+  {
+   "path": "[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "SKC & Cord",
+    "title": "Swarm",
+    "album": "Swarm / Underdog [NERVE 015]"
+   }
+  },
+  {
+   "path": "[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/AA. Stare -- Underdog.mp3",
+   "kind": "damaged at the end",
+   "tags": {
+    "artist": "Stare",
+    "title": "Underdog",
+    "album": "Swarm / Underdog [NERVE 015]"
+   }
+  },
+  {
+   "path": "[SHADOW 158CD] - [2002] - Deep Blue - The Helicopter Tune/01 - Deep Blue - The Helicopter Tune (Cause 4 Concern Mix).mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Deep Blue",
+    "title": "The Helicopter Tune (Cause 4 Concern Mix)",
+    "album": "[SHADOW 158CD] The Helicopter Tune"
+   }
+  },
+  {
+   "path": "[SHADOW 158CD] - [2002] - Deep Blue - The Helicopter Tune/02 - Deep Blue - The Helicopter Tune (Rob Playford & Rennie Pilgrem Remix).mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Deep Blue",
+    "title": "The Helicopter Tune (Rob Playford & Rennie Pilgrem Remix)",
+    "album": "[SHADOW 158CD] The Helicopter Tune"
+   }
+  },
+  {
+   "path": "[SHADOW 158CD] - [2002] - Deep Blue - The Helicopter Tune/03 - Deep Blue - The Helicopter Tune (Fantasy # 1).mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Deep Blue",
+    "title": "The Helicopter Tune (Fantasy # 1)",
+    "album": "[SHADOW 158CD] The Helicopter Tune"
+   }
+  },
+  {
+   "path": "demonic-source_direct-demon12001-2000-sour/a-source_direct-yo_bitch.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Source Direct",
+    "title": "Yo bitch"
+   }
+  },
+  {
+   "path": "demonic-source_direct-demon12001-2000-sour/aa-source_direct-pimp_star.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Source Direct",
+    "title": "Pimp Star"
+   }
+  },
+  {
+   "path": "formation-twisted_individutron_ep-sampler-form1287-2000-sour/ .mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Twisted Individual",
+    "title": "Twisted Individual - Crank Shaft",
+    "album": "FORM1287 sampler"
+   }
+  },
+  {
+   "path": "formation-twisted_individutron_ep-sampler-form1287-2000-sour/b1-twisted_individual-blow_torch-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Twisted Individual",
+    "title": "Blow Torch",
+    "album": "FORM1287 sampler"
+   }
+  },
+  {
+   "path": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Kemal and Rob Data",
+    "title": "Konspiracy",
+    "album": "IND002"
+   }
+  },
+  {
+   "path": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Narcosis",
+    "title": "Escape Route",
+    "album": "IND002"
+   }
+  },
+  {
+   "path": "kosheen [resist] -02- hide u.mp3",
+   "kind": "damaged at the end",
+   "tags": {
+    "artist": "Kosheen",
+    "title": "Hide U",
+    "album": "Resist"
+   }
+  },
+  {
+   "path": "ram_trilogy-titan_EP/ram_trilogy-titan_ep-incarnate.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {}
+  },
+  {
+   "path": "ram_trilogy-titan_EP/ram_trilogy-titan_ep-reflections.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {}
+  },
+  {
+   "path": "ram_trilogy-titan_EP/ram_trilogy-titan_ep-titan.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {}
+  },
+  {
+   "path": "rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3",
+   "kind": "damaged at the end",
+   "tags": {
+    "artist": "Gridlok",
+    "title": "Dilusion",
+    "album": "Rawkuts (RKT337)"
+   }
+  },
+  {
+   "path": "universal_project-usual_suspects-upr001-2001-sour/a-usual_suspects-bleach-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Usual Suspects",
+    "title": "Bleach",
+    "album": "Bleach / The Truth"
+   }
+  },
+  {
+   "path": "universal_project-usual_suspects-upr001-2001-sour/b-usual_suspects-the_truth-sour.mp3",
+   "kind": "mp3 in riff behind id3",
+   "tags": {
+    "artist": "Usual Suspects",
+    "title": "Usual Suspects - The Truth",
+    "album": "Bleach / The Truth"
+   }
+  }
+ ],
+ "map_library": {
+  "corpus_files_with_copy": 247,
+  "nas_records_standing_for_them": 238,
+  "unchanged_from_session_5": true,
+  "asset_count_at_nas_scale": 27066
+ }
+}

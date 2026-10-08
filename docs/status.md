@@ -798,3 +798,17 @@ grouped tracklists.
   corpus files with skip notes would now pass the tolerance; not indexed
   (notes for the owner). `scripts/analysis/skip_notes.py` lists a store's
   skip notes.
+- Item 3 (the one NAS re-index, 03:04-03:20): `index --retry-skipped`
+  with the item 1 binary (`work/bin/s6-item1/`): 28,438 audio files
+  listed (one fewer: the `.incomplete` partial download is in a hidden
+  folder; 2 hidden folders skipped), 32 extracted, 108 too short, 1,286
+  too long, 2 failed (the truncated pair), 387 s wall. 26 of the 27
+  RIFF files and the 6 end-damaged files have records; the 27th RIFF
+  file, a radio show (`sety/...RADIO_LODZ_NOCNY_TRANS.mp3`), is now "too
+  long". `prune` listed exactly the stale `.incomplete` skip note;
+  `prune --yes` deleted it.
+- The NAS store after item 3, frozen from here (03:20): 27,042 `.peaks`,
+  27,042 `.tags`, 1,396 `.skip` (2 failed, 1,286 too long, 108 too
+  short), `library.txt`; 1.9 GB; digest
+  `bf35ea642d5574ba1782c6da8688dc170ff6fb1ad0db83b04916ed901e9ae4f5`;
+  revision `d428ee9585936326`. The NAS is not read again this session.

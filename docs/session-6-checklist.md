@@ -7,22 +7,25 @@ for scope and rules.
 ## Setup
 
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build; `regress session-5-start` identical; baseline
-  `session-6-start`
+- [x] Release build; `regress session-5-start` identical; baseline
+  `session-6-start` (binaries in `work/bin/s6-start/`)
 - [x] The NAS store's file counts, digest and revision (`3d16641d2ecb6956`)
   recorded at the start (`docs/brief-6.md`)
 
 ## Items
 
-- [ ] 1. Store fixes: (a) MP3 in RIFF behind ID3v2, decoded and probed
+- [x] 1. Store fixes: (a) MP3 in RIFF behind ID3v2, decoded and probed
   with the tag skipped, tags kept; (b) hidden folders skipped and
   counted; (c) truncation tolerance of the larger of 1 s and 1%; unit
   tests; `regress session-6-start` identical; README and doctor wording
+  (commit c3ba1b1; three corpus files would now pass the tolerance, not
+  indexed)
 - 2. (Reserved number; nothing here.)
-- [ ] 3. Re-index the NAS store once (`index --retry-skipped`, `prune`
+- [x] 3. Re-index the NAS store once (`index --retry-skipped`, `prune`
   listing, `prune --yes` only for the stale `.incomplete` note); counts,
   digest and revision before and after; `map-library`; NAS-scale asset
-  count
+  count (experiment 0046: 32 new records, 1,396 skip notes, revision
+  `d428ee9585936326`, 27,066 assets)
 - [ ] 4. The new default matcher (skip at 240 with the link rules):
   baseline `session-6-candidate`; the change with today's matcher behind
   one flag; `regress` both baselines; full protocol at 262 (sweeps
