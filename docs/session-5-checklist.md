@@ -44,18 +44,25 @@ for scope and rules. NAS plan steps in brackets.
   and memory; `identify --store-only` on the development mix with names
   from the tags (experiment 0044; internal disk only, no external disk
   attached)
-- [ ] 10. Wrap-up: session 5 summary in the notes; NAS figures in
+- [x] 10. Wrap-up: session 5 summary in the notes; NAS figures in
   calibration as measurements; roadmap, status, NAS checklist and plan
 
 ## Only if time remains
 
-- [ ] 11. Today's matcher, sweep seeds 2028 and 2029, calibrate again
-- [~] 12. Link rules at NAS scale: development scan and sweep 2026, both
-  matchers
-- [ ] 13. A scaling curve on real records (seeded subsets of the other
-  library)
+- [-] 11. Today's matcher, sweep seeds 2028 and 2029, calibrate again:
+  not run; each takes 66-69 minutes at NAS scale, and the link rules
+  (item 12) were queued first
+- [-] 12. Link rules at NAS scale: development scan and sweep 2026, both
+  matchers. Done in part (experiment 0045): the scan under both matchers
+  and sweep 2026 under skip at 240; today's sweep with the rules not run
+  (66-69 minutes, past the session's end)
+- [-] 13. A scaling curve on real records (seeded subsets of the other
+  library): not run, no time left; 0042 compares the two ends (262 and
+  26,914 assets) and the proxy instead
 
 ## At the end
 
-- [ ] The NAS store's file counts, digest and library revision checked
-  again
+- [x] The NAS store's file counts, digest and library revision checked
+  again at 02:04: 26,890 records, 26,890 tags, 1,549 skip notes,
+  `library.txt`; digest `7055ad8e...65a70` and revision
+  `d709390272e41475`, as at the start
