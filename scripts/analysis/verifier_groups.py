@@ -13,10 +13,13 @@ same with the reference shifted away from the alignment (`chance_share`,
 chance_support.
 
 Pairs given with --pair "<substring a>|<substring b>" are reported
-apart and unlabelled (their ground truth waits for the owner).
+apart and unlabelled (their ground truth waits for the owner). Pairs
+given with --related "<a>|<b>" count as related whatever the names say
+(an artist under another name).
 
 usage: verifier_groups.py <output.json> <clusters.json> <sets dir> <tags.json>
-                          <library-map.json or -> <report>... [--pair a|b]...
+                          <library-map.json or -> <report>...
+                          [--pair a|b]... [--related a|b]...
 """
 import collections
 import json
@@ -29,11 +32,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from labels import label, name  # noqa: E402
 
 args = sys.argv[1:]
-pairs = []
-while "--pair" in args:
-    at = args.index("--pair")
-    pairs.append(tuple(args[at + 1].split("|")))
-    del args[at:at + 2]
+pairs, related_pairs = [], []
+for flag, given in (("--pair", pairs), ("--related", related_pairs)):
+    while flag in args:
+        at = args.index(flag)
+        given.append(tuple(args[at + 1].split("|")))
+        del args[at:at + 2]
 output, clusters_file, sets_dir, tags_file, map_file, *reports = args
 tags = json.load(open(tags_file))
 stands_for = {} if map_file == "-" else {c["corpus"]: c["stands_for"] for c in json.load(open(map_file))["copies"]}
@@ -47,15 +51,21 @@ def cluster(asset):
     return cluster_of.get(asset, {asset})
 
 
+def listed(query, found, given):
+    for a, b in given:
+        if (a in query and b in found) or (b in query and a in found):
+            return f"{a} ~ {b}"
+    return None
+
+
 def labelled(query, found):
+    if listed(query, found, related_pairs):
+        return "same artist (given)"
     return label(name(query, tags, stands_for), name(found, tags, stands_for))
 
 
 def listening_pair(query, found):
-    for a, b in pairs:
-        if (a in query and b in found) or (b in query and a in found):
-            return f"{a} ~ {b}"
-    return None
+    return listed(query, found, pairs)
 
 
 rows = []
