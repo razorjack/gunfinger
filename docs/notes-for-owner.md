@@ -1563,3 +1563,62 @@ NAS peak store, no audio read from the NAS).
 Neither coverage nor supported time decides whether two files are one
 recording: a VIP can share most of its seconds. The numbers are in the
 listening list below, as aids for your ear.
+
+### The peak verifier separates no better than hit counts; proposal: no rule
+
+`gunfinger-eval --verify` checks each detection after Qfp (Sonnleitner &
+Widmer 2016, §VI-C): it takes the found file's reference peaks in the
+aligned span and looks for them in the query at the detection's speed,
+within ±1 bin and ±1 frame, each 10 s window moved by the offset of its
+densest run of hash hits. It reports the share of reference peaks found
+and the same share with the reference shifted by ±5 and ±6.2 s (chance).
+The tolerance was chosen from three settings on the development scan and
+sweep 2026, then frozen (experiment 0054). It is a harness diagnostic;
+nothing in `identify` uses it.
+
+- Identifying detections find most of the reference: median 0.85 of the
+  peaks at 262 tracks against 0.004-0.010 by chance. Whole plays in the
+  development mix find 0.34-0.67 (blends and EQ).
+- At 262 tracks (experiment 0056; seeds 2027-2029, leave-outs 3 and 11,
+  `robust --only combined`, `mixes --count 12`, `grid`; 7,243
+  detections), at equal hits the share separates identifying from false
+  detections no better than hits do (AUC 0.953 against 0.950), and
+  worse against related records (0.827 against 0.865). The weakest true
+  plays, blend partners at 40-66 hits, find 0.16-0.24 of their peaks;
+  shared passages find as much (the Clockwork remix 0.27-0.41, Aphrodite
+  - Fanfare against its Dubstyle version 0.11-0.22).
+- At NAS scale (experiment 0058; development scan and sweep 2027, 40,295
+  detections), sweep excerpts find 0.72-0.92 of their own file's peaks,
+  a median of 0.70 of another rip's and 0.65 of another upload's (5th
+  percentiles 0.44 and 0.47). The listening list's pairs: China Cup ~ its
+  Prototype upload 0.59-0.61 and Coma ~ Spraycan 0.56-0.58, in the range
+  of other uploads of one recording; The Nine ~ Evol Intent VIP
+  0.36-0.54 and Synthesis VIP ~ "Synthesis (Remix)" 0.34-0.41, where
+  other rips' lowest values and shared passages meet.
+
+The verifier asks whether the found file's audio is in the query, and a
+shared passage is in the query. Telling a weak true play from a shared
+passage needs evidence the related recording lacks, and neither hash
+hits nor peak shares give it.
+
+**Proposal: no verifier rule** for the confidence levels, now or after
+denser query peaks; keep `--verify` as a diagnostic. Two uses could pay
+off later. Showing the share beside each pair in a listening list, as
+below, gives your ear an order to work in. And a play whose share is far
+below its file's usual share for its hits (a lossy upload, a remaster,
+a mixed-CD edit) is worth flagging when the clusters are reviewed. The
+roadmap's other steps under "Evidence beyond exact pair hashes" (what
+exact hashing loses, denser query peaks) are unaffected, but this result
+lowers my expectation for them as accuracy measures.
+
+### Two more pairs for the clusters, found by the verifier's groups
+
+- The untagged B side of UDFR014 (`extra/b-unknown-udfr014-sour.mp3`) is
+  joined to the mixed CD's track 07, "Luminous (Remix)" (Dangerous Drums
+  Volume 2, CD1). Its sweep excerpts also find track 06, Kraken -
+  Meatball, at 93-112 hits: most likely the CD's mix into track 07, so
+  the audio really is in that file. The same mixed CD holds "Synthesis
+  (Remix)", which the listening list pairs with UDFR014's A side.
+- Falcon - The Stand finds an untagged NAS file,
+  `second-library/1.mp3`, at 65-70 hits (0.29-0.31 of its peaks). It has
+  no tags to tell what it is.
