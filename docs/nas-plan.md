@@ -153,6 +153,21 @@ skip at 240 is stronger at this size). The idea on duplicates below was
 answered in part: 101 groups of identical peak records hold 103 extra
 files (experiment 0035).
 
+## Outcome (session 6)
+
+The NAS was read once (item 3 of `docs/brief-6.md`): `index
+--retry-skipped` with the store fixes added 32 records (26 MP3s in WAV
+containers behind ID3 tags, 6 files damaged at the end) and `prune --yes`
+deleted one stale skip note; the store was frozen at revision
+`d428ee9585936326` (27,042 records, 1,396 skip notes; experiment 0046)
+and unchanged at the end. From the store alone: the store-only
+`identify` of the development mix under the new default and the
+grouped tracklist (0050), step 4 again with the clusters on ±8% (0049),
+step 6 and half of step 7 again under the new default (0051), and a
+scaling curve with 1,000, 3,000 and 9,000 of the records (0052). Step 11
+is still the owner's; the listening list in `docs/notes-for-owner.md`
+and `docs/pair-verdicts.txt` come first.
+
 ## Further ideas
 
 - **Duplicates across the collection.** Clustering every NAS file against

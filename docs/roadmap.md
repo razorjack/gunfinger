@@ -104,8 +104,12 @@ marked as inferences were derived, not measured.
   identical; not tried. Skip at 240 is 3.5× cheaper at 31,964 assets.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
-  (60 hits) were calibrated against 262 tracks. Recalibrate at staged sizes such as 1,000, 10,000 and 30,000
-  assets (`docs/calibration.md`): strongest false candidates, weakest true
+  (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
+  3,200, 9,200 and 27,000 assets of the owner's collection (experiments
+  0049-0052): recall holds, the confident rule holds against everything
+  but a few pairs for the owner's ear, and chance grows past the
+  possible tier from about 9,000 assets. Recalibrate at each new size
+  (`docs/calibration.md`): strongest false candidates, weakest true
   detections, the possible tier's use, query time and peak memory, on the
   saved sweep panels (seeds 2026-2029) and the normal protocol. At each
   stage, repeat the related-recordings census (experiment 0015; a
@@ -161,10 +165,13 @@ marked as inferences were derived, not measured.
   false confident ones left. `docs/pair-verdicts.txt` takes the owner's
   verdicts; rerun `clusters --from-peaks` and the NAS-scale protocol
   after adding them. *(larger library)*
-- **The possible tier at NAS scale.** Unrelated chance reaches 67-78 hits
-  over the NAS sweeps (experiments 0040, 0041), above the tier of 60; the
-  register's rule would raise it to about 150 (`docs/calibration.md`).
-  *(larger library)*
+- **The possible tier at NAS scale.** Unrelated chance reaches 63-70
+  hits over the NAS sweeps (experiments 0040, 0041, 0051), above the
+  tier of 60; on nested subsets of the NAS records it is 21-34 hits up
+  to 3,200 assets and 64 from 9,200 (experiment 0052). Proposed: 60
+  while that chance stays below 30 hits, twice it above (130-140 at NAS
+  scale), which would hide the development mix's shared-material notes.
+  The owner decides. *(larger library)*
 
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development

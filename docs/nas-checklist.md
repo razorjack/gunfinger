@@ -68,3 +68,17 @@ alone; the NAS was not read.
 - [x] Step 12: calibration figures and the matcher decision: figures in
   `docs/calibration.md` as measurements; no rule changed (brief 5); the
   decision is the owner's
+
+## Session 6 (`docs/brief-6.md`)
+
+- [x] Store fixes and one re-index of the NAS (experiment 0046): 32 new
+  records, revision `d428ee9585936326`, the store frozen and checked
+  unchanged at the end
+- [x] Store-only `identify` under the new default, grouped tracklist
+  (experiment 0050)
+- [x] Step 4 again: clusters on the ±8% ladder (experiment 0049)
+- [x] Steps 6 and 7 again under the new default and clusters: the
+  development set, sweeps 2026 and 2027 (experiment 0051); sweeps 2028
+  and 2029 as item 10 (see the session 6 checklist)
+- [x] A scaling curve on real records (experiment 0052)
+- [ ] Step 11: references for the test set, the owner's part

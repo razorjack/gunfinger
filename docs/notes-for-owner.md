@@ -1,7 +1,68 @@
 # Notes for the owner
 
 Findings from the autonomous sessions that are worth your attention, newest
-last, after a summary of each session (session 5 first).
+last, after a summary of each session (session 6 first).
+
+## Session 6 summary
+
+**What changed for users.** `identify` and `explain` search with the
+fitted matcher by default (ADR 0008): the fullest 1% of posting lists
+skipped while looking for candidates, the link rules, each candidate
+measured again at its fitted speed, confident at 240 hits in 3 windows,
+possible at 60. `--single-pass` gives the matcher before. Saved reports
+record the matcher, so `identify --save-dir` searches each mix again
+once. The tracklist and the cue sheet list each recording once, with
+other spellings as `(also: ...)` (13 lines for the development mix from
+the NAS store instead of 20). `index` reads MP3s in a WAV container
+behind an ID3 tag, passes over hidden folders, and tolerates audio that
+stops up to 1% (at least 1 s) short of its declared length. The
+installed binary was not replaced.
+
+**Evidence for the new default.** At 262 tracks (experiment 0047) the
+candidate baseline is reproduced exactly; sweeps 2026-2029 recall
+540/540 each with 0 wrong; the development set 11/11 and leave-outs 0
+wrong; margin 6.65× (4.15× before); the development scan's detections
+matching no track fall from 6,096 to 69; mix 10's Dominion and the
+grid's 10 s plays become possible (they were confident only through a
+chance window). At NAS scale (experiments 0050, 0051) the development
+mix takes 263 s, 1,943 CPU seconds and 4 GB from the store alone (856 s
+and 8.4 GB before), and identifies 11 of 11 with 0 wrong.
+
+**Clusters.** `clusters` searches ±8% and keeps the better of two
+alignments per pair (experiments 0048, 0049). The 17 corpus clusters
+reappear at both sizes; 46 more NAS uploads join their recordings,
+including the 6 behind session 5's wrong identifications. Re-scored,
+session 5's reports owe 465 of 505 false confident sweep detections to
+rips the clusters missed. Your verdicts go into `docs/pair-verdicts.txt`
+(empty; format in its header).
+
+**At NAS scale now** (experiments 0051, 0053): the four sweep seeds
+recall 540/540 each, with 0, 24, 8 and 8 wrong answers (session 5: 91,
+174, 126, 114). All 40 come from three pairs: China Cup against its
+Prototype upload, Coma against Spraycan, and Synthesis VIP against the
+mixed CD's "Synthesis (Remix)". Margin 1.29× under the rules (0.11×),
+3.36× if those three pairs are one recording each; unrelated chance
+63-70 hits.
+
+**Scaling** (experiment 0052): recall and the development mix hold at
+1,000, 3,000 and 9,000 NAS records; unrelated chance is 21-34 hits up
+to 3,200 assets and 64 from 9,200; CPU grows linearly with the records.
+
+**Decisions for you.**
+
+- The listening list ("Listening list after session 6" below): China Cup
+  ~ its Prototype upload, Coma ~ Spraycan, Synthesis VIP ~ "Synthesis
+  (Remix)" (the three pairs behind every wrong answer left), The Nine ~
+  Evol Intent VIP, the borderline pairs, and DJ
+  Trace - Sonar against its "Mark System Revision", which the clusters
+  now join.
+- The possible tier: 60 while unrelated chance stays below 30 hits (to
+  about 3,000 assets), twice that chance above (130-140 at NAS scale;
+  experiment 0052). It stays 60 until you decide.
+- The next test-set evaluation (3 left) should measure the new default
+  matcher on the test mix with both playbacks: 15/16 and Sin possible
+  under the single pass; Sick Note (209 hits then) most likely becomes
+  possible.
 
 ## Session 5 summary
 
@@ -1328,3 +1389,17 @@ when the library doubles. That gives 60 up to about 3,000 assets and
 130-140 for the NAS collection. At 140 the development mix's two
 shared-material notes (Star Trails' Synergy remix at 79 hits, the
 Clockwork remix at 94) would no longer be shown. Your call.
+
+### Four sweep seeds at NAS scale: three pairs make every wrong answer
+
+Item 10 fitted in: sweeps 2028 and 2029 under the new default
+(experiment 0053) recall 540/540 each with 8 wrong answers each (session
+5: 126 and 114). Over the four seeds, calibrate finds 2,179 identifying
+detections, none below the rule, and 40 confident false ones from three
+pairs: China Cup ~ its Prototype upload (24), Coma ~ Spraycan (8) and
+Synthesis VIP ~ the mixed CD's "Synthesis (Remix)" (8, 511 hits, the
+strongest false candidate). The margin is 1.29× under the rules; if
+each pair is one recording, 3.36× (The Nine's VIP, 197 hits). If they
+are different recordings, different recordings share up to 511 hits,
+past the rule of 240: then the rule, or how shared material is shown,
+needs your decision.

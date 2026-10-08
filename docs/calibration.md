@@ -61,12 +61,13 @@ are given with and without the groups the owner has to confirm by ear.
 | `stats` | 755.9 M postings, 4.01 bytes per posting, buckets p99 4,538 | | 5.07 bytes, p99 55 |
 
 Session 6, under the default matcher and the clusters on the ±8%
-ladder (experiments 0049, 0051; store revision `d428ee9585936326`):
-development scan 11/11 with 0 wrong; sweeps 2026 and 2027 540/540 each,
-0 and 24 wrong (two borderline pairs); weakest identifying 671,
-strongest false 408 (China Cup ~ its Prototype upload, 65% coverage),
-1.64×; without that pair 341 (Coma ~ Spraycan), 1.97×; without both 197
-(The Nine ~ Evol Intent VIP), 3.41×; unrelated chance 63-70 hits.
+ladder (experiments 0049, 0051, 0053; store revision
+`d428ee9585936326`): development scan 11/11 with 0 wrong; sweeps
+2026-2029 540/540 each, 0, 24, 8 and 8 wrong (three pairs for the
+owner); over the four seeds weakest identifying 661, strongest false
+511 (Synthesis VIP ~ "Synthesis (Remix)" on a mixed CD), 1.29×; without
+the three pairs 197 (The Nine ~ Evol Intent VIP), 3.36×; unrelated
+chance 63-70 hits.
 
 What the "If it moves" column would say (not applied): the confident
 rule collides with the weakest identifying detection only through other

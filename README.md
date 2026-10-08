@@ -432,9 +432,15 @@ At scale, measured with synthetic copies on an idle machine (experiments
 7.7 GB (1.4 and 3.8 GB) with 10 workers. Most of that CPU sorts each
 window's hits.
 
-Known limits: the thresholds have been measured on 262 real tracks, and on
-up to 31,964 assets only with synthetic reversed copies, which lack the
-shared breaks and remixes of a real library
+On the owner's collection of 27,042 tracks, from its peak store alone
+(experiments 0050-0052): the development mix is identified 11/11 with 0
+wrong in 4.4 minutes and 4 GB, the sweeps keep 100% recall, and the false
+confident answers left come from a few pairs of records that may be the
+same recording, for the owner to judge by ear.
+
+Known limits: the thresholds were set on 262 real tracks; at 27,000
+tracks unrelated chance reaches 63-70 hits, above the possible tier of
+60, so possible plays are less reliable at that size
 ([docs/calibration.md](docs/calibration.md) lists what to measure again).
 A search of turntable playback alone misses key-locked (pitch-preserved)
 plays (experiment 0009). Heavy damage

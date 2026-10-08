@@ -912,3 +912,13 @@ grouped tracklists.
   experiment 0052. Item 10 (NAS sweeps 2028 and 2029, calibrate over four
   seeds) started 09:21, expected end 10:06; item 9's writing meanwhile,
   its build and tests after.
+- Item 10 (09:21-10:06): NAS sweeps 2028 and 2029, 540/540 each, 8 and 8
+  wrong; calibrate over four seeds: 40 false confident from three pairs,
+  1.29×, 3.36× without them (experiment 0053). Item 11 not started (a
+  single-pass sweep takes over an hour at NAS scale).
+- Item 9 (from 10:06): session 6 summary in the notes; register,
+  roadmap, README, NAS plan and checklist, session 6 checklist. The NAS
+  store at the end: 27,042 `.peaks`, 27,042 `.tags`, 1,396 `.skip`,
+  `library.txt`; digest `bf35ea64...e9ae4f5`; revision
+  `d428ee9585936326`: as recorded after item 3. The NAS was not read
+  after item 3.
