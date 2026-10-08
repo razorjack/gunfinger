@@ -21,9 +21,8 @@ detections of the same file, of other rips and of other uploads?
 | Synthesis VIP ~ "Synthesis (Remix)" | 8 | 94-115 | 0.34-0.41 |
 | Related false (strongest: Clockwork remix) | 718 | to 94 | median 0.06, to 0.41 |
 
-Chance shares 0.007-0.081 (highest for The Nine's VIP). China Cup has a
-17th detection at 36 hits (0.13). Development scan: whole plays 0.34-0.67
-(blends and EQ). Over the 6-134 hits both groups reach (14 identifying,
+Chance shares 0.007-0.081 (highest for The Nine's VIP); China Cup's 17th
+detection has 36 hits (0.13). Development scan: whole plays 0.34-0.67. Over the 6-134 hits both groups reach (14 identifying,
 38,843 false), AUC of hits 0.864, of excess share 0.950, but within
 60-120 hits 0.93 and 0.12: the identifying detections there are weak
 uploads (Kontempt's at 56 hits, 0.14).
