@@ -17,6 +17,7 @@ use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 
+use crate::rng::Rng;
 use crate::synthetic;
 
 /// What is added to the library's records.
@@ -87,6 +88,20 @@ impl SecondLibrary {
                 .filter(|asset| !without.contains(&asset.path))
                 .collect(),
         })
+    }
+
+    /// A seeded random choice of `count` of its assets, kept in library
+    /// order: a smaller real library, for measuring against size.
+    pub fn sampled(mut self, count: usize, seed: u64) -> SecondLibrary {
+        let mut order: Vec<usize> = (0..self.assets.len()).collect();
+        Rng::new(seed).shuffle(&mut order);
+        let mut chosen = vec![false; self.assets.len()];
+        for &index in order.iter().take(count) {
+            chosen[index] = true;
+        }
+        let mut chosen = chosen.into_iter();
+        self.assets.retain(|_| chosen.next().unwrap_or(false));
+        self
     }
 
     pub fn len(&self) -> usize {
