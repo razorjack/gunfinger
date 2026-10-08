@@ -6,7 +6,9 @@
 //! (the evidence for a true match), on the robustness excerpts.
 //!
 //! A triplet joins an anchor with two points of its target zone, so it is
-//! far more specific than a pair but needs three peaks to survive.
+//! far more specific than a pair but needs three peaks to survive. Panako's
+//! triplets (Six & Leman 2014) hash time ratios to be invariant to speed;
+//! these keep exact coordinates, like the pairs.
 
 use std::collections::{BTreeSet, HashMap};
 use std::fs;

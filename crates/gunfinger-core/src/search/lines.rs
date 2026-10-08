@@ -1,5 +1,6 @@
 //! Lines: hits of one asset, within one window of query time, whose offsets
-//! agree.
+//! agree. This is Wang 2003's offset histogram (§2.3), found by sorting each
+//! asset's hits by offset, with the rung's speed as the line's slope.
 
 use std::mem;
 use std::ops::Range;

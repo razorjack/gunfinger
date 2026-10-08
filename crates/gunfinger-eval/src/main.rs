@@ -749,6 +749,14 @@ fn find_clusters_around(
 ) -> Result<(), String> {
     let map = LibraryMap::load(map_file)?;
     let corpus = paths.corpus_clusters()?;
+    let verdicts = paths.verdicts()?;
+    let name = map
+        .other_library
+        .clone()
+        .unwrap_or_else(|| other.dir().display().to_string());
+    if sample.is_none() {
+        check_verdicts_against_last_run(paths, &corpus, &verdicts, &name)?;
+    }
     let profile = Profile::CURRENT;
     let (other_assets, problems) = other
         .current_sources(&profile)
@@ -763,7 +771,6 @@ fn find_clusters_around(
         &BTreeSet::new(),
     );
     let copies = map.copied();
-    let verdicts = paths.verdicts()?;
     if let Some(count) = sample {
         let every = (queries.len() / count.max(1)).max(1);
         let sampled: Vec<_> = queries.into_iter().step_by(every).take(count).collect();
@@ -792,10 +799,7 @@ fn find_clusters_around(
         jobs,
     )?;
     clusters::print_around(&corpus, &pairs, &copies);
-    let name = map
-        .other_library
-        .unwrap_or_else(|| other.dir().display().to_string());
-    let merged = clusters::merged(&corpus, pairs, &verdicts, &name);
+    let merged = clusters::merged(&corpus, pairs, &verdicts, &name)?;
     write_json(&paths.clusters_file(), &merged)?;
     println!(
         "{} clusters with duplicates, written to {}",
@@ -803,6 +807,28 @@ fn find_clusters_around(
         paths.clusters_file().display()
     );
     Ok(())
+}
+
+/// Fails before searching the other library again (85 minutes for the
+/// NAS) when the verdicts contradict the joins of the last run, which the
+/// new search would most likely find again.
+fn check_verdicts_against_last_run(
+    paths: &Paths,
+    corpus: &Clusters,
+    verdicts: &clusters::Verdicts,
+    name: &str,
+) -> Result<(), String> {
+    let Ok(last) = paths.clusters() else {
+        return Ok(());
+    };
+    clusters::merged(corpus, last.pairs, verdicts, name)
+        .map(|_| ())
+        .map_err(|error| {
+            format!(
+                "{error}\n(Checked against the pairs of the last run, {}, before searching again.)",
+                paths.clusters_file().display()
+            )
+        })
 }
 
 fn run_sweep(paths: &Paths, seed: u64, jobs: usize) -> Result<(), String> {

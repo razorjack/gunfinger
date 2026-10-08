@@ -9,8 +9,8 @@
 
 use crate::peaks::Peak;
 
-/// Pairs per anchor. Two keep every result of five at 41% of the postings
-/// (experiment 0004).
+/// Pairs per anchor (Wang 2003's fan-out factor). Two keep every result of
+/// five at 41% of the postings (experiment 0004).
 pub const FAN_OUT: usize = 2;
 /// Target zone: frames after the anchor, and bins above or below it.
 pub const MAX_DELTA_FRAMES: f64 = 63.0;

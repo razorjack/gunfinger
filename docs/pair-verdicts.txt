@@ -3,6 +3,10 @@
 # verdict over its coverage rule (one alignment covering 80% of the shorter
 # file): `same` joins the two files' clusters even when the search found
 # less, `different` keeps the pair apart even when it covers more.
+# A cluster holds every file a chain of joins reaches: when joins through
+# other files still link two files judged `different`, `clusters` stops and
+# names the chain, so that the wrong link can be judged too. With the NAS
+# store it checks the last run's pairs first, before searching.
 #
 # One verdict per line: `same` or `different`, then the two files, separated
 # by tabs. Files are corpus library paths (as in

@@ -7,7 +7,9 @@
 //!
 //! Both thresholds were calibrated on the sweep and the development set at
 //! 262 library tracks (`docs/calibration.md`). Measure them again when the
-//! library grows: chance alignments get stronger with more postings.
+//! library grows: chance alignments get stronger with more postings. Wang
+//! 2003 (§2.3.1) likewise scores a match by its aligned hits and sets the
+//! threshold from the strongest wrong track, given the number of tracks.
 
 /// How much aligned evidence supports a detection.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
