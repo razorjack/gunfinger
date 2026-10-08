@@ -33,8 +33,10 @@ group from 3×2 on.
 
 What the measure cannot do: the Clockwork remix's shared passage
 (74-99 hits) verifies at share 0.23-0.44 at 1×1, as high as the
-identifying SKC - Recharger rip (116-162 hits, 0.38-0.42): in that
-passage the two records are the same audio. Five identifying detections
+identifying SKC - Recharger rip (116-162 hits, 0.38-0.42): a share alone
+does not tell shared material from a weak rip (0055 measures the passage
+itself: 0.42-0.51 for the remix, 0.88-0.94 for the played record). Five
+identifying detections
 fall in the range of false ones (7-18 hits, fragments at track edges),
 too few to judge separation at equal hits.
 
