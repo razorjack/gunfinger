@@ -2,21 +2,22 @@
 //! sheet and a numbered tracklist.
 //!
 //! The cue sheet and the tracklist list recordings, not plays. Two rips or
-//! masters of one recording are both found where it plays, at the same
-//! speed and the same place in the track; such plays are one entry, named
-//! after the strongest.
+//! uploads of one recording are both found where it plays, at the same place
+//! in the track once each play's speed is taken out (an upload sped up by 3%
+//! is found 3% slower); such plays are one entry, named after the strongest,
+//! with the other names the tags give.
 
 use crate::names::TrackName;
-use crate::report::{FoundPlay, Level, Playback, Report};
+use crate::report::{FoundPlay, Level, Playback, Report, SharedWith};
 use crate::table::timecode;
 
 /// Plays of different assets are one recording when they overlap for at
 /// least this share of the shorter play...
 const SAME_RECORDING_OVERLAP: f64 = 0.5;
-/// ...at speeds this close (rips of one record differ by a few tenths of a
-/// percent)...
-const SAME_RECORDING_SPEED: f64 = 0.005;
-/// ...and at the same place in the track, to within this many seconds.
+/// ...and the track would have started at the same mix time, to within this
+/// many seconds. Uploads of one track agree to 1.6 s in the development mix
+/// at NAS scale; the remixes sharing material with a played track lie 86
+/// and 193 s away (experiment 0044's report).
 const SAME_RECORDING_SECONDS: f64 = 5.0;
 /// Cue sheet times count frames of 1/75 s.
 const CUE_FRAMES_PER_SECOND: f64 = 75.0;
@@ -84,6 +85,21 @@ impl Entry<'_> {
     pub fn asset(&self) -> &str {
         &self.plays[0].asset
     }
+
+    /// The names of the other plays that differ from the first play's and
+    /// from each other, ignoring case.
+    pub fn other_names(&self, name: impl Fn(&str) -> TrackName) -> Vec<String> {
+        let mut seen = vec![name(self.asset()).full().to_lowercase()];
+        let mut others = Vec::new();
+        for play in &self.plays[1..] {
+            let full = name(&play.asset).full();
+            if !seen.contains(&full.to_lowercase()) {
+                seen.push(full.to_lowercase());
+                others.push(full);
+            }
+        }
+        others
+    }
 }
 
 /// Groups plays of the same recording, in order of start time.
@@ -110,32 +126,62 @@ pub fn entries(report: &Report) -> Vec<Entry<'_>> {
     entries
 }
 
+/// Whether two plays are one recording on two records. A possible play
+/// marked as sharing material with another recording stays an entry of its
+/// own, whatever lines up.
 fn same_recording(a: &FoundPlay, b: &FoundPlay) -> bool {
-    let from = a.start_seconds.max(b.start_seconds);
-    let overlap = a.end_seconds.min(b.end_seconds) - from;
+    if a.shares_material_with.is_some() || b.shares_material_with.is_some() {
+        return false;
+    }
+    let overlap = a.end_seconds.min(b.end_seconds) - a.start_seconds.max(b.start_seconds);
     let shorter = (a.end_seconds - a.start_seconds).min(b.end_seconds - b.start_seconds);
-    let in_track =
-        |play: &FoundPlay| play.track_start_seconds + (from - play.start_seconds) * play.speed;
     overlap >= SAME_RECORDING_OVERLAP * shorter
-        && (a.speed - b.speed).abs() <= SAME_RECORDING_SPEED
-        && (in_track(a) - in_track(b)).abs() <= SAME_RECORDING_SECONDS
+        && (track_started_at(a) - track_started_at(b)).abs() <= SAME_RECORDING_SECONDS
+}
+
+/// The mix time at which the play's track would have started, had it been
+/// played from its beginning at the play's speed: the place in the track
+/// with the record's own speed taken out. Rips and uploads of one recording
+/// at different native speeds agree on it.
+fn track_started_at(play: &FoundPlay) -> f64 {
+    play.start_seconds - play.track_start_seconds / play.speed
 }
 
 /// A numbered list of the recordings, with their start in the mix;
-/// possible entries are marked.
+/// possible entries are marked, with the name of the entry they share
+/// material with.
 pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
+    let entries = entries(report);
+    let entry_name = |shared: &SharedWith| {
+        let play = shared
+            .play
+            .checked_sub(1)
+            .and_then(|index| report.plays.get(index));
+        entries
+            .iter()
+            .find(|entry| {
+                play.is_some_and(|play| entry.plays.iter().any(|other| std::ptr::eq(*other, play)))
+            })
+            .map_or_else(|| name(&shared.asset), |entry| name(entry.asset()))
+            .full()
+    };
     let mut lines = Vec::new();
-    for (number, entry) in entries(report).iter().enumerate() {
+    for (number, entry) in entries.iter().enumerate() {
         let mark = match (entry.confidence(), &entry.plays[0].shares_material_with) {
             (Level::Confident, _) => String::new(),
-            (_, Some(shared)) => format!(
-                " (possible; shares material with {})",
-                name(&shared.asset).full()
-            ),
+            (_, Some(shared)) => {
+                format!(" (possible; shares material with {})", entry_name(shared))
+            }
             (Level::Possible | Level::Weak, None) => String::from(" (possible)"),
         };
+        let others = entry.other_names(&name);
+        let also = if others.is_empty() {
+            String::new()
+        } else {
+            format!("  (also: {})", others.join(", "))
+        };
         lines.push(format!(
-            "{:>2}. {:>7}  {}{mark}",
+            "{:>2}. {:>7}  {}{also}{mark}",
             number + 1,
             timecode(entry.start_seconds()),
             name(entry.asset()).full()
@@ -246,6 +292,89 @@ mod tests {
         assert_eq!(
             tracklist,
             " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b\n 3.    1:24  insert (possible)\n 4.    1:36  c\n"
+        );
+    }
+
+    /// The play of `report` at `index` found again on another record that
+    /// plays natively `native` times as fast as the first, from the same
+    /// place in the track.
+    fn on_another_record(report: &Report, index: usize, asset: &str, native: f64) -> FoundPlay {
+        let mut play = report.plays[index].clone();
+        play.asset = String::from(asset);
+        play.speed /= native;
+        play.track_start_seconds /= native;
+        play.track_end_seconds /= native;
+        play
+    }
+
+    #[test]
+    fn uploads_at_another_native_speed_are_one_entry_with_their_names() {
+        let mut report = report();
+        let fast = on_another_record(&report, 1, "b-sped-up-upload.wav", 1.035);
+        let mut same_name = on_another_record(&report, 1, "B.wav", 0.98);
+        same_name.hits -= 100;
+        report.plays.insert(2, fast);
+        report.plays.insert(3, same_name);
+
+        let tracklist = tracklist(&report, names);
+
+        assert_eq!(
+            tracklist,
+            " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b  (also: b-sped-up-upload)\n 3.    1:24  insert (possible)\n 4.    1:36  c\n"
+        );
+    }
+
+    #[test]
+    fn a_possible_play_names_the_entry_it_shares_material_with() {
+        let mut report = report();
+        let mut fast = on_another_record(&report, 1, "b-sped-up-upload.wav", 1.035);
+        fast.hits -= 100;
+        let mut vip = on_another_record(&report, 1, "b-vip.wav", 1.0);
+        vip.confidence = Level::Possible;
+        vip.shares_material_with = Some(SharedWith {
+            play: 3,
+            asset: String::from("b-sped-up-upload.wav"),
+        });
+        report.plays.insert(2, fast);
+        report.plays.insert(3, vip);
+
+        let tracklist = tracklist(&report, names);
+
+        assert_eq!(
+            tracklist,
+            " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b  (also: b-sped-up-upload)\n 3.    0:38  b-vip (possible; shares material with b)\n 4.    1:24  insert (possible)\n 5.    1:36  c\n"
+        );
+    }
+
+    #[test]
+    fn another_place_in_the_track_or_shared_material_is_another_entry() {
+        let mut report = report();
+        let mut remix = on_another_record(&report, 1, "b-remix.wav", 1.0);
+        remix.track_start_seconds += 30.0;
+        let mut shared = on_another_record(&report, 1, "b-vip.wav", 1.0);
+        shared.confidence = Level::Possible;
+        shared.shares_material_with = Some(SharedWith {
+            play: 2,
+            asset: String::from("b.wav"),
+        });
+        report.plays.insert(2, remix);
+        report.plays.insert(3, shared);
+
+        let assets: Vec<Vec<String>> = entries(&report)
+            .iter()
+            .map(|entry| entry.plays.iter().map(|play| play.asset.clone()).collect())
+            .collect();
+
+        assert_eq!(
+            assets,
+            [
+                vec!["a.wav"],
+                vec!["b.wav"],
+                vec!["b-remix.wav"],
+                vec!["b-vip.wav"],
+                vec!["insert.wav"],
+                vec!["c.wav"]
+            ]
         );
     }
 

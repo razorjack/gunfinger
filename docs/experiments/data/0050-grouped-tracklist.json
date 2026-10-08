@@ -1,0 +1,55 @@
+{
+ "experiment": "0050-grouped-tracklist",
+ "command": "gunfinger --config /dev/null --peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks --min-track 1:30 --max-track 15:00 identify <development mix> --store-only --playback both -f json -v, then show -f tracklist (work/bin/s6-item5b)",
+ "index": {
+  "assets": 27042,
+  "postings": 759426933,
+  "megabytes": 3046.1,
+  "build_s": 56.5
+ },
+ "time": {
+  "wall_s": 263.06,
+  "user_s": 1943.0,
+  "sys_s": 11.43,
+  "peak_footprint_bytes": 3981790568
+ },
+ "library_revision": "d428ee9585936326",
+ "search": {
+  "profile": "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10",
+  "hashes": "pairs-v1 fan-out=2 zone=63x63 anchor=8bit/knee=50/step=0.02 dbin=7bit dframe=6bit",
+  "matching": "lines-chains-v1 fitted-skip-0.01-links window=10s line=2fr min-hits=3 per-asset=3 same=4fr gap=2 link=4fr+0.004 fit=1000fr ladder=0.92..1.08/0.004",
+  "confidence": "confident: 240 hits in 3 windows; possible: 60 hits",
+  "library_revision": "d428ee9585936326"
+ },
+ "plays": {
+  "all": 30,
+  "confident": 28,
+  "possible": 2
+ },
+ "tracklist_lines": 13,
+ "session_5_single_pass": {
+  "plays": 30,
+  "confident": 28,
+  "possible": 2,
+  "tracklist_lines_before_grouping": 20,
+  "wall_s": 856.0,
+  "user_s": 6108.8,
+  "peak_bytes": 8349408144
+ },
+ "entries": [],
+ "tracklist": [
+  " 1.    0:00  Stakka And Skynet - Nightlore  (also: Stakka And Skynet - Night Lore, STAKKA and SKYNET - knight lore, Stakka & Skynet - Nightlore)",
+  " 2.    4:36  Stakka & Skynet - Decoy  (also: Stakka & Skynet - Decoy (Remastered))",
+  " 3.    9:43  KEMAL & ROB DATA - star trails  (also: Konflict - Star Trails)",
+  " 4.   10:28  Kemal & Rob Data - Star Trails (Synergy Remix) (possible; shares material with KEMAL & ROB DATA - star trails)",
+  " 5.   14:22  Stakka & Skynet - Pathogen  (also: SKYNET & STAKKA - pathogen)",
+  " 6.   17:32  Stakka & Skynet - Clockwork  (also: Stakka & Skynet - Clockwork (Remastered))",
+  " 7.   20:22  Stakka And Skynet - Clockwork (Stakka Rmx) (possible; shares material with Stakka & Skynet - Clockwork)",
+  " 8.   21:02  Kraken - Side Effects (Teebee remix)  (also: Kraken - side effects, TeeBee Remix)",
+  " 9.   25:20  Kraken+Arkane - Dominion  (also: KRAKEN - dominion)",
+  "10.   31:03  Kemal And Paul Reset - Kontempt  (also: KEMAL & PAUL RESET - kontempt)",
+  "11.   37:08  Stakka & Skynet feat. Kemal an - Bios-Fear  (also: Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered))",
+  "12.   43:22  Stakka + Skynet - Logistics  (also: SKYNET & STAKKA - logistics)",
+  "13.   49:43  Stakka & K.Tee - Auto Ignition  (also: ALIEN5IVE - AUDIO BLUEPRINT [ ABPR011 : STAKKA & K. TEE - auto ignition ] drum and bass)"
+ ]
+}

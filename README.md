@@ -168,9 +168,25 @@ marked.
   the files.
 - `cue`: a cue sheet of the confident recordings, for players and splitters.
 
-The tracklist and the cue sheet list recordings rather than plays: when two
-rips or masters of one recording are both found at the same time, speed and
-place in the track, they are one entry, named after the stronger.
+The tracklist and the cue sheet list recordings rather than plays. Plays
+of several library files over the same stretch of the recording are one
+entry when, with each file's own speed taken out, the track would have
+started at the same moment (within 5 s): rips, masters and uploads sped up
+by a few percent. The entry is named after its strongest play; other names
+the tags give follow it. Two tracks that overlap in a blend stay apart, and
+a possible play that shares material with another entry stays its own
+entry, naming it. The development mix against a large collection, where
+each track is found on 2-4 records (experiment 0050):
+
+```text
+ 1.    0:00  Stakka And Skynet - Nightlore  (also: Stakka And Skynet - Night Lore, STAKKA and SKYNET - knight lore, Stakka & Skynet - Nightlore)
+ 2.    4:36  Stakka & Skynet - Decoy  (also: Stakka & Skynet - Decoy (Remastered))
+ 3.    9:43  KEMAL & ROB DATA - star trails  (also: Konflict - Star Trails)
+ 4.   10:28  Kemal & Rob Data - Star Trails (Synergy Remix) (possible; shares material with KEMAL & ROB DATA - star trails)
+ 5.   14:22  Stakka & Skynet - Pathogen  (also: SKYNET & STAKKA - pathogen)
+```
+
+The JSON, CSV and table keep every play.
 
 ## Configuration
 
