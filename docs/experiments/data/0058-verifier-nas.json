@@ -1,0 +1,1644 @@
+{
+ "reports": [
+  "library-nas-dnb-peaks/verified/scan-stakka-skynet-knowledge.json",
+  "library-nas-dnb-peaks/verified/sweep-seed-2027.json"
+ ],
+ "detections": 40295,
+ "groups": {
+  "identifying": 1278,
+  "false: related": 718,
+  "false: unrelated": 38248,
+  "listening list": 51
+ },
+ "by_tolerance": {
+  "1x1": {
+   "by_group": {
+    "identifying": {
+     "count": 1278,
+     "share_median": 0.8002757352941177,
+     "support_median": 1.0,
+     "chance_share_median": 0.009366880370549169,
+     "chance_support_median": 0.275,
+     "excess_median": 0.7712106003094555,
+     "support_excess_median": 0.725,
+     "excess_min": 0.035813567969875754,
+     "excess_max": 0.9157173220626535
+    },
+    "false: related": {
+     "count": 718,
+     "share_median": 0.05916816540589519,
+     "support_median": 0.8888888888888888,
+     "chance_share_median": 0.00609546015171329,
+     "chance_support_median": 0.19999999999999998,
+     "excess_median": 0.04886974384323793,
+     "support_excess_median": 0.625,
+     "excess_min": -0.0067235442691424745,
+     "excess_max": 0.406254080224163
+    },
+    "false: unrelated": {
+     "count": 38248,
+     "share_median": 0.04011461318051576,
+     "support_median": 0.7777777777777778,
+     "chance_share_median": 0.006351518543878734,
+     "chance_support_median": 0.203125,
+     "excess_median": 0.03143037120754483,
+     "support_excess_median": 0.5250000000000001,
+     "excess_min": -0.25,
+     "excess_max": 0.8
+    },
+    "listening list": {
+     "count": 51,
+     "share_median": 0.4600280504908836,
+     "support_median": 1.0,
+     "chance_share_median": 0.01763226403258049,
+     "chance_support_median": 0.4166666666666667,
+     "excess_median": 0.39922583619552304,
+     "support_excess_median": 0.5700000000000001,
+     "excess_min": 0.12353856834631108,
+     "excess_max": 0.6026959724455817
+    }
+   },
+   "by_hits": [
+    {
+     "hits": "0-20",
+     "identifying": {
+      "count": 6,
+      "excess_median": 0.0791,
+      "excess_range": [
+       0.0358,
+       0.1434
+      ],
+      "share_median": 0.0859,
+      "support_excess_median": 0.716
+     },
+     "false: related": {
+      "count": 650,
+      "excess_median": 0.0445,
+      "excess_range": [
+       -0.0067,
+       0.2473
+      ],
+      "share_median": 0.0545,
+      "support_excess_median": 0.6042
+     },
+     "false: unrelated": {
+      "count": 38122,
+      "excess_median": 0.0313,
+      "excess_range": [
+       -0.25,
+       0.8
+      ],
+      "share_median": 0.0401,
+      "support_excess_median": 0.525
+     },
+     "auc": {
+      "hits": 0.6862877849994842,
+      "excess": 0.8888716943498745,
+      "support_excess": 0.7232367000240724
+     },
+     "auc_related": {
+      "hits": 0.5701282051282052,
+      "excess": 0.7274358974358974,
+      "support_excess": 0.6238461538461538
+     }
+    },
+    {
+     "hits": "20-40",
+     "false: related": {
+      "count": 47,
+      "excess_median": 0.1155,
+      "excess_range": [
+       0.0582,
+       0.2311
+      ],
+      "share_median": 0.1233,
+      "support_excess_median": 0.7292
+     },
+     "false: unrelated": {
+      "count": 100,
+      "excess_median": 0.0644,
+      "excess_range": [
+       0.0226,
+       0.2375
+      ],
+      "share_median": 0.0829,
+      "support_excess_median": 0.5963
+     },
+     "listening list": {
+      "count": 1,
+      "excess_median": 0.1235,
+      "excess_range": [
+       0.1235,
+       0.1235
+      ],
+      "share_median": 0.1322,
+      "support_excess_median": 0.7381
+     },
+     "auc": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     },
+     "auc_related": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     }
+    },
+    {
+     "hits": "40-60",
+     "identifying": {
+      "count": 1,
+      "excess_median": 0.1328,
+      "excess_range": [
+       0.1328,
+       0.1328
+      ],
+      "share_median": 0.1357,
+      "support_excess_median": 0.9
+     },
+     "false: related": {
+      "count": 2,
+      "excess_median": 0.1599,
+      "excess_range": [
+       0.15,
+       0.1699
+      ],
+      "share_median": 0.1622,
+      "support_excess_median": 0.8826
+     },
+     "false: unrelated": {
+      "count": 11,
+      "excess_median": 0.2065,
+      "excess_range": [
+       0.076,
+       0.2686
+      ],
+      "share_median": 0.2183,
+      "support_excess_median": 0.6207
+     },
+     "auc": {
+      "hits": 0.8846153846153846,
+      "excess": 0.23076923076923078,
+      "support_excess": 0.9230769230769231
+     },
+     "auc_related": {
+      "hits": 1.0,
+      "excess": 0.0,
+      "support_excess": 0.5
+     }
+    },
+    {
+     "hits": "60-120",
+     "identifying": {
+      "count": 5,
+      "excess_median": 0.1965,
+      "excess_range": [
+       0.1761,
+       0.2319
+      ],
+      "share_median": 0.2027,
+      "support_excess_median": 0.7931
+     },
+     "false: related": {
+      "count": 14,
+      "excess_median": 0.3623,
+      "excess_range": [
+       0.1845,
+       0.4063
+      ],
+      "share_median": 0.3664,
+      "support_excess_median": 0.8694
+     },
+     "false: unrelated": {
+      "count": 15,
+      "excess_median": 0.3123,
+      "excess_range": [
+       0.0987,
+       0.3645
+      ],
+      "share_median": 0.3162,
+      "support_excess_median": 0.8333
+     },
+     "listening list": {
+      "count": 17,
+      "excess_median": 0.3428,
+      "excess_range": [
+       0.3141,
+       0.3992
+      ],
+      "share_median": 0.3755,
+      "support_excess_median": 0.51
+     },
+     "auc": {
+      "hits": 0.9344827586206896,
+      "excess": 0.12413793103448276,
+      "support_excess": 0.42758620689655175
+     },
+     "auc_related": {
+      "hits": 0.8857142857142857,
+      "excess": 0.17142857142857143,
+      "support_excess": 0.38571428571428573
+     }
+    },
+    {
+     "hits": "120-240",
+     "identifying": {
+      "count": 44,
+      "excess_median": 0.4507,
+      "excess_range": [
+       0.1974,
+       0.5598
+      ],
+      "share_median": 0.4583,
+      "support_excess_median": 0.7672
+     },
+     "false: related": {
+      "count": 5,
+      "excess_median": 0.3831,
+      "excess_range": [
+       0.3699,
+       0.3944
+      ],
+      "share_median": 0.3944,
+      "support_excess_median": 0.6552
+     },
+     "listening list": {
+      "count": 9,
+      "excess_median": 0.3816,
+      "excess_range": [
+       0.3652,
+       0.4574
+      ],
+      "share_median": 0.4436,
+      "support_excess_median": 0.57
+     },
+     "auc": {
+      "hits": 0.9772727272727273,
+      "excess": 0.6727272727272727,
+      "support_excess": 0.5045454545454545
+     },
+     "auc_related": {
+      "hits": 0.9772727272727273,
+      "excess": 0.6727272727272727,
+      "support_excess": 0.5045454545454545
+     }
+    },
+    {
+     "hits": "240-",
+     "identifying": {
+      "count": 1222,
+      "excess_median": 0.7782,
+      "excess_range": [
+       0.3303,
+       0.9157
+      ],
+      "share_median": 0.8058,
+      "support_excess_median": 0.7167
+     },
+     "listening list": {
+      "count": 24,
+      "excess_median": 0.5836,
+      "excess_range": [
+       0.5366,
+       0.6027
+      ],
+      "share_median": 0.5931,
+      "support_excess_median": 0.6583
+     },
+     "auc": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     },
+     "auc_related": {
+      "hits": null,
+      "excess": null,
+      "support_excess": null
+     }
+    }
+   ],
+   "separation": {
+    "overlap_hits": [
+     6,
+     134
+    ],
+    "identifying": 14,
+    "false": 38843,
+    "auc_hits": 0.8635192588478895,
+    "auc_share": 0.9440761527173493,
+    "auc_support": 0.8492466007848445,
+    "auc_excess": 0.9503330256232967,
+    "auc_support_excess": 0.8101174692259315,
+    "false: related": {
+     "hits": 0.7854638349028251,
+     "excess": 0.8367060709276698,
+     "support_excess": 0.7050691244239631
+    },
+    "false: unrelated": {
+     "hits": 0.8649788318159679,
+     "excess": 0.952457757296467,
+     "support_excess": 0.8120817878685699
+    }
+   },
+   "weakest_identifying": [
+    {
+     "hits": 6,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 890 s",
+     "reference_peaks": 697,
+     "found": 58,
+     "share": 0.0832,
+     "support": 0.95,
+     "chance_share": 0.0054,
+     "chance_share_max": 0.0129,
+     "chance_support": 0.15,
+     "excess": 0.0778,
+     "support_excess": 0.8
+    },
+    {
+     "hits": 6,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 613 s",
+     "reference_peaks": 529,
+     "found": 34,
+     "share": 0.0643,
+     "support": 0.8571,
+     "chance_share": 0.0099,
+     "chance_share_max": 0.0129,
+     "chance_support": 0.3393,
+     "excess": 0.0544,
+     "support_excess": 0.5179
+    },
+    {
+     "hits": 7,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 607 s",
+     "reference_peaks": 226,
+     "found": 20,
+     "share": 0.0885,
+     "support": 1.0,
+     "chance_share": 0.0081,
+     "chance_share_max": 0.012,
+     "chance_support": 0.2917,
+     "excess": 0.0804,
+     "support_excess": 0.7083
+    },
+    {
+     "hits": 8,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 2611 s",
+     "reference_peaks": 597,
+     "found": 24,
+     "share": 0.0402,
+     "support": 0.6429,
+     "chance_share": 0.0044,
+     "chance_share_max": 0.0072,
+     "chance_support": 0.1607,
+     "excess": 0.0358,
+     "support_excess": 0.4821
+    },
+    {
+     "hits": 9,
+     "windows": 2,
+     "where": "stakka-skynet-knowledge at 870 s",
+     "reference_peaks": 699,
+     "found": 65,
+     "share": 0.093,
+     "support": 0.8947,
+     "chance_share": 0.005,
+     "chance_share_max": 0.0085,
+     "chance_support": 0.1711,
+     "excess": 0.088,
+     "support_excess": 0.7237
+    },
+    {
+     "hits": 18,
+     "windows": 3,
+     "where": "stakka-skynet-knowledge at 872 s",
+     "reference_peaks": 806,
+     "found": 118,
+     "share": 0.1464,
+     "support": 1.0,
+     "chance_share": 0.003,
+     "chance_share_max": 0.006,
+     "chance_support": 0.1087,
+     "excess": 0.1434,
+     "support_excess": 0.8913
+    },
+    {
+     "hits": 56,
+     "windows": 3,
+     "where": "sweep 2027 Kemal & Paul Reset - Kontempt.mp3 at -5%",
+     "reference_peaks": 722,
+     "found": 98,
+     "share": 0.1357,
+     "support": 1.0,
+     "chance_share": 0.0029,
+     "chance_share_max": 0.006,
+     "chance_support": 0.1,
+     "excess": 0.1328,
+     "support_excess": 0.9
+    },
+    {
+     "hits": 111,
+     "windows": 3,
+     "where": "sweep 2027 extra/b-unknown-udfr014-sour.mp3 at +0%",
+     "reference_peaks": 1183,
+     "found": 215,
+     "share": 0.1817,
+     "support": 1.0,
+     "chance_share": 0.0056,
+     "chance_share_max": 0.0131,
+     "chance_support": 0.2155,
+     "excess": 0.1761,
+     "support_excess": 0.7845
+    },
+    {
+     "hits": 112,
+     "windows": 3,
+     "where": "sweep 2027 extra/b-unknown-udfr014-sour.mp3 at -5%",
+     "reference_peaks": 995,
+     "found": 237,
+     "share": 0.2382,
+     "support": 1.0,
+     "chance_share": 0.0063,
+     "chance_share_max": 0.0089,
+     "chance_support": 0.1923,
+     "excess": 0.2319,
+     "support_excess": 0.8077
+    },
+    {
+     "hits": 116,
+     "windows": 3,
+     "where": "sweep 2027 extra/b-unknown-udfr014-sour.mp3 at -1%",
+     "reference_peaks": 1127,
+     "found": 248,
+     "share": 0.2201,
+     "support": 1.0,
+     "chance_share": 0.0054,
+     "chance_share_max": 0.0076,
+     "chance_support": 0.181,
+     "excess": 0.2147,
+     "support_excess": 0.819
+    }
+   ],
+   "strongest_false": [
+    {
+     "hits": 134,
+     "group": "false: related",
+     "label": "same name",
+     "found": 405,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at +1%",
+     "reference_peaks": 1001,
+     "share": 0.4046,
+     "support": 1.0,
+     "chance_share": 0.0102,
+     "chance_share_max": 0.0121,
+     "chance_support": 0.319,
+     "excess": 0.3944,
+     "support_excess": 0.681
+    },
+    {
+     "hits": 126,
+     "group": "false: related",
+     "label": "same artist",
+     "found": 391,
+     "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +0%",
+     "reference_peaks": 1055,
+     "share": 0.3706,
+     "support": 0.9286,
+     "chance_share": 0.0007,
+     "chance_share_max": 0.0028,
+     "chance_support": 0.0268,
+     "excess": 0.3699,
+     "support_excess": 0.9018
+    },
+    {
+     "hits": 125,
+     "group": "false: related",
+     "label": "same name",
+     "found": 408,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at +5%",
+     "reference_peaks": 1034,
+     "share": 0.3946,
+     "support": 1.0,
+     "chance_share": 0.0107,
+     "chance_share_max": 0.0144,
+     "chance_support": 0.3534,
+     "excess": 0.3839,
+     "support_excess": 0.6466
+    },
+    {
+     "hits": 124,
+     "group": "false: related",
+     "label": "same name",
+     "found": 383,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at -1%",
+     "reference_peaks": 971,
+     "share": 0.3944,
+     "support": 1.0,
+     "chance_share": 0.0114,
+     "chance_share_max": 0.0144,
+     "chance_support": 0.3621,
+     "excess": 0.3831,
+     "support_excess": 0.6379
+    },
+    {
+     "hits": 120,
+     "group": "false: related",
+     "label": "same name",
+     "found": 376,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at -3%",
+     "reference_peaks": 958,
+     "share": 0.3925,
+     "support": 1.0,
+     "chance_share": 0.0112,
+     "chance_share_max": 0.0126,
+     "chance_support": 0.3448,
+     "excess": 0.3813,
+     "support_excess": 0.6552
+    },
+    {
+     "hits": 119,
+     "group": "false: related",
+     "label": "same name",
+     "found": 369,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at +3%",
+     "reference_peaks": 1022,
+     "share": 0.3611,
+     "support": 0.9667,
+     "chance_share": 0.0104,
+     "chance_share_max": 0.0115,
+     "chance_support": 0.325,
+     "excess": 0.3507,
+     "support_excess": 0.6417
+    },
+    {
+     "hits": 116,
+     "group": "false: related",
+     "label": "same name",
+     "found": 414,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at +8%",
+     "reference_peaks": 1061,
+     "share": 0.3902,
+     "support": 1.0,
+     "chance_share": 0.0103,
+     "chance_share_max": 0.0123,
+     "chance_support": 0.3362,
+     "excess": 0.3799,
+     "support_excess": 0.6638
+    },
+    {
+     "hits": 112,
+     "group": "false: unrelated",
+     "label": "unrelated",
+     "found": 375,
+     "where": "sweep 2027 extra/b-unknown-udfr014-sour.mp3 at +1%",
+     "reference_peaks": 1076,
+     "share": 0.3485,
+     "support": 1.0,
+     "chance_share": 0.0043,
+     "chance_share_max": 0.0064,
+     "chance_support": 0.1293,
+     "excess": 0.3442,
+     "support_excess": 0.8707
+    },
+    {
+     "hits": 109,
+     "group": "false: related",
+     "label": "same name",
+     "found": 380,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at +0%",
+     "reference_peaks": 994,
+     "share": 0.3823,
+     "support": 1.0,
+     "chance_share": 0.0106,
+     "chance_share_max": 0.0134,
+     "chance_support": 0.3362,
+     "excess": 0.3717,
+     "support_excess": 0.6638
+    },
+    {
+     "hits": 108,
+     "group": "false: related",
+     "label": "same artist",
+     "found": 404,
+     "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +3%",
+     "reference_peaks": 1136,
+     "share": 0.3556,
+     "support": 0.9,
+     "chance_share": 0.0013,
+     "chance_share_max": 0.0052,
+     "chance_support": 0.05,
+     "excess": 0.3543,
+     "support_excess": 0.85
+    }
+   ],
+   "highest_excess_false": [
+    {
+     "hits": 9,
+     "group": "false: unrelated",
+     "found": 16,
+     "where": "stakka-skynet-knowledge at 2470 s",
+     "reference_peaks": 20,
+     "share": 0.8,
+     "support": 1.0,
+     "chance_share": 0.0,
+     "chance_share_max": 0.0,
+     "chance_support": 0.0,
+     "excess": 0.8,
+     "support_excess": 1.0
+    },
+    {
+     "hits": 6,
+     "group": "false: unrelated",
+     "found": 7,
+     "where": "sweep 2027 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3 at -5%",
+     "reference_peaks": 17,
+     "share": 0.4118,
+     "support": 1.0,
+     "chance_share": 0.0,
+     "chance_share_max": 0.0,
+     "chance_support": 0.0,
+     "excess": 0.4118,
+     "support_excess": 1.0
+    },
+    {
+     "hits": 6,
+     "group": "false: unrelated",
+     "found": 7,
+     "where": "sweep 2027 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3 at -3%",
+     "reference_peaks": 17,
+     "share": 0.4118,
+     "support": 1.0,
+     "chance_share": 0.0,
+     "chance_share_max": 0.0,
+     "chance_support": 0.0,
+     "excess": 0.4118,
+     "support_excess": 1.0
+    },
+    {
+     "hits": 6,
+     "group": "false: unrelated",
+     "found": 7,
+     "where": "sweep 2027 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3 at -1%",
+     "reference_peaks": 17,
+     "share": 0.4118,
+     "support": 1.0,
+     "chance_share": 0.0,
+     "chance_share_max": 0.0,
+     "chance_support": 0.0,
+     "excess": 0.4118,
+     "support_excess": 1.0
+    },
+    {
+     "hits": 6,
+     "group": "false: unrelated",
+     "found": 7,
+     "where": "sweep 2027 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/106-stakka_and_skynet-timelines-sour.mp3 at +0%",
+     "reference_peaks": 17,
+     "share": 0.4118,
+     "support": 1.0,
+     "chance_share": 0.0,
+     "chance_share_max": 0.0,
+     "chance_support": 0.0,
+     "excess": 0.4118,
+     "support_excess": 1.0
+    },
+    {
+     "hits": 94,
+     "group": "false: related",
+     "found": 296,
+     "where": "stakka-skynet-knowledge at 1223 s",
+     "reference_peaks": 713,
+     "share": 0.4151,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0105,
+     "chance_support": 0.2778,
+     "excess": 0.4063,
+     "support_excess": 0.7222
+    },
+    {
+     "hits": 94,
+     "group": "false: related",
+     "found": 296,
+     "where": "stakka-skynet-knowledge at 1223 s",
+     "reference_peaks": 713,
+     "share": 0.4151,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0105,
+     "chance_support": 0.2778,
+     "excess": 0.4063,
+     "support_excess": 0.7222
+    },
+    {
+     "hits": 6,
+     "group": "false: unrelated",
+     "found": 2,
+     "where": "sweep 2027 extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3 at -8%",
+     "reference_peaks": 5,
+     "share": 0.4,
+     "support": 1.0,
+     "chance_share": 0.0,
+     "chance_share_max": 0.0,
+     "chance_support": 0.0,
+     "excess": 0.4,
+     "support_excess": 1.0
+    },
+    {
+     "hits": 134,
+     "group": "false: related",
+     "found": 405,
+     "where": "sweep 2027 extra/a. falcon - fractles.mp3 at +1%",
+     "reference_peaks": 1001,
+     "share": 0.4046,
+     "support": 1.0,
+     "chance_share": 0.0102,
+     "chance_share_max": 0.0121,
+     "chance_support": 0.319,
+     "excess": 0.3944,
+     "support_excess": 0.681
+    },
+    {
+     "hits": 107,
+     "group": "false: related",
+     "found": 354,
+     "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at -8%",
+     "reference_peaks": 917,
+     "share": 0.386,
+     "support": 0.9259,
+     "chance_share": 0.0011,
+     "chance_share_max": 0.0032,
+     "chance_support": 0.037,
+     "excess": 0.385,
+     "support_excess": 0.8889
+    }
+   ],
+   "listening_list": [
+    {
+     "hits": 408,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at +1%",
+     "reference_peaks": 1124,
+     "found": 682,
+     "share": 0.6068,
+     "support": 1.0,
+     "chance_share": 0.0137,
+     "chance_share_max": 0.0192,
+     "chance_support": 0.4083,
+     "excess": 0.5931,
+     "support_excess": 0.5917
+    },
+    {
+     "hits": 407,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at +8%",
+     "reference_peaks": 1210,
+     "found": 715,
+     "share": 0.5909,
+     "support": 1.0,
+     "chance_share": 0.0131,
+     "chance_share_max": 0.0211,
+     "chance_support": 0.375,
+     "excess": 0.5778,
+     "support_excess": 0.625
+    },
+    {
+     "hits": 386,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at +5%",
+     "reference_peaks": 1173,
+     "found": 695,
+     "share": 0.5925,
+     "support": 1.0,
+     "chance_share": 0.0107,
+     "chance_share_max": 0.0141,
+     "chance_support": 0.35,
+     "excess": 0.5818,
+     "support_excess": 0.65
+    },
+    {
+     "hits": 382,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at -1%",
+     "reference_peaks": 1109,
+     "found": 669,
+     "share": 0.6032,
+     "support": 1.0,
+     "chance_share": 0.0118,
+     "chance_share_max": 0.0213,
+     "chance_support": 0.3083,
+     "excess": 0.5915,
+     "support_excess": 0.6917
+    },
+    {
+     "hits": 373,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at +0%",
+     "reference_peaks": 1119,
+     "found": 671,
+     "share": 0.5996,
+     "support": 1.0,
+     "chance_share": 0.0114,
+     "chance_share_max": 0.0166,
+     "chance_support": 0.3333,
+     "excess": 0.5882,
+     "support_excess": 0.6667
+    },
+    {
+     "hits": 373,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at +3%",
+     "reference_peaks": 1148,
+     "found": 697,
+     "share": 0.6071,
+     "support": 1.0,
+     "chance_share": 0.0125,
+     "chance_share_max": 0.0187,
+     "chance_support": 0.3667,
+     "excess": 0.5947,
+     "support_excess": 0.6333
+    },
+    {
+     "hits": 365,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at +8%",
+     "reference_peaks": 1112,
+     "found": 656,
+     "share": 0.5899,
+     "support": 1.0,
+     "chance_share": 0.0089,
+     "chance_share_max": 0.0132,
+     "chance_support": 0.275,
+     "excess": 0.581,
+     "support_excess": 0.725
+    },
+    {
+     "hits": 346,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at +0%",
+     "reference_peaks": 1010,
+     "found": 611,
+     "share": 0.605,
+     "support": 1.0,
+     "chance_share": 0.0088,
+     "chance_share_max": 0.0145,
+     "chance_support": 0.2583,
+     "excess": 0.5961,
+     "support_excess": 0.7417
+    },
+    {
+     "hits": 345,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at -3%",
+     "reference_peaks": 1065,
+     "found": 648,
+     "share": 0.6085,
+     "support": 1.0,
+     "chance_share": 0.0107,
+     "chance_share_max": 0.0199,
+     "chance_support": 0.3333,
+     "excess": 0.5977,
+     "support_excess": 0.6667
+    },
+    {
+     "hits": 341,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at +8%",
+     "reference_peaks": 1229,
+     "found": 684,
+     "share": 0.5566,
+     "support": 1.0,
+     "chance_share": 0.019,
+     "chance_share_max": 0.0361,
+     "chance_support": 0.475,
+     "excess": 0.5375,
+     "support_excess": 0.525
+    },
+    {
+     "hits": 339,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at -5%",
+     "reference_peaks": 1051,
+     "found": 624,
+     "share": 0.5937,
+     "support": 1.0,
+     "chance_share": 0.0103,
+     "chance_share_max": 0.0185,
+     "chance_support": 0.3083,
+     "excess": 0.5835,
+     "support_excess": 0.6917
+    },
+    {
+     "hits": 337,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at +5%",
+     "reference_peaks": 1174,
+     "found": 674,
+     "share": 0.5741,
+     "support": 1.0,
+     "chance_share": 0.0184,
+     "chance_share_max": 0.0353,
+     "chance_support": 0.4583,
+     "excess": 0.5557,
+     "support_excess": 0.5417
+    },
+    {
+     "hits": 336,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at +0%",
+     "reference_peaks": 1126,
+     "found": 654,
+     "share": 0.5808,
+     "support": 1.0,
+     "chance_share": 0.0199,
+     "chance_share_max": 0.0368,
+     "chance_support": 0.5083,
+     "excess": 0.5609,
+     "support_excess": 0.4917
+    },
+    {
+     "hits": 334,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at +1%",
+     "reference_peaks": 1026,
+     "found": 611,
+     "share": 0.5955,
+     "support": 1.0,
+     "chance_share": 0.009,
+     "chance_share_max": 0.0135,
+     "chance_support": 0.275,
+     "excess": 0.5865,
+     "support_excess": 0.725
+    },
+    {
+     "hits": 333,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at -3%",
+     "reference_peaks": 991,
+     "found": 604,
+     "share": 0.6095,
+     "support": 1.0,
+     "chance_share": 0.0068,
+     "chance_share_max": 0.0099,
+     "chance_support": 0.2083,
+     "excess": 0.6027,
+     "support_excess": 0.7917
+    },
+    {
+     "hits": 333,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at +3%",
+     "reference_peaks": 1045,
+     "found": 622,
+     "share": 0.5952,
+     "support": 1.0,
+     "chance_share": 0.0082,
+     "chance_share_max": 0.012,
+     "chance_support": 0.2417,
+     "excess": 0.587,
+     "support_excess": 0.7583
+    },
+    {
+     "hits": 331,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at +5%",
+     "reference_peaks": 1067,
+     "found": 637,
+     "share": 0.597,
+     "support": 1.0,
+     "chance_share": 0.0084,
+     "chance_share_max": 0.0138,
+     "chance_support": 0.2583,
+     "excess": 0.5886,
+     "support_excess": 0.7417
+    },
+    {
+     "hits": 325,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at +3%",
+     "reference_peaks": 1174,
+     "found": 670,
+     "share": 0.5707,
+     "support": 1.0,
+     "chance_share": 0.0176,
+     "chance_share_max": 0.0355,
+     "chance_support": 0.4583,
+     "excess": 0.5531,
+     "support_excess": 0.5417
+    },
+    {
+     "hits": 318,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at -1%",
+     "reference_peaks": 1116,
+     "found": 620,
+     "share": 0.5556,
+     "support": 1.0,
+     "chance_share": 0.019,
+     "chance_share_max": 0.0326,
+     "chance_support": 0.4667,
+     "excess": 0.5366,
+     "support_excess": 0.5333
+    },
+    {
+     "hits": 313,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at -5%",
+     "reference_peaks": 963,
+     "found": 570,
+     "share": 0.5919,
+     "support": 1.0,
+     "chance_share": 0.0082,
+     "chance_share_max": 0.0122,
+     "chance_support": 0.225,
+     "excess": 0.5837,
+     "support_excess": 0.775
+    },
+    {
+     "hits": 305,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 extra/02. Bad Company - China Cup.mp3 at -1%",
+     "reference_peaks": 1002,
+     "found": 602,
+     "share": 0.6008,
+     "support": 1.0,
+     "chance_share": 0.0069,
+     "chance_share_max": 0.0087,
+     "chance_support": 0.225,
+     "excess": 0.5939,
+     "support_excess": 0.775
+    },
+    {
+     "hits": 302,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at -3%",
+     "reference_peaks": 1083,
+     "found": 606,
+     "share": 0.5596,
+     "support": 1.0,
+     "chance_share": 0.0172,
+     "chance_share_max": 0.0362,
+     "chance_support": 0.4333,
+     "excess": 0.5424,
+     "support_excess": 0.5667
+    },
+    {
+     "hits": 299,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at +1%",
+     "reference_peaks": 1128,
+     "found": 628,
+     "share": 0.5567,
+     "support": 1.0,
+     "chance_share": 0.0188,
+     "chance_share_max": 0.0329,
+     "chance_support": 0.5,
+     "excess": 0.5379,
+     "support_excess": 0.5
+    },
+    {
+     "hits": 285,
+     "windows": 3,
+     "pair": "Coma ~ Spraycan",
+     "where": "sweep 2027 extra/02 Coma.mp3 at -5%",
+     "reference_peaks": 1068,
+     "found": 603,
+     "share": 0.5646,
+     "support": 1.0,
+     "chance_share": 0.0171,
+     "chance_share_max": 0.0335,
+     "chance_support": 0.3917,
+     "excess": 0.5475,
+     "support_excess": 0.6083
+    },
+    {
+     "hits": 197,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at +5%",
+     "reference_peaks": 831,
+     "found": 355,
+     "share": 0.4272,
+     "support": 1.0,
+     "chance_share": 0.062,
+     "chance_share_max": 0.1222,
+     "chance_support": 0.45,
+     "excess": 0.3652,
+     "support_excess": 0.55
+    },
+    {
+     "hits": 188,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at +1%",
+     "reference_peaks": 780,
+     "found": 346,
+     "share": 0.4436,
+     "support": 1.0,
+     "chance_share": 0.062,
+     "chance_share_max": 0.1206,
+     "chance_support": 0.48,
+     "excess": 0.3816,
+     "support_excess": 0.52
+    },
+    {
+     "hits": 179,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at +8%",
+     "reference_peaks": 849,
+     "found": 373,
+     "share": 0.4393,
+     "support": 1.0,
+     "chance_share": 0.0579,
+     "chance_share_max": 0.12,
+     "chance_support": 0.43,
+     "excess": 0.3815,
+     "support_excess": 0.57
+    },
+    {
+     "hits": 174,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at -1%",
+     "reference_peaks": 766,
+     "found": 337,
+     "share": 0.4399,
+     "support": 1.0,
+     "chance_share": 0.0657,
+     "chance_share_max": 0.1346,
+     "chance_support": 0.44,
+     "excess": 0.3742,
+     "support_excess": 0.56
+    },
+    {
+     "hits": 171,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at +0%",
+     "reference_peaks": 763,
+     "found": 411,
+     "share": 0.5387,
+     "support": 1.0,
+     "chance_share": 0.0813,
+     "chance_share_max": 0.1615,
+     "chance_support": 0.4896,
+     "excess": 0.4574,
+     "support_excess": 0.5104
+    },
+    {
+     "hits": 169,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at -5%",
+     "reference_peaks": 718,
+     "found": 330,
+     "share": 0.4596,
+     "support": 1.0,
+     "chance_share": 0.0612,
+     "chance_share_max": 0.1303,
+     "chance_support": 0.4167,
+     "excess": 0.3984,
+     "support_excess": 0.5833
+    },
+    {
+     "hits": 167,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at -8%",
+     "reference_peaks": 713,
+     "found": 328,
+     "share": 0.46,
+     "support": 1.0,
+     "chance_share": 0.0612,
+     "chance_share_max": 0.1263,
+     "chance_support": 0.43,
+     "excess": 0.3988,
+     "support_excess": 0.57
+    },
+    {
+     "hits": 163,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at +3%",
+     "reference_peaks": 795,
+     "found": 341,
+     "share": 0.4289,
+     "support": 1.0,
+     "chance_share": 0.06,
+     "chance_share_max": 0.1225,
+     "chance_support": 0.42,
+     "excess": 0.3689,
+     "support_excess": 0.58
+    },
+    {
+     "hits": 160,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 extra/A- The_Nine.mp3 at -3%",
+     "reference_peaks": 761,
+     "found": 346,
+     "share": 0.4547,
+     "support": 1.0,
+     "chance_share": 0.0581,
+     "chance_share_max": 0.1152,
+     "chance_support": 0.43,
+     "excess": 0.3965,
+     "support_excess": 0.57
+    },
+    {
+     "hits": 117,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at +8%",
+     "reference_peaks": 932,
+     "found": 350,
+     "share": 0.3755,
+     "support": 1.0,
+     "chance_share": 0.0443,
+     "chance_share_max": 0.0819,
+     "chance_support": 0.5096,
+     "excess": 0.3313,
+     "support_excess": 0.4904
+    },
+    {
+     "hits": 115,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at +0%",
+     "reference_peaks": 1282,
+     "found": 444,
+     "share": 0.3463,
+     "support": 1.0,
+     "chance_share": 0.0161,
+     "chance_share_max": 0.0286,
+     "chance_support": 0.3966,
+     "excess": 0.3303,
+     "support_excess": 0.6034
+    },
+    {
+     "hits": 113,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at +8%",
+     "reference_peaks": 1302,
+     "found": 447,
+     "share": 0.3433,
+     "support": 0.9643,
+     "chance_share": 0.0152,
+     "chance_share_max": 0.0242,
+     "chance_support": 0.4018,
+     "excess": 0.3281,
+     "support_excess": 0.5625
+    },
+    {
+     "hits": 112,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at +0%",
+     "reference_peaks": 925,
+     "found": 365,
+     "share": 0.3946,
+     "support": 1.0,
+     "chance_share": 0.0518,
+     "chance_share_max": 0.0952,
+     "chance_support": 0.5086,
+     "excess": 0.3428,
+     "support_excess": 0.4914
+    },
+    {
+     "hits": 107,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at -5%",
+     "reference_peaks": 1084,
+     "found": 448,
+     "share": 0.4133,
+     "support": 1.0,
+     "chance_share": 0.0141,
+     "chance_share_max": 0.0245,
+     "chance_support": 0.3365,
+     "excess": 0.3992,
+     "support_excess": 0.6635
+    },
+    {
+     "hits": 106,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at -3%",
+     "reference_peaks": 783,
+     "found": 319,
+     "share": 0.4074,
+     "support": 1.0,
+     "chance_share": 0.0463,
+     "chance_share_max": 0.0909,
+     "chance_support": 0.5,
+     "excess": 0.3611,
+     "support_excess": 0.5
+    },
+    {
+     "hits": 105,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at +5%",
+     "reference_peaks": 856,
+     "found": 356,
+     "share": 0.4159,
+     "support": 1.0,
+     "chance_share": 0.0431,
+     "chance_share_max": 0.0837,
+     "chance_support": 0.52,
+     "excess": 0.3728,
+     "support_excess": 0.48
+    },
+    {
+     "hits": 102,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at +3%",
+     "reference_peaks": 1205,
+     "found": 457,
+     "share": 0.3793,
+     "support": 1.0,
+     "chance_share": 0.0188,
+     "chance_share_max": 0.0327,
+     "chance_support": 0.4167,
+     "excess": 0.3604,
+     "support_excess": 0.5833
+    },
+    {
+     "hits": 101,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at -3%",
+     "reference_peaks": 1047,
+     "found": 365,
+     "share": 0.3486,
+     "support": 0.92,
+     "chance_share": 0.0171,
+     "chance_share_max": 0.031,
+     "chance_support": 0.41,
+     "excess": 0.3315,
+     "support_excess": 0.51
+    },
+    {
+     "hits": 99,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at +5%",
+     "reference_peaks": 1307,
+     "found": 445,
+     "share": 0.3405,
+     "support": 0.9655,
+     "chance_share": 0.0145,
+     "chance_share_max": 0.0255,
+     "chance_support": 0.3793,
+     "excess": 0.3259,
+     "support_excess": 0.5862
+    },
+    {
+     "hits": 95,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at +1%",
+     "reference_peaks": 1270,
+     "found": 443,
+     "share": 0.3488,
+     "support": 1.0,
+     "chance_share": 0.0172,
+     "chance_share_max": 0.0299,
+     "chance_support": 0.3879,
+     "excess": 0.3316,
+     "support_excess": 0.6121
+    },
+    {
+     "hits": 94,
+     "windows": 3,
+     "pair": "synthesis_vip ~ Synthesis_(Remix)",
+     "where": "sweep 2027 extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at -1%",
+     "reference_peaks": 1260,
+     "found": 460,
+     "share": 0.3651,
+     "support": 1.0,
+     "chance_share": 0.0193,
+     "chance_share_max": 0.0331,
+     "chance_support": 0.4655,
+     "excess": 0.3458,
+     "support_excess": 0.5345
+    },
+    {
+     "hits": 93,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at +3%",
+     "reference_peaks": 845,
+     "found": 373,
+     "share": 0.4414,
+     "support": 1.0,
+     "chance_share": 0.0449,
+     "chance_share_max": 0.0869,
+     "chance_support": 0.53,
+     "excess": 0.3966,
+     "support_excess": 0.47
+    },
+    {
+     "hits": 92,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at +1%",
+     "reference_peaks": 863,
+     "found": 309,
+     "share": 0.3581,
+     "support": 1.0,
+     "chance_share": 0.0439,
+     "chance_share_max": 0.0871,
+     "chance_support": 0.5096,
+     "excess": 0.3141,
+     "support_excess": 0.4904
+    },
+    {
+     "hits": 90,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at -1%",
+     "reference_peaks": 864,
+     "found": 321,
+     "share": 0.3715,
+     "support": 1.0,
+     "chance_share": 0.0427,
+     "chance_share_max": 0.0822,
+     "chance_support": 0.4722,
+     "excess": 0.3288,
+     "support_excess": 0.5278
+    },
+    {
+     "hits": 87,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at -8%",
+     "reference_peaks": 744,
+     "found": 300,
+     "share": 0.4032,
+     "support": 1.0,
+     "chance_share": 0.0444,
+     "chance_share_max": 0.0958,
+     "chance_support": 0.5,
+     "excess": 0.3589,
+     "support_excess": 0.5
+    },
+    {
+     "hits": 84,
+     "windows": 3,
+     "pair": "Nine ~ Evol Intent",
+     "where": "sweep 2027 Bad Company - The Nine.mp3 at -5%",
+     "reference_peaks": 734,
+     "found": 307,
+     "share": 0.4183,
+     "support": 1.0,
+     "chance_share": 0.0403,
+     "chance_share_max": 0.083,
+     "chance_support": 0.5109,
+     "excess": 0.378,
+     "support_excess": 0.4891
+    },
+    {
+     "hits": 36,
+     "windows": 3,
+     "pair": "China Cup ~ PRO 001 UK",
+     "where": "sweep 2027 Bad Company - China Cup.mp3 at -8%",
+     "reference_peaks": 681,
+     "found": 90,
+     "share": 0.1322,
+     "support": 1.0,
+     "chance_share": 0.0086,
+     "chance_share_max": 0.0155,
+     "chance_support": 0.2619,
+     "excess": 0.1235,
+     "support_excess": 0.7381
+    }
+   ]
+  }
+ },
+ "related_given": [
+  "Kemal|kemal-mechanizm",
+  "Star Trails|Konflict"
+ ],
+ "sweep_identifying_by_file": {
+  "same file or identical copy": {
+   "count": 639,
+   "share_median": 0.842203548085901,
+   "share_p5": 0.7813288477712363,
+   "share_min": 0.7218344965104686,
+   "share_max": 0.9217821782178218,
+   "hits_median": 1060,
+   "hits_min": 671
+  },
+  "other rip": {
+   "count": 213,
+   "share_median": 0.7003367003367004,
+   "share_p5": 0.43852106620808257,
+   "share_min": 0.18174133558748942,
+   "share_max": 0.9120443740095087,
+   "hits_median": 564,
+   "hits_min": 111
+  },
+  "other upload": {
+   "count": 387,
+   "share_median": 0.65,
+   "share_p5": 0.4747368421052632,
+   "share_min": 0.13573407202216067,
+   "share_max": 0.8694029850746269,
+   "hits_median": 475,
+   "hits_min": 56
+  }
+ },
+ "listening_list_by_pair": {
+  "China Cup ~ PRO 001 UK": {
+   "count": 17,
+   "hits": [
+    36,
+    408
+   ],
+   "share": [
+    0.132,
+    0.609
+   ],
+   "chance_share": [
+    0.007,
+    0.014
+   ]
+  },
+  "Coma ~ Spraycan": {
+   "count": 8,
+   "hits": [
+    285,
+    341
+   ],
+   "share": [
+    0.556,
+    0.581
+   ],
+   "chance_share": [
+    0.017,
+    0.02
+   ]
+  },
+  "synthesis_vip ~ Synthesis_(Remix)": {
+   "count": 8,
+   "hits": [
+    94,
+    115
+   ],
+   "share": [
+    0.34,
+    0.413
+   ],
+   "chance_share": [
+    0.014,
+    0.019
+   ]
+  },
+  "Nine ~ Evol Intent": {
+   "count": 18,
+   "hits": [
+    84,
+    197
+   ],
+   "share": [
+    0.358,
+    0.539
+   ],
+   "chance_share": [
+    0.04,
+    0.081
+   ]
+  }
+ }
+}
