@@ -1032,3 +1032,9 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   (no verifier rule) and the listening list after session 7 are in the
   notes; roadmap, README and the calibration register updated.
 - Item 3's sweeps run from 19:31 (`work/scripts/s7-nas-queue.sh`).
+- Item 3, default ladder (19:31-20:20): four `sweep --other-rips` at NAS
+  scale, 1,213 of 1,305 recalled; every excerpt 9.2% or more from the
+  nearest remaining rip is missed (35); the 57 other misses are found
+  below the rule from weak uploads or one other vinyl rip; 24 wrong
+  answers, all from China Cup's Prototype upload and Synthesis VIP's
+  mixed-CD version. `--extra-rungs 3` runs from 20:21.
