@@ -28,10 +28,10 @@ for scope and rules.
   support over 1 s slices; chance level from shifted alignments
   - [x] tolerance chosen from at most three settings on the development
     scan and sweep 2026, then frozen: 1×1 (experiment 0054)
-  - [~] seeds 2027-2029, leave-outs 3 and 11, `robust --only combined`,
-    `mixes --count 12`, `grid` (all but `grid` run)
-  - [ ] three groups: identifying (weakest), unrelated false, related
-    false; separation at equal hits
+  - [x] seeds 2027-2029, leave-outs 3 and 11, `robust --only combined`,
+    `mixes --count 12`, `grid` (experiment 0056)
+  - [x] three groups: identifying (weakest), unrelated false, related
+    false; separation at equal hits (0056: no better than hits)
   - [ ] NAS scale: development scan and sweep 2027; the listening
     list's four pairs apart and unlabelled
   - [ ] proposal in the notes; no level changed
