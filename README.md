@@ -407,7 +407,8 @@ the crate boundaries and the evaluation rules.
 Measured on 262 library tracks (29.3 hours) with the rule frozen at tag
 `poc-freeze-1`, searching turntable playback only. Searching both playbacks,
 the default now, gives the same sweep, development and leave-out results
-(experiment 0016); the test mix has not been searched that way.
+(experiment 0016); the test mix was searched that way in its third
+evaluation, with the matcher below.
 
 | Evaluation | Result |
 |------------|--------|
@@ -423,8 +424,10 @@ recall stays 100% with 0 wrong, the development mix and leave-outs keep
 their results, and the margin between the weakest identifying detection
 and the strongest false candidate is 6.65× (4.15× with `--single-pass`,
 experiments 0025 and 0047). Plays of 10 s are possible, no longer
-confident through a chance window. The test mix has not been searched
-with this matcher.
+confident through a chance window. On the test mix (third evaluation)
+it identifies 14/16 with 0 wrong: Sick Note, confident at 209 hits under
+the single pass's rule of 200, is possible at 233 hits under the rule of
+240, and Sin stays possible.
 
 The pass bar was at least 80% identified and zero wrong on each mix. The
 index takes 74 postings per second of audio and 5.07 bytes per posting; for
