@@ -63,6 +63,8 @@ rows = []
 
 def add(group, source, query, found_detection, where):
     verified = found_detection.get("verified") or []
+    if isinstance(verified, dict):  # one tolerance since experiment 0054
+        verified = [verified]
     if not verified:
         return
     row = {"group": group, "source": source, "where": where, "query": query, "found": found_detection["asset"],

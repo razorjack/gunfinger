@@ -102,16 +102,16 @@ pub fn run(
             segments: play
                 .segments()
                 .iter()
-                .map(|segment| found(&index, segment, Vec::new()))
+                .map(|segment| found(&index, segment, None))
                 .collect(),
         })
         .collect();
     let detections: Vec<Found> = detections
         .iter()
         .map(|detection| {
-            let verified = verifier.as_ref().map_or_else(Vec::new, |verifier| {
-                verifier.verify(&index, detection, &audio.samples, &profile)
-            });
+            let verified = verifier
+                .as_ref()
+                .and_then(|verifier| verifier.verify(&index, detection, &audio.samples, &profile));
             found(&index, detection, verified)
         })
         .collect();
@@ -134,7 +134,7 @@ pub fn run(
     })
 }
 
-fn found(index: &Index, detection: &Detection, verified: Vec<Verification>) -> Found {
+fn found(index: &Index, detection: &Detection, verified: Option<Verification>) -> Found {
     Found {
         asset: index.asset(detection.asset).path.clone(),
         start_seconds: detection.start_seconds,

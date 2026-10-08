@@ -79,8 +79,8 @@ pub struct Outcome {
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
     /// The peak verifier's measures, with `--verify`.
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub verified: Vec<Verification>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub verified: Option<Verification>,
 }
 
 /// An excerpt to render: which asset, from where.
@@ -233,7 +233,7 @@ pub fn run(
                 detections: detections
                     .iter()
                     .map(|detection| {
-                        let verified = verifier.as_ref().map_or_else(Vec::new, |verifier| {
+                        let verified = verifier.as_ref().and_then(|verifier| {
                             verifier.verify(&index, detection, &audio.samples, &profile)
                         });
                         outcome(&index, detection, &own_cluster, verified)
@@ -353,7 +353,7 @@ fn outcome(
     index: &Index,
     detection: &Detection,
     own_cluster: &BTreeSet<String>,
-    verified: Vec<Verification>,
+    verified: Option<Verification>,
 ) -> Outcome {
     let asset = &index.asset(detection.asset).path;
     Outcome {

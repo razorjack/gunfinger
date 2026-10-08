@@ -37,8 +37,8 @@ pub struct Found {
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
     /// The peak verifier's measures, with `--verify`.
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub verified: Vec<Verification>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub verified: Option<Verification>,
 }
 
 impl Found {
@@ -314,7 +314,7 @@ mod tests {
             hits: 500,
             confident,
             fitted: false,
-            verified: Vec::new(),
+            verified: None,
         }
     }
 
