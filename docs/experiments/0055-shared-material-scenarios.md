@@ -1,10 +1,10 @@
 # 0055: shared-material scenarios with two judged pairs
 
 **Question.** Item 2 of session 7 (roadmap, "A confidence statistic for
-shared material"): for pairs the owner judged different recordings, does
-a shared passage alone, repeated, or reaching into distinctive material
-make the related recording confident, with or without the played one
-indexed? What does the verifier (0054, 1×1) measure there?
+shared material"): can a passage shared by two recordings the owner
+judged different make the related one confident (alone, repeated, into
+distinctive material, played one indexed or not)? What does the verifier
+(0054) measure?
 
 **Passages** (`gunfinger-eval pair`): Clockwork 205.4-224.1 s ~ its
 Stakka remix 399.5-418.2 s (112-124 hits); China Cup 46.0-68.4 s ~ The
@@ -32,13 +32,11 @@ remix). 96 searches; data `data/0055-shared-material.json`.
   segments). Summing a play's segments would make it confident (0011).
 - Into distinctive material the played file gains about 40 hits per
   second; the related one does not move.
-- With the played cluster left out nothing is confident in any query.
-  Positive control: with the source alone left out, its other rip
-  answers with the same hits and levels as with everything indexed.
+- Played cluster left out: nothing confident. Positive control (source
+  alone left out): its other rip answers with the same hits and levels.
 
-**Conclusions.** Neither pair reaches the rule in any scenario at 262
-tracks, and repetition does not raise it. In the shared passage the
-verifier finds 0.42-0.51 (Clockwork) or 0.11-0.16 (China Cup ~ The Nine)
-of the related record's peaks against 0.74-0.94 of the played one's: the
-passages share material but are not the same audio. Support over time
-saturates (0.92-1.00) for both.
+**Conclusions.** Neither pair reaches the rule in any scenario, and
+repetition does not raise it. In the shared passage the verifier finds
+0.42-0.51 (Clockwork) or 0.11-0.16 (China Cup ~ The Nine) of the related
+record's peaks, 0.74-0.94 of the played one's: shared material, not the
+same audio. Support saturates (0.92-1.00) for both.
