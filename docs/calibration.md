@@ -31,7 +31,7 @@ gap between segments of a play, and the 90 s scoring tolerance.
 |-------------|---------------|
 | Sweep (seed 2026) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development set | 11/11, 0 wrong; leave-out 3: 8/11, 0 wrong; leave-out 11: 0/11, 0 wrong |
-| Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2; the single pass with turntable alone, not yet run with both playbacks; the default matcher of ADR 0008 has not searched the test mix) |
+| Test set (owner-corrected manifest) | 14/16, 0 wrong; Sin (123 hits) and Sick Note (233 hits in 4 windows) found as possible; no possible play matches no track (ledger, evaluation 3: the default matcher of ADR 0008 with both playbacks). Evaluation 2, the single pass with turntable alone: 15/16 with Sick Note confident at 209 hits under its rule of 200 |
 | `calibrate`, confident rule | weakest identifying 501 hits, strongest false 97, margin 5.16× (both playbacks; turntable alone: 95, 5.27×) |
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |
 | `calibrate` over sweep seeds 2026-2029, default matcher (ADR 0008) | weakest identifying 658 (Illuminati - Melange at -3%), strongest false 99, margin 6.65×; audio not in the index 22 (experiment 0047) |
