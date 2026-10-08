@@ -1016,3 +1016,11 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   within a run, as the brief says. Item 5's `pair` run (40 pairs:
   4 sparse joins, the 28 borderline pairs, 8 joins drawn as controls)
   runs beside them on one thread.
+- 18:56: that did not work. The swap guard stopped the NAS-scale scan,
+  item 3's first sweep and the `pair` run (swap 3.4 GB to 5.1-5.5 GB;
+  logs kept in `work/logs/s7-stopped/`). From 19:00 every NAS-scale run
+  goes one at a time through `work/scripts/s7-nas-queue.sh` (item 1's
+  scan and sweep 2027, then item 3's eight sweeps); only `pair`, one
+  thread and 25 MB, runs beside it. An owner process
+  (`fetch-all.sh` under `caffeinate`) was running on the machine; I left
+  it alone.
