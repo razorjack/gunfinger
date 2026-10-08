@@ -5,12 +5,14 @@
 //! corpus file, by its decoded audio. Every alignment is listed, so a cut
 //! or an edit shows as alignments at one speed with different offsets.
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 
 use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::hash::{Point, for_each_pair};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::{Asset, Library};
+use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Matcher, search, search_peaks, search_with};
 use gunfinger_core::speed::{Playback, Rung, key_lock_ladder, ladder};
@@ -50,6 +52,11 @@ pub struct Alignment {
     /// Where query time 0 falls in the found file: alignments of one
     /// recording at one speed share it, unless the rip is cut or edited.
     pub offset_seconds: f64,
+    /// For the search at the fitted speed: the seconds of the shorter file
+    /// that hold a hit of the alignment, over its length. Coverage counts
+    /// the span from the first hit to the last, gaps included.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub supported: Option<f64>,
 }
 
 /// Where the files' records and audio come from.
@@ -99,11 +106,15 @@ fn run_pair(
     ];
     if let Some(best) = peaks(&ladder()).first() {
         let fitted = [Rung::Turntable(best.speed)];
-        searches.push(named(
-            "peaks, at the fitted speed",
-            &peaks(&fitted),
-            shorter,
-        ));
+        let mut search = named("peaks, at the fitted speed", &peaks(&fitted), shorter);
+        let query_is_shorter =
+            query_record.header.duration_seconds <= found_record.header.duration_seconds;
+        for (alignment, detection) in search.alignments.iter_mut().zip(peaks(&fitted)) {
+            let seconds =
+                supported_seconds(&index, &query_record.peaks, &detection, query_is_shorter);
+            alignment.supported = Some(seconds as f64 / shorter);
+        }
+        searches.push(search);
     }
     if !query.starts_with(SECOND_LIBRARY_PREFIX) {
         let audio = decode(
@@ -207,9 +218,96 @@ fn named(name: &str, detections: &[Detection], shorter: f64) -> Search {
                 coverage: (detection.end_seconds - detection.start_seconds) / shorter,
                 offset_seconds: detection.track_start_seconds
                     - detection.speed.0 * detection.start_seconds,
+                supported: None,
             })
             .collect(),
     }
+}
+
+/// Supported seconds count hits within this many frames of the line
+/// through an alignment's ends...
+const SEARCH_FRAMES: f64 = 48.0;
+/// ...in the densest run of offsets this wide in each query window this
+/// long, when it holds this many hits (the search's lines).
+const RUN_FRAMES: f64 = 2.0;
+const WINDOW_SECONDS: f64 = 10.0;
+const MIN_RUN_HITS: usize = 3;
+
+/// The distinct seconds of the shorter file holding a hit of `detection`
+/// (a turntable alignment found in stored peaks): each pair hash of the
+/// query's peaks at its speed whose posting lies near the line through the
+/// alignment's ends. Only each window's densest run of offsets counts, so
+/// that a slow drift is followed and chance postings are not.
+fn supported_seconds(
+    index: &Index,
+    query_peaks: &[Peak],
+    detection: &Detection,
+    query_is_shorter: bool,
+) -> usize {
+    let profile = Profile::CURRENT;
+    let speed = detection.speed.0;
+    let first = profile.frames(detection.start_seconds);
+    let last = profile.frames(detection.end_seconds);
+    let reference = profile.frames(detection.track_start_seconds);
+    let slope = (profile.frames(detection.track_end_seconds) - reference) / (last - first);
+    if !(last > first && slope.is_finite()) {
+        return 0;
+    }
+    // Rescaled as the stored-peak search rescales them for a rung.
+    let points: Vec<Point> = query_peaks
+        .iter()
+        .map(|peak| Point {
+            frame: peak.frame * speed,
+            bin: (f64::from(peak.bin) / speed) as f32,
+        })
+        .collect();
+    let window_frames = profile.frames(WINDOW_SECONDS);
+    // Per window: each hit's offset from the line and its second in each file.
+    let mut windows: BTreeMap<u64, Vec<(f64, u64, u64)>> = BTreeMap::new();
+    for_each_pair(&points, |hash, anchor| {
+        let query_frame = points[anchor].frame / speed;
+        if query_frame < first || query_frame > last {
+            return;
+        }
+        let expected = reference + slope * (query_frame - first);
+        for posting in index.postings(hash) {
+            let found_frame = f64::from(posting.frame());
+            let offset = found_frame - expected;
+            if offset.abs() <= SEARCH_FRAMES {
+                windows
+                    .entry(((query_frame - first) / window_frames) as u64)
+                    .or_default()
+                    .push((
+                        offset,
+                        profile.seconds(query_frame) as u64,
+                        profile.seconds(found_frame) as u64,
+                    ));
+            }
+        }
+    });
+    let mut seconds = BTreeSet::new();
+    for hits in windows.values_mut() {
+        hits.sort_by(|a, b| a.0.total_cmp(&b.0));
+        let mut best = 0..0;
+        let mut end = 0;
+        for start in 0..hits.len() {
+            end = end.max(start);
+            while end < hits.len() && hits[end].0 - hits[start].0 <= RUN_FRAMES {
+                end += 1;
+            }
+            if end - start > best.len() {
+                best = start..end;
+            }
+        }
+        if best.len() >= MIN_RUN_HITS {
+            seconds.extend(hits[best].iter().map(
+                |&(_, query, found)| {
+                    if query_is_shorter { query } else { found }
+                },
+            ));
+        }
+    }
+    seconds.len()
 }
 
 pub fn print_summary(reports: &[PairReport]) {
@@ -227,7 +325,7 @@ fn print_pair(report: &PairReport) {
         println!("  {}:", search.name);
         for alignment in search.alignments.iter().take(6) {
             println!(
-                "    query {:>6.1}-{:>6.1} s  found {:>6.1}-{:>6.1} s  speed {:.4}{}  {:>5} hits {:>3} windows  coverage {:>3.0}%  offset {:>7.2} s",
+                "    query {:>6.1}-{:>6.1} s  found {:>6.1}-{:>6.1} s  speed {:.4}{}  {:>5} hits {:>3} windows  coverage {:>3.0}%{}  offset {:>7.2} s",
                 alignment.query_start_seconds,
                 alignment.query_end_seconds,
                 alignment.found_start_seconds,
@@ -241,6 +339,12 @@ fn print_pair(report: &PairReport) {
                 alignment.hits,
                 alignment.windows,
                 100.0 * alignment.coverage,
+                alignment
+                    .supported
+                    .map_or_else(String::new, |supported| format!(
+                        "  supported {:>3.0}%",
+                        100.0 * supported
+                    )),
                 alignment.offset_seconds
             );
         }
