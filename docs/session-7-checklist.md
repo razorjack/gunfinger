@@ -23,7 +23,7 @@ for scope and rules.
 
 ## Items
 
-- [~] 1. Peak verifier (harness diagnostic): reference peaks in the
+- [x] 1. Peak verifier (harness diagnostic): reference peaks in the
   aligned span found in the query within a tolerance; found, share,
   support over 1 s slices; chance level from shifted alignments
   - [x] tolerance chosen from at most three settings on the development
@@ -32,9 +32,9 @@ for scope and rules.
     `mixes --count 12`, `grid` (experiment 0056)
   - [x] three groups: identifying (weakest), unrelated false, related
     false; separation at equal hits (0056: no better than hits)
-  - [ ] NAS scale: development scan and sweep 2027; the listening
-    list's four pairs apart and unlabelled
-  - [ ] proposal in the notes; no level changed
+  - [x] NAS scale: development scan and sweep 2027; the listening
+    list's four pairs apart and unlabelled (experiment 0058)
+  - [x] proposal in the notes (no verifier rule); no level changed
 - [x] 2. Shared-material scenarios (Clockwork ~ its remix at 20:22;
   China Cup ~ The Nine): shared passages from `pair`; a. passage alone
   10/20/30 s; b. looped 60/120/240 s; c. into distinctive material
@@ -48,7 +48,7 @@ for scope and rules.
 - [ ] 4. Wrap-up: experiments, session 7 summary in the notes, roadmap,
   calibration if moved, status, checklist, NAS store revision, gate,
   commit
-- [~] 5. (If time remains) supported time for joins: `pair` prints the
+- [x] 5. (If time remains) supported time for joins: `pair` prints the
   seconds of the shorter file that hold aligned hits (e9562ea); 4 sparse
   joins, 28 borderline pairs, 8 controls at NAS scale (experiment 0057);
-  findings into the listening list at the wrap-up
+  findings in the listening list after session 7
