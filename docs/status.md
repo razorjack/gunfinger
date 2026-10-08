@@ -1058,3 +1058,19 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   adopted". References: what `--verify` found against Qfp's design, and
   that Mixotic needs a browser download.
 - Documents only; no code changed.
+
+## 2026-10-08: my 2003 mix as a second development set
+
+- `corpus/sets/razorjack-2003-03-29/` (my mix, 46:10): `identify`
+  against the NAS store found 12/12 confident, 0 wrong, confirmed by
+  ear (experiment 0060; 229 s, 3.9 GB). Manifest drafted from the
+  output and corrected by hand (track 4 at 10:47; notes on tracks 6
+  and 11); `gunfinger-eval validate`: valid, 12 tracks, 7 referenced, 5
+  absent at 262 tracks (NAS-only, paths as comments).
+- We made it a development set: AGENTS.md, ADR 0004 (a later
+  note), the roadmap ("More development mixes": NAS references, clusters
+  around its files, the protocol, first experiments), the calibration
+  baseline and the notes.
+- Next: NAS references in manifests, clusters around the set's files,
+  the set in the protocol. The verdict by ear on The Specialist ~
+  INFRA 012 upload affects its NAS-scale score.
