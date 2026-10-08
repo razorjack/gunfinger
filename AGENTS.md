@@ -17,6 +17,9 @@ Read, in this order:
 4. `docs/experiments/`: what has been measured, including what lost.
 5. `docs/calibration.md`: every number chosen against this library, what it
    rests on and what to change when the library grows.
+6. `docs/references.md`: the papers and datasets behind the design and
+   the open questions, with the sections that matter. Cite them by its
+   short keys, such as (Wang 2003, §2.3).
 
 ## Repository rules
 

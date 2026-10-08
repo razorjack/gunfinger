@@ -1403,3 +1403,102 @@ each pair is one recording, 3.36× (The Nine's VIP, 197 hits). If they
 are different recordings, different recordings share up to 511 hits,
 past the rule of 240: then the rule, or how shared material is shown,
 needs your decision.
+
+## After session 6
+
+### An outside review: two harness fixes and two corrections
+
+You asked another agent (Astra) to review the project after session 6.
+I checked its points against the code and the saved reports. Four of
+them change the picture; the first two are now handled by `clusters`.
+
+- **A `different` verdict could be undone through a third file.**
+  Clusters join every chain of same-recording links, and a `different`
+  verdict removed only its own pair's link. DJ Trace - Sonar shows the
+  case: the corpus file joins the dfect upload "Trace - Sonar.m4a" at
+  98% (24,774 hits), and that upload joins the "Mark System Revision" at
+  91% (246 hits). A verdict on the corpus file against the revision
+  alone would have left all three in one cluster. `clusters` now stops
+  and names the chain, each link with its evidence. With the NAS store
+  it checks the last run's pairs before searching, so this case stops
+  in a quarter of a second, not after 85 minutes. A pair judged both
+  `same` and `different` is an error too.
+- **Coverage does not show how much evidence an alignment has.** It is
+  the span from the first to the last hit. The Sonar revision covers 91%
+  with 0.7 hits per second of aligned span; the median join has 18.6,
+  the 5th percentile 6.5. `clusters` now prints each pair's hits per
+  second and lists joins under a tenth of the median for your ear. At
+  NAS scale that is the two Sonar revision pairs and the i-witness
+  upload of Phoenix against the TECH012 vinyl rip (99% coverage, 1.8
+  hits per second); none at 262 tracks. It is a flag for listening; the
+  criterion and the clusters are unchanged.
+- **The rule's headroom is 1.22×, not 3.36×.** If the three pairs of
+  the listening list are each one recording, the strongest false
+  candidate is The Nine against its Evol Intent VIP at 197 hits, 1.22×
+  below the rule of 240. The 3.36× margin compares it with the weakest
+  identifying detection (661). The register asks for about 2×; raising
+  the rule to about 400 would lose brief plays, so this belongs to the
+  question of a statistic for shared material (roadmap).
+- **The ladder's limit is relative to the copy in the collection.**
+  Session 4 asked whether your decks go past ±8%. The search compares
+  the mix with the indexed file, and copies of one recording differ in
+  speed: of the 872 pairs of files joined in the NAS clusters, 180
+  differ by more than 2%, 17 by more than 4%, and one "Speed Up" upload
+  by 7.8%. A play at +5.65% against a copy 4% slow is at +10%, where
+  recall is gone (±9%, experiment 0033). It matters when that copy is
+  the only one indexed. Not measured yet; the roadmap describes the
+  sweep that would measure it.
+
+The other points are in the roadmap: a challenge set for shared
+material, a minimum span based on the time that hits support, the
+possible tier measured at each size instead of fixed breakpoints, recall
+on NAS recordings beyond the corpus, diagnostics for failed queries,
+hit sorting before any hash change, the common-hash filter across
+shards, and a pair review that plays two files aligned. The review also
+noted that 15/16 on the test mix is the single pass's result; the README
+already said so, and the calibration register now does too.
+
+For your verdicts: if the "Mark System Revision" is another recording,
+judge it `different` against both the corpus `DJ Trace - Sonar.m4a` and
+`second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a`;
+`clusters` names any link left. Please also listen to
+`second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon
+Bassline Smith - Phoenix.m4a` against
+`second-library/[TECH012]_-_Drumsound_&_Simon_Bassline_Smith_-_Badman_&_Phoenix_Vinyl_(2001)/[AA]_-_Phoenix.mp3`.
+
+### What the fingerprinting papers suggest
+
+Astra also read the papers on the problems open here. I checked its
+points against the papers (now listed with section numbers in
+`docs/references.md`) and added them to the roadmap.
+
+- **A peak verifier is the most promising new experiment.** Qfp
+  (Sonnleitner & Widmer 2016, §VI-C) confirms each match by looking for
+  the reference's nearby peaks in the query, with some tolerance in time
+  and frequency. In a comparison on DJ mixes, that verification raised
+  the share of unknown passages left unanswered from 64.7% to 92.7% on
+  the Mixotic mixes, for 87.6% instead of 88.9% of known seconds
+  identified (Sonnleitner et al. 2016, table 2). Gunfinger's second pass
+  counts only exact pair hashes. The roadmap item "Evidence beyond exact
+  pair hashes" lays out the verifier as a harness diagnostic first,
+  then a measure of what exact hashing loses (Panako 2.0's near-exact
+  hashing, Six 2021), then denser query peaks.
+- **Public DJ-mix data without spending a test evaluation.** Mixotic (10
+  real techno and house mixes, 723 reference tracks) and UnmixDB
+  (generated mixes from the same tracks with exact cue points and
+  speeds). Another genre, so they test how the design generalises; the
+  roadmap proposes scoring them per second, as the DJ-mix paper does.
+- **Shared samples as a test category.** Sample identification counts
+  the sampled recording as the right answer; for Gunfinger it is a
+  wrong one. The roadmap's shared-material challenge set gains four
+  scenarios, among them a short shared break repeated for a long time.
+  It should run before anything that adds evidence is adopted, the
+  verifier included.
+
+The papers also explain choices made without citing them: the line
+search is Wang's offset histogram, the confidence rule follows Wang's
+threshold from the strongest wrong track (which is why it moves with
+library size), and the 2-4% speed differences between rips match
+Panako's note that replay speed changes by accident when analogue media
+is digitised. The ADRs, the calibration register and the code comments
+now cite them.

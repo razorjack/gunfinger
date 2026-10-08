@@ -14,8 +14,9 @@ project grows. Rebuilding the index must not require decoding audio again.
 
 `gunfinger index` stores, per asset, the spectral peaks: local maxima of the
 log-power STFT (8 kHz, Hann 1024, hop 128, neighbourhood ±12 frames × ±12
-bins, floor -10 dB). Each peak keeps its frame and bin refined between grid
-points by parabolic interpolation (1/64 frame, 1/64 bin) and its magnitude
+bins, floor -10 dB; Wang 2003, §2.1). Each peak keeps its frame and bin
+refined between grid points by parabolic interpolation (Smith & Serra
+1987; 1/64 frame, 1/64 bin) and its magnitude
 (0.5 dB). Hashes and the index are always derived from these peaks.
 
 Store layout (`gunfinger-core/src/store.rs`):

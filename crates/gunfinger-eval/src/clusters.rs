@@ -22,7 +22,7 @@
 //! clusters of the corpus recordings only: clustering every file of tens of
 //! thousands against every other would take days.
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::fs;
 use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -59,6 +59,13 @@ const ANY_LENGTH: TrackLength = TrackLength {
 /// Candidates with fewer hits and less coverage are not measured again:
 /// chance alignments, most of every query's candidates.
 const MIN_HITS_TO_MEASURE: u32 = RELATED_HITS;
+/// Joins with fewer hits per second of aligned span than this share of
+/// the median join are listed for the owner's ear. Coverage counts the
+/// span from the first to the last hit, however little evidence lies in
+/// it: at NAS scale one join covers 91% with 0.7 hits per second, against
+/// 18.6 for the median join. A flag for listening, not part of the
+/// criterion.
+const SPARSE_SHARE: f64 = 0.1;
 
 /// Every library asset's cluster. Assets without a duplicate form a cluster
 /// of their own.
@@ -97,6 +104,19 @@ pub struct Pair {
     /// also measured again at its fitted speed.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ladder_coverage: Option<f64>,
+}
+
+impl Pair {
+    /// How densely hits fill the query's aligned span, the span that
+    /// coverage counts.
+    pub fn hits_per_second(&self) -> f64 {
+        let span = self.query_end_seconds - self.query_start_seconds;
+        if span > 0.0 {
+            f64::from(self.hits) / span
+        } else {
+            0.0
+        }
+    }
 }
 
 impl Clusters {
@@ -153,7 +173,7 @@ pub fn find(
                 Source::Peaks => " (stored peaks searched)",
             }
         ),
-        duplicates: merge(verdicts.links(&pairs)),
+        duplicates: clusters_of(verdicts.links(&pairs), verdicts, &pairs)?,
         pairs,
     })
 }
@@ -287,22 +307,22 @@ pub fn merged(
     mut pairs: Vec<Pair>,
     verdicts: &Verdicts,
     other_library: &str,
-) -> Clusters {
+) -> Result<Clusters, String> {
     verdicts.apply(&mut pairs);
     let corpus_links = corpus.duplicates.iter().flat_map(|members| {
         members
             .iter()
             .map(|member| (members[0].as_str(), member.as_str()))
     });
-    let duplicates = merge(corpus_links.chain(verdicts.links(&pairs)));
-    Clusters {
+    let duplicates = clusters_of(corpus_links.chain(verdicts.links(&pairs)), verdicts, &pairs)?;
+    Ok(Clusters {
         criterion: format!(
             "{}; with the rips of the corpus recordings in {other_library} (stored peaks searched, named {SECOND_LIBRARY_PREFIX}<path>)",
             corpus.criterion
         ),
         duplicates,
         pairs,
-    }
+    })
 }
 
 /// What `find_around` found: whether the corpus clusters reappear through
@@ -342,14 +362,9 @@ pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>
         further_files.len()
     );
     for pair in further {
-        println!(
-            "  {} = {} ({:.0}%, {} hits)",
-            pair.query,
-            pair.found,
-            100.0 * pair.coverage,
-            pair.hits
-        );
+        println!("  {} = {} {}", pair.query, pair.found, evidence(pair));
     }
+    print_sparse_joins(pairs);
     let borderline: Vec<&Pair> = pairs
         .iter()
         .filter(|pair| pair.coverage >= BORDERLINE_COVERAGE && !pair.same_recording)
@@ -361,13 +376,7 @@ pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>
         100.0 * MIN_COVERAGE
     );
     for pair in borderline {
-        println!(
-            "  {} ~ {} ({:.0}%, {} hits)",
-            pair.query,
-            pair.found,
-            100.0 * pair.coverage,
-            pair.hits
-        );
+        println!("  {} ~ {} {}", pair.query, pair.found, evidence(pair));
     }
     let related = pairs
         .iter()
@@ -536,13 +545,25 @@ impl Verdicts {
                     number + 1
                 ));
             };
-            verdicts.insert(ordered(a, b), same);
+            if verdicts.insert(ordered(a, b), same) == Some(!same) {
+                return Err(format!(
+                    "line {}: {a} and {b} are judged both the same and different; keep one verdict",
+                    number + 1
+                ));
+            }
         }
         Ok(Verdicts { verdicts })
     }
 
     fn verdict(&self, a: &str, b: &str) -> Option<bool> {
         self.verdicts.get(&ordered(a, b)).copied()
+    }
+
+    fn judged_different(&self) -> impl Iterator<Item = (&str, &str)> {
+        self.verdicts
+            .iter()
+            .filter(|(_, same)| !**same)
+            .map(|((a, b), _)| (a.as_str(), b.as_str()))
     }
 
     /// Sets each judged pair's `same_recording` to the owner's verdict.
@@ -654,6 +675,56 @@ pub fn print_summary(clusters: &Clusters) {
     for members in &clusters.duplicates {
         println!("  {}", members.join("  |  "));
     }
+    print_sparse_joins(&clusters.pairs);
+}
+
+/// The joins whose hits fill their aligned span far more thinly than a
+/// typical join's, for the owner to check by ear.
+fn print_sparse_joins(pairs: &[Pair]) {
+    let (median, sparse) = sparse_joins(pairs);
+    println!(
+        "{} joins with under {:.0}% of the median {median:.1} hits per second of aligned span, for the owner:",
+        sparse.len(),
+        100.0 * SPARSE_SHARE
+    );
+    for pair in sparse {
+        println!("  {} = {} {}", pair.query, pair.found, evidence(pair));
+    }
+}
+
+/// The same-recording pairs below `SPARSE_SHARE` of the median
+/// same-recording pair's hits per second, and that median. Pairs the
+/// owner has judged the same are not listed again.
+fn sparse_joins(pairs: &[Pair]) -> (f64, Vec<&Pair>) {
+    let mut densities: Vec<f64> = pairs
+        .iter()
+        .filter(|pair| pair.same_recording)
+        .map(Pair::hits_per_second)
+        .collect();
+    densities.sort_by(f64::total_cmp);
+    let median = densities
+        .get(densities.len() / 2)
+        .copied()
+        .unwrap_or_default();
+    let sparse = pairs
+        .iter()
+        .filter(|pair| {
+            pair.same_recording
+                && pair.owner_verdict.is_none()
+                && pair.hits_per_second() < SPARSE_SHARE * median
+        })
+        .collect();
+    (median, sparse)
+}
+
+/// A pair's evidence as the reports print it: `(91%, 246 hits, 0.7 hits/s)`.
+fn evidence(pair: &Pair) -> String {
+    format!(
+        "({:.0}%, {} hits, {:.1} hits/s)",
+        100.0 * pair.coverage,
+        pair.hits,
+        pair.hits_per_second()
+    )
 }
 
 /// Prints the clusters with duplicates that one set has and the other does
@@ -687,6 +758,92 @@ fn root<'a>(parent: &BTreeMap<&'a str, &'a str>, mut node: &'a str) -> &'a str {
         node = up;
     }
     node
+}
+
+/// The clusters that same-recording links make, with the owner's verdicts
+/// checked against them. Clusters are the transitive closure of the links,
+/// so a `different` verdict, which removes only its own pair's link, does
+/// not keep two files apart when a third file links to both. Such a
+/// contradiction is an error naming the chain, for the owner to judge the
+/// wrong link.
+fn clusters_of<'a>(
+    links: impl IntoIterator<Item = (&'a str, &'a str)>,
+    verdicts: &Verdicts,
+    pairs: &[Pair],
+) -> Result<Vec<Vec<String>>, String> {
+    let links: Vec<(&str, &str)> = links.into_iter().collect();
+    let contradictions: Vec<String> = verdicts
+        .judged_different()
+        .filter_map(|(a, b)| {
+            let chain = chain(&links, a, b)?;
+            Some(format!(
+                "{a} ~ {b} is judged different, but joins link them:\n{}",
+                describe(&chain, verdicts, pairs)
+            ))
+        })
+        .collect();
+    if contradictions.is_empty() {
+        return Ok(merge(links));
+    }
+    Err(format!(
+        "{}\nA cluster holds every file a chain of joins reaches, so a `different` verdict alone cannot keep these files apart. Listen to the links of each chain, judge the wrong one `different` in the verdict file (or correct the verdict), and run `clusters` again.",
+        contradictions.join("\n")
+    ))
+}
+
+/// The files on a shortest chain of links from `from` to `to`, both ends
+/// included; `None` when no chain joins them.
+fn chain<'a>(links: &[(&'a str, &'a str)], from: &'a str, to: &'a str) -> Option<Vec<&'a str>> {
+    let mut neighbours: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
+    for &(a, b) in links {
+        neighbours.entry(a).or_default().push(b);
+        neighbours.entry(b).or_default().push(a);
+    }
+    let mut reached_from: BTreeMap<&str, &str> = BTreeMap::from([(from, from)]);
+    let mut queue = VecDeque::from([from]);
+    while let Some(file) = queue.pop_front() {
+        if file == to {
+            let mut chain = vec![to];
+            let mut file = to;
+            while file != from {
+                file = reached_from[file];
+                chain.push(file);
+            }
+            chain.reverse();
+            return Some(chain);
+        }
+        for &next in neighbours.get(file).into_iter().flatten() {
+            if !reached_from.contains_key(next) {
+                reached_from.insert(next, file);
+                queue.push_back(next);
+            }
+        }
+    }
+    None
+}
+
+/// A chain, one file per line, each link with what made it: the owner's
+/// `same` verdict, a measured pair's evidence, or a corpus cluster.
+fn describe(chain: &[&str], verdicts: &Verdicts, pairs: &[Pair]) -> String {
+    let mut lines = vec![format!("    {}", chain[0])];
+    for step in chain.windows(2) {
+        let &[previous, file] = step else {
+            continue;
+        };
+        let made_by = if verdicts.verdict(previous, file) == Some(true) {
+            String::from("(judged the same)")
+        } else {
+            pairs
+                .iter()
+                .find(|pair| {
+                    pair.same_recording
+                        && ordered(&pair.query, &pair.found) == ordered(previous, file)
+                })
+                .map_or_else(|| String::from("(one corpus cluster)"), evidence)
+        };
+        lines.push(format!("  = {file} {made_by}"));
+    }
+    lines.join("\n")
 }
 
 /// Transitive closure of links between paths, such as same-recording pairs
@@ -819,7 +976,7 @@ mod tests {
         ];
 
         verdicts.apply(&mut pairs);
-        let clusters = merge(verdicts.links(&pairs));
+        let clusters = clusters_of(verdicts.links(&pairs), &verdicts, &pairs).unwrap();
 
         assert_eq!(pairs[0].owner_verdict, Some(true));
         assert!(!pairs[1].same_recording);
@@ -839,6 +996,80 @@ mod tests {
         assert!(Verdicts::parse("maybe\ta.mp3\tb.mp3\n").is_err());
         assert!(Verdicts::parse("same\ta.mp3\n").is_err());
         assert!(Verdicts::parse("# only comments\n").is_ok());
+    }
+
+    #[test]
+    fn a_pair_cannot_be_judged_both_ways() {
+        assert!(Verdicts::parse("same\ta.mp3\tb.mp3\ndifferent\tb.mp3\ta.mp3\n").is_err());
+        assert!(Verdicts::parse("same\ta.mp3\tb.mp3\nsame\tb.mp3\ta.mp3\n").is_ok());
+    }
+
+    #[test]
+    fn a_different_verdict_holds_against_a_chain_through_a_third_file() {
+        // An original, a rip of it, and a revision the rip's search joined
+        // with sparse evidence; the owner hears the revision as different.
+        let verdicts = Verdicts::parse("different\toriginal.mp3\trevision.opus\n").unwrap();
+        let mut rip = pair("original.mp3", "rip.m4a", true);
+        rip.coverage = 0.98;
+        rip.hits = 24_774;
+        rip.query_end_seconds = 400.0;
+        let mut revision = pair("revision.opus", "rip.m4a", true);
+        revision.coverage = 0.91;
+        revision.hits = 246;
+        revision.query_end_seconds = 330.0;
+        let pairs = [rip, revision];
+
+        let error = clusters_of(same_recording(&pairs), &verdicts, &pairs).unwrap_err();
+
+        assert!(error.starts_with(
+            "original.mp3 ~ revision.opus is judged different, but joins link them:\n    \
+             original.mp3\n  = rip.m4a (98%, 24774 hits, 61.9 hits/s)\n  \
+             = revision.opus (91%, 246 hits, 0.7 hits/s)\n"
+        ));
+        let without_verdict =
+            clusters_of(same_recording(&pairs), &Verdicts::default(), &pairs).unwrap();
+        assert_eq!(
+            without_verdict,
+            [vec!["original.mp3", "revision.opus", "rip.m4a"]]
+        );
+    }
+
+    #[test]
+    fn a_different_verdict_on_files_in_separate_clusters_passes() {
+        let verdicts = Verdicts::parse("different\ta.mp3\tc.mp3\n").unwrap();
+        let pairs = [pair("a.mp3", "b.mp3", true), pair("c.mp3", "d.mp3", true)];
+
+        let clusters = clusters_of(same_recording(&pairs), &verdicts, &pairs).unwrap();
+
+        assert_eq!(clusters, [vec!["a.mp3", "b.mp3"], vec!["c.mp3", "d.mp3"]]);
+    }
+
+    #[test]
+    fn joins_far_sparser_than_the_median_are_listed() {
+        let joined = |found: &str, hits: u32| Pair {
+            hits,
+            query_end_seconds: 100.0,
+            ..pair("q.mp3", found, true)
+        };
+        let mut confirmed = joined("confirmed.mp3", 50);
+        confirmed.owner_verdict = Some(true);
+        let pairs = [
+            joined("a.mp3", 1_800),
+            joined("b.mp3", 2_000),
+            joined("c.mp3", 2_200),
+            joined("sparse.mp3", 70),
+            confirmed,
+            Pair {
+                hits: 10,
+                ..pair("q.mp3", "apart.mp3", false)
+            },
+        ];
+
+        let (median, sparse) = sparse_joins(&pairs);
+
+        assert!((median - 18.0).abs() < 1e-9);
+        let sparse: Vec<&str> = sparse.iter().map(|pair| pair.found.as_str()).collect();
+        assert_eq!(sparse, ["sparse.mp3"]);
     }
 
     #[test]
@@ -872,7 +1103,7 @@ mod tests {
             pair("c.mp3", "second-library/x/c-remix.mp3", false),
         ];
 
-        let merged = merged(&corpus, pairs, &Verdicts::default(), "/music");
+        let merged = merged(&corpus, pairs, &Verdicts::default(), "/music").unwrap();
 
         assert_eq!(
             merged.duplicates,

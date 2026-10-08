@@ -2,9 +2,12 @@
 
 Gunfinger's thresholds and design choices were measured on one library: 262
 tracks, 29.3 hours. Chance alignments get stronger and posting lists longer
-as the library grows, so some of these numbers will move. This page lists
-what was chosen against this library, what each choice rests on, how to
-measure it again, and what to change or undo if the measurement moves.
+as the library grows, so some of these numbers will move: a threshold
+follows the score of the highest-scoring wrong track, which depends on
+the number of tracks (Wang 2003, §2.3.1; `docs/references.md`). This page
+lists what was chosen against this library, what each choice rests on,
+how to measure it again, and what to change or undo if the measurement
+moves.
 
 ## Library-dependent choices
 
@@ -12,9 +15,9 @@ measure it again, and what to change or undo if the measurement moves.
 |--------|-------|------|--------------------------|-------------|
 | Confident rule of the default (fitted) matcher | 240 hits, 3 windows | `confidence.rs` `FITTED_RULE` | over four sweep draws and the development scans, with the link rules: strongest false 99 (the passage the Clockwork remix shares with the original), weakest identifying 658 (Illuminati - Melange at -3%), margin 6.65× (experiments 0026, 0030, 0047) | Keep it about twice the strongest false candidate and well below the weakest identifying one, as for `MIN_HITS`. |
 | Confident rule of `--single-pass`, hits | 200 | `confidence.rs` `MIN_HITS` | strongest false candidate 95 hits (a remix; 97 with both playbacks, experiment 0016), weakest identifying 501 (experiment 0004); over four sweep draws 97 and 403 (experiment 0025) | Keep it about twice the strongest false candidate. If that collides with the weakest identifying detection, hits alone no longer separate them; the statistic needs rethinking (ADR 0001). |
-| Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006), 28 over four sweep draws (experiment 0025), 22 under the fitted matcher (experiment 0047); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012). On real records under the default matcher: 21, 27, 34, 64 and 64 hits at 209, 1,205, 3,202, 9,196 and 26,969 assets (sweep 2026, experiment 0052) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). Proposed, not applied: 60 while that chance stays below 30 hits (to about 3,000 assets), twice it above (130-140 at NAS scale). |
-| Pairs per anchor and peak density | fan-out 2, ±12 × ±12 | `hash.rs` `FAN_OUT`, `profile.rs` | leanest variant with the best margins (experiment 0004) | If margins shrink at scale, rerun the density variants of experiment 0004 on the larger library. |
-| Duplicate clusters | one alignment covers ≥ 80% of the shorter file, in its own seconds; candidates on the turntable ladder (±8%), the better of the ladder's alignment and the pair's at its fitted speed; the owner's verdicts override | `gunfinger-eval` `clusters.rs`, `docs/pair-verdicts.txt` | same-recording pairs ≥ 0.984, all others ≤ 0.31 (experiments 0002, 0049); the same clusters from stored peaks (experiment 0023). At NAS scale 0.840 against 0.766, 28 pairs between 40% and 80% (experiment 0049) | Rerun `clusters` after adding tracks (`clusters --from-peaks` first, to compare cheaply); check that the gap holds. An edit with a cut in the middle is never a duplicate under this criterion; the owner's verdicts decide such pairs. |
+| Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006), 28 over four sweep draws (experiment 0025), 22 under the fitted matcher (experiment 0047); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012). On real records under the default matcher: 21, 27, 34, 64 and 64 hits at 209, 1,205, 3,202, 9,196 and 26,969 assets (sweep 2026, experiment 0052) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). Proposed, not applied: 60 while that chance stays below 30 hits (to about 3,000 assets), twice it above (130-140 at NAS scale). The jump to 64 hits is one coincidence (Clockwork against Simon Static - Rubba Rock), so these breakpoints are measurements of this collection, not a rule for any library. |
+| Pairs per anchor and peak density | fan-out 2 (Wang 2003, §2.2), ±12 × ±12 | `hash.rs` `FAN_OUT`, `profile.rs` | leanest variant with the best margins (experiment 0004) | If margins shrink at scale, rerun the density variants of experiment 0004 on the larger library. |
+| Duplicate clusters | one alignment covers ≥ 80% of the shorter file, in its own seconds; candidates on the turntable ladder (±8%), the better of the ladder's alignment and the pair's at its fitted speed; the owner's verdicts override, and a `different` verdict that a chain of joins contradicts stops `clusters` | `gunfinger-eval` `clusters.rs`, `docs/pair-verdicts.txt` | same-recording pairs ≥ 0.984, all others ≤ 0.31 (experiments 0002, 0049); the same clusters from stored peaks (experiment 0023). At NAS scale 0.840 against 0.766, 28 pairs between 40% and 80% (experiment 0049); joins have a median 18.6 hits per second of aligned span, the sparsest 0.7 (DJ Trace - Sonar against its "Mark System Revision") | Rerun `clusters` after adding tracks (`clusters --from-peaks` first, to compare cheaply); check that the gap holds. An edit with a cut in the middle is never a duplicate under this criterion; the owner's verdicts decide such pairs. Listen to the joins `clusters` lists as sparse (under a tenth of the median hits per second): coverage alone does not show how much evidence an alignment has. |
 | Posting layout | 15 asset bits | `index.rs` `Posting` | 32,768 assets at most (ADR 0005) | A hard limit; the options for going past it are in ADR 0007 (open). |
 
 Not library-dependent: the speed ladder (0.4% steps, experiment 0001), the
@@ -28,7 +31,7 @@ gap between segments of a play, and the 90 s scoring tolerance.
 |-------------|---------------|
 | Sweep (seed 2026) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development set | 11/11, 0 wrong; leave-out 3: 8/11, 0 wrong; leave-out 11: 0/11, 0 wrong |
-| Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2; turntable alone, not yet run with both playbacks) |
+| Test set (owner-corrected manifest) | 15/16, 0 wrong; Sin found as possible; no possible play matches no track (ledger, evaluation 2; the single pass with turntable alone, not yet run with both playbacks; the default matcher of ADR 0008 has not searched the test mix) |
 | `calibrate`, confident rule | weakest identifying 501 hits, strongest false 97, margin 5.16× (both playbacks; turntable alone: 95, 5.27×) |
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |
 | `calibrate` over sweep seeds 2026-2029, default matcher (ADR 0008) | weakest identifying 658 (Illuminati - Melange at -3%), strongest false 99, margin 6.65×; audio not in the index 22 (experiment 0047) |
@@ -67,7 +70,13 @@ ladder (experiments 0049, 0051, 0053; store revision
 owner); over the four seeds weakest identifying 661, strongest false
 511 (Synthesis VIP ~ "Synthesis (Remix)" on a mixed CD), 1.29×; without
 the three pairs 197 (The Nine ~ Evol Intent VIP), 3.36×; unrelated
-chance 63-70 hits.
+chance 63-70 hits. The margin compares the weakest identifying
+detection with the strongest false one; the rule's own headroom is
+smaller. Without the three pairs the rule of 240 is 1.22× the strongest
+false candidate (197), where the "If it moves" column asks for about
+2× (about 400, still below the weakest identifying 661). That
+candidate is a VIP of the played track, so this is the question of a
+statistic for shared material (roadmap), not of the threshold alone.
 
 What the "If it moves" column would say (not applied): the confident
 rule collides with the weakest identifying detection only through other

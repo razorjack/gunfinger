@@ -922,3 +922,52 @@ grouped tracklists.
   `library.txt`; digest `bf35ea64...e9ae4f5`; revision
   `d428ee9585936326`: as recorded after item 3. The NAS was not read
   after item 3.
+
+## 2026-10-08: after session 6: review absorbed, verdict chains, sparse joins
+
+- An outside review (Astra) after session 6, checked against the code
+  and the saved reports. Absorbed into `docs/roadmap.md` (the edge of the
+  ladder as speed relative to the indexed copy; clustering precision;
+  the shared-material challenge set and the rule's 1.22× headroom; a
+  minimum span from supported time; the possible tier's caveats; recall
+  beyond the corpus recordings; the on-disk index; the filter across
+  shards; a pair review), `docs/calibration.md` and the notes ("After
+  session 6").
+- `gunfinger-eval clusters`: a `different` verdict that a chain of joins
+  contradicts is an error naming the chain; a pair judged both ways is
+  an error; with `--other-peaks-dir` the verdicts are checked against
+  the last run's pairs before the search. Printed pairs show hits per
+  second of aligned span, and joins under a tenth of the median are
+  listed for the owner. README and the verdict file's header updated.
+- Verified: 5 new unit tests, `scripts/check.sh` green. With a scratch
+  verdict file judging DJ Trace - Sonar ~ "Mark System Revision"
+  `different`, `clusters --from-peaks` with the NAS store stopped in
+  0.25 s, naming the chain through the dfect upload (98%, 24,774 hits;
+  91%, 246 hits). From the saved reports: 3 NAS joins under a tenth of
+  the median 18.6 hits per second (0.73, 0.74, 1.84), none at 262
+  tracks. No detection code changed; no clusters, scans or sweeps were
+  rerun, and the cluster reports are unchanged.
+- Next: the owner's verdicts, then `clusters --from-peaks` with the NAS
+  store and the NAS-scale protocol again.
+
+## 2026-10-08: the papers behind the design
+
+- `docs/references.md` lists the papers and datasets with the sections
+  that matter: Wang 2003, Six & Leman 2014, Six 2021 (Panako 2.0, the
+  brief's "Six 2021"), Sonnleitner & Widmer 2016 (Qfp), Sonnleitner et
+  al. 2016 (DJ-mix monitoring), Bhattacharjee et al. 2025 (sample
+  identification), Smith & Serra 1987, Mixotic and UnmixDB. Each claim
+  from an outside review (Astra) was checked against the PDFs (kept in
+  `work/papers/`, not committed); UnmixDB's paper venue is unconfirmed.
+- Roadmap: a new item "Evidence beyond exact pair hashes" (peak
+  verifier, quantisation loss, denser query peaks); "Public DJ-mix
+  datasets and per-second scoring"; shared-sample scenarios for the
+  challenge set; citations added to the edge of the ladder, band peaks,
+  detection boundaries, search time, behaviour at scale, longer hashes
+  and clustering precision.
+- Attributions added where the design follows a paper without saying
+  so: ADR 0001 (lines, confidence), ADR 0003 (peaks, interpolation),
+  `docs/calibration.md`, and the comments of `confidence.rs`,
+  `search/lines.rs`, `hash.rs` (`FAN_OUT`) and `hash_cost.rs`. AGENTS.md
+  and the README point to the references.
+- No behaviour changed; `scripts/check.sh` green.

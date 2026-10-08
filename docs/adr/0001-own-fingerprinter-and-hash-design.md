@@ -35,7 +35,8 @@ Candidate A, implemented from Wang (2003):
   per rung (experiment 0001).
 - **Lines**: per rung and per 10 s window of query time, hits of one asset
   whose offsets (reference frame − speed × query frame) agree within 2 frames
-  form a line. Lines of neighbouring rungs that predict the same reference
+  form a line (Wang's offset histogram, §2.3, with the rung's speed as
+  slope). Lines of neighbouring rungs that predict the same reference
   time merge.
 - **Chains**: lines of one asset in successive windows (gaps up to 2 windows)
   that predict the same reference time within 4 frames + 0.4% of the elapsed
@@ -46,7 +47,9 @@ Candidate A, implemented from Wang (2003):
   dropped.
 - **Confidence** (`gunfinger-core/src/confidence.rs`): at least 200 hits and
   3 windows on one chain. Absolute, sustained, aligned evidence; calibrated
-  against the measured null (experiments 0003, 0004).
+  against the measured null (experiments 0003, 0004), as Wang (2003,
+  §2.3.1) sets a threshold from the strongest wrong track's score.
+  Sources and section numbers: `docs/references.md`.
 
 ## Consequences
 

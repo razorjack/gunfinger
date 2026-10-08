@@ -55,7 +55,7 @@ and [docs/roadmap.md](docs/roadmap.md) for what is missing.
    unrelated rows.
 
 The design decisions and the measurements behind them are in `docs/adr/` and
-`docs/experiments/`.
+`docs/experiments/`; the papers they draw on are in `docs/references.md`.
 
 ## Prerequisites
 
@@ -346,7 +346,12 @@ each candidate pair again alone at its fitted speed, and joins two files
 when one alignment covers 80% of the shorter one, counted in that file's
 own seconds. The owner's verdicts in `docs/pair-verdicts.txt` (`same` or
 `different`, then two paths, tab-separated) override that rule; run
-`clusters` again after editing it.
+`clusters` again after editing it. A cluster holds every file a chain of
+joins reaches, so when joins through other files link two files judged
+`different`, `clusters` stops and names the chain (with another
+library's store, it checks the last run's pairs before searching). It
+prints each pair's hits per second of aligned span and lists the joins
+under a tenth of the median: their coverage rests on little evidence.
 
 The sweep's held-out recordings and excerpts for each seed are drawn the
 first time the seed is used and kept in `docs/panels/`, so the same
