@@ -1622,3 +1622,36 @@ which this does not measure.
 - Falcon - The Stand finds an untagged NAS file,
   `second-library/1.mp3`, at 65-70 hits (0.29-0.31 of its peaks). It has
   no tags to tell what it is.
+
+### Listening list after session 7
+
+The same pairs as after session 6, with this session's measures as aids
+for your ear; none is a verdict, and `docs/pair-verdicts.txt` is still
+empty. Coverage: the clusters' alignment, first to last hit. Supported:
+the shorter file's seconds holding aligned hits at the fitted speed, over
+all alignments (0057; above 1 where sections repeat). Share: reference
+peaks the verifier finds in sweep 2027's detections (0058); other
+uploads of one recording have a median of 0.65 and a 5th percentile of
+0.47.
+
+| Pair | Coverage | Supported (alignments) | Share; sweep 2027 detections |
+|---|--:|---|---|
+| China Cup (4 files) ~ Prototype upload | 0.65-0.68 | 0.96-0.98 (2) | 0.59-0.61; 16 confident, 305-408 hits |
+| Coma ~ Spraycan | 0.59 | 0.76 (4) | 0.56-0.58; 8 confident, 285-341 hits |
+| The Nine (6 files) ~ Evol Intent VIP | 0.48-0.50 | 0.86-0.96 (4-5) | 0.36-0.54; possible, 84-197 hits |
+| Synthesis VIP; its i-witness upload ~ "Synthesis (Remix)" | 0.59; 0.53 | 1.36; 1.03 (12; 8) | 0.34-0.41; possible, 94-115 hits |
+| Future Cut - The Specialist (3 files) ~ INFRA 012 upload | 0.77 | 0.97-0.99 (2) | not detected in sweep 2027 |
+| Ed Rush, Optical & Fierce - Alien Girl ~ i-witness upload | 0.76 | 0.81 (6) | - |
+| Stratus - Waves (2 files) ~ WEB file | 0.74 | 0.75 (2-3) | - |
+| Falcon - The Stand; fractles | 0.64; 0.57 | 0.84 (4); 0.48 (9) | - |
+| Pyro - Time Is Broken ~ Ignorance | 0.44 | 0.51 (6) | - |
+| Ed Rush & Optical - Dozer ~ Notjamie bootleg | 0.49 | 0.34 (5) | - |
+| DJ Trace - Sonar; dfect upload ~ "Mark System Revision" (joined) | 0.89; 0.91 | 0.39; 0.43 (4; 6) | - |
+| Phoenix: i-witness upload ~ TECH012 rip; corpus rip ~ upload (joined) | 0.99; 0.84 | 0.72; 0.63 (4; 5) | - |
+
+Read together: China Cup's pair is held almost whole at two offsets and
+verifies like another upload, as one cut or moved section in one
+recording would; it is also the pair behind most wrong answers. The
+Sonar revision joins on far less supported time than any other join.
+The Nine's VIP shares most of its seconds at several offsets but fewer
+of its peaks, as a rearranged version would.
