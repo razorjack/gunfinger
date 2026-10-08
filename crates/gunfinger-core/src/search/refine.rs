@@ -1,7 +1,7 @@
-//! The second pass (opt-in): each candidate's span is analysed again with
-//! one STFT at its fitted speed, and its hits are counted against that asset
-//! alone, in every posting list (also those `Index::skipping_fullest` keeps
-//! from the first pass).
+//! The second pass (`Matcher::Fitted`): each candidate's span is analysed
+//! again with one STFT at its fitted speed, and its hits are counted against
+//! that asset alone, in every posting list (also those
+//! `Index::skipping_fullest` keeps from the first pass).
 //!
 //! The ladder sees a play on the rung nearest its speed, up to half a step
 //! away. A clean render 0.1-0.25% from its rung keeps two thirds of the
@@ -50,32 +50,34 @@ const MIN_SPEED_CORRECTION: f64 = 0.0005;
 const STRETCH_MARGIN_FRAMES: f64 = 100.0;
 
 /// Measures each detection with at least `MIN_HITS_TO_REFINE` hits again at
-/// its fitted speed; `chains[i]` holds the indexes in `lines` of
-/// `detections[i]`'s lines. Refined evidence is `Pass::Fitted`; a candidate
-/// with no window of hits there is dropped. With `speed_per_stretch`, each
-/// stretch of `STRETCH_WINDOWS` windows whose hits drift from the fitted
-/// speed is measured again at its own. Returns the detections in no
-/// particular order. With `trim_weak_ends`, boundaries leave out weak
-/// windows at either end.
+/// its fitted speed; each detection comes with the indexes in `lines` of
+/// its chain's lines, and keeps them. Refined evidence is `Pass::Fitted`; a
+/// candidate with no window of hits there is dropped. With
+/// `speed_per_stretch`, each stretch of `STRETCH_WINDOWS` windows whose
+/// hits drift from the fitted speed is measured again at its own. Returns
+/// the detections in the order given. With `trim_weak_ends`, boundaries
+/// leave out weak windows at either end.
 pub(super) fn refine(
     index: &Index,
     samples: &[f32],
     profile: &Profile,
     lines: &[Line],
-    chained: &[(Detection, Vec<usize>)],
+    chained: Vec<(Detection, Vec<usize>)>,
     jobs: usize,
     options: Options,
-) -> Vec<Detection> {
-    map_in_order(chained, jobs, |(detection, chain)| {
+) -> Vec<(Detection, Vec<usize>)> {
+    let refined = map_in_order(&chained, jobs, |(detection, chain)| {
         if detection.evidence.hits < MIN_HITS_TO_REFINE {
             return Some(detection.clone());
         }
         let chain: Vec<&Line> = chain.iter().map(|&line| &lines[line]).collect();
         at_fitted_speed(index, samples, profile, detection, &chain, options)
-    })
-    .into_iter()
-    .flatten()
-    .collect()
+    });
+    chained
+        .into_iter()
+        .zip(refined)
+        .filter_map(|((_, chain), refined)| refined.map(|detection| (detection, chain)))
+        .collect()
 }
 
 /// One hit near the alignment: its window, its distance from the alignment
@@ -381,7 +383,7 @@ mod tests {
     use crate::index::Index;
     use crate::profile::Profile;
     use crate::search::test_audio::{played, record, track};
-    use crate::search::{Options, search, search_twice, search_with};
+    use crate::search::{Options, search, search_with};
     use crate::speed::{Rung, SpeedRatio};
 
     #[test]
@@ -425,7 +427,11 @@ mod tests {
             .to_vec();
 
         let first = &search(&index, &query, &profile, &ladder, 1)[0];
-        let second = &search_twice(&index, &query, &profile, &ladder, 1)[0];
+        let second_pass = Options {
+            second_pass: true,
+            ..Options::default()
+        };
+        let second = &search_with(&index, &query, &profile, &ladder, 1, second_pass)[0];
 
         assert!(
             (second.speed.0 - 1.0018).abs() < 0.0003,

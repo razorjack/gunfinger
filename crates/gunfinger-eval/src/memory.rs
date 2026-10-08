@@ -18,7 +18,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::trace_with;
+use gunfinger_core::search::{self, trace_with};
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
@@ -153,7 +153,11 @@ pub fn run(
             &profile,
             options.ladder,
             options.jobs,
-            options.matching.options(),
+            // The first pass alone, whose lines are what is counted.
+            search::Options {
+                second_pass: false,
+                ..options.matching.options()
+            },
             |_, _| {},
         );
         report.lines = Some(trace.lines.len());

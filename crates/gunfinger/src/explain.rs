@@ -7,11 +7,11 @@
 use std::path::Path;
 use std::time::Duration;
 
-use gunfinger_core::confidence::{Confidence, Evidence, MIN_HITS, MIN_POSSIBLE_HITS, MIN_WINDOWS};
+use gunfinger_core::confidence::{Confidence, Evidence};
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::{AssetId, Index};
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, Trace, WINDOW_SECONDS, WindowLine, trace_with_progress};
+use gunfinger_core::search::{Detection, Matcher, Trace, WINDOW_SECONDS, WindowLine, trace_with};
 use gunfinger_core::speed::Playback;
 use miette::{IntoDiagnostic, WrapErr};
 
@@ -28,6 +28,7 @@ pub struct Request<'a> {
     pub at: Duration,
     pub around: Duration,
     pub playback: PlaybackChoice,
+    pub matcher: Matcher,
     /// Only assets whose path contains this, ignoring case.
     pub asset: Option<&'a str>,
     pub limit: usize,
@@ -44,6 +45,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
         .wrap_err_with(|| format!("cannot read {}", request.audio.display()))?;
     let catalog = Catalog::open(
         Indexable::find(&request.source, request.console)?,
+        request.matcher,
         request.console,
     )?;
     let start = on_window_grid(request.at.saturating_sub(request.around));
@@ -54,12 +56,13 @@ pub fn run(request: &Request) -> miette::Result<()> {
     let profile = Profile::CURRENT;
     let audio = decode(request.audio, profile.sample_rate, excerpt).into_diagnostic()?;
     let ladder = request.playback.rungs();
-    let trace = trace_with_progress(
+    let trace = trace_with(
         &catalog.index,
         &audio.samples,
         &profile,
         &ladder,
         request.jobs,
+        request.matcher.options(),
         |done, parts| {
             request
                 .console
@@ -74,8 +77,10 @@ pub fn run(request: &Request) -> miette::Result<()> {
         span(offset, offset + audio.duration().as_secs_f64()),
         timecode(request.at.as_secs_f64())
     );
+    let rule = request.matcher.pass().rule();
     println!(
-        "confident: {MIN_HITS} hits or more in {MIN_WINDOWS} windows or more; possible: {MIN_POSSIBLE_HITS} hits or more"
+        "confident: {} hits or more in {} windows or more; possible: {} hits or more",
+        rule.min_hits, rule.min_windows, rule.min_possible_hits
     );
     println!();
     let candidates = candidates(&trace.detections, &catalog.index, request.asset);
@@ -285,28 +290,36 @@ fn nothing_found(index: &Index, asset: Option<&str>) -> String {
 }
 
 /// What the evidence lacks for the next level.
+/// What `evidence` lacks for the next level, under the rule of the pass
+/// that counted it.
 fn short_of(evidence: Evidence) -> String {
+    let rule = evidence.pass.rule();
     match evidence.confidence() {
         Confidence::Confident => String::new(),
         Confidence::Possible => {
             let mut missing = Vec::new();
-            if evidence.hits < MIN_HITS {
-                missing.push(format!("{} more hits", MIN_HITS - evidence.hits));
+            if evidence.hits < rule.min_hits {
+                missing.push(format!("{} more hits", rule.min_hits - evidence.hits));
             }
-            let windows = MIN_WINDOWS.saturating_sub(evidence.windows);
+            let windows = rule.min_windows.saturating_sub(evidence.windows);
             if windows > 0 {
                 let plural = if windows == 1 { "" } else { "s" };
                 missing.push(format!("{windows} more window{plural}"));
             }
             format!("confident: {}", missing.join(", "))
         }
-        Confidence::Weak => format!("possible: {} more hits", MIN_POSSIBLE_HITS - evidence.hits),
+        Confidence::Weak => format!(
+            "possible: {} more hits",
+            rule.min_possible_hits - evidence.hits
+        ),
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use gunfinger_core::confidence::{MIN_HITS, MIN_WINDOWS, Pass};
 
     #[test]
     fn each_level_names_what_it_lacks() {
@@ -319,5 +332,16 @@ mod tests {
         );
         assert_eq!(short_of(evidence(450, 1)), "confident: 2 more windows");
         assert_eq!(short_of(evidence(45, 4)), "possible: 15 more hits");
+    }
+
+    #[test]
+    fn fitted_evidence_is_measured_against_its_own_rule() {
+        let fitted = Evidence {
+            windows: 4,
+            hits: 220,
+            pass: Pass::Fitted,
+        };
+
+        assert_eq!(short_of(fitted), "confident: 20 more hits");
     }
 }

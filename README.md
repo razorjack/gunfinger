@@ -34,14 +34,22 @@ and [docs/roadmap.md](docs/roadmap.md) for what is missing.
    each in two ways: as a turntable plays it (time and frequency scaled
    together) and with key lock (time scaled, frequency kept). On the right
    assumption the mix's hashes meet the reference's hashes on a straight
-   line through mix time and track time. Lines found in successive 10 s
-   windows are chained; a chain is a detection, and its slope gives the speed.
-4. A detection is confident when its chain holds at least 200 hits in at
-   least 3 windows. The rule was calibrated against the strongest false
+   line through mix time and track time. This search for candidates leaves
+   out the 1% of posting lists with the most postings: the most common
+   hashes, which cost most lookups and tell records apart least. Lines
+   found in successive 10 s windows are chained when they come from rungs
+   at most a step apart, and across an empty window only when both are
+   strong; a chain is a candidate, and its slope gives the speed.
+4. Each candidate is measured again at its fitted speed: its stretch of the
+   mix is analysed once more at exactly that speed and its hits counted in
+   every posting list. It is confident with at least 240 hits in at least
+   3 windows. The rule was calibrated against the strongest false
    alignment measured and then frozen. Below it, a detection with at least
    60 hits is possible: the recording, or one sharing material with it,
    probably plays there. Possible detections are shown but never count as
-   identifications.
+   identifications. `--single-pass` searches the way Gunfinger did before
+   session 6: every posting list, one pass, 200 hits in 3 windows (ADR
+   0008).
 5. Detections of one file with gaps of up to 90 s are listed as one play,
    so a needle skip or a radio insert does not split a record into
    unrelated rows.
@@ -322,17 +330,13 @@ queries are measured as the library grows; `robust`, `mixes`, `grid` and
 
 `--ladder both|turntable|key-lock` (before the command) chooses the rungs
 every search uses; the default is `both`, as in `identify`, and other
-ladders keep their reports in `work/reports/ladder-<name>/`. Opt-in
-matching changes apply to every command in the same way:
-`--second-pass` measures each candidate again at its fitted speed and
-applies that pass's own rule (240 hits in 3 windows),
-`--drop-fullest SHARE` empties the fullest posting lists, and
-`--skip-fullest SHARE` leaves them out of the search for candidates only,
-so the second pass still counts them. Session 4's variants, none of them
-adopted: `--nearby-rungs` links only lines from rungs at most a step
-apart, and `--strong-gaps` links across an empty window only lines of 10
-hits or more, against chance lines joining a play; `--speed-per-stretch`
-(with `--second-pass`) measures each stretch of 3 windows again at its
+ladders keep their reports in `work/reports/ladder-<name>/`. The harness
+searches with `identify`'s matcher; options before the command change it
+for every command in the same way: `--single-pass` is the matcher before
+session 6 (every posting list, one pass, 200 hits in 3 windows), and
+`--drop-fullest SHARE` empties the fullest posting lists instead of
+setting them aside. Session 4's variants, not adopted:
+`--speed-per-stretch` measures each stretch of 3 windows again at its
 own speed when its hits drift from the fitted one; `--trim-ends` leaves
 weak windows at either end out of a detection's boundaries, its evidence
 unchanged; `--extra-rungs N` extends both ladders by N rungs past ±8%
@@ -379,13 +383,15 @@ the default now, gives the same sweep, development and leave-out results
 | Development leave-outs (3 and 11 tracks removed from the index) | 0 wrong |
 | Held-out test mix (radio broadcast, 1 h 58 min, 31 tracks) | First run: 15/17 identified (88%), 0 wrong, 53 s. One miss was a remix not in the library; with the manifest corrected, 15/16 (94%). The other miss, cut by a radio insert, is shown as possible (second evaluation) |
 
-Over four sweep seeds (2026-2029, 2,160 excerpt queries) recall stays 100%
-with 0 wrong, and the margin between the weakest identifying detection and
-the strongest false candidate is 4.15× (experiment 0025). An opt-in second
-pass at each candidate's fitted speed, with the most common hashes skipped
-while looking for candidates, passes the same protocol with a rule of its
-own; it is not the default ("Measured, not adopted" in
-[docs/calibration.md](docs/calibration.md)).
+Since session 6 the default matcher skips the most common hashes while
+looking for candidates and measures each candidate again at its fitted
+speed (ADR 0008). Over four sweep seeds (2026-2029, 2,160 excerpt queries)
+recall stays 100% with 0 wrong, the development mix and leave-outs keep
+their results, and the margin between the weakest identifying detection
+and the strongest false candidate is 6.65× (4.15× with `--single-pass`,
+experiments 0025 and 0047). Plays of 10 s are possible, no longer
+confident through a chance window. The test mix has not been searched
+with this matcher.
 
 The pass bar was at least 80% identified and zero wrong on each mix. The
 index takes 74 postings per second of audio and 5.07 bytes per posting; for

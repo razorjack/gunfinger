@@ -29,6 +29,7 @@ use clap::{CommandFactory, Parser, Subcommand, ValueEnum};
 use config::{Given, Settings};
 use console::{Console, Verbosity};
 use gunfinger_core::decode::Excerpt;
+use gunfinger_core::search::Matcher;
 use gunfinger_core::timecode::parse_timecode;
 use miette::IntoDiagnostic;
 use output::ReportFormat;
@@ -119,6 +120,13 @@ enum Command {
         /// the configuration file, else both].
         #[arg(long, value_enum)]
         playback: Option<PlaybackChoice>,
+        /// Search with the single-pass matcher, the default before
+        /// session 6: every posting list on the speed ladder, confident at
+        /// 200 hits in 3 windows. The default sets the most common hashes
+        /// aside when looking for candidates and measures each candidate
+        /// again at its fitted speed (240 hits in 3 windows; ADR 0008).
+        #[arg(long)]
+        single_pass: bool,
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
@@ -158,6 +166,13 @@ enum Command {
         /// configuration file, else both].
         #[arg(long, value_enum)]
         playback: Option<PlaybackChoice>,
+        /// Search with the single-pass matcher, the default before
+        /// session 6: every posting list on the speed ladder, confident at
+        /// 200 hits in 3 windows. The default sets the most common hashes
+        /// aside when looking for candidates and measures each candidate
+        /// again at its fitted speed (240 hits in 3 windows; ADR 0008).
+        #[arg(long)]
+        single_pass: bool,
         /// Only assets whose path contains this text (ignoring case).
         #[arg(long)]
         asset: Option<String>,
@@ -306,6 +321,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             start,
             duration,
             playback,
+            single_pass,
             exclude_from,
             format,
             save_dir,
@@ -321,6 +337,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             },
             excerpt: Excerpt { start, duration },
             playback: playback.unwrap_or(settings.playback),
+            matcher: matcher(single_pass),
             format,
             save_dir: save_dir.as_deref(),
             again,
@@ -335,6 +352,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             at,
             around,
             playback,
+            single_pass,
             asset,
             limit,
             windows,
@@ -351,6 +369,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             at,
             around,
             playback: playback.unwrap_or(settings.playback),
+            matcher: matcher(single_pass),
             asset: asset.as_deref(),
             limit,
             windows,
@@ -437,6 +456,14 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
 
 /// miette decides on colour by itself unless told. Errors in the
 /// configuration file itself are reported before this, with its choice.
+fn matcher(single_pass: bool) -> Matcher {
+    if single_pass {
+        Matcher::SinglePass
+    } else {
+        Matcher::Fitted
+    }
+}
+
 fn color_error_reports(color: ColorChoice) {
     let forced = match color {
         ColorChoice::Auto => return,

@@ -1181,3 +1181,34 @@ things for you:
 The four corpus files whose NAS copies were among the RIFF files still
 have no identical NAS record: the NAS files now decode, but not to the
 same peaks as the corpus copies (which are plain MP3s).
+
+### The fitted matcher is the default; every change at 262 tracks was predicted
+
+`identify`, `explain` and the harness now skip the fullest 1% of posting
+lists while looking for candidates, link chains by the two rules and
+measure each candidate again at its fitted speed, with 240 hits in 3
+windows for confident and 60 for possible (ADR 0008). `--single-pass`
+gives the matcher before (200 hits). Experiment 0047 ran the full
+protocol: the candidate baseline is reproduced exactly; sweeps 540/540
+for seeds 2026-2029 with 0 wrong; development 11/11, leave-outs 0 wrong;
+margin 6.65× (single pass 4.15×). True plays have 0.84-1.16 times the
+hits; the development scan's detections matching no track fall from
+6,096 to 69. Two kinds of play lose their confident level, both through
+a chance window before: mix 10's Dominion (21.5 s, now possible, 525
+hits in 2 windows) and the grid's 10 s plays (8 → 0 confident). Star
+Trails splits at 13:20, where the DJ changes speed.
+
+One behaviour is new and only seen in the synthetic end-to-end mix: after
+a needle skip of 4 s into a track whose kick repeats every bar, the
+second pass, which measures up to 10 s before a chain, takes in the
+kicks before the skip, and the part before the skip is dropped as
+overlapped. The play stays confident; its start moves from 1:36 to 1:45.
+A real skip would only do this where the drums before and after it are
+identical.
+
+Saved reports record the matcher, so `identify --save-dir` searches each
+mix again once. Sick Note in the test mix (209 hits under the single pass)
+would most likely become possible (inference from experiment 0026). The
+next test-set evaluation, with three left, should measure this matcher
+on the test mix with both playbacks: 15/16 and Sin possible under the
+single pass.

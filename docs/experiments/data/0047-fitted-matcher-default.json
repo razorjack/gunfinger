@@ -1,0 +1,392 @@
+{
+ "experiment": "0047-fitted-matcher-default",
+ "commands": [
+  "gunfinger-eval --second-pass --skip-fullest 0.01 --nearby-rungs --strong-gaps baseline session-6-candidate (commit c3ba1b1)",
+  "gunfinger-eval regress session-6-candidate; regress session-6-start --no-rerun; sweep --seed 2027..2029; calibrate; mixes --count 12; grid (work/scripts/s6-protocol.sh)"
+ ],
+ "regress_candidate": {
+  "sweep_2026_identical_queries": "720/720",
+  "scan_detections_identical": [
+   87,
+   93,
+   79
+  ]
+ },
+ "regress_start": {
+  "sweep_2026_queries_with_identical_detections": "19/720",
+  "recall_per_speed": "60/60 at every speed, 0 wrong, before and after",
+  "scans": {
+   "scan-stakka-skynet-knowledge.json": {
+    "tracks": [
+     {
+      "track": "1. Skynet & Stakka - Night Lore",
+      "before": [
+       3694,
+       31
+      ],
+      "after": [
+       3832,
+       31
+      ],
+      "ratio": 1.037
+     },
+     {
+      "track": "2. Skynet & Stakka - Decoy",
+      "before": [
+       4733,
+       36
+      ],
+      "after": [
+       4869,
+       34
+      ],
+      "ratio": 1.029
+     },
+     {
+      "track": "3. Kemal & Rob Data - Star Trails",
+      "before": [
+       1839,
+       36
+      ],
+      "after": [
+       1540,
+       23
+      ],
+      "ratio": 0.837
+     },
+     {
+      "track": "4. Skynet & Stakka - Pathogen",
+      "before": [
+       2030,
+       23
+      ],
+      "after": [
+       2078,
+       23
+      ],
+      "ratio": 1.024
+     },
+     {
+      "track": "5. Skynet & Stakka - Clockwork",
+      "before": [
+       2651,
+       29
+      ],
+      "after": [
+       3083,
+       26
+      ],
+      "ratio": 1.163
+     },
+     {
+      "track": "6. Kraken - Side Effects (TeeBee Remix)",
+      "before": [
+       2241,
+       29
+      ],
+      "after": [
+       2273,
+       30
+      ],
+      "ratio": 1.014
+     },
+     {
+      "track": "7. Kraken - Dominion",
+      "before": [
+       3395,
+       39
+      ],
+      "after": [
+       3531,
+       39
+      ],
+      "ratio": 1.04
+     },
+     {
+      "track": "8. Kemal & Paul Reset - Kontempt",
+      "before": [
+       4464,
+       43
+      ],
+      "after": [
+       4452,
+       43
+      ],
+      "ratio": 0.997
+     },
+     {
+      "track": "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+      "before": [
+       4545,
+       39
+      ],
+      "after": [
+       4865,
+       39
+      ],
+      "ratio": 1.07
+     },
+     {
+      "track": "10. Skynet & Stakka - Logistics",
+      "before": [
+       5779,
+       40
+      ],
+      "after": [
+       6425,
+       40
+      ],
+      "ratio": 1.112
+     },
+     {
+      "track": "11. Stakka & K.Tee - Auto Ignition",
+      "before": [
+       4375,
+       39
+      ],
+      "after": [
+       4742,
+       39
+      ],
+      "ratio": 1.084
+     }
+    ],
+    "unmatched_before": {
+     "all": 6096,
+     "30+": 2,
+     "60+": 1,
+     "strongest": 94
+    },
+    "unmatched_after": {
+     "all": 69,
+     "30+": 3,
+     "60+": 1,
+     "strongest": 94
+    },
+    "wall_before": 32.5,
+    "wall_after": 31.2
+   },
+   "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+    "tracks": [
+     {
+      "track": "2. Skynet & Stakka - Decoy",
+      "before": [
+       4733,
+       36
+      ],
+      "after": [
+       4869,
+       34
+      ],
+      "ratio": 1.029
+     },
+     {
+      "track": "3. Kemal & Rob Data - Star Trails",
+      "before": [
+       1839,
+       36
+      ],
+      "after": [
+       1540,
+       23
+      ],
+      "ratio": 0.837
+     },
+     {
+      "track": "4. Skynet & Stakka - Pathogen",
+      "before": [
+       2030,
+       23
+      ],
+      "after": [
+       2078,
+       23
+      ],
+      "ratio": 1.024
+     },
+     {
+      "track": "5. Skynet & Stakka - Clockwork",
+      "before": [
+       2651,
+       29
+      ],
+      "after": [
+       3083,
+       26
+      ],
+      "ratio": 1.163
+     },
+     {
+      "track": "7. Kraken - Dominion",
+      "before": [
+       3395,
+       39
+      ],
+      "after": [
+       3531,
+       39
+      ],
+      "ratio": 1.04
+     },
+     {
+      "track": "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+      "before": [
+       4545,
+       39
+      ],
+      "after": [
+       4865,
+       39
+      ],
+      "ratio": 1.07
+     },
+     {
+      "track": "10. Skynet & Stakka - Logistics",
+      "before": [
+       5779,
+       40
+      ],
+      "after": [
+       6425,
+       40
+      ],
+      "ratio": 1.112
+     },
+     {
+      "track": "11. Stakka & K.Tee - Auto Ignition",
+      "before": [
+       4375,
+       39
+      ],
+      "after": [
+       4742,
+       39
+      ],
+      "ratio": 1.084
+     }
+    ],
+    "unmatched_before": {
+     "all": 6023,
+     "30+": 2,
+     "60+": 1,
+     "strongest": 94
+    },
+    "unmatched_after": {
+     "all": 79,
+     "30+": 3,
+     "60+": 1,
+     "strongest": 94
+    },
+    "wall_before": 42.6,
+    "wall_after": 32.2
+   },
+   "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+    "tracks": [],
+    "unmatched_before": {
+     "all": 5736,
+     "30+": 2,
+     "60+": 1,
+     "strongest": 94
+    },
+    "unmatched_after": {
+     "all": 79,
+     "30+": 3,
+     "60+": 1,
+     "strongest": 94
+    },
+    "wall_before": 38.9,
+    "wall_after": 34.9
+   }
+  }
+ },
+ "sweeps": {
+  "2026": {
+   "recalled": 540,
+   "wrong": 0
+  },
+  "2027": {
+   "recalled": 540,
+   "wrong": 0
+  },
+  "2028": {
+   "recalled": 540,
+   "wrong": 0
+  },
+  "2029": {
+   "recalled": 540,
+   "wrong": 0
+  }
+ },
+ "sweep_cost_seconds": {
+  "2027": {
+   "wall": 181.58,
+   "user": 1555.59
+  },
+  "2028": {
+   "wall": 182.5,
+   "user": 1564.54
+  },
+  "2029": {
+   "wall": 179.34,
+   "user": 1544.34
+  }
+ },
+ "calibrate": {
+  "rule": "240 hits, 3 windows",
+  "identifying": 2179,
+  "below_rule": 0,
+  "false_candidates": 2086,
+  "false_accepted": 0,
+  "weakest_identifying": {
+   "hits": 658,
+   "what": "extra/4. Illuminati - Melange.mp3 at -3%"
+  },
+  "strongest_false": {
+   "hits": 99,
+   "what": "Clockwork at -5% against its Stakka remix"
+  },
+  "margin": 6.65,
+  "audio_not_in_index": 22,
+  "false_at_30_or_more": 46,
+  "shown_as_possible": 16
+ },
+ "single_pass_calibrate_0025": {
+  "weakest_identifying": 403,
+  "strongest_false": 97,
+  "margin": 4.15,
+  "audio_not_in_index": 28
+ },
+ "mixes": {
+  "confident": 106,
+  "possible": 9,
+  "wrong": 0,
+  "strongest_false": 42,
+  "single_pass": {
+   "confident": 107,
+   "possible": 8
+  },
+  "level_changes": [
+   {
+    "mix": 10,
+    "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "play_seconds": 21.5,
+    "before": "confident 540 hits",
+    "after": "possible 525 hits, 2 windows"
+   }
+  ]
+ },
+ "grid": {
+  "confident_3_windows": {
+   "10s": 0,
+   "15s": 67,
+   "20s": 146
+  },
+  "single_pass": {
+   "10s": 8,
+   "15s": 76,
+   "20s": 148
+  },
+  "wrong": 0,
+  "strongest_false": 34
+ }
+}

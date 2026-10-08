@@ -26,11 +26,13 @@ for scope and rules.
   digest and revision before and after; `map-library`; NAS-scale asset
   count (experiment 0046: 32 new records, 1,396 skip notes, revision
   `d428ee9585936326`, 27,066 assets)
-- [ ] 4. The new default matcher (skip at 240 with the link rules):
+- [x] 4. The new default matcher (skip at 240 with the link rules):
   baseline `session-6-candidate`; the change with today's matcher behind
   one flag; `regress` both baselines; full protocol at 262 (sweeps
   2026-2029, scan, leave-outs 3 and 11, calibrate, `mixes --count 12`,
   `grid`); register, README, e2e tests, ADR 0008; Sick Note in the notes
+  (experiment 0047: candidate reproduced exactly, every change predicted;
+  `--single-pass` keeps the old matcher)
 - [ ] 5. Clusters that join fast uploads: (a) why the 6 development pairs
   cover 44-55%; (b) `clusters` at ±8% with refined speed, the new gap;
   (c) the owner's verdict file, created empty; (d) the 262 run (17

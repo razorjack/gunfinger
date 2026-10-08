@@ -812,3 +812,34 @@ grouped tracklists.
   short), `library.txt`; 1.9 GB; digest
   `bf35ea642d5574ba1782c6da8688dc170ff6fb1ad0db83b04916ed901e9ae4f5`;
   revision `d428ee9585936326`. The NAS is not read again this session.
+- From about 03:40 another agent session on this machine (a different
+  project, "Digga") launches its app and builds, using several cores at
+  times. Wall times from then on are not idle-machine figures; CPU time
+  and deterministic counts are the figures to compare.
+- Item 4 started: `session-6-candidate` saved from the item 1 binary
+  under `--second-pass --skip-fullest 0.01 --nearby-rungs --strong-gaps`
+  (its regress against `session-6-start` in
+  `work/logs/s6-candidate-vs-start.txt`: sweep 540/540, development
+  11/11, 6,114 detections to 87). Today's default reports moved to
+  `work/reports/variant-single-pass/` (and the NAS-scale ones to
+  `library-nas-dnb-peaks/variant-single-pass/`). The default is now
+  `Matcher::Fitted`; `--single-pass` (CLI and harness) is the old one.
+  The end-to-end test's needle skip: the second pass reaches 10 s back
+  over the skip where the synthetic kicks repeat, and the part before
+  the skip is dropped (test now checks both matchers; notes for the
+  owner).
+- Re-plan at 03:50: items 1 and 3 took 0:40 together instead of 1:15
+  (the NAS listing took 5 minutes, the index 6.5). Item 4's protocol at
+  262 tracks runs from 03:42 (sweeps take about 6 minutes each under the
+  other session's load); item 5's code (`clusters` on the turntable
+  ladder with pairs measured at their fitted speed, `pair`, the verdict
+  file) and item 7's grouping are written and wait for the build.
+  Expected: item 4 committed by 04:35, item 5 by 06:45 (NAS run about
+  1.5 h), item 6 by 08:00, item 7's check by 08:20, item 8 until 10:00,
+  item 9 from 10:05.
+- Item 4's protocol (04:07, `work/logs/s6-protocol-default.log`):
+  `regress session-6-candidate` identical; sweeps 2026-2029 540/540, 0
+  wrong (180 s wall, 1,555 s CPU each); calibrate weakest 658, strongest
+  false 99, margin 6.65×, audio not in the index 22; mixes 106/9/0 wrong
+  (mix 10's Dominion possible); grid 0, 67, 146 confident at 10, 15,
+  20 s, 0 wrong. Experiment 0047; register, README, ADR 0008, notes.
