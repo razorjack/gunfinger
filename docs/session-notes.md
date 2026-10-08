@@ -1652,6 +1652,6 @@ uploads of one recording have a median of 0.65 and a 5th percentile of
 Read together: China Cup's pair is held almost whole at two offsets and
 verifies like another upload, as one cut or moved section in one
 recording would; it is also the pair behind most wrong answers. The
-Sonar revision joins on far less supported time than any other join.
+Sonar revision joins on less supported time than any other join measured.
 The Nine's VIP shares most of its seconds at several offsets but fewer
 of its peaks, as a rearranged version would.
