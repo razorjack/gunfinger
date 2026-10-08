@@ -114,7 +114,12 @@ marked as inferences were derived, not measured.
   excerpt's source file and its identical copies but keeps its other
   rips, so that misses beyond the ladder and misses from lost evidence
   can be told apart. Then choose between a wider search, a targeted
-  one, or none. Replay speed also changes by accident when analogue
+  one, or none. Measured in session 7 (`sweep --other-rips`, experiment
+  0059, 1,305 queries at NAS scale): recall holds to 9% of relative
+  speed and is gone from 10.2%; `--extra-rungs 3` adds 9.2-9.5% only.
+  Inside 9% every miss is a weak copy (lossy uploads, one other vinyl
+  rip) found below the rule. Of the 233 NAS clusters, 7 span more than
+  4% in speed. The choice now depends on how far the owner's decks go. Replay speed also changes by accident when analogue
   media is digitised (Six & Leman 2014, §1).
 - **Peaks across frequency bands.** Anchors at 2-4 kHz are 64% of the
   postings the development mix's plays look up and 21% of their true
