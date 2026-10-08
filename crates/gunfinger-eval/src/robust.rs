@@ -320,7 +320,7 @@ pub struct RobustFound {
     pub hits: u32,
     pub level: String,
     pub speed: f64,
-    pub verified: Vec<Verification>,
+    pub verified: Option<Verification>,
 }
 
 #[derive(Serialize, Deserialize)]

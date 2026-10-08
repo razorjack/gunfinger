@@ -37,22 +37,13 @@ pub struct Tolerance {
     pub frames: f64,
 }
 
-/// The settings measured to choose one. Qfp's box of 12 bins by 18 frames
-/// of 4 ms is about ±6 bins and ±2 of Gunfinger's 16 ms frames.
-pub const TOLERANCES: [Tolerance; 3] = [
-    Tolerance {
-        bins: 1.0,
-        frames: 1.0,
-    },
-    Tolerance {
-        bins: 3.0,
-        frames: 2.0,
-    },
-    Tolerance {
-        bins: 6.0,
-        frames: 2.0,
-    },
-];
+/// Chosen from three settings (1×1, 3×2 and Qfp's box, about 6×2 here) on
+/// the development scan and sweep 2026: the best separation at equal hits
+/// and the lowest chance level (experiment 0054).
+pub const TOLERANCE: Tolerance = Tolerance {
+    bins: 1.0,
+    frames: 1.0,
+};
 
 /// Shifts of the reference away from the alignment that measure chance, in
 /// reference seconds. None is a whole number of bars between 160 and 180
@@ -76,7 +67,7 @@ const MIN_RUN_HITS: usize = 3;
 /// Support over time counts slices of the span this long.
 const SLICE_SECONDS: f64 = 1.0;
 
-/// One detection measured under one tolerance.
+/// One detection measured.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Verification {
     /// `<bins>x<frames>`, the tolerance's half-widths.
@@ -117,15 +108,15 @@ impl<'a> Verifier<'a> {
         }
     }
 
-    /// `detection` measured under every tolerance; empty when its asset's
-    /// peaks are not at hand (a synthetic copy) or its span is empty.
+    /// `detection` measured; `None` when its asset's peaks are not at hand
+    /// (a synthetic copy) or its span is empty.
     pub fn verify(
         &self,
         index: &Index,
         detection: &Detection,
         samples: &[f32],
         profile: &Profile,
-    ) -> Vec<Verification> {
+    ) -> Option<Verification> {
         let path = &index.asset(detection.asset).path;
         let loaded;
         let reference: &[Peak] = match self.library.get(path) {
@@ -137,14 +128,12 @@ impl<'a> Verifier<'a> {
                 }
                 Some(Err(error)) => {
                     eprintln!("verifier: {error}");
-                    return Vec::new();
+                    return None;
                 }
-                None => return Vec::new(),
+                None => return None,
             },
         };
-        let Some(line) = Line::of(detection, profile) else {
-            return Vec::new();
-        };
+        let line = Line::of(detection, profile)?;
         let analysed = Analysed::of(detection, samples, profile, &line);
         let offsets = line.window_offsets(index, detection, &analysed, profile);
         let query = analysed.placed(&line);
@@ -153,17 +142,14 @@ impl<'a> Verifier<'a> {
             offsets,
             window_frames: profile.frames(WINDOW_SECONDS),
         };
-        TOLERANCES
-            .iter()
-            .map(|&tolerance| Verification {
-                tolerance: format!("{}x{}", tolerance.bins, tolerance.frames),
-                aligned: count(reference, &query, &aligned, tolerance, 0.0, profile),
-                shifted: CHANCE_SHIFTS_SECONDS
-                    .iter()
-                    .map(|&shift| count(reference, &query, &aligned, tolerance, shift, profile))
-                    .collect(),
-            })
-            .collect()
+        Some(Verification {
+            tolerance: format!("{}x{}", TOLERANCE.bins, TOLERANCE.frames),
+            aligned: count(reference, &query, &aligned, TOLERANCE, 0.0, profile),
+            shifted: CHANCE_SHIFTS_SECONDS
+                .iter()
+                .map(|&shift| count(reference, &query, &aligned, TOLERANCE, shift, profile))
+                .collect(),
+        })
     }
 }
 
@@ -423,11 +409,6 @@ mod tests {
         }
     }
 
-    const NARROW: Tolerance = Tolerance {
-        bins: 1.0,
-        frames: 1.0,
-    };
-
     #[test]
     fn reference_peaks_found_near_their_place_count_once_each() {
         let profile = Profile::CURRENT;
@@ -449,7 +430,7 @@ mod tests {
             placed(1090.0, 305.0),
         ];
 
-        let counted = count(&reference, &query, &line, NARROW, 0.0, &profile);
+        let counted = count(&reference, &query, &line, TOLERANCE, 0.0, &profile);
 
         assert_eq!(counted.reference_peaks, 3);
         assert_eq!(counted.found, 2);
@@ -467,7 +448,7 @@ mod tests {
         let reference = [peak(1010.0, 100.0), peak(1010.0 + shift, 100.0)];
         let query = [placed(1010.0, 100.0)];
 
-        let shifted = count(&reference, &query, &line, NARROW, 5.0, &profile);
+        let shifted = count(&reference, &query, &line, TOLERANCE, 5.0, &profile);
 
         assert_eq!(shifted.reference_peaks, 1);
         assert_eq!(shifted.found, 1);
@@ -498,8 +479,8 @@ mod tests {
         let straight = aligned(0.0, profile.frames(25.0), 0.0, vec![0.0, 0.0, 0.0]);
         let followed = aligned(0.0, profile.frames(25.0), 0.0, vec![0.0, -10.0, 0.0]);
 
-        let on_the_line = count(&reference, &query, &straight, NARROW, 0.0, &profile);
-        let per_window = count(&reference, &query, &followed, NARROW, 0.0, &profile);
+        let on_the_line = count(&reference, &query, &straight, TOLERANCE, 0.0, &profile);
+        let per_window = count(&reference, &query, &followed, TOLERANCE, 0.0, &profile);
 
         assert_eq!(on_the_line.found, 15);
         assert_eq!(per_window.found, 25);

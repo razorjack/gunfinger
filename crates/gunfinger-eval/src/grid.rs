@@ -399,7 +399,7 @@ mod tests {
             windows: 2,
             hits: 450,
             fitted: false,
-            verified: Vec::new(),
+            verified: None,
         };
 
         assert!(!confident_under(std::slice::from_ref(&found), None));

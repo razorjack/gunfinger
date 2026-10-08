@@ -192,12 +192,12 @@ pub struct MixFound {
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
     /// The peak verifier's measures, with `--verify`.
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub verified: Vec<Verification>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub verified: Option<Verification>,
 }
 
 impl MixFound {
-    pub fn new(index: &Index, detection: &Detection, verified: Vec<Verification>) -> MixFound {
+    pub fn new(index: &Index, detection: &Detection, verified: Option<Verification>) -> MixFound {
         MixFound {
             asset: index.asset(detection.asset).path.clone(),
             start_seconds: detection.start_seconds,
@@ -599,9 +599,8 @@ pub fn search_mix(
         .search(index, &audio.samples, &profile, ladder, 1)
         .iter()
         .map(|detection| {
-            let verified = verifier.map_or_else(Vec::new, |verifier| {
-                verifier.verify(index, detection, &audio.samples, &profile)
-            });
+            let verified = verifier
+                .and_then(|verifier| verifier.verify(index, detection, &audio.samples, &profile));
             MixFound::new(index, detection, verified)
         })
         .collect();
@@ -726,7 +725,7 @@ mod tests {
             windows: 4,
             hits,
             fitted: false,
-            verified: Vec::new(),
+            verified: None,
         }
     }
 
