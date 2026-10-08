@@ -190,3 +190,73 @@ time                  speed  confidence   hits  asset
 ```
 
 Evaluations used: 2 of 5.
+
+## Evaluation 3: the fitted matcher with both playbacks
+
+- Code: commit da23e9d (session 7 start), release build saved as
+  `work/bin/s7-start/`. Changes since evaluation 2 that affect detections:
+  both playbacks, turntable and key lock, by default (the owner's decision
+  of 2026-10-06, experiment 0018), and the fitted matcher by default (the
+  owner's decision of session 6, ADR 0008, experiment 0047: the fullest 1%
+  of posting lists skipped for candidates, the link rules, each candidate
+  measured again at its fitted speed, confident at 240 hits in 3 windows,
+  possible at 60). Changes without effect on these detections: sessions
+  3-6's memory, report, store and display work (`regress` identical after
+  each), and the clusters on the ±8% ladder (the 17 corpus clusters are
+  unchanged, experiment 0049). The manifest is as in evaluation 2.
+- Command: `work/bin/s7-start/gunfinger-eval scan ed-rush-optical-essential-mix`
+  (log `work/logs/s7-test-evaluation-3.log`; report kept as
+  `work/reports/evaluation-3-scan-ed-rush-optical-essential-mix.json`).
+- Why: approved by the owner in the session 7 prompt, to measure the
+  default matcher on the test mix, with the prediction that Sick Note (209
+  hits under the single pass) becomes possible. Nothing is changed because
+  of it.
+- Result: **14/16 referenced tracks identified (87.5%), 0 wrong
+  identifications. Pass.** Possible tier: Sin and Sick Note found as
+  possible; no possible play matches no track. The strongest detection
+  matching no track has 17 hits in 4 windows (evaluation 1: 24). 1:58:11
+  scanned in 62.0 s on a machine in use (62.5 s wall, 539 s user CPU).
+- As predicted, Sick Note is possible: 233 hits in 4 windows at +4.14%,
+  below the rule of 240 (the single pass gave 209 hits, confident under its
+  rule of 200). Sin gains (123 hits in 3 windows, 84 before) and stays
+  possible.
+
+Scan output, verbatim:
+
+```text
+ed-rush-optical-essential-mix: 14/16 referenced tracks identified, 0 wrong identifications; 1:58:11 of audio scanned in 62.0 s
+possible tier: 2 more referenced tracks found as possible, 0 possible plays match no track
+  absent    1. Optical & Ryme Tyme - Headhunters
+  found     2. Bad Company - The Nine  best 760 hits/25 windows at +0.65% 2:24-6:26
+  absent    3. Ram Trilogy - Terminal 1
+  absent    4. Jonny L - The Bells
+  found     5. Ed Rush & Optical - Fixation  best 737 hits/24 windows at +2.73% 14:00-17:57
+  absent    6. Ram Trilogy - Mind Overload
+  found     7. DJ Trace - Sonar  best 659 hits/21 windows at +4.55% 23:54-27:15
+  found     8. Krust - Warhead (Ram Trilogy Remix)  best 825 hits/28 windows at +2.42% 26:52-31:26
+  absent    9. Matrix - Airhead
+  found    10. Bad Company - The Pulse  best 914 hits/20 windows at +1.40% 36:18-39:29
+  found    11. Ed Rush & Optical - Bacteria  best 471 hits/17 windows at +4.76% 39:10-41:54
+  absent   12. DJ Phantasy & DJ Probe - Orders (DJ Reality Remix)
+  found    13. Ryme Tyme - Payback Pt. 1  best 855 hits/19 windows at +3.30% 47:15-50:19
+  found    14. Roni Size / Reprazent - Watching Windows (DJ Die Remix)  best 462 hits/17 windows at +5.34% 51:50-54:36
+  absent   15. Matrix - Asylum
+  absent   16. Ed Rush & Optical - Funktion (Remix)
+  found    17. Bad Company - China Cup  best 403 hits/18 windows at +0.40% 1:03:13-1:06:08
+  absent   18. Ram Trilogy - Iron Lung
+  absent   19. Optical - Newoptic
+  found    20. Ed Rush & Optical - Dozer  best 1859 hits/29 windows at +3.07% 1:13:31-1:18:17
+  absent   21. DJ Die - Clear Skyz
+  possible 22. Fibre Optix - Sin  best 123 hits/3 windows at +5.44% 1:22:21-1:22:48
+  absent   23. Usual Suspects - Killa Beez
+  absent   24. Ram Trilogy - Chase Scene
+  found    25. Ed Rush & Optical - Watermelon  best 714 hits/16 windows at +3.66% 1:32:31-1:35:08
+  absent   26. Ram Trilogy - System Error (Y2K)
+  found    27. Ed Rush & Optical - Gas Mask  best 1894 hits/38 windows at +0.40% 1:40:01-1:46:17
+  absent   28. Infinite (Optical & Fierce) - Beachball
+  found    29. Ed Rush, Optical & Fierce - Alien Girl  best 1201 hits/32 windows at +5.65% 1:49:52-1:55:04
+  found    30. Optical - Slip Thru  best 803 hits/15 windows at +2.41% 1:55:25-1:57:44
+  possible 31. Ed Rush & Optical - Sick Note  best 233 hits/4 windows at +4.14% 1:57:43-1:58:10
+```
+
+Evaluations used: 3 of 5.

@@ -9,13 +9,17 @@ for scope and rules.
 - [x] The reviewed work from after session 6 committed after
   `scripts/check.sh` (cc81599)
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build; `baseline session-7-start`
-- [ ] The NAS store's revision recorded at the start
-  (`d428ee9585936326` expected)
+- [x] Release build (`work/bin/s7-start/`); `baseline session-7-start`
+  (copies session 6's reports of 04:20-04:22; `regress session-7-start`
+  with the HEAD build checks them)
+- [x] The NAS store at the start: 27,042 `.peaks`, 27,042 `.tags`, 1,396
+  `.skip`, `library.txt`; digest `bf35ea64...e9ae4f5`; revision
+  `d428ee9585936326`, as expected
 - [-] Mixotic download: all three Google Drive links answer with a
   sign-in page; nothing arrived (`docs/brief-7.md`)
-- [ ] Test-set evaluation 3: one scan of `ed-rush-optical-essential-mix`
-  under the default matcher, ledger entry, nothing changed
+- [x] Test-set evaluation 3: one scan of `ed-rush-optical-essential-mix`
+  under the default matcher, ledger entry, nothing changed (14/16, 0
+  wrong, pass; Sick Note possible at 233 hits as predicted; 3 of 5 used)
 
 ## Items
 
