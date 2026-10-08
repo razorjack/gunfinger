@@ -1601,15 +1601,15 @@ shared passage is in the query. Telling a weak true play from a shared
 passage needs evidence the related recording lacks, and neither hash
 hits nor peak shares give it.
 
-**Proposal: no verifier rule** for the confidence levels, now or after
-denser query peaks; keep `--verify` as a diagnostic. Two uses could pay
+**Proposal: no verifier rule** for the confidence levels; keep
+`--verify` as a diagnostic. Two uses could pay
 off later. Showing the share beside each pair in a listening list, as
 below, gives your ear an order to work in. And a play whose share is far
 below its file's usual share for its hits (a lossy upload, a remaster,
 a mixed-CD edit) is worth flagging when the clusters are reviewed. The
 roadmap's other steps under "Evidence beyond exact pair hashes" (what
-exact hashing loses, denser query peaks) are unaffected, but this result
-lowers my expectation for them as accuracy measures.
+exact hashing loses, denser query peaks) are about recall under damage,
+which this does not measure.
 
 ### Two more pairs for the clusters, found by the verifier's groups
 
