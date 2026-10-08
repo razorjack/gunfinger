@@ -52,9 +52,11 @@ for scope and rules.
   timed `identify --store-only` (13 lines expected); README example and
   roadmap (experiment 0050: 13 lines, 263 s and 4 GB under the default;
   a possible play names the entry it shares material with)
-- [ ] 8. A scaling curve on real records: seeded subsets of the other
+- [x] 8. A scaling curve on real records: seeded subsets of the other
   library (1,000, 3,000, 9,000); scan and sweep 2026 at each; a proposed
-  possible tier as a function of size
+  possible tier as a function of size (experiment 0052: unrelated chance
+  21-34 hits to 3,200 assets, 64 from 9,200; tier 60 below 30 hits of
+  chance, twice the chance above; not applied)
 - [ ] 9. Wrap-up: session 6 summary in the notes; calibration, roadmap,
   status, NAS plan and checklist; the NAS store checked against item 3's
   record; `scripts/check.sh` green; commit
