@@ -843,3 +843,57 @@ grouped tracklists.
   false 99, margin 6.65×, audio not in the index 22; mixes 106/9/0 wrong
   (mix 10's Dominion possible); grid 0, 67, 146 confident at 10, 15,
   20 s, 0 wrong. Experiment 0047; register, README, ADR 0008, notes.
+- Item 4 committed (d29eee3, 04:27). The item 4 files alone pass the
+  gate in a separate worktree, except one end-to-end test that fails
+  there because `/tmp` is a symlink (notes for the owner).
+- Item 5a (04:27-04:32): `pair` on the 6 development pairs, experiment
+  0048. The ±2% clustering ladder explains the 0-55% coverage; on the
+  ±8% turntable ladder every pair is one alignment over both files. No
+  key lock, no cuts. Coverage is now counted in the shorter file's own
+  seconds (the query's span gave 100-104%).
+- Item 5b: `clusters` at 262 tracks started 04:36 (work/bin/s6-item5,
+  old clusters kept as `work/reports/duplicate-clusters-s5.json`).
+  A unit-test build of the `gunfinger` crate (export tests, about 40 s)
+  overlapped the first minute of this run by mistake; its wall and CPU
+  figures are slightly high, its clusters unaffected.
+- Item 5b/5d at 262 tracks (04:37-04:46, 535 s wall, 4,951 s CPU): the
+  17 corpus clusters reappear exactly; 48 pairs from 20% coverage
+  (session 5: 1,113, nearly all chance chains of 13-22 hits); weakest
+  same recording 0.984 as before, strongest different 0.210 (was 0.385).
+  No rerun of item 4's sweeps needed.
+- NAS sample (`clusters --from-peaks --sample 20`, 04:47-04:52): 274 s
+  wall, 1,864 s CPU, 4.1 GB; 12 further rips at 99-100%, 2 borderline
+  pairs, each listed twice (two candidates of one file measured again):
+  `clusters` now keeps the strongest pair per file (unit test). The 262
+  file was made before that change; its clusters cannot differ (the
+  strongest pair of a file is a same-recording pair whenever any is).
+- Full NAS `clusters --from-peaks` started 04:53 (work/bin/s6-item5b,
+  limit 2 h; projected about 70 minutes).
+- NAS clusters, round 1 (262 corpus records) 04:55-05:39; round 2 has
+  212 queries (session 5: 164), expected end about 06:20. Re-plan: item
+  5 by 06:45, item 6 (about 1 h at NAS scale) by 07:50, item 7's check
+  by 08:15, item 8 until 09:45, item 9 from 10:05.
+- NAS clusters, first full run (04:53-06:19, 5,094 s wall, 46,406 s
+  CPU, 4.6 GB; rounds of 262, 212 and 1): the 17 corpus clusters
+  reappear, 213 further rips (170), all 6 development pairs joined, 23
+  borderline pairs (76); weakest same 0.815, strongest different 0.766.
+  But two rips joined in session 5 dropped out: the i-witness uploads of
+  Phoenix (0.87 → 0.25) and Fallout (0.97 → 0.63). The one rung at the
+  fitted speed loses a rip whose speed drifts; the ladder's chains
+  follow it. `clusters` now keeps the better of the two alignments and
+  records the ladder's coverage (`ladder_coverage`); the first run's
+  file is kept as `duplicate-clusters-s6-refined-only.json`. Rerun from
+  06:27 (work/bin/s6-item5c), expected end about 07:55.
+- Item 7 (06:20-06:25, timed store-only `identify`): 13 lines, 263 s,
+  1,943 s CPU, 3.98 GB (experiment 0050); committed 0d84d25. A possible
+  play's mark names the entry it shares material with.
+- Re-plan at 06:40: item 6 from about 07:55 to 09:00, item 8 from 09:00
+  to 09:50 (scans and sweep 2026 at 1,000, 3,000 and 9,000 records),
+  item 9 from 10:05.
+- NAS clusters rerun (06:27-07:53, 5,106 s, 46,736 s CPU, 4.5 GB; rounds
+  262, 215, 1): 732 files, 216 further rips, none dropped, 28 borderline,
+  weakest same 0.840, strongest different 0.766 (experiment 0049).
+  Re-scored session 5 reports: 465 of 505 and 242 of 267 false confident
+  sweep detections explained, the development scan's 6 of 6.
+- Item 6 started 07:53 (`work/scripts/s6-nas-protocol.sh` under
+  timed6.sh, binary work/bin/s6-item5c).

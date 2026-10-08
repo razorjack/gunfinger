@@ -155,13 +155,12 @@ marked as inferences were derived, not measured.
 
 ## Evaluation
 
-- **Clusters that join fast uploads.** At NAS scale many YouTube uploads
-  are 2.9-4.7% faster than the rips; `clusters` searches 0.98-1.02, so
-  they stay apart and count as wrong identifications (experiments 0037,
-  0039). Searching the search's own range (±8%) would join them; the
-  coverage gap narrowed too (same recording down to 0.825, different up
-  to 0.737). Changes ground truth, so it is the owner's call; then rerun
-  `clusters` and the NAS-scale protocol. *(larger library)*
+- **The owner's verdicts on borderline pairs.** At NAS scale 28 pairs of
+  files cover 40-80% of each other (experiment 0049), among them China
+  Cup against its Prototype upload, whose detections are most of the
+  false confident ones left. `docs/pair-verdicts.txt` takes the owner's
+  verdicts; rerun `clusters --from-peaks` and the NAS-scale protocol
+  after adding them. *(larger library)*
 - **The possible tier at NAS scale.** Unrelated chance reaches 67-78 hits
   over the NAS sweeps (experiments 0040, 0041), above the tier of 60; the
   register's rule would raise it to about 150 (`docs/calibration.md`).

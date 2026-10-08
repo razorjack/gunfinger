@@ -15,6 +15,7 @@ mod matching;
 mod memory;
 mod mixes;
 mod padding;
+mod pair;
 mod regress;
 mod related;
 mod render;
@@ -77,6 +78,10 @@ struct Paths {
     /// drawn the first time the seed is used and kept as the library grows.
     #[arg(long, default_value = "docs/panels")]
     panels: PathBuf,
+    /// The owner's verdicts on pairs of files (same recording or
+    /// different), which `clusters` follows over its coverage rule.
+    #[arg(long, default_value = "docs/pair-verdicts.txt")]
+    verdicts: PathBuf,
     /// Rungs searched by sweep, scan, robust and regress; the default is
     /// `identify`'s. Reports of other ladders go to `reports/ladder-<name>/`,
     /// so that calibrate and regress read one ladder at a time.
@@ -100,6 +105,12 @@ struct Paths {
     /// to `reports/library-<store directory name>/`.
     #[arg(long, global = true)]
     other_peaks_dir: Option<PathBuf>,
+    /// With --other-peaks-dir: index only this many of the other library's
+    /// records, a seeded random choice, for measuring against the size of
+    /// the index. Reports go to `reports/library-<store>/sample-<count>/`;
+    /// the map and the clusters are the whole library's.
+    #[arg(long, global = true, requires = "other_peaks_dir")]
+    other_sample: Option<usize>,
 }
 
 #[derive(Subcommand)]
@@ -127,10 +138,25 @@ enum Command {
         /// replacing them.
         #[arg(long)]
         from_peaks: bool,
+        /// With --other-peaks-dir: search only this many corpus files,
+        /// spread over the library, and no further rounds, for timing. The
+        /// clusters in use are not replaced; the pairs go to
+        /// `duplicate-clusters-sample.json`.
+        #[arg(long, requires = "from_peaks")]
+        sample: Option<usize>,
     },
     /// List recordings that share material (remixes, VIPs, samples) by
     /// matching the library against itself.
     Related,
+    /// Search each pair's first file against its second alone, on several
+    /// ladders and at the fitted speed, and list every alignment: why two
+    /// rips cover less of each other than the clustering rule needs.
+    Pair {
+        /// A file of pairs, one per line: two paths separated by a tab,
+        /// corpus library paths or `second-library/<path>` with
+        /// --other-peaks-dir. The report is `pairs-<file stem>.json`.
+        pairs: PathBuf,
+    },
     /// Run the seeded speed sweep.
     Sweep {
         #[arg(long, default_value_t = 2026)]
@@ -269,7 +295,10 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     let takes_other_library = matches!(
         command,
         Command::MapLibrary
-            | Command::Clusters { from_peaks: true }
+            | Command::Clusters {
+                from_peaks: true,
+                ..
+            }
             | Command::Sweep { .. }
             | Command::Scan { .. }
             | Command::Calibrate { .. }
@@ -278,10 +307,25 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Regress { .. }
             | Command::Memory { .. }
             | Command::Fullest { .. }
+            | Command::Pair { .. }
     );
+    let takes_a_sample = matches!(
+        command,
+        Command::Sweep { .. }
+            | Command::Scan { .. }
+            | Command::Calibrate { .. }
+            | Command::Baseline { .. }
+            | Command::Regress { .. }
+            | Command::Memory { .. }
+    );
+    if paths.other_sample.is_some() && !takes_a_sample {
+        return Err(String::from(
+            "this command does not take --other-sample; sweep, scan, calibrate, baseline, regress and memory do",
+        ));
+    }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory and fullest do",
+            "this command does not take --other-peaks-dir; map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest and pair do",
         ));
     }
     match command {
@@ -314,12 +358,44 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             library_map::print_summary(&map);
             Ok(())
         }
-        Command::Clusters { from_peaks } => find_clusters(paths, from_peaks, jobs),
+        Command::Clusters { from_peaks, sample } => find_clusters(paths, from_peaks, sample, jobs),
         Command::Related => {
             let related =
                 related::find(&paths.library()?, &paths.store()?, &paths.clusters()?, jobs)?;
             write_json(&paths.reports().join("related-recordings.json"), &related)?;
             related::print_summary(&related);
+            Ok(())
+        }
+        Command::Pair { pairs } => {
+            let text = fs::read_to_string(&pairs)
+                .map_err(|error| format!("cannot read {}: {error}", pairs.display()))?;
+            let listed: Vec<(String, String)> = text
+                .lines()
+                .filter(|line| !line.trim().is_empty() && !line.starts_with('#'))
+                .map(|line| {
+                    line.split_once('\t')
+                        .map(|(query, found)| (query.to_owned(), found.to_owned()))
+                        .ok_or_else(|| format!("not two tab-separated paths: {line}"))
+                })
+                .collect::<Result<_, _>>()?;
+            let other = paths.other_store()?;
+            let reports = pair::run(
+                &pair::Sources {
+                    library: &paths.library()?,
+                    store: &paths.store()?,
+                    other: other.as_ref(),
+                },
+                &listed,
+            )?;
+            let stem = pairs.file_stem().map_or_else(
+                || String::from("pairs"),
+                |stem| stem.to_string_lossy().into_owned(),
+            );
+            write_json(
+                &paths.base_reports().join(format!("pairs-{stem}.json")),
+                &reports,
+            )?;
+            pair::print_summary(&reports);
             Ok(())
         }
         Command::Sweep { seed } => run_sweep(paths, seed, jobs),
@@ -620,16 +696,30 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
     Ok(())
 }
 
-fn find_clusters(paths: &Paths, from_peaks: bool, jobs: usize) -> Result<(), String> {
+fn find_clusters(
+    paths: &Paths,
+    from_peaks: bool,
+    sample: Option<usize>,
+    jobs: usize,
+) -> Result<(), String> {
     if let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) {
-        return find_clusters_around(paths, &other, &map_file, jobs);
+        return find_clusters_around(paths, &other, &map_file, sample, jobs);
+    }
+    if sample.is_some() {
+        return Err(String::from("--sample needs --other-peaks-dir"));
     }
     let source = if from_peaks {
         clusters::Source::Peaks
     } else {
         clusters::Source::Audio
     };
-    let clusters = clusters::find(&paths.library()?, &paths.store()?, source, jobs)?;
+    let clusters = clusters::find(
+        &paths.library()?,
+        &paths.store()?,
+        source,
+        &paths.verdicts()?,
+        jobs,
+    )?;
     clusters::print_summary(&clusters);
     if from_peaks {
         write_json(
@@ -654,6 +744,7 @@ fn find_clusters_around(
     paths: &Paths,
     other: &PeakStore,
     map_file: &Path,
+    sample: Option<usize>,
     jobs: usize,
 ) -> Result<(), String> {
     let map = LibraryMap::load(map_file)?;
@@ -672,12 +763,39 @@ fn find_clusters_around(
         &BTreeSet::new(),
     );
     let copies = map.copied();
-    let pairs = clusters::find_around(queries, other, &other_assets, &copies, jobs)?;
+    let verdicts = paths.verdicts()?;
+    if let Some(count) = sample {
+        let every = (queries.len() / count.max(1)).max(1);
+        let sampled: Vec<_> = queries.into_iter().step_by(every).take(count).collect();
+        let pairs = clusters::find_around(
+            sampled,
+            other,
+            &other_assets,
+            &copies,
+            &verdicts,
+            clusters::Rounds::First,
+            jobs,
+        )?;
+        clusters::print_around(&corpus, &pairs, &copies);
+        return write_json(
+            &paths.base_reports().join("duplicate-clusters-sample.json"),
+            &pairs,
+        );
+    }
+    let pairs = clusters::find_around(
+        queries,
+        other,
+        &other_assets,
+        &copies,
+        &verdicts,
+        clusters::Rounds::UntilNoneIsNew,
+        jobs,
+    )?;
     clusters::print_around(&corpus, &pairs, &copies);
     let name = map
         .other_library
         .unwrap_or_else(|| other.dir().display().to_string());
-    let merged = clusters::merged(&corpus, pairs, &name);
+    let merged = clusters::merged(&corpus, pairs, &verdicts, &name);
     write_json(&paths.clusters_file(), &merged)?;
     println!(
         "{} clusters with duplicates, written to {}",
@@ -784,8 +902,19 @@ impl Paths {
         self.work.join("baselines").join(name)
     }
 
-    /// `reports/`, or with another library its own directory there.
+    /// `reports/`, or with another library its own directory there, and a
+    /// sample of it a directory below that.
     fn base_reports(&self) -> PathBuf {
+        let library = self.library_reports();
+        match self.other_sample {
+            Some(count) => library.join(format!("sample-{count}")),
+            None => library,
+        }
+    }
+
+    /// `reports/`, or with another library its own directory there: where
+    /// its map and clusters are, whether or not a sample of it is searched.
+    fn library_reports(&self) -> PathBuf {
         let reports = self.work.join("reports");
         match self.other_name() {
             Some(name) => reports.join(format!("library-{name}")),
@@ -797,11 +926,15 @@ impl Paths {
     /// another library, they are the corpus clusters with the other
     /// library's rips of the corpus recordings (`clusters --from-peaks`).
     fn clusters_file(&self) -> PathBuf {
-        self.base_reports().join("duplicate-clusters.json")
+        self.library_reports().join("duplicate-clusters.json")
     }
 
     fn clusters(&self) -> Result<Clusters, String> {
         Clusters::load(&self.clusters_file())
+    }
+
+    fn verdicts(&self) -> Result<clusters::Verdicts, String> {
+        clusters::Verdicts::load(&self.verdicts)
     }
 
     /// The corpus clusters, also when another library is given.
@@ -837,7 +970,7 @@ impl Paths {
     fn map_file(&self) -> Option<PathBuf> {
         self.other_peaks_dir
             .as_ref()
-            .map(|_| self.base_reports().join("library-map.json"))
+            .map(|_| self.library_reports().join("library-map.json"))
     }
 
     /// With another library, the seed's panel must have been drawn from
@@ -867,10 +1000,17 @@ impl Paths {
             ));
         }
         let map = LibraryMap::load(&map_file)?;
-        padding.second = Some(SecondLibrary::from_store(store, &map.stood_for())?);
+        let second = SecondLibrary::from_store(store, &map.stood_for())?;
+        padding.second = Some(match self.other_sample {
+            Some(count) => second.sampled(count, OTHER_SAMPLE_SEED),
+            None => second,
+        });
         Ok(padding)
     }
 }
+
+/// The draw of `--other-sample`: one subset per size, the same in every run.
+const OTHER_SAMPLE_SEED: u64 = 2026;
 
 /// One worker thread per core.
 fn available_parallelism() -> usize {

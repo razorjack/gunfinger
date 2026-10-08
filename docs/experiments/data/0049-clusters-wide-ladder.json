@@ -1,0 +1,839 @@
+{
+ "experiment": "0049-clusters-wide-ladder",
+ "design": "turntable ladder 0.92-1.08, fullest 1% of posting lists skipped for candidates; candidates with 30 hits or a span of 20% of the shorter file measured again alone at their fitted speed; the alignment covering more counts; coverage in the shorter file's own seconds; strongest pair per file; owner's verdicts (none)",
+ "run_262": {
+  "command": "gunfinger-eval clusters (work/bin/s6-item5)",
+  "wall_s": 534.93,
+  "user_s": 4951.35,
+  "sys_s": 108.69,
+  "peak_bytes": 752632912,
+  "note": "a unit-test build overlapped the first minute",
+  "criterion": "one alignment at the pair's fitted speed covers at least 80% of the shorter file (candidates on the turntable ladder 0.92..1.08, the fullest 1% of posting lists skipped); the owner's verdicts override it",
+  "duplicates_identical_to_session_5": true,
+  "clusters": 17,
+  "pairs": 48,
+  "same_pairs": 47,
+  "weakest_same": 0.984009731685203,
+  "strongest_different": {
+   "query": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+   "found": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+   "coverage": 0.20969990191179977,
+   "hits": 58,
+   "speed": 1.0001012569064378
+  },
+  "session_5": {
+   "pairs": 1113,
+   "weakest_same": 0.984009731685203,
+   "strongest_different": 0.3853326931851296
+  }
+ },
+ "nas_sample_20": {
+  "wall_s": 274.37,
+  "user_s": 1864.16,
+  "peak_bytes": 4125298288
+ },
+ "nas_first_run_refined_only": {
+  "wall_s": 5093.89,
+  "user_s": 46405.94,
+  "peak_bytes": 4636053656,
+  "rounds": [
+   262,
+   212,
+   1
+  ],
+  "further_rips": 213,
+  "files": 729,
+  "borderline": 23,
+  "weakest_same": 0.815,
+  "strongest_different": 0.766,
+  "dropped_from_session_5": [
+   "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a (0.87 -> 0.25)",
+   "second-library/__youtube_archivists/i-witness-dnb/Rob F & Impulse - Fallout.opus (0.97 -> 0.63)"
+  ]
+ },
+ "nas_final": {
+  "command": "gunfinger-eval --other-peaks-dir <NAS store> clusters --from-peaks (work/bin/s6-item5c)",
+  "wall_s": 5105.72,
+  "user_s": 46735.81,
+  "sys_s": 107.14,
+  "peak_bytes": 4500279376,
+  "rounds": [
+   262,
+   215,
+   1
+  ],
+  "corpus_clusters_reappear": true,
+  "further_rips": 216,
+  "clusters": 233,
+  "files": 732,
+  "nas_files": 479,
+  "pairs": 1489,
+  "same_pairs": 969,
+  "same_beyond_2_percent": 220,
+  "same_speeds": [
+   0.9278888644996959,
+   1.077780862040769
+  ],
+  "weakest_same": {
+   "query": "extra/[AA]_-_Phoenix.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+   "coverage": 0.8396814859851353,
+   "hits": 667,
+   "speed": 0.9978549800261832,
+   "ladder_coverage": 0.8396814859851353
+  },
+  "strongest_different": {
+   "query": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "coverage": 0.7659239334646781,
+   "hits": 2773,
+   "speed": 0.9576869170724578,
+   "ladder_coverage": 0.7658876458397079
+  },
+  "borderline": [
+   {
+    "query": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "coverage": 0.7659239334646781,
+    "hits": 2773,
+    "speed": 0.9576869170724578,
+    "ladder_coverage": 0.7658876458397079
+   },
+   {
+    "query": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+    "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "coverage": 0.765470124197674,
+    "hits": 1858,
+    "speed": 0.9623185928847628,
+    "ladder_coverage": 0.7596038869784374
+   },
+   {
+    "query": "extra/01-future_cut-the_specialist-trt.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 \uff1a FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "coverage": 0.7651744557919474,
+    "hits": 2339,
+    "speed": 0.9587695917026526,
+    "ladder_coverage": 0.7651744557919474
+   },
+   {
+    "query": "Ed Rush, Optical & Fierce - Alien Girl.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "coverage": 0.7624936695739732,
+    "hits": 922,
+    "speed": 0.9999832218931831,
+    "ladder_coverage": 0.7624936695739732
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 \uff1a STRATUS - waves - ] drum and bass.m4a",
+    "found": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+    "coverage": 0.7365151570648912,
+    "hits": 2563,
+    "speed": 1.0232113857032545,
+    "ladder_coverage": 0.7365151570648912
+   },
+   {
+    "query": "extra/b-stratus-waves-sour.mp3",
+    "found": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+    "coverage": 0.7353500931586648,
+    "hits": 1747,
+    "speed": 1.0040523420568375,
+    "ladder_coverage": 0.7353500931586648
+   },
+   {
+    "query": "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "coverage": 0.6759529999383528,
+    "hits": 2628,
+    "speed": 0.9882883409746182,
+    "ladder_coverage": 0.6759529999383528
+   },
+   {
+    "query": "extra/b-bad_company-china_cup.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "coverage": 0.6602590070794062,
+    "hits": 2211,
+    "speed": 0.9870769149661569,
+    "ladder_coverage": 0.6602590070794062
+   },
+   {
+    "query": "Bad Company - China Cup.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "coverage": 0.6513971949014525,
+    "hits": 2035,
+    "speed": 0.9871509330925025,
+    "ladder_coverage": 0.3295523207161409
+   },
+   {
+    "query": "extra/02. Bad Company - China Cup.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "coverage": 0.6513971949014525,
+    "hits": 2035,
+    "speed": 0.9871509330925025,
+    "ladder_coverage": 0.3295523207161409
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - the stand - ] drum and bass.m4a",
+    "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
+    "coverage": 0.6411172870831674,
+    "hits": 979,
+    "speed": 1.0363950042489762,
+    "ladder_coverage": 0.3020216494311413
+   },
+   {
+    "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+    "coverage": 0.5938016226599675,
+    "hits": 1199,
+    "speed": 0.9844828578442442,
+    "ladder_coverage": 0.5938016226599675
+   },
+   {
+    "query": "extra/02 Coma.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "coverage": 0.5846630706916844,
+    "hits": 1825,
+    "speed": 0.9835704395145093,
+    "ladder_coverage": 0.5846630706916844
+   },
+   {
+    "query": "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal \u2022 03 \u2022 Interlude.opus",
+    "coverage": 0.5717819714082191,
+    "hits": 15,
+    "speed": 0.9229288452304257,
+    "ladder_coverage": 0.5717819714082191
+   },
+   {
+    "query": "extra/a. falcon - fractles.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
+    "coverage": 0.5697059366898306,
+    "hits": 717,
+    "speed": 0.966952864930243,
+    "ladder_coverage": 0.5697059366898306
+   },
+   {
+    "query": "second-library/__youtube_archivists/i-witness-dnb/Stakka & K.Tee - Synthesis (Remix).m4a",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+    "coverage": 0.5280250645059436,
+    "hits": 968,
+    "speed": 0.986459247079885,
+    "ladder_coverage": 0.5280250645059436
+   },
+   {
+    "query": "Bad Company - The Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "coverage": 0.5032158019093044,
+    "hits": 1801,
+    "speed": 0.9957428040901052,
+    "ladder_coverage": 0.15464631171794802
+   },
+   {
+    "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "coverage": 0.5032158019093044,
+    "hits": 1801,
+    "speed": 0.9957428040901052,
+    "ladder_coverage": 0.15464631171794802
+   },
+   {
+    "query": "extra/A- The_Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "coverage": 0.503214627133503,
+    "hits": 1742,
+    "speed": 0.9957415210260901,
+    "ladder_coverage": 0.4804862397041914
+   },
+   {
+    "query": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "coverage": 0.4989168492759147,
+    "hits": 4390,
+    "speed": 0.9973821584683681,
+    "ladder_coverage": 0.4870760289634147
+   },
+   {
+    "query": "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "coverage": 0.49682916374937086,
+    "hits": 1906,
+    "speed": 0.9957074127513662,
+    "ladder_coverage": 0.3053636546340688
+   },
+   {
+    "query": "Ed Rush & Optical - Dozer.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+    "coverage": 0.48496398672324703,
+    "hits": 266,
+    "speed": 0.9999438898168036,
+    "ladder_coverage": 0.48496398672324703
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "coverage": 0.48367848131830177,
+    "hits": 1555,
+    "speed": 1.0249017876786133,
+    "ladder_coverage": 0.48367848131830177
+   },
+   {
+    "query": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+    "coverage": 0.4455525720352251,
+    "hits": 66,
+    "speed": 0.9739749809216615,
+    "ladder_coverage": 0.44549442405428735
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+    "coverage": 0.4449295110658083,
+    "hits": 49,
+    "speed": 1.0053960379082714,
+    "ladder_coverage": 0.4449295110658083
+   },
+   {
+    "query": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a",
+    "coverage": 0.4448930526953558,
+    "hits": 47,
+    "speed": 0.9946758523393888,
+    "ladder_coverage": 0.4448930526953558
+   },
+   {
+    "query": "extra/A. Pyro -- Time Is Broken.mp3",
+    "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+    "coverage": 0.44446649471208044,
+    "hits": 682,
+    "speed": 1.0000158397368824,
+    "ladder_coverage": 0.44446649471208044
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 \uff1a CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus",
+    "coverage": 0.41744865669857134,
+    "hits": 6,
+    "speed": 1.046
+   }
+  ],
+  "related_below_20_percent": 178,
+  "files_added": [
+   "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/07-Profound_Noize-Luminous_(Remix)-sour.mp3",
+   "second-library/[2001] - [RH32] - Renegade_Hardware-Cause_4_Concern-RH32-2001-sour/b-cause_4_concern-give_it_2_em-sour.mp3",
+   "second-library/[NERVE 005] - [2002] - Paul Reset & SKC -- Crisis (Kemal remix) # Recharger (Black Sun Empire remix)/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+   "second-library/[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+   "second-library/__youtube_archivists/alien5ive/1210 RECs [ 1210 005 \uff1a CAUSE4CONCERN - psyke - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a STAKKA + SKYNET - molecular - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/BREAKBEAT SCIENCE [ PIETER K. \uff1a BBSCI005 - liquifaction - Remix by STAKKA ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/CARGO INDUSTRIES [ CARG 01 \uff1a STAKKA & K. TEE - echo chamber - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 001 \uff1a DREAZZ & FALCON - do drop in - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - the stand - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 005 \uff1a FALCON - reality - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - astro sine - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 \uff1a CHRIS SU - audiophile - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 L.P. 002 \uff1a SKC - lobotomy - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 \uff1a SINTHETIX - cryogenic - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 001 \uff1a MATRIX - bad dreams - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 \uff1a CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/INDUSTRY RECORDINGS [ IND 005 \uff1a CAUSE 4 CONCERN RMX - innocence - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/NEGATIVE RECORDINGS [ NTV 001 \uff1a KEMAL & ROB DATA - the mummy - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/NERVE RECORDINGS [ NERVE 005 \uff1a BLACK SUN EMPIRE - recharger RMX - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 32 \uff1a Symptom EP - CAUSE4CONCERN - give It 2 em - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 33 \uff1a USUAL SUSPECTs LUNACY EP CAUSE4CONCERN bodycount RMX ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 \uff1a DJ HIDDEN - skektics - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 \uff1a DJ RUFFNECK - jawbreaker - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 \uff1a SKINNAH - state of violance - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUFF LM 1 \uff1a SKINNAH - figurehead - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/SHADOW LAW RECORDINGS [ SLR 001 \uff1a ROB F & IMPULSE - fallout - ] drum and bass.opus",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 017 \uff1a STAKKA & K.TEE - rubber bullet - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLP 04 \uff1a STAKKA & SKYNET feat. K.TEE - so confused - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/VIRUS RECORDINGS [ VRS 009 \uff1a CAUSE 4 CONCERN - peep show - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/alien5ive/VIRUS RECORDINGS [ VRS 009 \uff1a MATRIX & FIERCE - tearaway - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "second-library/universal_project-usual_suspects-upr001-2001-sour/a-usual_suspects-bleach-sour.mp3"
+  ],
+  "files_dropped": [],
+  "pairs_measured_both_ways": 1361,
+  "refined_covers_more": 432,
+  "same_only_through_refine": [
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 \uff1a MO-FUNK - slipstream - ] drum and bass.m4a",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/10-Mo_Funk-Slipstream-sour.mp3",
+    "coverage": 0.9944503868609679,
+    "hits": 2943,
+    "speed": 1.0236225613736172,
+    "ladder_coverage": 0.054776064282823646
+   },
+   {
+    "query": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+    "coverage": 0.9933865376629416,
+    "hits": 1656,
+    "speed": 0.9729183795529597,
+    "ladder_coverage": 0.26011144017206045
+   },
+   {
+    "query": "extra/a-mo_funk-slipstream-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/10-Mo_Funk-Slipstream-sour.mp3",
+    "coverage": 0.9929493816096895,
+    "hits": 3904,
+    "speed": 0.9941254577723408,
+    "ladder_coverage": 0.049961365323219806
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+    "found": "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+    "coverage": 0.9886766351303561,
+    "hits": 4788,
+    "speed": 0.9983736002683335,
+    "ladder_coverage": 0.045112006510287066
+   },
+   {
+    "query": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - global report - ] drum and bass.m4a",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/08-Stakka_And_Skynet-Global_Report-sour.mp3",
+    "coverage": 0.9808279154344374,
+    "hits": 878,
+    "speed": 1.0068600460072614,
+    "ladder_coverage": 0.49891044692778364
+   },
+   {
+    "query": "second-library/TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/A_-_Decoder_-_Hord_39.mp3",
+    "found": "second-library/Decoder-Concussion_LP-tilpo01cd-2000-sour/02-Decoder-Hord_39-sour.mp3",
+    "coverage": 0.9550736680599647,
+    "hits": 5355,
+    "speed": 0.9999584739382948,
+    "ladder_coverage": 0.11630258144284111
+   },
+   {
+    "query": "second-library/ruff-teck-ancronix_vs_skinnah-ruflm1-2001-dbu/b-skinnah-figurehead-dbu.mp3",
+    "found": "second-library/va-ruff-teck_-_analog_steroids-(ruff057)-cd-2001-kroket/b_skinnah_-_figurehead-kroket.mp3",
+    "coverage": 0.9494903112627652,
+    "hits": 6040,
+    "speed": 0.9994836082273234,
+    "ladder_coverage": 0.040916944915614865
+   },
+   {
+    "query": "Skynet & Stakka - Night Lore.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+    "coverage": 0.9273257050490014,
+    "hits": 7958,
+    "speed": 0.9978157443068475,
+    "ladder_coverage": 0.06419739581863547
+   },
+   {
+    "query": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+    "coverage": 0.9273257050490014,
+    "hits": 7958,
+    "speed": 0.9978157443068475,
+    "ladder_coverage": 0.06419739581863547
+   },
+   {
+    "query": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+    "found": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD2/01-Stakka_And_Skynet-Night_Lore-sour.mp3",
+    "coverage": 0.9272583696856914,
+    "hits": 3312,
+    "speed": 1.032093597138833,
+    "ladder_coverage": 0.05981804107616834
+   }
+  ]
+ },
+ "session_5_0037": {
+  "wall_s": 4328,
+  "user_s": 38056,
+  "peak_bytes": 6700000000.0,
+  "rounds": [
+   262,
+   164,
+   6
+  ],
+  "further_rips": 170,
+  "files": 686,
+  "borderline": 76,
+  "weakest_same": 0.825,
+  "strongest_different": 0.737
+ },
+ "rescore_session_5": {
+  "variant-second-pass-skip-0.01/sweep-seed-2026.json": {
+   "wrong_confident": 91,
+   "explained": 91,
+   "not_explained": []
+  },
+  "variant-second-pass-skip-0.01/sweep-seed-2027.json": {
+   "wrong_confident": 174,
+   "explained": 150,
+   "not_explained": [
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 339
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 345
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 382
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 373
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 408
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 373
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 386
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 407
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 285
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 302
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 318
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 336
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 299
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 325
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 337
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 341
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 313
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 333
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 305
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 346
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 334
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 333
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 331
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 365
+    }
+   ]
+  },
+  "variant-second-pass-skip-0.01/sweep-seed-2028.json": {
+   "wrong_confident": 126,
+   "explained": 118,
+   "not_explained": [
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 345
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 363
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 351
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 389
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 365
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 369
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 376
+    },
+    {
+     "query": "extra/b-bad_company-china_cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 372
+    }
+   ]
+  },
+  "variant-second-pass-skip-0.01/sweep-seed-2029.json": {
+   "wrong_confident": 114,
+   "explained": 106,
+   "not_explained": [
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 511
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 482
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 483
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 503
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 499
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 465
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 485
+    },
+    {
+     "query": "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "detected": "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "hits": 468
+    }
+   ]
+  },
+  "variant-second-pass-skip-0.01/scan-stakka-skynet-knowledge.json": {
+   "wrong_confident": 6,
+   "explained": 6,
+   "not_explained": []
+  },
+  "variant-single-pass/sweep-seed-2026.json": {
+   "wrong_confident": 88,
+   "explained": 88,
+   "not_explained": []
+  },
+  "variant-single-pass/sweep-seed-2027.json": {
+   "wrong_confident": 179,
+   "explained": 154,
+   "not_explained": [
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 326
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 335
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 365
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 373
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 395
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 390
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 397
+    },
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 397
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 303
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 306
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 320
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 328
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 301
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 326
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 340
+    },
+    {
+     "query": "extra/02 Coma.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+     "hits": 342
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 294
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 326
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 322
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 334
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 310
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 349
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 366
+    },
+    {
+     "query": "extra/02. Bad Company - China Cup.mp3",
+     "detected": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+     "hits": 363
+    },
+    {
+     "query": "extra/A- The_Nine.mp3",
+     "detected": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "hits": 200
+    }
+   ]
+  },
+  "variant-single-pass/scan-stakka-skynet-knowledge.json": {
+   "wrong_confident": 6,
+   "explained": 6,
+   "not_explained": []
+  }
+ }
+}

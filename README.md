@@ -324,6 +324,7 @@ target/release/gunfinger-eval validate                 # check the manifests
 target/release/gunfinger-eval clusters                 # duplicate rips in the library
 target/release/gunfinger-eval clusters --from-peaks    # the same from stored peaks, compared
 target/release/gunfinger-eval --other-peaks-dir STORE map-library   # corpus files' copies in a larger library
+target/release/gunfinger-eval pair PAIRS.tsv           # two files' alignments on several ladders
 target/release/gunfinger-eval sweep --seed 2026        # speed sweep
 target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
 target/release/gunfinger-eval calibrate                # confidence margin
@@ -338,6 +339,14 @@ target/release/gunfinger-eval loss                     # where the development m
 target/release/gunfinger-eval memory --synthetic-copies 30   # memory by phase (run under /usr/bin/time -l)
 target/release/gunfinger-eval memory --count-lines     # the first pass's lines and detections instead
 ```
+
+`clusters` searches each file against the library on the turntable
+ladder (0.92-1.08, so uploads a few percent fast are found), measures
+each candidate pair again alone at its fitted speed, and joins two files
+when one alignment covers 80% of the shorter one, counted in that file's
+own seconds. The owner's verdicts in `docs/pair-verdicts.txt` (`same` or
+`different`, then two paths, tab-separated) override that rule; run
+`clusters` again after editing it.
 
 The sweep's held-out recordings and excerpts for each seed are drawn the
 first time the seed is used and kept in `docs/panels/`, so the same
@@ -380,7 +389,10 @@ named `second-library/<path>`, and count its rips of a recording as that
 recording; held-out and left-out recordings take their rips with them.
 The map, the clusters and the reports go to
 `work/reports/library-<store directory name>/`, where `calibrate` and
-`regress` read them when given the same option.
+`regress` read them when given the same option. `--other-sample N` adds
+only N of the other library's records, a seeded choice (each smaller
+choice is part of the larger), to measure against index size; its
+reports go to a `sample-<N>/` directory below.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
 the crate boundaries and the evaluation rules.

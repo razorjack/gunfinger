@@ -105,6 +105,8 @@ mod tests {
             query_end_seconds: 0.0,
             found_start_seconds: 0.0,
             found_end_seconds: 0.0,
+            owner_verdict: None,
+            ladder_coverage: None,
         }
     }
 

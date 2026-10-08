@@ -1212,3 +1212,60 @@ would most likely become possible (inference from experiment 0026). The
 next test-set evaluation, with three left, should measure this matcher
 on the test mix with both playbacks: 15/16 and Sin possible under the
 single pass.
+
+### A store's library path is compared without resolving symlinks
+
+Found while testing item 4 from a copy of the tree under `/tmp`, a
+symlink to `/private/tmp` on macOS: the end-to-end test
+`a_copy_of_the_peak_store_names_tracks_without_the_library` fails there
+because the store records the library's resolved path and
+`identify --library` is compared with it as given ("the peak store at
+... holds the records of the library at /private/tmp/..., not
+/tmp/..."). Both name one folder. It passes in the repository, whose
+path has no symlink. Comparing the resolved paths would fix it; not
+changed this session.
+
+### The 6 fast uploads of the development mix: the clustering ladder, not edits
+
+Experiment 0048 searched each corpus rip against its upload alone. The
+uploads play 3.0-4.6% faster than the rips. Session 5's clustering
+ladder stopped at 0.98, 0.9-2.6% from the pairs' speeds: three pairs kept
+44-55% of the track in pieces at one offset, the other three almost
+nothing. On the full turntable ladder each pair is one alignment over
+the whole of both files (4,142-6,153 hits), at the fitted speed alone
+too; key lock adds nothing, and nothing points to a cut or an edit.
+`clusters` now searches the turntable ladder from 0.92 to 1.08, measures
+each candidate pair again at its fitted speed, and counts coverage in
+the shorter file's own seconds (an upload 4% fast is 4% shorter).
+
+### The clusters now join fast uploads; 92% of session 5's false confident detections were rips
+
+`clusters` searches the turntable ladder from 0.92 to 1.08 and keeps the
+better of two alignments per pair: the one on the ladder and the pair
+measured again alone at its fitted speed (experiment 0049). At 262
+tracks the 17 clusters are unchanged and the gap widened (the strongest
+different pair falls from 0.385 to 0.210 coverage: the old pairs above
+20% were chance). At NAS scale the 17 corpus clusters reappear; 46 more
+NAS files join, nearly all uploads 3-7% off their rips' speed, so 732
+files form the 233 clusters, and the borderline pairs fall from 76 to 28.
+All 6 uploads that were the development mix's wrong identifications now
+join their recordings.
+
+Re-scored with the new clusters, session 5's reports explain 465 of the
+505 confident false sweep detections under skip at 240 and 242 of 267
+under the single pass. What remains is four pairs, for you to judge by
+ear (in the listening list below, after item 6).
+
+The gap is narrow: the weakest same-recording pair covers 0.840 (the
+i-witness upload of Phoenix), the strongest different pair 0.766 (the
+INFRA011 rip tagged "Sex Drive", which holds The Specialist, against
+the alien5ive INFRA012 upload: probably the same recording with a cut).
+One join to check: "DJ Trace - Sonar (Mark System Revision)" (i-witness)
+joins DJ Trace - Sonar at 91% coverage but only 246 hits; if the
+revision is another master or mix, mark the pair `different`.
+
+`docs/pair-verdicts.txt` takes your verdicts: one line per pair, `same`
+or `different`, then the two paths, separated by tabs (format in its
+header). `clusters` follows a verdict over the 80% rule; rerun
+`clusters --from-peaks` with `--other-peaks-dir` after editing it (85
+minutes for the NAS).

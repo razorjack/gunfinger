@@ -1,11 +1,18 @@
 //! Duplicate clusters: library files that are the same recording.
 //!
-//! Each file is searched against the whole library on a narrow ladder (rips
-//! of one recording differ in speed by a percent at most). Two files are the
-//! same recording when a single alignment covers nearly all of the shorter
-//! one. The criterion is deliberately strict: a remix or VIP that shares some
-//! sections with the original must stay separate. Clusters depend on library
-//! audio alone, never on what a set scan returned.
+//! Each file is searched against the whole library on the matcher's
+//! turntable ladder, with the fullest posting lists set aside: rips of one
+//! recording usually play within a percent of each other, but uploads sped
+//! up by 3-5% are common (experiments 0039, 0048). Each candidate pair is
+//! also measured again alone, at the candidate's fitted speed, and the
+//! alignment that covers more counts: one rung loses a rip whose speed
+//! drifts, which the ladder's chains follow from rung to rung (experiment
+//! 0049). Two files are the same recording when that single alignment
+//! covers nearly all of the shorter one. The
+//! criterion is deliberately strict: a remix or VIP that shares some
+//! sections with the original must stay separate. The owner's verdicts on
+//! pairs (`Verdicts`) override it. Clusters depend on library audio and
+//! the owner's ears alone, never on what a set scan returned.
 //!
 //! With `Source::Peaks` each file's stored peaks are searched instead of its
 //! decoded audio: no decoding, so it scales to a large library, at the cost
@@ -26,9 +33,10 @@ use gunfinger_core::index::Index;
 use gunfinger_core::indexing::{TrackLength, build_index, load_records};
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
+use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, search, search_peaks};
-use gunfinger_core::speed::{Rung, SpeedRatio};
+use gunfinger_core::search::{Detection, SKIPPED_SHARE, search, search_peaks};
+use gunfinger_core::speed::{self, Playback, Rung};
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
@@ -48,10 +56,9 @@ const ANY_LENGTH: TrackLength = TrackLength {
     min: Duration::ZERO,
     max: Duration::from_secs(24 * 3600),
 };
-/// Rips of one recording play within this speed of each other.
-const SPEEDS: [f64; 11] = [
-    0.98, 0.984, 0.988, 0.992, 0.996, 1.0, 1.004, 1.008, 1.012, 1.016, 1.02,
-];
+/// Candidates with fewer hits and less coverage are not measured again:
+/// chance alignments, most of every query's candidates.
+const MIN_HITS_TO_MEASURE: u32 = RELATED_HITS;
 
 /// Every library asset's cluster. Assets without a duplicate form a cluster
 /// of their own.
@@ -82,6 +89,14 @@ pub struct Pair {
     pub found_start_seconds: f64,
     #[serde(default)]
     pub found_end_seconds: f64,
+    /// The owner's verdict on the pair, when there is one; it decides
+    /// `same_recording`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub owner_verdict: Option<bool>,
+    /// The coverage of the candidate on the ladder, when the pair was
+    /// also measured again at its fitted speed.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ladder_coverage: Option<f64>,
 }
 
 impl Clusters {
@@ -120,27 +135,39 @@ pub fn find(
     library: &Library,
     store: &PeakStore,
     source: Source,
+    verdicts: &Verdicts,
     jobs: usize,
 ) -> Result<Clusters, String> {
     let mut pairs = self_match(library, store, source, jobs, |pair| {
         pair.coverage >= REPORTED_COVERAGE
     })?;
+    verdicts.apply(&mut pairs);
     pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage));
 
     Ok(Clusters {
         criterion: format!(
-            "one alignment at speed {:.2}..{:.2} covers at least {:.0}% of the shorter file{}",
-            SPEEDS[0],
-            SPEEDS[SPEEDS.len() - 1],
-            MIN_COVERAGE * 100.0,
+            "{}{}",
+            criterion(),
             match source {
                 Source::Audio => "",
                 Source::Peaks => " (stored peaks searched)",
             }
         ),
-        duplicates: merge(same_recording(&pairs)),
+        duplicates: merge(verdicts.links(&pairs)),
         pairs,
     })
+}
+
+fn criterion() -> String {
+    let ladder = speed::ladder();
+    let speed = |rung: Option<&Rung>| rung.map_or(1.0, |rung| rung.speed().0);
+    format!(
+        "one alignment at the pair's fitted speed covers at least {:.0}% of the shorter file (candidates on the turntable ladder {:.2}..{:.2}, the fullest {}% of posting lists skipped); the owner's verdicts override it",
+        MIN_COVERAGE * 100.0,
+        speed(ladder.first()),
+        speed(ladder.last()),
+        SKIPPED_SHARE * 100.0
+    )
 }
 
 /// The clusters of the corpus recordings in another library. Each query
@@ -156,6 +183,8 @@ pub fn find_around(
     other: &PeakStore,
     other_assets: &[Asset],
     copies: &BTreeSet<String>,
+    verdicts: &Verdicts,
+    rounds: Rounds,
     jobs: usize,
 ) -> Result<Vec<Pair>, String> {
     let profile = Profile::CURRENT;
@@ -164,7 +193,7 @@ pub fn find_around(
     for problem in &built.problems {
         eprintln!("left out: {problem}");
     }
-    let index = built.index;
+    let index = built.index.skipping_fullest(SKIPPED_SHARE);
     let by_path: BTreeMap<&str, &Asset> = other_assets
         .iter()
         .map(|asset| (asset.path.as_str(), asset))
@@ -181,23 +210,41 @@ pub fn find_around(
         number += 1;
         eprintln!("round {number}: {} queries", round.len());
         let finished = AtomicUsize::new(0);
-        let found: Vec<Vec<Pair>> = map_in_order(&round, jobs, |record| {
+        let found: Vec<Result<Vec<Pair>, String>> = map_in_order(&round, jobs, |record| {
             let query = &record.header.source.path;
             let detections = search_peaks(&index, &record.peaks, &profile, &ladder, 1);
-            let kept = detections
-                .iter()
-                .filter_map(|detection| {
-                    let asset = index.asset(detection.asset);
-                    let found = format!("{SECOND_LIBRARY_PREFIX}{}", asset.path);
-                    let shorter = record.header.duration_seconds.min(asset.duration_seconds);
-                    (found != *query).then(|| pair(query, found, shorter, detection))
-                })
-                .filter(|pair| pair.coverage >= REPORTED_COVERAGE || pair.hits >= RELATED_HITS)
-                .collect();
+            let mut kept = Vec::new();
+            for detection in candidates(&detections, record.header.duration_seconds, |asset| {
+                index.asset(asset).duration_seconds
+            }) {
+                let asset = index.asset(detection.asset);
+                let found = format!("{SECOND_LIBRARY_PREFIX}{}", asset.path);
+                if found == *query {
+                    continue;
+                }
+                let Some(&source) = by_path.get(asset.path.as_str()) else {
+                    continue;
+                };
+                let found_record = other
+                    .load(source, &profile)
+                    .map_err(|error| error.to_string())?;
+                let lengths = (record.header.duration_seconds, asset.duration_seconds);
+                let refined =
+                    at_fitted_speed(Query::Peaks(&record.peaks), &found_record, detection)
+                        .map(|refined| pair(query, found.clone(), lengths, &refined));
+                let pair = better_of(pair(query, found, lengths, detection), refined);
+                if pair.coverage >= REPORTED_COVERAGE || pair.hits >= RELATED_HITS {
+                    kept.push(pair);
+                }
+            }
             let count = finished.fetch_add(1, Ordering::Relaxed) + 1;
             eprintln!("[{count}/{}] {query}", round.len());
-            kept
+            Ok(strongest_per_file(kept))
         });
+        let mut found: Vec<Vec<Pair>> = found.into_iter().collect::<Result<_, String>>()?;
+        for pairs in &mut found {
+            verdicts.apply(pairs);
+        }
         let new: BTreeSet<String> = found
             .iter()
             .flatten()
@@ -210,6 +257,10 @@ pub fn find_around(
             })
             .collect();
         round = Vec::new();
+        if rounds == Rounds::First {
+            pairs.extend(found.into_iter().flatten());
+            break;
+        }
         for found in new {
             let path = &found[SECOND_LIBRARY_PREFIX.len()..];
             let Some(&asset) = by_path.get(path) else {
@@ -229,19 +280,27 @@ pub fn find_around(
 }
 
 /// The corpus clusters joined by the same-recording pairs found in another
-/// library (`find_around`), which are kept as the evidence.
-pub fn merged(corpus: &Clusters, pairs: Vec<Pair>, other_library: &str) -> Clusters {
+/// library (`find_around`), which are kept as the evidence, with the
+/// owner's verdicts applied.
+pub fn merged(
+    corpus: &Clusters,
+    mut pairs: Vec<Pair>,
+    verdicts: &Verdicts,
+    other_library: &str,
+) -> Clusters {
+    verdicts.apply(&mut pairs);
     let corpus_links = corpus.duplicates.iter().flat_map(|members| {
         members
             .iter()
             .map(|member| (members[0].as_str(), member.as_str()))
     });
+    let duplicates = merge(corpus_links.chain(verdicts.links(&pairs)));
     Clusters {
         criterion: format!(
             "{}; with the rips of the corpus recordings in {other_library} (stored peaks searched, named {SECOND_LIBRARY_PREFIX}<path>)",
             corpus.criterion
         ),
-        duplicates: merge(corpus_links.chain(same_recording(&pairs))),
+        duplicates,
         pairs,
     }
 }
@@ -319,16 +378,69 @@ pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>
     );
 }
 
-/// Rips of one recording play within a percent or two of each other.
+/// Rips of one recording, uploads sped up by a few percent included: the
+/// matcher's turntable ladder.
 fn clustering_ladder() -> Vec<Rung> {
-    SPEEDS
-        .into_iter()
-        .map(|speed| Rung::Turntable(SpeedRatio(speed)))
-        .collect()
+    speed::ladder()
 }
 
-fn pair(query: &str, found: String, shorter: f64, detection: &Detection) -> Pair {
-    let coverage = (detection.end_seconds - detection.start_seconds) / shorter;
+/// Whether to follow the corpus recordings' rips round after round, or to
+/// stop after the corpus files' own searches (for timing on a sample).
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum Rounds {
+    UntilNoneIsNew,
+    First,
+}
+
+/// What a library file is searched with.
+#[derive(Clone, Copy)]
+enum Query<'a> {
+    Audio(&'a [f32]),
+    Peaks(&'a [Peak]),
+}
+
+/// The detections of other files worth measuring again: a few dozen hits,
+/// or a fifth of the shorter file. `duration` gives each asset's length.
+fn candidates<'a>(
+    detections: &'a [Detection],
+    query_seconds: f64,
+    duration: impl Fn(gunfinger_core::index::AssetId) -> f64 + 'a,
+) -> impl Iterator<Item = &'a Detection> + 'a {
+    detections.iter().filter(move |detection| {
+        let shorter = query_seconds.min(duration(detection.asset));
+        detection.evidence.hits >= MIN_HITS_TO_MEASURE
+            || (detection.end_seconds - detection.start_seconds) >= REPORTED_COVERAGE * shorter
+    })
+}
+
+/// The pair measured again alone: the query against the found file's
+/// record only, on one rung at the candidate's fitted speed and playback,
+/// in every posting list. `None` when that finds nothing.
+fn at_fitted_speed(query: Query, found: &PeakRecord, candidate: &Detection) -> Option<Detection> {
+    let profile = Profile::CURRENT;
+    let index = Index::build(std::slice::from_ref(found)).ok()?;
+    let rung = [match candidate.playback {
+        Playback::Turntable => Rung::Turntable(candidate.speed),
+        Playback::KeyLocked => Rung::KeyLocked(candidate.speed),
+    }];
+    let detections = match query {
+        Query::Audio(samples) => search(&index, samples, &profile, &rung, 1),
+        Query::Peaks(peaks) => search_peaks(&index, peaks, &profile, &rung, 1),
+    };
+    detections.into_iter().next()
+}
+
+/// The pair a detection makes, its coverage counted in the shorter file's
+/// own seconds: an upload 4% fast is 4% shorter, and its span in the
+/// longer file would overstate it (experiment 0048). `lengths` are the
+/// query's and the found file's.
+fn pair(query: &str, found: String, lengths: (f64, f64), detection: &Detection) -> Pair {
+    let (query_seconds, found_seconds) = lengths;
+    let coverage = if query_seconds <= found_seconds {
+        (detection.end_seconds - detection.start_seconds) / query_seconds
+    } else {
+        (detection.track_end_seconds - detection.track_start_seconds) / found_seconds
+    };
     Pair {
         query: query.to_owned(),
         found,
@@ -340,7 +452,36 @@ fn pair(query: &str, found: String, shorter: f64, detection: &Detection) -> Pair
         query_end_seconds: detection.end_seconds,
         found_start_seconds: detection.track_start_seconds,
         found_end_seconds: detection.track_end_seconds,
+        owner_verdict: None,
+        ladder_coverage: None,
     }
+}
+
+/// The candidate on the ladder or the pair measured again at its fitted
+/// speed, whichever covers more, with the ladder's coverage kept.
+fn better_of(on_ladder: Pair, refined: Option<Pair>) -> Pair {
+    let ladder_coverage = Some(on_ladder.coverage);
+    match refined {
+        Some(refined) if refined.coverage >= on_ladder.coverage => Pair {
+            ladder_coverage,
+            ..refined
+        },
+        Some(_) => Pair {
+            ladder_coverage,
+            ..on_ladder
+        },
+        None => on_ladder,
+    }
+}
+
+/// One query's pairs, the strongest with each file: two candidates of one
+/// file (two speeds, or two stretches) measured again give one alignment
+/// twice.
+fn strongest_per_file(mut pairs: Vec<Pair>) -> Vec<Pair> {
+    pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage).then(b.hits.cmp(&a.hits)));
+    let mut seen = BTreeSet::new();
+    pairs.retain(|pair| seen.insert(pair.found.clone()));
+    pairs
 }
 
 fn same_recording(pairs: &[Pair]) -> impl Iterator<Item = (&str, &str)> {
@@ -348,6 +489,87 @@ fn same_recording(pairs: &[Pair]) -> impl Iterator<Item = (&str, &str)> {
         .iter()
         .filter(|pair| pair.same_recording)
         .map(|pair| (pair.query.as_str(), pair.found.as_str()))
+}
+
+/// The owner's verdicts on pairs of files, by ear: the same recording or
+/// different ones, whatever the coverage says. Read from a plain text file
+/// (`docs/pair-verdicts.txt`): one verdict per line, `same` or `different`
+/// and the two paths, separated by tabs; `#` starts a comment line.
+#[derive(Debug, Default)]
+pub struct Verdicts {
+    /// Pairs in path order, with whether they are the same recording.
+    verdicts: BTreeMap<(String, String), bool>,
+}
+
+impl Verdicts {
+    /// The verdicts in `path`; none when the file does not exist.
+    pub fn load(path: &Path) -> Result<Verdicts, String> {
+        match fs::read_to_string(path) {
+            Ok(text) => {
+                Verdicts::parse(&text).map_err(|error| format!("{}: {error}", path.display()))
+            }
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(Verdicts::default()),
+            Err(error) => Err(format!("cannot read {}: {error}", path.display())),
+        }
+    }
+
+    fn parse(text: &str) -> Result<Verdicts, String> {
+        let mut verdicts = BTreeMap::new();
+        for (number, line) in text.lines().enumerate() {
+            if line.trim().is_empty() || line.starts_with('#') {
+                continue;
+            }
+            let fields: Vec<&str> = line.split('\t').collect();
+            let same = match fields.first().map(|verdict| verdict.trim()) {
+                Some("same") => true,
+                Some("different") => false,
+                _ => {
+                    return Err(format!(
+                        "line {}: a verdict starts with `same` or `different`",
+                        number + 1
+                    ));
+                }
+            };
+            let [_, a, b] = fields[..] else {
+                return Err(format!(
+                    "line {}: a verdict and two paths, separated by tabs",
+                    number + 1
+                ));
+            };
+            verdicts.insert(ordered(a, b), same);
+        }
+        Ok(Verdicts { verdicts })
+    }
+
+    fn verdict(&self, a: &str, b: &str) -> Option<bool> {
+        self.verdicts.get(&ordered(a, b)).copied()
+    }
+
+    /// Sets each judged pair's `same_recording` to the owner's verdict.
+    fn apply(&self, pairs: &mut [Pair]) {
+        for pair in pairs {
+            if let Some(same) = self.verdict(&pair.query, &pair.found) {
+                pair.same_recording = same;
+                pair.owner_verdict = Some(same);
+            }
+        }
+    }
+
+    /// The same-recording pairs, with the pairs the owner judged the same
+    /// whether or not a search found them.
+    fn links<'a>(&'a self, pairs: &'a [Pair]) -> impl Iterator<Item = (&'a str, &'a str)> {
+        let judged_same = self
+            .verdicts
+            .iter()
+            .filter(|(_, same)| **same)
+            .map(|((a, b), _)| (a.as_str(), b.as_str()));
+        same_recording(pairs).chain(judged_same)
+    }
+}
+
+fn ordered(a: &str, b: &str) -> (String, String) {
+    let (first, second) = if a <= b { (a, b) } else { (b, a) };
+    (first.to_owned(), second.to_owned())
 }
 
 /// Searches every indexed file against the whole library, one file per
@@ -364,48 +586,60 @@ pub fn self_match(
     for problem in &problems {
         eprintln!("left out: {problem}");
     }
-    let index = Index::build(&records).map_err(|error| error.to_string())?;
+    let index = Index::build(&records)
+        .map_err(|error| error.to_string())?
+        .skipping_fullest(SKIPPED_SHARE);
     let ladder = clustering_ladder();
-    let durations: BTreeMap<&str, f64> = records
+    let by_path: BTreeMap<&str, &PeakRecord> = records
         .iter()
-        .map(|record| {
-            (
-                record.header.source.path.as_str(),
-                record.header.duration_seconds,
-            )
-        })
+        .map(|record| (record.header.source.path.as_str(), record))
         .collect();
 
     let finished = AtomicUsize::new(0);
     let found: Vec<Result<Vec<Pair>, String>> = map_in_order(&records, jobs, |record| {
         let query = &record.header.source.path;
-        let detections = match source {
-            Source::Audio => {
-                let audio = decode(
+        let audio = match source {
+            Source::Audio => Some(
+                decode(
                     &library.root.join(query),
                     profile.sample_rate,
                     Excerpt::default(),
                 )
-                .map_err(|error| error.to_string())?;
-                search(&index, &audio.samples, &profile, &ladder, 1)
-            }
-            Source::Peaks => search_peaks(&index, &record.peaks, &profile, &ladder, 1),
+                .map_err(|error| error.to_string())?,
+            ),
+            Source::Peaks => None,
+        };
+        let searched = match &audio {
+            Some(audio) => Query::Audio(&audio.samples),
+            None => Query::Peaks(&record.peaks),
+        };
+        let detections = match searched {
+            Query::Audio(samples) => search(&index, samples, &profile, &ladder, 1),
+            Query::Peaks(peaks) => search_peaks(&index, peaks, &profile, &ladder, 1),
         };
         let mut pairs = Vec::new();
-        for detection in &detections {
+        for detection in candidates(&detections, record.header.duration_seconds, |asset| {
+            index.asset(asset).duration_seconds
+        }) {
             let found = &index.asset(detection.asset).path;
             if found == query {
                 continue;
             }
-            let shorter = durations[query.as_str()].min(durations[found.as_str()]);
-            let pair = pair(query, found.clone(), shorter, detection);
+            let found_record = by_path[found.as_str()];
+            let lengths = (
+                record.header.duration_seconds,
+                found_record.header.duration_seconds,
+            );
+            let refined = at_fitted_speed(searched, found_record, detection)
+                .map(|refined| pair(query, found.clone(), lengths, &refined));
+            let pair = better_of(pair(query, found.clone(), lengths, detection), refined);
             if keep(&pair) {
                 pairs.push(pair);
             }
         }
         let count = finished.fetch_add(1, Ordering::Relaxed) + 1;
         eprintln!("[{count}/{}] {query}", records.len());
-        Ok(pairs)
+        Ok(strongest_per_file(pairs))
     });
     let mut pairs = Vec::new();
     for result in found {
@@ -480,7 +714,80 @@ fn merge<'a>(links: impl IntoIterator<Item = (&'a str, &'a str)>) -> Vec<Vec<Str
 
 #[cfg(test)]
 mod tests {
+    use gunfinger_core::confidence::Evidence;
+    use gunfinger_core::index::AssetId;
+    use gunfinger_core::speed::SpeedRatio;
+
     use super::*;
+
+    #[test]
+    fn the_alignment_covering_more_counts() {
+        let mut drifting = pair("rip.mp3", "upload.m4a", false);
+        drifting.coverage = 0.97;
+        let mut one_rung = drifting.clone();
+        one_rung.coverage = 0.63;
+
+        let kept = better_of(drifting.clone(), Some(one_rung.clone()));
+        assert_eq!((kept.coverage, kept.ladder_coverage), (0.97, Some(0.97)));
+
+        let kept = better_of(one_rung, Some(drifting));
+        assert_eq!((kept.coverage, kept.ladder_coverage), (0.97, Some(0.63)));
+    }
+
+    #[test]
+    fn each_file_keeps_its_strongest_pair() {
+        let mut weaker = pair("q.mp3", "f.mp3", false);
+        weaker.coverage = 0.65;
+        weaker.hits = 2_035;
+        let stronger = Pair {
+            hits: 2_540,
+            ..weaker.clone()
+        };
+        let other = pair("q.mp3", "g.mp3", false);
+
+        let kept = strongest_per_file(vec![weaker, other, stronger]);
+
+        let kept: Vec<(&str, u32)> = kept
+            .iter()
+            .map(|pair| (pair.found.as_str(), pair.hits))
+            .collect();
+        assert_eq!(kept, [("f.mp3", 2_540), ("g.mp3", 0)]);
+    }
+
+    #[test]
+    fn coverage_is_counted_in_the_shorter_files_seconds() {
+        // A rip of 400 s against its upload 4% fast, 384.6 s long; the
+        // alignment spans both whole, and only the first half of the rip.
+        let whole = Detection {
+            asset: AssetId(0),
+            start_seconds: 0.0,
+            end_seconds: 400.0,
+            track_start_seconds: 0.0,
+            track_end_seconds: 384.6,
+            speed: SpeedRatio(0.9615),
+            playback: Playback::Turntable,
+            evidence: Evidence::new(40, 5_000),
+        };
+        let half = Detection {
+            end_seconds: 200.0,
+            track_end_seconds: 192.3,
+            ..whole.clone()
+        };
+        let rip_searched = super::pair("rip", "upload".into(), (400.0, 384.6), &whole);
+        assert!((rip_searched.coverage - 1.0).abs() < 1e-9);
+        let rip_searched = super::pair("rip", "upload".into(), (400.0, 384.6), &half);
+        assert!((rip_searched.coverage - 0.5).abs() < 1e-9);
+        let upload_searched = Detection {
+            start_seconds: 0.0,
+            end_seconds: 384.6,
+            track_start_seconds: 0.0,
+            track_end_seconds: 400.0,
+            speed: SpeedRatio(1.04),
+            ..whole
+        };
+        let upload_searched = super::pair("upload", "rip".into(), (384.6, 400.0), &upload_searched);
+        assert!((upload_searched.coverage - 1.0).abs() < 1e-9);
+    }
 
     fn pair(query: &str, found: &str, same_recording: bool) -> Pair {
         Pair {
@@ -494,7 +801,44 @@ mod tests {
             query_end_seconds: 0.0,
             found_start_seconds: 0.0,
             found_end_seconds: 0.0,
+            owner_verdict: None,
+            ladder_coverage: None,
         }
+    }
+
+    #[test]
+    fn the_owners_verdicts_override_the_coverage_rule() {
+        let verdicts = Verdicts::parse(
+            "# header\n\nsame\tb.mp3\ta.mp3\ndifferent\tc.mp3\td.mp3\nsame\tx.mp3\ty.mp3\n",
+        )
+        .unwrap();
+        let mut pairs = vec![
+            pair("a.mp3", "b.mp3", false),
+            pair("c.mp3", "d.mp3", true),
+            pair("e.mp3", "f.mp3", true),
+        ];
+
+        verdicts.apply(&mut pairs);
+        let clusters = merge(verdicts.links(&pairs));
+
+        assert_eq!(pairs[0].owner_verdict, Some(true));
+        assert!(!pairs[1].same_recording);
+        assert_eq!(pairs[2].owner_verdict, None);
+        assert_eq!(
+            clusters,
+            [
+                vec!["a.mp3", "b.mp3"],
+                vec!["e.mp3", "f.mp3"],
+                vec!["x.mp3", "y.mp3"]
+            ]
+        );
+    }
+
+    #[test]
+    fn a_verdict_line_needs_a_verdict_and_two_paths() {
+        assert!(Verdicts::parse("maybe\ta.mp3\tb.mp3\n").is_err());
+        assert!(Verdicts::parse("same\ta.mp3\n").is_err());
+        assert!(Verdicts::parse("# only comments\n").is_ok());
     }
 
     #[test]
@@ -528,7 +872,7 @@ mod tests {
             pair("c.mp3", "second-library/x/c-remix.mp3", false),
         ];
 
-        let merged = merged(&corpus, pairs, "/music");
+        let merged = merged(&corpus, pairs, &Verdicts::default(), "/music");
 
         assert_eq!(
             merged.duplicates,

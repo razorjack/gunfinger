@@ -1,0 +1,953 @@
+{
+ "experiment": "0048-fast-uploads",
+ "command": "gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks pair work/logs/s6-dev-pairs.tsv (binary work/bin/s6-item4b, d29eee3 plus item 5 code)",
+ "wall_seconds": 276.65,
+ "cpu_seconds": 276.67,
+ "peak_bytes": 120013256,
+ "pairs": [
+  {
+   "query": "Skynet & Stakka - Night Lore.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "query_seconds": 385.8,
+   "found_seconds": 369.0,
+   "searches": {
+    "peaks, ladder within 2%": [
+     {
+      "speed": 0.9723,
+      "key_locked": false,
+      "hits": 736,
+      "windows": 17,
+      "query": [
+       3.4,
+       167.6
+      ],
+      "found": [
+       3.5,
+       163.2
+      ],
+      "offset": 0.21
+     },
+     {
+      "speed": 0.9702,
+      "key_locked": false,
+      "hits": 95,
+      "windows": 3,
+      "query": [
+       176.7,
+       198.9
+      ],
+      "found": [
+       171.9,
+       193.5
+      ],
+      "offset": 0.56
+     },
+     {
+      "speed": 1.0052,
+      "key_locked": false,
+      "hits": 55,
+      "windows": 3,
+      "query": [
+       264.8,
+       307.4
+      ],
+      "found": [
+       55.3,
+       98.2
+      ],
+      "offset": -210.79
+     }
+    ],
+    "peaks, turntable ladder": [
+     {
+      "speed": 0.9704,
+      "key_locked": false,
+      "hits": 4517,
+      "windows": 38,
+      "query": [
+       0.1,
+       379.7
+      ],
+      "found": [
+       0.4,
+       368.6
+      ],
+      "offset": 0.24
+     }
+    ],
+    "peaks, key-locked ladder": [
+     {
+      "speed": 0.9689,
+      "key_locked": true,
+      "hits": 20,
+      "windows": 4,
+      "query": [
+       260.5,
+       318.9
+      ],
+      "found": [
+       253.2,
+       309.8
+      ],
+      "offset": 0.86
+     },
+     {
+      "speed": 0.9725,
+      "key_locked": true,
+      "hits": 19,
+      "windows": 5,
+      "query": [
+       13.5,
+       96.9
+      ],
+      "found": [
+       13.4,
+       94.5
+      ],
+      "offset": 0.26
+     },
+     {
+      "speed": 0.9719,
+      "key_locked": true,
+      "hits": 12,
+      "windows": 3,
+      "query": [
+       134.9,
+       169.4
+      ],
+      "found": [
+       131.4,
+       164.9
+      ],
+      "offset": 0.32
+     }
+    ],
+    "peaks, at the fitted speed": [
+     {
+      "speed": 0.9704,
+      "key_locked": false,
+      "hits": 4231,
+      "windows": 38,
+      "query": [
+       0.1,
+       379.2
+      ],
+      "found": [
+       0.4,
+       368.2
+      ],
+      "offset": 0.24
+     }
+    ],
+    "audio, both ladders": [
+     {
+      "speed": 0.9704,
+      "key_locked": false,
+      "hits": 5148,
+      "windows": 38,
+      "query": [
+       0.1,
+       379.7
+      ],
+      "found": [
+       0.4,
+       368.7
+      ],
+      "offset": 0.24
+     }
+    ],
+    "audio, both ladders, second pass": [
+     {
+      "speed": 0.9704,
+      "key_locked": false,
+      "hits": 4863,
+      "windows": 38,
+      "query": [
+       0.1,
+       379.7
+      ],
+      "found": [
+       0.4,
+       368.7
+      ],
+      "offset": 0.25
+     }
+    ]
+   }
+  },
+  {
+   "query": "Skynet & Stakka - Night Lore.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "query_seconds": 385.8,
+   "found_seconds": 379.1,
+   "searches": {
+    "peaks, ladder within 2%": [
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 37,
+      "windows": 2,
+      "query": [
+       66.5,
+       76.5
+      ],
+      "found": [
+       64.1,
+       73.9
+      ],
+      "offset": -1.0
+     },
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 33,
+      "windows": 2,
+      "query": [
+       317.5,
+       322.4
+      ],
+      "found": [
+       306.8,
+       311.6
+      ],
+      "offset": -4.31
+     },
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 32,
+      "windows": 2,
+      "query": [
+       187.3,
+       194.7
+      ],
+      "found": [
+       181.0,
+       188.2
+      ],
+      "offset": -2.59
+     }
+    ],
+    "peaks, turntable ladder": [
+     {
+      "speed": 0.9668,
+      "key_locked": false,
+      "hits": 4788,
+      "windows": 38,
+      "query": [
+       0.6,
+       379.2
+      ],
+      "found": [
+       0.5,
+       366.6
+      ],
+      "offset": -0.1
+     }
+    ],
+    "peaks, key-locked ladder": [
+     {
+      "speed": 0.9678,
+      "key_locked": true,
+      "hits": 19,
+      "windows": 2,
+      "query": [
+       323.4,
+       339.7
+      ],
+      "found": [
+       61.7,
+       77.5
+      ],
+      "offset": -251.25
+     },
+     {
+      "speed": 0.958,
+      "key_locked": true,
+      "hits": 10,
+      "windows": 2,
+      "query": [
+       345.6,
+       354.2
+      ],
+      "found": [
+       43.0,
+       51.3
+      ],
+      "offset": -288.09
+     },
+     {
+      "speed": 0.9587,
+      "key_locked": true,
+      "hits": 9,
+      "windows": 2,
+      "query": [
+       194.4,
+       208.6
+      ],
+      "found": [
+       43.0,
+       56.7
+      ],
+      "offset": -143.35
+     }
+    ],
+    "peaks, at the fitted speed": [
+     {
+      "speed": 0.9668,
+      "key_locked": false,
+      "hits": 4911,
+      "windows": 38,
+      "query": [
+       0.1,
+       379.4
+      ],
+      "found": [
+       0.0,
+       366.7
+      ],
+      "offset": -0.1
+     }
+    ],
+    "audio, both ladders": [
+     {
+      "speed": 0.9668,
+      "key_locked": false,
+      "hits": 5706,
+      "windows": 38,
+      "query": [
+       0.5,
+       379.5
+      ],
+      "found": [
+       0.4,
+       366.8
+      ],
+      "offset": -0.1
+     }
+    ],
+    "audio, both ladders, second pass": [
+     {
+      "speed": 0.9668,
+      "key_locked": false,
+      "hits": 6376,
+      "windows": 39,
+      "query": [
+       0.1,
+       380.6
+      ],
+      "found": [
+       0.0,
+       367.9
+      ],
+      "offset": -0.09
+     }
+    ]
+   }
+  },
+  {
+   "query": "Kemal & Rob Data - Star Trails.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "query_seconds": 453.6,
+   "found_seconds": 441.6,
+   "searches": {
+    "peaks, ladder within 2%": [
+     {
+      "speed": 0.9717,
+      "key_locked": false,
+      "hits": 816,
+      "windows": 25,
+      "query": [
+       3.0,
+       244.6
+      ],
+      "found": [
+       4.4,
+       239.2
+      ],
+      "offset": 1.5
+     },
+     {
+      "speed": 0.9708,
+      "key_locked": false,
+      "hits": 73,
+      "windows": 4,
+      "query": [
+       276.8,
+       307.3
+      ],
+      "found": [
+       270.5,
+       300.1
+      ],
+      "offset": 1.73
+     },
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 57,
+      "windows": 3,
+      "query": [
+       253.6,
+       273.4
+      ],
+      "found": [
+       247.9,
+       267.2
+      ],
+      "offset": -0.62
+     }
+    ],
+    "peaks, turntable ladder": [
+     {
+      "speed": 0.971,
+      "key_locked": false,
+      "hits": 4142,
+      "windows": 46,
+      "query": [
+       0.2,
+       451.7
+      ],
+      "found": [
+       1.7,
+       440.1
+      ],
+      "offset": 1.52
+     }
+    ],
+    "peaks, key-locked ladder": [],
+    "peaks, at the fitted speed": [
+     {
+      "speed": 0.971,
+      "key_locked": false,
+      "hits": 4112,
+      "windows": 46,
+      "query": [
+       0.2,
+       451.7
+      ],
+      "found": [
+       1.7,
+       440.1
+      ],
+      "offset": 1.53
+     }
+    ],
+    "audio, both ladders": [
+     {
+      "speed": 0.971,
+      "key_locked": false,
+      "hits": 4777,
+      "windows": 46,
+      "query": [
+       0.2,
+       451.7
+      ],
+      "found": [
+       1.7,
+       440.1
+      ],
+      "offset": 1.52
+     }
+    ],
+    "audio, both ladders, second pass": [
+     {
+      "speed": 0.971,
+      "key_locked": false,
+      "hits": 4853,
+      "windows": 46,
+      "query": [
+       0.2,
+       451.7
+      ],
+      "found": [
+       1.7,
+       440.1
+      ],
+      "offset": 1.53
+     }
+    ]
+   }
+  },
+  {
+   "query": "Skynet & Stakka - Pathogen.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "query_seconds": 445.5,
+   "found_seconds": 427.4,
+   "searches": {
+    "peaks, ladder within 2%": [
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 19,
+      "windows": 2,
+      "query": [
+       77.3,
+       84.2
+      ],
+      "found": [
+       74.4,
+       81.1
+      ],
+      "offset": -1.36
+     },
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 18,
+      "windows": 2,
+      "query": [
+       27.1,
+       32.5
+      ],
+      "found": [
+       25.9,
+       31.1
+      ],
+      "offset": -0.6
+     },
+     {
+      "speed": 0.98,
+      "key_locked": false,
+      "hits": 17,
+      "windows": 2,
+      "query": [
+       56.2,
+       64.1
+      ],
+      "found": [
+       54.0,
+       61.7
+      ],
+      "offset": -1.05
+     }
+    ],
+    "peaks, turntable ladder": [
+     {
+      "speed": 0.9618,
+      "key_locked": false,
+      "hits": 4766,
+      "windows": 45,
+      "query": [
+       0.9,
+       443.5
+      ],
+      "found": [
+       0.7,
+       426.3
+      ],
+      "offset": -0.18
+     }
+    ],
+    "peaks, key-locked ladder": [
+     {
+      "speed": 0.9629,
+      "key_locked": true,
+      "hits": 11,
+      "windows": 2,
+      "query": [
+       73.4,
+       87.6
+      ],
+      "found": [
+       70.6,
+       84.3
+      ],
+      "offset": -0.02
+     },
+     {
+      "speed": 0.9632,
+      "key_locked": true,
+      "hits": 11,
+      "windows": 3,
+      "query": [
+       312.4,
+       348.3
+      ],
+      "found": [
+       124.2,
+       158.8
+      ],
+      "offset": -176.73
+     },
+     {
+      "speed": 0.9594,
+      "key_locked": true,
+      "hits": 10,
+      "windows": 3,
+      "query": [
+       284.3,
+       307.6
+      ],
+      "found": [
+       206.9,
+       229.3
+      ],
+      "offset": -65.86
+     }
+    ],
+    "peaks, at the fitted speed": [
+     {
+      "speed": 0.9618,
+      "key_locked": false,
+      "hits": 4283,
+      "windows": 45,
+      "query": [
+       0.9,
+       443.5
+      ],
+      "found": [
+       0.7,
+       426.3
+      ],
+      "offset": -0.17
+     }
+    ],
+    "audio, both ladders": [
+     {
+      "speed": 0.9618,
+      "key_locked": false,
+      "hits": 5453,
+      "windows": 45,
+      "query": [
+       0.9,
+       443.5
+      ],
+      "found": [
+       0.7,
+       426.3
+      ],
+      "offset": -0.17
+     }
+    ],
+    "audio, both ladders, second pass": [
+     {
+      "speed": 0.9622,
+      "key_locked": false,
+      "hits": 4828,
+      "windows": 44,
+      "query": [
+       0.9,
+       434.7
+      ],
+      "found": [
+       0.7,
+       417.9
+      ],
+      "offset": -0.16
+     }
+    ]
+   }
+  },
+  {
+   "query": "Kemal & Paul Reset - Kontempt.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "query_seconds": 444.8,
+   "found_seconds": 426.9,
+   "searches": {
+    "peaks, ladder within 2%": [
+     {
+      "speed": 1.004,
+      "key_locked": false,
+      "hits": 6,
+      "windows": 2,
+      "query": [
+       49.7,
+       50.5
+      ],
+      "found": [
+       150.8,
+       151.6
+      ],
+      "offset": 100.97
+     }
+    ],
+    "peaks, turntable ladder": [
+     {
+      "speed": 0.9556,
+      "key_locked": false,
+      "hits": 5447,
+      "windows": 45,
+      "query": [
+       0.2,
+       443.7
+      ],
+      "found": [
+       0.3,
+       424.1
+      ],
+      "offset": 0.12
+     }
+    ],
+    "peaks, key-locked ladder": [
+     {
+      "speed": 0.9955,
+      "key_locked": true,
+      "hits": 18,
+      "windows": 5,
+      "query": [
+       141.4,
+       208.5
+      ],
+      "found": [
+       135.6,
+       202.4
+      ],
+      "offset": -5.19
+     },
+     {
+      "speed": 0.9575,
+      "key_locked": true,
+      "hits": 12,
+      "windows": 3,
+      "query": [
+       101.0,
+       129.3
+      ],
+      "found": [
+       77.9,
+       105.0
+      ],
+      "offset": -18.78
+     },
+     {
+      "speed": 0.952,
+      "key_locked": true,
+      "hits": 10,
+      "windows": 2,
+      "query": [
+       240.9,
+       268.2
+      ],
+      "found": [
+       282.0,
+       308.0
+      ],
+      "offset": 52.62
+     }
+    ],
+    "peaks, at the fitted speed": [
+     {
+      "speed": 0.9556,
+      "key_locked": false,
+      "hits": 5242,
+      "windows": 45,
+      "query": [
+       0.2,
+       443.7
+      ],
+      "found": [
+       0.3,
+       424.1
+      ],
+      "offset": 0.14
+     }
+    ],
+    "audio, both ladders": [
+     {
+      "speed": 0.9556,
+      "key_locked": false,
+      "hits": 6199,
+      "windows": 45,
+      "query": [
+       0.2,
+       443.2
+      ],
+      "found": [
+       0.3,
+       423.6
+      ],
+      "offset": 0.14
+     }
+    ],
+    "audio, both ladders, second pass": [
+     {
+      "speed": 0.9561,
+      "key_locked": false,
+      "hits": 5925,
+      "windows": 45,
+      "query": [
+       0.2,
+       442.9
+      ],
+      "found": [
+       0.3,
+       423.4
+      ],
+      "offset": 0.14
+     }
+    ]
+   }
+  },
+  {
+   "query": "Skynet & Stakka - Logistics.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "query_seconds": 432.0,
+   "found_seconds": 416.7,
+   "searches": {
+    "peaks, ladder within 2%": [
+     {
+      "speed": 0.9722,
+      "key_locked": false,
+      "hits": 848,
+      "windows": 19,
+      "query": [
+       2.0,
+       186.5
+      ],
+      "found": [
+       1.6,
+       181.1
+      ],
+      "offset": -0.31
+     },
+     {
+      "speed": 0.9712,
+      "key_locked": false,
+      "hits": 216,
+      "windows": 8,
+      "query": [
+       213.4,
+       281.1
+      ],
+      "found": [
+       207.1,
+       272.9
+      ],
+      "offset": -0.13
+     },
+     {
+      "speed": 0.9705,
+      "key_locked": false,
+      "hits": 154,
+      "windows": 5,
+      "query": [
+       285.8,
+       324.7
+      ],
+      "found": [
+       277.4,
+       315.3
+      ],
+      "offset": 0.08
+     }
+    ],
+    "peaks, turntable ladder": [
+     {
+      "speed": 0.9713,
+      "key_locked": false,
+      "hits": 6153,
+      "windows": 43,
+      "query": [
+       1.3,
+       427.9
+      ],
+      "found": [
+       1.0,
+       415.3
+      ],
+      "offset": -0.28
+     }
+    ],
+    "peaks, key-locked ladder": [
+     {
+      "speed": 0.9707,
+      "key_locked": true,
+      "hits": 24,
+      "windows": 6,
+      "query": [
+       255.9,
+       328.9
+      ],
+      "found": [
+       248.4,
+       319.3
+      ],
+      "offset": 0.01
+     },
+     {
+      "speed": 0.9721,
+      "key_locked": true,
+      "hits": 15,
+      "windows": 4,
+      "query": [
+       51.3,
+       96.7
+      ],
+      "found": [
+       49.5,
+       93.7
+      ],
+      "offset": -0.29
+     },
+     {
+      "speed": 0.9669,
+      "key_locked": true,
+      "hits": 7,
+      "windows": 2,
+      "query": [
+       330.7,
+       348.3
+      ],
+      "found": [
+       312.9,
+       329.9
+      ],
+      "offset": -6.88
+     }
+    ],
+    "peaks, at the fitted speed": [
+     {
+      "speed": 0.9713,
+      "key_locked": false,
+      "hits": 6108,
+      "windows": 43,
+      "query": [
+       1.3,
+       427.7
+      ],
+      "found": [
+       1.0,
+       415.1
+      ],
+      "offset": -0.28
+     }
+    ],
+    "audio, both ladders": [
+     {
+      "speed": 0.9713,
+      "key_locked": false,
+      "hits": 6689,
+      "windows": 43,
+      "query": [
+       1.3,
+       427.9
+      ],
+      "found": [
+       1.0,
+       415.3
+      ],
+      "offset": -0.28
+     }
+    ],
+    "audio, both ladders, second pass": [
+     {
+      "speed": 0.9713,
+      "key_locked": false,
+      "hits": 6826,
+      "windows": 43,
+      "query": [
+       1.3,
+       427.9
+      ],
+      "found": [
+       1.0,
+       415.3
+      ],
+      "offset": -0.28
+     }
+    ]
+   }
+  }
+ ]
+}

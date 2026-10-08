@@ -1,0 +1,18 @@
+# The owner's verdicts on pairs of library files, by ear: the same
+# recording, or different recordings. `gunfinger-eval clusters` follows a
+# verdict over its coverage rule (one alignment covering 80% of the shorter
+# file): `same` joins the two files' clusters even when the search found
+# less, `different` keeps the pair apart even when it covers more.
+#
+# One verdict per line: `same` or `different`, then the two files, separated
+# by tabs. Files are corpus library paths (as in
+# work/reports/duplicate-clusters.json) or, for the NAS library,
+# second-library/<path under the NAS library root> (as in
+# work/reports/library-nas-dnb-peaks/duplicate-clusters.json). The order of
+# the two files does not matter. Lines starting with # and empty lines are
+# ignored. Examples, with made-up names (tabs between the fields):
+#
+#   same	Artist - Title.mp3	second-library/channel/Artist - Title (upload).m4a
+#   different	Artist - Title.mp3	Artist - Title (VIP).mp3
+#
+# Written by the owner only; clusters must be run again after a change.

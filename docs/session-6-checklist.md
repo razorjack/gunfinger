@@ -33,10 +33,15 @@ for scope and rules.
   `grid`); register, README, e2e tests, ADR 0008; Sick Note in the notes
   (experiment 0047: candidate reproduced exactly, every change predicted;
   `--single-pass` keeps the old matcher)
-- [ ] 5. Clusters that join fast uploads: (a) why the 6 development pairs
+- [x] 5. Clusters that join fast uploads: (a) why the 6 development pairs
   cover 44-55%; (b) `clusters` at ±8% with refined speed, the new gap;
   (c) the owner's verdict file, created empty; (d) the 262 run (17
   clusters), the NAS run (timed); what the new clusters explain
+  (experiments 0048, 0049: the ±2% ladder; 17 clusters at both sizes,
+  216 further rips, 28 borderline pairs, 465 of 505 session 5 false
+  confident sweep detections explained; `docs/pair-verdicts.txt` empty;
+  `pair` command; the harness's `--other-sample` for item 8 in the same
+  commit)
 - [ ] 6. The NAS-scale protocol under the new default and clusters:
   scan, leave-outs 3 and 11, sweeps 2026 and 2027, calibrate; against
   0039, 0040, 0045; the listening list in the notes
