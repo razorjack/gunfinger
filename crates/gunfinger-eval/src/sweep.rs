@@ -23,8 +23,9 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::library_map::LibraryMap;
 use crate::matching::Matching;
-use crate::padding::Padding;
+use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
 use crate::verifier::{Verification, Verifier};
@@ -185,6 +186,11 @@ pub struct Options<'a> {
     pub matching: &'a Matching,
     /// Measure every detection with the peak verifier.
     pub verify: bool,
+    /// With the other library's map: search only the indexed excerpts
+    /// whose recording has a rip that is not an identical copy of the
+    /// excerpt's source, with each such source and its identical copies
+    /// left out of the index.
+    pub other_rips: Option<&'a LibraryMap>,
     pub jobs: usize,
 }
 
@@ -202,21 +208,31 @@ pub fn run(
         ladder,
         matching,
         verify,
+        other_rips,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     let Plan { held_out, draws } = Plan::for_seed(&records, clusters, seed, panels)?;
+    let (searched_draws, excluded) = match other_rips {
+        Some(map) => other_rips_only(&draws, clusters, map, &held_out),
+        None => ((0..draws.len()).collect(), held_out.clone()),
+    };
     let indexed: Vec<PeakRecord> = records
         .iter()
-        .filter(|record| !held_out.contains(&record.header.source.path))
+        .filter(|record| !excluded.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let index = matching.index(padding.index(&indexed, &profile, &held_out)?);
+    let index = matching.index(padding.index(&indexed, &profile, &excluded)?);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
-    let renders = render_all(library, &draws, &dir, jobs)?;
+    let renders: Vec<(&Draw, f64, PathBuf)> = render_all(library, &draws, &dir, jobs)?
+        .into_iter()
+        .enumerate()
+        .filter(|(render, _)| searched_draws.contains(&(render / SPEEDS_PERCENT.len())))
+        .map(|(_, render)| render)
+        .collect();
 
     // One excerpt per thread, each searched on a single thread.
     let searched: Vec<Result<Query, String>> =
@@ -255,6 +271,64 @@ pub fn run(
             .collect(),
         queries,
     })
+}
+
+/// The positions in `draws` of the indexed excerpts whose recording keeps
+/// a rip that is not an identical copy of the excerpt's source once every
+/// such source and its copies are left out, and what the index leaves out:
+/// the held-out recordings, and those sources with their copies.
+fn other_rips_only(
+    draws: &[Draw],
+    clusters: &Clusters,
+    map: &LibraryMap,
+    held_out: &BTreeSet<String>,
+) -> (BTreeSet<usize>, BTreeSet<String>) {
+    let with_other_rips: Vec<usize> = (0..draws.len())
+        .filter(|&number| !draws[number].held_out)
+        .filter(|&number| {
+            let identical = identical_copies(&draws[number].asset, map);
+            clusters
+                .cluster_of(&draws[number].asset)
+                .iter()
+                .any(|member| !identical.contains(member))
+        })
+        .collect();
+    let mut excluded = held_out.clone();
+    for &number in &with_other_rips {
+        excluded.extend(identical_copies(&draws[number].asset, map));
+    }
+    let searched = with_other_rips
+        .into_iter()
+        .filter(|&number| {
+            clusters
+                .cluster_of(&draws[number].asset)
+                .iter()
+                .any(|member| !excluded.contains(member))
+        })
+        .collect();
+    (searched, excluded)
+}
+
+/// `asset` and the files whose peak records are identical to its: its
+/// copies in the other library, named as the index names them, and the
+/// corpus files that stand for the same copy.
+fn identical_copies(asset: &str, map: &LibraryMap) -> BTreeSet<String> {
+    let mut identical = BTreeSet::from([asset.to_owned()]);
+    if let Some(own) = map.copies.iter().find(|copies| copies.corpus == asset) {
+        for copies in map
+            .copies
+            .iter()
+            .filter(|copies| copies.stands_for == own.stands_for)
+        {
+            identical.insert(copies.corpus.clone());
+            identical.extend(
+                std::iter::once(&copies.stands_for)
+                    .chain(&copies.also)
+                    .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
+            );
+        }
+    }
+    identical
 }
 
 /// Shuffles the clusters and holds out the first fifth of them, with every
@@ -446,6 +520,68 @@ mod tests {
             },
             peaks: Vec::new(),
         }
+    }
+
+    fn draw(asset: &str, held_out: bool) -> Draw {
+        Draw {
+            asset: asset.to_owned(),
+            held_out,
+            start_seconds: 60.0,
+        }
+    }
+
+    fn copies(corpus: &str, stands_for: &str, also: &[&str]) -> crate::library_map::Copies {
+        crate::library_map::Copies {
+            corpus: corpus.to_owned(),
+            stands_for: stands_for.to_owned(),
+            same_size: true,
+            also: also.iter().map(|path| (*path).to_owned()).collect(),
+        }
+    }
+
+    #[test]
+    fn other_rips_leave_out_the_source_and_its_identical_copies() {
+        let names = |paths: &[&str]| paths.iter().map(|path| (*path).to_owned()).collect();
+        let clusters = clusters(vec![
+            names(&[
+                "a.mp3",
+                "a-rip.mp3",
+                "second-library/A.mp3",
+                "second-library/A copy.mp3",
+            ]),
+            names(&["b.mp3", "b-copy.mp3", "second-library/B.mp3"]),
+        ]);
+        let map = LibraryMap {
+            other_library: None,
+            corpus_records: 3,
+            other_records: 3,
+            copies: vec![
+                copies("a.mp3", "A.mp3", &["A copy.mp3"]),
+                copies("b.mp3", "B.mp3", &[]),
+                copies("b-copy.mp3", "B.mp3", &[]),
+            ],
+            without_copy: Vec::new(),
+        };
+        let draws = [
+            draw("a.mp3", false),
+            draw("b.mp3", false),
+            draw("h.mp3", true),
+        ];
+        let held_out = BTreeSet::from([String::from("h.mp3")]);
+
+        let (searched, excluded) = other_rips_only(&draws, &clusters, &map, &held_out);
+
+        // b's cluster holds only identical copies of it: nothing to find.
+        assert_eq!(searched, BTreeSet::from([0]));
+        assert_eq!(
+            excluded.into_iter().collect::<Vec<_>>(),
+            names(&[
+                "a.mp3",
+                "h.mp3",
+                "second-library/A copy.mp3",
+                "second-library/A.mp3"
+            ])
+        );
     }
 
     fn clusters(duplicates: Vec<Vec<String>>) -> Clusters {
