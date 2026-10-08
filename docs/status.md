@@ -1005,3 +1005,14 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   `--extra-rungs 3`). From the NAS clusters' pair speeds: 233 clusters,
   55 with members more than 2% apart in speed, 7 more than 4%, 1 more
   than 6%.
+- Item 1 at 262 tracks (18:21-18:53, experiment 0056): at equal hits the
+  verifier's excess share separates no better than hits (AUC 0.953
+  against 0.950; 0.827 against 0.865 for related false). The analysis
+  labels a false detection related when any audio in the query is
+  related (the grid's held-out neighbours had been missed).
+- 18:53: item 3's sweeps start beside item 1's NAS runs instead of after
+  them (two processes of about 3-6 GB on 32 GB; the swap guard stays),
+  so that eight NAS sweeps end before the wrap-up. CPU is compared only
+  within a run, as the brief says. Item 5's `pair` run (40 pairs:
+  4 sparse joins, the 28 borderline pairs, 8 joins drawn as controls)
+  runs beside them on one thread.
