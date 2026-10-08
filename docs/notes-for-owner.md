@@ -1502,3 +1502,64 @@ library size), and the 2-4% speed differences between rips match
 Panako's note that replay speed changes by accident when analogue media
 is digitised. The ADRs, the calibration register and the code comments
 now cite them.
+
+## Session 7 findings
+
+### Test-set evaluation 3: 14/16, Sick Note possible as predicted
+
+You approved one evaluation in the session 7 prompt. One scan of the test
+mix under the default matcher with both playbacks: 14 of 16 referenced
+tracks, 0 wrong identifications, pass. Sick Note is possible at 233 hits
+in 4 windows, 7 below the rule of 240 (209 under the single pass, which
+was confident under its rule of 200), and Sin is possible at 123 hits
+(84 before). The strongest detection matching no track has 17 hits.
+Nothing changed because of it; 2 evaluations are left
+(`docs/experiments/test-set-ledger.md`).
+
+### Shared material does not reach the rule in any scenario
+
+Experiment 0055 built queries from two passages that recordings you
+judged different share: Clockwork against its Stakka remix (about 19 s,
+112-124 hits between the files) and China Cup against The Nine (about
+23 s of shared drums), in both directions. Each passage was searched
+alone (10 s and whole), looped to 60, 120 and 240 s, and running 10-30 s
+into the played file's own material, against the full index, with the
+played recording and its rips left out, and with only the source file
+left out while another rip stayed.
+
+- With the played recording left out, the related one reaches 114-144
+  hits (possible) for Clockwork and 13-39 (weak) for China Cup ~ The
+  Nine. Nothing is confident.
+- Looping does not add up: each repeat starts a new alignment, so the
+  strongest related detection stays at 144 hits at 240 s. A rule that
+  summed a play's segments would make it confident.
+- Running into distinctive material adds about 40 hits per second to the
+  played file and nothing to the related one.
+- The positive control works: with only the source left out, its other
+  rip answers with the same hits and levels.
+
+### Supported time: the sparse joins hold hits on 39-72% of the file
+
+Coverage is the span from the first to the last hit of one alignment.
+`pair` now also reports supported time: the share of the shorter file's
+seconds that hold an aligned hit at the fitted speed (experiment 0057,
+NAS peak store, no audio read from the NAS).
+
+- Random joins: one alignment, supported time equal to coverage
+  (0.98-1.00).
+- The two Sonar joins to the "Mark System Revision" rest on one ladder
+  line at 0.7 hits per second (coverage 0.89-0.91). At the fitted speed
+  the hits fall into 4-6 alignments that hold 0.39-0.43 of the file.
+  Phoenix's i-witness upload holds 0.63-0.72 against the TECH012 rips.
+- Several pairs the clusters keep apart are held almost whole, at two
+  offsets: China Cup against its Prototype upload (0.96-0.98, coverage
+  0.65-0.68) and The Specialist against the INFRA 012 upload
+  (0.97-0.99). One cut or moved section would do this. The Nine
+  against its Evol Intent VIP is held at 0.86-0.96 in 4-5 alignments.
+- Coma ~ Spraycan 0.76; Synthesis VIP ~ "Synthesis (Remix)" over 1.0
+  (sections that repeat match twice); Global Report ~ Luminous and the
+  two chance pairs 0-0.30.
+
+Neither coverage nor supported time decides whether two files are one
+recording: a VIP can share most of its seconds. The numbers are in the
+listening list below, as aids for your ear.
