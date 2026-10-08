@@ -971,3 +971,37 @@ grouped tracklists.
   `search/lines.rs`, `hash.rs` (`FAN_OUT`) and `hash_cost.rs`. AGENTS.md
   and the README point to the references.
 - No behaviour changed; `scripts/check.sh` green.
+
+## 2026-10-08: session 7, diagnostics that need no listening
+
+Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
+
+- 17:40 start. The reviewed work from after session 6 committed after
+  `scripts/check.sh` (cc81599). Mixotic: the three Google Drive links
+  return Google's sign-in page (HTTP 401 on the view page); nothing
+  arrived, the three directories under `work/datasets/mixotic/` are
+  empty; no sign-in and no other source tried.
+- Release build in `work/bin/s7-start/`; `baseline session-7-start`
+  copies session 6's reports; `regress session-7-start` with the HEAD
+  build: 720/720 sweep queries and 87, 93, 79 scan detections identical.
+  The NAS store: 27,042 `.peaks`, 27,042 `.tags`, 1,396 `.skip`,
+  digest `bf35ea64...e9ae4f5`, revision `d428ee9585936326`, as expected.
+- Test-set evaluation 3 (approved in the prompt; ledger): 14/16, 0
+  wrong, pass; Sick Note possible at 233 hits in 4 windows as predicted,
+  Sin possible at 123. 3 of 5 evaluations used. Nothing changed.
+- Item 1: `gunfinger-eval --verify` (verifier.rs). A first version that
+  searched each window's offset over ±48 frames gave chance shares of
+  15-40% (the search reached the shifted reference's next bar); each
+  window is now aligned by its densest run of hash hits. Tolerance
+  chosen from 1×1, 3×2 and 6×2 on the development scan and sweep 2026:
+  1×1 (experiment 0054). Frozen runs at 262 tracks, then the NAS-scale
+  scan and sweep 2027, queued in `work/scripts/s7-item1-frozen.sh`
+  (binary `work/bin/s7-verify/`).
+- Item 2 (experiment 0055): `gunfinger-eval shared` with Clockwork ~ its
+  remix and China Cup ~ The Nine, both directions: no scenario reaches
+  the rule; loops do not add up (each repeat starts a new chain).
+- Item 3 queued after item 1's NAS runs (`work/scripts/s7-item3.sh`,
+  `sweep --other-rips` at NAS scale for seeds 2026-2029, then with
+  `--extra-rungs 3`). From the NAS clusters' pair speeds: 233 clusters,
+  55 with members more than 2% apart in speed, 7 more than 4%, 1 more
+  than 6%.
