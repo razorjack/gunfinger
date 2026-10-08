@@ -35,7 +35,6 @@ related false): it does not replicate.
   Optical - Compound next to grid brief 10, Kemal - Mechanizm in the
   development mix. Above 20 hits unrelated false reach 0.087.
 
-**Conclusions.** At equal hits the verifier's share separates no better
-than hits: slightly better against unrelated chance, worse against
-related records, where a weak true play in a blend verifies like a
-shared passage. It does not justify a rule; no level changed.
+**Conclusions.** At equal hits the share separates no better than hits:
+slightly better against unrelated chance, worse against related records,
+where a weak play in a blend verifies like a shared passage. No rule.
