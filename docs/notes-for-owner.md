@@ -35,7 +35,12 @@ aligned hits order pairs differently. The Sonar revision joins hold hits
 on 0.39-0.43 of the file; China Cup and The Specialist against the
 uploads the clusters keep apart, 0.96-0.99 at two offsets.
 
-**Relative speed at NAS scale** (item 3): running; first seed: 318 of 333 excerpts recalled from other rips alone, 0 wrong; the misses are beyond the ladder or Phoenix's i-witness upload.
+**Relative speed at NAS scale** (experiment 0059): with each excerpt's
+source and identical copies left out, other rips alone answer 1,213 of
+1,305 queries. Recall holds to 9% of speed relative to the nearest
+remaining file and is gone from 10.2%; `--extra-rungs 3` adds 9.2-9.5%
+only. Every miss inside 9% is a weak copy found below the rule. The 24
+wrong answers all come from two listening-list pairs.
 
 **Decisions for you.**
 
@@ -1700,3 +1705,36 @@ recording would; it is also the pair behind most wrong answers. The
 Sonar revision joins on less supported time than any other join measured.
 The Nine's VIP shares most of its seconds at several offsets but fewer
 of its peaks, as a rearranged version would.
+
+### Other rips alone: the ladder holds to 9% of relative speed
+
+Experiment 0059 asks what session 6's review asked: a play is compared
+with the indexed file, and copies of one recording differ in speed. Four
+NAS-scale sweeps (`sweep --other-rips`) left out each excerpt's source
+file and its identical copies and kept the cluster's other files: 33-40
+excerpts per seed, 1,305 queries. Relative speed combines the excerpt's
+speed with the remaining file's speed from the clusters' pairs.
+
+- Recall: 718/746 within 4%, 404/424 at 4-8%, 91/100 at 8-9%, 0/4 at
+  9.2-10%, 0/31 at 10.2-12.1%. Three extra rungs at each end recover 3
+  of the 4 at 9.2-9.5% and nothing beyond, as on the corpus copies
+  (experiment 0033).
+- Inside 9% every miss is found, below the rule, by the remaining copy:
+  another vinyl rip of Spirit - Out of Control (124-182 hits), Phoenix's
+  i-witness upload (25-47), DSCI4 uploads of Sinthetix - Cryogenic and
+  SKC - Lobotomy (170-213), uploads of Cause 4 Concern - Blindside and
+  Ed Rush & Optical - Funktion (213-239, just below 240). These copies
+  lose evidence; speed is not the cause.
+- 881 of the 1,213 answers come from uploads in the YouTube archive.
+- Wrong answers: 24, from China Cup's Prototype upload (16) and
+  Synthesis VIP's mixed-CD version (8), both on the listening list.
+- 233 NAS clusters: 55 span more than 2% in speed, 7 more than 4%, one
+  more than 6% (Falcon - The Stand, 11.5% over 6 files).
+
+A play at +8% against a copy 3% slow, with no other copy indexed, is not
+found. Whether that matters depends on how often your decks go past
+about 5-6% and how often the only copy is off-speed. A wider ladder costs
+search time for every query; adding rungs only when a play's best
+candidate sits at the ladder's end would be cheaper. I changed nothing;
+the roadmap item now has the numbers.
+
