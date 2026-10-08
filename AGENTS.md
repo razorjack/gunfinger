@@ -131,7 +131,11 @@ the best. `gunfinger stats` reports the measurements.
 - Duplicate clusters come from library audio alone, never from set results.
 - The sweep must clear its diagnostic bar (≥95% recall within ±5%, zero wrong
   answers) before any set is scanned.
-- `stakka-skynet-knowledge` is the development set. Iterate freely on it.
+- `stakka-skynet-knowledge` and `razorjack-2003-03-29` (the owner's own
+  mix, experiment 0060) are the development sets. Iterate freely on them.
+  The second's manifest was drafted from Gunfinger's output and checked by
+  the owner's ear: its starts are Gunfinger's boundaries except track 4's,
+  so do not measure boundary accuracy on it beyond that track.
 - `ed-rush-optical-essential-mix` is the held-out test set. It is evaluated
   only after the `poc-freeze-1` tag, at most five times in total, and every
   evaluation is logged in `docs/experiments/test-set-ledger.md`.

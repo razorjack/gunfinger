@@ -388,7 +388,25 @@ marked as inferences were derived, not measured.
   mix cannot. Agree each mix's role before looking at its results. The
   held-out test mix has two evaluations left (ADR 0004). *(larger
   library)* Each new genre needs its own development and held-out mixes;
-  check the speed range those DJs used.
+  check the speed range those DJs used. The owner's 2003 mix is the second
+  development set (`razorjack-2003-03-29`, experiment 0060: 12/12 at NAS
+  scale). To use it in the harness:
+  1. Manifests that reference NAS files (`second-library/<path>`, as in
+     `docs/pair-verdicts.txt`), valid with `--other-peaks-dir`: five of
+     its tracks exist only on the NAS, and their paths wait as comments
+     in the manifest.
+  2. Clusters around its files (`clusters --from-peaks` with them among
+     the queries), so that other rips and uploads count as the track.
+     The alien5ive INFRA012 upload of The Specialist, confident in the
+     mix, is a borderline pair the clusters keep apart: the owner's
+     verdict on it decides whether that detection is right.
+  3. The set in the standard protocol at both sizes (at 262 tracks 7
+     tracks are referenced and 5 absent, a test of unknown audio), with
+     leave-outs, and a new baseline.
+  Then the experiments it offers: Phantom Force and its rips left out
+  (do Phantom 2018 or the Fracture edit, both possible now, become
+  confident?), the blend from 10:47 to 11:55 before Phantom Force's
+  first confident detection, and the Kinetic tease at 17:23.
 - **Public DJ-mix datasets and per-second scoring.** Mixotic (10
   Creative Commons techno and house mixes, 723 reference tracks,
   approximate song borders) and UnmixDB (mixes generated

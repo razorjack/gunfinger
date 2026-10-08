@@ -57,3 +57,8 @@ All ground truth lives in `gunfinger-eval`, which depends on
   the test set is touched.
 - A suspected ground-truth error is reported for the owner and still counts
   as wrong.
+- Later (2026-10-08): the owner added a second development set,
+  `razorjack-2003-03-29`, a mix of their own whose manifest was drafted
+  from `identify` and checked by ear (experiment 0060). A future held-out
+  set needs its role fixed and its tracklist written without Gunfinger
+  before anything searches it.

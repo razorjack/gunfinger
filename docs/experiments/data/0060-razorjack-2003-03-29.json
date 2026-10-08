@@ -1,0 +1,833 @@
+{
+ "schema_version": 3,
+ "query": {
+  "path": "corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3",
+  "start_seconds": 0.0,
+  "duration_seconds": 2770.155125,
+  "playback": "both",
+  "requested_duration_seconds": null
+ },
+ "library": "/Volumes/atlas/Music/dnb",
+ "search": {
+  "profile": "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10",
+  "hashes": "pairs-v1 fan-out=2 zone=63x63 anchor=8bit/knee=50/step=0.02 dbin=7bit dframe=6bit",
+  "matching": "lines-chains-v1 fitted-skip-0.01-links window=10s line=2fr min-hits=3 per-asset=3 same=4fr gap=2 link=4fr+0.004 fit=1000fr ladder=0.92..1.08/0.004",
+  "confidence": "confident: 240 hits in 3 windows; possible: 60 hits",
+  "library_revision": "d428ee9585936326"
+ },
+ "plays": [
+  {
+   "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 1.9321875,
+   "end_seconds": 148.885078125,
+   "track_start_seconds": 0.0,
+   "track_end_seconds": 156.7243496781028,
+   "speed": 1.0665751576349392,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 15,
+   "hits": 4333,
+   "segments": [
+    {
+     "start_seconds": 1.9321875,
+     "end_seconds": 148.885078125,
+     "track_start_seconds": 0.0,
+     "track_end_seconds": 156.7243496781028,
+     "speed": 1.0665751576349392,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 15,
+     "hits": 4333
+    }
+   ],
+   "tags": {
+    "artist": "Kemal and Rob Data",
+    "title": "Konspiracy",
+    "album": "IND002"
+   }
+  },
+  {
+   "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 130.26517578125,
+   "end_seconds": 397.97487890625,
+   "track_start_seconds": 45.770851998152445,
+   "track_end_seconds": 328.2220726202876,
+   "speed": 1.0479493476150692,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 27,
+   "hits": 6872,
+   "segments": [
+    {
+     "start_seconds": 130.26517578125,
+     "end_seconds": 339.84258984375,
+     "track_start_seconds": 45.770851998152445,
+     "track_end_seconds": 265.3944525167237,
+     "speed": 1.0479493476150692,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 21,
+     "hits": 6677
+    },
+    {
+     "start_seconds": 341.28919921875,
+     "end_seconds": 397.97487890625,
+     "track_start_seconds": 268.819492761157,
+     "track_end_seconds": 328.2220726202876,
+     "speed": 1.0479747713456673,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 6,
+     "hits": 195
+    }
+   ],
+   "tags": {
+    "artist": "Future Cut",
+    "title": "Sex Drive",
+    "album": "Infrared (INFRA 011)"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "same_audio": [],
+   "start_seconds": 131.216384765625,
+   "end_seconds": 379.230375,
+   "track_start_seconds": 44.94120775739745,
+   "track_end_seconds": 293.0344953676557,
+   "speed": 1.0041954390112666,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 25,
+   "hits": 2475,
+   "segments": [
+    {
+     "start_seconds": 131.216384765625,
+     "end_seconds": 339.833728515625,
+     "track_start_seconds": 44.94120775739745,
+     "track_end_seconds": 254.33888773534966,
+     "speed": 1.0041954390112666,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 21,
+     "hits": 2280
+    },
+    {
+     "start_seconds": 341.287625,
+     "end_seconds": 379.230375,
+     "track_start_seconds": 254.9776091292415,
+     "track_end_seconds": 293.0344953676557,
+     "speed": 1.0030097549407035,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 4,
+     "hits": 195
+    }
+   ],
+   "tags": {
+    "artist": "FUTURE CUT",
+    "title": "the specialist"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+   "same_audio": [],
+   "start_seconds": 135.989130859375,
+   "end_seconds": 403.892736328125,
+   "track_start_seconds": 51.54324307008137,
+   "track_end_seconds": 330.0404699382067,
+   "speed": 1.0435481327786562,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 28,
+   "hits": 2150,
+   "segments": [
+    {
+     "start_seconds": 135.989130859375,
+     "end_seconds": 339.411431640625,
+     "track_start_seconds": 51.54324307008137,
+     "track_end_seconds": 263.7683291581883,
+     "speed": 1.0435481327786562,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 21,
+     "hits": 1953
+    },
+    {
+     "start_seconds": 341.282853515625,
+     "end_seconds": 403.892736328125,
+     "track_start_seconds": 264.87863197004526,
+     "track_end_seconds": 330.0404699382067,
+     "speed": 1.0409450554626023,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 7,
+     "hits": 197
+    }
+   ],
+   "tags": {
+    "artist": "Future Cut",
+    "title": "The Specialist"
+   }
+  },
+  {
+   "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "same_audio": [
+    "Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3"
+   ],
+   "start_seconds": 145.05023828125,
+   "end_seconds": 403.24375390625,
+   "track_start_seconds": 61.1912739455704,
+   "track_end_seconds": 330.7694789521542,
+   "speed": 1.0474932528489445,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 27,
+   "hits": 2564,
+   "segments": [
+    {
+     "start_seconds": 145.05023828125,
+     "end_seconds": 339.84277734375,
+     "track_start_seconds": 61.1912739455704,
+     "track_end_seconds": 265.1798026354645,
+     "speed": 1.0474932528489445,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 20,
+     "hits": 2311
+    },
+    {
+     "start_seconds": 341.28919921875,
+     "end_seconds": 403.24375390625,
+     "track_start_seconds": 265.845037424232,
+     "track_end_seconds": 330.7694789521542,
+     "speed": 1.0479450810182571,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 7,
+     "hits": 253
+    }
+   ],
+   "tags": {
+    "artist": "Future Cut",
+    "title": "The Specialist",
+    "album": "The Specialist Vinyl"
+   }
+  },
+  {
+   "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 372.92246484375,
+   "end_seconds": 708.55113671875,
+   "track_start_seconds": 77.58917980591846,
+   "track_end_seconds": 429.0017963917223,
+   "speed": 1.0470526253205683,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 34,
+   "hits": 8591,
+   "segments": [
+    {
+     "start_seconds": 372.92246484375,
+     "end_seconds": 708.55113671875,
+     "track_start_seconds": 77.58917980591846,
+     "track_end_seconds": 429.0017963917223,
+     "speed": 1.0470526253205683,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 34,
+     "hits": 8591
+    }
+   ],
+   "tags": {
+    "artist": "Narcosis",
+    "title": "Escape Route",
+    "album": "IND002"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+   "same_audio": [],
+   "start_seconds": 691.158751953125,
+   "end_seconds": 816.514337890625,
+   "track_start_seconds": 75.24743942441407,
+   "track_end_seconds": 115.44375149590773,
+   "speed": 1.062125,
+   "playback": "turntable",
+   "confidence": "possible",
+   "windows": 14,
+   "hits": 322,
+   "segments": [
+    {
+     "start_seconds": 691.158751953125,
+     "end_seconds": 722.82128515625,
+     "track_start_seconds": 75.24743942441407,
+     "track_end_seconds": 108.75750203839286,
+     "speed": 1.0577,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 4,
+     "hits": 85
+    },
+    {
+     "start_seconds": 725.1554921875,
+     "end_seconds": 777.238666015625,
+     "track_start_seconds": 60.58195566003948,
+     "track_end_seconds": 115.74412907772549,
+     "speed": 1.062125,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 6,
+     "hits": 146
+    },
+    {
+     "start_seconds": 781.835548828125,
+     "end_seconds": 816.514337890625,
+     "track_start_seconds": 78.73543683451703,
+     "track_end_seconds": 115.44375149590773,
+     "speed": 1.058060606060606,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 4,
+     "hits": 91
+    }
+   ],
+   "tags": {
+    "artist": "Digital & Spirit",
+    "title": "Phantom 2018"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "same_audio": [],
+   "start_seconds": 715.785775390625,
+   "end_seconds": 908.64866796875,
+   "track_start_seconds": 128.90509341540002,
+   "track_end_seconds": 333.11111706351045,
+   "speed": 1.0596501792717943,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 20,
+   "hits": 2233,
+   "segments": [
+    {
+     "start_seconds": 715.785775390625,
+     "end_seconds": 908.64866796875,
+     "track_start_seconds": 128.90509341540002,
+     "track_end_seconds": 333.11111706351045,
+     "speed": 1.0596501792717943,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 20,
+     "hits": 2233
+    }
+   ],
+   "tags": {
+    "artist": "Digital & Spirit",
+    "title": "Phantom Force"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "same_audio": [],
+   "start_seconds": 751.511951171875,
+   "end_seconds": 795.01863671875,
+   "track_start_seconds": 56.86794952566964,
+   "track_end_seconds": 102.136185625,
+   "speed": 1.04,
+   "playback": "key-locked",
+   "confidence": "possible",
+   "windows": 5,
+   "hits": 98,
+   "segments": [
+    {
+     "start_seconds": 751.511951171875,
+     "end_seconds": 795.01863671875,
+     "track_start_seconds": 56.86794952566964,
+     "track_end_seconds": 102.136185625,
+     "speed": 1.04,
+     "playback": "key-locked",
+     "confidence": "possible",
+     "windows": 5,
+     "hits": 98
+    }
+   ],
+   "shares_material_with": {
+    "play": 8,
+    "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   },
+   "tags": {
+    "artist": "Rift feat. Souldrop",
+    "title": "Meltdown"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+   "same_audio": [],
+   "start_seconds": 826.11161328125,
+   "end_seconds": 856.5454765625,
+   "track_start_seconds": 45.1463183203125,
+   "track_end_seconds": 77.37665438802084,
+   "speed": 1.06,
+   "playback": "turntable",
+   "confidence": "possible",
+   "windows": 4,
+   "hits": 118,
+   "segments": [
+    {
+     "start_seconds": 826.11161328125,
+     "end_seconds": 856.5454765625,
+     "track_start_seconds": 45.1463183203125,
+     "track_end_seconds": 77.37665438802084,
+     "speed": 1.06,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 4,
+     "hits": 118
+    }
+   ],
+   "shares_material_with": {
+    "play": 8,
+    "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   },
+   "tags": {
+    "artist": "Digital & Spirit",
+    "title": "Phantom Force (Fracture's Astrophonica Edit)"
+   }
+  },
+  {
+   "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 880.775357421875,
+   "end_seconds": 1204.920658203125,
+   "track_start_seconds": 78.85898673984191,
+   "track_end_seconds": 415.9543078773234,
+   "speed": 1.041273476942898,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 34,
+   "hits": 2712,
+   "segments": [
+    {
+     "start_seconds": 880.775357421875,
+     "end_seconds": 1100.5126953125,
+     "track_start_seconds": 78.85898673984191,
+     "track_end_seconds": 307.67447419491424,
+     "speed": 1.041273476942898,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 23,
+     "hits": 2376
+    },
+    {
+     "start_seconds": 1101.029140625,
+     "end_seconds": 1204.920658203125,
+     "track_start_seconds": 307.77246949081143,
+     "track_end_seconds": 415.9543078773234,
+     "speed": 1.0413231860870158,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 11,
+     "hits": 336
+    }
+   ],
+   "tags": {
+    "artist": "Tee Bee",
+    "title": "Two Faced",
+    "album": "Drum'n'Bass Arena LP"
+   }
+  },
+  {
+   "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+   "same_audio": [],
+   "start_seconds": 1043.677349609375,
+   "end_seconds": 1518.777283203125,
+   "track_start_seconds": 70.98023941434025,
+   "track_end_seconds": 442.3887748196827,
+   "speed": 1.059024810139048,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 46,
+   "hits": 8633,
+   "segments": [
+    {
+     "start_seconds": 1043.677349609375,
+     "end_seconds": 1081.832052734375,
+     "track_start_seconds": 70.98023941434025,
+     "track_end_seconds": 111.40961116435062,
+     "speed": 1.059275413712007,
+     "playback": "turntable",
+     "confidence": "possible",
+     "windows": 5,
+     "hits": 199
+    },
+    {
+     "start_seconds": 1115.632224609375,
+     "end_seconds": 1518.777283203125,
+     "track_start_seconds": 15.451295005429952,
+     "track_end_seconds": 442.3887748196827,
+     "speed": 1.059024810139048,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 41,
+     "hits": 8434
+    }
+   ],
+   "tags": {
+    "artist": "Omni Trio",
+    "title": "Kinetic",
+    "album": "Even Angels Cast Shadows"
+   }
+  },
+  {
+   "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 1464.76874609375,
+   "end_seconds": 1765.823349609375,
+   "track_start_seconds": 27.601887347125675,
+   "track_end_seconds": 344.5216517699945,
+   "speed": 1.0549425718493837,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 31,
+   "hits": 2363,
+   "segments": [
+    {
+     "start_seconds": 1464.76874609375,
+     "end_seconds": 1563.448138671875,
+     "track_start_seconds": 27.601887347125675,
+     "track_end_seconds": 130.42760556587922,
+     "speed": 1.04216757655876,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 11,
+     "hits": 695
+    },
+    {
+     "start_seconds": 1578.4758828125,
+     "end_seconds": 1765.823349609375,
+     "track_start_seconds": 146.8437704565683,
+     "track_end_seconds": 344.5216517699945,
+     "speed": 1.0549425718493837,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 20,
+     "hits": 1668
+    }
+   ],
+   "tags": {
+    "artist": "Carlito & Addiction",
+    "title": "Into Music",
+    "album": "Drum'n'Bass Arena LP"
+   }
+  },
+  {
+   "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+   "same_audio": [],
+   "start_seconds": 1753.861640625,
+   "end_seconds": 1958.100234375,
+   "track_start_seconds": 24.125744668498918,
+   "track_end_seconds": 242.7069547628815,
+   "speed": 1.0701246767330346,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 21,
+   "hits": 3189,
+   "segments": [
+    {
+     "start_seconds": 1753.861640625,
+     "end_seconds": 1958.100234375,
+     "track_start_seconds": 24.125744668498918,
+     "track_end_seconds": 242.7069547628815,
+     "speed": 1.0701246767330346,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 21,
+     "hits": 3189
+    }
+   ],
+   "tags": {
+    "artist": "Omni Trio",
+    "title": "Artificial Life (Harp Tune)",
+    "album": "Even Angels Cast Shadows"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+   "same_audio": [],
+   "start_seconds": 1864.348751953125,
+   "end_seconds": 2133.781484375,
+   "track_start_seconds": 30.576636111574558,
+   "track_end_seconds": 315.1960618523436,
+   "speed": 1.0563642422740604,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 28,
+   "hits": 3236,
+   "segments": [
+    {
+     "start_seconds": 1864.348751953125,
+     "end_seconds": 2133.781484375,
+     "track_start_seconds": 30.576636111574558,
+     "track_end_seconds": 315.1960618523436,
+     "speed": 1.0563642422740604,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 28,
+     "hits": 3236
+    }
+   ],
+   "tags": {
+    "artist": "Total Science",
+    "title": "Yvon Is On"
+   }
+  },
+  {
+   "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 1865.66870703125,
+   "end_seconds": 2132.83103515625,
+   "track_start_seconds": 31.774707147336038,
+   "track_end_seconds": 314.46199105827674,
+   "speed": 1.0581449720853222,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 28,
+   "hits": 5437,
+   "segments": [
+    {
+     "start_seconds": 1865.66870703125,
+     "end_seconds": 2132.83103515625,
+     "track_start_seconds": 31.774707147336038,
+     "track_end_seconds": 314.46199105827674,
+     "speed": 1.0581449720853222,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 28,
+     "hits": 5437
+    }
+   ],
+   "tags": {
+    "artist": "Total Science",
+    "title": "Yvon Is On",
+    "album": "Drum'n'Bass Arena LP"
+   }
+  },
+  {
+   "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 2094.270251953125,
+   "end_seconds": 2419.68297265625,
+   "track_start_seconds": 52.836961795067516,
+   "track_end_seconds": 397.1539575587319,
+   "speed": 1.0580728633161596,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 33,
+   "hits": 3602,
+   "segments": [
+    {
+     "start_seconds": 2094.270251953125,
+     "end_seconds": 2419.68297265625,
+     "track_start_seconds": 52.836961795067516,
+     "track_end_seconds": 397.1539575587319,
+     "speed": 1.0580728633161596,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 33,
+     "hits": 3602
+    }
+   ],
+   "tags": {
+    "artist": "Marcus Intalex & S.T.Files",
+    "title": "Balderdash",
+    "album": "Drum'n'Bass Arena LP"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+   "same_audio": [],
+   "start_seconds": 2100.843984375,
+   "end_seconds": 2419.663623046875,
+   "track_start_seconds": 59.75743368242501,
+   "track_end_seconds": 396.53358260315713,
+   "speed": 1.0563243310053279,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 32,
+   "hits": 5567,
+   "segments": [
+    {
+     "start_seconds": 2100.843984375,
+     "end_seconds": 2419.663623046875,
+     "track_start_seconds": 59.75743368242501,
+     "track_end_seconds": 396.53358260315713,
+     "speed": 1.0563243310053279,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 32,
+     "hits": 5567
+    }
+   ],
+   "tags": {
+    "artist": "Marcus Intalex & ST Files",
+    "title": "Balderdash"
+   }
+  },
+  {
+   "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+   "same_audio": [],
+   "start_seconds": 2346.20584375,
+   "end_seconds": 2535.613890625,
+   "track_start_seconds": 20.900773715285684,
+   "track_end_seconds": 222.47847938955985,
+   "speed": 1.0644100205256903,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 20,
+   "hits": 2767,
+   "segments": [
+    {
+     "start_seconds": 2346.20584375,
+     "end_seconds": 2535.613890625,
+     "track_start_seconds": 20.900773715285684,
+     "track_end_seconds": 222.47847938955985,
+     "speed": 1.0644100205256903,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 20,
+     "hits": 2767
+    }
+   ],
+   "tags": {
+    "artist": "Spirit",
+    "title": "Out Of Control",
+    "album": "Out of Control Vinyl"
+   }
+  },
+  {
+   "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+   "same_audio": [],
+   "start_seconds": 2354.444296875,
+   "end_seconds": 2535.28125,
+   "track_start_seconds": 29.59263017116428,
+   "track_end_seconds": 222.08502295654128,
+   "speed": 1.0645115392897488,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 19,
+   "hits": 825,
+   "segments": [
+    {
+     "start_seconds": 2354.444296875,
+     "end_seconds": 2535.28125,
+     "track_start_seconds": 29.59263017116428,
+     "track_end_seconds": 222.08502295654128,
+     "speed": 1.0645115392897488,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 19,
+     "hits": 825
+    }
+   ],
+   "tags": {
+    "artist": "Spirit",
+    "title": "Out Of Control",
+    "album": "Drum'n'Bass Arena LP"
+   }
+  },
+  {
+   "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+   "same_audio": [],
+   "start_seconds": 2533.981419921875,
+   "end_seconds": 2763.15416015625,
+   "track_start_seconds": 61.52345556896178,
+   "track_end_seconds": 292.9063803051811,
+   "speed": 1.0097595825562409,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 24,
+   "hits": 1984,
+   "segments": [
+    {
+     "start_seconds": 2533.981419921875,
+     "end_seconds": 2763.15416015625,
+     "track_start_seconds": 61.52345556896178,
+     "track_end_seconds": 292.9063803051811,
+     "speed": 1.0097595825562409,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 24,
+     "hits": 1984
+    }
+   ],
+   "tags": {
+    "artist": "DJ HIDDEN",
+    "title": "skektics"
+   }
+  },
+  {
+   "asset": "04 - dj hidden - skektics.mp3",
+   "same_audio": [],
+   "start_seconds": 2535.71008984375,
+   "end_seconds": 2763.291080078125,
+   "track_start_seconds": 21.828147186681328,
+   "track_end_seconds": 259.24030626132554,
+   "speed": 1.0432027831125468,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 24,
+   "hits": 6591,
+   "segments": [
+    {
+     "start_seconds": 2535.71008984375,
+     "end_seconds": 2763.291080078125,
+     "track_start_seconds": 21.828147186681328,
+     "track_end_seconds": 259.24030626132554,
+     "speed": 1.0432027831125468,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 24,
+     "hits": 6591
+    }
+   ],
+   "tags": {
+    "artist": "Dj Hidden",
+    "title": "Skektics",
+    "album": "Analog Steroids"
+   }
+  },
+  {
+   "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+   "same_audio": [],
+   "start_seconds": 2535.71008984375,
+   "end_seconds": 2763.21925,
+   "track_start_seconds": 21.860824479684204,
+   "track_end_seconds": 259.199607482521,
+   "speed": 1.0432035932968746,
+   "playback": "turntable",
+   "confidence": "confident",
+   "windows": 24,
+   "hits": 4399,
+   "segments": [
+    {
+     "start_seconds": 2535.71008984375,
+     "end_seconds": 2763.21925,
+     "track_start_seconds": 21.860824479684204,
+     "track_end_seconds": 259.199607482521,
+     "speed": 1.0432035932968746,
+     "playback": "turntable",
+     "confidence": "confident",
+     "windows": 24,
+     "hits": 4399
+    }
+   ],
+   "tags": {
+    "artist": "DJ Hidden",
+    "title": "Skektics",
+    "album": "Analog Steroids"
+   }
+  }
+ ]
+}

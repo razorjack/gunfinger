@@ -1743,3 +1743,29 @@ search time for every query; adding rungs only when a play's best
 candidate sits at the ladder's end would be cheaper. I changed nothing;
 the roadmap item now has the numbers.
 
+
+## After session 7
+
+### Your 2003 mix is the second development set
+
+Experiment 0060: `identify` against the NAS store finds all 12 tracks of
+`razorjack-2003-03-29` confident, with 0 wrong, which you confirmed by ear.
+You made it a development set. Its manifest was drafted from that output,
+with your corrections: Phantom Force starts at 10:47 (alone from 11:50;
+Gunfinger is first confident at 11:55), Kinetic's play at 17:23 is a
+tease, and Out Of Control was most likely the Drum & Bass Arena LP file.
+Since its starts are Gunfinger's own boundaries except track 4's, it
+cannot measure boundary accuracy beyond that track.
+
+Two things to know:
+
+- The best-scoring file is not always one you could have played in
+  2003: for Out Of Control a rip of a 2005 vinyl scores 3.4 times the
+  Arena file; for Balderdash a recent upload outscores it. Scoring is
+  unaffected (every file of a recording counts), but hits do not tell
+  which file was played.
+- Five of its tracks exist only on the NAS, so the harness can score them
+  only once manifests can reference NAS files; the roadmap ("More
+  development mixes") lists the steps. Your verdict on Future Cut - The
+  Specialist against the alien5ive INFRA 012 upload decides whether that
+  upload's confident detection in this mix is right.
