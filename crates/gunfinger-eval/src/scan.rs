@@ -24,6 +24,7 @@ use crate::matching::Matching;
 use crate::padding::Padding;
 use crate::rng::Rng;
 use crate::scoring::{Found, FoundPlay, Score, score};
+use crate::verifier::{Verification, Verifier};
 
 /// Which referenced tracks to leave out of the index: `count` of them, drawn
 /// with `seed`.
@@ -55,6 +56,8 @@ pub struct Options<'a> {
     pub padding: &'a Padding,
     pub matching: &'a Matching,
     pub ladder: &'a [Rung],
+    /// Measure every detection with the peak verifier.
+    pub verify: bool,
     pub jobs: usize,
 }
 
@@ -71,6 +74,7 @@ pub fn run(
         padding,
         matching,
         ladder,
+        verify,
         jobs,
     } = *options;
     let set = load_set(sets_dir, set_name, library).map_err(|problems| problems.join("; "))?;
@@ -81,6 +85,7 @@ pub fn run(
     };
     let (records, _) = load_records(library, store, &profile, &left_out_assets);
     let index = matching.index(padding.index(&records, &profile, &left_out_assets)?);
+    let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     drop(records);
 
     let started = Instant::now();
@@ -97,13 +102,18 @@ pub fn run(
             segments: play
                 .segments()
                 .iter()
-                .map(|segment| found(&index, segment))
+                .map(|segment| found(&index, segment, Vec::new()))
                 .collect(),
         })
         .collect();
     let detections: Vec<Found> = detections
         .iter()
-        .map(|detection| found(&index, detection))
+        .map(|detection| {
+            let verified = verifier.as_ref().map_or_else(Vec::new, |verifier| {
+                verifier.verify(&index, detection, &audio.samples, &profile)
+            });
+            found(&index, detection, verified)
+        })
         .collect();
     let duration_seconds = audio.duration().as_secs_f64();
 
@@ -124,7 +134,7 @@ pub fn run(
     })
 }
 
-fn found(index: &Index, detection: &Detection) -> Found {
+fn found(index: &Index, detection: &Detection, verified: Vec<Verification>) -> Found {
     Found {
         asset: index.asset(detection.asset).path.clone(),
         start_seconds: detection.start_seconds,
@@ -134,6 +144,7 @@ fn found(index: &Index, detection: &Detection) -> Found {
         hits: detection.evidence.hits,
         confident: detection.evidence.is_confident(),
         fitted: detection.evidence.pass == Pass::Fitted,
+        verified,
     }
 }
 

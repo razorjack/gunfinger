@@ -29,6 +29,7 @@ use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_sam
 use crate::rng::Rng;
 use crate::scoring::evidence;
 use crate::sweep::Plan;
+use crate::verifier::{Verification, Verifier};
 
 /// Plays per generated mix, and the length of each, fades included.
 const PLAYS_PER_MIX: usize = 12;
@@ -190,10 +191,13 @@ pub struct MixFound {
     /// Counted by the second pass (`Pass::Fitted`).
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
+    /// The peak verifier's measures, with `--verify`.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verified: Vec<Verification>,
 }
 
 impl MixFound {
-    pub fn new(index: &Index, detection: &Detection) -> MixFound {
+    pub fn new(index: &Index, detection: &Detection, verified: Vec<Verification>) -> MixFound {
         MixFound {
             asset: index.asset(detection.asset).path.clone(),
             start_seconds: detection.start_seconds,
@@ -203,6 +207,7 @@ impl MixFound {
             windows: detection.evidence.windows,
             hits: detection.evidence.hits,
             fitted: detection.evidence.pass == Pass::Fitted,
+            verified,
         }
     }
 
@@ -484,6 +489,8 @@ pub struct Options<'a> {
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
+    /// Measure every detection with the peak verifier.
+    pub verify: bool,
     pub jobs: usize,
 }
 
@@ -525,6 +532,7 @@ pub fn run(
         options.matching,
     )?;
     let index = &index;
+    let verifier = options.verify.then(|| Verifier::new(&records, None));
     let pools = Pools::new(&records, &held_out);
     let mut rng = Rng::new(options.seed);
     let dir = work.join("mixes").join(format!("seed-{}", options.seed));
@@ -535,16 +543,14 @@ pub fn run(
             draw_mix(&name, &pools, clusters, &mut rng).map(|mix| (mix, path))
         })
         .collect::<Result<_, _>>()?;
+    let searcher = Searcher {
+        index,
+        ladder: options.ladder,
+        matching: options.matching,
+        verifier: verifier.as_ref(),
+    };
     let results = map_in_order(&planned, options.jobs, |(mix, path)| {
-        search_mix(
-            mix,
-            path,
-            library,
-            index,
-            clusters,
-            options.ladder,
-            options.matching,
-        )
+        search_mix(mix, path, library, clusters, &searcher)
     });
     Ok(MixesReport {
         seed: options.seed,
@@ -554,17 +560,30 @@ pub fn run(
     })
 }
 
+/// What a mix is searched with: the index, the ladder and the matcher, and
+/// the peak verifier when one measures the detections.
+pub struct Searcher<'a> {
+    pub index: &'a Index,
+    pub ladder: &'a [Rung],
+    pub matching: &'a Matching,
+    pub verifier: Option<&'a Verifier<'a>>,
+}
+
 /// Renders `mix` unless an earlier run left it at `path` with the same
 /// plan, searches it on one thread and scores it.
 pub fn search_mix(
     mix: &PlannedMix,
     path: &Path,
     library: &Library,
-    index: &Index,
     clusters: &Clusters,
-    ladder: &[Rung],
-    matching: &Matching,
+    searcher: &Searcher,
 ) -> Result<MixResult, String> {
+    let Searcher {
+        index,
+        ladder,
+        matching,
+        verifier,
+    } = *searcher;
     let truth_path = path.with_extension("truth.json");
     let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
     let rendered =
@@ -579,7 +598,12 @@ pub fn search_mix(
     let detections: Vec<MixFound> = matching
         .search(index, &audio.samples, &profile, ladder, 1)
         .iter()
-        .map(|detection| MixFound::new(index, detection))
+        .map(|detection| {
+            let verified = verifier.map_or_else(Vec::new, |verifier| {
+                verifier.verify(index, detection, &audio.samples, &profile)
+            });
+            MixFound::new(index, detection, verified)
+        })
         .collect();
     Ok(MixResult {
         mix: mix.clone(),
@@ -702,6 +726,7 @@ mod tests {
             windows: 4,
             hits,
             fitted: false,
+            verified: Vec::new(),
         }
     }
 

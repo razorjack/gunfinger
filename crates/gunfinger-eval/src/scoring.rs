@@ -18,6 +18,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::manifest::{Set, Track};
+use crate::verifier::Verification;
 
 /// Manifest start times are approximate and neighbouring tracks overlap.
 pub const TOLERANCE_SECONDS: f64 = 90.0;
@@ -35,6 +36,9 @@ pub struct Found {
     /// Counted by the second pass (`Pass::Fitted`).
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
+    /// The peak verifier's measures, with `--verify`.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verified: Vec<Verification>,
 }
 
 impl Found {
@@ -310,6 +314,7 @@ mod tests {
             hits: 500,
             confident,
             fitted: false,
+            verified: Vec::new(),
         }
     }
 
