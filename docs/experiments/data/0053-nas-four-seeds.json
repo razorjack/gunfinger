@@ -1,0 +1,127 @@
+{
+ "experiment": "0053-nas-four-seeds",
+ "command": "work/scripts/s6-item10.sh under timed6.sh (work/bin/s6-item5c): gunfinger-eval --other-peaks-dir <NAS store> sweep --seed 2028, 2029; calibrate (four seeds and 0051's scans)",
+ "sweeps": {
+  "2026": {
+   "recalled": 540,
+   "wrong": 0,
+   "wall_s": 1296.41,
+   "user_s": 12077.29,
+   "source": "0051"
+  },
+  "2027": {
+   "recalled": 540,
+   "wrong": 24,
+   "wall_s": 1306.47,
+   "user_s": 12161.51,
+   "source": "0051"
+  },
+  "2028": {
+   "recalled": 540,
+   "wrong": 8,
+   "wrong_pair": "China Cup (extra/b-bad_company-china_cup.mp3, held out) ~ PROTOTYPE PRO 001 upload",
+   "wall_s": 1271.63,
+   "user_s": 11775.4,
+   "peak_bytes": 5461480728,
+   "indexed_assets": 26970
+  },
+  "2029": {
+   "recalled": 540,
+   "wrong": 8,
+   "wrong_pair": "Synthesis VIP ~ the mixed CD's Synthesis (Remix)",
+   "wall_s": 1315.94,
+   "user_s": 12133.09,
+   "peak_bytes": 5392061288,
+   "indexed_assets": 26964
+  }
+ },
+ "calibrate": {
+  "identifying": 2179,
+  "below_rule": 0,
+  "false_candidates": 126356,
+  "accepted": 40,
+  "weakest": {
+   "hits": 661,
+   "what": "Illuminati - Melange at -3%"
+  },
+  "strongest_false": {
+   "hits": 511,
+   "what": "Synthesis VIP ~ Synthesis (Remix) on Dangerous Drums 2"
+  },
+  "margin": 1.29,
+  "audio_not_in_the_index": {
+   "hits": 389,
+   "what": "China Cup (held out) ~ Prototype upload"
+  },
+  "without_the_three_pairs": {
+   "hits": 197,
+   "what": "The Nine ~ Evol Intent VIP",
+   "margin": 3.36
+  },
+  "unrelated_chance": "63-70 (112 is a mixed-CD blend, 79 Star Trails' Synergy remix)",
+  "split": {
+   "same name": {
+    "count": 57,
+    "confident": 24,
+    "at_60": 39
+   },
+   "version": {
+    "count": 428,
+    "confident": 8,
+    "at_60": 102
+   },
+   "same artist": {
+    "count": 1528,
+    "confident": 8,
+    "at_60": 27
+   },
+   "unrelated": {
+    "count": 124343,
+    "confident": 0,
+    "at_60": 19
+   }
+  },
+  "confident_false_pairs": [
+   [
+    "Bad Company - China Cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   [
+    "extra/02 Coma.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus"
+   ],
+   [
+    "extra/02. Bad Company - China Cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   [
+    "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3"
+   ],
+   [
+    "extra/b-bad_company-china_cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus"
+   ]
+  ]
+ },
+ "session_5_0040": {
+  "wrong": [
+   91,
+   174,
+   126,
+   114
+  ],
+  "accepted": 523,
+  "weakest": 661,
+  "strongest_false": 5845,
+  "margin": 0.11,
+  "without_same_name": {
+   "hits": 511,
+   "margin": 1.29
+  },
+  "without_those_two_pairs": {
+   "hits": 220,
+   "margin": 3.0
+  }
+ }
+}

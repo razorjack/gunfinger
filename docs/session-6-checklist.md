@@ -57,13 +57,17 @@ for scope and rules.
   possible tier as a function of size (experiment 0052: unrelated chance
   21-34 hits to 3,200 assets, 64 from 9,200; tier 60 below 30 hits of
   chance, twice the chance above; not applied)
-- [ ] 9. Wrap-up: session 6 summary in the notes; calibration, roadmap,
+- [x] 9. Wrap-up: session 6 summary in the notes; calibration, roadmap,
   status, NAS plan and checklist; the NAS store checked against item 3's
-  record; `scripts/check.sh` green; commit
+  record (27,042 / 27,042 / 1,396, digest `bf35ea64...e9ae4f5`, revision
+  `d428ee9585936326`: unchanged); `scripts/check.sh` green; commit
 
 ## Only if time remains
 
-- [ ] 10. NAS-scale sweeps 2028 and 2029 under the new default;
-  calibrate over four seeds
-- [ ] 11. Today's matcher at NAS scale with the new clusters: scan and
-  sweep seed 2026
+- [x] 10. NAS-scale sweeps 2028 and 2029 under the new default;
+  calibrate over four seeds (experiment 0053: 540/540 each, 8 and 8
+  wrong; 40 false confident over four seeds from three pairs; 1.29×,
+  3.36× without them)
+- [-] 11. Today's matcher at NAS scale with the new clusters: scan and
+  sweep seed 2026. Not done: a single-pass sweep takes 66-69 minutes at
+  this size (session 5) and did not fit after item 10
