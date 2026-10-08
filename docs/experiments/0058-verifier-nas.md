@@ -5,10 +5,9 @@ the listening list's four pairs verify at, next to identifying
 detections of the same file, of other rips and of other uploads?
 
 **Command.** `gunfinger-eval --other-peaks-dir <NAS store> --verify`
-(commit fe8daf9), default matcher: `scan stakka-skynet-knowledge` and
-`sweep --seed 2027` (540/540, 24 wrong, as in 0051). Groups by
-`verifier_groups.py` as in 0056; the four pairs apart and unlabelled.
-40,295 detections; data `data/0058-verifier-nas.json`.
+(commit fe8daf9), default matcher: `scan stakka-skynet-knowledge`, `sweep
+--seed 2027` (540/540, 24 wrong, as in 0051). Groups as in 0056; the four
+pairs apart, unlabelled. 40,295 detections; `data/0058-verifier-nas.json`.
 
 | Sweep 2027 detections | n | Hits | Share of reference peaks found |
 |---|--:|---|---|
@@ -22,19 +21,20 @@ detections of the same file, of other rips and of other uploads?
 | Related false (strongest: Clockwork remix) | 718 | to 94 | median 0.06, to 0.41 |
 
 Chance shares 0.007-0.081 (highest for The Nine's VIP); China Cup's 17th
-detection has 36 hits (0.13). Development scan: whole plays 0.34-0.67. Over the 6-134 hits both groups reach (14 identifying,
-38,843 false), AUC of hits 0.864, of excess share 0.950, but within
-60-120 hits 0.93 and 0.12: the identifying detections there are weak
-uploads (Kontempt's at 56 hits, 0.14).
+detection has 36 hits (0.13). Development scan: whole plays 0.34-0.67.
+Over the 6-134 hits both groups reach (14 identifying, 38,843 false),
+AUC of hits 0.864, of excess share 0.950; within 60-120 hits 0.93 and
+0.12.
 
-- The strongest "unrelated" false detections: the untagged B side of
-  UDFR014 (`extra/b-unknown-udfr014-sour.mp3`) against Kraken - Meatball
-  on the mixed CD whose track 02 is "Synthesis (Remix)" (93-112 hits,
-  0.32-0.37), and Falcon - The Stand against an untagged
-  `second-library/1.mp3` (65-70 hits, 0.29-0.31).
+- Those identifying detections are the untagged B side of UDFR014
+  (`extra/b-unknown-udfr014-sour.mp3`) against the mixed CD's track 07,
+  "Luminous (Remix)", which the clusters join to it (111-117 hits,
+  0.18-0.24). Its strongest false detection is track 06, Kraken -
+  Meatball (93-112 hits, 0.32-0.37): probably the CD's mix into track 07.
+- Falcon - The Stand also finds an untagged `second-library/1.mp3`
+  (65-70 hits, 0.29-0.31), labelled unrelated for want of a name.
 
 **Conclusions.** China Cup's and Coma's pairs verify like another upload
 of one recording; The Nine's VIP and Synthesis lower, where other rips'
-tail and shared passages meet. That orders the list for listening; it
-decides nothing. As at 262 tracks, the share does not separate weak
-true detections from related ones at equal hits. No level changed.
+tail and shared passages meet. That can order listening; it decides
+nothing. At equal hits the share does not separate weak true detections.
