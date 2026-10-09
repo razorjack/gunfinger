@@ -84,7 +84,8 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
-    /// Extract the peaks of every audio file in a library into the peak store.
+    /// Extract the peaks of every audio file in a library into the peak
+    /// store, except those its .gunfingerignore leaves out.
     Index {
         /// Root directory of the library; asset identities are relative to it
         /// [default: `library` in the configuration file].
@@ -232,15 +233,17 @@ enum Command {
     Completions { shell: clap_complete::Shell },
     /// Print the man page, for example `gunfinger man > gunfinger.1`.
     Man,
-    /// Check FFmpeg, the settings, the library and the peak store.
+    /// Check FFmpeg, the settings, the library, its .gunfingerignore and the
+    /// peak store.
     Doctor {
         /// Root directory of the library [default: `library` in the
         /// configuration file].
         #[arg(long)]
         library: Option<PathBuf>,
     },
-    /// Delete peak records of files no longer in the library, and leftovers
-    /// of interrupted runs. Lists them unless --yes is given.
+    /// Delete peak records and notes of files no longer in the library or
+    /// left out by its .gunfingerignore, and leftovers of interrupted runs.
+    /// Lists them unless --yes is given.
     Prune {
         /// Root directory of the library [default: `library` in the
         /// configuration file].
