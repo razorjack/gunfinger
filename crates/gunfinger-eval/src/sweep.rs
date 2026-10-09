@@ -227,7 +227,8 @@ pub fn run(
     let index = matching.index(padding.index(&indexed, &profile, &excluded)?);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
-    let renders: Vec<(&Draw, f64, PathBuf)> = render_all(library, &draws, &dir, jobs)?
+    let source = |draw: &Draw| library.root.join(&draw.asset);
+    let renders: Vec<(&Draw, f64, PathBuf)> = render_all(source, &draws, &dir, jobs)?
         .into_iter()
         .enumerate()
         .filter(|(render, _)| searched_draws.contains(&(render / SPEEDS_PERCENT.len())))
@@ -380,10 +381,11 @@ fn draw_excerpts(records: &[PeakRecord], held_out: &BTreeSet<String>, rng: &mut 
     draws
 }
 
-/// Renders every excerpt at every speed on `jobs` threads, reusing files
-/// from an earlier run with the same seed.
-fn render_all<'d>(
-    library: &Library,
+/// Renders every excerpt at every speed on `jobs` threads, from the file
+/// `source` gives each draw, reusing files from an earlier run with the
+/// same seed.
+pub fn render_all<'d>(
+    source: impl Fn(&Draw) -> PathBuf + Sync,
     draws: &'d [Draw],
     dir: &Path,
     jobs: usize,
@@ -402,10 +404,9 @@ fn render_all<'d>(
         if path.exists() {
             return None;
         }
-        let source = library.root.join(&draw.asset);
         let speed_ratio = 1.0 + speed / 100.0;
         render_excerpt(
-            &source,
+            &source(draw),
             draw.start_seconds,
             EXCERPT_SECONDS,
             speed_ratio,
@@ -423,7 +424,7 @@ fn render_all<'d>(
     }
 }
 
-fn outcome(
+pub fn outcome(
     index: &Index,
     detection: &Detection,
     own_cluster: &BTreeSet<String>,
@@ -442,9 +443,9 @@ fn outcome(
     }
 }
 
-fn speed_row(speed_percent: f64, queries: &[Query]) -> SpeedRow {
+pub fn speed_row<'a>(speed_percent: f64, queries: impl IntoIterator<Item = &'a Query>) -> SpeedRow {
     let at_speed: Vec<&Query> = queries
-        .iter()
+        .into_iter()
         .filter(|query| query.speed_percent == speed_percent)
         .collect();
     let indexed: Vec<&&Query> = at_speed.iter().filter(|query| !query.held_out).collect();

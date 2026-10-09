@@ -71,7 +71,8 @@ ladder.
 The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
 `related` (self-match of the library), `pair` (two files' alignments and
-the time their hits support), `survival` and `hash_cost` (hash
+the time their hits support), `recall` (a panel drawn from the larger
+library's records, beyond the corpus recordings), `survival` and `hash_cost` (hash
 measurements without a search) on top of `manifest` and `scoring`.
 `verifier` is a peak verifier after Qfp, a diagnostic behind `--verify`
 that leaves detections unchanged; `shared` searches queries cut from a

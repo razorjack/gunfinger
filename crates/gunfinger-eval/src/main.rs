@@ -16,6 +16,7 @@ mod memory;
 mod mixes;
 mod padding;
 mod pair;
+mod recall;
 mod regress;
 mod related;
 mod render;
@@ -39,6 +40,7 @@ use std::process::ExitCode;
 use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
+use gunfinger_core::library::ignore::{self, IGNORE_FILE};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
 use gunfinger_core::store::PeakStore;
@@ -46,8 +48,9 @@ use serde::Serialize;
 
 use crate::clusters::Clusters;
 use crate::library_map::LibraryMap;
+use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::{Padding, SecondLibrary};
+use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, SecondLibrary};
 use crate::scan::LeaveOut;
 
 #[derive(Parser)]
@@ -122,8 +125,12 @@ struct Paths {
 
 #[derive(Subcommand)]
 enum Command {
-    /// Check every set manifest against the library.
-    Validate,
+    /// Check every set manifest against the library; with --other-peaks-dir,
+    /// `second-library/<path>` references against the other store.
+    Validate {
+        /// Check only this set (a directory under `sets/`).
+        set: Option<String>,
+    },
     /// Measure hash survival against residual speed error.
     Survival {
         /// Library assets to measure, relative to the library root.
@@ -151,6 +158,15 @@ enum Command {
         /// `duplicate-clusters-sample.json`.
         #[arg(long, requires = "from_peaks")]
         sample: Option<usize>,
+        /// With --other-peaks-dir: also search the other library's files
+        /// this set's manifest references (repeatable), so that their rips
+        /// join their clusters.
+        #[arg(long = "manifest", requires = "from_peaks")]
+        manifests: Vec<String>,
+        /// With --other-peaks-dir: also search the development sources of
+        /// the recall panel of this seed.
+        #[arg(long, requires = "from_peaks")]
+        recall_panel: Option<u64>,
     },
     /// List recordings that share material (remixes, VIPs, samples) by
     /// matching the library against itself.
@@ -173,6 +189,17 @@ enum Command {
         /// `played`, `related`, `passage_start_seconds` and
         /// `passage_end_seconds`.
         plan: PathBuf,
+    },
+    /// With --other-peaks-dir: draw the recall panel for a seed from the
+    /// other library's records outside the corpus recordings' clusters
+    /// (kept in `panels/recall-seed-<seed>.json`), render its development
+    /// half's excerpts from that library's audio, and search them.
+    Recall {
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+        /// Draw the panel and render the excerpts, without searching.
+        #[arg(long)]
+        prepare: bool,
     },
     /// Run the seeded speed sweep.
     Sweep {
@@ -318,7 +345,8 @@ fn main() -> ExitCode {
 fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     let takes_other_library = matches!(
         command,
-        Command::MapLibrary
+        Command::Validate { .. }
+            | Command::MapLibrary
             | Command::Clusters {
                 from_peaks: true,
                 ..
@@ -332,6 +360,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Memory { .. }
             | Command::Fullest { .. }
             | Command::Pair { .. }
+            | Command::Recall { .. }
     );
     let takes_a_sample = matches!(
         command,
@@ -349,11 +378,15 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest and pair do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair and recall do",
         ));
     }
     match command {
-        Command::Validate => manifest::validate_all(&paths.sets(), &paths.library()?),
+        Command::Validate { set } => manifest::validate(
+            &paths.sets(),
+            set.as_deref(),
+            &paths.referable(&paths.library()?)?,
+        ),
         Command::Survival { assets } => {
             survival::run(&paths.library()?, &paths.store()?, &assets, &paths.work)
         }
@@ -382,7 +415,18 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             library_map::print_summary(&map);
             Ok(())
         }
-        Command::Clusters { from_peaks, sample } => find_clusters(paths, from_peaks, sample, jobs),
+        Command::Clusters {
+            from_peaks,
+            sample,
+            manifests,
+            recall_panel,
+        } => {
+            let extra = ExtraQueries {
+                manifests,
+                recall_panel,
+            };
+            find_clusters(paths, from_peaks, sample, &extra, jobs)
+        }
         Command::Related => {
             let related =
                 related::find(&paths.library()?, &paths.store()?, &paths.clusters()?, jobs)?;
@@ -444,6 +488,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             Ok(())
         }
         Command::Sweep { seed, other_rips } => run_sweep(paths, seed, other_rips, jobs),
+        Command::Recall { seed, prepare } => run_recall(paths, seed, prepare, jobs),
         Command::Scan {
             set,
             leave_out,
@@ -744,14 +789,56 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
     Ok(())
 }
 
+/// The other library's files a clusters run searches beside the corpus
+/// files: those the named sets' manifests reference, and the development
+/// sources of a recall panel.
+struct ExtraQueries {
+    manifests: Vec<String>,
+    recall_panel: Option<u64>,
+}
+
+impl ExtraQueries {
+    /// Their names, `second-library/<path>`.
+    fn files(
+        &self,
+        paths: &Paths,
+        other: &PeakStore,
+        referable: &Referable,
+    ) -> Result<BTreeSet<String>, String> {
+        let mut files = BTreeSet::new();
+        for name in &self.manifests {
+            let set = manifest::load_set(&paths.sets(), name, referable)
+                .map_err(|problems| format!("{name}: {}", problems.join("; ")))?;
+            files.extend(
+                set.tracks
+                    .into_iter()
+                    .flat_map(|track| track.references)
+                    .filter(|reference| reference.starts_with(SECOND_LIBRARY_PREFIX)),
+            );
+        }
+        if let Some(seed) = self.recall_panel {
+            let panel = recall_panel(paths, other, seed)?;
+            files.extend(
+                panel
+                    .development
+                    .sources
+                    .into_iter()
+                    .map(|source| source.asset),
+            );
+        }
+        Ok(files)
+    }
+}
+
 fn find_clusters(
     paths: &Paths,
     from_peaks: bool,
     sample: Option<usize>,
+    extra: &ExtraQueries,
     jobs: usize,
 ) -> Result<(), String> {
     if let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) {
-        return find_clusters_around(paths, &other, &map_file, sample, jobs);
+        return find_clusters_around(paths, &other, &map_file, sample, extra, jobs);
     }
     if sample.is_some() {
         return Err(String::from("--sample needs --other-peaks-dir"));
@@ -761,13 +848,9 @@ fn find_clusters(
     } else {
         clusters::Source::Audio
     };
-    let clusters = clusters::find(
-        &paths.library()?,
-        &paths.store()?,
-        source,
-        &paths.verdicts()?,
-        jobs,
-    )?;
+    let library = paths.library()?;
+    let verdicts = verdicts_on(paths, &clusters::Searched::corpus(&library))?;
+    let clusters = clusters::find(&library, &paths.store()?, source, &verdicts, jobs)?;
     clusters::print_summary(&clusters);
     if from_peaks {
         write_json(
@@ -786,6 +869,44 @@ fn find_clusters(
     Ok(())
 }
 
+/// The owner's verdicts on files the run searches; each other verdict is
+/// printed and adds nothing.
+fn verdicts_on(paths: &Paths, searched: &clusters::Searched) -> Result<clusters::Verdicts, String> {
+    let (verdicts, outside) = paths.verdicts()?.on(searched);
+    if !outside.is_empty() {
+        println!(
+            "{} verdicts name a file this run does not search; they add nothing:",
+            outside.len()
+        );
+        for message in outside {
+            println!("  {message}");
+        }
+    }
+    Ok(verdicts)
+}
+
+/// The ignore file of the library the other store names. A store-only run
+/// may find that library unmounted; then only the records tell which files
+/// the run searches, and a prune has deleted those of ignored files.
+fn other_ignore_file(other: &PeakStore) -> Result<Option<clusters::IgnoreFile>, String> {
+    let Some(root) = other.library().map_err(|error| error.to_string())? else {
+        return Ok(None);
+    };
+    let root = PathBuf::from(root);
+    if !root.is_dir() {
+        println!(
+            "cannot read the other library at {}, so its ignore file is not checked: verdicts link files with a current record",
+            root.display()
+        );
+        return Ok(None);
+    }
+    let patterns = ignore::read(&root).map_err(|error| error.to_string())?;
+    Ok(patterns.map(|patterns| clusters::IgnoreFile {
+        path: root.join(IGNORE_FILE),
+        patterns,
+    }))
+}
+
 /// The corpus clusters with the other library's rips of the corpus
 /// recordings, which the evaluations against both libraries read.
 fn find_clusters_around(
@@ -793,18 +914,11 @@ fn find_clusters_around(
     other: &PeakStore,
     map_file: &Path,
     sample: Option<usize>,
+    extra: &ExtraQueries,
     jobs: usize,
 ) -> Result<(), String> {
     let map = LibraryMap::load(map_file)?;
     let corpus = paths.corpus_clusters()?;
-    let verdicts = paths.verdicts()?;
-    let name = map
-        .other_library
-        .clone()
-        .unwrap_or_else(|| other.dir().display().to_string());
-    if sample.is_none() {
-        check_verdicts_against_last_run(paths, &corpus, &verdicts, &name)?;
-    }
     let profile = Profile::CURRENT;
     let (other_assets, problems) = other
         .current_sources(&profile)
@@ -812,13 +926,30 @@ fn find_clusters_around(
     for problem in &problems {
         eprintln!("left out: {problem}");
     }
-    let (queries, _) = load_records(
-        &paths.library()?,
-        &paths.store()?,
-        &profile,
-        &BTreeSet::new(),
-    );
+    let library = paths.library()?;
+    let searched =
+        clusters::Searched::corpus(&library).with_other(&other_assets, other_ignore_file(other)?);
+    let verdicts = verdicts_on(paths, &searched)?;
+    let name = map
+        .other_library
+        .clone()
+        .unwrap_or_else(|| other.dir().display().to_string());
+    if sample.is_none() {
+        check_verdicts_against_last_run(paths, &corpus, &verdicts, &name)?;
+    }
+    let (mut queries, _) = load_records(&library, &paths.store()?, &profile, &BTreeSet::new());
     let copies = map.copied();
+    let referable = Referable::corpus(&library).with_other(&other_assets, other.dir());
+    let extra_files = extra.files(paths, other, &referable)?;
+    let extra_queries = clusters::other_queries(other, &other_assets, &extra_files, &copies)?;
+    println!(
+        "{} queries: {} corpus files and {} of the other library's ({} named, the others copies of corpus files)",
+        queries.len() + extra_queries.len(),
+        queries.len(),
+        extra_queries.len(),
+        extra_files.len()
+    );
+    queries.extend(extra_queries);
     if let Some(count) = sample {
         let every = (queries.len() / count.max(1)).max(1);
         let sampled: Vec<_> = queries.into_iter().step_by(every).take(count).collect();
@@ -912,6 +1043,76 @@ fn run_sweep(paths: &Paths, seed: u64, other_rips: bool, jobs: usize) -> Result<
     Ok(())
 }
 
+fn run_recall(paths: &Paths, seed: u64, prepare: bool, jobs: usize) -> Result<(), String> {
+    let Some(other) = paths.other_store()? else {
+        return Err(String::from("recall needs --other-peaks-dir"));
+    };
+    let panel = recall_panel(paths, &other, seed)?;
+    let root = other
+        .library()
+        .map_err(|error| error.to_string())?
+        .ok_or_else(|| {
+            format!(
+                "{} names no library, so the panel's audio cannot be found",
+                other.dir().display()
+            )
+        })?;
+    let dir = paths.work.join("recall").join(format!("seed-{seed}"));
+    let rendered = recall::render(&panel, Path::new(&root), &dir, jobs)?;
+    println!(
+        "recall panel seed {seed}: {} development sources, {} excerpts in {}",
+        panel.development.sources.len(),
+        rendered.len(),
+        dir.display()
+    );
+    if prepare {
+        return Ok(());
+    }
+    let report = recall::run(
+        &paths.library()?,
+        &paths.store()?,
+        &paths.clusters()?,
+        &rendered,
+        &recall::Options {
+            seed,
+            padding: &paths.padding(&UNCHANGED_INDEX)?,
+            ladder: &paths.rungs(),
+            matching: &paths.matching,
+            jobs,
+        },
+    )?;
+    write_json(
+        &paths.reports().join(format!("recall-seed-{seed}.json")),
+        &report,
+    )?;
+    recall::print_summary(&report);
+    Ok(())
+}
+
+/// The recall panel of `seed`, drawn the first time from the other
+/// library's records outside the clusters in use and the copies of corpus
+/// files.
+fn recall_panel(paths: &Paths, other: &PeakStore, seed: u64) -> Result<recall::Panel, String> {
+    let Some(map_file) = paths.map_file() else {
+        return Err(String::from("the recall panel needs --other-peaks-dir"));
+    };
+    let mut corpus_recordings: BTreeSet<String> =
+        paths.clusters()?.duplicates.into_iter().flatten().collect();
+    corpus_recordings.extend(
+        LibraryMap::load(&map_file)?
+            .copied()
+            .into_iter()
+            .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
+    );
+    let (assets, problems) = other
+        .current_sources(&Profile::CURRENT)
+        .map_err(|error| error.to_string())?;
+    for problem in &problems {
+        eprintln!("left out: {problem}");
+    }
+    recall::Panel::for_seed(other, &assets, &corpus_recordings, seed, &paths.panels)
+}
+
 fn run_scan(
     paths: &Paths,
     set: &str,
@@ -920,13 +1121,15 @@ fn run_scan(
     jobs: usize,
 ) -> Result<(), String> {
     let padding = paths.padding(variant)?;
+    let library = paths.library()?;
     let report = scan::run(
         &paths.sets(),
         set,
-        &paths.library()?,
+        &library,
         &paths.store()?,
         &paths.clusters()?,
         &scan::Options {
+            referable: &paths.referable(&library)?,
             leave_out,
             padding: &padding,
             matching: &paths.matching,
@@ -958,6 +1161,23 @@ impl Paths {
 
     fn store(&self) -> Result<PeakStore, String> {
         PeakStore::open(&self.peaks_dir).map_err(|error| error.to_string())
+    }
+
+    /// The files a manifest's references may name: the corpus library's
+    /// and, with --other-peaks-dir, those the other store holds a current
+    /// record of.
+    fn referable(&self, library: &Library) -> Result<Referable, String> {
+        let referable = Referable::corpus(library);
+        let Some(store) = self.other_store()? else {
+            return Ok(referable);
+        };
+        let (assets, problems) = store
+            .current_sources(&Profile::CURRENT)
+            .map_err(|error| error.to_string())?;
+        for problem in &problems {
+            eprintln!("left out: {problem}");
+        }
+        Ok(referable.with_other(&assets, store.dir()))
     }
 
     fn sets(&self) -> PathBuf {

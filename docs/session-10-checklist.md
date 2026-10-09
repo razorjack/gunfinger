@@ -23,18 +23,20 @@ for scope and rules.
 
 ## Items
 
-- [ ] 2a. Verdict links only between files the run searches, never to
+- [x] 2a. Verdict links only between files the run searches, never to
   ignored files; other verdicts reported with path and line; tests;
   regress identical
-- [ ] 2b. `second-library/<path>` references: valid with
+- [x] 2b. `second-library/<path>` references: valid with
   `--other-peaks-dir`, absent at 262 tracks; `validate`, `scan`,
   scoring at both sizes; tests; the owner's manifest edit; validate at
-  both sizes; regress identical
-- [ ] 2c. The NAS recall panel: drawn by seed, development and
-  validation halves by family, saved in `docs/panels/`; the development
-  half's excerpts rendered from the NAS
-- [ ] 2d. Manifest NAS references and the panel's development sources
-  as extra `clusters` queries; tests; regress identical
+  both sizes (7 referenced and 5 absent; 12 referenced); regress
+  identical
+- [x] 2c. The NAS recall panel: drawn by seed, development and
+  validation halves by family, saved in `docs/panels/recall-seed-2026.json`;
+  the development half's 720 excerpts rendered from the NAS
+- [x] 2d. Manifest NAS references and the panel's development sources
+  as extra `clusters` queries (`--manifest`, `--recall-panel`); tests;
+  regress identical
 - [ ] 3. `map-library`; the NAS clusters run (wall, CPU, memory); the
   experiment (against session 6, borderline pairs, sparse joins, panel
   sources); meanwhile the track-range message and the listening pack;

@@ -24,13 +24,14 @@
 
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
 
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::{TrackLength, build_index, load_records};
+use gunfinger_core::library::ignore::{Pattern, leaving_out};
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::peaks::Peak;
@@ -191,8 +192,9 @@ fn criterion() -> String {
 }
 
 /// The clusters of the corpus recordings in another library. Each query
-/// (a corpus record) is searched by its stored peaks against an index of
-/// `other_assets` alone; files of the other library found to be the same
+/// (a corpus record, or one of the other library's named
+/// `second-library/<path>`, `other_queries`) is searched by its stored
+/// peaks against an index of `other_assets` alone; files of the other library found to be the same
 /// recording are searched in turn, until none is new, so that chains of
 /// rips are followed. `copies` (corpus files' identical copies) are not
 /// searched again. Files of the other library are named
@@ -299,6 +301,31 @@ pub fn find_around(
     Ok(pairs)
 }
 
+/// The records of the other library's `files` (`second-library/<path>`),
+/// named so, to search beside the corpus files. Copies of corpus files are
+/// left out: their corpus file is searched.
+pub fn other_queries(
+    other: &PeakStore,
+    other_assets: &[Asset],
+    files: &BTreeSet<String>,
+    copies: &BTreeSet<String>,
+) -> Result<Vec<PeakRecord>, String> {
+    let profile = Profile::CURRENT;
+    let mut records = Vec::new();
+    for asset in other_assets {
+        let name = format!("{SECOND_LIBRARY_PREFIX}{}", asset.path);
+        if !files.contains(&name) || copies.contains(&asset.path) {
+            continue;
+        }
+        let mut record = other
+            .load(asset, &profile)
+            .map_err(|error| error.to_string())?;
+        record.header.source.path = name;
+        records.push(record);
+    }
+    Ok(records)
+}
+
 /// The corpus clusters joined by the same-recording pairs found in another
 /// library (`find_around`), which are kept as the evidence, with the
 /// owner's verdicts applied.
@@ -358,7 +385,7 @@ pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>
         .collect();
     let further_files: BTreeSet<&str> = further.iter().map(|pair| pair.found.as_str()).collect();
     println!(
-        "{} further rips of corpus recordings (not copies of corpus files):",
+        "{} further rips of the queries' recordings (not copies of corpus files):",
         further_files.len()
     );
     for pair in further {
@@ -506,17 +533,29 @@ fn same_recording(pairs: &[Pair]) -> impl Iterator<Item = (&str, &str)> {
 /// and the two paths, separated by tabs; `#` starts a comment line.
 #[derive(Debug, Default)]
 pub struct Verdicts {
-    /// Pairs in path order, with whether they are the same recording.
-    verdicts: BTreeMap<(String, String), bool>,
+    /// The file they were read from, for messages.
+    file: PathBuf,
+    /// Pairs in path order, with the owner's verdict.
+    verdicts: BTreeMap<(String, String), Verdict>,
+}
+
+#[derive(Debug, Clone, Copy)]
+struct Verdict {
+    same: bool,
+    /// Its line in the file, counted from 1.
+    line: usize,
 }
 
 impl Verdicts {
     /// The verdicts in `path`; none when the file does not exist.
     pub fn load(path: &Path) -> Result<Verdicts, String> {
         match fs::read_to_string(path) {
-            Ok(text) => {
-                Verdicts::parse(&text).map_err(|error| format!("{}: {error}", path.display()))
-            }
+            Ok(text) => Verdicts::parse(&text)
+                .map(|verdicts| Verdicts {
+                    file: path.to_owned(),
+                    ..verdicts
+                })
+                .map_err(|error| format!("{}: {error}", path.display())),
             Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(Verdicts::default()),
             Err(error) => Err(format!("cannot read {}: {error}", path.display())),
         }
@@ -524,7 +563,8 @@ impl Verdicts {
 
     fn parse(text: &str) -> Result<Verdicts, String> {
         let mut verdicts = BTreeMap::new();
-        for (number, line) in text.lines().enumerate() {
+        for (index, line) in text.lines().enumerate() {
+            let number = index + 1;
             if line.trim().is_empty() || line.starts_with('#') {
                 continue;
             }
@@ -534,35 +574,73 @@ impl Verdicts {
                 Some("different") => false,
                 _ => {
                     return Err(format!(
-                        "line {}: a verdict starts with `same` or `different`",
-                        number + 1
+                        "line {number}: a verdict starts with `same` or `different`"
                     ));
                 }
             };
             let [_, a, b] = fields[..] else {
                 return Err(format!(
-                    "line {}: a verdict and two paths, separated by tabs",
-                    number + 1
+                    "line {number}: a verdict and two paths, separated by tabs"
                 ));
             };
-            if verdicts.insert(ordered(a, b), same) == Some(!same) {
+            let verdict = Verdict { same, line: number };
+            if verdicts
+                .insert(ordered(a, b), verdict)
+                .is_some_and(|earlier| earlier.same != same)
+            {
                 return Err(format!(
-                    "line {}: {a} and {b} are judged both the same and different; keep one verdict",
-                    number + 1
+                    "line {number}: {a} and {b} are judged both the same and different; keep one verdict"
                 ));
             }
         }
-        Ok(Verdicts { verdicts })
+        Ok(Verdicts {
+            file: PathBuf::new(),
+            verdicts,
+        })
+    }
+
+    /// The verdicts on two files the run searches, and a message naming the
+    /// line and the file of every other verdict, which adds nothing: a
+    /// cluster holds files of the libraries searched, never a file their
+    /// ignore files leave out.
+    pub fn on(self, searched: &Searched) -> (Verdicts, Vec<String>) {
+        let mut messages = Vec::new();
+        let mut kept = BTreeMap::new();
+        for ((a, b), verdict) in self.verdicts {
+            match searched.outside(&a).or_else(|| searched.outside(&b)) {
+                Some((file, why)) => messages.push((
+                    verdict.line,
+                    format!(
+                        "{}, line {}: {file} {why}; the verdict adds nothing",
+                        self.file.display(),
+                        verdict.line
+                    ),
+                )),
+                None => {
+                    kept.insert((a, b), verdict);
+                }
+            }
+        }
+        messages.sort();
+        (
+            Verdicts {
+                file: self.file,
+                verdicts: kept,
+            },
+            messages.into_iter().map(|(_, message)| message).collect(),
+        )
     }
 
     fn verdict(&self, a: &str, b: &str) -> Option<bool> {
-        self.verdicts.get(&ordered(a, b)).copied()
+        self.verdicts
+            .get(&ordered(a, b))
+            .map(|verdict| verdict.same)
     }
 
     fn judged_different(&self) -> impl Iterator<Item = (&str, &str)> {
         self.verdicts
             .iter()
-            .filter(|(_, same)| !**same)
+            .filter(|(_, verdict)| !verdict.same)
             .map(|((a, b), _)| (a.as_str(), b.as_str()))
     }
 
@@ -582,9 +660,84 @@ impl Verdicts {
         let judged_same = self
             .verdicts
             .iter()
-            .filter(|(_, same)| **same)
+            .filter(|(_, verdict)| verdict.same)
             .map(|((a, b), _)| (a.as_str(), b.as_str()));
         same_recording(pairs).chain(judged_same)
+    }
+}
+
+/// The files a clusters run searches: the corpus library's assets and,
+/// with another library, its files with a current record, named
+/// `second-library/<path>`. Their ignore files tell why a file is not
+/// among them.
+pub struct Searched {
+    files: BTreeSet<String>,
+    corpus_ignore: Option<IgnoreFile>,
+    other_ignore: Option<IgnoreFile>,
+}
+
+/// A library's ignore file and its patterns.
+pub struct IgnoreFile {
+    pub path: PathBuf,
+    pub patterns: Vec<Pattern>,
+}
+
+impl Searched {
+    pub fn corpus(library: &Library) -> Searched {
+        Searched {
+            files: library
+                .assets
+                .iter()
+                .map(|asset| asset.path.clone())
+                .collect(),
+            corpus_ignore: library.ignore_file.as_ref().map(|path| IgnoreFile {
+                path: path.clone(),
+                patterns: library
+                    .ignored
+                    .iter()
+                    .map(|ignored| ignored.pattern.clone())
+                    .collect(),
+            }),
+            other_ignore: None,
+        }
+    }
+
+    /// With the other library's files that have a current record, less
+    /// those its ignore file leaves out, when it could be read.
+    pub fn with_other(mut self, assets: &[Asset], ignore: Option<IgnoreFile>) -> Searched {
+        self.files.extend(
+            assets
+                .iter()
+                .map(|asset| format!("{SECOND_LIBRARY_PREFIX}{}", asset.path)),
+        );
+        self.other_ignore = ignore;
+        self
+    }
+
+    /// `None` when the run searches `file`; otherwise the file and why not.
+    fn outside<'a>(&self, file: &'a str) -> Option<(&'a str, String)> {
+        let (path, ignore) = match file.strip_prefix(SECOND_LIBRARY_PREFIX) {
+            Some(path) => (path, &self.other_ignore),
+            None => (file, &self.corpus_ignore),
+        };
+        let left_out = ignore.as_ref().and_then(|ignore| {
+            leaving_out(&ignore.patterns, path).map(|pattern| {
+                format!(
+                    "is left out by {}, line {} (`{}`)",
+                    ignore.path.display(),
+                    pattern.line,
+                    pattern.text
+                )
+            })
+        });
+        match left_out {
+            Some(why) => Some((file, why)),
+            None if !self.files.contains(file) => Some((
+                file,
+                String::from("is not a file of the libraries this run searches"),
+            )),
+            None => None,
+        }
     }
 }
 
@@ -873,7 +1026,9 @@ fn merge<'a>(links: impl IntoIterator<Item = (&'a str, &'a str)>) -> Vec<Vec<Str
 mod tests {
     use gunfinger_core::confidence::Evidence;
     use gunfinger_core::index::AssetId;
+    use gunfinger_core::library::Timestamp;
     use gunfinger_core::speed::SpeedRatio;
+    use gunfinger_core::store::RecordHeader;
 
     use super::*;
 
@@ -987,6 +1142,114 @@ mod tests {
                 vec!["a.mp3", "b.mp3"],
                 vec!["e.mp3", "f.mp3"],
                 vec!["x.mp3", "y.mp3"]
+            ]
+        );
+    }
+
+    fn asset(path: &str) -> Asset {
+        Asset {
+            path: path.to_owned(),
+            size: 1,
+            modified: Timestamp {
+                seconds: 0,
+                nanos: 0,
+            },
+        }
+    }
+
+    fn verdicts(text: &str) -> Verdicts {
+        Verdicts {
+            file: PathBuf::from("verdicts.txt"),
+            ..Verdicts::parse(text).unwrap()
+        }
+    }
+
+    #[test]
+    fn named_files_of_the_other_library_are_queries_unless_they_copy_a_corpus_file() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-other-queries-{}", std::process::id()));
+        let store = PeakStore::open(&dir).unwrap();
+        let assets = [
+            asset("rips/a.mp3"),
+            asset("rips/b.mp3"),
+            asset("rips/c.mp3"),
+        ];
+        for asset in &assets {
+            let record = PeakRecord {
+                header: RecordHeader {
+                    profile: Profile::CURRENT.id(),
+                    source: asset.clone(),
+                    duration_seconds: 10.0,
+                },
+                peaks: Vec::new(),
+            };
+            store.save(&record).unwrap();
+        }
+        let files = BTreeSet::from([
+            String::from("second-library/rips/a.mp3"),
+            String::from("second-library/rips/b.mp3"),
+        ]);
+        let copies = BTreeSet::from([String::from("rips/b.mp3")]);
+
+        let queries = other_queries(&store, &assets, &files, &copies).unwrap();
+        fs::remove_dir_all(&dir).unwrap();
+
+        let names: Vec<&str> = queries
+            .iter()
+            .map(|record| record.header.source.path.as_str())
+            .collect();
+        assert_eq!(names, ["second-library/rips/a.mp3"]);
+    }
+
+    #[test]
+    fn a_corpus_run_takes_no_verdict_on_another_librarys_files() {
+        let verdicts = verdicts(
+            "# header\nsame\ta.mp3\tb.mp3\nsame\ta.mp3\tsecond-library/upload.opus\ndifferent\tc.mp3\tsecond-library/revision.opus\n",
+        );
+        let corpus = Library {
+            assets: vec![asset("a.mp3"), asset("b.mp3"), asset("c.mp3")],
+            ..Library::default()
+        };
+
+        let (verdicts, outside) = verdicts.on(&Searched::corpus(&corpus));
+        let pairs = [pair("c.mp3", "a.mp3", false)];
+        let clusters = clusters_of(verdicts.links(&pairs), &verdicts, &pairs).unwrap();
+
+        assert_eq!(clusters, [vec!["a.mp3", "b.mp3"]]);
+        assert_eq!(
+            outside,
+            [
+                "verdicts.txt, line 3: second-library/upload.opus is not a file of the libraries this run searches; the verdict adds nothing",
+                "verdicts.txt, line 4: second-library/revision.opus is not a file of the libraries this run searches; the verdict adds nothing",
+            ]
+        );
+    }
+
+    #[test]
+    fn a_verdict_never_links_a_file_the_ignore_file_leaves_out() {
+        // The other store still holds a record of the mixed CD's track.
+        let verdicts = verdicts(
+            "same\tvip.mp3\tsecond-library/Mixed CD/CD1/02-remix.mp3\nsame\tvip.mp3\tsecond-library/upload.m4a\n",
+        );
+        let corpus = Library {
+            assets: vec![asset("vip.mp3")],
+            ..Library::default()
+        };
+        let other = [asset("Mixed CD/CD1/02-remix.mp3"), asset("upload.m4a")];
+        let ignore = IgnoreFile {
+            path: PathBuf::from("/music/.gunfingerignore"),
+            patterns: gunfinger_core::library::ignore::parse("# mixed CDs\n/Mixed CD/\n").unwrap(),
+        };
+        let searched = Searched::corpus(&corpus).with_other(&other, Some(ignore));
+
+        let (verdicts, outside) = verdicts.on(&searched);
+        let clusters = clusters_of(verdicts.links(&[]), &verdicts, &[]).unwrap();
+
+        assert_eq!(clusters, [vec!["second-library/upload.m4a", "vip.mp3"]]);
+        assert_eq!(
+            outside,
+            [
+                "verdicts.txt, line 1: second-library/Mixed CD/CD1/02-remix.mp3 is left out by /music/.gunfingerignore, line 2 (`/Mixed CD/`); the verdict adds nothing"
             ]
         );
     }

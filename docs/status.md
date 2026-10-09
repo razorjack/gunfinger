@@ -1270,3 +1270,64 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   464 tag notes). The NAS store: 32,441 records, 1,558 skip notes,
   revision `5701f221f7b48ee1`.
 - Documents only; no code changed.
+
+## 2026-10-10: session 10, the owner's verdicts at NAS scale
+
+Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
+
+- 01:17 start. The owner's reviewed notes and status committed
+  (`9116ec3`, `scripts/check.sh` green). Release build of `9116ec3` in
+  `work/bin/s10-start/`; `baseline session-10-start` saved (session 9's
+  reports at 262 tracks).
+- The NAS store at the start: 32,441 `.peaks`, 32,441 `.tags`, 1,558
+  `.skip` (13 failed, 122 too short, 1,423 too long), revision
+  `5701f221f7b48ee1`, as expected; census `work/s10/census-start.json`
+  (3,399.5 h). `doctor --config ~/.config/gunfinger/nas-dnb.toml` (35.2
+  s): 31 patterns, 504 audio files left out, 33,999 audio files, no
+  records of ignored or gone files.
+- Item 2a: `clusters::Verdicts` keep their lines; `Verdicts::on`
+  keeps the verdicts whose two files the run searches
+  (`clusters::Searched`: the corpus library's assets, and with
+  `--other-peaks-dir` the store's current records less what the other
+  library's ignore file leaves out, read from the root the store names
+  when it can be read; `ignore::leaving_out` in the core). Every other
+  verdict is printed with its line and adds nothing. Tests: a corpus run
+  takes no verdict on NAS files; a verdict never links an ignored file
+  whose record is still in the store; `leaving_out`. On the real file,
+  only line 26 (Synthesis VIP ~ the pruned Dangerous Drums 2 track)
+  names a file the NAS run does not search.
+- Item 2b: manifests may reference `second-library/<path>`; with
+  `--other-peaks-dir`, `validate` and `scan` check such references
+  against the store's current records; without it they are set aside
+  (`Track::set_aside`), so a track with no other reference is absent.
+  `validate` takes an optional set name. Tests for both sizes, and for
+  scoring. The owner's edit of `razorjack-2003-03-29`: the five `# nas:`
+  lines of tracks 1, 3, 4, 6 and 8 became their references, nothing else
+  (the header comment still says the five are `[]`). `validate
+  razorjack-2003-03-29`: 7 referenced, 5 absent, 5 references set aside;
+  with `--other-peaks-dir`: 12 referenced, 0 absent.
+- `map-library` again (5.6 s): 247 of 262 corpus files have a copy, as
+  before; further identical copies 31 -> 64 (new scene folders).
+- Item 2c: `gunfinger-eval recall` (`recall.rs`): the panel of seed 2026
+  drawn from the store's headers and tags before any search
+  (`docs/panels/recall-seed-2026.json`): pool 31,542 records (in the
+  length range, outside session 6's NAS clusters, not copies, tagged),
+  29,057 families split 14,528 / 14,529; each half 60 indexed and 20
+  held-out sources, 20 per kind indexed (scene releases, YouTube
+  channels, elsewhere), 7/7/6 held out, one per family. `recall
+  --prepare` rendered the development half's 720 excerpts from the NAS
+  (137 s, `work/recall/seed-2026/`). The misses' reasons
+  (`recall::Miss`: never a candidate, too few hits, too few windows).
+- Item 2d: `clusters --from-peaks --manifest <set> --recall-panel
+  <seed>` adds the NAS files the named manifests reference and the
+  panel's development sources to the queries (`clusters::other_queries`,
+  copies of corpus files left out). Named sets rather than every
+  manifest, so the test set's manifest is never read.
+- `scripts/check.sh` green; `regress session-10-start` identical after
+  2a+2b (`work/bin/s10-2ab/`, 267 s) and after item 2
+  (`work/bin/s10-item2/`, 250 s): 720/720 sweep queries, 87, 93 and 79
+  scan detections; the calibrate line is session 8's and 9's.
+- `pair` on the 16 listening items known from session 6's clusters (6
+  unjudged borderline groups, 10 control joins drawn with seed 2026, no
+  identical copies; `scripts/analysis/listening_pack.py select`): 268.5 s
+  wall, 267.8 s CPU, 149 MB.

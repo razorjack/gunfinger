@@ -23,7 +23,7 @@ use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::Serialize;
 
-use crate::manifest::load_set;
+use crate::manifest::{Referable, load_set};
 use crate::matching::Matching;
 use crate::padding::Padding;
 
@@ -136,7 +136,8 @@ pub fn run(
     }
 
     let started = Instant::now();
-    let set = load_set(sets_dir, options.set, library).map_err(|problems| problems.join("; "))?;
+    let set = load_set(sets_dir, options.set, &Referable::corpus(library))
+        .map_err(|problems| problems.join("; "))?;
     let excerpt = Excerpt {
         start: None,
         duration: options

@@ -19,7 +19,7 @@ use gunfinger_core::timecode::format_timecode;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
-use crate::manifest::{Set, load_set};
+use crate::manifest::{Referable, Set, load_set};
 use crate::matching::Matching;
 use crate::padding::Padding;
 use crate::rng::Rng;
@@ -51,6 +51,8 @@ pub struct ScanReport {
 
 /// How the index differs from the library's, and the worker threads.
 pub struct Options<'a> {
+    /// The files the manifest's references may name.
+    pub referable: &'a Referable,
     pub leave_out: Option<&'a LeaveOut>,
     /// What is added to the index to measure a larger library.
     pub padding: &'a Padding,
@@ -70,6 +72,7 @@ pub fn run(
     options: &Options,
 ) -> Result<ScanReport, String> {
     let Options {
+        referable,
         leave_out,
         padding,
         matching,
@@ -77,7 +80,7 @@ pub fn run(
         verify,
         jobs,
     } = *options;
-    let set = load_set(sets_dir, set_name, library).map_err(|problems| problems.join("; "))?;
+    let set = load_set(sets_dir, set_name, referable).map_err(|problems| problems.join("; "))?;
     let profile = Profile::CURRENT;
     let (left_out_tracks, left_out_assets) = match leave_out {
         Some(leave_out) => draw_left_out(&set, clusters, leave_out),
