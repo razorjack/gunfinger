@@ -1256,3 +1256,17 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   only between searched, non-ignored files (roadmap, "More development
   mixes", steps 1-2), then the NAS clusters run once the store's
   revision for it is settled.
+
+## 2026-10-09: the owner's mixed-CD judgments; the NAS store pruned
+
+- `/Volumes/atlas/Music/dnb/.gunfingerignore`, written at the owner's
+  request: 31 patterns (29 new, unanchored folder names), 504 audio
+  files left out. The owner judged 15 folders of experiment 0065's
+  candidates mixed and 2 not (Shy FX's *Just An Example*, the Mampi
+  Swift EP), and chose to leave out the 15 folders that were already
+  known or named as mixed. `doctor` and `prune` without `--yes` checked
+  every pattern.
+- The owner pruned: 935 files deleted (464 peak records, 7 skip notes,
+  464 tag notes). The NAS store: 32,441 records, 1,558 skip notes,
+  revision `5701f221f7b48ee1`.
+- Documents only; no code changed.

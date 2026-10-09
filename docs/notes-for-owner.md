@@ -2066,3 +2066,25 @@ Releases with a mixed disc beside unmixed tracks in one folder score in
 between: Blazin (its 2xx files, 0.35), Inside The Machine
 (`vdbcrcd001`, 0.48) and Molten Beats (its bonus mix CD, 0.52). A
 pattern such as `2*` inside such a folder leaves out one disc's files.
+
+## After session 9
+
+### Your mixed-CD judgments
+
+`/Volumes/atlas/Music/dnb/.gunfingerignore` now holds 31 patterns: the 2
+of session 8 and 29 written at your request. You judged 15 folders of
+session 9's third group mixed (the two copies of The A1 Sound Carrier II
+under one line) and left Shy FX's *Just An Example* and the Mampi Swift
+EP indexed. At your choice the file also leaves out the first two
+groups: the scene copy of Dangerous Drums 2, Contagious Drum & Bass Vol
+1, DJ Marky's Audio Architecture, Dieselboy's System Upgrade, and the 11
+folders whose names say they are mixed. The new lines have no leading
+`/`, so each leaves out its folder wherever it sits; Thermodynamix's
+`cd2` is `**/va-thermodynamix_vol_1-2cd-(2000)-sour/cd2/`.
+
+`doctor` read all 31 patterns, each leaving out the expected folder
+(504 audio files in all). Your prune deleted 935 files: 464 peak
+records, 7 skip notes and 464 tag notes. The NAS store now holds 32,441
+records and 1,558 skip notes, revision `5701f221f7b48ee1`. Your verdict
+on Synthesis VIP against the Dangerous Drums 2 track now names an
+ignored file.
