@@ -25,10 +25,13 @@ for scope and rules.
   (0050's command) and of `razorjack-2003-03-29` (0060's): tracks
   against 0050 and 0060, files from the new folders; wall, CPU, memory
   (experiment 0063)
-- [ ] 4. `doctor` over Ethernet (listing time, not indexed, failed, too
+- [x] 4. `doctor` over Ethernet (listing time, not indexed, failed, too
   short, too long, gone); ~300 files from new folders into scratch
   stores (Mbit/s, s per file, a full re-index estimate); peaks against
   the NAS store's; the NAS store's revision; failed files with `ffprobe`
+  (experiment 0064; 376 files from three folders: a scene month and a
+  label folder by seed, and the dnbfreak0 channel, which cannot be
+  split because the channel folders are flat)
 - [ ] 5. Too-long files listed (path, length, folder) in `work/`; DJ-mix
   candidates; new folders that look like mixed CDs
 

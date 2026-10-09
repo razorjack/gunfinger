@@ -1204,3 +1204,19 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   against 16, from three mixed CDs in the scene folders, including a
   confident "Music Maker (Majistrate Remix)" (Contagious Drum & Bass
   Vol 1, track 13, whose last 1:11 plays track 14, Phantom Force).
+- Item 4 (experiment 0064): `doctor` with the NAS configuration in 43.9 s
+  (2:21 over Wi-Fi in session 8; the share had been listed twice before
+  this session): 34,470 audio files, 32,905 current records and 1,565
+  passed over, none unindexed, out of date or gone. Three new folders by
+  seed indexed into scratch stores (`work/s9-ethernet/`, `--config
+  /dev/null`): 376 files, 2,594 MB, 41.4 h in 79.0 s, 263 Mbit/s, 0.21 s
+  per file, 1.91 s per hour of audio, CPU-bound (8.3-8.8 of 10 cores),
+  the local-disk rate of 0035. A full re-index over Ethernet: about 1.8
+  h. All 374 records identical to the NAS store's; its revision after
+  the runs `b8bb402f0ba23761`. The 13 failed files (12 recordings) are
+  damaged: they decode 5-71 s short, four with zero-filled blocks.
+  Deviation: the brief asked for about 300 files; the only new YouTube
+  channel under 1,000 files has 306, so the total is 376. The first run
+  script stopped after one folder (`status` is read-only in zsh), so the
+  first folder has no `en7` byte count; it was run again from the SMB
+  cache for comparison.
