@@ -21,9 +21,10 @@ for scope and rules.
   65,536th asset and the next, a record past 17:28); ADR 0010, ADR 0005's
   status, ADR 0007; `scripts/check.sh` green; `regress session-9-start`
   identical (720/720; 87, 93, 79); experiment 0062
-- [ ] 3. `stats` at 32,905 records; `identify` of the development mix
+- [x] 3. `stats` at 32,905 records; `identify` of the development mix
   (0050's command) and of `razorjack-2003-03-29` (0060's): tracks
   against 0050 and 0060, files from the new folders; wall, CPU, memory
+  (experiment 0063)
 - [ ] 4. `doctor` over Ethernet (listing time, not indexed, failed, too
   short, too long, gone); ~300 files from new folders into scratch
   stores (Mbit/s, s per file, a full re-index estimate); peaks against
