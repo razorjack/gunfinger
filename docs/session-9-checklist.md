@@ -32,8 +32,9 @@ for scope and rules.
   (experiment 0064; 376 files from three folders: a scene month and a
   label folder by seed, and the dnbfreak0 channel, which cannot be
   split because the channel folders are flat)
-- [ ] 5. Too-long files listed (path, length, folder) in `work/`; DJ-mix
-  candidates; new folders that look like mixed CDs
+- [x] 5. Too-long files listed (path, length, folder) in `work/`; DJ-mix
+  candidates; new folders that look like mixed CDs (experiment 0065;
+  `work/s9/candidate-mixes.tsv`, `work/s9/mixed-cd-candidates.tsv`)
 
 ## Wrap-up
 

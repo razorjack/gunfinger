@@ -1220,3 +1220,15 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   script stopped after one folder (`status` is read-only in zsh), so the
   first folder has no `en7` byte count; it was run again from the SMB
   cache for comparison.
+- Item 5 (experiment 0065): the 1,423 files passed over as too long,
+  with lengths and tags from `ffprobe`, are in `work/s9/too-long.tsv`
+  and, by kind, `work/s9/candidate-mixes.tsv`: 1,264 h, median 45.9
+  min; 561 are alien5ive game videos, 366 YouTube mixes or shows, 136
+  scene sets, radio shows and mixed CDs of 1999-2000, 96 in `sety/`, 17
+  at the root or alone in a folder, among them the owner's two mixes and
+  an Ed Rush & Optical Essential Mix of 1999-02-07, by name the held-out
+  test set's broadcast (not compared). `scripts/analysis/folder_edges.py`
+  (new) scores each folder's track boundaries from the peak records: 33
+  folders have at least 75% joined boundaries, 30 of them new
+  (`work/s9/mixed-cd-candidates.tsv`), including the new Dangerous
+  Drums 2 copy.
