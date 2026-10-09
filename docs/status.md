@@ -1232,3 +1232,27 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   folders have at least 75% joined boundaries, 30 of them new
   (`work/s9/mixed-cd-candidates.tsv`), including the new Dangerous
   Drums 2 copy.
+- End-to-end check of the frame limit (`work/s9/toolong-check/`, an
+  18-minute synthetic file): `index --max-track 20:00` stores it;
+  `stats --max-track 20:00` stops with "long.mp3 is longer than the
+  17:28 the index can address; set --max-track (`max_track`) to 17:28
+  or less"; `doctor --max-track 20:00` reports "longest track 18:00; the
+  index addresses 17:28" as a problem. At the 17:00 default `stats`
+  says "no indexed assets ... run `gunfinger index` first", misleading
+  when the records exist but lie outside the range (roadmap, "No record
+  inside the track length range"; not changed).
+- Wrap-up: notes ("Session 9", decisions first: the mixed CDs and the
+  scene copy of Dangerous Drums 2 the ignore file misses; roles of the
+  candidate mixes, the Essential Mix 1999-02-07 at the NAS root by name
+  the held-out broadcast; 13 damaged files), calibration register
+  (posting layout; NAS-scale costs at 32,905 records), roadmap ("More
+  than 65,536 assets", the ignore file, candidate mixes, a command-line
+  item). The NAS store at the end: 32,905 `.peaks`, 32,905 `.tags`,
+  1,565 `.skip`, revision `b8bb402f0ba23761`, no file newer than the
+  brief; no file on the NAS newer than the brief either.
+- Next: the owner decides the mixed-CD lines and whether to prune
+  before the next clusters run (notes, "What you need to decide"). The
+  overnight session: NAS references in manifests and verdict links
+  only between searched, non-ignored files (roadmap, "More development
+  mixes", steps 1-2), then the NAS clusters run once the store's
+  revision for it is settled.

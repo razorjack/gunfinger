@@ -92,6 +92,18 @@ candidate is 140-156 hits, still below 200. The clusters' gap narrowed
 and the ladder misses fast uploads; widening it to ±8% is proposed in
 `docs/notes-for-owner.md`.
 
+Session 9, costs only (store revision `b8bb402f0ba23761`, 32,905
+records, 3,433 h; experiments 0062-0064; no rule measured): 922.0 M
+postings, 3.70 GB, 4.01 bytes per posting, buckets p99 5,515 and max
+123,575, the fullest 1% holding 26.0%; the index builds in 65-72 s.
+Store-only `identify`: the development mix 315 s, 2,344 s CPU, 4.76 GB;
+the 2003 mix 266 s, 1,854 s CPU, 4.66 GB, both about 20% above 27,042
+records, in line with the postings (+21%). `index` over Ethernet: 1.91
+s per hour of audio, CPU-bound, so a full re-index takes about 1.8 h.
+32,905 is 50% of the 65,536 assets a posting now addresses (ADR 0010).
+Rules wait for the next clusters run: the new folders hold rips and
+mixed-CD tracks the clusters do not know yet.
+
 ## After indexing more tracks
 
 0. Before indexing, `gunfinger-eval baseline <name>` keeps the reports at

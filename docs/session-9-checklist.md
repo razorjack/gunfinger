@@ -38,7 +38,8 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Experiments; notes ("Session 9", decisions first); status;
-  calibration register; roadmap ("More than 32,768 assets")
-- [ ] The NAS store's revision at the end
-- [ ] Commit; the message to the owner
+- [x] Experiments 0062-0065; notes ("Session 9", decisions first);
+  status; calibration register; roadmap ("More than 65,536 assets")
+- [x] The NAS store's revision at the end: `b8bb402f0ba23761`,
+  unchanged; nothing on the NAS newer than the brief
+- [x] Commit; the message to the owner

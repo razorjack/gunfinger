@@ -21,17 +21,26 @@ marked as inferences were derived, not measured.
   every run. The recommended layout is in `docs/adr/0005-index-layout.md`.
   Audit its widths first: its `u32` byte offsets into delta-coded lists
   address 4.3 GB, and 100,000 tracks would need about 9.3 GB (ADR 0007);
-  posting offsets and the 15 asset bits have limits of their own. At NAS
+  posting offsets and the 16 asset bits have limits of their own. At NAS
   scale every `identify` and `explain` builds the index from the store
-  in 56.5 s (experiment 0050), most of the time of a short `explain`.
-  Compare loading a saved index with rebuilding it first, and measure
-  compression separately.
-- **More than 32,768 assets.** The posting layout addresses 32,768 assets;
-  the owner may grow the collection to about 100,000 tracks with jungle and
-  breakbeat hardcore. Shards, separate libraries per genre and other layouts
-  are compared in ADR 0007. Shards solve addressing and can bound memory,
-  but searching every shard does not reduce the work or the chances of a
-  false match. *(larger library)* Decide collection boundaries from
+  in 65-72 s at 32,905 records (experiment 0063; 56.5 s at 27,042),
+  most of the time of a short `explain`. Compare loading a saved index
+  with rebuilding it first, and measure compression separately.
+- **More than 65,536 assets.** *(first step done in session 9, ADR
+  0010)* The NAS store passed 32,768 records on 2026-10-09 (32,905), so
+  a posting now holds 16 frame bits and 16 asset bits: 65,536 assets,
+  tracks up to 17:28 (default track limit 17:00). 32,905 is 50% of
+  that; at 65,536 assets of the NAS mean length the index would hold
+  about 1.84 billion postings, 7.4 GB in memory, before the search's
+  own memory (4.7 GB peak at 32,905 records, experiment 0063). The next
+  limit: past 65,536 assets, shard by asset range (ADR 0007, option A),
+  each shard with this layout; memory may call for loading shards one at
+  a time before addressing does. The owner may grow the collection to
+  about 100,000 tracks with jungle and breakbeat hardcore. Shards,
+  separate libraries per genre and other layouts are compared in ADR
+  0007. Shards solve addressing and can bound memory, but searching
+  every shard does not reduce the work or the chances of a false
+  match. *(larger library)* Decide collection boundaries from
   evidence: the same queries against drum & bass alone, hardcore alone and
   their union, measuring false candidates, missed cross-genre matches and
   cost, with one confidence rule throughout (ADR 0007, measurement 3).
@@ -60,7 +69,15 @@ marked as inferences were derived, not measured.
   Impulse - 256`, the third candidate in the owner notes ("Mixed-CD
   tracks in the library"), is not listed; and the clusters' verdict
   links must leave out ignored files (below, "More development mixes",
-  step 2).
+  step 2). Session 9: the owner pruned, then indexed a scene copy of
+  Dangerous Drums Volume 2
+  (`__full_scene/dnb_scene - 2000 - Part 2/2000-08/va-dangerous_drums_2-udfrcd002-2000-sour/`),
+  which the root-anchored pattern does not cover, and three mixed CDs
+  in the new folders give the 2003 mix a confident wrong title
+  (experiment 0063). `scripts/analysis/folder_edges.py` scores each
+  folder's track boundaries from the peak records; 33 folders have at
+  least 75% joined boundaries, 30 of them new (experiment 0065,
+  `work/s9/mixed-cd-candidates.tsv`), a listening list for the owner.
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit when detections, owner
   edits or the Track/AudioAsset model need to be stored.
@@ -82,6 +99,12 @@ marked as inferences were derived, not measured.
   where they differ, and write the verdict to `docs/pair-verdicts.txt`.
   Decisions stay apart from measured evidence, survive identifying a mix
   again, and keep the original asset names visible.
+- **No record inside the track length range.** With a store whose only
+  records are longer than `--max-track`, `stats` says "no indexed
+  assets ... run `gunfinger index` first", though the files are indexed
+  and only the range leaves them out (seen in session 9 with an
+  18-minute file and the 17:00 default). Say that the range leaves them
+  out and how to widen it.
 - **Titles of mislabelled files.** A play takes the title in its best
   file's tags, so a mislabelled file gives a wrong title on a right
   match: track 2 of the 2003 mix is printed as "Future Cut - Sex Drive"
@@ -436,7 +459,18 @@ marked as inferences were derived, not measured.
   Then the experiments it offers: Phantom Force and its rips left out
   (do Phantom 2018 or the Fracture edit, both possible now, become
   confident?), the blend from 10:47 to 11:55 before Phantom Force's
-  first confident detection, and the Kinetic tease at 17:23.
+  first confident detection, and the Kinetic tease at 17:23. At 32,905
+  records a PHUD1 vinyl rip of Phantom Force is confident from 10:48
+  (experiment 0063), which changes the second of these.
+  Candidates on the NAS (experiment 0065, `work/s9/candidate-mixes.tsv`;
+  no `identify` before their roles are agreed): the owner's own
+  `Razor Jack - 2003-08-27.mp3` (20.7 min); 136 sets, radio shows and
+  single-file mixed CDs of 1999-2000 in the scene folders; single-file
+  mixed CDs with published tracklists in folders at the root (Stakka &
+  Skynet's Clockwork mix CD, Andy C's Ram Raiders, DJ TeeBee's Through
+  The Eyes Of A Scorpion); 96 radio shows and sets in `sety/`. The root's
+  `EM_1999_02_07_-_Ed_Rush_Optical.mp3` is by name the broadcast of the
+  held-out test set: keep it out of development use.
 - **Public DJ-mix datasets and per-second scoring.** Mixotic (10
   Creative Commons techno and house mixes, 723 reference tracks,
   approximate song borders) and UnmixDB (mixes generated

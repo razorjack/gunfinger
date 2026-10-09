@@ -1908,3 +1908,161 @@ remain). The next session starts from that new baseline; NAS-scale
 results before it (experiments 0035-0061) include the 33 files.
 `2002 - CPT003 - Kemal vs. Rob F & Impulse - 256`, the third folder in
 "Mixed-CD tracks in the library", is not in the file.
+
+## Session 9
+
+### What you need to decide
+
+1. **Mixed CDs in the new folders.** The ignore file does not cover
+   them, so they are indexed:
+   - A scene copy of Dangerous Drums Volume 2 (20 records):
+     `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 2/2000-08/va-dangerous_drums_2-udfrcd002-2000-sour/`.
+     Your line 3 is anchored at the root, so it leaves out only the
+     old folder. The development mix finds this copy's Night Lore
+     (3,443 hits).
+   - Three mixed CDs give your 2003 mix extra lines and one confident
+     wrong title (experiment 0063): `Contagious Drum & Bass Vol 1`
+     (`.../dnb_scene - 2000 - Part 2/2000-09/va-contagious_drum_and_bass_volume_1-concd1-2000-sour/`),
+     DJ Marky's Audio Architecture
+     (`.../dnb_scene - 2000 - Part 3/2000-11/dj_marky-audio_architecture-2000-sour/`)
+     and Dieselboy's System Upgrade
+     (`.../dnb_scene - 2000 - Part 1/2000-02/dieselboy-system_upgrade-2000-sour/`).
+     To hear it: in `13-mc_mc_and_rushour-music_maker_(majistrate_remix)-sour.mp3`
+     of Contagious, 5:00 to the end (6:11) is already Phantom Force,
+     the next track; Gunfinger names "Music Maker" confidently at
+     10:54-14:17 of your mix from that stretch alone.
+   - 30 more new folders and 3 old ones look mixed by their track
+     boundaries (below, and `work/s9/mixed-cd-candidates.tsv`). A
+     gapless album scores the same, so each needs your ear: do the
+     tracks run into each other?
+
+   Timing: the prompt keeps the NAS store at `b8bb402f0ba23761` for the
+   next session too, and store-only runs (`--other-peaks-dir`, the
+   clusters) see ignored files until you prune. If the next session runs
+   `clusters` at NAS scale, these folders will be in it. Either add the
+   lines and prune first (the next session then starts from a new
+   revision, which its prompt should name), or let it do only the code
+   steps and keep the clusters run for after the prune.
+
+2. **Roles for candidate mixes** (no `identify` was run on any). The
+   strongest candidates: your own `Razor Jack - 2003-08-27.mp3` (20.7
+   min, "c4c dnb mix", at the NAS root), which you can check by ear;
+   single-file mixed CDs whose tracklists are published (Stakka &
+   Skynet's Clockwork mix CD, Andy C's Ram Raiders The Mix, DJ TeeBee's
+   Through The Eyes Of A Scorpion, Doc Scott's Hidden Rooms 3 mix,
+   Bryan G's V Classic), good held-out sets because their ground truth
+   does not come from Gunfinger; and 136 sets and radio shows of
+   1999-2000 in the scene folders (Virus and Ray Keith on Kiss FM, Bad
+   Company, Ed Rush, Konflict and Usual Suspects live, Grooverider on
+   Radio One). The NAS root also holds
+   `EM_1999_02_07_-_Ed_Rush_Optical.mp3`, by name the broadcast of the
+   held-out test set; I did not compare it. Please confirm, and keep it
+   out of any development use.
+
+3. **Damaged files** (13 files, 12 recordings; they cannot be indexed):
+   replace them if you want them in the library. Seconds missing, and
+   "zeroed" where the gap is zero-filled (an incomplete transfer):
+
+   ```text
+   21.2 s         04 - paul b & dissident - technecium.mp3
+   16.2 s         TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/B_-_Decoder_-_Cobra.mp3
+   16.2 s         __full_scene/-= Tech Itch Recordings =-/TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/B_-_Decoder_-_Cobra.mp3
+   23.8 s         __full_scene/-= Tech Itch Recordings =-/TI027 - Biostacis - Biotactics EP [2000] (Tech Itch Recordings)/C_-_Biostacis_-_Titanium.mp3
+   31.0 s         __full_scene/-= Tech Itch Recordings =-/TI027 - Biostacis - Biotactics EP [2000] (Tech Itch Recordings)/D_-_Biostacis_-_Dos.mp3
+   10.5 s zeroed  __full_scene/1999/1999-08/1999-08-22/underfire_recordings-blazin-cd_rip-1999-sour/205_-_skynet_&_stakka_-_mix-sour.mp3
+   61.8 s zeroed  __full_scene/1999/1999-08/1999-08-22/underfire_recordings-blazin-cd_rip-1999-sour/209_-_skynet_&_stakka_-_mix-sour.mp3
+   70.7 s         __full_scene/Certificate 18/CERT1850 - Panoptica - 02-04 (2001)/a. panoptica - torero t.mp3
+   59.9 s         __full_scene/dnb_scene - 2000 - Part 1/2000-01/dillinja-never_believe-2000-sour/01-dillinja-never_believe-2000-sour.mp3
+   42.6 s zeroed  __full_scene/dnb_scene - 2000 - Part 2/2000-09/cert18-klute-fear_of_people-cert18cd009-2000-sour/03-klute-chicks-sour.mp3
+   18.6 s         __full_scene/dnb_scene - 2000 - Part 3/2000-10/v_recordings-planet_v_remixes_part_2-velprmx02-2000-sour/a-krust-burning_2000_(lemon_d_remix)-sour.mp3
+    5.4 s zeroed  __full_scene/dnb_scene - 2000 - Part 3/2000-11/moving_shadow-basic_unit-shadow109-1997-sour/y-basic_unit-silver_wolf-sour.mp3
+   18.8 s zeroed  __full_scene/dnb_scene - 2000 - Part 3/2000-12/razors_edge-goldie_vs_dillinja-razors002-1995-sour/a-goldie-jah_(vip_rollers_mix_by_peshay)-sour.mp3
+   ```
+
+   The first two are session 6's truncated files. No file is waiting to
+   be indexed.
+
+### Past 32,768 assets (ADR 0010, experiment 0062)
+
+A posting now holds 16 frame bits and 16 asset bits: 65,536 assets and
+tracks up to 17:28, still 4 bytes per posting at full frame resolution.
+The default track limit is 17:00 (was 20:00); your NAS configuration
+stops at 15:00 and the corpus's longest track is 9.6 minutes, so
+nothing you index changes. With `--max-track` above 17:28 and a longer
+record, searches stop and name the file and the limit, and `doctor`
+marks it as a problem. Detection at 262 tracks is identical. Before the
+change, `stats` with your configuration stopped after 57 s with "the
+index holds at most 32768 assets". The next limit is 65,536 assets;
+then the index is split into shards (ADR 0007). Your store is at 50%.
+
+### The store at 32,905 records (experiment 0063)
+
+`stats`: 922 million postings, 3.70 GB, built in 65-72 s. Identifying
+the development mix from the store takes 5:15 and 4.76 GB, your 2003 mix
+4:26 and 4.66 GB, about 20% more than at 27,042 records. The development
+mix gives the same 13 tracklist lines. Your 2003 mix still finds all 12
+tracks; Phantom Force now starts at 10:48 (a PHUD1 vinyl rip in the new
+scene folders, 6,513 hits), close to the 10:47 you hear. Most other new
+files that appear are other rips of the tracks played; the rest come
+from the mixed CDs above.
+
+### The NAS over Ethernet (experiment 0064)
+
+`doctor` took 44 s (2:21 over Wi-Fi), after two earlier listings. 34,470
+audio files: 32,905 indexed, 1,565 passed over (13 damaged, 129 too
+short, 1,423 too long), none waiting and none gone. Indexing three new
+folders (376 files) ran at 1.9 s per hour of audio, the local-disk rate:
+the CPU is the limit now, not the network, and a full re-index would
+take about 1.8 hours (5.9 over Wi-Fi). Every record decoded again
+matched your store bit for bit, and the store's revision is unchanged.
+
+### Long files and mixed CDs (experiment 0065)
+
+The 1,423 files over 15:00 hold 1,264 hours: 561 alien5ive game videos,
+366 YouTube mixes and shows (155 naming 1990-2003), 247 other uploads,
+136 scene sets, radio shows and mixed CDs, 96 radio shows and sets in
+`sety/`, 17 files at the root. The full list with lengths and tags is
+`work/s9/candidate-mixes.tsv`.
+
+Folders whose tracks run into each other at 75% or more of their
+boundaries, the share in front (new unless marked; paths in
+`work/s9/mixed-cd-candidates.tsv`):
+
+```text
+1.00 decoder_n_substance-encounters-1999-sour
+1.00 knowledge-the_lowdown_vol_7_mixed_by_marky-1999-sour
+1.00 shy_fx-just_an_example-1995-sour
+1.00 va-california_drum_and_bass-1997-sour
+1.00 720-two_revolutions_mixed_by_blame-2nd_revolution-1999-sour
+1.00 dj_zinc-beats_by_design_ep_(mixed)-tpr12025cd-1999-sour
+1.00 va-thermodynamix_vol_1-2cd-(2000)-sour/cd2
+1.00 va-knowledge_cover_cd_may-2000-sour
+1.00 emotif_presents_the_a1_sound_carrier_ii-emf2cdlp005-2000-sour (and an old copy at the root)
+1.00 pascal-a_new_p_funk_era_(mixed)-tpr12026cd-2000-sour
+1.00 va-beyond_voltage_2-fuzecd003-2000-sour
+1.00 va-dangerous_drums_2-udfrcd002-2000-sour/cd2 (cd1 0.88)
+1.00 va-bootleggers_3-tovblcd03-2000-sour
+1.00 va-contagious_drum_and_bass_volume_1-concd1-2000-sour
+1.00 va-jungle_vibes-col477877_2-1994-sour
+1.00 betacd001-john_b-catalyst-1999-sour/catalyst-solid_cd2 (old)
+1.00 mampi_swift-blade_runners_ep-bld003-2002-sour (old)
+0.97 va-world_dance_(mixed_by_kenny_ken_and_dj_ss)-hlplcd5-1997-sour
+0.96 va-moving_shadow_10th_anniversary_cd-msx001cd-2000-sour
+0.94 dieselboy-system_upgrade-2000-sour
+0.93 knowledge-the_lowdown_vol_6-mixed_by_decoder-1999-sour
+0.92 various_mixed_by_dj_freedom-metro_breaks_nxt_level-2000-sour
+0.92 dj_marky-audio_architecture-2000-sour
+0.91 va-blueprint_archive-abprcd003-1999-sour
+0.85 dj_patife-presents_sounds_of_drumnbass-1999-sour
+0.83 r_a_w-ultra_mix_drum_n_bass-1997-sour
+0.83 va-mixmag_live_volume_22-mmlcd022-1996-sour
+0.82 dream_magazine-for_those_who_remember-1997-sour
+0.80 720-two_revolutions_mixed_by_blame-1st_revolution-1999-sour
+0.77 va-jungle_vibes_2-sel9-1995-sour
+0.76 knowledge-l_double_and_harry_love-the_lowdown_8-1999-sour
+```
+
+Releases with a mixed disc beside unmixed tracks in one folder score in
+between: Blazin (its 2xx files, 0.35), Inside The Machine
+(`vdbcrcd001`, 0.48) and Molten Beats (its bonus mix CD, 0.52). A
+pattern such as `2*` inside such a folder leaves out one disc's files.
