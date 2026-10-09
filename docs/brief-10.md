@@ -268,8 +268,14 @@ Item 6 gets what is left before 10:17; the wrap-up may run past it.
 - The recall panel: the pool is the store's current records whose
   length is within the NAS configuration's range (1:30-15:00) and at
   least 60 s, as the sweep needs, outside session 6's NAS clusters and
-  not copies of corpus files. Kinds: `__full_scene/`,
-  `__youtube_archivists/`, everything else. Each half draws its sources
-  in equal thirds per kind. A family is the normalised artist and title
-  from the store's tags, or the normalised file name without them. The
-  validation half is drawn and saved, never rendered or searched.
+  not copies of corpus files (the map built again first). Kinds:
+  `__full_scene/`, `__youtube_archivists/`, everything else. Each half
+  draws its sources in equal thirds per kind (20 indexed each; 7, 7 and 6
+  held out), one per family. A family is the normalised artist and title
+  from the store's tags; records without both tags (406) are left out of
+  the pool rather than grouped by file name, which AGENTS.md rules out.
+  The validation half is drawn and saved, never rendered or searched.
+- The extra `clusters` queries come from the manifests of sets named on
+  the command line (`--manifest`), not from every manifest, so the
+  held-out test set's manifest is never read; `validate` takes a set name
+  for the same reason.

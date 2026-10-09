@@ -281,6 +281,7 @@ mod tests {
             title: format!("Title {position}"),
             start: Duration::from_secs(start),
             references: references.iter().map(|path| (*path).to_owned()).collect(),
+            set_aside: Vec::new(),
         }
     }
 
@@ -341,6 +342,48 @@ mod tests {
         let score = score(&set(), 900.0, &detections, &[], &clusters());
 
         assert_eq!((score.referenced, score.identified, score.wrong), (2, 2, 0));
+    }
+
+    #[test]
+    fn a_track_on_the_other_library_only_is_absent_without_it() {
+        // Track 2's file is on the other library alone, and an upload of it
+        // there joined its cluster.
+        let upload = "second-library/uploads/b.opus";
+        let detections = [found(upload, 320.0, 560.0, true)];
+        let with_other = Set {
+            tracks: vec![
+                track(1, 0, &["a.mp3"]),
+                track(2, 300, &["second-library/rips/b.mp3"]),
+                track(3, 600, &["c.mp3"]),
+            ],
+            ..set()
+        };
+        let mut other_clusters = clusters();
+        other_clusters.duplicates.push(vec![
+            "second-library/rips/b.mp3".to_owned(),
+            upload.to_owned(),
+        ]);
+
+        let corpus_only = score(&set(), 900.0, &detections, &[], &clusters());
+        let with_other = score(&with_other, 900.0, &detections, &[], &other_clusters);
+
+        assert_eq!(
+            (
+                corpus_only.referenced,
+                corpus_only.identified,
+                corpus_only.wrong
+            ),
+            (2, 0, 1)
+        );
+        assert_eq!(
+            (
+                with_other.referenced,
+                with_other.identified,
+                with_other.wrong
+            ),
+            (3, 1, 0)
+        );
+        assert_eq!(with_other.tracks[1].credited_through_cluster, [upload]);
     }
 
     #[test]

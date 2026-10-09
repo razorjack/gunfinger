@@ -1,0 +1,1136 @@
+{
+  "seed": 2026,
+  "drawn_from_records": 32441,
+  "pool": 31542,
+  "families": 29057,
+  "development": {
+    "families": 14528,
+    "sources": [
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/va-suspect_package-hlcd1-1996-sour/01-capone-friday-sour.mp3",
+        "kind": "scene-release",
+        "family": "capone friday",
+        "held_out": false,
+        "start_seconds": 135.6496778388555
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-08/1999-08-03/ganja_kru-fuck_the_millenium_ep-1999-sour/f-1-ganja_kru-species-sour.mp3",
+        "kind": "scene-release",
+        "family": "ganja kru f 1 ganja kru species sour",
+        "held_out": false,
+        "start_seconds": 149.75781403463114
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/true_playaz-dj_zinc-tpr007-1997-sour/aa-dj_zinc-damn-sour.mp3",
+        "kind": "scene-release",
+        "family": "dj zinc damn",
+        "held_out": false,
+        "start_seconds": 237.24142734729458
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/higher_education-kazmir_f_carol_c-fallen_angels_rmx-2000-sour/b-kazmir_f_carol_c-fallen_angels_remix-2000-sour.mp3",
+        "kind": "scene-release",
+        "family": "kazmir feat carol c fallen angels remix",
+        "held_out": false,
+        "start_seconds": 259.7412147058032
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-11/1999-11-28/certificate_eighteen-klute-cert1828-1998-sour/a-klute-silent_weapons_(photek_rmx)-sour.mp3",
+        "kind": "scene-release",
+        "family": "klute silent weapons photek rmx",
+        "held_out": false,
+        "start_seconds": 178.0138126775443
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/higher_education-pieter_k-0_44899-2000-sour/a-pieter_k-pendulum-sour.mp3",
+        "kind": "scene-release",
+        "family": "pieter k pendulum",
+        "held_out": false,
+        "start_seconds": 287.2970328482726
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG029 - Imprintz & Kloe - Till The End EP - 2009/02. Last_Breath_Original_Mix.mp3",
+        "kind": "scene-release",
+        "family": "imprintz kloe last breath original mix",
+        "held_out": false,
+        "start_seconds": 68.08894812061777
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3",
+        "kind": "scene-release",
+        "family": "kinetix lost in reverie",
+        "held_out": false,
+        "start_seconds": 90.06338068797126
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG021 - O.Nine - Mass Levitation EP - 2009/01. O.Nine - Malice (Original Mix).mp3",
+        "kind": "scene-release",
+        "family": "o nine malice original mix",
+        "held_out": false,
+        "start_seconds": 87.69924646316903
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-10/1999-10-29/hardleaders_-_genetically_unmodified_(1999)_-_sour/07_-_dj_surreal_-_no_where_-_sour.mp3",
+        "kind": "scene-release",
+        "family": "hardleaders various dj surreal no where",
+        "held_out": false,
+        "start_seconds": 75.65369089088537
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+        "kind": "scene-release",
+        "family": "prizna feat demolition man fire original mix",
+        "held_out": false,
+        "start_seconds": 126.36830248295512
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-01/nu_directions-pariah-nu12_001-1999-sour/a-pariah-meridian-sour.mp3",
+        "kind": "scene-release",
+        "family": "pariah meridian",
+        "held_out": false,
+        "start_seconds": 256.01548159338927
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/moving_shadow-rollcage_stage_2-ashadow23cd-2000-sour/05-e-z_rollers-double_cross-sour.mp3",
+        "kind": "scene-release",
+        "family": "e z rollers double cross",
+        "held_out": false,
+        "start_seconds": 88.34836647867462
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-02/moving_shadow-flytronix-archive-1998-sour/b-flytronix-offshore_drift-sour.mp3",
+        "kind": "scene-release",
+        "family": "flytronix offshore drift",
+        "held_out": false,
+        "start_seconds": 326.43011301543686
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/105-ram_trilogy-snake_bite-sour.mp3",
+        "kind": "scene-release",
+        "family": "ram trilogy snake bite",
+        "held_out": false,
+        "start_seconds": 111.01413959221888
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG052 - Para - Fade To Grey EP - 2010/02-Para-Immuno.mp3",
+        "kind": "scene-release",
+        "family": "para immuno",
+        "held_out": false,
+        "start_seconds": 53.25377037115108
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/audio_couture-known_unknown-ac020-1999-sour/c-known_unknown-rollers_edit-sour.mp3",
+        "kind": "scene-release",
+        "family": "known unknown rollers edit",
+        "held_out": false,
+        "start_seconds": 143.91035600805867
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/112-future_cut-stealth_(domination)-sour.mp3",
+        "kind": "scene-release",
+        "family": "future cut stealth domination",
+        "held_out": false,
+        "start_seconds": 162.9360513225137
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-tayla_presents_soul_survivors-nexuscd001-2000-sour/103-makoto-jupiter_fields-sour.mp3",
+        "kind": "scene-release",
+        "family": "makoto jupiter fields",
+        "held_out": false,
+        "start_seconds": 144.85826587872614
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/total_science-advance_lp_sampler-cialps1-2000-sour/aa2-total_science-peace_maker-sour.mp3",
+        "kind": "scene-release",
+        "family": "total science peace maker",
+        "held_out": false,
+        "start_seconds": 146.68144582310325
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Elementz Of Noize - Astral.opus",
+        "kind": "youtube-channel",
+        "family": "elementz of noize astral",
+        "held_out": false,
+        "start_seconds": 164.8228298103361
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Minus 8 - Beyond.opus",
+        "kind": "youtube-channel",
+        "family": "minus 8 beyond",
+        "held_out": false,
+        "start_seconds": 171.82746655965803
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/L-Side & Collette Warren - Glass House.opus",
+        "kind": "youtube-channel",
+        "family": "l side collette warren glass house",
+        "held_out": false,
+        "start_seconds": 221.46269622385694
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Tertius & Deep Blue - Negative.opus",
+        "kind": "youtube-channel",
+        "family": "tertius deep blue negative",
+        "held_out": false,
+        "start_seconds": 133.2815280389561
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Eschaton - Boundless (Greenleaf Re-Fix).m4a",
+        "kind": "youtube-channel",
+        "family": "eschaton boundless greenleaf re fix",
+        "held_out": false,
+        "start_seconds": 326.1931355405182
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Beta 2 - Sweet As.opus",
+        "kind": "youtube-channel",
+        "family": "beta 2 sweet as",
+        "held_out": false,
+        "start_seconds": 180.97256997944447
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/No Bluff Sound - Coup De Tête (Vocals - Izm & Peanut Butterfly).opus",
+        "kind": "youtube-channel",
+        "family": "no bluff sound coup de tête vocals izm peanut butterfly",
+        "held_out": false,
+        "start_seconds": 128.63797467904158
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Acen - Obsessed (Coco Bryce Remix).m4a",
+        "kind": "youtube-channel",
+        "family": "acen obsessed coco bryce remix",
+        "held_out": false,
+        "start_seconds": 144.3819453807461
+      },
+      {
+        "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Dagga - Warriors (Drum'n'Bass) (Drum'n'Bass).m4a",
+        "kind": "youtube-channel",
+        "family": "drum n bass drum n bass dagga warriors drum n bass drum n bass",
+        "held_out": false,
+        "start_seconds": 223.86959241425453
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift - Labrat.opus",
+        "kind": "youtube-channel",
+        "family": "rift labrat",
+        "held_out": false,
+        "start_seconds": 83.34316102314601
+      },
+      {
+        "asset": "second-library/__youtube_archivists/alien5ive/CELSIUS RECORDINGS [ CLS037V ： INTELLIGENT MANNERS - dreaming - ] drum and bass.m4a",
+        "kind": "youtube-channel",
+        "family": "intelligent manners dreaming",
+        "held_out": false,
+        "start_seconds": 53.13324012331997
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Vision.opus",
+        "kind": "youtube-channel",
+        "family": "shere khan vision",
+        "held_out": false,
+        "start_seconds": 160.49976562542307
+      },
+      {
+        "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 75 ： SPOR - ignition - ] drum and bass.opus",
+        "kind": "youtube-channel",
+        "family": "spor ignition",
+        "held_out": false,
+        "start_seconds": 221.29147746255924
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/DYkast • Punishment.m4a",
+        "kind": "youtube-channel",
+        "family": "dykast punishment",
+        "held_out": false,
+        "start_seconds": 186.88126508637734
+      },
+      {
+        "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ HWARE 24 ： BTK - be yourself - ] drum and bass.m4a",
+        "kind": "youtube-channel",
+        "family": "btk be yourself",
+        "held_out": false,
+        "start_seconds": 191.17207778268096
+      },
+      {
+        "asset": "second-library/__youtube_archivists/alien5ive/FOKUZ LIMITED RECORDINGS [ FKZLTD 029 ： KRONE -   the source - ] drum and bass.m4a",
+        "kind": "youtube-channel",
+        "family": "krone the source",
+        "held_out": false,
+        "start_seconds": 165.897814214052
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Defiant - Windchill.m4a",
+        "kind": "youtube-channel",
+        "family": "defiant windchill",
+        "held_out": false,
+        "start_seconds": 235.63450863108088
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/RiposteAudio - Zero One.m4a",
+        "kind": "youtube-channel",
+        "family": "riposteaudio zero one",
+        "held_out": false,
+        "start_seconds": 375.70771149314487
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Bombdogs - Precision Bombing.m4a",
+        "kind": "youtube-channel",
+        "family": "bombdogs precision bombing",
+        "held_out": false,
+        "start_seconds": 139.7926883488327
+      },
+      {
+        "asset": "second-library/__youtube_archivists/alien5ive/FOKUZ RECORDINGS [ FOKUZ 006 ： GEN - cas 8 - ] drum and bass.opus",
+        "kind": "youtube-channel",
+        "family": "gen cas 8",
+        "held_out": false,
+        "start_seconds": 320.06685889661287
+      },
+      {
+        "asset": "second-library/[citruscd003] VA - Juice Blender 2 - 2008/05. Psidream & Pacific - Insecure.mp3",
+        "kind": "elsewhere",
+        "family": "psidream pacific insecure",
+        "held_out": false,
+        "start_seconds": 231.16367224527488
+      },
+      {
+        "asset": "second-library/Mindscape-Dissonant_EP-(SUBTITLES075EP)-WEB-2010-FRAY/03-mindscape_and_munk-into_the_night.mp3",
+        "kind": "elsewhere",
+        "family": "mindscape munk into the night",
+        "held_out": false,
+        "start_seconds": 171.54005383949413
+      },
+      {
+        "asset": "second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a",
+        "kind": "elsewhere",
+        "family": "black sun empire all is lost feat thomas oliver youthstar",
+        "held_out": false,
+        "start_seconds": 178.52845067420725
+      },
+      {
+        "asset": "second-library/(Neosignal [NSGNLEP 001R]) Misanthrop, Phace & Rockwell - Amboss & NO! - 2011/1. Misanthrop - Amboss.mp3",
+        "kind": "elsewhere",
+        "family": "misanthrop amboss",
+        "held_out": false,
+        "start_seconds": 245.27401422517923
+      },
+      {
+        "asset": "second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/01-Black Sun Empire & Noisia-Feed The Machine.m4a",
+        "kind": "elsewhere",
+        "family": "black sun empire noisia feed the machine",
+        "held_out": false,
+        "start_seconds": 163.49919673637598
+      },
+      {
+        "asset": "second-library/VA-Ram_Records_15x15-RAMMLP9CD-2007-sour/11-ram_trilogy-beastman-sour.mp3",
+        "kind": "elsewhere",
+        "family": "ram trilogy beastman",
+        "held_out": false,
+        "start_seconds": 245.04327631649485
+      },
+      {
+        "asset": "second-library/2011 - SUICIDECD009 - Amit - 9 Times/04. Amit - Atonal.mp3",
+        "kind": "elsewhere",
+        "family": "amit atonal",
+        "held_out": false,
+        "start_seconds": 255.4826984682141
+      },
+      {
+        "asset": "second-library/makai-beneath_the_mask-(po8)-vinyl-1998-trt/b-makai-polaris-trt.mp3",
+        "kind": "elsewhere",
+        "family": "makai polaris",
+        "held_out": false,
+        "start_seconds": 176.24766613049746
+      },
+      {
+        "asset": "second-library/(2000) Inside The Machine (VDBCRLP001)/10 - Bad Company - Dead-Side.mp3",
+        "kind": "elsewhere",
+        "family": "bad company dead side",
+        "held_out": false,
+        "start_seconds": 173.933485371716
+      },
+      {
+        "asset": "second-library/029_Critical-Lomax-CRIT029-VINYL-2007-sour/b-lomax-trago_trash-sour.mp3",
+        "kind": "elsewhere",
+        "family": "lomax trago trash",
+        "held_out": false,
+        "start_seconds": 249.6826750861859
+      },
+      {
+        "asset": "second-library/teebee & k - black science/07-Teebee & K-Wallace & Gromit.m4a",
+        "kind": "elsewhere",
+        "family": "teebee k wallace gromit",
+        "held_out": false,
+        "start_seconds": 320.53980317103935
+      },
+      {
+        "asset": "second-library/011_Thermal_Recordings-K-THE011-2000-sour/b-k-trackspill-sour.mp3",
+        "kind": "elsewhere",
+        "family": "k trackspill",
+        "held_out": false,
+        "start_seconds": 166.11955103779104
+      },
+      {
+        "asset": "second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3",
+        "kind": "elsewhere",
+        "family": "organikismness echos",
+        "held_out": false,
+        "start_seconds": 166.64167615321094
+      },
+      {
+        "asset": "second-library/Agressor Bunx - Bioshok EP-(NOBUSS034)-WEB-2012/01.Agressor Bunx - Deception.mp3",
+        "kind": "elsewhere",
+        "family": "agressor bunx deception original mix",
+        "held_out": false,
+        "start_seconds": 211.49023186319974
+      },
+      {
+        "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+        "kind": "elsewhere",
+        "family": "noisia phace stu с4с dead air",
+        "held_out": false,
+        "start_seconds": 140.12299643957016
+      },
+      {
+        "asset": "second-library/Creative_Source-CRSE033-Delta_and_Format-2002/b-delta_and_format-ultra-sour.mp3",
+        "kind": "elsewhere",
+        "family": "delta format ultra",
+        "held_out": false,
+        "start_seconds": 88.58667556926926
+      },
+      {
+        "asset": "second-library/betacd001-john_b-catalyst-1999-sour/catalyst-liquid_cd1/108-john_b-fluid_mosaic-sour.mp3",
+        "kind": "elsewhere",
+        "family": "john b fluid mosaic",
+        "held_out": false,
+        "start_seconds": 270.8743555225947
+      },
+      {
+        "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
+        "kind": "elsewhere",
+        "family": "the sect feat axis trank victim",
+        "held_out": false,
+        "start_seconds": 310.2894982588261
+      },
+      {
+        "asset": "second-library/BETALP001-John_B-Catalyst_LP-Vinyl-1999-sour/d-droogs-betalp01-1999-sour.mp3",
+        "kind": "elsewhere",
+        "family": "john b droogs",
+        "held_out": false,
+        "start_seconds": 198.8757414603196
+      },
+      {
+        "asset": "second-library/Maztek - Straight To Bad (2011)/04. Maztek - Breakdown VIP.mp3",
+        "kind": "elsewhere",
+        "family": "maztek breakdown vip",
+        "held_out": false,
+        "start_seconds": 181.2447351370849
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/architecture-va-arx007-2000-sour/a-ink_and_jw-alien_planet-sour.mp3",
+        "kind": "scene-release",
+        "family": "ink jw alien planet",
+        "held_out": true,
+        "start_seconds": 216.2828105463253
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
+        "kind": "scene-release",
+        "family": "congo natty revolution",
+        "held_out": true,
+        "start_seconds": 312.7210969187284
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-12/1999-12-24/John_B-Catalyst_LP-BETALP001-VINYL-1999-sour/f-gollum-betalp01-1999-sour.mp3",
+        "kind": "scene-release",
+        "family": "john b gollum",
+        "held_out": true,
+        "start_seconds": 224.1985974505971
+      },
+      {
+        "asset": "second-library/__full_scene/Certificate 18/CERT1847 - Klute - Moving Finger (2000)/b1. klute - moving finger.mp3",
+        "kind": "scene-release",
+        "family": "klute moving finger",
+        "held_out": true,
+        "start_seconds": 99.79380910074917
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-11/1999-11-21/va-voices_of_drum_n_bass-1999-sour/02-secret_motion-lose_her_(s_gurley_mix)-1999-sour.mp3",
+        "kind": "scene-release",
+        "family": "secret motion loser her s gurley mix",
+        "held_out": true,
+        "start_seconds": 107.74889741742572
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/full_cycle_presents_through_the_eyes-fcylp02-2000-sour/101-reel_time-mine-sour.mp3",
+        "kind": "scene-release",
+        "family": "reel time mine",
+        "held_out": true,
+        "start_seconds": 109.22959985527359
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/true_playaz-danny_breaks-tpr12028-2000-sour/d-danny_breaks--just_chill-sour.mp3",
+        "kind": "scene-release",
+        "family": "danny breaks just chill",
+        "held_out": true,
+        "start_seconds": 308.6731225183544
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/Dom & Roland - Hunter.opus",
+        "kind": "youtube-channel",
+        "family": "dom roland hunter",
+        "held_out": true,
+        "start_seconds": 68.9460869543079
+      },
+      {
+        "asset": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+        "kind": "youtube-channel",
+        "family": "eddy woo tsunami remix",
+        "held_out": true,
+        "start_seconds": 171.59582093462257
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Sonic Art - Beast (Abstract Illusion RMX).m4a",
+        "kind": "youtube-channel",
+        "family": "sonic art beast abstract illusion rmx",
+        "held_out": true,
+        "start_seconds": 172.64049827091299
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/TNT - Another Classic (Remix).opus",
+        "kind": "youtube-channel",
+        "family": "tnt another classic remix",
+        "held_out": true,
+        "start_seconds": 104.77799630827792
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/Facing Jinx ft. Khost - Save Your Life.opus",
+        "kind": "youtube-channel",
+        "family": "facing jinx ft khost save your life",
+        "held_out": true,
+        "start_seconds": 101.95358368733574
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/DJ XS - Harder.m4a",
+        "kind": "youtube-channel",
+        "family": "dj xs harder",
+        "held_out": true,
+        "start_seconds": 179.4964379974879
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/DJ Draft & MBR - Grapestreet.opus",
+        "kind": "youtube-channel",
+        "family": "dj draft mbr grapestreet",
+        "held_out": true,
+        "start_seconds": 233.76410898647683
+      },
+      {
+        "asset": "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/08-mulder-change_up_(original_mix).mp3",
+        "kind": "elsewhere",
+        "family": "mulder change up original mix",
+        "held_out": true,
+        "start_seconds": 181.8884549392309
+      },
+      {
+        "asset": "second-library/2009 - TRIM010 - Hedj - Game Over, Disjunction (N.Phect Remix) - 320/1. Hedj - Game Over.mp3",
+        "kind": "elsewhere",
+        "family": "hedj game over",
+        "held_out": true,
+        "start_seconds": 61.84021704031536
+      },
+      {
+        "asset": "second-library/2003 - DSCI4LP001-1 - VA - 23° From Vertical - Part 1 - 192/2. Matrix - Landslide.mp3",
+        "kind": "elsewhere",
+        "family": "matrix landslide",
+        "held_out": true,
+        "start_seconds": 245.06430687105015
+      },
+      {
+        "asset": "second-library/2009 - BSE010DG - N.Phect & Black Sun Empire - 320/2. Black Sun Empire & N.Phect - Taurinel.mp3",
+        "kind": "elsewhere",
+        "family": "black sun empire n phect taurinel",
+        "held_out": true,
+        "start_seconds": 240.7747717727703
+      },
+      {
+        "asset": "second-library/2009 - MTRDEP001 - VA - Mind Over Mayhem EP/04-perfect_unknown-epic_(original_mix).mp3",
+        "kind": "elsewhere",
+        "family": "perfect unknown epic original mix",
+        "held_out": true,
+        "start_seconds": 81.64892305512281
+      },
+      {
+        "asset": "second-library/2008 - NSGNL001 - Cold Champagne, Astral Projection - 320/1. Phace - Cold Champagne.mp3",
+        "kind": "elsewhere",
+        "family": "phace cold champagne",
+        "held_out": true,
+        "start_seconds": 145.95850835573629
+      }
+    ]
+  },
+  "validation": {
+    "families": 14529,
+    "sources": [
+      {
+        "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI036 - Technical Itch vs Trace and Dylan - Quad and Legend [2003] (Tech Itch Records)/01. Tech Itch vs. Dylan - Legend.mp3",
+        "kind": "scene-release",
+        "family": "tech itch vs trace and dylan legend",
+        "held_out": false,
+        "start_seconds": 106.58705386942762
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-10/1999-10-26/amar-red_sky_(origin_unknown_remixes)-sam00182-1999-sour/b-amar-red_sky_(origin_unknown_radio_edit)-sour.mp3",
+        "kind": "scene-release",
+        "family": "amar origin unknown radio ed red sky",
+        "held_out": false,
+        "start_seconds": 80.88378935807063
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/metalheadz-alex_reece-meth012-1995-sour/aa-alex_reece-b_boy_flavour-sour.mp3",
+        "kind": "scene-release",
+        "family": "alex reece b boy flavour",
+        "held_out": false,
+        "start_seconds": 107.62228868339827
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/solid_state-point_of_no_return-rrlpcd01-2000-sour/10-solid_state-tuning-sour.mp3",
+        "kind": "scene-release",
+        "family": "solid state tuning",
+        "held_out": false,
+        "start_seconds": 289.1983397725003
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/fuze-hydrogen_ep-fuze022-2000-sour/aa-secret_teknology-shifter-sour.mp3",
+        "kind": "scene-release",
+        "family": "aa secret teknology shifter sour",
+        "held_out": false,
+        "start_seconds": 253.32252098797485
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/12-princess-say_im_your_no_1-sour.mp3",
+        "kind": "scene-release",
+        "family": "princess say i m your no 1",
+        "held_out": false,
+        "start_seconds": 57.68790698388661
+      },
+      {
+        "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI039 - Ice Minus - Clones; Seven Month [2004] (Tech Itch Records)/a-ice_minus-clones-sour.mp3",
+        "kind": "scene-release",
+        "family": "ice minus clones",
+        "held_out": false,
+        "start_seconds": 218.2855177652629
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-12/1999-12-24/John_B-Catalyst_LP-BETALP001-VINYL-1999-sour/c-progress-betalp01-1999-sour.mp3",
+        "kind": "scene-release",
+        "family": "john b progress",
+        "held_out": false,
+        "start_seconds": 120.19912399259022
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/moving_shadow-dom_and_roland-shadow135-1999-sour/y-dom_and_roland-dumbo-sour.mp3",
+        "kind": "scene-release",
+        "family": "dom roland dumbo",
+        "held_out": false,
+        "start_seconds": 74.16934050441803
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-11/1999-11-13/formation-world_of_drum_and_bass_ep2-form12082-1999-sour/g-dj_kabuki-juggernaut-sour.mp3",
+        "kind": "scene-release",
+        "family": "dj kabuki juggernaut",
+        "held_out": false,
+        "start_seconds": 155.18986221044216
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/203-ram_trilogy-snakebite-mixed-sour.mp3",
+        "kind": "scene-release",
+        "family": "ram trilogy snakebite",
+        "held_out": false,
+        "start_seconds": 135.49614539733733
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/e-shimon_and_andy_c-skirmish-sour.mp3",
+        "kind": "scene-release",
+        "family": "shimon andy c skirmish",
+        "held_out": false,
+        "start_seconds": 157.1596796047393
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/105-krome_and_time-license-sour.mp3",
+        "kind": "scene-release",
+        "family": "krome time license",
+        "held_out": false,
+        "start_seconds": 51.679963620684
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG018 - Diode - Time Soldier EP - 2009/01.Diode - First Kick (Original Mix).mp3",
+        "kind": "scene-release",
+        "family": "diode first kick",
+        "held_out": false,
+        "start_seconds": 198.69345816537975
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-10/1999-10-27/labello_blanco-scottie_part2-nlb37-1999-sour/aa-subnation-scottie_(coolbreeze_remix)-sour.mp3",
+        "kind": "scene-release",
+        "family": "subnation scottie coolbreeze remix",
+        "held_out": false,
+        "start_seconds": 120.87007411859597
+      },
+      {
+        "asset": "second-library/__full_scene/Certificate 18/CERT18CD012 - VA - Hidden Rooms Vol.3 (2001)/102-Lexis-Destination_Unknown-AVR.mp3",
+        "kind": "scene-release",
+        "family": "lexis destination unknown",
+        "held_out": false,
+        "start_seconds": 116.40958092752372
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-08/1999-08-20/skynet_and_stakka-point_of_arrival-1999-sour/02-skynet_and_stakka_-_hal-sour.mp3",
+        "kind": "scene-release",
+        "family": "various skynet stakka hal",
+        "held_out": false,
+        "start_seconds": 142.3491531719489
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-08/1999-08-02/various_artists-jungle_renegades_vol_2-2cd-1995-sour/cd2/07-s_t_files-s_t_files_part_1_1_(remix)-sour.mp3",
+        "kind": "scene-release",
+        "family": "s t files s t files part 1 1 remix",
+        "held_out": false,
+        "start_seconds": 142.12285477400124
+      },
+      {
+        "asset": "second-library/__full_scene/=Industry Recordings=/IND027 - Holdtight and Kleer vs Lomax - 2007/b-lomax-dweeb-sour.mp3",
+        "kind": "scene-release",
+        "family": "lomax dweeb",
+        "held_out": false,
+        "start_seconds": 248.89637672239144
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-out_patients-nhs19cd-2000-sour/104-skitz_and_julie_dexter-be-sour.mp3",
+        "kind": "scene-release",
+        "family": "skitz julie dexter be",
+        "held_out": false,
+        "start_seconds": 110.48025981988447
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Pixl & Bio-Kem - Spectre.m4a",
+        "kind": "youtube-channel",
+        "family": "pixl bio kem spectre",
+        "held_out": false,
+        "start_seconds": 179.80902654332095
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Dark Narcotic Symphony - Kritical.opus",
+        "kind": "youtube-channel",
+        "family": "dark narcotic symphony kritical",
+        "held_out": false,
+        "start_seconds": 186.61823211875304
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Dylan & Facs - Plankton.opus",
+        "kind": "youtube-channel",
+        "family": "dylan facs plankton",
+        "held_out": false,
+        "start_seconds": 106.82911121755419
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Visionary - Show Me.opus",
+        "kind": "youtube-channel",
+        "family": "visionary show me",
+        "held_out": false,
+        "start_seconds": 130.59337759281232
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Jem One - Kane & Able.m4a",
+        "kind": "youtube-channel",
+        "family": "jem one kane able",
+        "held_out": false,
+        "start_seconds": 174.6285679332436
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/DJ Trace - Rotation.m4a",
+        "kind": "youtube-channel",
+        "family": "dj trace rotation",
+        "held_out": false,
+        "start_seconds": 163.80644749172782
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Abstact - Calibre Control.opus",
+        "kind": "youtube-channel",
+        "family": "abstact calibre control",
+        "held_out": false,
+        "start_seconds": 57.68733161781629
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Subnation - Scottie (Cheryl Was Right Remix).m4a",
+        "kind": "youtube-channel",
+        "family": "subnation scottie cheryl was right remix",
+        "held_out": false,
+        "start_seconds": 189.22370418649956
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Acetate - Jam Sync.m4a",
+        "kind": "youtube-channel",
+        "family": "acetate jam sync",
+        "held_out": false,
+        "start_seconds": 68.83568088404579
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Oli Lewis - Proportional [Premiere].opus",
+        "kind": "youtube-channel",
+        "family": "oli lewis proportional premiere",
+        "held_out": false,
+        "start_seconds": 140.8778608351579
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Outrage - Time Check.m4a",
+        "kind": "youtube-channel",
+        "family": "outrage time check",
+        "held_out": false,
+        "start_seconds": 233.8632415809488
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Kaos & Karl K feat. Jae Kennedy -  Houston (KC Remix).opus",
+        "kind": "youtube-channel",
+        "family": "kaos karl k feat jae kennedy houston kc remix",
+        "held_out": false,
+        "start_seconds": 214.62622449931638
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/Kemal - Animation (Konflict Remix).opus",
+        "kind": "youtube-channel",
+        "family": "kemal animation konflict remix",
+        "held_out": false,
+        "start_seconds": 94.05697554292786
+      },
+      {
+        "asset": "second-library/__youtube_archivists/butch-french/Cam - I Wanna Know.opus",
+        "kind": "youtube-channel",
+        "family": "cam i wanna know",
+        "held_out": false,
+        "start_seconds": 130.20656481118002
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dnbfreak0/Silentium - Hangman's Lullaby (Fanu Remix).opus",
+        "kind": "youtube-channel",
+        "family": "silentium hangman s lullaby fanu remix",
+        "held_out": false,
+        "start_seconds": 85.2470883533718
+      },
+      {
+        "asset": "second-library/__youtube_archivists/butch-french/Jaimeson - Complete ( Danny Fresh Full 12 Mix).m4a",
+        "kind": "youtube-channel",
+        "family": "jaimeson complete danny fresh full 12 mix",
+        "held_out": false,
+        "start_seconds": 122.94358843080992
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/dBridge - China Blue.m4a",
+        "kind": "youtube-channel",
+        "family": "dbridge china blue",
+        "held_out": false,
+        "start_seconds": 218.7603212427039
+      },
+      {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/P Zeus - Next Chapter [Free].opus",
+        "kind": "youtube-channel",
+        "family": "p zeus next chapter free",
+        "held_out": false,
+        "start_seconds": 156.7225532720463
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/Tim Reaper - Five Guys VIP.m4a",
+        "kind": "youtube-channel",
+        "family": "tim reaper five guys vip",
+        "held_out": false,
+        "start_seconds": 60.202549702025905
+      },
+      {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/King-E - Comer K2.m4a",
+        "kind": "youtube-channel",
+        "family": "king e comer k2",
+        "held_out": false,
+        "start_seconds": 247.28668687967777
+      },
+      {
+        "asset": "second-library/diagram-skeptic-diag001-2000-sour/aa-skeptic-vapour-sour.mp3",
+        "kind": "elsewhere",
+        "family": "skeptic vapour",
+        "held_out": false,
+        "start_seconds": 227.8170256617947
+      },
+      {
+        "asset": "second-library/L-Black_Sun_Empire-Radiation-sour.mp3",
+        "kind": "elsewhere",
+        "family": "black sun empire radiation",
+        "held_out": false,
+        "start_seconds": 82.95974024302932
+      },
+      {
+        "asset": "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/06-ascend_and_scope-falling_down_(original_mix).mp3",
+        "kind": "elsewhere",
+        "family": "ascend and scope falling down original mix",
+        "held_out": false,
+        "start_seconds": 252.6069926762193
+      },
+      {
+        "asset": "second-library/va-edge_of_human_ep-str003-2002-sour/d-dj_red-tempest-sour.mp3",
+        "kind": "elsewhere",
+        "family": "dj red tempest",
+        "held_out": false,
+        "start_seconds": 250.32639959903682
+      },
+      {
+        "asset": "second-library/va-spy_technologies_lp_part_four-dsci4lp002ij-2002-sour/i-crossfire-hydra-sour.mp3",
+        "kind": "elsewhere",
+        "family": "crossfire hydra",
+        "held_out": false,
+        "start_seconds": 139.63935892127745
+      },
+      {
+        "asset": "second-library/subtitles-rob_f_and_impulse-subtitles019-2002-sour/a-rob_f_impulse_and_mecha-recall-sour.mp3",
+        "kind": "elsewhere",
+        "family": "rob f impulse and mecha recall",
+        "held_out": false,
+        "start_seconds": 242.20895636150308
+      },
+      {
+        "asset": "second-library/Maztek_And_Sleep_Cell-Funk_Me_Hard_-_Swoop-2010-NBLN/02-Maztek_and_Sleeper_Cell-Swoop-NBLN.mp3",
+        "kind": "elsewhere",
+        "family": "maztek sleeper cell swoop",
+        "held_out": false,
+        "start_seconds": 125.1164351259609
+      },
+      {
+        "asset": "second-library/2006 - BWCD03 - N.Phect And Dizplay - Beautiful Bytes - 320/01-nphect_and_dizplay-white_russian.mp3",
+        "kind": "elsewhere",
+        "family": "n phect dizplay white russian",
+        "held_out": false,
+        "start_seconds": 145.78586072832414
+      },
+      {
+        "asset": "second-library/Phace_And_Misanthrop-From_Deep_Space-(NSGNLCD001)-FLAC-2010/07-Misanthrop-Going Down Slow.m4a",
+        "kind": "elsewhere",
+        "family": "misanthrop going down slow",
+        "held_out": false,
+        "start_seconds": 189.15556628259205
+      },
+      {
+        "asset": "second-library/VA_-_Imperial_EP-(VSN012)-WEB-2012-D23/01-Noisia_and_Phace-Imperial-D23.mp3",
+        "kind": "elsewhere",
+        "family": "noisia phace imperial",
+        "held_out": false,
+        "start_seconds": 231.664740118812
+      },
+      {
+        "asset": "second-library/2001 - VRSCD003 - Ed Rush & Optical - The Creeps [Virus]/CD1/cd1%2F09_-_Ed_Rush_%26_Optical_-_Greed.mp3",
+        "kind": "elsewhere",
+        "family": "ed rush optical greed",
+        "held_out": false,
+        "start_seconds": 292.7981770362072
+      },
+      {
+        "asset": "second-library/Cybernetika - Atropos/07 - Cybernetika - Unleash.mp3",
+        "kind": "elsewhere",
+        "family": "cybernetika unleash",
+        "held_out": false,
+        "start_seconds": 290.87850408497997
+      },
+      {
+        "asset": "second-library/Paimon - Contusion LP [TAMP 3038] WEB - 2011/04 - Eloquent Silence.mp3",
+        "kind": "elsewhere",
+        "family": "paimon eloquent silence",
+        "held_out": false,
+        "start_seconds": 298.2602285037033
+      },
+      {
+        "asset": "second-library/[ER-1636] - 2000 - Siren & Kaos vs. Brian Darc - Pathogen, Weapon X/a-siren_and_kaos-pathogen-sour.mp3",
+        "kind": "elsewhere",
+        "family": "siren kaos pathogen",
+        "held_out": false,
+        "start_seconds": 211.635850398867
+      },
+      {
+        "asset": "second-library/ram-bad_company-ramm37-sour/a-bad_company-spacehopper-sour.mp3",
+        "kind": "elsewhere",
+        "family": "bad company spacehopper",
+        "held_out": false,
+        "start_seconds": 204.64726869529505
+      },
+      {
+        "asset": "second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/02-Black Sun Empire-Salvador (Feat. Bless).m4a",
+        "kind": "elsewhere",
+        "family": "black sun empire salvador feat bless",
+        "held_out": false,
+        "start_seconds": 108.04668410010173
+      },
+      {
+        "asset": "second-library/[FILM026] Soundtrax-Electrosoul_System-VINYL-2009-sour/aa-electrosoul_system-deep_blue-sour.mp3",
+        "kind": "elsewhere",
+        "family": "electrosoul system deep blue",
+        "held_out": false,
+        "start_seconds": 112.08266999843119
+      },
+      {
+        "asset": "second-library/ill_skillz-fusion_dance_ep-td007-2002-sour/B-Ill_Skillz-Universal_Machines-sour.mp3",
+        "kind": "elsewhere",
+        "family": "ill skillz d kay raw full universal machines",
+        "held_out": false,
+        "start_seconds": 156.0451796990133
+      },
+      {
+        "asset": "second-library/2005 - RH065 - Messiah, Beckoning - 256/1. Konflict - Messiah.mp3",
+        "kind": "elsewhere",
+        "family": "konflict messiah",
+        "held_out": false,
+        "start_seconds": 243.66341385950346
+      },
+      {
+        "asset": "second-library/Fanu-Daylightless-LIGHTLESSCD001-2CD-2007-sour/210-fanu-something_violent_for_me_and_you-sour.mp3",
+        "kind": "elsewhere",
+        "family": "fanu something violent for me",
+        "held_out": false,
+        "start_seconds": 138.22187480523078
+      },
+      {
+        "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI017 - Secret Methods [1997] (Tech Itch Recordings)/a-secret_methods-domain-sour--www.recs.ru--.mp3",
+        "kind": "scene-release",
+        "family": "secret methods domain",
+        "held_out": true,
+        "start_seconds": 106.03784319198284
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-08/1999-08-21/photek-the_hidden_camera-1996-sour/04-photek_-_hybrid-sour.mp3",
+        "kind": "scene-release",
+        "family": "photek hybrid sour",
+        "held_out": true,
+        "start_seconds": 147.06500520380672
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-02/loxy_and_ink-quasimodo_ep-rh24-2000-sour/d-loxy_and_ink-syndicate-sour.mp3",
+        "kind": "scene-release",
+        "family": "loxy ink syndicate",
+        "held_out": true,
+        "start_seconds": 92.25912665073864
+      },
+      {
+        "asset": "second-library/__full_scene/1999/1999-11/1999-11-15/ram_trilogy-molten_beats-rammlp3-vinyl-1999-sour/i-ram_trilogy-system_error_(y2k)-sour.mp3",
+        "kind": "scene-release",
+        "family": "ram trilogy system erorr y2k",
+        "held_out": true,
+        "start_seconds": 213.0567565400186
+      },
+      {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/full_cycle-j_raq-fcy017-1998-sour/a-j_raq-waiting_for_the_bass-sour.mp3",
+        "kind": "scene-release",
+        "family": "j raq waiting for the bass",
+        "held_out": true,
+        "start_seconds": 299.0608875760705
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG025 - VA - Artillery LP - 2009/05.Kinetix - The Eye Of Horus.mp3",
+        "kind": "scene-release",
+        "family": "kinetix the eye of horus",
+        "held_out": true,
+        "start_seconds": 229.6229696743025
+      },
+      {
+        "asset": "second-library/__full_scene/Ammunition Recordings/ARDIG040 - Imprintz & Xilent & Kloe - Unity EP - 2010/01-imprintz_and_xilent_and_kloe-gone_(original_mix).mp3",
+        "kind": "scene-release",
+        "family": "imprintz and xilent and kloe gone original mix",
+        "held_out": true,
+        "start_seconds": 237.06500834805746
+      },
+      {
+        "asset": "second-library/__youtube_archivists/rootzdnb/Kid Drama - Cuts & Stabs.opus",
+        "kind": "youtube-channel",
+        "family": "kid drama cuts stabs",
+        "held_out": true,
+        "start_seconds": 258.8847230250427
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Antidote - The Mantra VIP.m4a",
+        "kind": "youtube-channel",
+        "family": "antidote the mantra vip",
+        "held_out": true,
+        "start_seconds": 160.78182532473707
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/The Upbeats - Neanderthal.m4a",
+        "kind": "youtube-channel",
+        "family": "the upbeats neanderthal",
+        "held_out": true,
+        "start_seconds": 305.88317357265527
+      },
+      {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Kabuki & Daniel Savine - Intastate.opus",
+        "kind": "youtube-channel",
+        "family": "kabuki daniel savine intastate",
+        "held_out": true,
+        "start_seconds": 246.56097001119792
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Mumblz & Fixation - Hatred Among Us.m4a",
+        "kind": "youtube-channel",
+        "family": "mumblz fixation hatred among us",
+        "held_out": true,
+        "start_seconds": 287.74504942587373
+      },
+      {
+        "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 021 ： SPINOR - ransom - ] drum and bass.m4a",
+        "kind": "youtube-channel",
+        "family": "spinor ransom",
+        "held_out": true,
+        "start_seconds": 183.3344681388484
+      },
+      {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Lethal & Khanage - Bitter Trouble.m4a",
+        "kind": "youtube-channel",
+        "family": "lethal khanage bitter trouble",
+        "held_out": true,
+        "start_seconds": 272.149619421996
+      },
+      {
+        "asset": "second-library/Nerve-SKC_and_Cord_Vs_Stare-NERVE015-2004-sour/aa-stare-underdog-sour.mp3",
+        "kind": "elsewhere",
+        "family": "stare underdog",
+        "held_out": true,
+        "start_seconds": 71.24110228904289
+      },
+      {
+        "asset": "second-library/Moksha - Suicide Remixes [MOKSHA07DB] - 2001/A1-Kosheen[MOKSHA07DB]-(Slip_and_Slide)_Suicide_(Extended_Mix).mp3",
+        "kind": "elsewhere",
+        "family": "kosheen slip slide suicide extend",
+        "held_out": true,
+        "start_seconds": 75.71883167030924
+      },
+      {
+        "asset": "second-library/[NERVE 019] - [2006] - Cartridge vs Pyro & Jesta -- Edge City # Cho/A. Cartridge -- Edge City.mp3",
+        "kind": "elsewhere",
+        "family": "cartridge edge city",
+        "held_out": true,
+        "start_seconds": 74.68817152275369
+      },
+      {
+        "asset": "second-library/DNAudio-Bloc_Party_(Break_And_Silent_Witness_Remix)-DNAUDIO012-Vinyl-2007-uC/b-bloc_party-the_prayer_(break_and_silent_witness_instrumental).mp3",
+        "kind": "elsewhere",
+        "family": "bloc party the prayer break silent witness instrumental",
+        "held_out": true,
+        "start_seconds": 93.11364896876242
+      },
+      {
+        "asset": "second-library/2010 - MTRDEP010 - Various - The Source EP/06-dronehead-magneto.mp3",
+        "kind": "elsewhere",
+        "family": "dronehead magneto",
+        "held_out": true,
+        "start_seconds": 237.44932834950058
+      },
+      {
+        "asset": "second-library/demonic-source_direct-demon12001-2000-sour/aa-source_direct-pimp_star.mp3",
+        "kind": "elsewhere",
+        "family": "source direct pimp star",
+        "held_out": true,
+        "start_seconds": 280.20564536201084
+      }
+    ]
+  }
+}

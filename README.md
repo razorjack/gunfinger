@@ -362,10 +362,11 @@ scripts/check.sh    # fmt, clippy with -D warnings, tests
 of the repository:
 
 ```sh
-target/release/gunfinger-eval validate                 # check the manifests
+target/release/gunfinger-eval validate [<set>]         # check the manifests, or one
 target/release/gunfinger-eval clusters                 # duplicate rips in the library
 target/release/gunfinger-eval clusters --from-peaks    # the same from stored peaks, compared
 target/release/gunfinger-eval --other-peaks-dir STORE map-library   # corpus files' copies in a larger library
+target/release/gunfinger-eval --other-peaks-dir STORE recall --seed 2026   # recall on the larger library's recordings
 target/release/gunfinger-eval pair PAIRS.tsv           # two files' alignments and supported time
 target/release/gunfinger-eval sweep --seed 2026        # speed sweep
 target/release/gunfinger-eval --other-peaks-dir STORE sweep --seed 2026 --other-rips   # only other rips can answer
@@ -397,6 +398,11 @@ joins reaches, so when joins through other files link two files judged
 library's store, it checks the last run's pairs before searching). It
 prints each pair's hits per second of aligned span and lists the joins
 under a tenth of the median: their coverage rests on little evidence.
+A verdict links only files the run searches: the corpus library's files
+and, with another library's store, the files it holds a current record
+of, never a file a library's ignore file leaves out (with a store alone,
+read from the library the store names when it is mounted). Every other
+verdict is printed with its line and adds nothing.
 
 The sweep's held-out recordings and excerpts for each seed are drawn the
 first time the seed is used and kept in `docs/panels/`, so the same
@@ -433,7 +439,13 @@ corpus file, can be measured without being mounted: `--other-peaks-dir
 STORE` (before the command) names its peak store. `map-library` pairs each
 corpus file with its copies there (identical peak records), and `clusters
 --from-peaks` finds the other rips of the corpus recordings there,
-following chains of rips. Then `sweep`, `scan`, `robust` and `memory`
+following chains of rips; `--manifest <set>` (repeatable) and
+`--recall-panel <seed>` add the other library's files that set's manifest
+references and the recall panel's development sources to the queries.
+A manifest may reference the other library's files as
+`second-library/<path>`: with `--other-peaks-dir`, `validate` and `scan`
+check them against the store; without it they are set aside, so a track
+with no other reference counts as absent. Then `sweep`, `scan`, `robust` and `memory`
 search an index of the corpus and the other library's remaining records,
 named `second-library/<path>`, and count its rips of a recording as that
 recording; held-out and left-out recordings take their rips with them.
@@ -442,7 +454,15 @@ The map, the clusters and the reports go to
 `regress` read them when given the same option. `--other-sample N` adds
 only N of the other library's records, a seeded choice (each smaller
 choice is part of the larger), to measure against index size; its
-reports go to a `sample-<N>/` directory below.
+reports go to a `sample-<N>/` directory below. `recall --seed N` draws a
+panel from the other library's records outside the corpus recordings'
+clusters (kept in `docs/panels/recall-seed-<N>.json`): recording families
+(normalised artist and title) split into a development and a validation
+half, each with 60 indexed and 20 held-out sources, a third each from
+scene releases, YouTube channels and the rest. It renders the development
+half's excerpts from the library's audio as the sweep does (`--prepare`
+stops there), searches them, and says why each miss failed: never a
+candidate, too few hits, or enough hits in too few windows.
 
 Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
 the crate boundaries and the evaluation rules.

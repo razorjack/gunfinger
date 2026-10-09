@@ -183,6 +183,18 @@ impl Pattern {
     }
 }
 
+/// The pattern that leaves out the file at `path`, without walking the
+/// library: as `Library::scan` decides, the first pattern that matches its
+/// outermost matching folder, or else the first that matches the file.
+pub fn leaving_out<'a>(patterns: &'a [Pattern], path: &str) -> Option<&'a Pattern> {
+    let folders = path
+        .match_indices('/')
+        .map(|(end, _)| (&path[..end], Entry::Folder));
+    folders
+        .chain([(path, Entry::File)])
+        .find_map(|(path, entry)| patterns.iter().find(|pattern| pattern.matches(path, entry)))
+}
+
 /// Whether `names` match `patterns` one for one. A pattern `**` matches
 /// any number of names: none when more patterns follow, as `a/**/b`
 /// matches `a/b`; at least one at the end, as `a/**` matches what is inside
@@ -242,6 +254,22 @@ mod tests {
 
     fn leaves_out_folder(text: &str, path: &str) -> bool {
         pattern(text).matches(path, Entry::Folder)
+    }
+
+    #[test]
+    fn a_file_is_left_out_by_a_pattern_on_a_folder_above_it_or_on_itself() {
+        let patterns = parse("*.opus\nmixed_cd/\n/Album/CD2/\n").unwrap();
+        let line = |path: &str| leaving_out(&patterns, path).map(|pattern| pattern.line);
+
+        assert_eq!(line("Label/mixed_cd/01-track.opus"), Some(2));
+        assert_eq!(line("Album/CD2/07-track.mp3"), Some(3));
+        assert_eq!(line("Album/CD1/07-track.opus"), Some(1));
+        assert_eq!(line("Album/CD1/07-track.mp3"), None);
+        assert_eq!(
+            line("mixed_cd"),
+            None,
+            "the trailing `/` matches folders only"
+        );
     }
 
     #[test]

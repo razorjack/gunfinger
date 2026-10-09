@@ -30,7 +30,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
-use crate::manifest::load_set;
+use crate::manifest::{Referable, load_set};
 use crate::render::{Encoding, render_excerpt};
 
 /// Octave bands of anchor frequency, as `gunfinger stats` counts peaks.
@@ -108,7 +108,8 @@ pub fn run(
         ladder: ladder_rungs,
         jobs,
     } = *options;
-    let set = load_set(sets_dir, set_name, library).map_err(|problems| problems.join("; "))?;
+    let set = load_set(sets_dir, set_name, &Referable::corpus(library))
+        .map_err(|problems| problems.join("; "))?;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let index = Index::build(&records).map_err(|error| error.to_string())?;
