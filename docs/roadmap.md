@@ -44,6 +44,20 @@ marked as inferences were derived, not measured.
   store, so two libraries cannot share a peak directory by accident; an
   explicit way to move a library or its peak store; on a NAS, indexing
   throughput, slow `stat` calls and reconnects.
+- **Library ignore file.** *(owner's proposal, 2026-10-09)* A track of a
+  DJ-mixed CD already blends into the next one; indexed, it causes false
+  joins and wrong answers (the mixed CD's "Synthesis (Remix)",
+  experiments 0049-0053). Proposal: `.gunfingerignore` at the library
+  root, a subset of `.gitignore` syntax (one pattern per line relative to
+  the root, `#` comments, `*`, `**` and `?`, a trailing `/` for a
+  folder). Ignored files then behave like files removed from the
+  library: `index` skips them and `prune` deletes their peak records, so
+  store-only runs, which never read the library, leave them out too.
+  `doctor` says how many files the patterns match. The owner writes the
+  patterns; nothing derives them from file names. The NAS store is
+  read-only for sessions, so the owner creates the file there and runs
+  `index` and `prune`. Candidate folders are in the owner notes ("Mixed-CD
+  tracks in the library").
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit when detections, owner
   edits or the Track/AudioAsset model need to be stored.
@@ -65,6 +79,14 @@ marked as inferences were derived, not measured.
   where they differ, and write the verdict to `docs/pair-verdicts.txt`.
   Decisions stay apart from measured evidence, survive identifying a mix
   again, and keep the original asset names visible.
+- **Titles of mislabelled files.** A play takes the title in its best
+  file's tags, so a mislabelled file gives a wrong title on a right
+  match: track 2 of the 2003 mix is printed as "Future Cut - Sex Drive"
+  (experiment 0061). Plays of other files over the same passage often
+  carry the right title (there, the INFRA 012 upload). Printing the other
+  titles when the files matching one passage disagree would show the
+  conflict without guessing which title is right; owner edits and the
+  Track/AudioAsset model would settle it.
 - **A full-screen TUI.** `review` steps through a report by ear in a line
   loop. Browsing detections against the mix's waveform would need a terminal
   UI dependency; worth it only if `review` proves too limited.
@@ -196,12 +218,12 @@ marked as inferences were derived, not measured.
   pressing: related records (remixes, the same artist) reach up to 50
   hits from audio not in the index, near the possible tier.
   At NAS scale it is the main open accuracy question (experiments 0051,
-  0053). If the owner hears Synthesis VIP and the mixed CD's "Synthesis
-  (Remix)" as different recordings, different recordings share 511
-  hits, twice the rule. If the three pairs of the listening list are
-  each one recording, the strongest false candidate is The Nine against
-  its Evol Intent VIP at 197 hits: the rule of 240 is only 1.22× above
-  it, where the calibration register asks for about 2×. Raising the
+  0053). The owner has judged the three pairs of the listening list one
+  recording each and The Nine's Evol Intent VIP a different recording
+  (2026-10-09). The strongest false candidate is therefore The Nine
+  against that VIP at 197 hits; the VIP plays the original's first 3:34
+  unchanged, then a 135 bpm slowdown. The rule of 240 is only 1.22×
+  above it, where the calibration register asks for about 2×. Raising the
   rule to about 400 would lose brief plays without resolving the
   ambiguity. The held-out mix shows the cost already: Sick Note, a true
   play, is possible at 233 hits, 7 below the rule (test-set evaluation
@@ -397,9 +419,13 @@ marked as inferences were derived, not measured.
      in the manifest.
   2. Clusters around its files (`clusters --from-peaks` with them among
      the queries), so that other rips and uploads count as the track.
-     The alien5ive INFRA012 upload of The Specialist, confident in the
-     mix, is a borderline pair the clusters keep apart: the owner's
-     verdict on it decides whether that detection is right.
+     The owner judged the alien5ive INFRA012 upload of The Specialist,
+     confident in the mix, the same recording (2026-10-09). Before the
+     run: corpus-only `clusters` adds every `same` verdict as a link, so
+     the NAS files in the owner's verdicts would enter the corpus
+     clusters; add verdict links only between files of the libraries
+     searched, and not to ignored files. Build the library ignore file
+     first, so that one 85-minute run serves both.
   3. The set in the standard protocol at both sizes (at 262 tracks 7
      tracks are referenced and 5 absent, a test of unknown audio), with
      leave-outs, and a new baseline.

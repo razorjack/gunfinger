@@ -1680,6 +1680,7 @@ which this does not measure.
 
 ### Listening list after session 7
 
+Judged on 2026-10-09 ("Your verdicts" under "After session 7").
 The same pairs as after session 6, with this session's measures as aids
 for your ear; none is a verdict, and `docs/pair-verdicts.txt` is still
 empty. Coverage: the clusters' alignment, first to last hit. Supported:
@@ -1769,3 +1770,70 @@ Two things to know:
   development mixes") lists the steps. Your verdict on Future Cut - The
   Specialist against the alien5ive INFRA 012 upload decides whether that
   upload's confident detection in this mix is right.
+
+### Your verdicts (2026-10-09)
+
+Written into `docs/pair-verdicts.txt` as you gave them:
+
+- `same`: China Cup ~ the Prototype upload; Synthesis VIP ~ the mixed
+  CD's "Synthesis (Remix)"; The Specialist ~ the INFRA 012 upload (a
+  needle skip at 4:54); Coma ~ the i-witness "Spraycan"; Phoenix ~ its
+  i-witness upload (a poor, bass-light transfer); Alien Girl ~ its
+  i-witness upload; fractles ~ the CITRUS 003 upload; the corpus Sonar ~
+  the dfect copy.
+- `different`: Sonar ~ the "Mark System Revision", against the corpus
+  file and the dfect copy (mixed differently, hi-hats from the start);
+  The Nine ~ the Evol Intent VIP (its 3:34-4:45 is a 135 bpm slowdown
+  the original does not have).
+
+Applied to the pairs of the last NAS clusters run, no verdict
+contradicts a join. Seven clusters change: six gain the file you judged
+`same`, and Sonar's loses the revision. The verdicts take effect at the
+next `clusters` run with `--other-peaks-dir` (85 minutes). All 40 wrong
+answers of sweeps 2027-2029 at NAS scale (experiment 0053) and the 24
+of experiment 0059 come from pairs now judged `same`. The strongest
+false candidate left is The Nine against its VIP (197-220 hits, below
+the rule of 240; margin 3.36× by experiment 0053's estimate), now
+confirmed as different recordings: the VIP plays the original's first
+3:34 unchanged.
+
+China Cup: the speed difference you heard (about 1.3%) is fitted, and
+wow and flutter are far too small to move a match by seconds. Before
+2:00 the best alignment sits 6-22 s away from the main one, depending
+on the rip, as an intro of repeating bars matches at several offsets;
+the single alignment that coverage measures ends there. Alien Girl: the
+alignments put the upload 13.5 s later after 1:42 than before 1:25, and
+you hear no difference; the verdict is `same` either way. The 12:42
+that macOS shows for the Prototype `.opus` is not what FFmpeg decodes:
+Gunfinger reads 6:13.
+
+### Two releases with swapped titles (experiment 0061)
+
+Your research on both releases checked against the audio (the release
+history itself is not verified):
+
+- `Infrared-INFRA011-Future_Cut-2000-sour/`: "Sex Drive" is The
+  Specialist and "Specialist" is Razor's Edge. Neither joins Moving
+  Fusion's Sexdrive on the NAS.
+- `(2000) Coma & Spraycan (DSCI4)/`: `02 Coma.mp3` (the corpus copy
+  `extra/02 Coma.mp3`) is the i-witness "Spraycan", and `01 Spraycan.mp3`
+  shares nothing with either. By the Discogs lengths, the folder's
+  titles are swapped. To confirm: Coma reportedly has electronic bleeps
+  in its intro; listen to `01 Spraycan.mp3`.
+
+Gunfinger prints a play's title from the tags of its best file, so a
+mislabelled file that scores best gives a wrong title on a right match:
+track 2 of your 2003 mix appears as "Future Cut - Sex Drive". Retagging
+is yours to do; the roadmap has a smaller change on Gunfinger's side.
+
+### Mixed-CD tracks in the library
+
+"Synthesis (Remix)" is one track of a DJ-mixed CD, so its tail already
+blends into the next track and it should not be indexed. Your proposal,
+a `.gunfingerignore` file at the library root, is in the roadmap
+("Library ignore file"). Folders to check for mixed discs: `Underfire
+UDFRCD003 - Dangerous Drums Volume 2 (2000)` (mixed); `2001 - VRSCD003
+- Ed Rush & Optical - The Creeps [Virus]/CD2` (the album's tracks
+reordered, plus Bleep Bleep and Kerb Crawler); `2002 - CPT003 - Kemal
+vs. Rob F & Impulse - 256` (tagged with the compilations "Stateside
+Sessions" and "Bass Drive").

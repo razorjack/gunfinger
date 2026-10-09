@@ -1084,3 +1084,23 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
 - Next: NAS references in manifests, clusters around the set's files,
   the set in the protocol. The owner's verdict on The Specialist ~
   INFRA 012 upload affects its NAS-scale score.
+
+## 2026-10-09: the owner's verdicts by ear
+
+- `docs/pair-verdicts.txt` holds the owner's first verdicts, written down
+  at their request: 8 `same` (China Cup, Synthesis VIP, The Specialist,
+  Coma ~ "Spraycan", Phoenix, Alien Girl and fractles against uploads or
+  the mixed CD; the corpus Sonar ~ the dfect copy) and 3 `different`
+  (Sonar ~ the "Mark System Revision", twice; The Nine ~ the Evol Intent
+  VIP). On the last NAS clusters run's pairs (a simulation of
+  `clusters::merged`), no verdict contradicts a join; seven clusters
+  change. They take effect at the next `clusters --other-peaks-dir` run.
+- Experiment 0061: two releases with swapped titles, checked against the
+  audio (Future Cut's sour INFRA011 folder; Bad Company's DSCI4 Coma /
+  Spraycan folder, `pair` 54 s).
+- Roadmap: a library ignore file (owner's proposal, for mixed-CD
+  tracks), titles of mislabelled files, the verdicts in the
+  shared-material item, and two steps before the next NAS clusters run
+  (verdict links only between searched, non-ignored files; the ignore
+  file first). Notes and calibration register updated.
+- Documents only; no code changed.

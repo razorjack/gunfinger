@@ -20,3 +20,16 @@
 #   different	Artist - Title.mp3	Artist - Title (VIP).mp3
 #
 # Written by the owner only; clusters must be run again after a change.
+
+# 2026-10-09, by the owner's ear (written down at the owner's request).
+same	Bad Company - China Cup.mp3	second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus
+same	extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3	second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3
+same	extra/01-future_cut-the_specialist-trt.mp3	second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a
+same	extra/02 Coma.mp3	second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus
+different	DJ Trace - Sonar.m4a	second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus
+different	second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a	second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus
+same	DJ Trace - Sonar.m4a	second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a
+different	Bad Company - The Nine.mp3	second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a
+same	extra/[AA]_-_Phoenix.mp3	second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a
+same	Ed Rush, Optical & Fierce - Alien Girl.mp3	second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a
+same	extra/a. falcon - fractles.mp3	second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus

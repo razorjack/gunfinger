@@ -1,0 +1,611 @@
+[
+  {
+    "query": "second-library/(2000) Coma & Spraycan (DSCI4)/01 Spraycan.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "query_seconds": 376.450625,
+    "found_seconds": 385.0335,
+    "searches": [
+      {
+        "name": "peaks, ladder within 2%",
+        "alignments": [
+          {
+            "query_start_seconds": 345.48525000000006,
+            "query_end_seconds": 362.095,
+            "found_start_seconds": 233.25700800000004,
+            "found_end_seconds": 249.59991466666665,
+            "speed": 0.992,
+            "key_locked": false,
+            "hits": 6,
+            "windows": 2,
+            "coverage": 0.04412198810933031,
+            "offset_seconds": -109.46436
+          }
+        ]
+      },
+      {
+        "name": "peaks, turntable ladder",
+        "alignments": [
+          {
+            "query_start_seconds": 345.48525000000006,
+            "query_end_seconds": 362.095,
+            "found_start_seconds": 233.25700800000004,
+            "found_end_seconds": 249.59991466666665,
+            "speed": 0.992,
+            "key_locked": false,
+            "hits": 6,
+            "windows": 2,
+            "coverage": 0.04412198810933031,
+            "offset_seconds": -109.46436
+          }
+        ]
+      },
+      {
+        "name": "peaks, key-locked ladder",
+        "alignments": []
+      },
+      {
+        "name": "peaks, at the fitted speed",
+        "alignments": []
+      }
+    ]
+  },
+  {
+    "query": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "found": "second-library/(2000) Coma & Spraycan (DSCI4)/01 Spraycan.mp3",
+    "query_seconds": 385.0335,
+    "found_seconds": 376.450625,
+    "searches": [
+      {
+        "name": "peaks, ladder within 2%",
+        "alignments": []
+      },
+      {
+        "name": "peaks, turntable ladder",
+        "alignments": []
+      },
+      {
+        "name": "peaks, key-locked ladder",
+        "alignments": []
+      }
+    ]
+  },
+  {
+    "query": "second-library/(2000) Coma & Spraycan (DSCI4)/01 Spraycan.mp3",
+    "found": "extra/02 Coma.mp3",
+    "query_seconds": 376.450625,
+    "found_seconds": 391.418875,
+    "searches": [
+      {
+        "name": "peaks, ladder within 2%",
+        "alignments": []
+      },
+      {
+        "name": "peaks, turntable ladder",
+        "alignments": []
+      },
+      {
+        "name": "peaks, key-locked ladder",
+        "alignments": []
+      }
+    ]
+  },
+  {
+    "query": "extra/02 Coma.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "query_seconds": 391.418875,
+    "found_seconds": 385.0335,
+    "searches": [
+      {
+        "name": "peaks, ladder within 2%",
+        "alignments": [
+          {
+            "query_start_seconds": 0.683,
+            "query_end_seconds": 229.503,
+            "found_start_seconds": 0.614031157894737,
+            "found_end_seconds": 225.72830427999997,
+            "speed": 0.9835627085903957,
+            "key_locked": false,
+            "hits": 2318,
+            "windows": 22,
+            "coverage": 0.5942859517418614,
+            "offset_seconds": -0.05774217207250343
+          },
+          {
+            "query_start_seconds": 255.4445,
+            "query_end_seconds": 339.73275,
+            "found_start_seconds": 255.28163288888888,
+            "found_end_seconds": 338.1124326190476,
+            "speed": 0.9826685451762794,
+            "key_locked": false,
+            "hits": 209,
+            "windows": 6,
+            "coverage": 0.21891147133950684,
+            "offset_seconds": 4.264357700606752
+          },
+          {
+            "query_start_seconds": 350.134,
+            "query_end_seconds": 369.1195,
+            "found_start_seconds": 94.30789902564098,
+            "found_end_seconds": 112.97854174358974,
+            "speed": 0.984,
+            "key_locked": false,
+            "hits": 78,
+            "windows": 2,
+            "coverage": 0.04930869651601744,
+            "offset_seconds": -250.22395697435903
+          }
+        ]
+      },
+      {
+        "name": "peaks, turntable ladder",
+        "alignments": [
+          {
+            "query_start_seconds": 0.683,
+            "query_end_seconds": 229.503,
+            "found_start_seconds": 0.614031157894737,
+            "found_end_seconds": 225.72830427999997,
+            "speed": 0.9835627085903957,
+            "key_locked": false,
+            "hits": 2318,
+            "windows": 22,
+            "coverage": 0.5942859517418614,
+            "offset_seconds": -0.05774217207250343
+          },
+          {
+            "query_start_seconds": 255.4445,
+            "query_end_seconds": 339.73275,
+            "found_start_seconds": 255.28163288888888,
+            "found_end_seconds": 338.1124326190476,
+            "speed": 0.9826685451762794,
+            "key_locked": false,
+            "hits": 209,
+            "windows": 6,
+            "coverage": 0.21891147133950684,
+            "offset_seconds": 4.264357700606752
+          },
+          {
+            "query_start_seconds": 350.134,
+            "query_end_seconds": 369.1195,
+            "found_start_seconds": 94.30789902564098,
+            "found_end_seconds": 112.97854174358974,
+            "speed": 0.984,
+            "key_locked": false,
+            "hits": 78,
+            "windows": 2,
+            "coverage": 0.04930869651601744,
+            "offset_seconds": -250.22395697435903
+          },
+          {
+            "query_start_seconds": 234.41275,
+            "query_end_seconds": 247.8835,
+            "found_start_seconds": 237.35714818181816,
+            "found_end_seconds": 250.59734,
+            "speed": 0.9858461538461539,
+            "key_locked": false,
+            "hits": 26,
+            "windows": 2,
+            "coverage": 0.03498591680983605,
+            "offset_seconds": 6.262240181818157
+          }
+        ]
+      },
+      {
+        "name": "peaks, key-locked ladder",
+        "alignments": [
+          {
+            "query_start_seconds": 0.9395,
+            "query_end_seconds": 249.91875,
+            "found_start_seconds": 0.8692825714285715,
+            "found_end_seconds": 247.14701123809525,
+            "speed": 0.9860488911601416,
+            "key_locked": true,
+            "hits": 455,
+            "windows": 21,
+            "coverage": 0.6466430843030541,
+            "offset_seconds": -0.05711036181638163
+          },
+          {
+            "query_start_seconds": 280.31125,
+            "query_end_seconds": 319.44325,
+            "found_start_seconds": 236.2705895,
+            "found_end_seconds": 274.72462911764705,
+            "speed": 0.9821621621621622,
+            "key_locked": true,
+            "hits": 37,
+            "windows": 2,
+            "coverage": 0.1016327150754415,
+            "offset_seconds": -39.04051387837839
+          },
+          {
+            "query_start_seconds": 341.106,
+            "query_end_seconds": 371.498,
+            "found_start_seconds": 98.99689356249999,
+            "found_end_seconds": 128.92249166666667,
+            "speed": 0.9838620818849835,
+            "key_locked": true,
+            "hits": 36,
+            "windows": 3,
+            "coverage": 0.07893339151008937,
+            "offset_seconds": -236.6043657409592
+          },
+          {
+            "query_start_seconds": 252.67725,
+            "query_end_seconds": 278.894,
+            "found_start_seconds": 88.1335157857143,
+            "found_end_seconds": 113.91123966666669,
+            "speed": 0.9838620689655172,
+            "key_locked": true,
+            "hits": 29,
+            "windows": 2,
+            "coverage": 0.06808952987207612,
+            "offset_seconds": -160.4660461798029
+          }
+        ]
+      },
+      {
+        "name": "peaks, at the fitted speed",
+        "alignments": [
+          {
+            "query_start_seconds": 0.683,
+            "query_end_seconds": 229.503,
+            "found_start_seconds": 0.6155302975164624,
+            "found_end_seconds": 225.72683655917515,
+            "speed": 0.9835617827836222,
+            "key_locked": false,
+            "hits": 2327,
+            "windows": 22,
+            "coverage": 0.5942859517418614,
+            "offset_seconds": -0.05624240012475157,
+            "supported": 0.5531986177826085
+          },
+          {
+            "query_start_seconds": 232.771,
+            "query_end_seconds": 269.998,
+            "found_start_seconds": 271.0260542153581,
+            "found_end_seconds": 307.6203732195832,
+            "speed": 0.9835627085903957,
+            "key_locked": false,
+            "hits": 82,
+            "windows": 2,
+            "coverage": 0.09668509363470972,
+            "offset_seconds": 42.08117897406311,
+            "supported": 0.0857068281071647
+          },
+          {
+            "query_start_seconds": 291.06225,
+            "query_end_seconds": 319.73575,
+            "found_start_seconds": 90.56846851907281,
+            "found_end_seconds": 118.76463057832015,
+            "speed": 0.9835627085903957,
+            "key_locked": false,
+            "hits": 82,
+            "windows": 2,
+            "coverage": 0.07447014350699352,
+            "offset_seconds": -195.70950645934212,
+            "supported": 0.07531812166993261
+          },
+          {
+            "query_start_seconds": 350.134,
+            "query_end_seconds": 369.1195,
+            "found_start_seconds": 94.30957393345359,
+            "found_end_seconds": 112.97691120334001,
+            "speed": 0.9835627085903959,
+            "key_locked": false,
+            "hits": 79,
+            "windows": 2,
+            "coverage": 0.04930869651601744,
+            "offset_seconds": -250.0691714761361,
+            "supported": 0.04415200235823636
+          }
+        ]
+      },
+      {
+        "name": "audio, both ladders",
+        "alignments": [
+          {
+            "query_start_seconds": 0.71931640625,
+            "query_end_seconds": 387.91162109375,
+            "found_start_seconds": 0.6479892187499999,
+            "found_end_seconds": 380.0328145262097,
+            "speed": 0.9778316675404511,
+            "key_locked": false,
+            "hits": 3964,
+            "windows": 35,
+            "coverage": 1.0056067970384395,
+            "offset_seconds": -0.055381142262642236
+          }
+        ]
+      },
+      {
+        "name": "audio, both ladders, second pass",
+        "alignments": [
+          {
+            "query_start_seconds": 0.71931640625,
+            "query_end_seconds": 239.23580078125,
+            "found_start_seconds": 0.6500477520337712,
+            "found_end_seconds": 235.2911701970983,
+            "speed": 0.9835624861561476,
+            "key_locked": false,
+            "hits": 2465,
+            "windows": 24,
+            "coverage": 0.6194694341531322,
+            "offset_seconds": -0.05744488083038435
+          },
+          {
+            "query_start_seconds": 290.0984375,
+            "query_end_seconds": 338.57955078125,
+            "found_start_seconds": 292.0697169851682,
+            "found_end_seconds": 339.7049429481485,
+            "speed": 0.982027397260274,
+            "key_locked": false,
+            "hits": 144,
+            "windows": 5,
+            "coverage": 0.12591401340727504,
+            "offset_seconds": 7.185103457770936
+          },
+          {
+            "query_start_seconds": 341.3459921875,
+            "query_end_seconds": 386.362046875,
+            "found_start_seconds": 85.66968461256218,
+            "found_end_seconds": 129.938233157887,
+            "speed": 0.9834439566827399,
+            "key_locked": false,
+            "hits": 132,
+            "windows": 5,
+            "coverage": 0.11691464427770572,
+            "offset_seconds": -250.02496854210838
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "query": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "found": "extra/02 Coma.mp3",
+    "query_seconds": 385.0335,
+    "found_seconds": 391.418875,
+    "searches": [
+      {
+        "name": "peaks, ladder within 2%",
+        "alignments": [
+          {
+            "query_start_seconds": 0.61675,
+            "query_end_seconds": 229.8575,
+            "found_start_seconds": 0.6887751,
+            "found_end_seconds": 233.69764596153846,
+            "speed": 1.016700007867707,
+            "key_locked": false,
+            "hits": 2285,
+            "windows": 22,
+            "coverage": 0.5953787138002278,
+            "offset_seconds": 0.06172537014759161
+          },
+          {
+            "query_start_seconds": 310.11275,
+            "query_end_seconds": 359.53125,
+            "found_start_seconds": 311.21683458333337,
+            "found_end_seconds": 361.53177327586207,
+            "speed": 1.0177395258907624,
+            "key_locked": false,
+            "hits": 149,
+            "windows": 4,
+            "coverage": 0.12834857226708843,
+            "offset_seconds": -4.397168574347177
+          },
+          {
+            "query_start_seconds": 240.04375,
+            "query_end_seconds": 289.60725,
+            "found_start_seconds": 234.4107623934426,
+            "found_end_seconds": 284.8177048,
+            "speed": 1.017543684269635,
+            "key_locked": false,
+            "hits": 112,
+            "windows": 3,
+            "coverage": 0.1287251628754382,
+            "offset_seconds": -9.844239367456595
+          },
+          {
+            "query_start_seconds": 292.825,
+            "query_end_seconds": 307.517,
+            "found_start_seconds": 108.52864472727276,
+            "found_end_seconds": 123.44464479999998,
+            "speed": 1.0103783783783784,
+            "key_locked": false,
+            "hits": 37,
+            "windows": 2,
+            "coverage": 0.03815771874395347,
+            "offset_seconds": -187.33540392137587
+          }
+        ]
+      },
+      {
+        "name": "peaks, turntable ladder",
+        "alignments": [
+          {
+            "query_start_seconds": 0.61675,
+            "query_end_seconds": 229.8575,
+            "found_start_seconds": 0.6887751,
+            "found_end_seconds": 233.69764596153846,
+            "speed": 1.0167009467866106,
+            "key_locked": false,
+            "hits": 2279,
+            "windows": 21,
+            "coverage": 0.5953787138002278,
+            "offset_seconds": 0.06172479106935791
+          },
+          {
+            "query_start_seconds": 284.05025,
+            "query_end_seconds": 359.53125,
+            "found_start_seconds": 283.30965599999996,
+            "found_end_seconds": 361.53177327586207,
+            "speed": 1.0240437978041113,
+            "key_locked": false,
+            "hits": 153,
+            "windows": 5,
+            "coverage": 0.19603748764717874,
+            "offset_seconds": -7.570240777207289
+          },
+          {
+            "query_start_seconds": 230.2975,
+            "query_end_seconds": 258.517,
+            "found_start_seconds": 246.59676021052633,
+            "found_end_seconds": 275.28706164285717,
+            "speed": 1.0143030303030303,
+            "key_locked": false,
+            "hits": 66,
+            "windows": 2,
+            "coverage": 0.07329102532636766,
+            "offset_seconds": 13.005308089314212
+          },
+          {
+            "query_start_seconds": 268.60525,
+            "query_end_seconds": 271.58825,
+            "found_start_seconds": 180.55651200000003,
+            "found_end_seconds": 183.58448933333332,
+            "speed": 1.0130000000000001,
+            "key_locked": false,
+            "hits": 8,
+            "windows": 2,
+            "coverage": 0.007747377825565838,
+            "offset_seconds": -91.54060625000002
+          }
+        ]
+      },
+      {
+        "name": "peaks, key-locked ladder",
+        "alignments": [
+          {
+            "query_start_seconds": 4.60575,
+            "query_end_seconds": 225.212,
+            "found_start_seconds": 4.745528666666667,
+            "found_end_seconds": 228.9641453333333,
+            "speed": 1.016698253280084,
+            "key_locked": true,
+            "hits": 444,
+            "windows": 22,
+            "coverage": 0.5729533923671576,
+            "offset_seconds": 0.0628706866219213
+          },
+          {
+            "query_start_seconds": 265.03275,
+            "query_end_seconds": 346.6245,
+            "found_start_seconds": 78.85175333333329,
+            "found_end_seconds": 163.27092666666667,
+            "speed": 1.023614844741315,
+            "key_locked": true,
+            "hits": 49,
+            "windows": 5,
+            "coverage": 0.2119081846125077,
+            "offset_seconds": -192.43970390928047
+          },
+          {
+            "query_start_seconds": 240.5895,
+            "query_end_seconds": 258.2485,
+            "found_start_seconds": 234.96347115384614,
+            "found_end_seconds": 252.90414415384615,
+            "speed": 1.0146666666666668,
+            "key_locked": true,
+            "hits": 39,
+            "windows": 2,
+            "coverage": 0.045863541743770324,
+            "offset_seconds": -9.154674846153881
+          },
+          {
+            "query_start_seconds": 350.325,
+            "query_end_seconds": 364.14175,
+            "found_start_seconds": 97.93371249999997,
+            "found_end_seconds": 111.98665385714281,
+            "speed": 1.0146666666666666,
+            "key_locked": true,
+            "hits": 21,
+            "windows": 2,
+            "coverage": 0.03588453991665664,
+            "offset_seconds": -257.5293875
+          },
+          {
+            "query_start_seconds": 228.13375,
+            "query_end_seconds": 239.0575,
+            "found_start_seconds": 133.88180979999998,
+            "found_end_seconds": 144.74937566666665,
+            "speed": 0.9829090909090911,
+            "key_locked": true,
+            "hits": 11,
+            "windows": 2,
+            "coverage": 0.02837090798592853,
+            "offset_seconds": -90.35292701818187
+          }
+        ]
+      },
+      {
+        "name": "peaks, at the fitted speed",
+        "alignments": [
+          {
+            "query_start_seconds": 0.61675,
+            "query_end_seconds": 229.8575,
+            "found_start_seconds": 0.6854924568960759,
+            "found_end_seconds": 233.70219547047776,
+            "speed": 1.0167069602772976,
+            "key_locked": false,
+            "hits": 2312,
+            "windows": 22,
+            "coverage": 0.5953787138002278,
+            "offset_seconds": 0.058438439145052534,
+            "supported": 0.5506014411733005
+          },
+          {
+            "query_start_seconds": 310.11275,
+            "query_end_seconds": 339.97375,
+            "found_start_seconds": 311.2282233026713,
+            "found_end_seconds": 341.606992973434,
+            "speed": 1.0167009467866106,
+            "key_locked": false,
+            "hits": 78,
+            "windows": 2,
+            "coverage": 0.0775542907305468,
+            "offset_seconds": -4.063703232928162,
+            "supported": 0.06233223862339251
+          },
+          {
+            "query_start_seconds": 230.2975,
+            "query_end_seconds": 258.517,
+            "found_start_seconds": 246.59360406373295,
+            "found_end_seconds": 275.2986515433418,
+            "speed": 1.0167009467866106,
+            "key_locked": false,
+            "hits": 75,
+            "windows": 2,
+            "coverage": 0.07329102532636766,
+            "offset_seconds": 12.449917771143475,
+            "supported": 0.07012376845131657
+          },
+          {
+            "query_start_seconds": 270.85025,
+            "query_end_seconds": 299.794,
+            "found_start_seconds": 99.96799500913089,
+            "found_end_seconds": 129.40875729579034,
+            "speed": 1.0167009467866106,
+            "key_locked": false,
+            "hits": 73,
+            "windows": 2,
+            "coverage": 0.07517203048565894,
+            "offset_seconds": -175.4057106032593,
+            "supported": 0.07791529827924064
+          },
+          {
+            "query_start_seconds": 341.063,
+            "query_end_seconds": 367.9675,
+            "found_start_seconds": 105.10349572528136,
+            "found_end_seconds": 132.47430883925097,
+            "speed": 1.0167009467866106,
+            "key_locked": false,
+            "hits": 64,
+            "windows": 2,
+            "coverage": 0.06987573808512762,
+            "offset_seconds": -241.65557928860042,
+            "supported": 0.06233223862339251
+          }
+        ]
+      }
+    ]
+  }
+]
