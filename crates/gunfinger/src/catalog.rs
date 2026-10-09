@@ -4,7 +4,6 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
-use std::io;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
@@ -12,7 +11,7 @@ use gunfinger_core::index::Index;
 use gunfinger_core::indexing::{
     BuiltIndex, TrackLength, build_index, indexable_assets, library_revision,
 };
-use gunfinger_core::library::{Asset, Library};
+use gunfinger_core::library::{Asset, Library, ScanError};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::Matcher;
 use gunfinger_core::store::{PeakStore, StoreError};
@@ -54,7 +53,8 @@ impl Indexable {
     /// Lists the library, or the store's records when the library cannot be
     /// read, none is given or `store_only` asks for it, saying which in one
     /// line. A store that names another library is refused unless
-    /// `store_only` is given.
+    /// `store_only` is given. So is an invalid ignore file: the store's
+    /// records would include the files it leaves out.
     pub fn find(source: &Source, console: &Console) -> miette::Result<Indexable> {
         let excluded = match source.exclude_from {
             Some(path) => read_exclusions(path)?,
@@ -115,7 +115,8 @@ impl Indexable {
                     false,
                 ))
             }
-            Err(error) => {
+            Err(ScanError::Ignore(error)) => Err(error).into_diagnostic(),
+            Err(ScanError::Io(error)) => {
                 let Some((store, records)) = store_records(peaks_dir)? else {
                     return Err(error).into_diagnostic().wrap_err_with(|| {
                         format!("could not read the library at {}", root.display())
@@ -256,7 +257,9 @@ pub fn scan_library(root: &Path, console: &Console) -> miette::Result<Library> {
         .wrap_err_with(|| format!("could not read the library at {}", root.display()))
 }
 
-fn list(root: &Path, console: &Console) -> io::Result<Library> {
+/// As `scan_library`, telling a library that cannot be listed from an
+/// invalid ignore file.
+pub fn list(root: &Path, console: &Console) -> Result<Library, ScanError> {
     let library = Library::scan_with_progress(root, |seen| {
         if seen % 100 == 0 {
             console.progress(format_args!("listing {}: {seen} files", root.display()));
