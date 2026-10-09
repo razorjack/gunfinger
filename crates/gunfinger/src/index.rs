@@ -114,6 +114,13 @@ fn print_summary(library: &Library, outcomes: &[Outcome], elapsed: Duration, con
             console.info(format_args!("  {count:>5}  {reason}"));
         }
     }
+    if let Some(file) = &library.ignore_file {
+        console.info(format_args!(
+            "left out {} audio files that {} lists (`gunfinger doctor` counts them by pattern, `gunfinger prune` lists their records)",
+            library.ignored_total(),
+            file.display()
+        ));
+    }
     for (asset, outcome) in library.assets.iter().zip(outcomes) {
         if let Outcome::Failed { reason } = outcome {
             console.error(format_args!("{}: {reason}", asset.path));

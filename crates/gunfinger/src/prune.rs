@@ -1,5 +1,6 @@
-//! `gunfinger prune`: delete peak records and skip notes of files that are
-//! no longer in the library, and temporary files left by interrupted runs.
+//! `gunfinger prune`: delete peak records and notes of files that are no
+//! longer in the library or that its ignore file leaves out, and temporary
+//! files left by interrupted runs.
 //!
 //! A wrong `--library` (a typo, an unmounted share, another library sharing
 //! the store) makes every record look orphaned, so prune lists what it would
@@ -8,15 +9,16 @@
 
 use std::path::Path;
 
+use gunfinger_core::library::ignore::IGNORE_FILE;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, Stored};
 use miette::{IntoDiagnostic, miette};
 
 use crate::catalog::scan_library;
 use crate::console::Console;
-use crate::survey::survey;
+use crate::survey::{Absence, Orphan, counted, counted_kinds, survey};
 
-/// Paths listed before `--yes`.
+/// Paths listed per group before `--yes`.
 const LISTED: usize = 20;
 /// Without `--force`, prune refuses to delete more than this share of the
 /// store's records and notes.
@@ -54,39 +56,45 @@ pub fn run(request: &Request) -> miette::Result<()> {
         ));
     }
 
-    let doomed: Vec<(&Stored, String)> = survey
+    let gone = survey.orphans(Absence::Gone);
+    let ignored = survey.orphans(Absence::Ignored);
+    let doomed: Vec<&Stored> = survey
         .orphans
         .iter()
-        .map(|orphan| {
-            (
-                &orphan.stored,
-                format!("{} ({})", orphan.source, kind(&orphan.stored)),
-            )
-        })
-        .chain(survey.leftovers.iter().map(|stored| {
-            (
-                stored,
-                format!("temporary file {}", stored.file().display()),
-            )
-        }))
+        .map(|orphan| &orphan.stored)
+        .chain(&survey.leftovers)
         .collect();
     if doomed.is_empty() {
         request.console.info("nothing to prune");
         return Ok(());
     }
     if !request.yes {
-        println!("would delete {} files:", doomed.len());
-        for (_, what) in doomed.iter().take(LISTED) {
-            println!("  {what}");
-        }
-        if doomed.len() > LISTED {
-            println!("  ... and {} more", doomed.len() - LISTED);
-        }
+        println!("would delete {}:", counted(doomed.len(), "file"));
+        list_orphans(
+            &format!("{} gone from the library", counted_kinds(&gone)),
+            &gone,
+        );
+        list_orphans(
+            &format!("{} that {IGNORE_FILE} leaves out", counted_kinds(&ignored)),
+            &ignored,
+        );
+        let leftovers: Vec<String> = survey
+            .leftovers
+            .iter()
+            .map(|stored| stored.file().display().to_string())
+            .collect();
+        list(
+            &format!(
+                "{} left by interrupted runs",
+                counted(leftovers.len(), "temporary file")
+            ),
+            &leftovers,
+        );
         println!("run again with --yes to delete them");
         return Ok(());
     }
     let mut freed = 0;
-    for (stored, _) in &doomed {
+    for stored in &doomed {
         freed += std::fs::metadata(stored.file()).map_or(0, |metadata| metadata.len());
         store.remove(stored).into_diagnostic()?;
     }
@@ -98,12 +106,27 @@ pub fn run(request: &Request) -> miette::Result<()> {
     Ok(())
 }
 
-fn kind(stored: &Stored) -> &'static str {
-    match stored {
-        Stored::Record { .. } => "peak record",
-        Stored::Skip { .. } => "skip note",
-        Stored::Tags { .. } => "tags",
-        Stored::Unreadable { .. } => "unreadable",
-        Stored::Temporary { .. } => "temporary file",
+/// By path, so that a folder's files are listed together.
+fn list_orphans(heading: &str, orphans: &[&Orphan]) {
+    let mut items: Vec<String> = orphans
+        .iter()
+        .map(|orphan| format!("{} ({})", orphan.source, orphan.kind()))
+        .collect();
+    items.sort();
+    list(heading, &items);
+}
+
+/// A group of what would be deleted, under its heading; nothing for an
+/// empty group.
+fn list(heading: &str, items: &[String]) {
+    if items.is_empty() {
+        return;
+    }
+    println!("  {heading}:");
+    for item in items.iter().take(LISTED) {
+        println!("    {item}");
+    }
+    if items.len() > LISTED {
+        println!("    ... and {} more", items.len() - LISTED);
     }
 }

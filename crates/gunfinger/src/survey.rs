@@ -25,7 +25,8 @@ pub struct Survey {
     pub too_long: usize,
     /// Library files whose tags the store holds.
     pub tagged: usize,
-    /// Records and notes of files that are not in the library.
+    /// Records and notes of files that are not in the library, because
+    /// they are gone or ignored.
     pub orphans: Vec<Orphan>,
     /// Left by writes that never finished, older than an hour.
     pub leftovers: Vec<Stored>,
@@ -39,9 +40,37 @@ pub struct Orphan {
     pub stored: Stored,
     /// The library path the record or note was made for.
     pub source: String,
+    pub absence: Absence,
+}
+
+/// Why the file of an orphan is not in the library.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum Absence {
+    /// Deleted, moved or renamed since it was indexed.
+    Gone,
+    /// Still there, but the library's ignore file leaves it out.
+    Ignored,
+}
+
+impl Orphan {
+    pub fn kind(&self) -> &'static str {
+        match self.stored {
+            Stored::Record { .. } => "peak record",
+            Stored::Skip { .. } => "skip note",
+            Stored::Tags { .. } => "tag note",
+            Stored::Unreadable { .. } | Stored::Temporary { .. } => "file",
+        }
+    }
 }
 
 impl Survey {
+    pub fn orphans(&self, absence: Absence) -> Vec<&Orphan> {
+        self.orphans
+            .iter()
+            .filter(|orphan| orphan.absence == absence)
+            .collect()
+    }
+
     pub fn records_and_notes(&self) -> usize {
         self.current
             + self.stale
@@ -59,6 +88,7 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
         .iter()
         .map(|asset| (asset.path.as_str(), asset))
         .collect();
+    let ignored: BTreeSet<&str> = library.ignored_paths().collect();
     let mut covered: BTreeSet<&str> = BTreeSet::new();
     let mut survey = Survey {
         current: 0,
@@ -139,11 +169,54 @@ pub fn survey(library: &Library, store: &PeakStore, profile: &Profile) -> miette
                 }
             }
             None => {
+                let absence = if ignored.contains(source.as_str()) {
+                    Absence::Ignored
+                } else {
+                    Absence::Gone
+                };
                 let source = source.clone();
-                survey.orphans.push(Orphan { stored, source });
+                survey.orphans.push(Orphan {
+                    stored,
+                    source,
+                    absence,
+                });
             }
         }
     }
     survey.unindexed = assets.len() - covered.len();
     Ok(survey)
+}
+
+/// The kinds of `orphans` counted, and their files, such as `33 peak
+/// records and 33 tag notes of 33 files`.
+pub fn counted_kinds(orphans: &[&Orphan]) -> String {
+    let mut kinds: Vec<String> = Vec::new();
+    for kind in ["peak record", "skip note", "tag note"] {
+        let count = orphans
+            .iter()
+            .filter(|orphan| orphan.kind() == kind)
+            .count();
+        if count > 0 {
+            kinds.push(counted(count, kind));
+        }
+    }
+    let files: BTreeSet<&str> = orphans
+        .iter()
+        .map(|orphan| orphan.source.as_str())
+        .collect();
+    let listed = match kinds.split_last() {
+        Some((last, [])) => last.clone(),
+        Some((last, others)) => format!("{} and {last}", others.join(", ")),
+        None => String::from("nothing"),
+    };
+    format!("{listed} of {}", counted(files.len(), "file"))
+}
+
+/// `1 file`, `2 files`.
+pub fn counted(count: usize, noun: &str) -> String {
+    if count == 1 {
+        format!("1 {noun}")
+    } else {
+        format!("{count} {noun}s")
+    }
 }

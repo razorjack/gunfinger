@@ -7,15 +7,17 @@ use std::time::Duration;
 
 use gunfinger_core::index::{MAX_ASSETS, MAX_FRAMES};
 use gunfinger_core::indexing::TrackLength;
+use gunfinger_core::library::ignore::IGNORE_FILE;
+use gunfinger_core::library::{Library, ScanError};
 use gunfinger_core::profile::Profile;
-use gunfinger_core::store::PeakStore;
+use gunfinger_core::store::{PeakStore, Stored};
 use miette::miette;
 
-use crate::catalog::{scan_library, store_records};
+use crate::catalog::{list, store_records};
 use crate::config::Settings;
 use crate::console::Console;
 use crate::style::Style;
-use crate::survey::survey;
+use crate::survey::{Absence, counted, counted_kinds, survey};
 use crate::table::timecode;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -229,6 +231,50 @@ fn check_store_alone(
     }
 }
 
+/// Whether the library has an ignore file, and how many audio files each
+/// pattern leaves out. One that leaves out none is most likely a typo or a
+/// folder renamed since.
+fn check_ignore_file(checkup: &mut Checkup, library: &Library) {
+    let Some(file) = &library.ignore_file else {
+        checkup.line(
+            Status::Note,
+            format!("no {IGNORE_FILE} at the library root; no file is left out"),
+        );
+        return;
+    };
+    checkup.line(
+        Status::Ok,
+        format!(
+            "read {}: {}, {} left out",
+            file.display(),
+            counted(library.ignored.len(), "pattern"),
+            counted(library.ignored_total(), "audio file")
+        ),
+    );
+    for ignored in &library.ignored {
+        let pattern = &ignored.pattern;
+        if ignored.paths.is_empty() {
+            checkup.line(
+                Status::Warning,
+                format!(
+                    "line {}, `{}`, leaves out no audio file: check it for a typo or a renamed folder, or whether an earlier pattern already leaves out its files",
+                    pattern.line, pattern.text
+                ),
+            );
+        } else {
+            checkup.line(
+                Status::Ok,
+                format!(
+                    "line {}, `{}`, leaves out {}",
+                    pattern.line,
+                    pattern.text,
+                    counted(ignored.paths.len(), "audio file")
+                ),
+            );
+        }
+    }
+}
+
 fn check_library(
     checkup: &mut Checkup,
     root: &Path,
@@ -237,14 +283,17 @@ fn check_library(
     console: &Console,
 ) {
     checkup.section("library");
-    let library = match scan_library(root, console) {
+    let library = match list(root, console) {
         Ok(library) => library,
-        Err(error) => {
-            let causes: Vec<String> = error.chain().map(ToString::to_string).collect();
+        Err(ScanError::Ignore(error)) => {
+            checkup.line(Status::Problem, error);
+            return;
+        }
+        Err(ScanError::Io(error)) => {
             check_store_alone(
                 checkup,
                 Status::Warning,
-                &causes.join(": "),
+                &format!("could not read the library at {}: {error}", root.display()),
                 Some(root),
                 peaks_dir,
             );
@@ -264,6 +313,7 @@ fn check_library(
             library.skipped_total()
         ),
     );
+    check_ignore_file(checkup, &library);
 
     checkup.section("peak store");
     let profile = Profile::CURRENT;
@@ -340,12 +390,31 @@ fn check_library(
             ),
         );
     }
-    if !survey.orphans.is_empty() {
+    let gone = survey.orphans(Absence::Gone);
+    if !gone.is_empty() {
         checkup.line(
             Status::Warning,
             format!(
-                "{} records or notes are for files no longer in this library: `gunfinger prune` removes them",
-                survey.orphans.len()
+                "{} gone from this library: `gunfinger prune` lists them and `gunfinger prune --yes` deletes them",
+                counted_kinds(&gone)
+            ),
+        );
+    }
+    let ignored = survey.orphans(Absence::Ignored);
+    if !ignored.is_empty() {
+        let searched = if ignored
+            .iter()
+            .any(|orphan| matches!(orphan.stored, Stored::Record { .. }))
+        {
+            "; until then, searches with --store-only still use their peak records"
+        } else {
+            ""
+        };
+        checkup.line(
+            Status::Warning,
+            format!(
+                "{} that {IGNORE_FILE} leaves out: `gunfinger prune` lists them and `gunfinger prune --yes` deletes them{searched}",
+                counted_kinds(&ignored)
             ),
         );
     }
