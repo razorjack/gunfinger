@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::Duration;
 
-use gunfinger_core::index::{MAX_ASSETS, MAX_FRAMES};
+use gunfinger_core::index::{MAX_ASSETS, addressable_length};
 use gunfinger_core::indexing::TrackLength;
 use gunfinger_core::library::ignore::IGNORE_FILE;
 use gunfinger_core::library::{Library, ScanError};
@@ -455,7 +455,7 @@ fn check_library(
             Status::Ok
         },
         format!(
-            "{indexed} of {MAX_ASSETS} assets ({:.1}%); beyond that see docs/adr/0007",
+            "{indexed} of {MAX_ASSETS} assets ({:.1}%); beyond that see docs/adr/0010",
             share * 100.0
         ),
     );
@@ -474,7 +474,7 @@ fn check_library(
         .copied()
         .unwrap_or_default()
         .as_secs_f64();
-    let addressable = profile.seconds(f64::from(MAX_FRAMES));
+    let addressable = addressable_length().as_secs_f64();
     checkup.line(
         if longest > addressable {
             Status::Problem

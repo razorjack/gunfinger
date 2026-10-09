@@ -2,7 +2,10 @@
 
 ## Status
 
-Accepted for the in-memory index; proposed for the on-disk index.
+Accepted for the in-memory index; proposed for the on-disk index. The
+split of the posting below (17 frame bits, 15 asset bits) is superseded
+by ADR 0010 (2026-10-09): 16 frame bits address tracks up to 17:28 and 16
+asset bits 65,536 assets, in the same 4 bytes.
 
 ## Context
 

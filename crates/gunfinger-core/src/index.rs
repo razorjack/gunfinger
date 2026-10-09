@@ -4,8 +4,12 @@
 //! postings of hash `h` are `postings[offsets[h]..offsets[h + 1]]`. This is the
 //! layout an on-disk index would use, so its size measurements are real.
 
+use std::time::Duration;
+
 use crate::hash::{HASH_BITS, PairHash, Point, for_each_pair};
+use crate::profile::Profile;
 use crate::store::PeakRecord;
+use crate::timecode::format_timecode;
 
 /// Position of an asset in the index.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -14,14 +18,21 @@ pub struct AssetId(pub u32);
 /// One occurrence of a hash: the asset and the frame of the anchor peak,
 /// packed into 32 bits.
 ///
-/// 17 frame bits hold 35 minutes at 16 ms per frame, beyond the 20-minute
-/// track limit. The remaining 15 bits address 32,768 assets.
+/// 16 frame bits hold 17:28 at 16 ms per frame, above the 17-minute
+/// default track limit. The remaining 16 bits address 65,536 assets
+/// (ADR 0010).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Posting(u32);
 
-const FRAME_BITS: u32 = 17;
+const FRAME_BITS: u32 = 16;
 pub const MAX_FRAMES: u32 = 1 << FRAME_BITS;
 pub const MAX_ASSETS: usize = 1 << (32 - FRAME_BITS);
+
+/// The longest record a posting's frame can address under the current
+/// profile.
+pub fn addressable_length() -> Duration {
+    Duration::from_secs_f64(Profile::CURRENT.seconds(f64::from(MAX_FRAMES)))
+}
 
 impl Posting {
     fn new(asset: AssetId, frame: u32) -> Posting {
@@ -47,9 +58,14 @@ pub struct IndexedAsset {
 
 #[derive(Debug, thiserror::Error)]
 pub enum IndexError {
-    #[error("the index holds at most {MAX_ASSETS} assets")]
+    #[error(
+        "the index holds at most {MAX_ASSETS} assets; leave folders out with .gunfingerignore or narrow the track length range (--min-track, --max-track)"
+    )]
     TooManyAssets,
-    #[error("{path} is longer than the index can address ({MAX_FRAMES} frames); lower --max-track")]
+    #[error(
+        "{path} is longer than the {limit} the index can address; set --max-track (`max_track`) to {limit} or less",
+        limit = format_timecode(addressable_length())
+    )]
     TooLong { path: String },
     #[error("a peak record changed while the index was being built; run the command again")]
     Changed,
@@ -296,7 +312,8 @@ impl Filling {
 }
 
 /// A record's peaks as hashing points, checked against the frames a
-/// posting can address.
+/// posting can address. Peaks are in frame order, so the last one has the
+/// latest anchor frame; a later frame would overflow into the asset bits.
 fn points_of(record: &PeakRecord) -> Result<Vec<Point>, IndexError> {
     let points: Vec<Point> = record.peaks.iter().map(Point::from).collect();
     if points
@@ -353,11 +370,54 @@ mod tests {
     }
 
     #[test]
-    fn postings_pack_asset_and_frame() {
-        let posting = Posting::new(AssetId(MAX_ASSETS as u32 - 1), MAX_FRAMES - 1);
+    fn postings_pack_the_largest_asset_and_frame() {
+        let posting = Posting::new(AssetId(65_535), 65_535);
 
-        assert_eq!(posting.asset(), AssetId(MAX_ASSETS as u32 - 1));
-        assert_eq!(posting.frame(), MAX_FRAMES - 1);
+        assert_eq!(posting.asset(), AssetId(65_535));
+        assert_eq!(posting.frame(), 65_535);
+        assert_eq!(MAX_ASSETS, 65_536);
+        assert_eq!(MAX_FRAMES, 65_536);
+    }
+
+    #[test]
+    fn the_index_takes_65536_assets_and_refuses_the_next() {
+        let silent = record("silent.mp3", &[]);
+        let mut counting = Index::counting();
+        for _ in 0..65_536 {
+            counting.count(&silent).unwrap();
+        }
+
+        let next = counting.count(&silent);
+
+        assert!(matches!(next, Err(IndexError::TooManyAssets)));
+    }
+
+    #[test]
+    fn a_record_ending_at_the_last_frame_keeps_its_frames() {
+        let peaks = [(65_534.0, 100.0), (65_535.0, 110.0)];
+        let index = Index::build(&[record("long.mp3", &peaks)]).unwrap();
+
+        let postings = index.postings(hashes_of(&peaks)[0]);
+
+        assert_eq!(postings.len(), 1);
+        assert_eq!(postings[0].asset(), AssetId(0));
+        assert_eq!(postings[0].frame(), 65_534);
+    }
+
+    #[test]
+    fn a_record_past_17_28_is_refused() {
+        let past = record("mix.mp3", &[(65_534.0, 100.0), (65_536.0, 110.0)]);
+
+        let error = Index::build(&[past]).err().unwrap();
+
+        assert!(matches!(error, IndexError::TooLong { .. }));
+        assert_eq!(format_timecode(addressable_length()), "17:28");
+        assert!(
+            error
+                .to_string()
+                .contains("mix.mp3 is longer than the 17:28"),
+            "{error}"
+        );
     }
 
     #[test]
