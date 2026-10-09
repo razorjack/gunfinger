@@ -16,11 +16,11 @@ for scope and rules.
 
 - [x] 1. `stats` with the NAS configuration stops at 32,768 assets: the
   message and the time to fail
-- [ ] 2. 16 frame bits: `index.rs`, default track limit 17:00, messages,
+- [x] 2. 16 frame bits: `index.rs`, default track limit 17:00, messages,
   help, README, configuration docs, doctor; tests (round trip, the
   65,536th asset and the next, a record past 17:28); ADR 0010, ADR 0005's
   status, ADR 0007; `scripts/check.sh` green; `regress session-9-start`
-  identical
+  identical (720/720; 87, 93, 79); experiment 0062
 - [ ] 3. `stats` at 32,905 records; `identify` of the development mix
   (0050's command) and of `razorjack-2003-03-29` (0060's): tracks
   against 0050 and 0060, files from the new folders; wall, CPU, memory

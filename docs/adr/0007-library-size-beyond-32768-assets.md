@@ -2,8 +2,10 @@
 
 ## Status
 
-Open (2026-10-06). No decision yet. This record collects the options, what
-each costs, and the measurements that should decide between them.
+Open (2026-10-06). This record collects the options, what each costs,
+and the measurements that should decide between them. First step taken
+on 2026-10-09: option E at full resolution (ADR 0010) raises the limit to
+65,536 assets; shards (option A) are the step after it.
 
 ## Context
 
@@ -127,9 +129,17 @@ No option above reduces these; they set the practical ceiling:
 
 ## Decision
 
-None yet. In discussion (2026-10-06) shards (A) were proposed as the
-simplest way past the limit; the owner is also considering a separate
-library for breakbeat hardcore (B). The measurements above should decide.
+None yet for libraries beyond 65,536 assets. In discussion (2026-10-06)
+shards (A) were proposed as the simplest way past the limit; the owner is
+also considering a separate library for breakbeat hardcore (B). The
+measurements above should decide.
+
+2026-10-09: the NAS store passed 32,768 records (32,905). Option E at
+16 ms frames, a 17-minute default track limit and 16 asset bits, was
+taken as the first step (ADR 0010): it costs no fidelity and no bytes,
+only tracks between 17:00 and 20:00 by default, which neither the corpus
+nor the NAS configuration indexes. Once a library passes 65,536 assets,
+shard by asset range (A) with the same 4-byte layout in each shard.
 
 ## Consequences
 

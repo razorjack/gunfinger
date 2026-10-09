@@ -61,7 +61,8 @@ struct Cli {
 
     /// Library files longer than this are mixes or album rips: `index`
     /// passes over them and searches leave them out [default: `max_track`
-    /// in the configuration file, else 20:00].
+    /// in the configuration file, else 17:00; the index addresses up to
+    /// 17:28].
     #[arg(long, global = true, value_parser = parse_timecode)]
     max_track: Option<Duration>,
 

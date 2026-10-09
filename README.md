@@ -119,7 +119,7 @@ target/release/gunfinger prune --library ~/Music/library
 target/release/gunfinger prune --library ~/Music/library --yes
 ```
 
-`index` takes files up to 20 minutes long; longer ones are mixes or album
+`index` takes files up to 17 minutes long; longer ones are mixes or album
 rips (`--min-track` and `--max-track` set the range; see
 [Tracks among sets and samples](#tracks-among-sets-and-samples)). Hidden
 files and folders (names starting with a dot, such as a downloader's
@@ -209,7 +209,7 @@ settings in effect and the file they came from.
 | `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | Colour in human output: `auto` (on a terminal), `always` or `never` |
 | `playback` | `--playback` | | `both` | Playback searched by `identify` and `explain`: `both`, `turntable` or `key-lock` |
 | `min_track` | `--min-track` | | none | Shortest library file that counts as a track |
-| `max_track` | `--max-track` | | `20:00` | Longest library file that counts as a track |
+| `max_track` | `--max-track` | | `17:00` | Longest library file that counts as a track; the index addresses up to 17:28 |
 
 A complete file:
 
@@ -253,7 +253,7 @@ playback = "turntable"
 ### Tracks among sets and samples
 
 `index` takes only library files whose length is within the track length
-range: by default up to 20 minutes, with no minimum. A folder that also
+range: by default up to 17 minutes, with no minimum. A folder that also
 holds DJ sets, minimixes, samples and loops needs a narrower range:
 
 ```toml
@@ -268,7 +268,9 @@ decides. Files outside the range are remembered in the peak store, and
 the range needs no new index: `identify`, `explain` and `stats` leave out
 indexed files outside it, and `--verbose` lists them. `gunfinger doctor`
 shows the range in effect and how many files it passed over, and counts
-only files within the range against the index's limit of 32,768 assets.
+only files within the range against the index's limit of 65,536 assets.
+The index addresses tracks up to 17:28: with a longer `--max-track`,
+searches stop at the first longer file and name it.
 
 ### Leaving folders out
 

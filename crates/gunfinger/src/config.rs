@@ -12,7 +12,7 @@
 //! color = "auto"
 //! playback = "turntable"   # vinyl only; the default "both" also finds key lock
 //! min_track = "1:30"       # shorter files are samples and loops
-//! max_track = "15:00"      # longer files are mixes; the default is 20:00
+//! max_track = "15:00"      # longer files are mixes; the default is 17:00
 //! ```
 
 use std::num::NonZeroUsize;
@@ -28,7 +28,8 @@ use crate::playback::PlaybackChoice;
 use crate::style::ColorChoice;
 
 const DEFAULT_PEAKS_DIR: &str = "work/peaks";
-const DEFAULT_MAX_TRACK: Duration = Duration::from_secs(20 * 60);
+/// Below the 17:28 a posting's frame addresses (ADR 0010).
+const DEFAULT_MAX_TRACK: Duration = Duration::from_secs(17 * 60);
 
 #[derive(Debug, Default, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -275,7 +276,7 @@ mod tests {
             by_default.ok().map(|s| s.track_length),
             Some(TrackLength {
                 min: Duration::ZERO,
-                max: Duration::from_secs(1200)
+                max: Duration::from_secs(1020)
             })
         );
     }

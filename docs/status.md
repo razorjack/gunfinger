@@ -1181,3 +1181,14 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   NAS listing, then the counting pass over 32,768 records. With
   `--store-only` the same error comes after 24.5 s, so the listing over
   Ethernet took about 32 s.
+- Item 2 (experiment 0062, ADR 0010): `FRAME_BITS` 16, so a posting
+  addresses 65,536 assets and frames up to 17:28; default `max_track`
+  17:00; `TooLong` names 17:28 and the flag, `TooManyAssets` says how to
+  leave files out; `doctor` counts against 65,536 and points to ADR 0010;
+  README, help text, configuration docs, ADR 0005's status, ADR 0007's
+  decision, the calibration register. Four tests (round trip at the
+  largest asset and frame, the 65,536th asset and the next, a record
+  ending at the last frame, a record past 17:28). `scripts/check.sh`
+  green; `regress session-9-start` (`work/bin/s9-frames16/`): 720/720
+  and 87, 93, 79 detections identical. Binary with the final message:
+  `work/bin/s9-item2/`.
