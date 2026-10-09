@@ -203,8 +203,11 @@ Conservative decisions taken up front:
   else the first that matches the file. A pattern whose files another
   pattern already leaves out therefore counts nothing, and `doctor`'s
   warning says so as a possible reason.
-- Non-audio files inside ignored folders are not counted among the
-  files passed over: they are ignored with their folder.
+- Non-audio files inside ignored folders are counted among the files
+  passed over, by the same reasons as elsewhere (`extension .nfo`): the
+  scan would pass over them anyway, and one rule for every folder keeps
+  the code simpler. (Changed while building step 2; the first plan left
+  them uncounted.)
 - Records and notes of ignored files and of gone files are both
   warnings in `doctor`, with `gunfinger prune --yes` as the command.
 - The harness's `--second-library` follows the ignore file, because it
