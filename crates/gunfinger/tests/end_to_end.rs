@@ -460,15 +460,150 @@ fn prune_deletes_records_of_removed_files_only_when_asked() {
 
     let listed = String::from_utf8_lossy(&listed.stdout);
     assert!(
-        listed.contains("would delete 2 files:\n  2.wav (peak record)\n  2.wav (tags)"),
+        listed.contains(
+            "would delete 2 files:\n  1 peak record and 1 tag note of 1 file gone from the library:\n    2.wav (peak record)\n    2.wav (tag note)"
+        ),
         "{listed}"
     );
     let doctor = String::from_utf8_lossy(&doctor.stdout);
     assert!(
-        doctor.contains("2 records or notes are for files no longer in this library"),
+        doctor.contains("1 peak record and 1 tag note of 1 file gone from this library"),
+        "{doctor}"
+    );
+    assert!(
+        doctor.contains("no .gunfingerignore at the library root"),
         "{doctor}"
     );
     assert_eq!(records, 1, "only 1.wav's record is left");
+}
+
+#[test]
+fn ignored_files_are_left_out_and_told_apart_from_removed_ones() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("ignore");
+    let library = dir.join("library");
+    // Few enough ignored and removed files that prune does not refuse.
+    for (seed, name) in [
+        (1, "1.wav"),
+        (2, "2.wav"),
+        (3, "Mixed CD [Virus]/CD1/3.wav"),
+        (4, "Mixed CD [Virus]/CD2/4.wav"),
+        (5, "5.wav"),
+        (6, "6.wav"),
+        (7, "7.wav"),
+    ] {
+        let track = Track::random(seed, 10.0);
+        write_wav(&library.join(name), &track.play(0.0, track.seconds, 1.0));
+    }
+    let library_arg = library.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+    std::fs::remove_file(library.join("2.wav")).unwrap();
+    std::fs::write(
+        library.join(".gunfingerignore"),
+        "# Mixed CDs\n/Mixed CD [Virus]/\n/Renamed since/\n",
+    )
+    .unwrap();
+
+    let listed = gunfinger(&dir, &["prune", "--library", library_arg]);
+    let doctor = gunfinger(&dir, &["doctor", "--library", library_arg]);
+    let indexed = gunfinger(&dir, &["index", library_arg]);
+    let stats = gunfinger(&dir, &["stats", "--library", library_arg]);
+    gunfinger(&dir, &["prune", "--library", library_arg, "--yes"]);
+    let pruned = gunfinger(&dir, &["doctor", "--library", library_arg]);
+
+    let listed = String::from_utf8_lossy(&listed.stdout);
+    assert!(listed.contains("would delete 6 files:"), "{listed}");
+    assert!(
+        listed.contains(
+            "  1 peak record and 1 tag note of 1 file gone from the library:\n    2.wav (peak record)\n    2.wav (tag note)\n"
+        ),
+        "{listed}"
+    );
+    assert!(
+        listed.contains(
+            "  2 peak records and 2 tag notes of 2 files that .gunfingerignore leaves out:\n"
+        ),
+        "{listed}"
+    );
+    assert!(
+        listed.contains(
+            "    Mixed CD [Virus]/CD1/3.wav (peak record)\n    Mixed CD [Virus]/CD1/3.wav (tag note)\n    Mixed CD [Virus]/CD2/4.wav (peak record)\n    Mixed CD [Virus]/CD2/4.wav (tag note)\n"
+        ),
+        "{listed}"
+    );
+    let doctor = String::from_utf8_lossy(&doctor.stdout);
+    for line in [
+        "ok       4 audio files, 1 other files and folders passed over",
+        &format!(
+            "ok       read {}: 2 patterns, 2 audio files left out",
+            library.join(".gunfingerignore").display()
+        ),
+        "ok       line 2, `/Mixed CD [Virus]/`, leaves out 2 audio files",
+        "warning  line 3, `/Renamed since/`, leaves out no audio file: check it for a typo or a renamed folder",
+        "warning  1 peak record and 1 tag note of 1 file gone from this library: `gunfinger prune` lists them and `gunfinger prune --yes` deletes them",
+        "warning  2 peak records and 2 tag notes of 2 files that .gunfingerignore leaves out: `gunfinger prune` lists them and `gunfinger prune --yes` deletes them; until then, searches with --store-only still use their peak records",
+    ] {
+        assert!(doctor.contains(line), "{line} in {doctor}");
+    }
+    let indexed = String::from_utf8_lossy(&indexed.stderr);
+    assert!(indexed.contains("indexing 4 audio files"), "{indexed}");
+    assert!(indexed.contains("left out 2 audio files that"), "{indexed}");
+    let stats = String::from_utf8_lossy(&stats.stdout);
+    assert!(stats.contains("assets            4 "), "{stats}");
+    let pruned = String::from_utf8_lossy(&pruned.stdout);
+    assert!(
+        !pruned.contains("that .gunfingerignore leaves out:"),
+        "{pruned}"
+    );
+    assert!(!pruned.contains("gone from this library"), "{pruned}");
+}
+
+#[test]
+fn an_invalid_ignore_file_stops_the_commands_that_scan_the_library() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("invalid-ignore");
+    let library = dir.join("library");
+    let track = Track::random(1, 10.0);
+    write_wav(&library.join("1.wav"), &track.play(0.0, track.seconds, 1.0));
+    let library_arg = library.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+    std::fs::write(library.join(".gunfingerignore"), "/Album/\n!/Album/CD1/\n").unwrap();
+
+    let run = |args: &[&str]| {
+        Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+            .args(args)
+            .arg("--peaks-dir")
+            .arg(dir.join("peaks"))
+            .env("XDG_CONFIG_HOME", dir.join("config"))
+            .env("NO_COLOR", "1")
+            .output()
+            .unwrap()
+    };
+    let doctor = run(&["doctor", "--library", library_arg]);
+    let stats = run(&["stats", "--library", library_arg]);
+    let index = run(&["index", library_arg]);
+
+    let expected = "line 2: `!` (negation) is not supported";
+    assert!(!doctor.status.success());
+    let doctor = String::from_utf8_lossy(&doctor.stdout);
+    assert!(
+        doctor.contains("problem") && doctor.contains(expected),
+        "{doctor}"
+    );
+    for refused in [stats, index] {
+        assert!(!refused.status.success());
+        // The message is wrapped to the terminal's width between borders.
+        let message: String = String::from_utf8_lossy(&refused.stderr)
+            .split_whitespace()
+            .filter(|word| *word != "│")
+            .collect::<Vec<_>>()
+            .join(" ");
+        assert!(message.contains(expected), "{message}");
+    }
 }
 
 #[test]
