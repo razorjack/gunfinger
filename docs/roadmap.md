@@ -44,20 +44,19 @@ marked as inferences were derived, not measured.
   store, so two libraries cannot share a peak directory by accident; an
   explicit way to move a library or its peak store; on a NAS, indexing
   throughput, slow `stat` calls and reconnects.
-- **Library ignore file.** *(owner's proposal, 2026-10-09)* A track of a
-  DJ-mixed CD already blends into the next one; indexed, it causes false
-  joins and wrong answers (the mixed CD's "Synthesis (Remix)",
-  experiments 0049-0053). Proposal: `.gunfingerignore` at the library
-  root, a subset of `.gitignore` syntax (one pattern per line relative to
-  the root, `#` comments, `*`, `**` and `?`, a trailing `/` for a
-  folder). Ignored files then behave like files removed from the
-  library: `index` skips them and `prune` deletes their peak records, so
-  store-only runs, which never read the library, leave them out too.
-  `doctor` says how many files the patterns match. The owner writes the
-  patterns; nothing derives them from file names. The NAS store is
-  read-only for sessions, so the owner creates the file there and runs
-  `index` and `prune`. Candidate folders are in the owner notes ("Mixed-CD
-  tracks in the library").
+- **Library ignore file.** *(owner's proposal, 2026-10-09; done in
+  session 8, ADR 0009)* A track of a DJ-mixed CD already blends into the
+  next one; indexed, it causes false joins and wrong answers (the mixed
+  CD's "Synthesis (Remix)", experiments 0049-0053). `.gunfingerignore` at
+  the library root, a subset of `.gitignore` syntax with literal square
+  brackets and no negation, leaves files and folders out of every command
+  that scans the library; `doctor` counts the audio files per pattern and
+  the records of ignored files apart from those of gone files, and `prune
+  --yes` deletes both. Store-only runs see ignored files until they are
+  pruned. Open: `2002 - CPT003 - Kemal vs. Rob
+  F & Impulse - 256`, the third candidate in the owner notes ("Mixed-CD
+  tracks in the library"), is not listed; and the clusters' verdict links
+  must leave out ignored files (below, "More development mixes", step 2).
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit when detections, owner
   edits or the Track/AudioAsset model need to be stored.
@@ -424,8 +423,9 @@ marked as inferences were derived, not measured.
      run: corpus-only `clusters` adds every `same` verdict as a link, so
      the NAS files in the owner's verdicts would enter the corpus
      clusters; add verdict links only between files of the libraries
-     searched, and not to ignored files. Build the library ignore file
-     first, so that one 85-minute run serves both.
+     searched, and not to files their ignore files leave out. The ignore
+     file exists (ADR 0009); after the owner prunes the NAS store, one
+     85-minute run serves both.
   3. The set in the standard protocol at both sizes (at 262 tracks 7
      tracks are referenced and 5 absent, a test of unknown audio), with
      leave-outs, and a new baseline.

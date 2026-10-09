@@ -113,7 +113,8 @@ target/release/gunfinger stats --library ~/Music/library
 # Check FFmpeg, the settings, the library and the peak store.
 target/release/gunfinger doctor --library ~/Music/library
 
-# List, then delete, peak records of files no longer in the library.
+# List, then delete, peak records of files no longer in the library or left
+# out by its .gunfingerignore.
 target/release/gunfinger prune --library ~/Music/library
 target/release/gunfinger prune --library ~/Music/library --yes
 ```
@@ -122,7 +123,9 @@ target/release/gunfinger prune --library ~/Music/library --yes
 rips (`--min-track` and `--max-track` set the range; see
 [Tracks among sets and samples](#tracks-among-sets-and-samples)). Hidden
 files and folders (names starting with a dot, such as a downloader's
-`.incomplete/`) are passed over. A file whose audio stops short of the
+`.incomplete/`) are passed over, and so is whatever the library's
+`.gunfingerignore` lists ([Leaving folders out](#leaving-folders-out)).
+A file whose audio stops short of the
 length its header declares by more than 1 s or 1% of that length, whichever
 is larger, counts as damaged. An MP3 inside a WAV container behind an ID3
 tag, which FFmpeg cannot open as it is, is read with the tag skipped and
@@ -267,6 +270,42 @@ indexed files outside it, and `--verbose` lists them. `gunfinger doctor`
 shows the range in effect and how many files it passed over, and counts
 only files within the range against the index's limit of 32,768 assets.
 
+### Leaving folders out
+
+Some files belong in the collection but not in the library Gunfinger
+searches. A track of a DJ-mixed CD already blends into the next one, so it
+matches two recordings and joins them. List such files and folders in
+`.gunfingerignore` at the library root, one pattern per line:
+
+```gitignore
+# Mixed CDs: each track already blends into the next one.
+/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/
+/2001 - VRSCD003 - Ed Rush & Optical - The Creeps [Virus]/CD2/
+```
+
+The syntax is a subset of `.gitignore`. Lines starting with `#` are
+comments. A pattern starting with `/`, or with a `/` in its middle, is a
+path from the library root; otherwise it matches a name at any depth
+(`CD2/` would leave out every folder named `CD2`). A trailing `/` matches
+folders only. `*` matches within one name, `?` one character and `**` any
+number of folders. Matching is case-sensitive, and square brackets match
+themselves, so release folders such as `[Virus]` are written as they are.
+There is no negation (`!`) and no backslash escape: to keep one disc of a
+release, list the other, as above. Only the file at the root is read.
+
+Every command that reads the library (`index`, `identify`, `explain` and
+`stats` with a library, `doctor` and `prune`) then treats the files left
+out as files not in the library: `index` does not decode them and searches
+leave them out. `gunfinger doctor` shows how many audio files each pattern
+leaves out and warns about a pattern that leaves out none, most likely a
+typo or a renamed folder. Peak records made before a file was ignored stay
+in the store until `prune --yes` deletes them; `doctor` and `prune` count
+them apart from the records of files gone from the library. Searches
+without the library (`--store-only`, or no library given) read only the
+store, so they find ignored files until those records are pruned. Removing
+a pattern brings its files back; `index` decodes them again if they were
+pruned. Gunfinger never writes this file; the patterns are yours.
+
 ### One file per library
 
 Keep one peak store per library: records are keyed by the path relative to
@@ -293,8 +332,9 @@ cannot be read (an unmounted network share, for example), `identify`,
 line; `--store-only` does the same when the library can be read. Reports
 name the library the store names, so `listen` and `review` play the tracks
 once it is back. Without the library there is no telling which files have
-changed or been deleted since they were indexed: their records are searched
-until `index` or `prune` replaces or removes them. A store indexed before
+changed or been deleted since they were indexed, or which the library's
+`.gunfingerignore` leaves out: their records are searched until `index` or
+`prune` replaces or removes them. A store indexed before
 it kept tags gets them from the next `index`, which reads only the files'
 headers.
 

@@ -48,7 +48,9 @@ ladders of turntable and key-locked rungs) → `search` (`lines` per window,
 `chains` across windows) → `confidence` → `plays` (segments of one asset
 grouped, same-audio plays merged). `profile` holds the front-end
 parameters; changing one invalidates every peak record. Around it:
-`library` finds the audio files, `indexing` brings the peak store up to
+`library` finds the audio files, leaving out what the owner's
+`.gunfingerignore` at the root lists (`library::ignore`, a subset of
+`.gitignore`; ADR 0009), `indexing` brings the peak store up to
 date (and remembers files that failed or are outside the track length
 range), `tags` holds the artist, title and album the store keeps for each
 file, `parallel` runs one item per worker thread, `timecode` parses and
@@ -62,7 +64,9 @@ flags, environment and the configuration file; `console` and `style` own
 messages and colour; `catalog` loads the index from the peak store, for
 the library's files or, without a library, the store's own records;
 `survey` compares the peak store with the library for `doctor` and
-`prune`; `names` reads track names from tags; `playback` picks the ladder.
+`prune`, telling records of files gone from the library from those of
+ignored files; `names` reads track names from tags; `playback` picks the
+ladder.
 
 The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
@@ -81,7 +85,8 @@ Python scripts that summarise harness reports for experiments live in
 
 `gunfinger-eval` depends on `gunfinger-core`, never the reverse. The CLI and the
 core never see a manifest, a set name or a track title. No per-track, per-set
-or filename-derived logic anywhere.
+or filename-derived logic anywhere. The patterns of `.gunfingerignore` are the
+owner's configuration, read as written; never write or derive them.
 
 ## House style
 
