@@ -31,7 +31,7 @@ gap between segments of a play, and the 90 s scoring tolerance.
 |-------------|---------------|
 | Sweep (seed 2026) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
 | Development set | 11/11, 0 wrong; leave-out 3: 8/11, 0 wrong; leave-out 11: 0/11, 0 wrong |
-| Second development set (`razorjack-2003-03-29`) | not yet scanned by the harness. `identify` against the NAS store: 12/12 confident, 0 wrong (owner's check), weakest track 2,233 hits (experiment 0060) |
+| Second development set (`razorjack-2003-03-29`) | not yet scanned by the harness. `identify` against the NAS store: 12/12 confident, 0 wrong (owner's check), weakest track 2,233 hits (experiment 0060). At 32,905 records: all 12, Phantom Force from a PHUD1 rip at 6,513 hits, and one confident title not played, a mixed-CD track whose last 1:11 already plays Phantom Force (1,364 hits; experiment 0063) |
 | Test set (owner-corrected manifest) | 14/16, 0 wrong; Sin (123 hits) and Sick Note (233 hits in 4 windows) found as possible; no possible play matches no track (ledger, evaluation 3: the default matcher of ADR 0008 with both playbacks). Evaluation 2, the single pass with turntable alone: 15/16 with Sick Note confident at 209 hits under its rule of 200 |
 | `calibrate`, confident rule | weakest identifying 501 hits, strongest false 97, margin 5.16× (both playbacks; turntable alone: 95, 5.27×) |
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |

@@ -144,5 +144,8 @@ the best. `gunfinger stats` reports the measurements.
 - `ed-rush-optical-essential-mix` is the held-out test set. It is evaluated
   only after the `poc-freeze-1` tag, at most five times in total, and every
   evaluation is logged in `docs/experiments/test-set-ledger.md`.
+  The NAS root holds `EM_1999_02_07_-_Ed_Rush_Optical.mp3`, by its name
+  a copy of the test set's broadcast (not yet confirmed by the owner):
+  never identify, decode or index it, and keep it out of every set.
 - Never edit a manifest. Suspected ground-truth errors go to "for the owner to
   check" and still count as wrong.
