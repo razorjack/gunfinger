@@ -1104,3 +1104,54 @@ Brief `docs/brief-7.md`, checklist `docs/session-7-checklist.md`.
   (verdict links only between searched, non-ignored files; the ignore
   file first). Notes and calibration register updated.
 - Documents only; no code changed.
+
+## 2026-10-09: session 8, a library ignore file
+
+Brief `docs/brief-8.md`, checklist `docs/session-8-checklist.md`.
+
+- 17:03 start, `git status` clean at `e66d9e7`. Release build in
+  `work/bin/s8-start/`; `baseline session-8-start` copies session 7's
+  reports; `regress session-8-start` with the start build as a check:
+  720/720 sweep queries and 87, 93, 79 scan detections identical. Its
+  calibrate line (weakest identifying 680 -> 658, false candidates at 30
+  hits 18 -> 46) compares the baseline's four reports with every report
+  in `work/reports/` (seeds 2027-2029 too); session 7's log has the same
+  line. The NAS store: 27,042 `.peaks`, 27,042 `.tags`, 1,396 `.skip`,
+  `library.txt`; digest `bf35ea64...e9ae4f5`; revision
+  `d428ee9585936326`, as expected.
+- `gunfinger-core/src/library/ignore.rs`: `.gunfingerignore` at the
+  library root, a subset of `.gitignore` with literal brackets; `!`,
+  backslashes, `/` alone and `//` are errors naming file and line.
+  `Library::scan` reads it, walks ignored folders and keeps their audio
+  files per pattern (`Library::ignore_file`, `Library::ignored`);
+  `ScanError` tells an unlistable library from an invalid ignore file,
+  which stops `identify`, `explain` and `stats` instead of falling back
+  to the store. ADR 0009.
+- CLI: `survey` labels each orphan `Gone` or `Ignored`; `doctor` reports
+  the file, each pattern's count (a warning at none) and the two groups
+  of records apart; `prune` lists the groups apart, sorted by path;
+  `index` says how many files the file left out. Tests: 16 for the
+  matcher, 4 scan tests, 2 end-to-end tests (ignored and gone files
+  through `prune`, `doctor`, `index` and `stats`; an invalid file stops
+  `doctor`, `stats` and `index`). `scripts/check.sh` green.
+- README ("Leaving folders out"), AGENTS.md, roadmap (item done; the
+  verdict-link step kept open).
+- `regress session-8-start` with the feature (`work/bin/s8-ignore/`):
+  720/720 and 87, 93, 79 detections identical; the same calibrate line.
+- The NAS: `/Volumes/atlas/Music/dnb/.gunfingerignore` written at 17:18,
+  the owner's four lines (254 bytes); the root listing gained only it.
+  `doctor --config ~/.config/gunfinger/nas-dnb.toml` (2:21): 30,216
+  audio files, 20 and 13 left out; 33 peak records and 33 tag notes of
+  ignored files; none of gone files; 1,812 audio files not indexed, 1
+  record out of date. `prune` without `--yes` (27 s): 66 files, the 33
+  records and 33 tag notes, nothing else. Read-only header check: 20
+  records under Dangerous Drums, 13 under The Creeps' CD2, 11 under its
+  CD1 kept; the records left after a prune give revision
+  `6a4349c86e2582df` (27,009 records).
+- The NAS store at the end: 27,042 `.peaks`, 27,042 `.tags`, 1,396
+  `.skip`; digest `bf35ea64...e9ae4f5`; revision `d428ee9585936326`; no
+  file newer than the brief. Unchanged.
+- Next: the owner runs `target/release/gunfinger prune --config
+  ~/.config/gunfinger/nas-dnb.toml --yes`; the next session takes a new
+  NAS baseline (revision `6a4349c86e2582df` expected). Then the verdict
+  links of the clusters (roadmap, "More development mixes").

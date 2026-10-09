@@ -1837,3 +1837,74 @@ UDFRCD003 - Dangerous Drums Volume 2 (2000)` (mixed); `2001 - VRSCD003
 reordered, plus Bleep Bleep and Kerb Crawler); `2002 - CPT003 - Kemal
 vs. Rob F & Impulse - 256` (tagged with the compilations "Stateside
 Sessions" and "Bass Drive").
+
+## Session 8
+
+### The library ignore file
+
+`.gunfingerignore` at the library root leaves files and folders out of
+the library (ADR 0009; the README's "Leaving folders out"). The syntax
+is a subset of `.gitignore`: `#` comments, a pattern starting with `/`
+or with a `/` in its middle is a path from the root, a trailing `/`
+matches folders only, `*` matches within one name, `?` one character
+and `**` any number of folders. Matching is case-sensitive, and square
+brackets are literal, so `[Virus]` is written as it is. A leading `!`
+and a backslash are errors that name the file and line and say what to
+write instead; such an error stops every command that reads the
+library.
+
+`index`, `identify`, `explain` and `stats` with a library, `doctor`,
+`prune` and the harness's library scans treat ignored files as files
+not in the library. `doctor` shows whether it read the file, how many
+audio files each pattern leaves out, a warning for a pattern that
+leaves out none, and the records of ignored files apart from those of
+files gone from the library. `prune` lists the two groups apart and
+`prune --yes` deletes both. Searches without the library
+(`--store-only`, or no library given) and the harness's
+`--other-peaks-dir` read only the store, so they still find ignored
+files until you prune. Detection is unchanged (`regress
+session-8-start`: 720/720 sweep queries and 87, 93 and 79 scan
+detections identical); `scripts/check.sh` is green.
+
+### Your first ignore file on the NAS
+
+`/Volumes/atlas/Music/dnb/.gunfingerignore` holds the four lines you
+gave (254 bytes, written 17:18). Nothing else on the NAS was written:
+the root's listing gained only this file, and the root folder's
+modification time moved to 17:18, as creating a file does. macOS
+attached its
+`com.apple.provenance` attribute to the file, as it does to every file
+written from this terminal; the share keeps it with the file, and no
+`._` file appeared.
+
+`doctor --config ~/.config/gunfinger/nas-dnb.toml` (2:21, mostly
+listing the NAS):
+
+- 30,216 audio files; the ignore file's line 3 (Dangerous Drums) leaves
+  out 20 audio files and line 4 (The Creeps' CD2) 13. The Creeps' CD1
+  stays: its 11 records are current.
+- 33 peak records and 33 tag notes are for the 33 ignored files. No
+  record or note is for a file gone from the NAS.
+- Unchanged by pruning: 1,812 audio files are not indexed yet (added to
+  the NAS since indexing), 1 record is out of date, and 1,396 files
+  were passed over (2 failed to decode, 108 too short, 1,286 too long).
+
+`prune --config ~/.config/gunfinger/nas-dnb.toml`, without `--yes` (27
+s): it would delete 66 files, the 33 peak records and 33 tag notes of
+the ignored files, and nothing else (no gone files, no skip notes, no
+temporary files). A read-only check of the record headers agrees: 20
+records under Dangerous Drums, 13 under The Creeps' CD2.
+
+To prune, from the repository root:
+
+```sh
+target/release/gunfinger prune --config ~/.config/gunfinger/nas-dnb.toml --yes
+```
+
+Afterwards the store holds 27,009 records, and its revision changes
+from `d428ee9585936326` to `6a4349c86e2582df` (computed read-only by
+`scripts/analysis/store_revision.py`'s method on the records that
+remain). The next session starts from that new baseline; NAS-scale
+results before it (experiments 0035-0061) include the 33 files.
+`2002 - CPT003 - Kemal vs. Rob F & Impulse - 256`, the third folder in
+"Mixed-CD tracks in the library", is not in the file.

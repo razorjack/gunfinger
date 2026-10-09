@@ -53,10 +53,14 @@ marked as inferences were derived, not measured.
   that scans the library; `doctor` counts the audio files per pattern and
   the records of ignored files apart from those of gone files, and `prune
   --yes` deletes both. Store-only runs see ignored files until they are
-  pruned. Open: `2002 - CPT003 - Kemal vs. Rob
-  F & Impulse - 256`, the third candidate in the owner notes ("Mixed-CD
-  tracks in the library"), is not listed; and the clusters' verdict links
-  must leave out ignored files (below, "More development mixes", step 2).
+  pruned. The owner's first file on the NAS leaves out Dangerous Drums
+  Volume 2 and The Creeps' CD2 (20 and 13 audio files); the owner runs
+  `prune --yes` with the NAS configuration, which deletes their 33 peak
+  records and 33 tag notes. Open: `2002 - CPT003 - Kemal vs. Rob F &
+  Impulse - 256`, the third candidate in the owner notes ("Mixed-CD
+  tracks in the library"), is not listed; and the clusters' verdict
+  links must leave out ignored files (below, "More development mixes",
+  step 2).
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit when detections, owner
   edits or the Track/AudioAsset model need to be stored.
