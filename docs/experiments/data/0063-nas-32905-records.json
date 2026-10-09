@@ -1,0 +1,834 @@
+{
+ "experiment": "0063",
+ "store_revision": "b8bb402f0ba23761",
+ "records": 32905,
+ "binary": "work/bin/s9-item2 (4ab661a)",
+ "stats": {
+  "command": "gunfinger stats --config ~/.config/gunfinger/nas-dnb.toml -f json -v",
+  "time": {
+   "wall_s": 125.77,
+   "user_s": 60.28,
+   "sys_s": 11.07,
+   "peak_footprint_bytes": 3746483176,
+   "index_build_s": 71.8
+  },
+  "index": {
+   "postings": 921960581,
+   "postings_per_second": 74.59823109760849,
+   "bytes": 3696230936,
+   "bytes_per_posting": 4.009098666659806,
+   "delta_varint_bytes_per_posting": 3.1501205169204516
+  },
+  "buckets": {
+   "count": 2097152,
+   "mean": 439.62506341934204,
+   "p99": 5515,
+   "max": 123575,
+   "fullest_percent_share": 0.2603546170484267
+  },
+  "peaks": {
+   "count": 462051942,
+   "per_second": 37.385825661905166,
+   "store_bytes": 2316592617,
+   "store_bytes_per_second": 187.44154030374932
+  },
+  "audio_seconds": 12359013.979750475,
+  "mean_track_seconds": 375.59683877071797
+ },
+ "development_mix": {
+  "command": "gunfinger --config /dev/null --peaks-dir <NAS store> --min-track 1:30 --max-track 15:00 identify <development mix> --store-only --playback both -f json -v",
+  "time": {
+   "wall_s": 315.19,
+   "user_s": 2330.74,
+   "sys_s": 13.74,
+   "peak_footprint_bytes": 4761931904,
+   "index_build_s": 64.7,
+   "search_s": 248.3
+  },
+  "tracklist": [
+   " 1.    0:00  Stakka + Skynet - Nightlore  (also: Stakka And Skynet - Night Lore, STAKKA and SKYNET - knight lore, Stakka & Skynet - Nightlore)",
+   " 2.    4:36  Stakka & Skynet - Decoy  (also: Stakka & Skynet - Decoy (Remastered))",
+   " 3.    9:43  KEMAL & ROB DATA - star trails  (also: Konflict - Star Trails)",
+   " 4.   10:28  Kemal & Rob Data - Star Trails (Synergy Remix) (possible; shares material with KEMAL & ROB DATA - star trails)",
+   " 5.   14:22  Stakka & Skynet - Pathogen  (also: SKYNET & STAKKA - pathogen)",
+   " 6.   17:32  Stakka & Skynet - Clockwork  (also: Stakka & Skynet - Clockwork (Remastered))",
+   " 7.   20:22  Stakka And Skynet - Clockwork (Stakka Rmx) (possible; shares material with Stakka & Skynet - Clockwork)",
+   " 8.   21:02  Kraken - Side Effects (Teebee remix)  (also: Kraken - side effects, TeeBee Remix)",
+   " 9.   25:20  Kraken+Arkane - Dominion  (also: KRAKEN - dominion)",
+   "10.   31:03  Kemal And Paul Reset - Kontempt  (also: KEMAL & PAUL RESET - kontempt)",
+   "11.   37:08  Stakka & Skynet feat. Kemal an - Bios-Fear  (also: Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered))",
+   "12.   43:22  Stakka + Skynet - Logistics  (also: SKYNET & STAKKA - logistics)",
+   "13.   49:43  Stakka & K.Tee - Auto Ignition  (also: ALIEN5IVE - AUDIO BLUEPRINT [ ABPR011 : STAKKA & K. TEE - auto ignition ] drum and bass)"
+  ],
+  "plays": [
+   {
+    "start": 0.1,
+    "end": 302.7,
+    "confidence": "confident",
+    "hits": 3383,
+    "speed": 0.9973,
+    "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+    "file_span": [
+     0.4,
+     302.1
+    ]
+   },
+   {
+    "start": 0.1,
+    "end": 303.9,
+    "confidence": "confident",
+    "hits": 3832,
+    "speed": 1.0268,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/under_fire-stakka_and_skynet-udfr016-2000-sour/a-stakka_and_skynet-nightlore-sour.mp3",
+    "file_span": [
+     0.1,
+     312.1
+    ]
+   },
+   {
+    "start": 0.1,
+    "end": 278.3,
+    "confidence": "confident",
+    "hits": 3443,
+    "speed": 1.0245,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/va-dangerous_drums_2-udfrcd002-2000-sour/cd2/01-stakka_and_skynet-night_lore-sour.mp3",
+    "file_span": [
+     0.1,
+     285.1
+    ]
+   },
+   {
+    "start": 0.5,
+    "end": 304.0,
+    "confidence": "confident",
+    "hits": 2687,
+    "speed": 0.9927,
+    "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+    "file_span": [
+     0.4,
+     301.6
+    ]
+   },
+   {
+    "start": 276.1,
+    "end": 605.5,
+    "confidence": "confident",
+    "hits": 3275,
+    "speed": 1.027,
+    "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+    "file_span": [
+     60.1,
+     398.5
+    ]
+   },
+   {
+    "start": 276.8,
+    "end": 628.2,
+    "confidence": "confident",
+    "hits": 3341,
+    "speed": 1.0287,
+    "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+    "file_span": [
+     61.5,
+     423.1
+    ]
+   },
+   {
+    "start": 285.5,
+    "end": 628.2,
+    "confidence": "confident",
+    "hits": 4869,
+    "speed": 1.0287,
+    "asset": "va-clockwork_lp_sampler-udfr_lps_04-2001-sour/a-stakka_and_skynet-decoy-sour.mp3",
+    "file_span": [
+     70.0,
+     422.5
+    ]
+   },
+   {
+    "start": 286.2,
+    "end": 605.7,
+    "confidence": "confident",
+    "hits": 4248,
+    "speed": 1.027,
+    "asset": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+    "file_span": [
+     70.4,
+     398.5
+    ]
+   },
+   {
+    "start": 583.5,
+    "end": 799.7,
+    "confidence": "confident",
+    "hits": 1764,
+    "speed": 1.0151,
+    "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+    "file_span": [
+     65.7,
+     285.2
+    ]
+   },
+   {
+    "start": 585.1,
+    "end": 803.7,
+    "confidence": "confident",
+    "hits": 1539,
+    "speed": 1.0449,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+    "file_span": [
+     67.7,
+     296.2
+    ]
+   },
+   {
+    "start": 628.9,
+    "end": 659.5,
+    "confidence": "possible",
+    "hits": 79,
+    "speed": 1.0101,
+    "asset": "__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "file_span": [
+     22.4,
+     53.3
+    ]
+   },
+   {
+    "start": 862.9,
+    "end": 1085.1,
+    "confidence": "confident",
+    "hits": 2078,
+    "speed": 1.016,
+    "asset": "audio_blueprint-stakka_and_skynet-abpr014-2001-sour/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+    "file_span": [
+     85.3,
+     311.0
+    ]
+   },
+   {
+    "start": 867.2,
+    "end": 1084.9,
+    "confidence": "confident",
+    "hits": 1350,
+    "speed": 0.9774,
+    "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+    "file_span": [
+     86.3,
+     299.1
+    ]
+   },
+   {
+    "start": 1052.1,
+    "end": 1316.7,
+    "confidence": "confident",
+    "hits": 3096,
+    "speed": 1.0141,
+    "asset": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+    "file_span": [
+     32.2,
+     300.6
+    ]
+   },
+   {
+    "start": 1060.6,
+    "end": 1328.9,
+    "confidence": "confident",
+    "hits": 2484,
+    "speed": 1.014,
+    "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+    "file_span": [
+     41.0,
+     313.0
+    ]
+   },
+   {
+    "start": 1222.9,
+    "end": 1240.8,
+    "confidence": "possible",
+    "hits": 94,
+    "speed": 1.012,
+    "asset": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "file_span": [
+     399.5,
+     417.7
+    ]
+   },
+   {
+    "start": 1262.1,
+    "end": 1576.4,
+    "confidence": "confident",
+    "hits": 1619,
+    "speed": 1.0034,
+    "asset": "__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+    "file_span": [
+     61.5,
+     376.9
+    ]
+   },
+   {
+    "start": 1280.1,
+    "end": 1576.4,
+    "confidence": "confident",
+    "hits": 1429,
+    "speed": 1.0034,
+    "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus",
+    "file_span": [
+     80.1,
+     377.5
+    ]
+   },
+   {
+    "start": 1282.7,
+    "end": 1576.4,
+    "confidence": "confident",
+    "hits": 2273,
+    "speed": 1.0034,
+    "asset": "va-clockwork_lp_sampler-udfr_lps_04-2001-sour/d-kraken-side_effects_(teebee_remix)-sour.mp3",
+    "file_span": [
+     82.0,
+     376.8
+    ]
+   },
+   {
+    "start": 1520.3,
+    "end": 1919.8,
+    "confidence": "confident",
+    "hits": 3350,
+    "speed": 1.0163,
+    "asset": "__youtube_archivists/alien5ive/ZERO G RECORDINGS [ ZEROG01 ： KRAKEN - dominion - ] drum and bass.opus",
+    "file_span": [
+     32.2,
+     438.1
+    ]
+   },
+   {
+    "start": 1530.7,
+    "end": 1919.8,
+    "confidence": "confident",
+    "hits": 3531,
+    "speed": 1.0163,
+    "asset": "[ZEROG01] Kraken+Arkane - Dominion+Neuro - 2001 [192]/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "file_span": [
+     42.0,
+     437.3
+    ]
+   },
+   {
+    "start": 1551.8,
+    "end": 1920.8,
+    "confidence": "confident",
+    "hits": 2276,
+    "speed": 0.9927,
+    "asset": "__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+    "file_span": [
+     62.2,
+     428.5
+    ]
+   },
+   {
+    "start": 1863.5,
+    "end": 2281.2,
+    "confidence": "confident",
+    "hits": 4452,
+    "speed": 1.0293,
+    "asset": "underfire-kemal_stakka_and_k_tee-udfr017-2001-sour/a-kemal_and_paul_reset-kontempt-sour.mp3",
+    "file_span": [
+     7.5,
+     437.6
+    ]
+   },
+   {
+    "start": 1890.2,
+    "end": 2282.6,
+    "confidence": "confident",
+    "hits": 3886,
+    "speed": 0.9834,
+    "asset": "__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+    "file_span": [
+     33.7,
+     419.7
+    ]
+   },
+   {
+    "start": 2228.6,
+    "end": 2607.7,
+    "confidence": "confident",
+    "hits": 3920,
+    "speed": 1.0101,
+    "asset": "__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+    "file_span": [
+     10.1,
+     393.0
+    ]
+   },
+   {
+    "start": 2240.8,
+    "end": 2606.9,
+    "confidence": "confident",
+    "hits": 4865,
+    "speed": 1.0101,
+    "asset": "stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+    "file_span": [
+     22.4,
+     392.2
+    ]
+   },
+   {
+    "start": 2602.6,
+    "end": 2997.7,
+    "confidence": "confident",
+    "hits": 5845,
+    "speed": 0.9927,
+    "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus",
+    "file_span": [
+     22.2,
+     414.4
+    ]
+   },
+   {
+    "start": 2602.6,
+    "end": 2997.7,
+    "confidence": "confident",
+    "hits": 6425,
+    "speed": 1.0222,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/audio_blueprint-stakka_and_skynet-abpr012-2000-sour/aa-stakka_and_skynet-logistics-sour.mp3",
+    "file_span": [
+     23.1,
+     426.9
+    ]
+   },
+   {
+    "start": 2983.9,
+    "end": 3361.1,
+    "confidence": "confident",
+    "hits": 3963,
+    "speed": 0.9972,
+    "asset": "__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 ： STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+    "file_span": [
+     7.9,
+     384.1
+    ]
+   },
+   {
+    "start": 2986.9,
+    "end": 3362.0,
+    "confidence": "confident",
+    "hits": 4742,
+    "speed": 1.0134,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+    "file_span": [
+     10.3,
+     390.5
+    ]
+   }
+  ]
+ },
+ "razorjack_2003_03_29": {
+  "command": "gunfinger identify --config ~/.config/gunfinger/nas-dnb.toml <mix> --store-only --playback both -f json -v",
+  "time": {
+   "wall_s": 266.49,
+   "user_s": 1840.37,
+   "sys_s": 13.5,
+   "peak_footprint_bytes": 4658040816,
+   "index_build_s": 68.3,
+   "search_s": 193.9
+  },
+  "tracklist": [
+   " 1.    0:01  Kemal and Rob Data - Konspiracy  (also: A-Konspiracy-Kemal_and_Rob_Data-sour)",
+   " 2.    0:44  Kemal and Rob Data - Konspiracy Vip (possible; shares material with Kemal and Rob Data - Konspiracy)",
+   " 3.    2:10  Future Cut - Sex Drive  (also: Future Cut - The Specialist)",
+   " 4.    2:30  Kosheen - Hide U (Decoder & Substance Mx) (possible; shares material with Future Cut - Sex Drive)",
+   " 5.    2:52  Future Cut - The Specialist",
+   " 6.    6:12  Narcosis - Escape Route  (also: AA-Escape_Route-Narcosis-sour)",
+   " 7.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)",
+   " 8.   10:54  MC MC & Rushour - Music Maker (Majistrate Remix)",
+   " 9.   11:21  Digital & Spirit - Phantom Force",
+   "10.   11:31  Digital & Spirit - Phantom 2018 (possible; shares material with Digital and Spirit - Phantom Force)",
+   "11.   12:51  Rift feat. Souldrop - Meltdown (possible; shares material with Digital and Spirit - Phantom Force)",
+   "12.   13:46  Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit) (possible; shares material with Digital and Spirit - Phantom Force)",
+   "13.   14:40  Tee Bee - Two Faced",
+   "14.   17:23  Omni Trio - Kinetic",
+   "15.   24:24  Carlito & Addiction - Into Music",
+   "16.   29:13  Omni Trio - Artificial Life (Harp Tune)",
+   "17.   31:04  Total Science - Yvon Is On",
+   "18.   34:54  Marcus Intalex & ST Files - Balderdash  (also: Marcus Intalex & S.T.Files - Balderdash)",
+   "19.   39:06  Spirit - Out Of Control",
+   "20.   42:13  DJ HIDDEN - skektics",
+   "21.   42:15  Dj Hidden - Skektics"
+  ],
+  "plays": [
+   {
+    "start": 1.9,
+    "end": 148.9,
+    "confidence": "confident",
+    "hits": 4333,
+    "speed": 1.0666,
+    "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+    "file_span": [
+     0.0,
+     156.7
+    ]
+   },
+   {
+    "start": 1.9,
+    "end": 148.9,
+    "confidence": "confident",
+    "hits": 4332,
+    "speed": 1.0666,
+    "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+    "file_span": [
+     0.0,
+     156.7
+    ]
+   },
+   {
+    "start": 44.4,
+    "end": 148.6,
+    "confidence": "possible",
+    "hits": 281,
+    "speed": 1.0134,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-02/dieselboy-system_upgrade-2000-sour/09-kemal_and_rob_data-konspiracy_vip-sour.mp3",
+    "file_span": [
+     24.3,
+     62.7
+    ]
+   },
+   {
+    "start": 130.3,
+    "end": 398.0,
+    "confidence": "confident",
+    "hits": 6872,
+    "speed": 1.0479,
+    "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+    "file_span": [
+     45.8,
+     328.2
+    ]
+   },
+   {
+    "start": 131.2,
+    "end": 379.2,
+    "confidence": "confident",
+    "hits": 2475,
+    "speed": 1.0042,
+    "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "file_span": [
+     44.9,
+     293.0
+    ]
+   },
+   {
+    "start": 136.0,
+    "end": 403.9,
+    "confidence": "confident",
+    "hits": 2150,
+    "speed": 1.0435,
+    "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+    "file_span": [
+     51.5,
+     330.0
+    ]
+   },
+   {
+    "start": 145.1,
+    "end": 403.2,
+    "confidence": "confident",
+    "hits": 2564,
+    "speed": 1.0475,
+    "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+    "file_span": [
+     61.2,
+     330.8
+    ]
+   },
+   {
+    "start": 150.9,
+    "end": 171.1,
+    "confidence": "possible",
+    "hits": 88,
+    "speed": 1.0251,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 3/2000-11/dj_marky-audio_architecture-2000-sour/01-dj_marky-kosheen--hide_u_(decoder_and_substance)-sour.mp3",
+    "file_span": [
+     257.4,
+     278.1
+    ]
+   },
+   {
+    "start": 172.1,
+    "end": 391.9,
+    "confidence": "confident",
+    "hits": 2972,
+    "speed": 1.0278,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 3/2000-11/dj_marky-audio_architecture-2000-sour/02-dj_marky-future_cut--the_specialist-sour.mp3",
+    "file_span": [
+     0.1,
+     225.1
+    ]
+   },
+   {
+    "start": 372.9,
+    "end": 708.6,
+    "confidence": "confident",
+    "hits": 8588,
+    "speed": 1.0471,
+    "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+    "file_span": [
+     77.6,
+     429.0
+    ]
+   },
+   {
+    "start": 372.9,
+    "end": 708.6,
+    "confidence": "confident",
+    "hits": 8589,
+    "speed": 1.0471,
+    "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+    "file_span": [
+     77.6,
+     429.0
+    ]
+   },
+   {
+    "start": 649.0,
+    "end": 906.3,
+    "confidence": "confident",
+    "hits": 6513,
+    "speed": 1.0452,
+    "asset": "__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "file_span": [
+     57.8,
+     326.3
+    ]
+   },
+   {
+    "start": 654.3,
+    "end": 857.6,
+    "confidence": "confident",
+    "hits": 1364,
+    "speed": 1.0142,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-contagious_drum_and_bass_volume_1-concd1-2000-sour/13-mc_mc_and_rushour-music_maker_(majistrate_remix)-sour.mp3",
+    "file_span": [
+     328.6,
+     371.4
+    ]
+   },
+   {
+    "start": 681.3,
+    "end": 898.1,
+    "confidence": "confident",
+    "hits": 1578,
+    "speed": 1.0142,
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-contagious_drum_and_bass_volume_1-concd1-2000-sour/14-digital_and_spirit-phantom_force-sour.mp3",
+    "file_span": [
+     117.9,
+     115.5
+    ]
+   },
+   {
+    "start": 691.2,
+    "end": 816.5,
+    "confidence": "possible",
+    "hits": 322,
+    "speed": 1.0621,
+    "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "file_span": [
+     75.2,
+     115.4
+    ]
+   },
+   {
+    "start": 715.8,
+    "end": 908.6,
+    "confidence": "confident",
+    "hits": 2233,
+    "speed": 1.0597,
+    "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+    "file_span": [
+     128.9,
+     333.1
+    ]
+   },
+   {
+    "start": 771.3,
+    "end": 808.9,
+    "confidence": "possible",
+    "hits": 76,
+    "speed": 1.0419,
+    "asset": "__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+    "file_span": [
+     44.5,
+     83.6
+    ]
+   },
+   {
+    "start": 826.1,
+    "end": 856.5,
+    "confidence": "possible",
+    "hits": 118,
+    "speed": 1.06,
+    "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+    "file_span": [
+     45.1,
+     77.4
+    ]
+   },
+   {
+    "start": 880.8,
+    "end": 1204.9,
+    "confidence": "confident",
+    "hits": 2712,
+    "speed": 1.0413,
+    "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+    "file_span": [
+     78.9,
+     416.0
+    ]
+   },
+   {
+    "start": 1043.7,
+    "end": 1518.8,
+    "confidence": "confident",
+    "hits": 8633,
+    "speed": 1.059,
+    "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+    "file_span": [
+     71.0,
+     442.4
+    ]
+   },
+   {
+    "start": 1464.8,
+    "end": 1765.8,
+    "confidence": "confident",
+    "hits": 2363,
+    "speed": 1.0549,
+    "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+    "file_span": [
+     27.6,
+     344.5
+    ]
+   },
+   {
+    "start": 1753.9,
+    "end": 1958.1,
+    "confidence": "confident",
+    "hits": 3189,
+    "speed": 1.0701,
+    "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+    "file_span": [
+     24.1,
+     242.7
+    ]
+   },
+   {
+    "start": 1864.3,
+    "end": 2133.8,
+    "confidence": "confident",
+    "hits": 3236,
+    "speed": 1.0564,
+    "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+    "file_span": [
+     30.6,
+     315.2
+    ]
+   },
+   {
+    "start": 1865.7,
+    "end": 2132.8,
+    "confidence": "confident",
+    "hits": 5437,
+    "speed": 1.0581,
+    "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+    "file_span": [
+     31.8,
+     314.5
+    ]
+   },
+   {
+    "start": 2094.3,
+    "end": 2419.7,
+    "confidence": "confident",
+    "hits": 3602,
+    "speed": 1.0581,
+    "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+    "file_span": [
+     52.8,
+     397.2
+    ]
+   },
+   {
+    "start": 2100.8,
+    "end": 2419.7,
+    "confidence": "confident",
+    "hits": 5567,
+    "speed": 1.0563,
+    "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+    "file_span": [
+     59.8,
+     396.5
+    ]
+   },
+   {
+    "start": 2346.2,
+    "end": 2535.6,
+    "confidence": "confident",
+    "hits": 2767,
+    "speed": 1.0644,
+    "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+    "file_span": [
+     20.9,
+     222.5
+    ]
+   },
+   {
+    "start": 2354.4,
+    "end": 2535.3,
+    "confidence": "confident",
+    "hits": 825,
+    "speed": 1.0645,
+    "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+    "file_span": [
+     29.6,
+     222.1
+    ]
+   },
+   {
+    "start": 2534.0,
+    "end": 2763.2,
+    "confidence": "confident",
+    "hits": 1984,
+    "speed": 1.0098,
+    "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+    "file_span": [
+     61.5,
+     292.9
+    ]
+   },
+   {
+    "start": 2535.7,
+    "end": 2763.3,
+    "confidence": "confident",
+    "hits": 6591,
+    "speed": 1.0432,
+    "asset": "04 - dj hidden - skektics.mp3",
+    "file_span": [
+     21.8,
+     259.2
+    ]
+   },
+   {
+    "start": 2535.7,
+    "end": 2763.2,
+    "confidence": "confident",
+    "hits": 4399,
+    "speed": 1.0432,
+    "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+    "file_span": [
+     21.9,
+     259.2
+    ]
+   }
+  ]
+ }
+}

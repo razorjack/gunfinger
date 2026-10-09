@@ -1192,3 +1192,15 @@ Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
   green; `regress session-9-start` (`work/bin/s9-frames16/`): 720/720
   and 87, 93, 79 detections identical. Binary with the final message:
   `work/bin/s9-item2/`.
+- Item 3 (experiment 0063): at 32,905 records `stats` reports 922.0 M
+  postings, 3.70 GB, 4.01 bytes per posting, buckets p99 5,515; 126 s
+  wall with the NAS listing, index built in 71.8 s, 3.75 GB. The
+  development mix, store-only: 315 s, 2,344 s CPU, 4.76 GB; 30 plays as
+  in 0050, the same 13 tracklist lines; 5 plays named after new copies
+  with the same hits, one of them the Dangerous Drums 2 mixed CD back
+  under `__full_scene/dnb_scene - 2000 - Part 2/2000-08/va-dangerous_drums_2-udfrcd002-2000-sour/`.
+  The 2003 mix: 266 s, 1,854 s CPU, 4.66 GB; all 12 tracks, Phantom
+  Force from 10:48 (a PHUD1 vinyl rip, 6,513 hits); 21 tracklist lines
+  against 16, from three mixed CDs in the scene folders, including a
+  confident "Music Maker (Majistrate Remix)" (Contagious Drum & Bass
+  Vol 1, track 13, whose last 1:11 plays track 14, Phantom Force).
