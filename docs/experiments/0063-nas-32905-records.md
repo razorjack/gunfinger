@@ -1,8 +1,7 @@
 # 0063: the NAS store at 32,905 records
 
-**Question.** Item 3 of session 9: what do `stats` and two store-only
-searches cost at 32,905 records (0062), and what do the 5,897 new
-records change in the two development mixes?
+**Question.** Item 3 of session 9: costs at 32,905 records (0062), and
+what the 5,897 new records change in the two development mixes.
 
 **Commands.** `work/bin/s9-item2/` (4ab661a), store `b8bb402f0ba23761`:
 `stats --config ~/.config/gunfinger/nas-dnb.toml`; the development mix
