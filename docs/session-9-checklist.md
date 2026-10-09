@@ -8,13 +8,13 @@ for scope and rules.
 
 - [x] `git status` clean at `9fda7db`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build (`work/bin/s9-start/`); `baseline session-9-start`
-- [ ] The NAS store at the start: records, skip notes, revision
+- [x] Release build (`work/bin/s9-start/`); `baseline session-9-start`
+- [x] The NAS store at the start: records, skip notes, revision
   (`b8bb402f0ba23761` expected), census, the longest record
 
 ## Items
 
-- [ ] 1. `stats` with the NAS configuration stops at 32,768 assets: the
+- [x] 1. `stats` with the NAS configuration stops at 32,768 assets: the
   message and the time to fail
 - [ ] 2. 16 frame bits: `index.rs`, default track limit 17:00, messages,
   help, README, configuration docs, doctor; tests (round trip, the

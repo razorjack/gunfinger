@@ -1155,3 +1155,29 @@ Brief `docs/brief-8.md`, checklist `docs/session-8-checklist.md`.
   ~/.config/gunfinger/nas-dnb.toml --yes`; the next session takes a new
   NAS baseline (revision `6a4349c86e2582df` expected). Then the verdict
   links of the clusters (roadmap, "More development mixes").
+
+## 2026-10-09: session 9, past 32,768 assets, the NAS over Ethernet
+
+Brief `docs/brief-9.md`, checklist `docs/session-9-checklist.md`.
+
+- 20:28 start, `git status` clean at `9fda7db`. Release build of
+  `9fda7db` in `work/bin/s9-start/`; `baseline session-9-start` saved
+  (`work/baselines/session-9-start/`, session 8's reports). The laptop
+  is on Ethernet (`en7`, 1000baseT), the NAS mounted over SMB.
+- The NAS store at the start: 32,905 `.peaks`, 32,905 `.tags`, 1,565
+  `.skip` (1,423 too long, 129 too short, 13 failed), revision
+  `b8bb402f0ba23761`, as expected (`store_revision.py`, `store_census.py`
+  into `work/s9/census-start.json`). 3,433 h of audio, 230.9 GB of
+  source files, 2.32 GB of records. Longest record 14:56.8, an alien5ive
+  upload with 0 peaks ("without music ... VJ Shader Effect"); next a
+  14:48 mix in `sety/` and a 14:47 Kiss FM show in the scene folders.
+  `scripts/analysis/store_records.py` (new) lists every record with the
+  time its file was written: 27,008 records from 10-07/10-08 and 5,897
+  written 10-09 17:42-18:01 (4,086 under `__full_scene/`, 1,811 under
+  `__youtube_archivists/` butch-french, dnbfreak0 and rootzdnb).
+- Item 1: `gunfinger stats --config ~/.config/gunfinger/nas-dnb.toml`
+  (start build) stops with "the index holds at most 32768 assets" after
+  57.0 s wall (22.9 s user, 4.5 s system, 20 MB peak footprint): the
+  NAS listing, then the counting pass over 32,768 records. With
+  `--store-only` the same error comes after 24.5 s, so the listing over
+  Ethernet took about 32 s.
