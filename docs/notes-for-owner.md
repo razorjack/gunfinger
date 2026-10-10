@@ -2290,7 +2290,10 @@ searched.
   it after you judge pack items, and after a prune; run the full search
   after indexing new files. The check before a full search now reads the
   last run's pairs the same way, so a chain the last run found stops the
-  next run at once.
+  next run at once. A search that a verdict stops anyway keeps its pairs
+  in `duplicate-clusters-stopped.json` and says so; after your verdict,
+  `clusters --from-peaks --reuse-pairs <that file>` clusters them
+  without searching again.
 - **`scripts/analysis/listening_pack.py`** builds the listening pack
   from a clusters report: `select` (cut joins, borderline pairs and
   sparse joins without a verdict, controls drawn by seed), `render`

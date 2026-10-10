@@ -1409,3 +1409,13 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   searched report was put back); without it, the Sonar chain stops it in
   1 s. `scripts/check.sh` green; `regress session-10-start` identical
   (`work/bin/s10-reuse/`, 248 s).
+- A search that a verdict stops now keeps its pairs in
+  `duplicate-clusters-stopped.json` (no clusters) and names the file;
+  `--reuse-pairs [REPORT]` takes it, or the clusters in use without a
+  value. `as_measured` applies the current verdicts, so the reused run
+  prints the same lists as a search (322 further rips, 2 sparse joins,
+  61 borderline pairs) and writes the same 264 clusters and cut; checked
+  on a stopped-style copy of this session's report, and the searched
+  report put back. The stop path itself was not run (it needs a full
+  search). `scripts/check.sh` green; `regress session-10-start`
+  identical (248 s).

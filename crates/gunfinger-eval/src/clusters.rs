@@ -424,13 +424,18 @@ pub fn print_cut_links(clusters: &Clusters) {
     }
 }
 
-/// An earlier run's pairs as its search measured them, before verdicts
-/// and cuts: `same_recording` by the coverage rule alone. Pairs with a
-/// file this run does not search (pruned since, or left out by an ignore
-/// file) are dropped; returns the pairs kept and the number dropped.
-pub fn as_measured(pairs: Vec<Pair>, searched: &Searched) -> (Vec<Pair>, usize) {
+/// An earlier run's pairs as its search measured them, with the current
+/// verdicts in place of that run's and none of its cuts: `same_recording`
+/// by the coverage rule unless a verdict decides it. Pairs with a file
+/// this run does not search (pruned since, or left out by an ignore file)
+/// are dropped; returns the pairs kept and the number dropped.
+pub fn as_measured(
+    pairs: Vec<Pair>,
+    searched: &Searched,
+    verdicts: &Verdicts,
+) -> (Vec<Pair>, usize) {
     let before = pairs.len();
-    let kept: Vec<Pair> = pairs
+    let mut kept: Vec<Pair> = pairs
         .into_iter()
         .filter(|pair| {
             searched.outside(&pair.query).is_none() && searched.outside(&pair.found).is_none()
@@ -441,6 +446,7 @@ pub fn as_measured(pairs: Vec<Pair>, searched: &Searched) -> (Vec<Pair>, usize) 
             ..pair
         })
         .collect();
+    verdicts.apply(&mut kept);
     let dropped = before - kept.len();
     (kept, dropped)
 }
@@ -1538,7 +1544,8 @@ mod tests {
         };
         let pruned = pair("a.mp3", "second-library/gone.mp3", true);
 
-        let (pairs, dropped) = as_measured(vec![judged, cut, pruned], &searched);
+        let verdicts = Verdicts::parse("different\ta.mp3\tsecond-library/upload.opus\n").unwrap();
+        let (pairs, dropped) = as_measured(vec![judged, cut, pruned], &searched, &verdicts);
 
         assert_eq!(dropped, 1);
         let state: Vec<(&str, bool, Option<bool>)> = pairs
@@ -1548,7 +1555,7 @@ mod tests {
         assert_eq!(
             state,
             [
-                ("second-library/upload.opus", false, None),
+                ("second-library/upload.opus", false, Some(false)),
                 ("second-library/rip.m4a", true, None)
             ]
         );

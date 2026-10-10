@@ -392,9 +392,9 @@ marked as inferences were derived, not measured.
   the owner instead. `--reuse-pairs` (session 10) clusters the last
   report's pairs again with new verdicts in about a second, and the
   check before a search now reads those pairs as measured, so it catches
-  such a chain once a run has found it. Still to do: a stopped run
-  writes no report, so its pairs are lost; write them before stopping.
-  *(larger library)*
+  such a chain once a run has found it. A search that a verdict stops
+  keeps its pairs in `duplicate-clusters-stopped.json`, which
+  `--reuse-pairs` takes. *(larger library)*
 - **Clustering precision.** Most of session 6's gain at NAS scale came
   from joining rips the clusters had missed, so a wrong join would now
   count a false identification as correct. Coverage counts the span

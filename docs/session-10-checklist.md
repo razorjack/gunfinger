@@ -57,9 +57,10 @@ for scope and rules.
 
 ## After the extension to 11:30
 
-- [x] `clusters --reuse-pairs`: the last run's pairs clustered again
-  without searching; the pre-search check reads them as measured; test;
-  checked against this session's report; regress identical
+- [x] `clusters --reuse-pairs [REPORT]`: an earlier run's pairs clustered
+  again without searching; the pre-search check reads them as measured;
+  a search stopped by a verdict keeps its pairs; test; checked against
+  this session's report; regress identical
 
 ## Wrap-up
 
