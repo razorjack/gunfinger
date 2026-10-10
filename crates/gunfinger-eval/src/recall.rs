@@ -78,6 +78,11 @@ pub struct Panel {
     pub families: usize,
     pub development: Half,
     pub validation: Half,
+    /// Development sources without a current record any more (ignored or
+    /// pruned since the draw). They stay in the draw, so that the rendered
+    /// excerpts keep their numbers, and are searched nowhere.
+    #[serde(skip)]
+    pub left_out: Vec<Source>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -127,25 +132,41 @@ impl Panel {
         }
         let text = fs::read_to_string(&path)
             .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        let panel: Panel =
+        let mut panel: Panel =
             serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
         let present: BTreeSet<String> = assets
             .iter()
             .map(|asset| format!("{SECOND_LIBRARY_PREFIX}{}", asset.path))
             .collect();
-        let missing = panel
-            .development
+        panel.left_out = panel.without_record(&present);
+        for source in &panel.left_out {
+            eprintln!(
+                "left out of the recall panel: {} has no record any more; the panel is not drawn again",
+                source.asset
+            );
+        }
+        Ok(panel)
+    }
+
+    fn without_record(&self, present: &BTreeSet<String>) -> Vec<Source> {
+        self.development
             .sources
             .iter()
             .filter(|source| !present.contains(&source.asset))
-            .count();
-        if missing > 0 {
-            return Err(format!(
-                "{} draws {missing} development sources that no longer have a record",
-                path.display()
-            ));
-        }
-        Ok(panel)
+            .cloned()
+            .collect()
+    }
+
+    /// The development sources searched: those with a current record.
+    pub fn searched_sources(&self) -> impl Iterator<Item = &Source> {
+        self.development
+            .sources
+            .iter()
+            .filter(|source| !self.is_left_out(source))
+    }
+
+    fn is_left_out(&self, source: &Source) -> bool {
+        self.left_out.iter().any(|gone| gone.asset == source.asset)
     }
 }
 
@@ -221,6 +242,7 @@ fn draw(candidates: &[Candidate], records: usize, seed: u64) -> Panel {
         families: families.len(),
         development: half(development),
         validation: half(validation),
+        left_out: Vec::new(),
     }
 }
 
@@ -295,8 +317,10 @@ pub fn render(
         .enumerate()
         .map(|(number, (_, speed, path))| {
             let source = &panel.development.sources[number / SPEEDS_PERCENT.len()];
-            (source.clone(), speed, path)
+            (source, speed, path)
         })
+        .filter(|(source, _, _)| !panel.is_left_out(source))
+        .map(|(source, speed, path)| (source.clone(), speed, path))
         .collect())
 }
 
@@ -597,6 +621,54 @@ mod tests {
         }
         assert!(families(&panel.development).is_disjoint(&families(&panel.validation)));
         assert_eq!(panel.families, 200);
+    }
+
+    #[test]
+    fn a_source_without_a_record_is_left_out_and_the_others_keep_their_order() {
+        let mut candidates = Vec::new();
+        for number in 0..400 {
+            let family = format!("artist {number} - title");
+            for folder in ["__full_scene/s", "__youtube_archivists/c", "label"] {
+                candidates.push(candidate(&format!("{folder}/{number}.mp3"), &family));
+            }
+        }
+        let mut panel = draw(&candidates, candidates.len(), 2026);
+        let drawn: Vec<String> = panel
+            .development
+            .sources
+            .iter()
+            .map(|source| source.asset.clone())
+            .collect();
+        let pruned = drawn[1].clone();
+        let present: BTreeSet<String> = candidates
+            .iter()
+            .map(|candidate| candidate.asset.clone())
+            .filter(|asset| *asset != pruned)
+            .collect();
+
+        panel.left_out = panel.without_record(&present);
+
+        let left_out: Vec<&str> = panel
+            .left_out
+            .iter()
+            .map(|source| source.asset.as_str())
+            .collect();
+        assert_eq!(left_out, [pruned.as_str()]);
+        let searched: Vec<&str> = panel
+            .searched_sources()
+            .map(|source| source.asset.as_str())
+            .collect();
+        let expected: Vec<&str> = drawn
+            .iter()
+            .filter(|asset| **asset != pruned)
+            .map(String::as_str)
+            .collect();
+        assert_eq!(searched, expected);
+        assert_eq!(
+            panel.development.sources.len(),
+            80,
+            "the draw stays as it was"
+        );
     }
 
     fn query(held_out: bool, outcomes: &[(bool, bool, u32, u32)]) -> Query {

@@ -862,13 +862,7 @@ impl ExtraQueries {
         }
         if let Some(seed) = self.recall_panel {
             let panel = recall_panel(paths, other, seed)?;
-            files.extend(
-                panel
-                    .development
-                    .sources
-                    .into_iter()
-                    .map(|source| source.asset),
-            );
+            files.extend(panel.searched_sources().map(|source| source.asset.clone()));
         }
         Ok(files)
     }
