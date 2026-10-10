@@ -1542,3 +1542,10 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   file cache). Item 4's analysis is light and runs during item 5; its
   `pair` runs follow item 5. The roadmap is updated for 3a-3c
   (`0b3ac4f`).
+- 00:11: the clusters search ended round 1 (352 queries, 5:08 since
+  19:03); round 2 has 294 queries (session 10: 290), so the search
+  should end around 03:30. A second waiting script
+  (`work/s11/after-chain.sh`, `screen` session `s11-item6`) starts item
+  6 (`work/s11/item6.sh`) when the first chain writes "all done", and
+  does nothing if it stopped. Evaluation 4 is not chained: its ledger
+  entry and prediction come first, after a look at items 5 and 6.
