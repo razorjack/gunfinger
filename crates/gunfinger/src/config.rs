@@ -158,6 +158,17 @@ fn default_path() -> Option<PathBuf> {
     Some(config_home.join("gunfinger").join("config.toml"))
 }
 
+/// The folder of saved indexes, `$XDG_CACHE_HOME/gunfinger/indexes` or
+/// `~/.cache/gunfinger/indexes`: derived data that a search builds again
+/// when it is missing.
+pub fn index_dir() -> Option<PathBuf> {
+    let cache_home = std::env::var_os("XDG_CACHE_HOME")
+        .filter(|dir| !dir.is_empty())
+        .map(PathBuf::from)
+        .or_else(|| home().map(|home| home.join(".cache")))?;
+    Some(cache_home.join("gunfinger").join("indexes"))
+}
+
 fn home() -> Option<PathBuf> {
     std::env::var_os("HOME")
         .filter(|home| !home.is_empty())
