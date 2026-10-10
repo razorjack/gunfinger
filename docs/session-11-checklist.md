@@ -52,8 +52,10 @@ for scope and rules.
 - [ ] 6. The recall panel's development half; against 0068
 - [ ] 7. Evaluation 4: ledger entry with the prediction, one run,
   verbatim result, comparison, "Evaluations used: 4 of 5"
-- [ ] 8a. Mixed discs among the folders indexed since 0065: a list for
-  the owner's ear
+- [x] 8a. Mixed discs among the folders indexed since 0065: none of the
+  1,252 new records is a release folder (YouTube uploads); by disc, no
+  disc scores like a mixed CD; seven units in between for the ear
+  (experiment 0070, `1ff347c`)
 - [ ] 8b. Where a NAS `identify` spends its time with the saved index
 - [ ] 8c. Shared material at NAS scale
 

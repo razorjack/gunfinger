@@ -17,15 +17,16 @@ marked as inferences were derived, not measured.
   workers' hit buffers (about 2 GB) and the final sort of the lines.
   16-byte hits and sorting the lines without a half-size copy would take
   off about 1.2 GB, also with identical detections; not done.
-- **On-disk index.** The index is rebuilt in memory from the peak store on
-  every run. The recommended layout is in `docs/adr/0005-index-layout.md`.
-  Audit its widths first: its `u32` byte offsets into delta-coded lists
-  address 4.3 GB, and 100,000 tracks would need about 9.3 GB (ADR 0007);
-  posting offsets and the 16 asset bits have limits of their own. At NAS
-  scale every `identify` and `explain` builds the index from the store
-  in 65-72 s at 32,905 records (experiment 0063; 56.5 s at 27,042),
-  most of the time of a short `explain`. Compare loading a saved index
-  with rebuilding it first, and measure compression separately.
+- **On-disk index.** *(done in session 11, ADR 0011)* `identify`,
+  `explain` and `stats` save the index they build in
+  `$XDG_CACHE_HOME/gunfinger/indexes/` and load it while its header names
+  exactly what they would index (format, profile, hash design, frame
+  bits, track length range, asset table); a stale, truncated or damaged
+  file is rebuilt and replaced. The in-memory layout is kept, 4 bytes per
+  posting, so ADR 0005's delta-coded lists are not used. Still open:
+  compression (it needs `u64` byte offsets past 4.29 GB, ADR 0011), the
+  harness (its runs index other sets of files), and `doctor` counting
+  the file.
 - **More than 65,536 assets.** *(first step done in session 9, ADR
   0010)* The NAS store passed 32,768 records on 2026-10-09 (32,905), so
   a posting now holds 16 frame bits and 16 asset bits: 65,536 assets,
@@ -101,8 +102,12 @@ marked as inferences were derived, not measured.
   again, and keep the original asset names visible. Session 10 built the
   first step as files: `scripts/analysis/listening_pack.py` writes, per
   pair, a sheet and FFmpeg clips (each file in turn, and both aligned in
-  stereo) under `work/listening/`, in listening order; the owner writes
-  the verdicts by hand.
+  stereo) under `work/listening/`, in listening order. Session 11 added
+  `gunfinger-eval pair-review`, which steps through the pack's unjudged
+  items, plays their clips and appends the owner's `same` or `different`
+  line to `docs/pair-verdicts.txt`. Next: plays of a report confirmed,
+  rejected or renamed the same way, kept when the mix is identified
+  again.
 - **No record inside the track length range.** *(done in session 10)*
   With a store whose only records lie outside `--min-track` and
   `--max-track`, `stats`, `identify` and `explain` said "no indexed
@@ -111,14 +116,15 @@ marked as inferences were derived, not measured.
   18-minute file and the 17:00 default). They now say that the range
   leaves out every file with a peak record, how many and how long, and
   how to widen it.
-- **Titles of mislabelled files.** A play takes the title in its best
-  file's tags, so a mislabelled file gives a wrong title on a right
-  match: track 2 of the 2003 mix is printed as "Future Cut - Sex Drive"
-  (experiment 0061). Plays of other files over the same passage often
-  carry the right title (there, the INFRA 012 upload). Printing the other
-  titles when the files matching one passage disagree would show the
-  conflict without guessing which title is right; owner edits and the
-  Track/AudioAsset model would settle it.
+- **Titles of mislabelled files.** *(first step done in session 11)* A
+  play takes the title in its best file's tags, so a mislabelled file
+  gives a wrong title on a right match: track 2 of the 2003 mix is printed
+  as "Future Cut - Sex Drive" (experiment 0061). A confident play now
+  names the confident plays of other files over the same passage whose
+  tags give another title (`other_titles`; "titled X; other files here:
+  Y (play N)"; "titles disagree:" in the tracklist), without choosing
+  one. Owner edits and the Track/AudioAsset model would settle which
+  title is right.
 - **A full-screen TUI.** `review` steps through a report by ear in a line
   loop. Browsing detections against the mix's waveform would need a terminal
   UI dependency; worth it only if `review` proves too limited.
