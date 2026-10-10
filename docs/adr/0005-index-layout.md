@@ -5,7 +5,9 @@
 Accepted for the in-memory index; proposed for the on-disk index. The
 split of the posting below (17 frame bits, 15 asset bits) is superseded
 by ADR 0010 (2026-10-09): 16 frame bits address tracks up to 17:28 and 16
-asset bits 65,536 assets, in the same 4 bytes.
+asset bits 65,536 assets, in the same 4 bytes. The proposed on-disk design
+is superseded by ADR 0011 (2026-10-10): the saved index keeps the
+in-memory layout, and a delta-coded file would need `u64` byte offsets.
 
 ## Context
 

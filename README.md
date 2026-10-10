@@ -154,13 +154,17 @@ material with <asset> (play N)`, N counting plays as `review` does: most
 likely the two recordings share that passage, as a remix can carry the
 original's lead. This is display only; a remix played in its own right
 reaches past the original's play, or is confident itself, and is not
-marked.
+marked. When confident plays of other files over the same passage carry
+another title in their tags (a mislabelled file, or a VIP that plays the
+original's opening), a line underneath says `titled <its tags>; other
+files here: <title> (play N)`, without choosing which title is right.
 
 `--format` (`-f`, for `identify` and `show`) also takes:
 
 - `timeline`: each play as a bar across the recording.
 - `json`: the whole report: the playback searched (`query.playback`), plays
-  with their segments, `same_audio` paths, `shares_material_with` and the
+  with their segments, `same_audio` paths, `shares_material_with`,
+  `other_titles` (the plays above, with their tags' title) and the
   file's `tags` (artist, title, album) as the peak store holds them
   (`schema_version` 3; fields may be added without a version change).
 - `csv`: one row per play, times in seconds.
@@ -176,7 +180,8 @@ of several library files over the same stretch of the recording are one
 entry when, with each file's own speed taken out, the track would have
 started at the same moment (within 5 s): rips, masters and uploads sped up
 by a few percent. The entry is named after its strongest play; other names
-the tags give follow it. Two tracks that overlap in a blend stay apart, and
+the tags give follow it (`also:`, or `titles disagree:` when the titles
+themselves differ). Two tracks that overlap in a blend stay apart, and
 a possible play that shares material with another entry stays its own
 entry, naming it. The development mix against a large collection, where
 each track is found on 2-4 records (experiment 0050):
@@ -324,6 +329,21 @@ target/release/gunfinger --config ~/.config/gunfinger/jungle.toml index
 GUNFINGER_CONFIG=~/.config/gunfinger/jungle.toml target/release/gunfinger identify mix.m4a
 ```
 
+### A saved index
+
+`identify`, `explain` and `stats` build the index from the peak store
+(about 70 s at 33,000 records) and save it, by default, in
+`$XDG_CACHE_HOME/gunfinger/indexes/` (or `~/.cache/gunfinger/indexes/`),
+one file per peak store, about 4 bytes per posting (3.8 GB at 33,000
+records). The next search loads it instead, when its header names exactly
+what the search would index: the peak profile, the hash design, the track
+length range and every file's path, size and modification time. After
+`index` adds or changes files, or a prune removes some, the next search
+builds it again and saves it over the old file; a damaged or truncated
+file is never used. `--saved-index rebuild` builds and saves it anyway,
+`--saved-index off` builds it in memory only, and `--exclude-from` leaves
+the file alone. The folder can be deleted at any time (ADR 0011).
+
 ### Without the library
 
 Each peak record names its file, and `index` keeps each file's artist,
@@ -409,6 +429,14 @@ dropped, and files indexed since are not searched. The check before a
 search reads the last run's pairs the same way. It
 prints each pair's hits per second of aligned span and lists the joins
 under a tenth of the median: their coverage rests on little evidence.
+`gunfinger-eval pair-review` steps through the listening pack
+(`work/listening/`, from `scripts/analysis/listening_pack.py`) by ear:
+for each item without a verdict it shows both full paths, the coverage
+and where the files stop lining up, plays the clips with `ffplay`, and on
+`s` or `d` appends the `same` or `different` line to the verdicts file
+(Enter or `n` the next clip, `p` the previous, `r` replay, `k` skip the
+item, `q` quit). At the end it prints the `clusters --reuse-pairs`
+command that applies the new verdicts.
 A verdict links only files the run searches: the corpus library's files
 and, with another library's store, the files it holds a current record
 of, never a file a library's ignore file leaves out (with a store alone,
