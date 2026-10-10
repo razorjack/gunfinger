@@ -7,9 +7,13 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
+use clap::ValueEnum;
+use gunfinger_core::hash;
 use gunfinger_core::index::Index;
+use gunfinger_core::index::saved::{self, Provenance, Unusable};
 use gunfinger_core::indexing::{
-    BuiltIndex, TrackLength, build_index, indexable_assets, library_revision,
+    BuiltIndex, IndexPlan, TrackLength, build_planned, indexable_assets, library_revision,
+    plan_index,
 };
 use gunfinger_core::library::{Asset, Library, ScanError};
 use gunfinger_core::profile::Profile;
@@ -32,6 +36,20 @@ pub struct Source<'a> {
     pub store_only: bool,
     pub exclude_from: Option<&'a Path>,
     pub track_length: TrackLength,
+    pub saved_index: SavedIndex,
+}
+
+/// Whether a search uses the index saved for its peak store (ADR 0011),
+/// a file in `config::index_dir`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
+pub enum SavedIndex {
+    /// Load it when it was built from what the search would index;
+    /// otherwise build the index and save it over the file.
+    Use,
+    /// Build the index and save it over the file.
+    Rebuild,
+    /// Build the index in memory only; no file is read or written.
+    Off,
 }
 
 /// The files an index can be built from: the library's, or those of the
@@ -47,6 +65,7 @@ pub struct Indexable {
     excluded: BTreeSet<String>,
     track_length: TrackLength,
     store_only: bool,
+    saved_index: SavedIndex,
 }
 
 impl Indexable {
@@ -69,6 +88,7 @@ impl Indexable {
                 excluded,
                 track_length: source.track_length,
                 store_only,
+                saved_index: source.saved_index,
             };
         let peaks_dir = source.peaks_dir;
         if source.store_only {
@@ -176,10 +196,11 @@ pub struct Catalog {
 }
 
 impl Catalog {
-    /// Builds the index from the current peak record of every indexable
-    /// file not excluded and within the track length range, reading one
-    /// record at a time. Files without a current record are reported on
-    /// stderr and left out.
+    /// The index of the current peak record of every indexable file not
+    /// excluded and within the track length range: loaded from the saved
+    /// index when it was built from exactly these, otherwise built from the
+    /// store, reading one record at a time, and saved (see `SavedIndex`).
+    /// Files without a current record are reported on stderr and left out.
     pub fn open(
         indexable: Indexable,
         matcher: Matcher,
@@ -194,17 +215,21 @@ impl Catalog {
             excluded,
             track_length,
             store_only,
+            saved_index,
         } = indexable;
-        let built = build_index(&assets, &store, &Profile::CURRENT, &excluded, track_length)
-            .into_diagnostic()?;
+        let plan = plan_index(&assets, &store, &Profile::CURRENT, &excluded, track_length);
+        let file = saved_file(&store, saved_index, &excluded, console);
         let BuiltIndex {
             index,
             revision,
+            problems: left_out,
             outside,
             sources,
-            ..
-        } = built;
-        problems.extend(built.problems);
+        } = match file {
+            Some(path) => load_or_build(&path, plan, &store, track_length, saved_index, console)?,
+            None => build_planned(plan, &store, &Profile::CURRENT).into_diagnostic()?,
+        };
+        problems.extend(left_out);
         report_left_out(&problems, console);
         report_outside(&outside, track_length, console);
         if index.assets().is_empty() {
@@ -217,7 +242,7 @@ impl Catalog {
             ));
         }
         console.detail(format_args!(
-            "index: {} assets ({} excluded), {} postings, {:.1} MB, built in {:.1} s",
+            "index: {} assets ({} excluded), {} postings, {:.1} MB, ready in {:.1} s",
             index.assets().len(),
             excluded.len(),
             index.posting_count(),
@@ -241,6 +266,98 @@ impl Catalog {
     pub fn tags(&self, path: &str) -> Option<Tags> {
         self.store.tags(self.sources.get(path)?)
     }
+}
+
+/// Where the search's saved index is, unless it uses none: with
+/// `--exclude-from` the index is not the library's, so it is neither read
+/// nor written.
+fn saved_file(
+    store: &PeakStore,
+    saved_index: SavedIndex,
+    excluded: &BTreeSet<String>,
+    console: &Console,
+) -> Option<PathBuf> {
+    if saved_index == SavedIndex::Off {
+        return None;
+    }
+    if !excluded.is_empty() {
+        console.detail("with --exclude-from the saved index is neither read nor written");
+        return None;
+    }
+    let Some(dir) = config::index_dir() else {
+        console.warning("no home folder to keep a saved index in (set XDG_CACHE_HOME or HOME); building the index");
+        return None;
+    };
+    Some(dir.join(saved::file_name(&absolute(store.dir()))))
+}
+
+/// The saved index at `path` when it matches the plan, otherwise the index
+/// built from the plan, saved at `path`. A file that cannot be written is
+/// a warning: the search goes on with the index built.
+fn load_or_build(
+    path: &Path,
+    plan: IndexPlan,
+    store: &PeakStore,
+    track_length: TrackLength,
+    saved_index: SavedIndex,
+    console: &Console,
+) -> miette::Result<BuiltIndex> {
+    let provenance = |sources: &[Asset]| Provenance {
+        profile: Profile::CURRENT.id(),
+        hash_design: hash::design(),
+        track_length,
+        sources: sources.to_vec(),
+    };
+    if saved_index == SavedIndex::Use {
+        let started = Instant::now();
+        match saved::load(path, &provenance(&plan.sources)) {
+            Ok(index) => {
+                console.detail(format_args!(
+                    "loaded the saved index {} in {:.1} s",
+                    path.display(),
+                    started.elapsed().as_secs_f64()
+                ));
+                return Ok(BuiltIndex {
+                    index,
+                    revision: library_revision(&plan.sources),
+                    problems: plan.problems,
+                    outside: plan.outside,
+                    sources: plan.sources,
+                });
+            }
+            Err(Unusable::Missing) => console.info(format_args!(
+                "building the index; it is saved for the next search in {}",
+                path.display()
+            )),
+            Err(unusable) => console.info(format_args!(
+                "{unusable}; building the index again and saving it over {}",
+                path.display()
+            )),
+        }
+    }
+    let started = Instant::now();
+    let built = build_planned(plan, store, &Profile::CURRENT).into_diagnostic()?;
+    console.detail(format_args!(
+        "built the index in {:.1} s",
+        started.elapsed().as_secs_f64()
+    ));
+    let started = Instant::now();
+    let saved = path
+        .parent()
+        .map_or(Ok(()), fs::create_dir_all)
+        .and_then(|()| saved::save(path, &provenance(&built.sources), &built.index));
+    match saved {
+        Ok(()) => console.detail(format_args!(
+            "saved the index to {} in {:.1} s",
+            path.display(),
+            started.elapsed().as_secs_f64()
+        )),
+        Err(error) => console.warning(format_args!(
+            "could not save the index to {} ({error}); the next search builds it again",
+            path.display()
+        )),
+    }
+    Ok(built)
 }
 
 /// Why an index holds no asset: the track length range leaves out every

@@ -265,12 +265,52 @@ pub struct BuiltIndex {
     pub sources: Vec<Asset>,
 }
 
-/// The index of the current peak records of `assets` (a library's, or a
-/// store's own `current_sources`) within `length`, leaving out the paths in
-/// `excluded`. It is built in two passes that read one record at a time
-/// from the store (`Index::counting`), so it needs little more memory than
-/// the index itself. Assets without a current record are left out and
-/// returned as problems rather than failing the build.
+/// What an index built now would hold, from the headers of the peak
+/// records alone.
+pub struct IndexPlan {
+    /// The files to index, in the order of their asset ids.
+    pub sources: Vec<Asset>,
+    /// Assets left out because they have no current peak record.
+    pub problems: Vec<StoreError>,
+    /// Assets left out because their length is outside the track length
+    /// range, with that length.
+    pub outside: Vec<(String, Duration)>,
+}
+
+/// The files of `assets` (a library's, or a store's own `current_sources`)
+/// with a current peak record within `length`, leaving out the paths in
+/// `excluded`, reading only the records' headers.
+pub fn plan_index(
+    assets: &[Asset],
+    store: &PeakStore,
+    profile: &Profile,
+    excluded: &BTreeSet<String>,
+    length: TrackLength,
+) -> IndexPlan {
+    let mut sources = Vec::new();
+    let mut problems = Vec::new();
+    let mut outside = Vec::new();
+    for asset in assets {
+        if excluded.contains(&asset.path) {
+            continue;
+        }
+        match store.load_header(asset, profile) {
+            Ok(header) => match length.leaves_out(&header) {
+                Some(duration) => outside.push((asset.path.clone(), duration)),
+                None => sources.push(asset.clone()),
+            },
+            Err(problem) => problems.push(problem),
+        }
+    }
+    IndexPlan {
+        sources,
+        problems,
+        outside,
+    }
+}
+
+/// The index of the current peak records of `assets` within `length`,
+/// leaving out the paths in `excluded` (see `plan_index`).
 pub fn build_index(
     assets: &[Asset],
     store: &PeakStore,
@@ -278,27 +318,41 @@ pub fn build_index(
     excluded: &BTreeSet<String>,
     length: TrackLength,
 ) -> Result<BuiltIndex, IndexError> {
+    build_planned(
+        plan_index(assets, store, profile, excluded, length),
+        store,
+        profile,
+    )
+}
+
+/// The index of a plan's files. It is built in two passes that read one
+/// record at a time from the store (`Index::counting`), so it needs little
+/// more memory than the index itself. A record whose peaks cannot be read
+/// is left out and returned among the problems rather than failing the
+/// build.
+pub fn build_planned(
+    plan: IndexPlan,
+    store: &PeakStore,
+    profile: &Profile,
+) -> Result<BuiltIndex, IndexError> {
+    let IndexPlan {
+        sources,
+        mut problems,
+        outside,
+    } = plan;
     let mut counting = Index::counting();
     let mut indexed = Vec::new();
-    let mut problems = Vec::new();
-    let mut outside = Vec::new();
-    for asset in assets {
-        if excluded.contains(&asset.path) {
-            continue;
-        }
-        match store.load(asset, profile) {
-            Ok(record) => match length.leaves_out(&record.header) {
-                Some(duration) => outside.push((asset.path.clone(), duration)),
-                None => {
-                    counting.count(&record)?;
-                    indexed.push(asset);
-                }
-            },
+    for asset in sources {
+        match store.load(&asset, profile) {
+            Ok(record) => {
+                counting.count(&record)?;
+                indexed.push(asset);
+            }
             Err(problem) => problems.push(problem),
         }
     }
     let mut filling = counting.into_filling();
-    for &asset in &indexed {
+    for asset in &indexed {
         let record = store
             .load(asset, profile)
             .map_err(|_| IndexError::Changed)?;
@@ -306,10 +360,10 @@ pub fn build_index(
     }
     Ok(BuiltIndex {
         index: filling.finish()?,
-        revision: library_revision(indexed.iter().copied()),
+        revision: library_revision(&indexed),
         problems,
         outside,
-        sources: indexed.into_iter().cloned().collect(),
+        sources: indexed,
     })
 }
 

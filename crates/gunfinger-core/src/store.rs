@@ -304,6 +304,31 @@ impl PeakStore {
 
     /// Loads the current record of `asset`.
     pub fn load(&self, asset: &Asset, profile: &Profile) -> Result<PeakRecord, StoreError> {
+        let (mut reader, header) = self.open_current(asset, profile)?;
+        let peaks = read_peaks(&mut reader).map_err(|error| StoreError::Corrupt {
+            path: self.record_path(&asset.path),
+            reason: error.to_string(),
+        })?;
+        Ok(PeakRecord { header, peaks })
+    }
+
+    /// The header of `asset`'s current record, with the errors `load` gives
+    /// when there is none, without reading the peaks.
+    pub fn load_header(
+        &self,
+        asset: &Asset,
+        profile: &Profile,
+    ) -> Result<RecordHeader, StoreError> {
+        self.open_current(asset, profile).map(|(_, header)| header)
+    }
+
+    /// The record of `asset`, positioned after its header, when that header
+    /// is current.
+    fn open_current(
+        &self,
+        asset: &Asset,
+        profile: &Profile,
+    ) -> Result<(BufReader<File>, RecordHeader), StoreError> {
         let path = self.record_path(&asset.path);
         let file = match File::open(&path) {
             Ok(file) => file,
@@ -314,19 +339,17 @@ impl PeakStore {
             }
             Err(source) => return Err(StoreError::Io { path, source }),
         };
-        let corrupt = |error: io::Error| StoreError::Corrupt {
+        let mut reader = BufReader::new(file);
+        let header = read_header(&mut reader).map_err(|error| StoreError::Corrupt {
             path: path.clone(),
             reason: error.to_string(),
-        };
-        let mut reader = BufReader::new(file);
-        let header = read_header(&mut reader).map_err(corrupt)?;
+        })?;
         if !header.is_current(asset, profile) {
             return Err(self.passed_over(asset).unwrap_or(StoreError::Stale {
                 asset: asset.path.clone(),
             }));
         }
-        let peaks = read_peaks(&mut reader).map_err(corrupt)?;
-        Ok(PeakRecord { header, peaks })
+        Ok((reader, header))
     }
 
     /// `Skipped` when `index` remembered why this exact file has no current
@@ -528,14 +551,14 @@ fn write_atomically(
     fs::rename(&temporary, path).map_err(io_error)
 }
 
-fn write_source(out: &mut impl Write, source: &Asset) -> io::Result<()> {
+pub(crate) fn write_source(out: &mut impl Write, source: &Asset) -> io::Result<()> {
     write_text(out, &source.path)?;
     out.write_all(&source.size.to_le_bytes())?;
     out.write_all(&source.modified.seconds.to_le_bytes())?;
     out.write_all(&source.modified.nanos.to_le_bytes())
 }
 
-fn read_source(input: &mut impl Read) -> io::Result<Asset> {
+pub(crate) fn read_source(input: &mut impl Read) -> io::Result<Asset> {
     let path = read_text(input)?;
     let size = u64::from_le_bytes(read_array(input)?);
     let seconds = i64::from_le_bytes(read_array(input)?);
@@ -724,20 +747,20 @@ fn clipped(text: &str, max: usize) -> &str {
     &text[..end]
 }
 
-fn write_text(out: &mut impl Write, text: &str) -> io::Result<()> {
+pub(crate) fn write_text(out: &mut impl Write, text: &str) -> io::Result<()> {
     let length = u16::try_from(text.len()).map_err(io::Error::other)?;
     out.write_all(&length.to_le_bytes())?;
     out.write_all(text.as_bytes())
 }
 
-fn read_text(input: &mut impl Read) -> io::Result<String> {
+pub(crate) fn read_text(input: &mut impl Read) -> io::Result<String> {
     let length = u16::from_le_bytes(read_array(input)?);
     let mut bytes = vec![0; usize::from(length)];
     input.read_exact(&mut bytes)?;
     String::from_utf8(bytes).map_err(|_| invalid("text is not UTF-8"))
 }
 
-fn read_array<const N: usize>(input: &mut impl Read) -> io::Result<[u8; N]> {
+pub(crate) fn read_array<const N: usize>(input: &mut impl Read) -> io::Result<[u8; N]> {
     let mut bytes = [0; N];
     input.read_exact(&mut bytes)?;
     Ok(bytes)

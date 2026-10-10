@@ -56,6 +56,7 @@ fn gunfinger(dir: &Path, args: &[&str]) -> Output {
         .env_remove("GUNFINGER_PEAKS_DIR")
         .env_remove("GUNFINGER_JOBS")
         .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("XDG_CACHE_HOME", dir.join("cache"))
         .output()
         .unwrap();
     assert!(
@@ -265,6 +266,7 @@ fn a_damaged_file_is_passed_over_until_it_changes() {
             .args(["index", library, "--peaks-dir"])
             .arg(dir.join("peaks"))
             .env("XDG_CONFIG_HOME", dir.join("config"))
+            .env("XDG_CACHE_HOME", dir.join("cache"))
             .output()
             .unwrap();
         String::from_utf8_lossy(&output.stderr).into_owned()
@@ -299,6 +301,7 @@ fn only_files_that_need_indexing_are_warned_about() {
         .args(["index", library_arg, "--peaks-dir"])
         .arg(dir.join("peaks"))
         .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("XDG_CACHE_HOME", dir.join("cache"))
         .output()
         .unwrap();
     let late = Track::random(2, 20.0);
@@ -389,6 +392,7 @@ fn files_outside_the_track_length_are_passed_over_and_left_out() {
         .arg("--peaks-dir")
         .arg(dir.join("peaks"))
         .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("XDG_CACHE_HOME", dir.join("cache"))
         .env("NO_COLOR", "1")
         .output()
         .unwrap();
@@ -604,6 +608,7 @@ fn an_invalid_ignore_file_stops_the_commands_that_scan_the_library() {
             .arg("--peaks-dir")
             .arg(dir.join("peaks"))
             .env("XDG_CONFIG_HOME", dir.join("config"))
+            .env("XDG_CACHE_HOME", dir.join("cache"))
             .env("NO_COLOR", "1")
             .output()
             .unwrap()
@@ -686,6 +691,7 @@ fn a_copy_of_the_peak_store_names_tracks_without_the_library() {
             .arg(&copy)
             .args(args)
             .env("XDG_CONFIG_HOME", dir.join("no-config"))
+            .env("XDG_CACHE_HOME", dir.join("cache"))
             .env("NO_COLOR", "1")
             .output()
             .unwrap();
@@ -749,6 +755,7 @@ fn a_peak_store_holds_the_records_of_one_library() {
         .args(["index", second.to_str().unwrap(), "--peaks-dir"])
         .arg(dir.join("peaks"))
         .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("XDG_CACHE_HOME", dir.join("cache"))
         .env("NO_COLOR", "1")
         .output()
         .unwrap();
@@ -780,6 +787,7 @@ fn an_unindexed_library_is_named_in_the_advice_to_index_it() {
         .args(["stats", "--library", "library", "--peaks-dir", "peaks"])
         .current_dir(&dir)
         .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("XDG_CACHE_HOME", dir.join("cache"))
         .env("NO_COLOR", "1")
         .output()
         .unwrap();
@@ -935,4 +943,81 @@ fn a_key_locked_play_needs_the_key_lock_rungs() {
         "{}",
         both[0]
     );
+}
+
+#[test]
+fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("saved-index");
+    let mix = build_corpus(&dir);
+    let library = dir.join("library");
+    let library = library.to_str().unwrap();
+    gunfinger(&dir, &["index", library]);
+    let identify = |saved: &str| {
+        let output = gunfinger(
+            &dir,
+            &[
+                "identify",
+                mix.to_str().unwrap(),
+                "--library",
+                library,
+                "--format",
+                "json",
+                "--verbose",
+                "--saved-index",
+                saved,
+            ],
+        );
+        let report: Value = serde_json::from_slice(&output.stdout).unwrap();
+        (
+            report["plays"].clone(),
+            String::from_utf8_lossy(&output.stderr).into_owned(),
+        )
+    };
+    let saved_files = || -> Vec<PathBuf> {
+        std::fs::read_dir(dir.join("cache/gunfinger/indexes"))
+            .unwrap()
+            .map(|entry| entry.unwrap().path())
+            .collect()
+    };
+
+    let (built, first) = identify("use");
+    let (loaded, second) = identify("use");
+    let (in_memory, off) = identify("off");
+
+    assert!(first.contains("it is saved for the next search"), "{first}");
+    assert!(second.contains("loaded the saved index"), "{second}");
+    assert!(!off.contains("saved"), "{off}");
+    assert_eq!(loaded, built);
+    assert_eq!(in_memory, built);
+    let files = saved_files();
+    assert_eq!(files.len(), 1, "{files:?}");
+    assert!(files[0].to_str().unwrap().ends_with(".index"));
+
+    let whole = std::fs::read(&files[0]).unwrap();
+    std::fs::write(&files[0], &whole[..whole.len() / 2]).unwrap();
+    let (after_truncation, truncated) = identify("use");
+    assert!(truncated.contains("cannot be read"), "{truncated}");
+    assert_eq!(after_truncation, built);
+    assert_eq!(
+        std::fs::read(&files[0]).unwrap(),
+        whole,
+        "rebuilt as before"
+    );
+
+    let extra = Track::random(9, 75.0);
+    write_wav(
+        &dir.join("library/e.wav"),
+        &extra.play(0.0, extra.seconds, 1.0),
+    );
+    gunfinger(&dir, &["index", library]);
+    let (rebuilt, changed) = identify("use");
+    let (reloaded, again) = identify("use");
+    assert!(changed.contains("out of date"), "{changed}");
+    assert!(again.contains("loaded the saved index"), "{again}");
+    assert_eq!(rebuilt, identify("off").0);
+    assert_eq!(reloaded, rebuilt);
+    assert_eq!(saved_files(), files, "one saved index per peak store");
 }

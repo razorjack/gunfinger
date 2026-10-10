@@ -25,6 +25,7 @@ use std::num::NonZeroUsize;
 use std::path::PathBuf;
 use std::time::Duration;
 
+use catalog::SavedIndex;
 use clap::{CommandFactory, Parser, Subcommand, ValueEnum};
 use config::{Given, Settings};
 use console::{Console, Verbosity};
@@ -132,6 +133,12 @@ enum Command {
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
+        /// Whether to load the index saved for the peak store (in
+        /// $XDG_CACHE_HOME/gunfinger/indexes): `use` loads it when it was
+        /// built from the files searched, else builds and saves it;
+        /// `rebuild` builds and saves it; `off` builds it in memory only.
+        #[arg(long, value_enum, default_value_t = SavedIndex::Use)]
+        saved_index: SavedIndex,
         /// Output format.
         #[arg(long, short, value_enum, default_value_t = ReportFormat::Human)]
         format: ReportFormat,
@@ -190,6 +197,12 @@ enum Command {
         /// File listing library paths to leave out of the index, one per line.
         #[arg(long)]
         exclude_from: Option<PathBuf>,
+        /// Whether to load the index saved for the peak store (in
+        /// $XDG_CACHE_HOME/gunfinger/indexes): `use` loads it when it was
+        /// built from the files searched, else builds and saves it;
+        /// `rebuild` builds and saves it; `off` builds it in memory only.
+        #[arg(long, value_enum, default_value_t = SavedIndex::Use)]
+        saved_index: SavedIndex,
     },
     /// Write a saved JSON report of `identify` in another format.
     Show {
@@ -268,6 +281,12 @@ enum Command {
         /// for example from a copy of the store on another computer.
         #[arg(long, conflicts_with = "library")]
         store_only: bool,
+        /// Whether to load the index saved for the peak store (in
+        /// $XDG_CACHE_HOME/gunfinger/indexes): `use` loads it when it was
+        /// built from the files searched, else builds and saves it;
+        /// `rebuild` builds and saves it; `off` builds it in memory only.
+        #[arg(long, value_enum, default_value_t = SavedIndex::Use)]
+        saved_index: SavedIndex,
         /// Output format.
         #[arg(long, short, value_enum, default_value_t = Format::Human)]
         format: Format,
@@ -327,6 +346,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             playback,
             single_pass,
             exclude_from,
+            saved_index,
             format,
             save_dir,
             again,
@@ -338,6 +358,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
                 store_only,
                 exclude_from: exclude_from.as_deref(),
                 track_length: settings.track_length,
+                saved_index,
             },
             excerpt: Excerpt { start, duration },
             playback: playback.unwrap_or(settings.playback),
@@ -361,6 +382,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             limit,
             windows,
             exclude_from,
+            saved_index,
         } => explain::run(&explain::Request {
             audio: &audio,
             source: catalog::Source {
@@ -369,6 +391,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
                 store_only,
                 exclude_from: exclude_from.as_deref(),
                 track_length: settings.track_length,
+                saved_index,
             },
             at,
             around,
@@ -443,6 +466,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
         Command::Stats {
             library,
             store_only,
+            saved_index,
             format,
         } => stats::run(
             &catalog::Source {
@@ -451,6 +475,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
                 store_only,
                 exclude_from: None,
                 track_length: settings.track_length,
+                saved_index,
             },
             format,
             console,

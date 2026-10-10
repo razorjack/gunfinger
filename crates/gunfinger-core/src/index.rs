@@ -4,6 +4,8 @@
 //! postings of hash `h` are `postings[offsets[h]..offsets[h + 1]]`. This is the
 //! layout an on-disk index would use, so its size measurements are real.
 
+pub mod saved;
+
 use std::time::Duration;
 
 use crate::hash::{HASH_BITS, PairHash, Point, for_each_pair};
@@ -67,6 +69,11 @@ pub enum IndexError {
         limit = format_timecode(addressable_length())
     )]
     TooLong { path: String },
+    #[error(
+        "the index holds at most {} postings; leave folders out with .gunfingerignore or narrow the track length range (--min-track, --max-track)",
+        u32::MAX
+    )]
+    TooManyPostings,
     #[error("a peak record changed while the index was being built; run the command again")]
     Changed,
 }
@@ -102,6 +109,7 @@ impl Index {
         Counting {
             assets: Vec::new(),
             offsets: vec![0; (1 << HASH_BITS) + 1],
+            postings: 0,
         }
     }
 
@@ -206,6 +214,9 @@ impl Index {
 pub struct Counting {
     assets: Vec<IndexedAsset>,
     offsets: Vec<u32>,
+    /// All postings counted. The offsets table's `u32` positions address
+    /// 4.29 billion; past that its sums would wrap.
+    postings: u64,
 }
 
 impl Counting {
@@ -215,6 +226,12 @@ impl Counting {
             return Err(IndexError::TooManyAssets);
         }
         let points = points_of(record)?;
+        let mut pairs = 0;
+        for_each_pair(&points, |_, _| pairs += 1);
+        if self.postings + pairs > u64::from(u32::MAX) {
+            return Err(IndexError::TooManyPostings);
+        }
+        self.postings += pairs;
         for_each_pair(&points, |hash, _| self.offsets[hash.0 as usize + 1] += 1);
         self.assets.push(IndexedAsset {
             path: record.header.source.path.clone(),
@@ -229,6 +246,7 @@ impl Counting {
         let Counting {
             assets,
             mut offsets,
+            ..
         } = self;
         for hash in 1..offsets.len() {
             offsets[hash] += offsets[hash - 1];
@@ -390,6 +408,18 @@ mod tests {
         let next = counting.count(&silent);
 
         assert!(matches!(next, Err(IndexError::TooManyAssets)));
+    }
+
+    #[test]
+    fn the_index_refuses_more_postings_than_its_offsets_address() {
+        let two_pairs = record("a.mp3", &[(10.0, 100.0), (20.0, 110.0), (30.0, 120.0)]);
+        let mut counting = Index::counting();
+        counting.postings = u64::from(u32::MAX) - 1;
+
+        let refused = counting.count(&two_pairs);
+
+        assert!(matches!(refused, Err(IndexError::TooManyPostings)));
+        assert!(counting.assets.is_empty());
     }
 
     #[test]
