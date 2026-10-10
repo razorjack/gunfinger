@@ -37,14 +37,13 @@ for scope and rules.
 - [x] 2d. Manifest NAS references and the panel's development sources
   as extra `clusters` queries (`--manifest`, `--recall-panel`); tests;
   regress identical
-- [~] 3. `map-library` (done); the NAS clusters run (stopped by the
-  shell's limit at 02:27, restarted under `screen` at 02:28; ended at
-  04:44 without a report, a chain through the new PRO012 rip of Sonar
-  against the revision verdicts; `--cut-sparsest` added, opt in, tests,
-  regress identical; run again with it from 05:12) (wall, CPU, memory); the
-  experiment (against session 6, borderline pairs, sparse joins, panel
-  sources); meanwhile the track-range message and the listening pack;
-  after it, the pack for new pairs
+- [x] 3. `map-library`; the NAS clusters run (stopped by the shell's
+  limit at 02:27; restarted under `screen`, ended at 04:44 without a
+  report on a chain against the Sonar verdicts; `--cut-sparsest` added,
+  tests, regress identical; run again 05:12-07:26: 8,063 s, 75,059 s
+  CPU, 5.41 GB); experiment 0066; the track-range message; the listening
+  pack: 30 items in `work/listening/` (1 cut join, 19 borderline, 10
+  controls), `README.md` in listening order
 - [ ] 4. The NAS baseline: development scan, leave-outs 3 and 11, sweeps
   2026-2029, `calibrate`; razorjack-2003-03-29 at both sizes with
   leave-out 3; against 0051, 0053, 0063; calibration register
