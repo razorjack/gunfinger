@@ -104,6 +104,25 @@ s per hour of audio, CPU-bound, so a full re-index takes about 1.8 h.
 Rules wait for the next clusters run: the new folders hold rips and
 mixed-CD tracks the clusters do not know yet.
 
+Session 10, the NAS baseline (store `5701f221f7b48ee1`, 32,441 records
+after the owner's prune; the clusters of experiment 0066, with the
+owner's verdicts and one join cut by `--cut-sparsest`; experiment
+0067): development scan 11/11, 0 wrong; leave-outs 3 and 11 8/11 and
+0/11, 0 wrong; sweeps 2026-2029 540/540 each, 4, 0, 8 and 12 wrong (40
+before), all from one mixed disc the ignore file does not list
+(Essential Rewindz's Funktion and The Nine, borderline at 58-78%); over
+the four seeds weakest identifying 661, strongest false 382 (The Nine on
+that disc), 1.73×; without same-name pairs 220 (The Nine ~ Evol Intent
+VIP, judged different), 3.00×; unrelated chance 63-70 hits outside that
+disc's blends (142-177). The owner's 2003 mix (`razorjack-2003-03-29`):
+12/12 at NAS scale and 7/7 referenced at 262 tracks, 0 wrong, leave-outs
+0 wrong; it leaves both margins unchanged (1.73×, 6.65×). The rule stays
+240 hits in 3 windows: what passes it falsely is the unlisted mixed
+disc, a question for the ignore file and the owner's ear, not for the
+threshold. Costs: sweeps 1,535-1,584 s, 14,012-14,535 s CPU, 6.3-6.7 GB;
+scans 307-315 s, 2,281-2,328 s CPU, 4.8 GB (+19-20% CPU for +20%
+records).
+
 ## After indexing more tracks
 
 0. Before indexing, `gunfinger-eval baseline <name>` keeps the reports at

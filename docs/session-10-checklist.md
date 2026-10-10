@@ -44,14 +44,15 @@ for scope and rules.
   CPU, 5.41 GB); experiment 0066; the track-range message; the listening
   pack: 30 items in `work/listening/` (1 cut join, 19 borderline, 10
   controls), `README.md` in listening order
-- [ ] 4. The NAS baseline: development scan, leave-outs 3 and 11, sweeps
+- [x] 4. The NAS baseline: development scan, leave-outs 3 and 11, sweeps
   2026-2029, `calibrate`; razorjack-2003-03-29 at both sizes with
   leave-out 3; against 0051, 0053, 0063; calibration register
-- [ ] 5. The panel's development half: recall per speed and kind, wrong
-  answers, held-out answers, why each miss failed
-- [~] 6. The 2003 mix: Phantom Force left out; the PHUD1 rip left out;
-  the Kinetic tease (runs done 04:47-05:02, before the second clusters
-  run; experiment to write)
+  (07:26-09:36; experiment 0067)
+- [~] 5. The panel's development half: recall per speed and kind, wrong
+  answers, held-out answers, why each miss failed (started 09:36)
+- [x] 6. The 2003 mix: Phantom Force left out; the PHUD1 rip left out;
+  the Kinetic tease (runs 04:47-05:02, before the second clusters run;
+  experiment 0069)
 
 ## Wrap-up
 

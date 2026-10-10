@@ -1377,3 +1377,11 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   (7 s) and were rendered (22 s); `work/listening/README.md` lists all
   30 items in order. Item 4 started at 07:26:46 under `screen`
   (`s10-after`, which runs `work/s10/item4.sh`).
+- Item 4 ran 07:26-09:36 (experiment 0067; calibration register): the
+  NAS protocol unchanged in recall, 24 wrong sweep answers (40 before),
+  all from Essential Rewindz's mixed disc 2, which the ignore file does
+  not list; margin 1.29× -> 1.73×; the 2003 mix 12/12 at NAS scale, 7/7
+  referenced at 262 tracks, 0 wrong at both sizes and in the leave-outs.
+  Session 7's other-rips sweeps (old clusters) are in
+  `work/s10/before/moved/`, so that `calibrate` reads only this session's
+  sweeps. Item 5 started at 09:36 under `screen` (`s10-item5`).

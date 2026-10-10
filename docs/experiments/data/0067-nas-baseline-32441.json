@@ -1,0 +1,1093 @@
+{
+ "binary": "work/bin/s10-cut (d77df95)",
+ "store_revision": "5701f221f7b48ee1",
+ "records": 32441,
+ "runs": {
+  "nas-scan": {
+   "cost": {
+    "wall_seconds": 314.96,
+    "cpu_seconds": 2328.43,
+    "peak_bytes": 4782411760
+   },
+   "score": "stakka-skynet-knowledge: 11/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 245.1 s"
+  },
+  "nas-scan-lo3": {
+   "cost": {
+    "wall_seconds": 309.44,
+    "cpu_seconds": 2299.16,
+    "peak_bytes": 4778938448
+   },
+   "score": "stakka-skynet-knowledge: 8/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 235.9 s"
+  },
+  "nas-scan-lo11": {
+   "cost": {
+    "wall_seconds": 306.65,
+    "cpu_seconds": 2281.4,
+    "peak_bytes": 4773564448
+   },
+   "score": "stakka-skynet-knowledge: 0/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 234.2 s"
+  },
+  "nas-sweep-2026": {
+   "cost": {
+    "wall_seconds": 1568.13,
+    "cpu_seconds": 14423.07,
+    "peak_bytes": 6744758104
+   },
+   "score": "sweep seed 2026: 32358 indexed assets, 48 clusters held out"
+  },
+  "nas-sweep-2027": {
+   "cost": {
+    "wall_seconds": 1584.37,
+    "cpu_seconds": 14535.13,
+    "peak_bytes": 6407247416
+   },
+   "score": "sweep seed 2027: 32357 indexed assets, 48 clusters held out"
+  },
+  "nas-sweep-2028": {
+   "cost": {
+    "wall_seconds": 1535.28,
+    "cpu_seconds": 14011.64,
+    "peak_bytes": 6702208976
+   },
+   "score": "sweep seed 2028: 32349 indexed assets, 48 clusters held out"
+  },
+  "nas-sweep-2029": {
+   "cost": {
+    "wall_seconds": 1567.19,
+    "cpu_seconds": 14478.84,
+    "peak_bytes": 6317905440
+   },
+   "score": "sweep seed 2029: 32345 indexed assets, 48 clusters held out"
+  },
+  "nas-scan-2003": {
+   "cost": {
+    "wall_seconds": 262.53,
+    "cpu_seconds": 1846.74,
+    "peak_bytes": 4688859240
+   },
+   "score": "razorjack-2003-03-29: 12/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 188.9 s"
+  },
+  "nas-scan-2003-lo3": {
+   "cost": {
+    "wall_seconds": 255.51,
+    "cpu_seconds": 1845.15,
+    "peak_bytes": 4687466552
+   },
+   "score": "razorjack-2003-03-29: 9/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 187.6 s"
+  },
+  "scan-2003": {
+   "cost": {
+    "wall_seconds": 23.14,
+    "cpu_seconds": 199.05,
+    "peak_bytes": 219923008
+   },
+   "score": "razorjack-2003-03-29: 7/7 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 22.7 s"
+  },
+  "scan-2003-lo3": {
+   "cost": {
+    "wall_seconds": 22.86,
+    "cpu_seconds": 198.46,
+    "peak_bytes": 215188032
+   },
+   "score": "razorjack-2003-03-29: 4/7 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 22.4 s"
+  }
+ },
+ "calibrate_nas": [
+  "rule: hits >= 240 and windows >= 3",
+  "identifying detections: 2179 (0 below the rule)",
+  "false candidates: 148556 (24 accepted by the rule)",
+  "weakest identifying: 661 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+  "strongest false:     382 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +3%: second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3)",
+  "margin: 1.73x in hits; the threshold is 0.63x the strongest false and 2.75x below the weakest identifying",
+  ""
+ ],
+ "calibrate_nas_2003": [
+  "rule: hits >= 240 and windows >= 3",
+  "identifying detections: 2181 (0 below the rule)",
+  "false candidates: 148546 (24 accepted by the rule)",
+  "weakest identifying: 661 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+  "strongest false:     382 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +3%: second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3)",
+  "margin: 1.73x in hits; the threshold is 0.63x the strongest false and 2.75x below the weakest identifying",
+  ""
+ ],
+ "calibrate_262_2003": [
+  "rule: hits >= 240 and windows >= 3",
+  "identifying detections: 2171 (0 below the rule)",
+  "false candidates: 2076 (0 accepted by the rule)",
+  "weakest identifying: 658 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+  "strongest false:     99 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at -5%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)",
+  "margin: 6.65x in hits; the threshold is 2.42x the strongest false and 2.74x below the weakest identifying",
+  ""
+ ],
+ "summary": {
+  "reports": "work/s10/item4/nas",
+  "rule_hits": 240,
+  "scans": {
+   "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": 3,
+    "wall_seconds": 234.218573417,
+    "wrong_identifications": [],
+    "unmatched_possible_plays": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "start": 629,
+      "end": 660
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start": 1223,
+      "end": 1241
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "start": 1223,
+      "end": 1241
+     }
+    ],
+    "credited_through_cluster": [],
+    "weakest_identifying": null,
+    "false_candidates_total": 3528,
+    "false_30": 8,
+    "false_60": 3,
+    "strongest_false": [
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1223
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1223
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "where": 629
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1172
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1172
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1139
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1139
+     },
+     {
+      "hits": 32,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/[genetix] - Crunch.opus",
+      "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+      "where": 396
+     }
+    ],
+    "detections": 3528
+   },
+   "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": 3,
+    "wall_seconds": 235.894871334,
+    "wrong_identifications": [],
+    "unmatched_possible_plays": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "start": 629,
+      "end": 660
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start": 1223,
+      "end": 1241
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "start": 1223,
+      "end": 1241
+     }
+    ],
+    "credited_through_cluster": [
+     "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+     "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+    ],
+    "weakest_identifying": 1764,
+    "false_candidates_total": 3530,
+    "false_30": 8,
+    "false_60": 3,
+    "strongest_false": [
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1223
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1223
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "where": 629
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1172
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1172
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1139
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1139
+     },
+     {
+      "hits": 32,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/[genetix] - Crunch.opus",
+      "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+      "where": 396
+     }
+    ],
+    "detections": 3556
+   },
+   "scan-stakka-skynet-knowledge.json": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": 3,
+    "wall_seconds": 245.140032333,
+    "wrong_identifications": [],
+    "unmatched_possible_plays": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "start": 629,
+      "end": 660
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start": 1223,
+      "end": 1241
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "start": 1223,
+      "end": 1241
+     }
+    ],
+    "credited_through_cluster": [
+     "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 \uff1a STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 \uff1a SKYNET & STAKKA - logistics - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 \uff1a STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a Kraken - side effects, TeeBee Remix - ].opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+     "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+     "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+     "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+    ],
+    "weakest_identifying": 1764,
+    "false_candidates_total": 3533,
+    "false_30": 8,
+    "false_60": 3,
+    "strongest_false": [
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1223
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1223
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "name": "Kemal & Rob Data - Star Trails (Synergy Remix)",
+      "where": 629
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1172
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1172
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": 1139
+     },
+     {
+      "hits": 33,
+      "windows": 3,
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "name": "Stakka And Skynet - Clockwork (Stakka Rmx)",
+      "where": 1139
+     },
+     {
+      "hits": 32,
+      "windows": 4,
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/[genetix] - Crunch.opus",
+      "name": "3ZB I Gangstep DnB - [genetix] - Crunch",
+      "where": 396
+     }
+    ],
+    "detections": 3568
+   }
+  },
+  "sweeps": {
+   "sweep-seed-2026.json": {
+    "recalled": 540,
+    "indexed_excerpts": 540,
+    "wrong": 4,
+    "max_speed_error_percent": 0.015284704802914106,
+    "indexed_assets": 32358,
+    "weakest_identifying": 703,
+    "false_candidates": 26544,
+    "false_per_query_mean": 36.86666666666667,
+    "false_per_query_max": 458,
+    "false_30": 81,
+    "false_60": 38,
+    "strongest_not_indexed": 264,
+    "strongest_false": [
+     {
+      "hits": 264,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at +1%"
+     },
+     {
+      "hits": 260,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at +3%"
+     },
+     {
+      "hits": 244,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at -1%"
+     },
+     {
+      "hits": 241,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at +0%"
+     },
+     {
+      "hits": 239,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at -3%"
+     },
+     {
+      "hits": 238,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at +5%"
+     },
+     {
+      "hits": 225,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at -5%"
+     },
+     {
+      "hits": 211,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "Ed Rush & Optical - Funktion.mp3 at -8%"
+     }
+    ]
+   },
+   "sweep-seed-2027.json": {
+    "recalled": 540,
+    "indexed_excerpts": 540,
+    "wrong": 0,
+    "max_speed_error_percent": 0.022695657581520035,
+    "indexed_assets": 32357,
+    "weakest_identifying": 671,
+    "false_candidates": 42419,
+    "false_per_query_mean": 58.915277777777774,
+    "false_per_query_max": 458,
+    "false_30": 125,
+    "false_60": 68,
+    "strongest_not_indexed": 197,
+    "strongest_false": [
+     {
+      "hits": 198,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +0%"
+     },
+     {
+      "hits": 197,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +5%"
+     },
+     {
+      "hits": 197,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "name": "Bad Company - The Nine (Evol Intent VIP)",
+      "where": "extra/A- The_Nine.mp3 at +5%"
+     },
+     {
+      "hits": 193,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at -1%"
+     },
+     {
+      "hits": 188,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +1%"
+     },
+     {
+      "hits": 188,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "name": "Bad Company - The Nine (Evol Intent VIP)",
+      "where": "extra/A- The_Nine.mp3 at +1%"
+     },
+     {
+      "hits": 179,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +3%"
+     },
+     {
+      "hits": 179,
+      "windows": 3,
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "name": "Bad Company - The Nine (Evol Intent VIP)",
+      "where": "extra/A- The_Nine.mp3 at +8%"
+     }
+    ]
+   },
+   "sweep-seed-2028.json": {
+    "recalled": 540,
+    "indexed_excerpts": 540,
+    "wrong": 8,
+    "max_speed_error_percent": 0.018202449516362407,
+    "indexed_assets": 32349,
+    "weakest_identifying": 661,
+    "false_candidates": 40679,
+    "false_per_query_mean": 56.49861111111111,
+    "false_per_query_max": 411,
+    "false_30": 73,
+    "false_60": 39,
+    "strongest_not_indexed": 81,
+    "strongest_false": [
+     {
+      "hits": 382,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at +3%"
+     },
+     {
+      "hits": 379,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at +5%"
+     },
+     {
+      "hits": 370,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at +8%"
+     },
+     {
+      "hits": 363,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at +1%"
+     },
+     {
+      "hits": 346,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at -1%"
+     },
+     {
+      "hits": 342,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at +0%"
+     },
+     {
+      "hits": 341,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at -5%"
+     },
+     {
+      "hits": 336,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+      "name": "Bad Company - The Nine",
+      "where": "Bad Company - The Nine.mp3 at -3%"
+     }
+    ]
+   },
+   "sweep-seed-2029.json": {
+    "recalled": 540,
+    "indexed_excerpts": 540,
+    "wrong": 12,
+    "max_speed_error_percent": 0.02070252007275286,
+    "indexed_assets": 32345,
+    "weakest_identifying": 732,
+    "false_candidates": 38884,
+    "false_per_query_mean": 54.00555555555555,
+    "false_per_query_max": 728,
+    "false_30": 104,
+    "false_60": 45,
+    "strongest_not_indexed": 332,
+    "strongest_false": [
+     {
+      "hits": 332,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at -8%"
+     },
+     {
+      "hits": 328,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +1%"
+     },
+     {
+      "hits": 325,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at -1%"
+     },
+     {
+      "hits": 323,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +0%"
+     },
+     {
+      "hits": 319,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +3%"
+     },
+     {
+      "hits": 308,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at +5%"
+     },
+     {
+      "hits": 306,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at -3%"
+     },
+     {
+      "hits": 300,
+      "windows": 3,
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+      "name": "Ed Rush & Optical - Funktion",
+      "where": "extra/01 - Ed Rush & Optical - Funktion.mp3 at -5%"
+     }
+    ]
+   }
+  },
+  "most_frequent_false_assets": [
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/dRamatic - Caroline.opus",
+    "name": "dRamatic - Caroline",
+    "times": 90
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/SAMURAI RED SEAL [ REDSEAL 015 \uff1a VILLEM & MC LEOD - hush - ] drum and bass.opus",
+    "name": "VILLEM & MC LEOD - hush",
+    "times": 83
+   },
+   {
+    "asset": "second-library/__youtube_archivists/rootzdnb/dBridge - Violent Plains.opus",
+    "name": "dBridge - Violent Plains",
+    "times": 83
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Atlantic Connection - Ovation.opus",
+    "name": "Atlantic Connection - Ovation",
+    "times": 70
+   },
+   {
+    "asset": "second-library/__youtube_archivists/rootzdnb/Satl - Self Reflection.opus",
+    "name": "Satl - Self Reflection",
+    "times": 62
+   },
+   {
+    "asset": "second-library/SAN-001CD VA - Ambassadors. The Santorin drum'n'bass anthology (2002)/06-the_green_man-technik-sumnix.mp3",
+    "name": "The Green Man - Technik",
+    "times": 61
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Phobia - Voyager (feat. Baron Von Alias).m4a",
+    "name": "Phobia - Voyager (feat. Baron Von Alias)",
+    "times": 61
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/FFF - World I Reject.opus",
+    "name": "FFF - World I Reject",
+    "times": 60
+   },
+   {
+    "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-01/breakbeat_culture-fresh_and_vegas-bbc009-1999-sour/a-fresh_and_vegas-meekon-sour.mp3",
+    "name": "Fresh'n'Vegas - Meekon",
+    "times": 57
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Scale - Starbugs.opus",
+    "name": "Scale - Starbugs",
+    "times": 56
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - firewalls - ] drum and bass.m4a",
+    "name": "FALCON - firewalls",
+    "times": 56
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/DJ Abstract & Juju - Resist.opus",
+    "name": "DJ Abstract & Juju - Resist",
+    "times": 55
+   },
+   {
+    "asset": "second-library/subtitles-teebee_and_form-subtitles021-2002-sour/a-teebee_and_form-return_to_forever-sour.mp3",
+    "name": "Teebee & Form - Return To Forever",
+    "times": 55
+   },
+   {
+    "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/xrs_land-sarau-1999-sour/07-xrs_land-vitoria-luz-1999-sour.mp3",
+    "name": "XRS Land - Vit\u00f3ria-Luz",
+    "times": 55
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - Roll Over.m4a",
+    "name": "Falcon - Roll Over",
+    "times": 54
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Kargo - Abduction.opus",
+    "name": "Kargo - Abduction",
+    "times": 54
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/OHM RECORDINGS [ OHM 001 \uff1a FALCON - roll over - ] drum and bass.opus",
+    "name": "FALCON - roll over",
+    "times": 52
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Frenzy - Evilman - Hoostey Film.opus",
+    "name": "Frenzy - Evilman - Hoostey Film",
+    "times": 52
+   },
+   {
+    "asset": "second-library/__youtube_archivists/michal-slabosz/Simba - Turbine.m4a",
+    "name": "Simba - Turbine",
+    "times": 52
+   },
+   {
+    "asset": "second-library/__youtube_archivists/dfect-dnb/Fresh & Vegas - Meekon.m4a",
+    "name": "Fresh & Vegas - Meekon",
+    "times": 52
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Alix Perez - Stray.m4a",
+    "name": "Alix Perez - Stray",
+    "times": 52
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Special Forces - Sidewinder.m4a",
+    "name": "Special Forces - Sidewinder",
+    "times": 52
+   },
+   {
+    "asset": "second-library/__youtube_archivists/rootzdnb/Bailey - Letter From Detroit.m4a",
+    "name": "Bailey - Letter From Detroit",
+    "times": 51
+   },
+   {
+    "asset": "second-library/__youtube_archivists/unxplored-dnb/Bad Behaviour - Bust It Like This (Remix).opus",
+    "name": "Bad Behaviour - Bust It Like This (Remix)",
+    "times": 51
+   },
+   {
+    "asset": "second-library/__youtube_archivists/rootzdnb/Silence Groove - Digits.opus",
+    "name": "Silence Groove - Digits",
+    "times": 51
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand (HD Audio & Speed Up).m4a",
+    "name": "Falcon - The Stand (HD Audio & Speed Up)",
+    "times": 51
+   },
+   {
+    "asset": "second-library/__full_scene/Certificate 18/CERT1864 - Polar - Out Of The Blue + The Other Side (2002)/A_-_Polar_-_Out_Of_The_Blue.mp3",
+    "name": "Polar - Out Of The Blue",
+    "times": 51
+   },
+   {
+    "asset": "second-library/__full_scene/Certificate 18/CERT18CD016 - Polar - Out Of The Blue (2002)/04. polar - out of the blue.mp3",
+    "name": "polar - out of the blue",
+    "times": 51
+   },
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Yali - VPN (Pulsar41 Remix).opus",
+    "name": "Yali - VPN (Pulsar41 Remix)",
+    "times": 50
+   },
+   {
+    "asset": "second-library/__youtube_archivists/butch-french/Swoosh - Opinion.opus",
+    "name": "Swoosh - Opinion",
+    "times": 50
+   }
+  ]
+ },
+ "false_split": {
+  "identifying": 2179,
+  "false_candidates": 148556,
+  "weakest_identifying": {
+   "hits": 661,
+   "where": "sweep 2028 extra/4. Illuminati - Melange.mp3 at -3%"
+  },
+  "confident_false": {
+   "same name": 24
+  },
+  "margins": {
+   "all": 1.7303664921465969,
+   "without_same_name": 3.0045454545454544,
+   "unrelated": 3.7344632768361583,
+   "audio_not_in_the_index": 1.9909638554216869,
+   "audio_not_in_the_index_without_same_name": 3.3553299492385786
+  },
+  "confident_false_pairs": [
+   [
+    "Bad Company - The Nine.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/206-bad_company-the_nine-sour.mp3",
+    "same name",
+    "Bad Company - The Nine",
+    "Bad Company - The Nine"
+   ],
+   [
+    "Ed Rush & Optical - Funktion.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+    "same name",
+    "Ed Rush & Optical - Funktion",
+    "Ed Rush & Optical - Funktion"
+   ],
+   [
+    "extra/01 - Ed Rush & Optical - Funktion.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/203-ed_rush_and_optical-funktion-sour.mp3",
+    "same name",
+    "Ed Rush & Optical - Funktion",
+    "Ed Rush & Optical - Funktion"
+   ]
+  ]
+ },
+ "false_split_session_6": {
+  "margins": {
+   "all": 1.2935420743639923,
+   "without_same_name": 1.2935420743639923,
+   "unrelated": 5.901785714285714,
+   "audio_not_in_the_index": 1.699228791773779,
+   "audio_not_in_the_index_without_same_name": 3.3553299492385786
+  },
+  "confident_false_pairs": [
+   [
+    "Bad Company - China Cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "same name",
+    "Bad Company - China Cup",
+    "BAD COMPANY - china cup"
+   ],
+   [
+    "extra/02 Coma.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+    "same artist",
+    "Bad Company - Coma",
+    "Bad Company - Spraycan"
+   ],
+   [
+    "extra/02. Bad Company - China Cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "same name",
+    "Bad Company - China Cup",
+    "BAD COMPANY - china cup"
+   ],
+   [
+    "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+    "version",
+    "Stakka + K.Tee - Synthesis VIP",
+    " - 02-Stakka And K Tee-Synthesis (Remix)-sour"
+   ],
+   [
+    "extra/b-bad_company-china_cup.mp3",
+    "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus",
+    "same name",
+    "Bad Company - China Cup",
+    "BAD COMPANY - china cup"
+   ]
+  ]
+ },
+ "sweeps_against_session_6": {
+  "2026": {
+   "indexed_assets": [
+    26969,
+    32358
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    0,
+    4
+   ],
+   "wrong_pairs_before": [],
+   "wrong_pairs_now": [
+    {
+     "query": "Ed Rush & Optical - Funktion.mp3",
+     "found": "203-ed_rush_and_optical-funktion-sour.mp3 [Ed Rush & Optical - Funktion]",
+     "count": 4,
+     "max_hits": 264
+    }
+   ]
+  },
+  "2027": {
+   "indexed_assets": [
+    26972,
+    32357
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    24,
+    0
+   ],
+   "wrong_pairs_before": [
+    {
+     "query": "Bad Company - China Cup.mp3",
+     "found": "PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus [BAD COMPANY - china cup]",
+     "count": 8,
+     "max_hits": 408
+    },
+    {
+     "query": "02 Coma.mp3",
+     "found": "Bad Company - Spraycan.opus [Bad Company - Spraycan]",
+     "count": 8,
+     "max_hits": 341
+    },
+    {
+     "query": "02. Bad Company - China Cup.mp3",
+     "found": "PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus [BAD COMPANY - china cup]",
+     "count": 8,
+     "max_hits": 365
+    }
+   ],
+   "wrong_pairs_now": []
+  },
+  "2028": {
+   "indexed_assets": [
+    26970,
+    32349
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    8,
+    8
+   ],
+   "wrong_pairs_before": [
+    {
+     "query": "b-bad_company-china_cup.mp3",
+     "found": "PROTOTYPE RECORDINGS [ PRO 001 UK \uff1a BAD COMPANY - china cup - ] drum and bass.opus [BAD COMPANY - china cup]",
+     "count": 8,
+     "max_hits": 389
+    }
+   ],
+   "wrong_pairs_now": [
+    {
+     "query": "Bad Company - The Nine.mp3",
+     "found": "206-bad_company-the_nine-sour.mp3 [Bad Company - The Nine]",
+     "count": 8,
+     "max_hits": 382
+    }
+   ]
+  },
+  "2029": {
+   "indexed_assets": [
+    26964,
+    32345
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    8,
+    12
+   ],
+   "wrong_pairs_before": [
+    {
+     "query": "a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "found": "02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3",
+     "count": 8,
+     "max_hits": 511
+    }
+   ],
+   "wrong_pairs_now": [
+    {
+     "query": "01 - Ed Rush & Optical - Funktion.mp3",
+     "found": "203-ed_rush_and_optical-funktion-sour.mp3 [Ed Rush & Optical - Funktion]",
+     "count": 8,
+     "max_hits": 332
+    },
+    {
+     "query": "Ed Rush & Optical - Funktion.mp3",
+     "found": "203-ed_rush_and_optical-funktion-sour.mp3 [Ed Rush & Optical - Funktion]",
+     "count": 4,
+     "max_hits": 264
+    }
+   ]
+  }
+ }
+}
