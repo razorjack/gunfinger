@@ -1331,3 +1331,13 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   unjudged borderline groups, 10 control joins drawn with seed 2026, no
   identical copies; `scripts/analysis/listening_pack.py select`): 268.5 s
   wall, 267.8 s CPU, 149 MB.
+- Item 3, the clusters run: started 01:48:21 as a background command of
+  the agent's shell, which stops such commands after its default limit;
+  it was stopped at 02:27 after 137 of round 1's 347 queries
+  (`work/logs/s10-clusters-stopped.*`). Restarted at 02:28:48 detached
+  under `screen` (session `s10-clusters`), so no limit applies; the
+  later long runs start the same way. The owner's
+  `__youtube_archivists/fetch-all.sh` (yt-dlp) ran from about 02:24 to
+  02:28 (logs under `dnbfreak0/logs/` and `rootzdnb/logs/`); it does not
+  call gunfinger, and the NAS store was unchanged afterwards (revision
+  `5701f221f7b48ee1`, no file newer than the brief).

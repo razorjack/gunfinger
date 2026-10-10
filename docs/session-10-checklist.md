@@ -37,7 +37,8 @@ for scope and rules.
 - [x] 2d. Manifest NAS references and the panel's development sources
   as extra `clusters` queries (`--manifest`, `--recall-panel`); tests;
   regress identical
-- [ ] 3. `map-library`; the NAS clusters run (wall, CPU, memory); the
+- [~] 3. `map-library` (done); the NAS clusters run (stopped by the
+  shell's limit at 02:27, restarted under `screen` at 02:28) (wall, CPU, memory); the
   experiment (against session 6, borderline pairs, sparse joins, panel
   sources); meanwhile the track-range message and the listening pack;
   after it, the pack for new pairs
