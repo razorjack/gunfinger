@@ -33,6 +33,9 @@ pub fn table(report: &Report, style: Style) -> String {
         for asset in &play.same_audio {
             lines.push(style.dim(&format!("{:ASSET_COLUMN$}also {asset}", "")));
         }
+        if let Some(titles) = other_titles(play) {
+            lines.push(style.dim(&format!("{:ASSET_COLUMN$}{titles}", "")));
+        }
         if play.segments.len() > 1 {
             for segment in &play.segments {
                 lines.push(style.dim(&row(
@@ -72,6 +75,37 @@ pub fn shared_material(play: &FoundPlay, name: impl Fn(&str) -> String) -> Strin
         })
 }
 
+/// "titled X; other files here: Y (play 3), Z (plays 4, 5)" for a play
+/// whose recording other files give other titles, one entry per spelling.
+fn other_titles(play: &FoundPlay) -> Option<String> {
+    let own = play.tagged_name()?;
+    let mut spellings: Vec<(&str, Vec<usize>)> = Vec::new();
+    for other in &play.other_titles {
+        match spellings
+            .iter_mut()
+            .find(|(title, _)| title.eq_ignore_ascii_case(&other.title))
+        {
+            Some((_, plays)) => plays.push(other.play),
+            None => spellings.push((&other.title, vec![other.play])),
+        }
+    }
+    if spellings.is_empty() {
+        return None;
+    }
+    let others: Vec<String> = spellings
+        .iter()
+        .map(|(title, plays)| {
+            let numbers: Vec<String> = plays.iter().map(ToString::to_string).collect();
+            let label = if plays.len() == 1 { "play" } else { "plays" };
+            format!("{title} ({label} {})", numbers.join(", "))
+        })
+        .collect();
+    Some(format!(
+        "titled {own}; other files here: {}",
+        others.join(", ")
+    ))
+}
+
 /// The confidence padded to its column, then coloured.
 fn paint(level: Level, style: Style) -> String {
     let cell = format!("{:<10}", level.label());
@@ -104,7 +138,7 @@ pub mod tests {
 
     use super::*;
     use crate::playback::PlaybackChoice;
-    use crate::report::{Query, SCHEMA_VERSION, Segment, SharedWith};
+    use crate::report::{OtherTitle, PlayTags, Query, SCHEMA_VERSION, Segment, SharedWith};
     use crate::style::ColorChoice;
 
     fn segment(start_seconds: f64, end_seconds: f64, track_start_seconds: f64) -> Segment {
@@ -147,6 +181,7 @@ pub mod tests {
                 hits,
             }],
             shares_material_with: None,
+            other_titles: Vec::new(),
             tags: None,
         };
         Report {
@@ -210,6 +245,37 @@ time                in track        speed  confidence   hits  asset
 
         assert!(
             table.contains("possible       75  insert.wav  shares material with b.wav (play 2)\n"),
+            "{table}"
+        );
+    }
+
+    #[test]
+    fn a_play_whose_passage_other_files_title_otherwise_says_so() {
+        let mut report = report();
+        report.plays[1].tags = Some(PlayTags {
+            artist: Some(String::from("Future Cut")),
+            title: Some(String::from("Sex Drive")),
+            album: None,
+        });
+        report.plays[1].other_titles = vec![
+            OtherTitle {
+                play: 5,
+                asset: String::from("upload.m4a"),
+                title: String::from("FUTURE CUT - the specialist"),
+            },
+            OtherTitle {
+                play: 6,
+                asset: String::from("rip.mp3"),
+                title: String::from("Future Cut - The Specialist"),
+            },
+        ];
+
+        let table = table(&report, Style::for_stdout(ColorChoice::Never));
+
+        assert!(
+            table.contains(
+                "b.wav  (key lock)\n                                                              titled Future Cut - Sex Drive; other files here: FUTURE CUT - the specialist (plays 5, 6)\n"
+            ),
             "{table}"
         );
     }

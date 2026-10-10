@@ -17,6 +17,7 @@ use miette::{IntoDiagnostic, WrapErr, miette};
 use serde::{Deserialize, Serialize};
 
 use crate::catalog::{Catalog, absolute};
+use crate::names::TrackName;
 use crate::playback::PlaybackChoice;
 
 /// Version 3 merged plays of the same audio; fields may be added without a
@@ -131,6 +132,12 @@ pub struct FoundPlay {
     /// read.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub shares_material_with: Option<SharedWith>,
+    /// Set on a confident play when confident plays of other files over the
+    /// same passage (`same_recording`) carry another title in their tags:
+    /// those plays, without choosing which title is right. Display only;
+    /// derived from the plays whenever a report is made or read.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub other_titles: Vec<OtherTitle>,
     /// The asset's tags as the peak store held them. Absent in older
     /// reports and for files indexed before tags were stored; their names
     /// are read from the files.
@@ -157,6 +164,16 @@ impl From<Tags> for PlayTags {
             album: tags.album,
         }
     }
+}
+
+/// A confident play over the same passage whose file has another title.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct OtherTitle {
+    /// Its number, counted from 1 in the report's order.
+    pub play: usize,
+    pub asset: String,
+    /// `artist - title` as its tags give them.
+    pub title: String,
 }
 
 /// The confident play a possible play lies inside.
@@ -249,6 +266,7 @@ impl Report {
             .map(|same| FoundPlay::new(catalog, same, offset))
             .collect();
         mark_shared_material(&mut plays);
+        mark_other_titles(&mut plays);
         Report {
             schema_version: SCHEMA_VERSION,
             query: Query {
@@ -280,6 +298,7 @@ impl Report {
             ));
         }
         mark_shared_material(&mut report.plays);
+        mark_other_titles(&mut report.plays);
         Ok(report)
     }
 }
@@ -315,7 +334,95 @@ fn mark_shared_material(plays: &mut [FoundPlay]) {
     }
 }
 
+/// Plays of different assets are one recording when they overlap for at
+/// least this share of the shorter play...
+const SAME_RECORDING_OVERLAP: f64 = 0.5;
+/// ...and the track would have started at the same mix time, to within this
+/// many seconds. Uploads of one track agree to 1.6 s in the development mix
+/// at NAS scale; the remixes sharing material with a played track lie 86
+/// and 193 s away (experiment 0044's report).
+const SAME_RECORDING_SECONDS: f64 = 5.0;
+
+/// Marks each confident play with the confident plays of the same
+/// recording (`same_recording`) whose tags give another title. Titles are
+/// compared by their letters and digits, ignoring case; artists are not
+/// compared, and files without a title tag are left out, as their names
+/// are not read for titles.
+fn mark_other_titles(plays: &mut [FoundPlay]) {
+    let marks: Vec<Vec<OtherTitle>> = plays
+        .iter()
+        .map(|play| {
+            let Some(own) = play.compared_title() else {
+                return Vec::new();
+            };
+            plays
+                .iter()
+                .enumerate()
+                .filter(|(_, other)| {
+                    other.asset != play.asset
+                        && play.same_recording(other)
+                        && other.compared_title().is_some_and(|title| title != own)
+                })
+                .map(|(index, other)| OtherTitle {
+                    play: index + 1,
+                    asset: other.asset.clone(),
+                    title: other.tagged_name().unwrap_or_default(),
+                })
+                .collect()
+        })
+        .collect();
+    for (play, mark) in plays.iter_mut().zip(marks) {
+        play.other_titles = mark;
+    }
+}
+
 impl FoundPlay {
+    /// Whether two plays are one recording on two records: they overlap for
+    /// most of the shorter one, and the track would have started at the
+    /// same mix time. A possible play marked as sharing material with
+    /// another recording is a recording of its own, whatever lines up.
+    pub fn same_recording(&self, other: &FoundPlay) -> bool {
+        if self.shares_material_with.is_some() || other.shares_material_with.is_some() {
+            return false;
+        }
+        let overlap =
+            self.end_seconds.min(other.end_seconds) - self.start_seconds.max(other.start_seconds);
+        let shorter =
+            (self.end_seconds - self.start_seconds).min(other.end_seconds - other.start_seconds);
+        overlap >= SAME_RECORDING_OVERLAP * shorter
+            && (self.track_started_at() - other.track_started_at()).abs() <= SAME_RECORDING_SECONDS
+    }
+
+    /// The mix time at which the play's track would have started, had it
+    /// been played from its beginning at the play's speed: the place in the
+    /// track with the record's own speed taken out. Rips and uploads of one
+    /// recording at different native speeds agree on it.
+    fn track_started_at(&self) -> f64 {
+        self.start_seconds - self.track_start_seconds / self.speed
+    }
+
+    /// A confident play's title tag as titles are compared: its letters and
+    /// digits in lower case, words separated by one space.
+    fn compared_title(&self) -> Option<String> {
+        if self.confidence != Level::Confident {
+            return None;
+        }
+        let title = self.tags.as_ref()?.title.as_deref()?;
+        let words: Vec<String> = title
+            .split(|c: char| !c.is_alphanumeric())
+            .filter(|word| !word.is_empty())
+            .map(str::to_lowercase)
+            .collect();
+        (!words.is_empty()).then(|| words.join(" "))
+    }
+
+    /// `artist - title` from the tags, when they hold a title.
+    pub fn tagged_name(&self) -> Option<String> {
+        let tags = self.tags.as_ref()?;
+        let title = tags.title.as_deref()?;
+        Some(TrackName::named(tags.artist.as_deref(), Some(title), &self.asset).full())
+    }
+
     fn new(catalog: &Catalog, same: &SameAudio, offset: f64) -> FoundPlay {
         let path = |asset| catalog.index.asset(asset).path.clone();
         let play = &same.play;
@@ -350,6 +457,7 @@ impl FoundPlay {
                 })
                 .collect(),
             shares_material_with: None,
+            other_titles: Vec::new(),
         }
     }
 }
@@ -364,6 +472,56 @@ mod tests {
             .iter()
             .map(|play| play.shares_material_with.as_ref().map(|shared| shared.play))
             .collect()
+    }
+
+    fn tagged(artist: &str, title: &str) -> Option<PlayTags> {
+        Some(PlayTags {
+            artist: Some(artist.to_owned()),
+            title: Some(title.to_owned()),
+            album: None,
+        })
+    }
+
+    #[test]
+    fn confident_plays_of_one_passage_with_other_titles_name_each_other() {
+        let mut plays = report().plays;
+        plays[1].tags = tagged("Future Cut", "Sex Drive");
+        let found_again = |asset: &str, tags| FoundPlay {
+            asset: String::from(asset),
+            tags,
+            ..plays[1].clone()
+        };
+        let upload = found_again("upload.m4a", tagged("FUTURE CUT", "the specialist"));
+        let rip = found_again("rip.mp3", tagged("Future Cut", "The Specialist"));
+        let untagged = found_again("untagged.mp3", None);
+        let possible = FoundPlay {
+            confidence: Level::Possible,
+            ..found_again("weak.mp3", tagged("Someone", "Something Else"))
+        };
+        plays.extend([upload, rip, untagged, possible]);
+
+        mark_shared_material(&mut plays);
+        mark_other_titles(&mut plays);
+
+        let others = |index: usize| -> Vec<(usize, &str)> {
+            plays[index]
+                .other_titles
+                .iter()
+                .map(|other| (other.play, other.title.as_str()))
+                .collect()
+        };
+        assert_eq!(
+            others(1),
+            [
+                (5, "FUTURE CUT - the specialist"),
+                (6, "Future Cut - The Specialist")
+            ]
+        );
+        assert_eq!(others(4), [(2, "Future Cut - Sex Drive")]);
+        assert_eq!(others(5), [(2, "Future Cut - Sex Drive")]);
+        for unmarked in [0, 2, 3, 6, 7] {
+            assert!(others(unmarked).is_empty(), "play {}", unmarked + 1);
+        }
     }
 
     #[test]
