@@ -16,6 +16,7 @@ mod memory;
 mod mixes;
 mod padding;
 mod pair;
+mod pair_review;
 mod recall;
 mod regress;
 mod related;
@@ -191,6 +192,17 @@ enum Command {
     /// List recordings that share material (remixes, VIPs, samples) by
     /// matching the library against itself.
     Related,
+    /// Step through the listening pack by ear: each item without a verdict
+    /// in --verdicts shows its sheet in short and plays its clips with
+    /// ffplay; `s` or `d` appends the `same` or `different` line the sheet
+    /// shows. At the end it prints the `clusters --reuse-pairs` command that
+    /// applies the new verdicts.
+    PairReview {
+        /// The listening pack, with `README.md` and the item folders
+        /// [default: <work>/listening].
+        #[arg(long)]
+        pack: Option<PathBuf>,
+    },
     /// Search each pair's first file against its second alone, on several
     /// ladders and at the fitted speed, and list every alignment: why two
     /// rips cover less of each other than the clustering rule needs.
@@ -380,6 +392,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Memory { .. }
             | Command::Fullest { .. }
             | Command::Pair { .. }
+            | Command::PairReview { .. }
             | Command::Recall { .. }
     );
     let takes_a_sample = matches!(
@@ -485,6 +498,28 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             )?;
             write_json(&paths.reports().join("shared-material.json"), &report)?;
             shared::print_summary(&report);
+            Ok(())
+        }
+        Command::PairReview { pack } => {
+            let pack = pack.unwrap_or_else(|| paths.work.join("listening"));
+            let items = pair_review::items(&pack)?;
+            let outcome = pair_review::review(
+                &items,
+                &paths.verdicts,
+                &mut std::io::stdin().lock(),
+                &mut std::io::stdout(),
+                pair_review::ffplay,
+            )?;
+            println!(
+                "\n{} verdicts written, {} items skipped, {} judged before",
+                outcome.written, outcome.skipped, outcome.judged_before
+            );
+            if outcome.written > 0 {
+                println!(
+                    "To apply them to the last clusters run:\n  {}",
+                    pair_review::reuse_command(paths.other_peaks_dir.as_deref(), &outcome)
+                );
+            }
             Ok(())
         }
         Command::Pair { pairs } => {
