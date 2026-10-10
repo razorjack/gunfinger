@@ -286,8 +286,8 @@ def full_path(name, corpus, nas):
 
 
 def clock(seconds):
-    seconds = max(seconds, 0.0)
-    return f"{int(seconds // 60)}:{seconds % 60:04.1f}"
+    tenths = round(max(seconds, 0.0) * 10)
+    return f"{tenths // 600}:{tenths % 600 / 10:04.1f}"
 
 
 def describe(entry, report, files):
