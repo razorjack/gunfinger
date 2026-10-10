@@ -11,14 +11,6 @@ use crate::names::TrackName;
 use crate::report::{FoundPlay, Level, Playback, Report, SharedWith};
 use crate::table::timecode;
 
-/// Plays of different assets are one recording when they overlap for at
-/// least this share of the shorter play...
-const SAME_RECORDING_OVERLAP: f64 = 0.5;
-/// ...and the track would have started at the same mix time, to within this
-/// many seconds. Uploads of one track agree to 1.6 s in the development mix
-/// at NAS scale; the remixes sharing material with a played track lie 86
-/// and 193 s away (experiment 0044's report).
-const SAME_RECORDING_SECONDS: f64 = 5.0;
 /// Cue sheet times count frames of 1/75 s.
 const CUE_FRAMES_PER_SECOND: f64 = 75.0;
 
@@ -86,6 +78,12 @@ impl Entry<'_> {
         &self.plays[0].asset
     }
 
+    /// Whether a confident play's file gives the entry another title than
+    /// the first play's file (`FoundPlay::other_titles`).
+    pub fn titles_disagree(&self) -> bool {
+        self.plays.iter().any(|play| !play.other_titles.is_empty())
+    }
+
     /// The names of the other plays that differ from the first play's and
     /// from each other, ignoring case.
     pub fn other_names(&self, name: impl Fn(&str) -> TrackName) -> Vec<String> {
@@ -108,7 +106,7 @@ pub fn entries(report: &Report) -> Vec<Entry<'_>> {
     for play in &report.plays {
         match entries
             .iter_mut()
-            .find(|entry| entry.plays.iter().any(|other| same_recording(play, other)))
+            .find(|entry| entry.plays.iter().any(|other| play.same_recording(other)))
         {
             Some(entry) => entry.plays.push(play),
             None => entries.push(Entry { plays: vec![play] }),
@@ -124,27 +122,6 @@ pub fn entries(report: &Report) -> Vec<Entry<'_>> {
     }
     entries.sort_by(|a, b| a.start_seconds().total_cmp(&b.start_seconds()));
     entries
-}
-
-/// Whether two plays are one recording on two records. A possible play
-/// marked as sharing material with another recording stays an entry of its
-/// own, whatever lines up.
-fn same_recording(a: &FoundPlay, b: &FoundPlay) -> bool {
-    if a.shares_material_with.is_some() || b.shares_material_with.is_some() {
-        return false;
-    }
-    let overlap = a.end_seconds.min(b.end_seconds) - a.start_seconds.max(b.start_seconds);
-    let shorter = (a.end_seconds - a.start_seconds).min(b.end_seconds - b.start_seconds);
-    overlap >= SAME_RECORDING_OVERLAP * shorter
-        && (track_started_at(a) - track_started_at(b)).abs() <= SAME_RECORDING_SECONDS
-}
-
-/// The mix time at which the play's track would have started, had it been
-/// played from its beginning at the play's speed: the place in the track
-/// with the record's own speed taken out. Rips and uploads of one recording
-/// at different native speeds agree on it.
-fn track_started_at(play: &FoundPlay) -> f64 {
-    play.start_seconds - play.track_start_seconds / play.speed
 }
 
 /// A numbered list of the recordings, with their start in the mix;
@@ -177,6 +154,8 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
         let others = entry.other_names(&name);
         let also = if others.is_empty() {
             String::new()
+        } else if entry.titles_disagree() {
+            format!("  (titles disagree: {})", others.join(", "))
         } else {
             format!("  (also: {})", others.join(", "))
         };
@@ -257,6 +236,7 @@ fn cue_time(frame: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::report::OtherTitle;
     use crate::table::tests::report;
 
     fn names(asset: &str) -> TrackName {
@@ -321,6 +301,26 @@ mod tests {
         assert_eq!(
             tracklist,
             " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b  (also: b-sped-up-upload)\n 3.    1:24  insert (possible)\n 4.    1:36  c\n"
+        );
+    }
+
+    #[test]
+    fn an_entry_whose_files_disagree_on_the_title_says_so() {
+        let mut report = report();
+        let mut upload = on_another_record(&report, 1, "b-sped-up-upload.wav", 1.035);
+        upload.hits -= 100;
+        upload.other_titles = vec![OtherTitle {
+            play: 2,
+            asset: String::from("b.wav"),
+            title: String::from("b"),
+        }];
+        report.plays.insert(2, upload);
+
+        let tracklist = tracklist(&report, names);
+
+        assert!(
+            tracklist.contains(" 2.    0:38  b  (titles disagree: b-sped-up-upload)\n"),
+            "{tracklist}"
         );
     }
 
