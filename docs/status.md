@@ -1419,3 +1419,8 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   report put back. The stop path itself was not run (it needs a full
   search). `scripts/check.sh` green; `regress session-10-start`
   identical (248 s).
+- Checked: `clusters --from-peaks` without `--cut-sparsest` now stops in
+  1 s on the Sonar chain, from the last report's pairs, before loading
+  any query; before this change the check read the cut pair as not the
+  same recording and would have started a 2-hour search. The report was
+  not touched.
