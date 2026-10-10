@@ -259,4 +259,34 @@ possible tier: 2 more referenced tracks found as possible, 0 possible plays matc
   possible 31. Ed Rush & Optical - Sick Note  best 233 hits/4 windows at +4.14% 1:57:43-1:58:10
 ```
 
+## Manifest change before evaluation 4 (2026-10-10)
+
+No search was run; the evaluation count stays at 3. NAS files were found
+by title in the NAS store's tags (no audio was compared), and the owner
+judged each candidate by ear against the broadcast. At the owner's
+request the manifest now references one NAS file for each match, written
+`second-library/<path>` (backup:
+`work/s11-prep/ed-rush-optical-essential-mix.tracklist.toml.before-2026-10-10`;
+`corpus/` is not in git, so this section is its history).
+
+- Matched, now referenced at NAS scale: 6 Mind Overload, 9 Airhead,
+  15 Asylum, 18 Iron Lung, 23 Killa Beez, 24 Chase Scene, 26 System Error
+  (Y2K).
+- Still absent, with a related file on the NAS that the owner heard as
+  another version: 3 Terminal 1 (the NAS has Terminal 2, a different
+  track), 12 Orders (DJ Reality Remix) (the NAS's DJ Reality RMX and
+  Distortion Mix share a sample with the record played but are other
+  remixes; Gemini names the version played "DJ Reality Remix 3",
+  unreleased, which is not checked here), 16 Funktion (Remix) (the NAS's
+  Marky & Bungle remix), 21 Clear Skyz (the Break remix and the 1996 VIP),
+  28 Beachball (the Black Barrel bootleg).
+
+`gunfinger-eval validate`: with the NAS store, 31 tracks, 23 referenced
+(29 reference files), 8 absent; at 262 tracks, 31 tracks, 16 referenced
+(22 reference files), 15 absent, with the 7 NAS references set aside. At
+262 tracks the scoring is therefore unchanged, and while `regress` stays
+identical a fourth evaluation there would repeat evaluation 3. The test set
+has never been scanned at NAS scale. There, tracks 12, 16, 21 and 28 test
+whether a related version on the NAS produces a wrong confident detection.
+
 Evaluations used: 3 of 5.
