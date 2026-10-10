@@ -48,8 +48,9 @@ for scope and rules.
   2026-2029, `calibrate`; razorjack-2003-03-29 at both sizes with
   leave-out 3; against 0051, 0053, 0063; calibration register
   (07:26-09:36; experiment 0067)
-- [~] 5. The panel's development half: recall per speed and kind, wrong
-  answers, held-out answers, why each miss failed (started 09:36)
+- [x] 5. The panel's development half: recall per speed and kind, wrong
+  answers, held-out answers, why each miss failed (09:36-10:03;
+  experiment 0068)
 - [x] 6. The 2003 mix: Phantom Force left out; the PHUD1 rip left out;
   the Kinetic tease (runs 04:47-05:02, before the second clusters run;
   experiment 0069)
