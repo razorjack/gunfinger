@@ -77,6 +77,32 @@ pub struct Clusters {
     pub duplicates: Vec<Vec<String>>,
     /// The evidence for every pair considered, strongest first.
     pub pairs: Vec<Pair>,
+    /// Joins cut because a chain through them linked two files the owner
+    /// judged different (`Contradictions::CutSparsest`).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub cut_links: Vec<CutLink>,
+}
+
+/// A join `Contradictions::CutSparsest` removed: the sparsest measured link
+/// of a chain between two files judged different. The harness's guess at
+/// the wrong link, for the owner to judge.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct CutLink {
+    pub query: String,
+    pub found: String,
+    /// The two files judged different that the chain linked.
+    pub judged_different: [String; 2],
+}
+
+/// What `clusters` does when a chain of joins links two files the owner
+/// judged different.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Contradictions {
+    /// Stop and name the chain, for the owner to judge its wrong link.
+    Stop,
+    /// Cut the chain's measured join with the fewest hits per second of
+    /// aligned span, repeatedly until no chain is left, and list each cut.
+    CutSparsest,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -157,6 +183,7 @@ pub fn find(
     store: &PeakStore,
     source: Source,
     verdicts: &Verdicts,
+    contradictions: Contradictions,
     jobs: usize,
 ) -> Result<Clusters, String> {
     let mut pairs = self_match(library, store, source, jobs, |pair| {
@@ -164,18 +191,23 @@ pub fn find(
     })?;
     verdicts.apply(&mut pairs);
     pairs.sort_by(|a, b| b.coverage.total_cmp(&a.coverage));
+    let (duplicates, cut_links) =
+        clusters_of(verdicts.links(&pairs), verdicts, &pairs, contradictions)?;
+    cut(&mut pairs, &cut_links);
 
     Ok(Clusters {
         criterion: format!(
-            "{}{}",
+            "{}{}{}",
             criterion(),
             match source {
                 Source::Audio => "",
                 Source::Peaks => " (stored peaks searched)",
-            }
+            },
+            cut_note(&cut_links)
         ),
-        duplicates: clusters_of(verdicts.links(&pairs), verdicts, &pairs)?,
+        duplicates,
         pairs,
+        cut_links,
     })
 }
 
@@ -334,6 +366,7 @@ pub fn merged(
     mut pairs: Vec<Pair>,
     verdicts: &Verdicts,
     other_library: &str,
+    contradictions: Contradictions,
 ) -> Result<Clusters, String> {
     verdicts.apply(&mut pairs);
     let corpus_links = corpus.duplicates.iter().flat_map(|members| {
@@ -341,15 +374,67 @@ pub fn merged(
             .iter()
             .map(|member| (members[0].as_str(), member.as_str()))
     });
-    let duplicates = clusters_of(corpus_links.chain(verdicts.links(&pairs)), verdicts, &pairs)?;
+    let (duplicates, cut_links) = clusters_of(
+        corpus_links.chain(verdicts.links(&pairs)),
+        verdicts,
+        &pairs,
+        contradictions,
+    )?;
+    cut(&mut pairs, &cut_links);
     Ok(Clusters {
         criterion: format!(
-            "{}; with the rips of the corpus recordings in {other_library} (stored peaks searched, named {SECOND_LIBRARY_PREFIX}<path>)",
-            corpus.criterion
+            "{}; with the rips of the corpus recordings in {other_library} (stored peaks searched, named {SECOND_LIBRARY_PREFIX}<path>){}",
+            corpus.criterion,
+            cut_note(&cut_links)
         ),
         duplicates,
         pairs,
+        cut_links,
     })
+}
+
+fn cut_note(cut_links: &[CutLink]) -> &'static str {
+    if cut_links.is_empty() {
+        ""
+    } else {
+        "; where joins chained two files the owner judged different, the chain's sparsest join was cut (`cut_links`)"
+    }
+}
+
+/// The joins cut to keep files judged different apart, each with its
+/// evidence, for the owner to judge.
+pub fn print_cut_links(clusters: &Clusters) {
+    if clusters.cut_links.is_empty() {
+        return;
+    }
+    println!(
+        "{} joins cut, each the sparsest of a chain between files judged different, for the owner:",
+        clusters.cut_links.len()
+    );
+    for link in &clusters.cut_links {
+        let measured = clusters
+            .pairs
+            .iter()
+            .find(|pair| ordered(&pair.query, &pair.found) == ordered(&link.query, &link.found))
+            .map_or_else(String::new, evidence);
+        println!(
+            "  {} ~ {} {measured}, chaining {} to {}",
+            link.query, link.found, link.judged_different[0], link.judged_different[1]
+        );
+    }
+}
+
+/// Marks the pairs of the cut links as not the same recording.
+fn cut(pairs: &mut [Pair], cut_links: &[CutLink]) {
+    for pair in pairs {
+        let link = ordered(&pair.query, &pair.found);
+        if cut_links
+            .iter()
+            .any(|cut| ordered(&cut.query, &cut.found) == link)
+        {
+            pair.same_recording = false;
+        }
+    }
 }
 
 /// What `find_around` found: whether the corpus clusters reappear through
@@ -371,6 +456,7 @@ pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>
         criterion: String::new(),
         duplicates: found_again,
         pairs: Vec::new(),
+        cut_links: Vec::new(),
     };
     print_differences("the other library", &projected, "the corpus", corpus);
     let further: Vec<&Pair> = pairs
@@ -914,34 +1000,74 @@ fn root<'a>(parent: &BTreeMap<&'a str, &'a str>, mut node: &'a str) -> &'a str {
 }
 
 /// The clusters that same-recording links make, with the owner's verdicts
-/// checked against them. Clusters are the transitive closure of the links,
-/// so a `different` verdict, which removes only its own pair's link, does
-/// not keep two files apart when a third file links to both. Such a
-/// contradiction is an error naming the chain, for the owner to judge the
-/// wrong link.
+/// checked against them, and the links cut on the way. Clusters are the
+/// transitive closure of the links, so a `different` verdict, which removes
+/// only its own pair's link, does not keep two files apart when a third
+/// file links to both. Such a contradiction is an error naming the chain,
+/// for the owner to judge the wrong link, unless `contradictions` is
+/// `CutSparsest`: then the chain's measured join with the fewest hits per
+/// second is cut, never a link the owner judged the same, and the next
+/// chain is looked for.
 fn clusters_of<'a>(
     links: impl IntoIterator<Item = (&'a str, &'a str)>,
     verdicts: &Verdicts,
     pairs: &[Pair],
-) -> Result<Vec<Vec<String>>, String> {
-    let links: Vec<(&str, &str)> = links.into_iter().collect();
-    let contradictions: Vec<String> = verdicts
-        .judged_different()
-        .filter_map(|(a, b)| {
-            let chain = chain(&links, a, b)?;
-            Some(format!(
-                "{a} ~ {b} is judged different, but joins link them:\n{}",
-                describe(&chain, verdicts, pairs)
-            ))
-        })
-        .collect();
-    if contradictions.is_empty() {
-        return Ok(merge(links));
+    contradictions: Contradictions,
+) -> Result<(Vec<Vec<String>>, Vec<CutLink>), String> {
+    let mut links: Vec<(&str, &str)> = links.into_iter().collect();
+    let mut cut_links = Vec::new();
+    loop {
+        let chains: Vec<((&str, &str), Vec<&str>)> = verdicts
+            .judged_different()
+            .filter_map(|(a, b)| Some(((a, b), chain(&links, a, b)?)))
+            .collect();
+        let Some(((a, b), first)) = chains.first() else {
+            return Ok((merge(links), cut_links));
+        };
+        let sparsest = (contradictions == Contradictions::CutSparsest)
+            .then(|| sparsest_join(first, verdicts, pairs))
+            .flatten();
+        let Some(pair) = sparsest else {
+            let named: Vec<String> = match contradictions {
+                Contradictions::Stop => chains,
+                Contradictions::CutSparsest => vec![chains[0].clone()],
+            }
+            .into_iter()
+            .map(|((a, b), chain)| {
+                format!(
+                    "{a} ~ {b} is judged different, but joins link them:\n{}",
+                    describe(&chain, verdicts, pairs)
+                )
+            })
+            .collect();
+            return Err(format!(
+                "{}\nA cluster holds every file a chain of joins reaches, so a `different` verdict alone cannot keep these files apart. Listen to the links of each chain, judge the wrong one `different` in the verdict file (or correct the verdict), and run `clusters` again.",
+                named.join("\n")
+            ));
+        };
+        let link = ordered(&pair.query, &pair.found);
+        links.retain(|&(x, y)| ordered(x, y) != link);
+        cut_links.push(CutLink {
+            query: pair.query.clone(),
+            found: pair.found.clone(),
+            judged_different: [(*a).to_owned(), (*b).to_owned()],
+        });
     }
-    Err(format!(
-        "{}\nA cluster holds every file a chain of joins reaches, so a `different` verdict alone cannot keep these files apart. Listen to the links of each chain, judge the wrong one `different` in the verdict file (or correct the verdict), and run `clusters` again.",
-        contradictions.join("\n")
-    ))
+}
+
+/// The measured same-recording pair with the fewest hits per second among
+/// a chain's links, leaving out links the owner judged the same.
+fn sparsest_join<'a>(chain: &[&str], verdicts: &Verdicts, pairs: &'a [Pair]) -> Option<&'a Pair> {
+    chain
+        .windows(2)
+        .filter(|step| verdicts.verdict(step[0], step[1]) != Some(true))
+        .filter_map(|step| {
+            pairs.iter().find(|pair| {
+                pair.same_recording
+                    && ordered(&pair.query, &pair.found) == ordered(step[0], step[1])
+            })
+        })
+        .min_by(|x, y| x.hits_per_second().total_cmp(&y.hits_per_second()))
 }
 
 /// The files on a shortest chain of links from `from` to `to`, both ends
@@ -1131,7 +1257,14 @@ mod tests {
         ];
 
         verdicts.apply(&mut pairs);
-        let clusters = clusters_of(verdicts.links(&pairs), &verdicts, &pairs).unwrap();
+        let clusters = clusters_of(
+            verdicts.links(&pairs),
+            &verdicts,
+            &pairs,
+            Contradictions::Stop,
+        )
+        .unwrap()
+        .0;
 
         assert_eq!(pairs[0].owner_verdict, Some(true));
         assert!(!pairs[1].same_recording);
@@ -1213,7 +1346,14 @@ mod tests {
 
         let (verdicts, outside) = verdicts.on(&Searched::corpus(&corpus));
         let pairs = [pair("c.mp3", "a.mp3", false)];
-        let clusters = clusters_of(verdicts.links(&pairs), &verdicts, &pairs).unwrap();
+        let clusters = clusters_of(
+            verdicts.links(&pairs),
+            &verdicts,
+            &pairs,
+            Contradictions::Stop,
+        )
+        .unwrap()
+        .0;
 
         assert_eq!(clusters, [vec!["a.mp3", "b.mp3"]]);
         assert_eq!(
@@ -1243,7 +1383,9 @@ mod tests {
         let searched = Searched::corpus(&corpus).with_other(&other, Some(ignore));
 
         let (verdicts, outside) = verdicts.on(&searched);
-        let clusters = clusters_of(verdicts.links(&[]), &verdicts, &[]).unwrap();
+        let clusters = clusters_of(verdicts.links(&[]), &verdicts, &[], Contradictions::Stop)
+            .unwrap()
+            .0;
 
         assert_eq!(clusters, [vec!["second-library/upload.m4a", "vip.mp3"]]);
         assert_eq!(
@@ -1282,15 +1424,27 @@ mod tests {
         revision.query_end_seconds = 330.0;
         let pairs = [rip, revision];
 
-        let error = clusters_of(same_recording(&pairs), &verdicts, &pairs).unwrap_err();
+        let error = clusters_of(
+            same_recording(&pairs),
+            &verdicts,
+            &pairs,
+            Contradictions::Stop,
+        )
+        .unwrap_err();
 
         assert!(error.starts_with(
             "original.mp3 ~ revision.opus is judged different, but joins link them:\n    \
              original.mp3\n  = rip.m4a (98%, 24774 hits, 61.9 hits/s)\n  \
              = revision.opus (91%, 246 hits, 0.7 hits/s)\n"
         ));
-        let without_verdict =
-            clusters_of(same_recording(&pairs), &Verdicts::default(), &pairs).unwrap();
+        let without_verdict = clusters_of(
+            same_recording(&pairs),
+            &Verdicts::default(),
+            &pairs,
+            Contradictions::Stop,
+        )
+        .unwrap()
+        .0;
         assert_eq!(
             without_verdict,
             [vec!["original.mp3", "revision.opus", "rip.m4a"]]
@@ -1298,11 +1452,82 @@ mod tests {
     }
 
     #[test]
+    fn cutting_the_sparsest_join_keeps_files_judged_different_apart() {
+        let verdicts = Verdicts::parse(
+            "different\toriginal.mp3\trevision.opus\nsame\toriginal.mp3\tupload.m4a\n",
+        )
+        .unwrap();
+        let joined = |query: &str, found: &str, hits: u32| Pair {
+            hits,
+            query_end_seconds: 300.0,
+            ..pair(query, found, true)
+        };
+        let mut pairs = vec![
+            joined("original.mp3", "rip.m4a", 6_000),
+            joined("rip.m4a", "revision.opus", 400),
+            joined("revision.opus", "remaster.opus", 5_000),
+            joined("upload.m4a", "revision.opus", 300),
+        ];
+        verdicts.apply(&mut pairs);
+
+        let (clusters, cut) = clusters_of(
+            verdicts.links(&pairs),
+            &verdicts,
+            &pairs,
+            Contradictions::CutSparsest,
+        )
+        .unwrap();
+
+        assert_eq!(
+            clusters,
+            [
+                vec!["original.mp3", "rip.m4a", "upload.m4a"],
+                vec!["remaster.opus", "revision.opus"]
+            ]
+        );
+        let cut: Vec<(&str, &str)> = cut
+            .iter()
+            .map(|link| (link.query.as_str(), link.found.as_str()))
+            .collect();
+        assert_eq!(
+            cut,
+            [
+                ("rip.m4a", "revision.opus"),
+                ("upload.m4a", "revision.opus")
+            ]
+        );
+    }
+
+    #[test]
+    fn a_chain_of_links_judged_the_same_is_never_cut() {
+        let verdicts =
+            Verdicts::parse("different\ta.mp3\tc.mp3\nsame\ta.mp3\tb.mp3\nsame\tb.mp3\tc.mp3\n")
+                .unwrap();
+
+        let error = clusters_of(
+            verdicts.links(&[]),
+            &verdicts,
+            &[],
+            Contradictions::CutSparsest,
+        )
+        .unwrap_err();
+
+        assert!(error.starts_with("a.mp3 ~ c.mp3 is judged different, but joins link them:"));
+    }
+
+    #[test]
     fn a_different_verdict_on_files_in_separate_clusters_passes() {
         let verdicts = Verdicts::parse("different\ta.mp3\tc.mp3\n").unwrap();
         let pairs = [pair("a.mp3", "b.mp3", true), pair("c.mp3", "d.mp3", true)];
 
-        let clusters = clusters_of(same_recording(&pairs), &verdicts, &pairs).unwrap();
+        let clusters = clusters_of(
+            same_recording(&pairs),
+            &verdicts,
+            &pairs,
+            Contradictions::Stop,
+        )
+        .unwrap()
+        .0;
 
         assert_eq!(clusters, [vec!["a.mp3", "b.mp3"], vec!["c.mp3", "d.mp3"]]);
     }
@@ -1358,6 +1583,7 @@ mod tests {
             criterion: String::from("corpus"),
             duplicates: vec![vec!["a.mp3".to_owned(), "b.mp3".to_owned()]],
             pairs: Vec::new(),
+            cut_links: Vec::new(),
         };
         let pairs = vec![
             pair("a.mp3", "second-library/x/a.mp3", true),
@@ -1366,7 +1592,14 @@ mod tests {
             pair("c.mp3", "second-library/x/c-remix.mp3", false),
         ];
 
-        let merged = merged(&corpus, pairs, &Verdicts::default(), "/music").unwrap();
+        let merged = merged(
+            &corpus,
+            pairs,
+            &Verdicts::default(),
+            "/music",
+            Contradictions::Stop,
+        )
+        .unwrap();
 
         assert_eq!(
             merged.duplicates,
@@ -1390,6 +1623,7 @@ mod tests {
             criterion: String::new(),
             duplicates: vec![vec!["a.mp3".to_owned(), "b.mp3".to_owned()]],
             pairs: Vec::new(),
+            cut_links: Vec::new(),
         };
 
         assert_eq!(clusters.cluster_of("b.mp3").len(), 2);

@@ -302,6 +302,7 @@ mod tests {
             criterion: String::new(),
             duplicates: vec![vec!["c.mp3".to_owned(), "c-rip.mp3".to_owned()]],
             pairs: Vec::new(),
+            cut_links: Vec::new(),
         }
     }
 

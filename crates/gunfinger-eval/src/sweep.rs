@@ -590,6 +590,7 @@ mod tests {
             criterion: String::new(),
             duplicates,
             pairs: Vec::new(),
+            cut_links: Vec::new(),
         }
     }
 

@@ -167,6 +167,12 @@ enum Command {
         /// the recall panel of this seed.
         #[arg(long, requires = "from_peaks")]
         recall_panel: Option<u64>,
+        /// When a chain of joins links two files the owner judged
+        /// different, cut the chain's join with the fewest hits per second
+        /// of aligned span and list it, instead of stopping. A cut is a
+        /// guess for the owner to judge, not a verdict.
+        #[arg(long)]
+        cut_sparsest: bool,
     },
     /// List recordings that share material (remixes, VIPs, samples) by
     /// matching the library against itself.
@@ -420,12 +426,18 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             sample,
             manifests,
             recall_panel,
+            cut_sparsest,
         } => {
             let extra = ExtraQueries {
                 manifests,
                 recall_panel,
             };
-            find_clusters(paths, from_peaks, sample, &extra, jobs)
+            let contradictions = if cut_sparsest {
+                clusters::Contradictions::CutSparsest
+            } else {
+                clusters::Contradictions::Stop
+            };
+            find_clusters(paths, from_peaks, sample, &extra, contradictions, jobs)
         }
         Command::Related => {
             let related =
@@ -835,13 +847,27 @@ fn find_clusters(
     from_peaks: bool,
     sample: Option<usize>,
     extra: &ExtraQueries,
+    contradictions: clusters::Contradictions,
     jobs: usize,
 ) -> Result<(), String> {
     if let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) {
-        return find_clusters_around(paths, &other, &map_file, sample, extra, jobs);
+        return find_clusters_around(
+            paths,
+            &other,
+            &map_file,
+            sample,
+            extra,
+            contradictions,
+            jobs,
+        );
     }
     if sample.is_some() {
         return Err(String::from("--sample needs --other-peaks-dir"));
+    }
+    if !extra.manifests.is_empty() || extra.recall_panel.is_some() {
+        return Err(String::from(
+            "--manifest and --recall-panel need --other-peaks-dir: they add the other library's files to the queries",
+        ));
     }
     let source = if from_peaks {
         clusters::Source::Peaks
@@ -850,8 +876,16 @@ fn find_clusters(
     };
     let library = paths.library()?;
     let verdicts = verdicts_on(paths, &clusters::Searched::corpus(&library))?;
-    let clusters = clusters::find(&library, &paths.store()?, source, &verdicts, jobs)?;
+    let clusters = clusters::find(
+        &library,
+        &paths.store()?,
+        source,
+        &verdicts,
+        contradictions,
+        jobs,
+    )?;
     clusters::print_summary(&clusters);
+    clusters::print_cut_links(&clusters);
     if from_peaks {
         write_json(
             &paths
@@ -915,6 +949,7 @@ fn find_clusters_around(
     map_file: &Path,
     sample: Option<usize>,
     extra: &ExtraQueries,
+    contradictions: clusters::Contradictions,
     jobs: usize,
 ) -> Result<(), String> {
     let map = LibraryMap::load(map_file)?;
@@ -935,7 +970,7 @@ fn find_clusters_around(
         .clone()
         .unwrap_or_else(|| other.dir().display().to_string());
     if sample.is_none() {
-        check_verdicts_against_last_run(paths, &corpus, &verdicts, &name)?;
+        check_verdicts_against_last_run(paths, &corpus, &verdicts, &name, contradictions)?;
     }
     let (mut queries, _) = load_records(&library, &paths.store()?, &profile, &BTreeSet::new());
     let copies = map.copied();
@@ -978,7 +1013,8 @@ fn find_clusters_around(
         jobs,
     )?;
     clusters::print_around(&corpus, &pairs, &copies);
-    let merged = clusters::merged(&corpus, pairs, &verdicts, &name)?;
+    let merged = clusters::merged(&corpus, pairs, &verdicts, &name, contradictions)?;
+    clusters::print_cut_links(&merged);
     write_json(&paths.clusters_file(), &merged)?;
     println!(
         "{} clusters with duplicates, written to {}",
@@ -996,11 +1032,12 @@ fn check_verdicts_against_last_run(
     corpus: &Clusters,
     verdicts: &clusters::Verdicts,
     name: &str,
+    contradictions: clusters::Contradictions,
 ) -> Result<(), String> {
     let Ok(last) = paths.clusters() else {
         return Ok(());
     };
-    clusters::merged(corpus, last.pairs, verdicts, name)
+    clusters::merged(corpus, last.pairs, verdicts, name, contradictions)
         .map(|_| ())
         .map_err(|error| {
             format!(

@@ -208,19 +208,13 @@ impl Catalog {
         report_left_out(&problems, console);
         report_outside(&outside, track_length, console);
         if index.assets().is_empty() {
-            return Err(if store_only {
-                miette!(
-                    help = "--verbose lists the files left out",
-                    "none of the records in {} is searchable",
-                    store.dir().display()
-                )
-            } else {
-                miette!(
-                    help = format!("run `gunfinger index {}` first", root.display()),
-                    "no indexed assets in {}",
-                    root.display()
-                )
-            });
+            return Err(empty_index(
+                &root,
+                &store,
+                &outside,
+                track_length,
+                store_only,
+            ));
         }
         console.detail(format_args!(
             "index: {} assets ({} excluded), {} postings, {:.1} MB, built in {:.1} s",
@@ -246,6 +240,47 @@ impl Catalog {
     /// The tags the store holds for an indexed file.
     pub fn tags(&self, path: &str) -> Option<Tags> {
         self.store.tags(self.sources.get(path)?)
+    }
+}
+
+/// Why an index holds no asset: the track length range leaves out every
+/// file with a peak record, or no record can be searched.
+fn empty_index(
+    root: &Path,
+    store: &PeakStore,
+    outside: &[(String, Duration)],
+    track_length: TrackLength,
+    store_only: bool,
+) -> miette::Report {
+    let lengths = outside.iter().map(|(_, length)| *length);
+    if let (Some(shortest), Some(longest)) = (lengths.clone().min(), lengths.max()) {
+        let span = if shortest == longest {
+            format_timecode(shortest)
+        } else {
+            format!(
+                "{} to {}",
+                format_timecode(shortest),
+                format_timecode(longest)
+            )
+        };
+        return miette!(
+            help = "widen it with --min-track and --max-track (`min_track` and `max_track` in the configuration file)",
+            "the track length range ({track_length}) leaves out every file with a peak record ({}, {span})",
+            files(outside.len())
+        );
+    }
+    if store_only {
+        miette!(
+            help = "--verbose lists the files left out",
+            "none of the records in {} is searchable",
+            store.dir().display()
+        )
+    } else {
+        miette!(
+            help = format!("run `gunfinger index {}` first", root.display()),
+            "no indexed assets in {}",
+            root.display()
+        )
     }
 }
 

@@ -1341,3 +1341,30 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   02:28 (logs under `dnbfreak0/logs/` and `rootzdnb/logs/`); it does not
   call gunfinger, and the NAS store was unchanged afterwards (revision
   `5701f221f7b48ee1`, no file newer than the brief).
+- The restarted clusters run ended at 04:44:26 after 8,138 s (74,782 s
+  CPU, 5.13 GB peak; 347 queries in round 1, 290 in round 2, 2 in round
+  3) with an error and no report: the verdicts judge the Sonar "Mark
+  System Revision" different from the corpus Sonar and the dfect copy
+  (lines 29 and 30), and a chain of joins links them through the PRO012
+  rip, indexed since session 6 (corpus Sonar = PRO012 rip at 100%, 7,258
+  hits, 19.9 hits/s; PRO012 rip = revision at 99%, 467 hits, 1.3
+  hits/s). The check against the last run's pairs could not see it:
+  session 6 had no PRO012 rip. The stdout is kept
+  (`work/logs/s10-clusters-conflict.*`).
+  Decision (conservative, for the owner to confirm): no verdict is added.
+  `clusters` gains an opt-in `--cut-sparsest`: when joins chain two files
+  judged different, it cuts the chain's measured join with the fewest
+  hits per second (never one judged `same`), lists the cut, and keeps it
+  in the report (`cut_links`, the pair's `same_recording` false). Here
+  that keeps the revision apart from every Sonar rip, as both verdicts
+  intend, and counts the revision against Sonar as a wrong answer rather
+  than hiding it. The run is repeated with it after item 6's runs (item 6
+  needs no clusters; Phantom Force's cluster, the i-witness upload and the
+  PHUD1 rip, is in the stopped run's join lines). The repeat costs about
+  2 h 15 min, so items 4 and 5 may not both fit before the 9-hour stop.
+- Item 6's runs (they need no clusters) went first, 04:47-05:02, one at
+  a time. Then `--cut-sparsest` and the track-range message
+  (`stats`, `identify`, `explain`): `scripts/check.sh` green, `regress
+  session-10-start` identical (`work/bin/s10-cut/`, 247 s). The second
+  clusters run, with `--cut-sparsest`, started at 05:12:16 under
+  `screen` (session `s10-clusters2`).

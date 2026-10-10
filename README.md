@@ -395,7 +395,10 @@ own seconds. The owner's verdicts in `docs/pair-verdicts.txt` (`same` or
 `clusters` again after editing it. A cluster holds every file a chain of
 joins reaches, so when joins through other files link two files judged
 `different`, `clusters` stops and names the chain (with another
-library's store, it checks the last run's pairs before searching). It
+library's store, it checks the last run's pairs before searching).
+With `--cut-sparsest` it instead cuts each such chain's measured join
+with the fewest hits per second, never one judged `same`, and lists the
+cuts (`cut_links` in the report) for the owner to judge. It
 prints each pair's hits per second of aligned span and lists the joins
 under a tenth of the median: their coverage rests on little evidence.
 A verdict links only files the run searches: the corpus library's files

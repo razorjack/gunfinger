@@ -99,12 +99,14 @@ marked as inferences were derived, not measured.
   where they differ, and write the verdict to `docs/pair-verdicts.txt`.
   Decisions stay apart from measured evidence, survive identifying a mix
   again, and keep the original asset names visible.
-- **No record inside the track length range.** With a store whose only
-  records are longer than `--max-track`, `stats` says "no indexed
+- **No record inside the track length range.** *(done in session 10)*
+  With a store whose only records lie outside `--min-track` and
+  `--max-track`, `stats`, `identify` and `explain` said "no indexed
   assets ... run `gunfinger index` first", though the files are indexed
   and only the range leaves them out (seen in session 9 with an
-  18-minute file and the 17:00 default). Say that the range leaves them
-  out and how to widen it.
+  18-minute file and the 17:00 default). They now say that the range
+  leaves out every file with a peak record, how many and how long, and
+  how to widen it.
 - **Titles of mislabelled files.** A play takes the title in its best
   file's tags, so a mislabelled file gives a wrong title on a right
   match: track 2 of the 2003 mix is printed as "Future Cut - Sex Drive"
@@ -378,7 +380,13 @@ marked as inferences were derived, not measured.
   after adding them. `clusters` stops when a chain of joins through
   other files contradicts a `different` verdict, and names the chain;
   with the NAS store it checks the last run's pairs first, before an
-  85-minute search. *(larger library)*
+  85-minute search. A chain only the new search finds still stops the
+  run after it, and the search is lost: in session 10 the PRO012 rip of
+  Sonar, indexed since session 6, joined the revision (467 hits, 1.3
+  hits per second) after 2 h 16 min. `--cut-sparsest` (session 10, opt
+  in) cuts each such chain's sparsest measured join and lists it for
+  the owner instead. Still to do: keep a stopped run's pairs and
+  cluster them again without searching. *(larger library)*
 - **Clustering precision.** Most of session 6's gain at NAS scale came
   from joining rips the clusters had missed, so a wrong join would now
   count a false identification as correct. Coverage counts the span
