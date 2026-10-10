@@ -38,7 +38,10 @@ for scope and rules.
   as extra `clusters` queries (`--manifest`, `--recall-panel`); tests;
   regress identical
 - [~] 3. `map-library` (done); the NAS clusters run (stopped by the
-  shell's limit at 02:27, restarted under `screen` at 02:28) (wall, CPU, memory); the
+  shell's limit at 02:27, restarted under `screen` at 02:28; ended at
+  04:44 without a report, a chain through the new PRO012 rip of Sonar
+  against the revision verdicts; `--cut-sparsest` added, opt in, tests,
+  regress identical; run again with it from 05:12) (wall, CPU, memory); the
   experiment (against session 6, borderline pairs, sparse joins, panel
   sources); meanwhile the track-range message and the listening pack;
   after it, the pack for new pairs
@@ -47,8 +50,9 @@ for scope and rules.
   leave-out 3; against 0051, 0053, 0063; calibration register
 - [ ] 5. The panel's development half: recall per speed and kind, wrong
   answers, held-out answers, why each miss failed
-- [ ] 6. The 2003 mix: Phantom Force left out; the PHUD1 rip left out;
-  the Kinetic tease
+- [~] 6. The 2003 mix: Phantom Force left out; the PHUD1 rip left out;
+  the Kinetic tease (runs done 04:47-05:02, before the second clusters
+  run; experiment to write)
 
 ## Wrap-up
 

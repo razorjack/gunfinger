@@ -384,6 +384,14 @@ fn files_outside_the_track_length_are_passed_over_and_left_out() {
             "--verbose",
         ],
     ));
+    let none_in_range = Command::new(env!("CARGO_BIN_EXE_gunfinger"))
+        .args(["stats", "--library", library_arg, "--max-track", "15"])
+        .arg("--peaks-dir")
+        .arg(dir.join("peaks"))
+        .env("XDG_CONFIG_HOME", dir.join("config"))
+        .env("NO_COLOR", "1")
+        .output()
+        .unwrap();
     let widened = stderr(gunfinger(
         &dir,
         &["index", library_arg, "--max-track", "2:00"],
@@ -421,6 +429,23 @@ fn files_outside_the_track_length_are_passed_over_and_left_out() {
             "1 file left out because the track length is up to 0:25 (--min-track, --max-track):\n  b.wav (0:30)"
         ),
         "{narrowed}"
+    );
+    assert!(!none_in_range.status.success());
+    // The report wraps long lines, marking each continuation with `│`.
+    let none_in_range = String::from_utf8_lossy(&none_in_range.stderr)
+        .replace('│', " ")
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ");
+    assert!(
+        none_in_range.contains(
+            "the track length range (up to 0:15) leaves out every file with a peak record (2 files, 0:20 to 0:30)"
+        ),
+        "{none_in_range}"
+    );
+    assert!(
+        none_in_range.contains("widen it with --min-track and --max-track"),
+        "{none_in_range}"
     );
     assert!(widened.contains(": 2 extracted"), "{widened}");
 }

@@ -301,8 +301,9 @@ pub fn render(
 }
 
 /// Why an indexed excerpt was not recalled: its own cluster never became a
-/// candidate, or the strongest detection of it had too few hits for the
-/// rule, or enough hits in too few windows.
+/// candidate (no chain of two windows or more in the first pass), or the
+/// strongest detection of it had too few hits for the rule, or enough hits
+/// in too few windows.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum Miss {

@@ -116,6 +116,7 @@ mod tests {
             criterion: String::new(),
             duplicates: vec![vec![String::from("a.mp3"), String::from("a-rip.mp3")]],
             pairs: Vec::new(),
+            cut_links: Vec::new(),
         };
         let pairs = vec![
             pair("a.mp3", "remix.mp3", 70),

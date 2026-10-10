@@ -774,6 +774,7 @@ mod tests {
             criterion: String::new(),
             duplicates: Vec::new(),
             pairs: Vec::new(),
+            cut_links: Vec::new(),
         };
         let found = [
             found("a.mp3", 12.0, 48.0, 400),
