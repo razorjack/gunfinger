@@ -17,7 +17,7 @@
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 
 use super::{FRAME_BITS, Index, IndexedAsset, Posting};
 use crate::hash::HASH_BITS;
@@ -31,6 +31,9 @@ const FORMAT: u32 = 1;
 const OFFSETS: usize = (1 << HASH_BITS) + 1;
 /// Tables are read and written this many 4-byte words at a time.
 const CHUNK_WORDS: usize = 1 << 20;
+/// A temporary file untouched this long is left by a write that stopped;
+/// a younger one may belong to another search still writing.
+const UNFINISHED_AFTER: Duration = Duration::from_secs(600);
 
 /// What an index is built from. Indexes built from the same provenance hold
 /// the same postings.
@@ -73,7 +76,7 @@ pub fn file_name(store: &Path) -> String {
 /// Writes `index`, built from `provenance`, to `path` through a temporary
 /// file in the same folder and a rename, so that a crash or a full disk
 /// never leaves part of an index under the final name. Temporary files of
-/// earlier writes that did not finish are deleted first.
+/// earlier writes that did not finish are deleted first (`remove_unfinished`).
 pub fn save(path: &Path, provenance: &Provenance, index: &Index) -> io::Result<()> {
     if provenance.sources.len() != index.assets.len()
         || provenance
@@ -117,7 +120,14 @@ pub fn load(path: &Path, expected: &Provenance) -> Result<Index, Unusable> {
     let offsets = read_words(&mut input, OFFSETS).map_err(unreadable)?;
     check_offsets(&offsets)?;
     let posting_count = u64::from_le_bytes(input.array().map_err(unreadable)?);
-    let expected_bytes = input.read + 4 * posting_count + 8;
+    let Some(expected_bytes) = posting_count
+        .checked_mul(4)
+        .and_then(|bytes| bytes.checked_add(input.read + 8))
+    else {
+        return Err(Unusable::Unreadable(format!(
+            "its posting count {posting_count} is larger than any file"
+        )));
+    };
     if file_bytes != expected_bytes {
         return Err(Unusable::Unreadable(format!(
             "it holds {file_bytes} bytes where its header needs {expected_bytes}"
@@ -318,9 +328,9 @@ fn temporary_path(path: &Path, process: u32) -> PathBuf {
     path.with_file_name(name)
 }
 
-/// Deletes what writes of this index left behind when they stopped before
-/// the rename.
-fn remove_unfinished(path: &Path) {
+/// Deletes the temporary files of writes of the index at `path` that
+/// stopped before the rename: those untouched for `UNFINISHED_AFTER`.
+pub fn remove_unfinished(path: &Path) {
     let (Some(folder), Some(name)) = (path.parent(), path.file_name()) else {
         return;
     };
@@ -335,7 +345,15 @@ fn remove_unfinished(path: &Path) {
     for entry in entries.flatten() {
         let entry_name = entry.file_name();
         let entry_name = entry_name.to_string_lossy();
-        if entry_name.starts_with(&prefix) && entry_name.ends_with(".partial") {
+        let untouched = entry
+            .metadata()
+            .and_then(|metadata| metadata.modified())
+            .is_ok_and(|modified| {
+                SystemTime::now()
+                    .duration_since(modified)
+                    .is_ok_and(|age| age >= UNFINISHED_AFTER)
+            });
+        if entry_name.starts_with(&prefix) && entry_name.ends_with(".partial") && untouched {
             let _ = fs::remove_file(entry.path());
         }
     }
@@ -639,12 +657,36 @@ mod tests {
     }
 
     #[test]
+    fn a_posting_count_too_large_for_a_file_is_unreadable() {
+        let dir = scratch("count");
+        let path = dir.join("library.index");
+        let (provenance, index) = library();
+        save(&path, &provenance, &index).unwrap();
+        let mut whole = fs::read(&path).unwrap();
+        let count = whole.len() - 8 - 4 * index.postings.len() - 8;
+        whole[count..count + 8].copy_from_slice(&(1_u64 << 62).to_le_bytes());
+        fs::write(&path, &whole).unwrap();
+
+        let error = load(&path, &provenance).err().unwrap().to_string();
+
+        assert!(error.contains("larger than any file"), "{error}");
+    }
+
+    #[test]
     fn saving_again_replaces_the_file_and_what_unfinished_writes_left() {
         let dir = scratch("replace");
         let path = dir.join("library.index");
         let (provenance, index) = library();
         fs::write(&path, b"old").unwrap();
-        fs::write(temporary_path(&path, 1), b"left by a crash").unwrap();
+        let crashed = temporary_path(&path, 1);
+        fs::write(&crashed, b"left by a crash").unwrap();
+        File::options()
+            .write(true)
+            .open(&crashed)
+            .unwrap()
+            .set_modified(SystemTime::now() - UNFINISHED_AFTER)
+            .unwrap();
+        fs::write(temporary_path(&path, 2), b"another search writing").unwrap();
         fs::write(dir.join("other.index"), b"another library").unwrap();
 
         save(&path, &provenance, &index).unwrap();
@@ -655,6 +697,9 @@ mod tests {
             .map(|entry| entry.unwrap().file_name().to_string_lossy().into_owned())
             .collect();
         names.sort();
-        assert_eq!(names, ["library.index", "other.index"]);
+        assert_eq!(
+            names,
+            ["library.index", "library.index.2.partial", "other.index"]
+        );
     }
 }

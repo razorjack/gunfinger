@@ -514,10 +514,13 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 "\n{} verdicts written, {} items skipped, {} judged before",
                 outcome.written, outcome.skipped, outcome.judged_before
             );
+            if outcome.cut_left > 0 {
+                println!("{} cut joins still without a verdict", outcome.cut_left);
+            }
             if outcome.written > 0 {
                 println!(
                     "To apply them to the last clusters run:\n  {}",
-                    pair_review::reuse_command(paths.other_peaks_dir.as_deref(), &outcome)
+                    pair_review::reuse_command(paths.other_peaks_dir.as_deref())
                 );
             }
             Ok(())
