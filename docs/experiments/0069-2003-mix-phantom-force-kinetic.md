@@ -1,17 +1,15 @@
 # 0069: the 2003 mix without Phantom Force's rips, and the Kinetic tease
 
-**Question.** Item 6 of session 10 (roadmap, "More development mixes"):
-with Phantom Force's rips left out, do Phantom 2018 or Fracture's edit
-become confident? With the PHUD1 rip alone left out, does the start move
-back from 10:48 to 11:55? What evidence lies over the Kinetic tease?
+**Question.** Item 6 of session 10: without Phantom Force's rips, do
+Phantom 2018 or Fracture's edit become confident? Without the PHUD1 rip,
+does the start move from 10:48 to 11:55? What lies over the Kinetic tease?
 
 **Commands.** 0063's `identify --store-only --playback both -f json -v`
-(`work/bin/s10-item2/`, store `5701f221f7b48ee1`, after the prune) with
-nothing left out, then `--exclude-from` Phantom Force's cluster (the
-i-witness upload and the PHUD1 rip, linked by the stopped clusters run's
-joins), then the PHUD1 rip alone; `explain --at 17:53 --asset kinetic
---windows`. One run at a time: 255-265 s, 1,843-1,863 s CPU, 4.6 GB
-each; `explain` 77 s. Data: `data/0069-2003-mix-phantom-force-kinetic.json`.
+(`work/bin/s10-item2/`, store `5701f221f7b48ee1`) as is, then with
+`--exclude-from` Phantom Force's cluster (the i-witness upload and the
+PHUD1 rip, joined in the stopped clusters run), then the PHUD1 rip alone;
+`explain --at 17:53 --asset kinetic --windows`. 255-265 s, 1,843-1,863 s
+CPU, 4.6 GB each; `explain` 77 s. Data: `data/0069-*.json`.
 
 | 10:00-16:00 | Nothing left out | Cluster left out | PHUD1 left out |
 |---|---|---|---|
@@ -33,8 +31,7 @@ PHUD1 rip's first segment, 10:49.0-12:02.8 (823 hits in 9 windows, track
 **Kinetic.** The play's first segment, 17:23.7-18:01.8, is track 1:11-1:51
 (199 hits in 5 windows: possible alone, 39 hits short). No Kinetic line
 from 18:02 to 18:35; at 18:35.6 the track starts again from 0:15,
-confident to 25:18.8 (8,434 hits in 41 windows). `identify` makes one
-play of both, from 17:23.
+confident to 25:18.8 (8,434 hits in 41 windows); one play from 17:23.
 
 **Conclusions.** Phantom 2018 and Fracture's edit share a passage with
 Phantom Force but stay below the rule with or without its rips: without
