@@ -1473,3 +1473,53 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   `map-library` (2.4 s). The clusters search started at 19:03:14 under
   `screen` (`s11-clusters`, `work/s11/clusters.sh`): 352 queries, 262
   corpus files and 90 of the NAS's.
+- The clusters search runs at about a third of session 10's pace: 93
+  of round 1's 352 queries after 1:40 (session 10's first attempt: 137
+  in 38 min). Two causes, measured: builds, tests and `scripts/check.sh`
+  under `nice -n 10` still take a large share (the gate took 29:21
+  instead of 2:23, and the search advanced 19 queries meanwhile), and the
+  owner's machine is busy (a Time Machine backup, a software
+  installation, memory full with 5 GB compressed). On a quiet machine the
+  search uses 9.8 cores. Decision: from 20:45 builds run at `nice -n 15
+  -j 2`, the full gate and `regress` for items 3a-3c wait until the
+  search ends (the harness uses none of the three changes; `regress` will
+  show it), and only documents are written meanwhile.
+- Item 3a (`5a3eea7`, ADR 0011): a saved index. `index::saved` writes the
+  in-memory layout (offsets table, 4-byte postings) after a header
+  naming the format, profile, hash design, frame bits, track length range
+  and the asset table (path, size, modification time, duration), ending
+  with an FNV-1a digest; `load` refuses a stale header, a truncated or
+  overlong file, offsets out of order, a posting naming an asset the
+  table does not hold, or a wrong digest. `indexing::plan_index` lists
+  what a build would index from the record headers alone; `build_index`
+  builds from such a plan. `identify`, `explain` and `stats` take
+  `--saved-index use|rebuild|off` (default `use`); the file is
+  `$XDG_CACHE_HOME/gunfinger/indexes/<store folder>-<digest>.index` (else
+  `~/.cache/...`), one per peak store, replaced through a `.partial` file
+  and a rename; not used with `--exclude-from`. Width audit (ADR 0011):
+  the `u32` offsets count postings, enough at 65,536 assets of the NAS
+  mean length; `Index::counting` now refuses more than 4.29 billion
+  postings (`IndexError::TooManyPostings`), which would otherwise wrap.
+  Tests: 8 unit tests (round trip, missing, stale profile, design and
+  length range, changed store, truncated at 7 places, damaged posting,
+  leftovers) and an end-to-end test (built, loaded, off, truncated,
+  re-indexed). `scripts/check.sh` green (29:21 under the search's load).
+- Item 3b (`03058a8`): conflicting titles. A confident play is marked
+  with the confident plays over the same passage (the tracklist's
+  `same_recording`: overlapping for half the shorter play, the track
+  starting at the same mix time within 5 s) whose files' title tags
+  differ in letters and digits, case ignored (`other_titles` in the
+  JSON; a line "titled X; other files here: Y (plays 3, 4)" in the table;
+  "titles disagree:" instead of "also:" in the tracklist). Derived when a
+  report is made or read, like `shares_material_with`; no title is chosen.
+- Item 3c (`ef8ee16`): `gunfinger-eval pair-review [--pack DIR]` reads
+  `work/listening/README.md` and the item folders, skips items whose pair
+  or another pair of the same two clusters has a verdict, shows each
+  sheet in short, plays the clips with `ffplay`, and on `s` or `d`
+  appends the sheet's verdict line to `--verdicts` (keys: Enter or `n`
+  next clip, `p` previous, `r` replay, `k` skip, `q` quit). At the end it
+  prints `clusters --from-peaks --reuse-pairs`, with `--cut-sparsest`
+  while a cut join is unjudged. Three tests with a fake pack, player and
+  verdicts file. Checked on the real pack with a fake `ffplay` and a
+  temporary copy of the verdicts (all 30 items parsed; the copy
+  unchanged); never run against `docs/pair-verdicts.txt`.

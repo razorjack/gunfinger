@@ -21,27 +21,29 @@ for scope and rules.
 - [x] The laptop's disk: 62 GiB free
 - [x] The recall panel's two development sources without a record are
   named and left out (`e446040`); regress identical
-- [~] Brief, checklist; `CLAUDE.md` points to them; status "After
-  session 10"
+- [x] Brief, checklist; `CLAUDE.md` points to them; status "After
+  session 10" (`a9af63d`)
 
 ## Items
 
 - [~] 2. Session 10's reports kept in `work/s11/before/`; `map-library`
   (2.4 s); the NAS clusters search (started 19:03:14 under `screen`,
   session `s11-clusters`, `work/s11/clusters.sh`)
-- [ ] 3a. Saved index: width audit for 65,536 assets; ADR; format with a
-  header; rebuilt and replaced atomically when stale or unreadable;
-  `identify` and `explain` with the NAS configuration use it; tests
-  (stale header, truncated file, changed store); regress identical
+- [~] 3a. Saved index: width audit for 65,536 assets; ADR 0011; format
+  with a header; rebuilt and replaced atomically when stale or
+  unreadable; `identify`, `explain` and `stats` use it; tests (stale
+  header, truncated file, changed store); gate green (`5a3eea7`);
+  regress after the search
 - [ ] 3a acceptance (idle machine, after item 2): the 2003 mix at NAS
   scale with a rebuilt and a saved index, identical; rebuild, first run,
   cold and warm loads timed; file size; experiment
-- [ ] 3b. Conflicting titles: the other titles of a passage shown without
-  choosing one; the 2003 mix's track 2; detections unchanged; regress
-- [ ] 3c. `gunfinger-eval pair-review`: pack items, short sheet, clips
-  through the audio output, keys, verdict lines appended, skips judged
-  items, prints `clusters --reuse-pairs`; tests with a fake output and
-  a temporary verdicts file; regress
+- [~] 3b. Conflicting titles: the other titles of a passage shown without
+  choosing one; unit tests, clippy (`03058a8`); the 2003 mix's track 2
+  and regress after the search
+- [~] 3c. `gunfinger-eval pair-review`: pack items, short sheet, clips
+  through `ffplay`, keys, verdict lines appended, skips judged items,
+  prints `clusters --reuse-pairs`; tests with a fake output and a
+  temporary verdicts file (`ef8ee16`); regress after the search
 - [ ] 4. Clusters experiment against 0066; the listening pack rebuilt
   (`pair`, clips)
 - [ ] 5. The NAS baseline (scan, leave-outs 3 and 11, sweeps 2026-2029,
