@@ -1,0 +1,368 @@
+{
+ "seed": 2026,
+ "indexed_assets": 32432,
+ "held_out_clusters": 20,
+ "per_speed": [
+  {
+   "speed_percent": -8.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.002588852828449332,
+   "max_speed_error_percent": 0.006888780290488228
+  },
+  {
+   "speed_percent": -5.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.004681103228948539,
+   "max_speed_error_percent": 0.014046933620144308
+  },
+  {
+   "speed_percent": -3.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.004710234260643098,
+   "max_speed_error_percent": 0.015861712020972973
+  },
+  {
+   "speed_percent": -1.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.0048663757365374465,
+   "max_speed_error_percent": 0.01486361530317426
+  },
+  {
+   "speed_percent": 0.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.0019529923351084093,
+   "max_speed_error_percent": 0.007569742786084355
+  },
+  {
+   "speed_percent": 1.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.004695617197685357,
+   "max_speed_error_percent": 0.015801808594927635
+  },
+  {
+   "speed_percent": 3.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 4,
+   "mean_speed_error_percent": 0.0052499474500917595,
+   "max_speed_error_percent": 0.018327347858246412
+  },
+  {
+   "speed_percent": 5.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.00522907138637733,
+   "max_speed_error_percent": 0.016519692572218858
+  },
+  {
+   "speed_percent": 8.0,
+   "indexed_excerpts": 60,
+   "recalled": 60,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.002131744138495965,
+   "max_speed_error_percent": 0.007463281296356428
+  }
+ ],
+ "per_kind": [
+  {
+   "kind": "scene-release",
+   "indexed_queries": 180,
+   "recalled": 180,
+   "wrong_answers": 21,
+   "held_out_queries": 63,
+   "held_out_confident": 0
+  },
+  {
+   "kind": "youtube-channel",
+   "indexed_queries": 180,
+   "recalled": 180,
+   "wrong_answers": 9,
+   "held_out_queries": 63,
+   "held_out_confident": 0
+  },
+  {
+   "kind": "elsewhere",
+   "indexed_queries": 180,
+   "recalled": 180,
+   "wrong_answers": 0,
+   "held_out_queries": 54,
+   "held_out_confident": 0
+  }
+ ],
+ "misses": {},
+ "misses_by_kind": {},
+ "missed_sources": {},
+ "wrong_answers": [
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -8.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 325,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -8.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 313,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -8.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 246,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -5.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 343,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -5.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 315,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -5.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 261,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -3.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 329,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -3.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 314,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -3.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 261,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -1.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 353,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -1.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 332,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": -1.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 282,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 0.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 348,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 0.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 347,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 0.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 272,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 1.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 365,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 1.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 332,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 1.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 277,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 3.0,
+   "found": "Future Cut - Stealth (Domination).m4a [Future Cut - Stealth (Domination)]",
+   "hits": 355,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 3.0,
+   "found": "301-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 324,
+   "windows": 3
+  },
+  {
+   "source": "112-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "kind": "scene-release",
+   "speed": 3.0,
+   "found": "a-future_cut-stealth_(domination)-sour.mp3 [Future Cut - Stealth (Domination)]",
+   "hits": 306,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -8.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 387,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -5.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 392,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -3.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 404,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -1.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 415,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 0.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 385,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 1.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 426,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 3.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 428,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 5.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 472,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 8.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 385,
+   "windows": 3
+  }
+ ],
+ "held_out_confident": [],
+ "run": {
+  "command": "gunfinger-eval --other-peaks-dir <NAS store> recall --seed 2026",
+  "binary": "work/bin/s10-cut (d77df95)",
+  "store_revision": "5701f221f7b48ee1",
+  "wall_seconds": 1602.54,
+  "cpu_seconds": 14735.69,
+  "peak_footprint_bytes": 6535255656
+ }
+}

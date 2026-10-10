@@ -1385,3 +1385,8 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   Session 7's other-rips sweeps (old clusters) are in
   `work/s10/before/moved/`, so that `calibrate` reads only this session's
   sweeps. Item 5 started at 09:36 under `screen` (`s10-item5`).
+- Item 5 ran 09:36-10:03 (1,603 s, 14,736 s CPU, 6.5 GB; experiment
+  0068): the panel's development half 540/540 at every speed and kind,
+  no miss, no held-out source confident; 30 wrong answers, two pairs of
+  the listening pack (Essential Rewindz's mixed Stealth against three
+  unmixed copies; two DYkast "Punishment" uploads).

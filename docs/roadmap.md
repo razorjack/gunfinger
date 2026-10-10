@@ -98,7 +98,11 @@ marked as inferences were derived, not measured.
   (`gunfinger-eval pair` finds the alignment), show where they agree and
   where they differ, and write the verdict to `docs/pair-verdicts.txt`.
   Decisions stay apart from measured evidence, survive identifying a mix
-  again, and keep the original asset names visible.
+  again, and keep the original asset names visible. Session 10 built the
+  first step as files: `scripts/analysis/listening_pack.py` writes, per
+  pair, a sheet and FFmpeg clips (each file in turn, and both aligned in
+  stereo) under `work/listening/`, in listening order; the owner writes
+  the verdicts by hand.
 - **No record inside the track length range.** *(done in session 10)*
   With a store whose only records lie outside `--min-track` and
   `--max-track`, `stats`, `identify` and `explain` said "no indexed
@@ -423,7 +427,12 @@ marked as inferences were derived, not measured.
   each other in that passage. Two plays overlapping in a mix, or similar
   tags, do not show shared material: chance lines overlap confident
   plays too.
-- **Recall beyond the corpus recordings.** The four sweep panels draw
+- **Recall beyond the corpus recordings.** *(development half measured
+  in session 10, experiment 0068: 540/540 at every speed and kind, no
+  miss, held-out sources never confident; 30 wrong answers from a
+  mixed-disc track and an upload pair the clusters keep apart. The
+  harness reports why a miss failed. Still to do: the validation half,
+  once the rules change, and the hardest conditions combined.)* The four sweep panels draw
   320 excerpts from 208 corpus files (experiment 0025). At NAS scale
   they measure those recordings against 27,000 records, not recall on
   the rest of the collection. A panel drawn from NAS records, split into
@@ -462,9 +471,10 @@ marked as inferences were derived, not measured.
      searched, and not to files their ignore files leave out. The ignore
      file exists (ADR 0009); after the owner prunes the NAS store, one
      85-minute run serves both.
-  3. The set in the standard protocol at both sizes (at 262 tracks 7
-     tracks are referenced and 5 absent, a test of unknown audio), with
-     leave-outs, and a new baseline.
+  3. *(done in session 10, experiment 0067)* The set in the standard
+     protocol at both sizes, with leave-outs: 12/12 at NAS scale, 7/7
+     referenced and nothing possible over the 5 absent tracks at 262
+     tracks, 0 wrong everywhere.
   Then the experiments it offers *(done in session 10, experiment
   0069)*: without Phantom Force's rips neither Phantom 2018 nor the
   Fracture edit becomes confident (the track is missed, with possible
