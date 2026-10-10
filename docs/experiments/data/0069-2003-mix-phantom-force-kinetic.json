@@ -1,0 +1,750 @@
+{
+ "command": "gunfinger identify razorjack-2003-03-29.mp3 --config nas-dnb.toml --store-only --playback both -f json -v [--exclude-from LIST]",
+ "store_revision": "5701f221f7b48ee1",
+ "binary": "work/bin/s10-item2 (9fcd667)",
+ "runs": {
+  "nothing left out": {
+   "cost": {
+    "wall_seconds": 265.36,
+    "cpu_seconds": 1862.71,
+    "peak_bytes": 4615163960
+   },
+   "plays_10_to_16_min": [
+    {
+     "file": "AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8588,
+     "windows": 34,
+     "start_seconds": 372.9,
+     "end_seconds": 708.6,
+     "segments": [
+      {
+       "start_seconds": 372.9225,
+       "end_seconds": 708.5511,
+       "track_start_seconds": 77.5892,
+       "track_end_seconds": 429.0018,
+       "speed": 1.0471,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8588,
+       "windows": 34
+      }
+     ]
+    },
+    {
+     "file": "AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "windows": 34,
+     "start_seconds": 372.9,
+     "end_seconds": 708.6,
+     "segments": [
+      {
+       "start_seconds": 372.9225,
+       "end_seconds": 708.5511,
+       "track_start_seconds": 77.5892,
+       "track_end_seconds": 429.0018,
+       "speed": 1.0471,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8589,
+       "windows": 34
+      }
+     ]
+    },
+    {
+     "file": "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "confidence": "confident",
+     "hits": 6513,
+     "windows": 28,
+     "start_seconds": 649.0,
+     "end_seconds": 906.3,
+     "segments": [
+      {
+       "start_seconds": 648.9946,
+       "end_seconds": 722.7925,
+       "track_start_seconds": 57.7731,
+       "track_end_seconds": 134.9279,
+       "speed": 1.0452,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 823,
+       "windows": 9
+      },
+      {
+       "start_seconds": 723.5152,
+       "end_seconds": 906.2533,
+       "track_start_seconds": 135.2841,
+       "track_end_seconds": 326.2904,
+       "speed": 1.0452,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 5690,
+       "windows": 19
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "windows": 14,
+     "start_seconds": 691.2,
+     "end_seconds": 816.5,
+     "segments": [
+      {
+       "start_seconds": 691.1588,
+       "end_seconds": 722.8213,
+       "track_start_seconds": 75.2474,
+       "track_end_seconds": 108.7575,
+       "speed": 1.0577,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 85,
+       "windows": 4
+      },
+      {
+       "start_seconds": 725.1555,
+       "end_seconds": 777.2387,
+       "track_start_seconds": 60.582,
+       "track_end_seconds": 115.7441,
+       "speed": 1.0621,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 146,
+       "windows": 6
+      },
+      {
+       "start_seconds": 781.8355,
+       "end_seconds": 816.5143,
+       "track_start_seconds": 78.7354,
+       "track_end_seconds": 115.4438,
+       "speed": 1.0581,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 91,
+       "windows": 4
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "windows": 20,
+     "start_seconds": 715.8,
+     "end_seconds": 908.6,
+     "segments": [
+      {
+       "start_seconds": 715.7858,
+       "end_seconds": 908.6487,
+       "track_start_seconds": 128.9051,
+       "track_end_seconds": 333.1111,
+       "speed": 1.0597,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 2233,
+       "windows": 20
+      }
+     ]
+    },
+    {
+     "file": "Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 98,
+     "windows": 5,
+     "start_seconds": 751.5,
+     "end_seconds": 795.0,
+     "segments": [
+      {
+       "start_seconds": 751.512,
+       "end_seconds": 795.0186,
+       "track_start_seconds": 56.8679,
+       "track_end_seconds": 102.1362,
+       "speed": 1.04,
+       "playback": "key-locked",
+       "confidence": "possible",
+       "hits": 98,
+       "windows": 5
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "windows": 4,
+     "start_seconds": 826.1,
+     "end_seconds": 856.5,
+     "segments": [
+      {
+       "start_seconds": 826.1116,
+       "end_seconds": 856.5455,
+       "track_start_seconds": 45.1463,
+       "track_end_seconds": 77.3767,
+       "speed": 1.06,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 118,
+       "windows": 4
+      }
+     ]
+    },
+    {
+     "file": "g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "windows": 34,
+     "start_seconds": 880.8,
+     "end_seconds": 1204.9,
+     "segments": [
+      {
+       "start_seconds": 880.7754,
+       "end_seconds": 1100.5127,
+       "track_start_seconds": 78.859,
+       "track_end_seconds": 307.6745,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 2376,
+       "windows": 23
+      },
+      {
+       "start_seconds": 1101.0291,
+       "end_seconds": 1204.9207,
+       "track_start_seconds": 307.7725,
+       "track_end_seconds": 415.9543,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 336,
+       "windows": 11
+      }
+     ]
+    }
+   ],
+   "plays_17_to_26_min": [
+    {
+     "file": "g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "windows": 34,
+     "start_seconds": 880.8,
+     "end_seconds": 1204.9,
+     "segments": [
+      {
+       "start_seconds": 880.7754,
+       "end_seconds": 1100.5127,
+       "track_start_seconds": 78.859,
+       "track_end_seconds": 307.6745,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 2376,
+       "windows": 23
+      },
+      {
+       "start_seconds": 1101.0291,
+       "end_seconds": 1204.9207,
+       "track_start_seconds": 307.7725,
+       "track_end_seconds": 415.9543,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 336,
+       "windows": 11
+      }
+     ]
+    },
+    {
+     "file": "10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "windows": 46,
+     "start_seconds": 1043.7,
+     "end_seconds": 1518.8,
+     "segments": [
+      {
+       "start_seconds": 1043.6773,
+       "end_seconds": 1081.8321,
+       "track_start_seconds": 70.9802,
+       "track_end_seconds": 111.4096,
+       "speed": 1.0593,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 199,
+       "windows": 5
+      },
+      {
+       "start_seconds": 1115.6322,
+       "end_seconds": 1518.7773,
+       "track_start_seconds": 15.4513,
+       "track_end_seconds": 442.3888,
+       "speed": 1.059,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8434,
+       "windows": 41
+      }
+     ]
+    },
+    {
+     "file": "h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "windows": 31,
+     "start_seconds": 1464.8,
+     "end_seconds": 1765.8,
+     "segments": [
+      {
+       "start_seconds": 1464.7687,
+       "end_seconds": 1563.4481,
+       "track_start_seconds": 27.6019,
+       "track_end_seconds": 130.4276,
+       "speed": 1.0422,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 695,
+       "windows": 11
+      },
+      {
+       "start_seconds": 1578.4759,
+       "end_seconds": 1765.8233,
+       "track_start_seconds": 146.8438,
+       "track_end_seconds": 344.5217,
+       "speed": 1.0549,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 1668,
+       "windows": 20
+      }
+     ]
+    }
+   ]
+  },
+  "Phantom Force's cluster left out (2 files)": {
+   "left_out": [
+    "Digital & Spirit - Phantom Force.m4a",
+    "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3"
+   ],
+   "cost": {
+    "wall_seconds": 259.34,
+    "cpu_seconds": 1844.74,
+    "peak_bytes": 4612460552
+   },
+   "plays_10_to_16_min": [
+    {
+     "file": "AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8588,
+     "windows": 34,
+     "start_seconds": 372.9,
+     "end_seconds": 708.6,
+     "segments": [
+      {
+       "start_seconds": 372.9225,
+       "end_seconds": 708.5511,
+       "track_start_seconds": 77.5892,
+       "track_end_seconds": 429.0018,
+       "speed": 1.0471,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8588,
+       "windows": 34
+      }
+     ]
+    },
+    {
+     "file": "AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "windows": 34,
+     "start_seconds": 372.9,
+     "end_seconds": 708.6,
+     "segments": [
+      {
+       "start_seconds": 372.9225,
+       "end_seconds": 708.5511,
+       "track_start_seconds": 77.5892,
+       "track_end_seconds": 429.0018,
+       "speed": 1.0471,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8589,
+       "windows": 34
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "windows": 14,
+     "start_seconds": 691.2,
+     "end_seconds": 816.5,
+     "segments": [
+      {
+       "start_seconds": 691.1588,
+       "end_seconds": 722.8213,
+       "track_start_seconds": 75.2474,
+       "track_end_seconds": 108.7575,
+       "speed": 1.0577,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 85,
+       "windows": 4
+      },
+      {
+       "start_seconds": 725.1555,
+       "end_seconds": 777.2387,
+       "track_start_seconds": 60.582,
+       "track_end_seconds": 115.7441,
+       "speed": 1.0621,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 146,
+       "windows": 6
+      },
+      {
+       "start_seconds": 781.8355,
+       "end_seconds": 816.5143,
+       "track_start_seconds": 78.7354,
+       "track_end_seconds": 115.4438,
+       "speed": 1.0581,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 91,
+       "windows": 4
+      }
+     ]
+    },
+    {
+     "file": "Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 98,
+     "windows": 5,
+     "start_seconds": 751.5,
+     "end_seconds": 795.0,
+     "segments": [
+      {
+       "start_seconds": 751.512,
+       "end_seconds": 795.0186,
+       "track_start_seconds": 56.8679,
+       "track_end_seconds": 102.1362,
+       "speed": 1.04,
+       "playback": "key-locked",
+       "confidence": "possible",
+       "hits": 98,
+       "windows": 5
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "windows": 4,
+     "start_seconds": 826.1,
+     "end_seconds": 856.5,
+     "segments": [
+      {
+       "start_seconds": 826.1116,
+       "end_seconds": 856.5455,
+       "track_start_seconds": 45.1463,
+       "track_end_seconds": 77.3767,
+       "speed": 1.06,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 118,
+       "windows": 4
+      }
+     ]
+    },
+    {
+     "file": "g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "windows": 34,
+     "start_seconds": 880.8,
+     "end_seconds": 1204.9,
+     "segments": [
+      {
+       "start_seconds": 880.7754,
+       "end_seconds": 1100.5127,
+       "track_start_seconds": 78.859,
+       "track_end_seconds": 307.6745,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 2376,
+       "windows": 23
+      },
+      {
+       "start_seconds": 1101.0291,
+       "end_seconds": 1204.9207,
+       "track_start_seconds": 307.7725,
+       "track_end_seconds": 415.9543,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 336,
+       "windows": 11
+      }
+     ]
+    }
+   ]
+  },
+  "PHUD1 rip left out": {
+   "left_out": [
+    "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3"
+   ],
+   "cost": {
+    "wall_seconds": 255.56,
+    "cpu_seconds": 1843.08,
+    "peak_bytes": 4616015856
+   },
+   "plays_10_to_16_min": [
+    {
+     "file": "AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8588,
+     "windows": 34,
+     "start_seconds": 372.9,
+     "end_seconds": 708.6,
+     "segments": [
+      {
+       "start_seconds": 372.9225,
+       "end_seconds": 708.5511,
+       "track_start_seconds": 77.5892,
+       "track_end_seconds": 429.0018,
+       "speed": 1.0471,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8588,
+       "windows": 34
+      }
+     ]
+    },
+    {
+     "file": "AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "windows": 34,
+     "start_seconds": 372.9,
+     "end_seconds": 708.6,
+     "segments": [
+      {
+       "start_seconds": 372.9225,
+       "end_seconds": 708.5511,
+       "track_start_seconds": 77.5892,
+       "track_end_seconds": 429.0018,
+       "speed": 1.0471,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 8589,
+       "windows": 34
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "windows": 14,
+     "start_seconds": 691.2,
+     "end_seconds": 816.5,
+     "segments": [
+      {
+       "start_seconds": 691.1588,
+       "end_seconds": 722.8213,
+       "track_start_seconds": 75.2474,
+       "track_end_seconds": 108.7575,
+       "speed": 1.0577,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 85,
+       "windows": 4
+      },
+      {
+       "start_seconds": 725.1555,
+       "end_seconds": 777.2387,
+       "track_start_seconds": 60.582,
+       "track_end_seconds": 115.7441,
+       "speed": 1.0621,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 146,
+       "windows": 6
+      },
+      {
+       "start_seconds": 781.8355,
+       "end_seconds": 816.5143,
+       "track_start_seconds": 78.7354,
+       "track_end_seconds": 115.4438,
+       "speed": 1.0581,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 91,
+       "windows": 4
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "windows": 20,
+     "start_seconds": 715.8,
+     "end_seconds": 908.6,
+     "segments": [
+      {
+       "start_seconds": 715.7858,
+       "end_seconds": 908.6487,
+       "track_start_seconds": 128.9051,
+       "track_end_seconds": 333.1111,
+       "speed": 1.0597,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 2233,
+       "windows": 20
+      }
+     ]
+    },
+    {
+     "file": "Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 98,
+     "windows": 5,
+     "start_seconds": 751.5,
+     "end_seconds": 795.0,
+     "segments": [
+      {
+       "start_seconds": 751.512,
+       "end_seconds": 795.0186,
+       "track_start_seconds": 56.8679,
+       "track_end_seconds": 102.1362,
+       "speed": 1.04,
+       "playback": "key-locked",
+       "confidence": "possible",
+       "hits": 98,
+       "windows": 5
+      }
+     ]
+    },
+    {
+     "file": "Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "windows": 4,
+     "start_seconds": 826.1,
+     "end_seconds": 856.5,
+     "segments": [
+      {
+       "start_seconds": 826.1116,
+       "end_seconds": 856.5455,
+       "track_start_seconds": 45.1463,
+       "track_end_seconds": 77.3767,
+       "speed": 1.06,
+       "playback": "turntable",
+       "confidence": "possible",
+       "hits": 118,
+       "windows": 4
+      }
+     ]
+    },
+    {
+     "file": "g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "windows": 34,
+     "start_seconds": 880.8,
+     "end_seconds": 1204.9,
+     "segments": [
+      {
+       "start_seconds": 880.7754,
+       "end_seconds": 1100.5127,
+       "track_start_seconds": 78.859,
+       "track_end_seconds": 307.6745,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 2376,
+       "windows": 23
+      },
+      {
+       "start_seconds": 1101.0291,
+       "end_seconds": 1204.9207,
+       "track_start_seconds": 307.7725,
+       "track_end_seconds": 415.9543,
+       "speed": 1.0413,
+       "playback": "turntable",
+       "confidence": "confident",
+       "hits": 336,
+       "windows": 11
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "kinetic_explain": {
+  "command": "gunfinger explain ... --at 17:53 --around 60 --asset kinetic --windows",
+  "cost": {
+   "wall_seconds": 77.02,
+   "cpu_seconds": 118.06,
+   "peak_bytes": 4165782984
+  },
+  "output": [
+   "searched 16:50-18:53 around 17:53; hits count only this stretch",
+   "confident: 240 hits or more in 3 windows or more; possible: 60 hits or more",
+   "",
+   "  #  time                in track        speed   hits windows  level      short of                               asset",
+   "  1  17:23-18:01         1:10-1:51      +5.93%    201       5  possible   confident: 39 more hits                10-Omni_Trio-Kinetic-XTC.mp3",
+   "  2  18:35-18:52         0:15-0:32      +5.97%     65       3  possible   confident: 175 more hits               10-Omni_Trio-Kinetic-XTC.mp3",
+   "",
+   "10-Omni_Trio-Kinetic-XTC.mp3: lines per window",
+   "  window        hits from-to   hits    rung  playback  in track  chain",
+   "  17:20-17:30   17:23-17:29      10  +6.00%  turntable 1:10      #1",
+   "  17:20-17:30   17:23-17:26       9  +5.60%  turntable 1:55      -",
+   "  17:20-17:30   17:21-17:29       8  +6.00%  turntable 0:46      -",
+   "  17:20-17:30   17:23-17:26       7  +5.60%  turntable 1:33      -",
+   "                              4 weaker lines",
+   "  17:30-17:40   17:31-17:37       9  +6.00%  turntable 1:18      #1",
+   "  17:30-17:40   17:31-17:37       8  +5.60%  turntable 4:17      -",
+   "  17:30-17:40   17:31-17:37       8  +5.60%  turntable 4:40      -",
+   "  17:30-17:40   17:31-17:37       7  +6.00%  turntable 0:45      -",
+   "                              11 weaker lines",
+   "  17:40-17:50   17:43-17:48      18  +5.60%  turntable 1:32      #1",
+   "  17:40-17:50   17:41-17:47      11  +6.00%  turntable 2:25      -",
+   "  17:40-17:50   17:42-17:48      10  +6.00%  turntable 1:53      -",
+   "  17:40-17:50   17:43-17:45       8  +5.60%  turntable 6:22      -",
+   "                              7 weaker lines",
+   "  17:50-18:00   17:50-17:59      68  +6.00%  turntable 1:39      #1",
+   "  17:50-18:00   17:50-17:59      42  +6.00%  turntable 5:00      -",
+   "  17:50-18:00   17:50-17:59      39  +6.00%  turntable 5:22      -",
+   "  17:50-18:00   17:54-17:59      31  +6.40%  turntable 0:59      -",
+   "                              8 weaker lines",
+   "  18:00-18:10   18:00-18:01      36  +5.60%  turntable 1:49      #1",
+   "  18:00-18:10   18:00-18:01      16  +6.00%  turntable 6:18      -",
+   "  18:00-18:10   18:00-18:01      11  +5.60%  turntable 2:34      -",
+   "  18:00-18:10   18:00-18:01      10  +5.60%  turntable 5:10      -",
+   "                              3 weaker lines",
+   "  18:30-18:40   18:35-18:39       9  +6.00%  turntable 0:15      #2",
+   "  18:30-18:40   18:37-18:39       7  +5.60%  turntable 5:46      -",
+   "  18:30-18:40   18:37-18:39       7  +5.60%  turntable 6:37      -",
+   "  18:30-18:40   18:38-18:39       7  +6.00%  turntable 1:41      -",
+   "                              9 weaker lines",
+   "  18:40-18:50   18:40-18:49      36  +6.00%  turntable 0:21      #2",
+   "  18:40-18:50   18:40-18:49      32  +6.00%  turntable 3:42      -",
+   "  18:40-18:50   18:40-18:49      31  +6.00%  turntable 4:04      -",
+   "  18:40-18:50   18:42-18:49      22  +5.60%  turntable 0:00      -",
+   "                              14 weaker lines",
+   "  18:50-19:00   18:50-18:52       3  +5.60%  turntable 0:30      #2",
+   "  18:50-19:00   18:50-18:50       3  +6.00%  turntable 2:05      -",
+   "  18:50-19:00   18:50-18:52       3  +6.40%  turntable 0:08      -",
+   "  18:50-19:00   18:52-18:52       3  +6.40%  turntable 5:01      -",
+   "                              2 weaker lines",
+   ""
+  ]
+ }
+}
