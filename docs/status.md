@@ -1523,3 +1523,22 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   verdicts file. Checked on the real pack with a fake `ffplay` and a
   temporary copy of the verdicts (all 30 items parsed; the copy
   unchanged); never run against `docs/pair-verdicts.txt`.
+- 22:20-22:55: the clusters search reached 229 of round 1's 352 queries
+  at 22:39, about 1 query a minute (session 10's attempt at night: 4.6 a
+  minute). It holds 6.4-9.2 cores; the rest of the machine is busy (load
+  average about 350, 0% idle, 5.5 GB of swap in use; Brave, Chrome,
+  RubyMine and a Puma server hold about 9 GB). `sample` (3 s): the
+  workers spend most of their time sorting hits, as in session 10.
+  Paging is quiet now (39 decompressions in 10 s). At this pace round 1
+  ends near 00:30 and the search near 04:00-05:30. Nothing of the
+  owner's was stopped.
+- Decision: the heavy runs after the search are chained, so that none
+  waits for a check: `work/s11/after-clusters.sh` (under `screen`,
+  `s11-after`) waits for "clusters done", copies the report to
+  `work/s11/after/`, runs `regress session-11-start` with
+  `work/bin/s11-code/` (`8a83148`, release build at `nice -n 15 -j 2`)
+  and stops unless every detection is identical, then item 3a's timing,
+  then item 5, then 3a's cold load (after item 5's runs have filled the
+  file cache). Item 4's analysis is light and runs during item 5; its
+  `pair` runs follow item 5. The roadmap is updated for 3a-3c
+  (`0b3ac4f`).
