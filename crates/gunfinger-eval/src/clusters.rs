@@ -712,6 +712,11 @@ impl Verdicts {
         })
     }
 
+    /// Whether a verdict names these two files, in either order.
+    pub fn judges(&self, a: &str, b: &str) -> bool {
+        self.verdicts.contains_key(&ordered(a, b))
+    }
+
     /// The verdicts on two files the run searches, and a message naming the
     /// line and the file of every other verdict, which adds nothing: a
     /// cluster holds files of the libraries searched, never a file their
