@@ -7,7 +7,12 @@ music; separate tracks usually end and start in silence or a fade. A
 listening list for the owner's ignore file, not a rule. Opens the store
 read-only.
 
-usage: folder_edges.py <peak store> [min files per folder]
+With --by-disc, a folder whose file names all start with a three-digit
+track number is split by its first digit, the disc (`101-...`, `201-...`),
+as the owner's ignore patterns split such releases (`<folder>/2*`); each
+disc is scored on its own and printed as `<folder>/<digit>*`.
+
+usage: folder_edges.py <peak store> [min files per folder] [--by-disc]
 """
 import collections, os, struct, sys
 
@@ -54,8 +59,10 @@ def edges(data):
     return head / mean, tail / mean
 
 
-store = sys.argv[1]
-minimum = int(sys.argv[2]) if len(sys.argv) > 2 else 4
+arguments = [argument for argument in sys.argv[1:] if argument != "--by-disc"]
+by_disc = "--by-disc" in sys.argv
+store = arguments[0]
+minimum = int(arguments[1]) if len(arguments) > 1 else 4
 folders = collections.defaultdict(list)
 for entry in os.listdir(store):
     if not entry.endswith(".peaks"):
@@ -68,6 +75,23 @@ for entry in os.listdir(store):
     if shares:
         folder, _, name = path.rpartition("/")
         folders[folder].append((name, shares))
+
+
+def discs(folder, files):
+    """The folder's files by disc, when every name starts with three digits."""
+    if not by_disc or not all(name[:3].isdigit() for name, _ in files):
+        return {folder: files}
+    split = collections.defaultdict(list)
+    for name, shares in files:
+        split[f"{folder}/{name[0]}*"].append((name, shares))
+    return split
+
+
+folders = {
+    label: files
+    for folder, all_files in folders.items()
+    for label, files in discs(folder, all_files).items()
+}
 for folder, files in sorted(folders.items()):
     if len(files) < minimum:
         continue
