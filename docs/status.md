@@ -1424,3 +1424,52 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   any query; before this change the check read the cut pair as not the
   same recording and would have started a 2-hour search. The report was
   not touched.
+
+## 2026-10-10: after session 10: the owner's prune and the test manifest
+
+- The owner added 8 patterns to `/Volumes/atlas/Music/dnb/.gunfingerignore`
+  (lines 41-48, 39 patterns in all) for mixed discs beside unmixed ones in
+  one folder: Blazin, Molten Beats, Inside The Machine, 21st Century
+  Grooves and Vintage Dread 2000 (`2*`), Soul Survivors (`1*`), and
+  Essential Rewindz's discs 1 and 2 (`1*`, `2*`). Then `prune --yes` and
+  `index` with the NAS configuration: the store holds 33,596 records and
+  1,582 skip notes, revision `f9f9bc706195a71b`.
+- The owner listened to NAS files named like the test set's absent
+  tracks. At their request the test manifest references one NAS file
+  each for tracks 6, 9, 15, 18, 23, 24 and 26, with notes on 3, 12, 16,
+  21 and 28 (`docs/experiments/test-set-ledger.md`, "Manifest change
+  before evaluation 4"; no search was run, the count stays at 3 of 5).
+  The 2003 manifest's header comment now describes its NAS references;
+  nothing else in it changed.
+- Session 10's listening pack (`work/listening/`) is not judged yet. Its
+  item 1, the cut Sonar join, is unjudged, so every clusters run keeps
+  `--cut-sparsest`.
+- The owner approved test evaluation 4 at NAS scale.
+
+## 2026-10-10: session 11, a saved index and test evaluation 4
+
+Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
+
+- 18:15 start. The owner's ledger section committed alone (`51d6f4c`,
+  `scripts/check.sh` green, 2:23). Release build in `work/bin/s11-start/`;
+  `baseline session-11-start` saved.
+- The NAS store at the start: 33,596 `.peaks`, 33,596 `.tags`, 1,582
+  `.skip` (11 failed, 124 too short, 1,447 too long), revision
+  `f9f9bc706195a71b`, as expected; census `work/s11/census-start.json`
+  (3,523.4 h). `doctor --config ~/.config/gunfinger/nas-dnb.toml`: 39
+  patterns, 603 audio files left out, 35,178 audio files = 33,596 records
+  + 1,582 passed over, no records of ignored or gone files, none waiting.
+  It took 14:46 wall with 1.4 s CPU, against 35-44 s in sessions 9 and
+  10: the share listed slowly. The laptop's disk: 62 GiB free.
+- The recall panel of seed 2026 draws two development sources and one
+  validation source that the new patterns leave out and the prune
+  removed (Essential Rewindz's Stealth, Soul Survivors' Jupiter Fields;
+  Molten Beats' Snakebite). `recall::Panel::for_seed` refused such a
+  panel, which would have stopped the clusters search. It now names each
+  and leaves it out of every search, keeping the draw and the rendered
+  excerpts' numbers (`e446040`). `regress session-11-start` identical
+  (`work/bin/s11-panel/`, 8:33 while `doctor` waited on the share).
+- Item 2: session 10's NAS reports copied to `work/s11/before/`;
+  `map-library` (2.4 s). The clusters search started at 19:03:14 under
+  `screen` (`s11-clusters`, `work/s11/clusters.sh`): 352 queries, 262
+  corpus files and 90 of the NAS's.
