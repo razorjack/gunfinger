@@ -398,7 +398,13 @@ joins reaches, so when joins through other files link two files judged
 library's store, it checks the last run's pairs before searching).
 With `--cut-sparsest` it instead cuts each such chain's measured join
 with the fewest hits per second, never one judged `same`, and lists the
-cuts (`cut_links` in the report) for the owner to judge. It
+cuts (`cut_links` in the report) for the owner to judge. With another
+library's store, `--reuse-pairs` clusters the last run's pairs again with
+the current verdicts, without searching (seconds instead of hours): the
+pairs count as measured, before any verdict or cut; pairs with a file
+pruned or ignored since are dropped, and files indexed since are not
+searched. The check before a search reads the last run's pairs the same
+way. It
 prints each pair's hits per second of aligned span and lists the joins
 under a tenth of the median: their coverage rests on little evidence.
 A verdict links only files the run searches: the corpus library's files

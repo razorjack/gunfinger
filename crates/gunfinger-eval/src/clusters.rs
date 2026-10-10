@@ -424,6 +424,27 @@ pub fn print_cut_links(clusters: &Clusters) {
     }
 }
 
+/// An earlier run's pairs as its search measured them, before verdicts
+/// and cuts: `same_recording` by the coverage rule alone. Pairs with a
+/// file this run does not search (pruned since, or left out by an ignore
+/// file) are dropped; returns the pairs kept and the number dropped.
+pub fn as_measured(pairs: Vec<Pair>, searched: &Searched) -> (Vec<Pair>, usize) {
+    let before = pairs.len();
+    let kept: Vec<Pair> = pairs
+        .into_iter()
+        .filter(|pair| {
+            searched.outside(&pair.query).is_none() && searched.outside(&pair.found).is_none()
+        })
+        .map(|pair| Pair {
+            same_recording: pair.coverage >= MIN_COVERAGE,
+            owner_verdict: None,
+            ..pair
+        })
+        .collect();
+    let dropped = before - kept.len();
+    (kept, dropped)
+}
+
 /// Marks the pairs of the cut links as not the same recording.
 fn cut(pairs: &mut [Pair], cut_links: &[CutLink]) {
     for pair in pairs {
@@ -1494,6 +1515,41 @@ mod tests {
             [
                 ("rip.m4a", "revision.opus"),
                 ("upload.m4a", "revision.opus")
+            ]
+        );
+    }
+
+    #[test]
+    fn an_earlier_runs_pairs_lose_their_verdicts_and_their_pruned_files() {
+        let corpus = Library {
+            assets: vec![asset("a.mp3")],
+            ..Library::default()
+        };
+        let other = [asset("rip.m4a"), asset("upload.opus")];
+        let searched = Searched::corpus(&corpus).with_other(&other, None);
+        let judged = Pair {
+            coverage: 0.6,
+            owner_verdict: Some(true),
+            ..pair("a.mp3", "second-library/upload.opus", true)
+        };
+        let cut = Pair {
+            coverage: 0.95,
+            ..pair("a.mp3", "second-library/rip.m4a", false)
+        };
+        let pruned = pair("a.mp3", "second-library/gone.mp3", true);
+
+        let (pairs, dropped) = as_measured(vec![judged, cut, pruned], &searched);
+
+        assert_eq!(dropped, 1);
+        let state: Vec<(&str, bool, Option<bool>)> = pairs
+            .iter()
+            .map(|pair| (pair.found.as_str(), pair.same_recording, pair.owner_verdict))
+            .collect();
+        assert_eq!(
+            state,
+            [
+                ("second-library/upload.opus", false, None),
+                ("second-library/rip.m4a", true, None)
             ]
         );
     }

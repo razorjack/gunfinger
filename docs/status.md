@@ -1398,3 +1398,14 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   yt-dlp run at 02:24). All five items done before the 9-hour mark;
   notes "Session 10" lead with the listening pack (`work/listening/`,
   30 items).
+- The owner extended the session to 11:30. Added `clusters
+  --reuse-pairs` (with `--other-peaks-dir`): the last report's pairs,
+  reset to what the search measured (`clusters::as_measured`: coverage
+  rule alone, no verdict or cut; pairs with a file pruned or ignored
+  since dropped), clustered again without searching; the check before a
+  full search reads them the same way. On this session's report with
+  `--cut-sparsest`: 1.0 s, the same 264 clusters, cut and criterion as
+  the search (pairs equal to 1 ulp after the JSON round trip; the
+  searched report was put back); without it, the Sonar chain stops it in
+  1 s. `scripts/check.sh` green; `regress session-10-start` identical
+  (`work/bin/s10-reuse/`, 248 s).

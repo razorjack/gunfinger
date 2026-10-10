@@ -173,6 +173,16 @@ enum Command {
         /// guess for the owner to judge, not a verdict.
         #[arg(long)]
         cut_sparsest: bool,
+        /// With --other-peaks-dir: cluster the last run's pairs again with
+        /// the current verdicts, without searching (seconds, not hours).
+        /// Pairs with a file pruned or ignored since are dropped; files
+        /// indexed since that run are not searched.
+        #[arg(
+            long,
+            requires = "from_peaks",
+            conflicts_with_all = ["sample", "manifests", "recall_panel"]
+        )]
+        reuse_pairs: bool,
     },
     /// List recordings that share material (remixes, VIPs, samples) by
     /// matching the library against itself.
@@ -427,17 +437,23 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             manifests,
             recall_panel,
             cut_sparsest,
+            reuse_pairs,
         } => {
             let extra = ExtraQueries {
                 manifests,
                 recall_panel,
+            };
+            let pairs = match (sample, reuse_pairs) {
+                (Some(count), _) => PairSource::Sample(count),
+                (None, true) => PairSource::LastRun,
+                (None, false) => PairSource::Search,
             };
             let contradictions = if cut_sparsest {
                 clusters::Contradictions::CutSparsest
             } else {
                 clusters::Contradictions::Stop
             };
-            find_clusters(paths, from_peaks, sample, &extra, contradictions, jobs)
+            find_clusters(paths, from_peaks, pairs, &extra, contradictions, jobs)
         }
         Command::Related => {
             let related =
@@ -804,6 +820,17 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
 /// The other library's files a clusters run searches beside the corpus
 /// files: those the named sets' manifests reference, and the development
 /// sources of a recall panel.
+/// Where `clusters` with another library takes its pairs from.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum PairSource {
+    /// A search of every query, round after round.
+    Search,
+    /// One round over this many corpus files, for timing.
+    Sample(usize),
+    /// The last run's report, without searching.
+    LastRun,
+}
+
 struct ExtraQueries {
     manifests: Vec<String>,
     recall_panel: Option<u64>,
@@ -845,24 +872,18 @@ impl ExtraQueries {
 fn find_clusters(
     paths: &Paths,
     from_peaks: bool,
-    sample: Option<usize>,
+    pairs: PairSource,
     extra: &ExtraQueries,
     contradictions: clusters::Contradictions,
     jobs: usize,
 ) -> Result<(), String> {
     if let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) {
-        return find_clusters_around(
-            paths,
-            &other,
-            &map_file,
-            sample,
-            extra,
-            contradictions,
-            jobs,
-        );
+        return find_clusters_around(paths, &other, &map_file, pairs, extra, contradictions, jobs);
     }
-    if sample.is_some() {
-        return Err(String::from("--sample needs --other-peaks-dir"));
+    if pairs != PairSource::Search {
+        return Err(String::from(
+            "--sample and --reuse-pairs need --other-peaks-dir",
+        ));
     }
     if !extra.manifests.is_empty() || extra.recall_panel.is_some() {
         return Err(String::from(
@@ -947,7 +968,7 @@ fn find_clusters_around(
     paths: &Paths,
     other: &PeakStore,
     map_file: &Path,
-    sample: Option<usize>,
+    source: PairSource,
     extra: &ExtraQueries,
     contradictions: clusters::Contradictions,
     jobs: usize,
@@ -969,11 +990,36 @@ fn find_clusters_around(
         .other_library
         .clone()
         .unwrap_or_else(|| other.dir().display().to_string());
-    if sample.is_none() {
-        check_verdicts_against_last_run(paths, &corpus, &verdicts, &name, contradictions)?;
+    let copies = map.copied();
+    if source == PairSource::LastRun {
+        let last = paths.clusters()?;
+        let (pairs, dropped) = clusters::as_measured(last.pairs, &searched);
+        println!(
+            "{} pairs of the last run ({}), clustered again without searching; {dropped} dropped: a file pruned or ignored since",
+            pairs.len(),
+            paths.clusters_file().display()
+        );
+        return write_merged(
+            paths,
+            &corpus,
+            pairs,
+            &copies,
+            &verdicts,
+            &name,
+            contradictions,
+        );
+    }
+    if source == PairSource::Search {
+        check_verdicts_against_last_run(
+            paths,
+            &corpus,
+            &searched,
+            &verdicts,
+            &name,
+            contradictions,
+        )?;
     }
     let (mut queries, _) = load_records(&library, &paths.store()?, &profile, &BTreeSet::new());
-    let copies = map.copied();
     let referable = Referable::corpus(&library).with_other(&other_assets, other.dir());
     let extra_files = extra.files(paths, other, &referable)?;
     let extra_queries = clusters::other_queries(other, &other_assets, &extra_files, &copies)?;
@@ -985,7 +1031,7 @@ fn find_clusters_around(
         extra_files.len()
     );
     queries.extend(extra_queries);
-    if let Some(count) = sample {
+    if let PairSource::Sample(count) = source {
         let every = (queries.len() / count.max(1)).max(1);
         let sampled: Vec<_> = queries.into_iter().step_by(every).take(count).collect();
         let pairs = clusters::find_around(
@@ -1012,8 +1058,30 @@ fn find_clusters_around(
         clusters::Rounds::UntilNoneIsNew,
         jobs,
     )?;
-    clusters::print_around(&corpus, &pairs, &copies);
-    let merged = clusters::merged(&corpus, pairs, &verdicts, &name, contradictions)?;
+    write_merged(
+        paths,
+        &corpus,
+        pairs,
+        &copies,
+        &verdicts,
+        &name,
+        contradictions,
+    )
+}
+
+/// Prints what the pairs found, joins them to the corpus clusters with the
+/// verdicts applied, and writes the clusters in use.
+fn write_merged(
+    paths: &Paths,
+    corpus: &Clusters,
+    pairs: Vec<clusters::Pair>,
+    copies: &BTreeSet<String>,
+    verdicts: &clusters::Verdicts,
+    name: &str,
+    contradictions: clusters::Contradictions,
+) -> Result<(), String> {
+    clusters::print_around(corpus, &pairs, copies);
+    let merged = clusters::merged(corpus, pairs, verdicts, name, contradictions)?;
     clusters::print_cut_links(&merged);
     write_json(&paths.clusters_file(), &merged)?;
     println!(
@@ -1030,6 +1098,7 @@ fn find_clusters_around(
 fn check_verdicts_against_last_run(
     paths: &Paths,
     corpus: &Clusters,
+    searched: &clusters::Searched,
     verdicts: &clusters::Verdicts,
     name: &str,
     contradictions: clusters::Contradictions,
@@ -1037,7 +1106,8 @@ fn check_verdicts_against_last_run(
     let Ok(last) = paths.clusters() else {
         return Ok(());
     };
-    clusters::merged(corpus, last.pairs, verdicts, name, contradictions)
+    let (pairs, _) = clusters::as_measured(last.pairs, searched);
+    clusters::merged(corpus, pairs, verdicts, name, contradictions)
         .map(|_| ())
         .map_err(|error| {
             format!(

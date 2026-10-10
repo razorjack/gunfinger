@@ -389,8 +389,12 @@ marked as inferences were derived, not measured.
   Sonar, indexed since session 6, joined the revision (467 hits, 1.3
   hits per second) after 2 h 16 min. `--cut-sparsest` (session 10, opt
   in) cuts each such chain's sparsest measured join and lists it for
-  the owner instead. Still to do: keep a stopped run's pairs and
-  cluster them again without searching. *(larger library)*
+  the owner instead. `--reuse-pairs` (session 10) clusters the last
+  report's pairs again with new verdicts in about a second, and the
+  check before a search now reads those pairs as measured, so it catches
+  such a chain once a run has found it. Still to do: a stopped run
+  writes no report, so its pairs are lost; write them before stopping.
+  *(larger library)*
 - **Clustering precision.** Most of session 6's gain at NAS scale came
   from joining rips the clusters had missed, so a wrong join would now
   count a false identification as correct. Coverage counts the span

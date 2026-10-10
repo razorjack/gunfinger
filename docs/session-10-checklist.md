@@ -55,6 +55,12 @@ for scope and rules.
   the Kinetic tease (runs 04:47-05:02, before the second clusters run;
   experiment 0069)
 
+## After the extension to 11:30
+
+- [x] `clusters --reuse-pairs`: the last run's pairs clustered again
+  without searching; the pre-search check reads them as measured; test;
+  checked against this session's report; regress identical
+
 ## Wrap-up
 
 - [x] Experiments 0066-0069; notes ("Session 10", the listening pack

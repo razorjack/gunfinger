@@ -2101,7 +2101,10 @@ times, where the files stop lining up) and clips rendered from the files:
 (`*-a-then-b.mp3`), and the two aligned in stereo, one file per side
 (`*-stereo.mp3`), once inside the main alignment and once at each place
 where they stop lining up. A verdict goes into `docs/pair-verdicts.txt`
-as the sheet's last line shows.
+as the sheet's last line shows. Then `gunfinger-eval --other-peaks-dir
+~/.local/share/gunfinger/nas-dnb-peaks clusters --from-peaks
+--reuse-pairs` applies your verdicts to this session's pairs in about a
+second (add `--cut-sparsest` while item 1 is unjudged).
 
 1. **One cut join first** (item 1): the PRO012 rip of DJ Trace's Sonar,
    `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3`,
@@ -2278,6 +2281,16 @@ searched.
   before, but only after the search: a chain that only the new search
   finds costs the whole run (2 h 16 min this session). Keeping a
   stopped run's pairs for a quick second pass is in the roadmap.
+- **`clusters --reuse-pairs`** (with the NAS store) clusters the last
+  report's pairs again with your current verdicts in about a second,
+  without searching. Pairs with a file pruned or ignored since are
+  dropped; files indexed since are not searched. Checked on this
+  session's report: with `--cut-sparsest` it gives the same 264 clusters
+  and the same cut; without it, it stops on the Sonar chain in 1 s. Run
+  it after you judge pack items, and after a prune; run the full search
+  after indexing new files. The check before a full search now reads the
+  last run's pairs the same way, so a chain the last run found stops the
+  next run at once.
 - **`scripts/analysis/listening_pack.py`** builds the listening pack
   from a clusters report: `select` (cut joins, borderline pairs and
   sparse joins without a verdict, controls drawn by seed), `render`
