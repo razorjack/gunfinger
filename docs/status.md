@@ -1549,3 +1549,18 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   6 (`work/s11/item6.sh`) when the first chain writes "all done", and
   does nothing if it stopped. Evaluation 4 is not chained: its ledger
   entry and prediction come first, after a look at items 5 and 6.
+- A read-only review of `5a3eea7`, `03058a8` and `ef8ee16` (a subagent,
+  no builds) found nothing that changes detections or lets a stale or
+  damaged file load, and four small defects, all fixed (`570a668`):
+  `pair-review` printed `--cut-sparsest` only while a cut join was
+  unjudged, though a `same` verdict on the cut join or a new `different`
+  verdict can leave a chain that stops `clusters` (it now always prints
+  it; the cut changes nothing elsewhere); `save` deleted every
+  `.partial` beside the index, including another search's write in
+  progress (now only those untouched for 10 minutes); a leftover of an
+  interrupted `rebuild` stayed until the next save (now also deleted
+  after a successful load); a damaged posting count could overflow the
+  size check (now checked; a test). `scripts/check.sh` green (31:39 at
+  `nice -n 15` beside the search). Tonight's heavy runs keep
+  `work/bin/s11-code/` (`8a83148`); `570a668`'s `regress` runs in the
+  gap before evaluation 4.

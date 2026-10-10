@@ -435,8 +435,10 @@ for each item without a verdict it shows both full paths, the coverage
 and where the files stop lining up, plays the clips with `ffplay`, and on
 `s` or `d` appends the `same` or `different` line to the verdicts file
 (Enter or `n` the next clip, `p` the previous, `r` replay, `k` skip the
-item, `q` quit). At the end it prints the `clusters --reuse-pairs`
-command that applies the new verdicts.
+item, `q` quit). At the end it prints the `clusters --reuse-pairs
+--cut-sparsest` command that applies the new verdicts; the cut, which
+changes nothing where no chain joins two files judged different, keeps a
+remaining contradiction from stopping the run.
 A verdict links only files the run searches: the corpus library's files
 and, with another library's store, the files it holds a current record
 of, never a file a library's ignore file leaves out (with a store alone,
