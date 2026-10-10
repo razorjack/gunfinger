@@ -64,8 +64,12 @@ Width audit, at 65,536 assets of the NAS mean length (6.29 minutes; about
   (`nas-dnb-peaks-<16 hex>.index`). It is derived data on the local disk,
   never beside the peak store, which may live on a NAS; deleting it costs
   one rebuild. A store has one file, replaced through
-  `<name>.<pid>.partial` and a rename; partial files of writes that did
-  not finish are deleted by the next save.
+  `<name>.<pid>.partial` and a rename. A partial file untouched for 10
+  minutes was left by a write that stopped (a crash, a full disk, an
+  interrupted `rebuild`); the next save or successful load deletes it. A
+  younger one may be another search's write in progress and stays. Two
+  searches that build at once each save a whole file; the last rename
+  wins.
 - **Who uses it**: `identify`, `explain` and `stats`, by default
   (`--saved-index use`). `rebuild` builds and saves; `off` builds in
   memory only, as before. With `--exclude-from` the index is not the

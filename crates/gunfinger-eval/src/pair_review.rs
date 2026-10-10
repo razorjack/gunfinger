@@ -390,17 +390,18 @@ pub fn ffplay(path: &Path) -> Result<(), String> {
 }
 
 /// The command that applies the new verdicts to the last clusters run.
-pub fn reuse_command(other_store: Option<&Path>, outcome: &Outcome) -> String {
+/// It always cuts: a cut join left unjudged, a `same` verdict on one, or a
+/// new `different` verdict can each leave a chain of joins between two
+/// files judged different, where `clusters` would stop. `--cut-sparsest`
+/// changes nothing elsewhere and lists every cut.
+pub fn reuse_command(other_store: Option<&Path>) -> String {
     let store = other_store.map_or_else(
         || String::from("<the other library's peak store>"),
         |store| store.display().to_string(),
     );
-    let cut = if outcome.cut_left > 0 {
-        " --cut-sparsest"
-    } else {
-        ""
-    };
-    format!("gunfinger-eval --other-peaks-dir {store} clusters --from-peaks --reuse-pairs{cut}")
+    format!(
+        "gunfinger-eval --other-peaks-dir {store} clusters --from-peaks --reuse-pairs --cut-sparsest"
+    )
 }
 
 #[cfg(test)]
@@ -622,7 +623,7 @@ Clips (8 s each):\n  1-control-a-then-b.mp3\n\n"
             "same\tsecond-library/a/fire.mp3\tsecond-library/b/fire (vip).mp3\n"
         );
         assert_eq!(
-            reuse_command(Some(Path::new("/peaks/nas")), &outcome),
+            reuse_command(Some(Path::new("/peaks/nas"))),
             "gunfinger-eval --other-peaks-dir /peaks/nas clusters --from-peaks --reuse-pairs --cut-sparsest"
         );
         let again = review(

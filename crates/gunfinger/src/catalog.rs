@@ -317,6 +317,7 @@ fn load_or_build(
                     path.display(),
                     started.elapsed().as_secs_f64()
                 ));
+                saved::remove_unfinished(path);
                 return Ok(BuiltIndex {
                     index,
                     revision: library_revision(&plan.sources),
