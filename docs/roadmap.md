@@ -447,12 +447,13 @@ marked as inferences were derived, not measured.
   check the speed range those DJs used. The owner's 2003 mix is the second
   development set (`razorjack-2003-03-29`, experiment 0060: 12/12 at NAS
   scale). To use it in the harness:
-  1. Manifests that reference NAS files (`second-library/<path>`, as in
-     `docs/pair-verdicts.txt`), valid with `--other-peaks-dir`: five of
-     its tracks exist only on the NAS, and their paths wait as comments
-     in the manifest.
-  2. Clusters around its files (`clusters --from-peaks` with them among
-     the queries), so that other rips and uploads count as the track.
+  1. *(done in session 10)* Manifests that reference NAS files
+     (`second-library/<path>`, as in `docs/pair-verdicts.txt`), valid
+     with `--other-peaks-dir`; the five NAS-only tracks are now
+     references, set aside at 262 tracks.
+  2. *(done in session 10, experiment 0066)* Clusters around its files
+     (`clusters --from-peaks --manifest <set>`), so that other rips and
+     uploads count as the track.
      The owner judged the alien5ive INFRA012 upload of The Specialist,
      confident in the mix, the same recording (2026-10-09). Before the
      run: corpus-only `clusters` adds every `same` verdict as a link, so
@@ -464,12 +465,12 @@ marked as inferences were derived, not measured.
   3. The set in the standard protocol at both sizes (at 262 tracks 7
      tracks are referenced and 5 absent, a test of unknown audio), with
      leave-outs, and a new baseline.
-  Then the experiments it offers: Phantom Force and its rips left out
-  (do Phantom 2018 or the Fracture edit, both possible now, become
-  confident?), the blend from 10:47 to 11:55 before Phantom Force's
-  first confident detection, and the Kinetic tease at 17:23. At 32,905
-  records a PHUD1 vinyl rip of Phantom Force is confident from 10:48
-  (experiment 0063), which changes the second of these.
+  Then the experiments it offers *(done in session 10, experiment
+  0069)*: without Phantom Force's rips neither Phantom 2018 nor the
+  Fracture edit becomes confident (the track is missed, with possible
+  notes only); without the PHUD1 vinyl rip the start moves back from
+  10:49 to 11:55.8; the Kinetic tease at 17:23 is the track's 1:11-1:51,
+  possible on its own, and the track starts again from 0:15 at 18:35.
   Candidates on the NAS (experiment 0065, `work/s9/candidate-mixes.tsv`;
   no `identify` before their roles are agreed): the owner's own
   `Razor Jack - 2003-08-27.mp3` (20.7 min); 136 sets, radio shows and

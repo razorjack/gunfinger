@@ -101,9 +101,11 @@ def main():
     other_new = [m for n, m in enumerate(new["duplicates"]) if n not in seen_new]
 
     def gap(clusters):
+        cut_links = {frozenset((c["query"], c["found"])) for c in clusters.get("cut_links", [])}
         same = [p for p in clusters["pairs"] if p["same_recording"] and p.get("owner_verdict") is None]
         different = [p for p in clusters["pairs"]
-                     if not p["same_recording"] and p.get("owner_verdict") is None]
+                     if not p["same_recording"] and p.get("owner_verdict") is None
+                     and frozenset((p["query"], p["found"])) not in cut_links]
         weakest = min(same, key=lambda p: p["coverage"], default=None)
         strongest = max(different, key=lambda p: p["coverage"], default=None)
         return weakest, strongest

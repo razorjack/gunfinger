@@ -1368,3 +1368,12 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   session-10-start` identical (`work/bin/s10-cut/`, 247 s). The second
   clusters run, with `--cut-sparsest`, started at 05:12:16 under
   `screen` (session `s10-clusters2`).
+- The second clusters run ended at 07:26:39 (8,063 s, 75,059 s CPU,
+  5.41 GB peak): 264 clusters, one join cut (the PRO012 rip ~ the Sonar
+  revision); experiment 0066. Session 6's report is kept in
+  `work/s10/before/`, the new one in `work/s10/after/`. The pack's 14 new
+  items (`listening_pack.py select --known`, which now compares file
+  pairs, since cluster numbers change between runs) went through `pair`
+  (7 s) and were rendered (22 s); `work/listening/README.md` lists all
+  30 items in order. Item 4 started at 07:26:46 under `screen`
+  (`s10-after`, which runs `work/s10/item4.sh`).

@@ -33,8 +33,9 @@ sparse joins, then the control joins.
 
 STORE_PATHS is a text file of the NAS store's record paths, one per line.
 With --map (library-map.json), joins of identical copies are not drawn as
-controls. With --known, items whose cluster pairs another items file already holds
-are left out (to render only the pairs a later run adds).
+controls. With --known, items holding a pair of files another items file already
+holds are left out (to render only the pairs a later run adds; cluster
+numbers differ between runs, file pairs do not).
 """
 
 import collections
@@ -91,7 +92,7 @@ def select(arguments):
         for path in options[options.index("--known") + 1:]:
             if path.startswith("--"):
                 break
-            known.update(tuple(item["clusters"]) for item in load(path))
+            known.update(pair_key(pair) for item in load(path) for pair in item["pairs"])
 
     clusters = load(clusters_file)
     with open(store_paths) as file:
@@ -123,13 +124,13 @@ def select(arguments):
         and hits_per_second(p) < SPARSE_SHARE * median
     ]
     cut = {pair_key({"query": c["query"], "found": c["found"]}) for c in clusters.get("cut_links", [])}
-    items = [item("cut join", (key(p["query"]), key(p["found"])), [p])
-             for p in pairs if pair_key(p) in cut]
+    cut_pairs = [p for p in pairs if pair_key(p) in cut]
     borderline = [p for p in borderline if pair_key(p) not in cut]
-    for kind, chosen in (("borderline", borderline), ("sparse join", sparse)):
+    items = []
+    for kind, chosen in (("cut join", cut_pairs), ("borderline", borderline), ("sparse join", sparse)):
         groups = collections.defaultdict(list)
         for pair in chosen:
-            if unjudged(pair):
+            if kind == "cut join" or unjudged(pair):
                 groups[tuple(sorted((key(pair["query"]), key(pair["found"]))))].append(pair)
         for group, members in groups.items():
             members.sort(key=lambda p: (-p["coverage"], -p["hits"]))
@@ -143,7 +144,7 @@ def select(arguments):
     for pair in random.Random(seed).sample(joins, min(controls, len(joins))):
         group = (key(pair["query"]), key(pair["found"]))
         items.append(item("control join", group, [pair]))
-    items = [i for i in items if tuple(i["clusters"]) not in known]
+    items = [i for i in items if not any(pair_key(p) in known for p in i["pairs"])]
     items.sort(key=lambda i: (ORDER[i["kind"]], -i["pairs"][0]["hits"]))
     for number, entry in enumerate(items, 1):
         entry["number"] = number
