@@ -2088,3 +2088,216 @@ records, 7 skip notes and 464 tag notes. The NAS store now holds 32,441
 records and 1,558 skip notes, revision `5701f221f7b48ee1`. Your verdict
 on Synthesis VIP against the Dangerous Drums 2 track now names an
 ignored file.
+
+## Session 10
+
+### What you need to do: the listening pack
+
+`work/listening/README.md` lists 30 pairs of library files in the order
+to listen; each has a folder under `work/listening/` with `sheet.txt`
+(both full paths, coverage, supported time, each alignment with its
+times, where the files stop lining up) and clips rendered from the files:
+8 s of one file then the same 8 s of the other at the first one's speed
+(`*-a-then-b.mp3`), and the two aligned in stereo, one file per side
+(`*-stereo.mp3`), once inside the main alignment and once at each place
+where they stop lining up. A verdict goes into `docs/pair-verdicts.txt`
+as the sheet's last line shows.
+
+1. **One cut join first** (item 1): the PRO012 rip of DJ Trace's Sonar,
+   `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3`,
+   against the "Mark System Revision",
+   `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus`.
+   Below, "A verdict the clusters run could not keep".
+2. **19 borderline pairs** (items 2-20, one alignment covers 40-80% of
+   the shorter file), 13 of them new. Nine pair a track of Essential
+   Rewindz's mixed discs with an unmixed copy (items 3-6, 8, 12-14, 16);
+   an ignore pattern for those discs would settle them without
+   listening. Items 2, 9, 10, 18, 19 and 20 were already borderline
+   after session 6.
+3. **10 control joins** (items 21-30), drawn by seed from session 6's
+   joins, all still joins: what the same recording sounds like here.
+
+No sparse join is left: the only two were the cut join's two
+measurements.
+
+Decisions besides the pack:
+
+- **Mixed discs beside unmixed ones.** Session 9 listed Blazin (its
+  `2xx` files) and Inside The Machine (`vdbcrcd001`) as folders with
+  one mixed disc; Essential Rewindz
+  (`va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour`,
+  discs 1 and 2 mixed, disc 3 unmixed) is a third. Their mixed tracks
+  now cause all 24 wrong sweep answers (Essential Rewindz), 9 of the
+  pack's 19 borderline pairs (Essential Rewindz) and 6 joins into corpus
+  clusters (Inside The Machine's disc 2, Essential Rewindz's Warhead,
+  Blazin's `210_-_skynet_&_stakka_-_mix-sour.mp3`). Patterns such as
+  `**/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/1*`
+  and `.../2*` would leave out the mixed discs only. After a prune, the
+  next clusters run and baseline would show the effect.
+- **`--cut-sparsest`**: I kept it opt in. If you want `clusters` to cut
+  instead of stopping by default, say so; the cut is always listed.
+- **The 2003 manifest's header comment** still says that five tracks are
+  `[]`; the references are in place.
+
+### Your verdicts at NAS scale (experiment 0066)
+
+The clusters run with your verdicts, the 2003 mix's NAS references and
+the recall panel's 80 development sources as queries took 8,063 s (639
+queries in three rounds, 75,059 s CPU, 5.41 GB): 264 clusters, against
+233 in session 6.
+
+- Your `same` verdicts add five files to their corpus clusters: the
+  uploads of China Cup (PRO 001 UK), The Specialist (INFRA012), Coma
+  ("Spraycan"), Alien Girl and fractles. Phoenix's upload was joined
+  already. The Synthesis VIP verdict adds nothing: its Dangerous Drums 2
+  file is ignored and pruned.
+- Sonar's cluster loses the "Mark System Revision" and gains the PRO012
+  rip, with the cut described below.
+- 46 corpus clusters gain 60 files indexed since session 6, mostly scene
+  releases. Some are mixed-disc tracks that cover 80% of themselves with
+  one track, so they join: four tracks of disc 2 of Bad Company's
+  `bad_company-inside_the_machine-vdbcrcd001-2000-sour` (The Nine,
+  Sentient, Oxygen, 4 Days), Warhead on Essential Rewindz's first disc,
+  and `210_-_skynet_&_stakka_-_mix-sour.mp3` on Underfire's Blazin CD
+  (with Analogue Spikes). None of the three folders is in your ignore
+  file.
+- Five clusters lose a Dangerous Drums 2 track (your prune).
+
+### A verdict the clusters run could not keep, and the cut
+
+The clusters run (2 h 16 min) first stopped at its end without a report:
+your verdicts keep the Sonar "Mark System Revision" apart from the corpus
+Sonar and the dfect copy (lines 29 and 30), but the PRO012 rip, indexed
+since session 6, joins both sides: the corpus Sonar at 100% (7,258 hits,
+19.9 hits/s) and the revision at 99% (467 hits, 1.3 hits/s). I added no
+verdict. `clusters` has a new opt-in `--cut-sparsest`: when joins chain
+two files judged different, it cuts the chain's measured join with the
+fewest hits per second (never one you judged `same`) and lists it; the
+report keeps it in `cut_links`. The second run used it and cut the
+PRO012 rip's join with the revision. That keeps the revision apart from
+all Sonar rips, as your two verdicts intend; it is the first item of the
+listening pack. If the PRO012 rip and the revision are the same
+recording, one of your Sonar verdicts is wrong instead.
+
+### The new NAS baseline (experiment 0067)
+
+With the new clusters, at 32,441 records: the development scan 11/11
+with 0 wrong, leave-outs 3 and 11 8/11 and 0/11 with 0 wrong, and sweeps
+2026-2029 540/540 each, as in session 6. The sweeps' wrong answers go
+from 0, 24, 8, 8 to 4, 0, 8, 12. Your verdicts removed all 40 old ones
+(China Cup, Coma, Synthesis VIP). All 24 new ones come from Essential
+Rewindz's mixed disc 2: an excerpt of Funktion finds
+`203-ed_rush_and_optical-funktion-sour.mp3` (up to 332 hits), one of The
+Nine finds `206-bad_company-the_nine-sour.mp3` (up to 382). Those mixed
+tracks cover 58-60% and 78% of themselves with the track, so the
+clusters keep them apart and every detection of them counts as wrong.
+Over the four seeds the weakest identifying detection is 661 hits and
+the strongest false one 382, a margin of 1.73× (1.29× before). Without
+same-name pairs the strongest false is The Nine's Evol Intent VIP, which
+you judged different, at 220 hits (3.00×). Unrelated chance stays at
+63-70 hits outside that disc's blends. The rule stays 240 hits in 3
+windows. Costs rose with the records: sweeps 1,535-1,584 s, 14,012-14,535
+s CPU, 6.3-6.7 GB; scans 307-315 s.
+
+Your 2003 mix in the harness: at NAS scale 12/12 with 0 wrong, leave-out
+3 9/12 with 0 wrong; at 262 tracks 7 of its 7 referenced tracks with 0
+wrong and nothing even possible over the 5 NAS-only tracks, leave-out 3
+4/7 with 0 wrong.
+
+### Recall beyond the corpus recordings (experiment 0068)
+
+The recall panel's development half: 60 indexed and 20 held-out NAS
+records outside the corpus recordings' clusters, 20 indexed per kind
+(scene releases, YouTube channels, everything else), each as a 30 s
+excerpt at 9 speeds from -8% to +8%, searched against all 32,432 other
+records. All 540 indexed excerpts return their own recording, at every
+speed and for every kind; no held-out excerpt gets a confident answer
+(the strongest is 101 hits, possible). So there is no miss to explain
+(the harness now says, for each miss, whether it never became a
+candidate, had too few hits, or had too few windows). The 30 wrong
+answers are two pack pairs: Stealth on Essential Rewindz's mixed disc
+1, a panel source, finds three unmixed copies of Stealth (up to 365
+hits; items 3, 5 and 6), and the 3zb "DYkast • Punishment" upload finds
+butch-french's "Dykast - Punishment" at every speed (up to 472 hits,
+44% coverage; item 7). The validation half is drawn and kept, not
+searched.
+
+### The 2003 mix: Phantom Force and Kinetic (experiment 0069)
+
+- With Phantom Force's two rips left out (the i-witness upload and the
+  PHUD1 vinyl rip), nothing becomes confident between 11:48 and 14:40.
+  Phantom 2018 stays possible (322 hits from 11:31, in three segments
+  that each align the same minute of it, 1:01-1:56), Fracture's edit
+  possible (118 hits at 13:46), Rift's Meltdown possible (98, key lock).
+  So the track would be missed, with three possible notes and nothing
+  wrong.
+- With the PHUD1 rip alone left out, the start moves back to 11:55.8,
+  where the upload's evidence begins. The PHUD1 rip's first segment,
+  10:49-12:03 (track 0:58-2:15), covers an intro the upload never
+  matches; your ear put the blend at 10:47.
+- Kinetic: the tease at 17:23.7-18:01.8 plays the track's 1:11-1:51 (199
+  hits in 5 windows, possible on its own). Nothing of it follows until
+  18:35.6, where the track starts again from 0:15 and stays to 25:18.8.
+  `identify` joins both into one play from 17:23.
+
+### What changed in the harness
+
+- **Verdicts link only files a run searches.** A `same` verdict joins two
+  files only when both belong to the libraries the run searches: the
+  corpus library's files and, with the NAS store, the files it holds a
+  current record of, never one your `.gunfingerignore` leaves out (the
+  harness reads it from `/Volumes/atlas/Music/dnb` when the share is
+  mounted). Every other verdict is printed with its line and adds
+  nothing. In this session's run that is line 26, Synthesis VIP against
+  the Dangerous Drums 2 track: your ignore file's line 3 leaves it out
+  and your prune removed its record, so the VIP's cluster no longer
+  reaches the mixed CD. A corpus-only `clusters` run now leaves all the
+  NAS files of your verdicts out of the corpus clusters.
+- **Manifests can reference NAS files** as `second-library/<path>`. With
+  the NAS store, `validate` and `scan` check them against its records;
+  without it they are set aside, so a track with no corpus reference
+  counts as absent at 262 tracks, as before. As you allowed, the five
+  `# nas:` lines of `razorjack-2003-03-29` (tracks 1, 3, 4, 6 and 8) are
+  now references; nothing else changed in the file. Its header comment
+  still says that these five tracks are `[]`; you may want to update it.
+  `validate razorjack-2003-03-29`: 7 referenced and 5 absent at 262
+  tracks, 12 referenced with the NAS store. `validate` takes a set name,
+  so that this session never opened the test set's manifest.
+- **A recall panel from the NAS** (`gunfinger-eval recall`,
+  `docs/panels/recall-seed-2026.json`), drawn from tags and record
+  headers before anything was searched: 80 development sources (60
+  indexed, 20 held out; 20 indexed per kind: scene releases, YouTube
+  channels, everything else) and 80 validation sources, from 29,057
+  recording families split in two halves, so that one recording never
+  sits in both. 406 records without an artist and title tag are not in
+  the pool. Only the development half was searched.
+- **`clusters --cut-sparsest`** (opt in): when joins chain two files you
+  judged different, it cuts the chain's measured join with the fewest
+  hits per second, never one you judged `same`, lists the cut, and
+  keeps it in the report (`cut_links`). Without it `clusters` stops as
+  before, but only after the search: a chain that only the new search
+  finds costs the whole run (2 h 16 min this session). Keeping a
+  stopped run's pairs for a quick second pass is in the roadmap.
+- **`scripts/analysis/listening_pack.py`** builds the listening pack
+  from a clusters report: `select` (cut joins, borderline pairs and
+  sparse joins without a verdict, controls drawn by seed), `render`
+  (sheets and FFmpeg clips), `readme` (the listening order).
+- **`stats`, `identify` and `explain` say when the track length range
+  leaves out every record**, with how many files, how long, and the
+  options that widen it (roadmap, "No record inside the track length
+  range").
+
+### For you to know
+
+- `corpus/library/extra/310-future_cut-horns_2000-sour.mp3` is identical
+  to `310-future_cut-horns_2000-sour.mp3` on Essential Rewindz's unmixed
+  third disc, so that copy is right where it is.
+- Your `__youtube_archivists/fetch-all.sh` (yt-dlp) ran from about 02:24
+  to 02:28 during the session (logs under `dnbfreak0/logs/` and
+  `rootzdnb/logs/`). It does not call Gunfinger. At the end the NAS
+  store is as at the start (32,441 records, revision
+  `5701f221f7b48ee1`); `doctor` counts 34,642 audio files against
+  33,999 at the start, so 643 are not indexed yet.
+- Every long run now starts detached under `screen`: the agent's shell
+  stops a background command after about 40 minutes, which cut the first
+  clusters run short at 02:27.

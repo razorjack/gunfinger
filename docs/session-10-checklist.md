@@ -57,7 +57,9 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Experiments; notes ("Session 10", the listening pack first);
-  status; calibration register; roadmap
-- [ ] The NAS store's revision at the end: `5701f221f7b48ee1`
-- [ ] Commit; the message to the owner
+- [x] Experiments 0066-0069; notes ("Session 10", the listening pack
+  first); status; calibration register; roadmap
+- [x] The NAS store's revision at the end: `5701f221f7b48ee1`, 32,441
+  records, no file newer than the brief; `doctor`: 31 patterns, 643
+  audio files not indexed yet (34,642 against 33,999 at the start)
+- [x] Commit; the message to the owner

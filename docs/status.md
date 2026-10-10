@@ -1390,3 +1390,11 @@ Brief `docs/brief-10.md`, checklist `docs/session-10-checklist.md`.
   no miss, no held-out source confident; 30 wrong answers, two pairs of
   the listening pack (Essential Rewindz's mixed Stealth against three
   unmixed copies; two DYkast "Punishment" uploads).
+- Wrap-up (10:04): the NAS store at the end is the one at the start
+  (32,441 records, revision `5701f221f7b48ee1`, no file newer than the
+  brief). `doctor --config ~/.config/gunfinger/nas-dnb.toml` (40 s): 31
+  patterns, 504 audio files left out, 34,642 audio files, of which 643
+  are not indexed yet (33,999 at the start; most likely the owner's
+  yt-dlp run at 02:24). All five items done before the 9-hour mark;
+  notes "Session 10" lead with the listening pack (`work/listening/`,
+  30 items).
