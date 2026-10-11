@@ -334,13 +334,12 @@ fn check_library(
             library.skipped_total()
         ),
     );
-    if library.vanished > 0 {
+    if !library.vanished.is_empty() {
         checkup.line(
             Status::Note,
             format!(
-                "{} vanished while it was listed (moved or deleted meanwhile, such as by a download); the counts here leave {} out",
-                vanished_entries(library.vanished),
-                if library.vanished == 1 { "it" } else { "them" }
+                "these counts leave out what vanished while the library was listed (moved or deleted meanwhile, by a download for example): {}",
+                vanished_entries(&library)
             ),
         );
     }
@@ -423,12 +422,14 @@ fn check_library(
     }
     let gone = survey.orphans(Absence::Gone);
     if !gone.is_empty() {
+        let advice = if library.vanished.is_empty() {
+            "`gunfinger prune` lists them and `gunfinger prune --yes` deletes them"
+        } else {
+            "some may be in what vanished while the library was listed; `gunfinger prune` waits for a listing in which nothing vanishes"
+        };
         checkup.line(
             Status::Warning,
-            format!(
-                "{} gone from this library: `gunfinger prune` lists them and `gunfinger prune --yes` deletes them",
-                counted_kinds(&gone)
-            ),
+            format!("{} gone from this library: {advice}", counted_kinds(&gone)),
         );
     }
     let ignored = survey.orphans(Absence::Ignored);

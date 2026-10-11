@@ -42,11 +42,11 @@ pub fn run(request: &Request) -> miette::Result<()> {
 
 /// Prunes the store against `library`, the listing of `request.library`.
 fn prune(library: &Library, request: &Request) -> miette::Result<()> {
-    if library.vanished > 0 {
+    if !library.vanished.is_empty() {
         return Err(miette!(
-            help = "run `gunfinger prune` again: it prunes only after a listing in which nothing vanished",
+            help = "run it again with the same options: it prunes only after a listing in which nothing vanished",
             "{} vanished while {} was listed (moved or deleted meanwhile), so files that are still there could look gone; nothing is pruned",
-            vanished_entries(library.vanished),
+            vanished_entries(library),
             request.library.display()
         ));
     }
@@ -188,7 +188,7 @@ mod tests {
         let mut library = Library {
             root: root.clone(),
             assets: vec![kept, also_kept],
-            vanished: 1,
+            vanished: vec![String::from("Artist")],
             ..Library::default()
         };
         let console = Console::new(ColorChoice::Never, Verbosity::Quiet);
@@ -202,14 +202,14 @@ mod tests {
 
         let refused = prune(&library, &request);
         let note_after_refusal = store.tags(&missed).is_some();
-        library.vanished = 0;
+        library.vanished.clear();
         let pruned = prune(&library, &request);
         let note_after_prune = store.tags(&missed).is_some();
         std::fs::remove_dir_all(&dir).unwrap();
 
         let error = format!("{:?}", refused.expect_err("prune must refuse"));
         assert!(
-            error.contains("1 file or folder vanished while")
+            error.contains("1 file or folder (`Artist`) vanished while")
                 && error.contains("nothing is pruned"),
             "{error}"
         );

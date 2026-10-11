@@ -1859,3 +1859,25 @@ Brief `docs/brief-13.md`, checklist `docs/session-13-checklist.md`.
   `scripts/check.sh` green (5:13, 266 tests). `regress session-13-start`
   with `work/bin/s13-fix/`: 720/720, 87, 93 and 79 detections identical,
   the known calibrate line; 210.7 s.
+- Step 3, first part (18:31-18:45): `doctor --config nas-dnb.toml` four
+  times with `work/bin/s13-fix/` while files were added to the NAS: 36,550, 36,554,
+  36,559 and 36,565 audio files (1,372-1,387 not indexed yet), nothing
+  vanished in any run; 189, 190, 205 and 253 s (the last while the
+  review ran `cargo` beside it); 33,596 current records; the saved index
+  current.
+- Step 4, review (a read-only subagent, 18:31-18:44) of `26bc727`: the
+  walk, the root rules and `prune`'s refusal hold; the tests are
+  deterministic whatever the entry order. Acted on: metadata is read only
+  for audio files that would be assets, so a downloader's partial files
+  and thumbnails are passed over by name and never vanish (also one
+  `stat` fewer per such file); `Library::vanished` keeps the sorted paths
+  and the messages name the first, so a path that vanishes from every
+  listing can be found; `doctor`'s line on gone records says `prune`
+  waits for a listing in which nothing vanishes; `prune`'s help says to
+  run it again with the same options; the messages avoid count-dependent
+  pronouns; the harness's check is `nothing_vanished` in `main.rs`; ADR
+  0015 and the README say a folder gone before it is read counts once,
+  and that an unreadable root stops as at the start. Not done (in ADR
+  0015): checking vanished paths again at the end, comparing the root's
+  device. Checks pass (5:16, 267 tests); `regress session-13-start` with
+  `work/bin/s13-review/` identical (208.5 s).

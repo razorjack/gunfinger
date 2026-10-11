@@ -24,7 +24,10 @@ for scope and rules.
 - [ ] 3. The live NAS: `doctor` several times (audio files, vanished,
   duration); one `identify` of the 2003 mix without `--store-only`;
   experiment 0089
-- [ ] 4. Read-only review by a subagent; fixes
+- [x] 4. Read-only review by a subagent; fixes (metadata only for would-be
+  assets, the vanished paths kept and the first named, `doctor`'s prune
+  advice, wording); checks pass (267 tests); `regress session-13-start`
+  identical
 
 ## Wrap-up
 

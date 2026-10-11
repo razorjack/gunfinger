@@ -432,22 +432,27 @@ pub fn list(root: &Path, console: &Console) -> Result<Library, ScanError> {
 /// One line when files or folders vanished while the library was listed
 /// (ADR 0015), so a run on a library being written says what it left out.
 pub fn report_vanished(library: &Library, console: &Console) {
-    if library.vanished > 0 {
+    if !library.vanished.is_empty() {
         console.warning(format_args!(
-            "{} vanished while {} was listed (moved or deleted meanwhile); this run leaves {} out",
-            vanished_entries(library.vanished),
+            "this run leaves out what vanished while {} was listed (moved or deleted meanwhile): {}",
             library.root.display(),
-            if library.vanished == 1 { "it" } else { "them" }
+            vanished_entries(library)
         ));
     }
 }
 
-/// `1 file or folder`, `2 files or folders`.
-pub fn vanished_entries(count: usize) -> String {
-    if count == 1 {
-        String::from("1 file or folder")
-    } else {
-        format!("{count} files or folders")
+/// What vanished while `library` was listed, naming the first path so
+/// that one that vanishes from every listing can be found: `1 file or
+/// folder (`a/b.mp3`)`, `3 files or folders (`a/b.mp3` and 2 more)`.
+pub fn vanished_entries(library: &Library) -> String {
+    match library.vanished.as_slice() {
+        [] => String::from("nothing"),
+        [only] => format!("1 file or folder (`{only}`)"),
+        [first, rest @ ..] => format!(
+            "{} files or folders (`{first}` and {} more)",
+            rest.len() + 1,
+            rest.len()
+        ),
     }
 }
 

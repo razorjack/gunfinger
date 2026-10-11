@@ -75,10 +75,12 @@ pub struct Library {
     /// Each of its patterns, in file order, with the audio files it left
     /// out.
     pub ignored: Vec<Ignored>,
-    /// Files and folders below the root that were listed but gone when
-    /// read: moved or deleted during the listing, such as by a download
-    /// in progress. A folder counts once, whatever it held.
-    pub vanished: usize,
+    /// Paths relative to the root, sorted, of the files and folders that
+    /// were listed but gone when read: moved or deleted during the listing,
+    /// such as by a download in progress. A folder gone before it is read
+    /// counts once, whatever it held. Only folders and the audio files that
+    /// would be assets are read; other files are passed over by name.
+    pub vanished: Vec<String>,
 }
 
 /// A pattern of the ignore file and what it left out.
@@ -132,7 +134,7 @@ impl Library {
             ..Library::default()
         };
         library.scan_entries(read_folder(root)?, None, &mut progress)?;
-        if library.vanished > 0 {
+        if !library.vanished.is_empty() {
             // A share that drops during the listing answers NotFound for
             // everything below its mount point too: entries only vanished
             // if the root is still there.
@@ -142,6 +144,7 @@ impl Library {
         for ignored in &mut library.ignored {
             ignored.paths.sort();
         }
+        library.vanished.sort();
         Ok(library)
     }
 
@@ -175,7 +178,7 @@ impl Library {
         for entry in entries {
             let path = entry.path();
             let Some(kind) = unless_vanished(entry.file_type())? else {
-                self.vanished += 1;
+                self.vanish(&path);
                 continue;
             };
             if kind.is_dir() {
@@ -186,16 +189,13 @@ impl Library {
                     let ignored_by = ignored_by.or_else(|| self.pattern_for(&path, Entry::Folder));
                     match unless_vanished(read_folder(&path))? {
                         Some(inside) => self.scan_entries(inside, ignored_by, progress)?,
-                        None => self.vanished += 1,
+                        None => self.vanish(&path),
                     }
                 }
                 continue;
             }
             if kind.is_file() {
-                match unless_vanished(entry.metadata())? {
-                    Some(metadata) => self.consider_file(&path, &metadata, ignored_by),
-                    None => self.vanished += 1,
-                }
+                self.consider_file(&entry, ignored_by)?;
             } else {
                 self.skip("symlink or special file");
             }
@@ -212,36 +212,45 @@ impl Library {
             .position(|ignored| ignored.pattern.matches(&relative, entry))
     }
 
-    fn consider_file(&mut self, path: &Path, metadata: &fs::Metadata, ignored_by: Option<usize>) {
-        if is_hidden(path) {
+    /// Passes the file over or leaves it out by its name, or reads its size
+    /// and modification time as an asset's. A downloader's partial and
+    /// temporary files are passed over by name, so they never vanish.
+    fn consider_file(&mut self, entry: &fs::DirEntry, ignored_by: Option<usize>) -> io::Result<()> {
+        let path = entry.path();
+        if is_hidden(&path) {
             // Includes `.DS_Store` and the `._*` resource forks macOS leaves
             // on network shares, which carry audio extensions but no audio.
             self.skip("hidden file");
-            return;
+            return Ok(());
         }
         let extension = path
             .extension()
             .map(|extension| extension.to_string_lossy().to_lowercase());
         let Some(extension) = extension else {
             self.skip("no extension");
-            return;
+            return Ok(());
         };
         if !AUDIO_EXTENSIONS.contains(&extension.as_str()) {
             self.skip(&format!("extension .{extension}"));
-            return;
+            return Ok(());
         }
-        let Some(relative) = self.relative_path(path) else {
+        let Some(relative) = self.relative_path(&path) else {
             self.skip("path is not valid UTF-8");
-            return;
+            return Ok(());
         };
-        match ignored_by.or_else(|| self.pattern_for(path, Entry::File)) {
-            Some(pattern) => self.ignored[pattern].paths.push(relative),
-            None => self.assets.push(Asset {
+        if let Some(pattern) = ignored_by.or_else(|| self.pattern_for(&path, Entry::File)) {
+            self.ignored[pattern].paths.push(relative);
+            return Ok(());
+        }
+        match unless_vanished(entry.metadata())? {
+            Some(metadata) => self.assets.push(Asset {
                 path: relative,
                 size: metadata.len(),
                 modified: Timestamp::of(metadata.modified().unwrap_or(UNIX_EPOCH)),
             }),
+            None => self.vanished.push(relative),
         }
+        Ok(())
     }
 
     fn relative_path(&self, path: &Path) -> Option<String> {
@@ -252,6 +261,16 @@ impl Library {
 
     fn skip(&mut self, reason: &str) {
         *self.skipped.entry(reason.to_owned()).or_default() += 1;
+    }
+
+    fn vanish(&mut self, path: &Path) {
+        let relative = self.relative_path(path).unwrap_or_else(|| {
+            path.strip_prefix(&self.root)
+                .unwrap_or(path)
+                .display()
+                .to_string()
+        });
+        self.vanished.push(relative);
     }
 }
 
@@ -310,7 +329,7 @@ mod tests {
         assert_eq!(library.skipped["extension .mp3_bad_or_incomplete"], 1);
         assert_eq!(library.skipped["hidden file"], 1);
         assert_eq!(library.skipped_total(), 4);
-        assert_eq!(library.vanished, 0);
+        assert!(library.vanished.is_empty());
     }
 
     // The scan reads a folder's entries before it looks at any, so deleting
@@ -339,7 +358,35 @@ mod tests {
             1,
             "the file read before the others went"
         );
-        assert_eq!(library.vanished, 2);
+        assert_eq!(library.vanished.len(), 2);
+        assert!(!library.vanished.contains(&library.assets[0].path));
+    }
+
+    #[test]
+    fn files_passed_over_by_name_never_vanish() {
+        let root =
+            std::env::temp_dir().join(format!("gunfinger-vanish-name-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        let names = ["1.mp3", "2.mp3", "Track.webm.part", "Track.webp"];
+        for name in names {
+            touch(&root.join(name));
+        }
+
+        let library = Library::scan_with_progress(&root, |_| {
+            for name in names {
+                let _ = fs::remove_file(root.join(name));
+            }
+        })
+        .unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        // A downloader's partial file and thumbnail are passed over by their
+        // names whenever they go; of the audio files, those read after the
+        // first file went vanish.
+        assert_eq!(library.skipped["extension .part"], 1);
+        assert_eq!(library.skipped["extension .webp"], 1);
+        assert_eq!(library.assets.len() + library.vanished.len(), 2);
+        assert!(library.vanished.iter().all(|path| path.ends_with(".mp3")));
     }
 
     #[test]
@@ -364,7 +411,7 @@ mod tests {
         // of that folder vanishes (a file or `deeper/`), and so do the two
         // other folders, once each.
         assert_eq!(library.assets.len(), 1);
-        assert_eq!(library.vanished, 3);
+        assert_eq!(library.vanished.len(), 3);
     }
 
     #[test]

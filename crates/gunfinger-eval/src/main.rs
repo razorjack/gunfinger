@@ -1339,12 +1339,25 @@ fn run_scan(
     Ok(())
 }
 
+/// The library, if nothing vanished while it was listed (ADR 0015): an
+/// evaluation on a library missing files that are still there would not be
+/// repeatable.
+fn nothing_vanished(library: Library) -> Result<Library, String> {
+    match library.vanished.first() {
+        None => Ok(library),
+        Some(first) => Err(format!(
+            "files or folders vanished while it was listed (`{first}`, {} in all); run again when nothing moves files in it",
+            library.vanished.len()
+        )),
+    }
+}
+
 impl Paths {
     fn library(&self) -> Result<Library, String> {
         let root = self.corpus.join("library");
         Library::scan(&root)
             .map_err(|error| error.to_string())
-            .and_then(padding::complete)
+            .and_then(nothing_vanished)
             .map_err(|error| format!("cannot read the library at {}: {error}", root.display()))
     }
 
