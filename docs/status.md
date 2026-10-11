@@ -2003,3 +2003,13 @@ Brief `docs/brief-14.md`, checklist `docs/session-14-checklist.md`.
   within the same few milliseconds. Also left: a timeout on FFmpeg (a
   hung NAS holds connections; the browser's six per host would then
   delay answers). 49 audition tests.
+- Wrap-up (00:59): AGENTS.md section "The listening tool", the README's
+  command and keys, the roadmap's "Report edits" (listening done) and "A
+  full-screen TUI" (replaced), notes "Session 14". With the final build
+  (`work/bin/s14-end/`, the code of `e1470d0`): `regress
+  session-14-start` identical (720/720 sweep queries, 87, 93 and 79 scan
+  detections, the known calibrate line; 207.3 s, 0.39 GB);
+  `scripts/check.sh` green, 316 tests. The NAS store at the end: 33,596
+  records, revision `f9f9bc706195a71b`, unchanged.
+  `docs/pair-verdicts.txt` unchanged; `work/audition/answers.jsonl` never
+  created. The check servers are stopped.

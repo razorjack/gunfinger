@@ -31,8 +31,10 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] AGENTS.md section, README, roadmap items, notes "Session 14", status
-- [ ] `regress session-14-start` identical; `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty before every commit
-- [ ] Commit; the final message
+- [x] AGENTS.md section, README, roadmap items, notes "Session 14", status
+- [x] `regress session-14-start` identical (207.3 s); `scripts/check.sh`
+  green (316 tests)
+- [x] The NAS store's revision at the end: 33,596 records,
+  `f9f9bc706195a71b`, unchanged
+- [x] `git diff docs/pair-verdicts.txt` empty before every commit
+- [x] Commit; the final message

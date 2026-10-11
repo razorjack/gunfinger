@@ -2714,3 +2714,118 @@ possible tier and edits, a clusters search, test evaluation 5.
   Not needed for `/Volumes/atlas/Music/dnb`, which is a folder inside the
   share.
 - The speed work of experiment 0088, unchanged.
+
+## Session 14
+
+### What changed
+
+**A listening page: `gunfinger-eval audition`.** From the repository:
+
+```sh
+target/release/gunfinger-eval audition
+```
+
+It starts a small server on `127.0.0.1` and opens a page in the default
+browser (Chrome is tested; Safari is not, see below). The queue on the
+left lists the questions: the 23 items of the listening pack, then the
+seven folders. A question plays its files in lanes on one timeline, so
+switching lanes keeps the musical moment. The main keys:
+
+- Space plays or pauses; `1`, `2`, `3` switch lanes; Tab goes back to
+  the lane before.
+- Left and Right seek 5 s (Shift: 30 s); Up and Down jump to the
+  previous or next marker.
+- `L` loops 8 s; `M` turns speed matching off and on; `B` plays two
+  lanes at once, left and right.
+- `S`, `D` and `U` answer a pair; `Z` undoes; `?` shows every key.
+
+**Listen first to pack items 1 and 2, then the seven folders.** The page
+opens item 1.
+
+- Item 1 has three lanes: A is the Mark System Revision, B the PRO012
+  rip, and lane 3 the corpus original (`corpus/library/DJ Trace -
+  Sonar.m4a`), placed on A's timeline. `S` says B is the same recording
+  as A (the revision), `D` that it is not; lane 3 makes it possible to hear whether B
+  is the original instead.
+- Item 2: B follows A in three alignments and jumps at 334.6 s of A. The
+  markers show where the files stop lining up.
+- A folder plays the last 20 s of each track, then the first 20 s of the
+  next. Up and Down go from one boundary to the next. `Y` mixed CD, `N`
+  separate tracks, `U` unsure.
+
+**Where answers go.**
+- Every answer goes to `work/audition/answers.jsonl`.
+- A pair's `S` or `D` also appends to `docs/pair-verdicts.txt` the line
+  `pair-review` writes; `U` writes only the log.
+- After an answer the page opens the next open question.
+- `Z` takes back the latest answer, then the one before. It opens that
+  question and removes its verdict line if the line is still the
+  file's last; otherwise it leaves the file alone and says so.
+- Holding a key does not repeat an answer.
+- After new pair verdicts, apply them as after `pair-review`:
+  `target/release/gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks clusters --from-peaks --reuse-pairs --cut-sparsest`.
+- `pair-review` and `listen.zsh` still work as before.
+
+**My 2003 mix's plays, if wanted.** `questions detections`
+makes one question per play of a saved report: is this detection right?
+The 27 plays of my 2003 mix are in
+`work/audition/detections/2003-s12.json`. They are left out of the
+default queue so it holds only what is waiting for an answer. To add them:
+
+```sh
+target/release/gunfinger-eval audition work/audition/questions/*.json work/audition/detections/2003-s12.json
+```
+
+Their answers (`Y` right, `N` wrong, `U` unsure) go to the answer log
+only; nothing reads them yet.
+
+### Worth knowing
+
+- **No listening file was written.** `docs/pair-verdicts.txt` is
+  unchanged, and `work/audition/answers.jsonl` does not exist yet. Every
+  check used a copy of the verdicts file and an answer log in `/tmp`.
+- **The page was checked in Chrome on real files:** pack items 1 and 2,
+  control join 14, the folders Skynet & Stakka and Bad Company - Fear
+  LP, and play 4 of the 2003 mix. The checks covered:
+  - switching lanes at the same moment;
+  - speed matching, the loop and the two-lane blend;
+  - markers;
+  - answers and undo, including undo after a later line was added;
+  - refusal of a verdict that contradicts the file.
+
+  Screenshots are in `work/s14/`: `screenshot-2-pack-item-1-sharp.png`,
+  `screenshot-3-pack-item-2.png`, `screenshot-4-folder-jonny-l.png` and
+  `screenshot-5-detection-play-4.png`.
+- **Speed:**
+  - The server cuts a 30 s window of a NAS file in about 0.1 s.
+  - After a far jump, the first sound waits about a second while the
+    windows load.
+  - The page keeps at most 24 windows, about 250 MB.
+- **A review by a second agent found 14 defects; 13 are fixed.** Among
+  them:
+  - playback never stopped at the end of a question;
+  - holding an answer key answered every question opened after it;
+  - a failed decode stayed silent until a reload; it now retries.
+
+  The one not fixed needs our decision (below).
+- **Safari is untested.** It needs version 15.4 or later. If it
+  misbehaves, Chrome works.
+- **Detections did not change.** `regress session-14-start` was
+  identical. The NAS peak store was not touched.
+
+### Decisions waiting
+
+- **The Rust version.** The workspace declares Rust 1.85, but the code
+  already needs 1.88 (`let` chains in the core). Raising it to 1.89
+  would allow a lock so that two `audition` servers cannot write one
+  answer log at once. Without the lock, run one at a time. Two servers
+  collide only if two answers land within the same few milliseconds.
+- Still waiting, unchanged: the containment rule, shared material, the
+  possible tier and edits, a clusters search, test evaluation 5.
+
+### Left for later
+
+- **A timeout on FFmpeg.** If the NAS hangs, window requests wait and
+  can hold up answers.
+- **Report edits.** Detection answers turned into edits of a report, kept
+  when the mix is identified again (roadmap, "Report edits").
