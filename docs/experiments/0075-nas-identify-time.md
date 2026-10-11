@@ -14,7 +14,8 @@ the saved index). `work/s11/item8b.sh`; data
 
 **Timings.** 221.4 s wall, 1,847 s CPU (8.3 cores), 4.79 GB: index
 ready in 2.9 s (file 2.2 s), decoding 2.6 s, search 213.6 s, the rest
-(plan, report) about 2 s. The search is 96.5% of the wall time.
+(start, store listing, report) about 5 s. The search is 96.5% of the
+wall time.
 
 | CPU samples (166,639) | Now: fitted matcher, 33,596 assets | 0028: skip at 240; single pass, 26,462 |
 |---|--:|--:|
