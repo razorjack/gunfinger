@@ -2148,5 +2148,58 @@
    "hits": 118,
    "shares_with_hits": 6507
   }
- ]
+ ],
+ "mix_2003_copies_over_one_passage": {
+  "weaker_to_strongest_hits": [
+   [
+    1484,
+    4333
+   ],
+   [
+    4332,
+    4333
+   ],
+   [
+    2475,
+    6872
+   ],
+   [
+    2150,
+    6872
+   ],
+   [
+    2564,
+    6872
+   ],
+   [
+    8589,
+    8590
+   ],
+   [
+    2233,
+    6507
+   ],
+   [
+    3236,
+    5437
+   ],
+   [
+    3602,
+    5567
+   ],
+   [
+    825,
+    2767
+   ],
+   [
+    1984,
+    6591
+   ],
+   [
+    4399,
+    6591
+   ]
+  ],
+  "note": "confident plays of files of one cluster overlapping for half the shorter play, from the saved-index identify of the 2003 mix (experiment 0072)"
+ }
 }
