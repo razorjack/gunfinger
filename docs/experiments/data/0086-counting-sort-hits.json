@@ -1,0 +1,65 @@
+{
+ "command": "gunfinger --config nas-dnb.toml identify razorjack-2003-03-29.mp3 --store-only --playback both -f json (saved index, warm)",
+ "store_revision": "f9f9bc706195a71b",
+ "records": 33596,
+ "builds": {
+  "start": "work/bin/s12-start (7ef893f)",
+  "counting": "counting sort, 24-byte found hits (uncommitted step)",
+  "compact": "counting sort, 8-byte found hits (the committed change)"
+ },
+ "runs_in_order": {
+  "start-1": {
+   "wall_seconds": 170.94,
+   "cpu_seconds": 1541.74,
+   "peak_memory_bytes": 4776841296
+  },
+  "counting-1": {
+   "wall_seconds": 92.97,
+   "cpu_seconds": 794.07,
+   "peak_memory_bytes": 5179626056
+  },
+  "counting-2": {
+   "wall_seconds": 92.76,
+   "cpu_seconds": 792.76,
+   "peak_memory_bytes": 5171712632
+  },
+  "start-2": {
+   "wall_seconds": 171.32,
+   "cpu_seconds": 1551.04,
+   "peak_memory_bytes": 4778037280
+  },
+  "compact-1": {
+   "wall_seconds": 92.07,
+   "cpu_seconds": 773.8,
+   "peak_memory_bytes": 4799058048
+  },
+  "compact-2": {
+   "wall_seconds": 85.74,
+   "cpu_seconds": 773.32,
+   "peak_memory_bytes": 4802220208
+  },
+  "start-3": {
+   "wall_seconds": 166.64,
+   "cpu_seconds": 1543.79,
+   "peak_memory_bytes": 4779036776
+  }
+ },
+ "reports": "byte-identical to start-1 in every run",
+ "benchmark": {
+  "nas_real": {
+   "windows": 120,
+   "hits": 169752451,
+   "merged_s": 5.557,
+   "counting16_s": 2.3212,
+   "counting24_s": 3.1995
+  },
+  "corpus_real": {
+   "windows": 417,
+   "hits": 6171470,
+   "merged_s": 0.1991,
+   "counting16_s": 0.0761,
+   "counting24_s": 0.1035
+  }
+ },
+ "regress": "session-12-start identical (720/720; 87, 93, 79 detections), 203.7 s"
+}

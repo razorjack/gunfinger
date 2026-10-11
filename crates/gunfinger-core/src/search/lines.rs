@@ -8,11 +8,11 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, MutexGuard, PoisonError};
 
 use super::{KeyLockPeaks, Query};
-use crate::hash::{MAX_DELTA_FRAMES, for_each_pair};
-use crate::index::{AssetId, Index};
+use crate::hash::{MAX_DELTA_FRAMES, Point, for_each_pair};
+use crate::index::{AssetId, Index, Posting};
 use crate::parallel::map_in_order_with;
 use crate::profile::Profile;
-use crate::speed::{Playback, Rung};
+use crate::speed::{Playback, Rung, SpeedRatio};
 
 /// Query time is cut into windows this long. Within one window a residual
 /// speed error of 0.2% drifts the offset by about one frame.
@@ -59,12 +59,107 @@ impl Line {
     }
 }
 
-#[derive(Clone)]
+/// A posting a query hash hit, as found: 8 bytes, as a window holds up
+/// to 2 million at 33,596 assets (experiment 0086).
+#[derive(Clone, Copy)]
 struct Hit {
-    asset: AssetId,
+    posting: Posting,
+    /// The anchor's position among the rung's points.
+    anchor: u32,
+}
+
+/// A hit once grouped with the other hits of its asset.
+#[derive(Clone, Copy, Default)]
+struct AlignedHit {
     /// Reference frame minus the anchor's frame at the assumed speed.
     offset: f64,
+    /// The anchor's frame at the query's own speed.
     query_frame: f64,
+}
+
+/// One worker's hits, kept for all its jobs: those of the window being
+/// searched as they are found, and the same hits grouped by asset.
+///
+/// Each thread keeps its buffers for all its jobs. A window's hits reach
+/// 200 MB at 26,000 assets, and buffers freed after every rung were kept by
+/// the allocator: 15.7 GB instead of 5.0 GB for 10 minutes of query on 10
+/// threads (experiment 0029).
+struct WindowHits {
+    found: Vec<Hit>,
+    /// The first `found.len()` hold the window's hits, asset by asset.
+    grouped: Vec<AlignedHit>,
+    /// A counter for each asset of the index and one more, all zero
+    /// between windows (see `group_by_asset`).
+    ends: Vec<u32>,
+}
+
+impl WindowHits {
+    fn new(assets: usize) -> WindowHits {
+        WindowHits {
+            found: Vec::new(),
+            grouped: Vec::new(),
+            ends: vec![0; assets + 1],
+        }
+    }
+
+    /// Groups the window's hits by asset, turns each asset's densest offset
+    /// clusters into lines, and empties the buffers for the next window.
+    ///
+    /// Lines depend only on each asset's offsets in sorted order: a cluster
+    /// never splits equal offsets, so any order of ties gives the same
+    /// lines.
+    fn lines(&mut self, window: u32, rung: Rung, points: &[Point]) -> Vec<Line> {
+        self.group_by_asset(points, rung.speed());
+        let mut lines = Vec::new();
+        let mut start = 0;
+        for (asset, &end) in self.ends[..self.ends.len() - 1].iter().enumerate() {
+            let same_asset = &mut self.grouped[start..end as usize];
+            start = end as usize;
+            if same_asset.len() < MIN_LINE_HITS {
+                continue;
+            }
+            same_asset.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
+            for cluster in densest_clusters(same_asset) {
+                lines.push(line_of(
+                    AssetId(asset as u32),
+                    &same_asset[cluster],
+                    window,
+                    rung,
+                ));
+            }
+        }
+        self.ends.fill(0);
+        self.found.clear();
+        lines
+    }
+
+    /// A counting sort by asset: asset numbers are dense and below the
+    /// index's count, so two passes over the hits group them, where a
+    /// comparison sort took most of a search's time at 33,596 assets
+    /// (experiments 0075, 0085, 0086). Leaves asset `a`'s hits in
+    /// `grouped[ends[a - 1]..ends[a]]`.
+    fn group_by_asset(&mut self, points: &[Point], speed: SpeedRatio) {
+        let ends = &mut self.ends;
+        for hit in &self.found {
+            ends[hit.posting.asset().0 as usize + 1] += 1;
+        }
+        // Each asset's first slot.
+        for asset in 1..ends.len() {
+            ends[asset] += ends[asset - 1];
+        }
+        if self.grouped.len() < self.found.len() {
+            self.grouped.resize(self.found.len(), AlignedHit::default());
+        }
+        for hit in &self.found {
+            let anchor = points[hit.anchor as usize];
+            let slot = &mut ends[hit.posting.asset().0 as usize];
+            self.grouped[*slot as usize] = AlignedHit {
+                offset: f64::from(hit.posting.frame()) - anchor.frame,
+                query_frame: anchor.frame / speed.0,
+            };
+            *slot += 1;
+        }
+    }
 }
 
 /// Query windows searched on every rung before their lines are merged.
@@ -83,11 +178,6 @@ const BLOCK_WINDOWS: u32 = 12;
 /// searching the whole query on each rung and merging at the end:
 /// `distinct` compares lines of one asset and window only, and a window's
 /// hits come from the same anchors in the same order.
-///
-/// Each thread keeps one buffer of hits for all its jobs. A window's hits
-/// reach 200 MB at 26,000 assets, and buffers freed after every rung were
-/// kept by the allocator: 15.7 GB instead of 5.0 GB for 10 minutes of
-/// query on 10 threads (experiment 0029).
 pub(super) fn on_ladder(
     index: &Index,
     query: Query,
@@ -124,45 +214,51 @@ fn in_blocks(
         .collect();
     let merged = Mutex::new(Vec::new());
     let finished = AtomicUsize::new(0);
-    map_in_order_with(&work, jobs, Vec::new, |hits, (block, rungs)| {
-        let first = block * block_windows;
-        let mut cached = KeyLockPeaks::default();
-        // The last block takes every window left, however long the query.
-        let end = if block + 1 == blocks {
-            u32::MAX
-        } else {
-            first + block_windows
-        };
-        for rung in rungs.clone() {
-            let lines = in_windows(
-                index,
-                query,
-                profile,
-                ladder[rung],
-                first..end,
-                hits,
-                &mut cached,
-            );
-            let complete = {
-                let mut block = lock(&unmerged[*block as usize]);
-                block.rungs[rung] = Some(lines);
-                block.missing -= 1;
-                (block.missing == 0).then(|| mem::take(&mut block.rungs))
+    let assets = index.assets().len();
+    map_in_order_with(
+        &work,
+        jobs,
+        || WindowHits::new(assets),
+        |hits, (block, rungs)| {
+            let first = block * block_windows;
+            let mut cached = KeyLockPeaks::default();
+            // The last block takes every window left, however long the query.
+            let end = if block + 1 == blocks {
+                u32::MAX
+            } else {
+                first + block_windows
             };
-            if let Some(rungs) = complete {
-                let mut lines = Vec::with_capacity(rungs.iter().flatten().map(Vec::len).sum());
-                for rung in rungs.into_iter().flatten() {
-                    lines.extend(rung);
+            for rung in rungs.clone() {
+                let lines = in_windows(
+                    index,
+                    query,
+                    profile,
+                    ladder[rung],
+                    first..end,
+                    hits,
+                    &mut cached,
+                );
+                let complete = {
+                    let mut block = lock(&unmerged[*block as usize]);
+                    block.rungs[rung] = Some(lines);
+                    block.missing -= 1;
+                    (block.missing == 0).then(|| mem::take(&mut block.rungs))
+                };
+                if let Some(rungs) = complete {
+                    let mut lines = Vec::with_capacity(rungs.iter().flatten().map(Vec::len).sum());
+                    for rung in rungs.into_iter().flatten() {
+                        lines.extend(rung);
+                    }
+                    let kept = distinct(lines);
+                    lock(&merged).extend(kept);
                 }
-                let kept = distinct(lines);
-                lock(&merged).extend(kept);
+                progress(
+                    finished.fetch_add(1, Ordering::Relaxed) + 1,
+                    blocks as usize * ladder.len(),
+                );
             }
-            progress(
-                finished.fetch_add(1, Ordering::Relaxed) + 1,
-                blocks as usize * ladder.len(),
-            );
-        }
-    });
+        },
+    );
     let mut lines = merged.into_inner().unwrap_or_else(PoisonError::into_inner);
     // Blocks finish in any order. Their windows differ, so a stable sort
     // gives the order merging all lines at once gives.
@@ -202,15 +298,15 @@ fn lock<T>(mutex: &Mutex<T>) -> MutexGuard<'_, T> {
 }
 
 /// Looks up the query hashes of the anchors in `windows` at one assumed
-/// speed and collects the lines each window's hits form. `hits` is an empty
-/// buffer, left empty.
+/// speed and collects the lines each window's hits form. `hits` holds no
+/// hit before and after.
 fn in_windows(
     index: &Index,
     query: Query,
     profile: &Profile,
     rung: Rung,
     windows: Range<u32>,
-    hits: &mut Vec<Hit>,
+    hits: &mut WindowHits,
     cached: &mut KeyLockPeaks,
 ) -> Vec<Line> {
     let speed = rung.speed();
@@ -227,72 +323,50 @@ fn in_windows(
     let mut lines = Vec::new();
     let mut window = 0;
     for_each_pair(&points, |hash, anchor| {
-        let anchor = points[anchor];
-        let query_frame = anchor.frame / speed.0;
-        let anchor_window = (query_frame / window_frames) as u32;
+        let anchor_window = (points[anchor].frame / speed.0 / window_frames) as u32;
         // Anchors are ordered by frame to within a frame, so a window only
         // ever moves forward. Anchors of earlier STFT frames lie earlier, so
         // the points before `points` cannot move it.
         if anchor_window > window {
             if windows.contains(&window) {
-                lines.extend(lines_in_window(hits, window, rung));
+                lines.extend(hits.lines(window, rung, &points));
             }
             window = anchor_window;
         }
         if windows.contains(&window) {
-            for posting in index.scanned_postings(hash) {
-                hits.push(Hit {
-                    asset: posting.asset(),
-                    offset: f64::from(posting.frame()) - anchor.frame,
-                    query_frame,
+            for &posting in index.scanned_postings(hash) {
+                hits.found.push(Hit {
+                    posting,
+                    anchor: anchor as u32,
                 });
             }
         }
     });
     if windows.contains(&window) {
-        lines.extend(lines_in_window(hits, window, rung));
+        lines.extend(hits.lines(window, rung, &points));
     }
     lines
 }
 
-/// Groups one window's hits by asset and offset, turns the densest offset
-/// clusters into lines, and empties `hits` for the next window.
-fn lines_in_window(hits: &mut Vec<Hit>, window: u32, rung: Rung) -> Vec<Line> {
-    if hits.len() <= 50_000 {
-        hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
-    } else {
-        // Integer grouping avoids repeating the asset comparison while
-        // ordering each asset's offsets on large libraries (experiment 0080).
-        hits.sort_unstable_by_key(|hit| hit.asset);
-        for same_asset in hits.chunk_by_mut(|a, b| a.asset == b.asset) {
-            same_asset.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
-        }
+/// The line of one asset's hits in a cluster.
+fn line_of(asset: AssetId, members: &[AlignedHit], window: u32, rung: Rung) -> Line {
+    let query_frames = members.iter().map(|hit| hit.query_frame);
+    Line {
+        asset,
+        window,
+        speed: rung.speed().0,
+        playback: rung.playback(),
+        offset: members.iter().map(|hit| hit.offset).sum::<f64>() / members.len() as f64,
+        hits: members.len() as u32,
+        first: query_frames.clone().fold(f64::INFINITY, f64::min),
+        last: query_frames.fold(f64::NEG_INFINITY, f64::max),
     }
-    let mut lines = Vec::new();
-    for same_asset in hits.chunk_by(|a, b| a.asset == b.asset) {
-        for cluster in densest_clusters(same_asset) {
-            let members = &same_asset[cluster];
-            let query_frames = members.iter().map(|hit| hit.query_frame);
-            lines.push(Line {
-                asset: members[0].asset,
-                window,
-                speed: rung.speed().0,
-                playback: rung.playback(),
-                offset: members.iter().map(|hit| hit.offset).sum::<f64>() / members.len() as f64,
-                hits: members.len() as u32,
-                first: query_frames.clone().fold(f64::INFINITY, f64::min),
-                last: query_frames.fold(f64::NEG_INFINITY, f64::max),
-            });
-        }
-    }
-    hits.clear();
-    lines
 }
 
 /// Index ranges of the densest non-overlapping offset clusters in hits
 /// sorted by offset: for each hit, the hits within `LINE_SPAN_FRAMES` after
 /// it form a candidate; the largest candidates win.
-fn densest_clusters(hits: &[Hit]) -> Vec<Range<usize>> {
+fn densest_clusters(hits: &[AlignedHit]) -> Vec<Range<usize>> {
     let mut candidates = Vec::new();
     let mut end = 0;
     for start in 0..hits.len() {
@@ -355,9 +429,8 @@ pub(super) mod tests {
     use crate::search::test_audio;
     use crate::speed::SpeedRatio;
 
-    fn hit(offset: f64) -> Hit {
-        Hit {
-            asset: AssetId(0),
+    fn hit(offset: f64) -> AlignedHit {
+        AlignedHit {
             offset,
             query_frame: 0.0,
         }
@@ -378,27 +451,111 @@ pub(super) mod tests {
         }
     }
 
-    #[test]
-    fn large_buffer_sorting_preserves_each_assets_lines() {
-        let rung = Rung::Turntable(SpeedRatio(1.0));
-        let mut hits = Vec::new();
-        let mut by_asset: Vec<Vec<Hit>> = (0..400).map(|_| Vec::new()).collect();
-        for number in 0..80_000 {
-            let asset = number % 400;
-            let hit = Hit {
-                asset: AssetId(asset as u32),
-                offset: ((number / 400) % 17) as f64 * 0.25 - 2.0,
-                query_frame: number as f64 / 200.0,
-            };
-            by_asset[asset].push(hit.clone());
-            hits.push(hit);
-        }
-        let expected: Vec<_> = by_asset
-            .iter_mut()
-            .flat_map(|hits| lines_in_window(hits, 0, rung))
+    /// The lines of a window's hits as the search found them up to
+    /// session 12: one comparison sort by asset and offset.
+    fn lines_by_comparison_sort(
+        hits: &[Hit],
+        points: &[Point],
+        window: u32,
+        rung: Rung,
+    ) -> Vec<Line> {
+        let mut found: Vec<(AssetId, f64, f64)> = hits
+            .iter()
+            .map(|hit| {
+                let anchor = points[hit.anchor as usize];
+                (
+                    hit.posting.asset(),
+                    f64::from(hit.posting.frame()) - anchor.frame,
+                    anchor.frame / rung.speed().0,
+                )
+            })
             .collect();
-        assert_eq!(lines_in_window(&mut hits, 0, rung), expected);
-        assert!(hits.is_empty());
+        found.sort_unstable_by(|a, b| a.0.cmp(&b.0).then(a.1.total_cmp(&b.1)));
+        let mut lines = Vec::new();
+        for same_asset in found.chunk_by(|a, b| a.0 == b.0) {
+            let aligned: Vec<AlignedHit> = same_asset
+                .iter()
+                .map(|&(_, offset, query_frame)| AlignedHit {
+                    offset,
+                    query_frame,
+                })
+                .collect();
+            for cluster in densest_clusters(&aligned) {
+                lines.push(line_of(same_asset[0].0, &aligned[cluster], window, rung));
+            }
+        }
+        lines
+    }
+
+    /// `count` hits of `assets` assets in a seeded random order, on 2,000
+    /// anchors a quarter frame apart, so that equal offsets with different
+    /// query frames meet at cluster edges. Every seventh asset also plays
+    /// along a line.
+    fn mixed_hits(assets: u32, count: usize, seed: u64) -> (Vec<Hit>, Vec<Point>) {
+        let mut state = seed;
+        let mut next = move || {
+            state ^= state << 13;
+            state ^= state >> 7;
+            state ^= state << 17;
+            state
+        };
+        let points: Vec<Point> = (0..2000)
+            .map(|anchor| Point {
+                frame: f64::from(anchor) * 0.25,
+                bin: 100.0,
+            })
+            .collect();
+        let hits = (0..count)
+            .map(|_| {
+                let asset = (next() % u64::from(assets)) as u32;
+                let anchor = (next() % 2000) as u32;
+                let frame = if asset % 7 == 0 && next() % 2 == 0 {
+                    points[anchor as usize].frame as u32 + 1000 + asset % 50 + (next() % 3) as u32
+                } else {
+                    (next() % 4000) as u32
+                };
+                Hit {
+                    posting: Posting::new(AssetId(asset), frame),
+                    anchor,
+                }
+            })
+            .collect();
+        (hits, points)
+    }
+
+    #[test]
+    fn grouping_by_asset_finds_the_lines_of_a_comparison_sort() {
+        let rung = Rung::KeyLocked(SpeedRatio(1.012));
+        let mut window_hits = WindowHits::new(3000);
+        // A large window, then a smaller one in the same buffers, then one
+        // with every hit on the index's last asset.
+        let (last_asset, points) = mixed_hits(1, 5_000, 2028);
+        let windows = [
+            mixed_hits(3000, 400_000, 2026),
+            mixed_hits(3000, 20_000, 2027),
+            (
+                last_asset
+                    .into_iter()
+                    .map(|hit| Hit {
+                        posting: Posting::new(AssetId(2999), hit.posting.frame()),
+                        ..hit
+                    })
+                    .collect(),
+                points,
+            ),
+        ];
+        for (window, (hits, points)) in (7..).zip(windows) {
+            let expected = lines_by_comparison_sort(&hits, &points, window, rung);
+            assert!(!expected.is_empty());
+            window_hits.found.extend(hits);
+
+            assert!(
+                window_hits.lines(window, rung, &points) == expected,
+                "window {window}"
+            );
+            assert!(window_hits.found.is_empty());
+            assert!(window_hits.ends.iter().all(|&end| end == 0));
+        }
     }
 
     #[test]
@@ -467,7 +624,7 @@ pub(super) mod tests {
                             &profile,
                             rung,
                             0..u32::MAX,
-                            &mut Vec::new(),
+                            &mut WindowHits::new(index.assets().len()),
                             &mut KeyLockPeaks::default(),
                         )
                     })

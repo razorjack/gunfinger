@@ -37,7 +37,7 @@ pub fn addressable_length() -> Duration {
 }
 
 impl Posting {
-    fn new(asset: AssetId, frame: u32) -> Posting {
+    pub(crate) fn new(asset: AssetId, frame: u32) -> Posting {
         Posting((asset.0 << FRAME_BITS) | frame)
     }
 
