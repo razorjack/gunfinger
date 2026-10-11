@@ -228,12 +228,13 @@ pub fn run(
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let source = |draw: &Draw| library.root.join(&draw.asset);
-    let renders: Vec<(&Draw, f64, PathBuf)> = render_all(source, &draws, &dir, jobs)?
-        .into_iter()
-        .enumerate()
-        .filter(|(render, _)| searched_draws.contains(&(render / SPEEDS_PERCENT.len())))
-        .map(|(_, render)| render)
-        .collect();
+    let renders: Vec<(&Draw, f64, PathBuf)> =
+        render_all(source, draws.iter().enumerate(), &dir, jobs)?
+            .into_iter()
+            .enumerate()
+            .filter(|(render, _)| searched_draws.contains(&(render / SPEEDS_PERCENT.len())))
+            .map(|(_, render)| render)
+            .collect();
 
     // One excerpt per thread, each searched on a single thread.
     let searched: Vec<Result<Query, String>> =
@@ -386,13 +387,11 @@ fn draw_excerpts(records: &[PeakRecord], held_out: &BTreeSet<String>, rng: &mut 
 /// same seed.
 pub fn render_all<'d>(
     source: impl Fn(&Draw) -> PathBuf + Sync,
-    draws: &'d [Draw],
+    draws: impl Iterator<Item = (usize, &'d Draw)>,
     dir: &Path,
     jobs: usize,
 ) -> Result<Vec<(&'d Draw, f64, PathBuf)>, String> {
     let work: Vec<(&Draw, f64, PathBuf)> = draws
-        .iter()
-        .enumerate()
         .flat_map(|(number, draw)| {
             SPEEDS_PERCENT.iter().map(move |&speed| {
                 let name = format!("{number:03}-{speed:+.0}.{}", Encoding::Mp3(128).extension());

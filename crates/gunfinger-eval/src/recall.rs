@@ -311,16 +311,21 @@ pub fn render(
                 .unwrap_or(&draw.asset),
         )
     };
-    let rendered = render_all(source_file, &draws, dir, jobs)?;
+    let selected = draws
+        .iter()
+        .enumerate()
+        .filter(|(number, _)| !panel.is_left_out(&panel.development.sources[*number]));
+    let rendered = render_all(source_file, selected, dir, jobs)?;
     Ok(rendered
         .into_iter()
-        .enumerate()
-        .map(|(number, (_, speed, path))| {
-            let source = &panel.development.sources[number / SPEEDS_PERCENT.len()];
-            (source, speed, path)
+        .filter_map(|(draw, speed, path)| {
+            panel
+                .development
+                .sources
+                .iter()
+                .find(|source| source.asset == draw.asset)
+                .map(|source| (source.clone(), speed, path))
         })
-        .filter(|(source, _, _)| !panel.is_left_out(source))
-        .map(|(source, speed, path)| (source.clone(), speed, path))
         .collect())
 }
 
@@ -664,6 +669,42 @@ mod tests {
             .map(String::as_str)
             .collect();
         assert_eq!(searched, expected);
+        let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../work/tests/recall-pruned");
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        // Cached kept sources retain their original draw numbers. The
+        // removed source has neither audio nor cached excerpts.
+        for (number, source) in panel.development.sources.iter().enumerate() {
+            if !panel.is_left_out(source) {
+                for speed in SPEEDS_PERCENT {
+                    fs::write(dir.join(format!("{number:03}-{speed:+.0}.mp3")), b"cached").unwrap();
+                    fs::write(
+                        dir.join(format!("{number:03}-{speed:+.0}.mp3.complete")),
+                        "6",
+                    )
+                    .unwrap();
+                }
+            }
+        }
+        let rendered = render(&panel, &dir.join("missing-library"), &dir, 1).unwrap();
+        assert_eq!(rendered.len(), 79 * SPEEDS_PERCENT.len());
+        assert_eq!(rendered[SPEEDS_PERCENT.len()].0.asset, drawn[2]);
+        assert!(
+            rendered[SPEEDS_PERCENT.len()]
+                .2
+                .file_name()
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .starts_with("002-")
+        );
+        panel.left_out = panel.development.sources.clone();
+        assert!(
+            render(&panel, &dir.join("missing-library"), &dir.join("cold"), 1)
+                .unwrap()
+                .is_empty()
+        );
+        fs::remove_dir_all(&dir).unwrap();
         assert_eq!(
             panel.development.sources.len(),
             80,
