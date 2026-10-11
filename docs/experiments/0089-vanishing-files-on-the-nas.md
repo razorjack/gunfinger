@@ -1,9 +1,8 @@
 # 0089: listing the NAS while files are added to it
 
-**Question.** With ADR 0015 (`26bc727`; `6b377cb` after the review), does
-the listing finish on the NAS while files are added to it, does a
-search through the library find the same plays, and does the fix hold in
-a real race? A code check, not detection work.
+**Question.** With ADR 0015 (`26bc727`, `6b377cb`), does the NAS listing
+finish while files are added to it, with the same plays through the
+library, and does the fix hold in a real race?
 
 **Method.** `doctor --config nas-dnb.toml` 14 times (store
 `f9f9bc706195a71b`, read-only): 1-4 with `work/bin/s13-fix/` (a build
@@ -20,9 +19,8 @@ renames folders. Data `data/0089-vanishing-files-on-the-nas.json`.
 | `s13-review`, 18:56-18:58 | 2 | 36,584-36,585 | 0 | 31-44 |
 | `s13-start` / `s13-review`, alternated | 4 / 4 | 36,592-36,600 | 0 | 40.1-47.7 / 28.0-28.9 |
 
-`identify`: 87.8 s (`s13-review`), 94.6 s (`s13-start`); the saved index
-loaded in 3.6-3.9 s, the search 48.7-48.8 s, 26 plays (24 confident),
-nothing vanished; the two reports are byte-identical.
+`identify`: 87.8 s (`s13-review`), 94.6 s (`s13-start`), the saved index
+loaded, 26 plays (24 confident), nothing vanished, reports byte-identical.
 
 | Race on a local disk | Nothing vanished | Some vanished | Could not list |
 |---|--:|--:|--:|

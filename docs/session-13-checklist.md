@@ -32,6 +32,8 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Notes "Session 13"; status; checklist; roadmap item done; README
-- [ ] The NAS store's revision at the end
-- [ ] Commit; the final message
+- [x] Notes "Session 13"; status; checklist; roadmap item done; README;
+  AGENTS.md
+- [x] The NAS store's revision at the end: `f9f9bc706195a71b`, 33,596
+  records, 1,582 skip notes, as at the start
+- [x] Commit; the final message

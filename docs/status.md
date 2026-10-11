@@ -1894,3 +1894,10 @@ Brief `docs/brief-13.md`, checklist `docs/session-13-checklist.md`.
   the start build could not list 10 of 30 times, with `s13-review` 0 of 30
   (9 with vanished entries, the first path named); `prune --yes` 4 of 20
   failures against 0, 6 refusals.
+- Wrap-up (19:08-19:12): notes "Session 13"; AGENTS.md (`library` counts
+  what vanishes, ADR 0015); roadmap item done (with what is open);
+  README; experiment 0089 trimmed to 40 lines; `churn.py` kept in
+  `work/s13/` beside the race scripts. The NAS store at the end: 33,596
+  records, 1,582 skip notes, revision `f9f9bc706195a71b`, as at the
+  start; the saved index in `~/.cache/gunfinger/indexes/` untouched (one
+  file, 03:25).

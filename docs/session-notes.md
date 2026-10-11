@@ -2639,3 +2639,78 @@ evaluation 5).
   grouping and building lines 32%, the query analysis 19%.
 - A compressed saved index (it needs `u64` byte offsets past 4.29 GB,
   ADR 0011), which would shrink both 3.8 GB files.
+
+## Session 13
+
+### What changed
+
+**Commands no longer fail when another program moves a file while the library is
+listed.** Before, a file or folder that disappeared between being listed
+and being read stopped the whole listing with "No such file or
+directory". `identify` then stopped too (ADR 0012), as did `index`,
+`prune`, and `doctor`'s library check. Now a folder or audio file that
+is gone when it is read is left out and counted, in one line that names
+the first path (ADR 0015):
+
+```text
+warning: this run leaves out what vanished while /Volumes/atlas/Music/dnb was listed (moved or deleted meanwhile): 1 file or folder (`channel/Track.m4a`)
+```
+
+- **`doctor`** shows the same as a note in its library section.
+- **Other files** (partial `.part` files, thumbnails, `.nfo`) are passed
+  over by their names without being read, so they never count.
+- **Other errors still stop**, such as permission errors and a share that
+  answers with errors.
+- **The root is never skipped.** If anything vanished, the root is read
+  again at the end. If it is gone, an unmounted share for example,
+  `identify` searches the store's records as before.
+- **`prune` waits for a listing in which nothing vanished.** It refuses
+  even with `--yes --force`, names what vanished, and asks to be run
+  again. While another program changes the library it may take a few tries.
+
+**Checked on the NAS (experiment 0089).**
+- `doctor` ran 14 times and `identify` of my 2003 mix twice through the
+  library, without `--store-only`. All 16 listings finished, while the
+  NAS grew from 36,550 to 36,600 audio files. None of them happened to
+  meet a vanishing file.
+- The two `identify` reports (start build and fixed build) are
+  byte-identical: 26 plays, 24 confident, 88-95 s each.
+- A staged race on a local disk exercised the fix. Under constant
+  renames and deletions, the old build could not list 10 of 30 times; the
+  new one listed all 30 (9 with vanished entries).
+- `doctor` on the NAS takes about 28 s instead of 40 s, because the files
+  it passes over by name are no longer read. Earlier (before
+  18:45) both builds' runs took 189-253 s; the NAS answered faster
+  afterwards, for reasons not measured.
+
+### Worth knowing
+
+- The peak store was not touched: 33,596 records, revision
+  `f9f9bc706195a71b`, at the start and at the end. The 1,422 new files on
+  the NAS are not indexed, as requested. The saved index in
+  `~/.cache/gunfinger/indexes/` is unchanged (one file, current).
+- Detections did not change: `regress session-13-start` was identical
+  after each change.
+- A read-only review of the change found no defect in the listing, the
+  root rule or `prune`'s refusal. After it:
+  - files passed over by name are not read;
+  - the vanished paths are kept and the first one named, so a path that
+    vanishes from every listing can be found;
+  - `doctor`'s advice on gone records says `prune` waits for a complete
+    listing.
+
+### Decisions waiting
+
+Nothing new. Still waiting, unchanged: the listening pack, the seven
+folders to judge by ear, the containment rule, shared material, the
+possible tier and edits, a clusters search, test evaluation 5.
+
+### Left for later
+
+- A share that drops and comes back while it is being listed would leave
+  that one run with a partial library. The warning shows the count, and
+  `prune` refuses such a listing. Checking the root's device before and
+  after the listing would also catch a root that is itself a mount point.
+  Not needed for `/Volumes/atlas/Music/dnb`, which is a folder inside the
+  share.
+- The speed work of experiment 0088, unchanged.

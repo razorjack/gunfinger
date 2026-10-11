@@ -54,7 +54,8 @@ grouped, same-audio plays merged). `profile` holds the front-end
 parameters; changing one invalidates every peak record. Around it:
 `library` finds the audio files, leaving out what the
 `.gunfingerignore` at the root lists (`library::ignore`, a subset of
-`.gitignore`; ADR 0009), `indexing` brings the peak store up to
+`.gitignore`; ADR 0009) and counting what vanishes while it is listed
+(ADR 0015), `indexing` brings the peak store up to
 date (and remembers files that failed or are outside the track length
 range), `tags` holds the artist, title and album the store keeps for each
 file, `parallel` runs one item per worker thread, `timecode` parses and
