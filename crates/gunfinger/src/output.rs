@@ -39,11 +39,13 @@ impl ReportFormat {
 /// `style` colours the human formats only.
 pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Result<String> {
     let name = |asset: &str| {
-        let stored = report
-            .plays
-            .iter()
-            .find(|play| play.asset == asset)
-            .and_then(|play| play.tags.as_ref());
+        let stored = report.plays.iter().find_map(|play| {
+            if play.asset == asset {
+                play.tags.as_ref()
+            } else {
+                play.same_audio_tags.get(asset)
+            }
+        });
         match stored {
             Some(tags) => TrackName::named(tags.artist.as_deref(), tags.title.as_deref(), asset),
             None => TrackName::from_file(&report.library, asset),
@@ -75,6 +77,9 @@ mod tests {
             album: None,
         });
         report.plays[1].tags = Some(PlayTags::default());
+        report.plays[0]
+            .same_audio_tags
+            .insert("copy-of-a.wav".into(), PlayTags::default());
 
         let tracklist = render(
             &report,

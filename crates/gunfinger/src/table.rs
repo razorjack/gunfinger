@@ -160,6 +160,7 @@ pub mod tests {
         let play = |asset: &str, start, end, track_start, speed, confidence, hits| FoundPlay {
             asset: String::from(asset),
             same_audio: Vec::new(),
+            same_audio_tags: Default::default(),
             start_seconds: start,
             end_seconds: end,
             track_start_seconds: track_start,

@@ -2,6 +2,7 @@
 //! output format is rendered from. A saved JSON report can be rendered again
 //! without searching (`gunfinger show`).
 
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, UNIX_EPOCH};
 
@@ -133,6 +134,9 @@ pub struct FoundPlay {
     /// rips with identical peaks.
     #[serde(default)]
     pub same_audio: Vec<String>,
+    /// Saved tags of identical-audio copies, including conflicting titles.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub same_audio_tags: BTreeMap<String, PlayTags>,
     pub start_seconds: f64,
     pub end_seconds: f64,
     /// Where the first segment starts and the last ends in the track.
@@ -441,14 +445,26 @@ fn mark_other_titles(plays: &mut [FoundPlay]) {
                 .iter()
                 .enumerate()
                 .filter(|(_, other)| {
-                    other.asset != play.asset
-                        && play.same_recording(other)
-                        && other.compared_title().is_some_and(|title| title != own)
+                    other.confidence == Level::Confident && play.same_recording(other)
                 })
-                .map(|(index, other)| OtherTitle {
-                    play: index + 1,
-                    asset: other.asset.clone(),
-                    title: other.tagged_name().unwrap_or_default(),
+                .flat_map(|(index, other)| {
+                    other
+                        .tagged_files()
+                        .filter(|(asset, tags)| {
+                            *asset != play.asset
+                                && compared_title(tags).is_some_and(|title| title != own)
+                        })
+                        .map(|(asset, tags)| OtherTitle {
+                            play: index + 1,
+                            asset: asset.to_owned(),
+                            title: TrackName::named(
+                                tags.artist.as_deref(),
+                                tags.title.as_deref(),
+                                asset,
+                            )
+                            .full(),
+                        })
+                        .collect::<Vec<_>>()
                 })
                 .collect()
         })
@@ -489,13 +505,18 @@ impl FoundPlay {
         if self.confidence != Level::Confident {
             return None;
         }
-        let title = self.tags.as_ref()?.title.as_deref()?;
-        let words: Vec<String> = title
-            .split(|c: char| !c.is_alphanumeric())
-            .filter(|word| !word.is_empty())
-            .map(str::to_lowercase)
-            .collect();
-        (!words.is_empty()).then(|| words.join(" "))
+        compared_title(self.tags.as_ref()?)
+    }
+
+    fn tagged_files(&self) -> impl Iterator<Item = (&str, &PlayTags)> {
+        self.tags
+            .iter()
+            .map(|tags| (self.asset.as_str(), tags))
+            .chain(
+                self.same_audio_tags
+                    .iter()
+                    .map(|(asset, tags)| (asset.as_str(), tags)),
+            )
     }
 
     /// `artist - title` from the tags, when they hold a title.
@@ -514,6 +535,16 @@ impl FoundPlay {
             tags: catalog.tags(&asset).map(PlayTags::from),
             asset,
             same_audio: same.also.iter().map(|&asset| path(asset)).collect(),
+            same_audio_tags: same
+                .also
+                .iter()
+                .filter_map(|&asset| {
+                    let asset = path(asset);
+                    catalog
+                        .tags(&asset)
+                        .map(|tags| (asset, PlayTags::from(tags)))
+                })
+                .collect(),
             start_seconds: offset + play.start_seconds(),
             end_seconds: offset + play.end_seconds(),
             track_start_seconds: play.track_start_seconds(),
@@ -544,6 +575,17 @@ impl FoundPlay {
     }
 }
 
+fn compared_title(tags: &PlayTags) -> Option<String> {
+    let words: Vec<String> = tags
+        .title
+        .as_deref()?
+        .split(|c: char| !c.is_alphanumeric())
+        .filter(|word| !word.is_empty())
+        .map(str::to_lowercase)
+        .collect();
+    (!words.is_empty()).then(|| words.join(" "))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -562,6 +604,38 @@ mod tests {
             title: Some(title.to_owned()),
             album: None,
         })
+    }
+
+    #[test]
+    fn identical_audio_copies_keep_conflicting_titles() {
+        let mut report = report();
+        report.plays.truncate(1);
+        let play = &mut report.plays[0];
+        play.tags = tagged("Artist", "Wrong title");
+        play.same_audio_tags.insert(
+            "copy-of-a.wav".into(),
+            tagged("Artist", "Correct title").unwrap(),
+        );
+        mark_other_titles(&mut report.plays);
+        assert_eq!(report.plays[0].other_titles.len(), 1);
+        assert_eq!(
+            report.plays[0].other_titles[0].title,
+            "Artist - Correct title"
+        );
+        let json = serde_json::to_string(&report).unwrap();
+        let mut restored: Report = serde_json::from_str(&json).unwrap();
+        mark_other_titles(&mut restored.plays);
+        assert_eq!(restored.plays[0].other_titles, report.plays[0].other_titles);
+        let text = crate::output::render(
+            &restored,
+            crate::output::ReportFormat::Tracklist,
+            crate::style::Style::for_stdout(crate::style::ColorChoice::Never),
+        )
+        .unwrap();
+        assert!(
+            text.contains("titles disagree: Artist - Correct title"),
+            "{text}"
+        );
     }
 
     #[test]
