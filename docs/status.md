@@ -1608,3 +1608,10 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   5's runs in 2.1 s, as warm (without `purge`, which needs root, a cold
   cache is likely, not certain); its report byte-identical too.
   Experiment 0072 (`1269615`).
+- Item 6 (06:23-06:51, experiment 0074): 522/522 from 58 indexed sources
+  (the two pruned ones left out), 0 held-out confident answers, 9 wrong
+  answers (the DYkast "Punishment" uploads, as in 0068); 0068's 21
+  Stealth answers went with the pruned source. No regression against
+  0067 or 0068, so item 7 runs: the ledger entry and prediction were
+  committed at 03:42 (`fab29bb`); evaluation 4 started at 06:52:11 under
+  `screen` (`work/s11/item7.sh`, once).

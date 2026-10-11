@@ -51,8 +51,9 @@ for scope and rules.
   file, 2 new, measured by `pair` and rendered)
 - [x] 5. The NAS baseline (03:38-06:19): as 0067; the 24 wrong sweep
   answers gone; 3.00× (experiment 0073); calibration register
-- [~] 6. The recall panel (started 06:23)'s development half; against 0068
-- [ ] 7. Evaluation 4: ledger entry with the prediction, one run,
+- [x] 6. The recall panel's development half (06:23-06:51): 522/522, 9
+  wrong (DYkast), 0 held out confident (experiment 0074)
+- [~] 7. Evaluation 4 (ledger entry `fab29bb`; run started 06:52): ledger entry with the prediction, one run,
   verbatim result, comparison, "Evaluations used: 4 of 5"
 - [x] 8a. Mixed discs among the folders indexed since 0065: none of the
   1,252 new records is a release folder (YouTube uploads); by disc, no
