@@ -1564,7 +1564,7 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   borderline pairs, the 10 controls, all still joined), 9 go (the
   Essential Rewindz items, a file pruned); the 2 new pairs measured by
   `pair` (`work/s11/pack/`). Clips are rendered while item 5 runs.
-- The listening pack rebuilt (03:45): session 10's pack moved to
+- The listening pack rebuilt (03:40): session 10's pack moved to
   `work/listening-s10/`; `work/listening/` holds the 21 kept folders
   (copied unchanged, `items-s10-kept.json`) and the 2 new items rendered
   from `pairs-s11-items-pairs.json`; README: 23 items, the cut Sonar
@@ -1581,3 +1581,19 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   the end of item 5. Item 3b on the same report: play 4 ("Sex Drive")
   names plays 5-7 ("The Specialist"); the tracklist says "titles
   disagree: Future Cut - The Specialist".
+- 03:55: most of the night's load comes from another
+  agent: a git worktree of this repository,
+  `/Users/razorjack/Projects/OpenSource/gunfinger-prerelease-fixes`
+  (branch `fix/prerelease-audit`, from `8038064`), runs `cargo` builds,
+  debug end-to-end tests and `work/bin/candidate-eval --corpus
+  <this corpus> --jobs 4 regress before-core-fixes`, and commits fixes
+  (03:24-03:50). It reads this corpus and touches neither the NAS store
+  nor `~/.cache/gunfinger/`. It is no Claude session this one can
+  message, so it is left alone. `origin/master` was pushed to `8038064`
+  from the shared git directory; this session pushes nothing. Item 3a's
+  timings above ran beside it, so they are marked as measured under load.
+  Item 5's development scan: 11/11, 0 wrong, 3 possible plays matching
+  no track, as in 0067, but 974 s wall for the same CPU (2,337 s).
+  Decision: the items keep the brief's order (5, 6, then 7); if item 5
+  cannot end by about 08:00, what is left of it and of the rest is
+  decided then and written here.
