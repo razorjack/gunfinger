@@ -113,7 +113,8 @@ marked as inferences were derived, not measured.
 
 ## Reports and command line
 
-- **Report edits.** Confirming, rejecting or renaming plays in a report, and
+- **Report edits.** *(listening done in session 14, ADR 0016; edits not
+  yet)* Confirming, rejecting or renaming plays in a report, and
   keeping those edits when the mix is identified again. `listen` and
   `review` work with real audio output (by ear, 2026-10-06). Judging by
   ear now settles most open questions: wrong tags, versions, cluster
@@ -128,8 +129,15 @@ marked as inferences were derived, not measured.
   stereo) under `work/listening/`, in listening order. Session 11 added
   `gunfinger-eval pair-review`, which steps through the pack's unjudged
   items, plays their clips and appends the chosen `same` or `different`
-  line to `docs/pair-verdicts.txt`. Next: plays of a report confirmed,
-  rejected or renamed the same way, kept when the mix is identified
+  line to `docs/pair-verdicts.txt`. Session 14 added `gunfinger-eval
+  audition`, a local web page that plays a question's files aligned on
+  one timeline (switching at the same moment, seeking, looping, speed
+  matching) and takes the answer on one key: the pack's pairs (verdicts
+  to `docs/pair-verdicts.txt` as `pair-review` writes them), release
+  folders, and the plays of a saved report (`questions detections`,
+  confirmed, wrong or unsure, to the answer log
+  `work/audition/answers.jsonl` only). Next: those detection answers
+  turned into edits of the report, kept when the mix is identified
   again.
 - **No record inside the track length range.** *(done in session 10)*
   With a store whose only records lie outside `--min-track` and
@@ -148,9 +156,11 @@ marked as inferences were derived, not measured.
   Y (play N)"; "titles disagree:" in the tracklist), without choosing
   one. Report edits and the Track/AudioAsset model would settle which
   title is right.
-- **A full-screen TUI.** `review` steps through a report by ear in a line
-  loop. Browsing detections against the mix's waveform would need a terminal
-  UI dependency; worth it only if `review` proves too limited.
+- **A full-screen TUI.** *(replaced in session 14, ADR 0016)* `review`
+  steps through a report by ear in a line loop. Browsing detections
+  against the mix's waveform is now `gunfinger-eval questions
+  detections` and `audition`, a local web page, which needs no terminal
+  UI or audio crate and can switch files at a sample-exact moment.
 
 ## Matching
 

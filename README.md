@@ -432,6 +432,8 @@ target/release/gunfinger-eval grid                     # brief plays slid across
 target/release/gunfinger-eval loss                     # where the development mix loses evidence
 target/release/gunfinger-eval memory --synthetic-copies 30   # memory by phase (run under /usr/bin/time -l)
 target/release/gunfinger-eval memory --count-lines     # the first pass's lines and detections instead
+target/release/gunfinger-eval questions pack|folders PLAN|detections REPORT   # listening questions
+target/release/gunfinger-eval audition                 # answer them by ear in the browser
 ```
 
 Rendered excerpt caches are reused only after successful encoding. Caches
@@ -476,6 +478,39 @@ and, with another library's store, the files it holds a current record
 of, never a file a library's ignore file leaves out (with a store alone,
 read from the library the store names when it is mounted). Every other
 verdict is printed with its line and adds nothing.
+
+`gunfinger-eval audition` is the listening tool (ADR 0016). It serves a
+page on `127.0.0.1` and opens it in the browser:
+
+```sh
+target/release/gunfinger-eval audition
+```
+
+The page lists the questions in `work/audition/questions/*.json` (made
+by `questions pack`, `questions folders PLAN.toml` and `questions
+detections REPORT.json`; the format is in `docs/audition-questions.md`).
+It plays each question's files in lanes on one timeline, so switching
+lanes keeps the musical moment, and writes the answers to
+`work/audition/answers.jsonl`; a pair's `same` or `different` also goes
+to the verdicts file as the line `pair-review` would write. Keys:
+
+| Key | Action |
+|---|---|
+| Space | play or pause |
+| 1-9 | switch to that lane at the same moment |
+| Tab | back to the lane played before |
+| Left, Right | seek 5 s (with Shift 30 s) |
+| Up, Down | previous or next marker, from 2 s before it |
+| L | loop 8 s around the moment |
+| M | speed matching on or off (on: each lane plays at its placed speed, pitch and tempo together, and keeps the timeline's clock) |
+| B | this lane and the one played before together, the lower lane left |
+| S, D, U | for a pair: same, different, unsure (other questions show their own keys) |
+| J, K | next or previous question |
+| Z | undo the latest answer, then the one before |
+| ? | help |
+
+Click or drag a waveform to seek, click a marker to jump to it, click a
+question in the queue to open it.
 
 The sweep's held-out recordings and excerpts for each seed are drawn the
 first time the seed is used and kept in `docs/panels/`, so the same

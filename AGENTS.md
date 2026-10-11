@@ -88,6 +88,7 @@ copies of corpus files `library_map` finds and whose rips of the corpus
 recordings `clusters::find_around` finds; with it, the index is saved in
 `work/indexes/` and runs that leave files out remove them from the
 loaded index (ADR 0014).
+`audition` is the listening tool (below).
 Python scripts that summarise harness reports for experiments live in
 `scripts/analysis/`.
 
@@ -124,6 +125,69 @@ complexity. Minimise conceptual complexity, not line count.
   model, GPU, SIMD or `unsafe` (forbidden at workspace level).
 - Gunfinger owns its fingerprinter. No third-party fingerprinting crate and no
   code copied from existing implementations.
+
+## The listening tool
+
+`gunfinger-eval audition` (ADR 0016) serves a page on `127.0.0.1` on
+which listening questions are answered by ear. The code is in
+`crates/gunfinger-eval/src/audition/` (the module map is in
+`audition.rs`), the page in `audition/web/`, embedded with
+`include_str!`. `docs/audition-questions.md` documents the question
+format field by field, the answer log and the HTTP routes.
+
+Invariants:
+
+- Agents never answer. Run `audition` for a check only with temporary
+  files: `gunfinger-eval --verdicts /tmp/x/pair-verdicts.txt audition
+  --answers /tmp/x/answers.jsonl` (`--verdicts` is a global option, before
+  the subcommand; copy the real verdicts file there first). Before every
+  commit, `git diff docs/pair-verdicts.txt` is empty and
+  `work/audition/answers.jsonl` holds only the listening answers.
+- The page knows no kinds of question; producers know nothing of HTTP or
+  the page. A question is data: lanes of pieces on a timeline, markers,
+  spans, choices, an effect.
+- One placement rule: file time = `offset + speed × t`. Producers compute
+  pieces with `audition::placement`; the page evaluates the rule only in
+  `timeline.js`.
+- A question's id comes from `QuestionId::derive(kind, parts)`. Answers
+  attach by id, so changing the parts of an existing kind orphans the
+  listening answers.
+- `schema::check` runs in every producer and in the server. A choice key
+  is never a control key (`schema::CONTROL_KEYS`, kept equal to the
+  letters in `web/keys.js`).
+- The server serves, decodes, describes and reveals only files named in
+  the loaded question files, compared exactly. Every request carries the
+  token and passes the `Host` check; every POST is JSON and, with an
+  `Origin`, from the page's origin. FFmpeg runs as a child process with
+  explicit arguments, never through a shell.
+- The answer log is append-only; undo appends a record. A verdict line is
+  removed only while it is still the verdicts file's end, byte for byte.
+- No build step, no Node, no new crate.
+
+Adding a kind of question:
+
+1. A producer module, `audition/<kind>.rs`, that turns evidence into a
+   `QuestionFile`: `files` as harness names (`names::Libraries`), lanes
+   placed with `placement`, choices with their own keys, `Effect::Log`.
+   Test it on fixtures (fixed lengths, or `audio::tests::tone` for real
+   files) and run `schema::check` in the test.
+2. A `QuestionSource` variant in `main.rs` and its arm in
+   `make_questions`, writing `work/audition/questions/NN-<kind>.json` by
+   default.
+3. The kind in `docs/audition-questions.md`, with an example.
+4. Only if its answers must be written somewhere besides the log: a new
+   `Effect` variant (`schema.rs`), its `apply` and `take_back` in
+   `effects.rs`, and its state in `answers.rs`.
+
+Testing: `cargo test -p gunfinger-eval audition` (the server tests use a
+real socket; the audio tests generate tones with FFmpeg). Trying the
+page: start `audition --no-open` on temporary files as above, open the
+printed URL (a browser, or headless Chrome over the DevTools
+protocol: session 14's client is `work/s14/cdp/cdp.ts`, uncommitted), and
+read `window.audition.snapshot()` for the open question, the player's
+position, lanes and sources, and the queue; `window.audition.open(id)`
+opens a question and `window.audition.player()` returns the player. Keys
+reach the page only once it has focus (click the title first).
 
 ## Index-size rule
 
