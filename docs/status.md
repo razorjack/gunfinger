@@ -1801,3 +1801,19 @@ Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
   store at the end: 33,596 records, 1,582 skip notes, revision
   `f9f9bc706195a71b`, as at the start. The harness's index
   takes 3.8 GB of disk.
+- Review (a read-only subagent, 16:12-16:21) of `1345be7`, `de4577e` and
+  `0a625f3`: nothing that can change detections (it checked the float
+  expressions, ties at cluster edges, skipped assets, buffer reuse,
+  `without_assets` against a build, every caller's exclusion set, the
+  refactored `load`). Acted on: `doctor`'s "current" line says what it
+  read (header and length; searches check the rest); the `--store-only`
+  plan is read only when the library's is stale; the doc comment on ties
+  names chosen clusters; ADR 0014 and AGENTS.md: a saved index is checked
+  against files and settings, not code, so a change to how postings are
+  made changes `hash::design()`'s tag or runs with `--saved-index
+  rebuild`; a leave-out with no current file builds the whole index, so a
+  limit only the whole index passes would stop it (none is near). Left:
+  `Posting::new` is `pub(crate)` for the tests of `lines`. Checks pass
+  (5:10), `regress session-12-start` identical (`work/bin/s12-review/`,
+  203.1 s). `doctor` on the NAS (16:30, 213 s): 36,376 audio files, 1,198
+  not indexed yet; the saved index current.

@@ -1010,10 +1010,10 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
     assert!(files[0].to_str().unwrap().ends_with(".index"));
     let current = doctor();
     assert!(
-        current.contains(": current; identify, explain and stats load it"),
+        current.contains(": current by its header and length; searches load it"),
         "{current}"
     );
-    assert!(current.contains(" MB: current"), "{current}");
+    assert!(current.contains(" MB: current by"), "{current}");
 
     let whole = std::fs::read(&files[0]).unwrap();
     std::fs::write(&files[0], &whole[..whole.len() / 2]).unwrap();
@@ -1076,7 +1076,7 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
         ),
         "{others}"
     );
-    assert!(others.contains(": current; identify"), "{others}");
+    assert!(others.contains(": current by its header"), "{others}");
     assert_eq!(saved_files().len(), 3, "doctor deletes nothing");
 
     // The library now leaves out a file whose record searches with

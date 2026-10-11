@@ -242,7 +242,13 @@ fn check_store_alone(
         &BTreeSet::new(),
         length,
     );
-    check_saved_index(checkup, &store, plan.sources, None, length);
+    check_saved_index(
+        checkup,
+        &store,
+        plan.sources,
+        Searched::StoreRecords,
+        length,
+    );
 }
 
 /// Whether the library has an ignore file, and how many audio files each
@@ -503,24 +509,34 @@ fn check_library(
         ),
     );
 
-    let profile = Profile::CURRENT;
-    let searched = plan_index(&library.assets, &store, &profile, &BTreeSet::new(), length);
-    let store_only = store.current_sources(&profile).ok().map(|(sources, _)| {
-        plan_index(&sources, &store, &profile, &BTreeSet::new(), length).sources
-    });
-    check_saved_index(checkup, &store, searched.sources, store_only, length);
+    let searched = plan_index(
+        &library.assets,
+        &store,
+        &Profile::CURRENT,
+        &BTreeSet::new(),
+        length,
+    );
+    check_saved_index(checkup, &store, searched.sources, Searched::Library, length);
+}
+
+/// What the saved index is checked against: a search of the library's
+/// files, or of the store's own records (`--store-only`, or no library).
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Searched {
+    Library,
+    StoreRecords,
 }
 
 /// Whether the saved index of the peak store (ADR 0011) is current for a
-/// search of `sources`, read from its header and length only, and what else
-/// the index folder holds. When it is out of date for the library, it may
-/// still be current for searches of the store's own records
-/// (`store_only`). Reports only; deletes nothing.
+/// search of `sources`, from its header and length only, and what else the
+/// index folder holds. When it is out of date for the library, it may still
+/// be current for searches of the store's own records. Reports only;
+/// deletes nothing.
 fn check_saved_index(
     checkup: &mut Checkup,
     store: &PeakStore,
     sources: Vec<Asset>,
-    store_only: Option<Vec<Asset>>,
+    searched: Searched,
     length: TrackLength,
 ) {
     checkup.section("saved index");
@@ -544,7 +560,9 @@ fn check_saved_index(
     match saved::examine(&path, &provenance(sources)) {
         Ok(()) => checkup.line(
             Status::Ok,
-            format!("{file}: current; identify, explain and stats load it"),
+            format!(
+                "{file}: current by its header and length; searches load it, checking the rest as they read it"
+            ),
         ),
         Err(Unusable::Missing) => checkup.line(
             Status::Note,
@@ -554,8 +572,19 @@ fn check_saved_index(
             ),
         ),
         Err(Unusable::Stale(why)) => {
-            let current_for_store = store_only
-                .is_some_and(|sources| saved::examine(&path, &provenance(sources)).is_ok());
+            let current_for_store = searched == Searched::Library
+                && store
+                    .current_sources(&Profile::CURRENT)
+                    .is_ok_and(|(sources, _)| {
+                        let plan = plan_index(
+                            &sources,
+                            store,
+                            &Profile::CURRENT,
+                            &BTreeSet::new(),
+                            length,
+                        );
+                        saved::examine(&path, &provenance(plan.sources)).is_ok()
+                    });
             checkup.line(
                 Status::Note,
                 if current_for_store {

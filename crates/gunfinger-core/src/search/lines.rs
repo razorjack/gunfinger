@@ -105,9 +105,10 @@ impl WindowHits {
     /// Groups the window's hits by asset, turns each asset's densest offset
     /// clusters into lines, and empties the buffers for the next window.
     ///
-    /// Lines depend only on each asset's offsets in sorted order: a cluster
-    /// never splits equal offsets, so any order of ties gives the same
-    /// lines.
+    /// Lines depend only on each asset's offsets in sorted order: a chosen
+    /// cluster never splits a run of equal offsets (the candidate starting
+    /// at the run's first hit is longer and is considered first), so any
+    /// order of ties gives the same lines.
     fn lines(&mut self, window: u32, rung: Rung, points: &[Point]) -> Vec<Line> {
         self.group_by_asset(points, rung.speed());
         let mut lines = Vec::new();

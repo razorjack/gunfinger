@@ -69,3 +69,16 @@ that, on the index the run searches, as before.
   the left-out files are removed in place.
 - With the CLI's file of the NAS store, the local disk holds two saved
   indexes of about 3.8 GB each. Deleting either costs one rebuild.
+- The header names the profile, `hash::design()` and the files, not the
+  code that turns peaks into postings. An experiment that changes how
+  postings are made (pairing in `hash::for_each_pair`, the frame rounding
+  in `Index` filling) without changing a value `hash::design()` reports
+  must change its tag (`pairs-v1`) or run with `--saved-index rebuild`;
+  otherwise the harness, like `identify` (ADR 0011), loads postings of
+  the old code and `regress` at NAS scale compares them with themselves.
+  `regress` without `--other-peaks-dir` builds in memory and is not
+  affected.
+- A run that leaves files out now builds the whole index when no file is
+  current, so a limit the whole index passes and the smaller one did not
+  (65,536 assets, 4.29 billion postings, a record past 17:28) stops it.
+  None is near: the development scan indexes every file.

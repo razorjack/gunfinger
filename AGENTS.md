@@ -32,6 +32,10 @@ Read, in this order:
 - `scripts/check.sh` runs the checks (fmt, clippy with `-D warnings`,
   tests). Keep it green.
 - Run every corpus experiment with `--release`.
+- Saved indexes (ADR 0011, ADR 0014) are checked against the files,
+  profile and `hash::design()`, not the code. A change to how postings
+  are made from peaks changes `hash::design()`'s tag, or its runs use
+  `--saved-index rebuild`.
 - Each experiment gets `docs/experiments/NNNN-slug.md` (hypothesis, change,
   command, measured result, conclusion; at most 40 lines), written before the
   next experiment starts.

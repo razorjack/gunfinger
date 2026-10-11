@@ -2556,7 +2556,7 @@ notice:
 holds 0.6-2.0 million hits at 33,596 records, and sorting them took 78%
 of the CPU (experiment 0085). Asset numbers are dense, so a counting sort
 now groups each window's hits by asset in two passes, and each asset's
-offsets are sorted as before. Detections cannot change: lines depend only
+offsets are sorted as before. Detections stay the same: lines depend only
 on each asset's offsets in sorted order, and a unit test compares the
 lines with the old sort on large mixed buffers (experiment 0086).
 
@@ -2585,10 +2585,11 @@ can be deleted; the next run that needs it builds it again (80-120 s).
 
 ```text
 saved index
-  ok       ~/.cache/gunfinger/indexes/nas-dnb-peaks-23935cfc56936b67.index, 3.8 GB: current; identify, explain and stats load it
+  ok       ~/.cache/gunfinger/indexes/nas-dnb-peaks-23935cfc56936b67.index, 3.8 GB: current by its header and length; searches load it, checking the rest as they read it
 ```
 
-It reads the file's header and offsets table (8 MB), not its postings.
+It reads the file's header and offsets table (8 MB), not its postings;
+a search still checks those and the digest, and rebuilds a damaged file.
 Instead of `current` it may say `current for searches with --store-only, out of
 date for the library` (the file was saved by a `--store-only` search and
 the library leaves out some stored files), `out of date (...)`, `cannot
@@ -2598,11 +2599,12 @@ peak stores, or unfinished saves. `doctor` deletes nothing.
 
 ### Worth knowing
 
-- **The NAS is changing.** `doctor` counted 36,305 audio files at 15:45,
-  against 35,573 at the end of session 11: 1,127 are not indexed yet. The
-  first `doctor` run (15:42) could not finish listing the library ("No
-  such file or directory": most likely a file moved while it listed) and
-  reported the store alone; the second listed it. A plain `identify`
+- **Files were added to the NAS during the session.** `doctor` counted 36,305 audio files at 15:45
+  and 36,376 at 16:30, against 35,573 at the end of session 11: 1,198
+  are not indexed yet. The first `doctor` run (15:42) could not finish
+  listing the library ("No such file or directory": most likely a file
+  moved while it listed) and reported the store alone; the later two
+  listed it. A plain `identify`
   stops on such an error (ADR 0012); `--store-only` searches the records
   regardless. The peak store was not touched: 33,596 records, revision
   `f9f9bc706195a71b`, at the start and at the end.
@@ -2614,6 +2616,13 @@ peak stores, or unfinished saves. `doctor` deletes nothing.
   to session 11's, in 641 s.
 - Session 11's NAS reports were copied to `work/s12/before/` and put back
   after each run that overwrote them; this session's are in `work/s12/`.
+- **A review of this session's code** (a read-only subagent) found
+  nothing that can change detections. Fixed after it: `doctor`'s
+  "current" line now says it read the header and length only; the
+  `--store-only` check reads the store's headers only when needed; ADR
+  0014 and AGENTS.md say that a change to how postings are made must
+  change `hash::design()`'s tag or run with `--saved-index rebuild`, as a
+  saved index is checked against files and settings, not code.
 
 ### Decisions waiting
 
