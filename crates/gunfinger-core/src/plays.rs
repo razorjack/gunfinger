@@ -48,10 +48,15 @@ impl Play {
         self.segments[self.segments.len() - 1].track_end_seconds
     }
 
-    /// The strongest segment's confidence. Segments are not pooled into a
-    /// stronger claim: evidence summed across gaps has no calibrated null.
+    /// The highest confidence reached by any segment. Segments are not
+    /// pooled into a stronger claim: evidence summed across gaps has no
+    /// calibrated null.
     pub fn confidence(&self) -> Confidence {
-        self.strongest().evidence.confidence()
+        self.segments
+            .iter()
+            .map(|segment| segment.evidence.confidence())
+            .max()
+            .unwrap_or(Confidence::Weak)
     }
 
     /// The speed of the strongest segment.
@@ -197,6 +202,17 @@ mod tests {
                 )
             })
             .collect()
+    }
+
+    #[test]
+    fn more_hits_in_too_few_windows_cannot_demote_a_confident_play() {
+        let confident = detection(0, 0.0, 29.0, 300);
+        let mut possible = detection(0, 40.0, 59.0, 1000);
+        possible.evidence.windows = 2;
+        let plays = group(&[confident, possible]);
+        assert_eq!(plays.len(), 1);
+        assert_eq!(plays[0].confidence(), Confidence::Confident);
+        assert_eq!(plays[0].speed(), SpeedRatio(1.01));
     }
 
     #[test]

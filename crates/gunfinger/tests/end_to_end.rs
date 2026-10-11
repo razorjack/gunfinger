@@ -873,7 +873,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     );
     assert_eq!(
         single_pass_report["search"]["confidence"],
-        "confident: 200 hits in 3 windows; possible: 60 hits"
+        "confident: 200 hits in 3 windows; possible: 60 hits; play=max-segment"
     );
     let other_playback = String::from_utf8_lossy(&other_playback.stderr);
     assert!(
@@ -890,7 +890,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     assert_eq!(report["query"]["playback"], "turntable");
     assert_eq!(
         report["search"]["confidence"],
-        "confident: 240 hits in 3 windows; possible: 60 hits"
+        "confident: 240 hits in 3 windows; possible: 60 hits; play=max-segment"
     );
     let leftovers = std::fs::read_dir(&reports).unwrap().count();
     assert_eq!(leftovers, 2, "only the two reports, no temporary files");

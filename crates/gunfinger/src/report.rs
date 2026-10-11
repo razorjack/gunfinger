@@ -102,7 +102,7 @@ impl SearchSettings {
             profile: Profile::CURRENT.id(),
             hashes: hash::design(),
             matching: search::design(matcher),
-            confidence: matcher.pass().rule().to_string(),
+            confidence: format!("{}; play=max-segment", matcher.pass().rule()),
             library_revision: library_revision.to_owned(),
         }
     }
@@ -144,7 +144,8 @@ pub struct FoundPlay {
     pub track_start_seconds: f64,
     #[serde(default)]
     pub track_end_seconds: f64,
-    /// The strongest segment's speed, playback and confidence.
+    /// The strongest segment's speed and playback; confidence is the
+    /// highest level independently reached by a segment.
     pub speed: f64,
     #[serde(default)]
     pub playback: Playback,
