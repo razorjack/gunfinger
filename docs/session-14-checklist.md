@@ -8,13 +8,15 @@ for scope and rules.
 
 - [x] `git status` clean at `633ebdd`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s14-start/`; `baseline session-14-start`
-- [ ] The NAS store at the start: 33,596 records, revision
-  `f9f9bc706195a71b` expected
+- [x] Release build in `work/bin/s14-start/` (byte-identical to
+  `work/bin/s13-review/`); `regress session-13-start` with it identical
+  (210.6 s); `baseline session-14-start`
+- [x] The NAS store at the start: 33,596 records, revision
+  `f9f9bc706195a71b`, as expected
 
 ## Steps
 
-- [ ] 2. Design: ADR 0016, `docs/audition-questions.md`
+- [x] 2. Design: ADR 0016, `docs/audition-questions.md`
 - [ ] 3. Schema and its check, placement arithmetic, answer log, the
   pair-verdicts effect and undo, the pack and folder producers; tests
 - [ ] 4. HTTP server (token, Host), audio windows, envelopes and their

@@ -1901,3 +1901,23 @@ Brief `docs/brief-13.md`, checklist `docs/session-13-checklist.md`.
   records, 1,582 skip notes, revision `f9f9bc706195a71b`, as at the
   start; the saved index in `~/.cache/gunfinger/indexes/` untouched (one
   file, 03:25).
+
+## 2026-10-11: session 14, the listening tool
+
+Brief `docs/brief-14.md`, checklist `docs/session-14-checklist.md`.
+
+- 23:40 start, `git status` clean at `633ebdd`. Release build in
+  `work/bin/s14-start/`, byte-identical to `work/bin/s13-review/`.
+  `regress session-13-start` with it: 720/720 sweep queries and 87, 93
+  and 79 scan detections identical, the known calibrate line; 210.6 s,
+  0.42 GB. `baseline session-14-start` saved from those reports.
+- The NAS store at the start: 33,596 records, revision
+  `f9f9bc706195a71b`, as expected.
+- Design (ADR 0016, `docs/audition-questions.md`). Measured first: FFmpeg
+  decodes a 30 s window (`-ss` before `-i`, 16-bit stereo 44.1 kHz) of a
+  NAS mp3 in 0.13 s, an opus in 0.23 s, the corpus m4a in 0.09 s. Decoded
+  from its own start, a window differs from a continuous decode in its
+  first 1,098 frames (mp3) or 8,597 (opus); started 0.2 or 0.5 s early
+  with those frames dropped, it is bit-exact (mp3, opus), and the m4a
+  matches for its first 0.86 s (scattered AAC differences later, not at
+  the joint). Windows use a 0.5 s pre-roll.
