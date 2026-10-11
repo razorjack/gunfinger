@@ -270,7 +270,14 @@ marked as inferences were derived, not measured.
   ambiguity. The held-out mix shows the cost already: Sick Note, a true
   play, is possible at 233 hits, 7 below the rule (test-set evaluation
   3), so true plays and shared material now meet in the same range of
-  hits. Method: a challenge set of originals, VIPs, remixes and
+  hits. Session 11 measured shared passages played whole at NAS scale
+  (experiment 0076): in 18 of 34 directions the other version's play is
+  confident (The Nine's VIP 21.7× the rule; "Fire" versions 1.2-2.5×;
+  Sonar's revision 1.6-2.3×), while the played file's own play over the
+  same moment is 4-60 times stronger (1.7 times for the VIP), with or
+  without the played file in the index. A statistic comparing
+  overlapping plays of related files is the first candidate.
+  Method: a challenge set of originals, VIPs, remixes and
   tracks sharing breaks, each pair confirmed by ear;
   excerpts from shared and from distinctive passages at several
   durations, with the played recording in the index and left out.

@@ -60,8 +60,11 @@ for scope and rules.
   1,252 new records is a release folder (YouTube uploads); by disc, no
   disc scores like a mixed CD; seven units in between for the ear
   (experiment 0070, `0b8681f`)
-- [~] 8b. Where a NAS `identify` spends its time with the saved index
-- [~] 8c. Shared material at NAS scale
+- [x] 8b. Where a NAS `identify` spends its time with the saved index:
+  96.5% search, 82% of it sorting hits (experiment 0075)
+- [x] 8c. Shared material at NAS scale: 18 of 34 shared passages played
+  whole give the other version a confident play; the own play 1.7-60
+  times stronger (experiment 0076)
 
 ## Wrap-up
 

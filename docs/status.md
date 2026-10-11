@@ -1631,3 +1631,14 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   saved-index `identify` of the 2003 mix); 8c is chained after it
   (`work/s11/after-8b.sh`, `screen` session `s11-8c`), its plan fixed
   at 03:43, before evaluation 4.
+- 8b (07:04-07:08, experiment 0075): with the saved index, `identify` of
+  the 2003 mix at NAS scale is 96.5% search; `sample` puts 82.1% of the
+  CPU in sorting hits, 9.5% in query analysis, 0.1% in loading the
+  index.
+- 8c (07:08-07:26, experiment 0076): 34 runs over the 17 pairs' shared
+  passages with the saved index, 8 again with the played cluster left
+  out (each rebuilt in 81 s): 18 of 34 related plays confident, 15
+  possible; the left-out runs give identical related plays.
+- From 07:26, chained (`work/s11/after-8c.sh`, `screen` `s11-end`):
+  `regress session-11-start` with `work/bin/s11-review/` (`84fe0e5`),
+  the store's revision, `doctor`.
