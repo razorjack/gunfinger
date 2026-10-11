@@ -220,9 +220,15 @@ marked as inferences were derived, not measured.
   Profiled at NAS scale in session 11 (experiment 0075): with the saved
   index, a NAS `identify` of the 2003 mix is 96.5% search, and the
   default matcher spends 82% of the search's CPU sorting hits (query
-  analysis 9.5%, clustering offsets 4.5%, posting scans 2.5%). Grouping
-  by asset is the next step. This comes before any change of hash
-  design; `regress` must show identical detections.
+  analysis 9.5%, clustering offsets 4.5%, posting scans 2.5%). *(first
+  step done, merged after session 11)* The pre-release audit sorts a
+  window's hits by asset first, then each asset's offsets, when the
+  window holds more than 50,000 hits (experiments 0080 and 0083), and
+  extracts key-locked peaks once per rounded hop (0082). The same NAS
+  `identify` then takes 181 s instead of 220 s, with the same
+  detections (experiment 0084). Next: profile again to see what the
+  sort leaves. This comes before any change of hash design; `regress`
+  must show identical detections.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

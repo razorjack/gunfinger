@@ -1,4 +1,4 @@
-# 0076: Reuse the index plan for report freshness
+# 0081: Reuse the index plan for report freshness
 
 **Hypothesis.** Report freshness and index loading can share one plan of
 current records, avoiding a repeated read of every peak header.

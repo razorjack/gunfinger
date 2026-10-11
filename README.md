@@ -84,11 +84,11 @@ target/release/gunfinger identify mix.m4a --playback turntable
 
 # Several recordings share one index build; --save-dir keeps a JSON report
 # of each and passes over recordings already reported there, unless the
-# audio file's size or modification time, playback, the part of the recording,
-# the peak profile, the hash design, the matching settings, the confidence
-# rule or the indexed library changed since (--again searches them anyway).
-# A report owned by another recording
-# with the same file stem is refused; use another name or --save-dir.
+# audio file's size or modification time, the playback, the part of the
+# recording, the peak profile, the hash design, the matching settings, the
+# confidence rule or the indexed library changed since (--again searches them
+# anyway). A report of another recording with the same file stem is refused;
+# use another name or --save-dir.
 target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
 
 # Write a saved report in another format without searching again.
@@ -153,18 +153,18 @@ recording, the part of the track that was heard, speed, confidence
 hold the same audio (copies, or rips with identical peaks), their plays are
 identical and shown once, with the other paths underneath (`also ...`). A play
 of several segments lists them underneath and keeps the highest confidence
-reached by any one segment; their evidence is never pooled to qualify.
-A possible play that lies entirely inside a confident play of another recording
-ends with `shares material with <asset> (play N)`, N counting plays as `review` does: most
-likely the two recordings share that passage, as a remix can carry the
-original's lead. This is display only; a remix played in its own right
-reaches past the original's play, or is confident itself, and is not
-marked. When confident plays of other files over the same passage carry
-another title in their tags (a mislabelled file, or a VIP that plays the
-original's opening), a line underneath says `titled <its tags>; other
-files here: <title> (play N)`, without choosing which title is right. This also
-includes conflicting titles on identical-audio copies, whose tags are saved
-in the report.
+reached by any one segment; their evidence is never pooled to qualify. A
+possible play that lies entirely inside a confident play of another
+recording ends with `shares material with <asset> (play N)`, N counting
+plays as `review` does: most likely the two recordings share that passage,
+as a remix can carry the original's lead. This is display only; a remix
+played in its own right reaches past the original's play, or is confident
+itself, and is not marked. When confident plays of other files over the
+same passage carry another title in their tags (a mislabelled file, or a
+VIP that plays the original's opening), a line underneath says `titled
+<its tags>; other files here: <title> (play N)`, without choosing which
+title is right. This also covers copies with identical audio and other
+titles, whose tags the report keeps.
 
 `--format` (`-f`, for `identify` and `show`) also takes:
 
@@ -359,12 +359,12 @@ title and album beside its record, so the peak store alone is enough to
 identify tracks and name them. When no library is given, or the library
 root is missing (an unmounted network share, for example), `identify`,
 `explain` and `stats` search the store's current records and say so in one
-line. Other read failures stop the command, so an unreadable subfolder cannot
-silently include ignored records. `--store-only` explicitly searches the stored
-records without reading the library. Reports name the library the store names,
-so `listen` and `review` play the tracks once it is back. Without the library
-there is no telling which files have
-changed or been deleted since they were indexed, or which the library's
+line. Other read failures stop the command, so an unreadable subfolder
+cannot bring ignored files' records into the search (ADR 0012);
+`--store-only` searches the store's records without reading the library.
+Reports name the library the store names, so `listen` and `review` play the
+tracks once it is back. Without the library there is no telling which files
+have changed or been deleted since they were indexed, or which the library's
 `.gunfingerignore` leaves out: their records are searched until `index` or
 `prune` replaces or removes them. A store indexed before
 it kept tags gets them from the next `index`, which reads only the files'

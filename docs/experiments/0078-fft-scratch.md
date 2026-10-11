@@ -1,4 +1,4 @@
-# 0073: Reusing FFT scratch buffers
+# 0078: Reusing FFT scratch buffers
 
 **Hypothesis.** RealFFT allocates scratch on every `process` call; allocating
 once per spectrogram reduces cost without changing spectra or peaks.
@@ -21,4 +21,4 @@ Command: `work/perf/fft > work/logs/perf-fft.log`.
 per-frame allocation and improved two of three sizes; the contended wall
 timings are not an end-to-end speed claim. Keep plan/window construction
 local for now; cross-call caching needs a separate memory and timing case.
-Full pre-release regression: all detections identical (experiment 0072).
+Full pre-release regression: all detections identical (experiment 0077).

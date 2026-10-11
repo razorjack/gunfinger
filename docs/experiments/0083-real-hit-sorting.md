@@ -1,6 +1,6 @@
-# 0078: Check split sorting on actual query hits
+# 0083: Check split sorting on actual query hits
 
-**Hypothesis.** Experiment 0075's sorting gain also applies to the ordering
+**Hypothesis.** Experiment 0080's sorting gain also applies to the ordering
 and offset distribution of real postings.
 
 **Method.** `work/perf/sort_actual.rs`, `rustc -O` against the release core;

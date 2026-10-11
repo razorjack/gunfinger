@@ -1,4 +1,4 @@
-# 0075: Sorting hits by asset before sorting offsets
+# 0080: Sorting hits by asset before sorting offsets
 
 **Hypothesis.** Separate integer asset sorting and per-asset offset sorting
 reduce comparisons on large hit buffers without changing line evidence.
@@ -17,4 +17,4 @@ offset keys. Cloning is outside the timed region. Other work was active.
 time) but loses on the small case. Apply it only to buffers above 50,000
 hits; keep the existing comparator below that. Neither representation nor
 floating-point offset changes. Real-query measurements are in experiment
-0078; full regression is identical (0072). These are not end-to-end timings.
+0083; full regression is identical (0077). These are not end-to-end timings.

@@ -1,4 +1,4 @@
-# 0077: Share analysis between key-locked rungs with equal hops
+# 0082: Share analysis between key-locked rungs with equal hops
 
 **Hypothesis.** The default 41 key-locked rungs use only 21 rounded hops.
 Their raw peaks are identical for equal hops; only time scaling differs.
@@ -20,4 +20,4 @@ keep their existing coordinate transform.
 
 **Verification.** Whole-query and blocked searches agree, including
 adjacent equal-hop rungs and both sample and peak queries. The full standard
-detection regression is identical (experiment 0072).
+detection regression is identical (experiment 0077).

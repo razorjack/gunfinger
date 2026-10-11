@@ -2520,3 +2520,30 @@ example: play 4 is the INFRA011 rip tagged "Sex Drive".
   statistic for shared material, tested on recordings not used in 0076;
   `doctor` counting the saved index file; the harness's runs using a
   saved index; a compressed saved file.
+
+## After session 11: the pre-release fixes, merged
+
+We asked for the other agent's branch (`fix/prerelease-audit`) to be
+reviewed commit by commit and merged if sound. It is merged (`53d7ee0`):
+18 commits of fixes and speed-ups. On the merged code `regress` is
+identical, and my 2003 mix identified at NAS scale gives the same 37
+segments in 181 s instead of 220 s (experiment 0084). What a user may
+notice:
+
+- `index` now exits with an error when a file fails to decode in that
+  run (it still processes every file first).
+- `identify`, `explain` and `stats` fall back to the store's records only
+  when the library root is missing (the NAS unmounted). Any other read
+  error stops the command; `--store-only` searches the records anyway
+  (ADR 0012).
+- A play is confident when any of its segments is; before, a segment
+  with more hits in too few windows could make it possible (ADR 0013).
+  The harness always scored plays this way, so no evaluation changes.
+- `--save-dir` refuses to overwrite a report of another recording with
+  the same file name; a report is searched again when the mix file's
+  size or modification time changes.
+- Copies with identical audio and another title now show in the
+  "other files here" line: for my 2003 mix, the second INFRA012 rip and
+  the scene copy of "Sex Drive".
+- The harness renders its cached excerpts again once, so the next sweep
+  or recall run takes longer, and recall needs the NAS mounted.

@@ -1,4 +1,4 @@
-# 0072: Pre-release correctness regression
+# 0077: Pre-release correctness regression
 
 **Hypothesis.** Fixing report, cache and store lifecycle defects does not
 change detections from unchanged library records. Play confidence must

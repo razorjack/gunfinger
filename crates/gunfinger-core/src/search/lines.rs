@@ -262,7 +262,7 @@ fn lines_in_window(hits: &mut Vec<Hit>, window: u32, rung: Rung) -> Vec<Line> {
         hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
     } else {
         // Integer grouping avoids repeating the asset comparison while
-        // ordering each asset's offsets on large libraries (experiment 0075).
+        // ordering each asset's offsets on large libraries (experiment 0080).
         hits.sort_unstable_by_key(|hit| hit.asset);
         for same_asset in hits.chunk_by_mut(|a, b| a.asset == b.asset) {
             same_asset.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));

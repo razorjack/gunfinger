@@ -1666,7 +1666,7 @@ and source identity, report collisions, CUE escaping, recall exclusions,
 regression summaries, render completion, automatic fallback and alias titles.
 Stale-record invalidation and monotonic play confidence are implemented.
 All five performance candidates have measured retained changes; experiments
-0073-0078 record the wins and the alternatives not adopted.
+0078-0083 record the wins and the alternatives not adopted.
 `CARGO_BUILD_JOBS=2 scripts/check.sh` passes formatting, Clippy with warnings
 denied and all 255 tests (43 CLI, 13 CLI integration, 119 core, 13 codecs,
 67 harness). Original audit reproductions also pass, including conflicting
@@ -1674,7 +1674,7 @@ identical-audio titles rendered from a saved report with the library offline.
 `work/bin/final-eval --corpus ../gunfinger/corpus --jobs 4 regress
 before-core-fixes` passes: all 720 sweep queries and all 259 scan detections
 are identical; sweep recall 100% at every speed, zero wrong; development
-11/11, zero wrong; calibration unchanged (680/99). Experiment 0072 records
+11/11, zero wrong; calibration unchanged (680/99). Experiment 0077 records
 the isolated validation. No held-out evaluation or external publication.
 
 Audit outcomes by the requested categories:
@@ -1692,3 +1692,24 @@ Audit outcomes by the requested categories:
 - Performance: reuse FFT scratch, restrict long refinement posting lists to
   the candidate asset, reuse catalog preparation, split sorting only for
   large hit buffers, and share equal-hop key-locked peak extraction.
+
+## 2026-10-11: the pre-release fixes merged
+
+- On request, after a review of each commit,
+  `fix/prerelease-audit` is merged into master (`53d7ee0`). The only
+  conflict was this file; both sections are kept. The branch's
+  experiments 0072-0078 collided with session 11's and are renumbered
+  0077-0083 (references in the section above follow; the branch's
+  commit messages keep the old numbers).
+- Checked on the merged tree: `scripts/check.sh` green (255 tests);
+  `regress session-11-start` identical (720/720 sweep queries; 87, 93
+  and 79 scan detections; the calibrate line as in sessions 7 and 8);
+  the 2003 mix at NAS scale gives the same 37 segments in 27 plays in
+  181.4 s instead of 220.1 s (experiment 0084).
+- For later sessions: the first harness run after the merge renders
+  every cached excerpt again once (completion receipts), the recall
+  panel's from the NAS; `identify` stops on an unreadable subfolder
+  instead of searching the store's records (`--store-only` does that,
+  ADR 0012); `index` exits with an error when a file fails in that run;
+  a play's confidence is the highest its segments reach (ADR 0013), as
+  the harness already scored it.

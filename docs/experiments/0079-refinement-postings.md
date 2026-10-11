@@ -1,4 +1,4 @@
-# 0074: Restrict refinement to the known asset
+# 0079: Restrict refinement to the known asset
 
 **Hypothesis.** Refinement knows its candidate asset, so ordered posting
 lists can avoid scanning unrelated assets without changing hit order.
@@ -20,4 +20,4 @@ per asset and both present and absent candidates. Results compared exactly.
 Keep a linear scan for lists up to 64 postings and restrict longer lists
 by asset with two partition searches. No layout change: postings remain
 4 bytes, and both reference frames and asset ids remain lossless.
-Full pre-release regression: all detections identical (experiment 0072).
+Full pre-release regression: all detections identical (experiment 0077).
