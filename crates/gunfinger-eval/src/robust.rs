@@ -19,7 +19,7 @@ use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::speed::Rung;
-use gunfinger_core::store::{PeakRecord, PeakStore};
+use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
@@ -380,13 +380,7 @@ pub fn run(
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     let plan = Plan::for_seed(&records, clusters, seed, panels)?;
-    let indexed: Vec<PeakRecord> = records
-        .iter()
-        .filter(|record| !plan.held_out.contains(&record.header.source.path))
-        .cloned()
-        .collect();
-    let index = matching.index(padding.index(&indexed, &profile, &plan.held_out)?);
-    drop(indexed);
+    let index = matching.index(padding.index(&records, &profile, &plan.held_out)?);
     drop(records);
     let draws: Vec<&Draw> = plan
         .draws

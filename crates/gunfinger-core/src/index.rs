@@ -6,6 +6,7 @@
 
 pub mod saved;
 
+use std::collections::BTreeSet;
 use std::time::Duration;
 
 use crate::hash::{HASH_BITS, PairHash, Point, for_each_pair};
@@ -211,6 +212,49 @@ impl Index {
         Some(lengths.get(dropped).copied().unwrap_or(0))
     }
 
+    /// The index as built without the assets whose paths `left_out` names:
+    /// their postings removed and the assets after them renumbered in
+    /// order. A build places each hash's postings asset by asset, each
+    /// asset's in the order its record gives them, so this is the index
+    /// built from the other records in the same order, posting for posting
+    /// (ADR 0014). Call it on an index as built: lists `skipping_fullest`
+    /// set aside would stay set aside by their old lengths.
+    pub fn without_assets(mut self, left_out: &BTreeSet<String>) -> Index {
+        let mut kept = 0;
+        let renumbered: Vec<Option<AssetId>> = self
+            .assets
+            .iter()
+            .map(|asset| {
+                (!left_out.contains(&asset.path)).then(|| {
+                    kept += 1;
+                    AssetId(kept - 1)
+                })
+            })
+            .collect();
+        if kept as usize == self.assets.len() {
+            return self;
+        }
+        // Postings move only towards the start, so each is read before a
+        // kept one is written over it.
+        let mut written = 0;
+        let mut start = 0;
+        for hash in 1..self.offsets.len() {
+            let end = self.offsets[hash] as usize;
+            for read in start..end {
+                let posting = self.postings[read];
+                if let Some(asset) = renumbered[posting.asset().0 as usize] {
+                    self.postings[written] = Posting::new(asset, posting.frame());
+                    written += 1;
+                }
+            }
+            start = end;
+            self.offsets[hash] = written as u32;
+        }
+        self.postings.truncate(written);
+        self.assets.retain(|asset| !left_out.contains(&asset.path));
+        self
+    }
+
     /// Bytes the index occupies: the offsets table and the postings.
     pub fn size_bytes(&self) -> usize {
         size_of_val(self.offsets.as_slice()) + size_of_val(self.postings.as_slice())
@@ -410,6 +454,51 @@ mod tests {
                 assert_eq!(index.postings_for_asset(hash, asset), expected);
             }
         }
+    }
+
+    #[test]
+    fn leaving_assets_out_gives_the_index_built_without_them() {
+        let records: Vec<PeakRecord> = (0..6)
+            .map(|asset| {
+                // Shared peaks put every asset in the same lists; the
+                // asset's own peak adds lists of its own.
+                let own = 150.0 + 10.0 * asset as f32;
+                record(
+                    &format!("{asset}.mp3"),
+                    &[(10.0, 100.0), (20.0, own), (30.0, 120.0), (40.0, 110.0)],
+                )
+            })
+            .collect();
+        let left_out: BTreeSet<String> = ["0.mp3", "3.mp3", "4.mp3", "missing.mp3"]
+            .into_iter()
+            .map(String::from)
+            .collect();
+        let kept: Vec<PeakRecord> = records
+            .iter()
+            .filter(|record| !left_out.contains(&record.header.source.path))
+            .cloned()
+            .collect();
+
+        let filtered = Index::build(&records).unwrap().without_assets(&left_out);
+        let built = Index::build(&kept).unwrap();
+
+        assert_eq!(filtered.assets(), built.assets());
+        assert_eq!(filtered.offsets, built.offsets);
+        assert_eq!(filtered.postings, built.postings);
+        assert_eq!(filtered.longest_scanned, u32::MAX);
+        assert_eq!(filtered.postings.iter().map(|p| p.asset().0).max(), Some(2));
+    }
+
+    #[test]
+    fn leaving_out_no_indexed_asset_keeps_the_index() {
+        let peaks = [(10.0, 100.0), (20.0, 110.0), (30.0, 120.0)];
+        let index = Index::build(&[record("a.mp3", &peaks), record("b.mp3", &peaks)]).unwrap();
+        let postings = index.postings.clone();
+
+        let kept = index.without_assets(&BTreeSet::from([String::from("c.mp3")]));
+
+        assert_eq!(kept.assets().len(), 2);
+        assert_eq!(kept.postings, postings);
     }
 
     #[test]

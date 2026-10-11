@@ -219,12 +219,7 @@ pub fn run(
         Some(map) => other_rips_only(&draws, clusters, map, &held_out),
         None => ((0..draws.len()).collect(), held_out.clone()),
     };
-    let indexed: Vec<PeakRecord> = records
-        .iter()
-        .filter(|record| !excluded.contains(&record.header.source.path))
-        .cloned()
-        .collect();
-    let index = matching.index(padding.index(&indexed, &profile, &excluded)?);
+    let index = matching.index(padding.index(&records, &profile, &excluded)?);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let source = |draw: &Draw| library.root.join(&draw.asset);

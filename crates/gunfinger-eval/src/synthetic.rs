@@ -25,7 +25,7 @@ pub const MAX_COPIES: usize = STRETCHES.len() * STRETCHES.len();
 /// `count` reversed copies of every record, the least stretched first,
 /// named `synthetic/<copy>/<path>`, made as they are taken.
 pub fn copies<'a>(
-    records: &'a [PeakRecord],
+    records: &'a [&'a PeakRecord],
     count: usize,
     profile: &'a Profile,
 ) -> impl Iterator<Item = PeakRecord> + 'a {
@@ -104,7 +104,7 @@ mod tests {
 
     #[test]
     fn the_first_copy_is_the_record_reversed_in_time() {
-        let copies: Vec<PeakRecord> = copies(&[record()], 1, &Profile::CURRENT).collect();
+        let copies: Vec<PeakRecord> = copies(&[&record()], 1, &Profile::CURRENT).collect();
 
         let peaks: Vec<(f64, f32)> = copies[0]
             .peaks
@@ -117,7 +117,7 @@ mod tests {
 
     #[test]
     fn later_copies_are_stretched_and_distinct() {
-        let copies: Vec<PeakRecord> = copies(&[record()], 5, &Profile::CURRENT).collect();
+        let copies: Vec<PeakRecord> = copies(&[&record()], 5, &Profile::CURRENT).collect();
 
         let mut shapes: Vec<String> = copies
             .iter()

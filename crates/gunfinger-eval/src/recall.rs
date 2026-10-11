@@ -428,7 +428,7 @@ pub fn run(
         .filter(|(source, _, _)| source.held_out)
         .flat_map(|(source, _, _)| clusters.cluster_of(&source.asset))
         .collect();
-    let (records, _) = load_records(library, store, &profile, &held_out);
+    let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let index = matching.index(padding.index(&records, &profile, &held_out)?);
     drop(records);
 

@@ -1,0 +1,61 @@
+{
+ "commands": "gunfinger-eval --other-peaks-dir nas-dnb-peaks [--saved-index rebuild|off] scan stakka-skynet-knowledge [--leave-out 3 --seed 2026]",
+ "binary": "work/bin/s12-harness (item 4 on 1345be7)",
+ "store_revision": "f9f9bc706195a71b",
+ "records": 33596,
+ "saved_file": "work/indexes/library-nas-dnb-peaks.index",
+ "saved_file_bytes": 3798396993,
+ "runs_in_order": {
+  "scan-rebuild": {
+   "wall_seconds": 192.38,
+   "cpu_seconds": 1044.21,
+   "peak_memory_bytes": 5000220872,
+   "build_seconds": 80.4,
+   "save_seconds": 3.0,
+   "scan_wall_seconds": 104.022218,
+   "identified": 11,
+   "wrong": 0,
+   "detections": 3681
+  },
+  "scan-saved": {
+   "wall_seconds": 112.0,
+   "cpu_seconds": 960.26,
+   "peak_memory_bytes": 4993339592,
+   "load_seconds": 1.9,
+   "scan_wall_seconds": 103.846867209,
+   "identified": 11,
+   "wrong": 0,
+   "detections": 3681
+  },
+  "scan-off": {
+   "wall_seconds": 189.0,
+   "cpu_seconds": 1036.76,
+   "peak_memory_bytes": 4984148168,
+   "scan_wall_seconds": 103.185421791,
+   "identified": 11,
+   "wrong": 0,
+   "detections": 3681
+  },
+  "lo3-saved": {
+   "wall_seconds": 107.22,
+   "cpu_seconds": 958.21,
+   "peak_memory_bytes": 4998140080,
+   "load_seconds": 2.0,
+   "scan_wall_seconds": 102.36184425,
+   "identified": 8,
+   "wrong": 0,
+   "detections": 3670
+  },
+  "lo3-off": {
+   "wall_seconds": 179.55,
+   "cpu_seconds": 1026.92,
+   "peak_memory_bytes": 4984049840,
+   "scan_wall_seconds": 102.803904042,
+   "identified": 8,
+   "wrong": 0,
+   "detections": 3670
+  }
+ },
+ "reports": "scan-saved and scan-off identical to scan-rebuild apart from wall_seconds; lo3-saved identical to lo3-off; both identical to session 11's reports of the same runs",
+ "regress": "session-12-start identical (720/720; 87, 93, 79), 203.8 s"
+}

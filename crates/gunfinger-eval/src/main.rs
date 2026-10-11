@@ -51,7 +51,7 @@ use crate::clusters::Clusters;
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, SecondLibrary};
+use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, SavedIndex, SecondLibrary};
 use crate::scan::LeaveOut;
 
 #[derive(Parser)]
@@ -117,6 +117,13 @@ struct Paths {
     /// the map and the clusters are the whole library's.
     #[arg(long, global = true, requires = "other_peaks_dir")]
     other_sample: Option<usize>,
+    /// With --other-peaks-dir: whether runs load the index of the corpus
+    /// and the other library's records, saved in
+    /// `indexes/library-<store directory name>.index` (ADR 0014). Runs that
+    /// leave files out remove them from it. Not used with --other-sample,
+    /// synthetic copies or `memory`.
+    #[arg(long, global = true, value_enum, default_value_t = SavedIndexUse::Use)]
+    saved_index: SavedIndexUse,
     /// Measure every detection of sweep, scan, robust, mixes and grid with
     /// the peak verifier, a diagnostic that leaves detections unchanged.
     /// Reports go to `reports/verified/` below the usual directory.
@@ -685,7 +692,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.store()?,
                 &memory::Options {
                     set: &set,
-                    padding: &paths.padding(&variant)?,
+                    // The measurement is the build's memory: never the saved index.
+                    padding: &Padding {
+                        saved: None,
+                        ..paths.padding(&variant)?
+                    },
                     until,
                     minutes,
                     count_lines,
@@ -714,6 +725,19 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             Ok(())
         }
     }
+}
+
+/// Whether runs with --other-peaks-dir use the saved index, as
+/// `identify --saved-index`.
+#[derive(Clone, Copy, PartialEq, Eq, ValueEnum)]
+enum SavedIndexUse {
+    /// Load it when it was built from what the run would index; otherwise
+    /// build the index and save it over the file.
+    Use,
+    /// Build the index and save it over the file.
+    Rebuild,
+    /// Build the index in memory only.
+    Off,
 }
 
 /// The turntable ladder, key-locked rungs at the same tempos, or both (the
@@ -779,6 +803,7 @@ impl IndexVariant {
         Ok(Padding {
             copies: self.synthetic_copies,
             second,
+            saved: None,
         })
     }
 
@@ -1457,7 +1482,7 @@ impl Paths {
     }
 
     /// The variant's padding, with the other library's records less the
-    /// copies corpus files stand for.
+    /// copies corpus files stand for, and their saved index.
     fn padding(&self, variant: &IndexVariant) -> Result<Padding, String> {
         let mut padding = variant.padding()?;
         let (Some(store), Some(map_file)) = (self.other_store()?, self.map_file()) else {
@@ -1474,7 +1499,25 @@ impl Paths {
             Some(count) => second.sampled(count, OTHER_SAMPLE_SEED),
             None => second,
         });
+        padding.saved = self.saved_index();
         Ok(padding)
+    }
+
+    /// The saved index of the corpus and the whole other library, unless
+    /// the run searches a sample of it or uses none.
+    fn saved_index(&self) -> Option<SavedIndex> {
+        if self.other_sample.is_some() {
+            return None;
+        }
+        let file = self
+            .work
+            .join("indexes")
+            .join(format!("library-{}.index", self.other_name()?));
+        match self.saved_index {
+            SavedIndexUse::Use => Some(SavedIndex::Use(file)),
+            SavedIndexUse::Rebuild => Some(SavedIndex::Rebuild(file)),
+            SavedIndexUse::Off => None,
+        }
     }
 }
 

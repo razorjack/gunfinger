@@ -4,7 +4,9 @@
 
 Accepted (2026-10-10, session 11). Takes up the on-disk index that ADR
 0005 proposed, with the in-memory layout instead of its delta-coded lists;
-ADR 0005's in-memory decision and ADR 0010's posting stand.
+ADR 0005's in-memory decision and ADR 0010's posting stand. The decision
+on the harness is replaced by ADR 0014 (2026-10-11): runs with
+`--other-peaks-dir` save and load an index of their own.
 
 ## Context
 

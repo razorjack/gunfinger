@@ -86,7 +86,7 @@ pub fn run(
         Some(leave_out) => draw_left_out(&set, clusters, leave_out),
         None => (Vec::new(), BTreeSet::new()),
     };
-    let (records, _) = load_records(library, store, &profile, &left_out_assets);
+    let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let index = matching.index(padding.index(&records, &profile, &left_out_assets)?);
     let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     drop(records);
