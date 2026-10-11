@@ -25,14 +25,14 @@ to `work/s12/before/` first and put back after.
 | leave-out 3, saved | loaded 2.0 s, 3 clusters removed | 107.2 s | 958 s | 5.00 GB |
 | leave-out 3, off | built without them | 179.6 s | 1,027 s | 4.98 GB |
 
-Decoding and searching: 102.4-104.0 s in every run. The file: 33,618
-assets (262 corpus, 33,356 store records), 3,798,396,993 bytes.
+Search 102.4-104.0 s in every run. The file: 33,618 assets, 3.80 GB.
 
 **Result.** The three development scans are identical apart from
 `wall_seconds` (11/11, 0 wrong, 3,681 detections, 38 plays), and so are
-the two leave-outs (8/11, 3,670 detections). Both also equal session 11's
-reports of the same runs (`1afd8cc`, 844 and 662 s of searching under
-load then). `regress session-12-start`: identical. Data `data/0087-*.json`.
+the two leave-outs (8/11, 3,670 detections); both equal session 11's
+reports (`1afd8cc`). Later, `sweep --seed 2026` on the saved index (48
+held-out clusters removed; `0a625f3`): byte-identical to session 11's
+report, 641 s. `regress`: identical. Data `data/0087-*.json`.
 
 **Conclusion.** Each NAS-scale run skips the 77-82 s build: the
 development scan takes 112 s instead of 189 s, a leave-out 107 s instead

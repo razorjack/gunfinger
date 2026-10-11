@@ -1787,3 +1787,17 @@ Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
   would stop on such an error (ADR 0012).
 - `regress session-12-start` with the item-5 build (`work/bin/s12-item5/`):
   identical (203.6 s).
+- Experiment 0088 (`26f8b7b`): `sample` over the NAS `identify` of the
+  2003 mix with the item-5 build (15:57-15:59): 92.1 s, 780 s CPU, 4.80
+  GB, report byte-identical; sorting each asset's offsets 39.3%,
+  grouping and lines 32.4%, query analysis 18.9%, posting scans 6.5%.
+- Extra check of item 4's held-out path (16:00-16:11): `sweep --seed
+  2026` at NAS scale with the item-5 build loads the harness's index
+  (3.7 s) and removes 48 held-out clusters: 540/540, 0 wrong, the report
+  byte-identical to session 11's; 641 s, 6,059 s CPU, 5.83 GB (session
+  11: 1,713 s under load). Session 11's report put back.
+- Wrap-up: notes "Session 12", roadmap ("Search memory at scale",
+  "On-disk index", "Where search time goes"), README, checklist. The NAS
+  store at the end: 33,596 records, 1,582 skip notes, revision
+  `f9f9bc706195a71b`, as at the start. The harness's index
+  takes 3.8 GB of disk.

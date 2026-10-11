@@ -57,5 +57,14 @@
   }
  },
  "reports": "scan-saved and scan-off identical to scan-rebuild apart from wall_seconds; lo3-saved identical to lo3-off; both identical to session 11's reports of the same runs",
- "regress": "session-12-start identical (720/720; 87, 93, 79), 203.8 s"
+ "regress": "session-12-start identical (720/720; 87, 93, 79), 203.8 s",
+ "sweep_check": {
+  "command": "gunfinger-eval --other-peaks-dir nas-dnb-peaks sweep --seed 2026 (saved index loaded in 3.7 s, 48 held-out clusters removed)",
+  "binary": "work/bin/s12-item5 (0a625f3)",
+  "wall_seconds": 641.23,
+  "cpu_seconds": 6058.54,
+  "peak_memory_bytes": 5829956792,
+  "report": "byte-identical to session 11's sweep-seed-2026.json (1afd8cc)",
+  "recall": "540/540 indexed excerpts across 9 speeds, 0 wrong"
+ }
 }

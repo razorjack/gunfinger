@@ -16,17 +16,25 @@ marked as inferences were derived, not measured.
   index (3.0 GB), the merged lines of the whole mix (1.4 GB), the
   workers' hit buffers (about 2 GB) and the final sort of the lines.
   16-byte hits and sorting the lines without a half-size copy would take
-  off about 1.2 GB, also with identical detections; not done.
+  off about 1.2 GB, also with identical detections; not done. Since
+  session 12 a hit is found as 8 bytes and grouped as 16 (experiment
+  0086), 24 bytes in all as before; at 33,596 records the 2003 mix peaks
+  at 4.8 GB, the index 3.8 GB of it.
 - **On-disk index.** *(done in session 11, ADR 0011)* `identify`,
   `explain` and `stats` save the index they build in
   `$XDG_CACHE_HOME/gunfinger/indexes/` and load it while its header names
   exactly what they would index (format, profile, hash design, frame
   bits, track length range, asset table); a stale, truncated or damaged
   file is rebuilt and replaced. The in-memory layout is kept, 4 bytes per
-  posting, so ADR 0005's delta-coded lists are not used. Still open:
-  compression (it needs `u64` byte offsets past 4.29 GB, ADR 0011), the
-  harness (its runs index other sets of files), and `doctor` counting
-  the file.
+  posting, so ADR 0005's delta-coded lists are not used. *(session 12)*
+  The harness saves its own index of the corpus and the other store in
+  `work/indexes/` and removes what a run leaves out in memory (ADR 0014;
+  the NAS development scan 112 s instead of 189 s, experiment 0087), and
+  `doctor` reports the store's file (size, current or not) and the
+  folder's other files, deleting nothing. Still open: compression (it
+  needs `u64` byte offsets past 4.29 GB, ADR 0011), which would also
+  shrink the two 3.8 GB files the NAS store now has on the local disk (the
+  CLI's and the harness's).
 - **More than 65,536 assets.** *(first step done in session 9, ADR
   0010)* The NAS store passed 32,768 records on 2026-10-09 (32,905), so
   a posting now holds 16 frame bits and 16 asset bits: 65,536 assets,
@@ -226,9 +234,18 @@ marked as inferences were derived, not measured.
   window holds more than 50,000 hits (experiments 0080 and 0083), and
   extracts key-locked peaks once per rounded hop (0082). The same NAS
   `identify` then takes 181 s instead of 220 s, with the same
-  detections (experiment 0084). Next: profile again to see what the
-  sort leaves. This comes before any change of hash design; `regress`
-  must show identical detections.
+  detections (experiment 0084). *(session 12)* Profiled again (0085):
+  sorting still took 78% of the CPU, two thirds of it grouping 0.6-2.0
+  million hits a window by asset. A counting sort by asset (asset numbers
+  are dense) now groups them in two passes, with hits found as 8 bytes
+  (0086): the NAS `identify` of the 2003 mix takes 86-92 s instead of
+  167-171 s, half the CPU, the same memory, byte-identical reports. What
+  is left (0088): sorting each asset's 30-60 offsets 39%, grouping and
+  building lines 32%, query analysis 19%. Next, with identical
+  detections: fewer comparisons for the small per-asset sorts (a radix
+  pass over the offsets' bits keeps the order exact) and a grouping
+  whose scatter writes to fewer places at once. This comes before any
+  change of hash design; `regress` must show identical detections.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

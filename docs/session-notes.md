@@ -2547,3 +2547,86 @@ notice:
   the scene copy of "Sex Drive".
 - The harness renders its cached excerpts again once, so the next sweep
   or recall run takes longer, and recall needs the NAS mounted.
+
+## Session 12
+
+### What changed
+
+**Searches at NAS scale take half the time.** A window of the search
+holds 0.6-2.0 million hits at 33,596 records, and sorting them took 78%
+of the CPU (experiment 0085). Asset numbers are dense, so a counting sort
+now groups each window's hits by asset in two passes, and each asset's
+offsets are sorted as before. Detections cannot change: lines depend only
+on each asset's offsets in sorted order, and a unit test compares the
+lines with the old sort on large mixed buffers (experiment 0086).
+
+| My 2003 mix, `identify` at NAS scale (saved index loaded) | Before | Now |
+|---|--:|--:|
+| Wall time | 167-171 s | 86-92 s |
+| CPU time | 1,545 s | 774 s |
+| Peak memory | 4.78 GB | 4.80 GB |
+
+Every report was byte-identical to the start build's, and `regress`
+stayed identical after every change.
+
+**The harness loads a saved index too** (ADR 0014, experiment 0087).
+Runs with `--other-peaks-dir` keep the index of the corpus and the NAS
+store in `work/indexes/library-nas-dnb-peaks.index` and load it while
+current; a leave-out or a sweep's held-out clusters are removed from it
+in memory, which gives exactly the index built without them. The
+development scan at NAS scale takes 112 s instead of 189 s, a leave-out
+107 s instead of 180 s, with identical reports.
+
+**Disk use.** The harness's file is another 3.8 GB, beside
+the 3.8 GB of `identify`'s file in `~/.cache/gunfinger/indexes/`. Either
+can be deleted; the next run that needs it builds it again (80-120 s).
+
+**`doctor`'s new lines.** A "saved index" section at the end:
+
+```text
+saved index
+  ok       ~/.cache/gunfinger/indexes/nas-dnb-peaks-23935cfc56936b67.index, 3.8 GB: current; identify, explain and stats load it
+```
+
+It reads the file's header and offsets table (8 MB), not its postings.
+Instead of `current` it may say `current for searches with --store-only, out of
+date for the library` (the file was saved by a `--store-only` search and
+the library leaves out some stored files), `out of date (...)`, `cannot
+be read (...)` or `none yet`; each says what the next search does. Below
+it, every other file in that folder with its size: saved indexes of other
+peak stores, or unfinished saves. `doctor` deletes nothing.
+
+### Worth knowing
+
+- **The NAS is changing.** `doctor` counted 36,305 audio files at 15:45,
+  against 35,573 at the end of session 11: 1,127 are not indexed yet. The
+  first `doctor` run (15:42) could not finish listing the library ("No
+  such file or directory": most likely a file moved while it listed) and
+  reported the store alone; the second listed it. A plain `identify`
+  stops on such an error (ADR 0012); `--store-only` searches the records
+  regardless. The peak store was not touched: 33,596 records, revision
+  `f9f9bc706195a71b`, at the start and at the end.
+- **When the new files are indexed**, the next `identify` and the next
+  harness run each rebuild their saved index once (80-170 s), and
+  `doctor` says "out of date" until then.
+- **The harness's sweep on the saved index** (seed 2026 at NAS scale,
+  the 48 held-out clusters removed in memory) gave a report byte-identical
+  to session 11's, in 641 s.
+- Session 11's NAS reports were copied to `work/s12/before/` and put back
+  after each run that overwrote them; this session's are in `work/s12/`.
+
+### Decisions waiting
+
+Nothing new from this session. Still waiting, unchanged: the listening
+pack (`pair-review`), the seven folders to judge by ear, and the questions
+the brief left out of scope (the containment rule for confident plays,
+shared material, the possible tier and edits, a clusters search, test
+evaluation 5).
+
+### Left for later
+
+- The next speed steps, with identical detections (experiment 0088):
+  sorting each asset's 30-60 offsets is now 39% of the NAS search's CPU,
+  grouping and building lines 32%, the query analysis 19%.
+- A compressed saved index (it needs `u64` byte offsets past 4.29 GB,
+  ADR 0011), which would shrink both 3.8 GB files.

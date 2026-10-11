@@ -41,6 +41,10 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Experiments; notes "Session 12"; status; checklist; roadmap; README
-- [ ] The NAS store's revision at the end
-- [ ] Commit; the final message
+- [x] Experiments 0085-0088; notes "Session 12"; status; checklist;
+  roadmap; README; AGENTS.md
+- [x] Extra: `sweep --seed 2026` at NAS scale on the harness's saved
+  index, byte-identical to session 11's report (641 s)
+- [x] The NAS store's revision at the end: `f9f9bc706195a71b`, 33,596
+  records, 1,582 skip notes
+- [x] Commit; the final message
