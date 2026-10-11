@@ -417,6 +417,16 @@ enum QuestionSource {
         #[arg(long)]
         out: Option<PathBuf>,
     },
+    /// The plays of a saved `identify` report (`-f json`), each asked "is
+    /// this detection right?"; written to
+    /// <work>/audition/questions/03-detections-<report name>.json.
+    Detections {
+        report: PathBuf,
+        #[command(flatten)]
+        roots: SecondLibraryRoot,
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
 }
 
 /// Where the files named `second-library/<path>` are.
@@ -1660,7 +1670,7 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
             second: absolute(&roots.second_library_root)?,
         })
     };
-    let (file, out) = match source {
+    let (mut file, out) = match source {
         QuestionSource::Pack {
             pack,
             plan,
@@ -1700,7 +1710,32 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
                 out.unwrap_or_else(|| questions_dir.join("02-folders.json")),
             )
         }
+        QuestionSource::Detections { report, roots, out } => {
+            let envelopes = audition::audio::Envelopes::below(&paths.work);
+            let file = audition::detections::questions(
+                &audition::detections::Report::load(&report)?,
+                &libraries(&roots)?,
+                |path| {
+                    envelopes
+                        .get(path)
+                        .map(|envelope| envelope.duration_seconds)
+                },
+            )?;
+            let name = report.file_stem().map_or_else(
+                || String::from("report"),
+                |stem| stem.to_string_lossy().into_owned(),
+            );
+            (
+                file,
+                out.unwrap_or_else(|| questions_dir.join(format!("03-detections-{name}.json"))),
+            )
+        }
     };
+    // The whole command, so the next agent can make the file again.
+    file.made_by = std::iter::once(String::from("gunfinger-eval"))
+        .chain(std::env::args().skip(1))
+        .collect::<Vec<_>>()
+        .join(" ");
     audition::schema::save(&out, &file)?;
     println!(
         "wrote {} questions to {}",

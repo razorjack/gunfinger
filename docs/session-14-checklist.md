@@ -17,14 +17,15 @@ for scope and rules.
 ## Steps
 
 - [x] 2. Design: ADR 0016, `docs/audition-questions.md`
-- [ ] 3. Schema and its check, placement arithmetic, answer log, the
+- [x] 3. Schema and its check, placement arithmetic, answer log, the
   pair-verdicts effect and undo, the pack and folder producers; tests
-- [ ] 4. HTTP server (token, Host), audio windows, envelopes and their
+- [x] 4. HTTP server (token, Host), audio windows, envelopes and their
   cache, the page (dark theme, queue, lanes, keys, help)
-- [ ] 5. Page checks with real NAS items (pack 1, 2, a control join, two
+- [x] 5. Page checks with real NAS items (pack 1, 2, a control join, two
   folders), temporary answer and verdict files; screenshots in `work/s14/`
-- [ ] 6. The detections producer (2003 development mix only), or its
-  documentation
+- [x] 6. The detections producer (2003 development mix only): 27
+  questions in `work/audition/detections/2003-s12.json`, outside the
+  default folder; checked in the page on play 4
 - [ ] 7. Read-only review by a subagent; fixes
 
 ## Wrap-up

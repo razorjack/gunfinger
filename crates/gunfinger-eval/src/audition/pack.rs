@@ -122,7 +122,7 @@ pub fn questions(
     Ok(QuestionFile {
         schema_version: SCHEMA_VERSION,
         title: String::from("Listening pack"),
-        made_by: format!("gunfinger-eval questions pack --pack {}", pack.display()),
+        made_by: String::from("gunfinger-eval questions pack"),
         questions,
     })
 }

@@ -1921,3 +1921,49 @@ Brief `docs/brief-14.md`, checklist `docs/session-14-checklist.md`.
   with those frames dropped, it is bit-exact (mp3, opus), and the m4a
   matches for its first 0.86 s (scattered AAC differences later, not at
   the joint). Windows use a 0.5 s pre-roll.
+- Steps 3 and 4 (`b9a7450`): the schema and its check, placement,
+  harness names, the answer log with effects and undo, the pack and
+  folder producers, the HTTP server, audio windows, envelopes and the
+  page, 43 tests. `pair-review` now appends verdicts through
+  `clusters::Verdicts::append`, which the pair effect shares; its
+  behaviour is unchanged. `questions pack` (plan
+  `work/audition/plans/pack.toml`, the pair reports `pairs-s10-pairs`,
+  `pairs-s11-items-pairs` and `pairs-supported-pairs` in
+  `work/reports/library-nas-dnb-peaks/`) wrote 23 questions in 0.3 s;
+  item 1 has the corpus original as lane 3.
+  `questions folders` (`work/audition/plans/folders.toml`, the seven
+  folders of `make_listen.py`) wrote 7 questions over 84 files in 34 s,
+  most of it computing their envelopes.
+- Step 5, the page checks (`c55c75c`), in headless Chrome over the
+  DevTools protocol (`work/s14/cdp/cdp.ts`) and the T3 preview, with the
+  answer log and a copy of the verdicts file in `/tmp/s14-check/`. On
+  pack item 1 (three lanes), item 2 (its jump at 334.6 s), control join
+  14 and the folders Skynet & Stakka and Bad Company - Fear LP: a lane
+  switch cuts the old source and starts the new one at the same context
+  time, at the mapped file time; speed matching sets `playbackRate` to
+  the piece's speed; the loop wraps; Tab returns; the blend pans the
+  lower lane left; markers jump. Answer, undo, the "left there" case (a
+  line appended after the answer's) and the refusal of a contradicting
+  verdict behaved as specified on the temporary files. Fixed after the
+  checks: the waveform also draws the RMS level (a loud master's
+  extremes fill the lane); Up and Down pass over folder `join` markers;
+  plainer span labels and refusal message; long names wrap in the queue.
+  Window costs: the server answers a 30 s window in 0.06-0.11 s (NAS mp3
+  0.07 s, NAS opus 0.11 s, local m4a 0.06 s); in the page a window costs
+  70-105 ms to fetch and 10 ms to decode, 10.6 MB as a buffer; 24 windows
+  (the limit) came to 242 MB on a folder. Safari is not tested; the page
+  needs Safari 15.4 or later (`Array.prototype.at`, `findLast`).
+  Screenshots `work/s14/screenshot-1` to `-5`.
+- Step 6: `questions detections REPORT` (one question per play, the mix
+  as the reference lane, the play's file placed by its segments; answers
+  to the log only), 2 tests. On the 2003 development mix's report
+  (`work/merge-check/2003-s12.json`) it wrote 27 questions in 15 s, to
+  `work/audition/detections/2003-s12.json`, outside the default folder so
+  the listening queue holds only the pack and the folders. Checked in the
+  page on play 4 (two segments): the track's lane starts its second
+  piece at 341.3 s; `y` logged `confirmed` and opened the next open
+  question, `Z` took it back; the verdicts copy unchanged.
+  A question file's `made_by` is now the whole producer command line;
+  the three files were made again with it and are otherwise identical
+  (ids included). The folders run then took 19 s, recomputing envelopes
+  cached before the RMS level was added; a second run takes 0.04 s.

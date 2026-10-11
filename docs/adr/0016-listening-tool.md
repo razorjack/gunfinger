@@ -57,12 +57,14 @@ decodes. Safari does not reliably decode Ogg Opus, and the collection
 holds opus, m4a and mp3.
 
 - **Windows.** A window is 30 s of one file, numbered from the file's
-  start (window `k` holds file time `30k` to `30k + 30`). The page keeps
-  the windows around the playhead (the current one, the one before, two
-  ahead) of the lanes that sound and of the other lanes at the same
-  moment, and the windows at the markers before and after the playhead,
-  in a cache bounded by a byte budget; the oldest unused windows are
-  dropped first. A 70-minute mix is never held whole.
+  start (window `k` holds file time `30k` to `30k + 30`). The page asks
+  for the windows it will need soon: those of the sounding lanes from
+  10 s behind the playhead to 40 s ahead, those of the other lanes at
+  the playhead and 12 s ahead (so a switch finds them), and those at the
+  markers before and after the playhead and at the loop's start. It keeps
+  at most 24 windows (about 250 MB of decoded audio) and drops the least
+  recently used window it does not need now. A 70-minute mix is never
+  held whole.
 - **Pre-roll.** FFmpeg's input seek lands on the exact sample, but MP3
   and Opus decoders need a few frames to settle: decoded from its own
   start, a window's first 25 ms (MP3) or 195 ms (Opus) differ from the
@@ -70,11 +72,13 @@ holds opus, m4a and mp3.
   joint. The server starts each window 0.5 s early and drops those
   frames; the joints are then bit-exact for MP3 and Opus and the first
   0.86 s match for AAC (measured in session 14 on one file of each).
-- **Envelopes.** The waveform of a file is its minimum and maximum per
-  50 ms bucket, computed by the server from a mono decode at 4 kHz (the
-  shape of the music, not its treble) and cached under
+- **Envelopes.** The waveform of a file is its minimum, maximum and RMS
+  level per 50 ms bucket, computed by the server from a mono decode at
+  4 kHz (the shape of the music, not its treble) and cached under
   `work/audition/envelopes/`, one JSON file per file keyed by an FNV-1a
-  digest of its path, size and modification time.
+  digest of its path, size and modification time. The page draws the
+  extremes dimmed and the RMS level bright: the extremes of a loud master
+  fill the lane, and the RMS level still shows its breaks and drops.
 
 ### No build step, no new crate
 
@@ -141,7 +145,8 @@ documents every field. The principles:
 
 - **Only on the listener's keypress.** An answer is written when the listener
   presses a choice's key, immediately. Agents never write answers or
-  verdicts.
+  verdicts. After an answer the page opens the next question without an
+  answer; `Z` reopens the question it takes back.
 - **The answer log** (`work/audition/answers.jsonl`, `--answers`) is
   append-only JSON lines: each record has a sequence number, the time,
   the action (`answer` or `undo`), the question's id, kind, title and

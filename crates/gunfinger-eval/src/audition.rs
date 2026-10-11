@@ -19,6 +19,7 @@
 
 pub mod answers;
 pub mod audio;
+pub mod detections;
 pub mod effects;
 pub mod folders;
 mod http;

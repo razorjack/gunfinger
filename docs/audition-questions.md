@@ -23,6 +23,12 @@ gunfinger-eval questions folders PLAN.toml   # 02-folders.json
 gunfinger-eval questions detections REPORT.json   # 03-detections-<report stem>.json
 ```
 
+`questions detections` reads a saved `gunfinger identify -f json` report
+that names its library (not a `--store-only` search): one question per
+play, the mix from 30 s before the play to 30 s after as the reference
+lane, the play's file placed by its segments, the strongest segment
+first (`placement::tile`).
+
 ## The file
 
 ```json
@@ -101,7 +107,7 @@ length); the page evaluates only the formula above, in `timeline.js`.
 |---|---|---|
 | `at` | seconds | Inside the timeline. |
 | `label` | string | Shown on hover and in the readout when the playhead reaches it. |
-| `kind` | `listen`, `edge` or `join` | `listen`: a moment worth hearing (a clip's moment, a CD's track boundary, a detection's start). `edge`: where lanes start or stop lining up. `join`: where a lane goes on in another file or another place of its file. Drawn in three colours. |
+| `kind` | `listen`, `edge` or `join` | `listen`: a moment worth hearing (a clip's moment, a CD's track boundary, a detection's start). `edge`: where lanes start or stop lining up. `join`: where a lane goes on in another file or another place of its file. Drawn in three colours. Up and Down stop at `listen` and `edge` markers and pass over `join` markers; a click takes any of them. |
 
 ### A span
 
@@ -226,17 +232,20 @@ A detection (is it right?), the mix as the reference lane:
 {
   "id": "detection-fedcba9876543210",
   "kind": "detection",
-  "title": "Play 4 at 12:03: Artist - Title",
+  "title": "Play 4 at 12:03: Artist - Title (confident)",
   "text": "Is this the track playing in the mix here?",
-  "details": ["confident, 1484 hits in 15 windows, turntable at +6.60%"],
+  "details": ["confident, 1484 hits in 15 windows, turntable at +6.60%", "Mix 12:03–14:30"],
   "files": ["/Users/me/mixes/mix.mp3", "second-library/label/Artist - Title.opus"],
   "timeline": {"start": 693.0, "end": 900.0, "reference": 0},
   "lanes": [
     {"name": "mix", "pieces": [{"file": "/Users/me/mixes/mix.mp3", "start": 693.0, "end": 900.0, "offset": 0.0, "speed": 1.0}]},
-    {"name": "track", "pieces": [{"file": "/Volumes/nas/music/label/Artist - Title.opus", "start": 693.0, "end": 900.0, "offset": -770.4, "speed": 1.066}]}
+    {"name": "track", "pieces": [{"file": "/Volumes/nas/music/label/Artist - Title.opus", "start": 693.0, "end": 900.0, "offset": -770.4, "speed": 1.066, "label": "segment 1"}]}
   ],
-  "markers": [{"at": 723.0, "label": "play starts", "kind": "edge"}],
-  "spans": [{"start": 723.0, "end": 870.0, "lanes": [0, 1], "label": "the play: 1484 hits"}],
+  "markers": [
+    {"at": 723.0, "label": "the play starts", "kind": "listen"},
+    {"at": 870.0, "label": "the play ends", "kind": "edge"}
+  ],
+  "spans": [{"start": 723.0, "end": 870.0, "lanes": [0, 1], "label": "segment 1: confident, 1484 hits in 15 windows, speed +6.60%"}],
   "choices": [
     {"key": "y", "label": "right", "value": "confirmed"},
     {"key": "n", "label": "wrong", "value": "wrong"},
@@ -255,15 +264,20 @@ All paths start with `/<token>/`; `api/` routes answer JSON unless noted.
 | `GET /` | the page; `GET <name>.js` and `<name>.css` its embedded files |
 | `GET api/session` | the loaded files' titles, every question with its state, the window length, the paths of the answer log and the verdicts file |
 | `GET api/audio?file=PATH&window=K` | `audio/wav`: window `K` (30 s) of a listed file, 16-bit stereo, 44.1 kHz |
-| `GET api/envelope?file=PATH` | a listed file's minimum and maximum per 50 ms bucket, and its length |
+| `GET api/envelope?file=PATH` | a listed file's waveform: per 50 ms bucket the minimum, the maximum and the RMS level (each scaled to -127..127), and its length |
 | `POST api/answer` `{"question": ID, "key": K}` | the question's new state and a message, or `409` with the reason |
 | `POST api/undo` | what was undone and a message |
 | `POST api/reveal` `{"file": PATH}` | reveals a listed file in the Finder (`open -R`) |
 
 ## What a window costs
 
-Measured in session 14 (see `docs/status.md`): FFmpeg decodes a 30 s
-window of a NAS file in 0.1-0.25 s (mp3 0.13 s, opus 0.23 s, m4a
-0.09 s); the WAV is 5.3 MB (30 s × 44,100 × 2 channels × 2 bytes); the
-page's decoded buffer is 10.6 MB (32-bit floats). The page's cache holds
-at most 24 windows (about 250 MB).
+Measured in session 14 (see `docs/status.md`). The server answers a 30 s
+window (the WAV is 5.3 MB: 30 s × 44,100 × 2 channels × 2 bytes) in
+0.06-0.11 s: a NAS mp3 0.07 s, a NAS opus 0.11 s, a local m4a 0.06 s
+(FFmpeg alone took 0.09-0.23 s on a first try during the design). In the
+page a window costs 70-105 ms to fetch and 10 ms to decode; its buffer
+is 10.6 MB (32-bit floats). The page keeps at most 24 windows (about
+250 MB; a folder question reached 242 MB) and evicts the least recently
+used one that the moment being played does not need. After a far jump,
+the first sound waited about a second in the page checks while the
+windows loaded.
