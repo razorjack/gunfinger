@@ -1,20 +1,24 @@
 //! `gunfinger doctor`: check the tools, the settings, the library and the
 //! peak store, and say what to do about each problem.
 
+use std::collections::BTreeSet;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::Duration;
 
+use gunfinger_core::hash;
+use gunfinger_core::index::saved::{self, Provenance, Unusable};
 use gunfinger_core::index::{MAX_ASSETS, addressable_length};
-use gunfinger_core::indexing::TrackLength;
+use gunfinger_core::indexing::{TrackLength, plan_index};
 use gunfinger_core::library::ignore::IGNORE_FILE;
-use gunfinger_core::library::{Library, ScanError};
+use gunfinger_core::library::{Asset, Library, ScanError};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, Stored};
 use miette::miette;
 
-use crate::catalog::{list, store_records};
-use crate::config::Settings;
+use crate::catalog::{absolute, list, store_records};
+use crate::config::{self, Settings};
 use crate::console::Console;
 use crate::style::Style;
 use crate::survey::{Absence, counted, counted_kinds, survey};
@@ -102,6 +106,7 @@ pub fn run(
                 "no library given (--library, or `library` in the configuration file)",
                 None,
                 &settings.peaks_dir,
+                settings.track_length,
             );
         }
     }
@@ -159,6 +164,7 @@ fn check_store_alone(
     reason: &str,
     root: Option<&Path>,
     peaks_dir: &Path,
+    length: TrackLength,
 ) {
     let (store, (sources, unreadable)) = match store_records(peaks_dir) {
         Ok(Some(found)) => found,
@@ -229,6 +235,14 @@ fn check_store_alone(
             ),
         );
     }
+    let plan = plan_index(
+        &sources,
+        &store,
+        &Profile::CURRENT,
+        &BTreeSet::new(),
+        length,
+    );
+    check_saved_index(checkup, &store, plan.sources, None, length);
 }
 
 /// Whether the library has an ignore file, and how many audio files each
@@ -296,6 +310,7 @@ fn check_library(
                 &format!("could not read the library at {}: {error}", root.display()),
                 Some(root),
                 peaks_dir,
+                length,
             );
             return;
         }
@@ -487,4 +502,131 @@ fn check_library(
             timecode(addressable)
         ),
     );
+
+    let profile = Profile::CURRENT;
+    let searched = plan_index(&library.assets, &store, &profile, &BTreeSet::new(), length);
+    let store_only = store.current_sources(&profile).ok().map(|(sources, _)| {
+        plan_index(&sources, &store, &profile, &BTreeSet::new(), length).sources
+    });
+    check_saved_index(checkup, &store, searched.sources, store_only, length);
+}
+
+/// Whether the saved index of the peak store (ADR 0011) is current for a
+/// search of `sources`, read from its header and length only, and what else
+/// the index folder holds. When it is out of date for the library, it may
+/// still be current for searches of the store's own records
+/// (`store_only`). Reports only; deletes nothing.
+fn check_saved_index(
+    checkup: &mut Checkup,
+    store: &PeakStore,
+    sources: Vec<Asset>,
+    store_only: Option<Vec<Asset>>,
+    length: TrackLength,
+) {
+    checkup.section("saved index");
+    let Some(dir) = config::index_dir() else {
+        checkup.line(
+            Status::Note,
+            "no home folder to keep a saved index in (set XDG_CACHE_HOME or HOME); searches build the index each time",
+        );
+        return;
+    };
+    let name = saved::file_name(&absolute(store.dir()));
+    let path = dir.join(&name);
+    let provenance = |sources: Vec<Asset>| Provenance {
+        profile: Profile::CURRENT.id(),
+        hash_design: hash::design(),
+        track_length: length,
+        sources,
+    };
+    let size = fs::metadata(&path).map_or(0, |metadata| metadata.len());
+    let file = format!("{}, {}", path.display(), bytes(size));
+    match saved::examine(&path, &provenance(sources)) {
+        Ok(()) => checkup.line(
+            Status::Ok,
+            format!("{file}: current; identify, explain and stats load it"),
+        ),
+        Err(Unusable::Missing) => checkup.line(
+            Status::Note,
+            format!(
+                "none yet; the next identify, explain or stats builds the index and saves it as {}",
+                path.display()
+            ),
+        ),
+        Err(Unusable::Stale(why)) => {
+            let current_for_store = store_only
+                .is_some_and(|sources| saved::examine(&path, &provenance(sources)).is_ok());
+            checkup.line(
+                Status::Note,
+                if current_for_store {
+                    format!(
+                        "{file}: current for searches with --store-only, out of date for the library ({why}); a search of the library builds the index again and saves it over the file"
+                    )
+                } else {
+                    format!(
+                        "{file}: out of date ({why}); the next search builds the index again and saves it over the file"
+                    )
+                },
+            );
+        }
+        Err(Unusable::Unreadable(why)) => checkup.line(
+            Status::Warning,
+            format!(
+                "{file}: cannot be read ({why}); the next search builds the index again and saves it over the file"
+            ),
+        ),
+    }
+    check_other_saved_files(checkup, &dir, &name);
+}
+
+/// The other files of the index folder: saved indexes no peak store of
+/// these settings uses (another store's, or this one's at another path)
+/// and unfinished saves.
+fn check_other_saved_files(checkup: &mut Checkup, dir: &Path, own: &str) {
+    let Ok(entries) = fs::read_dir(dir) else {
+        return;
+    };
+    let mut others: Vec<(String, u64)> = entries
+        .flatten()
+        .filter_map(|entry| {
+            let metadata = entry.metadata().ok()?;
+            let name = entry.file_name().to_string_lossy().into_owned();
+            (metadata.is_file() && name != own).then_some((name, metadata.len()))
+        })
+        .collect();
+    if others.is_empty() {
+        return;
+    }
+    others.sort();
+    checkup.line(
+        Status::Note,
+        format!(
+            "{} in {}, {} in all; doctor deletes nothing",
+            counted(others.len(), "other file"),
+            dir.display(),
+            bytes(others.iter().map(|(_, size)| size).sum())
+        ),
+    );
+    for (name, size) in &others {
+        let what = if name.ends_with(".partial") && name.starts_with(&format!("{own}.")) {
+            "an unfinished save of this store's index; the next search deletes it once it is 10 minutes old"
+        } else if name.ends_with(".partial") {
+            "an unfinished save of another store's index; the next search of that store deletes it once it is 10 minutes old"
+        } else if name.ends_with(".index") {
+            "belongs to no peak store of these settings: the saved index of another store, named after its folder, or of this store at another path; delete it if that store is gone"
+        } else {
+            "not a saved index"
+        };
+        checkup.line(Status::Note, format!("{name}, {}: {what}", bytes(*size)));
+    }
+}
+
+/// A file size for people: megabytes, or gigabytes from 1 GB.
+fn bytes(size: u64) -> String {
+    let size = size as f64;
+    if size >= 1e9 {
+        format!("{:.1} GB", size / 1e9)
+    } else {
+        format!("{:.1} MB", size / 1e6)
+    }
 }

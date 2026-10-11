@@ -1747,3 +1747,43 @@ Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
   4.80 GB against 4.78; every report byte-identical. `regress
   session-12-start` identical (203.7 s); `scripts/check.sh` green (4:49).
   A 24-byte variant cost 0.4 GB more peak memory and was not kept.
+- Item 4 (ADR 0014, experiment 0087, `de4577e`): with `--other-peaks-dir`,
+  `Padding::index` loads the index of the corpus records and the whole
+  other store from `work/indexes/library-<store>.index` when its header
+  names exactly these files, otherwise builds and saves it; runs that
+  leave files out (leave-outs, held-out clusters, recall's held-out
+  sources) remove them in place with `Index::without_assets`, which
+  renumbers the other assets in order: the index built without them,
+  posting for posting (unit test). Not used with `--other-sample`,
+  synthetic copies or `memory`. `--saved-index use|rebuild|off`. Tests:
+  stale (new store record, changed corpus record), damaged digest,
+  truncated file, leave-outs against builds. `scripts/check.sh` green
+  (4:49); `regress session-12-start` identical (203.8 s). At NAS scale
+  (15:23-15:40, idle): the development scan rebuilt and saved 192.4 s
+  (build 80.4 s, save 3.0 s), loaded 112.0 s (1.9 s), off 189.0 s;
+  leave-out 3 filtered 107.2 s, built 179.6 s; reports identical apart
+  from `wall_seconds`, and equal to session 11's. The file: 33,618
+  assets, 3,798,396,993 bytes. Session 11's NAS reports copied to
+  `work/s12/before/` first and the two scans put back after.
+- Item 5: `doctor` has a "saved index" section: the store's file, its
+  size and whether it is current for a search of the library (its
+  header and length read, `saved::examine`, not the 3.8 GB of
+  postings), or current only for `--store-only` searches, out of date,
+  unreadable or missing; then the folder's other files with their sizes
+  (saved indexes of other stores, unfinished saves). It deletes nothing.
+  Tests: `saved::examine` (missing, current, stale, cut, damaged digest
+  left to `load`); the end-to-end saved index test runs `doctor` at each
+  step (none yet, current, cannot be read, out of date, other files kept,
+  current for `--store-only` only). `scripts/check.sh` green (5:10, 260
+  tests).
+- `doctor --config nas-dnb.toml` with the item-5 build: the first run
+  (15:42, 138 s) could not finish listing the library ("No such file or
+  directory") and reported the store alone; the second (15:45, 202 s)
+  listed it: 36,305 audio files (35,573 at the end of session 11), 1,127
+  not indexed yet, 603 left out by 39 patterns, 33,596 current records;
+  the saved index `nas-dnb-peaks-23935cfc56936b67.index`, 3.8 GB,
+  current. Files are most likely being added to the NAS, so a file
+  vanished during the first listing; `identify` without `--store-only`
+  would stop on such an error (ADR 0012).
+- `regress session-12-start` with the item-5 build (`work/bin/s12-item5/`):
+  identical (203.6 s).

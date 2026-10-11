@@ -102,42 +102,8 @@ pub fn save(path: &Path, provenance: &Provenance, index: &Index) -> io::Result<(
 /// The index saved at `path`, when it was built from `expected` and reads
 /// back whole.
 pub fn load(path: &Path, expected: &Provenance) -> Result<Index, Unusable> {
-    let file = match File::open(path) {
-        Ok(file) => file,
-        Err(error) if error.kind() == io::ErrorKind::NotFound => return Err(Unusable::Missing),
-        Err(error) => return Err(Unusable::Unreadable(error.to_string())),
-    };
-    let file_bytes = file
-        .metadata()
-        .map_err(|error| Unusable::Unreadable(error.to_string()))?
-        .len();
-    let mut input = Digesting {
-        inner: BufReader::with_capacity(4 * CHUNK_WORDS, file),
-        digest: Digest::new(),
-        read: 0,
-    };
-    let assets = read_header(&mut input, expected).map_err(HeaderError::into_unusable)?;
-    let offsets = read_words(&mut input, OFFSETS).map_err(unreadable)?;
-    check_offsets(&offsets)?;
-    let posting_count = u64::from_le_bytes(input.array().map_err(unreadable)?);
-    let Some(expected_bytes) = posting_count
-        .checked_mul(4)
-        .and_then(|bytes| bytes.checked_add(input.read + 8))
-    else {
-        return Err(Unusable::Unreadable(format!(
-            "its posting count {posting_count} is larger than any file"
-        )));
-    };
-    if file_bytes != expected_bytes {
-        return Err(Unusable::Unreadable(format!(
-            "it holds {file_bytes} bytes where its header needs {expected_bytes}"
-        )));
-    }
-    if posting_count != u64::from(offsets[OFFSETS - 1]) {
-        return Err(Unusable::Unreadable(String::from(
-            "its posting count disagrees with its offsets table",
-        )));
-    }
+    let mut input = open(path)?;
+    let (assets, offsets) = read_layout(&mut input, expected)?;
     let postings = read_postings(&mut input, offsets[OFFSETS - 1] as usize, assets.len())?;
     let computed = input.digest.0;
     let stored = u64::from_le_bytes(read_array(&mut input.inner).map_err(unreadable)?);
@@ -152,6 +118,64 @@ pub fn load(path: &Path, expected: &Provenance) -> Result<Index, Unusable> {
         postings,
         longest_scanned: u32::MAX,
     })
+}
+
+/// Whether the index saved at `path` was built from `expected` and is as
+/// long as its offsets table says, reading its header and that table (8
+/// MB) but not its postings: enough to tell a current file from a stale or
+/// cut one. `load` also checks the postings and the digest.
+pub fn examine(path: &Path, expected: &Provenance) -> Result<(), Unusable> {
+    read_layout(&mut open(path)?, expected).map(|_| ())
+}
+
+fn open(path: &Path) -> Result<Digesting<BufReader<File>>, Unusable> {
+    let file = match File::open(path) {
+        Ok(file) => file,
+        Err(error) if error.kind() == io::ErrorKind::NotFound => return Err(Unusable::Missing),
+        Err(error) => return Err(Unusable::Unreadable(error.to_string())),
+    };
+    let file_bytes = file
+        .metadata()
+        .map_err(|error| Unusable::Unreadable(error.to_string()))?
+        .len();
+    Ok(Digesting {
+        inner: BufReader::with_capacity(4 * CHUNK_WORDS, file),
+        digest: Digest::new(),
+        read: 0,
+        file_bytes,
+    })
+}
+
+/// The asset table and the offsets table, read up to the postings, once
+/// the header names `expected` and the file is as long as they say.
+fn read_layout(
+    input: &mut Digesting<impl Read>,
+    expected: &Provenance,
+) -> Result<(Vec<IndexedAsset>, Vec<u32>), Unusable> {
+    let assets = read_header(input, expected).map_err(HeaderError::into_unusable)?;
+    let offsets = read_words(input, OFFSETS).map_err(unreadable)?;
+    check_offsets(&offsets)?;
+    let posting_count = u64::from_le_bytes(input.array().map_err(unreadable)?);
+    let Some(expected_bytes) = posting_count
+        .checked_mul(4)
+        .and_then(|bytes| bytes.checked_add(input.read + 8))
+    else {
+        return Err(Unusable::Unreadable(format!(
+            "its posting count {posting_count} is larger than any file"
+        )));
+    };
+    if input.file_bytes != expected_bytes {
+        return Err(Unusable::Unreadable(format!(
+            "it holds {} bytes where its header needs {expected_bytes}",
+            input.file_bytes
+        )));
+    }
+    if posting_count != u64::from(offsets[OFFSETS - 1]) {
+        return Err(Unusable::Unreadable(String::from(
+            "its posting count disagrees with its offsets table",
+        )));
+    }
+    Ok((assets, offsets))
 }
 
 fn write_file(path: &Path, provenance: &Provenance, index: &Index) -> io::Result<()> {
@@ -406,6 +430,8 @@ struct Digesting<R> {
     inner: R,
     digest: Digest,
     read: u64,
+    /// The length of the file being read.
+    file_bytes: u64,
 }
 
 impl<R: Read> Digesting<R> {
@@ -524,6 +550,38 @@ mod tests {
             1,
             "no temporary file left"
         );
+    }
+
+    #[test]
+    fn examining_reads_the_header_and_length_only() {
+        let dir = scratch("examine");
+        let path = dir.join("library.index");
+        let (provenance, index) = library();
+        assert!(matches!(
+            examine(&path, &provenance),
+            Err(Unusable::Missing)
+        ));
+        save(&path, &provenance, &index).unwrap();
+        let whole = fs::read(&path).unwrap();
+
+        assert!(examine(&path, &provenance).is_ok());
+        let mut added = provenance.clone();
+        added.sources.push(source("d.mp3", 3));
+        assert!(matches!(examine(&path, &added), Err(Unusable::Stale(_))));
+        fs::write(&path, &whole[..whole.len() - 1]).unwrap();
+        assert!(matches!(
+            examine(&path, &provenance),
+            Err(Unusable::Unreadable(_))
+        ));
+        // A changed digest is left to `load`, which reads every posting.
+        let mut damaged = whole.clone();
+        *damaged.last_mut().unwrap() ^= 1;
+        fs::write(&path, &damaged).unwrap();
+        assert!(examine(&path, &provenance).is_ok());
+        assert!(matches!(
+            load(&path, &provenance),
+            Err(Unusable::Unreadable(_))
+        ));
     }
 
     #[test]

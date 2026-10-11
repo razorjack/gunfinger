@@ -27,11 +27,17 @@ for scope and rules.
   `regress session-12-start` identical, the 2003 mix at NAS scale
   byte-identical in 85.7-92.1 s against 166.6-171.3 s, the same peak
   memory; experiment 0086 (`1345be7`)
-- [ ] 4. The harness uses the saved index: ADR, code, tests (stale,
-  damaged, changed store, leave-out); the development scan at NAS scale
-  rebuilt and saved, identical and timed; regress; experiment
-- [ ] 5. `doctor` reports the saved index and other files in the index
-  folder; tests
+- [x] 4. The harness uses the saved index (ADR 0014): one file per other
+  store in `work/indexes/`, leave-outs filtered in place
+  (`Index::without_assets`); tests (stale, damaged, truncated, changed
+  store, leave-outs); checks pass; regress identical; the development
+  scan at NAS scale 112 s loaded against 189 s built, leave-out 3 107
+  against 180 s, reports identical; experiment 0087 (`de4577e`)
+- [x] 5. `doctor` reports the store's saved index (size; current, current
+  for `--store-only` only, out of date, unreadable or missing) and the
+  folder's other files with their sizes, deleting nothing
+  (`saved::examine` reads the header and length); tests; checks pass (260
+  tests); regress identical; NAS: the saved index current
 
 ## Wrap-up
 

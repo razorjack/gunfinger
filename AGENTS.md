@@ -80,7 +80,9 @@ passage two recordings share.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus
-recordings `clusters::find_around` finds.
+recordings `clusters::find_around` finds; with it, the index is saved in
+`work/indexes/` and runs that leave files out remove them from the
+loaded index (ADR 0014).
 Python scripts that summarise harness reports for experiments live in
 `scripts/analysis/`.
 

@@ -988,7 +988,14 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
             .map(|entry| entry.unwrap().path())
             .collect()
     };
+    let doctor = || {
+        let output = gunfinger(&dir, &["doctor", "--library", library]);
+        String::from_utf8_lossy(&output.stdout).into_owned()
+    };
 
+    let before = doctor();
+    assert!(before.contains("saved index"), "{before}");
+    assert!(before.contains("none yet; the next identify"), "{before}");
     let (built, first) = identify("use");
     let (loaded, second) = identify("use");
     let (in_memory, off) = identify("off");
@@ -1001,9 +1008,17 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
     let files = saved_files();
     assert_eq!(files.len(), 1, "{files:?}");
     assert!(files[0].to_str().unwrap().ends_with(".index"));
+    let current = doctor();
+    assert!(
+        current.contains(": current; identify, explain and stats load it"),
+        "{current}"
+    );
+    assert!(current.contains(" MB: current"), "{current}");
 
     let whole = std::fs::read(&files[0]).unwrap();
     std::fs::write(&files[0], &whole[..whole.len() / 2]).unwrap();
+    let cut = doctor();
+    assert!(cut.contains(": cannot be read ("), "{cut}");
     let (after_truncation, truncated) = identify("use");
     assert!(truncated.contains("cannot be read"), "{truncated}");
     assert_eq!(after_truncation, built);
@@ -1019,6 +1034,11 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
         &extra.play(0.0, extra.seconds, 1.0),
     );
     gunfinger(&dir, &["index", library]);
+    let stale = doctor();
+    assert!(
+        stale.contains("out of date (it holds 5 files, the peak store 6 now)"),
+        "{stale}"
+    );
     let (rebuilt, changed) = identify("use");
     let (reloaded, again) = identify("use");
     assert!(changed.contains("out of date"), "{changed}");
@@ -1026,4 +1046,58 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
     assert_eq!(rebuilt, identify("off").0);
     assert_eq!(reloaded, rebuilt);
     assert_eq!(saved_files(), files, "one saved index per peak store");
+
+    let indexes = dir.join("cache/gunfinger/indexes");
+    std::fs::write(
+        indexes.join("old-peaks-0123456789abcdef.index"),
+        [0; 2_000_000],
+    )
+    .unwrap();
+    std::fs::write(
+        indexes.join("old-peaks-0123456789abcdef.index.7.partial"),
+        [0; 10],
+    )
+    .unwrap();
+    let others = doctor();
+    assert!(
+        others.contains("2 other files in ")
+            && others.contains("2.0 MB in all; doctor deletes nothing"),
+        "{others}"
+    );
+    assert!(
+        others.contains(
+            "old-peaks-0123456789abcdef.index, 2.0 MB: belongs to no peak store of these settings"
+        ),
+        "{others}"
+    );
+    assert!(
+        others.contains(
+            "old-peaks-0123456789abcdef.index.7.partial, 0.0 MB: an unfinished save of another store's index"
+        ),
+        "{others}"
+    );
+    assert!(others.contains(": current; identify"), "{others}");
+    assert_eq!(saved_files().len(), 3, "doctor deletes nothing");
+
+    // The library now leaves out a file whose record searches with
+    // --store-only still use.
+    std::fs::write(dir.join("library/.gunfingerignore"), "e.wav\n").unwrap();
+    let store_only = gunfinger(
+        &dir,
+        &[
+            "identify",
+            mix.to_str().unwrap(),
+            "--store-only",
+            "--format",
+            "json",
+        ],
+    );
+    assert!(store_only.status.success());
+    let ignored = doctor();
+    assert!(
+        ignored.contains(
+            ": current for searches with --store-only, out of date for the library (it holds 6 files"
+        ),
+        "{ignored}"
+    );
 }

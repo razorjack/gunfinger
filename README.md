@@ -350,7 +350,15 @@ prune removes some, the next search builds it again and saves it over the
 old file; a damaged or truncated file is never used. `--saved-index
 rebuild` builds and saves it anyway, `--saved-index off` builds it in
 memory only, and `--exclude-from` leaves the file alone. The folder can be
-deleted at any time (ADR 0011).
+deleted at any time (ADR 0011). `gunfinger doctor` says whether the
+store's saved index exists, its size and whether it is current, and lists
+the folder's other files (saved indexes of other stores, unfinished
+saves) with their sizes; it deletes nothing.
+
+The harness keeps its own saved index for `--other-peaks-dir` runs, in
+`work/indexes/library-<store folder>.index` (3.8 GB for the NAS store),
+and removes the files a leave-out or held-out run leaves out from it in
+memory (ADR 0014).
 
 ### Without the library
 
@@ -557,14 +565,18 @@ delta-coded on-disk layout recommended in ADR 0005.
 At scale, measured with synthetic copies on an idle machine (experiments
 0028, 0029): the development mix takes 3.8 minutes at 8,122 assets and
 12.0 at 26,462 (skip at 240: 1.5 and 3.8 minutes), and peaks at 2.9 and
-7.7 GB (1.4 and 3.8 GB) with 10 workers. Most of that CPU sorts each
-window's hits.
+7.7 GB (1.4 and 3.8 GB) with 10 workers. Most of that CPU sorted each
+window's hits; since session 12 a counting sort groups them by asset
+(experiment 0086).
 
 On the collection of 27,042 tracks, from its peak store alone
 (experiments 0050-0052): the development mix is identified 11/11 with 0
 wrong in 4.4 minutes and 4 GB, the sweeps keep 100% recall, and the false
 confident answers left come from a few pairs of records that may be the
-same recording, to judge by ear.
+same recording, to judge by ear. At 33,596 records, with
+the saved index loaded, the 56-minute development mix takes 104 s to
+search (experiment 0087), and `identify` of my 46-minute 2003
+mix takes 86-92 s and 4.8 GB (experiment 0086).
 
 Known limits: the thresholds were set on 262 real tracks; at 27,000
 tracks unrelated chance reaches 63-70 hits, above the possible tier of
