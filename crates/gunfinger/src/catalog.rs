@@ -137,6 +137,12 @@ impl Indexable {
             }
             Err(ScanError::Ignore(error)) => Err(error).into_diagnostic(),
             Err(ScanError::Io(error)) => {
+                if !matches!(fs::metadata(root), Err(missing) if missing.kind() == std::io::ErrorKind::NotFound)
+                {
+                    return Err(error).into_diagnostic().wrap_err_with(|| {
+                        format!("could not finish reading the library at {}; fix the read error or explicitly use --store-only to search all stored records", root.display())
+                    });
+                }
                 let Some((store, records)) = store_records(peaks_dir)? else {
                     return Err(error).into_diagnostic().wrap_err_with(|| {
                         format!("could not read the library at {}", root.display())
@@ -542,4 +548,43 @@ fn read_exclusions(path: &Path) -> miette::Result<BTreeSet<String>> {
         .filter(|line| !line.is_empty() && !line.starts_with('#'))
         .map(str::to_owned)
         .collect())
+}
+
+#[cfg(all(test, unix))]
+mod fallback_tests {
+    use super::*;
+    use crate::console::Verbosity;
+    use crate::style::ColorChoice;
+    use std::os::unix::fs::PermissionsExt;
+
+    #[test]
+    fn a_partial_library_scan_never_falls_back_to_all_records() {
+        let dir =
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../work/tests/partial-library");
+        let root = dir.join("library");
+        let unreadable = root.join("unreadable");
+        fs::create_dir_all(&unreadable).unwrap();
+        let peaks_dir = dir.join("peaks");
+        let console = Console::new(ColorChoice::Never, Verbosity::Quiet);
+        let source = Source {
+            library: Some(&root),
+            peaks_dir: &peaks_dir,
+            store_only: false,
+            exclude_from: None,
+            track_length: TrackLength {
+                min: Duration::ZERO,
+                max: Duration::from_secs(1000),
+            },
+            saved_index: SavedIndex::Off,
+        };
+        fs::set_permissions(&unreadable, fs::Permissions::from_mode(0o0)).unwrap();
+        let denied = fs::read_dir(&unreadable).is_err();
+        let result = Indexable::find(&source, &console);
+        fs::set_permissions(&unreadable, fs::Permissions::from_mode(0o700)).unwrap();
+        fs::remove_dir_all(dir).unwrap();
+        if denied {
+            let error = result.err().expect("a partial scan must fail");
+            assert!(format!("{error:?}").contains("explicitly use --store-only"));
+        }
+    }
 }
