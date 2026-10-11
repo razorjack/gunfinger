@@ -131,6 +131,7 @@ fn plan(
     let mut jobs = Vec::new();
     for audio in request.audio {
         let report = report_path(dir, audio);
+        check_report_owner(&report, audio)?;
         if let Some(other) = seen.insert(report.clone(), audio) {
             return Err(miette!(
                 "{} and {} would both be reported in {}",
@@ -159,6 +160,23 @@ fn plan(
         }
     }
     Ok(jobs)
+}
+
+/// A forced rerun replaces only this recording's report.
+fn check_report_owner(path: &Path, audio: &Path) -> miette::Result<()> {
+    if let Ok(report) = Report::read(path)
+        && report.query.path != absolute(audio)
+    {
+        return Err(miette!(
+            help =
+                "use another --save-dir or rename this recording to give it a distinct report name",
+            "{} already reports {}; refusing to overwrite it with {}",
+            path.display(),
+            report.query.path.display(),
+            audio.display()
+        ));
+    }
+    Ok(())
 }
 
 /// Why the saved report at `path` does not answer this request, if it does
@@ -287,6 +305,24 @@ mod tests {
     use crate::style::ColorChoice;
     use gunfinger_core::indexing::TrackLength;
     use std::time::Duration;
+
+    #[test]
+    fn saved_reports_belong_to_one_recording_even_across_runs() {
+        let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../work/tests/report-owner");
+        fs::create_dir_all(&dir).unwrap();
+        let audio = dir.join("first/set.wav");
+        let other = dir.join("second/set.wav");
+        let saved = report_path(&dir, &audio);
+        assert_eq!(saved, report_path(&dir, &other));
+        let mut report = crate::table::tests::report();
+        report.query.path = absolute(&audio);
+        let original = serde_json::to_string(&report).unwrap();
+        fs::write(&saved, &original).unwrap();
+        assert!(check_report_owner(&saved, &audio).is_ok());
+        assert!(check_report_owner(&saved, &other).is_err());
+        assert_eq!(fs::read_to_string(&saved).unwrap(), original);
+        fs::remove_dir_all(dir).unwrap();
+    }
 
     #[test]
     fn replacing_query_audio_invalidates_a_saved_report() {
