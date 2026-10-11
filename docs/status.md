@@ -1615,3 +1615,19 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   0067 or 0068, so item 7 runs: the ledger entry and prediction were
   committed at 03:42 (`fab29bb`); evaluation 4 started at 06:52:11 under
   `screen` (`work/s11/item7.sh`, once).
+- Item 7, evaluation 4 (06:52:11-07:03:46, once, exit 0; 694 s, 5,590
+  s CPU, 5.47 GB): **21/23 identified, 2 wrong identifications**, Sin
+  and Sick Note possible, 1 possible play matching no track. Predicted:
+  the 21, the two possible, and the wrong Molten Beats edit of Mind
+  Overload (921 hits; pack item 2). Not predicted: The Nine's Evol
+  Intent VIP as a wrong identification (489 hits in 16 windows over 157
+  s of the original's play; the sweeps' 30 s excerpts gave it 9-24% of
+  the original's hits). No detection of the five related versions
+  reaches the possible tier (Beachball's bootleg 45 hits). Report kept as
+  `work/reports/evaluation-4-scan-ed-rush-optical-essential-mix.json`,
+  out of the NAS report folder. Ledger `34b10ba`: 4 of 5 used. Nothing
+  changes because of it.
+- 8b started at 07:04 (`work/s11/item8b.sh`, `sample` every 10 ms over a
+  saved-index `identify` of the 2003 mix); 8c is chained after it
+  (`work/s11/after-8b.sh`, `screen` session `s11-8c`), its plan fixed
+  at 03:50, before evaluation 4.
