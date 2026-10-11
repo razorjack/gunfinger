@@ -1597,3 +1597,14 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   Decision: the items keep the brief's order (5, 6, then 7); if item 5
   cannot end by about 08:00, what is left of it and of the rest is
   decided then and written here.
+- Item 5 (03:38-06:19, experiment 0073): as 0067 in every score, and the
+  prediction holds: the 24 wrong sweep answers (Essential Rewindz's
+  Funktion and The Nine) are gone, 2,160/2,160 and 0 wrong; strongest
+  false 220 (The Nine's Evol Intent VIP), 3.00×; unrelated chance 63-70.
+  The scans ran beside the other agent's load (424-974 s for 2,337-2,368
+  s CPU); the sweeps had most of the machine (1,666-1,724 s). The
+  calibration register has a session 11 paragraph (`d66812e`).
+- Item 3a's last timing (06:19-06:23): the saved index loaded after item
+  5's runs in 2.1 s, as warm (without `purge`, which needs root, a cold
+  cache is likely, not certain); its report byte-identical too.
+  Experiment 0072 (`1269615`).

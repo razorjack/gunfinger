@@ -34,10 +34,10 @@ for scope and rules.
   unreadable; `identify`, `explain` and `stats` use it; tests (stale
   header, truncated file, changed store); checks pass (`dbce7d9`);
   regress identical (03:14); review fixes (`84fe0e5`)
-- [~] 3a acceptance: the 2003 mix at NAS scale built, built and saved,
-  and loaded warm: byte-identical reports; 118.1 s, 167.2 s and 3.0 s
-  to the index; 3,795,332,786 bytes (03:15-03:38); the cold load after
-  item 5; experiment 0072
+- [x] 3a acceptance: the 2003 mix at NAS scale built, built and saved,
+  loaded warm and after item 5 (likely cold): byte-identical reports;
+  118.1 s, 167.2 s, 3.0 s and 2.8 s to the index; 3,795,332,786 bytes;
+  (not a speed measurement: the machine had other load; experiment 0072)
 - [x] 3b. Conflicting titles: the other titles of a passage shown without
   choosing one; unit tests, clippy (`3085abb`); the 2003 mix's track 2
   names the three "Specialist" files; regress identical
@@ -49,10 +49,9 @@ for scope and rules.
 - [x] 4. Clusters experiment against 0066 (experiment 0071); the
   listening pack rebuilt: 23 items (21 kept, 9 dropped with a pruned
   file, 2 new, measured by `pair` and rendered)
-- [~] 5. The NAS baseline (started 03:38:37, chained; scan, leave-outs 3 and 11, sweeps 2026-2029,
-  `calibrate`, the 2003 mix at both sizes with leave-out 3); against
-  0067; calibration register
-- [ ] 6. The recall panel's development half; against 0068
+- [x] 5. The NAS baseline (03:38-06:19): as 0067; the 24 wrong sweep
+  answers gone; 3.00× (experiment 0073); calibration register
+- [~] 6. The recall panel (started 06:23)'s development half; against 0068
 - [ ] 7. Evaluation 4: ledger entry with the prediction, one run,
   verbatim result, comparison, "Evaluations used: 4 of 5"
 - [x] 8a. Mixed discs among the folders indexed since 0065: none of the
