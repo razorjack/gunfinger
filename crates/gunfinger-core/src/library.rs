@@ -3,7 +3,8 @@
 //! An asset's identity is its path relative to the library root, with `/`
 //! separators. Nothing is read from file names beyond the extension. The
 //! user can leave files and folders out with an ignore file at the root
-//! (`ignore`).
+//! (`ignore`). A file or folder that is gone by the time the listing reads
+//! it, moved or deleted meanwhile, is not part of the library (ADR 0015).
 
 pub mod ignore;
 
@@ -74,6 +75,10 @@ pub struct Library {
     /// Each of its patterns, in file order, with the audio files it left
     /// out.
     pub ignored: Vec<Ignored>,
+    /// Files and folders below the root that were listed but gone when
+    /// read: moved or deleted during the listing, such as by a download
+    /// in progress. A folder counts once, whatever it held.
+    pub vanished: usize,
 }
 
 /// A pattern of the ignore file and what it left out.
@@ -97,9 +102,11 @@ pub enum ScanError {
 }
 
 impl Library {
-    /// Walks `root` recursively, leaving out what its ignore file lists.
-    /// Directory symlinks are not followed, so a link loop cannot trap the
-    /// scan.
+    /// Walks `root` recursively, leaving out what its ignore file lists and
+    /// counting what vanishes while it is listed. Any other read error
+    /// stops the scan, and so does a root that cannot be read, at the start
+    /// or, if anything vanished, at the end. Directory symlinks are not
+    /// followed, so a link loop cannot trap the scan.
     pub fn scan(root: &Path) -> Result<Library, ScanError> {
         Library::scan_with_progress(root, |_| {})
     }
@@ -124,7 +131,13 @@ impl Library {
                 .collect(),
             ..Library::default()
         };
-        library.scan_dir(root, None, &mut progress)?;
+        library.scan_entries(read_folder(root)?, None, &mut progress)?;
+        if library.vanished > 0 {
+            // A share that drops during the listing answers NotFound for
+            // everything below its mount point too: entries only vanished
+            // if the root is still there.
+            fs::read_dir(root)?;
+        }
         library.assets.sort_by(|a, b| a.path.cmp(&b.path));
         for ignored in &mut library.ignored {
             ignored.paths.sort();
@@ -151,30 +164,38 @@ impl Library {
         self.ignored.iter().map(|ignored| ignored.paths.len()).sum()
     }
 
-    /// `ignored_by` is the pattern, by its place in `ignored`, that left out
-    /// `dir` or a folder above it.
-    fn scan_dir(
+    /// The entries of one folder. `ignored_by` is the pattern, by its place
+    /// in `ignored`, that left out the folder or a folder above it.
+    fn scan_entries(
         &mut self,
-        dir: &Path,
+        entries: Vec<fs::DirEntry>,
         ignored_by: Option<usize>,
         progress: &mut impl FnMut(usize),
     ) -> io::Result<()> {
-        for entry in fs::read_dir(dir)? {
-            let entry = entry?;
+        for entry in entries {
             let path = entry.path();
-            let kind = entry.file_type()?;
+            let Some(kind) = unless_vanished(entry.file_type())? else {
+                self.vanished += 1;
+                continue;
+            };
             if kind.is_dir() {
                 if is_hidden(&path) {
                     // Such as a downloader's `.incomplete/` of partial files.
                     self.skip("hidden folder");
                 } else {
                     let ignored_by = ignored_by.or_else(|| self.pattern_for(&path, Entry::Folder));
-                    self.scan_dir(&path, ignored_by, progress)?;
+                    match unless_vanished(read_folder(&path))? {
+                        Some(inside) => self.scan_entries(inside, ignored_by, progress)?,
+                        None => self.vanished += 1,
+                    }
                 }
                 continue;
             }
             if kind.is_file() {
-                self.consider_file(&path, &entry.metadata()?, ignored_by);
+                match unless_vanished(entry.metadata())? {
+                    Some(metadata) => self.consider_file(&path, &metadata, ignored_by),
+                    None => self.vanished += 1,
+                }
             } else {
                 self.skip("symlink or special file");
             }
@@ -234,6 +255,22 @@ impl Library {
     }
 }
 
+/// A folder's entries, read in full before any is looked at: the folder is
+/// closed before the walk goes deeper, and an entry deleted meanwhile is
+/// still listed, so it vanishes when read.
+fn read_folder(dir: &Path) -> io::Result<Vec<fs::DirEntry>> {
+    fs::read_dir(dir)?.collect()
+}
+
+/// `None` when the file or folder read is gone (ADR 0015); any other error
+/// stands.
+fn unless_vanished<T>(read: io::Result<T>) -> io::Result<Option<T>> {
+    match read {
+        Err(error) if error.kind() == io::ErrorKind::NotFound => Ok(None),
+        read => read.map(Some),
+    }
+}
+
 fn is_hidden(path: &Path) -> bool {
     path.file_name()
         .is_some_and(|name| name.to_string_lossy().starts_with('.'))
@@ -273,6 +310,121 @@ mod tests {
         assert_eq!(library.skipped["extension .mp3_bad_or_incomplete"], 1);
         assert_eq!(library.skipped["hidden file"], 1);
         assert_eq!(library.skipped_total(), 4);
+        assert_eq!(library.vanished, 0);
+    }
+
+    // The scan reads a folder's entries before it looks at any, so deleting
+    // them from `progress`, called after each file, stages the race with a
+    // download deterministically: the entries are listed, then gone when
+    // read.
+
+    #[test]
+    fn files_deleted_while_listed_vanish_from_the_library() {
+        let root = std::env::temp_dir().join(format!("gunfinger-vanish-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        for name in ["1.mp3", "2.mp3", "3.mp3"] {
+            touch(&root.join(name));
+        }
+
+        let library = Library::scan_with_progress(&root, |_| {
+            for name in ["1.mp3", "2.mp3", "3.mp3"] {
+                let _ = fs::remove_file(root.join(name));
+            }
+        })
+        .unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        assert_eq!(
+            library.assets.len(),
+            1,
+            "the file read before the others went"
+        );
+        assert_eq!(library.vanished, 2);
+    }
+
+    #[test]
+    fn folders_deleted_while_listed_vanish_from_the_library() {
+        let root =
+            std::env::temp_dir().join(format!("gunfinger-vanish-dir-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        for folder in ["a", "b", "c"] {
+            touch(&root.join(folder).join("01-track.mp3"));
+            touch(&root.join(folder).join("deeper/02-track.mp3"));
+        }
+
+        let library = Library::scan_with_progress(&root, |_| {
+            for folder in ["a", "b", "c"] {
+                let _ = fs::remove_dir_all(root.join(folder));
+            }
+        })
+        .unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        // Whichever entry of the first folder came first is kept; the rest
+        // of that folder vanishes (a file or `deeper/`), and so do the two
+        // other folders, once each.
+        assert_eq!(library.assets.len(), 1);
+        assert_eq!(library.vanished, 3);
+    }
+
+    #[test]
+    fn a_root_gone_while_listed_fails_the_scan() {
+        let root =
+            std::env::temp_dir().join(format!("gunfinger-vanish-root-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        for folder in ["a", "b", "c"] {
+            touch(&root.join(folder).join("01-track.mp3"));
+        }
+
+        let scanned = Library::scan_with_progress(&root, |_| {
+            let _ = fs::remove_dir_all(&root);
+        });
+
+        assert!(
+            matches!(&scanned, Err(ScanError::Io(error)) if error.kind() == io::ErrorKind::NotFound),
+            "an unmounted share must not look like a library that lost two folders: {scanned:?}"
+        );
+    }
+
+    #[test]
+    fn a_missing_root_is_an_error_not_an_empty_library() {
+        let root =
+            std::env::temp_dir().join(format!("gunfinger-missing-root-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+
+        let scanned = Library::scan(&root);
+
+        assert!(
+            matches!(&scanned, Err(ScanError::Io(error)) if error.kind() == io::ErrorKind::NotFound),
+            "{scanned:?}"
+        );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn a_folder_that_cannot_be_read_still_stops_the_scan() {
+        use std::os::unix::fs::PermissionsExt;
+
+        let root =
+            std::env::temp_dir().join(format!("gunfinger-unreadable-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        touch(&root.join("open/01-track.mp3"));
+        touch(&root.join("locked/01-track.mp3"));
+        let locked = root.join("locked");
+        fs::set_permissions(&locked, fs::Permissions::from_mode(0o0)).unwrap();
+        // Root reads any folder; the test then has nothing to check.
+        let denied = fs::read_dir(&locked).is_err();
+
+        let scanned = Library::scan(&root);
+        fs::set_permissions(&locked, fs::Permissions::from_mode(0o700)).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        if denied {
+            assert!(
+                matches!(&scanned, Err(ScanError::Io(error)) if error.kind() == io::ErrorKind::PermissionDenied),
+                "{scanned:?}"
+            );
+        }
     }
 
     #[test]

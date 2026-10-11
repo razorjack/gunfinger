@@ -1840,3 +1840,22 @@ Brief `docs/brief-13.md`, checklist `docs/session-13-checklist.md`.
   GB. `baseline session-13-start` saved from those reports.
 - The NAS store at the start: 33,596 records, 1,582 skip notes, 33,596
   tag notes, revision `f9f9bc706195a71b`, as expected.
+- Step 2 (ADR 0015): `Library::scan` reads each folder's entries in full,
+  then counts an entry below the root whose type, metadata or folder
+  listing answers NotFound in `Library::vanished` and leaves it out;
+  other errors stop as before; the root's own read still fails the scan,
+  and after a listing in which anything vanished the root is read again
+  (gone or unreadable: the scan fails with that error, so `identify`,
+  `explain` and `stats` fall back to the store only when it is missing,
+  as ADR 0012 says). `identify`, `explain`, `stats` and `index` print one
+  warning with the count; `doctor` a note in its library section;
+  `prune` refuses such a listing (with `--yes` and `--force` too) and
+  asks to be run again; the harness refuses it (`padding::complete`).
+  Tests: files and folders deleted from the progress callback vanish
+  (real races at a fixed point), a root deleted during the listing fails
+  it, a missing root is an error, a folder without read permission still
+  stops it; `prune` with a listing that has a vanished entry deletes
+  nothing even with `--yes --force`, and prunes once it has none.
+  `scripts/check.sh` green (5:13, 266 tests). `regress session-13-start`
+  with `work/bin/s13-fix/`: 720/720, 87, 93 and 79 detections identical,
+  the known calibrate line; 210.7 s.

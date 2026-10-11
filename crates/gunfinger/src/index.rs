@@ -10,7 +10,7 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, SkipReason};
 use miette::{IntoDiagnostic, miette};
 
-use crate::catalog::scan_library;
+use crate::catalog::{report_vanished, scan_library};
 use crate::console::Console;
 
 pub fn run(
@@ -23,6 +23,7 @@ pub fn run(
 ) -> miette::Result<()> {
     let started = Instant::now();
     let library = scan_library(library_root, console)?;
+    report_vanished(&library, console);
     let store = PeakStore::open(peaks_dir).into_diagnostic()?;
     store.claim_library(library_root).into_diagnostic()?;
     let options = IndexingOptions {

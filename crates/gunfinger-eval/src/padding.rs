@@ -65,6 +65,18 @@ const ANY_LENGTH: TrackLength = TrackLength {
     max: Duration::from_secs(24 * 3600),
 };
 
+/// A listing in which nothing vanished (ADR 0015): an evaluation on a
+/// library missing files that are still there would not be repeatable.
+pub fn complete(library: Library) -> Result<Library, String> {
+    if library.vanished > 0 {
+        return Err(format!(
+            "it changed while it was listed ({} vanished); run again when nothing moves files in it",
+            library.vanished
+        ));
+    }
+    Ok(library)
+}
+
 /// In the index, the second library's paths start with this, so reports
 /// tell its assets from the library's.
 pub const SECOND_LIBRARY_PREFIX: &str = "second-library/";
@@ -78,12 +90,15 @@ pub struct SecondLibrary {
 
 impl SecondLibrary {
     pub fn open(root: &Path, peaks_dir: &Path) -> Result<SecondLibrary, String> {
-        let library = Library::scan(root).map_err(|error| {
-            format!(
-                "cannot read the second library at {}: {error}",
-                root.display()
-            )
-        })?;
+        let library = Library::scan(root)
+            .map_err(|error| error.to_string())
+            .and_then(complete)
+            .map_err(|error| {
+                format!(
+                    "cannot read the second library at {}: {error}",
+                    root.display()
+                )
+            })?;
         let store = PeakStore::open(peaks_dir).map_err(|error| error.to_string())?;
         store
             .check_library(root)

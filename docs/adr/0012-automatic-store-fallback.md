@@ -3,7 +3,10 @@
 ## Status
 
 Accepted (2026-10-11, pre-release audit). Supplements ADR 0009; explicit
-store-only behavior is unchanged.
+store-only behavior is unchanged. Refined by ADR 0015 (session 13): a file
+or folder below the root that is gone when the listing reads it is
+counted and left out, not a scan failure; the root is read again after
+such a listing.
 
 ## Context
 

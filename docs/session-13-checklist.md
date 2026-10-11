@@ -16,10 +16,11 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 2. The fix: entries gone when read are skipped and counted; the root
-  rules; `prune` with a listing that skipped entries; `doctor` and
-  `index` report the count; ADR; tests; checks pass; `regress
-  session-13-start` identical
+- [x] 2. The fix: entries gone when read are skipped and counted; the root
+  rules; `prune` refuses a listing that skipped entries; `doctor` and
+  `index` report the count; the harness refuses such a listing; ADR 0015
+  (ADR 0012's status points to it); tests; checks pass (266 tests);
+  `regress session-13-start` identical; README
 - [ ] 3. The live NAS: `doctor` several times (audio files, vanished,
   duration); one `identify` of the 2003 mix without `--store-only`;
   experiment 0089

@@ -1343,6 +1343,8 @@ impl Paths {
     fn library(&self) -> Result<Library, String> {
         let root = self.corpus.join("library");
         Library::scan(&root)
+            .map_err(|error| error.to_string())
+            .and_then(padding::complete)
             .map_err(|error| format!("cannot read the library at {}: {error}", root.display()))
     }
 

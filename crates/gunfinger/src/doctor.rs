@@ -17,7 +17,7 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, Stored};
 use miette::miette;
 
-use crate::catalog::{absolute, list, store_records};
+use crate::catalog::{absolute, list, store_records, vanished_entries};
 use crate::config::{self, Settings};
 use crate::console::Console;
 use crate::style::Style;
@@ -334,6 +334,16 @@ fn check_library(
             library.skipped_total()
         ),
     );
+    if library.vanished > 0 {
+        checkup.line(
+            Status::Note,
+            format!(
+                "{} vanished while it was listed (moved or deleted meanwhile, such as by a download); the counts here leave {} out",
+                vanished_entries(library.vanished),
+                if library.vanished == 1 { "it" } else { "them" }
+            ),
+        );
+    }
     check_ignore_file(checkup, &library);
 
     checkup.section("peak store");

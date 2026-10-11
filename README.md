@@ -370,6 +370,13 @@ root is missing (an unmounted network share, for example), `identify`,
 line. Other read failures stop the command, so an unreadable subfolder
 cannot bring ignored files' records into the search (ADR 0012);
 `--store-only` searches the store's records without reading the library.
+A file or folder that is gone when the listing reads it (moved or deleted
+meanwhile, such as by a download in progress) is not part of the library:
+`index`, `identify`, `explain` and `stats` leave it out and say how many
+vanished in one warning, and `doctor` counts them. The root is never
+skipped: if it is gone or cannot be read after such a listing, the command
+treats it as a missing root. `prune` refuses a listing in which anything
+vanished and asks to be run again (ADR 0015).
 Reports name the library the store names, so `listen` and `review` play the
 tracks once it is back. Without the library there is no telling which files
 have changed or been deleted since they were indexed, or which the library's

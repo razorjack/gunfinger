@@ -5,16 +5,19 @@
 //! A wrong `--library` (a typo, an unmounted share, another library sharing
 //! the store) makes every record look orphaned, so prune lists what it would
 //! delete unless `--yes` is given, and refuses outright when the library is
-//! empty or most of the store would go.
+//! empty or most of the store would go. A listing in which files or folders
+//! vanished may have missed files that are still there, so prune refuses it
+//! too and asks for another run (ADR 0015).
 
 use std::path::Path;
 
+use gunfinger_core::library::Library;
 use gunfinger_core::library::ignore::IGNORE_FILE;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, Stored};
 use miette::{IntoDiagnostic, miette};
 
-use crate::catalog::scan_library;
+use crate::catalog::{scan_library, vanished_entries};
 use crate::console::Console;
 use crate::survey::{Absence, Orphan, counted, counted_kinds, survey};
 
@@ -34,6 +37,19 @@ pub struct Request<'a> {
 
 pub fn run(request: &Request) -> miette::Result<()> {
     let library = scan_library(request.library, request.console)?;
+    prune(&library, request)
+}
+
+/// Prunes the store against `library`, the listing of `request.library`.
+fn prune(library: &Library, request: &Request) -> miette::Result<()> {
+    if library.vanished > 0 {
+        return Err(miette!(
+            help = "run `gunfinger prune` again: it prunes only after a listing in which nothing vanished",
+            "{} vanished while {} was listed (moved or deleted meanwhile), so files that are still there could look gone; nothing is pruned",
+            vanished_entries(library.vanished),
+            request.library.display()
+        ));
+    }
     if library.assets.is_empty() {
         return Err(miette!(
             help = "check --library, and that the share is mounted",
@@ -43,7 +59,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
     }
     let store = PeakStore::open(request.peaks_dir).into_diagnostic()?;
     store.check_library(request.library).into_diagnostic()?;
-    let survey = survey(&library, &store, &Profile::CURRENT)?;
+    let survey = survey(library, &store, &Profile::CURRENT)?;
     let share = survey.orphans.len() as f64 / survey.records_and_notes().max(1) as f64;
     if share > MAX_SHARE && !request.force {
         return Err(miette!(
@@ -128,5 +144,80 @@ fn list(heading: &str, items: &[String]) {
     }
     if items.len() > LISTED {
         println!("    ... and {} more", items.len() - LISTED);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::console::Verbosity;
+    use crate::style::ColorChoice;
+    use gunfinger_core::library::{Asset, Timestamp};
+    use gunfinger_core::store::TagNote;
+    use gunfinger_core::tags::Tags;
+
+    fn asset(path: &str) -> Asset {
+        Asset {
+            path: path.to_owned(),
+            size: 1,
+            modified: Timestamp {
+                seconds: 0,
+                nanos: 0,
+            },
+        }
+    }
+
+    #[test]
+    fn a_listing_in_which_entries_vanished_prunes_nothing() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-prune-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        let (root, peaks_dir) = (dir.join("library"), dir.join("peaks"));
+        std::fs::create_dir_all(&peaks_dir).unwrap();
+        let store = PeakStore::open(&peaks_dir).unwrap();
+        let (kept, also_kept, missed) = (asset("a.wav"), asset("b.wav"), asset("c.wav"));
+        for source in [&kept, &also_kept, &missed] {
+            store
+                .save_tags(&TagNote {
+                    source: source.clone(),
+                    tags: Tags::default(),
+                })
+                .unwrap();
+        }
+        // `c.wav` is not in the listing: gone, or in a folder that vanished
+        // while it was listed and is still there.
+        let mut library = Library {
+            root: root.clone(),
+            assets: vec![kept, also_kept],
+            vanished: 1,
+            ..Library::default()
+        };
+        let console = Console::new(ColorChoice::Never, Verbosity::Quiet);
+        let request = Request {
+            library: &root,
+            peaks_dir: &peaks_dir,
+            yes: true,
+            force: true,
+            console: &console,
+        };
+
+        let refused = prune(&library, &request);
+        let note_after_refusal = store.tags(&missed).is_some();
+        library.vanished = 0;
+        let pruned = prune(&library, &request);
+        let note_after_prune = store.tags(&missed).is_some();
+        std::fs::remove_dir_all(&dir).unwrap();
+
+        let error = format!("{:?}", refused.expect_err("prune must refuse"));
+        assert!(
+            error.contains("1 file or folder vanished while")
+                && error.contains("nothing is pruned"),
+            "{error}"
+        );
+        assert!(
+            note_after_refusal,
+            "nothing was deleted, even with --yes --force"
+        );
+        assert!(pruned.is_ok());
+        assert!(!note_after_prune, "a complete listing prunes the note");
     }
 }

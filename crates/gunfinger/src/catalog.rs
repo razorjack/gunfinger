@@ -133,6 +133,7 @@ impl Indexable {
         };
         match list(root, console) {
             Ok(library) => {
+                report_vanished(&library, console);
                 let store = PeakStore::open(peaks_dir).into_diagnostic()?;
                 store.check_library(root).into_diagnostic()?;
                 Ok(found(
@@ -426,6 +427,28 @@ pub fn list(root: &Path, console: &Console) -> Result<Library, ScanError> {
     });
     console.progress_done();
     library
+}
+
+/// One line when files or folders vanished while the library was listed
+/// (ADR 0015), so a run on a library being written says what it left out.
+pub fn report_vanished(library: &Library, console: &Console) {
+    if library.vanished > 0 {
+        console.warning(format_args!(
+            "{} vanished while {} was listed (moved or deleted meanwhile); this run leaves {} out",
+            vanished_entries(library.vanished),
+            library.root.display(),
+            if library.vanished == 1 { "it" } else { "them" }
+        ));
+    }
+}
+
+/// `1 file or folder`, `2 files or folders`.
+pub fn vanished_entries(count: usize) -> String {
+    if count == 1 {
+        String::from("1 file or folder")
+    } else {
+        format!("{count} files or folders")
+    }
 }
 
 /// Library files without a current peak record. Files `index` passed over
