@@ -1728,3 +1728,22 @@ Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
   `f9f9bc706195a71b`, as expected; census `work/s12/census-start.json`
   (3,523.4 h). The saved NAS index
   (3.8 GB, 03:25) in place.
+- Item 2 (14:33-14:37, experiment 0085): `sample` over the NAS `identify`
+  of the 2003 mix with the start build: 177.7 s wall, 1,548 s CPU, 4.78
+  GB; sorting hits 78.1% of the CPU (grouping by asset 49.9%, each
+  asset's offsets 28.2%), query analysis 9.7%, lines 7.5%. Every window
+  holds 0.6-2.0 million hits, so 0080's comparison sort below 50,000
+  never runs at this scale.
+- Item 3 (experiment 0086, `1345be7`): `search::lines::WindowHits` groups
+  a window's hits by asset with a counting sort (one counter per asset of
+  the index, kept by each worker) and finds hits as 8 bytes (posting and
+  anchor position), computing offsets and query frames by the same
+  expressions at grouping. Benchmark (`work/s12/perf`): 0.42 of the
+  merged time on 120 real NAS windows, 0.38 on 417 corpus windows; it
+  loses only on buffers with fewer hits than about a third of the asset
+  count (synthetic, at most 0.1 ms a window), which no real window
+  reaches, so no threshold. The 2003 mix at NAS scale: 85.7 and 92.1 s
+  against 166.6-171.3 s for the start build (CPU 774 against 1,545 s),
+  4.80 GB against 4.78; every report byte-identical. `regress
+  session-12-start` identical (203.7 s); `scripts/check.sh` green (4:49).
+  A 24-byte variant cost 0.4 GB more peak memory and was not kept.
