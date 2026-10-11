@@ -275,8 +275,10 @@ marked as inferences were derived, not measured.
   confident (The Nine's VIP 21.7× the rule; "Fire" versions 1.2-2.5×;
   Sonar's revision 1.6-2.3×), while the played file's own play over the
   same moment is 4-60 times stronger (1.7 times for the VIP), with or
-  without the played file in the index. A statistic comparing
-  overlapping plays of related files is the first candidate.
+  without the played file in the index. A ratio of overlapping plays
+  would separate the remixes but not the VIP: copies of one recording
+  over one passage of the 2003 mix range from 0.30 to 1.00 of the
+  strongest copy's hits.
   Method: a challenge set of originals, VIPs, remixes and
   tracks sharing breaks, each pair confirmed by ear;
   excerpts from shared and from distinctive passages at several

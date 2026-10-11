@@ -31,10 +31,10 @@ a shared passage: the same pairs gain hits with the passage's length. In
 my 2003 mix the three Phantom Force variants reach 1.5-4.9% of
 the original's play, all possible.
 
-**Conclusions.** As plays, shared passages pass the rule often: hits
-grow with the passage, so a long shared passage makes a confident play
-of the other version. The rule of hits and windows cannot tell them
-apart. The other file's own play over the same moment is 4 to 60 times
-stronger, or 1.7 times for a VIP that copies the original unchanged, so
-a statistic comparing overlapping plays of related files is the
-candidate to test (roadmap), on recordings not used here.
+**Conclusions.** Played whole, shared passages pass the rule often, and
+hits and windows cannot tell the versions apart. The played file's own
+play is 4-60 times stronger (1.7 times for the VIP), but in the 2003
+mix, copies of one recording over one passage range from 0.30 to 1.00 of
+the strongest copy's hits (uploads against rips), so a ratio of
+overlapping plays would separate the remixes, not a VIP that copies the
+original. A statistic to test on recordings not used here (roadmap).
