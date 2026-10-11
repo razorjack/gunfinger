@@ -217,8 +217,12 @@ marked as inferences were derived, not measured.
   Any correct sort gives identical lines, so grouping hits by
   asset before sorting each asset's few hundred would keep detections
   identical; not tried. Skip at 240 is 3.5× cheaper at 31,964 assets.
-  Profile the default matcher at NAS scale first. This comes before any
-  change of hash design; `regress` must show identical detections.
+  Profiled at NAS scale in session 11 (experiment 0075): with the saved
+  index, a NAS `identify` of the 2003 mix is 96.5% search, and the
+  default matcher spends 82% of the search's CPU sorting hits (query
+  analysis 9.5%, clustering offsets 4.5%, posting scans 2.5%). Grouping
+  by asset is the next step. This comes before any change of hash
+  design; `regress` must show identical detections.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

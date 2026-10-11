@@ -1,0 +1,2152 @@
+{
+ "question": "item 8c of session 11",
+ "binary": "work/bin/s11-code (1afd8cc)",
+ "store_revision": "f9f9bc706195a71b",
+ "plan_written": "2026-10-11 03:43, before test evaluation 4",
+ "plan": [
+  {
+   "number": 1,
+   "why": "judged different",
+   "played": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "audio": "<NAS>/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "start_seconds": 0.1,
+   "duration_seconds": 209.5,
+   "exclude": "work/s11/item8c/plan/exclude-1.txt",
+   "left_out": [
+    "Bad Company - The Nine.mp3",
+    "extra/A- The_Nine.mp3",
+    "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+    "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+    "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+    "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+   ],
+   "pair_hits": 4390,
+   "coverage": 0.4989168492759147
+  },
+  {
+   "number": 2,
+   "why": "judged different",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "related": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "audio": "<NAS>/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "start_seconds": 0.2,
+   "duration_seconds": 208.9,
+   "exclude": "work/s11/item8c/plan/exclude-2.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "pair_hits": 4390,
+   "coverage": 0.4989168492759147
+  },
+  {
+   "number": 3,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "start_seconds": 22.0,
+   "duration_seconds": 118.3,
+   "exclude": "work/s11/item8c/plan/exclude-3.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 602,
+   "coverage": 0.5726312121565925
+  },
+  {
+   "number": 4,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "start_seconds": 38.5,
+   "duration_seconds": 118.3,
+   "exclude": "work/s11/item8c/plan/exclude-4.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+   ],
+   "pair_hits": 602,
+   "coverage": 0.5726312121565925
+  },
+  {
+   "number": 5,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "start_seconds": 8.0,
+   "duration_seconds": 111.0,
+   "exclude": "work/s11/item8c/plan/exclude-5.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 502,
+   "coverage": 0.5289479325457317
+  },
+  {
+   "number": 6,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "start_seconds": 30.3,
+   "duration_seconds": 114.8,
+   "exclude": "work/s11/item8c/plan/exclude-6.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+   ],
+   "pair_hits": 502,
+   "coverage": 0.5289479325457317
+  },
+  {
+   "number": 7,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "start_seconds": 7.6,
+   "duration_seconds": 111.0,
+   "exclude": "work/s11/item8c/plan/exclude-7.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 474,
+   "coverage": 0.5373444749003193
+  },
+  {
+   "number": 8,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "start_seconds": 30.2,
+   "duration_seconds": 114.8,
+   "exclude": "work/s11/item8c/plan/exclude-8.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "pair_hits": 474,
+   "coverage": 0.5373444749003193
+  },
+  {
+   "number": 9,
+   "why": "judged different",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+   "audio": "<NAS>/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "start_seconds": 0.9,
+   "duration_seconds": 359.1,
+   "exclude": "work/s11/item8c/plan/exclude-9.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "pair_hits": 467,
+   "coverage": 0.9887508878530781
+  },
+  {
+   "number": 10,
+   "why": "judged different",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+   "start_seconds": 0.0,
+   "duration_seconds": 360.6,
+   "exclude": "work/s11/item8c/plan/exclude-10.txt",
+   "left_out": [
+    "DJ Trace - Sonar.m4a",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+    "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a"
+   ],
+   "pair_hits": 467,
+   "coverage": 0.9887508878530781
+  },
+  {
+   "number": 11,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "start_seconds": 53.9,
+   "duration_seconds": 64.7,
+   "exclude": "work/s11/item8c/plan/exclude-11.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 302,
+   "coverage": 0.31306165832541355
+  },
+  {
+   "number": 12,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+   "start_seconds": 114.2,
+   "duration_seconds": 68.5,
+   "exclude": "work/s11/item8c/plan/exclude-12.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3"
+   ],
+   "pair_hits": 302,
+   "coverage": 0.31306165832541355
+  },
+  {
+   "number": 13,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "related": "second-library/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "start_seconds": 2.4,
+   "duration_seconds": 39.5,
+   "exclude": "work/s11/item8c/plan/exclude-13.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3"
+   ],
+   "pair_hits": 249,
+   "coverage": 0.12218919835860079
+  },
+  {
+   "number": 14,
+   "why": "version family",
+   "played": "second-library/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "audio": "<NAS>/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "start_seconds": 27.3,
+   "duration_seconds": 39.5,
+   "exclude": "work/s11/item8c/plan/exclude-14.txt",
+   "left_out": [
+    "second-library/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3"
+   ],
+   "pair_hits": 249,
+   "coverage": 0.12218919835860079
+  },
+  {
+   "number": 15,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "start_seconds": 22.1,
+   "duration_seconds": 53.3,
+   "exclude": "work/s11/item8c/plan/exclude-15.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 209,
+   "coverage": 0.257797050142496
+  },
+  {
+   "number": 16,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+   "start_seconds": 33.6,
+   "duration_seconds": 54.6,
+   "exclude": "work/s11/item8c/plan/exclude-16.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3"
+   ],
+   "pair_hits": 209,
+   "coverage": 0.257797050142496
+  },
+  {
+   "number": 17,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "start_seconds": 0.4,
+   "duration_seconds": 77.2,
+   "exclude": "work/s11/item8c/plan/exclude-17.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 196,
+   "coverage": 0.37359901126961476
+  },
+  {
+   "number": 18,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+   "start_seconds": 11.5,
+   "duration_seconds": 79.1,
+   "exclude": "work/s11/item8c/plan/exclude-18.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3"
+   ],
+   "pair_hits": 196,
+   "coverage": 0.37359901126961476
+  },
+  {
+   "number": 19,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+   "audio": "<NAS>/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+   "start_seconds": 0.8,
+   "duration_seconds": 48.8,
+   "exclude": "work/s11/item8c/plan/exclude-19.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+    "second-library/__youtube_archivists/dfect-dnb/Eddy Woo - Tsunami (Remix).m4a"
+   ],
+   "pair_hits": 168,
+   "coverage": 0.14492263452410487
+  },
+  {
+   "number": 20,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+   "related": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+   "audio": "<NAS>/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+   "start_seconds": 1.1,
+   "duration_seconds": 49.1,
+   "exclude": "work/s11/item8c/plan/exclude-20.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a"
+   ],
+   "pair_hits": 168,
+   "coverage": 0.14492263452410487
+  },
+  {
+   "number": 21,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "related": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "start_seconds": 2.9,
+   "duration_seconds": 37.0,
+   "exclude": "work/s11/item8c/plan/exclude-21.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3"
+   ],
+   "pair_hits": 165,
+   "coverage": 0.0918476026033579
+  },
+  {
+   "number": 22,
+   "why": "version family",
+   "played": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "audio": "<NAS>/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "start_seconds": 25.2,
+   "duration_seconds": 37.1,
+   "exclude": "work/s11/item8c/plan/exclude-22.txt",
+   "left_out": [
+    "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3"
+   ],
+   "pair_hits": 165,
+   "coverage": 0.0918476026033579
+  },
+  {
+   "number": 23,
+   "why": "version family",
+   "played": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+   "audio": "<NAS>/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "start_seconds": 47.0,
+   "duration_seconds": 37.9,
+   "exclude": "work/s11/item8c/plan/exclude-23.txt",
+   "left_out": [
+    "Bad Company - The Nine.mp3",
+    "extra/A- The_Nine.mp3",
+    "extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+    "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+    "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 \uff1a BAD COMPANY - the nine - ] drum and bass.m4a",
+    "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+   ],
+   "pair_hits": 145,
+   "coverage": 0.16394742816069147
+  },
+  {
+   "number": 24,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+   "related": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "audio": "<NAS>/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+   "start_seconds": 96.6,
+   "duration_seconds": 37.9,
+   "exclude": "work/s11/item8c/plan/exclude-24.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus"
+   ],
+   "pair_hits": 145,
+   "coverage": 0.16394742816069147
+  },
+  {
+   "number": 25,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "start_seconds": 2.7,
+   "duration_seconds": 39.4,
+   "exclude": "work/s11/item8c/plan/exclude-25.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3"
+   ],
+   "pair_hits": 144,
+   "coverage": 0.09767147403072081
+  },
+  {
+   "number": 26,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "audio": "<NAS>/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+   "start_seconds": 24.2,
+   "duration_seconds": 39.3,
+   "exclude": "work/s11/item8c/plan/exclude-26.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus"
+   ],
+   "pair_hits": 144,
+   "coverage": 0.09767147403072081
+  },
+  {
+   "number": 27,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "start_seconds": 86.8,
+   "duration_seconds": 31.7,
+   "exclude": "work/s11/item8c/plan/exclude-27.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 140,
+   "coverage": 0.15119212080792688
+  },
+  {
+   "number": 28,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+   "start_seconds": 128.0,
+   "duration_seconds": 32.5,
+   "exclude": "work/s11/item8c/plan/exclude-28.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3"
+   ],
+   "pair_hits": 140,
+   "coverage": 0.15119212080792688
+  },
+  {
+   "number": 29,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "start_seconds": 7.6,
+   "duration_seconds": 11.4,
+   "exclude": "work/s11/item8c/plan/exclude-29.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 124,
+   "coverage": 0.05512425976797744
+  },
+  {
+   "number": 30,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+   "start_seconds": 1.0,
+   "duration_seconds": 11.4,
+   "exclude": "work/s11/item8c/plan/exclude-30.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3"
+   ],
+   "pair_hits": 124,
+   "coverage": 0.05512425976797744
+  },
+  {
+   "number": 31,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "audio": "<NAS>/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "start_seconds": 110.7,
+   "duration_seconds": 38.3,
+   "exclude": "work/s11/item8c/plan/exclude-31.txt",
+   "left_out": [
+    "Kemal & Rob Data - Star Trails.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+    "second-library/audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3"
+   ],
+   "pair_hits": 118,
+   "coverage": 0.2057330778606909
+  },
+  {
+   "number": 32,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "related": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "audio": "<NAS>/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "start_seconds": 21.2,
+   "duration_seconds": 38.1,
+   "exclude": "work/s11/item8c/plan/exclude-32.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+   ],
+   "pair_hits": 118,
+   "coverage": 0.2057330778606909
+  },
+  {
+   "number": 33,
+   "why": "version family",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "related": "second-library/__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+   "audio": "<NAS>/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "start_seconds": 22.4,
+   "duration_seconds": 15.8,
+   "exclude": "work/s11/item8c/plan/exclude-33.txt",
+   "left_out": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "pair_hits": 104,
+   "coverage": 0.07544064405487806
+  },
+  {
+   "number": 34,
+   "why": "version family",
+   "played": "second-library/__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "audio": "<NAS>/__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+   "start_seconds": 311.3,
+   "duration_seconds": 15.9,
+   "exclude": "work/s11/item8c/plan/exclude-34.txt",
+   "left_out": [
+    "second-library/__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a"
+   ],
+   "pair_hits": 104,
+   "coverage": 0.07544064405487806
+  }
+ ],
+ "results": [
+  {
+   "number": 1,
+   "mode": "in",
+   "why": "judged different",
+   "played": "02 bad company-the nine.mp3",
+   "related": "Bad Company - The Nine (Evol Intent VIP).m4a",
+   "seconds": 209.5,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "hits": 5204,
+    "windows": 21,
+    "confidence": "confident",
+    "start_seconds": 0.12575,
+    "end_seconds": 208.06125
+   },
+   "share_of_rule": 21.68,
+   "own_play_hits": 9455,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+    "hits": 153,
+    "windows": 5,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 1,
+   "mode": "out",
+   "why": "judged different",
+   "played": "02 bad company-the nine.mp3",
+   "related": "Bad Company - The Nine (Evol Intent VIP).m4a",
+   "seconds": 209.5,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "hits": 5204,
+    "windows": 21,
+    "confidence": "confident",
+    "start_seconds": 0.12575,
+    "end_seconds": 208.06125
+   },
+   "share_of_rule": 21.68,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+    "hits": 153,
+    "windows": 5,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 2,
+   "mode": "in",
+   "why": "judged different",
+   "played": "Bad Company - The Nine (Evol Intent VIP).m4a",
+   "related": "02 bad company-the nine.mp3",
+   "seconds": 208.9,
+   "related_play": {
+    "asset": "bad_company-fear_lp/02 bad company-the nine.mp3",
+    "hits": 5194,
+    "windows": 21,
+    "confidence": "confident",
+    "start_seconds": 0.2,
+    "end_seconds": 208.29375
+   },
+   "share_of_rule": 21.64,
+   "own_play_hits": 8596,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+    "hits": 99,
+    "windows": 5,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 2,
+   "mode": "out",
+   "why": "judged different",
+   "played": "Bad Company - The Nine (Evol Intent VIP).m4a",
+   "related": "02 bad company-the nine.mp3",
+   "seconds": 208.9,
+   "related_play": {
+    "asset": "bad_company-fear_lp/02 bad company-the nine.mp3",
+    "hits": 5194,
+    "windows": 21,
+    "confidence": "confident",
+    "start_seconds": 0.2,
+    "end_seconds": 208.29375
+   },
+   "share_of_rule": 21.64,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+    "hits": 99,
+    "windows": 5,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 3,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "seconds": 118.3,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 585,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 22.02525,
+    "end_seconds": 140.07150000000001
+   },
+   "share_of_rule": 2.44,
+   "own_play_hits": 8533,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 571,
+    "windows": 13,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 3,
+   "mode": "out",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "seconds": 118.3,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 585,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 22.02525,
+    "end_seconds": 140.07150000000001
+   },
+   "share_of_rule": 2.44,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 571,
+    "windows": 13,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 4,
+   "mode": "in",
+   "why": "version family",
+   "played": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 118.3,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "hits": 596,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 38.5,
+    "end_seconds": 156.51925
+   },
+   "share_of_rule": 2.48,
+   "own_play_hits": 6134,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 696,
+    "windows": 12,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 4,
+   "mode": "out",
+   "why": "version family",
+   "played": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 118.3,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "hits": 596,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 38.5,
+    "end_seconds": 156.51925
+   },
+   "share_of_rule": 2.48,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 696,
+    "windows": 12,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 5,
+   "mode": "in",
+   "why": "version family",
+   "played": "108-demolition_man-fire-sour.mp3",
+   "related": "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "seconds": 111.0,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+    "hits": 525,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 8.0,
+    "end_seconds": 118.5501171875
+   },
+   "share_of_rule": 2.19,
+   "own_play_hits": 7985,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 504,
+    "windows": 11,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 5,
+   "mode": "out",
+   "why": "version family",
+   "played": "108-demolition_man-fire-sour.mp3",
+   "related": "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "seconds": 111.0,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+    "hits": 525,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 8.0,
+    "end_seconds": 118.5501171875
+   },
+   "share_of_rule": 2.19,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 504,
+    "windows": 11,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 6,
+   "mode": "in",
+   "why": "version family",
+   "played": "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "related": "108-demolition_man-fire-sour.mp3",
+   "seconds": 114.8,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 538,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 30.3,
+    "end_seconds": 144.53878125
+   },
+   "share_of_rule": 2.24,
+   "own_play_hits": 6027,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "hits": 4238,
+    "windows": 12,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 6,
+   "mode": "out",
+   "why": "version family",
+   "played": "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "related": "108-demolition_man-fire-sour.mp3",
+   "seconds": 114.8,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 538,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 30.3,
+    "end_seconds": 144.53878125
+   },
+   "share_of_rule": 2.24,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "hits": 4238,
+    "windows": 12,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 7,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "seconds": 111.0,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "hits": 479,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 7.6179218749999995,
+    "end_seconds": 117.999234375
+   },
+   "share_of_rule": 2.0,
+   "own_play_hits": 7918,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 610,
+    "windows": 13,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 7,
+   "mode": "out",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "seconds": 111.0,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "hits": 479,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 7.6179218749999995,
+    "end_seconds": 117.999234375
+   },
+   "share_of_rule": 2.0,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 610,
+    "windows": 13,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 8,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 114.8,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 499,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 30.2,
+    "end_seconds": 144.78270312499998
+   },
+   "share_of_rule": 2.08,
+   "own_play_hits": 5467,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+    "hits": 4676,
+    "windows": 12,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 8,
+   "mode": "out",
+   "why": "version family",
+   "played": "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 114.8,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 499,
+    "windows": 12,
+    "confidence": "confident",
+    "start_seconds": 30.2,
+    "end_seconds": 144.78270312499998
+   },
+   "share_of_rule": 2.08,
+   "own_play_hits": null,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+    "hits": 4676,
+    "windows": 12,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 9,
+   "mode": "in",
+   "why": "judged different",
+   "played": "DJ Trace - Sonar (Mark System Revision).opus",
+   "related": "a-trace-sonar-pro012-sour.mp3",
+   "seconds": 359.1,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+    "hits": 542,
+    "windows": 29,
+    "confidence": "confident",
+    "start_seconds": 1.29935546875,
+    "end_seconds": 356.62587499999995
+   },
+   "share_of_rule": 2.26,
+   "own_play_hits": 19566,
+   "strongest_other": null
+  },
+  {
+   "number": 10,
+   "mode": "in",
+   "why": "judged different",
+   "played": "a-trace-sonar-pro012-sour.mp3",
+   "related": "DJ Trace - Sonar (Mark System Revision).opus",
+   "seconds": 360.6,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+    "hits": 384,
+    "windows": 17,
+    "confidence": "confident",
+    "start_seconds": 0.0,
+    "end_seconds": 168.89274609375
+   },
+   "share_of_rule": 1.6,
+   "own_play_hits": 24732,
+   "strongest_other": {
+    "asset": "__youtube_archivists/unxplored-dnb/Mad Max - The Storm (Original).m4a",
+    "hits": 66,
+    "windows": 6,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 11,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+   "seconds": 64.7,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 310,
+    "windows": 7,
+    "confidence": "confident",
+    "start_seconds": 54.03376171875,
+    "end_seconds": 118.156908203125
+   },
+   "share_of_rule": 1.29,
+   "own_play_hits": 3418,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "hits": 273,
+    "windows": 7,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 12,
+   "mode": "in",
+   "why": "version family",
+   "played": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 68.5,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 283,
+    "windows": 7,
+    "confidence": "confident",
+    "start_seconds": 114.2,
+    "end_seconds": 182.2262890625
+   },
+   "share_of_rule": 1.18,
+   "own_play_hits": 3130,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 343,
+    "windows": 7,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 13,
+   "mode": "in",
+   "why": "version family",
+   "played": "209-usual_suspects-killa_bees-sour.mp3",
+   "related": "08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "seconds": 39.5,
+   "related_play": {
+    "asset": "__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "hits": 280,
+    "windows": 4,
+    "confidence": "confident",
+    "start_seconds": 2.41575,
+    "end_seconds": 41.3015
+   },
+   "share_of_rule": 1.17,
+   "own_play_hits": 2742,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+    "hits": 269,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 14,
+   "mode": "in",
+   "why": "version family",
+   "played": "08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "related": "209-usual_suspects-killa_bees-sour.mp3",
+   "seconds": 39.5,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+    "hits": 279,
+    "windows": 4,
+    "confidence": "confident",
+    "start_seconds": 27.470750000000002,
+    "end_seconds": 66.1715
+   },
+   "share_of_rule": 1.16,
+   "own_play_hits": 2145,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+    "hits": 955,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 15,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+   "seconds": 53.3,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 204,
+    "windows": 6,
+    "confidence": "possible",
+    "start_seconds": 22.214990234375,
+    "end_seconds": 74.44619140625
+   },
+   "share_of_rule": 0.85,
+   "own_play_hits": 2854,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 344,
+    "windows": 6,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 16,
+   "mode": "in",
+   "why": "version family",
+   "played": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 54.6,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 227,
+    "windows": 6,
+    "confidence": "possible",
+    "start_seconds": 33.6,
+    "end_seconds": 87.32074609375
+   },
+   "share_of_rule": 0.95,
+   "own_play_hits": 4008,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+    "hits": 1964,
+    "windows": 6,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 17,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+   "seconds": 77.2,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+    "hits": 204,
+    "windows": 6,
+    "confidence": "possible",
+    "start_seconds": 22.0385859375,
+    "end_seconds": 75.36719921875
+   },
+   "share_of_rule": 0.85,
+   "own_play_hits": 5435,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 455,
+    "windows": 8,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 18,
+   "mode": "in",
+   "why": "version family",
+   "played": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 79.1,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "hits": 309,
+    "windows": 8,
+    "confidence": "possible",
+    "start_seconds": 19.64195703125,
+    "end_seconds": 88.2455859375
+   },
+   "share_of_rule": 1.29,
+   "own_play_hits": 4193,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 3050,
+    "windows": 8,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 19,
+   "mode": "in",
+   "why": "version family",
+   "played": "Eddy Woo - Tsunami (Remix).m4a",
+   "related": "Eddy Woo - Tsunami.m4a",
+   "seconds": 48.8,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+    "hits": 299,
+    "windows": 5,
+    "confidence": "confident",
+    "start_seconds": 1.059123046875,
+    "end_seconds": 49.284644531249995
+   },
+   "share_of_rule": 1.25,
+   "own_play_hits": 3177,
+   "strongest_other": null
+  },
+  {
+   "number": 20,
+   "mode": "in",
+   "why": "version family",
+   "played": "Eddy Woo - Tsunami.m4a",
+   "related": "Eddy Woo - Tsunami (Remix).m4a",
+   "seconds": 49.1,
+   "related_play": {
+    "asset": "__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+    "hits": 343,
+    "windows": 4,
+    "confidence": "confident",
+    "start_seconds": 6.840248046875001,
+    "end_seconds": 39.14643359375001
+   },
+   "share_of_rule": 1.43,
+   "own_play_hits": 2638,
+   "strongest_other": null
+  },
+  {
+   "number": 21,
+   "mode": "in",
+   "why": "version family",
+   "played": "209-usual_suspects-killa_bees-sour.mp3",
+   "related": "08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "seconds": 37.0,
+   "related_play": {
+    "asset": "__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "hits": 163,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 3.331,
+    "end_seconds": 39.08875
+   },
+   "share_of_rule": 0.68,
+   "own_play_hits": 2046,
+   "strongest_other": {
+    "asset": "__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "hits": 291,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 22,
+   "mode": "in",
+   "why": "version family",
+   "played": "08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "related": "209-usual_suspects-killa_bees-sour.mp3",
+   "seconds": 37.1,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+    "hits": 160,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 25.225951171875,
+    "end_seconds": 60.39155273437501
+   },
+   "share_of_rule": 0.67,
+   "own_play_hits": 2361,
+   "strongest_other": {
+    "asset": "__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "hits": 492,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 23,
+   "mode": "in",
+   "why": "version family",
+   "played": "02 bad company-the nine.mp3",
+   "related": "Bad Company - The Nine (ChaseR Bootleg).opus",
+   "seconds": 37.9,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+    "hits": 136,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 47.0,
+    "end_seconds": 84.36775
+   },
+   "share_of_rule": 0.57,
+   "own_play_hits": 1517,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "hits": 957,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 24,
+   "mode": "in",
+   "why": "version family",
+   "played": "Bad Company - The Nine (ChaseR Bootleg).opus",
+   "related": "02 bad company-the nine.mp3",
+   "seconds": 37.9,
+   "related_play": {
+    "asset": "(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+    "hits": 164,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 97.2495,
+    "end_seconds": 133.89225
+   },
+   "share_of_rule": 0.68,
+   "own_play_hits": 1777,
+   "strongest_other": {
+    "asset": "__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "hits": 116,
+    "windows": 4,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 25,
+   "mode": "in",
+   "why": "version family",
+   "played": "209-usual_suspects-killa_bees-sour.mp3",
+   "related": "Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+   "seconds": 39.4,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+    "hits": 256,
+    "windows": 4,
+    "confidence": "confident",
+    "start_seconds": 2.7662500000000003,
+    "end_seconds": 41.714000000000006
+   },
+   "share_of_rule": 1.07,
+   "own_play_hits": 2108,
+   "strongest_other": {
+    "asset": "__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "hits": 290,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 26,
+   "mode": "in",
+   "why": "version family",
+   "played": "Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+   "related": "209-usual_suspects-killa_bees-sour.mp3",
+   "seconds": 39.3,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+    "hits": 248,
+    "windows": 4,
+    "confidence": "confident",
+    "start_seconds": 24.268,
+    "end_seconds": 63.126999999999995
+   },
+   "share_of_rule": 1.03,
+   "own_play_hits": 1902,
+   "strongest_other": {
+    "asset": "__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "hits": 600,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 27,
+   "mode": "in",
+   "why": "version family",
+   "played": "108-demolition_man-fire-sour.mp3",
+   "related": "01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+   "seconds": 31.7,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+    "hits": 148,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 86.8,
+    "end_seconds": 118.337353515625
+   },
+   "share_of_rule": 0.62,
+   "own_play_hits": 2315,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 192,
+    "windows": 4,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 28,
+   "mode": "in",
+   "why": "version family",
+   "played": "01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+   "related": "108-demolition_man-fire-sour.mp3",
+   "seconds": 32.5,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 138,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 128.0,
+    "end_seconds": 160.28996484375
+   },
+   "share_of_rule": 0.57,
+   "own_play_hits": 2406,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+    "hits": 993,
+    "windows": 4,
+    "confidence": "confident"
+   }
+  },
+  {
+   "number": 29,
+   "mode": "in",
+   "why": "version family",
+   "played": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+   "seconds": 11.4,
+   "related_play": null,
+   "share_of_rule": null,
+   "own_play_hits": 777,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 111,
+    "windows": 2,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 30,
+   "mode": "in",
+   "why": "version family",
+   "played": "07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+   "related": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "seconds": 11.4,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "hits": 113,
+    "windows": 2,
+    "confidence": "possible",
+    "start_seconds": 1.0425,
+    "end_seconds": 12.01325
+   },
+   "share_of_rule": 0.47,
+   "own_play_hits": 471,
+   "strongest_other": {
+    "asset": "__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+    "hits": 375,
+    "windows": 2,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 31,
+   "mode": "in",
+   "why": "version family",
+   "played": "AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "related": "Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "seconds": 38.3,
+   "related_play": {
+    "asset": "__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "hits": 114,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 111.520611328125,
+    "end_seconds": 145.981751953125
+   },
+   "share_of_rule": 0.47,
+   "own_play_hits": 1720,
+   "strongest_other": null
+  },
+  {
+   "number": 32,
+   "mode": "in",
+   "why": "version family",
+   "played": "Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "related": "AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "seconds": 38.1,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+    "hits": 131,
+    "windows": 4,
+    "confidence": "possible",
+    "start_seconds": 21.246257812499998,
+    "end_seconds": 56.55283593749999
+   },
+   "share_of_rule": 0.55,
+   "own_play_hits": 2865,
+   "strongest_other": null
+  },
+  {
+   "number": 33,
+   "mode": "in",
+   "why": "version family",
+   "played": "108-demolition_man-fire-sour.mp3",
+   "related": "Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+   "seconds": 15.8,
+   "related_play": {
+    "asset": "__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+    "hits": 112,
+    "windows": 2,
+    "confidence": "possible",
+    "start_seconds": 22.4,
+    "end_seconds": 37.3315
+   },
+   "share_of_rule": 0.47,
+   "own_play_hits": 1141,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 149,
+    "windows": 2,
+    "confidence": "possible"
+   }
+  },
+  {
+   "number": 34,
+   "mode": "in",
+   "why": "version family",
+   "played": "Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+   "related": "108-demolition_man-fire-sour.mp3",
+   "seconds": 15.9,
+   "related_play": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "hits": 103,
+    "windows": 2,
+    "confidence": "possible",
+    "start_seconds": 311.321,
+    "end_seconds": 326.20925
+   },
+   "share_of_rule": 0.43,
+   "own_play_hits": 899,
+   "strongest_other": {
+    "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+    "hits": 691,
+    "windows": 2,
+    "confidence": "possible"
+   }
+  }
+ ],
+ "from_sweeps_and_recall": [
+  {
+   "why": "judged different",
+   "a": "Bad Company - The Nine.mp3",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "queries_played": 45,
+   "strongest": [
+    {
+     "report": "sweep-seed-2028.json",
+     "played": "Bad Company - The Nine.mp3",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "hits": 220,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "sweep-seed-2028.json",
+     "played": "Bad Company - The Nine.mp3",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "held_out": false,
+     "speed_percent": 5.0,
+     "hits": 215,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "sweep-seed-2028.json",
+     "played": "Bad Company - The Nine.mp3",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "held_out": false,
+     "speed_percent": 8.0,
+     "hits": 211,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "sweep-seed-2027.json",
+     "played": "extra/A- The_Nine.mp3",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "held_out": true,
+     "speed_percent": 5.0,
+     "hits": 197,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "sweep-seed-2028.json",
+     "played": "Bad Company - The Nine.mp3",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 195,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 45
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "hits": 185,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 184,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -8.0,
+     "hits": 178,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "hits": 178,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "hits": 176,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 7
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "hits": 120,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "hits": 114,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "hits": 113,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -8.0,
+     "hits": 111,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 107,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 8
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "hits": 119,
+     "windows": 2,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -8.0,
+     "hits": 107,
+     "windows": 2,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 8.0,
+     "hits": 100,
+     "windows": 2,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "hits": 88,
+     "windows": 2,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 5.0,
+     "hits": 83,
+     "windows": 2,
+     "confident": false
+    }
+   ],
+   "detections": 9
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "hits": 117,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "hits": 115,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "hits": 114,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 112,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -8.0,
+     "hits": 111,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 8
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "hits": 114,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 5.0,
+     "hits": 113,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 112,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "hits": 111,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "hits": 108,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 8
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "hits": 113,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "hits": 113,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 112,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "hits": 108,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -8.0,
+     "hits": 105,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 8
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -8.0,
+     "hits": 109,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "hits": 106,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "hits": 105,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "hits": 104,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "hits": 101,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 8
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+     "held_out": true,
+     "speed_percent": -5.0,
+     "hits": 101,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+     "held_out": true,
+     "speed_percent": -8.0,
+     "hits": 90,
+     "windows": 2,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+     "held_out": true,
+     "speed_percent": -3.0,
+     "hits": 88,
+     "windows": 3,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+     "held_out": true,
+     "speed_percent": 0.0,
+     "hits": 84,
+     "windows": 2,
+     "confident": false
+    },
+    {
+     "report": "recall-seed-2026.json",
+     "played": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+     "held_out": true,
+     "speed_percent": 1.0,
+     "hits": 84,
+     "windows": 3,
+     "confident": false
+    }
+   ],
+   "detections": 9
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 \uff1a KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "queries_played": 9,
+   "strongest": [
+    {
+     "report": "sweep-seed-2029.json",
+     "played": "Kemal & Rob Data - Star Trails.mp3",
+     "found": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "hits": 7,
+     "windows": 2,
+     "confident": false
+    }
+   ],
+   "detections": 1
+  },
+  {
+   "why": "judged different",
+   "a": "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "queries_played": 0,
+   "strongest": [],
+   "detections": 0
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "queries_played": 0,
+   "strongest": [],
+   "detections": 0
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "queries_played": 0,
+   "strongest": [],
+   "detections": 0
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+   "b": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "queries_played": 45,
+   "strongest": [],
+   "detections": 0
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+   "queries_played": 0,
+   "strongest": [],
+   "detections": 0
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+   "queries_played": 9,
+   "strongest": [],
+   "detections": 0
+  },
+  {
+   "why": "version family",
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "b": "second-library/__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+   "queries_played": 9,
+   "strongest": [],
+   "detections": 0
+  }
+ ],
+ "mix_2003_shared_material": [
+  {
+   "play": "Digital & Spirit - Phantom 2018.m4a",
+   "hits": 322,
+   "shares_with_hits": 6507
+  },
+  {
+   "play": "Rift feat. Souldrop - Meltdown.m4a",
+   "hits": 98,
+   "shares_with_hits": 6507
+  },
+  {
+   "play": "Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit)",
+   "hits": 118,
+   "shares_with_hits": 6507
+  }
+ ]
+}
