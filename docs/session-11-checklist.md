@@ -25,27 +25,31 @@ for scope and rules.
 
 ## Items
 
-- [~] 2. Session 10's reports kept in `work/s11/before/`; `map-library`
-  (2.4 s); the NAS clusters search (started 19:03:14 under `screen`,
-  session `s11-clusters`, `work/s11/clusters.sh`)
-- [~] 3a. Saved index: width audit for 65,536 assets; ADR 0011; format
+- [x] 2. Session 10's reports kept in `work/s11/before/`; `map-library`
+  (2.4 s); the NAS clusters search (19:03:14-03:08:44 under `screen`,
+  `work/s11/clusters.sh`; 29,130 s wall (not a speed measurement: the machine had other load), 648
+  queries, 267 clusters)
+- [x] 3a. Saved index: width audit for 65,536 assets; ADR 0011; format
   with a header; rebuilt and replaced atomically when stale or
   unreadable; `identify`, `explain` and `stats` use it; tests (stale
   header, truncated file, changed store); checks pass (`dbce7d9`);
-  regress after the search
-- [ ] 3a acceptance (idle machine, after item 2): the 2003 mix at NAS
-  scale with a rebuilt and a saved index, identical; rebuild, first run,
-  cold and warm loads timed; file size; experiment
-- [~] 3b. Conflicting titles: the other titles of a passage shown without
+  regress identical (03:14); review fixes (`84fe0e5`)
+- [~] 3a acceptance: the 2003 mix at NAS scale built, built and saved,
+  and loaded warm: byte-identical reports; 118.1 s, 167.2 s and 3.0 s
+  to the index; 3,795,332,786 bytes (03:15-03:38); the cold load after
+  item 5; experiment 0072
+- [x] 3b. Conflicting titles: the other titles of a passage shown without
   choosing one; unit tests, clippy (`3085abb`); the 2003 mix's track 2
-  and regress after the search
-- [~] 3c. `gunfinger-eval pair-review`: pack items, short sheet, clips
+  names the three "Specialist" files; regress identical
+- [x] 3c. `gunfinger-eval pair-review`: pack items, short sheet, clips
   through `ffplay`, keys, verdict lines appended, skips judged items,
   prints `clusters --reuse-pairs`; tests with a fake output and a
-  temporary verdicts file (`5e79413`); regress after the search
-- [ ] 4. Clusters experiment against 0066; the listening pack rebuilt
-  (`pair`, clips)
-- [ ] 5. The NAS baseline (scan, leave-outs 3 and 11, sweeps 2026-2029,
+  temporary verdicts file (`5e79413`); regress identical; always prints
+  `--cut-sparsest` (`84fe0e5`)
+- [x] 4. Clusters experiment against 0066 (experiment 0071); the
+  listening pack rebuilt: 23 items (21 kept, 9 dropped with a pruned
+  file, 2 new, measured by `pair` and rendered)
+- [~] 5. The NAS baseline (started 03:38:37, chained; scan, leave-outs 3 and 11, sweeps 2026-2029,
   `calibrate`, the 2003 mix at both sizes with leave-out 3); against
   0067; calibration register
 - [ ] 6. The recall panel's development half; against 0068
