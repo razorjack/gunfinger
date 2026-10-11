@@ -3,8 +3,63 @@
 //! (tempo only), optionally filtered, and encoded.
 
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
+use std::sync::atomic::{AtomicU64, Ordering};
+
+/// A cache entry is reusable only after its encoder completed and the
+/// final file was installed. Older caches without a receipt render once.
+pub fn is_complete(path: &Path) -> bool {
+    fs::metadata(path).is_ok_and(|metadata| {
+        metadata.len() > 0
+            && fs::read_to_string(receipt(path))
+                .is_ok_and(|saved| saved == metadata.len().to_string())
+    })
+}
+
+fn receipt(path: &Path) -> PathBuf {
+    path.with_extension(format!(
+        "{}.complete",
+        path.extension().unwrap_or_default().to_string_lossy()
+    ))
+}
+
+struct RenderFile {
+    temporary: PathBuf,
+}
+
+impl RenderFile {
+    fn new(output: &Path) -> RenderFile {
+        static NEXT: AtomicU64 = AtomicU64::new(0);
+        let sequence = NEXT.fetch_add(1, Ordering::Relaxed);
+        let extension = output.extension().unwrap_or_default().to_string_lossy();
+        RenderFile {
+            temporary: output.with_extension(format!(
+                "{}.{}.partial.{extension}",
+                std::process::id(),
+                sequence
+            )),
+        }
+    }
+
+    fn finish(&self, output: &Path) -> Result<(), String> {
+        let install = || -> std::io::Result<()> {
+            let size = fs::metadata(&self.temporary)?.len();
+            if size == 0 {
+                return Err(std::io::Error::other("encoder produced an empty file"));
+            }
+            fs::rename(&self.temporary, output)?;
+            fs::write(receipt(output), size.to_string())
+        };
+        install().map_err(|error| format!("cannot finish {}: {error}", output.display()))
+    }
+}
+
+impl Drop for RenderFile {
+    fn drop(&mut self) {
+        let _ = fs::remove_file(&self.temporary);
+    }
+}
 
 /// Sample rate of rendered audio between FFmpeg and the encoder.
 pub const RENDER_RATE: u32 = 44_100;
@@ -81,6 +136,7 @@ pub fn render_excerpt(
     encoding: Encoding,
     output: &Path,
 ) -> Result<(), String> {
+    let rendered = RenderFile::new(output);
     let status = Command::new("ffmpeg")
         .args(["-nostdin", "-v", "error", "-y", "-ss"])
         .arg(format!("{start:.3}"))
@@ -91,12 +147,12 @@ pub fn render_excerpt(
         .arg("-t")
         .arg(format!("{seconds:.3}"))
         .args(encoding.codec_args())
-        .arg(output)
+        .arg(&rendered.temporary)
         .stdin(Stdio::null())
         .status()
         .map_err(|error| format!("cannot run ffmpeg: {error}"))?;
     if status.success() {
-        Ok(())
+        rendered.finish(output)
     } else {
         Err(format!(
             "ffmpeg could not render {} ({status})",
@@ -153,25 +209,24 @@ pub fn encode(
     encoding: Encoding,
     output: &Path,
 ) -> Result<(), String> {
-    let wav = output.with_extension("render.wav");
-    write_wav(&wav, samples)?;
+    let rendered = RenderFile::new(output);
+    let input = RenderFile::new(&output.with_extension("wav"));
+    write_wav(&input.temporary, samples)?;
     let mut command = Command::new("ffmpeg");
     command
         .args(["-nostdin", "-v", "error", "-y", "-i"])
-        .arg(&wav);
+        .arg(&input.temporary);
     if let Some(filter) = filter {
         command.args(["-af", filter]);
     }
     let status = command
         .args(encoding.codec_args())
-        .arg(output)
+        .arg(&rendered.temporary)
         .stdin(Stdio::null())
         .status()
         .map_err(|error| format!("cannot run ffmpeg: {error}"))?;
-    // The temporary file only matters while FFmpeg reads it.
-    let _ = fs::remove_file(&wav);
     if status.success() {
-        Ok(())
+        rendered.finish(output)
     } else {
         Err(format!(
             "ffmpeg could not encode {} ({status})",
@@ -215,4 +270,35 @@ pub fn limited(samples: Vec<f32>) -> Vec<f32> {
         return samples;
     }
     samples.iter().map(|&x| x * 0.99 / peak).collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn unfinished_and_truncated_outputs_are_not_cache_entries() {
+        let dir =
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../work/tests/render-completion");
+        fs::create_dir_all(&dir).unwrap();
+        let output = dir.join("query.mp3");
+        let _ = fs::remove_file(receipt(&output));
+        fs::write(&output, b"legacy partial").unwrap();
+        assert!(!is_complete(&output));
+        let temporary;
+        {
+            let render = RenderFile::new(&output);
+            temporary = render.temporary.clone();
+            fs::write(&temporary, b"interrupted").unwrap();
+        }
+        assert!(!temporary.exists());
+        assert!(!is_complete(&output));
+        let render = RenderFile::new(&output);
+        fs::write(&render.temporary, b"complete render").unwrap();
+        render.finish(&output).unwrap();
+        assert!(is_complete(&output));
+        fs::write(&output, b"truncated").unwrap();
+        assert!(!is_complete(&output));
+        fs::remove_dir_all(dir).unwrap();
+    }
 }

@@ -255,7 +255,7 @@ fn queries(scenario: &Scenario) -> Vec<Query> {
 /// looped query repeats the passage's samples end to end.
 fn render(library: &Library, scenario: &Scenario, query: &Query, dir: &Path) -> Result<(), String> {
     let path = dir.join(format!("{}.mp3", query.name));
-    if path.exists() {
+    if crate::render::is_complete(&path) {
         return Ok(());
     }
     let source = library.root.join(&scenario.played);

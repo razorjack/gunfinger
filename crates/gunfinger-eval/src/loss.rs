@@ -274,7 +274,7 @@ fn analyse_play(
     // the play unless the track starts there.
     let clean_offset = detection.start_seconds
         - MARGIN_SECONDS.min(detection.track_start_seconds / alignment.speed);
-    if !clean_path.exists() {
+    if !crate::render::is_complete(clean_path) {
         if let Some(dir) = clean_path.parent() {
             std::fs::create_dir_all(dir).map_err(|error| error.to_string())?;
         }

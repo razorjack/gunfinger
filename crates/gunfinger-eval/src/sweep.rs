@@ -400,7 +400,7 @@ pub fn render_all<'d>(
         })
         .collect();
     let failures: Vec<String> = map_in_order(&work, jobs, |(draw, speed, path)| {
-        if path.exists() {
+        if crate::render::is_complete(path) {
             return None;
         }
         let speed_ratio = 1.0 + speed / 100.0;
