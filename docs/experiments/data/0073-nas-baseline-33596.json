@@ -1,0 +1,1988 @@
+{
+ "binary": "work/bin/s11-code (1afd8cc)",
+ "store_revision": "f9f9bc706195a71b",
+ "records": 33596,
+ "runs": {
+  "nas-scan": {
+   "cost": {
+    "wall_seconds": 974.08,
+    "cpu_seconds": 2337.44,
+    "peak_bytes": 4932964528
+   },
+   "first_line": "stakka-skynet-knowledge: 11/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 844.2 s"
+  },
+  "nas-scan-lo3": {
+   "cost": {
+    "wall_seconds": 785.12,
+    "cpu_seconds": 2368.11,
+    "peak_bytes": 4933095648
+   },
+   "first_line": "stakka-skynet-knowledge: 8/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 662.0 s"
+  },
+  "nas-scan-lo11": {
+   "cost": {
+    "wall_seconds": 423.9,
+    "cpu_seconds": 2350.12,
+    "peak_bytes": 4922265800
+   },
+   "first_line": "stakka-skynet-knowledge: 0/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 322.2 s"
+  },
+  "nas-sweep-2026": {
+   "cost": {
+    "wall_seconds": 1712.92,
+    "cpu_seconds": 15019.62,
+    "peak_bytes": 6766761744
+   },
+   "first_line": "sweep seed 2026: 33513 indexed assets, 48 clusters held out"
+  },
+  "nas-sweep-2027": {
+   "cost": {
+    "wall_seconds": 1724.42,
+    "cpu_seconds": 15129.35,
+    "peak_bytes": 6762174608
+   },
+   "first_line": "sweep seed 2027: 33513 indexed assets, 48 clusters held out"
+  },
+  "nas-sweep-2028": {
+   "cost": {
+    "wall_seconds": 1666.41,
+    "cpu_seconds": 14619.24,
+    "peak_bytes": 6815340472
+   },
+   "first_line": "sweep seed 2028: 33504 indexed assets, 48 clusters held out"
+  },
+  "nas-sweep-2029": {
+   "cost": {
+    "wall_seconds": 1712.03,
+    "cpu_seconds": 15086.99,
+    "peak_bytes": 6890461184
+   },
+   "first_line": "sweep seed 2029: 33500 indexed assets, 48 clusters held out"
+  },
+  "nas-scan-2003": {
+   "cost": {
+    "wall_seconds": 300.05,
+    "cpu_seconds": 1937.71,
+    "peak_bytes": 4841148568
+   },
+   "first_line": "razorjack-2003-03-29: 12/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 201.7 s"
+  },
+  "nas-scan-2003-lo3": {
+   "cost": {
+    "wall_seconds": 298.65,
+    "cpu_seconds": 1933.07,
+    "peak_bytes": 4843884648
+   },
+   "first_line": "razorjack-2003-03-29: 9/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 200.2 s"
+  },
+  "scan-2003": {
+   "cost": {
+    "wall_seconds": 23.87,
+    "cpu_seconds": 199.38,
+    "peak_bytes": 220856896
+   },
+   "first_line": "razorjack-2003-03-29: 7/7 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 23.2 s"
+  },
+  "scan-2003-lo3": {
+   "cost": {
+    "wall_seconds": 23.76,
+    "cpu_seconds": 198.08,
+    "peak_bytes": 215974464
+   },
+   "first_line": "razorjack-2003-03-29: 4/7 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 23.1 s"
+  }
+ },
+ "calibrate": {
+  "nas-calibrate": [
+   "rule: hits >= 240 and windows >= 3",
+   "identifying detections: 2179 (0 below the rule)",
+   "false candidates: 152721 (0 accepted by the rule)",
+   "weakest identifying: 661 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+   "strongest false:     220 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +0%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a)",
+   "margin: 3.00x in hits; the threshold is 1.09x the strongest false and 2.75x below the weakest identifying",
+   "",
+   "possible tier: hits >= 60",
+   "strongest on audio not in the index: 197 hits, 3 windows (sweep extra/A- The_Nine.mp3 at +5%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a); the threshold is 0.30x that",
+   "false candidates at 30 hits or more: 302 (113 shown as possible); each must be a remix or version of the played recording",
+   "  220 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +0%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a)",
+   "  215 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +5%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a)"
+  ],
+  "nas-calibrate-2003": [
+   "rule: hits >= 240 and windows >= 3",
+   "identifying detections: 2181 (0 below the rule)",
+   "false candidates: 152711 (0 accepted by the rule)",
+   "weakest identifying: 661 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+   "strongest false:     220 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +0%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a)",
+   "margin: 3.00x in hits; the threshold is 1.09x the strongest false and 2.75x below the weakest identifying",
+   "",
+   "possible tier: hits >= 60",
+   "strongest on audio not in the index: 197 hits, 3 windows (sweep extra/A- The_Nine.mp3 at +5%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a); the threshold is 0.30x that",
+   "false candidates at 30 hits or more: 298 (114 shown as possible); each must be a remix or version of the played recording",
+   "  220 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +0%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a)",
+   "  215 hits, 3 windows (sweep Bad Company - The Nine.mp3 at +5%: second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a)"
+  ],
+  "calibrate-2003": [
+   "rule: hits >= 240 and windows >= 3",
+   "identifying detections: 2171 (0 below the rule)",
+   "false candidates: 2076 (0 accepted by the rule)",
+   "weakest identifying: 658 hits, 3 windows (sweep extra/4. Illuminati - Melange.mp3 at -3%: extra/4. Illuminati - Melange.mp3)",
+   "strongest false:     99 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at -5%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)",
+   "margin: 6.65x in hits; the threshold is 2.42x the strongest false and 2.74x below the weakest identifying",
+   "",
+   "possible tier: hits >= 60",
+   "strongest on audio not in the index: 22 hits, 2 windows (sweep extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3 at -5%: extra/01-muffler-bleak_(original_mix).mp3); the threshold is 2.73x that",
+   "false candidates at 30 hits or more: 37 (13 shown as possible); each must be a remix or version of the played recording",
+   "  99 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at -5%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)",
+   "  97 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at +1%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)"
+  ]
+ },
+ "false_split": {
+  "reports": "work/s11/item5/nas",
+  "identifying": 2179,
+  "false_candidates": 152721,
+  "weakest_identifying": {
+   "hits": 661,
+   "where": "sweep 2028 extra/4. Illuminati - Melange.mp3 at -3%"
+  },
+  "confident_false": {},
+  "by_label": {
+   "same name": {
+    "count": 17,
+    "confident": 0,
+    "at_60": 0,
+    "strongest": [
+     {
+      "hits": 12,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 12,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at +3%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 10,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at +0%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 9,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at -8%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 9,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at +1%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 9,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at +5%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 9,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3",
+      "found": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/f-stakka_and_skynet-altitude_(fierce_and_ryme_tyme)-sour.mp3",
+      "where": "sweep 2027 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3 at +0%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Stakka & Skynet feat. DJ Frict - Altitude",
+      "found_name": "Stakka And Skynet - Altitude (Fierce And Ryme Tyme"
+     },
+     {
+      "hits": 9,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/B. falcon - reality.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Mampi Swift - Reality.m4a",
+      "where": "sweep 2029 extra/B. falcon - reality.mp3 at +3%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "falcon - reality",
+      "found_name": "Mampi Swift - Reality"
+     },
+     {
+      "hits": 8,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at -5%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     },
+     {
+      "hits": 8,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/B. falcon - reality.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Mampi Swift - Reality.m4a",
+      "where": "sweep 2029 extra/B. falcon - reality.mp3 at +8%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "falcon - reality",
+      "found_name": "Mampi Swift - Reality"
+     },
+     {
+      "hits": 7,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/B. falcon - reality.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Mampi Swift - Reality.m4a",
+      "where": "sweep 2029 extra/B. falcon - reality.mp3 at +3%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "falcon - reality",
+      "found_name": "Mampi Swift - Reality"
+     },
+     {
+      "hits": 6,
+      "windows": 2,
+      "confident": false,
+      "query": "Ryme Tyme - Payback Pt. 1.mp3",
+      "found": "second-library/DSCI4-DSCI4002-Ryme_Tyme-1999-sour/AA-Ryme_Tyme-Payback_part_ii-sour.mp3",
+      "where": "sweep 2026 Ryme Tyme - Payback Pt. 1.mp3 at +1%",
+      "held_out": true,
+      "label": "same name",
+      "query_name": "Ryme Tyme - Payback",
+      "found_name": "Ryme Tyme - Payback Part II"
+     },
+     {
+      "hits": 6,
+      "windows": 2,
+      "confident": false,
+      "query": "Ryme Tyme - Payback Pt. 1.mp3",
+      "found": "second-library/__full_scene/1999/1999-11/1999-11-13/dsci4-ryme_tyme-dsci402-1999-sour/aa-ryme_tyme-payback_part_ii-sour.mp3",
+      "where": "sweep 2026 Ryme Tyme - Payback Pt. 1.mp3 at +1%",
+      "held_out": true,
+      "label": "same name",
+      "query_name": "Ryme Tyme - Payback",
+      "found_name": "Ryme Tyme - Payback Part II"
+     },
+     {
+      "hits": 6,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/B. falcon - reality.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Mampi Swift - Reality.m4a",
+      "where": "sweep 2029 extra/B. falcon - reality.mp3 at -3%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "falcon - reality",
+      "found_name": "Mampi Swift - Reality"
+     },
+     {
+      "hits": 6,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+      "found": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/c-stakka_and_skynet-biosfear_(stakka_and_kemal_rmx)-sour.mp3",
+      "where": "sweep 2029 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3 at +0%",
+      "held_out": true,
+      "label": "same name",
+      "query_name": "Stakka & Skynet feat. Kemal an - Bios-Fear",
+      "found_name": "Stakka And Skynet - Biosfear (Stakka And Kemal)"
+     },
+     {
+      "hits": 6,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+      "found": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/c-stakka_and_skynet-biosfear_(stakka_and_kemal_rmx)-sour.mp3",
+      "where": "sweep 2029 extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3 at +1%",
+      "held_out": true,
+      "label": "same name",
+      "query_name": "Stakka & Skynet feat. Kemal an - Bios-Fear",
+      "found_name": "Stakka And Skynet - Biosfear (Stakka And Kemal)"
+     },
+     {
+      "hits": 3,
+      "windows": 1,
+      "confident": false,
+      "query": "extra/a-cause_4_concern-relentless-sour.mp3",
+      "found": "second-library/cause_4_concern-various_artists-c4cltd004-2002-sour/AA-Cause_4_Concern-Relentless_(Stakka_and_Skynet_Remix)-sour.mp3",
+      "where": "sweep 2027 extra/a-cause_4_concern-relentless-sour.mp3 at -3%",
+      "held_out": false,
+      "label": "same name",
+      "query_name": "Cause 4 Concern - Relentless",
+      "found_name": "Cause 4 Concern - Relentless (Stakka & Skynet Re"
+     }
+    ]
+   },
+   "version": {
+    "count": 438,
+    "confident": 0,
+    "at_60": 80,
+    "strongest": [
+     {
+      "hits": 220,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at +0%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 215,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at +5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 211,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at +8%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 197,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at +5%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 195,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at +1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 194,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at +3%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 189,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at -1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 188,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at +1%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 188,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at -8%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 186,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at -5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 179,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at +8%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 175,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 Bad Company - The Nine.mp3 at -3%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 174,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at -1%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 174,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at +0%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 171,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at +0%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 169,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at -5%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 167,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at -8%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 163,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at +3%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 160,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A- The_Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 extra/A- The_Nine.mp3 at -3%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 145,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at +1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 143,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at +3%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 141,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at -5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 139,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at -3%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 139,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at +5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 137,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at -1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 136,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at +8%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 121,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2029 Bad Company - The Nine.mp3 at -8%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 117,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 Bad Company - The Nine.mp3 at +8%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 112,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 Bad Company - The Nine.mp3 at +0%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 111,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 extra/A-Bad_Company-The_Nine-dmz.mp3 at +8%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 106,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 Bad Company - The Nine.mp3 at -3%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 105,
+      "windows": 3,
+      "confident": false,
+      "query": "Bad Company - The Nine.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2027 Bad Company - The Nine.mp3 at +5%",
+      "held_out": true,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 105,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 extra/A-Bad_Company-The_Nine-dmz.mp3 at +0%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 101,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 extra/A-Bad_Company-The_Nine-dmz.mp3 at +1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 101,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+      "where": "sweep 2028 extra/A-Bad_Company-The_Nine-dmz.mp3 at +5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Bad Company - The Nine",
+      "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+     },
+     {
+      "hits": 99,
+      "windows": 2,
+      "confident": false,
+      "query": "Skynet & Stakka - Clockwork.mp3",
+      "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at -5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Stakka & Skynet - Clockwork",
+      "found_name": "Stakka And Skynet - Clockwork (Stakka Rmx)"
+     },
+     {
+      "hits": 99,
+      "windows": 2,
+      "confident": false,
+      "query": "Skynet & Stakka - Clockwork.mp3",
+      "found": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at -5%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Stakka & Skynet - Clockwork",
+      "found_name": "Stakka And Skynet - Clockwork (Stakka Rmx)"
+     },
+     {
+      "hits": 97,
+      "windows": 2,
+      "confident": false,
+      "query": "Skynet & Stakka - Clockwork.mp3",
+      "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at +1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Stakka & Skynet - Clockwork",
+      "found_name": "Stakka And Skynet - Clockwork (Stakka Rmx)"
+     },
+     {
+      "hits": 97,
+      "windows": 2,
+      "confident": false,
+      "query": "Skynet & Stakka - Clockwork.mp3",
+      "found": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at +1%",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Stakka & Skynet - Clockwork",
+      "found_name": "Stakka And Skynet - Clockwork (Stakka Rmx)"
+     },
+     {
+      "hits": 94,
+      "windows": 3,
+      "confident": false,
+      "query": " 5. Skynet & Stakka - Clockwork",
+      "found": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "where": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json at 1223 s",
+      "held_out": false,
+      "label": "version",
+      "query_name": "Skynet & Stakka - Clockwork",
+      "found_name": "Stakka And Skynet - Clockwork (Stakka Rmx)"
+     }
+    ]
+   },
+   "same artist": {
+    "count": 1737,
+    "confident": 0,
+    "at_60": 22,
+    "strongest": [
+     {
+      "hits": 126,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +0%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 108,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +3%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 107,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at -8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 96,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 91,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 84,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +5%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 81,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at +5%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 79,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at -3%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 76,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at -5%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 71,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at -1%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 71,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at +3%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 66,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at +0%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 66,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 66,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 65,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2027 extra/207-ant_miles-china_town-sour.mp3 at +1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 65,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at -5%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 62,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 62,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 62,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 62,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 61,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +0%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 61,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +0%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 58,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at -8%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 58,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 58,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 58,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +5%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 58,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +5%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 57,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -5%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 57,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -5%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 57,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +3%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 57,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +3%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 56,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -3%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 56,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -3%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Aphrodite - Fanfare Dubstyle"
+     },
+     {
+      "hits": 54,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+      "where": "sweep 2026 extra/aa-cause_4_concern-abduction-sour.mp3 at +8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Cause 4 Concern - Abduction (AA Side)",
+      "found_name": "Cause 4 Concern - Epox Remix"
+     },
+     {
+      "hits": 54,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at +8%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 52,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/cause_4_concern-just_cause_ep-c4c004-2000-sour/b-cause_4_concern-epox_(remix)-sour.mp3",
+      "where": "sweep 2026 extra/aa-cause_4_concern-abduction-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Cause 4 Concern - Abduction (AA Side)",
+      "found_name": "Cause 4 Concern - Epox (remix)"
+     },
+     {
+      "hits": 52,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+      "found": "second-library/cause_4_concern-just_cause_ep-c4c004-2000-sour/b-cause_4_concern-epox_(remix)-sour.mp3",
+      "where": "sweep 2026 extra/aa-cause_4_concern-abduction-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Cause 4 Concern - Abduction (AA Side)",
+      "found_name": "Cause 4 Concern - Epox (remix)"
+     },
+     {
+      "hits": 52,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/A. Pyro -- Time Is Broken.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+      "where": "sweep 2028 extra/A. Pyro -- Time Is Broken.mp3 at +8%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Pyro - Time Is Broken",
+      "found_name": "Pyro - Ignorance"
+     },
+     {
+      "hits": 51,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/207-ant_miles-china_town-sour.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+      "where": "sweep 2028 extra/207-ant_miles-china_town-sour.mp3 at +1%",
+      "held_out": true,
+      "label": "same artist",
+      "query_name": "Ant Miles - China Town",
+      "found_name": "Ant Miles - Sea Of Chaos"
+     },
+     {
+      "hits": 49,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Phuture Assassins - Future Sound (Cause 4 Concern Remix).opus",
+      "where": "sweep 2026 extra/aa-cause_4_concern-abduction-sour.mp3 at +1%",
+      "held_out": false,
+      "label": "same artist",
+      "query_name": "Cause 4 Concern - Abduction (AA Side)",
+      "found_name": "Phuture Assassins - Future Sound (Cause 4 Concern Remix)"
+     }
+    ]
+   },
+   "unrelated": {
+    "count": 150529,
+    "confident": 0,
+    "at_60": 11,
+    "strongest": [
+     {
+      "hits": 79,
+      "windows": 4,
+      "confident": false,
+      "query": " 2. Skynet & Stakka - Decoy",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "where": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json at 629 s",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Skynet & Stakka - Decoy",
+      "found_name": "Kemal & Rob Data - Star Trails (Synergy Remix)"
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "confident": false,
+      "query": "Skynet & Stakka - Decoy.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "where": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json at 629 s",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Stakka & Skynet - Decoy",
+      "found_name": "Kemal & Rob Data - Star Trails (Synergy Remix)"
+     },
+     {
+      "hits": 79,
+      "windows": 4,
+      "confident": false,
+      "query": "Skynet & Stakka - Decoy.mp3",
+      "found": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "where": "scan-stakka-skynet-knowledge.json at 629 s",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Stakka & Skynet - Decoy",
+      "found_name": "Kemal & Rob Data - Star Trails (Synergy Remix)"
+     },
+     {
+      "hits": 70,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/d. falcon - the stand.mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2027 extra/d. falcon - the stand.mp3 at +5%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - the stand",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 67,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Mystery Machine.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/NIL - Infectious.m4a",
+      "where": "sweep 2027 Ed Rush & Optical - Mystery Machine.mp3 at -5%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Mystery Machine",
+      "found_name": "NIL - Infectious"
+     },
+     {
+      "hits": 66,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/d. falcon - the stand.mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2027 extra/d. falcon - the stand.mp3 at +1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - the stand",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 65,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/d. falcon - the stand.mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2027 extra/d. falcon - the stand.mp3 at +3%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - the stand",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 64,
+      "windows": 2,
+      "confident": false,
+      "query": "Skynet & Stakka - Clockwork.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Simon Static - Rubba Rock.opus",
+      "where": "sweep 2026 Skynet & Stakka - Clockwork.mp3 at +0%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Stakka & Skynet - Clockwork",
+      "found_name": "Simon Static - Rubba Rock"
+     },
+     {
+      "hits": 64,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/d. falcon - the stand.mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2027 extra/d. falcon - the stand.mp3 at +0%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - the stand",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 63,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at +3%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 62,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at -1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 59,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/cia-various-central_beatz_ep2-cia005-promo-2000-sour/b-unknown-unknown-sour.mp3",
+      "where": "sweep 2027 extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3 at +0%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Absolute Zero & Subphonics - The Code (Usual Suspects Remix)",
+      "found_name": "Unknown - Unknown"
+     },
+     {
+      "hits": 57,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at +8%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 56,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/d. falcon - the stand.mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2027 extra/d. falcon - the stand.mp3 at +8%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - the stand",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 56,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/cia-various-central_beatz_ep2-cia005-promo-2000-sour/b-unknown-unknown-sour.mp3",
+      "where": "sweep 2027 extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3 at +5%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Absolute Zero & Subphonics - The Code (Usual Suspects Remix)",
+      "found_name": "Unknown - Unknown"
+     },
+     {
+      "hits": 55,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/d. falcon - the stand.mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2027 extra/d. falcon - the stand.mp3 at -1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - the stand",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 55,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at +1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 53,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at -3%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 50,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at +5%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 49,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/cia-various-central_beatz_ep2-cia005-promo-2000-sour/b-unknown-unknown-sour.mp3",
+      "where": "sweep 2027 extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3 at -3%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Absolute Zero & Subphonics - The Code (Usual Suspects Remix)",
+      "found_name": "Unknown - Unknown"
+     },
+     {
+      "hits": 47,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/cia-various-central_beatz_ep2-cia005-promo-2000-sour/b-unknown-unknown-sour.mp3",
+      "where": "sweep 2027 extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3 at -8%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Absolute Zero & Subphonics - The Code (Usual Suspects Remix)",
+      "found_name": "Unknown - Unknown"
+     },
+     {
+      "hits": 47,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Mystery Machine.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/NIL - Infectious.m4a",
+      "where": "sweep 2027 Ed Rush & Optical - Mystery Machine.mp3 at -1%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Mystery Machine",
+      "found_name": "NIL - Infectious"
+     },
+     {
+      "hits": 46,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/09-muffler-downfall_(original_mix).mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2026 extra/09-muffler-downfall_(original_mix).mp3 at +5%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Muffler - Downfall (Original Mix)",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 46,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at -5%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 45,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Mystery Machine.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/NIL - Infectious.m4a",
+      "where": "sweep 2027 Ed Rush & Optical - Mystery Machine.mp3 at +1%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Mystery Machine",
+      "found_name": "NIL - Infectious"
+     },
+     {
+      "hits": 44,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Hazard - Active"
+     },
+     {
+      "hits": 43,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2027 extra/05 - Bad Company - Sentient.mp3 at +0%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 43,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Mystery Machine.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/NIL - Infectious.m4a",
+      "where": "sweep 2027 Ed Rush & Optical - Mystery Machine.mp3 at -3%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Mystery Machine",
+      "found_name": "NIL - Infectious"
+     },
+     {
+      "hits": 41,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Watermelon.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+      "where": "sweep 2028 Ed Rush & Optical - Watermelon.mp3 at -1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Ed Rush & Optical - Watermelon",
+      "found_name": "300 Baud - Monotone (Mobiuz & Cycom Remix)"
+     },
+     {
+      "hits": 40,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/09-muffler-downfall_(original_mix).mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2026 extra/09-muffler-downfall_(original_mix).mp3 at -3%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Muffler - Downfall (Original Mix)",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 40,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/09-muffler-downfall_(original_mix).mp3",
+      "found": "second-library/1.mp3",
+      "where": "sweep 2026 extra/09-muffler-downfall_(original_mix).mp3 at +0%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Muffler - Downfall (Original Mix)",
+      "found_name": " - 1"
+     },
+     {
+      "hits": 40,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/a. falcon - fractles.mp3",
+      "found": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+      "where": "sweep 2027 extra/a. falcon - fractles.mp3 at -5%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "falcon - fractles",
+      "found_name": "Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental)"
+     },
+     {
+      "hits": 40,
+      "windows": 2,
+      "confident": false,
+      "query": "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+      "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-07/cia-various-central_beatz_ep2-cia005-promo-2000-sour/b-unknown-unknown-sour.mp3",
+      "where": "sweep 2027 extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3 at +1%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Absolute Zero & Subphonics - The Code (Usual Suspects Remix)",
+      "found_name": "Unknown - Unknown"
+     },
+     {
+      "hits": 40,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2028 extra/05 - Bad Company - Sentient.mp3 at -1%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     },
+     {
+      "hits": 40,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -3%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Hazard - Active"
+     },
+     {
+      "hits": 39,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at -5%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Hazard - Active"
+     },
+     {
+      "hits": 39,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+      "found": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+      "where": "sweep 2029 extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 at +0%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Fanfare - Aphrodite",
+      "found_name": "Hazard - Active"
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Watermelon.mp3",
+      "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+      "where": "sweep 2027 Ed Rush & Optical - Watermelon.mp3 at -1%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Ed Rush & Optical - Watermelon",
+      "found_name": "300 Baud - Monotone (Mobiuz & Cycom Remix)"
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "confident": false,
+      "query": "Ed Rush & Optical - Dozer.mp3",
+      "found": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) DJ Daze - Religion (Drum'n'Bass) (Drum'n'Bass).opus",
+      "where": "sweep 2027 Ed Rush & Optical - Dozer.mp3 at +8%",
+      "held_out": false,
+      "label": "unrelated",
+      "query_name": "Ed Rush & Optical - Dozer",
+      "found_name": "(Drum'n'Bass) (Drum'n'Bass) DJ Daze - Religion (Drum'n'Bass) (Drum'n'Bass)"
+     },
+     {
+      "hits": 38,
+      "windows": 3,
+      "confident": false,
+      "query": "extra/05 - Bad Company - Sentient.mp3",
+      "found": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+      "where": "sweep 2028 extra/05 - Bad Company - Sentient.mp3 at +5%",
+      "held_out": true,
+      "label": "unrelated",
+      "query_name": "Bad Company - Sentient",
+      "found_name": "Shere Khan - Criminal Record"
+     }
+    ]
+   }
+  },
+  "strongest": {
+   "all": {
+    "hits": 220,
+    "windows": 3,
+    "confident": false,
+    "query": "Bad Company - The Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "where": "sweep 2028 Bad Company - The Nine.mp3 at +0%",
+    "held_out": false,
+    "label": "version",
+    "query_name": "Bad Company - The Nine",
+    "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+   },
+   "without_same_name": {
+    "hits": 220,
+    "windows": 3,
+    "confident": false,
+    "query": "Bad Company - The Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "where": "sweep 2028 Bad Company - The Nine.mp3 at +0%",
+    "held_out": false,
+    "label": "version",
+    "query_name": "Bad Company - The Nine",
+    "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+   },
+   "unrelated": {
+    "hits": 79,
+    "windows": 4,
+    "confident": false,
+    "query": " 2. Skynet & Stakka - Decoy",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "where": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json at 629 s",
+    "held_out": false,
+    "label": "unrelated",
+    "query_name": "Skynet & Stakka - Decoy",
+    "found_name": "Kemal & Rob Data - Star Trails (Synergy Remix)"
+   },
+   "audio_not_in_the_index": {
+    "hits": 197,
+    "windows": 3,
+    "confident": false,
+    "query": "extra/A- The_Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "where": "sweep 2027 extra/A- The_Nine.mp3 at +5%",
+    "held_out": true,
+    "label": "version",
+    "query_name": "Bad Company - The Nine",
+    "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+   },
+   "audio_not_in_the_index_without_same_name": {
+    "hits": 197,
+    "windows": 3,
+    "confident": false,
+    "query": "extra/A- The_Nine.mp3",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "where": "sweep 2027 extra/A- The_Nine.mp3 at +5%",
+    "held_out": true,
+    "label": "version",
+    "query_name": "Bad Company - The Nine",
+    "found_name": "Bad Company - The Nine (Evol Intent VIP)"
+   }
+  },
+  "margins": {
+   "all": 3.0045454545454544,
+   "without_same_name": 3.0045454545454544,
+   "unrelated": 8.367088607594937,
+   "audio_not_in_the_index": 3.3553299492385786,
+   "audio_not_in_the_index_without_same_name": 3.3553299492385786
+  },
+  "confident_false_list": [],
+  "confident_false_pairs": []
+ },
+ "sweeps_against_0067": {
+  "2026": {
+   "indexed_assets": [
+    32358,
+    33513
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    4,
+    0
+   ],
+   "wrong_pairs_before": [
+    {
+     "query": "Ed Rush & Optical - Funktion.mp3",
+     "found": "203-ed_rush_and_optical-funktion-sour.mp3",
+     "count": 4,
+     "max_hits": 264
+    }
+   ],
+   "wrong_pairs_now": []
+  },
+  "2027": {
+   "indexed_assets": [
+    32357,
+    33513
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    0,
+    0
+   ],
+   "wrong_pairs_before": [],
+   "wrong_pairs_now": []
+  },
+  "2028": {
+   "indexed_assets": [
+    32349,
+    33504
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    8,
+    0
+   ],
+   "wrong_pairs_before": [
+    {
+     "query": "Bad Company - The Nine.mp3",
+     "found": "206-bad_company-the_nine-sour.mp3",
+     "count": 8,
+     "max_hits": 382
+    }
+   ],
+   "wrong_pairs_now": []
+  },
+  "2029": {
+   "indexed_assets": [
+    32345,
+    33500
+   ],
+   "recalled": [
+    "540/540",
+    "540/540"
+   ],
+   "wrong": [
+    12,
+    0
+   ],
+   "wrong_pairs_before": [
+    {
+     "query": "01 - Ed Rush & Optical - Funktion.mp3",
+     "found": "203-ed_rush_and_optical-funktion-sour.mp3",
+     "count": 8,
+     "max_hits": 332
+    },
+    {
+     "query": "Ed Rush & Optical - Funktion.mp3",
+     "found": "203-ed_rush_and_optical-funktion-sour.mp3",
+     "count": 4,
+     "max_hits": 264
+    }
+   ],
+   "wrong_pairs_now": []
+  }
+ },
+ "machine": "scans under other load (load average 100-200); sweeps with most of the machine"
+}

@@ -123,6 +123,22 @@ threshold. Costs: sweeps 1,535-1,584 s, 14,012-14,535 s CPU, 6.3-6.7 GB;
 scans 307-315 s, 2,281-2,328 s CPU, 4.8 GB (+19-20% CPU for +20%
 records).
 
+Session 11, the NAS baseline after the prune (store
+`f9f9bc706195a71b`, 33,596 records: eight patterns for mixed discs beside
+unmixed ones, 1,252 new uploads; the clusters of experiment 0071;
+experiment 0073): development scan 11/11, 0 wrong; leave-outs 3 and 11
+8/11 and 0/11, 0 wrong; sweeps 2026-2029 540/540 each and 0 wrong (24
+before, all from Essential Rewindz's mixed disc 2, now pruned); over the
+four seeds weakest identifying 661, strongest false 220 (The Nine ~ Evol
+Intent VIP, judged different), 3.00× with and without same-name pairs;
+on audio not in the index 197 (the same VIP), 3.36×; unrelated chance
+63-70 hits. The 2003 mix: 12/12 at NAS scale and 7/7 at 262 tracks, 0
+wrong; margins 3.00× and 6.65×. The rule stays 240 hits in 3 windows:
+nothing false reaches it, and the nearest candidate (1.09× below) is a
+VIP of the played track, the question of a statistic for shared
+material. Costs: sweeps 1,666-1,724 s, 14,619-15,129 s CPU, 6.8-6.9 GB;
+scans 2,337-2,368 s CPU, 4.9 GB (wall times under other load).
+
 ## After indexing more tracks
 
 0. Before indexing, `gunfinger-eval baseline <name>` keeps the reports at
