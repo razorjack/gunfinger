@@ -269,13 +269,19 @@ fn a_damaged_file_is_passed_over_until_it_changes() {
             .env("XDG_CACHE_HOME", dir.join("cache"))
             .output()
             .unwrap();
-        String::from_utf8_lossy(&output.stderr).into_owned()
+        (
+            output.status.success(),
+            String::from_utf8_lossy(&output.stderr).into_owned(),
+        )
     };
 
-    let first = index();
-    let second = index();
+    let (first_ok, first) = index();
+    let (second_ok, second) = index();
     std::fs::write(&damaged, b"still not audio, and changed").unwrap();
-    let after_change = index();
+    let (changed_ok, after_change) = index();
+    assert!(!first_ok);
+    assert!(second_ok);
+    assert!(!changed_ok);
 
     assert!(first.contains("1 failed, 0 passed over"), "{first}");
     assert!(second.contains("0 failed, 1 passed over"), "{second}");
