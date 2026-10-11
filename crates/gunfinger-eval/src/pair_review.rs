@@ -8,7 +8,7 @@
 //! appends the verdict line the sheet shows to the verdicts file. It writes
 //! nothing else, and nothing without a key.
 
-use std::fs::{self, OpenOptions};
+use std::fs;
 use std::io::{BufRead, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
@@ -263,7 +263,7 @@ pub fn review(
         }
         match listen(item, input, output, &mut play)? {
             Decision::Verdict(same) => {
-                append(verdicts_file, same, &item.pair)?;
+                Verdicts::append(verdicts_file, same, &item.pair.0, &item.pair.1)?;
                 outcome.written += 1;
                 let word = if same { "same" } else { "different" };
                 say(
@@ -353,25 +353,6 @@ fn listen(
             }
         }
     }
-}
-
-/// Appends `same|different<TAB>a<TAB>b`, starting a new line if the file
-/// does not end with one.
-fn append(verdicts_file: &Path, same: bool, (a, b): &(String, String)) -> Result<(), String> {
-    let ends_with_newline = fs::read(verdicts_file)
-        .map_or(true, |bytes| bytes.last().is_none_or(|&last| last == b'\n'));
-    let mut file = OpenOptions::new()
-        .create(true)
-        .append(true)
-        .open(verdicts_file)
-        .map_err(|error| format!("cannot open {}: {error}", verdicts_file.display()))?;
-    let word = if same { "same" } else { "different" };
-    let line = format!(
-        "{}{word}\t{a}\t{b}\n",
-        if ends_with_newline { "" } else { "\n" }
-    );
-    file.write_all(line.as_bytes())
-        .map_err(|error| format!("cannot write {}: {error}", verdicts_file.display()))
 }
 
 /// Plays a clip to the end with `ffplay`, as `gunfinger listen` does.

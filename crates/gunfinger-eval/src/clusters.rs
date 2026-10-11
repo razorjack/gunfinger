@@ -24,6 +24,7 @@
 
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::fs;
+use std::io::Write as _;
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
@@ -749,10 +750,32 @@ impl Verdicts {
         )
     }
 
-    fn verdict(&self, a: &str, b: &str) -> Option<bool> {
+    /// The verdict by ear on these two files, in either order: `true` for
+    /// the same recording.
+    pub fn verdict(&self, a: &str, b: &str) -> Option<bool> {
         self.verdicts
             .get(&ordered(a, b))
             .map(|verdict| verdict.same)
+    }
+
+    /// Appends `same|different<TAB>a<TAB>b` to `path`, starting a new line
+    /// if the file does not end with one, and returns the bytes appended.
+    pub fn append(path: &Path, same: bool, a: &str, b: &str) -> Result<String, String> {
+        let ends_with_newline =
+            fs::read(path).map_or(true, |bytes| bytes.last().is_none_or(|&last| last == b'\n'));
+        let mut file = fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(path)
+            .map_err(|error| format!("cannot open {}: {error}", path.display()))?;
+        let word = if same { "same" } else { "different" };
+        let line = format!(
+            "{}{word}\t{a}\t{b}\n",
+            if ends_with_newline { "" } else { "\n" }
+        );
+        file.write_all(line.as_bytes())
+            .map_err(|error| format!("cannot write {}: {error}", path.display()))?;
+        Ok(line)
     }
 
     fn judged_different(&self) -> impl Iterator<Item = (&str, &str)> {

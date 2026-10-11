@@ -17,11 +17,11 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Matcher, search, search_peaks, search_with};
 use gunfinger_core::speed::{Playback, Rung, key_lock_ladder, ladder};
 use gunfinger_core::store::{PeakRecord, PeakStore};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::padding::SECOND_LIBRARY_PREFIX;
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct PairReport {
     pub query: String,
     pub found: String,
@@ -30,14 +30,14 @@ pub struct PairReport {
     pub searches: Vec<Search>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Search {
     pub name: String,
     /// The found file's alignments, strongest first.
     pub alignments: Vec<Alignment>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Alignment {
     pub query_start_seconds: f64,
     pub query_end_seconds: f64,
@@ -55,7 +55,7 @@ pub struct Alignment {
     /// For the search at the fitted speed: the seconds of the shorter file
     /// that hold a hit of the alignment, over its length. Coverage counts
     /// the span from the first hit to the last, gaps included.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub supported: Option<f64>,
 }
 

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Gunfinger · listening</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <aside id="queue" aria-label="Questions"></aside>
+  <main>
+    <header>
+      <div id="position" class="muted"></div>
+      <h1 id="title">Loading the questions…</h1>
+      <p id="text"></p>
+      <ul id="details" class="muted"></ul>
+    </header>
+    <section id="choices" aria-label="Answers"></section>
+    <section id="transport" class="muted">
+      <span id="clock"></span>
+      <span id="modes"></span>
+    </section>
+    <section id="lanes" aria-label="Lanes"></section>
+    <div id="tooltip" hidden></div>
+    <section id="legend" class="muted"></section>
+    <div id="message" role="status"></div>
+  </main>
+  <div id="help" hidden>
+    <div class="panel">
+      <h2>Keys</h2>
+      <table id="help-keys"></table>
+      <p class="muted">Mouse: click or drag on a waveform to seek; click a marker to
+        jump to it; click a question on the left to open it. Lanes play on one
+        timeline: switching lanes keeps the musical moment. Speed matching plays
+        each lane at its placement's speed (pitch and tempo together, like a
+        turntable); without it a lane plays at its own speed and the playhead
+        follows that lane.</p>
+      <p class="muted" id="help-files"></p>
+      <p class="muted">Press ? or Escape to close.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -3,6 +3,7 @@
 //! This crate is the only one that reads ground truth. The core and the CLI
 //! never see a manifest.
 
+mod audition;
 mod calibrate;
 mod clusters;
 mod fullest;
@@ -210,6 +211,30 @@ enum Command {
         #[arg(long)]
         pack: Option<PathBuf>,
     },
+    /// Serve the listening page (ADR 0016) on 127.0.0.1 and open it in the
+    /// default browser, to answer the questions of the question
+    /// files by ear, one key per answer. Answers go to the answer log and,
+    /// for pairs, `same` and `different` to --verdicts.
+    Audition {
+        /// Question files [default: every `*.json` in
+        /// <work>/audition/questions/, in name order].
+        files: Vec<PathBuf>,
+        /// The answer log [default: <work>/audition/answers.jsonl].
+        #[arg(long)]
+        answers: Option<PathBuf>,
+        /// Print the page's address without opening a browser.
+        #[arg(long)]
+        no_open: bool,
+        /// The port to listen on [default: a free one].
+        #[arg(long, default_value_t = 0)]
+        port: u16,
+    },
+    /// Write a question file for `audition` from evidence: the listening
+    /// pack, release folders, or a report's detections.
+    Questions {
+        #[command(subcommand)]
+        source: QuestionSource,
+    },
     /// Search each pair's first file against its second alone, on several
     /// ladders and at the fitted speed, and list every alignment: why two
     /// rips cover less of each other than the clustering rule needs.
@@ -359,6 +384,47 @@ enum Command {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
     },
+}
+
+/// Where `questions` takes its evidence from.
+#[derive(Subcommand)]
+enum QuestionSource {
+    /// The listening pack's items, in its README's order, as pair
+    /// questions; written to <work>/audition/questions/01-pack.json.
+    Pack {
+        /// The pack [default: <work>/listening].
+        #[arg(long)]
+        pack: Option<PathBuf>,
+        /// Question texts and extra lanes by item number (TOML; see
+        /// `docs/audition-questions.md`).
+        #[arg(long)]
+        plan: Option<PathBuf>,
+        /// `pair` reports whose exact alignments replace the sheets'
+        /// rounded ones, and which place extra lanes (repeatable).
+        #[arg(long = "pair-report")]
+        pair_reports: Vec<PathBuf>,
+        #[command(flatten)]
+        roots: SecondLibraryRoot,
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
+    /// Release folders from a plan (TOML), each asked "is this a mixed
+    /// CD?"; written to <work>/audition/questions/02-folders.json.
+    Folders {
+        plan: PathBuf,
+        #[command(flatten)]
+        roots: SecondLibraryRoot,
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
+}
+
+/// Where the files named `second-library/<path>` are.
+#[derive(clap::Args)]
+struct SecondLibraryRoot {
+    /// The root of the other library's files (the NAS).
+    #[arg(long, default_value = "/Volumes/atlas/Music/dnb")]
+    second_library_root: PathBuf,
 }
 
 fn main() -> ExitCode {
@@ -532,6 +598,20 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             }
             Ok(())
         }
+        Command::Audition {
+            files,
+            answers,
+            no_open,
+            port,
+        } => audition::server::serve(&audition::server::Options {
+            question_files: question_files(&paths.work, files)?,
+            answers: answers.unwrap_or_else(|| audition::answers::default_log(&paths.work)),
+            verdicts: paths.verdicts.clone(),
+            work: paths.work.clone(),
+            open_browser: !no_open,
+            port,
+        }),
+        Command::Questions { source } => make_questions(paths, source),
         Command::Pair { pairs } => {
             let text = fs::read_to_string(&pairs)
                 .map_err(|error| format!("cannot read {}: {error}", pairs.display()))?;
@@ -1542,6 +1622,92 @@ const OTHER_SAMPLE_SEED: u64 = 2026;
 /// One worker thread per core.
 fn available_parallelism() -> usize {
     std::thread::available_parallelism().map_or(1, NonZeroUsize::get)
+}
+
+/// The question files named, or every `*.json` of the default folder in
+/// name order.
+fn question_files(work: &Path, named: Vec<PathBuf>) -> Result<Vec<PathBuf>, String> {
+    if !named.is_empty() {
+        return Ok(named);
+    }
+    let folder = work.join("audition").join("questions");
+    let mut files: Vec<PathBuf> = fs::read_dir(&folder)
+        .map_err(|error| {
+            format!(
+                "cannot read {} ({error}); make questions first with `gunfinger-eval questions pack` or name question files",
+                folder.display()
+            )
+        })?
+        .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+        .filter(|path| path.extension().is_some_and(|extension| extension == "json"))
+        .collect();
+    files.sort();
+    if files.is_empty() {
+        return Err(format!("{} holds no question files", folder.display()));
+    }
+    Ok(files)
+}
+
+fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
+    let questions_dir = paths.work.join("audition").join("questions");
+    let libraries = |roots: &SecondLibraryRoot| -> Result<audition::names::Libraries, String> {
+        let absolute = |path: &Path| {
+            std::path::absolute(path)
+                .map_err(|error| format!("cannot resolve {}: {error}", path.display()))
+        };
+        Ok(audition::names::Libraries {
+            corpus: absolute(&paths.corpus.join("library"))?,
+            second: absolute(&roots.second_library_root)?,
+        })
+    };
+    let (file, out) = match source {
+        QuestionSource::Pack {
+            pack,
+            plan,
+            pair_reports,
+            roots,
+            out,
+        } => {
+            let plan = plan
+                .as_deref()
+                .map(audition::pack::Plan::load)
+                .transpose()?
+                .unwrap_or_default();
+            let file = audition::pack::questions(
+                &pack.unwrap_or_else(|| paths.work.join("listening")),
+                &plan,
+                &audition::pack::Reports::load(&pair_reports)?,
+                &libraries(&roots)?,
+            )?;
+            (
+                file,
+                out.unwrap_or_else(|| questions_dir.join("01-pack.json")),
+            )
+        }
+        QuestionSource::Folders { plan, roots, out } => {
+            let envelopes = audition::audio::Envelopes::below(&paths.work);
+            let file = audition::folders::questions(
+                &audition::folders::Plan::load(&plan)?,
+                &libraries(&roots)?,
+                |path| {
+                    envelopes
+                        .get(path)
+                        .map(|envelope| envelope.duration_seconds)
+                },
+            )?;
+            (
+                file,
+                out.unwrap_or_else(|| questions_dir.join("02-folders.json")),
+            )
+        }
+    };
+    audition::schema::save(&out, &file)?;
+    println!(
+        "wrote {} questions to {}",
+        file.questions.len(),
+        out.display()
+    );
+    Ok(())
 }
 
 fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {
