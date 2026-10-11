@@ -1,0 +1,87 @@
+{
+ "command": "gunfinger identify razorjack-2003-03-29.mp3 --config nas-dnb.toml --store-only --playback both -f json -v (saved index, warm)",
+ "binary": "work/bin/s11-code (1afd8cc)",
+ "store_revision": "f9f9bc706195a71b",
+ "records": 33596,
+ "sampler": "macOS sample, every 10 ms, attached about 0.5 s after the start",
+ "header": "samples: 184026, CPU samples: 166639",
+ "stages": {
+  "sorting hits": {
+   "samples": 136869,
+   "share_of_cpu_percent": 82.1
+  },
+  "waiting": {
+   "samples": 17387,
+   "share_of_cpu_percent": null
+  },
+  "ladder: STFT and peak picking": {
+   "samples": 15836,
+   "share_of_cpu_percent": 9.5
+  },
+  "clustering offsets": {
+   "samples": 7571,
+   "share_of_cpu_percent": 4.5
+  },
+  "hashing and posting scans": {
+   "samples": 4088,
+   "share_of_cpu_percent": 2.5
+  },
+  "second pass: STFT and peak picking": {
+   "samples": 1544,
+   "share_of_cpu_percent": 0.9
+  },
+  "second pass: hashing, postings, lines": {
+   "samples": 441,
+   "share_of_cpu_percent": 0.3
+  },
+  "loading the saved index": {
+   "samples": 117,
+   "share_of_cpu_percent": 0.1
+  },
+  "loading records": {
+   "samples": 116,
+   "share_of_cpu_percent": 0.1
+  },
+  "distinct lines": {
+   "samples": 31,
+   "share_of_cpu_percent": 0.0
+  },
+  "other": {
+   "samples": 11,
+   "share_of_cpu_percent": 0.0
+  },
+  "chaining": {
+   "samples": 10,
+   "share_of_cpu_percent": 0.0
+  },
+  "decoding": {
+   "samples": 3,
+   "share_of_cpu_percent": 0.0
+  },
+  "planning the index": {
+   "samples": 2,
+   "share_of_cpu_percent": 0.0
+  }
+ },
+ "timings": [
+  "loaded the saved index ~/.cache/gunfinger/indexes/nas-dnb-peaks-23935cfc56936b67.index in 2.2 s",
+  "index: 33596 assets (0 excluded), 945836813 postings, 3791.7 MB, ready in 2.9 s",
+  "searched 46:10 of audio in 213.6 s (decoding 2.6 s)",
+  "      221.35 real      1833.05 user        14.09 sys",
+  "          4785311848  peak memory footprint"
+ ],
+ "session_4_0028_at_26462_assets": {
+  "single pass": {
+   "sorting hits": 87,
+   "analysing the query": 3.6,
+   "clustering offsets": 4.8,
+   "posting scans": 2.3
+  },
+  "skip at 240": {
+   "sorting hits": 77,
+   "analysing the query": 12,
+   "clustering offsets": 4.4,
+   "posting scans": 2.4
+  }
+ }
+}
