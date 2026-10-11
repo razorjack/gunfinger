@@ -3,7 +3,7 @@
 //! without searching (`gunfinger show`).
 
 use std::path::{Path, PathBuf};
-use std::time::Duration;
+use std::time::{Duration, UNIX_EPOCH};
 
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::Excerpt;
@@ -53,6 +53,30 @@ pub struct Query {
     /// of the recording.
     #[serde(default)]
     pub requested_duration_seconds: Option<f64>,
+    /// The source file as it was before and after decoding.
+    #[serde(default)]
+    pub source: Option<QuerySource>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct QuerySource {
+    pub size: u64,
+    pub modified_nanos: i128,
+}
+
+impl QuerySource {
+    pub fn read(path: &Path) -> std::io::Result<Self> {
+        let metadata = std::fs::metadata(path)?;
+        let modified = metadata.modified()?;
+        let modified_nanos = match modified.duration_since(UNIX_EPOCH) {
+            Ok(duration) => duration.as_nanos() as i128,
+            Err(error) => -(error.duration().as_nanos() as i128),
+        };
+        Ok(Self {
+            size: metadata.len(),
+            modified_nanos,
+        })
+    }
 }
 
 /// Everything besides the recording and the playback that decides what a
@@ -275,6 +299,7 @@ impl Report {
                 duration_seconds: duration.as_secs_f64(),
                 playback: Some(playback),
                 requested_duration_seconds: excerpt.duration.map(|duration| duration.as_secs_f64()),
+                source: None,
             },
             library: absolute(&catalog.root),
             search: Some(SearchSettings::current(catalog.matcher, &catalog.revision)),

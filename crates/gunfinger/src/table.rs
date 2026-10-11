@@ -192,6 +192,7 @@ pub mod tests {
                 duration_seconds: 150.0,
                 playback: Some(PlaybackChoice::Both),
                 requested_duration_seconds: None,
+                source: None,
             },
             library: PathBuf::from("/library"),
             search: None,

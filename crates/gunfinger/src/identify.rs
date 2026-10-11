@@ -19,7 +19,7 @@ use crate::catalog::{Catalog, Indexable, Source, absolute};
 use crate::console::Console;
 use crate::output::{ReportFormat, render};
 use crate::playback::PlaybackChoice;
-use crate::report::{Report, SearchSettings};
+use crate::report::{QuerySource, Report, SearchSettings};
 use crate::style::Style;
 
 pub struct Request<'a> {
@@ -177,6 +177,11 @@ fn outdated(
     if query.path != absolute(audio) {
         return Some(format!("is of {}", query.path.display()));
     }
+    if query.source.is_none() || query.source != QuerySource::read(audio).ok() {
+        return Some(String::from(
+            "does not match the recording's current size and modification time",
+        ));
+    }
     let start = request.excerpt.start.unwrap_or_default().as_secs_f64();
     let duration = request
         .excerpt
@@ -232,7 +237,14 @@ fn report_path(dir: &Path, audio: &Path) -> PathBuf {
 fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::Result<Report> {
     let profile = Profile::CURRENT;
     let started = Instant::now();
+    let source = QuerySource::read(audio_path).into_diagnostic()?;
     let audio = decode(audio_path, profile.sample_rate, request.excerpt).into_diagnostic()?;
+    if source != QuerySource::read(audio_path).into_diagnostic()? {
+        return Err(miette!(
+            "{} changed while being decoded; search it again once the file is stable",
+            audio_path.display()
+        ));
+    }
     let decoded = started.elapsed();
     let ladder = request.playback.rungs();
     let detections = search_with_progress(
@@ -255,12 +267,74 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
         started.elapsed().as_secs_f64(),
         decoded.as_secs_f64()
     ));
-    Ok(Report::new(
+    let mut report = Report::new(
         catalog,
         &absolute(audio_path),
         request.excerpt,
         audio.duration(),
         request.playback,
         &detections,
-    ))
+    );
+    report.query.source = Some(source);
+    Ok(report)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::catalog::SavedIndex;
+    use crate::console::Verbosity;
+    use crate::style::ColorChoice;
+    use gunfinger_core::indexing::TrackLength;
+    use std::time::Duration;
+
+    #[test]
+    fn replacing_query_audio_invalidates_a_saved_report() {
+        let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../work/tests/query-identity");
+        fs::create_dir_all(&dir).unwrap();
+        let audio = dir.join("mix.wav");
+        let saved = dir.join("mix.json");
+        fs::write(&audio, b"original audio").unwrap();
+        let console = Console::new(ColorChoice::Never, Verbosity::Quiet);
+        let request = Request {
+            audio: &[],
+            source: Source {
+                library: None,
+                peaks_dir: &dir,
+                store_only: true,
+                exclude_from: None,
+                track_length: TrackLength {
+                    min: Duration::ZERO,
+                    max: Duration::from_secs(1000),
+                },
+                saved_index: SavedIndex::Off,
+            },
+            excerpt: Excerpt::default(),
+            playback: PlaybackChoice::Both,
+            matcher: Matcher::default(),
+            format: ReportFormat::Json,
+            save_dir: None,
+            again: false,
+            style: Style::for_stdout(ColorChoice::Never),
+            jobs: 1,
+            console: &console,
+        };
+        let settings = SearchSettings::current(request.matcher, "library");
+        let mut report = crate::table::tests::report();
+        report.query.path = absolute(&audio);
+        report.query.source = Some(QuerySource::read(&audio).unwrap());
+        report.search = Some(settings.clone());
+        fs::write(&saved, serde_json::to_string(&report).unwrap()).unwrap();
+        assert!(outdated(&request, &audio, &saved, &settings).is_none());
+        fs::write(&audio, b"replacement audio of another length").unwrap();
+        assert!(
+            outdated(&request, &audio, &saved, &settings)
+                .unwrap()
+                .contains("size and modification time")
+        );
+        report.query.source = None;
+        fs::write(&saved, serde_json::to_string(&report).unwrap()).unwrap();
+        assert!(outdated(&request, &audio, &saved, &settings).is_some());
+        fs::remove_dir_all(dir).unwrap();
+    }
 }
