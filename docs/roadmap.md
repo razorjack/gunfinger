@@ -63,15 +63,20 @@ marked as inferences were derived, not measured.
   explicit way to move a library or its peak store; on a NAS, indexing
   throughput, slow `stat` calls and reconnects.
 - **Files that vanish while the library is listed.** *(seen in session
-  12)* `Library::scan` stops at its first read error, so a file renamed
-  or deleted between `read_dir` and its `metadata` (another program
-  may write to the library) fails the whole listing with "No such file or
-  directory": `doctor`'s first run of session 12 did. Since ADR 0012,
-  `identify`, `explain` and `stats` then stop instead of searching the
-  store's records, and every command that lists the library is exposed
-  while the NAS is being written. A file or folder that is gone when it
-  is read is not part of the library: skip it and count it, and stop only
-  on other errors. Detections do not change.
+  12; done in session 13, ADR 0015)* `Library::scan` stopped at its first
+  read error, so a file renamed or deleted between `read_dir` and its
+  `metadata` (another program may write to the library) failed the whole
+  listing with "No such file or directory", and since ADR 0012 `identify`,
+  `explain` and `stats` then stopped. Now a folder, or an audio file that
+  would be an asset, that answers NotFound when read is left out and
+  counted, the first path named in one warning (`doctor`: a note); other
+  files are passed over by name without being read. Other errors stop as
+  before; the root is never skipped and is read again after such a
+  listing; `prune` and the harness refuse such a listing. Detections do
+  not change. Open: a share that drops and comes back between a vanished
+  entry and the root check gives that run a partial library (the warning
+  says so); comparing the root's device before and after would catch a
+  root that is itself a mount point left behind empty.
 - **Library ignore file.** *(our proposal, 2026-10-09; done in
   session 8, ADR 0009)* A track of a DJ-mixed CD already blends into the
   next one; indexed, it causes false joins and wrong answers (the mixed

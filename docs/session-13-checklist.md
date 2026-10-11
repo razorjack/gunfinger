@@ -21,9 +21,10 @@ for scope and rules.
   `index` report the count; the harness refuses such a listing; ADR 0015
   (ADR 0012's status points to it); tests; checks pass (266 tests);
   `regress session-13-start` identical; README
-- [ ] 3. The live NAS: `doctor` several times (audio files, vanished,
-  duration); one `identify` of the 2003 mix without `--store-only`;
-  experiment 0089
+- [x] 3. The live NAS: `doctor` 14 times (36,550-36,600 audio files,
+  nothing vanished, 28-253 s); `identify` of the 2003 mix without
+  `--store-only` with the final and the start build (byte-identical, 26
+  plays); a real race on a local disk; experiment 0089
 - [x] 4. Read-only review by a subagent; fixes (metadata only for would-be
   assets, the vanished paths kept and the first named, `doctor`'s prune
   advice, wording); checks pass (267 tests); `regress session-13-start`

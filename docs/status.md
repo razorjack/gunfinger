@@ -1881,3 +1881,16 @@ Brief `docs/brief-13.md`, checklist `docs/session-13-checklist.md`.
   0015): checking vanished paths again at the end, comparing the root's
   device. Checks pass (5:16, 267 tests); `regress session-13-start` with
   `work/bin/s13-review/` identical (208.5 s).
+- Step 3 (experiment 0089): `doctor` with `work/bin/s13-review/`
+  (18:56-18:58) and alternating with the start build (19:01-19:06, idle):
+  nothing vanished in any of the 14 NAS runs; 36,550 audio files at 18:31,
+  36,600 at 19:06 (1,422 not indexed yet); `s13-review` 28.0-28.9 s
+  against 40.1-47.7 s for the start build (runs 1-4, before 18:45, took
+  189-253 s: the NAS answered faster later, unexplained). `identify` of the
+  2003 mix through the library (no `--store-only`): 87.8 s with
+  `s13-review`, 94.6 s with the start build, the saved index loaded, 26
+  plays (24 confident), the reports byte-identical. A real race on a
+  local disk (200 folders x 20 files under `churn.py`): `doctor` with
+  the start build could not list 10 of 30 times, with `s13-review` 0 of 30
+  (9 with vanished entries, the first path named); `prune --yes` 4 of 20
+  failures against 0, 6 refusals.

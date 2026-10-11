@@ -1,0 +1,192 @@
+{
+ "store_revision": "f9f9bc706195a71b",
+ "doctor": [
+  {
+   "run": 1,
+   "build": "s13-fix",
+   "start": "18:30:54",
+   "seconds": 188.99,
+   "audio_files": 36550,
+   "not_indexed": 1372,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 2,
+   "build": "s13-fix",
+   "start": "18:34:03",
+   "seconds": 189.64,
+   "audio_files": 36554,
+   "not_indexed": 1376,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 3,
+   "build": "s13-fix",
+   "start": "18:37:13",
+   "seconds": 204.61,
+   "audio_files": 36559,
+   "not_indexed": 1381,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 4,
+   "build": "s13-fix",
+   "start": "18:40:38",
+   "seconds": 253.25,
+   "audio_files": 36565,
+   "not_indexed": 1387,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 5,
+   "build": "s13-review",
+   "start": "18:56:29",
+   "seconds": 44.24,
+   "audio_files": 36584,
+   "not_indexed": 1406,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 6,
+   "build": "s13-review",
+   "start": "18:57:14",
+   "seconds": 30.59,
+   "audio_files": 36585,
+   "not_indexed": 1407,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 7,
+   "build": "s13-start",
+   "start": "19:01:02",
+   "seconds": 47.66,
+   "audio_files": 36592,
+   "not_indexed": 1414,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 8,
+   "build": "s13-review",
+   "start": "19:01:50",
+   "seconds": 28.89,
+   "audio_files": 36593,
+   "not_indexed": 1415,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 9,
+   "build": "s13-start",
+   "start": "19:02:19",
+   "seconds": 40.14,
+   "audio_files": 36594,
+   "not_indexed": 1416,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 10,
+   "build": "s13-review",
+   "start": "19:02:59",
+   "seconds": 28.02,
+   "audio_files": 36595,
+   "not_indexed": 1417,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 11,
+   "build": "s13-start",
+   "start": "19:03:43",
+   "seconds": 40.64,
+   "audio_files": 36597,
+   "not_indexed": 1419,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 12,
+   "build": "s13-review",
+   "start": "19:04:24",
+   "seconds": 28.21,
+   "audio_files": 36598,
+   "not_indexed": 1420,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 13,
+   "build": "s13-start",
+   "start": "19:04:52",
+   "seconds": 40.28,
+   "audio_files": 36599,
+   "not_indexed": 1421,
+   "vanished_note": false,
+   "listed": true
+  },
+  {
+   "run": 14,
+   "build": "s13-review",
+   "start": "19:05:32",
+   "seconds": 28.28,
+   "audio_files": 36600,
+   "not_indexed": 1422,
+   "vanished_note": false,
+   "listed": true
+  }
+ ],
+ "identify_2003_mix": {
+  "s13-review": {
+   "seconds": 87.82,
+   "plays": 26,
+   "confident": 24,
+   "search_seconds": 48.7,
+   "vanished_warning": false
+  },
+  "s13-start": {
+   "seconds": 94.59,
+   "plays": 26,
+   "confident": 24,
+   "search_seconds": 48.8,
+   "vanished_warning": false
+  }
+ },
+ "identify_reports_byte_identical": true,
+ "race_on_local_disk": {
+  "doctor": {
+   "s13-start": {
+    "runs": 30,
+    "listed": 20,
+    "vanished": 0,
+    "failed": 10
+   },
+   "s13-review": {
+    "runs": 30,
+    "listed": 21,
+    "vanished": 9,
+    "failed": 0
+   }
+  },
+  "prune --yes": {
+   "s13-start": {
+    "runs": 20,
+    "listed": 16,
+    "refused_vanished": 0,
+    "failed": 4
+   },
+   "s13-review": {
+    "runs": 20,
+    "listed": 14,
+    "refused_vanished": 6,
+    "failed": 0
+   }
+  }
+ }
+}
