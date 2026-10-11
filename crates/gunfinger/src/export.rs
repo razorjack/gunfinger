@@ -218,7 +218,7 @@ pub fn cue(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
 
 /// Cue sheets have no escape for quotes.
 fn cue_text(text: &str) -> String {
-    text.replace('"', "'")
+    text.replace('"', "'").replace(['\r', '\n'], " ")
 }
 
 /// `MM:SS:FF`; minutes go past 99 in long recordings.
@@ -247,6 +247,11 @@ mod tests {
             },
             _ => TrackName::from_file_name(asset),
         }
+    }
+
+    #[test]
+    fn cue_fields_cannot_insert_lines() {
+        assert_eq!(cue_text("a\r\nTITLE \"b\"\nc"), "a  TITLE 'b' c");
     }
 
     #[test]
