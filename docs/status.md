@@ -1548,3 +1548,39 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   `nice -n 15` beside the search). Tonight's heavy runs keep
   `work/bin/s11-code/` (`1afd8cc`); `84fe0e5`'s `regress` runs in the
   gap before evaluation 4.
+
+## 2026-10-11: isolated pre-release fixes
+
+Branch `fix/prerelease-audit`, worktree `gunfinger-prerelease-fixes`, based
+on `8038064`. The parallel session's checkout and derived files are untouched.
+Committed fixes cover time parsing, index exit status, saved report validation
+and source identity, report collisions, CUE escaping, recall exclusions,
+regression summaries, render completion, automatic fallback and alias titles.
+Stale-record invalidation and monotonic play confidence are implemented.
+All five performance candidates have measured retained changes; experiments
+0073-0078 record the wins and the alternatives not adopted.
+`CARGO_BUILD_JOBS=2 scripts/check.sh` passes formatting, Clippy with warnings
+denied and all 255 tests (43 CLI, 13 CLI integration, 119 core, 13 codecs,
+67 harness). Original audit reproductions also pass, including conflicting
+identical-audio titles rendered from a saved report with the library offline.
+`work/bin/final-eval --corpus ../gunfinger/corpus --jobs 4 regress
+before-core-fixes` passes: all 720 sweep queries and all 259 scan detections
+are identical; sweep recall 100% at every speed, zero wrong; development
+11/11, zero wrong; calibration unchanged (680/99). Experiment 0072 records
+the isolated validation. No held-out evaluation or external publication.
+
+Audit outcomes by the requested categories:
+
+- Obvious bugs: a higher-hit short segment cannot demote a confident play;
+  changed query audio invalidates saved reports; rejected replacements cannot
+  leave old peaks searchable offline; new indexing failures return failure.
+- Edge cases: oversized times and malformed report ranges return errors;
+  CUE fields stay on one line; unfinished renders cannot become cache hits;
+  recall filters removed sources before rendering; regression descriptions
+  include changes to timing, speed, confidence and other detection fields.
+- Surprising behavior: identical-audio aliases retain conflicting titles;
+  separate recordings cannot overwrite the same saved report; a nested
+  library read failure cannot silently include ignored files from the store.
+- Performance: reuse FFT scratch, restrict long refinement posting lists to
+  the candidate asset, reuse catalog preparation, split sorting only for
+  large hit buffers, and share equal-hop key-locked peak extraction.

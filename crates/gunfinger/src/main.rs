@@ -103,7 +103,7 @@ enum Command {
         #[arg(required = true)]
         audio: Vec<PathBuf>,
         /// Root directory of the indexed library [default: `library` in the
-        /// configuration file]. Without one, or when it cannot be read, the
+        /// configuration file]. Without one, or when its root is missing, the
         /// peak store's own records are searched.
         #[arg(long)]
         library: Option<PathBuf>,
@@ -157,7 +157,7 @@ enum Command {
         /// The recording, typically a DJ mix.
         audio: PathBuf,
         /// Root directory of the indexed library [default: `library` in the
-        /// configuration file]. Without one, or when it cannot be read, the
+        /// configuration file]. Without one, or when its root is missing, the
         /// peak store's own records are searched.
         #[arg(long)]
         library: Option<PathBuf>,
@@ -273,7 +273,7 @@ enum Command {
     /// Measure the peak store and the index of a library.
     Stats {
         /// Root directory of the indexed library [default: `library` in the
-        /// configuration file]. Without one, or when it cannot be read, the
+        /// configuration file]. Without one, or when its root is missing, the
         /// peak store's own records are searched.
         #[arg(long)]
         library: Option<PathBuf>,
