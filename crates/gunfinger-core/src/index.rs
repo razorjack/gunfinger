@@ -119,6 +119,14 @@ impl Index {
         &self.postings[start..end]
     }
 
+    /// The contiguous postings of one asset, in their original order.
+    pub fn postings_for_asset(&self, hash: PairHash, asset: AssetId) -> &[Posting] {
+        let postings = self.postings(hash);
+        let first = postings.partition_point(|posting| posting.asset() < asset);
+        let end = first + postings[first..].partition_point(|posting| posting.asset() == asset);
+        &postings[first..end]
+    }
+
     /// The postings a search scans for candidates: all of them, unless
     /// `skipping_fullest` set the fullest lists aside.
     pub fn scanned_postings(&self, hash: PairHash) -> &[Posting] {
@@ -385,6 +393,23 @@ mod tests {
         let mut hashes = Vec::new();
         for_each_pair(&points, |hash, _| hashes.push(hash));
         hashes
+    }
+
+    #[test]
+    fn asset_postings_match_a_full_scan_including_missing_assets() {
+        let peaks = [(10.0, 100.0), (20.0, 110.0), (30.0, 120.0)];
+        let index = Index::build(&[record("a.mp3", &peaks), record("b.mp3", &peaks)]).unwrap();
+        for hash in hashes_of(&peaks) {
+            for asset in [AssetId(0), AssetId(1), AssetId(2)] {
+                let expected: Vec<_> = index
+                    .postings(hash)
+                    .iter()
+                    .copied()
+                    .filter(|p| p.asset() == asset)
+                    .collect();
+                assert_eq!(index.postings_for_asset(hash, asset), expected);
+            }
+        }
     }
 
     #[test]
