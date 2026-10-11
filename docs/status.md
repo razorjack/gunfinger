@@ -1548,3 +1548,36 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
   `nice -n 15` beside the search). Tonight's heavy runs keep
   `work/bin/s11-code/` (`1afd8cc`); `84fe0e5`'s `regress` runs in the
   gap before evaluation 4.
+- 03:08:44: the clusters search ended, exit 0 (29,130 s wall, 122,481 s
+  CPU, 6.19 GB; 648 queries in rounds of 352, 294 and 2). Its cycles
+  (+8.0%) and instructions (+5.9%) match session 10's work plus 3.6% more
+  records; the 3.6 times longer wall time came from the machine's load.
+  267 clusters. `regress session-11-start` with `work/bin/s11-code/`
+  (`1afd8cc`, items 3a-3c): 720/720 sweep queries and 87, 93, 79 scan
+  detections identical, the known calibrate line (03:14).
+- Item 4 (experiment 0071): 13 corpus clusters change (six lose a pruned
+  mixed-disc track, seven gain a new upload); 18 of 0066's 33 unjudged
+  borderline pairs go with a pruned file, 15 stay, 2 are new (the test
+  reference for Mind Overload against Molten Beats' `111`, 79.3%, an
+  edit with about 45 s cut; T-Minus against its unreleased vocal mix).
+  The listening pack: of 30 items, 21 stay (the cut Sonar join, 10
+  borderline pairs, the 10 controls, all still joined), 9 go (the
+  Essential Rewindz items, a file pruned); the 2 new pairs measured by
+  `pair` (`work/s11/pack/`). Clips are rendered while item 5 runs.
+- The listening pack rebuilt (03:45): session 10's pack moved to
+  `work/listening-s10/`; `work/listening/` holds the 21 kept folders
+  (copied unchanged, `items-s10-kept.json`) and the 2 new items rendered
+  from `pairs-s11-items-pairs.json`; README: 23 items, the cut Sonar
+  join first, Mind Overload second, the 10 controls last. `pair-review`
+  read all 23 with a fake `ffplay` and a temporary copy of the verdicts
+  (`docs/pair-verdicts.txt` unchanged, checked by digest).
+- Item 3a's acceptance (03:15-03:38, nothing else of this session
+  running; other processes kept the load average at 130-210): the
+  2003 mix at NAS scale with `--saved-index off`, then `use` without a
+  file (built and saved), then `use` with it (warm), byte-identical JSON
+  reports. Index ready in 118.1 s (off), 167.2 s (built 163.2 s, saved
+  2.0 s), 3.0 s (loaded 2.2 s); `explain` 14 s in all. The file is
+  3,795,332,786 bytes, beside a 2.59 GB store. The cold load waits for
+  the end of item 5. Item 3b on the same report: play 4 ("Sex Drive")
+  names plays 5-7 ("The Specialist"); the tracklist says "titles
+  disagree: Future Cut - The Specialist".
