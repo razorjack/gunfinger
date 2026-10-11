@@ -1,0 +1,76 @@
+{
+ "command": "gunfinger identify razorjack-2003-03-29.mp3 --config nas-dnb.toml --store-only --playback both -f json -v (saved index, warm)",
+ "binary": "work/bin/s12-item5 (0a625f3's code: counting sort, 8-byte found hits)",
+ "store_revision": "f9f9bc706195a71b",
+ "records": 33596,
+ "sampler": "macOS sample, every 10 ms, attached at the start",
+ "attribution": "work/s12/py/sample_stages.py with markers for WindowHits::lines",
+ "wall_seconds": 92.12,
+ "user_seconds": 772.25,
+ "system_seconds": 7.45,
+ "peak_memory_bytes": 4800647344,
+ "report": "byte-identical to s12-start's",
+ "header": "samples: 73800, CPU samples: 66689",
+ "stages": {
+  "sorting hits: each asset's offsets": {
+   "samples": 26219,
+   "share_of_cpu_percent": 39.3
+  },
+  "grouping by asset (counting sort) and lines": {
+   "samples": 21594,
+   "share_of_cpu_percent": 32.4
+  },
+  "ladder: STFT and peak picking": {
+   "samples": 12595,
+   "share_of_cpu_percent": 18.9
+  },
+  "waiting": {
+   "samples": 7111,
+   "share_of_cpu_percent": null
+  },
+  "hashing and posting scans": {
+   "samples": 4305,
+   "share_of_cpu_percent": 6.5
+  },
+  "second pass: STFT and peak picking": {
+   "samples": 1471,
+   "share_of_cpu_percent": 2.2
+  },
+  "loading the saved index": {
+   "samples": 243,
+   "share_of_cpu_percent": 0.4
+  },
+  "second pass: hashing, postings, lines": {
+   "samples": 88,
+   "share_of_cpu_percent": 0.1
+  },
+  "loading records": {
+   "samples": 85,
+   "share_of_cpu_percent": 0.1
+  },
+  "distinct lines": {
+   "samples": 35,
+   "share_of_cpu_percent": 0.1
+  },
+  "clustering offsets": {
+   "samples": 25,
+   "share_of_cpu_percent": 0.0
+  },
+  "other": {
+   "samples": 14,
+   "share_of_cpu_percent": 0.0
+  },
+  "chaining": {
+   "samples": 8,
+   "share_of_cpu_percent": 0.0
+  },
+  "decoding": {
+   "samples": 5,
+   "share_of_cpu_percent": 0.0
+  },
+  "one play per moment": {
+   "samples": 2,
+   "share_of_cpu_percent": 0.0
+  }
+ }
+}
