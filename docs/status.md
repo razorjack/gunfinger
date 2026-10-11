@@ -1817,3 +1817,13 @@ Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
   (5:10), `regress session-12-start` identical (`work/bin/s12-review/`,
   203.1 s). `doctor` on the NAS (16:30, 213 s): 36,376 audio files, 1,198
   not indexed yet; the saved index current.
+
+## 2026-10-11: after session 12
+
+- Checked from a separate thread: HEAD `0a5b9b5`'s `identify` of the
+  2003 mix at NAS scale (store `f9f9bc706195a71b`, `--store-only`, both
+  playbacks) gives plays byte-identical to the merged build's report of
+  experiment 0084, in 88.0 s (181.4 s there, 220.1 s before the merge),
+  4.80 GB peak.
+- Roadmap: "Files that vanish while the library is listed", from the
+  failed first `doctor` listing of session 12.

@@ -62,6 +62,16 @@ marked as inferences were derived, not measured.
   store, so two libraries cannot share a peak directory by accident; an
   explicit way to move a library or its peak store; on a NAS, indexing
   throughput, slow `stat` calls and reconnects.
+- **Files that vanish while the library is listed.** *(seen in session
+  12)* `Library::scan` stops at its first read error, so a file renamed
+  or deleted between `read_dir` and its `metadata` (another program
+  may write to the library) fails the whole listing with "No such file or
+  directory": `doctor`'s first run of session 12 did. Since ADR 0012,
+  `identify`, `explain` and `stats` then stop instead of searching the
+  store's records, and every command that lists the library is exposed
+  while the NAS is being written. A file or folder that is gone when it
+  is read is not part of the library: skip it and count it, and stop only
+  on other errors. Detections do not change.
 - **Library ignore file.** *(our proposal, 2026-10-09; done in
   session 8, ADR 0009)* A track of a DJ-mixed CD already blends into the
   next one; indexed, it causes false joins and wrong answers (the mixed
