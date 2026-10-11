@@ -101,7 +101,7 @@ pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<A
                     )))
                 } else {
                     Err(Refusal::Contradicts(format!(
-                        "{} says `{}` for {pair}; press Z to take back your answer, or edit the file",
+                        "{} already says `{}` for {pair}; to change it, take back the answer that wrote it (Z) or edit the file",
                         verdicts_file.display(),
                         recorded.value
                     )))

@@ -308,13 +308,18 @@ export class Player {
   // ---- markers ------------------------------------------------------------
 
   // Up and Down jump to a marker less MARKER_LEAD, so the moment the marker
-  // stands for is the one heard after the lead-in.
+  // stands for is the one heard after the lead-in. They pass over `join`
+  // markers, which only show where a lane moves to another excerpt.
+  stops() {
+    return this.question.markers.filter((marker) => marker.kind !== "join");
+  }
+
   nextMarker(t = this.now()) {
-    return this.question.markers.find((marker) => marker.at > t + MARKER_LEAD + 0.05) ?? null;
+    return this.stops().find((marker) => marker.at > t + MARKER_LEAD + 0.05) ?? null;
   }
 
   previousMarker(t = this.now()) {
-    return this.question.markers.findLast((marker) => marker.at < t + MARKER_LEAD - 0.05) ?? null;
+    return this.stops().findLast((marker) => marker.at < t + MARKER_LEAD - 0.05) ?? null;
   }
 
   jumpTo(marker) {

@@ -57,7 +57,8 @@ kbd {
 
 #queue li {
   display: grid;
-  grid-template-columns: 5.5rem 1fr;
+  grid-template-columns: 4.6rem 1fr;
+  overflow-wrap: anywhere;
   gap: 0.4rem;
   padding: 0.3rem 0.9rem;
   cursor: pointer;

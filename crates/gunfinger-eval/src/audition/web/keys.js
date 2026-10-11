@@ -8,7 +8,7 @@ export const CONTROLS = [
   ["1 2 3 …", "switch to that lane at the same moment"],
   ["Tab", "back to the lane played before"],
   ["← →", "seek 5 s (Shift: 30 s)"],
-  ["↑ ↓", "previous or next marker (from 2 s before it)"],
+  ["↑ ↓", "previous or next marker, from 2 s before it"],
   ["L", "loop 8 s around the moment (seeking moves the loop)"],
   ["M", "speed matching on or off"],
   ["B", "this lane and the one before together, lower lane left"],

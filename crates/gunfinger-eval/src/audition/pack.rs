@@ -365,7 +365,7 @@ fn spans_of(alignments: &[Alignment], lane: usize) -> Vec<Span> {
             end: alignment.end,
             lanes: vec![0, lane],
             label: format!(
-                "{}: offset {:+.2} s, speed {:.2}%",
+                "{} · offset {:+.2} s · speed {:.2}%",
                 alignment.label,
                 alignment.offset,
                 alignment.speed * 100.0
