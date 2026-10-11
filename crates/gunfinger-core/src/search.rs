@@ -277,15 +277,56 @@ enum Query<'a> {
     Peaks(&'a [Peak]),
 }
 
+/// One worker's key-locked analysis, shared by adjacent rungs with the
+/// same rounded hop while searching the same block.
+#[derive(Default)]
+struct KeyLockPeaks {
+    hop: usize,
+    frames: Range<usize>,
+    peaks: Vec<Peak>,
+}
+
 impl Query<'_> {
     /// The query's peaks in reference coordinates under `rung` whose query
     /// frames (reference frame over speed) lie in `query_frames`, with a few
     /// more on either side. Each STFT frame's peaks are all in or all out.
-    fn points_near(self, rung: Rung, profile: &Profile, query_frames: Range<f64>) -> Vec<Point> {
+    fn points_near(
+        self,
+        rung: Rung,
+        profile: &Profile,
+        query_frames: Range<f64>,
+        cached: &mut KeyLockPeaks,
+    ) -> Vec<Point> {
         match self {
             Query::Samples(samples) => {
-                let step = rung.hop(profile) as f64 / profile.hop as f64;
-                rung.points_in(samples, profile, stft_frames(query_frames, step))
+                let hop = rung.hop(profile);
+                let step = hop as f64 / profile.hop as f64;
+                let frames = stft_frames(query_frames, step);
+                if matches!(rung, Rung::KeyLocked(_)) {
+                    if cached.hop != hop
+                        || cached.frames.start > frames.start
+                        || cached.frames.end < frames.end
+                    {
+                        cached.hop = hop;
+                        cached.frames = frames.clone();
+                        cached.peaks = crate::peaks::extract_peaks_in(
+                            samples,
+                            &Profile { hop, ..*profile },
+                            frames.clone(),
+                        );
+                    }
+                    let scale = hop as f64 * rung.speed().0 / profile.hop as f64;
+                    return cached
+                        .peaks
+                        .iter()
+                        .filter(|peak| frames.contains(&(peak.frame.round() as usize)))
+                        .map(|peak| Point {
+                            frame: peak.frame * scale,
+                            bin: peak.bin,
+                        })
+                        .collect();
+                }
+                rung.points_in(samples, profile, frames)
             }
             Query::Peaks(peaks) => {
                 let frames = stft_frames(query_frames, 1.0);

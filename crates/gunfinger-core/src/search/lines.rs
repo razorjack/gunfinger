@@ -7,7 +7,7 @@ use std::ops::Range;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, MutexGuard, PoisonError};
 
-use super::Query;
+use super::{KeyLockPeaks, Query};
 use crate::hash::{MAX_DELTA_FRAMES, for_each_pair};
 use crate::index::{AssetId, Index};
 use crate::parallel::map_in_order_with;
@@ -59,6 +59,7 @@ impl Line {
     }
 }
 
+#[derive(Clone)]
 struct Hit {
     asset: AssetId,
     /// Reference frame minus the anchor's frame at the assumed speed.
@@ -109,8 +110,9 @@ fn in_blocks(
 ) -> Vec<Line> {
     let windows = (query.frames(profile) / profile.frames(WINDOW_SECONDS)) as u32 + 1;
     let blocks = windows.div_ceil(block_windows);
-    let work: Vec<(u32, usize)> = (0..blocks)
-        .flat_map(|block| (0..ladder.len()).map(move |rung| (block, rung)))
+    let groups = rung_groups(ladder, profile);
+    let work: Vec<_> = (0..blocks)
+        .flat_map(|block| groups.iter().cloned().map(move |rungs| (block, rungs)))
         .collect();
     let unmerged: Vec<Mutex<Unmerged>> = (0..blocks)
         .map(|_| {
@@ -122,36 +124,69 @@ fn in_blocks(
         .collect();
     let merged = Mutex::new(Vec::new());
     let finished = AtomicUsize::new(0);
-    map_in_order_with(&work, jobs, Vec::new, |hits, &(block, rung)| {
+    map_in_order_with(&work, jobs, Vec::new, |hits, (block, rungs)| {
         let first = block * block_windows;
+        let mut cached = KeyLockPeaks::default();
         // The last block takes every window left, however long the query.
         let end = if block + 1 == blocks {
             u32::MAX
         } else {
             first + block_windows
         };
-        let lines = in_windows(index, query, profile, ladder[rung], first..end, hits);
-        let complete = {
-            let mut block = lock(&unmerged[block as usize]);
-            block.rungs[rung] = Some(lines);
-            block.missing -= 1;
-            (block.missing == 0).then(|| mem::take(&mut block.rungs))
-        };
-        if let Some(rungs) = complete {
-            let mut lines = Vec::with_capacity(rungs.iter().flatten().map(Vec::len).sum());
-            for rung in rungs.into_iter().flatten() {
-                lines.extend(rung);
+        for rung in rungs.clone() {
+            let lines = in_windows(
+                index,
+                query,
+                profile,
+                ladder[rung],
+                first..end,
+                hits,
+                &mut cached,
+            );
+            let complete = {
+                let mut block = lock(&unmerged[*block as usize]);
+                block.rungs[rung] = Some(lines);
+                block.missing -= 1;
+                (block.missing == 0).then(|| mem::take(&mut block.rungs))
+            };
+            if let Some(rungs) = complete {
+                let mut lines = Vec::with_capacity(rungs.iter().flatten().map(Vec::len).sum());
+                for rung in rungs.into_iter().flatten() {
+                    lines.extend(rung);
+                }
+                let kept = distinct(lines);
+                lock(&merged).extend(kept);
             }
-            let kept = distinct(lines);
-            lock(&merged).extend(kept);
+            progress(
+                finished.fetch_add(1, Ordering::Relaxed) + 1,
+                blocks as usize * ladder.len(),
+            );
         }
-        progress(finished.fetch_add(1, Ordering::Relaxed) + 1, work.len());
     });
     let mut lines = merged.into_inner().unwrap_or_else(PoisonError::into_inner);
     // Blocks finish in any order. Their windows differ, so a stable sort
     // gives the order merging all lines at once gives.
     lines.sort_by_key(|line| (line.asset, line.window));
     lines
+}
+
+fn rung_groups(ladder: &[Rung], profile: &Profile) -> Vec<Range<usize>> {
+    let mut groups = Vec::new();
+    let mut next = 0;
+    while next < ladder.len() {
+        let first = next;
+        next += 1;
+        if matches!(ladder[first], Rung::KeyLocked(_)) {
+            while next < ladder.len()
+                && matches!(ladder[next], Rung::KeyLocked(_))
+                && ladder[next].hop(profile) == ladder[first].hop(profile)
+            {
+                next += 1;
+            }
+        }
+        groups.push(first..next);
+    }
+    groups
 }
 
 /// One block's lines, by rung in ladder order, until every rung has
@@ -176,6 +211,7 @@ fn in_windows(
     rung: Rung,
     windows: Range<u32>,
     hits: &mut Vec<Hit>,
+    cached: &mut KeyLockPeaks,
 ) -> Vec<Line> {
     let speed = rung.speed();
     let window_frames = profile.frames(WINDOW_SECONDS);
@@ -186,6 +222,7 @@ fn in_windows(
         rung,
         profile,
         f64::from(windows.start) * window_frames..f64::from(windows.end) * window_frames + reach,
+        cached,
     );
     let mut lines = Vec::new();
     let mut window = 0;
@@ -221,7 +258,16 @@ fn in_windows(
 /// Groups one window's hits by asset and offset, turns the densest offset
 /// clusters into lines, and empties `hits` for the next window.
 fn lines_in_window(hits: &mut Vec<Hit>, window: u32, rung: Rung) -> Vec<Line> {
-    hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
+    if hits.len() <= 50_000 {
+        hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
+    } else {
+        // Integer grouping avoids repeating the asset comparison while
+        // ordering each asset's offsets on large libraries (experiment 0075).
+        hits.sort_unstable_by_key(|hit| hit.asset);
+        for same_asset in hits.chunk_by_mut(|a, b| a.asset == b.asset) {
+            same_asset.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
+        }
+    }
     let mut lines = Vec::new();
     for same_asset in hits.chunk_by(|a, b| a.asset == b.asset) {
         for cluster in densest_clusters(same_asset) {
@@ -333,6 +379,29 @@ pub(super) mod tests {
     }
 
     #[test]
+    fn large_buffer_sorting_preserves_each_assets_lines() {
+        let rung = Rung::Turntable(SpeedRatio(1.0));
+        let mut hits = Vec::new();
+        let mut by_asset: Vec<Vec<Hit>> = (0..400).map(|_| Vec::new()).collect();
+        for number in 0..80_000 {
+            let asset = number % 400;
+            let hit = Hit {
+                asset: AssetId(asset as u32),
+                offset: ((number / 400) % 17) as f64 * 0.25 - 2.0,
+                query_frame: number as f64 / 200.0,
+            };
+            by_asset[asset].push(hit.clone());
+            hits.push(hit);
+        }
+        let expected: Vec<_> = by_asset
+            .iter_mut()
+            .flat_map(|hits| lines_in_window(hits, 0, rung))
+            .collect();
+        assert_eq!(lines_in_window(&mut hits, 0, rung), expected);
+        assert!(hits.is_empty());
+    }
+
+    #[test]
     fn the_densest_offset_cluster_becomes_a_line() {
         let hits = [
             hit(-50.0),
@@ -373,7 +442,7 @@ pub(super) mod tests {
         // 45 s from 20.3 s in, 0.6% fast: windows hold partial alignments.
         let played = test_audio::played(&original, 1.006, 20.3, 45.0, rate);
         let peaks = test_audio::record("played.wav", &played).peaks;
-        let ladder: Vec<Rung> = [1.0, 1.004, 1.008]
+        let mut ladder: Vec<Rung> = [1.0, 1.004, 1.008]
             .into_iter()
             .flat_map(|speed| {
                 [
@@ -383,12 +452,24 @@ pub(super) mod tests {
             })
             .collect();
 
+        ladder.extend([
+            Rung::KeyLocked(SpeedRatio(1.004)),
+            Rung::KeyLocked(SpeedRatio(1.008)),
+        ]);
         for query in [Query::Samples(&played), Query::Peaks(&peaks)] {
             let whole = distinct(
                 ladder
                     .iter()
                     .flat_map(|&rung| {
-                        in_windows(&index, query, &profile, rung, 0..u32::MAX, &mut Vec::new())
+                        in_windows(
+                            &index,
+                            query,
+                            &profile,
+                            rung,
+                            0..u32::MAX,
+                            &mut Vec::new(),
+                            &mut KeyLockPeaks::default(),
+                        )
                     })
                     .collect(),
             );

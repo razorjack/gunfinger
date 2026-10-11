@@ -8,7 +8,7 @@ use gunfinger_core::indexing::{IndexingOptions, Outcome, TrackLength, index_libr
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, SkipReason};
-use miette::IntoDiagnostic;
+use miette::{IntoDiagnostic, miette};
 
 use crate::catalog::scan_library;
 use crate::console::Console;
@@ -70,6 +70,15 @@ pub fn run(
     );
 
     print_summary(&library, &outcomes, started.elapsed(), console);
+    let failed = outcomes
+        .iter()
+        .filter(|outcome| matches!(outcome, Outcome::Failed { .. }))
+        .count();
+    if failed > 0 {
+        return Err(miette!(
+            "{failed} of {total} audio files could not be indexed; see the errors above and run index again after correcting them"
+        ));
+    }
     Ok(())
 }
 

@@ -435,7 +435,7 @@ pub fn run(
     }
 
     let results: Vec<Result<QueryResult, String>> = map_in_order(&work_items, jobs, |job| {
-        if !job.path.exists() {
+        if !crate::render::is_complete(&job.path) {
             render_query(job, library, &speech, seed)?;
         }
         let audio = decode(&job.path, profile.sample_rate, Excerpt::default())

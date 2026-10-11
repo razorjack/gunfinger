@@ -84,9 +84,11 @@ target/release/gunfinger identify mix.m4a --playback turntable
 
 # Several recordings share one index build; --save-dir keeps a JSON report
 # of each and passes over recordings already reported there, unless the
-# playback, the part of the recording, the peak profile, the hash design,
-# the matching settings, the confidence rule or the indexed library changed
-# since (--again searches them anyway).
+# audio file's size or modification time, playback, the part of the recording,
+# the peak profile, the hash design, the matching settings, the confidence
+# rule or the indexed library changed since (--again searches them anyway).
+# A report owned by another recording
+# with the same file stem is refused; use another name or --save-dir.
 target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
 
 # Write a saved report in another format without searching again.
@@ -132,8 +134,10 @@ tag, which FFmpeg cannot open as it is, is read with the tag skipped and
 keeps the tag's names. Files that
 fail to decode or are outside the range are remembered in the peak store and
 passed over on later runs until they change (`--retry-skipped` tries them
-again). `identify --exclude-from FILE` leaves the listed library paths out of
-the index.
+again). A run with new indexing failures exits unsuccessfully after processing
+all files. A rejected replacement loses the earlier file's peaks, so offline
+searches cannot keep using its old audio. `identify --exclude-from FILE`
+leaves the listed library paths out of the index.
 
 Results go to stdout, everything else to stderr. By default stderr shows a
 progress line on a terminal and warnings, such as library files that are not
@@ -148,16 +152,19 @@ recording, the part of the track that was heard, speed, confidence
 (`confident` or `possible`), hits and asset path. When several library files
 hold the same audio (copies, or rips with identical peaks), their plays are
 identical and shown once, with the other paths underneath (`also ...`). A play
-of several segments lists them underneath. A possible play that lies
-entirely inside a confident play of another recording ends with `shares
-material with <asset> (play N)`, N counting plays as `review` does: most
+of several segments lists them underneath and keeps the highest confidence
+reached by any one segment; their evidence is never pooled to qualify.
+A possible play that lies entirely inside a confident play of another recording
+ends with `shares material with <asset> (play N)`, N counting plays as `review` does: most
 likely the two recordings share that passage, as a remix can carry the
 original's lead. This is display only; a remix played in its own right
 reaches past the original's play, or is confident itself, and is not
 marked. When confident plays of other files over the same passage carry
 another title in their tags (a mislabelled file, or a VIP that plays the
 original's opening), a line underneath says `titled <its tags>; other
-files here: <title> (play N)`, without choosing which title is right.
+files here: <title> (play N)`, without choosing which title is right. This also
+includes conflicting titles on identical-audio copies, whose tags are saved
+in the report.
 
 `--format` (`-f`, for `identify` and `show`) also takes:
 
@@ -350,11 +357,13 @@ deleted at any time (ADR 0011).
 Each peak record names its file, and `index` keeps each file's artist,
 title and album beside its record, so the peak store alone is enough to
 identify tracks and name them. When no library is given, or the library
-cannot be read (an unmounted network share, for example), `identify`,
+root is missing (an unmounted network share, for example), `identify`,
 `explain` and `stats` search the store's current records and say so in one
-line; `--store-only` does the same when the library can be read. Reports
-name the library the store names, so `listen` and `review` play the tracks
-once it is back. Without the library there is no telling which files have
+line. Other read failures stop the command, so an unreadable subfolder cannot
+silently include ignored records. `--store-only` explicitly searches the stored
+records without reading the library. Reports name the library the store names,
+so `listen` and `review` play the tracks once it is back. Without the library
+there is no telling which files have
 changed or been deleted since they were indexed, or which the library's
 `.gunfingerignore` leaves out: their records are searched until `index` or
 `prune` replaces or removes them. A store indexed before
@@ -406,6 +415,10 @@ target/release/gunfinger-eval loss                     # where the development m
 target/release/gunfinger-eval memory --synthetic-copies 30   # memory by phase (run under /usr/bin/time -l)
 target/release/gunfinger-eval memory --count-lines     # the first pass's lines and detections instead
 ```
+
+Rendered excerpt caches are reused only after successful encoding. Caches
+from earlier versions are rendered again once, which can make the first
+evaluation after upgrading slower.
 
 `clusters` searches each file against the library on the turntable
 ladder (0.92-1.08, so uploads a few percent fast are found), measures

@@ -2,8 +2,9 @@
 //! output format is rendered from. A saved JSON report can be rendered again
 //! without searching (`gunfinger show`).
 
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
-use std::time::Duration;
+use std::time::{Duration, UNIX_EPOCH};
 
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::Excerpt;
@@ -53,6 +54,30 @@ pub struct Query {
     /// of the recording.
     #[serde(default)]
     pub requested_duration_seconds: Option<f64>,
+    /// The source file as it was before and after decoding.
+    #[serde(default)]
+    pub source: Option<QuerySource>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct QuerySource {
+    pub size: u64,
+    pub modified_nanos: i128,
+}
+
+impl QuerySource {
+    pub fn read(path: &Path) -> std::io::Result<Self> {
+        let metadata = std::fs::metadata(path)?;
+        let modified = metadata.modified()?;
+        let modified_nanos = match modified.duration_since(UNIX_EPOCH) {
+            Ok(duration) => duration.as_nanos() as i128,
+            Err(error) => -(error.duration().as_nanos() as i128),
+        };
+        Ok(Self {
+            size: metadata.len(),
+            modified_nanos,
+        })
+    }
 }
 
 /// Everything besides the recording and the playback that decides what a
@@ -77,7 +102,7 @@ impl SearchSettings {
             profile: Profile::CURRENT.id(),
             hashes: hash::design(),
             matching: search::design(matcher),
-            confidence: matcher.pass().rule().to_string(),
+            confidence: format!("{}; play=max-segment", matcher.pass().rule()),
             library_revision: library_revision.to_owned(),
         }
     }
@@ -109,6 +134,9 @@ pub struct FoundPlay {
     /// rips with identical peaks.
     #[serde(default)]
     pub same_audio: Vec<String>,
+    /// Saved tags of identical-audio copies, including conflicting titles.
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub same_audio_tags: BTreeMap<String, PlayTags>,
     pub start_seconds: f64,
     pub end_seconds: f64,
     /// Where the first segment starts and the last ends in the track.
@@ -116,7 +144,8 @@ pub struct FoundPlay {
     pub track_start_seconds: f64,
     #[serde(default)]
     pub track_end_seconds: f64,
-    /// The strongest segment's speed, playback and confidence.
+    /// The strongest segment's speed and playback; confidence is the
+    /// highest level independently reached by a segment.
     pub speed: f64,
     #[serde(default)]
     pub playback: Playback,
@@ -275,11 +304,63 @@ impl Report {
                 duration_seconds: duration.as_secs_f64(),
                 playback: Some(playback),
                 requested_duration_seconds: excerpt.duration.map(|duration| duration.as_secs_f64()),
+                source: None,
             },
             library: absolute(&catalog.root),
             search: Some(SearchSettings::current(catalog.matcher, &catalog.revision)),
             plays,
         }
+    }
+
+    fn validate(&self) -> Result<(), String> {
+        let time = |value: f64| Duration::try_from_secs_f64(value).is_ok();
+        if !time(self.query.start_seconds)
+            || !time(self.query.duration_seconds)
+            || !time(self.query.start_seconds + self.query.duration_seconds)
+            || self
+                .query
+                .requested_duration_seconds
+                .is_some_and(|value| !time(value))
+        {
+            return Err("query times must be finite, nonnegative and representable".into());
+        }
+        // CUE output may advance coincident entries by one frame each.
+        let cue_limit = u64::MAX.saturating_sub(self.plays.len() as u64) as f64;
+        for (index, play) in self.plays.iter().enumerate() {
+            let invalid = || {
+                format!(
+                    "play {} needs nonempty segments, ordered nonnegative times and positive finite speeds",
+                    index + 1
+                )
+            };
+            if play.segments.is_empty()
+                || !time(play.start_seconds)
+                || !time(play.end_seconds)
+                || play.start_seconds > play.end_seconds
+                || play.start_seconds * 75.0 >= cue_limit
+                || !play.speed.is_finite()
+                || play.speed <= 0.0
+                || !time(play.track_start_seconds)
+                || !time(play.track_end_seconds)
+            {
+                return Err(invalid());
+            }
+            for segment in &play.segments {
+                if !time(segment.start_seconds)
+                    || !time(segment.end_seconds)
+                    || segment.start_seconds > segment.end_seconds
+                    || segment.start_seconds < play.start_seconds
+                    || segment.end_seconds > play.end_seconds
+                    || !segment.speed.is_finite()
+                    || segment.speed <= 0.0
+                    || !time(segment.track_start_seconds)
+                    || !time(segment.track_end_seconds)
+                {
+                    return Err(invalid());
+                }
+            }
+        }
+        Ok(())
     }
 
     pub fn read(path: &Path) -> miette::Result<Report> {
@@ -297,6 +378,12 @@ impl Report {
                 report.schema_version
             ));
         }
+        report.validate().map_err(|reason| {
+            miette!(
+                "{} is not a valid identify report: {reason}",
+                path.display()
+            )
+        })?;
         mark_shared_material(&mut report.plays);
         mark_other_titles(&mut report.plays);
         Ok(report)
@@ -359,14 +446,26 @@ fn mark_other_titles(plays: &mut [FoundPlay]) {
                 .iter()
                 .enumerate()
                 .filter(|(_, other)| {
-                    other.asset != play.asset
-                        && play.same_recording(other)
-                        && other.compared_title().is_some_and(|title| title != own)
+                    other.confidence == Level::Confident && play.same_recording(other)
                 })
-                .map(|(index, other)| OtherTitle {
-                    play: index + 1,
-                    asset: other.asset.clone(),
-                    title: other.tagged_name().unwrap_or_default(),
+                .flat_map(|(index, other)| {
+                    other
+                        .tagged_files()
+                        .filter(|(asset, tags)| {
+                            *asset != play.asset
+                                && compared_title(tags).is_some_and(|title| title != own)
+                        })
+                        .map(|(asset, tags)| OtherTitle {
+                            play: index + 1,
+                            asset: asset.to_owned(),
+                            title: TrackName::named(
+                                tags.artist.as_deref(),
+                                tags.title.as_deref(),
+                                asset,
+                            )
+                            .full(),
+                        })
+                        .collect::<Vec<_>>()
                 })
                 .collect()
         })
@@ -407,13 +506,18 @@ impl FoundPlay {
         if self.confidence != Level::Confident {
             return None;
         }
-        let title = self.tags.as_ref()?.title.as_deref()?;
-        let words: Vec<String> = title
-            .split(|c: char| !c.is_alphanumeric())
-            .filter(|word| !word.is_empty())
-            .map(str::to_lowercase)
-            .collect();
-        (!words.is_empty()).then(|| words.join(" "))
+        compared_title(self.tags.as_ref()?)
+    }
+
+    fn tagged_files(&self) -> impl Iterator<Item = (&str, &PlayTags)> {
+        self.tags
+            .iter()
+            .map(|tags| (self.asset.as_str(), tags))
+            .chain(
+                self.same_audio_tags
+                    .iter()
+                    .map(|(asset, tags)| (asset.as_str(), tags)),
+            )
     }
 
     /// `artist - title` from the tags, when they hold a title.
@@ -432,6 +536,16 @@ impl FoundPlay {
             tags: catalog.tags(&asset).map(PlayTags::from),
             asset,
             same_audio: same.also.iter().map(|&asset| path(asset)).collect(),
+            same_audio_tags: same
+                .also
+                .iter()
+                .filter_map(|&asset| {
+                    let asset = path(asset);
+                    catalog
+                        .tags(&asset)
+                        .map(|tags| (asset, PlayTags::from(tags)))
+                })
+                .collect(),
             start_seconds: offset + play.start_seconds(),
             end_seconds: offset + play.end_seconds(),
             track_start_seconds: play.track_start_seconds(),
@@ -462,6 +576,17 @@ impl FoundPlay {
     }
 }
 
+fn compared_title(tags: &PlayTags) -> Option<String> {
+    let words: Vec<String> = tags
+        .title
+        .as_deref()?
+        .split(|c: char| !c.is_alphanumeric())
+        .filter(|word| !word.is_empty())
+        .map(str::to_lowercase)
+        .collect();
+    (!words.is_empty()).then(|| words.join(" "))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -480,6 +605,61 @@ mod tests {
             title: Some(title.to_owned()),
             album: None,
         })
+    }
+
+    #[test]
+    fn identical_audio_copies_keep_conflicting_titles() {
+        let mut report = report();
+        report.plays.truncate(1);
+        let play = &mut report.plays[0];
+        play.tags = tagged("Artist", "Wrong title");
+        play.same_audio_tags.insert(
+            "copy-of-a.wav".into(),
+            tagged("Artist", "Correct title").unwrap(),
+        );
+        mark_other_titles(&mut report.plays);
+        assert_eq!(report.plays[0].other_titles.len(), 1);
+        assert_eq!(
+            report.plays[0].other_titles[0].title,
+            "Artist - Correct title"
+        );
+        let json = serde_json::to_string(&report).unwrap();
+        let mut restored: Report = serde_json::from_str(&json).unwrap();
+        mark_other_titles(&mut restored.plays);
+        assert_eq!(restored.plays[0].other_titles, report.plays[0].other_titles);
+        let text = crate::output::render(
+            &restored,
+            crate::output::ReportFormat::Tracklist,
+            crate::style::Style::for_stdout(crate::style::ColorChoice::Never),
+        )
+        .unwrap();
+        assert!(
+            text.contains("titles disagree: Artist - Correct title"),
+            "{text}"
+        );
+    }
+
+    #[test]
+    fn malformed_report_ranges_and_empty_segments_are_rejected() {
+        assert!(report().validate().is_ok());
+        for case in 0..7 {
+            let mut report = report();
+            match case {
+                0 => report.plays[0].segments.clear(),
+                1 => report.plays[0].end_seconds = -1.0,
+                2 => report.plays[0].segments[0].end_seconds = -1.0,
+                3 => report.plays[0].speed = 0.0,
+                4 => report.query.duration_seconds = f64::MAX,
+                5 => report.plays[0].segments[0].speed = f64::NAN,
+                _ => {
+                    report.plays[0].start_seconds = 1e18;
+                    report.plays[0].end_seconds = 1e18;
+                    report.plays[0].segments[0].start_seconds = 1e18;
+                    report.plays[0].segments[0].end_seconds = 1e18;
+                }
+            }
+            assert!(report.validate().is_err(), "case {case}");
+        }
     }
 
     #[test]

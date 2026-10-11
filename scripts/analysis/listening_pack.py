@@ -407,14 +407,28 @@ def render_clip(clip, a_file, b_file, folder):
     }
     for kind, graph in graphs.items():
         output = os.path.join(folder, f"{clip['name']}-{kind}.mp3")
-        if os.path.exists(output):
-            continue
+        receipt = output + ".complete"
+        if os.path.exists(output) and os.path.exists(receipt):
+            with open(receipt) as saved:
+                if saved.read() == str(os.path.getsize(output)) and os.path.getsize(output) > 0:
+                    continue
+        temporary = f"{output}.{os.getpid()}.partial.mp3"
         command = ["nice", "-n", "15", "ffmpeg", "-nostdin", "-v", "error", "-y", *inputs,
                    "-filter_complex", graph, "-map", "[out]", "-c:a", "libmp3lame",
-                   "-b:a", "192k", output]
-        result = subprocess.run(command, capture_output=True, text=True)
-        if result.returncode != 0:
-            print(f"ffmpeg failed for {output}: {result.stderr.strip()[:300]}")
+                   "-b:a", "192k", temporary]
+        try:
+            result = subprocess.run(command, capture_output=True, text=True)
+            if result.returncode != 0:
+                raise RuntimeError(f"ffmpeg failed for {output}: {result.stderr.strip()[:300]}")
+            size = os.path.getsize(temporary)
+            if size == 0:
+                raise RuntimeError(f"ffmpeg produced an empty file for {output}")
+            os.replace(temporary, output)
+            with open(receipt, "w") as saved:
+                saved.write(str(size))
+        finally:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
 
 
 if __name__ == "__main__":

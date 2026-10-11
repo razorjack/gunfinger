@@ -128,6 +128,11 @@ fn index_asset(
 ) -> Outcome {
     let path = library.absolute_path(asset);
     if store.has_current(asset, profile) {
+        if let Err(error) = store.forget_skip(&asset.path) {
+            return Outcome::Failed {
+                reason: error.to_string(),
+            };
+        }
         return match store.tags(asset) {
             Some(_) => Outcome::UpToDate,
             None => tag(store, asset, &path),
@@ -154,8 +159,7 @@ fn index_asset(
         .and_then(|probe| probe.length)
         .and_then(|declared| length.rejects_beyond(declared, DECLARED_LENGTH_MARGIN))
     {
-        remember(store, asset, reason.clone());
-        return Outcome::Rejected(reason);
+        return remember_rejection(store, asset, reason);
     }
     // Decoding stops just past the limit, so a mix whose header declares no
     // length costs little more than a long track.
@@ -170,14 +174,17 @@ fn index_asset(
             // A file that vanished or changed during the run, or a network
             // share that went away, is not a damaged file.
             if error.is_about_the_file() && asset.matches_file(&path) {
-                remember(store, asset, SkipReason::Failed(reason.clone()));
+                if let Err(error) = remember(store, asset, SkipReason::Failed(reason.clone())) {
+                    return Outcome::Failed {
+                        reason: format!("{reason}; cannot invalidate the earlier record: {error}"),
+                    };
+                }
             }
             return Outcome::Failed { reason };
         }
     };
     if let Some(reason) = length.rejects(audio.duration()) {
-        remember(store, asset, reason.clone());
-        return Outcome::Rejected(reason);
+        return remember_rejection(store, asset, reason);
     }
     let record = PeakRecord {
         header: RecordHeader {
@@ -220,12 +227,20 @@ fn tag(store: &PeakStore, asset: &Asset, path: &Path) -> Outcome {
     }
 }
 
-/// A note that cannot be written costs only a retry on the next run.
-fn remember(store: &PeakStore, asset: &Asset, reason: SkipReason) {
-    let _ = store.save_skip(&SkipNote {
+fn remember_rejection(store: &PeakStore, asset: &Asset, reason: SkipReason) -> Outcome {
+    match remember(store, asset, reason.clone()) {
+        Ok(()) => Outcome::Rejected(reason),
+        Err(error) => Outcome::Failed {
+            reason: error.to_string(),
+        },
+    }
+}
+
+fn remember(store: &PeakStore, asset: &Asset, reason: SkipReason) -> Result<(), StoreError> {
+    store.save_skip(&SkipNote {
         source: asset.clone(),
         reason,
-    });
+    })
 }
 
 /// The current peak records of the library's assets, in library order,

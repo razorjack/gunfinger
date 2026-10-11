@@ -269,13 +269,19 @@ fn a_damaged_file_is_passed_over_until_it_changes() {
             .env("XDG_CACHE_HOME", dir.join("cache"))
             .output()
             .unwrap();
-        String::from_utf8_lossy(&output.stderr).into_owned()
+        (
+            output.status.success(),
+            String::from_utf8_lossy(&output.stderr).into_owned(),
+        )
     };
 
-    let first = index();
-    let second = index();
+    let (first_ok, first) = index();
+    let (second_ok, second) = index();
     std::fs::write(&damaged, b"still not audio, and changed").unwrap();
-    let after_change = index();
+    let (changed_ok, after_change) = index();
+    assert!(!first_ok);
+    assert!(second_ok);
+    assert!(!changed_ok);
 
     assert!(first.contains("1 failed, 0 passed over"), "{first}");
     assert!(second.contains("0 failed, 1 passed over"), "{second}");
@@ -867,7 +873,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     );
     assert_eq!(
         single_pass_report["search"]["confidence"],
-        "confident: 200 hits in 3 windows; possible: 60 hits"
+        "confident: 200 hits in 3 windows; possible: 60 hits; play=max-segment"
     );
     let other_playback = String::from_utf8_lossy(&other_playback.stderr);
     assert!(
@@ -884,7 +890,7 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     assert_eq!(report["query"]["playback"], "turntable");
     assert_eq!(
         report["search"]["confidence"],
-        "confident: 240 hits in 3 windows; possible: 60 hits"
+        "confident: 240 hits in 3 windows; possible: 60 hits; play=max-segment"
     );
     let leftovers = std::fs::read_dir(&reports).unwrap().count();
     assert_eq!(leftovers, 2, "only the two reports, no temporary files");

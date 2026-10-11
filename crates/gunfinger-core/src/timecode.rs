@@ -18,14 +18,21 @@ pub fn parse_timecode(text: &str) -> Result<Duration, TimecodeError> {
             let minutes = whole(minutes)
                 .filter(|&minutes| minutes < 60)
                 .ok_or_else(invalid)?;
-            whole(hours).ok_or_else(invalid)? * 60 + minutes
+            whole(hours)
+                .and_then(|hours| hours.checked_mul(60))
+                .and_then(|hours| hours.checked_add(minutes))
+                .ok_or_else(invalid)?
         }
         _ => return Err(invalid()),
     };
     if !fields.is_empty() && seconds >= 60.0 {
         return Err(invalid());
     }
-    Ok(Duration::from_secs(minutes * 60) + Duration::from_secs_f64(seconds))
+    let minutes = minutes.checked_mul(60).ok_or_else(invalid)?;
+    let seconds = Duration::try_from_secs_f64(seconds).map_err(|_| invalid())?;
+    Duration::from_secs(minutes)
+        .checked_add(seconds)
+        .ok_or_else(invalid)
 }
 
 /// Digits only: no sign, no fraction.
@@ -91,6 +98,19 @@ mod tests {
         assert_eq!(format_timecode(Duration::from_secs(175)), "2:55");
         assert_eq!(format_timecode(Duration::from_secs(3723)), "1:02:03");
         assert_eq!(format_timecode(Duration::from_millis(59_999)), "0:59");
+    }
+
+    #[test]
+    fn oversized_times_are_errors() {
+        for text in [
+            "18446744073709551616",
+            "18446744073709551615:00",
+            "18446744073709551615:59:59",
+            "307445734561825860:59",
+            &"9".repeat(400),
+        ] {
+            assert!(parse_timecode(text).is_err(), "{text} was accepted");
+        }
     }
 
     proptest! {

@@ -160,6 +160,7 @@ pub mod tests {
         let play = |asset: &str, start, end, track_start, speed, confidence, hits| FoundPlay {
             asset: String::from(asset),
             same_audio: Vec::new(),
+            same_audio_tags: Default::default(),
             start_seconds: start,
             end_seconds: end,
             track_start_seconds: track_start,
@@ -192,6 +193,7 @@ pub mod tests {
                 duration_seconds: 150.0,
                 playback: Some(PlaybackChoice::Both),
                 requested_duration_seconds: None,
+                source: None,
             },
             library: PathBuf::from("/library"),
             search: None,

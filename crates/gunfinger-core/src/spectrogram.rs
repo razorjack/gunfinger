@@ -18,6 +18,7 @@ pub fn for_each_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(
     let fft = RealFftPlanner::<f32>::new().plan_fft_forward(size);
     let mut frame = fft.make_input_vec();
     let mut spectrum = fft.make_output_vec();
+    let mut scratch = fft.make_scratch_vec();
     let mut power_db = vec![0.0; spectrum.len()];
 
     let mut start = 0;
@@ -25,7 +26,7 @@ pub fn for_each_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(
         for (n, value) in frame.iter_mut().enumerate() {
             *value = samples[start + n] * window[n];
         }
-        let transformed = fft.process(&mut frame, &mut spectrum);
+        let transformed = fft.process_with_scratch(&mut frame, &mut spectrum, &mut scratch);
         debug_assert!(transformed.is_ok(), "buffers come from the plan");
         for (power, bin) in power_db.iter_mut().zip(&spectrum) {
             // The tiny offset keeps digital silence finite (-200 dB).

@@ -53,6 +53,7 @@
 //! this keeps its records), and every command refuses a store that names
 //! another library.
 
+use std::collections::BTreeSet;
 use std::fmt;
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read, Write};
@@ -381,6 +382,20 @@ impl PeakStore {
     }
 
     pub fn save_skip(&self, note: &SkipNote) -> Result<(), StoreError> {
+        // Once a replacement is rejected, the earlier audio must not remain
+        // searchable while the library is offline. Remove it before saving
+        // the note, so interruption can cost a retry but cannot revive it.
+        for path in [
+            self.record_path(&note.source.path),
+            self.tags_path(&note.source.path),
+        ] {
+            match fs::remove_file(&path) {
+                Err(source) if source.kind() != io::ErrorKind::NotFound => {
+                    return Err(StoreError::Io { path, source });
+                }
+                _ => {}
+            }
+        }
         write_atomically(&self.skip_path(&note.source.path), |out| {
             write_skip(out, note)
         })
@@ -403,7 +418,8 @@ impl PeakStore {
         })
     }
 
-    fn forget_skip(&self, asset_path: &str) -> Result<(), StoreError> {
+    /// Clears a rejection after a successful write or a confirmed current file.
+    pub fn forget_skip(&self, asset_path: &str) -> Result<(), StoreError> {
         let path = self.skip_path(asset_path);
         match fs::remove_file(&path) {
             Err(source) if source.kind() != io::ErrorKind::NotFound => {
@@ -431,10 +447,23 @@ impl PeakStore {
     ) -> Result<(Vec<Asset>, Vec<StoreError>), StoreError> {
         let mut sources = Vec::new();
         let mut problems = Vec::new();
-        for file in self.files()? {
-            if file
-                .extension()
-                .is_none_or(|extension| extension != "peaks")
+        let files = self.files()?;
+        // Older versions could leave peaks beside a rejection, and an
+        // interrupted save can leave its earlier note. Be conservative
+        // offline; indexing a current file clears the superseded note.
+        let rejected: BTreeSet<PathBuf> = files
+            .iter()
+            .filter(|file| {
+                file.extension()
+                    .is_some_and(|extension| extension == "skip")
+            })
+            .map(|file| file.with_extension("peaks"))
+            .collect();
+        for file in files {
+            if rejected.contains(&file)
+                || file
+                    .extension()
+                    .is_none_or(|extension| extension != "peaks")
             {
                 continue;
             }
@@ -909,6 +938,74 @@ mod tests {
 
         assert_eq!(loaded, original);
         assert!(fresh);
+    }
+
+    #[test]
+    fn rejecting_a_replacement_removes_the_previous_audio_and_tags() {
+        let dir = std::env::temp_dir().join(format!(
+            "gunfinger-rejected-replacement-{}",
+            std::process::id()
+        ));
+        let store = PeakStore::open(&dir).unwrap();
+        store.save(&record(Vec::new())).unwrap();
+        store
+            .save_tags(&TagNote {
+                source: asset(),
+                tags: Tags::default(),
+            })
+            .unwrap();
+        let mut replacement = asset();
+        replacement.size += 1;
+        store
+            .save_skip(&SkipNote {
+                source: replacement.clone(),
+                reason: SkipReason::TooShort {
+                    limit: Duration::from_secs(30),
+                },
+            })
+            .unwrap();
+        assert!(
+            store
+                .current_sources(&Profile::CURRENT)
+                .unwrap()
+                .0
+                .is_empty()
+        );
+        assert!(!store.has_current(&asset(), &Profile::CURRENT));
+        assert!(store.tags(&asset()).is_none());
+        assert!(store.skip_note(&replacement).is_some());
+        fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn legacy_rejections_hide_old_records_until_the_note_is_cleared() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-legacy-rejection-{}", std::process::id()));
+        let store = PeakStore::open(&dir).unwrap();
+        store.save(&record(Vec::new())).unwrap();
+        let mut replacement = asset();
+        replacement.size += 1;
+        let note = SkipNote {
+            source: replacement,
+            reason: SkipReason::Failed("damaged".into()),
+        };
+        write_atomically(&store.skip_path(&asset().path), |out| {
+            write_skip(out, &note)
+        })
+        .unwrap();
+        assert!(
+            store
+                .current_sources(&Profile::CURRENT)
+                .unwrap()
+                .0
+                .is_empty()
+        );
+        store.forget_skip(&asset().path).unwrap();
+        assert_eq!(
+            store.current_sources(&Profile::CURRENT).unwrap().0,
+            [asset()]
+        );
+        fs::remove_dir_all(dir).unwrap();
     }
 
     #[test]

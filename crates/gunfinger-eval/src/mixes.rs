@@ -586,8 +586,8 @@ pub fn search_mix(
     } = *searcher;
     let truth_path = path.with_extension("truth.json");
     let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
-    let rendered =
-        path.exists() && fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan);
+    let rendered = crate::render::is_complete(path)
+        && fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan);
     if !rendered {
         render(mix, library, path)?;
         fs::write(&truth_path, &plan).map_err(|error| error.to_string())?;

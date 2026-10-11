@@ -219,7 +219,13 @@ fn hits_near(
             return;
         }
         let expected = alignment.at(query_frame);
-        for posting in index.postings(hash) {
+        let all = index.postings(hash);
+        let postings = if all.len() <= 64 {
+            all
+        } else {
+            index.postings_for_asset(hash, detection.asset)
+        };
+        for posting in postings {
             let deviation = f64::from(posting.frame()) - expected;
             if posting.asset() == detection.asset && deviation.abs() <= SEARCH_FRAMES {
                 hits.push(Hit {

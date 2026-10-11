@@ -130,10 +130,7 @@ fn compare_scans(name: &str, before: &ScanReport, after: &ScanReport) {
     let mut shown = 0;
     for (old, new) in &changes.changed {
         if (old.confident || new.confident) && shown < CHANGES_SHOWN {
-            println!(
-                "  changed {} at {:.0} s: {} hits/{} windows -> {} hits/{} windows",
-                new.asset, new.start_seconds, old.hits, old.windows, new.hits, new.windows
-            );
+            println!("  changed {}: {old:?} -> {new:?}", new.asset);
             shown += 1;
         }
     }
@@ -178,7 +175,7 @@ fn detection_changes<'a>(before: &'a [Found], after: &'a [Found]) -> Changes<'a>
             Some((index, _)) => {
                 matched[index] = true;
                 let new = &after[index];
-                if new.hits != old.hits || new.windows != old.windows {
+                if new != old {
                     changes.changed.push((old, new));
                 }
             }
@@ -221,4 +218,42 @@ fn compare_calibrations(before: &Calibration, after: &Calibration) {
         hits(before.strongest_not_indexed()),
         hits(after.strongest_not_indexed())
     );
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn timing_speed_confidence_and_pass_changes_are_counted() {
+        let old = Found {
+            asset: "track.wav".into(),
+            start_seconds: 10.0,
+            end_seconds: 40.0,
+            speed: 1.0,
+            windows: 3,
+            hits: 300,
+            confident: true,
+            fitted: true,
+            verified: None,
+        };
+        for field in 0..4 {
+            let mut new = old.clone();
+            match field {
+                0 => new.start_seconds += 1.0,
+                1 => new.speed = 1.02,
+                2 => new.confident = false,
+                _ => new.fitted = false,
+            }
+            let changes = detection_changes(std::slice::from_ref(&old), std::slice::from_ref(&new));
+            assert_eq!(changes.changed.len(), 1);
+            assert!(changes.added.is_empty());
+            assert!(changes.removed.is_empty());
+        }
+        assert!(
+            detection_changes(std::slice::from_ref(&old), std::slice::from_ref(&old))
+                .changed
+                .is_empty()
+        );
+    }
 }

@@ -89,8 +89,23 @@ impl Entry<'_> {
     pub fn other_names(&self, name: impl Fn(&str) -> TrackName) -> Vec<String> {
         let mut seen = vec![name(self.asset()).full().to_lowercase()];
         let mut others = Vec::new();
-        for play in &self.plays[1..] {
-            let full = name(&play.asset).full();
+        let other_assets = self
+            .plays
+            .iter()
+            .skip(1)
+            .map(|play| play.asset.as_str())
+            .chain(self.plays.iter().flat_map(|play| {
+                play.same_audio_tags
+                    .iter()
+                    .filter(|(_, tags)| {
+                        tags.title
+                            .as_deref()
+                            .is_some_and(|title| !title.trim().is_empty())
+                    })
+                    .map(|(asset, _)| asset.as_str())
+            }));
+        for asset in other_assets {
+            let full = name(asset).full();
             if !seen.contains(&full.to_lowercase()) {
                 seen.push(full.to_lowercase());
                 others.push(full);
@@ -218,7 +233,7 @@ pub fn cue(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
 
 /// Cue sheets have no escape for quotes.
 fn cue_text(text: &str) -> String {
-    text.replace('"', "'")
+    text.replace('"', "'").replace(['\r', '\n'], " ")
 }
 
 /// `MM:SS:FF`; minutes go past 99 in long recordings.
@@ -247,6 +262,11 @@ mod tests {
             },
             _ => TrackName::from_file_name(asset),
         }
+    }
+
+    #[test]
+    fn cue_fields_cannot_insert_lines() {
+        assert_eq!(cue_text("a\r\nTITLE \"b\"\nc"), "a  TITLE 'b' c");
     }
 
     #[test]
