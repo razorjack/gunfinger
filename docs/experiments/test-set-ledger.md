@@ -290,3 +290,71 @@ has never been scanned at NAS scale. There, tracks 12, 16, 21 and 28 test
 whether a related version on the NAS produces a wrong confident detection.
 
 Evaluations used: 3 of 5.
+
+## Evaluation 4: the test mix at NAS scale
+
+- Code: commit 1afd8cc, release build `work/bin/s11-code/`, the binary
+  of this session's NAS baseline (experiment 0073) and recall panel
+  (0074). Since evaluation 3 (da8dd4a), `regress` has been identical in
+  detections after every change, among them the 16 frame and 16 asset
+  bits of a posting (ADR 0010), the library ignore file, the clusters'
+  verdicts and `--cut-sparsest`, and session 11's saved index (not used
+  by the harness), other titles and pair review. At 262 tracks a run
+  would repeat evaluation 3; at NAS scale the index also holds the NAS
+  store's records.
+- Store: `~/.local/share/gunfinger/nas-dnb-peaks`, revision
+  `f9f9bc706195a71b` (33,596 records), read only.
+- Clusters: `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`
+  of session 11 (experiment 0071, 267 clusters), with the test manifest's references
+  among the queries, the verdicts by ear and `--cut-sparsest`.
+- Manifest: as in "Manifest change before evaluation 4". `validate` at
+  NAS scale: 31 tracks, 23 referenced (29 reference files), 8 absent; at
+  262 tracks: 16 referenced (22 files), 15 absent, the 7 NAS references
+  set aside (`work/s11/validate-test-nas.txt`, `validate-test-262.txt`).
+- Command: `work/bin/s11-code/gunfinger-eval --other-peaks-dir
+  ~/.local/share/gunfinger/nas-dnb-peaks scan ed-rush-optical-essential-mix`
+  (log `work/logs/s11-evaluation-4.log`; report moved to
+  `work/reports/evaluation-4-scan-ed-rush-optical-essential-mix.json`, out
+  of the NAS report folder, so that no later `calibrate` reads it).
+- Why: the session 11 prompt. The test set has never been scanned
+  at NAS scale; seven tracks are now referenced there, and five absent
+  tracks have another version on the NAS. Run once; nothing changes
+  because of the result, and it is not rerun.
+
+Prediction, from evaluation 3 and the clusters alone (no audio of the test
+mix read):
+
+Basis. Evaluation 3 at 262 tracks: 14/16, Sin and Sick Note possible, 0
+wrong, nothing above 17 hits matching no track (Funktion's original 14
+hits in slot 16). At NAS scale the development mixes kept their tracks
+and some gained hits through better copies (experiment 0067: 0 wrong,
+3 possible plays matching no track on the development mix; unrelated
+chance 63-70 hits). The clusters (experiment 0071) join each reference
+with its copies; a confident detection of any file outside the slot's
+cluster counts as wrong. In the sweeps, Evol Intent's VIP of The Nine
+reached 9-24% of The Nine's own hits on the same excerpt (167-220 hits
+against 795-955).
+
+| Track | Prediction |
+|---|---|
+| 1, 4, 19 (absent) | nothing confident |
+| 2 The Nine | identified (760 hits at 262); the VIP at 70-180 hits, perhaps possible, not confident |
+| 3 Terminal 1 (absent; Terminal 2 on the NAS) | nothing confident; most likely nothing possible |
+| 5, 10, 13, 14, 17, 25, 27, 29, 30 | identified, as in evaluation 3 |
+| 6 Mind Overload (new) | identified; **one wrong confident detection** of Molten Beats' `111-ram_trilogy-mind_overload-sour.mp3`, an edit of the same recording that covers 79.3% of the reference (3,321 hits), just under the 80% join |
+| 7 Sonar | identified; the cut revision (467 hits over the whole pair, 1.3 hits/s) far below 60 |
+| 8 Warhead | identified; its pruned mixed copy no longer relates it to Side Effects |
+| 9, 15, 23, 24, 26 (new) | identified (slots 3.1-4.9 min; Killa Beez's Optical & Fierce remix files share about 10%, far below the rule) |
+| 11 Bacteria; 20 Dozer | identified; Space Cake and the Notjamie bootleg about 1% of a copy's hits, far below 60 |
+| 12 Orders (absent) | nothing confident from the DJ Reality RMX or Distortion Mix |
+| 16 Funktion (Remix) (absent) | nothing confident from the Marky & Bungle remix |
+| 18 Iron Lung (new) | identified (2.9 min slot, the shortest new one) |
+| 21 Clear Skyz (absent) | nothing confident from the Break remix or the 1996 VIP; a possible play would not surprise |
+| 22 Sin | possible, as in evaluation 3 (a 27 s match) |
+| 28 Beachball (absent) | nothing confident from the Black Barrel bootleg, the likeliest of the five to give a possible play |
+| 31 Sick Note | possible (233 hits at 262, the mix ends 27 s into it); a NAS copy could take it past 240 |
+
+In all: **21/23 referenced tracks identified, 1 wrong identification
+(Mind Overload's Molten Beats edit), 2 possible (Sin, Sick Note), and a
+few possible plays matching no track** (related versions and NAS-scale
+chance). No wrong confident detection on tracks 3, 12, 16, 21 or 28.
