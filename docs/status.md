@@ -1713,3 +1713,18 @@ Audit outcomes by the requested categories:
   ADR 0012); `index` exits with an error when a file fails in that run;
   a play's confidence is the highest its segments reach (ADR 0013), as
   the harness already scored it.
+
+## 2026-10-11: session 12, a faster search and the saved index in the harness and `doctor`
+
+Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
+
+- 14:26 start, `git status` clean at `7ef893f`. Release build in
+  `work/bin/s12-start/` (byte-identical to `work/bin/merged/`);
+  `baseline session-12-start` saved from the merged build's reports.
+  `regress session-12-start` with the start build: 720/720 sweep queries
+  and 87, 93 and 79 scan detections identical, the known calibrate line
+  (680 -> 658, 18 -> 46); 212.7 s wall, 1,915 s CPU, 0.47 GB.
+- The NAS store at the start: 33,596 records, 1,582 skip notes, revision
+  `f9f9bc706195a71b`, as expected; census `work/s12/census-start.json`
+  (3,523.4 h). The saved NAS index
+  (3.8 GB, 03:25) in place.
