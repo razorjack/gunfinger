@@ -1,0 +1,83 @@
+{
+ "command": "gunfinger identify razorjack-2003-03-29.mp3 --config nas-dnb.toml --store-only --playback both -f json -v (saved index, warm)",
+ "binary": "work/bin/s12-start (7ef893f)",
+ "store_revision": "f9f9bc706195a71b",
+ "records": 33596,
+ "sampler": "macOS sample, every 10 ms, attached at the start",
+ "attribution": "work/s12/py/sample_stages.py: experiment 0075's script with the sort split by the closure on the stack",
+ "wall_seconds": 177.66,
+ "user_seconds": 1535.37,
+ "system_seconds": 12.94,
+ "peak_memory_bytes": 4780429440,
+ "header": "samples: 148540, CPU samples: 134528",
+ "stages": {
+  "sorting hits: grouping by asset": {
+   "samples": 67133,
+   "share_of_cpu_percent": 49.9
+  },
+  "sorting hits: each asset's offsets": {
+   "samples": 37975,
+   "share_of_cpu_percent": 28.2
+  },
+  "waiting": {
+   "samples": 14012,
+   "share_of_cpu_percent": null
+  },
+  "ladder: STFT and peak picking": {
+   "samples": 13094,
+   "share_of_cpu_percent": 9.7
+  },
+  "lines from sorted hits": {
+   "samples": 10140,
+   "share_of_cpu_percent": 7.5
+  },
+  "hashing and posting scans": {
+   "samples": 4322,
+   "share_of_cpu_percent": 3.2
+  },
+  "second pass: STFT and peak picking": {
+   "samples": 1480,
+   "share_of_cpu_percent": 1.1
+  },
+  "loading the saved index": {
+   "samples": 129,
+   "share_of_cpu_percent": 0.1
+  },
+  "loading records": {
+   "samples": 94,
+   "share_of_cpu_percent": 0.1
+  },
+  "second pass: hashing, postings, lines": {
+   "samples": 76,
+   "share_of_cpu_percent": 0.1
+  },
+  "distinct lines": {
+   "samples": 33,
+   "share_of_cpu_percent": 0.0
+  },
+  "clustering offsets": {
+   "samples": 20,
+   "share_of_cpu_percent": 0.0
+  },
+  "other": {
+   "samples": 18,
+   "share_of_cpu_percent": 0.0
+  },
+  "chaining": {
+   "samples": 9,
+   "share_of_cpu_percent": 0.0
+  },
+  "decoding": {
+   "samples": 2,
+   "share_of_cpu_percent": 0.0
+  },
+  "planning the index": {
+   "samples": 2,
+   "share_of_cpu_percent": 0.0
+  },
+  "one play per moment": {
+   "samples": 1,
+   "share_of_cpu_percent": 0.0
+  }
+ }
+}
