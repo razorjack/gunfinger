@@ -12,8 +12,7 @@ use gunfinger_core::hash;
 use gunfinger_core::index::Index;
 use gunfinger_core::index::saved::{self, Provenance, Unusable};
 use gunfinger_core::indexing::{
-    BuiltIndex, IndexPlan, TrackLength, build_planned, indexable_assets, library_revision,
-    plan_index,
+    BuiltIndex, IndexPlan, TrackLength, build_planned, library_revision, plan_index,
 };
 use gunfinger_core::library::{Asset, Library, ScanError};
 use gunfinger_core::profile::Profile;
@@ -59,7 +58,7 @@ pub struct Indexable {
     /// from; empty when the store names none and none was given.
     pub root: PathBuf,
     pub store: PeakStore,
-    assets: Vec<Asset>,
+    plan: IndexPlan,
     /// Records whose header could not be read, without a library.
     problems: Vec<StoreError>,
     excluded: BTreeSet<String>,
@@ -69,8 +68,8 @@ pub struct Indexable {
 }
 
 impl Indexable {
-    /// Lists the library, or the store's records when the library cannot be
-    /// read, none is given or `store_only` asks for it, saying which in one
+    /// Lists the library, or the store's records when its root is missing,
+    /// none is given or `store_only` asks for it, saying which in one
     /// line. A store that names another library is refused unless
     /// `store_only` is given. So is an invalid ignore file: the store's
     /// records would include the files it leaves out.
@@ -79,17 +78,25 @@ impl Indexable {
             Some(path) => read_exclusions(path)?,
             None => BTreeSet::new(),
         };
-        let found =
-            |root: PathBuf, store: PeakStore, (assets, problems): Records, store_only| Indexable {
+        let found = |root: PathBuf, store: PeakStore, (assets, problems): Records, store_only| {
+            let plan = plan_index(
+                &assets,
+                &store,
+                &Profile::CURRENT,
+                &excluded,
+                source.track_length,
+            );
+            Indexable {
                 root,
                 store,
-                assets,
+                plan,
                 problems,
                 excluded,
                 track_length: source.track_length,
                 store_only,
                 saved_index: source.saved_index,
-            };
+            }
+        };
         let peaks_dir = source.peaks_dir;
         if source.store_only {
             let Some((store, records)) = store_records(peaks_dir)? else {
@@ -163,13 +170,7 @@ impl Indexable {
     /// headers of the peak records: enough to tell whether a saved report
     /// is current without building the index.
     pub fn revision(&self) -> String {
-        library_revision(indexable_assets(
-            &self.assets,
-            &self.store,
-            &Profile::CURRENT,
-            &self.excluded,
-            self.track_length,
-        ))
+        library_revision(&self.plan.sources)
     }
 }
 
@@ -216,14 +217,13 @@ impl Catalog {
         let Indexable {
             root,
             store,
-            assets,
+            plan,
             mut problems,
             excluded,
             track_length,
             store_only,
             saved_index,
         } = indexable;
-        let plan = plan_index(&assets, &store, &Profile::CURRENT, &excluded, track_length);
         let file = saved_file(&store, saved_index, &excluded, console);
         let BuiltIndex {
             index,
