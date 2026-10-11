@@ -282,6 +282,57 @@ impl Report {
         }
     }
 
+    fn validate(&self) -> Result<(), String> {
+        let time = |value: f64| Duration::try_from_secs_f64(value).is_ok();
+        if !time(self.query.start_seconds)
+            || !time(self.query.duration_seconds)
+            || !time(self.query.start_seconds + self.query.duration_seconds)
+            || self
+                .query
+                .requested_duration_seconds
+                .is_some_and(|value| !time(value))
+        {
+            return Err("query times must be finite, nonnegative and representable".into());
+        }
+        // CUE output may advance coincident entries by one frame each.
+        let cue_limit = u64::MAX.saturating_sub(self.plays.len() as u64) as f64;
+        for (index, play) in self.plays.iter().enumerate() {
+            let invalid = || {
+                format!(
+                    "play {} needs nonempty segments, ordered nonnegative times and positive finite speeds",
+                    index + 1
+                )
+            };
+            if play.segments.is_empty()
+                || !time(play.start_seconds)
+                || !time(play.end_seconds)
+                || play.start_seconds > play.end_seconds
+                || play.start_seconds * 75.0 >= cue_limit
+                || !play.speed.is_finite()
+                || play.speed <= 0.0
+                || !time(play.track_start_seconds)
+                || !time(play.track_end_seconds)
+            {
+                return Err(invalid());
+            }
+            for segment in &play.segments {
+                if !time(segment.start_seconds)
+                    || !time(segment.end_seconds)
+                    || segment.start_seconds > segment.end_seconds
+                    || segment.start_seconds < play.start_seconds
+                    || segment.end_seconds > play.end_seconds
+                    || !segment.speed.is_finite()
+                    || segment.speed <= 0.0
+                    || !time(segment.track_start_seconds)
+                    || !time(segment.track_end_seconds)
+                {
+                    return Err(invalid());
+                }
+            }
+        }
+        Ok(())
+    }
+
     pub fn read(path: &Path) -> miette::Result<Report> {
         let text = std::fs::read_to_string(path)
             .into_diagnostic()
@@ -297,6 +348,12 @@ impl Report {
                 report.schema_version
             ));
         }
+        report.validate().map_err(|reason| {
+            miette!(
+                "{} is not a valid identify report: {reason}",
+                path.display()
+            )
+        })?;
         mark_shared_material(&mut report.plays);
         mark_other_titles(&mut report.plays);
         Ok(report)
@@ -480,6 +537,29 @@ mod tests {
             title: Some(title.to_owned()),
             album: None,
         })
+    }
+
+    #[test]
+    fn malformed_report_ranges_and_empty_segments_are_rejected() {
+        assert!(report().validate().is_ok());
+        for case in 0..7 {
+            let mut report = report();
+            match case {
+                0 => report.plays[0].segments.clear(),
+                1 => report.plays[0].end_seconds = -1.0,
+                2 => report.plays[0].segments[0].end_seconds = -1.0,
+                3 => report.plays[0].speed = 0.0,
+                4 => report.query.duration_seconds = f64::MAX,
+                5 => report.plays[0].segments[0].speed = f64::NAN,
+                _ => {
+                    report.plays[0].start_seconds = 1e18;
+                    report.plays[0].end_seconds = 1e18;
+                    report.plays[0].segments[0].start_seconds = 1e18;
+                    report.plays[0].segments[0].end_seconds = 1e18;
+                }
+            }
+            assert!(report.validate().is_err(), "case {case}");
+        }
     }
 
     #[test]
