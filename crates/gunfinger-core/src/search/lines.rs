@@ -59,6 +59,7 @@ impl Line {
     }
 }
 
+#[derive(Clone)]
 struct Hit {
     asset: AssetId,
     /// Reference frame minus the anchor's frame at the assumed speed.
@@ -221,7 +222,16 @@ fn in_windows(
 /// Groups one window's hits by asset and offset, turns the densest offset
 /// clusters into lines, and empties `hits` for the next window.
 fn lines_in_window(hits: &mut Vec<Hit>, window: u32, rung: Rung) -> Vec<Line> {
-    hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
+    if hits.len() <= 50_000 {
+        hits.sort_unstable_by(|a, b| a.asset.cmp(&b.asset).then(a.offset.total_cmp(&b.offset)));
+    } else {
+        // Integer grouping avoids repeating the asset comparison while
+        // ordering each asset's offsets on large libraries (experiment 0075).
+        hits.sort_unstable_by_key(|hit| hit.asset);
+        for same_asset in hits.chunk_by_mut(|a, b| a.asset == b.asset) {
+            same_asset.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
+        }
+    }
     let mut lines = Vec::new();
     for same_asset in hits.chunk_by(|a, b| a.asset == b.asset) {
         for cluster in densest_clusters(same_asset) {
@@ -330,6 +340,29 @@ pub(super) mod tests {
             first,
             last: first + 400.0,
         }
+    }
+
+    #[test]
+    fn large_buffer_sorting_preserves_each_assets_lines() {
+        let rung = Rung::Turntable(SpeedRatio(1.0));
+        let mut hits = Vec::new();
+        let mut by_asset: Vec<Vec<Hit>> = (0..400).map(|_| Vec::new()).collect();
+        for number in 0..80_000 {
+            let asset = number % 400;
+            let hit = Hit {
+                asset: AssetId(asset as u32),
+                offset: ((number / 400) % 17) as f64 * 0.25 - 2.0,
+                query_frame: number as f64 / 200.0,
+            };
+            by_asset[asset].push(hit.clone());
+            hits.push(hit);
+        }
+        let expected: Vec<_> = by_asset
+            .iter_mut()
+            .flat_map(|hits| lines_in_window(hits, 0, rung))
+            .collect();
+        assert_eq!(lines_in_window(&mut hits, 0, rung), expected);
+        assert!(hits.is_empty());
     }
 
     #[test]
