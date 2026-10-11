@@ -146,7 +146,9 @@ documents every field. The principles:
 - **Only on the listener's keypress.** An answer is written when the listener
   presses a choice's key, immediately. Agents never write answers or
   verdicts. After an answer the page opens the next question without an
-  answer; `Z` reopens the question it takes back.
+  answer; `Z` reopens the question it takes back. A held key does not
+  repeat answers or undos, and a key pressed while an answer is being
+  written is ignored, so neither lands on the question opened next.
 - **The answer log** (`work/audition/answers.jsonl`, `--answers`) is
   append-only JSON lines: each record has a sequence number, the time,
   the action (`answer` or `undo`), the question's id, kind, title and
@@ -159,17 +161,30 @@ documents every field. The principles:
   `pair-review` writes it; `unsure` writes the log only. A pair whose
   verdicts file already judges it (its own pair or a related pair, by
   `pair-review`'s rule) shows as answered with that verdict. Answering it
-  again with the same verdict logs without a second line; a
-  contradicting answer is refused, because the file would no longer
-  parse or `clusters` would stop on the chain.
+  again with the same verdict logs without a second line; another
+  answer is refused: a contradicting verdict because the file would no
+  longer parse or `clusters` would stop on the chain, and `unsure`
+  because the file's verdict would still be what the page shows.
+- **The order of writes.** The log is opened first, so a log that cannot
+  be written stops an answer before the effect. Then the effect writes,
+  then the log record. If the record still fails, the verdict line
+  stays without a record; the error says so, and `Z` cannot take it
+  back.
 - **Undo (`Z`)** takes back the most recent answer still in force, then
-  the one before. It appends an undo record; if the answer appended a
-  verdict line, it removes those bytes only if they are still the end of
-  the verdicts file, byte for byte. Otherwise the file is left alone and
-  the page says so.
+  the one before, if its question is loaded: the page opens the
+  question, and the message names it. An answer to a question not loaded
+  is left for a session that loads it. Undo appends an undo record; if
+  the answer appended a verdict line, it removes those bytes only if
+  they are still the verdicts file's whole last line, byte for byte.
+  Otherwise the file is left alone and the page says so.
 - **One writer.** Answers and undos run under one lock in the server and
   read the log and the verdicts file again each time, so a hand edit in
-  between is seen. Run one `audition` at a time.
+  between is seen. Two servers on one log are not locked against each
+  other: the standard library's file lock (`File::try_lock`) needs Rust
+  1.89, above the workspace's declared 1.85. Since every write reads
+  both files first, two servers (or `pair-review` beside one) interleave
+  correctly unless two answers land within the same few milliseconds.
+  Run one `audition` at a time.
 
 ## Consequences
 

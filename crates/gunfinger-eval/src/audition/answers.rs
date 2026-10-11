@@ -5,10 +5,18 @@
 //! effect already records (the pair verdicts file) comes first.
 //!
 //! Every answer and undo reads the log and the verdicts file again, so a
-//! hand edit in between is seen; the server runs them one at a time.
+//! hand edit in between is seen; the server runs them one at a time. Two
+//! servers on one log are not locked against each other (the standard
+//! library's file lock needs Rust 1.89, above the workspace's 1.85); since
+//! each write reads both files first, they interleave correctly unless two
+//! answers land within the same few milliseconds.
+//!
+//! An answer writes its effect first, then its log record. If the record
+//! cannot be written after a verdict line was appended, the line stays
+//! without a record, `Z` cannot take it back, and the error says so.
 
 use std::collections::{BTreeMap, BTreeSet};
-use std::fs::{self, OpenOptions};
+use std::fs::{self, File, OpenOptions};
 use std::io::Write as _;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -123,7 +131,8 @@ impl AnswerBook {
     }
 
     /// Writes the answer of `key` to `question`: its effect first, then the
-    /// log.
+    /// log (opened before the effect, so a log that cannot be written stops
+    /// the answer before anything else is).
     pub fn answer(&self, question: &Question, key: char, time: &str) -> Result<Answered, Refusal> {
         let choice = question
             .choices
@@ -136,6 +145,7 @@ impl AnswerBook {
                 ))
             })?;
         let records = self.records().map_err(Refusal::Io)?;
+        let mut log = self.open_log().map_err(Refusal::Io)?;
         let applied = effects::apply(question, &choice.value, &self.verdicts)?;
         let (verdict_line, message) = match applied {
             Applied::Nothing => (None, format!("answered `{}`", choice.value)),
@@ -162,12 +172,23 @@ impl AnswerBook {
             undoes: None,
             verdicts: None,
         };
-        self.append(&record).map_err(Refusal::Io)?;
+        if let Err(error) = self.write(&mut log, &record) {
+            return Err(Refusal::Io(match &record.verdict_line {
+                Some(line) => format!(
+                    "{error}; the line `{}` was appended to {} without a record, so Z cannot take it back: remove it by hand if you do not want it",
+                    line.trim(),
+                    self.verdicts.display()
+                ),
+                None => error,
+            }));
+        }
         Ok(Answered { record, message })
     }
 
-    /// Takes back the most recent answer still in force.
-    pub fn undo(&self, time: &str) -> Result<Undone, String> {
+    /// Takes back the most recent answer still in force, if its question is
+    /// one of `loaded` (the page shows what it takes back; an answer to a
+    /// question not loaded is left for a session that loads it).
+    pub fn undo(&self, loaded: &BTreeSet<&QuestionId>, time: &str) -> Result<Undone, String> {
         let records = self.records()?;
         let Some(answer) = in_force(&records).last().copied() else {
             return Ok(Undone {
@@ -175,6 +196,16 @@ impl AnswerBook {
                 message: String::from("nothing to undo"),
             });
         };
+        if !loaded.contains(&answer.question) {
+            return Ok(Undone {
+                record: None,
+                message: format!(
+                    "the latest answer, `{}` to \"{}\", is to a question not loaded here; load its question file to take it back",
+                    answer.choice, answer.title
+                ),
+            });
+        }
+        let mut log = self.open_log()?;
         let taken_back = match &answer.verdict_line {
             Some(line) => effects::take_back(line, &self.verdicts)?,
             None => TakenBack::Nothing,
@@ -188,19 +219,18 @@ impl AnswerBook {
             verdict_line: None,
             ..answer.clone()
         };
-        self.append(&record)?;
+        self.write(&mut log, &record)?;
+        let what = format!("took back `{}` to \"{}\"", answer.choice, answer.title);
         let message = match taken_back {
             TakenBack::Removed => format!(
-                "took back `{}` and removed its line from {}",
-                answer.choice,
+                "{what} and removed its line from {}",
                 self.verdicts.display()
             ),
             TakenBack::Left => format!(
-                "took back `{}` in the log; {} has changed since, so its line was left there: remove it by hand if you want",
-                answer.choice,
+                "{what} in the log; {} has changed since, so its line was left there: remove it by hand if you want",
                 self.verdicts.display()
             ),
-            TakenBack::Nothing => format!("took back `{}`", answer.choice),
+            TakenBack::Nothing => what,
         };
         Ok(Undone {
             record: Some(record),
@@ -208,17 +238,21 @@ impl AnswerBook {
         })
     }
 
-    fn append(&self, record: &Record) -> Result<(), String> {
+    fn open_log(&self) -> Result<File, String> {
         if let Some(dir) = self.log.parent() {
             fs::create_dir_all(dir)
                 .map_err(|error| format!("cannot create {}: {error}", dir.display()))?;
         }
-        let line = serde_json::to_string(record).map_err(|error| error.to_string())? + "\n";
         OpenOptions::new()
             .create(true)
             .append(true)
             .open(&self.log)
-            .and_then(|mut file| file.write_all(line.as_bytes()))
+            .map_err(|error| format!("cannot open {}: {error}", self.log.display()))
+    }
+
+    fn write(&self, log: &mut File, record: &Record) -> Result<(), String> {
+        let line = serde_json::to_string(record).map_err(|error| error.to_string())? + "\n";
+        log.write_all(line.as_bytes())
             .map_err(|error| format!("cannot write {}: {error}", self.log.display()))
     }
 }
@@ -423,11 +457,13 @@ mod tests {
         folder.effect = Effect::Log;
         folder.id = QuestionId::derive("pair", &["folder"]);
 
+        let loaded = BTreeSet::from([&pair.id, &folder.id]);
+
         book.answer(&pair, 's', "t1").unwrap();
         book.answer(&folder, 'u', "t2").unwrap();
-        let first = book.undo("t3").unwrap();
-        let second = book.undo("t4").unwrap();
-        let third = book.undo("t5").unwrap();
+        let first = book.undo(&loaded, "t3").unwrap();
+        let second = book.undo(&loaded, "t4").unwrap();
+        let third = book.undo(&loaded, "t5").unwrap();
 
         assert_eq!(first.record.as_ref().unwrap().undoes, Some(2));
         assert_eq!(
@@ -444,6 +480,7 @@ mod tests {
             "{}",
             second.message
         );
+        assert!(second.message.contains(&pair.title), "{}", second.message);
         assert_eq!(third.record, None);
         assert_eq!(fs::read_to_string(&book.verdicts).unwrap(), "");
         assert!(book.states([&pair, &folder]).unwrap().is_empty());
@@ -459,7 +496,9 @@ mod tests {
         verdicts.push_str("same\tp.mp3\tq.mp3\n");
         fs::write(&book.verdicts, &verdicts).unwrap();
 
-        let undone = book.undo("t2").unwrap();
+        let undone = book
+            .undo(&BTreeSet::from([&pair_question().id]), "t2")
+            .unwrap();
 
         assert_eq!(undone.record.unwrap().verdicts, Some(TakenBack::Left));
         assert!(undone.message.contains("left there"), "{}", undone.message);
@@ -480,11 +519,62 @@ mod tests {
             "unsure"
         );
 
-        book.undo("t3").unwrap();
+        book.undo(&BTreeSet::from([&question.id]), "t3").unwrap();
         assert_eq!(
             book.states([&question]).unwrap()[&question.id].value,
             "same"
         );
+    }
+
+    #[test]
+    fn undo_leaves_a_line_edited_to_end_the_same_way() {
+        let dir = scratch("undo-edited");
+        let book = book(&dir);
+        let question = pair_question();
+        book.answer(&question, 's', "t1").unwrap();
+        fs::write(&book.verdicts, format!("# {SAME}")).unwrap();
+
+        let undone = book.undo(&BTreeSet::from([&question.id]), "t2").unwrap();
+
+        assert_eq!(undone.record.unwrap().verdicts, Some(TakenBack::Left));
+        assert_eq!(
+            fs::read_to_string(&book.verdicts).unwrap(),
+            format!("# {SAME}")
+        );
+    }
+
+    #[test]
+    fn undo_takes_back_nothing_of_a_question_not_loaded() {
+        let dir = scratch("undo-unloaded");
+        let book = book(&dir);
+        let question = pair_question();
+        book.answer(&question, 's', "t1").unwrap();
+
+        let undone = book.undo(&BTreeSet::new(), "t2").unwrap();
+
+        assert_eq!(undone.record, None);
+        assert!(undone.message.contains("not loaded"), "{}", undone.message);
+        assert!(
+            undone.message.contains(&question.title),
+            "{}",
+            undone.message
+        );
+        assert_eq!(fs::read_to_string(&book.verdicts).unwrap(), SAME);
+        assert_eq!(book.records().unwrap().len(), 1);
+    }
+
+    #[test]
+    fn unsure_is_refused_where_the_verdicts_file_already_judges_the_pair() {
+        let dir = scratch("unsure-judged");
+        let book = book(&dir);
+        fs::write(&book.verdicts, SAME).unwrap();
+
+        let refusal = book.answer(&pair_question(), 'u', "t").unwrap_err();
+
+        assert!(
+            matches!(refusal, Refusal::Contradicts(ref message) if message.contains("says `same`"))
+        );
+        assert!(book.records().unwrap().is_empty());
     }
 
     #[test]

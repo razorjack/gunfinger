@@ -26,7 +26,8 @@ for scope and rules.
 - [x] 6. The detections producer (2003 development mix only): 27
   questions in `work/audition/detections/2003-s12.json`, outside the
   default folder; checked in the page on play 4
-- [ ] 7. Read-only review by a subagent; fixes
+- [x] 7. Read-only review by a subagent; fixes (13 of 14 findings; the
+  lock between two servers left for our MSRV decision)
 
 ## Wrap-up
 

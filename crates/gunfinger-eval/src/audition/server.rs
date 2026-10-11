@@ -233,9 +233,11 @@ impl App {
         else {
             return Response::text(400, "name a window: 0, 1, 2 ...");
         };
+        // 404 tells the page the file has ended; 503 that it may try again.
         match audio::window_wav(&file, window) {
-            Ok(wav) => Response::ok("audio/wav", wav),
-            Err(error) => Response::text(404, &error),
+            Ok(Some(wav)) => Response::ok("audio/wav", wav),
+            Ok(None) => Response::text(404, "the file ends before this window"),
+            Err(error) => Response::text(503, &error),
         }
     }
 

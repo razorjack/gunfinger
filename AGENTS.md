@@ -161,7 +161,9 @@ Invariants:
   `Origin`, from the page's origin. FFmpeg runs as a child process with
   explicit arguments, never through a shell.
 - The answer log is append-only; undo appends a record. A verdict line is
-  removed only while it is still the verdicts file's end, byte for byte.
+  removed only while it is still the verdicts file's whole last line,
+  byte for byte. Answers run one at a time in a server; run one server
+  at a time on a log (they are not locked against each other).
 - No build step, no Node, no new crate.
 
 Adding a kind of question:
@@ -176,8 +178,10 @@ Adding a kind of question:
    default.
 3. The kind in `docs/audition-questions.md`, with an example.
 4. Only if its answers must be written somewhere besides the log: a new
-   `Effect` variant (`schema.rs`), its `apply` and `take_back` in
-   `effects.rs`, and its state in `answers.rs`.
+   `Effect` variant (`schema.rs`) and its arms in `effects.rs`. The
+   answer book and undo assume the verdicts file today; `effects.rs`'s
+   module documentation lists what a new file needs, so undo never
+   shortens the wrong file.
 
 Testing: `cargo test -p gunfinger-eval audition` (the server tests use a
 real socket; the audio tests generate tones with FFmpeg). Trying the

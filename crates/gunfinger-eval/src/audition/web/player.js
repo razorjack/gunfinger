@@ -20,6 +20,8 @@
 // the timeline moment the clock gives for `when`: gapless, at the same
 // musical moment. A window that has not arrived yet holds the cursor: the
 // playhead waits there in silence and the schedule resumes once it loads.
+// A piece that starts a hair before its file (the schema allows 1 ms of
+// rounding) plays from the file's start.
 
 import { clamp, fileTime, pieceAt, pieceFrom, timelineTime } from "./timeline.js";
 
@@ -82,6 +84,9 @@ export class Player {
       if (c >= step.ctx1) return step.t1;
       return step.t0 + ((c - step.ctx0) / (step.ctx1 - step.ctx0)) * (step.t1 - step.t0);
     }
+    // Before the first step sounds (just after play or a wait), the playhead
+    // is where the schedule starts; with no steps, where the cursor waits.
+    if (this.clock.length > 0) return this.clock[0].t0;
     return this.cursor ? this.cursor.t : this.position;
   }
 
@@ -172,10 +177,12 @@ export class Player {
   }
 
   // Silences every source from context time `when` and ends the clock there.
+  // A source due to stop before `when` keeps its stop time: a later stop()
+  // call would replace it and play the source on.
   cut(when) {
-    for (const { source, start } of this.sources) {
+    for (const { source, start, stop } of this.sources) {
       if (start >= when) source.disconnect();
-      else source.stop(when);
+      else if (stop > when) source.stop(when);
     }
     this.sources = this.sources.filter(({ start }) => start < when);
     const t = this.at(when);
@@ -190,16 +197,18 @@ export class Player {
     const { timeline, lanes } = this.question;
     const seconds = this.windows.seconds;
     for (;;) {
-      const nowCtx = this.context.currentTime;
-      if (this.cursor.ctx < nowCtx + 0.01) this.cursor.ctx = nowCtx + LEAD; // after a wait
-      if (this.cursor.ctx > nowCtx + HORIZON) return;
       if (this.loop && this.cursor.t >= this.loop.end - SHORTEST_STEP) this.cursor.t = this.loop.start;
       const t = this.cursor.t;
       const end = this.loop ? this.loop.end : timeline.end;
+      // Before the wait below moves the cursor's time, so tick() sees the
+      // end come.
       if (t >= end - SHORTEST_STEP) {
         this.cursor.finished = true;
         return;
       }
+      const nowCtx = this.context.currentTime;
+      if (this.cursor.ctx < nowCtx + 0.01) this.cursor.ctx = nowCtx + LEAD; // after a wait
+      if (this.cursor.ctx > nowCtx + HORIZON) return;
       let stepEnd = end;
       const parts = [];
       for (const { lane, pan } of this.sounding()) {
@@ -210,7 +219,7 @@ export class Player {
           continue;
         }
         stepEnd = Math.min(stepEnd, piece.end);
-        const file = fileTime(piece, t);
+        const file = Math.max(0, fileTime(piece, t));
         const k = this.windows.index(file + 1e-9);
         const buffer = this.windows.buffer(piece.file, k);
         if (!buffer) {
@@ -221,7 +230,9 @@ export class Player {
           }
           continue; // past the file's end: silent here
         }
-        const windowEnd = k * seconds + buffer.duration;
+        // A window a sample short of full counts as full, so no step of a
+        // fraction of a millisecond falls between two windows.
+        const windowEnd = k * seconds + (buffer.duration > seconds - 0.001 ? seconds : buffer.duration);
         if (file >= windowEnd - 1e-6) {
           stepEnd = Math.min(stepEnd, timelineTime(piece, (k + 1) * seconds));
           continue; // the file ends inside this window
@@ -292,7 +303,7 @@ export class Player {
     const add = (lane, at) => {
       const piece = pieceAt(lanes[lane], at) ?? pieceFrom(lanes[lane], at);
       if (!piece) return;
-      const file = fileTime(piece, Math.max(at, piece.start));
+      const file = Math.max(0, fileTime(piece, Math.max(at, piece.start)));
       wanted.push([piece.file, this.windows.index(file + 1e-9)]);
     };
     const sounding = this.sounding().map(({ lane }) => lane);

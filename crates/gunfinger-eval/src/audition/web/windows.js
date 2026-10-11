@@ -4,12 +4,18 @@
 // window). A mix is never held whole: the cache keeps at most `budget`
 // windows and drops the least recently used one that is not wanted now.
 //
-// The player asks for the windows it is about to play (`ready`, `buffer`);
+// The player asks for the windows it is about to play (`load`, `buffer`);
 // `want` names every window worth having soon (around the playhead of each
 // lane and at the nearest markers), which starts their loading in that order
 // and protects them from eviction.
+//
+// A window past the file's end is `missing` for good. A window that failed
+// to load (the NAS gone, FFmpeg failed) is tried again after RETRY_MS; the
+// player waits for it meanwhile and `onerror` tells the listener.
 
 import * as api from "./api.js";
+
+const RETRY_MS = 3000;
 
 export class Windows {
   constructor(context, seconds, budget = 24) {
@@ -18,10 +24,12 @@ export class Windows {
     this.budget = budget;
     this.loaded = new Map(); // key -> { buffer, used }
     this.loading = new Map(); // key -> Promise<AudioBuffer|null>
-    this.missing = new Set(); // keys past a file's end or failed
+    this.missing = new Set(); // keys past a file's end
+    this.failed = new Map(); // key -> when it last failed (performance.now())
     this.wanted = new Set();
     this.uses = 0;
     this.onload = () => {};
+    this.onerror = () => {};
   }
 
   index(fileSeconds) {
@@ -42,13 +50,14 @@ export class Windows {
   // Whether a window is loaded, or known to hold no audio.
   settled(file, k) {
     const key = this.key(file, k);
-    return this.loaded.has(key) || this.missing.has(key);
+    return k < 0 || this.loaded.has(key) || this.missing.has(key);
   }
 
   load(file, k) {
     const key = this.key(file, k);
     if (this.loaded.has(key)) return Promise.resolve(this.loaded.get(key).buffer);
     if (this.missing.has(key) || k < 0) return Promise.resolve(null);
+    if (performance.now() - (this.failed.get(key) ?? -Infinity) < RETRY_MS) return Promise.resolve(null);
     if (!this.loading.has(key)) {
       const started = performance.now();
       const promise = api
@@ -56,6 +65,7 @@ export class Windows {
         .then((bytes) => (bytes ? this.context.decodeAudioData(bytes) : null))
         .then((buffer) => {
           this.loading.delete(key);
+          this.failed.delete(key);
           if (buffer) {
             this.loaded.set(key, { buffer, used: ++this.uses });
             this.last = { file, k, milliseconds: performance.now() - started };
@@ -68,8 +78,8 @@ export class Windows {
         })
         .catch((error) => {
           this.loading.delete(key);
-          this.missing.add(key);
-          console.error(`window ${k} of ${file}:`, error);
+          this.failed.set(key, performance.now());
+          this.onerror(file, k, error);
           return null;
         });
       this.loading.set(key, promise);

@@ -1967,3 +1967,39 @@ Brief `docs/brief-14.md`, checklist `docs/session-14-checklist.md`.
   the three files were made again with it and are otherwise identical
   (ids included). The folders run then took 19 s, recomputing envelopes
   cached before the RMS level was added; a second run takes 0.04 s.
+- Step 7, a read-only review by a subagent (timeline mapping, undo,
+  server security, clarity), 14 findings; the server's security held.
+  Fixed, each checked:
+  - The page: playback never reached the end (the wait's time bump ran
+    before the end check); the playhead read the end of the scheduled
+    horizon for the first 60 ms after play; a cut called `stop()` again
+    on a source due to stop earlier, which extends it (the last call
+    wins); a piece starting up to 1 ms before its file held playback
+    forever; any failed window was silent until a reload. Reproduced
+    with Node on the real `player.js` and `windows.js` against a fake
+    audio context (`work/s14/sim/sim.mjs`: the old files fail 5 of 7
+    checks, the new pass all 7). A failed decode is now `503`, retried
+    every 3 s while the playhead waits, and named on the page.
+  - Keys: a held answer key answered every question opened after it,
+    and a held `Z` undid several answers. Repeats now only seek and
+    jump between markers, and a key pressed while an answer is written
+    is ignored. Checked in Chrome with `repeat: true` events and a
+    double press.
+  - Answers: the log is opened before the effect writes; an error after
+    a verdict line says the line stays. `unsure` on a pair the verdicts
+    file already judges is refused like a contradiction. Undo takes back
+    a line only while it is the file's whole last line (a hand-edited
+    `# same ...` ends the same way), only for a loaded question, and
+    names the question.
+  - `questions detections` clamped the timeline to the report's
+    duration, not the end of the part searched, so excerpt reports
+    failed. Two wrong references in `docs/audition-questions.md`; the
+    recipe for a new writing effect now lists what assumes the verdicts
+    file.
+  Not done: a lock between two servers on one log. `File::try_lock`
+  needs Rust 1.89 and the workspace declares 1.85 (though `let` chains
+  in the core already need 1.88); raising it is our call. Every
+  write reads both files first, so two servers collide only on answers
+  within the same few milliseconds. Also left: a timeout on FFmpeg (a
+  hung NAS holds connections; the browser's six per host would then
+  delay answers). 49 audition tests.

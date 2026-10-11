@@ -30,9 +30,13 @@ pub struct Report {
     pub plays: Vec<Play>,
 }
 
+/// The part of the mix searched (`identify --start --duration`); play
+/// times count from the file's start, not the part's.
 #[derive(Debug, Deserialize)]
 pub struct Query {
     pub path: PathBuf,
+    #[serde(default)]
+    pub start_seconds: f64,
     pub duration_seconds: f64,
 }
 
@@ -115,7 +119,8 @@ fn question(
     let track = root.join(&play.asset);
     let timeline = (
         (play.start_seconds - MARGIN_SECONDS).max(0.0),
-        (play.end_seconds + MARGIN_SECONDS).min(report.query.duration_seconds),
+        (play.end_seconds + MARGIN_SECONDS)
+            .min(report.query.start_seconds + report.query.duration_seconds),
     );
     let mut segments: Vec<(usize, &Segment)> = play.segments.iter().enumerate().collect();
     segments.sort_by_key(|(_, segment)| std::cmp::Reverse(segment.hits));
@@ -364,6 +369,21 @@ mod tests {
             last.title
         );
         assert!(last.details.iter().any(|line| line.contains("key-locked")));
+    }
+
+    #[test]
+    fn plays_of_a_searched_part_keep_their_times_in_the_mix() {
+        let report = REPORT.replace(
+            r#""start_seconds": 0.0, "duration_seconds": 2770.0"#,
+            r#""start_seconds": 2700.0, "duration_seconds": 100.0"#,
+        );
+        let mut report: Report = serde_json::from_str(&report).unwrap();
+        report.plays.remove(0);
+
+        let file = questions(&report, &libraries(), |_| Ok(400.0)).unwrap();
+
+        let timeline = &file.questions[0].timeline;
+        assert_eq!((timeline.start, timeline.end), (2720.0, 2800.0));
     }
 
     #[test]

@@ -26,25 +26,20 @@ const BYTES_PER_FRAME: usize = 2 * CHANNELS as usize;
 const PRE_ROLL_SECONDS: f64 = 0.5;
 
 /// Envelopes show the shape of the music, not its treble: a mono decode
-/// at 4 kHz, the minimum and maximum of each 50 ms.
+/// at 4 kHz, the minimum, maximum and RMS level of each 50 ms.
 const ENVELOPE_RATE: u32 = 4_000;
 const BUCKET_SECONDS: f64 = 0.05;
 
 /// Window `window` of `path` as a 16-bit stereo WAV at 44.1 kHz; shorter at
-/// the file's end, an error past it.
-pub fn window_wav(path: &Path, window: u32) -> Result<Vec<u8>, String> {
+/// the file's end, `None` past it. An error means the file could not be
+/// decoded now (FFmpeg failed, the NAS is gone), not that it ends.
+pub fn window_wav(path: &Path, window: u32) -> Result<Option<Vec<u8>>, String> {
     let start = f64::from(window) * WINDOW_SECONDS;
     let pre_roll = start.min(PRE_ROLL_SECONDS);
     let pcm = decode_pcm(path, start - pre_roll, WINDOW_SECONDS + pre_roll)?;
     let dropped = (pre_roll * f64::from(SAMPLE_RATE)).round() as usize * BYTES_PER_FRAME;
     let pcm = pcm.get(dropped..).unwrap_or_default();
-    if pcm.is_empty() {
-        return Err(format!(
-            "{} has no audio in window {window} ({start:.0} s on)",
-            path.display()
-        ));
-    }
-    Ok(wav(pcm))
+    Ok((!pcm.is_empty()).then(|| wav(pcm)))
 }
 
 /// Raw 16-bit little-endian stereo PCM from `start`, `seconds` long.
@@ -269,8 +264,8 @@ pub(crate) mod tests {
             return;
         }
 
-        let first = window_wav(&file, 0).unwrap();
-        let second = window_wav(&file, 1).unwrap();
+        let first = window_wav(&file, 0).unwrap().unwrap();
+        let second = window_wav(&file, 1).unwrap().unwrap();
 
         let frames = |wav: &[u8]| (wav.len() - 44) / BYTES_PER_FRAME;
         assert_eq!(frames(&first), 30 * 44_100);
@@ -280,11 +275,8 @@ pub(crate) mod tests {
             "{}",
             frames(&second)
         );
-        assert!(
-            window_wav(&file, 5)
-                .unwrap_err()
-                .contains("no audio in window 5")
-        );
+        assert_eq!(window_wav(&file, 5), Ok(None));
+        assert!(window_wav(&dir.join("gone.mp3"), 0).is_err());
 
         let envelopes = Envelopes {
             dir: dir.join("envelopes"),

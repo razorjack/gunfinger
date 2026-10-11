@@ -25,9 +25,9 @@ gunfinger-eval questions detections REPORT.json   # 03-detections-<report stem>.
 
 `questions detections` reads a saved `gunfinger identify -f json` report
 that names its library (not a `--store-only` search): one question per
-play, the mix from 30 s before the play to 30 s after as the reference
-lane, the play's file placed by its segments, the strongest segment
-first (`placement::tile`).
+play, the mix from 30 s before the play to 30 s after (within the part
+searched) as the reference lane, the play's file placed by its
+segments, the strongest segment first (`placement::tile`).
 
 ## The file
 
@@ -130,15 +130,17 @@ length); the page evaluates only the formula above, in `timeline.js`.
 | `type` | Data | What an answer does |
 |---|---|---|
 | `log` | none | Appends to the answer log only. |
-| `pair_verdict` | `related`: array of two-file arrays | The question's `files` are exactly two, named as the verdicts file names them. `same` and `different` append `same\|different<TAB>a<TAB>b` to the verdicts file, as `pair-review` does, and the log; any other value (`unsure`) the log only. The question shows as answered when the verdicts file judges its pair or a `related` pair (`Verdicts::judges`). The choices' values must be `same`, `different` and optionally `unsure`. |
+| `pair_verdict` | `related`: array of two-file arrays | The question's `files` are exactly two, named as the verdicts file names them. `same` and `different` append `same\|different<TAB>a<TAB>b` to the verdicts file, as `pair-review` does, and the log; any other value (`unsure`) the log only. The question shows as answered when the verdicts file judges its pair or a `related` pair, in either order (the rule of `Verdicts::judges`, which `pair-review` uses). Then the same verdict again is logged without a second line, and any other answer, `unsure` included, is refused. The choices' values must be `same`, `different` and optionally `unsure`. |
 
 A new place to write answers is a new `Effect` variant in `schema.rs`
-and its code in `answers/effects.rs`.
+and its code in `effects.rs`; that module's documentation lists what
+else assumes the verdicts file today.
 
 ## The answer log
 
 `work/audition/answers.jsonl`, one JSON object per line, appended on the
-listener's keypress only:
+listener's keypress only. Run one `audition` at a time on a log: two are
+not locked against each other.
 
 ```json
 {"seq":1,"time":"2026-10-12T08:15:02Z","action":"answer","question":"pair-3f1c...","kind":"pair","title":"1. Cut join: ...","files":["second-library/a.opus","second-library/b.mp3"],"choice":"different","verdict_line":"different\tsecond-library/a.opus\tsecond-library/b.mp3\n"}
@@ -150,7 +152,12 @@ listener's keypress only:
   nothing).
 - An `undo` names the answer it takes back (`undoes`) and says what
   happened to its verdict line: `removed`, `left` (it was no longer the
-  end of the file) or `none`.
+  file's whole last line) or `none`. `Z` takes back the latest answer
+  in force only if its question is loaded; otherwise it writes nothing
+  and names the question.
+- An answer writes its verdict line before its log record. If the
+  record cannot be written, the line stays without one and the page
+  says so; `Z` cannot take that line back.
 - A question's answer is its latest `answer` record that no `undo` took
   back; a pair question judged in the verdicts file shows that verdict
   first.
@@ -263,7 +270,7 @@ All paths start with `/<token>/`; `api/` routes answer JSON unless noted.
 |---|---|
 | `GET /` | the page; `GET <name>.js` and `<name>.css` its embedded files |
 | `GET api/session` | the loaded files' titles, every question with its state, the window length, the paths of the answer log and the verdicts file |
-| `GET api/audio?file=PATH&window=K` | `audio/wav`: window `K` (30 s) of a listed file, 16-bit stereo, 44.1 kHz |
+| `GET api/audio?file=PATH&window=K` | `audio/wav`: window `K` (30 s) of a listed file, 16-bit stereo, 44.1 kHz; `404` past the file's end, `503` when it cannot be decoded now (the page tries again every 3 s and waits) |
 | `GET api/envelope?file=PATH` | a listed file's waveform: per 50 ms bucket the minimum, the maximum and the RMS level (each scaled to -127..127), and its length |
 | `POST api/answer` `{"question": ID, "key": K}` | the question's new state and a message, or `409` with the reason |
 | `POST api/undo` | what was undone and a message |

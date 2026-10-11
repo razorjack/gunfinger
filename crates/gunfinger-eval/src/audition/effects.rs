@@ -2,10 +2,15 @@
 //! `effect`. `log` writes nothing more. `pair_verdict` appends `same` or
 //! `different` with the question's two files to the pair verdicts file, in
 //! the format `pair-review` writes, and undo removes that line only while
-//! it is still the end of the file, byte for byte.
+//! it is still the file's whole last line, byte for byte.
 //!
 //! A new place for answers is a new `schema::Effect` variant and its arm
-//! in `recorded`, `apply` and (if it writes) `take_back`.
+//! in `recorded` and `apply`. If it writes a file other than the verdicts
+//! file, the answer book must know that file too: today `AnswerBook` holds
+//! the verdicts file's path, a log record keeps the appended bytes as
+//! `verdict_line`, and `AnswerBook::undo` hands them to `take_back` with
+//! the verdicts file. A new writing effect needs its own record field and
+//! its own arm there, so undo never shortens the wrong file.
 
 use std::fs::{self, OpenOptions};
 use std::path::Path;
@@ -58,7 +63,8 @@ pub enum TakenBack {
 }
 
 /// The answer the question's effect already records, if any: for a pair, a
-/// verdict on its two files or on a related pair (`Verdicts::judges`).
+/// verdict on its two files or on a related pair, in either order (the
+/// rule of `Verdicts::judges`, which `pair-review` uses).
 pub fn recorded(question: &Question, verdicts: &Verdicts) -> Option<Recorded> {
     match &question.effect {
         Effect::Log => None,
@@ -82,15 +88,13 @@ pub fn recorded(question: &Question, verdicts: &Verdicts) -> Option<Recorded> {
 }
 
 /// Writes what the answer `value` to `question` writes besides the log.
+/// Any answer to a pair the verdicts file already judges otherwise
+/// (`unsure` included) is refused: the file's verdict is what the page
+/// shows, so logging another would change nothing on the page.
 pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<Applied, Refusal> {
     match &question.effect {
         Effect::Log => Ok(Applied::Nothing),
         Effect::PairVerdict { .. } => {
-            let same = match value {
-                "same" => true,
-                "different" => false,
-                _ => return Ok(Applied::Nothing),
-            };
             let verdicts = Verdicts::load(verdicts_file).map_err(Refusal::Io)?;
             if let Some(recorded) = recorded(question, &verdicts) {
                 let pair = format!("{} ~ {}", recorded.pair[0], recorded.pair[1]);
@@ -107,6 +111,11 @@ pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<A
                     )))
                 };
             }
+            let same = match value {
+                "same" => true,
+                "different" => false,
+                _ => return Ok(Applied::Nothing),
+            };
             let [a, b] = [&question.files[0], &question.files[1]];
             Verdicts::append(verdicts_file, same, a, b)
                 .map(Applied::VerdictLine)
@@ -116,17 +125,25 @@ pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<A
 }
 
 /// Removes `appended` from the end of the verdicts file if it is still
-/// there, byte for byte; otherwise leaves the file alone.
+/// the file's whole last line, byte for byte; otherwise leaves the file
+/// alone. (`appended` may start with the newline that ended the line
+/// before it.)
 pub fn take_back(appended: &str, verdicts_file: &Path) -> Result<TakenBack, String> {
     let bytes = match fs::read(verdicts_file) {
         Ok(bytes) => bytes,
         Err(error) if error.kind() == std::io::ErrorKind::NotFound => return Ok(TakenBack::Left),
         Err(error) => return Err(format!("cannot read {}: {error}", verdicts_file.display())),
     };
-    if !bytes.ends_with(appended.as_bytes()) {
+    let Some(kept) = bytes.strip_suffix(appended.as_bytes()) else {
+        return Ok(TakenBack::Left);
+    };
+    // A line edited by hand to end the same way (`# same\ta\tb`) is not
+    // the appended line.
+    let whole_line = appended.starts_with('\n') || kept.is_empty() || kept.ends_with(b"\n");
+    if !whole_line {
         return Ok(TakenBack::Left);
     }
-    let length = (bytes.len() - appended.len()) as u64;
+    let length = kept.len() as u64;
     OpenOptions::new()
         .write(true)
         .open(verdicts_file)

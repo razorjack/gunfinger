@@ -147,8 +147,9 @@ impl Session {
 
     /// `Z` was pressed.
     pub fn undo(&self) -> Result<Reply, String> {
+        let loaded = self.questions().map(|question| &question.id).collect();
         let book = self.book.lock().unwrap_or_else(PoisonError::into_inner);
-        let undone = book.undo(&answers::now())?;
+        let undone = book.undo(&loaded, &answers::now())?;
         Ok(Reply {
             message: undone.message,
             question: undone.record.map(|record| record.question),

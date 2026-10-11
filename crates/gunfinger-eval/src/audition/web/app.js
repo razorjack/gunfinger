@@ -46,6 +46,8 @@ async function start() {
   lanes = new LanesView(element("lanes"), element("tooltip"), player, say);
   queue = new Queue(element("queue"), open);
   player.onend = () => say("the end of the timeline");
+  windows.onerror = (file, k, error) =>
+    say(`cannot load ${file} from ${clock(k * session.window_seconds)}: ${error.message}; trying again`, "error");
   drawLegend();
   open(questions().find((question) => !question.state) ?? questions()[0]);
   document.addEventListener("keydown", onKey);
@@ -144,12 +146,18 @@ function applyStates(reply) {
   for (const question of questions()) question.state = reply.states[question.id] ?? null;
 }
 
+// One answer or undo at a time: a key pressed while the server writes the
+// last one is ignored, so it cannot land on the question opened next.
+let writing = false;
+
 async function choose(key) {
   const choice = current.choices.find((candidate) => candidate.key === key);
   if (!choice) {
     say(`${key.toUpperCase()} is not an answer here; ? lists the keys`);
     return;
   }
+  if (writing) return;
+  writing = true;
   try {
     const reply = await api.answer(current.id, key);
     applyStates(reply);
@@ -163,10 +171,14 @@ async function choose(key) {
     }
   } catch (error) {
     say(error.message, "error");
+  } finally {
+    writing = false;
   }
 }
 
 async function undo() {
+  if (writing) return;
+  writing = true;
   try {
     const reply = await api.undo();
     applyStates(reply);
@@ -179,6 +191,8 @@ async function undo() {
     }
   } catch (error) {
     say(error.message, "error");
+  } finally {
+    writing = false;
   }
 }
 
@@ -190,6 +204,8 @@ function onKey(event) {
   context.resume();
   if (!help.hidden && wanted.name !== "help" && wanted.name !== "close") help.hidden = true;
   switch (wanted.name) {
+    case "held":
+      return;
     case "toggle":
       return player.toggle();
     case "lane":

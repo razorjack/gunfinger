@@ -20,9 +20,20 @@ export const CONTROLS = [
 const SEEK = 5;
 const SEEK_LARGE = 30;
 
-// The action a key event asks for, or null.
+// A held key repeats only these. A held answer key must not go on to answer
+// the questions that open after it, nor a held Z undo several answers.
+const REPEATING = new Set(["seek", "marker"]);
+
+// The action a key event asks for, or null; { name: "held" } for a repeat
+// to ignore.
 export function action(event) {
   if (event.metaKey || event.ctrlKey || event.altKey) return null;
+  const wanted = named(event);
+  if (wanted && event.repeat && !REPEATING.has(wanted.name)) return { name: "held" };
+  return wanted;
+}
+
+function named(event) {
   switch (event.key) {
     case " ":
       return { name: "toggle" };

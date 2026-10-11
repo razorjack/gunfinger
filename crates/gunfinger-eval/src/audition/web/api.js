@@ -24,7 +24,8 @@ export async function envelope(file) {
   return (await checked(await fetch(`api/envelope?file=${encodeURIComponent(file)}`))).json();
 }
 
-// Window k of a file as WAV bytes; null past the file's end.
+// Window k of a file as WAV bytes; null past the file's end (404). Any
+// other failure throws, and the window is tried again later.
 export async function audioWindow(file, k) {
   const response = await fetch(`api/audio?file=${encodeURIComponent(file)}&window=${k}`);
   if (response.status === 404) return null;

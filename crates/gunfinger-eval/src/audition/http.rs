@@ -211,6 +211,7 @@ fn reason(status: u16) -> &'static str {
         405 => "Method Not Allowed",
         409 => "Conflict",
         421 => "Misdirected Request",
+        503 => "Service Unavailable",
         _ => "Internal Server Error",
     }
 }
