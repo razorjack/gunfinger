@@ -358,3 +358,102 @@ In all: **21/23 referenced tracks identified, 1 wrong identification
 (Mind Overload's Molten Beats edit), 2 possible (Sin, Sick Note), and a
 few possible plays matching no track** (related versions and NAS-scale
 chance). No wrong confident detection on tracks 3, 12, 16, 21 or 28.
+
+Run: 06:52:11-07:03:46 on 2026-10-11, once, exit 0 (694 s wall, 5,590 s
+CPU, 5.47 GB; 1:58:11 scanned in 595.2 s, under other
+load). Items 5 and 6 matched experiments 0067 and 0068 (0073,
+0074), so the run went ahead.
+
+- Result: **21/23 referenced tracks identified (91.3%), 2 wrong
+  identifications.** Possible tier: Sin and Sick Note found as possible;
+  one possible play matches no track (The Nine's ChaseR bootleg, 81
+  hits).
+- Against the prediction: the 21 identified tracks, the two possible
+  ones and Molten Beats' Mind Overload edit as a wrong identification
+  (921 hits in 22 windows, 18:54-22:26, beside the reference's 848) came
+  as predicted. Not predicted: **The Nine's Evol Intent VIP as a second
+  wrong identification, 489 hits in 16 windows at 2:30-5:07**, beside
+  The Nine's 868. The prediction took the sweeps' 9-24% of the
+  original's hits; here the VIP reached 56%. By ear, the VIP is a
+  different recording. The sweeps play 30 s excerpts; here the VIP
+  matched 157 s of the original's play, so it shares the original's
+  material over a longer passage than any sweep excerpt covers (an
+  inference; item 8c, planned before this run, measures that passage).
+  "A few" possible plays matching no track: one.
+- Tracks 3, 12, 16, 21 and 28: no confident and no possible detection
+  from the related versions. Their strongest detections anywhere in the
+  mix: Terminal 2 20 hits (in slot 3), the Orders mixes 7, the Marky &
+  Bungle Funktion 6, the Clear Skyz Break remix 6 (the 1996 VIP none),
+  the Black Barrel Beachball 45 hits in 4 windows (in slot 28).
+- Against evaluation 3: the 14 tracks found then are found again, with
+  hits within a few percent or higher through NAS copies (The Pulse 914
+  to 1,040, China Cup 403 to 436, Alien Girl 1,201 to 1,279); the seven
+  NAS references are all found (Asylum the weakest, 309 hits in 16
+  windows). Sin weakens to 75 hits in 2 windows (123 in 3); Sick Note
+  stays at 232. Wrong identifications 0 to 2, both files the clusters
+  keep apart from the reference: an edit at 79.3% coverage, just under
+  the 80% join (listening pack item 2), and a VIP judged different.
+- Nothing changes because of this result. If pack
+  item 2 is judged `same` by ear, the Mind Overload edit joins the reference's cluster
+  and the score is recomputed from the stored report, not run again.
+
+Scan output, verbatim:
+
+```text
+ed-rush-optical-essential-mix: 21/23 referenced tracks identified, 2 wrong identifications; 1:58:11 of audio scanned in 595.2 s
+possible tier: 2 more referenced tracks found as possible, 1 possible plays match no track
+  absent    1. Optical & Ryme Tyme - Headhunters
+  found     2. Bad Company - The Nine  best 868 hits/23 windows at +0.48% 2:23-6:07
+           credited through cluster: second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3
+           credited through cluster: second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3
+           credited through cluster: second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a
+           credited through cluster: second-library/bad_company-fear_lp/02 bad company-the nine.mp3
+  absent    3. Ram Trilogy - Terminal 1
+  absent    4. Jonny L - The Bells
+  found     5. Ed Rush & Optical - Fixation  best 733 hits/24 windows at +2.73% 14:00-17:57
+  found     6. Ram Trilogy - Mind Overload  best 848 hits/28 windows at +2.32% 18:01-22:33
+  found     7. DJ Trace - Sonar  best 658 hits/21 windows at +4.55% 23:54-27:15
+           credited through cluster: second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3
+  found     8. Krust - Warhead (Ram Trilogy Remix)  best 803 hits/25 windows at +2.42% 26:52-30:58
+  found     9. Matrix - Airhead  best 1039 hits/25 windows at +4.77% 31:01-35:07
+  found    10. Bad Company - The Pulse  best 1040 hits/20 windows at +1.31% 36:18-39:29
+           credited through cluster: second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - the pulse - ] drum and bass.opus
+           credited through cluster: second-library/bad_company-fear_lp/01 bad company-the pulse.mp3
+  found    11. Ed Rush & Optical - Bacteria  best 484 hits/17 windows at +4.76% 39:10-41:54
+           credited through cluster: second-library/__full_scene/1999/1999-08/1999-08-20/virus-ed_rush_and_optical-vrs005-1999-sour/aa-ed_rush_and_optical-bacteria-sour.mp3
+           credited through cluster: second-library/__youtube_archivists/alien5ive/VIRUS RECORDINS [ VRS 005 ： ED RUSH + OPTICAL - bacteria - ] drum and bass.m4a
+  absent   12. DJ Phantasy & DJ Probe - Orders (DJ Reality Remix)
+  found    13. Ryme Tyme - Payback Pt. 1  best 855 hits/19 windows at +3.30% 47:15-50:19
+           credited through cluster: second-library/__full_scene/1999/1999-11/1999-11-13/dsci4-ryme_tyme-dsci402-1999-sour/a-ryme_tyme-payback-sour.mp3
+  found    14. Roni Size / Reprazent - Watching Windows (DJ Die Remix)  best 479 hits/19 windows at +5.34% 51:50-54:55
+  found    15. Matrix - Asylum  best 309 hits/16 windows at +6.39% 55:01-57:38
+  absent   16. Ed Rush & Optical - Funktion (Remix)
+  found    17. Bad Company - China Cup  best 436 hits/20 windows at +0.28% 1:02:51-1:06:07
+           credited through cluster: second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus
+           credited through cluster: second-library/bad_company-fear_lp/07 bad company-china cup.mp3
+  found    18. Ram Trilogy - Iron Lung  best 572 hits/18 windows at +4.03% 1:06:07-1:09:08
+           credited through cluster: second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/108-ram_trilogy-iron_lung-sour.mp3
+  absent   19. Optical - Newoptic
+  found    20. Ed Rush & Optical - Dozer  best 1814 hits/30 windows at +3.07% 1:13:24-1:18:16
+  absent   21. DJ Die - Clear Skyz
+  possible 22. Fibre Optix - Sin  best 75 hits/2 windows at +5.54% 1:22:31-1:22:41
+  found    23. Usual Suspects - Killa Beez  best 1794 hits/31 windows at +3.03% 1:24:36-1:29:37
+  found    24. Ram Trilogy - Chase Scene  best 670 hits/22 windows at +3.51% 1:29:20-1:32:51
+  found    25. Ed Rush & Optical - Watermelon  best 714 hits/16 windows at +3.66% 1:32:31-1:35:08
+  found    26. Ram Trilogy - System Error (Y2K)  best 1454 hits/31 windows at +2.28% 1:35:01-1:40:11
+           credited through cluster: second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/112-ram_trilogy-system_error_(y2k)-sour.mp3
+  found    27. Ed Rush & Optical - Gas Mask  best 1921 hits/38 windows at +3.62% 1:39:51-1:46:07
+           credited through cluster: second-library/__full_scene/1999/1999-08/1999-08-20/virus-ed_rush_and_optical-vrs005-1999-sour/a-ed_rush_and_optical-gas_mask-sour.mp3
+  absent   28. Infinite (Optical & Fierce) - Beachball
+  found    29. Ed Rush, Optical & Fierce - Alien Girl  best 1279 hits/25 windows at +5.44% 1:49:51-1:53:57
+           credited through cluster: second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/prototype-ed_rush_and_optical_and_fierce-pro014-1998-sour/aa-ed_rush_and_optical_and_fierce-alien_girl-sour.mp3
+           credited through cluster: second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a
+  found    30. Optical - Slip Thru  best 838 hits/15 windows at +2.41% 1:55:25-1:57:44
+           credited through cluster: second-library/__youtube_archivists/dfect-dnb/Optical - Slip Thru.m4a
+  possible 31. Ed Rush & Optical - Sick Note  best 232 hits/4 windows at +4.13% 1:57:43-1:58:10
+  WRONG  second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3 18:54-22:26 +2.23% 921 hits/22 windows
+  WRONG  second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a 2:30-5:07 +0.22% 489 hits/16 windows
+  POSSIBLE, NO TRACK  second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus 2:52-3:16 81 hits in 1 segments
+```
+
+Evaluations used: 4 of 5.
