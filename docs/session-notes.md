@@ -2316,3 +2316,207 @@ searched.
 - Every long run now starts detached under `screen`: the agent's shell
   stops a background command after about 40 minutes, which cut the first
   clusters run short at 02:27.
+
+## Session 11
+
+### What needs doing
+
+**The listening pack, rebuilt (experiment 0071).** `work/listening/`
+now holds 23 items; session 10's pack is kept in `work/listening-s10/`.
+Step through it, from the repository (the release build is the
+session's last code, `84fe0e5`), with
+
+```sh
+target/release/gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks pair-review
+```
+
+It shows each item without a verdict in short (both full paths, the
+coverage, where the files stop lining up), plays its clips with `ffplay`
+and, on `s` or `d`, appends the `same` or `different` line to
+`docs/pair-verdicts.txt`. Enter or `n` plays the next clip, `p` the
+previous, `r` replays, `k` skips the item, `q` quits; items with a
+verdict are skipped, so a review can stop and resume. At the end it prints
+the `clusters --from-peaks --reuse-pairs --cut-sparsest` command that
+applies the verdicts in about a second.
+
+1. **The cut Sonar join** (item 1), as in session 10: the PRO012 rip
+   against the Mark System Revision, which was judged different from the
+   corpus Sonar.
+2. **Two new borderline pairs.** Item 2 is the test manifest's Mind
+   Overload (`ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3`)
+   against Molten Beats' `111-ram_trilogy-mind_overload-sour.mp3`: 79.3%
+   coverage, 3,321 hits, an edit of the same recording with about 45 s
+   left out (the strongest unjudged pair of the run). Item 10 is Ryme
+   Tyme's T-Minus against its "Unreleased Vocal Mix" (58%).
+3. **Ten borderline pairs from session 10** (items 3-9, 11-13), still
+   without a verdict, and the **ten control joins** (items 14-23), all
+   still joined.
+
+The eight patterns settled session 10's nine Essential Rewindz items
+(3-6, 8, 12-14, 16): each pairs a pruned file, so they are gone.
+
+**Seven folders to judge by ear (experiment 0070).** The 1,252 records
+indexed since session 10 are all YouTube uploads (butch-french,
+cryptic-jungle, 3zb-gangstep-dnb), so no new release folder needed
+checking. Scored disc by disc, no folder or disc reaches the 0.75 that
+mixed CDs reach; Shy FX's *Just An Example* and the Mampi Swift EP, which
+were kept, still do. These seven score in between. A gapless album scores
+the same, so only listening to a few boundaries tells them apart. Nothing
+was written to the ignore file.
+
+| Score | Boundaries joined | Folder |
+|--:|--:|---|
+| 0.62 | 8 of 13 | `/Volumes/atlas/Music/dnb/__full_scene/1999/1999-08/1999-08-20/skynet_and_stakka-point_of_arrival-1999-sour/` |
+| 0.60 | 6 of 10 | `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-listen_up-hlcd9-2000-sour/` |
+| 0.55 | 6 of 11 | `/Volumes/atlas/Music/dnb/__full_scene/1999/1999-12/1999-12-19/jonny_l-magnetic-1998-sour/` |
+| 0.50 | 5 of 10 | `/Volumes/atlas/Music/dnb/2001 - VRSCD003 - Ed Rush & Optical - The Creeps [Virus]/CD1/` (kept after session 9) |
+| 0.50 | 6 of 12 | `/Volumes/atlas/Music/dnb/[RUFF 57] Various - Analog Steroids (CD)/` |
+| 0.44 | 4 of 9 | `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-breakbeat_science-scincd001-1996-sour/`, disc `2*` only |
+| 0.40 | 4 of 10 | `/Volumes/atlas/Music/dnb/bad_company-fear_lp/` |
+
+A pattern for one disc has the form
+`**/va-breakbeat_science-scincd001-1996-sour/2*`, as for Essential
+Rewindz.
+
+### Test evaluation 4 at NAS scale
+
+As approved, the test mix was scanned once at NAS scale, with the
+baseline's binary (`1afd8cc`) and evaluation 3's command plus
+`--other-peaks-dir`. The ledger entry and a per-track prediction were
+committed first (`fab29bb`, 03:42); the run went at 06:52, after items 5
+and 6 matched session 10.
+
+**21/23 referenced tracks identified, 2 wrong identifications**; Sin and
+Sick Note possible; one possible play matching no track (The Nine's
+ChaseR bootleg, 81 hits). Evaluations used: 4 of 5.
+
+- All 14 tracks of evaluation 3 are found again, and the 7
+  referenced on the NAS are all found (Asylum the weakest, 309 hits in
+  16 windows).
+- Wrong 1, predicted: Molten Beats'
+  `ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3`
+  over Mind Overload (921 hits, beside the reference's 848). It is an
+  edit of the same recording with about 45 s cut; one alignment covers
+  79.3% of it, just under the 80% join. It is item 2 of the pack: if it is
+  judged `same`, the score is recomputed from the stored report as
+  21/23 with 1 wrong, without another run.
+- Wrong 2, not predicted: Evol Intent's VIP of The Nine (489 hits in 16
+  windows, 2:30-5:07, beside The Nine's 868), which was judged a
+  different recording. The sweeps' 30 s excerpts give it 9-24% of the
+  original's hits; over 2.5 minutes of the mix it reached 56%. This is
+  the shared-material question below, not a threshold question.
+- Tracks 3, 12, 16, 21 and 28: none of the other versions found
+  (Terminal 2, the Orders mixes, the Marky & Bungle Funktion, the Clear
+  Skyz remix and VIP, the Black Barrel Beachball) reaches even the
+  possible tier; the strongest is the Beachball bootleg at 45 hits.
+
+Nothing changes because of the result. The full output is in
+`docs/experiments/test-set-ledger.md`.
+
+### The saved index (ADR 0011, experiment 0072)
+
+`identify`, `explain` and `stats` now save the index they build to
+`~/.cache/gunfinger/indexes/nas-dnb-peaks-<digest>.index` and load it
+on the next search while it is current; a stale, truncated or damaged
+file is rebuilt and replaced. `--saved-index rebuild` forces a build,
+`off` keeps the old in-memory behaviour. At 33,596 records the file is
+3.8 GB on disk (the store is 2.59 GB), and the index is
+ready in 2-3 s instead of 118-167 s (65-72 s on a quiet machine); my
+2003 mix gives byte-identical reports either way, and `explain` takes 14
+s. After `index` adds files, the next search rebuilds once. `doctor`
+does not count the file yet; deleting it costs one rebuild.
+
+### Other titles of one passage (item 3b)
+
+When confident plays of different files cover the same passage and
+their title tags disagree, each such play now names the others: in the
+table a line "titled Future Cut - Sex Drive; other files here: FUTURE
+CUT - the specialist (plays 5, 6, 7)", in the tracklist "(titles
+disagree: Future Cut - The Specialist)" instead of "(also: ...)", and in
+JSON `other_titles` with the play number, file and title. No title is
+chosen; detections do not change. My 2003 mix's track 2 is the
+example: play 4 is the INFRA011 rip tagged "Sex Drive".
+
+### The NAS after the prune (experiments 0071, 0073, 0074)
+
+- **Clusters** (0071): the eight patterns removed what they were
+  written for. 13 corpus clusters change: six lose a pruned mixed-disc
+  track, seven gain a new upload. 267 clusters; the strongest unjudged
+  pair is Mind Overload's edit (79.3%).
+- **Baseline** (0073): as session 10 in every score, and the prediction
+  held: the 24 wrong sweep answers from Essential Rewindz are gone
+  (2,160/2,160, 0 wrong). The strongest false candidate is The Nine's
+  VIP at 220 hits, a 3.00× margin to the weakest identifying 661;
+  unrelated chance 63-70 hits. My 2003 mix: 12/12 and 7/7, 0 wrong.
+  The rule stays 240 hits in 3 windows.
+- **Recall** (0074): 522/522 from 58 indexed NAS sources (the two that the
+  prune removed are named and left out, the panel not drawn again); the
+  only wrong answers are the two DYkast "Punishment" uploads (item 4 of
+  the pack).
+
+### Research
+
+- **Where a NAS `identify` spends its time** (experiment 0075). With the
+  saved index, my 2003 mix takes 221 s, 96.5% of it the search; the
+  search spends 82% of its CPU sorting each window's hits by asset and
+  offset. A sort that groups hits by asset first would give identical
+  detections faster; that is the next code step for speed, behind
+  `regress`.
+- **Shared material at NAS scale** (experiment 0076). For the pairs
+  judged different and the version families the clusters keep apart (17
+  pairs of clusters, outside the five versions found through the test
+  tracklist), each shared passage was played whole from one file and the
+  other file's play read. In 18 of 34 directions the related file's play
+  is confident: The Nine's VIP at 21.7 times the rule (5,204 hits over
+  209 s; it plays the original's first 3:34 unchanged), the "Fire"
+  versions 1.2-2.5 times, Sonar's revision 1.6-2.3 times, Tsunami's
+  remix and Killa Bees' Optical & Fierce remix just over it. The sweeps'
+  30 s excerpts never showed this (at most 220 hits): hits grow with the
+  passage. Leaving the played file out of the index does not change the
+  related play. So the confidence rule alone cannot keep a version off a
+  shared passage. The played file's own play is always stronger: the
+  related play reaches 2-24% of its hits, the VIP 55-60%. That ratio
+  would tell the remixes apart, but not the VIP: in my 2003 mix,
+  copies of one recording over one passage reach 0.30-1.00 of the
+  strongest copy's hits (uploads against rips). Today the report marks
+  only a possible play inside a confident one as shared material; a
+  confident version over the same passage is named under "other files
+  here" when its title differs. Measurement only; no rule changed.
+
+### Worth knowing
+
+- **Another agent worked on this repository all night.** A git worktree of it
+  (branch `fix/prerelease-audit`, from `8038064`), ran builds, debug
+  tests and `candidate-eval regress` on this corpus, and committed fixes
+  from 03:24. It touched neither the NAS store nor `~/.cache/gunfinger/`.
+  With it, the clusters search took 8 h 06 min for 8% more cycles than
+  session 10's 2 h 14 min, and the session's timings are marked as
+  measured under load. It is not a Claude session this one can message,
+  so it was left alone.
+- **`origin/master` was pushed** to `8038064` at 02:43, this session's
+  commit of 01:29, from the git directory both worktrees share; this
+  session pushes nothing, and `master` is now ahead of it.
+- **A review of this session's code** (a read-only subagent) found
+  nothing that changes detections or lets a stale or damaged index load,
+  and four small defects, fixed in `84fe0e5`: `pair-review` now always
+  prints `--cut-sparsest`; a search deletes another search's unfinished
+  `.partial` index only after 10 minutes untouched, and also after a
+  successful load; a damaged posting count can no longer overflow the
+  size check.
+
+### At the end
+
+- The NAS store is as at the start: 33,596 records, revision
+  `f9f9bc706195a71b`; nothing in this session wrote to it. `doctor`
+  counts 35,573 audio files against 35,178 at the start: 395 new files,
+  not indexed (an `index` run adds them; the next search then rebuilds
+  the saved index once).
+- `regress session-11-start` with the session's last code (`84fe0e5`) is
+  identical: 720 of 720 sweep queries and every scan's detections.
+- Research items a-c were done by 07:26, before the 10:00 stop. The
+  brief names no further item, so nothing else ran.
+- Left for later (roadmap): grouping hits by asset before sorting them
+  (experiment 0075; identical detections, checked by `regress`); a
+  statistic for shared material, tested on recordings not used in 0076;
+  `doctor` counting the saved index file; the harness's runs using a
+  saved index; a compressed saved file.

@@ -68,8 +68,9 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Experiments; notes "Session 11" (the pack and the review command,
+- [x] Experiments; notes "Session 11" (the pack and the review command,
   the mixed-disc list first); evaluation 4; status; checklist;
   calibration register; roadmap
-- [ ] The NAS store's revision at the end; new audio files counted
-- [ ] Commit; the final message
+- [x] The NAS store's revision at the end: `f9f9bc706195a71b`, 33,596
+  records; new audio files: 395 (35,573 against 35,178)
+- [x] Commit; the final message

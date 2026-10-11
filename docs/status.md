@@ -1642,3 +1642,17 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
 - From 07:26, chained (`work/s11/after-8c.sh`, `screen` `s11-end`):
   `regress session-11-start` with `work/bin/s11-review/` (`84fe0e5`),
   the store's revision, `doctor`.
+- End chain (07:26-07:34): `regress session-11-start` with
+  `work/bin/s11-review/` (`84fe0e5`, the session's last code), 255 s:
+  identical (720 of 720 sweep queries, every scan; the calibrate line as
+  at the start). The NAS store: 33,596 records, revision
+  `f9f9bc706195a71b`, as at the start. `doctor`: 35,573 audio files
+  against 35,178 at the start: 395 new files, not indexed (an `index`
+  run adds them; the next search then rebuilds the saved index once).
+- Research items a-c were done by 07:26. The brief names no further
+  research item, so nothing else ran before the 10:00 stop (decision: no
+  unplanned measurement).
+- Wrap-up: notes "Session 11" (the pack and `pair-review` first, then
+  the seven mixed-disc folders), evaluation 4, the calibration
+  register's research paragraph, the README's load time; checklist
+  complete.

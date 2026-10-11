@@ -335,14 +335,15 @@ GUNFINGER_CONFIG=~/.config/gunfinger/jungle.toml target/release/gunfinger identi
 (about 70 s at 33,000 records) and save it, by default, in
 `$XDG_CACHE_HOME/gunfinger/indexes/` (or `~/.cache/gunfinger/indexes/`),
 one file per peak store, about 4 bytes per posting (3.8 GB at 33,000
-records). The next search loads it instead, when its header names exactly
-what the search would index: the peak profile, the hash design, the track
-length range and every file's path, size and modification time. After
-`index` adds or changes files, or a prune removes some, the next search
-builds it again and saves it over the old file; a damaged or truncated
-file is never used. `--saved-index rebuild` builds and saves it anyway,
-`--saved-index off` builds it in memory only, and `--exclude-from` leaves
-the file alone. The folder can be deleted at any time (ADR 0011).
+records). The next search loads it instead, in 2-3 s (experiment 0072),
+when its header names exactly what the search would index: the peak
+profile, the hash design, the track length range and every file's path,
+size and modification time. After `index` adds or changes files, or a
+prune removes some, the next search builds it again and saves it over the
+old file; a damaged or truncated file is never used. `--saved-index
+rebuild` builds and saves it anyway, `--saved-index off` builds it in
+memory only, and `--exclude-from` leaves the file alone. The folder can be
+deleted at any time (ADR 0011).
 
 ### Without the library
 

@@ -139,6 +139,15 @@ VIP of the played track, the question of a statistic for shared
 material. Costs: sweeps 1,666-1,724 s, 14,619-15,129 s CPU, 6.8-6.9 GB;
 scans 2,337-2,368 s CPU, 4.9 GB (wall times under other load).
 
+Session 11, research (experiment 0076, measurement only): played whole
+from one file, the shared passages of 17 pairs of related versions give
+the other version a confident play in 18 of 34 directions (The Nine's
+Evol Intent VIP 21.7× the rule, "Fire" versions 1.2-2.5×, Sonar's
+revision 1.6-2.3×), while the sweeps' 30 s excerpts give at most 220
+hits. The sweep margins above therefore say nothing about a version over
+a long shared passage. Test evaluation 4 (21/23, 2 wrong: Mind
+Overload's Molten Beats edit and The Nine's VIP) is not an input here.
+
 ## After indexing more tracks
 
 0. Before indexing, `gunfinger-eval baseline <name>` keeps the reports at
