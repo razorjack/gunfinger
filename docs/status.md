@@ -1630,4 +1630,4 @@ Brief `docs/brief-11.md`, checklist `docs/session-11-checklist.md`.
 - 8b started at 07:04 (`work/s11/item8b.sh`, `sample` every 10 ms over a
   saved-index `identify` of the 2003 mix); 8c is chained after it
   (`work/s11/after-8b.sh`, `screen` session `s11-8c`), its plan fixed
-  at 03:50, before evaluation 4.
+  at 03:43, before evaluation 4.
