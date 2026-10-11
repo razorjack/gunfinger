@@ -8,9 +8,11 @@ for scope and rules.
 
 - [x] `git status` clean at `c066c2a`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s13-start/`; `baseline session-13-start`
-- [ ] The NAS store at the start: records and revision
-  (`f9f9bc706195a71b` expected)
+- [x] Release build in `work/bin/s13-start/` (byte-identical to
+  `work/bin/s12-review/`); `regress session-12-start` with it identical
+  (206.5 s); `baseline session-13-start`
+- [x] The NAS store at the start: 33,596 records, 1,582 skip notes,
+  revision `f9f9bc706195a71b`, as expected
 
 ## Steps
 

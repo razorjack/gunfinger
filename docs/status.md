@@ -1827,3 +1827,16 @@ Brief `docs/brief-12.md`, checklist `docs/session-12-checklist.md`.
   4.80 GB peak.
 - Roadmap: "Files that vanish while the library is listed", from the
   failed first `doctor` listing of session 12.
+
+## 2026-10-11: session 13, files that vanish while the library is listed
+
+Brief `docs/brief-13.md`, checklist `docs/session-13-checklist.md`.
+
+- 18:11 start, `git status` clean at `c066c2a`. Release build in
+  `work/bin/s13-start/`, byte-identical to `work/bin/s12-review/`.
+  `regress session-12-start` with it, to refresh `work/reports/` from the
+  start build: 720/720 sweep queries and 87, 93 and 79 scan detections
+  identical, the known calibrate line; 206.5 s wall, 1,812 s CPU, 0.42
+  GB. `baseline session-13-start` saved from those reports.
+- The NAS store at the start: 33,596 records, 1,582 skip notes, 33,596
+  tag notes, revision `f9f9bc706195a71b`, as expected.
