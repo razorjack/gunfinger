@@ -1,0 +1,192 @@
+{
+ "seed": 2026,
+ "indexed_assets": 33587,
+ "held_out_clusters": 20,
+ "per_speed": [
+  {
+   "speed_percent": -8.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.002557446670464812,
+   "max_speed_error_percent": 0.0070676131664075825
+  },
+  {
+   "speed_percent": -5.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.004705847186605272,
+   "max_speed_error_percent": 0.014046933620144308
+  },
+  {
+   "speed_percent": -3.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.004715478408594696,
+   "max_speed_error_percent": 0.015861712020972973
+  },
+  {
+   "speed_percent": -1.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.004918290994668324,
+   "max_speed_error_percent": 0.014873050540887611
+  },
+  {
+   "speed_percent": 0.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.0018908869373597489,
+   "max_speed_error_percent": 0.007569742786084355
+  },
+  {
+   "speed_percent": 1.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.004649424313288232,
+   "max_speed_error_percent": 0.015669358521107846
+  },
+  {
+   "speed_percent": 3.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.005120171369991322,
+   "max_speed_error_percent": 0.018327347858246412
+  },
+  {
+   "speed_percent": 5.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.005111686560326464,
+   "max_speed_error_percent": 0.016128583017334108
+  },
+  {
+   "speed_percent": 8.0,
+   "indexed_excerpts": 58,
+   "recalled": 58,
+   "recall": 1.0,
+   "wrong_answers": 1,
+   "mean_speed_error_percent": 0.002192997867259721,
+   "max_speed_error_percent": 0.007463281296356428
+  }
+ ],
+ "per_kind": [
+  {
+   "kind": "scene-release",
+   "indexed_queries": 162,
+   "recalled": 162,
+   "wrong_answers": 0,
+   "held_out_queries": 63,
+   "held_out_confident": 0
+  },
+  {
+   "kind": "youtube-channel",
+   "indexed_queries": 180,
+   "recalled": 180,
+   "wrong_answers": 9,
+   "held_out_queries": 63,
+   "held_out_confident": 0
+  },
+  {
+   "kind": "elsewhere",
+   "indexed_queries": 180,
+   "recalled": 180,
+   "wrong_answers": 0,
+   "held_out_queries": 54,
+   "held_out_confident": 0
+  }
+ ],
+ "misses": {},
+ "misses_by_kind": {},
+ "missed_sources": {},
+ "wrong_answers": [
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -8.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 387,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -5.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 392,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -3.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 404,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": -1.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 415,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 0.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 385,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 1.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 426,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 3.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 428,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 5.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 472,
+   "windows": 3
+  },
+  {
+   "source": "DYkast \u2022 Punishment.m4a [DYkast - Punishment]",
+   "kind": "youtube-channel",
+   "speed": 8.0,
+   "found": "Dykast - Punishment.m4a [Dykast - Punishment]",
+   "hits": 385,
+   "windows": 3
+  }
+ ],
+ "held_out_confident": []
+}
