@@ -17,6 +17,12 @@ mixes, [turn key lock off](#key-lock-and-vinyl) for faster searches. It
 reports a track only on sustained, aligned evidence: unknown audio should stay
 unknown, because a confident wrong answer is worse than a miss.
 
+You run it, read the result and are done (ADR 0017). When several files in
+your collection match one track, it names all of them and says when their
+titles disagree, without choosing one. Titles come from your files' tags,
+so they are as good as your tagging; Gunfinger does not edit tags or fix a
+library.
+
 **Status: proof of concept.** It has been evaluated on one library of 262
 tracks and two mixes. It is not packaged and keeps its index in memory. See [docs/status.md](docs/status.md) for the full report
 and [docs/roadmap.md](docs/roadmap.md) for what is missing.

@@ -16,10 +16,12 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 2. The principle recorded: ADR 0017 (scope, priorities, the
+- [x] 2. The principle recorded: ADR 0017 (scope, priorities, the
   default output); roadmap items "Report edits", "The Track/AudioAsset
   model" out of scope, "Titles of mislabelled files" flags and never
-  chooses; AGENTS.md paragraph
+  chooses, "Database" no longer waits on them; AGENTS.md paragraph "The
+  product's scope"; ADR 0016's status, the README's intro and
+  `questions detections`' module note point to ADR 0017
 - [ ] 3. One tracklist entry per track: the cause confirmed; plays over
   the same passage with equal artist and title grouped; the rule written
   down; every stored development report measured, each change listed;

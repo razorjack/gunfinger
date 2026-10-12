@@ -5,7 +5,9 @@
 Accepted (2026-10-11, session 14). We approved the design in
 `docs/brief-14.md`; the details below are the agent's, chosen in session
 14. `gunfinger-eval pair-review` and `work/listening-decisions/listen.zsh`
-stay as fallbacks.
+stay as fallbacks. Since ADR 0017 (2026-10-13) the tool is a development
+tool for evaluation ground truth, and the report edits named under "Left
+out" are out of scope for the product.
 
 ## Context
 

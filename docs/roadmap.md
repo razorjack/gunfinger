@@ -103,18 +103,25 @@ marked as inferences were derived, not measured.
   least 75% joined boundaries, 30 of them new (experiment 0065,
   `work/s9/mixed-cd-candidates.tsv`), a listening list.
 - **Database.** Not needed so far: the peak store is one file per asset and
-  the index is rebuilt from it in 0.5 s. Revisit when detections, report
-  edits or the Track/AudioAsset model need to be stored.
-- **The Track/AudioAsset model.** An asset is a file. We think in
-  tracks (a recording, possibly with several rips, edits and remixes).
-  Duplicate clusters and related recordings (experiment 0015) are the
-  evaluation's view of this; the product needs its own, editable model,
-  shaped by how `review` is used.
+  the index is rebuilt from it in 0.5 s. Revisit if detections need to be
+  stored; report edits and the Track/AudioAsset model, the other reasons
+  once listed here, are out of scope (ADR 0017).
+- **The Track/AudioAsset model.** *(out of scope for the product, ADR
+  0017, 2026-10-13)* An asset is a file. We think in tracks (a
+  recording, possibly with several rips, edits and remixes). Duplicate
+  clusters and related recordings (experiment 0015) are the evaluation's
+  view of this. The product was to get its own, editable model, shaped by
+  how `review` is used. Our principle rules that out:
+  Gunfinger is fired and forgotten, the user owns the tags, and the
+  tracklist groups the files found in one run into entries without a
+  stored model.
 
 ## Reports and command line
 
-- **Report edits.** *(listening done in session 14, ADR 0016; edits not
-  yet)* Confirming, rejecting or renaming plays in a report, and
+- **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
+  kept as the history of the listening tools, which stay development
+  tools for evaluation ground truth)* Confirming, rejecting or renaming
+  plays in a report, and
   keeping those edits when the mix is identified again. `listen` and
   `review` work with real audio output (by ear, 2026-10-06). Judging by
   ear now settles most open questions: wrong tags, versions, cluster
@@ -136,9 +143,9 @@ marked as inferences were derived, not measured.
   to `docs/pair-verdicts.txt` as `pair-review` writes them), release
   folders, and the plays of a saved report (`questions detections`,
   confirmed, wrong or unsure, to the answer log
-  `work/audition/answers.jsonl` only). Next: those detection answers
-  turned into edits of the report, kept when the mix is identified
-  again.
+  `work/audition/answers.jsonl` only). The planned next step, those
+  detection answers turned into edits of the report, is not done: nobody
+  reviews the output of a tool that is fired and forgotten (ADR 0017).
 - **No record inside the track length range.** *(done in session 10)*
   With a store whose only records lie outside `--min-track` and
   `--max-track`, `stats`, `identify` and `explain` said "no indexed
@@ -154,8 +161,9 @@ marked as inferences were derived, not measured.
   names the confident plays of other files over the same passage whose
   tags give another title (`other_titles`; "titled X; other files here:
   Y (play N)"; "titles disagree:" in the tracklist), without choosing
-  one. Report edits and the Track/AudioAsset model would settle which
-  title is right.
+  one. That is where it ends: the product flags disagreeing titles and
+  never chooses one, and the user owns the tags (ADR 0017). Nothing
+  further is planned here.
 - **A full-screen TUI.** *(replaced in session 14, ADR 0016)* `review`
   steps through a report by ear in a line loop. Browsing detections
   against the mix's waveform is now `gunfinger-eval questions

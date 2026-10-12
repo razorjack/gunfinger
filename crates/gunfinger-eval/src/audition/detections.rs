@@ -3,8 +3,8 @@
 //! reference lane, from a little before the play to a little after, and the
 //! play's file is placed by its segments (track time = track start +
 //! speed × (mix time - start)), as `gunfinger listen` places it. Answers
-//! go to the answer log only; report edits are for later
-//! (roadmap, "Report edits").
+//! go to the answer log only, as evaluation ground truth: the product
+//! reads no answers and reports are never edited (ADR 0017).
 
 use std::fs;
 use std::path::{Path, PathBuf};

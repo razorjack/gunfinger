@@ -5,6 +5,19 @@ inside DJ mixes (jungle and drum & bass, vinyl sets where pitch and tempo move
 together within about ±8%). Unknown audio must stay unknown: a confident wrong
 identification is worse than a miss.
 
+## The product's scope
+
+Gunfinger is fired and forgotten (ADR 0017): the user
+runs it, reads the result and is done. Nobody reviews the output, so
+precision comes first; then listing every matching file and flagging
+disagreeing titles without choosing one; then finishing unattended runs
+reliably; then speed. The user owns the tags, and titles are only as
+good as the tags indexed. Do not propose editing workflows (confirming,
+rejecting or renaming plays, decisions kept across runs), a stored model
+of tracks above files, tag fixing or library cleaning, or ways to pick
+one of several titles. The listening tools (`audition`, `pair-review`)
+are development tools for evaluation ground truth, not product features.
+
 ## Before changing a decision
 
 Read, in this order:
@@ -129,7 +142,9 @@ complexity. Minimise conceptual complexity, not line count.
 ## The listening tool
 
 `gunfinger-eval audition` (ADR 0016) serves a page on `127.0.0.1` on
-which listening questions are answered by ear. The code is in
+which listening questions are answered by ear. It is a development
+tool: its answers settle evaluation ground truth, and nothing in the
+product reads them (ADR 0017). The code is in
 `crates/gunfinger-eval/src/audition/` (the module map is in
 `audition.rs`), the page in `audition/web/`, embedded with
 `include_str!`. `docs/audition-questions.md` documents the question
