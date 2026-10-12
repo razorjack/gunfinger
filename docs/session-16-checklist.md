@@ -7,10 +7,12 @@ for scope and rules.
 ## Setup
 
 - [x] `git status` clean at `5b09bc3`
-- [~] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s16-start/`; `baseline session-16-start`
-- [ ] The NAS store at the start: 33,596 records, revision
-  `f9f9bc706195a71b` expected
+- [x] Brief, checklist; `CLAUDE.md` points to them
+- [x] Release build in `work/bin/s16-start/` (both binaries byte-identical
+  to `work/bin/s15-final/`); `baseline session-16-start` saved from the
+  standard reports of session 15's final `regress`, made by that build
+- [x] The NAS store at the start: 33,596 records, revision
+  `f9f9bc706195a71b`, as expected (`work/s16/store-revision-start.txt`)
 
 ## Steps
 
