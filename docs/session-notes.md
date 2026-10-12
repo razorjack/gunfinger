@@ -2829,3 +2829,189 @@ only; nothing reads them yet.
   can hold up answers.
 - **Report edits.** Detection answers turned into edits of a report, kept
   when the mix is identified again (roadmap, "Report edits").
+
+## Session 15
+
+### What changed
+
+**`identify` at NAS scale takes 31% less time** (experiment 0093). My 2003
+mix takes 64-66 s instead of 93-97 s, with 37% less CPU and the same memory
+(4.8 GB). The reports are byte-identical. At 33,596 files nearly every
+file has a few chance hits in each 10 s window, and the search used to
+sort them all, which took 40% of its CPU. It now counts each file's hits
+in 4-frame buckets first and sorts only the 1.8% that could line up. Every
+file that could form a line is still sorted, so no detection changes.
+Nothing to do: the next build includes it.
+
+**The verdicts by ear of 2026-10-12 are applied** (experiment 0090). All 24 new
+lines were honoured:
+
+- Two joins at NAS scale: Stratus - Waves (the Sonix WEB file joins
+  INCIDENT002's cluster), and the two DYkast "Punishment" uploads (a new
+  cluster). 267 -> 268 clusters, 874 -> 877 files in clusters.
+- 22 confirm what the clusters already held: 12 files together (the ten
+  control joins, the corpus Sonar ~ the PRO012 rip, Falcon - The Stand)
+  and 10 apart (the Sonar revision ~ PRO012, Mind Overload, the three
+  "Fire" remixes, T-Minus, Dozer, Pyro, Aphrodite ~ Critikal, Night Gasp ~
+  Dark Soldier).
+- Development scores did not change at either size; the five NAS
+  development scans, run again, are byte-identical. In the recall panel 9
+  wrong answers fall to 0 (the DYkast pair, now one recording).
+- At 262 tracks every verdict names a NAS file, so the 17 clusters in use
+  stay.
+- **`--cut-sparsest` is no longer needed.** No chain of joins links two
+  files judged different. To apply future verdicts:
+  `target/release/gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks clusters --from-peaks --reuse-pairs`.
+  Without the option, a future conflict stops `clusters` and names the
+  chain. `pair-review` still prints the command with the option; with no
+  chain the option cuts nothing.
+
+### Decision: the containment rule (experiment 0091)
+
+The candidate: a confident play that lies inside a stronger confident play
+of a file from another cluster, over the same passage of the mix, is
+reported as shared material instead of an identification.
+
+Measured offline on every stored development report, over 24 settings:
+which span the stronger play holds (its whole span, or one of its
+passages: segments joined across gaps of 10 s or less), a tolerance of 0,
+10 or 30 s, and an optional bound on the ratio of hits (none, 0.75, 0.5,
+0.25).
+
+- Data it was not designed on (development scans and leave-outs at both
+  sizes, four sweeps at both sizes, recall, robust): no wrong confident
+  play exists there, so the rule removes nothing and demotes nothing at
+  any setting. The nearest right play in a real development mix would need
+  110-176 s of tolerance.
+- The generated mixes (262 tracks, 108 confident plays, all right) show
+  the cost: holding the stronger play's whole span demotes 4-35 right brief
+  plays, because a track that returns within 90 s becomes one play
+  spanning the brief plays between; a 30 s tolerance demotes 4-30.
+  Passages with 0-10 s demote none.
+- New shared passages from the verdicts by ear of 2026-10-12 (T-Minus and its
+  vocal mix, Dozer and the Notjamie bootleg, Time Is Broken and
+  Ignorance), played whole as in experiment 0076: the related file is
+  confident in 5 of 7 passages (6 plays). The rule removes 5 of them at
+  every setting; the sixth is Dozer's bootleg, where the corpus Dozer has
+  no NAS record, so nothing stronger plays. With the played recording's
+  cluster left out, 4 of 6 passages keep a confident wrong play and the
+  rule removes none.
+- 0076's passages, which informed the settings: at passages with 10 s and
+  no ratio bound, the 26 passages with a wrong confident play fall to 0,
+  but 10 right plays are demoted (The Nine's other rips lie inside the
+  VIP's stronger play). If the played file were missing and only weaker
+  rips remained (simulated), 2 passages would lose the right recording and
+  keep the VIP. A bound of 0.5 avoids that but keeps the VIP (55-63% of
+  The Nine's hits).
+
+What it shows: when the played recording is indexed and stronger, the
+rule removes related versions without cost on development data. What it
+does not show: it cannot remove a related version when the played
+recording is not in the library, which is when a confident wrong answer
+does the most harm, and no development mix has a confident related
+version for it to act on. The data that informed the settings (0076, the
+2003 mix's copy ratios) cannot test them.
+
+Recommendation: do not adopt it yet. To measure it further, the
+setting to test is passages, 10 s tolerance, with and without a 0.5 bound,
+on a new development mix that plays versions whole (a VIP or remix played
+for minutes), chosen by hand.
+
+### Decision: the possible tier at NAS scale (experiments 0092, 0094)
+
+A play is possible when it stays below the confident rule but its
+strongest segment reaches the threshold (60 hits today). Counted on the
+stored NAS-scale development reports, at 60, 80, 100 and 130 hits:
+
+| Threshold | 60 | 80 | 100 | 130 |
+|---|--:|--:|--:|--:|
+| Possible plays per hour of the two development mixes | 2.9 | 2.3 | 1.2 | 0.6 |
+| of which another version of the track playing; not explained | 4; 1 | 3; 1 | 2; 0 | 1; 0 |
+| True plays only the tier finds (mixes, sweeps, recall at NAS scale) | 0 | 0 | 0 | 0 |
+| Damaged excerpts at 262 tracks found only as possible (278), hidden | 0 | 48 | 76 | 128 |
+
+- In the two mixes the tier shows the Synergy Remix of Star Trails (79
+  hits), the Stakka remix of Clockwork (94; two identical files, one
+  play), Phantom 2018 (146) and Fracture's edit of Phantom Force (118):
+  versions of the track playing. The fifth is Rift feat. Souldrop -
+  Meltdown (98 hits) during Phantom Force in my 2003 mix; see "To judge by
+  ear".
+- No true play in the development mixes, sweeps or recall at NAS scale is
+  found only as possible: the tier adds no recall there. Brief clean plays
+  (the window grid's 10-20 s, the generated mixes' 20-26 s plays) are
+  possible because they span two windows, with 162-754 hits, so no
+  threshold up to 130 hides them. What a higher threshold hides is heavily
+  damaged audio: at 262 tracks, of 278 transformed excerpts found only as
+  possible (combined damage, noise at 0 dB, blends at equal level), 48, 76
+  or 128 at 80, 100 or 130.
+- Chance: the strongest unrelated candidate in the sweeps is still
+  Clockwork against Simon Static's Rubba Rock at 64 hits (experiment 0052),
+  32 in the stakka mix, 36 on audio not in the index. Meltdown's 98 is
+  either chance or shared material. Experiment 0094 tested the one
+  relation a pair search misses: Meltdown does not hold the Phantom Force
+  passage re-pitched (resampled to undo the pitch, it gives Phantom Force
+  nothing, where a re-pitched copy gives 1,292 hits). Phantom Force alone,
+  sped up as the mix plays it, still lines up with Meltdown at 53 hits, and
+  the alignment lands 12 s apart in Meltdown in two searches (8 bars): a
+  pattern that repeats in Meltdown, such as a shared drum break, or a
+  rhythmic coincidence.
+
+Recommendation: the decision hinges on Meltdown. ADR 0006 sets the tier
+at twice the strongest unrelated candidate. If Meltdown shares material
+with Phantom Force, that is 2 x 64 = 128, so 130: the mixes would show 0.6
+possible plays per hour instead of 2.9, losing three of the four version
+notes, and no development true play. If Meltdown is chance, it is 196,
+close to the confident rule of 240: ADR 0006 drops the tier only when it
+reaches the rule, but a tier from 196 to 239 hits would show almost
+nothing. Until it has been checked by ear, keep 60: possible plays never count as
+identifications, and at 2.9 per hour they cost little reading.
+
+### To judge by ear
+
+Do Rift feat. Souldrop - Meltdown and Digital & Spirit - Phantom Force
+share a drum break or a loop? This is not a same-or-different verdict:
+they are different tracks. The question is whether the 98 hits that put
+Meltdown in my 2003 mix during Phantom Force come from material both
+use (then the possible tier's threshold would be 130) or from chance
+(then 196); see "Decision: the possible tier" above.
+
+- Mix: /Users/razorjack/Projects/OpenSource/gunfinger/corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3, 12:31-13:15 (Phantom Force alone, at +4.5%)
+- Meltdown: /Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a, 0:44-1:42 (two searches line the mix up with 0:44-1:25 and with 0:56-1:42; Meltdown 4% slower than the mix at the same pitch)
+- Phantom Force: /Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a, 2:47-3:33 (the same moment of the mix); the PHUD1 rip the mix matches best: /Volumes/atlas/Music/dnb/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3, 2:44-3:30
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and the manifests are unchanged. The NAS
+  was only read; the NAS peak store was not written (33,596 records,
+  revision `f9f9bc706195a71b` at the end, as at the start).
+- **Detections did not change.** `regress session-15-start` was
+  identical at the end, `scripts/check.sh` green, and the 2003 mix at NAS
+  scale gave a byte-identical report with the final build.
+- **A review by a second agent** found no defect in the search change and
+  seven in the session's analysis scripts; all are fixed. One changed
+  figures: the possible-tier count took a play of two identical files as
+  two plays, so the figures above are the corrected ones (2.9 possible
+  plays per hour at 60, not 3.5 as first written).
+- **Timings.** The machine had other load during the timing runs;
+  the old and new builds ran alternately (A B B A) to share
+  it.
+- **The test set was not touched**, nor were the five test-derived
+  versions.
+
+### Decisions waiting
+
+- **The containment rule:** not adopted. To measure it further, choose a
+  development mix that plays a VIP or remix for minutes.
+- **The possible tier:** keep 60 until there is an answer to the question
+  above; then 130 (a shared break) or 196 (chance).
+- Still waiting, unchanged: the Rust version and the answer-log lock,
+  report edits, test evaluation 5.
+
+### Left for later
+
+- **The next speed step.** Grouping each window's hits by file is now
+  51% of the search's CPU and query analysis 30% (0093).
+- **Shared breaks.** If Meltdown and Phantom Force share a break, other
+  pairs in a drum & bass collection will too; measuring how often they
+  reach the possible tier would come next.

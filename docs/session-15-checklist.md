@@ -43,9 +43,13 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Notes "Session 15", status, roadmap items touched
-- [ ] `regress session-15-start` identical; `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] Notes "Session 15", status, roadmap items touched (the possible
+  tier at NAS scale, a confidence statistic for shared material, where
+  search time goes)
+- [x] `regress session-15-start` identical (final build, 201.1 s);
+  `scripts/check.sh` green (322 tests)
+- [x] The NAS store's revision at the end: 33,596 records,
+  `f9f9bc706195a71b`, unchanged
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

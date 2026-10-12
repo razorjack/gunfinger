@@ -2157,3 +2157,10 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   `scripts/check.sh` green (322 tests); `regress session-15-start`
   identical (201.1 s); the 2003 mix at NAS scale with the final build
   (`work/bin/s15-final/`) byte-identical, 64.0 s, 487 s CPU.
+- Wrap-up, 04:06: notes "Session 15" (the verdicts, both decisions with
+  numbers and recommendations, the Meltdown question with paths and
+  times, the speed step); roadmap items updated. The NAS store at the
+  end: 33,596 records, revision `f9f9bc706195a71b`, unchanged.
+  `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
+  (digests as at the start). Finished at about 04:10, well before 10:30;
+  no further work started.
