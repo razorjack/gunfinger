@@ -9,24 +9,24 @@
   "hours": 1.706,
   "table": {
    "60": {
-    "possible": 6,
-    "per hour": 3.52,
-    "by label": {
-     "related (audio)": 5,
-     "unrelated": 1
-    },
-    "right hidden (below the threshold)": 0,
-    "found only as possible": 0,
-    "found only as possible, hidden": 0
-   },
-   "80": {
     "possible": 5,
     "per hour": 2.93,
     "by label": {
      "related (audio)": 4,
      "unrelated": 1
     },
-    "right hidden (below the threshold)": 0,
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 4,
+    "per hour": 2.35,
+    "by label": {
+     "related (audio)": 3,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
@@ -36,7 +36,7 @@
     "by label": {
      "related (audio)": 2
     },
-    "right hidden (below the threshold)": 0,
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
@@ -46,7 +46,7 @@
     "by label": {
      "related (audio)": 1
     },
-    "right hidden (below the threshold)": 0,
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    }
@@ -55,6 +55,7 @@
    {
     "report": "scan-stakka-skynet-knowledge.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "also": [],
     "hits": 79,
     "span": [
      628.9,
@@ -71,21 +72,9 @@
    {
     "report": "scan-stakka-skynet-knowledge.json",
     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
-    "hits": 94,
-    "span": [
-     1222.9,
-     1240.8
+    "also": [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
     ],
-    "middle": 1231.8,
-    "label": "related (audio)",
-    "against": "Skynet & Stakka - Clockwork.mp3",
-    "playing": [
-     " 5. Skynet & Stakka - Clockwork"
-    ]
-   },
-   {
-    "report": "scan-stakka-skynet-knowledge.json",
-    "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
     "hits": 94,
     "span": [
      1222.9,
@@ -101,6 +90,7 @@
    {
     "report": "scan-razorjack-2003-03-29.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "also": [],
     "hits": 146,
     "span": [
      691.2,
@@ -116,6 +106,7 @@
    {
     "report": "scan-razorjack-2003-03-29.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+    "also": [],
     "hits": 98,
     "span": [
      751.5,
@@ -131,6 +122,7 @@
    {
     "report": "scan-razorjack-2003-03-29.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+    "also": [],
     "hits": 118,
     "span": [
      826.1,
@@ -149,24 +141,24 @@
   "hours": 2.642,
   "table": {
    "60": {
-    "possible": 9,
-    "per hour": 3.41,
-    "by label": {
-     "related (audio)": 8,
-     "unrelated": 1
-    },
-    "right hidden (below the threshold)": 0,
-    "found only as possible": 0,
-    "found only as possible, hidden": 0
-   },
-   "80": {
     "possible": 7,
     "per hour": 2.65,
     "by label": {
      "related (audio)": 6,
      "unrelated": 1
     },
-    "right hidden (below the threshold)": 0,
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 5,
+    "per hour": 1.89,
+    "by label": {
+     "related (audio)": 4,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
@@ -176,7 +168,7 @@
     "by label": {
      "related (audio)": 2
     },
-    "right hidden (below the threshold)": 0,
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
@@ -186,7 +178,7 @@
     "by label": {
      "related (audio)": 1
     },
-    "right hidden (below the threshold)": 0,
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    }
@@ -195,6 +187,7 @@
    {
     "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "also": [],
     "hits": 79,
     "span": [
      628.9,
@@ -211,21 +204,9 @@
    {
     "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
-    "hits": 94,
-    "span": [
-     1222.9,
-     1240.8
+    "also": [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
     ],
-    "middle": 1231.8,
-    "label": "related (audio)",
-    "against": "Skynet & Stakka - Clockwork.mp3",
-    "playing": [
-     " 5. Skynet & Stakka - Clockwork"
-    ]
-   },
-   {
-    "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
-    "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
     "hits": 94,
     "span": [
      1222.9,
@@ -241,6 +222,7 @@
    {
     "report": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "also": [],
     "hits": 79,
     "span": [
      628.9,
@@ -257,21 +239,9 @@
    {
     "report": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
-    "hits": 94,
-    "span": [
-     1222.9,
-     1240.8
+    "also": [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
     ],
-    "middle": 1231.8,
-    "label": "related (audio)",
-    "against": "Skynet & Stakka - Clockwork.mp3",
-    "playing": [
-     " 5. Skynet & Stakka - Clockwork"
-    ]
-   },
-   {
-    "report": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
-    "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
     "hits": 94,
     "span": [
      1222.9,
@@ -287,6 +257,7 @@
    {
     "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "also": [],
     "hits": 146,
     "span": [
      691.2,
@@ -302,6 +273,7 @@
    {
     "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+    "also": [],
     "hits": 98,
     "span": [
      751.5,
@@ -317,6 +289,7 @@
    {
     "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+    "also": [],
     "hits": 118,
     "span": [
      826.1,
@@ -335,25 +308,25 @@
   "hours": 29.85,
   "table": {
    "60": {
-    "possible": 368,
-    "per hour": 12.33,
+    "possible": 351,
+    "per hour": 11.76,
     "by label": {
      "right": 196,
-     "related (audio)": 171,
+     "related (audio)": 154,
      "unrelated": 1
     },
-    "right hidden (below the threshold)": 25,
+    "right hidden (shown at 60, below the threshold)": 0,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
    "80": {
-    "possible": 310,
-    "per hour": 10.39,
+    "possible": 304,
+    "per hour": 10.18,
     "by label": {
      "right": 190,
-     "related (audio)": 120
+     "related (audio)": 114
     },
-    "right hidden (below the threshold)": 31,
+    "right hidden (shown at 60, below the threshold)": 6,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
@@ -364,7 +337,7 @@
      "right": 180,
      "related (audio)": 78
     },
-    "right hidden (below the threshold)": 41,
+    "right hidden (shown at 60, below the threshold)": 16,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    },
@@ -375,7 +348,7 @@
      "right": 168,
      "related (audio)": 32
     },
-    "right hidden (below the threshold)": 53,
+    "right hidden (shown at 60, below the threshold)": 28,
     "found only as possible": 0,
     "found only as possible, hidden": 0
    }
@@ -388,6 +361,7 @@
      "held_out": false,
      "speed_percent": -5.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+     "also": [],
      "hits": 239,
      "label": "right"
     },
@@ -397,6 +371,7 @@
      "held_out": false,
      "speed_percent": -5.0,
      "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+     "also": [],
      "hits": 239,
      "label": "right"
     },
@@ -406,6 +381,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - like this - ] drum and bass.m4a",
+     "also": [],
      "hits": 239,
      "label": "right"
     },
@@ -415,6 +391,7 @@
      "held_out": false,
      "speed_percent": -3.0,
      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+     "also": [],
      "hits": 239,
      "label": "right"
     },
@@ -424,6 +401,7 @@
      "held_out": false,
      "speed_percent": 5.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+     "also": [],
      "hits": 238,
      "label": "right"
     },
@@ -433,6 +411,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+     "also": [],
      "hits": 238,
      "label": "right"
     },
@@ -442,6 +421,7 @@
      "held_out": false,
      "speed_percent": 5.0,
      "asset": "second-library/[NERVE 005] - [2002] - Paul Reset & SKC -- Crisis (Kemal remix) # Recharger (Black Sun Empire remix)/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+     "also": [],
      "hits": 237,
      "label": "right"
     },
@@ -451,6 +431,7 @@
      "held_out": false,
      "speed_percent": -3.0,
      "asset": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4 005 ： CHRIS SU - audiophile - ] drum and bass.m4a",
+     "also": [],
      "hits": 237,
      "label": "right"
     },
@@ -460,6 +441,7 @@
      "held_out": false,
      "speed_percent": -3.0,
      "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+     "also": [],
      "hits": 236,
      "label": "right"
     },
@@ -469,6 +451,7 @@
      "held_out": false,
      "speed_percent": 3.0,
      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - New Frontier (HQ Audio).m4a",
+     "also": [],
      "hits": 234,
      "label": "right"
     },
@@ -478,6 +461,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a",
+     "also": [],
      "hits": 234,
      "label": "right"
     },
@@ -487,6 +471,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Funktion.m4a",
+     "also": [],
      "hits": 233,
      "label": "right"
     },
@@ -496,6 +481,7 @@
      "held_out": false,
      "speed_percent": 0.0,
      "asset": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+     "also": [],
      "hits": 233,
      "label": "right"
     },
@@ -505,6 +491,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+     "also": [],
      "hits": 233,
      "label": "right"
     },
@@ -514,6 +501,7 @@
      "held_out": false,
      "speed_percent": 0.0,
      "asset": "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - like this - ] drum and bass.m4a",
+     "also": [],
      "hits": 232,
      "label": "right"
     }
@@ -525,6 +513,7 @@
      "held_out": false,
      "speed_percent": 0.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 220,
      "label": "related (audio)"
     },
@@ -534,6 +523,7 @@
      "held_out": false,
      "speed_percent": 5.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 215,
      "label": "related (audio)"
     },
@@ -543,6 +533,7 @@
      "held_out": false,
      "speed_percent": 8.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 211,
      "label": "related (audio)"
     },
@@ -552,6 +543,7 @@
      "held_out": true,
      "speed_percent": 5.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 197,
      "label": "related (audio)"
     },
@@ -561,6 +553,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 195,
      "label": "related (audio)"
     },
@@ -570,6 +563,7 @@
      "held_out": false,
      "speed_percent": 3.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 194,
      "label": "related (audio)"
     },
@@ -579,6 +573,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 189,
      "label": "related (audio)"
     },
@@ -588,6 +583,7 @@
      "held_out": true,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 188,
      "label": "related (audio)"
     },
@@ -597,6 +593,7 @@
      "held_out": false,
      "speed_percent": -8.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 188,
      "label": "related (audio)"
     },
@@ -606,6 +603,7 @@
      "held_out": false,
      "speed_percent": -5.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 186,
      "label": "related (audio)"
     },
@@ -615,6 +613,7 @@
      "held_out": false,
      "speed_percent": 0.0,
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "also": [],
      "hits": 185,
      "label": "related (audio)"
     },
@@ -624,6 +623,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "also": [],
      "hits": 184,
      "label": "related (audio)"
     },
@@ -633,6 +633,7 @@
      "held_out": true,
      "speed_percent": 8.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "also": [],
      "hits": 179,
      "label": "related (audio)"
     },
@@ -642,6 +643,7 @@
      "held_out": false,
      "speed_percent": -8.0,
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "also": [],
      "hits": 178,
      "label": "related (audio)"
     },
@@ -651,6 +653,7 @@
      "held_out": false,
      "speed_percent": -3.0,
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "also": [],
      "hits": 178,
      "label": "related (audio)"
     }
@@ -662,6 +665,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/va-blazin_(udfrlp02)-1999-minc/03-stakka_&_k_tee-synthesis-minc.mp3",
+     "also": [],
      "hits": 34,
      "label": "related (tags)"
     },
@@ -671,6 +675,7 @@
      "held_out": true,
      "speed_percent": 1.0,
      "asset": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/11-abs_zero_and_subphonics-the_code_(future_cut_rmx)-sour.mp3",
+     "also": [],
      "hits": 29,
      "label": "related (tags)"
     },
@@ -680,6 +685,7 @@
      "held_out": false,
      "speed_percent": 0.0,
      "asset": "second-library/va-blazin_(udfrlp02)-1999-minc/03-stakka_&_k_tee-synthesis-minc.mp3",
+     "also": [],
      "hits": 28,
      "label": "related (tags)"
     },
@@ -689,6 +695,7 @@
      "held_out": false,
      "speed_percent": 3.0,
      "asset": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+     "also": [],
      "hits": 25,
      "label": "related (tags)"
     },
@@ -698,6 +705,7 @@
      "held_out": false,
      "speed_percent": 5.0,
      "asset": "second-library/va-blazin_(udfrlp02)-1999-minc/03-stakka_&_k_tee-synthesis-minc.mp3",
+     "also": [],
      "hits": 24,
      "label": "related (tags)"
     },
@@ -707,6 +715,7 @@
      "held_out": true,
      "speed_percent": 1.0,
      "asset": "second-library/va-blazin_(udfrlp02)-1999-minc/03-stakka_&_k_tee-synthesis-minc.mp3",
+     "also": [],
      "hits": 23,
      "label": "related (tags)"
     },
@@ -716,6 +725,7 @@
      "held_out": false,
      "speed_percent": 5.0,
      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS BLAZIN [ udfrlp02 ： STAKKA & K.TEE - synthesis - ] drum and bass.opus",
+     "also": [],
      "hits": 23,
      "label": "related (tags)"
     },
@@ -725,6 +735,7 @@
      "held_out": false,
      "speed_percent": -5.0,
      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS BLAZIN [ udfrlp02 ： STAKKA & K.TEE - synthesis - ] drum and bass.opus",
+     "also": [],
      "hits": 22,
      "label": "related (tags)"
     },
@@ -734,6 +745,7 @@
      "held_out": true,
      "speed_percent": -1.0,
      "asset": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/11-abs_zero_and_subphonics-the_code_(future_cut_rmx)-sour.mp3",
+     "also": [],
      "hits": 22,
      "label": "related (tags)"
     },
@@ -743,6 +755,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS BLAZIN [ udfrlp02 ： STAKKA & K.TEE - synthesis - ] drum and bass.opus",
+     "also": [],
      "hits": 21,
      "label": "related (tags)"
     },
@@ -752,6 +765,7 @@
      "held_out": true,
      "speed_percent": -3.0,
      "asset": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/11-abs_zero_and_subphonics-the_code_(future_cut_rmx)-sour.mp3",
+     "also": [],
      "hits": 21,
      "label": "related (tags)"
     },
@@ -761,6 +775,7 @@
      "held_out": true,
      "speed_percent": -3.0,
      "asset": "second-library/__youtube_archivists/dfect-dnb/Absolute Zero & Subphonics - The Code (Future Cut RMX).m4a",
+     "also": [],
      "hits": 21,
      "label": "related (tags)"
     },
@@ -770,6 +785,7 @@
      "held_out": true,
      "speed_percent": 8.0,
      "asset": "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/11-abs_zero_and_subphonics-the_code_(future_cut_rmx)-sour.mp3",
+     "also": [],
      "hits": 21,
      "label": "related (tags)"
     },
@@ -779,6 +795,7 @@
      "held_out": false,
      "speed_percent": -5.0,
      "asset": "second-library/va-blazin_(udfrlp02)-1999-minc/03-stakka_&_k_tee-synthesis-minc.mp3",
+     "also": [],
      "hits": 21,
      "label": "related (tags)"
     },
@@ -788,6 +805,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/prototype-connexions_ep-prouk002-2000-sour/a-bad_company-the_pulse_2000_(bad_company_remix).mp3",
+     "also": [],
      "hits": 20,
      "label": "related (tags)"
     }
@@ -799,6 +817,7 @@
      "held_out": false,
      "speed_percent": 0.0,
      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Simon Static - Rubba Rock.opus",
+     "also": [],
      "hits": 64,
      "label": "unrelated"
     },
@@ -808,6 +827,7 @@
      "held_out": false,
      "speed_percent": 8.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+     "also": [],
      "hits": 54,
      "label": "unrelated"
     },
@@ -817,6 +837,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+     "also": [],
      "hits": 43,
      "label": "unrelated"
     },
@@ -826,6 +847,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+     "also": [],
      "hits": 42,
      "label": "unrelated"
     },
@@ -835,6 +857,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+     "also": [],
      "hits": 41,
      "label": "unrelated"
     },
@@ -844,6 +867,7 @@
      "held_out": false,
      "speed_percent": -5.0,
      "asset": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "also": [],
      "hits": 40,
      "label": "unrelated"
     },
@@ -853,6 +877,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/[citrus001] Dreazz & Falcon - Do Drop In!,  Retro/AA_-_Dreazz_&_Falcon_-_Retro.mp3",
+     "also": [],
      "hits": 40,
      "label": "unrelated"
     },
@@ -862,6 +887,7 @@
      "held_out": false,
      "speed_percent": -3.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+     "also": [],
      "hits": 38,
      "label": "unrelated"
     },
@@ -871,6 +897,7 @@
      "held_out": false,
      "speed_percent": -1.0,
      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+     "also": [],
      "hits": 38,
      "label": "unrelated"
     },
@@ -880,6 +907,7 @@
      "held_out": false,
      "speed_percent": 8.0,
      "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) DJ Daze - Religion (Drum'n'Bass) (Drum'n'Bass).opus",
+     "also": [],
      "hits": 38,
      "label": "unrelated"
     },
@@ -889,6 +917,7 @@
      "held_out": false,
      "speed_percent": 5.0,
      "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Paranormal (BTK Remix).m4a",
+     "also": [],
      "hits": 37,
      "label": "unrelated"
     },
@@ -898,6 +927,7 @@
      "held_out": false,
      "speed_percent": 1.0,
      "asset": "second-library/__youtube_archivists/dfect-dnb/Ed Rush & Optical - Crash.opus",
+     "also": [],
      "hits": 37,
      "label": "unrelated"
     },
@@ -907,6 +937,7 @@
      "held_out": false,
      "speed_percent": -3.0,
      "asset": "second-library/[citrus001] Dreazz & Falcon - Do Drop In!,  Retro/AA_-_Dreazz_&_Falcon_-_Retro.mp3",
+     "also": [],
      "hits": 36,
      "label": "unrelated"
     },
@@ -916,6 +947,7 @@
      "held_out": true,
      "speed_percent": 0.0,
      "asset": "second-library/__youtube_archivists/dfect-dnb/Peeb - Strange Sounds.m4a",
+     "also": [],
      "hits": 36,
      "label": "unrelated"
     },
@@ -925,6 +957,7 @@
      "held_out": false,
      "speed_percent": 3.0,
      "asset": "second-library/__youtube_archivists/dfect-dnb/Ray Keith - Four Elements.m4a",
+     "also": [],
      "hits": 35,
      "label": "unrelated"
     }
@@ -989,30 +1022,8 @@
     "label": "related (audio)"
    },
    {
-    "report": "scan-stakka-skynet-knowledge.json",
-    "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
-    "hits": 94,
-    "windows": 3,
-    "span": [
-     1222.9,
-     1240.8
-    ],
-    "label": "related (audio)"
-   },
-   {
     "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
-    "hits": 94,
-    "windows": 3,
-    "span": [
-     1222.9,
-     1240.8
-    ],
-    "label": "related (audio)"
-   },
-   {
-    "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
-    "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
     "hits": 94,
     "windows": 3,
     "span": [
@@ -1033,13 +1044,35 @@
     "label": "related (audio)"
    },
    {
-    "report": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
-    "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
-    "hits": 94,
-    "windows": 3,
+    "report": "scan-razorjack-2003-03-29.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "hits": 91,
+    "windows": 4,
     "span": [
-     1222.9,
-     1240.8
+     781.8,
+     816.5
+    ],
+    "label": "related (audio)"
+   },
+   {
+    "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "hits": 91,
+    "windows": 4,
+    "span": [
+     781.8,
+     816.5
+    ],
+    "label": "related (audio)"
+   },
+   {
+    "report": "scan-razorjack-2003-03-29.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "hits": 85,
+    "windows": 4,
+    "span": [
+     691.2,
+     722.8
     ],
     "label": "related (audio)"
    }
@@ -1344,6 +1377,7 @@
    "held_out": false,
    "speed_percent": 0.0,
    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Simon Static - Rubba Rock.opus",
+   "also": [],
    "hits": 64,
    "label": "unrelated"
   },
@@ -1353,6 +1387,7 @@
    "held_out": false,
    "speed_percent": 8.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+   "also": [],
    "hits": 54,
    "label": "unrelated"
   },
@@ -1384,6 +1419,7 @@
    "held_out": false,
    "speed_percent": -1.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+   "also": [],
    "hits": 43,
    "label": "unrelated"
   },
@@ -1393,6 +1429,7 @@
    "held_out": false,
    "speed_percent": 1.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+   "also": [],
    "hits": 42,
    "label": "unrelated"
   },
@@ -1402,6 +1439,7 @@
    "held_out": false,
    "speed_percent": -1.0,
    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+   "also": [],
    "hits": 41,
    "label": "unrelated"
   },
@@ -1411,6 +1449,7 @@
    "held_out": false,
    "speed_percent": -5.0,
    "asset": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   "also": [],
    "hits": 40,
    "label": "unrelated"
   }
@@ -1422,6 +1461,7 @@
    "held_out": true,
    "speed_percent": 5.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 197,
    "label": "related (audio)"
   },
@@ -1431,6 +1471,7 @@
    "held_out": true,
    "speed_percent": 1.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 188,
    "label": "related (audio)"
   },
@@ -1440,6 +1481,7 @@
    "held_out": true,
    "speed_percent": 8.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 179,
    "label": "related (audio)"
   },
@@ -1449,6 +1491,7 @@
    "held_out": true,
    "speed_percent": -1.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 174,
    "label": "related (audio)"
   },
@@ -1458,6 +1501,7 @@
    "held_out": true,
    "speed_percent": 0.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 171,
    "label": "related (audio)"
   },
@@ -1467,6 +1511,7 @@
    "held_out": true,
    "speed_percent": -5.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 169,
    "label": "related (audio)"
   },
@@ -1476,6 +1521,7 @@
    "held_out": true,
    "speed_percent": -8.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 167,
    "label": "related (audio)"
   },
@@ -1485,6 +1531,7 @@
    "held_out": true,
    "speed_percent": 3.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 163,
    "label": "related (audio)"
   },
@@ -1494,6 +1541,7 @@
    "held_out": true,
    "speed_percent": -3.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 160,
    "label": "related (audio)"
   },
@@ -1503,6 +1551,7 @@
    "held_out": true,
    "speed_percent": 8.0,
    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "also": [],
    "hits": 117,
    "label": "related (audio)"
   }

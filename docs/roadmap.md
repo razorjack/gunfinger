@@ -330,7 +330,16 @@ marked as inferences were derived, not measured.
   without the played file in the index. A ratio of overlapping plays
   would separate the remixes but not the VIP: copies of one recording
   over one passage of the 2003 mix range from 0.30 to 1.00 of the
-  strongest copy's hits.
+  strongest copy's hits. *(session 15, experiment 0091)* A containment
+  rule (a confident play inside a stronger confident play of another
+  cluster becomes shared material), measured offline over 24 settings:
+  no development report holds a wrong confident play, so it removes and
+  costs nothing there; whole play spans and a 30 s tolerance demote
+  right brief plays in the generated mixes, passages with 0-10 s do not;
+  on the new shared passages it removes 5 of 6 related plays, and none
+  when the played recording is not indexed. A ratio bound trades the VIP
+  for weaker copies. Not adopted: a new development mix that plays
+  versions whole is needed first.
   Method: a challenge set of originals, VIPs, remixes and
   tracks sharing breaks, each pair confirmed by ear;
   excerpts from shared and from distinctive passages at several
@@ -501,7 +510,15 @@ marked as inferences were derived, not measured.
   standalone possible plays, but only where the two library files match
   each other in that passage. Two plays overlapping in a mix, or similar
   tags, do not show shared material: chance lines overlap confident
-  plays too.
+  plays too. *(session 15, experiments 0092 and 0094)* Counted on the
+  NAS development reports: the two mixes show 2.9 possible plays per
+  hour at 60 hits (0.6 at 130), four of them versions of the track
+  playing; no development true play depends on the tier; at 262 tracks a
+  higher threshold hides only damaged excerpts (48-128 of 278 at 80-130).
+  The fifth play, Rift feat. Souldrop - Meltdown at 98 hits during
+  Phantom Force, is not a re-pitched copy of the passage; whether the two
+  share a break or meet by chance decides between 130 and 196 under ADR
+  0006's rule. A check by ear comes first; 60 stays until then.
 - **Recall beyond the corpus recordings.** *(development half measured
   in session 10, experiment 0068: 540/540 at every speed and kind, no
   miss, held-out sources never confident; 30 wrong answers from a

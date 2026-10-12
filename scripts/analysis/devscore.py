@@ -5,9 +5,11 @@ sweeps or recall (each confident answer right or wrong).
 
 A library module for the session 15 analyses, and a command:
 
-usage: python3 -I scripts/analysis/devscore.py CLUSTERS REPORT...
+usage: python3 -I scripts/analysis/devscore.py [--nas] CLUSTERS REPORT...
 
 Prints each report's score under CLUSTERS beside the score stored in it.
+`--nas` scores scans against the manifests' `second-library/` references
+too, as for reports of runs with `--other-peaks-dir`.
 Refuses any path naming the held-out test set: its manifest and reports
 are never read.
 """
@@ -21,7 +23,7 @@ TEST_SET = "ed-rush-optical-essential-mix"
 PREFIX = "second-library/"
 TOLERANCE = 90.0
 FITTED = {"hits": 240, "windows": 3}
-SINGLE_PASS = {"hits": 200, "windows": 3}
+LADDER = {"hits": 200, "windows": 3}
 POSSIBLE_HITS = 60
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -79,8 +81,10 @@ def load_set(name, nas):
     return tracks
 
 
-def confidence(segment, rule=FITTED):
-    """`Evidence::confidence` with the stored counts."""
+def confidence(segment, rule=None):
+    """`Evidence::confidence` with the stored counts, under the rule of the
+    pass that measured them (`Pass::rule`) unless `rule` is given."""
+    rule = rule or rule_of(segment)
     if segment["hits"] >= rule["hits"] and segment["windows"] >= rule["windows"]:
         return "confident"
     if segment["hits"] >= POSSIBLE_HITS:
@@ -88,7 +92,7 @@ def confidence(segment, rule=FITTED):
     return "weak"
 
 
-def play_confidence(play, rule=FITTED):
+def play_confidence(play, rule=None):
     """A play takes its strongest segment's confidence (ADR 0013)."""
     order = {"weak": 0, "possible": 1, "confident": 2}
     return max((confidence(segment, rule) for segment in play["segments"]),
@@ -96,7 +100,8 @@ def play_confidence(play, rule=FITTED):
 
 
 def rule_of(found):
-    return FITTED if found.get("fitted") else SINGLE_PASS
+    # Reports omit `fitted` when false (`skip_serializing_if`).
+    return FITTED if found.get("fitted", False) else LADDER
 
 
 def slots(tracks, duration, cluster_of):
@@ -189,14 +194,13 @@ def rescore_queries(report, cluster_of):
     return right, wrong
 
 
-def set_and_size(path, report):
-    nas = "library-" in str(path)
-    return report["set"], nas
-
-
 def main():
-    cluster_of = clusters_of(sys.argv[1])
-    for path in sys.argv[2:]:
+    arguments = sys.argv[1:]
+    nas = "--nas" in arguments
+    if nas:
+        arguments.remove("--nas")
+    cluster_of = clusters_of(arguments[0])
+    for path in arguments[1:]:
         report = load_json(path)
         if "queries" in report:
             right, wrong = rescore_queries(report, cluster_of)
@@ -206,8 +210,7 @@ def main():
             )
             print(f"{path}: {right} right and {len(wrong)} wrong confident answers (stored: {stored} wrong)")
             continue
-        name, nas = set_and_size(path, report)
-        score = score_scan(report, load_set(name, nas), cluster_of)
+        score = score_scan(report, load_set(report["set"], nas), cluster_of)
         stored = report["score"]
         print(
             f"{path}: {score['identified']}/{score['referenced']} identified, {score['wrong']} wrong, "

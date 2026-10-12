@@ -27,9 +27,13 @@ const MAX_LINES_PER_ASSET: usize = 3;
 /// Lines from neighbouring rungs predicting reference times this close are
 /// the same alignment.
 const SAME_LINE_FRAMES: f64 = 4.0;
-/// Offsets are counted in buckets of 4 frames (`offset / 4`, floored), more
-/// than `LINE_SPAN_FRAMES`, and the buckets folded into this many slots.
+/// Offsets are counted in buckets this wide (`may_form_line`), so that a
+/// line's offsets lie in one bucket or two neighbouring ones.
+const OFFSET_BUCKET_FRAMES: f64 = 2.0 * LINE_SPAN_FRAMES;
+/// The buckets are folded into this many slots.
 const OFFSET_SLOTS: usize = 4096;
+// A slot's count stops at `MIN_LINE_HITS`, and two slots' counts are added.
+const _: () = assert!(2 * MIN_LINE_HITS <= u8::MAX as usize);
 
 pub(super) fn design() -> String {
     format!(
@@ -380,12 +384,14 @@ fn line_of(asset: AssetId, members: &[AlignedHit], window: u32, rung: Rung) -> L
 /// `densest_clusters`: false only when no 3 of them lie in one slot or two
 /// neighbouring slots. Leaves `counts` all zero.
 ///
-/// A cluster's offsets differ by at most `LINE_SPAN_FRAMES` (2) as
-/// computed, so by less than 4, and their buckets by at most one. Folding
-/// buckets into slots keeps neighbours neighbours (slot `OFFSET_SLOTS - 1`
-/// neighbours slot 0) and only adds counts.
+/// A cluster's offsets differ by at most `LINE_SPAN_FRAMES` as computed, so
+/// by less than `OFFSET_BUCKET_FRAMES`, and their buckets by at most one.
+/// Folding buckets into slots keeps neighbours neighbours (slot
+/// `OFFSET_SLOTS - 1` neighbours slot 0) and only adds counts.
 fn may_form_line(hits: &[AlignedHit], counts: &mut [u8; OFFSET_SLOTS]) -> bool {
-    let slot_of = |hit: &AlignedHit| (hit.offset * 0.25).floor() as i64 as usize % OFFSET_SLOTS;
+    let slot_of = |hit: &AlignedHit| {
+        (hit.offset / OFFSET_BUCKET_FRAMES).floor() as i64 as usize % OFFSET_SLOTS
+    };
     let mut may = false;
     let mut counted = 0;
     for hit in hits {
@@ -623,7 +629,7 @@ pub(super) mod tests {
     }
 
     #[test]
-    fn hits_that_cannot_form_a_line_are_not_sorted() {
+    fn hits_with_no_three_in_neighbouring_slots_cannot_form_a_line() {
         let mut counts = Box::new([0; OFFSET_SLOTS]);
         let scattered = [hit(15.0), hit(0.0), hit(10.0), hit(5.0), hit(-7.0)];
 

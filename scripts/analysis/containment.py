@@ -123,7 +123,7 @@ def closest_call(plays, same_recording):
     play, the stronger confident play of another cluster that overlaps it
     and the tolerance that containment would need (seconds outside that
     play's span); the smallest over the report, or None."""
-    best = None
+    best, smallest = None, None
     for play in plays:
         if not play["confident"]:
             continue
@@ -133,7 +133,8 @@ def closest_call(plays, same_recording):
             if same_recording(play, other) or other["end"] <= play["start"] or play["end"] <= other["start"]:
                 continue
             needed = max(other["start"] - play["start"], play["end"] - other["end"], 0.0)
-            if best is None or needed < best["tolerance needed"]:
+            if smallest is None or needed < smallest:
+                smallest = needed
                 best = {"tolerance needed": round(needed, 1), "play": play["asset"],
                         "span": [round(play["start"], 1), round(play["end"], 1)], "hits": play["hits"],
                         "other": other["asset"], "other_span": [round(other["start"], 1), round(other["end"], 1)],
@@ -235,11 +236,13 @@ def describe(path, play, holder, right):
 
 
 def query_plays(query):
-    """A sweep or recall query's confident detections as plays over one
-    passage: the excerpt is 30 s, so every confident detection (3 windows)
-    covers nearly all of it and spans are taken as equal."""
+    """A sweep or recall query's detections at least possible as plays over
+    one passage: the excerpt is 30 s, so every confident detection (3
+    windows) covers nearly all of it and spans are taken as equal."""
     by_asset = {}
     for detection in query["detections"]:
+        if devscore.confidence(detection) == "weak":
+            continue
         play = by_asset.setdefault(
             detection["asset"],
             {"asset": detection["asset"], "files": {detection["asset"]}, "start": 0.0,
@@ -247,7 +250,6 @@ def query_plays(query):
         )
         play["hits"] += detection["hits"]
         play["confident"] |= detection["confident"]
-        play["correct"] = detection["correct"]
     return list(by_asset.values())
 
 
@@ -292,7 +294,7 @@ def query_kind(paths, cluster_of):
     return rows
 
 
-def grouped(detections, rule=devscore.FITTED):
+def grouped(detections, rule=None):
     """`plays::group`: detections of one file at least possible, with gaps
     of at most 90 s, as one play."""
     by_asset = {}
@@ -421,14 +423,15 @@ def shared_kind(cluster_of, copies, folder, played_in, left_out):
                 related = cluster_of(item["related"])
                 plays = []
                 for play in report["plays"]:
-                    files = names(play["asset"])
-                    for other in play.get("same_audio", []):
-                        files |= names(other)
-                    if mode == "dropped" and item["played"] in files:
-                        continue
+                    rips = [(asset, names(asset)) for asset in [play["asset"], *play.get("same_audio", [])]]
+                    if mode == "dropped":
+                        rips = [(asset, rip) for asset, rip in rips if item["played"] not in rip]
+                        if not rips:
+                            continue
+                    files = set().union(*(rip for _, rip in rips))
                     plays.append(
                         {
-                            "asset": play["asset"],
+                            "asset": rips[0][0],
                             "files": files,
                             "start": play["start_seconds"],
                             "end": play["end_seconds"],

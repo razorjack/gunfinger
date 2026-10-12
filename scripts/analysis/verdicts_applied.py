@@ -35,7 +35,7 @@ def main():
     new_at, old_at = index(new), index(old)
     with open(verdicts_file) as file:
         lines = list(enumerate(file, 1))
-    counts = {}
+    counts, older = {}, {}
     for number, line in lines:
         if line.startswith("#") or not line.strip():
             continue
@@ -49,10 +49,12 @@ def main():
         else:
             standing = "joined" if same else "split"
         if number >= int(first) or standing != "confirmed":
-            counts[standing] = counts.get(standing, 0) + 1
+            counted = counts if number >= int(first) else older
+            counted[standing] = counted.get(standing, 0) + 1
             print(f"line {number}: {verdict}: {standing} (together before: {before}, after: {after})")
             print(f"    {a}\n    {b}")
     print("new verdicts:", counts)
+    print("older verdicts whose standing is not confirmed:", older)
     old_sets = {frozenset(members) for members in old["duplicates"]}
     new_sets = {frozenset(members) for members in new["duplicates"]}
     gone = old_sets - new_sets

@@ -2136,3 +2136,24 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   alignment lands 12 s apart in Meltdown in two searches. Not a re-pitched
   copy; a repeating pattern such as a shared break, or chance: the
   listening question now asks whether they share a break or loop.
+- Step 6, the review (a read-only subagent, 12.6 min): `lines.rs` correct
+  (it also checked 300,000 random cases in an emulation). Seven defects in
+  the analysis scripts, one changing reported numbers, all fixed:
+  `possible_tier.py` counted plays of two identical files twice (harness
+  scans do not merge same audio; `identify` does). Counted once now: the
+  development mixes show 2.9 possible plays per hour at 60 (was 3.5), 2.3
+  at 80 (2.9), related 4 (5); sweeps and recall 11.8 and 10.2 per hour
+  (12.3, 10.4); 100 and 130 unchanged; 0092 and its data corrected.
+  Latent: `devscore.py` judged every segment by the fitted rule (now each
+  segment's pass, ladder 200 hits; `--nas` replaces guessing from the
+  path; all ten scans still reproduce their stored scores); a query found
+  only as possible would have counted twice (none exists); "right hidden"
+  counted detections under 60; `containment.py`'s simulated drop of the
+  played file also dropped its identical rips (unreported rows change),
+  query plays summed weak detections (no effect), one closest call
+  compared rounded values (same 171.4 s); `verdicts_applied.py` counts
+  older lines apart. `lines.rs`: the bucket width named (twice
+  `LINE_SPAN_FRAMES`) with a compile-time check on the one-byte counts.
+  `scripts/check.sh` green (322 tests); `regress session-15-start`
+  identical (201.1 s); the 2003 mix at NAS scale with the final build
+  (`work/bin/s15-final/`) byte-identical, 64.0 s, 487 s CPU.

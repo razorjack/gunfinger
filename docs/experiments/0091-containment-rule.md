@@ -15,7 +15,7 @@ priori. **Only tested it:** the rest. `data/0091-containment-rule.json`.
 
 | Not used to design | Wrong confident | Removed | Right demoted |
 |---|--:|--:|--:|
-| Scans and leave-outs (262, NAS), sweeps (7,373 confident), recall (786) | 0 | 0 | 0 at all 24 points |
+| Scans and leave-outs (262, NAS), sweeps (7,373 confident, per file), recall (786) | 0 | 0 | 0 at all 24 points |
 | Robust (262, 3,250 queries) | 0 | 0 | 0 |
 | Generated mixes (262, 108 confident plays) | 0 | 0 | `play` 4-35; `passage` 0-10 s: 0; 30 s: 4-30 |
 | New passages, played file indexed (7) | 6 | 5 (not Dozer's bootleg: no NAS original) | 0 |

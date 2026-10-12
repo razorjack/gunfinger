@@ -13,6 +13,12 @@ more), per hour of audio, labelled:
   (`tag_labels.label`: another rip by name, or a version of the title);
 - unrelated: neither, so chance.
 
+Plays (and query detections) that differ only in their file are counted
+once, as `identify` shows them (`plays::merge_same_audio`): two copies of
+one file have the same segments. Query reports keep no spans, so there
+equal hits, windows, speed and confidence within one query stand for
+equal segments.
+
 Also the right plays each threshold would hide, and the strongest
 unrelated candidate of any level below the confident rule.
 
@@ -24,7 +30,6 @@ naming the held-out test set is refused.
 """
 
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -90,27 +95,46 @@ def play_hits(play):
     return max(segment["hits"] for segment in play["segments"])
 
 
+def without_asset(entry):
+    return json.dumps({key: value for key, value in entry.items() if key != "asset"}, sort_keys=True)
+
+
+def same_audio(entries, key):
+    """`entries` grouped as `merge_same_audio` groups plays: equal `key`,
+    first entry first."""
+    groups = {}
+    for entry in entries:
+        groups.setdefault(key(entry), []).append(entry)
+    return list(groups.values())
+
+
+def play_key(play):
+    return tuple(without_asset(segment) for segment in play["segments"])
+
+
 def scan_rows(names, relations, cluster_of):
     rows = []
     for name in names:
         report = devscore.load_json(NAS / name)
         tracks = devscore.load_set(report["set"], nas=True)
         slots = devscore.slots(tracks, report["duration_seconds"], cluster_of)
-        for play in report["plays"]:
-            if devscore.play_confidence(play) == "confident":
-                continue
+        possible = [play for play in report["plays"] if devscore.play_confidence(play) != "confident"]
+        for group in same_audio(possible, play_key):
+            play = group[0]
             middle = (play["start_seconds"] + play["end_seconds"]) / 2
             playing = playing_slots(tracks, report["duration_seconds"], play)
-            if devscore.matching_slots(slots, play["asset"], play["start_seconds"], play["end_seconds"]):
-                label, against = "right", None
-            else:
-                label, against = "unrelated", None
+            label, against = "unrelated", None
+            for member in group:
+                if devscore.matching_slots(slots, member["asset"], play["start_seconds"], play["end_seconds"]):
+                    label, against = "right", None
+                    break
                 for track in playing:
                     for reference in track["references"]:
-                        found = relations.label(reference, play["asset"])
+                        found = relations.label(reference, member["asset"])
                         if rank(found) > rank(label):
                             label, against = found, reference
-            rows.append({"report": name, "asset": play["asset"], "hits": play_hits(play),
+            rows.append({"report": name, "asset": play["asset"], "also": [m["asset"] for m in group[1:]],
+                         "hits": play_hits(play),
                          "span": [round(play["start_seconds"], 1), round(play["end_seconds"], 1)],
                          "middle": round(middle, 1), "label": label, "against": against,
                          "playing": [track["label"] for track in playing]})
@@ -126,17 +150,21 @@ def scan_detections(names, relations, cluster_of):
         report = devscore.load_json(NAS / name)
         tracks = devscore.load_set(report["set"], nas=True)
         slots = devscore.slots(tracks, report["duration_seconds"], cluster_of)
-        for detection in report["detections"]:
-            if detection["confident"] or devscore.matching_slots(
-                slots, detection["asset"], detection["start_seconds"], detection["end_seconds"]
+        weak = [detection for detection in report["detections"] if not detection["confident"]]
+        for group in same_audio(weak, without_asset):
+            detection = group[0]
+            if any(
+                devscore.matching_slots(slots, member["asset"], detection["start_seconds"], detection["end_seconds"])
+                for member in group
             ):
                 continue
             label = "unrelated"
             for track in playing_slots(tracks, report["duration_seconds"], detection):
                 for reference in track["references"]:
-                    found = relations.label(reference, detection["asset"])
-                    if rank(found) > rank(label):
-                        label = found
+                    for member in group:
+                        found = relations.label(reference, member["asset"])
+                        if rank(found) > rank(label):
+                            label = found
             rows.append({"report": name, "asset": detection["asset"], "hits": detection["hits"],
                          "windows": detection["windows"],
                          "span": [round(detection["start_seconds"], 1), round(detection["end_seconds"], 1)],
@@ -200,20 +228,22 @@ def query_rows(relations, cluster_of):
         for query in report["queries"]:
             recording = cluster_of(query["asset"])
             right = [d for d in query["detections"] if d["asset"] in recording]
+            only = None
             if not query["held_out"] and right and not any(d["confident"] for d in right):
-                best = max(right, key=lambda d: d["hits"])
-                rows.append({"report": name, "query": query["asset"], "held_out": False,
-                             "speed_percent": query.get("speed_percent"), "asset": best["asset"],
-                             "hits": best["hits"], "label": "right", "only_possible": True})
-            for detection in query["detections"]:
-                if detection["confident"]:
-                    continue
-                label = "right" if detection["asset"] in cluster_of(query["asset"]) else relations.label(
-                    query["asset"], detection["asset"]
-                )
-                rows.append({"report": name, "query": query["asset"], "held_out": query["held_out"],
-                             "speed_percent": query.get("speed_percent"), "asset": detection["asset"],
-                             "hits": detection["hits"], "label": label})
+                only = max(right, key=lambda d: d["hits"])
+            weak = [detection for detection in query["detections"] if not detection["confident"]]
+            for group in same_audio(weak, without_asset):
+                labels = [
+                    "right" if member["asset"] in recording else relations.label(query["asset"], member["asset"])
+                    for member in group
+                ]
+                row = {"report": name, "query": query["asset"], "held_out": query["held_out"],
+                       "speed_percent": query.get("speed_percent"), "asset": group[0]["asset"],
+                       "also": [member["asset"] for member in group[1:]],
+                       "hits": group[0]["hits"], "label": max(labels, key=rank)}
+                if any(member is only for member in group):
+                    row["only_possible"] = True
+                rows.append(row)
     return rows
 
 
@@ -239,8 +269,8 @@ def tally(rows, hours):
             "possible": len(shown),
             "per hour": round(len(shown) / hours, 2),
             "by label": counts,
-            "right hidden (below the threshold)": sum(
-                1 for row in rows if row["label"] == "right" and row["hits"] < threshold
+            "right hidden (shown at 60, below the threshold)": sum(
+                1 for row in rows if row["label"] == "right" and devscore.POSSIBLE_HITS <= row["hits"] < threshold
             ),
             "found only as possible": sum(1 for row in shown if row.get("only_possible")),
             "found only as possible, hidden": sum(

@@ -36,7 +36,10 @@ for scope and rules.
 - [x] 4b. Follow-up of step 4 (experiment 0094): Meltdown does not hold
   the Phantom Force passage re-pitched (a control finds such a copy); a
   repeating pattern or chance, to judge by ear
-- [ ] 6. Read-only review of the session's code by a subagent; fixes
+- [x] 6. Read-only review of the session's code by a subagent: `lines.rs`
+  correct; seven script defects fixed, one changing 0092's figures (plays
+  of identical files counted once: 2.9 possible plays per hour, not 3.5);
+  regress identical, the 2003 mix at NAS scale byte-identical again
 
 ## Wrap-up
 
