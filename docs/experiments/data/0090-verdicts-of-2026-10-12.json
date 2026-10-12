@@ -1,0 +1,316 @@
+{
+ "clusters_nas": {
+  "before": {
+   "clusters": 267,
+   "files": 874,
+   "cut_links": 1
+  },
+  "after": {
+   "clusters": 268,
+   "files": 877,
+   "cut_links": 0
+  }
+ },
+ "clusters_262": {
+  "clusters": 17,
+  "verdicts_set_aside": 35,
+  "same_as_in_use": true
+ },
+ "verdicts": [
+  {
+   "line": 26,
+   "verdict": "same",
+   "standing": "NOT HONOURED",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+    "second-library/Underfire UDFRCD003 - Dangerous Drums Volume 2 (2000)/CD1/02-Stakka_And_K_Tee-Synthesis_(Remix)-sour.mp3"
+   ]
+  },
+  {
+   "line": 36,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3"
+   ]
+  },
+  {
+   "line": 37,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3",
+    "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3"
+   ]
+  },
+  {
+   "line": 38,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "DJ Trace - Sonar.m4a",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3"
+   ]
+  },
+  {
+   "line": 39,
+   "verdict": "same",
+   "standing": "joined",
+   "together_before": false,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/DYkast • Punishment.m4a",
+    "second-library/__youtube_archivists/butch-french/Dykast - Punishment.m4a"
+   ]
+  },
+  {
+   "line": 40,
+   "verdict": "same",
+   "standing": "joined",
+   "together_before": false,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a",
+    "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3"
+   ]
+  },
+  {
+   "line": 41,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "extra/A. Pyro -- Time Is Broken.mp3",
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+   ]
+  },
+  {
+   "line": 42,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+   ]
+  },
+  {
+   "line": 43,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ]
+  },
+  {
+   "line": 44,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+   ]
+  },
+  {
+   "line": 45,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "extra/01 - Ryme Tyme - T-Minus.mp3",
+    "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a"
+   ]
+  },
+  {
+   "line": 46,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "Ed Rush & Optical - Dozer.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+   ]
+  },
+  {
+   "line": 47,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus"
+   ]
+  },
+  {
+   "line": 48,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3",
+    "second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3"
+   ]
+  },
+  {
+   "line": 49,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Muffler ‎- Nutcracker (Extended Mix).m4a",
+    "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/10-muffler-nutcracker_(original_mix).mp3"
+   ]
+  },
+  {
+   "line": 50,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+    "second-library/nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3"
+   ]
+  },
+  {
+   "line": 51,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a"
+   ]
+  },
+  {
+   "line": 52,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a"
+   ]
+  },
+  {
+   "line": 53,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Astro-Sine.opus",
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Chris.SU - Astrosine.m4a"
+   ]
+  },
+  {
+   "line": 54,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+    "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3"
+   ]
+  },
+  {
+   "line": 55,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+    "second-library/underfire-stakka_and_skynet-(udfr016)-2000/a-stakka_and_skynet-nightlore-sour.mp3"
+   ]
+  },
+  {
+   "line": 56,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "extra/D-Sinthetix-Cryogenic-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus"
+   ]
+  },
+  {
+   "line": 57,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a",
+    "second-library/Trouble_On_Vinyl-TOV49-Final_Judgement_EP-2002-rfl_int/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3"
+   ]
+  },
+  {
+   "line": 58,
+   "verdict": "same",
+   "standing": "confirmed",
+   "together_before": true,
+   "together_after": true,
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a",
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a"
+   ]
+  },
+  {
+   "line": 59,
+   "verdict": "different",
+   "standing": "confirmed",
+   "together_before": false,
+   "together_after": false,
+   "files": [
+    "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus"
+   ]
+  }
+ ],
+ "scores": {
+  "nas": {
+   "scan-stakka-skynet-knowledge": "11/11, 0 wrong",
+   "leave-out-3": "8/11, 0 wrong",
+   "leave-out-11": "0/11, 0 wrong",
+   "scan-razorjack-2003-03-29": "12/12, 0 wrong",
+   "2003 leave-out-3": "9/12, 0 wrong",
+   "sweeps 2026-2029 wrong": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "recall-seed-2026 wrong": {
+    "old clusters": 9,
+    "new clusters": 0
+   }
+  },
+  "nas_scans_identical_detections": true
+ }
+}

@@ -2052,3 +2052,32 @@ Brief `docs/brief-14.md`, checklist `docs/session-14-checklist.md`.
   is no longer followed either. Item 5 now plays B from its start at A
   0:00.4. Test `lane_b_does_not_follow_a_chance_alignment`; 120
   harness tests, clippy and fmt clean. Not committed yet.
+
+## 2026-10-12: session 15, the verdicts by ear applied, the containment rule and the possible tier measured
+
+Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
+
+- 02:27 start, `git status` clean at `f3b3191`. Release build in
+  `work/bin/s15-start/` (`gunfinger` byte-identical to `s14-start`'s;
+  `gunfinger-eval` differs by the listening tool's `4ff1ef1`).
+  `regress session-14-start` with it: 720/720 sweep queries and 87, 93 and
+  79 scan detections identical, the known calibrate line; 217.3 s, 0.48
+  GB. `baseline session-15-start` saved from those reports, and
+  `session-15-start-nas` (with `--other-peaks-dir`) from session 11's NAS
+  reports. The NAS store: 33,596 records, revision `f9f9bc706195a71b`, as
+  expected. The NAS report
+  folder's JSON files and the 262-track reports copied to
+  `work/s15/before/` first.
+- Step 2 (experiment 0090): `clusters --from-peaks --reuse-pairs` at NAS
+  scale without `--cut-sparsest` finishes (4.7 s): no chain links two
+  files judged `different`, so the option is no longer needed. 267 -> 268
+  clusters: Stratus - Waves gains the Sonix WEB file, the two DYkast
+  "Punishment" uploads form a cluster; 22 verdicts confirm the clusters;
+  session 11's cut is gone. At 262 tracks every verdict names a NAS file:
+  `clusters --from-peaks` (16 s) finds the 17 clusters in use.
+  `scripts/analysis/devscore.py` recomputes the harness's scores offline
+  (checked: it reproduces every stored score); no development reference's
+  or sweep's held-out cluster changed, and the five NAS development scans
+  run again (`work/s15/step2-scans.sh`, 83-117 s each) are byte-identical
+  in detections, plays and scores. Recall seed 2026: 9 wrong answers -> 0
+  (the DYkast pair). No new NAS baseline needed.

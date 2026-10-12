@@ -6,19 +6,20 @@ for scope and rules.
 
 ## Setup
 
-- [ ] `git status` clean at `f3b3191`
-- [ ] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s15-start/`; `regress session-14-start`
-  with it; `baseline session-15-start`
-- [ ] The NAS store at the start: 33,596 records, revision
-  `f9f9bc706195a71b` expected
+- [x] `git status` clean at `f3b3191`
+- [x] Brief, checklist; `CLAUDE.md` points to them
+- [x] Release build in `work/bin/s15-start/`; `regress session-14-start`
+  with it identical (217.3 s); `baseline session-15-start`, and
+  `session-15-start-nas` from session 11's NAS reports
+- [x] The NAS store at the start: 33,596 records, revision
+  `f9f9bc706195a71b`, as expected
 
 ## Steps
 
-- [ ] 2. The verdicts applied: clusters at 262 tracks and at NAS scale
-  from the saved pairs, without `--cut-sparsest` first; what changed;
-  development scores at both sizes against `session-15-start`;
-  experiment 0090
+- [x] 2. The verdicts applied: clusters at 262 tracks and at NAS scale
+  from the saved pairs, without `--cut-sparsest` first (no chain; the
+  option is not needed); what changed (2 joins, 22 confirmed); development
+  scores unchanged at both sizes, recall 9 -> 0 wrong; experiment 0090
 - [ ] 3. Experiment A, the containment rule: parameters (tolerance, hit
   ratio), a grid over every stored development report; which reports
   informed the grid and which only tested it; experiment 0091; a summary
