@@ -20,10 +20,11 @@ for scope and rules.
   from the saved pairs, without `--cut-sparsest` first (no chain; the
   option is not needed); what changed (2 joins, 22 confirmed); development
   scores unchanged at both sizes, recall 9 -> 0 wrong; experiment 0090
-- [ ] 3. Experiment A, the containment rule: parameters (tolerance, hit
-  ratio), a grid over every stored development report; which reports
-  informed the grid and which only tested it; experiment 0091; a summary
-  for the session notes
+- [x] 3. Experiment A, the containment rule: parameters (span, tolerance,
+  hit ratio), a grid of 24 points over every stored development report
+  and 7 new shared passages; which reports informed the grid and which
+  only tested it; experiment 0091; the summary drafted in
+  `work/s15/notes-draft.md`
 - [ ] 4. Experiment B, the possible tier at NAS scale: thresholds 60, 80,
   100, 130; possible plays per hour (right, related, unrelated); weak
   true plays lost; strongest unrelated chance against 0052; experiment

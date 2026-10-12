@@ -2081,3 +2081,18 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   run again (`work/s15/step2-scans.sh`, 83-117 s each) are byte-identical
   in detections, plays and scores. Recall seed 2026: 9 wrong answers -> 0
   (the DYkast pair). No new NAS baseline needed.
+- Step 3, experiment A (0091): `scripts/analysis/containment.py` applies
+  the candidate containment rule offline to every stored development
+  report (scans and leave-outs at both sizes, sweeps, recall, robust, the
+  generated mixes, 0076's passages) over a grid of 24 points (span held
+  against: the stronger play's whole span or its passages; tolerance 0,
+  10, 30 s; hit-ratio bound none, 0.75, 0.5, 0.25). New runs, read-only
+  against the NAS store: the 7 shared passages of the pairs judged
+  different on 2026-10-12 (T-Minus, Dozer, Pyro), 0076's method
+  (`work/s15/shared.sh`, 9-14 s each, 80-110 s with the played cluster left
+  out). Development reports hold no wrong confident play, so the rule
+  removes nothing there and demotes no right play; the generated mixes
+  show that whole play spans (a returning track) and a 30 s tolerance
+  demote right brief plays, passages with 0-10 s do not. On the new
+  passages it removes 5 of 6 related confident plays at every grid point;
+  with the played cluster left out it removes none.
