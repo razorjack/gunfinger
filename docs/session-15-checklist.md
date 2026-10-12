@@ -29,8 +29,10 @@ for scope and rules.
   100, 130; possible plays per hour (right, related, unrelated); weak
   true plays lost; strongest unrelated chance against 0052 (Meltdown, 98
   hits, to judge by ear); experiment 0092; the summary drafted
-- [ ] 5. Speed step (only if at least 2 h remain): profile, change, regress,
-  the 2003 mix at NAS scale with the old and new builds
+- [x] 5. Speed step: profiled (sorting 40% of CPU samples); assets whose
+  hits cannot form a line are not sorted (`may_form_line`); regress
+  identical, the 2003 mix at NAS scale byte-identical in 65 s instead of
+  93-97 s, 37% less CPU; experiment 0093
 - [ ] 6. Read-only review of the session's code by a subagent; fixes
 
 ## Wrap-up

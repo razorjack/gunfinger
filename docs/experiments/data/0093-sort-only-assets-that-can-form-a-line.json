@@ -1,0 +1,4098 @@
+{
+ "experiment": "0093",
+ "query": "razorjack-2003-03-29.mp3",
+ "store revision": "f9f9bc706195a71b",
+ "builds": {
+  "start": "work/bin/s15-start (b380637)",
+  "filter": "work/bin/s15-filter"
+ },
+ "profile": {
+  "start": {
+   "samples": 91341,
+   "cpu samples": 82548,
+   "sorting hits: each asset's offsets": 33129,
+   "grouping by asset (counting sort) and lines": 26224,
+   "ladder: STFT and peak picking": 15570,
+   "waiting": 8793,
+   "hashing and posting scans": 5359,
+   "second pass: STFT and peak picking": 1709,
+   "loading the saved index": 288,
+   "second pass: hashing, postings, lines": 112,
+   "loading records": 61,
+   "distinct lines": 40,
+   "clustering offsets": 23,
+   "other": 15,
+   "chaining": 10,
+   "decoding": 3,
+   "planning the index": 3,
+   "one play per moment": 2,
+   "wall s": 105.14,
+   "cpu s": 740.39,
+   "peak memory GB": 4.77
+  },
+  "filter": {
+   "samples": 56279,
+   "cpu samples": 50474,
+   "grouping by asset (counting sort) and lines": 25912,
+   "ladder: STFT and peak picking": 15216,
+   "waiting": 5805,
+   "hashing and posting scans": 5322,
+   "second pass: STFT and peak picking": 1712,
+   "sorting hits: each asset's offsets": 1681,
+   "loading the saved index": 299,
+   "loading records": 118,
+   "second pass: hashing, postings, lines": 112,
+   "distinct lines": 53,
+   "clustering offsets": 19,
+   "other": 14,
+   "chaining": 11,
+   "one play per moment": 2,
+   "planning the index": 2,
+   "decoding": 1,
+   "wall s": 70.8,
+   "cpu s": 475.87,
+   "peak memory GB": 4.8
+  }
+ },
+ "benchmark": {
+  "nas, stride 7": {
+   "total": "TOTAL: windows 120 hits 169752451; assets with 3+ hits 4025584, sorted 72653 (1.80%), with lines 12221; current 1.7629 s filtered 0.3812 s; filtered/current 0.216",
+   "windows": [
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 0,
+     "hits": 1129332,
+     "assets with 3+ hits": 33554,
+     "sorted": 338,
+     "with lines": 52,
+     "current ms": 11.9,
+     "filtered ms": 2.38
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 7,
+     "hits": 1489019,
+     "assets with 3+ hits": 33576,
+     "sorted": 702,
+     "with lines": 101,
+     "current ms": 15.11,
+     "filtered ms": 3.47
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 14,
+     "hits": 1586171,
+     "assets with 3+ hits": 33581,
+     "sorted": 863,
+     "with lines": 154,
+     "current ms": 16.69,
+     "filtered ms": 3.81
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 21,
+     "hits": 1600791,
+     "assets with 3+ hits": 33582,
+     "sorted": 636,
+     "with lines": 81,
+     "current ms": 16.43,
+     "filtered ms": 3.72
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 28,
+     "hits": 1384345,
+     "assets with 3+ hits": 33567,
+     "sorted": 573,
+     "with lines": 72,
+     "current ms": 14.45,
+     "filtered ms": 3.25
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 35,
+     "hits": 1491858,
+     "assets with 3+ hits": 33576,
+     "sorted": 547,
+     "with lines": 71,
+     "current ms": 15.47,
+     "filtered ms": 3.38
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 42,
+     "hits": 1036957,
+     "assets with 3+ hits": 33540,
+     "sorted": 254,
+     "with lines": 44,
+     "current ms": 10.47,
+     "filtered ms": 2.1
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 49,
+     "hits": 1494248,
+     "assets with 3+ hits": 33568,
+     "sorted": 642,
+     "with lines": 93,
+     "current ms": 15.74,
+     "filtered ms": 3.4
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 56,
+     "hits": 1485056,
+     "assets with 3+ hits": 33564,
+     "sorted": 692,
+     "with lines": 85,
+     "current ms": 15.34,
+     "filtered ms": 3.58
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 63,
+     "hits": 1260252,
+     "assets with 3+ hits": 33564,
+     "sorted": 421,
+     "with lines": 63,
+     "current ms": 12.86,
+     "filtered ms": 2.61
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 70,
+     "hits": 1578542,
+     "assets with 3+ hits": 33577,
+     "sorted": 719,
+     "with lines": 119,
+     "current ms": 16.55,
+     "filtered ms": 3.74
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 77,
+     "hits": 1639118,
+     "assets with 3+ hits": 33571,
+     "sorted": 931,
+     "with lines": 116,
+     "current ms": 17.3,
+     "filtered ms": 3.99
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 84,
+     "hits": 1647524,
+     "assets with 3+ hits": 33583,
+     "sorted": 816,
+     "with lines": 139,
+     "current ms": 16.97,
+     "filtered ms": 3.79
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 91,
+     "hits": 1243893,
+     "assets with 3+ hits": 33564,
+     "sorted": 456,
+     "with lines": 86,
+     "current ms": 12.78,
+     "filtered ms": 2.62
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 98,
+     "hits": 1222558,
+     "assets with 3+ hits": 33565,
+     "sorted": 469,
+     "with lines": 105,
+     "current ms": 12.29,
+     "filtered ms": 2.6
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 105,
+     "hits": 1344325,
+     "assets with 3+ hits": 33577,
+     "sorted": 407,
+     "with lines": 70,
+     "current ms": 13.68,
+     "filtered ms": 2.71
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 112,
+     "hits": 1469079,
+     "assets with 3+ hits": 33576,
+     "sorted": 616,
+     "with lines": 113,
+     "current ms": 14.85,
+     "filtered ms": 3.14
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 119,
+     "hits": 1529532,
+     "assets with 3+ hits": 33580,
+     "sorted": 676,
+     "with lines": 118,
+     "current ms": 15.58,
+     "filtered ms": 3.28
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 126,
+     "hits": 730338,
+     "assets with 3+ hits": 32838,
+     "sorted": 262,
+     "with lines": 62,
+     "current ms": 7.54,
+     "filtered ms": 1.68
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 133,
+     "hits": 1561846,
+     "assets with 3+ hits": 33573,
+     "sorted": 778,
+     "with lines": 167,
+     "current ms": 16.02,
+     "filtered ms": 3.49
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 140,
+     "hits": 1584858,
+     "assets with 3+ hits": 33577,
+     "sorted": 695,
+     "with lines": 102,
+     "current ms": 16.32,
+     "filtered ms": 3.43
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 147,
+     "hits": 1470798,
+     "assets with 3+ hits": 33574,
+     "sorted": 653,
+     "with lines": 109,
+     "current ms": 15.25,
+     "filtered ms": 3.3
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 154,
+     "hits": 1492566,
+     "assets with 3+ hits": 33578,
+     "sorted": 672,
+     "with lines": 131,
+     "current ms": 15.61,
+     "filtered ms": 3.3
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 161,
+     "hits": 1199880,
+     "assets with 3+ hits": 33565,
+     "sorted": 373,
+     "with lines": 70,
+     "current ms": 12.6,
+     "filtered ms": 2.44
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 168,
+     "hits": 1866720,
+     "assets with 3+ hits": 33581,
+     "sorted": 1180,
+     "with lines": 184,
+     "current ms": 19.66,
+     "filtered ms": 4.61
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 175,
+     "hits": 1185270,
+     "assets with 3+ hits": 33563,
+     "sorted": 286,
+     "with lines": 56,
+     "current ms": 12.26,
+     "filtered ms": 2.44
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 182,
+     "hits": 1667318,
+     "assets with 3+ hits": 33577,
+     "sorted": 998,
+     "with lines": 155,
+     "current ms": 17.41,
+     "filtered ms": 3.98
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 189,
+     "hits": 1547473,
+     "assets with 3+ hits": 33576,
+     "sorted": 656,
+     "with lines": 114,
+     "current ms": 15.96,
+     "filtered ms": 3.29
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 196,
+     "hits": 1537200,
+     "assets with 3+ hits": 33577,
+     "sorted": 676,
+     "with lines": 106,
+     "current ms": 16.07,
+     "filtered ms": 3.22
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 203,
+     "hits": 1164405,
+     "assets with 3+ hits": 33531,
+     "sorted": 335,
+     "with lines": 57,
+     "current ms": 12.11,
+     "filtered ms": 2.42
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 210,
+     "hits": 1443303,
+     "assets with 3+ hits": 33582,
+     "sorted": 518,
+     "with lines": 79,
+     "current ms": 14.61,
+     "filtered ms": 3.14
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 217,
+     "hits": 1399215,
+     "assets with 3+ hits": 33563,
+     "sorted": 477,
+     "with lines": 78,
+     "current ms": 14.4,
+     "filtered ms": 2.97
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 224,
+     "hits": 1299650,
+     "assets with 3+ hits": 33569,
+     "sorted": 421,
+     "with lines": 78,
+     "current ms": 13.63,
+     "filtered ms": 2.8
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 231,
+     "hits": 1826621,
+     "assets with 3+ hits": 33574,
+     "sorted": 964,
+     "with lines": 117,
+     "current ms": 19.37,
+     "filtered ms": 4.29
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 238,
+     "hits": 1898581,
+     "assets with 3+ hits": 33581,
+     "sorted": 888,
+     "with lines": 123,
+     "current ms": 21.69,
+     "filtered ms": 4.11
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 245,
+     "hits": 1124432,
+     "assets with 3+ hits": 33514,
+     "sorted": 509,
+     "with lines": 128,
+     "current ms": 11.71,
+     "filtered ms": 2.78
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 252,
+     "hits": 1941000,
+     "assets with 3+ hits": 33578,
+     "sorted": 1061,
+     "with lines": 153,
+     "current ms": 22.64,
+     "filtered ms": 4.73
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 259,
+     "hits": 1354103,
+     "assets with 3+ hits": 33544,
+     "sorted": 474,
+     "with lines": 64,
+     "current ms": 14.31,
+     "filtered ms": 3.12
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 266,
+     "hits": 1232589,
+     "assets with 3+ hits": 33562,
+     "sorted": 313,
+     "with lines": 54,
+     "current ms": 12.96,
+     "filtered ms": 2.69
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 273,
+     "hits": 1026383,
+     "assets with 3+ hits": 33519,
+     "sorted": 236,
+     "with lines": 44,
+     "current ms": 10.78,
+     "filtered ms": 2.38
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 0,
+     "hits": 1100981,
+     "assets with 3+ hits": 33545,
+     "sorted": 287,
+     "with lines": 55,
+     "current ms": 11.08,
+     "filtered ms": 2.28
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 7,
+     "hits": 1283334,
+     "assets with 3+ hits": 33560,
+     "sorted": 413,
+     "with lines": 53,
+     "current ms": 13.03,
+     "filtered ms": 2.85
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 14,
+     "hits": 1430587,
+     "assets with 3+ hits": 33573,
+     "sorted": 481,
+     "with lines": 79,
+     "current ms": 14.82,
+     "filtered ms": 3.15
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 21,
+     "hits": 1554697,
+     "assets with 3+ hits": 33576,
+     "sorted": 600,
+     "with lines": 78,
+     "current ms": 15.73,
+     "filtered ms": 3.32
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 28,
+     "hits": 1108337,
+     "assets with 3+ hits": 33533,
+     "sorted": 282,
+     "with lines": 38,
+     "current ms": 11.18,
+     "filtered ms": 2.36
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 35,
+     "hits": 1500003,
+     "assets with 3+ hits": 33579,
+     "sorted": 498,
+     "with lines": 50,
+     "current ms": 15.19,
+     "filtered ms": 3.17
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 42,
+     "hits": 1029098,
+     "assets with 3+ hits": 33535,
+     "sorted": 206,
+     "with lines": 33,
+     "current ms": 10.35,
+     "filtered ms": 2.08
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 49,
+     "hits": 1401890,
+     "assets with 3+ hits": 33551,
+     "sorted": 509,
+     "with lines": 71,
+     "current ms": 14.16,
+     "filtered ms": 3.07
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 56,
+     "hits": 1546121,
+     "assets with 3+ hits": 33563,
+     "sorted": 631,
+     "with lines": 70,
+     "current ms": 16.09,
+     "filtered ms": 3.62
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 63,
+     "hits": 1191050,
+     "assets with 3+ hits": 33543,
+     "sorted": 328,
+     "with lines": 68,
+     "current ms": 11.99,
+     "filtered ms": 2.42
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 70,
+     "hits": 1615073,
+     "assets with 3+ hits": 33579,
+     "sorted": 672,
+     "with lines": 104,
+     "current ms": 16.34,
+     "filtered ms": 3.38
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 77,
+     "hits": 1536135,
+     "assets with 3+ hits": 33579,
+     "sorted": 589,
+     "with lines": 76,
+     "current ms": 15.72,
+     "filtered ms": 3.28
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 84,
+     "hits": 1568961,
+     "assets with 3+ hits": 33580,
+     "sorted": 690,
+     "with lines": 117,
+     "current ms": 15.94,
+     "filtered ms": 3.36
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 91,
+     "hits": 1074549,
+     "assets with 3+ hits": 33562,
+     "sorted": 244,
+     "with lines": 35,
+     "current ms": 10.72,
+     "filtered ms": 2.14
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 98,
+     "hits": 1038832,
+     "assets with 3+ hits": 33553,
+     "sorted": 250,
+     "with lines": 57,
+     "current ms": 10.46,
+     "filtered ms": 2.08
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 105,
+     "hits": 1185187,
+     "assets with 3+ hits": 33569,
+     "sorted": 295,
+     "with lines": 55,
+     "current ms": 11.93,
+     "filtered ms": 2.36
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 112,
+     "hits": 1419060,
+     "assets with 3+ hits": 33582,
+     "sorted": 499,
+     "with lines": 97,
+     "current ms": 14.09,
+     "filtered ms": 2.85
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 119,
+     "hits": 1337208,
+     "assets with 3+ hits": 33572,
+     "sorted": 405,
+     "with lines": 58,
+     "current ms": 13.44,
+     "filtered ms": 2.66
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 126,
+     "hits": 591401,
+     "assets with 3+ hits": 32542,
+     "sorted": 112,
+     "with lines": 30,
+     "current ms": 5.91,
+     "filtered ms": 1.28
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 133,
+     "hits": 1433875,
+     "assets with 3+ hits": 33567,
+     "sorted": 493,
+     "with lines": 72,
+     "current ms": 14.54,
+     "filtered ms": 2.94
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 140,
+     "hits": 1363038,
+     "assets with 3+ hits": 33562,
+     "sorted": 448,
+     "with lines": 49,
+     "current ms": 13.77,
+     "filtered ms": 2.88
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 147,
+     "hits": 1356702,
+     "assets with 3+ hits": 33575,
+     "sorted": 433,
+     "with lines": 53,
+     "current ms": 13.54,
+     "filtered ms": 2.84
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 154,
+     "hits": 1384336,
+     "assets with 3+ hits": 33563,
+     "sorted": 506,
+     "with lines": 88,
+     "current ms": 14.02,
+     "filtered ms": 2.91
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 161,
+     "hits": 1093736,
+     "assets with 3+ hits": 33565,
+     "sorted": 253,
+     "with lines": 54,
+     "current ms": 11.11,
+     "filtered ms": 2.23
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 168,
+     "hits": 1640110,
+     "assets with 3+ hits": 33576,
+     "sorted": 683,
+     "with lines": 94,
+     "current ms": 16.98,
+     "filtered ms": 3.55
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 175,
+     "hits": 1077191,
+     "assets with 3+ hits": 33550,
+     "sorted": 180,
+     "with lines": 28,
+     "current ms": 10.84,
+     "filtered ms": 2.08
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 182,
+     "hits": 1542846,
+     "assets with 3+ hits": 33570,
+     "sorted": 650,
+     "with lines": 85,
+     "current ms": 15.64,
+     "filtered ms": 3.34
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 189,
+     "hits": 1353320,
+     "assets with 3+ hits": 33565,
+     "sorted": 400,
+     "with lines": 66,
+     "current ms": 13.56,
+     "filtered ms": 2.7
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 196,
+     "hits": 1436665,
+     "assets with 3+ hits": 33578,
+     "sorted": 494,
+     "with lines": 75,
+     "current ms": 14.53,
+     "filtered ms": 2.97
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 203,
+     "hits": 1034877,
+     "assets with 3+ hits": 33519,
+     "sorted": 267,
+     "with lines": 50,
+     "current ms": 10.48,
+     "filtered ms": 2.13
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 210,
+     "hits": 1438932,
+     "assets with 3+ hits": 33578,
+     "sorted": 497,
+     "with lines": 74,
+     "current ms": 14.53,
+     "filtered ms": 2.96
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 217,
+     "hits": 1131497,
+     "assets with 3+ hits": 33553,
+     "sorted": 272,
+     "with lines": 38,
+     "current ms": 11.38,
+     "filtered ms": 2.27
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 224,
+     "hits": 1064385,
+     "assets with 3+ hits": 33534,
+     "sorted": 259,
+     "with lines": 53,
+     "current ms": 10.67,
+     "filtered ms": 2.11
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 231,
+     "hits": 1659678,
+     "assets with 3+ hits": 33575,
+     "sorted": 656,
+     "with lines": 73,
+     "current ms": 17.1,
+     "filtered ms": 3.53
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 238,
+     "hits": 1841757,
+     "assets with 3+ hits": 33583,
+     "sorted": 841,
+     "with lines": 104,
+     "current ms": 19.23,
+     "filtered ms": 3.99
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 245,
+     "hits": 1073422,
+     "assets with 3+ hits": 33509,
+     "sorted": 357,
+     "with lines": 105,
+     "current ms": 11.22,
+     "filtered ms": 2.5
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 252,
+     "hits": 1978828,
+     "assets with 3+ hits": 33579,
+     "sorted": 1055,
+     "with lines": 191,
+     "current ms": 20.82,
+     "filtered ms": 4.51
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 259,
+     "hits": 1337758,
+     "assets with 3+ hits": 33544,
+     "sorted": 514,
+     "with lines": 78,
+     "current ms": 13.6,
+     "filtered ms": 2.97
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 266,
+     "hits": 1010466,
+     "assets with 3+ hits": 33527,
+     "sorted": 182,
+     "with lines": 27,
+     "current ms": 10.22,
+     "filtered ms": 2.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 273,
+     "hits": 931939,
+     "assets with 3+ hits": 33514,
+     "sorted": 166,
+     "with lines": 37,
+     "current ms": 9.42,
+     "filtered ms": 1.9
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 0,
+     "hits": 1175898,
+     "assets with 3+ hits": 33553,
+     "sorted": 408,
+     "with lines": 73,
+     "current ms": 11.97,
+     "filtered ms": 2.49
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 7,
+     "hits": 1629532,
+     "assets with 3+ hits": 33579,
+     "sorted": 1008,
+     "with lines": 182,
+     "current ms": 16.7,
+     "filtered ms": 3.93
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 14,
+     "hits": 1636754,
+     "assets with 3+ hits": 33576,
+     "sorted": 1162,
+     "with lines": 255,
+     "current ms": 17.2,
+     "filtered ms": 4.2
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 21,
+     "hits": 1652395,
+     "assets with 3+ hits": 33577,
+     "sorted": 793,
+     "with lines": 132,
+     "current ms": 17.02,
+     "filtered ms": 3.93
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 28,
+     "hits": 1515675,
+     "assets with 3+ hits": 33571,
+     "sorted": 988,
+     "with lines": 180,
+     "current ms": 15.72,
+     "filtered ms": 3.98
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 35,
+     "hits": 1503844,
+     "assets with 3+ hits": 33575,
+     "sorted": 732,
+     "with lines": 134,
+     "current ms": 15.51,
+     "filtered ms": 3.71
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 42,
+     "hits": 1138152,
+     "assets with 3+ hits": 33560,
+     "sorted": 353,
+     "with lines": 73,
+     "current ms": 11.58,
+     "filtered ms": 2.34
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 49,
+     "hits": 1448961,
+     "assets with 3+ hits": 33562,
+     "sorted": 698,
+     "with lines": 84,
+     "current ms": 15.06,
+     "filtered ms": 3.34
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 56,
+     "hits": 1485068,
+     "assets with 3+ hits": 33558,
+     "sorted": 765,
+     "with lines": 102,
+     "current ms": 15.17,
+     "filtered ms": 3.53
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 63,
+     "hits": 1269615,
+     "assets with 3+ hits": 33568,
+     "sorted": 508,
+     "with lines": 86,
+     "current ms": 12.98,
+     "filtered ms": 2.75
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 70,
+     "hits": 1657926,
+     "assets with 3+ hits": 33578,
+     "sorted": 937,
+     "with lines": 174,
+     "current ms": 17.19,
+     "filtered ms": 3.81
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 77,
+     "hits": 1621099,
+     "assets with 3+ hits": 33575,
+     "sorted": 1125,
+     "with lines": 199,
+     "current ms": 16.78,
+     "filtered ms": 4.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 84,
+     "hits": 1595611,
+     "assets with 3+ hits": 33579,
+     "sorted": 837,
+     "with lines": 175,
+     "current ms": 16.88,
+     "filtered ms": 3.77
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 91,
+     "hits": 1353598,
+     "assets with 3+ hits": 33571,
+     "sorted": 782,
+     "with lines": 190,
+     "current ms": 13.85,
+     "filtered ms": 3.22
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 98,
+     "hits": 1272669,
+     "assets with 3+ hits": 33569,
+     "sorted": 577,
+     "with lines": 151,
+     "current ms": 13.07,
+     "filtered ms": 2.79
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 105,
+     "hits": 1405528,
+     "assets with 3+ hits": 33574,
+     "sorted": 497,
+     "with lines": 93,
+     "current ms": 14.36,
+     "filtered ms": 2.88
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 112,
+     "hits": 1524300,
+     "assets with 3+ hits": 33579,
+     "sorted": 760,
+     "with lines": 139,
+     "current ms": 15.57,
+     "filtered ms": 3.35
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 119,
+     "hits": 1575552,
+     "assets with 3+ hits": 33583,
+     "sorted": 793,
+     "with lines": 151,
+     "current ms": 16.02,
+     "filtered ms": 3.49
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 126,
+     "hits": 795019,
+     "assets with 3+ hits": 33036,
+     "sorted": 313,
+     "with lines": 76,
+     "current ms": 8.03,
+     "filtered ms": 1.8
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 133,
+     "hits": 1567949,
+     "assets with 3+ hits": 33573,
+     "sorted": 871,
+     "with lines": 167,
+     "current ms": 16.04,
+     "filtered ms": 3.65
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 140,
+     "hits": 1622155,
+     "assets with 3+ hits": 33576,
+     "sorted": 837,
+     "with lines": 131,
+     "current ms": 16.51,
+     "filtered ms": 3.65
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 147,
+     "hits": 1580287,
+     "assets with 3+ hits": 33583,
+     "sorted": 882,
+     "with lines": 179,
+     "current ms": 16.35,
+     "filtered ms": 3.68
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 154,
+     "hits": 1590182,
+     "assets with 3+ hits": 33581,
+     "sorted": 970,
+     "with lines": 202,
+     "current ms": 16.4,
+     "filtered ms": 3.77
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 161,
+     "hits": 1280660,
+     "assets with 3+ hits": 33576,
+     "sorted": 525,
+     "with lines": 98,
+     "current ms": 13.05,
+     "filtered ms": 2.82
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 168,
+     "hits": 1972837,
+     "assets with 3+ hits": 33585,
+     "sorted": 1405,
+     "with lines": 190,
+     "current ms": 20.51,
+     "filtered ms": 5.06
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 175,
+     "hits": 1271974,
+     "assets with 3+ hits": 33572,
+     "sorted": 376,
+     "with lines": 66,
+     "current ms": 13.04,
+     "filtered ms": 2.61
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 182,
+     "hits": 1699200,
+     "assets with 3+ hits": 33577,
+     "sorted": 1058,
+     "with lines": 188,
+     "current ms": 17.71,
+     "filtered ms": 4.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 189,
+     "hits": 1759913,
+     "assets with 3+ hits": 33576,
+     "sorted": 1091,
+     "with lines": 188,
+     "current ms": 18.47,
+     "filtered ms": 4.45
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 196,
+     "hits": 1625079,
+     "assets with 3+ hits": 33579,
+     "sorted": 892,
+     "with lines": 171,
+     "current ms": 16.87,
+     "filtered ms": 3.73
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 203,
+     "hits": 1223990,
+     "assets with 3+ hits": 33503,
+     "sorted": 427,
+     "with lines": 57,
+     "current ms": 13.08,
+     "filtered ms": 2.62
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 210,
+     "hits": 1515558,
+     "assets with 3+ hits": 33581,
+     "sorted": 628,
+     "with lines": 111,
+     "current ms": 15.67,
+     "filtered ms": 3.36
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 217,
+     "hits": 1567617,
+     "assets with 3+ hits": 33576,
+     "sorted": 693,
+     "with lines": 119,
+     "current ms": 15.98,
+     "filtered ms": 3.51
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 224,
+     "hits": 1429774,
+     "assets with 3+ hits": 33569,
+     "sorted": 554,
+     "with lines": 128,
+     "current ms": 14.57,
+     "filtered ms": 3.11
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 231,
+     "hits": 1978240,
+     "assets with 3+ hits": 33581,
+     "sorted": 1181,
+     "with lines": 130,
+     "current ms": 27.36,
+     "filtered ms": 4.9
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 238,
+     "hits": 1997972,
+     "assets with 3+ hits": 33579,
+     "sorted": 1150,
+     "with lines": 174,
+     "current ms": 22.59,
+     "filtered ms": 4.84
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 245,
+     "hits": 1180173,
+     "assets with 3+ hits": 33534,
+     "sorted": 730,
+     "with lines": 208,
+     "current ms": 13.1,
+     "filtered ms": 5.01
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 252,
+     "hits": 1989820,
+     "assets with 3+ hits": 33583,
+     "sorted": 1267,
+     "with lines": 208,
+     "current ms": 21.97,
+     "filtered ms": 5.15
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 259,
+     "hits": 1427841,
+     "assets with 3+ hits": 33547,
+     "sorted": 600,
+     "with lines": 76,
+     "current ms": 15.88,
+     "filtered ms": 3.36
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 266,
+     "hits": 1268136,
+     "assets with 3+ hits": 33565,
+     "sorted": 397,
+     "with lines": 80,
+     "current ms": 13.46,
+     "filtered ms": 2.93
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 273,
+     "hits": 1060887,
+     "assets with 3+ hits": 33542,
+     "sorted": 303,
+     "with lines": 70,
+     "current ms": 10.97,
+     "filtered ms": 2.41
+    }
+   ]
+  },
+  "corpus 262, stride 3": {
+   "total": "TOTAL: windows 279 hits 4122109; assets with 3+ hits 73039, sorted 2565 (3.51%), with lines 381; current 0.0415 s filtered 0.0091 s; filtered/current 0.220",
+   "windows": [
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 0,
+     "hits": 11857,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 3,
+     "hits": 12991,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 6,
+     "hits": 18065,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 0,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 9,
+     "hits": 8804,
+     "assets with 3+ hits": 262,
+     "sorted": 1,
+     "with lines": 0,
+     "current ms": 0.08,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 12,
+     "hits": 18045,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 15,
+     "hits": 20635,
+     "assets with 3+ hits": 262,
+     "sorted": 17,
+     "with lines": 0,
+     "current ms": 0.22,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 18,
+     "hits": 7820,
+     "assets with 3+ hits": 260,
+     "sorted": 1,
+     "with lines": 1,
+     "current ms": 0.07,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 21,
+     "hits": 16855,
+     "assets with 3+ hits": 261,
+     "sorted": 11,
+     "with lines": 1,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 24,
+     "hits": 14111,
+     "assets with 3+ hits": 261,
+     "sorted": 7,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 27,
+     "hits": 16564,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 30,
+     "hits": 15661,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 33,
+     "hits": 16677,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 36,
+     "hits": 16658,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 39,
+     "hits": 16122,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 42,
+     "hits": 11557,
+     "assets with 3+ hits": 261,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 45,
+     "hits": 15015,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 48,
+     "hits": 11380,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 51,
+     "hits": 15790,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 54,
+     "hits": 13481,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 57,
+     "hits": 15885,
+     "assets with 3+ hits": 261,
+     "sorted": 8,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 60,
+     "hits": 13736,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 63,
+     "hits": 12601,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 66,
+     "hits": 18029,
+     "assets with 3+ hits": 262,
+     "sorted": 16,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 69,
+     "hits": 17709,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 0,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 72,
+     "hits": 19430,
+     "assets with 3+ hits": 262,
+     "sorted": 17,
+     "with lines": 3,
+     "current ms": 0.2,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 75,
+     "hits": 19680,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 1,
+     "current ms": 0.2,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 78,
+     "hits": 18847,
+     "assets with 3+ hits": 262,
+     "sorted": 17,
+     "with lines": 0,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 81,
+     "hits": 18642,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 4,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 84,
+     "hits": 16277,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 87,
+     "hits": 17845,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 1,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 90,
+     "hits": 16981,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.18,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 93,
+     "hits": 10654,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 1,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 96,
+     "hits": 9825,
+     "assets with 3+ hits": 262,
+     "sorted": 0,
+     "with lines": 0,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 99,
+     "hits": 14169,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 4,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 102,
+     "hits": 13475,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 105,
+     "hits": 13335,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 108,
+     "hits": 5230,
+     "assets with 3+ hits": 259,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.05,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 111,
+     "hits": 15229,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 4,
+     "current ms": 0.15,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 114,
+     "hits": 15389,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 117,
+     "hits": 14734,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 120,
+     "hits": 16242,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 123,
+     "hits": 16201,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 126,
+     "hits": 6260,
+     "assets with 3+ hits": 259,
+     "sorted": 0,
+     "with lines": 0,
+     "current ms": 0.06,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 129,
+     "hits": 14693,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 132,
+     "hits": 15900,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 135,
+     "hits": 16642,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 138,
+     "hits": 15540,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 141,
+     "hits": 15901,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 144,
+     "hits": 16910,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 147,
+     "hits": 14904,
+     "assets with 3+ hits": 261,
+     "sorted": 12,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 150,
+     "hits": 17372,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 4,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 153,
+     "hits": 16862,
+     "assets with 3+ hits": 261,
+     "sorted": 13,
+     "with lines": 1,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 156,
+     "hits": 15362,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 159,
+     "hits": 15541,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 162,
+     "hits": 15171,
+     "assets with 3+ hits": 261,
+     "sorted": 20,
+     "with lines": 3,
+     "current ms": 0.15,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 165,
+     "hits": 16457,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 168,
+     "hits": 18019,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 171,
+     "hits": 12266,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 174,
+     "hits": 14596,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 177,
+     "hits": 13281,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 180,
+     "hits": 16096,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 183,
+     "hits": 15126,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 186,
+     "hits": 17256,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 3,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 189,
+     "hits": 13840,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 192,
+     "hits": 13147,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 195,
+     "hits": 17867,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 198,
+     "hits": 15852,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 201,
+     "hits": 15132,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.19,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 204,
+     "hits": 17578,
+     "assets with 3+ hits": 262,
+     "sorted": 20,
+     "with lines": 4,
+     "current ms": 0.18,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 207,
+     "hits": 16128,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 1,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 210,
+     "hits": 16006,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 4,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 213,
+     "hits": 14295,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 3,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 216,
+     "hits": 13073,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 219,
+     "hits": 11498,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 222,
+     "hits": 13635,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 225,
+     "hits": 13895,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 228,
+     "hits": 14404,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 231,
+     "hits": 16794,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 234,
+     "hits": 15746,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 237,
+     "hits": 18168,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 240,
+     "hits": 19527,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 243,
+     "hits": 12835,
+     "assets with 3+ hits": 261,
+     "sorted": 8,
+     "with lines": 4,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 246,
+     "hits": 18713,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 249,
+     "hits": 19123,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 4,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 252,
+     "hits": 18100,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 255,
+     "hits": 11966,
+     "assets with 3+ hits": 261,
+     "sorted": 6,
+     "with lines": 3,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 258,
+     "hits": 12825,
+     "assets with 3+ hits": 261,
+     "sorted": 5,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 261,
+     "hits": 13505,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 264,
+     "hits": 13846,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 267,
+     "hits": 15280,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 3,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 270,
+     "hits": 12198,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 2,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 273,
+     "hits": 11777,
+     "assets with 3+ hits": 261,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(1.0))",
+     "window": 276,
+     "hits": 11104,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 2,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 0,
+     "hits": 10093,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 3,
+     "hits": 11857,
+     "assets with 3+ hits": 262,
+     "sorted": 3,
+     "with lines": 2,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 6,
+     "hits": 13652,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 0,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 9,
+     "hits": 8210,
+     "assets with 3+ hits": 262,
+     "sorted": 3,
+     "with lines": 1,
+     "current ms": 0.07,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 12,
+     "hits": 13686,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 15,
+     "hits": 20111,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 0,
+     "current ms": 0.2,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 18,
+     "hits": 8392,
+     "assets with 3+ hits": 261,
+     "sorted": 0,
+     "with lines": 0,
+     "current ms": 0.08,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 21,
+     "hits": 17933,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.18,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 24,
+     "hits": 13814,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 27,
+     "hits": 15237,
+     "assets with 3+ hits": 261,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 30,
+     "hits": 14855,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 33,
+     "hits": 15907,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 36,
+     "hits": 15899,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 39,
+     "hits": 13497,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 42,
+     "hits": 9957,
+     "assets with 3+ hits": 261,
+     "sorted": 0,
+     "with lines": 0,
+     "current ms": 0.09,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 45,
+     "hits": 13265,
+     "assets with 3+ hits": 262,
+     "sorted": 1,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 48,
+     "hits": 10918,
+     "assets with 3+ hits": 262,
+     "sorted": 1,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 51,
+     "hits": 16888,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 2,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 54,
+     "hits": 11670,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 57,
+     "hits": 14502,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 60,
+     "hits": 12948,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 63,
+     "hits": 11135,
+     "assets with 3+ hits": 261,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 66,
+     "hits": 17978,
+     "assets with 3+ hits": 262,
+     "sorted": 16,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 69,
+     "hits": 17550,
+     "assets with 3+ hits": 261,
+     "sorted": 16,
+     "with lines": 3,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 72,
+     "hits": 17192,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 1,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 75,
+     "hits": 16691,
+     "assets with 3+ hits": 261,
+     "sorted": 9,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 78,
+     "hits": 15671,
+     "assets with 3+ hits": 261,
+     "sorted": 13,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 81,
+     "hits": 17581,
+     "assets with 3+ hits": 262,
+     "sorted": 16,
+     "with lines": 1,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 84,
+     "hits": 14627,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 87,
+     "hits": 16296,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 90,
+     "hits": 15686,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 93,
+     "hits": 8598,
+     "assets with 3+ hits": 262,
+     "sorted": 1,
+     "with lines": 0,
+     "current ms": 0.08,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 96,
+     "hits": 9156,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 1,
+     "current ms": 0.09,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 99,
+     "hits": 12431,
+     "assets with 3+ hits": 262,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 102,
+     "hits": 11593,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 105,
+     "hits": 11264,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 108,
+     "hits": 4634,
+     "assets with 3+ hits": 257,
+     "sorted": 1,
+     "with lines": 0,
+     "current ms": 0.04,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 111,
+     "hits": 11758,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 114,
+     "hits": 12751,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 117,
+     "hits": 14018,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 120,
+     "hits": 13698,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 123,
+     "hits": 14366,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 1,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 126,
+     "hits": 4778,
+     "assets with 3+ hits": 255,
+     "sorted": 1,
+     "with lines": 0,
+     "current ms": 0.04,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 129,
+     "hits": 11908,
+     "assets with 3+ hits": 261,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 132,
+     "hits": 12608,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 135,
+     "hits": 15412,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 138,
+     "hits": 13163,
+     "assets with 3+ hits": 261,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 141,
+     "hits": 13772,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 144,
+     "hits": 14379,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 147,
+     "hits": 13669,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 150,
+     "hits": 15970,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 153,
+     "hits": 14388,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 156,
+     "hits": 14663,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 159,
+     "hits": 13562,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 162,
+     "hits": 13082,
+     "assets with 3+ hits": 262,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 165,
+     "hits": 15116,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 168,
+     "hits": 16694,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 171,
+     "hits": 10990,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 174,
+     "hits": 14099,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 4,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 177,
+     "hits": 13416,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 1,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 180,
+     "hits": 13661,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 3,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 183,
+     "hits": 13511,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 186,
+     "hits": 13227,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 189,
+     "hits": 11702,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 1,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 192,
+     "hits": 11152,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 195,
+     "hits": 13607,
+     "assets with 3+ hits": 261,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 198,
+     "hits": 13968,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 201,
+     "hits": 13419,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 204,
+     "hits": 15076,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 207,
+     "hits": 15653,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 210,
+     "hits": 16021,
+     "assets with 3+ hits": 261,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 213,
+     "hits": 13495,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 216,
+     "hits": 11206,
+     "assets with 3+ hits": 262,
+     "sorted": 3,
+     "with lines": 1,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 219,
+     "hits": 10722,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 0,
+     "current ms": 0.1,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 222,
+     "hits": 10697,
+     "assets with 3+ hits": 261,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 225,
+     "hits": 12066,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 228,
+     "hits": 11432,
+     "assets with 3+ hits": 262,
+     "sorted": 1,
+     "with lines": 1,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 231,
+     "hits": 14113,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 234,
+     "hits": 13136,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 237,
+     "hits": 18037,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 1,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 240,
+     "hits": 17614,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 3,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 243,
+     "hits": 15912,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 3,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 246,
+     "hits": 18876,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 6,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 249,
+     "hits": 20195,
+     "assets with 3+ hits": 262,
+     "sorted": 19,
+     "with lines": 2,
+     "current ms": 0.21,
+     "filtered ms": 0.06
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 252,
+     "hits": 18168,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 3,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 255,
+     "hits": 11461,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 2,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 258,
+     "hits": 11445,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 1,
+     "current ms": 0.11,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 261,
+     "hits": 12128,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 3,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 264,
+     "hits": 12694,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 267,
+     "hits": 13104,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 270,
+     "hits": 12811,
+     "assets with 3+ hits": 262,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 273,
+     "hits": 9475,
+     "assets with 3+ hits": 260,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.09,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "Turntable(SpeedRatio(0.96))",
+     "window": 276,
+     "hits": 10703,
+     "assets with 3+ hits": 261,
+     "sorted": 5,
+     "with lines": 4,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 0,
+     "hits": 12163,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 1,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 3,
+     "hits": 13922,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 1,
+     "current ms": 0.14,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 6,
+     "hits": 18757,
+     "assets with 3+ hits": 262,
+     "sorted": 17,
+     "with lines": 1,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 9,
+     "hits": 8536,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.08,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 12,
+     "hits": 19189,
+     "assets with 3+ hits": 262,
+     "sorted": 21,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.06
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 15,
+     "hits": 19912,
+     "assets with 3+ hits": 262,
+     "sorted": 27,
+     "with lines": 3,
+     "current ms": 0.2,
+     "filtered ms": 0.06
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 18,
+     "hits": 8053,
+     "assets with 3+ hits": 261,
+     "sorted": 1,
+     "with lines": 1,
+     "current ms": 0.08,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 21,
+     "hits": 17476,
+     "assets with 3+ hits": 261,
+     "sorted": 10,
+     "with lines": 3,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 24,
+     "hits": 15485,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 27,
+     "hits": 16817,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 30,
+     "hits": 15602,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 33,
+     "hits": 16959,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 5,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 36,
+     "hits": 15735,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 4,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 39,
+     "hits": 17036,
+     "assets with 3+ hits": 261,
+     "sorted": 17,
+     "with lines": 5,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 42,
+     "hits": 12303,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 2,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 45,
+     "hits": 15907,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 48,
+     "hits": 11403,
+     "assets with 3+ hits": 261,
+     "sorted": 6,
+     "with lines": 4,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 51,
+     "hits": 16829,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 4,
+     "current ms": 0.17,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 54,
+     "hits": 13269,
+     "assets with 3+ hits": 262,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 57,
+     "hits": 15595,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 60,
+     "hits": 14591,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 6,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 63,
+     "hits": 13604,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 66,
+     "hits": 17805,
+     "assets with 3+ hits": 262,
+     "sorted": 20,
+     "with lines": 3,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 69,
+     "hits": 19941,
+     "assets with 3+ hits": 262,
+     "sorted": 21,
+     "with lines": 5,
+     "current ms": 0.21,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 72,
+     "hits": 19439,
+     "assets with 3+ hits": 262,
+     "sorted": 20,
+     "with lines": 2,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 75,
+     "hits": 19821,
+     "assets with 3+ hits": 262,
+     "sorted": 28,
+     "with lines": 7,
+     "current ms": 0.21,
+     "filtered ms": 0.06
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 78,
+     "hits": 20308,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 3,
+     "current ms": 0.21,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 81,
+     "hits": 19751,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 2,
+     "current ms": 0.2,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 84,
+     "hits": 16792,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 87,
+     "hits": 18971,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 3,
+     "current ms": 0.21,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 90,
+     "hits": 16888,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 1,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 93,
+     "hits": 12041,
+     "assets with 3+ hits": 262,
+     "sorted": 9,
+     "with lines": 1,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 96,
+     "hits": 9905,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.1,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 99,
+     "hits": 15335,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 102,
+     "hits": 15354,
+     "assets with 3+ hits": 262,
+     "sorted": 20,
+     "with lines": 4,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 105,
+     "hits": 14084,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 108,
+     "hits": 5668,
+     "assets with 3+ hits": 259,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.05,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 111,
+     "hits": 17044,
+     "assets with 3+ hits": 261,
+     "sorted": 9,
+     "with lines": 1,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 114,
+     "hits": 16602,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 117,
+     "hits": 15100,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 3,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 120,
+     "hits": 17472,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 123,
+     "hits": 16147,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 0,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 126,
+     "hits": 6553,
+     "assets with 3+ hits": 261,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.06,
+     "filtered ms": 0.01
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 129,
+     "hits": 15619,
+     "assets with 3+ hits": 262,
+     "sorted": 19,
+     "with lines": 3,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 132,
+     "hits": 16682,
+     "assets with 3+ hits": 262,
+     "sorted": 17,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 135,
+     "hits": 17743,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 0,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 138,
+     "hits": 15929,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 141,
+     "hits": 16236,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 144,
+     "hits": 17325,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 3,
+     "current ms": 0.18,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 147,
+     "hits": 16120,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 150,
+     "hits": 19819,
+     "assets with 3+ hits": 262,
+     "sorted": 19,
+     "with lines": 1,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 153,
+     "hits": 18750,
+     "assets with 3+ hits": 262,
+     "sorted": 27,
+     "with lines": 9,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 156,
+     "hits": 17058,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 3,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 159,
+     "hits": 15948,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 0,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 162,
+     "hits": 16360,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.16,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 165,
+     "hits": 17761,
+     "assets with 3+ hits": 262,
+     "sorted": 16,
+     "with lines": 2,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 168,
+     "hits": 18338,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 1,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 171,
+     "hits": 12687,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 174,
+     "hits": 15045,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 177,
+     "hits": 14050,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 3,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 180,
+     "hits": 16716,
+     "assets with 3+ hits": 262,
+     "sorted": 14,
+     "with lines": 0,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 183,
+     "hits": 16654,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 3,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 186,
+     "hits": 19403,
+     "assets with 3+ hits": 262,
+     "sorted": 22,
+     "with lines": 6,
+     "current ms": 0.2,
+     "filtered ms": 0.06
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 189,
+     "hits": 16701,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 192,
+     "hits": 14425,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 4,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 195,
+     "hits": 19101,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 1,
+     "current ms": 0.2,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 198,
+     "hits": 16677,
+     "assets with 3+ hits": 262,
+     "sorted": 16,
+     "with lines": 1,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 201,
+     "hits": 16618,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 204,
+     "hits": 19116,
+     "assets with 3+ hits": 262,
+     "sorted": 29,
+     "with lines": 3,
+     "current ms": 0.2,
+     "filtered ms": 0.06
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 207,
+     "hits": 17004,
+     "assets with 3+ hits": 262,
+     "sorted": 15,
+     "with lines": 2,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 210,
+     "hits": 16480,
+     "assets with 3+ hits": 262,
+     "sorted": 10,
+     "with lines": 3,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 213,
+     "hits": 14905,
+     "assets with 3+ hits": 262,
+     "sorted": 12,
+     "with lines": 4,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 216,
+     "hits": 12645,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 219,
+     "hits": 13975,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 0,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 222,
+     "hits": 13738,
+     "assets with 3+ hits": 262,
+     "sorted": 6,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 225,
+     "hits": 14149,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.14,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 228,
+     "hits": 15389,
+     "assets with 3+ hits": 262,
+     "sorted": 7,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 231,
+     "hits": 17830,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 3,
+     "current ms": 0.18,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 234,
+     "hits": 16927,
+     "assets with 3+ hits": 262,
+     "sorted": 18,
+     "with lines": 3,
+     "current ms": 0.17,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 237,
+     "hits": 19142,
+     "assets with 3+ hits": 262,
+     "sorted": 11,
+     "with lines": 0,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 240,
+     "hits": 21136,
+     "assets with 3+ hits": 262,
+     "sorted": 21,
+     "with lines": 2,
+     "current ms": 0.22,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 243,
+     "hits": 13036,
+     "assets with 3+ hits": 261,
+     "sorted": 4,
+     "with lines": 1,
+     "current ms": 0.13,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 246,
+     "hits": 19153,
+     "assets with 3+ hits": 262,
+     "sorted": 20,
+     "with lines": 1,
+     "current ms": 0.2,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 249,
+     "hits": 19093,
+     "assets with 3+ hits": 262,
+     "sorted": 16,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.05
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 252,
+     "hits": 18643,
+     "assets with 3+ hits": 262,
+     "sorted": 13,
+     "with lines": 2,
+     "current ms": 0.19,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 255,
+     "hits": 11771,
+     "assets with 3+ hits": 261,
+     "sorted": 2,
+     "with lines": 0,
+     "current ms": 0.11,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 258,
+     "hits": 12013,
+     "assets with 3+ hits": 261,
+     "sorted": 3,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 261,
+     "hits": 14044,
+     "assets with 3+ hits": 261,
+     "sorted": 1,
+     "with lines": 1,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 264,
+     "hits": 14986,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 0,
+     "current ms": 0.15,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 267,
+     "hits": 15678,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 2,
+     "current ms": 0.16,
+     "filtered ms": 0.04
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 270,
+     "hits": 12687,
+     "assets with 3+ hits": 262,
+     "sorted": 8,
+     "with lines": 0,
+     "current ms": 0.12,
+     "filtered ms": 0.03
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 273,
+     "hits": 12423,
+     "assets with 3+ hits": 262,
+     "sorted": 5,
+     "with lines": 2,
+     "current ms": 0.12,
+     "filtered ms": 0.02
+    },
+    {
+     "rung": "KeyLocked(SpeedRatio(1.02))",
+     "window": 276,
+     "hits": 11851,
+     "assets with 3+ hits": 262,
+     "sorted": 2,
+     "with lines": 1,
+     "current ms": 0.11,
+     "filtered ms": 0.03
+    }
+   ]
+  }
+ },
+ "acceptance": {
+  "start-1": {
+   "wall s": 96.86,
+   "cpu s": 775.64,
+   "peak memory GB": 4.78,
+   "report_md5": "33e74f123d69086b00a96732b73d8ced"
+  },
+  "filter-1": {
+   "wall s": 65.04,
+   "cpu s": 482.34,
+   "peak memory GB": 4.8,
+   "report_md5": "33e74f123d69086b00a96732b73d8ced"
+  },
+  "filter-2": {
+   "wall s": 65.7,
+   "cpu s": 484.86,
+   "peak memory GB": 4.78,
+   "report_md5": "33e74f123d69086b00a96732b73d8ced"
+  },
+  "start-2": {
+   "wall s": 93.47,
+   "cpu s": 768.65,
+   "peak memory GB": 4.8,
+   "report_md5": "33e74f123d69086b00a96732b73d8ced"
+  }
+ },
+ "regress session-15-start": {
+  "start build (session start)": {
+   "wall s": 217.31,
+   "cpu s": 1831.66,
+   "peak memory GB": 0.48
+  },
+  "filter build": {
+   "wall s": 211.99,
+   "cpu s": 1770.62,
+   "peak memory GB": 0.41
+  },
+  "result": "identical: 720 of 720 sweep queries, all detections of the three scans; calibrate line as since session 7"
+ }
+}

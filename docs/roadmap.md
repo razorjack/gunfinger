@@ -266,11 +266,15 @@ marked as inferences were derived, not measured.
   (0086): the NAS `identify` of the 2003 mix takes 86-92 s instead of
   167-171 s, half the CPU, the same memory, byte-identical reports. What
   is left (0088): sorting each asset's 30-60 offsets 39%, grouping and
-  building lines 32%, query analysis 19%. Next, with identical
-  detections: fewer comparisons for the small per-asset sorts (a radix
-  pass over the offsets' bits keeps the order exact) and a grouping
-  whose scatter writes to fewer places at once. This comes before any
-  change of hash design; `regress` must show identical detections.
+  building lines 32%, query analysis 19%. *(session 15)* Of the assets
+  with 3 hits in a window, 1.8% can form a line at NAS scale: counting
+  their offsets in 4-frame buckets first skips the other sorts exactly
+  (0093). The same `identify` takes 65 s instead of 93-97 s, 37% less
+  CPU, the same memory, byte-identical reports. Sorting is now 3.3% of
+  the CPU; grouping and building lines 51%, query analysis 30%. Next,
+  with identical detections: a grouping whose scatter writes to fewer
+  places at once. This comes before any change of hash design;
+  `regress` must show identical detections.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

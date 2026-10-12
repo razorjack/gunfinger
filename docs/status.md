@@ -2111,3 +2111,17 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   relation: a question to judge by ear. No development true play at
   NAS scale is found only as possible; at 262 tracks, 48-128 of 278
   damaged excerpts found only as possible would be hidden at 80-130.
+- Step 5, the speed step (experiment 0093), from 03:07: profiled the start
+  build on the 2003 mix at NAS scale (0088's method, 105.1 s, under some other
+  load): sorting each asset's offsets 40.1% of CPU
+  samples. At 33,596 assets nearly every asset has 3 hits in a window and
+  1.8% can form a line. `search::lines::may_form_line` counts an asset's
+  offsets in 4-frame buckets folded into 4,096 slots and sorts only when 3
+  hits lie in one or two neighbouring slots: exact, as a line's offsets
+  differ by at most 2 frames as computed. Benchmark (`work/s15/perf`,
+  lines compared exactly): the per-asset stage 0.216 of its time on 120
+  NAS windows, 0.220 at 262 tracks. `scripts/check.sh` green;
+  `regress session-15-start` identical (212.0 s); the 2003 mix at NAS
+  scale, A B B A: 65.0 and 65.7 s, 482 and 485 s CPU, against 96.9 and
+  93.5 s, 776 and 769 s, the same 4.8 GB, four reports byte-identical.
+  Build in `work/bin/s15-filter/`.
