@@ -31,3 +31,8 @@ rhythmic coincidence. **Does not show** which; one passage, one pair.
 **To judge by ear**: do they share a break or loop? If yes, the
 strongest unrelated chance stays 64 (threshold 130); if no, 98 (196).
 Data `data/0094-meltdown-and-phantom-force.json`.
+
+**By ear (2026-10-12, after the session).** Different tracks,
+similar in character, sharing the full drum break: shared material, not
+chance. The strongest unrelated candidate stays Clockwork ~ Rubba Rock
+(64 hits), now itself to judge by ear.

@@ -2164,3 +2164,35 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
   (digests as at the start). Finished at about 04:10, well before 10:30;
   no further work started.
+
+## 2026-10-12: after session 15, the answer by ear on Meltdown
+
+- By ear: Rift feat. Souldrop - Meltdown and Digital & Spirit
+  - Phantom Force are different tracks that share the full drum break
+  ("Gunfinger is not wrong to see some similarities"). Meltdown's 98 hits
+  are shared material, so every possible play of the two development
+  mixes at 60 hits is explained (4 versions, 1 shared break). Recorded in
+  0094; `docs/pair-verdicts.txt` untouched. The strongest unrelated
+  candidates left: Clockwork 3:32-3:49 ~ Simon Static - Rubba Rock
+  0:21-0:37 (64 hits, key-locked -3.7%, the same Rubba Rock passage also
+  aligning at Clockwork 1:41 and 4:50), then Cause 4 Concern - Abduction
+  2:50-3:15 ~ the Epox remix (C4C 004) 5:00-5:24 (43-54 hits at four sweep
+  speeds); both to judge by ear.
+- The answers by ear on the two next pairs (same evening):
+  - Clockwork ~ Simon Static - Rubba Rock (64 hits): the tracks share the
+    identical stab sample (Clockwork made it known; Rubba Rock may have
+    sampled it), with its long reverb tail, and the hi-hat rhythm under
+    it ("tick tick tick tick"), played with a different hi-hat sample.
+  - Cause 4 Concern - Abduction ~ the Epox remix (54 hits): the same
+    kick-and-snare drum loop, distinctive in drum & bass; the hi-hat
+    patterns differ (each track layers its own).
+  - So the strongest "unrelated" matches checked since session 10 are
+    all shared material: 0051's 63-70 (Falcon - The Stand, now joined;
+    Rubba Rock; Mystery Machine ~ NIL - Infectious and Sentient ~ Shere
+    Khan - Criminal Record, both repeating at every sweep speed and
+    labelled related by the clusters' pairs), 0052's jump to 64 at 9,196
+    assets (Rubba Rock), and 0092's 98, 64 and 54. Unchecked: 41
+    (Watermelon ~ 300 Baud - Monotone, Mobiuz & Cycom remix) and 40
+    (Falcon - Fractles ~ Ryme Tyme - We Enter, Optical remix v3.0). The
+    roadmap's "chance grows past the possible tier from about 9,000
+    assets" rests on Rubba Rock and needs revising.
