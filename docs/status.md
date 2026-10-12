@@ -2125,3 +2125,14 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   scale, A B B A: 65.0 and 65.7 s, 482 and 485 s CPU, against 96.9 and
   93.5 s, 776 and 769 s, the same 4.8 GB, four reports byte-identical.
   Build in `work/bin/s15-filter/`.
+- Step 4 follow-up (experiment 0094), while the review ran: whether
+  Meltdown's 98 hits are shared material. `gunfinger explain --asset`
+  on excerpts cut and resampled with ffmpeg (`work/s15/meltdown/`, NAS
+  store read-only). Resampled by 1/1.0452 to undo the pitch the mix
+  implies, Meltdown gives Phantom Force no candidate; a control (the
+  Phantom Force passage shifted +4.52% with rubberband, then resampled)
+  gives the PHUD1 rip 1,292 hits on the predicted relation. Phantom Force
+  alone at the mix's speed lines up with Meltdown at 53 hits; the mix's
+  alignment lands 12 s apart in Meltdown in two searches. Not a re-pitched
+  copy; a repeating pattern such as a shared break, or chance: the
+  listening question now asks whether they share a break or loop.

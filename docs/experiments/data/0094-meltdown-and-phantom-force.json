@@ -1,0 +1,136 @@
+{
+ "experiment": "0094",
+ "files": {
+  "Meltdown": "Rift feat. Souldrop - Meltdown.m4a",
+  "Phantom Force rip": "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+  "Phantom Force upload": "Digital & Spirit - Phantom Force.m4a",
+  "mix": "razorjack-2003-03-29.mp3"
+ },
+ "command": "gunfinger explain <audio> --config nas-dnb.toml --store-only --playback both --asset <text> (build s15-filter, store f9f9bc706195a71b)",
+ "runs": {
+  "mix 2003, whole recording, --at 12:53 --around 30, --asset meltdown": [
+   {
+    "time": "12:31-13:15",
+    "in track": "0:56-1:42",
+    "speed": "+4.02%",
+    "hits": 100,
+    "windows": 5,
+    "level": "possible",
+    "file": "Rift feat. Souldrop - Meltdown.m4a",
+    "key lock": true
+   }
+  ],
+  "mix excerpt 12:31-13:16 (45 s), --asset meltdown": [
+   {
+    "time": "0:04-0:44",
+    "in track": "0:44-1:25",
+    "speed": "+4.05%",
+    "hits": 95,
+    "windows": 5,
+    "level": "possible",
+    "file": "Rift feat. Souldrop - Meltdown.m4a",
+    "key lock": true
+   }
+  ],
+  "Phantom Force PHUD1 rip 2:36-3:18 resampled x1.0452 (the mix's speed), --asset meltdown": [
+   {
+    "time": "0:04-0:37",
+    "in track": "1:09-1:44",
+    "speed": "+3.60%",
+    "hits": 53,
+    "windows": 4,
+    "level": "weak",
+    "file": "Rift feat. Souldrop - Meltdown.m4a",
+    "key lock": true
+   }
+  ],
+  "Meltdown 0:57-1:42 as is, --asset phantom": [
+   {
+    "time": "0:34-0:43",
+    "in track": "5:43-5:51",
+    "speed": "+2.00%",
+    "hits": 6,
+    "windows": 2,
+    "level": "weak",
+    "file": "Phantom Audio (Digital & Spirit) - Remote Control.m4a",
+    "key lock": false
+   }
+  ],
+  "Meltdown 0:57-1:42 resampled x1/1.0452, --asset phantom": [
+   {
+    "time": "0:02-0:35",
+    "in track": "0:54-1:27",
+    "speed": "-2.62%",
+    "hits": 43,
+    "windows": 4,
+    "level": "weak",
+    "file": "Digital & Spirit - Phantom 2018.m4a",
+    "key lock": true
+   }
+  ],
+  "control: Phantom Force rip 2:36-3:18, rubberband -f 1.0452 -T 1.005 (the hypothesis), --asset phantom": [
+   {
+    "time": "0:29-0:41",
+    "in track": "3:05-3:17",
+    "speed": "+3.60%",
+    "hits": 43,
+    "windows": 3,
+    "level": "weak",
+    "file": "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "key lock": false
+   },
+   {
+    "time": "0:38-0:40",
+    "in track": "2:15-2:17",
+    "speed": "+4.60%",
+    "hits": 8,
+    "windows": 2,
+    "level": "weak",
+    "file": "Digital & Spirit - Phantom Force.m4a",
+    "key lock": false
+   }
+  ],
+  "control: the same resampled x1/1.0452, --asset phantom": [
+   {
+    "time": "0:00-0:43",
+    "in track": "2:35-3:17",
+    "speed": "-3.85%",
+    "hits": 1292,
+    "windows": 5,
+    "level": "confident",
+    "file": "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "key lock": true
+   },
+   {
+    "time": "0:00-0:43",
+    "in track": "2:38-3:20",
+    "speed": "-2.51%",
+    "hits": 102,
+    "windows": 5,
+    "level": "possible",
+    "file": "Digital & Spirit - Phantom Force.m4a",
+    "key lock": true
+   },
+   {
+    "time": "0:14-0:39",
+    "in track": "5:04-5:29",
+    "speed": "-2.24%",
+    "hits": 13,
+    "windows": 3,
+    "level": "weak",
+    "file": "Digital & Spirit - Phantom 2018.m4a",
+    "key lock": true
+   },
+   {
+    "time": "0:25-0:39",
+    "in track": "5:07-5:21",
+    "speed": "-4.20%",
+    "hits": 6,
+    "windows": 2,
+    "level": "weak",
+    "file": "Digital & Spirit - Phantom Force (Spirit Remix).m4a",
+    "key lock": true
+   }
+  ]
+ }
+}

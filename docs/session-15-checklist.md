@@ -33,6 +33,9 @@ for scope and rules.
   hits cannot form a line are not sorted (`may_form_line`); regress
   identical, the 2003 mix at NAS scale byte-identical in 65 s instead of
   93-97 s, 37% less CPU; experiment 0093
+- [x] 4b. Follow-up of step 4 (experiment 0094): Meltdown does not hold
+  the Phantom Force passage re-pitched (a control finds such a copy); a
+  repeating pattern or chance, to judge by ear
 - [ ] 6. Read-only review of the session's code by a subagent; fixes
 
 ## Wrap-up
