@@ -2013,3 +2013,42 @@ Brief `docs/brief-14.md`, checklist `docs/session-14-checklist.md`.
   records, revision `f9f9bc706195a71b`, unchanged.
   `docs/pair-verdicts.txt` unchanged; `work/audition/answers.jsonl` never
   created. The check servers are stopped.
+
+## 2026-10-12: the first listening with the tool
+
+- All 23 pack items and the seven folders were answered with
+  `audition` (`work/audition/answers.jsonl`, 34 records); the page wrote
+  23 lines to `docs/pair-verdicts.txt`. On request one line
+  more: `same` for the corpus Sonar and the PRO012 rip (B of item 1 was heard
+  as the original Sonar). Item 5 (Falcon - The Stand) was
+  answered `same` after the fix below; item 13 `different` ("not even
+  close"). Not committed yet.
+- The meaning of the verdicts (2026-10-12): two rips of the same
+  vinyl by different people (turntable, RIAA stage, cartridge, level)
+  are `same`, however different they sound; files that differ in even a
+  few bars, such as two edits, are `different`. Item 2 (Mind Overload
+  against Molten Beats' edit) is `different`, though we are glad
+  when a mix detection points to either, since the title is right. No
+  third verdict for now (we are unsure it is needed). Item 3 (Stratus -
+  Waves) is `same`: one file has needle skips. The pack's question texts
+  (`work/audition/plans/pack.toml`) were reworded so each asks whether A
+  and B are the same recording, the question `S` and `D` answer.
+- Folders: mixed CDs (DJ mixes) are Point of Arrival and Listen Up;
+  separate are Jonny L's Magnetic and Bad Company's Fear LP. The three
+  `unsure` (The Creeps CD1, Analog Steroids, Breakbeat Science disc 2)
+  are continuous CDs: a few seconds of crossfade between otherwise
+  separate tracks, not a DJ mix (by ear). Too short to make a confident
+  play by themselves (three 10 s windows need more than 10 s of shared
+  audio), so they can stay indexed. Folder questions now offer `C`
+  continuous (`audition::folders`); the three were answered again
+  with it.
+- Fixed: lane B of item 5 (Falcon - The Stand) started 3:50 into its
+  file. The sheet's fourth alignment, 8 hits in 2 windows at offset
+  +230.9 s (chance or a repeated section), placed B's first 33 s.
+  Lanes now follow only alignments with the 60 hits of a possible play
+  (`placement::followed`, ADR 0016); this replaces the extra lanes'
+  tenth-of-the-strongest rule. In the regenerated pack it changes items
+  1 (lane 3), 2, 5, 6, 10, 11 and 12; item 2's 48-hit intro alignment
+  is no longer followed either. Item 5 now plays B from its start at A
+  0:00.4. Test `lane_b_does_not_follow_a_chance_alignment`; 120
+  harness tests, clippy and fmt clean. Not committed yet.

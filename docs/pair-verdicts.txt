@@ -33,3 +33,27 @@ different	Bad Company - The Nine.mp3	second-library/__youtube_archivists/i-witne
 same	extra/[AA]_-_Phoenix.mp3	second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a
 same	Ed Rush, Optical & Fierce - Alien Girl.mp3	second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a
 same	extra/a. falcon - fractles.mp3	second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus
+different	second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus	second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3
+different	second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3	second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3
+same	DJ Trace - Sonar.m4a	second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3
+same	second-library/__youtube_archivists/3zb-gangstep-dnb/DYkast • Punishment.m4a	second-library/__youtube_archivists/butch-french/Dykast - Punishment.m4a
+same	second-library/__youtube_archivists/alien5ive/INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a	second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3
+different	extra/A. Pyro -- Time Is Broken.mp3	second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a
+different	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3
+different	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3
+different	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3
+different	extra/01 - Ryme Tyme - T-Minus.mp3	second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a
+different	Ed Rush & Optical - Dozer.mp3	second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus
+different	extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3	second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus
+same	second-library/bad_company_-_the_fear_ep_-_vdbcr_002_-_sour/A - Bad Company - 4 Days.mp3	second-library/bad_company-the_fear_ep-vdbcr_002-sour/a-bad_company-4_days-sour.mp3
+same	second-library/__youtube_archivists/3zb-gangstep-dnb/Muffler ‎- Nutcracker (Extended Mix).m4a	second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/10-muffler-nutcracker_(original_mix).mp3
+same	extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3	second-library/nerve-paul_reset_and_skc-nerve005-2002-sour/b-skc-recharger_(black_sun_empire_remix)-sour.mp3
+same	extra/k-sta_and_paul_b-come_closer-sour.mp3	second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a
+same	second-library/va-spy_technologies_lp_part_five-2002-sour/k-sta_and_paul_b-come_closer-sour.mp3	second-library/__youtube_archivists/i-witness-dnb/Sta & Paul B - Come Closer.m4a
+same	second-library/__youtube_archivists/i-witness-dnb/Chris.Su - Astro-Sine.opus	second-library/__youtube_archivists/3zb-gangstep-dnb/Chris.SU - Astrosine.m4a
+same	second-library/bad_company-fear_lp/02 bad company-the nine.mp3	second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3
+same	second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a	second-library/underfire-stakka_and_skynet-(udfr016)-2000/a-stakka_and_skynet-nightlore-sour.mp3
+same	extra/D-Sinthetix-Cryogenic-sour.mp3	second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus
+same	second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a	second-library/Trouble_On_Vinyl-TOV49-Final_Judgement_EP-2002-rfl_int/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3
+same	second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a	second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a
+different	second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus	second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus
