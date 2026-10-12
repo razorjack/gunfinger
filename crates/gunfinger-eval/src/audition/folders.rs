@@ -4,7 +4,9 @@
 //! straight into the first 20 s of track `n + 1`, for every `n`, the
 //! folder's audio files in name order. A marker sits at each boundary.
 //! Answers go to the answer log only; turning them into ignore patterns is
-//! for an agent on request.
+//! for an agent on request. A continuous CD (a few seconds of
+//! crossfade between otherwise separate tracks) has its own answer;
+//! session 14's folders held three.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -171,7 +173,9 @@ fn question(
         id: QuestionId::derive("folder", &parts),
         kind: String::from("folder"),
         title: folder.title.clone(),
-        text: String::from("Is this a mixed CD (each track runs into the next)?"),
+        text: String::from(
+            "Is this a mixed CD (a DJ mix: each track blended into the next), a continuous CD (a few seconds of crossfade between otherwise separate tracks), or separate tracks?",
+        ),
         details,
         files,
         timeline: Timeline {
@@ -187,6 +191,7 @@ fn question(
         spans: Vec::new(),
         choices: vec![
             choice('y', "mixed CD", "mixed"),
+            choice('c', "continuous: short crossfades", "continuous"),
             choice('n', "separate tracks", "separate"),
             choice('u', "unsure", "unsure"),
         ],

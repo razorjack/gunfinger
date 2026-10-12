@@ -132,6 +132,7 @@ fn question(
             offset: segment.track_start_seconds - segment.speed * segment.start_seconds,
             speed: segment.speed,
             label: format!("segment {}", index + 1),
+            hits: segment.hits,
         })
         .collect();
     let track_lane = placement::tile(&track, length(&track)?, timeline, &alignments);

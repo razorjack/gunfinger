@@ -5,7 +5,8 @@
 //! Each item becomes lane A (its first file, the timeline's reference),
 //! lane B placed by the sheet's alignments at the fitted speed, markers
 //! where the files stop lining up and at the clips' moments, and the
-//! alignments shaded. The sheet rounds an alignment to 0.1 s; when a
+//! alignments shaded. Lanes follow only alignments with the hits of a
+//! possible play (`placement::followed`). The sheet rounds an alignment to 0.1 s; when a
 //! `pair` report holds the same pair and its alignments round to the
 //! sheet's, their exact numbers are used. A plan (TOML) adds what the
 //! sheets do not hold: the question texts, and extra lanes placed on A's
@@ -18,6 +19,7 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use gunfinger_core::confidence::FITTED_RULE;
 use gunfinger_core::timecode::parse_timecode;
 use serde::Deserialize;
 
@@ -151,6 +153,11 @@ fn question(
         ),
     };
     let timeline = (0.0, a_seconds);
+    let followed = placement::followed(&alignments);
+    let ignored: Vec<&Alignment> = alignments
+        .iter()
+        .filter(|alignment| !followed.contains(alignment))
+        .collect();
 
     let mut lanes = vec![
         Lane {
@@ -166,16 +173,27 @@ fn question(
         },
         Lane {
             name: String::from("B"),
-            pieces: b_pieces(&sheet.b.0, b_seconds, timeline, &alignments),
+            pieces: b_pieces(&sheet.b.0, b_seconds, timeline, &followed),
         },
     ];
-    let mut spans = spans_of(&alignments, 1);
+    let mut spans = spans_of(&followed, 1);
     let mut details = vec![sheet.kind.clone()];
     details.extend(sheet.details.iter().cloned());
     details.push(source);
-    if alignments.is_empty() {
+    if !ignored.is_empty() {
+        details.push(format!(
+            "Not followed, below the {} hits of a possible play (chance, or a repeated section): {}",
+            FITTED_RULE.min_possible_hits,
+            ignored
+                .iter()
+                .map(|alignment| alignment.label.as_str())
+                .collect::<Vec<_>>()
+                .join(", ")
+        ));
+    }
+    if followed.is_empty() {
         details.push(String::from(
-            "B found nothing of A at the fitted speed: lane B plays from its start, not aligned",
+            "No alignment of B to follow at the fitted speed: lane B plays from its start, not aligned",
         ));
     }
 
@@ -228,7 +246,7 @@ fn question(
             reference: Some(0),
         },
         lanes,
-        markers: markers(&sheet, a_seconds),
+        markers: markers(&sheet, a_seconds, &ignored),
         spans,
         choices: vec![
             choice('s', "same recording", "same"),
@@ -245,7 +263,8 @@ fn question(
     })
 }
 
-/// Lane B by the alignments, or from its start when there are none.
+/// Lane B by the alignments it follows, or from its start when there are
+/// none.
 fn b_pieces(
     file: &Path,
     seconds: f64,
@@ -292,6 +311,7 @@ fn exact(sheet: &[Alignment], report: &PairReport) -> Option<Vec<Alignment>> {
                 offset: exact.offset_seconds,
                 speed: exact.speed,
                 label: rounded.label.clone(),
+                hits: exact.hits,
             })
         })
         .collect()
@@ -304,7 +324,7 @@ fn extra_alignments<'a>(
     extra: &str,
     reports: &'a Reports,
 ) -> Result<(Vec<Alignment>, f64, &'a Path), String> {
-    let fitted = |report: &PairReport| -> Vec<(Alignment, u32)> {
+    let fitted = |report: &PairReport| -> Vec<Alignment> {
         report
             .searches
             .iter()
@@ -314,47 +334,32 @@ fn extra_alignments<'a>(
                     .alignments
                     .iter()
                     .enumerate()
-                    .map(|(index, alignment)| {
-                        let placed = Alignment {
-                            start: alignment.query_start_seconds,
-                            end: alignment.query_end_seconds,
-                            offset: alignment.offset_seconds,
-                            speed: alignment.speed,
-                            label: format!("alignment {}: {} hits", index + 1, alignment.hits),
-                        };
-                        (placed, alignment.hits)
+                    .map(|(index, alignment)| Alignment {
+                        start: alignment.query_start_seconds,
+                        end: alignment.query_end_seconds,
+                        offset: alignment.offset_seconds,
+                        speed: alignment.speed,
+                        label: format!("alignment {}: {} hits", index + 1, alignment.hits),
+                        hits: alignment.hits,
                     })
                     .collect()
             })
             .unwrap_or_default()
     };
     if let Some((path, report)) = reports.of(a, extra) {
-        return Ok((strong(fitted(report)), report.found_seconds, path));
+        return Ok((
+            placement::followed(&fitted(report)),
+            report.found_seconds,
+            path,
+        ));
     }
     if let Some((path, report)) = reports.of(extra, a) {
-        let on_a = fitted(report)
-            .into_iter()
-            .map(|(alignment, hits)| (alignment.inverted(), hits))
-            .collect();
-        return Ok((strong(on_a), report.query_seconds, path));
+        let on_a: Vec<Alignment> = fitted(report).iter().map(Alignment::inverted).collect();
+        return Ok((placement::followed(&on_a), report.query_seconds, path));
     }
     Err(format!(
         "no pair report holds {extra} and {a}; write the two names, tab-separated, to a file, run `gunfinger-eval --other-peaks-dir <store> pair <file>` and pass its report with --pair-report"
     ))
-}
-
-/// An extra lane follows only the alignments with at least a tenth of the
-/// strongest one's hits: a pair report of two versions also lists chance
-/// alignments of a dozen hits, which would make the lane jump minutes
-/// away for a second or two. (The sheets' alignments of B are taken as the
-/// sheet lists them.)
-fn strong(alignments: Vec<(Alignment, u32)>) -> Vec<Alignment> {
-    let strongest = alignments.iter().map(|(_, hits)| *hits).max().unwrap_or(0);
-    alignments
-        .into_iter()
-        .filter(|(_, hits)| *hits * 10 >= strongest)
-        .map(|(alignment, _)| alignment)
-        .collect()
 }
 
 fn spans_of(alignments: &[Alignment], lane: usize) -> Vec<Span> {
@@ -376,14 +381,24 @@ fn spans_of(alignments: &[Alignment], lane: usize) -> Vec<Span> {
 }
 
 /// Where the files stop lining up, and the clips' moments not already
-/// marked so.
-fn markers(sheet: &Sheet, a_seconds: f64) -> Vec<Marker> {
+/// marked so. A stop of an alignment lane B does not follow is left out:
+/// nothing changes there.
+fn markers(sheet: &Sheet, a_seconds: f64, ignored: &[&Alignment]) -> Vec<Marker> {
     const SAME_MOMENT: f64 = 0.5;
     let inside = |at: f64| (0.0..=a_seconds).contains(&at);
+    // A label `alignment 3: 47 hits` names the stops `alignment 3 starts ...`.
+    let of_ignored = |why: &str| {
+        ignored.iter().any(|alignment| {
+            alignment
+                .label
+                .split_once(':')
+                .is_some_and(|(name, _)| why.starts_with(&format!("{name} ")))
+        })
+    };
     let mut markers: Vec<Marker> = sheet
         .stops
         .iter()
-        .filter(|(at, _)| inside(*at))
+        .filter(|(at, why)| inside(*at) && !of_ignored(why))
         .map(|(at, why)| Marker {
             at: *at,
             label: why.clone(),
@@ -525,14 +540,16 @@ fn alignment(line: &str) -> Result<Alignment, String> {
         .map_err(|_| malformed())?;
     let hits = fields
         .iter()
-        .find(|field| field.contains(" hits"))
-        .map_or("", |field| field.split(" in ").next().unwrap_or(""));
+        .find_map(|field| field.split_once(" hits"))
+        .and_then(|(hits, _)| hits.parse::<u32>().ok())
+        .ok_or_else(malformed)?;
     Ok(Alignment {
         start: seconds(start)?,
         end: seconds(end)?,
         offset,
         speed,
-        label: format!("alignment {number}: {hits}"),
+        label: format!("alignment {number}: {hits} hits"),
+        hits,
     })
 }
 
@@ -774,6 +791,46 @@ To record a verdict, a line in docs/pair-verdicts.txt (tabs between the fields):
                 .iter()
                 .all(|marker| marker.kind == MarkerKind::Listen)
         );
+    }
+
+    #[test]
+    fn lane_b_does_not_follow_a_chance_alignment() {
+        let dir = scratch("chance");
+        let sheet = EDIT_SHEET
+            .replace(
+                "932 hits in 8 windows, supported 0.20\n",
+                "932 hits in 8 windows, supported 0.20\n  3. A 0:09.2-0:12.7 = B 4:00.4-4:04.0, speed 0.9984, offset +230.9 s, 8 hits in 2 windows, supported 0.01\n",
+            )
+            .replace(
+                "  0:40.2: alignment 1 starts",
+                "  0:09.2: alignment 3 starts (B 4:00.4, offset +230.9 s, 8 hits)\n  0:40.2: alignment 1 starts",
+            );
+        let pack = dir.join("listening");
+        fs::create_dir_all(pack.join("borderline-edit")).unwrap();
+        fs::write(pack.join("borderline-edit").join("sheet.txt"), sheet).unwrap();
+        fs::write(
+            pack.join("README.md"),
+            "# Listening pack\n\n1. `borderline-edit/` (borderline): a ~ b\n",
+        )
+        .unwrap();
+        let reports = Reports {
+            reports: Vec::new(),
+        };
+
+        let question = questions(&pack, &Plan::default(), &reports, &libraries())
+            .unwrap()
+            .questions
+            .remove(0);
+
+        // B starts under alignment 1, at its own start, not 3:50 into it.
+        let first = &question.lanes[1].pieces[0];
+        assert_eq!(first.offset, -22.0);
+        assert!(first.file_time(first.start).abs() < 1e-9);
+        assert!(question.markers.iter().all(|marker| marker.at != 9.2));
+        assert_eq!(question.spans.len(), 2);
+        assert!(question.details.iter().any(|line| {
+            line.starts_with("Not followed") && line.ends_with("alignment 3: 8 hits")
+        }));
     }
 
     #[test]

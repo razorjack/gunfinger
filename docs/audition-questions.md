@@ -100,6 +100,11 @@ timeline. A folder excerpt of track 3 from 361.1 s, at timeline 40 s, has
 `offset` 321.1 and `speed` 1. Producers compute pieces with
 `audition::placement` (tiling several alignments, clipping to the file's
 length); the page evaluates only the formula above, in `timeline.js`.
+A lane follows only alignments with at least the 60 hits of a possible
+play (`placement::followed`). A `pair` search also lists weaker ones,
+chance alignments and repeats of a section minutes away, and following
+one starts the lane in the wrong place: 8 hits once put lane B of a pack
+item 3:50 into its file for the first 33 s of A.
 
 ### A marker
 
@@ -209,7 +214,7 @@ A folder (is it a mixed CD?), one lane of excerpts:
   "id": "folder-89abcdef01234567",
   "kind": "folder",
   "title": "Artist - Album",
-  "text": "Is this a mixed CD (each track runs into the next)?",
+  "text": "Is this a mixed CD (a DJ mix: each track blended into the next), a continuous CD (a few seconds of crossfade between otherwise separate tracks), or separate tracks?",
   "details": ["/Volumes/nas/music/artist-album/", "3 tracks, 2 boundaries: the last 20 s of each track, then the first 20 s of the next"],
   "files": ["second-library/artist-album/01-intro.mp3", "second-library/artist-album/02-tune.mp3", "second-library/artist-album/03-outro.mp3"],
   "timeline": {"start": 0.0, "end": 80.0},
@@ -226,6 +231,7 @@ A folder (is it a mixed CD?), one lane of excerpts:
   "spans": [],
   "choices": [
     {"key": "y", "label": "mixed CD", "value": "mixed"},
+    {"key": "c", "label": "continuous: short crossfades", "value": "continuous"},
     {"key": "n", "label": "separate tracks", "value": "separate"},
     {"key": "u", "label": "unsure", "value": "unsure"}
   ],

@@ -121,7 +121,10 @@ documents every field. The principles:
   file, several for the alignments of an edit, one per excerpt for a
   folder's boundaries. The producers compute pieces in Rust
   (`audition::placement`); the page only evaluates that formula, in one
-  module (`timeline.js`).
+  module (`timeline.js`). A lane follows only alignments with the hits of
+  a possible play (60, `FITTED_RULE.min_possible_hits`); weaker ones are
+  chance alignments or repeated sections (added 2026-10-12, after a chance
+  alignment of 8 hits started a pack item's lane B 3:50 into its file).
 - **Stable ids.** A question's id is its kind and a 64-bit FNV-1a digest
   of its kind and its files (with a distinguishing part where one kind
   can ask twice about the same files), so making the questions again

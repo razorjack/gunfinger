@@ -9,8 +9,14 @@
 //! a moment none covers goes on with the alignment before it, so the lane
 //! keeps playing where the files stop lining up and the listener hears them
 //! part. The page evaluates only `offset + speed × t` (`timeline.js`).
+//!
+//! A lane follows only alignments with the hits of a possible play
+//! ([`followed`]): weaker ones are chance alignments or a repeated section
+//! minutes away, and following one makes the lane start in the wrong place.
 
 use std::path::Path;
+
+use gunfinger_core::confidence::FITTED_RULE;
 
 use crate::audition::schema::Piece;
 
@@ -23,6 +29,8 @@ pub struct Alignment {
     pub offset: f64,
     pub speed: f64,
     pub label: String,
+    /// Hash hits on the alignment's line: its evidence.
+    pub hits: u32,
 }
 
 impl Alignment {
@@ -36,8 +44,22 @@ impl Alignment {
             offset: -self.offset / self.speed,
             speed: 1.0 / self.speed,
             label: self.label.clone(),
+            hits: self.hits,
         }
     }
+}
+
+/// The alignments a lane follows: those with at least the hits of a
+/// possible play (`FITTED_RULE.min_possible_hits`, 60), the least the
+/// matcher reports. A `pair` search also lists weaker ones: chance
+/// alignments and repeats of a section, such as 8 hits that placed lane B
+/// of a pack item 3:50 into its file for the first 33 s of A.
+pub fn followed(alignments: &[Alignment]) -> Vec<Alignment> {
+    alignments
+        .iter()
+        .filter(|alignment| alignment.hits >= FITTED_RULE.min_possible_hits)
+        .cloned()
+        .collect()
 }
 
 impl Piece {
@@ -134,6 +156,7 @@ mod tests {
             offset,
             speed: 1.0,
             label: label.to_owned(),
+            hits: 100,
         }
     }
 
@@ -191,6 +214,46 @@ mod tests {
     }
 
     #[test]
+    fn a_lane_follows_only_alignments_with_the_hits_of_a_possible_play() {
+        // Pack item 5: a chance alignment of 8 hits, 3:50 into B, before
+        // the real ones.
+        let alignments = [
+            Alignment {
+                hits: 996,
+                ..alignment(181.2, 510.0, -1.3, "alignment 1")
+            },
+            Alignment {
+                hits: 273,
+                ..alignment(33.3, 148.9, -0.4, "alignment 2")
+            },
+            Alignment {
+                hits: 59,
+                ..alignment(160.2, 177.0, -24.3, "alignment 3")
+            },
+            Alignment {
+                hits: 8,
+                ..alignment(9.2, 12.7, 230.9, "alignment 4")
+            },
+        ];
+
+        let lane = followed(&alignments);
+        let pieces = tile(Path::new("/b.m4a"), 545.1, (0.0, 514.1), &lane);
+
+        assert_eq!(
+            lane.iter().map(|a| a.label.as_str()).collect::<Vec<_>>(),
+            ["alignment 1", "alignment 2"]
+        );
+        assert_eq!(
+            spans(&pieces),
+            [
+                // B has no audio before A 0.4 under alignment 2.
+                (0.4, 181.2, -0.4, "alignment 2"),
+                (181.2, 514.1, -1.3, "alignment 1"),
+            ]
+        );
+    }
+
+    #[test]
     fn a_lane_with_no_alignment_has_no_pieces() {
         assert!(tile(Path::new("/b.mp3"), 100.0, (0.0, 100.0), &[]).is_empty());
     }
@@ -203,6 +266,7 @@ mod tests {
             offset: -21.99,
             speed: 0.9984,
             label: String::from("1"),
+            hits: 100,
         };
         let b_to_a = a_to_b.inverted();
         let piece = |alignment: &Alignment| Piece {
