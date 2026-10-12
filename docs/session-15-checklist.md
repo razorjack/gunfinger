@@ -25,10 +25,10 @@ for scope and rules.
   and 7 new shared passages; which reports informed the grid and which
   only tested it; experiment 0091; the summary drafted in
   `work/s15/notes-draft.md`
-- [ ] 4. Experiment B, the possible tier at NAS scale: thresholds 60, 80,
+- [x] 4. Experiment B, the possible tier at NAS scale: thresholds 60, 80,
   100, 130; possible plays per hour (right, related, unrelated); weak
-  true plays lost; strongest unrelated chance against 0052; experiment
-  0092; a summary for the session notes
+  true plays lost; strongest unrelated chance against 0052 (Meltdown, 98
+  hits, to judge by ear); experiment 0092; the summary drafted
 - [ ] 5. Speed step (only if at least 2 h remain): profile, change, regress,
   the 2003 mix at NAS scale with the old and new builds
 - [ ] 6. Read-only review of the session's code by a subagent; fixes

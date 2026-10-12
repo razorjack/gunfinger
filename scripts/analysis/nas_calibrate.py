@@ -16,63 +16,24 @@ uploads tag artists and remixers in their own ways.
 usage: nas_calibrate.py <reports dir> <tags.json> <library-map.json> <output.json>
                         [hand-labels.json] [development set]
 """
-import collections, glob, json, os, re, sys
+import collections, glob, json, os, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import tag_labels  # noqa: E402
 
 reports, tags_file, map_file, output = sys.argv[1:5]
 hand = json.load(open(sys.argv[5])) if len(sys.argv) > 5 and os.path.exists(sys.argv[5]) else {}
 development_set = sys.argv[6] if len(sys.argv) > 6 else "stakka-skynet-knowledge"
-PREFIX = "second-library/"
 tags = json.load(open(tags_file))
 stands_for = {c["corpus"]: c["stands_for"] for c in json.load(open(map_file))["copies"]}
 
 
-def name(path):
-    label = re.match(r"\s*\d+\.\s+(.*)", path)
-    if label:
-        artist, _, title = label.group(1).partition(" - ")
-        return artist, title
-    other = path[len(PREFIX):] if path.startswith(PREFIX) else stands_for.get(path)
-    fields = tags.get(other or "", {})
-    if "artist" in fields and "title" in fields:
-        return fields["artist"], fields["title"]
-    stem = os.path.splitext(os.path.basename(path))[0].replace("_", " ")
-    artist, _, title = stem.partition(" - ")
-    return (artist, title) if title else ("", stem)
-
-
-SPLIT = re.compile(r"\s*(?:&|,|\+|/|\band\b|\bfeat\.?|\bft\.?|\bvs\.?|\bx\b)\s*")
-NEUTRAL = re.compile(r"\b(remaster(ed)?|original( mix)?|hq audio|drum and bass)\b")
-VERSION = re.compile(r"\b(vip|remix|rmx|mix|edit|dub|bootleg|refix|rework|cut|dubstyle)\b")
-
-
-def artists(text):
-    return {p.strip() for p in SPLIT.split(text.lower()) if len(p.strip()) > 1}
-
-
-def key(title, words):
-    title = words.sub(" ", NEUTRAL.sub(" ", title.lower()))
-    return re.sub(r"[^a-z0-9]+", "", title)
-
-
-def base(title):
-    return key(re.sub(r"[\(\[].*?[\)\]]", " ", title), VERSION)
-
-
-def words_in(full, part):
-    return part and part in re.sub(r"[^a-z0-9]+", "", full.lower())
-
-
 def label(query, found):
-    (qa, qt), (fa, ft) = name(query), name(found)
-    same_artist = bool(artists(qa) & artists(fa)) or words_in(fa + ft, re.sub(r"[^a-z0-9]+", "", qa.lower()))
-    qk, fk = key(qt, re.compile(r"$^")), key(ft, re.compile(r"$^"))
-    if qk and (qk == fk or (same_artist and qk in fk and VERSION.search(ft.lower()) is None)):
-        return "same name"
-    if base(qt) and (base(qt) == base(ft) or base(qt) in key(ft, re.compile(r"$^"))):
-        return "version"
-    if same_artist:
-        return "same artist"
-    return "unrelated"
+    return tag_labels.label(query, found, tags, stands_for)
+
+
+def name(path):
+    return tag_labels.name(path, tags, stands_for)
 
 
 identifying, false = [], []

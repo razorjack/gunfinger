@@ -2096,3 +2096,18 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
   demote right brief plays, passages with 0-10 s do not. On the new
   passages it removes 5 of 6 related confident plays at every grid point;
   with the played cluster left out it removes none.
+- Step 4, experiment B (0092): `scripts/analysis/possible_tier.py` labels
+  every play and detection below the confident rule in the NAS development
+  reports as right, related (a `different` verdict, a pair of 30 hits or
+  more between the clusters, or tags) or unrelated, at 60, 80, 100 and 130
+  hits; tag labels moved from `nas_calibrate.py` to `tag_labels.py`
+  (`nas_calibrate.py`'s output on session 11's reports byte-identical
+  before and after). No new search beyond two `pair` runs (Meltdown against
+  the two Phantom Force files: at most 14 hits). The two development mixes
+  show 3.5 possible plays per hour at 60 (0.6 at 130); five are versions of
+  the track playing, one (Rift feat. Souldrop - Meltdown, 98 hits,
+  key-locked, during Phantom Force in the 2003 mix) is not explained by a
+  pair search, which cannot test its implied +6% pitch, +2% tempo
+  relation: a question to judge by ear. No development true play at
+  NAS scale is found only as possible; at 262 tracks, 48-128 of 278
+  damaged excerpts found only as possible would be hidden at 80-130.
