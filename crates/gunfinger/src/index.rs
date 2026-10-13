@@ -4,6 +4,7 @@ use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::{Duration, Instant};
 
+use gunfinger_core::decode::Decoder;
 use gunfinger_core::indexing::{IndexingOptions, Outcome, TrackLength, index_library};
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
@@ -30,6 +31,7 @@ pub fn run(
         jobs,
         length: track_length,
         retry_skipped,
+        decoder: Decoder::default(),
     };
     console.info(format_args!(
         "indexing {} audio files from {} into {} with {} jobs; tracks are {track_length}",

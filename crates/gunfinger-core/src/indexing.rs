@@ -5,7 +5,7 @@ use std::fmt;
 use std::path::Path;
 use std::time::Duration;
 
-use crate::decode::{Excerpt, decode, probe};
+use crate::decode::{Decoder, Excerpt};
 use crate::index::{Index, IndexError};
 use crate::library::{Asset, Library};
 use crate::parallel::map_in_order;
@@ -100,6 +100,10 @@ pub struct IndexingOptions {
     pub length: TrackLength,
     /// Try files again that earlier runs failed on or rejected.
     pub retry_skipped: bool,
+    /// FFmpeg and FFprobe, with the time they may stay silent. A file whose
+    /// decode stalls fails for this run only: a share that hangs often
+    /// answers again later, so it is not remembered as damaged.
+    pub decoder: Decoder,
 }
 
 /// Brings the store up to date with the library, one asset per worker
@@ -135,7 +139,7 @@ fn index_asset(
         }
         return match store.tags(asset) {
             Some(_) => Outcome::UpToDate,
-            None => tag(store, asset, &path),
+            None => tag(store, asset, &path, &options.decoder),
         };
     }
     let length = options.length;
@@ -152,7 +156,14 @@ fn index_asset(
             return Outcome::Remembered(note.reason);
         }
     }
-    let probe = probe(&path);
+    let probe = match options.decoder.probe(&path) {
+        Ok(probe) => probe,
+        Err(error) => {
+            return Outcome::Failed {
+                reason: error.to_string(),
+            };
+        }
+    };
     // A set in a folder of tracks is rejected from its header alone.
     if let Some(reason) = probe
         .as_ref()
@@ -167,12 +178,12 @@ fn index_asset(
         start: None,
         duration: Some(length.max + Duration::from_secs(1)),
     };
-    let audio = match decode(&path, profile.sample_rate, excerpt) {
+    let audio = match options.decoder.decode(&path, profile.sample_rate, excerpt) {
         Ok(audio) => audio,
         Err(error) => {
             let reason = error.to_string();
             // A file that vanished or changed during the run, or a network
-            // share that went away, is not a damaged file.
+            // share that went away or hung, is not a damaged file.
             if error.is_about_the_file() && asset.matches_file(&path) {
                 if let Err(error) = remember(store, asset, SkipReason::Failed(reason.clone())) {
                     return Outcome::Failed {
@@ -212,9 +223,10 @@ fn index_asset(
 }
 
 /// Stores the tags of an up-to-date asset, reading only its header. A file
-/// without tags gets an empty note, so it is not read again.
-fn tag(store: &PeakStore, asset: &Asset, path: &Path) -> Outcome {
-    let Some(probe) = probe(path) else {
+/// without tags gets an empty note, so it is not read again; one whose
+/// header cannot be read now is read on the next run.
+fn tag(store: &PeakStore, asset: &Asset, path: &Path, decoder: &Decoder) -> Outcome {
+    let Ok(Some(probe)) = decoder.probe(path) else {
         return Outcome::UpToDate;
     };
     let saved = store.save_tags(&TagNote {

@@ -2,17 +2,32 @@
 //!
 //! FFmpeg reads every container and codec the collection uses and resamples to
 //! the analysis rate. Gunfinger runs it as a child process (never through a
-//! shell) and streams raw 32-bit float samples from its stdout.
+//! shell) and streams raw 32-bit float samples from its stdout. A run that
+//! stops writing for `STALL` fails the file (`watch`).
+
+pub mod watch;
 
 use std::ffi::OsString;
 use std::fs::File;
 use std::io::{self, Read, Seek, SeekFrom};
 use std::path::{Path, PathBuf};
-use std::process::{Child, ChildStderr, Command, ExitStatus, Stdio};
-use std::thread;
+use std::process::{Command, ExitStatus};
 use std::time::Duration;
 
 use crate::tags::Tags;
+use watch::Run;
+
+/// How long FFmpeg or FFprobe may write nothing before the run is stopped
+/// and the file fails. A silence, not a whole run: a decode writes about
+/// 32 KB a second of 8 kHz audio, every fraction of a second, however long
+/// the file, so a two-hour mix on a slow share still decodes. Probing
+/// writes only at its end but reads only a file's header. A healthy run
+/// is silent only while storage is slow to answer: a NAS spinning up its
+/// disks takes tens of seconds, and an SMB share that reconnects may take
+/// as long. Two minutes leaves room for both; a share that stays silent
+/// longer is taken as hung. Not measured against a hung share; chosen
+/// conservatively, since a stall fails a whole `identify`.
+pub const STALL: Duration = Duration::from_secs(120);
 
 /// The part of a file to decode. The default is the whole file.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -59,6 +74,15 @@ pub enum DecodeError {
     },
     #[error("{path} contains no decodable audio")]
     NoAudio { path: PathBuf },
+    #[error(
+        "{path} could not be read: nothing came from {from} for {seconds} s, so it was stopped. The storage holding the file may be unresponsive, such as a NAS that hangs; check that the file opens, then try again"
+    )]
+    Stalled {
+        path: PathBuf,
+        /// `ffmpeg`, `ffprobe`, or the file itself.
+        from: &'static str,
+        seconds: f64,
+    },
 }
 
 impl DecodeError {
@@ -69,112 +93,224 @@ impl DecodeError {
             DecodeError::Failed { .. }
             | DecodeError::Truncated { .. }
             | DecodeError::NoAudio { .. } => true,
-            DecodeError::FfmpegMissing | DecodeError::Spawn { .. } | DecodeError::Pipe { .. } => {
-                false
-            }
+            // A share that hangs often answers again later.
+            DecodeError::FfmpegMissing
+            | DecodeError::Spawn { .. }
+            | DecodeError::Pipe { .. }
+            | DecodeError::Stalled { .. } => false,
         }
     }
 }
 
-/// Decodes the first audio stream of `path` to mono at `sample_rate`.
-///
-/// Embedded cover art, subtitles and data streams are ignored. A failure is
-/// reported for the whole file: no partial audio is returned.
-pub fn decode(path: &Path, sample_rate: u32, excerpt: Excerpt) -> Result<Audio, DecodeError> {
-    let mut child = spawn_ffmpeg(path, sample_rate, excerpt)?;
-    let (samples, diagnostics) = read_output(&mut child);
-    let status = child.wait();
-    let samples = samples.map_err(|source| DecodeError::Pipe {
-        path: path.to_owned(),
-        source,
-    })?;
-    let status = status.map_err(|source| DecodeError::Pipe {
-        path: path.to_owned(),
-        source,
-    })?;
-
-    if !status.success() {
-        return Err(DecodeError::Failed {
-            path: path.to_owned(),
-            status,
-            diagnostics: summarise(&diagnostics),
-        });
-    }
-    if samples.is_empty() {
-        return Err(DecodeError::NoAudio {
-            path: path.to_owned(),
-        });
-    }
-    let audio = Audio {
-        sample_rate,
-        samples,
-    };
-    if !diagnostics.trim().is_empty() {
-        reject_if_truncated(path, &audio, excerpt, &diagnostics)?;
-    }
-    Ok(audio)
+/// The FFmpeg programs Gunfinger runs, and how long each may stay silent.
+/// The default runs `ffmpeg` and `ffprobe` from `PATH` with the stall
+/// timeout `STALL`; tests point it at stand-ins.
+#[derive(Debug, Clone)]
+pub struct Decoder {
+    pub ffmpeg: PathBuf,
+    pub ffprobe: PathBuf,
+    pub stall: Duration,
 }
 
-fn spawn_ffmpeg(path: &Path, sample_rate: u32, excerpt: Excerpt) -> Result<Child, DecodeError> {
-    let mut command = Command::new("ffmpeg");
-    command.args(["-nostdin", "-v", "error", "-threads", "1"]);
-    if let Some(start) = excerpt.start {
-        command.arg("-ss").arg(seconds_arg(start));
+impl Default for Decoder {
+    fn default() -> Decoder {
+        Decoder {
+            ffmpeg: PathBuf::from("ffmpeg"),
+            ffprobe: PathBuf::from("ffprobe"),
+            stall: STALL,
+        }
     }
-    if let Some(duration) = excerpt.duration {
-        command.arg("-t").arg(seconds_arg(duration));
-    }
-    command
-        .args(Container::of(path).input_args())
-        .arg("-i")
-        .arg(path)
-        .args(["-map", "0:a:0", "-vn", "-sn", "-dn", "-ac", "1"])
-        .arg("-ar")
-        .arg(sample_rate.to_string())
-        .args(["-f", "f32le", "pipe:1"])
-        .stdin(Stdio::null())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped());
+}
 
-    command.spawn().map_err(|source| match source.kind() {
-        io::ErrorKind::NotFound => DecodeError::FfmpegMissing,
-        _ => DecodeError::Spawn {
+/// Decodes the first audio stream of `path` to mono at `sample_rate`, with
+/// the default `Decoder`.
+pub fn decode(path: &Path, sample_rate: u32, excerpt: Excerpt) -> Result<Audio, DecodeError> {
+    Decoder::default().decode(path, sample_rate, excerpt)
+}
+
+/// Reads the declared length and the tags of `path` with the default
+/// `Decoder`, at a fraction of the cost of decoding. `None` when `ffprobe`
+/// cannot run, cannot read the file or stalls.
+pub fn probe(path: &Path) -> Option<Probe> {
+    Decoder::default().probe(path).ok().flatten()
+}
+
+impl Decoder {
+    /// Decodes the first audio stream of `path` to mono at `sample_rate`.
+    ///
+    /// Embedded cover art, subtitles and data streams are ignored. A
+    /// failure is reported for the whole file: no partial audio is
+    /// returned.
+    pub fn decode(
+        &self,
+        path: &Path,
+        sample_rate: u32,
+        excerpt: Excerpt,
+    ) -> Result<Audio, DecodeError> {
+        let container = self.container(path)?;
+        let mut command = self.ffmpeg_command(path, container, sample_rate, excerpt);
+        let run =
+            watch::run(&mut command, self.stall, read_samples).map_err(|source| {
+                match source.kind() {
+                    io::ErrorKind::NotFound => DecodeError::FfmpegMissing,
+                    _ => DecodeError::Spawn {
+                        path: path.to_owned(),
+                        source,
+                    },
+                }
+            })?;
+        let Run::Finished {
+            output,
+            status,
+            diagnostics,
+        } = run
+        else {
+            return Err(self.stalled(path, "`ffmpeg`"));
+        };
+        let samples = output.map_err(|source| DecodeError::Pipe {
             path: path.to_owned(),
             source,
-        },
-    })
+        })?;
+        if !status.success() {
+            return Err(DecodeError::Failed {
+                path: path.to_owned(),
+                status,
+                diagnostics: summarise(&diagnostics),
+            });
+        }
+        if samples.is_empty() {
+            return Err(DecodeError::NoAudio {
+                path: path.to_owned(),
+            });
+        }
+        let audio = Audio {
+            sample_rate,
+            samples,
+        };
+        if !diagnostics.trim().is_empty() {
+            self.reject_if_truncated(path, &audio, excerpt, &diagnostics)?;
+        }
+        Ok(audio)
+    }
+
+    /// How FFmpeg must open `path`, from its first bytes: read on a thread
+    /// of their own, as the read itself can hang on a share.
+    pub fn container(&self, path: &Path) -> Result<Container, DecodeError> {
+        let file = path.to_owned();
+        watch::within(self.stall, move || Container::of(&file))
+            .ok_or_else(|| self.stalled(path, "the file itself"))
+    }
+
+    /// Reads the declared length and the tags of `path`, at a fraction of
+    /// the cost of decoding. `None` when `ffprobe` cannot run or cannot
+    /// read the file; an error only when it stalls.
+    pub fn probe(&self, path: &Path) -> Result<Option<Probe>, DecodeError> {
+        match self.container(path)? {
+            Container::AsIs => self.run_ffprobe(path, &[]),
+            container @ Container::RiffBehindId3 { .. } => {
+                let Some(mut probe) = self.run_ffprobe(path, &container.input_args())? else {
+                    return Ok(None);
+                };
+                // The tags are in the ID3 tag the WAV reader skips; FFmpeg's
+                // MP3 reader parses it.
+                if let Some(tagged) = self.run_ffprobe(path, &["-f".into(), "mp3".into()])? {
+                    probe.tags = tagged.tags.or(probe.tags);
+                }
+                Ok(Some(probe))
+            }
+        }
+    }
+
+    fn ffmpeg_command(
+        &self,
+        path: &Path,
+        container: Container,
+        sample_rate: u32,
+        excerpt: Excerpt,
+    ) -> Command {
+        let mut command = Command::new(&self.ffmpeg);
+        command.args(["-nostdin", "-v", "error", "-threads", "1"]);
+        if let Some(start) = excerpt.start {
+            command.arg("-ss").arg(seconds_arg(start));
+        }
+        if let Some(duration) = excerpt.duration {
+            command.arg("-t").arg(seconds_arg(duration));
+        }
+        command
+            .args(container.input_args())
+            .arg("-i")
+            .arg(path)
+            .args(["-map", "0:a:0", "-vn", "-sn", "-dn", "-ac", "1"])
+            .arg("-ar")
+            .arg(sample_rate.to_string())
+            .args(["-f", "f32le", "pipe:1"]);
+        command
+    }
+
+    fn run_ffprobe(
+        &self,
+        path: &Path,
+        input_args: &[String],
+    ) -> Result<Option<Probe>, DecodeError> {
+        let mut command = Command::new(&self.ffprobe);
+        command
+            .args(["-v", "error", "-of", "flat", "-show_entries"])
+            .arg("format=duration:format_tags:stream_tags")
+            .args(input_args)
+            .arg(path);
+        match watch::run(&mut command, self.stall, read_all) {
+            Ok(Run::Stalled) => Err(self.stalled(path, "`ffprobe`")),
+            Ok(Run::Finished {
+                output: Ok(bytes),
+                status,
+                ..
+            }) if status.success() => Ok(Some(parse_probe(&String::from_utf8_lossy(&bytes)))),
+            Ok(Run::Finished { .. }) | Err(_) => Ok(None),
+        }
+    }
+
+    fn stalled(&self, path: &Path, from: &'static str) -> DecodeError {
+        DecodeError::Stalled {
+            path: path.to_owned(),
+            from,
+            seconds: self.stall.as_secs_f64(),
+        }
+    }
+
+    /// FFmpeg reports recoverable glitches (a damaged frame in an otherwise
+    /// good MP3) on stderr and still exits successfully. Such a file is
+    /// accepted unless the audio stops well short of the length the
+    /// container declares.
+    fn reject_if_truncated(
+        &self,
+        path: &Path,
+        audio: &Audio,
+        excerpt: Excerpt,
+        diagnostics: &str,
+    ) -> Result<(), DecodeError> {
+        let Some(container) = self.probe(path)?.and_then(|probe| probe.length) else {
+            return Ok(());
+        };
+        let start = excerpt.start.map_or(0.0, |start| start.as_secs_f64());
+        let mut expected = (container.as_secs_f64() - start).max(0.0);
+        if let Some(duration) = excerpt.duration {
+            expected = expected.min(duration.as_secs_f64());
+        }
+        let decoded = audio.duration().as_secs_f64();
+        if decoded + truncation_tolerance(expected) < expected {
+            return Err(DecodeError::Truncated {
+                path: path.to_owned(),
+                decoded,
+                expected,
+                diagnostics: summarise(diagnostics),
+            });
+        }
+        Ok(())
+    }
 }
 
 fn seconds_arg(duration: Duration) -> OsString {
     format!("{:.6}", duration.as_secs_f64()).into()
-}
-
-/// Reads samples from stdout while a second thread drains stderr, so that
-/// neither pipe can fill up and stall FFmpeg. On a read error the child is
-/// killed; the caller always reaps it.
-fn read_output(child: &mut Child) -> (io::Result<Vec<f32>>, String) {
-    let stdout = child.stdout.take();
-    let stderr = child.stderr.take();
-    thread::scope(|scope| {
-        let drainer = scope.spawn(move || stderr.map(drain).unwrap_or_default());
-        let samples = match stdout {
-            Some(stdout) => read_samples(stdout),
-            None => Err(io::Error::other("ffmpeg stdout was not captured")),
-        };
-        if samples.is_err() {
-            // Ignoring the result: the child may already have exited.
-            let _ = child.kill();
-        }
-        let diagnostics = drainer.join().unwrap_or_default();
-        (samples, diagnostics)
-    })
-}
-
-fn drain(mut stderr: ChildStderr) -> String {
-    let mut bytes = Vec::new();
-    // A read error only loses diagnostics; the exit status still decides.
-    let _ = stderr.read_to_end(&mut bytes);
-    String::from_utf8_lossy(&bytes).into_owned()
 }
 
 /// Converts a little-endian `f32` byte stream into samples, carrying an
@@ -200,6 +336,13 @@ pub(crate) fn read_samples(mut source: impl Read) -> io::Result<Vec<f32>> {
         carried = available - whole;
     }
     Ok(samples)
+}
+
+/// Everything `source` holds.
+pub fn read_all(mut source: impl Read) -> io::Result<Vec<u8>> {
+    let mut bytes = Vec::new();
+    source.read_to_end(&mut bytes)?;
+    Ok(bytes)
 }
 
 /// How FFmpeg must open a file.
@@ -264,35 +407,6 @@ fn riff_behind_id3(file: &mut (impl Read + Seek)) -> Option<u64> {
     (&next == b"RIFF").then_some(tag_bytes)
 }
 
-/// FFmpeg reports recoverable glitches (a damaged frame in an otherwise good
-/// MP3) on stderr and still exits successfully. Such a file is accepted unless
-/// the audio stops well short of the length the container declares.
-fn reject_if_truncated(
-    path: &Path,
-    audio: &Audio,
-    excerpt: Excerpt,
-    diagnostics: &str,
-) -> Result<(), DecodeError> {
-    let Some(container) = probe(path).and_then(|probe| probe.length) else {
-        return Ok(());
-    };
-    let start = excerpt.start.map_or(0.0, |start| start.as_secs_f64());
-    let mut expected = (container.as_secs_f64() - start).max(0.0);
-    if let Some(duration) = excerpt.duration {
-        expected = expected.min(duration.as_secs_f64());
-    }
-    let decoded = audio.duration().as_secs_f64();
-    if decoded + truncation_tolerance(expected) < expected {
-        return Err(DecodeError::Truncated {
-            path: path.to_owned(),
-            decoded,
-            expected,
-            diagnostics: summarise(diagnostics),
-        });
-    }
-    Ok(())
-}
-
 /// How far decoded audio may fall short of the expected length: the larger
 /// of 1 s and 1%. Rips damaged only in their last frames lose 1.3-2.4 s of
 /// 5-8 minutes (0.3-0.5%) and are worth keeping; a file cut off by a
@@ -313,39 +427,6 @@ pub struct Probe {
     pub length: Option<Duration>,
     /// Container tags first, then those of the streams (Ogg, Opus).
     pub tags: Tags,
-}
-
-/// Reads the declared length and the tags of `path`, at a fraction of the
-/// cost of decoding. `None` when `ffprobe` cannot run or cannot read the
-/// file.
-pub fn probe(path: &Path) -> Option<Probe> {
-    match Container::of(path) {
-        Container::AsIs => run_ffprobe(path, &[]),
-        container @ Container::RiffBehindId3 { .. } => {
-            let mut probe = run_ffprobe(path, &container.input_args())?;
-            // The tags are in the ID3 tag the WAV reader skips; FFmpeg's
-            // MP3 reader parses it.
-            if let Some(tagged) = run_ffprobe(path, &["-f".into(), "mp3".into()]) {
-                probe.tags = tagged.tags.or(probe.tags);
-            }
-            Some(probe)
-        }
-    }
-}
-
-fn run_ffprobe(path: &Path, input_args: &[String]) -> Option<Probe> {
-    let output = Command::new("ffprobe")
-        .args(["-v", "error", "-of", "flat", "-show_entries"])
-        .arg("format=duration:format_tags:stream_tags")
-        .args(input_args)
-        .arg(path)
-        .stdin(Stdio::null())
-        .output()
-        .ok()?;
-    output
-        .status
-        .success()
-        .then(|| parse_probe(&String::from_utf8_lossy(&output.stdout)))
 }
 
 /// Parses `ffprobe -of flat`: one `key="value"` per line, such as

@@ -35,10 +35,16 @@ for scope and rules.
   of the default (an upload with 20 s more lead-in and tags differing in
   case: one entry); the batch test reads the tracklist; no script or
   harness code parses the default (the harness calls the core)
-- [ ] 5. A stall timeout on FFmpeg (and FFprobe): N chosen and
-  documented; `index` fails the file for this run only; `identify` fails
-  with the message; the listening page's decoding too; tests through a
-  seam
+- [x] 5. A stall timeout on FFmpeg (and FFprobe): 120 s without output
+  (`decode::STALL`, ADR 0018), also on FFprobe, the wait for the exit and
+  the header read; the hung child is killed and never waited for
+  (`decode::watch`); `index` fails the file for this run only (not
+  remembered; the next run tries it again); `identify` fails the recording
+  with the message (checked by hand with a stand-in that hangs: exit 1
+  after 120 s, the stand-in killed); the listening page decodes through
+  the same watcher; tests through `Decoder` (stand-in scripts, a 0.5 s
+  timeout, `PATH` untouched): 5 in `watch`, 1 in `tests/stalls.rs`, 1 on
+  the page
 - [ ] 6. `rust-version` 1.89; the answer log and the verdicts file locked
   against a second server; decided, documented, tested
 - [ ] 7. Read-only review of the session's code by a subagent; fixes

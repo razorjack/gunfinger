@@ -142,9 +142,12 @@ tag, which FFmpeg cannot open as it is, is read with the tag skipped and
 keeps the tag's names. Files that
 fail to decode or are outside the range are remembered in the peak store and
 passed over on later runs until they change (`--retry-skipped` tries them
-again). A run with new indexing failures exits unsuccessfully after processing
-all files. A rejected replacement loses the earlier file's peaks, so offline
-searches cannot keep using its old audio. `identify --exclude-from FILE`
+again). A file whose decode writes nothing for two minutes, as when a NAS
+stops answering, fails for that run only and is tried again on the next
+(ADR 0018); `identify` stops such a recording with the same message. A run
+with new indexing failures exits unsuccessfully after processing all files.
+A rejected replacement loses the earlier file's peaks, so offline searches
+cannot keep using its old audio. `identify --exclude-from FILE`
 leaves the listed library paths out of the index.
 
 Results go to stdout, everything else to stderr. By default stderr shows a

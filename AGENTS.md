@@ -59,7 +59,9 @@ Read, in this order:
 - `gunfinger`: the CLI.
 - `gunfinger-eval`: development harness (manifests, sweep, scoring).
 
-The core follows the pipeline: `decode` (FFmpeg) → `spectrogram` → `peaks` →
+The core follows the pipeline: `decode` (FFmpeg and FFprobe as child
+processes, stopped when they write nothing for two minutes: `decode::watch`,
+ADR 0018) → `spectrogram` → `peaks` →
 `store` (the peak store, source of truth) → `hash` → `index` → `speed` (the
 ladders of turntable and key-locked rungs) → `search` (`lines` per window,
 `chains` across windows) → `confidence` → `plays` (segments of one asset
@@ -174,7 +176,8 @@ Invariants:
   the loaded question files, compared exactly. Every request carries the
   token and passes the `Host` check; every POST is JSON and, with an
   `Origin`, from the page's origin. FFmpeg runs as a child process with
-  explicit arguments, never through a shell.
+  explicit arguments, never through a shell, under the core's stall
+  timeout (`gunfinger_core::decode::watch`, ADR 0018).
 - The answer log is append-only; undo appends a record. A verdict line is
   removed only while it is still the verdicts file's whole last line,
   byte for byte. Answers run one at a time in a server; run one server

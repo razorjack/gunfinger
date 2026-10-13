@@ -1,7 +1,9 @@
 //! Audio for the page, decoded by the `ffmpeg` executable (a child process
 //! with explicit arguments, never a shell): windows of a file as WAV, which
 //! every browser decodes, and waveform envelopes, cached under the work
-//! directory.
+//! directory. A decode that writes nothing for the core's stall timeout
+//! (`gunfinger_core::decode::STALL`) fails, so a share that hangs does not
+//! hold a request forever.
 //!
 //! A window is 30 s of one file, numbered from its start: window `k` holds
 //! file time `30k` to `30k + 30`. MP3 and Opus decoders need a few frames
@@ -14,7 +16,8 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::UNIX_EPOCH;
 
-use gunfinger_core::decode::{Container, Excerpt, decode};
+use gunfinger_core::decode::watch::{self, Run};
+use gunfinger_core::decode::{DecodeError, Decoder, Excerpt, decode, read_all};
 use serde::{Deserialize, Serialize};
 
 use crate::audition::schema::Fnv1a;
@@ -36,45 +39,69 @@ const BUCKET_SECONDS: f64 = 0.05;
 pub fn window_wav(path: &Path, window: u32) -> Result<Option<Vec<u8>>, String> {
     let start = f64::from(window) * WINDOW_SECONDS;
     let pre_roll = start.min(PRE_ROLL_SECONDS);
-    let pcm = decode_pcm(path, start - pre_roll, WINDOW_SECONDS + pre_roll)?;
+    let pcm = decode_pcm(
+        &Decoder::default(),
+        path,
+        start - pre_roll,
+        WINDOW_SECONDS + pre_roll,
+    )?;
     let dropped = (pre_roll * f64::from(SAMPLE_RATE)).round() as usize * BYTES_PER_FRAME;
     let pcm = pcm.get(dropped..).unwrap_or_default();
     Ok((!pcm.is_empty()).then(|| wav(pcm)))
 }
 
 /// Raw 16-bit little-endian stereo PCM from `start`, `seconds` long.
-fn decode_pcm(path: &Path, start: f64, seconds: f64) -> Result<Vec<u8>, String> {
-    let output = Command::new("ffmpeg")
+fn decode_pcm(decoder: &Decoder, path: &Path, start: f64, seconds: f64) -> Result<Vec<u8>, String> {
+    let container = decoder.container(path).map_err(|error| error.to_string())?;
+    let mut command = Command::new(&decoder.ffmpeg);
+    command
         .args(["-nostdin", "-v", "error", "-threads", "1"])
         .arg("-ss")
         .arg(format!("{start:.6}"))
         .arg("-t")
         .arg(format!("{seconds:.6}"))
-        .args(Container::of(path).input_args())
+        .args(container.input_args())
         .arg("-i")
         .arg(path)
         .args(["-map", "0:a:0", "-vn", "-sn", "-dn", "-ac"])
         .arg(CHANNELS.to_string())
         .arg("-ar")
         .arg(SAMPLE_RATE.to_string())
-        .args(["-f", "s16le", "pipe:1"])
-        .output()
-        .map_err(|error| match error.kind() {
-            std::io::ErrorKind::NotFound => String::from(
-                "`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg`)",
-            ),
-            _ => format!("could not run `ffmpeg` for {}: {error}", path.display()),
-        })?;
-    if !output.status.success() {
-        let diagnostics = String::from_utf8_lossy(&output.stderr);
+        .args(["-f", "s16le", "pipe:1"]);
+    let run = watch::run(&mut command, decoder.stall, read_all).map_err(|error| match error
+        .kind()
+    {
+        std::io::ErrorKind::NotFound => String::from(
+            "`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg`)",
+        ),
+        _ => format!("could not run `ffmpeg` for {}: {error}", path.display()),
+    })?;
+    let Run::Finished {
+        output,
+        status,
+        diagnostics,
+    } = run
+    else {
+        return Err(DecodeError::Stalled {
+            path: path.to_owned(),
+            from: "`ffmpeg`",
+            seconds: decoder.stall.as_secs_f64(),
+        }
+        .to_string());
+    };
+    let mut pcm = output.map_err(|error| {
+        format!(
+            "could not read decoded audio of {} from `ffmpeg`: {error}",
+            path.display()
+        )
+    })?;
+    if !status.success() {
         return Err(format!(
-            "`ffmpeg` failed on {} ({}): {}",
+            "`ffmpeg` failed on {} ({status}): {}",
             path.display(),
-            output.status,
             diagnostics.trim()
         ));
     }
-    let mut pcm = output.stdout;
     pcm.truncate(pcm.len() - pcm.len() % BYTES_PER_FRAME);
     Ok(pcm)
 }
@@ -253,6 +280,31 @@ pub(crate) mod tests {
         assert_eq!(u32::from_le_bytes(wav[24..28].try_into().unwrap()), 44_100);
         assert_eq!(u32::from_le_bytes(wav[40..44].try_into().unwrap()), 8);
         assert_eq!(wav.len(), 52);
+    }
+
+    #[test]
+    fn a_window_whose_decode_writes_nothing_fails_after_the_stall_timeout() {
+        use std::os::unix::fs::PermissionsExt;
+        let dir = scratch("stall");
+        let file = dir.join("on-a-hung-share.mp3");
+        fs::write(&file, b"ID3").unwrap();
+        let hangs = dir.join("ffmpeg");
+        fs::write(&hangs, "#!/bin/sh\nexec sleep 30\n").unwrap();
+        fs::set_permissions(&hangs, fs::Permissions::from_mode(0o755)).unwrap();
+        let decoder = Decoder {
+            ffmpeg: hangs.clone(),
+            ffprobe: hangs,
+            stall: std::time::Duration::from_millis(500),
+        };
+        let started = std::time::Instant::now();
+
+        let error = decode_pcm(&decoder, &file, 0.0, WINDOW_SECONDS).unwrap_err();
+
+        assert!(started.elapsed() < std::time::Duration::from_secs(5));
+        assert!(
+            error.contains("nothing came from `ffmpeg` for 0.5 s, so it was stopped"),
+            "{error}"
+        );
     }
 
     #[test]

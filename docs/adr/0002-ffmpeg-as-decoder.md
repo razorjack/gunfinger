@@ -2,7 +2,8 @@
 
 ## Status
 
-Accepted.
+Accepted. Extended by ADR 0018 (2026-10-13): a run of FFmpeg or FFprobe
+that writes nothing for two minutes is stopped and the file fails.
 
 ## Context
 
