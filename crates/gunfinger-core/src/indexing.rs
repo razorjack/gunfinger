@@ -307,22 +307,25 @@ pub struct IndexPlan {
 
 /// The files of `assets` (a library's, or a store's own `current_sources`)
 /// with a current peak record within `length`, leaving out the paths in
-/// `excluded`, reading only the records' headers.
+/// `excluded`, reading only the records' headers, on `jobs` threads.
 pub fn plan_index(
     assets: &[Asset],
     store: &PeakStore,
     profile: &Profile,
     excluded: &BTreeSet<String>,
     length: TrackLength,
+    jobs: usize,
 ) -> IndexPlan {
     let mut sources = Vec::new();
     let mut problems = Vec::new();
     let mut outside = Vec::new();
-    for asset in assets {
-        if excluded.contains(&asset.path) {
-            continue;
-        }
-        match store.load_header(asset, profile) {
+    let wanted: Vec<&Asset> = assets
+        .iter()
+        .filter(|asset| !excluded.contains(&asset.path))
+        .collect();
+    let headers = map_in_order(&wanted, jobs, |asset| store.load_header(asset, profile));
+    for (asset, header) in wanted.into_iter().zip(headers) {
+        match header {
             Ok(header) => match length.leaves_out(&header) {
                 Some(duration) => outside.push((asset.path.clone(), duration)),
                 None => sources.push(asset.clone()),
@@ -345,9 +348,10 @@ pub fn build_index(
     profile: &Profile,
     excluded: &BTreeSet<String>,
     length: TrackLength,
+    jobs: usize,
 ) -> Result<BuiltIndex, IndexError> {
     build_planned(
-        plan_index(assets, store, profile, excluded, length),
+        plan_index(assets, store, profile, excluded, length, jobs),
         store,
         profile,
     )

@@ -96,6 +96,7 @@ pub fn run(
             &library,
             &settings.peaks_dir,
             settings.track_length,
+            settings.jobs,
             console,
         ),
         None => {
@@ -107,6 +108,7 @@ pub fn run(
                 None,
                 &settings.peaks_dir,
                 settings.track_length,
+                settings.jobs,
             );
         }
     }
@@ -165,8 +167,9 @@ fn check_store_alone(
     root: Option<&Path>,
     peaks_dir: &Path,
     length: TrackLength,
+    jobs: usize,
 ) {
-    let (store, (sources, unreadable)) = match store_records(peaks_dir) {
+    let (store, (sources, unreadable)) = match store_records(peaks_dir, jobs) {
         Ok(Some(found)) => found,
         Ok(None) => {
             checkup.line(
@@ -241,6 +244,7 @@ fn check_store_alone(
         &Profile::CURRENT,
         &BTreeSet::new(),
         length,
+        jobs,
     );
     check_saved_index(
         checkup,
@@ -248,6 +252,7 @@ fn check_store_alone(
         plan.sources,
         Searched::StoreRecords,
         length,
+        jobs,
     );
 }
 
@@ -300,6 +305,7 @@ fn check_library(
     root: &Path,
     peaks_dir: &Path,
     length: TrackLength,
+    jobs: usize,
     console: &Console,
 ) {
     checkup.section("library");
@@ -317,6 +323,7 @@ fn check_library(
                 Some(root),
                 peaks_dir,
                 length,
+                jobs,
             );
             return;
         }
@@ -526,8 +533,16 @@ fn check_library(
         &Profile::CURRENT,
         &BTreeSet::new(),
         length,
+        jobs,
     );
-    check_saved_index(checkup, &store, searched.sources, Searched::Library, length);
+    check_saved_index(
+        checkup,
+        &store,
+        searched.sources,
+        Searched::Library,
+        length,
+        jobs,
+    );
 }
 
 /// What the saved index is checked against: a search of the library's
@@ -549,6 +564,7 @@ fn check_saved_index(
     sources: Vec<Asset>,
     searched: Searched,
     length: TrackLength,
+    jobs: usize,
 ) {
     checkup.section("saved index");
     let Some(dir) = config::index_dir() else {
@@ -585,7 +601,7 @@ fn check_saved_index(
         Err(Unusable::Stale(why)) => {
             let current_for_store = searched == Searched::Library
                 && store
-                    .current_sources(&Profile::CURRENT)
+                    .current_sources(&Profile::CURRENT, jobs)
                     .is_ok_and(|(sources, _)| {
                         let plan = plan_index(
                             &sources,
@@ -593,6 +609,7 @@ fn check_saved_index(
                             &Profile::CURRENT,
                             &BTreeSet::new(),
                             length,
+                            jobs,
                         );
                         saved::examine(&path, &provenance(plan.sources)).is_ok()
                     });

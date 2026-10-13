@@ -36,6 +36,8 @@ pub struct Source<'a> {
     pub exclude_from: Option<&'a Path>,
     pub track_length: TrackLength,
     pub saved_index: SavedIndex,
+    /// Threads reading the peak records' headers.
+    pub jobs: usize,
 }
 
 /// Whether a search uses the index saved for its peak store (ADR 0011),
@@ -85,6 +87,7 @@ impl Indexable {
                 &Profile::CURRENT,
                 &excluded,
                 source.track_length,
+                source.jobs,
             );
             Indexable {
                 root,
@@ -99,7 +102,7 @@ impl Indexable {
         };
         let peaks_dir = source.peaks_dir;
         if source.store_only {
-            let Some((store, records)) = store_records(peaks_dir)? else {
+            let Some((store, records)) = store_records(peaks_dir, source.jobs)? else {
                 return Err(miette!(
                     help = "`gunfinger index` fills it from a library",
                     "no current peak records in {}",
@@ -113,7 +116,7 @@ impl Indexable {
             return Ok(found(root, store, records, true));
         }
         let Some(root) = source.library else {
-            let Some((store, records)) = store_records(peaks_dir)? else {
+            let Some((store, records)) = store_records(peaks_dir, source.jobs)? else {
                 return Err(miette!(
                     help = format!(
                         "{}, or --peaks-dir with a peak store",
@@ -151,7 +154,7 @@ impl Indexable {
                         format!("could not finish reading the library at {}; fix the read error or explicitly use --store-only to search all stored records", root.display())
                     });
                 }
-                let Some((store, records)) = store_records(peaks_dir)? else {
+                let Some((store, records)) = store_records(peaks_dir, source.jobs)? else {
                     return Err(error).into_diagnostic().wrap_err_with(|| {
                         format!("could not read the library at {}", root.display())
                     });
@@ -181,12 +184,14 @@ pub type Records = (Vec<Asset>, Vec<StoreError>);
 
 /// The store at `dir` and its current records, unless it does not exist or
 /// holds none. A missing store is not created.
-pub fn store_records(dir: &Path) -> miette::Result<Option<(PeakStore, Records)>> {
+pub fn store_records(dir: &Path, jobs: usize) -> miette::Result<Option<(PeakStore, Records)>> {
     if !dir.is_dir() {
         return Ok(None);
     }
     let store = PeakStore::open(dir).into_diagnostic()?;
-    let records = store.current_sources(&Profile::CURRENT).into_diagnostic()?;
+    let records = store
+        .current_sources(&Profile::CURRENT, jobs)
+        .into_diagnostic()?;
     Ok((!records.0.is_empty()).then_some((store, records)))
 }
 
@@ -604,6 +609,7 @@ mod fallback_tests {
                 max: Duration::from_secs(1000),
             },
             saved_index: SavedIndex::Off,
+            jobs: 2,
         };
         fs::set_permissions(&unreadable, fs::Permissions::from_mode(0o0)).unwrap();
         let denied = fs::read_dir(&unreadable).is_err();

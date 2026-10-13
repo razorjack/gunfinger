@@ -1,0 +1,401 @@
+{
+ "experiment": "0096",
+ "query": "razorjack-2003-03-29.mp3, --store-only --playback both -f json (whole mix unless noted; 15:00 = --duration 15:00)",
+ "store revision": "f9f9bc706195a71b",
+ "profiles": {
+  "s17-start": {
+   "samples": 46905,
+   "cpu samples": 42203,
+   "grouping by asset (counting sort) and lines": 21517,
+   "ladder: STFT and peak picking": 12697,
+   "waiting": 4702,
+   "hashing and posting scans": 4405,
+   "second pass: STFT and peak picking": 1469,
+   "sorting hits: each asset's offsets": 1355,
+   "loading the saved index": 242,
+   "decoding": 220,
+   "loading records": 125,
+   "second pass: hashing, postings, lines": 86,
+   "distinct lines": 42,
+   "clustering offsets": 21,
+   "other": 13,
+   "chaining": 9,
+   "planning the index": 1,
+   "one play per moment": 1
+  },
+  "s17-split (start, stages kept out of line)": {
+   "samples": 47546,
+   "cpu samples": 42603,
+   "ladder: STFT and peak picking": 12779,
+   "grouping: scatter pass": 12099,
+   "pre-filter (may_form_line)": 5864,
+   "waiting": 4943,
+   "hashing and posting scans": 4442,
+   "grouping: counting pass": 3441,
+   "second pass: STFT and peak picking": 1458,
+   "sorting hits: each asset's offsets": 1301,
+   "grouping by asset (counting sort) and lines": 454,
+   "loading the saved index": 247,
+   "decoding": 220,
+   "loading records": 120,
+   "second pass: hashing, postings, lines": 80,
+   "distinct lines": 36,
+   "clustering offsets": 27,
+   "other": 11,
+   "grouping: other": 11,
+   "chaining": 9,
+   "clearing buffers": 2,
+   "planning the index": 1,
+   "one play per moment": 1
+  },
+  "s17-a2-split (8-byte hits, counted while found)": {
+   "samples": 42150,
+   "cpu samples": 37967,
+   "ladder: STFT and peak picking": 12421,
+   "grouping: scatter pass": 8122,
+   "sorting hits: each asset's offsets": 8041,
+   "hashing and posting scans": 5268,
+   "waiting": 4183,
+   "grouping by asset (counting sort) and lines": 1918,
+   "second pass: STFT and peak picking": 1449,
+   "loading the saved index": 271,
+   "decoding": 216,
+   "loading records": 86,
+   "second pass: hashing, postings, lines": 86,
+   "distinct lines": 43,
+   "other": 16,
+   "clustering offsets": 15,
+   "chaining": 10,
+   "clearing buffers": 4,
+   "planning the index": 1
+  },
+  "s17-a6": {
+   "samples": 37332,
+   "cpu samples": 33363,
+   "grouping by asset (counting sort) and lines": 17247,
+   "ladder: STFT and peak picking": 8938,
+   "hashing and posting scans": 5362,
+   "waiting": 3969,
+   "second pass: STFT and peak picking": 1069,
+   "loading the saved index": 261,
+   "decoding": 216,
+   "loading records": 109,
+   "second pass: hashing, postings, lines": 79,
+   "distinct lines": 29,
+   "clustering offsets": 27,
+   "other": 14,
+   "chaining": 9,
+   "planning the index": 2,
+   "one play per moment": 1
+  },
+  "s17-p1024-split": {
+   "samples": 37982,
+   "cpu samples": 33949,
+   "ladder: STFT and peak picking": 8902,
+   "sorting hits: each asset's offsets": 8684,
+   "grouping a part by asset": 6841,
+   "taking a part from the lists": 5581,
+   "waiting": 4033,
+   "grouping by asset (counting sort) and lines": 1982,
+   "second pass: STFT and peak picking": 1107,
+   "loading the saved index": 269,
+   "decoding": 217,
+   "loading records": 110,
+   "hashing and posting scans": 87,
+   "second pass: hashing, postings, lines": 76,
+   "distinct lines": 44,
+   "clustering offsets": 22,
+   "other": 14,
+   "chaining": 10,
+   "one play per moment": 2,
+   "planning the index": 1
+  }
+ },
+ "series": {
+  "start-b-15m": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-start",
+     "wall s": 27.41,
+     "user s": 164.03,
+     "sys s": 4.94,
+     "peak GB": 4.435
+    },
+    {
+     "run": 2,
+     "build": "s17-b",
+     "wall s": 25.46,
+     "user s": 171.04,
+     "sys s": 3.67,
+     "peak GB": 4.308
+    },
+    {
+     "run": 3,
+     "build": "s17-b",
+     "wall s": 27.23,
+     "user s": 171.63,
+     "sys s": 3.96,
+     "peak GB": 4.311
+    },
+    {
+     "run": 4,
+     "build": "s17-start",
+     "wall s": 25.33,
+     "user s": 164.03,
+     "sys s": 4.0,
+     "peak GB": 4.465
+    }
+   ],
+   "four reports identical": true
+  },
+  "start-a2-15m": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-start",
+     "wall s": 24.38,
+     "user s": 164.36,
+     "sys s": 4.25,
+     "peak GB": 4.427
+    },
+    {
+     "run": 2,
+     "build": "s17-a2",
+     "wall s": 23.01,
+     "user s": 149.68,
+     "sys s": 3.42,
+     "peak GB": 4.313
+    },
+    {
+     "run": 3,
+     "build": "s17-a2",
+     "wall s": 24.37,
+     "user s": 150.54,
+     "sys s": 3.57,
+     "peak GB": 4.312
+    },
+    {
+     "run": 4,
+     "build": "s17-start",
+     "wall s": 23.73,
+     "user s": 164.92,
+     "sys s": 3.5,
+     "peak GB": 4.462
+    }
+   ],
+   "four reports identical": true
+  },
+  "a2-a3-15m": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a2",
+     "wall s": 22.65,
+     "user s": 149.6,
+     "sys s": 3.54,
+     "peak GB": 4.308
+    },
+    {
+     "run": 2,
+     "build": "s17-a3",
+     "wall s": 24.05,
+     "user s": 146.8,
+     "sys s": 3.51,
+     "peak GB": 4.31
+    },
+    {
+     "run": 3,
+     "build": "s17-a3",
+     "wall s": 22.95,
+     "user s": 147.76,
+     "sys s": 3.34,
+     "peak GB": 4.309
+    },
+    {
+     "run": 4,
+     "build": "s17-a2",
+     "wall s": 21.64,
+     "user s": 150.54,
+     "sys s": 3.31,
+     "peak GB": 4.311
+    }
+   ],
+   "four reports identical": true
+  },
+  "a6-p1024": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a6",
+     "wall s": 52.18,
+     "user s": 393.69,
+     "sys s": 6.44,
+     "peak GB": 4.659
+    },
+    {
+     "run": 2,
+     "build": "s17-p1024",
+     "wall s": 52.82,
+     "user s": 397.3,
+     "sys s": 5.59,
+     "peak GB": 4.293
+    },
+    {
+     "run": 3,
+     "build": "s17-p1024",
+     "wall s": 50.35,
+     "user s": 396.55,
+     "sys s": 5.19,
+     "peak GB": 4.292
+    },
+    {
+     "run": 4,
+     "build": "s17-a6",
+     "wall s": 50.31,
+     "user s": 389.47,
+     "sys s": 5.76,
+     "peak GB": 4.658
+    }
+   ],
+   "four reports identical": true
+  },
+  "a6-p1024c": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a6",
+     "wall s": 52.82,
+     "user s": 395.62,
+     "sys s": 6.54,
+     "peak GB": 4.66
+    },
+    {
+     "run": 2,
+     "build": "s17-p1024c",
+     "wall s": 54.92,
+     "user s": 418.88,
+     "sys s": 5.63,
+     "peak GB": 4.292
+    },
+    {
+     "run": 3,
+     "build": "s17-p1024c",
+     "wall s": 54.86,
+     "user s": 418.09,
+     "sys s": 5.69,
+     "peak GB": 4.29
+    },
+    {
+     "run": 4,
+     "build": "s17-a6",
+     "wall s": 52.48,
+     "user s": 392.05,
+     "sys s": 6.39,
+     "peak GB": 4.657
+    }
+   ],
+   "four reports identical": true
+  },
+  "a6-p4096": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a6",
+     "wall s": 51.89,
+     "user s": 388.41,
+     "sys s": 6.14,
+     "peak GB": 4.66
+    },
+    {
+     "run": 2,
+     "build": "s17-p4096",
+     "wall s": 50.61,
+     "user s": 375.8,
+     "sys s": 5.55,
+     "peak GB": 4.314
+    },
+    {
+     "run": 3,
+     "build": "s17-p4096",
+     "wall s": 48.04,
+     "user s": 376.76,
+     "sys s": 5.26,
+     "peak GB": 4.325
+    },
+    {
+     "run": 4,
+     "build": "s17-a6",
+     "wall s": 50.14,
+     "user s": 388.33,
+     "sys s": 5.7,
+     "peak GB": 4.658
+    }
+   ],
+   "four reports identical": true
+  },
+  "p4096-p8192": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-p4096",
+     "wall s": 50.04,
+     "user s": 377.24,
+     "sys s": 5.61,
+     "peak GB": 4.323
+    },
+    {
+     "run": 2,
+     "build": "s17-p8192",
+     "wall s": 51.26,
+     "user s": 383.63,
+     "sys s": 5.72,
+     "peak GB": 4.365
+    },
+    {
+     "run": 3,
+     "build": "s17-p8192",
+     "wall s": 50.08,
+     "user s": 383.04,
+     "sys s": 5.72,
+     "peak GB": 4.366
+    },
+    {
+     "run": 4,
+     "build": "s17-p4096",
+     "wall s": 49.07,
+     "user s": 376.81,
+     "sys s": 5.38,
+     "peak GB": 4.323
+    }
+   ],
+   "four reports identical": true
+  }
+ },
+ "synthetic grouping, 33,596 assets, 6 windows of 4,400 lists x 450 hits, ns per hit": {
+  "1 thread": {
+   "single pass": [
+    2.3,
+    2.09,
+    2.09
+   ],
+   "two passes (parts of 128)": [
+    3.12,
+    2.93,
+    2.96
+   ]
+  },
+  "10 threads": {
+   "single pass": [
+    5.16,
+    4.94,
+    3.6
+   ],
+   "two passes (parts of 128)": [
+    6.69,
+    4.68,
+    4.51
+   ]
+  }
+ }
+}

@@ -2288,3 +2288,43 @@ load.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
   (digests as at the start); no manifest changed. Processes this session
   did not start were left alone.
+
+## 2026-10-13: session 17, speed: identify at NAS scale and a first index
+
+Brief `docs/brief-17.md`, checklist `docs/session-17-checklist.md`. Other processes used 0.2-1 core, and files were added to the NAS during the
+session; every timing ran old and new builds A B B A.
+
+- 04:35 setup, `git status` clean at `b7ddfb6`. Release build in
+  `work/bin/s17-start/` (byte-identical to `s16-final`); `baseline
+  session-17-start` from session 16's final `regress` reports. The NAS
+  store: 33,596 records, revision `f9f9bc706195a71b`, as expected.
+  Digests of `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+  in `work/s17/listening-digests-start.txt` (equal to session 16's).
+- Step 2, search speed, from 04:37. Profile of the start build (0093's
+  method): 62.6 s, 483 s CPU; grouping and lines 51.0% (with the stages
+  kept out of line: the scatter 28.4%, the pre-filter 13.8%, counting
+  8.1%), query analysis 30.1% (`PeakPicker::pick` alone 11.6%).
+  - 0096: a window keeps the posting lists it hit; each part of 4,096
+    assets is taken off the lists' fronts and grouped in cache, so each
+    asset's hits keep their order; the pre-filter keeps the slots it
+    touched. Rejected: two passes through a second buffer (+4% CPU),
+    counting while taking (+6%), parts of 1,024 (+1.5%) and 8,192
+    (+1.7%). A synthetic benchmark: the old scatter is bound by memory
+    traffic across cores (3.6-5.2 ns a hit on 10 threads).
+  - 0097: the four-neighbour test without branches into a candidate list,
+    the neighbourhood scanned nearest frames first without branches;
+    `pick` 4,962 -> 1,537 samples. Rejected: run maxima (+5.7%). A test
+    compares the picker with the definition over a whole spectrogram
+    (ties included).
+  - 0098: `current_sources` and `plan_index` read the 33,596 headers on
+    `jobs` threads (the CLI's `--jobs`; with the store's pages evicted,
+    1.1 s before the index load instead of 5.5 s); `identify` decodes
+    the first recording while the catalog opens.
+  - Acceptance (`work/bin/s17-step2/`): the 2003 mix at NAS scale, A B B
+    A, 44.3 and 44.1 s, 382 and 377 s CPU, 4.33 GB against 62.1 and 61.0
+    s, 487 and 482 s, 4.79 GB; four reports identical. `regress
+    session-17-start` identical (720/720 sweep queries, 87, 93 and 79
+    scan detections, the known calibrate line), 151.7 s against 200.8 s
+    with the start build. `scripts/check.sh` green (346 tests). One
+    mistake on the way: `s17-h` and `s17-hd` were built with parts of
+    8,192 left from a trial; the acceptance was repeated with 4,096.

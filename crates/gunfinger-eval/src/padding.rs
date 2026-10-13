@@ -116,7 +116,7 @@ impl SecondLibrary {
         without: &BTreeSet<String>,
     ) -> Result<SecondLibrary, String> {
         let (assets, problems) = store
-            .current_sources(&Profile::CURRENT)
+            .current_sources(&Profile::CURRENT, crate::available_parallelism())
             .map_err(|error| error.to_string())?;
         for problem in &problems {
             eprintln!("left out: {problem}");

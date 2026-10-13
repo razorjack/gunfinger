@@ -243,8 +243,15 @@ pub fn find_around(
     jobs: usize,
 ) -> Result<Vec<Pair>, String> {
     let profile = Profile::CURRENT;
-    let built = build_index(other_assets, other, &profile, &BTreeSet::new(), ANY_LENGTH)
-        .map_err(|error| error.to_string())?;
+    let built = build_index(
+        other_assets,
+        other,
+        &profile,
+        &BTreeSet::new(),
+        ANY_LENGTH,
+        jobs,
+    )
+    .map_err(|error| error.to_string())?;
     for problem in &built.problems {
         eprintln!("left out: {problem}");
     }

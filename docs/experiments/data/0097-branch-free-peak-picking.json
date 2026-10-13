@@ -1,0 +1,168 @@
+{
+ "experiment": "0097",
+ "query": "razorjack-2003-03-29.mp3 at NAS scale, --duration 15:00 unless noted",
+ "series": {
+  "a3-a4-15m": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a3",
+     "wall s": 23.45,
+     "user s": 147.56,
+     "sys s": 3.63,
+     "peak GB": 4.311
+    },
+    {
+     "run": 2,
+     "build": "s17-a4",
+     "wall s": 22.86,
+     "user s": 155.05,
+     "sys s": 3.45,
+     "peak GB": 4.309
+    },
+    {
+     "run": 3,
+     "build": "s17-a4",
+     "wall s": 22.47,
+     "user s": 156.89,
+     "sys s": 3.29,
+     "peak GB": 4.309
+    },
+    {
+     "run": 4,
+     "build": "s17-a3",
+     "wall s": 21.74,
+     "user s": 147.6,
+     "sys s": 3.39,
+     "peak GB": 4.311
+    }
+   ],
+   "four reports identical": true
+  },
+  "a3-a5-15m": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a3",
+     "wall s": 23.74,
+     "user s": 146.92,
+     "sys s": 3.71,
+     "peak GB": 4.312
+    },
+    {
+     "run": 2,
+     "build": "s17-a5",
+     "wall s": 20.88,
+     "user s": 136.8,
+     "sys s": 3.23,
+     "peak GB": 4.311
+    },
+    {
+     "run": 3,
+     "build": "s17-a5",
+     "wall s": 20.36,
+     "user s": 137.09,
+     "sys s": 3.42,
+     "peak GB": 4.311
+    },
+    {
+     "run": 4,
+     "build": "s17-a3",
+     "wall s": 25.36,
+     "user s": 147.12,
+     "sys s": 3.89,
+     "peak GB": 4.312
+    }
+   ],
+   "four reports identical": true
+  },
+  "a5-a6-15m": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-a5",
+     "wall s": 20.85,
+     "user s": 136.47,
+     "sys s": 3.5,
+     "peak GB": 4.309
+    },
+    {
+     "run": 2,
+     "build": "s17-a6",
+     "wall s": 22.56,
+     "user s": 131.54,
+     "sys s": 3.53,
+     "peak GB": 4.311
+    },
+    {
+     "run": 3,
+     "build": "s17-a6",
+     "wall s": 23.25,
+     "user s": 131.72,
+     "sys s": 3.77,
+     "peak GB": 4.312
+    },
+    {
+     "run": 4,
+     "build": "s17-a5",
+     "wall s": 21.06,
+     "user s": 137.08,
+     "sys s": 3.34,
+     "peak GB": 4.311
+    }
+   ],
+   "four reports identical": true
+  },
+  "start-a6": {
+   "runs": [
+    {
+     "run": 1,
+     "build": "s17-start",
+     "wall s": 58.91,
+     "user s": 483.15,
+     "sys s": 6.17,
+     "peak GB": 4.795
+    },
+    {
+     "run": 2,
+     "build": "s17-a6",
+     "wall s": 51.94,
+     "user s": 388.06,
+     "sys s": 6.13,
+     "peak GB": 4.659
+    },
+    {
+     "run": 3,
+     "build": "s17-a6",
+     "wall s": 51.67,
+     "user s": 387.76,
+     "sys s": 5.87,
+     "peak GB": 4.661
+    },
+    {
+     "run": 4,
+     "build": "s17-start",
+     "wall s": 62.09,
+     "user s": 479.6,
+     "sys s": 6.8,
+     "peak GB": 4.797
+    }
+   ],
+   "four reports identical": true
+  }
+ },
+ "PeakPicker::pick samples": {
+  "s17-start": 4962,
+  "s17-a6": 1537
+ },
+ "regress session-17-start (262 tracks)": {
+  "s17-start": {
+   "wall s": 200.75,
+   "user s": 1796.18
+  },
+  "s17-step2": {
+   "wall s": 151.66,
+   "user s": 1318.27
+  }
+ }
+}

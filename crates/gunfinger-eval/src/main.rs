@@ -520,7 +520,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 return Err(String::from("map-library needs --other-peaks-dir"));
             };
             let (other_assets, problems) = other
-                .current_sources(&Profile::CURRENT)
+                .current_sources(&Profile::CURRENT, jobs)
                 .map_err(|error| error.to_string())?;
             for problem in &problems {
                 eprintln!("left out: {problem}");
@@ -1129,7 +1129,7 @@ fn find_clusters_around(
     let corpus = paths.corpus_clusters()?;
     let profile = Profile::CURRENT;
     let (other_assets, problems) = other
-        .current_sources(&profile)
+        .current_sources(&profile, jobs)
         .map_err(|error| error.to_string())?;
     for problem in &problems {
         eprintln!("left out: {problem}");
@@ -1382,7 +1382,7 @@ fn recall_panel(paths: &Paths, other: &PeakStore, seed: u64) -> Result<recall::P
             .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
     );
     let (assets, problems) = other
-        .current_sources(&Profile::CURRENT)
+        .current_sources(&Profile::CURRENT, available_parallelism())
         .map_err(|error| error.to_string())?;
     for problem in &problems {
         eprintln!("left out: {problem}");
@@ -1464,7 +1464,7 @@ impl Paths {
             return Ok(referable);
         };
         let (assets, problems) = store
-            .current_sources(&Profile::CURRENT)
+            .current_sources(&Profile::CURRENT, available_parallelism())
             .map_err(|error| error.to_string())?;
         for problem in &problems {
             eprintln!("left out: {problem}");

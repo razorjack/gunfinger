@@ -13,7 +13,7 @@ use crate::hash::{MAX_DELTA_FRAMES, Point, for_each_pair};
 use crate::index::{AssetId, Index, Posting};
 use crate::parallel::map_in_order_with;
 use crate::profile::Profile;
-use crate::speed::{Playback, Rung, SpeedRatio};
+use crate::speed::{Playback, Rung};
 
 /// Query time is cut into windows this long. Within one window a residual
 /// speed error of 0.2% drifts the offset by about one frame.
@@ -27,13 +27,17 @@ const MAX_LINES_PER_ASSET: usize = 3;
 /// Lines from neighbouring rungs predicting reference times this close are
 /// the same alignment.
 const SAME_LINE_FRAMES: f64 = 4.0;
-/// Offsets are counted in buckets this wide (`may_form_line`), so that a
+/// A window's hits are grouped by asset this many assets at a time.
+const ASSETS_PER_PART: usize = 4096;
+/// Offsets are counted in buckets this wide (`OffsetSlots`), so that a
 /// line's offsets lie in one bucket or two neighbouring ones.
 const OFFSET_BUCKET_FRAMES: f64 = 2.0 * LINE_SPAN_FRAMES;
 /// The buckets are folded into this many slots.
 const OFFSET_SLOTS: usize = 4096;
 // A slot's count stops at `MIN_LINE_HITS`, and two slots' counts are added.
 const _: () = assert!(2 * MIN_LINE_HITS <= u8::MAX as usize);
+// A slot is kept as a `u16`.
+const _: () = assert!(OFFSET_SLOTS <= 1 << 16);
 
 pub(super) fn design() -> String {
     format!(
@@ -76,8 +80,8 @@ struct Hit {
     anchor: u32,
 }
 
-/// A hit once grouped with the other hits of its asset.
-#[derive(Clone, Copy, Default)]
+/// A hit of an asset whose hits may form a line, with its alignment.
+#[derive(Clone, Copy)]
 struct AlignedHit {
     /// Reference frame minus the anchor's frame at the assumed speed.
     offset: f64,
@@ -85,31 +89,48 @@ struct AlignedHit {
     query_frame: f64,
 }
 
-/// One worker's hits, kept for all its jobs: those of the window being
-/// searched as they are found, and the same hits grouped by asset.
+/// One worker's hits, kept for all its jobs: the posting lists the window
+/// being searched hit, one part of the assets' hits taken from them, the
+/// same hits grouped by asset, and the aligned hits of the asset being
+/// turned into lines.
 ///
 /// Each thread keeps its buffers for all its jobs. A window's hits reach
 /// 200 MB at 26,000 assets, and buffers freed after every rung were kept by
 /// the allocator: 15.7 GB instead of 5.0 GB for 10 minutes of query on 10
 /// threads (experiment 0029).
-struct WindowHits {
-    found: Vec<Hit>,
-    /// The first `found.len()` hold the window's hits, asset by asset.
-    grouped: Vec<AlignedHit>,
-    /// A counter for each asset of the index and one more, all zero
-    /// between windows (see `group_by_asset`).
+struct WindowHits<'i> {
+    /// The postings each query hash of the window hit, with the hash's
+    /// anchor, in the order they were looked up. Each list is ordered by
+    /// asset, as the index holds it; the hits of the parts already grouped
+    /// are taken off its front.
+    lists: Vec<(&'i [Posting], u32)>,
+    assets: usize,
+    part: Vec<Hit>,
+    grouped: Vec<Hit>,
+    aligned: Vec<AlignedHit>,
+    /// A counter for each asset of a part and one more, all zero between
+    /// parts (see `group_part`).
     ends: Vec<u32>,
-    /// All zero between assets (see `may_form_line`).
-    slot_counts: Box<[u8; OFFSET_SLOTS]>,
+    slots: OffsetSlots,
 }
 
-impl WindowHits {
-    fn new(assets: usize) -> WindowHits {
+impl<'i> WindowHits<'i> {
+    fn new(assets: usize) -> WindowHits<'i> {
         WindowHits {
-            found: Vec::new(),
+            lists: Vec::new(),
+            assets,
+            part: Vec::new(),
             grouped: Vec::new(),
-            ends: vec![0; assets + 1],
-            slot_counts: Box::new([0; OFFSET_SLOTS]),
+            aligned: Vec::new(),
+            ends: vec![0; ASSETS_PER_PART + 1],
+            slots: OffsetSlots::new(),
+        }
+    }
+
+    /// Keeps the postings a query hash of the window being searched hit.
+    fn find(&mut self, postings: &'i [Posting], anchor: u32) {
+        if !postings.is_empty() {
+            self.lists.push((postings, anchor));
         }
     }
 
@@ -123,57 +144,83 @@ impl WindowHits {
     ///
     /// At 33,596 assets nearly every asset has 3 hits in a window, and
     /// sorting them all took 40% of a search's CPU; `may_form_line` leaves
-    /// 2% of them to sort (experiment 0093).
+    /// 2% of them to sort (experiment 0093). Only those are aligned.
     fn lines(&mut self, window: u32, rung: Rung, points: &[Point]) -> Vec<Line> {
-        self.group_by_asset(points, rung.speed());
+        let speed = rung.speed();
         let mut lines = Vec::new();
-        let mut start = 0;
-        for (asset, &end) in self.ends[..self.ends.len() - 1].iter().enumerate() {
-            let same_asset = &mut self.grouped[start..end as usize];
-            start = end as usize;
-            if same_asset.len() < MIN_LINE_HITS || !may_form_line(same_asset, &mut self.slot_counts)
-            {
-                continue;
+        for first in (0..self.assets).step_by(ASSETS_PER_PART) {
+            let end = (first + ASSETS_PER_PART).min(self.assets);
+            self.take_part(end);
+            self.group_part(first);
+            let mut start = 0;
+            for asset in first..end {
+                let same_asset = &self.grouped[start..self.ends[asset - first] as usize];
+                start = self.ends[asset - first] as usize;
+                let offsets = same_asset.iter().map(|&hit| offset_of(hit, points));
+                if same_asset.len() < MIN_LINE_HITS || !self.slots.may_form_line(offsets) {
+                    continue;
+                }
+                self.aligned.clear();
+                self.aligned
+                    .extend(same_asset.iter().map(|&hit| AlignedHit {
+                        offset: offset_of(hit, points),
+                        query_frame: points[hit.anchor as usize].frame / speed.0,
+                    }));
+                self.aligned
+                    .sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
+                for cluster in densest_clusters(&self.aligned) {
+                    lines.push(line_of(
+                        AssetId(asset as u32),
+                        &self.aligned[cluster],
+                        window,
+                        rung,
+                    ));
+                }
             }
-            same_asset.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
-            for cluster in densest_clusters(same_asset) {
-                lines.push(line_of(
-                    AssetId(asset as u32),
-                    &same_asset[cluster],
-                    window,
-                    rung,
-                ));
-            }
+            self.ends.fill(0);
         }
-        self.ends.fill(0);
-        self.found.clear();
+        self.lists.clear();
         lines
     }
 
-    /// A counting sort by asset: asset numbers are dense and below the
-    /// index's count, so two passes over the hits group them, where a
-    /// comparison sort took most of a search's time at 33,596 assets
-    /// (experiments 0075, 0085, 0086). Leaves asset `a`'s hits in
-    /// `grouped[ends[a - 1]..ends[a]]`.
-    fn group_by_asset(&mut self, points: &[Point], speed: SpeedRatio) {
-        let ends = &mut self.ends;
-        for hit in &self.found {
-            ends[hit.posting.asset().0 as usize + 1] += 1;
+    /// Takes off the front of every list the hits of assets before `end`,
+    /// list by list, so that each asset's hits keep the order they were
+    /// found in.
+    ///
+    /// Grouping all of a window's hits by asset at once wrote each to one of
+    /// as many places as there are assets, nearly every write a cache miss
+    /// at 33,596 assets; a part's hits fit in the cache (experiment 0096).
+    fn take_part(&mut self, end: usize) {
+        self.part.clear();
+        for (postings, anchor) in &mut self.lists {
+            let taken = postings.partition_point(|posting| (posting.asset().0 as usize) < end);
+            let (part, rest) = postings.split_at(taken);
+            self.part.extend(part.iter().map(|&posting| Hit {
+                posting,
+                anchor: *anchor,
+            }));
+            *postings = rest;
         }
-        // Each asset's first slot.
+    }
+
+    /// A counting sort of the part's hits by asset: asset numbers are dense,
+    /// so two passes over the hits group them (experiments 0075, 0085,
+    /// 0086). Leaves the hits of the part's `i`th asset in
+    /// `grouped[ends[i - 1]..ends[i]]`, in the order they were taken.
+    fn group_part(&mut self, first: usize) {
+        let ends = &mut self.ends;
+        for hit in &self.part {
+            ends[hit.posting.asset().0 as usize - first + 1] += 1;
+        }
         for asset in 1..ends.len() {
             ends[asset] += ends[asset - 1];
         }
-        if self.grouped.len() < self.found.len() {
-            self.grouped.resize(self.found.len(), AlignedHit::default());
+        if self.grouped.len() < self.part.len() {
+            self.grouped.resize(self.part.len(), self.part[0]);
         }
-        for hit in &self.found {
-            let anchor = points[hit.anchor as usize];
-            let slot = &mut ends[hit.posting.asset().0 as usize];
-            self.grouped[*slot as usize] = AlignedHit {
-                offset: f64::from(hit.posting.frame()) - anchor.frame,
-                query_frame: anchor.frame / speed.0,
-            };
+        for &hit in &self.part {
+            let slot = &mut ends[hit.posting.asset().0 as usize - first];
+            self.grouped[*slot as usize] = hit;
             *slot += 1;
         }
     }
@@ -317,13 +364,13 @@ fn lock<T>(mutex: &Mutex<T>) -> MutexGuard<'_, T> {
 /// Looks up the query hashes of the anchors in `windows` at one assumed
 /// speed and collects the lines each window's hits form. `hits` holds no
 /// hit before and after.
-fn in_windows(
-    index: &Index,
+fn in_windows<'i>(
+    index: &'i Index,
     query: Query,
     profile: &Profile,
     rung: Rung,
     windows: Range<u32>,
-    hits: &mut WindowHits,
+    hits: &mut WindowHits<'i>,
     cached: &mut KeyLockPeaks,
 ) -> Vec<Line> {
     let speed = rung.speed();
@@ -351,18 +398,18 @@ fn in_windows(
             window = anchor_window;
         }
         if windows.contains(&window) {
-            for &posting in index.scanned_postings(hash) {
-                hits.found.push(Hit {
-                    posting,
-                    anchor: anchor as u32,
-                });
-            }
+            hits.find(index.scanned_postings(hash), anchor as u32);
         }
     });
     if windows.contains(&window) {
         lines.extend(hits.lines(window, rung, &points));
     }
     lines
+}
+
+/// Reference frame minus the anchor's frame at the rung's speed.
+fn offset_of(hit: Hit, points: &[Point]) -> f64 {
+    f64::from(hit.posting.frame()) - points[hit.anchor as usize].frame
 }
 
 /// The line of one asset's hits in a cluster.
@@ -380,36 +427,51 @@ fn line_of(asset: AssetId, members: &[AlignedHit], window: u32, rung: Rung) -> L
     }
 }
 
-/// Whether one asset's hits, in any order, may hold a cluster for
-/// `densest_clusters`: false only when no 3 of them lie in one slot or two
-/// neighbouring slots. Leaves `counts` all zero.
-///
-/// A cluster's offsets differ by at most `LINE_SPAN_FRAMES` as computed, so
-/// by less than `OFFSET_BUCKET_FRAMES`, and their buckets by at most one.
-/// Folding buckets into slots keeps neighbours neighbours (slot
-/// `OFFSET_SLOTS - 1` neighbours slot 0) and only adds counts.
-fn may_form_line(hits: &[AlignedHit], counts: &mut [u8; OFFSET_SLOTS]) -> bool {
-    let slot_of = |hit: &AlignedHit| {
-        (hit.offset / OFFSET_BUCKET_FRAMES).floor() as i64 as usize % OFFSET_SLOTS
-    };
-    let mut may = false;
-    let mut counted = 0;
-    for hit in hits {
-        let slot = slot_of(hit);
-        counts[slot] += 1;
-        counted += 1;
-        let here = counts[slot];
-        let next = counts[(slot + 1) % OFFSET_SLOTS];
-        let previous = counts[(slot + OFFSET_SLOTS - 1) % OFFSET_SLOTS];
-        if usize::from(here + next.max(previous)) >= MIN_LINE_HITS {
-            may = true;
-            break;
+/// Counts of one asset's offsets in buckets of `OFFSET_BUCKET_FRAMES`
+/// folded into `OFFSET_SLOTS` slots, all zero between assets.
+struct OffsetSlots {
+    counts: Box<[u8; OFFSET_SLOTS]>,
+    /// The slots counted for the asset, to clear afterwards.
+    touched: Vec<u16>,
+}
+
+impl OffsetSlots {
+    fn new() -> OffsetSlots {
+        OffsetSlots {
+            counts: Box::new([0; OFFSET_SLOTS]),
+            touched: Vec::new(),
         }
     }
-    for hit in &hits[..counted] {
-        counts[slot_of(hit)] = 0;
+
+    /// Whether one asset's hits, given by their offsets in any order, may
+    /// hold a cluster for `densest_clusters`: false only when no 3 of them
+    /// lie in one slot or two neighbouring slots.
+    ///
+    /// A cluster's offsets differ by at most `LINE_SPAN_FRAMES` as computed,
+    /// so by less than `OFFSET_BUCKET_FRAMES`, and their buckets by at most
+    /// one. Folding buckets into slots keeps neighbours neighbours (slot
+    /// `OFFSET_SLOTS - 1` neighbours slot 0) and only adds counts.
+    fn may_form_line(&mut self, offsets: impl Iterator<Item = f64>) -> bool {
+        let counts = &mut self.counts;
+        let mut may = false;
+        for offset in offsets {
+            let slot = (offset / OFFSET_BUCKET_FRAMES).floor() as i64 as usize % OFFSET_SLOTS;
+            self.touched.push(slot as u16);
+            counts[slot] += 1;
+            let here = counts[slot];
+            let next = counts[(slot + 1) % OFFSET_SLOTS];
+            let previous = counts[(slot + OFFSET_SLOTS - 1) % OFFSET_SLOTS];
+            if usize::from(here + next.max(previous)) >= MIN_LINE_HITS {
+                may = true;
+                break;
+            }
+        }
+        for &slot in &self.touched {
+            counts[usize::from(slot)] = 0;
+        }
+        self.touched.clear();
+        may
     }
-    may
 }
 
 /// Index ranges of the densest non-overlapping offset clusters in hits
@@ -483,6 +545,10 @@ pub(super) mod tests {
             offset,
             query_frame: 0.0,
         }
+    }
+
+    fn offsets(hits: &[AlignedHit]) -> impl Iterator<Item = f64> + '_ {
+        hits.iter().map(|hit| hit.offset)
     }
 
     /// A line in `window` (625 frames each) whose hits span 400 frames.
@@ -572,12 +638,35 @@ pub(super) mod tests {
         (hits, points)
     }
 
+    /// The hits as posting lists, as the search finds them: anchor by
+    /// anchor, each anchor's hits cut into lists of 1 to 60 postings ordered
+    /// by asset (as the index holds them).
+    fn as_lists(mut hits: Vec<Hit>, seed: u64) -> Vec<(Vec<Posting>, u32)> {
+        let mut state = seed;
+        hits.sort_by_key(|hit| hit.anchor);
+        let mut lists = Vec::new();
+        for same_anchor in hits.chunk_by(|a, b| a.anchor == b.anchor) {
+            let mut rest = same_anchor;
+            while !rest.is_empty() {
+                state ^= state << 13;
+                state ^= state >> 7;
+                state ^= state << 17;
+                let (list, after) = rest.split_at((1 + state % 60).min(rest.len() as u64) as usize);
+                let mut postings: Vec<Posting> = list.iter().map(|hit| hit.posting).collect();
+                postings.sort_by_key(|posting| posting.asset());
+                lists.push((postings, list[0].anchor));
+                rest = after;
+            }
+        }
+        lists
+    }
+
     #[test]
     fn grouping_by_asset_finds_the_lines_of_a_comparison_sort() {
         let rung = Rung::KeyLocked(SpeedRatio(1.012));
         let mut window_hits = WindowHits::new(3000);
-        // A large window, then a smaller one in the same buffers, then one
-        // with every hit on the index's last asset.
+        // A large window over three parts, then a smaller one in the same
+        // buffers, then one with every hit on the index's last asset.
         let (last_asset, points) = mixed_hits(1, 5_000, 2028);
         let windows = [
             mixed_hits(3000, 400_000, 2026),
@@ -593,16 +682,31 @@ pub(super) mod tests {
                 points,
             ),
         ];
-        for (window, (hits, points)) in (7..).zip(windows) {
-            let expected = lines_by_comparison_sort(&hits, &points, window, rung);
+        let windows: Vec<_> = windows
+            .into_iter()
+            .map(|(hits, points)| (as_lists(hits, 2030), points))
+            .collect();
+        for (window, (lists, points)) in (7..).zip(&windows) {
+            let found: Vec<Hit> = lists
+                .iter()
+                .flat_map(|(postings, anchor)| {
+                    postings.iter().map(|&posting| Hit {
+                        posting,
+                        anchor: *anchor,
+                    })
+                })
+                .collect();
+            let expected = lines_by_comparison_sort(&found, points, window, rung);
             assert!(!expected.is_empty());
-            window_hits.found.extend(hits);
+            for (postings, anchor) in lists {
+                window_hits.find(postings, *anchor);
+            }
 
             assert!(
-                window_hits.lines(window, rung, &points) == expected,
+                window_hits.lines(window, rung, points) == expected,
                 "window {window}"
             );
-            assert!(window_hits.found.is_empty());
+            assert!(window_hits.lists.is_empty());
             assert!(window_hits.ends.iter().all(|&end| end == 0));
         }
     }
@@ -630,16 +734,16 @@ pub(super) mod tests {
 
     #[test]
     fn hits_with_no_three_in_neighbouring_slots_cannot_form_a_line() {
-        let mut counts = Box::new([0; OFFSET_SLOTS]);
+        let mut slots = OffsetSlots::new();
         let scattered = [hit(15.0), hit(0.0), hit(10.0), hit(5.0), hit(-7.0)];
 
-        assert!(!may_form_line(&scattered, &mut counts));
-        assert!(counts.iter().all(|&count| count == 0));
+        assert!(!slots.may_form_line(offsets(&scattered)));
+        assert!(slots.counts.iter().all(|&count| count == 0));
     }
 
     #[test]
     fn a_line_is_sorted_wherever_its_offsets_fall() {
-        let mut counts = Box::new([0; OFFSET_SLOTS]);
+        let mut slots = OffsetSlots::new();
         // Bucket edges, negative offsets, the slots' wrap (bucket -1 is slot
         // 4095, bucket 4096 slot 0) and a span of exactly 2 frames.
         for first in [0.0, 2.0, 3.75, -0.5, -4.0, -6.25, 16_382.5, -16_385.0] {
@@ -654,8 +758,8 @@ pub(super) mod tests {
             sorted.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
 
             assert_eq!(densest_clusters(&sorted).len(), 1, "{first}");
-            assert!(may_form_line(&hits, &mut counts), "{first}");
-            assert!(counts.iter().all(|&count| count == 0));
+            assert!(slots.may_form_line(offsets(&hits)), "{first}");
+            assert!(slots.counts.iter().all(|&count| count == 0));
         }
     }
 
@@ -668,7 +772,7 @@ pub(super) mod tests {
         sorted.reverse();
 
         assert_eq!(densest_clusters(&sorted), vec![0..3]);
-        assert!(may_form_line(&hits, &mut Box::new([0; OFFSET_SLOTS])));
+        assert!(OffsetSlots::new().may_form_line(offsets(&hits)));
     }
 
     #[test]
@@ -680,7 +784,7 @@ pub(super) mod tests {
             state ^= state << 17;
             state
         };
-        let mut counts = Box::new([0; OFFSET_SLOTS]);
+        let mut slots = OffsetSlots::new();
         let (mut with_lines, mut skipped) = (0, 0);
         for _ in 0..100_000 {
             // Whole reference frames minus anchor frames with a fraction,
@@ -690,8 +794,8 @@ pub(super) mod tests {
             let mut hits: Vec<AlignedHit> = (0..3 + next() % 10)
                 .map(|_| hit(base + (next() % spread) as f64 - (next() % 64) as f64 / 64.0))
                 .collect();
-            let may = may_form_line(&hits, &mut counts);
-            assert!(counts.iter().all(|&count| count == 0));
+            let may = slots.may_form_line(offsets(&hits));
+            assert!(slots.counts.iter().all(|&count| count == 0));
             hits.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
             if !densest_clusters(&hits).is_empty() {
                 assert!(

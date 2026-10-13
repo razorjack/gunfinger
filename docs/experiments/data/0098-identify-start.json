@@ -1,0 +1,105 @@
+{
+ "experiment": "0098",
+ "seconds from the start of identify to the saved index loaded (it loads in 3.5-3.6 s), 1:00 excerpt": {
+  "warm, sequential (s17-p4096)": [
+   9.11,
+   5.02
+  ],
+  "warm, on jobs threads (s17-h)": [
+   5.46,
+   4.69
+  ],
+  "store evicted (vmtouch -e), sequential": [
+   9.23,
+   9.04
+  ],
+  "store evicted, on jobs threads": [
+   4.66,
+   4.63
+  ]
+ },
+ "seconds to the end, 10:00 excerpt (decoding 0.6 s)": {
+  "s17-h": [
+   14.69,
+   14.74
+  ],
+  "s17-hd (decoding while the index loads)": [
+   14.24,
+   13.95
+  ]
+ },
+ "acceptance, whole mix": {
+  "runs": [
+   {
+    "run": 1,
+    "build": "s17-start",
+    "wall s": 62.09,
+    "user s": 486.83,
+    "sys s": 6.57,
+    "peak GB": 4.794
+   },
+   {
+    "run": 2,
+    "build": "s17-step2",
+    "wall s": 44.32,
+    "user s": 381.8,
+    "sys s": 11.26,
+    "peak GB": 4.332
+   },
+   {
+    "run": 3,
+    "build": "s17-step2",
+    "wall s": 44.06,
+    "user s": 377.41,
+    "sys s": 13.94,
+    "peak GB": 4.335
+   },
+   {
+    "run": 4,
+    "build": "s17-start",
+    "wall s": 61.0,
+    "user s": 481.99,
+    "sys s": 6.28,
+    "peak GB": 4.795
+   }
+  ],
+  "four reports identical": true
+ },
+ "earlier series with parts of 8,192 (s17-hd)": {
+  "runs": [
+   {
+    "run": 1,
+    "build": "s17-start",
+    "wall s": 57.64,
+    "user s": 482.12,
+    "sys s": 6.12,
+    "peak GB": 4.799
+   },
+   {
+    "run": 2,
+    "build": "s17-hd",
+    "wall s": 44.11,
+    "user s": 383.85,
+    "sys s": 10.96,
+    "peak GB": 4.375
+   },
+   {
+    "run": 3,
+    "build": "s17-hd",
+    "wall s": 44.52,
+    "user s": 383.91,
+    "sys s": 16.1,
+    "peak GB": 4.375
+   },
+   {
+    "run": 4,
+    "build": "s17-start",
+    "wall s": 58.19,
+    "user s": 480.16,
+    "sys s": 6.26,
+    "peak GB": 4.794
+   }
+  ],
+  "four reports identical": true
+ }
+}

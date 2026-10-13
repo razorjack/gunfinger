@@ -70,6 +70,11 @@ struct PeakPicker<'p> {
     received: usize,
     /// Peaks are picked in these frames only.
     wanted: Range<usize>,
+    /// The bins of the frame being picked that pass the four nearest
+    /// neighbours, in the first places (see `pick`).
+    candidates: Vec<usize>,
+    /// Stands for the frame before the first and after the last.
+    silence: Vec<f32>,
     peaks: Vec<Peak>,
 }
 
@@ -85,6 +90,8 @@ impl<'p> PeakPicker<'p> {
             rows: vec![vec![f32::NEG_INFINITY; bins]; height],
             received: first,
             wanted,
+            candidates: vec![0; bins],
+            silence: vec![f32::NEG_INFINITY; bins],
             peaks: Vec::new(),
         }
     }
@@ -124,17 +131,29 @@ impl<'p> PeakPicker<'p> {
         let row = &self.rows[centre % height];
         let before = (centre > 0).then(|| &self.rows[(centre - 1) % height]);
         let after = (centre + 1 < self.received).then(|| &self.rows[(centre + 1) % height]);
+        // The four nearest neighbours reject most bins cheaply, before the
+        // whole neighbourhood is scanned. Their outcome changes from bin to
+        // bin, so they are evaluated without branches (experiment 0097); a
+        // missing frame counts as silence, which rejects nothing the floor
+        // does not.
+        let (above, below) = (
+            before.unwrap_or(&self.silence),
+            after.unwrap_or(&self.silence),
+        );
+        let mut candidates = 0;
         for bin in profile.min_bin..profile.max_bin {
             let value = row[bin];
-            // The four nearest neighbours reject most bins cheaply, before
-            // the whole neighbourhood is scanned.
-            if value < profile.floor_db
-                || value <= row[bin - 1]
-                || value <= row[bin + 1]
-                || before.is_some_and(|before| value <= before[bin])
-                || after.is_some_and(|after| value <= after[bin])
-                || !self.dominates_neighbourhood(centre, bin)
-            {
+            let rejected = (value < profile.floor_db)
+                | (value <= row[bin - 1])
+                | (value <= row[bin + 1])
+                | (value <= above[bin])
+                | (value <= below[bin]);
+            self.candidates[candidates] = bin;
+            candidates += usize::from(!rejected);
+        }
+        for &bin in &self.candidates[..candidates] {
+            let value = row[bin];
+            if !self.dominates_neighbourhood(centre, bin) {
                 continue;
             }
             // Without refinement, the time difference of two peaks jitters by
@@ -157,18 +176,33 @@ impl<'p> PeakPicker<'p> {
     /// True when `(centre, bin)` is strictly louder than every other point in
     /// its neighbourhood that exists (frames before the start or after the end
     /// do not).
+    ///
+    /// Frames are tried nearest first, where a louder point is likeliest, and
+    /// each frame's bins are compared without branches; the answer does not
+    /// depend on the order.
     fn dominates_neighbourhood(&self, centre: usize, bin: usize) -> bool {
         let profile = self.profile;
-        let value = self.rows[centre % self.rows.len()][bin];
-        let first_frame = centre.saturating_sub(profile.neighbourhood_frames);
-        let last_frame = (centre + profile.neighbourhood_frames).min(self.received - 1);
+        let row = &self.rows[centre % self.rows.len()];
+        let value = row[bin];
         let half = profile.neighbourhood_bins_at(bin);
         let first_bin = bin.saturating_sub(half);
-        let last_bin = (bin + half).min(self.rows[0].len() - 1);
-        for frame in first_frame..=last_frame {
-            let row = &self.rows[frame % self.rows.len()];
-            for other in first_bin..=last_bin {
-                if (frame, other) != (centre, bin) && row[other] >= value {
+        let last_bin = (bin + half).min(row.len() - 1);
+        let louder_or_equal = |others: &[f32]| {
+            others
+                .iter()
+                .fold(false, |found, &other| found | (other >= value))
+        };
+        if louder_or_equal(&row[first_bin..bin]) || louder_or_equal(&row[bin + 1..=last_bin]) {
+            return false;
+        }
+        let first_frame = centre.saturating_sub(profile.neighbourhood_frames);
+        let last_frame = (centre + profile.neighbourhood_frames).min(self.received - 1);
+        for distance in 1..=profile.neighbourhood_frames {
+            let nearby = [centre.checked_sub(distance), Some(centre + distance)];
+            for frame in nearby.into_iter().flatten() {
+                if (first_frame..=last_frame).contains(&frame)
+                    && louder_or_equal(&self.rows[frame % self.rows.len()][first_bin..=last_bin])
+                {
                     return false;
                 }
             }
@@ -279,6 +313,93 @@ mod tests {
                 "{stretch:?}"
             );
         }
+    }
+
+    /// The peaks' STFT frames and bins by the definition: louder than the
+    /// floor and strictly louder than every other point of the neighbourhood
+    /// that exists, over the whole spectrogram at once.
+    fn peaks_by_definition(samples: &[f32], profile: &Profile) -> Vec<(usize, usize)> {
+        let mut spectrogram: Vec<Vec<f32>> = Vec::new();
+        for_each_frame(samples, profile, |frame| spectrogram.push(frame.to_vec()));
+        let mut peaks = Vec::new();
+        for (centre, row) in spectrogram.iter().enumerate() {
+            for bin in profile.min_bin..profile.max_bin {
+                let value = row[bin];
+                let half = profile.neighbourhood_bins_at(bin);
+                let frames = centre.saturating_sub(profile.neighbourhood_frames)
+                    ..=(centre + profile.neighbourhood_frames).min(spectrogram.len() - 1);
+                let bins = bin.saturating_sub(half)..=(bin + half).min(row.len() - 1);
+                let mut others_quieter = true;
+                for frame in frames {
+                    for other in bins.clone() {
+                        if (frame, other) != (centre, bin) && spectrogram[frame][other] >= value {
+                            others_quieter = false;
+                        }
+                    }
+                }
+                if value >= profile.floor_db && others_quieter {
+                    peaks.push((centre, bin));
+                }
+            }
+        }
+        peaks
+    }
+
+    #[test]
+    fn peaks_are_the_points_louder_than_their_whole_neighbourhood() {
+        let profile = Profile::CURRENT;
+        let mut state: u32 = 11;
+        let mut noise = |count: usize| -> Vec<f32> {
+            (0..count)
+                .map(|_| {
+                    state = state.wrapping_mul(1_664_525).wrapping_add(1_013_904_223);
+                    (state >> 8) as f32 / (1 << 24) as f32 - 0.5
+                })
+                .collect()
+        };
+        let chord: Vec<f32> = tone(440.0, 6.0, &profile)
+            .iter()
+            .zip(tone(1900.0, 6.0, &profile))
+            .zip(noise(6 * profile.sample_rate as usize))
+            .map(|((a, b), n)| a + b + 0.3 * n)
+            .collect();
+        // Noise repeating every 4 hops: frames 4 apart are equal, so every
+        // local maximum ties with points of its neighbourhood and none is a
+        // peak.
+        let period = noise(4 * profile.hop);
+        let repeating: Vec<f32> = period
+            .iter()
+            .cycle()
+            .take(5 * profile.sample_rate as usize)
+            .copied()
+            .collect();
+        let spread = Profile {
+            spread: Some(crate::profile::Spread {
+                share: 0.094,
+                min_bins: 4,
+                max_bins: 24,
+            }),
+            ..profile
+        };
+
+        for (samples, profile) in [
+            (&chord, &profile),
+            (&repeating, &profile),
+            (&chord, &spread),
+        ] {
+            let found = extract_peaks(samples, profile);
+            let expected = peaks_by_definition(samples, profile);
+            assert_eq!(found.len(), expected.len());
+            // A refined frame rounds to its STFT frame; a refined bin may lie
+            // half a bin from its STFT bin.
+            for (peak, &(frame, bin)) in found.iter().zip(&expected) {
+                assert_eq!(peak.frame.round() as usize, frame);
+                assert!((peak.bin - bin as f32).abs() <= 0.5, "{peak:?} {bin}");
+            }
+        }
+        assert!(peaks_by_definition(&chord, &profile).len() > 100);
+        assert!(peaks_by_definition(&chord, &spread).len() > 100);
+        assert!(peaks_by_definition(&repeating, &profile).is_empty());
     }
 
     #[test]

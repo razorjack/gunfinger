@@ -61,6 +61,7 @@ use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 use crate::library::{Asset, Timestamp};
+use crate::parallel::map_in_order;
 use crate::peaks::{BIN_STEPS, FRAME_STEPS, MAGNITUDE_STEPS_PER_DB, Peak};
 use crate::profile::Profile;
 use crate::tags::Tags;
@@ -440,10 +441,14 @@ impl PeakStore {
     /// sorted by path as a library lists them, reading only headers. Without
     /// the library there is no telling whether a file has since changed or
     /// been deleted, so their records are among them. Records whose header
-    /// cannot be read are returned as errors.
+    /// cannot be read are returned as errors. The headers are read on
+    /// `jobs` threads: one at a time, those of the 33,596 records of the NAS
+    /// store and `plan_index`'s second reading took 4.4 s more before a
+    /// search, with the store out of the cache (experiment 0098).
     pub fn current_sources(
         &self,
         profile: &Profile,
+        jobs: usize,
     ) -> Result<(Vec<Asset>, Vec<StoreError>), StoreError> {
         let mut sources = Vec::new();
         let mut problems = Vec::new();
@@ -459,15 +464,17 @@ impl PeakStore {
             })
             .map(|file| file.with_extension("peaks"))
             .collect();
-        for file in files {
-            if rejected.contains(&file)
-                || file
-                    .extension()
-                    .is_none_or(|extension| extension != "peaks")
-            {
-                continue;
-            }
-            match survey_file(file) {
+        let records: Vec<PathBuf> = files
+            .into_iter()
+            .filter(|file| {
+                !rejected.contains(file)
+                    && file
+                        .extension()
+                        .is_some_and(|extension| extension == "peaks")
+            })
+            .collect();
+        for stored in map_in_order(&records, jobs, |file| survey_file(file.clone())) {
+            match stored {
                 Stored::Record { file, header }
                     if header.profile == profile.id()
                         && file == self.record_path(&header.source.path) =>
@@ -966,7 +973,7 @@ mod tests {
             .unwrap();
         assert!(
             store
-                .current_sources(&Profile::CURRENT)
+                .current_sources(&Profile::CURRENT, 2)
                 .unwrap()
                 .0
                 .is_empty()
@@ -995,14 +1002,14 @@ mod tests {
         .unwrap();
         assert!(
             store
-                .current_sources(&Profile::CURRENT)
+                .current_sources(&Profile::CURRENT, 2)
                 .unwrap()
                 .0
                 .is_empty()
         );
         store.forget_skip(&asset().path).unwrap();
         assert_eq!(
-            store.current_sources(&Profile::CURRENT).unwrap().0,
+            store.current_sources(&Profile::CURRENT, 2).unwrap().0,
             [asset()]
         );
         fs::remove_dir_all(dir).unwrap();
@@ -1128,7 +1135,7 @@ mod tests {
             })
             .unwrap();
         fs::write(dir.join("0000000000000000.peaks"), "not a record").unwrap();
-        let listed = store.current_sources(&Profile::CURRENT);
+        let listed = store.current_sources(&Profile::CURRENT, 2);
         fs::remove_dir_all(&dir).unwrap();
 
         let (sources, problems) = listed.unwrap();

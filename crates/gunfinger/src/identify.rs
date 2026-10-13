@@ -7,9 +7,10 @@ use std::collections::BTreeMap;
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
-use std::time::Instant;
+use std::thread;
+use std::time::{Duration, Instant};
 
-use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::decode::{Audio, Excerpt, decode};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Matcher, search_with_progress};
 use gunfinger_core::timecode::format_timecode;
@@ -61,13 +62,18 @@ pub fn run(request: &Request) -> miette::Result<()> {
             .info("every recording already has a report (--again searches them anyway)");
         return Ok(());
     }
-    let catalog = Catalog::open(indexable, request.matcher, request.console)?;
+    let (catalog, first) = open_while_decoding(request, indexable, &jobs[0].0);
+    let catalog = catalog?;
+    let mut first = Some(first);
     let mut failed = 0;
     for (audio, saved) in &jobs {
         if several {
             println!("{}", request.style.bold(&format!("== {}", audio.display())));
         }
-        match identify(request, &catalog, audio) {
+        let decoded = first
+            .take()
+            .unwrap_or_else(|| decode_recording(request, audio));
+        match decoded.map(|decoded| identify(request, &catalog, audio, decoded)) {
             Ok(report) => {
                 if let Some(saved) = saved {
                     let json = render(&report, ReportFormat::Json, request.style)?;
@@ -252,18 +258,62 @@ fn report_path(dir: &Path, audio: &Path) -> PathBuf {
     dir.join(format!("{stem}.json"))
 }
 
-fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::Result<Report> {
-    let profile = Profile::CURRENT;
+/// Opens the catalog and decodes the first recording at the same time:
+/// loading the saved index waits on the disk and decoding on FFmpeg, about
+/// 3.5 s and 2.6 s for the 2003 mix at NAS scale (experiment 0098). If no
+/// thread can be started, the recording is decoded afterwards.
+fn open_while_decoding(
+    request: &Request,
+    indexable: Indexable,
+    audio: &Path,
+) -> (miette::Result<Catalog>, miette::Result<Decoded>) {
+    thread::scope(|scope| {
+        let decoding =
+            thread::Builder::new().spawn_scoped(scope, || decode_recording(request, audio));
+        let catalog = Catalog::open(indexable, request.matcher, request.console);
+        let decoded = match decoding {
+            Ok(decoding) => decoding
+                .join()
+                .unwrap_or_else(|payload| std::panic::resume_unwind(payload)),
+            Err(_) => decode_recording(request, audio),
+        };
+        (catalog, decoded)
+    })
+}
+
+/// A recording's audio, with the file's identity and how long decoding took.
+struct Decoded {
+    source: QuerySource,
+    audio: Audio,
+    took: Duration,
+}
+
+fn decode_recording(request: &Request, audio_path: &Path) -> miette::Result<Decoded> {
     let started = Instant::now();
     let source = QuerySource::read(audio_path).into_diagnostic()?;
-    let audio = decode(audio_path, profile.sample_rate, request.excerpt).into_diagnostic()?;
+    let audio =
+        decode(audio_path, Profile::CURRENT.sample_rate, request.excerpt).into_diagnostic()?;
     if source != QuerySource::read(audio_path).into_diagnostic()? {
         return Err(miette!(
             "{} changed while being decoded; search it again once the file is stable",
             audio_path.display()
         ));
     }
-    let decoded = started.elapsed();
+    Ok(Decoded {
+        source,
+        audio,
+        took: started.elapsed(),
+    })
+}
+
+fn identify(request: &Request, catalog: &Catalog, audio_path: &Path, decoded: Decoded) -> Report {
+    let profile = Profile::CURRENT;
+    let started = Instant::now();
+    let Decoded {
+        source,
+        audio,
+        took: decoding,
+    } = decoded;
     let ladder = request.playback.rungs();
     let detections = search_with_progress(
         &catalog.index,
@@ -282,8 +332,8 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
     request.console.detail(format_args!(
         "searched {} of audio in {:.1} s (decoding {:.1} s)",
         format_timecode(audio.duration()),
-        started.elapsed().as_secs_f64(),
-        decoded.as_secs_f64()
+        (decoding + started.elapsed()).as_secs_f64(),
+        decoding.as_secs_f64()
     ));
     let mut report = Report::new(
         catalog,
@@ -294,7 +344,7 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path) -> miette::
         &detections,
     );
     report.query.source = Some(source);
-    Ok(report)
+    report
 }
 
 #[cfg(test)]
@@ -344,6 +394,7 @@ mod tests {
                     max: Duration::from_secs(1000),
                 },
                 saved_index: SavedIndex::Off,
+                jobs: 2,
             },
             excerpt: Excerpt::default(),
             playback: PlaybackChoice::Both,

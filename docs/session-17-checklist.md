@@ -8,17 +8,24 @@ for scope and rules.
 
 - [x] `git status` clean at `b7ddfb6`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] The machine idle (no other CPU-heavy process; load low)
-- [ ] Release build in `work/bin/s17-start/`; `baseline session-17-start`
-- [ ] The NAS store at the start: 33,596 records, revision
-  `f9f9bc706195a71b` expected
+- [x] Left alone every process this session did not start
+- [x] Release build in `work/bin/s17-start/` (byte-identical to
+  `s16-final`); `baseline session-17-start` from session 16's final
+  `regress` reports, made by the same code
+- [x] The NAS store at the start: 33,596 records, revision
+  `f9f9bc706195a71b`, as expected (`work/s17/store-revision-start.txt`)
 
 ## Steps
 
-- [ ] 2. Search speed: profile (0093's method), the larger cost cut with
-  identical results; `regress` identical, the 2003 mix at NAS scale
-  byte-identical, A B B A with wall, CPU and peak memory; an experiment
-  per change
+- [x] 2. Search speed (experiments 0096-0098): grouping a window's hits a
+  part of 4,096 assets at a time, taken from the posting lists (0096);
+  peak picking without unpredictable branches (0097); record headers read
+  on `jobs` threads and the mix decoded while the index loads (0098).
+  The 2003 mix at NAS scale: 44.1-44.3 s, 377-382 s CPU, 4.33 GB against
+  61.0-62.1 s, 482-487 s, 4.79 GB (A B B A, reports identical);
+  `regress session-17-start` identical, 151.7 s against 200.8 s;
+  `scripts/check.sh` green (346 tests). Rejected: two-pass grouping,
+  run maxima, counting while taking, parts of 1,024 and 8,192
 - [ ] 3. Indexing speed: profile on scratch stores (corpus library, one
   NAS folder); a change only with bit-identical records; an experiment
 - [ ] 4a. Listening questions for Watermelon ~ 300 Baud - Monotone and

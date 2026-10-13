@@ -167,7 +167,7 @@ impl Records {
         let other = match sources.other {
             Some(other) => {
                 other
-                    .current_sources(&profile)
+                    .current_sources(&profile, crate::available_parallelism())
                     .map_err(|error| error.to_string())?
                     .0
             }
