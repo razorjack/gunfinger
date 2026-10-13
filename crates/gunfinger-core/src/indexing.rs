@@ -184,12 +184,13 @@ fn index_asset(
             let reason = error.to_string();
             // A file that vanished or changed during the run, or a network
             // share that went away or hung, is not a damaged file.
-            if error.is_about_the_file() && asset.matches_file(&path) {
-                if let Err(error) = remember(store, asset, SkipReason::Failed(reason.clone())) {
-                    return Outcome::Failed {
-                        reason: format!("{reason}; cannot invalidate the earlier record: {error}"),
-                    };
-                }
+            if error.is_about_the_file()
+                && asset.matches_file(&path)
+                && let Err(error) = remember(store, asset, SkipReason::Failed(reason.clone()))
+            {
+                return Outcome::Failed {
+                    reason: format!("{reason}; cannot invalidate the earlier record: {error}"),
+                };
             }
             return Outcome::Failed { reason };
         }

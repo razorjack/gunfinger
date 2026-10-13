@@ -144,8 +144,9 @@ else assumes the verdicts file today.
 ## The answer log
 
 `work/audition/answers.jsonl`, one JSON object per line, appended on the
-listener's keypress only. Run one `audition` at a time on a log: two are
-not locked against each other.
+listener's keypress only. A server holds the log's lock while it runs, so a
+second `audition` on the same log says so and exits; verdict lines are
+written under the verdicts file's lock (ADR 0016, "One writer").
 
 ```json
 {"seq":1,"time":"2026-10-12T08:15:02Z","action":"answer","question":"pair-3f1c...","kind":"pair","title":"1. Cut join: ...","files":["second-library/a.opus","second-library/b.mp3"],"choice":"different","verdict_line":"different\tsecond-library/a.opus\tsecond-library/b.mp3\n"}

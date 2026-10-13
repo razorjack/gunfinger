@@ -299,8 +299,8 @@ fn read_words(input: &mut Digesting<impl Read>, count: usize) -> io::Result<Vec<
         let chunk = &mut bytes[..4 * CHUNK_WORDS.min(count - words.len())];
         input.inner.read_exact(chunk)?;
         input.read += chunk.len() as u64;
-        for word in chunk.chunks_exact(4) {
-            let word = u32::from_le_bytes([word[0], word[1], word[2], word[3]]);
+        for &word in chunk.as_chunks::<4>().0 {
+            let word = u32::from_le_bytes(word);
             input.digest.word(word);
             words.push(word);
         }
@@ -321,8 +321,8 @@ fn read_postings(
     while postings.len() < count {
         let chunk = &mut bytes[..4 * CHUNK_WORDS.min(count - postings.len())];
         input.inner.read_exact(chunk).map_err(unreadable)?;
-        for word in chunk.chunks_exact(4) {
-            let posting = Posting(u32::from_le_bytes([word[0], word[1], word[2], word[3]]));
+        for &word in chunk.as_chunks::<4>().0 {
+            let posting = Posting(u32::from_le_bytes(word));
             input.digest.word(posting.0);
             damaged |= posting.asset().0 as usize >= assets;
             postings.push(posting);

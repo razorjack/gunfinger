@@ -5,18 +5,18 @@
 //! effect already records (the pair verdicts file) comes first.
 //!
 //! Every answer and undo reads the log and the verdicts file again, so a
-//! hand edit in between is seen; the server runs them one at a time. Two
-//! servers on one log are not locked against each other (the standard
-//! library's file lock needs Rust 1.89, above the workspace's 1.85); since
-//! each write reads both files first, they interleave correctly unless two
-//! answers land within the same few milliseconds.
+//! hand edit in between is seen; the server runs them one at a time. A
+//! server holds the log's lock while it runs (`AnswerBook::lock_log`), so
+//! a second server on the same log refuses to start; a verdict is checked
+//! and written under the verdicts file's lock (`VerdictsWriter`), which
+//! `pair-review` takes too.
 //!
 //! An answer writes its effect first, then its log record. If the record
 //! cannot be written after a verdict line was appended, the line stays
 //! without a record, `Z` cannot take it back, and the error says so.
 
 use std::collections::{BTreeMap, BTreeSet};
-use std::fs::{self, File, OpenOptions};
+use std::fs::{self, File, OpenOptions, TryLockError};
 use std::io::Write as _;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -238,6 +238,25 @@ impl AnswerBook {
         })
     }
 
+    /// Locks the log for as long as the returned guard lives: the server
+    /// holds it while it runs, so a second server on the same log is
+    /// refused at once instead of numbering its records over the first
+    /// one's. It does not wait: a server that is already answering is the
+    /// one to use.
+    pub fn lock_log(&self) -> Result<LogLock, String> {
+        let file = self.open_log()?;
+        match file.try_lock() {
+            Ok(()) => Ok(LogLock { _file: file }),
+            Err(TryLockError::WouldBlock) => Err(format!(
+                "another `gunfinger-eval audition` is answering into {}; use its page, or stop it (Ctrl-C) and start this one again",
+                self.log.display()
+            )),
+            Err(TryLockError::Error(error)) => {
+                Err(format!("cannot lock {}: {error}", self.log.display()))
+            }
+        }
+    }
+
     fn open_log(&self) -> Result<File, String> {
         if let Some(dir) = self.log.parent() {
             fs::create_dir_all(dir)
@@ -255,6 +274,13 @@ impl AnswerBook {
         log.write_all(line.as_bytes())
             .map_err(|error| format!("cannot write {}: {error}", self.log.display()))
     }
+}
+
+/// The answer log's lock, released when this is dropped (or the process
+/// ends).
+#[derive(Debug)]
+pub struct LogLock {
+    _file: File,
 }
 
 /// Every answer no undo took back, in log order.
@@ -575,6 +601,24 @@ mod tests {
             matches!(refusal, Refusal::Contradicts(ref message) if message.contains("says `same`"))
         );
         assert!(book.records().unwrap().is_empty());
+    }
+
+    #[test]
+    fn a_second_server_on_one_log_is_refused_until_the_first_stops() {
+        let dir = scratch("lock");
+        let first = book(&dir);
+        let second = book(&dir);
+
+        let held = first.lock_log().unwrap();
+        let refused = second.lock_log().unwrap_err();
+        drop(held);
+        let after = second.lock_log();
+
+        assert!(
+            refused.contains("another `gunfinger-eval audition` is answering into"),
+            "{refused}"
+        );
+        assert!(after.is_ok(), "{after:?}");
     }
 
     #[test]

@@ -329,8 +329,9 @@ pub(crate) fn read_samples(mut source: impl Read) -> io::Result<Vec<f32>> {
         };
         let available = carried + read;
         let whole = available - available % SAMPLE_BYTES;
-        for bytes in buffer[..whole].chunks_exact(SAMPLE_BYTES) {
-            samples.push(f32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]));
+        let (whole_samples, _) = buffer[..whole].as_chunks::<SAMPLE_BYTES>();
+        for &bytes in whole_samples {
+            samples.push(f32::from_le_bytes(bytes));
         }
         buffer.copy_within(whole..available, 0);
         carried = available - whole;

@@ -18,7 +18,7 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 use crate::audition::schema::{Effect, Question};
-use crate::clusters::Verdicts;
+use crate::clusters::{Verdicts, VerdictsWriter};
 
 /// An answer the effect's own file already records.
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -90,11 +90,22 @@ pub fn recorded(question: &Question, verdicts: &Verdicts) -> Option<Recorded> {
 /// Writes what the answer `value` to `question` writes besides the log.
 /// Any answer to a pair the verdicts file already judges otherwise
 /// (`unsure` included) is refused: the file's verdict is what the page
-/// shows, so logging another would change nothing on the page.
+/// shows, so logging another would change nothing on the page. A
+/// verdict is checked and appended under the file's lock, so no other
+/// writer's line comes between the two.
 pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<Applied, Refusal> {
     match &question.effect {
         Effect::Log => Ok(Applied::Nothing),
         Effect::PairVerdict { .. } => {
+            let same = match value {
+                "same" => Some(true),
+                "different" => Some(false),
+                _ => None,
+            };
+            let writer = same
+                .map(|_| VerdictsWriter::lock(verdicts_file))
+                .transpose()
+                .map_err(Refusal::Io)?;
             let verdicts = Verdicts::load(verdicts_file).map_err(Refusal::Io)?;
             if let Some(recorded) = recorded(question, &verdicts) {
                 let pair = format!("{} ~ {}", recorded.pair[0], recorded.pair[1]);
@@ -111,13 +122,12 @@ pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<A
                     )))
                 };
             }
-            let same = match value {
-                "same" => true,
-                "different" => false,
-                _ => return Ok(Applied::Nothing),
+            let (Some(same), Some(mut writer)) = (same, writer) else {
+                return Ok(Applied::Nothing);
             };
             let [a, b] = [&question.files[0], &question.files[1]];
-            Verdicts::append(verdicts_file, same, a, b)
+            writer
+                .append(same, a, b)
                 .map(Applied::VerdictLine)
                 .map_err(Refusal::Io)
         }
@@ -127,13 +137,18 @@ pub fn apply(question: &Question, value: &str, verdicts_file: &Path) -> Result<A
 /// Removes `appended` from the end of the verdicts file if it is still
 /// the file's whole last line, byte for byte; otherwise leaves the file
 /// alone. (`appended` may start with the newline that ended the line
-/// before it.)
+/// before it.) The file is locked while it is compared and shortened, as
+/// `VerdictsWriter` locks it.
 pub fn take_back(appended: &str, verdicts_file: &Path) -> Result<TakenBack, String> {
-    let bytes = match fs::read(verdicts_file) {
-        Ok(bytes) => bytes,
+    let file = match OpenOptions::new().write(true).open(verdicts_file) {
+        Ok(file) => file,
         Err(error) if error.kind() == std::io::ErrorKind::NotFound => return Ok(TakenBack::Left),
-        Err(error) => return Err(format!("cannot read {}: {error}", verdicts_file.display())),
+        Err(error) => return Err(format!("cannot open {}: {error}", verdicts_file.display())),
     };
+    file.lock()
+        .map_err(|error| format!("cannot lock {}: {error}", verdicts_file.display()))?;
+    let bytes = fs::read(verdicts_file)
+        .map_err(|error| format!("cannot read {}: {error}", verdicts_file.display()))?;
     let Some(kept) = bytes.strip_suffix(appended.as_bytes()) else {
         return Ok(TakenBack::Left);
     };
@@ -143,11 +158,7 @@ pub fn take_back(appended: &str, verdicts_file: &Path) -> Result<TakenBack, Stri
     if !whole_line {
         return Ok(TakenBack::Left);
     }
-    let length = kept.len() as u64;
-    OpenOptions::new()
-        .write(true)
-        .open(verdicts_file)
-        .and_then(|file| file.set_len(length))
+    file.set_len(kept.len() as u64)
         .map_err(|error| format!("cannot shorten {}: {error}", verdicts_file.display()))?;
     Ok(TakenBack::Removed)
 }

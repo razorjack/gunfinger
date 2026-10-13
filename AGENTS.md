@@ -180,8 +180,11 @@ Invariants:
   timeout (`gunfinger_core::decode::watch`, ADR 0018).
 - The answer log is append-only; undo appends a record. A verdict line is
   removed only while it is still the verdicts file's whole last line,
-  byte for byte. Answers run one at a time in a server; run one server
-  at a time on a log (they are not locked against each other).
+  byte for byte. Answers run one at a time in a server. A server holds
+  the answer log's file lock while it runs, and a second server on the
+  same log exits with a message instead of waiting; verdict lines are
+  checked and written under the verdicts file's lock, which `pair-review`
+  takes too (ADR 0016, "One writer").
 - No build step, no Node, no new crate.
 
 Adding a kind of question:

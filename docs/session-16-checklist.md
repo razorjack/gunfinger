@@ -45,8 +45,14 @@ for scope and rules.
   the same watcher; tests through `Decoder` (stand-in scripts, a 0.5 s
   timeout, `PATH` untouched): 5 in `watch`, 1 in `tests/stalls.rs`, 1 on
   the page
-- [ ] 6. `rust-version` 1.89; the answer log and the verdicts file locked
-  against a second server; decided, documented, tested
+- [x] 6. `rust-version` 1.89 (README's prerequisites); the lints it turns
+  on fixed (`as_chunks`, a `let` chain, `is_multiple_of`); a server holds
+  the answer log's lock (`AnswerBook::lock_log`) and a second server on
+  the same log exits with a message instead of waiting (decided: the
+  running server is the one to answer in); verdicts checked and appended
+  under the verdicts file's lock (`clusters::VerdictsWriter`), which undo
+  and `pair-review` take too, waiting for each other; ADR 0016 "One
+  writer", `docs/audition-questions.md`, AGENTS.md; 3 tests
 - [ ] 7. Read-only review of the session's code by a subagent; fixes
 
 ## Wrap-up

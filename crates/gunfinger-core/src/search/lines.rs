@@ -558,7 +558,7 @@ pub(super) mod tests {
             .map(|_| {
                 let asset = (next() % u64::from(assets)) as u32;
                 let anchor = (next() % 2000) as u32;
-                let frame = if asset % 7 == 0 && next() % 2 == 0 {
+                let frame = if asset.is_multiple_of(7) && next().is_multiple_of(2) {
                     points[anchor as usize].frame as u32 + 1000 + asset % 50 + (next() % 3) as u32
                 } else {
                     (next() % 4000) as u32

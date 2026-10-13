@@ -13,7 +13,7 @@ use std::io::{BufRead, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
-use crate::clusters::Verdicts;
+use crate::clusters::{Verdicts, VerdictsWriter};
 
 const KEYS: &str =
     "s same, d different, Enter or n next clip, p previous clip, r replay, k skip the item, q quit";
@@ -263,7 +263,7 @@ pub fn review(
         }
         match listen(item, input, output, &mut play)? {
             Decision::Verdict(same) => {
-                Verdicts::append(verdicts_file, same, &item.pair.0, &item.pair.1)?;
+                VerdictsWriter::lock(verdicts_file)?.append(same, &item.pair.0, &item.pair.1)?;
                 outcome.written += 1;
                 let word = if same { "same" } else { "different" };
                 say(

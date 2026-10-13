@@ -184,12 +184,18 @@ documents every field. The principles:
   Otherwise the file is left alone and the page says so.
 - **One writer.** Answers and undos run under one lock in the server and
   read the log and the verdicts file again each time, so a hand edit in
-  between is seen. Two servers on one log are not locked against each
-  other: the standard library's file lock (`File::try_lock`) needs Rust
-  1.89, above the workspace's declared 1.85. Since every write reads
-  both files first, two servers (or `pair-review` beside one) interleave
-  correctly unless two answers land within the same few milliseconds.
-  Run one `audition` at a time.
+  between is seen. Since 2026-10-13 (session 16, the workspace on Rust
+  1.89) files are locked too, with the standard library's advisory file
+  lock (`flock` on macOS):
+  - A server holds the answer log's lock while it runs
+    (`AnswerBook::lock_log`). A second server on the same log says that
+    another server is answering into it and exits before it listens; it
+    does not wait, because the server already running is the one to
+    answer in, and a waiting server would look like one that hangs.
+  - A verdict is checked against the verdicts file and appended under
+    that file's lock (`clusters::VerdictsWriter`), and undo compares and
+    shortens the file under it; `pair-review` appends under it too. These
+    writers wait for each other, for the milliseconds a write takes.
 
 ## Consequences
 

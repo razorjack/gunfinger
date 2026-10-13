@@ -758,26 +758,6 @@ impl Verdicts {
             .map(|verdict| verdict.same)
     }
 
-    /// Appends `same|different<TAB>a<TAB>b` to `path`, starting a new line
-    /// if the file does not end with one, and returns the bytes appended.
-    pub fn append(path: &Path, same: bool, a: &str, b: &str) -> Result<String, String> {
-        let ends_with_newline =
-            fs::read(path).map_or(true, |bytes| bytes.last().is_none_or(|&last| last == b'\n'));
-        let mut file = fs::OpenOptions::new()
-            .create(true)
-            .append(true)
-            .open(path)
-            .map_err(|error| format!("cannot open {}: {error}", path.display()))?;
-        let word = if same { "same" } else { "different" };
-        let line = format!(
-            "{}{word}\t{a}\t{b}\n",
-            if ends_with_newline { "" } else { "\n" }
-        );
-        file.write_all(line.as_bytes())
-            .map_err(|error| format!("cannot write {}: {error}", path.display()))?;
-        Ok(line)
-    }
-
     fn judged_different(&self) -> impl Iterator<Item = (&str, &str)> {
         self.verdicts
             .iter()
@@ -879,6 +859,49 @@ impl Searched {
             )),
             None => None,
         }
+    }
+}
+
+/// The verdicts file opened for one write, locked against every other
+/// writer (another `audition` server, `pair-review`) until it is dropped,
+/// so that a check of the file and the line it leads to cannot interleave
+/// with another writer's.
+pub struct VerdictsWriter {
+    file: fs::File,
+    path: PathBuf,
+}
+
+impl VerdictsWriter {
+    /// Opens `path`, creating it, and waits for its lock: writers hold it
+    /// for the milliseconds a write takes.
+    pub fn lock(path: &Path) -> Result<VerdictsWriter, String> {
+        let file = fs::OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(path)
+            .map_err(|error| format!("cannot open {}: {error}", path.display()))?;
+        file.lock()
+            .map_err(|error| format!("cannot lock {}: {error}", path.display()))?;
+        Ok(VerdictsWriter {
+            file,
+            path: path.to_owned(),
+        })
+    }
+
+    /// Appends `same|different<TAB>a<TAB>b`, starting a new line if the
+    /// file does not end with one, and returns the bytes appended.
+    pub fn append(&mut self, same: bool, a: &str, b: &str) -> Result<String, String> {
+        let ends_with_newline = fs::read(&self.path)
+            .map_or(true, |bytes| bytes.last().is_none_or(|&last| last == b'\n'));
+        let word = if same { "same" } else { "different" };
+        let line = format!(
+            "{}{word}\t{a}\t{b}\n",
+            if ends_with_newline { "" } else { "\n" }
+        );
+        self.file
+            .write_all(line.as_bytes())
+            .map_err(|error| format!("cannot write {}: {error}", self.path.display()))?;
+        Ok(line)
     }
 }
 
@@ -1212,6 +1235,36 @@ mod tests {
     use gunfinger_core::store::RecordHeader;
 
     use super::*;
+
+    #[test]
+    fn a_writer_waits_for_the_verdicts_file_until_the_other_writer_is_done() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-verdicts-writer-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("pair-verdicts.txt");
+
+        let mut first = VerdictsWriter::lock(&path).unwrap();
+        let second = std::thread::spawn({
+            let path = path.clone();
+            move || {
+                VerdictsWriter::lock(&path)
+                    .unwrap()
+                    .append(false, "c.mp3", "d.mp3")
+                    .unwrap();
+            }
+        });
+        // The second writer is waiting for the lock meanwhile.
+        std::thread::sleep(Duration::from_millis(200));
+        first.append(true, "a.mp3", "b.mp3").unwrap();
+        drop(first);
+        second.join().unwrap();
+
+        assert_eq!(
+            fs::read_to_string(&path).unwrap(),
+            "same\ta.mp3\tb.mp3\ndifferent\tc.mp3\td.mp3\n"
+        );
+    }
 
     #[test]
     fn the_alignment_covering_more_counts() {

@@ -37,13 +37,12 @@ pub struct Options {
 const READ_TIMEOUT: Duration = Duration::from_secs(30);
 
 pub fn serve(options: &Options) -> Result<(), String> {
-    let session = Session::load(
-        &options.question_files,
-        AnswerBook {
-            log: options.answers.clone(),
-            verdicts: options.verdicts.clone(),
-        },
-    )?;
+    let book = AnswerBook {
+        log: options.answers.clone(),
+        verdicts: options.verdicts.clone(),
+    };
+    let _log_lock = book.lock_log()?;
+    let session = Session::load(&options.question_files, book)?;
     let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, options.port))
         .map_err(|error| format!("cannot listen on 127.0.0.1:{}: {error}", options.port))?;
     let port = listener
@@ -386,6 +385,28 @@ mod tests {
 
     fn text(response: &Response) -> String {
         String::from_utf8(response.body.clone()).unwrap()
+    }
+
+    #[test]
+    fn a_server_refuses_to_start_on_a_log_another_server_holds() {
+        let dir = scratch("second-server");
+        let book = AnswerBook {
+            log: dir.join("answers.jsonl"),
+            verdicts: dir.join("pair-verdicts.txt"),
+        };
+        let _held = book.lock_log().unwrap();
+
+        let refused = serve(&Options {
+            question_files: Vec::new(),
+            answers: book.log.clone(),
+            verdicts: book.verdicts.clone(),
+            work: dir.clone(),
+            open_browser: false,
+            port: 0,
+        })
+        .unwrap_err();
+
+        assert!(refused.contains("is answering into"), "{refused}");
     }
 
     #[test]

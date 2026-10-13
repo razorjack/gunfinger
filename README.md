@@ -65,7 +65,7 @@ The design decisions and the measurements behind them are in `docs/adr/` and
 
 ## Prerequisites
 
-- Rust stable with edition 2024 support (`rust-toolchain.toml`).
+- Rust 1.89 or later, stable (`rust-toolchain.toml`).
 - `ffmpeg` and `ffprobe` on `PATH` (for example `brew install ffmpeg`).
 
 Developed on macOS (Apple M1 Pro, 10 cores) with Rust 1.98 and FFmpeg 9.0.1.
@@ -543,6 +543,9 @@ to the verdicts file as the line `pair-review` would write. Keys:
 
 Click or drag a waveform to seek, click a marker to jump to it, click a
 question in the queue to open it.
+
+One server answers into a log at a time: a second `audition` on the same
+log says so and exits.
 
 The sweep's held-out recordings and excerpts for each seed are drawn the
 first time the seed is used and kept in `docs/panels/`, so the same
