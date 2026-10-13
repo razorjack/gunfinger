@@ -2328,3 +2328,16 @@ session; every timing ran old and new builds A B B A.
     with the start build. `scripts/check.sh` green (346 tests). One
     mistake on the way: `s17-h` and `s17-hd` were built with parts of
     8,192 left from a trial; the acceptance was repeated with 4,096.
+- Step 3, indexing speed (experiment 0099), from 06:27: first `index`
+  runs into scratch stores (`work/s17/scratch/`, `--config /dev/null`),
+  never the NAS store; the corpus library (265 records, 29.58 h) and the
+  NAS folder `__youtube_archivists/error-bat` (187 records, 18.93 h,
+  chosen because it holds no 0065 candidate; `dnbfreak0` holds one). A B
+  B A: corpus 49.4-49.5 s against 51.3-51.7 s, the NAS folder 35.2-35.4 s
+  against 36.6-36.7 s; every file of the four stores of each series
+  identical. FFmpeg alone on the corpus: 43.7 s, 255 s user, 165 s sys,
+  so FFmpeg is about 86% of a first index's CPU; Gunfinger's own CPU
+  (sampled) 67 s -> 35 s, peak picking 38 s -> 9 s. No change beyond
+  0097: the run is within 13% of FFmpeg alone, whose options are fixed.
+  A full first index of the NAS collection: about 1.78 h instead of 1.84
+  h at the folder's rate.

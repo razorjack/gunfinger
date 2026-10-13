@@ -26,8 +26,12 @@ for scope and rules.
   `regress session-17-start` identical, 151.7 s against 200.8 s;
   `scripts/check.sh` green (346 tests). Rejected: two-pass grouping,
   run maxima, counting while taking, parts of 1,024 and 8,192
-- [ ] 3. Indexing speed: profile on scratch stores (corpus library, one
-  NAS folder); a change only with bit-identical records; an experiment
+- [x] 3. Indexing speed (experiment 0099): first runs into scratch stores
+  (corpus library 29.58 h; NAS folder `__youtube_archivists/error-bat`
+  18.93 h, no 0065 candidate), A B B A: 4% and 3.5% faster with 0097's
+  picker, every record and tag note identical. FFmpeg is 86% of the
+  CPU (its options fixed); Gunfinger's own CPU 67 s -> 35 s on the
+  corpus. No further change
 - [ ] 4a. Listening questions for Watermelon ~ 300 Baud - Monotone and
   Falcon - Fractles ~ Ryme Tyme - We Enter (shared material / chance /
   unsure), outside the default queue; the page checked with a temporary

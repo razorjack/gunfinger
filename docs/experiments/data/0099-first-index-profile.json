@@ -1,0 +1,89 @@
+{
+ "experiment": "0099",
+ "first index into scratch stores, --config /dev/null, 10 jobs; every file of the four stores of each series identical": true,
+ "NAS folder __youtube_archivists/error-bat (187 records, 18.93 h)": [
+  {
+   "label": "eb1-s17-start",
+   "wall s": 36.56,
+   "user s": 219.63,
+   "sys s": 125.58,
+   "peak GB": 0.866
+  },
+  {
+   "label": "eb2-s17-step2",
+   "wall s": 35.41,
+   "user s": 199.14,
+   "sys s": 125.68,
+   "peak GB": 0.861
+  },
+  {
+   "label": "eb3-s17-step2",
+   "wall s": 35.18,
+   "user s": 195.14,
+   "sys s": 121.33,
+   "peak GB": 0.864
+  },
+  {
+   "label": "eb4-s17-start",
+   "wall s": 36.7,
+   "user s": 216.32,
+   "sys s": 121.59,
+   "peak GB": 0.886
+  }
+ ],
+ "corpus/library (265 records, 29.58 h)": [
+  {
+   "label": "co1-s17-start",
+   "wall s": 51.66,
+   "user s": 319.78,
+   "sys s": 168.46,
+   "peak GB": 0.941
+  },
+  {
+   "label": "co2-s17-step2",
+   "wall s": 49.47,
+   "user s": 295.29,
+   "sys s": 175.17,
+   "peak GB": 0.931
+  },
+  {
+   "label": "co3-s17-step2",
+   "wall s": 49.43,
+   "user s": 295.39,
+   "sys s": 176.39,
+   "peak GB": 0.947
+  },
+  {
+   "label": "co4-s17-start",
+   "wall s": 51.26,
+   "user s": 319.44,
+   "sys s": 167.72,
+   "peak GB": 0.951
+  }
+ ],
+ "FFmpeg alone on the corpus, the same command, 10 at a time": {
+  "wall s": 43.72,
+  "user s": 255.12,
+  "sys s": 165.45
+ },
+ "gunfinger's own CPU samples (10 ms), corpus": {
+  "s17-start": {
+   "cpu samples": 6728,
+   "STFT and peak picking": 5676,
+   "PeakPicker::pick": 3770,
+   "reading FFmpeg's output, spawning": 802,
+   "store writes": 244
+  },
+  "s17-step2": {
+   "cpu samples": 3475,
+   "STFT and peak picking": 2487,
+   "PeakPicker::pick": 902,
+   "reading FFmpeg's output, spawning": 738,
+   "store writes": 246
+  }
+ },
+ "gunfinger's own CPU samples, NAS folder, s17-start": {
+  "STFT and peak picking": 3503,
+  "PeakPicker::pick": 2340
+ }
+}
