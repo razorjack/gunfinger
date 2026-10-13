@@ -1,7 +1,7 @@
 //! FFmpeg and FFprobe as child processes that must keep writing.
 //!
-//! A run that writes nothing to stdout for the stall timeout is killed and
-//! reported as stalled. The timeout counts silence, not the whole run, so a
+//! A run that writes nothing, to stdout or stderr, for the stall timeout is
+//! killed and reported as stalled. The timeout counts silence, not the whole run, so a
 //! two-hour mix on a slow share still decodes. A file on a network share
 //! that hangs can leave the child in an uninterruptible read, where even a
 //! kill waits for the share to answer; so stdout and stderr are read on
@@ -29,16 +29,16 @@ pub enum Run<T> {
     Stalled,
 }
 
-/// Stdout of a watched child: every read that returns data tells the
-/// watcher that the child is still writing.
-pub struct Heartbeat<T> {
-    stdout: ChildStdout,
+/// Stdout (or stderr) of a watched child: every read that returns data
+/// tells the watcher that the child is still writing.
+pub struct Heartbeat<T, R = ChildStdout> {
+    pipe: R,
     events: Sender<Event<T>>,
 }
 
-impl<T> Read for Heartbeat<T> {
+impl<T, R: Read> Read for Heartbeat<T, R> {
     fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize> {
-        let read = self.stdout.read(buffer)?;
+        let read = self.pipe.read(buffer)?;
         if read > 0 {
             // The watcher stops listening only after a stall.
             let _ = self.events.send(Event::Beat);
@@ -54,8 +54,8 @@ enum Event<T> {
 }
 
 /// Runs `command` with stdin closed and stdout and stderr piped, passing
-/// stdout to `read` on its own thread. Errors only when the child cannot be
-/// started.
+/// stdout to `read` on its own thread. Errors only when the child or a
+/// thread to read it cannot be started.
 pub fn run<T: Send + 'static>(
     command: &mut Command,
     stall: Duration,
@@ -67,24 +67,9 @@ pub fn run<T: Send + 'static>(
         .stderr(Stdio::piped())
         .spawn()?;
     let (events, watched) = mpsc::channel();
-    if let Some(stdout) = child.stdout.take() {
-        let events = events.clone();
-        thread::spawn(move || {
-            let output = read(Heartbeat {
-                stdout,
-                events: events.clone(),
-            });
-            let _ = events.send(Event::Output(output));
-        });
-    }
-    if let Some(mut stderr) = child.stderr.take() {
-        thread::spawn(move || {
-            let mut bytes = Vec::new();
-            // A read error only loses diagnostics; the exit status decides.
-            let _ = stderr.read_to_end(&mut bytes);
-            let text = String::from_utf8_lossy(&bytes).into_owned();
-            let _ = events.send(Event::Diagnostics(text));
-        });
+    if let Err(error) = start_readers(&mut child, read, events) {
+        give_up(child);
+        return Err(error);
     }
     let mut output = None;
     let mut diagnostics = None;
@@ -118,6 +103,43 @@ pub fn run<T: Send + 'static>(
     })
 }
 
+fn start_readers<T: Send + 'static>(
+    child: &mut Child,
+    read: impl FnOnce(Heartbeat<T>) -> io::Result<T> + Send + 'static,
+    events: Sender<Event<T>>,
+) -> io::Result<()> {
+    if let Some(stdout) = child.stdout.take() {
+        let events = events.clone();
+        spawn(move || {
+            let output = read(Heartbeat {
+                pipe: stdout,
+                events: events.clone(),
+            });
+            let _ = events.send(Event::Output(output));
+        })?;
+    }
+    if let Some(stderr) = child.stderr.take() {
+        spawn(move || {
+            let mut bytes = Vec::new();
+            // A read error only loses diagnostics; the exit status decides.
+            let _ = Heartbeat {
+                pipe: stderr,
+                events: events.clone(),
+            }
+            .read_to_end(&mut bytes);
+            let text = String::from_utf8_lossy(&bytes).into_owned();
+            let _ = events.send(Event::Diagnostics(text));
+        })?;
+    }
+    Ok(())
+}
+
+/// Starts a thread, or says why the system refused one: a share that stays
+/// hung leaves a few threads behind for each file that stalled.
+fn spawn(work: impl FnOnce() + Send + 'static) -> io::Result<()> {
+    thread::Builder::new().spawn(work).map(drop)
+}
+
 /// The child's exit status, polled until `stall` has passed: with both
 /// pipes closed it is exiting, unless it hangs on its input.
 fn exit_status(child: &mut Child, stall: Duration) -> Option<io::Result<ExitStatus>> {
@@ -138,7 +160,8 @@ fn exit_status(child: &mut Child, stall: Duration) -> Option<io::Result<ExitStat
 fn give_up(mut child: Child) {
     // It may have exited already.
     let _ = child.kill();
-    thread::spawn(move || {
+    // Without a thread the child stays unreaped until Gunfinger exits.
+    let _ = spawn(move || {
         let _ = child.wait();
     });
 }
@@ -146,16 +169,17 @@ fn give_up(mut child: Child) {
 /// Calls `work` on a thread of its own and waits at most `stall` for its
 /// result: for reads of a file that can block in-process, such as the
 /// first bytes `Container::of` reads. `None` if it did not finish in time;
-/// the thread then ends whenever the read returns.
+/// the thread then ends whenever the read returns. An error only when the
+/// thread cannot be started.
 pub fn within<T: Send + 'static>(
     stall: Duration,
     work: impl FnOnce() -> T + Send + 'static,
-) -> Option<T> {
+) -> io::Result<Option<T>> {
     let (sender, result) = mpsc::channel();
-    thread::spawn(move || {
+    spawn(move || {
         let _ = sender.send(work());
-    });
-    result.recv_timeout(stall).ok()
+    })?;
+    Ok(result.recv_timeout(stall).ok())
 }
 
 #[cfg(test)]
@@ -194,6 +218,23 @@ mod tests {
             ffprobe,
             stall: STALL,
         }
+    }
+
+    /// Whether process `pid` still runs, asked for up to 2 s.
+    fn still_runs(pid: &str) -> bool {
+        for _ in 0..200 {
+            let alive = Command::new("kill")
+                .args(["-0", pid])
+                .stderr(Stdio::null())
+                .status()
+                .unwrap()
+                .success();
+            if !alive {
+                return false;
+            }
+            thread::sleep(Duration::from_millis(10));
+        }
+        true
     }
 
     #[test]
@@ -236,22 +277,12 @@ mod tests {
             ),
             "{message}"
         );
-        // The stand-in was killed, not left sleeping.
-        let pid = fs::read_to_string(&pid).unwrap();
-        let mut alive = true;
-        for _ in 0..200 {
-            alive = Command::new("kill")
-                .args(["-0", pid.trim()])
-                .stderr(Stdio::null())
-                .status()
-                .unwrap()
-                .success();
-            if !alive {
-                break;
-            }
-            thread::sleep(Duration::from_millis(10));
+        // The stand-in was killed, not left sleeping. (On a loaded machine
+        // it may be killed before it writes its pid.)
+        if let Ok(pid) = fs::read_to_string(&pid) {
+            assert!(!still_runs(pid.trim()), "process {} still runs", pid.trim());
         }
-        assert!(!alive, "process {} still runs", pid.trim());
+        let _ = fs::remove_dir_all(&dir);
     }
 
     #[test]
@@ -259,19 +290,49 @@ mod tests {
         let dir = scratch("slow");
         let audio = dir.join("slow.mp3");
         fs::write(&audio, b"ID3").unwrap();
-        // One sample every 0.2 s for 1.4 s in all: longer than the stall
+        // One sample every 0.2 s for 2.8 s in all: longer than the stall
         // timeout, never silent for as long.
         let slow = stand_in(
             &dir,
             "ffmpeg",
-            "for i in 1 2 3 4 5 6 7; do printf '\\000\\000\\200\\077'; sleep 0.2; done",
+            "for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14; do printf '\\000\\000\\200\\077'; sleep 0.2; done",
+        );
+        let patient = Decoder {
+            stall: Duration::from_secs(2),
+            ..decoder(slow.clone(), slow)
+        };
+
+        let audio = patient.decode(&audio, 8000, Excerpt::default()).unwrap();
+
+        assert_eq!(audio.samples, [1.0; 14]);
+        let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn a_child_that_writes_only_diagnostics_is_still_running() {
+        let dir = scratch("diagnostics");
+        // Silent on stdout for 2.8 s, more than twice the stall timeout,
+        // while it writes to stderr.
+        let chatty = stand_in(
+            &dir,
+            "chatty",
+            "for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14; do echo 'damaged frame' >&2; sleep 0.2; done\nprintf done",
         );
 
-        let audio = decoder(slow.clone(), slow)
-            .decode(&audio, 8000, Excerpt::default())
-            .unwrap();
+        let run = run(&mut Command::new(chatty), Duration::from_secs(1), read_all).unwrap();
 
-        assert_eq!(audio.samples, [1.0; 7]);
+        let Run::Finished {
+            output,
+            status,
+            diagnostics,
+        } = run
+        else {
+            panic!("{run:?}")
+        };
+        assert_eq!(output.unwrap(), b"done");
+        assert!(status.success());
+        assert_eq!(diagnostics.lines().count(), 14, "{diagnostics}");
+        let _ = fs::remove_dir_all(&dir);
     }
 
     #[test]
@@ -296,6 +357,7 @@ mod tests {
             "{stalled:?}"
         );
         assert!(matches!(unreadable, Ok(None)), "{unreadable:?}");
+        let _ = fs::remove_dir_all(&dir);
     }
 
     #[test]
@@ -306,14 +368,16 @@ mod tests {
         let run = run(&mut Command::new(lingers), STALL, read_all).unwrap();
 
         assert!(matches!(run, Run::Stalled), "{run:?}");
+        let _ = fs::remove_dir_all(&dir);
     }
 
     #[test]
     fn work_that_does_not_finish_in_time_is_given_up() {
         let slow = within(Duration::from_millis(50), || {
             thread::sleep(Duration::from_secs(2));
-        });
-        let quick = within(Duration::from_secs(2), || 42);
+        })
+        .unwrap();
+        let quick = within(Duration::from_secs(2), || 42).unwrap();
 
         assert_eq!(slow, None);
         assert_eq!(quick, Some(42));

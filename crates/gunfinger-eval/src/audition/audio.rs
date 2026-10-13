@@ -2,8 +2,9 @@
 //! with explicit arguments, never a shell): windows of a file as WAV, which
 //! every browser decodes, and waveform envelopes, cached under the work
 //! directory. A decode that writes nothing for the core's stall timeout
-//! (`gunfinger_core::decode::STALL`) fails, so a share that hangs does not
-//! hold a request forever.
+//! (`gunfinger_core::decode::STALL`) fails, so a decode on a share that
+//! hangs does not hold a request forever; reading a file's size and date
+//! for the envelope cache still can.
 //!
 //! A window is 30 s of one file, numbered from its start: window `k` holds
 //! file time `30k` to `30k + 30`. MP3 and Opus decoders need a few frames

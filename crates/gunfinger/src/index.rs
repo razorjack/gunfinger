@@ -79,7 +79,7 @@ pub fn run(
         .count();
     if failed > 0 {
         return Err(miette!(
-            "{failed} of {total} audio files could not be indexed; see the errors above and run index again after correcting them"
+            "{failed} of {total} audio files could not be indexed; see the errors above, deal with their causes and run index again"
         ));
     }
     Ok(())

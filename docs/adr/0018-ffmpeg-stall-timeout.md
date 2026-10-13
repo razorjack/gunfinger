@@ -20,13 +20,17 @@ listening page (notes, "A timeout on FFmpeg").
 ## Decision
 
 - **A stall timeout, not a total one.** `gunfinger_core::decode::STALL`
-  is 120 s. A run of `ffmpeg` that writes nothing to stdout for that long
-  is killed and the file fails with `DecodeError::Stalled`: "<path> could
-  not be read: nothing came from `ffmpeg` for 120 s, so it was stopped.
-  The storage holding the file may be unresponsive, such as a NAS that
-  hangs; check that the file opens, then try again". A decode writes
-  about 32 KB per second of 8 kHz audio, every fraction of a second,
-  however long the file, so a two-hour mix on a slow share still decodes.
+  is 120 s. A run of `ffmpeg` that writes nothing, to stdout or stderr,
+  for that long is killed and the file fails with `DecodeError::Stalled`:
+  "<path> could not be read: nothing came from `ffmpeg` for 120 s, so it
+  was stopped. The storage holding the file may be unresponsive, such as
+  a NAS that hangs; check that the file opens, then try again". A decode
+  writes about 32 KB per second of 8 kHz audio, every fraction of a
+  second, however long the file, so a two-hour mix on a slow share still
+  decodes.
+  Diagnostics count as activity too: a damaged file on a slow share may
+  write only errors for a while, and it should end as a failed decode,
+  which `index` remembers, rather than as a stall, which it does not.
   The same limit applies to `ffprobe` (which writes only at its end, after
   reading a header), to the wait for the child to exit once its output has
   closed, and to the first bytes Gunfinger reads itself to choose how
@@ -42,7 +46,9 @@ listening page (notes, "A timeout on FFmpeg").
   share does not die until the read returns, even when killed. Stdout and
   stderr are read on threads of their own, and the killed child is reaped
   on another; the caller waits for none of them after a stall, and they
-  end when the child does (`decode::watch`).
+  end when the child does (`decode::watch`). If the system refuses a new
+  thread, the file fails with that error (`DecodeError::Spawn`, not
+  remembered) instead of the run stopping.
 - **`index`: failed for this run only.** A stalled file is reported as
   failed and counted in the run's failures (the run exits unsuccessfully),
   but it is not remembered in the peak store the way a damaged file is
@@ -59,15 +65,21 @@ listening page (notes, "A timeout on FFmpeg").
 - **A seam for tests.** `Decoder` holds the paths of `ffmpeg` and
   `ffprobe` and the timeout; `Decoder::default()` runs them from `PATH`
   with `STALL`. Tests point it at stand-in shell scripts in temporary
-  folders with a 0.5 s timeout, never changing `PATH`. `IndexingOptions`
-  carries the decoder.
+  folders, never changing `PATH`: 0.5-2 s where only stand-ins run, 5 s
+  where the real programs run beside them, so a loaded machine does not
+  fail a healthy run. `IndexingOptions` carries the decoder.
 
 ## Consequences
 
 - A share that hangs fails each file after two minutes instead of
   stopping the run. If it never answers again, every remaining file of an
   `index` run waits its two minutes on each worker; the run ends, slowly.
-  Stopping a run after many stalls in a row would be a separate decision.
+  Each stalled file leaves its killed child and up to three threads
+  waiting until the share answers. Stopping a run after many stalls in a
+  row would be a separate decision.
+- A tracklist of an older report, whose plays carry no tags, names them
+  from the files' tags with `ffprobe` under the same timeout, each file
+  once per output.
 - Calls outside FFmpeg still block on a hung share: listing the library
   (`Library::scan`), reading a file's size and modification time, and
   opening the recording `identify` checks first. They are outside this

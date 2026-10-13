@@ -81,9 +81,15 @@ impl Entry<'_> {
     }
 
     /// Whether a confident play's file gives the entry another title than
-    /// the first play's file (`FoundPlay::other_titles`).
+    /// the first play's file (`FoundPlay::other_titles`), or the files of
+    /// the entry's confident plays carry more than one title between them:
+    /// plays joined through a third need not be one recording themselves.
     pub fn titles_disagree(&self) -> bool {
+        let mut titles = self.plays.iter().flat_map(|play| play.compared_titles());
         self.plays.iter().any(|play| !play.other_titles.is_empty())
+            || titles
+                .next()
+                .is_some_and(|first| titles.any(|title| title != first))
     }
 
     /// The names of the other plays that differ from the first play's and
@@ -547,6 +553,47 @@ mod tests {
                 "{upload_tags:?}"
             );
         }
+    }
+
+    #[test]
+    fn files_titled_otherwise_in_one_entry_disagree_though_they_do_not_line_up() {
+        let mut report = report();
+        report.plays[1].tags = tagged(Some("Dj Hidden"), Some("Skektics"));
+        // 4 s from b.wav's alignment, and 4 s more for the second: each lines
+        // up with the next, the first and the last do not.
+        let shifted = |asset: &str, seconds: f64, tags: Option<PlayTags>| {
+            let mut play = on_another_record(&report, 1, asset, 1.0);
+            play.track_start_seconds += seconds * play.speed;
+            play.hits -= 100;
+            play.tags = tags;
+            play
+        };
+        let untagged = shifted("upload.opus", 4.0, None);
+        let titled = shifted(
+            "other.mp3",
+            8.0,
+            tagged(Some("Dj Hidden"), Some("Twisted Logic")),
+        );
+        report.plays.insert(2, untagged);
+        report.plays.insert(3, titled);
+        assert!(!report.plays[1].same_recording(&report.plays[3]));
+
+        let tracklist = tracklist(&report, |asset| match asset {
+            "b.wav" => TrackName::named(Some("Dj Hidden"), Some("Skektics"), asset),
+            "other.mp3" => TrackName::named(Some("Dj Hidden"), Some("Twisted Logic"), asset),
+            _ => names(asset),
+        });
+
+        assert_eq!(
+            assets_by_entry(&report)[1],
+            ["b.wav", "upload.opus", "other.mp3"]
+        );
+        assert!(
+            tracklist.contains(
+                " 2.    0:38  Dj Hidden - Skektics  (titles disagree: upload, Dj Hidden - Twisted Logic)\n"
+            ),
+            "{tracklist}"
+        );
     }
 
     #[test]

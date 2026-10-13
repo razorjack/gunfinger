@@ -1,7 +1,8 @@
-//! `index` on a library where one file's decode hangs, as a file on a NAS
-//! that stops answering does: a stand-in for FFmpeg, in a temporary folder,
-//! hangs on that file and runs the real `ffmpeg` for the others. `PATH` is
-//! left alone. Skipped when FFmpeg is not installed.
+//! `index` on a library where one file's decode or header read hangs, as a
+//! file on a NAS that stops answering does: a stand-in for FFmpeg or
+//! FFprobe, in a temporary folder, hangs on that file and runs the real
+//! program for the others. `PATH` is left alone. Skipped when FFmpeg is not
+//! installed.
 
 // Fixture helpers run outside `#[test]` functions, where a panic is the
 // clearest way to fail the test.
@@ -46,6 +47,47 @@ fn tone(path: &Path) {
     assert!(status.success());
 }
 
+/// Long enough for the real programs on a loaded machine.
+const STALL: Duration = Duration::from_secs(5);
+
+/// A stand-in for `program` that runs `on_hangs` for `hangs.wav` and the
+/// real program for every other file.
+fn stand_in(dir: &Path, program: &str, on_hangs: &str) -> PathBuf {
+    let path = dir.join(format!("{program}-{}", on_hangs.replace(' ', "-")));
+    fs::write(
+        &path,
+        format!(
+            "#!/bin/sh\ncase \"$*\" in\n  *hangs.wav*) {on_hangs} ;;\n  *) exec {program} \"$@\" ;;\nesac\n"
+        ),
+    )
+    .unwrap();
+    fs::set_permissions(&path, fs::Permissions::from_mode(0o755)).unwrap();
+    path
+}
+
+/// A library of two short tones, `fine.wav` and `hangs.wav`, and an empty
+/// peak store.
+fn library(dir: &Path) -> (Library, PeakStore) {
+    let library = dir.join("library");
+    fs::create_dir_all(&library).unwrap();
+    tone(&library.join("fine.wav"));
+    tone(&library.join("hangs.wav"));
+    (
+        Library::scan(&library).unwrap(),
+        PeakStore::open(&dir.join("peaks")).unwrap(),
+    )
+}
+
+fn index(library: &Library, store: &PeakStore, decoder: Decoder) -> Vec<Outcome> {
+    index_library(
+        library,
+        store,
+        &Profile::CURRENT,
+        &options(decoder),
+        |_, _| {},
+    )
+}
+
 fn options(decoder: Decoder) -> IndexingOptions {
     IndexingOptions {
         jobs: 2,
@@ -63,44 +105,20 @@ fn a_file_whose_decode_hangs_fails_for_this_run_only() {
     if !ffmpeg_available() {
         return;
     }
-    let dir = scratch("index");
-    let library = dir.join("library");
-    fs::create_dir_all(&library).unwrap();
-    tone(&library.join("fine.wav"));
-    tone(&library.join("hangs.wav"));
-    let ffmpeg = dir.join("ffmpeg");
-    fs::write(
-        &ffmpeg,
-        "#!/bin/sh\ncase \"$*\" in\n  *hangs.wav*) exec sleep 30 ;;\n  *) exec ffmpeg \"$@\" ;;\nesac\n",
-    )
-    .unwrap();
-    fs::set_permissions(&ffmpeg, fs::Permissions::from_mode(0o755)).unwrap();
+    let dir = scratch("decode");
+    let (library, store) = library(&dir);
     let hanging = Decoder {
-        ffmpeg,
-        ffprobe: PathBuf::from("ffprobe"),
-        stall: Duration::from_millis(500),
+        ffmpeg: stand_in(&dir, "ffmpeg", "exec sleep 60"),
+        stall: STALL,
+        ..Decoder::default()
     };
-    let library = Library::scan(&library).unwrap();
-    let store = PeakStore::open(&dir.join("peaks")).unwrap();
     let started = Instant::now();
 
-    let first = index_library(
-        &library,
-        &store,
-        &Profile::CURRENT,
-        &options(hanging),
-        |_, _| {},
-    );
+    let first = index(&library, &store, hanging);
     let waited = started.elapsed();
-    let second = index_library(
-        &library,
-        &store,
-        &Profile::CURRENT,
-        &options(Decoder::default()),
-        |_, _| {},
-    );
+    let second = index(&library, &store, Decoder::default());
 
-    assert!(waited < Duration::from_secs(10), "{waited:?}");
+    assert!(waited < Duration::from_secs(30), "{waited:?}");
     let [fine, hangs] = &first[..] else {
         panic!("{first:?}")
     };
@@ -109,7 +127,7 @@ fn a_file_whose_decode_hangs_fails_for_this_run_only() {
         panic!("{hangs:?}")
     };
     assert!(
-        reason.contains("hangs.wav could not be read: nothing came from `ffmpeg` for 0.5 s"),
+        reason.contains("hangs.wav could not be read: nothing came from `ffmpeg` for 5 s"),
         "{reason}"
     );
     assert!(store.skip_note(&library.assets[1]).is_none());
@@ -119,4 +137,53 @@ fn a_file_whose_decode_hangs_fails_for_this_run_only() {
         matches!(second[..], [Outcome::UpToDate, Outcome::Extracted { .. }]),
         "{second:?}"
     );
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn a_file_whose_header_read_hangs_fails_or_keeps_its_tags_for_the_next_run() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch("probe");
+    let (library, store) = library(&dir);
+    let decoder = |ffprobe| Decoder {
+        ffprobe,
+        stall: STALL,
+        ..Decoder::default()
+    };
+    let hanging = stand_in(&dir, "ffprobe", "exec sleep 60");
+    let unreadable = stand_in(&dir, "ffprobe", "exit 1");
+    let hangs = &library.assets[1];
+
+    let stalled = index(&library, &store, decoder(hanging.clone()));
+    assert!(store.skip_note(hangs).is_none());
+    // Indexed while its header could not be read: a record without tags.
+    let untagged = index(&library, &store, decoder(unreadable));
+    assert!(store.tags(hangs).is_none());
+    let stalled_tags = index(&library, &store, decoder(hanging));
+    assert!(store.tags(hangs).is_none());
+    let tagged = index(&library, &store, Decoder::default());
+
+    let [Outcome::Extracted { .. }, Outcome::Failed { reason }] = &stalled[..] else {
+        panic!("{stalled:?}")
+    };
+    assert!(
+        reason.contains("hangs.wav could not be read: nothing came from `ffprobe` for 5 s"),
+        "{reason}"
+    );
+    assert!(
+        matches!(untagged[..], [Outcome::UpToDate, Outcome::Extracted { .. }]),
+        "{untagged:?}"
+    );
+    assert!(
+        matches!(stalled_tags[..], [Outcome::UpToDate, Outcome::UpToDate]),
+        "{stalled_tags:?}"
+    );
+    assert!(
+        matches!(tagged[..], [Outcome::UpToDate, Outcome::Tagged]),
+        "{tagged:?}"
+    );
+    assert!(store.tags(hangs).is_some());
+    let _ = fs::remove_dir_all(&dir);
 }

@@ -7,6 +7,7 @@ use gunfinger_core::decode::probe;
 
 /// `artist - title` from a file's tags when it has a title, otherwise its
 /// file name.
+#[derive(Clone)]
 pub struct TrackName {
     pub artist: Option<String>,
     pub title: String,

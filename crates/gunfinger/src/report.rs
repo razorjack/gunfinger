@@ -538,6 +538,14 @@ impl FoundPlay {
         ))
     }
 
+    /// The title tags of a confident play's file and of its identical
+    /// copies, as titles are compared; none for other plays.
+    pub fn compared_titles(&self) -> impl Iterator<Item = String> + '_ {
+        self.tagged_files()
+            .filter(|_| self.confidence == Level::Confident)
+            .filter_map(|(_, tags)| compared_title(tags))
+    }
+
     fn tagged_files(&self) -> impl Iterator<Item = (&str, &PlayTags)> {
         self.tags
             .iter()

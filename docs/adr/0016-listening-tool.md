@@ -194,8 +194,10 @@ documents every field. The principles:
     answer in, and a waiting server would look like one that hangs.
   - A verdict is checked against the verdicts file and appended under
     that file's lock (`clusters::VerdictsWriter`), and undo compares and
-    shortens the file under it; `pair-review` appends under it too. These
-    writers wait for each other, for the milliseconds a write takes.
+    shortens the file under it. `pair-review` reads the file again under
+    it before appending and writes nothing for an item judged meanwhile.
+    These writers wait for each other, for the milliseconds a write
+    takes.
 
 ## Consequences
 

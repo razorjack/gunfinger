@@ -94,9 +94,9 @@ segment, speed and file path; JSON stays the format for programs and for
 
 ### One entry per track
 
-The tracklist and the cue sheet list tracks, not plays. Two plays of
-different files are one entry when they overlap for at least half of the
-shorter play (the overlap test of `same_recording`) and either:
+The tracklist and the cue sheet list tracks, not plays. Two plays are
+one entry when they overlap for at least half of the shorter play (the
+overlap test of `same_recording`) and either:
 
 - they are one recording on two records: with each file's own speed taken
   out, the track would have started at the same mix time, within 5 s
@@ -112,10 +112,10 @@ its file name, which is never read for titles. A possible play marked as
 sharing material with another recording is never grouped, by either test.
 Tags are never rewritten. The entry is named after its strongest play (a
 confident one first, then the most hits), and the other names the files
-give follow it (`also:`, or `titles disagree:` when confident plays of
-one recording in the entry carry other titles, `other_titles`); names
-that differ only in letter case are listed once, as before. The table of plays, CSV and JSON keep
-every play.
+give follow it (`also:`, or `titles disagree:` when the files of the
+entry's confident plays carry more than one title between them, compared
+as for `other_titles`); names that differ only in letter case are listed
+once, as before. The table of plays, CSV and JSON keep every play.
 
 Why: the 2003 development mix at NAS scale listed DJ Hidden - Skektics
 twice (42:13 and 42:15). An upload with about 40 s more lead-in than the

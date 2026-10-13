@@ -197,8 +197,14 @@ impl Decoder {
     /// of their own, as the read itself can hang on a share.
     pub fn container(&self, path: &Path) -> Result<Container, DecodeError> {
         let file = path.to_owned();
-        watch::within(self.stall, move || Container::of(&file))
-            .ok_or_else(|| self.stalled(path, "the file itself"))
+        match watch::within(self.stall, move || Container::of(&file)) {
+            Ok(Some(container)) => Ok(container),
+            Ok(None) => Err(self.stalled(path, "the file itself")),
+            Err(source) => Err(DecodeError::Spawn {
+                path: path.to_owned(),
+                source,
+            }),
+        }
     }
 
     /// Reads the declared length and the tags of `path`, at a fraction of

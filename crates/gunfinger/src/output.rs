@@ -1,5 +1,8 @@
 //! The formats a report can be written in.
 
+use std::cell::RefCell;
+use std::collections::HashMap;
+
 use clap::ValueEnum;
 use miette::IntoDiagnostic;
 
@@ -41,6 +44,8 @@ impl ReportFormat {
 /// `style` colours the table, the timeline and nothing else: the tracklist
 /// stays plain text to be copied.
 pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Result<String> {
+    // Names are asked for several times per entry; a file is read once.
+    let read = RefCell::new(HashMap::new());
     let name = |asset: &str| {
         let stored = report.plays.iter().find_map(|play| {
             if play.asset == asset {
@@ -51,7 +56,11 @@ pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Re
         });
         match stored {
             Some(tags) => TrackName::named(tags.artist.as_deref(), tags.title.as_deref(), asset),
-            None => TrackName::from_file(&report.library, asset),
+            None => read
+                .borrow_mut()
+                .entry(asset.to_owned())
+                .or_insert_with(|| TrackName::from_file(&report.library, asset))
+                .clone(),
         }
     };
     Ok(match format {

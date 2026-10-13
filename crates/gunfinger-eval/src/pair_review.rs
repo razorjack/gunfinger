@@ -213,7 +213,9 @@ fn key(line: &str) -> Key {
 
 /// Steps through the items without a verdict in `verdicts_file`, reading
 /// keys from `input`, writing to `output` and playing clips with `play`.
-/// Each verdict is appended as soon as it is given, so quitting keeps it.
+/// Each verdict is appended as soon as it is given, so quitting keeps it,
+/// unless the file has judged the item meanwhile (the listening page
+/// writes it too): the file is read again under its lock first.
 pub fn review(
     items: &[Item],
     verdicts_file: &Path,
@@ -222,16 +224,11 @@ pub fn review(
     mut play: impl FnMut(&Path) -> Result<(), String>,
 ) -> Result<Outcome, String> {
     let verdicts = Verdicts::load(verdicts_file)?;
-    let judged = |item: &Item| {
-        std::iter::once(&item.pair)
-            .chain(&item.related)
-            .any(|(a, b)| verdicts.judges(a, b))
-    };
     let mut outcome = Outcome::default();
     let open: Vec<&Item> = items
         .iter()
         .filter(|item| {
-            let before = judged(item);
+            let before = judged(&verdicts, item);
             outcome.judged_before += usize::from(before);
             !before
         })
@@ -263,7 +260,19 @@ pub fn review(
         }
         match listen(item, input, output, &mut play)? {
             Decision::Verdict(same) => {
-                VerdictsWriter::lock(verdicts_file)?.append(same, &item.pair.0, &item.pair.1)?;
+                let mut writer = VerdictsWriter::lock(verdicts_file)?;
+                if judged(&Verdicts::load(verdicts_file)?, item) {
+                    outcome.judged_before += 1;
+                    say(
+                        output,
+                        &format!(
+                            "{} judged this item while it was open; nothing written",
+                            verdicts_file.display()
+                        ),
+                    )?;
+                    continue;
+                }
+                writer.append(same, &item.pair.0, &item.pair.1)?;
                 outcome.written += 1;
                 let word = if same { "same" } else { "different" };
                 say(
@@ -282,6 +291,13 @@ pub fn review(
         }
     }
     Ok(outcome)
+}
+
+/// Whether `verdicts` judges the item's pair or a related pair.
+fn judged(verdicts: &Verdicts, item: &Item) -> bool {
+    std::iter::once(&item.pair)
+        .chain(&item.related)
+        .any(|(a, b)| verdicts.judges(a, b))
 }
 
 /// How an item's review ended.
@@ -580,6 +596,40 @@ Clips (8 s each):\n  1-control-a-then-b.mp3\n\n"
         );
         assert!(shown.contains("[2/2] item 3\nControl join\n"), "{shown}");
         assert!(!shown.contains("item 2\n"), "{shown}");
+    }
+
+    #[test]
+    fn a_verdict_written_elsewhere_while_an_item_is_open_is_not_contradicted() {
+        let dir = scratch("meanwhile");
+        let items = items(&pack(&dir)).unwrap();
+        let verdicts = dir.join("pair-verdicts.txt");
+        // The listening page answers item 1 while `pair-review` plays it.
+        let elsewhere =
+            "different\tsecond-library/y/sonar.mp3\tsecond-library/x/Sonar (Revision).opus\n";
+        let mut output = Vec::new();
+
+        let outcome = review(
+            &items,
+            &verdicts,
+            &mut "s\nq\n".as_bytes(),
+            &mut output,
+            |_| {
+                if !verdicts.exists() {
+                    fs::write(&verdicts, elsewhere).unwrap();
+                }
+                Ok(())
+            },
+        )
+        .unwrap();
+
+        assert_eq!(fs::read_to_string(&verdicts).unwrap(), elsewhere);
+        assert_eq!(outcome.written, 0);
+        assert_eq!(outcome.judged_before, 1);
+        let shown = String::from_utf8(output).unwrap();
+        assert!(
+            shown.contains("judged this item while it was open; nothing written"),
+            "{shown}"
+        );
     }
 
     #[test]

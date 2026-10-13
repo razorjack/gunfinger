@@ -183,8 +183,8 @@ Invariants:
   byte for byte. Answers run one at a time in a server. A server holds
   the answer log's file lock while it runs, and a second server on the
   same log exits with a message instead of waiting; verdict lines are
-  checked and written under the verdicts file's lock, which `pair-review`
-  takes too (ADR 0016, "One writer").
+  checked and written under the verdicts file's lock, by the server and
+  by `pair-review` (ADR 0016, "One writer").
 - No build step, no Node, no new crate.
 
 Adding a kind of question:

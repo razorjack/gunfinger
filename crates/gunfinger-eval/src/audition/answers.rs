@@ -8,8 +8,8 @@
 //! hand edit in between is seen; the server runs them one at a time. A
 //! server holds the log's lock while it runs (`AnswerBook::lock_log`), so
 //! a second server on the same log refuses to start; a verdict is checked
-//! and written under the verdicts file's lock (`VerdictsWriter`), which
-//! `pair-review` takes too.
+//! and written under the verdicts file's lock (`VerdictsWriter`), under
+//! which `pair-review` checks and writes too.
 //!
 //! An answer writes its effect first, then its log record. If the record
 //! cannot be written after a verdict line was appended, the line stays

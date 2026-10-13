@@ -53,7 +53,12 @@ for scope and rules.
   under the verdicts file's lock (`clusters::VerdictsWriter`), which undo
   and `pair-review` take too, waiting for each other; ADR 0016 "One
   writer", `docs/audition-questions.md`, AGENTS.md; 3 tests
-- [ ] 7. Read-only review of the session's code by a subagent; fixes
+- [x] 7. Read-only review of the session's code by a subagent; fixed:
+  `pair-review` reloads the verdicts under the lock; thread start
+  failures are errors; stderr counts as activity; the stall tests give
+  the real programs 5 s and cover a stalled header read; titles disagree
+  over the whole entry (no stored report changes); untagged names read
+  once; wording in ADRs 0016-0018, the page's note and `index`'s message
 
 ## Wrap-up
 
