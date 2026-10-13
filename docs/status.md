@@ -2359,3 +2359,10 @@ session; every timing ran old and new builds A B B A.
   waveforms; nothing answered, the log empty); the server stopped.
   Documented in `docs/audition-questions.md` and ADR 0016's producer
   list.
+- Step 4b: the roadmap's "Behaviour at scale" and "The possible tier at
+  NAS scale" and `docs/calibration.md` no longer call the 63-70 hits
+  between different recordings chance: every one checked since session
+  10 shares material (the answers by ear of 2026-10-12, Rubba Rock the
+  64 from 9,200 assets), and the strongest not checked has 41 hits. The
+  earlier proposal (130-140 at NAS scale) is marked as resting on the
+  64 being chance; Meltdown's answer is recorded. No threshold changed.

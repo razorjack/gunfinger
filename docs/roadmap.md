@@ -301,8 +301,11 @@ marked as inferences were derived, not measured.
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
   3,200, 9,200 and 27,000 assets of the NAS collection (experiments
   0049-0052): recall holds, the confident rule holds against everything
-  but a few pairs to judge by ear, and chance grows past the
-  possible tier from about 9,000 assets. Wang (2003, §2.3.1) sets the
+  but a few pairs to judge by ear, and matches between different
+  recordings pass the possible tier from about 9,000 assets. Every one
+  checked since session 10 shares material ("The possible tier at NAS
+  scale"), so chance has not yet been seen above the tier; the
+  strongest match not checked has 41 hits. Wang (2003, §2.3.1) sets the
   threshold from the score distribution of the highest-scoring wrong
   track, which depends on the number of tracks. Recalibrate at each new size
   (`docs/calibration.md`): strongest false candidates, weakest true
@@ -516,15 +519,28 @@ marked as inferences were derived, not measured.
   clusters keep apart. Evaluations at scale elsewhere meet the same
   effect: with 430,000 added tracks, a copy of a played song among them
   counted as a false positive (Sonnleitner et al. 2016, §6).
-- **The possible tier at NAS scale.** Unrelated chance reaches 63-70
-  hits over the NAS sweeps (experiments 0040, 0041, 0051), above the
-  tier of 60; on nested subsets of the NAS records it is 21-34 hits up
-  to 3,200 assets and 64 from 9,200 (experiment 0052). Proposed: 60
-  while that chance stays below 30 hits, twice it above (130-140 at NAS
-  scale), which would hide the development mix's shared-material notes.
-  We decide. *(larger library)* The jump to 64 hits is one
-  coincidence (Clockwork against Simon Static - Rubba Rock), so the
-  library's makeup matters as much as its size: measure at each size
+- **The possible tier at NAS scale.** Matches between recordings of
+  different artists and titles reach 63-70 hits over the NAS sweeps
+  (experiments 0040, 0041, 0051), above the tier of 60; on nested
+  subsets of the NAS records 21-34 hits up to 3,200 assets and 64 from
+  9,200 (experiment 0052). *(2026-10-12)* None above the tier is
+  chance: each one shares material. By ear, Clockwork and Simon
+  Static - Rubba Rock (the 64 from 9,200 assets) share the same stab
+  sample with its reverb tail and the hi-hat rhythm under it; The Stand
+  and the untagged `1.mp3` are joined since; Mystery Machine ~ NIL -
+  Infectious and Sentient ~ Shere Khan - Criminal Record repeat at every
+  sweep speed and the clusters' pairs label them related. The jump at
+  9,200 assets is the first subset that holds Rubba Rock, not chance
+  growing with the library. Not checked yet: 41 hits (Watermelon ~ 300
+  Baud - Monotone, Mobiuz & Cycom remix) and 40 (Falcon - Fractles ~
+  Ryme Tyme - We Enter, Optical remix v3.0), both below the tier and
+  queued for judging by ear in `work/audition/shared/s17-shared.json`
+  (session 17). The earlier proposal, 60 while chance stays below 30
+  hits and twice it above (130-140 at NAS scale, which would hide the
+  development mix's shared-material notes), took the 64 for chance. We
+  decide; 60 stays. *(larger library)* The jump to 64 hits is
+  one pair that shares material, so the library's makeup matters as
+  much as its size: measure at each size
   rather than build the breakpoints into a rule, and count what a
   higher tier costs (weak true plays lost, possible plays to review per
   hour of mix). Shared-material notes could keep a lower threshold than
@@ -537,9 +553,10 @@ marked as inferences were derived, not measured.
   playing; no development true play depends on the tier; at 262 tracks a
   higher threshold hides only damaged excerpts (48-128 of 278 at 80-130).
   The fifth play, Rift feat. Souldrop - Meltdown at 98 hits during
-  Phantom Force, is not a re-pitched copy of the passage; whether the two
-  share a break or meet by chance decides between 130 and 196 under ADR
-  0006's rule. A check by ear comes first; 60 stays until then.
+  Phantom Force, is not a re-pitched copy of the passage; by ear, the
+  two share the full drum break (2026-10-12), so every
+  possible play of the two mixes at 60 hits is a version or shared
+  material.
 - **Recall beyond the corpus recordings.** *(development half measured
   in session 10, experiment 0068: 540/540 at every speed and kind, no
   miss, held-out sources never confident; 30 wrong answers from a

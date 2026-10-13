@@ -15,7 +15,7 @@ moves.
 |--------|-------|------|--------------------------|-------------|
 | Confident rule of the default (fitted) matcher | 240 hits, 3 windows | `confidence.rs` `FITTED_RULE` | over four sweep draws and the development scans, with the link rules: strongest false 99 (the passage the Clockwork remix shares with the original), weakest identifying 658 (Illuminati - Melange at -3%), margin 6.65× (experiments 0026, 0030, 0047) | Keep it about twice the strongest false candidate and well below the weakest identifying one, as for `MIN_HITS`. |
 | Confident rule of `--single-pass`, hits | 200 | `confidence.rs` `MIN_HITS` | strongest false candidate 95 hits (a remix; 97 with both playbacks, experiment 0016), weakest identifying 501 (experiment 0004); over four sweep draws 97 and 403 (experiment 0025) | Keep it about twice the strongest false candidate. If that collides with the weakest identifying detection, hits alone no longer separate them; the statistic needs rethinking (ADR 0001). |
-| Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006), 28 over four sweep draws (experiment 0025), 22 under the fitted matcher (experiment 0047); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012). On real records under the default matcher: 21, 27, 34, 64 and 64 hits at 209, 1,205, 3,202, 9,196 and 26,969 assets (sweep 2026, experiment 0052) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). Proposed, not applied: 60 while that chance stays below 30 hits (to about 3,000 assets), twice it above (130-140 at NAS scale). The jump to 64 hits is one coincidence (Clockwork against Simon Static - Rubba Rock), so these breakpoints are measurements of this collection, not a rule for any library. |
+| Possible tier | 60 hits | `confidence.rs` `MIN_POSSIBLE_HITS` | strongest unrelated false candidate 28 hits; audio not in the index 19 (experiment 0006), 28 over four sweep draws (experiment 0025), 22 under the fitted matcher (experiment 0047); strongest chance alignment with 30 reversed copies per record (8,122 assets) 30 hits (experiment 0012). On real records under the default matcher: 21, 27, 34, 64 and 64 hits at 209, 1,205, 3,202, 9,196 and 26,969 assets (sweep 2026, experiment 0052) | Raise it to at least twice the strongest unrelated false candidate. If that reaches 200, delete the tier (ADR 0006). Proposed, not applied: 60 while that chance stays below 30 hits (to about 3,000 assets), twice it above (130-140 at NAS scale). The jump to 64 hits is one pair, Clockwork against Simon Static - Rubba Rock, and it is not chance: by ear they share a stab sample (2026-10-12), as every strongest match between different recordings checked since session 10 shares material; the strongest not checked has 41 hits. The proposal took the 64 for chance; we decide, and 60 stays. These breakpoints are measurements of this collection, not a rule for any library. |
 | Pairs per anchor and peak density | fan-out 2 (Wang 2003, §2.2), ±12 × ±12 | `hash.rs` `FAN_OUT`, `profile.rs` | leanest variant with the best margins (experiment 0004) | If margins shrink at scale, rerun the density variants of experiment 0004 on the larger library. |
 | Duplicate clusters | one alignment covers ≥ 80% of the shorter file, in its own seconds; candidates on the turntable ladder (±8%), the better of the ladder's alignment and the pair's at its fitted speed; the verdicts by ear override, and a `different` verdict that a chain of joins contradicts stops `clusters` | `gunfinger-eval` `clusters.rs`, `docs/pair-verdicts.txt` | same-recording pairs ≥ 0.984, all others ≤ 0.31 (experiments 0002, 0049); the same clusters from stored peaks (experiment 0023). At NAS scale 0.840 against 0.766, 28 pairs between 40% and 80% (experiment 0049); joins have a median 18.6 hits per second of aligned span, the sparsest 0.7 (DJ Trace - Sonar against its "Mark System Revision", judged a different recording by ear) | Rerun `clusters` after adding tracks (`clusters --from-peaks` first, to compare cheaply); check that the gap holds. An edit with a cut in the middle is never a duplicate under this criterion; the verdicts by ear decide such pairs. Listen to the joins `clusters` lists as sparse (under a tenth of the median hits per second): coverage alone does not show how much evidence an alignment has. `pair` reports supported time, the seconds holding aligned hits: the Sonar joins 0.39-0.43, random joins 0.98-1.00, China Cup against its Prototype upload 0.96-0.98 at two offsets (experiment 0057). |
 | Posting layout | 16 asset bits, 16 frame bits (17 and 15 until session 9) | `index.rs` `Posting` | 65,536 assets and tracks up to 17:28 at most (ADR 0010); the NAS store passed 32,768 records on 2026-10-09 (32,905) | A hard limit. Past 65,536 assets shard by asset range (ADR 0007, option A). The default track limit, 17:00 (`config.rs` `DEFAULT_MAX_TRACK`), stays below 17:28. |
@@ -70,8 +70,9 @@ ladder (experiments 0049, 0051, 0053; store revision
 2026-2029 540/540 each, 0, 24, 8 and 8 wrong (three pairs to
 check by ear); over the four seeds weakest identifying 661, strongest false
 511 (Synthesis VIP ~ "Synthesis (Remix)" on a mixed CD), 1.29×; without
-the three pairs 197 (The Nine ~ Evol Intent VIP), 3.36×; unrelated
-chance 63-70 hits. The margin compares the weakest identifying
+the three pairs 197 (The Nine ~ Evol Intent VIP), 3.36×; different
+recordings 63-70 hits, all shared material (by ear, 2026-10-12).
+The margin compares the weakest identifying
 detection with the strongest false one; the rule's own headroom is
 smaller. Without the three pairs the rule of 240 is 1.22× the strongest
 false candidate (197), where the "If it moves" column asks for about
@@ -113,8 +114,9 @@ before), all from one mixed disc the ignore file does not list
 (Essential Rewindz's Funktion and The Nine, borderline at 58-78%); over
 the four seeds weakest identifying 661, strongest false 382 (The Nine on
 that disc), 1.73×; without same-name pairs 220 (The Nine ~ Evol Intent
-VIP, judged different), 3.00×; unrelated chance 63-70 hits outside that
-disc's blends (142-177). My 2003 mix (`razorjack-2003-03-29`):
+VIP, judged different), 3.00×; different recordings 63-70 hits (shared
+material) outside that disc's blends (142-177). My 2003 mix
+(`razorjack-2003-03-29`):
 12/12 at NAS scale and 7/7 referenced at 262 tracks, 0 wrong, leave-outs
 0 wrong; it leaves both margins unchanged (1.73×, 6.65×). The rule stays
 240 hits in 3 windows: what passes it falsely is the unlisted mixed
@@ -131,8 +133,9 @@ experiment 0073): development scan 11/11, 0 wrong; leave-outs 3 and 11
 before, all from Essential Rewindz's mixed disc 2, now pruned); over the
 four seeds weakest identifying 661, strongest false 220 (The Nine ~ Evol
 Intent VIP, judged different), 3.00× with and without same-name pairs;
-on audio not in the index 197 (the same VIP), 3.36×; unrelated chance
-63-70 hits. The 2003 mix: 12/12 at NAS scale and 7/7 at 262 tracks, 0
+on audio not in the index 197 (the same VIP), 3.36×; different
+recordings 63-70 hits (shared material). The 2003 mix: 12/12 at NAS
+scale and 7/7 at 262 tracks, 0
 wrong; margins 3.00× and 6.65×. The rule stays 240 hits in 3 windows:
 nothing false reaches it, and the nearest candidate (1.09× below) is a
 VIP of the played track, the question of a statistic for shared

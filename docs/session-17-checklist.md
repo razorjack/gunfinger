@@ -38,9 +38,10 @@ for scope and rules.
   `work/audition/shared/s17-shared.json`, outside the default queue; the
   page loaded both with a temporary verdicts file and answer log, nothing
   answered
-- [ ] 4b. The roadmap's "Behaviour at scale" and "The possible tier at
-  NAS scale" (and `docs/calibration.md`) corrected: the strongest
-  "unrelated" matches checked since session 10 were shared material
+- [x] 4b. The roadmap's "Behaviour at scale" and "The possible tier at
+  NAS scale" and `docs/calibration.md` corrected: the strongest
+  "unrelated" matches checked since session 10 were shared material, the
+  strongest not checked 41 hits; no threshold changed
 - [ ] 5. Read-only review of the session's code by a subagent; fixes
 
 ## Wrap-up
