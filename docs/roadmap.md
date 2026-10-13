@@ -292,9 +292,17 @@ marked as inferences were derived, not measured.
   their offsets in 4-frame buckets first skips the other sorts exactly
   (0093). The same `identify` takes 65 s instead of 93-97 s, 37% less
   CPU, the same memory, byte-identical reports. Sorting is now 3.3% of
-  the CPU; grouping and building lines 51%, query analysis 30%. Next,
-  with identical detections: a grouping whose scatter writes to fewer
-  places at once. This comes before any change of hash design;
+  the CPU; grouping and building lines 51%, query analysis 30%.
+  *(session 17)* A window's hits are now taken from the posting lists
+  and grouped 4,096 assets at a time, in cache (0096); peak picking
+  tests its four nearest neighbours without branches (0097); the store's
+  record headers are read on `--jobs` threads and the mix decoded while
+  the index loads (0098). The 2003 mix at NAS scale on the idle machine:
+  44.1-44.3 s instead of 61.0-62.1 s, 22% less CPU, 10% less memory,
+  byte-identical reports. What is left (0096): the pre-filter about 22%,
+  grouping a part 20%, reading the postings 16%, query analysis 26%. A
+  first `index` is 86% FFmpeg's decoding and resampling (0099), whose
+  options are fixed. This comes before any change of hash design;
   `regress` must show identical detections.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier

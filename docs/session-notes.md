@@ -3150,3 +3150,151 @@ are checked and written under a lock on `docs/pair-verdicts.txt`, which
   so no timings were taken).
 - **A run that meets many stalls in a row** waits two minutes per file on
   each worker. Stopping it early would be a separate decision.
+
+## Session 17
+
+### What changed
+
+**`identify` at NAS scale is 28% faster.** My 2003 mix against the NAS
+collection (`--store-only --playback both`), the old and new builds
+alternating on the idle machine: 44.1-44.3 s instead of 61.0-62.1 s,
+377-382 s of CPU instead of 482-487 s, 4.33 GB of memory instead of
+4.79 GB. The reports are byte-identical, and `regress` finds the same
+detections in 152-154 s instead of 201 s. Three changes (experiments
+0096-0098):
+
+- A window's hits are grouped by track a part of the library at a time
+  (4,096 files), taken straight from the index's posting lists, so the
+  grouping stays in the processor's cache.
+- Peak picking no longer branches on comparisons whose outcome changes
+  from bin to bin: about 3 times faster, the same peaks. It runs in
+  every search and every `index`.
+- The 33,596 record headers are read on `--jobs` threads, and the mix is
+  decoded while the index loads. The first search of the day, with the
+  store not in memory, has its index loaded after 4.6-4.7 s instead of
+  9.0-9.2 s.
+
+**A first `index` is about 4% faster**, with every peak record and tag
+note identical (temporary stores only): the corpus library 49.4-49.5 s
+instead of 51.3-51.7 s; the NAS folder `__youtube_archivists/error-bat`
+(18.9 h of audio) 35.2-35.4 s instead of 36.6-36.7 s. FFmpeg's decoding
+and resampling is now 86% of a first index's CPU, and the run is within
+13% of FFmpeg alone; its options are fixed, so little is left to gain
+there (experiment 0099). A full first index of the NAS collection:
+about 1.78 h instead of 1.84 h.
+
+**A new kind of listening question**, `gunfinger-eval questions shared
+PAIRS.json`: do two different recordings share material where they line
+up (a break, a loop or a sample), or is the match chance? Its answers
+(`shared`, `chance`, `unsure`) go to the answer log only, never to the
+pair verdicts.
+
+### To judge by ear
+
+The two strongest matches between different recordings not yet heard,
+both below the possible tier in the sweeps. Open them with:
+
+```sh
+target/release/gunfinger-eval audition work/audition/shared/s17-shared.json
+```
+
+(add `work/audition/questions/*.json` to have the queue as well). They
+are outside the default queue. `S` shared material, `C` chance, `U`
+unsure.
+
+1. **Ed Rush & Optical - Watermelon ~ 300 Baud - Monotone (Mobiuz &
+   Cycom Remix).** Do they share material, or is it chance?
+   - A: `/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library/Ed Rush & Optical - Watermelon.mp3`
+   - B: `/Volumes/atlas/Music/dnb/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus`
+   - The sweep found Monotone at 41 hits from Watermelon at 2:00.
+     Searched whole, the strongest alignment is Watermelon 1:52-2:38
+     against Monotone 0:34-1:18 (62 hits), key-locked: Monotone, played
+     4.1% slower at its own pitch, lines up. It stops lining up at 2:38
+     in Watermelon (1:18 in Monotone). The same stretch of Monotone,
+     0:32-1:29, lines up again with Watermelon at 0:54, 2:54, 3:31,
+     4:41, 5:30 and 6:00, always at that speed.
+2. **Falcon - Fractles ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full
+   Instrumental).** Do they share material, or is it chance?
+   - A: `/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library/extra/a. falcon - fractles.mp3`
+   - B: `/Volumes/atlas/Music/dnb/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus`
+   - The sweep found We Enter at 40 hits from Fractles at 3:54. Searched
+     whole, the evidence is weak: the strongest alignment is Fractles
+     8:34-9:17 against We Enter 0:26-1:11 (20 hits), turntable: We
+     Enter, played 2.8% faster and higher, lines up. It stops lining up
+     at 9:17 in Fractles (1:11 in We Enter). Seventeen alignments of
+     7-20 hits, most onto We Enter 0:23-1:11, at speeds from +2.7% to
+     +5.9%.
+
+Speed matching (`M`) plays B at A's tempo; for the key-locked pair it
+also moves Monotone's pitch, so turn it off to hear Monotone as it is.
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and the manifests are unchanged (digests
+  as at the start). The page was checked on the new questions with a
+  copy of the verdicts file and an answer log in `/tmp`; nothing was
+  answered. The NAS was only read; the NAS peak store was not written
+  (33,596 records, revision `f9f9bc706195a71b` at the end, as at the
+  start). Scratch stores were removed after the comparison.
+- **Detections did not change.** `regress session-17-start` was
+  identical with the final build (720 of 720 sweep queries, all 87, 93
+  and 79 scan detections) and `scripts/check.sh` green (352 tests).
+- **The timings were taken on the idle machine**, the old and new builds
+  alternating (A B B A). Other processes used 0.2-1 core
+  throughout, and about half a core more in two indexing runs.
+- **The roadmap and the calibration register no longer call the 63-70
+  hits between different recordings chance.** Every one checked since
+  session 10 shares material (the answers by ear of 2026-10-12: Rubba Rock is
+  the 64 from 9,200 assets), so the earlier proposal of a tier of
+  130-140 at NAS scale rested on a match that is not chance. The
+  strongest match not checked has 41 hits, the first question above. No
+  threshold changed.
+- **`--jobs` now also sets the threads that read the record headers**
+  (`identify`, `explain`, `stats`, `doctor`). The system CPU of a search
+  rose from about 6 s to 11-14 s with them; the wall time fell.
+- **A catalog error waits for the first decode.** An error such as an
+  empty index now appears once the first recording is decoded (seconds
+  for a mix on a local disk), because both run at once.
+- **A saved index whose posting lists are out of order is refused** and
+  rebuilt, instead of crashing the search; no index Gunfinger writes is
+  like that. The check runs while the index is read, at no measurable
+  cost.
+- **The test set was not touched**, nor the candidate mixes of experiment
+  0065.
+- **Two reviews by a second agent** found no change in output and two
+  defects, both fixed:
+  - The test of the new grouping covered only one part of the library,
+    so a fault in moving from one part to the next would have passed.
+    It now spans three parts, one without hits, and fails with that
+    fault.
+  - The grouping needs each posting list ordered by file, as every
+    index Gunfinger writes is; a damaged or hand-made saved index that
+    was not would have crashed the search. Such a file is now refused
+    and rebuilt (above).
+  - In the new producer: a pair named twice now gives an error naming
+    it, an alignment of no length gets no shaded span, and markers less
+    than 0.5 s apart are one stop for Up and Down.
+
+### Decided this morning, open to change
+
+- Parts of 4,096 files for grouping hits: 1,024 and 8,192 were slower.
+- The shared-material questions follow every alignment of the strongest
+  search of the audio, also the weak ones, since they are what the
+  question is about. Their file sits outside the default queue, as my
+  2003 mix's detections do.
+- The evaluation harness lists records on every core whatever its
+  `--jobs`; it passes its jobs where it builds an index.
+
+### Decisions waiting
+
+- Still waiting, unchanged: the containment rule, the possible tier's
+  threshold (every match above 60 between different recordings checked
+  so far shares material), test evaluation 5.
+
+### Left for later
+
+- **The next speed step for `identify`**: what is left is the offset
+  pre-filter (about 22% of the CPU), grouping a part (20%), reading the
+  postings (16%) and analysing the mix (26%).
+- **A first `index`** is bound by FFmpeg, whose options are fixed.

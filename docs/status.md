@@ -2402,3 +2402,12 @@ session; every timing ran old and new builds A B B A.
   harness sentence (its jobs in `map-library` and `clusters`, every
   core elsewhere). `work/audition/shared/s17-shared.json` made again
   (same ids) and loaded by a temporary server; nothing answered.
+- Wrap-up: final build `work/bin/s17-final/`; `regress
+  session-17-start` identical (720/720 sweep queries, all 87, 93 and 79
+  scan detections, the known calibrate line), 154 s and 1,342 s CPU;
+  `scripts/check.sh` green (352 tests). The NAS store at the end: 33,596
+  records, revision `f9f9bc706195a71b`, as at the start. Listening files
+  unchanged (digests as at the start). Scratch stores, the second target
+  directory and the trial builds removed from `work/` (`work/s17/` is
+  85 MB). Notes "Session 17", the roadmap's "Where search time goes".
+  Finished at about 07:40, well before 10:30; no further work started.

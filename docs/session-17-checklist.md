@@ -52,10 +52,12 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Notes "Session 17", status, roadmap
-- [ ] `regress session-17-start` identical with the final build;
-  `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] Notes "Session 17", status, roadmap ("Where search time goes",
+  "Behaviour at scale", "The possible tier at NAS scale")
+- [x] `regress session-17-start` identical with the final build
+  (`work/bin/s17-final/`, 154 s); `scripts/check.sh` green (352 tests)
+- [x] The NAS store's revision at the end: 33,596 records,
+  `f9f9bc706195a71b`, as at the start
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message
