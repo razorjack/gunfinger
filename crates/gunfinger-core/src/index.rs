@@ -114,6 +114,8 @@ impl Index {
         }
     }
 
+    /// A hash's postings, ordered by asset (and by frame within an asset
+    /// when built from records).
     pub fn postings(&self, hash: PairHash) -> &[Posting] {
         let start = self.offsets[hash.0 as usize] as usize;
         let end = self.offsets[hash.0 as usize + 1] as usize;
@@ -129,7 +131,8 @@ impl Index {
     }
 
     /// The postings a search scans for candidates: all of them, unless
-    /// `skipping_fullest` set the fullest lists aside.
+    /// `skipping_fullest` set the fullest lists aside. Ordered by asset, as
+    /// `postings`.
     pub fn scanned_postings(&self, hash: PairHash) -> &[Posting] {
         let list = self.postings(hash);
         if list.len() as u32 > self.longest_scanned {

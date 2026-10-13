@@ -134,8 +134,8 @@ impl<'p> PeakPicker<'p> {
         // The four nearest neighbours reject most bins cheaply, before the
         // whole neighbourhood is scanned. Their outcome changes from bin to
         // bin, so they are evaluated without branches (experiment 0097); a
-        // missing frame counts as silence, which rejects nothing the floor
-        // does not.
+        // missing frame counts as silence, which rejects nothing a finite
+        // floor does not.
         let (above, below) = (
             before.unwrap_or(&self.silence),
             after.unwrap_or(&self.silence),

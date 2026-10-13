@@ -104,7 +104,7 @@ pub fn save(path: &Path, provenance: &Provenance, index: &Index) -> io::Result<(
 pub fn load(path: &Path, expected: &Provenance) -> Result<Index, Unusable> {
     let mut input = open(path)?;
     let (assets, offsets) = read_layout(&mut input, expected)?;
-    let postings = read_postings(&mut input, offsets[OFFSETS - 1] as usize, assets.len())?;
+    let postings = read_postings(&mut input, &offsets, assets.len())?;
     let computed = input.digest.0;
     let stored = u64::from_le_bytes(read_array(&mut input.inner).map_err(unreadable)?);
     if stored != computed {
@@ -308,29 +308,46 @@ fn read_words(input: &mut Digesting<impl Read>, count: usize) -> io::Result<Vec<
     Ok(words)
 }
 
-/// The postings, each checked to name an asset of the table, so that a
-/// damaged file cannot name an asset the index does not hold.
+/// The postings of the lists `offsets` lays out, each checked to name an
+/// asset of the table and each list to be ordered by asset, as
+/// `Index::postings` promises, so that a damaged file cannot name an asset
+/// the index does not hold or send the search's grouping out of bounds.
 fn read_postings(
     input: &mut Digesting<impl Read>,
-    count: usize,
+    offsets: &[u32],
     assets: usize,
 ) -> Result<Vec<Posting>, Unusable> {
+    let count = offsets[OFFSETS - 1] as usize;
     let mut postings = Vec::with_capacity(count);
     let mut bytes = vec![0; 4 * CHUNK_WORDS.min(count)];
     let mut damaged = false;
+    // Where the asset goes down, which only the start of a list may do.
+    let mut descents: Vec<u32> = Vec::new();
+    let mut previous = 0;
     while postings.len() < count {
         let chunk = &mut bytes[..4 * CHUNK_WORDS.min(count - postings.len())];
         input.inner.read_exact(chunk).map_err(unreadable)?;
         for &word in chunk.as_chunks::<4>().0 {
             let posting = Posting(u32::from_le_bytes(word));
             input.digest.word(posting.0);
-            damaged |= posting.asset().0 as usize >= assets;
+            let asset = posting.asset().0;
+            damaged |= asset as usize >= assets;
+            if asset < previous {
+                descents.push(postings.len() as u32);
+            }
+            previous = asset;
             postings.push(posting);
         }
     }
     if damaged {
         return Err(Unusable::Unreadable(String::from(
             "a posting names an asset it does not hold",
+        )));
+    }
+    let mut starts = offsets.iter();
+    if !descents.iter().all(|&at| starts.any(|&start| start == at)) {
+        return Err(Unusable::Unreadable(String::from(
+            "a posting list is not ordered by asset",
         )));
     }
     Ok(postings)
@@ -712,6 +729,29 @@ mod tests {
 
         assert!(flipped.contains("digest"), "{flipped}");
         assert!(foreign.contains("an asset it does not hold"), "{foreign}");
+    }
+
+    #[test]
+    fn a_posting_list_out_of_asset_order_is_unreadable() {
+        let dir = scratch("order");
+        let path = dir.join("library.index");
+        let (provenance, mut index) = library();
+        let list = index
+            .offsets
+            .windows(2)
+            .map(|list| list[0] as usize..list[1] as usize)
+            .find(|list| {
+                let postings = &index.postings[list.clone()];
+                postings.first().map(|posting| posting.asset())
+                    != postings.last().map(|posting| posting.asset())
+            })
+            .unwrap();
+        index.postings[list].reverse();
+        save(&path, &provenance, &index).unwrap();
+
+        let error = load(&path, &provenance).err().unwrap().to_string();
+
+        assert!(error.contains("not ordered by asset"), "{error}");
     }
 
     #[test]

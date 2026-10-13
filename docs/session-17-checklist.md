@@ -42,7 +42,11 @@ for scope and rules.
   NAS scale" and `docs/calibration.md` corrected: the strongest
   "unrelated" matches checked since session 10 were shared material, the
   strongest not checked 41 hits; no threshold changed
-- [ ] 5. Read-only review of the session's code by a subagent; fixes
+- [~] 5. Read-only review of the session's code by a subagent; fixes.
+  Round 1 (`b7ddfb6..054e0e4`): no output change; fixed the grouping
+  test (one part only), the saved-index loader (lists not checked for
+  asset order; now refused at no measurable cost) and four comments;
+  `scripts/check.sh` green (349 tests)
 
 ## Wrap-up
 

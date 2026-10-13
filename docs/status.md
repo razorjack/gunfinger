@@ -2366,3 +2366,25 @@ session; every timing ran old and new builds A B B A.
   64 from 9,200 assets), and the strongest not checked has 41 hits. The
   earlier proposal (130-140 at NAS scale) is marked as resting on the
   64 being chance; Meltdown's answer is recorded. No threshold changed.
+- Step 5, a read-only review of `b7ddfb6..054e0e4` by a subagent (with
+  its own differential tests in `/tmp`: 183,674 lines bit-identical over
+  1 to 20,000 assets, the picker identical in 200,000 random cases with a
+  finite floor). No output change found. Fixed:
+  - The grouping test used 3,000 assets, one part of 4,096, so a
+    `take_part` that took every list whole still passed. It now uses
+    9,000 assets (three parts, the last shorter), adds a window with no
+    hit in the middle part and an empty list, and fails with that fault.
+  - `index::saved::load` did not check that each posting list is ordered
+    by asset, which the grouping (and `postings_for_asset` before it)
+    relies on: a crafted file or a writer bug could panic the search.
+    `read_postings` now notes where the asset goes down and refuses the
+    file unless each is a list's start (`Unusable::Unreadable`, so the
+    index is rebuilt); a test reverses a list. Done in the read loop, it
+    costs nothing measurable: 3.5 s per load at NAS scale (946 million
+    postings) with and without, A B B A over eight runs; a separate pass
+    cost 0.4 s.
+  - Comments: the silence row rejects nothing a finite floor does not
+    (the floor is -10 dB); `open_while_decoding` says a catalog error
+    waits for the decode; `Hit` and `WindowHits` no longer describe a
+    window held whole; 0098 says the harness lists records on every core
+    (it passes its jobs where it builds an index).

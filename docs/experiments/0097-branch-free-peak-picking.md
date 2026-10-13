@@ -19,10 +19,10 @@ whose outcome changes from bin to bin and was mispredicted.
 
 **Change** (`peaks::PeakPicker`): the four-neighbour test uses `|` instead
 of `||` and writes candidate bins to a buffer, a missing frame standing in
-as silence (`-inf`, which rejects nothing the floor does not, NaN
-included); `dominates_neighbourhood` tries frames nearest first and folds
-each frame's bins with `|`. Both are the same predicates in another
-order. A test checks the peaks against the definition over a whole
+as silence (`-inf`, which rejects nothing a finite floor does not,
+NaN included); `dominates_neighbourhood` tries frames nearest first and
+folds each frame's bins with `|`. Both are the same predicates in
+another order. A test checks the peaks against the definition over a whole
 spectrogram, on a chord with noise, on the spread neighbourhood, and on
 noise repeating every 4 hops, where every local maximum ties and none is
 a peak; it passes on the old picker too.

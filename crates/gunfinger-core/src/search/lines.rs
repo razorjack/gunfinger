@@ -71,8 +71,9 @@ impl Line {
     }
 }
 
-/// A posting a query hash hit, as found: 8 bytes, as a window holds up
-/// to 2 million at 33,596 assets (experiment 0086).
+/// A posting a query hash hit, as found: 8 bytes. A window hits up to 2
+/// million postings at 33,596 assets (experiment 0086), held one part at a
+/// time.
 #[derive(Clone, Copy)]
 struct Hit {
     posting: Posting,
@@ -94,10 +95,10 @@ struct AlignedHit {
 /// same hits grouped by asset, and the aligned hits of the asset being
 /// turned into lines.
 ///
-/// Each thread keeps its buffers for all its jobs. A window's hits reach
-/// 200 MB at 26,000 assets, and buffers freed after every rung were kept by
-/// the allocator: 15.7 GB instead of 5.0 GB for 10 minutes of query on 10
-/// threads (experiment 0029).
+/// Each thread keeps its buffers for all its jobs: buffers freed after
+/// every rung were kept by the allocator, 15.7 GB instead of 5.0 GB for 10
+/// minutes of query on 10 threads, when a window's hits were held whole
+/// (200 MB at 26,000 assets, experiment 0029).
 struct WindowHits<'i> {
     /// The postings each query hash of the window hit, with the hash's
     /// anchor, in the order they were looked up. Each list is ordered by
@@ -664,28 +665,39 @@ pub(super) mod tests {
     #[test]
     fn grouping_by_asset_finds_the_lines_of_a_comparison_sort() {
         let rung = Rung::KeyLocked(SpeedRatio(1.012));
-        let mut window_hits = WindowHits::new(3000);
-        // A large window over three parts, then a smaller one in the same
-        // buffers, then one with every hit on the index's last asset.
+        let mut window_hits = WindowHits::new(9000);
+        // A large window over three parts, the last one shorter, then a
+        // smaller one in the same buffers, one with no hit in the middle
+        // part, and one with every hit on the index's last asset.
         let (last_asset, points) = mixed_hits(1, 5_000, 2028);
+        let (gap, gap_points) = mixed_hits(9000, 50_000, 2029);
+        let middle = ASSETS_PER_PART as u32..2 * ASSETS_PER_PART as u32;
         let windows = [
-            mixed_hits(3000, 400_000, 2026),
-            mixed_hits(3000, 20_000, 2027),
+            mixed_hits(9000, 400_000, 2026),
+            mixed_hits(9000, 20_000, 2027),
+            (
+                gap.into_iter()
+                    .filter(|hit| !middle.contains(&hit.posting.asset().0))
+                    .collect(),
+                gap_points,
+            ),
             (
                 last_asset
                     .into_iter()
                     .map(|hit| Hit {
-                        posting: Posting::new(AssetId(2999), hit.posting.frame()),
+                        posting: Posting::new(AssetId(8999), hit.posting.frame()),
                         ..hit
                     })
                     .collect(),
                 points,
             ),
         ];
-        let windows: Vec<_> = windows
+        let mut windows: Vec<_> = windows
             .into_iter()
             .map(|(hits, points)| (as_lists(hits, 2030), points))
             .collect();
+        // A hash whose posting list is empty.
+        windows[1].0.insert(3, (Vec::new(), 17));
         for (window, (lists, points)) in (7..).zip(&windows) {
             let found: Vec<Hit> = lists
                 .iter()

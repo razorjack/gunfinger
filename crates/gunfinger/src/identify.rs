@@ -261,7 +261,8 @@ fn report_path(dir: &Path, audio: &Path) -> PathBuf {
 /// Opens the catalog and decodes the first recording at the same time:
 /// loading the saved index waits on the disk and decoding on FFmpeg, about
 /// 3.5 s and 2.6 s for the 2003 mix at NAS scale (experiment 0098). If no
-/// thread can be started, the recording is decoded afterwards.
+/// thread can be started, the recording is decoded afterwards. Both end
+/// before either result is used, so a catalog error waits for the decode.
 fn open_while_decoding(
     request: &Request,
     indexable: Indexable,
