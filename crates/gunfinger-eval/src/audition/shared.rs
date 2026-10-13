@@ -9,6 +9,7 @@
 //! strongest unrelated matches the confidence rule and the possible tier
 //! are measured against (ADR 0006); the product reads none (ADR 0017).
 
+use std::collections::BTreeSet;
 use std::path::Path;
 use std::time::Duration;
 
@@ -26,14 +27,23 @@ use crate::pair::{PairReport, Search};
 /// `pair`'s searches of the audio, as a mix is searched, are named so.
 const AUDIO_SEARCH: &str = "audio";
 
+/// Markers closer than this are one stop for Up and Down.
+const SAME_MOMENT: f64 = 0.5;
+
 /// One question per pair, in the reports' order.
 pub fn questions(reports: &[PairReport], libraries: &Libraries) -> Result<QuestionFile, String> {
+    let mut asked = BTreeSet::new();
     let questions = reports
         .iter()
         .enumerate()
         .map(|(index, report)| {
-            question(index + 1, report, libraries)
-                .map_err(|error| format!("{} ~ {}: {error}", report.query, report.found))
+            let named = |error: String| format!("{} ~ {}: {error}", report.query, report.found);
+            if !asked.insert(BTreeSet::from([&report.query, &report.found])) {
+                return Err(named(String::from(
+                    "the pair appears twice in the report (in either order)",
+                )));
+            }
+            question(index + 1, report, libraries).map_err(named)
         })
         .collect::<Result<Vec<_>, String>>()?;
     Ok(QuestionFile {
@@ -45,8 +55,9 @@ pub fn questions(reports: &[PairReport], libraries: &Libraries) -> Result<Questi
 }
 
 fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result<Question, String> {
-    let search = strongest_audio_search(report)
-        .ok_or("the report has no alignment from a search of the audio")?;
+    let search = strongest_audio_search(report).ok_or(
+        "the report has no alignment from a search of the audio (`pair` searches the audio only when the first file of the pair is in the corpus library)",
+    )?;
     let alignments: Vec<Alignment> = search
         .alignments
         .iter()
@@ -87,7 +98,7 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
     let mut markers = Vec::new();
     let mut spans = Vec::new();
     let mut details = vec![format!(
-        "B follows every alignment of the `pair` search \"{}\", strongest first, also those below the {} hits of a possible play:",
+        "B follows every alignment of the search \"{}\" in the pair report, strongest first, also those below the {} hits of a possible play:",
         search.name, FITTED_RULE.min_possible_hits
     )];
     for (position, alignment) in (1..).zip(&search.alignments) {
@@ -116,22 +127,23 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
             label: format!("alignment {position} ends"),
             kind: MarkerKind::Edge,
         });
-        spans.push(Span {
-            start: alignment.query_start_seconds,
-            end: alignment.query_end_seconds,
-            lanes: vec![0, 1],
-            label: line.clone(),
-        });
+        if alignment.query_start_seconds < alignment.query_end_seconds {
+            spans.push(Span {
+                start: alignment.query_start_seconds,
+                end: alignment.query_end_seconds,
+                lanes: vec![0, 1],
+                label: line.clone(),
+            });
+        }
         details.push(line);
     }
-    markers.sort_by(|a, b| a.at.total_cmp(&b.at));
     if search
         .alignments
         .iter()
         .any(|alignment| alignment.key_locked)
     {
         details.push(String::from(
-            "Speed matching (M) plays B at A's tempo by changing its playback rate, so a key-locked alignment also moves B's pitch by the same ratio; turn it off to hear B at its own pitch",
+            "Speed matching (M) plays B at A's tempo by changing its playback rate, so a key-locked alignment also moves B's pitch by the same ratio; turn it off to hear B at its own pitch (the blend, B, always matches speed)",
         ));
     }
 
@@ -150,7 +162,7 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
             reference: Some(0),
         },
         lanes,
-        markers,
+        markers: one_per_moment(markers),
         spans,
         choices: vec![
             choice('s', "shared material (a break, loop or sample)", "shared"),
@@ -159,6 +171,25 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
         ],
         effect: Effect::Log,
     })
+}
+
+/// The markers in time order, those less than `SAME_MOMENT` after the one
+/// before joined to it.
+fn one_per_moment(mut markers: Vec<Marker>) -> Vec<Marker> {
+    markers.sort_by(|a, b| a.at.total_cmp(&b.at));
+    let mut joined: Vec<Marker> = Vec::new();
+    for marker in markers {
+        match joined.last_mut() {
+            Some(last) if marker.at - last.at < SAME_MOMENT => {
+                last.label = format!("{}, {}", last.label, marker.label);
+                if marker.kind == MarkerKind::Listen {
+                    last.kind = MarkerKind::Listen;
+                }
+            }
+            _ => joined.push(marker),
+        }
+    }
+    joined
 }
 
 /// The audio search whose strongest alignment has the most hits (each
@@ -271,9 +302,9 @@ mod tests {
             PathBuf::from("/repo/corpus/library/Artist - Tune.mp3")
         );
         assert_eq!((a.start, a.end, a.offset, a.speed), (0.0, 400.0, 0.0, 1.0));
-        // The 41-hit alignment takes over where the 60-hit one ends, and B
-        // goes on with the nearest alignment outside both, from its start
-        // (B's time 0 at A's 73.3 / 0.9587 s) to the end of A.
+        // Before 112 s, B follows the 60-hit alignment from its own start
+        // (B's time 0 at A's 73.3 / 0.9587 s); the 41-hit one takes over
+        // where the 60-hit one ends and carries on to A's end.
         let b = &question.lanes[1].pieces;
         assert_eq!(b.len(), 2, "{b:?}");
         assert_eq!(
@@ -306,6 +337,50 @@ mod tests {
                 .iter()
                 .any(|line| line.contains("Speed matching (M)"))
         );
+    }
+
+    #[test]
+    fn markers_less_than_half_a_second_apart_are_one_stop() {
+        let mut reports: Vec<PairReport> = serde_json::from_str(REPORT).unwrap();
+        let second = &mut reports[0].searches[2].alignments[1];
+        second.query_start_seconds = 158.05;
+        second.query_end_seconds = 190.0;
+
+        let file = questions(&reports, &libraries()).unwrap();
+
+        let markers = &file.questions[0].markers;
+        assert_eq!(markers.len(), 3, "{markers:?}");
+        assert_eq!(markers[1].at, 158.0);
+        assert_eq!(markers[1].kind, MarkerKind::Listen);
+        assert!(markers[1].label.contains("alignment 1 ends"));
+        assert!(markers[1].label.contains("alignment 2 starts"));
+    }
+
+    #[test]
+    fn an_alignment_of_no_length_has_no_span() {
+        let mut reports: Vec<PairReport> = serde_json::from_str(REPORT).unwrap();
+        let second = &mut reports[0].searches[2].alignments[1];
+        second.query_start_seconds = 170.0;
+        second.query_end_seconds = 170.0;
+
+        let file = questions(&reports, &libraries()).unwrap();
+        check(&file).unwrap();
+
+        assert_eq!(file.questions[0].spans.len(), 1);
+    }
+
+    #[test]
+    fn a_pair_asked_twice_is_an_error() {
+        let mut reports: Vec<PairReport> = serde_json::from_str(REPORT).unwrap();
+        let mut reversed: Vec<PairReport> = serde_json::from_str(REPORT).unwrap();
+        let pair = &mut reversed[0];
+        std::mem::swap(&mut pair.query, &mut pair.found);
+        reports.append(&mut reversed);
+
+        let error = questions(&reports, &libraries()).unwrap_err();
+
+        assert!(error.contains("appears twice"), "{error}");
+        assert!(error.contains("Other - Remix.opus"), "{error}");
     }
 
     #[test]

@@ -4,7 +4,7 @@
 //!
 //! The page knows no kinds of question. A question is lanes of pieces on a
 //! timeline, markers, shaded spans and choices; producers (`pack`,
-//! `folders`, `detections`) turn evidence into these.
+//! `folders`, `detections`, `shared`) turn evidence into these.
 
 use std::collections::BTreeSet;
 use std::fs;

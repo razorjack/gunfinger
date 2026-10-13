@@ -11,8 +11,8 @@ them again to check each is current and in the length range, one at a time.
 
 **Change.** Both read the headers on `jobs` threads (`parallel::
 map_in_order`, results in the same order); the CLI passes `--jobs`
-through `catalog::Source`, `doctor` its setting, the harness its jobs
-where it builds an index (every core where it only lists records).
+through `catalog::Source`, `doctor` its setting; the harness its jobs in
+`map-library` and `clusters`, every core elsewhere.
 `identify` decodes the first recording on a scoped thread while
 `Catalog::open` loads the index (`open_while_decoding`; without a thread,
 afterwards).

@@ -34,9 +34,10 @@ segments, the strongest segment first (`placement::tile`).
 two different recordings share material where they line up (a break, a
 loop or a sample) or the match is chance: A whole as the reference lane,
 B placed by every alignment of the strongest search of the audio,
-strongest first, also those below the hits of a possible play; a span and
-a `listen` marker at each alignment. Answers (`shared`, `chance`,
-`unsure`) go to the answer log only.
+strongest first, also those below the hits of a possible play; at each
+alignment a span, a `listen` marker where it starts and an `edge` marker
+where it ends (markers less than 0.5 s apart joined). Answers (`shared`,
+`chance`, `unsure`) go to the answer log only.
 
 ## The file
 
@@ -272,6 +273,36 @@ A detection (is it right?), the mix as the reference lane:
   "choices": [
     {"key": "y", "label": "right", "value": "confirmed"},
     {"key": "n", "label": "wrong", "value": "wrong"},
+    {"key": "u", "label": "unsure", "value": "unsure"}
+  ],
+  "effect": {"type": "log"}
+}
+```
+
+Shared material (two different recordings), A as the reference lane and
+B following each alignment:
+
+```json
+{
+  "id": "shared-0123456789abcdef",
+  "kind": "shared",
+  "title": "1. Artist - Tune ~ Other - Remix",
+  "text": "A and B are different recordings that line up where the lanes are shaded. Do they share material there, such as a drum break, a loop or a sample, or is the match chance?",
+  "details": ["B follows every alignment of the search \"audio, both ladders\" in the pair report, strongest first, also those below the 60 hits of a possible play:", "alignment 1: A 1:52-2:38 ~ B 0:34-1:18, 62 hits in 5 windows, B played at -4.13% (key-locked: B's tempo differs, not its pitch)"],
+  "files": ["Artist - Tune.mp3", "second-library/label/Other - Remix.opus"],
+  "timeline": {"start": 0.0, "end": 425.4, "reference": 0},
+  "lanes": [
+    {"name": "A", "pieces": [{"file": "/Users/me/library/Artist - Tune.mp3", "start": 0.0, "end": 425.4, "offset": 0.0, "speed": 1.0}]},
+    {"name": "B", "pieces": [{"file": "/Volumes/nas/music/label/Other - Remix.opus", "start": 76.5, "end": 425.4, "offset": -73.33, "speed": 0.9587, "label": "alignment 1"}]}
+  ],
+  "markers": [
+    {"at": 112.4, "label": "alignment 1 starts: 62 hits", "kind": "listen"},
+    {"at": 158.1, "label": "alignment 1 ends", "kind": "edge"}
+  ],
+  "spans": [{"start": 112.4, "end": 158.1, "lanes": [0, 1], "label": "alignment 1: A 1:52-2:38 ~ B 0:34-1:18, 62 hits in 5 windows, B played at -4.13% (key-locked: B's tempo differs, not its pitch)"}],
+  "choices": [
+    {"key": "s", "label": "shared material (a break, loop or sample)", "value": "shared"},
+    {"key": "c", "label": "chance", "value": "chance"},
     {"key": "u", "label": "unsure", "value": "unsure"}
   ],
   "effect": {"type": "log"}

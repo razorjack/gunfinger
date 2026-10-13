@@ -2388,3 +2388,17 @@ session; every timing ran old and new builds A B B A.
     waits for the decode; `Hit` and `WindowHits` no longer describe a
     window held whole; 0098 says the harness lists records on every core
     (it passes its jobs where it builds an index).
+- Step 5, round 2 (`4471b5f` and `612b4d9`, read-only, its own tests in
+  a copy): no defect, no output change; the order check agreed with a
+  brute-force check in 2,000,000 random cases. Fixed in `questions
+  shared`: a pair named twice (in either order) is an error naming it,
+  not `check`'s "appears twice"; an alignment of no length gets no span;
+  markers less than 0.5 s apart are one stop (two in Fractles); the
+  error for a report without an audio search says `pair` searches the
+  audio only for a corpus file; details without backticks, which the
+  page shows literally; the speed-matching note says the blend always
+  matches. Docs: an example of the kind and its `edge` markers in
+  `docs/audition-questions.md`, `schema.rs`'s producer list, 0098's
+  harness sentence (its jobs in `map-library` and `clusters`, every
+  core elsewhere). `work/audition/shared/s17-shared.json` made again
+  (same ids) and loaded by a temporary server; nothing answered.
