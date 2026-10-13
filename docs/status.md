@@ -2341,3 +2341,21 @@ session; every timing ran old and new builds A B B A.
   0097: the run is within 13% of FFmpeg alone, whose options are fixed.
   A full first index of the NAS collection: about 1.78 h instead of 1.84
   h at the folder's rate.
+- Step 4a, from 06:40: a new producer, `gunfinger-eval questions shared
+  PAIRS.json` (`audition/shared.rs`), because no existing kind asks
+  whether two different recordings share material: A whole as the
+  reference lane, B placed by every alignment of the strongest audio
+  search of a `pair` report (`placement::tile`), also those below 60
+  hits; choices `shared`, `chance`, `unsure`, written to the answer log
+  only (`Effect::Log`). The two pairs' `pair` report is
+  `work/reports/library-nas-dnb-peaks/pairs-s17-shared.json`; the
+  question file `work/audition/shared/s17-shared.json`, outside the
+  default queue. Watermelon ~ Monotone: eight key-locked alignments at
+  -4.1% to -4.6%, 13-62 hits, from eight passages of Watermelon onto
+  Monotone 0:32-1:29; Fractles ~ We Enter v3.0: seventeen turntable
+  alignments of 7-20 hits at +2.7% to +5.9%, most onto We Enter
+  0:23-1:11. The page loaded both questions with a copy of the verdicts
+  file and an answer log in `/tmp/s17-audition/` (both lanes' audio and
+  waveforms; nothing answered, the log empty); the server stopped.
+  Documented in `docs/audition-questions.md` and ADR 0016's producer
+  list.

@@ -141,7 +141,7 @@ documents every field. The principles:
   order, speeds between 0.5 and 2, markers and spans inside the
   timeline, choice keys single letters, unique, and not a control key of
   the page.
-- **Producers** (`gunfinger-eval questions pack|folders|detections`)
+- **Producers** (`gunfinger-eval questions pack|folders|detections|shared`)
   turn evidence into question files and know nothing of HTTP or the
   page. Adding a kind of question needs a producer, and an answer effect
   only if its answers must be written somewhere new.

@@ -21,6 +21,7 @@ Producers write question files:
 gunfinger-eval questions pack       # work/audition/questions/01-pack.json
 gunfinger-eval questions folders PLAN.toml   # 02-folders.json
 gunfinger-eval questions detections REPORT.json   # 03-detections-<report stem>.json
+gunfinger-eval questions shared PAIRS.json   # 04-shared-<report stem>.json
 ```
 
 `questions detections` reads a saved `gunfinger identify -f json` report
@@ -28,6 +29,14 @@ that names its library (not a `--store-only` search): one question per
 play, the mix from 30 s before the play to 30 s after (within the part
 searched) as the reference lane, the play's file placed by its
 segments, the strongest segment first (`placement::tile`).
+
+`questions shared` reads a `pair` report and asks of each pair whether
+two different recordings share material where they line up (a break, a
+loop or a sample) or the match is chance: A whole as the reference lane,
+B placed by every alignment of the strongest search of the audio,
+strongest first, also those below the hits of a possible play; a span and
+a `listen` marker at each alignment. Answers (`shared`, `chance`,
+`unsure`) go to the answer log only.
 
 ## The file
 
@@ -52,7 +61,7 @@ segments, the strongest segment first (`placement::tile`).
 | Field | Type | Meaning |
 |---|---|---|
 | `id` | string | `<kind>-<16 hex digits>`: `QuestionId::derive(kind, parts)`, FNV-1a 64 over the kind and the sorted parts. The parts are the question's `files`, plus a distinguishing part where one kind can ask twice about the same files (a detection's start second). Making the questions again gives the same ids, so answers stay attached. Unique across the loaded files. |
-| `kind` | string | Lowercase letters and hyphens: `pair`, `folder`, `detection`. Shown in the queue and written to the log; the page does nothing else with it. |
+| `kind` | string | Lowercase letters and hyphens: `pair`, `folder`, `detection`, `shared`. Shown in the queue and written to the log; the page does nothing else with it. |
 | `title` | string | One line for the queue. |
 | `text` | string | The question, as the listener reads it. |
 | `details` | array of strings | Evidence lines shown under the text (coverage, hits, what the markers mean). May be empty. |

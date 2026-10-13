@@ -5,8 +5,8 @@
 //! - `schema`: the question file, its check and stable ids.
 //! - `placement`: where lanes play on a question's timeline.
 //! - `names`: harness names (`second-library/...`) and absolute paths.
-//! - `pack`, `folders`, `detections`: the producers, which turn evidence
-//!   into question files and know nothing of HTTP or the page.
+//! - `pack`, `folders`, `detections`, `shared`: the producers, which turn
+//!   evidence into question files and know nothing of HTTP or the page.
 //! - `answers` and `effects`: the answer log, undo, and what an answer
 //!   writes elsewhere (the pair verdicts file).
 //! - `audio`: windows of a file as WAV and waveform envelopes, by FFmpeg.
@@ -29,4 +29,5 @@ pub mod placement;
 pub mod schema;
 pub mod server;
 mod session;
+pub mod shared;
 mod web;

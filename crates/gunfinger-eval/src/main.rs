@@ -427,6 +427,16 @@ enum QuestionSource {
         #[arg(long)]
         out: Option<PathBuf>,
     },
+    /// The pairs of a `pair` report, each asked "do these different
+    /// recordings share material where they line up, or is it chance?";
+    /// written to <work>/audition/questions/04-shared-<report name>.json.
+    Shared {
+        report: PathBuf,
+        #[command(flatten)]
+        roots: SecondLibraryRoot,
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
 }
 
 /// Where the files named `second-library/<path>` are.
@@ -1728,6 +1738,23 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
             (
                 file,
                 out.unwrap_or_else(|| questions_dir.join(format!("03-detections-{name}.json"))),
+            )
+        }
+        QuestionSource::Shared { report, roots, out } => {
+            let reports = audition::pack::Reports::load(std::slice::from_ref(&report))?;
+            let reports: Vec<_> = reports
+                .reports
+                .into_iter()
+                .map(|(_, report)| report)
+                .collect();
+            let file = audition::shared::questions(&reports, &libraries(&roots)?)?;
+            let name = report.file_stem().map_or_else(
+                || String::from("report"),
+                |stem| stem.to_string_lossy().into_owned(),
+            );
+            (
+                file,
+                out.unwrap_or_else(|| questions_dir.join(format!("04-shared-{name}.json"))),
             )
         }
     };

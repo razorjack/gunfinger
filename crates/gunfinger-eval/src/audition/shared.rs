@@ -1,0 +1,325 @@
+//! `questions shared`: do two different recordings share material where a
+//! search lines them up, such as a drum break, a loop or a sample, or is
+//! the match chance? One question per pair of a `pair` report: A is the
+//! timeline's reference lane, and B is placed by every alignment of the
+//! report's strongest audio search, strongest first. Unlike lane B of
+//! `questions pack`, it follows alignments below the hits of a possible
+//! play (`placement::followed`): they are what the question is about.
+//! Answers go to the answer log only, as evaluation ground truth for the
+//! strongest unrelated matches the confidence rule and the possible tier
+//! are measured against (ADR 0006); the product reads none (ADR 0017).
+
+use std::path::Path;
+use std::time::Duration;
+
+use gunfinger_core::confidence::FITTED_RULE;
+use gunfinger_core::timecode::format_timecode;
+
+use crate::audition::names::Libraries;
+use crate::audition::placement::{self, Alignment};
+use crate::audition::schema::{
+    Choice, Effect, Lane, Marker, MarkerKind, Piece, Question, QuestionFile, QuestionId,
+    SCHEMA_VERSION, Span, Timeline,
+};
+use crate::pair::{PairReport, Search};
+
+/// `pair`'s searches of the audio, as a mix is searched, are named so.
+const AUDIO_SEARCH: &str = "audio";
+
+/// One question per pair, in the reports' order.
+pub fn questions(reports: &[PairReport], libraries: &Libraries) -> Result<QuestionFile, String> {
+    let questions = reports
+        .iter()
+        .enumerate()
+        .map(|(index, report)| {
+            question(index + 1, report, libraries)
+                .map_err(|error| format!("{} ~ {}: {error}", report.query, report.found))
+        })
+        .collect::<Result<Vec<_>, String>>()?;
+    Ok(QuestionFile {
+        schema_version: SCHEMA_VERSION,
+        title: String::from("Shared material or chance"),
+        made_by: String::from("gunfinger-eval questions shared"),
+        questions,
+    })
+}
+
+fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result<Question, String> {
+    let search = strongest_audio_search(report)
+        .ok_or("the report has no alignment from a search of the audio")?;
+    let alignments: Vec<Alignment> = search
+        .alignments
+        .iter()
+        .enumerate()
+        .map(|(index, alignment)| Alignment {
+            start: alignment.query_start_seconds,
+            end: alignment.query_end_seconds,
+            offset: alignment.offset_seconds,
+            speed: alignment.speed,
+            label: format!("alignment {}", index + 1),
+            hits: alignment.hits,
+        })
+        .collect();
+    let (a, b) = (libraries.path(&report.query), libraries.path(&report.found));
+    let timeline = (0.0, report.query_seconds);
+    let b_pieces = placement::tile(&b, report.found_seconds, timeline, &alignments);
+    if b_pieces.is_empty() {
+        return Err(String::from("lane B has no audio on A's timeline"));
+    }
+    let lanes = vec![
+        Lane {
+            name: String::from("A"),
+            pieces: vec![Piece {
+                file: a.clone(),
+                start: timeline.0,
+                end: timeline.1,
+                offset: 0.0,
+                speed: 1.0,
+                label: None,
+            }],
+        },
+        Lane {
+            name: String::from("B"),
+            pieces: b_pieces,
+        },
+    ];
+
+    let mut markers = Vec::new();
+    let mut spans = Vec::new();
+    let mut details = vec![format!(
+        "B follows every alignment of the `pair` search \"{}\", strongest first, also those below the {} hits of a possible play:",
+        search.name, FITTED_RULE.min_possible_hits
+    )];
+    for (position, alignment) in (1..).zip(&search.alignments) {
+        let playback = if alignment.key_locked {
+            "key-locked: B's tempo differs, not its pitch"
+        } else {
+            "turntable: pitch and tempo together"
+        };
+        let line = format!(
+            "alignment {position}: A {}-{} ~ B {}-{}, {} hits in {} windows, B played at {:+.2}% ({playback})",
+            timecode(alignment.query_start_seconds),
+            timecode(alignment.query_end_seconds),
+            timecode(alignment.found_start_seconds),
+            timecode(alignment.found_end_seconds),
+            alignment.hits,
+            alignment.windows,
+            (alignment.speed - 1.0) * 100.0,
+        );
+        markers.push(Marker {
+            at: alignment.query_start_seconds,
+            label: format!("alignment {position} starts: {} hits", alignment.hits),
+            kind: MarkerKind::Listen,
+        });
+        markers.push(Marker {
+            at: alignment.query_end_seconds,
+            label: format!("alignment {position} ends"),
+            kind: MarkerKind::Edge,
+        });
+        spans.push(Span {
+            start: alignment.query_start_seconds,
+            end: alignment.query_end_seconds,
+            lanes: vec![0, 1],
+            label: line.clone(),
+        });
+        details.push(line);
+    }
+    markers.sort_by(|a, b| a.at.total_cmp(&b.at));
+    if search
+        .alignments
+        .iter()
+        .any(|alignment| alignment.key_locked)
+    {
+        details.push(String::from(
+            "Speed matching (M) plays B at A's tempo by changing its playback rate, so a key-locked alignment also moves B's pitch by the same ratio; turn it off to hear B at its own pitch",
+        ));
+    }
+
+    Ok(Question {
+        id: QuestionId::derive("shared", &[&report.query, &report.found]),
+        kind: String::from("shared"),
+        title: format!("{number}. {} ~ {}", stem(&a), stem(&b)),
+        text: String::from(
+            "A and B are different recordings that line up where the lanes are shaded. Do they share material there, such as a drum break, a loop or a sample, or is the match chance?",
+        ),
+        details,
+        files: vec![report.query.clone(), report.found.clone()],
+        timeline: Timeline {
+            start: timeline.0,
+            end: timeline.1,
+            reference: Some(0),
+        },
+        lanes,
+        markers,
+        spans,
+        choices: vec![
+            choice('s', "shared material (a break, loop or sample)", "shared"),
+            choice('c', "chance", "chance"),
+            choice('u', "unsure", "unsure"),
+        ],
+        effect: Effect::Log,
+    })
+}
+
+/// The audio search whose strongest alignment has the most hits (each
+/// search lists its alignments strongest first).
+fn strongest_audio_search(report: &PairReport) -> Option<&Search> {
+    report
+        .searches
+        .iter()
+        .filter(|search| search.name.starts_with(AUDIO_SEARCH) && !search.alignments.is_empty())
+        .max_by_key(|search| search.alignments[0].hits)
+}
+
+fn timecode(seconds: f64) -> String {
+    format_timecode(Duration::from_secs_f64(seconds.max(0.0)))
+}
+
+fn choice(key: char, label: &str, value: &str) -> Choice {
+    Choice {
+        key,
+        label: label.to_owned(),
+        value: value.to_owned(),
+    }
+}
+
+fn stem(path: &Path) -> String {
+    path.file_stem().map_or_else(
+        || path.display().to_string(),
+        |stem| stem.to_string_lossy().into_owned(),
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::audition::schema::check;
+    use std::path::PathBuf;
+
+    /// Two searches of the audio and one of the peaks: the second audio
+    /// search holds the strongest alignment, key-locked, and a weaker one
+    /// that overlaps it on A.
+    const REPORT: &str = r#"[{
+      "query": "Artist - Tune.mp3",
+      "found": "second-library/label/Other - Remix.opus",
+      "query_seconds": 400.0,
+      "found_seconds": 300.0,
+      "searches": [
+        {"name": "peaks, turntable ladder", "alignments": [
+          {"query_start_seconds": 10.0, "query_end_seconds": 40.0, "found_start_seconds": 5.0,
+           "found_end_seconds": 35.0, "speed": 1.0, "key_locked": false, "hits": 90, "windows": 3,
+           "coverage": 0.1, "offset_seconds": -5.0}]},
+        {"name": "audio, both ladders", "alignments": [
+          {"query_start_seconds": 200.0, "query_end_seconds": 230.0, "found_start_seconds": 20.0,
+           "found_end_seconds": 51.2, "speed": 1.04, "key_locked": false, "hits": 20, "windows": 3,
+           "coverage": 0.1, "offset_seconds": -188.0}]},
+        {"name": "audio, both ladders, second pass", "alignments": [
+          {"query_start_seconds": 112.0, "query_end_seconds": 158.0, "found_start_seconds": 34.4,
+           "found_end_seconds": 78.5, "speed": 0.9587, "key_locked": true, "hits": 60, "windows": 5,
+           "coverage": 0.13, "offset_seconds": -73.3},
+          {"query_start_seconds": 150.0, "query_end_seconds": 190.0, "found_start_seconds": 30.0,
+           "found_end_seconds": 68.3, "speed": 0.9585, "key_locked": true, "hits": 41, "windows": 4,
+           "coverage": 0.1, "offset_seconds": -113.8}]}
+      ]
+    }]"#;
+
+    fn libraries() -> Libraries {
+        Libraries {
+            corpus: PathBuf::from("/repo/corpus/library"),
+            second: PathBuf::from("/nas/music"),
+        }
+    }
+
+    #[test]
+    fn b_follows_every_alignment_of_the_strongest_audio_search() {
+        let reports: Vec<PairReport> = serde_json::from_str(REPORT).unwrap();
+
+        let file = questions(&reports, &libraries()).unwrap();
+        check(&file).unwrap();
+
+        let [question] = &file.questions[..] else {
+            panic!("{} questions", file.questions.len());
+        };
+        assert_eq!(question.kind, "shared");
+        assert_eq!(
+            question.id,
+            QuestionId::derive(
+                "shared",
+                &[
+                    "Artist - Tune.mp3",
+                    "second-library/label/Other - Remix.opus"
+                ]
+            )
+        );
+        assert_eq!(
+            question.files,
+            [
+                "Artist - Tune.mp3",
+                "second-library/label/Other - Remix.opus"
+            ]
+        );
+        assert_eq!(question.title, "1. Artist - Tune ~ Other - Remix");
+        assert!(matches!(question.effect, Effect::Log));
+        let values: Vec<&str> = question.choices.iter().map(|c| c.value.as_str()).collect();
+        assert_eq!(values, ["shared", "chance", "unsure"]);
+
+        let [a] = &question.lanes[0].pieces[..] else {
+            panic!("lane A: {:?}", question.lanes[0].pieces);
+        };
+        assert_eq!(
+            a.file,
+            PathBuf::from("/repo/corpus/library/Artist - Tune.mp3")
+        );
+        assert_eq!((a.start, a.end, a.offset, a.speed), (0.0, 400.0, 0.0, 1.0));
+        // The 41-hit alignment takes over where the 60-hit one ends, and B
+        // goes on with the nearest alignment outside both, from its start
+        // (B's time 0 at A's 73.3 / 0.9587 s) to the end of A.
+        let b = &question.lanes[1].pieces;
+        assert_eq!(b.len(), 2, "{b:?}");
+        assert_eq!(
+            b[0].file,
+            PathBuf::from("/nas/music/label/Other - Remix.opus")
+        );
+        assert!((b[0].start - 73.3 / 0.9587).abs() < 1e-9, "{b:?}");
+        assert_eq!(b[0].end, 158.0);
+        assert_eq!((b[0].offset, b[0].speed), (-73.3, 0.9587));
+        assert_eq!((b[1].start, b[1].end), (158.0, 400.0));
+        assert_eq!((b[1].offset, b[1].speed), (-113.8, 0.9585));
+        assert_eq!(question.spans.len(), 2);
+        assert_eq!(question.markers.len(), 4);
+        assert!(
+            question
+                .markers
+                .windows(2)
+                .all(|pair| pair[0].at <= pair[1].at)
+        );
+        assert!(question.details[0].contains("\"audio, both ladders, second pass\""));
+        assert!(
+            question
+                .details
+                .iter()
+                .any(|line| line.contains("key-locked"))
+        );
+        assert!(
+            question
+                .details
+                .iter()
+                .any(|line| line.contains("Speed matching (M)"))
+        );
+    }
+
+    #[test]
+    fn a_pair_without_an_audio_alignment_is_an_error() {
+        let mut reports: Vec<PairReport> = serde_json::from_str(REPORT).unwrap();
+        reports[0]
+            .searches
+            .retain(|search| !search.name.starts_with(AUDIO_SEARCH));
+
+        let error = questions(&reports, &libraries()).unwrap_err();
+
+        assert!(
+            error.contains("no alignment from a search of the audio"),
+            "{error}"
+        );
+    }
+}

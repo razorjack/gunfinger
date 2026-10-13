@@ -29,8 +29,7 @@ in the NAS series' last two runs.
 s of the run's 488 s of CPU, and nearly all its system time; Gunfinger's
 own CPU was 67 s (peak picking 38 s, the rest of the STFT and log power
 19 s, reading FFmpeg's output and spawning 8 s, store writes 2.4 s) and
-is 35 s with 0097's picker (`pick` 38 -> 9 s). Tags are read by FFprobe
-in about 30 ms a file.
+is 35 s with 0097's picker (`pick` 38 -> 9 s). FFprobe: 30 ms a file.
 
 **Conclusion.** 0097 makes a first `index` 4% faster (3.5% on the NAS
 folder) with identical records; no further change. FFmpeg now takes 86%

@@ -32,10 +32,12 @@ for scope and rules.
   picker, every record and tag note identical. FFmpeg is 86% of the
   CPU (its options fixed); Gunfinger's own CPU 67 s -> 35 s on the
   corpus. No further change
-- [ ] 4a. Listening questions for Watermelon ~ 300 Baud - Monotone and
+- [x] 4a. Listening questions for Watermelon ~ 300 Baud - Monotone and
   Falcon - Fractles ~ Ryme Tyme - We Enter (shared material / chance /
-  unsure), outside the default queue; the page checked with a temporary
-  answer log
+  unsure): a new producer, `questions shared`, wrote
+  `work/audition/shared/s17-shared.json`, outside the default queue; the
+  page loaded both with a temporary verdicts file and answer log, nothing
+  answered
 - [ ] 4b. The roadmap's "Behaviour at scale" and "The possible tier at
   NAS scale" (and `docs/calibration.md`) corrected: the strongest
   "unrelated" matches checked since session 10 were shared material
