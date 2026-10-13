@@ -3015,3 +3015,138 @@ use (then the possible tier's threshold would be 130) or from chance
 - **Shared breaks.** If Meltdown and Phantom Force share a break, other
   pairs in a drum & bass collection will too; measuring how often they
   reach the possible tier would come next.
+
+## Session 16
+
+### What changed
+
+**`identify` prints a tracklist by default** (ADR 0017, our principle of
+2026-10-13). My 2003 mix against the NAS collection
+(`--playback turntable`), as `identify` and `show` now print it:
+
+```text
+ 1.    0:01  Kemal and Rob Data - Konspiracy  (also: A-Konspiracy-Kemal_and_Rob_Data-sour, Kemal + Rob Data - Konspiracy)
+ 2.    2:10  Future Cut - Sex Drive  (titles disagree: Future Cut - The Specialist)
+ 3.    6:12  Narcosis - Escape Route  (also: AA-Escape_Route-Narcosis-sour)
+ 4.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)
+ 5.   11:31  Digital & Spirit - Phantom 2018 (possible; shares material with Digital and Spirit - Phantom Force)
+ 6.   13:46  Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit) (possible; shares material with Digital and Spirit - Phantom Force)
+ 7.   14:40  Tee Bee - Two Faced
+ 8.   17:23  Omni Trio - Kinetic
+ 9.   24:24  Carlito & Addiction - Into Music
+10.   29:13  Omni Trio - Artificial Life (Harp Tune)
+11.   31:04  Total Science - Yvon Is On
+12.   34:54  Marcus Intalex & ST Files - Balderdash  (also: Marcus Intalex & S.T.Files - Balderdash)
+13.   39:06  Spirit - Out Of Control
+14.   42:13  Dj Hidden - Skektics
+```
+
+- The table of plays is still there: `-f human`. JSON, CSV, the cue
+  sheet and the timeline are unchanged. With several recordings each
+  gets a `== name` heading; a recording with nothing found says `no
+  tracks found`. The tracklist has no colour, so it copies as it is.
+- **One entry per track.** Skektics used to be two lines, `42:13 DJ
+  HIDDEN - skektics` and `42:15 Dj Hidden - Skektics`: the alien5ive
+  upload has about 40 s more lead-in than the two vinyl rips, so the
+  plays did not line up as one recording (experiment 0095). Plays over
+  the same passage whose files' artist and title tags are equal (letters
+  and digits, ignoring case) are now one entry however they line up. In
+  reports of the current library this changes only that entry; files
+  without both tags never join by title. The JSON report is unchanged.
+
+**A file that hangs no longer stops a run** (ADR 0018). When a run of
+FFmpeg or FFprobe writes nothing for two minutes, Gunfinger kills it and
+the file fails with a message naming the likely cause:
+
+```text
+<path> could not be read: nothing came from `ffmpeg` for 120 s, so it was
+stopped. The storage holding the file may be unresponsive, such as a NAS
+that hangs; check that the file opens, then try again
+```
+
+- `index`: the file is listed as failed and the run ends unsuccessfully,
+  as for any failure, but the file is **not** remembered as damaged: the
+  next `index` tries it again without `--retry-skipped`. The other files
+  carry on.
+- `identify`: that recording fails with the message; with several
+  recordings the others are still searched.
+- The listening page: a window that hangs answers `503` with the message,
+  and the page retries.
+- Two minutes is deliberately long: a NAS waking its disks or an SMB
+  reconnect can take tens of seconds, and a false stall would fail a whole
+  `identify`. A healthy decode writes all the time it runs, so a long
+  mix on a slow share is not affected. The value is fixed, not a setting.
+
+**`audition` takes a lock on its answer log.** A second `gunfinger-eval
+audition` on the same log says another server is answering into it and
+exits (use the open page, or stop the first with Ctrl-C). Verdict lines
+are checked and written under a lock on `docs/pair-verdicts.txt`, which
+`pair-review` takes too. The workspace now needs Rust 1.89 or later.
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and the manifests are unchanged (digests
+  as at the start). The NAS was only read; the NAS peak store was not
+  written (33,596 records, revision `f9f9bc706195a71b` at the end, as at
+  the start).
+- **Detections did not change.** `regress session-16-start` was identical
+  with the final build and `scripts/check.sh` green.
+- **The timeout was not tried against a real hung share** (none was
+  available). It was checked with stand-in programs that hang: `identify`
+  ended after 120 s with the message above and the stand-in was killed.
+  In a test with a short timeout, `index` on a temporary store failed a
+  file whose decode hangs, did not remember it, and indexed it on the
+  next run.
+- **Still blocking on a hung share:** listing the library, reading a
+  file's size and date, and opening the recording before the search.
+  These are not FFmpeg calls; the roadmap's "A share that hangs" lists
+  them.
+- **The test set was not touched**, nor the candidate mixes of experiment
+  0065.
+- **A review by a second agent** found two defects in the night's code
+  and several smaller points; all are fixed:
+  - `pair-review` checked for verdicts only when it started. A verdict
+    given on the listening page while `pair-review` had the same item open
+    could be contradicted by the next key, which leaves the verdicts file
+    unreadable until the line is removed by hand. It now reads the file
+    again under the lock and writes nothing for an item judged meanwhile.
+  - A share that stays hung leaves a few threads behind for each stalled
+    file. Had the system refused a new thread, the run would have crashed;
+    now that file fails with the error.
+  - A decode that writes only error messages for two minutes counts as
+    running, so a damaged file on a slow share ends as damaged (and is
+    remembered) rather than as a stall.
+  - `titles disagree` is now decided over the whole entry, including
+    plays joined only through a third; no stored report's tracklist
+    changes.
+  - A tracklist of an older report without tags reads each file's tags
+    once, not once per mention.
+  - Tests that run the real FFmpeg beside a hanging stand-in now allow
+    5 s instead of 0.5 s, so a busy machine cannot fail them.
+- **The same track can still be listed twice in one case:** a possible
+  play inside a confident one is marked as sharing material, and such a
+  play is never grouped (as this session's brief set), even when its tags
+  match.
+  It would print as `X (possible; shares material with X)`. No stored
+  report of the development mixes has such a line.
+
+### Decided tonight, open to change
+
+- Tags that differ only in case name one entry, printed once (the
+  strongest file's spelling).
+- The table keeps the name `-f human`, with no alias.
+- The stall timeout is 120 s and not a setting.
+- A second `audition` server exits instead of waiting for the first.
+
+### Decisions waiting
+
+- Still waiting, unchanged: the containment rule, the possible tier's
+  threshold, test evaluation 5.
+
+### Left for later
+
+- **The next speed step**, on an idle machine (the machine had other load this session,
+  so no timings were taken).
+- **A run that meets many stalls in a row** waits two minutes per file on
+  each worker. Stopping it early would be a separate decision.

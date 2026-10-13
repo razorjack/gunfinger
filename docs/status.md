@@ -2196,3 +2196,95 @@ Brief `docs/brief-15.md`, checklist `docs/session-15-checklist.md`.
     (Falcon - Fractles ~ Ryme Tyme - We Enter, Optical remix v3.0). The
     roadmap's "chance grows past the possible tier from about 9,000
     assets" rests on Rubba Rock and needs revising.
+
+## 2026-10-13: session 16, the tracklist by default, one entry per track, a stall timeout on FFmpeg
+
+Brief `docs/brief-16.md`, checklist `docs/session-16-checklist.md`. No
+timings are findings: the machine had other
+load.
+
+- 01:53 setup, `git status` clean at `5b09bc3`. Release build in
+  `work/bin/s16-start/` (both binaries byte-identical to `s15-final`'s);
+  `baseline session-16-start` saved from session 15's final `regress`
+  reports. The NAS store: 33,596 records, revision `f9f9bc706195a71b`, as
+  expected. Digests of `docs/pair-verdicts.txt` and
+  `work/audition/answers.jsonl` in `work/s16/listening-digests-start.txt`.
+- Step 2: ADR 0017 records our principle (fire and forget):
+  report edits and the Track/AudioAsset model out of scope, disagreeing
+  titles flagged and never chosen, the tracklist as the default output.
+  Roadmap, AGENTS.md ("The product's scope"), README, ADRs 0006 and 0016
+  follow.
+- Step 3 (experiment 0095): the 2003 mix at NAS scale listed DJ Hidden -
+  Skektics twice because the alien5ive upload's track start lies 41.7 s
+  from the rips'. Plays over the same passage whose own files' artist and
+  title tags compare equal (letters and digits, ignoring case) are now one
+  entry (`same_tagged_track`), joined as connected components so the
+  order of plays does not matter; the cue sheet groups the same way.
+  Measured on 30 stored reports (11 distinct) and 7 fresh ones: only the
+  Skektics entry changes in reports of the current library; session 9's
+  report, before the prune, also joins two mixed-CD extracts.
+  Output only: the JSON report and the core are untouched. 7 tests.
+- Step 4: the tracklist is the default of `identify` and `show`; `-f
+  human` keeps the table (no alias); `no tracks found` for an empty
+  result; headings for several recordings; the tracklist stays plain
+  under `--color always`. README, help, ADR 0017; an end-to-end test of
+  the default (an upload with 20 s more lead-in and tags differing in
+  case: one entry).
+- Step 5 (ADR 0018): `decode::watch` runs FFmpeg and FFprobe with stdout
+  and stderr read on threads of their own; a child that writes nothing
+  for `decode::STALL` (120 s) is killed and reaped on a detached thread,
+  never waited for. The same limit covers the exit wait and the header
+  read that chooses how FFmpeg opens the file. `DecodeError::Stalled` is
+  not about the file, so `index` fails it for this run only; `identify`
+  fails the recording; the listening page decodes through the same
+  watcher. `Decoder` (paths of `ffmpeg` and `ffprobe`, the timeout) is
+  the test seam: stand-in scripts in temporary folders, a 0.5 s timeout,
+  `PATH` untouched. Checked by hand: `identify` with a stand-in that hangs
+  exited 1 after 120 s with the message and the stand-in was gone.
+- Step 6: `rust-version = "1.89"`; the lints it turns on fixed
+  (`as_chunks`, a `let` chain, `is_multiple_of`). `audition` holds the
+  answer log's lock (`AnswerBook::lock_log`, `try_lock`) while it runs; a
+  second server on the same log exits with a message. Verdicts are
+  checked and appended under the verdicts file's lock
+  (`clusters::VerdictsWriter`, blocking), which undo and `pair-review`
+  take too. ADR 0016 "One writer". `regress session-16-start` with the
+  step 6 build (`work/bin/s16-step6/`): 720/720 sweep queries and 87, 93
+  and 79 scan detections identical, the known calibrate line.
+- Step 7, review by a subagent (read-only, the diff `a9ef804..d089b92`),
+  fixed:
+  - `pair-review` appended under the lock without reading the file
+    again, so a verdict from the page on the same item meanwhile could be
+    contradicted (the file then fails to parse). It now reloads under the
+    writer and writes nothing for an item judged meanwhile; a test.
+  - `thread::spawn` in `decode::watch` would panic when the system
+    refuses a thread (threads pile up while a share stays hung); now
+    `thread::Builder`, the file failing with `DecodeError::Spawn`;
+    `within` returns `io::Result`.
+  - stderr counts as activity (a `Heartbeat` over either pipe), so a
+    decode writing only errors is not a stall; a test.
+  - `tests/stalls.rs` ran the real `ffprobe` and `ffmpeg` under 0.5 s:
+    now 5 s; a second test covers a stalled header read in `index_asset`
+    and in `tag()`. The watcher tests' margins widened (2 s for the slow
+    decode; the pid file may be missing on a loaded machine); their
+    folders removed.
+  - `Entry::titles_disagree` also compares the titles of all confident
+    plays in the entry (chains); `tracklist_changes.py` with
+    `work/bin/s16-review/`: no line changes in the 17 distinct stored and
+    fresh reports.
+  - `render` reads an untagged file's name once per output (a cache).
+  - Wording: ADR 0017's rule (two plays, not two files), the page's
+    module note, the `index` failure message; ADRs 0016 and 0018 follow.
+  Not changed: a possible play marked as sharing material stays apart
+  even when tagged like the confident play (the brief's rule); no stored
+  report prints such a line.
+- Wrap-up, 03:22: notes "Session 16" (the 2003 mix's default output,
+  checked against the final build; the timeout and what happens to a hung
+  file; the review; four decisions open to change); roadmap item
+  "A share that hangs". With the final build (`work/bin/s16-final/`, the
+  code of `4ec0ee4`): `regress session-16-start` identical (720/720 sweep
+  queries, 87, 93 and 79 scan detections, the known calibrate line);
+  `scripts/check.sh` green on the same code (345 tests). The NAS store at
+  the end: 33,596 records, revision `f9f9bc706195a71b`, unchanged.
+  `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
+  (digests as at the start); no manifest changed. Processes this session
+  did not start were left alone.

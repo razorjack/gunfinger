@@ -62,9 +62,12 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Notes "Session 16", status, roadmap
-- [ ] `regress session-16-start` identical; `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] Notes "Session 16", status, roadmap ("A share that hangs")
+- [x] `regress session-16-start` identical with the final build
+  (`work/bin/s16-final/`, `4ec0ee4`; also after step 6);
+  `scripts/check.sh` green (345 tests)
+- [x] The NAS store's revision at the end: 33,596 records,
+  `f9f9bc706195a71b`, unchanged
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

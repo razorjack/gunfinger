@@ -77,6 +77,19 @@ marked as inferences were derived, not measured.
   entry and the root check gives that run a partial library (the warning
   says so); comparing the root's device before and after would catch a
   root that is itself a mount point left behind empty.
+- **A share that hangs.** *(done for FFmpeg and FFprobe in session 16,
+  ADR 0018)* When the NAS stopped answering, a decode waited as long as
+  the share stayed silent: `index` stopped making progress on that
+  worker, `identify` never returned and the listening page held the
+  request open. Now a child that writes nothing for 120 s is killed and
+  the file fails: `index` fails it for that run only and tries it again
+  on the next, `identify` fails the recording with a message naming the
+  storage, and the page answers `503`. Open: listing the library,
+  reading a file's size and modification time, and opening the recording
+  still block on a hung share; and if a share never answers again, every
+  remaining file of an `index` run waits its two minutes on each worker
+  (stopping a run after many stalls in a row would be a separate
+  decision).
 - **Library ignore file.** *(our proposal, 2026-10-09; done in
   session 8, ADR 0009)* A track of a DJ-mixed CD already blends into the
   next one; indexed, it causes false joins and wrong answers (the mixed

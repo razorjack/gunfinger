@@ -191,9 +191,8 @@ upload with a longer lead-in, an edit, a re-press. The entry is named after
 its strongest play; the other names its files give follow it (`also:`), or
 `titles disagree:` when the titles themselves differ, as for entry 2, where
 the strongest file carries another track's title in its tags (experiment
-0061). Gunfinger does not
-choose between them and never changes tags: the names are as good as the
-tags. Two tracks that overlap in a blend stay apart, and a possible play
+0061). Gunfinger does not choose between them and never changes tags: the
+names are as good as the tags. Two tracks that overlap in a blend stay apart, and a possible play
 that shares material with another entry stays its own entry, naming it.
 A recording in which nothing is found prints `no tracks found`. The
 tracklist is plain text, without colour, so it can be copied as it is.
