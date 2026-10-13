@@ -78,14 +78,14 @@ cargo build --release
 # Extract peaks for every audio file under the library root (incremental).
 target/release/gunfinger index ~/Music/library
 
-# Find library tracks in a mix.
+# Find library tracks in a mix: prints a numbered tracklist.
 target/release/gunfinger identify mix.m4a --library ~/Music/library
 target/release/gunfinger identify mix.m4a --library ~/Music/library \
     --start 45:00 --duration 10:00 --format json > mix.json
 
-# Plays found with key lock are marked (key lock). For a vinyl-only mix,
-# search turntable playback alone, about a third faster (or set it in the
-# configuration file, below).
+# For a vinyl-only mix, search turntable playback alone, about a third
+# faster (or set it in the configuration file, below). The table of plays
+# (--format human) marks plays found with key lock (key lock).
 target/release/gunfinger identify mix.m4a --playback turntable
 
 # Several recordings share one index build; --save-dir keeps a JSON report
@@ -97,8 +97,10 @@ target/release/gunfinger identify mix.m4a --playback turntable
 # use another name or --save-dir.
 target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
 
-# Write a saved report in another format without searching again.
-target/release/gunfinger show mix.json --format tracklist
+# Print a saved report again without searching: the tracklist, or the
+# table of every play.
+target/release/gunfinger show mix.json
+target/release/gunfinger show mix.json --format human
 
 # Hear the mix at 20:30, then each track found there, from the same place in
 # the track and at the speed it was played (needs ffplay; --print shows the
@@ -153,64 +155,82 @@ over; `--quiet` (`-q`) keeps only results, warnings and errors.
 `gunfinger completions <shell>` prints a completion script (bash, zsh, fish,
 elvish, powershell) and `gunfinger man` prints the man page.
 
-Human output is one table of plays in time order: time span in the
-recording, the part of the track that was heard, speed, confidence
-(`confident` or `possible`), hits and asset path. When several library files
-hold the same audio (copies, or rips with identical peaks), their plays are
-identical and shown once, with the other paths underneath (`also ...`). A play
-of several segments lists them underneath and keeps the highest confidence
-reached by any one segment; their evidence is never pooled to qualify. A
-possible play that lies entirely inside a confident play of another
-recording ends with `shares material with <asset> (play N)`, N counting
-plays as `review` does: most likely the two recordings share that passage,
-as a remix can carry the original's lead. This is display only; a remix
-played in its own right reaches past the original's play, or is confident
-itself, and is not marked. When confident plays of other files over the
-same passage carry another title in their tags (a mislabelled file, or a
-VIP that plays the original's opening), a line underneath says `titled
-<its tags>; other files here: <title> (play N)`, without choosing which
-title is right. This also covers copies with identical audio and other
-titles, whose tags the report keeps.
+The default output is a tracklist (ADR 0017): one numbered line per track
+with its start in the mix, named `artist - title` from the files' tags (or
+the file name of a file without a title tag), possible tracks marked. My
+2003 mix, a development set, against the drum & bass collection
+on the NAS (`--playback turntable`):
+
+```text
+ 1.    0:01  Kemal and Rob Data - Konspiracy  (also: A-Konspiracy-Kemal_and_Rob_Data-sour, Kemal + Rob Data - Konspiracy)
+ 2.    2:10  Future Cut - Sex Drive  (titles disagree: Future Cut - The Specialist)
+ 3.    6:12  Narcosis - Escape Route  (also: AA-Escape_Route-Narcosis-sour)
+ 4.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)
+ 5.   11:31  Digital & Spirit - Phantom 2018 (possible; shares material with Digital and Spirit - Phantom Force)
+ 6.   13:46  Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit) (possible; shares material with Digital and Spirit - Phantom Force)
+ 7.   14:40  Tee Bee - Two Faced
+ 8.   17:23  Omni Trio - Kinetic
+ 9.   24:24  Carlito & Addiction - Into Music
+10.   29:13  Omni Trio - Artificial Life (Harp Tune)
+11.   31:04  Total Science - Yvon Is On
+12.   34:54  Marcus Intalex & ST Files - Balderdash  (also: Marcus Intalex & S.T.Files - Balderdash)
+13.   39:06  Spirit - Out Of Control
+14.   42:13  Dj Hidden - Skektics
+```
+
+The tracklist lists tracks rather than plays. Plays of several library
+files over the same stretch of the recording are one entry when, with each
+file's own speed taken out, the track would have started at the same moment
+(within 5 s): rips, masters and uploads sped up by a few percent. They are
+also one entry when the files' tags give the same artist and title
+(compared by letters and digits, ignoring case), however they line up: an
+upload with a longer lead-in, an edit, a re-press. The entry is named after
+its strongest play; the other names its files give follow it (`also:`), or
+`titles disagree:` when the titles themselves differ, as for entry 2, where
+the strongest file carries another track's title in its tags (experiment
+0061). Gunfinger does not
+choose between them and never changes tags: the names are as good as the
+tags. Two tracks that overlap in a blend stay apart, and a possible play
+that shares material with another entry stays its own entry, naming it.
+A recording in which nothing is found prints `no tracks found`. The
+tracklist is plain text, without colour, so it can be copied as it is.
 
 `--format` (`-f`, for `identify` and `show`) also takes:
 
+- `human`: one table of plays in time order: time span in the recording,
+  the part of the track that was heard, speed, confidence (`confident` or
+  `possible`), hits and asset path. When several library files hold the
+  same audio (copies, or rips with identical peaks), their plays are
+  identical and shown once, with the other paths underneath (`also ...`).
+  A play of several segments lists them underneath and keeps the highest
+  confidence reached by any one segment; their evidence is never pooled to
+  qualify. Plays found with key lock end with `(key lock)`. A possible
+  play that lies entirely inside a confident play of another recording
+  ends with `shares material with <asset> (play N)`, N counting plays as
+  `review` does: most likely the two recordings share that passage, as a
+  remix can carry the original's lead. This is display only; a remix
+  played in its own right reaches past the original's play, or is
+  confident itself, and is not marked. When confident plays of other files
+  over the same passage carry another title in their tags (a mislabelled
+  file, or a VIP that plays the original's opening), a line underneath
+  says `titled <its tags>; other files here: <title> (play N)`, without
+  choosing which title is right. This also covers copies with identical
+  audio and other titles, whose tags the report keeps.
 - `timeline`: each play as a bar across the recording.
 - `json`: the whole report: the playback searched (`query.playback`), plays
   with their segments, `same_audio` paths, `shares_material_with`,
   `other_titles` (the plays above, with their tags' title) and the
   file's `tags` (artist, title, album) as the peak store holds them
   (`schema_version` 3; fields may be added without a version change).
+  Scripts read this format.
 - `csv`: one row per play, times in seconds.
-- `tracklist`: a numbered list of recordings with start times, named
-  `artist - title` from their tags (or the file name), possible ones
-  marked. The tags come from the report, so `show` names tracks without the
-  library; for reports made before the store kept tags, they are read from
-  the files.
-- `cue`: a cue sheet of the confident recordings, for players and splitters.
+- `cue`: a cue sheet of the confident tracks, for players and splitters,
+  grouped as the tracklist groups them.
 
-The tracklist and the cue sheet list tracks rather than plays (ADR 0017).
-Plays of several library files over the same stretch of the recording are
-one entry when, with each file's own speed taken out, the track would have
-started at the same moment (within 5 s): rips, masters and uploads sped up
-by a few percent. They are also one entry when the files' tags give the
-same artist and title (compared by letters and digits, ignoring case),
-however they line up: an upload with a longer lead-in, an edit, a
-re-press. The entry is named after its strongest play; other names the
-tags give follow it (`also:`, or `titles disagree:` when the titles
-themselves differ). Tags are never changed. Two tracks that overlap in a
-blend stay apart, and a possible play that shares material with another
-entry stays its own entry, naming it. The development mix against a large collection, where
-each track is found on 2-4 records (experiment 0050):
-
-```text
- 1.    0:00  Stakka And Skynet - Nightlore  (also: Stakka And Skynet - Night Lore, STAKKA and SKYNET - knight lore, Stakka & Skynet - Nightlore)
- 2.    4:36  Stakka & Skynet - Decoy  (also: Stakka & Skynet - Decoy (Remastered))
- 3.    9:43  KEMAL & ROB DATA - star trails  (also: Konflict - Star Trails)
- 4.   10:28  Kemal & Rob Data - Star Trails (Synergy Remix) (possible; shares material with KEMAL & ROB DATA - star trails)
- 5.   14:22  Stakka & Skynet - Pathogen  (also: SKYNET & STAKKA - pathogen)
-```
-
-The JSON, CSV and table keep every play.
+The tags come from the report, so `show` names tracks without the library;
+for reports made before the store kept tags, they are read from the files.
+The JSON, CSV and table keep every play. With several recordings, each
+one's output follows a heading `== <path>`.
 
 ## Configuration
 
@@ -227,7 +247,7 @@ settings in effect and the file they came from.
 | `library` | `--library` | | none | Library root for `index`, `identify`, `explain`, `stats`, `doctor` and `prune`; `identify`, `explain` and `stats` search the peak store alone without it ([Without the library](#without-the-library)) |
 | `peaks_dir` | `--peaks-dir` | `GUNFINGER_PEAKS_DIR` | `work/peaks`, relative to the current directory | The peak store |
 | `jobs` | `--jobs` | `GUNFINGER_JOBS` | one per core | Worker threads |
-| `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | Colour in human output: `auto` (on a terminal), `always` or `never` |
+| `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | Colour in the table, the timeline, headings and messages (the tracklist stays plain): `auto` (on a terminal), `always` or `never` |
 | `playback` | `--playback` | | `both` | Playback searched by `identify` and `explain`: `both`, `turntable` or `key-lock` |
 | `min_track` | `--min-track` | | none | Shortest library file that counts as a track |
 | `max_track` | `--max-track` | | `17:00` | Longest library file that counts as a track; the index addresses up to 17:28 |
@@ -402,7 +422,7 @@ store's directory, about 180 bytes per second of audio (`gunfinger stats`
 shows its size), install Gunfinger and FFmpeg there, and name the copy:
 
 ```sh
-target/release/gunfinger --peaks-dir /Volumes/STICK/peaks identify mix.m4a --format tracklist
+target/release/gunfinger --peaks-dir /Volumes/STICK/peaks identify mix.m4a
 ```
 
 The track length range in effect there applies, as it does to a library.

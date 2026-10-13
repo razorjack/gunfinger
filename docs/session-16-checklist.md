@@ -28,9 +28,13 @@ for scope and rules.
   in any order); the rule in ADR 0017, a note in ADR 0006, the README;
   37 reports measured (experiment 0095): only the Skektics entry changes
   in reports of the current library; 7 tests
-- [ ] 4. The tracklist as the default of `identify` and `show`; `-f human`
-  kept; several recordings, `--quiet`, colour, no plays, `--save-dir`
-  checked; README, help, docs, tests; no script parses the default
+- [x] 4. The tracklist as the default of `identify` and `show`; `-f human`
+  kept without an alias (ADR 0017); several recordings (headings), `--quiet`
+  (stderr only), colour (the tracklist stays plain), no plays (`no tracks
+  found`), `--save-dir` checked; README, help, ADR 0017; an end-to-end test
+  of the default (an upload with 20 s more lead-in and tags differing in
+  case: one entry); the batch test reads the tracklist; no script or
+  harness code parses the default (the harness calls the core)
 - [ ] 5. A stall timeout on FFmpeg (and FFprobe): N chosen and
   documented; `index` fails the file for this run only; `identify` fails
   with the message; the listening page's decoding too; tests through a

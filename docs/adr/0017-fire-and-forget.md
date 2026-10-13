@@ -69,11 +69,28 @@ would make Gunfinger something the user works with.
 ### The default output
 
 `identify` and `show` print the tracklist unless `--format` says
-otherwise: one numbered line per track with its start in the mix, named
-from the strongest file's tags, followed by the names of the other files
-found there and a flag where their titles disagree. The table of plays
-(`--format human`) stays for every play, segment, speed and file path;
-JSON stays the format for programs and for `show`.
+otherwise (from session 16; agreed): one numbered line per track
+with its start in the mix, named from the strongest file's tags, followed
+by the names of the other files found there and a flag where their titles
+disagree. The table of plays (`--format human`) stays for every play,
+segment, speed and file path; JSON stays the format for programs and for
+`show`.
+
+- **The table keeps its name, `human`, with no alias.** A clearer name
+  (`table`, `plays`) with `human` kept as an alias would give one format
+  two names in the help, the completions and the man page, and `stats
+  --format human` would still use the old word. The help text now says
+  what the table holds.
+- **Several recordings** keep a heading `== <path>` before each one's
+  output, as before; `--save-dir` writes each JSON report and prints the
+  tracklist.
+- **Nothing found** prints `no tracks found`, so an empty result does not
+  look like a run that printed nothing.
+- **No colour in the tracklist**, also on a terminal: it is the text the
+  user copies. `--color` still colours the table, the timeline, the
+  headings and messages; `--quiet` silences stderr only.
+- **Programs read JSON.** No script or harness code parses the default
+  output; `gunfinger-eval` calls the core directly.
 
 ### One entry per track
 

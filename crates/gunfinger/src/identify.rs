@@ -43,7 +43,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
     if several && !request.format.is_for_people() {
         return Err(miette!(
             help = "--save-dir keeps one JSON report per recording; `gunfinger show` renders each in any format",
-            "several recordings can only be printed in the human, timeline or tracklist format"
+            "several recordings can only be printed in the tracklist, human or timeline format"
         ));
     }
     // Checked first: listing the library and building the index take

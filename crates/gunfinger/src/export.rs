@@ -167,11 +167,15 @@ fn first_plays(plays: &[FoundPlay]) -> Vec<usize> {
     firsts
 }
 
-/// A numbered list of the recordings, with their start in the mix;
-/// possible entries are marked, with the name of the entry they share
-/// material with.
+/// A numbered list of the tracks, with their start in the mix; possible
+/// entries are marked, with the name of the entry they share material
+/// with. As the default output it says when nothing was found, so that an
+/// empty result does not look like a run that printed nothing.
 pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
     let entries = entries(report);
+    if entries.is_empty() {
+        return String::from("no tracks found\n");
+    }
     let entry_name = |shared: &SharedWith| {
         let play = shared
             .play
@@ -311,6 +315,14 @@ mod tests {
             "0.0,41.0,10.0,52.2,3.00,confident,853,4,1,turntable,a.wav,copy-of-a.wav,"
         );
         assert!(lines[2].ends_with(",key-locked,\"b, the remix.wav\",,"));
+    }
+
+    #[test]
+    fn a_recording_without_plays_says_no_tracks_were_found() {
+        let mut report = report();
+        report.plays.clear();
+
+        assert_eq!(tracklist(&report, names), "no tracks found\n");
     }
 
     #[test]

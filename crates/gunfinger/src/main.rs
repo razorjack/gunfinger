@@ -67,7 +67,8 @@ struct Cli {
     #[arg(long, global = true, value_parser = parse_timecode)]
     max_track: Option<Duration>,
 
-    /// When to colour human output [default: auto].
+    /// When to colour the table, the timeline, headings and messages; the
+    /// tracklist stays plain [default: auto].
     #[arg(long, global = true, value_enum)]
     color: Option<ColorChoice>,
 
@@ -140,7 +141,7 @@ enum Command {
         #[arg(long, value_enum, default_value_t = SavedIndex::Use)]
         saved_index: SavedIndex,
         /// Output format.
-        #[arg(long, short, value_enum, default_value_t = ReportFormat::Human)]
+        #[arg(long, short, value_enum, default_value_t = ReportFormat::Tracklist)]
         format: ReportFormat,
         /// Also write each recording's JSON report into this directory, as
         /// <recording name>.json; recordings with a report there are passed
@@ -204,12 +205,13 @@ enum Command {
         #[arg(long, value_enum, default_value_t = SavedIndex::Use)]
         saved_index: SavedIndex,
     },
-    /// Write a saved JSON report of `identify` in another format.
+    /// Print a saved JSON report of `identify` again, as a tracklist or in
+    /// another format, without searching.
     Show {
-        /// A report written by `identify --format json`.
+        /// A report written by `identify --format json` or `--save-dir`.
         report: PathBuf,
         /// Output format.
-        #[arg(long, short, value_enum, default_value_t = ReportFormat::Human)]
+        #[arg(long, short, value_enum, default_value_t = ReportFormat::Tracklist)]
         format: ReportFormat,
     },
     /// Play the recording at a moment, then each track found there from the

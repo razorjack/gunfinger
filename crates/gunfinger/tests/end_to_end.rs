@@ -745,6 +745,99 @@ fn a_copy_of_the_peak_store_names_tracks_without_the_library() {
 }
 
 #[test]
+fn identify_prints_one_tracklist_entry_per_track_by_default() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("default-tracklist");
+    let library = dir.join("library");
+    std::fs::create_dir_all(&library).unwrap();
+    let tune = Track::random(1, 70.0);
+    let lead_in = Track::random(2, 20.0);
+    let other = Track::random(3, 60.0);
+    let mut upload = lead_in.play(0.0, lead_in.seconds, 1.0);
+    upload.extend(tune.play(0.0, tune.seconds, 1.0));
+    // The upload holds 20 s more lead-in, so its play lines up 20 s away
+    // from the rip's; the tags differ in letter case only.
+    for (samples, name, tags) in [
+        (
+            tune.play(0.0, tune.seconds, 1.0),
+            "rip.flac",
+            ["artist=Test Artist", "title=First Tune"],
+        ),
+        (
+            upload,
+            "upload.flac",
+            ["artist=TEST ARTIST", "title=first tune"],
+        ),
+        (
+            other.play(0.0, other.seconds, 1.0),
+            "other.flac",
+            ["artist=Other Artist", "title=Other Tune"],
+        ),
+    ] {
+        let plain = dir.join("plain.wav");
+        write_wav(&plain, &samples);
+        let mut ffmpeg = Command::new("ffmpeg");
+        ffmpeg.args(["-v", "error", "-y", "-i"]).arg(&plain);
+        for tag in tags {
+            ffmpeg.args(["-metadata", tag]);
+        }
+        assert!(ffmpeg.arg(library.join(name)).status().unwrap().success());
+    }
+    let mut mix = Mix::new(85.0);
+    mix.add(0.0, &tune.play(5.0, 42.0, 1.02), 0.5);
+    mix.add(42.0, &other.play(5.0, 40.0, 0.98), 0.5);
+    let recording = dir.join("mix.wav");
+    write_wav(&recording, mix.samples());
+    let library_arg = library.to_str().unwrap();
+    let recording_arg = recording.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+    let identify = |extra: &[&str]| {
+        let mut args = vec!["identify", recording_arg, "--library", library_arg];
+        args.extend_from_slice(extra);
+        gunfinger(&dir, &args)
+    };
+
+    let default = identify(&[]);
+    let quiet = identify(&["--quiet", "--color", "always"]);
+    let report = identify(&["--format", "json"]);
+    let table = identify(&["--format", "human"]);
+    let saved = dir.join("mix.json");
+    std::fs::write(&saved, &report.stdout).unwrap();
+    let shown = gunfinger(&dir, &["show", saved.to_str().unwrap()]);
+
+    let tracklist = String::from_utf8_lossy(&default.stdout).to_lowercase();
+    assert_eq!(
+        tracklist,
+        " 1.    0:00  test artist - first tune\n 2.    0:42  other artist - other tune\n",
+        "one entry for the rip and the upload"
+    );
+    assert_eq!(quiet.stdout, default.stdout, "the tracklist stays plain");
+    assert_eq!(shown.stdout, default.stdout);
+    let report: Value = serde_json::from_slice(&report.stdout).unwrap();
+    let plays = report["plays"].as_array().unwrap();
+    assert_eq!(plays_of(plays, "rip.flac").len(), 1, "{report}");
+    assert_eq!(plays_of(plays, "upload.flac").len(), 1, "{report}");
+    let started = |play: &Value| {
+        seconds(play, "start_seconds")
+            - seconds(play, "track_start_seconds") / seconds(play, "speed")
+    };
+    assert!(
+        (started(plays_of(plays, "rip.flac")[0]) - started(plays_of(plays, "upload.flac")[0]))
+            .abs()
+            > 15.0,
+        "the two plays do not line up: {report}"
+    );
+    let table = String::from_utf8_lossy(&table.stdout);
+    assert!(table.starts_with("time "), "{table}");
+    assert!(
+        table.contains("rip.flac") && table.contains("upload.flac"),
+        "{table}"
+    );
+}
+
+#[test]
 fn a_peak_store_holds_the_records_of_one_library() {
     if !ffmpeg_available() {
         return;
@@ -856,8 +949,13 @@ fn a_batch_keeps_one_report_per_recording_and_passes_over_reported_ones() {
     gunfinger(&dir, &["index", library]);
     let grown_library = batch("turntable", &[]);
 
+    // The default output: a heading per recording, then its tracklist.
     let first = String::from_utf8_lossy(&first.stdout);
-    assert_eq!(first.matches("confident").count(), 2, "{first}");
+    for mix in &mixes {
+        let heading = format!("== {}\n 1.    0:00  1\n\n", mix.display());
+        assert!(first.contains(&heading), "{first}");
+    }
+    assert!(!first.contains("possible"), "{first}");
     for name in ["first.json", "second.json"] {
         let report: Value =
             serde_json::from_slice(&std::fs::read(reports.join(name)).unwrap()).unwrap();

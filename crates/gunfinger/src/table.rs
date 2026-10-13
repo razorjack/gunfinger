@@ -1,4 +1,4 @@
-//! The default human output: one row per play.
+//! `--format human`: a table with one row per play.
 
 use std::time::Duration;
 

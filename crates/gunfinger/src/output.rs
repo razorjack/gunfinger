@@ -12,7 +12,11 @@ use crate::timeline::timeline;
 
 #[derive(Clone, Copy, ValueEnum)]
 pub enum ReportFormat {
-    /// A table of plays for people.
+    /// A numbered list of the tracks with their start times, named from
+    /// the files' tags, with the other names their files give.
+    Tracklist,
+    /// A table of every play: its time, the part of the track heard, speed,
+    /// confidence, hits and file path, with its segments.
     Human,
     /// Each play as a bar across the recording.
     Timeline,
@@ -20,10 +24,8 @@ pub enum ReportFormat {
     Json,
     /// One row per play, for spreadsheets.
     Csv,
-    /// A cue sheet of the confident recordings, named from their tags.
+    /// A cue sheet of the confident tracks, named from their tags.
     Cue,
-    /// A numbered list of the recordings, named from their tags.
-    Tracklist,
 }
 
 impl ReportFormat {
@@ -36,7 +38,8 @@ impl ReportFormat {
     }
 }
 
-/// `style` colours the human formats only.
+/// `style` colours the table, the timeline and nothing else: the tracklist
+/// stays plain text to be copied.
 pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Result<String> {
     let name = |asset: &str| {
         let stored = report.plays.iter().find_map(|play| {
