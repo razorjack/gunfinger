@@ -421,11 +421,11 @@ fn mark_shared_material(plays: &mut [FoundPlay]) {
     }
 }
 
-/// Plays of different assets are one recording when they overlap for at
-/// least this share of the shorter play...
-const SAME_RECORDING_OVERLAP: f64 = 0.5;
-/// ...and the track would have started at the same mix time, to within this
-/// many seconds. Uploads of one track agree to 1.6 s in the development mix
+/// Plays of different assets are over the same passage of the mix when
+/// they overlap for at least this share of the shorter play...
+const SAME_PASSAGE_OVERLAP: f64 = 0.5;
+/// ...and one recording when, besides, the track would have started at the
+/// same mix time, to within this many seconds. Uploads of one track agree to 1.6 s in the development mix
 /// at NAS scale; the remixes sharing material with a played track lie 86
 /// and 193 s away (experiment 0044's report).
 const SAME_RECORDING_SECONDS: f64 = 5.0;
@@ -476,11 +476,31 @@ fn mark_other_titles(plays: &mut [FoundPlay]) {
 }
 
 impl FoundPlay {
-    /// Whether two plays are one recording on two records: they overlap for
-    /// most of the shorter one, and the track would have started at the
-    /// same mix time. A possible play marked as sharing material with
-    /// another recording is a recording of its own, whatever lines up.
+    /// Whether two plays are one recording on two records: they play over
+    /// the same passage of the mix, and the track would have started at the
+    /// same mix time.
     pub fn same_recording(&self, other: &FoundPlay) -> bool {
+        self.over_same_passage(other)
+            && (self.track_started_at() - other.track_started_at()).abs() <= SAME_RECORDING_SECONDS
+    }
+
+    /// Whether two plays over the same passage of the mix come from files
+    /// tagged with the same artist and title, however they line up: an
+    /// upload with a longer lead-in, an edit, a re-press. The tags name the
+    /// track (ADR 0017). Artists and titles are compared as titles are for
+    /// `other_titles`; a play without an artist or a title tag is not
+    /// compared, as its name would come from its file name.
+    pub fn same_tagged_track(&self, other: &FoundPlay) -> bool {
+        self.over_same_passage(other)
+            && self
+                .compared_name()
+                .is_some_and(|name| other.compared_name() == Some(name))
+    }
+
+    /// Whether two plays overlap for most of the shorter one. A possible
+    /// play marked as sharing material with another recording is a
+    /// recording of its own, whatever lines up and whatever its tags say.
+    fn over_same_passage(&self, other: &FoundPlay) -> bool {
         if self.shares_material_with.is_some() || other.shares_material_with.is_some() {
             return false;
         }
@@ -488,8 +508,7 @@ impl FoundPlay {
             self.end_seconds.min(other.end_seconds) - self.start_seconds.max(other.start_seconds);
         let shorter =
             (self.end_seconds - self.start_seconds).min(other.end_seconds - other.start_seconds);
-        overlap >= SAME_RECORDING_OVERLAP * shorter
-            && (self.track_started_at() - other.track_started_at()).abs() <= SAME_RECORDING_SECONDS
+        overlap >= SAME_PASSAGE_OVERLAP * shorter
     }
 
     /// The mix time at which the play's track would have started, had it
@@ -507,6 +526,16 @@ impl FoundPlay {
             return None;
         }
         compared_title(self.tags.as_ref()?)
+    }
+
+    /// The artist and title tags of the play's own file as they are
+    /// compared, when it has both.
+    fn compared_name(&self) -> Option<(String, String)> {
+        let tags = self.tags.as_ref()?;
+        Some((
+            compared_text(tags.artist.as_deref()?)?,
+            compared_title(tags)?,
+        ))
     }
 
     fn tagged_files(&self) -> impl Iterator<Item = (&str, &PlayTags)> {
@@ -577,9 +606,13 @@ impl FoundPlay {
 }
 
 fn compared_title(tags: &PlayTags) -> Option<String> {
-    let words: Vec<String> = tags
-        .title
-        .as_deref()?
+    compared_text(tags.title.as_deref()?)
+}
+
+/// A tag's letters and digits in lower case, words separated by one space;
+/// `None` when it has none.
+fn compared_text(text: &str) -> Option<String> {
+    let words: Vec<String> = text
         .split(|c: char| !c.is_alphanumeric())
         .filter(|word| !word.is_empty())
         .map(str::to_lowercase)

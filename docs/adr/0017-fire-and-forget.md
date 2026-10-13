@@ -3,8 +3,9 @@
 ## Status
 
 Accepted (2026-10-13, session 16). Records the product principle from our prompts
-in their words, the scope and priorities that follow from it, and the
-default output of `identify` and `show`. It ends two roadmap items for
+in their words, the scope and priorities that follow from it, the default
+output of `identify` and `show`, and how the tracklist groups plays into
+one entry per track. It ends two roadmap items for
 the product ("Report edits", "The Track/AudioAsset model") and limits a
 third ("Titles of mislabelled files") to flagging.
 
@@ -73,6 +74,41 @@ from the strongest file's tags, followed by the names of the other files
 found there and a flag where their titles disagree. The table of plays
 (`--format human`) stays for every play, segment, speed and file path;
 JSON stays the format for programs and for `show`.
+
+### One entry per track
+
+The tracklist and the cue sheet list tracks, not plays. Two plays of
+different files are one entry when they overlap for at least half of the
+shorter play (the overlap test of `same_recording`) and either:
+
+- they are one recording on two records: with each file's own speed taken
+  out, the track would have started at the same mix time, within 5 s
+  (`same_recording`, unchanged since session 11); or
+- their files' tags give the same artist and the same title, compared by
+  their letters and digits in lower case as `other_titles` compares
+  titles, however the two line up (`same_tagged_track`, from session 16).
+
+A chain of such pairs is one entry too, whatever order the plays come in.
+The rule needs both an artist and a title tag on both files, compared as
+the files carry them in the report; a file without them would be named by
+its file name, which is never read for titles. A possible play marked as
+sharing material with another recording is never grouped, by either test.
+Tags are never rewritten. The entry is named after its strongest play (a
+confident one first, then the most hits), and the other names the files
+give follow it (`also:`, or `titles disagree:` when confident plays of
+one recording in the entry carry other titles, `other_titles`); names
+that differ only in letter case are listed once, as before. The table of plays, CSV and JSON keep
+every play.
+
+Why: the 2003 development mix at NAS scale listed DJ Hidden - Skektics
+twice (42:13 and 42:15). An upload with about 40 s more lead-in than the
+vinyl rips is the same track over the same passage, but its alignment puts
+the track's start 41.7 s away, so `same_recording` keeps it apart. By our
+rule the tags name the track: two files over one passage with the
+same artist and title are one track for the reader, whether they are one
+recording, an edit or a re-press. Files tagged with another title over the
+same passage stay apart unless they line up, so a remix or a VIP keeps
+its own line.
 
 ## Consequences
 

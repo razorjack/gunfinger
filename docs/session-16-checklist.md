@@ -22,10 +22,12 @@ for scope and rules.
   chooses, "Database" no longer waits on them; AGENTS.md paragraph "The
   product's scope"; ADR 0016's status, the README's intro and
   `questions detections`' module note point to ADR 0017
-- [ ] 3. One tracklist entry per track: the cause confirmed; plays over
-  the same passage with equal artist and title grouped; the rule written
-  down; every stored development report measured, each change listed;
-  tests
+- [x] 3. One tracklist entry per track: the cause confirmed (the upload's
+  track start 41.7 s from the rips'); plays over the same passage with
+  equal artist and title tags grouped (`same_tagged_track`, chains joined
+  in any order); the rule in ADR 0017, a note in ADR 0006, the README;
+  37 reports measured (experiment 0095): only the Skektics entry changes
+  in reports of the current library; 7 tests
 - [ ] 4. The tracklist as the default of `identify` and `show`; `-f human`
   kept; several recordings, `--quiet`, colour, no plays, `--save-dir`
   checked; README, help, docs, tests; no script parses the default

@@ -6,7 +6,9 @@ Accepted (2026-10-06). Supplements ADR 0001; the confident rule is
 unchanged. The possible threshold was calibrated at 262 tracks and must be
 measured again when the library grows (see "When the library grows").
 A play's confidence is the highest any of its segments reaches since ADR
-0013 (2026-10-11), as the harness already scored it.
+0013 (2026-10-11), as the harness already scored it. The table still
+lists one row per play; the tracklist and the cue sheet group the plays
+of one track into one entry without a stored model (ADR 0017).
 
 ## Context
 

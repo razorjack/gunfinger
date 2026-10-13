@@ -188,15 +188,18 @@ titles, whose tags the report keeps.
   the files.
 - `cue`: a cue sheet of the confident recordings, for players and splitters.
 
-The tracklist and the cue sheet list recordings rather than plays. Plays
-of several library files over the same stretch of the recording are one
-entry when, with each file's own speed taken out, the track would have
+The tracklist and the cue sheet list tracks rather than plays (ADR 0017).
+Plays of several library files over the same stretch of the recording are
+one entry when, with each file's own speed taken out, the track would have
 started at the same moment (within 5 s): rips, masters and uploads sped up
-by a few percent. The entry is named after its strongest play; other names
-the tags give follow it (`also:`, or `titles disagree:` when the titles
-themselves differ). Two tracks that overlap in a blend stay apart, and
-a possible play that shares material with another entry stays its own
-entry, naming it. The development mix against a large collection, where
+by a few percent. They are also one entry when the files' tags give the
+same artist and title (compared by letters and digits, ignoring case),
+however they line up: an upload with a longer lead-in, an edit, a
+re-press. The entry is named after its strongest play; other names the
+tags give follow it (`also:`, or `titles disagree:` when the titles
+themselves differ). Tags are never changed. Two tracks that overlap in a
+blend stay apart, and a possible play that shares material with another
+entry stays its own entry, naming it. The development mix against a large collection, where
 each track is found on 2-4 records (experiment 0050):
 
 ```text

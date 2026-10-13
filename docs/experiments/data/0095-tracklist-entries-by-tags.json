@@ -1,0 +1,2132 @@
+{
+ "description": "Tracklist entries and cue tracks of saved identify reports of the two development mixes, rendered by the session 16 start build and by the build that groups files tagged alike over one passage (experiment 0095). Reports with the same bytes are listed together; play details only for reports whose tracklist changed.",
+ "old_build": "work/bin/s16-start/gunfinger (5b09bc3)",
+ "new_build": "work/bin/s16-step3/gunfinger",
+ "stored": [
+  {
+   "reports": [
+    "work/demo/keylock-both-1.json",
+    "work/demo/keylock-both-2.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": null,
+   "plays": 14,
+   "tagged_plays": 0,
+   "entries_old": 12,
+   "entries_new": 12,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/demo/keylock-turntable-1.json",
+    "work/demo/keylock-turntable-2.json",
+    "work/demo/Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": null,
+   "plays": 14,
+   "tagged_plays": 0,
+   "entries_old": 12,
+   "entries_new": 12,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/merge-check/2003-merged.json",
+    "work/merge-check/2003-s12.json",
+    "work/merge-check/2003-s15.json",
+    "work/s12/item3/2003-compact-1.json",
+    "work/s12/item3/2003-compact-2.json",
+    "work/s12/item3/2003-counting-1.json",
+    "work/s12/item3/2003-counting-2.json",
+    "work/s12/item3/2003-item5-sampled.json",
+    "work/s12/item3/2003-start-1.json",
+    "work/s12/item3/2003-start-2.json",
+    "work/s12/item3/2003-start-3.json",
+    "work/s15/accept/2003-filter-1.json",
+    "work/s15/accept/2003-filter-2.json",
+    "work/s15/accept/2003-final.json",
+    "work/s15/accept/2003-start-1.json",
+    "work/s15/accept/2003-start-2.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "both",
+   "plays": 27,
+   "tagged_plays": 25,
+   "entries_old": 16,
+   "entries_new": 15,
+   "cue_tracks_old": 13,
+   "cue_tracks_new": 12,
+   "removed": [
+    "42:13  DJ HIDDEN - skektics",
+    "42:15  Dj Hidden - Skektics"
+   ],
+   "added": [
+    "42:13  Dj Hidden - Skektics"
+   ],
+   "play_details": [
+    {
+     "play": 1,
+     "asset": "__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+     "confidence": "confident",
+     "hits": 1484,
+     "start": 1.93,
+     "end": 148.98,
+     "track_started_at": 1.2,
+     "artist": "Kemal + Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 2,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4333,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 3,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4332,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 4,
+     "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+     "confidence": "confident",
+     "hits": 6872,
+     "start": 130.27,
+     "end": 397.97,
+     "track_started_at": 86.59,
+     "artist": "Future Cut",
+     "title": "Sex Drive"
+    },
+    {
+     "play": 5,
+     "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+     "confidence": "confident",
+     "hits": 2475,
+     "start": 131.22,
+     "end": 379.23,
+     "track_started_at": 86.46,
+     "artist": "FUTURE CUT",
+     "title": "the specialist"
+    },
+    {
+     "play": 6,
+     "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+     "confidence": "confident",
+     "hits": 2150,
+     "start": 135.99,
+     "end": 403.89,
+     "track_started_at": 86.6,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 7,
+     "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+     "confidence": "confident",
+     "hits": 2564,
+     "start": 145.05,
+     "end": 403.24,
+     "track_started_at": 86.63,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 8,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 9,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8590,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": "Narcosis",
+     "title": "Escape Route"
+    },
+    {
+     "play": 10,
+     "asset": "__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "confidence": "confident",
+     "hits": 6507,
+     "start": 648.99,
+     "end": 906.25,
+     "track_started_at": 593.72,
+     "artist": "Digital and Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 11,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "start": 691.16,
+     "end": 816.51,
+     "track_started_at": 620.31,
+     "artist": "Digital & Spirit",
+     "title": "Phantom 2018"
+    },
+    {
+     "play": 12,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "start": 715.79,
+     "end": 908.65,
+     "track_started_at": 594.14,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 13,
+     "asset": "__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 98,
+     "start": 751.51,
+     "end": 795.02,
+     "track_started_at": 696.83,
+     "artist": "Rift feat. Souldrop",
+     "title": "Meltdown"
+    },
+    {
+     "play": 14,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "start": 826.11,
+     "end": 856.55,
+     "track_started_at": 783.52,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force (Fracture's Astrophonica Edit)"
+    },
+    {
+     "play": 15,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "start": 880.78,
+     "end": 1204.92,
+     "track_started_at": 805.04,
+     "artist": "Tee Bee",
+     "title": "Two Faced"
+    },
+    {
+     "play": 16,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "start": 1043.68,
+     "end": 1518.78,
+     "track_started_at": 976.65,
+     "artist": "Omni Trio",
+     "title": "Kinetic"
+    },
+    {
+     "play": 17,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "start": 1464.77,
+     "end": 1765.82,
+     "track_started_at": 1438.6,
+     "artist": "Carlito & Addiction",
+     "title": "Into Music"
+    },
+    {
+     "play": 18,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+     "confidence": "confident",
+     "hits": 3189,
+     "start": 1753.86,
+     "end": 1958.1,
+     "track_started_at": 1731.32,
+     "artist": "Omni Trio",
+     "title": "Artificial Life (Harp Tune)"
+    },
+    {
+     "play": 19,
+     "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+     "confidence": "confident",
+     "hits": 3236,
+     "start": 1864.35,
+     "end": 2133.78,
+     "track_started_at": 1835.4,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 20,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+     "confidence": "confident",
+     "hits": 5437,
+     "start": 1865.67,
+     "end": 2132.83,
+     "track_started_at": 1835.64,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 21,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+     "confidence": "confident",
+     "hits": 3602,
+     "start": 2094.27,
+     "end": 2419.68,
+     "track_started_at": 2044.33,
+     "artist": "Marcus Intalex & S.T.Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 22,
+     "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+     "confidence": "confident",
+     "hits": 5567,
+     "start": 2100.84,
+     "end": 2419.66,
+     "track_started_at": 2044.27,
+     "artist": "Marcus Intalex & ST Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 23,
+     "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+     "confidence": "confident",
+     "hits": 2767,
+     "start": 2346.21,
+     "end": 2535.61,
+     "track_started_at": 2326.57,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 24,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+     "confidence": "confident",
+     "hits": 825,
+     "start": 2354.44,
+     "end": 2535.28,
+     "track_started_at": 2326.65,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 25,
+     "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+     "confidence": "confident",
+     "hits": 1984,
+     "start": 2533.98,
+     "end": 2763.15,
+     "track_started_at": 2473.05,
+     "artist": "DJ HIDDEN",
+     "title": "skektics"
+    },
+    {
+     "play": 26,
+     "asset": "04 - dj hidden - skektics.mp3",
+     "confidence": "confident",
+     "hits": 6591,
+     "start": 2535.71,
+     "end": 2763.29,
+     "track_started_at": 2514.79,
+     "artist": "Dj Hidden",
+     "title": "Skektics"
+    },
+    {
+     "play": 27,
+     "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+     "confidence": "confident",
+     "hits": 4399,
+     "start": 2535.71,
+     "end": 2763.22,
+     "track_started_at": 2514.75,
+     "artist": "DJ Hidden",
+     "title": "Skektics"
+    }
+   ]
+  },
+  {
+   "reports": [
+    "work/merge-check/2003-pre-merge.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "both",
+   "plays": 27,
+   "tagged_plays": 25,
+   "entries_old": 16,
+   "entries_new": 15,
+   "cue_tracks_old": 13,
+   "cue_tracks_new": 12,
+   "removed": [
+    "42:13  DJ HIDDEN - skektics",
+    "42:15  Dj Hidden - Skektics"
+   ],
+   "added": [
+    "42:13  Dj Hidden - Skektics"
+   ],
+   "play_details": [
+    {
+     "play": 1,
+     "asset": "__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+     "confidence": "confident",
+     "hits": 1484,
+     "start": 1.93,
+     "end": 148.98,
+     "track_started_at": 1.2,
+     "artist": "Kemal + Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 2,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4333,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 3,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4332,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 4,
+     "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+     "confidence": "confident",
+     "hits": 6872,
+     "start": 130.27,
+     "end": 397.97,
+     "track_started_at": 86.59,
+     "artist": "Future Cut",
+     "title": "Sex Drive"
+    },
+    {
+     "play": 5,
+     "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+     "confidence": "confident",
+     "hits": 2475,
+     "start": 131.22,
+     "end": 379.23,
+     "track_started_at": 86.46,
+     "artist": "FUTURE CUT",
+     "title": "the specialist"
+    },
+    {
+     "play": 6,
+     "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+     "confidence": "confident",
+     "hits": 2150,
+     "start": 135.99,
+     "end": 403.89,
+     "track_started_at": 86.6,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 7,
+     "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+     "confidence": "confident",
+     "hits": 2564,
+     "start": 145.05,
+     "end": 403.24,
+     "track_started_at": 86.63,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 8,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 9,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8590,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": "Narcosis",
+     "title": "Escape Route"
+    },
+    {
+     "play": 10,
+     "asset": "__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "confidence": "confident",
+     "hits": 6507,
+     "start": 648.99,
+     "end": 906.25,
+     "track_started_at": 593.72,
+     "artist": "Digital and Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 11,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "start": 691.16,
+     "end": 816.51,
+     "track_started_at": 620.31,
+     "artist": "Digital & Spirit",
+     "title": "Phantom 2018"
+    },
+    {
+     "play": 12,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "start": 715.79,
+     "end": 908.65,
+     "track_started_at": 594.14,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 13,
+     "asset": "__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 98,
+     "start": 751.51,
+     "end": 795.02,
+     "track_started_at": 696.83,
+     "artist": "Rift feat. Souldrop",
+     "title": "Meltdown"
+    },
+    {
+     "play": 14,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "start": 826.11,
+     "end": 856.55,
+     "track_started_at": 783.52,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force (Fracture's Astrophonica Edit)"
+    },
+    {
+     "play": 15,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "start": 880.78,
+     "end": 1204.92,
+     "track_started_at": 805.04,
+     "artist": "Tee Bee",
+     "title": "Two Faced"
+    },
+    {
+     "play": 16,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "start": 1043.68,
+     "end": 1518.78,
+     "track_started_at": 976.65,
+     "artist": "Omni Trio",
+     "title": "Kinetic"
+    },
+    {
+     "play": 17,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "start": 1464.77,
+     "end": 1765.82,
+     "track_started_at": 1438.6,
+     "artist": "Carlito & Addiction",
+     "title": "Into Music"
+    },
+    {
+     "play": 18,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+     "confidence": "confident",
+     "hits": 3189,
+     "start": 1753.86,
+     "end": 1958.1,
+     "track_started_at": 1731.32,
+     "artist": "Omni Trio",
+     "title": "Artificial Life (Harp Tune)"
+    },
+    {
+     "play": 19,
+     "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+     "confidence": "confident",
+     "hits": 3236,
+     "start": 1864.35,
+     "end": 2133.78,
+     "track_started_at": 1835.4,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 20,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+     "confidence": "confident",
+     "hits": 5437,
+     "start": 1865.67,
+     "end": 2132.83,
+     "track_started_at": 1835.64,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 21,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+     "confidence": "confident",
+     "hits": 3602,
+     "start": 2094.27,
+     "end": 2419.68,
+     "track_started_at": 2044.33,
+     "artist": "Marcus Intalex & S.T.Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 22,
+     "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+     "confidence": "confident",
+     "hits": 5567,
+     "start": 2100.84,
+     "end": 2419.66,
+     "track_started_at": 2044.27,
+     "artist": "Marcus Intalex & ST Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 23,
+     "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+     "confidence": "confident",
+     "hits": 2767,
+     "start": 2346.21,
+     "end": 2535.61,
+     "track_started_at": 2326.57,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 24,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+     "confidence": "confident",
+     "hits": 825,
+     "start": 2354.44,
+     "end": 2535.28,
+     "track_started_at": 2326.65,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 25,
+     "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+     "confidence": "confident",
+     "hits": 1984,
+     "start": 2533.98,
+     "end": 2763.15,
+     "track_started_at": 2473.05,
+     "artist": "DJ HIDDEN",
+     "title": "skektics"
+    },
+    {
+     "play": 26,
+     "asset": "04 - dj hidden - skektics.mp3",
+     "confidence": "confident",
+     "hits": 6591,
+     "start": 2535.71,
+     "end": 2763.29,
+     "track_started_at": 2514.79,
+     "artist": "Dj Hidden",
+     "title": "Skektics"
+    },
+    {
+     "play": 27,
+     "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+     "confidence": "confident",
+     "hits": 4399,
+     "start": 2535.71,
+     "end": 2763.22,
+     "track_started_at": 2514.75,
+     "artist": "DJ Hidden",
+     "title": "Skektics"
+    }
+   ]
+  },
+  {
+   "reports": [
+    "work/razorjack-2003-03-29/razorjack-2003-03-29.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "both",
+   "plays": 23,
+   "tagged_plays": 23,
+   "entries_old": 16,
+   "entries_new": 15,
+   "cue_tracks_old": 13,
+   "cue_tracks_new": 12,
+   "removed": [
+    "42:13  DJ HIDDEN - skektics",
+    "42:15  Dj Hidden - Skektics"
+   ],
+   "added": [
+    "42:13  Dj Hidden - Skektics"
+   ],
+   "play_details": [
+    {
+     "play": 1,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4333,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 2,
+     "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+     "confidence": "confident",
+     "hits": 6872,
+     "start": 130.27,
+     "end": 397.97,
+     "track_started_at": 86.59,
+     "artist": "Future Cut",
+     "title": "Sex Drive"
+    },
+    {
+     "play": 3,
+     "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+     "confidence": "confident",
+     "hits": 2475,
+     "start": 131.22,
+     "end": 379.23,
+     "track_started_at": 86.46,
+     "artist": "FUTURE CUT",
+     "title": "the specialist"
+    },
+    {
+     "play": 4,
+     "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+     "confidence": "confident",
+     "hits": 2150,
+     "start": 135.99,
+     "end": 403.89,
+     "track_started_at": 86.6,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 5,
+     "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+     "confidence": "confident",
+     "hits": 2564,
+     "start": 145.05,
+     "end": 403.24,
+     "track_started_at": 86.63,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 6,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8591,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": "Narcosis",
+     "title": "Escape Route"
+    },
+    {
+     "play": 7,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "start": 691.16,
+     "end": 816.51,
+     "track_started_at": 620.31,
+     "artist": "Digital & Spirit",
+     "title": "Phantom 2018"
+    },
+    {
+     "play": 8,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "start": 715.79,
+     "end": 908.65,
+     "track_started_at": 594.14,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 9,
+     "asset": "__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 98,
+     "start": 751.51,
+     "end": 795.02,
+     "track_started_at": 696.83,
+     "artist": "Rift feat. Souldrop",
+     "title": "Meltdown"
+    },
+    {
+     "play": 10,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "start": 826.11,
+     "end": 856.55,
+     "track_started_at": 783.52,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force (Fracture's Astrophonica Edit)"
+    },
+    {
+     "play": 11,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "start": 880.78,
+     "end": 1204.92,
+     "track_started_at": 805.04,
+     "artist": "Tee Bee",
+     "title": "Two Faced"
+    },
+    {
+     "play": 12,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "start": 1043.68,
+     "end": 1518.78,
+     "track_started_at": 976.65,
+     "artist": "Omni Trio",
+     "title": "Kinetic"
+    },
+    {
+     "play": 13,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "start": 1464.77,
+     "end": 1765.82,
+     "track_started_at": 1438.6,
+     "artist": "Carlito & Addiction",
+     "title": "Into Music"
+    },
+    {
+     "play": 14,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+     "confidence": "confident",
+     "hits": 3189,
+     "start": 1753.86,
+     "end": 1958.1,
+     "track_started_at": 1731.32,
+     "artist": "Omni Trio",
+     "title": "Artificial Life (Harp Tune)"
+    },
+    {
+     "play": 15,
+     "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+     "confidence": "confident",
+     "hits": 3236,
+     "start": 1864.35,
+     "end": 2133.78,
+     "track_started_at": 1835.4,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 16,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+     "confidence": "confident",
+     "hits": 5437,
+     "start": 1865.67,
+     "end": 2132.83,
+     "track_started_at": 1835.64,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 17,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+     "confidence": "confident",
+     "hits": 3602,
+     "start": 2094.27,
+     "end": 2419.68,
+     "track_started_at": 2044.33,
+     "artist": "Marcus Intalex & S.T.Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 18,
+     "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+     "confidence": "confident",
+     "hits": 5567,
+     "start": 2100.84,
+     "end": 2419.66,
+     "track_started_at": 2044.27,
+     "artist": "Marcus Intalex & ST Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 19,
+     "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+     "confidence": "confident",
+     "hits": 2767,
+     "start": 2346.21,
+     "end": 2535.61,
+     "track_started_at": 2326.57,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 20,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+     "confidence": "confident",
+     "hits": 825,
+     "start": 2354.44,
+     "end": 2535.28,
+     "track_started_at": 2326.65,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 21,
+     "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+     "confidence": "confident",
+     "hits": 1984,
+     "start": 2533.98,
+     "end": 2763.15,
+     "track_started_at": 2473.05,
+     "artist": "DJ HIDDEN",
+     "title": "skektics"
+    },
+    {
+     "play": 22,
+     "asset": "04 - dj hidden - skektics.mp3",
+     "confidence": "confident",
+     "hits": 6591,
+     "start": 2535.71,
+     "end": 2763.29,
+     "track_started_at": 2514.79,
+     "artist": "Dj Hidden",
+     "title": "Skektics"
+    },
+    {
+     "play": 23,
+     "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+     "confidence": "confident",
+     "hits": 4399,
+     "start": 2535.71,
+     "end": 2763.22,
+     "track_started_at": 2514.75,
+     "artist": "DJ Hidden",
+     "title": "Skektics"
+    }
+   ]
+  },
+  {
+   "reports": [
+    "work/reports/identify-dev.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": null,
+   "plays": 14,
+   "tagged_plays": 0,
+   "entries_old": 12,
+   "entries_new": 12,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s13/identify-2003-s13-review.json",
+    "work/s13/identify-2003-s13-start.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "turntable",
+   "plays": 26,
+   "tagged_plays": 24,
+   "entries_old": 15,
+   "entries_new": 14,
+   "cue_tracks_old": 13,
+   "cue_tracks_new": 12,
+   "removed": [
+    "42:13  DJ HIDDEN - skektics",
+    "42:15  Dj Hidden - Skektics"
+   ],
+   "added": [
+    "42:13  Dj Hidden - Skektics"
+   ],
+   "play_details": [
+    {
+     "play": 1,
+     "asset": "__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+     "confidence": "confident",
+     "hits": 1484,
+     "start": 1.93,
+     "end": 148.98,
+     "track_started_at": 1.2,
+     "artist": "Kemal + Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 2,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4333,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 3,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4332,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 4,
+     "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+     "confidence": "confident",
+     "hits": 6872,
+     "start": 130.27,
+     "end": 397.97,
+     "track_started_at": 86.59,
+     "artist": "Future Cut",
+     "title": "Sex Drive"
+    },
+    {
+     "play": 5,
+     "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+     "confidence": "confident",
+     "hits": 2475,
+     "start": 131.22,
+     "end": 379.23,
+     "track_started_at": 86.46,
+     "artist": "FUTURE CUT",
+     "title": "the specialist"
+    },
+    {
+     "play": 6,
+     "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+     "confidence": "confident",
+     "hits": 2150,
+     "start": 135.99,
+     "end": 403.89,
+     "track_started_at": 86.6,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 7,
+     "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+     "confidence": "confident",
+     "hits": 2564,
+     "start": 145.05,
+     "end": 403.24,
+     "track_started_at": 86.63,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 8,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 9,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8590,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": "Narcosis",
+     "title": "Escape Route"
+    },
+    {
+     "play": 10,
+     "asset": "__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "confidence": "confident",
+     "hits": 6507,
+     "start": 648.99,
+     "end": 906.25,
+     "track_started_at": 593.72,
+     "artist": "Digital and Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 11,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "start": 691.16,
+     "end": 816.51,
+     "track_started_at": 620.31,
+     "artist": "Digital & Spirit",
+     "title": "Phantom 2018"
+    },
+    {
+     "play": 12,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "start": 715.79,
+     "end": 908.65,
+     "track_started_at": 594.14,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 13,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "start": 826.11,
+     "end": 856.55,
+     "track_started_at": 783.52,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force (Fracture's Astrophonica Edit)"
+    },
+    {
+     "play": 14,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "start": 880.78,
+     "end": 1204.92,
+     "track_started_at": 805.04,
+     "artist": "Tee Bee",
+     "title": "Two Faced"
+    },
+    {
+     "play": 15,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "start": 1043.68,
+     "end": 1518.78,
+     "track_started_at": 976.65,
+     "artist": "Omni Trio",
+     "title": "Kinetic"
+    },
+    {
+     "play": 16,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "start": 1464.77,
+     "end": 1765.82,
+     "track_started_at": 1438.6,
+     "artist": "Carlito & Addiction",
+     "title": "Into Music"
+    },
+    {
+     "play": 17,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+     "confidence": "confident",
+     "hits": 3189,
+     "start": 1753.86,
+     "end": 1958.1,
+     "track_started_at": 1731.32,
+     "artist": "Omni Trio",
+     "title": "Artificial Life (Harp Tune)"
+    },
+    {
+     "play": 18,
+     "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+     "confidence": "confident",
+     "hits": 3236,
+     "start": 1864.35,
+     "end": 2133.78,
+     "track_started_at": 1835.4,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 19,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+     "confidence": "confident",
+     "hits": 5437,
+     "start": 1865.67,
+     "end": 2132.83,
+     "track_started_at": 1835.64,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 20,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+     "confidence": "confident",
+     "hits": 3602,
+     "start": 2094.27,
+     "end": 2419.68,
+     "track_started_at": 2044.33,
+     "artist": "Marcus Intalex & S.T.Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 21,
+     "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+     "confidence": "confident",
+     "hits": 5567,
+     "start": 2100.84,
+     "end": 2419.66,
+     "track_started_at": 2044.27,
+     "artist": "Marcus Intalex & ST Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 22,
+     "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+     "confidence": "confident",
+     "hits": 2767,
+     "start": 2346.21,
+     "end": 2535.61,
+     "track_started_at": 2326.57,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 23,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+     "confidence": "confident",
+     "hits": 825,
+     "start": 2354.44,
+     "end": 2535.28,
+     "track_started_at": 2326.65,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 24,
+     "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+     "confidence": "confident",
+     "hits": 1984,
+     "start": 2533.98,
+     "end": 2763.15,
+     "track_started_at": 2473.05,
+     "artist": "DJ HIDDEN",
+     "title": "skektics"
+    },
+    {
+     "play": 25,
+     "asset": "04 - dj hidden - skektics.mp3",
+     "confidence": "confident",
+     "hits": 6591,
+     "start": 2535.71,
+     "end": 2763.29,
+     "track_started_at": 2514.79,
+     "artist": "Dj Hidden",
+     "title": "Skektics"
+    },
+    {
+     "play": 26,
+     "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+     "confidence": "confident",
+     "hits": 4399,
+     "start": 2535.71,
+     "end": 2763.22,
+     "track_started_at": 2514.75,
+     "artist": "DJ Hidden",
+     "title": "Skektics"
+    }
+   ]
+  },
+  {
+   "reports": [
+    "work/s3-savedir/Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": "turntable",
+   "plays": 1,
+   "tagged_plays": 0,
+   "entries_old": 1,
+   "entries_new": 1,
+   "cue_tracks_old": 1,
+   "cue_tracks_new": 1,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s4/profile/identify-turntable.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": "turntable",
+   "plays": 14,
+   "tagged_plays": 0,
+   "entries_old": 12,
+   "entries_new": 12,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s9/item3/dev.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "both",
+   "plays": 30,
+   "tagged_plays": 30,
+   "entries_old": 13,
+   "entries_new": 13,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s9/item3/rj.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "both",
+   "plays": 31,
+   "tagged_plays": 29,
+   "entries_old": 21,
+   "entries_new": 18,
+   "cue_tracks_old": 16,
+   "cue_tracks_new": 13,
+   "removed": [
+    "2:52  Future Cut - The Specialist",
+    "11:21  Digital & Spirit - Phantom Force",
+    "42:13  DJ HIDDEN - skektics",
+    "42:15  Dj Hidden - Skektics"
+   ],
+   "added": [
+    "42:13  Dj Hidden - Skektics"
+   ],
+   "play_details": [
+    {
+     "play": 1,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4333,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 2,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4332,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 3,
+     "asset": "__full_scene/dnb_scene - 2000 - Part 1/2000-02/dieselboy-system_upgrade-2000-sour/09-kemal_and_rob_data-konspiracy_vip-sour.mp3",
+     "confidence": "possible",
+     "hits": 281,
+     "start": 44.4,
+     "end": 148.55,
+     "track_started_at": 20.47,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy Vip"
+    },
+    {
+     "play": 4,
+     "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+     "confidence": "confident",
+     "hits": 6872,
+     "start": 130.27,
+     "end": 397.97,
+     "track_started_at": 86.59,
+     "artist": "Future Cut",
+     "title": "Sex Drive"
+    },
+    {
+     "play": 5,
+     "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+     "confidence": "confident",
+     "hits": 2475,
+     "start": 131.22,
+     "end": 379.23,
+     "track_started_at": 86.46,
+     "artist": "FUTURE CUT",
+     "title": "the specialist"
+    },
+    {
+     "play": 6,
+     "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+     "confidence": "confident",
+     "hits": 2150,
+     "start": 135.99,
+     "end": 403.89,
+     "track_started_at": 86.6,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 7,
+     "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+     "confidence": "confident",
+     "hits": 2564,
+     "start": 145.05,
+     "end": 403.24,
+     "track_started_at": 86.63,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 8,
+     "asset": "__full_scene/dnb_scene - 2000 - Part 3/2000-11/dj_marky-audio_architecture-2000-sour/01-dj_marky-kosheen--hide_u_(decoder_and_substance)-sour.mp3",
+     "confidence": "possible",
+     "hits": 88,
+     "start": 150.86,
+     "end": 171.12,
+     "track_started_at": -100.19,
+     "artist": "Kosheen",
+     "title": "Hide U (Decoder & Substance Mx)"
+    },
+    {
+     "play": 9,
+     "asset": "__full_scene/dnb_scene - 2000 - Part 3/2000-11/dj_marky-audio_architecture-2000-sour/02-dj_marky-future_cut--the_specialist-sour.mp3",
+     "confidence": "confident",
+     "hits": 2972,
+     "start": 172.09,
+     "end": 391.85,
+     "track_started_at": 171.99,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 10,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8588,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 11,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": "Narcosis",
+     "title": "Escape Route"
+    },
+    {
+     "play": 12,
+     "asset": "__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "confidence": "confident",
+     "hits": 6513,
+     "start": 648.99,
+     "end": 906.25,
+     "track_started_at": 593.72,
+     "artist": "Digital and Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 13,
+     "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-contagious_drum_and_bass_volume_1-concd1-2000-sour/13-mc_mc_and_rushour-music_maker_(majistrate_remix)-sour.mp3",
+     "confidence": "confident",
+     "hits": 1364,
+     "start": 654.27,
+     "end": 857.64,
+     "track_started_at": 330.29,
+     "artist": "MC MC & Rushour",
+     "title": "Music Maker (Majistrate Remix)"
+    },
+    {
+     "play": 14,
+     "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-contagious_drum_and_bass_volume_1-concd1-2000-sour/14-digital_and_spirit-phantom_force-sour.mp3",
+     "confidence": "confident",
+     "hits": 1578,
+     "start": 681.27,
+     "end": 898.07,
+     "track_started_at": 565.0,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 15,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "start": 691.16,
+     "end": 816.51,
+     "track_started_at": 620.31,
+     "artist": "Digital & Spirit",
+     "title": "Phantom 2018"
+    },
+    {
+     "play": 16,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "start": 715.79,
+     "end": 908.65,
+     "track_started_at": 594.14,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 17,
+     "asset": "__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "confidence": "possible",
+     "hits": 76,
+     "start": 771.29,
+     "end": 808.86,
+     "track_started_at": 728.56,
+     "artist": "Rift feat. Souldrop",
+     "title": "Meltdown"
+    },
+    {
+     "play": 18,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "start": 826.11,
+     "end": 856.55,
+     "track_started_at": 783.52,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force (Fracture's Astrophonica Edit)"
+    },
+    {
+     "play": 19,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "start": 880.78,
+     "end": 1204.92,
+     "track_started_at": 805.04,
+     "artist": "Tee Bee",
+     "title": "Two Faced"
+    },
+    {
+     "play": 20,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "start": 1043.68,
+     "end": 1518.78,
+     "track_started_at": 976.65,
+     "artist": "Omni Trio",
+     "title": "Kinetic"
+    },
+    {
+     "play": 21,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "start": 1464.77,
+     "end": 1765.82,
+     "track_started_at": 1438.6,
+     "artist": "Carlito & Addiction",
+     "title": "Into Music"
+    },
+    {
+     "play": 22,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+     "confidence": "confident",
+     "hits": 3189,
+     "start": 1753.86,
+     "end": 1958.1,
+     "track_started_at": 1731.32,
+     "artist": "Omni Trio",
+     "title": "Artificial Life (Harp Tune)"
+    },
+    {
+     "play": 23,
+     "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+     "confidence": "confident",
+     "hits": 3236,
+     "start": 1864.35,
+     "end": 2133.78,
+     "track_started_at": 1835.4,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 24,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+     "confidence": "confident",
+     "hits": 5437,
+     "start": 1865.67,
+     "end": 2132.83,
+     "track_started_at": 1835.64,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 25,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+     "confidence": "confident",
+     "hits": 3602,
+     "start": 2094.27,
+     "end": 2419.68,
+     "track_started_at": 2044.33,
+     "artist": "Marcus Intalex & S.T.Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 26,
+     "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+     "confidence": "confident",
+     "hits": 5567,
+     "start": 2100.84,
+     "end": 2419.66,
+     "track_started_at": 2044.27,
+     "artist": "Marcus Intalex & ST Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 27,
+     "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+     "confidence": "confident",
+     "hits": 2767,
+     "start": 2346.21,
+     "end": 2535.61,
+     "track_started_at": 2326.57,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 28,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+     "confidence": "confident",
+     "hits": 825,
+     "start": 2354.44,
+     "end": 2535.28,
+     "track_started_at": 2326.65,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 29,
+     "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+     "confidence": "confident",
+     "hits": 1984,
+     "start": 2533.98,
+     "end": 2763.15,
+     "track_started_at": 2473.05,
+     "artist": "DJ HIDDEN",
+     "title": "skektics"
+    },
+    {
+     "play": 30,
+     "asset": "04 - dj hidden - skektics.mp3",
+     "confidence": "confident",
+     "hits": 6591,
+     "start": 2535.71,
+     "end": 2763.29,
+     "track_started_at": 2514.79,
+     "artist": "Dj Hidden",
+     "title": "Skektics"
+    },
+    {
+     "play": 31,
+     "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+     "confidence": "confident",
+     "hits": 4399,
+     "start": 2535.71,
+     "end": 2763.22,
+     "track_started_at": 2514.75,
+     "artist": "DJ Hidden",
+     "title": "Skektics"
+    }
+   ]
+  }
+ ],
+ "fresh": [
+  {
+   "reports": [
+    "work/s16/reports/corpus-2003-both.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": "both",
+   "plays": 7,
+   "tagged_plays": 0,
+   "entries_old": 7,
+   "entries_new": 7,
+   "cue_tracks_old": 7,
+   "cue_tracks_new": 7,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s16/reports/corpus-2003-turntable.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": "turntable",
+   "plays": 7,
+   "tagged_plays": 0,
+   "entries_old": 7,
+   "entries_new": 7,
+   "cue_tracks_old": 7,
+   "cue_tracks_new": 7,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s16/reports/corpus-stakka-both.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": "both",
+   "plays": 14,
+   "tagged_plays": 0,
+   "entries_old": 12,
+   "entries_new": 12,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s16/reports/corpus-stakka-turntable.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library",
+   "playback": "turntable",
+   "plays": 14,
+   "tagged_plays": 0,
+   "entries_old": 12,
+   "entries_new": 12,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s16/reports/nas-2003-turntable.json"
+   ],
+   "mix": "razorjack-2003-03-29.mp3",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "turntable",
+   "plays": 26,
+   "tagged_plays": 24,
+   "entries_old": 15,
+   "entries_new": 14,
+   "cue_tracks_old": 13,
+   "cue_tracks_new": 12,
+   "removed": [
+    "42:13  DJ HIDDEN - skektics",
+    "42:15  Dj Hidden - Skektics"
+   ],
+   "added": [
+    "42:13  Dj Hidden - Skektics"
+   ],
+   "play_details": [
+    {
+     "play": 1,
+     "asset": "__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+     "confidence": "confident",
+     "hits": 1484,
+     "start": 1.93,
+     "end": 148.98,
+     "track_started_at": 1.2,
+     "artist": "Kemal + Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 2,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4333,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": "Kemal and Rob Data",
+     "title": "Konspiracy"
+    },
+    {
+     "play": 3,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+     "confidence": "confident",
+     "hits": 4332,
+     "start": 1.93,
+     "end": 148.89,
+     "track_started_at": 1.93,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 4,
+     "asset": "Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+     "confidence": "confident",
+     "hits": 6872,
+     "start": 130.27,
+     "end": 397.97,
+     "track_started_at": 86.59,
+     "artist": "Future Cut",
+     "title": "Sex Drive"
+    },
+    {
+     "play": 5,
+     "asset": "__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+     "confidence": "confident",
+     "hits": 2475,
+     "start": 131.22,
+     "end": 379.23,
+     "track_started_at": 86.46,
+     "artist": "FUTURE CUT",
+     "title": "the specialist"
+    },
+    {
+     "play": 6,
+     "asset": "__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+     "confidence": "confident",
+     "hits": 2150,
+     "start": 135.99,
+     "end": 403.89,
+     "track_started_at": 86.6,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 7,
+     "asset": "Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+     "confidence": "confident",
+     "hits": 2564,
+     "start": 145.05,
+     "end": 403.24,
+     "track_started_at": 86.63,
+     "artist": "Future Cut",
+     "title": "The Specialist"
+    },
+    {
+     "play": 8,
+     "asset": "__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8589,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": null,
+     "title": null
+    },
+    {
+     "play": 9,
+     "asset": "industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+     "confidence": "confident",
+     "hits": 8590,
+     "start": 372.92,
+     "end": 708.55,
+     "track_started_at": 298.82,
+     "artist": "Narcosis",
+     "title": "Escape Route"
+    },
+    {
+     "play": 10,
+     "asset": "__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "confidence": "confident",
+     "hits": 6507,
+     "start": 648.99,
+     "end": 906.25,
+     "track_started_at": 593.72,
+     "artist": "Digital and Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 11,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "confidence": "possible",
+     "hits": 322,
+     "start": 691.16,
+     "end": 816.51,
+     "track_started_at": 620.31,
+     "artist": "Digital & Spirit",
+     "title": "Phantom 2018"
+    },
+    {
+     "play": 12,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "confidence": "confident",
+     "hits": 2233,
+     "start": 715.79,
+     "end": 908.65,
+     "track_started_at": 594.14,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force"
+    },
+    {
+     "play": 13,
+     "asset": "__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "confidence": "possible",
+     "hits": 118,
+     "start": 826.11,
+     "end": 856.55,
+     "track_started_at": 783.52,
+     "artist": "Digital & Spirit",
+     "title": "Phantom Force (Fracture's Astrophonica Edit)"
+    },
+    {
+     "play": 14,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/g-tee_bee-two_faced-sour.mp3",
+     "confidence": "confident",
+     "hits": 2712,
+     "start": 880.78,
+     "end": 1204.92,
+     "track_started_at": 805.04,
+     "artist": "Tee Bee",
+     "title": "Two Faced"
+    },
+    {
+     "play": 15,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+     "confidence": "confident",
+     "hits": 8633,
+     "start": 1043.68,
+     "end": 1518.78,
+     "track_started_at": 976.65,
+     "artist": "Omni Trio",
+     "title": "Kinetic"
+    },
+    {
+     "play": 16,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3",
+     "confidence": "confident",
+     "hits": 2363,
+     "start": 1464.77,
+     "end": 1765.82,
+     "track_started_at": 1438.6,
+     "artist": "Carlito & Addiction",
+     "title": "Into Music"
+    },
+    {
+     "play": 17,
+     "asset": "Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+     "confidence": "confident",
+     "hits": 3189,
+     "start": 1753.86,
+     "end": 1958.1,
+     "track_started_at": 1731.32,
+     "artist": "Omni Trio",
+     "title": "Artificial Life (Harp Tune)"
+    },
+    {
+     "play": 18,
+     "asset": "__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+     "confidence": "confident",
+     "hits": 3236,
+     "start": 1864.35,
+     "end": 2133.78,
+     "track_started_at": 1835.4,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 19,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/c-total_science-yvon_is_on-sour.mp3",
+     "confidence": "confident",
+     "hits": 5437,
+     "start": 1865.67,
+     "end": 2132.83,
+     "track_started_at": 1835.64,
+     "artist": "Total Science",
+     "title": "Yvon Is On"
+    },
+    {
+     "play": 20,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+     "confidence": "confident",
+     "hits": 3602,
+     "start": 2094.27,
+     "end": 2419.68,
+     "track_started_at": 2044.33,
+     "artist": "Marcus Intalex & S.T.Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 21,
+     "asset": "__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+     "confidence": "confident",
+     "hits": 5567,
+     "start": 2100.84,
+     "end": 2419.66,
+     "track_started_at": 2044.27,
+     "artist": "Marcus Intalex & ST Files",
+     "title": "Balderdash"
+    },
+    {
+     "play": 22,
+     "asset": "[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+     "confidence": "confident",
+     "hits": 2767,
+     "start": 2346.21,
+     "end": 2535.61,
+     "track_started_at": 2326.57,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 23,
+     "asset": "va-drum_n_bass_arena_lp-reactlp201-2001-sour/b-spirit-out_of_control-sour.mp3",
+     "confidence": "confident",
+     "hits": 825,
+     "start": 2354.44,
+     "end": 2535.28,
+     "track_started_at": 2326.65,
+     "artist": "Spirit",
+     "title": "Out Of Control"
+    },
+    {
+     "play": 24,
+     "asset": "__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+     "confidence": "confident",
+     "hits": 1984,
+     "start": 2533.98,
+     "end": 2763.15,
+     "track_started_at": 2473.05,
+     "artist": "DJ HIDDEN",
+     "title": "skektics"
+    },
+    {
+     "play": 25,
+     "asset": "04 - dj hidden - skektics.mp3",
+     "confidence": "confident",
+     "hits": 6591,
+     "start": 2535.71,
+     "end": 2763.29,
+     "track_started_at": 2514.79,
+     "artist": "Dj Hidden",
+     "title": "Skektics"
+    },
+    {
+     "play": 26,
+     "asset": "[RUFF 57] Various - Analog Steroids (CD)/04_-_dj_hidden_-_skektics.mp3",
+     "confidence": "confident",
+     "hits": 4399,
+     "start": 2535.71,
+     "end": 2763.22,
+     "track_started_at": 2514.75,
+     "artist": "DJ Hidden",
+     "title": "Skektics"
+    }
+   ]
+  },
+  {
+   "reports": [
+    "work/s16/reports/nas-stakka-both.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "both",
+   "plays": 29,
+   "tagged_plays": 29,
+   "entries_old": 13,
+   "entries_new": 13,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  },
+  {
+   "reports": [
+    "work/s16/reports/nas-stakka-turntable.json"
+   ],
+   "mix": "Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a",
+   "library": "/Volumes/atlas/Music/dnb",
+   "playback": "turntable",
+   "plays": 29,
+   "tagged_plays": 29,
+   "entries_old": 13,
+   "entries_new": 13,
+   "cue_tracks_old": 11,
+   "cue_tracks_new": 11,
+   "removed": [],
+   "added": [],
+   "play_details": []
+  }
+ ]
+}

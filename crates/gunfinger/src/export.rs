@@ -1,11 +1,13 @@
 //! Formats for other programs and for people writing up a mix: CSV, a cue
 //! sheet and a numbered tracklist.
 //!
-//! The cue sheet and the tracklist list recordings, not plays. Two rips or
+//! The cue sheet and the tracklist list tracks, not plays. Two rips or
 //! uploads of one recording are both found where it plays, at the same place
 //! in the track once each play's speed is taken out (an upload sped up by 3%
-//! is found 3% slower); such plays are one entry, named after the strongest,
-//! with the other names the tags give.
+//! is found 3% slower). Files tagged with the same artist and title over the
+//! same passage are one track however they line up (an upload with a longer
+//! lead-in, an edit; ADR 0017). Such plays are one entry, named after the
+//! strongest, with the other names the tags give.
 
 use crate::names::TrackName;
 use crate::report::{FoundPlay, Level, Playback, Report, SharedWith};
@@ -56,7 +58,7 @@ fn csv_field(text: &str) -> String {
     }
 }
 
-/// A recording heard in the mix: one or more plays of assets holding it.
+/// A track heard in the mix: one or more plays of assets holding it.
 pub struct Entry<'a> {
     /// Strongest first.
     pub plays: Vec<&'a FoundPlay>,
@@ -115,18 +117,20 @@ impl Entry<'_> {
     }
 }
 
-/// Groups plays of the same recording, in order of start time.
+/// Groups the plays of one track, in order of start time.
 pub fn entries(report: &Report) -> Vec<Entry<'_>> {
-    let mut entries: Vec<Entry> = Vec::new();
-    for play in &report.plays {
+    let firsts = first_plays(&report.plays);
+    let mut entries: Vec<(usize, Entry)> = Vec::new();
+    for (play, &first) in report.plays.iter().zip(&firsts) {
         match entries
             .iter_mut()
-            .find(|entry| entry.plays.iter().any(|other| play.same_recording(other)))
+            .find(|(entry_first, _)| *entry_first == first)
         {
-            Some(entry) => entry.plays.push(play),
-            None => entries.push(Entry { plays: vec![play] }),
+            Some((_, entry)) => entry.plays.push(play),
+            None => entries.push((first, Entry { plays: vec![play] })),
         }
     }
+    let mut entries: Vec<Entry> = entries.into_iter().map(|(_, entry)| entry).collect();
     for entry in &mut entries {
         entry.plays.sort_by_key(|play| {
             (
@@ -137,6 +141,30 @@ pub fn entries(report: &Report) -> Vec<Entry<'_>> {
     }
     entries.sort_by(|a, b| a.start_seconds().total_cmp(&b.start_seconds()));
     entries
+}
+
+/// For each play, the number of the first play of its entry, in report
+/// order. Two plays are one track when they are one recording on two
+/// records (`same_recording`) or files tagged alike over the same passage
+/// (`same_tagged_track`); so is any chain of such pairs, whatever order the
+/// plays come in.
+fn first_plays(plays: &[FoundPlay]) -> Vec<usize> {
+    let mut firsts: Vec<usize> = (0..plays.len()).collect();
+    for later in 0..plays.len() {
+        for earlier in 0..later {
+            let (play, other) = (&plays[later], &plays[earlier]);
+            if play.same_recording(other) || play.same_tagged_track(other) {
+                let kept = firsts[earlier].min(firsts[later]);
+                let joined = firsts[earlier].max(firsts[later]);
+                for first in &mut firsts {
+                    if *first == joined {
+                        *first = kept;
+                    }
+                }
+            }
+        }
+    }
+    firsts
 }
 
 /// A numbered list of the recordings, with their start in the mix;
@@ -251,7 +279,7 @@ fn cue_time(frame: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::report::OtherTitle;
+    use crate::report::{OtherTitle, PlayTags};
     use crate::table::tests::report;
 
     fn names(asset: &str) -> TrackName {
@@ -424,6 +452,152 @@ mod tests {
                 vec!["c.wav"]
             ]
         );
+    }
+
+    fn tagged(artist: Option<&str>, title: Option<&str>) -> Option<PlayTags> {
+        Some(PlayTags {
+            artist: artist.map(str::to_owned),
+            title: title.map(str::to_owned),
+            album: None,
+        })
+    }
+
+    /// `b.wav` tagged "Dj Hidden - Skektics", and an upload of it found over
+    /// the same passage with 40 s more lead-in, so the two do not line up.
+    fn report_with_a_longer_lead_in(upload_tags: Option<PlayTags>) -> Report {
+        let mut report = report();
+        report.plays[1].tags = tagged(Some("Dj Hidden"), Some("Skektics"));
+        let mut upload = on_another_record(&report, 1, "skektics-upload.opus", 1.0);
+        upload.track_start_seconds += 40.0;
+        upload.hits -= 300;
+        upload.tags = upload_tags;
+        report.plays.insert(2, upload);
+        report
+    }
+
+    fn assets_by_entry(report: &Report) -> Vec<Vec<String>> {
+        entries(report)
+            .iter()
+            .map(|entry| entry.plays.iter().map(|play| play.asset.clone()).collect())
+            .collect()
+    }
+
+    #[test]
+    fn files_tagged_alike_over_one_passage_are_one_entry_however_they_line_up() {
+        let report = report_with_a_longer_lead_in(tagged(Some("DJ HIDDEN"), Some("skektics!")));
+        assert!(!report.plays[1].same_recording(&report.plays[2]));
+
+        let tracklist = tracklist(&report, |asset| match asset {
+            "skektics-upload.opus" => TrackName::named(Some("DJ HIDDEN"), Some("skektics!"), asset),
+            "b.wav" => TrackName::named(Some("Dj Hidden"), Some("Skektics"), asset),
+            _ => names(asset),
+        });
+
+        assert_eq!(
+            assets_by_entry(&report)[1],
+            ["b.wav", "skektics-upload.opus"]
+        );
+        assert_eq!(
+            tracklist,
+            " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  Dj Hidden - Skektics  (also: DJ HIDDEN - skektics!)\n 3.    1:24  insert (possible)\n 4.    1:36  c\n"
+        );
+    }
+
+    #[test]
+    fn a_file_without_an_artist_or_a_title_tag_is_not_grouped_by_title() {
+        for upload_tags in [
+            None,
+            tagged(None, Some("Skektics")),
+            tagged(Some("Dj Hidden"), None),
+            tagged(Some("Dj Hidden"), Some("!!")),
+        ] {
+            let report = report_with_a_longer_lead_in(upload_tags.clone());
+
+            assert_eq!(
+                assets_by_entry(&report)[1..3],
+                [vec!["b.wav"], vec!["skektics-upload.opus"]],
+                "{upload_tags:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn another_artist_or_title_over_the_same_passage_is_another_entry() {
+        for upload_tags in [
+            tagged(Some("Dj Hidden"), Some("Skektics (VIP)")),
+            tagged(Some("Dj Hidden & Ewun"), Some("Skektics")),
+        ] {
+            let report = report_with_a_longer_lead_in(upload_tags.clone());
+
+            assert_eq!(
+                assets_by_entry(&report)[1..3],
+                [vec!["b.wav"], vec!["skektics-upload.opus"]],
+                "{upload_tags:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn files_tagged_alike_elsewhere_in_the_mix_are_another_entry() {
+        let mut report = report_with_a_longer_lead_in(tagged(Some("Dj Hidden"), Some("Skektics")));
+        // Played again later: it overlaps b.wav's play for less than half.
+        report.plays[2].start_seconds += 30.0;
+        report.plays[2].end_seconds += 30.0;
+
+        assert_eq!(
+            assets_by_entry(&report)[1..3],
+            [vec!["b.wav"], vec!["skektics-upload.opus"]]
+        );
+    }
+
+    #[test]
+    fn a_possible_play_sharing_material_is_not_grouped_by_title() {
+        let mut report = report_with_a_longer_lead_in(tagged(Some("Dj Hidden"), Some("Skektics")));
+        report.plays[2].confidence = Level::Possible;
+        report.plays[2].shares_material_with = Some(SharedWith {
+            play: 2,
+            asset: String::from("b.wav"),
+        });
+
+        assert_eq!(
+            assets_by_entry(&report)[1..3],
+            [vec!["b.wav"], vec!["skektics-upload.opus"]]
+        );
+    }
+
+    #[test]
+    fn plays_joined_through_another_play_are_one_entry_in_any_order() {
+        // The upload lines up with a mislabelled rip, and carries the tags
+        // of b.wav, which lines up with neither.
+        let mut report = report_with_a_longer_lead_in(tagged(Some("Dj Hidden"), Some("Skektics")));
+        let mut mislabelled = report.plays[2].clone();
+        mislabelled.asset = String::from("mislabelled-rip.mp3");
+        mislabelled.tags = tagged(Some("Dj Hidden"), Some("Something Else"));
+        report.plays.insert(1, mislabelled);
+
+        let in_report_order = assets_by_entry(&report);
+        report.plays.swap(1, 3);
+        let mislabelled_last = assets_by_entry(&report);
+
+        assert_eq!(
+            in_report_order[1],
+            ["b.wav", "mislabelled-rip.mp3", "skektics-upload.opus"]
+        );
+        assert_eq!(
+            mislabelled_last[1],
+            ["b.wav", "skektics-upload.opus", "mislabelled-rip.mp3"]
+        );
+        assert_eq!(in_report_order.len(), 4);
+        assert_eq!(mislabelled_last.len(), 4);
+    }
+
+    #[test]
+    fn the_cue_sheet_lists_files_tagged_alike_over_one_passage_once() {
+        let report = report_with_a_longer_lead_in(tagged(Some("DJ HIDDEN"), Some("skektics")));
+
+        let cue = cue(&report, names);
+
+        assert_eq!(cue.matches("  TRACK ").count(), 3, "{cue}");
     }
 
     #[test]
