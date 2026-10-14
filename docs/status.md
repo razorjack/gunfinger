@@ -2572,3 +2572,25 @@ during the session.
   "Session 18", the roadmap ("More development mixes", the possible
   tier) and ADR 0004's "Later" updated.
 
+
+## 2026-10-14: after session 18, our note on possible lines in the tracklist
+
+- Session 18 checked by the agent that launched it: `git status` clean
+  at `85baa30`; `docs/pair-verdicts.txt`, the answer log and the new
+  manifest unchanged; the NAS store at 33,723 records, revision
+  `c835c5531c325274`; the 2003 mix at NAS scale (`--store-only
+  --playback both -f json`, the final build) gives the same 27 plays and
+  37 segments as session 17's report, only the library revision
+  differing, in 44.3 s and 4.33 GB; the new mix's default tracklist at
+  NAS scale has the 21 entries of experiment 0100, in 42 s.
+- The new README (`53828de`) shows the Stakka & Skynet mix's
+  tracklist with "20:22 Stakka And Skynet - Clockwork (Stakka Rmx)
+  (possible; shares material with Stakka & Skynet - Clockwork)". Our
+  note: the mix plays the original Clockwork; the Stakka remix was made
+  later and did not exist then, so the line is a misidentification.
+  Every possible line of the three development mixes' default
+  tracklists is of this kind (9 lines, none a played track). We
+  decided that the default tracklist leaves such plays out, with a
+  stricter test for "inside"; the plan, to be done next, is the
+  roadmap's "Possible plays inside a confident play of another
+  recording".
