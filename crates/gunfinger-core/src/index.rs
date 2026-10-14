@@ -105,7 +105,8 @@ impl Index {
     /// Starts building an index in two passes over the peak records, each
     /// reading one record at a time: the first counts the postings of every
     /// hash to lay out the offsets table, the second fills each hash's
-    /// slots. Only the index and one record are in memory at once.
+    /// slots. Besides the index, only the records being counted or filled
+    /// are in memory.
     pub fn counting() -> Counting {
         Counting {
             assets: Vec::new(),

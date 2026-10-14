@@ -4,18 +4,18 @@
 (`--store-only --playback both -f json`, 33,723 records) spend its CPU
 after 0098, and can the pre-filter and grouping cost less, identically?
 
-**Profile** (`work/s18/profile.sh`, `sample` every 10 ms; a build with the
-grouping's functions not inlined: 47.9 s, 378 s CPU, 4.31 GB): the
-pre-filter (`may_form_line`) 25.6% of CPU samples, grouping a part by
-asset 23.2%, taking a part from the lists 10.5%, the counting sort and
-lines 5.9%; the ladder's STFT and peak picking 27.6% and its second pass
-3.3%; records 2.2%, the saved index 0.8%. The first 5 s run at 100-260%
-(headers, the index load beside decoding), the search at about 960%.
-Analysis has no identical-output headroom left: the picker reads every
-bin, and FFT and `log10` must stay bit-identical.
+**Profile** (`work/s18/profile.sh`, `sample` every 10 ms, on a build
+with the grouping's functions not inlined: 49.3 s, 371 s CPU, 4.31 GB):
+the pre-filter (`may_form_line`) 25.6% of CPU samples, grouping a part
+by asset 23.2%, taking a part from the lists 10.5%, the counting sort
+and lines 5.9%; the ladder's STFT and peak picking 27.6% and its second
+pass 3.3%; records 2.2%, the saved index 0.8%. User CPU averages 7.5
+cores over the run. Analysis has no identical-output headroom
+left: the picker reads every bin, and FFT and `log10` must stay
+bit-identical.
 
 **Variants**, each giving the same report byte for byte (A B B A or
-pairs against `s18-start`, which ran 375.9-385.9 s CPU, 43.8-45.5 s):
+pairs against `s18-start`, which ran 376.1-385.9 s CPU, 43.8-45.5 s):
 
 | Variant | CPU (user) | Wall | Memory |
 |---|--:|--:|--:|

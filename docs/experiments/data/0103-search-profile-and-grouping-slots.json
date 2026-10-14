@@ -207,5 +207,31 @@
     "report_identical_to_start": true
    }
   ]
+ },
+ "profile_runs_under_sample": {
+  "s18-start": {
+   "wall_s": 47.91,
+   "user_s": 377.84,
+   "sys_s": 12.25,
+   "peak_rss_bytes": 4312743936
+  },
+  "s18-split": {
+   "wall_s": 49.34,
+   "user_s": 371.06,
+   "sys_s": 16.02,
+   "peak_rss_bytes": 4311646208
+  },
+  "s18-v2-split": {
+   "wall_s": 50.4,
+   "user_s": 396.4,
+   "sys_s": 12.85,
+   "peak_rss_bytes": 4287561728
+  },
+  "s18-v2b-split": {
+   "wall_s": 46.92,
+   "user_s": 368.77,
+   "sys_s": 11.99,
+   "peak_rss_bytes": 4307271680
+  }
  }
 }

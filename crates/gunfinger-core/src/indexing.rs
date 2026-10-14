@@ -382,12 +382,12 @@ pub fn build_planned(
     } = plan;
     let mut counting = Index::counting();
     let mut indexed = Vec::new();
-    let counted = |asset: &Asset| {
+    let hash_to_count = |asset: &Asset| {
         store
             .load(asset, profile)
             .map(|record| HashedRecord::new(&record))
     };
-    hashed_in_batches(&sources, jobs, counted, |batch, hashed| {
+    hashed_in_batches(&sources, jobs, hash_to_count, |batch, hashed| {
         for (asset, hashed) in batch.iter().zip(hashed) {
             match hashed {
                 Ok(hashed) => {
@@ -402,13 +402,13 @@ pub fn build_planned(
         Ok(())
     })?;
     let mut filling = counting.into_filling();
-    let filled = |asset: &Asset| {
+    let hash_to_fill = |asset: &Asset| {
         let record = store
             .load(asset, profile)
             .map_err(|_| IndexError::Changed)?;
         HashedRecord::new(&record)
     };
-    hashed_in_batches(&indexed, jobs, filled, |_, hashed| {
+    hashed_in_batches(&indexed, jobs, hash_to_fill, |_, hashed| {
         for hashed in hashed {
             filling.fill_hashed(&hashed?)?;
         }
@@ -492,64 +492,114 @@ mod tests {
     use crate::library::Timestamp;
     use crate::peaks::Peak;
     use std::fs;
+    use std::path::PathBuf;
 
     const LENGTH: TrackLength = TrackLength {
         min: Duration::from_secs(90),
         max: Duration::from_secs(900),
     };
 
-    #[test]
-    fn an_index_built_on_threads_is_the_one_built_in_order() {
-        let dir = std::env::temp_dir().join(format!("gunfinger-build-{}", std::process::id()));
+    fn numbered(number: usize) -> Asset {
+        Asset {
+            path: format!("{number:03}.mp3"),
+            size: 1000,
+            modified: Timestamp {
+                seconds: 1,
+                nanos: 0,
+            },
+        }
+    }
+
+    /// A store with a record for each of `count` numbered files but
+    /// `missing`, whose peaks shift from record to record so that most
+    /// hashes hold postings of many assets; record `long` ends past the
+    /// frames a posting can address.
+    fn numbered_store(
+        test: &str,
+        count: usize,
+        missing: usize,
+        long: usize,
+    ) -> (PathBuf, PeakStore, Vec<Asset>) {
+        let dir = std::env::temp_dir().join(format!("gunfinger-{test}-{}", std::process::id()));
         let store = PeakStore::open(&dir).unwrap();
-        let profile = Profile::CURRENT;
-        // Several batches; peaks shifted from record to record, so that
-        // most hashes hold postings of many assets.
-        let sources: Vec<Asset> = (0..2 * HASHED_AT_ONCE + 5)
-            .map(|number| Asset {
-                path: format!("{number:03}.mp3"),
-                size: 1000,
-                modified: Timestamp {
-                    seconds: 1,
-                    nanos: 0,
-                },
-            })
-            .collect();
-        for (number, source) in sources.iter().enumerate() {
-            let peaks = (0..60)
+        let sources: Vec<Asset> = (0..count).map(numbered).collect();
+        for (number, source) in sources.iter().enumerate().filter(|(n, _)| *n != missing) {
+            let mut peaks: Vec<Peak> = (0..60)
                 .map(|step| Peak {
                     frame: (step * 7 + number % 5) as f64,
                     bin: 20.0 + ((step * 13 + number) % 90) as f32,
                     magnitude: 0.0,
                 })
                 .collect();
+            if number == long {
+                peaks.push(Peak {
+                    frame: 70_000.0,
+                    bin: 30.0,
+                    magnitude: 0.0,
+                });
+            }
             let header = RecordHeader {
-                profile: profile.id(),
+                profile: Profile::CURRENT.id(),
                 source: source.clone(),
                 duration_seconds: 200.0,
             };
             store.save(&PeakRecord { header, peaks }).unwrap();
         }
-        let plan = IndexPlan {
-            sources: sources.clone(),
+        (dir, store, sources)
+    }
+
+    fn plan(sources: &[Asset]) -> IndexPlan {
+        IndexPlan {
+            sources: sources.to_vec(),
             problems: Vec::new(),
             outside: Vec::new(),
-        };
+        }
+    }
 
-        let built = build_planned(plan, &store, &profile, 3).unwrap().index;
+    #[test]
+    fn an_index_built_on_threads_is_the_one_built_in_order() {
+        let profile = Profile::CURRENT;
+        // Several batches, the second with a file that has no record.
+        let missing = HASHED_AT_ONCE + 7;
+        let (dir, store, sources) =
+            numbered_store("threads", 2 * HASHED_AT_ONCE + 5, missing, usize::MAX);
+
+        let built = build_planned(plan(&sources), &store, &profile, 3).unwrap();
         let records: Vec<PeakRecord> = sources
             .iter()
-            .map(|source| store.load(source, &profile).unwrap())
+            .filter_map(|source| store.load(source, &profile).ok())
             .collect();
         let expected = Index::build(&records).unwrap();
         fs::remove_dir_all(&dir).unwrap();
 
-        assert_eq!(built.assets(), expected.assets());
-        assert_eq!(built.posting_count(), expected.posting_count());
+        assert!(
+            matches!(&built.problems[..], [StoreError::Missing { asset }] if *asset == sources[missing].path)
+        );
+        assert_eq!(built.sources.len(), sources.len() - 1);
+        let index = built.index;
+        assert_eq!(index.assets(), expected.assets());
+        assert_eq!(index.posting_count(), expected.posting_count());
         assert!(
             (0..1 << HASH_BITS)
                 .map(PairHash)
-                .all(|hash| built.postings(hash) == expected.postings(hash))
+                .all(|hash| index.postings(hash) == expected.postings(hash))
+        );
+    }
+
+    #[test]
+    fn a_record_failing_in_a_later_batch_stops_the_build() {
+        let (dir, store, sources) = numbered_store(
+            "failing",
+            3 * HASHED_AT_ONCE,
+            usize::MAX,
+            HASHED_AT_ONCE + 3,
+        );
+
+        let built = build_planned(plan(&sources), &store, &Profile::CURRENT, 3);
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert!(
+            matches!(&built, Err(IndexError::TooLong { path }) if *path == sources[HASHED_AT_ONCE + 3].path)
         );
     }
 

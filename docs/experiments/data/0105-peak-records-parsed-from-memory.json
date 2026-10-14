@@ -307,5 +307,12 @@
    "s18-load3": 3
   }
  },
- "regress": "session-18-start identical with s18-step6: 720/720 sweep queries, 87, 93 and 79 scan detections, the known calibrate line; 154.4 s, 1,328 s CPU"
+ "regress": "session-18-start identical with s18-step6: 720/720 sweep queries, 87, 93 and 79 scan detections, the known calibrate line; 154.4 s, 1,328 s CPU",
+ "stats_output": {
+  "assets": 33723,
+  "audio_hours": 3536.9,
+  "peak_store_mb": 2385.6,
+  "bytes_per_second_of_audio": 187,
+  "source": "gunfinger stats --store-only -v, any build"
+ }
 }

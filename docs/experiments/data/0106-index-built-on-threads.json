@@ -202,5 +202,61 @@
   "peak_rss_bytes": 4311400448,
   "report_identical_to_start": true
  },
- "regress": "session-18-start identical with s18-par: 720/720 sweep queries, 87, 93 and 79 scan detections, the known calibrate line; 151.5 s, 1,310 s CPU"
+ "regress": "session-18-start identical with s18-par: 720/720 sweep queries, 87, 93 and 79 scan detections, the known calibrate line; 151.5 s, 1,310 s CPU",
+ "stale_rebuild_abba": {
+  "command": "XDG_CACHE_HOME=work/s18/cache-scratch gunfinger identify corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3 --config ~/.config/gunfinger/nas-dnb.toml --store-only --playback both --saved-index rebuild -v -f json (work/s18/run-2003-stale.sh)",
+  "s18-final": "s18-par with the review's fixes (tests, read_postings's panic handling)",
+  "saved_index_identical_to_start_builds_file": [
+   true,
+   true,
+   true,
+   true
+  ],
+  "runs": [
+   {
+    "run": "stale-1-step6",
+    "wall_s": 129.65,
+    "user_s": 440.67,
+    "sys_s": 15.62,
+    "peak_rss_bytes": 4296884224,
+    "report_identical_to_start": true,
+    "index_ready_s": 88.9,
+    "built_s": 86.6,
+    "saved_s": 2.3
+   },
+   {
+    "run": "stale-2-final",
+    "wall_s": 55.32,
+    "user_s": 434.56,
+    "sys_s": 20.4,
+    "peak_rss_bytes": 4334338048,
+    "report_identical_to_start": true,
+    "index_ready_s": 13.6,
+    "built_s": 11.7,
+    "saved_s": 1.9
+   },
+   {
+    "run": "stale-3-final",
+    "wall_s": 52.73,
+    "user_s": 431.97,
+    "sys_s": 17.11,
+    "peak_rss_bytes": 4335583232,
+    "report_identical_to_start": true,
+    "index_ready_s": 12.7,
+    "built_s": 10.9,
+    "saved_s": 1.8
+   },
+   {
+    "run": "stale-4-step6",
+    "wall_s": 115.94,
+    "user_s": 440.34,
+    "sys_s": 14.93,
+    "peak_rss_bytes": 4344283136,
+    "report_identical_to_start": true,
+    "index_ready_s": 74.5,
+    "built_s": 72.6,
+    "saved_s": 1.9
+   }
+  ]
+ }
 }

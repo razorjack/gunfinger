@@ -16,6 +16,7 @@
 
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read, Write};
+use std::panic;
 use std::path::{Path, PathBuf};
 use std::sync::mpsc;
 use std::thread;
@@ -318,8 +319,8 @@ fn read_words(input: &mut Digesting<impl Read>, count: usize) -> io::Result<Vec<
 /// the index does not hold or send the search's grouping out of bounds.
 ///
 /// A thread reads and checks the postings a chunk at a time while this one
-/// digests the chunk before: the digest is a chain of multiplications that
-/// only one thread can follow (experiment 0104).
+/// digests each chunk read before: the digest is a chain of
+/// multiplications that only one thread can follow (experiment 0104).
 fn read_postings(
     input: &mut Digesting<impl Read + Send>,
     offsets: &[u32],
@@ -366,19 +367,19 @@ fn read_postings(
             checked
         });
         while postings.len() < count {
-            let chunk = read
-                .recv()
-                .map_err(|_| Unusable::Unreadable(String::from("its postings stopped short")))?
-                .map_err(unreadable)?;
+            // The channel closes early only when the reader panics, which
+            // `join` passes on.
+            let Ok(chunk) = read.recv() else { break };
+            let chunk = chunk.map_err(unreadable)?;
             for posting in &chunk {
                 digest.word(posting.0);
             }
             postings.extend_from_slice(&chunk);
             let _ = free_sender.send(chunk);
         }
-        reader
+        Ok(reader
             .join()
-            .map_err(|_| Unusable::Unreadable(String::from("reading its postings failed")))
+            .unwrap_or_else(|payload| panic::resume_unwind(payload)))
     })?;
     if damaged {
         return Err(Unusable::Unreadable(String::from(
@@ -827,12 +828,14 @@ mod tests {
         let (provenance, mut index) = library();
         let posting = |asset, at: usize| Posting::new(AssetId(asset), at as u32 % MAX_FRAMES);
         // List 0 fills the first chunk with the second asset; list 1 starts
-        // the second chunk with the first asset and runs into a third.
+        // the second chunk with the first asset and runs on into a sixth,
+        // past the chunks in flight, so that their buffers are reused.
         index.postings = (0..CHUNK_WORDS)
             .map(|at| posting(1, at))
             .chain((0..CHUNK_WORDS).map(|at| posting(0, at)))
-            .chain((0..CHUNK_WORDS / 2).map(|at| posting(1, at)))
+            .chain((0..CHUNK_WORDS * 7 / 2).map(|at| posting(1, at)))
             .collect();
+        assert!(index.postings.len() > (CHUNKS_IN_FLIGHT + 1) * CHUNK_WORDS);
         index.offsets.fill(index.postings.len() as u32);
         index.offsets[0] = 0;
         index.offsets[1] = CHUNK_WORDS as u32;

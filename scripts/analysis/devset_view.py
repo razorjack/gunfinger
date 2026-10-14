@@ -2,9 +2,9 @@
 miss and each wrong identification a cause.
 
 For each track of the manifest: whether it is identified (ADR 0004, as
-`devscore.score_scan`), the files credited, and the strongest detection
-of an accepted file (a reference or a cluster member) overlapping its
-slot whatever its confidence. Then every confident play that matches no
+`devscore.score_scan`), the files credited, and, when none is, the
+strongest detection of an accepted file (a reference or a cluster
+member) overlapping its slot. Then every confident play that matches no
 slot, every possible play that matches no slot, and everything at least
 possible inside the slots of absent tracks (`reference = []`), which are
 candidates to judge by ear rather than scored results.
@@ -31,14 +31,9 @@ def short(asset):
 
 
 def describe(found):
-    lock = " key-locked" if found.get("key_locked") else ""
     return (f"{clock(found['start_seconds'])}-{clock(found['end_seconds'])} "
-            f"{found['hits']} hits {found['windows']} windows speed {found['speed']:.4f}{lock}"
+            f"{found['hits']} hits {found['windows']} windows speed {found['speed']:.4f}"
             f" {short(found['asset'])}")
-
-
-def play_hits(play):
-    return max(segment["hits"] for segment in play["segments"])
 
 
 def main():

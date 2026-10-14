@@ -2,8 +2,9 @@
 alignment over every search (peaks and audio, each ladder, the fitted
 speed) and what it says about the two files.
 
-- same recording: one alignment covers at least 80% of the shorter file
-  (the clustering rule, `clusters::MIN_COVERAGE`);
+- same recording: one alignment, in any search, covers at least 80% of
+  the shorter file (`clusters::MIN_COVERAGE`; `clusters` applies it to
+  the turntable ladder and the fitted speed only, so this is looser);
 - shared material: an alignment of 30 hits or more (`RELATED_HITS`, the
   census of related recordings, experiment 0015);
 - nothing shared found: every alignment below 30 hits. Shared material

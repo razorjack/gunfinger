@@ -1,15 +1,14 @@
 # 0101: the containment rule on the third development mix
 
 **Question.** Session 18, step 3: what does the containment rule (a
-confident play inside a stronger confident play of another cluster is
-shared material) remove and cost at 0091's recommended setting (passages,
-10 s, with and without a 0.5 bound on the ratio of hits) on the mix 0091
-asked for (0100), and on every stored report again?
+confident play inside a stronger one of another cluster is shared
+material) remove and cost at 0091's setting (passages, 10 s, with and
+without a 0.5 bound on the ratio of hits) on 0100's mix and every report?
 
 **Method.** `containment.py` (0091's grid), the new mix's scans and NAS
-leave-outs added, session 18's clusters. New: every scan and leave-out
-with the strongest file of each identified track dropped, its other rips
-keeping their hits (does a weaker copy still identify the track?).
+leave-outs added, session 18's clusters. New: every scan (not the
+leave-outs) with the strongest file of each identified track dropped,
+its other rips keeping their hits (does a weaker copy still identify it?).
 
 | Passages, 10 s; bound none / 0.5 | Confident plays | Wrong | Removed | Right demoted |
 |---|--:|--:|--:|--:|
@@ -19,8 +18,9 @@ keeping their hits (does a weaker copy still identify the track?).
 
 - The new mix's closest call: Anthrax's play would need 99 s of tolerance
   (NAS; 117 s at 262) to lie inside Blindside's stronger play.
-- Strongest file dropped, at every grid point: 13 of 39 identified tracks
-  (262) and 45 of 57 (NAS) keep a weaker confident copy; none loses it.
+- Strongest file dropped, at every grid point, in the scans: 13 of 39
+  identified tracks (262) and 45 of 57 (NAS) keep a weaker confident
+  copy; none loses it.
 - Every other row is 0091's, unchanged (432 rows): no wrong play in the
   other scans, sweeps, recall, robust, generated mixes; 0076's
   passages 26 -> 0 runs with a wrong play, 10 right demoted, 2 runs losing
