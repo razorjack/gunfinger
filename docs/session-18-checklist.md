@@ -35,9 +35,10 @@ for scope and rules.
   play to remove, no right play demoted; dropping each track's strongest
   file loses no right recording anywhere; every row of 0091 unchanged.
   Recommended: do not adopt
-- [ ] 4. The possible tier: the listening answers in the roadmap and
-  `docs/calibration.md`; possible plays per hour at 60-130; true plays
-  only possible
+- [x] 4. The possible tier (experiment 0102): the listening answers of
+  2026-10-14 in the roadmap and `docs/calibration.md`; the new mix shows
+  3.6, 3.6, 2.7, 1.8 possible plays per hour at 60, 80, 100, 130 hits,
+  all shared material; no true play only possible; no threshold changed
 - [ ] 5. Listening questions in `work/audition/s18/`; the page checked
   with temporary files
 - [ ] 6. Search speed (if time remains)

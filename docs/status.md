@@ -2479,3 +2479,13 @@ during the session.
   weaker copy at 262 tracks, 45 of 57 at NAS scale). Every row of 0091's
   data is reproduced exactly under the new clusters (432 rows).
   Recommendation: do not adopt.
+- Step 4 (experiment 0102): the answers by ear of 2026-10-14
+  (Watermelon ~ Monotone, Fractles ~ We Enter: shared) recorded in the
+  roadmap's "The possible tier at NAS scale" and `docs/calibration.md`'s
+  row. `scripts/analysis/possible_tier.py` with the new mix and its
+  leave-outs (tags of the current store, `work/s18/tags.json`): 3.6, 3.6,
+  2.7 and 1.8 possible plays per hour at 60, 80, 100 and 130 hits (4, 4,
+  3, 2 plays in 1.11 h), all related by audio; the three mixes 3.2, 2.8,
+  1.8, 1.1. No true play of the new mix found only as possible. Its
+  strongest detection matching no track (66 hits, 44:33-45:16) is Stab
+  2 Def blended in before its slot's window. No threshold changed.

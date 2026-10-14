@@ -1,0 +1,875 @@
+{
+ "thresholds": [
+  60,
+  80,
+  100,
+  130
+ ],
+ "scans": {
+  "hours": 1.706,
+  "table": {
+   "60": {
+    "possible": 5,
+    "per hour": 2.93,
+    "by label": {
+     "related (audio)": 4,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 4,
+    "per hour": 2.35,
+    "by label": {
+     "related (audio)": 3,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "100": {
+    "possible": 2,
+    "per hour": 1.17,
+    "by label": {
+     "related (audio)": 2
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "130": {
+    "possible": 1,
+    "per hour": 0.59,
+    "by label": {
+     "related (audio)": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   }
+  },
+  "plays": [
+   {
+    "report": "scan-stakka-skynet-knowledge.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "also": [],
+    "hits": 79,
+    "span": [
+     628.9,
+     659.5
+    ],
+    "middle": 644.2,
+    "label": "related (audio)",
+    "against": "Kemal & Rob Data - Star Trails.mp3",
+    "playing": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails"
+    ]
+   },
+   {
+    "report": "scan-stakka-skynet-knowledge.json",
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "also": [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+    ],
+    "hits": 94,
+    "span": [
+     1222.9,
+     1240.8
+    ],
+    "middle": 1231.8,
+    "label": "related (audio)",
+    "against": "Skynet & Stakka - Clockwork.mp3",
+    "playing": [
+     " 5. Skynet & Stakka - Clockwork"
+    ]
+   },
+   {
+    "report": "scan-razorjack-2003-03-29.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "also": [],
+    "hits": 146,
+    "span": [
+     691.2,
+     816.5
+    ],
+    "middle": 753.8,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+    "playing": [
+     " 4. Digital & Spirit - Phantom Force"
+    ]
+   },
+   {
+    "report": "scan-razorjack-2003-03-29.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+    "also": [],
+    "hits": 98,
+    "span": [
+     751.5,
+     795.0
+    ],
+    "middle": 773.3,
+    "label": "unrelated",
+    "against": null,
+    "playing": [
+     " 4. Digital & Spirit - Phantom Force"
+    ]
+   },
+   {
+    "report": "scan-razorjack-2003-03-29.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+    "also": [],
+    "hits": 118,
+    "span": [
+     826.1,
+     856.5
+    ],
+    "middle": 841.3,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+    "playing": [
+     " 4. Digital & Spirit - Phantom Force"
+    ]
+   }
+  ]
+ },
+ "leave-outs": {
+  "hours": 2.642,
+  "table": {
+   "60": {
+    "possible": 7,
+    "per hour": 2.65,
+    "by label": {
+     "related (audio)": 6,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 5,
+    "per hour": 1.89,
+    "by label": {
+     "related (audio)": 4,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "100": {
+    "possible": 2,
+    "per hour": 0.76,
+    "by label": {
+     "related (audio)": 2
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "130": {
+    "possible": 1,
+    "per hour": 0.38,
+    "by label": {
+     "related (audio)": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   }
+  },
+  "plays": [
+   {
+    "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "also": [],
+    "hits": 79,
+    "span": [
+     628.9,
+     659.5
+    ],
+    "middle": 644.2,
+    "label": "related (audio)",
+    "against": "Kemal & Rob Data - Star Trails.mp3",
+    "playing": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails"
+    ]
+   },
+   {
+    "report": "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "also": [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+    ],
+    "hits": 94,
+    "span": [
+     1222.9,
+     1240.8
+    ],
+    "middle": 1231.8,
+    "label": "related (audio)",
+    "against": "Skynet & Stakka - Clockwork.mp3",
+    "playing": [
+     " 5. Skynet & Stakka - Clockwork"
+    ]
+   },
+   {
+    "report": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+    "also": [],
+    "hits": 79,
+    "span": [
+     628.9,
+     659.5
+    ],
+    "middle": 644.2,
+    "label": "related (audio)",
+    "against": "Kemal & Rob Data - Star Trails.mp3",
+    "playing": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails"
+    ]
+   },
+   {
+    "report": "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
+    "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "also": [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+    ],
+    "hits": 94,
+    "span": [
+     1222.9,
+     1240.8
+    ],
+    "middle": 1231.8,
+    "label": "related (audio)",
+    "against": "Skynet & Stakka - Clockwork.mp3",
+    "playing": [
+     " 5. Skynet & Stakka - Clockwork"
+    ]
+   },
+   {
+    "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+    "also": [],
+    "hits": 146,
+    "span": [
+     691.2,
+     816.5
+    ],
+    "middle": 753.8,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+    "playing": [
+     " 4. Digital & Spirit - Phantom Force"
+    ]
+   },
+   {
+    "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+    "also": [],
+    "hits": 98,
+    "span": [
+     751.5,
+     795.0
+    ],
+    "middle": 773.3,
+    "label": "unrelated",
+    "against": null,
+    "playing": [
+     " 4. Digital & Spirit - Phantom Force"
+    ]
+   },
+   {
+    "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+    "also": [],
+    "hits": 118,
+    "span": [
+     826.1,
+     856.5
+    ],
+    "middle": 841.3,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+    "playing": [
+     " 4. Digital & Spirit - Phantom Force"
+    ]
+   }
+  ]
+ },
+ "new mix": {
+  "hours": 1.113,
+  "table": {
+   "60": {
+    "possible": 4,
+    "per hour": 3.59,
+    "by label": {
+     "related (audio)": 4
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 4,
+    "per hour": 3.59,
+    "by label": {
+     "related (audio)": 4
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "100": {
+    "possible": 3,
+    "per hour": 2.69,
+    "by label": {
+     "related (audio)": 3
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "130": {
+    "possible": 2,
+    "per hour": 1.8,
+    "by label": {
+     "related (audio)": 2
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   }
+  },
+  "plays": [
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+    "also": [],
+    "hits": 197,
+    "span": [
+     2792.1,
+     2908.0
+    ],
+    "middle": 2850.1,
+    "label": "related (audio)",
+    "against": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+    "playing": [
+     "11. Decoder - Dead Fall",
+     "12. The Kraft - Stab 2 Def"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "also": [],
+    "hits": 116,
+    "span": [
+     3147.6,
+     3343.8
+    ],
+    "middle": 3245.7,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23.json",
+    "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "also": [],
+    "hits": 96,
+    "span": [
+     3150.7,
+     3339.9
+    ],
+    "middle": 3245.3,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23.json",
+    "asset": "second-library/1.mp3",
+    "also": [],
+    "hits": 161,
+    "span": [
+     3408.5,
+     3439.4
+    ],
+    "middle": 3423.9,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+    "playing": [
+     "15. Sonic - Cannibal"
+    ]
+   }
+  ]
+ },
+ "new mix leave-outs": {
+  "hours": 3.34,
+  "table": {
+   "60": {
+    "possible": 12,
+    "per hour": 3.59,
+    "by label": {
+     "related (audio)": 12
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 12,
+    "per hour": 3.59,
+    "by label": {
+     "related (audio)": 12
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "100": {
+    "possible": 9,
+    "per hour": 2.69,
+    "by label": {
+     "related (audio)": 9
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "130": {
+    "possible": 6,
+    "per hour": 1.8,
+    "by label": {
+     "related (audio)": 6
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   }
+  },
+  "plays": [
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+    "also": [],
+    "hits": 197,
+    "span": [
+     2792.1,
+     2908.0
+    ],
+    "middle": 2850.1,
+    "label": "related (audio)",
+    "against": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+    "playing": [
+     "11. Decoder - Dead Fall",
+     "12. The Kraft - Stab 2 Def"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "also": [],
+    "hits": 116,
+    "span": [
+     3147.6,
+     3343.8
+    ],
+    "middle": 3245.7,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json",
+    "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "also": [],
+    "hits": 96,
+    "span": [
+     3150.7,
+     3339.9
+    ],
+    "middle": 3245.3,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json",
+    "asset": "second-library/1.mp3",
+    "also": [],
+    "hits": 161,
+    "span": [
+     3408.5,
+     3439.4
+    ],
+    "middle": 3423.9,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+    "playing": [
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+    "also": [],
+    "hits": 197,
+    "span": [
+     2792.1,
+     2908.0
+    ],
+    "middle": 2850.1,
+    "label": "related (audio)",
+    "against": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+    "playing": [
+     "11. Decoder - Dead Fall",
+     "12. The Kraft - Stab 2 Def"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "also": [],
+    "hits": 116,
+    "span": [
+     3147.6,
+     3343.8
+    ],
+    "middle": 3245.7,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json",
+    "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "also": [],
+    "hits": 96,
+    "span": [
+     3150.7,
+     3339.9
+    ],
+    "middle": 3245.3,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json",
+    "asset": "second-library/1.mp3",
+    "also": [],
+    "hits": 161,
+    "span": [
+     3408.5,
+     3439.4
+    ],
+    "middle": 3423.9,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+    "playing": [
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2028.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+    "also": [],
+    "hits": 197,
+    "span": [
+     2792.1,
+     2908.0
+    ],
+    "middle": 2850.1,
+    "label": "related (audio)",
+    "against": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+    "playing": [
+     "11. Decoder - Dead Fall",
+     "12. The Kraft - Stab 2 Def"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2028.json",
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "also": [],
+    "hits": 116,
+    "span": [
+     3147.6,
+     3343.8
+    ],
+    "middle": 3245.7,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2028.json",
+    "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "also": [],
+    "hits": 96,
+    "span": [
+     3150.7,
+     3339.9
+    ],
+    "middle": 3245.3,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "playing": [
+     "14. Klute - We R The Ones (VIP)",
+     "15. Sonic - Cannibal"
+    ]
+   },
+   {
+    "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2028.json",
+    "asset": "second-library/1.mp3",
+    "also": [],
+    "hits": 161,
+    "span": [
+     3408.5,
+     3439.4
+    ],
+    "middle": 3423.9,
+    "label": "related (audio)",
+    "against": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+    "playing": [
+     "15. Sonic - Cannibal"
+    ]
+   }
+  ]
+ },
+ "three mixes": {
+  "hours": 2.819,
+  "table": {
+   "60": {
+    "possible": 9,
+    "per hour": 3.19,
+    "by label": {
+     "related (audio)": 8,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 8,
+    "per hour": 2.84,
+    "by label": {
+     "related (audio)": 7,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "100": {
+    "possible": 5,
+    "per hour": 1.77,
+    "by label": {
+     "related (audio)": 5
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "130": {
+    "possible": 3,
+    "per hour": 1.06,
+    "by label": {
+     "related (audio)": 3
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   }
+  }
+ },
+ "queries": {
+  "hours": 29.85,
+  "table": {
+   "60": {
+    "possible": 351,
+    "per hour": 11.76,
+    "by label": {
+     "right": 196,
+     "related (audio)": 154,
+     "unrelated": 1
+    },
+    "right hidden (shown at 60, below the threshold)": 0,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "80": {
+    "possible": 304,
+    "per hour": 10.18,
+    "by label": {
+     "right": 190,
+     "related (audio)": 114
+    },
+    "right hidden (shown at 60, below the threshold)": 6,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "100": {
+    "possible": 258,
+    "per hour": 8.64,
+    "by label": {
+     "right": 180,
+     "related (audio)": 78
+    },
+    "right hidden (shown at 60, below the threshold)": 16,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   },
+   "130": {
+    "possible": 200,
+    "per hour": 6.7,
+    "by label": {
+     "right": 168,
+     "related (audio)": 32
+    },
+    "right hidden (shown at 60, below the threshold)": 28,
+    "found only as possible": 0,
+    "found only as possible, hidden": 0
+   }
+  }
+ },
+ "strongest unrelated": [
+  {
+   "report": "scan-razorjack-2003-03-29.json",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "hits": 98,
+   "windows": 5,
+   "span": [
+    751.5,
+    795.0
+   ],
+   "label": "unrelated"
+  },
+  {
+   "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "hits": 98,
+   "windows": 5,
+   "span": [
+    751.5,
+    795.0
+   ],
+   "label": "unrelated"
+  },
+  {
+   "report": "scan-nocny-trans-vertical-2002-08-23.json",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "hits": 66,
+   "windows": 5,
+   "span": [
+    2673.0,
+    2716.3
+   ],
+   "label": "unrelated"
+  },
+  {
+   "report": "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "hits": 66,
+   "windows": 5,
+   "span": [
+    2673.0,
+    2716.3
+   ],
+   "label": "unrelated"
+  },
+  {
+   "report": "sweep-seed-2026.json",
+   "query": "Skynet & Stakka - Clockwork.mp3",
+   "held_out": false,
+   "speed_percent": 0.0,
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Simon Static - Rubba Rock.opus",
+   "also": [],
+   "hits": 64,
+   "label": "unrelated"
+  },
+  {
+   "report": "sweep-seed-2026.json",
+   "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+   "held_out": false,
+   "speed_percent": 8.0,
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+   "also": [],
+   "hits": 54,
+   "label": "unrelated"
+  },
+  {
+   "report": "scan-razorjack-2003-03-29.json",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "hits": 53,
+   "windows": 4,
+   "span": [
+    715.5,
+    748.9
+   ],
+   "label": "unrelated"
+  },
+  {
+   "report": "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "hits": 53,
+   "windows": 4,
+   "span": [
+    715.5,
+    748.9
+   ],
+   "label": "unrelated"
+  },
+  {
+   "report": "sweep-seed-2026.json",
+   "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+   "held_out": false,
+   "speed_percent": -1.0,
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+   "also": [],
+   "hits": 43,
+   "label": "unrelated"
+  },
+  {
+   "report": "sweep-seed-2026.json",
+   "query": "extra/aa-cause_4_concern-abduction-sour.mp3",
+   "held_out": false,
+   "speed_percent": 1.0,
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Cause 4 Concern - Epox Remix.opus",
+   "also": [],
+   "hits": 42,
+   "label": "unrelated"
+  }
+ ],
+ "note": "labels from audio and tags; the verdicts by ear (shared material: Meltdown ~ Phantom Force 2026-10-12, Watermelon ~ Monotone and Fractles ~ We Enter 2026-10-14) are not read by the script; the new mix's 66-hit 'unrelated' detection is Stab 2 Def blended in at 44:33, before its slot's window"
+}

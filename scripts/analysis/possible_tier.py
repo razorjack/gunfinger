@@ -47,6 +47,9 @@ LEAVE_OUTS = [
     "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json",
 ]
 QUERIES = [f"sweep-seed-{seed}.json" for seed in (2026, 2027, 2028, 2029)] + ["recall-seed-2026.json"]
+# Session 18: the third development mix, counted apart and with the two above.
+NEW_SCANS = ["scan-nocny-trans-vertical-2002-08-23.json"]
+NEW_LEAVE_OUTS = [f"scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-{seed}.json" for seed in (2026, 2027, 2028)]
 EXCERPT_SECONDS = 30.0
 
 
@@ -289,12 +292,22 @@ def main():
     scans = scan_rows(SCANS, relations, cluster_of)
     leave_outs = scan_rows(LEAVE_OUTS, relations, cluster_of)
     queries = query_rows(relations, cluster_of)
+    new_scans = scan_rows(NEW_SCANS, relations, cluster_of)
+    new_leave_outs = scan_rows(NEW_LEAVE_OUTS, relations, cluster_of)
+    every_mix = SCANS + NEW_SCANS
     result = {
         "thresholds": THRESHOLDS,
         "scans": {"hours": round(audio_hours(SCANS, True), 3), "table": tally(scans, audio_hours(SCANS, True)),
                   "plays": scans},
         "leave-outs": {"hours": round(audio_hours(LEAVE_OUTS, True), 3),
                        "table": tally(leave_outs, audio_hours(LEAVE_OUTS, True)), "plays": leave_outs},
+        "new mix": {"hours": round(audio_hours(NEW_SCANS, True), 3),
+                    "table": tally(new_scans, audio_hours(NEW_SCANS, True)), "plays": new_scans},
+        "new mix leave-outs": {"hours": round(audio_hours(NEW_LEAVE_OUTS, True), 3),
+                               "table": tally(new_leave_outs, audio_hours(NEW_LEAVE_OUTS, True)),
+                               "plays": new_leave_outs},
+        "three mixes": {"hours": round(audio_hours(every_mix, True), 3),
+                        "table": tally(scans + new_scans, audio_hours(every_mix, True))},
         "queries": {"hours": round(audio_hours(QUERIES, False), 3),
                     "table": tally(queries, audio_hours(QUERIES, False)),
                     "strongest": {}},
@@ -302,7 +315,7 @@ def main():
     for label in ("right", "related (audio)", "related (tags)", "unrelated"):
         strongest = sorted((row for row in queries if row["label"] == label), key=lambda row: -row["hits"])[:15]
         result["queries"]["strongest"][label] = strongest
-    null = scan_detections(SCANS + LEAVE_OUTS, relations, cluster_of)
+    null = scan_detections(SCANS + LEAVE_OUTS + NEW_SCANS + NEW_LEAVE_OUTS, relations, cluster_of)
     result["scan detections below the rule, matching no track"] = {
         label: sorted((row for row in null if row["label"] == label), key=lambda row: -row["hits"])[:10]
         for label in ("related (audio)", "related (tags)", "unrelated")
@@ -314,12 +327,12 @@ def main():
     result["strongest on audio not in the index"] = sorted(held_out, key=lambda row: -row["hits"])[:10]
     with open(out, "w") as file:
         json.dump(result, file, indent=1, ensure_ascii=False)
-    for part in ("scans", "leave-outs", "queries"):
+    for part in ("scans", "leave-outs", "new mix", "new mix leave-outs", "three mixes", "queries"):
         print(f"{part}: {result[part]['hours']} h of audio")
         for threshold, row in result[part]["table"].items():
             print(f"  {threshold}: {row}")
     print("development scan plays below the confident rule:")
-    for row in scans + leave_outs:
+    for row in scans + leave_outs + new_scans + new_leave_outs:
         print(f"  {row['report']} {row['hits']} {row['label']} {row['asset'][-60:]} at {row['span']} "
               f"(playing: {row['playing']}; against {row['against']})")
     print("strongest unrelated:")

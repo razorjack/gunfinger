@@ -539,11 +539,15 @@ marked as inferences were derived, not measured.
   Infectious and Sentient ~ Shere Khan - Criminal Record repeat at every
   sweep speed and the clusters' pairs label them related. The jump at
   9,200 assets is the first subset that holds Rubba Rock, not chance
-  growing with the library. Not checked yet: 41 hits (Watermelon ~ 300
-  Baud - Monotone, Mobiuz & Cycom remix) and 40 (Falcon - Fractles ~
-  Ryme Tyme - We Enter, Optical remix v3.0), both below the tier and
-  queued for judging by ear in `work/audition/shared/s17-shared.json`
-  (session 17). The earlier proposal, 60 while chance stays below 30
+  growing with the library. *(2026-10-14)* The two strongest not
+  checked before, both below the tier, share material too, by
+  ear (answers 35 and 36 of the answer log, from
+  `work/audition/shared/s17-shared.json`): Watermelon ~ 300 Baud -
+  Monotone (Mobiuz & Cycom remix), 41 hits, and Falcon - Fractles ~ Ryme
+  Tyme - We Enter (Optical remix v3.0), 40 hits. Every strongest match
+  between different recordings checked so far, from 40 hits up, shares
+  material, and no chance match has been heard above 40 hits. The
+  earlier proposal, 60 while chance stays below 30
   hits and twice it above (130-140 at NAS scale, which would hide the
   development mix's shared-material notes), took the 64 for chance. We
   decide; 60 stays. *(larger library)* The jump to 64 hits is
@@ -564,7 +568,15 @@ marked as inferences were derived, not measured.
   Phantom Force, is not a re-pitched copy of the passage; by ear, the
   two share the full drum break (2026-10-12), so every
   possible play of the two mixes at 60 hits is a version or shared
-  material.
+  material. *(session 18, experiment 0102)* The third development mix
+  (`nocny-trans-vertical-2002-08-23`, 1.11 h) shows 3.6, 3.6, 2.7 and
+  1.8 possible plays per hour at 60, 80, 100 and 130 hits, every one
+  shared material with the confident play over it (Mampi Swift - 2000
+  during Stab 2 Def, the Klute Remix in two files during the VIP, the
+  untagged `1.mp3` during Cannibal); none of its true plays is found
+  only as possible. The three mixes together: 3.2, 2.8, 1.8 and 1.1 per
+  hour. Its strongest detection matching no track (66 hits) is Stab 2
+  Def itself, blended in at 44:33, before its slot's window.
 - **Recall beyond the corpus recordings.** *(development half measured
   in session 10, experiment 0068: 540/540 at every speed and kind, no
   miss, held-out sources never confident; 30 wrong answers from a
