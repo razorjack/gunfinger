@@ -1,0 +1,375 @@
+{
+ "command_saved_index": "gunfinger identify corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3 --config ~/.config/gunfinger/nas-dnb.toml --store-only --playback both -f json",
+ "command_built_in_memory": "the same with --saved-index off -v",
+ "command_stats": "gunfinger --config ~/.config/gunfinger/nas-dnb.toml stats --store-only -v",
+ "builds": {
+  "s18-start": "start of session 18",
+  "s18-load": "postings read on a thread, digest and checks on the caller (first version)",
+  "s18-load2": "0104: postings read, converted and checked on a thread, digested on the caller",
+  "s18-load3": "0104 reading the file under the BufReader",
+  "s18-storeonly": "0105 alone",
+  "s18-store / s18-step6": "0104 and 0105 (the same binary)"
+ },
+ "experiment": "0104",
+ "stats_runs": [
+  {
+   "build": "s18-start",
+   "load_s": 3.9,
+   "wall_s": 25.13,
+   "user_s": 12.78,
+   "sys_s": 17.79,
+   "peak_rss_bytes": 3853090816
+  },
+  {
+   "build": "s18-load2",
+   "load_s": 2.8,
+   "wall_s": 27.07,
+   "user_s": 17.4,
+   "sys_s": 17.1,
+   "peak_rss_bytes": 3856252928
+  },
+  {
+   "build": "s18-load2",
+   "load_s": 3.0,
+   "wall_s": 26.97,
+   "user_s": 17.39,
+   "sys_s": 17.38,
+   "peak_rss_bytes": 3854712832
+  },
+  {
+   "build": "s18-start",
+   "load_s": 3.7,
+   "wall_s": 24.46,
+   "user_s": 12.79,
+   "sys_s": 18.24,
+   "peak_rss_bytes": 3841228800
+  },
+  {
+   "build": "s18-start",
+   "load_s": 3.7,
+   "wall_s": 26.53,
+   "user_s": 12.84,
+   "sys_s": 20.31,
+   "peak_rss_bytes": 3837132800
+  },
+  {
+   "build": "s18-load2",
+   "load_s": 2.8,
+   "wall_s": 26.81,
+   "user_s": 17.39,
+   "sys_s": 15.19,
+   "peak_rss_bytes": 3855171584
+  },
+  {
+   "build": "s18-load",
+   "load_s": 3.2,
+   "wall_s": 27.21,
+   "user_s": 16.9,
+   "sys_s": 17.46,
+   "peak_rss_bytes": 3858006016
+  },
+  {
+   "build": "s18-load2",
+   "load_s": 3.0,
+   "wall_s": 26.91,
+   "user_s": 17.38,
+   "sys_s": 16.71,
+   "peak_rss_bytes": 3838738432
+  },
+  {
+   "build": "s18-load",
+   "load_s": 3.3,
+   "wall_s": 27.33,
+   "user_s": 16.96,
+   "sys_s": 17.27,
+   "peak_rss_bytes": 3881320448
+  },
+  {
+   "build": "s18-load3",
+   "load_s": 2.8,
+   "wall_s": 27.28,
+   "user_s": 17.3,
+   "sys_s": 17.77,
+   "peak_rss_bytes": 3857399808
+  },
+  {
+   "build": "s18-start",
+   "load_s": 3.9,
+   "wall_s": 24.62,
+   "user_s": 12.78,
+   "sys_s": 17.69,
+   "peak_rss_bytes": 3854581760
+  },
+  {
+   "build": "s18-load3",
+   "load_s": 2.7,
+   "wall_s": 26.82,
+   "user_s": 17.29,
+   "sys_s": 17.14,
+   "peak_rss_bytes": 3844096000
+  },
+  {
+   "build": "s18-store",
+   "load_s": 2.9,
+   "wall_s": 20.17,
+   "user_s": 11.58,
+   "sys_s": 16.99,
+   "peak_rss_bytes": 3859349504
+  },
+  {
+   "build": "s18-start",
+   "load_s": 3.9,
+   "wall_s": 24.79,
+   "user_s": 12.8,
+   "sys_s": 19.0,
+   "peak_rss_bytes": 3835543552
+  },
+  {
+   "build": "s18-load2",
+   "load_s": 2.8,
+   "wall_s": 27.31,
+   "user_s": 17.43,
+   "sys_s": 21.18,
+   "peak_rss_bytes": 3881467904
+  },
+  {
+   "build": "s18-store",
+   "load_s": 2.8,
+   "wall_s": 19.96,
+   "user_s": 11.58,
+   "sys_s": 16.54,
+   "peak_rss_bytes": 3850813440
+  },
+  {
+   "build": "s18-storeonly",
+   "load_s": 4.0,
+   "wall_s": 21.21,
+   "user_s": 11.04,
+   "sys_s": 16.9,
+   "peak_rss_bytes": 3842654208
+  },
+  {
+   "build": "s18-start",
+   "load_s": 3.8,
+   "wall_s": 24.46,
+   "user_s": 12.79,
+   "sys_s": 17.34,
+   "peak_rss_bytes": 3839819776
+  },
+  {
+   "build": "s18-store",
+   "load_s": 2.9,
+   "wall_s": 19.97,
+   "user_s": 11.68,
+   "sys_s": 16.65,
+   "peak_rss_bytes": 3855319040
+  },
+  {
+   "build": "s18-storeonly",
+   "load_s": 3.8,
+   "wall_s": 20.63,
+   "user_s": 11.02,
+   "sys_s": 16.0,
+   "peak_rss_bytes": 3846356992
+  }
+ ],
+ "abba_saved_index_load2": [
+  {
+   "run": "l2abba-1-start",
+   "wall_s": 45.39,
+   "user_s": 378.25,
+   "sys_s": 20.37,
+   "peak_rss_bytes": 4309155840,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-2-load2",
+   "wall_s": 43.66,
+   "user_s": 385.86,
+   "sys_s": 10.98,
+   "peak_rss_bytes": 4347166720,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-3-load2",
+   "wall_s": 43.24,
+   "user_s": 381.28,
+   "sys_s": 11.42,
+   "peak_rss_bytes": 4343382016,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-4-start",
+   "wall_s": 44.08,
+   "user_s": 377.7,
+   "sys_s": 11.04,
+   "peak_rss_bytes": 4339433472,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-5-start",
+   "wall_s": 43.78,
+   "user_s": 377.18,
+   "sys_s": 11.22,
+   "peak_rss_bytes": 4340482048,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-6-load2",
+   "wall_s": 42.75,
+   "user_s": 378.18,
+   "sys_s": 11.95,
+   "peak_rss_bytes": 4345987072,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-7-load2",
+   "wall_s": 43.07,
+   "user_s": 377.11,
+   "sys_s": 11.02,
+   "peak_rss_bytes": 4347199488,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "l2abba-8-start",
+   "wall_s": 44.27,
+   "user_s": 375.92,
+   "sys_s": 10.94,
+   "peak_rss_bytes": 4339531776,
+   "report_identical_to_start": true
+  }
+ ],
+ "abba_saved_index_step6": [
+  {
+   "run": "s6abba-1-start",
+   "wall_s": 45.13,
+   "user_s": 378.68,
+   "sys_s": 12.33,
+   "peak_rss_bytes": 4312694784,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-2-step6",
+   "wall_s": 44.47,
+   "user_s": 382.62,
+   "sys_s": 12.3,
+   "peak_rss_bytes": 4345593856,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-3-step6",
+   "wall_s": 43.41,
+   "user_s": 376.46,
+   "sys_s": 15.2,
+   "peak_rss_bytes": 4346642432,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-4-start",
+   "wall_s": 45.28,
+   "user_s": 371.19,
+   "sys_s": 10.97,
+   "peak_rss_bytes": 4339236864,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-5-start",
+   "wall_s": 44.75,
+   "user_s": 376.41,
+   "sys_s": 15.71,
+   "peak_rss_bytes": 4340989952,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-6-step6",
+   "wall_s": 43.09,
+   "user_s": 376.93,
+   "sys_s": 11.42,
+   "peak_rss_bytes": 4352524288,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-7-step6",
+   "wall_s": 42.95,
+   "user_s": 377.79,
+   "sys_s": 11.29,
+   "peak_rss_bytes": 4354441216,
+   "report_identical_to_start": true
+  },
+  {
+   "run": "s6abba-8-start",
+   "wall_s": 44.24,
+   "user_s": 376.4,
+   "sys_s": 11.3,
+   "peak_rss_bytes": 4337958912,
+   "report_identical_to_start": true
+  }
+ ],
+ "built_in_memory": [
+  {
+   "run": "off-1-start",
+   "wall_s": 112.42,
+   "user_s": 441.13,
+   "sys_s": 20.93,
+   "peak_rss_bytes": 4335812608,
+   "report_identical_to_start": true,
+   "index_ready_s": 71.3
+  },
+  {
+   "run": "off-2-load2",
+   "wall_s": 131.37,
+   "user_s": 452.51,
+   "sys_s": 27.32,
+   "peak_rss_bytes": 4343234560,
+   "report_identical_to_start": true,
+   "index_ready_s": 90.3
+  },
+  {
+   "run": "off-3-store",
+   "wall_s": 119.48,
+   "user_s": 440.17,
+   "sys_s": 17.81,
+   "peak_rss_bytes": 4342480896,
+   "report_identical_to_start": true,
+   "index_ready_s": 78.8
+  },
+  {
+   "run": "off-4-store",
+   "wall_s": 123.47,
+   "user_s": 440.89,
+   "sys_s": 15.71,
+   "peak_rss_bytes": 4324802560,
+   "report_identical_to_start": true,
+   "index_ready_s": 83.1
+  },
+  {
+   "run": "off-5-load2",
+   "wall_s": 134.39,
+   "user_s": 452.98,
+   "sys_s": 17.51,
+   "peak_rss_bytes": 4340170752,
+   "report_identical_to_start": true,
+   "index_ready_s": 93.6
+  },
+  {
+   "run": "off-6-start",
+   "wall_s": 128.36,
+   "user_s": 444.6,
+   "sys_s": 17.07,
+   "peak_rss_bytes": 4340727808,
+   "report_identical_to_start": true,
+   "index_ready_s": 87.9
+  }
+ ],
+ "user_cpu_when_loaded": {
+  "s18-start": [
+   3.31,
+   3.32
+  ],
+  "s18-load2": [
+   3.86,
+   3.86
+  ]
+ },
+ "regress": "session-18-start identical with s18-step6: 720/720 sweep queries, 87, 93 and 79 scan detections, the known calibrate line; 154.4 s, 1,328 s CPU"
+}

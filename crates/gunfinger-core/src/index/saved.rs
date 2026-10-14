@@ -17,6 +17,8 @@
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read, Write};
 use std::path::{Path, PathBuf};
+use std::sync::mpsc;
+use std::thread;
 use std::time::{Duration, SystemTime};
 
 use super::{FRAME_BITS, Index, IndexedAsset, Posting};
@@ -31,6 +33,8 @@ const FORMAT: u32 = 1;
 const OFFSETS: usize = (1 << HASH_BITS) + 1;
 /// Tables are read and written this many 4-byte words at a time.
 const CHUNK_WORDS: usize = 1 << 20;
+/// Chunks of postings read ahead and being digested at once.
+const CHUNKS_IN_FLIGHT: usize = 3;
 /// A temporary file untouched this long is left by a write that stopped;
 /// a younger one may belong to another search still writing.
 const UNFINISHED_AFTER: Duration = Duration::from_secs(600);
@@ -312,33 +316,70 @@ fn read_words(input: &mut Digesting<impl Read>, count: usize) -> io::Result<Vec<
 /// asset of the table and each list to be ordered by asset, as
 /// `Index::postings` promises, so that a damaged file cannot name an asset
 /// the index does not hold or send the search's grouping out of bounds.
+///
+/// A thread reads and checks the postings a chunk at a time while this one
+/// digests the chunk before: the digest is a chain of multiplications that
+/// only one thread can follow (experiment 0104).
 fn read_postings(
-    input: &mut Digesting<impl Read>,
+    input: &mut Digesting<impl Read + Send>,
     offsets: &[u32],
     assets: usize,
 ) -> Result<Vec<Posting>, Unusable> {
     let count = offsets[OFFSETS - 1] as usize;
     let mut postings = Vec::with_capacity(count);
-    let mut bytes = vec![0; 4 * CHUNK_WORDS.min(count)];
-    let mut damaged = false;
-    // Where the asset goes down, which only the start of a list may do.
-    let mut descents: Vec<u32> = Vec::new();
-    let mut previous = 0;
-    while postings.len() < count {
-        let chunk = &mut bytes[..4 * CHUNK_WORDS.min(count - postings.len())];
-        input.inner.read_exact(chunk).map_err(unreadable)?;
-        for &word in chunk.as_chunks::<4>().0 {
-            let posting = Posting(u32::from_le_bytes(word));
-            input.digest.word(posting.0);
-            let asset = posting.asset().0;
-            damaged |= asset as usize >= assets;
-            if asset < previous {
-                descents.push(postings.len() as u32);
-            }
-            previous = asset;
-            postings.push(posting);
+    let digest = &mut input.digest;
+    let file = &mut input.inner;
+    let Checked {
+        damaged, descents, ..
+    } = thread::scope(|scope| {
+        let (read_sender, read) = mpsc::sync_channel(CHUNKS_IN_FLIGHT);
+        let (free_sender, free) = mpsc::channel::<Vec<Posting>>();
+        for _ in 0..CHUNKS_IN_FLIGHT {
+            let _ = free_sender.send(Vec::with_capacity(CHUNK_WORDS.min(count)));
         }
-    }
+        let reader = scope.spawn(move || {
+            let mut checked = Checked::default();
+            let mut bytes = vec![0; 4 * CHUNK_WORDS.min(count)];
+            let mut taken = 0;
+            while taken < count {
+                // Both channels close when the digesting below stops.
+                let Ok(mut chunk) = free.recv() else { break };
+                let bytes = &mut bytes[..4 * CHUNK_WORDS.min(count - taken)];
+                if let Err(error) = file.read_exact(bytes) {
+                    let _ = read_sender.send(Err(error));
+                    break;
+                }
+                chunk.clear();
+                chunk.extend(
+                    bytes
+                        .as_chunks::<4>()
+                        .0
+                        .iter()
+                        .map(|&word| Posting(u32::from_le_bytes(word))),
+                );
+                checked.add(&chunk, taken, assets);
+                taken += chunk.len();
+                if read_sender.send(Ok(chunk)).is_err() {
+                    break;
+                }
+            }
+            checked
+        });
+        while postings.len() < count {
+            let chunk = read
+                .recv()
+                .map_err(|_| Unusable::Unreadable(String::from("its postings stopped short")))?
+                .map_err(unreadable)?;
+            for posting in &chunk {
+                digest.word(posting.0);
+            }
+            postings.extend_from_slice(&chunk);
+            let _ = free_sender.send(chunk);
+        }
+        reader
+            .join()
+            .map_err(|_| Unusable::Unreadable(String::from("reading its postings failed")))
+    })?;
     if damaged {
         return Err(Unusable::Unreadable(String::from(
             "a posting names an asset it does not hold",
@@ -351,6 +392,30 @@ fn read_postings(
         )));
     }
     Ok(postings)
+}
+
+/// What reading the postings found against `read_postings`'s promises.
+#[derive(Default)]
+struct Checked {
+    /// Whether a posting names an asset the table does not hold.
+    damaged: bool,
+    /// Where the asset goes down, which only the start of a list may do.
+    descents: Vec<u32>,
+    previous: u32,
+}
+
+impl Checked {
+    /// Checks the postings from position `first` on.
+    fn add(&mut self, postings: &[Posting], first: usize, assets: usize) {
+        for (at, posting) in (first..).zip(postings) {
+            let asset = posting.asset().0;
+            self.damaged |= asset as usize >= assets;
+            if asset < self.previous {
+                self.descents.push(at as u32);
+            }
+            self.previous = asset;
+        }
+    }
 }
 
 fn check_offsets(offsets: &[u32]) -> Result<(), Unusable> {
@@ -493,6 +558,7 @@ impl Digest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::index::{AssetId, MAX_FRAMES};
     use crate::library::Timestamp;
     use crate::peaks::Peak;
     use crate::store::{PeakRecord, RecordHeader};
@@ -749,6 +815,33 @@ mod tests {
         index.postings[list].reverse();
         save(&path, &provenance, &index).unwrap();
 
+        let error = load(&path, &provenance).err().unwrap().to_string();
+
+        assert!(error.contains("not ordered by asset"), "{error}");
+    }
+
+    #[test]
+    fn postings_are_checked_across_the_chunks_they_are_read_in() {
+        let dir = scratch("chunks");
+        let path = dir.join("library.index");
+        let (provenance, mut index) = library();
+        let posting = |asset, at: usize| Posting::new(AssetId(asset), at as u32 % MAX_FRAMES);
+        // List 0 fills the first chunk with the second asset; list 1 starts
+        // the second chunk with the first asset and runs into a third.
+        index.postings = (0..CHUNK_WORDS)
+            .map(|at| posting(1, at))
+            .chain((0..CHUNK_WORDS).map(|at| posting(0, at)))
+            .chain((0..CHUNK_WORDS / 2).map(|at| posting(1, at)))
+            .collect();
+        index.offsets.fill(index.postings.len() as u32);
+        index.offsets[0] = 0;
+        index.offsets[1] = CHUNK_WORDS as u32;
+        save(&path, &provenance, &index).unwrap();
+
+        assert!(same(&load(&path, &provenance).unwrap(), &index));
+
+        index.offsets[1] = 0;
+        save(&path, &provenance, &index).unwrap();
         let error = load(&path, &provenance).err().unwrap().to_string();
 
         assert!(error.contains("not ordered by asset"), "{error}");

@@ -307,10 +307,16 @@ impl PeakStore {
     /// Loads the current record of `asset`.
     pub fn load(&self, asset: &Asset, profile: &Profile) -> Result<PeakRecord, StoreError> {
         let (mut reader, header) = self.open_current(asset, profile)?;
-        let peaks = read_peaks(&mut reader).map_err(|error| StoreError::Corrupt {
+        let corrupt = |error: io::Error| StoreError::Corrupt {
             path: self.record_path(&asset.path),
             reason: error.to_string(),
-        })?;
+        };
+        // Parsed from memory: through the `BufReader`, each byte read is a
+        // call whenever the compiler does not inline its `read_exact`
+        // (experiment 0105).
+        let mut bytes = Vec::new();
+        reader.read_to_end(&mut bytes).map_err(corrupt)?;
+        let peaks = read_peaks(&mut bytes.as_slice()).map_err(corrupt)?;
         Ok(PeakRecord { header, peaks })
     }
 

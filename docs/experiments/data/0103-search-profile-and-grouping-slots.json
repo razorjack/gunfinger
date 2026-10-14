@@ -1,0 +1,211 @@
+{
+ "experiment": "0103",
+ "command": "gunfinger identify corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3 --config ~/.config/gunfinger/nas-dnb.toml --store-only --playback both -f json",
+ "note": "profile stage 'sorting hits: each asset's offsets' in the split build is may_form_line (its symbol carries the WindowHits::lines closure); abba1/abba2: a and d s18-start, b and c s18-v3",
+ "profile_cpu_samples": {
+  "s18-split": {
+   "ladder: STFT and peak picking": 9274,
+   "sorting hits: each asset's offsets": 8610,
+   "grouping a part by asset": 7796,
+   "waiting": 4151,
+   "taking a part from the lists": 3532,
+   "grouping by asset (counting sort) and lines": 1979,
+   "second pass: STFT and peak picking": 1112,
+   "loading records": 743,
+   "loading the saved index": 270,
+   "second pass: hashing, postings, lines": 88,
+   "hashing and posting scans": 81,
+   "distinct lines": 43,
+   "decoding": 19,
+   "clustering offsets": 13,
+   "other": 10,
+   "chaining": 10,
+   "planning the index": 9,
+   "one play per moment": 1,
+   "plays and report": 1
+  },
+  "s18-v2-split": {
+   "grouping by asset (counting sort) and lines": 18743,
+   "ladder: STFT and peak picking": 9133,
+   "pre-filter (may_form_line)": 4995,
+   "waiting": 4279,
+   "second pass: STFT and peak picking": 1099,
+   "loading records": 429,
+   "loading the saved index": 278,
+   "second pass: hashing, postings, lines": 88,
+   "hashing and posting scans": 79,
+   "distinct lines": 39,
+   "clustering offsets": 21,
+   "decoding": 21,
+   "other": 9,
+   "chaining": 9,
+   "planning the index": 5,
+   "one play per moment": 1
+  },
+  "s18-v2b-split": {
+   "grouping by asset (counting sort) and lines": 11702,
+   "ladder: STFT and peak picking": 9002,
+   "pre-filter (may_form_line)": 5035,
+   "taking a part from the lists": 4538,
+   "waiting": 3980,
+   "second pass: STFT and peak picking": 1086,
+   "loading records": 394,
+   "loading the saved index": 285,
+   "second pass: hashing, postings, lines": 85,
+   "hashing and posting scans": 66,
+   "distinct lines": 44,
+   "clustering offsets": 19,
+   "decoding": 15,
+   "other": 12,
+   "chaining": 11,
+   "planning the index": 7,
+   "one play per moment": 1
+  }
+ },
+ "runs": {
+  "s18-start": [
+   {
+    "run": "start-a",
+    "wall_s": 45.16,
+    "user_s": 381.08,
+    "sys_s": 11.96,
+    "peak_rss_bytes": 4334682112,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "start-b",
+    "wall_s": 45.51,
+    "user_s": 385.9,
+    "sys_s": 12.83,
+    "peak_rss_bytes": 4330012672,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "start-c",
+    "wall_s": 44.85,
+    "user_s": 380.71,
+    "sys_s": 11.7,
+    "peak_rss_bytes": 4336009216,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "start-d",
+    "wall_s": 44.02,
+    "user_s": 376.94,
+    "sys_s": 11.13,
+    "peak_rss_bytes": 4338466816,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "start-e",
+    "wall_s": 44.89,
+    "user_s": 383.73,
+    "sys_s": 11.39,
+    "peak_rss_bytes": 4336812032,
+    "report_identical_to_start": true
+   }
+  ],
+  "s18-v2": [
+   {
+    "run": "v2-first",
+    "wall_s": 47.72,
+    "user_s": 403.62,
+    "sys_s": 13.25,
+    "peak_rss_bytes": 4281335808,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "v2-b",
+    "wall_s": 46.99,
+    "user_s": 402.91,
+    "sys_s": 11.65,
+    "peak_rss_bytes": 4317315072,
+    "report_identical_to_start": true
+   }
+  ],
+  "s18-v2b": [
+   {
+    "run": "v2b-a",
+    "wall_s": 45.11,
+    "user_s": 377.21,
+    "sys_s": 12.81,
+    "peak_rss_bytes": 4307877888,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "v2b-c",
+    "wall_s": 44.76,
+    "user_s": 377.12,
+    "sys_s": 16.2,
+    "peak_rss_bytes": 4343988224,
+    "report_identical_to_start": true
+   }
+  ],
+  "abba_v3": [
+   {
+    "run": "abba1-a",
+    "wall_s": 44.24,
+    "user_s": 377.17,
+    "sys_s": 11.34,
+    "peak_rss_bytes": 4346757120,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba1-b",
+    "wall_s": 43.91,
+    "user_s": 371.18,
+    "sys_s": 11.44,
+    "peak_rss_bytes": 4364238848,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba1-c",
+    "wall_s": 43.67,
+    "user_s": 371.55,
+    "sys_s": 12.71,
+    "peak_rss_bytes": 4366729216,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba1-d",
+    "wall_s": 43.96,
+    "user_s": 376.48,
+    "sys_s": 11.07,
+    "peak_rss_bytes": 4346527744,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba2-a",
+    "wall_s": 43.76,
+    "user_s": 376.06,
+    "sys_s": 10.83,
+    "peak_rss_bytes": 4337057792,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba2-b",
+    "wall_s": 44.22,
+    "user_s": 371.51,
+    "sys_s": 11.42,
+    "peak_rss_bytes": 4363927552,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba2-c",
+    "wall_s": 44.01,
+    "user_s": 371.98,
+    "sys_s": 15.06,
+    "peak_rss_bytes": 4352704512,
+    "report_identical_to_start": true
+   },
+   {
+    "run": "abba2-d",
+    "wall_s": 44.69,
+    "user_s": 376.3,
+    "sys_s": 12.51,
+    "peak_rss_bytes": 4334682112,
+    "report_identical_to_start": true
+   }
+  ]
+ }
+}

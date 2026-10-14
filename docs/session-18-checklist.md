@@ -43,7 +43,10 @@ for scope and rules.
   candidate (nothing at least possible; the strongest alignment 9 hits);
   `pair` settles the TI029 C side (neither the VIP nor the 1999
   original); no wrong confident play. Paths to judge by ear in the notes
-- [ ] 6. Search speed (if time remains)
+- [x] 6. Search speed: profile; slot variants V2, V2b, V3 rejected
+  (0103); kept the postings read on a second thread (0104) and peak
+  records parsed from memory (0105): 3.1% less wall time per NAS search,
+  `stats` 19% faster; reports and `regress` identical, memory +0.4%
 - [ ] 7. Read-only review by a subagent; fixes
 
 ## Wrap-up

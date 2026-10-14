@@ -2495,3 +2495,18 @@ during the session.
   (chance level). `pair` settles the TI029 C side: one recording that
   matches neither the Phunckateck VIP nor the 1999 original. No wrong
   confident play exists to explain.
+- Step 6 (experiments 0103-0105), the 2003 mix at NAS scale. Profile of
+  the start build: the pre-filter 25.6% of CPU, grouping a part 23.2%,
+  taking a part 10.5%, the ladder's analysis 27.6% plus 3.3%. Three ways
+  of computing the pre-filter's slots once (V2, V2b, V3) gave identical
+  reports; none kept (V2 +7% CPU, V2b no gain, V3 -1.3% CPU with the
+  same wall time). Kept: the saved index's postings read and checked on
+  a second thread while the caller digests (0104; the load 2.8-3.0 s,
+  not 3.7-4.0 s), and peak records parsed from memory (0105; with 0104
+  alone the compiler stopped inlining `BufReader::read_exact` into the
+  byte-at-a-time record reading, and `stats` took 17.4 s user, not
+  12.8 s). Both, A B B A twice against `s18-start`: 43.0-44.5 s against
+  44.2-45.3 s wall, CPU within the runs' spread, memory +0.4%, eight
+  reports identical; `stats` 20.0-20.2 s against 24.5-26.5 s. `regress
+  session-18-start` identical with `work/bin/s18-step6/` (720/720, 87,
+  93, 79, the known calibrate line; 154 s, 1,328 s CPU).
