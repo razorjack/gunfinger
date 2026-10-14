@@ -116,10 +116,13 @@ unverified.
   reference frame, q the anchor's frame in reference coordinates) and
   slot `floor(offset / 4) mod 4096` (`OffsetSlots::may_form_line`,
   `search/lines.rs`). The proposal computes `a = floor(q) mod 16384` once
-  per query point (one `u16` per point) and per hit
-  `slot = ((r - a) mod 16384) >> 2`, with the same 4-frame buckets, 4,096
-  slots and neighbour test. Exact offsets, sorting, `densest_clusters`,
-  `line_of`, chains, refinement and confidence stay as they are.
+  per query point and per hit `slot = ((r - a) mod 16384) >> 2`, with
+  the same 4-frame buckets, 4,096 slots and neighbour test. Exact
+  offsets, sorting, `densest_clusters`, `line_of`, chains, refinement and
+  confidence stay as they are. The only new memory is one `u16` per query
+  point of the block searched (2Q bytes for Q points), whatever the number
+  of hits; nothing is persisted, the index format does not change and
+  nothing is indexed again.
 - **Why it stays conservative.** The integer proxy offset is
   `r - floor(q) = (r - q) + frac(q)`; offsets 2 frames apart give proxies
   less than 3 apart, so buckets at most one apart, and folding keeps
@@ -128,9 +131,10 @@ unverified.
   filter outside it. The filter may pass different non-line assets; the
   invariant is that every asset holding an eligible line reaches the
   unchanged exact finder.
-- **How it differs from 0103 V3.** V3 stored a `u16` slot per hit,
-  computed in f64 while taking the part; this stores one per query point
-  and removes the f64 work from the per-hit path.
+- **How it differs from 0103 V3.** V3 stored a `u16` slot per hit (a
+  second array per part, growing with the hits), computed in f64 while
+  taking the part; this stores one per query point (2Q bytes) and removes
+  the f64 work from the per-hit path.
 - **Smallest decisive test.** A pure predicate test against the exact
   cluster finder: negative offsets, 4-frame boundaries, wraparound, equal
   offsets, every order of small cases, large guarded coordinates, values
@@ -151,14 +155,18 @@ unverified.
   fallback and the exact finder unchanged. The report's first replay
   outcome ("overall filtering-stage cost unchanged") contradicts its
   20% criterion; the 20% criterion is the one to use.
-- **Local check (ceiling).** 0103's split profiles put the pre-filter at
-  8,610 CPU samples, and at 4,995 (V2) and 5,035 (V2b) with slots
-  computed elsewhere: the per-hit slot arithmetic is about 3,600 samples,
-  about 10.7% of that profile's CPU (a build with the grouping not
-  inlined). The counting itself stays. The ceiling is therefore about
-  10% of CPU, not 25.6%, less what the integer path still costs; V3,
-  which moved that work instead, saved 1.3% of CPU and no wall time. The
-  5% wall-time criterion needs most of the arithmetic to go.
+- **Local check (an attribution estimate, not a ceiling).** 0103's split
+  profiles put the pre-filter at 8,610 CPU samples, and at 4,995 (V2) and
+  5,035 (V2b), whose slots were computed elsewhere. The difference
+  suggests the per-hit slot arithmetic may account for roughly 10% of
+  that profile's CPU (about 3,600 of about 33,600 samples, on a build with
+  the grouping not inlined). This is an estimate to verify: V2 and V2b
+  moved the work and changed the grouping, instruction paths and cache
+  behaviour around it, so it is neither a controlled isolation, an upper
+  bound on the integer path, nor a wall-time prediction. The counting
+  remains in any case. The report's 25.6% was a deliberately loose bound
+  that assumed the whole filter vanished. V3, which moved the slot work
+  instead of removing it, saved 1.3% of CPU and no wall time.
 
 ## 2. FFT lengths of the turntable rungs
 
@@ -186,9 +194,10 @@ unverified.
   largest prime factor of the complex length each rung runs:
   - today 25 rungs have one above 31 and 16 above 100 (1103 at 0.928,
     1049 at 0.976, 977 at 1.048);
-  - nearest-even leaves 24 and 13 (largest 557). It makes 9 of the 17
-    lengths it changes worse (1113 to 1114 = 2 x 557, 973 to 974 =
-    2 x 487, 959 to 958 = 2 x 479) and leaves the 10 even lengths whose
+  - nearest-even leaves 24 and 13 (largest 557). It gives 9 of the 17
+    lengths it changes a larger largest prime factor (1113 to 1114 =
+    2 x 557, 973 to 974 = 2 x 487, 959 to 958 = 2 x 479), which is not
+    the same as measured slower, and leaves the 10 even lengths whose
     half holds a large prime (1094: 547, 1028: 2 x 257, 1004: 2 x 251);
   - choosing, within one sample of `round(1024 / s)` (the same 0.105%
     bound), the length whose complex FFT has the smallest largest prime
@@ -255,7 +264,8 @@ unverified.
   searches is under 5%; otherwise adopt only with at least 5% after
   building or loading the directory. Persisting it means a format
   change, digest coverage and structural validation (ADR 0011, 0014).
-  The ceiling is part of 10.5% of CPU.
+  In 0103's profile `take_part` as a whole was 10.5% of CPU samples;
+  the searches are only part of it.
 
 ## 4. A companion byte to scout candidates, then the original matcher
 
@@ -364,11 +374,14 @@ confidence rule and summed segments (roadmap, "A minimum span instead of
   from `docs/status.md`; no experiment numbers, no ADR.
 - Our first item stays first.
 - Two local checks change the framing without rejecting anything:
-  proposal 1's ceiling (about 10% of CPU from 0103, not 25.6%) and
-  proposal 2's arms (nearest-even makes 9 of 17 changed lengths worse by
-  factorisation; a factor-aware rule within the same bound is added as a
-  third arm, and a plan cache as an exact-output question inside the
-  diagnostic).
+  - proposal 1: 0103's split profiles suggest the slot arithmetic may
+    account for roughly 10% of CPU, an attribution estimate to verify,
+    not a hard ceiling or a wall-time prediction; the counting remains;
+  - proposal 2: nearest-even gives 9 of the 17 lengths it changes a
+    larger largest prime factor (not measured as slower), so a
+    factor-aware rule within the same bound is added as an independently
+    proposed third arm of the diagnostic, with a plan cache as an
+    exact-output question inside it.
 - Protections added beyond the report: the five test-derived versions,
   the test set's NAS alias, the candidate mixes of 0065, the read-only
   NAS store, and the AGENTS.md limits.

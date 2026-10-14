@@ -2607,12 +2607,13 @@ during the session.
   protections, prior experiments, contracts, stop points and proposed
   criteria, and linked from the roadmap. No corpus experiment was run;
   nothing was adopted or implemented; no experiment number was used.
-- Local checks while recording them (code and arithmetic only): the
-  pre-filter's per-hit slot arithmetic is about 10.7% of 0103's CPU
-  samples, the ceiling for the first proposal; nearest-even FFT
-  windows worsen the factorisation of 9 of the 17 lengths they change,
-  and a factor-aware choice within one sample leaves no rung with a
-  prime factor above 100 (16 today).
+- Local checks while recording them (code and arithmetic only): 0103's
+  split profiles suggest the pre-filter's per-hit slot arithmetic may
+  account for roughly 10% of CPU, an attribution estimate to verify, not
+  a ceiling; nearest-even FFT windows give 9 of the 17 lengths they
+  change a larger largest prime factor (not measured as slower), and a
+  factor-aware choice within one sample leaves no rung with a prime
+  factor above 100 (16 today).
 - Our first item stays first: possible plays inside a confident
   play of another recording leave the default tracklist (roadmap,
   "Reports and command line").

@@ -344,13 +344,14 @@ marked as inferences were derived, not measured.
   options are fixed. This comes before any change of hash design;
   `regress` must show identical detections. *(2026-10-14, unverified
   proposals from an external review, after our tracklist item)*
-  Integer phases per query anchor for the pre-filter (exact; about 10%
-  of CPU at most, from 0103's split profiles), FFT lengths of the
-  turntable rungs chosen by factorisation (a diagnostic first; a change
-  of length changes output), and posting-list part boundaries computed
-  once (exact; part of `take_part`'s 10.5%), each with its tests, stop
-  points and proposed criteria in
-  `docs/research/2026-10-14-matching-proposals.md`.
+  Integer phases per query anchor for the pre-filter (exact; 0103's
+  split profiles suggest the slot arithmetic may be roughly 10% of CPU,
+  an estimate to verify, not a ceiling; the counting remains), the FFT
+  lengths of the turntable rungs (a diagnostic first, nearest-even as
+  proposed beside a factor-aware rule; a change of length changes
+  output), and posting-list part boundaries computed once (exact; part
+  of `take_part`'s 10.5%), each with its tests, stop points and proposed
+  criteria in `docs/research/2026-10-14-matching-proposals.md`.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
