@@ -1,0 +1,225 @@
+{
+ "settings": [
+  "passage, tolerance 10 s, ratio none",
+  "passage, tolerance 10 s, ratio 0.5"
+ ],
+ "note": "every row of experiment 0091's data is reproduced exactly under session 18's clusters (432 rows)",
+ "kinds": {
+  "vertical scan (262)": [
+   {
+    "rule": "passage, tolerance 10 s, ratio none",
+    "confident plays": 9,
+    "wrong plays": 0,
+    "wrong removed": 0,
+    "right demoted": 0,
+    "wrong not contained": 0,
+    "identified": 9,
+    "identified after": 9,
+    "referenced": 9,
+    "wrong detections": 0,
+    "wrong detections after": 0,
+    "demoted": []
+   },
+   {
+    "rule": "passage, tolerance 10 s, ratio 0.5",
+    "confident plays": 9,
+    "wrong plays": 0,
+    "wrong removed": 0,
+    "right demoted": 0,
+    "wrong not contained": 0,
+    "identified": 9,
+    "identified after": 9,
+    "referenced": 9,
+    "wrong detections": 0,
+    "wrong detections after": 0,
+    "demoted": []
+   },
+   {
+    "closest calls": {
+     "scan-nocny-trans-vertical-2002-08-23.json": {
+      "tolerance needed": 116.5,
+      "play": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "span": [
+       2170.5,
+       2407.0
+      ],
+      "hits": 361,
+      "other": "extra/e-cause_4_concern-blindside-sour.mp3",
+      "other_span": [
+       2287.1,
+       2559.3
+      ],
+      "other_hits": 1287,
+      "ratio": 0.28
+     }
+    }
+   }
+  ],
+  "vertical scan (NAS)": [
+   {
+    "rule": "passage, tolerance 10 s, ratio none",
+    "confident plays": 36,
+    "wrong plays": 0,
+    "wrong removed": 0,
+    "right demoted": 0,
+    "wrong not contained": 0,
+    "identified": 17,
+    "identified after": 17,
+    "referenced": 17,
+    "wrong detections": 0,
+    "wrong detections after": 0,
+    "demoted": []
+   },
+   {
+    "rule": "passage, tolerance 10 s, ratio 0.5",
+    "confident plays": 36,
+    "wrong plays": 0,
+    "wrong removed": 0,
+    "right demoted": 0,
+    "wrong not contained": 0,
+    "identified": 17,
+    "identified after": 17,
+    "referenced": 17,
+    "wrong detections": 0,
+    "wrong detections after": 0,
+    "demoted": []
+   },
+   {
+    "closest calls": {
+     "scan-nocny-trans-vertical-2002-08-23.json": {
+      "tolerance needed": 98.8,
+      "play": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "span": [
+       2181.5,
+       2406.6
+      ],
+      "hits": 386,
+      "other": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      "other_span": [
+       2280.3,
+       2559.3
+      ],
+      "other_hits": 976,
+      "ratio": 0.395
+     }
+    }
+   }
+  ],
+  "vertical leave-outs (NAS)": [
+   {
+    "rule": "passage, tolerance 10 s, ratio none",
+    "confident plays": 88,
+    "wrong plays": 0,
+    "wrong removed": 0,
+    "right demoted": 0,
+    "wrong not contained": 0,
+    "identified": 42,
+    "identified after": 42,
+    "referenced": 51,
+    "wrong detections": 0,
+    "wrong detections after": 0,
+    "demoted": []
+   },
+   {
+    "rule": "passage, tolerance 10 s, ratio 0.5",
+    "confident plays": 88,
+    "wrong plays": 0,
+    "wrong removed": 0,
+    "right demoted": 0,
+    "wrong not contained": 0,
+    "identified": 42,
+    "identified after": 42,
+    "referenced": 51,
+    "wrong detections": 0,
+    "wrong detections after": 0,
+    "demoted": []
+   },
+   {
+    "closest calls": {
+     "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json": {
+      "tolerance needed": 98.8,
+      "play": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "span": [
+       2181.5,
+       2406.6
+      ],
+      "hits": 386,
+      "other": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      "other_span": [
+       2280.3,
+       2559.3
+      ],
+      "other_hits": 976,
+      "ratio": 0.395
+     },
+     "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json": {
+      "tolerance needed": 98.8,
+      "play": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "span": [
+       2181.5,
+       2406.6
+      ],
+      "hits": 386,
+      "other": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      "other_span": [
+       2280.3,
+       2559.3
+      ],
+      "other_hits": 976,
+      "ratio": 0.395
+     },
+     "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2028.json": {
+      "tolerance needed": 98.8,
+      "play": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "span": [
+       2181.5,
+       2406.6
+      ],
+      "hits": 386,
+      "other": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+      "other_span": [
+       2280.3,
+       2559.3
+      ],
+      "other_hits": 976,
+      "ratio": 0.395
+     }
+    }
+   }
+  ]
+ },
+ "weaker copies": {
+  "262": [
+   {
+    "rule": "passage, tolerance 10 s, ratio none",
+    "tracks identified": 39,
+    "with a weaker copy confident": 13,
+    "losing the right recording": 0,
+    "lost": []
+   },
+   {
+    "rule": "passage, tolerance 10 s, ratio 0.5",
+    "tracks identified": 39,
+    "with a weaker copy confident": 13,
+    "losing the right recording": 0,
+    "lost": []
+   }
+  ],
+  "NAS": [
+   {
+    "rule": "passage, tolerance 10 s, ratio none",
+    "tracks identified": 57,
+    "with a weaker copy confident": 45,
+    "losing the right recording": 0,
+    "lost": []
+   },
+   {
+    "rule": "passage, tolerance 10 s, ratio 0.5",
+    "tracks identified": 57,
+    "with a weaker copy confident": 45,
+    "losing the right recording": 0,
+    "lost": []
+   }
+  ]
+ }
+}

@@ -30,8 +30,11 @@ for scope and rules.
   with a right file, 16 of 17 named right; no confident entry shows only
   a wrong title
 - [x] 2d. Experiment 0100
-- [ ] 3. The containment rule on the new reports and every stored
-  report; recommendation; experiment
+- [x] 3. The containment rule (experiment 0101): passages, 10 s, bound
+  none or 0.5, on the new mix at both sizes and its leave-outs: no wrong
+  play to remove, no right play demoted; dropping each track's strongest
+  file loses no right recording anywhere; every row of 0091 unchanged.
+  Recommended: do not adopt
 - [ ] 4. The possible tier: the listening answers in the roadmap and
   `docs/calibration.md`; possible plays per hour at 60-130; true plays
   only possible

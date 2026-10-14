@@ -2469,3 +2469,13 @@ during the session.
   disagree: Klute - We R The Ones VIP)". The four possible entries show
   other titles alone, each marked as sharing material; the Klute Remix
   is listed twice (two files; marked plays are never grouped).
+- Step 3 (experiment 0101): `scripts/analysis/containment.py` now reads
+  the new mix's scans (both sizes) and NAS leave-outs, and simulates for
+  every scan the strongest file of each identified track dropped (other
+  rips keep their hits). Passages, 10 s, bound none or 0.5: the new mix
+  has 9, 36 and 88 confident plays (262, NAS, leave-outs), none wrong,
+  none demoted; its closest call needs 99 s (Anthrax inside Blindside).
+  The drop loses no right recording (13 of 39 identified tracks keep a
+  weaker copy at 262 tracks, 45 of 57 at NAS scale). Every row of 0091's
+  data is reproduced exactly under the new clusters (432 rows).
+  Recommendation: do not adopt.

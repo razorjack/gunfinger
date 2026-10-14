@@ -60,6 +60,15 @@ SCANS = {
     ],
     "2003 scan": ["scan-razorjack-2003-03-29.json"],
     "2003 leave-out": ["scan-razorjack-2003-03-29-leave-out-3-seed-2026.json"],
+    # Session 18: the third development set, which plays VIPs and remixes
+    # whose other versions are indexed.
+    "vertical scan": ["scan-nocny-trans-vertical-2002-08-23.json"],
+}
+# Leave-outs run at NAS scale only.
+NAS_SCANS = {
+    "vertical leave-outs": [
+        f"scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-{seed}.json" for seed in (2026, 2027, 2028)
+    ],
 }
 SWEEPS = [f"sweep-seed-{seed}.json" for seed in (2026, 2027, 2028, 2029)]
 
@@ -218,6 +227,45 @@ def scan_kind(paths, tracks_of, cluster_of):
         report = devscore.load_json(path)
         calls[Path(str(path)).name] = closest_call(harness_plays(report), same_recording)
     rows.append({"closest calls": calls})
+    return rows
+
+
+def weaker_copy_kind(paths, tracks_of, cluster_of):
+    """Scans with the strongest file of each identified track dropped and its
+    other rips kept, each with the hits it has (as leaving a cluster out
+    changed no other play's hits in 0076): does a confident play of a
+    weaker copy still identify the track once the rule has run? Simulated
+    from the stored plays; an identical copy of the dropped file stays."""
+    same_recording = clustered(cluster_of)
+    rows = []
+    for grid_point in GRID:
+        totals = {"tracks identified": 0, "with a weaker copy confident": 0, "losing the right recording": 0}
+        examples = []
+        for path in paths:
+            report = devscore.load_json(path)
+            slots = devscore.slots(tracks_of(report["set"]), report["duration_seconds"], cluster_of)
+            plays = harness_plays(report)
+            for slot in slots:
+                right = [p for p in plays
+                         if p["confident"] and devscore.covers(slot, p["asset"], p["start"], p["end"])]
+                if not right:
+                    continue
+                totals["tracks identified"] += 1
+                dropped = max(right, key=lambda p: p["hits"])["asset"]
+                weaker = [p for p in right if p["asset"] != dropped]
+                if not weaker:
+                    continue
+                totals["with a weaker copy confident"] += 1
+                kept = [p for p in plays if p["asset"] != dropped]
+                out = {id(play): holder for play, holder in demoted(kept, same_recording, grid_point)}
+                if all(id(p) in out for p in weaker):
+                    totals["losing the right recording"] += 1
+                    strongest = max(weaker, key=lambda p: p["hits"])
+                    item = describe(path, strongest, out[id(strongest)], True)
+                    item["track"] = slot["track"]["label"].strip()
+                    item["dropped"] = dropped
+                    examples.append(item)
+        rows.append({"rule": grid_point["label"], **totals, "lost": examples})
     return rows
 
 
@@ -490,10 +538,15 @@ def main():
         ("NAS", NAS, cluster_nas, True),
     ):
         tracks_of = lambda name, nas=nas: devscore.load_set(name, nas)
-        for kind, names in SCANS.items():
+        scans = dict(SCANS, **(NAS_SCANS if nas else {}))
+        for kind, names in scans.items():
             result["kinds"][f"{kind} ({size})"] = scan_kind(
                 [folder / name for name in names], tracks_of, cluster_of
             )
+        result["weaker copies"] = result.get("weaker copies", {})
+        result["weaker copies"][size] = weaker_copy_kind(
+            [folder / name for names in SCANS.values() for name in names], tracks_of, cluster_of
+        )
         result["kinds"][f"sweeps ({size})"] = query_kind([folder / name for name in SWEEPS], cluster_of)
     result["kinds"]["recall (NAS)"] = query_kind([NAS / "recall-seed-2026.json"], cluster_nas)
     result["kinds"]["generated mixes (262)"] = mixes_kind(WORK / "reports" / "mixes-seed-2026.json", cluster_262)
@@ -532,6 +585,12 @@ def main():
                          f"related confident {row['related confident']}, removed {row['related removed']}")
             print(f"  {row['rule']:<38} " + ", ".join(f"{key} {row[key]}" for key in keys) + extra)
     print("robust (262):", result["robust (262)"])
+    for size, rows in result["weaker copies"].items():
+        print(f"scans with the strongest file of each identified track dropped ({size}):")
+        for row in rows:
+            print(f"  {row['rule']:<38} tracks identified {row['tracks identified']}, with a weaker copy "
+                  f"confident {row['with a weaker copy confident']}, losing the right recording "
+                  f"{row['losing the right recording']}")
 
 
 if __name__ == "__main__":
