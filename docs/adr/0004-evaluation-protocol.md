@@ -62,3 +62,11 @@ All ground truth lives in `gunfinger-eval`, which depends on
   from `identify` and checked by ear (experiment 0060). A future held-out
   set needs its role fixed and its tracklist written without Gunfinger
   before anything searches it.
+- Later (2026-10-14): a third development set,
+  `nocny-trans-vertical-2002-08-23`, DJ Vertical on Nocny Trans (Radio
+  Łódź, 2002-08-23), a YouTube upload of the broadcast. We fixed
+  its role, development, before anything searched it and wrote its
+  tracklist without Gunfinger; its references are the files whose tags
+  or names give the same artist, title and version, found in the NAS
+  peak store by tags and names, not by searching the mix (experiment
+  0100).

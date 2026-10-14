@@ -2455,7 +2455,8 @@ during the session.
   Klute Remix in two files, the untagged `1.mp3`), each shared material
   with the confident play over it (`pair`: 827, 166-263 and 177 hits).
   Leave-outs (`--leave-out 3`, seeds 2026, 2027, 2028; 71-74 s): 14/17,
-  0 wrong each; the left-out slots have nothing at least possible.
+  0 wrong each; no other recording is confident in a left-out slot, and
+  the possible plays there are the same four (corrected in step 7).
   `scripts/analysis/devset_view.py` lists each track's credited files
   and the strongest accepted detection. Track 17's slot (1:01:25-1:04:40)
   has nothing at least possible in any run. `identify --store-only` with
@@ -2496,7 +2497,8 @@ during the session.
   matches neither the Phunckateck VIP nor the 1999 original. No wrong
   confident play exists to explain.
 - Step 6 (experiments 0103-0105), the 2003 mix at NAS scale. Profile of
-  the start build: the pre-filter 25.6% of CPU, grouping a part 23.2%,
+  the start build's code with the grouping's functions not inlined: the
+  pre-filter 25.6% of CPU, grouping a part 23.2%,
   taking a part 10.5%, the ladder's analysis 27.6% plus 3.3%. Three ways
   of computing the pre-filter's slots once (V2, V2b, V3) gave identical
   reports; none kept (V2 +7% CPU, V2b no gain, V3 -1.3% CPU with the
@@ -2521,3 +2523,52 @@ during the session.
   The saved index it writes (to a scratch `XDG_CACHE_HOME`) is
   byte-identical to the one the start build wrote; `regress
   session-18-start` identical with `work/bin/s18-par/`.
+  Measured again after step 7 with the index saved as a stale one is
+  (`--saved-index rebuild` into a scratch `XDG_CACHE_HOME`,
+  `work/s18/run-2003-stale.sh`): 52.7-55.3 s with `work/bin/s18-final/`
+  against 115.9-129.7 s with `s18-step6`, A B B A, the four saved
+  indexes byte-identical to the start build's file, reports identical.
+  The commit message of `a83664e` says 51 s against 120 s, which is the
+  `--saved-index off` series.
+- Step 7, a read-only review by a subagent of `8db90d8..a83664e`: no
+  change to detections, the index or the saved-index file; no hang on
+  any error path. Fixed:
+  - `read_postings` mapped a reader panic to an error that could never
+    be returned (`thread::scope` re-raises the panic); it now breaks
+    out and re-raises the panic from `join`.
+  - The multi-chunk test read 3 chunks with 3 in flight, so buffers were
+    never reused; it now reads 6 and fails without `chunk.clear()`.
+  - `build_planned`'s tests now cover a file without a record inside a
+    batch and a record failing in a later batch (the build stops with
+    its error, no hang); the closures are named `hash_to_count` and
+    `hash_to_fill`; `Index::counting`'s doc no longer says one record.
+  - Documents: 0100 (the lost Molten Beats clusters, search times from
+    the reports, Anthrax at 262 tracks, Blindside's two files, strongest
+    segments named as such, left-out slots), 0101 (the drop simulation
+    ran on the scans, not the leave-outs), 0102 (the 2026-10-14 answers
+    are sweep pairs below the tier; Meltdown, 2026-10-12, is the mix
+    play), 0103 (the profile run's own figures, the start build's CPU
+    range), 0105 (the store's bytes per second added to the data),
+    0106 (the stale path measured with the index saved: 53-55 s, not
+    51 s); this entry's leave-out claim and profile wording.
+  - Scripts: `devset_view.py` read a field scan detections do not have,
+    kept an unused function and described its output wrongly;
+    `pair_relations.py`'s docstring now says its "same recording" is
+    looser than `clusters`.
+  Left as they are: a corrupt record with large trailing garbage is now
+  read whole before being refused (records are written by Gunfinger and
+  are a few hundred kB); the clusters lost in step 2 (reported in the
+  final message; a `clusters` run that queries the recall panel's validation
+  half would probably find them again).
+- Wrap-up: final build `work/bin/s18-final/`; `regress
+  session-18-start` identical (720/720 sweep queries, all 87, 93 and 79
+  scan detections, the known calibrate line), 153 s and 1,312 s CPU; the
+  2003 mix's NAS report identical to the start build's; `scripts/check.sh`
+  green (355 tests). The NAS store at the end: 33,723 records, revision
+  `c835c5531c325274`, as at the start. Listening files and every manifest
+  unchanged (digests and modification times). Trial builds removed;
+  `work/s18/` is about 500 MB, most of it `before/` (the NAS report
+  folder before this session's runs, with the 268 clusters). Notes
+  "Session 18", the roadmap ("More development mixes", the possible
+  tier) and ADR 0004's "Later" updated.
+

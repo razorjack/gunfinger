@@ -3298,3 +3298,226 @@ also moves Monotone's pitch, so turn it off to hear Monotone as it is.
   pre-filter (about 22% of the CPU), grouping a part (20%), reading the
   postings (16%) and analysing the mix (26%).
 - **A first `index`** is bound by FFmpeg, whose options are fixed.
+
+## Session 18
+
+### What changed
+
+**The third development mix finds every track named, and nothing
+wrong.** DJ Vertical on Nocny Trans, 2002-08-23 (experiment 0100):
+
+| Run | Identified | Wrong | Possible, no track |
+|---|--:|--:|--:|
+| 262 tracks | 9 of 9 | 0 | 0 |
+| NAS scale | 17 of 17 | 0 | 4 |
+| NAS scale, 3 tracks left out (seeds 2026-2028) | 14 of 17 each | 0 | 4 |
+
+There is no miss and no wrong play to explain. The weakest track is
+Bulletproof - Anthrax (361 hits at 262 tracks, 364-386 at NAS scale; the
+confident line is 240). Blindside's tease (38:00-38:48) is the possible
+first part of both Blindside plays, confident from 39:31 and 39:42. The
+other versions listed as related
+share too little audio with the one played to come near a confident play
+(0-38 hits in `pair`), except the Klute Remix of We R The Ones (166-263
+hits), which shows as possible, and SUICIDE004's "We R The Ones 3",
+which is the VIP itself. With a track left out, no other recording
+becomes confident in its slot; the possible plays there are the same
+ones as with every track indexed (Mampi Swift - 2000 in Stab 2 Def's
+slot, the Klute Remix in the VIP's).
+
+**The default tracklist names a right file for every track** (`identify
+--store-only`, the configuration; experiment 0100). It has 21 entries.
+Each of the 17 tracks has one confident entry holding a right file; 16
+carry the right title. Entry 15 reads "Klute - We R The Ones 3 (titles
+disagree: Klute - We R The Ones VIP)": SUICIDE004's "We R The Ones 3" is
+the same recording as the VIP upload. No confident entry shows only a
+wrong title. The other four entries are possible plays, each marked as
+sharing material with the confident play over it:
+
+- Mampi Swift - 2000, during Stab 2 Def (The Kraft is Mampi Swift; 827
+  hits between the two in `pair`);
+- the Klute Remix of We R The Ones, twice (two files; plays marked this
+  way are never grouped), during the VIP;
+- `1.mp3`, an untagged file at the NAS root, during Cannibal: its last
+  31 s hold a piece of Cannibal 6% faster.
+
+**`identify` is faster, with the same reports** (experiments 0104-0106):
+
+- With a current saved index, my 2003 mix at NAS scale takes 43.0-44.5
+  s instead of 44.2-45.3 s (3%): the index's postings are read and
+  checked on a second thread while the first computes the file's
+  digest.
+- **The first search after `index` changes the store** (the saved index
+  is then stale and is built again) takes 53-55 s instead of 116-130 s:
+  the index is now built on every core, in 11-12 s instead of 73-87 s.
+  The saved index it writes is byte-identical to the one the old build
+  wrote.
+- `stats` takes 20 s instead of 25 s.
+
+### Decision: the containment rule (experiment 0101)
+
+On the new mix, at 0091's setting (passages, 10 s, with and without the
+0.5 bound), the rule has nothing to do: no wrong confident play to
+remove, no right play demoted, at both sizes and in the leave-outs. The
+closest call would need 99 s of tolerance. With the strongest file of
+every identified track dropped, the tracks that also play confidently
+from a weaker copy (13 of 39 at 262 tracks, 45 of 57 at NAS scale, in
+the scans; the leave-outs were not simulated) keep it under the rule.
+All 432 rows of 0091 are unchanged under the new clusters.
+**Recommendation: do not adopt it.** On real mixes it has removed
+nothing and cost nothing; its gain shows only on constructed passages,
+and it cannot help where the played recording is missing. If it is adopted anyway, passages with 10 s
+and the 0.5 bound never lost a right recording.
+
+### The possible tier (experiment 0102)
+
+The answers by ear of 2026-10-14 (Watermelon ~ Monotone and Fractles ~ We
+Enter share material) are in the roadmap's "The possible tier at NAS
+scale" and the calibration register. The new mix, at NAS scale:
+
+| Threshold (hits) | 60 | 80 | 100 | 130 |
+|---|--:|--:|--:|--:|
+| Possible plays per hour, new mix | 3.6 | 3.6 | 2.7 | 1.8 |
+| Possible plays per hour, three development mixes | 3.2 | 2.8 | 1.8 | 1.1 |
+
+All four possible plays of the new mix share material with the track
+playing (above); none is chance. No true play of the new mix is found
+only as possible, at any threshold, nor in the leave-outs. A higher
+threshold hides one Klute Remix file at 100 and both at 130; `1.mp3`
+and Mampi Swift stay up to 130. No threshold changed.
+
+### To judge by ear
+
+No listening question this time: the ear is not needed for anything
+measured.
+
+- Track 17 (ID, 1:01:25-1:04:40 in
+  `/Users/razorjack/Projects/OpenSource/gunfinger/corpus/sets/nocny-trans-vertical-2002-08-23/vertical.mp3`)
+  has no candidate: nothing at least possible in any run, and the
+  strongest alignment there has 9 hits, which is chance level.
+- The TI029 C side is settled by `pair` (below).
+
+To hear the facts behind the manifest proposals below:
+
+1. **The alien5ive "cannibal" upload is not Cannibal.** `pair` finds no
+   alignment at all between
+   `/Volumes/atlas/Music/dnb/__youtube_archivists/alien5ive/FUZE RECORDINGS [ FUZE 29 ： SONIC - cannibal - ] drum and bass.m4a`
+   and
+   `/Volumes/atlas/Music/dnb/__youtube_archivists/butch-french/Sonic - Cannibal.m4a`
+   (the file the scan credits, 860 hits at 55:24-58:33 in the mix). The
+   alien5ive file is the same recording, end to end, as
+   `/Volumes/atlas/Music/dnb/__youtube_archivists/3zb-gangstep-dnb/Sonic - Change.m4a`
+   and
+   `/Volumes/atlas/Music/dnb/__youtube_archivists/butch-french/Sonic - Change.m4a`
+   (one duplicate cluster, 100% coverage).
+2. **The TI029 C side is neither version.**
+   `/Volumes/atlas/Music/dnb/__full_scene/-= Tech Itch Recordings =-/TI029 - Dieselboy - Patriot Games EP [2000] (Tech Itch Recordings)/C_-_Dieselboy_-_Descent.mp3`
+   and
+   `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 3/2000-11/dieselboy-patriot_games_ep-ti029-2000-sour/c-dieselboy-the_descent-sour.mp3`
+   are one recording (30,783 hits over all 7:13). Against
+   `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus`
+   the strongest alignment has 6 hits; against the 1999 original,
+   `/Volumes/atlas/Music/dnb/__full_scene/1999/1999-12/1999-12-14/palm_pictures-dieselboy-the_descent-1999-sour/a-dieselboy-the_descent-1999-sour.mp3`,
+   7 hits. Both are chance level.
+3. **`1.mp3` holds part of Cannibal.** In `/Volumes/atlas/Music/dnb/1.mp3`
+   (3:59, untagged), 3:28-3:58 lines up with Cannibal 1:53-2:25 (177
+   hits), played 6% faster; it stops lining up at the file's end. In the
+   mix it shows at 56:48-57:19, during Cannibal.
+
+### Manifest proposals (to apply manually; nothing was changed)
+
+In `corpus/sets/nocny-trans-vertical-2002-08-23/tracklist.toml`:
+
+1. Track 15 (Sonic - Cannibal): take
+   `second-library/__youtube_archivists/alien5ive/FUZE RECORDINGS [ FUZE 29 ： SONIC - cannibal - ] drum and bass.m4a`
+   out of `reference` (it is the same recording as the two Change
+   uploads, item 1 above), perhaps as a `# related:` line saying so.
+2. Track 14 (Klute - We R The Ones (VIP)): move
+   `commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3`
+   from `# related:` to `reference` (the same recording as the VIP
+   upload: 7,106 hits, 99-100% coverage).
+3. Track 4 (The Descent (Phunckateck VIP)): the two `# unclear:` TI029 C
+   files hold neither the VIP nor the 1999 original (item 2 above). The
+   note "may hold the original or this VIP" could say that, and the
+   lines could become `# related:`.
+
+Scores do not change with these: the scoring already counts duplicate
+cluster members, and the alien5ive file is not credited anywhere.
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and every manifest, the new one
+  included, are unchanged (digests as at the start). The NAS was only
+  read and the NAS peak store was not written (33,723 records, revision
+  `c835c5531c325274` at the end, as at the start). The NAS report folder
+  as it was before this session's runs, with the 268 clusters, is kept
+  in `work/s18/before/`.
+- **Detections did not change.** `regress session-18-start` was
+  identical with each kept change and with the final build
+  (`work/bin/s18-final/`); `scripts/check.sh` green (355 tests).
+- **Two stale saved indexes were rebuilt.** The store had changed since
+  they were written (33,723 records now), so the harness's and the CLI's
+  saved indexes for the NAS store were built again at 03:41 and 03:48,
+  over the old files.
+- **The duplicate clusters were rebuilt** with the new manifest: 268 ->
+  271 clusters, 877 -> 886 files. New clusters hold Stab 2 Def (4
+  files), Mutated (2 uploads), the Konflict Nephelim (2), the We R The
+  Ones VIP with "We R The Ones 3", and the alien5ive "cannibal" with the
+  two Change uploads. The Molten Beats vinyl/CD clusters of System Error
+  and Iron Lung are gone: no query of this run reaches them (one of the
+  files is held out for the recall panel). Every stored NAS development
+  score is unchanged under the new clusters.
+- **The timings were not taken on an idle machine.** Other processes
+  used 0-8.7% of a core during the timing series, and up
+  to 0.6 core more. The builds alternated (A B B A),
+  which shares slow drift between them.
+- **The test set was not touched**, nor the candidate mixes of experiment
+  0065.
+- **A review by a second agent** found no change in output and no hang
+  on any error path. It found weak spots; all but one are fixed:
+  - The test of the threaded index load never reused a buffer, so a
+    fault there would have passed; it now reads six chunks and fails
+    with that fault.
+  - The threaded build had no test of a record that cannot be read or
+    one that fails in a later batch; both are tested now.
+  - Code that turned a crash of the reading thread into an error could
+    never run; the crash now surfaces as a crash, as before.
+  - Several numbers in experiments 0100-0106 did not match their data
+    (for example, the stale-index time above was first given from a
+    run that does not save the index: 51 s); all are corrected.
+  - One thing is left as it is: a damaged peak record with a large
+    tail of garbage is now read whole before it is refused. Gunfinger
+    writes records of a few hundred kB.
+
+### Decided this morning, open to change
+
+- The index is built 32 records at a time: batches of 128 were no
+  faster and used 2% more memory.
+- Reading peak records changed with the faster index load (0105): with
+  the load change alone, the compiler stopped inlining the byte-by-byte
+  record reading, and reading records slowed down (`stats` and building
+  a stale index, measured). Records are now read whole and parsed from
+  memory, which does not depend on that.
+- Three ways of computing the pre-filter's slots once were measured and
+  not kept (experiment 0103): the best saved 1.3% of CPU with no change
+  in wall time.
+
+### Decisions waiting
+
+- The containment rule (recommended: do not adopt), the possible tier's
+  threshold (no match between different recordings checked so far is
+  chance), test evaluation 5, and the three manifest proposals above.
+
+### Left for later
+
+- **The search itself** is what is left of `identify`'s time on a
+  current saved index: about 39 of 44 s. The pre-filter, grouping and
+  taking hits from the lists are about 60% of its CPU and analysing the
+  mix about 31%; no identical-output change found this session cut them.
+- **The start of a search**: reading the 33,723 record headers (1.9 s)
+  and loading the index (3.0 s, beside decoding the mix).
+- **The two lost Molten Beats clusters** (above): a `clusters` run that
+  also queries the recall panel's validation half would probably find
+  them again; until then, a run that scores those files would count the
+  other rip as wrong.

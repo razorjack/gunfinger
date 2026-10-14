@@ -33,7 +33,7 @@ for scope and rules.
 - [x] 3. The containment rule (experiment 0101): passages, 10 s, bound
   none or 0.5, on the new mix at both sizes and its leave-outs: no wrong
   play to remove, no right play demoted; dropping each track's strongest
-  file loses no right recording anywhere; every row of 0091 unchanged.
+  file loses no right recording in any scan; every row of 0091 unchanged.
   Recommended: do not adopt
 - [x] 4. The possible tier (experiment 0102): the listening answers of
   2026-10-14 in the roadmap and `docs/calibration.md`; the new mix shows
@@ -48,16 +48,19 @@ for scope and rules.
   records parsed from memory (0105): 3.1% less wall time per NAS search,
   `stats` 19% faster; reports and `regress` identical, memory +0.4%; and the
   index built on threads when the saved one is stale (0106): the first
-  search after the store changes 51 s, not 120 s
-- [ ] 7. Read-only review by a subagent; fixes
+  search after the store changes 53-55 s, not 116-130 s
+- [x] 7. Read-only review by a subagent: no change to detections, the
+  index or the saved-index file; fixed a dead panic mapping, two weak
+  tests (buffer reuse, a batch's error paths), a stale doc comment,
+  numbers in 0100-0106 and two scripts (status, step 7)
 
 ## Wrap-up
 
-- [ ] Notes "Session 18", status, roadmap ("More development mixes", the
+- [x] Notes "Session 18", status, roadmap ("More development mixes", the
   possible tier), ADR 0004's "Later"
-- [ ] `regress session-18-start` identical with the final build;
+- [x] `regress session-18-start` identical with the final build;
   `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] The NAS store's revision at the end
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

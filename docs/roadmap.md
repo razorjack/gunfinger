@@ -575,8 +575,9 @@ marked as inferences were derived, not measured.
   during Stab 2 Def, the Klute Remix in two files during the VIP, the
   untagged `1.mp3` during Cannibal); none of its true plays is found
   only as possible. The three mixes together: 3.2, 2.8, 1.8 and 1.1 per
-  hour. Its strongest detection matching no track (66 hits) is Stab 2
-  Def itself, blended in at 44:33, before its slot's window.
+  hour. Its strongest detection matching no track (66 hits, from 44:33)
+  is Stab 2 Def itself, which is heard blended in from 44:40,
+  before its slot's window.
 - **Recall beyond the corpus recordings.** *(development half measured
   in session 10, experiment 0068: 540/540 at every speed and kind, no
   miss, held-out sources never confident; 30 wrong answers from a
@@ -631,6 +632,19 @@ marked as inferences were derived, not measured.
   notes only); without the PHUD1 vinyl rip the start moves back from
   10:49 to 11:55.8; the Kinetic tease at 17:23 is the track's 1:11-1:51,
   possible on its own, and the track starts again from 0:15 at 18:35.
+  *(session 18, experiment 0100)* The third development set,
+  `nocny-trans-vertical-2002-08-23`: DJ Vertical on Nocny Trans (Radio
+  Łódź, 2002-08-23), a YouTube upload of the broadcast, 18 tracks, one
+  an ID. We fixed its role and wrote its tracklist without
+  Gunfinger before anything searched it (ADR 0004). It plays VIPs and
+  remixes whose other versions are indexed: 9/9 at 262 tracks, 17/17 at
+  NAS scale, 14/17 in three leave-outs, 0 wrong everywhere; the other
+  versions share 0-38 hits with the played one, except the Klute Remix
+  of We R The Ones (166-263, possible in the mix, shared material). The
+  containment rule (0101) and the possible tier (0102) were measured on
+  it. The NAS's `sety/vertical.mp3`, one of 0065's candidates, was left
+  alone. A real test of the containment rule still needs a mix whose
+  tracks have indexed versions sharing much of their audio.
   Candidates on the NAS (experiment 0065, `work/s9/candidate-mixes.tsv`;
   no `identify` before their roles are agreed): my own
   `Razor Jack - 2003-08-27.mp3` (20.7 min); 136 sets, radio shows and
