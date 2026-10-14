@@ -1,0 +1,1103 @@
+{
+ "set": "nocny-trans-vertical-2002-08-23",
+ "store_revision": "c835c5531c325274",
+ "runs": {
+  "262": {
+   "left_out": [],
+   "wall_seconds": 47.0,
+   "referenced": 9,
+   "identified": 9,
+   "wrong": 0,
+   "tracks": [
+    {
+     "label": "1. Drumsound & Simon Bassline Smith - Phoenix",
+     "identified": true,
+     "credited": [
+      "extra/[AA]_-_Phoenix.mp3"
+     ]
+    },
+    {
+     "label": "2. Trace & Fresh - Mutated (Version X)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "3. Friction & Nu Balance - Final Judgement",
+     "identified": true,
+     "credited": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3"
+     ]
+    },
+    {
+     "label": "4. Dieselboy - The Descent (Phunckateck VIP)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "5. Bulletproof - Scarred",
+     "identified": true,
+     "credited": [
+      "extra/b-bulletproof-scarred-sour.mp3"
+     ]
+    },
+    {
+     "label": "6. Dieselboy - Invid (E-Sassin VIP)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "7. Kon.Rad - Mistaken Identity",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "8. Bulletproof - Nephelim (Konflict remix)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "9. Bulletproof - Anthrax",
+     "identified": true,
+     "credited": [
+      "extra/a-bullet_proof-anthrax-sour.mp3"
+     ]
+    },
+    {
+     "label": "10. Cause 4 Concern - Blindside",
+     "identified": true,
+     "credited": [
+      "extra/e-cause_4_concern-blindside-sour.mp3"
+     ]
+    },
+    {
+     "label": "11. Decoder - Dead Fall",
+     "identified": true,
+     "credited": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3"
+     ]
+    },
+    {
+     "label": "12. The Kraft - Stab 2 Def",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "13. Future Cut - Horns 2000",
+     "identified": true,
+     "credited": [
+      "extra/310-future_cut-horns_2000-sour.mp3"
+     ]
+    },
+    {
+     "label": "14. Klute - We R The Ones (VIP)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "15. Sonic - Cannibal",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "identified": true,
+     "credited": [
+      "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3"
+     ]
+    },
+    {
+     "label": "17. ID - ID",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "18. Mo-Funk - Slipstream",
+     "identified": true,
+     "credited": [
+      "extra/a-mo_funk-slipstream-sour.mp3"
+     ]
+    }
+   ],
+   "unmatched_possible": []
+  },
+  "NAS": {
+   "left_out": [],
+   "wall_seconds": 65.5,
+   "referenced": 17,
+   "identified": 17,
+   "wrong": 0,
+   "tracks": [
+    {
+     "label": "1. Drumsound & Simon Bassline Smith - Phoenix",
+     "identified": true,
+     "credited": [
+      "extra/[AA]_-_Phoenix.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a"
+     ]
+    },
+    {
+     "label": "2. Trace & Fresh - Mutated (Version X)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a"
+     ]
+    },
+    {
+     "label": "3. Friction & Nu Balance - Final Judgement",
+     "identified": true,
+     "credited": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+     ]
+    },
+    {
+     "label": "4. Dieselboy - The Descent (Phunckateck VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus"
+     ]
+    },
+    {
+     "label": "5. Bulletproof - Scarred",
+     "identified": true,
+     "credited": [
+      "extra/b-bulletproof-scarred-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a"
+     ]
+    },
+    {
+     "label": "6. Dieselboy - Invid (E-Sassin VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus"
+     ]
+    },
+    {
+     "label": "7. Kon.Rad - Mistaken Identity",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a"
+     ]
+    },
+    {
+     "label": "8. Bulletproof - Nephelim (Konflict remix)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+      "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3"
+     ]
+    },
+    {
+     "label": "9. Bulletproof - Anthrax",
+     "identified": true,
+     "credited": [
+      "extra/a-bullet_proof-anthrax-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a"
+     ]
+    },
+    {
+     "label": "10. Cause 4 Concern - Blindside",
+     "identified": true,
+     "credited": [
+      "extra/e-cause_4_concern-blindside-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+     ]
+    },
+    {
+     "label": "11. Decoder - Dead Fall",
+     "identified": true,
+     "credited": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+     ]
+    },
+    {
+     "label": "12. The Kraft - Stab 2 Def",
+     "identified": true,
+     "credited": [
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+      "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3"
+     ]
+    },
+    {
+     "label": "13. Future Cut - Horns 2000",
+     "identified": true,
+     "credited": [
+      "extra/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3"
+     ]
+    },
+    {
+     "label": "14. Klute - We R The Ones (VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+     ]
+    },
+    {
+     "label": "15. Sonic - Cannibal",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a"
+     ]
+    },
+    {
+     "label": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "identified": true,
+     "credited": [
+      "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+      "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3"
+     ]
+    },
+    {
+     "label": "17. ID - ID",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "18. Mo-Funk - Slipstream",
+     "identified": true,
+     "credited": [
+      "extra/a-mo_funk-slipstream-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a"
+     ]
+    }
+   ],
+   "unmatched_possible": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     "start": 2792.1,
+     "end": 2908.0,
+     "hits": 282
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "start": 3147.6,
+     "end": 3343.8,
+     "hits": 196
+    },
+    {
+     "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     "start": 3150.7,
+     "end": 3339.9,
+     "hits": 161
+    },
+    {
+     "asset": "second-library/1.mp3",
+     "start": 3408.5,
+     "end": 3439.4,
+     "hits": 161
+    }
+   ]
+  },
+  "NAS leave-out 3 seed 2026": {
+   "left_out": [
+    " 1. Drumsound & Simon Bassline Smith - Phoenix",
+    " 6. Dieselboy - Invid (E-Sassin VIP)",
+    "12. The Kraft - Stab 2 Def"
+   ],
+   "wall_seconds": 65.8,
+   "referenced": 17,
+   "identified": 14,
+   "wrong": 0,
+   "tracks": [
+    {
+     "label": "1. Drumsound & Simon Bassline Smith - Phoenix",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "2. Trace & Fresh - Mutated (Version X)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a"
+     ]
+    },
+    {
+     "label": "3. Friction & Nu Balance - Final Judgement",
+     "identified": true,
+     "credited": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+     ]
+    },
+    {
+     "label": "4. Dieselboy - The Descent (Phunckateck VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus"
+     ]
+    },
+    {
+     "label": "5. Bulletproof - Scarred",
+     "identified": true,
+     "credited": [
+      "extra/b-bulletproof-scarred-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a"
+     ]
+    },
+    {
+     "label": "6. Dieselboy - Invid (E-Sassin VIP)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "7. Kon.Rad - Mistaken Identity",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a"
+     ]
+    },
+    {
+     "label": "8. Bulletproof - Nephelim (Konflict remix)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+      "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3"
+     ]
+    },
+    {
+     "label": "9. Bulletproof - Anthrax",
+     "identified": true,
+     "credited": [
+      "extra/a-bullet_proof-anthrax-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a"
+     ]
+    },
+    {
+     "label": "10. Cause 4 Concern - Blindside",
+     "identified": true,
+     "credited": [
+      "extra/e-cause_4_concern-blindside-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+     ]
+    },
+    {
+     "label": "11. Decoder - Dead Fall",
+     "identified": true,
+     "credited": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+     ]
+    },
+    {
+     "label": "12. The Kraft - Stab 2 Def",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "13. Future Cut - Horns 2000",
+     "identified": true,
+     "credited": [
+      "extra/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3"
+     ]
+    },
+    {
+     "label": "14. Klute - We R The Ones (VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+     ]
+    },
+    {
+     "label": "15. Sonic - Cannibal",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a"
+     ]
+    },
+    {
+     "label": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "identified": true,
+     "credited": [
+      "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+      "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3"
+     ]
+    },
+    {
+     "label": "17. ID - ID",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "18. Mo-Funk - Slipstream",
+     "identified": true,
+     "credited": [
+      "extra/a-mo_funk-slipstream-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a"
+     ]
+    }
+   ],
+   "unmatched_possible": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     "start": 2792.1,
+     "end": 2908.0,
+     "hits": 282
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "start": 3147.6,
+     "end": 3343.8,
+     "hits": 196
+    },
+    {
+     "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     "start": 3150.7,
+     "end": 3339.9,
+     "hits": 161
+    },
+    {
+     "asset": "second-library/1.mp3",
+     "start": 3408.5,
+     "end": 3439.4,
+     "hits": 161
+    }
+   ]
+  },
+  "NAS leave-out 3 seed 2027": {
+   "left_out": [
+    " 2. Trace & Fresh - Mutated (Version X)",
+    "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+    "18. Mo-Funk - Slipstream"
+   ],
+   "wall_seconds": 65.0,
+   "referenced": 17,
+   "identified": 14,
+   "wrong": 0,
+   "tracks": [
+    {
+     "label": "1. Drumsound & Simon Bassline Smith - Phoenix",
+     "identified": true,
+     "credited": [
+      "extra/[AA]_-_Phoenix.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a"
+     ]
+    },
+    {
+     "label": "2. Trace & Fresh - Mutated (Version X)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "3. Friction & Nu Balance - Final Judgement",
+     "identified": true,
+     "credited": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+     ]
+    },
+    {
+     "label": "4. Dieselboy - The Descent (Phunckateck VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus"
+     ]
+    },
+    {
+     "label": "5. Bulletproof - Scarred",
+     "identified": true,
+     "credited": [
+      "extra/b-bulletproof-scarred-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a"
+     ]
+    },
+    {
+     "label": "6. Dieselboy - Invid (E-Sassin VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus"
+     ]
+    },
+    {
+     "label": "7. Kon.Rad - Mistaken Identity",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a"
+     ]
+    },
+    {
+     "label": "8. Bulletproof - Nephelim (Konflict remix)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+      "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3"
+     ]
+    },
+    {
+     "label": "9. Bulletproof - Anthrax",
+     "identified": true,
+     "credited": [
+      "extra/a-bullet_proof-anthrax-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a"
+     ]
+    },
+    {
+     "label": "10. Cause 4 Concern - Blindside",
+     "identified": true,
+     "credited": [
+      "extra/e-cause_4_concern-blindside-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+     ]
+    },
+    {
+     "label": "11. Decoder - Dead Fall",
+     "identified": true,
+     "credited": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+     ]
+    },
+    {
+     "label": "12. The Kraft - Stab 2 Def",
+     "identified": true,
+     "credited": [
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+      "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3"
+     ]
+    },
+    {
+     "label": "13. Future Cut - Horns 2000",
+     "identified": true,
+     "credited": [
+      "extra/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3"
+     ]
+    },
+    {
+     "label": "14. Klute - We R The Ones (VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+     ]
+    },
+    {
+     "label": "15. Sonic - Cannibal",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a"
+     ]
+    },
+    {
+     "label": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "17. ID - ID",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "18. Mo-Funk - Slipstream",
+     "identified": false,
+     "credited": []
+    }
+   ],
+   "unmatched_possible": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     "start": 2792.1,
+     "end": 2908.0,
+     "hits": 282
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "start": 3147.6,
+     "end": 3343.8,
+     "hits": 196
+    },
+    {
+     "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     "start": 3150.7,
+     "end": 3339.9,
+     "hits": 161
+    },
+    {
+     "asset": "second-library/1.mp3",
+     "start": 3408.5,
+     "end": 3439.4,
+     "hits": 161
+    }
+   ]
+  },
+  "NAS leave-out 3 seed 2028": {
+   "left_out": [
+    " 4. Dieselboy - The Descent (Phunckateck VIP)",
+    "12. The Kraft - Stab 2 Def",
+    "14. Klute - We R The Ones (VIP)"
+   ],
+   "wall_seconds": 64.4,
+   "referenced": 17,
+   "identified": 14,
+   "wrong": 0,
+   "tracks": [
+    {
+     "label": "1. Drumsound & Simon Bassline Smith - Phoenix",
+     "identified": true,
+     "credited": [
+      "extra/[AA]_-_Phoenix.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a"
+     ]
+    },
+    {
+     "label": "2. Trace & Fresh - Mutated (Version X)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a"
+     ]
+    },
+    {
+     "label": "3. Friction & Nu Balance - Final Judgement",
+     "identified": true,
+     "credited": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+     ]
+    },
+    {
+     "label": "4. Dieselboy - The Descent (Phunckateck VIP)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "5. Bulletproof - Scarred",
+     "identified": true,
+     "credited": [
+      "extra/b-bulletproof-scarred-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a"
+     ]
+    },
+    {
+     "label": "6. Dieselboy - Invid (E-Sassin VIP)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus"
+     ]
+    },
+    {
+     "label": "7. Kon.Rad - Mistaken Identity",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a"
+     ]
+    },
+    {
+     "label": "8. Bulletproof - Nephelim (Konflict remix)",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+      "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3"
+     ]
+    },
+    {
+     "label": "9. Bulletproof - Anthrax",
+     "identified": true,
+     "credited": [
+      "extra/a-bullet_proof-anthrax-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a"
+     ]
+    },
+    {
+     "label": "10. Cause 4 Concern - Blindside",
+     "identified": true,
+     "credited": [
+      "extra/e-cause_4_concern-blindside-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+     ]
+    },
+    {
+     "label": "11. Decoder - Dead Fall",
+     "identified": true,
+     "credited": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+     ]
+    },
+    {
+     "label": "12. The Kraft - Stab 2 Def",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "13. Future Cut - Horns 2000",
+     "identified": true,
+     "credited": [
+      "extra/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3"
+     ]
+    },
+    {
+     "label": "14. Klute - We R The Ones (VIP)",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "15. Sonic - Cannibal",
+     "identified": true,
+     "credited": [
+      "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a"
+     ]
+    },
+    {
+     "label": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "identified": true,
+     "credited": [
+      "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+      "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3"
+     ]
+    },
+    {
+     "label": "17. ID - ID",
+     "identified": false,
+     "credited": []
+    },
+    {
+     "label": "18. Mo-Funk - Slipstream",
+     "identified": true,
+     "credited": [
+      "extra/a-mo_funk-slipstream-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a"
+     ]
+    }
+   ],
+   "unmatched_possible": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     "start": 2792.1,
+     "end": 2908.0,
+     "hits": 282
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "start": 3147.6,
+     "end": 3343.8,
+     "hits": 196
+    },
+    {
+     "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     "start": 3150.7,
+     "end": 3339.9,
+     "hits": 161
+    },
+    {
+     "asset": "second-library/1.mp3",
+     "start": 3408.5,
+     "end": 3439.4,
+     "hits": 161
+    }
+   ]
+  }
+ },
+ "identify tracklist (turntable, the configuration)": [
+  " 1.    0:00  Drumsound & Simon Bassline Smith - Phoenix",
+  " 2.    6:01  Trace & Fresh - Mutated (Version X)",
+  " 3.    9:23  DJ Friction & Nu Balance - Final Judgement  (titles disagree: Friction & Nu Balance - Final Judgement, Trouble on Vinyl - A  DJ Friction & Nu Balance Fi)",
+  " 4.   14:44  Dieselboy - The Descent (Phunckateck VIP)",
+  " 5.   18:37  Bulletproof - Scarred",
+  " 6.   21:45  Dieselboy - Invid (E-Sassin VIP)",
+  " 7.   27:15  Kon.Rad - Mistaken Identity",
+  " 8.   31:40  Bulletproof - Nephelim (Konflict remix)  (titles disagree: Bulletproof - The Nephilim (Kemal & Rob Data / Konflict Remix))",
+  " 9.   36:10  Bulletproof - Anthrax  (also: Bullet Proof - Anthrax)",
+  "10.   38:00  Cause 4 Concern - Blindside  (also: CAUSE4CONCERN - blindside)",
+  "11.   41:58  Decoder - Dead Fall",
+  "12.   44:33  The Kraft - Stab 2 Def  (also: The Kraft (aka Mampi Swift) - Stab 2 Def)",
+  "13.   46:32  Mampi Swift - 2000 (possible; shares material with The Kraft - Stab 2 Def)",
+  "14.   48:32  Future Cut - Horns 2000",
+  "15.   50:41  Klute - We R The Ones 3  (titles disagree: Klute - We R The Ones VIP)",
+  "16.   52:27  Klute - We R The Ones (Klute Remix) (possible; shares material with Klute - We R The Ones 3)",
+  "17.   52:30  Klute - We R The Ones (Klute Remix) (possible; shares material with Klute - We R The Ones 3)",
+  "18.   55:24  Sonic - Cannibal",
+  "19.   56:48  1 (possible; shares material with Sonic - Cannibal)",
+  "20.   57:43  Aquasky - Lords of Motion (Tech Itch Remix)  (titles disagree: Aquasky - Lords Of Motion (TechItch Rmx))",
+  "21. 1:04:35  Mo-Funk - Slipstream"
+ ],
+ "identify tracklist, --playback both": "identical",
+ "pairs": [
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Bad Company ⧸ Fresh &  Trace - Mutated Version X (Sta Remix).m4a",
+   "strongest_hits": 9,
+   "widest_coverage": 0.147
+  },
+  {
+   "a": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement (Dom & Roland Remix).m4a",
+   "strongest_hits": 18,
+   "widest_coverage": 0.179
+  },
+  {
+   "a": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "b": "second-library/__youtube_archivists/dfect-dnb/Friction & Nu Balance - Final Judgement (Dom & Roland RMX).m4a",
+   "strongest_hits": 13,
+   "widest_coverage": 0.09
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__full_scene/1999/1999-12/1999-12-14/palm_pictures-dieselboy-the_descent-1999-sour/a-dieselboy-the_descent-1999-sour.mp3",
+   "strongest_hits": 32,
+   "widest_coverage": 0.044
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__full_scene/1999/1999-12/1999-12-14/palm_pictures-dieselboy-the_descent-1999-sour/b-dieselboy-the_descent_(decoder_remix)-1999-sour.mp3",
+   "strongest_hits": 7,
+   "widest_coverage": 0.088
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__full_scene/-= Tech Itch Recordings =-/TI029 - Dieselboy - Patriot Games EP [2000] (Tech Itch Recordings)/D_-_Dieselboy_-_Descent_(Decoder_remix).mp3",
+   "strongest_hits": 7,
+   "widest_coverage": 0.066
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/dieselboy-patriot_games_ep-ti029-2000-sour/d-dieselboy-the_descent_(decoder_rmx)-sour.mp3",
+   "strongest_hits": 7,
+   "widest_coverage": 0.066
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Decoder Remix).m4a",
+   "strongest_hits": 6,
+   "widest_coverage": 0.086
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__full_scene/-= Tech Itch Recordings =-/TI029 - Dieselboy - Patriot Games EP [2000] (Tech Itch Recordings)/C_-_Dieselboy_-_Descent.mp3",
+   "strongest_hits": 6,
+   "widest_coverage": 0.088
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/dieselboy-patriot_games_ep-ti029-2000-sour/c-dieselboy-the_descent-sour.mp3",
+   "strongest_hits": 6,
+   "widest_coverage": 0.088
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/palm_pictures-dieselboy-invid-pp12-2000-sour/a-dieselboy-invid-sour.mp3",
+   "strongest_hits": 25,
+   "widest_coverage": 0.125
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/palm_pictures-dieselboy-invid-pp12-2000-sour/b-dieselboy-invid-future_cut_second_coming_remix-sour.mp3",
+   "strongest_hits": 0,
+   "widest_coverage": 0
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (Future Cut ＂Second Coming＂ Remix).m4a",
+   "strongest_hits": 7,
+   "widest_coverage": 0.032
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "b": "second-library/__youtube_archivists/dfect-dnb/Dieselboy - Invid (Future Cut 2nd Coming RMX).m4a",
+   "strongest_hits": 6,
+   "widest_coverage": 0.084
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (Twisted Anger Remix).m4a",
+   "strongest_hits": 12,
+   "widest_coverage": 0.086
+  },
+  {
+   "a": "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3",
+   "b": "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/aa-bulletproof-nephelim-sour.mp3",
+   "strongest_hits": 6,
+   "widest_coverage": 0.074
+  },
+  {
+   "a": "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3",
+   "b": "second-library/__youtube_archivists/butch-french/Bulletproof - Nephelim.m4a",
+   "strongest_hits": 0,
+   "widest_coverage": 0
+  },
+  {
+   "a": "extra/310-future_cut-horns_2000-sour.mp3",
+   "b": "second-library/d-future_cut-horns_2k_(dylan_remix)-sour.mp3",
+   "strongest_hits": 6,
+   "widest_coverage": 0.082
+  },
+  {
+   "a": "extra/310-future_cut-horns_2000-sour.mp3",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - Horns 2000 (Dylan Remix).opus",
+   "strongest_hits": 15,
+   "widest_coverage": 0.075
+  },
+  {
+   "a": "extra/310-future_cut-horns_2000-sour.mp3",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - Horns (Gremlinz & Overlook Remix).opus",
+   "strongest_hits": 27,
+   "widest_coverage": 0.132
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__full_scene/1999/1999-11/1999-11-13/certificate_18-klute-cert1838-1999-sour/aa-klute-we_r_the_ones-sour.mp3",
+   "strongest_hits": 6,
+   "widest_coverage": 0.106
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__full_scene/Certificate 18/CERT1838 - Klute - We R The Ones + Drive Down (1999)/AA-Klute-We_R_The_Ones-sour.mp3",
+   "strongest_hits": 6,
+   "widest_coverage": 0.106
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__full_scene/Certificate 18/CERT18CD012 - VA - Hidden Rooms Vol.3 (2001)/103-Klute-We_R_The_Ones-AVR.mp3",
+   "strongest_hits": 7,
+   "widest_coverage": 0.063
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones.opus",
+   "strongest_hits": 6,
+   "widest_coverage": 0.037
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__youtube_archivists/butch-french/Klute - We R The Ones.opus",
+   "strongest_hits": 6,
+   "widest_coverage": 0.073
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+   "strongest_hits": 166,
+   "widest_coverage": 0.544
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "strongest_hits": 263,
+   "widest_coverage": 0.321
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3",
+   "strongest_hits": 7106,
+   "widest_coverage": 0.995
+  },
+  {
+   "a": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "b": "second-library/Sonix-Aquasky-SONIX001-2000-sour/A-Aquasky-Lords_Of_Motion-sour.mp3",
+   "strongest_hits": 13,
+   "widest_coverage": 0.082
+  },
+  {
+   "a": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "b": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/01-aquasky-lords_of_motion.mp3",
+   "strongest_hits": 11,
+   "widest_coverage": 0.144
+  },
+  {
+   "a": "extra/a-mo_funk-slipstream-sour.mp3",
+   "b": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+   "strongest_hits": 38,
+   "widest_coverage": 0.126
+  },
+  {
+   "a": "extra/a-mo_funk-slipstream-sour.mp3",
+   "b": "second-library/argon-mo_funk-arg004-2002-sour/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+   "strongest_hits": 38,
+   "widest_coverage": 0.126
+  },
+  {
+   "a": "extra/a-mo_funk-slipstream-sour.mp3",
+   "b": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - GRIDLOK RMX - slipstream - ] drum and bass.m4a",
+   "strongest_hits": 13,
+   "widest_coverage": 0.083
+  },
+  {
+   "a": "second-library/__full_scene/1999/1999-12/1999-12-14/palm_pictures-dieselboy-the_descent-1999-sour/a-dieselboy-the_descent-1999-sour.mp3",
+   "b": "second-library/__full_scene/-= Tech Itch Recordings =-/TI029 - Dieselboy - Patriot Games EP [2000] (Tech Itch Recordings)/C_-_Dieselboy_-_Descent.mp3",
+   "strongest_hits": 7,
+   "widest_coverage": 0.082
+  },
+  {
+   "a": "second-library/__full_scene/1999/1999-12/1999-12-14/palm_pictures-dieselboy-the_descent-1999-sour/a-dieselboy-the_descent-1999-sour.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/dieselboy-patriot_games_ep-ti029-2000-sour/c-dieselboy-the_descent-sour.mp3",
+   "strongest_hits": 7,
+   "widest_coverage": 0.082
+  },
+  {
+   "a": "second-library/__full_scene/-= Tech Itch Recordings =-/TI029 - Dieselboy - Patriot Games EP [2000] (Tech Itch Recordings)/C_-_Dieselboy_-_Descent.mp3",
+   "b": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/dieselboy-patriot_games_ep-ti029-2000-sour/c-dieselboy-the_descent-sour.mp3",
+   "strongest_hits": 30783,
+   "widest_coverage": 0.999
+  },
+  {
+   "a": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "b": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "strongest_hits": 827,
+   "widest_coverage": 0.28
+  },
+  {
+   "a": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+   "b": "second-library/1.mp3",
+   "strongest_hits": 177,
+   "widest_coverage": 0.136
+  },
+  {
+   "a": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+   "b": "second-library/__youtube_archivists/alien5ive/FUZE RECORDINGS [ FUZE 29 ： SONIC - cannibal - ] drum and bass.m4a",
+   "strongest_hits": 0,
+   "widest_coverage": 0
+  },
+  {
+   "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "b": "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3",
+   "strongest_hits": 7106,
+   "widest_coverage": 0.995
+  }
+ ],
+ "clusters": {
+  "queries": 370,
+  "rounds": [
+   370,
+   285,
+   2
+  ],
+  "wall_seconds": 1554,
+  "cpu_seconds": 12548,
+  "clusters": [
+   268,
+   271
+  ],
+  "files": [
+   877,
+   886
+  ]
+ }
+}

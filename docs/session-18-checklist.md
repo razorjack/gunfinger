@@ -8,20 +8,28 @@ for scope and rules.
 
 - [x] `git status` clean at `300e008`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s18-start/`; `baseline session-18-start`
-- [ ] The NAS store at the start: 33,723 records, revision
-  `c835c5531c325274` expected
-- [ ] Digests of `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+- [x] Release build in `work/bin/s18-start/` (byte-identical to
+  `s17-final`); `baseline session-18-start` from session 17's final
+  `regress` reports, made by the same code
+- [x] The NAS store at the start: 33,723 records, revision
+  `c835c5531c325274`, as expected (`work/s18/store-revision-start.txt`)
+- [x] Digests of `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+  in `work/s18/listening-digests-start.txt`
 
 ## Steps
 
-- [ ] 2a. `clusters --from-peaks` with the new manifest; `pair` on the
-  `# unclear:` and `# related:` files
-- [ ] 2b. Scans at 262 tracks and NAS scale, NAS leave-outs (3 seeds),
-  `identify` at NAS scale (tracklist and JSON); scores and causes; track
-  17's slot apart
-- [ ] 2c. The fire-and-forget view, entry by entry
-- [ ] 2d. Experiment 0100
+- [x] 2a. `clusters --from-peaks` with the three manifests and recall
+  panel 2026 (1,554 s): 268 -> 271 clusters; `pair` on 40 pairs: the
+  TI029 C rips are neither the VIP nor the 1999 original; SUICIDE004's
+  "We R The Ones 3" is the VIP; alien5ive's "FUZE 29 cannibal" is the
+  "Sonic - Change" uploads' recording
+- [x] 2b. 262 tracks 9/9, 0 wrong; NAS 17/17, 0 wrong, 4 possible plays
+  (all shared material); leave-outs (seeds 2026-2028) 14/17, 0 wrong;
+  `identify` (turntable and both) 21 entries; track 17's slot empty
+- [x] 2c. The fire-and-forget view: every track has a confident entry
+  with a right file, 16 of 17 named right; no confident entry shows only
+  a wrong title
+- [x] 2d. Experiment 0100
 - [ ] 3. The containment rule on the new reports and every stored
   report; recommendation; experiment
 - [ ] 4. The possible tier: the listening answers in the roadmap and
