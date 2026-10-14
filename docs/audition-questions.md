@@ -321,7 +321,7 @@ All paths start with `/<token>/`; `api/` routes answer JSON unless noted.
 | `GET api/envelope?file=PATH` | a listed file's waveform: per 50 ms bucket the minimum, the maximum and the RMS level (each scaled to -127..127), and its length |
 | `POST api/answer` `{"question": ID, "key": K}` | the question's new state and a message, or `409` with the reason |
 | `POST api/undo` | what was undone and a message |
-| `POST api/reveal` `{"file": PATH}` | reveals a listed file in the Finder (`open -R`) |
+| `POST api/reveal` `{"file": PATH}` | shows a listed file in the file manager: on macOS the Finder selects it (`open -R FILE`), on Linux `xdg-open FOLDER` opens its folder (ADR 0020); `500` names the command when it fails |
 
 ## What a window costs
 

@@ -57,11 +57,38 @@ marked as inferences were derived, not measured.
   fullest 1% of posting lists it skips over the whole searched library:
   chosen per shard, a file's candidates would depend on which shard
   holds it.
-- **Library identity and relocation.** Asset identity is already the path
-  relative to the library root. Missing: a library identifier in the peak
-  store, so two libraries cannot share a peak directory by accident; an
-  explicit way to move a library or its peak store; on a NAS, indexing
-  throughput, slow `stat` calls and reconnects.
+- **Library identity and relocation.** Asset identity is the path
+  relative to the library root, and the peak store names its library in
+  `library.txt` (the root's absolute path); every command but a
+  `--store-only` search refuses a store that names another library. To move a library, put its new path in
+  `library.txt`: the records stay valid while the files keep their size
+  and modification time. A store moved or copied as a folder works where
+  it lands, with its own saved index built once. On another machine a
+  copy of the store searches with `--store-only`, with no library
+  configured, or with the configuration keeping the path the store names
+  even where it does not exist (ADR 0012). Open: on a NAS, indexing
+  throughput, slow `stat` calls and reconnects; and two risks of reaching
+  the same NAS from Linux (ADR 0020), which only the Linux machine can
+  check, before any `index` from Linux (`scripts/analysis/store_identity.py`
+  makes both checks, read-only):
+  - *Unicode form of file names.* Through macOS's SMB client, every one
+    of the 149 stored paths (of 38,105 records, store revision
+    `b285da9984422fb5`) whose characters have a decomposed form is
+    stored decomposed (NFD; "Łódź" as "Ło" + U+0301 + "dz" + U+0301). If
+    Linux's SMB client lists them precomposed (NFC), their records are
+    not found: `index` would index them again under new names, the old
+    records would look like deleted files, and verdicts, manifest
+    references and `.gunfingerignore` patterns naming them would not
+    match. Store-only runs are not affected. Check: with the NAS mounted
+    on Linux, list such files and compare their bytes with the records'
+    stored paths. A fix would identify files by a normalized path; it
+    needs an ADR and a way to find the existing records.
+  - *Modification-time precision.* 32,000 of the 38,105 records hold
+    modification times with fractions of a second, as macOS's SMB client
+    reported them. If Linux's client reports another precision, those
+    records look out of date and `index` would decode up to those 32,000
+    files (84% of the records) again. Check: `stat` a few files on the Linux mount and compare with
+    their records.
 - **Files that vanish while the library is listed.** *(seen in session
   12; done in session 13, ADR 0015)* `Library::scan` stopped at its first
   read error, so a file renamed or deleted between `read_dir` and its

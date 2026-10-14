@@ -18,6 +18,7 @@ mod mixes;
 mod padding;
 mod pair;
 mod pair_review;
+mod platform;
 mod recall;
 mod regress;
 mod related;
@@ -347,7 +348,8 @@ enum Command {
     /// Measure resident memory after loading the peak records, building the
     /// index and searching a set's audio, the way `identify` does; with
     /// `--synthetic-copies`, on the scale proxy. Run under
-    /// `/usr/bin/time -l` for the kernel's peak.
+    /// `/usr/bin/time -l` (macOS) or `/usr/bin/time -v` (Linux) for the
+    /// kernel's peak.
     Memory {
         #[arg(long, default_value = "stakka-skynet-knowledge")]
         set: String,

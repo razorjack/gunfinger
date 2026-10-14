@@ -5,7 +5,7 @@
 use std::path::PathBuf;
 use std::process::{Command, Stdio};
 
-use gunfinger_core::decode::Container;
+use gunfinger_core::decode::{Container, INSTALL_FFMPEG};
 use miette::miette;
 
 use crate::console::Console;
@@ -120,7 +120,7 @@ pub fn play(clips: &[Clip], seconds: f64, console: &Console) -> miette::Result<(
             .status()
             .map_err(|error| {
                 miette!(
-                    help = "install FFmpeg with ffplay, for example `brew install ffmpeg`",
+                    help = format!("install FFmpeg with ffplay, for example {INSTALL_FFMPEG}"),
                     "cannot run ffplay: {error}"
                 )
             })?;

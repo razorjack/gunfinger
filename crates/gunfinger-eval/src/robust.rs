@@ -25,6 +25,7 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::matching::Matching;
 use crate::padding::Padding;
+use crate::platform::Platform;
 use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
 use crate::rng::Rng;
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
@@ -644,25 +645,33 @@ fn beatmatched_partner(samples: &[f32], job: &Job, library: &Library) -> Result<
     Ok(longer[skip..].to_vec())
 }
 
-/// Speech from macOS `say`, once per seed directory.
+/// Speech, made once per seed directory.
 fn speech_samples(dir: &Path) -> Result<Vec<f32>, String> {
     fs::create_dir_all(dir).map_err(|error| error.to_string())?;
-    let path = dir.join("speech.aiff");
+    let (mut command, path) = speech_synthesis(Platform::CURRENT, dir);
     if !path.exists() {
-        let status = Command::new("say")
-            .arg("-o")
-            .arg(&path)
-            .arg(SPEECH)
-            .stdin(Stdio::null())
-            .status()
-            .map_err(|error| {
-                format!("cannot run `say` (macOS) for the speech conditions: {error}")
-            })?;
+        let program = command.get_program().to_string_lossy().into_owned();
+        let status = command.stdin(Stdio::null()).status().map_err(|error| {
+            format!("cannot run `{program}` for the speech conditions: {error}")
+        })?;
         if !status.success() {
-            return Err(format!("`say` failed ({status})"));
+            return Err(format!("`{program}` failed ({status})"));
         }
     }
     render_samples(&path, 0.0, 20.0, Playback::Turntable(1.0), None)
+}
+
+/// The command that speaks `SPEECH` into a file in `dir`, and that file:
+/// macOS's `say`, or eSpeak NG (`espeak-ng`) on Linux. The voices differ,
+/// so the speech conditions compare only between runs on one platform.
+fn speech_synthesis(platform: Platform, dir: &Path) -> (Command, PathBuf) {
+    let (program, flag, path) = match platform {
+        Platform::MacOs => ("say", "-o", dir.join("speech.aiff")),
+        Platform::Linux => ("espeak-ng", "-w", dir.join("speech.wav")),
+    };
+    let mut command = Command::new(program);
+    command.arg(flag).arg(&path).arg(SPEECH);
+    (command, path)
 }
 
 fn seconds_to_index(seconds: f64) -> usize {
@@ -893,6 +902,31 @@ mod tests {
 
         let at_ten = seconds_to_index(10.0);
         assert!((f64::from(played[at_ten]) - 10.3).abs() < 1e-3);
+    }
+
+    #[test]
+    fn speech_comes_from_say_on_macos_and_espeak_ng_on_linux() {
+        let dir = Path::new("/work/robust/seed-1");
+        let parts = |command: &Command| -> Vec<String> {
+            std::iter::once(command.get_program())
+                .chain(command.get_args())
+                .map(|part| part.to_string_lossy().into_owned())
+                .collect()
+        };
+
+        let (say, aiff) = speech_synthesis(Platform::MacOs, dir);
+        let (espeak, wav) = speech_synthesis(Platform::Linux, dir);
+
+        assert_eq!(aiff, dir.join("speech.aiff"));
+        assert_eq!(
+            parts(&say),
+            ["say", "-o", "/work/robust/seed-1/speech.aiff", SPEECH]
+        );
+        assert_eq!(wav, dir.join("speech.wav"));
+        assert_eq!(
+            parts(&espeak),
+            ["espeak-ng", "-w", "/work/robust/seed-1/speech.wav", SPEECH]
+        );
     }
 
     #[test]

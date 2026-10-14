@@ -69,14 +69,11 @@ fn decode_pcm(decoder: &Decoder, path: &Path, start: f64, seconds: f64) -> Resul
         .arg("-ar")
         .arg(SAMPLE_RATE.to_string())
         .args(["-f", "s16le", "pipe:1"]);
-    let run = watch::run(&mut command, decoder.stall, read_all).map_err(|error| match error
-        .kind()
-    {
-        std::io::ErrorKind::NotFound => String::from(
-            "`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg`)",
-        ),
-        _ => format!("could not run `ffmpeg` for {}: {error}", path.display()),
-    })?;
+    let run =
+        watch::run(&mut command, decoder.stall, read_all).map_err(|error| match error.kind() {
+            std::io::ErrorKind::NotFound => DecodeError::FfmpegMissing.to_string(),
+            _ => format!("could not run `ffmpeg` for {}: {error}", path.display()),
+        })?;
     let Run::Finished {
         output,
         status,

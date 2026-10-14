@@ -1,7 +1,10 @@
 //! Memory by phase: resident memory after each step of a search the way
 //! `identify` runs it, on the scale proxy (`synthetic`). The kernel's peak
-//! for the whole run comes from `/usr/bin/time -l`; `--until` stops after
-//! a phase, so the peak of each phase can be measured on its own.
+//! for the whole run comes from `/usr/bin/time`: `-l` on macOS ("maximum
+//! resident set size", in bytes), `-v` on Linux with GNU time ("Maximum
+//! resident set size (kbytes)"; the `time` package of Debian and Ubuntu).
+//! `--until` stops after a phase, so the peak of each phase can be
+//! measured on its own.
 //!
 //! `identify` reads one peak record at a time while it builds the index and
 //! keeps none. The scale proxy needs the library's records in memory to
@@ -188,9 +191,10 @@ fn row(phase: Phase, started: Instant, records_bytes: u64, index_bytes: u64) -> 
     }
 }
 
-/// This process's resident set size as `ps` reports it (macOS and Linux).
-/// Compressed and swapped pages are not resident, so on a machine short of
-/// memory this undercounts; `/usr/bin/time -l` gives the kernel's peak.
+/// This process's resident set size as `ps` reports it (in kilobytes on
+/// macOS and Linux). Compressed and swapped pages are not resident, so on
+/// a machine short of memory this undercounts; `/usr/bin/time` gives the
+/// kernel's peak (module documentation).
 fn resident_bytes() -> Option<u64> {
     let output = Command::new("ps")
         .args(["-o", "rss=", "-p", &std::process::id().to_string()])

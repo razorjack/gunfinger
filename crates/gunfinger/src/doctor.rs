@@ -7,6 +7,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::time::Duration;
 
+use gunfinger_core::decode::INSTALL_FFMPEG;
 use gunfinger_core::hash;
 use gunfinger_core::index::saved::{self, Provenance, Unusable};
 use gunfinger_core::index::{MAX_ASSETS, addressable_length};
@@ -139,7 +140,7 @@ fn check_tools(checkup: &mut Checkup) {
             None => checkup.line(
                 Status::Problem,
                 format!(
-                    "{tool} not found; needed for {needed_for}. Install FFmpeg (for example `brew install ffmpeg`)"
+                    "{tool} not found; needed for {needed_for}. Install FFmpeg (for example {INSTALL_FFMPEG})"
                 ),
             ),
         }

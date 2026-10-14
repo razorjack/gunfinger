@@ -70,11 +70,12 @@ set against one library of 262 tracks.
 
 ## Getting started
 
-You need:
+Gunfinger supports macOS and Linux. You need:
 
 - Rust 1.89 or later (`rust-toolchain.toml`).
 - `ffmpeg` and `ffprobe` on `PATH`; `ffplay` too if you want to listen
-  to results.
+  to results. FFmpeg brings all three: `brew install ffmpeg` on macOS,
+  `sudo apt install ffmpeg` on Debian or Ubuntu.
 
 Build it and put `target/release/gunfinger` somewhere on your `PATH`:
 
@@ -238,7 +239,10 @@ The peak store holds each file's peaks and tags, so it is enough to
 identify and name tracks. When the library is not mounted, `identify`,
 `explain` and `stats` search the store's records and say so; `--store-only`
 does it on purpose. To identify mixes on another computer, copy the peak
-store there and point `--peaks-dir` at it.
+store there and point `--peaks-dir` at it. Leave `library` unset there,
+or set it to the path the store was made from, even if that path does
+not exist on that computer: the store names its library and refuses
+another.
 
 ## How it works
 
@@ -369,7 +373,7 @@ mix) that is not part of the repository:
 | `sweep` | Held-out excerpts at nine speeds from −8% to +8%; the panels are drawn once per seed and kept in `docs/panels/` |
 | `scan` | A real mix against its tracklist, optionally with tracks left out of the index |
 | `calibrate` | The margin between the weakest correct and the strongest false detection |
-| `robust` | Excerpts under EQ, noise, codecs, blends, speech, skips, pitch rides and key lock |
+| `robust` | Excerpts under EQ, noise, codecs, blends, speech, skips, pitch rides and key lock (speech from `say` on macOS, from eSpeak NG on Linux: `sudo apt install espeak-ng`) |
 | `mixes` | Generated mixes with exact truth: speeds, bass swaps, crossfades, cuts, short plays |
 | `grid` | Brief plays slid across the 10 s windows, to test where a short play stops counting |
 | `clusters`, `related` | The library matched against itself: duplicate rips, remixes and shared material |

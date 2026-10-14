@@ -1,6 +1,6 @@
 // The lanes of the open question: one waveform per lane on the shared
 // timeline, the shaded spans, the markers, the loop and the playhead; under
-// each waveform the file playing there (full path, copy, reveal in Finder)
+// each waveform the file playing there (full path, copy, show its folder)
 // and its placement in words. Mouse: click or drag to seek, click a marker
 // to jump to it.
 
@@ -57,7 +57,7 @@ export class LanesView {
     info.className = "lane-info";
     const path = document.createElement("code");
     const copy = button("copy", "Copy the full path", () => this.copy(path.textContent));
-    const reveal = button("reveal", "Show the file in the Finder", () =>
+    const reveal = button("reveal", "Show the file in its folder", () =>
       api.reveal(path.textContent).catch((error) => this.say(error.message)),
     );
     const placement = document.createElement("span");

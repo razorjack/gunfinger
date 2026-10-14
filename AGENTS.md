@@ -53,6 +53,38 @@ Read, in this order:
   command, measured result, conclusion; at most 40 lines), written before the
   next experiment starts.
 
+## Platforms
+
+Gunfinger is cross-platform: the CLI, the harness and the listening tool
+support at least macOS and Linux (ADR 0020).
+
+- Platform-specific behaviour goes through one function per need, with a
+  branch for each supported platform, and each branch is tested. In the
+  harness the function takes a `platform::Platform` and returns the
+  command (`audition::desktop`, `robust::speech_synthesis`), so both
+  branches run in tests on either system.
+- Messages and docs that name a tool or a package manager name one for
+  each platform (`decode::INSTALL_FFMPEG`).
+- `scripts/check.sh` also runs clippy for the other platform's target
+  when that target's standard library is installed, and prints a line
+  when it skips. With rustup: `rustup target add x86_64-unknown-linux-gnu`
+  on macOS, `rustup target add aarch64-apple-darwin` on Linux. The
+  development Mac has Homebrew's Rust and no rustup; Homebrew's keg-only
+  rustup holds a toolchain of Homebrew's version (`rustc --version`)
+  with the target. Run the checks this way before committing a change to
+  platform-specific code:
+
+  ```sh
+  brew install rustup    # once
+  "$(brew --prefix rustup)/bin/rustup" toolchain install 1.98.0 \
+    --profile minimal -c clippy -c rustfmt -t x86_64-unknown-linux-gnu  # once
+  PATH="$(brew --prefix rustup)/bin:$PATH" RUSTUP_TOOLCHAIN=1.98.0 scripts/check.sh
+  ```
+
+  Inside the repository, rustup commands that show the active toolchain
+  (`rustup show`, `rustup toolchain list`) install `stable` first,
+  because of `rust-toolchain.toml`.
+
 ## Crate boundaries
 
 - `gunfinger-core`: decoding, peaks, peak store, hashing, index, matching.
@@ -103,7 +135,9 @@ copies of corpus files `library_map` finds and whose rips of the corpus
 recordings `clusters::find_around` finds; with it, the index is saved in
 `work/indexes/` and runs that leave files out remove them from the
 loaded index (ADR 0014).
-`audition` is the listening tool (below).
+`audition` is the listening tool (below). `platform` names the
+system, for the few programs that only macOS or only Linux has (ADR
+0020).
 Python scripts that summarise harness reports for experiments live in
 `scripts/analysis/`.
 

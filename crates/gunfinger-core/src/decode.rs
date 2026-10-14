@@ -29,6 +29,11 @@ use watch::Run;
 /// conservatively, since a stall fails a whole `identify`.
 pub const STALL: Duration = Duration::from_secs(120);
 
+/// Commands that install FFmpeg, with FFprobe and FFplay, on macOS and on
+/// Linux, for messages that tell the user to install it.
+pub const INSTALL_FFMPEG: &str =
+    "`brew install ffmpeg` on macOS, `sudo apt install ffmpeg` on Debian or Ubuntu";
+
 /// The part of a file to decode. The default is the whole file.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Excerpt {
@@ -51,7 +56,7 @@ impl Audio {
 
 #[derive(Debug, thiserror::Error)]
 pub enum DecodeError {
-    #[error("`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg`)")]
+    #[error("`ffmpeg` was not found on PATH; install FFmpeg (for example {INSTALL_FFMPEG})")]
     FfmpegMissing,
     #[error("could not run `ffmpeg` for {path}: {source}")]
     Spawn { path: PathBuf, source: io::Error },
@@ -537,6 +542,14 @@ mod tests {
             self.position = end;
             Ok(count)
         }
+    }
+
+    #[test]
+    fn a_missing_ffmpeg_says_how_to_install_it_on_macos_and_linux() {
+        assert_eq!(
+            DecodeError::FfmpegMissing.to_string(),
+            "`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg` on macOS, `sudo apt install ffmpeg` on Debian or Ubuntu)"
+        );
     }
 
     #[test]

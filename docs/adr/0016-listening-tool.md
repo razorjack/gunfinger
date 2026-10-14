@@ -7,7 +7,11 @@ Accepted (2026-10-11, session 14). We approved the design in
 14. `gunfinger-eval pair-review` and `work/listening-decisions/listen.zsh`
 stay as fallbacks. Since ADR 0017 (2026-10-13) the tool is a development
 tool for evaluation ground truth, and the report edits named under "Left
-out" are out of scope for the product.
+out" are out of scope for the product. Amended by ADR 0020 (2026-10-14,
+macOS and Linux): on Linux `xdg-open` opens the page, the reveal button
+opens the file's folder (the Finder, with `open -R`, still selects the
+file), the page is meant for Chrome or Chromium there (not yet tried),
+and the file locks are `flock` there too.
 
 ## Context
 

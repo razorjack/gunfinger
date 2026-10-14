@@ -12,13 +12,15 @@
 //! - `audio`: windows of a file as WAV and waveform envelopes, by FFmpeg.
 //! - `server` (with `http` and `session`): the HTTP server on 127.0.0.1,
 //!   its token and `Host` checks, and the files it may serve; `web`: the
-//!   page's embedded files (`audition/web/`).
+//!   page's embedded files (`audition/web/`); `desktop`: the commands that
+//!   open the page and show a file, for macOS and Linux.
 //!
 //! `docs/audition-questions.md` is the format's reference; AGENTS.md says
 //! how to add a kind of question.
 
 pub mod answers;
 pub mod audio;
+mod desktop;
 pub mod detections;
 pub mod effects;
 pub mod folders;

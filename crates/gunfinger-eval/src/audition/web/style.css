@@ -8,7 +8,7 @@
   --accent: #7aa2f7;
   --done: #9ece6a;
   --warn: #f7768e;
-  font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }

@@ -2729,3 +2729,76 @@ records the load (`work/s19/load-*.txt`).
   `work/perf/s19-fft/target` about 380 MB together. Notes "Session 19",
   the roadmap's "Where search time goes" and the research note
   (proposals 1 and 2 measured) updated.
+
+## 2026-10-14: macOS and Linux (ADR 0020)
+
+- Our requirement, done in this conversation, not in a numbered
+  session: Gunfinger supports at least macOS and Linux. `git status`
+  clean at `40fc0fa` at the start. An audit of every tracked file found
+  macOS-only: the listening page's `open` and `open -R` (and "Show the
+  file in the Finder"), `robust`'s `say`, four `brew install ffmpeg`
+  hints, and `memory`'s `/usr/bin/time -l`.
+- Change: `gunfinger-eval`'s `platform::Platform` (`CURRENT` from
+  `cfg!(target_os = "macos")`) and one function per need taking it:
+  `audition::desktop::browser` (`open URL`, `xdg-open URL`; the server
+  runs it on a thread of its own), `audition::desktop::reveal` (`open -R
+  FILE`, `xdg-open FOLDER`), `robust::speech_synthesis` (`say -o
+  speech.aiff`, `espeak-ng -w speech.wav`); the reveal route's and the
+  browser's errors name the command run. `decode::INSTALL_FFMPEG` (brew
+  and apt) in the core's, `doctor`'s, `listen`'s and the page's
+  messages. The page's button has the tooltip "Show the file in its
+  folder", and its font list `system-ui` after the Apple fonts. `memory`'s documentation and help
+  name `time -l` and GNU `time -v`. 6 new tests here, plus one that runs
+  only on Linux.
+- `scripts/check.sh` runs clippy for the other platform's target when
+  its standard library is installed, and otherwise prints one line.
+  Homebrew's Rust has no rustup: `brew install rustup` (keg-only), then
+  toolchain 1.98.0 (minimal, clippy, rustfmt, `x86_64-unknown-linux-gnu`). A `rustup toolchain list` inside the
+  repository installed `stable` 1.99.0 because of `rust-toolchain.toml`;
+  removed. The Linux clippy was clean at `40fc0fa` before the change. A
+  type error planted in the Linux-only test failed the Linux pass and
+  passed the host's.
+- Records: ADR 0020 (with the two open risks and the expected
+  cross-machine differences), ADR 0016's status, AGENTS.md "Platforms",
+  README (platforms, FFmpeg on both, a copied store on another
+  computer), `docs/audition-questions.md` (the reveal route), the
+  roadmap's "Library identity and relocation" (corrected: the store
+  names its library in `library.txt`; the two risks with their checks),
+  session notes. `scripts/analysis/store_identity.py` (new,
+  read-only) on the NAS store (38,105 records, `b285da9984422fb5`) and
+  the NAS: 149 paths with two Unicode forms, all stored NFD; 32,000
+  modification times with fractions of a second; 169 files looked up
+  (the 149 and 20 sampled), all under the stored bytes, size and time
+  equal to the nanosecond (`work/xplat/store-identity-mac.txt`).
+- Checks: `regress session-19-start` identical with `work/bin/xplat/`
+  (720/720 sweep queries, all 87, 93 and 79 scan detections, the known
+  calibrate line; 155 s, 1,311 s user). The baseline was made at
+  `d867557`, whose code `40fc0fa` leaves unchanged, so no new baseline.
+  `scripts/check.sh` green (363 tests) with Homebrew's 1.98.0, which
+  prints the skip line, and with rustup's 1.98.0, which runs the Linux
+  clippy (`work/xplat/check-*.log`); `cargo test -p gunfinger-eval
+  audition` 62 passed. `git diff docs/pair-verdicts.txt` empty;
+  `work/audition/answers.jsonl` last written at 01:55, before this
+  change; no `audition` server ran. The NAS store read only, by
+  `store_identity.py`.
+- A read-only review by a subagent of the uncommitted change: the macOS
+  commands are the same as before, the Linux branches right, no hang or
+  `unwrap` added, `check.sh` correct under `set -eu`, the script
+  read-only with the record format's offsets. Fixed in the documents:
+  the button's visible text is still "reveal" (the tooltip changed);
+  `--store-only` is not refused for another library path; the NAS
+  mounted on Linux at another path (mount it at `/Volumes/atlas`, or
+  put the path in the copy's `library.txt`; `--second-library-root`'s
+  default is the Mac's); the script's second argument is the library's
+  root; the time-precision risk is up to 32,000 files (84%), not the
+  whole NAS; "runs on Linux" changed to "supports", nothing having run
+  there; `shown`'s doc comment; eSpeak NG's package in the README; a
+  heads-up in ADR 0020 that stand-in script tests may fail with "Text
+  file busy" on Linux (rust-lang/rust#114554), a test race not fixed
+  here. `store_identity.py` counts a file gone before its `stat` as not
+  found. Left: the duplicated `parts` helper of two tests (tests favour
+  clarity), detaching a browser that `xdg-open` runs itself
+  (`process_group`, Unix-only).
+- After the fixes: `scripts/check.sh` green again with both toolchains
+  (363 tests; the Linux pass skipped with Homebrew's, run with
+  rustup's); the NAS store still 38,105 records, `b285da9984422fb5`.

@@ -10,7 +10,7 @@ use std::fs::File;
 use std::io::{BufReader, Read};
 use std::net::{Ipv4Addr, TcpListener, TcpStream};
 use std::path::PathBuf;
-use std::process::Command;
+use std::process::Stdio;
 use std::thread;
 use std::time::Duration;
 
@@ -18,10 +18,12 @@ use serde::Deserialize;
 
 use crate::audition::answers::AnswerBook;
 use crate::audition::audio::{self, Envelopes};
+use crate::audition::desktop;
 use crate::audition::effects::Refusal;
 use crate::audition::http::{Method, Request, Response, read_request};
 use crate::audition::session::Session;
 use crate::audition::web;
+use crate::platform::Platform;
 
 pub struct Options {
     pub question_files: Vec<PathBuf>,
@@ -64,12 +66,10 @@ pub fn serve(options: &Options) -> Result<(), String> {
         options.answers.display(),
         options.verdicts.display()
     );
-    if options.open_browser
-        && let Err(error) = Command::new("open").arg(&url).status()
-    {
-        eprintln!("warning: cannot open a browser ({error}); open the address above");
-    }
     thread::scope(|scope| {
+        if options.open_browser {
+            scope.spawn(|| open_in_browser(&url));
+        }
         for stream in listener.incoming() {
             match stream {
                 Ok(stream) => {
@@ -81,6 +81,24 @@ pub fn serve(options: &Options) -> Result<(), String> {
         }
     });
     Ok(())
+}
+
+/// Opens the page in the default browser, on a thread of its own: outside
+/// a desktop environment `xdg-open` may run the browser itself and wait
+/// until it closes.
+fn open_in_browser(url: &str) {
+    let mut command = desktop::browser(Platform::CURRENT, url);
+    match command.stdin(Stdio::null()).status() {
+        Ok(status) if status.success() => {}
+        Ok(status) => eprintln!(
+            "warning: `{}` failed ({status}); open the address above",
+            desktop::shown(&command)
+        ),
+        Err(error) => eprintln!(
+            "warning: cannot open a browser with `{}` ({error}); open the address above",
+            command.get_program().to_string_lossy()
+        ),
+    }
 }
 
 /// 128 random bits as hex, from the system's generator.
@@ -272,10 +290,20 @@ impl App {
             Ok(file) => file,
             Err(refusal) => return refusal,
         };
-        match Command::new("open").arg("-R").arg(&file).status() {
+        let mut command = desktop::reveal(Platform::CURRENT, &file);
+        match command.stdin(Stdio::null()).status() {
             Ok(status) if status.success() => Response::json(200, &"revealed"),
-            Ok(status) => Response::text(500, &format!("`open -R` failed ({status})")),
-            Err(error) => Response::text(500, &format!("cannot run `open`: {error}")),
+            Ok(status) => Response::text(
+                500,
+                &format!("`{}` failed ({status})", desktop::shown(&command)),
+            ),
+            Err(error) => Response::text(
+                500,
+                &format!(
+                    "cannot run `{}`: {error}",
+                    command.get_program().to_string_lossy()
+                ),
+            ),
         }
     }
 }

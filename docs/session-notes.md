@@ -3655,3 +3655,81 @@ this version of the FFT library.
   hits by file 24%, taking hits from the posting lists 11%. Proposal 3
   of the research note (part boundaries computed once) addresses part of
   the last; proposals 3-5 are not measured.
+
+## macOS and Linux (2026-10-14, not a numbered session)
+
+### What changed
+
+Gunfinger, the harness and the listening page now support macOS and
+Linux (ADR 0020; AGENTS.md, "Platforms"). Nothing has run on Linux yet:
+the Linux code was type-checked from the Mac, and the choice of each
+command is tested here for both systems. On the Mac nothing behaves
+differently: the same commands run, and only some messages changed.
+
+- On Linux the listening page opens with `xdg-open`, and the reveal
+  button opens the file's folder (on the Mac the Finder still selects
+  the file). The button's tooltip now reads "Show the file in its
+  folder". Use Chrome or Chromium there; Firefox has not been tried.
+- Messages that tell the user to install FFmpeg name `brew install ffmpeg`
+  and `sudo apt install ffmpeg`.
+- `gunfinger-eval robust` speaks with eSpeak NG (`espeak-ng`) on Linux,
+  so its speech conditions compare only between runs on one system.
+- Detections, reports, the peak store and the saved index did not
+  change (`regress` identical).
+
+### Before using the Linux machine
+
+- **Store-only searches** with a copy of the NAS peak store work with
+  `--store-only`, with no `library` in the configuration, or with
+  `library = "/Volumes/atlas/Music/dnb"` kept even though that path does
+  not exist there. Without `--store-only`, another library path is
+  refused, because the store names its library. The first search builds
+  the saved index once.
+- **With the NAS mounted on Linux**, mount it at `/Volumes/atlas` (a
+  mount point, not a symbolic link, which is resolved before the paths
+  are compared), or put the Linux path in the copy's `library.txt`.
+  Pass the mount's path to `gunfinger-eval --second-library-root`,
+  whose default is the Mac's.
+- **Memory:** the Linux machine runs 32 workers by default, the Mac 10, and each
+  worker keeps its own hit buffers. If memory runs short, set `jobs`.
+- **Before any `index` from Linux against the NAS store**, mount the NAS
+  and run, read-only:
+
+  ```sh
+  python3 -I scripts/analysis/store_identity.py <copy of nas-dnb-peaks> <library root on Linux>
+  ```
+
+  On the Mac it printed: 149 paths with two Unicode forms, all stored
+  decomposed (NFD); 32,000 modification times with fractions of a
+  second; all 169 files looked up found under the stored names, with
+  size and time equal to the nanosecond. The second argument is the
+  library's root on Linux, such as `/mnt/atlas/Music/dnb`, not the
+  share's. On Linux, any file "only under the other Unicode form" or
+  with a different time means `index` would index those files again
+  under new names, or decode up to the 32,000 files with fractional
+  times again. Then do not index from Linux; tell the next session,
+  which needs an ADR to fix it.
+- **The first `scripts/check.sh` on Linux** is the first real test
+  there. A stand-in script test that fails with "Text file busy" is a
+  known Linux race between test threads, not a platform defect: run the
+  tests again.
+- **Results may differ slightly between the machines.** FFmpeg's build,
+  the FFT library's vector code (NEON on the Mac, AVX on the Linux machine) and
+  the maths library differ, so a mix's peaks may differ in rare frames
+  and hit counts by a few. A `regress` baseline is compared only on the
+  machine that made it. To see the difference, run the same
+  `identify --store-only -f json` of a development mix on both.
+
+### Decided, open to change
+
+- On Linux the reveal button opens the folder without selecting the
+  file. Selecting it needs a D-Bus call that only some file managers
+  answer; for a development tool the fallback it needs was not worth
+  it.
+- To type-check the Linux code from the Mac, Homebrew's `rustup`
+  (keg-only, so Homebrew's `cargo` stays the default) now holds a Rust
+  1.98.0 toolchain with the Linux target, 620 MB in `~/.rustup`.
+  `scripts/check.sh` runs that check only with that toolchain first on
+  `PATH` (AGENTS.md has the command); otherwise it prints a line and
+  skips.
+  `brew uninstall rustup` and deleting `~/.rustup` remove it.
