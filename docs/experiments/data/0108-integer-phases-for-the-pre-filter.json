@@ -42,7 +42,8 @@
    "clustering": 20,
    "ladder_analysis": 10538,
    "grouping_part": 10187,
-   "taking_part": 5678
+   "taking_part": 5678,
+   "series": "contended"
   },
   {
    "order": 2,
@@ -54,7 +55,8 @@
    "clustering": 27,
    "ladder_analysis": 12208,
    "grouping_part": 11720,
-   "taking_part": 6213
+   "taking_part": 6213,
+   "series": "contended"
   },
   {
    "order": 3,
@@ -66,7 +68,8 @@
    "clustering": 30,
    "ladder_analysis": 11645,
    "grouping_part": 11253,
-   "taking_part": 5927
+   "taking_part": 5927,
+   "series": "contended"
   },
   {
    "order": 4,
@@ -78,13 +81,74 @@
    "clustering": 25,
    "ladder_analysis": 12140,
    "grouping_part": 11647,
-   "taking_part": 5998
+   "taking_part": 5998,
+   "series": "contended"
+  },
+  {
+   "series": "quieter",
+   "order": 1,
+   "build": "start-split",
+   "cpu_samples": 36527,
+   "pre_filter": 9435,
+   "phases": 0,
+   "sorting_aligned_hits": 1562,
+   "clustering": 32,
+   "ladder_analysis": 9180,
+   "grouping_part": 8750,
+   "taking_part": 4167
+  },
+  {
+   "series": "quieter",
+   "order": 2,
+   "build": "p1-split",
+   "cpu_samples": 35580,
+   "pre_filter": 8335,
+   "phases": 1,
+   "sorting_aligned_hits": 1607,
+   "clustering": 29,
+   "ladder_analysis": 9344,
+   "grouping_part": 8763,
+   "taking_part": 4257
+  },
+  {
+   "series": "quieter",
+   "order": 3,
+   "build": "p1-split",
+   "cpu_samples": 35350,
+   "pre_filter": 8119,
+   "phases": 1,
+   "sorting_aligned_hits": 1623,
+   "clustering": 21,
+   "ladder_analysis": 9361,
+   "grouping_part": 8920,
+   "taking_part": 4221
+  },
+  {
+   "series": "quieter",
+   "order": 4,
+   "build": "start-split",
+   "cpu_samples": 42358,
+   "pre_filter": 10928,
+   "phases": 0,
+   "sorting_aligned_hits": 1751,
+   "clustering": 24,
+   "ladder_analysis": 10389,
+   "grouping_part": 9902,
+   "taking_part": 5561
   }
  ],
- "load_average_at_start": [
-  24.53,
-  55.96,
-  67.63,
-  75.55
- ]
+ "load_average_at_start": {
+  "contended": [
+   24.53,
+   55.96,
+   67.63,
+   75.55
+  ],
+  "quieter": [
+   3.24,
+   36.2,
+   31.36,
+   52.64
+  ]
+ }
 }
