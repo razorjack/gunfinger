@@ -112,6 +112,18 @@ The proposals must not repeat these:
 **Kind:** an optimisation candidate with exact output. **Status:**
 unverified.
 
+- **Measured in session 19 (experiment 0108): stopped, not kept.**
+  Implemented as described (a guarded `u16` phase per query point, the
+  `f64` slots outside the guard) with 11 predicate tests against
+  `densest_clusters`; the same lines, the same detections, 0.017% more
+  assets sorted, reports byte-identical. In split profiles of the 2003
+  mix at NAS scale (38,105 records; A B B A, once under other load and
+  once with less), the pre-filter, its phases and the sort they lead to fell
+  from 30.1% to 27.8% of CPU samples on the quieter machine (7.6%; 13.0%
+  against the unchanged analysis), below the 20% stop point. The
+  counting, its stores and the hit loads cost more than the slot
+  arithmetic. The code was deleted; it is kept in `work/s19/lines.rs.p1`.
+
 - **Mechanism.** Today each hit computes `offset = r - q` in f64 (r the
   reference frame, q the anchor's frame in reference coordinates) and
   slot `floor(offset / 4) mod 4096` (`OffsetSlots::may_form_line`,
@@ -175,6 +187,23 @@ unverified.
 
 **Kind:** a diagnostic, then a behaviour-changing hypothesis. **Status:**
 unverified.
+
+- **Measured in session 19 (experiment 0109): the diagnostic; no length
+  changed.** Plan construction is 0.04% of the analysis (1,862 plans in
+  0.052 s in one `identify`), so no plan cache was tried. Weighted by the
+  frames each rung analyses in the 2003 mix's `identify` at NAS scale,
+  one thread: nearest-even makes the first pass's turntable analysis
+  21.8% faster (18.4% with the unchanged key-locked rungs counted), the
+  factor-aware rule within one sample 25.5% (21.6%), within two samples
+  36.5% (30.8%), and the fastest length measured within two samples, a
+  ceiling, 44.0% (37.2%). The largest prime factor predicts time poorly
+  (949 = 13 x 73 is slower than 948; 1114 = 2 x 557 is twice as fast as
+  1113 = 3 x 7 x 53). Builds with the factor-aware or fastest lengths in
+  the first pass, for timing only (their reports differ): 6.9% and 8.7%
+  less user CPU and 5.4% and 7.6% less median wall time with `--playback
+  both`, 12.1% and 14.4% less CPU and 9.2% and 11.1% less wall time with
+  turntable playback (timed under other load). Changing a length
+  needs the retrieval study below and our decision.
 
 - **Today.** A turntable rung analyses the query with window
   `round(1024 / s)` and hop `round(128 / s)` (`points_at_speed_in`,

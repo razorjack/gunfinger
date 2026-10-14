@@ -1,0 +1,1798 @@
+{
+ "experiment": "0109",
+ "input": "razorjack-2003-03-29, 60 s from 10:00, ffmpeg -ac 1 -ar 8000 f32le, one thread, 5 rounds interleaved",
+ "versions": {
+  "rustc": "1.98.0",
+  "realfft": "3.5.0",
+  "rustfft": "6.4.1"
+ },
+ "identify_analyses": {
+  "first-turntable": {
+   "calls": 984,
+   "frames": 7184168,
+   "plan_seconds": 0.03057022,
+   "for_each_frame_seconds": 94.644090842
+  },
+  "first-keylock": {
+   "calls": 504,
+   "frames": 3660405,
+   "plan_seconds": 0.009093227,
+   "for_each_frame_seconds": 18.113387126
+  },
+  "refine-turntable": {
+   "calls": 258,
+   "frames": 1088280,
+   "plan_seconds": 0.010979958,
+   "for_each_frame_seconds": 13.897979796
+  },
+  "refine-keylock": {
+   "calls": 116,
+   "frames": 281830,
+   "plan_seconds": 0.001572752,
+   "for_each_frame_seconds": 1.404746211
+  }
+ },
+ "weighted_first_pass_turntable_seconds": {
+  "today": 73.21,
+  "even": 57.28,
+  "factor1": 54.53,
+  "factor2": 46.51,
+  "best1": 47.28,
+  "best2": 41.01
+ },
+ "weighted_first_pass_both_ladders_seconds": {
+  "today": 86.64,
+  "even": 70.71,
+  "factor1": 67.96,
+  "factor2": 59.94,
+  "best1": 60.71,
+  "best2": 54.44
+ },
+ "per_rung": [
+  {
+   "speed": "0.920",
+   "hop": 139,
+   "frames_in_identify": 161567,
+   "analyses": 24,
+   "today": {
+    "length": 1113,
+    "factorisation": "1113 (1113: [3, 7, 53])",
+    "extract_us_per_frame_median": 18.727,
+    "max": 18.885,
+    "fft_us_per_frame": 15.967,
+    "plan_window_us": 11.7
+   },
+   "even": {
+    "length": 1114,
+    "factorisation": "1114 (557: [557])",
+    "extract_us_per_frame_median": 9.349,
+    "max": 9.426,
+    "fft_us_per_frame": 6.552,
+    "plan_window_us": 25.5
+   },
+   "factor1": {
+    "length": 1113,
+    "factorisation": "1113 (1113: [3, 7, 53])",
+    "extract_us_per_frame_median": 18.727,
+    "max": 18.885,
+    "fft_us_per_frame": 15.967,
+    "plan_window_us": 11.7
+   },
+   "factor2": {
+    "length": 1113,
+    "factorisation": "1113 (1113: [3, 7, 53])",
+    "extract_us_per_frame_median": 18.727,
+    "max": 18.885,
+    "fft_us_per_frame": 15.967,
+    "plan_window_us": 11.7
+   },
+   "best1": 1114,
+   "best2": 1114
+  },
+  {
+   "speed": "0.924",
+   "hop": 139,
+   "frames_in_identify": 161561,
+   "analyses": 24,
+   "today": {
+    "length": 1108,
+    "factorisation": "1108 (554: [2, 277])",
+    "extract_us_per_frame_median": 10.74,
+    "max": 10.807,
+    "fft_us_per_frame": 8.082,
+    "plan_window_us": 11.9
+   },
+   "even": {
+    "length": 1108,
+    "factorisation": "1108 (554: [2, 277])",
+    "extract_us_per_frame_median": 10.74,
+    "max": 10.807,
+    "fft_us_per_frame": 8.082,
+    "plan_window_us": 11.9
+   },
+   "factor1": {
+    "length": 1107,
+    "factorisation": "1107 (1107: [3, 3, 3, 41])",
+    "extract_us_per_frame_median": 18.898,
+    "max": 19.401,
+    "fft_us_per_frame": 16.248,
+    "plan_window_us": 12.1
+   },
+   "factor2": {
+    "length": 1110,
+    "factorisation": "1110 (555: [3, 5, 37])",
+    "extract_us_per_frame_median": 10.252,
+    "max": 10.357,
+    "fft_us_per_frame": 7.613,
+    "plan_window_us": 9.5
+   },
+   "best1": 1108,
+   "best2": 1106
+  },
+  {
+   "speed": "0.928",
+   "hop": 138,
+   "frames_in_identify": 162719,
+   "analyses": 24,
+   "today": {
+    "length": 1103,
+    "factorisation": "1103 (1103: [1103])",
+    "extract_us_per_frame_median": 17.401,
+    "max": 17.499,
+    "fft_us_per_frame": 14.51,
+    "plan_window_us": 46.8
+   },
+   "even": {
+    "length": 1104,
+    "factorisation": "1104 (552: [2, 2, 2, 3, 23])",
+    "extract_us_per_frame_median": 4.34,
+    "max": 4.359,
+    "fft_us_per_frame": 1.659,
+    "plan_window_us": 7.2
+   },
+   "factor1": {
+    "length": 1104,
+    "factorisation": "1104 (552: [2, 2, 2, 3, 23])",
+    "extract_us_per_frame_median": 4.34,
+    "max": 4.359,
+    "fft_us_per_frame": 1.659,
+    "plan_window_us": 7.2
+   },
+   "factor2": {
+    "length": 1105,
+    "factorisation": "1105 (1105: [5, 13, 17])",
+    "extract_us_per_frame_median": 7.092,
+    "max": 7.198,
+    "fft_us_per_frame": 4.411,
+    "plan_window_us": 11.4
+   },
+   "best1": 1104,
+   "best2": 1104
+  },
+  {
+   "speed": "0.932",
+   "hop": 137,
+   "frames_in_identify": 163897,
+   "analyses": 24,
+   "today": {
+    "length": 1099,
+    "factorisation": "1099 (1099: [7, 157])",
+    "extract_us_per_frame_median": 17.251,
+    "max": 17.777,
+    "fft_us_per_frame": 14.58,
+    "plan_window_us": 12.0
+   },
+   "even": {
+    "length": 1098,
+    "factorisation": "1098 (549: [3, 3, 61])",
+    "extract_us_per_frame_median": 10.558,
+    "max": 10.802,
+    "fft_us_per_frame": 7.904,
+    "plan_window_us": 9.6
+   },
+   "factor1": {
+    "length": 1100,
+    "factorisation": "1100 (550: [2, 5, 5, 11])",
+    "extract_us_per_frame_median": 6.262,
+    "max": 6.286,
+    "fft_us_per_frame": 3.61,
+    "plan_window_us": 7.9
+   },
+   "factor2": {
+    "length": 1100,
+    "factorisation": "1100 (550: [2, 5, 5, 11])",
+    "extract_us_per_frame_median": 6.262,
+    "max": 6.286,
+    "fft_us_per_frame": 3.61,
+    "plan_window_us": 7.9
+   },
+   "best1": 1100,
+   "best2": 1100
+  },
+  {
+   "speed": "0.936",
+   "hop": 137,
+   "frames_in_identify": 163890,
+   "analyses": 24,
+   "today": {
+    "length": 1094,
+    "factorisation": "1094 (547: [547])",
+    "extract_us_per_frame_median": 13.162,
+    "max": 13.241,
+    "fft_us_per_frame": 10.474,
+    "plan_window_us": 16.5
+   },
+   "even": {
+    "length": 1094,
+    "factorisation": "1094 (547: [547])",
+    "extract_us_per_frame_median": 13.162,
+    "max": 13.241,
+    "fft_us_per_frame": 10.474,
+    "plan_window_us": 16.5
+   },
+   "factor1": {
+    "length": 1095,
+    "factorisation": "1095 (1095: [3, 5, 73])",
+    "extract_us_per_frame_median": 16.765,
+    "max": 17.116,
+    "fft_us_per_frame": 14.066,
+    "plan_window_us": 11.2
+   },
+   "factor2": {
+    "length": 1092,
+    "factorisation": "1092 (546: [2, 3, 7, 13])",
+    "extract_us_per_frame_median": 5.942,
+    "max": 5.99,
+    "fft_us_per_frame": 3.285,
+    "plan_window_us": 9.1
+   },
+   "best1": 1094,
+   "best2": 1092
+  },
+  {
+   "speed": "0.940",
+   "hop": 136,
+   "frames_in_identify": 165084,
+   "analyses": 24,
+   "today": {
+    "length": 1089,
+    "factorisation": "1089 (1089: [3, 3, 11, 11])",
+    "extract_us_per_frame_median": 8.152,
+    "max": 8.189,
+    "fft_us_per_frame": 5.487,
+    "plan_window_us": 10.8
+   },
+   "even": {
+    "length": 1090,
+    "factorisation": "1090 (545: [5, 109])",
+    "extract_us_per_frame_median": 10.501,
+    "max": 10.676,
+    "fft_us_per_frame": 7.885,
+    "plan_window_us": 10.1
+   },
+   "factor1": {
+    "length": 1089,
+    "factorisation": "1089 (1089: [3, 3, 11, 11])",
+    "extract_us_per_frame_median": 8.152,
+    "max": 8.189,
+    "fft_us_per_frame": 5.487,
+    "plan_window_us": 10.8
+   },
+   "factor2": {
+    "length": 1089,
+    "factorisation": "1089 (1089: [3, 3, 11, 11])",
+    "extract_us_per_frame_median": 8.152,
+    "max": 8.189,
+    "fft_us_per_frame": 5.487,
+    "plan_window_us": 10.8
+   },
+   "best1": 1088,
+   "best2": 1088
+  },
+  {
+   "speed": "0.944",
+   "hop": 136,
+   "frames_in_identify": 165077,
+   "analyses": 24,
+   "today": {
+    "length": 1085,
+    "factorisation": "1085 (1085: [5, 7, 31])",
+    "extract_us_per_frame_median": 7.463,
+    "max": 7.627,
+    "fft_us_per_frame": 4.769,
+    "plan_window_us": 10.2
+   },
+   "even": {
+    "length": 1084,
+    "factorisation": "1084 (542: [2, 271])",
+    "extract_us_per_frame_median": 12.461,
+    "max": 12.715,
+    "fft_us_per_frame": 9.819,
+    "plan_window_us": 13.3
+   },
+   "factor1": {
+    "length": 1085,
+    "factorisation": "1085 (1085: [5, 7, 31])",
+    "extract_us_per_frame_median": 7.463,
+    "max": 7.627,
+    "fft_us_per_frame": 4.769,
+    "plan_window_us": 10.2
+   },
+   "factor2": {
+    "length": 1083,
+    "factorisation": "1083 (1083: [3, 19, 19])",
+    "extract_us_per_frame_median": 7.834,
+    "max": 7.903,
+    "fft_us_per_frame": 5.104,
+    "plan_window_us": 11.1
+   },
+   "best1": 1085,
+   "best2": 1085
+  },
+  {
+   "speed": "0.948",
+   "hop": 135,
+   "frames_in_identify": 166289,
+   "analyses": 24,
+   "today": {
+    "length": 1080,
+    "factorisation": "1080 (540: [2, 2, 3, 3, 3, 5])",
+    "extract_us_per_frame_median": 5.159,
+    "max": 5.235,
+    "fft_us_per_frame": 2.52,
+    "plan_window_us": 8.8
+   },
+   "even": {
+    "length": 1080,
+    "factorisation": "1080 (540: [2, 2, 3, 3, 3, 5])",
+    "extract_us_per_frame_median": 5.159,
+    "max": 5.235,
+    "fft_us_per_frame": 2.52,
+    "plan_window_us": 8.8
+   },
+   "factor1": {
+    "length": 1080,
+    "factorisation": "1080 (540: [2, 2, 3, 3, 3, 5])",
+    "extract_us_per_frame_median": 5.159,
+    "max": 5.235,
+    "fft_us_per_frame": 2.52,
+    "plan_window_us": 8.8
+   },
+   "factor2": {
+    "length": 1080,
+    "factorisation": "1080 (540: [2, 2, 3, 3, 3, 5])",
+    "extract_us_per_frame_median": 5.159,
+    "max": 5.235,
+    "fft_us_per_frame": 2.52,
+    "plan_window_us": 8.8
+   },
+   "best1": 1080,
+   "best2": 1080
+  },
+  {
+   "speed": "0.952",
+   "hop": 134,
+   "frames_in_identify": 167519,
+   "analyses": 24,
+   "today": {
+    "length": 1076,
+    "factorisation": "1076 (538: [2, 269])",
+    "extract_us_per_frame_median": 9.838,
+    "max": 10.384,
+    "fft_us_per_frame": 7.148,
+    "plan_window_us": 17.7
+   },
+   "even": {
+    "length": 1076,
+    "factorisation": "1076 (538: [2, 269])",
+    "extract_us_per_frame_median": 9.838,
+    "max": 10.384,
+    "fft_us_per_frame": 7.148,
+    "plan_window_us": 17.7
+   },
+   "factor1": {
+    "length": 1075,
+    "factorisation": "1075 (1075: [5, 5, 43])",
+    "extract_us_per_frame_median": 18.158,
+    "max": 18.466,
+    "fft_us_per_frame": 15.582,
+    "plan_window_us": 11.3
+   },
+   "factor2": {
+    "length": 1078,
+    "factorisation": "1078 (539: [7, 7, 11])",
+    "extract_us_per_frame_median": 5.327,
+    "max": 5.352,
+    "fft_us_per_frame": 2.687,
+    "plan_window_us": 8.8
+   },
+   "best1": 1076,
+   "best2": 1078
+  },
+  {
+   "speed": "0.956",
+   "hop": 134,
+   "frames_in_identify": 167513,
+   "analyses": 24,
+   "today": {
+    "length": 1071,
+    "factorisation": "1071 (1071: [3, 3, 7, 17])",
+    "extract_us_per_frame_median": 6.544,
+    "max": 6.773,
+    "fft_us_per_frame": 3.928,
+    "plan_window_us": 10.8
+   },
+   "even": {
+    "length": 1072,
+    "factorisation": "1072 (536: [2, 2, 2, 67])",
+    "extract_us_per_frame_median": 9.816,
+    "max": 9.865,
+    "fft_us_per_frame": 7.135,
+    "plan_window_us": 9.4
+   },
+   "factor1": {
+    "length": 1071,
+    "factorisation": "1071 (1071: [3, 3, 7, 17])",
+    "extract_us_per_frame_median": 6.544,
+    "max": 6.773,
+    "fft_us_per_frame": 3.928,
+    "plan_window_us": 10.8
+   },
+   "factor2": {
+    "length": 1071,
+    "factorisation": "1071 (1071: [3, 3, 7, 17])",
+    "extract_us_per_frame_median": 6.544,
+    "max": 6.773,
+    "fft_us_per_frame": 3.928,
+    "plan_window_us": 10.8
+   },
+   "best1": 1071,
+   "best2": 1071
+  },
+  {
+   "speed": "0.960",
+   "hop": 133,
+   "frames_in_identify": 168761,
+   "analyses": 24,
+   "today": {
+    "length": 1067,
+    "factorisation": "1067 (1067: [11, 97])",
+    "extract_us_per_frame_median": 17.041,
+    "max": 17.139,
+    "fft_us_per_frame": 14.401,
+    "plan_window_us": 11.3
+   },
+   "even": {
+    "length": 1066,
+    "factorisation": "1066 (533: [13, 41])",
+    "extract_us_per_frame_median": 9.575,
+    "max": 9.905,
+    "fft_us_per_frame": 6.892,
+    "plan_window_us": 9.2
+   },
+   "factor1": {
+    "length": 1066,
+    "factorisation": "1066 (533: [13, 41])",
+    "extract_us_per_frame_median": 9.575,
+    "max": 9.905,
+    "fft_us_per_frame": 6.892,
+    "plan_window_us": 9.2
+   },
+   "factor2": {
+    "length": 1066,
+    "factorisation": "1066 (533: [13, 41])",
+    "extract_us_per_frame_median": 9.575,
+    "max": 9.905,
+    "fft_us_per_frame": 6.892,
+    "plan_window_us": 9.2
+   },
+   "best1": 1066,
+   "best2": 1066
+  },
+  {
+   "speed": "0.964",
+   "hop": 133,
+   "frames_in_identify": 168754,
+   "analyses": 24,
+   "today": {
+    "length": 1062,
+    "factorisation": "1062 (531: [3, 3, 59])",
+    "extract_us_per_frame_median": 7.512,
+    "max": 7.603,
+    "fft_us_per_frame": 4.859,
+    "plan_window_us": 10.3
+   },
+   "even": {
+    "length": 1062,
+    "factorisation": "1062 (531: [3, 3, 59])",
+    "extract_us_per_frame_median": 7.512,
+    "max": 7.603,
+    "fft_us_per_frame": 4.859,
+    "plan_window_us": 10.3
+   },
+   "factor1": {
+    "length": 1062,
+    "factorisation": "1062 (531: [3, 3, 59])",
+    "extract_us_per_frame_median": 7.512,
+    "max": 7.603,
+    "fft_us_per_frame": 4.859,
+    "plan_window_us": 10.3
+   },
+   "factor2": {
+    "length": 1064,
+    "factorisation": "1064 (532: [2, 2, 7, 19])",
+    "extract_us_per_frame_median": 4.998,
+    "max": 5.116,
+    "fft_us_per_frame": 2.377,
+    "plan_window_us": 7.4
+   },
+   "best1": 1062,
+   "best2": 1064
+  },
+  {
+   "speed": "0.968",
+   "hop": 132,
+   "frames_in_identify": 170022,
+   "analyses": 24,
+   "today": {
+    "length": 1058,
+    "factorisation": "1058 (529: [23, 23])",
+    "extract_us_per_frame_median": 4.566,
+    "max": 4.607,
+    "fft_us_per_frame": 1.953,
+    "plan_window_us": 8.3
+   },
+   "even": {
+    "length": 1058,
+    "factorisation": "1058 (529: [23, 23])",
+    "extract_us_per_frame_median": 4.566,
+    "max": 4.607,
+    "fft_us_per_frame": 1.953,
+    "plan_window_us": 8.3
+   },
+   "factor1": {
+    "length": 1058,
+    "factorisation": "1058 (529: [23, 23])",
+    "extract_us_per_frame_median": 4.566,
+    "max": 4.607,
+    "fft_us_per_frame": 1.953,
+    "plan_window_us": 8.3
+   },
+   "factor2": {
+    "length": 1056,
+    "factorisation": "1056 (528: [2, 2, 2, 2, 3, 11])",
+    "extract_us_per_frame_median": 4.751,
+    "max": 4.847,
+    "fft_us_per_frame": 2.127,
+    "plan_window_us": 8.8
+   },
+   "best1": 1058,
+   "best2": 1058
+  },
+  {
+   "speed": "0.972",
+   "hop": 132,
+   "frames_in_identify": 170016,
+   "analyses": 24,
+   "today": {
+    "length": 1053,
+    "factorisation": "1053 (1053: [3, 3, 3, 3, 13])",
+    "extract_us_per_frame_median": 7.212,
+    "max": 7.355,
+    "fft_us_per_frame": 4.577,
+    "plan_window_us": 10.0
+   },
+   "even": {
+    "length": 1054,
+    "factorisation": "1054 (527: [17, 31])",
+    "extract_us_per_frame_median": 4.414,
+    "max": 4.47,
+    "fft_us_per_frame": 1.798,
+    "plan_window_us": 7.0
+   },
+   "factor1": {
+    "length": 1053,
+    "factorisation": "1053 (1053: [3, 3, 3, 3, 13])",
+    "extract_us_per_frame_median": 7.212,
+    "max": 7.355,
+    "fft_us_per_frame": 4.577,
+    "plan_window_us": 10.0
+   },
+   "factor2": {
+    "length": 1053,
+    "factorisation": "1053 (1053: [3, 3, 3, 3, 13])",
+    "extract_us_per_frame_median": 7.212,
+    "max": 7.355,
+    "fft_us_per_frame": 4.577,
+    "plan_window_us": 10.0
+   },
+   "best1": 1054,
+   "best2": 1054
+  },
+  {
+   "speed": "0.976",
+   "hop": 131,
+   "frames_in_identify": 171304,
+   "analyses": 24,
+   "today": {
+    "length": 1049,
+    "factorisation": "1049 (1049: [1049])",
+    "extract_us_per_frame_median": 17.331,
+    "max": 17.505,
+    "fft_us_per_frame": 14.558,
+    "plan_window_us": 45.5
+   },
+   "even": {
+    "length": 1050,
+    "factorisation": "1050 (525: [3, 5, 5, 7])",
+    "extract_us_per_frame_median": 6.239,
+    "max": 6.458,
+    "fft_us_per_frame": 3.636,
+    "plan_window_us": 7.6
+   },
+   "factor1": {
+    "length": 1050,
+    "factorisation": "1050 (525: [3, 5, 5, 7])",
+    "extract_us_per_frame_median": 6.239,
+    "max": 6.458,
+    "fft_us_per_frame": 3.636,
+    "plan_window_us": 7.6
+   },
+   "factor2": {
+    "length": 1050,
+    "factorisation": "1050 (525: [3, 5, 5, 7])",
+    "extract_us_per_frame_median": 6.239,
+    "max": 6.458,
+    "fft_us_per_frame": 3.636,
+    "plan_window_us": 7.6
+   },
+   "best1": 1050,
+   "best2": 1050
+  },
+  {
+   "speed": "0.980",
+   "hop": 131,
+   "frames_in_identify": 171298,
+   "analyses": 24,
+   "today": {
+    "length": 1045,
+    "factorisation": "1045 (1045: [5, 11, 19])",
+    "extract_us_per_frame_median": 6.866,
+    "max": 7.118,
+    "fft_us_per_frame": 4.263,
+    "plan_window_us": 10.6
+   },
+   "even": {
+    "length": 1044,
+    "factorisation": "1044 (522: [2, 3, 3, 29])",
+    "extract_us_per_frame_median": 5.55,
+    "max": 5.636,
+    "fft_us_per_frame": 2.945,
+    "plan_window_us": 7.5
+   },
+   "factor1": {
+    "length": 1045,
+    "factorisation": "1045 (1045: [5, 11, 19])",
+    "extract_us_per_frame_median": 6.866,
+    "max": 7.118,
+    "fft_us_per_frame": 4.263,
+    "plan_window_us": 10.6
+   },
+   "factor2": {
+    "length": 1045,
+    "factorisation": "1045 (1045: [5, 11, 19])",
+    "extract_us_per_frame_median": 6.866,
+    "max": 7.118,
+    "fft_us_per_frame": 4.263,
+    "plan_window_us": 10.6
+   },
+   "best1": 1044,
+   "best2": 1044
+  },
+  {
+   "speed": "0.984",
+   "hop": 130,
+   "frames_in_identify": 172603,
+   "analyses": 24,
+   "today": {
+    "length": 1041,
+    "factorisation": "1041 (1041: [3, 347])",
+    "extract_us_per_frame_median": 13.707,
+    "max": 13.989,
+    "fft_us_per_frame": 11.044,
+    "plan_window_us": 19.8
+   },
+   "even": {
+    "length": 1040,
+    "factorisation": "1040 (520: [2, 2, 2, 5, 13])",
+    "extract_us_per_frame_median": 4.909,
+    "max": 4.962,
+    "fft_us_per_frame": 2.284,
+    "plan_window_us": 8.6
+   },
+   "factor1": {
+    "length": 1040,
+    "factorisation": "1040 (520: [2, 2, 2, 5, 13])",
+    "extract_us_per_frame_median": 4.909,
+    "max": 4.962,
+    "fft_us_per_frame": 2.284,
+    "plan_window_us": 8.6
+   },
+   "factor2": {
+    "length": 1040,
+    "factorisation": "1040 (520: [2, 2, 2, 5, 13])",
+    "extract_us_per_frame_median": 4.909,
+    "max": 4.962,
+    "fft_us_per_frame": 2.284,
+    "plan_window_us": 8.6
+   },
+   "best1": 1040,
+   "best2": 1040
+  },
+  {
+   "speed": "0.988",
+   "hop": 130,
+   "frames_in_identify": 172598,
+   "analyses": 24,
+   "today": {
+    "length": 1036,
+    "factorisation": "1036 (518: [2, 7, 37])",
+    "extract_us_per_frame_median": 10.516,
+    "max": 10.596,
+    "fft_us_per_frame": 7.921,
+    "plan_window_us": 9.3
+   },
+   "even": {
+    "length": 1036,
+    "factorisation": "1036 (518: [2, 7, 37])",
+    "extract_us_per_frame_median": 10.516,
+    "max": 10.596,
+    "fft_us_per_frame": 7.921,
+    "plan_window_us": 9.3
+   },
+   "factor1": {
+    "length": 1035,
+    "factorisation": "1035 (1035: [3, 3, 5, 23])",
+    "extract_us_per_frame_median": 6.73,
+    "max": 6.823,
+    "fft_us_per_frame": 4.145,
+    "plan_window_us": 10.4
+   },
+   "factor2": {
+    "length": 1035,
+    "factorisation": "1035 (1035: [3, 3, 5, 23])",
+    "extract_us_per_frame_median": 6.73,
+    "max": 6.823,
+    "fft_us_per_frame": 4.145,
+    "plan_window_us": 10.4
+   },
+   "best1": 1035,
+   "best2": 1035
+  },
+  {
+   "speed": "0.992",
+   "hop": 129,
+   "frames_in_identify": 173924,
+   "analyses": 24,
+   "today": {
+    "length": 1032,
+    "factorisation": "1032 (516: [2, 2, 3, 43])",
+    "extract_us_per_frame_median": 9.304,
+    "max": 9.397,
+    "fft_us_per_frame": 6.685,
+    "plan_window_us": 9.1
+   },
+   "even": {
+    "length": 1032,
+    "factorisation": "1032 (516: [2, 2, 3, 43])",
+    "extract_us_per_frame_median": 9.304,
+    "max": 9.397,
+    "fft_us_per_frame": 6.685,
+    "plan_window_us": 9.1
+   },
+   "factor1": {
+    "length": 1032,
+    "factorisation": "1032 (516: [2, 2, 3, 43])",
+    "extract_us_per_frame_median": 9.304,
+    "max": 9.397,
+    "fft_us_per_frame": 6.685,
+    "plan_window_us": 9.1
+   },
+   "factor2": {
+    "length": 1032,
+    "factorisation": "1032 (516: [2, 2, 3, 43])",
+    "extract_us_per_frame_median": 9.304,
+    "max": 9.397,
+    "fft_us_per_frame": 6.685,
+    "plan_window_us": 9.1
+   },
+   "best1": 1032,
+   "best2": 1032
+  },
+  {
+   "speed": "0.996",
+   "hop": 129,
+   "frames_in_identify": 173918,
+   "analyses": 24,
+   "today": {
+    "length": 1028,
+    "factorisation": "1028 (514: [2, 257])",
+    "extract_us_per_frame_median": 9.098,
+    "max": 9.483,
+    "fft_us_per_frame": 6.538,
+    "plan_window_us": 11.4
+   },
+   "even": {
+    "length": 1028,
+    "factorisation": "1028 (514: [2, 257])",
+    "extract_us_per_frame_median": 9.098,
+    "max": 9.483,
+    "fft_us_per_frame": 6.538,
+    "plan_window_us": 11.4
+   },
+   "factor1": {
+    "length": 1029,
+    "factorisation": "1029 (1029: [3, 7, 7, 7])",
+    "extract_us_per_frame_median": 8.745,
+    "max": 8.859,
+    "fft_us_per_frame": 6.184,
+    "plan_window_us": 10.7
+   },
+   "factor2": {
+    "length": 1029,
+    "factorisation": "1029 (1029: [3, 7, 7, 7])",
+    "extract_us_per_frame_median": 8.745,
+    "max": 8.859,
+    "fft_us_per_frame": 6.184,
+    "plan_window_us": 10.7
+   },
+   "best1": 1029,
+   "best2": 1026
+  },
+  {
+   "speed": "1.000",
+   "hop": 128,
+   "frames_in_identify": 175243,
+   "analyses": 24,
+   "today": {
+    "length": 1024,
+    "factorisation": "1024 (512: [2, 2, 2, 2, 2, 2, 2, 2, 2])",
+    "extract_us_per_frame_median": 3.666,
+    "max": 3.773,
+    "fft_us_per_frame": 1.076,
+    "plan_window_us": 7.8
+   },
+   "even": {
+    "length": 1024,
+    "factorisation": "1024 (512: [2, 2, 2, 2, 2, 2, 2, 2, 2])",
+    "extract_us_per_frame_median": 3.666,
+    "max": 3.773,
+    "fft_us_per_frame": 1.076,
+    "plan_window_us": 7.8
+   },
+   "factor1": {
+    "length": 1024,
+    "factorisation": "1024 (512: [2, 2, 2, 2, 2, 2, 2, 2, 2])",
+    "extract_us_per_frame_median": 3.666,
+    "max": 3.773,
+    "fft_us_per_frame": 1.076,
+    "plan_window_us": 7.8
+   },
+   "factor2": {
+    "length": 1024,
+    "factorisation": "1024 (512: [2, 2, 2, 2, 2, 2, 2, 2, 2])",
+    "extract_us_per_frame_median": 3.666,
+    "max": 3.773,
+    "fft_us_per_frame": 1.076,
+    "plan_window_us": 7.8
+   },
+   "best1": 1024,
+   "best2": 1024
+  },
+  {
+   "speed": "1.004",
+   "hop": 127,
+   "frames_in_identify": 176634,
+   "analyses": 24,
+   "today": {
+    "length": 1020,
+    "factorisation": "1020 (510: [2, 3, 5, 17])",
+    "extract_us_per_frame_median": 4.753,
+    "max": 4.798,
+    "fft_us_per_frame": 2.209,
+    "plan_window_us": 7.2
+   },
+   "even": {
+    "length": 1020,
+    "factorisation": "1020 (510: [2, 3, 5, 17])",
+    "extract_us_per_frame_median": 4.753,
+    "max": 4.798,
+    "fft_us_per_frame": 2.209,
+    "plan_window_us": 7.2
+   },
+   "factor1": {
+    "length": 1020,
+    "factorisation": "1020 (510: [2, 3, 5, 17])",
+    "extract_us_per_frame_median": 4.753,
+    "max": 4.798,
+    "fft_us_per_frame": 2.209,
+    "plan_window_us": 7.2
+   },
+   "factor2": {
+    "length": 1020,
+    "factorisation": "1020 (510: [2, 3, 5, 17])",
+    "extract_us_per_frame_median": 4.753,
+    "max": 4.798,
+    "fft_us_per_frame": 2.209,
+    "plan_window_us": 7.2
+   },
+   "best1": 1020,
+   "best2": 1020
+  },
+  {
+   "speed": "1.008",
+   "hop": 127,
+   "frames_in_identify": 176629,
+   "analyses": 24,
+   "today": {
+    "length": 1016,
+    "factorisation": "1016 (508: [2, 2, 127])",
+    "extract_us_per_frame_median": 12.033,
+    "max": 12.183,
+    "fft_us_per_frame": 9.511,
+    "plan_window_us": 10.2
+   },
+   "even": {
+    "length": 1016,
+    "factorisation": "1016 (508: [2, 2, 127])",
+    "extract_us_per_frame_median": 12.033,
+    "max": 12.183,
+    "fft_us_per_frame": 9.511,
+    "plan_window_us": 10.2
+   },
+   "factor1": {
+    "length": 1015,
+    "factorisation": "1015 (1015: [5, 7, 29])",
+    "extract_us_per_frame_median": 6.98,
+    "max": 6.998,
+    "fft_us_per_frame": 4.398,
+    "plan_window_us": 9.8
+   },
+   "factor2": {
+    "length": 1014,
+    "factorisation": "1014 (507: [3, 13, 13])",
+    "extract_us_per_frame_median": 5.118,
+    "max": 5.239,
+    "fft_us_per_frame": 2.559,
+    "plan_window_us": 8.5
+   },
+   "best1": 1015,
+   "best2": 1014
+  },
+  {
+   "speed": "1.012",
+   "hop": 126,
+   "frames_in_identify": 178019,
+   "analyses": 24,
+   "today": {
+    "length": 1012,
+    "factorisation": "1012 (506: [2, 11, 23])",
+    "extract_us_per_frame_median": 4.841,
+    "max": 4.851,
+    "fft_us_per_frame": 2.29,
+    "plan_window_us": 7.2
+   },
+   "even": {
+    "length": 1012,
+    "factorisation": "1012 (506: [2, 11, 23])",
+    "extract_us_per_frame_median": 4.841,
+    "max": 4.851,
+    "fft_us_per_frame": 2.29,
+    "plan_window_us": 7.2
+   },
+   "factor1": {
+    "length": 1012,
+    "factorisation": "1012 (506: [2, 11, 23])",
+    "extract_us_per_frame_median": 4.841,
+    "max": 4.851,
+    "fft_us_per_frame": 2.29,
+    "plan_window_us": 7.2
+   },
+   "factor2": {
+    "length": 1014,
+    "factorisation": "1014 (507: [3, 13, 13])",
+    "extract_us_per_frame_median": 5.12,
+    "max": 5.199,
+    "fft_us_per_frame": 2.573,
+    "plan_window_us": 8.6
+   },
+   "best1": 1012,
+   "best2": 1012
+  },
+  {
+   "speed": "1.016",
+   "hop": 126,
+   "frames_in_identify": 178013,
+   "analyses": 24,
+   "today": {
+    "length": 1008,
+    "factorisation": "1008 (504: [2, 2, 2, 3, 3, 7])",
+    "extract_us_per_frame_median": 4.783,
+    "max": 4.821,
+    "fft_us_per_frame": 2.21,
+    "plan_window_us": 8.1
+   },
+   "even": {
+    "length": 1008,
+    "factorisation": "1008 (504: [2, 2, 2, 3, 3, 7])",
+    "extract_us_per_frame_median": 4.783,
+    "max": 4.821,
+    "fft_us_per_frame": 2.21,
+    "plan_window_us": 8.1
+   },
+   "factor1": {
+    "length": 1008,
+    "factorisation": "1008 (504: [2, 2, 2, 3, 3, 7])",
+    "extract_us_per_frame_median": 4.783,
+    "max": 4.821,
+    "fft_us_per_frame": 2.21,
+    "plan_window_us": 8.1
+   },
+   "factor2": {
+    "length": 1008,
+    "factorisation": "1008 (504: [2, 2, 2, 3, 3, 7])",
+    "extract_us_per_frame_median": 4.783,
+    "max": 4.821,
+    "fft_us_per_frame": 2.21,
+    "plan_window_us": 8.1
+   },
+   "best1": 1008,
+   "best2": 1008
+  },
+  {
+   "speed": "1.020",
+   "hop": 125,
+   "frames_in_identify": 179421,
+   "analyses": 24,
+   "today": {
+    "length": 1004,
+    "factorisation": "1004 (502: [2, 251])",
+    "extract_us_per_frame_median": 14.526,
+    "max": 14.796,
+    "fft_us_per_frame": 11.958,
+    "plan_window_us": 13.5
+   },
+   "even": {
+    "length": 1004,
+    "factorisation": "1004 (502: [2, 251])",
+    "extract_us_per_frame_median": 14.526,
+    "max": 14.796,
+    "fft_us_per_frame": 11.958,
+    "plan_window_us": 13.5
+   },
+   "factor1": {
+    "length": 1003,
+    "factorisation": "1003 (1003: [17, 59])",
+    "extract_us_per_frame_median": 10.895,
+    "max": 10.964,
+    "fft_us_per_frame": 8.355,
+    "plan_window_us": 11.2
+   },
+   "factor2": {
+    "length": 1003,
+    "factorisation": "1003 (1003: [17, 59])",
+    "extract_us_per_frame_median": 10.895,
+    "max": 10.964,
+    "fft_us_per_frame": 8.355,
+    "plan_window_us": 11.2
+   },
+   "best1": 1003,
+   "best2": 1006
+  },
+  {
+   "speed": "1.024",
+   "hop": 125,
+   "frames_in_identify": 179398,
+   "analyses": 24,
+   "today": {
+    "length": 1000,
+    "factorisation": "1000 (500: [2, 2, 5, 5, 5])",
+    "extract_us_per_frame_median": 6.185,
+    "max": 6.265,
+    "fft_us_per_frame": 3.663,
+    "plan_window_us": 8.5
+   },
+   "even": {
+    "length": 1000,
+    "factorisation": "1000 (500: [2, 2, 5, 5, 5])",
+    "extract_us_per_frame_median": 6.185,
+    "max": 6.265,
+    "fft_us_per_frame": 3.663,
+    "plan_window_us": 8.5
+   },
+   "factor1": {
+    "length": 1000,
+    "factorisation": "1000 (500: [2, 2, 5, 5, 5])",
+    "extract_us_per_frame_median": 6.185,
+    "max": 6.265,
+    "fft_us_per_frame": 3.663,
+    "plan_window_us": 8.5
+   },
+   "factor2": {
+    "length": 1000,
+    "factorisation": "1000 (500: [2, 2, 5, 5, 5])",
+    "extract_us_per_frame_median": 6.185,
+    "max": 6.265,
+    "fft_us_per_frame": 3.663,
+    "plan_window_us": 8.5
+   },
+   "best1": 1000,
+   "best2": 1000
+  },
+  {
+   "speed": "1.028",
+   "hop": 125,
+   "frames_in_identify": 179398,
+   "analyses": 24,
+   "today": {
+    "length": 996,
+    "factorisation": "996 (498: [2, 3, 83])",
+    "extract_us_per_frame_median": 7.574,
+    "max": 7.737,
+    "fft_us_per_frame": 5.058,
+    "plan_window_us": 10.3
+   },
+   "even": {
+    "length": 996,
+    "factorisation": "996 (498: [2, 3, 83])",
+    "extract_us_per_frame_median": 7.574,
+    "max": 7.737,
+    "fft_us_per_frame": 5.058,
+    "plan_window_us": 10.3
+   },
+   "factor1": {
+    "length": 996,
+    "factorisation": "996 (498: [2, 3, 83])",
+    "extract_us_per_frame_median": 7.574,
+    "max": 7.737,
+    "fft_us_per_frame": 5.058,
+    "plan_window_us": 10.3
+   },
+   "factor2": {
+    "length": 994,
+    "factorisation": "994 (497: [7, 71])",
+    "extract_us_per_frame_median": 9.136,
+    "max": 9.228,
+    "fft_us_per_frame": 6.626,
+    "plan_window_us": 8.9
+   },
+   "best1": 996,
+   "best2": 998
+  },
+  {
+   "speed": "1.032",
+   "hop": 124,
+   "frames_in_identify": 180851,
+   "analyses": 24,
+   "today": {
+    "length": 992,
+    "factorisation": "992 (496: [2, 2, 2, 2, 31])",
+    "extract_us_per_frame_median": 4.094,
+    "max": 4.168,
+    "fft_us_per_frame": 1.571,
+    "plan_window_us": 6.6
+   },
+   "even": {
+    "length": 992,
+    "factorisation": "992 (496: [2, 2, 2, 2, 31])",
+    "extract_us_per_frame_median": 4.094,
+    "max": 4.168,
+    "fft_us_per_frame": 1.571,
+    "plan_window_us": 6.6
+   },
+   "factor1": {
+    "length": 992,
+    "factorisation": "992 (496: [2, 2, 2, 2, 31])",
+    "extract_us_per_frame_median": 4.094,
+    "max": 4.168,
+    "fft_us_per_frame": 1.571,
+    "plan_window_us": 6.6
+   },
+   "factor2": {
+    "length": 990,
+    "factorisation": "990 (495: [3, 3, 5, 11])",
+    "extract_us_per_frame_median": 4.775,
+    "max": 4.818,
+    "fft_us_per_frame": 2.253,
+    "plan_window_us": 8.1
+   },
+   "best1": 992,
+   "best2": 992
+  },
+  {
+   "speed": "1.036",
+   "hop": 124,
+   "frames_in_identify": 180847,
+   "analyses": 24,
+   "today": {
+    "length": 988,
+    "factorisation": "988 (494: [2, 13, 19])",
+    "extract_us_per_frame_median": 4.802,
+    "max": 4.832,
+    "fft_us_per_frame": 2.273,
+    "plan_window_us": 7.0
+   },
+   "even": {
+    "length": 988,
+    "factorisation": "988 (494: [2, 13, 19])",
+    "extract_us_per_frame_median": 4.802,
+    "max": 4.832,
+    "fft_us_per_frame": 2.273,
+    "plan_window_us": 7.0
+   },
+   "factor1": {
+    "length": 988,
+    "factorisation": "988 (494: [2, 13, 19])",
+    "extract_us_per_frame_median": 4.802,
+    "max": 4.832,
+    "fft_us_per_frame": 2.273,
+    "plan_window_us": 7.0
+   },
+   "factor2": {
+    "length": 990,
+    "factorisation": "990 (495: [3, 3, 5, 11])",
+    "extract_us_per_frame_median": 4.775,
+    "max": 4.818,
+    "fft_us_per_frame": 2.253,
+    "plan_window_us": 8.1
+   },
+   "best1": 988,
+   "best2": 986
+  },
+  {
+   "speed": "1.040",
+   "hop": 123,
+   "frames_in_identify": 182304,
+   "analyses": 24,
+   "today": {
+    "length": 985,
+    "factorisation": "985 (985: [5, 197])",
+    "extract_us_per_frame_median": 22.758,
+    "max": 23.244,
+    "fft_us_per_frame": 20.296,
+    "plan_window_us": 13.0
+   },
+   "even": {
+    "length": 984,
+    "factorisation": "984 (492: [2, 2, 3, 41])",
+    "extract_us_per_frame_median": 8.907,
+    "max": 9.137,
+    "fft_us_per_frame": 6.357,
+    "plan_window_us": 8.9
+   },
+   "factor1": {
+    "length": 986,
+    "factorisation": "986 (493: [17, 29])",
+    "extract_us_per_frame_median": 4.19,
+    "max": 4.282,
+    "fft_us_per_frame": 1.664,
+    "plan_window_us": 6.6
+   },
+   "factor2": {
+    "length": 986,
+    "factorisation": "986 (493: [17, 29])",
+    "extract_us_per_frame_median": 4.19,
+    "max": 4.282,
+    "fft_us_per_frame": 1.664,
+    "plan_window_us": 6.6
+   },
+   "best1": 986,
+   "best2": 986
+  },
+  {
+   "speed": "1.044",
+   "hop": 123,
+   "frames_in_identify": 182299,
+   "analyses": 24,
+   "today": {
+    "length": 981,
+    "factorisation": "981 (981: [3, 3, 109])",
+    "extract_us_per_frame_median": 16.482,
+    "max": 16.666,
+    "fft_us_per_frame": 13.948,
+    "plan_window_us": 11.0
+   },
+   "even": {
+    "length": 980,
+    "factorisation": "980 (490: [2, 5, 7, 7])",
+    "extract_us_per_frame_median": 4.811,
+    "max": 5.018,
+    "fft_us_per_frame": 2.326,
+    "plan_window_us": 8.0
+   },
+   "factor1": {
+    "length": 980,
+    "factorisation": "980 (490: [2, 5, 7, 7])",
+    "extract_us_per_frame_median": 4.811,
+    "max": 5.018,
+    "fft_us_per_frame": 2.326,
+    "plan_window_us": 8.0
+   },
+   "factor2": {
+    "length": 980,
+    "factorisation": "980 (490: [2, 5, 7, 7])",
+    "extract_us_per_frame_median": 4.811,
+    "max": 5.018,
+    "fft_us_per_frame": 2.326,
+    "plan_window_us": 8.0
+   },
+   "best1": 980,
+   "best2": 980
+  },
+  {
+   "speed": "1.048",
+   "hop": 122,
+   "frames_in_identify": 183783,
+   "analyses": 24,
+   "today": {
+    "length": 977,
+    "factorisation": "977 (977: [977])",
+    "extract_us_per_frame_median": 11.364,
+    "max": 11.397,
+    "fft_us_per_frame": 8.827,
+    "plan_window_us": 34.8
+   },
+   "even": {
+    "length": 978,
+    "factorisation": "978 (489: [3, 163])",
+    "extract_us_per_frame_median": 11.712,
+    "max": 11.892,
+    "fft_us_per_frame": 9.328,
+    "plan_window_us": 10.9
+   },
+   "factor1": {
+    "length": 976,
+    "factorisation": "976 (488: [2, 2, 2, 61])",
+    "extract_us_per_frame_median": 9.498,
+    "max": 9.539,
+    "fft_us_per_frame": 7.018,
+    "plan_window_us": 8.8
+   },
+   "factor2": {
+    "length": 975,
+    "factorisation": "975 (975: [3, 5, 5, 13])",
+    "extract_us_per_frame_median": 8.361,
+    "max": 8.487,
+    "fft_us_per_frame": 5.864,
+    "plan_window_us": 10.0
+   },
+   "best1": 976,
+   "best2": 975
+  },
+  {
+   "speed": "1.052",
+   "hop": 122,
+   "frames_in_identify": 183778,
+   "analyses": 24,
+   "today": {
+    "length": 973,
+    "factorisation": "973 (973: [7, 139])",
+    "extract_us_per_frame_median": 15.797,
+    "max": 16.003,
+    "fft_us_per_frame": 13.369,
+    "plan_window_us": 11.0
+   },
+   "even": {
+    "length": 974,
+    "factorisation": "974 (487: [487])",
+    "extract_us_per_frame_median": 12.686,
+    "max": 12.886,
+    "fft_us_per_frame": 10.231,
+    "plan_window_us": 15.7
+   },
+   "factor1": {
+    "length": 972,
+    "factorisation": "972 (486: [2, 3, 3, 3, 3, 3])",
+    "extract_us_per_frame_median": 5.804,
+    "max": 5.893,
+    "fft_us_per_frame": 3.331,
+    "plan_window_us": 8.4
+   },
+   "factor2": {
+    "length": 972,
+    "factorisation": "972 (486: [2, 3, 3, 3, 3, 3])",
+    "extract_us_per_frame_median": 5.804,
+    "max": 5.893,
+    "fft_us_per_frame": 3.331,
+    "plan_window_us": 8.4
+   },
+   "best1": 972,
+   "best2": 972
+  },
+  {
+   "speed": "1.056",
+   "hop": 121,
+   "frames_in_identify": 185284,
+   "analyses": 24,
+   "today": {
+    "length": 970,
+    "factorisation": "970 (485: [5, 97])",
+    "extract_us_per_frame_median": 9.362,
+    "max": 9.532,
+    "fft_us_per_frame": 6.836,
+    "plan_window_us": 9.2
+   },
+   "even": {
+    "length": 970,
+    "factorisation": "970 (485: [5, 97])",
+    "extract_us_per_frame_median": 9.362,
+    "max": 9.532,
+    "fft_us_per_frame": 6.836,
+    "plan_window_us": 9.2
+   },
+   "factor1": {
+    "length": 969,
+    "factorisation": "969 (969: [3, 17, 19])",
+    "extract_us_per_frame_median": 6.306,
+    "max": 6.359,
+    "fft_us_per_frame": 3.785,
+    "plan_window_us": 10.0
+   },
+   "factor2": {
+    "length": 972,
+    "factorisation": "972 (486: [2, 3, 3, 3, 3, 3])",
+    "extract_us_per_frame_median": 5.82,
+    "max": 6.114,
+    "fft_us_per_frame": 3.322,
+    "plan_window_us": 8.5
+   },
+   "best1": 969,
+   "best2": 968
+  },
+  {
+   "speed": "1.060",
+   "hop": 121,
+   "frames_in_identify": 185280,
+   "analyses": 24,
+   "today": {
+    "length": 966,
+    "factorisation": "966 (483: [3, 7, 23])",
+    "extract_us_per_frame_median": 4.862,
+    "max": 4.926,
+    "fft_us_per_frame": 2.377,
+    "plan_window_us": 6.8
+   },
+   "even": {
+    "length": 966,
+    "factorisation": "966 (483: [3, 7, 23])",
+    "extract_us_per_frame_median": 4.862,
+    "max": 4.926,
+    "fft_us_per_frame": 2.377,
+    "plan_window_us": 6.8
+   },
+   "factor1": {
+    "length": 966,
+    "factorisation": "966 (483: [3, 7, 23])",
+    "extract_us_per_frame_median": 4.862,
+    "max": 4.926,
+    "fft_us_per_frame": 2.377,
+    "plan_window_us": 6.8
+   },
+   "factor2": {
+    "length": 968,
+    "factorisation": "968 (484: [2, 2, 11, 11])",
+    "extract_us_per_frame_median": 5.398,
+    "max": 5.502,
+    "fft_us_per_frame": 2.919,
+    "plan_window_us": 8.2
+   },
+   "best1": 966,
+   "best2": 966
+  },
+  {
+   "speed": "1.064",
+   "hop": 120,
+   "frames_in_identify": 186808,
+   "analyses": 24,
+   "today": {
+    "length": 962,
+    "factorisation": "962 (481: [13, 37])",
+    "extract_us_per_frame_median": 9.1,
+    "max": 9.185,
+    "fft_us_per_frame": 6.651,
+    "plan_window_us": 8.5
+   },
+   "even": {
+    "length": 962,
+    "factorisation": "962 (481: [13, 37])",
+    "extract_us_per_frame_median": 9.1,
+    "max": 9.185,
+    "fft_us_per_frame": 6.651,
+    "plan_window_us": 8.5
+   },
+   "factor1": {
+    "length": 961,
+    "factorisation": "961 (961: [31, 31])",
+    "extract_us_per_frame_median": 6.13,
+    "max": 6.382,
+    "fft_us_per_frame": 3.695,
+    "plan_window_us": 9.3
+   },
+   "factor2": {
+    "length": 960,
+    "factorisation": "960 (480: [2, 2, 2, 2, 2, 3, 5])",
+    "extract_us_per_frame_median": 3.792,
+    "max": 3.872,
+    "fft_us_per_frame": 1.348,
+    "plan_window_us": 6.5
+   },
+   "best1": 961,
+   "best2": 960
+  },
+  {
+   "speed": "1.068",
+   "hop": 120,
+   "frames_in_identify": 186786,
+   "analyses": 24,
+   "today": {
+    "length": 959,
+    "factorisation": "959 (959: [7, 137])",
+    "extract_us_per_frame_median": 15.226,
+    "max": 15.555,
+    "fft_us_per_frame": 12.786,
+    "plan_window_us": 10.6
+   },
+   "even": {
+    "length": 958,
+    "factorisation": "958 (479: [479])",
+    "extract_us_per_frame_median": 7.018,
+    "max": 7.095,
+    "fft_us_per_frame": 4.534,
+    "plan_window_us": 19.6
+   },
+   "factor1": {
+    "length": 960,
+    "factorisation": "960 (480: [2, 2, 2, 2, 2, 3, 5])",
+    "extract_us_per_frame_median": 3.792,
+    "max": 3.872,
+    "fft_us_per_frame": 1.348,
+    "plan_window_us": 6.5
+   },
+   "factor2": {
+    "length": 960,
+    "factorisation": "960 (480: [2, 2, 2, 2, 2, 3, 5])",
+    "extract_us_per_frame_median": 3.792,
+    "max": 3.872,
+    "fft_us_per_frame": 1.348,
+    "plan_window_us": 6.5
+   },
+   "best1": 960,
+   "best2": 960
+  },
+  {
+   "speed": "1.072",
+   "hop": 119,
+   "frames_in_identify": 188365,
+   "analyses": 24,
+   "today": {
+    "length": 955,
+    "factorisation": "955 (955: [5, 191])",
+    "extract_us_per_frame_median": 15.587,
+    "max": 16.012,
+    "fft_us_per_frame": 13.179,
+    "plan_window_us": 11.5
+   },
+   "even": {
+    "length": 956,
+    "factorisation": "956 (478: [2, 239])",
+    "extract_us_per_frame_median": 10.885,
+    "max": 11.127,
+    "fft_us_per_frame": 8.436,
+    "plan_window_us": 11.1
+   },
+   "factor1": {
+    "length": 954,
+    "factorisation": "954 (477: [3, 3, 53])",
+    "extract_us_per_frame_median": 8.882,
+    "max": 8.932,
+    "fft_us_per_frame": 6.431,
+    "plan_window_us": 8.4
+   },
+   "factor2": {
+    "length": 957,
+    "factorisation": "957 (957: [3, 11, 29])",
+    "extract_us_per_frame_median": 6.396,
+    "max": 6.485,
+    "fft_us_per_frame": 3.941,
+    "plan_window_us": 9.8
+   },
+   "best1": 954,
+   "best2": 957
+  },
+  {
+   "speed": "1.076",
+   "hop": 119,
+   "frames_in_identify": 188360,
+   "analyses": 24,
+   "today": {
+    "length": 952,
+    "factorisation": "952 (476: [2, 2, 7, 17])",
+    "extract_us_per_frame_median": 4.497,
+    "max": 4.607,
+    "fft_us_per_frame": 2.094,
+    "plan_window_us": 6.9
+   },
+   "even": {
+    "length": 952,
+    "factorisation": "952 (476: [2, 2, 7, 17])",
+    "extract_us_per_frame_median": 4.497,
+    "max": 4.607,
+    "fft_us_per_frame": 2.094,
+    "plan_window_us": 6.9
+   },
+   "factor1": {
+    "length": 952,
+    "factorisation": "952 (476: [2, 2, 7, 17])",
+    "extract_us_per_frame_median": 4.497,
+    "max": 4.607,
+    "fft_us_per_frame": 2.094,
+    "plan_window_us": 6.9
+   },
+   "factor2": {
+    "length": 952,
+    "factorisation": "952 (476: [2, 2, 7, 17])",
+    "extract_us_per_frame_median": 4.497,
+    "max": 4.607,
+    "fft_us_per_frame": 2.094,
+    "plan_window_us": 6.9
+   },
+   "best1": 952,
+   "best2": 952
+  },
+  {
+   "speed": "1.080",
+   "hop": 119,
+   "frames_in_identify": 188354,
+   "analyses": 24,
+   "today": {
+    "length": 948,
+    "factorisation": "948 (474: [2, 3, 79])",
+    "extract_us_per_frame_median": 8.876,
+    "max": 9.184,
+    "fft_us_per_frame": 6.521,
+    "plan_window_us": 8.8
+   },
+   "even": {
+    "length": 948,
+    "factorisation": "948 (474: [2, 3, 79])",
+    "extract_us_per_frame_median": 8.876,
+    "max": 9.184,
+    "fft_us_per_frame": 6.521,
+    "plan_window_us": 8.8
+   },
+   "factor1": {
+    "length": 949,
+    "factorisation": "949 (949: [13, 73])",
+    "extract_us_per_frame_median": 14.647,
+    "max": 14.841,
+    "fft_us_per_frame": 12.266,
+    "plan_window_us": 10.1
+   },
+   "factor2": {
+    "length": 950,
+    "factorisation": "950 (475: [5, 5, 19])",
+    "extract_us_per_frame_median": 4.937,
+    "max": 4.963,
+    "fft_us_per_frame": 2.546,
+    "plan_window_us": 6.8
+   },
+   "best1": 948,
+   "best2": 950
+  }
+ ],
+ "end_to_end_timing_only": {
+  "note": "builds with factor2 or best2 lengths in the first pass for timing only (reports differ); the 2003 mix at NAS scale, --store-only -f json; both = --playback both (3 blocks), tt = the configuration (turntable, 2 blocks); contended: load averages 22-157 at the starts, other processes up to about one core between runs",
+  "series": {
+   "both": {
+    "s19-start": {
+     "n": 6,
+     "wall": [
+      47.74,
+      47.78,
+      48.7,
+      48.95,
+      50.05,
+      50.27
+     ],
+     "wall_median": 48.83,
+     "wall_change": 0.0,
+     "user_median": 411.1,
+     "user_change": 0.0,
+     "sys_median": 15.8,
+     "rss_max_gb": 4.875
+    },
+    "s19-fft-factor2": {
+     "n": 6,
+     "wall": [
+      44.55,
+      44.67,
+      45.84,
+      46.57,
+      46.82,
+      49.04
+     ],
+     "wall_median": 46.2,
+     "wall_change": -5.4,
+     "user_median": 382.7,
+     "user_change": -6.9,
+     "sys_median": 16.5,
+     "rss_max_gb": 4.877
+    },
+    "s19-fft-best2": {
+     "n": 6,
+     "wall": [
+      44.29,
+      44.35,
+      45.09,
+      45.17,
+      45.36,
+      45.79
+     ],
+     "wall_median": 45.13,
+     "wall_change": -7.6,
+     "user_median": 375.3,
+     "user_change": -8.7,
+     "sys_median": 16.4,
+     "rss_max_gb": 4.872
+    }
+   },
+   "tt": {
+    "s19-start": {
+     "n": 4,
+     "wall": [
+      30.79,
+      30.8,
+      30.9,
+      30.98
+     ],
+     "wall_median": 30.85,
+     "wall_change": 0.0,
+     "user_median": 250.2,
+     "user_change": 0.0,
+     "sys_median": 13.0,
+     "rss_max_gb": 4.719
+    },
+    "s19-fft-factor2": {
+     "n": 4,
+     "wall": [
+      27.77,
+      27.99,
+      28.02,
+      28.28
+     ],
+     "wall_median": 28.0,
+     "wall_change": -9.2,
+     "user_median": 219.9,
+     "user_change": -12.1,
+     "sys_median": 13.8,
+     "rss_max_gb": 4.719
+    },
+    "s19-fft-best2": {
+     "n": 4,
+     "wall": [
+      27.19,
+      27.4,
+      27.48,
+      28.04
+     ],
+     "wall_median": 27.44,
+     "wall_change": -11.1,
+     "user_median": 214.1,
+     "user_change": -14.4,
+     "sys_median": 16.1,
+     "rss_max_gb": 4.714
+    }
+   }
+  }
+ }
+}

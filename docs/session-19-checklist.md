@@ -24,12 +24,16 @@ for scope and rules.
   B A (contended): the stage 8.7-13.3% cheaper, below the 20% stop point
 - [-] 2d. Not run: stopped at 2c. Code deleted (kept in
   `work/s19/lines.rs.p1`); experiment 0108
-- [ ] 3a. The lengths of the three (four) arms with factorisations
-- [ ] 3b. Timing on fixed decoded input; instrumented weights; plan count
-- [ ] 3c. The weighted first-pass time per arm; the 20% stop point; what a
-  retrieval study needs
-- [ ] 3d. A plan cache, only if plan construction is material
-- [ ] 3e. Experiment 0109
+- [x] 3a. The lengths of four arms with factorisations, plus the fastest
+  measured within 1 and 2 samples (`work/s19/fft-lengths.txt`)
+- [x] 3b. Timing on 60 s of the 2003 mix, one thread; instrumented
+  weights; 1,862 plans in 0.052 s per `identify`
+- [x] 3c. Weighted first-pass turntable analysis: nearest-even -21.8%,
+  factor-aware within 2 samples -36.5% (-30.8% with key-locked rungs);
+  timing-only builds -5.4% to -11.1% wall; retrieval study described in
+  the notes
+- [-] 3d. Plan cache not tried: plans are 0.04% of the analysis
+- [x] 3e. Experiment 0109
 - [ ] 4. Read-only review by a subagent; fixes
 
 ## Wrap-up

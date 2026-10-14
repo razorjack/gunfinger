@@ -2653,3 +2653,50 @@ during the session.
   `regress session-18-start` identical (720/720 sweep queries, all 87,
   93 and 79 scan detections, the known calibrate line).
   `scripts/check.sh` green (357 tests).
+
+## 2026-10-14: session 19, search speed: proposals 1 and 2 of the external review
+
+Brief `docs/brief-19.md`, checklist `docs/session-19-checklist.md`. Timings were taken under other load; each timing series
+records the load (`work/s19/load-*.txt`).
+
+- 17:23 setup, `git status` clean at `d867557`. Release build in
+  `work/bin/s19-start/`; `baseline session-19-start`. The NAS store:
+  38,105 records, revision `b285da9984422fb5`, as expected; rustc 1.98.0,
+  RealFFT 3.5.0, RustFFT 6.4.1. `doctor` (3:24, listing the NAS over
+  WiFi): the CLI's saved index (4.29 GB, 15:16) current. The 2003 mix
+  at NAS scale (`--store-only --playback both -f json`): 50.0 s, 412 s
+  user, 4.82 GB, the saved index loaded (`work/s19/bench/ref-start.json`).
+  Session 17's and 18's NAS timings (33,596 and 33,723 records) are not
+  comparable with these.
+- Step 2, proposal 1 (experiment 0108): integer phases per query point
+  for the pre-filter (`Phases::of`, guarded, `f64` slots outside the
+  guard) and 11 predicate tests against `densest_clusters`; a 3-frame
+  error in the phases fails three of them. Instrumented builds
+  (`work/s19/py/instrument.py`, never committed): 864,119,839 assets
+  filtered, 36.76 billion hits examined, 17,867,626 assets sorted
+  (start) against 17,870,712, 4,200,915 lines in both; reports
+  byte-identical. Split profiles (0103's method, `work/s19/profiles.sh`,
+  `work/s19/py/split.py`, `work/s19/py/stages.py`), A B B A twice: the
+  stage (pre-filter, phases, the sort and clustering it leads to) fell
+  from 29.4% to 26.6% of CPU samples (contended, load 24-76) and from
+  30.1% to 27.8% (quieter); 13% against the unchanged analysis. Below
+  the 20% stop point: no A B B A timing, code deleted
+  (`work/s19/lines.rs.p1` keeps it).
+- Step 3, proposal 2 (experiment 0109): `work/perf/s19-fft` (a crate
+  outside the workspace with its own copy of the lockfile; `s19-fft
+  lengths > work/s19/fft-lengths.txt`; `work/s19/fft-time.sh b 5 near`,
+  60 s of the 2003 mix from 10:00 decoded once to
+  `work/perf/s19-fft/mix-600s-60s.f32`) times each length and hop on one
+  thread; `work/s19/py/fft_weighted.py` weights the rungs by the frames
+  of an instrumented `identify` (`S19FFT` lines in
+  `work/s19/bench/s19-start-count.err`). One `identify` builds 1,862
+  plans in 0.052 s (0.04% of the STFT loop's 128 s): no plan cache.
+  First-pass turntable analysis, 73.2 s today: nearest-even -21.8%,
+  factor-aware within 1 sample -25.5%, within 2 -36.5%, the fastest
+  measured within 1 and 2 -35.4% and -44.0%; with the key-locked rungs
+  as unaffected work -18.4%, -21.6%, -30.8%, -29.9%, -37.2%. Timing-only
+  builds with the factor-aware and fastest lengths in the first pass
+  (`work/s19/py/fft_variant.py`, `work/s19/fft-abba.sh`, contended):
+  `--playback both` 46.2 s and 45.1 s against 48.8 s (medians of 6),
+  turntable playback 28.0 s and 27.4 s against 30.9 s (medians of 4),
+  memory unchanged; their reports differ. No product length changed.
