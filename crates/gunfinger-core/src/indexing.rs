@@ -3,10 +3,12 @@
 use std::collections::BTreeSet;
 use std::fmt;
 use std::path::Path;
+use std::sync::mpsc;
+use std::thread;
 use std::time::Duration;
 
 use crate::decode::{Decoder, Excerpt};
-use crate::index::{Index, IndexError};
+use crate::index::{HashedRecord, Index, IndexError};
 use crate::library::{Asset, Library};
 use crate::parallel::map_in_order;
 use crate::peaks::extract_peaks;
@@ -20,6 +22,10 @@ use crate::timecode::format_timecode;
 /// the range, so that a bitrate estimate a little off cannot reject a
 /// track; nearer a limit, the decoded length decides.
 const DECLARED_LENGTH_MARGIN: f64 = 1.1;
+/// Records an index build hashes at once: about 7 MB of hashes for tracks
+/// of six minutes. Larger batches are no faster and raise peak memory
+/// (experiment 0106).
+const HASHED_AT_ONCE: usize = 32;
 
 /// What indexing did with one asset.
 #[derive(Debug)]
@@ -354,18 +360,20 @@ pub fn build_index(
         plan_index(assets, store, profile, excluded, length, jobs),
         store,
         profile,
+        jobs,
     )
 }
 
-/// The index of a plan's files. It is built in two passes that read one
-/// record at a time from the store (`Index::counting`), so it needs little
-/// more memory than the index itself. A record whose peaks cannot be read
-/// is left out and returned among the problems rather than failing the
-/// build.
+/// The index of a plan's files. It is built in two passes that read the
+/// records from the store (`Index::counting`), hashing them on `jobs`
+/// threads a batch at a time, so it needs little more memory than the
+/// index itself. A record whose peaks cannot be read is left out and
+/// returned among the problems rather than failing the build.
 pub fn build_planned(
     plan: IndexPlan,
     store: &PeakStore,
     profile: &Profile,
+    jobs: usize,
 ) -> Result<BuiltIndex, IndexError> {
     let IndexPlan {
         sources,
@@ -374,28 +382,73 @@ pub fn build_planned(
     } = plan;
     let mut counting = Index::counting();
     let mut indexed = Vec::new();
-    for asset in sources {
-        match store.load(&asset, profile) {
-            Ok(record) => {
-                counting.count(&record)?;
-                indexed.push(asset);
+    let counted = |asset: &Asset| {
+        store
+            .load(asset, profile)
+            .map(|record| HashedRecord::new(&record))
+    };
+    hashed_in_batches(&sources, jobs, counted, |batch, hashed| {
+        for (asset, hashed) in batch.iter().zip(hashed) {
+            match hashed {
+                Ok(hashed) => {
+                    // As in `Counting::count`, a full index comes first.
+                    counting.room()?;
+                    counting.count_hashed(&hashed?)?;
+                    indexed.push(asset.clone());
+                }
+                Err(problem) => problems.push(problem),
             }
-            Err(problem) => problems.push(problem),
         }
-    }
+        Ok(())
+    })?;
     let mut filling = counting.into_filling();
-    for asset in &indexed {
+    let filled = |asset: &Asset| {
         let record = store
             .load(asset, profile)
             .map_err(|_| IndexError::Changed)?;
-        filling.fill(&record)?;
-    }
+        HashedRecord::new(&record)
+    };
+    hashed_in_batches(&indexed, jobs, filled, |_, hashed| {
+        for hashed in hashed {
+            filling.fill_hashed(&hashed?)?;
+        }
+        Ok(())
+    })?;
     Ok(BuiltIndex {
         index: filling.finish()?,
         revision: library_revision(&indexed),
         problems,
         outside,
         sources: indexed,
+    })
+}
+
+/// Hashes `assets` in order, `HASHED_AT_ONCE` at a time on `jobs` threads,
+/// handing each batch to `take` while the next one is hashed.
+fn hashed_in_batches<T: Send>(
+    assets: &[Asset],
+    jobs: usize,
+    hash: impl Fn(&Asset) -> T + Sync,
+    mut take: impl FnMut(&[Asset], Vec<T>) -> Result<(), IndexError>,
+) -> Result<(), IndexError> {
+    thread::scope(|scope| {
+        let (sender, batches) = mpsc::sync_channel(0);
+        let hash = &hash;
+        scope.spawn(move || {
+            for batch in assets.chunks(HASHED_AT_ONCE) {
+                // The channel closes when `take` fails.
+                if sender
+                    .send((batch, map_in_order(batch, jobs, hash)))
+                    .is_err()
+                {
+                    break;
+                }
+            }
+        });
+        for (batch, hashed) in batches {
+            take(batch, hashed)?;
+        }
+        Ok(())
     })
 }
 
@@ -435,11 +488,70 @@ pub fn library_revision<'a>(assets: impl IntoIterator<Item = &'a Asset>) -> Stri
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::hash::{HASH_BITS, PairHash};
+    use crate::library::Timestamp;
+    use crate::peaks::Peak;
+    use std::fs;
 
     const LENGTH: TrackLength = TrackLength {
         min: Duration::from_secs(90),
         max: Duration::from_secs(900),
     };
+
+    #[test]
+    fn an_index_built_on_threads_is_the_one_built_in_order() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-build-{}", std::process::id()));
+        let store = PeakStore::open(&dir).unwrap();
+        let profile = Profile::CURRENT;
+        // Several batches; peaks shifted from record to record, so that
+        // most hashes hold postings of many assets.
+        let sources: Vec<Asset> = (0..2 * HASHED_AT_ONCE + 5)
+            .map(|number| Asset {
+                path: format!("{number:03}.mp3"),
+                size: 1000,
+                modified: Timestamp {
+                    seconds: 1,
+                    nanos: 0,
+                },
+            })
+            .collect();
+        for (number, source) in sources.iter().enumerate() {
+            let peaks = (0..60)
+                .map(|step| Peak {
+                    frame: (step * 7 + number % 5) as f64,
+                    bin: 20.0 + ((step * 13 + number) % 90) as f32,
+                    magnitude: 0.0,
+                })
+                .collect();
+            let header = RecordHeader {
+                profile: profile.id(),
+                source: source.clone(),
+                duration_seconds: 200.0,
+            };
+            store.save(&PeakRecord { header, peaks }).unwrap();
+        }
+        let plan = IndexPlan {
+            sources: sources.clone(),
+            problems: Vec::new(),
+            outside: Vec::new(),
+        };
+
+        let built = build_planned(plan, &store, &profile, 3).unwrap().index;
+        let records: Vec<PeakRecord> = sources
+            .iter()
+            .map(|source| store.load(source, &profile).unwrap())
+            .collect();
+        let expected = Index::build(&records).unwrap();
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert_eq!(built.assets(), expected.assets());
+        assert_eq!(built.posting_count(), expected.posting_count());
+        assert!(
+            (0..1 << HASH_BITS)
+                .map(PairHash)
+                .all(|hash| built.postings(hash) == expected.postings(hash))
+        );
+    }
 
     #[test]
     fn a_track_length_rejects_samples_and_sets() {

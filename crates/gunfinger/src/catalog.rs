@@ -36,7 +36,8 @@ pub struct Source<'a> {
     pub exclude_from: Option<&'a Path>,
     pub track_length: TrackLength,
     pub saved_index: SavedIndex,
-    /// Threads reading the peak records' headers.
+    /// Threads reading the peak records' headers, and hashing the records
+    /// when the index is built.
     pub jobs: usize,
 }
 
@@ -67,6 +68,7 @@ pub struct Indexable {
     track_length: TrackLength,
     store_only: bool,
     saved_index: SavedIndex,
+    jobs: usize,
 }
 
 impl Indexable {
@@ -98,6 +100,7 @@ impl Indexable {
                 track_length: source.track_length,
                 store_only,
                 saved_index: source.saved_index,
+                jobs: source.jobs,
             }
         };
         let peaks_dir = source.peaks_dir;
@@ -229,6 +232,7 @@ impl Catalog {
             track_length,
             store_only,
             saved_index,
+            jobs,
         } = indexable;
         let file = saved_file(&store, saved_index, &excluded, console);
         let BuiltIndex {
@@ -238,8 +242,16 @@ impl Catalog {
             outside,
             sources,
         } = match file {
-            Some(path) => load_or_build(&path, plan, &store, track_length, saved_index, console)?,
-            None => build_planned(plan, &store, &Profile::CURRENT).into_diagnostic()?,
+            Some(path) => load_or_build(
+                &path,
+                plan,
+                &store,
+                track_length,
+                saved_index,
+                jobs,
+                console,
+            )?,
+            None => build_planned(plan, &store, &Profile::CURRENT, jobs).into_diagnostic()?,
         };
         problems.extend(left_out);
         report_left_out(&problems, console);
@@ -312,6 +324,7 @@ fn load_or_build(
     store: &PeakStore,
     track_length: TrackLength,
     saved_index: SavedIndex,
+    jobs: usize,
     console: &Console,
 ) -> miette::Result<BuiltIndex> {
     let provenance = |sources: &[Asset]| Provenance {
@@ -349,7 +362,7 @@ fn load_or_build(
         }
     }
     let started = Instant::now();
-    let built = build_planned(plan, store, &Profile::CURRENT).into_diagnostic()?;
+    let built = build_planned(plan, store, &Profile::CURRENT, jobs).into_diagnostic()?;
     console.detail(format_args!(
         "built the index in {:.1} s",
         started.elapsed().as_secs_f64()

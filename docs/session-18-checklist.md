@@ -46,7 +46,9 @@ for scope and rules.
 - [x] 6. Search speed: profile; slot variants V2, V2b, V3 rejected
   (0103); kept the postings read on a second thread (0104) and peak
   records parsed from memory (0105): 3.1% less wall time per NAS search,
-  `stats` 19% faster; reports and `regress` identical, memory +0.4%
+  `stats` 19% faster; reports and `regress` identical, memory +0.4%; and the
+  index built on threads when the saved one is stale (0106): the first
+  search after the store changes 51 s, not 120 s
 - [ ] 7. Read-only review by a subagent; fixes
 
 ## Wrap-up

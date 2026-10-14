@@ -1,0 +1,206 @@
+{
+ "experiment": "0106",
+ "command": "gunfinger identify corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3 --config ~/.config/gunfinger/nas-dnb.toml --store-only --playback both --saved-index off -v -f json",
+ "builds": {
+  "s18-step6": "0104 and 0105",
+  "build-first / s18-build": "batches of 256 hashed on threads, counted or filled after each batch",
+  "s18-build2": "batches of 128, the next hashed while the last is counted or filled",
+  "s18-build32 / s18-par": "batches of 32, as s18-build2 (kept)"
+ },
+ "profile_before_10ms_samples": {
+  "Counting::count": 3197,
+  "Filling::fill": 1837,
+  "read": 1173,
+  "PeakStore::load": 154,
+  "__open": 137,
+  "index_ready_s": 78.9
+ },
+ "profile_batched_1ms_samples": {
+  "for_each_pair in HashedRecord::new": 26481,
+  "logf": 1638,
+  "Filling::fill_hashed": 1937,
+  "Counting::count_hashed": 824,
+  "__open (with the header reads)": 9389,
+  "read": 4183,
+  "index_ready_s_under_sampling": 18.4
+ },
+ "runs": {
+  "build-first": {
+   "run": "build-first",
+   "wall_s": 54.21,
+   "user_s": 430.3,
+   "sys_s": 17.47,
+   "peak_rss_bytes": 4411064320,
+   "report_identical_to_start": true,
+   "index_ready_s": 13.6
+  },
+  "off-1-start": {
+   "run": "off-1-start",
+   "wall_s": 112.42,
+   "user_s": 441.13,
+   "sys_s": 20.93,
+   "peak_rss_bytes": 4335812608,
+   "report_identical_to_start": true,
+   "index_ready_s": 71.3
+  },
+  "off-2-load2": {
+   "run": "off-2-load2",
+   "wall_s": 131.37,
+   "user_s": 452.51,
+   "sys_s": 27.32,
+   "peak_rss_bytes": 4343234560,
+   "report_identical_to_start": true,
+   "index_ready_s": 90.3
+  },
+  "off-3-store": {
+   "run": "off-3-store",
+   "wall_s": 119.48,
+   "user_s": 440.17,
+   "sys_s": 17.81,
+   "peak_rss_bytes": 4342480896,
+   "report_identical_to_start": true,
+   "index_ready_s": 78.8
+  },
+  "off-4-store": {
+   "run": "off-4-store",
+   "wall_s": 123.47,
+   "user_s": 440.89,
+   "sys_s": 15.71,
+   "peak_rss_bytes": 4324802560,
+   "report_identical_to_start": true,
+   "index_ready_s": 83.1
+  },
+  "off-5-load2": {
+   "run": "off-5-load2",
+   "wall_s": 134.39,
+   "user_s": 452.98,
+   "sys_s": 17.51,
+   "peak_rss_bytes": 4340170752,
+   "report_identical_to_start": true,
+   "index_ready_s": 93.6
+  },
+  "off-6-start": {
+   "run": "off-6-start",
+   "wall_s": 128.36,
+   "user_s": 444.6,
+   "sys_s": 17.07,
+   "peak_rss_bytes": 4340727808,
+   "report_identical_to_start": true,
+   "index_ready_s": 87.9
+  },
+  "par-1-step6": {
+   "run": "par-1-step6",
+   "wall_s": 121.14,
+   "user_s": 440.25,
+   "sys_s": 16.15,
+   "peak_rss_bytes": 4343857152,
+   "report_identical_to_start": true,
+   "index_ready_s": 80.6
+  },
+  "par-2-par": {
+   "run": "par-2-par",
+   "wall_s": 51.4,
+   "user_s": 437.38,
+   "sys_s": 17.71,
+   "peak_rss_bytes": 4357324800,
+   "report_identical_to_start": true,
+   "index_ready_s": 10.5
+  },
+  "par-3-par": {
+   "run": "par-3-par",
+   "wall_s": 50.83,
+   "user_s": 430.24,
+   "sys_s": 21.72,
+   "peak_rss_bytes": 4352622592,
+   "report_identical_to_start": true,
+   "index_ready_s": 10.1
+  },
+  "par-4-step6": {
+   "run": "par-4-step6",
+   "wall_s": 119.39,
+   "user_s": 438.94,
+   "sys_s": 19.02,
+   "peak_rss_bytes": 4342153216,
+   "report_identical_to_start": true,
+   "index_ready_s": 78.9
+  },
+  "par-saved": {
+   "run": "par-saved",
+   "wall_s": 43.5,
+   "user_s": 379.79,
+   "sys_s": 15.38,
+   "peak_rss_bytes": 4311400448,
+   "report_identical_to_start": true
+  },
+  "s18-build-054504": {
+   "run": "s18-build-054504",
+   "wall_s": 52.65,
+   "user_s": 430.77,
+   "sys_s": 19.48,
+   "peak_rss_bytes": 4427743232,
+   "report_identical_to_start": true,
+   "index_ready_s": 12.4
+  },
+  "s18-build2-054413": {
+   "run": "s18-build2-054413",
+   "wall_s": 51.1,
+   "user_s": 430.57,
+   "sys_s": 21.74,
+   "peak_rss_bytes": 4407803904,
+   "report_identical_to_start": true,
+   "index_ready_s": 10.4
+  },
+  "s18-build2-054557": {
+   "run": "s18-build2-054557",
+   "wall_s": 50.14,
+   "user_s": 430.43,
+   "sys_s": 20.4,
+   "peak_rss_bytes": 4424876032,
+   "report_identical_to_start": true,
+   "index_ready_s": 9.9
+  },
+  "s18-build2-054816": {
+   "run": "s18-build2-054816",
+   "wall_s": 50.29,
+   "user_s": 430.02,
+   "sys_s": 20.57,
+   "peak_rss_bytes": 4428709888,
+   "report_identical_to_start": true,
+   "index_ready_s": 9.9
+  },
+  "s18-build32-054725": {
+   "run": "s18-build32-054725",
+   "wall_s": 50.88,
+   "user_s": 430.6,
+   "sys_s": 23.13,
+   "peak_rss_bytes": 4331274240,
+   "report_identical_to_start": true,
+   "index_ready_s": 10.3
+  },
+  "s18-build32-054906": {
+   "run": "s18-build32-054906",
+   "wall_s": 50.54,
+   "user_s": 430.09,
+   "sys_s": 22.34,
+   "peak_rss_bytes": 4350033920,
+   "report_identical_to_start": true,
+   "index_ready_s": 9.9
+  }
+ },
+ "saved_index_rebuilt": {
+  "command": "XDG_CACHE_HOME=work/s18/cache-new gunfinger --config ~/.config/gunfinger/nas-dnb.toml stats --store-only --saved-index rebuild -v",
+  "built_s": 11.0,
+  "saved_s": 2.1,
+  "bytes": 3809789076,
+  "identical_to": "~/.cache/gunfinger/indexes/nas-dnb-peaks-23935cfc56936b67.index written by s18-start at 03:48"
+ },
+ "saved_index_search": {
+  "run": "par-saved",
+  "wall_s": 43.5,
+  "user_s": 379.79,
+  "sys_s": 15.38,
+  "peak_rss_bytes": 4311400448,
+  "report_identical_to_start": true
+ },
+ "regress": "session-18-start identical with s18-par: 720/720 sweep queries, 87, 93 and 79 scan detections, the known calibrate line; 151.5 s, 1,310 s CPU"
+}

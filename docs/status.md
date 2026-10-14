@@ -2510,3 +2510,14 @@ during the session.
   reports identical; `stats` 20.0-20.2 s against 24.5-26.5 s. `regress
   session-18-start` identical with `work/bin/s18-step6/` (720/720, 87,
   93, 79, the known calibrate line; 154 s, 1,328 s CPU).
+- Step 6, continued (experiment 0106): with a stale saved index the
+  search first builds the index on one thread, 71-88 s of a 112-128 s
+  search on the NAS store. `indexing::build_planned` now loads and
+  hashes 32 records at a time on `jobs` threads (`HashedRecord`,
+  `Counting::count_hashed`, `Filling::fill_hashed`) while the calling
+  thread counts or fills the batch before, in library order. A B B A
+  (`--saved-index off`): 50.8-51.4 s against 119.4-121.1 s, index ready
+  in 10.1-10.5 s against 78.9-80.6 s, memory +0.3%, reports identical.
+  The saved index it writes (to a scratch `XDG_CACHE_HOME`) is
+  byte-identical to the one the start build wrote; `regress
+  session-18-start` identical with `work/bin/s18-par/`.

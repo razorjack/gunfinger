@@ -277,21 +277,33 @@ pub struct Counting {
 impl Counting {
     /// Counts the postings of the next asset's record.
     pub fn count(&mut self, record: &PeakRecord) -> Result<(), IndexError> {
-        if self.assets.len() == MAX_ASSETS {
-            return Err(IndexError::TooManyAssets);
-        }
-        let points = points_of(record)?;
-        let mut pairs = 0;
-        for_each_pair(&points, |_, _| pairs += 1);
+        self.room()?;
+        self.count_hashed(&HashedRecord::new(record)?)
+    }
+
+    /// Counts the postings of the next asset's record, hashed.
+    pub fn count_hashed(&mut self, record: &HashedRecord) -> Result<(), IndexError> {
+        self.room()?;
+        let pairs = record.pairs.len() as u64;
         if self.postings + pairs > u64::from(u32::MAX) {
             return Err(IndexError::TooManyPostings);
         }
         self.postings += pairs;
-        for_each_pair(&points, |hash, _| self.offsets[hash.0 as usize + 1] += 1);
+        for &(hash, _) in &record.pairs {
+            self.offsets[hash.0 as usize + 1] += 1;
+        }
         self.assets.push(IndexedAsset {
-            path: record.header.source.path.clone(),
-            duration_seconds: record.header.duration_seconds,
+            path: record.path.clone(),
+            duration_seconds: record.duration_seconds,
         });
+        Ok(())
+    }
+
+    /// `TooManyAssets` once the index holds as many as it can address.
+    pub fn room(&self) -> Result<(), IndexError> {
+        if self.assets.len() == MAX_ASSETS {
+            return Err(IndexError::TooManyAssets);
+        }
         Ok(())
     }
 
@@ -336,31 +348,35 @@ impl Filling {
     /// the one counted in its place, or no longer has the same hashes, is an
     /// error rather than a corrupt index.
     pub fn fill(&mut self, record: &PeakRecord) -> Result<(), IndexError> {
-        let path = &record.header.source.path;
-        if self
-            .assets
-            .get(self.filled)
-            .is_none_or(|asset| asset.path != *path)
-        {
-            return Err(IndexError::Changed);
-        }
-        let points = points_of(record)?;
+        self.next_is(&record.header.source.path)?;
+        self.fill_hashed(&HashedRecord::new(record)?)
+    }
+
+    /// Places the postings of the next asset's record, hashed.
+    pub fn fill_hashed(&mut self, record: &HashedRecord) -> Result<(), IndexError> {
+        self.next_is(&record.path)?;
         let asset = AssetId(self.filled as u32);
-        let mut overflowed = false;
-        for_each_pair(&points, |hash, anchor| {
+        for &(hash, frame) in &record.pairs {
             let hash = hash.0 as usize;
             let slot = self.next_slot[hash];
             if slot == self.offsets[hash + 1] {
-                overflowed = true;
-                return;
+                return Err(IndexError::Changed);
             }
-            self.postings[slot as usize] = Posting::new(asset, points[anchor].frame.round() as u32);
+            self.postings[slot as usize] = Posting::new(asset, frame);
             self.next_slot[hash] += 1;
-        });
-        if overflowed {
-            return Err(IndexError::Changed);
         }
         self.filled += 1;
+        Ok(())
+    }
+
+    fn next_is(&self, path: &str) -> Result<(), IndexError> {
+        if self
+            .assets
+            .get(self.filled)
+            .is_none_or(|asset| asset.path != path)
+        {
+            return Err(IndexError::Changed);
+        }
         Ok(())
     }
 
@@ -380,6 +396,30 @@ impl Filling {
             offsets: self.offsets,
             postings: self.postings,
             longest_scanned: u32::MAX,
+        })
+    }
+}
+
+/// A record's postings before it has an asset id: each pair's hash and
+/// anchor frame, in `for_each_pair`'s order. Records can be hashed on
+/// several threads, then counted and filled one at a time in asset order.
+pub struct HashedRecord {
+    path: String,
+    duration_seconds: f64,
+    pairs: Vec<(PairHash, u32)>,
+}
+
+impl HashedRecord {
+    pub fn new(record: &PeakRecord) -> Result<HashedRecord, IndexError> {
+        let points = points_of(record)?;
+        let mut pairs = Vec::new();
+        for_each_pair(&points, |hash, anchor| {
+            pairs.push((hash, points[anchor].frame.round() as u32));
+        });
+        Ok(HashedRecord {
+            path: record.header.source.path.clone(),
+            duration_seconds: record.header.duration_seconds,
+            pairs,
         })
     }
 }
