@@ -2594,3 +2594,25 @@ during the session.
   stricter test for "inside"; the plan, to be done next, is the
   roadmap's "Possible plays inside a confident play of another
   recording".
+
+## 2026-10-14: proposals from an external review recorded, unverified
+
+- A GPT Pro review, relayed by a GPT Astra agent on request
+  with the agent's own review, proposed five ways to improve matching:
+  integer pre-filter phases per query anchor, FFT lengths of the
+  turntable rungs, posting-list part boundaries computed once, a
+  companion-byte candidate scout, and an identifiability diagnostic
+  before any new confidence statistic. They are recorded, unverified,
+  in `docs/research/2026-10-14-matching-proposals.md`, with the
+  protections, prior experiments, contracts, stop points and proposed
+  criteria, and linked from the roadmap. No corpus experiment was run;
+  nothing was adopted or implemented; no experiment number was used.
+- Local checks while recording them (code and arithmetic only): the
+  pre-filter's per-hit slot arithmetic is about 10.7% of 0103's CPU
+  samples, the ceiling for the first proposal; nearest-even FFT
+  windows worsen the factorisation of 9 of the 17 lengths they change,
+  and a factor-aware choice within one sample leaves no rung with a
+  prime factor above 100 (16 today).
+- Our first item stays first: possible plays inside a confident
+  play of another recording leave the default tracklist (roadmap,
+  "Reports and command line").

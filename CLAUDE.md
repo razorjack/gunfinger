@@ -26,3 +26,5 @@ anything else:
    read-only)
 7. for the listening tool (`gunfinger-eval audition`):
    `docs/adr/0016-listening-tool.md` and `docs/audition-questions.md`
+8. for matching or search-speed work: the unverified proposals in
+   `docs/research/2026-10-14-matching-proposals.md`

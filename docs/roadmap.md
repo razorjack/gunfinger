@@ -342,7 +342,15 @@ marked as inferences were derived, not measured.
   grouping a part 20%, reading the postings 16%, query analysis 26%. A
   first `index` is 86% FFmpeg's decoding and resampling (0099), whose
   options are fixed. This comes before any change of hash design;
-  `regress` must show identical detections.
+  `regress` must show identical detections. *(2026-10-14, unverified
+  proposals from an external review, after our tracklist item)*
+  Integer phases per query anchor for the pre-filter (exact; about 10%
+  of CPU at most, from 0103's split profiles), FFT lengths of the
+  turntable rungs chosen by factorisation (a diagnostic first; a change
+  of length changes output), and posting-list part boundaries computed
+  once (exact; part of `take_part`'s 10.5%), each with its tests, stop
+  points and proposed criteria in
+  `docs/research/2026-10-14-matching-proposals.md`.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
@@ -440,6 +448,13 @@ marked as inferences were derived, not measured.
   alignment (summing a play's segments would change that); running into
   distinctive material adds hits only to the played file. More judged
   pairs (the verdicts by ear) would make it a challenge set.
+  *(2026-10-14, an unverified proposal from an external review)* Before
+  designing a statistic, an identifiability diagnostic: hold a shared
+  passage fixed, vary the distinctive context around it, and find
+  whether distinguishing evidence is absent from the audio, lost before
+  peaks and pairs, or present but unused; only the last justifies a new
+  statistic (proposal 5 of
+  `docs/research/2026-10-14-matching-proposals.md`).
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away
@@ -510,7 +525,12 @@ marked as inferences were derived, not measured.
   Wang-style pairs (0.746 against 0.487 on club mixes, 0.349 against
   0.255 on Mixotic), at lower accuracy (Sonnleitner et al. 2016, table
   2). Each extra peak a hash needs lowers its chance of surviving (Wang
-  2003, §2.2, for pairs).
+  2003, §2.2, for pairs). *(2026-10-14, an unverified proposal from an
+  external review)* A one-byte companion selector per posting, from the
+  anchor's other pair, to scout candidate files before today's pair
+  matcher searches them: about 0.95 GB more memory, discovery changes,
+  and only if grouping still dominates after the exact changes (proposal
+  4 of `docs/research/2026-10-14-matching-proposals.md`).
 - **Evidence summed across a play.** Plays (ADR 0006) show Fibre Optix
   "Sin", faded out for a station insert, as one possible play of two
   segments (168 hits). Experiment 0011: summing every segment is unsafe
