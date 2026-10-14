@@ -6,7 +6,7 @@ code change: each proposal needs its own plan, session and experiment
 file before anything is measured, and anything that changes output
 needs our decision. Our first item, possible plays inside a
 confident play of another recording (roadmap, "Reports and command
-line"), comes before all of them.
+line"), came before all of them; it is done (ADR 0019, 2026-10-14).
 
 ## Provenance
 

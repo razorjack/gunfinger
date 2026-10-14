@@ -27,21 +27,21 @@ $ gunfinger identify "Stakka & Skynet - Knowledge Magazine Mix (2000).m4a"
  3.    9:45  Konflict - Star Trails
  4.   14:22  Stakka & Skynet - Pathogen
  5.   17:32  Stakka & Skynet - Clockwork
- 6.   20:22  Stakka And Skynet - Clockwork (Stakka Rmx) (possible; shares material with Stakka & Skynet - Clockwork)
- 7.   21:22  Kraken - Side Effects (Teebee remix)
- 8.   25:20  Kraken+Arkane - Dominion  (also: KRAKEN - dominion)
- 9.   31:03  Kemal And Paul Reset - Kontempt
-10.   37:07  Stakka & Skynet feat. Kemal an - Bios-Fear
-11.   43:22  Stakka + Skynet - Logistics
-12.   49:46  Stakka & K.Tee - Auto Ignition
+ 6.   21:22  Kraken - Side Effects (Teebee remix)
+ 7.   25:20  Kraken+Arkane - Dominion  (also: KRAKEN - dominion)
+ 8.   31:03  Kemal And Paul Reset - Kontempt
+ 9.   37:07  Stakka & Skynet feat. Kemal an - Bios-Fear
+10.   43:22  Stakka + Skynet - Logistics
+11.   49:46  Stakka & K.Tee - Auto Ignition
 ```
 
 All eleven tracks of the mix, in order, in 20 seconds, with nothing wrong.
-Entry 6 is marked possible: the remix shares a passage with the original,
-and Gunfinger says so instead of claiming it. Entry 8 is two files in the
-library, named from their tags, both listed. A start time is where the
-track's audio is first found, so in a long blend it can come before the
-point where you would call the changeover.
+The library also holds the later Stakka remix of Clockwork, which carries
+a passage of the original; that weaker match inside the original's play
+stays out of the tracklist instead of passing for a track. Entry 7 is two
+files in the library, named from their tags, both listed. A start time is
+where the track's audio is first found, so in a long blend it can come
+before the point where you would call the changeover.
 
 A few principles shape everything else:
 
@@ -120,7 +120,11 @@ other (rips, masters, uploads sped up by a few percent) or when their tags
 give the same artist and title (an edit, a re-press, an upload with a
 longer intro). The entry is named after its strongest file; the others
 follow as `also:`, or as `titles disagree:` when their titles differ. Two
-tracks that overlap in a blend stay separate entries.
+tracks that overlap in a blend stay separate entries. A possible match
+lying inside a confident track's play, while that track's matches run on,
+such as a remix that carries a passage of the original, is material the
+two share, not a track, and is left out; the table (`--format human`)
+shows it, marked `shares material with`, and JSON keeps it.
 
 `--format` (`-f`) also takes:
 

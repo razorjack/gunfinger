@@ -10,8 +10,13 @@ Entries are rebuilt from the JSON report as `gunfinger` builds them
 passage (overlapping for half the shorter one) are one entry when the
 track would have started within 5 s of the same mix time or their files'
 artist and title tags compare equal; chains join; a possible play inside
-a confident play of another file is marked as sharing material and never
-joined.
+a passage of a confident play of another file (its segments joined across
+gaps of at most 10 s; experiment 0107) is marked as sharing material,
+never joined, and left out of the default tracklist (ADR 0019), unless a
+confident play over most of it lines up with it or carries the same artist
+and title; a marked play is listed here with that mark and without a
+number. Experiment 0100 ran this with the play's whole span and without
+that exception, which marks the same four plays on its mix.
 
 usage: python3 -I scripts/analysis/tracklist_view.py CLUSTERS SET REPORT
 (CLUSTERS: the NAS duplicate clusters; REPORT: `identify -f json`; the
@@ -27,6 +32,7 @@ import devscore  # noqa: E402
 
 SAME_PASSAGE_OVERLAP = 0.5
 SAME_RECORDING_SECONDS = 5.0
+PASSAGE_GAP_SECONDS = 10.0
 
 
 def compared(text):
@@ -47,26 +53,46 @@ def name(play_or_tags, asset):
     return Path(asset).stem
 
 
+def passages(play):
+    joined = []
+    for start, end in sorted((s["start_seconds"], s["end_seconds"]) for s in play["segments"]):
+        if joined and start - joined[-1][1] <= PASSAGE_GAP_SECONDS:
+            joined[-1][1] = max(joined[-1][1], end)
+        else:
+            joined.append([start, end])
+    return joined
+
+
+def overlaps_most_of(a, b):
+    overlap = min(a["end_seconds"], b["end_seconds"]) - max(a["start_seconds"], b["start_seconds"])
+    shorter = min(a["end_seconds"] - a["start_seconds"], b["end_seconds"] - b["start_seconds"])
+    return overlap >= SAME_PASSAGE_OVERLAP * shorter
+
+
+def lines_up_or_tagged_alike(a, b):
+    if abs(started_at(a) - started_at(b)) <= SAME_RECORDING_SECONDS:
+        return True
+    return compared_name(a) is not None and compared_name(a) == compared_name(b)
+
+
 def mark_shared(plays):
     for play in plays:
         play["shares"] = None
-        if play["confidence"] != "possible":
+        if play["confidence"] != "possible" or any(
+                other["confidence"] == "confident" and overlaps_most_of(play, other)
+                and lines_up_or_tagged_alike(play, other) for other in plays):
             continue
         for number, other in enumerate(plays):
             if (other["confidence"] == "confident" and other["asset"] != play["asset"]
                     and play["asset"] not in other.get("same_audio", [])
-                    and other["start_seconds"] <= play["start_seconds"]
-                    and play["end_seconds"] <= other["end_seconds"]):
+                    and any(start <= play["start_seconds"] and play["end_seconds"] <= end
+                            for start, end in passages(other))):
                 play["shares"] = number
                 break
 
 
 def over_same_passage(a, b):
-    if a["shares"] is not None or b["shares"] is not None:
-        return False
-    overlap = min(a["end_seconds"], b["end_seconds"]) - max(a["start_seconds"], b["start_seconds"])
-    shorter = min(a["end_seconds"] - a["start_seconds"], b["end_seconds"] - b["start_seconds"])
-    return overlap >= SAME_PASSAGE_OVERLAP * shorter
+    return a["shares"] is None and b["shares"] is None and overlaps_most_of(a, b)
 
 
 def started_at(play):
@@ -74,11 +100,7 @@ def started_at(play):
 
 
 def joined(a, b):
-    if not over_same_passage(a, b):
-        return False
-    if abs(started_at(a) - started_at(b)) <= SAME_RECORDING_SECONDS:
-        return True
-    return compared_name(a) is not None and compared_name(a) == compared_name(b)
+    return over_same_passage(a, b) and lines_up_or_tagged_alike(a, b)
 
 
 def entries(plays):
@@ -119,17 +141,25 @@ def main():
         play["files"] = [devscore.PREFIX + a for a in [play["asset"], *play.get("same_audio", [])]]
     groups = entries(plays)
     covered = {id(slot): [] for slot in slots}
-    print(f"{len(groups)} entries")
-    for number, group in enumerate(groups, 1):
+    print(f"{sum(group[0]['shares'] is None for group in groups)} entries in the tracklist")
+    listed = 0
+    for group in groups:
         first = group[0]
+        if first["shares"] is None:
+            listed += 1
+            number = listed
+        else:
+            number = "-"
+        number_text = f"{number:>2}." if number != "-" else " - "
+
         start = min(p["start_seconds"] for p in group)
         end = max(p["end_seconds"] for p in group)
         tolerant = [s for s in slots if any(
             devscore.covers(s, f, p["start_seconds"], p["end_seconds"]) for p in group for f in p["files"])]
         right = sorted({s["track"]["label"].strip() for s in tolerant})
-        level = first["confidence"] + (" (shares material)" if first["shares"] is not None else "")
+        level = first["confidence"] + (" (shares material; not in the default tracklist)" if first["shares"] is not None else "")
         verdict = ("right file among them: " + "; ".join(right)) if right else "ONLY WRONG FILES"
-        print(f"{number:>2}. {clock(start)}-{clock(end)} {level}: {name(first.get('tags'), first['asset'])}"
+        print(f"{number_text} {clock(start)}-{clock(end)} {level}: {name(first.get('tags'), first['asset'])}"
               f"  [{verdict}]")
         for play in group:
             for file in play["files"]:
@@ -141,7 +171,7 @@ def main():
                       f"-{clock(play['end_seconds'])} {name(tags, file)} | {file[len(devscore.PREFIX):]}"
                       f"{'  <- ' + ', '.join(accepted) if accepted else ''}")
         for slot in tolerant:
-            covered[id(slot)].append(number)
+            covered[id(slot)].append(number if number != "-" else "left out")
     print("tracks:")
     for slot in slots:
         state = "absent" if not slot["track"]["references"] else (

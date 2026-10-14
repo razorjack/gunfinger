@@ -62,7 +62,7 @@ pub fn named(name: &str, playback: Playback) -> String {
 }
 
 /// "  shares material with <name> (play N)" for a possible play inside a
-/// confident play of another recording, else nothing.
+/// passage of a confident play of another recording, else nothing.
 pub fn shared_material(play: &FoundPlay, name: impl Fn(&str) -> String) -> String {
     play.shares_material_with
         .as_ref()

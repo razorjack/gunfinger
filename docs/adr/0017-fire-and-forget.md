@@ -2,12 +2,14 @@
 
 ## Status
 
-Accepted (2026-10-13, session 16). Records the product principle from our prompts
-in their words, the scope and priorities that follow from it, the default
-output of `identify` and `show`, and how the tracklist groups plays into
-one entry per track. It ends two roadmap items for
-the product ("Report edits", "The Track/AudioAsset model") and limits a
-third ("Titles of mislabelled files") to flagging.
+Accepted (2026-10-13, session 16); its default output amended by ADR
+0019 (possible plays inside a confident play leave the tracklist,
+2026-10-14). Records our product principle in our words, the
+scope and priorities that follow from it, the default output of
+`identify` and `show`, and how the tracklist groups plays into one entry
+per track. It ends two roadmap items for the product ("Report edits",
+"The Track/AudioAsset model") and limits a third ("Titles of mislabelled
+files") to flagging.
 
 ## Context
 

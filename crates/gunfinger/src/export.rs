@@ -10,7 +10,7 @@
 //! strongest, with the other names the tags give.
 
 use crate::names::TrackName;
-use crate::report::{FoundPlay, Level, Playback, Report, SharedWith};
+use crate::report::{FoundPlay, Level, Playback, Report};
 use crate::table::timecode;
 
 /// Cue sheet times count frames of 1/75 s.
@@ -174,35 +174,31 @@ fn first_plays(plays: &[FoundPlay]) -> Vec<usize> {
 }
 
 /// A numbered list of the tracks, with their start in the mix; possible
-/// entries are marked, with the name of the entry they share material
-/// with. As the default output it says when nothing was found, so that an
-/// empty result does not look like a run that printed nothing.
+/// entries are marked. A possible play inside a passage of a confident play
+/// of another recording (`shares_material_with`) is left out: it is
+/// material the two recordings share, not a track that was played, and the
+/// table and JSON keep it (ADR 0019). Such a play is never grouped, so it
+/// is an entry of its own. As the default output it says when nothing was found, so that
+/// an empty result does not look like a run that printed nothing.
 pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
-    let entries = entries(report);
+    let entries: Vec<Entry> = entries(report)
+        .into_iter()
+        .filter(|entry| {
+            entry.confidence() == Level::Confident
+                || entry
+                    .plays
+                    .iter()
+                    .any(|play| play.shares_material_with.is_none())
+        })
+        .collect();
     if entries.is_empty() {
         return String::from("no tracks found\n");
     }
-    let entry_name = |shared: &SharedWith| {
-        let play = shared
-            .play
-            .checked_sub(1)
-            .and_then(|index| report.plays.get(index));
-        entries
-            .iter()
-            .find(|entry| {
-                play.is_some_and(|play| entry.plays.iter().any(|other| std::ptr::eq(*other, play)))
-            })
-            .map_or_else(|| name(&shared.asset), |entry| name(entry.asset()))
-            .full()
-    };
     let mut lines = Vec::new();
     for (number, entry) in entries.iter().enumerate() {
-        let mark = match (entry.confidence(), &entry.plays[0].shares_material_with) {
-            (Level::Confident, _) => String::new(),
-            (_, Some(shared)) => {
-                format!(" (possible; shares material with {})", entry_name(shared))
-            }
-            (Level::Possible | Level::Weak, None) => String::from(" (possible)"),
+        let mark = match entry.confidence() {
+            Level::Confident => "",
+            Level::Possible | Level::Weak => " (possible)",
         };
         let others = entry.other_names(&name);
         let also = if others.is_empty() {
@@ -289,7 +285,7 @@ fn cue_time(frame: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::report::{OtherTitle, PlayTags};
+    use crate::report::{OtherTitle, PlayTags, SharedWith};
     use crate::table::tests::report;
 
     fn names(asset: &str) -> TrackName {
@@ -391,7 +387,7 @@ mod tests {
     }
 
     #[test]
-    fn a_possible_play_names_the_entry_it_shares_material_with() {
+    fn a_possible_play_sharing_material_is_left_out_of_the_tracklist() {
         let mut report = report();
         let mut fast = on_another_record(&report, 1, "b-sped-up-upload.wav", 1.035);
         fast.hits -= 100;
@@ -408,7 +404,7 @@ mod tests {
 
         assert_eq!(
             tracklist,
-            " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b  (also: b-sped-up-upload)\n 3.    0:38  b-vip (possible; shares material with b)\n 4.    1:24  insert (possible)\n 5.    1:36  c\n"
+            " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b  (also: b-sped-up-upload)\n 3.    1:24  insert (possible)\n 4.    1:36  c\n"
         );
     }
 

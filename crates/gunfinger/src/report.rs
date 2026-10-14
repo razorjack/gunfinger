@@ -154,9 +154,10 @@ pub struct FoundPlay {
     pub windows: u32,
     pub hits: u32,
     pub segments: Vec<Segment>,
-    /// Set on a possible play that lies entirely inside a confident play
-    /// of another recording: most likely material the two recordings share
-    /// (a remix carrying the original's lead), not a play of its own.
+    /// Set on a possible play that lies entirely inside a passage of a
+    /// confident play of another recording: most likely material the two
+    /// recordings share (a remix carrying the original's lead), not a play
+    /// of its own. The default tracklist leaves such a play out (ADR 0019).
     /// Display only; derived from the plays whenever a report is made or
     /// read.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -390,15 +391,25 @@ impl Report {
     }
 }
 
-/// Marks each possible play that lies entirely inside a confident play of
-/// another recording with the first such play. A remix played in its own
-/// right next to the original reaches past the original's play, or is
-/// confident itself, so it is not marked.
+/// Marks each possible play that lies entirely inside a passage of a
+/// confident play of another recording with the first such play. A remix
+/// played in its own right next to the original reaches past the
+/// original's play, or is confident itself, so it is not marked. Nor is a
+/// brief play between two parts of another play, which `plays::group`
+/// joins into one play across the gap: it lies inside that play's span but
+/// not inside one of its passages (experiment 0107). Nor is a play of the
+/// same track as a confident play over it (`one_track`), such as a weaker
+/// upload of the record playing: it joins that track's entry, which names
+/// every file (ADR 0017, ADR 0019).
 fn mark_shared_material(plays: &mut [FoundPlay]) {
     let marks: Vec<Option<SharedWith>> = plays
         .iter()
         .map(|play| {
-            if play.confidence != Level::Possible {
+            if play.confidence != Level::Possible
+                || plays
+                    .iter()
+                    .any(|other| other.confidence == Level::Confident && play.one_track(other))
+            {
                 return None;
             }
             plays
@@ -407,8 +418,9 @@ fn mark_shared_material(plays: &mut [FoundPlay]) {
                     other.confidence == Level::Confident
                         && other.asset != play.asset
                         && !other.same_audio.contains(&play.asset)
-                        && other.start_seconds <= play.start_seconds
-                        && play.end_seconds <= other.end_seconds
+                        && other.passages().into_iter().any(|(start, end)| {
+                            start <= play.start_seconds && play.end_seconds <= end
+                        })
                 })
                 .map(|index| SharedWith {
                     play: index + 1,
@@ -420,6 +432,10 @@ fn mark_shared_material(plays: &mut [FoundPlay]) {
         play.shares_material_with = mark;
     }
 }
+
+/// A play's segments at most this many seconds apart are one passage: the
+/// recording plays on through the gap (experiment 0091's `passage`).
+const PASSAGE_GAP_SECONDS: f64 = 10.0;
 
 /// Plays of different assets are over the same passage of the mix when
 /// they overlap for at least this share of the shorter play...
@@ -480,8 +496,7 @@ impl FoundPlay {
     /// the same passage of the mix, and the track would have started at the
     /// same mix time.
     pub fn same_recording(&self, other: &FoundPlay) -> bool {
-        self.over_same_passage(other)
-            && (self.track_started_at() - other.track_started_at()).abs() <= SAME_RECORDING_SECONDS
+        self.over_same_passage(other) && self.lines_up_with(other)
     }
 
     /// Whether two plays over the same passage of the mix come from files
@@ -491,19 +506,57 @@ impl FoundPlay {
     /// `other_titles`; a play without an artist or a title tag is not
     /// compared, as its name would come from its file name.
     pub fn same_tagged_track(&self, other: &FoundPlay) -> bool {
-        self.over_same_passage(other)
-            && self
-                .compared_name()
-                .is_some_and(|name| other.compared_name() == Some(name))
+        self.over_same_passage(other) && self.tagged_alike(other)
+    }
+
+    /// Whether two plays would be one entry by `same_recording` or
+    /// `same_tagged_track` if neither were marked as sharing material.
+    fn one_track(&self, other: &FoundPlay) -> bool {
+        self.overlaps_most_of(other) && (self.lines_up_with(other) || self.tagged_alike(other))
+    }
+
+    /// Whether the track would have started at the same mix time.
+    fn lines_up_with(&self, other: &FoundPlay) -> bool {
+        (self.track_started_at() - other.track_started_at()).abs() <= SAME_RECORDING_SECONDS
+    }
+
+    /// Whether both files' tags give the same artist and title.
+    fn tagged_alike(&self, other: &FoundPlay) -> bool {
+        self.compared_name()
+            .is_some_and(|name| other.compared_name() == Some(name))
+    }
+
+    /// The stretches of the mix the play's segments cover, joined across
+    /// gaps of at most `PASSAGE_GAP_SECONDS`, in order.
+    fn passages(&self) -> Vec<(f64, f64)> {
+        let mut spans: Vec<(f64, f64)> = self
+            .segments
+            .iter()
+            .map(|segment| (segment.start_seconds, segment.end_seconds))
+            .collect();
+        spans.sort_by(|a, b| a.0.total_cmp(&b.0));
+        let mut passages: Vec<(f64, f64)> = Vec::new();
+        for (start, end) in spans {
+            match passages.last_mut() {
+                Some(last) if start - last.1 <= PASSAGE_GAP_SECONDS => last.1 = last.1.max(end),
+                _ => passages.push((start, end)),
+            }
+        }
+        passages
     }
 
     /// Whether two plays overlap for most of the shorter one. A possible
     /// play marked as sharing material with another recording is a
     /// recording of its own, whatever lines up and whatever its tags say.
     fn over_same_passage(&self, other: &FoundPlay) -> bool {
-        if self.shares_material_with.is_some() || other.shares_material_with.is_some() {
-            return false;
-        }
+        self.shares_material_with.is_none()
+            && other.shares_material_with.is_none()
+            && self.overlaps_most_of(other)
+    }
+
+    /// Whether two plays overlap for at least `SAME_PASSAGE_OVERLAP` of the
+    /// shorter one.
+    fn overlaps_most_of(&self, other: &FoundPlay) -> bool {
         let overlap =
             self.end_seconds.min(other.end_seconds) - self.start_seconds.max(other.start_seconds);
         let shorter =
@@ -750,6 +803,7 @@ mod tests {
         let mut plays = report().plays;
         // insert.wav (possible, 1:24-1:34) inside a stretched b.wav.
         plays[1].end_seconds = 95.0;
+        plays[1].segments[0].end_seconds = 95.0;
         // A copy of c.wav, possible, inside c.wav's play: the same audio.
         let mut copy = plays[3].clone();
         copy.asset = String::from("copy-of-c.wav");
@@ -771,6 +825,77 @@ mod tests {
                 play: 2,
                 asset: String::from("b.wav")
             })
+        );
+    }
+
+    #[test]
+    fn a_brief_play_between_two_parts_of_another_play_is_not_marked() {
+        let mut plays = report().plays;
+        // b.wav returns after insert.wav (1:24-1:34): one play from 0:38 to
+        // 2:30, whose two segments lie 39 s apart.
+        let returning = plays[1].segments[0].clone();
+        plays[1].segments.push(Segment {
+            start_seconds: 120.0,
+            end_seconds: 150.0,
+            ..returning
+        });
+        plays[1].end_seconds = 150.0;
+        plays.truncate(3);
+
+        mark_shared_material(&mut plays);
+        assert_eq!(marks(&plays), [None, None, None]);
+
+        // With b.wav also found from 1:30, its segments lie at most 10 s
+        // apart and make one passage, which holds insert.wav.
+        plays[1].segments.insert(
+            1,
+            Segment {
+                start_seconds: 90.0,
+                end_seconds: 118.0,
+                ..returning
+            },
+        );
+
+        mark_shared_material(&mut plays);
+        assert_eq!(marks(&plays), [None, None, Some(2)]);
+    }
+
+    #[test]
+    fn a_possible_play_of_the_track_playing_joins_its_entry() {
+        let mut report = report();
+        report.plays[1].tags = tagged("Artist B", "Title B");
+        let b = report.plays[1].clone();
+        let found_again = |asset: &str, lead_in: f64, tags| FoundPlay {
+            asset: String::from(asset),
+            confidence: Level::Possible,
+            hits: 90,
+            track_start_seconds: b.track_start_seconds + lead_in,
+            tags,
+            ..b.clone()
+        };
+        // A weaker upload lines up with b.wav; a re-press with a longer
+        // lead-in carries its tags; a remix carries neither.
+        report.plays.extend([
+            found_again("b-upload.wav", 0.0, None),
+            found_again("b-repress.wav", 30.0, tagged("ARTIST B", "title b")),
+            found_again("b-remix.wav", 30.0, tagged("Artist B", "Title B (Remix)")),
+        ]);
+
+        mark_shared_material(&mut report.plays);
+        let text = crate::output::render(
+            &report,
+            crate::output::ReportFormat::Tracklist,
+            crate::style::Style::for_stdout(crate::style::ColorChoice::Never),
+        )
+        .unwrap();
+
+        assert_eq!(
+            marks(&report.plays),
+            [None, None, None, None, None, None, Some(2)]
+        );
+        assert_eq!(
+            text,
+            " 1.    0:00  a\n 2.    0:38  Artist B - Title B  (also: b-upload)\n 3.    1:24  insert (possible)\n 4.    1:36  c\n"
         );
     }
 }

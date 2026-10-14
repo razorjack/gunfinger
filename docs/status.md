@@ -2617,3 +2617,39 @@ during the session.
 - Our first item stays first: possible plays inside a confident
   play of another recording leave the default tracklist (roadmap,
   "Reports and command line").
+
+## 2026-10-14: possible plays inside a confident play leave the tracklist (ADR 0019)
+
+- Our decision (above, "after session 18"), done in this
+  conversation, not in a numbered session. Experiment 0107 first:
+  `scripts/analysis/possible_marks.py` over every stored development
+  report counts the possible plays each test marks and those the
+  tracklist would leave out. No right play is lost anywhere; the 6 right
+  brief plays of the generated mixes marked by the whole-span test (a
+  brief play between two parts of a returning track) are not marked by
+  the passage test.
+- Change: `mark_shared_material` tests passages (segments joined across
+  gaps of at most 10 s, `PASSAGE_GAP_SECONDS`) and skips a possible play
+  of the track playing (`one_track`: a confident play over most of it
+  lines up with it or carries the same artist and title), which joins
+  that entry; `export::tracklist` leaves out entries of marked plays. The
+  table, CSV and JSON keep them. ADR 0019 (ADR 0017's status points to
+  it), the README's example and text, the roadmap item,
+  `tracklist_view.py` (same rules; marked entries unnumbered).
+- A review of the first version found that it also hid other rips and
+  uploads of the track playing, against ADR 0017's "every matching file";
+  the `one_track` exception fixes that. Its cost: the Vertical mix's two
+  Klute Remix plays line up with the VIP within 1 s, so they join its
+  entry under `titles disagree:` instead of leaving. ADR 0019 also names
+  the remaining risk: a played track found only as possible inside a
+  passage of another confident track (a double drop, a tease that never
+  returns) leaves the tracklist; none occurs in the stored reports.
+- Checks: `show` of the three development mixes' NAS reports, old build
+  (`work/bin/s18-final/`) against new: 7 of the 9 lines go, the Klute
+  Remix joins entry 14, every other line identical but for its number
+  (`work/s18b/*-nas.old.txt`, `work/s18c/*-nas.new.txt`;
+  `tracklist_view.py` agrees, `work/s18c/*-view.txt`). The README example
+  at 262 tracks: 11 entries, unchanged (`work/s18c/stakka-262.new.txt`).
+  `regress session-18-start` identical (720/720 sweep queries, all 87,
+  93 and 79 scan detections, the known calibrate line).
+  `scripts/check.sh` green (357 tests).

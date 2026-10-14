@@ -132,44 +132,23 @@ marked as inferences were derived, not measured.
 ## Reports and command line
 
 - **Possible plays inside a confident play of another recording.**
-  *(decided on 2026-10-14; not done yet, the next session's
-  first item)* The default tracklist gives every possible play a line of
-  its own. A possible play that lies inside a confident play of another
-  file is marked "(possible; shares material with X)"
-  (`mark_shared_material` in `crates/gunfinger/src/report.rs`), but the
-  line still reads as a track that was played. One was found in
-  the README's example, the Stakka & Skynet mix at NAS scale: "20:22
-  Stakka And Skynet - Clockwork (Stakka Rmx) (possible; shares material
-  with Stakka & Skynet - Clockwork)". The mix plays the original, and the
-  Stakka remix did not exist yet. The line is a 94-hit match over 18 s
-  (mix 20:23-20:41, remix 6:39-6:58) inside the original's single
-  segment (17:32-21:57). Every possible line of the three development
-  mixes' default tracklists at NAS scale is of this kind, 9 in all, and
-  none is a played track: Star Trails (Synergy Remix) and Clockwork
-  (Stakka Rmx); Phantom 2018, Meltdown and Fracture's edit of Phantom
-  Force; Mampi Swift - 2000, the Klute Remix of We R The Ones (two
-  files, two lines) and the untagged `1.mp3`. The plan:
-  1. The default tracklist (`identify` and `show`) leaves out a possible
-     play marked as sharing material. `-f human` and `-f json` keep it,
-     with the mark. The cue sheet already lists confident entries only.
-  2. The mark requires the confident play's matches to continue through
-     the possible play: the possible play lies inside one passage of the
-     confident play (its segments joined across gaps of 10 s or less,
-     experiment 0091's `passage`), not merely between its start and end.
-     Otherwise a brief play of B between two parts of A, which become one
-     play of A across the gap, would be marked and then hidden. In 0091,
-     `passage` with 0-10 s demoted no right brief play of the generated
-     mixes, where the whole span demoted 4-35.
-  3. Measure before changing, on every stored report (the three
-     development mixes at both sizes and their leave-outs, the generated
-     mixes, the sweeps and recall): the possible plays marked under the
-     old and the new test, which of them the default tracklist would
-     drop, and whether any is a true play. Expected: the 9 lines above go
-     and no true play is hidden.
-  4. Matching, confidence, scoring and `regress` do not change; only the
-     default output and the mark's test do. Update ADR 0017 (what the
-     tracklist lists), the tests in `export.rs` and `table.rs`, and the
-     README's example, whose Clockwork line goes.
+  *(done on 2026-10-14, our decision, ADR 0019, experiment
+  0107)* The default tracklist printed a possible play lying inside a
+  confident play of another file as a line of its own, marked "(possible;
+  shares material with X)". One was found in the README's example:
+  "Clockwork (Stakka Rmx)" in a mix that plays the original, before the
+  remix existed. Every possible line of the three development mixes'
+  tracklists at NAS scale was of this kind (9 lines, none a played
+  track). Such plays now leave the tracklist; the table, CSV and JSON
+  keep them, marked. The mark tests the confident play's passages (its
+  segments joined across gaps of at most 10 s) instead of its whole span,
+  which also marked 6 right brief plays of the generated mixes lying
+  between two parts of a returning track, and skips a play of the track
+  playing (one that lines up with the confident play or carries its
+  artist and title), which joins that entry. 7 of the 9 lines leave; the
+  two Klute Remix lines line up with the VIP and join its entry under
+  `titles disagree:`. Measured on every stored development report: no
+  right play lost.
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming
@@ -343,7 +322,8 @@ marked as inferences were derived, not measured.
   first `index` is 86% FFmpeg's decoding and resampling (0099), whose
   options are fixed. This comes before any change of hash design;
   `regress` must show identical detections. *(2026-10-14, unverified
-  proposals from an external review, after our tracklist item)*
+  proposals from an external review; our tracklist item, which
+  came first, is done: ADR 0019)*
   Integer phases per query anchor for the pre-filter (exact; 0103's
   split profiles suggest the slot arithmetic may be roughly 10% of CPU,
   an estimate to verify, not a ceiling; the counting remains), the FFT
