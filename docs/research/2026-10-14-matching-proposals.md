@@ -114,15 +114,16 @@ unverified.
 
 - **Measured in session 19 (experiment 0108): stopped, not kept.**
   Implemented as described (a guarded `u16` phase per query point, the
-  `f64` slots outside the guard) with 11 predicate tests against
-  `densest_clusters`; the same lines, the same detections, 0.017% more
-  assets sorted, reports byte-identical. In split profiles of the 2003
-  mix at NAS scale (38,105 records; A B B A, once under other load and
-  once with less), the pre-filter, its phases and the sort they lead to fell
-  from 30.1% to 27.8% of CPU samples on the quieter machine (7.6%; 13.0%
-  against the unchanged analysis), below the 20% stop point. The
-  counting, its stores and the hit loads cost more than the slot
-  arithmetic. The code was deleted; it is kept in `work/s19/lines.rs.p1`.
+  `f64` slots outside the guard) with 10 tests, 7 of them predicate tests
+  against `densest_clusters`; the same lines, the same detections, 0.017%
+  more assets sorted, reports byte-identical. In split profiles of the
+  2003 mix at NAS scale (38,105 records; A B B A, once under other load and
+  once with less), the pre-filter, its phases and the sort they lead to fell by
+  13.3% and 12.9% against the unchanged analysis (8.7% and 16.8% in
+  samples, 9.5% and 7.5% as a share of CPU), below the 20% stop point.
+  By inference, the counting and the hit loads, not the slot arithmetic,
+  are most of the filter's cost. The code was deleted; it is kept in
+  `work/s19/lines.rs.p1`.
 
 - **Mechanism.** Today each hit computes `offset = r - q` in f64 (r the
   reference frame, q the anchor's frame in reference coordinates) and

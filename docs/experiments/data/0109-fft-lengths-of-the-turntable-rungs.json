@@ -1691,7 +1691,7 @@
   }
  ],
  "end_to_end_timing_only": {
-  "note": "builds with factor2 or best2 lengths in the first pass for timing only (reports differ); the 2003 mix at NAS scale, --store-only -f json; both = --playback both (3 blocks), tt = the configuration (turntable, 2 blocks); contended: load averages 22-157 at the starts, other processes up to about one core between runs",
+  "note": "builds with factor2 or best2 lengths in the first pass for timing only (reports differ); the 2003 mix at NAS scale, --store-only -f json; both = --playback both (3 blocks), tt = the configuration (turntable, 2 blocks); contended: load averages 21-157 at the starts, other processes up to about one core between runs",
   "series": {
    "both": {
     "s19-start": {

@@ -18,10 +18,11 @@ for scope and rules.
 
 - [x] 2a. Integer phases per query point in `OffsetSlots`, guarded, with
   today's f64 filter outside the guard
-- [x] 2b. 11 predicate tests against `densest_clusters` (they fail on a
-  3-frame error)
+- [x] 2b. 10 tests, 7 against `densest_clusters` (three fail when odd
+  anchors' phases shift by 3 frames)
 - [x] 2c. Counts: the same lines, +0.017% assets sorted; split profiles A B
-  B A (contended): the stage 8.7-13.3% cheaper, below the 20% stop point
+  B A, contended and quieter: the stage about 13% cheaper against the
+  analysis, below the 20% stop point
 - [-] 2d. Not run: stopped at 2c. Code deleted (kept in
   `work/s19/lines.rs.p1`); experiment 0108
 - [x] 3a. The lengths of four arms with factorisations, plus the fastest
@@ -34,15 +35,18 @@ for scope and rules.
   the notes
 - [-] 3d. Plan cache not tried: plans are 0.04% of the analysis
 - [x] 3e. Experiment 0109
-- [ ] 4. Read-only review by a subagent; fixes
+- [x] 4. Read-only review by a subagent: no output change; fixed the
+  deleted code's rounding test (kept copy), 0108's framing and numbers,
+  0109's load range and per-frame wording, the roadmap's contended label
 
 ## Wrap-up
 
-- [ ] Notes "Session 19", status, roadmap ("Where search time goes"), the
+- [x] Notes "Session 19", status, roadmap ("Where search time goes"), the
   research note (proposals 1 and 2 measured)
-- [ ] `regress session-19-start` identical with the final build;
-  `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] `regress session-19-start` identical with the final build;
+  `scripts/check.sh` green (357 tests)
+- [x] The NAS store's revision at the end: 38,105 records,
+  `b285da9984422fb5`, unchanged
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

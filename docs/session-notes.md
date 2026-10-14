@@ -3521,3 +3521,137 @@ cluster members, and the alien5ive file is not credited anywhere.
   also queries the recall panel's validation half would probably find
   them again; until then, a run that scores those files would count the
   other rip as wrong.
+
+## Session 19
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports in the same time as before the session (the final
+binaries are byte-identical to the start build's). The session measured
+the two proposals of the external review we chose
+(`docs/research/2026-10-14-matching-proposals.md`).
+
+**Proposal 1, integer arithmetic in the offset pre-filter: measured, not
+kept** (experiment 0108). It keeps detections exact: the same lines,
+0.017% more files passed on to sorting, byte-identical reports. But the
+pre-filter and the sort after it became only about 13% cheaper, measured
+against the unchanged analysis in two profiles, below the 20% the review
+required before any timing. Computing the slot was a smaller part of the
+filter than the review estimated; the rest is most likely counting each
+hit into its slot and reading the hits. The code was removed.
+
+**Proposal 2, FFT lengths of the turntable rungs: the diagnostic**
+(experiment 0109). Each turntable rung analyses the mix with a window of
+`round(1024 / speed)` samples, and some of these lengths are slow for
+the FFT library: at 985 samples (the rung at 1.040) analysing a frame
+takes 22.8 us, 20.3 of them in the FFT; at 1024 samples, 3.7 us. Measured on 60 s of my 2003 mix on one core, and
+weighted by how much each rung analyses in a real `identify`:
+
+| Window lengths | First-pass turntable analysis | With the key-locked rungs |
+|---|--:|--:|
+| today | 73.2 s | 86.6 s |
+| nearest even (the review's proposal) | -21.8% | -18.4% |
+| small prime factors, within 1 sample | -25.5% | -21.6% |
+| small prime factors, within 2 samples | -36.5% | -30.8% |
+| fastest measured, within 2 samples | -44.0% | -37.2% |
+
+Builds that use the last two in the first pass were timed and not kept
+(their reports differ). My 2003 mix at NAS scale with the
+configuration (turntable playback) took 28.0 s and 27.4 s instead of
+30.9 s (9-11% less); with `--playback both`, 46.2 s and 45.1 s instead
+of 48.8 s (5-8% less). Memory did not change. Building the FFT plans is
+0.04% of the analysis, so a plan cache would gain nothing and was not
+tried.
+
+### Decision: is a retrieval session for the FFT lengths worth running?
+
+A window up to 2 samples (0.21%) longer or shorter changes the peaks, so
+detections can change. On the 2003 mix the same files are confident, but
+hits and boundaries move and one more possible play appears (Omni Trio -
+Secret Life (Silent Storm Remix), 30:03-30:42, 70-71 hits). Before such a
+change could be adopted, a retrieval study has to show it loses
+nothing:
+
+- a variant that changes the first pass only (the second pass keeps
+  today's lengths), named in reports so that baselines and saved reports
+  tell it apart;
+- the diagnostic sweep first, adding speeds between rungs, several sample
+  offsets, damaged excerpts, other rips, blends and short plays, with the
+  first pass's lines traced before confidence and key-lock-only runs as
+  controls;
+- then the three development mixes at 262 tracks and NAS scale with
+  leave-outs, and the generated mixes with a boundary tolerance fixed in
+  advance;
+- the review's criteria: no new wrong confident play, no lost right
+  confident or possible file, shared-material matches reported apart,
+  and at least 5% less wall time on an idle machine.
+
+That is one session of about four hours: about 45 minutes to build and
+test the variant, 1.5-2 hours of runs, an hour of comparison and half an
+hour of timing.
+
+**Recommendation: worth one session, not urgent.** The gain is real
+(about 3 s of a 31 s search with the configuration) and the change is
+small, but it would be the first speed change that alters peaks, and
+precision comes before speed (ADR 0017). If it runs, test the rule
+"small prime factors within 2 samples": the fastest measured lengths
+gain 2 points more, but they are a table fitted to this machine and
+this version of the FFT library.
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and every manifest are unchanged (digests
+  as at the start). The NAS was only listed, by `doctor`; the NAS peak
+  store was not written (38,105 records, revision `b285da9984422fb5` at
+  the end, as at the start).
+- **Detections did not change.** `regress session-19-start` was identical
+  with the final build (720 of 720 sweep queries, all 87, 93 and 79 scan
+  detections) and `scripts/check.sh` green (357 tests).
+- **The NAS times of sessions 17 and 18 are not comparable with these.**
+  The store holds 38,105 records (33,723 in session 18): the 2003 mix at
+  NAS scale now takes 48-50 s with `--playback both` (44 s before) and 31
+  s with the configuration. The CLI's saved index was current.
+- **The timings were contended.** Other processes used up to about one core. The
+  builds alternated (A B B A). Nothing was adopted on these timings:
+  proposal 1 was stopped by profile shares that agreed in a contended
+  and a quieter series, and proposal 2 changed nothing.
+- **The test set was not touched**, nor the candidate mixes of experiment
+  0065, nor the recall panel's validation half.
+- The harness's stale saved index (`work/indexes/library-nas-dnb-peaks.index`,
+  3.8 GB, made at 33,723 records) is still there; nothing this session
+  needed it. The next NAS-scale harness run rebuilds it.
+- **A review by a second agent** found no change in output and agreed
+  with both decisions. It found that one test of the removed code had
+  lost its rounding case (an offset of 2 - 2^-53 rounds to exactly 2);
+  corrected in the kept copy (`work/s19/lines.rs.p1`, 2 - 2^-52) and
+  passing. It also found rounding and wording errors in the experiment
+  notes, all corrected: experiment 0108 now leads with the comparison
+  against the unchanged analysis (about 13%) rather than the share of
+  CPU (7.5-9.5%, which understates a saving), and 0109's per-frame times
+  are whole-analysis times, not FFT times.
+
+### Decided this session, open to change
+
+- Split profiles of the search stood in for the review's replay of
+  captured hits, which no tool does yet.
+- A plan cache counted as worth trying only if building plans took at
+  least 3% of `identify`'s CPU; it takes 0.04% of the analysis.
+- The "small prime factors" rule breaks ties by the length nearest 1024
+  / speed, then the shorter one.
+
+### Decisions waiting
+
+- Whether to run the FFT-length retrieval study (above).
+- Still waiting: the containment rule (recommended: do not adopt), the
+  possible tier's threshold, test evaluation 5, and session 18's three
+  manifest proposals.
+
+### Left for later
+
+- **The search's largest stages** at 38,105 records (a profile of the
+  2003 mix): the pre-filter 26% of CPU, analysing the mix 25%, grouping
+  hits by file 24%, taking hits from the posting lists 11%. Proposal 3
+  of the research note (part boundaries computed once) addresses part of
+  the last; proposals 3-5 are not measured.

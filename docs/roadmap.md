@@ -333,16 +333,18 @@ marked as inferences were derived, not measured.
   of `take_part`'s 10.5%), each with its tests, stop points and proposed
   criteria in `docs/research/2026-10-14-matching-proposals.md`. *(session
   19, at 38,105 records)* Integer phases made the pre-filter and its sort
-  7.6-9.5% cheaper as a share of CPU, below the note's 20% stop point,
-  and were not kept: the filter's cost is its counting and the hit
-  loads, not the slot arithmetic (0108). The FFT lengths, measured as a
+  about 13% cheaper against the unchanged analysis, below the note's 20%
+  stop point, and were not kept; by inference the filter's cost is its
+  counting and the hit loads, not the slot arithmetic (0108). The FFT
+  lengths, measured as a
   diagnostic (0109): plan construction is 0.04% of the analysis; a
   window within two samples of today's chosen for small prime factors
   makes the first pass's turntable analysis 36.5% faster on one thread,
   and a build using such lengths, for timing only, took 5.4% less wall
   time with both playbacks and 9.2% less with turntable playback (the
-  fastest lengths measured: 7.6% and 11.1%). A change of length changes
-  peaks and output: a retrieval study first, and our decision.
+  fastest lengths measured: 7.6% and 11.1%; timed under other load). A change
+  of length changes peaks and output: a retrieval study first, and our
+  decision.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

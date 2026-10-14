@@ -26,11 +26,11 @@ refinement; its 1,862 plans take 0.052 s of 128 s: no plan cache tried.
 | best1 | -35.4% | -29.9% | |
 | best2 | -44.0% | -37.2% | -8.7% / -14.4% |
 
-FFT: 54.7 of today's 73.2 s; 985 (5 x 197) 22.8 us a frame, 1024 3.7.
-Prime rank predicts time poorly: 949 (13 x 73) 14.7 us, 948 8.9; 1114 (2
-x 557) 9.4, 1113 (3 x 7 x 53) 18.7. **End to end** (E2E: factor2 or best2
-lengths in the first pass, timing only; `work/s19/fft-abba.sh`; contended,
-load 22-157): `--playback both` A B C C B A 3 times, wall medians 48.8 s
+FFT: 54.7 of today's 73.2 s; analysis a frame: 985 (5 x 197) 22.8 us
+(FFT 20.3), 1024 3.7 (1.1). Prime rank predicts time poorly, odd lengths
+running a complex FFT of N, even of N/2: 949 (13 x 73) 14.7 us, 948 8.9;
+1114 (2 x 557) 9.4, 1113 18.7. **End to end** (E2E: factor2 or best2 in
+the first pass, timing only; `fft-abba.sh`; contended, load 21-157): `--playback both` A B C C B A 3 times, wall medians 48.8 s
 (today), 46.2 (factor2, -5.4%, ranges overlap), 45.1 (best2, -7.6%); the
 configured turntable playback twice: 30.9, 28.0 (-9.2%), 27.4 (-11.1%).
 Memory unchanged; reports change (hits, boundaries, a possible play).

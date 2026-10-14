@@ -2670,18 +2670,23 @@ records the load (`work/s19/load-*.txt`).
   comparable with these.
 - Step 2, proposal 1 (experiment 0108): integer phases per query point
   for the pre-filter (`Phases::of`, guarded, `f64` slots outside the
-  guard) and 11 predicate tests against `densest_clusters`; a 3-frame
-  error in the phases fails three of them. Instrumented builds
+  guard) and 10 tests (7 against `densest_clusters`, 1 against a
+  comparison sort, 2 of the phases alone); with the phases of odd anchors
+  shifted by 3 frames, `every_order_of_small_cases_passes_the_same_way`,
+  `offsets_next_to_bucket_and_float_edges_keep_their_lines` and
+  `every_set_of_hits_with_a_line_is_sorted` fail
+  (`work/s19/p1-tests.log`). Instrumented builds
   (`work/s19/py/instrument.py`, never committed): 864,119,839 assets
   filtered, 36.76 billion hits examined, 17,867,626 assets sorted
   (start) against 17,870,712, 4,200,915 lines in both; reports
   byte-identical. Split profiles (0103's method, `work/s19/profiles.sh`,
   `work/s19/py/split.py`, `work/s19/py/stages.py`), A B B A twice: the
   stage (pre-filter, phases, the sort and clustering it leads to) fell
-  from 29.4% to 26.6% of CPU samples (contended, load 24-76) and from
-  30.1% to 27.8% (quieter); 13% against the unchanged analysis. Below
-  the 20% stop point: no A B B A timing, code deleted
-  (`work/s19/lines.rs.p1` keeps it).
+  13.3% (contended, load 24-76) and 12.9% (quieter) against the
+  unchanged analysis; 8.7% and 16.8% in samples; 9.5% and 7.5% as a
+  share of CPU. Below the 20% stop point: no A B B A timing, code
+  deleted (`work/s19/lines.rs.p1` keeps it, with the rounding test
+  corrected to an offset of 2 - 2^-52 after the review).
 - Step 3, proposal 2 (experiment 0109): `work/perf/s19-fft` (a crate
   outside the workspace with its own copy of the lockfile; `s19-fft
   lengths > work/s19/fft-lengths.txt`; `work/s19/fft-time.sh b 5 near`,
@@ -2700,3 +2705,27 @@ records the load (`work/s19/load-*.txt`).
   `--playback both` 46.2 s and 45.1 s against 48.8 s (medians of 6),
   turntable playback 28.0 s and 27.4 s against 30.9 s (medians of 4),
   memory unchanged; their reports differ. No product length changed.
+- Step 4, a read-only review by a subagent of `d867557..bd7a51a`, the
+  deleted code (`work/s19/lines.rs.p1`), the diagnostic and the
+  scripts: no output change; both stop decisions stand. Fixed: the
+  rounding test of the deleted code used an offset of 2 - 2^-53, which
+  is exactly 2.0 (now 2 - 2^-52; the kept copy's tests pass, and the
+  3-frame mutation is logged in `work/s19/p1-tests.log`); 0108 leads
+  with the stage against the unchanged analysis (13.3%, 12.9%), the
+  share of CPU (9.5%, 7.5%, not 7.6%) and the samples (8.7%, 16.8%)
+  secondary, the cause marked as an inference; the test count (10, of
+  which 7 against `densest_clusters`); 0109's load range (21-157) and
+  per-frame times named as whole-analysis times (the FFT alone: 20.3 and
+  1.1 us), with odd lengths running a complex FFT of N; the roadmap's
+  end-to-end figures labelled contended.
+- Wrap-up: final build `work/bin/s19-final/`, byte-identical to
+  `s19-start` (no code change kept). `regress session-19-start`
+  identical (720/720 sweep queries, all 87, 93 and 79 scan detections,
+  the known calibrate line), 155 s and 1,312 s user CPU;
+  `scripts/check.sh` green (357 tests). The NAS store at the end: 38,105
+  records, revision `b285da9984422fb5`, as at the start. Listening files and
+  the development manifests unchanged (digests, modification times).
+  Scratch: `work/s19/` 260 MB, `work/s19/target-alt` and
+  `work/perf/s19-fft/target` about 380 MB together. Notes "Session 19",
+  the roadmap's "Where search time goes" and the research note
+  (proposals 1 and 2 measured) updated.
