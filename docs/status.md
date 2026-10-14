@@ -2411,3 +2411,61 @@ session; every timing ran old and new builds A B B A.
   directory and the trial builds removed from `work/` (`work/s17/` is
   85 MB). Notes "Session 17", the roadmap's "Where search time goes".
   Finished at about 07:40, well before 10:30; no further work started.
+
+## 2026-10-14: session 18, a third development set; the containment rule and the possible tier on it
+
+Brief `docs/brief-18.md`, checklist `docs/session-18-checklist.md`. Timings were taken under other load, and files were added to the NAS
+during the session.
+
+- 03:10 setup, `git status` clean at `300e008`. Release build in
+  `work/bin/s18-start/` (byte-identical to `s17-final`); `baseline
+  session-18-start` from session 17's final `regress` reports. The NAS
+  store: 33,723 records, revision `c835c5531c325274`, as expected.
+  Digests of `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+  in `work/s18/listening-digests-start.txt`. The NAS report folder copied to
+  `work/s18/before/` (without `variant-single-pass/`, 1.1 GB, which no
+  run of this session writes).
+- Step 2a (experiment 0100): `map-library` (only the record count
+  changed); `clusters --from-peaks --manifest razorjack-2003-03-29
+  --manifest stakka-skynet-knowledge --manifest
+  nocny-trans-vertical-2002-08-23 --recall-panel 2026`
+  (`work/s18/clusters.sh`): 370 queries (262 corpus, 108 NAS), rounds of
+  370, 285 and 2; 1,554 s, 12,548 s CPU, 4.2 GB. 268 -> 271 clusters,
+  877 -> 886 files: new clusters for the new set's Stab 2 Def (4 files),
+  Mutated (2 uploads), the Konflict Nephelim (2), the We R The Ones VIP
+  upload with SUICIDE004's "We R The Ones 3" (100% coverage, 7,106
+  hits) and alien5ive's "FUZE 29 cannibal" with two "Sonic - Change"
+  uploads (100%). The Molten Beats vinyl/CD clusters of System Error and
+  Iron Lung are gone: no query of this run reaches them (one file is a
+  validation source of the recall panel; `--recall-panel` searches the
+  development half). `devscore.py --nas` under the new clusters: every
+  stored NAS development score unchanged. The pruned Point of Arrival
+  file is a validation source of the panel, so no run of this session
+  touches it. `pair` on the 36 related and unclear pairs
+  (`work/s18/s18-related.tsv`) and 4 more (`s18-possible.tsv`), read by
+  `scripts/analysis/pair_relations.py`: the two TI029 C rips are one
+  recording (30,783 hits) that matches neither the Phunckateck VIP (6
+  hits) nor the 1999 original (7); other versions against the played
+  one: the 1999 Descent 32, Invid's original 25, the Gridlok Slipstream
+  13-38, the Klute Remix 166-263 (32-54% coverage), the rest 0-27.
+- Step 2b: `scan nocny-trans-vertical-2002-08-23` at 262 tracks 9/9, 0
+  wrong, nothing possible unmatched (47 s). At NAS scale (`--saved-index
+  rebuild`, the harness's index saved over the stale one, 173 s): 17/17,
+  0 wrong, 4 possible plays matching no track (Mampi Swift - 2000, the
+  Klute Remix in two files, the untagged `1.mp3`), each shared material
+  with the confident play over it (`pair`: 827, 166-263 and 177 hits).
+  Leave-outs (`--leave-out 3`, seeds 2026, 2027, 2028; 71-74 s): 14/17,
+  0 wrong each; the left-out slots have nothing at least possible.
+  `scripts/analysis/devset_view.py` lists each track's credited files
+  and the strongest accepted detection. Track 17's slot (1:01:25-1:04:40)
+  has nothing at least possible in any run. `identify --store-only` with
+  the configuration (turntable; the CLI's saved index rebuilt
+  over the stale one, 135 s, 4.2 GB) and with `--playback both` (67 s):
+  the same 21-entry tracklist (`work/s18/identify-default.txt`).
+- Step 2c: `scripts/analysis/tracklist_view.py` rebuilds the entries from
+  the JSON as `export::entries` does (it reproduces the 21 lines): every
+  referenced track has one confident entry holding a right file, 16
+  named by the right title; entry 15 is "Klute - We R The Ones 3 (titles
+  disagree: Klute - We R The Ones VIP)". The four possible entries show
+  other titles alone, each marked as sharing material; the Klute Remix
+  is listed twice (two files; marked plays are never grouped).
