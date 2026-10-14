@@ -6,22 +6,24 @@ for scope and rules.
 
 ## Setup
 
-- [ ] `git status` clean at `d867557`
-- [ ] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s19-start/`; `baseline session-19-start`
-- [ ] The NAS store at the start (38,105 records, `b285da9984422fb5`
-  expected); the compiler, RealFFT and RustFFT versions; the load
-- [ ] `doctor`: the CLI's saved index current for the store
+- [x] `git status` clean at `d867557`
+- [x] Brief, checklist; `CLAUDE.md` points to them
+- [x] Release build in `work/bin/s19-start/`; `baseline session-19-start`
+- [x] The NAS store at the start: 38,105 records, `b285da9984422fb5`, as
+  expected; rustc 1.98.0, RealFFT 3.5.0, RustFFT 6.4.1
+- [x] `doctor`: the CLI's saved index current for the store (the 2003 mix
+  at NAS scale: 50.0 s, 412 s user, 4.82 GB, the index loaded)
 
 ## Steps
 
-- [ ] 2a. Integer phases per query point in `OffsetSlots`, guarded, with
+- [x] 2a. Integer phases per query point in `OffsetSlots`, guarded, with
   today's f64 filter outside the guard
-- [ ] 2b. Predicate tests against `densest_clusters`
-- [ ] 2c. Counts old against new (instrumented run); split profiles; the
-  20% stop point
-- [ ] 2d. A B B A x3; `regress`; three NAS reports byte-identical; stakka
-  at 262; a 30 s excerpt; memory; kept or deleted; experiment 0108
+- [x] 2b. 11 predicate tests against `densest_clusters` (they fail on a
+  3-frame error)
+- [x] 2c. Counts: the same lines, +0.017% assets sorted; split profiles A B
+  B A (contended): the stage 8.7-13.3% cheaper, below the 20% stop point
+- [-] 2d. Not run: stopped at 2c. Code deleted (kept in
+  `work/s19/lines.rs.p1`); experiment 0108
 - [ ] 3a. The lengths of the three (four) arms with factorisations
 - [ ] 3b. Timing on fixed decoded input; instrumented weights; plan count
 - [ ] 3c. The weighted first-pass time per arm; the 20% stop point; what a

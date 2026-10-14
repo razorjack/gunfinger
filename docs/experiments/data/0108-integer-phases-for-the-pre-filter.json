@@ -1,0 +1,90 @@
+{
+ "experiment": "0108",
+ "store": {
+  "records": 38105,
+  "revision": "b285da9984422fb5"
+ },
+ "query": "razorjack-2003-03-29 (46:10), identify --store-only --playback both -f json, saved index current",
+ "counts": {
+  "fields": [
+   "window searches",
+   "assets with 3 hits (filter calls)",
+   "hits the filter examined",
+   "assets passed (sorted)",
+   "assets with lines",
+   "lines"
+  ],
+  "start": [
+   22714,
+   864119839,
+   36759340690,
+   17867626,
+   3408799,
+   4200915
+  ],
+  "integer_phases": [
+   22714,
+   864119839,
+   36759312950,
+   17870712,
+   3408799,
+   4200915
+  ]
+ },
+ "split_profiles": [
+  {
+   "order": 1,
+   "build": "start-split",
+   "cpu_samples": 42974,
+   "pre_filter": 10915,
+   "phases": 0,
+   "sorting_aligned_hits": 1772,
+   "clustering": 20,
+   "ladder_analysis": 10538,
+   "grouping_part": 10187,
+   "taking_part": 5678
+  },
+  {
+   "order": 2,
+   "build": "p1-split",
+   "cpu_samples": 47296,
+   "pre_filter": 10469,
+   "phases": 1,
+   "sorting_aligned_hits": 2074,
+   "clustering": 27,
+   "ladder_analysis": 12208,
+   "grouping_part": 11720,
+   "taking_part": 6213
+  },
+  {
+   "order": 3,
+   "build": "p1-split",
+   "cpu_samples": 44710,
+   "pre_filter": 9980,
+   "phases": 0,
+   "sorting_aligned_hits": 1916,
+   "clustering": 30,
+   "ladder_analysis": 11645,
+   "grouping_part": 11253,
+   "taking_part": 5927
+  },
+  {
+   "order": 4,
+   "build": "start-split",
+   "cpu_samples": 48262,
+   "pre_filter": 12086,
+   "phases": 0,
+   "sorting_aligned_hits": 2016,
+   "clustering": 25,
+   "ladder_analysis": 12140,
+   "grouping_part": 11647,
+   "taking_part": 5998
+  }
+ ],
+ "load_average_at_start": [
+  24.53,
+  55.96,
+  67.63,
+  75.55
+ ]
+}
