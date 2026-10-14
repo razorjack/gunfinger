@@ -8,253 +8,157 @@
 
 # Gunfinger
 
-Gunfinger is a local command-line tool that finds tracks from your own music
-collection inside DJ mixes. It targets jungle and drum & bass sets: vinyl,
-where the turntable changes pitch and tempo together by up to about ±8%, and
-CDJ or software sets played with key lock, where the tempo changes and the
-pitch does not. It searches for both by default; if you only identify vinyl
-mixes, [turn key lock off](#key-lock-and-vinyl) for faster searches. It
-reports a track only on sustained, aligned evidence: unknown audio should stay
-unknown, because a confident wrong answer is worse than a miss.
+Gunfinger tells you which tracks from your own music collection play in a
+DJ mix. Point it at a mix, wait a few seconds, and get a tracklist.
 
-You run it, read the result and are done (ADR 0017). When several files in
-your collection match one track, it names all of them and says when their
-titles disagree, without choosing one. Titles come from your files' tags,
-so they are as good as your tagging; Gunfinger does not edit tags or fix a
-library.
+It is built for jungle and drum & bass: vinyl sets, where the turntable
+speeds a record up or slows it down by up to about ±8%, pitch and tempo
+together, and digital sets played with key lock, where the tempo changes
+and the pitch does not. It runs locally, on your files, with nothing but
+FFmpeg beside it.
 
-**Status: proof of concept.** It has been evaluated on one library of 262
-tracks and two mixes. It is not packaged and keeps its index in memory. See [docs/status.md](docs/status.md) for the full report
-and [docs/roadmap.md](docs/roadmap.md) for what is missing.
+Here is Stakka & Skynet's Knowledge Magazine mix from 2000, 56 minutes of
+vinyl, searched against a library of 262 tracks:
 
-## How it works
+```console
+$ gunfinger identify "Stakka & Skynet - Knowledge Magazine Mix (2000).m4a"
+ 1.    0:00  Stakka And Skynet - Nightlore
+ 2.    4:45  Stakka & Skynet - Decoy
+ 3.    9:45  Konflict - Star Trails
+ 4.   14:22  Stakka & Skynet - Pathogen
+ 5.   17:32  Stakka & Skynet - Clockwork
+ 6.   20:22  Stakka And Skynet - Clockwork (Stakka Rmx) (possible; shares material with Stakka & Skynet - Clockwork)
+ 7.   21:22  Kraken - Side Effects (Teebee remix)
+ 8.   25:20  Kraken+Arkane - Dominion  (also: KRAKEN - dominion)
+ 9.   31:03  Kemal And Paul Reset - Kontempt
+10.   37:07  Stakka & Skynet feat. Kemal an - Bios-Fear
+11.   43:22  Stakka + Skynet - Logistics
+12.   49:46  Stakka & K.Tee - Auto Ignition
+```
 
-1. `index` decodes every audio file with FFmpeg to 8 kHz mono, picks the
-   local maxima of its spectrogram (peaks) and stores them, one record per
-   file. The peaks are the source of truth; everything else is rebuilt from
-   them.
-2. Each run builds an in-memory index of peak-pair hashes (Wang 2003): anchor
-   frequency, frequency difference and time difference, 21 bits, 4 bytes per
-   posting.
-3. `identify` analyses the mix under 41 assumed speeds from 0.92 to 1.08,
-   each in two ways: as a turntable plays it (time and frequency scaled
-   together) and with key lock (time scaled, frequency kept). On the right
-   assumption the mix's hashes meet the reference's hashes on a straight
-   line through mix time and track time. This search for candidates leaves
-   out the 1% of posting lists with the most postings: the most common
-   hashes, which cost most lookups and tell records apart least. Lines
-   found in successive 10 s windows are chained when they come from rungs
-   at most a step apart, and across an empty window only when both are
-   strong; a chain is a candidate, and its slope gives the speed.
-4. Each candidate is measured again at its fitted speed: its stretch of the
-   mix is analysed once more at exactly that speed and its hits counted in
-   every posting list. It is confident with at least 240 hits in at least
-   3 windows. The rule was calibrated against the strongest false
-   alignment measured and then frozen. Below it, a detection with at least
-   60 hits is possible: the recording, or one sharing material with it,
-   probably plays there. Possible detections are shown but never count as
-   identifications. `--single-pass` searches the way Gunfinger did before
-   session 6: every posting list, one pass, 200 hits in 3 windows (ADR
-   0008).
-5. Detections of one file with gaps of up to 90 s are listed as one play,
-   so a needle skip or a radio insert does not split a record into
-   unrelated rows.
+All eleven tracks of the mix, in order, in 20 seconds, with nothing wrong.
+Entry 6 is marked possible: the remix shares a passage with the original,
+and Gunfinger says so instead of claiming it. Entry 8 is two files in the
+library, named from their tags, both listed. A start time is where the
+track's audio is first found, so in a long blend it can come before the
+point where you would call the changeover.
 
-The design decisions and the measurements behind them are in `docs/adr/` and
-`docs/experiments/`; the papers they draw on are in `docs/references.md`.
+A few principles shape everything else:
 
-## Prerequisites
+- **Unknown audio stays unknown.** A confident wrong answer is worse than
+  a miss. Gunfinger reports a track only on sustained, aligned evidence,
+  and shows weaker evidence as `possible`, never as an identification.
+- **Fire and forget.** You run it, read the result and are done. When
+  several files match one track, it names all of them and says when their
+  titles disagree, without picking one.
+- **Your tags, as they are.** Titles come from your files' tags.
+  Gunfinger never edits tags or tries to fix a library.
 
-- Rust 1.89 or later, stable (`rust-toolchain.toml`).
-- `ffmpeg` and `ffprobe` on `PATH` (for example `brew install ffmpeg`).
+**Status: proof of concept.** It works well on the collections I have
+measured it on (below), but it is not packaged, and the thresholds were
+set against one library of 262 tracks.
 
-Developed on macOS (Apple M1 Pro, 10 cores) with Rust 1.98 and FFmpeg 9.0.1.
+## Contents
 
-## Usage
+- [Getting started](#getting-started)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [How it works](#how-it-works)
+- [How it is built](#how-it-is-built)
+- [Documentation](#documentation)
+- [Bibliography](#bibliography)
+
+## Getting started
+
+You need:
+
+- Rust 1.89 or later (`rust-toolchain.toml`).
+- `ffmpeg` and `ffprobe` on `PATH`; `ffplay` too if you want to listen
+  to results.
+
+Build it and put `target/release/gunfinger` somewhere on your `PATH`:
 
 ```sh
 cargo build --release
-
-# Extract peaks for every audio file under the library root (incremental).
-target/release/gunfinger index ~/Music/library
-
-# Find library tracks in a mix: prints a numbered tracklist.
-target/release/gunfinger identify mix.m4a --library ~/Music/library
-target/release/gunfinger identify mix.m4a --library ~/Music/library \
-    --start 45:00 --duration 10:00 --format json > mix.json
-
-# For a vinyl-only mix, search turntable playback alone, about a third
-# faster (or set it in the configuration file, below). The table of plays
-# (--format human) marks plays found with key lock (key lock).
-target/release/gunfinger identify mix.m4a --playback turntable
-
-# Several recordings share one index build; --save-dir keeps a JSON report
-# of each and passes over recordings already reported there, unless the
-# audio file's size or modification time, the playback, the part of the
-# recording, the peak profile, the hash design, the matching settings, the
-# confidence rule or the indexed library changed since (--again searches them
-# anyway). A report of another recording with the same file stem is refused;
-# use another name or --save-dir.
-target/release/gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
-
-# Print a saved report again without searching: the tracklist, or the
-# table of every play.
-target/release/gunfinger show mix.json
-target/release/gunfinger show mix.json --format human
-
-# Hear the mix at 20:30, then each track found there, from the same place in
-# the track and at the speed it was played (needs ffplay; --print shows the
-# commands instead).
-target/release/gunfinger listen mix.json --at 20:30
-
-# Step through a report by ear: list its plays, then type a play's number
-# (or `<n> start`, `<n> end`, `at 20:30`) to hear the mix and the tracks.
-target/release/gunfinger review mix.json
-
-# Every candidate within a minute of 20:30, weak ones included, with what
-# each lacks for the next level; --asset narrows it to matching paths, and
-# --windows lists each 10 s window's lines of hits and the chain that took
-# them.
-target/release/gunfinger explain mix.m4a --library ~/Music/library --at 20:30
-
-# Sizes of the peak store and the index, with a 25,000-track projection.
-target/release/gunfinger stats --library ~/Music/library
-
-# Check FFmpeg, the settings, the library and the peak store.
-target/release/gunfinger doctor --library ~/Music/library
-
-# List, then delete, peak records of files no longer in the library or left
-# out by its .gunfingerignore.
-target/release/gunfinger prune --library ~/Music/library
-target/release/gunfinger prune --library ~/Music/library --yes
 ```
 
-`index` takes files up to 17 minutes long; longer ones are mixes or album
-rips (`--min-track` and `--max-track` set the range; see
-[Tracks among sets and samples](#tracks-among-sets-and-samples)). Hidden
-files and folders (names starting with a dot, such as a downloader's
-`.incomplete/`) are passed over, and so is whatever the library's
-`.gunfingerignore` lists ([Leaving folders out](#leaving-folders-out)).
-A file whose audio stops short of the
-length its header declares by more than 1 s or 1% of that length, whichever
-is larger, counts as damaged. An MP3 inside a WAV container behind an ID3
-tag, which FFmpeg cannot open as it is, is read with the tag skipped and
-keeps the tag's names. Files that
-fail to decode or are outside the range are remembered in the peak store and
-passed over on later runs until they change (`--retry-skipped` tries them
-again). A file whose decode writes nothing for two minutes, as when a NAS
-stops answering, fails for that run only and is tried again on the next
-(ADR 0018); `identify` stops such a recording with the same message. A run
-with new indexing failures exits unsuccessfully after processing all files.
-A rejected replacement loses the earlier file's peaks, so offline searches
-cannot keep using its old audio. `identify --exclude-from FILE`
-leaves the listed library paths out of the index.
+Then index your library once and identify mixes against it:
 
-Results go to stdout, everything else to stderr. By default stderr shows a
-progress line on a terminal and warnings, such as library files that are not
-indexed yet. `--verbose` (`-v`) adds timings, the size of the index and every
-file left out of it, including the damaged and too-long files `index` passes
-over; `--quiet` (`-q`) keeps only results, warnings and errors.
-`gunfinger completions <shell>` prints a completion script (bash, zsh, fish,
-elvish, powershell) and `gunfinger man` prints the man page.
-
-The default output is a tracklist (ADR 0017): one numbered line per track
-with its start in the mix, named `artist - title` from the files' tags (or
-the file name of a file without a title tag), possible tracks marked. My
-2003 mix, a development set, against the drum & bass collection
-on the NAS (`--playback turntable`):
-
-```text
- 1.    0:01  Kemal and Rob Data - Konspiracy  (also: A-Konspiracy-Kemal_and_Rob_Data-sour, Kemal + Rob Data - Konspiracy)
- 2.    2:10  Future Cut - Sex Drive  (titles disagree: Future Cut - The Specialist)
- 3.    6:12  Narcosis - Escape Route  (also: AA-Escape_Route-Narcosis-sour)
- 4.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)
- 5.   11:31  Digital & Spirit - Phantom 2018 (possible; shares material with Digital and Spirit - Phantom Force)
- 6.   13:46  Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit) (possible; shares material with Digital and Spirit - Phantom Force)
- 7.   14:40  Tee Bee - Two Faced
- 8.   17:23  Omni Trio - Kinetic
- 9.   24:24  Carlito & Addiction - Into Music
-10.   29:13  Omni Trio - Artificial Life (Harp Tune)
-11.   31:04  Total Science - Yvon Is On
-12.   34:54  Marcus Intalex & ST Files - Balderdash  (also: Marcus Intalex & S.T.Files - Balderdash)
-13.   39:06  Spirit - Out Of Control
-14.   42:13  Dj Hidden - Skektics
+```sh
+gunfinger index ~/Music/library
+gunfinger identify mix.m4a --library ~/Music/library
 ```
 
-The tracklist lists tracks rather than plays. Plays of several library
-files over the same stretch of the recording are one entry when, with each
-file's own speed taken out, the track would have started at the same moment
-(within 5 s): rips, masters and uploads sped up by a few percent. They are
-also one entry when the files' tags give the same artist and title
-(compared by letters and digits, ignoring case), however they line up: an
-upload with a longer lead-in, an edit, a re-press. The entry is named after
-its strongest play; the other names its files give follow it (`also:`), or
-`titles disagree:` when the titles themselves differ, as for entry 2, where
-the strongest file carries another track's title in its tags (experiment
-0061). Gunfinger does not choose between them and never changes tags: the
-names are as good as the tags. Two tracks that overlap in a blend stay apart, and a possible play
-that shares material with another entry stays its own entry, naming it.
-A recording in which nothing is found prints `no tracks found`. The
-tracklist is plain text, without colour, so it can be copied as it is.
+`index` decodes each audio file and keeps a small record of its
+spectrogram peaks, about 180 bytes per second of audio. It is incremental:
+the next run only reads files that are new or changed. Set `library` and
+`peaks_dir` in the [configuration file](#configuration) and both commands
+work without flags from any directory.
 
-`--format` (`-f`, for `identify` and `show`) also takes:
+## Usage
 
-- `human`: one table of plays in time order: time span in the recording,
-  the part of the track that was heard, speed, confidence (`confident` or
-  `possible`), hits and asset path. When several library files hold the
-  same audio (copies, or rips with identical peaks), their plays are
-  identical and shown once, with the other paths underneath (`also ...`).
-  A play of several segments lists them underneath and keeps the highest
-  confidence reached by any one segment; their evidence is never pooled to
-  qualify. Plays found with key lock end with `(key lock)`. A possible
-  play that lies entirely inside a confident play of another recording
-  ends with `shares material with <asset> (play N)`, N counting plays as
-  `review` does: most likely the two recordings share that passage, as a
-  remix can carry the original's lead. This is display only; a remix
-  played in its own right reaches past the original's play, or is
-  confident itself, and is not marked. When confident plays of other files
-  over the same passage carry another title in their tags (a mislabelled
-  file, or a VIP that plays the original's opening), a line underneath
-  says `titled <its tags>; other files here: <title> (play N)`, without
-  choosing which title is right. This also covers copies with identical
-  audio and other titles, whose tags the report keeps.
+### Identifying mixes
+
+```sh
+# A tracklist (the default).
+gunfinger identify mix.m4a
+
+# Part of a recording, as JSON for scripts.
+gunfinger identify mix.m4a --start 45:00 --duration 10:00 --format json > mix.json
+
+# Many recordings at once. Each report is saved, and recordings already
+# reported are passed over unless something that affects the result has
+# changed (--again searches them anyway).
+gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
+```
+
+A recording in which nothing is found prints `no tracks found`.
+
+The tracklist lists tracks, not files. Plays of several library files over
+the same stretch of the mix are one entry when the files line up with each
+other (rips, masters, uploads sped up by a few percent) or when their tags
+give the same artist and title (an edit, a re-press, an upload with a
+longer intro). The entry is named after its strongest file; the others
+follow as `also:`, or as `titles disagree:` when their titles differ. Two
+tracks that overlap in a blend stay separate entries.
+
+`--format` (`-f`) also takes:
+
+- `human`: a table of every play: the span in the mix, the part of the
+  track heard, speed, confidence (`confident` or `possible`), hits and
+  file path. Plays found with key lock end with `(key lock)`.
 - `timeline`: each play as a bar across the recording.
-- `json`: the whole report: the playback searched (`query.playback`), plays
-  with their segments, `same_audio` paths, `shares_material_with`,
-  `other_titles` (the plays above, with their tags' title) and the
-  file's `tags` (artist, title, album) as the peak store holds them
-  (`schema_version` 3; fields may be added without a version change).
-  Scripts read this format.
+- `json`: the whole report, including each file's tags. Fields may be
+  added without a change of `schema_version`.
 - `csv`: one row per play, times in seconds.
-- `cue`: a cue sheet of the confident tracks, for players and splitters,
-  grouped as the tracklist groups them.
+- `cue`: a cue sheet of the confident tracks, for players and splitters.
 
-The tags come from the report, so `show` names tracks without the library;
-for reports made before the store kept tags, they are read from the files.
-The JSON, CSV and table keep every play. With several recordings, each
-one's output follows a heading `== <path>`.
+### Other commands
+
+```sh
+gunfinger show mix.json                   # print a saved report again, in any format
+gunfinger listen mix.json --at 20:30      # hear the mix at 20:30, then each track found there, at the speed it was played
+gunfinger review mix.json                 # step through a report's plays by ear
+gunfinger explain mix.m4a --at 20:30      # every candidate near 20:30, weak ones too, and what each lacks
+gunfinger stats                           # sizes of the peak store and the index
+gunfinger doctor                          # check FFmpeg, the settings, the library and the peak store
+gunfinger prune                           # list peak records of files gone from the library (--yes deletes them)
+gunfinger completions zsh                 # shell completions (bash, zsh, fish, elvish, powershell)
+gunfinger man                             # the man page
+```
+
+Results go to stdout, progress and warnings to stderr. `--verbose` (`-v`)
+adds timings and every file left out of the index; `--quiet` (`-q`) keeps
+only results, warnings and errors.
 
 ## Configuration
 
-Settings come from command-line flags first, then environment variables,
-then a TOML file, then the built-in defaults. The file is
-`$XDG_CONFIG_HOME/gunfinger/config.toml`, or `~/.config/gunfinger/config.toml`
-when `XDG_CONFIG_HOME` is not set; `--config FILE` (or `GUNFINGER_CONFIG`)
-reads another. Every key is optional, an unknown key is an error, and `~` at
-the start of a path is your home directory. `gunfinger doctor` prints the
-settings in effect and the file they came from.
-
-| Key | Flag | Environment | Default | Meaning |
-|-----|------|-------------|---------|---------|
-| `library` | `--library` | | none | Library root for `index`, `identify`, `explain`, `stats`, `doctor` and `prune`; `identify`, `explain` and `stats` search the peak store alone without it ([Without the library](#without-the-library)) |
-| `peaks_dir` | `--peaks-dir` | `GUNFINGER_PEAKS_DIR` | `work/peaks`, relative to the current directory | The peak store |
-| `jobs` | `--jobs` | `GUNFINGER_JOBS` | one per core | Worker threads |
-| `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | Colour in the table, the timeline, headings and messages (the tracklist stays plain): `auto` (on a terminal), `always` or `never` |
-| `playback` | `--playback` | | `both` | Playback searched by `identify` and `explain`: `both`, `turntable` or `key-lock` |
-| `min_track` | `--min-track` | | none | Shortest library file that counts as a track |
-| `max_track` | `--max-track` | | `17:00` | Longest library file that counts as a track; the index addresses up to 17:28 |
-
-A complete file:
+Settings come from command-line flags, then environment variables, then a
+TOML file, then the built-in defaults. The file is
+`$XDG_CONFIG_HOME/gunfinger/config.toml` (or
+`~/.config/gunfinger/config.toml`); `--config FILE` or `GUNFINGER_CONFIG`
+names another. Every key is optional and an unknown key is an error.
+`gunfinger doctor` prints the settings in effect and where they came from.
 
 ```toml
 library = "~/Music/library"
@@ -266,61 +170,37 @@ min_track = "1:30"
 max_track = "15:00"
 ```
 
+| Key | Flag | Environment | Default | Meaning |
+|-----|------|-------------|---------|---------|
+| `library` | `--library` | | none | The library root |
+| `peaks_dir` | `--peaks-dir` | `GUNFINGER_PEAKS_DIR` | `work/peaks` in the current directory | The peak store |
+| `jobs` | `--jobs` | `GUNFINGER_JOBS` | one per core | Worker threads |
+| `color` | `--color` | `NO_COLOR` turns `auto` off | `auto` | `auto`, `always` or `never`; the tracklist is always plain |
+| `playback` | `--playback` | | `both` | `both`, `turntable` or `key-lock` |
+| `min_track` | `--min-track` | | none | Shorter files are samples and loops |
+| `max_track` | `--max-track` | | `17:00` | Longer files are mixes and album rips; the index addresses up to 17:28 |
+
 Lengths are written as on the command line: seconds (`"90"`), `M:SS` or
 `H:MM:SS`.
 
-### Key lock and vinyl
+### Vinyl only
 
-A turntable changes pitch and tempo together. CDJs and DJ software can play
-with key lock (master tempo), which many digital DJs use: the tempo changes
-and the pitch does not. The two need different searches, and Gunfinger runs
-both by default, so it finds a track however it was played; plays found with
-key lock are marked `(key lock)`. Searching both takes about half again the
-time of one (on a 56-minute mix, 261 instead of 166 CPU seconds) and lists a
-few more weak candidates in `explain`. On the vinyl development mix and on
-turntable-style test excerpts, the identifications are the same either way
-(experiments 0010, 0016 and 0018).
+Turntable playback and key lock need different searches, and by default
+Gunfinger runs both, so it finds a track however it was played. If you only
+identify vinyl mixes, `playback = "turntable"` skips the key-lock search and
+makes searches about a third faster. `--playback both` still handles the
+occasional digital set.
 
-If you only identify vinyl mixes, search turntable playback alone:
+### Leaving files out
 
-```toml
-# ~/.config/gunfinger/config.toml: vinyl only
-library = "~/Music/library"
-peaks_dir = "~/.local/share/gunfinger/peaks"
-playback = "turntable"
-```
+A folder that also holds DJ sets, samples and loops needs a narrower track
+length range (`min_track`, `max_track`). Files outside it are not decoded,
+and narrowing it later needs no new index.
 
-`--playback both` still searches the occasional digital set in full, and
-`playback = "key-lock"` suits a collection of digital sets only.
-
-### Tracks among sets and samples
-
-`index` takes only library files whose length is within the track length
-range: by default up to 17 minutes, with no minimum. A folder that also
-holds DJ sets, minimixes, samples and loops needs a narrower range:
-
-```toml
-min_track = "1:30"   # shorter files are samples and loops
-max_track = "15:00"  # longer files are minimixes and sets
-```
-
-`index` first reads the length a file declares in its header, so a set is
-passed over without being decoded; near a limit, the decoded length
-decides. Files outside the range are remembered in the peak store, and
-`index` takes them when the range is widened to include them. Narrowing
-the range needs no new index: `identify`, `explain` and `stats` leave out
-indexed files outside it, and `--verbose` lists them. `gunfinger doctor`
-shows the range in effect and how many files it passed over, and counts
-only files within the range against the index's limit of 65,536 assets.
-The index addresses tracks up to 17:28: with a longer `--max-track`,
-searches stop at the first longer file and name it.
-
-### Leaving folders out
-
-Some files belong in the collection but not in the library Gunfinger
-searches. A track of a DJ-mixed CD already blends into the next one, so it
-matches two recordings and joins them. List such files and folders in
-`.gunfingerignore` at the library root, one pattern per line:
+Some files belong in your collection but not in the search. A track of a
+DJ-mixed CD already blends into the next one, so it matches two recordings
+and joins them. List such files and folders in `.gunfingerignore` at the
+library root:
 
 ```gitignore
 # Mixed CDs: each track already blends into the next one.
@@ -328,202 +208,183 @@ matches two recordings and joins them. List such files and folders in
 /2001 - VRSCD003 - Ed Rush & Optical - The Creeps [Virus]/CD2/
 ```
 
-The syntax is a subset of `.gitignore`. Lines starting with `#` are
-comments. A pattern starting with `/`, or with a `/` in its middle, is a
-path from the library root; otherwise it matches a name at any depth
-(`CD2/` would leave out every folder named `CD2`). A trailing `/` matches
-folders only. `*` matches within one name, `?` one character and `**` any
-number of folders. Matching is case-sensitive, and square brackets match
-themselves, so release folders such as `[Virus]` are written as they are.
-There is no negation (`!`) and no backslash escape: to keep one disc of a
-release, list the other, as above. Only the file at the root is read.
+The syntax is a subset of `.gitignore`: `#` comments, `/` anchors a
+pattern at the root, a trailing `/` matches folders only, and `*`, `?` and
+`**` work as usual. Square brackets match themselves, so release folders
+such as `[Virus]` are written as they are. There is no negation.
+`gunfinger doctor` shows how many files each pattern leaves out and warns
+about a pattern that matches nothing. Gunfinger never writes this file.
 
-Every command that reads the library (`index`, `identify`, `explain` and
-`stats` with a library, `doctor` and `prune`) then treats the files left
-out as files not in the library: `index` does not decode them and searches
-leave them out. `gunfinger doctor` shows how many audio files each pattern
-leaves out and warns about a pattern that leaves out none, most likely a
-typo or a renamed folder. Peak records made before a file was ignored stay
-in the store until `prune --yes` deletes them; `doctor` and `prune` count
-them apart from the records of files gone from the library. Searches
-without the library (`--store-only`, or no library given) read only the
-store, so they find ignored files until those records are pruned. Removing
-a pattern brings its files back; `index` decodes them again if they were
-pruned. Gunfinger never writes this file; the patterns are yours.
+### The peak store and the saved index
 
-### One file per library
+Keep one peak store per library; records are keyed by their path relative
+to the library root, and every command refuses a store that names another
+library. With several libraries, give each its own configuration file.
 
-Keep one peak store per library: records are keyed by the path relative to
-the library root. The store names its library in `library.txt`, which the
-first `index` writes (an older store keeps its records and adopts the
-library it is indexed with next), and every command refuses a store that
-names another library; `prune` also refuses to delete most of a store,
-which is what a wrong `--library` looks like. If the library moves, put
-its new path in `library.txt`. With several libraries, give each its own
-file:
-
-```sh
-target/release/gunfinger --config ~/.config/gunfinger/jungle.toml index
-GUNFINGER_CONFIG=~/.config/gunfinger/jungle.toml target/release/gunfinger identify mix.m4a
-```
-
-### A saved index
-
-`identify`, `explain` and `stats` build the index from the peak store
-(about 70 s at 33,000 records) and save it, by default, in
+Each search builds an index of the peak store and saves it under
 `$XDG_CACHE_HOME/gunfinger/indexes/` (or `~/.cache/gunfinger/indexes/`),
-one file per peak store, about 4 bytes per posting (3.8 GB at 33,000
-records). The next search loads it instead, in 2-3 s (experiment 0072),
-when its header names exactly what the search would index: the peak
-profile, the hash design, the track length range and every file's path,
-size and modification time. After `index` adds or changes files, or a
-prune removes some, the next search builds it again and saves it over the
-old file; a damaged or truncated file is never used. `--saved-index
-rebuild` builds and saves it anyway, `--saved-index off` builds it in
-memory only, and `--exclude-from` leaves the file alone. The folder can be
-deleted at any time (ADR 0011). `gunfinger doctor` says whether the
-store's saved index exists, its size and whether it is current, and lists
-the folder's other files (saved indexes of other stores, unfinished
-saves) with their sizes; it deletes nothing.
-
-The harness keeps its own saved index for `--other-peaks-dir` runs, in
-`work/indexes/library-<store folder>.index` (3.8 GB for the NAS store),
-and removes the files a leave-out or held-out run leaves out from it in
-memory (ADR 0014).
+about 4 bytes per posting. The next search loads it in a few seconds
+instead of building it again, as long as nothing it was built from has
+changed. The folder can be deleted at any time; `--saved-index off`
+builds the index in memory only.
 
 ### Without the library
 
-Each peak record names its file, and `index` keeps each file's artist,
-title and album beside its record, so the peak store alone is enough to
-identify tracks and name them. When no library is given, or the library
-root is missing (an unmounted network share, for example), `identify`,
-`explain` and `stats` search the store's current records and say so in one
-line. Other read failures stop the command, so an unreadable subfolder
-cannot bring ignored files' records into the search (ADR 0012);
-`--store-only` searches the store's records without reading the library.
-A folder, or an audio file that would be indexed, that is gone when the
-listing reads it (moved or deleted meanwhile, such as by a download in
-progress) is not part of the library: `index`, `identify`, `explain` and
-`stats` leave it out and say how many vanished, naming the first, in one
-warning, and `doctor` reports them. Other files are passed over by their
-names, as before. The root is never skipped: if it is gone or cannot be
-read after such a listing, the command treats it as a root that could not
-be read at the start (a missing root falls back to the store's records,
-any other error stops it). `prune` refuses a listing in which anything
-vanished and asks to be run again (ADR 0015).
-Reports name the library the store names, so `listen` and `review` play the
-tracks once it is back. Without the library there is no telling which files
-have changed or been deleted since they were indexed, or which the library's
-`.gunfingerignore` leaves out: their records are searched until `index` or
-`prune` replaces or removes them. A store indexed before
-it kept tags gets them from the next `index`, which reads only the files'
-headers.
+The peak store holds each file's peaks and tags, so it is enough to
+identify and name tracks. When the library is not mounted, `identify`,
+`explain` and `stats` search the store's records and say so; `--store-only`
+does it on purpose. To identify mixes on another computer, copy the peak
+store there and point `--peaks-dir` at it.
 
-To identify tracks on another computer, run `prune` (and `index`), copy the
-store's directory, about 180 bytes per second of audio (`gunfinger stats`
-shows its size), install Gunfinger and FFmpeg there, and name the copy:
+## How it works
 
-```sh
-target/release/gunfinger --peaks-dir /Volumes/STICK/peaks identify mix.m4a
-```
+Gunfinger is a landmark fingerprinter in the line of Shazam's (Wang 2003),
+extended to search a mix at many assumed speeds.
 
-The track length range in effect there applies, as it does to a library.
-`gunfinger doctor --peaks-dir ...` checks the copy.
+1. **Peaks.** `index` decodes each file with FFmpeg to 8 kHz mono and
+   keeps the local maxima of its spectrogram, one record per file. The
+   peaks are the source of truth; everything else is rebuilt from them.
+2. **Hashes.** Each search builds an index of peak-pair hashes: an anchor
+   peak's frequency, the frequency difference to a nearby peak and the
+   time between them, packed into 21 bits, 4 bytes per posting.
+3. **Speed ladder.** `identify` analyses the mix under 41 assumed speeds
+   from 0.92 to 1.08, each in two ways: as a turntable plays it (time and
+   frequency scaled together) and with key lock (time scaled, frequency
+   kept). Under the right assumption, the mix's hashes meet a track's
+   hashes on a straight line through mix time and track time.
+4. **Candidates.** Lines found in successive 10 s windows are chained into
+   candidates; a chain's slope gives the speed. This first pass leaves out
+   the 1% fullest posting lists: the most common hashes cost the most
+   lookups and tell tracks apart the least.
+5. **Measurement.** Each candidate's stretch of the mix is analysed again
+   at exactly its fitted speed, and its hits counted in every posting list.
+   It is confident with at least 240 hits in at least 3 windows. That rule
+   was calibrated against the strongest false alignment measured, then
+   frozen. From 60 hits a detection is possible: the track, or one sharing
+   material with it, probably plays there.
+6. **Plays and tracks.** Detections of one file with gaps of up to 90 s
+   are one play, so a needle skip or a radio insert does not split a
+   record. Plays of files that hold the same recording become one
+   tracklist entry.
 
-## Development
+### Results
+
+| Evaluation | Result |
+|------------|--------|
+| Speed sweep: 2,160 excerpts across four seeds, −8% to +8% | 100% recall, 0 wrong |
+| Stakka & Skynet, Knowledge Magazine mix (56 min, 11 tracks) | 11/11, 0 wrong |
+| The same mix with 3 or 11 of its tracks removed from the index | 0 wrong |
+| Held-out test mix: an Essential Mix radio broadcast (1 h 58 min) | 14 of 16 tracks in the library, 0 wrong; the other two shown as possible |
+| A collection of 27,000 tracks, the Stakka & Skynet mix | 11/11, 0 wrong |
+
+The margin between the weakest correct identification and the strongest
+false candidate is 6.65× on the 262-track library. At 27,000 tracks,
+unrelated chance reaches 63-70 hits, above the possible tier's 60, so
+possible plays are less reliable in a library that size; confident ones
+are not affected. With the saved index loaded, a 46-minute mix against
+33,000 tracks takes about 90 s and 4.8 GB of memory.
+
+Heavy damage (noise at 0 dB SNR, a blend of two tracks at equal level)
+loses evidence but has not produced a false identification.
+
+## How it is built
+
+Gunfinger is written in synchronous Rust: no async runtime, database,
+network service, neural model, GPU code or `unsafe`, and no third-party
+fingerprinting crate. The workspace has three crates: `gunfinger-core`
+(decoding, peaks, the peak store, hashing, the index, matching),
+`gunfinger` (the CLI) and `gunfinger-eval` (the evaluation harness).
+[AGENTS.md](AGENTS.md) has the house style and the rules for changing
+code.
 
 ```sh
 scripts/check.sh    # fmt, clippy with -D warnings, tests
 ```
 
-`gunfinger-eval` is the evaluation harness. It reads a private corpus
-(`corpus/library/` and `corpus/sets/<set>/tracklist.toml`) that is not part
-of the repository:
+Three parts of the way it is developed are worth a closer look.
 
-```sh
-target/release/gunfinger-eval validate [<set>]         # check the manifests, or one
-target/release/gunfinger-eval clusters                 # duplicate rips in the library
-target/release/gunfinger-eval clusters --from-peaks    # the same from stored peaks, compared
-target/release/gunfinger-eval --other-peaks-dir STORE map-library   # corpus files' copies in a larger library
-target/release/gunfinger-eval --other-peaks-dir STORE recall --seed 2026   # recall on the larger library's recordings
-target/release/gunfinger-eval pair PAIRS.tsv           # two files' alignments and supported time
-target/release/gunfinger-eval sweep --seed 2026        # speed sweep
-target/release/gunfinger-eval --other-peaks-dir STORE sweep --seed 2026 --other-rips   # only other rips can answer
-target/release/gunfinger-eval --verify sweep --seed 2026   # every detection measured by the peak verifier
-target/release/gunfinger-eval shared PLAN.json         # queries from a passage two recordings share
-target/release/gunfinger-eval scan <set> [--leave-out 3 --seed 2026]
-target/release/gunfinger-eval calibrate                # confidence margin
-target/release/gunfinger-eval baseline <name>          # save the standard reports
-target/release/gunfinger-eval regress <name>           # rerun them and show what changed
-target/release/gunfinger-eval robust --seed 2026       # excerpts under EQ, noise, codecs, key lock...
-target/release/gunfinger-eval related                  # remixes and shared material in the library
-target/release/gunfinger-eval hash-cost                # pairs and triplets: postings, lookups, evidence
-target/release/gunfinger-eval mixes --count 12         # generated mixes with exact truth
-target/release/gunfinger-eval grid                     # brief plays slid across the 10 s windows
-target/release/gunfinger-eval loss                     # where the development mix loses evidence
-target/release/gunfinger-eval memory --synthetic-copies 30   # memory by phase (run under /usr/bin/time -l)
-target/release/gunfinger-eval memory --count-lines     # the first pass's lines and detections instead
-target/release/gunfinger-eval questions pack|folders PLAN|detections REPORT   # listening questions
-target/release/gunfinger-eval audition                 # answer them by ear in the browser
+### Experiment-driven development
+
+Every change that could affect detection starts as a hypothesis and ends
+as a measurement. Each experiment gets a short record in
+`docs/experiments/`: the hypothesis, the change, the exact command, the
+measured result and the conclusion, at most 40 lines, written before the
+next experiment starts. There are over a hundred of them so far.
+
+Experiments that lose are deleted from the code, but their records stay,
+so the reasons an idea was rejected are as easy to find as the reasons
+another was kept. Decisions that come out of experiments go into decision
+records in `docs/adr/`, and a decision changes only through a new record
+that supersedes the old one. Every threshold chosen against the library is
+listed in `docs/calibration.md` with what it rests on and what to measure
+again when the library grows.
+
+The evaluation follows the same discipline as a study with a test set.
+Two mixes are development sets, measured as often as needed. A third, a
+two-hour radio broadcast, is held out: it was searched for the first time
+only after the confidence rule was frozen, it may be evaluated at most
+five times in total, and every evaluation is logged. Ground-truth
+tracklists are never edited to make a result look better; a suspected
+error in one is checked by ear and still counts as wrong until then.
+
+### Regression checks
+
+Search is deterministic, so a change that is not meant to affect
+detection can be shown not to, bit for bit. `gunfinger-eval baseline`
+saves the standard evaluation's reports (the seeded speed sweep, the
+development mix and its leave-outs) under a name, and `regress` runs it
+again on the current code and reports what changed:
+
+```console
+$ gunfinger-eval baseline before
+$ # ... change the code ...
+$ gunfinger-eval regress before
+compared with baseline work/baselines/before
+sweep-seed-2026.json: 720 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+  all 87 detections identical
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+  all 93 detections identical
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+  all 79 detections identical
+calibrate: weakest identifying 680 -> 658, strongest false 99 -> 99, missed 0 -> 0, false accepted 0 -> 0
+calibrate: false candidates at 30 hits or more 18 -> 46, strongest on audio not in the index 20 -> 22
 ```
 
-Rendered excerpt caches are reused only after successful encoding. Caches
-from earlier versions are rendered again once, which can make the first
-evaluation after upgrading slower.
+Every commit that could change detection runs `regress` first. A
+performance change is expected to come back identical; a matching change
+shows exactly which detections moved and how the confidence margin
+changed.
 
-`clusters` searches each file against the library on the turntable
-ladder (0.92-1.08, so uploads a few percent fast are found), measures
-each candidate pair again alone at its fitted speed, and joins two files
-when one alignment covers 80% of the shorter one, counted in that file's
-own seconds. The verdicts by ear in `docs/pair-verdicts.txt` (`same` or
-`different`, then two paths, tab-separated) override that rule; run
-`clusters` again after editing it. A cluster holds every file a chain of
-joins reaches, so when joins through other files link two files judged
-`different`, `clusters` stops and names the chain (with another
-library's store, it checks the last run's pairs before searching).
-With `--cut-sparsest` it instead cuts each such chain's measured join
-with the fewest hits per second, never one judged `same`, and lists the
-cuts (`cut_links` in the report) to judge by ear. With another
-library's store, `--reuse-pairs [REPORT]` clusters an earlier run's
-pairs again with the current verdicts, without searching (seconds
-instead of hours): those of the clusters in use, or of the
-`duplicate-clusters-stopped.json` a search keeps when a verdict stops
-it. The pairs count as measured, with the current verdicts in place of
-that run's and no cuts; pairs with a file pruned or ignored since are
-dropped, and files indexed since are not searched. The check before a
-search reads the last run's pairs the same way. It
-prints each pair's hits per second of aligned span and lists the joins
-under a tenth of the median: their coverage rests on little evidence.
-`gunfinger-eval pair-review` steps through the listening pack
-(`work/listening/`, from `scripts/analysis/listening_pack.py`) by ear:
-for each item without a verdict it shows both full paths, the coverage
-and where the files stop lining up, plays the clips with `ffplay`, and on
-`s` or `d` appends the `same` or `different` line to the verdicts file
-(Enter or `n` the next clip, `p` the previous, `r` replay, `k` skip the
-item, `q` quit). At the end it prints the `clusters --reuse-pairs
---cut-sparsest` command that applies the new verdicts; the cut, which
-changes nothing where no chain joins two files judged different, keeps a
-remaining contradiction from stopping the run.
-A verdict links only files the run searches: the corpus library's files
-and, with another library's store, the files it holds a current record
-of, never a file a library's ignore file leaves out (with a store alone,
-read from the library the store names when it is mounted). Every other
-verdict is printed with its line and adds nothing.
+`regress` sits on top of the rest of the harness, which reads a private
+corpus (`corpus/library/` and one `corpus/sets/<set>/tracklist.toml` per
+mix) that is not part of the repository:
 
-`gunfinger-eval audition` is the listening tool (ADR 0016). It serves a
-page on `127.0.0.1` and opens it in the browser:
+| Command | What it measures |
+|---------|------------------|
+| `sweep` | Held-out excerpts at nine speeds from −8% to +8%; the panels are drawn once per seed and kept in `docs/panels/` |
+| `scan` | A real mix against its tracklist, optionally with tracks left out of the index |
+| `calibrate` | The margin between the weakest correct and the strongest false detection |
+| `robust` | Excerpts under EQ, noise, codecs, blends, speech, skips, pitch rides and key lock |
+| `mixes` | Generated mixes with exact truth: speeds, bass swaps, crossfades, cuts, short plays |
+| `grid` | Brief plays slid across the 10 s windows, to test where a short play stops counting |
+| `clusters`, `related` | The library matched against itself: duplicate rips, remixes and shared material |
+| `loss` | Where a mix loses evidence compared with a clean render of the same stretch |
+| `memory` | Resident memory by phase, also on a synthetic library many times the corpus |
 
-```sh
-target/release/gunfinger-eval audition
-```
+### The listening tool
 
-The page lists the questions in `work/audition/questions/*.json` (made
-by `questions pack`, `questions folders PLAN.toml` and `questions
-detections REPORT.json`; the format is in `docs/audition-questions.md`).
-It plays each question's files in lanes on one timeline, so switching
-lanes keeps the musical moment, and writes the answers to
-`work/audition/answers.jsonl`; a pair's `same` or `different` also goes
-to the verdicts file as the line `pair-review` would write. Keys:
+Some questions only a listener can settle: whether two files are the same
+recording, whether a release folder is a DJ-mixed CD, whether a detection
+is right. `gunfinger-eval audition` serves a small web page on
+`127.0.0.1` for answering them by ear, one key per answer.
+
+Each question is a set of lanes on one timeline: the mix in one lane, the
+candidate tracks in the others, placed where and at the speed Gunfinger
+found them. Switching lanes keeps the musical moment, so you can jump
+from the mix to the track mid-bar and hear whether it is the same
+pressing. Speed matching plays each lane at its placed speed; `B` plays
+two lanes together.
 
 | Key | Action |
 |---|---|
@@ -531,137 +392,114 @@ to the verdicts file as the line `pair-review` would write. Keys:
 | 1-9 | switch to that lane at the same moment |
 | Tab | back to the lane played before |
 | Left, Right | seek 5 s (with Shift 30 s) |
-| Up, Down | previous or next marker, from 2 s before it |
+| Up, Down | previous or next marker |
 | L | loop 8 s around the moment |
-| M | speed matching on or off (on: each lane plays at its placed speed, pitch and tempo together, and keeps the timeline's clock) |
-| B | this lane and the one played before together, the lower lane left |
-| S, D, U | for a pair: same, different, unsure (other questions show their own keys) |
+| M | speed matching on or off |
+| B | this lane and the one played before together |
 | J, K | next or previous question |
-| Z | undo the latest answer, then the one before |
+| Z | undo the latest answer |
 | ? | help |
 
-Click or drag a waveform to seek, click a marker to jump to it, click a
-question in the queue to open it.
+Questions are plain JSON files written by `gunfinger-eval questions` from
+the harness's evidence; the page knows no kinds of question, only lanes,
+markers and choices, so a new kind needs no change to the page. Answers go
+to an append-only log, and verdicts on pairs of files feed back into
+`clusters`. The format is in
+[docs/audition-questions.md](docs/audition-questions.md). The tool is for
+building ground truth; nothing in Gunfinger itself reads its answers.
 
-One server answers into a log at a time: a second `audition` on the same
-log says so and exits.
+## Documentation
 
-The sweep's held-out recordings and excerpts for each seed are drawn the
-first time the seed is used and kept in `docs/panels/`, so the same
-queries are measured as the library grows; `robust`, `mixes`, `grid` and
-`hash-cost` use the same panels.
+Everything else is in `docs/`:
 
-`--ladder both|turntable|key-lock` (before the command) chooses the rungs
-every search uses; the default is `both`, as in `identify`, and other
-ladders keep their reports in `work/reports/ladder-<name>/`. The harness
-searches with `identify`'s matcher; options before the command change it
-for every command in the same way: `--single-pass` is the matcher before
-session 6 (every posting list, one pass, 200 hits in 3 windows), and
-`--drop-fullest SHARE` empties the fullest posting lists instead of
-setting them aside. Session 4's variants, not adopted:
-`--speed-per-stretch` measures each stretch of 3 windows again at its
-own speed when its hits drift from the fitted one; `--trim-ends` leaves
-weak windows at either end out of a detection's boundaries, its evidence
-unchanged; `--extra-rungs N` extends both ladders by N rungs past ±8%
-(reports in `work/reports/extra-rungs-<n>/`), and `robust --only
-speed+8.2pct,...` runs speeds from ±8.2% to ±9%. Their reports go
-to `work/reports/variant-<name>/`, where `calibrate` and `regress` read
-them when given the same options. `scan` and `robust` take
-`--synthetic-copies N`, which adds N time-reversed, stretched copies of
-every record to the index as a proxy for a larger library, and
-`--second-library <root> --second-peaks-dir <store>`, which adds another
-library's peak records; those reports are kept apart from the ones
-`calibrate` and `regress` read. Peak profiles with neighbourhoods that
-widen with frequency (`Profile::spread`) need a build of their own and a
-store of their own under `work/variants/` (`--peaks-dir`, `--work`); `loss`
-reports postings and true hits by anchor band.
+- `docs/adr/`: decision records, one per design decision, with the
+  context and the alternatives.
+- `docs/experiments/`: one record per experiment, numbered in order, with
+  data in `docs/experiments/data/` and the held-out test mix's ledger in
+  `test-set-ledger.md`.
+- `docs/calibration.md`: every number chosen against the library and what
+  to measure again as it grows.
+- `docs/references.md`: the papers below, with the sections that matter
+  and where Gunfinger uses them.
+- `docs/roadmap.md`: what is missing and ideas not yet tried.
+- `docs/status.md`: a running log of the work, with exact commands and
+  numbers.
+- `docs/brief*.md` and `docs/session-*-checklist.md`: the brief for each
+  development session and its progress.
+- `docs/audition-questions.md`: the listening tool's question format.
+- `docs/panels/`: the seeded excerpt panels the sweeps measure.
 
-A larger library the corpus was drawn from, which holds a copy of every
-corpus file, can be measured without being mounted: `--other-peaks-dir
-STORE` (before the command) names its peak store. `map-library` pairs each
-corpus file with its copies there (identical peak records), and `clusters
---from-peaks` finds the other rips of the corpus recordings there,
-following chains of rips; `--manifest <set>` (repeatable) and
-`--recall-panel <seed>` add the other library's files that set's manifest
-references and the recall panel's development sources to the queries.
-A manifest may reference the other library's files as
-`second-library/<path>`: with `--other-peaks-dir`, `validate` and `scan`
-check them against the store; without it they are set aside, so a track
-with no other reference counts as absent. Then `sweep`, `scan`, `robust` and `memory`
-search an index of the corpus and the other library's remaining records,
-named `second-library/<path>`, and count its rips of a recording as that
-recording; held-out and left-out recordings take their rips with them.
-The map, the clusters and the reports go to
-`work/reports/library-<store directory name>/`, where `calibrate` and
-`regress` read them when given the same option. `--other-sample N` adds
-only N of the other library's records, a seeded choice (each smaller
-choice is part of the larger), to measure against index size; its
-reports go to a `sample-<N>/` directory below. `recall --seed N` draws a
-panel from the other library's records outside the corpus recordings'
-clusters (kept in `docs/panels/recall-seed-<N>.json`): recording families
-(normalised artist and title) split into a development and a validation
-half, each with 60 indexed and 20 held-out sources, a third each from
-scene releases, YouTube channels and the rest. It renders the development
-half's excerpts from the library's audio as the sweep does (`--prepare`
-stops there), searches them, and says why each miss failed: never a
-candidate, too few hits, or enough hits in too few windows.
+## Bibliography
 
-Read [AGENTS.md](AGENTS.md) before changing code: it holds the house style,
-the crate boundaries and the evaluation rules.
+### Fingerprinting
 
-## Results
+- A. L.-C. Wang, "An Industrial-Strength Audio Search Algorithm," Proc.
+  4th ISMIR, Baltimore, 2003, pp. 7-13.
+  <https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf>
+  Spectrogram peaks, pair hashes, matching as a diagonal line of time
+  pairs, and a threshold measured against the best wrong match.
+- J. Six and M. Leman, "Panako – A Scalable Acoustic Fingerprinting System
+  Handling Time-Scale and Pitch Modification," Proc. 15th ISMIR, Taipei,
+  2014. <https://archives.ismir.net/ismir2014/paper/000122.pdf>
+  Triplet hashes invariant to speed changes; the alternative to the speed
+  ladder.
+- J. Six, "Panako 2.0 – Updates for an Acoustic Fingerprinting System,"
+  Late-Breaking Demo, 22nd ISMIR, 2021.
+  <https://backoffice.biblio.ugent.be/download/8726851/8726856>
+  Near-exact hashing and matching around a regression line.
+- R. Sonnleitner and G. Widmer, "Robust Quad-Based Audio Fingerprinting,"
+  IEEE/ACM Transactions on Audio, Speech, and Language Processing, 2016,
+  doi:10.1109/TASLP.2015.2509248.
+  <https://www.cp.jku.at/research/papers/preprint_TASLP2509248.pdf>
+  Quad hashes and peak verification, the basis of the harness's
+  `--verify` diagnostic.
+- R. Sonnleitner, A. Arzt and G. Widmer, "Landmark-Based Audio
+  Fingerprinting for DJ Mix Monitoring," Proc. 17th ISMIR, New York,
+  2016, pp. 185-191.
+  <https://archives.ismir.net/ismir2016/paper/000187.pdf>
+  Pairs, triplets and quads compared on real DJ mixes, scored per second.
+- J. O. Smith and X. Serra, "PARSHL: An Analysis/Synthesis Program for
+  Non-Harmonic Sounds Based on a Sinusoidal Representation," Proc.
+  International Computer Music Conference, 1987.
+  Quadratic interpolation of spectral peaks, used for each peak's
+  fractional bin.
 
-Measured on 262 library tracks (29.3 hours) with the rule frozen at tag
-`poc-freeze-1`, searching turntable playback only. Searching both playbacks,
-the default now, gives the same sweep, development and leave-out results
-(experiment 0016); the test mix was searched that way in its third
-evaluation, with the matcher below.
+### Sample identification
 
-| Evaluation | Result |
-|------------|--------|
-| Speed sweep (80 excerpts × 9 speeds, −8% to +8%, MP3) | 100% recall at every speed, 0 wrong, speed error ≤ 0.016% |
-| Development mix (56 min, 11 tracks) | 11/11 identified, 0 wrong, 22–26 s |
-| Development leave-outs (3 and 11 tracks removed from the index) | 0 wrong |
-| Held-out test mix (radio broadcast, 1 h 58 min, 31 tracks) | First run: 15/17 identified (88%), 0 wrong, 53 s. One miss was a remix not in the library; with the manifest corrected, 15/16 (94%). The other miss, cut by a radio insert, is shown as possible (second evaluation) |
+- A. Bhattacharjee, I. Meresman Higgs, M. Sandler and E. Benetos,
+  "Refining Music Sample Identification with a Self-Supervised Graph
+  Neural Network," Proc. 26th ISMIR, 2025, arXiv:2506.14684.
+  <https://arxiv.org/abs/2506.14684>
+  Finding a sampled recording, which for Gunfinger is a wrong answer
+  resting on the same evidence.
 
-Since session 6 the default matcher skips the most common hashes while
-looking for candidates and measures each candidate again at its fitted
-speed (ADR 0008). Over four sweep seeds (2026-2029, 2,160 excerpt queries)
-recall stays 100% with 0 wrong, the development mix and leave-outs keep
-their results, and the margin between the weakest identifying detection
-and the strongest false candidate is 6.65× (4.15× with `--single-pass`,
-experiments 0025 and 0047). Plays of 10 s are possible, no longer
-confident through a chance window. On the test mix (third evaluation)
-it identifies 14/16 with 0 wrong: Sick Note, confident at 209 hits under
-the single pass's rule of 200, is possible at 233 hits under the rule of
-240, and Sin stays possible.
+### Datasets
 
-The pass bar was at least 80% identified and zero wrong on each mix. The
-index takes 74 postings per second of audio and 5.07 bytes per posting; for
-25,000 tracks that projects to 3.0 GB in memory, or about 2.3 GB with the
-delta-coded on-disk layout recommended in ADR 0005.
+- Mixotic (Sonnleitner et al. 2016): 10 Creative Commons DJ mixes of
+  techno and house with 723 reference tracks and song-border annotations.
+  <https://www.cp.jku.at/datasets/fingerprinting/>
+- D. Schwarz and D. Fourer, "UnmixDB: A Dataset for DJ-Mix Information
+  Retrieval," 2018, doi:10.5281/zenodo.1422385. Generated mixes of the
+  Mixotic tracks with exact ground truth.
 
-At scale, measured with synthetic copies on an idle machine (experiments
-0028, 0029): the development mix takes 3.8 minutes at 8,122 assets and
-12.0 at 26,462 (skip at 240: 1.5 and 3.8 minutes), and peaks at 2.9 and
-7.7 GB (1.4 and 3.8 GB) with 10 workers. Most of that CPU sorted each
-window's hits; since session 12 a counting sort groups them by asset
-(experiment 0086).
+### Other
 
-On the collection of 27,042 tracks, from its peak store alone
-(experiments 0050-0052): the development mix is identified 11/11 with 0
-wrong in 4.4 minutes and 4 GB, the sweeps keep 100% recall, and the false
-confident answers left come from a few pairs of records that may be the
-same recording, to judge by ear. At 33,596 records, with
-the saved index loaded, the 56-minute development mix takes 104 s to
-search (experiment 0087), and `identify` of my 46-minute 2003
-mix takes 86-92 s and 4.8 GB (experiment 0086).
+- G. L. Steele Jr., D. Lea and C. H. Flood, "Fast Splittable
+  Pseudorandom Number Generators," Proc. OOPSLA, 2014. SplitMix64, the
+  harness's seeded random number generator.
 
-Known limits: the thresholds were set on 262 real tracks; at 27,000
-tracks unrelated chance reaches 63-70 hits, above the possible tier of
-60, so possible plays are less reliable at that size
-([docs/calibration.md](docs/calibration.md) lists what to measure again).
-A search of turntable playback alone misses key-locked (pitch-preserved)
-plays (experiment 0009). Heavy damage
-(noise at 0 dB SNR, a blend at equal level) loses evidence but has not
-produced a false identification (experiment 0009).
+### Further reading
+
+Cited in the project as leads, not yet read:
+
+- T. Kim, M. Choi, E. Sacks, Y.-H. Yang and J. Nam, "A Computational
+  Analysis of Real-World DJ Mixes Using Mix-To-Track Subsequence
+  Alignment," Proc. 21st ISMIR, 2020.
+- D. Schwarz and D. Fourer, "Methods and Datasets for DJ-Mix Reverse
+  Engineering," Proc. CMMR, 2019.
+- T. Kim, J. Kim, H. Kim and J. Nam, "Raveform: A Dataset of Metrical and
+  Functional Structure Annotations for EDM Tracks in DJ Mixes,"
+  Transactions of the ISMIR 9(1), 2026.
+- D. Lang, D. W. Hogg, K. Mierle, M. Blanton and S. Roweis,
+  "Astrometry.net: Blind Astrometric Calibration of Arbitrary
+  Astronomical Images," The Astronomical Journal, 2010.
