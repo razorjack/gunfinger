@@ -2489,3 +2489,9 @@ during the session.
   1.8, 1.1. No true play of the new mix found only as possible. Its
   strongest detection matching no track (66 hits, 44:33-45:16) is Stab
   2 Def blended in before its slot's window. No threshold changed.
+- Step 5: no listening question written, by the brief's criteria. Track
+  17's slot (1:01:25-1:04:40) has no candidate: nothing at least
+  possible in any run, and the strongest alignment there has 9 hits
+  (chance level). `pair` settles the TI029 C side: one recording that
+  matches neither the Phunckateck VIP nor the 1999 original. No wrong
+  confident play exists to explain.

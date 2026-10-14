@@ -39,8 +39,10 @@ for scope and rules.
   2026-10-14 in the roadmap and `docs/calibration.md`; the new mix shows
   3.6, 3.6, 2.7, 1.8 possible plays per hour at 60, 80, 100, 130 hits,
   all shared material; no true play only possible; no threshold changed
-- [ ] 5. Listening questions in `work/audition/s18/`; the page checked
-  with temporary files
+- [x] 5. Listening questions: none written. Track 17's slot holds no
+  candidate (nothing at least possible; the strongest alignment 9 hits);
+  `pair` settles the TI029 C side (neither the VIP nor the 1999
+  original); no wrong confident play. Paths to judge by ear in the notes
 - [ ] 6. Search speed (if time remains)
 - [ ] 7. Read-only review by a subagent; fixes
 
