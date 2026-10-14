@@ -123,7 +123,10 @@ unverified.
   point of the block searched (2Q bytes for Q points), whatever the number
   of hits; nothing is persisted, the index format does not change and
   nothing is indexed again.
-- **Why it stays conservative.** The integer proxy offset is
+- **Why it would stay conservative** (the report's argument: plausible,
+  not yet proven for the guarded float case and not yet tested; the
+  predicate tests below are required whatever the performance). The
+  integer proxy offset is
   `r - floor(q) = (r - q) + frac(q)`; offsets 2 frames apart give proxies
   less than 3 apart, so buckets at most one apart, and folding keeps
   neighbours. Float rounding needs an explicit guard, for example finite
@@ -182,7 +185,9 @@ unverified.
   `2 round(1024 / s / 2)`, for first-pass turntable analysis only: 17 of
   the 41 lengths are odd, each changes by one sample, at most 0.105%.
   RealFFT 3.5.0 runs an even length N as a complex FFT of N/2 with pre-
-  and postprocessing and an odd N as a complex FFT of N.
+  and postprocessing and an odd N as a complex FFT of N. The report gives
+  no other reason for nearest-even, and itself cautions that
+  factorisation matters and an even length need not be faster.
 - **Evidence.** 0078 measured three analyses at 0.016849 s for 1024,
   0.369398 s for 985 and 0.224277 s for 1113 (reused scratch, timed under other
   load): a length-specific cost worth measuring, not a clean estimate.
@@ -204,9 +209,11 @@ unverified.
     factor leaves 12 rungs above 31 and none above 100 (largest 83);
     within two samples (0.21%), 6 and none (largest 71).
 
-  Whether time follows the largest prime factor is a prediction to
-  measure. The diagnostic should time three arms (today, nearest-even, a
-  factor-aware rule), not nearest-even alone.
+  The factor-aware rule is this note's extension, not the report's
+  recommendation. The arithmetic ranks candidates for timing and
+  establishes no winner: whether time follows the largest prime factor
+  is a prediction to measure. The diagnostic should time three arms
+  (today, nearest-even, a factor-aware rule), not nearest-even alone.
 - **Smallest decisive test.** Enumerate the lengths in the Rust build and
   record the pinned versions and features. On fixed decoded input, time
   plan and window construction, repeated `process_with_scratch`, and
