@@ -336,9 +336,9 @@ marked as inferences were derived, not measured.
   about 13% cheaper against the unchanged analysis, below the note's 20%
   stop point, and were not kept; by inference the filter's cost is its
   counting and the hit loads, not the slot arithmetic (0108). The FFT
-  lengths, measured as a
-  diagnostic (0109): plan construction is 0.04% of the analysis; a
-  window within two samples of today's chosen for small prime factors
+  lengths, measured as a diagnostic (0109): plan construction is 0.04%
+  of the analysis; a window within two samples of today's chosen for
+  small prime factors
   makes the first pass's turntable analysis 36.5% faster on one thread,
   and a build using such lengths, for timing only, took 5.4% less wall
   time with both playbacks and 9.2% less with turntable playback (the
