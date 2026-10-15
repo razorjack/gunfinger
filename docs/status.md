@@ -2950,7 +2950,7 @@ NAS gained files during the session.
   Kemal's Silent Extent Remix over the original, 7%). Experiment 0116:
   453 true and 87 wrong related confident plays; (a1) 9.31 hits per
   second, (a2) 0.498, (c)+(a1), (c)+(a2) promising in rendered mixes only
-  (the development mixes keep 45-72 of 97); (b), (c), (c)+(b) not.
+  (the development mixes keep 45-70 of 97); (b), (c), (c)+(b) not.
   Frozen in the brief (step 5).
 - Step 6, 06:38-07:05: session 19's factor2 lengths in a worktree never
   merged (`work/s21/fft-factor2.diff`, removed after), the development

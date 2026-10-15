@@ -323,7 +323,7 @@ plays), (c)+(b) (8 of 87).
 What the result means: every threshold that passes was set by drawn
 plays rendered from the indexed files themselves, which are about three
 times denser than real plays. Against real rips (the positive control in
-the same mixes, 0-11 of 15 kept, and the development mixes, 45-72%
+the same mixes, 0-11 of 15 kept, and the development mixes, 46-72%
 kept) the same thresholds lose a quarter to all of the true plays. The
 conservative reading: no candidate separates a related version's play
 from a true play of a real rip.

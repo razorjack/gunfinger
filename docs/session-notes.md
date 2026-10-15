@@ -4178,3 +4178,227 @@ when the panel was built; no scenario was run on them.
   possible tier's threshold, test evaluation 5, session 18's three
   manifest proposals, and the FFT lengths' retrieval study (now required to pass
   this panel).
+
+## Session 21
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. The harness gained `gunfinger-eval shared-mixes`,
+which renders mixes around the panel's played files and measures every
+detection for the candidate statistics below.
+
+In short: no statistic separates a related version's wrong confident
+play from a true play in a real mix. In rendered mixes the sparseness of
+the evidence separates them well, and four candidates pass the rule
+written before the run; but the true plays there are cleaner than in
+the development mixes, and at the same thresholds the three development mixes
+keep only 45-70 of their 97 true plays. The map of shared passages (c)
+marks 70% of the wrong plays, all in Fire's family, where a third
+version is indexed; it also marks true plays of tracks with a remix, VIP
+or edit in the library. That makes it material for reporting ambiguity,
+not a rule for rejecting plays.
+
+### The rendered mixes (experiments 0116 and 0118)
+
+36 mixes (seeds 2101-2103), one per seed for each of the 12 played files
+of the panel's development half that have a shared passage (Dozer and
+its Notjamie bootleg; Fire's original, Rogue Unit Remix, Nasty Jungle
+Remix and Rogue Unit VIP; Time Is Broken and Ignorance; Sonar and the
+Mark System Revision; Watermelon and Monotone). Each played file plays
+whole (3:26-7:36 in the mix, at 0.943-1.053 of native speed) between
+three tracks drawn before and three after, as `mixes` draws them: 20-60 s
+plays, speeds within 6%, bass swaps, crossfades and cuts, levels matched,
+rendered to a 128 kbit/s MP3. The
+drawn tracks come from the corpus library, never from the panel (either
+half) and never one of the five test-derived versions; as in the
+generated mixes of experiment 0020, they include corpus tracks that
+earlier test evaluations name (The Pulse, Sick Note), used only as
+filler. Nothing of the test set (audio, manifest, reports) was read.
+
+Each mix was searched at NAS scale three ways: everything indexed; the
+played recording left out (the main case); the played file alone left
+out while another rip stays (Dozer, Fire's original, Time Is Broken,
+Sonar: the positive control). The three development mixes were
+searched as they are, as a second sample of true plays.
+
+To run it again (36 min, 7.0 GB of memory; renders in
+`work/shared-mixes/`):
+
+```sh
+gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks \
+  shared-mixes docs/panels/shared-mixes-s21.json
+python3 -I scripts/analysis/shared_mixes.py score docs/panels/shared-material-seed-2026.json \
+  work/reports/library-nas-dnb-peaks/duplicate-clusters.json \
+  work/reports/library-nas-dnb-peaks/shared-mixes-s21.json \
+  work/reports/library-nas-dnb-peaks/verified/scan-{stakka-skynet-knowledge,razorjack-2003-03-29,nocny-trans-vertical-2002-08-23}.json \
+  out.json
+```
+
+### The rule, written before anything was rendered
+
+`docs/brief-21.md` ("Pre-registration", committed at 05:51). A play is
+`identify`'s (one file's detections joined across gaps of 90 s). True
+plays: drawn tracks' confident plays with the played recording left out,
+and the positive control's other rip. Wrong plays: confident plays of
+the related recording or another version of the family over the played
+file, with the played recording left out. Four candidates, each
+computed the same way for every confident play:
+
+- (a1) hits per second of the play's span;
+- (a2) the peak verifier's share of the file's peaks found;
+- (b) the file's own material in the 10 s beyond the play's end (and
+  before its start), found at the play's alignment, relative to the
+  share inside: Fire's related file stops while the music plays on;
+- (c) the strongest other indexed file holding the play's passage in
+  the library (a lookup in a map of shared passages, built only from the
+  files present after the leave-out), and its combinations with (a1),
+  (a2) and (b): a marked play faces the second test.
+
+A candidate is promising only if one threshold keeps 95% of the true
+plays and rejects half of the wrong ones (the research note's
+feasibility test); one that keeps under 95% of the development mixes'
+true plays at that threshold is "promising in rendered mixes only".
+
+### Each candidate against the rule
+
+With the played recording left out, 87 wrong related plays in 9 of the
+12 played files (Fire 67, Pyro 9, Sonar 9 when its revision played,
+Dozer 2; none when Sonar, Watermelon or Monotone played), 240-4,480
+hits. With
+everything indexed, the same 87 stand beside the played file's own play.
+
+| Candidate | Rejects of 87 wrong (0116; 0118) | Development mixes keep, of 97 (0116; 0118) |
+|---|--:|--:|
+| (a1) hits per second | 81; 78 | 50; 57 |
+| (a2) verifier share | 80; 76 | 45; 65 |
+| (b) own material beyond | 1; 1 | 96; 96 |
+| (c) holder of the passage | 39; 39 | 86; 86 |
+| (c) then (a1) | 61; 61 | 70; 74 |
+| (c) then (a2) | 61; 61 | 70; 73 |
+| (c) then (b) | 8; 13 | 97; 97 |
+
+- **(a1), (a2) and their combinations with (c) pass in rendered mixes
+  only.** In 0116 the drawn plays are rendered from the very files the
+  index holds: a median of 31.5 hits per second, against 4.6 for the
+  wrong plays and 9.4 for the development mixes' true plays. The follow-up (0118,
+  its rule also written first) left each drawn file out, so drawn tracks
+  were found only through another rip (197 of 216): 17.4 hits per
+  second, still well above the wrong plays. The rest of the gap is most
+  likely the mixing chain of a real mix (vinyl, EQ, broadcast), which
+  the rendered mixes do not have. The thresholds that pass are frozen in
+  `docs/brief-21.md` (for example (a1) at 9.31 hits per second), with
+  this caveat beside them.
+- **(b) points the wrong way.** A true play stops where the mix moves
+  to the next record, so the file's material beyond is absent (median
+  0.017 of the share inside). A related version's continuation still
+  shares some material with the played file (median 0.039). Low values
+  mark true plays, not wrong ones.
+- **(c) is not a separating statistic.** It can mark a wrong play only
+  where a third version of the family stays indexed: it marks 61 of the
+  87, all in Fire's family, and none of Dozer's, Pyro's or Sonar's 20. At
+  its natural point (60 hits) it also marks true plays: in the
+  development mixes 28 of 97. 17 of them go through another file that
+  `pair` lines up only 4-32%: Stab 2 Def ~ Mampi Swift - 2000, Clockwork
+  ~ its Stakka Rmx, Star Trails ~ its Synergy Remix, Klute's We R The
+  Ones VIP and "3" ~ the Klute Remix, Phantom Force ~ Phantom 2018 and
+  Fracture's edit, Sonic - Cannibal ~ `1.mp3`, Omni Trio's Artificial
+  Life ~ Secret Life's Silent Storm Remix, and the i-witness Phoenix ~
+  weedsurfer's Phoenix (32%). The other 11 go through newer uploads of
+  the same recording that session 18's clusters do not know. In 0116 it
+  also marks all 15 positive-control plays, through the related version
+  that stays indexed.
+- An exploratory check, not part of the rule: thresholds chosen to keep
+  95% of the real true plays (the positive control and the development mixes)
+  reject 43 (a1) and 12 (a2) of the 87, under half.
+
+### What it means for our decision
+
+A statistic or reporting ambiguity is our decision (ADR 0017). This
+session's evidence:
+
+- **A sparseness statistic** would separate related versions in clean
+  rendered mixes, but (a1) and (a2) at the thresholds that keep 95% of
+  the real true plays reject under half of the wrong ones (43 and 12 of
+  87). It is not supported for real mixes. Validating the frozen thresholds on the panel's validation
+  half (rendered the same way, seeds fixed first) would most likely
+  repeat the rendered-mix pass and say nothing about real mixes; it was
+  not run, as the prompt says. A test that could change the answer
+  needs mixes with a real chain (my own recordings, or rendered mixes
+  through vinyl-like processing) that play a related version's shared
+  passage.
+- **Reporting ambiguity** has a concrete basis in (c): for a confident
+  play, another indexed file outside its recording that holds its
+  passage. In this session it would flag 61 of the 87 wrong plays and
+  17 of the development mixes' 97 true plays (each through a file `pair` lines up
+  4-32%, mostly a remix, VIP or edit; the other 11 marks disappear once
+  the clusters know the newer uploads). It never flags a wrong play
+  whose family has only two versions indexed, the case of Dozer, Pyro
+  and Sonar here.
+- Reclustering the NAS library at the current revision would remove
+  most of (c)'s marks on true plays: of its 79 in 0116, 62 are drawn
+  plays marked through uploads newer than the clusters (2 more through
+  Kemal's remix, 15 the positive control). It is our decision; it was
+  not done.
+
+### Step 6: the FFT lengths on the panel (experiment 0117)
+
+Session 19's first-pass variant ("factor2", windows within 2 samples
+chosen for small prime factors) on the panel's development half at NAS
+scale, in a worktree never merged, against session 20's results: one
+wrong confident title added (Fire's Rogue Unit VIP at 240 hits, 239
+before, in a query already wrong through another remix) and one removed
+(Sonar's Mark System Revision, 240 hits before, 125 now), each in the
+three indexes; no right file lost; the main case goes from 106 to 105
+wrong confident queries. Both changes sit on the rule's edge. By the
+roadmap's criterion (no wrong confident query added) the variant passes this
+first step; nothing is adopted, and the rest of the retrieval study is
+not run.
+
+### Worth knowing
+
+- **The harness's runs.** The full run took 36 min (7.0 GB), the
+  follow-up 33 min and step 6 27 min, one at a time, under `screen`. The
+  follow-up's first start used a stale binary and was stopped; it was
+  rerun from a fresh build. Overwriting a binary in place while a
+  process still runs it gets the new process killed by macOS's code
+  signature check; copy to a fresh path instead.
+- **A related version outside the panel.** In one mix, Kemal -
+  Animation (Silent Extent Remix) is confident (517 hits) over a drawn
+  play of the original (`extra/a-kemal-animation-sour.mp3`). By its
+  title it is a remix; `pair` lines up 7% of it. It is dense (20.4 hits
+  per second), so neither (a1) nor (a2) would have rejected it; (c)
+  marks it through the original (354 hits), and (c)+(a1) and (c)+(a2)
+  would reject it. A candidate for the panel once judged by ear.
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and the manifests are unchanged. The NAS
+  was only read; the NAS peak store was not written. The test set, both
+  validation halves and the candidate mixes of experiment 0065 were not
+  touched.
+
+### Decided this session, open to change
+
+- No held-out or returning plays in the rendered mixes, so every drawn
+  play is a true play; the played files play whole (all fit).
+- The drawn pool leaves out every file of the panel (both halves) and,
+  by the test-derived pattern, the corpus's two Funktion files (the
+  original; the Marky & Bungle version is a NAS file).
+- (c)'s own recording is session 18's duplicate cluster plus the panel's
+  recordings, as written in the rule, although newer uploads are known
+  to be missing from the clusters.
+- After 0116 showed that its true plays copy the indexed files, the
+  follow-up (0118) was added with its rule written first, because the
+  session had time and the question was the session's own.
+
+### Decisions waiting
+
+- Between a statistic and reporting ambiguity (above), and whether a
+  later session validates on the panel's validation half.
+- Whether a later session reclusters the NAS library at the current
+  revision.
+- Kemal - Animation (Silent Extent Remix) against the original, for the
+  panel.
+- Still waiting: the 17 listening questions of session 20, the
+  containment rule (recommended: do not adopt), the possible tier's
+  threshold, test evaluation 5, session 18's three manifest proposals,
+  and the FFT lengths' retrieval study (its first stage now measured).

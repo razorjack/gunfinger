@@ -26,7 +26,7 @@ for scope and rules.
   06:02-06:38 (7.0 GB)
 - [x] 4. Measurement: `shared_mixes.py score`; 453 true and 87 wrong
   related confident plays; (a1), (a2), (c)+(a1), (c)+(a2) promising in
-  rendered mixes only (the development mixes keep 45-72% at their
+  rendered mixes only (the development mixes keep 45-70 of 97 at their
   thresholds), (b), (c), (c)+(b) not; 42 other confident plays set aside
   by `pair` (newer uploads), one remix over its original; experiment 0116
 - [x] 5. The outcome: the four frozen in `docs/brief-21.md` with the

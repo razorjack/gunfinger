@@ -35,6 +35,6 @@ other confident plays, 42 are newer uploads of drawn tracks (`pair`
   keeping 95% of the 112 real plays reject 43 (a1) and 12 (a2) of 87.
 
 **Conclusion.** The test passes only against plays copied from the
-indexed files; at its thresholds the development mixes keep 45-72% of
+indexed files; at its thresholds the development mixes keep 46-72% of
 true plays, the rips 0-11 of 15: nothing separates a related version
 from a real rip. (c) marks shared passages: ambiguity to report.
