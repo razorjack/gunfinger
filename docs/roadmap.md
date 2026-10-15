@@ -384,11 +384,12 @@ marked as inferences were derived, not measured.
   key-lock-only control byte-identical. Answers at the rule's edge move
   both ways: `robust` loses 20 right confident answers and gains 24, a
   few files cross between possible and confident (other rips, the recall
-  panel), 9 possible answers are lost and 7 gained (grid, `robust`,
-  other rips), and in the generated mixes two starts end up further
-  from the truth by more than the 1.0 s tolerance. So the criterion "no right
-  confident or possible file lost" and the boundary criterion fail. Part 2 needs
-  harness work (speeds off the half-steps, sub-hop offsets, the first
+  panel), and 9 possible answers are lost and 7 gained (grid, `robust`,
+  other rips). Apart from that, two starts in the generated mixes end up
+  further from the truth by more than the 1.0 s tolerance. So the criterion
+  "no right confident or possible file lost" and the boundary criterion
+  fail. Part 2 needs
+  harness work (a list of sweep speeds, sub-hop offsets, the first
   pass traced, a first-pass call path), then timing on an idle machine;
   adoption is our decision.
   *(session 20)* Split out of `take_part`, the binary searches are

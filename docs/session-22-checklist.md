@@ -37,7 +37,7 @@ for scope and rules.
   (byte-identical), the other two development mixes at 262 tracks with
   leave-outs (the same tracks and wrong detections; Into Music's segment
   and boundaries move), the recall panel's development half (the same
-  answers; three rips possible -> confident) and other rips at NAS scale
+  answers; two rips possible -> confident in three queries) and other rips at NAS scale
   for seeds 2026-2029 (one confident answer gained, one rip confident ->
   possible, one possible answer lost and one gained); all runs done by
   10:48
@@ -45,9 +45,11 @@ for scope and rules.
 - [x] 5. Read-only review by a subagent, 10:51-11:08 (23 findings);
   fixes: `fft_compare.py` compares files per answer kind, pairs
   independently of order and checks lengths (the file comparison found a
-  Synergy rip confident -> possible and three recall rips possible ->
-  confident); numbers, labels and wording corrected in the experiment,
-  notes, status, roadmap and research note
+  Synergy rip confident -> possible and two recall rips possible ->
+  confident in three queries); numbers, labels and wording corrected in
+  the experiment, notes, status, roadmap and research note; a second
+  review of the fixes (11:14-11:22, 8 points: the hits of the file that
+  changed, two rips not three, the table counts queries), fixed
 
 ## Wrap-up
 
@@ -57,7 +59,8 @@ for scope and rules.
   build (byte-identical to the start build); `scripts/check.sh` green
   with both toolchains (396 tests)
 - [x] The NAS store's revision at the end (`b285da9984422fb5`, unchanged)
-- [ ] The worktree removed
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] The worktree removed (11:13; its diff kept in
+  `work/s22/fft-factor2.diff`)
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

@@ -3074,8 +3074,11 @@ was measured.
   3.71 s, with 1,889 hits then 1,907). Both starts lie inside an 8-11 s
   fade-in with the bass cut for its first 4-5 s.
 - (d) 09:21-09:34 sweeps 2027-2029, both builds (about 2 min each):
-  every answer unchanged (720 of 720 per seed: 540 right, 180 held out
-  with nothing confident, no possible answer gained or lost), recall
+  every confident answer unchanged (720 of 720 per seed: 540 right, 180
+  held out with nothing confident; after the reviews, compared by files:
+  in seed 2029 two Dubstyle files of Aphrodite - Fanfare become wrong
+  possible matches at -5% and +3%, 57 and 35 hits, then 62 and 60, and
+  stop being one at +8%, 62, then 57), recall
   60/60 at every speed, 0 wrong, the bar passed by both; 191, 194 and 200
   queries with identical detections; the own file's hits 0.956-1.011 of
   today's.
@@ -3119,7 +3122,8 @@ was measured.
   Phoenix upload, 9 the hifi-junglist React upload of Total Science -
   Yvon Is On); the right file's hits 0.89-1.52 of today's. After the
   review, compared by files: one rip of C4C - Synergy at +1% drops from
-  confident to possible while another rip still answers.
+  confident to possible (240 hits, then 236) while another rip still
+  answers.
 - (g) 10:16-10:19 the 2003 mix and the Vertical broadcast at 262 tracks
   with leave-outs 3 and all, both builds: identified 7, 4, 0 and 9, 6, 0
   in both, 0 wrong, no play lost or added; Into Music's `extra/h-` rip
@@ -3136,9 +3140,11 @@ was measured.
   Unknown, John B; not checked with `pair`),
   the right file's hits 0.990-1.011 of today's; one held-out query
   (Congo Natty - Revolution against the "Peace" white label) changes its
-  possible wrong match at three speeds (85 -> 28, 9 -> 60, 82 -> none).
-  After the review, compared by files: three rips rise from possible to
-  confident (Dead Air at -1% and +5%, The Sect - Victim at 0%).
+  possible wrong match at three speeds (85 -> 28, 6 -> 60, 82 -> none).
+  After the review, compared by files: two rips rise from possible to
+  confident in three queries (Dead Air's RH 66 upload at -1% and +5%,
+  194 and 224 hits, then 242 and 248; The Sect - Victim's dfect upload
+  at 0%, 202, then 248).
 - (i) 10:31-10:48 other rips at NAS scale for seeds 2027-2029 (2.4-3.3
   min each). Over the four seeds (1,413 queries): recalled 1,296 ->
   1,297 (Cause 4 Concern - Blindside at -1%, seed 2027: 238 hits, then
@@ -3148,7 +3154,7 @@ was measured.
   Balderdash, Bad Company's BCR01 and Inside The Machine uploads, Lava
   Flow's and Fanfare's label uploads, Slip Thru, the weedsurfer Phoenix;
   not checked with `pair`), one possible right answer gained (Falcon -
-  Fractles at -5%, seed 2027: 40 hits, then 70) and one lost (the same
+  Fractles at -5%, seed 2027: no detection, then 70 hits) and one lost (the same
   at -1%, seed 2029: 61 hits in 3 windows, then 54 in 2).
 - 10:48 the queues done. Every run log ends with `/usr/bin/time`'s
   statistics and shows no error, and every report exists; the exit
@@ -3180,9 +3186,10 @@ was measured.
   each answer kind per query (right and wrong, confident and possible),
   pairs plays and detections largest overlap first regardless of order,
   and checks that paired lists have equal lengths; every comparison was
-  run again and every count stands, and the file comparison added two
+  run again and every count stands, and the file comparison added
   changes the answer classes hid (a C4C - Synergy rip confident ->
-  possible; three recall rips possible -> confident). Corrected in the
+  possible; two recall rips possible -> confident in three queries;
+  Fanfare's Dubstyle as a wrong possible match in sweep 2029). Corrected in the
   experiment, the notes, status, roadmap and research note: the recall
   panel's possible wrong changes; the grid's possible total (255 ->
   253); the robust edge counts (28 of 44 cross 240 hits); the boundary
@@ -3192,3 +3199,17 @@ was measured.
   wrong answers' files; factor2's measured speed-up (5.4% and 9.2%); the
   Opus renders; the new data written (about 6 GB, removed); the queue's
   exit codes.
+- 11:14-11:22 a second read-only review of the fixes (8 points, all
+  checked and fixed by 11:24): `compare_sweep` reported the hits and the
+  rule's edge of a query's strongest file instead of the file that
+  changed (Fractles at -5% had no detection, not 40 hits; Congo Natty's
+  "Peace" 6 hits, not 9; the Synergy rip and the recall rips cross 240
+  hits); it now reports each changed file's own hits, and paired items
+  must match (labels, speeds), or it stops. The recall changes are two
+  rips in three queries, not three rips; 0119's table counts queries;
+  the 262-track sweeps' wrong possible changes (Fanfare's Dubstyle,
+  seed 2029) and the roadmap's and research note's wording corrected.
+- 11:13 the worktree `work/s22-fft-tree` removed (its diff in
+  `work/s22/fft-factor2.diff`; `work/probe-tree`, not this session's,
+  left). Scratch: `work/s22/` 86 MB (reports, comparisons, logs; the
+  renders and index clones removed), `work/bin/s22-*` 33 MB.

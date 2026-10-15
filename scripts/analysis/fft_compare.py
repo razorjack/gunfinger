@@ -22,8 +22,9 @@ def overlap(a, b):
 
 def pair_up(before, after, key):
     """Pairs items with the same key, largest overlap first over all
-    candidate pairs, so the result does not depend on the input order;
-    returns pairs, the unpaired before and the unpaired after."""
+    candidate pairs, so the result does not depend on the input order
+    (exact ties go to the earlier items); returns pairs, the unpaired
+    before and the unpaired after."""
     candidates = sorted(
         ((overlap(b, a), i, j) for i, b in enumerate(before) for j, a in enumerate(after)
          if key(b) == key(a) and overlap(b, a) > 0),
@@ -39,8 +40,15 @@ def pair_up(before, after, key):
     return pairs, lost, added
 
 
+def check_same(before, after):
+    if before != after:
+        sys.exit(f"paired items differ: {before!r} against {after!r}")
+    return True
+
+
 def same_length(before, after, what):
-    assert len(before) == len(after), f"{what}: {len(before)} against {len(after)}"
+    if len(before) != len(after):
+        sys.exit(f"{what}: {len(before)} against {len(after)}")
     return zip(before, after)
 
 
@@ -111,7 +119,8 @@ def compare_scan(before, after):
         {"label": tb["label"], "identified": [tb["identified"], ta["identified"]],
          "possible": [tb["possible"], ta["possible"]]}
         for tb, ta in same_length(sb["tracks"], sa["tracks"], "tracks")
-        if (tb["identified"], tb["possible"]) != (ta["identified"], ta["possible"])]
+        if check_same(tb["label"], ta["label"])
+        and (tb["identified"], tb["possible"]) != (ta["identified"], ta["possible"])]
     wp, wl, wa = pair_up(sb["wrong_identifications"], sa["wrong_identifications"], lambda d: d["asset"])
     out["wrong_confident"] = {"before": len(sb["wrong_identifications"]),
                               "after": len(sa["wrong_identifications"]),
@@ -226,6 +235,19 @@ def sweep_answers(query):
     return kinds
 
 
+def strongest_of(query, asset):
+    found = [d for d in query["detections"] if d["asset"] == asset]
+    return max(found, key=lambda d: d["hits"]) if found else {}
+
+
+def file_change(asset, before, after):
+    """One file's strongest detection in a query, in both builds, and the
+    rule's edge it crosses."""
+    b, a = strongest_of(before, asset), strongest_of(after, asset)
+    return {"asset": asset, "hits": [b.get("hits"), a.get("hits")],
+            "windows": [b.get("windows"), a.get("windows")], "edge": edge(b, a)}
+
+
 def bar(report):
     within = [r for r in report["per_speed"] if abs(r["speed_percent"]) <= 5]
     recalled = sum(r["recalled"] for r in within)
@@ -239,7 +261,8 @@ def compare_sweep(before, after):
     out = {"queries": len(before["queries"]), "identical": 0, "answer_changed": [],
            "bar": [bar(before), bar(after)],
            "per_speed": [[r["speed_percent"], rb["recalled"], r["recalled"], rb["wrong_answers"], r["wrong_answers"]]
-                         for rb, r in same_length(before["per_speed"], after["per_speed"], "speeds")]}
+                         for rb, r in same_length(before["per_speed"], after["per_speed"], "speeds")
+                         if check_same(rb["speed_percent"], r["speed_percent"])]}
     pairs = []
     for qb, qa in same_length(before["queries"], after["queries"], "queries"):
         assert (qb["asset"], qb["speed_percent"], qb["start_seconds"]) == \
@@ -250,10 +273,10 @@ def compare_sweep(before, after):
         changed = {kind: {"lost": sorted(ab[kind] - aa[kind]), "gained": sorted(aa[kind] - ab[kind])}
                    for kind in ab if ab[kind] != aa[kind]}
         if changed:
-            best = lambda q: max(q["detections"], key=lambda d: d["hits"]) if q["detections"] else {}
+            files = sorted({f for kind in changed.values() for f in kind["lost"] + kind["gained"]})
             out["answer_changed"].append({"asset": qb["asset"], "held_out": qb["held_out"],
                                           "speed_percent": qb["speed_percent"], "changed": changed,
-                                          "best": [best(qb), best(qa)], "edge": edge(best(qb), best(qa))})
+                                          "files": [file_change(f, qb, qa) for f in files]})
         own = lambda q: [d for d in q["detections"] if d["correct"]]
         if own(qb) and own(qa):
             pairs.append((max(own(qb), key=lambda d: d["hits"]), max(own(qa), key=lambda d: d["hits"])))

@@ -4506,10 +4506,10 @@ Today's build against the variant, the same audio and index for both:
 
 | Panel | Right confident | Wrong confident | Other changes |
 |---|--:|--:|---|
-| Sweeps, seeds 2026-2029, 262 tracks | 2,160 of 2,160, both | 0, both | none |
+| Sweeps, seeds 2026-2029, 262 tracks | 2,160 of 2,160, both | 0, both | wrong possible matches of Fanfare's Dubstyle move (seed 2029) |
 | Key-lock-only sweep (a control) | | | byte-identical reports |
 | Other rips at NAS scale, seeds 2026-2029 (1,413 queries) | 1,296 -> 1,297 queries | 134, both (the same files) | one file confident -> possible, one possible -> confident; 1 possible answer lost, 1 gained |
-| Recall panel, development half, NAS (702 queries) | 522 of 522 queries, both | 57, both (the same files) | 3 files possible -> confident; one held-out query's possible wrong match changes at 3 speeds |
+| Recall panel, development half, NAS (702 queries) | 522 of 522 queries, both | 57, both (the same files) | two rips possible -> confident in three queries; one held-out query's possible wrong match changes at 3 speeds |
 | The 3 development mixes, 262 tracks, with leave-outs | the same tracks | 0, both | boundaries move in 12 plays |
 | The 3 development mixes, NAS scale, and every track left out | the same 40 tracks | the same 9 (uploads the clusters do not join, as in 0115) | 1 possible play added; boundaries move in 43 plays |
 | Generated mixes, seeds 2026 and 7 (168 plays) | 125, both | 0, both | 5 boundaries move, 2 worse |
@@ -4542,17 +4542,19 @@ Today's build against the variant, the same audio and index for both:
 - **Other rips and the recall panel at NAS scale.** One answer becomes
   confident (Cause 4 Concern - Blindside at -1% through an upload, 238
   hits, then 241); one rip of Cause 4 Concern - Synergy at +1% drops from
-  confident to possible while another rip still answers; Falcon -
-  Fractles gains a possible answer at -5% and loses one at -1% (61 hits
-  in 3 windows, then 54 in 2). In the recall panel three rips rise from
-  possible to confident (Noisia, Phace & Stu C4C - Dead Air twice, The
-  Sect - Victim). The 134 and 57 wrong answers are the same files in
+  confident to possible (240 hits, then 236) while another rip still
+  answers; Falcon - Fractles gains a possible answer at -5% (no
+  detection, then 70 hits) and loses one at -1% (61 hits in 3 windows,
+  then 54 in 2). In the recall panel two rips rise from possible to
+  confident in three queries (the RH 66 upload of Noisia, Phace & Stu
+  C4C - Dead Air at -1% and +5%, 194 and 224 hits, then 242 and 248; the
+  dfect upload of The Sect - Victim at 0%, 202, then 248). The 134 and 57 wrong answers are the same files in
   both builds: by their titles, uploads of the queried recordings that
   the clusters do not join (the React CD uploads of Yvon Is On and
   Balderdash, Bad Company's label uploads, the weedsurfer Phoenix);
   not checked with `pair`. Possible wrong matches also move both ways
-  (Fanfare's Dubstyle, Congo Natty's "Peace"); they never count as
-  answers.
+  (Fanfare's Dubstyle, also in the 262-track sweep of seed 2029; Congo
+  Natty's "Peace"); they never count as answers.
 - **Short plays (grid).** Confident counts per play length are the same
   (0, 67, 146 and 160 of 160 at 10, 15, 20 and 25-40 s). Two 10 s plays
   lose their possible answer: SKC & Cord - Swarm at 1.054 (235 hits,
@@ -4647,6 +4649,16 @@ at some speeds.
   byte-identical to the other's; the review found that the 100 Opus
   files of robust's `opus-24k` condition differ only in their Ogg serial
   numbers and checksums, with the same encoded audio.
+- **Two reviews by second agents** (read-only) found no fault in the
+  variant, the conclusions on the criteria or the rules kept. The first (23
+  points) found that the script compared each sweep query by a single
+  answer class, which could hide a file changing under another answer;
+  compared file by file, the Synergy rip and the two recall rips above
+  change, and Fanfare's Dubstyle in the 262-track sweep. The second (8
+  points) found that the script reported the hits of a query's
+  strongest file rather than of the file that changed (Fractles at -5%
+  had no detection, not 40 hits). The rest were counts and wording;
+  all were fixed.
 
 ### Decided this session, open to change
 

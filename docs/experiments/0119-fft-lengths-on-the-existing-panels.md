@@ -6,7 +6,7 @@ pass's turntable rungs (0109, 0117) change on each existing panel?
 
 **Method.** Session 21's patch at `9aecef4` (worktree, never merged),
 each build with its own `--work`, store `b285da9984422fb5`;
-`fft_compare.py` (files per answer kind; bounds to 1.0 s); `data/0119-*`.
+`fft_compare.py`; the table counts queries; bounds to 1.0 s; `data/0119-*`.
 
 | Panel, today -> variant | Right confident | Wrong conf. | Possible right | Bounds > 1 s, per run |
 |---|--:|--:|--:|--:|
@@ -25,10 +25,10 @@ each build with its own `--work`, store `b285da9984422fb5`;
   segment (679 -> 20 at 262) inside a play that stays confident. Robust:
   20 lost, 24 gained, each crossing the rule (29 at 3 windows, 28 at 240
   hits, 13 both): needle skip 12/3, pitch ride 7/20, beatmatched 1/0,
-  clipping 0/1. Files: Blindside's rip -1% and 3 recall rips possible ->
-  confident; a C4C - Synergy rip at +1% confident -> possible.
+  clipping 0/1. Files: Blindside's rip (-1%, 238 -> 241) and 2 recall rips
+  (3 queries) possible -> confident; a C4C - Synergy rip 240 -> 236.
 - Possible: grid 10 s Swarm (1.054; 235 -> none), Lava Flow (0.962;
-  276 -> 48, 11 s off); Fractles 61 -> 54 (-1%), 40 -> 70 (-5%); Omni
+  276 -> 48, 11 s off); Fractles 61 -> 54 (-1%), none -> 70 (-5%); Omni
   Trio's Silent Storm Remix added (70 hits). Fade-in starts: Kosmic 2.31
   -> 3.63 s late, Kontempt 2.30 -> 3.71; 3 closer. Key-lock: same bytes.
 

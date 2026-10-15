@@ -1986,27 +1986,32 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1068,
-       "speed_percent": -5.0080889208039,
-       "fitted": true
+       "asset": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        57,
+        62
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       },
       {
-       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1073,
-       "speed_percent": -4.997608890931415,
-       "fitted": true
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        57,
+        62
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
@@ -2021,27 +2026,32 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1097,
-       "speed_percent": 2.987119653532422,
-       "fitted": true
+       "asset": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        35,
+        60
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       },
       {
-       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1099,
-       "speed_percent": 2.9909903345956224,
-       "fitted": true
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        35,
+        60
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
@@ -2056,27 +2066,32 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1060,
-       "speed_percent": 7.999844952933888,
-       "fitted": true
+       "asset": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        62,
+        57
+       ],
+       "windows": [
+        2,
+        2
+       ],
+       "edge": ""
       },
       {
-       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1063,
-       "speed_percent": 7.9948716991226965,
-       "fitted": true
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        62,
+        57
+       ],
+       "windows": [
+        2,
+        2
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     }
    ],
    "hits_after_over_before": {
@@ -4394,27 +4409,20 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 295,
-       "speed_percent": -2.753936661972878,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 294,
-       "speed_percent": -2.7473078938200834,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a",
+       "hits": [
+        240,
+        236
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": "hits 240 -> 236 across 240"
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
@@ -4428,27 +4436,20 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 501,
-       "speed_percent": -3.475361068164262,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 501,
-       "speed_percent": -3.4771016600347426,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/alien5ive/SUBBASS AUDIO [ sba103 \uff1a PHUTURE ASSASSINS -futureSound \u29f8\u29f8 CAUSE4CONCERN RMX ] drum and bass.opus",
+       "hits": [
+        24,
+        89
+       ],
+       "windows": [
+        2,
+        3
+       ],
+       "edge": "windows 2 -> 3 across 3"
       }
-     ],
-     "edge": ""
+     ]
     }
    ],
    "hits_after_over_before": {
@@ -5266,27 +5267,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1152,
-       "speed_percent": -1.001937144410503,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1152,
-       "speed_percent": -1.0016744063956695,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 \uff1a NOISIA & PHACE & STU - dead air - ] drum and bass.m4a",
+       "hits": [
+        194,
+        242
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": "hits 194 -> 242 across 240"
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
@@ -5306,27 +5300,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1188,
-       "speed_percent": 4.9978704807225105,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1190,
-       "speed_percent": 5.002626330034898,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 \uff1a NOISIA & PHACE & STU - dead air - ] drum and bass.m4a",
+       "hits": [
+        224,
+        248
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": "hits 224 -> 248 across 240"
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
@@ -5346,27 +5333,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1461,
-       "speed_percent": -0.0019926387075819285,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1461,
-       "speed_percent": -0.0019926387075819285,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/dfect-dnb/The Sect feat. Axis & Trank - Victim.m4a",
+       "hits": [
+        202,
+        248
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": "hits 202 -> 248 across 240"
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
@@ -5380,27 +5360,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
        "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
-       "correct": false,
-       "confident": false,
-       "windows": 3,
-       "hits": 85,
-       "speed_percent": -2.9999999999999916,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
-       "correct": false,
-       "confident": false,
-       "windows": 3,
-       "hits": 28,
-       "speed_percent": -3.7499999999999867,
-       "fitted": true
+       "hits": [
+        85,
+        28
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
@@ -5414,26 +5387,20 @@
        ]
       }
      },
-     "best": [
-      {
-       "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Illfingas - Union Station (D-Region Remix).opus",
-       "correct": false,
-       "confident": false,
-       "windows": 2,
-       "hits": 9,
-       "speed_percent": 1.866666666666661
-      },
+     "files": [
       {
        "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
-       "correct": false,
-       "confident": false,
-       "windows": 3,
-       "hits": 60,
-       "speed_percent": 1.3666666666666716,
-       "fitted": true
+       "hits": [
+        6,
+        60
+       ],
+       "windows": [
+        2,
+        3
+       ],
+       "edge": "windows 2 -> 3 across 3"
       }
-     ],
-     "edge": "windows 2 -> 3 across 3"
+     ]
     },
     {
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
@@ -5447,27 +5414,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
        "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
-       "correct": false,
-       "confident": false,
-       "windows": 3,
-       "hits": 82,
-       "speed_percent": 3.3371428571428607,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__youtube_archivists/dfect-dnb/Q Project - Daylight.opus",
-       "correct": false,
-       "confident": false,
-       "windows": 2,
-       "hits": 9,
-       "speed_percent": 4.400000000000004,
-       "fitted": true
+       "hits": [
+        82,
+        null
+       ],
+       "windows": [
+        3,
+        null
+       ],
+       "edge": ""
       }
-     ],
-     "edge": "windows 3 -> 2 across 3"
+     ]
     }
    ],
    "hits_after_over_before": {
@@ -5573,27 +5533,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 322,
-       "speed_percent": -2.8563517973307584,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 322,
-       "speed_percent": -2.8563517973307584,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+       "hits": [
+        79,
+        null
+       ],
+       "windows": [
+        3,
+        null
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/207-ant_miles-china_town-sour.mp3",
@@ -5607,27 +5560,20 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 340,
-       "speed_percent": 8.18603869608172,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 338,
-       "speed_percent": 8.180603118571273,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/the-hifi-junglist/Ant Miles - Sea Of Chaos (Drum&BassArena, React REACTCD201 disc 2 track 1) 2001.m4a",
+       "hits": [
+        null,
+        115
+       ],
+       "windows": [
+        null,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/a. falcon - fractles.mp3",
@@ -5641,27 +5587,20 @@
        ]
       }
      },
-     "best": [
-      {
-       "asset": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
-       "correct": false,
-       "confident": false,
-       "windows": 3,
-       "hits": 40,
-       "speed_percent": -2.399999999999991,
-       "fitted": true
-      },
+     "files": [
       {
        "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
-       "correct": true,
-       "confident": false,
-       "windows": 3,
-       "hits": 70,
-       "speed_percent": -7.600000000000007,
-       "fitted": true
+       "hits": [
+        null,
+        70
+       ],
+       "windows": [
+        null,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/d. falcon - the stand.mp3",
@@ -5675,27 +5614,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1019,
-       "speed_percent": 5.008007691065086,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1019,
-       "speed_percent": 4.9997784011371005,
-       "fitted": true
+       "asset": "second-library/1.mp3",
+       "hits": [
+        70,
+        59
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/05 - Bad Company - Sentient.mp3",
@@ -5709,27 +5641,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 901,
-       "speed_percent": -0.9980107081349665,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 901,
-       "speed_percent": -0.9982800825040661,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+       "hits": [
+        62,
+        38
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/05 - Bad Company - Sentient.mp3",
@@ -5743,27 +5668,20 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 908,
-       "speed_percent": 4.998521605364248,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 911,
-       "speed_percent": 4.993052551911958,
-       "fitted": true
+       "asset": "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus",
+       "hits": [
+        50,
+        71
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
@@ -5783,27 +5701,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
        "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
-       "correct": true,
-       "confident": false,
-       "windows": 3,
-       "hits": 238,
-       "speed_percent": -4.646560530139821,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 241,
-       "speed_percent": -4.64914333780283,
-       "fitted": true
+       "hits": [
+        238,
+        241
+       ],
+       "windows": [
+        3,
+        3
+       ],
+       "edge": "hits 238 -> 241 across 240"
       }
-     ],
-     "edge": "hits 238 -> 241 across 240"
+     ]
     }
    ],
    "hits_after_over_before": {
@@ -6002,27 +5913,44 @@
        ]
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1097,
-       "speed_percent": 2.987079079718935,
-       "fitted": true
+       "asset": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        57,
+        60
+       ],
+       "windows": [
+        2,
+        3
+       ],
+       "edge": "windows 2 -> 3 across 3"
       },
       {
-       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1099,
-       "speed_percent": 2.9913920886932788,
-       "fitted": true
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        57,
+        60
+       ],
+       "windows": [
+        2,
+        3
+       ],
+       "edge": "windows 2 -> 3 across 3"
+      },
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        57,
+        60
+       ],
+       "windows": [
+        2,
+        3
+       ],
+       "edge": "windows 2 -> 3 across 3"
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
@@ -6038,27 +5966,44 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
-       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1060,
-       "speed_percent": 7.999969657829631,
-       "fitted": true
+       "asset": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        62,
+        57
+       ],
+       "windows": [
+        2,
+        2
+       ],
+       "edge": ""
       },
       {
-       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
-       "correct": true,
-       "confident": true,
-       "windows": 3,
-       "hits": 1063,
-       "speed_percent": 7.994667826552537,
-       "fitted": true
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        62,
+        57
+       ],
+       "windows": [
+        2,
+        2
+       ],
+       "edge": ""
+      },
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+       "hits": [
+        62,
+        57
+       ],
+       "windows": [
+        2,
+        2
+       ],
+       "edge": ""
       }
-     ],
-     "edge": ""
+     ]
     },
     {
      "asset": "extra/a. falcon - fractles.mp3",
@@ -6072,27 +6017,20 @@
        "gained": []
       }
      },
-     "best": [
+     "files": [
       {
        "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
-       "correct": true,
-       "confident": false,
-       "windows": 3,
-       "hits": 61,
-       "speed_percent": -3.599999999999981,
-       "fitted": true
-      },
-      {
-       "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
-       "correct": true,
-       "confident": false,
-       "windows": 2,
-       "hits": 54,
-       "speed_percent": -3.8250000000000006,
-       "fitted": true
+       "hits": [
+        61,
+        54
+       ],
+       "windows": [
+        3,
+        2
+       ],
+       "edge": "windows 3 -> 2 across 3"
       }
-     ],
-     "edge": "windows 3 -> 2 across 3"
+     ]
     }
    ],
    "hits_after_over_before": {

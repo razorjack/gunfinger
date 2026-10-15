@@ -189,8 +189,8 @@ unverified.
 **Kind:** a diagnostic, then a behaviour-changing hypothesis. **Status:**
 diagnostic measured (0109); retrieval study part 1 measured on every
 existing panel (0117, 0119): no wrong confident answer added; the criterion
-"no right confident or possible file lost" and the boundary criterion fail at
-the rule's edges; part 2 (new harness)
+"no right confident or possible file lost" fails at the rule's edge and
+the boundary criterion on two starts in fade-ins; part 2 (new harness)
 and the timing criterion not run; not adopted.
 
 - **Measured in session 19 (experiment 0109): the diagnostic; no length
