@@ -160,3 +160,57 @@ and the wrap-up by 11:15 whatever is left.
   listed by name to check manually.
 - The harness's stale saved index is rebuilt by the first NAS-scale
   `shared` run (over the old file), as the prompt expects.
+
+## The oracle and the denominator (written at 02:41, before any measurement)
+
+Units. A *query* is one rendered excerpt of a scenario direction (played
+file, related file, passage) of one kind and length, searched against
+one *index*. The denominator of every rate is the number of queries of
+one kind and index over the development half's directions; each
+direction's queries are also listed on their own. No query is dropped
+after the fact; a query that cannot be rendered is reported as such.
+
+Roles of an indexed file in a result:
+
+- *played*: a file of the played recording, its NAS duplicate cluster
+  (session 18's file), or the file alone when it is in no cluster;
+- *related*: a file of the related recording, by the same rule;
+- *version*: a file of another recording of the same family (another
+  judged recording, or another version listed with the family);
+- *unjudged*: a file outside the clusters whose tags give the title of
+  one of the family's recordings, whose relation no one has judged (it
+  may be an unclustered rip);
+- *other*: anything else.
+
+Levels, today's rule: *confident* at 240 hits in 3 windows (ADR 0008);
+*possible* at 60 hits (ADR 0006); below that, not reported.
+
+Each query has exactly one outcome, tested in this order:
+
+1. *wrong confident*: some confident detection's file is not *played*;
+   labelled by the strongest such detection's role (related, version,
+   unjudged, other), and marked when the played recording is confident
+   in the same query too. It counts as wrong either way (brief §7.6).
+2. *right confident*: a confident detection of a *played* file, and no
+   other confident detection.
+3. *possible only*: nothing confident, at least one possible detection.
+4. *nothing*: no detection at possible or above.
+
+Per index, the answer that is right:
+
+- *everything*: right confident; possible only and nothing are misses
+  (expected for short queries), not errors.
+- *played left out* (the played recording's cluster removed, the related
+  file kept): possible only or nothing (abstaining is right; a possible
+  play of the related file is what ADR 0006's tier claims); wrong
+  confident is the failure that matters most.
+- *source left out* (only the played file removed, another rip kept; the
+  positive control): right confident through the other rip.
+
+For each query and role the strongest detection's hits and windows are
+kept, so the margin to 240 and to 60 can be read for every outcome.
+Proposal 5's diagnostic (step 4) classifies families, not queries: its
+"true confident examples" are the development queries with right
+confident outcomes in *everything* and *source left out*, and its
+"constructed wrong ones" are those with wrong confident outcomes; no
+rule is fitted to them tonight.
