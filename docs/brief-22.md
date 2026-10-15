@@ -219,3 +219,29 @@ No wrong confident play or query added on any panel; no right confident
 or possible file lost; the sweeps keep the diagnostic bar; no boundary in
 the generated mixes worse by more than 1.0 s. A criterion that fails is
 reported with every change behind it; nothing is adopted either way.
+
+## Runs added after the plan (written at 09:50, before any of them ran)
+
+Steps (a)-(d) and the grid finished by 09:46, well ahead of the plan.
+The prompt asks for "everything the existing panels measure" that needs
+no new harness, and session 19's study names more of it than steps
+(a)-(e) list. Queued after (e), one at a time, in this order, and
+stopped at 11:05 wherever they are (`work/s22/queue2.sh`, `queue3.sh`):
+
+1. **The key-lock-only control**: `--ladder key-lock sweep --seed 2026`
+   with both builds. The variant changes no key-locked rung, so every
+   detection should be identical; any difference is a fault in the
+   variant, not a result.
+2. **Other rips at NAS scale** (experiment 0059): `--other-peaks-dir
+   <NAS store> sweep --seed 2026 --other-rips`, both builds; then seeds
+   2027-2029 (last in the queue). Counted as the sweeps in (a).
+3. **The other two development mixes at 262 tracks**
+   (`razorjack-2003-03-29`, `nocny-trans-vertical-2002-08-23`): the
+   scan, `--leave-out 3` and every referenced track left out (12, 17),
+   both builds. Counted as the scans in (a).
+4. **The recall panel's development half** at NAS scale (`recall --seed
+   2026`, which searches only the development half), both builds: each
+   source's answer (right confident, possible, nothing, wrong) query by
+   query. The validation half stays unsearched.
+
+The criteria and the tolerance are those of step 2.
