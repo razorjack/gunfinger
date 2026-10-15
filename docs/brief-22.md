@@ -124,7 +124,7 @@ starts by 11:15 and the wrap-up by 11:35 whatever is left.
   start; the development sets' manifest modification times recorded
   (`work/s22/listening-digests-start.txt`).
 
-## Step 2: the variant and the comparisons (written at 09:14, before any run of the variant)
+## Step 2: the variant and the comparisons (committed at 09:10, before any run of the variant)
 
 ### The variant
 
@@ -220,7 +220,7 @@ or possible file lost; the sweeps keep the diagnostic bar; no boundary in
 the generated mixes worse by more than 1.0 s. A criterion that fails is
 reported with every change behind it; nothing is adopted either way.
 
-## Runs added after the plan (written at 09:50, before any of them ran)
+## Runs added after the plan (committed at 09:47, before any of them ran)
 
 Steps (a)-(d) and the grid finished by 09:46, well ahead of the plan.
 The prompt asks for "everything the existing panels measure" that needs

@@ -3067,7 +3067,7 @@ was measured.
   credited file; 0 wrong confident and 0 wrong possible in both. Of 272
   boundaries, 28 move by more than 0.1 s and 5 by more than the 1.0 s
   tolerance (largest 1.63 s): 3 come closer to the truth, and **2 get
-  worse by more than 1.0 s**, so the boundary criterion written at 09:14
+  worse by more than 1.0 s**, so the boundary criterion committed at 09:10
   fails on them: Item.Code - Kosmic's start in seed 2026's mix-02 (a
   possible play; late by 2.31 s, then 3.63 s) and Kemal & Paul Reset -
   Kontempt's start in seed 7's mix-00 (confident; late by 2.30 s, then
