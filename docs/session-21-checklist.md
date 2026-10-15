@@ -32,8 +32,11 @@ for scope and rules.
 - [x] 5. The outcome: the four frozen in `docs/brief-21.md` with the
   caveat; no candidate separates a related version from a real rip;
   the validation half not searched
-- [ ] 6. If time remains: the FFT lengths' first stage on the panel's
-  development half; an experiment
+- [x] 6. The FFT lengths' first stage (factor2 in a worktree never merged,
+  removed after; the diff in `work/s21/`): the development half at NAS
+  scale, 06:38-07:05 (27 min); one wrong confident title added
+  (239 to 240 hits) and one removed (240 to 125), each in 3 indexes;
+  no wrong confident query added, no right file lost; experiment 0117
 - [ ] 7. Read-only review by a subagent (by 10:45); fixes
 
 ## Wrap-up

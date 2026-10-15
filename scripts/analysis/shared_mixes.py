@@ -4,7 +4,7 @@ shared-mixes`, and the oracle, the candidates and the feasibility
 criterion applied to its report.
 
 usage: shared_mixes.py plan <panel.json> <corpus library dir> <verified scan.json>... <out plan.json>
-       shared_mixes.py score <panel.json> <clusters.json> <report.json> <verified scan.json>... <out.json>
+       shared_mixes.py score [--same <coverage.json>]... <panel.json> <clusters.json> <report.json> <verified scan.json>... <out.json>
 
 `plan` writes one mix per seed and development played file with a shared
 passage (each file's first direction names it), the files whose clusters
@@ -20,7 +20,11 @@ candidates per confident segment and the most favourable segment per
 play, and for each candidate the threshold keeping 95% of the true
 confident plays and the wrong related plays it rejects. The second sample
 is the confident detections the verified scans credit to referenced
-tracks, matched to the report's runs of the development mixes.
+tracks, matched to the report's runs of the development mixes. Each
+`--same` file lists `planned`, `found` and `coverage` (`pair`'s strongest
+alignment at the fitted speed over the shorter file): a pair at 80% or
+more is one recording (the clustering rule), joined to the duplicate
+clusters.
 """
 import json
 import math
@@ -161,11 +165,26 @@ def overlaps(play, start, end):
     return play["start"] < end and start < play["end"]
 
 
-def cluster_index(clusters):
+SAME_RECORDING_COVERAGE = 0.8
+
+
+def cluster_index(clusters, same_pairs=()):
+    """Duplicate clusters, joined by the pairs `pair` measured as one
+    recording."""
     out = {}
-    for members in clusters["duplicates"]:
+
+    def join(members):
+        merged = set(members)
         for member in members:
-            out[member] = set(members)
+            merged |= out.get(member, set())
+        for member in merged:
+            out[member] = merged
+
+    for members in clusters["duplicates"]:
+        join(members)
+    for pair in same_pairs:
+        if pair["coverage"] >= SAME_RECORDING_COVERAGE:
+            join([pair["planned"], pair["found"]])
     return lambda path: out.get(path, {path})
 
 
@@ -223,10 +242,15 @@ def summary(values):
             "q25": q(0.25), "median": q(0.5), "q75": q(0.75), "max": finite[-1]}
 
 
-def score(panel_path, clusters_path, report_path, *rest):
-    *scans, out_path = rest
+def score(*arguments):
+    arguments = list(arguments)
+    same_pairs = []
+    while arguments[0] == "--same":
+        same_pairs += json.load(open(arguments[1], encoding="utf-8"))
+        arguments = arguments[2:]
+    panel_path, clusters_path, report_path, *scans, out_path = arguments
     panel = json.load(open(panel_path, encoding="utf-8"))
-    cluster_of = cluster_index(json.load(open(clusters_path, encoding="utf-8")))
+    cluster_of = cluster_index(json.load(open(clusters_path, encoding="utf-8")), same_pairs)
     report = json.load(open(report_path, encoding="utf-8"))
     roles = family_roles(panel)
     mixes = {m["mix"]["name"]: m for m in report["mixes"]}

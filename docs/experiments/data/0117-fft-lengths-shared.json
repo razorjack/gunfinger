@@ -1,0 +1,110 @@
+{
+ "question": "0117: the FFT lengths' variant (factor2) on the shared-material panel's development half",
+ "variant": "work/s19/py/fft_variant.py factor2 at 49f4c77",
+ "store_revision": "b285da9984422fb5",
+ "compared": 605,
+ "changed": [
+  {
+   "query": "fire-2-break-5s-looped-60s",
+   "index": "everything",
+   "today": "nothing",
+   "variant": "possible only",
+   "wrong added": [],
+   "wrong removed": [],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "fire-3-looped-60s",
+   "index": "everything",
+   "today": "wrong confident",
+   "variant": "wrong confident",
+   "wrong added": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "wrong removed": [],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "fire-3-looped-60s",
+   "index": "played left out",
+   "today": "wrong confident",
+   "variant": "wrong confident",
+   "wrong added": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "wrong removed": [],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "fire-3-looped-60s",
+   "index": "source left out",
+   "today": "wrong confident",
+   "variant": "wrong confident",
+   "wrong added": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "wrong removed": [],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "playground-shades-2-break-5s-looped-240s",
+   "index": "everything",
+   "today": "possible only",
+   "variant": "nothing",
+   "wrong added": [],
+   "wrong removed": [],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "playground-shades-2-break-5s-looped-60s",
+   "index": "everything",
+   "today": "possible only",
+   "variant": "nothing",
+   "wrong added": [],
+   "wrong removed": [],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "sonar-1-weak-beyond-20s",
+   "index": "everything",
+   "today": "wrong confident",
+   "variant": "right confident",
+   "wrong added": [],
+   "wrong removed": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "sonar-1-weak-beyond-20s",
+   "index": "played left out",
+   "today": "wrong confident",
+   "variant": "possible only",
+   "wrong added": [],
+   "wrong removed": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "right lost": [],
+   "right gained": []
+  },
+  {
+   "query": "sonar-1-weak-beyond-20s",
+   "index": "source left out",
+   "today": "wrong confident",
+   "variant": "right confident",
+   "wrong added": [],
+   "wrong removed": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "right lost": [],
+   "right gained": []
+  }
+ ]
+}
