@@ -3046,3 +3046,18 @@ was measured.
   +11.0 s, a window more; Kraken+Arkane's Dominion +29.3 s at the start,
   39 to 36 windows, the other Dominion file unchanged); calibrate: weakest
   identifying 680 to 674, strongest false 99 both.
+- (b) 09:13-09:19 the three development mixes at NAS scale, both builds
+  (1.0-1.3 min each, the saved index loaded in 3.6 s). Every referenced
+  track identified by both (11, 12, 17), the same right files credited,
+  the same wrong confident detections (0, 7, 2), no possible-only track.
+  No play lost; one possible play added (the 2003 mix: Omni Trio - Secret
+  Life (Silent Storm Remix), 30:03-30:42, 70 hits, as session 19 saw).
+  Two confident segments change inside plays that stay confident, both in
+  the 2003 mix: at 5:41-6:43, the end of track 2, the confident tail
+  segment moves from The Specialist's two files (253 to 46 hits) to the
+  two Sex Drive files (195 to 631), all four credited to track 2 in both
+  builds; Carlito & Addiction - Into Music's `extra/h-` rip loses its
+  first segment (24:25-26:03, 695 hits) and its main one falls from
+  1,668 to 810 hits (the hifi-junglist upload unchanged). Boundaries
+  moved by more than 1.0 s: 13, 11 and 19 plays (largest 18 s, 97 s and
+  128 s). Detections below the possible tier change by about a third.

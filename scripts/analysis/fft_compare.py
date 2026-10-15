@@ -87,8 +87,9 @@ def compare_detections(before, after):
 
 
 def credited_files(score):
-    return {(t["label"], d["asset"]) for t in score["tracks"]
-            for d in t["credited"] + t["credited_through_cluster"]}
+    """(track, file) credited with a confident detection; files credited
+    through the clusters are among `credited` too."""
+    return {(t["label"], d["asset"]) for t in score["tracks"] for d in t["credited"]}
 
 
 def compare_scan(before, after):

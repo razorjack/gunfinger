@@ -21,7 +21,9 @@ for scope and rules.
 - [x] 3a. `regress session-22-start` with the variant: 720/720 sweep
   answers, 11/8/0 identified, 0 wrong, no confidence change; 4
   boundaries moved
-- [ ] 3b. The three development mixes at NAS scale, both builds
+- [x] 3b. The three development mixes at NAS scale, both builds: the
+  same tracks identified and wrong detections; one possible play added;
+  two confident segments change inside confident plays
 - [ ] 3c. Generated mixes, seeds 2026 and 7, both builds
 - [ ] 3d. Sweeps 2027-2029, both builds
 - [ ] 3e. If time remains: `grid`, `robust` seed 2026, the development
