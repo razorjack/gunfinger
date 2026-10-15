@@ -398,9 +398,9 @@ decision.
   reuse map flags 61 of the 87 (only where a third version is indexed)
   and true plays of tracks with related versions in the library.
   Exploratory, found after the run and frozen in `docs/brief-21.md`: a
-  play the map flags with under 6.276 hits per second keeps 93 of the
-  development mixes' 97 true plays and rejects the 61 flagged wrong
-  plays, by a narrow margin (6.01 against 6.276).
+  play the map flags with under 6.276 hits per second (the cut keeping
+  95% of the development mixes' true plays) rejects the 61 flagged
+  wrong plays, by a narrow margin (6.01 against 6.276).
 - **Question.** Does a query hold distinctive evidence that today's
   representation does not use, or only material several versions share?
   An unchanged passage shared by two versions cannot say which supplied

@@ -524,9 +524,10 @@ marked as inferences were derived, not measured.
   plays of tracks with a remix, VIP or edit in the library and of
   uploads newer than the duplicate clusters. No pre-registered candidate
   passes against real true plays. An exploratory combination found
-  after the run, a play the map marks with under 6.276 hits per second,
-  keeps 93 of the development mixes' 97 and rejects the 61 marked wrong
-  plays (all Fire's, a narrow margin); it is frozen in the brief for a
+  after the run, rejecting a play the map marks with under 6.276 hits
+  per second (the cut keeping 95% of the development mixes' true plays),
+  rejects the 61 marked wrong plays (all Fire's, the densest at 6.01)
+  and keeps every rendered true play; it is frozen in the brief for a
   test on real mixes not used so far. The map is also the basis for
   reporting the ambiguity, our decision. The panel is now
   a required check: anything that adds or changes evidence (the items below, the

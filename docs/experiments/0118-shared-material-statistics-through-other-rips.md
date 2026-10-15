@@ -12,8 +12,8 @@ file needed checking). `shared_mixes.py score --same
 work/s21/holder-coverage.json --second-from`, `data/0118-*`.
 
 **Plays, played recording left out.** 163 of 216 drawn plays confident
-through another rip (277 plays), 19 possible only, 34 with neither (no
-indexed rip, or a weak one); with the positive control's 15, 292 true
+through another rip (277 plays), 19 possible only, 34 with no detection
+of two windows or more; with the positive control's 15, 292 true
 plays. Wrong related: the same 87 as 0116; wrong other: Kemal's remix.
 
 | Candidate | Threshold | Wrong rejected (87) | Development mixes kept (97) | Positive control kept (15) |

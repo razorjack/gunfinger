@@ -31,7 +31,8 @@ for scope and rules.
   by `pair` (newer uploads), one remix over its original; experiment 0116
 - [x] 5. The outcome: the four frozen in `docs/brief-21.md` with the
   caveat; none passes against the development mixes' true plays (0118:
-  through other rips (a1) and (a2) still separate); the validation half
+  through other rips (a1), (a2), (c)+(a1) and (c)+(a2) still pass); the
+  validation half
   not searched
 - [x] 6. The FFT lengths' first stage (factor2 in a worktree never merged,
   removed after; the diff in `work/s21/`): the development half at NAS
@@ -52,7 +53,8 @@ for scope and rules.
   time labels set to the commit times; plans refuse unknown fields; 5
   new tests (`draw_mix` pinned to 8537226's draws for one seed,
   `targets`, `passage`, `aligned_beyond`, the plans); the hifi-junglist
-  Sonar upload reported to judge by ear
+  Sonar upload reported to judge by ear; a second review of the
+  fixes (08:28-08:42), its wording points and code nits fixed
 
 ## Wrap-up
 

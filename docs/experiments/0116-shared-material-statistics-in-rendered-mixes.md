@@ -31,10 +31,10 @@ the same with everything indexed); the positive control right in 15 plays.
 - (c) at 60 hits marks 61 of 87 wrong (all Fire: no third version of Dozer,
   Pyro or Sonar is indexed), 79 of 453 true (62 through newer uploads), 28
   of 97 development plays (11 through uploads). Exploratory, cuts keeping
-  95% of the 112 real plays: (a1) 4.55, (a2) 0.321, (c)+(a2) reject 43, 12,
-  30; (c)+(a1) at 6.34 rejects the 61 (densest 6.01), keeps 92 (6.276: 93).
+  95% of the 112 real plays: (a1) 4.55, (a2) 0.321, (c)+(a2) 0.350 reject
+  43, 12, 30; (c)+(a1) 6.338 rejects the 61 (densest 6.01), keeps 92 of 97.
 
-**Conclusion.** The rule passes only against plays copied from the indexed
-files: at its thresholds the development mixes keep 46-72% of true plays,
-the rips 0-11 of 15. Nothing passes against real true plays (0118 for
-rips); the exploratory (c)+(a1) cut needs validation on other real mixes.
+**Conclusion.** The rule passes in rendered mixes (on copies here, through
+other rips in 0118) and fails against real true plays: the development
+mixes keep 46-72%, the positive control 0-11 of 15. The exploratory
+(c)+(a1) cut is frozen in the brief for a test on other real mixes.

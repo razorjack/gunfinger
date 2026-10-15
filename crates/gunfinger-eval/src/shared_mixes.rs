@@ -180,11 +180,11 @@ pub fn run(
     let own = |file: &str| own_recording(file, clusters, &plan.recordings);
 
     let mut runs = Vec::new();
-    for (left_out, targets) in &targets(&rendered, plan, clusters, &indexed) {
+    for (left_out, searched) in &targets(&rendered, plan, clusters, &indexed) {
         let index = options
             .matching
             .index(options.padding.index(&records, &profile, left_out)?);
-        for (index_name, target) in targets {
+        for (index_name, target) in searched {
             let (name, path) = match target {
                 Target::Mix(rendered) => (rendered.mix.name.clone(), mix_path(dir, &rendered.mix)),
                 Target::Query(query) => (query.name.clone(), options.sets.join(&query.audio)),
@@ -504,6 +504,14 @@ mod tests {
         }
     }
 
+    fn played(recording: &[&str]) -> Played {
+        Played {
+            name: String::from("p"),
+            file: String::from("played.mp3"),
+            recording: recording.iter().map(|&file| file.to_owned()).collect(),
+        }
+    }
+
     #[test]
     fn the_pool_leaves_out_short_tracks_and_excluded_clusters() {
         let records = [
@@ -542,25 +550,20 @@ mod tests {
         );
     }
 
-    fn played(recording: &[&str]) -> Played {
-        Played {
-            name: String::from("p"),
-            file: String::from("played.mp3"),
-            recording: recording.iter().map(|&file| file.to_owned()).collect(),
-        }
-    }
-
     #[test]
     fn a_plan_with_an_unknown_field_is_refused() {
         let plan =
             r#"{"seeds": [1], "around": 1, "exclude": [], "played": [], "leave_out_drawn": true}"#;
         let misspelt = plan.replace("leave_out_drawn", "leave_out_drawm");
-        let nested = r#"{"seeds": [1], "around": 1, "exclude": [],
+        let in_played = r#"{"seeds": [1], "around": 1, "exclude": [],
             "played": [{"name": "p", "file": "a.mp3", "recordings": []}]}"#;
+        let in_query = r#"{"seeds": [1], "around": 1, "exclude": [], "played": [],
+            "queries": [{"name": "q", "audio": "q.mp3", "audios": []}]}"#;
 
         assert!(serde_json::from_str::<Plan>(plan).unwrap().leave_out_drawn);
         assert!(serde_json::from_str::<Plan>(&misspelt).is_err());
-        assert!(serde_json::from_str::<Plan>(nested).is_err());
+        assert!(serde_json::from_str::<Plan>(in_played).is_err());
+        assert!(serde_json::from_str::<Plan>(in_query).is_err());
         for session_plan in [
             include_str!("../../../docs/panels/shared-mixes-s21.json"),
             include_str!("../../../docs/panels/shared-mixes-s21-rips.json"),

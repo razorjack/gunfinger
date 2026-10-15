@@ -4197,11 +4197,12 @@ ones, and at the same thresholds the three development mixes keep only
 of the wrong plays, all in Fire's family, where a third version is
 indexed; it also marks true plays of tracks with a remix, VIP or edit in
 the library. One combination, found after the run and therefore
-exploratory, separates in this session's data: a play that (c) marks
-and that has under 6.276 hits per second. It keeps 93 of the 97 true
-plays and rejects 61 of the 87 wrong ones, all Fire's, by a narrow
-margin. It is frozen in the brief for a later test on real mixes; it
-decides nothing yet.
+exploratory, separates in this session's data: reject a play that (c)
+marks and that has under 6.276 hits per second. With the cut set to
+keep 95% of the 97 true plays, it rejects 61 of the 87 wrong ones (all
+Fire's, the densest at 6.01) and keeps every rendered true play. It is
+frozen in the brief for a later test on real mixes; it decides nothing
+yet.
 
 ### The rendered mixes (experiments 0116 and 0118)
 
@@ -4330,18 +4331,22 @@ plays.
   plays (the positive control's 15 and the development mixes' 97). (a1) at 4.55 and
   (a2) at 0.321 reject 43 and 12 of the 87, under half; (c)+(a2) at
   0.350 rejects 30. **(c)+(a1) rejects 61**, every marked wrong play:
-  at 6.34 hits per second it keeps 92 of the 97 plays, just under 95%;
+  at 6.338 hits per second it keeps 92 of the 97 plays, just under 95%;
   at 6.276, the cut on the 97 alone, 93. Both keep every rendered true
   play (453 in 0116, 292 in 0118). Its limits: all 61 are Fire's; it
-  cannot reject the 20 wrong plays of Dozer, Pyro and Sonar, which (c)
-  does not mark; the margin is narrow (the densest marked wrong play has
-  6.01 hits per second, and the cut sits on one of the development mixes' plays); and of
+  leaves the 20 wrong plays of Dozer, Pyro and Sonar, which (c) does
+  not mark, and 6 unmarked Fire plays; the margin is narrow (the densest
+  marked wrong play has 6.01 hits per second, and the cut sits on one of
+  the development mixes' plays); and of
   the 4 plays of the development mixes it rejects at 6.276, 2 (Spirit - Out Of Control,
   the dfect rip of Trace & Fresh - Mutated) are marked only through
   newer uploads of the same recording, 2 (Sonic - Cannibal, the
-  i-witness Phoenix) through files `pair` lines up 13% and 32%. It is
-  frozen at 6.276 in `docs/brief-21.md` ("After the review") so that a
-  later test cannot tune it.
+  i-witness Phoenix) through files `pair` lines up 13% and 32%. The
+  i-witness Phoenix, at 2.06 hits per second, is the upload already
+  listed for judging by ear as a sparse join ("After session 6": 1.8 hits per
+  second against the TECH012 rip). The cut is frozen at 6.276 in
+  `docs/brief-21.md` ("After the review") so that a later test cannot
+  tune it.
 
 ### What it means for our decision
 
@@ -4366,16 +4371,17 @@ session's evidence:
   play, another indexed file outside its recording that holds its
   passage. In this session it would flag 61 of the 87 wrong plays and
   17 of the development mixes' 97 true plays (each through a file `pair` lines up
-  4-32%, mostly a remix, VIP or edit; the other 11 marks disappear once
-  the clusters know the newer uploads). It never flags a wrong play
-  whose family has only two versions indexed, the case of Dozer, Pyro
-  and Sonar here. Both options use the same map; the exploratory
-  combination rejects a flagged play only when it is also sparse.
-- Reclustering the NAS library at the current revision would remove
-  most of (c)'s marks on true plays: of its 79 in 0116, 62 are drawn
-  plays marked through uploads newer than the clusters (2 more through
-  Kemal's remix, 15 the positive control). It is our decision; it was
-  not done.
+  4-32%, mostly a remix, VIP or edit; the other 11 marks would most
+  likely disappear once the clusters know the newer uploads). It never
+  flags a wrong play whose family has only two versions indexed, the
+  case of Dozer, Pyro and Sonar here. Both options use the same map;
+  the exploratory combination rejects a flagged play only when it is
+  also sparse.
+- Reclustering the NAS library at the current revision would most
+  likely remove most of (c)'s marks on true plays: of its 79 in 0116, 62
+  are drawn plays marked through uploads newer than the clusters (2 more
+  through Kemal's remix, 15 the positive control). It is our decision;
+  it was not done.
 
 ### Step 6: the FFT lengths on the panel (experiment 0117)
 
@@ -4408,14 +4414,20 @@ not run.
   When the Mark System Revision played and was left out, 3 of Sonar's 9
   wrong plays are
   `/Volumes/atlas/Music/dnb/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a`,
-  which the panel lists under the original. `pair` lines up the whole of
+  which the panel lists under the original. With the revision
   `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus`
-  (0.9-362.2 s) with that upload's 2.0-375.1 s at speed 1.0326 (568
-  hits, 99% coverage), while the original's other rips line up only
-  27-46% with the revision. If the upload is the revision played 3%
-  slow, those 3 plays are right, not wrong. Removing them changes no
-  decision ((a1) rejects 78 of 84; (c)+(a1) still 61). A question for
-  judging by ear: is the hifi-junglist upload the original or the revision?
+  as the query, `pair` lines up the whole revision (0:01-6:02) with the
+  upload's 0:02-6:15, the upload 3% slower (568 hits, 99% coverage, 69%
+  supported). With the upload as the query, one alignment covers only
+  57%: the upload's 0:02-3:30 lines up with the revision's 0:01-3:22,
+  nothing at the upload's 3:30-4:01, its 4:01-5:20 with the revision's
+  3:53-5:09 at the same offset, and its 5:30-6:10 with the revision's
+  2:06-2:45. The original's other rips line up only 27-46% with the
+  revision. If the upload is the revision played 3% slow, those 3 plays
+  are right, not wrong. Removing them changes no decision (0116's (a1)
+  rejects 78 of 84; (c)+(a1) still 61). To judge by ear: is the
+  hifi-junglist upload the original or the revision, and what plays at
+  its 3:30-4:01?
 - **A related version outside the panel.** In one mix, Kemal -
   Animation (Silent Extent Remix) is confident (517 hits) over a drawn
   play of the original (`extra/a-kemal-animation-sour.mp3`). By its
@@ -4444,7 +4456,7 @@ not run.
   session had time and the question was the session's own.
 - The exploratory (c)+(a1) cut was frozen at 6.276 hits per second, the
   cut keeping 95% of the 97 true plays (the rule's real sample), not
-  6.34, the cut on all 112 real true plays, which keeps 92 of the 97.
+  6.338, the cut on all 112 real true plays, which keeps 92 of the 97.
 
 ### Decisions waiting
 

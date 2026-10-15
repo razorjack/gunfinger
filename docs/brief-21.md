@@ -369,14 +369,14 @@ candidates like for like on true plays of real rips, by the same rule.
 - Expected, written now: if real rips are as sparse as the development
   mixes' true plays (median 9.4 hits per second), (a) fails here.
 
-## After the review: an exploratory candidate (written at 08:26, before any validation)
+## After the review: an exploratory candidate (written at 08:26, before any validation; wording amended at 08:45 after a second review, the frozen cut unchanged)
 
 The review (step 7) found that the exploratory check of 0116, cuts that
 keep 95% of the 112 real true plays (the 15 positive-control plays and
 the development mixes' 97), was run only for (a1) and (a2). The same
 procedure for the combinations:
 
-- (c)+(a1): the cut is 6.34 hits per second. It keeps 92 of the 97
+- (c)+(a1): the cut is 6.338 hits per second. It keeps 92 of the 97
   development plays (94.8%, under the rule's 95% for them), all 453
   true plays of 0116, all 292 of 0118 and all 15 positive-control plays,
   and rejects 61 of the 87 wrong related plays. The cut on the 97
@@ -396,20 +396,22 @@ segment has under 6.276 hits per second of its span would be rejected;
 an unmarked play is kept. Its limits, from this session's data:
 
 - All 61 rejected wrong plays are Fire's, the one family with a third
-  version indexed. It never touches the 20 wrong plays of Dozer, Pyro
-  and Sonar, where only two versions are indexed.
+  version indexed. It leaves 26 of the 87: the 20 of Dozer, Pyro and
+  Sonar, where only two versions are indexed and (c) marks none, and 6
+  of Fire's 67 that (c) does not mark.
 - The margin is narrow: the densest marked wrong play has 6.01 hits per
   second; the cut sits on a development play, and the next, Stab 2 Def,
-  has 6.34.
+  has 6.338.
 - Of the 4 development plays it would reject, 2 (Spirit - Out Of Control
   and the dfect rip of Trace & Fresh - Mutated) are marked only through
-  newer uploads of the same recording (reclustering would unmark them);
+  newer uploads of the same recording (reclustering would most likely
+  unmark them, though a weaker holder was not measured);
   Sonic - Cannibal and the i-witness Phoenix are marked through files
   `pair` lines up 13% and 32%.
 - Validation needs true plays from real mixes not used to choose it (the
   three development mixes are spent) and wrong plays where a third
   version is indexed. Rendered mixes of the panel's validation half
-  would supply wrong plays but not real true plays. Not run in this
+  could supply wrong plays, not real true plays. Not run in this
   session.
 
 0118 also refines step 5's reading: through other rips, (a1) still keeps

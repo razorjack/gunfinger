@@ -892,16 +892,30 @@ mod tests {
             (a, b) => a == b,
         };
         assert_eq!(mix.plays.len(), expected.len());
-        for (play, expected) in mix.plays.iter().zip(expected) {
+        for (row, (play, expected)) in mix.plays.iter().zip(expected).enumerate() {
             let (asset, held_out, source_start, speed, start, end, fade_in, fade_out, until, from) =
                 expected;
-            assert_eq!((play.asset.as_str(), play.held_out), (asset, held_out));
-            assert!(close(play.source_start_seconds, source_start));
-            assert!(close(play.speed, speed));
-            assert!(close(play.start_seconds, start) && close(play.end_seconds, end));
-            assert!(close(play.fade_in_seconds, fade_in) && close(play.fade_out_seconds, fade_out));
-            assert!(close_option(play.bass_cut_until, until));
-            assert!(close_option(play.bass_cut_from, from));
+            assert_eq!(
+                (play.asset.as_str(), play.held_out),
+                (asset, held_out),
+                "row {row}"
+            );
+            assert!(
+                close(play.source_start_seconds, source_start) && close(play.speed, speed),
+                "row {row}: {play:?}"
+            );
+            assert!(
+                close(play.start_seconds, start) && close(play.end_seconds, end),
+                "row {row}: {play:?}"
+            );
+            assert!(
+                close(play.fade_in_seconds, fade_in) && close(play.fade_out_seconds, fade_out),
+                "row {row}: {play:?}"
+            );
+            assert!(
+                close_option(play.bass_cut_until, until) && close_option(play.bass_cut_from, from),
+                "row {row}: {play:?}"
+            );
         }
         assert!(close(mix.seconds, 423.6283468830277));
     }

@@ -2965,22 +2965,23 @@ NAS gained files during the session.
   binary (tests and clippy do not rebuild the release binary) and was
   stopped; a copy over the running binary was then killed by macOS's
   code-signature check; restarted 07:08 from a fresh copy, done 07:41
-  (1,967 s, 5.2 GB). `shared_mixes.py score --same --second-from`.
+  (1,967 s, 5.2 GB). `shared_mixes.py score --same
+  work/s21/holder-coverage.json --second-from <0116's report>`.
   Experiment 0118: 292 true plays through other rips (163 of 216 drawn
   plays confident; median 17.4 hits per second against 31.5 for copies
   and 9.4 in the development mixes); the same four pass in rendered
   mixes only (57-74 of 97 kept).
 - 07:50 the notes' section; the roadmap and the research note. 07:51
-  the read-only review (a subagent, 22 min). Its findings, all checked
-  and fixed: the exploratory check had left out the combinations, and
+  the read-only review (a subagent, 22 min). Its findings, all checked,
+  fixed or (the order of steps 5 and 6) documented: the exploratory check had left out the combinations, and
   (c)+(a1) keeps every rendered true play and rejects 61 of 87, all
-  Fire's: at 6.34 hits per second (the cut keeping 95% of the 112 real
+  Fire's: at 6.338 hits per second (the cut keeping 95% of the 112 real
   true plays) 92 of 97 development plays kept, at 6.276 (the cut on the
   97) 93; margin 6.01 against 6.276. Frozen at 6.276 in the brief
   ("After the review"), exploratory. 0116 had "all
   216 drawn plays right" (203 confident, 13 of 20-28 s possible only)
   and 0118 "197 found" (163). 59 of 0118's 277 rip plays have the drawn
-  file's density within 1% (same encodes); without them nothing
+  file's density within 1% (likely the same encodes); without them nothing
   changes. Time labels in the brief set to the commit times. Code:
   shared-mixes plans refuse unknown fields (a stale binary now fails);
   `targets`, `passage` and `aligned_beyond` split out and tested;
@@ -2988,5 +2989,18 @@ NAS gained files during the session.
   expected values printed by that commit's code in a temporary
   worktree); 5 new tests. Observation: the hifi-junglist "Trace - Sonar
   (PRO 012 A) 1998" upload, under the original in the panel, lines up
-  with the whole revision at speed 1.0326; 3 of Sonar's 9 wrong plays
-  are it; without them no decision changes. To judge by ear.
+  with the whole revision at speed 1.0326 (57% the other way); 3 of
+  Sonar's 9 wrong plays are it; without them no decision changes. To
+  judge by ear.
+- 08:28 a second read-only review of the two fix commits (14 min): the
+  refactors keep behaviour, each new test fails when its behaviour
+  breaks, and every new number matches the data. Wording fixed by
+  08:45: 0116's conclusion (the rule passes in rendered mixes, also
+  through other rips, and fails against real true plays); the Sonar
+  alignment in both directions, with where it stops lining up; the
+  112-play cut written 6.338, not 6.34 (6.34 would reject Stab 2 Def);
+  the exploratory cut's 26 unrejected wrong plays (6 of them Fire's);
+  reclustering's effect marked as likely; the validation half
+  described as what it could supply. Code: `Query`'s unknown fields
+  tested, a shadowing binding renamed, the pin's asserts name the
+  row.
