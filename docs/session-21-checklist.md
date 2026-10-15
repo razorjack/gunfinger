@@ -37,6 +37,12 @@ for scope and rules.
   scale, 06:38-07:05 (27 min); one wrong confident title added
   (239 to 240 hits) and one removed (240 to 125), each in 3 indexes;
   no wrong confident query added, no right file lost; experiment 0117
+- [x] Follow-up (rule committed first, `66d85f6`): the same mixes with
+  each mix's drawn files left out, so true plays come through other rips
+  (`leave_out_drawn`, 1 new test), 07:08-07:41 (the first start used a
+  stale binary and was stopped); 292 true plays; the same four pass in
+  rendered mixes only (the development mixes keep 57-74 of 97);
+  experiment 0118
 - [ ] 7. Read-only review by a subagent (by 10:45); fixes
 
 ## Wrap-up

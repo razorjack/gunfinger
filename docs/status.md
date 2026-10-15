@@ -2944,3 +2944,26 @@ NAS gained files during the session.
   file of both halves and the corpus's two Funktion files by the
   test-derived pattern). Smoke run on one mix (53 s, 4.9 GB). Full run
   from 06:02 under `screen`.
+- 06:02-06:38 the full run (36 mixes, 84 searches, the 3 development
+  mixes; 2,173 s, 14,680 s user, 7.0 GB); `shared_mixes.py score`;
+  `pair` on the 29 planned/other pairs (28 the same recording, 86-99.9%;
+  Kemal's Silent Extent Remix over the original, 7%). Experiment 0116:
+  453 true and 87 wrong related confident plays; (a1) 9.31 hits per
+  second, (a2) 0.498, (c)+(a1), (c)+(a2) promising in rendered mixes only
+  (the development mixes keep 45-72 of 97); (b), (c), (c)+(b) not.
+  Frozen in the brief (step 5).
+- Step 6, 06:38-07:05: session 19's factor2 lengths in a worktree never
+  merged (`work/s21/fft-factor2.diff`, removed after), the development
+  half at NAS scale (1,625 s, 8,059 s user, 5.4 GB); `shared_compare.py`
+  against session 20's report (restored after the run): one wrong title
+  added (239 to 240 hits), one removed (240 to 125), each in 3 indexes;
+  no wrong confident query added, no right file lost. Experiment 0117.
+- 07:05 the follow-up's rule, committed before it ran (`66d85f6`);
+  `leave_out_drawn` (1 new test). The first start at 07:06 used a stale
+  binary (tests and clippy do not rebuild the release binary) and was
+  stopped; a copy over the running binary was then killed by macOS's
+  code-signature check; restarted 07:08 from a fresh copy, done 07:41
+  (1,967 s, 5.2 GB). `shared_mixes.py score --same --second-from`.
+  Experiment 0118: 292 true plays through other rips (median 17.4 hits
+  per second against 31.5 for copies and 9.4 in the development mixes);
+  the same four pass in rendered mixes only (57-74 of 97 kept).

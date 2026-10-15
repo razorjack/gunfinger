@@ -4,7 +4,8 @@ shared-mixes`, and the oracle, the candidates and the feasibility
 criterion applied to its report.
 
 usage: shared_mixes.py plan <panel.json> <corpus library dir> <verified scan.json>... <out plan.json>
-       shared_mixes.py score [--same <coverage.json>]... <panel.json> <clusters.json> <report.json> <verified scan.json>... <out.json>
+       shared_mixes.py score [--same <coverage.json>]... [--second-from <report.json>]
+                             <panel.json> <clusters.json> <report.json> <verified scan.json>... <out.json>
 
 `plan` writes one mix per seed and development played file with a shared
 passage (each file's first direction names it), the files whose clusters
@@ -24,7 +25,8 @@ tracks, matched to the report's runs of the development mixes. Each
 `--same` file lists `planned`, `found` and `coverage` (`pair`'s strongest
 alignment at the fitted speed over the shorter file): a pair at 80% or
 more is one recording (the clustering rule), joined to the duplicate
-clusters.
+clusters. `--second-from` takes the development mixes' runs from another
+report of the same build (a report without them, such as the follow-up's).
 """
 import json
 import math
@@ -245,8 +247,12 @@ def summary(values):
 def score(*arguments):
     arguments = list(arguments)
     same_pairs = []
-    while arguments[0] == "--same":
-        same_pairs += json.load(open(arguments[1], encoding="utf-8"))
+    second_from = None
+    while arguments[0] in ("--same", "--second-from"):
+        if arguments[0] == "--same":
+            same_pairs += json.load(open(arguments[1], encoding="utf-8"))
+        else:
+            second_from = arguments[1]
         arguments = arguments[2:]
     panel_path, clusters_path, report_path, *scans, out_path = arguments
     panel = json.load(open(panel_path, encoding="utf-8"))
@@ -273,7 +279,8 @@ def score(*arguments):
         (r["run"] == "played left out" and r["role"] == "drawn")
         or (r["run"] == "source left out" and r["role"] == "played"))]
     wrong = [r for r in rows if r["outcome"] == "wrong related" and r["run"] == "played left out"]
-    second = second_sample(report, scans)
+    second = second_sample(json.load(open(second_from, encoding="utf-8")) if second_from else report,
+                           scans)
     print(f"confident plays by run and outcome:")
     for (run, outcome, role), count in sorted(Counter((r["run"], r["outcome"], r["role"]) for r in rows).items()):
         print(f"  {run:<16} {outcome:<15} {role:<18} {count}")

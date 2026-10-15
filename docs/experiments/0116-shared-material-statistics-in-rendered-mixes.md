@@ -30,8 +30,8 @@ other confident plays, 42 are newer uploads of drawn tracks (`pair`
   indexed files ((a1) median 31.5); real plays are sparser (rips 6.6-20.1,
   development mixes median 9.4; wrong 4.6); the rips keep 10, 11, 0, 2 of 15.
 - (c) at 60 hits marks 61 of 87 wrong (all Fire: no third version of
-  Dozer, Pyro or Sonar is indexed), 79 of 453 true and 28 of 97
-  development plays (newer uploads; related versions). Exploratory: cuts
+  Dozer, Pyro or Sonar is indexed), 79 of 453 true (62 through newer
+  uploads) and 28 of 97 development plays (11). Exploratory: cuts
   keeping 95% of the 112 real plays reject 43 (a1) and 12 (a2) of 87.
 
 **Conclusion.** The test passes only against plays copied from the
