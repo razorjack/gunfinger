@@ -5,19 +5,18 @@ written first): found only through another rip of each drawn track, do
 true plays still separate from the related versions' by 0116's criterion?
 
 **Method.** 0116's 36 mixes and renders, `shared-mixes` with
-`leave_out_drawn` (`docs/panels/shared-mixes-s21-rips.json`): every
-index also leaves out the mix's six drawn files (store
-`b285da9984422fb5`, 33 min, 5.2 GB). A rip is a file of the drawn
-track's cluster or one `pair` shows covering 80% of it (no new file
-needed checking). `shared_mixes.py score --same --second-from`; data
-`data/0118-shared-mixes-rips.json`.
+`leave_out_drawn` (`docs/panels/shared-mixes-s21-rips.json`): every index
+also leaves out the mix's six drawn files (`b285da9984422fb5`, 33 min,
+5.2 GB). A rip: the drawn track's cluster, or `pair` covering 80% (no new
+file needed checking). `shared_mixes.py score --same
+work/s21/holder-coverage.json --second-from`, `data/0118-*`.
 
-**Plays, played recording left out.** 197 of 216 drawn tracks found
-through another rip (277 plays); with the positive control's 15, 292
-true plays. The 19 drawn tracks without an indexed rip gave no confident
-play. Wrong related: the same 87 as 0116; wrong other: Kemal's remix.
+**Plays, played recording left out.** 163 of 216 drawn plays confident
+through another rip (277 plays), 19 possible only, 34 with neither (no
+indexed rip, or a weak one); with the positive control's 15, 292 true
+plays. Wrong related: the same 87 as 0116; wrong other: Kemal's remix.
 
-| Candidate | Threshold | Wrong rejected (87) | Development mixes kept (97) | Rips kept (15) |
+| Candidate | Threshold | Wrong rejected (87) | Development mixes kept (97) | Positive control kept (15) |
 |---|--:|--:|--:|--:|
 | (a1) hits per second | 8.49 | 78 | 57 | 13 |
 | (a2) verifier share | 0.446 | 76 | 65 | 12 |
@@ -27,14 +26,15 @@ play. Wrong related: the same 87 as 0116; wrong other: Kemal's remix.
 | (c)+(b) | 0.0163 | 13 | 97 | |
 
 - Each keeps 278-279 of 292; (a1), (a2), (c)+(a1), (c)+(a2) are again
-  promising in rendered mixes only. (a1) medians: rips 17.4 (5.1-58.0; the
-  densest likely the same encode in another folder), 0116's copies 31.5,
-  development mixes 9.4, wrong related 4.6.
-- 0116's frozen thresholds keep 255-265 of these 292 and reject the same
-  61-81 of 87. (c) at 60 hits marks 51 of 292 true (32 through uploads
-  of the same recording, the 15 rips, 4 through other versions), 61 wrong.
+  promising in rendered mixes only. (a1) medians: true plays here 17.4
+  (5.1-58.0), 0116's copies 31.5, development mixes 9.4, wrong 4.6. 59 of
+  the 277 lie within 1% of the drawn file's own density (likely the same
+  encode in another folder); without them (a1) at 7.49 rejects 76, keeps 65.
+- 0116's frozen thresholds keep 255-265 of 292 and reject the same 61-81.
+  (c) at 60 hits marks 61 wrong and 51 of 292 true (32 through uploads, the
+  15 positive-control plays, 4 through other files: `pair` 7% and 32%, 2
+  not measured). Exploratory: (c)+(a1) at 6.276 (0116) keeps all 292.
 
 **Conclusion.** Another rip removes about two thirds of the density gap;
-the rest is most likely the mixing chain: rendered rips stay above the
-related versions, real mixes' true plays overlap them. No candidate keeps
-95% of the development mixes' true plays and rejects half of the wrong.
+the rest is most likely the mixing chain. No pre-registered threshold
+keeps 95% of the development mixes' true plays and rejects half the wrong.

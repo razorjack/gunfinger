@@ -4188,16 +4188,20 @@ the same reports. The harness gained `gunfinger-eval shared-mixes`,
 which renders mixes around the panel's played files and measures every
 detection for the candidate statistics below.
 
-In short: no statistic separates a related version's wrong confident
-play from a true play in a real mix. In rendered mixes the sparseness of
-the evidence separates them well, and four candidates pass the rule
-written before the run; but the true plays there are cleaner than in
-the development mixes, and at the same thresholds the three development mixes
-keep only 45-70 of their 97 true plays. The map of shared passages (c)
-marks 70% of the wrong plays, all in Fire's family, where a third
-version is indexed; it also marks true plays of tracks with a remix, VIP
-or edit in the library. That makes it material for reporting ambiguity,
-not a rule for rejecting plays.
+In short: no candidate passes the rule written before the run against
+the true plays of the development mixes. In rendered mixes the
+sparseness of the evidence separates related versions well, and four
+candidates pass there; but the rendered true plays are denser than real
+ones, and at the same thresholds the three development mixes keep only
+45-70 of their 97 true plays. The map of shared passages (c) marks 70%
+of the wrong plays, all in Fire's family, where a third version is
+indexed; it also marks true plays of tracks with a remix, VIP or edit in
+the library. One combination, found after the run and therefore
+exploratory, separates in this session's data: a play that (c) marks
+and that has under 6.276 hits per second. It keeps 93 of the 97 true
+plays and rejects 61 of the 87 wrong ones, all Fire's, by a narrow
+margin. It is frozen in the brief for a later test on real mixes; it
+decides nothing yet.
 
 ### The rendered mixes (experiments 0116 and 0118)
 
@@ -4209,12 +4213,12 @@ Mark System Revision; Watermelon and Monotone). Each played file plays
 whole (3:26-7:36 in the mix, at 0.943-1.053 of native speed) between
 three tracks drawn before and three after, as `mixes` draws them: 20-60 s
 plays, speeds within 6%, bass swaps, crossfades and cuts, levels matched,
-rendered to a 128 kbit/s MP3. The
-drawn tracks come from the corpus library, never from the panel (either
-half) and never one of the five test-derived versions; as in the
-generated mixes of experiment 0020, they include corpus tracks that
-earlier test evaluations name (The Pulse, Sick Note), used only as
-filler. Nothing of the test set (audio, manifest, reports) was read.
+rendered to a 128 kbit/s MP3. The drawn tracks come from the corpus
+library, never from the panel (either half) and never one of the five
+test-derived versions; as in the generated mixes of experiment 0020,
+they include corpus tracks that earlier test evaluations name (The
+Pulse, Sick Note), used only as filler. Nothing of the test set (audio,
+manifest, reports) was read.
 
 Each mix was searched at NAS scale three ways: everything indexed; the
 played recording left out (the main case); the played file alone left
@@ -4234,6 +4238,12 @@ python3 -I scripts/analysis/shared_mixes.py score docs/panels/shared-material-se
   work/reports/library-nas-dnb-peaks/verified/scan-{stakka-skynet-knowledge,razorjack-2003-03-29,nocny-trans-vertical-2002-08-23}.json \
   out.json
 ```
+
+The follow-up (0118) runs `shared-mixes` on
+`docs/panels/shared-mixes-s21-rips.json` and scores with `--same
+work/s21/holder-coverage.json --second-from <0116's report>` before the
+same arguments (the `pair` coverages join the newer uploads to their
+recordings).
 
 ### The rule, written before anything was rendered
 
@@ -4262,11 +4272,14 @@ true plays at that threshold is "promising in rendered mixes only".
 
 ### Each candidate against the rule
 
-With the played recording left out, 87 wrong related plays in 9 of the
-12 played files (Fire 67, Pyro 9, Sonar 9 when its revision played,
-Dozer 2; none when Sonar, Watermelon or Monotone played), 240-4,480
-hits. With
-everything indexed, the same 87 stand beside the played file's own play.
+With the played recording left out, 203 of the 216 drawn plays are
+confident (13 plays of 20-28 s reach only two windows or 239 hits) and
+there are 87 wrong related plays in 9 of the 12 played files (Fire 67,
+Pyro 9, Sonar 9 when its revision played, Dozer 2; none when Sonar,
+Watermelon or Monotone played), 240-4,480 hits. With everything indexed,
+the same 87 stand beside the played file's own play. The table gives
+each experiment's own thresholds, each keeping 95% of its rendered true
+plays.
 
 | Candidate | Rejects of 87 wrong (0116; 0118) | Development mixes keep, of 97 (0116; 0118) |
 |---|--:|--:|
@@ -4283,12 +4296,15 @@ everything indexed, the same 87 stand beside the played file's own play.
   index holds: a median of 31.5 hits per second, against 4.6 for the
   wrong plays and 9.4 for the development mixes' true plays. The follow-up (0118,
   its rule also written first) left each drawn file out, so drawn tracks
-  were found only through another rip (197 of 216): 17.4 hits per
-  second, still well above the wrong plays. The rest of the gap is most
-  likely the mixing chain of a real mix (vinyl, EQ, broadcast), which
-  the rendered mixes do not have. The thresholds that pass are frozen in
-  `docs/brief-21.md` (for example (a1) at 9.31 hits per second), with
-  this caveat beside them.
+  could be found only through another rip (163 of 216 confident): 17.4
+  hits per second, still well above the wrong plays. 59 of those 277
+  plays have the drawn file's own density within 1%, most likely the
+  same encode in another folder; without them the result is the same
+  ((a1) at 7.49 rejects 76, the development mixes keep 65). The rest of the gap is
+  most likely the mixing chain of a real mix (vinyl, EQ, broadcast),
+  which the rendered mixes do not have. The thresholds that pass are
+  frozen in `docs/brief-21.md` (for example (a1) at 9.31 hits per
+  second), with this caveat beside them.
 - **(b) points the wrong way.** A true play stops where the mix moves
   to the next record, so the file's material beyond is absent (median
   0.017 of the share inside). A related version's continuation still
@@ -4308,25 +4324,44 @@ everything indexed, the same 87 stand beside the played file's own play.
   the same recording that session 18's clusters do not know. In 0116 it
   also marks all 15 positive-control plays, through the related version
   that stays indexed.
-- An exploratory check, not part of the rule: thresholds chosen to keep
-  95% of the real true plays (the positive control and the development mixes)
-  reject 43 (a1) and 12 (a2) of the 87, under half.
+- **An exploratory check, not part of the rule**, found after the run
+  (the review found that the first version of this check left out the
+  combinations): thresholds chosen to keep 95% of the 112 real true
+  plays (the positive control's 15 and the development mixes' 97). (a1) at 4.55 and
+  (a2) at 0.321 reject 43 and 12 of the 87, under half; (c)+(a2) at
+  0.350 rejects 30. **(c)+(a1) rejects 61**, every marked wrong play:
+  at 6.34 hits per second it keeps 92 of the 97 plays, just under 95%;
+  at 6.276, the cut on the 97 alone, 93. Both keep every rendered true
+  play (453 in 0116, 292 in 0118). Its limits: all 61 are Fire's; it
+  cannot reject the 20 wrong plays of Dozer, Pyro and Sonar, which (c)
+  does not mark; the margin is narrow (the densest marked wrong play has
+  6.01 hits per second, and the cut sits on one of the development mixes' plays); and of
+  the 4 plays of the development mixes it rejects at 6.276, 2 (Spirit - Out Of Control,
+  the dfect rip of Trace & Fresh - Mutated) are marked only through
+  newer uploads of the same recording, 2 (Sonic - Cannibal, the
+  i-witness Phoenix) through files `pair` lines up 13% and 32%. It is
+  frozen at 6.276 in `docs/brief-21.md` ("After the review") so that a
+  later test cannot tune it.
 
 ### What it means for our decision
 
 A statistic or reporting ambiguity is our decision (ADR 0017). This
 session's evidence:
 
-- **A sparseness statistic** would separate related versions in clean
-  rendered mixes, but (a1) and (a2) at the thresholds that keep 95% of
-  the real true plays reject under half of the wrong ones (43 and 12 of
-  87). It is not supported for real mixes. Validating the frozen thresholds on the panel's validation
-  half (rendered the same way, seeds fixed first) would most likely
-  repeat the rendered-mix pass and say nothing about real mixes; it was
-  not run, as the prompt says. A test that could change the answer
-  needs mixes with a real chain (my own recordings, or rendered mixes
-  through vinyl-like processing) that play a related version's shared
-  passage.
+- **A sparseness statistic alone** would separate related versions in
+  clean rendered mixes, but (a1) and (a2) at the thresholds that keep
+  95% of the real true plays reject under half of the wrong ones (43
+  and 12 of 87). It is not supported for real mixes. Validating the
+  frozen thresholds on the panel's validation half (rendered the same
+  way, seeds fixed first) would most likely repeat the rendered-mix pass
+  and say nothing about real mixes; it was not run, as the prompt says.
+- **The exploratory combination** ((c) marks the play, and it has under
+  6.276 hits per second) is the one candidate this session leaves open.
+  It acts only where a third version of the family is indexed, so at
+  best it narrows the problem. Testing it needs true plays from real
+  mixes not used to choose it (the three development mixes are spent)
+  and wrong plays where a third version is indexed; rendered mixes of
+  the validation half could supply wrong plays, not real true plays.
 - **Reporting ambiguity** has a concrete basis in (c): for a confident
   play, another indexed file outside its recording that holds its
   passage. In this session it would flag 61 of the 87 wrong plays and
@@ -4334,7 +4369,8 @@ session's evidence:
   4-32%, mostly a remix, VIP or edit; the other 11 marks disappear once
   the clusters know the newer uploads). It never flags a wrong play
   whose family has only two versions indexed, the case of Dozer, Pyro
-  and Sonar here.
+  and Sonar here. Both options use the same map; the exploratory
+  combination rejects a flagged play only when it is also sparse.
 - Reclustering the NAS library at the current revision would remove
   most of (c)'s marks on true plays: of its 79 in 0116, 62 are drawn
   plays marked through uploads newer than the clusters (2 more through
@@ -4360,9 +4396,26 @@ not run.
 - **The harness's runs.** The full run took 36 min (7.0 GB), the
   follow-up 33 min and step 6 27 min, one at a time, under `screen`. The
   follow-up's first start used a stale binary and was stopped; it was
-  rerun from a fresh build. Overwriting a binary in place while a
-  process still runs it gets the new process killed by macOS's code
-  signature check; copy to a fresh path instead.
+  rerun from a fresh build. A stale binary now fails on the plan's
+  unknown field instead of ignoring it. Overwriting a binary in place
+  while a process still runs it gets the new process killed by macOS's
+  code signature check; copy to a fresh path instead.
+- **The order of the work.** Step 6 started (06:38) before experiment
+  0116 was written (committed at 06:57). AGENTS.md asks for an
+  experiment file before the next experiment starts; the two runs are
+  independent, and 0116's numbers come from its own run.
+- **A Sonar upload the panel may have placed under the wrong recording.**
+  When the Mark System Revision played and was left out, 3 of Sonar's 9
+  wrong plays are
+  `/Volumes/atlas/Music/dnb/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a`,
+  which the panel lists under the original. `pair` lines up the whole of
+  `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus`
+  (0.9-362.2 s) with that upload's 2.0-375.1 s at speed 1.0326 (568
+  hits, 99% coverage), while the original's other rips line up only
+  27-46% with the revision. If the upload is the revision played 3%
+  slow, those 3 plays are right, not wrong. Removing them changes no
+  decision ((a1) rejects 78 of 84; (c)+(a1) still 61). A question for
+  judging by ear: is the hifi-junglist upload the original or the revision?
 - **A related version outside the panel.** In one mix, Kemal -
   Animation (Silent Extent Remix) is confident (517 hits) over a drawn
   play of the original (`extra/a-kemal-animation-sour.mp3`). By its
@@ -4389,15 +4442,19 @@ not run.
 - After 0116 showed that its true plays copy the indexed files, the
   follow-up (0118) was added with its rule written first, because the
   session had time and the question was the session's own.
+- The exploratory (c)+(a1) cut was frozen at 6.276 hits per second, the
+  cut keeping 95% of the 97 true plays (the rule's real sample), not
+  6.34, the cut on all 112 real true plays, which keeps 92 of the 97.
 
 ### Decisions waiting
 
 - Between a statistic and reporting ambiguity (above), and whether a
-  later session validates on the panel's validation half.
+  later session tests the exploratory (c)+(a1) rule on real mixes not
+  used so far.
 - Whether a later session reclusters the NAS library at the current
   revision.
 - Kemal - Animation (Silent Extent Remix) against the original, for the
-  panel.
+  panel; and which Sonar recording the hifi-junglist upload is.
 - Still waiting: the 17 listening questions of session 20, the
   containment rule (recommended: do not adopt), the possible tier's
   threshold, test evaluation 5, session 18's three manifest proposals,

@@ -11,12 +11,11 @@ docs/panels/shared-mixes-s21.json` (`b285da9984422fb5`, 36 min, 7.0 GB):
 played recording left out, the played file alone left out (4 files); the
 development mixes as they are. `shared_mixes.py score`, `data/0116-*`.
 
-**Played recording left out.** All 216 drawn plays right (438 plays,
-rips apart); wrong related 87 in 9 of 12 played files (Fire 67, Pyro 9,
-Sonar's revision 9, Dozer 2), 240-4,480 hits, the same 87 with
-everything indexed; the positive control's rip right in 15 plays. Of 43
-other confident plays, 42 are newer uploads of drawn tracks (`pair`
-86-99.9%, set aside), one Kemal's Silent Extent Remix over the original.
+**Played recording left out.** 203 of 216 drawn plays confident (13 of
+20-28 s possible only; 438 plays with rips); 87 wrong related in 9 of 12
+played files (Fire 67, Pyro 9, Sonar's revision 9, Dozer 2; 240-4,480 hits;
+the same with everything indexed); the positive control right in 15 plays.
+43 other confident plays: 42 newer uploads (`pair` 86-99.9%), Kemal's remix.
 
 | Candidate | Threshold | Wrong rejected (87) | Development mixes kept (97) |
 |---|--:|--:|--:|
@@ -29,12 +28,13 @@ other confident plays, 42 are newer uploads of drawn tracks (`pair`
   and (c)+(a2) are promising in rendered mixes only: drawn plays copy the
   indexed files ((a1) median 31.5); real plays are sparser (rips 6.6-20.1,
   development mixes median 9.4; wrong 4.6); the rips keep 10, 11, 0, 2 of 15.
-- (c) at 60 hits marks 61 of 87 wrong (all Fire: no third version of
-  Dozer, Pyro or Sonar is indexed), 79 of 453 true (62 through newer
-  uploads) and 28 of 97 development plays (11). Exploratory: cuts
-  keeping 95% of the 112 real plays reject 43 (a1) and 12 (a2) of 87.
+- (c) at 60 hits marks 61 of 87 wrong (all Fire: no third version of Dozer,
+  Pyro or Sonar is indexed), 79 of 453 true (62 through newer uploads), 28
+  of 97 development plays (11 through uploads). Exploratory, cuts keeping
+  95% of the 112 real plays: (a1) 4.55, (a2) 0.321, (c)+(a2) reject 43, 12,
+  30; (c)+(a1) at 6.34 rejects the 61 (densest 6.01), keeps 92 (6.276: 93).
 
-**Conclusion.** The test passes only against plays copied from the
-indexed files; at its thresholds the development mixes keep 46-72% of
-true plays, the rips 0-11 of 15: nothing separates a related version
-from a real rip. (c) marks shared passages: ambiguity to report.
+**Conclusion.** The rule passes only against plays copied from the indexed
+files: at its thresholds the development mixes keep 46-72% of true plays,
+the rips 0-11 of 15. Nothing passes against real true plays (0118 for
+rips); the exploratory (c)+(a1) cut needs validation on other real mixes.

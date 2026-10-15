@@ -2958,12 +2958,35 @@ NAS gained files during the session.
   against session 20's report (restored after the run): one wrong title
   added (239 to 240 hits), one removed (240 to 125), each in 3 indexes;
   no wrong confident query added, no right file lost. Experiment 0117.
-- 07:05 the follow-up's rule, committed before it ran (`66d85f6`);
+  It started before 0116 was written (committed at 06:57), against
+  AGENTS.md's order; the runs are independent.
+- 06:59 the follow-up's rule, committed before it ran (`66d85f6`);
   `leave_out_drawn` (1 new test). The first start at 07:06 used a stale
   binary (tests and clippy do not rebuild the release binary) and was
   stopped; a copy over the running binary was then killed by macOS's
   code-signature check; restarted 07:08 from a fresh copy, done 07:41
   (1,967 s, 5.2 GB). `shared_mixes.py score --same --second-from`.
-  Experiment 0118: 292 true plays through other rips (median 17.4 hits
-  per second against 31.5 for copies and 9.4 in the development mixes);
-  the same four pass in rendered mixes only (57-74 of 97 kept).
+  Experiment 0118: 292 true plays through other rips (163 of 216 drawn
+  plays confident; median 17.4 hits per second against 31.5 for copies
+  and 9.4 in the development mixes); the same four pass in rendered
+  mixes only (57-74 of 97 kept).
+- 07:50 the notes' section; the roadmap and the research note. 07:51
+  the read-only review (a subagent, 22 min). Its findings, all checked
+  and fixed: the exploratory check had left out the combinations, and
+  (c)+(a1) keeps every rendered true play and rejects 61 of 87, all
+  Fire's: at 6.34 hits per second (the cut keeping 95% of the 112 real
+  true plays) 92 of 97 development plays kept, at 6.276 (the cut on the
+  97) 93; margin 6.01 against 6.276. Frozen at 6.276 in the brief
+  ("After the review"), exploratory. 0116 had "all
+  216 drawn plays right" (203 confident, 13 of 20-28 s possible only)
+  and 0118 "197 found" (163). 59 of 0118's 277 rip plays have the drawn
+  file's density within 1% (same encodes); without them nothing
+  changes. Time labels in the brief set to the commit times. Code:
+  shared-mixes plans refuse unknown fields (a stale binary now fails);
+  `targets`, `passage` and `aligned_beyond` split out and tested;
+  `draw_mix` pinned to the draws of `8537226` for one seed (the
+  expected values printed by that commit's code in a temporary
+  worktree); 5 new tests. Observation: the hifi-junglist "Trace - Sonar
+  (PRO 012 A) 1998" upload, under the original in the panel, lines up
+  with the whole revision at speed 1.0326; 3 of Sonar's 9 wrong plays
+  are it; without them no decision changes. To judge by ear.

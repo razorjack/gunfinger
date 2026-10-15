@@ -277,7 +277,7 @@ natural point, 60 hits; that does not decide.
   modification times as at session 20's start
   (`work/s21/listening-digests-start.txt`).
 
-## Step 6's comparison (written at 06:07, before the variant ran)
+## Step 6's comparison (written at 06:06, before the variant ran)
 
 The variant: session 19's first-pass turntable lengths "factor2" (the
 smallest largest prime factor of the complex FFT within 2 samples of
@@ -300,7 +300,7 @@ development half. This measures; nothing is adopted, and the rest of
 the retrieval study (other rips, damage, short plays, the development
 mixes) is not run.
 
-## Step 5: the outcome (written at 07:00, after experiment 0116)
+## Step 5: the outcome (written at 06:57, after experiment 0116)
 
 By the pre-registered rule, four candidates are promising on the primary
 sample and keep under 95% of the second sample, so each is *promising in
@@ -339,7 +339,7 @@ ambiguity (the map (c) marks where another indexed version holds a
 confident play's passage) remains the fallback; any change to the
 report is our decision (ADR 0017).
 
-## Follow-up: true plays through other rips (written at 07:05, before it ran)
+## Follow-up: true plays through other rips (written at 06:59, before it ran)
 
 0116's primary true plays come from drawn plays rendered from the very
 files the index holds, about three times denser than real plays; that,
@@ -368,3 +368,51 @@ candidates like for like on true plays of real rips, by the same rule.
   plays are scored.
 - Expected, written now: if real rips are as sparse as the development
   mixes' true plays (median 9.4 hits per second), (a) fails here.
+
+## After the review: an exploratory candidate (written at 08:26, before any validation)
+
+The review (step 7) found that the exploratory check of 0116, cuts that
+keep 95% of the 112 real true plays (the 15 positive-control plays and
+the development mixes' 97), was run only for (a1) and (a2). The same
+procedure for the combinations:
+
+- (c)+(a1): the cut is 6.34 hits per second. It keeps 92 of the 97
+  development plays (94.8%, under the rule's 95% for them), all 453
+  true plays of 0116, all 292 of 0118 and all 15 positive-control plays,
+  and rejects 61 of the 87 wrong related plays. The cut on the 97
+  development plays alone is 6.276 (Trace & Fresh - Mutated's i-witness
+  rip, kept by the tie rule): it keeps 93 of 97 and every other true
+  play and rejects the same 61.
+- (c)+(a2): 0.350 rejects 30 of 87 (0.392 on the 97 alone: 58). It
+  depends on the sample and is not carried forward.
+
+This was chosen after seeing the data and decides nothing. To keep a
+later test honest, it is frozen now, before any validation, at the cut
+that keeps 95% of the development mixes' true plays: a confident play
+that (c) marks (the strongest indexed file outside the play's own
+recording, by the map built from the files present after the leave-out,
+holds its file span with at least 60 hits) and whose best confident
+segment has under 6.276 hits per second of its span would be rejected;
+an unmarked play is kept. Its limits, from this session's data:
+
+- All 61 rejected wrong plays are Fire's, the one family with a third
+  version indexed. It never touches the 20 wrong plays of Dozer, Pyro
+  and Sonar, where only two versions are indexed.
+- The margin is narrow: the densest marked wrong play has 6.01 hits per
+  second; the cut sits on a development play, and the next, Stab 2 Def,
+  has 6.34.
+- Of the 4 development plays it would reject, 2 (Spirit - Out Of Control
+  and the dfect rip of Trace & Fresh - Mutated) are marked only through
+  newer uploads of the same recording (reclustering would unmark them);
+  Sonic - Cannibal and the i-witness Phoenix are marked through files
+  `pair` lines up 13% and 32%.
+- Validation needs true plays from real mixes not used to choose it (the
+  three development mixes are spent) and wrong plays where a third
+  version is indexed. Rendered mixes of the panel's validation half
+  would supply wrong plays but not real true plays. Not run in this
+  session.
+
+0118 also refines step 5's reading: through other rips, (a1) still keeps
+95% of true plays and rejects 78 of 87. The pre-registered thresholds
+fail against the development mixes' true plays, not against rips as
+such.

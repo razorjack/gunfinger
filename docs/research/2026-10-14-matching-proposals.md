@@ -361,8 +361,9 @@ unverified; the riskiest of the five.
 ## 5. Identifiability before another confidence statistic
 
 **Kind:** a diagnostic; no change to the product. **Status:** measured
-(sessions 20 and 21); no statistic separates a related version's play
-from true plays in real mixes; reporting the ambiguity is our
+(sessions 20 and 21); no pre-registered candidate separates a related
+version's play from real true plays; one exploratory combination is
+frozen for a later test; reporting the ambiguity is our
 decision.
 
 - **Measured in session 20 (experiments 0110-0112, 0114 and 0115): the
@@ -396,6 +397,10 @@ decision.
   (0118). The file's own material beyond the play does not separate. The
   reuse map flags 61 of the 87 (only where a third version is indexed)
   and true plays of tracks with related versions in the library.
+  Exploratory, found after the run and frozen in `docs/brief-21.md`: a
+  play the map flags with under 6.276 hits per second keeps 93 of the
+  development mixes' 97 true plays and rejects the 61 flagged wrong
+  plays, by a narrow margin (6.01 against 6.276).
 - **Question.** Does a query hold distinctive evidence that today's
   representation does not use, or only material several versions share?
   An unchanged passage shared by two versions cannot say which supplied

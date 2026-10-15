@@ -30,8 +30,9 @@ for scope and rules.
   thresholds), (b), (c), (c)+(b) not; 42 other confident plays set aside
   by `pair` (newer uploads), one remix over its original; experiment 0116
 - [x] 5. The outcome: the four frozen in `docs/brief-21.md` with the
-  caveat; no candidate separates a related version from a real rip;
-  the validation half not searched
+  caveat; none passes against the development mixes' true plays (0118:
+  through other rips (a1) and (a2) still separate); the validation half
+  not searched
 - [x] 6. The FFT lengths' first stage (factor2 in a worktree never merged,
   removed after; the diff in `work/s21/`): the development half at NAS
   scale, 06:38-07:05 (27 min); one wrong confident title added
@@ -43,7 +44,15 @@ for scope and rules.
   stale binary and was stopped); 292 true plays; the same four pass in
   rendered mixes only (the development mixes keep 57-74 of 97);
   experiment 0118
-- [ ] 7. Read-only review by a subagent (by 10:45); fixes
+- [x] 7. Read-only review by a subagent, 07:51-08:13; fixes: the
+  exploratory check now covers the combinations ((c)+(a1) at 6.276 hits
+  per second keeps 93 of 97 and rejects 61 of 87, frozen in the brief
+  "After the review"); drawn plays found corrected (0116: 203 of 216
+  confident; 0118: 163); 0118's same-encode rips counted (59 of 277);
+  time labels set to the commit times; plans refuse unknown fields; 5
+  new tests (`draw_mix` pinned to 8537226's draws for one seed,
+  `targets`, `passage`, `aligned_beyond`, the plans); the hifi-junglist
+  Sonar upload reported to judge by ear
 
 ## Wrap-up
 

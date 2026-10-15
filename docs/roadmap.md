@@ -515,17 +515,20 @@ marked as inferences were derived, not measured.
   Pyro, Sonar, Dozer) against 453 true ones. Hits per second, the
   verifier's share and their combinations with a map of shared passages
   pass the feasibility test in rendered mixes only: at the frozen
-  thresholds the development mixes keep 45-70 of 97 true plays, and
-  57-74 when drawn tracks are found only through another rip (0118). The
+  thresholds the development mixes keep 45-70 of 97 true plays (57-74 at
+  0118's thresholds, with drawn tracks found only through another rip). The
   file's own material beyond the play points the wrong way (true plays
   end at transitions). The map (`search_peaks` over the play's file span,
   the strongest holder outside the play's recording) marks 61 of the 87,
   all in Fire's family, where a third version is indexed, and also true
   plays of tracks with a remix, VIP or edit in the library and of
-  uploads newer than the duplicate clusters. No statistic is supported
-  for real mixes; the map is the basis for reporting the ambiguity, our
-  decision. A statistic would next need mixes with a real chain
-  that play a related version's shared passage. The panel is now
+  uploads newer than the duplicate clusters. No pre-registered candidate
+  passes against real true plays. An exploratory combination found
+  after the run, a play the map marks with under 6.276 hits per second,
+  keeps 93 of the development mixes' 97 and rejects the 61 marked wrong
+  plays (all Fire's, a narrow margin); it is frozen in the brief for a
+  test on real mixes not used so far. The map is also the basis for
+  reporting the ambiguity, our decision. The panel is now
   a required check: anything that adds or changes evidence (the items below, the
   band profile, a minimum span, the FFT lengths' retrieval study) runs
   its development half and may add no wrong confident query there.
