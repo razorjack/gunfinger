@@ -21,8 +21,8 @@ GB); `shared_outcomes.py`; data `data/0111-shared-scenarios.json`.
 | Possible only / nothing | 20 / 18 | 2 / 6 | 3 / 6 | 8 / 6 | 9 / 4 | 0 / 2 | 2 / 26 |
 
 - Wrong confident in 106 of 218 queries and 12 of 14 directions (not
-  Watermelon ~ Monotone, at most 46 hits): the related recording in 66,
-  another version of the family in 40. Weakest: Sonar's revision, 240
+  Watermelon ~ Monotone, at most 46 hits): the related recording in 96,
+  another version in 58, no other file. Weakest: Sonar's revision, 240
   hits in 16 windows; strongest: Fire's Rogue Unit Remix and VIP inside
   each other, 4,473-4,497 (a pair no one has judged).
 - It takes enough of the passage: at 30 s or less only dense copies

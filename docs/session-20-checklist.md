@@ -27,9 +27,12 @@ for scope and rules.
   repeated; 10 new tests; the development half in one command (32 min);
   wrong confident in 106 of 218 main-case queries, 12 of 14 directions;
   experiment 0111
-- [ ] 4. Proposal 5's diagnostic on the development half: where the
-  evidence falls, audio, peaks and pairs against the rips' noise floor,
-  one of three outcomes per family; experiment 0112
+- [x] 4. Proposal 5's diagnostic on the development half
+  (`gunfinger-eval identifiability`, 4 tests, 2.4 min): outcome 3 in 11
+  of 14 directions (Dozer, Fire, Sonar, Pyro-1), outcome 1 in Pyro-2
+  (thin, against a poor upload), Watermelon separated today; where the
+  evidence falls and density under damage; no rule adopted; experiment
+  0112
 - [ ] 5. Listening questions in `work/audition/s20/`, the page checked
   with temporary files
 - [ ] 6. If time remains: proposal 3's first step (`take_part` split

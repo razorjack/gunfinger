@@ -4,9 +4,12 @@ the related file against the played recording's rips (the noise floor)
 in audio, peaks and pairs over the shared passage, with the main case
 (the played recording left out) from the `shared` outcomes.
 
-usage: shared_identifiability.py <identifiability report.json> <outcomes.json> <out.json>
+usage: shared_identifiability.py <identifiability report.json> <shared report.json>
+                                 <outcomes.json> <out.json>
 
-The outcomes file is shared_outcomes.py's.
+The outcomes file is shared_outcomes.py's. Spans are in seconds of the
+query: in `beyond 30 s` from the passage's start and end, in `before 20 s`
+from the passage's start.
 """
 import json
 import sys
@@ -44,8 +47,30 @@ def evidence(rows, direction):
     return out
 
 
-def main(report_path, outcomes_path, out_path):
+def related_detections(shared, direction, query):
+    return [(result, d) for result in shared["results"]
+            if result["scenario"] == direction and result["query"] == f"{direction}-{query}"
+            and result["index"] == "played left out"
+            for d in result["detections"] if d["role"] == "related"]
+
+
+def spans(shared, direction):
+    """Where R's detections fall in the played-left-out index."""
+    beyond = [(round(d["start_seconds"], 1), round(d["end_seconds"] - (result["seconds"] - 30), 1),
+               d["hits"]) for result, d in related_detections(shared, direction, "beyond-30s")]
+    before = [(round(d["start_seconds"] - 20, 1), round(d["end_seconds"] - 20, 1), d["hits"])
+              for _, d in related_detections(shared, direction, "before-20s")]
+    looped = [d["hits"] for _, d in related_detections(shared, direction, "looped-240s")]
+    return {
+        "beyond 30 s: start after the passage's start, end after its end, hits": sorted(beyond),
+        "before 20 s: start and end after the passage's start, hits": sorted(before),
+        "looped 240 s: detections, strongest, sum": [len(looped), max(looped, default=0), sum(looped)],
+    }
+
+
+def main(report_path, shared_path, outcomes_path, out_path):
     report = json.load(open(report_path, encoding="utf-8"))
+    shared = json.load(open(shared_path, encoding="utf-8"))
     rows = json.load(open(outcomes_path, encoding="utf-8"))["rows"]
     rips = [values(c) for d in report["directions"] if not d["control"]
             for c in d["files"] if c["role"] == "rip"]
@@ -57,9 +82,10 @@ def main(report_path, outcomes_path, out_path):
         own_rips = [values(c) for c in direction["files"] if c["role"] == "rip"]
         floor = ({m: min(r[m] for r in own_rips) for m in MEASURES} if own_rips else pooled)
         r = values(related)
+        # R's own level, also where a stronger wrong title stands beside it.
         wrong = [row for row in rows if row["direction"] == name
-                 and row["index"] == "played left out" and row["outcome"] == "wrong confident"
-                 and row["wrong_role"] == "related"]
+                 and row["index"] == "played left out"
+                 and row["strongest"].get("related", {}).get("level") == "confident"]
         if direction["control"]:
             outcome = "control"
         elif r["audio"] >= floor["audio"]:
@@ -75,7 +101,7 @@ def main(report_path, outcomes_path, out_path):
             "related": r, "floor": floor, "floor_from": "own rips" if own_rips else "pooled",
             "rips": own_rips, "related_found": related["found"],
             "wrong_confident_kinds": sorted({row["kind"] for row in wrong}),
-            "evidence": evidence(rows, name), "outcome": outcome,
+            "evidence": evidence(rows, name), "spans": spans(shared, name), "outcome": outcome,
         })
         f = related["found"] or {}
         print(f"{name:<22} {outcome}")
@@ -85,6 +111,7 @@ def main(report_path, outcomes_path, out_path):
               f"audio {floor['audio']:.2f} peaks {floor['peaks']:.2f} pairs {floor['pairs']:.2f}/s")
         print(f"   wrong confident (played left out): {', '.join(results[-1]['wrong_confident_kinds']) or 'none'}"
               f"  |  R hits {results[-1]['evidence']}")
+        print(f"   spans {results[-1]['spans']}")
     json.dump({"pooled_floor": pooled, "directions": results},
               open(out_path, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 
