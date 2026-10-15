@@ -3089,3 +3089,9 @@ was measured.
   offset 1 s: 276 hits in 2 windows, then 48 hits on an alignment about
   11 s away in the file, on rung 0.960). 10 s plays: 148 possible today,
   146 with the variant.
+- (e) 09:46-09:52 the development mixes at NAS scale with every
+  referenced track left out (11, 12, 17, as experiment 0115), both
+  builds: the same confident detections (0, 7 and 2, newer uploads of
+  the left-out recordings, as in 0115), the same possible plays plus the
+  Omni Trio Silent Storm Remix (70 hits) in the 2003 mix; no confidence
+  change.
