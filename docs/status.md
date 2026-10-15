@@ -3004,3 +3004,13 @@ NAS gained files during the session.
   described as what it could supply. Code: `Query`'s unknown fields
   tested, a shadowing binding renamed, the pin's asserts name the
   row.
+- Wrap-up: final build `work/bin/s21-final/` (`gunfinger` byte-identical
+  to `s21-start`; no diff in `gunfinger-core` or the CLI since
+  `8537226`). `regress session-21-start` identical (720/720 sweep
+  queries, all 87, 93 and 79 scan detections, the calibrate line known
+  since session 8; 151 s, 1,320 s user). `scripts/check.sh` green (396
+  tests) with Homebrew's 1.98.0 and with rustup's, which ran the Linux
+  clippy (`work/s21/check-*.log`). The NAS store at the end: 38,105
+  records, revision `b285da9984422fb5`, as at the start. Listening files and
+  the set manifests unchanged (digests, modification times). Scratch:
+  `work/shared-mixes/` 625 MB (the 36 renders), `work/s21/` 435 MB.

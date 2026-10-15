@@ -58,10 +58,10 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Notes "Session 21", status, roadmap, the research note
-- [ ] `regress session-21-start` identical with the final build;
+- [x] Notes "Session 21", status, roadmap, the research note
+- [x] `regress session-21-start` identical with the final build;
   `scripts/check.sh` green with both toolchains
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] The NAS store's revision at the end (`b285da9984422fb5`, unchanged)
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message
