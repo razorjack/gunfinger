@@ -3073,3 +3073,9 @@ was measured.
   Kontempt's start in seed 7's mix-00 (confident; late by 2.30 s, then
   3.71 s, with 1,889 hits then 1,907). Both starts lie inside an 8-11 s
   fade-in with the bass cut for its first 4-5 s.
+- (d) 09:21-09:34 sweeps 2027-2029, both builds (about 2 min each):
+  every answer unchanged (720 of 720 per seed: 540 right, 180 held out
+  with nothing confident, no possible answer gained or lost), recall
+  60/60 at every speed, 0 wrong, the bar passed by both; 191, 194 and 200
+  queries with identical detections; the own file's hits 0.956-1.011 of
+  today's.

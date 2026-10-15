@@ -27,7 +27,8 @@ for scope and rules.
 - [x] 3c. Generated mixes, seeds 2026 and 7, both builds: levels,
   credits and 0 wrong unchanged; 2 starts inside fade-ins worse by
   1.33 s and 1.41 s (the boundary criterion fails on them)
-- [ ] 3d. Sweeps 2027-2029, both builds
+- [x] 3d. Sweeps 2027-2029, both builds: every answer unchanged, the
+  bar passed by both (60/60 at every speed, 0 wrong)
 - [ ] 3e. If time remains: `grid`, `robust` seed 2026, the development
   mixes' leave-outs at NAS scale
 - [ ] 4. Experiment 0119; part 2's needs
