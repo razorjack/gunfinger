@@ -26,10 +26,17 @@ usage:
                     [--seed N] [--controls N] [--map MAP] [--known ITEMS...]
   listening_pack.py render ITEMS PAIRS_REPORT OUT [--corpus DIR] [--nas DIR]
   listening_pack.py readme OUT
+  listening_pack.py candidates CANDIDATES PAIRS_REPORT OUT_ITEMS
 
 `readme` writes OUT/README.md from every OUT/items-*.json that `render`
 left: cut joins first, then borderline pairs (most hits first), then
-sparse joins, then the control joins.
+sparse joins, then the control joins, then candidates.
+
+`candidates` writes items of kind `candidate` for `render` from a JSON
+list of pairs (`query`, `found`, `why`) and their `pair` report: pairs of
+versions no verdict covers, for the shared-material panel (session 20).
+The clusters' fields are the report's strongest alignment at the fitted
+speed, or zero where there is none.
 
 STORE_PATHS is a text file of the NAS store's record paths, one per line.
 With --map (library-map.json), joins of identical copies are not drawn as
@@ -50,7 +57,16 @@ PREFIX = "second-library/"
 BORDERLINE = 0.4
 SPARSE_SHARE = 0.1
 CLIP_SECONDS = 8.0
-ORDER = {"cut join": 0, "borderline": 1, "sparse join": 2, "control join": 3}
+ORDER = {"cut join": 0, "borderline": 1, "sparse join": 2, "control join": 3, "candidate": 4}
+KIND_TEXTS = {
+    "cut join": "cut joins (joined, but cut by `clusters --cut-sparsest` because the join "
+                "chained two files you judged different; the harness's guess at the wrong link)",
+    "borderline": "borderline pairs (one alignment covers 40-80% of the shorter file)",
+    "sparse join": "sparse joins (joined on little evidence)",
+    "control join": "control joins (joined, drawn by seed, to hear what the same recording "
+                    "sounds like here)",
+    "candidate": "candidates (versions no verdict covers, for the shared-material panel)",
+}
 RATE = 44100
 
 
@@ -172,6 +188,31 @@ def item(kind, group, members):
     }
 
 
+def candidates(arguments):
+    listed_file, report_file, out_items = arguments[:3]
+    reports = {(r["query"], r["found"]): r for r in load(report_file)}
+    items = []
+    for listed in load(listed_file):
+        report = reports[(listed["query"], listed["found"])]
+        fitted = next((s for s in report["searches"] if s["name"] == FITTED), None)
+        best = fitted["alignments"][0] if fitted and fitted["alignments"] else None
+        pair = {
+            "query": listed["query"], "found": listed["found"],
+            "coverage": best["coverage"] if best else 0.0,
+            "speed": best["speed"] if best else 1.0,
+            "hits": best["hits"] if best else 0,
+            "query_start_seconds": best["query_start_seconds"] if best else 0.0,
+            "query_end_seconds": best["query_end_seconds"] if best else 0.0,
+            "found_start_seconds": best["found_start_seconds"] if best else 0.0,
+            "found_end_seconds": best["found_end_seconds"] if best else 0.0,
+            "same_recording": False, "aural_verdict": None,
+        }
+        items.append({"kind": "candidate", "why": listed["why"], "clusters": [], "pairs": [pair]})
+    with open(out_items, "w") as file:
+        json.dump(items, file, indent=1)
+    print(f"{len(items)} candidate items")
+
+
 def pair_key(pair):
     return tuple(sorted((pair["query"], pair["found"])))
 
@@ -188,6 +229,8 @@ def main():
         render(arguments)
     elif command == "readme":
         readme(arguments[0])
+    elif command == "candidates":
+        candidates(arguments)
     else:
         sys.exit(__doc__)
 
@@ -199,16 +242,14 @@ def readme(out):
             items += [i for i in load(os.path.join(out, name)) if "folder" in i]
     items.sort(key=lambda i: (ORDER[i["kind"]], -i["pairs"][0]["hits"]))
     counts = collections.Counter(i["kind"] for i in items)
+    kinds = [
+        f"{counts[kind]} {text}" for kind, text in KIND_TEXTS.items() if counts[kind]
+    ]
+    listed = ", ".join(kinds[:-1]) + (" and " if len(kinds) > 1 else "") + kinds[-1] if kinds else ""
     lines = [
         "# Listening pack",
         "",
-        f"{len(items)} pairs of library files to judge by ear: "
-        f"{counts['cut join']} cut joins (joined, but cut by `clusters --cut-sparsest` "
-        "because the join chained two files you judged different; the harness's guess "
-        f"at the wrong link), {counts['borderline']} borderline pairs (one alignment covers 40-80% of the "
-        f"shorter file), {counts['sparse join']} sparse joins (joined on little "
-        f"evidence) and {counts['control join']} control joins (joined, drawn by seed, "
-        "to hear what the same recording sounds like here). None has a verdict yet.",
+        f"{len(items)} pairs of library files to judge by ear: {listed}. None has a verdict yet.",
         "",
         "Each folder holds `sheet.txt` (both full paths, the coverage, supported",
         "time, every alignment with its times and where the files stop lining up)",

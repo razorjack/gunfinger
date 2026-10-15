@@ -33,8 +33,11 @@ for scope and rules.
   (thin, against a poor upload), Watermelon separated today; where the
   evidence falls and density under damage; no rule adopted; experiment
   0112
-- [ ] 5. Listening questions in `work/audition/s20/`, the page checked
-  with temporary files
+- [x] 5. 16 listening questions in `work/audition/s20/` (pairs no
+  verdict covers, from 0076 and the development mixes, one joined rip,
+  Meltdown ~ Phantom Force); `listening_pack.py candidates`; the page
+  checked with a temporary answer log and a copy of the verdicts (16
+  questions, audio and envelopes 200, nothing answered)
 - [ ] 6. If time remains: proposal 3's first step (`take_part` split
   profile); an experiment
 - [ ] 7. Read-only review by a subagent; fixes
