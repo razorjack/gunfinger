@@ -155,13 +155,13 @@ fn within_two_percent() -> Vec<Rung> {
 }
 
 /// The corpus records, and the other library's files with a current record.
-struct Records {
+pub(crate) struct Records {
     corpus: Vec<PeakRecord>,
     other: Vec<Asset>,
 }
 
 impl Records {
-    fn load(sources: &Sources) -> Result<Records, String> {
+    pub(crate) fn load(sources: &Sources) -> Result<Records, String> {
         let profile = Profile::CURRENT;
         let (corpus, _) = load_records(sources.library, sources.store, &profile, &BTreeSet::new());
         let other = match sources.other {
@@ -178,7 +178,7 @@ impl Records {
 
     /// A corpus file's record, or with the prefix one of the other
     /// library's.
-    fn record(&self, sources: &Sources, path: &str) -> Result<PeakRecord, String> {
+    pub(crate) fn record(&self, sources: &Sources, path: &str) -> Result<PeakRecord, String> {
         let Some(other_path) = path.strip_prefix(SECOND_LIBRARY_PREFIX) else {
             return self
                 .corpus

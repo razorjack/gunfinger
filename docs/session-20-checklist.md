@@ -22,9 +22,11 @@ for scope and rules.
 - [x] 2c. Oracle committed first (0ae0c6d); split by family, seed 2026;
   `docs/panels/shared-material-seed-2026.json` and its development plan
 - [x] 2d. Experiment 0110
-- [ ] 3. `shared` at NAS scale, with context before, a weak rip, a blend
-  masking the context, a short break repeated; tested; the development
-  half in one command; outcomes per scenario and index; experiment 0111
+- [x] 3. `shared` at NAS scale (`--other-peaks-dir`), with context
+  before, a weak rip, a blend masking the context, a short break
+  repeated; 10 new tests; the development half in one command (32 min);
+  wrong confident in 106 of 218 main-case queries, 12 of 14 directions;
+  experiment 0111
 - [ ] 4. Proposal 5's diagnostic on the development half: where the
   evidence falls, audio, peaks and pairs against the rips' noise floor,
   one of three outcomes per family; experiment 0112

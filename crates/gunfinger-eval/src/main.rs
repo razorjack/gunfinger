@@ -9,6 +9,7 @@ mod clusters;
 mod fullest;
 mod grid;
 mod hash_cost;
+mod identifiability;
 mod library_map;
 mod loss;
 mod manifest;
@@ -246,14 +247,31 @@ enum Command {
         pairs: PathBuf,
     },
     /// Search queries cut from a passage two different recordings share
-    /// (alone, looped, and reaching into the played file's own material),
-    /// with the played recording in the index and left out, and measure
-    /// every detection with the peak verifier.
+    /// (alone, looped, with the played file's own material before or
+    /// after it, through a weak rip, under a blend, a short break
+    /// repeated), with the played recording in the index and left out,
+    /// and measure every detection with the peak verifier. With
+    /// --other-peaks-dir every index holds that library too.
     Shared {
         /// The scenarios: JSON with `scenarios`, each naming `name`,
-        /// `played`, `related`, `passage_start_seconds` and
-        /// `passage_end_seconds`.
+        /// `played`, `related`, `passage_start_seconds`,
+        /// `passage_end_seconds` and optionally `played_recording` and
+        /// `related_recording` (files of each recording beyond its
+        /// duplicate cluster), and optionally `blend_partner` (`file`,
+        /// `start_seconds`). The report is `<plan file stem>.json`, with
+        /// `shared-` put first when the stem does not start with it.
         plan: PathBuf,
+    },
+    /// Proposal 5's diagnostic: for each direction of one half of a
+    /// shared-material panel, how closely the related file and the played
+    /// recording's other rips reproduce the shared passage, in pair hashes,
+    /// peaks and audio (searched against each file alone). The report is
+    /// `identifiability-<half>.json`.
+    Identifiability {
+        /// The panel, as `scripts/analysis/shared_panel.py` writes it.
+        panel: PathBuf,
+        #[arg(long, value_enum)]
+        half: Half,
     },
     /// With --other-peaks-dir: draw the recall panel for a seed from the
     /// other library's records outside the corpus recordings' clusters
@@ -489,6 +507,8 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Pair { .. }
             | Command::PairReview { .. }
             | Command::Recall { .. }
+            | Command::Shared { .. }
+            | Command::Identifiability { .. }
     );
     let takes_a_sample = matches!(
         command,
@@ -506,7 +526,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review and recall do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared and identifiability do",
         ));
     }
     match command {
@@ -574,27 +594,8 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             related::print_summary(&related);
             Ok(())
         }
-        Command::Shared { plan } => {
-            let text = fs::read_to_string(&plan)
-                .map_err(|error| format!("cannot read {}: {error}", plan.display()))?;
-            let plan: shared::Plan = serde_json::from_str(&text)
-                .map_err(|error| format!("{}: {error}", plan.display()))?;
-            let report = shared::run(
-                &plan,
-                &paths.library()?,
-                &paths.store()?,
-                &paths.clusters()?,
-                &paths.work,
-                &shared::Options {
-                    ladder: &paths.rungs(),
-                    matching: &paths.matching,
-                    jobs,
-                },
-            )?;
-            write_json(&paths.reports().join("shared-material.json"), &report)?;
-            shared::print_summary(&report);
-            Ok(())
-        }
+        Command::Shared { plan } => run_shared(paths, &plan, jobs),
+        Command::Identifiability { panel, half } => run_identifiability(paths, &panel, half),
         Command::PairReview { pack } => {
             let pack = pack.unwrap_or_else(|| paths.work.join("listening"));
             let items = pair_review::items(&pack)?;
@@ -1330,6 +1331,114 @@ fn run_sweep(paths: &Paths, seed: u64, other_rips: bool, jobs: usize) -> Result<
     write_json(&paths.reports().join(name), &report)?;
     sweep::print_summary(&report);
     Ok(())
+}
+
+/// The plan's scenarios, rendered into `<work>/shared/<plan name>/`; the
+/// report is `<plan name>.json`, with `shared-` put first when the name
+/// does not start with it.
+fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String> {
+    let text = fs::read_to_string(plan_file)
+        .map_err(|error| format!("cannot read {}: {error}", plan_file.display()))?;
+    let plan: shared::Plan =
+        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", plan_file.display()))?;
+    let name = plan_file.file_stem().map_or_else(
+        || String::from("shared-material"),
+        |stem| stem.to_string_lossy().into_owned(),
+    );
+    let second_root = second_library_root(paths.other_store()?.as_ref())?;
+    let library = paths.library()?;
+    let report = shared::run(
+        &plan,
+        &library,
+        &paths.store()?,
+        &paths.clusters()?,
+        &shared::Roots {
+            library: &library.root,
+            second: second_root.as_deref(),
+        },
+        &paths.work.join("shared").join(&name),
+        &shared::Options {
+            ladder: &paths.rungs(),
+            matching: &paths.matching,
+            padding: &paths.padding(&UNCHANGED_INDEX)?,
+            jobs,
+        },
+    )?;
+    let report_name = if name.starts_with("shared") {
+        name
+    } else {
+        format!("shared-{name}")
+    };
+    write_json(
+        &paths.reports().join(format!("{report_name}.json")),
+        &report,
+    )?;
+    shared::print_summary(&report);
+    Ok(())
+}
+
+/// A half of a shared-material panel.
+#[derive(Clone, Copy, clap::ValueEnum)]
+enum Half {
+    Development,
+    Validation,
+}
+
+impl Half {
+    fn name(self) -> &'static str {
+        match self {
+            Half::Development => "development",
+            Half::Validation => "validation",
+        }
+    }
+}
+
+fn run_identifiability(paths: &Paths, panel_file: &Path, half: Half) -> Result<(), String> {
+    let text = fs::read_to_string(panel_file)
+        .map_err(|error| format!("cannot read {}: {error}", panel_file.display()))?;
+    let panel: identifiability::Panel = serde_json::from_str(&text)
+        .map_err(|error| format!("{}: {error}", panel_file.display()))?;
+    let other = paths.other_store()?;
+    let second_root = second_library_root(other.as_ref())?;
+    let library = paths.library()?;
+    let report = identifiability::run(
+        &panel,
+        half.name(),
+        &pair::Sources {
+            library: &library,
+            store: &paths.store()?,
+            other: other.as_ref(),
+        },
+        &shared::Roots {
+            library: &library.root,
+            second: second_root.as_deref(),
+        },
+    )?;
+    write_json(
+        &paths
+            .base_reports()
+            .join(format!("identifiability-{}.json", half.name())),
+        &report,
+    )?;
+    identifiability::print_summary(&report);
+    Ok(())
+}
+
+/// The root of the other library's files, as its store names it.
+fn second_library_root(other: Option<&PeakStore>) -> Result<Option<PathBuf>, String> {
+    let Some(other) = other else {
+        return Ok(None);
+    };
+    let root = other
+        .library()
+        .map_err(|error| error.to_string())?
+        .ok_or_else(|| {
+            format!(
+                "{} names no library, so the files there cannot be found",
+                other.dir().display()
+            )
+        })?;
+    Ok(Some(PathBuf::from(root)))
 }
 
 fn run_recall(paths: &Paths, seed: u64, prepare: bool, jobs: usize) -> Result<(), String> {
