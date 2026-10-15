@@ -276,3 +276,26 @@ natural point, 60 hits; that does not decide.
   `work/audition/answers.jsonl` sha256 `dff04586…09be`, the manifests'
   modification times as at session 20's start
   (`work/s21/listening-digests-start.txt`).
+
+## Step 6's comparison (written at 06:07, before the variant ran)
+
+The variant: session 19's first-pass turntable lengths "factor2" (the
+smallest largest prime factor of the complex FFT within 2 samples of
+`round(1024 / s)`, experiment 0109), applied by session 19's
+`work/s19/py/fft_variant.py factor2` to a detached worktree at `49f4c77`
+(`work/s21-fft-tree`, never merged; the diff is
+`work/s21/fft-factor2.diff`). Refinement and the key-locked rungs are
+unchanged. It runs `gunfinger-eval --other-peaks-dir <NAS store> shared
+docs/panels/shared-material-seed-2026-development.json` at the store's
+revision `b285da9984422fb5`, on the same rendered queries as session
+20's final run (the plan and the render key are unchanged).
+
+Compared with session 20's final report of the same plan (copied to
+`work/s21/reports-before/` before anything ran), query by query and
+index by index (`scripts/analysis/shared_compare.py`): wrong confident
+titles added and removed, right confident files lost and gained, and
+outcomes changed (session 20's oracle). The roadmap's criterion: anything
+that changes evidence may add no wrong confident query on the
+development half. This measures; nothing is adopted, and the rest of
+the retrieval study (other rips, damage, short plays, the development
+mixes) is not run.

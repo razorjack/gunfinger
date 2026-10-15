@@ -2918,3 +2918,29 @@ the NAS during the session.
   `work/s20/` 301 MB, the development renders 351 MB. Notes "Session
   20", the roadmap's two items and the research note (proposals 3 and 5)
   updated.
+
+## 2026-10-15: session 21, candidate statistics for shared material in rendered mixes
+
+Brief `docs/brief-21.md`, checklist `docs/session-21-checklist.md`. The
+NAS gained files during the session.
+
+- 05:46 setup, `git status` clean at `8537226`. Release build in
+  `work/bin/s21-start/` (`gunfinger` byte-identical to `s20-final`);
+  `baseline session-21-start`. The NAS store: 38,105 records, revision
+  `b285da9984422fb5`, as expected; load 2.1.
+- 05:51 the pre-registration, committed before anything was rendered
+  (`5568a03`): 36 mixes (seeds 2101-2103, one per development played
+  file, played whole among 3 + 3 drawn plays), the oracle per play, the
+  denominators, candidates (a1) hits per second, (a2) the verifier's
+  share, (b) the continuation share beyond each side, (c) the library's
+  map of shared passages, three combinations with (c), and the
+  feasibility criterion (one threshold keeps 95% of true confident plays
+  and rejects half of the wrong related ones).
+- Step 3: `gunfinger-eval shared-mixes <plan>` (`shared_mixes.rs`;
+  `mixes::draw_around`, `render_once`, NAS files rendered through
+  `shared::Roots`; `Verifier::peaks` and `Verifier::beyond`; 8 new
+  tests); `scripts/analysis/shared_mixes.py plan` writes
+  `docs/panels/shared-mixes-s21.json` (93 files never drawn: every panel
+  file of both halves and the corpus's two Funktion files by the
+  test-derived pattern). Smoke run on one mix (53 s, 4.9 GB). Full run
+  from 06:02 under `screen`.
