@@ -267,7 +267,8 @@ def compare_robust(before, after):
     for qb, qa in zip(before["queries"], after["queries"]):
         assert (qb["condition"], qb["speed"], qb["number"], qb["asset"]) == \
             (qa["condition"], qa["speed"], qa["number"], qa["asset"])
-        out["identical"] += qb == qa
+        timing = ("search_seconds",)
+        out["identical"] += all(qb[k] == qa[k] for k in qb if k not in timing)
         fields = ("confident", "possible", "partner_confident", "wrong_confident", "wrong_possible")
         if any(qb[f] != qa[f] for f in fields):
             out["changed"].append({"condition": qb["condition"], "speed": qb["speed"], "asset": qb["asset"],

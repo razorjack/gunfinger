@@ -3095,3 +3095,16 @@ was measured.
   the left-out recordings, as in 0115), the same possible plays plus the
   Omni Trio Silent Storm Remix (70 hits) in the 2003 mix; no confidence
   change.
+- (e) 09:52-10:10 `robust` seed 2026, all conditions, both builds (10
+  and 8 min): 0 wrong confident in both; confident 1,941 -> 1,945 of
+  2,600 indexed queries, possible or better 2,246 -> 2,252, wrong
+  possible 43 -> 38 (5 fewer weak matches of Clockwork's Stakka remix).
+  **20 right confident answers lost and 24 gained**, so the criterion "no
+  right confident file lost" fails here: needle skip 2 s (12 lost, 3
+  gained, all 15 crossing 3 windows: the skip splits the play into
+  segments of 2-3 windows), pitch ride 2% (7 lost, 20 gained; 14 cross 3
+  windows, 13 cross 240 hits), beatmatched at 0 dB (Skinnah - State Of
+  Violence, 275 -> 210 hits) and clipping (BSE - B Negative, 235 -> 240,
+  gained). 6 right possible answers lost and 6 gained (blends, pitch
+  ride, beatmatched); 6 changes of the blend partner's confident answer.
+  The other conditions keep every answer.
