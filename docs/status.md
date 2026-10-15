@@ -3079,3 +3079,13 @@ was measured.
   60/60 at every speed, 0 wrong, the bar passed by both; 191, 194 and 200
   queries with identical detections; the own file's hits 0.956-1.011 of
   today's.
+- (e) 09:34-09:46 `grid` seed 2026, both builds (about 6 min each): the
+  same confident counts per play length (10-40 s: 0, 67, 146, 160, 160,
+  160 of 160), 0 wrong confident in both, the strongest false hits
+  unchanged; 109 of 960 queries identical. **Two 10 s plays lose their
+  possible answer**, so the criterion "no right possible file lost" fails on
+  them: brief 12 (SKC & Cord - Swarm at 1.054, offset 0 s: 235 hits in
+  one window, then nothing) and brief 6 (Aphrodite - Lava Flow at 0.962,
+  offset 1 s: 276 hits in 2 windows, then 48 hits on an alignment about
+  11 s away in the file, on rung 0.960). 10 s plays: 148 possible today,
+  146 with the variant.
