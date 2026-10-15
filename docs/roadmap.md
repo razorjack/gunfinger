@@ -373,6 +373,11 @@ marked as inferences were derived, not measured.
   of length changes peaks and output: a retrieval study first, and our
   decision; the study now includes the shared-material panel's
   development half ("A confidence statistic for shared material").
+  *(session 21, 0117)* On that half, at NAS scale, session 19's
+  first-pass variant (windows within two samples, small prime factors)
+  adds no wrong confident query and loses no right file: one wrong title
+  added (239 to 240 hits) and one removed (240 to 125), in each index.
+  The rest of the retrieval study is not run.
   *(session 20)* Split out of `take_part`, the binary searches are
   1.3-1.4% of CPU and the copying of hits 9.1% (0113): under the note's
   5% stop point, so part boundaries computed once are not pursued.
@@ -502,7 +507,25 @@ marked as inferences were derived, not measured.
   confident play to test against (0115). Next, where a related file's
   alignment stops while the music runs on, tested against true plays
   with its rule written first; reporting the ambiguity is the fallback
-  (our decision). The panel is now
+  (our decision). *(session 21, experiments 0116 and 0118)*
+  Like for like, rule written first (`docs/brief-21.md`): 36 rendered
+  mixes play each development played file with a shared passage whole
+  between six drawn corpus tracks (`gunfinger-eval shared-mixes`); with
+  the played recording left out, 87 wrong related confident plays (Fire,
+  Pyro, Sonar, Dozer) against 453 true ones. Hits per second, the
+  verifier's share and their combinations with a map of shared passages
+  pass the feasibility test in rendered mixes only: at the frozen
+  thresholds the development mixes keep 45-70 of 97 true plays, and
+  57-74 when drawn tracks are found only through another rip (0118). The
+  file's own material beyond the play points the wrong way (true plays
+  end at transitions). The map (`search_peaks` over the play's file span,
+  the strongest holder outside the play's recording) marks 61 of the 87,
+  all in Fire's family, where a third version is indexed, and also true
+  plays of tracks with a remix, VIP or edit in the library and of
+  uploads newer than the duplicate clusters. No statistic is supported
+  for real mixes; the map is the basis for reporting the ambiguity, our
+  decision. A statistic would next need mixes with a real chain
+  that play a related version's shared passage. The panel is now
   a required check: anything that adds or changes evidence (the items below, the
   band profile, a minimum span, the FFT lengths' retrieval study) runs
   its development half and may add no wrong confident query there.

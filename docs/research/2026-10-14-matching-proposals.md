@@ -205,6 +205,12 @@ unverified.
   both`, 12.1% and 14.4% less CPU and 9.2% and 11.1% less wall time with
   turntable playback (timed under other load). Changing a length
   needs the retrieval study below and our decision.
+- **Measured in session 21 (experiment 0117): the shared panel's criterion.**
+  The within-two-samples variant on the shared-material panel's
+  development half at NAS scale: no wrong confident query added, no
+  right file lost; one wrong title added (239 to 240 hits) and one
+  removed (240 to 125), each in three indexes. The rest of the retrieval
+  study is not run.
 
 - **Today.** A turntable rung analyses the query with window
   `round(1024 / s)` and hop `round(128 / s)` (`points_at_speed_in`,
@@ -354,8 +360,10 @@ unverified; the riskiest of the five.
 
 ## 5. Identifiability before another confidence statistic
 
-**Kind:** a diagnostic; no change to the product. **Status:**
-unverified.
+**Kind:** a diagnostic; no change to the product. **Status:** measured
+(sessions 20 and 21); no statistic separates a related version's play
+from true plays in real mixes; reporting the ambiguity is our
+decision.
 
 - **Measured in session 20 (experiments 0110-0112, 0114 and 0115): the
   diagnostic on a panel's development half; no rule adopted.** The panel:
@@ -376,6 +384,18 @@ unverified.
   the panel's wrong plays (0114, clean renders against mixes); the mixes
   with every played recording left out give no wrong confident play to
   test like-for-like (0115). The validation half is unsearched.
+- **Measured in session 21 (experiments 0116 and 0118): like for like,
+  in rendered mixes; nothing adopted.** Each development played file
+  with a shared passage plays whole between drawn corpus tracks, rule
+  written first (`docs/brief-21.md`). Hits per second, the verifier's
+  share and their combinations with a reuse map (built only from the
+  files present after the leave-out) keep 95% of the rendered mixes' true
+  plays and reject 61-81 of 87 wrong related plays, but at those
+  thresholds the development mixes keep 45-74 of 97 true plays: the
+  rendered plays are denser than real ones, also through another rip
+  (0118). The file's own material beyond the play does not separate. The
+  reuse map flags 61 of the 87 (only where a third version is indexed)
+  and true plays of tracks with related versions in the library.
 - **Question.** Does a query hold distinctive evidence that today's
   representation does not use, or only material several versions share?
   An unchanged passage shared by two versions cannot say which supplied
