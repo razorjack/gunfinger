@@ -24,7 +24,9 @@ for scope and rules.
 - [x] 3b. The three development mixes at NAS scale, both builds: the
   same tracks identified and wrong detections; one possible play added;
   two confident segments change inside confident plays
-- [ ] 3c. Generated mixes, seeds 2026 and 7, both builds
+- [x] 3c. Generated mixes, seeds 2026 and 7, both builds: levels,
+  credits and 0 wrong unchanged; 2 starts inside fade-ins worse by
+  1.33 s and 1.41 s (the boundary criterion fails on them)
 - [ ] 3d. Sweeps 2027-2029, both builds
 - [ ] 3e. If time remains: `grid`, `robust` seed 2026, the development
   mixes' leave-outs at NAS scale

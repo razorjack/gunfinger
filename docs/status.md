@@ -3061,3 +3061,15 @@ was measured.
   1,668 to 810 hits (the hifi-junglist upload unchanged). Boundaries
   moved by more than 1.0 s: 13, 11 and 19 plays (largest 18 s, 97 s and
   128 s). Detections below the possible tier change by about a third.
+- (c) 09:19-09:21 the generated mixes, seed 2026 (12 mixes, 144 plays)
+  and seed 7 (2 mixes, 24 plays), both builds: every play keeps its
+  level (125 confident, 11 possible, 32 held out with nothing) and its
+  credited file; 0 wrong confident and 0 wrong possible in both. Of 272
+  boundaries, 28 move by more than 0.1 s and 5 by more than the 1.0 s
+  tolerance (largest 1.63 s): 3 come closer to the truth, and **2 get
+  worse by more than 1.0 s**, so the boundary criterion written at 09:14
+  fails on them: Item.Code - Kosmic's start in seed 2026's mix-02 (a
+  possible play; late by 2.31 s, then 3.63 s) and Kemal & Paul Reset -
+  Kontempt's start in seed 7's mix-00 (confident; late by 2.30 s, then
+  3.71 s, with 1,889 hits then 1,907). Both starts lie inside an 8-11 s
+  fade-in with the bass cut for its first 4-5 s.
