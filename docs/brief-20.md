@@ -214,3 +214,29 @@ Proposal 5's diagnostic (step 4) classifies families, not queries: its
 confident outcomes in *everything* and *source left out*, and its
 "constructed wrong ones" are those with wrong confident outcomes; no
 rule is fitted to them tonight.
+
+## Decisions taken in step 2 (the panel)
+
+- Six files whose tags give a family's titles but which session 18's
+  clusters never saw (most are uploads indexed since) join a recording
+  by the clustering rule, measured with `pair` from library audio alone
+  (experiment 0110). The panel lists them under `joined_in_session_20`;
+  the clusters file is not rewritten. `shared`'s plan names each
+  recording's files, so "played left out" removes them too.
+- A direction's passage follows a fixed rule (0110). Directions below 25
+  hits are controls, still searched for the development half (two:
+  Playground Shades ~ Critikal - Interlude).
+- The seeded split put The Nine and Clockwork in the validation half.
+  The draw is not repeated.
+- Scenario extensions (step 3), chosen before any search: context
+  *before* the passage, 5, 10 and 20 s, followed by up to 30 s of the
+  passage (skipped where the passage starts too early); a *weak rip*:
+  the 30 s alone query and the 20 s beyond query rendered through a dull
+  transfer (`highpass=f=40,lowpass=f=3000` twice, `bass=g=6:f=100`) and
+  MP3 at 64 kbps; a *blend*: the 20 s beyond query with a partner at
+  equal level (RMS) over its context only, the corpus file
+  `Skynet & Stakka - Decoy.mp3` from 60 s, outside every family; a
+  *break*: the passage's first 5 s repeated to 60 and 240 s.
+- Amendment to the oracle for the blend: the partner's cluster has the
+  role *partner*; its detections are never wrong, as in `robust`'s
+  blends.

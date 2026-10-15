@@ -1,0 +1,240 @@
+{
+ "blend_partner": {
+  "file": "Skynet & Stakka - Decoy.mp3",
+  "start_seconds": 60.0
+ },
+ "scenarios": [
+  {
+   "name": "dozer-1",
+   "played": "Ed Rush & Optical - Dozer.mp3",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "passage_start_seconds": 0.7,
+   "passage_end_seconds": 49.1,
+   "played_recording": [
+    "Ed Rush & Optical - Dozer.mp3",
+    "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+   ]
+  },
+  {
+   "name": "dozer-2",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "related": "Ed Rush & Optical - Dozer.mp3",
+   "passage_start_seconds": 0.7,
+   "passage_end_seconds": 49.1,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+   ],
+   "related_recording": [
+    "Ed Rush & Optical - Dozer.mp3",
+    "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+   ]
+  },
+  {
+   "name": "fire-1",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "passage_start_seconds": 7.6,
+   "passage_end_seconds": 118.5,
+   "played_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-2",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "passage_start_seconds": 30.3,
+   "passage_end_seconds": 145.0,
+   "played_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-3",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "passage_start_seconds": 22.0,
+   "passage_end_seconds": 140.3,
+   "played_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-4",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "passage_start_seconds": 38.5,
+   "passage_end_seconds": 156.8,
+   "played_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-5",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "passage_start_seconds": 7.6,
+   "passage_end_seconds": 118.6,
+   "played_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-6",
+   "played": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "related": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "passage_start_seconds": 30.2,
+   "passage_end_seconds": 144.9,
+   "played_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ]
+  },
+  {
+   "name": "playground-shades-1",
+   "played": "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+   "related": "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus",
+   "passage_start_seconds": 45.8,
+   "passage_end_seconds": 59.6,
+   "played_recording": [
+    "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "second-library/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus"
+   ]
+  },
+  {
+   "name": "playground-shades-2",
+   "played": "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus",
+   "related": "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+   "passage_start_seconds": 33.0,
+   "passage_end_seconds": 48.4,
+   "played_recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus"
+   ],
+   "related_recording": [
+    "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "second-library/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+    "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus"
+   ]
+  },
+  {
+   "name": "pyro-1",
+   "played": "extra/A. Pyro -- Time Is Broken.mp3",
+   "related": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "passage_start_seconds": 1.9,
+   "passage_end_seconds": 189.6,
+   "played_recording": [
+    "extra/A. Pyro -- Time Is Broken.mp3",
+    "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+    "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+   ]
+  },
+  {
+   "name": "pyro-2",
+   "played": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "related": "extra/A. Pyro -- Time Is Broken.mp3",
+   "passage_start_seconds": 10.1,
+   "passage_end_seconds": 40.0,
+   "played_recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+   ],
+   "related_recording": [
+    "extra/A. Pyro -- Time Is Broken.mp3",
+    "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+    "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+   ]
+  },
+  {
+   "name": "sonar-1",
+   "played": "DJ Trace - Sonar.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "passage_start_seconds": 0.1,
+   "passage_end_seconds": 156.3,
+   "played_recording": [
+    "DJ Trace - Sonar.m4a",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+    "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+    "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ]
+  },
+  {
+   "name": "sonar-2",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "related": "DJ Trace - Sonar.m4a",
+   "passage_start_seconds": 0.9,
+   "passage_end_seconds": 69.5,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "related_recording": [
+    "DJ Trace - Sonar.m4a",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+    "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+    "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+   ]
+  },
+  {
+   "name": "watermelon-1",
+   "played": "Ed Rush & Optical - Watermelon.mp3",
+   "related": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+   "passage_start_seconds": 112.4,
+   "passage_end_seconds": 158.1,
+   "played_recording": [
+    "Ed Rush & Optical - Watermelon.mp3",
+    "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus"
+   ]
+  },
+  {
+   "name": "watermelon-2",
+   "played": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+   "related": "Ed Rush & Optical - Watermelon.mp3",
+   "passage_start_seconds": 43.9,
+   "passage_end_seconds": 67.6,
+   "played_recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus"
+   ],
+   "related_recording": [
+    "Ed Rush & Optical - Watermelon.mp3",
+    "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+   ]
+  }
+ ]
+}

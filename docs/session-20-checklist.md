@@ -8,19 +8,20 @@ for scope and rules.
 
 - [x] `git status` clean at `2836414`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s20-start/`; `baseline session-20-start`
-- [ ] The NAS store at the start (38,105 records, `b285da9984422fb5`
-  expected); the load
+- [x] Release build in `work/bin/s20-start/`; `baseline session-20-start`
+- [x] The NAS store at the start: 38,105 records, `b285da9984422fb5`, as
+  expected
 
 ## Steps
 
-- [ ] 2a. Families: the 13 `different` pairs, the two `shared` answers,
-  0055's and 0076's judged pairs, with rips and other versions
-- [ ] 2b. Shared passages from `pair`, with the distinctive material
-  around them
-- [ ] 2c. The oracle and denominator written first; split by family
-  (seed 2026); the panel frozen in `docs/panels/`
-- [ ] 2d. Experiment 0110 (the panel)
+- [x] 2a. 12 families from the 13 `different` pairs, the two `shared`
+  answers and the two judgements in the docs; 6 unclustered rips joined
+  by the clustering rule; 0076's unjudged pairs are candidates
+- [x] 2b. Passages from `pair` (30 directions, a fixed rule; 6 controls
+  under 25 hits)
+- [x] 2c. Oracle committed first (0ae0c6d); split by family, seed 2026;
+  `docs/panels/shared-material-seed-2026.json` and its development plan
+- [x] 2d. Experiment 0110
 - [ ] 3. `shared` at NAS scale, with context before, a weak rip, a blend
   masking the context, a short break repeated; tested; the development
   half in one command; outcomes per scenario and index; experiment 0111
