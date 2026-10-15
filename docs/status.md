@@ -3114,8 +3114,18 @@ was measured.
   --seed 2026 --other-rips`, 333 queries, 2.8 min each): every answer
   unchanged, including the 18 known wrong answers (Phoenix's weedsurfer
   upload, experiment 0059); the right file's hits 0.89-1.52 of today's.
-- (g) 10:16-10:22 the 2003 mix and the Vertical broadcast at 262 tracks
+- (g) 10:16-10:19 the 2003 mix and the Vertical broadcast at 262 tracks
   with leave-outs 3 and all, both builds: identified 7, 4, 0 and 9, 6, 0
   in both, 0 wrong, no play lost or added; Into Music's `extra/h-` rip
   again loses its first confident segment (679 hits, then 20) inside a
   play that stays confident; boundaries moved: 3, 2, 0, 5, 4, 0.
+- (h) 10:19-10:31 the recall panel's development half at NAS scale
+  (`recall --seed 2026`, 702 queries of 80 sources, 38,096 assets; 6.3
+  and 5.3 min). The run rendered the 702 excerpts again into today's
+  work directory; the variant searched an APFS clone of those renders.
+  Both builds: 522 of 522 recalled, the same 57 wrong confident answers
+  (newer uploads of the queried recordings that session 18's clusters do
+  not hold: Ram Trilogy, Bad Company, Mulder, Perfect Unknown, John B),
+  the right file's hits 0.990-1.011 of today's; one held-out query
+  (Congo Natty - Revolution against the "Peace" white label) changes its
+  possible wrong match at three speeds (85 -> 28, 9 -> 60, 82 -> none).
