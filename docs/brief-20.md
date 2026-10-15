@@ -240,3 +240,33 @@ rule is fitted to them tonight.
 - Amendment to the oracle for the blend: the partner's cluster has the
   role *partner*; its detections are never wrong, as in `robust`'s
   blends.
+
+## Step 4's decision rule (written at 03:10, before the diagnostic ran)
+
+Measured by `gunfinger-eval identifiability` over each development
+direction's passage, for the related file R and for every other file of
+the played recording (its rips): the played file's passage searched
+against each file alone (hits per second of the passage: *pairs*), the
+verifier's share of the file's peaks found in the passage (*peaks*), and
+the median correlation of band-normalised log spectra along the
+detection's line (*audio*), each with a chance value at shifted
+alignments.
+
+- *Floor*: for each measure, the lowest value among the played
+  recording's rips (two rips of one record are one recording, however
+  they sound). Where the played recording has no rip, the lowest value
+  over every rip measured in the development half (pooled), said so.
+- Outcome 1, *no distinguishing information*: R's audio similarity is at
+  or above the floor: over the passage R is as close to the played file
+  as one of its own rips.
+- Outcome 2, *information lost before peaks and pairs*: R's audio is
+  below the floor, but R's peaks and pairs are at or above their floors.
+- Outcome 3, *information that survives but the evidence ignores*: R's
+  peaks or pairs are below their floor, and R is wrong confident in at
+  least one query of the *played left out* index (the main case). If R
+  is below the floor and never wrong confident, the information survives
+  and today's evidence already keeps R below the rule: *separated today*.
+- Where the evidence falls (from `shared`): R's hits in the 30 s alone
+  query against the 20 s beyond and before queries, next to the played
+  file's; in the looped queries, R's detections, strongest and summed.
+- Controls (no passage above chance) are reported, not classified.
