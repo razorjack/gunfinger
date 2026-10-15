@@ -32,14 +32,22 @@ for scope and rules.
 - [x] 3e. `grid` (confident and wrong unchanged; two 10 s plays lose
   their possible answer), `robust` seed 2026 (0 wrong; 20 right
   confident answers lost, 24 gained), the development mixes' leave-outs
-  at NAS scale (unchanged); added after the plan, written first: the
-  key-lock-only control (byte-identical), the other two development
-  mixes at 262 tracks with leave-outs (unchanged), the recall panel's
-  development half (unchanged) and other rips at NAS scale for seeds
-  2026-2029 (one confident answer gained, one possible lost and one
-  gained); all runs done by 10:48
+  at NAS scale (the same confident detections; one possible play
+  added); added after the plan, written first: the key-lock-only control
+  (byte-identical), the other two development mixes at 262 tracks with
+  leave-outs (the same tracks and wrong detections; Into Music's segment
+  and boundaries move), the recall panel's development half (the same
+  answers; three rips possible -> confident) and other rips at NAS scale
+  for seeds 2026-2029 (one confident answer gained, one rip confident ->
+  possible, one possible answer lost and one gained); all runs done by
+  10:48
 - [x] 4. Experiment 0119 (40 lines, data `0119-*`); part 2's needs
-- [~] 5. Read-only review by a subagent, from 10:51; fixes
+- [x] 5. Read-only review by a subagent, 10:51-11:08 (23 findings);
+  fixes: `fft_compare.py` compares files per answer kind, pairs
+  independently of order and checks lengths (the file comparison found a
+  Synergy rip confident -> possible and three recall rips possible ->
+  confident); numbers, labels and wording corrected in the experiment,
+  notes, status, roadmap and research note
 
 ## Wrap-up
 

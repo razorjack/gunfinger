@@ -21,18 +21,27 @@ def overlap(a, b):
 
 
 def pair_up(before, after, key):
-    """Pairs items with the same key by largest overlap; returns pairs,
-    the unpaired before and the unpaired after."""
-    pairs, lost, free = [], [], list(after)
-    for item in before:
-        same = [other for other in free if key(other) == key(item) and overlap(item, other) > 0]
-        if not same:
-            lost.append(item)
-            continue
-        best = max(same, key=lambda other: overlap(item, other))
-        free.remove(best)
-        pairs.append((item, best))
-    return pairs, lost, free
+    """Pairs items with the same key, largest overlap first over all
+    candidate pairs, so the result does not depend on the input order;
+    returns pairs, the unpaired before and the unpaired after."""
+    candidates = sorted(
+        ((overlap(b, a), i, j) for i, b in enumerate(before) for j, a in enumerate(after)
+         if key(b) == key(a) and overlap(b, a) > 0),
+        reverse=True)
+    taken_b, taken_a, pairs = set(), set(), []
+    for _, i, j in candidates:
+        if i not in taken_b and j not in taken_a:
+            taken_b.add(i)
+            taken_a.add(j)
+            pairs.append((before[i], after[j]))
+    lost = [b for i, b in enumerate(before) if i not in taken_b]
+    added = [a for j, a in enumerate(after) if j not in taken_a]
+    return pairs, lost, added
+
+
+def same_length(before, after, what):
+    assert len(before) == len(after), f"{what}: {len(before)} against {len(after)}"
+    return zip(before, after)
 
 
 def level(play):
@@ -101,7 +110,7 @@ def compare_scan(before, after):
     out["tracks_changed"] = [
         {"label": tb["label"], "identified": [tb["identified"], ta["identified"]],
          "possible": [tb["possible"], ta["possible"]]}
-        for tb, ta in zip(sb["tracks"], sa["tracks"])
+        for tb, ta in same_length(sb["tracks"], sa["tracks"], "tracks")
         if (tb["identified"], tb["possible"]) != (ta["identified"], ta["possible"])]
     wp, wl, wa = pair_up(sb["wrong_identifications"], sa["wrong_identifications"], lambda d: d["asset"])
     out["wrong_confident"] = {"before": len(sb["wrong_identifications"]),
@@ -152,10 +161,10 @@ def compare_mixes(before, after):
     out = {"plays": 0, "level_changed": [], "credited_changed": [], "boundaries_moved": [],
            "worse": [], "wrong_confident": [], "wrong_possible": [], "levels": {}}
     shifts = []
-    for mb, ma in zip(before["mixes"], after["mixes"]):
+    for mb, ma in same_length(before["mixes"], after["mixes"], "mixes"):
         name = mb["mix"]["name"]
         assert name == ma["mix"]["name"] and mb["mix"] == ma["mix"], name
-        for pb, pa in zip(mb["score"]["plays"], ma["score"]["plays"]):
+        for pb, pa in same_length(mb["score"]["plays"], ma["score"]["plays"], "plays"):
             out["plays"] += 1
             truth = pb["truth"]
             tag = f"{name} {truth['asset']} {truth['start_seconds']:.1f}-{truth['end_seconds']:.1f} s"
@@ -200,16 +209,21 @@ def compare_mixes(before, after):
     return out
 
 
-def sweep_answer(query):
-    confident = [d for d in query["detections"] if d["confident"]]
-    if any(not d["correct"] for d in confident):
-        return "wrong"
-    if confident:
-        return "right"
-    possible = [d for d in query["detections"] if d["hits"] >= POSSIBLE_HITS]
-    if possible:
-        return "possible right" if all(d["correct"] for d in possible) else "possible wrong"
-    return "none"
+def sweep_answers(query):
+    """The files a query answers with, by kind: confident right and wrong,
+    and possible (60 hits or more, not confident) right and wrong. Sets,
+    so that a change hidden under another answer still shows."""
+    kinds = {"right confident": set(), "wrong confident": set(),
+             "right possible": set(), "wrong possible": set()}
+    for d in query["detections"]:
+        if d["confident"]:
+            tier = "confident"
+        elif d["hits"] >= POSSIBLE_HITS:
+            tier = "possible"
+        else:
+            continue
+        kinds[("right " if d["correct"] else "wrong ") + tier].add(d["asset"])
+    return kinds
 
 
 def bar(report):
@@ -225,18 +239,20 @@ def compare_sweep(before, after):
     out = {"queries": len(before["queries"]), "identical": 0, "answer_changed": [],
            "bar": [bar(before), bar(after)],
            "per_speed": [[r["speed_percent"], rb["recalled"], r["recalled"], rb["wrong_answers"], r["wrong_answers"]]
-                         for rb, r in zip(before["per_speed"], after["per_speed"])]}
+                         for rb, r in same_length(before["per_speed"], after["per_speed"], "speeds")]}
     pairs = []
-    for qb, qa in zip(before["queries"], after["queries"]):
+    for qb, qa in same_length(before["queries"], after["queries"], "queries"):
         assert (qb["asset"], qb["speed_percent"], qb["start_seconds"]) == \
             (qa["asset"], qa["speed_percent"], qa["start_seconds"])
         if qb["detections"] == qa["detections"]:
             out["identical"] += 1
-        ab, aa = sweep_answer(qb), sweep_answer(qa)
-        if ab != aa:
+        ab, aa = sweep_answers(qb), sweep_answers(qa)
+        changed = {kind: {"lost": sorted(ab[kind] - aa[kind]), "gained": sorted(aa[kind] - ab[kind])}
+                   for kind in ab if ab[kind] != aa[kind]}
+        if changed:
             best = lambda q: max(q["detections"], key=lambda d: d["hits"]) if q["detections"] else {}
             out["answer_changed"].append({"asset": qb["asset"], "held_out": qb["held_out"],
-                                          "speed_percent": qb["speed_percent"], "answer": [ab, aa],
+                                          "speed_percent": qb["speed_percent"], "changed": changed,
                                           "best": [best(qb), best(qa)], "edge": edge(best(qb), best(qa))})
         own = lambda q: [d for d in q["detections"] if d["correct"]]
         if own(qb) and own(qa):
@@ -247,7 +263,7 @@ def compare_sweep(before, after):
 
 def compare_grid(before, after):
     out = {"queries": len(before["queries"]), "identical": 0, "level_changed": [], "wrong_confident": [0, 0]}
-    for qb, qa in zip(before["queries"], after["queries"]):
+    for qb, qa in same_length(before["queries"], after["queries"], "queries"):
         assert (qb["brief"], qb["seconds"], qb["offset_seconds"]) == (qa["brief"], qa["seconds"], qa["offset_seconds"])
         out["identical"] += qb == qa
         out["wrong_confident"][0] += qb["wrong_confident"]
@@ -264,7 +280,7 @@ def compare_grid(before, after):
 
 def compare_robust(before, after):
     out = {"queries": len(before["queries"]), "identical": 0, "changed": [], "rows_changed": []}
-    for qb, qa in zip(before["queries"], after["queries"]):
+    for qb, qa in same_length(before["queries"], after["queries"], "queries"):
         assert (qb["condition"], qb["speed"], qb["number"], qb["asset"]) == \
             (qa["condition"], qa["speed"], qa["number"], qa["asset"])
         timing = ("search_seconds",)
@@ -277,7 +293,7 @@ def compare_robust(before, after):
                                    "best_hits": [qb["best_hits"], qa["best_hits"]],
                                    "best_windows": [qb["best_windows"], qa["best_windows"]],
                                    "strongest_wrong_hits": [qb["strongest_wrong_hits"], qa["strongest_wrong_hits"]]})
-    for rb, ra in zip(before["rows"], after["rows"]):
+    for rb, ra in same_length(before["rows"], after["rows"], "rows"):
         fields = ("confident", "possible_or_better", "partner_confident", "wrong_confident", "wrong_possible")
         if any(rb[f] != ra[f] for f in fields):
             out["rows_changed"].append({"condition": rb["condition"], "speed": rb["speed"],

@@ -3035,7 +3035,7 @@ was measured.
   written to `work/reports/`. Boundary tolerance 1.0 s.
   `scripts/analysis/fft_compare.py` pairs the two builds' reports.
 - 09:11 the runs start under `screen` (`work/s22/queue.sh`, then
-  `queue2.sh`), one at a time.
+  `queue2.sh` and `queue3.sh`), one at a time.
 - (a) 09:11-09:13 `regress session-22-start` with the variant: the sweep
   keeps 720 of 720 answers (225 queries with identical detections, the
   own file's hits 0.990-1.009 of today's), recall 60/60 at every speed, 0
@@ -3047,7 +3047,7 @@ was measured.
   39 to 36 windows, the other Dominion file unchanged); calibrate: weakest
   identifying 680 to 674, strongest false 99 both.
 - (b) 09:13-09:19 the three development mixes at NAS scale, both builds
-  (1.0-1.3 min each, the saved index loaded in 3.6 s). Every referenced
+  (0.8-1.3 min each, the saved index loaded in 3.1-3.6 s). Every referenced
   track identified by both (11, 12, 17), the same right files credited,
   the same wrong confident detections (0, 7, 2), no possible-only track.
   No play lost; one possible play added (the 2003 mix: Omni Trio - Secret
@@ -3081,8 +3081,8 @@ was measured.
   today's.
 - (e) 09:34-09:46 `grid` seed 2026, both builds (about 6 min each): the
   same confident counts per play length (10-40 s: 0, 67, 146, 160, 160,
-  160 of 160), 0 wrong confident in both, the strongest false hits
-  unchanged; 109 of 960 queries identical. **Two 10 s plays lose their
+  160 of 160), 0 wrong confident in both, the strongest false
+  candidate 34 hits, then 31; 109 of 960 queries identical. **Two 10 s plays lose their
   possible answer**, so the criterion "no right possible file lost" fails on
   them: brief 12 (SKC & Cord - Swarm at 1.054, offset 0 s: 235 hits in
   one window, then nothing) and brief 6 (Aphrodite - Lava Flow at 0.962,
@@ -3098,29 +3098,36 @@ was measured.
 - (e) 09:52-10:10 `robust` seed 2026, all conditions, both builds (10
   and 8 min): 0 wrong confident in both; confident 1,941 -> 1,945 of
   2,600 indexed queries, possible or better 2,246 -> 2,252, wrong
-  possible 43 -> 38 (5 fewer weak matches of Clockwork's Stakka remix).
+  possible 43 -> 38 (5 fewer wrong possible matches of 60-77 hits, all
+  on excerpts of Clockwork, most likely its Stakka remix; the report
+  does not name the file).
   **20 right confident answers lost and 24 gained**, so the criterion "no
   right confident file lost" fails here: needle skip 2 s (12 lost, 3
   gained, all 15 crossing 3 windows: the skip splits the play into
   segments of 2-3 windows), pitch ride 2% (7 lost, 20 gained; 14 cross 3
-  windows, 13 cross 240 hits), beatmatched at 0 dB (Skinnah - State Of
+  windows, 26 cross 240 hits), beatmatched at 0 dB (Skinnah - State Of
   Violence, 275 -> 210 hits) and clipping (BSE - B Negative, 235 -> 240,
   gained). 6 right possible answers lost and 6 gained (blends, pitch
   ride, beatmatched); 6 changes of the blend partner's confident answer.
-  The other conditions keep every answer.
+  The other conditions keep every confident answer; pink noise at 0 dB
+  gains a possible one.
 - (f) 10:10-10:16 the key-lock-only control (`--ladder key-lock sweep
   --seed 2026`): **byte-identical reports** from both builds, so the
   variant changes no key-locked rung. Other rips at NAS scale (`sweep
   --seed 2026 --other-rips`, 333 queries, 2.8 min each): every answer
-  unchanged, including the 18 known wrong answers (Phoenix's weedsurfer
-  upload, experiment 0059); the right file's hits 0.89-1.52 of today's.
+  unchanged, including the same 18 wrong answers (9 the weedsurfer
+  Phoenix upload, 9 the hifi-junglist React upload of Total Science -
+  Yvon Is On); the right file's hits 0.89-1.52 of today's. After the
+  review, compared by files: one rip of C4C - Synergy at +1% drops from
+  confident to possible while another rip still answers.
 - (g) 10:16-10:19 the 2003 mix and the Vertical broadcast at 262 tracks
   with leave-outs 3 and all, both builds: identified 7, 4, 0 and 9, 6, 0
   in both, 0 wrong, no play lost or added; Into Music's `extra/h-` rip
   again loses its first confident segment (679 hits, then 20) inside a
   play that stays confident; boundaries moved: 3, 2, 0, 5, 4, 0.
 - (h) 10:19-10:31 the recall panel's development half at NAS scale
-  (`recall --seed 2026`, 702 queries of 80 sources, 38,096 assets; 6.3
+  (`recall --seed 2026`, 702 queries of 78 sources, the panel's 80 less
+  2 without a record, 38,096 assets; 6.3
   and 5.3 min). The run rendered the 702 excerpts again into today's
   work directory; the variant searched an APFS clone of those renders.
   Both builds: 522 of 522 recalled, the same 57 wrong confident answers
@@ -3130,7 +3137,9 @@ was measured.
   the right file's hits 0.990-1.011 of today's; one held-out query
   (Congo Natty - Revolution against the "Peace" white label) changes its
   possible wrong match at three speeds (85 -> 28, 9 -> 60, 82 -> none).
-- (i) 10:31-10:48 other rips at NAS scale for seeds 2027-2029 (2.4-2.9
+  After the review, compared by files: three rips rise from possible to
+  confident (Dead Air at -1% and +5%, The Sect - Victim at 0%).
+- (i) 10:31-10:48 other rips at NAS scale for seeds 2027-2029 (2.4-3.3
   min each). Over the four seeds (1,413 queries): recalled 1,296 ->
   1,297 (Cause 4 Concern - Blindside at -1%, seed 2027: 238 hits, then
   241, through the alien5ive upload), the same 134 wrong confident
@@ -3141,10 +3150,14 @@ was measured.
   not checked with `pair`), one possible right answer gained (Falcon -
   Fractles at -5%, seed 2027: 40 hits, then 70) and one lost (the same
   at -1%, seed 2029: 61 hits in 3 windows, then 54 in 2).
-- 10:48 the queues done; all runs exited 0 (`work/s22/logs/queue.log`).
-- 10:50 checks: every render the two builds searched (sweep, generated
-  mixes, grid, robust, recall) is byte-identical between the two work
-  directories; the grid's, robust's and the mixes' stored renders were
+- 10:48 the queues done. Every run log ends with `/usr/bin/time`'s
+  statistics and shows no error, and every report exists; the exit
+  codes in `queue.log` are those of `date` (a fault of the queue
+  scripts' `run`, found by the review), not of the runs.
+- 10:50 checks: every MP3 render the two builds searched (sweep,
+  generated mixes, grid, robust, recall) is byte-identical between the
+  two work directories (the review: robust's 100 Opus files differ only
+  in Ogg serial numbers and checksums); the grid's, robust's and the mixes' stored renders were
   rendered again in each (about 6 GB of new data, removed at the
   wrap-up). The seed 7 mixes run drew and saved
   `docs/panels/sweep-seed-7.json` (09:20; today's harness draws other
@@ -3162,3 +3175,20 @@ was measured.
   store at the end: 38,105 records, revision `b285da9984422fb5`, as at
   the start. Listening files and the development sets' manifests unchanged
   (digests, modification times).
+- 10:51-11:08 the read-only review (a subagent, 17 min, 23 findings, all
+  checked). Fixed by 11:13: `fft_compare.py` now compares the files of
+  each answer kind per query (right and wrong, confident and possible),
+  pairs plays and detections largest overlap first regardless of order,
+  and checks that paired lists have equal lengths; every comparison was
+  run again and every count stands, and the file comparison added two
+  changes the answer classes hid (a C4C - Synergy rip confident ->
+  possible; three recall rips possible -> confident). Corrected in the
+  experiment, the notes, status, roadmap and research note: the recall
+  panel's possible wrong changes; the grid's possible total (255 ->
+  253); the robust edge counts (28 of 44 cross 240 hits); the boundary
+  counts per play (12 and 43) and per run; "worse" against "moved"; the
+  criterion quoted as written, without "strict"; the reason for part 2's
+  speed list (the changed speeds are midway ones); the 18 other-rip
+  wrong answers' files; factor2's measured speed-up (5.4% and 9.2%); the
+  Opus renders; the new data written (about 6 GB, removed); the queue's
+  exit codes.

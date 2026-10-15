@@ -114,6 +114,25 @@
     "level_changed": [],
     "boundaries_moved": [
      {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1530.73065234375,
+       1560.0655
+      ],
+      "end": [
+       1919.81766796875,
+       1919.8176484375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
       "asset": "Skynet & Stakka - Decoy.mp3",
       "level": [
        "confident",
@@ -126,25 +145,6 @@
       "end": [
        628.21609375,
        628.2158671875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "Skynet & Stakka - Clockwork.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1052.0795703125,
-       1046.26527734375
-      ],
-      "end": [
-       1301.4955859375,
-       1312.45110546875
       ],
       "segments": [
        1,
@@ -171,18 +171,18 @@
       ]
      },
      {
-      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "asset": "Skynet & Stakka - Clockwork.mp3",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       1530.73065234375,
-       1560.0655
+       1052.0795703125,
+       1046.26527734375
       ],
       "end": [
-       1919.81766796875,
-       1919.8176484375
+       1301.4955859375,
+       1312.45110546875
       ],
       "segments": [
        1,
@@ -257,6 +257,25 @@
     "level_changed": [],
     "boundaries_moved": [
      {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1530.73065234375,
+       1560.0655
+      ],
+      "end": [
+       1919.81766796875,
+       1919.8176484375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
       "asset": "Skynet & Stakka - Decoy.mp3",
       "level": [
        "confident",
@@ -269,25 +288,6 @@
       "end": [
        628.21609375,
        628.2158671875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "Skynet & Stakka - Clockwork.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1052.0795703125,
-       1046.26527734375
-      ],
-      "end": [
-       1301.4955859375,
-       1312.45110546875
       ],
       "segments": [
        1,
@@ -314,18 +314,18 @@
       ]
      },
      {
-      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "asset": "Skynet & Stakka - Clockwork.mp3",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       1530.73065234375,
-       1560.0655
+       1052.0795703125,
+       1046.26527734375
       ],
       "end": [
-       1919.81766796875,
-       1919.8176484375
+       1301.4955859375,
+       1312.45110546875
       ],
       "segments": [
        1,
@@ -491,63 +491,6 @@
     "level_changed": [],
     "boundaries_moved": [
      {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       40.140181640625,
-       61.53931640625
-      ],
-      "end": [
-       358.861048828125,
-       376.859185546875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       361.10890625,
-       352.3374375
-      ],
-      "end": [
-       636.2598203125,
-       636.2598984375
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       365.103375,
-       351.7595234375
-      ],
-      "end": [
-       636.2799921875,
-       636.2407109375
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
       "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
       "level": [
        "confident",
@@ -567,56 +510,18 @@
       ]
      },
      {
-      "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       1117.5807109375,
-       1117.17778125
+       40.140181640625,
+       61.53931640625
       ],
       "end": [
-       1303.9728125,
-       1332.0106875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "extra/b-bulletproof-scarred-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1120.4968125,
-       1117.17778125
-      ],
-      "end": [
-       1331.979296875,
-       1332.0106875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1126.5025546875,
-       1124.20246875
-      ],
-      "end": [
-       1303.6365546875,
-       1331.9797265625
+       358.861048828125,
+       376.859185546875
       ],
       "segments": [
        1,
@@ -643,56 +548,18 @@
       ]
      },
      {
-      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       2170.5466796875,
-       2172.8146796875
+       361.10890625,
+       352.3374375
       ],
       "end": [
-       2414.91653125,
-       2418.978171875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2171.4867421875,
-       2180.1320703125
-      ],
-      "end": [
-       2405.132046875,
-       2405.1320078125
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2181.4589609375,
-       2180.131890625
-      ],
-      "end": [
-       2406.6429609375,
-       2406.643078125
+       636.2598203125,
+       636.2598984375
       ],
       "segments": [
        1,
@@ -719,6 +586,25 @@
       ]
      },
      {
+      "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2518.021625,
+       2518.0215625
+      ],
+      "end": [
+       2789.539203125,
+       2814.35359375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
       "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
       "level": [
        "confident",
@@ -738,18 +624,170 @@
       ]
      },
      {
-      "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3",
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       2518.021625,
-       2518.0215625
+       365.103375,
+       351.7595234375
       ],
       "end": [
-       2789.539203125,
-       2814.35359375
+       636.2799921875,
+       636.2407109375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2170.5466796875,
+       2172.8146796875
+      ],
+      "end": [
+       2414.91653125,
+       2418.978171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2181.4589609375,
+       2180.131890625
+      ],
+      "end": [
+       2406.6429609375,
+       2406.643078125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2171.4867421875,
+       2180.1320703125
+      ],
+      "end": [
+       2405.132046875,
+       2405.1320078125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/b-bulletproof-scarred-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1120.4968125,
+       1117.17778125
+      ],
+      "end": [
+       1331.979296875,
+       1332.0106875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       3476.0405625,
+       3476.04035546875
+      ],
+      "end": [
+       3682.293953125,
+       3684.6601171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1117.5807109375,
+       1117.17778125
+      ],
+      "end": [
+       1303.9728125,
+       1332.0106875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       3324.4580859375,
+       3324.458224609375
+      ],
+      "end": [
+       3513.3201796875,
+       3507.986392578125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1126.5025546875,
+       1124.20246875
+      ],
+      "end": [
+       1303.6365546875,
+       1331.9797265625
       ],
       "segments": [
        1,
@@ -812,44 +850,6 @@
        2,
        1
       ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       3324.4580859375,
-       3324.458224609375
-      ],
-      "end": [
-       3513.3201796875,
-       3507.986392578125
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       3476.0405625,
-       3476.04035546875
-      ],
-      "end": [
-       3682.293953125,
-       3684.6601171875
-      ],
-      "segments": [
-       1,
-       1
-      ]
      }
     ],
     "largest_boundary_shift": 127.9658437500002,
@@ -862,9 +862,9 @@
    "detections": {
     "before": 3977,
     "after": 3867,
-    "changed": 1313,
-    "lost": 1394,
-    "added": 1284,
+    "changed": 1314,
+    "lost": 1393,
+    "added": 1283,
     "confident_lost": [],
     "confident_added": [],
     "confidence_changed": [],
@@ -929,18 +929,56 @@
     "level_changed": [],
     "boundaries_moved": [
      {
-      "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       130.26517578125,
-       130.26540625
+       880.967986328125,
+       880.77313671875
       ],
       "end": [
-       397.97487890625,
-       403.5416328125
+       1204.50457421875,
+       1200.9536484375
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2094.270251953125,
+       2100.2005
+      ],
+      "end": [
+       2419.68297265625,
+       2419.682802734375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1447.63191015625,
+       1450.91543359375
+      ],
+      "end": [
+       1772.07851171875,
+       1768.8273671875
       ],
       "segments": [
        2,
@@ -967,22 +1005,22 @@
       ]
      },
      {
-      "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+      "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       145.05023828125,
-       135.98890234375
+       130.26517578125,
+       130.26540625
       ],
       "end": [
-       403.24375390625,
-       339.84280078125
+       397.97487890625,
+       403.5416328125
       ],
       "segments": [
        2,
-       1
+       2
       ]
      },
      {
@@ -1005,97 +1043,21 @@
       ]
      },
      {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
-      "level": [
-       "possible",
-       "possible"
-      ],
-      "start": [
-       691.158751953125,
-       724.497875
-      ],
-      "end": [
-       816.514337890625,
-       816.517408203125
-      ],
-      "segments": [
-       3,
-       2
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "asset": "extra/01-future_cut-the_specialist-trt.mp3",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       880.967986328125,
-       880.77313671875
+       145.05023828125,
+       135.98890234375
       ],
       "end": [
-       1204.50457421875,
-       1200.9536484375
+       403.24375390625,
+       339.84280078125
       ],
       "segments": [
        2,
-       2
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1447.63191015625,
-       1450.91543359375
-      ],
-      "end": [
-       1772.07851171875,
-       1768.8273671875
-      ],
-      "segments": [
-       2,
-       2
-      ]
-     },
-     {
-      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1464.76874609375,
-       1562.15440625
-      ],
-      "end": [
-       1765.823349609375,
-       1742.758390625
-      ],
-      "segments": [
-       2,
-       1
-      ]
-     },
-     {
-      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2094.270251953125,
-       2100.2005
-      ],
-      "end": [
-       2419.68297265625,
-       2419.682802734375
-      ],
-      "segments": [
-       1,
        1
       ]
      },
@@ -1136,6 +1098,44 @@
        1,
        1
       ]
+     },
+     {
+      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1464.76874609375,
+       1562.15440625
+      ],
+      "end": [
+       1765.823349609375,
+       1742.758390625
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       691.158751953125,
+       724.497875
+      ],
+      "end": [
+       816.514337890625,
+       816.517408203125
+      ],
+      "segments": [
+       3,
+       2
+      ]
      }
     ],
     "largest_boundary_shift": 97.38566015624997,
@@ -1167,49 +1167,26 @@
     "confidence_changed": [
      {
       "before": {
-       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
        "start_seconds": 341.28919921875,
-       "end_seconds": 403.24375390625,
-       "speed": 1.0479454731960294,
-       "windows": 7,
-       "hits": 253,
-       "confident": true,
-       "fitted": true
-      },
-      "after": {
-       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
-       "start_seconds": 362.12092578125,
-       "end_seconds": 397.9748671875,
-       "speed": 1.0480646025353406,
-       "windows": 4,
-       "hits": 46,
+       "end_seconds": 397.97487890625,
+       "speed": 1.0479747713456673,
+       "windows": 6,
+       "hits": 195,
        "confident": false,
        "fitted": true
       },
-      "edge": "hits 253 -> 46 across 240"
-     },
-     {
-      "before": {
-       "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
-       "start_seconds": 341.28919921875,
-       "end_seconds": 403.24375390625,
-       "speed": 1.0479454731960294,
+      "after": {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+       "start_seconds": 341.2882734375,
+       "end_seconds": 403.5416328125,
+       "speed": 1.0479461118167395,
        "windows": 7,
-       "hits": 253,
+       "hits": 631,
        "confident": true,
        "fitted": true
       },
-      "after": {
-       "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
-       "start_seconds": 362.12092578125,
-       "end_seconds": 397.9748671875,
-       "speed": 1.0480646025353406,
-       "windows": 4,
-       "hits": 46,
-       "confident": false,
-       "fitted": true
-      },
-      "edge": "hits 253 -> 46 across 240"
+      "edge": "hits 195 -> 631 across 240"
      },
      {
       "before": {
@@ -1236,36 +1213,59 @@
      },
      {
       "before": {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+       "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
        "start_seconds": 341.28919921875,
-       "end_seconds": 397.97487890625,
-       "speed": 1.0479747713456673,
-       "windows": 6,
-       "hits": 195,
-       "confident": false,
-       "fitted": true
-      },
-      "after": {
-       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
-       "start_seconds": 341.2882734375,
-       "end_seconds": 403.5416328125,
-       "speed": 1.0479461118167395,
+       "end_seconds": 403.24375390625,
+       "speed": 1.0479454731960294,
        "windows": 7,
-       "hits": 631,
+       "hits": 253,
        "confident": true,
        "fitted": true
       },
-      "edge": "hits 195 -> 631 across 240"
+      "after": {
+       "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 362.12092578125,
+       "end_seconds": 397.9748671875,
+       "speed": 1.0480646025353406,
+       "windows": 4,
+       "hits": 46,
+       "confident": false,
+       "fitted": true
+      },
+      "edge": "hits 253 -> 46 across 240"
+     },
+     {
+      "before": {
+       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 341.28919921875,
+       "end_seconds": 403.24375390625,
+       "speed": 1.0479454731960294,
+       "windows": 7,
+       "hits": 253,
+       "confident": true,
+       "fitted": true
+      },
+      "after": {
+       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 362.12092578125,
+       "end_seconds": 397.9748671875,
+       "speed": 1.0480646025353406,
+       "windows": 4,
+       "hits": 46,
+       "confident": false,
+       "fitted": true
+      },
+      "edge": "hits 253 -> 46 across 240"
      }
     ],
     "hits_after_over_before": {
      "median": 1.0,
-     "min": 0.18181818181818182,
+     "min": 0.08235294117647059,
      "max": 3.235897435897436
     }
    }
   },
-  "b-stakka": {
+  "b-stakka-skynet-knowledge": {
    "score_today_variant": {
     "referenced": [
      11,
@@ -1309,18 +1309,56 @@
     "level_changed": [],
     "boundaries_moved": [
      {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       276.08093359375,
-       294.33178125
+       1890.16346875,
+       1885.41875
       ],
       "end": [
-       605.538453125,
-       605.5378359375
+       2282.57633984375,
+       2282.23740234375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1530.73065234375,
+       1522.2066484375
+      ],
+      "end": [
+       1919.81766796875,
+       1919.81761328125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2228.603685546875,
+       2223.121619140625
+      ],
+      "end": [
+       2607.6855390625,
+       2608.467400390625
       ],
       "segments": [
        1,
@@ -1366,6 +1404,25 @@
       ]
      },
      {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       276.08093359375,
+       294.33178125
+      ],
+      "end": [
+       605.538453125,
+       605.5378359375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
       "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
       "level": [
        "confident",
@@ -1385,37 +1442,18 @@
       ]
      },
      {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
-      "level": [
-       "possible",
-       "possible"
-      ],
-      "start": [
-       628.887587890625,
-       628.980654296875
-      ],
-      "end": [
-       659.533283203125,
-       665.453466796875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       867.240984375,
-       871.6621328125
+       1262.1165,
+       1280.0885
       ],
       "end": [
-       1084.928443359375,
-       1084.928341796875
+       1576.3965,
+       1576.39675
       ],
       "segments": [
        1,
@@ -1423,7 +1461,7 @@
       ]
      },
      {
-      "asset": "Skynet & Stakka - Clockwork.mp3",
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
       "level": [
        "confident",
        "confident"
@@ -1442,7 +1480,7 @@
       ]
      },
      {
-      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "asset": "Skynet & Stakka - Clockwork.mp3",
       "level": [
        "confident",
        "confident"
@@ -1480,18 +1518,18 @@
       ]
      },
      {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+      "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
       "level": [
        "confident",
        "confident"
       ],
       "start": [
-       1262.1165,
-       1280.0885
+       867.240984375,
+       871.6621328125
       ],
       "end": [
-       1576.3965,
-       1576.39675
+       1084.928443359375,
+       1084.928341796875
       ],
       "segments": [
        1,
@@ -1499,56 +1537,18 @@
       ]
      },
      {
-      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
       "level": [
-       "confident",
-       "confident"
+       "possible",
+       "possible"
       ],
       "start": [
-       1530.73065234375,
-       1522.2066484375
+       628.887587890625,
+       628.980654296875
       ],
       "end": [
-       1919.81766796875,
-       1919.81761328125
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1890.16346875,
-       1885.41875
-      ],
-      "end": [
-       2282.57633984375,
-       2282.23740234375
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2228.603685546875,
-       2223.121619140625
-      ],
-      "end": [
-       2607.6855390625,
-       2608.467400390625
+       659.533283203125,
+       665.453466796875
       ],
       "segments": [
        1,
@@ -1566,9 +1566,9 @@
    "detections": {
     "before": 4080,
     "after": 4157,
-    "changed": 1259,
-    "lost": 1143,
-    "added": 1220,
+    "changed": 1258,
+    "lost": 1144,
+    "added": 1221,
     "confident_lost": [],
     "confident_added": [],
     "confidence_changed": [],
@@ -1972,7 +1972,113 @@
      0
     ]
    ],
-   "answer_changed": [],
+   "answer_changed": [
+    {
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1068,
+       "speed_percent": -5.0080889208039,
+       "fitted": true
+      },
+      {
+       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1073,
+       "speed_percent": -4.997608890931415,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "held_out": false,
+     "speed_percent": 3.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1097,
+       "speed_percent": 2.987119653532422,
+       "fitted": true
+      },
+      {
+       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1099,
+       "speed_percent": 2.9909903345956224,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "held_out": false,
+     "speed_percent": 8.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1060,
+       "speed_percent": 7.999844952933888,
+       "fitted": true
+      },
+      {
+       "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1063,
+       "speed_percent": 7.9948716991226965,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    }
+   ],
    "hits_after_over_before": {
     "median": 1.0,
     "min": 0.955794504181601,
@@ -2158,9 +2264,9 @@
    "detections": {
     "before": 3912,
     "after": 3814,
-    "changed": 1262,
-    "lost": 1380,
-    "added": 1282,
+    "changed": 1263,
+    "lost": 1379,
+    "added": 1281,
     "confident_lost": [],
     "confident_added": [],
     "confidence_changed": [],
@@ -2225,25 +2331,6 @@
     "level_changed": [],
     "boundaries_moved": [
      {
-      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
-      "level": [
-       "possible",
-       "possible"
-      ],
-      "start": [
-       691.158751953125,
-       724.497875
-      ],
-      "end": [
-       816.514337890625,
-       825.332447265625
-      ],
-      "segments": [
-       3,
-       2
-      ]
-     },
-     {
       "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
       "level": [
        "confident",
@@ -2299,6 +2386,25 @@
        1,
        2
       ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       691.158751953125,
+       724.497875
+      ],
+      "end": [
+       816.514337890625,
+       825.332447265625
+      ],
+      "segments": [
+       3,
+       2
+      ]
      }
     ],
     "largest_boundary_shift": 91.44084374999966,
@@ -2311,16 +2417,16 @@
    "detections": {
     "before": 4751,
     "after": 4726,
-    "changed": 1526,
-    "lost": 1473,
-    "added": 1448,
+    "changed": 1525,
+    "lost": 1474,
+    "added": 1449,
     "confident_lost": [],
     "confident_added": [],
     "confidence_changed": [],
     "hits_after_over_before": {
      "median": 1.0,
      "min": 0.25,
-     "max": 2.875
+     "max": 3.0
     }
    }
   },
@@ -4081,9 +4187,9 @@
    "detections": {
     "before": 4036,
     "after": 4113,
-    "changed": 1219,
-    "lost": 1141,
-    "added": 1218,
+    "changed": 1218,
+    "lost": 1142,
+    "added": 1219,
     "confident_lost": [],
     "confident_added": [],
     "confidence_changed": [],
@@ -4269,7 +4375,82 @@
      2
     ]
    ],
-   "answer_changed": [],
+   "answer_changed": [
+    {
+     "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+     "held_out": false,
+     "speed_percent": 1.0,
+     "changed": {
+      "right confident": {
+       "lost": [
+        "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a"
+       ],
+       "gained": []
+      },
+      "right possible": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/alien5ive/CAUSE4CONCERN RECs [ C4C 005 \uff1a C4C - synergy - ] drum and bass.m4a"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 295,
+       "speed_percent": -2.753936661972878,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4C 005 \uff1a C4C - synergy - ] drum and bass.opus",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 294,
+       "speed_percent": -2.7473078938200834,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/alien5ive/SUBBASS AUDIO [ sba103 \uff1a PHUTURE ASSASSINS -futureSound \u29f8\u29f8 CAUSE4CONCERN RMX ] drum and bass.opus"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 501,
+       "speed_percent": -3.475361068164262,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CAUSE 4 CONCERN RECORDINGS [ C4CLTD 002 \uff1a CAUSE 4 CONCERN - abduction - ] drum and bass.m4a",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 501,
+       "speed_percent": -3.4771016600347426,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    }
+   ],
    "hits_after_over_before": {
     "median": 1.0,
     "min": 0.8945783132530121,
@@ -4401,25 +4582,6 @@
       ]
      },
      {
-      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2170.5466796875,
-       2172.8146796875
-      ],
-      "end": [
-       2406.9512265625,
-       2418.978171875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
       "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
       "level": [
        "confident",
@@ -4451,6 +4613,25 @@
       "end": [
        2789.539203125,
        2804.71984375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2170.5466796875,
+       2172.8146796875
+      ],
+      "end": [
+       2406.9512265625,
+       2418.978171875
       ],
       "segments": [
        1,
@@ -4544,44 +4725,6 @@
       ]
      },
      {
-      "asset": "extra/b-bulletproof-scarred-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1115.1694140625,
-       1117.17778125
-      ],
-      "end": [
-       1302.6423984375,
-       1332.0106875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
-      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2170.5466796875,
-       2172.8146796875
-      ],
-      "end": [
-       2406.9512265625,
-       2418.978171875
-      ],
-      "segments": [
-       1,
-       1
-      ]
-     },
-     {
       "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
       "level": [
        "confident",
@@ -4613,6 +4756,44 @@
       "end": [
        2789.539203125,
        2804.71984375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2170.5466796875,
+       2172.8146796875
+      ],
+      "end": [
+       2406.9512265625,
+       2418.978171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/b-bulletproof-scarred-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1115.1694140625,
+       1117.17778125
+      ],
+      "end": [
+       1302.6423984375,
+       1332.0106875
       ],
       "segments": [
        1,
@@ -4749,25 +4930,6 @@
     "level_changed": [],
     "boundaries_moved": [
      {
-      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       1481.915232421875,
-       1562.149765625
-      ],
-      "end": [
-       1772.079392578125,
-       1742.7584375
-      ],
-      "segments": [
-       2,
-       1
-      ]
-     },
-     {
       "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
       "level": [
        "confident",
@@ -4783,6 +4945,25 @@
       ],
       "segments": [
        1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1481.915232421875,
+       1562.149765625
+      ],
+      "end": [
+       1772.079392578125,
+       1742.7584375
+      ],
+      "segments": [
+       2,
        1
       ]
      }
@@ -4878,6 +5059,25 @@
     "level_changed": [],
     "boundaries_moved": [
      {
+      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2094.270251953125,
+       2100.2005
+      ],
+      "end": [
+       2419.68297265625,
+       2419.682802734375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
       "level": [
        "confident",
@@ -4912,25 +5112,6 @@
       ],
       "segments": [
        2,
-       1
-      ]
-     },
-     {
-      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
-      "level": [
-       "confident",
-       "confident"
-      ],
-      "start": [
-       2094.270251953125,
-       2100.2005
-      ],
-      "end": [
-       2419.68297265625,
-       2419.682802734375
-      ],
-      "segments": [
-       1,
        1
       ]
      }
@@ -5068,13 +5249,137 @@
    ],
    "answer_changed": [
     {
+     "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "changed": {
+      "right confident": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 \uff1a NOISIA & PHACE & STU - dead air - ] drum and bass.m4a"
+       ]
+      },
+      "right possible": {
+       "lost": [
+        "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 \uff1a NOISIA & PHACE & STU - dead air - ] drum and bass.m4a"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1152,
+       "speed_percent": -1.001937144410503,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1152,
+       "speed_percent": -1.0016744063956695,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+     "held_out": false,
+     "speed_percent": 5.0,
+     "changed": {
+      "right confident": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 \uff1a NOISIA & PHACE & STU - dead air - ] drum and bass.m4a"
+       ]
+      },
+      "right possible": {
+       "lost": [
+        "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 66 \uff1a NOISIA & PHACE & STU - dead air - ] drum and bass.m4a"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1188,
+       "speed_percent": 4.9978704807225105,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1190,
+       "speed_percent": 5.002626330034898,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
+     "held_out": false,
+     "speed_percent": 0.0,
+     "changed": {
+      "right confident": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/dfect-dnb/The Sect feat. Axis & Trank - Victim.m4a"
+       ]
+      },
+      "right possible": {
+       "lost": [
+        "second-library/__youtube_archivists/dfect-dnb/The Sect feat. Axis & Trank - Victim.m4a"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1461,
+       "speed_percent": -0.0019926387075819285,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1461,
+       "speed_percent": -0.0019926387075819285,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
      "held_out": true,
      "speed_percent": -3.0,
-     "answer": [
-      "possible wrong",
-      "none"
-     ],
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3"
+       ],
+       "gained": []
+      }
+     },
      "best": [
       {
        "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
@@ -5101,10 +5406,14 @@
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
      "held_out": true,
      "speed_percent": 1.0,
-     "answer": [
-      "none",
-      "possible wrong"
-     ],
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3"
+       ]
+      }
+     },
      "best": [
       {
        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Illfingas - Union Station (D-Region Remix).opus",
@@ -5130,10 +5439,14 @@
      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
      "held_out": true,
      "speed_percent": 3.0,
-     "answer": [
-      "possible wrong",
-      "none"
-     ],
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3"
+       ],
+       "gained": []
+      }
+     },
      "best": [
       {
        "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
@@ -5249,13 +5562,85 @@
    ],
    "answer_changed": [
     {
+     "asset": "extra/207-ant_miles-china_town-sour.mp3",
+     "held_out": false,
+     "speed_percent": -3.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 322,
+       "speed_percent": -2.8563517973307584,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 322,
+       "speed_percent": -2.8563517973307584,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/207-ant_miles-china_town-sour.mp3",
+     "held_out": false,
+     "speed_percent": 8.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/the-hifi-junglist/Ant Miles - Sea Of Chaos (Drum&BassArena, React REACTCD201 disc 2 track 1) 2001.m4a"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 340,
+       "speed_percent": 8.18603869608172,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-ram_raiders_part_2-ramm31-2000-sour/b-antmiles-china_town-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 338,
+       "speed_percent": 8.180603118571273,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
      "asset": "extra/a. falcon - fractles.mp3",
      "held_out": false,
      "speed_percent": -5.0,
-     "answer": [
-      "none",
-      "possible right"
-     ],
+     "changed": {
+      "right possible": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus"
+       ]
+      }
+     },
      "best": [
       {
        "asset": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
@@ -5279,13 +5664,125 @@
      "edge": ""
     },
     {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "held_out": false,
+     "speed_percent": 5.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "second-library/1.mp3"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1019,
+       "speed_percent": 5.008007691065086,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Falcon - The Stand.m4a",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1019,
+       "speed_percent": 4.9997784011371005,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/05 - Bad Company - Sentient.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 901,
+       "speed_percent": -0.9980107081349665,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 901,
+       "speed_percent": -0.9982800825040661,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/05 - Bad Company - Sentient.mp3",
+     "held_out": false,
+     "speed_percent": 5.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/unxplored-dnb/Shere Khan - Criminal Record.opus"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 908,
+       "speed_percent": 4.998521605364248,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/108-bad_company-sentient-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 911,
+       "speed_percent": 4.993052551911958,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
      "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
      "held_out": false,
      "speed_percent": -1.0,
-     "answer": [
-      "possible right",
-      "right"
-     ],
+     "changed": {
+      "right confident": {
+       "lost": [],
+       "gained": [
+        "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+       ]
+      },
+      "right possible": {
+       "lost": [
+        "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+       ],
+       "gained": []
+      }
+     },
      "best": [
       {
        "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
@@ -5492,13 +5989,89 @@
    ],
    "answer_changed": [
     {
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "held_out": false,
+     "speed_percent": 3.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [],
+       "gained": [
+        "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+       ]
+      }
+     },
+     "best": [
+      {
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1097,
+       "speed_percent": 2.987079079718935,
+       "fitted": true
+      },
+      {
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1099,
+       "speed_percent": 2.9913920886932788,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "held_out": false,
+     "speed_percent": 8.0,
+     "changed": {
+      "wrong possible": {
+       "lost": [
+        "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+        "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+       ],
+       "gained": []
+      }
+     },
+     "best": [
+      {
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1060,
+       "speed_percent": 7.999969657829631,
+       "fitted": true
+      },
+      {
+       "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 1063,
+       "speed_percent": 7.994667826552537,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
      "asset": "extra/a. falcon - fractles.mp3",
      "held_out": false,
      "speed_percent": -1.0,
-     "answer": [
-      "possible right",
-      "none"
-     ],
+     "changed": {
+      "right possible": {
+       "lost": [
+        "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus"
+       ],
+       "gained": []
+      }
+     },
      "best": [
       {
        "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",

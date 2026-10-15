@@ -4480,22 +4480,25 @@ Nothing in Gunfinger changed: `identify` finds the same plays and prints
 the same reports. The session ran part 1 of the FFT lengths' retrieval
 study: session 19's faster window lengths ("factor2": each turntable
 rung of the first pass analyses the mix with the length within 2 samples
-of `round(1024 / speed)` whose FFT has the smallest prime factors, 5-11%
-less time for `identify`), built in a worktree that was never merged
-and has been removed, against today's build on every panel the harness
-already has.
+of `round(1024 / speed)` whose FFT has the smallest prime factors;
+session 19 measured `identify` 5.4% faster with both playbacks and 9.2%
+with the turntable playback, on a busy machine), built in a worktree that was never
+merged and was removed at the end, against today's build on every panel
+the harness already has.
 
 In short: the variant adds no wrong confident answer anywhere, keeps
 every track identified in the three development mixes (at 262 tracks
-and at NAS scale, with and without leave-outs), and keeps every answer
-of the sweeps and of the recall panel; through other rips at NAS scale
-one answer becomes confident. Where the evidence sits at the confidence
-rule's edge (3 windows, 240 hits) its answers move in both directions:
-on damaged excerpts it loses 20 right confident answers and gains 24,
-and it loses the possible answer of two 10 s plays. Two starts in
-generated mixes move more than the tolerance fixed in advance. By the
-criteria written before the runs, precision passes and the strict recall
-and boundary criteria fail. Adopting the lengths is our decision.
+and at NAS scale, with and without leave-outs), and keeps every
+confident answer of the sweeps. Where the evidence sits at the
+confidence rule's edge (3 windows, 240 hits) its answers move in both
+directions: on damaged excerpts it loses 20 right confident answers and
+gains 24; a few files cross between possible and confident through
+other rips and the recall panel; two 10 s plays lose their possible
+answer. Two starts in generated mixes end up further from the truth by
+more than the tolerance fixed in advance. By the criteria written before
+the runs, precision passes; the criterion "no right confident or possible
+file lost" and the boundary criterion fail. Adopting the lengths is our
+decision.
 
 ### What the variant changes on each panel (experiment 0119)
 
@@ -4505,13 +4508,13 @@ Today's build against the variant, the same audio and index for both:
 |---|--:|--:|---|
 | Sweeps, seeds 2026-2029, 262 tracks | 2,160 of 2,160, both | 0, both | none |
 | Key-lock-only sweep (a control) | | | byte-identical reports |
-| Other rips at NAS scale, seeds 2026-2029 (1,413 queries) | 1,296 -> 1,297 | 134, both (known) | 1 possible answer lost, 1 gained |
-| Recall panel, development half, NAS | 522 of 522, both | 57, both (known) | none |
-| The 3 development mixes, 262 tracks, with leave-outs | the same tracks | 0, both | 22 boundaries move |
-| The 3 development mixes, NAS scale, and every track left out | the same 40 tracks | the same 9 (uploads the clusters do not join, as in 0115) | 1 possible play added; 50 boundaries move |
+| Other rips at NAS scale, seeds 2026-2029 (1,413 queries) | 1,296 -> 1,297 queries | 134, both (the same files) | one file confident -> possible, one possible -> confident; 1 possible answer lost, 1 gained |
+| Recall panel, development half, NAS (702 queries) | 522 of 522 queries, both | 57, both (the same files) | 3 files possible -> confident; one held-out query's possible wrong match changes at 3 speeds |
+| The 3 development mixes, 262 tracks, with leave-outs | the same tracks | 0, both | boundaries move in 12 plays |
+| The 3 development mixes, NAS scale, and every track left out | the same 40 tracks | the same 9 (uploads the clusters do not join, as in 0115) | 1 possible play added; boundaries move in 43 plays |
 | Generated mixes, seeds 2026 and 7 (168 plays) | 125, both | 0, both | 5 boundaries move, 2 worse |
-| Grid, short plays (960 queries) | 693, both | 0, both | 2 of 148 possible 10 s plays lost |
-| Robust, damage and blends (2,600 queries of indexed tracks) | 1,941 -> 1,945 | 0, both | 20 right confident lost, 24 gained; 6 possible lost, 6 gained |
+| Grid, short plays (960 queries) | 693, both | 0, both | possible 255 -> 253 (two 10 s plays) |
+| Robust, damage and blends (3,250 queries, 2,600 of indexed tracks) | 1,941 -> 1,945 | 0, both | 20 right confident lost, 24 gained; 6 possible lost, 6 gained |
 
 - **The development mixes.** Every track is identified by the same files. Inside
   plays that stay confident, two things move in my 2003 mix: at
@@ -4523,11 +4526,12 @@ Today's build against the variant, the same audio and index for both:
   Music loses its first segment (24:25-26:03, 695 hits) and keeps its
   confident play from 26:02. One possible play is added, Omni Trio -
   Secret Life (Silent Storm Remix) at 30:03-30:42 with 70 hits, the one
-  session 19 saw. Play boundaries move by more than a second in 22 plays
-  at 262 tracks and 50 at NAS scale, at transitions (largest 128 s, the
-  end of the possible Klute Remix play in the Vertical broadcast).
+  session 19 saw. Play boundaries move by more than a second in 12
+  plays at 262 tracks and 43 at NAS scale (counted once per play across
+  the scans and leave-outs; largest 128 s, the end of the possible Klute
+  Remix play in the Vertical broadcast).
 - **Damaged excerpts (robust).** Every change crosses the rule's edge:
-  29 cross 3 windows, 15 cross 240 hits. A 2 s needle skip splits a
+  29 of the 44 cross 3 windows and 28 cross 240 hits (13 both). A 2 s needle skip splits a
   30 s excerpt into parts of 2-3 windows; the variant loses 12 of those
   answers and gains 3. Under a 2% pitch ride it loses 7 and gains 20. A
   beatmatched blend loses one (Skinnah, 275 to 210 hits) and clipping
@@ -4535,46 +4539,59 @@ Today's build against the variant, the same audio and index for both:
   and 6 gained; 5 wrong possible matches go, all on excerpts of
   Clockwork (most likely its Stakka remix, the known related file; the
   report does not name it).
-- **Other rips at NAS scale.** One answer becomes confident (Cause 4
-  Concern - Blindside at -1% through an upload, 238 hits, then 241);
-  Falcon - Fractles gains a possible answer at -5% and loses one at -1%
-  (61 hits in 3 windows, then 54 in 2). The 134 wrong answers are the
-  same in both builds: by their titles, uploads of the queried
-  recordings that the clusters do not join.
+- **Other rips and the recall panel at NAS scale.** One answer becomes
+  confident (Cause 4 Concern - Blindside at -1% through an upload, 238
+  hits, then 241); one rip of Cause 4 Concern - Synergy at +1% drops from
+  confident to possible while another rip still answers; Falcon -
+  Fractles gains a possible answer at -5% and loses one at -1% (61 hits
+  in 3 windows, then 54 in 2). In the recall panel three rips rise from
+  possible to confident (Noisia, Phace & Stu C4C - Dead Air twice, The
+  Sect - Victim). The 134 and 57 wrong answers are the same files in
+  both builds: by their titles, uploads of the queried recordings that
+  the clusters do not join (the React CD uploads of Yvon Is On and
+  Balderdash, Bad Company's label uploads, the weedsurfer Phoenix);
+  not checked with `pair`. Possible wrong matches also move both ways
+  (Fanfare's Dubstyle, Congo Natty's "Peace"); they never count as
+  answers.
 - **Short plays (grid).** Confident counts per play length are the same
   (0, 67, 146 and 160 of 160 at 10, 15, 20 and 25-40 s). Two 10 s plays
   lose their possible answer: SKC & Cord - Swarm at 1.054 (235 hits,
   then nothing) and Aphrodite - Lava Flow at 0.962 (276 hits, then 48 on
   an alignment 11 s away in the file).
-- **Generated mixes.** Every play keeps its level and file. Two starts
-  inside 8-11 s fade-ins with the bass cut come later than the tolerance
-  allows: Item.Code - Kosmic (possible; 2.31 s late, then 3.63 s) and
+- **Generated mixes.** Every play keeps its level and file. Five
+  boundaries move by more than 1.0 s; two of them, starts inside 8-11 s
+  fade-ins with the bass cut, end up further from the truth by more
+  than 1.0 s: Item.Code - Kosmic (possible; 2.31 s late, then 3.63 s) and
   Kemal & Paul Reset - Kontempt (confident; 2.30 s, then 3.71 s); three
   other boundaries came closer to the truth.
 
 ### The criteria (written before the runs)
 
 - **Hold:** no wrong confident play or query added on any panel; the
-  sweeps keep the diagnostic bar (60/60 at every speed, 0 wrong); no
-  right file lost in any scan, mix or sweep; the key-lock-only control
-  is byte-identical, so the variant changes only what it should.
-- **Fail:** the strict "no right confident or possible answer lost":
-  robust loses 20 right confident answers (and gains 24); the grid,
-  robust and other rips lose 9 right possible answers (and robust and
-  other rips gain 7); and the boundary criterion: two starts got worse than
-  1.0 s.
+  sweeps keep the diagnostic bar (60/60 at every speed, 0 wrong); every
+  identified track of the development mixes and every play of the generated mixes
+  keeps its files; the key-lock-only control is byte-identical, so the
+  variant changes only what it should.
+- **Fail:** "no right confident or possible file lost": robust loses 20
+  right confident answers (and gains 24), one Synergy rip drops from
+  confident to possible, and the grid, robust and other rips lose 9
+  right possible answers (and gain 7); and the boundary criterion: two
+  starts got worse by more than 1.0 s.
 - Not measured: wall time. The study's last criterion (at least 5% less wall
   time on an idle machine) needs a timing session; session 19's
-  contended series measured 5-11%.
+  contended series measured 5.4% (both playbacks) and 9.2% (turntable
+  playback) for these lengths.
 
 ### What part 2 needs
 
 The rest of the study needs harness features that do not exist:
 
-- **Speeds off the half-steps.** The sweep's ±1, 3 and 5% already lie
-  halfway between rungs (0.95 is 0.002 from 0.948 and 0.952), and 0 and
-  ±8% on rungs; the changed answers sit at other offsets (0.962, 1.054,
-  0.986). `sweep` needs a list of speeds (for example every 0.1%).
+- **Speeds between rungs.** The sweep has only speeds on a rung (0 and
+  ±8%) or midway between two (±1, 3 and 5%: 0.95 is 0.002 from 0.948
+  and 0.952). Answers change at midway speeds too (robust at 0.95 and
+  1.03, the grid's plays at 0.962 and 1.054), so whether the distance
+  to a rung matters is open; `sweep` needs a list of speeds (for
+  example every 0.1%).
 - **Sample offsets.** Excerpts shifted by part of a hop (0-127 samples),
   so each frame grid is tried; an option that drops the first k decoded
   samples before the search, recorded in the report.
@@ -4595,9 +4612,9 @@ The rest of the study needs harness features that do not exist:
 
 ### Decision: adopting the lengths
 
-Our decision. What this session adds: the change is safe for precision on every
-panel measured, and it does not change which tracks are found in the
-development mixes. Its cost is that answers already on the rule's edge (a needle
+Our decision. What this session adds: the change adds no wrong confident
+answer on any panel measured, and it does not change which tracks are
+found in the development mixes. Its cost is that answers already on the rule's edge (a needle
 skip, a pitch ride, a 10 s play) can flip either way; on robust the
 count is about even (+4 net confident), but individual right answers are
 lost. The gain is about 3 s of a 31 s `identify` with the turntable
@@ -4614,18 +4631,22 @@ at some speeds.
   the candidate mixes of experiment 0065 were not touched.
 - **Where the reports are.** Each build wrote to its own work directory
   (`work/s22/today`, `work/s22/variant`), seeded with APFS clones of the
-  clusters, the map, the saved NAS index and the renders, so
-  `work/reports/` holds only the final `regress` of the main tree.
+  clusters, the map, the saved NAS index and the renders; this session
+  wrote to `work/reports/` only the four reports of the final `regress`
+  of the main tree.
 - **The machine was busy, not idle.** Runs used up to 9 cores (load
-  average up to 94 with the sweeps' threads); no timing was taken. Free disk fell from 57 to 48 GiB during the session; this
-  session's own new data is under 1 GB (the clones share their blocks).
+  average up to 94 with the sweeps' threads); no timing was taken. Free disk fell from 57 to 45 GiB during the session; the
+  renders made again in both work directories were about 6 GB, removed
+  at the wrap-up (the work directories keep their reports, 43 MB each).
 - **The robust report has more conditions than the one stored in
   `work/reports/`** (2,600 indexed queries against 2,120); both builds
   ran the current set.
 - **The same audio for both builds.** The grid's, robust's and the
   generated mixes' stored renders were not reused (the harness rendered
-  them again in each work directory); every render either build searched
-  is byte-identical to the other's (SHA-1 over all files per panel).
+  them again in each work directory). Every MP3 either build searched is
+  byte-identical to the other's; the review found that the 100 Opus
+  files of robust's `opus-24k` condition differ only in their Ogg serial
+  numbers and checksums, with the same encoded audio.
 
 ### Decided this session, open to change
 

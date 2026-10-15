@@ -379,13 +379,15 @@ marked as inferences were derived, not measured.
   added (239 to 240 hits) and one removed (240 to 125), in each index.
   The rest of the retrieval study is not run.
   *(session 22, 0119)* Part 1 of the retrieval study, every panel the
-  harness has: no wrong confident answer added; every sweep and recall
-  answer and every identified track of the development mixes kept, and
-  one other-rip answer gained; the key-lock-only control byte-identical.
-  Answers at the rule's edge move both ways (`robust`: 20 right
-  confident lost, 24 gained; 9 possible answers lost, 7 gained; two
-  starts later than the 1.0 s tolerance), so the strict recall and
-  boundary criteria fail. Part 2 needs
+  harness has: no wrong confident answer added; every confident sweep
+  answer and every identified track of the development mixes kept; the
+  key-lock-only control byte-identical. Answers at the rule's edge move
+  both ways: `robust` loses 20 right confident answers and gains 24, a
+  few files cross between possible and confident (other rips, the recall
+  panel), 9 possible answers are lost and 7 gained (grid, `robust`,
+  other rips), and in the generated mixes two starts end up further
+  from the truth by more than the 1.0 s tolerance. So the criterion "no right
+  confident or possible file lost" and the boundary criterion fail. Part 2 needs
   harness work (speeds off the half-steps, sub-hop offsets, the first
   pass traced, a first-pass call path), then timing on an idle machine;
   adoption is our decision.
