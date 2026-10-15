@@ -38,8 +38,11 @@ for scope and rules.
   Meltdown ~ Phantom Force); `listening_pack.py candidates`; the page
   checked with a temporary answer log and a copy of the verdicts (16
   questions, audio and envelopes 200, nothing answered)
-- [ ] 6. If time remains: proposal 3's first step (`take_part` split
-  profile); an experiment
+- [x] 6. Proposal 3's first step: `take_part` split (a build never
+  committed) on the 2003 mix at NAS scale, twice under `sample`, reports
+  byte-identical: the binary searches 1.3-1.4% of CPU, the copying
+  9.1%; under the 5% stop point, proposal 3 stops; worktree removed;
+  experiment 0113
 - [ ] 7. Read-only review by a subagent; fixes
 
 ## Wrap-up

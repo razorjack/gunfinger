@@ -1,0 +1,72 @@
+{
+ "question": "Session 20, step 6: proposal 3's first step, WindowHits::take_part split into its binary searches (s20_part_end) and its copying (s20_copy_part), both out of line in a build never committed; stop if the searches are under 5% of CPU",
+ "command": "identify corpus/sets/razorjack-2003-03-29/razorjack-2003-03-29.mp3 --config nas-dnb.toml --store-only --playback both -f json -v, under `sample` every 10 ms (work/s20/profiles.sh, work/s20/py/stages.py)",
+ "store_revision": "b285da9984422fb5 (38,105 records)",
+ "reference_start_build": {
+  "wall_seconds": 48.72,
+  "user_seconds": 411.65,
+  "max_rss_bytes": 4854497280
+ },
+ "runs": [
+  {
+   "run": 1,
+   "wall_seconds": 49.63,
+   "user_seconds": 402.93,
+   "max_rss_bytes": 4873142272,
+   "report_identical_to_start": true,
+   "samples": 40199,
+   "cpu_samples": 35655,
+   "stages": {
+    "grouping by asset (counting sort) and lines": 9989,
+    "ladder: STFT and peak picking": 9113,
+    "grouping a part by asset": 8705,
+    "waiting": 4544,
+    "taking a part: copying": 3246,
+    "sorting an asset's aligned hits": 1520,
+    "second pass: STFT and peak picking": 1276,
+    "loading records": 548,
+    "taking a part: binary searches": 489,
+    "other": 314,
+    "loading the saved index": 154,
+    "taking a part from the lists": 131,
+    "second pass: hashing, postings, lines": 81,
+    "distinct lines": 40,
+    "clustering offsets": 18,
+    "decoding": 16,
+    "chaining": 10,
+    "planning the index": 3,
+    "one play per moment": 2
+   }
+  },
+  {
+   "run": 2,
+   "wall_seconds": 51.0,
+   "user_seconds": 394.52,
+   "max_rss_bytes": 4870684672,
+   "report_identical_to_start": true,
+   "samples": 41442,
+   "cpu_samples": 36846,
+   "stages": {
+    "grouping by asset (counting sort) and lines": 10348,
+    "ladder: STFT and peak picking": 9395,
+    "grouping a part by asset": 8945,
+    "waiting": 4596,
+    "taking a part: copying": 3341,
+    "sorting an asset's aligned hits": 1582,
+    "second pass: STFT and peak picking": 1313,
+    "loading records": 582,
+    "taking a part: binary searches": 482,
+    "other": 314,
+    "taking a part from the lists": 158,
+    "loading the saved index": 156,
+    "second pass: hashing, postings, lines": 118,
+    "distinct lines": 47,
+    "clustering offsets": 24,
+    "decoding": 23,
+    "chaining": 11,
+    "planning the index": 5,
+    "one play per moment": 2
+   }
+  }
+ ]
+}
