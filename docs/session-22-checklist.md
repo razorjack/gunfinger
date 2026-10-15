@@ -8,13 +8,14 @@ for scope and rules.
 
 - [x] `git status` clean at `86b1b8d`
 - [x] Brief, checklist; `CLAUDE.md` points to them
-- [ ] Release build in `work/bin/s22-start/`; `baseline session-22-start`
-- [ ] The NAS store at the start (38,105 records, `b285da9984422fb5`
-  expected); listening files' digests
+- [x] Release build in `work/bin/s22-start/` (byte-identical to
+  `s21-final`); `baseline session-22-start`
+- [x] The NAS store at the start: 38,105 records, `b285da9984422fb5`, as
+  expected; listening files as at session 21's start
 
 ## Steps
 
-- [ ] 2. The variant (factor2, first pass only) in a worktree never
+- [~] 2. The variant (factor2, first pass only) in a worktree never
   merged; the comparisons and the boundary tolerance written in the
   brief before any run; the variant's own work directory
 - [ ] 3a. `regress session-22-start` with the variant

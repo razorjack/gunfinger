@@ -109,3 +109,113 @@ Start 09:06; hard end 11:59.
 
 Step 3 shrinks from its end (e, then d) if time runs short. The review
 starts by 11:15 and the wrap-up by 11:35 whatever is left.
+
+## Setup (done at 09:10)
+
+- Release build: `cargo build --release` was current; binaries in
+  `work/bin/s22-start/` (`gunfinger` and `gunfinger-eval` byte-identical
+  to `work/bin/s21-final/`). `baseline session-22-start` saved from the
+  reports of session 21's final `regress` (08:47-08:48), made by that
+  identical build.
+- The NAS peak store: 38,105 records, revision `b285da9984422fb5`
+  (`work/s22/store-revision-start.txt`), as expected.
+- Listening files: `docs/pair-verdicts.txt` sha256 `d9af100a…9586`,
+  `work/audition/answers.jsonl` sha256 `dff04586…09be`, as at session 21's
+  start; the development sets' manifest modification times recorded
+  (`work/s22/listening-digests-start.txt`).
+
+## Step 2: the variant and the comparisons (written at 09:14, before any run of the variant)
+
+### The variant
+
+Session 21's patch (`work/s21/fft-factor2.diff`), applied with `git
+apply` to a detached worktree at `9aecef4` (`work/s22-fft-tree`, never
+merged; the core and the CLI are unchanged since `49f4c77`, where session
+21 applied it): each first-pass turntable rung analyses the query with
+session 19's factor2 length (`work/s19/fft-arms.json`: within 2 samples of
+`round(1024 / s)`, the smallest largest prime factor of the complex FFT;
+29 of 41 lengths change). The second pass (`refine`, through
+`Rung::points`), the key-locked rungs, the stored peaks and the postings
+keep today's lengths. One addition: `speed::design()` appends
+`first-pass-turntable-fft=factor2-s19`, so a CLI report's
+`search.matching` names the variant and `identify --save-dir` never
+reuses a report of the other build. The diff:
+`work/s22/fft-factor2.diff`; binaries `work/bin/s22-fft-factor2/`.
+
+### Where the reports go
+
+Two work directories, one per build, so nothing is written to
+`work/reports/`: `--work work/s22/today` for today's build
+(`work/bin/s22-start/`) and `--work work/s22/variant` for the variant.
+Each starts with APFS clones (`cp -c`, no extra disk) of what the runs
+read: `reports/duplicate-clusters.json`,
+`reports/library-nas-dnb-peaks/{library-map,duplicate-clusters}.json`,
+`indexes/library-nas-dnb-peaks.index` (the harness's saved NAS index,
+current at `b285da9984422fb5`; postings are unchanged by the variant, so
+both builds load it), the renders `sweep/`, `mixes/`, `grid/` and
+`robust/`, and, for the variant, `baselines/session-22-start/`. Renders
+are reused only when their plan matches (`render_once`, the sweep's
+renders), so both builds search the same audio. The test set's reports
+are never cloned or opened. `work/reports/` is written only by the
+final `regress session-22-start` of the main tree. `--peaks-dir` stays
+`work/peaks` (the corpus store, current).
+
+### What each comparison counts (today's build against the variant)
+
+A *detection* changes when any field differs (hits, windows, start, end,
+track position, speed). For every panel: the number of identical and
+changed detections, and the variant's hits over today's for detections
+of the same file at the same moment (median, range). Every change of a
+confident result is listed with its cause where one can be named: hits
+crossing 240 or windows crossing 3 (the rule's edge, ADR 0008), a chain
+joined or split, a segment moving between plays.
+
+- **(a) `regress` at 262 tracks** (sweep seed 2026; the development scan
+  and its leave-outs 3 and 11): `regress`'s own lines, and query by
+  query: confident right answers lost, confident wrong answers added,
+  possible-only answers gained or lost; per scan, referenced tracks
+  identified, wrong confident detections, plays (by file) confident or
+  possible added and lost, and boundaries moved; the calibrate line
+  (weakest identifying, strongest false).
+- **(b) The three development mixes at NAS scale**
+  (`stakka-skynet-knowledge`, `razorjack-2003-03-29`,
+  `nocny-trans-vertical-2002-08-23`; `gunfinger-eval --other-peaks-dir
+  <NAS store> scan <set>`): plays by file, by the harness's scoring
+  (credited within the manifest's window, rips through the clusters):
+  right confident plays lost; wrong confident plays added (and removed);
+  possible plays added or lost; play boundaries moved. The razorjack
+  manifest's starts are Gunfinger's own boundaries, so boundaries are
+  compared between builds only, never scored against it.
+- **(c) Generated mixes**, seed 2026 (`--count 12`, as experiments 0020
+  and 0047) and seed 7 (`--count 2`, as experiment 0107 and the existing
+  report): each planned play's level (confident, possible, none) and
+  credited file, `wrong_confident` and `wrong_possible`, and the
+  boundary errors against the exact truth (`start_late_seconds`,
+  `end_early_seconds`).
+- **(d) Sweeps 2027-2029**: the diagnostic bar for each build (at least
+  95% recall within ±5%, zero wrong answers), and query by query as in
+  (a).
+- **(e) If time remains**: `grid` seed 2026 (confident, possible, none
+  per query; wrong confident), `robust` seed 2026, all conditions
+  (confident, possible and wrong per condition and query), and the
+  development mixes at NAS scale with every referenced track left out
+  (`--leave-out 11`, `12` and `17`, as experiment 0115): wrong confident
+  plays added or removed.
+
+### The boundary tolerance (fixed now)
+
+A play's start or end *moves* when the variant's differs from today's by
+more than **1.0 s** (a tenth of a confidence window; peak changes alone
+shift a first or last hit by a few hops, 12-13 ms each). Every move is
+listed. In the generated mixes, where the truth is exact, a moved
+boundary *got worse* when its error against the truth grew by more than
+1.0 s; the criterion is that none got worse, and each one that did is named
+with both errors. A play whose level changes is counted under its level,
+not as a boundary.
+
+### The criteria (from the study's design; adopting is our decision)
+
+No wrong confident play or query added on any panel; no right confident
+or possible file lost; the sweeps keep the diagnostic bar; no boundary in
+the generated mixes worse by more than 1.0 s. A criterion that fails is
+reported with every change behind it; nothing is adopted either way.
