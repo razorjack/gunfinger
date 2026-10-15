@@ -4471,3 +4471,185 @@ not run.
   containment rule (recommended: do not adopt), the possible tier's
   threshold, test evaluation 5, session 18's three manifest proposals,
   and the FFT lengths' retrieval study (its first stage now measured).
+
+## Session 22
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. The session ran part 1 of the FFT lengths' retrieval
+study: session 19's faster window lengths ("factor2": each turntable
+rung of the first pass analyses the mix with the length within 2 samples
+of `round(1024 / speed)` whose FFT has the smallest prime factors, 5-11%
+less time for `identify`), built in a worktree that was never merged
+and has been removed, against today's build on every panel the harness
+already has.
+
+In short: the variant adds no wrong confident answer anywhere, keeps
+every track identified in the three development mixes (at 262 tracks
+and at NAS scale, with and without leave-outs), and keeps every sweep
+answer except one that becomes confident. Where the evidence sits at
+the confidence rule's edge (3 windows, 240 hits) its answers move in
+both directions: on damaged excerpts it loses 20 right confident answers
+and gains 24, and it loses the possible answer of two 10 s plays. Two starts in generated mixes
+move more than the tolerance fixed in advance. By the criteria written
+before the runs, precision passes and the strict recall and boundary
+criteria fail. Adopting the lengths is our decision.
+
+### What the variant changes on each panel (experiment 0119)
+
+Today's build against the variant, the same audio and index for both:
+
+| Panel | Right confident | Wrong confident | Other changes |
+|---|--:|--:|---|
+| Sweeps, seeds 2026-2029, 262 tracks | 2,160 of 2,160, both | 0, both | none |
+| Key-lock-only sweep (a control) | | | byte-identical reports |
+| Other rips at NAS scale, seeds 2026-2029 (1,413 queries) | 1,296 -> 1,297 | 134, both (known) | 1 possible answer lost, 1 gained |
+| Recall panel, development half, NAS | 522 of 522, both | 57, both (known) | none |
+| The 3 development mixes, 262 tracks, with leave-outs | the same tracks | 0, both | 22 boundaries move |
+| The 3 development mixes, NAS scale, and every track left out | the same 40 tracks | the same 9 (uploads the clusters do not join, as in 0115) | 1 possible play added; 50 boundaries move |
+| Generated mixes, seeds 2026 and 7 (168 plays) | 125, both | 0, both | 5 boundaries move, 2 worse |
+| Grid, short plays (960 queries) | 693, both | 0, both | 2 of 148 possible 10 s plays lost |
+| Robust, damage and blends (2,600 queries) | 1,941 -> 1,945 | 0, both | 20 lost, 24 gained |
+
+- **The development mixes.** Every track is identified by the same files. Inside
+  plays that stay confident, two things move in my 2003 mix: at
+  5:41-6:43 (the end of The Specialist and the mix into Narcosis) the
+  confident tail segment
+  passes from The Specialist's two files (253 hits, then 46) to the two
+  Sex Drive files (195, then 631), all four credited to the same track
+  in both builds; and the `extra/h-` rip of Carlito & Addiction - Into
+  Music loses its first segment (24:25-26:03, 695 hits) and keeps its
+  confident play from 26:02. One possible play is added, Omni Trio -
+  Secret Life (Silent Storm Remix) at 30:03-30:42 with 70 hits, the one
+  session 19 saw. Play boundaries move by more than a second in 22 plays
+  at 262 tracks and 50 at NAS scale, at transitions (largest 128 s, the
+  end of the possible Klute Remix play in the Vertical broadcast).
+- **Damaged excerpts (robust).** Every change crosses the rule's edge:
+  29 cross 3 windows, 15 cross 240 hits. A 2 s needle skip splits a
+  30 s excerpt into parts of 2-3 windows; the variant loses 12 of those
+  answers and gains 3. Under a 2% pitch ride it loses 7 and gains 20. A
+  beatmatched blend loses one (Skinnah, 275 to 210 hits) and clipping
+  gains one (B Negative, 235 to 240). 6 right possible answers are lost
+  and 6 gained; 5 wrong possible matches go, all on excerpts of
+  Clockwork (most likely its Stakka remix, the known related file; the
+  report does not name it).
+- **Other rips at NAS scale.** One answer becomes confident (Cause 4
+  Concern - Blindside at -1% through an upload, 238 hits, then 241);
+  Falcon - Fractles gains a possible answer at -5% and loses one at -1%
+  (61 hits in 3 windows, then 54 in 2). The 134 wrong answers are the
+  same in both builds: by their titles, uploads of the queried
+  recordings that the clusters do not join.
+- **Short plays (grid).** Confident counts per play length are the same
+  (0, 67, 146 and 160 of 160 at 10, 15, 20 and 25-40 s). Two 10 s plays
+  lose their possible answer: SKC & Cord - Swarm at 1.054 (235 hits,
+  then nothing) and Aphrodite - Lava Flow at 0.962 (276 hits, then 48 on
+  an alignment 11 s away in the file).
+- **Generated mixes.** Every play keeps its level and file. Two starts
+  inside 8-11 s fade-ins with the bass cut come later than the tolerance
+  allows: Item.Code - Kosmic (possible; 2.31 s late, then 3.63 s) and
+  Kemal & Paul Reset - Kontempt (confident; 2.30 s, then 3.71 s); three
+  other boundaries came closer to the truth.
+
+### The criteria (written before the runs)
+
+- **Hold:** no wrong confident play or query added on any panel; the
+  sweeps keep the diagnostic bar (60/60 at every speed, 0 wrong); no
+  right file lost in any scan, mix or sweep; the key-lock-only control
+  is byte-identical, so the variant changes only what it should.
+- **Fail:** the strict "no right confident or possible answer lost":
+  robust loses 20 right confident answers (and gains 24); the grid,
+  robust and other rips lose 9 right possible answers (and robust and
+  other rips gain 7); and the boundary criterion: two starts got worse than
+  1.0 s.
+- Not measured: wall time. The study's last criterion (at least 5% less wall
+  time on an idle machine) needs a timing session; session 19's
+  contended series measured 5-11%.
+
+### What part 2 needs
+
+The rest of the study needs harness features that do not exist:
+
+- **Speeds off the half-steps.** The sweep's ±1, 3 and 5% already lie
+  halfway between rungs (0.95 is 0.002 from 0.948 and 0.952), and 0 and
+  ±8% on rungs; the changed answers sit at other offsets (0.962, 1.054,
+  0.986). `sweep` needs a list of speeds (for example every 0.1%).
+- **Sample offsets.** Excerpts shifted by part of a hop (0-127 samples),
+  so each frame grid is tried; an option that drops the first k decoded
+  samples before the search, recorded in the report.
+- **The first pass traced.** Per query, the first pass's lines (rung,
+  window, file, hits, offset) and the files admitted to the second pass,
+  written by both builds and compared: files never admitted, admitted
+  files whose hits or windows change. This is what would name the causes
+  this session could only describe (the grid's two 10 s plays, Into
+  Music's rip, the needle-skip parts).
+- **A first-pass path in the core.** `points_at_speed_in` also serves
+  refinement, so an adoption needs its own call for the first pass and a
+  matcher identity in reports and baselines; the variant here only
+  appended its name to `search.matching`.
+- **Content near the top of the spectrum,** a `robust` condition the
+  research note names and the harness does not have.
+- Then the timing criterion on an idle machine (A B B A, at least 5% less
+  wall time).
+
+### Decision: adopting the lengths
+
+Our decision. What this session adds: the change is safe for precision on every
+panel measured, and it does not change which tracks are found in the
+development mixes. Its cost is that answers already on the rule's edge (a needle
+skip, a pitch ride, a 10 s play) can flip either way; on robust the
+count is about even (+4 net confident), but individual right answers are
+lost. The gain is about 3 s of a 31 s `identify` with the turntable
+playback (session 19). Part 2's traced first pass would show whether
+those flips are noise any peak change would cause or a systematic loss
+at some speeds.
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and the manifests are unchanged. The NAS
+  was only read (the recall panel's excerpts rendered from it); the NAS
+  peak store was not written. The test set, both validation halves and
+  the candidate mixes of experiment 0065 were not touched.
+- **Where the reports are.** Each build wrote to its own work directory
+  (`work/s22/today`, `work/s22/variant`), seeded with APFS clones of the
+  clusters, the map, the saved NAS index and the renders, so
+  `work/reports/` holds only the final `regress` of the main tree.
+- **The machine was busy, not idle.** Runs used up to 9 cores (load
+  average up to 94 with the sweeps' threads); no timing was taken. Free disk fell from 57 to 48 GiB during the session; this
+  session's own new data is under 1 GB (the clones share their blocks).
+- **The robust report has more conditions than the one stored in
+  `work/reports/`** (2,600 indexed queries against 2,120); both builds
+  ran the current set.
+- **The same audio for both builds.** The grid's, robust's and the
+  generated mixes' stored renders were not reused (the harness rendered
+  them again in each work directory); every render either build searched
+  is byte-identical to the other's (SHA-1 over all files per panel).
+
+### Decided this session, open to change
+
+- The boundary tolerance: 1.0 s against today's boundary; "worse" means
+  the error against the truth grew by more than 1.0 s.
+- The leave-outs at NAS scale left out every referenced track (as
+  experiment 0115), not 3; the seed 7 generated mixes ran with 2 mixes,
+  as the stored report and experiment 0107. Today's harness draws other
+  mixes for seed 7 than that report of October 6, and saved the seed's
+  held-out panel as `docs/panels/sweep-seed-7.json` (the harness keeps a
+  seed's panel once drawn); it is committed so the runs can be repeated.
+- Added after the plan, written down before they ran: the key-lock-only
+  control, other rips at NAS scale for seeds 2026-2029, the other two development
+  mixes at 262 tracks with leave-outs, and the recall panel's
+  development half.
+- The variant names itself in `search.matching`
+  (`first-pass-turntable-fft=factor2-s19`), which session 21's did not.
+
+### Decisions waiting
+
+- Whether to adopt the factor2 lengths, run part 2 first, or stop.
+- Still waiting: a statistic or reporting ambiguity for shared material
+  (and testing the exploratory (c)+(a1) rule), reclustering the NAS
+  library, Kemal - Animation (Silent Extent Remix) and the hifi-junglist
+  Sonar upload, the 17 listening questions of session 20, the
+  containment rule (recommended: do not adopt), the possible tier's
+  threshold, test evaluation 5 and session 18's three manifest
+  proposals.

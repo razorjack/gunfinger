@@ -187,7 +187,10 @@ unverified.
 ## 2. FFT lengths of the turntable rungs
 
 **Kind:** a diagnostic, then a behaviour-changing hypothesis. **Status:**
-unverified.
+diagnostic measured (0109); retrieval study part 1 measured on every
+existing panel (0117, 0119): no wrong confident answer added, the strict
+recall and boundary criteria fail at the rule's edges; part 2 (new harness)
+and the timing criterion not run; not adopted.
 
 - **Measured in session 19 (experiment 0109): the diagnostic; no length
   changed.** Plan construction is 0.04% of the analysis (1,862 plans in
@@ -211,6 +214,19 @@ unverified.
   right file lost; one wrong title added (239 to 240 hits) and one
   removed (240 to 125), each in three indexes. The rest of the retrieval
   study is not run.
+- **Measured in session 22 (experiment 0119): part 1 of the retrieval
+  study,** every panel the harness has, the variant against today's
+  build with the same audio and index. No wrong confident answer added
+  anywhere; the sweeps (2026-2029), the recall panel's development half
+  and the three development mixes (262 tracks and NAS scale, with
+  leave-outs) keep every answer and every identified track, and other
+  rips at NAS scale gain one confident answer; the key-lock-only control
+  is byte-identical. At the rule's edge answers move both ways: `robust`
+  loses 20 right confident answers and gains 24 (needle skips, pitch
+  rides), 9 possible answers are lost and 7 gained (the grid's two 10 s
+  plays among them), and two starts in generated mixes move later than
+  the 1.0 s tolerance. Part 2 needs speeds off the half-steps, sub-hop sample
+  offsets, the first pass traced, and a first-pass call path.
 
 - **Today.** A turntable rung analyses the query with window
   `round(1024 / s)` and hop `round(128 / s)` (`points_at_speed_in`,

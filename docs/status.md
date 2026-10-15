@@ -3130,3 +3130,24 @@ was measured.
   the right file's hits 0.990-1.011 of today's; one held-out query
   (Congo Natty - Revolution against the "Peace" white label) changes its
   possible wrong match at three speeds (85 -> 28, 9 -> 60, 82 -> none).
+- (i) 10:31-10:48 other rips at NAS scale for seeds 2027-2029 (2.4-2.9
+  min each). Over the four seeds (1,413 queries): recalled 1,296 ->
+  1,297 (Cause 4 Concern - Blindside at -1%, seed 2027: 238 hits, then
+  241, through the alien5ive upload), the same 134 wrong confident
+  answers (by their titles other rips of the queried recordings that the
+  clusters do not join: the React CD uploads of Yvon Is On and
+  Balderdash, Bad Company's BCR01 and Inside The Machine uploads, Lava
+  Flow's and Fanfare's label uploads, Slip Thru, the weedsurfer Phoenix;
+  not checked with `pair`), one possible right answer gained (Falcon -
+  Fractles at -5%, seed 2027: 40 hits, then 70) and one lost (the same
+  at -1%, seed 2029: 61 hits in 3 windows, then 54 in 2).
+- 10:48 the queues done; all runs exited 0 (`work/s22/logs/queue.log`).
+- 10:50 checks: every render the two builds searched (sweep, generated
+  mixes, grid, robust, recall) is byte-identical between the two work
+  directories; the grid's, robust's and the mixes' stored renders were
+  rendered again in each (about 6 GB of new data, removed at the
+  wrap-up). The seed 7 mixes run drew and saved
+  `docs/panels/sweep-seed-7.json` (09:20; today's harness draws other
+  seed 7 mixes than the stored report of October 6); committed.
+- 10:50 experiment 0119 (40 lines; data `0119-*`), the notes' "Session
+  22", the roadmap and the research note, before the review.

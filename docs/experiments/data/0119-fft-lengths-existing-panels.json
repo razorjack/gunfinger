@@ -1,0 +1,5532 @@
+{
+ "question": "0119: the FFT lengths' first-pass variant (factor2) against today's build on the existing panels",
+ "variant": "work/s21/fft-factor2.diff applied at 9aecef4, speed::design() naming it (work/s22/fft-factor2.diff)",
+ "store_revision": "b285da9984422fb5",
+ "boundary_tolerance_seconds": 1.0,
+ "panels": {
+  "a-scan-leave-out-11-seed-2026": {
+   "score_today_variant": {
+    "referenced": [
+     11,
+     11
+    ],
+    "identified": [
+     0,
+     0
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 1,
+    "after": 1,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 1,
+    "after": 1,
+    "paired": 1,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [],
+    "largest_boundary_shift": 0.0002656249998835847,
+    "hits_after_over_before": {
+     "median": 1.0425531914893618,
+     "min": 1.0425531914893618,
+     "max": 1.0425531914893618
+    }
+   },
+   "detections": {
+    "before": 79,
+    "after": 74,
+    "changed": 24,
+    "lost": 30,
+    "added": 25,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.4444444444444444,
+     "max": 1.5714285714285714
+    }
+   }
+  },
+  "a-scan-leave-out-3-seed-2026": {
+   "score_today_variant": {
+    "referenced": [
+     11,
+     11
+    ],
+    "identified": [
+     8,
+     8
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 1,
+    "after": 1,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 15,
+    "after": 15,
+    "paired": 15,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "Skynet & Stakka - Decoy.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       285.5466953125,
+       287.5607421875
+      ],
+      "end": [
+       628.21609375,
+       628.2158671875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "Skynet & Stakka - Clockwork.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1052.0795703125,
+       1046.26527734375
+      ],
+      "end": [
+       1301.4955859375,
+       1312.45110546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1052.0795703125,
+       1046.26527734375
+      ],
+      "end": [
+       1301.4955859375,
+       1312.45110546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1530.73065234375,
+       1560.0655
+      ],
+      "end": [
+       1919.81766796875,
+       1919.8176484375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 29.33484765624985,
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.9783445620789221,
+     "max": 1.0425531914893618
+    }
+   },
+   "detections": {
+    "before": 93,
+    "after": 88,
+    "changed": 38,
+    "lost": 32,
+    "added": 27,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.4,
+     "max": 1.75
+    }
+   }
+  },
+  "a-scan": {
+   "score_today_variant": {
+    "referenced": [
+     11,
+     11
+    ],
+    "identified": [
+     11,
+     11
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 1,
+    "after": 1,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 19,
+    "after": 19,
+    "paired": 19,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "Skynet & Stakka - Decoy.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       285.5466953125,
+       287.5607421875
+      ],
+      "end": [
+       628.21609375,
+       628.2158671875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "Skynet & Stakka - Clockwork.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1052.0795703125,
+       1046.26527734375
+      ],
+      "end": [
+       1301.4955859375,
+       1312.45110546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1052.0795703125,
+       1046.26527734375
+      ],
+      "end": [
+       1301.4955859375,
+       1312.45110546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1530.73065234375,
+       1560.0655
+      ],
+      "end": [
+       1919.81766796875,
+       1919.8176484375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 29.33484765624985,
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.9783445620789221,
+     "max": 1.0425531914893618
+    }
+   },
+   "detections": {
+    "before": 87,
+    "after": 86,
+    "changed": 41,
+    "lost": 25,
+    "added": 24,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.4,
+     "max": 1.75
+    }
+   }
+  },
+  "a-sweep-2026": {
+   "queries": 720,
+   "identical": 225,
+   "bar": [
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    },
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     0.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     8.0,
+     60,
+     60,
+     0,
+     0
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.9904761904761905,
+    "max": 1.0093847758081336
+   }
+  },
+  "b-nocny-trans-vertical-2002-08-23": {
+   "score_today_variant": {
+    "referenced": [
+     17,
+     17
+    ],
+    "identified": [
+     17,
+     17
+    ],
+    "wrong": [
+     2,
+     2
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 2,
+    "after": 2,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 4,
+    "after": 4,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 42,
+    "after": 42,
+    "paired": 42,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       40.140181640625,
+       61.53931640625
+      ],
+      "end": [
+       358.861048828125,
+       376.859185546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       361.10890625,
+       352.3374375
+      ],
+      "end": [
+       636.2598203125,
+       636.2598984375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       365.103375,
+       351.7595234375
+      ],
+      "end": [
+       636.2799921875,
+       636.2407109375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       563.66958984375,
+       580.80976171875
+      ],
+      "end": [
+       904.52408203125,
+       903.1764609375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1117.5807109375,
+       1117.17778125
+      ],
+      "end": [
+       1303.9728125,
+       1332.0106875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/b-bulletproof-scarred-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1120.4968125,
+       1117.17778125
+      ],
+      "end": [
+       1331.979296875,
+       1332.0106875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1126.5025546875,
+       1124.20246875
+      ],
+      "end": [
+       1303.6365546875,
+       1331.9797265625
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data \u29f8 Konflict Remix).opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1900.1834453125,
+       1902.3055625
+      ],
+      "end": [
+       2194.0973515625,
+       2194.0976640625
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2170.5466796875,
+       2172.8146796875
+      ],
+      "end": [
+       2414.91653125,
+       2418.978171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2171.4867421875,
+       2180.1320703125
+      ],
+      "end": [
+       2405.132046875,
+       2405.1320078125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2181.4589609375,
+       2180.131890625
+      ],
+      "end": [
+       2406.6429609375,
+       2406.643078125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2287.05604296875,
+       2285.7563828125
+      ],
+      "end": [
+       2559.287369140625,
+       2559.286796875
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2518.021625,
+       2518.0215625
+      ],
+      "end": [
+       2789.539203125,
+       2814.35359375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2518.021625,
+       2518.0215625
+      ],
+      "end": [
+       2789.539203125,
+       2814.35359375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2912.55778125,
+       2930.17615625
+      ],
+      "end": [
+       3068.164734375,
+       3074.834984375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       3147.609798828125,
+       3151.230419921875
+      ],
+      "end": [
+       3343.765978515625,
+       3215.800134765625
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       3150.727435546875,
+       3152.55970703125
+      ],
+      "end": [
+       3339.898939453125,
+       3216.090888671875
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       3324.4580859375,
+       3324.458224609375
+      ],
+      "end": [
+       3513.3201796875,
+       3507.986392578125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       3476.0405625,
+       3476.04035546875
+      ],
+      "end": [
+       3682.293953125,
+       3684.6601171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 127.9658437500002,
+    "hits_after_over_before": {
+     "median": 1.0040383280841296,
+     "min": 0.8883248730964467,
+     "max": 1.102652825836217
+    }
+   },
+   "detections": {
+    "before": 3977,
+    "after": 3867,
+    "changed": 1313,
+    "lost": 1394,
+    "added": 1284,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.20512820512820512,
+     "max": 5.571428571428571
+    }
+   }
+  },
+  "b-razorjack-2003-03-29": {
+   "score_today_variant": {
+    "referenced": [
+     12,
+     12
+    ],
+    "identified": [
+     12,
+     12
+    ],
+    "wrong": [
+     7,
+     7
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 7,
+    "after": 7,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 3,
+    "after": 4,
+    "lost": [],
+    "added": [
+     "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3 1802.8-1842.2 s, 70 hits"
+    ]
+   },
+   "plays": {
+    "before": 34,
+    "after": 35,
+    "paired": 34,
+    "identical": 1,
+    "lost": [],
+    "added": [
+     {
+      "asset": "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3",
+      "level": "possible",
+      "hits": 70,
+      "start": 1802.761984375,
+      "end": 1842.16675
+     }
+    ],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       130.26517578125,
+       130.26540625
+      ],
+      "end": [
+       397.97487890625,
+       403.5416328125
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       130.26517578125,
+       130.26540625
+      ],
+      "end": [
+       397.97487890625,
+       403.5416328125
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       145.05023828125,
+       135.98890234375
+      ],
+      "end": [
+       403.24375390625,
+       339.84280078125
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       145.05023828125,
+       135.98890234375
+      ],
+      "end": [
+       403.24375390625,
+       339.84280078125
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       691.158751953125,
+       724.497875
+      ],
+      "end": [
+       816.514337890625,
+       816.517408203125
+      ],
+      "segments": [
+       3,
+       2
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       880.967986328125,
+       880.77313671875
+      ],
+      "end": [
+       1204.50457421875,
+       1200.9536484375
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1447.63191015625,
+       1450.91543359375
+      ],
+      "end": [
+       1772.07851171875,
+       1768.8273671875
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1464.76874609375,
+       1562.15440625
+      ],
+      "end": [
+       1765.823349609375,
+       1742.758390625
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2094.270251953125,
+       2100.2005
+      ],
+      "end": [
+       2419.68297265625,
+       2419.682802734375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2347.518703125,
+       2256.077859375
+      ],
+      "end": [
+       2535.2195625,
+       2535.219546875
+      ],
+      "segments": [
+       1,
+       2
+      ]
+     },
+     {
+      "asset": "extra/b-spirit-out_of_control-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2354.444296875,
+       2347.25553125
+      ],
+      "end": [
+       2535.28125,
+       2535.158890625
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 97.38566015624997,
+    "hits_after_over_before": {
+     "median": 1.0000878734622143,
+     "min": 0.4856115107913669,
+     "max": 1.2876712328767124
+    }
+   },
+   "detections": {
+    "before": 4781,
+    "after": 4759,
+    "changed": 1558,
+    "lost": 1469,
+    "added": 1447,
+    "confident_lost": [
+     {
+      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "start_seconds": 1464.76874609375,
+      "end_seconds": 1563.448138671875,
+      "speed": 1.0421674364604,
+      "windows": 11,
+      "hits": 695,
+      "confident": true,
+      "fitted": true
+     }
+    ],
+    "confident_added": [],
+    "confidence_changed": [
+     {
+      "before": {
+       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 341.28919921875,
+       "end_seconds": 403.24375390625,
+       "speed": 1.0479454731960294,
+       "windows": 7,
+       "hits": 253,
+       "confident": true,
+       "fitted": true
+      },
+      "after": {
+       "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 362.12092578125,
+       "end_seconds": 397.9748671875,
+       "speed": 1.0480646025353406,
+       "windows": 4,
+       "hits": 46,
+       "confident": false,
+       "fitted": true
+      },
+      "edge": "hits 253 -> 46 across 240"
+     },
+     {
+      "before": {
+       "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 341.28919921875,
+       "end_seconds": 403.24375390625,
+       "speed": 1.0479454731960294,
+       "windows": 7,
+       "hits": 253,
+       "confident": true,
+       "fitted": true
+      },
+      "after": {
+       "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+       "start_seconds": 362.12092578125,
+       "end_seconds": 397.9748671875,
+       "speed": 1.0480646025353406,
+       "windows": 4,
+       "hits": 46,
+       "confident": false,
+       "fitted": true
+      },
+      "edge": "hits 253 -> 46 across 240"
+     },
+     {
+      "before": {
+       "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+       "start_seconds": 341.28919921875,
+       "end_seconds": 397.97487890625,
+       "speed": 1.0479747713456673,
+       "windows": 6,
+       "hits": 195,
+       "confident": false,
+       "fitted": true
+      },
+      "after": {
+       "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+       "start_seconds": 341.2882734375,
+       "end_seconds": 403.5416328125,
+       "speed": 1.0479461118167395,
+       "windows": 7,
+       "hits": 631,
+       "confident": true,
+       "fitted": true
+      },
+      "edge": "hits 195 -> 631 across 240"
+     },
+     {
+      "before": {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+       "start_seconds": 341.28919921875,
+       "end_seconds": 397.97487890625,
+       "speed": 1.0479747713456673,
+       "windows": 6,
+       "hits": 195,
+       "confident": false,
+       "fitted": true
+      },
+      "after": {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+       "start_seconds": 341.2882734375,
+       "end_seconds": 403.5416328125,
+       "speed": 1.0479461118167395,
+       "windows": 7,
+       "hits": 631,
+       "confident": true,
+       "fitted": true
+      },
+      "edge": "hits 195 -> 631 across 240"
+     }
+    ],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.18181818181818182,
+     "max": 3.235897435897436
+    }
+   }
+  },
+  "b-stakka": {
+   "score_today_variant": {
+    "referenced": [
+     11,
+     11
+    ],
+    "identified": [
+     11,
+     11
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 3,
+    "after": 3,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 38,
+    "after": 38,
+    "paired": 38,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       276.08093359375,
+       294.33178125
+      ],
+      "end": [
+       605.538453125,
+       605.5378359375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP \uff1a STAKKA & SKYNET - decoy - ] techstep.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       276.76165625,
+       274.056734375
+      ],
+      "end": [
+       628.215921875,
+       628.2155078125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "Skynet & Stakka - Decoy.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       285.5466953125,
+       283.8373671875
+      ],
+      "end": [
+       628.21609375,
+       628.2246015625
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       286.224310546875,
+       287.13761328125
+      ],
+      "end": [
+       605.7030703125,
+       594.73429296875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       628.887587890625,
+       628.980654296875
+      ],
+      "end": [
+       659.533283203125,
+       665.453466796875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 \uff1a SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       867.240984375,
+       871.6621328125
+      ],
+      "end": [
+       1084.928443359375,
+       1084.928341796875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "Skynet & Stakka - Clockwork.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1052.0795703125,
+       1046.26527734375
+      ],
+      "end": [
+       1316.71722265625,
+       1312.45110546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1052.0795703125,
+       1046.26527734375
+      ],
+      "end": [
+       1316.71722265625,
+       1312.45110546875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1060.6465859375,
+       1060.6465859375
+      ],
+      "end": [
+       1317.1446875,
+       1328.8749921875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1262.1165,
+       1280.0885
+      ],
+      "end": [
+       1576.3965,
+       1576.39675
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1530.73065234375,
+       1522.2066484375
+      ],
+      "end": [
+       1919.81766796875,
+       1919.81761328125
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 \uff1a KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1890.16346875,
+       1885.41875
+      ],
+      "end": [
+       2282.57633984375,
+       2282.23740234375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2228.603685546875,
+       2223.121619140625
+      ],
+      "end": [
+       2607.6855390625,
+       2608.467400390625
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 18.250847656250016,
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.9493670886075949,
+     "max": 1.0425531914893618
+    }
+   },
+   "detections": {
+    "before": 4080,
+    "after": 4157,
+    "changed": 1259,
+    "lost": 1143,
+    "added": 1220,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.375,
+     "max": 3.0
+    }
+   }
+  },
+  "c-mixes-2026": {
+   "plays": 144,
+   "level_changed": [],
+   "credited_changed": [],
+   "boundaries_moved": [
+    {
+     "play": "mix-02 extra/08-item.code-kosmic-whoa.mp3 191.6-213.7 s",
+     "side": "start_late_seconds",
+     "error": [
+      2.3081858221055427,
+      3.633193634605533
+     ],
+     "level": "possible"
+    },
+    {
+     "play": "mix-06 extra/310-future_cut-horns_2000-sour.mp3 108.4-128.8 s",
+     "side": "start_late_seconds",
+     "error": [
+      4.4413705416124,
+      3.075472104112393
+     ],
+     "level": "possible"
+    },
+    {
+     "play": "mix-08 extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3 216.1-250.5 s",
+     "side": "end_early_seconds",
+     "error": [
+      2.6902491499669168,
+      1.3250616499669263
+     ],
+     "level": "confident"
+    },
+    {
+     "play": "mix-10 extra/a-extreme_force-everytime_(original_mix)-sour.mp3 86.6-143.6 s",
+     "side": "start_late_seconds",
+     "error": [
+      6.7018472045777315,
+      5.074597204577728
+     ],
+     "level": "confident"
+    }
+   ],
+   "worse": [
+    {
+     "play": "mix-02 extra/08-item.code-kosmic-whoa.mp3 191.6-213.7 s",
+     "side": "start_late_seconds",
+     "error": [
+      2.3081858221055427,
+      3.633193634605533
+     ],
+     "level": "possible"
+    }
+   ],
+   "wrong_confident": [],
+   "wrong_possible": [],
+   "levels": {
+    "indexed / confident / confident": 106,
+    "held out / none / none": 29,
+    "indexed / possible / possible": 9
+   },
+   "wrong_confident_count": [
+    0,
+    0
+   ],
+   "wrong_possible_count": [
+    0,
+    0
+   ],
+   "largest_boundary_shift": 1.6272500000000036,
+   "boundary_shifts_over_0.1s": 24,
+   "boundary_sides": 230,
+   "detections": {
+    "before": 264,
+    "after": 251,
+    "identical_mixes": 0
+   }
+  },
+  "c-mixes-7": {
+   "plays": 24,
+   "level_changed": [],
+   "credited_changed": [],
+   "boundaries_moved": [
+    {
+     "play": "mix-00 Kemal & Paul Reset - Kontempt.mp3 66.1-122.9 s",
+     "side": "start_late_seconds",
+     "error": [
+      2.300381747091336,
+      3.712932528341341
+     ],
+     "level": "confident"
+    }
+   ],
+   "worse": [
+    {
+     "play": "mix-00 Kemal & Paul Reset - Kontempt.mp3 66.1-122.9 s",
+     "side": "start_late_seconds",
+     "error": [
+      2.300381747091336,
+      3.712932528341341
+     ],
+     "level": "confident"
+    }
+   ],
+   "wrong_confident": [],
+   "wrong_possible": [],
+   "levels": {
+    "indexed / confident / confident": 19,
+    "indexed / possible / possible": 2,
+    "held out / none / none": 3
+   },
+   "wrong_confident_count": [
+    0,
+    0
+   ],
+   "wrong_possible_count": [
+    0,
+    0
+   ],
+   "largest_boundary_shift": 1.4125507812500047,
+   "boundary_shifts_over_0.1s": 4,
+   "boundary_sides": 42,
+   "detections": {
+    "before": 55,
+    "after": 51,
+    "identical_mixes": 0
+   }
+  },
+  "d-sweep-2027": {
+   "queries": 720,
+   "identical": 191,
+   "bar": [
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    },
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     0.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     8.0,
+     60,
+     60,
+     0,
+     0
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.9930624380574826,
+    "max": 1.010566762728146
+   }
+  },
+  "d-sweep-2028": {
+   "queries": 720,
+   "identical": 194,
+   "bar": [
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    },
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     0.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     8.0,
+     60,
+     60,
+     0,
+     0
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.9904988123515439,
+    "max": 1.0087241003271539
+   }
+  },
+  "d-sweep-2029": {
+   "queries": 720,
+   "identical": 200,
+   "bar": [
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    },
+    {
+     "recall_within_5": 1.0,
+     "recalled": 420,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": true
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     -1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     0.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     1.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     3.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     5.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     8.0,
+     60,
+     60,
+     0,
+     0
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.955794504181601,
+    "max": 1.008371385083714
+   }
+  },
+  "e-grid-2026": {
+   "queries": 960,
+   "identical": 109,
+   "level_changed": [
+    {
+     "brief": 6,
+     "seconds": 10.0,
+     "offset": 1,
+     "level": [
+      "possible",
+      "weak"
+     ],
+     "matching": [
+      [
+       {
+        "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+        "start_seconds": 31.087310546875,
+        "end_seconds": 40.60278515625,
+        "track_start_seconds": 142.62670967083977,
+        "speed": 0.960225806451613,
+        "windows": 2,
+        "hits": 276,
+        "fitted": true
+       }
+      ],
+      [
+       {
+        "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+        "start_seconds": 33.007751953125,
+        "end_seconds": 40.369509765625,
+        "track_start_seconds": 133.43598352678572,
+        "speed": 0.9600000000000001,
+        "windows": 2,
+        "hits": 48,
+        "fitted": true
+       }
+      ]
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 10.0,
+     "offset": 0,
+     "level": [
+      "possible",
+      "none"
+     ],
+     "matching": [
+      [
+       {
+        "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+        "start_seconds": 30.02166796875,
+        "end_seconds": 39.62678515625,
+        "track_start_seconds": 145.14367294282476,
+        "speed": 1.0520563380281691,
+        "windows": 1,
+        "hits": 235,
+        "fitted": true
+       }
+      ],
+      []
+     ]
+    }
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "confident_by_length": [
+    {
+     "10.0 s": 0,
+     "15.0 s": 67,
+     "20.0 s": 146,
+     "25.0 s": 160,
+     "30.0 s": 160,
+     "40.0 s": 160
+    },
+    {
+     "10.0 s": 0,
+     "15.0 s": 67,
+     "20.0 s": 146,
+     "25.0 s": 160,
+     "30.0 s": 160,
+     "40.0 s": 160
+    }
+   ]
+  },
+  "e-nocny-trans-vertical-2002-08-23-leave-out-17": {
+   "score_today_variant": {
+    "referenced": [
+     17,
+     17
+    ],
+    "identified": [
+     0,
+     0
+    ],
+    "wrong": [
+     2,
+     2
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 2,
+    "after": 2,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 4,
+    "after": 4,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 6,
+    "after": 6,
+    "paired": 6,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       3147.609798828125,
+       3151.230419921875
+      ],
+      "end": [
+       3343.765978515625,
+       3215.800134765625
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       3150.727435546875,
+       3152.55970703125
+      ],
+      "end": [
+       3339.898939453125,
+       3216.090888671875
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 127.9658437500002,
+    "hits_after_over_before": {
+     "median": 1.0081669691470054,
+     "min": 0.8883248730964467,
+     "max": 1.0862068965517242
+    }
+   },
+   "detections": {
+    "before": 3912,
+    "after": 3814,
+    "changed": 1262,
+    "lost": 1380,
+    "added": 1282,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.20512820512820512,
+     "max": 3.857142857142857
+    }
+   }
+  },
+  "e-razorjack-2003-03-29-leave-out-12": {
+   "score_today_variant": {
+    "referenced": [
+     12,
+     12
+    ],
+    "identified": [
+     0,
+     0
+    ],
+    "wrong": [
+     7,
+     7
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 7,
+    "after": 7,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 3,
+    "after": 4,
+    "lost": [],
+    "added": [
+     "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3 1802.8-1842.2 s, 70 hits"
+    ]
+   },
+   "plays": {
+    "before": 8,
+    "after": 9,
+    "paired": 8,
+    "identical": 1,
+    "lost": [],
+    "added": [
+     {
+      "asset": "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3",
+      "level": "possible",
+      "hits": 70,
+      "start": 1802.761984375,
+      "end": 1842.16675
+     }
+    ],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       691.158751953125,
+       724.497875
+      ],
+      "end": [
+       816.514337890625,
+       825.332447265625
+      ],
+      "segments": [
+       3,
+       2
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       880.967986328125,
+       880.77313671875
+      ],
+      "end": [
+       1204.50457421875,
+       1200.9536484375
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1447.63191015625,
+       1450.91543359375
+      ],
+      "end": [
+       1772.07851171875,
+       1768.8273671875
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2347.518703125,
+       2256.077859375
+      ],
+      "end": [
+       2535.2195625,
+       2535.219546875
+      ],
+      "segments": [
+       1,
+       2
+      ]
+     }
+    ],
+    "largest_boundary_shift": 91.44084374999966,
+    "hits_after_over_before": {
+     "median": 1.00093808630394,
+     "min": 0.9491525423728814,
+     "max": 1.2876712328767124
+    }
+   },
+   "detections": {
+    "before": 4751,
+    "after": 4726,
+    "changed": 1526,
+    "lost": 1473,
+    "added": 1448,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.25,
+     "max": 2.875
+    }
+   }
+  },
+  "e-robust-2026": {
+   "queries": 3250,
+   "identical": 964,
+   "changed": [
+    {
+     "condition": "clipping-12db",
+     "speed": 1.03,
+     "asset": "extra/aa-black_sun_empire-bnegative-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      235,
+      240
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pink-noise-snr-0db",
+     "speed": 0.95,
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "held_out": false,
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      29,
+      65
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "aac-48k",
+     "speed": 0.95,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "wrong_possible": [
+      1,
+      0
+     ],
+     "best_hits": [
+      530,
+      530
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      67,
+      38
+     ]
+    },
+    {
+     "condition": "aac-48k",
+     "speed": 1.03,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "wrong_possible": [
+      1,
+      0
+     ],
+     "best_hits": [
+      542,
+      542
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      60,
+      51
+     ]
+    },
+    {
+     "condition": "blend--6db",
+     "speed": 0.95,
+     "asset": "Optical - Millennium.mp3",
+     "held_out": true,
+     "partner_confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      0,
+      0
+     ],
+     "best_windows": [
+      0,
+      0
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "blend--6db",
+     "speed": 1.03,
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "held_out": false,
+     "partner_confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      346,
+      347
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 0.95,
+     "asset": "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+     "held_out": false,
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      60,
+      58
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 1.03,
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "held_out": false,
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      51,
+      70
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 1.03,
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "held_out": false,
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      61,
+      55
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 1.03,
+     "asset": "extra/01 - Aquasky - Spectre.mp3",
+     "held_out": false,
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      9,
+      87
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 1.03,
+     "asset": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+     "held_out": true,
+     "partner_confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      0
+     ],
+     "best_windows": [
+      0,
+      0
+     ],
+     "strongest_wrong_hits": [
+      8,
+      8
+     ]
+    },
+    {
+     "condition": "voice-over",
+     "speed": 1.03,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "wrong_possible": [
+      1,
+      0
+     ],
+     "best_hits": [
+      970,
+      970
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      76,
+      59
+     ]
+    },
+    {
+     "condition": "speech-insert-8s",
+     "speed": 1.03,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "wrong_possible": [
+      1,
+      0
+     ],
+     "best_hits": [
+      915,
+      914
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      77,
+      51
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      504,
+      409
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      7,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      454,
+      400
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      476,
+      456
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      472,
+      445
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      6,
+      6
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      486,
+      381
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/01 - Aquasky - Spectre.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      386,
+      424
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      488,
+      400
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "asset": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      734,
+      486
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      740,
+      461
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      475,
+      474
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      7
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      644,
+      432
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      439,
+      403
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/AA. Gridlok -- Struggle.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      565,
+      546
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/01 - Aquasky - Spectre.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      873,
+      433
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      6,
+      6
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      507,
+      424
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      6,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "held_out": false,
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      61
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      6,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "held_out": false,
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      82,
+      0
+     ],
+     "best_windows": [
+      3,
+      0
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      150,
+      582
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      558
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      614
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      537
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      534,
+      54
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/AA. Gridlok -- Struggle.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      726,
+      75
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      6
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/01 - Aquasky - Spectre.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      530
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      204,
+      422
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      7,
+      6
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      76,
+      542
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      487,
+      109
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      6,
+      6
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+     "held_out": false,
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      60,
+      0
+     ],
+     "best_windows": [
+      3,
+      0
+     ],
+     "strongest_wrong_hits": [
+      6,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      215,
+      506
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      6,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      554,
+      56
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      87,
+      602
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      514
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      71,
+      91
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      478,
+      101
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      131,
+      618
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      48,
+      537
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      7,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      140,
+      516
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      134,
+      260
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      6,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      265,
+      606
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/aa-black_sun_empire-bnegative-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      248,
+      203
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      33,
+      515
+     ],
+     "best_windows": [
+      2,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/AA. Gridlok -- Struggle.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      749
+     ],
+     "best_windows": [
+      0,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/01 - Aquasky - Spectre.mp3",
+     "held_out": false,
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      53,
+      63
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "held_out": false,
+     "possible": [
+      false,
+      true
+     ],
+     "best_hits": [
+      59,
+      61
+     ],
+     "best_windows": [
+      2,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/[A]_-_Mudslide.mp3",
+     "held_out": false,
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      71,
+      0
+     ],
+     "best_windows": [
+      2,
+      0
+     ],
+     "strongest_wrong_hits": [
+      7,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      79,
+      492
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      258,
+      179
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      7,
+      7
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      135,
+      638
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      191,
+      570
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      88,
+      80
+     ]
+    },
+    {
+     "condition": "beatmatched--6db",
+     "speed": 1.03,
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "held_out": false,
+     "wrong_possible": [
+      1,
+      0
+     ],
+     "best_hits": [
+      501,
+      498
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      65,
+      56
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 0.95,
+     "asset": "extra/01 - Aquasky - Spectre.mp3",
+     "held_out": false,
+     "possible": [
+      true,
+      false
+     ],
+     "best_hits": [
+      77,
+      58
+     ],
+     "best_windows": [
+      3,
+      2
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 0.95,
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "held_out": false,
+     "partner_confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      106,
+      103
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 0.95,
+     "asset": "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+     "held_out": true,
+     "partner_confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      0,
+      0
+     ],
+     "best_windows": [
+      0,
+      0
+     ],
+     "strongest_wrong_hits": [
+      0,
+      6
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 0.95,
+     "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+     "held_out": true,
+     "partner_confident": [
+      false,
+      true
+     ],
+     "best_hits": [
+      0,
+      0
+     ],
+     "best_windows": [
+      0,
+      0
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 1.03,
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "held_out": false,
+     "confident": [
+      true,
+      false
+     ],
+     "best_hits": [
+      275,
+      210
+     ],
+     "best_windows": [
+      3,
+      3
+     ],
+     "strongest_wrong_hits": [
+      0,
+      0
+     ]
+    }
+   ],
+   "rows_changed": [
+    {
+     "condition": "clipping-12db",
+     "speed": 1.03,
+     "confident": [
+      33,
+      34
+     ]
+    },
+    {
+     "condition": "pink-noise-snr-0db",
+     "speed": 0.95,
+     "possible_or_better": [
+      17,
+      18
+     ]
+    },
+    {
+     "condition": "aac-48k",
+     "speed": 0.95,
+     "wrong_possible": [
+      1,
+      0
+     ]
+    },
+    {
+     "condition": "aac-48k",
+     "speed": 1.03,
+     "wrong_possible": [
+      1,
+      0
+     ]
+    },
+    {
+     "condition": "blend--6db",
+     "speed": 1.03,
+     "partner_confident": [
+      1,
+      2
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 0.95,
+     "possible_or_better": [
+      32,
+      31
+     ]
+    },
+    {
+     "condition": "blend-0db",
+     "speed": 1.03,
+     "possible_or_better": [
+      35,
+      36
+     ]
+    },
+    {
+     "condition": "voice-over",
+     "speed": 1.03,
+     "wrong_possible": [
+      1,
+      0
+     ]
+    },
+    {
+     "condition": "speech-insert-8s",
+     "speed": 1.03,
+     "wrong_possible": [
+      1,
+      0
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 0.95,
+     "confident": [
+      16,
+      10
+     ]
+    },
+    {
+     "condition": "needle-skip-2s",
+     "speed": 1.03,
+     "confident": [
+      15,
+      12
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 0.95,
+     "confident": [
+      12,
+      18
+     ],
+     "possible_or_better": [
+      28,
+      30
+     ]
+    },
+    {
+     "condition": "pitch-ride-2pct",
+     "speed": 1.03,
+     "confident": [
+      14,
+      21
+     ],
+     "possible_or_better": [
+      27,
+      31
+     ]
+    },
+    {
+     "condition": "beatmatched--6db",
+     "speed": 1.03,
+     "wrong_possible": [
+      1,
+      0
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 0.95,
+     "possible_or_better": [
+      32,
+      31
+     ],
+     "partner_confident": [
+      12,
+      11
+     ]
+    },
+    {
+     "condition": "beatmatched-0db",
+     "speed": 1.03,
+     "confident": [
+      13,
+      12
+     ]
+    }
+   ],
+   "totals": {
+    "indexed": [
+     2600,
+     2600
+    ],
+    "confident": [
+     1941,
+     1945
+    ],
+    "possible_or_better": [
+     2246,
+     2252
+    ],
+    "wrong_confident": [
+     0,
+     0
+    ],
+    "wrong_possible": [
+     43,
+     38
+    ]
+   }
+  },
+  "e-stakka-skynet-knowledge-leave-out-11": {
+   "score_today_variant": {
+    "referenced": [
+     11,
+     11
+    ],
+    "identified": [
+     0,
+     0
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 3,
+    "after": 3,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 3,
+    "after": 3,
+    "paired": 3,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "level": [
+       "possible",
+       "possible"
+      ],
+      "start": [
+       628.887587890625,
+       628.980654296875
+      ],
+      "end": [
+       659.533283203125,
+       665.453466796875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 5.920183593749925,
+    "hits_after_over_before": {
+     "median": 1.0425531914893618,
+     "min": 0.9493670886075949,
+     "max": 1.0425531914893618
+    }
+   },
+   "detections": {
+    "before": 4036,
+    "after": 4113,
+    "changed": 1219,
+    "lost": 1141,
+    "added": 1218,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.375,
+     "max": 3.0
+    }
+   }
+  },
+  "f-keylock-sweep-2026": {
+   "queries": 720,
+   "identical": 720,
+   "bar": [
+    {
+     "recall_within_5": 0.4166666666666667,
+     "recalled": 175,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": false
+    },
+    {
+     "recall_within_5": 0.4166666666666667,
+     "recalled": 175,
+     "indexed": 420,
+     "wrong": 0,
+     "passes": false
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     -5.0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     -3.0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     -1.0,
+     58,
+     58,
+     0,
+     0
+    ],
+    [
+     0.0,
+     60,
+     60,
+     0,
+     0
+    ],
+    [
+     1.0,
+     57,
+     57,
+     0,
+     0
+    ],
+    [
+     3.0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     5.0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     8.0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 1.0,
+    "max": 1.0
+   }
+  },
+  "f-other-rips-2026": {
+   "queries": 333,
+   "identical": 5,
+   "bar": [
+    {
+     "recall_within_5": 0.972972972972973,
+     "recalled": 252,
+     "indexed": 259,
+     "wrong": 18,
+     "passes": false
+    },
+    {
+     "recall_within_5": 0.972972972972973,
+     "recalled": 252,
+     "indexed": 259,
+     "wrong": 18,
+     "passes": false
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     31,
+     31,
+     2,
+     2
+    ],
+    [
+     -5.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     -3.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     -1.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     0.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     1.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     3.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     5.0,
+     36,
+     36,
+     2,
+     2
+    ],
+    [
+     8.0,
+     35,
+     35,
+     2,
+     2
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.8945783132530121,
+    "max": 1.52
+   }
+  },
+  "g-262-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026": {
+   "score_today_variant": {
+    "referenced": [
+     9,
+     9
+    ],
+    "identified": [
+     0,
+     0
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 0,
+    "after": 0,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 0,
+    "after": 0,
+    "paired": 0,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [],
+    "largest_boundary_shift": null,
+    "hits_after_over_before": null
+   },
+   "detections": {
+    "before": 47,
+    "after": 49,
+    "changed": 13,
+    "lost": 19,
+    "added": 21,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.6666666666666666,
+     "max": 1.2857142857142858
+    }
+   }
+  },
+  "g-262-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026": {
+   "score_today_variant": {
+    "referenced": [
+     9,
+     9
+    ],
+    "identified": [
+     6,
+     6
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 0,
+    "after": 0,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 6,
+    "after": 6,
+    "paired": 6,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       563.66958984375,
+       580.80976171875
+      ],
+      "end": [
+       904.52408203125,
+       903.1764609375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2170.5466796875,
+       2172.8146796875
+      ],
+      "end": [
+       2406.9512265625,
+       2418.978171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2287.05604296875,
+       2285.7563828125
+      ],
+      "end": [
+       2559.287369140625,
+       2559.286796875
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2518.021625,
+       2518.0215625
+      ],
+      "end": [
+       2789.539203125,
+       2804.71984375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 17.140171874999965,
+    "hits_after_over_before": {
+     "median": 1.001866875710292,
+     "min": 0.95625,
+     "max": 1.0470914127423823
+    }
+   },
+   "detections": {
+    "before": 59,
+    "after": 56,
+    "changed": 19,
+    "lost": 24,
+    "added": 21,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.6666666666666666,
+     "max": 1.2857142857142858
+    }
+   }
+  },
+  "g-262-nocny-trans-vertical-2002-08-23": {
+   "score_today_variant": {
+    "referenced": [
+     9,
+     9
+    ],
+    "identified": [
+     9,
+     9
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 0,
+    "after": 0,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 9,
+    "after": 9,
+    "paired": 9,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       563.66958984375,
+       580.80976171875
+      ],
+      "end": [
+       904.52408203125,
+       903.1764609375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/b-bulletproof-scarred-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1115.1694140625,
+       1117.17778125
+      ],
+      "end": [
+       1302.6423984375,
+       1332.0106875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2170.5466796875,
+       2172.8146796875
+      ],
+      "end": [
+       2406.9512265625,
+       2418.978171875
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     },
+     {
+      "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2287.05604296875,
+       2285.7563828125
+      ],
+      "end": [
+       2559.287369140625,
+       2559.286796875
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2518.021625,
+       2518.0215625
+      ],
+      "end": [
+       2789.539203125,
+       2804.71984375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 29.368289062499798,
+    "hits_after_over_before": {
+     "median": 1.0022831050228311,
+     "min": 0.95625,
+     "max": 1.0849342770475228
+    }
+   },
+   "detections": {
+    "before": 63,
+    "after": 61,
+    "changed": 24,
+    "lost": 23,
+    "added": 21,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.6666666666666666,
+     "max": 1.2857142857142858
+    }
+   }
+  },
+  "g-262-razorjack-2003-03-29-leave-out-12-seed-2026": {
+   "score_today_variant": {
+    "referenced": [
+     7,
+     7
+    ],
+    "identified": [
+     0,
+     0
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 0,
+    "after": 0,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 0,
+    "after": 0,
+    "paired": 0,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [],
+    "largest_boundary_shift": null,
+    "hits_after_over_before": null
+   },
+   "detections": {
+    "before": 66,
+    "after": 57,
+    "changed": 19,
+    "lost": 25,
+    "added": 16,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.75,
+     "max": 1.1666666666666667
+    }
+   }
+  },
+  "g-262-razorjack-2003-03-29-leave-out-3-seed-2026": {
+   "score_today_variant": {
+    "referenced": [
+     7,
+     7
+    ],
+    "identified": [
+     4,
+     4
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 0,
+    "after": 0,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 4,
+    "after": 4,
+    "paired": 4,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1481.915232421875,
+       1562.149765625
+      ],
+      "end": [
+       1772.079392578125,
+       1742.7584375
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2094.270251953125,
+       2100.2005
+      ],
+      "end": [
+       2419.68297265625,
+       2419.682802734375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 80.23453320312501,
+    "hits_after_over_before": {
+     "median": 1.001244865833983,
+     "min": 0.497907949790795,
+     "max": 1.0072727272727273
+    }
+   },
+   "detections": {
+    "before": 73,
+    "after": 64,
+    "changed": 26,
+    "lost": 25,
+    "added": 16,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [
+     {
+      "before": {
+       "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+       "start_seconds": 1481.915232421875,
+       "end_seconds": 1563.448376953125,
+       "speed": 1.0422795211674252,
+       "windows": 9,
+       "hits": 679,
+       "confident": true,
+       "fitted": true
+      },
+      "after": {
+       "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+       "start_seconds": 1471.3725,
+       "end_seconds": 1495.1204375,
+       "speed": 1.036,
+       "windows": 3,
+       "hits": 20,
+       "confident": false,
+       "fitted": true
+      },
+      "edge": "hits 679 -> 20 across 240"
+     }
+    ],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.029455081001472753,
+     "max": 1.1666666666666667
+    }
+   }
+  },
+  "g-262-razorjack-2003-03-29": {
+   "score_today_variant": {
+    "referenced": [
+     7,
+     7
+    ],
+    "identified": [
+     7,
+     7
+    ],
+    "wrong": [
+     0,
+     0
+    ],
+    "possible": [
+     0,
+     0
+    ]
+   },
+   "right_files_lost": [],
+   "right_files_gained": [],
+   "tracks_changed": [],
+   "wrong_confident": {
+    "before": 0,
+    "after": 0,
+    "added": [],
+    "removed": []
+   },
+   "unmatched_possible": {
+    "before": 0,
+    "after": 0,
+    "lost": [],
+    "added": []
+   },
+   "plays": {
+    "before": 7,
+    "after": 7,
+    "paired": 7,
+    "identical": 0,
+    "lost": [],
+    "added": [],
+    "level_changed": [],
+    "boundaries_moved": [
+     {
+      "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       145.05023828125,
+       135.98890234375
+      ],
+      "end": [
+       403.24375390625,
+       403.243703125
+      ],
+      "segments": [
+       2,
+       2
+      ]
+     },
+     {
+      "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       1481.915232421875,
+       1562.149765625
+      ],
+      "end": [
+       1772.079392578125,
+       1742.7584375
+      ],
+      "segments": [
+       2,
+       1
+      ]
+     },
+     {
+      "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "level": [
+       "confident",
+       "confident"
+      ],
+      "start": [
+       2094.270251953125,
+       2100.2005
+      ],
+      "end": [
+       2419.68297265625,
+       2419.682802734375
+      ],
+      "segments": [
+       1,
+       1
+      ]
+     }
+    ],
+    "largest_boundary_shift": 80.23453320312501,
+    "hits_after_over_before": {
+     "median": 0.9997726756080928,
+     "min": 0.497907949790795,
+     "max": 1.0072727272727273
+    }
+   },
+   "detections": {
+    "before": 77,
+    "after": 67,
+    "changed": 30,
+    "lost": 25,
+    "added": 15,
+    "confident_lost": [],
+    "confident_added": [],
+    "confidence_changed": [
+     {
+      "before": {
+       "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+       "start_seconds": 1481.915232421875,
+       "end_seconds": 1563.448376953125,
+       "speed": 1.0422795211674252,
+       "windows": 9,
+       "hits": 679,
+       "confident": true,
+       "fitted": true
+      },
+      "after": {
+       "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+       "start_seconds": 1471.3725,
+       "end_seconds": 1495.1204375,
+       "speed": 1.036,
+       "windows": 3,
+       "hits": 20,
+       "confident": false,
+       "fitted": true
+      },
+      "edge": "hits 679 -> 20 across 240"
+     }
+    ],
+    "hits_after_over_before": {
+     "median": 1.0,
+     "min": 0.029455081001472753,
+     "max": 1.1666666666666667
+    }
+   }
+  },
+  "h-recall-2026": {
+   "queries": 702,
+   "identical": 30,
+   "bar": [
+    {
+     "recall_within_5": 1.0,
+     "recalled": 406,
+     "indexed": 406,
+     "wrong": 57,
+     "passes": false
+    },
+    {
+     "recall_within_5": 1.0,
+     "recalled": 406,
+     "indexed": 406,
+     "wrong": 57,
+     "passes": false
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     58,
+     58,
+     7,
+     7
+    ],
+    [
+     -5.0,
+     58,
+     58,
+     6,
+     6
+    ],
+    [
+     -3.0,
+     58,
+     58,
+     7,
+     7
+    ],
+    [
+     -1.0,
+     58,
+     58,
+     6,
+     6
+    ],
+    [
+     0.0,
+     58,
+     58,
+     6,
+     6
+    ],
+    [
+     1.0,
+     58,
+     58,
+     7,
+     7
+    ],
+    [
+     3.0,
+     58,
+     58,
+     7,
+     7
+    ],
+    [
+     5.0,
+     58,
+     58,
+     6,
+     6
+    ],
+    [
+     8.0,
+     58,
+     58,
+     5,
+     5
+    ]
+   ],
+   "answer_changed": [
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
+     "held_out": true,
+     "speed_percent": -3.0,
+     "answer": [
+      "possible wrong",
+      "none"
+     ],
+     "best": [
+      {
+       "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
+       "correct": false,
+       "confident": false,
+       "windows": 3,
+       "hits": 85,
+       "speed_percent": -2.9999999999999916,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
+       "correct": false,
+       "confident": false,
+       "windows": 3,
+       "hits": 28,
+       "speed_percent": -3.7499999999999867,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
+     "held_out": true,
+     "speed_percent": 1.0,
+     "answer": [
+      "none",
+      "possible wrong"
+     ],
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Illfingas - Union Station (D-Region Remix).opus",
+       "correct": false,
+       "confident": false,
+       "windows": 2,
+       "hits": 9,
+       "speed_percent": 1.866666666666661
+      },
+      {
+       "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
+       "correct": false,
+       "confident": false,
+       "windows": 3,
+       "hits": 60,
+       "speed_percent": 1.3666666666666716,
+       "fitted": true
+      }
+     ],
+     "edge": "windows 2 -> 3 across 3"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/congo_natty-haile_selassie_i_99-hs1-1999-sour/b-(congo_natty)--revolution-sour.mp3",
+     "held_out": true,
+     "speed_percent": 3.0,
+     "answer": [
+      "possible wrong",
+      "none"
+     ],
+     "best": [
+      {
+       "asset": "second-library/__full_scene/1999/1999-09/1999-09-19/congo_natty(peace)-1999-sour/aa-congo_natty(white_label)peace-sour.mp3",
+       "correct": false,
+       "confident": false,
+       "windows": 3,
+       "hits": 82,
+       "speed_percent": 3.3371428571428607,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/dfect-dnb/Q Project - Daylight.opus",
+       "correct": false,
+       "confident": false,
+       "windows": 2,
+       "hits": 9,
+       "speed_percent": 4.400000000000004,
+       "fitted": true
+      }
+     ],
+     "edge": "windows 3 -> 2 across 3"
+    }
+   ],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.9903948772678762,
+    "max": 1.0108564535585043
+   }
+  },
+  "i-other-rips-2027": {
+   "queries": 396,
+   "identical": 6,
+   "bar": [
+    {
+     "recall_within_5": 0.9448051948051948,
+     "recalled": 291,
+     "indexed": 308,
+     "wrong": 45,
+     "passes": false
+    },
+    {
+     "recall_within_5": 0.948051948051948,
+     "recalled": 292,
+     "indexed": 308,
+     "wrong": 45,
+     "passes": false
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     32,
+     32,
+     5,
+     5
+    ],
+    [
+     -5.0,
+     40,
+     40,
+     5,
+     5
+    ],
+    [
+     -3.0,
+     42,
+     42,
+     5,
+     5
+    ],
+    [
+     -1.0,
+     41,
+     42,
+     5,
+     5
+    ],
+    [
+     0.0,
+     42,
+     42,
+     5,
+     5
+    ],
+    [
+     1.0,
+     42,
+     42,
+     5,
+     5
+    ],
+    [
+     3.0,
+     42,
+     42,
+     5,
+     5
+    ],
+    [
+     5.0,
+     42,
+     42,
+     5,
+     5
+    ],
+    [
+     8.0,
+     40,
+     40,
+     5,
+     5
+    ]
+   ],
+   "answer_changed": [
+    {
+     "asset": "extra/a. falcon - fractles.mp3",
+     "held_out": false,
+     "speed_percent": -5.0,
+     "answer": [
+      "none",
+      "possible right"
+     ],
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+       "correct": false,
+       "confident": false,
+       "windows": 3,
+       "hits": 40,
+       "speed_percent": -2.399999999999991,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
+       "correct": true,
+       "confident": false,
+       "windows": 3,
+       "hits": 70,
+       "speed_percent": -7.600000000000007,
+       "fitted": true
+      }
+     ],
+     "edge": ""
+    },
+    {
+     "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "answer": [
+      "possible right",
+      "right"
+     ],
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+       "correct": true,
+       "confident": false,
+       "windows": 3,
+       "hits": 238,
+       "speed_percent": -4.646560530139821,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 \uff1a CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+       "correct": true,
+       "confident": true,
+       "windows": 3,
+       "hits": 241,
+       "speed_percent": -4.64914333780283,
+       "fitted": true
+      }
+     ],
+     "edge": "hits 238 -> 241 across 240"
+    }
+   ],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.8440366972477065,
+    "max": 1.1765873015873016
+   }
+  },
+  "i-other-rips-2028": {
+   "queries": 333,
+   "identical": 3,
+   "bar": [
+    {
+     "recall_within_5": 0.915057915057915,
+     "recalled": 237,
+     "indexed": 259,
+     "wrong": 27,
+     "passes": false
+    },
+    {
+     "recall_within_5": 0.915057915057915,
+     "recalled": 237,
+     "indexed": 259,
+     "wrong": 27,
+     "passes": false
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     28,
+     28,
+     3,
+     3
+    ],
+    [
+     -5.0,
+     33,
+     33,
+     3,
+     3
+    ],
+    [
+     -3.0,
+     34,
+     34,
+     3,
+     3
+    ],
+    [
+     -1.0,
+     34,
+     34,
+     3,
+     3
+    ],
+    [
+     0.0,
+     34,
+     34,
+     3,
+     3
+    ],
+    [
+     1.0,
+     34,
+     34,
+     3,
+     3
+    ],
+    [
+     3.0,
+     34,
+     34,
+     3,
+     3
+    ],
+    [
+     5.0,
+     34,
+     34,
+     3,
+     3
+    ],
+    [
+     8.0,
+     32,
+     32,
+     3,
+     3
+    ]
+   ],
+   "answer_changed": [],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.9555555555555556,
+    "max": 1.0793650793650793
+   }
+  },
+  "i-other-rips-2029": {
+   "queries": 351,
+   "identical": 7,
+   "bar": [
+    {
+     "recall_within_5": 0.9304029304029304,
+     "recalled": 254,
+     "indexed": 273,
+     "wrong": 44,
+     "passes": false
+    },
+    {
+     "recall_within_5": 0.9304029304029304,
+     "recalled": 254,
+     "indexed": 273,
+     "wrong": 44,
+     "passes": false
+    }
+   ],
+   "per_speed": [
+    [
+     -8.0,
+     28,
+     28,
+     5,
+     5
+    ],
+    [
+     -5.0,
+     36,
+     36,
+     5,
+     5
+    ],
+    [
+     -3.0,
+     36,
+     36,
+     5,
+     5
+    ],
+    [
+     -1.0,
+     37,
+     37,
+     5,
+     5
+    ],
+    [
+     0.0,
+     36,
+     36,
+     5,
+     5
+    ],
+    [
+     1.0,
+     36,
+     36,
+     5,
+     5
+    ],
+    [
+     3.0,
+     37,
+     37,
+     5,
+     5
+    ],
+    [
+     5.0,
+     36,
+     36,
+     5,
+     5
+    ],
+    [
+     8.0,
+     36,
+     36,
+     4,
+     4
+    ]
+   ],
+   "answer_changed": [
+    {
+     "asset": "extra/a. falcon - fractles.mp3",
+     "held_out": false,
+     "speed_percent": -1.0,
+     "answer": [
+      "possible right",
+      "none"
+     ],
+     "best": [
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
+       "correct": true,
+       "confident": false,
+       "windows": 3,
+       "hits": 61,
+       "speed_percent": -3.599999999999981,
+       "fitted": true
+      },
+      {
+       "asset": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 \uff1a FALCON - fractles - ] drum and bass.opus",
+       "correct": true,
+       "confident": false,
+       "windows": 2,
+       "hits": 54,
+       "speed_percent": -3.8250000000000006,
+       "fitted": true
+      }
+     ],
+     "edge": "windows 3 -> 2 across 3"
+    }
+   ],
+   "hits_after_over_before": {
+    "median": 1.0,
+    "min": 0.8852459016393442,
+    "max": 1.267605633802817
+   }
+  }
+ }
+}

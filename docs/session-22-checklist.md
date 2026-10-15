@@ -29,18 +29,22 @@ for scope and rules.
   1.33 s and 1.41 s (the boundary criterion fails on them)
 - [x] 3d. Sweeps 2027-2029, both builds: every answer unchanged, the
   bar passed by both (60/60 at every speed, 0 wrong)
-- [~] 3e. If time remains: `grid` (done: confident and wrong unchanged;
-  two 10 s plays lose their possible answer), `robust` seed 2026, the
-  development mixes' leave-outs at NAS scale; added after the plan
-  (queue2, queue3): the key-lock-only control, the other two development
-  mixes at 262 tracks with leave-outs, the recall panel's development
-  half and other rips at NAS scale
-- [ ] 4. Experiment 0119; part 2's needs
+- [x] 3e. `grid` (confident and wrong unchanged; two 10 s plays lose
+  their possible answer), `robust` seed 2026 (0 wrong; 20 right
+  confident answers lost, 24 gained), the development mixes' leave-outs
+  at NAS scale (unchanged); added after the plan, written first: the
+  key-lock-only control (byte-identical), the other two development
+  mixes at 262 tracks with leave-outs (unchanged), the recall panel's
+  development half (unchanged) and other rips at NAS scale for seeds
+  2026-2029 (one confident answer gained, one possible lost and one
+  gained); all runs done by 10:48
+- [x] 4. Experiment 0119 (40 lines, data `0119-*`); part 2's needs
 - [ ] 5. Read-only review by a subagent (by 11:15); fixes
 
 ## Wrap-up
 
-- [ ] Notes "Session 22", status, roadmap, the research note
+- [x] Notes "Session 22", status, roadmap, the research note (drafts,
+  before the review)
 - [ ] `regress session-22-start` identical with the main tree's final
   build; `scripts/check.sh` green with both toolchains
 - [ ] The NAS store's revision at the end
