@@ -299,3 +299,42 @@ that changes evidence may add no wrong confident query on the
 development half. This measures; nothing is adopted, and the rest of
 the retrieval study (other rips, damage, short plays, the development
 mixes) is not run.
+
+## Step 5: the outcome (written at 07:00, after experiment 0116)
+
+By the pre-registered rule, four candidates are promising on the primary
+sample and keep under 95% of the second sample, so each is *promising in
+rendered mixes only*. Frozen as the rule requires (definitions above;
+thresholds from 0116, development half, seeds 2101-2103):
+
+- (a1) a confident play is rejected when its most favourable confident
+  segment has under 9.31 hits per second of its span (keeps 50 of 97
+  development-mix plays);
+- (a2) under a verifier share of 0.498 (keeps 45 of 97);
+- (c)+(a1) marked by the map (another file outside its recording holds
+  its passage with 60 hits or more) and under 24.56 hits per second
+  (keeps 70 of 97);
+- (c)+(a2) marked and under a verifier share of 0.722 (keeps 70 of 97).
+
+Not promising: (b) (rejects 1 of 87), (c) alone (39 of 87; at its
+natural point, 60 hits, it marks 61 of 87 wrong and 79 of 453 true
+plays), (c)+(b) (8 of 87).
+
+What the result means: every threshold that passes was set by drawn
+plays rendered from the indexed files themselves, which are about three
+times denser than real plays. Against real rips (the positive control in
+the same mixes, 0-11 of 15 kept, and the development mixes, 45-72%
+kept) the same thresholds lose a quarter to all of the true plays. The
+conservative reading: no candidate separates a related version's play
+from a true play of a real rip.
+
+Validating a frozen candidate on the panel's validation half would need
+that half rendered the same way, with seeds fixed before rendering, and
+the second-sample check repeated; it is our decision and is not
+done in this session. A validation worth its cost would first change the
+design so that true plays come from real rips: draw tracks whose
+recording has two indexed files, render one and leave it out of the
+index (the positive control for every drawn play). Until then, reporting
+ambiguity (the map (c) marks where another indexed version holds a
+confident play's passage) remains the fallback; any change to the
+report is our decision (ADR 0017).

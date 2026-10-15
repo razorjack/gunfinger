@@ -19,14 +19,19 @@ for scope and rules.
 - [x] 2. Pre-registration in `docs/brief-21.md`, committed before any
   render: candidates (a), (b), (c), the combinations, the oracle, the
   denominators, the criterion
-- [ ] 3. Rendered mixes: `mixes` extended minimally and tested; rendered
-  and searched at NAS scale (everything indexed; the played recording
-  left out; the positive control)
-- [ ] 4. Measurement: every confident play scored; (a), (b), (c) and the
-  combinations against the criterion; 0114's true plays apart;
-  experiment 0116
-- [ ] 5. The outcome (frozen if a candidate passes; the validation half
-  not searched)
+- [x] 3. Rendered mixes: `gunfinger-eval shared-mixes` (`shared_mixes.rs`,
+  `mixes::draw_around`, `Verifier::beyond`; 8 new tests); 36 mixes
+  rendered and searched at NAS scale (everything indexed; the played
+  recording left out; the positive control) and the 3 development mixes,
+  06:02-06:38 (7.0 GB)
+- [x] 4. Measurement: `shared_mixes.py score`; 453 true and 87 wrong
+  related confident plays; (a1), (a2), (c)+(a1), (c)+(a2) promising in
+  rendered mixes only (the development mixes keep 45-72% at their
+  thresholds), (b), (c), (c)+(b) not; 42 other confident plays set aside
+  by `pair` (newer uploads), one remix over its original; experiment 0116
+- [x] 5. The outcome: the four frozen in `docs/brief-21.md` with the
+  caveat; no candidate separates a related version from a real rip;
+  the validation half not searched
 - [ ] 6. If time remains: the FFT lengths' first stage on the panel's
   development half; an experiment
 - [ ] 7. Read-only review by a subagent (by 10:45); fixes
