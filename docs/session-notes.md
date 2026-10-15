@@ -3733,3 +3733,448 @@ differently: the same commands run, and only some messages changed.
   `PATH` (AGENTS.md has the command); otherwise it prints a line and
   skips.
   `brew uninstall rustup` and deleting `~/.rustup` remove it.
+
+## Session 20
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports (`regress session-20-start` identical). The session
+built the shared-material challenge set (the panel) from the judgements
+by ear, ran its development half at NAS scale, and ran proposal 5 of
+the research note (the identifiability diagnostic) on it. The harness
+gained NAS-scale `shared` runs with four new kinds of query and a new
+command, `gunfinger-eval identifiability`.
+
+In short: about a minute of a passage that two versions share makes the
+other version a confident wrong title at NAS scale, in 12 of the 14
+directions measured, whether or not the played record is indexed. The
+information that tells the versions apart is there in 10 of 14
+directions: the other version's evidence is sparser than a rip of the
+played record, clearly so where that record has rips of its own, and
+the confidence rule counts hits without regard to how sparse they are.
+But true plays in the development mixes are as sparse, so a threshold on
+sparseness would lose true plays before it removed half of the wrong
+ones. In the three development mixes the problem does not occur: with
+every played recording left out, no related version is confident.
+
+### The panel
+
+`docs/panels/shared-material-seed-2026.json` (experiment 0110, made by
+`scripts/analysis/shared_panel.py`). 12 recording families from the judgements
+by ear:
+
+- the 13 `different` lines of `docs/pair-verdicts.txt`;
+- the two `shared` answers on the listening page: Watermelon ~ 300
+  Baud - Monotone (Mobiuz & Cycom Remix), and Falcon - Fractles ~ Ryme
+  Tyme - We Enter (Optical Remix v3.0);
+- two judgements recorded in the docs: Clockwork ~ its Stakka remix
+  (experiment 0026) and China Cup ~ The Nine (after session 4).
+
+Each recording holds its rips: session 18's duplicate clusters, and 6
+rips the clusters never saw, joined by the clustering rule (one
+alignment covering 80% of the shorter file): Dozer's RSD 2023 copy, We
+Enter (Optical RMX) at 87%, Mind Overload's RAMM 23 A, Playground
+Shades' APH039 A, Sonar's PRO 012 A 1998 and The Nine's BCR01 A 1998.
+Pairs no verdict covers are candidates, not members (the listening
+questions below). The five test-derived versions are not in it.
+
+Each judged pair gives two directions (each file played once).
+`gunfinger-eval pair` gives each direction's shared passage, its
+strongest alignment; under 25 hits the direction is a control (no shared
+passage).
+
+| Half | Families | Recordings | Directions (controls) | Files |
+|---|---|--:|--:|--:|
+| development | Dozer, Fire, Playground Shades, Pyro, Sonar, Watermelon | 14 | 16 (2) | 24 |
+| validation | Clockwork, Fractles, Mind Overload, Night Gasp, T-Minus, The Nine | 13 | 14 (4) | 42 |
+
+The split is by family with seed 2026; The Nine fell into the validation
+half. That half has not been searched: it is kept to validate a
+statistic frozen on the development half.
+
+**The oracle** (`docs/brief-20.md`, written before anything was
+measured): each query against each index is right confident, wrong
+confident, possible only or nothing. A confident play of any rip of the
+played recording is right. A confident play of the related recording,
+of another version in the family, or of any other file is wrong. Files
+whose tags carry the family's title but which nobody judged are counted
+apart (none was confident). The blend's partner is set aside. With the
+played recording left out of the index (the main case), possible only
+or nothing is the right answer.
+
+**To run the development half** (32 minutes, 5.4 GB of memory, 337 MB of
+rendered queries in `work/shared/`, in a folder named after the plan and
+a digest of it, so a changed plan renders afresh):
+
+```sh
+gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks \
+  shared docs/panels/shared-material-seed-2026-development.json
+python3 -I scripts/analysis/shared_outcomes.py docs/panels/shared-material-seed-2026.json \
+  work/reports/library-nas-dnb-peaks/shared-material-seed-2026-development.json outcomes.json
+```
+
+The first command runs every query; the second applies the oracle.
+`shared_panel.py freeze` writes only the development half's plan, so the
+validation half's plan is written by the session that validates a
+frozen statistic.
+
+### Today's outcomes (experiment 0111)
+
+Each direction's passage is played alone (10, 20, 30 s), looped (60,
+120, 240 s), running 10, 20 or 30 s past the passage into the played
+file's own material (beyond), after 5, 10 or 20 s of own material
+(before), as a dull 64 kbps rip (weak: alone 30 s, beyond 20 s), under a
+blend of Skynet & Stakka - Decoy at equal level over the context, and as
+a 5 s break looped to 60 and 240 s. Three indexes: everything; the
+played recording left out (the main case); the played file left out
+while its other rips stay (the positive control).
+
+| Played recording left out | alone | looped | beyond | before | weak | blend | break | all |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|
+| Queries | 42 | 42 | 42 | 22 | 28 | 14 | 28 | 218 |
+| Wrong confident | 4 | 34 | 33 | 8 | 15 | 12 | 0 | 106 |
+| Possible only | 20 | 2 | 3 | 8 | 9 | 0 | 2 | 44 |
+| Nothing | 18 | 6 | 6 | 6 | 4 | 2 | 26 | 68 |
+
+- With everything indexed, the same 106 queries show a wrong confident
+  title beside the played file's confident play; the other 112 are right
+  confident (56), possible only (17) or nothing (39).
+- With the played file left out and another indexed rip kept (6
+  directions, 89 queries), that rip is confident in 65; in 44 of them a
+  wrong title is confident too. Watermelon's other rip is a copy the
+  corpus file stands for, so it is not indexed; the harness now skips
+  that control, which removes those 17 queries and changes nothing else.
+- No unjudged or unrelated file was confident anywhere. In the two
+  control directions no file passed 25 hits; the related file reached
+  11.
+- It takes enough of the passage: at 30 s or less only dense copies
+  (Fire's Rogue Unit Remix and VIP, both Pyro directions); Dozer and its
+  bootleg from 58 s (the 48 s passage and 10 s more, or a 60 s loop),
+  Fire's remixes from 60 s. A 5 s break looped to 240 s is never
+  confident (at most 32 hits).
+
+Every wrong confident query of the main case (hits of the wrong title):
+
+- Dozer played, its 2025 Notjamie Bootleg confident (241-286): looped
+  60, 120, 240 s; beyond 10, 20, 30 s; weak beyond; blend. The bootleg
+  played, Dozer confident (252-271): the same 8 queries.
+- Fire (original mix) played against the Rogue Unit Remix: the
+  Remix (493-502) looped 120 s and beyond 10 s; the Nasty Jungle Remix
+  (282-567) looped 60 s, beyond 20 and 30 s, weak beyond, blend; the VIP
+  (499) looped 240 s. Against the VIP, over the same passage: the
+  Rogue Unit Remix (493-502) looped 120 s and beyond 10 s; the Nasty
+  Jungle Remix (282-567) looped 60 and 240 s, beyond 20 and 30 s, weak
+  beyond, blend.
+- Fire (original mix) played against the Nasty Jungle Remix: that remix
+  (318-583) looped 60, 120, 240 s, beyond 10, 20, 30 s, weak beyond,
+  blend. The Nasty Jungle Remix played: the original (321-600), the
+  same 8.
+- Fire's Rogue Unit Remix played: the VIP (897-4,473) in 13 of 17
+  queries (all but alone 10 and 20 s and the two breaks). The VIP
+  played: the Rogue Unit Remix (993-4,497), the same 13.
+- Pyro - Time Is Broken played: Pyro - Ignorance (244-445) alone 30 s,
+  looped 60, 120, 240 s, beyond 10, 20, 30 s, weak beyond, blend.
+  Ignorance played: Time Is Broken (348-425) alone 30 s, looped, beyond,
+  before 5 and 10 s, both weak, blend (12).
+- Trace - Sonar played: the Mark System Revision (240-269) looped 240 s,
+  weak beyond, blend. The revision played: Sonar (244-334) looped 60,
+  120, 240 s, beyond 10, 20, 30 s, weak beyond, blend.
+- Watermelon ~ Monotone and Playground Shades ~ Interlude: none (at most
+  46 hits).
+
+### The diagnostic (experiments 0112, 0114 and 0115)
+
+For each direction, the played file's passage was searched against each
+file of the related recording alone (R, the related file of the plan,
+first) and against each rip of the played recording alone. Three
+measures over the passage: audio (the spectra's correlation along the
+alignment), peaks (the verifier's share of the file's peaks found) and
+pairs (hits per second of the passage). Audio and peaks have a chance
+value; pairs has none, although the rule asked for one. The rips of the
+played recording are the noise floor; where it has only one file, the
+poorest rip in the half (a poor upload of Pyro - Time Is Broken). The
+rule was written before the run.
+
+| Direction | Outcome by the rule | What decides it |
+|---|---|---|
+| Dozer, both | 3: survives, the evidence ignores it | R's audio 0.58 and peaks 0.33-0.34, below the RSD rip's 0.88 and 0.79 (Dozer played) or the pooled 0.66 and 0.38 (the bootleg played) |
+| Fire, all six | 3 | R's audio 0.35-0.36 and peaks 0.34-0.35, below the JM2 rip's 0.72-0.75 and 0.61-0.64 (the original played) or the pooled floor (a remix played) |
+| Pyro: Time Is Broken played | 3, by pairs only | Ignorance's pairs 2.3 a second against the rip's 6.0; its peaks (0.59) are above the rip's (0.38) |
+| Pyro: Ignorance played (a 30 s passage) | 1: no distinguishing information | Time Is Broken's audio 0.716 against the poor upload's 0.655; the next poorest rip is 0.723, so this is thin |
+| Sonar played | 3 | the revision's audio 0.57 and peaks 0.25 against the PRO 012 A rip's 0.82 and 0.61 |
+| Sonar's revision played | separated today | R (`DJ Trace - Sonar.m4a`) is never confident; the PRO 012 A upload of the same recording is (334 hits), and by its measures (0.63, 0.39, 3.75 a second) it is outcome 3 by pairs only |
+| Watermelon, both | separated today | the other file reaches 46 hits at most |
+| Playground Shades | control | no shared passage |
+
+How firm this is:
+
+- Clear in the five directions whose played recording has rips of its
+  own (Dozer played, Fire's original three times, Sonar played): R sits
+  far below the poorest rip on every measure.
+- Thin where the floor is the pooled upload: the peaks of Dozer's
+  bootleg played and of Fire's remixes played sit 0.025-0.05 below it.
+- Pyro - Time Is Broken played rests on pairs per passage second. R
+  lines up in blocks at two offsets, so the strongest block undercounts
+  it: per second of its aligned span R has 10.8 hits against the rip's
+  9.8, which would make it outcome 2 (lost before peaks and pairs).
+- No direction is outcome 2 by the rule.
+
+Where the evidence falls: for Fire, R's alignment ends within 4 s of the
+passage's end, while the played file runs on for 30 s; for Dozer,
+Sonar's revision and Ignorance it runs 5-29 s past the passage, so the
+copied region is longer than `pair`'s passage. In a loop each repeat
+starts a new alignment: 2-16 detections of the related file, the
+strongest 244-600 hits.
+
+Outcome 3 compares R with a clean copy of the played record. Under the
+same damage (a weak rip, a blend), R's evidence is sparse: 1.5-12.4
+hits per second of its span, against 25-53 for the played file and
+6.5-24 for its other rips. Experiment 0114 asked whether true plays in
+the development mixes are denser. They are not: the 102 confident detections
+credited to referenced tracks in the three development mixes (scanned
+with the peak verifier at NAS scale) have 1.5-31.9 hits per second
+(median 6.7 in the Vertical broadcast) and a verifier share of
+0.24-0.77. A cut that keeps 95% of them removes 8 of the 106 wrong plays
+(hits per second) or 12 (verifier share), far from the half proposal
+5's review asks for. That comparison is not like-for-like: the wrong
+plays come from clean renders of short queries (spans of 21-156 s, and
+nested queries counted separately, 40 of them the unjudged Fire remix
+and VIP), the true plays from mixes (62-418 s). Experiment 0115 looked
+for wrong plays in the mixes themselves, with all 40 referenced tracks
+left out: no file was confident except the newer uploads of the same
+recordings (below), and the related versions stayed possible at 79-197
+hits. So the development mixes give nothing to test a cut against.
+
+### What it means for the next step
+
+The three options the prompt names, each ours to decide:
+
+- **A statistic** is justified in principle (outcome 3). The obvious
+  one, a cut on how sparse the evidence is, is not supported by this
+  session's comparison, though that comparison leans against it. The
+  other candidate in the data is where R's alignment stops while the
+  music continues (Fire). Either needs a like-for-like test: real mixes
+  in which a related version plays over a long shared passage, which
+  the development mixes do not have. Then the validation half.
+- **A representation change** is not indicated: no direction lost its
+  information before the peaks and pairs by the rule (Pyro - Time Is
+  Broken would, counted per aligned span).
+- **Reporting ambiguity** fits Pyro's 30 s passage (outcome 1) and is
+  the fallback if no statistic separates: a map of passages that
+  library files share, built from the files present, would mark a
+  confident play whose passage another indexed version also holds. A
+  change to the report is our decision (ADR 0017).
+
+My recommendation: find or render mixes that play a related version over
+a long shared passage (the library's Fire, Dozer or Sonar versions would do),
+then measure the alignment-stop evidence and sparseness on them against
+true plays, with the rule written first. The roadmap's other evidence
+items and the FFT lengths' retrieval study now have this panel as a
+required check.
+
+### Listening requests
+
+17 questions, all `same` or `different` for a pair, in
+`work/audition/s20/`: `01-candidates.json` (16) and
+`02-fire-remix-vip.json` (1). Open them with
+
+```sh
+gunfinger-eval audition work/audition/s20/01-candidates.json work/audition/s20/02-fire-remix-vip.json
+```
+
+The packs with clips and sheets are `work/audition/s20/pack/` and
+`pack-2/`. Each verdict is about the version, not the sound quality or
+the tags: `same` if both files would get the same tracklist line, and
+`different` if they differ in even a few bars. If different, say whether
+the part that lines up is shared material. A `different` verdict makes
+the pair a candidate member of the panel; the frozen panel itself does
+not change.
+
+The question for each: "Are A and B one recording (two rips of the same
+record, however they sound) or different recordings (they differ in even
+a few bars)? If different, B is placed where it lines up with A: is that
+shared material?" The times below are where they line up; they stop
+lining up at the end of each range.
+
+1. Asked because: the panel (validation, fractles): joined by the clustering rule at 87% coverage.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter (Optical RMX).m4a` (6:30.0)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus` (6:35.0)
+   Lines up: A 0:00.5-5:40.0 with B 0:00.4-5:39.6 (2127 hits, B at -0.0%); A 5:40.9-5:59.8 with B 2:16.4-2:35.4 (107 hits, B at -0.0%).
+2. Asked because: the Vertical mix: possible during Stab 2 Def.
+   A: `/Volumes/atlas/Music/dnb/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3` (7:29.3)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a` (5:59.1)
+   Lines up: A 0:50.0-2:10.0 with B 0:27.9-1:47.9 (787 hits, B at +0.0%); A 6:30.0-7:27.0 with B 5:01.2-5:58.2 (600 hits, B at +0.0%); A 0:11.5-0:49.7 with B 0:00.4-0:38.6 (419 hits, B at -0.0%).
+3. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3` (3:26.6)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3` (5:39.6)
+   Lines up: A 2:08.5-3:06.3 with B 3:18.9-4:20.1 (319 hits, B at +5.9%); A 0:53.9-1:58.6 with B 1:54.2-3:02.7 (299 hits, B at +5.8%); A 0:22.9-0:42.6 with B 1:09.9-1:30.8 (183 hits, B at +5.9%).
+4. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3` (6:43.4)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3` (5:23.4)
+   Lines up: A 0:02.4-0:39.9 with B 0:27.3-1:04.8 (280 hits, B at -0.0%); A 6:20.1-6:38.9 with B 0:29.4-0:48.2 (177 hits, B at -0.0%); A 3:42.1-3:59.0 with B 0:48.2-1:05.1 (84 hits, B at -0.0%).
+5. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3` (3:26.6)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3` (6:01.2)
+   Lines up: A 0:22.1-1:15.3 with B 0:33.6-1:28.2 (209 hits, B at +2.6%); A 1:24.1-2:09.1 with B 2:32.6-3:18.6 (129 hits, B at +2.5%); A 2:41.8-2:54.4 with B 4:03.2-4:16.2 (72 hits, B at +2.6%).
+6. Asked because: the 2003 mix: possible during Phantom Force.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a` (6:27.1)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a` (5:43.1)
+   Lines up: A 1:40.3-2:29.2 with B 1:01.3-1:50.1 (195 hits, B at -0.1%); A 2:50.1-3:29.2 with B 1:09.7-1:48.8 (156 hits, B at -0.1%); A 1:00.5-1:29.8 with B 1:14.5-1:43.9 (140 hits, B at -0.1%).
+7. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3` (3:26.6)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3` (5:17.0)
+   Lines up: A 0:00.4-1:17.6 with B 0:11.5-1:30.6 (194 hits, B at +2.6%); A 1:24.1-2:09.6 with B 2:32.6-3:19.2 (147 hits, B at +2.5%); A 2:41.8-2:54.4 with B 4:03.2-4:16.2 (66 hits, B at +2.6%).
+8. Asked because: the Vertical mix: possible during Cannibal.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/butch-french/Sonic - Cannibal.m4a` (6:49.1)
+   B: `/Volumes/atlas/Music/dnb/1.mp3` (3:59.4)
+   Lines up: A 1:52.7-2:24.9 with B 3:28.1-3:58.4 (177 hits, B at -5.8%).
+9. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/bad_company-fear_lp/02 bad company-the nine.mp3` (6:59.8)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus` (3:51.3)
+   Lines up: A 0:47.0-1:25.0 with B 1:36.6-2:14.5 (145 hits, B at -0.0%).
+10. Asked because: the 2003 mix: possible during Phantom Force.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a` (6:27.1)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a` (5:00.0)
+   Lines up: A 4:00.7-4:27.9 with B 2:09.4-2:36.7 (141 hits, B at -0.1%).
+11. Asked because: 0076, not judged (A is a rip of the original mix).
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3` (3:29.9)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3` (3:36.7)
+   Lines up: A 1:26.8-1:58.5 with B 2:08.0-2:40.5 (140 hits, B at +2.5%); A 0:22.5-0:43.0 with B 0:28.8-0:49.9 (101 hits, B at +2.5%); A 0:14.1-0:21.0 with B 0:14.8-0:21.8 (89 hits, B at +2.5%).
+12. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3` (3:26.6)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3` (7:00.8)
+   Lines up: A 0:07.6-0:19.0 with B 0:01.0-0:12.4 (124 hits, B at +0.0%); A 0:22.0-0:37.5 with B 5:10.8-5:26.3 (102 hits, B at +0.0%).
+13. Asked because: 0076 (not judged) and the 2003 mix.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus` (7:21.6)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a` (3:05.1)
+   Lines up: A 1:50.7-2:29.0 with B 0:21.2-0:59.3 (118 hits, B at -0.6%).
+14. Asked because: the Vertical mix: possible during the VIP.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a` (7:28.1)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus` (7:09.0)
+   Lines up: A 6:20.4-7:09.9 with B 5:59.0-6:48.4 (108 hits, B at -0.0%); A 2:40.4-3:40.0 with B 2:41.2-3:40.7 (84 hits, B at -0.0%).
+15. Asked because: 0076, not judged.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a` (5:59.1)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a` (5:37.1)
+   Lines up: A 0:02.2-0:19.9 with B 0:07.4-0:25.0 (100 hits, B at -0.7%); A 0:20.3-0:39.7 with B 0:08.8-0:28.1 (78 hits, B at -0.7%).
+16. Asked because: the 2003 mix: possible during Phantom Force; heard on 2026-10-12 to share the drum break, no verdict line.
+   A: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a` (6:27.1)
+   B: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a` (6:34.1)
+   Lines up nowhere above 60 hits (strongest: A 1:31.2-2:09.6 with B 0:44.5-1:20.9, 14 hits).
+
+17. Asked because: the panel's development half (0111): with either one
+   played and its recording left out, the other is a wrong confident
+   title (up to 4,473 and 4,497 hits), and nobody has judged the pair.
+   A: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3` (6:40.2)
+   B: `/Volumes/atlas/Music/dnb/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3` (5:21.0)
+   Lines up: A 0:00.4-2:39.8 with B 0:00.3-2:39.7 (4470 hits); A 4:50.6-6:14.4 with B 3:54.7-5:18.5 (2367 hits); A 2:50.1-3:40.0 with B 2:27.6-3:17.6 (1272 hits).
+
+Questions 1 and 9 involve files of the validation half (Fractles, The
+Nine). `pair` aligned them for the sheets, as it did for every family
+when the panel was built; no scenario was run on them.
+
+### Proposed changes (to make manually)
+
+- **No manifest change.**
+- **The NAS duplicate clusters are behind the store.** At the current
+  revision, 9 confident detections in the development mixes count as
+  wrong only because their files are newer than session 18's clusters
+  (33,723 records). Each covers 98.8-99.9% of the credited file, so the
+  clustering rule makes them the same recordings: the hifi-junglist's
+  Drum&BassArena (React REACTCD201) disc 2 tracks 3, 4, 5, 7 and 8
+  (Spirit - Out Of Control, Total Science - Yvon Is On, Marcus Intalex &
+  ST Files - Balderdash, Tee Bee - Two Faced, Carlito & DJ Addiction -
+  Into Music) in the 2003 mix, and weedsurfer's Drumsound & Bassline
+  Smith - Phoenix and the hifi-junglist's Trace & Fresh - Mutated
+  (Version X) (U-PUNK-001 A) in the Vertical mix. Proposal: a later
+  session runs `clusters` at the current revision. Not done tonight,
+  because the panel was built from the present clusters file and a
+  rerun would replace it.
+
+### Worth knowing
+
+- **No listening file or manifest was written.** `docs/pair-verdicts.txt`,
+  `work/audition/answers.jsonl` and every manifest are unchanged
+  (digests and modification times as at the start). The NAS was only
+  read; the NAS peak store was not written (38,105 records, revision
+  `b285da9984422fb5` at the end, as at the start).
+- **Detections did not change.** `regress session-20-start` was
+  identical with the final build (720 of 720 sweep queries, all 87, 93
+  and 79 scan detections, the calibrate line known since session 19),
+  and the final `gunfinger` binary is byte-identical to the start
+  build's. `scripts/check.sh` is green (382 tests) with Homebrew's
+  toolchain and with rustup's, which also ran the Linux clippy.
+- **Proposal 3 stops** (experiment 0113). Split out of
+  `WindowHits::take_part`, its binary searches are 1.3-1.4% of the 2003
+  mix's CPU at NAS scale, under the 5% stop point; the copying of hits
+  is 9.1%. A directory of part boundaries would save at most that, for
+  about 72 MiB more memory. No code was kept.
+- **The harness's saved index** (`work/indexes/library-nas-dnb-peaks.index`)
+  was rebuilt at 38,127 files (the NAS store and the corpus); it is
+  current.
+- **The machine was not idle.** Other processes used up to one core and up to
+  0.4 more during the profiles. Nothing was adopted on timings.
+- **The test set was not touched**, nor the candidate mixes of
+  experiment 0065. No scenario or diagnostic ran on either validation
+  half; `pair` aligned the new panel's validation files once, for their
+  passages when the panel was built and for the sheets of questions 1
+  and 9.
+- **A review by a second agent** (read only) found one bug, one
+  misapplied rule and several overstated or wrong figures; all are
+  fixed above:
+  - `shared_panel.py join` used an undefined name, so the committed
+    script could not rebuild the panel. Fixed; it now reproduces the
+    panel byte for byte.
+  - For Sonar's revision played, the diagnostic had counted the related
+    recording as confident through another rip, while the rule speaks of
+    R. It now measures every file of the related recording, applies the
+    rule to R, and reports the confident file beside it.
+  - Watermelon's positive control was void (its other rip is not
+    indexed). The harness skips such a control now; the counts are 6
+    directions and 89 queries.
+  - Pyro - Time Is Broken's outcome rests on pairs per passage second,
+    and 0114 is not like-for-like. Both are now said; 0115 looked for
+    wrong plays in the mixes themselves.
+  - The harness reports a query it cannot render instead of stopping, as
+    the oracle says, keeps its renders under a digest of the plan, and
+    leaves silent padding out of the audio measure (5 new tests). The
+    diagnostic and the development half were rerun with these fixes:
+    every detection of the development half is the same, from fresh
+    renders, and the diagnostic's measures moved by at most 0.005 (its
+    chance values by up to 0.02).
+
+### Decided this session, open to change
+
+- The panel holds only judged pairs; 0076's unjudged pairs and
+  Meltdown ~ Phantom Force (heard as sharing a drum break on 2026-10-12,
+  without a verdict line) are listening questions, not members.
+- Fractles ~ We Enter is a control: `pair` finds at most 12 hits between
+  them, though shared material was heard at a 20-40-hit detection.
+- Rips the clusters never saw join a recording by the clustering rule
+  (80% coverage) from library audio alone.
+- The noise floor is the poorest rip of the played recording; where the
+  recording has one file only, the poorest rip over the development
+  half (a poor upload of Pyro - Time Is Broken, which decides Pyro's
+  outcome 1).
+- After step 6 finished early, a follow-up to step 4 (experiment 0114)
+  compared the unused evidence with true plays, and after the review a
+  like-for-like check (0115); both rules were written before they ran.
+- The roadmap now makes this panel a required check: anything that adds or
+  changes evidence runs the development half and may add no wrong
+  confident query there.
+- The diagnostic's rule is applied as written, to R, the plan's related
+  file. Where another file of the related recording is the confident
+  one (Sonar's revision played), it is reported beside the rule's
+  outcome, not in its place. Pairs per aligned span are reported as a
+  check, not used.
+
+### Decisions waiting
+
+- The next step for shared material (above).
+- The 17 listening questions.
+- Whether a later session reclusters the NAS library at the current
+  revision.
+- Still waiting: the containment rule (recommended: do not adopt), the
+  possible tier's threshold, test evaluation 5, session 18's three
+  manifest proposals, and the FFT lengths' retrieval study (now required to pass
+  this panel).

@@ -2802,3 +2802,119 @@ records the load (`work/s19/load-*.txt`).
 - After the fixes: `scripts/check.sh` green again with both toolchains
   (363 tests; the Linux pass skipped with Homebrew's, run with
   rustup's); the NAS store still 38,105 records, `b285da9984422fb5`.
+
+## 2026-10-15: session 20, the shared-material panel and proposal 5's diagnostic
+
+Brief `docs/brief-20.md`, checklist `docs/session-20-checklist.md`. Files
+were added to
+the NAS during the session.
+
+- 02:32 setup, `git status` clean at `2836414`. Release build in
+  `work/bin/s20-start/`; `baseline session-20-start`. The NAS store:
+  38,105 records, revision `b285da9984422fb5`, as expected; load 3.9.
+- 02:41 the oracle and the denominator, committed before any
+  measurement (`0ae0c6d`).
+- Step 2, the panel (experiment 0110, `scripts/analysis/shared_panel.py`
+  `families`, `rip-pairs`, `join`, `pairs`, `freeze`): 12 families from
+  the 13 `different` verdicts, 2 `shared` answers and 2 judgements in the
+  docs; recordings from session 18's duplicate clusters (read only) and
+  6 unclustered rips joined by the clustering rule (`pair`, 80% of the
+  shorter file); the five test-derived versions excluded; passages from
+  `pair` (the strongest alignment, under 25 hits a control); split by
+  family, seed 2026 (development: Dozer, Fire, Playground Shades, Pyro,
+  Sonar, Watermelon). `docs/panels/shared-material-seed-2026.json` and
+  its development plan.
+- 03:10 step 4's decision rule, committed before the diagnostic ran
+  (`a076ca2`).
+- Step 3 (experiment 0111): `gunfinger-eval shared` takes
+  `--other-peaks-dir` (corpus and NAS, 38,127 files; the saved index,
+  rebuilt at that size, with leave-outs), renders NAS files, takes each
+  recording's files from the plan (`played_recording`,
+  `related_recording`), and adds `before`, `weak`, `blend` and `break`
+  queries; 10 new tests (12 in `shared.rs`). One command, 02:59-03:31
+  (1,921 s, 8,898 s user, 5.4 GB); `scripts/analysis/shared_outcomes.py`
+  applies the oracle. Main case: wrong confident in 106 of 218 queries,
+  12 of 14 directions; no unjudged or other file confident.
+- Step 4 (experiment 0112): `gunfinger-eval identifiability --half
+  development` (`identifiability.rs`, 4 tests; `pair.rs`'s `Records`
+  made `pub(crate)`), 2.4 min; `scripts/analysis/shared_identifiability.py`
+  applies the rule (first version counted only the strongest wrong
+  title, so fire-2, 5 and 6 read "separated today"; fixed to test the
+  related file's own level). Outcome 3 in 11 of 14 directions, outcome 1
+  in pyro-2 (against a poor upload; the next rip 0.723, R 0.716),
+  Watermelon separated today.
+- Step 5: `listening_pack.py candidates` (and a README that lists only
+  the kinds present); 16 questions in `work/audition/s20/01-candidates.json`
+  (`pairs-s20-candidates.json`), later a 17th
+  (`02-fire-remix-vip.json`). The page checked twice with a temporary
+  answer log and a copy of the verdicts: the questions load, audio and
+  envelopes 200, nothing answered, the servers stopped.
+- Step 6 (experiment 0113): a split build (never committed, temporary
+  worktree from `a076ca2`, `work/s20/take-part-split.diff`) of the 2003
+  mix at NAS scale, twice under `sample` (`work/s20/profiles.sh`,
+  `work/s20/py/stages.py`), reports byte-identical to the start build's
+  (48.7 s, 412 s user): binary searches 1.3-1.4% of CPU, copying 9.1%.
+  Under the 5% stop point; worktree and build removed.
+- 03:57 the follow-up's rule committed (`efd8ea4`); experiment 0114:
+  `--verify scan` of the three development sets at NAS scale (2.0-2.3
+  min each; the older `verified/` reports copied to
+  `work/s20/nas-reports-before/` first), `scripts/analysis/shared_true_plays.py`:
+  the cut keeping 95% of 102 true confident detections rejects 8 (hits
+  per second) and 12 (verifier share) of the 106 wrong ones. 9 confident
+  detections score wrong at this revision, all NAS files newer than the
+  clusters and covering 98.8-99.9% of the credited file (`pair`,
+  `pairs-s20-candidates-2.json`).
+- Step 7, from 04:14: a read-only review by a subagent of
+  `2836414..abbb5d7` and the uncommitted notes. Clean: no product
+  change, verdicts unchanged, no attribution, no em dashes, experiments
+  at most 40 lines, docs JSON without absolute paths, the harness's
+  queries, roles and leave-outs, `shared_outcomes.py`, the per-direction
+  wrong lists and most numbers. Fixed:
+  - `shared_panel.py join` used an undefined `FITTED`; defined, and
+    `join` and `freeze` reproduce `work/s20/families-joined.json` and
+    both panel files byte for byte.
+  - Sonar-2's confident related file is not R but the PRO 012 A upload
+    of the same recording. `identifiability` now measures every file of
+    the related recording (role `related rip`) and leaves out frames of
+    digital silence (the padding where X has no audio), with 2 new tests
+    (the padding test fails on the old code). Rerun 04:44 (179 s; chance
+    values moved by up to 0.02, no measure by more than 0.005).
+    `shared_identifiability.py` applies the rule to R as written (R's
+    own detections, not the recording's strongest), reports the
+    confident file's outcome and pairs per aligned span beside it, and
+    leaves rips with no detection out of the floor. Outcome 3 in 10
+    directions (sonar-2 separated today by the rule, 3 by the confident
+    file); Pyro-1 is outcome 2 per aligned span.
+  - Watermelon-1's positive control was void: its other rip is a copy
+    the corpus file stands for, never indexed. `shared` now runs that
+    control only with an indexed rip (`SecondLibrary::holds`), reports a
+    query it cannot render instead of stopping (the oracle's rule), and
+    renders into `work/shared/<plan>-<render key>/`, a digest of the
+    plan and the render settings; 3 new tests. The development half
+    rerun under `screen`, 04:47-05:18 (1,850 s, 8,732 s user, 5.3 GB,
+    fresh renders in `...-83361e93ae0502ae/`): all 605 results with the
+    same detections as the first run; watermelon-1's 17 control results
+    gone (`work/s20/shared-dev-first.json` keeps the first report).
+  - Numbers: 0110's 24 unclustered files (57 pairs); 0111's control
+    (the related file at most 11 hits); 0112's ranges without controls
+    and Pyro's R (3.3-12.4); 0114's 91; item 17's question (fire-2 and
+    fire-6, not the original). Prose and caveats in the notes (0114 is
+    not like-for-like; the pooled floor's margins).
+  - 04:38 a like-for-like check written first; experiment 0115: the
+    three development sets with every referenced track left out
+    (`--verify scan --leave-out 12, 11, 17`, 1.9-2.1 min each): only the
+    9 newer uploads of the same recordings are confident; related
+    versions stay possible at 79-197 hits; no cut evaluated (fewer than
+    20 wrong plays).
+  - AGENTS.md lists `identifiability`.
+- Wrap-up: final build `work/bin/s20-final/` (`gunfinger` byte-identical
+  to `s20-start`). `regress session-20-start` identical (720/720 sweep
+  queries, all 87, 93 and 79 scan detections, the calibrate line known
+  since session 19; 152 s, 1,324 s user). `scripts/check.sh` green (382
+  tests) with Homebrew's 1.98.0 and with rustup's, which ran the Linux
+  clippy (`work/s20/check-*.log`). The NAS store at the end: 38,105
+  records, revision `b285da9984422fb5`, as at the start. Listening files and
+  the set manifests unchanged (digests, modification times). Scratch:
+  `work/s20/` 301 MB, the development renders 351 MB. Notes "Session
+  20", the roadmap's two items and the research note (proposals 3 and 5)
+  updated.

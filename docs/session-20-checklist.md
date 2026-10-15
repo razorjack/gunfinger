@@ -49,7 +49,7 @@ for scope and rules.
   byte-identical: the binary searches 1.3-1.4% of CPU, the copying
   9.1%; under the 5% stop point, proposal 3 stops; worktree removed;
   experiment 0113
-- [~] 7. Read-only review by a subagent (from 04:14); fixes: `FITTED`
+- [x] 7. Read-only review by a subagent (from 04:14); fixes: `FITTED`
   defined in `shared_panel.py` (`join` and `freeze` reproduce the panel
   byte for byte); `identifiability` measures every file of the related
   recording and leaves out silent padding frames (2 new tests; rerun);
@@ -62,11 +62,12 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] Notes "Session 20", status, roadmap ("A confidence statistic for
+- [x] Notes "Session 20", status, roadmap ("A confidence statistic for
   shared material"), the research note (proposal 5 measured)
-- [ ] `regress session-20-start` identical with the final build;
-  `scripts/check.sh` green
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] `regress session-20-start` identical with the final build;
+  `scripts/check.sh` green (382 tests, both toolchains)
+- [x] The NAS store's revision at the end: 38,105 records,
+  `b285da9984422fb5`, unchanged
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message
