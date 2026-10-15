@@ -3151,3 +3151,14 @@ was measured.
   seed 7 mixes than the stored report of October 6); committed.
 - 10:50 experiment 0119 (40 lines; data `0119-*`), the notes' "Session
   22", the roadmap and the research note, before the review.
+- Wrap-up: final build `work/bin/s22-final/` (`gunfinger` and
+  `gunfinger-eval` byte-identical to `s22-start`; no change under
+  `crates/` since `86b1b8d`). `regress session-22-start` identical
+  (720/720 sweep queries, all 87, 93 and 79 scan detections, the
+  calibrate line known since session 8; 153 s, 1,314 s user); only its
+  four reports were written to `work/reports/` this session.
+  `scripts/check.sh` green (396 tests) with Homebrew's 1.98.0 and with
+  rustup's, which ran the Linux clippy (`work/s22/check-*.log`). The NAS
+  store at the end: 38,105 records, revision `b285da9984422fb5`, as at
+  the start. Listening files and the development sets' manifests unchanged
+  (digests, modification times).

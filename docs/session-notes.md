@@ -4487,14 +4487,15 @@ already has.
 
 In short: the variant adds no wrong confident answer anywhere, keeps
 every track identified in the three development mixes (at 262 tracks
-and at NAS scale, with and without leave-outs), and keeps every sweep
-answer except one that becomes confident. Where the evidence sits at
-the confidence rule's edge (3 windows, 240 hits) its answers move in
-both directions: on damaged excerpts it loses 20 right confident answers
-and gains 24, and it loses the possible answer of two 10 s plays. Two starts in generated mixes
-move more than the tolerance fixed in advance. By the criteria written
-before the runs, precision passes and the strict recall and boundary
-criteria fail. Adopting the lengths is our decision.
+and at NAS scale, with and without leave-outs), and keeps every answer
+of the sweeps and of the recall panel; through other rips at NAS scale
+one answer becomes confident. Where the evidence sits at the confidence
+rule's edge (3 windows, 240 hits) its answers move in both directions:
+on damaged excerpts it loses 20 right confident answers and gains 24,
+and it loses the possible answer of two 10 s plays. Two starts in
+generated mixes move more than the tolerance fixed in advance. By the
+criteria written before the runs, precision passes and the strict recall
+and boundary criteria fail. Adopting the lengths is our decision.
 
 ### What the variant changes on each panel (experiment 0119)
 
@@ -4510,7 +4511,7 @@ Today's build against the variant, the same audio and index for both:
 | The 3 development mixes, NAS scale, and every track left out | the same 40 tracks | the same 9 (uploads the clusters do not join, as in 0115) | 1 possible play added; 50 boundaries move |
 | Generated mixes, seeds 2026 and 7 (168 plays) | 125, both | 0, both | 5 boundaries move, 2 worse |
 | Grid, short plays (960 queries) | 693, both | 0, both | 2 of 148 possible 10 s plays lost |
-| Robust, damage and blends (2,600 queries) | 1,941 -> 1,945 | 0, both | 20 lost, 24 gained |
+| Robust, damage and blends (2,600 queries of indexed tracks) | 1,941 -> 1,945 | 0, both | 20 right confident lost, 24 gained; 6 possible lost, 6 gained |
 
 - **The development mixes.** Every track is identified by the same files. Inside
   plays that stay confident, two things move in my 2003 mix: at

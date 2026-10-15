@@ -39,15 +39,16 @@ for scope and rules.
   2026-2029 (one confident answer gained, one possible lost and one
   gained); all runs done by 10:48
 - [x] 4. Experiment 0119 (40 lines, data `0119-*`); part 2's needs
-- [ ] 5. Read-only review by a subagent (by 11:15); fixes
+- [~] 5. Read-only review by a subagent, from 10:51; fixes
 
 ## Wrap-up
 
 - [x] Notes "Session 22", status, roadmap, the research note (drafts,
   before the review)
-- [ ] `regress session-22-start` identical with the main tree's final
-  build; `scripts/check.sh` green with both toolchains
-- [ ] The NAS store's revision at the end
+- [x] `regress session-22-start` identical with the main tree's final
+  build (byte-identical to the start build); `scripts/check.sh` green
+  with both toolchains (396 tests)
+- [x] The NAS store's revision at the end (`b285da9984422fb5`, unchanged)
 - [ ] The worktree removed
 - [ ] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
