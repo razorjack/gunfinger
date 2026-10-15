@@ -194,6 +194,7 @@ def representative(recording, family):
 
 
 SAME_RECORDING_COVERAGE = 0.8
+FITTED = "peaks, at the fitted speed"
 
 
 def join(families_path, report_path, out_path):

@@ -480,7 +480,7 @@ marked as inferences were derived, not measured.
   peaks and pairs, or present but unused; only the last justifies a new
   statistic (proposal 5 of
   `docs/research/2026-10-14-matching-proposals.md`).
-  *(session 20, experiments 0110-0114)* The challenge set exists:
+  *(session 20, experiments 0110-0115)* The challenge set exists:
   `docs/panels/shared-material-seed-2026.json`, 12 families from the
   judgements by ear (verdicts, `shared` answers, two judgements in the
   docs), each recording with its rips, split by family with seed 2026.
@@ -491,14 +491,18 @@ marked as inferences were derived, not measured.
   unsearched for a frozen rule. With the played recording left out at
   NAS scale, a related version is wrong confident in 106 of 218 queries
   and 12 of 14 directions once about a minute of the passage plays
-  (0111). Proposal 5's diagnostic: outcome 3 in 11 of 14 directions, no
-  outcome 2, outcome 1 once (0112). But the unused evidence is relative
-  to a clean copy of the played record: true plays in the development
-  mixes are as sparse, and no cut on hits per second or the verifier's
-  share keeps 95% of them and rejects half of the wrong plays (0114).
-  Next, where a related file's alignment stops while the music runs
-  on, tested against true plays with its rule written first; reporting
-  the ambiguity is the fallback (our decision). The panel is now
+  (0111). Proposal 5's diagnostic: outcome 3 (the information survives
+  into peaks; the rule ignores how sparse the evidence is) in 10 of 14
+  directions, clearly where the played recording has rips of its own;
+  outcome 1 once, against a poor upload (0112). But true plays in the
+  development mixes are as sparse: no cut on hits per second or the
+  verifier's share keeps 95% of them and rejects half of the panel's
+  wrong plays (0114, which compares clean renders with mixes), and the
+  mixes themselves, with every played recording left out, give no wrong
+  confident play to test against (0115). Next, where a related file's
+  alignment stops while the music runs on, tested against true plays
+  with its rule written first; reporting the ambiguity is the fallback
+  (our decision). The panel is now
   a required check: anything that adds or changes evidence (the items below, the
   band profile, a minimum span, the FFT lengths' retrieval study) runs
   its development half and may add no wrong confident query there.

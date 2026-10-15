@@ -128,7 +128,9 @@ library's records, beyond the corpus recordings), `survival` and `hash_cost` (ha
 measurements without a search) on top of `manifest` and `scoring`.
 `verifier` is a peak verifier after Qfp, a diagnostic behind `--verify`
 that leaves detections unchanged; `shared` searches queries cut from a
-passage two recordings share.
+passage two recordings share, and `identifiability` compares the files
+of two recordings over that passage in audio, peaks and pairs (proposal
+5's diagnostic, `docs/panels/`).
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus

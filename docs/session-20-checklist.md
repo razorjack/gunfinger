@@ -42,14 +42,23 @@ for scope and rules.
   checked with a temporary answer log and a copy of the verdicts (16
   questions, audio and envelopes 200, nothing answered). Later a 17th,
   Fire's Rogue Unit Remix ~ VIP (`02-fire-remix-vip.json`), checked the
-  same way; the 7 new uploads scored wrong in 0114 cover 99-100% of the
+  same way; the 7 new uploads scored wrong in 0114 cover 98.8-99.9% of the
   credited files, so the clustering rule settles them (no question)
 - [x] 6. Proposal 3's first step: `take_part` split (a build never
   committed) on the 2003 mix at NAS scale, twice under `sample`, reports
   byte-identical: the binary searches 1.3-1.4% of CPU, the copying
   9.1%; under the 5% stop point, proposal 3 stops; worktree removed;
   experiment 0113
-- [~] 7. Read-only review by a subagent; fixes
+- [~] 7. Read-only review by a subagent (from 04:14); fixes: `FITTED`
+  defined in `shared_panel.py` (`join` and `freeze` reproduce the panel
+  byte for byte); `identifiability` measures every file of the related
+  recording and leaves out silent padding frames (2 new tests; rerun);
+  `shared` skips a positive control whose rip is not indexed, reports a
+  query it cannot render, and keys its renders by a digest of the plan
+  (3 new tests; rerun under `screen`); `shared_identifiability.py` keeps
+  the rule on R and reports the confident file and pairs per span
+  beside it; numbers and prose in 0110-0114 and the notes; the
+  like-for-like check (rule written first, experiment 0115)
 
 ## Wrap-up
 

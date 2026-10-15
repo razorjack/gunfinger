@@ -10,12 +10,13 @@ with the panel into `version` (another recording or listed version of
 the family), `unjudged` (a file whose tags give one of the family's
 titles, relation unknown) and `other`. The blend partner's detections
 are set aside: it plays in the query, so it is neither right nor wrong.
+A query the harness could not render counts as `not rendered`.
 """
 import json
 import sys
 from collections import Counter, defaultdict
 
-OUTCOMES = ["right confident", "wrong confident", "possible only", "nothing"]
+OUTCOMES = ["right confident", "wrong confident", "possible only", "nothing", "not rendered"]
 KINDS = ["alone", "looped", "beyond", "before", "weak", "blend", "break"]
 INDEXES = ["everything", "played left out", "source left out"]
 RIGHT = {
@@ -54,6 +55,8 @@ def role(detection, versions, unjudged):
 
 
 def outcome(result, versions, unjudged):
+    if result.get("error"):
+        return "not rendered", None, False, {}
     found = [dict(d, role=role(d, versions, unjudged)) for d in result["detections"]
              if d["role"] != "partner"]
     confident = [d for d in found if d["level"] == "confident"]

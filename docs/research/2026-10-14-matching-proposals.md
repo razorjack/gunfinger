@@ -357,7 +357,7 @@ unverified; the riskiest of the five.
 **Kind:** a diagnostic; no change to the product. **Status:**
 unverified.
 
-- **Measured in session 20 (experiments 0110, 0111, 0112 and 0114): the
+- **Measured in session 20 (experiments 0110-0112, 0114 and 0115): the
   diagnostic on a panel's development half; no rule adopted.** The panel:
   12 recording families from the judgements by ear, split by family
   with seed 2026, the oracle and denominator written first
@@ -365,14 +365,17 @@ unverified.
   0110). Today's matcher at NAS scale with the played recording left
   out: a related version is wrong confident in 106 of 218 queries and 12
   of 14 directions (0111). Against the played recording's rips as the
-  noise floor: information that survives but the evidence ignores in 11
-  of 14 directions, no distinguishing information in one (thin, against
-  a poor upload), no information lost before peaks and pairs, one
-  family separated today (0112). The surviving information is relative
-  to a clean copy of the played record: true plays in the development
-  mixes are as sparse, and no cut on hits per second or the verifier's
-  share keeps 95% of them and rejects half of the wrong plays (0114).
-  The validation half is unsearched.
+  noise floor: information that survives but the evidence ignores in 10
+  of 14 directions (clearly in the five with rips of their own; Pyro-1
+  only by pairs per passage second), no distinguishing information in
+  one (thin, against a poor upload), no information lost before peaks
+  and pairs by the rule, the rest separated today (0112). The surviving
+  information is relative to a clean copy of the played record: true
+  plays in the development mixes are as sparse, and no cut on hits per
+  second or the verifier's share keeps 95% of them and rejects half of
+  the panel's wrong plays (0114, clean renders against mixes); the mixes
+  with every played recording left out give no wrong confident play to
+  test like-for-like (0115). The validation half is unsearched.
 - **Question.** Does a query hold distinctive evidence that today's
   representation does not use, or only material several versions share?
   An unchanged passage shared by two versions cannot say which supplied

@@ -1333,9 +1333,9 @@ fn run_sweep(paths: &Paths, seed: u64, other_rips: bool, jobs: usize) -> Result<
     Ok(())
 }
 
-/// The plan's scenarios, rendered into `<work>/shared/<plan name>/`; the
-/// report is `<plan name>.json`, with `shared-` put first when the name
-/// does not start with it.
+/// The plan's scenarios, rendered into `<work>/shared/<plan name>-<render
+/// key>/` (`shared::render_key`); the report is `<plan name>.json`, with
+/// `shared-` put first when the name does not start with it.
 fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String> {
     let text = fs::read_to_string(plan_file)
         .map_err(|error| format!("cannot read {}: {error}", plan_file.display()))?;
@@ -1347,6 +1347,11 @@ fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String
     );
     let second_root = second_library_root(paths.other_store()?.as_ref())?;
     let library = paths.library()?;
+    let renders = paths
+        .work
+        .join("shared")
+        .join(format!("{name}-{}", shared::render_key(&plan)));
+    eprintln!("queries rendered in {}", renders.display());
     let report = shared::run(
         &plan,
         &library,
@@ -1356,7 +1361,7 @@ fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String
             library: &library.root,
             second: second_root.as_deref(),
         },
-        &paths.work.join("shared").join(&name),
+        &renders,
         &shared::Options {
             ladder: &paths.rungs(),
             matching: &paths.matching,

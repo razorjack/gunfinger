@@ -9,15 +9,16 @@ scenario is searched?
 `different` verdicts, the 2 `shared` answers (35, 36), and two
 judgements in the docs (Clockwork ~ its Stakka Rmx, 0026 and ADR 0019;
 China Cup ~ The Nine, notes after session 4). Recordings are session
-18's NAS clusters (read only); 57 unclustered files whose tags give a
-family's titles were searched against it with `pair` (11 s), and 6
-joined a recording by the clustering rule (80% coverage), mostly uploads
-indexed since (`joined_in_session_20`). Order: the oracle committed
-(0ae0c6d), the split (seed 2026, SHA-256 order of family names), then
-`pair` on every judged pair both ways (30 directions, 325 s). 0076's
-unjudged pairs (Killa Bees, Tsunami, Star Trails, The Nine's ChaseR
-Bootleg, the Fire versions not judged against the original) are not
-members; their files in a judged family are listed as other versions.
+18's NAS clusters (read only); 24 unclustered files whose tags give a
+family's titles were searched against its recordings with `pair` (57
+pairs, 11 s), and 6 joined a recording by the clustering rule (80%
+coverage), mostly uploads indexed since (`joined_in_session_20`). Order:
+the oracle committed (0ae0c6d), the split (seed 2026, SHA-256 order of
+family names), then `pair` on every judged pair both ways (30
+directions, 325 s). 0076's unjudged pairs (Killa Bees, Tsunami, Star
+Trails, The Nine's ChaseR Bootleg, the Fire versions not judged against
+the original) are not members; their files in a judged family are listed
+as other versions.
 
 | Half | Families | Recordings | Pairs | Directions (controls) | Files |
 |---|---|--:|--:|--:|--:|

@@ -1,12 +1,17 @@
 {
- "question": "Session 20, step 4: proposal 5's identifiability diagnostic on the shared-material panel's development half; the outcome per direction by the rule written in docs/brief-20.md before the run",
+ "question": "Session 20, step 4: proposal 5's identifiability diagnostic on the shared-material panel's development half; the outcome per direction by the rule written in docs/brief-20.md before the run (R, the plan's related file), with the review's additions: the related recording's other files measured, the rule applied to the confident one where R itself never is, and pairs per aligned span as a sensitivity check",
  "command": "gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks identifiability docs/panels/shared-material-seed-2026.json --half development; scripts/analysis/shared_identifiability.py <that report> <0111's shared report> <shared_outcomes.py's output> <out>",
  "store_revision": "b285da9984422fb5 (38,105 records)",
- "measures": "audio: median correlation of band-centred log spectra along the detection's line; peaks: the verifier's share of the file's peaks found; pairs: hits per second of the passage; chance values at shifted alignments",
+ "measures": "audio: median correlation of band-centred log spectra along the detection's line, silent frames left out; peaks: the verifier's share of the file's peaks found; pairs: hits per second of the passage; chance values at shifted alignments for audio and peaks (none for pairs)",
  "pooled_floor": {
   "audio": 0.655,
   "peaks": 0.379,
   "pairs": 5.967
+ },
+ "pooled_floor_per_span": {
+  "audio": 0.655,
+  "peaks": 0.379,
+  "pairs": 9.795
  },
  "directions": [
   {
@@ -36,7 +41,7 @@
       "peaks_share": 0.339,
       "peaks_chance": 0.016,
       "audio_similarity": 0.582,
-      "audio_chance": 0.03
+      "audio_chance": 0.043
      }
     },
     {
@@ -66,19 +71,20 @@
     "pairs": 24.669
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
    "related": {
     "audio": 0.582,
     "peaks": 0.339,
     "pairs": 5.041
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 182,
     "beyond 20 s": 245,
     "before 20 s": null,
@@ -99,7 +105,8 @@
      244,
      1173
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "dozer",
@@ -128,7 +135,27 @@
       "peaks_share": 0.33,
       "peaks_chance": 0.018,
       "audio_similarity": 0.583,
-      "audio_chance": 0.059
+      "audio_chance": 0.041
+     }
+    },
+    {
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a",
+     "role": "related rip",
+     "found": {
+      "hits": 200,
+      "windows": 5,
+      "level": "possible",
+      "hits_per_second": 4.132,
+      "speed": 1.002,
+      "key_locked": false,
+      "query_start_seconds": 0.24,
+      "query_end_seconds": 47.043,
+      "file_start_seconds": 2.798,
+      "file_end_seconds": 49.699,
+      "peaks_share": 0.335,
+      "peaks_chance": 0.01,
+      "audio_similarity": 0.538,
+      "audio_chance": 0.04
      }
     }
    ],
@@ -138,19 +165,20 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "Ed Rush & Optical - Dozer.mp3",
    "related": {
     "audio": 0.583,
     "peaks": 0.33,
     "pairs": 5.103
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 173,
     "beyond 20 s": 261,
     "before 20 s": null,
@@ -176,7 +204,8 @@
      252,
      2175
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "fire",
@@ -235,19 +264,20 @@
     "pairs": 14.454
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
    "related": {
     "audio": 0.361,
     "peaks": 0.345,
     "pairs": 4.409
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 114,
     "beyond 20 s": 502,
     "before 20 s": null,
@@ -273,7 +303,8 @@
      493,
      1064
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "fire",
@@ -304,6 +335,26 @@
       "audio_similarity": 0.357,
       "audio_chance": 0.025
      }
+    },
+    {
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 538,
+      "windows": 12,
+      "level": "confident",
+      "hits_per_second": 4.69,
+      "speed": 0.967,
+      "key_locked": false,
+      "query_start_seconds": 0.0,
+      "query_end_seconds": 114.239,
+      "file_start_seconds": 8.03,
+      "file_end_seconds": 118.536,
+      "peaks_share": 0.349,
+      "peaks_chance": 0.007,
+      "audio_similarity": 0.357,
+      "audio_chance": 0.023
+     }
     }
    ],
    "floor": {
@@ -312,19 +363,20 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
    "related": {
     "audio": 0.357,
     "peaks": 0.354,
     "pairs": 4.56
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 140,
     "beyond 20 s": 508,
     "before 20 s": 142,
@@ -361,7 +413,8 @@
      564,
      1713
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "fire",
@@ -420,19 +473,20 @@
     "pairs": 13.111
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
    "related": {
     "audio": 0.355,
     "peaks": 0.348,
     "pairs": 4.945
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 181,
     "beyond 20 s": 573,
     "before 20 s": 186,
@@ -464,7 +518,8 @@
      578,
      1155
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "fire",
@@ -495,6 +550,26 @@
       "audio_similarity": 0.354,
       "audio_chance": 0.034
      }
+    },
+    {
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 565,
+      "windows": 12,
+      "level": "confident",
+      "hits_per_second": 4.776,
+      "speed": 1.0,
+      "key_locked": false,
+      "query_start_seconds": 0.0,
+      "query_end_seconds": 118.019,
+      "file_start_seconds": 22.404,
+      "file_end_seconds": 140.451,
+      "peaks_share": 0.334,
+      "peaks_chance": 0.006,
+      "audio_similarity": 0.352,
+      "audio_chance": 0.029
+     }
     }
    ],
    "floor": {
@@ -503,19 +578,20 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
    "related": {
     "audio": 0.354,
     "peaks": 0.339,
     "pairs": 5.038
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 186,
     "beyond 20 s": 591,
     "before 20 s": 188,
@@ -557,7 +633,8 @@
      600,
      2337
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "fire",
@@ -616,19 +693,20 @@
     "pairs": 14.441
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
    "related": {
     "audio": 0.362,
     "peaks": 0.348,
     "pairs": 4.315
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 126,
     "beyond 20 s": 496,
     "before 20 s": null,
@@ -654,7 +732,8 @@
      489,
      1037
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "fire",
@@ -685,6 +764,26 @@
       "audio_similarity": 0.36,
       "audio_chance": 0.024
      }
+    },
+    {
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 498,
+      "windows": 12,
+      "level": "confident",
+      "hits_per_second": 4.342,
+      "speed": 0.967,
+      "key_locked": false,
+      "query_start_seconds": 0.0,
+      "query_end_seconds": 114.235,
+      "file_start_seconds": 8.034,
+      "file_end_seconds": 118.534,
+      "peaks_share": 0.348,
+      "peaks_chance": 0.006,
+      "audio_similarity": 0.354,
+      "audio_chance": 0.025
+     }
     }
    ],
    "floor": {
@@ -693,19 +792,20 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
    "related": {
     "audio": 0.36,
     "peaks": 0.354,
     "pairs": 4.263
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 120,
     "beyond 20 s": 491,
     "before 20 s": 143,
@@ -752,7 +852,8 @@
      515,
      2052
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "playground-shades",
@@ -816,14 +917,11 @@
     "pairs": 15.29
    },
    "floor_from": "own rips",
-   "related": {
-    "audio": 0.0,
-    "peaks": 0.0,
-    "pairs": 0.0
-   },
+   "related_file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus",
+   "related": null,
    "outcome": "control",
-   "wrong_confident_kinds": [],
-   "related_hits_played_left_out": {
+   "related_wrong_confident_kinds": [],
+   "related_recording_hits_played_left_out": {
     "alone 30 s": null,
     "beyond 20 s": 8,
     "before 20 s": 0,
@@ -875,6 +973,31 @@
       "audio_similarity": 0.005,
       "audio_chance": 0.019
      }
+    },
+    {
+     "file": "second-library/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 6,
+      "windows": 2,
+      "level": "weak",
+      "hits_per_second": 0.39,
+      "speed": 1.08,
+      "key_locked": false,
+      "query_start_seconds": 0.0,
+      "query_end_seconds": 14.093,
+      "file_start_seconds": 299.214,
+      "file_end_seconds": 314.452,
+      "peaks_share": 0.047,
+      "peaks_chance": 0.007,
+      "audio_similarity": 0.005,
+      "audio_chance": 0.019
+     }
+    },
+    {
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus",
+     "role": "related rip",
+     "found": null
     }
    ],
    "floor": {
@@ -883,14 +1006,15 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
    "related": {
     "audio": 0.005,
     "peaks": 0.047,
     "pairs": 0.39
    },
    "outcome": "control",
-   "wrong_confident_kinds": [],
-   "related_hits_played_left_out": {
+   "related_wrong_confident_kinds": [],
+   "related_recording_hits_played_left_out": {
     "alone 30 s": null,
     "beyond 20 s": 6,
     "before 20 s": 0,
@@ -940,7 +1064,7 @@
       "peaks_share": 0.589,
       "peaks_chance": 0.014,
       "audio_similarity": 0.489,
-      "audio_chance": 0.098
+      "audio_chance": 0.1
      }
     },
     {
@@ -980,7 +1104,7 @@
       "peaks_share": 0.379,
       "peaks_chance": 0.008,
       "audio_similarity": 0.655,
-      "audio_chance": 0.123
+      "audio_chance": 0.124
      }
     }
    ],
@@ -990,20 +1114,21 @@
     "pairs": 5.967
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
    "related": {
     "audio": 0.489,
     "peaks": 0.589,
     "pairs": 2.307
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "alone",
     "beyond",
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 244,
     "beyond 20 s": 374,
     "before 20 s": null,
@@ -1034,7 +1159,8 @@
      445,
      1283
     ]
-   }
+   },
+   "outcome pairs per span": "2: lost before peaks and pairs"
   },
   {
    "family": "pyro",
@@ -1065,6 +1191,46 @@
       "audio_similarity": 0.716,
       "audio_chance": 0.136
      }
+    },
+    {
+     "file": "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 396,
+      "windows": 3,
+      "level": "confident",
+      "hits_per_second": 13.244,
+      "speed": 1.0,
+      "key_locked": false,
+      "query_start_seconds": 0.032,
+      "query_end_seconds": 29.519,
+      "file_start_seconds": 9.929,
+      "file_end_seconds": 39.418,
+      "peaks_share": 0.596,
+      "peaks_chance": 0.011,
+      "audio_similarity": 0.716,
+      "audio_chance": 0.136
+     }
+    },
+    {
+     "file": "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a",
+     "role": "related rip",
+     "found": {
+      "hits": 260,
+      "windows": 3,
+      "level": "confident",
+      "hits_per_second": 8.696,
+      "speed": 1.0,
+      "key_locked": false,
+      "query_start_seconds": 0.059,
+      "query_end_seconds": 29.39,
+      "file_start_seconds": 10.063,
+      "file_end_seconds": 39.394,
+      "peaks_share": 0.477,
+      "peaks_chance": 0.008,
+      "audio_similarity": 0.622,
+      "audio_chance": 0.142
+     }
     }
    ],
    "floor": {
@@ -1073,13 +1239,14 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "extra/A. Pyro -- Time Is Broken.mp3",
    "related": {
     "audio": 0.716,
     "peaks": 0.596,
     "pairs": 13.244
    },
    "outcome": "1: no distinguishing information",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "alone",
     "before",
     "beyond",
@@ -1087,7 +1254,7 @@
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 366,
     "beyond 20 s": 425,
     "before 20 s": null,
@@ -1113,7 +1280,8 @@
      425,
      5399
     ]
-   }
+   },
+   "outcome pairs per span": "1: no distinguishing information"
   },
   {
    "family": "sonar",
@@ -1142,7 +1310,7 @@
       "peaks_share": 0.248,
       "peaks_chance": 0.014,
       "audio_similarity": 0.572,
-      "audio_chance": 0.186
+      "audio_chance": 0.199
      }
     },
     {
@@ -1162,7 +1330,7 @@
       "peaks_share": 0.781,
       "peaks_chance": 0.079,
       "audio_similarity": 0.948,
-      "audio_chance": 0.225
+      "audio_chance": 0.226
      }
     },
     {
@@ -1182,7 +1350,7 @@
       "peaks_share": 0.965,
       "peaks_chance": 0.071,
       "audio_similarity": 1.0,
-      "audio_chance": 0.22
+      "audio_chance": 0.226
      }
     },
     {
@@ -1212,18 +1380,19 @@
     "pairs": 11.05
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
    "related": {
     "audio": 0.572,
     "peaks": 0.248,
     "pairs": 1.799
    },
    "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
+   "related_wrong_confident_kinds": [
     "blend",
     "looped",
     "weak"
    ],
-   "related_hits_played_left_out": {
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 113,
     "beyond 20 s": 171,
     "before 20 s": null,
@@ -1249,7 +1418,8 @@
      266,
      451
     ]
-   }
+   },
+   "outcome pairs per span": "3: survives, ignored by the evidence"
   },
   {
    "family": "sonar",
@@ -1280,6 +1450,66 @@
       "audio_similarity": 0.599,
       "audio_chance": 0.242
      }
+    },
+    {
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 227,
+      "windows": 7,
+      "level": "possible",
+      "hits_per_second": 3.309,
+      "speed": 1.006,
+      "key_locked": false,
+      "query_start_seconds": 0.041,
+      "query_end_seconds": 68.235,
+      "file_start_seconds": 0.066,
+      "file_end_seconds": 68.686,
+      "peaks_share": 0.376,
+      "peaks_chance": 0.033,
+      "audio_similarity": 0.606,
+      "audio_chance": 0.242
+     }
+    },
+    {
+     "file": "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+     "role": "related rip",
+     "found": {
+      "hits": 194,
+      "windows": 7,
+      "level": "possible",
+      "hits_per_second": 2.828,
+      "speed": 1.006,
+      "key_locked": false,
+      "query_start_seconds": 0.041,
+      "query_end_seconds": 67.743,
+      "file_start_seconds": 0.16,
+      "file_end_seconds": 68.282,
+      "peaks_share": 0.331,
+      "peaks_chance": 0.031,
+      "audio_similarity": 0.599,
+      "audio_chance": 0.242
+     }
+    },
+    {
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+     "role": "related rip",
+     "found": {
+      "hits": 257,
+      "windows": 7,
+      "level": "confident",
+      "hits_per_second": 3.746,
+      "speed": 1.033,
+      "key_locked": false,
+      "query_start_seconds": 0.0,
+      "query_end_seconds": 68.06,
+      "file_start_seconds": 2.066,
+      "file_end_seconds": 72.353,
+      "peaks_share": 0.392,
+      "peaks_chance": 0.101,
+      "audio_similarity": 0.626,
+      "audio_chance": 0.196
+     }
     }
    ],
    "floor": {
@@ -1288,19 +1518,15 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "DJ Trace - Sonar.m4a",
    "related": {
     "audio": 0.599,
     "peaks": 0.331,
     "pairs": 2.828
    },
-   "outcome": "3: survives, ignored by the evidence",
-   "wrong_confident_kinds": [
-    "beyond",
-    "blend",
-    "looped",
-    "weak"
-   ],
-   "related_hits_played_left_out": {
+   "outcome": "separated today",
+   "related_wrong_confident_kinds": [],
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 149,
     "beyond 20 s": 312,
     "before 20 s": null,
@@ -1331,6 +1557,22 @@
      271,
      2466
     ]
+   },
+   "outcome pairs per span": "separated today",
+   "by the confident file": {
+    "file": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+    "measures": {
+     "audio": 0.626,
+     "peaks": 0.392,
+     "pairs": 3.746
+    },
+    "kinds": [
+     "beyond",
+     "blend",
+     "looped",
+     "weak"
+    ],
+    "outcome": "3: survives, ignored by the evidence"
    }
   },
   {
@@ -1390,14 +1632,15 @@
     "pairs": 74.77
    },
    "floor_from": "own rips",
+   "related_file": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
    "related": {
     "audio": 0.089,
     "peaks": 0.249,
     "pairs": 0.591
    },
    "outcome": "separated today",
-   "wrong_confident_kinds": [],
-   "related_hits_played_left_out": {
+   "related_wrong_confident_kinds": [],
+   "related_recording_hits_played_left_out": {
     "alone 30 s": 24,
     "beyond 20 s": 27,
     "before 20 s": 7,
@@ -1424,7 +1667,8 @@
      46,
      168
     ]
-   }
+   },
+   "outcome pairs per span": "separated today"
   },
   {
    "family": "watermelon",
@@ -1455,6 +1699,26 @@
       "audio_similarity": 0.162,
       "audio_chance": 0.05
      }
+    },
+    {
+     "file": "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3",
+     "role": "related rip",
+     "found": {
+      "hits": 29,
+      "windows": 2,
+      "level": "weak",
+      "hits_per_second": 1.224,
+      "speed": 1.048,
+      "key_locked": true,
+      "query_start_seconds": 3.053,
+      "query_end_seconds": 18.377,
+      "file_start_seconds": 292.202,
+      "file_end_seconds": 308.222,
+      "peaks_share": 0.245,
+      "peaks_chance": 0.003,
+      "audio_similarity": 0.162,
+      "audio_chance": 0.05
+     }
     }
    ],
    "floor": {
@@ -1463,14 +1727,15 @@
     "pairs": 5.967
    },
    "floor_from": "pooled",
+   "related_file": "Ed Rush & Optical - Watermelon.mp3",
    "related": {
     "audio": 0.162,
     "peaks": 0.245,
     "pairs": 1.224
    },
    "outcome": "separated today",
-   "wrong_confident_kinds": [],
-   "related_hits_played_left_out": {
+   "related_wrong_confident_kinds": [],
+   "related_recording_hits_played_left_out": {
     "alone 30 s": null,
     "beyond 20 s": 7,
     "before 20 s": 31,
@@ -1497,7 +1762,8 @@
      10,
      49
     ]
-   }
+   },
+   "outcome pairs per span": "separated today"
   }
  ]
 }

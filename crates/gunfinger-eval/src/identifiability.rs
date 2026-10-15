@@ -5,8 +5,9 @@
 //! the pair hashes, next to the played recording's own rips, the noise
 //! floor (two rips of one record are one recording, however they sound).
 //!
-//! For each file X (the related file, and each other file of the played
-//! recording), the played file's passage is decoded and searched against
+//! For each file X (the related file, the related recording's other
+//! files, and each other file of the played recording), the played
+//! file's passage is decoded and searched against
 //! an index of X alone with the fitted matcher on both ladders, as `pair`
 //! searches audio. X's strongest detection gives
 //! - pairs: its hits, and hits per second of the passage;
@@ -17,7 +18,8 @@
 //!   log-power spectra across bins, after each bin's mean over the
 //!   passage is taken out (a fixed EQ or transfer curve), each 10 s window
 //!   at its best lag within a few frames; and the highest such value with
-//!   X shifted away (chance).
+//!   X shifted away (chance). Frames of digital silence on either side
+//!   (where X has no audio) are left out.
 //!
 //! It searches no large index: the panel's queries against the whole
 //! library are `shared`'s.
@@ -94,7 +96,8 @@ pub struct Measured {
 #[derive(Serialize)]
 pub struct Compared {
     pub file: String,
-    /// `related`, or `rip` for another file of the played recording.
+    /// `related`, `related rip` for another file of the related
+    /// recording, or `rip` for another file of the played recording.
     pub role: String,
     /// X's strongest detection in the passage, if any.
     pub found: Option<Found>,
@@ -127,12 +130,22 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
                 continue;
             };
             eprintln!("{}", direction.name);
-            let played = family
-                .recordings
-                .iter()
-                .find(|recording| recording.contains(&direction.played))
-                .ok_or_else(|| format!("{} is in no recording of its family", direction.played))?;
+            let recording_of = |file: &String| {
+                family
+                    .recordings
+                    .iter()
+                    .find(|recording| recording.contains(file))
+                    .ok_or_else(|| format!("{file} is in no recording of its family"))
+            };
+            let played = recording_of(&direction.played)?;
+            let related = recording_of(&direction.related)?;
             let mut files = vec![(direction.related.clone(), "related")];
+            files.extend(
+                related
+                    .iter()
+                    .filter(|file| **file != direction.related)
+                    .map(|file| (file.clone(), "related rip")),
+            );
             files.extend(
                 played
                     .iter()
@@ -249,15 +262,16 @@ fn aligned_audio(
 ) -> Result<Vec<f32>, String> {
     let rate = f64::from(Profile::CURRENT.sample_rate);
     let speed = detection.speed.0;
-    let at_zero = detection.track_start_seconds - speed * detection.start_seconds + shift;
+    let (at_zero, lead) = line_start(
+        detection.track_start_seconds,
+        detection.start_seconds,
+        speed,
+        shift,
+        rate,
+    );
     let playback = match detection.playback {
         speed::Playback::KeyLocked => Playback::KeyLocked(speed),
         speed::Playback::Turntable => Playback::Turntable(speed),
-    };
-    let lead = if at_zero < 0.0 {
-        (-at_zero / speed * rate) as usize
-    } else {
-        0
     };
     let seconds = length as f64 / rate;
     let resample = format!("aresample={}", Profile::CURRENT.sample_rate);
@@ -268,10 +282,24 @@ fn aligned_audio(
     Ok(samples)
 }
 
+/// Where X's audio starts for the passage's first sample on the line
+/// through (`start`, `track_start`) at `speed`, `shift` seconds of X
+/// later, and how many samples of silence come first when that is before
+/// X's start.
+fn line_start(track_start: f64, start: f64, speed: f64, shift: f64, rate: f64) -> (f64, usize) {
+    let at_zero = track_start - speed * start + shift;
+    let lead = if at_zero < 0.0 {
+        (-at_zero / speed * rate) as usize
+    } else {
+        0
+    };
+    (at_zero, lead)
+}
+
 /// The median over frames of the correlation of `a`'s and `b`'s log-power
 /// spectra across the profile's bins, each bin's mean over the excerpt
 /// taken out; each window of `WINDOW_SECONDS` at its best lag within
-/// `MAX_LAG_FRAMES`.
+/// `MAX_LAG_FRAMES`. Silent frames on either side are left out.
 fn similarity(a: &[f32], b: &[f32], profile: &Profile) -> f64 {
     let a = centred_spectra(a, profile);
     let b = centred_spectra(b, profile);
@@ -286,7 +314,7 @@ fn similarity(a: &[f32], b: &[f32], profile: &Profile) -> f64 {
                 (start..end)
                     .filter_map(|frame| {
                         let other = frame.checked_add_signed(lag).filter(|&f| f < frames)?;
-                        Some(correlation(&a[frame], &b[other]))
+                        Some(correlation(a[frame].as_ref()?, b[other].as_ref()?))
                     })
                     .collect::<Vec<f64>>()
             })
@@ -303,23 +331,31 @@ fn lags() -> impl Iterator<Item = isize> {
     -max..=max
 }
 
-/// Each frame's log power over the profile's bins, less each bin's mean.
-fn centred_spectra(samples: &[f32], profile: &Profile) -> Vec<Vec<f64>> {
-    let mut spectra: Vec<Vec<f64>> = Vec::new();
+/// Each frame's log power over the profile's bins, less each bin's mean
+/// over the frames that are not digital silence; `None` for those.
+fn centred_spectra(samples: &[f32], profile: &Profile) -> Vec<Option<Vec<f64>>> {
+    let mut spectra: Vec<Option<Vec<f64>>> = Vec::new();
+    let mut start = 0;
     for_each_frame(samples, profile, |power| {
-        spectra.push(
+        let silent = samples[start..start + profile.fft_size]
+            .iter()
+            .all(|&sample| sample == 0.0);
+        start += profile.hop;
+        spectra.push((!silent).then(|| {
             power[profile.min_bin..profile.max_bin]
                 .iter()
                 .map(|&db| f64::from(db))
-                .collect(),
-        );
+                .collect()
+        }));
     });
+    let heard: Vec<&Vec<f64>> = spectra.iter().flatten().collect();
     let bins = profile.max_bin - profile.min_bin;
-    for bin in 0..bins {
-        let mean =
-            spectra.iter().map(|frame| frame[bin]).sum::<f64>() / spectra.len().max(1) as f64;
-        for frame in &mut spectra {
-            frame[bin] -= mean;
+    let means: Vec<f64> = (0..bins)
+        .map(|bin| heard.iter().map(|frame| frame[bin]).sum::<f64>() / heard.len().max(1) as f64)
+        .collect();
+    for frame in spectra.iter_mut().flatten() {
+        for (value, mean) in frame.iter_mut().zip(&means) {
+            *value -= mean;
         }
     }
     spectra
@@ -373,9 +409,9 @@ pub fn print_summary(report: &Report) {
         for role in roles {
             for compared in direction.files.iter().filter(|file| file.role == role) {
                 match &compared.found {
-                    None => println!("  {role:<8} nothing  {}", compared.file),
+                    None => println!("  {role:<11} nothing  {}", compared.file),
                     Some(found) => println!(
-                        "  {role:<8} {:>5} hits {:>2} windows {:>5.2}/s  peaks {:.2} (chance {:.2})  audio {:.2} (chance {:.2})  {}",
+                        "  {role:<11} {:>5} hits {:>2} windows {:>5.2}/s  peaks {:.2} (chance {:.2})  audio {:.2} (chance {:.2})  {}",
                         found.hits,
                         found.windows,
                         found.hits_per_second,
@@ -457,5 +493,27 @@ mod tests {
             .collect();
 
         assert!(similarity(&a, &late, &profile) > 0.95);
+    }
+
+    #[test]
+    fn silence_where_x_has_no_audio_is_left_out() {
+        let profile = Profile::CURRENT;
+        let a = music_like(30.0, 4);
+        let padded: Vec<f32> = a
+            .iter()
+            .enumerate()
+            .map(|(n, &x)| if n < a.len() * 3 / 5 { 0.0 } else { x })
+            .collect();
+
+        assert!(similarity(&a, &padded, &profile) > 0.95);
+    }
+
+    #[test]
+    fn the_line_maps_the_passage_start_into_x() {
+        assert_eq!(line_start(50.0, 10.0, 1.25, 0.0, 8000.0), (37.5, 0));
+        assert_eq!(line_start(50.0, 10.0, 1.25, 5.0, 8000.0), (42.5, 0));
+        // X's start is 2 s into the passage at 1.25 times: 16,000 samples
+        // of silence come first.
+        assert_eq!(line_start(10.0, 10.0, 1.25, 0.0, 8000.0), (-2.5, 16_000));
     }
 }

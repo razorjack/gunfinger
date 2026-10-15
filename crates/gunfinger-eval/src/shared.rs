@@ -25,9 +25,10 @@
 //! Each runs against three indexes: everything; the played recording left
 //! out (its duplicate cluster and the plan's other files of it), the
 //! related file kept; and, as a positive control, the played file alone
-//! left out while another rip of it stays. With a larger library
+//! left out while another indexed rip of it stays. With a larger library
 //! (`--other-peaks-dir`) every index also holds its records (`padding`),
-//! and its files are rendered from its root.
+//! and its files are rendered from its root. A query that cannot be
+//! rendered is reported with its error and not searched.
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -119,6 +120,9 @@ pub struct QueryResult {
     /// `everything`, `played left out` or `source left out`.
     pub index: String,
     pub left_out: Vec<String>,
+    /// Why the query could not be rendered; it was then not searched.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
     /// Every detection with two windows or more, strongest first.
     pub detections: Vec<SharedFound>,
 }
@@ -217,20 +221,43 @@ pub fn run(
         .as_ref()
         .map(|partner| clusters.cluster_of(&partner.file))
         .unwrap_or_default();
+    let indexed = |file: &str| {
+        records
+            .iter()
+            .any(|record| record.header.source.path == file)
+            || options
+                .padding
+                .second
+                .as_ref()
+                .is_some_and(|second| second.holds(file))
+    };
     let mut results = Vec::new();
     for scenario in &plan.scenarios {
         let queries = queries(scenario, plan.blend_partner.is_some());
-        for query in &queries {
-            render(roots, scenario, query, plan.blend_partner.as_ref(), dir)?;
-        }
+        let rendered = render_each(roots, scenario, &queries, plan.blend_partner.as_ref(), dir);
         let played = recording(clusters, &scenario.played, &scenario.played_recording);
         let related = recording(clusters, &scenario.related, &scenario.related_recording);
-        for (index_name, left_out) in indexes(scenario, &played) {
+        for (index_name, left_out) in indexes(scenario, &played, &indexed) {
             let index = options
                 .matching
                 .index(options.padding.index(&records, &profile, &left_out)?);
             let searched: Vec<Result<QueryResult, String>> =
-                map_in_order(&queries, options.jobs, |query| {
+                map_in_order(&rendered, options.jobs, |(query, error)| {
+                    let result =
+                        |error: Option<String>, detections: Vec<SharedFound>| QueryResult {
+                            scenario: scenario.name.clone(),
+                            kind: query.kind.name().to_owned(),
+                            query: query.name.clone(),
+                            seconds: query.seconds,
+                            start_seconds: query.start_seconds,
+                            index: index_name.to_owned(),
+                            left_out: left_out.iter().cloned().collect(),
+                            error,
+                            detections,
+                        };
+                    if let Some(error) = error {
+                        return Ok(result(Some(error.clone()), Vec::new()));
+                    }
                     let path = dir.join(format!("{}.mp3", query.name));
                     let audio = decode(&path, profile.sample_rate, Excerpt::default())
                         .map_err(|error| error.to_string())?;
@@ -241,15 +268,9 @@ pub fn run(
                         options.ladder,
                         1,
                     );
-                    Ok(QueryResult {
-                        scenario: scenario.name.clone(),
-                        kind: query.kind.name().to_owned(),
-                        query: query.name.clone(),
-                        seconds: query.seconds,
-                        start_seconds: query.start_seconds,
-                        index: index_name.to_owned(),
-                        left_out: left_out.iter().cloned().collect(),
-                        detections: detections
+                    Ok(result(
+                        None,
+                        detections
                             .iter()
                             .map(|detection| {
                                 let asset = &index.asset(detection.asset).path;
@@ -281,7 +302,7 @@ pub fn run(
                                 }
                             })
                             .collect(),
-                    })
+                    ))
                 });
             for result in searched {
                 results.push(result?);
@@ -477,18 +498,64 @@ fn blended(samples: &[f32], partner: &[f32], from: usize) -> Vec<f32> {
 }
 
 /// The indexes a scenario runs against, by name, as the files left out.
+/// The positive control needs another rip of the played recording that
+/// the index holds: a copy a corpus file stands for is not indexed.
 fn indexes(
     scenario: &Scenario,
     played: &BTreeSet<String>,
+    indexed: &dyn Fn(&str) -> bool,
 ) -> Vec<(&'static str, BTreeSet<String>)> {
     let mut indexes = vec![
         ("everything", BTreeSet::new()),
         ("played left out", played.clone()),
     ];
-    if played.len() > 1 {
+    if played
+        .iter()
+        .any(|file| *file != scenario.played && indexed(file))
+    {
         indexes.push(("source left out", BTreeSet::from([scenario.played.clone()])));
     }
     indexes
+}
+
+/// Renders each query, or says why it could not be rendered.
+fn render_each<'q>(
+    roots: &Roots,
+    scenario: &Scenario,
+    queries: &'q [Query],
+    partner: Option<&Partner>,
+    dir: &Path,
+) -> Vec<(&'q Query, Option<String>)> {
+    queries
+        .iter()
+        .map(|query| {
+            let error = render(roots, scenario, query, partner, dir).err();
+            if let Some(error) = &error {
+                eprintln!("{}: not rendered: {error}", query.name);
+            }
+            (query, error)
+        })
+        .collect()
+}
+
+/// A digest of what the plan's queries sound like besides the source files:
+/// the plan and the settings above. Rendered queries are kept in a
+/// directory named with it, so a changed plan or setting renders afresh.
+pub fn render_key(plan: &Plan) -> String {
+    let settings = format!(
+        "{ALONE_SECONDS:?} {LOOPED_SECONDS:?} {BEYOND_SECONDS:?} {BEFORE_SECONDS:?} \
+         {BEFORE_PASSAGE_SECONDS} {WEAK_ALONE_SECONDS} {CONTEXT_SECONDS} {WEAK_RIP_FILTER} \
+         {WEAK_RIP_ENCODING:?} {BREAK_SECONDS} {BREAK_LOOPED_SECONDS:?} {RENDER_RATE}"
+    );
+    let plan = serde_json::to_vec(&(&plan.blend_partner, &plan.scenarios)).unwrap_or_default();
+    format!("{:016x}", fnv1a(&[settings.as_bytes(), &plan].concat()))
+}
+
+/// 64-bit FNV-1a.
+fn fnv1a(bytes: &[u8]) -> u64 {
+    bytes.iter().fold(0xcbf2_9ce4_8422_2325, |hash, &byte| {
+        (hash ^ u64::from(byte)).wrapping_mul(0x0000_0100_0000_01b3)
+    })
 }
 
 pub fn print_summary(report: &SharedReport) {
@@ -687,7 +754,7 @@ mod tests {
                 String::from("a-upload.m4a")
             ])
         );
-        assert_eq!(indexes(&scenario(18.0), &files)[1].1, files);
+        assert_eq!(indexes(&scenario(18.0), &files, &|_| true)[1].1, files);
     }
 
     #[test]
@@ -695,7 +762,49 @@ mod tests {
         let alone = BTreeSet::from([String::from("a.mp3")]);
         let ripped = BTreeSet::from([String::from("a.mp3"), String::from("a-rip.mp3")]);
 
-        assert_eq!(indexes(&scenario(18.0), &alone).len(), 2);
-        assert_eq!(indexes(&scenario(18.0), &ripped).len(), 3);
+        assert_eq!(indexes(&scenario(18.0), &alone, &|_| true).len(), 2);
+        assert_eq!(indexes(&scenario(18.0), &ripped, &|_| true).len(), 3);
+    }
+
+    #[test]
+    fn a_rip_the_index_does_not_hold_is_no_positive_control() {
+        let ripped = BTreeSet::from([String::from("a.mp3"), String::from("a-rip.mp3")]);
+        let only_the_played_file = |file: &str| file == "a.mp3";
+
+        assert_eq!(
+            indexes(&scenario(18.0), &ripped, &only_the_played_file).len(),
+            2
+        );
+    }
+
+    #[test]
+    fn a_query_that_cannot_be_rendered_is_reported() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-shared-{}", std::process::id()));
+        let roots = Roots {
+            library: &dir,
+            second: None,
+        };
+        let scenario = scenario(60.0);
+        let queries = queries(&scenario, false);
+
+        let rendered = render_each(&roots, &scenario, &queries, None, &dir);
+
+        assert_eq!(rendered.len(), queries.len());
+        assert!(rendered.iter().all(|(_, error)| error.is_some()));
+        let _ = fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn the_render_key_follows_the_plan() {
+        let plan = |end: f64| Plan {
+            blend_partner: None,
+            scenarios: vec![Scenario {
+                passage_end_seconds: end,
+                ..scenario(60.0)
+            }],
+        };
+
+        assert_eq!(render_key(&plan(160.0)), render_key(&plan(160.0)));
+        assert_ne!(render_key(&plan(160.0)), render_key(&plan(161.0)));
     }
 }

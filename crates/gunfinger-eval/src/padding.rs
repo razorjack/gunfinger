@@ -148,6 +148,13 @@ impl SecondLibrary {
         self.assets.len()
     }
 
+    /// Whether the asset the index names `path` (prefixed) is one of this
+    /// library's: a copy a corpus file stands for is not.
+    pub fn holds(&self, path: &str) -> bool {
+        path.strip_prefix(SECOND_LIBRARY_PREFIX)
+            .is_some_and(|path| self.assets.iter().any(|asset| asset.path == path))
+    }
+
     /// The record of the asset the index names `path` (prefixed); `None`
     /// when it is not one of this library's.
     pub fn record(&self, path: &str) -> Option<Result<PeakRecord, String>> {

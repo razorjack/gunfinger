@@ -18,11 +18,11 @@ aligned share. `shared_true_plays.py`; data `data/0114-true-plays.json`.
 
 - Both fail proposal 5's review (keep 95%, reject at least half). The
   66 related-file plays alone: 8 and 12 below the cuts. The 40 plays of
-  other versions (mostly Fire's remix and VIP, copies of each other) sit
-  at 4.4-39.9 hits per second, among the dense true plays.
+  other versions (mostly Fire's remix and VIP, unjudged copies of each
+  other) sit at 4.4-39.9 hits per second, among the dense true plays.
 - With each track's strongest detection only (40), the cuts are 4.92 and
   0.357 and reject 40 and 51 of 106, but applied to every detection they
-  keep only 89 and 90 of the 102 true ones.
+  keep only 89 and 91 of the 102 true ones.
 - Medians: the Vertical broadcast 6.7 hits a second and 0.43, the 2003
   mix 11.9 and 0.55, Stakka's 10.3 and 0.52 (Anthrax: 4 minutes at 1.5).
 - Scoring at this revision: 9 confident detections count as wrong, all
@@ -32,9 +32,9 @@ aligned share. `shared_true_plays.py`; data `data/0114-true-plays.json`.
   (weedsurfer) and Mutated (Version X) (U-PUNK-001 A) in the Vertical
   mix. Most likely the same recordings; left out of both sides above.
 
-**Conclusions.** The separation in 0112 is relative to a clean copy of
-the played record. Without one, a related file's evidence is as sparse
-as a true play's in a real mix, and no cut on either measure meets the
-review: development data do not support a sparseness statistic. Left:
-where the line stops while the music runs on (0112), and a library map
-of shared passages to report ambiguity (our decision, ADR 0017).
+**Conclusions.** Not like-for-like: the wrong plays come from clean
+renders (spans 21-156 s, nested queries counted apart), the true plays
+from mixes (62-418 s), so the test leans against a cut. As run, no cut
+on either measure meets the review; 0115 looks for wrong plays in the
+mixes themselves. Left: where the line stops (0112), or reporting
+ambiguity from a library map of shared passages (our decision).

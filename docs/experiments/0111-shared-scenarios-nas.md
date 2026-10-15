@@ -27,13 +27,13 @@ GB peak); `shared_outcomes.py`; data `data/0111-shared-scenarios.json`.
   each other, 4,473-4,497 (a pair no one has judged).
 - It takes enough of the passage: at 30 s or less only dense copies
   (Fire's remix ~ VIP, both Pyro directions, 244-1,095 hits); Dozer ~ its
-  bootleg from 48 s, Fire's remixes from 60 s. Own material after the
+  bootleg from 58 s, Fire's remixes from 60 s. Own material after the
   passage adds R at most +41 (Dozer) and +51 (Sonar's revision) at 30 s.
   A 5 s break looped to 240 s is never confident (R at most 32 hits).
 - With everything indexed, each of the 106 wrong titles stands beside
-  the played file's confident play. Positive control (7 directions with
-  another rip): that rip confident in 65 of 106 queries, missing in the
-  short ones. The control pair (no shared passage): R at most 25 hits.
+  the played file's confident play. Positive control (6 directions with
+  an indexed rip): that rip confident in 65 of 89 queries. The control
+  pair: R at most 11. Rerun after the review: every detection the same.
 
 **Conclusions.** On judged pairs, about a minute of shared passage (30 s
 if copied densely) makes the other version a confident wrong title at NAS

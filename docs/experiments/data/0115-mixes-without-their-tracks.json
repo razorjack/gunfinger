@@ -1,0 +1,261 @@
+{
+ "question": "Session 20, after the review (rule in docs/brief-20.md, written before it ran): wrong plays from the development mixes themselves, with every referenced track and its cluster left out at NAS scale; files covering at least 80% of a referenced track's credited file are the same recordings and are set aside; with fewer than 20 wrong confident detections no cut is evaluated",
+ "command": "gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks --verify scan <set> --leave-out <all its referenced tracks> (12, 11, 17)",
+ "store_revision": "b285da9984422fb5 (38,105 records)",
+ "same_recordings_set_aside": [
+  "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+  "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+  "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+  "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+  "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a"
+ ],
+ "sets": [
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "tracks_left_out": 17,
+   "files_left_out": 48,
+   "confident": [
+    {
+     "asset": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+     "start_seconds": 0.3,
+     "end_seconds": 382.1,
+     "hits": 2877,
+     "windows": 39,
+     "confident": true,
+     "verifier_share": 0.508
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+     "start_seconds": 361.7,
+     "end_seconds": 636.9,
+     "hits": 1653,
+     "windows": 27,
+     "confident": true,
+     "verifier_share": 0.389
+    }
+   ],
+   "wrong_confident_after_setting_aside": [],
+   "strongest_other": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     "start_seconds": 2861.9,
+     "end_seconds": 2908.0,
+     "hits": 197,
+     "windows": 5,
+     "confident": false,
+     "verifier_share": 0.393
+    },
+    {
+     "asset": "second-library/1.mp3",
+     "start_seconds": 3408.5,
+     "end_seconds": 3439.4,
+     "hits": 161,
+     "windows": 4,
+     "confident": false,
+     "verifier_share": 0.403
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "start_seconds": 3147.6,
+     "end_seconds": 3209.3,
+     "hits": 116,
+     "windows": 7,
+     "confident": false,
+     "verifier_share": 0.265
+    },
+    {
+     "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     "start_seconds": 3150.7,
+     "end_seconds": 3216.0,
+     "hits": 96,
+     "windows": 7,
+     "confident": false,
+     "verifier_share": 0.238
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     "start_seconds": 2792.1,
+     "end_seconds": 2816.6,
+     "hits": 85,
+     "windows": 3,
+     "confident": false,
+     "verifier_share": 0.372
+    }
+   ]
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "tracks_left_out": 12,
+   "files_left_out": 33,
+   "confident": [
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+     "start_seconds": 2090.6,
+     "end_seconds": 2419.7,
+     "hits": 5863,
+     "windows": 33,
+     "confident": true,
+     "verifier_share": 0.569
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+     "start_seconds": 881.0,
+     "end_seconds": 1100.5,
+     "hits": 3346,
+     "windows": 23,
+     "confident": true,
+     "verifier_share": 0.583
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+     "start_seconds": 1864.3,
+     "end_seconds": 2133.8,
+     "hits": 3291,
+     "windows": 28,
+     "confident": true,
+     "verifier_share": 0.499
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+     "start_seconds": 2347.5,
+     "end_seconds": 2535.2,
+     "hits": 3276,
+     "windows": 20,
+     "confident": true,
+     "verifier_share": 0.534
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+     "start_seconds": 1604.9,
+     "end_seconds": 1772.1,
+     "hits": 3164,
+     "windows": 18,
+     "confident": true,
+     "verifier_share": 0.63
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+     "start_seconds": 1447.6,
+     "end_seconds": 1563.4,
+     "hits": 1252,
+     "windows": 13,
+     "confident": true,
+     "verifier_share": 0.475
+    },
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+     "start_seconds": 1101.0,
+     "end_seconds": 1204.5,
+     "hits": 502,
+     "windows": 11,
+     "confident": true,
+     "verifier_share": 0.357
+    }
+   ],
+   "wrong_confident_after_setting_aside": [],
+   "strongest_other": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "start_seconds": 725.2,
+     "end_seconds": 777.2,
+     "hits": 146,
+     "windows": 6,
+     "confident": false,
+     "verifier_share": 0.29
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "start_seconds": 826.1,
+     "end_seconds": 856.5,
+     "hits": 118,
+     "windows": 4,
+     "confident": false,
+     "verifier_share": 0.275
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "start_seconds": 751.5,
+     "end_seconds": 795.0,
+     "hits": 98,
+     "windows": 5,
+     "confident": false,
+     "verifier_share": 0.229
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "start_seconds": 781.8,
+     "end_seconds": 816.5,
+     "hits": 91,
+     "windows": 4,
+     "confident": false,
+     "verifier_share": 0.291
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "start_seconds": 691.2,
+     "end_seconds": 722.8,
+     "hits": 85,
+     "windows": 4,
+     "confident": false,
+     "verifier_share": 0.297
+    }
+   ]
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "tracks_left_out": 11,
+   "files_left_out": 50,
+   "confident": [],
+   "wrong_confident_after_setting_aside": [],
+   "strongest_other": [
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start_seconds": 1222.9,
+     "end_seconds": 1240.8,
+     "hits": 94,
+     "windows": 3,
+     "confident": false,
+     "verifier_share": 0.415
+    },
+    {
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start_seconds": 1222.9,
+     "end_seconds": 1240.8,
+     "hits": 94,
+     "windows": 3,
+     "confident": false,
+     "verifier_share": 0.415
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "start_seconds": 628.9,
+     "end_seconds": 659.5,
+     "hits": 79,
+     "windows": 4,
+     "confident": false,
+     "verifier_share": 0.19
+    },
+    {
+     "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start_seconds": 1172.5,
+     "end_seconds": 1191.3,
+     "hits": 38,
+     "windows": 3,
+     "confident": false,
+     "verifier_share": 0.183
+    },
+    {
+     "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     "start_seconds": 1172.5,
+     "end_seconds": 1191.3,
+     "hits": 38,
+     "windows": 3,
+     "confident": false,
+     "verifier_share": 0.183
+    }
+   ]
+  }
+ ]
+}
