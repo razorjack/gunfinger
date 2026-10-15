@@ -270,3 +270,26 @@ alignments.
   query against the 20 s beyond and before queries, next to the played
   file's; in the looped queries, R's detections, strongest and summed.
 - Controls (no passage above chance) are reported, not classified.
+
+## Step 4's follow-up: the unused evidence against true plays (written at 03:58, before it ran)
+
+0112 finds outcome 3 in most directions: the related file's evidence is
+sparse, and the confident rule ignores that. Whether a statistic could
+use it depends on how sparse true plays in real mixes are. Steps 1-6 were
+done by 03:55, so a descriptive comparison follows; no rule is adopted.
+
+- True plays: every confident detection credited to a referenced track
+  in the three development sets, from `gunfinger-eval --other-peaks-dir
+  <NAS store> --verify scan <set>` (reports in `verified/`, which no
+  other report reads), at the store's revision `b285da9984422fb5`.
+- Wrong plays: 0111's 106 wrong confident detections of the main case.
+- Two measures, each per detection: hits per second of the detection's
+  span, and the verifier's aligned share. For each, the largest
+  threshold that keeps at least 95% of the true plays, and the share of
+  wrong plays below it. Proposal 5's review asks for both: keep at least
+  95% of true confident examples, reject at least half of the wrong
+  ones. A measure that meets both on development data is a candidate for
+  a later session to freeze and validate; one that fails is reported as
+  failing.
+- The test set, both validation halves and the candidate mixes stay
+  out.
