@@ -61,6 +61,11 @@ pub struct Plan {
     /// Other audio, searched as it is with everything indexed.
     #[serde(default)]
     pub queries: Vec<Query>,
+    /// Every index of a mix also leaves out the files its drawn plays
+    /// were rendered from, so a drawn track is found only through another
+    /// rip of it, as a real play would be.
+    #[serde(default)]
+    pub leave_out_drawn: bool,
 }
 
 #[derive(Clone, Serialize, Deserialize)]
@@ -171,7 +176,9 @@ pub fn run(
     let mut groups: BTreeMap<BTreeSet<String>, Vec<(&str, Target)>> = BTreeMap::new();
     for rendered in &rendered {
         let files = recording(clusters, &rendered.played.file, &rendered.played.recording);
-        for (index_name, left_out) in indexes(&rendered.played.file, &files, &indexed) {
+        let drawn = drawn_files(rendered, plan.leave_out_drawn);
+        for (index_name, mut left_out) in indexes(&rendered.played.file, &files, &indexed) {
+            left_out.extend(drawn.iter().cloned());
             groups
                 .entry(left_out)
                 .or_default()
@@ -292,6 +299,21 @@ fn duration(
         Some(record) => record.map(|record| record.header.duration_seconds),
         None => Err(format!("no current peak record of {path}")),
     }
+}
+
+/// The files `rendered`'s drawn plays come from, when the plan leaves
+/// them out.
+fn drawn_files(rendered: &Rendered, leave_out_drawn: bool) -> BTreeSet<String> {
+    if !leave_out_drawn {
+        return BTreeSet::new();
+    }
+    rendered
+        .mix
+        .plays
+        .iter()
+        .filter(|play| play.asset != rendered.played.file)
+        .map(|play| play.asset.clone())
+        .collect()
 }
 
 fn mix_path(dir: &Path, mix: &PlannedMix) -> PathBuf {
@@ -527,6 +549,7 @@ mod tests {
             }],
             recordings: Vec::new(),
             queries: Vec::new(),
+            leave_out_drawn: false,
         };
 
         let rendered = draw(&plan, &records, None, &clusters(Vec::new())).unwrap();
@@ -546,5 +569,34 @@ mod tests {
             );
         }
         assert_ne!(rendered[0].mix.plays[0], rendered[1].mix.plays[0]);
+    }
+
+    #[test]
+    fn drawn_files_are_left_out_only_when_the_plan_says_so() {
+        let records: Vec<PeakRecord> = (0..4)
+            .map(|n| record(&format!("t{n}.mp3"), 300.0))
+            .chain([record("played.mp3", 200.0)])
+            .collect();
+        let plan = Plan {
+            seeds: vec![1],
+            around: 1,
+            exclude: vec![String::from("played.mp3")],
+            played: vec![Played {
+                name: String::from("p"),
+                file: String::from("played.mp3"),
+                recording: Vec::new(),
+            }],
+            recordings: Vec::new(),
+            queries: Vec::new(),
+            leave_out_drawn: true,
+        };
+        let rendered = &draw(&plan, &records, None, &clusters(Vec::new())).unwrap()[0];
+
+        let drawn = drawn_files(rendered, true);
+
+        assert_eq!(drawn.len(), 2);
+        assert!(!drawn.contains("played.mp3"));
+        assert!(drawn.iter().all(|file| file.starts_with('t')));
+        assert!(drawn_files(rendered, false).is_empty());
     }
 }

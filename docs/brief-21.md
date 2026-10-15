@@ -338,3 +338,33 @@ index (the positive control for every drawn play). Until then, reporting
 ambiguity (the map (c) marks where another indexed version holds a
 confident play's passage) remains the fallback; any change to the
 report is our decision (ADR 0017).
+
+## Follow-up: true plays through other rips (written at 07:05, before it ran)
+
+0116's primary true plays come from drawn plays rendered from the very
+files the index holds, about three times denser than real plays; that,
+not the related versions, is what its thresholds separate. Steps 4-5
+finished at 07:00, well ahead of the plan, so a follow-up tests the same
+candidates like for like on true plays of real rips, by the same rule.
+
+- The same 36 mixes (same plan, seeds and renders), searched with every
+  index of a mix also leaving out its six drawn files (`shared-mixes`
+  with `leave_out_drawn`): a drawn track can then be found only through
+  another rip, a file of its NAS duplicate cluster or a file that `pair`
+  shows covering 80% of the drawn file (the clustering rule; the newer
+  uploads 0116 set aside). A drawn track with no other indexed rip is
+  unknown audio; any confident play over it is wrong (other).
+- Primary sample: true = the right confident plays of drawn tracks
+  through another rip in the *played left out* runs, and of the played
+  recording's other rip in the *source left out* runs; wrong related =
+  as in 0116, in the *played left out* runs. The same candidates,
+  per-play values, threshold search and criterion (keep 95% of true,
+  reject half of wrong related, at least 10 wrong). The second sample is
+  0116's, unchanged.
+- Also reported: 0116's frozen thresholds applied to these true plays.
+- Fewer than 20 true plays through other rips: reported, nothing
+  decided. Any file confident over a drawn play that is not in its
+  cluster is checked with `pair` after the run, as in 0116, before the
+  plays are scored.
+- Expected, written now: if real rips are as sparse as the development
+  mixes' true plays (median 9.4 hits per second), (a) fails here.
