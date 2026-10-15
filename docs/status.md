@@ -3014,3 +3014,35 @@ NAS gained files during the session.
   records, revision `b285da9984422fb5`, as at the start. Listening files and
   the set manifests unchanged (digests, modification times). Scratch:
   `work/shared-mixes/` 625 MB (the 36 renders), `work/s21/` 435 MB.
+
+## 2026-10-15: session 22, part 1 of the FFT lengths' retrieval study
+
+Brief `docs/brief-22.md`, checklist `docs/session-22-checklist.md`. The
+NAS gained files during the session. No timing
+was measured.
+
+- 09:06 setup, `git status` clean at `86b1b8d`. Release build in
+  `work/bin/s22-start/` (byte-identical to `s21-final`); `baseline
+  session-22-start` from session 21's final `regress` reports. The NAS
+  store: 38,105 records, revision `b285da9984422fb5`, as expected.
+- 09:10 step 2, committed before any run (`117198e`): session 21's
+  factor2 patch applied to a detached worktree at `9aecef4`
+  (`work/s22-fft-tree`, never merged), first-pass turntable rungs only,
+  with `speed::design()` naming the variant; binaries in
+  `work/bin/s22-fft-factor2/`. Each build runs with its own `--work`
+  (`work/s22/today`, `work/s22/variant`), seeded with APFS clones of the
+  clusters, the map, the saved NAS index and the renders, so nothing is
+  written to `work/reports/`. Boundary tolerance 1.0 s.
+  `scripts/analysis/fft_compare.py` pairs the two builds' reports.
+- 09:11 the runs start under `screen` (`work/s22/queue.sh`, then
+  `queue2.sh`), one at a time.
+- (a) 09:11-09:13 `regress session-22-start` with the variant: the sweep
+  keeps 720 of 720 answers (225 queries with identical detections, the
+  own file's hits 0.990-1.009 of today's), recall 60/60 at every speed, 0
+  wrong; the development scan and its leave-outs keep every identified
+  track (11, 8, 0), 0 wrong, the same unmatched possible play; no
+  detection changes confidence; 4 plays move a boundary by more than
+  1.0 s (Decoy +2.0 s at the start; Clockwork's two files -5.8 s and
+  +11.0 s, a window more; Kraken+Arkane's Dominion +29.3 s at the start,
+  39 to 36 windows, the other Dominion file unchanged); calibrate: weakest
+  identifying 680 to 674, strongest false 99 both.

@@ -15,10 +15,12 @@ for scope and rules.
 
 ## Steps
 
-- [~] 2. The variant (factor2, first pass only) in a worktree never
+- [x] 2. The variant (factor2, first pass only) in a worktree never
   merged; the comparisons and the boundary tolerance written in the
   brief before any run; the variant's own work directory
-- [ ] 3a. `regress session-22-start` with the variant
+- [x] 3a. `regress session-22-start` with the variant: 720/720 sweep
+  answers, 11/8/0 identified, 0 wrong, no confidence change; 4
+  boundaries moved
 - [ ] 3b. The three development mixes at NAS scale, both builds
 - [ ] 3c. Generated mixes, seeds 2026 and 7, both builds
 - [ ] 3d. Sweeps 2027-2029, both builds
