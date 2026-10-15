@@ -43,8 +43,10 @@ const BEYOND_SECONDS: f64 = 10.0;
 const DRAWN_MIN_SECONDS: f64 = 150.0;
 
 /// The mixes to render and the audio to search, as
-/// `scripts/analysis/shared_mixes.py plan` writes them.
+/// `scripts/analysis/shared_mixes.py plan` writes them. Unknown fields are
+/// refused, so a binary older than the plan fails instead of ignoring them.
 #[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Plan {
     pub seeds: Vec<u64>,
     /// Drawn plays before each played file, and as many after.
@@ -69,6 +71,7 @@ pub struct Plan {
 }
 
 #[derive(Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Played {
     pub name: String,
     pub file: String,
@@ -78,6 +81,7 @@ pub struct Played {
 }
 
 #[derive(Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Query {
     pub name: String,
     /// Relative to the corpus's sets directory.
@@ -173,28 +177,10 @@ pub fn run(
             .any(|record| record.header.source.path == file)
             || second.is_some_and(|second| second.holds(file))
     };
-    let mut groups: BTreeMap<BTreeSet<String>, Vec<(&str, Target)>> = BTreeMap::new();
-    for rendered in &rendered {
-        let files = recording(clusters, &rendered.played.file, &rendered.played.recording);
-        let drawn = drawn_files(rendered, plan.leave_out_drawn);
-        for (index_name, mut left_out) in indexes(&rendered.played.file, &files, &indexed) {
-            left_out.extend(drawn.iter().cloned());
-            groups
-                .entry(left_out)
-                .or_default()
-                .push((index_name, Target::Mix(rendered)));
-        }
-    }
-    for query in &plan.queries {
-        groups
-            .entry(BTreeSet::new())
-            .or_default()
-            .push(("everything", Target::Query(query)));
-    }
     let own = |file: &str| own_recording(file, clusters, &plan.recordings);
 
     let mut runs = Vec::new();
-    for (left_out, targets) in &groups {
+    for (left_out, targets) in &targets(&rendered, plan, clusters, &indexed) {
         let index = options
             .matching
             .index(options.padding.index(&records, &profile, left_out)?);
@@ -235,6 +221,36 @@ pub fn run(
         mixes: rendered,
         runs,
     })
+}
+
+/// What each index searches, by the files it leaves out: every mix under
+/// `shared::indexes`'s indexes, each also without the mix's drawn files
+/// when the plan says so, and the plan's queries with everything indexed.
+fn targets<'a>(
+    rendered: &'a [Rendered],
+    plan: &'a Plan,
+    clusters: &Clusters,
+    indexed: &dyn Fn(&str) -> bool,
+) -> BTreeMap<BTreeSet<String>, Vec<(&'static str, Target<'a>)>> {
+    let mut groups: BTreeMap<BTreeSet<String>, Vec<(&str, Target)>> = BTreeMap::new();
+    for rendered in rendered {
+        let files = recording(clusters, &rendered.played.file, &rendered.played.recording);
+        let drawn = drawn_files(rendered, plan.leave_out_drawn);
+        for (index_name, mut left_out) in indexes(&rendered.played.file, &files, indexed) {
+            left_out.extend(drawn.iter().cloned());
+            groups
+                .entry(left_out)
+                .or_default()
+                .push((index_name, Target::Mix(rendered)));
+        }
+    }
+    for query in &plan.queries {
+        groups
+            .entry(BTreeSet::new())
+            .or_default()
+            .push(("everything", Target::Query(query)));
+    }
+    groups
 }
 
 /// One mix per seed and played file, the seed's draws in the plan's order.
@@ -381,14 +397,13 @@ fn holder(
     own: &BTreeSet<String>,
     profile: &Profile,
 ) -> Option<Holder> {
-    let span =
-        profile.frames(detection.track_start_seconds)..=profile.frames(detection.track_end_seconds);
-    let passage: Vec<Peak> = peaks
-        .iter()
-        .filter(|peak| span.contains(&peak.frame))
-        .copied()
-        .collect();
-    let found = search_peaks(index, &passage, profile, &ladder(), 1);
+    let found = search_peaks(
+        index,
+        &passage(peaks, detection, profile),
+        profile,
+        &ladder(),
+        1,
+    );
     strongest_other(
         found.iter().map(|found| Holder {
             asset: index.asset(found.asset).path.clone(),
@@ -397,6 +412,17 @@ fn holder(
         }),
         own,
     )
+}
+
+/// The file's peaks within the detection's span in the file.
+fn passage(peaks: &[Peak], detection: &Detection, profile: &Profile) -> Vec<Peak> {
+    let span =
+        profile.frames(detection.track_start_seconds)..=profile.frames(detection.track_end_seconds);
+    peaks
+        .iter()
+        .filter(|peak| span.contains(&peak.frame))
+        .copied()
+        .collect()
 }
 
 fn strongest_other(found: impl Iterator<Item = Holder>, own: &BTreeSet<String>) -> Option<Holder> {
@@ -432,7 +458,10 @@ pub fn print_summary(report: &Report) {
 
 #[cfg(test)]
 mod tests {
+    use gunfinger_core::confidence::Evidence;
+    use gunfinger_core::index::AssetId;
     use gunfinger_core::library::{Asset, Timestamp};
+    use gunfinger_core::speed::{Playback, SpeedRatio};
     use gunfinger_core::store::RecordHeader;
 
     use super::*;
@@ -513,6 +542,66 @@ mod tests {
         );
     }
 
+    fn played(recording: &[&str]) -> Played {
+        Played {
+            name: String::from("p"),
+            file: String::from("played.mp3"),
+            recording: recording.iter().map(|&file| file.to_owned()).collect(),
+        }
+    }
+
+    #[test]
+    fn a_plan_with_an_unknown_field_is_refused() {
+        let plan =
+            r#"{"seeds": [1], "around": 1, "exclude": [], "played": [], "leave_out_drawn": true}"#;
+        let misspelt = plan.replace("leave_out_drawn", "leave_out_drawm");
+        let nested = r#"{"seeds": [1], "around": 1, "exclude": [],
+            "played": [{"name": "p", "file": "a.mp3", "recordings": []}]}"#;
+
+        assert!(serde_json::from_str::<Plan>(plan).unwrap().leave_out_drawn);
+        assert!(serde_json::from_str::<Plan>(&misspelt).is_err());
+        assert!(serde_json::from_str::<Plan>(nested).is_err());
+        for session_plan in [
+            include_str!("../../../docs/panels/shared-mixes-s21.json"),
+            include_str!("../../../docs/panels/shared-mixes-s21-rips.json"),
+        ] {
+            assert!(serde_json::from_str::<Plan>(session_plan).is_ok());
+        }
+    }
+
+    #[test]
+    fn the_passage_is_the_files_peaks_within_the_detections_span() {
+        let profile = Profile::CURRENT;
+        let detection = Detection {
+            asset: AssetId(0),
+            start_seconds: 100.0,
+            end_seconds: 110.0,
+            track_start_seconds: 10.0,
+            track_end_seconds: 20.0,
+            speed: SpeedRatio(1.0),
+            playback: Playback::Turntable,
+            evidence: Evidence::new(3, 300),
+        };
+        let peaks: Vec<Peak> = [5.0, 10.0, 15.0, 20.0, 25.0, 105.0]
+            .into_iter()
+            .map(|seconds| Peak {
+                frame: profile.frames(seconds),
+                bin: 100.0,
+                magnitude: 0.0,
+            })
+            .collect();
+
+        let frames: Vec<f64> = passage(&peaks, &detection, &profile)
+            .iter()
+            .map(|peak| peak.frame)
+            .collect();
+
+        assert_eq!(
+            frames,
+            [10.0, 15.0, 20.0].map(|seconds| profile.frames(seconds))
+        );
+    }
+
     #[test]
     fn the_holder_is_the_strongest_file_outside_the_own_recording() {
         let own = BTreeSet::from([String::from("a.mp3"), String::from("a-rip.mp3")]);
@@ -542,11 +631,7 @@ mod tests {
             seeds: vec![1, 2],
             around: 2,
             exclude: vec![String::from("played.mp3")],
-            played: vec![Played {
-                name: String::from("p"),
-                file: String::from("played.mp3"),
-                recording: Vec::new(),
-            }],
+            played: vec![played(&[])],
             recordings: Vec::new(),
             queries: Vec::new(),
             leave_out_drawn: false,
@@ -581,11 +666,7 @@ mod tests {
             seeds: vec![1],
             around: 1,
             exclude: vec![String::from("played.mp3")],
-            played: vec![Played {
-                name: String::from("p"),
-                file: String::from("played.mp3"),
-                recording: Vec::new(),
-            }],
+            played: vec![played(&[])],
             recordings: Vec::new(),
             queries: Vec::new(),
             leave_out_drawn: true,
@@ -598,5 +679,87 @@ mod tests {
         assert!(!drawn.contains("played.mp3"));
         assert!(drawn.iter().all(|file| file.starts_with('t')));
         assert!(drawn_files(rendered, false).is_empty());
+    }
+
+    #[test]
+    fn every_index_of_a_mix_leaves_out_its_drawn_files_when_the_plan_says_so() {
+        let records: Vec<PeakRecord> = (0..4)
+            .map(|n| record(&format!("t{n}.mp3"), 300.0))
+            .chain([record("played.mp3", 200.0), record("played-rip.mp3", 200.0)])
+            .collect();
+        let clusters = clusters(Vec::new());
+        let mut plan = Plan {
+            seeds: vec![1],
+            around: 1,
+            exclude: vec![String::from("played.mp3"), String::from("played-rip.mp3")],
+            played: vec![played(&["played.mp3", "played-rip.mp3"])],
+            recordings: Vec::new(),
+            queries: vec![Query {
+                name: String::from("q"),
+                audio: PathBuf::from("q.mp3"),
+            }],
+            leave_out_drawn: true,
+        };
+        let rendered = draw(&plan, &records, None, &clusters).unwrap();
+        let drawn = drawn_files(&rendered[0], true);
+        let indexed = |_: &str| true;
+        let with = |extra: &[&str]| -> BTreeSet<String> {
+            drawn
+                .iter()
+                .cloned()
+                .chain(extra.iter().map(|&file| file.to_owned()))
+                .collect()
+        };
+        let names = |groups: &BTreeMap<BTreeSet<String>, Vec<(&'static str, Target)>>| {
+            groups
+                .iter()
+                .flat_map(|(left_out, targets)| {
+                    targets.iter().map(move |(index, target)| {
+                        let name = match target {
+                            Target::Mix(rendered) => rendered.mix.name.clone(),
+                            Target::Query(query) => query.name.clone(),
+                        };
+                        (left_out.clone(), *index, name)
+                    })
+                })
+                .collect::<BTreeSet<_>>()
+        };
+
+        let left_out = names(&targets(&rendered, &plan, &clusters, &indexed));
+        plan.leave_out_drawn = false;
+        let kept = names(&targets(&rendered, &plan, &clusters, &indexed));
+
+        let mix = || String::from("seed-1-p");
+        assert_eq!(drawn.len(), 2);
+        assert_eq!(
+            left_out,
+            BTreeSet::from([
+                (with(&[]), "everything", mix()),
+                (
+                    with(&["played.mp3", "played-rip.mp3"]),
+                    "played left out",
+                    mix()
+                ),
+                (with(&["played.mp3"]), "source left out", mix()),
+                (BTreeSet::new(), "everything", String::from("q")),
+            ])
+        );
+        assert_eq!(
+            kept,
+            BTreeSet::from([
+                (BTreeSet::new(), "everything", mix()),
+                (
+                    BTreeSet::from([String::from("played.mp3"), String::from("played-rip.mp3")]),
+                    "played left out",
+                    mix()
+                ),
+                (
+                    BTreeSet::from([String::from("played.mp3")]),
+                    "source left out",
+                    mix()
+                ),
+                (BTreeSet::new(), "everything", String::from("q")),
+            ])
+        );
     }
 }

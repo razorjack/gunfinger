@@ -845,6 +845,68 @@ mod tests {
     }
 
     #[test]
+    fn a_seed_draws_the_mix_it_drew_before_session_21() {
+        // Drawn by the code at 8537226, before `drawn_play` was split out
+        // of `draw_mix`: earlier sessions' seeds must give the same mixes.
+        // Each row: asset, held out, source start, speed, start, end, fade
+        // in, fade out, bass cut until, bass cut from.
+        #[rustfmt::skip]
+        let expected = [
+            ("t02.mp3", false, 81.25297769561449, 0.9582444206030898, 0.0, 47.464822857918456, 0.0, 0.0, None, None),
+            ("t06.mp3", false, 306.5496789897331, 1.0182256284085305, 47.464822857918456, 85.16827375316791, 0.0, 7.047611857784965, None, None),
+            ("t15.mp3", false, 323.2950208166506, 0.9993199194195205, 78.12066189538294, 128.21470352770163, 7.047611857784965, 9.464024758350671, None, None),
+            ("t04.mp3", false, 188.93877512744695, 0.9550532364801309, 118.75067876935096, 166.32394994156178, 9.464024758350671, 10.97825708408916, None, Some(160.83482139951718)),
+            ("t08.mp3", false, 206.22390807477996, 0.991239056932078, 155.3456928574726, 208.51624878745596, 10.97825708408916, 9.763308655405218, Some(160.83482139951718), None),
+            ("t14.mp3", false, 563.2184281621959, 1.028660792758029, 198.75294013205075, 229.72642043185417, 9.763308655405218, 5.083857215958616, None, None),
+            ("t05.mp3", false, 72.79518362040584, 1.034152287157502, 224.64256321589556, 261.89667702558495, 5.083857215958616, 0.0, None, None),
+            ("t08.mp3", false, 84.7042925961234, 1.0169253432194165, 261.89667702558495, 302.37425035205814, 0.0, 4.384424356336915, None, None),
+            ("t00.mp3", false, 64.62033250417596, 1.0577616269144685, 297.9898259957212, 326.2354745022363, 4.384424356336915, 0.0, None, None),
+            ("t03.mp3", true, 52.325341838368935, 0.9848553131731824, 326.2354745022363, 352.365826955674, 0.0, 10.770798286386697, None, Some(346.9804278124806)),
+            ("t10.mp3", false, 413.03941213357837, 0.9512320587310388, 341.5950286692873, 387.6552882007378, 10.770798286386697, 13.61669515412574, Some(346.9804278124806), Some(380.8469406236749)),
+            ("t12.mp3", false, 320.5756099922738, 1.02070382538944, 374.03859304661205, 423.6283468830277, 13.61669515412574, 0.0, Some(380.8469406236749), None),
+        ];
+        let records: Vec<PeakRecord> = (0..16)
+            .map(|n| record(&format!("t{n:02}.mp3"), 150.0 + 37.0 * f64::from(n)))
+            .collect();
+        let held_out = BTreeSet::from([
+            String::from("t03.mp3"),
+            String::from("t07.mp3"),
+            String::from("t11.mp3"),
+        ]);
+        let clusters = Clusters {
+            duplicates: vec![vec![String::from("t01.mp3"), String::from("t02.mp3")]],
+            ..no_clusters()
+        };
+
+        let mix = draw_mix(
+            "pinned",
+            &Pools::new(&records, &held_out),
+            &clusters,
+            &mut Rng::new(2026),
+        )
+        .unwrap();
+
+        let close = |a: f64, b: f64| (a - b).abs() < 1e-9;
+        let close_option = |a: Option<f64>, b: Option<f64>| match (a, b) {
+            (Some(a), Some(b)) => close(a, b),
+            (a, b) => a == b,
+        };
+        assert_eq!(mix.plays.len(), expected.len());
+        for (play, expected) in mix.plays.iter().zip(expected) {
+            let (asset, held_out, source_start, speed, start, end, fade_in, fade_out, until, from) =
+                expected;
+            assert_eq!((play.asset.as_str(), play.held_out), (asset, held_out));
+            assert!(close(play.source_start_seconds, source_start));
+            assert!(close(play.speed, speed));
+            assert!(close(play.start_seconds, start) && close(play.end_seconds, end));
+            assert!(close(play.fade_in_seconds, fade_in) && close(play.fade_out_seconds, fade_out));
+            assert!(close_option(play.bass_cut_until, until));
+            assert!(close_option(play.bass_cut_from, from));
+        }
+        assert!(close(mix.seconds, 423.6283468830277));
+    }
+
+    #[test]
     fn a_mix_around_a_file_plays_it_whole_between_drawn_plays() {
         let records: Vec<PeakRecord> = (0..8)
             .map(|n| record(&format!("t{n}.mp3"), 300.0))

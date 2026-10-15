@@ -205,18 +205,16 @@ impl Verifier<'_> {
         [Side::After, Side::Before]
             .into_iter()
             .filter_map(|side| {
-                let span = line.beyond(side, profile.frames(seconds), &room)?;
-                let offset = match side {
-                    Side::After => offsets.last(),
-                    Side::Before => offsets.first(),
-                };
-                let analysed = Analysed::of(detection, samples, profile, &span);
-                let query = analysed.placed(&span);
-                let aligned = Aligned {
-                    line: span,
-                    offsets: vec![offset.copied().unwrap_or(0.0)],
-                    window_frames: profile.frames(WINDOW_SECONDS),
-                };
+                let aligned = aligned_beyond(
+                    &line,
+                    side,
+                    profile.frames(seconds),
+                    &room,
+                    &offsets,
+                    profile,
+                )?;
+                let query =
+                    Analysed::of(detection, samples, profile, &aligned.line).placed(&aligned.line);
                 Some(Beyond {
                     side,
                     count: count(&reference, &query, &aligned, TOLERANCE, 0.0, profile),
@@ -224,6 +222,27 @@ impl Verifier<'_> {
             })
             .collect()
     }
+}
+
+/// The line extended `frames` past one end of the detection, at the
+/// offset of the detection's window on that side.
+fn aligned_beyond(
+    line: &Line,
+    side: Side,
+    frames: f64,
+    room: &Room,
+    offsets: &[f64],
+    profile: &Profile,
+) -> Option<Aligned> {
+    let offset = match side {
+        Side::After => offsets.last(),
+        Side::Before => offsets.first(),
+    };
+    Some(Aligned {
+        line: line.beyond(side, frames, room)?,
+        offsets: vec![offset.copied().unwrap_or(0.0)],
+        window_frames: profile.frames(WINDOW_SECONDS),
+    })
 }
 
 /// How far the file and the query reach, in frames.
@@ -636,6 +655,44 @@ mod tests {
         assert!((before.reference - 79.0).abs() < 1e-9);
         assert!((before.first - 10.0).abs() < 1e-9 && (before.last - 30.0).abs() < 1e-9);
         assert!((after.reference_at(85.0) - line.reference_at(85.0)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_material_beyond_is_counted_at_its_sides_window_offset() {
+        let profile = Profile::CURRENT;
+        let line = Line {
+            reference: 1000.0,
+            slope: 1.0,
+            first: 100.0,
+            last: 200.0,
+        };
+        let room = Room {
+            reference_frames: 5000.0,
+            query_frames: 5000.0,
+        };
+        // The detection's last window runs 10 frames late, its first on
+        // the line.
+        let offsets = [0.0, 4.0, -10.0];
+        let before: Vec<Peak> = (0..10)
+            .map(|n| peak(955.0 + 4.0 * f64::from(n), 100.0))
+            .collect();
+        let after: Vec<Peak> = (0..10)
+            .map(|n| peak(1105.0 + 4.0 * f64::from(n), 100.0))
+            .collect();
+        let reference: Vec<Peak> = before.iter().chain(&after).copied().collect();
+        let query: Vec<Placed> = before
+            .iter()
+            .map(|peak| placed(peak.frame, peak.bin))
+            .chain(after.iter().map(|peak| placed(peak.frame + 10.0, peak.bin)))
+            .collect();
+        let counted = |side| {
+            let aligned = aligned_beyond(&line, side, 50.0, &room, &offsets, &profile).unwrap();
+            let counted = count(&reference, &query, &aligned, TOLERANCE, 0.0, &profile);
+            (counted.reference_peaks, counted.found)
+        };
+
+        assert_eq!(counted(Side::After), (10, 10));
+        assert_eq!(counted(Side::Before), (10, 10));
     }
 
     #[test]
