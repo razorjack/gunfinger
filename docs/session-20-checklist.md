@@ -32,7 +32,10 @@ for scope and rules.
   of 14 directions (Dozer, Fire, Sonar, Pyro-1), outcome 1 in Pyro-2
   (thin, against a poor upload), Watermelon separated today; where the
   evidence falls and density under damage; no rule adopted; experiment
-  0112
+  0112. Follow-up written first: true plays in the development mixes
+  (`--verify scan`) are as sparse as the related files; no cut on hits
+  per second or the verifier's share keeps 95% of them and rejects half
+  of the wrong plays; experiment 0114
 - [x] 5. 16 listening questions in `work/audition/s20/` (pairs no
   verdict covers, from 0076 and the development mixes, one joined rip,
   Meltdown ~ Phantom Force); `listening_pack.py candidates`; the page

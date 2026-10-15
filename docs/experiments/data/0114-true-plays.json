@@ -1,0 +1,1812 @@
+{
+ "question": "Session 20, step 4's follow-up (docs/brief-20.md, written before it ran): hits per second of a detection's span and the verifier's aligned share, true confident plays in the development sets against 0111's wrong confident plays of the main case; per measure the largest threshold keeping at least 95% of the true plays and the wrong plays below it",
+ "command": "gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks --verify scan <set> for razorjack-2003-03-29, stakka-skynet-knowledge, nocny-trans-vertical-2002-08-23; scripts/analysis/shared_true_plays.py <0111's shared report> <shared_outcomes.py's output> <out> <the three verified scans>",
+ "store_revision": "b285da9984422fb5 (38,105 records)",
+ "keep": 0.95,
+ "summary": {
+  "hits per second of the span": {
+   "true plays": 102,
+   "threshold": 3.356,
+   "true kept": 97,
+   "wrong plays": 106,
+   "wrong below": 8,
+   "true range": [
+    1.498,
+    31.859
+   ],
+   "wrong range": [
+    1.537,
+    39.868
+   ]
+  },
+  "verifier's aligned share": {
+   "true plays": 102,
+   "threshold": 0.301,
+   "true kept": 97,
+   "wrong plays": 106,
+   "wrong below": 12,
+   "true range": [
+    0.24,
+    0.774
+   ],
+   "wrong range": [
+    0.236,
+    0.87
+   ]
+  }
+ },
+ "true": [
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "1. Kemal & Rob Data - Konspiracy",
+   "asset": "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "hits": 4333,
+   "hits per second of the span": 29.486,
+   "verifier's aligned share": 0.735
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "1. Kemal & Rob Data - Konspiracy",
+   "asset": "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "hits": 4332,
+   "hits per second of the span": 29.479,
+   "verifier's aligned share": 0.735
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "1. Kemal & Rob Data - Konspiracy",
+   "asset": "second-library/__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+   "hits": 1484,
+   "hits per second of the span": 10.092,
+   "verifier's aligned share": 0.553
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "hits": 6677,
+   "hits per second of the span": 31.859,
+   "verifier's aligned share": 0.774
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "hits": 6677,
+   "hits per second of the span": 31.859,
+   "verifier's aligned share": 0.774
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+   "hits": 2311,
+   "hits per second of the span": 11.864,
+   "verifier's aligned share": 0.56
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "hits": 2311,
+   "hits per second of the span": 11.864,
+   "verifier's aligned share": 0.56
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "hits": 2280,
+   "hits per second of the span": 10.929,
+   "verifier's aligned share": 0.535
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+   "hits": 1953,
+   "hits per second of the span": 9.601,
+   "verifier's aligned share": 0.456
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+   "hits": 253,
+   "hits per second of the span": 4.084,
+   "verifier's aligned share": 0.323
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "2. Future Cut - The Specialist",
+   "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "hits": 253,
+   "hits per second of the span": 4.084,
+   "verifier's aligned share": 0.323
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "3. Narcosis - Escape Route",
+   "asset": "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+   "hits": 8590,
+   "hits per second of the span": 25.594,
+   "verifier's aligned share": 0.68
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "3. Narcosis - Escape Route",
+   "asset": "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+   "hits": 8589,
+   "hits per second of the span": 25.591,
+   "verifier's aligned share": 0.68
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "4. Digital & Spirit - Phantom Force",
+   "asset": "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+   "hits": 5690,
+   "hits per second of the span": 31.137,
+   "verifier's aligned share": 0.763
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "4. Digital & Spirit - Phantom Force",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "hits": 2233,
+   "hits per second of the span": 11.578,
+   "verifier's aligned share": 0.587
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "4. Digital & Spirit - Phantom Force",
+   "asset": "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+   "hits": 823,
+   "hits per second of the span": 11.152,
+   "verifier's aligned share": 0.486
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "5. Tee Bee - Two Faced",
+   "asset": "extra/g-tee_bee-two_faced-sour.mp3",
+   "hits": 2376,
+   "hits per second of the span": 10.813,
+   "verifier's aligned share": 0.533
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "5. Tee Bee - Two Faced",
+   "asset": "extra/g-tee_bee-two_faced-sour.mp3",
+   "hits": 336,
+   "hits per second of the span": 3.234,
+   "verifier's aligned share": 0.275
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "6. Omni Trio - Kinetic",
+   "asset": "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+   "hits": 8434,
+   "hits per second of the span": 20.921,
+   "verifier's aligned share": 0.589
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "7. Carlito & Addiction - Into Music",
+   "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+   "hits": 1668,
+   "hits per second of the span": 8.903,
+   "verifier's aligned share": 0.443
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "7. Carlito & Addiction - Into Music",
+   "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+   "hits": 695,
+   "hits per second of the span": 7.043,
+   "verifier's aligned share": 0.419
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "8. Omni Trio - Artificial Life (Harp Tune)",
+   "asset": "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+   "hits": 3189,
+   "hits per second of the span": 15.614,
+   "verifier's aligned share": 0.533
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "9. Total Science - Yvon Is On",
+   "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+   "hits": 5437,
+   "hits per second of the span": 20.351,
+   "verifier's aligned share": 0.557
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "9. Total Science - Yvon Is On",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+   "hits": 3236,
+   "hits per second of the span": 12.01,
+   "verifier's aligned share": 0.49
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "10. Marcus Intalex & ST Files - Balderdash",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+   "hits": 5567,
+   "hits per second of the span": 17.461,
+   "verifier's aligned share": 0.578
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "10. Marcus Intalex & ST Files - Balderdash",
+   "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+   "hits": 3602,
+   "hits per second of the span": 11.069,
+   "verifier's aligned share": 0.512
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "11. Spirit - Out Of Control",
+   "asset": "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+   "hits": 2767,
+   "hits per second of the span": 14.609,
+   "verifier's aligned share": 0.525
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "11. Spirit - Out Of Control",
+   "asset": "extra/b-spirit-out_of_control-sour.mp3",
+   "hits": 825,
+   "hits per second of the span": 4.562,
+   "verifier's aligned share": 0.247
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "12. DJ Hidden - Skektics",
+   "asset": "second-library/04 - dj hidden - skektics.mp3",
+   "hits": 6591,
+   "hits per second of the span": 28.961,
+   "verifier's aligned share": 0.773
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "12. DJ Hidden - Skektics",
+   "asset": "extra/04_-_dj_hidden_-_skektics.mp3",
+   "hits": 4399,
+   "hits per second of the span": 19.335,
+   "verifier's aligned share": 0.677
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "track": "12. DJ Hidden - Skektics",
+   "asset": "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+   "hits": 1984,
+   "hits per second of the span": 8.657,
+   "verifier's aligned share": 0.512
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "1. Skynet & Stakka - Night Lore",
+   "asset": "Skynet & Stakka - Night Lore.mp3",
+   "hits": 3832,
+   "hits per second of the span": 12.613,
+   "verifier's aligned share": 0.578
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "1. Skynet & Stakka - Night Lore",
+   "asset": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+   "hits": 3832,
+   "hits per second of the span": 12.613,
+   "verifier's aligned share": 0.578
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "1. Skynet & Stakka - Night Lore",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "hits": 3383,
+   "hits per second of the span": 11.179,
+   "verifier's aligned share": 0.54
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "1. Skynet & Stakka - Night Lore",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "hits": 2687,
+   "hits per second of the span": 8.854,
+   "verifier's aligned share": 0.52
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "2. Skynet & Stakka - Decoy",
+   "asset": "Skynet & Stakka - Decoy.mp3",
+   "hits": 4869,
+   "hits per second of the span": 14.209,
+   "verifier's aligned share": 0.554
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "2. Skynet & Stakka - Decoy",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+   "hits": 4248,
+   "hits per second of the span": 13.297,
+   "verifier's aligned share": 0.537
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "2. Skynet & Stakka - Decoy",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+   "hits": 3341,
+   "hits per second of the span": 9.506,
+   "verifier's aligned share": 0.474
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "2. Skynet & Stakka - Decoy",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+   "hits": 3275,
+   "hits per second of the span": 9.941,
+   "verifier's aligned share": 0.496
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "3. Kemal & Rob Data - Star Trails",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "hits": 1764,
+   "hits per second of the span": 8.159,
+   "verifier's aligned share": 0.466
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "3. Kemal & Rob Data - Star Trails",
+   "asset": "Kemal & Rob Data - Star Trails.mp3",
+   "hits": 1539,
+   "hits per second of the span": 7.038,
+   "verifier's aligned share": 0.392
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "3. Kemal & Rob Data - Star Trails",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+   "hits": 1539,
+   "hits per second of the span": 7.038,
+   "verifier's aligned share": 0.392
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "4. Skynet & Stakka - Pathogen",
+   "asset": "Skynet & Stakka - Pathogen.mp3",
+   "hits": 2078,
+   "hits per second of the span": 9.352,
+   "verifier's aligned share": 0.493
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "4. Skynet & Stakka - Pathogen",
+   "asset": "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+   "hits": 2078,
+   "hits per second of the span": 9.352,
+   "verifier's aligned share": 0.493
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "4. Skynet & Stakka - Pathogen",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "hits": 1350,
+   "hits per second of the span": 6.202,
+   "verifier's aligned share": 0.426
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "5. Skynet & Stakka - Clockwork",
+   "asset": "Skynet & Stakka - Clockwork.mp3",
+   "hits": 3096,
+   "hits per second of the span": 11.699,
+   "verifier's aligned share": 0.556
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "5. Skynet & Stakka - Clockwork",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "hits": 3096,
+   "hits per second of the span": 11.699,
+   "verifier's aligned share": 0.556
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "5. Skynet & Stakka - Clockwork",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "hits": 2480,
+   "hits per second of the span": 9.669,
+   "verifier's aligned share": 0.52
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "6. Kraken - Side Effects (TeeBee Remix)",
+   "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+   "hits": 2273,
+   "hits per second of the span": 7.738,
+   "verifier's aligned share": 0.482
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "6. Kraken - Side Effects (TeeBee Remix)",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+   "hits": 1619,
+   "hits per second of the span": 5.151,
+   "verifier's aligned share": 0.387
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "6. Kraken - Side Effects (TeeBee Remix)",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus",
+   "hits": 1429,
+   "hits per second of the span": 4.822,
+   "verifier's aligned share": 0.342
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "7. Kraken - Dominion",
+   "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+   "hits": 3531,
+   "hits per second of the span": 9.075,
+   "verifier's aligned share": 0.476
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "7. Kraken - Dominion",
+   "asset": "Kraken - Dominion.opus",
+   "hits": 3350,
+   "hits per second of the span": 8.385,
+   "verifier's aligned share": 0.481
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "7. Kraken - Dominion",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+   "hits": 2276,
+   "hits per second of the span": 6.167,
+   "verifier's aligned share": 0.365
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "8. Kemal & Paul Reset - Kontempt",
+   "asset": "Kemal & Paul Reset - Kontempt.mp3",
+   "hits": 4452,
+   "hits per second of the span": 10.66,
+   "verifier's aligned share": 0.429
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "8. Kemal & Paul Reset - Kontempt",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "hits": 3886,
+   "hits per second of the span": 9.903,
+   "verifier's aligned share": 0.497
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+   "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+   "hits": 4865,
+   "hits per second of the span": 12.814,
+   "verifier's aligned share": 0.556
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+   "hits": 4865,
+   "hits per second of the span": 12.814,
+   "verifier's aligned share": 0.556
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+   "hits": 3920,
+   "hits per second of the span": 10.341,
+   "verifier's aligned share": 0.517
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "10. Skynet & Stakka - Logistics",
+   "asset": "Skynet & Stakka - Logistics.mp3",
+   "hits": 6425,
+   "hits per second of the span": 16.263,
+   "verifier's aligned share": 0.667
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "10. Skynet & Stakka - Logistics",
+   "asset": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+   "hits": 6425,
+   "hits per second of the span": 16.263,
+   "verifier's aligned share": 0.667
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "10. Skynet & Stakka - Logistics",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "hits": 5845,
+   "hits per second of the span": 14.794,
+   "verifier's aligned share": 0.64
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "11. Stakka & K.Tee - Auto Ignition",
+   "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+   "hits": 4742,
+   "hits per second of the span": 12.64,
+   "verifier's aligned share": 0.571
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "11. Stakka & K.Tee - Auto Ignition",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "hits": 4742,
+   "hits per second of the span": 12.64,
+   "verifier's aligned share": 0.571
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "11. Stakka & K.Tee - Auto Ignition",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "hits": 4742,
+   "hits per second of the span": 12.64,
+   "verifier's aligned share": 0.571
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "track": "11. Stakka & K.Tee - Auto Ignition",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 ： STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+   "hits": 3963,
+   "hits per second of the span": 10.507,
+   "verifier's aligned share": 0.524
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "1. Drumsound & Simon Bassline Smith - Phoenix",
+   "asset": "extra/[AA]_-_Phoenix.mp3",
+   "hits": 4215,
+   "hits per second of the span": 11.113,
+   "verifier's aligned share": 0.595
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "1. Drumsound & Simon Bassline Smith - Phoenix",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+   "hits": 655,
+   "hits per second of the span": 2.055,
+   "verifier's aligned share": 0.301
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "2. Trace & Fresh - Mutated (Version X)",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
+   "hits": 1702,
+   "hits per second of the span": 6.276,
+   "verifier's aligned share": 0.396
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "2. Trace & Fresh - Mutated (Version X)",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+   "hits": 1280,
+   "hits per second of the span": 4.652,
+   "verifier's aligned share": 0.321
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "3. Friction & Nu Balance - Final Judgement",
+   "asset": "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+   "hits": 2229,
+   "hits per second of the span": 6.668,
+   "verifier's aligned share": 0.445
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "3. Friction & Nu Balance - Final Judgement",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus",
+   "hits": 1967,
+   "hits per second of the span": 5.821,
+   "verifier's aligned share": 0.422
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "3. Friction & Nu Balance - Final Judgement",
+   "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "hits": 1144,
+   "hits per second of the span": 3.356,
+   "verifier's aligned share": 0.368
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "4. Dieselboy - The Descent (Phunckateck VIP)",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "hits": 1679,
+   "hits per second of the span": 6.634,
+   "verifier's aligned share": 0.434
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "5. Bulletproof - Scarred",
+   "asset": "extra/b-bulletproof-scarred-sour.mp3",
+   "hits": 1041,
+   "hits per second of the span": 4.922,
+   "verifier's aligned share": 0.357
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "5. Bulletproof - Scarred",
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a",
+   "hits": 906,
+   "hits per second of the span": 5.115,
+   "verifier's aligned share": 0.372
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "5. Bulletproof - Scarred",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+   "hits": 867,
+   "hits per second of the span": 4.651,
+   "verifier's aligned share": 0.362
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "6. Dieselboy - Invid (E-Sassin VIP)",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "hits": 2934,
+   "hits per second of the span": 8.859,
+   "verifier's aligned share": 0.507
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "7. Kon.Rad - Mistaken Identity",
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a",
+   "hits": 1919,
+   "hits per second of the span": 7.222,
+   "verifier's aligned share": 0.523
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "8. Bulletproof - Nephelim (Konflict remix)",
+   "asset": "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3",
+   "hits": 3126,
+   "hits per second of the span": 10.568,
+   "verifier's aligned share": 0.538
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "8. Bulletproof - Nephelim (Konflict remix)",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+   "hits": 2320,
+   "hits per second of the span": 7.893,
+   "verifier's aligned share": 0.473
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "9. Bulletproof - Anthrax",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+   "hits": 386,
+   "hits per second of the span": 1.714,
+   "verifier's aligned share": 0.248
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "9. Bulletproof - Anthrax",
+   "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+   "hits": 366,
+   "hits per second of the span": 1.498,
+   "verifier's aligned share": 0.243
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "9. Bulletproof - Anthrax",
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a",
+   "hits": 364,
+   "hits per second of the span": 1.558,
+   "verifier's aligned share": 0.24
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "10. Cause 4 Concern - Blindside",
+   "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+   "hits": 1188,
+   "hits per second of the span": 6.302,
+   "verifier's aligned share": 0.4
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "10. Cause 4 Concern - Blindside",
+   "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+   "hits": 905,
+   "hits per second of the span": 5.104,
+   "verifier's aligned share": 0.382
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "11. Decoder - Dead Fall",
+   "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+   "hits": 2218,
+   "hits per second of the span": 8.169,
+   "verifier's aligned share": 0.444
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "11. Decoder - Dead Fall",
+   "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3",
+   "hits": 2218,
+   "hits per second of the span": 8.169,
+   "verifier's aligned share": 0.444
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "12. The Kraft - Stab 2 Def",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "hits": 1112,
+   "hits per second of the span": 7.096,
+   "verifier's aligned share": 0.482
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "12. The Kraft - Stab 2 Def",
+   "asset": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "hits": 1112,
+   "hits per second of the span": 7.096,
+   "verifier's aligned share": 0.482
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "12. The Kraft - Stab 2 Def",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+   "hits": 1058,
+   "hits per second of the span": 6.751,
+   "verifier's aligned share": 0.465
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "12. The Kraft - Stab 2 Def",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+   "hits": 1037,
+   "hits per second of the span": 6.338,
+   "verifier's aligned share": 0.446
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "13. Future Cut - Horns 2000",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+   "hits": 1505,
+   "hits per second of the span": 9.672,
+   "verifier's aligned share": 0.474
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "13. Future Cut - Horns 2000",
+   "asset": "extra/310-future_cut-horns_2000-sour.mp3",
+   "hits": 1314,
+   "hits per second of the span": 8.563,
+   "verifier's aligned share": 0.473
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "13. Future Cut - Horns 2000",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3",
+   "hits": 1314,
+   "hits per second of the span": 8.563,
+   "verifier's aligned share": 0.473
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "14. Klute - We R The Ones (VIP)",
+   "asset": "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3",
+   "hits": 2598,
+   "hits per second of the span": 8.0,
+   "verifier's aligned share": 0.44
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "14. Klute - We R The Ones (VIP)",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "hits": 2373,
+   "hits per second of the span": 7.299,
+   "verifier's aligned share": 0.428
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "15. Sonic - Cannibal",
+   "asset": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+   "hits": 860,
+   "hits per second of the span": 4.554,
+   "verifier's aligned share": 0.332
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+   "asset": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3",
+   "hits": 1653,
+   "hits per second of the span": 8.014,
+   "verifier's aligned share": 0.433
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+   "asset": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "hits": 1336,
+   "hits per second of the span": 6.09,
+   "verifier's aligned share": 0.375
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "18. Mo-Funk - Slipstream",
+   "asset": "extra/a-mo_funk-slipstream-sour.mp3",
+   "hits": 603,
+   "hits per second of the span": 6.82,
+   "verifier's aligned share": 0.453
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "track": "18. Mo-Funk - Slipstream",
+   "asset": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a",
+   "hits": 558,
+   "hits per second of the span": 5.135,
+   "verifier's aligned share": 0.367
+  }
+ ],
+ "wrong": [
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-looped-60s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 244,
+   "hits per second of the span": 5.194,
+   "verifier's aligned share": 0.337
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-looped-120s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 244,
+   "hits per second of the span": 5.194,
+   "verifier's aligned share": 0.337
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-looped-240s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 244,
+   "hits per second of the span": 5.194,
+   "verifier's aligned share": 0.337
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-beyond-10s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 245,
+   "hits per second of the span": 5.066,
+   "verifier's aligned share": 0.328
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 245,
+   "hits per second of the span": 5.066,
+   "verifier's aligned share": 0.328
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-beyond-30s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 286,
+   "hits per second of the span": 3.688,
+   "verifier's aligned share": 0.269
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-weak-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 241,
+   "hits per second of the span": 4.984,
+   "verifier's aligned share": 0.316
+  },
+  {
+   "direction": "dozer-1",
+   "query": "dozer-1-blend-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "hits": 249,
+   "hits per second of the span": 5.149,
+   "verifier's aligned share": 0.318
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-looped-60s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 252,
+   "hits per second of the span": 5.364,
+   "verifier's aligned share": 0.331
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-looped-120s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 252,
+   "hits per second of the span": 5.364,
+   "verifier's aligned share": 0.331
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-looped-240s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 252,
+   "hits per second of the span": 5.364,
+   "verifier's aligned share": 0.331
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-beyond-10s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 260,
+   "hits per second of the span": 4.497,
+   "verifier's aligned share": 0.294
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-beyond-20s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 261,
+   "hits per second of the span": 4.438,
+   "verifier's aligned share": 0.291
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-beyond-30s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 261,
+   "hits per second of the span": 4.438,
+   "verifier's aligned share": 0.291
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-weak-beyond-20s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 260,
+   "hits per second of the span": 4.421,
+   "verifier's aligned share": 0.291
+  },
+  {
+   "direction": "dozer-2",
+   "query": "dozer-2-blend-beyond-20s",
+   "role": "related",
+   "asset": "Ed Rush & Optical - Dozer.mp3",
+   "hits": 271,
+   "hits per second of the span": 4.007,
+   "verifier's aligned share": 0.258
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-looped-60s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 282,
+   "hits per second of the span": 6.269,
+   "verifier's aligned share": 0.385
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-looped-120s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 493,
+   "hits per second of the span": 4.459,
+   "verifier's aligned share": 0.344
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-looped-240s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 499,
+   "hits per second of the span": 4.521,
+   "verifier's aligned share": 0.351
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-beyond-10s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 502,
+   "hits per second of the span": 4.525,
+   "verifier's aligned share": 0.344
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 544,
+   "hits per second of the span": 4.681,
+   "verifier's aligned share": 0.345
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-beyond-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 567,
+   "hits per second of the span": 4.792,
+   "verifier's aligned share": 0.351
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-weak-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 513,
+   "hits per second of the span": 4.411,
+   "verifier's aligned share": 0.341
+  },
+  {
+   "direction": "fire-1",
+   "query": "fire-1-blend-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 536,
+   "hits per second of the span": 4.612,
+   "verifier's aligned share": 0.337
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-alone-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 981,
+   "hits per second of the span": 32.892,
+   "verifier's aligned share": 0.861
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-looped-60s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 2103,
+   "hits per second of the span": 35.182,
+   "verifier's aligned share": 0.865
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-looped-120s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 4048,
+   "hits per second of the span": 35.396,
+   "verifier's aligned share": 0.861
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-looped-240s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 4473,
+   "hits per second of the span": 39.1,
+   "verifier's aligned share": 0.853
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-beyond-10s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 3867,
+   "hits per second of the span": 31.202,
+   "verifier's aligned share": 0.799
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 3869,
+   "hits per second of the span": 28.839,
+   "verifier's aligned share": 0.745
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-beyond-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 3872,
+   "hits per second of the span": 28.437,
+   "verifier's aligned share": 0.737
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-before-5s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 1143,
+   "hits per second of the span": 32.859,
+   "verifier's aligned share": 0.852
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-before-10s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 1191,
+   "hits per second of the span": 29.907,
+   "verifier's aligned share": 0.829
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-before-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 1369,
+   "hits per second of the span": 27.595,
+   "verifier's aligned share": 0.83
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-weak-alone-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 897,
+   "hits per second of the span": 30.078,
+   "verifier's aligned share": 0.825
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-weak-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 3356,
+   "hits per second of the span": 24.97,
+   "verifier's aligned share": 0.701
+  },
+  {
+   "direction": "fire-2",
+   "query": "fire-2-blend-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 4126,
+   "hits per second of the span": 36.008,
+   "verifier's aligned share": 0.863
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-looped-60s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 318,
+   "hits per second of the span": 5.378,
+   "verifier's aligned share": 0.353
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-looped-120s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 577,
+   "hits per second of the span": 4.888,
+   "verifier's aligned share": 0.351
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-looped-240s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 578,
+   "hits per second of the span": 4.896,
+   "verifier's aligned share": 0.35
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-beyond-10s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 573,
+   "hits per second of the span": 4.843,
+   "verifier's aligned share": 0.347
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 573,
+   "hits per second of the span": 4.843,
+   "verifier's aligned share": 0.347
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-beyond-30s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 573,
+   "hits per second of the span": 4.843,
+   "verifier's aligned share": 0.347
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-weak-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 530,
+   "hits per second of the span": 4.479,
+   "verifier's aligned share": 0.344
+  },
+  {
+   "direction": "fire-3",
+   "query": "fire-3-blend-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 583,
+   "hits per second of the span": 4.932,
+   "verifier's aligned share": 0.348
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-looped-60s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 321,
+   "hits per second of the span": 5.43,
+   "verifier's aligned share": 0.344
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-looped-120s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 598,
+   "hits per second of the span": 5.078,
+   "verifier's aligned share": 0.339
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-looped-240s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 600,
+   "hits per second of the span": 5.095,
+   "verifier's aligned share": 0.342
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-beyond-10s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 591,
+   "hits per second of the span": 4.996,
+   "verifier's aligned share": 0.339
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 591,
+   "hits per second of the span": 4.996,
+   "verifier's aligned share": 0.339
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-beyond-30s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 591,
+   "hits per second of the span": 4.996,
+   "verifier's aligned share": 0.339
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-weak-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 556,
+   "hits per second of the span": 4.704,
+   "verifier's aligned share": 0.333
+  },
+  {
+   "direction": "fire-4",
+   "query": "fire-4-blend-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "hits": 581,
+   "hits per second of the span": 4.961,
+   "verifier's aligned share": 0.339
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-looped-60s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 282,
+   "hits per second of the span": 6.269,
+   "verifier's aligned share": 0.385
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-looped-120s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 493,
+   "hits per second of the span": 4.459,
+   "verifier's aligned share": 0.344
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-looped-240s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 493,
+   "hits per second of the span": 5.123,
+   "verifier's aligned share": 0.366
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-beyond-10s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 502,
+   "hits per second of the span": 4.525,
+   "verifier's aligned share": 0.344
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 544,
+   "hits per second of the span": 4.681,
+   "verifier's aligned share": 0.345
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-beyond-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 567,
+   "hits per second of the span": 4.792,
+   "verifier's aligned share": 0.351
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-weak-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 513,
+   "hits per second of the span": 4.411,
+   "verifier's aligned share": 0.341
+  },
+  {
+   "direction": "fire-5",
+   "query": "fire-5-blend-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "hits": 509,
+   "hits per second of the span": 4.426,
+   "verifier's aligned share": 0.338
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-alone-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 1095,
+   "hits per second of the span": 37.004,
+   "verifier's aligned share": 0.863
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-looped-60s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 2383,
+   "hits per second of the span": 39.868,
+   "verifier's aligned share": 0.87
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-looped-120s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 4497,
+   "hits per second of the span": 39.323,
+   "verifier's aligned share": 0.867
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-looped-240s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 4497,
+   "hits per second of the span": 39.323,
+   "verifier's aligned share": 0.867
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-beyond-10s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 4132,
+   "hits per second of the span": 33.357,
+   "verifier's aligned share": 0.806
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 4136,
+   "hits per second of the span": 31.945,
+   "verifier's aligned share": 0.779
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-beyond-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 4136,
+   "hits per second of the span": 31.945,
+   "verifier's aligned share": 0.779
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-before-5s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 1075,
+   "hits per second of the span": 31.183,
+   "verifier's aligned share": 0.838
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-before-10s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 1347,
+   "hits per second of the span": 33.827,
+   "verifier's aligned share": 0.847
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-before-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 1510,
+   "hits per second of the span": 30.571,
+   "verifier's aligned share": 0.825
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-weak-alone-30s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 993,
+   "hits per second of the span": 33.557,
+   "verifier's aligned share": 0.839
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-weak-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 3605,
+   "hits per second of the span": 27.844,
+   "verifier's aligned share": 0.74
+  },
+  {
+   "direction": "fire-6",
+   "query": "fire-6-blend-beyond-20s",
+   "role": "version",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 4412,
+   "hits per second of the span": 38.505,
+   "verifier's aligned share": 0.861
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-alone-30s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 244,
+   "hits per second of the span": 11.469,
+   "verifier's aligned share": 0.573
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-looped-60s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 442,
+   "hits per second of the span": 8.043,
+   "verifier's aligned share": 0.491
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-looped-120s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 445,
+   "hits per second of the span": 7.465,
+   "verifier's aligned share": 0.474
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-looped-240s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 445,
+   "hits per second of the span": 7.465,
+   "verifier's aligned share": 0.474
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-beyond-10s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 374,
+   "hits per second of the span": 3.276,
+   "verifier's aligned share": 0.268
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 374,
+   "hits per second of the span": 3.276,
+   "verifier's aligned share": 0.268
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-beyond-30s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 374,
+   "hits per second of the span": 3.276,
+   "verifier's aligned share": 0.268
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-weak-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 364,
+   "hits per second of the span": 7.358,
+   "verifier's aligned share": 0.479
+  },
+  {
+   "direction": "pyro-1",
+   "query": "pyro-1-blend-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "hits": 401,
+   "hits per second of the span": 8.792,
+   "verifier's aligned share": 0.506
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-alone-30s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 366,
+   "hits per second of the span": 12.412,
+   "verifier's aligned share": 0.589
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-looped-60s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 404,
+   "hits per second of the span": 14.024,
+   "verifier's aligned share": 0.589
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-looped-120s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 415,
+   "hits per second of the span": 14.283,
+   "verifier's aligned share": 0.597
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-looped-240s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 425,
+   "hits per second of the span": 14.627,
+   "verifier's aligned share": 0.592
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-beyond-10s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 418,
+   "hits per second of the span": 11.947,
+   "verifier's aligned share": 0.597
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-beyond-20s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 425,
+   "hits per second of the span": 9.462,
+   "verifier's aligned share": 0.526
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-beyond-30s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 425,
+   "hits per second of the span": 9.462,
+   "verifier's aligned share": 0.526
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-before-5s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 408,
+   "hits per second of the span": 13.415,
+   "verifier's aligned share": 0.588
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-before-10s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 375,
+   "hits per second of the span": 12.717,
+   "verifier's aligned share": 0.589
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-weak-alone-30s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 348,
+   "hits per second of the span": 11.803,
+   "verifier's aligned share": 0.561
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-weak-beyond-20s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 394,
+   "hits per second of the span": 11.262,
+   "verifier's aligned share": 0.572
+  },
+  {
+   "direction": "pyro-2",
+   "query": "pyro-2-blend-beyond-20s",
+   "role": "related",
+   "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 354,
+   "hits per second of the span": 12.289,
+   "verifier's aligned share": 0.58
+  },
+  {
+   "direction": "sonar-1",
+   "query": "sonar-1-looped-240s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "hits": 266,
+   "hits per second of the span": 1.704,
+   "verifier's aligned share": 0.246
+  },
+  {
+   "direction": "sonar-1",
+   "query": "sonar-1-weak-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "hits": 240,
+   "hits per second of the span": 1.537,
+   "verifier's aligned share": 0.236
+  },
+  {
+   "direction": "sonar-1",
+   "query": "sonar-1-blend-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "hits": 269,
+   "hits per second of the span": 1.723,
+   "verifier's aligned share": 0.241
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-looped-60s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 244,
+   "hits per second of the span": 4.08,
+   "verifier's aligned share": 0.394
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-looped-120s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 265,
+   "hits per second of the span": 3.931,
+   "verifier's aligned share": 0.391
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-looped-240s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 271,
+   "hits per second of the span": 3.979,
+   "verifier's aligned share": 0.392
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-beyond-10s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 283,
+   "hits per second of the span": 3.635,
+   "verifier's aligned share": 0.377
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 312,
+   "hits per second of the span": 3.53,
+   "verifier's aligned share": 0.37
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-beyond-30s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 334,
+   "hits per second of the span": 3.429,
+   "verifier's aligned share": 0.368
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-weak-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 286,
+   "hits per second of the span": 3.236,
+   "verifier's aligned share": 0.363
+  },
+  {
+   "direction": "sonar-2",
+   "query": "sonar-2-blend-beyond-20s",
+   "role": "related",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "hits": 291,
+   "hits per second of the span": 3.293,
+   "verifier's aligned share": 0.358
+  }
+ ]
+}
