@@ -237,7 +237,7 @@ pub fn run(
         let rendered = render_each(roots, scenario, &queries, plan.blend_partner.as_ref(), dir);
         let played = recording(clusters, &scenario.played, &scenario.played_recording);
         let related = recording(clusters, &scenario.related, &scenario.related_recording);
-        for (index_name, left_out) in indexes(scenario, &played, &indexed) {
+        for (index_name, left_out) in indexes(&scenario.played, &played, &indexed) {
             let index = options
                 .matching
                 .index(options.padding.index(&records, &profile, &left_out)?);
@@ -317,7 +317,7 @@ pub fn run(
 }
 
 /// A recording's files: `file`'s duplicate cluster and `also`.
-fn recording(clusters: &Clusters, file: &str, also: &[String]) -> BTreeSet<String> {
+pub(crate) fn recording(clusters: &Clusters, file: &str, also: &[String]) -> BTreeSet<String> {
     let mut files = clusters.cluster_of(file);
     files.extend(also.iter().cloned());
     files
@@ -497,11 +497,12 @@ fn blended(samples: &[f32], partner: &[f32], from: usize) -> Vec<f32> {
     out
 }
 
-/// The indexes a scenario runs against, by name, as the files left out.
-/// The positive control needs another rip of the played recording that
-/// the index holds: a copy a corpus file stands for is not indexed.
-fn indexes(
-    scenario: &Scenario,
+/// The indexes a played file runs against, by name, as the files left
+/// out: `played` is its recording's files. The positive control needs
+/// another rip of the played recording that the index holds: a copy a
+/// corpus file stands for is not indexed.
+pub(crate) fn indexes(
+    played_file: &str,
     played: &BTreeSet<String>,
     indexed: &dyn Fn(&str) -> bool,
 ) -> Vec<(&'static str, BTreeSet<String>)> {
@@ -511,9 +512,9 @@ fn indexes(
     ];
     if played
         .iter()
-        .any(|file| *file != scenario.played && indexed(file))
+        .any(|file| file != played_file && indexed(file))
     {
-        indexes.push(("source left out", BTreeSet::from([scenario.played.clone()])));
+        indexes.push(("source left out", BTreeSet::from([played_file.to_owned()])));
     }
     indexes
 }
@@ -754,7 +755,7 @@ mod tests {
                 String::from("a-upload.m4a")
             ])
         );
-        assert_eq!(indexes(&scenario(18.0), &files, &|_| true)[1].1, files);
+        assert_eq!(indexes("a.mp3", &files, &|_| true)[1].1, files);
     }
 
     #[test]
@@ -762,8 +763,8 @@ mod tests {
         let alone = BTreeSet::from([String::from("a.mp3")]);
         let ripped = BTreeSet::from([String::from("a.mp3"), String::from("a-rip.mp3")]);
 
-        assert_eq!(indexes(&scenario(18.0), &alone, &|_| true).len(), 2);
-        assert_eq!(indexes(&scenario(18.0), &ripped, &|_| true).len(), 3);
+        assert_eq!(indexes("a.mp3", &alone, &|_| true).len(), 2);
+        assert_eq!(indexes("a.mp3", &ripped, &|_| true).len(), 3);
     }
 
     #[test]
@@ -771,10 +772,7 @@ mod tests {
         let ripped = BTreeSet::from([String::from("a.mp3"), String::from("a-rip.mp3")]);
         let only_the_played_file = |file: &str| file == "a.mp3";
 
-        assert_eq!(
-            indexes(&scenario(18.0), &ripped, &only_the_played_file).len(),
-            2
-        );
+        assert_eq!(indexes("a.mp3", &ripped, &only_the_played_file).len(), 2);
     }
 
     #[test]

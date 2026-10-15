@@ -29,6 +29,7 @@ mod robust;
 mod scan;
 mod scoring;
 mod shared;
+mod shared_mixes;
 mod survival;
 mod sweep;
 mod synthetic;
@@ -260,6 +261,18 @@ enum Command {
         /// duplicate cluster), and optionally `blend_partner` (`file`,
         /// `start_seconds`). The report is `<plan file stem>.json`, with
         /// `shared-` put first when the stem does not start with it.
+        plan: PathBuf,
+    },
+    /// Session 21's rendered mixes: for each seed, one mix per played file
+    /// of a plan, playing it whole among drawn tracks, searched with the
+    /// played recording indexed, left out and (where another rip is
+    /// indexed) with the played file alone left out; and the plan's other
+    /// audio searched with everything indexed. Every detection carries
+    /// the verifier's share, the file's own material on each side, and,
+    /// when confident, the strongest other indexed file holding its
+    /// passage. The report is `<plan file stem>.json`.
+    SharedMixes {
+        /// The plan, as `scripts/analysis/shared_mixes.py plan` writes it.
         plan: PathBuf,
     },
     /// Proposal 5's diagnostic: for each direction of one half of a
@@ -508,6 +521,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::PairReview { .. }
             | Command::Recall { .. }
             | Command::Shared { .. }
+            | Command::SharedMixes { .. }
             | Command::Identifiability { .. }
     );
     let takes_a_sample = matches!(
@@ -526,7 +540,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared and identifiability do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes and identifiability do",
         ));
     }
     match command {
@@ -595,6 +609,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             Ok(())
         }
         Command::Shared { plan } => run_shared(paths, &plan, jobs),
+        Command::SharedMixes { plan } => run_shared_mixes(paths, &plan, jobs),
         Command::Identifiability { panel, half } => run_identifiability(paths, &panel, half),
         Command::PairReview { pack } => {
             let pack = pack.unwrap_or_else(|| paths.work.join("listening"));
@@ -1379,6 +1394,43 @@ fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String
         &report,
     )?;
     shared::print_summary(&report);
+    Ok(())
+}
+
+/// The plan's mixes, rendered into `<work>/shared-mixes/<plan name>/`
+/// (each kept while its truth file matches); the report is `<plan
+/// name>.json`.
+fn run_shared_mixes(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String> {
+    let text = fs::read_to_string(plan_file)
+        .map_err(|error| format!("cannot read {}: {error}", plan_file.display()))?;
+    let plan: shared_mixes::Plan =
+        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", plan_file.display()))?;
+    let name = plan_file.file_stem().map_or_else(
+        || String::from("shared-mixes"),
+        |stem| stem.to_string_lossy().into_owned(),
+    );
+    let second_root = second_library_root(paths.other_store()?.as_ref())?;
+    let library = paths.library()?;
+    let report = shared_mixes::run(
+        &plan,
+        &library,
+        &paths.store()?,
+        &paths.clusters()?,
+        &shared::Roots {
+            library: &library.root,
+            second: second_root.as_deref(),
+        },
+        &paths.work.join("shared-mixes").join(&name),
+        &shared_mixes::Options {
+            ladder: &paths.rungs(),
+            matching: &paths.matching,
+            padding: &paths.padding(&UNCHANGED_INDEX)?,
+            sets: &paths.sets(),
+            jobs,
+        },
+    )?;
+    write_json(&paths.reports().join(format!("{name}.json")), &report)?;
+    shared_mixes::print_summary(&report);
     Ok(())
 }
 

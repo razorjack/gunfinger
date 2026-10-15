@@ -28,6 +28,7 @@ use crate::matching::Matching;
 use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
 use crate::rng::Rng;
 use crate::scoring::evidence;
+use crate::shared::Roots;
 use crate::sweep::Plan;
 use crate::verifier::{Verification, Verifier};
 
@@ -103,11 +104,11 @@ pub struct PlannedMix {
 
 /// Renders `mix` as a 128 kbit/s MP3: each play at its speed and level,
 /// faded and bass-cut as planned, summed.
-pub fn render(mix: &PlannedMix, library: &Library, output: &Path) -> Result<(), String> {
+pub fn render(mix: &PlannedMix, roots: &Roots, output: &Path) -> Result<(), String> {
     let mut samples = vec![0.0_f32; to_index(mix.seconds)];
     for play in &mix.plays {
         let first = to_index(play.start_seconds);
-        for (offset, sample) in play_audio(play, library)?.into_iter().enumerate() {
+        for (offset, sample) in play_audio(play, roots)?.into_iter().enumerate() {
             if let Some(slot) = samples.get_mut(first + offset) {
                 *slot += sample;
             }
@@ -121,8 +122,8 @@ pub fn render(mix: &PlannedMix, library: &Library, output: &Path) -> Result<(), 
 
 /// One play's audio as it sounds in the mix. Where the bass is cut, the
 /// high-passed render takes over through a short ramp.
-fn play_audio(play: &PlannedPlay, library: &Library) -> Result<Vec<f32>, String> {
-    let source = library.root.join(&play.asset);
+fn play_audio(play: &PlannedPlay, roots: &Roots) -> Result<Vec<f32>, String> {
+    let source = roots.path(&play.asset)?;
     let seconds = play.end_seconds - play.start_seconds;
     let render = |filter| {
         render_samples(
@@ -407,24 +408,95 @@ pub fn draw_mix(
     let mut plays: Vec<PlannedPlay> = Vec::new();
     let mut start = 0.0;
     for &(record, held_out) in &chosen {
-        let seconds = PLAY_SECONDS.0 + rng.unit() * (PLAY_SECONDS.1 - PLAY_SECONDS.0);
-        let speed = 1.0 + (2.0 * rng.unit() - 1.0) * SPEED_RANGE;
-        // Plays stay clear of the first tenth of a track, often a sparse
-        // intro; tracks in the pools are long enough for any play.
-        let duration = record.header.duration_seconds;
-        let earliest = 0.1 * duration;
-        let latest = 0.95 * duration - seconds * speed;
-        let mut play = PlannedPlay {
-            asset: record.header.source.path.clone(),
-            held_out,
-            source_start_seconds: earliest + rng.unit() * (latest - earliest),
-            speed,
-            start_seconds: start,
-            end_seconds: start + seconds,
-            fade_in_seconds: 0.0,
-            fade_out_seconds: 0.0,
-            bass_cut_until: None,
-            bass_cut_from: None,
+        let mut play = drawn_play(record, held_out, start, rng);
+        if let Some(previous) = plays.last_mut() {
+            join(previous, &mut play, rng);
+        }
+        start = play.end_seconds;
+        plays.push(play);
+    }
+    Ok(PlannedMix {
+        name: name.to_owned(),
+        seconds: start,
+        plays,
+    })
+}
+
+/// A play of `record` from mix time `start`: its length, speed and
+/// position in the track drawn in that order.
+fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) -> PlannedPlay {
+    let seconds = PLAY_SECONDS.0 + rng.unit() * (PLAY_SECONDS.1 - PLAY_SECONDS.0);
+    let speed = drawn_speed(rng);
+    // Plays stay clear of the first tenth of a track, often a sparse
+    // intro; tracks in the pools are long enough for any play.
+    let duration = record.header.duration_seconds;
+    let earliest = 0.1 * duration;
+    let latest = 0.95 * duration - seconds * speed;
+    PlannedPlay {
+        asset: record.header.source.path.clone(),
+        held_out,
+        source_start_seconds: earliest + rng.unit() * (latest - earliest),
+        speed,
+        start_seconds: start,
+        end_seconds: start + seconds,
+        fade_in_seconds: 0.0,
+        fade_out_seconds: 0.0,
+        bass_cut_until: None,
+        bass_cut_from: None,
+    }
+}
+
+fn drawn_speed(rng: &mut Rng) -> f64 {
+    1.0 + (2.0 * rng.unit() - 1.0) * SPEED_RANGE
+}
+
+/// A file to play whole in a mix (`draw_around`), and how long it is.
+pub struct Whole<'a> {
+    pub asset: &'a str,
+    pub duration_seconds: f64,
+}
+
+/// Plays stop this far before a whole file's end, so a play never asks for
+/// audio the file does not have.
+const WHOLE_END_GUARD_SECONDS: f64 = 0.1;
+
+/// Draws a mix around `whole`, played from its start to its end at a drawn
+/// speed: `around` drawn plays of `pool` before it and as many after, from
+/// distinct clusters other than its own, all indexed, joined as
+/// `draw_mix` joins its plays.
+pub fn draw_around(
+    name: &str,
+    whole: &Whole,
+    around: usize,
+    pool: &[&PeakRecord],
+    clusters: &Clusters,
+    rng: &mut Rng,
+) -> Result<PlannedMix, String> {
+    let too_few = || String::from("the pool has too few long tracks for a mix around a file");
+    let mut used = BTreeSet::from([clusters.cluster_of(whole.asset)]);
+    let drawn: Vec<&PeakRecord> = (0..2 * around)
+        .map(|_| draw_unused(pool, &mut used, clusters, rng).ok_or_else(too_few))
+        .collect::<Result<_, _>>()?;
+    let speed = drawn_speed(rng);
+    let mut plays: Vec<PlannedPlay> = Vec::new();
+    let mut start = 0.0;
+    for position in 0..=2 * around {
+        let mut play = match position.cmp(&around) {
+            std::cmp::Ordering::Equal => PlannedPlay {
+                asset: whole.asset.to_owned(),
+                held_out: false,
+                source_start_seconds: 0.0,
+                speed,
+                start_seconds: start,
+                end_seconds: start
+                    + (whole.duration_seconds - WHOLE_END_GUARD_SECONDS).max(0.0) / speed,
+                fade_in_seconds: 0.0,
+                fade_out_seconds: 0.0,
+                bass_cut_until: None,
+                bass_cut_from: None,
+            },
+            std::cmp::Ordering::Less => drawn_play(drawn[position], false, start, rng),
+            std::cmp::Ordering::Greater => drawn_play(drawn[position - 1], false, start, rng),
         };
         if let Some(previous) = plays.last_mut() {
             join(previous, &mut play, rng);
@@ -569,6 +641,20 @@ pub struct Searcher<'a> {
     pub verifier: Option<&'a Verifier<'a>>,
 }
 
+/// Renders `mix` to `path` unless an earlier run left it there with the
+/// same plan (`<path stem>.truth.json`).
+pub fn render_once(mix: &PlannedMix, roots: &Roots, path: &Path) -> Result<(), String> {
+    let truth_path = path.with_extension("truth.json");
+    let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
+    let rendered = crate::render::is_complete(path)
+        && fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan);
+    if !rendered {
+        render(mix, roots, path)?;
+        fs::write(&truth_path, &plan).map_err(|error| error.to_string())?;
+    }
+    Ok(())
+}
+
 /// Renders `mix` unless an earlier run left it at `path` with the same
 /// plan, searches it on one thread and scores it.
 pub fn search_mix(
@@ -584,14 +670,14 @@ pub fn search_mix(
         matching,
         verifier,
     } = *searcher;
-    let truth_path = path.with_extension("truth.json");
-    let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
-    let rendered = crate::render::is_complete(path)
-        && fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan);
-    if !rendered {
-        render(mix, library, path)?;
-        fs::write(&truth_path, &plan).map_err(|error| error.to_string())?;
-    }
+    render_once(
+        mix,
+        &Roots {
+            library: &library.root,
+            second: None,
+        },
+        path,
+    )?;
     let profile = Profile::CURRENT;
     let audio =
         decode(path, profile.sample_rate, Excerpt::default()).map_err(|error| error.to_string())?;
@@ -727,6 +813,83 @@ mod tests {
             fitted: false,
             verified: None,
         }
+    }
+
+    fn record(path: &str, duration_seconds: f64) -> PeakRecord {
+        use gunfinger_core::library::{Asset, Timestamp};
+        use gunfinger_core::store::RecordHeader;
+        PeakRecord {
+            header: RecordHeader {
+                profile: Profile::CURRENT.id(),
+                source: Asset {
+                    path: path.to_owned(),
+                    size: 1,
+                    modified: Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds,
+            },
+            peaks: Vec::new(),
+        }
+    }
+
+    fn no_clusters() -> Clusters {
+        Clusters {
+            criterion: String::new(),
+            duplicates: Vec::new(),
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        }
+    }
+
+    #[test]
+    fn a_mix_around_a_file_plays_it_whole_between_drawn_plays() {
+        let records: Vec<PeakRecord> = (0..8)
+            .map(|n| record(&format!("t{n}.mp3"), 300.0))
+            .collect();
+        let pool: Vec<&PeakRecord> = records.iter().collect();
+        let whole = Whole {
+            asset: "w.mp3",
+            duration_seconds: 200.0,
+        };
+
+        let mix = draw_around("m", &whole, 3, &pool, &no_clusters(), &mut Rng::new(5)).unwrap();
+
+        assert_eq!(mix.plays.len(), 7);
+        let centre = &mix.plays[3];
+        assert_eq!(centre.asset, "w.mp3");
+        assert_eq!(centre.source_start_seconds, 0.0);
+        assert!((centre.source_at(centre.end_seconds) - 199.9).abs() < 1e-9);
+        assert!((centre.speed - 1.0).abs() <= SPEED_RANGE);
+        let drawn: BTreeSet<&str> = mix
+            .plays
+            .iter()
+            .filter(|play| play.asset != "w.mp3")
+            .map(|play| play.asset.as_str())
+            .collect();
+        assert_eq!(drawn.len(), 6);
+        for pair in mix.plays.windows(2) {
+            let overlap = pair[0].end_seconds - pair[1].start_seconds;
+            assert!((pair[0].fade_out_seconds - overlap).abs() < 1e-9);
+            assert_eq!(pair[1].fade_in_seconds, pair[0].fade_out_seconds);
+        }
+        assert_eq!(mix.seconds, mix.plays[6].end_seconds);
+    }
+
+    #[test]
+    fn a_mix_around_a_file_needs_enough_other_tracks() {
+        let records: Vec<PeakRecord> = (0..5)
+            .map(|n| record(&format!("t{n}.mp3"), 300.0))
+            .collect();
+        let pool: Vec<&PeakRecord> = records.iter().collect();
+        let whole = Whole {
+            asset: "w.mp3",
+            duration_seconds: 200.0,
+        };
+
+        assert!(draw_around("m", &whole, 3, &pool, &no_clusters(), &mut Rng::new(5)).is_err());
     }
 
     #[test]

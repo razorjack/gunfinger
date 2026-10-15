@@ -1,0 +1,333 @@
+{
+ "seeds": [
+  2101,
+  2102,
+  2103
+ ],
+ "around": 3,
+ "exclude": [
+  "Bad Company - China Cup.mp3",
+  "Bad Company - The Nine.mp3",
+  "DJ Trace - Sonar.m4a",
+  "Ed Rush & Optical - Dozer.mp3",
+  "Ed Rush & Optical - Funktion.mp3",
+  "Ed Rush & Optical - Watermelon.mp3",
+  "Skynet & Stakka - Clockwork.mp3",
+  "extra/01 - Ed Rush & Optical - Funktion.mp3",
+  "extra/01 - Ryme Tyme - T-Minus.mp3",
+  "extra/02. Bad Company - China Cup.mp3",
+  "extra/A- The_Nine.mp3",
+  "extra/A-Bad_Company-The_Nine-dmz.mp3",
+  "extra/A. Pyro -- Time Is Broken.mp3",
+  "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+  "extra/a-cause_4_concern-nightgasp-sour.mp3",
+  "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+  "extra/a. falcon - fractles.mp3",
+  "extra/b-bad_company-china_cup.mp3",
+  "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+  "second-library/(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+  "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+  "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+  "second-library/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+  "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+  "second-library/Citrus-CITRUS003-Falcon-2001-sour/B-Falcon-Fractals-sour.mp3",
+  "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+  "second-library/[SHADOW 145] - [2000] - Ryme Tyme - T-Minus/01 - Ryme Tyme - T-Minus.mp3",
+  "second-library/[citrus003] Falcon - Firewalls EP/a. falcon - fractles.mp3",
+  "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+  "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/moving_shadow-ryme_tyme-shadow145-2000-sour/x-ryme_tyme-t_minus-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/prototype-connexions_ep-prouk002-2000-sour/c-trace-sonar_(optical_and_trace_remix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/ray_keith_presents_vintage_dread_2000-2000-sour/109-ray_keith-dark_soldier_(back_in_the_day_mix)-sour.mp3",
+  "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-blackmarket_presents_drum_and_bass-azlp07-2000-sour/c1-ray_keith-dark_soldier_(vip_mix)-sour.mp3",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Bad Company - The Nine (Yabol 2004 Remix).opus",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 08 • Interlude.opus",
+  "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+  "second-library/__youtube_archivists/abstract-math/Bad Company - The Nine (Jaydrop Bootleg) (CUT).m4a",
+  "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+  "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+  "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+  "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+  "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a",
+  "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+  "second-library/__youtube_archivists/cryptic-jungle/Prizna ft. Demolition Man - Fire (Smokey Joe Remix).m4a",
+  "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a",
+  "second-library/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter (Optical RMX).m4a",
+  "second-library/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter.m4a",
+  "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar (Quartz Remix).opus",
+  "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+  "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg) [CUT].m4a",
+  "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Dub Head Bootleg).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+  "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Dark Soldier (Ray Keith) - Dark Soldier (Benny L Remix).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Alcemist VIP Remix).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus",
+  "second-library/__youtube_archivists/i-witness-dnb/Ryme Tyme - We Enter (Optical Remix V.2.0).m4a",
+  "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+  "second-library/__youtube_archivists/i-witness-dnb/Trace - Sonar (Trace & Optical Remix).m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus",
+  "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Ray Keith - Dark Soldier - Silver Lions (21st Century Junglist - Influential INFL24 C) 2023.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Optical & Trace Remix) (Prototype Recordings PRO 002UK C) 2000.m4a",
+  "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+  "second-library/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+  "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+  "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+  "second-library/idioma-cause_4_concern-idioma002-2001-sour/a-cause_4_concern-nightgasp-sour.mp3",
+  "second-library/prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3",
+  "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+  "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+  "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3",
+  "second-library/{kw-12} fire 2001 -- more fire (2001)/a - (dj sketchy ft demolition man) - fire (2001 remix).mp3",
+  "second-library/{kw-12} fire 2001 -- more fire (2001)/aa - (terry t ft demolition man) - more fire.mp3"
+ ],
+ "played": [
+  {
+   "name": "dozer-1",
+   "file": "Ed Rush & Optical - Dozer.mp3",
+   "recording": [
+    "Ed Rush & Optical - Dozer.mp3",
+    "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+   ]
+  },
+  {
+   "name": "dozer-2",
+   "file": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+   ]
+  },
+  {
+   "name": "fire-1",
+   "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-2",
+   "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-4",
+   "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+   ]
+  },
+  {
+   "name": "fire-6",
+   "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "recording": [
+    "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ]
+  },
+  {
+   "name": "pyro-1",
+   "file": "extra/A. Pyro -- Time Is Broken.mp3",
+   "recording": [
+    "extra/A. Pyro -- Time Is Broken.mp3",
+    "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+    "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+   ]
+  },
+  {
+   "name": "pyro-2",
+   "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+   ]
+  },
+  {
+   "name": "sonar-1",
+   "file": "DJ Trace - Sonar.m4a",
+   "recording": [
+    "DJ Trace - Sonar.m4a",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+    "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+    "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+   ]
+  },
+  {
+   "name": "sonar-2",
+   "file": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+   "recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+   ]
+  },
+  {
+   "name": "watermelon-1",
+   "file": "Ed Rush & Optical - Watermelon.mp3",
+   "recording": [
+    "Ed Rush & Optical - Watermelon.mp3",
+    "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+   ]
+  },
+  {
+   "name": "watermelon-2",
+   "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+   "recording": [
+    "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus"
+   ]
+  }
+ ],
+ "recordings": [
+  [
+   "Skynet & Stakka - Clockwork.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3"
+  ],
+  [
+   "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+  ],
+  [
+   "Ed Rush & Optical - Dozer.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+  ],
+  [
+   "extra/a. falcon - fractles.mp3",
+   "second-library/Citrus-CITRUS003-Falcon-2001-sour/B-Falcon-Fractals-sour.mp3",
+   "second-library/[citrus003] Falcon - Firewalls EP/a. falcon - fractles.mp3",
+   "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus"
+  ],
+  [
+   "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   "second-library/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter (Optical RMX).m4a"
+  ],
+  [
+   "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3"
+  ],
+  [
+   "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+  ],
+  [
+   "extra/a-cause_4_concern-nightgasp-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+   "second-library/idioma-cause_4_concern-idioma002-2001-sour/a-cause_4_concern-nightgasp-sour.mp3"
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus"
+  ],
+  [
+   "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+   "second-library/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus"
+  ],
+  [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus"
+  ],
+  [
+   "extra/A. Pyro -- Time Is Broken.mp3",
+   "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+   "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+  ],
+  [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+  ],
+  [
+   "DJ Trace - Sonar.m4a",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+  ],
+  [
+   "extra/01 - Ryme Tyme - T-Minus.mp3",
+   "second-library/[SHADOW 145] - [2000] - Ryme Tyme - T-Minus/01 - Ryme Tyme - T-Minus.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/moving_shadow-ryme_tyme-shadow145-2000-sour/x-ryme_tyme-t_minus-sour.mp3"
+  ],
+  [
+   "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a"
+  ],
+  [
+   "Bad Company - China Cup.mp3",
+   "extra/02. Bad Company - China Cup.mp3",
+   "extra/b-bad_company-china_cup.mp3",
+   "second-library/(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+   "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "second-library/prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3"
+  ],
+  [
+   "Bad Company - The Nine.mp3",
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+   "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a"
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+  ],
+  [
+   "Ed Rush & Optical - Watermelon.mp3",
+   "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+  ],
+  [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus"
+  ]
+ ],
+ "queries": [
+  {
+   "name": "stakka-skynet-knowledge",
+   "audio": "stakka-skynet-knowledge/Stakka & Skynet - Knowledge Magazine Mix (2000) [dnbclassics_stakka-skynet-knowledge-magazine-mix-2000].m4a"
+  },
+  {
+   "name": "razorjack-2003-03-29",
+   "audio": "razorjack-2003-03-29/razorjack-2003-03-29.mp3"
+  },
+  {
+   "name": "nocny-trans-vertical-2002-08-23",
+   "audio": "nocny-trans-vertical-2002-08-23/vertical.mp3"
+  }
+ ]
+}

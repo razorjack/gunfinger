@@ -16,6 +16,7 @@
 //! measures the chance level, including what the track's own repetition
 //! gives.
 
+use std::borrow::Cow;
 use std::collections::HashMap;
 
 use gunfinger_core::hash::{Point, for_each_pair};
@@ -108,6 +109,22 @@ impl<'a> Verifier<'a> {
         }
     }
 
+    /// The reference peaks of `path`: the library's, or the second
+    /// library's read from its store; `None` when they are not at hand (a
+    /// synthetic copy, or a record that cannot be read, said on stderr).
+    pub fn peaks(&self, path: &str) -> Option<Cow<'_, [Peak]>> {
+        if let Some(peaks) = self.library.get(path) {
+            return Some(Cow::Borrowed(peaks));
+        }
+        match self.second.and_then(|second| second.record(path))? {
+            Ok(record) => Some(Cow::Owned(record.peaks)),
+            Err(error) => {
+                eprintln!("verifier: {error}");
+                None
+            }
+        }
+    }
+
     /// `detection` measured; `None` when its asset's peaks are not at hand
     /// (a synthetic copy) or its span is empty.
     pub fn verify(
@@ -117,22 +134,8 @@ impl<'a> Verifier<'a> {
         samples: &[f32],
         profile: &Profile,
     ) -> Option<Verification> {
-        let path = &index.asset(detection.asset).path;
-        let loaded;
-        let reference: &[Peak] = match self.library.get(path) {
-            Some(peaks) => peaks,
-            None => match self.second.and_then(|second| second.record(path)) {
-                Some(Ok(record)) => {
-                    loaded = record.peaks;
-                    &loaded
-                }
-                Some(Err(error)) => {
-                    eprintln!("verifier: {error}");
-                    return None;
-                }
-                None => return None,
-            },
-        };
+        let reference = self.peaks(&index.asset(detection.asset).path)?;
+        let reference: &[Peak] = &reference;
         let line = Line::of(detection, profile)?;
         let analysed = Analysed::of(detection, samples, profile, &line);
         let offsets = line.window_offsets(index, detection, &analysed, profile);
@@ -151,6 +154,82 @@ impl<'a> Verifier<'a> {
                 .collect(),
         })
     }
+}
+
+/// Which side of a detection `Verifier::beyond` looks at.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Side {
+    /// The file's material after the detection's end.
+    After,
+    /// The file's material before the detection's start.
+    Before,
+}
+
+/// The file's own material on one side of a detection, looked for in the
+/// query on the detection's line extended.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Beyond {
+    pub side: Side,
+    pub count: Count,
+}
+
+impl Verifier<'_> {
+    /// For each side of `detection` where the file holds `seconds` of its
+    /// own material beyond the detection and the query holds the time they
+    /// map to: the share of the file's peaks there found in the query, on
+    /// the verifier's line through the detection's ends, extended at its
+    /// speed and moved by the offset of the window nearest that side
+    /// (session 21's candidate (b): where a related file's alignment stops
+    /// while the music plays on, its own material finds nothing). Empty
+    /// when no side has room or the peaks are not at hand.
+    pub fn beyond(
+        &self,
+        index: &Index,
+        detection: &Detection,
+        samples: &[f32],
+        profile: &Profile,
+        seconds: f64,
+    ) -> Vec<Beyond> {
+        let asset = index.asset(detection.asset);
+        let (Some(reference), Some(line)) = (self.peaks(&asset.path), Line::of(detection, profile))
+        else {
+            return Vec::new();
+        };
+        let analysed = Analysed::of(detection, samples, profile, &line);
+        let offsets = line.window_offsets(index, detection, &analysed, profile);
+        let room = Room {
+            reference_frames: profile.frames(asset.duration_seconds),
+            query_frames: samples.len() as f64 / profile.hop as f64,
+        };
+        [Side::After, Side::Before]
+            .into_iter()
+            .filter_map(|side| {
+                let span = line.beyond(side, profile.frames(seconds), &room)?;
+                let offset = match side {
+                    Side::After => offsets.last(),
+                    Side::Before => offsets.first(),
+                };
+                let analysed = Analysed::of(detection, samples, profile, &span);
+                let query = analysed.placed(&span);
+                let aligned = Aligned {
+                    line: span,
+                    offsets: vec![offset.copied().unwrap_or(0.0)],
+                    window_frames: profile.frames(WINDOW_SECONDS),
+                };
+                Some(Beyond {
+                    side,
+                    count: count(&reference, &query, &aligned, TOLERANCE, 0.0, profile),
+                })
+            })
+            .collect()
+    }
+}
+
+/// How far the file and the query reach, in frames.
+struct Room {
+    reference_frames: f64,
+    query_frames: f64,
 }
 
 /// The straight line through the detection's first and last aligned hits:
@@ -181,6 +260,29 @@ impl Line {
 
     fn reference_at(&self, query_frame: f64) -> f64 {
         self.reference + self.slope * (query_frame - self.first)
+    }
+
+    /// The same line over `frames` of the file just beyond its span on
+    /// `side`, when the file and the query both reach that far.
+    fn beyond(&self, side: Side, frames: f64, room: &Room) -> Option<Line> {
+        let (from, to) = match side {
+            Side::After => {
+                let from = self.reference_at(self.last);
+                (from, from + frames)
+            }
+            Side::Before => {
+                let to = self.reference_at(self.first);
+                (to - frames, to)
+            }
+        };
+        let (first, last) = (self.query_at(from), self.query_at(to));
+        let fits = from >= 0.0 && to <= room.reference_frames && first >= 0.0;
+        (fits && last <= room.query_frames).then_some(Line {
+            reference: from,
+            slope: self.slope,
+            first,
+            last,
+        })
     }
 
     fn query_at(&self, reference_frame: f64) -> f64 {
@@ -511,5 +613,61 @@ mod tests {
         assert!((line.reference_at(profile.frames(10.0)) - profile.frames(40.0)).abs() < 1e-9);
         assert!((line.reference_at(profile.frames(20.0)) - profile.frames(50.5)).abs() < 1e-9);
         assert!((line.query_at(profile.frames(50.5)) - profile.frames(20.0)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_material_beyond_lies_on_the_line_extended() {
+        let line = Line {
+            reference: 100.0,
+            slope: 1.05,
+            first: 30.0,
+            last: 70.0,
+        };
+        let room = Room {
+            reference_frames: 1000.0,
+            query_frames: 1000.0,
+        };
+
+        let after = line.beyond(Side::After, 21.0, &room).unwrap();
+        let before = line.beyond(Side::Before, 21.0, &room).unwrap();
+
+        assert!((after.reference - 142.0).abs() < 1e-9);
+        assert!((after.first - 70.0).abs() < 1e-9 && (after.last - 90.0).abs() < 1e-9);
+        assert!((before.reference - 79.0).abs() < 1e-9);
+        assert!((before.first - 10.0).abs() < 1e-9 && (before.last - 30.0).abs() < 1e-9);
+        assert!((after.reference_at(85.0) - line.reference_at(85.0)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_material_beyond_needs_room_in_the_file_and_the_query() {
+        let line = Line {
+            reference: 100.0,
+            slope: 1.0,
+            first: 30.0,
+            last: 70.0,
+        };
+        let room = |reference_frames, query_frames| Room {
+            reference_frames,
+            query_frames,
+        };
+
+        assert!(
+            line.beyond(Side::After, 20.0, &room(150.0, 1000.0))
+                .is_none()
+        );
+        assert!(line.beyond(Side::After, 20.0, &room(160.0, 89.0)).is_none());
+        assert!(line.beyond(Side::After, 20.0, &room(160.0, 90.0)).is_some());
+        assert!(
+            line.beyond(Side::Before, 101.0, &room(1000.0, 1000.0))
+                .is_none()
+        );
+        assert!(
+            line.beyond(Side::Before, 40.0, &room(1000.0, 1000.0))
+                .is_none()
+        );
+        assert!(
+            line.beyond(Side::Before, 30.0, &room(1000.0, 1000.0))
+                .is_some()
+        );
     }
 }

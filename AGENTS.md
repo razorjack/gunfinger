@@ -130,7 +130,10 @@ measurements without a search) on top of `manifest` and `scoring`.
 that leaves detections unchanged; `shared` searches queries cut from a
 passage two recordings share, and `identifiability` compares the files
 of two recordings over that passage in audio, peaks and pairs (proposal
-5's diagnostic, `docs/panels/`).
+5's diagnostic, `docs/panels/`); `shared_mixes` renders mixes that play
+a panel's played files whole among drawn tracks (`mixes::draw_around`),
+searches them with the played recording indexed and left out, and
+measures each detection for session 21's candidate statistics.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus
