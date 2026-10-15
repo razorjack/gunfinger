@@ -3124,8 +3124,9 @@ was measured.
   and 5.3 min). The run rendered the 702 excerpts again into today's
   work directory; the variant searched an APFS clone of those renders.
   Both builds: 522 of 522 recalled, the same 57 wrong confident answers
-  (newer uploads of the queried recordings that session 18's clusters do
-  not hold: Ram Trilogy, Bad Company, Mulder, Perfect Unknown, John B),
+  (by their titles other rips of the queried recordings, which session
+  18's clusters do not join: Ram Trilogy, Bad Company, Mulder, Perfect
+  Unknown, John B; not checked with `pair`),
   the right file's hits 0.990-1.011 of today's; one held-out query
   (Congo Natty - Revolution against the "Peace" white label) changes its
   possible wrong match at three speeds (85 -> 28, 9 -> 60, 82 -> none).
