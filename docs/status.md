@@ -3108,3 +3108,14 @@ was measured.
   gained). 6 right possible answers lost and 6 gained (blends, pitch
   ride, beatmatched); 6 changes of the blend partner's confident answer.
   The other conditions keep every answer.
+- (f) 10:10-10:16 the key-lock-only control (`--ladder key-lock sweep
+  --seed 2026`): **byte-identical reports** from both builds, so the
+  variant changes no key-locked rung. Other rips at NAS scale (`sweep
+  --seed 2026 --other-rips`, 333 queries, 2.8 min each): every answer
+  unchanged, including the 18 known wrong answers (Phoenix's weedsurfer
+  upload, experiment 0059); the right file's hits 0.89-1.52 of today's.
+- (g) 10:16-10:22 the 2003 mix and the Vertical broadcast at 262 tracks
+  with leave-outs 3 and all, both builds: identified 7, 4, 0 and 9, 6, 0
+  in both, 0 wrong, no play lost or added; Into Music's `extra/h-` rip
+  again loses its first confident segment (679 hits, then 20) inside a
+  play that stays confident; boundaries moved: 3, 2, 0, 5, 4, 0.
