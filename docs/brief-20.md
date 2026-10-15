@@ -293,3 +293,19 @@ done by 03:55, so a descriptive comparison follows; no rule is adopted.
   failing.
 - The test set, both validation halves and the candidate mixes stay
   out.
+
+## After the review: a like-for-like check of 0114 (written at 04:38, before it ran)
+
+The review found 0114's comparison not like-for-like: its wrong plays
+come from clean renders of the panel's passages, its true plays from
+mixes. Wrong plays from the mixes themselves: `gunfinger-eval
+--other-peaks-dir <NAS store> --verify scan <set> --leave-out <all its
+referenced tracks>` on the three development sets (12, 11 and 17
+tracks), at the store's revision `b285da9984422fb5`. With every
+referenced track and its cluster left out, every confident detection is
+wrong, except files that cover at least 80% of a referenced track's
+credited file (the clustering rule; 0114 found 7 such files), which are
+the same recordings and are set aside. If the mixes give at least 20
+wrong confident detections, 0114's two cuts are applied to them as they
+are (3.36 hits per second, verifier share 0.30); with fewer, the count
+is reported and no cut is evaluated. No rule is adopted.
