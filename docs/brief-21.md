@@ -109,3 +109,170 @@ Start 05:50; hard end 11:59.
 
 If a step overruns by more than 20 minutes, step 6 goes first. The
 review starts by 10:45 and the wrap-up by 11:15 whatever is left.
+
+## Pre-registration (written at 05:51, before anything was rendered)
+
+Everything below is fixed before a mix is rendered or searched. No
+candidate, measure, combination or threshold rule may be added after
+seeing the data; anything computed later is reported as exploratory and
+decides nothing.
+
+### The mixes
+
+- Seeds 2101, 2102 and 2103. For each seed, one mix per development
+  played recording that has a shared passage (12: Dozer, the Notjamie
+  bootleg, Fire's original mix, Rogue Unit Remix, Nasty Jungle Remix and
+  Rogue Unit VIP, Time Is Broken, Ignorance, Sonar, the Mark System
+  Revision, Watermelon, Monotone); 36 mixes. Every played file is
+  3:26-7:27 long, so each plays whole, from 0 s to its end (the whole
+  file fits). Where a passage starts at the file's start (Dozer, Fire's
+  original, Time Is Broken, Sonar), the file has no own material before
+  it; the whole file is the most there is.
+- Each mix: three drawn plays, the played file, three drawn plays. Drawn
+  plays, speeds, levels and transitions follow the `mixes` harness's
+  rules unchanged (plays of 20-60 s from 10-95% of a track; turntable
+  speed within 6% of native, the played file's speed drawn the same way;
+  bass swaps 40%, crossfades 30%, cuts 30%; each play at equal RMS;
+  128 kbps MP3). Two departures, both to keep the denominators clean:
+  no held-out plays and no returning play (every drawn track is
+  indexed, so each drawn play is a true play).
+- The drawn pool: corpus records of at least 150 s, leaving out every
+  file of the panel (both halves: recordings, other versions, files of a
+  family's title) with their duplicate clusters, and the five
+  test-derived versions (`shared_panel.py`'s pattern). No validation-half
+  recording and no test-derived version is ever placed.
+- NAS scale: the harness's saved index of the corpus and the NAS store's
+  records less the copies corpus files stand for (ADR 0014), at the
+  store's revision `b285da9984422fb5`. Three indexes per mix:
+  *everything*; *played left out* (the played recording's files: the
+  panel's recording list and the NAS duplicate cluster), the main case;
+  *source left out* (the played file alone), only where another file of
+  its recording is indexed (Dozer, Fire's original, Time Is Broken,
+  Sonar), the positive control.
+
+### The oracle (session 20's, applied per play)
+
+A *play* is the product's (ADR 0006): one file's detections in one mix
+and index, joined across gaps of at most 90 s, taking part only when at
+least possible; it is confident when one of its segments is (ADR 0013).
+Each confident play is, in this order:
+
+1. *right*: of a file of the played recording (the panel's recording
+   list) overlapping the played file's audible span, or of a file in a
+   drawn track's duplicate cluster overlapping that drawn play's span;
+2. *wrong related*: of a file of another recording of the played
+   recording's family, or of its listed other versions (session 20's
+   roles `related` and `version`), overlapping the played file's span;
+3. *wrong, unjudged title*: of a file listed under the family's
+   `unjudged_same_title`; counted and named apart (session 20's rule);
+4. *wrong, other*: anything else; named and counted apart. A file that
+   covers 80% or more of a planned file by `gunfinger-eval pair` is the
+   same recording (the clustering rule, as 0115) and is set aside.
+
+With the played recording left out, the right answer over the played
+file's span is possible only or nothing; a confident related play there
+is the failure being studied.
+
+### The denominators
+
+- *True confident plays* (the primary sample): the right confident
+  plays of drawn tracks in the *played left out* runs, and the right
+  confident plays of the played recording's other rip in the *source
+  left out* runs. (Drawn tracks in the *everything* and *source left
+  out* runs repeat the same mixes over nearly the same index and are not
+  counted again.)
+- *Wrong related confident plays*: the wrong related confident plays in
+  the *played left out* runs.
+- Reported apart, outside the decision: the *everything* runs (each
+  wrong related play beside the played file's own play) and the wrong
+  related plays of the *source left out* runs; the second sample (below).
+- Each counted per play: every file's play counts once, so two rips both
+  confident over one drawn play are two true plays.
+
+### The candidates, computed the same way for every confident segment
+
+A play's value is the most favourable value over its confident segments
+(the play stays confident if any confident segment would), so a rule on
+a play is a rule on its segments.
+
+- **(a1) hits per second of the span**: the segment's hits divided by
+  its span in query time (end minus start). Low is suspicious.
+- **(a2) the peak verifier's aligned share** (`verified.aligned.share`,
+  tolerance 1 bin x 1 frame, experiment 0054). Low is suspicious.
+- **(b) the continuation share**: on each side of the segment (the 10 s
+  of the file's own material after the segment's end in file time, and
+  the 10 s before its start), the side is *testable* when the file holds
+  those 10 s and the query holds the query time they map to. For a
+  testable side, the verifier's share of the file's reference peaks in
+  those 10 s found in the query, on the segment's line extended (the
+  verifier's line through its ends, at its speed, with the offset of its
+  nearest window), divided by the segment's own aligned share. The
+  segment's value is the minimum over its testable sides; a segment with
+  no testable side has no value and (b) never rejects it. Low is
+  suspicious ("the file's own material beyond, at the alignment, finds
+  nothing in the mix although the mix plays on"). 10 s is one window of
+  the confidence rule and of the verifier, chosen a priori.
+- **(c) the library's map of shared passages**: the file's stored peaks
+  within the segment's file span (`track_start_seconds` to
+  `track_end_seconds`), searched with `search_peaks` over the turntable
+  ladder (0.92-1.08, the duplicate search's method) against the run's
+  own index: the files present after the leave-out, with the fullest 1%
+  of lists skipped as in the run. Detections of the file's own recording
+  (its NAS duplicate cluster, and the panel's recording list where it is
+  in one) are ignored. The value is the hits of the strongest detection
+  of any other file. High is suspicious; at 60 hits (the possible tier,
+  ADR 0006) the segment is *marked*: another indexed version holds its
+  passage. Never built from a file left out.
+
+Combinations, named now (none added later): each makes one statistic
+whose threshold is searched the same way.
+
+- **(c)+(a1)**: a play the map does not mark (value under 60) is kept;
+  a marked play takes its (a1) value.
+- **(c)+(a2)**: the same with (a2).
+- **(c)+(b)**: the same with (b).
+
+### The decision criterion (the research note's feasibility test)
+
+For each candidate and combination, on the primary sample: the threshold
+is the strictest one that keeps at least 95% of the true confident plays
+(for low-is-suspicious statistics, the largest value v with at least
+95% of true plays at v or above; for (c), the smallest value v with at
+least 95% of true plays at v or below); a play at the threshold is kept. The
+candidate is **promising** only if that one threshold rejects at least
+half of the wrong related confident plays. (c) is also reported at its
+natural point, 60 hits; that does not decide.
+
+- The second sample, reported apart: the confident detections credited
+  to referenced tracks in the three development mixes at NAS scale
+  (0114's 102 detections, from session 20's `verified/` scans), grouped
+  into plays the same way, with (a1), (a2), (b) and (c) computed on the
+  same build with everything indexed. For each candidate: the share of
+  them its primary threshold keeps. A candidate that is promising on the
+  primary sample but keeps under 95% of the second sample is reported as
+  promising in rendered mixes only, with that share beside it.
+- Fewer than 10 wrong related confident plays in the primary sample:
+  reported, and no candidate is called promising.
+- If a candidate is promising: its definition and threshold are frozen
+  in the experiment and the notes; validating it needs the panel's
+  validation half rendered the same way (seeds fixed then), which this
+  session does not do.
+- Expected before the data, written so it cannot be claimed later: drawn
+  plays are rendered from the indexed files themselves, so they are
+  denser than a real rip; that favours (a). In mixes a true play also
+  ends at a transition, where its own material beyond finds nothing;
+  that works against (b). (c) can mark a wrong play only where a third
+  version of the family stays indexed (Fire).
+
+## Setup (done at 05:50)
+
+- Release build: `cargo build --release` was current; binaries in
+  `work/bin/s21-start/` (`gunfinger` byte-identical to session 20's
+  final build). `baseline session-21-start` saved from the reports of
+  session 20's final `regress`, made by that identical build.
+- The NAS peak store: 38,105 records, revision `b285da9984422fb5`
+  (`work/s21/store-revision-start.txt`), as expected.
+- Listening files: `docs/pair-verdicts.txt` sha256 `d9af100a…9586`,
+  `work/audition/answers.jsonl` sha256 `dff04586…09be`, the manifests'
+  modification times as at session 20's start
+  (`work/s21/listening-digests-start.txt`).
