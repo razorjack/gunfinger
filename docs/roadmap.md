@@ -371,7 +371,11 @@ marked as inferences were derived, not measured.
   time with both playbacks and 9.2% less with turntable playback (the
   fastest lengths measured: 7.6% and 11.1%; timed under other load). A change
   of length changes peaks and output: a retrieval study first, and our
-  decision.
+  decision; the study now includes the shared-material panel's
+  development half ("A confidence statistic for shared material").
+  *(session 20)* Split out of `take_part`, the binary searches are
+  1.3-1.4% of CPU and the copying of hits 9.1% (0113): under the note's
+  5% stop point, so part boundaries computed once are not pursued.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
@@ -476,6 +480,28 @@ marked as inferences were derived, not measured.
   peaks and pairs, or present but unused; only the last justifies a new
   statistic (proposal 5 of
   `docs/research/2026-10-14-matching-proposals.md`).
+  *(session 20, experiments 0110-0114)* The challenge set exists:
+  `docs/panels/shared-material-seed-2026.json`, 12 families from the
+  judgements by ear (verdicts, `shared` answers, two judgements in the
+  docs), each recording with its rips, split by family with seed 2026.
+  The development half runs in one command (`gunfinger-eval
+  --other-peaks-dir <NAS store> shared
+  docs/panels/shared-material-seed-2026-development.json`, then
+  `scripts/analysis/shared_outcomes.py`); the validation half is kept
+  unsearched for a frozen rule. With the played recording left out at
+  NAS scale, a related version is wrong confident in 106 of 218 queries
+  and 12 of 14 directions once about a minute of the passage plays
+  (0111). Proposal 5's diagnostic: outcome 3 in 11 of 14 directions, no
+  outcome 2, outcome 1 once (0112). But the unused evidence is relative
+  to a clean copy of the played record: true plays in the development
+  mixes are as sparse, and no cut on hits per second or the verifier's
+  share keeps 95% of them and rejects half of the wrong plays (0114).
+  Next, where a related file's alignment stops while the music runs
+  on, tested against true plays with its rule written first; reporting
+  the ambiguity is the fallback (our decision). The panel is now
+  a required check: anything that adds or changes evidence (the items below, the
+  band profile, a minimum span, the FFT lengths' retrieval study) runs
+  its development half and may add no wrong confident query there.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away

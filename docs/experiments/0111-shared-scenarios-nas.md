@@ -12,7 +12,7 @@ beyond, a partner at equal level over the context) and `break` (5 s
 looped to 60 and 240 s); 10 new tests. One command: `gunfinger-eval
 --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks shared
 docs/panels/shared-material-seed-2026-development.json` (32 min, 5.4
-GB); `shared_outcomes.py`; data `data/0111-shared-scenarios.json`.
+GB peak); `shared_outcomes.py`; data `data/0111-shared-scenarios.json`.
 
 | Played left out (main case), 14 directions | alone | looped | beyond | before | weak | blend | break |
 |---|--:|--:|--:|--:|--:|--:|--:|

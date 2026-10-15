@@ -274,6 +274,13 @@ unverified.
 **Kind:** an optimisation candidate with exact output. **Status:**
 unverified.
 
+- **Measured in session 20 (experiment 0113): stopped at the first
+  step.** `take_part` split into its binary searches and its copying (a
+  build never committed, both out of line) on the 2003 mix at NAS scale
+  (38,105 records), twice under `sample`, reports byte-identical to the
+  start build's: the searches 1.3-1.4% of CPU samples, the copying 9.1%,
+  `take_part`'s own loop 0.4%. Under the 5% stop point; no replay and no
+  directory were built.
 - **Mechanism.** `WindowHits::take_part` binary-searches what is left of
   each of a window's lists for every part of 4,096 assets
   (`partition_point`). The boundaries depend on the index only. A
@@ -350,6 +357,22 @@ unverified; the riskiest of the five.
 **Kind:** a diagnostic; no change to the product. **Status:**
 unverified.
 
+- **Measured in session 20 (experiments 0110, 0111, 0112 and 0114): the
+  diagnostic on a panel's development half; no rule adopted.** The panel:
+  12 recording families from the judgements by ear, split by family
+  with seed 2026, the oracle and denominator written first
+  (`docs/brief-20.md`, `docs/panels/shared-material-seed-2026.json`;
+  0110). Today's matcher at NAS scale with the played recording left
+  out: a related version is wrong confident in 106 of 218 queries and 12
+  of 14 directions (0111). Against the played recording's rips as the
+  noise floor: information that survives but the evidence ignores in 11
+  of 14 directions, no distinguishing information in one (thin, against
+  a poor upload), no information lost before peaks and pairs, one
+  family separated today (0112). The surviving information is relative
+  to a clean copy of the played record: true plays in the development
+  mixes are as sparse, and no cut on hits per second or the verifier's
+  share keeps 95% of them and rejects half of the wrong plays (0114).
+  The validation half is unsearched.
 - **Question.** Does a query hold distinctive evidence that today's
   representation does not use, or only material several versions share?
   An unchanged passage shared by two versions cannot say which supplied

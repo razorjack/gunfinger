@@ -40,13 +40,16 @@ for scope and rules.
   verdict covers, from 0076 and the development mixes, one joined rip,
   Meltdown ~ Phantom Force); `listening_pack.py candidates`; the page
   checked with a temporary answer log and a copy of the verdicts (16
-  questions, audio and envelopes 200, nothing answered)
+  questions, audio and envelopes 200, nothing answered). Later a 17th,
+  Fire's Rogue Unit Remix ~ VIP (`02-fire-remix-vip.json`), checked the
+  same way; the 7 new uploads scored wrong in 0114 cover 99-100% of the
+  credited files, so the clustering rule settles them (no question)
 - [x] 6. Proposal 3's first step: `take_part` split (a build never
   committed) on the 2003 mix at NAS scale, twice under `sample`, reports
   byte-identical: the binary searches 1.3-1.4% of CPU, the copying
   9.1%; under the 5% stop point, proposal 3 stops; worktree removed;
   experiment 0113
-- [ ] 7. Read-only review by a subagent; fixes
+- [~] 7. Read-only review by a subagent; fixes
 
 ## Wrap-up
 
