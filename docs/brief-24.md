@@ -378,3 +378,12 @@ any calibration or evaluation play; nothing else changes.
   warns about; its lag sits at -2 to -3 frames (the bound) in most
   patches. Seen on calibration data after the pre-registration, so the
   design does not change; it is reported with the results.
+
+## Step 5: the threshold (written at 19:14, after calibration, before any evaluation run)
+
+- Calibration run 19:11-19:12 (`work/s24/runs/calibration.json`, 387
+  plays, no errors). By the pre-registered rule, **T = 0.12100456621**
+  (the 156th highest S1 of the 312 negatives): a play is rejected when
+  its S1 is at or above it. At T: 157 of 312 negatives rejected, 75 of 75
+  positives kept (the calibration separates; the highest positive S1 is
+  0.053). Experiment 0124. This T is used unchanged for E1 and E2.

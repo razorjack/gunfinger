@@ -24,7 +24,7 @@ for scope and rules.
   committed before any run on calibration or evaluation data
 - [x] 4. The verifier in `gunfinger-eval`, synthetic tests, smoke runs
   on a positive control and one of Fire's wrong plays
-- [ ] 5. Calibration on the panel's development half; thresholds
+- [x] 5. Calibration on the panel's development half; thresholds
   written and committed before step 6
 - [ ] 6. Evaluation: E1 (108 true plays), E2 (87 wrong related plays,
   drawn true plays); rejected true plays with causes; timelines of
