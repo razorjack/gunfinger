@@ -28,7 +28,7 @@ use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
 use crate::pair::{Records, Sources};
-use crate::render::{Playback, render_samples};
+use crate::render::{Playback, render_samples_as_indexed};
 use crate::shared::Roots;
 use crate::shared_mixes::LISTED_HOLDER_HITS;
 use compare::{Judged, PatchState};
@@ -289,7 +289,7 @@ fn on_the_mix_clock(
     let seconds = clock.seconds - lead as f64 / rate;
     let mut samples = vec![0.0; lead.min(length)];
     if seconds > 0.0 {
-        samples.extend(render_samples(
+        samples.extend(render_samples_as_indexed(
             path,
             at_start.max(0.0),
             seconds,

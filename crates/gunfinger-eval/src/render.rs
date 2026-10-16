@@ -165,7 +165,7 @@ pub fn render_excerpt(
 
 /// Like `render_excerpt`, but returns mono samples at `RENDER_RATE` for
 /// further processing, with `filter` (an FFmpeg filter chain) applied after
-/// the playback.
+/// the playback. FFmpeg seeks to `start` by the source's timestamps.
 pub fn render_samples(
     source: &Path,
     start: f64,
@@ -173,19 +173,57 @@ pub fn render_samples(
     playback: Playback,
     filter: Option<&str>,
 ) -> Result<Vec<f32>, String> {
+    render_mono(source, Some(start), &chain(playback, filter), seconds)
+}
+
+/// Like `render_samples`, but `start` counts the samples decoded from the
+/// source's beginning, as indexing decodes it: the timeline of the file's
+/// peak record, on which a detection's line lies. A seek goes by
+/// timestamps instead, and where damaged frames are dropped the two part
+/// (experiment 0127: Do Drop In's decoded audio runs 235 ms ahead of its
+/// timestamps). Decodes everything before `start`.
+pub fn render_samples_as_indexed(
+    source: &Path,
+    start: f64,
+    seconds: f64,
+    playback: Playback,
+    filter: Option<&str>,
+) -> Result<Vec<f32>, String> {
+    let from_start = format!(
+        "asetpts=N/SR/TB,atrim=start={start:.6},asetpts=PTS-STARTPTS,{}",
+        chain(playback, filter)
+    );
+    render_mono(source, None, &from_start, seconds)
+}
+
+fn chain(playback: Playback, filter: Option<&str>) -> String {
     let mut chain = playback.filter();
     if let Some(filter) = filter {
         chain.push(',');
         chain.push_str(filter);
     }
-    let output = Command::new("ffmpeg")
-        .args(["-nostdin", "-v", "error", "-ss"])
-        .arg(format!("{start:.3}"))
+    chain
+}
+
+/// `seconds` of `source` through the filter `chain`, mono, after FFmpeg's
+/// seek to `seek` when there is one.
+fn render_mono(
+    source: &Path,
+    seek: Option<f64>,
+    chain: &str,
+    seconds: f64,
+) -> Result<Vec<f32>, String> {
+    let mut command = Command::new("ffmpeg");
+    command.args(["-nostdin", "-v", "error"]);
+    if let Some(start) = seek {
+        command.arg("-ss").arg(format!("{start:.3}"));
+    }
+    let output = command
         // A WAV file behind an ID3 tag opens as the core's decoder opens it.
         .args(Container::of(source).input_args())
         .arg("-i")
         .arg(source)
-        .args(["-map", "0:a:0", "-ac", "1", "-af", &chain, "-t"])
+        .args(["-map", "0:a:0", "-ac", "1", "-af", chain, "-t"])
         .arg(format!("{seconds:.3}"))
         .args(["-f", "f32le", "pipe:1"])
         .stdin(Stdio::null())
@@ -318,6 +356,66 @@ mod tests {
             "{}",
             samples.len()
         );
+        fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn a_render_as_indexed_follows_the_decoded_samples_where_timestamps_jump() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-render-indexed-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        // Each sample holds its own time in seconds; the timestamps jump
+        // 0.5 s at 2 s, as where a decoder drops damaged frames.
+        let file = dir.join("jump.mka");
+        let generated = Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("aevalsrc=t:s=8000:d=6")
+            .args(["-af", "asetpts='if(gte(T,2),PTS+0.5/TB,PTS)'"])
+            .args(["-c:a", "pcm_f32le"])
+            .arg(&file)
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        let indexed = gunfinger_core::decode::decode(
+            &file,
+            8_000,
+            gunfinger_core::decode::Excerpt::default(),
+        )
+        .unwrap();
+        let as_indexed = render_samples_as_indexed(
+            &file,
+            4.0,
+            0.5,
+            Playback::Turntable(1.0),
+            Some("aresample=8000"),
+        )
+        .unwrap();
+        let sought = render_samples(
+            &file,
+            4.0,
+            0.5,
+            Playback::Turntable(1.0),
+            Some("aresample=8000"),
+        )
+        .unwrap();
+
+        // Indexing decodes the samples one after another, with no gap.
+        assert_eq!(indexed.samples.len(), 48_000);
+        assert!((indexed.samples[32_100] - 4.0125).abs() < 1e-4);
+        assert!(
+            (3_990..=4_010).contains(&as_indexed.len()),
+            "{}",
+            as_indexed.len()
+        );
+        assert!(
+            (as_indexed[100] - 4.0125).abs() < 1e-3,
+            "{}",
+            as_indexed[100]
+        );
+        assert!((sought[100] - 3.5125).abs() < 1e-3, "{}", sought[100]);
         fs::remove_dir_all(&dir).ok();
     }
 

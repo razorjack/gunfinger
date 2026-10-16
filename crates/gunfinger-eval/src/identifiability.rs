@@ -37,7 +37,7 @@ use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
 use crate::pair::{Records, Sources};
-use crate::render::{Playback, render_samples};
+use crate::render::{Playback, render_samples_as_indexed};
 use crate::shared::Roots;
 use crate::verifier::{CHANCE_SHIFTS_SECONDS, Verifier};
 
@@ -275,7 +275,8 @@ fn aligned_audio(
     };
     let seconds = length as f64 / rate;
     let resample = format!("aresample={}", Profile::CURRENT.sample_rate);
-    let rendered = render_samples(path, at_zero.max(0.0), seconds, playback, Some(&resample))?;
+    let rendered =
+        render_samples_as_indexed(path, at_zero.max(0.0), seconds, playback, Some(&resample))?;
     let mut samples = vec![0.0; lead.min(length)];
     samples.extend(rendered);
     samples.resize(length, 0.0);

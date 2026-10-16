@@ -162,3 +162,31 @@ slows it.
   the cut links are 0120's (PRO 012 A upload ~ revision) and nothing
   else; any other cut is a finding, listed, and a listening question,
   never a verdict. The pre-check's output is in `work/s25/precheck/`.
+- **(21:20) Step 3c: a second render function, not a changed one.**
+  `render_samples` also renders `shared`'s, `mixes`'s and `robust`'s
+  queries, whose renders are cached under a digest of the plan, not of
+  the code; changing it would let a later run mix old and new renders
+  silently and would change earlier experiments' queries. So
+  `render_samples` stays as it is (FFmpeg's seek by timestamps, right for
+  a query, which only needs the audio), and `render_samples_as_indexed`
+  counts the start in samples decoded from the beginning
+  (`asetpts=N/SR/TB,atrim=start=...`), the timeline of the peak record;
+  `versions` and `identifiability`, which compare audio with a line
+  fitted on stored peaks, use it. The mix side of both commands decodes
+  an excerpt with the core's decoder (an input seek too); the core does
+  not change, so that side is checked, not changed.
+- **(21:28) Step 3c's check** (`scripts/analysis/render_timeline.py`,
+  `work/s25/timeline/s24-and-0112.json`): every reference and mix that
+  0124-0126's plays and 0112's report rendered (594 files, 1,638
+  positions, each rendered both ways). Off by more than 1 ms: Do Drop In
+  (-26.1 ms at 112 s, -235.1 ms at 429 s: one and nine MP3 frames of
+  1,152 samples) and `extra/a-)eib(-miami-sour.mp3` (-26.1 ms at 296 s);
+  Pyro - Time Is Broken's butch-french m4a 0.1-0.6 ms; every mix,
+  including the three development mixes, at 0. `versions` again with the
+  fixed build on the 33 plays of these references
+  (`work/s25/timeline/runs-*.json`): one decision changes, Do Drop In's
+  drawn true play in `seed-2101-pyro-2` (S1 0.889 -> 0, rejected ->
+  kept), so E2's rejected drawn true plays go from 3 to 2 of 480; Pyro's
+  plays move by at most 0.005 in S1 (all below 0.03), so T and every
+  calibration and E2 decision stand; Miami's S1 unchanged. E1 holds none
+  of these references. 0112 is rerun after the clusters search.
