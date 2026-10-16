@@ -3569,7 +3569,7 @@ touched.
   of 78 positives kept; the rejected positive's line is 313-327 ms off
   (a loop point inside the opening window, an inference). `s24-final`
   beside it: 9 plays' S1 within 0.006, no decision changes.
-- 22:20 `pair` on the two new cluster pairs (`work/s25/listening/`):
+- 22:16 `pair` on the two new cluster pairs (`work/s25/listening/`):
   the old-skool Sonar upload is the corpus original's audio (speed
   1.0000, every window supported), so no question; APH027 B1 ~ the
   Mobb Deep upload line up to A's 2:28, a listening question in the

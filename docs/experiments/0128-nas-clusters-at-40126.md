@@ -25,7 +25,7 @@ queries, 5.7 GB. `clusters_rebuilt.py`; `data/0128-*.json`.
   judged different by ear): 0120's PRO 012 A upload ~ the Mark System Revision
   (99%, 406 hits, 1.1 per s) and, new, the old-skool `Trace - Sonar.m4a`
   ~ the revision (100%, 301 hits, 0.8 per s), which joins the corpus
-  Sonar at full coverage (`pair`, 22:20: speed 1.0000, all supported).
+  Sonar at full coverage (`pair`, 22:16: speed 1.0000, all supported).
 - Gap: unchanged, weakest same 80.3% (Known Unknown), strongest unjudged
   pair left apart 74.2% (Stalker). Borderline (40-80%, not joined): 50
   rows, 2 new: the old-skool The Nine ~ the Evol Intent VIP (49%,
