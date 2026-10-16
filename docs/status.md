@@ -3266,3 +3266,32 @@ was measured.
   passed over (11 failed to decode, 138 too short, 1,692 too long), 27
   audio files not indexed yet (files added to the NAS since), 39,381 of
   65,536 assets; both saved NAS indexes out of date.
+
+## 2026-10-16: session 23, the NAS clusters rebuilt; shared material re-scored; the ambiguity note measured
+
+Brief `docs/brief-23.md`, checklist `docs/session-23-checklist.md`. Files
+were added to the NAS during
+the session.
+
+- 02:18 start; the verdicts by ear and status entry committed
+  (`d39fdca`); brief and checklist (`d9b3b6a`). The index run
+  exited between 02:23 and 02:25 (entry above): 39,354 records,
+  revision `d71ba5333cff9a34`. Start build `work/bin/s23-start/`
+  (byte-identical to `s22-final`); `baseline session-23-start` (the
+  reports of session 22's final `regress`).
+- 02:32 step 2's clusters run started under `screen` (`work/s23/clusters.sh`,
+  session 18's command at the new revision). `map-library` first: the
+  same 247 copies; only the record count changed (33,723 in the old map
+  -> 39,354). The NAS report folder was cloned to `work/s23/before/`.
+- Harness, before step 4's runs: `shared-mixes` keeps every file its
+  holder lookup finds at 30 hits or more (`holders`), so (c) can be taken
+  under any clusters file; `gunfinger-eval holders` runs the same lookup
+  for a list of files and spans; `shared`'s detections carry their span
+  in the file (3 new tests; the 262-track smoke run of `holders` finds
+  Clockwork's two copies and drops the left-out file).
+- Analysis scripts: `shared_outcomes.py --clusters` and `shared_mixes.py
+  score` under any clusters file (both reproduce 0111, 0116 and 0118
+  exactly with the old clusters); `clusters_rebuilt.py`,
+  `panel_clusters.py`, `ambiguity_note.py`, `shared_panel_2.py`.
+- 02:50 step 5's pre-registration committed (`0afceb5`, brief and
+  experiment 0123), before any count under the fresh clusters.
