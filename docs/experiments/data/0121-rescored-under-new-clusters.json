@@ -1,0 +1,536 @@
+{
+ "clusters": {
+  "old": "work/reports/library-nas-dnb-peaks/duplicate-clusters.json of 2026-10-14 (session 18)",
+  "new": "experiment 0120"
+ },
+ "reports": "store b285da9984422fb5 (sessions 20-22), scored offline",
+ "scans": {
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026.json": {
+   "old": {
+    "identified": 0,
+    "referenced": 17,
+    "wrong": 2,
+    "possible": 0,
+    "wrong_identifications": [
+     {
+      "asset": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+      "hits": 2877,
+      "start_seconds": 0.3
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+      "hits": 1653,
+      "start_seconds": 361.7
+     }
+    ]
+   },
+   "new": {
+    "identified": 2,
+    "referenced": 17,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "old": {
+    "identified": 17,
+    "referenced": 17,
+    "wrong": 2,
+    "possible": 0,
+    "wrong_identifications": [
+     {
+      "asset": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+      "hits": 2877,
+      "start_seconds": 0.3
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+      "hits": 1653,
+      "start_seconds": 361.7
+     }
+    ]
+   },
+   "new": {
+    "identified": 17,
+    "referenced": 17,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   }
+  },
+  "scan-razorjack-2003-03-29-leave-out-12-seed-2026.json": {
+   "old": {
+    "identified": 0,
+    "referenced": 12,
+    "wrong": 7,
+    "possible": 0,
+    "wrong_identifications": [
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+      "hits": 5863,
+      "start_seconds": 2090.6
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "hits": 3346,
+      "start_seconds": 881.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+      "hits": 3291,
+      "start_seconds": 1864.3
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+      "hits": 3276,
+      "start_seconds": 2347.5
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "hits": 3164,
+      "start_seconds": 1604.9
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "hits": 1252,
+      "start_seconds": 1447.6
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "hits": 502,
+      "start_seconds": 1101.0
+     }
+    ]
+   },
+   "new": {
+    "identified": 5,
+    "referenced": 12,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   }
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "old": {
+    "identified": 12,
+    "referenced": 12,
+    "wrong": 7,
+    "possible": 0,
+    "wrong_identifications": [
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+      "hits": 5863,
+      "start_seconds": 2090.6
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "hits": 3346,
+      "start_seconds": 881.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+      "hits": 3291,
+      "start_seconds": 1864.3
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+      "hits": 3276,
+      "start_seconds": 2347.5
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "hits": 3164,
+      "start_seconds": 1604.9
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+      "hits": 1252,
+      "start_seconds": 1447.6
+     },
+     {
+      "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+      "hits": 502,
+      "start_seconds": 1101.0
+     }
+    ]
+   },
+   "new": {
+    "identified": 12,
+    "referenced": 12,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "old": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   },
+   "new": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   }
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "old": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   },
+   "new": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "wrong_identifications": []
+   }
+  }
+ },
+ "0111 identical under both": true,
+ "0116": {
+  "old": {
+   "true": {
+    "plays": 453,
+    "c marked": 79,
+    "c unknown": 0,
+    "cut rejects": 0
+   },
+   "wrong related": {
+    "plays": 87,
+    "c marked": 61,
+    "c unknown": 0,
+    "cut rejects": 61
+   },
+   "second": {
+    "plays": 97,
+    "c marked": 28,
+    "c unknown": 0,
+    "cut rejects": 4
+   }
+  },
+  "new": {
+   "true": {
+    "plays": 495,
+    "c marked": 17,
+    "c unknown": 104,
+    "cut rejects": 0
+   },
+   "wrong related": {
+    "plays": 87,
+    "c marked": 61,
+    "c unknown": 0,
+    "cut rejects": 61
+   },
+   "second": {
+    "plays": 104,
+    "c marked": 16,
+    "c unknown": 19,
+    "cut rejects": 1
+   }
+  }
+ },
+ "0118": {
+  "old": {
+   "true": {
+    "plays": 292,
+    "c marked": 51,
+    "c unknown": 0,
+    "cut rejects": 0
+   },
+   "wrong related": {
+    "plays": 87,
+    "c marked": 61,
+    "c unknown": 0,
+    "cut rejects": 61
+   },
+   "second": {
+    "plays": 97,
+    "c marked": 28,
+    "c unknown": 0,
+    "cut rejects": 4
+   }
+  },
+  "new": {
+   "true": {
+    "plays": 292,
+    "c marked": 18,
+    "c unknown": 33,
+    "cut rejects": 0
+   },
+   "wrong related": {
+    "plays": 87,
+    "c marked": 61,
+    "c unknown": 0,
+    "cut rejects": 61
+   },
+   "second": {
+    "plays": 104,
+    "c marked": 16,
+    "c unknown": 19,
+    "cut rejects": 1
+   }
+  }
+ },
+ "0116 tables": {
+  "old": [
+   "confident plays by run and outcome:",
+   "  everything       right           drawn              438",
+   "  everything       right           played             51",
+   "  everything       wrong other     dozer              7",
+   "  everything       wrong other     fire               13",
+   "  everything       wrong other     pyro               4",
+   "  everything       wrong other     sonar              11",
+   "  everything       wrong other     watermelon         8",
+   "  everything       wrong related   dozer              2",
+   "  everything       wrong related   fire               67",
+   "  everything       wrong related   pyro               9",
+   "  everything       wrong related   sonar              9",
+   "  played left out  right           drawn              438",
+   "  played left out  wrong other     dozer              7",
+   "  played left out  wrong other     fire               13",
+   "  played left out  wrong other     pyro               4",
+   "  played left out  wrong other     sonar              11",
+   "  played left out  wrong other     watermelon         8",
+   "  played left out  wrong related   dozer              2",
+   "  played left out  wrong related   fire               67",
+   "  played left out  wrong related   pyro               9",
+   "  played left out  wrong related   sonar              9",
+   "  source left out  right           drawn              139",
+   "  source left out  right           played             15",
+   "  source left out  wrong other     dozer              4",
+   "  source left out  wrong other     fire               5",
+   "  source left out  wrong other     pyro               1",
+   "  source left out  wrong other     sonar              5",
+   "  source left out  wrong related   dozer              1",
+   "  source left out  wrong related   fire               12",
+   "  source left out  wrong related   pyro               3",
+   "primary sample: 453 true confident plays (15 positive-control), 87 wrong related; second sample: 97 true plays",
+   "  a1    threshold 9.31: keeps 431/453 true, rejects 81/87 wrong related, keeps 50/97 of the second sample -> PROMISING",
+   "  a2    threshold 0.4979: keeps 431/453 true, rejects 80/87 wrong related, keeps 45/97 of the second sample -> PROMISING",
+   "  b     threshold 0.003339: keeps 431/453 true, rejects 1/87 wrong related, keeps 96/97 of the second sample -> not promising",
+   "  c     threshold 421: keeps 431/453 true, rejects 39/87 wrong related, keeps 86/97 of the second sample -> not promising",
+   "  c+a1  threshold 24.56: keeps 432/453 true, rejects 61/87 wrong related, keeps 70/97 of the second sample -> PROMISING",
+   "  c+a2  threshold 0.7219: keeps 431/453 true, rejects 61/87 wrong related, keeps 70/97 of the second sample -> PROMISING",
+   "  c+b   threshold 0.009577: keeps 431/453 true, rejects 8/87 wrong related, keeps 97/97 of the second sample -> not promising",
+   "  (c) at 60 hits: marks 79/453 true, 61/87 wrong related, 28/97 second"
+  ],
+  "new": [
+   "confident plays by run and outcome:",
+   "  everything       right           drawn              480",
+   "  everything       right           played             51",
+   "  everything       wrong other     sonar              1",
+   "  everything       wrong related   dozer              2",
+   "  everything       wrong related   fire               67",
+   "  everything       wrong related   pyro               9",
+   "  everything       wrong related   sonar              9",
+   "  played left out  right           drawn              480",
+   "  played left out  wrong other     sonar              1",
+   "  played left out  wrong related   dozer              2",
+   "  played left out  wrong related   fire               67",
+   "  played left out  wrong related   pyro               9",
+   "  played left out  wrong related   sonar              9",
+   "  source left out  right           drawn              154",
+   "  source left out  right           played             15",
+   "  source left out  wrong related   dozer              1",
+   "  source left out  wrong related   fire               12",
+   "  source left out  wrong related   pyro               3",
+   "primary sample: 495 true confident plays (15 positive-control), 87 wrong related; second sample: 104 true plays",
+   "  a1    threshold 9.199: keeps 471/495 true, rejects 81/87 wrong related, keeps 55/104 of the second sample -> PROMISING",
+   "  a2    threshold 0.4862: keeps 471/495 true, rejects 79/87 wrong related, keeps 56/104 of the second sample -> PROMISING",
+   "  b     threshold 0.003339: keeps 471/495 true, rejects 1/87 wrong related, keeps 102/104 of the second sample -> not promising",
+   "  c     threshold 27: keeps 471/495 true, rejects 64/87 wrong related, keeps 82/104 of the second sample -> PROMISING",
+   "  c+a1  threshold inf: keeps 478/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
+   "  c+a2  threshold inf: keeps 478/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
+   "  c+b   threshold inf: keeps 487/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
+   "  (c) at 60 hits: marks 17/495 true, 61/87 wrong related, 16/104 second",
+   "  (c) unknown under these clusters (the run's holder is now in the own recording; counted unmarked): 104 true, 0 wrong related, 19 second"
+  ]
+ },
+ "0118 tables": {
+  "old": [
+   "confident plays by run and outcome:",
+   "  everything       right           drawn              277",
+   "  everything       right           played             51",
+   "  everything       wrong other     sonar              1",
+   "  everything       wrong related   dozer              2",
+   "  everything       wrong related   fire               67",
+   "  everything       wrong related   pyro               9",
+   "  everything       wrong related   sonar              9",
+   "  played left out  right           drawn              277",
+   "  played left out  wrong other     sonar              1",
+   "  played left out  wrong related   dozer              2",
+   "  played left out  wrong related   fire               67",
+   "  played left out  wrong related   pyro               9",
+   "  played left out  wrong related   sonar              9",
+   "  source left out  right           drawn              88",
+   "  source left out  right           played             15",
+   "  source left out  wrong related   dozer              1",
+   "  source left out  wrong related   fire               12",
+   "  source left out  wrong related   pyro               3",
+   "primary sample: 292 true confident plays (15 positive-control), 87 wrong related; second sample: 97 true plays",
+   "  a1    threshold 8.488: keeps 278/292 true, rejects 78/87 wrong related, keeps 57/97 of the second sample -> PROMISING",
+   "  a2    threshold 0.4457: keeps 278/292 true, rejects 76/87 wrong related, keeps 65/97 of the second sample -> PROMISING",
+   "  b     threshold 0.003758: keeps 278/292 true, rejects 1/87 wrong related, keeps 96/97 of the second sample -> not promising",
+   "  c     threshold 380: keeps 279/292 true, rejects 39/87 wrong related, keeps 86/97 of the second sample -> not promising",
+   "  c+a1  threshold 13.18: keeps 278/292 true, rejects 61/87 wrong related, keeps 74/97 of the second sample -> PROMISING",
+   "  c+a2  threshold 0.578: keeps 278/292 true, rejects 61/87 wrong related, keeps 73/97 of the second sample -> PROMISING",
+   "  c+b   threshold 0.01629: keeps 278/292 true, rejects 13/87 wrong related, keeps 97/97 of the second sample -> not promising",
+   "  (c) at 60 hits: marks 51/292 true, 61/87 wrong related, 28/97 second"
+  ],
+  "new": [
+   "confident plays by run and outcome:",
+   "  everything       right           drawn              277",
+   "  everything       right           played             51",
+   "  everything       wrong other     sonar              1",
+   "  everything       wrong related   dozer              2",
+   "  everything       wrong related   fire               67",
+   "  everything       wrong related   pyro               9",
+   "  everything       wrong related   sonar              9",
+   "  played left out  right           drawn              277",
+   "  played left out  wrong other     sonar              1",
+   "  played left out  wrong related   dozer              2",
+   "  played left out  wrong related   fire               67",
+   "  played left out  wrong related   pyro               9",
+   "  played left out  wrong related   sonar              9",
+   "  source left out  right           drawn              88",
+   "  source left out  right           played             15",
+   "  source left out  wrong related   dozer              1",
+   "  source left out  wrong related   fire               12",
+   "  source left out  wrong related   pyro               3",
+   "primary sample: 292 true confident plays (15 positive-control), 87 wrong related; second sample: 104 true plays",
+   "  a1    threshold 8.488: keeps 278/292 true, rejects 78/87 wrong related, keeps 62/104 of the second sample -> PROMISING",
+   "  a2    threshold 0.4457: keeps 278/292 true, rejects 76/87 wrong related, keeps 71/104 of the second sample -> PROMISING",
+   "  b     threshold 0.003758: keeps 278/292 true, rejects 1/87 wrong related, keeps 102/104 of the second sample -> not promising",
+   "  c     threshold 161: keeps 279/292 true, rejects 61/87 wrong related, keeps 100/104 of the second sample -> PROMISING",
+   "  c+a1  threshold 19.69: keeps 278/292 true, rejects 61/87 wrong related, keeps 89/104 of the second sample -> PROMISING",
+   "  c+a2  threshold 0.7207: keeps 278/292 true, rejects 61/87 wrong related, keeps 89/104 of the second sample -> PROMISING",
+   "  c+b   threshold inf: keeps 283/292 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
+   "  (c) at 60 hits: marks 18/292 true, 61/87 wrong related, 16/104 second",
+   "  (c) unknown under these clusters (the run's holder is now in the own recording; counted unmarked): 33 true, 0 wrong related, 19 second"
+  ]
+ },
+ "second sample marked under the new clusters": [
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Clockwork.mp3",
+   "c": 76,
+   "c holder": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "a1": 11.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "c": 76,
+   "c holder": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "a1": 11.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "c": 67,
+   "c holder": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "a1": 9.67
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "c": 103,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "a1": 8.16
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Kemal & Rob Data - Star Trails.mp3",
+   "c": 96,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "a1": 7.04
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+   "c": 96,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "a1": 7.04
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+   "c": 70,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+   "a1": 31.14
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+   "c": 125,
+   "c holder": "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3",
+   "a1": 15.61
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "c": 115,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+   "a1": 11.58
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3",
+   "c": 138,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "a1": 8.0
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "c": 123,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "a1": 7.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "c": 310,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "a1": 7.1
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "c": 310,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "a1": 7.1
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+   "c": 295,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "a1": 6.75
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+   "c": 319,
+   "c holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "a1": 6.34
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+   "c": 140,
+   "c holder": "second-library/1.mp3",
+   "a1": 4.55
+  }
+ ]
+}

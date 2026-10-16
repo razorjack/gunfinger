@@ -3304,3 +3304,9 @@ the session.
   uploads, 6 from tonight's index run), none gone, nothing split or
   joined; 3 new borderline questions, all Aphrodite 12" ~ V2 album
   (experiment 0120). The new clusters are in the NAS report folder.
+- 06:05 step 3 (experiment 0121): the saved reports under the new
+  clusters. The 9 wrong confident answers of the development scans are
+  newer uploads, now right; 0116's 43 other plays are right but Kemal's
+  remix; the 87 wrong related plays and (c)'s 61 marks on them do not
+  change; (c)'s marks on true plays fall from 79 of 453 to 17-121 of 495
+  (104 unknown offline). `rescore_summary.py` added.

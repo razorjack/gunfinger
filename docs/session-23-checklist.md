@@ -22,7 +22,7 @@ for scope and rules.
   `clusters --from-peaks` (full, every verdict; stopped on the Sonar
   chain, its pairs clustered again with `--cut-sparsest`); what changed;
   experiment 0120
-- [ ] 3. Re-scored offline with old and new clusters (the old reproduce
+- [x] 3. Re-scored offline with old and new clusters (the old reproduce
   the published numbers): the development mixes' NAS scans, 0111, 0112,
   0116, 0118; experiment 0121
 - [ ] 4a. The three development mixes at the new revision
