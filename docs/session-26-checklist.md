@@ -28,8 +28,9 @@ for scope and rules.
 - [x] 4. Implementation in `gunfinger-eval versions` with unit tests (a
   drifting copy, a line off by 150 ms, a jump, a stray, no line, a blend
   with a bass cut); smoke run on two calibration items; committed
-- [ ] 5a. Calibration: T by version 1's rule; committed before any
-  evaluation run
+- [x] 5a. Calibration: T = 0.00683 by version 1's rule (156 of 312
+  negatives rejected, 72 of 75 positives kept); experiment 0133;
+  committed before any evaluation run
 - [ ] 5b. E1 and E2 against the criteria; every rejected true play with
   why; experiment files
 - [ ] 5c. Side sets, deciding nothing: the second panel's development

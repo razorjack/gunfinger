@@ -36,6 +36,9 @@ usage:
   version_plays.py changes BEFORE AFTER
       the plays whose decision differs between two `evaluate` outputs
       (by id), by set and label.
+  version_plays.py data EVALUATE [THRESHOLD] OUT
+      an `evaluate` output for docs/experiments/data/: the summary and
+      each play with its reference's file name, no paths or ids.
   version_plays.py timeline VERIFIED ID_PART [EVERY]
       a compact timeline of the plays whose id contains ID_PART: every
       EVERY-th patch (default 16, about 4 s) with its mix and file time,
@@ -344,6 +347,20 @@ def changes(before_path, after_path):
             print(f"   {'rejected' if now else 'kept    '} S1 {s1_before} -> {s1_after}  {line}  {identifier}")
 
 
+def data(evaluate_path, *paths):
+    *threshold_path, out_path = paths
+    evaluated = load(evaluate_path)
+    kept = ("query", "index", "mix", "run", "label", "role", "family", "kind", "played", "start",
+            "end", "hits", "s1", "s1 version 1 rules", "s2", "s3", "supported", "contradicted",
+            "unobservable", "silent", "rejected", "unmeasured", "line", "error")
+    plays = [{"file": Path(r["id"].split("|")[-2]).name,
+              **{key: r[key] for key in kept if key in r}} for r in evaluated["plays"]]
+    result = {"T": evaluated["T"], "summary": evaluated["summary"], "plays": plays}
+    if threshold_path:
+        result = {"threshold": load(threshold_path[0]), **result}
+    dump(result, out_path)
+
+
 def clock(seconds):
     return f"{int(seconds // 60)}:{seconds % 60:04.1f}"
 
@@ -371,4 +388,4 @@ def timeline(verified_path, id_part, every="16"):
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
     {"calibration": calibration, "e1": e1, "e2": e2, "threshold": threshold,
-     "evaluate": evaluate, "changes": changes, "timeline": timeline}[command](*arguments)
+     "evaluate": evaluate, "changes": changes, "data": data, "timeline": timeline}[command](*arguments)

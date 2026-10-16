@@ -334,3 +334,19 @@ siblings, the renderer, the mix decoder.
   rules on version 2's line: 0.058). So on this wrong play both changes
   lower S1. Seen on calibration data after the pre-registration, the
   design does not change; it is reported with the results.
+
+## Step 5a: the threshold (written at 23:46, after calibration, before any evaluation run)
+
+- Calibration run 23:41-23:42 (`work/s26/runs/calibration.json`, 387
+  plays, 74 s, no errors). By the pre-registered rule, **T =
+  0.006825938566552901** (the 156th highest S1 of the 312 negatives): a
+  play is rejected when its S1 is at or above it. At T: 156 of 312
+  negatives rejected (2 unmeasured), 72 of 75 positives kept (96%: the
+  calibration separates by the 95% rule, by one play). Experiment 0133.
+  This T is used unchanged for E1, E2 and the side sets.
+- Not expected: the group rule lowered the wrong plays' S1 as much as
+  the true plays' (median 0.112 by version 1's band rules on the same
+  lines, 0.007 by version 2's; 99.4% of the 18,372 patches it changed
+  had no low anchor), so T fell from 0.121 to 0.0068. The design stays
+  as registered; whether E1's true plays survive a T this strict is
+  what 0134 measures.
