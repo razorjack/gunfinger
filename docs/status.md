@@ -3328,3 +3328,35 @@ the session.
   page and every lane's envelope and audio; nothing was answered, and it
   was stopped. Descent ~ Scarabeus (41% on 6 hits, unjudged since
   session 18) is left out.
+- 06:23 step 4a done: the three development mixes at the new revision
+  (`--verify` scans, 5.4-9.6 min each, 5.3 GB; the harness's saved index
+  rebuilt by the first). 40 of 40 tracks, 0 wrong; every track left out:
+  0 of 40, 0 wrong; 3 possible plays matching no track in each mix
+  (`1.mp3`'s is gone). Four tracks are also found through files stored
+  tonight (Decoy, Dominion, Descent's Phuncatek Remix, Horns 2000).
+  Under the old clusters the same reports would have 13 wrong.
+- 08:15 step 4b's `shared` run done in 112 min (session 20's took 32;
+  6.1 GB). Tonight's runs retire about as many cycles as session 22's
+  but take 3-6 times as long, with about 3.3 threads busy at an
+  effective 1.8 GHz on this 8+2-core M1 Pro, which suggests the
+  processes started from this session's shell ran at background
+  priority. At 08:27 `taskpolicy -B` moved the queue's own processes
+  out of it (nothing else was touched). Under the new clusters, the
+  outcome tables equal step 3's (106 of 218 wrong confident); a few hit
+  counts move by 1, and the copy of the blend partner Decoy stored
+  tonight is a possible detection in 24 blend queries.
+- 08:47 4b's holder lookups (606, 32 min) and the note on the panel
+  (`ambiguity_note.py panel`): every wrong play of 58 of the 106 wrong
+  confident queries is flagged (all six of Fire's directions), none in
+  Dozer, Pyro and Sonar (no third version indexed); all 75 right plays
+  of the positive control are flagged (each names the related version).
+  4c's `shared-mixes` started.
+- 08:56 `shared-mixes` restarted as a launchd job under `screen`
+  (`work/s23/queue2.sh`, the rest of the queue unchanged), after a
+  benchmark ran 3 times as fast that way. It was no faster (4:50 to the
+  third mix against 4:44); the benchmark had compared two Python
+  interpreters. About 9 minutes lost. The cause of tonight's slowness is
+  not known; `taskpolicy` changes made no difference.
+- 09:05 review pass 1 started (a read-only subagent, no cargo, on the
+  committed code, scripts, 0120, 0121, the panel and the questions);
+  pass 2 follows for 0122, 0123 and the notes.
