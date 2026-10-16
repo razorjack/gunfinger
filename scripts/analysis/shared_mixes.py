@@ -140,9 +140,9 @@ def plays_of(detections):
 
 
 def holder_hits(d, own_of):
-    """(c)'s value under the clusters scored with: the strongest file the
-    lookup found outside the file's own recording (`own_of`), and whether
-    the report cannot tell it. A report with `holders` (session 23) lists
+    """(c)'s value under the clusters scored with: the hits of the strongest
+    file the lookup found outside the file's own recording (`own_of`),
+    whether the report cannot tell it, and that file. A report with `holders` (session 23) lists
     every file found at 30 hits or more; an older one keeps only `holder`,
     the strongest outside the own recording of its run, so where that file
     is now in the own recording a weaker holder may still exist: the value
@@ -151,27 +151,31 @@ def holder_hits(d, own_of):
     own = own_of(d["asset"])
     holder = d.get("holder")
     if "holders" in d:
-        outside = [h["hits"] for h in d["holders"] if h["asset"] not in own]
+        outside = [h for h in d["holders"] if h["asset"] not in own]
         if outside:
-            return max(outside), False
-        return (holder["hits"] if holder and holder["asset"] not in own else 0), False
+            strongest = max(outside, key=lambda h: h["hits"])
+            return strongest["hits"], False, strongest["asset"]
+        if holder and holder["asset"] not in own:
+            return holder["hits"], False, holder["asset"]
+        return 0, False, None
     if holder is None:
-        return 0, False
+        return 0, False, None
     if holder["asset"] in own:
-        return 0, True
-    return holder["hits"], False
+        return 0, True, None
+    return holder["hits"], False, holder["asset"]
 
 
 def segment_values(d, own_of):
     share = (d.get("verified") or {}).get("aligned", {}).get("share")
     sides = [b["count"]["share"] / share for b in d.get("beyond", []) if share]
-    c, unknown = holder_hits(d, own_of)
+    c, unknown, holder = holder_hits(d, own_of)
     return {
         "a1": d["hits"] / (d["end_seconds"] - d["start_seconds"]),
         "a2": share if share is not None else 0.0,
         "b": min(sides) if sides else INF,
         "c": c,
         "c unknown": unknown,
+        "c holder": holder,
     }
 
 
@@ -188,7 +192,9 @@ def play_values(play, own_of):
     for name in ("a1", "a2", "b"):
         out[name] = max(v[name] for v in segs)
         out["c+" + name] = max(INF if v["c"] < MARKED_HITS else v[name] for v in segs)
-    out["c"] = min(v["c"] for v in segs)
+    weakest = min(segs, key=lambda v: v["c"])
+    out["c"] = weakest["c"]
+    out["c holder"] = weakest["c holder"]
     out["c unknown"] = any(v["c unknown"] for v in segs)
     return out
 

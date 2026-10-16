@@ -179,4 +179,5 @@ def main():
         print(f"  {slot['track']['label']} at {clock(slot['track']['start'])}: {state}")
 
 
-main()
+if __name__ == "__main__":
+    main()
