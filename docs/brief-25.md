@@ -190,7 +190,7 @@ slows it.
   plays move by at most 0.005 in S1 (all below 0.03), so T and every
   calibration and E2 decision stand; Miami's S1 unchanged. E1 holds none
   of these references. 0112 is rerun after the clusters search.
-- **(21:20) Step 3b refined before any use.** The first version refused
+- **(21:14) Step 3b refined before any use.** The first version refused
   every left-out name the index does not hold. `shared` leaves out the
   played recording's whole file set, which can include a NAS copy that a
   corpus file stands for, so session 23's `lookups-shared` files would
@@ -200,7 +200,7 @@ slows it.
   other unindexed name are refused. Emulated on session 23's 606 shared
   and 101 identify lookups with the copy map: none refused.
 
-## Step 4c's pre-registration (written at 21:17, before any `shared` run on the second panel)
+## Step 4c's pre-registration (committed at 21:15, before any `shared` run on the second panel)
 
 Nothing below may change once 4b's run exists; anything computed later
 and not named here is exploratory and decides nothing. Nothing here
@@ -252,7 +252,12 @@ decides anything about the product.
   stretch is not known before the run. The passages are shorter than
   the first panel's (15-62 s, 108-195 hits, from `pair` at 21:10), so
   fewer wrong confident queries than 0111's 106 of 218 are expected.
-- **(21:37) Step 3a, the `decode::watch` tests.** The six tests used
+## Decisions (continued)
+
+The decisions below came after the pre-registration and are not part of
+it.
+
+- **(21:36) Step 3a, the `decode::watch` tests.** The six tests used
   0.5-1 s stall timeouts both for runs meant to stall and for runs meant
   to finish; under load a stand-in meant to finish (`exit 1`, or a loop
   writing every 0.2 s) can miss them. Test code only: runs meant to
@@ -264,18 +269,19 @@ decides anything about the product.
   the killed child is awaited up to 30 s. No defect in the watcher was
   found. Under load (`work/s25/watch/`): 250 busy loops, 6 rounds (load
   94-216) and 15 rounds (262-330); 250 loops of which 100 spawn
-  `/usr/bin/true` without pause, 12 rounds (249-276); 10 cycles that
+  `/usr/bin/true` without pause, 12 rounds (251-282); 10 cycles that
   fork 250 loops and run both at once (168-222). The old tests failed in
-  1 of 43 rounds (round 1 of the first run, while the loops were being
-  forked: the diagnostics test and the probe test, session 23's
-  failures); the new ones in none. The module takes 5.3 s instead of 3.6
+  1 of 43 rounds (round 1 of the first run, a minute after the loops
+  started, the load still rising from 94 to 111: the diagnostics test
+  and the probe test, session 23's failures); the new ones in none. The module takes 5.3 s instead of 3.6
   s on an idle machine.
-- **(21:42) 0112 rerun with the step-3c build** (`identifiability
+- **(21:41) 0112 rerun with the step-3c build** (`identifiability
   --half development`, 3.1 min, `work/s25/timeline/`): pairs and peaks
-  identical; 65 of 532 values move, all audio measures, by at most
-  0.006 (a file against its own copy now gives 0.994-0.995 instead of
-  1.0: the passage is decoded with the core's seek, the reference from
-  the start). `shared_identifiability.py` gives the same outcome for all
+  identical; of the report's 488 numbers, 65 move, all of them audio
+  measures (65 of 76), by at most 0.006. A file against its own copy now
+  gives 0.994-0.995 instead of 1.0, most likely because the passage is
+  decoded with the core's seek and the reference from the start (not
+  checked). `shared_identifiability.py` gives the same outcome for all
   16 directions (Pyro - Ignorance played: Time Is Broken 0.714 against
   the poor upload's 0.654, before 0.716 and 0.655). No count changes.
 - **(21:40) Step 4a, as session 20 built the first panel.** Only the
@@ -307,3 +313,28 @@ decides anything about the product.
   the latest start, and no further experiment is planned: a new one on
   the second panel or on new rendered mixes is not in the prompt, so the
   session ends after the review, its fixes and the wrap-up checks.
+- **(22:44) The review** (a subagent, read-only, 22:20-22:40) found no
+  defect that changes a number and no rule broken. Fixed after it:
+  `holders` mapped each NAS copy to one corpus file, but 7 copies stand
+  for two corpus files each (a lookup leaving out the copy beside the
+  other one would have been refused; none of the 707 or 133 lookups
+  was); the silent-decode test now also checks that the stall timeout
+  passed; 0129's control explained wrongly (Phantom Force's control
+  passage overlaps its passage with Phantom 2018; the context before it
+  does not); the second panel's passages are shorter with fewer hits,
+  not less dense (2.2-8.3 hits per second, the first panel's 1.3-13.8);
+  times (the pre-registration was committed at 21:15, not 21:17; three
+  decisions dated after their commits); the load-test details; 0112's
+  count (65 of 488 numbers, not of 532); the rebuilt index's path; two
+  inferences stated as facts; 0132 now gives the counts by kind and
+  file, the S1 quantiles and the 13 duplicated Star Trails positives (64
+  of 65 distinct measurements kept). Kept as is: the silent-decode
+  test's 60 s upper bound, and a remaining risk under extreme load that
+  reading the first bytes takes over 2 s and the error names the file,
+  not `ffmpeg` (never seen in the 86 runs under load).
+- **(22:44) The new Sonar cut stays a listening question.** At 22:16 the
+  notes dropped it because `pair` lines the old-skool upload up with the
+  corpus original at speed 1.0000, every window supported. That departs
+  from the 20:52 decision (every new cut is a listening question, never
+  a verdict) and was not recorded, so the question is restored, with the
+  `pair` evidence beside it.

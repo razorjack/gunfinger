@@ -5297,8 +5297,8 @@ and keeps 77 of 78 positive-control plays; with fewer than 10 wrong
 plays, the rule written before the run calls the test too small to read.
 Its one false rejection is again a play whose reported line lies about
 320 ms from the audio. The clusters at 40,126 records add two uploads to
-their recordings. One new pair needs judging by ear (below); no question was
-answered.
+their recordings. Two pairs from the clusters wait to be judged by ear (below);
+no question was answered.
 
 ### The three fixes
 
@@ -5312,29 +5312,33 @@ answered.
   every core (load average 94-330, also with loops that start processes
   without pause), the old tests failed in 1 of 43 rounds and the new
   ones in none. No defect in the watcher turned up. The module now takes
-  5.3 s instead of 3.6 s.
+  5.3 s instead of 3.6 s. After the review, the test of a silent decode
+  also checks that the stall timeout passed before the stop.
 - **`holders` refuses a file to leave out that the index does not
   hold**, before it loads an index: a misspelt name ("no indexed file
   has this name"), and a NAS copy that a corpus file stands for unless
   that corpus file is left out with it ("the index holds this audio as
   the corpus file ...; leave that out instead"). A corpus file is
-  indexed under its own name and always passes. Session 23's 707
-  lookups all pass.
+  indexed under its own name and always passes. Seven NAS copies stand
+  for two corpus files each (the corpus holds their audio twice); the
+  review found that the first version kept only one of the two, and a
+  copy now passes beside either. Session 23's 707 lookups all pass.
 - **`render_samples_as_indexed`**, used by `versions` and
   `identifiability`: the start is counted in samples decoded from the
   beginning of the file, the timeline the peak store was built on,
   instead of FFmpeg's seek by timestamp. `render_samples` stays as it
   was, because `shared`, `mixes` and `robust` cache their renders under
   a digest of the plan, not of the code. Of the 594 files and 1,638
-  positions that experiments 0112 and 0124-0126 rendered, three files
+  positions that experiments 0112 and 0124-0126 rendered, two files
   differ by more than a millisecond: Do Drop In (26 ms at 112 s, 235 ms
-  at 429 s), `extra/a-)eib(-miami-sour.mp3` (26 ms at 296 s), and the
-  butch-french upload of Pyro - Time Is Broken (under 1 ms). Every mix
-  is at 0. One count changes: Do Drop In's drawn true play in E2 is now
+  at 429 s) and `extra/a-)eib(-miami-sour.mp3` (26 ms at 296 s); the
+  butch-french upload of Pyro - Time Is Broken differs by under 1 ms.
+  Every mix is at 0. One count changes: Do Drop In's drawn true play in E2 is now
   kept (S1 0.889 to 0), so E2's rejected drawn true plays go from 3 to 2
   of 480. T, E1, E2's wrong-play count and every calibration decision
   stand. 0112 again gives the same outcome in all 16 directions; 65 of
-  its 532 values move, all of them audio measures, by at most 0.006.
+  its report's 488 numbers move, all of them audio measures, by at most
+  0.006.
 
 ### The clusters at 40,126 records (experiment 0128)
 
@@ -5356,12 +5360,8 @@ is 0120's decision taken in one run (32 minutes).
 - Two joins were cut, each the sparsest join of a chain between files
   judged different by ear: 0120's PRO 012 A upload ~ the Mark System
   Revision (99% coverage, 406 hits) and, new, the old-skool `Trace -
-  Sonar.m4a` ~ the revision (100%, 301 hits). No listening is needed for
-  the new one, by my reading: `pair` lines it up with the corpus `DJ
-  Trace - Sonar.m4a` over the whole file at speed 1.0000 with every
-  window supported (4,456 hits), so it is the original's audio. Against
-  the revision it lines up at 0:00-2:49 and 3:50-6:02 and not between,
-  as the PRO 012 A upload does (session 23's question 5).
+  Sonar.m4a` ~ the revision (100%, 301 hits). The new cut is a
+  listening question below, although `pair` suggests the answer.
 - The gap is unchanged: the weakest `same` pair at 80.3% (Known
   Unknown), the strongest unjudged pair left apart at 74.2% (Stalker).
 - 50 borderline pairs (40-80% coverage), 2 new: old-skool's The Nine ~
@@ -5401,22 +5401,25 @@ clusters:
   113-132, the Klute Remix and the VIP 144-178. No unjudged file passes
   13 hits. An unrelated file, `Taxman - It Comes at Night`, reaches 100
   hits (possible) on Phantom Force's queries.
-- The controls: Meltdown reaches 6 hits at most. One control query,
-  Phantom Force's 20 s of own material before the Meltdown passage,
-  names Phantom 2018 confident at 261 hits, because those 20 s overlap
-  the stretch Phantom Force shares with Phantom 2018. It is counted as a
-  control, not a wrong play.
+- The controls: Meltdown reaches 6 hits at most. Phantom Force's
+  control passage (91.2-129.6 s) overlaps its passage with Phantom 2018
+  (100.3-149.2 s), so Phantom 2018 reaches 60-227 hits in those control
+  queries, and 261, confident, in the one with 20 s of Phantom Force's
+  own material before the passage. It is counted as a control, not a
+  wrong play.
 - The first panel's run (0122) scores identically under the new
   clusters.
 
 My reading, an inference: the mechanism is the first panel's (a looped
 or extended shared passage lifts a related version past 240 hits), but
-these families share less dense material, so most queries stop at
-possible.
+these families' passages are shorter, with fewer hits (15-62 s and
+108-195 hits, against 24-188 s and 41-910), so most queries stop at
+possible. They are not sparser: 2.2-8.3 hits per second, against the
+first panel's 1.3-13.8.
 
 ### The verifier on it (experiment 0132)
 
-Pre-registered at 21:17, before the run (`docs/brief-25.md`): session
+Pre-registered at 21:15, before the run (`docs/brief-25.md`): session
 24's `versions`, unchanged (T = 0.121), on the wrong confident plays and
 the positive control; session 24's binary beside it.
 
@@ -5435,23 +5438,39 @@ the positive control; session 24's binary beside it.
   at all six excerpts; the same rip in the 120 s loop is within 2 ms and
   kept. Its segments open 9 s before a loop point, so the play's opening
   window, which sets its track position, spans the jump (an inference).
-  This is the opening-window anchor of 0127 in a new form.
+  If so, this is 0127's opening-window anchor in a new form.
+- 26 of the 78 positives are 13 Star Trails queries counted twice: the
+  corpus file and a NAS copy of the same audio, with identical results.
+  So 64 of 65 distinct measurements are kept.
 - With session 24's binary, 9 plays' S1 differ by at most 0.006, and no
   decision changes.
 
-### A listening question
+### Listening questions
 
-The new borderline pair, unjudged. The verdict is about the version,
-not the sound or the titles: `same` if both files would get the same
-tracklist line, `different` if they differ in even a few bars; if
-different, say whether the part that lines up is shared material.
+Each verdict is about the version, not the sound or the titles: `same`
+if both files would get the same tracklist line, `different` if they
+differ in even a few bars; if different, say whether the part that lines
+up is shared material. Alignments from `pair` are in
+`work/s25/listening/pair.log`.
 
-- A: `/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library/extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3` (6:28)
-- B: `/Volumes/atlas/Music/dnb/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a` (5:32)
-- They line up from the start to A's 2:28 and B's 2:35 (B plays 4.4%
-  slower). After that, only short stretches line up at other offsets,
-  none over 90 hits: for example A's 5:22-5:59 with B's 4:08-4:47.
-  Listen from about 2:20 in each. (`work/s25/listening/pair.log`)
+1. The new borderline pair, unjudged.
+   - A: `/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library/extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3` (6:28)
+   - B: `/Volumes/atlas/Music/dnb/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a` (5:32)
+   - They line up from the start to A's 2:28 and B's 2:35 (B plays 4.4%
+     slower). After that, only short stretches line up at other offsets,
+     none over 90 hits: for example A's 5:22-5:59 with B's 4:08-4:47.
+     Listen from about 2:20 in each.
+2. The new Sonar cut: is B the original (A) or the Mark System Revision
+   (C)?
+   - A: `/Users/razorjack/Projects/OpenSource/gunfinger/corpus/library/DJ Trace - Sonar.m4a` (6:10)
+   - B: `/Volumes/atlas/Music/dnb/__youtube_archivists/old-skool-jungle-dnb/Trace - Sonar.m4a` (6:05)
+   - C: `/Volumes/atlas/Music/dnb/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus` (6:06)
+   - B lines up with A over the whole file at the same speed, every
+     window supported (4,456 hits), which suggests B is the original's
+     audio and the cut follows the verdict on A and C. B lines up with
+     C at B's 0:00-2:49 and 3:50-6:02, not between; B's 3:03-3:45 lines
+     up with C's 4:05-4:47. Listen to B and C from about 2:45. Asked
+     because every new cut is a question, never a verdict.
 
 Session 23's six questions in `work/audition/s23/` are still open.
 
@@ -5462,7 +5481,7 @@ Session 23's six questions in `work/audition/s23/` are still open.
 - `render_samples` was left as it is and a second function added (21:00),
   so that cached query renders and earlier experiments stay valid.
 - `holders` accepts a NAS copy when its corpus file is left out in the
-  same lookup (21:20), because `shared` leaves out a recording's whole
+  same lookup (21:14), because `shared` leaves out a recording's whole
   file set.
 - The second panel's recordings are the frozen ones plus the one rip
   `pair` joined; other files with the families' titles stay unjudged, as
@@ -5493,16 +5512,17 @@ Session 23's six questions in `work/audition/s23/` are still open.
    development half: 5 wrong plays from one direction and 78 positives,
    too few wrong plays to measure a rejection rate. Rendered mixes built
    on the second panel's related versions would probably add few wrong
-   plays as well, as their shared passages are weak (an inference from
+   plays as well, as their shared passages are short (an inference from
    0129). The second panel's validation half is unsearched.
 4. `clusters` stops on the Sonar chain before every rebuild until the
    cut joins are judged; run it with `--cut-sparsest` from the start.
 5. Still open from session 24: `render_excerpt` (sweep, survival, loss
    and `shared`'s renders) does not open a WAV behind an ID3 tag;
    changing it could change `regress`.
-6. A control query can contain shared material when its own-material
-   context overlaps another direction's passage (0129's Phantom Force
-   `before 20 s`); worth checking when the validation half's plan is
+6. A control passage can overlap another direction's passage in the
+   same played file (0129: Phantom Force's control with Meltdown and its
+   passage with Phantom 2018), and then the control's queries carry that
+   shared material. Worth checking when the validation half's plan is
    written.
 
 ### What else to know
@@ -5510,6 +5530,7 @@ Session 23's six questions in `work/audition/s23/` are still open.
 - Nothing touched the held-out test set, the candidate mixes of 0065 or
   any validation half; no test-derived version was used to calibrate
   anything. The NAS was only read, and the NAS peak store was only read.
-- The harness's NAS index (`work/reports/library-nas-dnb-peaks/`) was
-  rebuilt by 0129's run, from 39,376 to 40,148 files; the folder from
-  before the session is cloned in `work/s25/before/`.
+- 0129's run rebuilt the harness's saved NAS index
+  (`work/indexes/library-nas-dnb-peaks.index`, 4.5 GB) from 39,376 to
+  40,148 files; the old index was overwritten. The NAS report folder
+  from before the session is cloned in `work/s25/before/`.

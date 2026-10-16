@@ -1,7 +1,7 @@
 # 0132: the version verifier as built on the second panel's development half
 
 **Question.** Session 25, step 4c (pre-registered in `docs/brief-25.md`
-at 21:17, before 0129's run): on families it has never seen, does
+at 21:15, before 0129's run): on families it has never seen, does
 session 24's verifier reject the wrong confident plays at its frozen T =
 0.1210 and keep the positive control?
 
@@ -16,9 +16,11 @@ calibration ... panel-2`, 0128's clusters); siblings from `holders`
 | Negatives (wrong confident, played left out) | 5 | 4 | too small to read (under 10) |
 | Positives (the played recording's rip, source left out) | 78 | 1 | 98.7% kept |
 
-- The 5 negatives are one related file in one direction: Phantom 2018
-  over Phantom Force (S1 0.149 in the three `beyond` queries, 0.172 and
-  0.106 in the two loops). Star Trails and We R The Ones give none.
+- The 5 negatives are one related file in one direction, Phantom 2018
+  over Phantom Force: S1 0.149 in the three `beyond` queries (rejected),
+  0.172 and 0.106 in the two loops (1 of 2). Star Trails and We R The
+  Ones give none. 26 positives are 13 Star Trails queries twice (the
+  corpus file and a NAS copy, identical results): 64 of 65 distinct kept.
 - Their contradicted bands sit in the low and mid groups (7% and 9% of
   informative band-patches, the high group 1%); the positives' 0.3-2.3%.
   Every negative patch is distinctive (no sibling holds Phantom 2018's
@@ -29,8 +31,8 @@ calibration ... panel-2`, 0128's clusters); siblings from `holders`
   313-327 ms from the reported line at all 6 excerpts; the same file in
   `looped 120 s` is within 2 ms and kept. Its two segments open 9 s
   before a loop point, so the opening window spans a jump (an inference).
-- The two builds: 9 plays' S1 differ by at most 0.006 (the decoders'
-  start after a seek); no decision changes.
+- The two builds: 9 plays' S1 differ by at most 0.006 (the reference
+  now rendered from the start; offsets not measured); no change.
 
 **Conclusion.** Too small to read, by the rule written first: the new
 families yield 5 wrong plays from one direction. On them the verifier

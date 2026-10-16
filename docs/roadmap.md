@@ -580,7 +580,8 @@ marked as inferences were derived, not measured.
   the played recording left out, 5 of 135 queries are wrong confident,
   all Phantom 2018 over Phantom Force in one direction (the first panel:
   106 of 218); the other related versions stop at possible (113-185
-  hits), most likely because their shared passages are weaker. The
+  hits), most likely because their passages are shorter, with fewer
+  hits. The
   verifier as built rejects 4 of these 5 (too few to read by the rule
   written first) and keeps 77 of 78 positive controls; its one false
   rejection is again a reported line about 320 ms off. This suggests

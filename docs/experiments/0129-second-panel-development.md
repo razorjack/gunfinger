@@ -30,11 +30,11 @@ unchanged; `shared_side_by_side.py`; `data/0129-*.json`.
   the VIP 144-178. No unjudged file passes 13 hits; an unrelated
   `Taxman - It Comes at Night` reaches 100 (possible) on Phantom Force.
 - Controls (Meltdown ~ Phantom Force, 14 hits): the related file at most
-  6 hits, but Phantom 2018 is confident (261) in Phantom Force's
-  `before 20 s`, whose 20 s of own material overlap the stretch Phantom
-  Force shares with it; counted apart, as a control.
+  6 hits. Phantom Force's control passage (91.2-129.6 s) overlaps its
+  passage with Phantom 2018 (100.3-149.2 s), so Phantom 2018 reaches
+  60-227 hits in those controls and 261, confident, in `before 20 s`.
 
 **Conclusion.** The first panel's mechanism repeats (a looped or extended
 passage lifts a related version past 240 hits), but on these families
-it is rare: 5 of 135 queries, one direction; most likely because their
-shared passages are weaker (an inference), the rest stop at possible.
+it is rare: 5 of 135 queries, one direction; the rest stop at possible,
+most likely as their passages are shorter, with fewer hits (inferred).

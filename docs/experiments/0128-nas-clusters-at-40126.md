@@ -17,23 +17,23 @@ queries, 5.7 GB. `clusters_rebuilt.py`; `data/0128-*.json`.
 | Files in clusters (NAS) | 961 (699) | 963 (701) |
 | Corpus groups as the 262-track clusters' 17 | same | same |
 
-- Added, 2, both stored by the index run after session 23
-  (old-skool-jungle-dnb): `Bad Company - The Nine.m4a` joins The Nine
-  (the first panel's validation family) and `Trace - Sonar.m4a` joins
-  Sonar. Gone: none. Nothing split or joined.
+- Added, 2, from the index run after session 23 (old-skool):
+  `Bad Company - The Nine.m4a` joins The Nine (the first panel's
+  validation family), `Trace - Sonar.m4a` Sonar. None gone, split or joined.
 - Cut, 2 (each the sparsest join of a chain between files
   judged different by ear): 0120's PRO 012 A upload ~ the Mark System Revision
   (99%, 406 hits, 1.1 per s) and, new, the old-skool `Trace - Sonar.m4a`
   ~ the revision (100%, 301 hits, 0.8 per s), which joins the corpus
-  Sonar at full coverage (`pair`, 22:16: speed 1.0000, all supported).
+  Sonar at full coverage (`pair`, 22:16: speed 1.0000, all supported):
+  a listening question, not a verdict.
 - Gap: unchanged, weakest same 80.3% (Known Unknown), strongest unjudged
   pair left apart 74.2% (Stalker). Borderline (40-80%, not joined): 50
   rows, 2 new: the old-skool The Nine ~ the Evol Intent VIP (49%,
   decided by verdict line 32), and the corpus `APH027 ... cool_rock_suff`
   ~ old-skool's `Mobb Deep Vs Urban Takover - Cool Rock Shook Ones`
   (41%, 922 hits, unjudged): a listening question.
-- Queried as members, as in 0120: 22 and 6 validation-half files of the
-  first and second panels; no panel run touched either half.
+- Queried as members, as in 0120: 22 and 6 validation-half files of
+  the first and second panels; no panel run touched them.
 
 **Conclusion.** The 772 records add two uploads to their recordings, one
 a second link from Sonar to its judged-different revision; nothing else

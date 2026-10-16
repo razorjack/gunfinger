@@ -1,5 +1,5 @@
 {
- "question": "Session 25, step 4c (pre-registered in docs/brief-25.md at 21:17): session 24's verifier as built, T = 0.12100456621, on the second panel's development half (0129's run).",
+ "question": "Session 25, step 4c (pre-registered in docs/brief-25.md at 21:15): session 24's verifier as built, T = 0.12100456621, on the second panel's development half (0129's run).",
  "plays": "version_plays.py calibration <development file> <0128's clusters> <0129's report> <holders> ... panel-2: negatives = wrong confident plays of played-left-out queries, positives = the played recording's confident plays of the source-left-out index; controls left out",
  "builds": {
   "primary": "work/bin/s25-panel (versions code as session 24; renderer of step 3c)",
@@ -1814,5 +1814,43 @@
    "error": null,
    "rejected": false
   }
- ]
+ ],
+ "s1_quantiles": {
+  "negative": {
+   "n": 5,
+   "undefined": 0,
+   "min": 0.106,
+   "q25": 0.149,
+   "median": 0.149,
+   "q75": 0.149,
+   "q95": 0.172,
+   "max": 0.172
+  },
+  "positive": {
+   "n": 78,
+   "undefined": 0,
+   "min": 0.0,
+   "q25": 0.0,
+   "median": 0.0,
+   "q75": 0.0,
+   "q95": 0.022,
+   "max": 0.975
+  },
+  "source": "work/s25/verify-panel2.log (the evaluation step of the run)"
+ },
+ "negatives_rejected_by": {
+  "kind": {
+   "beyond": "3 of 3",
+   "looped": "1 of 2"
+  },
+  "family": {
+   "phantom-force": "4 of 5",
+   "star-trails": "0 of 0",
+   "we-r-the-ones": "0 of 0"
+  },
+  "related file": {
+   "Digital & Spirit - Phantom 2018.m4a": "4 of 5"
+  }
+ },
+ "positives_distinct": "26 of the 78 positives are 13 star-trails-1 queries each with two plays of identical results: the corpus file Kemal & Rob Data - Star Trails.mp3 and the NAS file a-konflict-star_trails-sour.mp3; 65 distinct measurements, 64 kept (added after the review)"
 }
