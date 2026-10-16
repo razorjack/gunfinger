@@ -3213,3 +3213,44 @@ was measured.
   `work/s22/fft-factor2.diff`; `work/probe-tree`, not this session's,
   left). Scratch: `work/s22/` 86 MB (reports, comparisons, logs; the
   renders and index clones removed), `work/bin/s22-*` 33 MB.
+
+## 2026-10-16: after session 22, the listening; `1.mp3` left out of the NAS library
+
+- Session 20's 17 pair questions were answered on the listening page
+  (01:18-01:27; answer log records 37-54, the last question answered
+  twice with one verdict line): all 17 `different`, 17 lines added to
+  `docs/pair-verdicts.txt` by the page. The comments by ear:
+  - Ryme Tyme - We Enter (Optical RMX) ~ the Optical Remix v.3.0 Full
+    Instrumental: almost identical. A ends with a vocal (a rap) and stops
+    the drum loop under it; B has no vocal and keeps the drum loop.
+    Technically different, but a DJ mix would play the middle of the
+    track, which is identical (they line up at A 0:00.5-5:40.0, 2127
+    hits).
+  - The Kraft - Stab 2 Def ~ Mampi Swift - 2000: a different EQ and a
+    slightly different arrangement of the same music; technically a
+    different track.
+- Session 21's two questions (the hifi-junglist Sonar upload, Kemal's
+  Silent Extent Remix) were not on the page and are still open.
+- `/Volumes/atlas/Music/dnb/1.mp3` left out on request: an
+  old file of cuts from several tracks, which we want identified,
+  not matched (it held Cannibal's 1:53-2:25 and matched Falcon - The
+  Stand at 65-70 hits). `/1.mp3` added to the NAS `.gunfingerignore`
+  (line 56, with a comment), then `gunfinger --config
+  ~/.config/gunfinger/nas-dnb.toml prune --yes` deleted its peak record
+  and tag note; `prune` listed nothing else. The NAS store went from
+  38,105 records, revision `b285da9984422fb5`, to 38,104, revision
+  `5fd86c54350c819c`. The CLI's and the harness's saved NAS indexes are
+  out of date and are built again by the next search. NAS-scale reports
+  and baselines made before differ by `1.mp3`'s plays (the Vertical mix's
+  possible play during Cannibal among them), so the next session takes
+  its start baseline at the new revision. The new verdict Cannibal ~
+  `1.mp3` now adds nothing (the harness says so). `doctor` also reports
+  1,345 audio files on the NAS not indexed yet; they were left alone.
+- `identify` on `1.mp3` against the NAS library after the prune (215 s,
+  the index built again; reports in `work/one-mp3/`): about 30 s cuts,
+  all played 4.6-8.9% fast. Confident: Item A La Playa - Crime Audio
+  (0:00, 321 hits), DJ Reality - Reasons (0:56, 360), Semantix - Genetix
+  (1:26, 282; a YouTube rip of the same audio is titled Genocide).
+  Possible: Muffler - Downfall (1:56, 142), Falcon - The Stand (2:28, 185),
+  Sonic - Cannibal (3:27, 180). Nothing found at 0:26-0:56 and
+  2:59-3:27. Not checked by ear.
