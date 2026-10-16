@@ -36,5 +36,5 @@ unchanged; `shared_side_by_side.py`; `data/0129-*.json`.
 
 **Conclusion.** The first panel's mechanism repeats (a looped or extended
 passage lifts a related version past 240 hits), but on these families
-it is rare: 5 of 135 queries, one direction; their shared passages are
-weaker, so most related versions stop at the possible tier.
+it is rare: 5 of 135 queries, one direction; most likely because their
+shared passages are weaker (an inference), the rest stop at possible.
