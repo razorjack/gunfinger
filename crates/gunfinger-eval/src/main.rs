@@ -29,6 +29,7 @@ mod rng;
 mod robust;
 mod scan;
 mod scoring;
+mod seconds;
 mod shared;
 mod shared_mixes;
 mod survival;
@@ -383,6 +384,31 @@ enum Command {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
     },
+    /// Score saved `mixes` or `scan` reports second by second (Sonnleitner
+    /// et al. 2016, section 5): seconds labelled correctly, possibly or
+    /// wrongly, or not at all, while an indexed track plays, and silence
+    /// while none does (specificity); and where each identified track's
+    /// labels start and end. Searches nothing and leaves the reports and
+    /// their scores as they are. The scores go to `seconds/`
+    Seconds {
+        /// Reports written by `mixes` or `scan` (a scan of the larger
+        /// library with --other-peaks-dir).
+        #[arg(required = true)]
+        reports: Vec<PathBuf>,
+        /// Seconds either side of each manifest border in which both
+        /// neighbouring tracks are right and an unlabelled second is
+        /// counted apart. Scans only: generated mixes have exact truth.
+        #[arg(long, default_value_t = 30.0)]
+        margin: f64,
+        /// Also score with this minimum span from the first to the last
+        /// aligned hit in place of 3 windows, as `grid` compares.
+        #[arg(long)]
+        min_span: Vec<f64>,
+        /// For scans, also where each track's labels start and end against
+        /// the manifest's approximate starts.
+        #[arg(long)]
+        boundaries: bool,
+    },
     /// Attribute where a set's identified plays lose evidence: hits per
     /// window against the reference hashes heard, on the rung, at the
     /// fitted and the best local speed, beside a clean render of the same
@@ -549,6 +575,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Holders { .. }
             | Command::Identifiability { .. }
             | Command::Versions { .. }
+            | Command::Seconds { .. }
     );
     let takes_a_sample = matches!(
         command,
@@ -566,7 +593,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability and versions do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability, versions and seconds do",
         ));
     }
     match command {
@@ -791,6 +818,12 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             grid::print_summary(&report);
             Ok(())
         }
+        Command::Seconds {
+            reports,
+            margin,
+            min_span,
+            boundaries,
+        } => score_seconds(paths, &reports, margin, &min_span, boundaries),
         Command::Loss { set } => {
             let report = loss::run(
                 &paths.sets(),
@@ -2032,6 +2065,121 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
         file.questions.len(),
         out.display()
     );
+    Ok(())
+}
+
+/// `seconds`: each report scored under today's rule and each minimum span.
+fn score_seconds(
+    paths: &Paths,
+    reports: &[PathBuf],
+    margin: f64,
+    min_spans: &[f64],
+    boundaries: bool,
+) -> Result<(), String> {
+    let rules: Vec<seconds::Rule> = std::iter::once(seconds::Rule::Windows)
+        .chain(min_spans.iter().map(|&span| seconds::Rule::MinSpan(span)))
+        .collect();
+    let clusters = paths.clusters()?;
+    let mut loaded = Vec::new();
+    for path in reports {
+        let text = fs::read_to_string(path)
+            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
+        let report: serde_json::Value =
+            serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+        loaded.push((path, report));
+    }
+    let referable = if loaded.iter().any(|(_, report)| report.get("set").is_some()) {
+        Some(paths.referable(&paths.library()?)?)
+    } else {
+        None
+    };
+    for (path, report) in loaded {
+        let parse = |error: serde_json::Error| format!("{}: {error}", path.display());
+        let (scored, name): (Vec<seconds::Scored>, String) =
+            match (report.get("mixes").is_some(), &referable) {
+                (true, _) => {
+                    let report: mixes::MixesReport =
+                        serde_json::from_value(report).map_err(parse)?;
+                    let scored = report
+                        .mixes
+                        .iter()
+                        .flat_map(|result| {
+                            let truth = seconds::mix_truth(&result.mix, &clusters);
+                            let segments: Vec<seconds::Segment> = result
+                                .detections
+                                .iter()
+                                .map(seconds::Segment::from)
+                                .collect();
+                            rules.iter().map(move |&rule| seconds::Scored {
+                                name: result.mix.name.clone(),
+                                rule: rule.name(),
+                                score: seconds::score(
+                                    &truth,
+                                    &segments,
+                                    result.mix.seconds,
+                                    0.0,
+                                    rule,
+                                ),
+                            })
+                        })
+                        .collect();
+                    (scored, String::new())
+                }
+                (false, Some(referable)) => {
+                    let report: scan::ScanReport = serde_json::from_value(report).map_err(parse)?;
+                    let set = manifest::load_set(&paths.sets(), &report.set, referable)
+                        .map_err(|problems| format!("{}: {}", report.set, problems.join("; ")))?;
+                    let left_out: BTreeSet<String> =
+                        report.left_out_assets.iter().cloned().collect();
+                    let truth =
+                        seconds::set_truth(&set, report.duration_seconds, &clusters, &left_out);
+                    let segments: Vec<seconds::Segment> = report
+                        .detections
+                        .iter()
+                        .map(seconds::Segment::from)
+                        .collect();
+                    let scored = rules
+                        .iter()
+                        .map(|&rule| {
+                            let mut score = seconds::score(
+                                &truth,
+                                &segments,
+                                report.duration_seconds,
+                                margin,
+                                rule,
+                            );
+                            if !boundaries {
+                                score.boundaries.clear();
+                            }
+                            seconds::Scored {
+                                name: report.set.clone(),
+                                rule: rule.name(),
+                                score,
+                            }
+                        })
+                        .collect();
+                    (scored, format!("-margin-{margin:.0}"))
+                }
+                (false, None) => {
+                    return Err(format!(
+                        "{} is neither a mixes nor a scan report",
+                        path.display()
+                    ));
+                }
+            };
+        let stem = path
+            .file_stem()
+            .map(|stem| stem.to_string_lossy().into_owned())
+            .unwrap_or_default();
+        write_json(
+            &paths
+                .work
+                .join("seconds")
+                .join(format!("{stem}{name}.json")),
+            &scored,
+        )?;
+        seconds::print_summary(&path.display().to_string(), &scored);
+    }
     Ok(())
 }
 

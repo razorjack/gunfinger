@@ -136,6 +136,8 @@ searches them with the played recording indexed and left out, and
 measures each detection for session 21's candidate statistics;
 `holders` runs its lookup in the library's map of shared passages for
 a list of files and spans.
+`seconds` scores saved `mixes` and `scan` reports second by second
+(Sonnleitner et al. 2016, §5), under today's rule or a minimum span.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus

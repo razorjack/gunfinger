@@ -343,3 +343,22 @@ is not known.
   today's rule reproduces every stored level and the published outcomes
   (106 of 218, 5 of 135). A first version without it did not reproduce
   them and was not used.
+- **(00:58) Step 3, per-second scoring** (`gunfinger-eval seconds`,
+  `crates/gunfinger-eval/src/seconds.rs`, 10 unit tests): reads saved
+  `mixes` and `scan` reports, groups detections with the core's
+  `plays::group` (each segment's file mapped to an id), levels each play
+  by its best segment under `3 windows` or `--min-span S`, judges each
+  whole second at its middle, and writes `work/seconds/<stem>.json`
+  (`-margin-M` for scans). As pre-registered, with three details fixed
+  while writing it, before any per-second count: a label is right when
+  its file is in the cluster of a track whose interval (widened by the
+  margin) holds the second; a second inside a margin counts as indexed
+  when an indexed track's widened interval holds it; a label running
+  past its own track's end (overshoot) is mislabelled time, as in the
+  roadmap's sketch. Start and end errors for scans only with
+  `--boundaries`, which this session passes for Knowledge and Vertical
+  only; 2003-03-29's track 4 is left out too (conservative: one track,
+  and the command has no per-track option). Supported time (B) needs the
+  variant build's field, so B's per-second scores come from the variant
+  worktree's own `seconds` (master merged into `s27-span`, a
+  `--min-supported` rule added there), never from master.

@@ -376,6 +376,7 @@ mix) that is not part of the repository:
 | `robust` | Excerpts under EQ, noise, codecs, blends, speech, skips, pitch rides and key lock (speech from `say` on macOS, from eSpeak NG on Linux: `sudo apt install espeak-ng`) |
 | `mixes` | Generated mixes with exact truth: speeds, bass swaps, crossfades, cuts, short plays |
 | `grid` | Brief plays slid across the 10 s windows, to test where a short play stops counting |
+| `seconds` | Saved `mixes` and `scan` reports scored second by second: labelled correctly, possibly or wrongly, unlabelled, and silent where nothing indexed plays; where each track's labels start and end |
 | `clusters`, `related` | The library matched against itself: duplicate rips, remixes and shared material |
 | `loss` | Where a mix loses evidence compared with a clean render of the same stretch |
 | `memory` | Resident memory by phase, also on a synthetic library many times the corpus |
