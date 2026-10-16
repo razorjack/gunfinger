@@ -1,0 +1,1465 @@
+{
+ "clusters": {
+  "old": 271,
+  "new": 281
+ },
+ "files": {
+  "old": {
+   "files": 886,
+   "nas": 632
+  },
+  "new": {
+   "files": 961,
+   "nas": 699
+  }
+ },
+ "pairs": {
+  "old": 2147,
+  "new": 2593
+ },
+ "pairs_by_verdict_new": {
+  "None": 2540,
+  "True": 28,
+  "False": 25
+ },
+ "corpus": {
+  "262": [
+   [
+    "Bad Company - China Cup.mp3",
+    "extra/02. Bad Company - China Cup.mp3",
+    "extra/b-bad_company-china_cup.mp3"
+   ],
+   [
+    "Bad Company - The Nine.mp3",
+    "extra/A- The_Nine.mp3",
+    "extra/A-Bad_Company-The_Nine-dmz.mp3"
+   ],
+   [
+    "Bad Company - The Pulse.mp3",
+    "extra/a-bad_company-pulse.mp3"
+   ],
+   [
+    "Ed Rush & Optical - Funktion.mp3",
+    "extra/01 - Ed Rush & Optical - Funktion.mp3"
+   ],
+   [
+    "Ed Rush & Optical - Sick Note.mp3",
+    "extra/a-ed_rush_and_optical-sicknote-sour.mp3"
+   ],
+   [
+    "Kraken - Dominion.opus",
+    "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3"
+   ],
+   [
+    "Skynet & Stakka - Clockwork.mp3",
+    "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3"
+   ],
+   [
+    "Skynet & Stakka - Decoy.mp3",
+    "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3"
+   ],
+   [
+    "Skynet & Stakka - Logistics.mp3",
+    "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3"
+   ],
+   [
+    "Skynet & Stakka - Night Lore.mp3",
+    "extra/a-stakka_and_skynet-nightlore-sour.mp3"
+   ],
+   [
+    "Skynet & Stakka - Pathogen.mp3",
+    "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3"
+   ],
+   [
+    "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3"
+   ],
+   [
+    "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+    "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+    "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3"
+   ],
+   [
+    "extra/201-origin_unknown-equinox-sour.mp3",
+    "extra/A-Origin_Unknown-Equinox-sour.mp3"
+   ],
+   [
+    "extra/A. SKC & Cord -- Swarm.mp3",
+    "extra/a-skc_and_cord-swarm-sour.mp3"
+   ],
+   [
+    "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+    "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3"
+   ],
+   [
+    "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3"
+   ]
+  ],
+  "old equal to 262": true,
+  "new equal to 262": true,
+  "new only": [],
+  "262 only": []
+ },
+ "added": [
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "cluster": 1,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Bad Company - The Nine.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "cluster": 3,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "DJ Trace - Sonar.m4a"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Compound (Wormhole, Virus Recordings VRS 001 LP track G) RSD 2023.opus",
+   "cluster": 5,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Ed Rush & Optical - Compound.mp3"
+   ]
+  },
+  {
+   "member": "Ed Rush & Optical - Dozer.mp3",
+   "cluster": 6,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a",
+   "cluster": 6,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "Ed Rush & Optical - Fixation.mp3",
+   "cluster": 7,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Fixation (Wormhole, Virus Recordings VRS 001 LP track H) RSD 2023.m4a",
+   "cluster": 7,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "Ed Rush & Optical - Glass Eye.mp3",
+   "cluster": 10,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Glass Eye (Wormhole, Virus Recordings VRS 001 LP track E) RSD 2023.m4a",
+   "cluster": 10,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "Ed Rush & Optical - Lithosphere.mp3",
+   "cluster": 11,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Lithosphere (Wormhole, Virus Recordings VRS 001 CD disc 1 track 11) 1998.m4a",
+   "cluster": 11,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "Ed Rush & Optical - Mystery Machine.mp3",
+   "cluster": 12,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Mystery Machine (Wormhole, Virus Recordings VRS 001 LP track A) RSD 2023.opus",
+   "cluster": 12,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "Ed Rush & Optical - Point Blank.mp3",
+   "cluster": 13,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Point Blank (Wormhole, Virus Recordings VRS 001 LP track F) RSD 2023.m4a",
+   "cluster": 13,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "Ed Rush & Optical - Wormhole.mp3",
+   "cluster": 16,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Wormhole (Wormhole, Virus Recordings VRS 001 LP track I) RSD 2023.m4a",
+   "cluster": 16,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Fibre Optix - Sin (3 The Hardway EP - Renegade Hardware RH018 C) 1998.opus",
+   "cluster": 18,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Fibre Optix - Sin.m4a"
+   ]
+  },
+  {
+   "member": "Fortran - Splinter.mp3",
+   "cluster": 19,
+   "dated": "corpus file",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Splinter (Wormhole, Virus Recordings VRS 001 LP track B) RSD 2023.opus",
+   "cluster": 19,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/easy-t-dnb/Kraken - Dominion.opus",
+   "cluster": 22,
+   "dated": "tonight",
+   "same_verdict": null,
+   "with": [
+    "Kraken - Dominion.opus"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/easy-t-dnb/Krust - Warhead (Ram Trilogy Remix).m4a",
+   "cluster": 24,
+   "dated": "tonight",
+   "same_verdict": null,
+   "with": [
+    "Krust - Warhead (Ram Trilogy Remix).m4a"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Krust - Warhead (Ram Trilogy Remix) (Planet V - V Recordings VELP02 H) 1999.m4a",
+   "cluster": 24,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Krust - Warhead (Ram Trilogy Remix).m4a"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Millennium (Wormhole, Virus Recordings VRS 001 LP track D) RSD 2023.m4a",
+   "cluster": 25,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Optical - Millennium.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Slip Thru (Wormhole, Virus Recordings VRS 001 LP track C) RSD 2023.m4a",
+   "cluster": 26,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Optical - Slip Thru.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/easy-t-dnb/Roni Size - Watching Windows (DJ Die Gnarly Instrumental Mix).m4a",
+   "cluster": 27,
+   "dated": "tonight",
+   "same_verdict": null,
+   "with": [
+    "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Reprazent - Watching Windows (Die Gnarly Inst) (Who Say Reload Vol.2, Velocity Press VELOCITY002 C2).m4a",
+   "cluster": 27,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/easy-t-dnb/Stakka & Skynet - Decoy.opus",
+   "cluster": 30,
+   "dated": "tonight",
+   "same_verdict": null,
+   "with": [
+    "Skynet & Stakka - Decoy.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/abstract-math/Krot - Rec.m4a",
+   "cluster": 57,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/04_Rec.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - Sentient (Inside The Machine - BC Recordings VDBCRLP001 E) 2000.m4a",
+   "cluster": 58,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/05 - Bad Company - Sentient.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - Oxygen (The Drilla Killa) (Inside The Machine - BC Recordings VDBCRLP001 G) 2000.opus",
+   "cluster": 61,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/07 - Bad Company - Oxygen.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/easy-t-dnb/Future Cut - Horns 2000.m4a",
+   "cluster": 86,
+   "dated": "tonight",
+   "same_verdict": null,
+   "with": [
+    "extra/310-future_cut-horns_2000-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/abstract-math/Prode - Ostmet.m4a",
+   "cluster": 94,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/A. D-Struct -- Merkaba.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Underworld (Aphrodite Recordings APH027 A) 1998.m4a",
+   "cluster": 107,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/01-aphrodite-a1-underworld-utb.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Cool Rock Stuff (Aphrodite Recordings APH027 B) 1998.opus",
+   "cluster": 108,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Def Jammer (Aphrodite Recordings APH029 A) 1999.m4a",
+   "cluster": 109,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+   "cluster": 110,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Fanfare (Aphrodite Recordings APH035 A) 2000.opus",
+   "cluster": 111,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Fan Dub Mix (Aphrodite Recordings APH035 B) 2000.opus",
+   "cluster": 112,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite v Schoolly D - Hoochie (Aphrodite Recordings APH36 A) 2000.opus",
+   "cluster": 113,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH036-Aphrodite - 2000/a-aphrodite-aphro_vs_schooly_d.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Crater (Aphrodite Recordings APH36 B) 2000.m4a",
+   "cluster": 114,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Cloud Break (Aphrodite Recordings APH38 A) 2001.m4a",
+   "cluster": 115,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Karma Sutra (Aphrodite Recordings APH38 B) 2001.m4a",
+   "cluster": 116,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Wikki Wikki Plate (Aphrodite Recordings APH-28 A) 1998.m4a",
+   "cluster": 117,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+   "cluster": 118,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Sweet Mind (Aphrodite Recordings APH-28 B2) 1998.m4a",
+   "cluster": 119,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Clean Decibel (Aphrodite Recordings PROJECT 2 ⧸ APH33 A) 2000.opus",
+   "cluster": 120,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - From The East (Aphrodite Recordings PROJECT 2 ⧸ APH33 B) 2000.m4a",
+   "cluster": 121,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Lava Flow (Aphrodite Recordings APH37 A) 2001.m4a",
+   "cluster": 122,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Acid Life (Aphrodite Recordings APH37 B) 2001.m4a",
+   "cluster": 123,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus",
+   "cluster": 124,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Siren Bass (Aphrodite Recordings APH039 B) 2001.m4a",
+   "cluster": 125,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+   "cluster": 145,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/[AA]_-_Phoenix.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - Miami (Drum&BassArena, React REACTCD201 disc 2 track 2) 2001.m4a",
+   "cluster": 151,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/a-)eib(-miami-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+   "cluster": 190,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Bomber Style (Aphrodite Recordings APH30 B) 1999.opus",
+   "cluster": 191,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Blue Mystique (Aphrodite Recordings APH41 A) 2002.m4a",
+   "cluster": 194,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/aphrodite-aphrodite-aph041-2002-sour/a-aphrodite-blue_mystique-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - The Time The Place (Aphrodite Recordings APH41 B) 2002.opus",
+   "cluster": 195,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/abstract-math/SKC - Flex.opus",
+   "cluster": 205,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/b-skc-flex-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+   "cluster": 207,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/b-spirit-out_of_control-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+   "cluster": 217,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/c-total_science-yvon_is_on-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+   "cluster": 219,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+   "cluster": 227,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/g-tee_bee-two_faced-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+   "cluster": 228,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "extra/h-carlito_and_addiction-into_music-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - Dead Side (Inside The Machine - BC Recordings VDBCRLP001 J) 2000.m4a",
+   "cluster": 242,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/(2000) Inside The Machine (VDBCRLP001)/10 - Bad Company - Dead-Side.mp3"
+   ]
+  },
+  {
+   "member": "second-library/2009 - MTRDEP001 - VA - Mind Over Mayhem EP/04-perfect_unknown-epic_(original_mix).mp3",
+   "cluster": 249,
+   "dated": "older",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/weedsurfer/Perfect Unknown  - Epic.m4a",
+   "cluster": 249,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/John B -  Droogs (Catalyst - Beta Recordings BETA LP 01 D) 1999.m4a",
+   "cluster": 250,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/BETALP001-John_B-Catalyst_LP-Vinyl-1999-sour/d-droogs-betalp01-1999-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/John B -  Gollum (Catalyst - Beta Recordings BETA LP 01 F) 1999.opus",
+   "cluster": 251,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/BETALP001-John_B-Catalyst_LP-Vinyl-1999-sour/f-gollum-betalp01-1999-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Beastman (Chapter Four - RAM Records RAMM 39 A) 2002.m4a",
+   "cluster": 255,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/VA-Ram_Records_15x15-RAMMLP9CD-2007-sour/11-ram_trilogy-beastman-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Mulder - Change Up (Urban Takeover URBTAKE24 B) 2001.opus",
+   "cluster": 256,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_5-WEB-2006-uC/08-mulder-change_up_(original_mix).mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Snake Bite (Molten Beats - RAM Records RAMM LP3 F) 1999.m4a",
+   "cluster": 260,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/__full_scene/1999/1999-11/1999-11-15/ram_trilogy-molten_beats-rammlp3-vinyl-1999-sour/f-ram_trilogy-snakebite-sour.mp3"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+   "cluster": 276,
+   "dated": "newer upload",
+   "same_verdict": null,
+   "with": [
+    "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a"
+   ]
+  },
+  {
+   "member": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "cluster": 278,
+   "dated": "older",
+   "same_verdict": null,
+   "with": []
+  },
+  {
+   "member": "second-library/__youtube_archivists/weedsurfer/Dieselboy - Descent (Phuncatek Remix).m4a",
+   "cluster": 278,
+   "dated": "tonight",
+   "same_verdict": null,
+   "with": []
+  }
+ ],
+ "added_by_date": {
+  "newer upload": 59,
+  "corpus file": 8,
+  "tonight": 6,
+  "older": 2
+ },
+ "gone": [],
+ "splits": [],
+ "joins": [],
+ "new_clusters_without_old_members": [
+  [
+   "Ed Rush & Optical - Dozer.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Fixation.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Fixation (Wormhole, Virus Recordings VRS 001 LP track H) RSD 2023.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Glass Eye.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Glass Eye (Wormhole, Virus Recordings VRS 001 LP track E) RSD 2023.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Lithosphere.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Lithosphere (Wormhole, Virus Recordings VRS 001 CD disc 1 track 11) 1998.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Mystery Machine.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Mystery Machine (Wormhole, Virus Recordings VRS 001 LP track A) RSD 2023.opus"
+  ],
+  [
+   "Ed Rush & Optical - Point Blank.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Point Blank (Wormhole, Virus Recordings VRS 001 LP track F) RSD 2023.m4a"
+  ],
+  [
+   "Ed Rush & Optical - Wormhole.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Wormhole (Wormhole, Virus Recordings VRS 001 LP track I) RSD 2023.m4a"
+  ],
+  [
+   "Fortran - Splinter.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Splinter (Wormhole, Virus Recordings VRS 001 LP track B) RSD 2023.opus"
+  ],
+  [
+   "second-library/2009 - MTRDEP001 - VA - Mind Over Mayhem EP/04-perfect_unknown-epic_(original_mix).mp3",
+   "second-library/__youtube_archivists/weedsurfer/Perfect Unknown  - Epic.m4a"
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "second-library/__youtube_archivists/weedsurfer/Dieselboy - Descent (Phuncatek Remix).m4a"
+  ]
+ ],
+ "gap": {
+  "old": [
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/audio_couture-known_unknown-ac020-1999-sour/c-known_unknown-rollers_edit-sour.mp3",
+    "found": "second-library/__full_scene/1999/1999-11/1999-11-10/knowledge-the_lowdown_vol_7-track_fix-1999-sour/09-known_unknown-drumtrip-1999-sour-fixed.mp3",
+    "coverage": 0.8030396293604058,
+    "hits": 1437,
+    "speed": 0.989206365340169
+   },
+   {
+    "query": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+    "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "coverage": 0.7659239377443545,
+    "hits": 2773,
+    "speed": 0.9576869172435941
+   }
+  ],
+  "new": [
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/audio_couture-known_unknown-ac020-1999-sour/c-known_unknown-rollers_edit-sour.mp3",
+    "found": "second-library/__full_scene/1999/1999-11/1999-11-10/knowledge-the_lowdown_vol_7-track_fix-1999-sour/09-known_unknown-drumtrip-1999-sour-fixed.mp3",
+    "coverage": 0.8030493140485438,
+    "hits": 1390,
+    "speed": 0.9892056635688248
+   },
+   {
+    "query": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+    "found": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+    "coverage": 0.98724458698622,
+    "hits": 406,
+    "speed": 0.9684237632366256
+   }
+  ]
+ },
+ "borderline": [
+  {
+   "query": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "coverage": 0.766,
+   "hits": 2773,
+   "speed": 0.9577,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "coverage": 0.766,
+   "hits": 2773,
+   "speed": 0.9577,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+   "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "coverage": 0.765,
+   "hits": 1858,
+   "speed": 0.9623,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "found": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "coverage": 0.765,
+   "hits": 2857,
+   "speed": 1.0442,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "coverage": 0.765,
+   "hits": 2857,
+   "speed": 1.0442,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+   "coverage": 0.765,
+   "hits": 1788,
+   "speed": 1.0391,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "found": "second-library/Future_Cut-The_Specialist-(INFRA012)-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "coverage": 0.765,
+   "hits": 2819,
+   "speed": 1.043,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "found": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "coverage": 0.765,
+   "hits": 2819,
+   "speed": 1.043,
+   "judged": "same (line 27)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+   "coverage": 0.742,
+   "hits": 343,
+   "speed": 1.0016,
+   "judged": null,
+   "new": true,
+   "dated": [
+    "newer upload",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/02-aphrodite-stalker-bpm.mp3",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+   "coverage": 0.737,
+   "hits": 254,
+   "speed": 1.0005,
+   "judged": null,
+   "new": true,
+   "dated": [
+    "corpus file",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "extra/b-stratus-waves-sour.mp3",
+   "found": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+   "coverage": 0.735,
+   "hits": 1741,
+   "speed": 1.0041,
+   "judged": "same (line 40)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/11-stratus-waves.mp3",
+   "found": "second-library/incident-stratus-incident002-2001-sour/b-stratus-waves-sour.mp3",
+   "coverage": 0.735,
+   "hits": 1708,
+   "speed": 0.996,
+   "judged": "same (line 40)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush, Optical & Fierce - Alien Girl.m4a",
+   "found": "second-library/1998 - PRO014 - Ed Rush, Optical & Fierce - Alien Girl + Cutslo (Lokuste Mix) [Prototype]/aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3",
+   "coverage": 0.717,
+   "hits": 996,
+   "speed": 1.0,
+   "judged": "same (line 34)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "coverage": 0.676,
+   "hits": 2630,
+   "speed": 0.9883,
+   "judged": "same (line 25)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "found": "second-library/(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+   "coverage": 0.668,
+   "hits": 2112,
+   "speed": 1.013,
+   "judged": "same (line 25)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "found": "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "coverage": 0.661,
+   "hits": 2491,
+   "speed": 1.0119,
+   "judged": "same (line 25)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "found": "second-library/prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3",
+   "coverage": 0.661,
+   "hits": 2182,
+   "speed": 1.0131,
+   "judged": "same (line 25)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/b-bad_company-china_cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "coverage": 0.66,
+   "hits": 2209,
+   "speed": 0.9871,
+   "judged": "same (line 25)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/02. Bad Company - China Cup.mp3",
+   "found": "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "coverage": 0.651,
+   "hits": 2035,
+   "speed": 0.9872,
+   "judged": "same (line 25)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+   "coverage": 0.629,
+   "hits": 324,
+   "speed": 1.0027,
+   "judged": null,
+   "new": true,
+   "dated": [
+    "newer upload",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+   "coverage": 0.614,
+   "hits": 315,
+   "speed": 1.001,
+   "judged": null,
+   "new": true,
+   "dated": [
+    "corpus file",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+   "found": "second-library/(2000) Coma & Spraycan (DSCI4)/02 Coma.mp3",
+   "coverage": 0.595,
+   "hits": 2310,
+   "speed": 1.0167,
+   "judged": "same (line 28)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/dsci4-bad_company-dsci4_003-2000-sour/aa-bad_company-coma-sour.mp3",
+   "coverage": 0.595,
+   "hits": 1782,
+   "speed": 1.0167,
+   "judged": "same (line 28)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/dsci4-bad_company-dsci4_003-2000-sour/aa-bad_company-coma-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spraycan.opus",
+   "coverage": 0.585,
+   "hits": 2356,
+   "speed": 0.9836,
+   "judged": "same (line 28)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/01 - Ryme Tyme - T-Minus.mp3",
+   "found": "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a",
+   "coverage": 0.583,
+   "hits": 356,
+   "speed": 0.9396,
+   "judged": "different (line 45)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "coverage": 0.573,
+   "hits": 602,
+   "speed": 0.9998,
+   "judged": "different (line 42)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/APH39B-Aphrodite-2001-sour/a-aphrodite-playground_shades-sour.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal • 03 • Interlude.opus",
+   "coverage": 0.572,
+   "hits": 15,
+   "speed": 0.9229,
+   "judged": "different (line 47)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+   "coverage": 0.564,
+   "hits": 591,
+   "speed": 0.9998,
+   "judged": "different (line 42)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+   "coverage": 0.553,
+   "hits": 310,
+   "speed": 0.9978,
+   "judged": "same (line 33)",
+   "new": true,
+   "dated": [
+    "newer upload",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "coverage": 0.537,
+   "hits": 474,
+   "speed": 1.0341,
+   "judged": "different (line 43)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "coverage": 0.537,
+   "hits": 453,
+   "speed": 1.0341,
+   "judged": "different (line 44)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "coverage": 0.529,
+   "hits": 502,
+   "speed": 1.0341,
+   "judged": "different (line 44)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+   "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "coverage": 0.528,
+   "hits": 466,
+   "speed": 1.0341,
+   "judged": "different (line 43)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "Bad Company - The Nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.503,
+   "hits": 1800,
+   "speed": 0.9957,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.503,
+   "hits": 1800,
+   "speed": 0.9957,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/A- The_Nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.503,
+   "hits": 1742,
+   "speed": 0.9957,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/bad_company-fear_lp/02 bad company-the nine.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.499,
+   "hits": 4390,
+   "speed": 0.9974,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.497,
+   "hits": 1906,
+   "speed": 0.9957,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.494,
+   "hits": 2139,
+   "speed": 0.9974,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "Ed Rush & Optical - Dozer.mp3",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+   "coverage": 0.485,
+   "hits": 259,
+   "speed": 0.9999,
+   "judged": "different (line 46)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a",
+   "coverage": 0.484,
+   "hits": 174,
+   "speed": 1.001,
+   "judged": null,
+   "new": true,
+   "dated": [
+    "newer upload",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.484,
+   "hits": 1555,
+   "speed": 1.0249,
+   "judged": "different (line 32)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+   "coverage": 0.475,
+   "hits": 2360,
+   "speed": 0.9975,
+   "judged": "different (line 32)",
+   "new": true,
+   "dated": [
+    "newer upload",
+    "older"
+   ]
+  },
+  {
+   "query": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a",
+   "coverage": 0.447,
+   "hits": 78,
+   "speed": 0.9989,
+   "judged": null,
+   "new": true,
+   "dated": [
+    "corpus file",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "extra/A. Pyro -- Time Is Broken.mp3",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "coverage": 0.444,
+   "hits": 680,
+   "speed": 1.0,
+   "judged": "different (line 41)",
+   "new": false,
+   "dated": [
+    "corpus file",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+   "found": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+   "coverage": 0.421,
+   "hits": 289,
+   "speed": 1.0021,
+   "judged": "same (line 33)",
+   "new": true,
+   "dated": [
+    "older",
+    "newer upload"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/alien5ive/IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus",
+   "coverage": 0.417,
+   "hits": 6,
+   "speed": 1.046,
+   "judged": "different (line 59)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a",
+   "found": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+   "coverage": 0.415,
+   "hits": 240,
+   "speed": 1.0,
+   "judged": "different (line 41)",
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Frenchi ⧸ Proktah - Scarabeus.opus",
+   "coverage": 0.407,
+   "hits": 6,
+   "speed": 1.012,
+   "judged": null,
+   "new": false,
+   "dated": [
+    "older",
+    "older"
+   ]
+  }
+ ]
+}

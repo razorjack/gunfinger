@@ -3295,3 +3295,12 @@ the session.
   `panel_clusters.py`, `ambiguity_note.py`, `shared_panel_2.py`.
 - 02:50 step 5's pre-registration committed (`0afceb5`, brief and
   experiment 0123), before any count under the fresh clusters.
+- 05:26 step 2's search exited 1 on 0066's Sonar chain, now through
+  the-hifi-junglist's `PRO 012 A` upload (the revision, judged different,
+  joined at 99% with 406 hits). Its 2,593 pairs were clustered again with
+  `--reuse-pairs work/s23/clusters-stopped.json --cut-sparsest`, cutting
+  upload ~ revision (decision in the brief; no verdict written): 281
+  clusters, the 17 corpus groups unchanged, 75 members added (59 newer
+  uploads, 6 from tonight's index run), none gone, nothing split or
+  joined; 3 new borderline questions, all Aphrodite 12" ~ V2 album
+  (experiment 0120). The new clusters are in the NAS report folder.

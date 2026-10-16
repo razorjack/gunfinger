@@ -18,8 +18,9 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 2. The NAS reports copied to `work/s23/before/`; `map-library`;
-  `clusters --from-peaks` (full, every verdict); what changed;
+- [x] 2. The NAS reports copied to `work/s23/before/`; `map-library`;
+  `clusters --from-peaks` (full, every verdict; stopped on the Sonar
+  chain, its pairs clustered again with `--cut-sparsest`); what changed;
   experiment 0120
 - [ ] 3. Re-scored offline with old and new clusters (the old reproduce
   the published numbers): the development mixes' NAS scans, 0111, 0112,

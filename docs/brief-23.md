@@ -160,6 +160,20 @@ finished run may overlap the next heavy run; heavy runs never overlap.
   the played recording" says; in the *played left out* index such a file
   (a rip the old clusters missed and the index kept) makes the query
   right confident, and it is listed by name.
+- **(05:30) The full run stopped on a verdict chain; its pairs were
+  clustered again with `--cut-sparsest`.** This departs from the
+  decision above, which expected a stop to end step 2 with a finding.
+  The search (02:32-05:26) exited 1: the verdicts by ear hold the corpus `DJ
+  Trace - Sonar.m4a` different from i-witness's `Sonar (Mark System
+  Revision)`, and joins linked them through the-hifi-junglist's `Trace -
+  Sonar (Prototype Recordings PRO 012 A) 1998.m4a`, a newer upload. Without
+  clusters, steps 3 to 5 would run on the stale ones, which the session
+  exists to replace. `--reuse-pairs work/s23/clusters-stopped.json
+  --cut-sparsest` clusters the same 2,593 pairs without searching and cuts
+  the chain's sparsest join (upload ~ revision, 406 hits at 1.1 per
+  second, against 2,858 at 100% for upload ~ original), as session 10 did.
+  `pair` agrees with the cut (upload ~ revision 56.8%). No verdict is
+  written; the cut is a listening question.
 
 ## Step 5's pre-registration: the ambiguity note (written at 02:50, before any count under the fresh clusters)
 
