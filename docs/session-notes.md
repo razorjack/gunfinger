@@ -5206,8 +5206,7 @@ passed, these would be ours to decide:
 1. Merge `s24b-panako` (the launching agent's instruction); `master` is
    linear and committed.
 2. The `decode::watch` tests that fail under heavy load (session 23):
-   their fix is session 25's. Tonight's results are under "What else to
-   know".
+   their fix is session 25's. Tonight all six passed (below).
 3. Our decision above on the verifier: continue or delete.
 4. If it continues: give it its own line from the audio. The body's
    hash hits per stretch, not the opening window (`refine.rs`'s
@@ -5258,3 +5257,22 @@ passed, these would be ours to decide:
   record's bass under a bass cut, a render that starts inside the file)
   and the EQ'd-copy test now checks the fitted gains. The verifier's
   code did not change, so no result changes.
+- The final checks (20:20-20:31). The release build (`work/bin/s24-final/`)
+  with Homebrew's 1.98.0, the toolchain the start's binaries came from,
+  gives a `gunfinger` byte-identical to `s24-start` and `s23-final`; the
+  same code built with rustup's 1.98.0 differs only by the toolchain
+  (its library paths), which is why the identity is checked with
+  Homebrew's. `regress session-24-start` with the final build is
+  identical (720 of 720 sweep queries, all 87, 93 and 79 scan
+  detections, the calibrate line known since session 8) in 154 s.
+  `scripts/check.sh` with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`) is green: formatting, clippy for macOS and
+  for Linux, 421 tests (399 before tonight, 22 added), the six
+  `decode::watch` tests among them, in 6.6 minutes.
+- The session ended at about 20:35, eight hours before its planned
+  end: every step was done, and running the verifier again on the
+  development mixes would have made them a tuning set.
+- At the end the NAS store holds 40,126 records at revision
+  `fed26c76b8fe89ea`, as at the start. `docs/pair-verdicts.txt` and
+  `work/audition/answers.jsonl` are unchanged (sha256 `d48ffb313396...`,
+  `ee2d5bd9fe0d...`).

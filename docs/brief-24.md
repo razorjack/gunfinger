@@ -523,3 +523,18 @@ Its findings and what was done:
 10. Nits: the cost's load (about 30) stated; the patch time's frame
     convention (about 56 ms) and `track_end_seconds` in the handoff; the
     amendments' commit order stated in the notes.
+
+## Wrap-up (20:20-20:35)
+
+- The release build with rustup's 1.98.0 gave a `gunfinger` that
+  differs from `s24-start`: the start's binaries were built with
+  Homebrew's 1.98.0 (their standard-library paths point into Homebrew's
+  Cellar). Built again with Homebrew's 1.98.0, `gunfinger` is
+  byte-identical to `s24-start` and `s23-final`; that build is
+  `work/bin/s24-final/`.
+- `regress session-24-start` identical (154 s); `scripts/check.sh` green
+  with rustup's 1.98.0 (421 tests, `decode::watch` included, 6.6 min);
+  the NAS store at 40,126 records, `fed26c76b8fe89ea`; the listening files
+  unchanged. The session ends here, well before 04:30: the plan's steps
+  are done, and no further run on E1 or E2 is allowed by the decision
+  above.

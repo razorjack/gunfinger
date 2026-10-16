@@ -38,13 +38,15 @@ for scope and rules.
 
 - [x] 8. Read-only review by a subagent from 03:30 at the latest; fixes
   (19:59-20:12; ten findings, all addressed; four tests added)
-- [~] Notes "Session 24" with the handoff for session 25, status,
-  checklist, roadmap (written; the review's fixes and the final checks
-  to add)
-- [ ] `regress session-24-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`)
-- [ ] The NAS store's revision at the end equals the start's
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] Notes "Session 24" with the handoff for session 25, status,
+  checklist, roadmap
+- [x] `regress session-24-start` identical with the final build
+  (`work/bin/s24-final/`, Homebrew's 1.98.0 as at the start; `gunfinger`
+  byte-identical to `s24-start`), 154 s
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`): 421 tests, `decode::watch` passed
+- [x] The NAS store's revision at the end equals the start's (40,126,
+  `fed26c76b8fe89ea`)
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

@@ -3502,3 +3502,14 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
   keep `versions` in the tree written down. Four tests added and the
   EQ'd-copy test now checks the fitted gains (21 tests in `versions`,
   all passing; no code change).
+- 20:20-20:31 final checks. Release build `work/bin/s24-final/` with
+  Homebrew's 1.98.0 (as the start's): `gunfinger` byte-identical to
+  `s24-start` and `s23-final` (a build with rustup's 1.98.0 differs by
+  its library paths only). `regress session-24-start` identical (720/720
+  sweep queries, all 87, 93 and 79 scan detections, the calibrate line
+  known since session 8), 154 s. `scripts/check.sh` with rustup's 1.98.0
+  first (`RUSTUP_TOOLCHAIN=1.98.0`) green: fmt, clippy for macOS and
+  Linux, 421 tests (the six `decode::watch` tests passed), 6.6 min. NAS
+  store at the end: 40,126 records, `fed26c76b8fe89ea`, as at the start.
+  `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged.
+  Scratch data in `/tmp` removed; `work/s24/` holds 1.0 GB.
