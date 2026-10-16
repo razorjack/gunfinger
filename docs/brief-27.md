@@ -369,3 +369,17 @@ is not known.
   also deserialise; the runs on the three development mixes, which have
   no planned truth, are skipped). Scored under today's clusters (0128),
   variant A only: B would need a rerun, which the plan does not have.
+- **(01:44) V's first runs.** Grid (00:44-00:52) and the second shared
+  panel (00:52-01:14) are identical to master's reports apart from the
+  added field (`span_rule.py identity`). The first shared panel
+  (01:14-01:43) ran at 40,126 records, master's at 39,354, so they are
+  not compared detection by detection (28,035 differences, mostly
+  detections of files stored since); today's rule gives the same
+  outcomes on V's run (106 of 218 wrong with the played recording left
+  out). On it every variant but A(20) adds wrong confident answers:
+  the 20 s `alone` queries of fire-2, fire-6 and pyro-2 (642, 703 and
+  270 hits in 2 windows, spans 19.6-19.8 s, supported 20 s), so B(20),
+  whose 20 whole seconds a 19.8 s span can hold, fails too. With A(20)
+  and B(20) failing criterion 2 on the grid, no variant meets both
+  criteria; the remaining runs are counted as planned and decide
+  nothing further.
