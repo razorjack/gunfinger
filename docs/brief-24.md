@@ -144,3 +144,185 @@ Steps shrink from the end: 7, then the examples in 6.
   identical (720/720 sweep queries, all 87, 93 and 79 scan detections);
   153.45 s wall, 1,293 s user, load 30-34 at the end. Session 22's took
   153 s, so the machine runs at its usual speed; no search for a cause.
+
+## Decisions (setup and step 3, written before any run of the verifier)
+
+- **The store's revision.** The session takes the store as it found it
+  (40,126 records, `fed26c76b8fe89ea`) and checks it at the end against
+  that. No step searches the whole store: the plays come from saved
+  reports (each scored as published), and the verifier reads only the
+  reference files' audio and the peak records of a play's reference and
+  of the files its run's report names as holders. So the 772 records
+  newer than 0120's clusters reach no count. The clusters are 0120's
+  (`work/s23/clusters-new.json`), not rebuilt.
+- **One calibration run.** 0111's and 0122's `shared` runs are the same
+  rendered queries with the same outcomes (0122); the calibration plays
+  come from 0122's report (`work/s23/after/shared-material-seed-2026-development.json`,
+  scored under 0120's clusters as session 23 scored it), so no play is
+  counted twice.
+- **Playback.** The saved reports do not record whether a detection came
+  from a turntable or a key-locked rung. Every evaluation mix is a
+  turntable mix, and the panel's queries play their files at native
+  speed, where the two are the same; the verifier renders every
+  reference as turntable playback (resampling).
+
+## Step 3: the design and the pre-registration (written at 18:56, before any run of the verifier)
+
+Everything below is fixed before the verifier runs on any calibration or
+evaluation play. Nothing may be added after a count is seen; anything
+computed later and not named here is exploratory and decides nothing.
+Adopting anything is our decision; nothing changes in the
+product.
+
+### The verifier (`gunfinger-eval versions`)
+
+- **Input**: a JSON list of plays, each with an id, the mix's audio
+  file, the reference (a harness file name), the files of the
+  reference's own recording, its *siblings* (below) and its segments
+  (each: `start_seconds`, `end_seconds` in the mix, `track_start_seconds`,
+  `speed`; file time = `track_start + speed x (t - start)`). A play's
+  segments are the product's (ADR 0006): one file's detections at least
+  possible, joined across gaps of at most 90 s. Only the segments' spans
+  are tested; the gaps between them have no line.
+- **The reference on the mix clock**: for each segment, the mix decoded
+  from 1 s before to 1 s after the segment (8 kHz mono), and the
+  reference rendered with FFmpeg as turntable playback at the segment's
+  fitted speed (`render::render_samples`, as `identifiability` renders
+  a line), starting at the file time of the decoded mix's first sample,
+  silent where the file has no audio. The timing correction: each patch
+  takes the lag within +-3 frames (+-48 ms), one lag for all bands, that
+  gives the highest mean dynamics correlation over its informative
+  bands; no other warping.
+- **Bands**: the profile's STFT (1,024 points, hop 128, Hann; 16 ms
+  frames); 20 bands with log-spaced edges over bins 5-500 (39 Hz-3.9
+  kHz; edge i at bin `round(5 x 100^(i/20))`); a band's level `L` is 10
+  log10 of its bins' summed power. Three EQ groups, as a DJ mixer's
+  three bands: low = bands 0-7 (39-246 Hz), mid = 8-17 (246-2,465 Hz),
+  high = 18-19 (2,465-3,906 Hz).
+- **Patches**: 125 frames (2.0 s), every 16 frames (0.256 s), over each
+  segment's span.
+- **Band dynamics**: `D(b, i) = L(b, i) - L(b, i - 3)` (48 ms); `r(b)` is
+  the Pearson correlation of the reference's and the mix's `D` over the
+  patch. A band is *informative* when the reference's `D` has a standard
+  deviation of at least 1 dB over the patch and the band's mean level is
+  within 40 dB of the reference's loudest band in the patch. A cell
+  (band, frame) is *salient* when the reference's level there is within
+  15 dB of the band's maximum in the patch.
+- **The gain/EQ model**: one gain per EQ group per patch (a piecewise
+  constant curve across bands), never per band. *Anchors* are the
+  informative bands with `r >= 0.6`: material that demonstrably
+  survives. The patch's frames are cut into 0.256 s blocks, alternating
+  between two folds. On each fold the gain of group j is the median of
+  `L_mix - L_ref` over the salient cells of j's anchor bands; a group
+  without anchors takes the patch's broadband gain (the same median over
+  every anchor band) plus the play's typical offset of that group (the
+  median of group minus broadband gain over the play's patches where the
+  group has anchors; 0 if never). Bounded: each gain within -40 and +12
+  dB of the play's typical broadband gain (the median over the play's
+  patches with anchors). A band's residual `e(b)` is the median over its
+  salient cells of `L_mix - L_ref - gain`, each cell with the gain
+  fitted on the *other* fold (fitted on one part, tested on the other).
+- **Band states** (informative bands of a patch with at least one
+  anchor), tested in this order:
+  1. *killed* (unobservable): its group has no anchor and every
+     informative band of the group has `e < -10` dB: the whole group is
+     absent uniformly, as under a kill or a fade;
+  2. *supported*: `r >= 0.5`;
+  3. *contradicted*: `e < -10` dB: the reference predicts at least ten
+     times the power the mix holds in this band, while its group is not
+     uniformly absent (a selective absence no DJ EQ makes);
+  4. *masked* (unobservable): `e > +6` dB: the mix holds at least four
+     times the reference's predicted power;
+  5. *contradicted*: `r < 0.2`: the reference would be at least a fifth
+     of the band's power and its dynamics do not appear;
+  6. otherwise *undecided* (no evidence).
+- **Patch states**: *unobservable* when the patch has no anchor (no
+  gain can be established: a cut, a fade, total masking, or a reference
+  that matches nothing there); otherwise with `s` supported and `c`
+  contradicted bands, *contradicted* when `c >= 2` and `c >= s / 2`,
+  *supported* when not contradicted and `s >= 3`, else *unobservable*.
+- **Distinctiveness**: a play's *siblings* are the files outside the
+  reference's own recording (0120's clusters, and the panel's recording
+  list for panel files) that its run's report names as holders of its
+  segments with at least 60 hits (session 21's (c) and the possible
+  tier). The reference's stored peaks over the play's file span (10 s
+  wider on each side) are searched on the turntable ladder against an
+  index of the siblings alone (`search_peaks`, as `holders` searches);
+  each detection of at least 30 hits (`LISTED_HOLDER_HITS`) holds the
+  reference's span it covers. A patch is *distinctive* when the file
+  time at its centre lies outside every held span. Where a report keeps
+  only the strongest holder (0116), the siblings are that file alone.
+- **Timeline**: per patch its time, file time, lag, the 20 band
+  correlations and residuals, the three group gains, the band states,
+  the patch state and whether it is distinctive; per play the
+  summaries.
+
+### The per-play summaries (three, declared now)
+
+- **S1, the contradicted share**: contradicted patches / (supported +
+  contradicted patches) over all the play's patches; undefined when no
+  patch is decided. **The decision statistic**: a play is *rejected* when
+  S1 is at or above the threshold T; a play with S1 undefined is kept.
+- **S2, the distinctive contradicted share**: the same over distinctive
+  patches only; reported, deciding nothing.
+- **S3, distinctive support**: supported distinctive patches x 0.256 s;
+  reported, deciding nothing (zero: no evidence for the exact title).
+
+### The split
+
+- **Calibration** (the only data used to choose T): the shared panel's
+  development half, 0122's run. Negatives: the wrong confident plays of
+  the *played left out* index (106 wrong confident queries; per play).
+  Positives: the right confident plays of the *source left out* index
+  (the played recording's other rip, the positive control; per play).
+  Plays from the report's detections at least possible, joined across
+  90 s, confident when a segment is, scored by session 20's oracle under
+  0120's clusters (`shared_outcomes.py`, as session 23). Audio: the
+  rendered queries in
+  `work/shared/shared-material-seed-2026-development-83361e93ae0502ae/`.
+  Siblings from session 23's holder lookups of these plays
+  (`work/s23/after/holders-lookups-shared.json`). No sweep renders.
+- **E1** (evaluation): the 108 true plays of the three development mixes
+  (`second` in `work/s23/after/score/0116-criteria.json`; plays of
+  `work/s23/after/shared-mixes-dev.json`, step 4c of session 23, credited
+  by the verified scans under 0120's clusters). Audio:
+  `corpus/sets/<set>/` (the manifests' `audio` files, read only).
+  Siblings from the report's `holders` lists.
+- **E2** (evaluation): session 21's rendered mixes (0116,
+  `work/s21/shared-mixes-s21.json`) scored under 0120's clusters
+  (`rows` of the same `0116-criteria.json`): the 87 wrong related plays
+  of the *played left out* runs, and beside them the 480 right drawn
+  plays of the same runs. Audio: `work/shared-mixes/shared-mixes-s21/`.
+  Siblings: the report's strongest holder, where outside the reference's
+  recording under 0120's clusters and at least 60 hits.
+
+### The threshold and the criteria (fixed now)
+
+- **T** is the largest value that rejects at least half of the
+  calibration's negatives: with the negatives' S1 sorted from highest
+  (undefined counted lowest), T is the `ceil(n/2)`-th value. If that
+  value is 0 or undefined (fewer than half of the negatives have a
+  contradicted patch), T is the smallest S1 above 0 among the negatives,
+  and the calibration is said not to reach half. Reported beside it: the
+  calibration positives kept at T. If they are under 95%, the
+  calibration does not separate, and that is said; E1 and E2 run at T
+  anyway. Why this choice: thresholds set to keep 95% of clean
+  calibration plays failed on the real mixes (0116, 0118); the most
+  lenient threshold that still rejects half of the wrong plays costs
+  real true plays the least.
+- **E1**: at most 5 of the 108 true plays rejected. **E2**: at least 44
+  of the 87 wrong related plays rejected. Both are required to call the
+  verifier worth pursuing; either way it is our decision what
+  to do next.
+- Reported beside, deciding nothing: S2, S3, patch-state shares, the
+  calibration's counts at T, E2's drawn true plays rejected at T, the
+  positive control of E2 (15 plays of the *source left out* runs). Every
+  rejected E1 play is listed with the probable cause read from its
+  timeline (bass kill, blend, cut, another rip, a real version
+  difference), marked as an inference.
+- Expected before the data, written so it cannot be claimed later: the
+  panel's queries are clean renders, so calibration positives will have
+  low S1 and T may be lenient for clean plays and strict for real ones;
+  DnB's shared breaks carry most of a patch's dynamics, so a related
+  version's patches will often be supported in drum-heavy bands, and the
+  rejections must come from selective absences (basslines, stabs, pads).
