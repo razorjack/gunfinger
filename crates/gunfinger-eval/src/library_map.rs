@@ -60,17 +60,17 @@ impl LibraryMap {
 
     /// The other library's files that corpus files stand for, named as
     /// an index of both libraries would name them (`prefix` and their
-    /// path), each with its corpus file.
-    pub fn standing_corpus_files(&self, prefix: &str) -> BTreeMap<String, String> {
-        self.copies
-            .iter()
-            .map(|copies| {
-                (
-                    format!("{prefix}{}", copies.stands_for),
-                    copies.corpus.clone(),
-                )
-            })
-            .collect()
+    /// path), each with its corpus files: two where the corpus holds the
+    /// same audio twice.
+    pub fn standing_corpus_files(&self, prefix: &str) -> BTreeMap<String, BTreeSet<String>> {
+        let mut standing: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+        for copies in &self.copies {
+            standing
+                .entry(format!("{prefix}{}", copies.stands_for))
+                .or_default()
+                .insert(copies.corpus.clone());
+        }
+        standing
     }
 
     /// Every copy of a corpus file in the other library.

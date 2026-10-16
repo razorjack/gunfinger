@@ -52,8 +52,8 @@ pub struct Options<'a> {
     pub matching: &'a Matching,
     pub padding: &'a Padding,
     /// The other library's files that corpus files stand for, as the
-    /// index would name them, each with its corpus file (the copy map).
-    pub stood_for: &'a BTreeMap<String, String>,
+    /// index would name them, each with its corpus files (the copy map).
+    pub stood_for: &'a BTreeMap<String, BTreeSet<String>>,
     pub jobs: usize,
 }
 
@@ -130,20 +130,25 @@ pub fn run(
 fn refuse_unindexed(
     lookups: &[Lookup],
     indexed: impl Fn(&str) -> bool,
-    stood_for: &BTreeMap<String, String>,
+    stood_for: &BTreeMap<String, BTreeSet<String>>,
 ) -> Result<(), String> {
     let mut refused: BTreeMap<&String, String> = BTreeMap::new();
     for lookup in lookups {
         for name in lookup.left_out.iter().filter(|name| !indexed(name)) {
             match stood_for.get(name) {
-                Some(corpus) if lookup.left_out.contains(corpus) => {}
+                Some(corpus) if !corpus.is_disjoint(&lookup.left_out) => {}
                 Some(corpus) => {
-                    refused.insert(
-                        name,
-                        format!(
-                            "the index holds this audio as the corpus file {corpus}; leave that out instead"
+                    let corpus: Vec<&str> = corpus.iter().map(String::as_str).collect();
+                    let reason = match corpus.as_slice() {
+                        [file] => format!(
+                            "the index holds this audio as the corpus file {file}; leave that out instead"
                         ),
-                    );
+                        files => format!(
+                            "the index holds this audio as the corpus files {}; leave one of them out instead",
+                            files.join(" and ")
+                        ),
+                    };
+                    refused.insert(name, reason);
                 }
                 None => {
                     refused.insert(name, String::from("no indexed file has this name"));
@@ -215,14 +220,25 @@ mod tests {
             [
                 "Corpus - With A Copy.mp3",
                 "Corpus - Without A Copy.mp3",
+                "Corpus - Twice.mp3",
+                "extra/Corpus - Twice.mp3",
                 "second-library/nas/Other - Track.m4a",
             ]
             .contains(&name)
         };
-        let stood_for = BTreeMap::from([(
-            String::from("second-library/nas/Corpus - With A Copy.mp3"),
-            String::from("Corpus - With A Copy.mp3"),
-        )]);
+        let stood_for = BTreeMap::from([
+            (
+                String::from("second-library/nas/Corpus - With A Copy.mp3"),
+                BTreeSet::from([String::from("Corpus - With A Copy.mp3")]),
+            ),
+            (
+                String::from("second-library/nas/Corpus - Twice.mp3"),
+                BTreeSet::from([
+                    String::from("Corpus - Twice.mp3"),
+                    String::from("extra/Corpus - Twice.mp3"),
+                ]),
+            ),
+        ]);
         let leaving_out = |names: &str| {
             lookups(&format!(
                 r#"[{{"name": "a", "asset": "x.mp3", "track_start_seconds": 0,
@@ -240,12 +256,19 @@ mod tests {
         let recording = leaving_out(
             r#""Corpus - With A Copy.mp3", "second-library/nas/Corpus - With A Copy.mp3""#,
         );
+        let beside_the_second_twin =
+            leaving_out(r#""extra/Corpus - Twice.mp3", "second-library/nas/Corpus - Twice.mp3""#);
+        let twin_copy = leaving_out(r#""second-library/nas/Corpus - Twice.mp3""#);
 
         assert_eq!(
             refuse_unindexed(&indexed_files, indexed, &stood_for),
             Ok(())
         );
         assert_eq!(refuse_unindexed(&recording, indexed, &stood_for), Ok(()));
+        assert_eq!(
+            refuse_unindexed(&beside_the_second_twin, indexed, &stood_for),
+            Ok(())
+        );
         let refused = refuse_unindexed(&misspelt, indexed, &stood_for).unwrap_err();
         assert!(
             refused.contains("Corpus - Without A Coppy.mp3: no indexed file has this name"),
@@ -255,6 +278,13 @@ mod tests {
         assert!(
             refused.contains(
                 "second-library/nas/Corpus - With A Copy.mp3: the index holds this audio as the corpus file Corpus - With A Copy.mp3; leave that out instead"
+            ),
+            "{refused}"
+        );
+        let refused = refuse_unindexed(&twin_copy, indexed, &stood_for).unwrap_err();
+        assert!(
+            refused.contains(
+                "second-library/nas/Corpus - Twice.mp3: the index holds this audio as the corpus files Corpus - Twice.mp3 and extra/Corpus - Twice.mp3; leave one of them out instead"
             ),
             "{refused}"
         );

@@ -263,7 +263,8 @@ mod tests {
             .decode(&audio, 8000, Excerpt::default())
             .unwrap_err();
 
-        // Stopped, not waited for.
+        // Stopped after the stall timeout, not waited for.
+        assert!(started.elapsed() >= STALL, "{:?}", started.elapsed());
         assert!(
             started.elapsed() < Duration::from_secs(60),
             "{:?}",
