@@ -5876,3 +5876,42 @@ and rejects the play for the blends.
    WAV behind an ID3 tag (changing it could change `regress`);
    `clusters` needs `--cut-sparsest` until the cut Sonar joins are
    judged; a control passage can overlap another direction's passage.
+
+### What else to know
+
+- Nothing touched the held-out test set, the candidate mixes of 0065 or
+  any validation half; no test-derived version was used to calibrate
+  anything. The NAS was only read (reference audio decoded, peak
+  records read), and the NAS peak store was only read; the clusters were
+  not rebuilt.
+- The session ran far ahead of its plan: steps 1-5 were done by 23:50,
+  against 04:45. After the evaluation no further run on E1, E2 or the
+  second panel was allowed, so the review started at 23:52 and the
+  session ends after its fixes and the checks, at about 00:30 instead of
+  06:00.
+- A review by a separate agent (read-only) recomputed every number from
+  the runs and found them right, the code as pre-registered and no
+  broken rule. It found that my explanation of Dozer's drop was wrong
+  (its lines did not move; version 2 tests fewer of its patches), that
+  the relocated stretches and the changed decisions were not reported,
+  that the blend reading was stated as fact and fitted only one of the
+  four tracks as written, a wrong time range for Horns 2000, gaps in
+  the tests and a backwards comment. All are fixed above; four tests
+  were added. No number changed.
+- The final checks (00:13-00:23). The release build in
+  `work/bin/s26-final/` (Homebrew's 1.98.0) gives a `gunfinger`
+  byte-identical to the start's; its `gunfinger-eval` differs from the
+  one that made tonight's runs (`work/bin/s26-v2/`) only by edited
+  comments and tests, and gives byte-identical output on the smoke
+  plays. `regress session-26-start` with it is identical (720 of 720
+  sweep queries, all 87, 93 and 79 scan detections, the calibrate line
+  known since session 8) in 155 s. `scripts/check.sh` with rustup's
+  1.98.0 first on PATH (`RUSTUP_TOOLCHAIN=1.98.0`) is green: formatting,
+  clippy for macOS and for Linux, 432 tests (423 before tonight; 9
+  added, all for the measured line and the cut excerpt; one changed, for
+  another record's bass under a bass cut), in 6.4 minutes.
+- At the end the NAS store holds 40,126 records at revision
+  `fed26c76b8fe89ea`, as at the start. `docs/pair-verdicts.txt` and
+  `work/audition/answers.jsonl` are unchanged (sha256 `d48ffb313396...`,
+  `ee2d5bd9fe0d...`); no manifest and neither frozen panel file changed.
+  Scratch data: `work/s26/` (481 MB, mostly the verifier's timelines).

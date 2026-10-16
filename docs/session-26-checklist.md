@@ -43,10 +43,12 @@ for scope and rules.
 - [x] 6. Read-only review by a subagent (23:53-00:07, started early as
   every step was done); fixes committed
 - [x] Notes "Session 26" with the handoff, status, checklist, roadmap
-- [ ] `regress session-26-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`)
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] `regress session-26-start` identical with the final build
+  (`work/bin/s26-final/`, after the review's fixes), 154.6 s
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`): 432 tests, 6.4 min
+- [x] The NAS store's revision at the end: 40,126 records,
+  `fed26c76b8fe89ea`, as at the start
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

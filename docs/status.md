@@ -3697,3 +3697,23 @@ Brief `docs/brief-26.md`, checklist `docs/session-26-checklist.md`.
   plays 0 of 5 rejected (4 unmeasured: Phantom 2018 repeats the shared
   material, every knot a stray), positives 78 of 78 kept.
 - Notes "Session 26" with the handoff; roadmap.
+- 23:52-00:06 step 6: a read-only review by a subagent (everything
+  since `0aa1dea`). No defect changed a number, no rule broken. Fixed
+  (`d42ec72`): Dozer's drop restated (its lines did not move; version 2
+  tests 3,762 of its 5,039 patches, the differing stretches dropped as
+  strays, an inference); relocated stretches (a kept stretch 2.7-97 s
+  off in 30 of 312 calibration and 15 of 87 E2 wrong plays) and the
+  changed decisions reported; the blend reading an inference, per
+  track; Horns 2000's times; four tests added (one knot, two strays,
+  other music, `Clock::cut`); a backwards comment; the threshold's
+  label.
+- 00:13-00:23 final checks with `work/bin/s26-final/` (`gunfinger`
+  byte-identical to `s26-start`; `gunfinger-eval` differs from the runs'
+  `s26-v2` by comments and tests only, the smoke plays' output
+  byte-identical): `regress session-26-start` identical, 154.6 s;
+  `scripts/check.sh` with rustup's 1.98.0 green, 432 tests, 6.4 min. NAS
+  store at the end: 40,126 records, `fed26c76b8fe89ea`, as at the start;
+  listening files unchanged.
+- About 00:30 end, five and a half hours early: every step done, and no
+  further run on E1, E2 or the second panel allowed (brief, step 5c).
+  `s24b-panako` and its worktree kept.

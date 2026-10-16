@@ -394,7 +394,7 @@ siblings, the renderer, the mix decoder.
   review starts once the notes are drafted, and the session ends after
   its fixes and the wrap-up checks.
 
-## Step 6: the review (23:53-00:07) and its fixes (to 00:20)
+## Step 6: the review (23:52-00:06) and its fixes (committed at 00:13)
 
 A read-only subagent reviewed everything since `0aa1dea`. It found no
 code defect that changes a number and no broken rule: the merge keeps
@@ -435,3 +435,13 @@ done:
    named; "as much as the true plays'" reworded; `version_lines.py` is
    named as staying; `version_plays.py threshold` labels its output by
    the version of the run it reads.
+
+## Wrap-up (00:13-00:30)
+
+- Final build `work/bin/s26-final/` (Homebrew's 1.98.0): `gunfinger`
+  byte-identical to `s26-start`; `gunfinger-eval` differs from `s26-v2`
+  (the runs' build) by comments and tests only, and its output on the
+  smoke plays is byte-identical. `regress session-26-start` identical
+  (154.6 s); `scripts/check.sh` with rustup's 1.98.0 green (432 tests,
+  6.4 min); the NAS store at 40,126 records, `fed26c76b8fe89ea`, as at
+  the start; the listening files unchanged. The session ends here.
