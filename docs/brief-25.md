@@ -270,3 +270,35 @@ decides anything about the product.
   forked: the diagnostics test and the probe test, session 23's
   failures); the new ones in none. The module takes 5.3 s instead of 3.6
   s on an idle machine.
+- **(21:42) 0112 rerun with the step-3c build** (`identifiability
+  --half development`, 3.1 min, `work/s25/timeline/`): pairs and peaks
+  identical; 65 of 532 values move, all audio measures, by at most
+  0.006 (a file against its own copy now gives 0.994-0.995 instead of
+  1.0: the passage is decoded with the core's seek, the reference from
+  the start). `shared_identifiability.py` gives the same outcome for all
+  16 directions (Pyro - Ignorance played: Time Is Broken 0.714 against
+  the poor upload's 0.654, before 0.716 and 0.655). No count changes.
+- **(21:40) Step 4a, as session 20 built the first panel.** Only the
+  development half's families are joined and cut: `pair` aligned no file
+  of the validation half (the frozen file has no passages for it, and
+  this session does not search it). Recordings are the frozen ones with
+  their fresh clusters taken in (step 2 added none here); the unjudged
+  files are the frozen list and any newer record whose tags give the
+  family's titles (none among the 772). `pair` on 20 unjudged-recording
+  pairs and the 5 judged pairs in both directions (21:10, stored peaks,
+  8 s in all; every played file is a NAS file). Joined: CERT1853's
+  `01-klute-we_r_the_ones_(klute_remix).mp3` to the Klute Remix (99.2%);
+  nothing else covers 80%. The two control directions (Meltdown ~
+  Phantom Force, 14 hits) stay in the plan, as the first panel ran its
+  controls. The blend partner is the first panel's (Decoy from 60 s,
+  outside every family of both panels). The panel lists no other
+  versions (`other_versions` empty): the files of the families' titles
+  outside the recordings are unjudged, as the frozen file has them.
+  `docs/panels/shared-material-2-seed-2026-development.json`, committed
+  at 21:40 (`ff30eac`) before the run.
+- **(21:41) Step 4b started** under `screen` (`work/s25/shared-2.sh`,
+  build `work/bin/s25-panel/`, whose `gunfinger` is byte-identical to the
+  start's): queries in
+  `work/shared/shared-material-2-seed-2026-development-f2be9a7f8ccdcf66/`;
+  the saved NAS index (39,376 files) was out of date and is rebuilt at
+  40,148.
