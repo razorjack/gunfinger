@@ -3431,13 +3431,9 @@ the session.
   since session 8; 3,423 s, 3,404 s user (session 22: 153 s, 1,314 s).
   At 12:51 we let the running checks finish after 13:00.
   `scripts/check.sh` with rustup's 1.98.0 first
-  (`RUSTUP_TOOLCHAIN=1.98.0`), started 11:23: fmt, clippy (macOS and the
-  Linux target), `gunfinger`'s 55 unit tests and 13 of 14 end-to-end
-  tests passed; the last end-to-end test
-  (`the_saved_index_is_used_while_current_and_rebuilt_when_not`) and the
-  core and harness tests still ran at 12:40; the Homebrew pass had not
-  started. Both are left running; they write only their logs,
-  `target/` and regress's four reports in `work/reports/`. NAS store at 11:37: 39,354 records, `d71ba5333cff9a34`, as
-  after the index run. `docs/pair-verdicts.txt` and
-  `work/audition/answers.jsonl` unchanged (sha256 `d48ffb313396...`,
-  `ee2d5bd9fe0d...`).
+  (`RUSTUP_TOOLCHAIN=1.98.0`, 11:23-12:58, 95 min) green: fmt, clippy
+  (macOS and the Linux target), 399 tests (the end-to-end tests alone
+  took 88 min). The Homebrew pass started at 12:58. NAS store at 11:37:
+  39,354 records, `d71ba5333cff9a34`, as after the index run.
+  `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
+  (sha256 `d48ffb313396...`, `ee2d5bd9fe0d...`).

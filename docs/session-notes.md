@@ -4923,15 +4923,11 @@ run, `pair` should join them, as session 20 did for the first panel.
   the start's and to session 22's. `regress session-23-start` is
   identical (720/720 sweep queries, all 87, 93 and 79 scan detections,
   the calibrate line known since session 8); it took 57 min (57 CPU
-  minutes) against session 22's 153 s. At 12:40 `scripts/check.sh` with
-  rustup's 1.98.0 first on PATH: formatting, clippy for macOS and for
-  Linux, the 55 unit tests of `gunfinger` and 13 of the 14 end-to-end
-  tests passed; the last end-to-end test and the tests of
-  `gunfinger-core` and `gunfinger-eval` were still running
-  (`work/s23/check-rustup.log`), and the run with Homebrew's toolchain
-  had not started. So the harness tests, among them the 3 added tonight
-  for `holders`, did not run in this final check; the product's code is
-  unchanged since session 22's green check.
+  minutes) against session 22's 153 s. `scripts/check.sh` with rustup's
+  1.98.0 first on PATH is green (formatting, clippy for macOS and for
+  Linux, 399 tests, among them the 3 added tonight for `holders`; 95
+  min, finished 12:58). The run with Homebrew's toolchain was still
+  going at the time of writing; its log is `work/s23/check-brew.log`.
 - My first attempt at `scripts/check.sh` with rustup's toolchain set no
   `RUSTUP_TOOLCHAIN`, so rustup began installing `stable` (1.99.1). I
   uninstalled it; `~/.rustup/toolchains/` holds only 1.98.0 again, but
