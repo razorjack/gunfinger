@@ -1,0 +1,292 @@
+{
+ "seed": 2026,
+ "status": "proposed in session 23; frozen before any search; passages not cut yet",
+ "rule": "A verdict joins the new panel when neither of its files belongs to a family of the frozen panel (its recordings, other versions and unjudged files of the family's title, both halves), when both files have a current record (STORE_RECORDS, store_records.py's output; corpus files always do) and when neither is one of the five test-derived versions. Recordings are the duplicate clusters of CLUSTERS; files whose tags give a family's titles outside its recordings are listed as unjudged, as in the frozen panel. The split orders family names by SHA-256 of \"<seed>:<name>\" and puts the first half (rounded up) in development, the frozen panel's rule. Passages are not cut here: `pair` and shared_panel.py's passage rule give them in the session that runs the development half, so no file of the new panel is searched or aligned now. Each family lists the tracks of the three development mixes whose references include one of its files (`in_development_mixes`): those files are development data already, whichever half the family falls in.",
+ "families": [
+  {
+   "name": "killa-bees",
+   "recordings": [
+    [
+     "second-library/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3"
+    ],
+    [
+     "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/209-usual_suspects-killa_bees-sour.mp3",
+      "second-library/__full_scene/1999/1999-10/1999-10-05/renegade_hardware-armageddon-rh2000cd-1999-promo-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 63"
+    }
+   ],
+   "unjudged_same_title": [
+    "second-library/2000 - RH025 - VA - Armageddon 2 (The Remixes) - 192/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+    "second-library/__full_scene/1999/1999-11/1999-11-20/renegade_hardware-armageddon-rh2000lp-vinyl-1999-sour/08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Audio Remix) [CUT].m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Audio Remix).opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Dillinja Remix).opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (InsideInfo Remix).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects - Killa Bees (Optical & Fierce Remix).opus",
+    "second-library/__youtube_archivists/the-hifi-junglist/Usual Suspects - Killa Bees (DJ Hype, The Dogs... Mixmag Live! 29 A1) 1999.opus",
+    "second-library/d-usual_suspects-killa_bees_(konflict_rmx).mp3"
+   ],
+   "in_development_mixes": [],
+   "half": "validation"
+  },
+  {
+   "name": "phantom-force",
+   "recordings": [
+    [
+     "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 65"
+    },
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 69"
+    },
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 75"
+    }
+   ],
+   "unjudged_same_title": [
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Spirit Remix).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (T-Power & Codeine Remix).m4a"
+   ],
+   "in_development_mixes": [
+    "razorjack-2003-03-29: 4. Digital & Spirit - Phantom Force"
+   ],
+   "half": "development"
+  },
+  {
+   "name": "stab-2-def",
+   "recordings": [
+    [
+     "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+     "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+     "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 61"
+    }
+   ],
+   "unjudged_same_title": [],
+   "in_development_mixes": [
+    "nocny-trans-vertical-2002-08-23: 12. The Kraft - Stab 2 Def"
+   ],
+   "half": "validation"
+  },
+  {
+   "name": "star-trails",
+   "recordings": [
+    [
+     "Kemal & Rob Data - Star Trails.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "second-library/audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+      "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 72"
+    }
+   ],
+   "unjudged_same_title": [],
+   "in_development_mixes": [
+    "stakka-skynet-knowledge: 3. Kemal & Rob Data - Star Trails"
+   ],
+   "half": "development"
+  },
+  {
+   "name": "tsunami",
+   "recordings": [
+    [
+     "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+     "second-library/__youtube_archivists/dfect-dnb/Eddy Woo - Tsunami (Remix).m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+      "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 74"
+    }
+   ],
+   "unjudged_same_title": [],
+   "in_development_mixes": [],
+   "half": "validation"
+  },
+  {
+   "name": "we-r-the-ones",
+   "recordings": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+     "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 73"
+    }
+   ],
+   "unjudged_same_title": [
+    "second-library/__full_scene/1999/1999-11/1999-11-13/certificate_18-klute-cert1838-1999-sour/aa-klute-we_r_the_ones-sour.mp3",
+    "second-library/__full_scene/Certificate 18/CERT1838 - Klute - We R The Ones + Drive Down (1999)/AA-Klute-We_R_The_Ones-sour.mp3",
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "second-library/__full_scene/Certificate 18/CERT18CD012 - VA - Hidden Rooms Vol.3 (2001)/103-Klute-We_R_The_Ones-AVR.mp3",
+    "second-library/__youtube_archivists/butch-french/Klute - We R The Ones.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones.opus"
+   ],
+   "in_development_mixes": [
+    "nocny-trans-vertical-2002-08-23: 14. Klute - We R The Ones (VIP)"
+   ],
+   "half": "development"
+  }
+ ],
+ "verdicts_left_out": [
+  {
+   "line": 29,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 30,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 32,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 36,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 37,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 41,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 42,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 43,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 44,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 45,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 46,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 47,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 59,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 60,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 62,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 64,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 66,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 67,
+   "why": "a file without a current record"
+  },
+  {
+   "line": 68,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 70,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 71,
+   "why": "a family of the frozen panel"
+  },
+  {
+   "line": 76,
+   "why": "a family of the frozen panel"
+  }
+ ]
+}

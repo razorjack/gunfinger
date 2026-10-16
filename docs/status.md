@@ -3304,9 +3304,18 @@ the session.
   uploads, 6 from tonight's index run), none gone, nothing split or
   joined; 3 new borderline questions, all Aphrodite 12" ~ V2 album
   (experiment 0120). The new clusters are in the NAS report folder.
-- 06:05 step 3 (experiment 0121): the saved reports under the new
+- 05:37 step 3 (experiment 0121): the saved reports under the new
   clusters. The 9 wrong confident answers of the development scans are
   newer uploads, now right; 0116's 43 other plays are right but Kemal's
   remix; the 87 wrong related plays and (c)'s 61 marks on them do not
   change; (c)'s marks on true plays fall from 79 of 453 to 17-121 of 495
   (104 unknown offline). `rescore_summary.py` added.
+- 05:45 step 6b, done early so no later count can shape it: a proposed
+  second shared-material panel, `docs/panels/shared-material-2-seed-2026.json`
+  (`shared_panel_2.py`), from the `different` verdicts by ear outside the
+  frozen panel's families, under the new clusters: 6 families split by
+  seed 2026, development phantom-force, star-trails, we-r-the-ones;
+  validation killa-bees, stab-2-def, tsunami. Not searched; passages not
+  cut. Four families are played in the development mixes (listed in the
+  file), Stab 2 Def's among them although it falls in validation.
+- 05:38 step 4's queue started under `screen` (`work/s23/queue.sh`).

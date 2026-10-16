@@ -32,7 +32,8 @@ for scope and rules.
   first; counts; tracklists; experiment 0123
 - [ ] 6a. Questions in `work/audition/s23/` (Sonar upload, Kemal remix,
   borderline pairs)
-- [ ] 6b. A proposed second panel, drawn and frozen, not searched
+- [x] 6b. A proposed second panel, drawn and frozen, not searched
+  (`docs/panels/shared-material-2-seed-2026.json`, done before step 4)
 
 ## Wrap-up
 
