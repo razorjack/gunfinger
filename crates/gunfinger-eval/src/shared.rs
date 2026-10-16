@@ -135,6 +135,10 @@ pub struct SharedFound {
     pub role: String,
     pub start_seconds: f64,
     pub end_seconds: f64,
+    /// Where the detection lies in the file, for a later lookup of the
+    /// files that hold that span (`gunfinger-eval holders`).
+    pub track_start_seconds: f64,
+    pub track_end_seconds: f64,
     pub speed: f64,
     pub windows: u32,
     pub hits: u32,
@@ -288,6 +292,8 @@ pub fn run(
                                     role: role.to_owned(),
                                     start_seconds: detection.start_seconds,
                                     end_seconds: detection.end_seconds,
+                                    track_start_seconds: detection.track_start_seconds,
+                                    track_end_seconds: detection.track_end_seconds,
                                     speed: detection.speed.0,
                                     windows: detection.evidence.windows,
                                     hits: detection.evidence.hits,

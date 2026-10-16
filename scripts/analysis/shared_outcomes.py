@@ -3,7 +3,7 @@
 index is right confident, wrong confident, possible only or nothing, with
 the strongest detection of each role.
 
-usage: shared_outcomes.py <panel.json> <shared report.json> <out.json>
+usage: shared_outcomes.py [--clusters <clusters.json>] <panel.json> <shared report.json> <out.json>
 
 Roles: the report's `played`, `related` and `partner`; its `other` split
 with the panel into `version` (another recording or listed version of
@@ -11,6 +11,12 @@ the family), `unjudged` (a file whose tags give one of the family's
 titles, relation unknown) and `other`. The blend partner's detections
 are set aside: it plays in the query, so it is neither right nor wrong.
 A query the harness could not render counts as `not rendered`.
+
+With `--clusters` (session 23), each scenario's played and related
+recordings also take in the duplicate clusters of that file's members, so
+a rip the clusters of the run did not know is the played (or related)
+recording: a confident detection of it is right, also with the played
+recording left out, where the index kept it.
 """
 import json
 import sys
@@ -44,6 +50,41 @@ def roles_of(panel):
     return out
 
 
+def clusters_of(path):
+    """A function from a file to the set of files of its cluster."""
+    cluster = {}
+    for members in json.load(open(path, encoding="utf-8"))["duplicates"]:
+        for member in members:
+            cluster[member] = frozenset(members)
+    return lambda asset: cluster.get(asset, frozenset([asset]))
+
+
+def expanded(report, cluster_of):
+    """For each scenario: its played and related recordings with every
+    member's cluster."""
+    out = {}
+    for scenario in report["scenarios"]:
+        played = {scenario["played"], *scenario.get("played_recording", [])}
+        related = {scenario["related"], *scenario.get("related_recording", [])}
+        out[scenario["name"]] = (
+            {f for member in played for f in cluster_of(member)},
+            {f for member in related for f in cluster_of(member)},
+        )
+    return out
+
+
+def reroled(detection, recordings):
+    """The harness's role, with the clusters' rips of the two recordings."""
+    if recordings is None or detection["role"] in ("played", "partner"):
+        return detection["role"]
+    played, related = recordings
+    if detection["asset"] in played:
+        return "played"
+    if detection["asset"] in related:
+        return "related"
+    return detection["role"]
+
+
 def role(detection, versions, unjudged):
     if detection["role"] != "other":
         return detection["role"]
@@ -54,11 +95,11 @@ def role(detection, versions, unjudged):
     return "other"
 
 
-def outcome(result, versions, unjudged):
+def outcome(result, versions, unjudged, recordings=None):
     if result.get("error"):
         return "not rendered", None, False, {}
-    found = [dict(d, role=role(d, versions, unjudged)) for d in result["detections"]
-             if d["role"] != "partner"]
+    found = [dict(d, role=role(dict(d, role=reroled(d, recordings)), versions, unjudged))
+             for d in result["detections"] if d["role"] != "partner"]
     confident = [d for d in found if d["level"] == "confident"]
     wrong = sorted((d for d in confident if d["role"] != "played"), key=lambda d: -d["hits"])
     strongest = {}
@@ -77,14 +118,25 @@ def outcome(result, versions, unjudged):
     return "nothing", None, False, summary
 
 
-def main(panel_path, report_path, out_path):
+def main(*args):
+    args = list(args)
+    recordings = {}
+    if args[0] == "--clusters":
+        clusters_path = args[1]
+        args = args[2:]
+    else:
+        clusters_path = None
+    panel_path, report_path, out_path = args
     panel = json.load(open(panel_path, encoding="utf-8"))
     report = json.load(open(report_path, encoding="utf-8"))
+    if clusters_path:
+        recordings = expanded(report, clusters_of(clusters_path))
     roles = roles_of(panel)
     rows = []
     for result in report["results"]:
         family, versions, unjudged, control = roles[result["scenario"]]
-        name, wrong, played_too, strongest = outcome(result, versions, unjudged)
+        name, wrong, played_too, strongest = outcome(
+            result, versions, unjudged, recordings.get(result["scenario"]))
         rows.append({
             "family": family, "direction": result["scenario"], "control": control,
             "kind": result["kind"], "query": result["query"], "seconds": result["seconds"],
