@@ -3395,8 +3395,8 @@ the session.
   `ambiguity_note.py flagged` added. `identify` of the three mixes done
   (10:04-10:18; it rebuilt the saved index in `~/.cache`, which
   held 38,104 files); the tracklists' holder lookups (101) still ran at
-  11:10. From about 10:00 other processes on the machine
-  kept load averages at 120-200; left alone.
+  11:10. From about 10:20 other load on the machine (load averages 150-250)
+  explains the slowness from then; the slowness before 10:20 has another cause.
 - 10:51 `check.sh`: the first attempt put `~/.cargo/bin`, which does not
   exist, first on PATH, so Homebrew's rustc ran instead of rustup's; the
   second put rustup's proxies (`/opt/homebrew/opt/rustup/bin`) first but
@@ -3422,3 +3422,20 @@ the session.
   Def, We R The Ones), every entry a right track; 12 of 95 confident
   plays flagged; every printed line matched the rebuilt one
   (`work/s23/after/score/tracklists.txt`, data in 0123's JSON).
+- Wrap-up, not finished by 13:00 (other processes kept the load at
+  150-250). Final build `work/bin/s23-final/` (16 min): `gunfinger`
+  byte-identical to `s23-start` and `s22-final`; `gunfinger-eval`
+  differs (tonight's harness). `regress session-23-start` started 11:58
+  under `screen` (`work/s23/regress.sh`, log `work/s23/regress.log`);
+  at 12:40 still running, 35 CPU minutes (session 22's whole run: 22),
+  no report written yet. `scripts/check.sh` with rustup's 1.98.0 first
+  (`RUSTUP_TOOLCHAIN=1.98.0`), started 11:23: fmt, clippy (macOS and the
+  Linux target), `gunfinger`'s 55 unit tests and 13 of 14 end-to-end
+  tests passed; the last end-to-end test
+  (`the_saved_index_is_used_while_current_and_rebuilt_when_not`) and the
+  core and harness tests still ran at 12:40; the Homebrew pass had not
+  started. Both are left running; they write only their logs,
+  `target/` and regress's four reports in `work/reports/`. NAS store at 11:37: 39,354 records, `d71ba5333cff9a34`, as
+  after the index run. `docs/pair-verdicts.txt` and
+  `work/audition/answers.jsonl` unchanged (sha256 `d48ffb313396...`,
+  `ee2d5bd9fe0d...`).

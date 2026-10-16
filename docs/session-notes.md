@@ -4906,9 +4906,10 @@ run, `pair` should join them, as session 20 did for the first panel.
   `gunfinger-eval` are byte-identical to session 22's, and took 2 h 54
   min with session 18's command, against 26 min then; the later runs'
   harness adds tonight's `holders` lookups, and their `gunfinger` is the
-  same binary. So the code is not the cause; I did not find what is. From about 10:00
-  another process on the machine (one I did not start) kept
-  the load average between 120 and 200; I left it alone.
+  same binary. So the code is not the cause; I did not find what caused the
+  slowness before about 10:20. From then other load on the machine
+  (load average 150-250) explains the later
+  runs' times.
 - A review by a separate agent found that my first count of the
   clusters' margin and of the bounds in 0121 were wrong; both are fixed.
   It also found that `holders` silently accepts a file to leave out that
@@ -4917,6 +4918,20 @@ run, `pair` should join them, as session 20 did for the first panel.
   from the copy map, none typed by hand. A check in the harness needs
   the copy map, because a corpus file without a NAS copy stands for
   itself, so it is left open.
+- The final checks did not finish by 13:00 at that load. The release
+  build (`work/bin/s23-final/`, 16 min) has a `gunfinger` byte-identical
+  to the start's and to session 22's. `regress session-23-start` started
+  at 11:58 and was still running at 12:40 (35 CPU minutes, no report
+  written yet; session 22's took 22 CPU minutes); its result is in
+  `work/s23/regress.log` when it ends. `scripts/check.sh` with rustup's
+  1.98.0 first on PATH: formatting, clippy for macOS and for Linux, the
+  55 unit tests of `gunfinger` and 13 of the 14 end-to-end tests passed;
+  the last end-to-end test and the tests of `gunfinger-core` and
+  `gunfinger-eval` were still running (`work/s23/check-rustup.log`), and
+  the run with Homebrew's toolchain had not started. So the harness
+  tests, among them the 3 added tonight for `holders`, did not run in
+  this final check; the product's code is unchanged since session 22's
+  green check.
 - My first attempt at `scripts/check.sh` with rustup's toolchain set no
   `RUSTUP_TOOLCHAIN`, so rustup began installing `stable` (1.99.1). I
   uninstalled it; `~/.rustup/toolchains/` holds only 1.98.0 again, but

@@ -47,11 +47,16 @@ for scope and rules.
 - [x] 7. Read-only review by a subagent: pass 1 at 09:05 (14 findings,
   fixed), pass 2 at 11:12 (findings fixed; the `holders` check for
   unindexed left-out names reverted and left open, see the notes)
-- [ ] Notes "Session 23", status, checklist, roadmap
-- [ ] `regress session-23-start` identical; `scripts/check.sh` green
-  with both toolchains
+- [x] Notes "Session 23", status, checklist, roadmap
+- [-] `regress session-23-start` identical; `scripts/check.sh` green
+  with both toolchains: not finished by 13:00 (load 150-250 from the
+  other processes). Regress still running at 12:40; check.sh with
+  rustup's 1.98.0 passed fmt, both clippies, 55 unit and 13 of 14
+  end-to-end tests, the rest still running; Homebrew's pass not
+  started. `gunfinger` in `work/bin/s23-final/` byte-identical to
+  session 22's
 - [x] The NAS store's revision at the end equals the one after the
   index run (39,354 records, `d71ba5333cff9a34`, 11:37)
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message
