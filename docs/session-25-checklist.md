@@ -18,21 +18,25 @@ for scope and rules.
 
 ## Steps
 
-- [~] 2. Clusters at the current revision (`screen` `s25-clusters`,
-  started 20:49); what changed against 0120; experiment 0128
-- [ ] 3a. `decode::watch` tests robust under load (test code only);
-  checked with busy loops on every core
-- [ ] 3b. `holders` refuses or reports a left-out file that is not
-  indexed, using the copy map
-- [ ] 3c. `render_samples` on the store's timeline; files of 0112 and
-  0124-0127 affected, counts that change
-- [ ] 4a. The second panel's development half: `pair` joins, passages,
+- [x] 2. Clusters at the current revision (20:52-21:24, with
+  `--cut-sparsest` after the pre-check stopped on 0120's Sonar chain);
+  what changed against 0120; experiment 0128
+- [x] 3a. `decode::watch` tests robust under load (test code only);
+  checked with busy loops on every core (old 1 of 43 rounds failed,
+  new none)
+- [x] 3b. `holders` refuses a left-out file that is not indexed, using
+  the copy map (refined: a copy beside its corpus file passes)
+- [x] 3c. `render_samples_as_indexed` on the store's timeline; files of
+  0112 and 0124-0126 affected (Do Drop In, one Miami position); E2's
+  rejected drawn true plays 3 -> 2; 0112's outcomes unchanged
+- [x] 4a. The second panel's development half: `pair` joins, passages,
   `docs/panels/shared-material-2-seed-2026-development.json`; committed
-  before any search
-- [ ] 4b. `shared` at NAS scale, scored under the fresh clusters;
-  experiment 0129
-- [ ] 4c. Pre-registration; `versions` as built (T = 0.121) on 4b's
-  wrong confident plays and positive controls; experiment 0132
+  before any search (21:40)
+- [~] 4b. `shared` at NAS scale (started 21:41), scored under the fresh
+  clusters; experiment 0129
+- [~] 4c. Pre-registration (committed 21:17); `versions` as built
+  (T = 0.121) on 4b's wrong confident plays and positive controls;
+  experiment 0132
 
 ## Wrap-up
 
