@@ -1,0 +1,852 @@
+{
+ "report": "shared-material-seed-2026-development.json",
+ "problems": [],
+ "rules": {
+  "3 windows": {
+   "outcomes": {
+    "everything": {
+     "nothing": 39,
+     "possible only": 17,
+     "right confident": 56,
+     "wrong confident": 106
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "possible only": 7,
+     "right confident": 21
+    },
+    "played left out": {
+     "nothing": 68,
+     "possible only": 44,
+     "wrong confident": 106
+    },
+    "played left out (control)": {
+     "nothing": 32
+    },
+    "source left out": {
+     "nothing": 18,
+     "possible only": 6,
+     "right confident": 21,
+     "wrong confident": 44
+    },
+    "source left out (control)": {
+     "nothing": 3,
+     "possible only": 5,
+     "right confident": 8
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": []
+  },
+  "span 10 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 39,
+     "right confident": 67,
+     "wrong confident": 109,
+     "possible only": 3
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "right confident": 26,
+     "possible only": 2
+    },
+    "played left out": {
+     "nothing": 68,
+     "possible only": 41,
+     "wrong confident": 109
+    },
+    "played left out (control)": {
+     "nothing": 32
+    },
+    "source left out": {
+     "nothing": 18,
+     "right confident": 27,
+     "wrong confident": 44
+    },
+    "source left out (control)": {
+     "nothing": 3,
+     "possible only": 4,
+     "right confident": 9
+    }
+   },
+   "new_wrong_confident": [
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 642,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 342,
+     "windows": 2,
+     "start": 229.36,
+     "span": 10.31,
+     "query": "fire-2-looped-240s",
+     "index": "everything",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 642,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 342,
+     "windows": 2,
+     "start": 229.36,
+     "span": 10.31,
+     "query": "fire-2-looped-240s",
+     "index": "played left out",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "hits": 703,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "hits": 703,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "role": "version"
+    },
+    {
+     "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+     "hits": 270,
+     "windows": 2,
+     "start": 0.03,
+     "span": 19.62,
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "role": "related"
+    },
+    {
+     "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+     "hits": 270,
+     "windows": 2,
+     "start": 0.03,
+     "span": 19.62,
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "role": "related"
+    }
+   ],
+   "changed": [
+    {
+     "query": "dozer-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "dozer-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "dozer-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-1-alone-14s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-1-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-1-weak-alone-14s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-1-before-5s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-2-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-2-weak-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "sonar-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "sonar-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "watermelon-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "watermelon-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "span 15 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 39,
+     "right confident": 67,
+     "wrong confident": 109,
+     "possible only": 3
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "possible only": 4,
+     "right confident": 24
+    },
+    "played left out": {
+     "nothing": 68,
+     "possible only": 41,
+     "wrong confident": 109
+    },
+    "played left out (control)": {
+     "nothing": 32
+    },
+    "source left out": {
+     "nothing": 18,
+     "right confident": 27,
+     "wrong confident": 44
+    },
+    "source left out (control)": {
+     "nothing": 3,
+     "possible only": 4,
+     "right confident": 9
+    }
+   },
+   "new_wrong_confident": [
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 642,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 642,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "hits": 703,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "role": "version"
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+     "hits": 703,
+     "windows": 2,
+     "start": 0.0,
+     "span": 19.8,
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "role": "version"
+    },
+    {
+     "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+     "hits": 270,
+     "windows": 2,
+     "start": 0.03,
+     "span": 19.62,
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "role": "related"
+    },
+    {
+     "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+     "hits": 270,
+     "windows": 2,
+     "start": 0.03,
+     "span": 19.62,
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "role": "related"
+    }
+   ],
+   "changed": [
+    {
+     "query": "dozer-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "dozer-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "dozer-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-1-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-1-before-5s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-2-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-2-weak-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "sonar-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "sonar-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "watermelon-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "watermelon-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "span 20 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 39,
+     "possible only": 17,
+     "right confident": 56,
+     "wrong confident": 106
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "possible only": 7,
+     "right confident": 21
+    },
+    "played left out": {
+     "nothing": 68,
+     "possible only": 44,
+     "wrong confident": 106
+    },
+    "played left out (control)": {
+     "nothing": 32
+    },
+    "source left out": {
+     "nothing": 18,
+     "possible only": 6,
+     "right confident": 21,
+     "wrong confident": 44
+    },
+    "source left out (control)": {
+     "nothing": 3,
+     "possible only": 5,
+     "right confident": 8
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": []
+  }
+ }
+}

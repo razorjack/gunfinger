@@ -314,3 +314,32 @@ ones. The shared panels' related versions with 240 hits or more in 2
 windows, if any, would be the new wrong answers; 0111 and 0129 list
 possible plays up to 227 hits, and whether any reaches 240 in 2 windows
 is not known.
+- **(00:49) Session 24b resumed beside this session**, in its own
+  worktree (`/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`,
+  branch `s24b-panako`), to run Panako now that Java 11 is installed
+  (the launching agent's message). It never writes to this checkout;
+  its heavy runs are at nice 10 and end by about 06:30. Experiment 0150
+  is reserved for it; this session numbers from 0136 and skips 0150.
+  Its branch is not merged. Wall times measured tonight run beside its
+  load, so they are not compared with earlier sessions'.
+- **(00:43) Step 3a, the variant build**: worktree
+  `/Users/razorjack/.t3/worktrees/gunfinger/s27-span`, branch `s27-span`
+  at `d6a8f09` (never merged), binaries in `work/bin/s27-span/`.
+  `Detection` gains `supported_seconds` (refine.rs: distinct
+  `floor(t - first hit)` over every hit of the measured runs; 0 on the
+  ladder), and the reports of `scan`, `mixes`/`grid`, `sweep`/`recall`,
+  `robust` and `shared` carry it (`sweep`'s and `recall`'s also the
+  first and last hit; `robust` keeps every detection at least possible
+  in `found`). The worktree's unit tests were not updated (some test
+  literals lack the new field), so its `cargo test` does not compile;
+  the release build does, and V's identity with M's reports is the
+  check. Its work directory `work/s27/vwork/` holds APFS clones of
+  `work/{grid,mixes,sweep,robust,recall,shared,indexes}` and copies of
+  the two clusters files and the library map. The queue
+  (`work/s27/vqueue.sh`, `screen` `s27-vqueue`) started at 00:44.
+- **(00:47) M's shared reports keep no `fitted` flag** (`SharedFound`);
+  `span_rule.py` takes every shared detection as fitted (the default
+  matcher keeps nothing above weak that it did not refine). With that,
+  today's rule reproduces every stored level and the published outcomes
+  (106 of 218, 5 of 135). A first version without it did not reproduce
+  them and was not used.

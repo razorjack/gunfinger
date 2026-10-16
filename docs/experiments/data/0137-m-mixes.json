@@ -1,0 +1,217 @@
+{
+ "reports": [
+  "mixes-seed-2026.json",
+  "mixes-seed-7.json"
+ ],
+ "problems": [],
+ "rules": {
+  "3 windows": {
+   "plays": {
+    "confident": 126,
+    "wrong confident": 0,
+    "wrong possible": 0,
+    "possible": 10
+   },
+   "changed": [],
+   "new_wrong_confident": [],
+   "shortest_confident_span": 15.93
+  },
+  "span 10 s": {
+   "plays": {
+    "confident": 134,
+    "wrong confident": 0,
+    "wrong possible": 0,
+    "possible": 2
+   },
+   "changed": [
+    {
+     "mix": "mix-02",
+     "asset": "extra/08-item.code-kosmic-whoa.mp3",
+     "seconds": 22.1,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-03",
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "seconds": 23.0,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-04",
+     "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "seconds": 26.4,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-06",
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "seconds": 20.1,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-07",
+     "asset": "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3",
+     "seconds": 26.1,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-09",
+     "asset": "extra/a-bad_company-pulse.mp3",
+     "seconds": 21.0,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-10",
+     "asset": "extra/b-skc-eclipse-gdn.mp3",
+     "seconds": 26.0,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-10",
+     "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+     "seconds": 21.5,
+     "today": "possible",
+     "variant": "confident"
+    }
+   ],
+   "new_wrong_confident": [],
+   "shortest_confident_span": 13.15
+  },
+  "span 15 s": {
+   "plays": {
+    "confident": 131,
+    "wrong confident": 0,
+    "wrong possible": 0,
+    "possible": 5
+   },
+   "changed": [
+    {
+     "mix": "mix-02",
+     "asset": "extra/08-item.code-kosmic-whoa.mp3",
+     "seconds": 22.1,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-04",
+     "asset": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "seconds": 26.4,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-07",
+     "asset": "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3",
+     "seconds": 26.1,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-09",
+     "asset": "extra/a-bad_company-pulse.mp3",
+     "seconds": 21.0,
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "mix": "mix-10",
+     "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+     "seconds": 21.5,
+     "today": "possible",
+     "variant": "confident"
+    }
+   ],
+   "new_wrong_confident": [],
+   "shortest_confident_span": 15.05
+  },
+  "span 20 s": {
+   "plays": {
+    "confident": 116,
+    "wrong confident": 0,
+    "wrong possible": 0,
+    "possible": 20
+   },
+   "changed": [
+    {
+     "mix": "mix-01",
+     "asset": "extra/A-Chris_SU-Astro_Sine-sour.mp3",
+     "seconds": 23.5,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-02",
+     "asset": "extra/aph042 - aphrodite - ganja man/B - Aphrodite - Heat Haze.mp3",
+     "seconds": 25.1,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-03",
+     "asset": "Fortran - Splinter.mp3",
+     "seconds": 27.9,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-04",
+     "asset": "extra/04_-_dj_hidden_-_skektics.mp3",
+     "seconds": 27.9,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-06",
+     "asset": "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3",
+     "seconds": 26.9,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-07",
+     "asset": "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3",
+     "seconds": 25.9,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-08",
+     "asset": "Ed Rush & Optical - Fixation.mp3",
+     "seconds": 26.9,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-09",
+     "asset": "extra/[B]_-_Futuretech_-_Kashmir.mp3",
+     "seconds": 25.5,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-10",
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "seconds": 25.8,
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "mix": "mix-11",
+     "asset": "extra/d-shimon-mutationz_iv-sour.mp3",
+     "seconds": 24.6,
+     "today": "confident",
+     "variant": "possible"
+    }
+   ],
+   "new_wrong_confident": [],
+   "shortest_confident_span": 20.28
+  }
+ }
+}

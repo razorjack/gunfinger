@@ -1,0 +1,6919 @@
+{
+ "report": "grid-seed-2026.json",
+ "problems": [],
+ "queries": 960,
+ "strongest_false_hits": 34,
+ "queries_with_false_over_240": 0,
+ "wrong_confident_stored": 0,
+ "rules": {
+  "3 windows": {
+   "rows": [
+    {
+     "seconds": 10.0,
+     "queries": 160,
+     "confident": 0,
+     "flips": 0
+    },
+    {
+     "seconds": 15.0,
+     "queries": 160,
+     "confident": 67,
+     "flips": 16
+    },
+    {
+     "seconds": 20.0,
+     "queries": 160,
+     "confident": 146,
+     "flips": 14
+    },
+    {
+     "seconds": 25.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 30.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 40.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    }
+   ],
+   "confident": 693,
+   "flips": 30,
+   "shortest_length_any_confident": 15.0,
+   "shortest_length_all_confident": 25.0,
+   "shortest_confident_span": 14.29,
+   "shortest_confident_supported": null,
+   "changed": []
+  },
+  "span 10 s": {
+   "rows": [
+    {
+     "seconds": 10.0,
+     "queries": 160,
+     "confident": 3,
+     "flips": 2
+    },
+    {
+     "seconds": 15.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 20.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 25.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 30.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 40.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    }
+   ],
+   "confident": 803,
+   "flips": 2,
+   "shortest_length_any_confident": 10.0,
+   "shortest_length_all_confident": 15.0,
+   "shortest_confident_span": 11.77,
+   "shortest_confident_supported": null,
+   "changed": [
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 434,
+       "windows": 2,
+       "start": 30.23,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 596,
+       "windows": 2,
+       "start": 31.22,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 558,
+       "windows": 2,
+       "start": 32.1,
+       "span": 14.76
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 612,
+       "windows": 2,
+       "start": 33.23,
+       "span": 14.63
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 432,
+       "windows": 2,
+       "start": 34.23,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 587,
+       "windows": 2,
+       "start": 35.22,
+       "span": 14.63
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 556,
+       "windows": 2,
+       "start": 30.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 596,
+       "windows": 2,
+       "start": 30.17,
+       "span": 14.35
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 588,
+       "windows": 2,
+       "start": 31.17,
+       "span": 14.34
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 631,
+       "windows": 2,
+       "start": 32.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 623,
+       "windows": 2,
+       "start": 33.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 583,
+       "windows": 2,
+       "start": 34.17,
+       "span": 14.35
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 599,
+       "windows": 2,
+       "start": 35.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 814,
+       "windows": 2,
+       "start": 30.17,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 635,
+       "windows": 2,
+       "start": 30.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 598,
+       "windows": 2,
+       "start": 31.07,
+       "span": 14.43
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 648,
+       "windows": 2,
+       "start": 32.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 598,
+       "windows": 2,
+       "start": 33.07,
+       "span": 14.43
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 634,
+       "windows": 2,
+       "start": 34.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 668,
+       "windows": 2,
+       "start": 35.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 802,
+       "windows": 2,
+       "start": 30.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 394,
+       "windows": 2,
+       "start": 30.0,
+       "span": 14.29
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 447,
+       "windows": 2,
+       "start": 31.01,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 641,
+       "windows": 2,
+       "start": 32.0,
+       "span": 14.61
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 635,
+       "windows": 2,
+       "start": 33.0,
+       "span": 14.61
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 625,
+       "windows": 2,
+       "start": 34.01,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 584,
+       "windows": 2,
+       "start": 35.0,
+       "span": 14.61
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 798,
+       "windows": 2,
+       "start": 30.01,
+       "span": 19.72
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 10.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 338,
+       "windows": 2,
+       "start": 31.97,
+       "span": 11.77
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 10.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 311,
+       "windows": 2,
+       "start": 34.97,
+       "span": 11.77
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 501,
+       "windows": 2,
+       "start": 30.07,
+       "span": 14.41
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 491,
+       "windows": 2,
+       "start": 31.07,
+       "span": 14.42
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 515,
+       "windows": 2,
+       "start": 31.97,
+       "span": 14.51
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 786,
+       "windows": 2,
+       "start": 32.97,
+       "span": 14.66
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 486,
+       "windows": 2,
+       "start": 33.97,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 481,
+       "windows": 2,
+       "start": 35.07,
+       "span": 14.42
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 660,
+       "windows": 2,
+       "start": 30.07,
+       "span": 19.79
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 460,
+       "windows": 2,
+       "start": 30.08,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 539,
+       "windows": 2,
+       "start": 31.08,
+       "span": 14.73
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 461,
+       "windows": 2,
+       "start": 32.08,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 462,
+       "windows": 2,
+       "start": 33.08,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 463,
+       "windows": 2,
+       "start": 34.08,
+       "span": 14.49
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 486,
+       "windows": 2,
+       "start": 35.08,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 663,
+       "windows": 2,
+       "start": 30.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 10.0,
+     "offset": 9,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 297,
+       "windows": 2,
+       "start": 36.71,
+       "span": 11.9
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 456,
+       "windows": 2,
+       "start": 30.08,
+       "span": 14.47
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 428,
+       "windows": 2,
+       "start": 31.09,
+       "span": 14.46
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 420,
+       "windows": 2,
+       "start": 32.09,
+       "span": 14.46
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 435,
+       "windows": 2,
+       "start": 33.09,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 425,
+       "windows": 2,
+       "start": 34.09,
+       "span": 14.7
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 586,
+       "windows": 2,
+       "start": 35.09,
+       "span": 14.46
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 838,
+       "windows": 2,
+       "start": 30.09,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 630,
+       "windows": 2,
+       "start": 30.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 623,
+       "windows": 2,
+       "start": 31.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 609,
+       "windows": 2,
+       "start": 32.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 590,
+       "windows": 2,
+       "start": 33.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 581,
+       "windows": 2,
+       "start": 34.17,
+       "span": 14.54
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 622,
+       "windows": 2,
+       "start": 35.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 792,
+       "windows": 2,
+       "start": 30.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 667,
+       "windows": 2,
+       "start": 30.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 692,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 661,
+       "windows": 2,
+       "start": 32.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 695,
+       "windows": 2,
+       "start": 33.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 665,
+       "windows": 2,
+       "start": 34.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 529,
+       "windows": 2,
+       "start": 30.97,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 535,
+       "windows": 2,
+       "start": 31.97,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 521,
+       "windows": 2,
+       "start": 32.97,
+       "span": 14.86
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 695,
+       "windows": 2,
+       "start": 33.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 508,
+       "windows": 2,
+       "start": 34.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 587,
+       "windows": 2,
+       "start": 30.03,
+       "span": 14.78
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 593,
+       "windows": 2,
+       "start": 30.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 586,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 597,
+       "windows": 2,
+       "start": 32.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 578,
+       "windows": 2,
+       "start": 33.98,
+       "span": 14.59
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 584,
+       "windows": 2,
+       "start": 34.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 754,
+       "windows": 2,
+       "start": 30.06,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 499,
+       "windows": 2,
+       "start": 30.06,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 513,
+       "windows": 2,
+       "start": 30.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 509,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 501,
+       "windows": 2,
+       "start": 33.06,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 497,
+       "windows": 2,
+       "start": 34.06,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 498,
+       "windows": 2,
+       "start": 34.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 703,
+       "windows": 2,
+       "start": 30.06,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 647,
+       "windows": 2,
+       "start": 30.02,
+       "span": 14.86
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 343,
+       "windows": 2,
+       "start": 30.02,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 518,
+       "windows": 2,
+       "start": 30.98,
+       "span": 14.89
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 322,
+       "windows": 2,
+       "start": 30.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 516,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.89
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 316,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 530,
+       "windows": 2,
+       "start": 32.98,
+       "span": 14.91
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 337,
+       "windows": 2,
+       "start": 32.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 512,
+       "windows": 2,
+       "start": 33.98,
+       "span": 14.89
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 332,
+       "windows": 2,
+       "start": 34.02,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 732,
+       "windows": 2,
+       "start": 34.98,
+       "span": 14.91
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 332,
+       "windows": 2,
+       "start": 34.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 866,
+       "windows": 2,
+       "start": 30.02,
+       "span": 19.79
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 434,
+       "windows": 2,
+       "start": 30.02,
+       "span": 19.59
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 582,
+       "windows": 2,
+       "start": 30.02,
+       "span": 14.66
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 277,
+       "windows": 2,
+       "start": 30.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 573,
+       "windows": 2,
+       "start": 31.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 281,
+       "windows": 2,
+       "start": 31.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 575,
+       "windows": 2,
+       "start": 32.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 287,
+       "windows": 2,
+       "start": 32.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 584,
+       "windows": 2,
+       "start": 33.02,
+       "span": 14.66
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 285,
+       "windows": 2,
+       "start": 33.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 597,
+       "windows": 2,
+       "start": 34.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 287,
+       "windows": 2,
+       "start": 34.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 584,
+       "windows": 2,
+       "start": 35.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 278,
+       "windows": 2,
+       "start": 35.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 745,
+       "windows": 2,
+       "start": 30.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 380,
+       "windows": 2,
+       "start": 30.03,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 469,
+       "windows": 2,
+       "start": 30.01,
+       "span": 14.57
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 480,
+       "windows": 2,
+       "start": 30.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 463,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 485,
+       "windows": 2,
+       "start": 32.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 473,
+       "windows": 2,
+       "start": 33.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 448,
+       "windows": 2,
+       "start": 34.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 642,
+       "windows": 2,
+       "start": 30.01,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 1,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 515,
+       "windows": 2,
+       "start": 30.97,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 2,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 507,
+       "windows": 2,
+       "start": 31.98,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 3,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 516,
+       "windows": 2,
+       "start": 32.97,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 4,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 484,
+       "windows": 2,
+       "start": 33.98,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 5,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 491,
+       "windows": 2,
+       "start": 34.97,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 664,
+       "windows": 2,
+       "start": 30.04,
+       "span": 19.56
+      }
+     ]
+    }
+   ]
+  },
+  "span 15 s": {
+   "rows": [
+    {
+     "seconds": 10.0,
+     "queries": 160,
+     "confident": 0,
+     "flips": 0
+    },
+    {
+     "seconds": 15.0,
+     "queries": 160,
+     "confident": 4,
+     "flips": 2
+    },
+    {
+     "seconds": 20.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 25.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 30.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 40.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    }
+   ],
+   "confident": 644,
+   "flips": 2,
+   "shortest_length_any_confident": 15.0,
+   "shortest_length_all_confident": 20.0,
+   "shortest_confident_span": 16.84,
+   "shortest_confident_supported": null,
+   "changed": [
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 578,
+       "windows": 3,
+       "start": 36.23,
+       "span": 14.63
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 433,
+       "windows": 3,
+       "start": 37.23,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 438,
+       "windows": 3,
+       "start": 38.23,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 556,
+       "windows": 2,
+       "start": 30.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 604,
+       "windows": 3,
+       "start": 36.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 598,
+       "windows": 3,
+       "start": 37.17,
+       "span": 14.33
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 595,
+       "windows": 3,
+       "start": 38.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 614,
+       "windows": 3,
+       "start": 39.17,
+       "span": 14.34
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 814,
+       "windows": 2,
+       "start": 30.17,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 629,
+       "windows": 3,
+       "start": 36.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 638,
+       "windows": 3,
+       "start": 37.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 663,
+       "windows": 3,
+       "start": 38.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 650,
+       "windows": 3,
+       "start": 39.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 802,
+       "windows": 2,
+       "start": 30.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 561,
+       "windows": 3,
+       "start": 36.0,
+       "span": 14.29
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 581,
+       "windows": 3,
+       "start": 37.0,
+       "span": 14.61
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 535,
+       "windows": 3,
+       "start": 38.0,
+       "span": 14.41
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 388,
+       "windows": 3,
+       "start": 39.01,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 798,
+       "windows": 2,
+       "start": 30.01,
+       "span": 19.72
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 530,
+       "windows": 3,
+       "start": 35.97,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 558,
+       "windows": 3,
+       "start": 36.97,
+       "span": 14.52
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 466,
+       "windows": 3,
+       "start": 37.97,
+       "span": 14.51
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 498,
+       "windows": 3,
+       "start": 38.97,
+       "span": 14.52
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 660,
+       "windows": 2,
+       "start": 30.07,
+       "span": 19.79
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 472,
+       "windows": 3,
+       "start": 36.08,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 663,
+       "windows": 3,
+       "start": 37.07,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 661,
+       "windows": 3,
+       "start": 38.07,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 493,
+       "windows": 3,
+       "start": 39.2,
+       "span": 14.38
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 663,
+       "windows": 2,
+       "start": 30.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 510,
+       "windows": 3,
+       "start": 38.09,
+       "span": 14.47
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 838,
+       "windows": 2,
+       "start": 30.09,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 641,
+       "windows": 3,
+       "start": 36.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 622,
+       "windows": 3,
+       "start": 37.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 609,
+       "windows": 3,
+       "start": 38.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 599,
+       "windows": 3,
+       "start": 39.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 792,
+       "windows": 2,
+       "start": 30.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 672,
+       "windows": 3,
+       "start": 29.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 658,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 665,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 686,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 655,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.72
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 525,
+       "windows": 3,
+       "start": 29.97,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 662,
+       "windows": 3,
+       "start": 35.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 526,
+       "windows": 3,
+       "start": 36.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 482,
+       "windows": 3,
+       "start": 37.97,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 652,
+       "windows": 3,
+       "start": 38.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 585,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 573,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 583,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 590,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 754,
+       "windows": 2,
+       "start": 30.06,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 489,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 486,
+       "windows": 3,
+       "start": 37.06,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 484,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 500,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 703,
+       "windows": 2,
+       "start": 30.06,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 608,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.9
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 330,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 501,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.91
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 328,
+       "windows": 3,
+       "start": 37.22,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 514,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.89
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 300,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 469,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.9
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 320,
+       "windows": 3,
+       "start": 39.22,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 866,
+       "windows": 2,
+       "start": 30.02,
+       "span": 19.79
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 434,
+       "windows": 2,
+       "start": 30.02,
+       "span": 19.59
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 603,
+       "windows": 3,
+       "start": 36.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 288,
+       "windows": 3,
+       "start": 36.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 586,
+       "windows": 3,
+       "start": 37.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 274,
+       "windows": 3,
+       "start": 37.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 593,
+       "windows": 3,
+       "start": 38.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 282,
+       "windows": 3,
+       "start": 38.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 606,
+       "windows": 3,
+       "start": 39.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 277,
+       "windows": 3,
+       "start": 39.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 745,
+       "windows": 2,
+       "start": 30.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 380,
+       "windows": 2,
+       "start": 30.03,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 460,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 461,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 440,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 455,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 642,
+       "windows": 2,
+       "start": 30.01,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 499,
+       "windows": 3,
+       "start": 29.98,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 513,
+       "windows": 3,
+       "start": 35.97,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 530,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 490,
+       "windows": 3,
+       "start": 37.97,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 503,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": false,
+     "variant": true,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 664,
+       "windows": 2,
+       "start": 30.04,
+       "span": 19.56
+      }
+     ]
+    }
+   ]
+  },
+  "span 20 s": {
+   "rows": [
+    {
+     "seconds": 10.0,
+     "queries": 160,
+     "confident": 0,
+     "flips": 0
+    },
+    {
+     "seconds": 15.0,
+     "queries": 160,
+     "confident": 0,
+     "flips": 0
+    },
+    {
+     "seconds": 20.0,
+     "queries": 160,
+     "confident": 2,
+     "flips": 1
+    },
+    {
+     "seconds": 25.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 30.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    },
+    {
+     "seconds": 40.0,
+     "queries": 160,
+     "confident": 160,
+     "flips": 0
+    }
+   ],
+   "confident": 482,
+   "flips": 1,
+   "shortest_length_any_confident": 20.0,
+   "shortest_length_all_confident": 25.0,
+   "shortest_confident_span": 21.94,
+   "shortest_confident_supported": null,
+   "changed": [
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 578,
+       "windows": 3,
+       "start": 36.23,
+       "span": 14.63
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 433,
+       "windows": 3,
+       "start": 37.23,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 438,
+       "windows": 3,
+       "start": 38.23,
+       "span": 14.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 400,
+       "windows": 3,
+       "start": 39.23,
+       "span": 16.84
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 547,
+       "windows": 3,
+       "start": 31.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 556,
+       "windows": 3,
+       "start": 32.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 510,
+       "windows": 3,
+       "start": 33.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 547,
+       "windows": 3,
+       "start": 34.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 546,
+       "windows": 3,
+       "start": 35.35,
+       "span": 19.52
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 541,
+       "windows": 3,
+       "start": 36.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 546,
+       "windows": 3,
+       "start": 37.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 506,
+       "windows": 3,
+       "start": 38.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 0,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 520,
+       "windows": 3,
+       "start": 39.23,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 604,
+       "windows": 3,
+       "start": 36.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 598,
+       "windows": 3,
+       "start": 37.17,
+       "span": 14.33
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 595,
+       "windows": 3,
+       "start": 38.17,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 614,
+       "windows": 3,
+       "start": 39.17,
+       "span": 14.34
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 816,
+       "windows": 3,
+       "start": 31.17,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 852,
+       "windows": 3,
+       "start": 32.17,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 820,
+       "windows": 3,
+       "start": 33.17,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 811,
+       "windows": 3,
+       "start": 34.17,
+       "span": 19.49
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 847,
+       "windows": 3,
+       "start": 35.17,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 840,
+       "windows": 3,
+       "start": 36.17,
+       "span": 19.49
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 814,
+       "windows": 3,
+       "start": 37.17,
+       "span": 19.64
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 813,
+       "windows": 3,
+       "start": 38.17,
+       "span": 19.49
+      }
+     ]
+    },
+    {
+     "brief": 1,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-cause_4_concern-skewer-sour.mp3",
+       "hits": 843,
+       "windows": 3,
+       "start": 39.17,
+       "span": 19.49
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 629,
+       "windows": 3,
+       "start": 36.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 638,
+       "windows": 3,
+       "start": 37.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 663,
+       "windows": 3,
+       "start": 38.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 650,
+       "windows": 3,
+       "start": 39.01,
+       "span": 14.48
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 798,
+       "windows": 3,
+       "start": 31.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 830,
+       "windows": 3,
+       "start": 32.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 815,
+       "windows": 3,
+       "start": 33.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 848,
+       "windows": 3,
+       "start": 34.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 855,
+       "windows": 3,
+       "start": 35.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 769,
+       "windows": 3,
+       "start": 36.07,
+       "span": 19.78
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 792,
+       "windows": 3,
+       "start": 37.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 799,
+       "windows": 3,
+       "start": 38.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 2,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 813,
+       "windows": 3,
+       "start": 39.01,
+       "span": 19.83
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 561,
+       "windows": 3,
+       "start": 36.0,
+       "span": 14.29
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 581,
+       "windows": 3,
+       "start": 37.0,
+       "span": 14.61
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 535,
+       "windows": 3,
+       "start": 38.0,
+       "span": 14.41
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 388,
+       "windows": 3,
+       "start": 39.01,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 565,
+       "windows": 3,
+       "start": 31.01,
+       "span": 19.72
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 847,
+       "windows": 3,
+       "start": 32.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 844,
+       "windows": 3,
+       "start": 33.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 782,
+       "windows": 3,
+       "start": 34.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 720,
+       "windows": 3,
+       "start": 35.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 767,
+       "windows": 3,
+       "start": 36.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 867,
+       "windows": 3,
+       "start": 37.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 595,
+       "windows": 3,
+       "start": 38.01,
+       "span": 19.72
+      }
+     ]
+    },
+    {
+     "brief": 3,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-brockie_and_ed_solo-voices-sour.mp3",
+       "hits": 570,
+       "windows": 3,
+       "start": 39.0,
+       "span": 19.73
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 530,
+       "windows": 3,
+       "start": 35.97,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 558,
+       "windows": 3,
+       "start": 36.97,
+       "span": 14.52
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 466,
+       "windows": 3,
+       "start": 37.97,
+       "span": 14.51
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 498,
+       "windows": 3,
+       "start": 38.97,
+       "span": 14.52
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 665,
+       "windows": 3,
+       "start": 31.07,
+       "span": 19.79
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 729,
+       "windows": 3,
+       "start": 31.97,
+       "span": 19.89
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 750,
+       "windows": 3,
+       "start": 33.07,
+       "span": 19.79
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 751,
+       "windows": 3,
+       "start": 33.97,
+       "span": 19.89
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 726,
+       "windows": 3,
+       "start": 34.97,
+       "span": 19.9
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 755,
+       "windows": 3,
+       "start": 35.97,
+       "span": 19.88
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 655,
+       "windows": 3,
+       "start": 37.07,
+       "span": 19.79
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 997,
+       "windows": 3,
+       "start": 37.97,
+       "span": 19.9
+      }
+     ]
+    },
+    {
+     "brief": 4,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 646,
+       "windows": 3,
+       "start": 38.97,
+       "span": 19.89
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 472,
+       "windows": 3,
+       "start": 36.08,
+       "span": 14.5
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 663,
+       "windows": 3,
+       "start": 37.07,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 661,
+       "windows": 3,
+       "start": 38.07,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 493,
+       "windows": 3,
+       "start": 39.2,
+       "span": 14.38
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 634,
+       "windows": 3,
+       "start": 31.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 652,
+       "windows": 3,
+       "start": 32.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 638,
+       "windows": 3,
+       "start": 33.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 627,
+       "windows": 3,
+       "start": 34.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 626,
+       "windows": 3,
+       "start": 35.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 602,
+       "windows": 3,
+       "start": 36.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 576,
+       "windows": 3,
+       "start": 37.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 635,
+       "windows": 3,
+       "start": 38.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 5,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+       "hits": 661,
+       "windows": 3,
+       "start": 39.08,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 589,
+       "windows": 3,
+       "start": 33.71,
+       "span": 16.85
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 430,
+       "windows": 3,
+       "start": 34.71,
+       "span": 16.85
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 510,
+       "windows": 3,
+       "start": 38.09,
+       "span": 14.47
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 468,
+       "windows": 3,
+       "start": 36.71,
+       "span": 16.85
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 789,
+       "windows": 3,
+       "start": 31.09,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 786,
+       "windows": 3,
+       "start": 32.09,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 624,
+       "windows": 3,
+       "start": 33.09,
+       "span": 19.56
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 609,
+       "windows": 3,
+       "start": 34.09,
+       "span": 19.56
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 1019,
+       "windows": 3,
+       "start": 35.09,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 622,
+       "windows": 3,
+       "start": 36.08,
+       "span": 19.56
+      }
+     ]
+    },
+    {
+     "brief": 6,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 950,
+       "windows": 3,
+       "start": 37.09,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 641,
+       "windows": 3,
+       "start": 36.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 622,
+       "windows": 3,
+       "start": 37.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 609,
+       "windows": 3,
+       "start": 38.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 599,
+       "windows": 3,
+       "start": 39.17,
+       "span": 14.55
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 826,
+       "windows": 3,
+       "start": 31.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 800,
+       "windows": 3,
+       "start": 32.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 764,
+       "windows": 3,
+       "start": 33.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 789,
+       "windows": 3,
+       "start": 34.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 811,
+       "windows": 3,
+       "start": 35.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 798,
+       "windows": 3,
+       "start": 36.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 790,
+       "windows": 3,
+       "start": 37.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 821,
+       "windows": 3,
+       "start": 38.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 7,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3",
+       "hits": 807,
+       "windows": 3,
+       "start": 39.17,
+       "span": 19.36
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 672,
+       "windows": 3,
+       "start": 29.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 658,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 665,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 686,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 655,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.72
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 863,
+       "windows": 3,
+       "start": 29.98,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 841,
+       "windows": 3,
+       "start": 30.98,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 865,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 1140,
+       "windows": 3,
+       "start": 32.98,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 863,
+       "windows": 3,
+       "start": 33.98,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 856,
+       "windows": 3,
+       "start": 34.98,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 858,
+       "windows": 3,
+       "start": 35.98,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 841,
+       "windows": 3,
+       "start": 36.98,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 831,
+       "windows": 3,
+       "start": 37.98,
+       "span": 19.65
+      }
+     ]
+    },
+    {
+     "brief": 8,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 864,
+       "windows": 3,
+       "start": 38.98,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 525,
+       "windows": 3,
+       "start": 29.97,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 662,
+       "windows": 3,
+       "start": 35.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 526,
+       "windows": 3,
+       "start": 36.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 482,
+       "windows": 3,
+       "start": 37.97,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 652,
+       "windows": 3,
+       "start": 38.96,
+       "span": 14.87
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 744,
+       "windows": 3,
+       "start": 29.97,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 711,
+       "windows": 3,
+       "start": 30.97,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 708,
+       "windows": 3,
+       "start": 31.97,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 765,
+       "windows": 3,
+       "start": 32.97,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 745,
+       "windows": 3,
+       "start": 33.97,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 727,
+       "windows": 3,
+       "start": 34.96,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 807,
+       "windows": 3,
+       "start": 35.96,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 763,
+       "windows": 3,
+       "start": 36.96,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 716,
+       "windows": 3,
+       "start": 37.97,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 9,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/b-cause_4_concern-sarin-sour.mp3",
+       "hits": 759,
+       "windows": 3,
+       "start": 38.96,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 585,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 573,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 583,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 590,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.83
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 790,
+       "windows": 3,
+       "start": 30.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 763,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 791,
+       "windows": 3,
+       "start": 32.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 802,
+       "windows": 3,
+       "start": 33.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 797,
+       "windows": 3,
+       "start": 34.98,
+       "span": 19.72
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 732,
+       "windows": 3,
+       "start": 35.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 755,
+       "windows": 3,
+       "start": 36.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 754,
+       "windows": 3,
+       "start": 37.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 10,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 748,
+       "windows": 3,
+       "start": 38.98,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 489,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 486,
+       "windows": 3,
+       "start": 37.06,
+       "span": 14.75
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 484,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 500,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.82
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 693,
+       "windows": 3,
+       "start": 31.06,
+       "span": 19.54
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 704,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 873,
+       "windows": 3,
+       "start": 32.98,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 698,
+       "windows": 3,
+       "start": 34.06,
+       "span": 19.7
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 685,
+       "windows": 3,
+       "start": 34.98,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 707,
+       "windows": 3,
+       "start": 36.06,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 678,
+       "windows": 3,
+       "start": 37.06,
+       "span": 19.53
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 705,
+       "windows": 3,
+       "start": 37.98,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 11,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/01-typecell-egomatric_(sinthetix-robf_rmx)-oma.mp3",
+       "hits": 730,
+       "windows": 3,
+       "start": 38.98,
+       "span": 19.85
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 608,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.9
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 330,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 501,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.91
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 328,
+       "windows": 3,
+       "start": 37.22,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 514,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.89
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 300,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 469,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.9
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 320,
+       "windows": 3,
+       "start": 39.22,
+       "span": 14.67
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 662,
+       "windows": 3,
+       "start": 30.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 423,
+       "windows": 3,
+       "start": 31.22,
+       "span": 19.32
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 634,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 414,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.63
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 681,
+       "windows": 3,
+       "start": 32.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 427,
+       "windows": 3,
+       "start": 32.98,
+       "span": 19.63
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 691,
+       "windows": 3,
+       "start": 33.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 434,
+       "windows": 3,
+       "start": 34.23,
+       "span": 19.07
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 690,
+       "windows": 3,
+       "start": 34.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 441,
+       "windows": 3,
+       "start": 34.98,
+       "span": 19.54
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 936,
+       "windows": 3,
+       "start": 35.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 448,
+       "windows": 3,
+       "start": 35.98,
+       "span": 19.55
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 682,
+       "windows": 3,
+       "start": 36.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 424,
+       "windows": 3,
+       "start": 37.22,
+       "span": 19.39
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 651,
+       "windows": 3,
+       "start": 37.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 423,
+       "windows": 3,
+       "start": 37.98,
+       "span": 19.63
+      }
+     ]
+    },
+    {
+     "brief": 12,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 635,
+       "windows": 3,
+       "start": 38.98,
+       "span": 19.84
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 440,
+       "windows": 3,
+       "start": 39.22,
+       "span": 19.4
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 603,
+       "windows": 3,
+       "start": 36.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 288,
+       "windows": 3,
+       "start": 36.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 586,
+       "windows": 3,
+       "start": 37.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 274,
+       "windows": 3,
+       "start": 37.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 593,
+       "windows": 3,
+       "start": 38.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 282,
+       "windows": 3,
+       "start": 38.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 606,
+       "windows": 3,
+       "start": 39.02,
+       "span": 14.67
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 277,
+       "windows": 3,
+       "start": 39.03,
+       "span": 14.53
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 755,
+       "windows": 3,
+       "start": 31.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 383,
+       "windows": 3,
+       "start": 31.03,
+       "span": 19.81
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 746,
+       "windows": 3,
+       "start": 32.02,
+       "span": 19.74
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 375,
+       "windows": 3,
+       "start": 32.03,
+       "span": 19.81
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 774,
+       "windows": 3,
+       "start": 33.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 379,
+       "windows": 3,
+       "start": 33.03,
+       "span": 19.81
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 766,
+       "windows": 3,
+       "start": 34.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 391,
+       "windows": 3,
+       "start": 34.03,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 764,
+       "windows": 3,
+       "start": 35.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 383,
+       "windows": 3,
+       "start": 35.03,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 792,
+       "windows": 3,
+       "start": 36.02,
+       "span": 19.74
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 378,
+       "windows": 3,
+       "start": 36.03,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 778,
+       "windows": 3,
+       "start": 37.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 361,
+       "windows": 3,
+       "start": 37.03,
+       "span": 19.71
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 796,
+       "windows": 3,
+       "start": 38.02,
+       "span": 19.81
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 377,
+       "windows": 3,
+       "start": 38.03,
+       "span": 19.8
+      }
+     ]
+    },
+    {
+     "brief": 13,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/a-skc_and_cord-swarm-sour.mp3",
+       "hits": 788,
+       "windows": 3,
+       "start": 39.02,
+       "span": 19.74
+      },
+      {
+       "asset": "extra/A. SKC & Cord -- Swarm.mp3",
+       "hits": 379,
+       "windows": 3,
+       "start": 39.03,
+       "span": 19.81
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 460,
+       "windows": 3,
+       "start": 35.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 461,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 440,
+       "windows": 3,
+       "start": 37.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 455,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.6
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 617,
+       "windows": 3,
+       "start": 30.98,
+       "span": 19.91
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 627,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 662,
+       "windows": 3,
+       "start": 32.98,
+       "span": 19.91
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 633,
+       "windows": 3,
+       "start": 33.98,
+       "span": 19.89
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 644,
+       "windows": 3,
+       "start": 34.98,
+       "span": 19.89
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 621,
+       "windows": 3,
+       "start": 35.98,
+       "span": 19.77
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 622,
+       "windows": 3,
+       "start": 36.98,
+       "span": 19.89
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 607,
+       "windows": 3,
+       "start": 37.98,
+       "span": 19.91
+      }
+     ]
+    },
+    {
+     "brief": 14,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 613,
+       "windows": 3,
+       "start": 38.98,
+       "span": 19.91
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 0,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 499,
+       "windows": 3,
+       "start": 29.98,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 513,
+       "windows": 3,
+       "start": 35.97,
+       "span": 14.91
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 530,
+       "windows": 3,
+       "start": 36.98,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 490,
+       "windows": 3,
+       "start": 37.97,
+       "span": 14.9
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 15.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 503,
+       "windows": 3,
+       "start": 38.98,
+       "span": 14.69
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 1,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 645,
+       "windows": 3,
+       "start": 30.97,
+       "span": 19.41
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 2,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 641,
+       "windows": 3,
+       "start": 31.98,
+       "span": 19.42
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 3,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 651,
+       "windows": 3,
+       "start": 32.97,
+       "span": 19.63
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 4,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 634,
+       "windows": 3,
+       "start": 33.99,
+       "span": 19.61
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 5,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 639,
+       "windows": 3,
+       "start": 34.97,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 6,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 626,
+       "windows": 3,
+       "start": 35.97,
+       "span": 19.41
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 7,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 639,
+       "windows": 3,
+       "start": 36.98,
+       "span": 19.62
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 8,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 637,
+       "windows": 3,
+       "start": 37.97,
+       "span": 19.4
+      }
+     ]
+    },
+    {
+     "brief": 15,
+     "seconds": 20.0,
+     "offset": 9,
+     "today": true,
+     "variant": false,
+     "segments": [
+      {
+       "asset": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+       "hits": 655,
+       "windows": 3,
+       "start": 38.98,
+       "span": 19.42
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
