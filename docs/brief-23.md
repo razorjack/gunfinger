@@ -160,3 +160,67 @@ finished run may overlap the next heavy run; heavy runs never overlap.
   the played recording" says; in the *played left out* index such a file
   (a rip the old clusters missed and the index kept) makes the query
   right confident, and it is listed by name.
+
+## Step 5's pre-registration: the ambiguity note (written at 02:50, before any count under the fresh clusters)
+
+Also the first part of experiment 0123, committed now; nothing below
+changes after a count is seen. Anything computed later that is not
+named here is exploratory and decides nothing.
+
+- **The note's definition is (c), as `docs/brief-21.md` defines it.**
+  For each confident segment of a play: the file's stored peaks within
+  the segment's span in the file (`track_start_seconds` to
+  `track_end_seconds`), searched over the turntable ladder (0.92-1.08)
+  against the run's own index (the files present after its leave-outs,
+  the fullest 1% of lists skipped as in the run); the value is the hits
+  of the strongest detection of any file outside the file's own
+  recording (its NAS duplicate cluster, the fresh one from step 2, and
+  the panel recording that holds it). A segment is marked at 60 hits or
+  more. A play (one file's detections at least possible, joined across
+  gaps of at most 90 s, confident when a segment is) takes the most
+  favourable value over its confident segments, the lowest; the play is
+  *flagged* when that value is at least 60, so every confident segment
+  is marked.
+- **What the note would print** (draft): the tracklist entry (ADR 0017's
+  grouping) of a flagged confident play ends with `(shares this passage
+  with: Artist - Title; Artist - Title)`, naming each file at 60 hits or
+  more outside the play's own recording by its tags (its file name when
+  untagged), distinct names, strongest first, at most three and then
+  `and N more`. An entry is noted when any of its confident plays is
+  flagged. Nothing else in the tracklist changes; the table and JSON
+  would carry the holders per play.
+- **Criteria for calling it worth proposing**, counted per play, both
+  required:
+  1. *Real true plays*: at most 1 in 20 (5%) of the true confident plays
+     of the three development mixes flagged. True plays: the plays
+     holding a confident detection that the verified NAS scan credits to
+     a referenced track under the fresh clusters (session 21's second
+     sample), everything indexed, from step 4's runs (4a's scans and
+     4c's `shared-mixes` runs of the three mixes).
+  2. *Wrong plays*: at least half of the wrong related confident plays
+     of the rendered mixes flagged, with the played recording left out
+     (0116's design and oracle, from step 4c's run).
+  With fewer than 20 true plays or fewer than 10 wrong related plays,
+  the counts are reported and nothing is called worth proposing. Where
+  step 4 did not finish, step 3's re-scored reports stand in, with
+  their (c) values bounded as written above, and that is said.
+- **Reported beside the criteria, deciding nothing**: the panel's
+  `shared` queries of the main case (4b; per wrong confident query and
+  per wrong play, the note looked up with `gunfinger-eval holders` and
+  the query's own leave-out); 0118's rips variant; the rendered true
+  plays (drawn tracks) and the positive control; the *everything*
+  index; the possible tier is out of scope (the note is defined for
+  confident plays).
+- **Each flagged true play** of the development mixes is listed with the
+  file it names and why, in this order: another rip the clusters missed
+  (`pair` covers 80% or more of the shorter file); a version
+  judged `different` that lines up almost whole (the Ryme Tyme kind:
+  60-80% coverage or a `different` verdict above 80%); a remix, VIP or
+  edit by its title (coverage under 60%); anything else, named.
+- **The tracklists** of the three development mixes as they would read
+  with the note: `gunfinger --config ~/.config/gunfinger/nas-dnb.toml
+  identify <mix> --store-only -f json` at the new revision (the
+  configuration, turntable playback), entries rebuilt as
+  `scripts/analysis/tracklist_view.py` does, and the holders of each
+  confident play's confident segments looked up with `gunfinger-eval
+  holders` (everything indexed). No product code changes.

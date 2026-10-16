@@ -34,6 +34,10 @@ import os
 import re
 import sys
 from collections import Counter, defaultdict
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import devscore  # noqa: E402
 
 SEEDS = [2101, 2102, 2103]
 AROUND = 3
@@ -135,15 +139,39 @@ def plays_of(detections):
     return plays
 
 
-def segment_values(d):
+def holder_hits(d, own_of):
+    """(c)'s value under the clusters scored with: the strongest file the
+    lookup found outside the file's own recording (`own_of`), and whether
+    the report cannot tell it. A report with `holders` (session 23) lists
+    every file found at 30 hits or more; an older one keeps only `holder`,
+    the strongest outside the own recording of its run, so where that file
+    is now in the own recording a weaker holder may still exist: the value
+    is then unknown and counted as 0, which bounds how many marks the
+    clusters remove."""
+    own = own_of(d["asset"])
+    holder = d.get("holder")
+    if "holders" in d:
+        outside = [h["hits"] for h in d["holders"] if h["asset"] not in own]
+        if outside:
+            return max(outside), False
+        return (holder["hits"] if holder and holder["asset"] not in own else 0), False
+    if holder is None:
+        return 0, False
+    if holder["asset"] in own:
+        return 0, True
+    return holder["hits"], False
+
+
+def segment_values(d, own_of):
     share = (d.get("verified") or {}).get("aligned", {}).get("share")
     sides = [b["count"]["share"] / share for b in d.get("beyond", []) if share]
-    holder = d.get("holder")
+    c, unknown = holder_hits(d, own_of)
     return {
         "a1": d["hits"] / (d["end_seconds"] - d["start_seconds"]),
         "a2": share if share is not None else 0.0,
         "b": min(sides) if sides else INF,
-        "c": holder["hits"] if holder else 0,
+        "c": c,
+        "c unknown": unknown,
     }
 
 
@@ -151,15 +179,17 @@ LOW_SUSPICIOUS = ["a1", "a2", "b", "c+a1", "c+a2", "c+b"]
 CANDIDATES = ["a1", "a2", "b", "c", "c+a1", "c+a2", "c+b"]
 
 
-def play_values(play):
+def play_values(play, own_of):
     """Each candidate's value for a play: the most favourable over its
-    confident segments."""
-    segs = [segment_values(d) for d in play["confident"]]
+    confident segments. `c unknown`: a segment's (c) the report cannot
+    tell under these clusters (`holder_hits`)."""
+    segs = [segment_values(d, own_of) for d in play["confident"]]
     out = {}
     for name in ("a1", "a2", "b"):
         out[name] = max(v[name] for v in segs)
         out["c+" + name] = max(INF if v["c"] < MARKED_HITS else v[name] for v in segs)
     out["c"] = min(v["c"] for v in segs)
+    out["c unknown"] = any(v["c unknown"] for v in segs)
     return out
 
 
@@ -188,6 +218,21 @@ def cluster_index(clusters, same_pairs=()):
         if pair["coverage"] >= SAME_RECORDING_COVERAGE:
             join([pair["planned"], pair["found"]])
     return lambda path: out.get(path, {path})
+
+
+def own_index(clusters, panel):
+    """A file's own recording as `shared-mixes` takes it for (c): its
+    duplicate cluster and every panel recording that holds it."""
+    cluster_of = cluster_index(clusters)
+    recordings = [set(r) for family in panel["families"] for r in family["recordings"]]
+
+    def own_of(path):
+        own = set(cluster_of(path))
+        for recording in recordings:
+            if path in recording:
+                own |= recording
+        return own
+    return own_of
 
 
 def family_roles(panel):
@@ -256,7 +301,9 @@ def score(*arguments):
         arguments = arguments[2:]
     panel_path, clusters_path, report_path, *scans, out_path = arguments
     panel = json.load(open(panel_path, encoding="utf-8"))
-    cluster_of = cluster_index(json.load(open(clusters_path, encoding="utf-8")), same_pairs)
+    clusters = json.load(open(clusters_path, encoding="utf-8"))
+    cluster_of = cluster_index(clusters, same_pairs)
+    own_of = own_index(clusters, panel)
     report = json.load(open(report_path, encoding="utf-8"))
     roles = family_roles(panel)
     mixes = {m["mix"]["name"]: m for m in report["mixes"]}
@@ -274,13 +321,13 @@ def score(*arguments):
                          "played": rendered["played"]["name"], "asset": play["asset"],
                          "outcome": outcome, "role": role, "start": play["start"], "end": play["end"],
                          "hits": max(d["hits"] for d in play["confident"]),
-                         "values": play_values(play)})
+                         "values": play_values(play, own_of)})
     true = [r for r in rows if r["outcome"] == "right" and (
         (r["run"] == "played left out" and r["role"] == "drawn")
         or (r["run"] == "source left out" and r["role"] == "played"))]
     wrong = [r for r in rows if r["outcome"] == "wrong related" and r["run"] == "played left out"]
     second = second_sample(json.load(open(second_from, encoding="utf-8")) if second_from else report,
-                           scans)
+                           scans, cluster_index(clusters), own_of)
     print(f"confident plays by run and outcome:")
     for (run, outcome, role), count in sorted(Counter((r["run"], r["outcome"], r["role"]) for r in rows).items()):
         print(f"  {run:<16} {outcome:<15} {role:<18} {count}")
@@ -315,6 +362,16 @@ def score(*arguments):
     }
     print(f"  (c) at {MARKED_HITS} hits: marks {marked['true marked']}/{len(true)} true, "
           f"{marked['wrong marked']}/{len(wrong)} wrong related, {marked['second marked']}/{len(second)} second")
+    unknown = {
+        "true": sum(r["values"]["c unknown"] for r in true),
+        "wrong": sum(r["values"]["c unknown"] for r in wrong),
+        "second": sum(p["values"]["c unknown"] for p in second),
+    }
+    marked["unknown"] = unknown
+    if any(unknown.values()):
+        print(f"  (c) unknown under these clusters (the run's holder is now in the own recording; "
+              f"counted unmarked): {unknown['true']} true, {unknown['wrong']} wrong related, "
+              f"{unknown['second']} second")
     print("wrong related plays by played file (played left out):")
     by_direction = defaultdict(list)
     for r in wrong:
@@ -331,18 +388,28 @@ def score(*arguments):
               default=lambda v: None)
 
 
-def second_sample(report, scans):
+def credited_detections(scan, cluster_of):
+    """The scan's confident detections credited to a referenced track under
+    `cluster_of`, as `scoring::score` credits them (devscore.py); with the
+    clusters of the scan's run, the stored `credited` lists."""
+    tracks = devscore.load_set(scan["set"], nas=True)
+    slots = devscore.slots(tracks, scan["duration_seconds"], cluster_of)
+    return {(d["asset"], round(d["start_seconds"], 6), round(d["end_seconds"], 6))
+            for d in scan["detections"] if d["confident"]
+            and any(devscore.covers(slot, d["asset"], d["start_seconds"], d["end_seconds"])
+                    for slot in slots)}
+
+
+def second_sample(report, scans, cluster_of, own_of):
     """Plays of the development mixes (the report's `everything` runs of
     the queries) holding a confident detection a verified scan credits to
-    a referenced track."""
+    a referenced track, under the clusters scored with."""
     runs = {run["name"]: run for run in report["runs"] if run["name"] not in
             {m["mix"]["name"] for m in report["mixes"]}}
     out = []
     for path in scans:
         scan = json.load(open(path, encoding="utf-8"))
-        credited = {(d["asset"], round(d["start_seconds"], 6), round(d["end_seconds"], 6))
-                    for track in scan["score"]["tracks"] for d in track.get("credited", [])
-                    if d.get("confident")}
+        credited = credited_detections(scan, cluster_of)
         run = runs[scan["set"]]
         matched = set()
         for play in plays_of(run["detections"]):
@@ -351,7 +418,7 @@ def second_sample(report, scans):
             if keys & credited:
                 matched |= keys & credited
                 out.append({"set": scan["set"], "asset": play["asset"], "start": play["start"],
-                            "end": play["end"], "values": play_values(play)})
+                            "end": play["end"], "values": play_values(play, own_of)})
         if matched != credited:
             print(f"  {scan['set']}: {len(credited - matched)} credited detections not found in the run")
     return out
