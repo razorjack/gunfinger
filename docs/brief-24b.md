@@ -575,6 +575,50 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
 - Timing as before: heavy runs at nice 10, one at a time, ending by about 06:30; wrap-up by about 08:00. Write in place as before (0150, your notes subsection, your status entry, the roadmap bullet); nothing of LMDB or Panako is committed.
 ```
 
+### 01:28-01:40: LMDB built from source; Panako's smoke test passes
+
+- **Source** (our condition): `git clone --depth 1 --branch
+  LMDB_0.9.29 https://git.openldap.org/openldap/openldap.git
+  work/lmdb/src` into a new, empty `work/lmdb/`. The tag is annotated:
+  tag object `c45a3a3b8e8db84574ccab7531938d0427ce4f25`, commit
+  `8ad7be2510414b9506ec9f9e24f24d04d9b04a1a` ("Prepare for release
+  (0.9.29)", 2021-03-16). `git ls-remote` gives the same two hashes for
+  `refs/tags/LMDB_0.9.29` and `^{}` on OpenLDAP's repository and on the
+  GitHub mirror `https://github.com/LMDB/lmdb`.
+- **Build** (Apple clang 21.0.0 of the command-line tools; only
+  `libraries/liblmdb`): `cd work/lmdb/src/libraries/liblmdb && env -u
+  CPPFLAGS -u LDFLAGS -u CFLAGS nice -n 10 make SOEXT=.dylib
+  liblmdb.dylib`, then the file copied to `work/lmdb/liblmdb.dylib`. The
+  Makefile's own flags (`-pthread -O2 -g -fPIC`, `-shared`); a first
+  build had picked up my shell's `CPPFLAGS`/`LDFLAGS` (PostgreSQL's
+  paths, nothing linked from them) and was rebuilt without them. One
+  linker warning (`__TEXT,text_env` has unwind information). `file`:
+  "Mach-O 64-bit dynamically linked shared library arm64"; `nm -gU`:
+  69 `mdb_` symbols, `_mdb_version` among them; links only
+  `libSystem.B.dylib`; sha256 `0d753c29...`. No `make install`; nothing
+  outside `work/`.
+- **Panako's JVM** gets `-Dlmdbjava.native.lib=<worktree>/work/lmdb/liblmdb.dylib`
+  in `work/panako/run/panako` (Temurin 11 as before; Panako unchanged).
+- **Smoke** (01:29): `store` of the three files: 0:06:36, 0:06:12 and
+  0:06:07 of audio fingerprinted at 52-79 times real time, 18.9 s wall,
+  368 MB; `stats`: 43,055 prints, 1,134.9 s of audio. `query` of draw
+  000's render at +3%: no match ("null", score -1), 1,194 prints, 342
+  hash matches.
+- **Checks of the setup** (exploratory, on the three-file index, deciding
+  nothing; `work/panako/check*/`, `logs/smoke-check*.{out,log}`): draw
+  000's renders at -3, 0 and +1% also give no match; a stored file
+  queried whole matches itself (score 10,994, factors 1.000); 30 s WAV
+  cuts at 16 kHz from three places in two stored files match (scores
+  607-784); the harness's render chain for draw 000 at 0% written as WAV
+  matches (785), the same encoded as 128 kbit/s MP3 does not, nor its
+  MP3 decoded to WAV. From the lossless cut: -6 dB, AAC 128k, MP3 192k
+  and 320k match (355-793); MP3 96k, a 4 ms delay and a 25 ms delay do
+  not, with 737-881 hash matches each. So Panako runs as intended, and
+  its acceptance is sensitive to small time shifts of the query
+  (inference; MP3 encoding shifts by its encoder delay). That is its
+  behaviour on the pre-registered queries, not a failure: the protocol
+  runs as written.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
