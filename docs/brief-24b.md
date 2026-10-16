@@ -563,6 +563,18 @@ Where to write, so that the next merge into master is clean while session 27 app
   did not know as a domain, was deleted. JGaborator's copies of its
   library in the temporary folder (`zignativeutils*`) were gone.
 
+### 01:22: the launching agent's instruction on LMDB (verbatim)
+
+```text
+We approve building LMDB 0.9.x from source inside your worktree's work/, on one condition: the code comes from the official source. Unattended as before; conservative choices written down.
+
+- Official source: OpenLDAP's repository, https://git.openldap.org/openldap/openldap.git, the tag LMDB_0.9.29 (the version bundled in Panako's jar for the other platforms; if that tag is missing, the newest LMDB_0.9.x tag, and say which). Clone it into a new, empty directory (for example work/lmdb/src), with only that tag if you can (`--depth 1 --branch LMDB_0.9.29`). Record the tag's commit hash, and cross-check it against the tag of the same name in the read-only GitHub mirror https://github.com/LMDB/lmdb (`git ls-remote`, no second clone needed); if the two hashes differ, stop the Panako part and record both.
+- Build only libraries/liblmdb, with the Xcode command-line tools already installed, into an arm64 dynamic library under work/lmdb/ (for example `liblmdb.dylib`). Check it with `file` (arm64) and that it exports `mdb_version`. Install nothing anywhere else: no `make install`, no Homebrew, nothing outside your worktree's work/.
+- Pass it to Panako's JVM only, as `-Dlmdbjava.native.lib=<absolute path to the dylib>`, with JAVA_HOME at Temurin 11 as before; Panako's code and wrapper stay unchanged.
+- Then run 0130's protocol as written (smoke first). Record the LMDB source, tag, commit and build commands in your brief and 0150. If anything else fails, record exactly what and stop the Panako part.
+- Timing as before: heavy runs at nice 10, one at a time, ending by about 06:30; wrap-up by about 08:00. Write in place as before (0150, your notes subsection, your status entry, the roadmap bullet); nothing of LMDB or Panako is committed.
+```
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
