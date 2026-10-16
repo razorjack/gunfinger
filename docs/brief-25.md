@@ -162,7 +162,7 @@ slows it.
   the cut links are 0120's (PRO 012 A upload ~ revision) and nothing
   else; any other cut is a finding, listed, and a listening question,
   never a verdict. The pre-check's output is in `work/s25/precheck/`.
-- **(21:20) Step 3c: a second render function, not a changed one.**
+- **(21:00) Step 3c: a second render function, not a changed one.**
   `render_samples` also renders `shared`'s, `mixes`'s and `robust`'s
   queries, whose renders are cached under a digest of the plan, not of
   the code; changing it would let a later run mix old and new renders
@@ -175,7 +175,7 @@ slows it.
   fitted on stored peaks, use it. The mix side of both commands decodes
   an excerpt with the core's decoder (an input seek too); the core does
   not change, so that side is checked, not changed.
-- **(21:28) Step 3c's check** (`scripts/analysis/render_timeline.py`,
+- **(21:12) Step 3c's check** (`scripts/analysis/render_timeline.py`,
   `work/s25/timeline/s24-and-0112.json`): every reference and mix that
   0124-0126's plays and 0112's report rendered (594 files, 1,638
   positions, each rendered both ways). Off by more than 1 ms: Do Drop In
@@ -190,3 +190,12 @@ slows it.
   plays move by at most 0.005 in S1 (all below 0.03), so T and every
   calibration and E2 decision stand; Miami's S1 unchanged. E1 holds none
   of these references. 0112 is rerun after the clusters search.
+- **(21:20) Step 3b refined before any use.** The first version refused
+  every left-out name the index does not hold. `shared` leaves out the
+  played recording's whole file set, which can include a NAS copy that a
+  corpus file stands for, so session 23's `lookups-shared` files would
+  have been refused (2 such copies). A copy is now accepted when its
+  corpus file is left out in the same lookup (its audio is then left out
+  under the corpus file's name); a copy without its corpus file and any
+  other unindexed name are refused. Emulated on session 23's 606 shared
+  and 101 identify lookups with the copy map: none refused.

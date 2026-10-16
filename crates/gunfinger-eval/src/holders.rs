@@ -123,33 +123,44 @@ pub fn run(
 /// Leaving out a name the index does not hold leaves nothing out, so a
 /// misspelt name would search the whole index. The other library's copy
 /// of a corpus file is such a name: the index holds that audio once,
-/// under the corpus file's name. A corpus file without a copy is indexed
-/// under its own name, like every corpus file.
+/// under the corpus file's name, so the copy is accepted only beside its
+/// corpus file, as when a whole recording is left out (`shared`'s
+/// leave-outs). A corpus file without a copy is indexed under its own
+/// name, like every corpus file.
 fn refuse_unindexed(
     lookups: &[Lookup],
     indexed: impl Fn(&str) -> bool,
     stood_for: &BTreeMap<String, String>,
 ) -> Result<(), String> {
-    let unindexed: BTreeSet<&String> = lookups
-        .iter()
-        .flat_map(|lookup| &lookup.left_out)
-        .filter(|name| !indexed(name))
-        .collect();
-    if unindexed.is_empty() {
+    let mut refused: BTreeMap<&String, String> = BTreeMap::new();
+    for lookup in lookups {
+        for name in lookup.left_out.iter().filter(|name| !indexed(name)) {
+            match stood_for.get(name) {
+                Some(corpus) if lookup.left_out.contains(corpus) => {}
+                Some(corpus) => {
+                    refused.insert(
+                        name,
+                        format!(
+                            "the index holds this audio as the corpus file {corpus}; leave that out instead"
+                        ),
+                    );
+                }
+                None => {
+                    refused.insert(name, String::from("no indexed file has this name"));
+                }
+            }
+        }
+    }
+    if refused.is_empty() {
         return Ok(());
     }
-    let reasons: Vec<String> = unindexed
+    let reasons: Vec<String> = refused
         .iter()
-        .map(|name| match stood_for.get(*name) {
-            Some(corpus) => format!(
-                "  {name}: the index holds this audio as the corpus file {corpus}; leave that out instead"
-            ),
-            None => format!("  {name}: no indexed file has this name"),
-        })
+        .map(|(name, reason)| format!("  {name}: {reason}"))
         .collect();
     Err(format!(
         "{} files to leave out are not in the index, so leaving them out would leave nothing out:\n{}",
-        unindexed.len(),
+        refused.len(),
         reasons.join("\n")
     ))
 }
@@ -226,11 +237,15 @@ mod tests {
         );
         let misspelt = leaving_out(r#""Corpus - Without A Coppy.mp3""#);
         let copy = leaving_out(r#""second-library/nas/Corpus - With A Copy.mp3""#);
+        let recording = leaving_out(
+            r#""Corpus - With A Copy.mp3", "second-library/nas/Corpus - With A Copy.mp3""#,
+        );
 
         assert_eq!(
             refuse_unindexed(&indexed_files, indexed, &stood_for),
             Ok(())
         );
+        assert_eq!(refuse_unindexed(&recording, indexed, &stood_for), Ok(()));
         let refused = refuse_unindexed(&misspelt, indexed, &stood_for).unwrap_err();
         assert!(
             refused.contains("Corpus - Without A Coppy.mp3: no indexed file has this name"),
