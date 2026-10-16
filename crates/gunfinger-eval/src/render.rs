@@ -7,6 +7,8 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use std::sync::atomic::{AtomicU64, Ordering};
 
+use gunfinger_core::decode::Container;
+
 /// A cache entry is reusable only after its encoder completed and the
 /// final file was installed. Older caches without a receipt render once.
 pub fn is_complete(path: &Path) -> bool {
@@ -179,6 +181,8 @@ pub fn render_samples(
     let output = Command::new("ffmpeg")
         .args(["-nostdin", "-v", "error", "-ss"])
         .arg(format!("{start:.3}"))
+        // A WAV file behind an ID3 tag opens as the core's decoder opens it.
+        .args(Container::of(source).input_args())
         .arg("-i")
         .arg(source)
         .args(["-map", "0:a:0", "-ac", "1", "-af", &chain, "-t"])
@@ -277,6 +281,45 @@ pub fn limited(samples: Vec<f32>) -> Vec<f32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_wav_file_behind_an_id3_tag_renders() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-render-id3-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let wav = dir.join("tone.wav");
+        let generated = Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("sine=frequency=440:sample_rate=8000:duration=3")
+            .arg(&wav)
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        // An ID3v2.3 header announcing 10 bytes of padding, then the WAV.
+        let mut tagged = b"ID3\x03\x00\x00\x00\x00\x00\x0a".to_vec();
+        tagged.extend([0; 10]);
+        tagged.extend(fs::read(&wav).unwrap());
+        let file = dir.join("tagged.mp3");
+        fs::write(&file, tagged).unwrap();
+
+        let samples = render_samples(
+            &file,
+            1.0,
+            1.0,
+            Playback::Turntable(1.0),
+            Some("aresample=8000"),
+        )
+        .unwrap();
+
+        assert!(
+            (7_900..=8_100).contains(&samples.len()),
+            "{}",
+            samples.len()
+        );
+        fs::remove_dir_all(&dir).ok();
+    }
 
     #[test]
     fn unfinished_and_truncated_outputs_are_not_cache_entries() {

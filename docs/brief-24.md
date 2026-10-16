@@ -387,3 +387,28 @@ any calibration or evaluation play; nothing else changes.
   its S1 is at or above it. At T: 157 of 312 negatives rejected, 75 of 75
   positives kept (the calibration separates; the highest positive S1 is
   0.053). Experiment 0124. This T is used unchanged for E1 and E2.
+
+## Step 6: a rendering defect, fixed and rerun (written at 19:21)
+
+- The first evaluation runs (19:14-19:18, kept in `work/s24/runs-first/`)
+  failed to render 8 references: FFmpeg reported "invalid start code
+  ID3 in RIFF header" for NAS files that are WAV data behind an ID3 tag
+  (2 E1 plays: Kemal & Rob Data's Escape Route and Konspiracy; 6 E2 true
+  drawn plays through NAS rips of SKC tracks). The core's decoder opens
+  such files with `-skip_initial_bytes` (`decode::Container`);
+  `render::render_samples` did not. Their S1 was undefined, so the rule
+  kept them, which would count a failure to read the reference as a
+  kept play. Counts seen in that run, at T: E1 5 of 108 rejected (2
+  undefined by the errors), E2 43 of 87 wrong related plays rejected (no
+  error among them).
+- Fix: `render_samples` passes `Container::of(source).input_args()`
+  before `-i` (empty for every other file, so no file that rendered
+  before changes), with a test that fails without it. Then calibration,
+  E1 and E2 run again with the fixed build; calibration must give the
+  same S1 for every play (it had no error), so T stays 0.12100456621.
+  The rerun's counts are the result; the first run's are reported
+  beside them.
+- 19:28 the rerun: calibration identical play for play (T unchanged);
+  E1 and E2 without errors; the 8 plays that failed now have S1. At T:
+  E1 5 of 108 rejected (passes, at the limit), E2 43 of 87 (fails by
+  one); experiment 0125. Not worth pursuing by the rule written first.
