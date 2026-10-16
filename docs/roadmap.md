@@ -838,6 +838,10 @@ marked as inferences were derived, not measured.
   only by running them under one protocol. Session 7 could not download
   Mixotic: the three archives are Google Drive files that answer with a
   sign-in page; a browser download is needed.
+- **Panako as an outside benchmark.** Pre-registered and prepared in
+  session 24b (experiments 0130, 0131; the run script in
+  `docs/brief-24b.md`); not run because Panako 2.1's Gradle 7.2 needs a JDK of
+  11-16 to build. Run it at 262 tracks once one is installed.
 
 ## Engineering
 

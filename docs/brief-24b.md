@@ -379,3 +379,145 @@ Panako 2.1 compiles for Java 11 and its wrapper's Gradle 7.2 runs only on Java 1
   the self-check), `install`, `smoke` (three files, one of them seed
   2026's draw 000, and that draw's render at +3%), `index-all`,
   `index-seed N`, `sweep N`, `dev SET`, `dev-query SET`, `mix NN`.
+
+## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
+
+`work/panako/run.sh`:
+
+```bash
+#!/bin/bash
+# Session 24b: Panako's build and runs, one stage at a time, as pre-registered
+# in docs/brief-24b.md (step 3). Not committed (work/).
+# usage: work/panako/run.sh STAGE [ARG]
+set -u
+WT=/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako
+M=/Users/razorjack/Projects/OpenSource/gunfinger
+P=$WT/work/panako
+SRC=$P/src-clone/Panako
+RUN=$P/run
+DB=$P/db
+LOGS=$P/logs
+mkdir -p "$LOGS"
+
+java11() {
+  local home
+  home=$(/usr/libexec/java_home -v 11 2>/dev/null) || return 1
+  "$home/bin/java" -version 2>&1 | grep -q 'version "11\.' || return 1
+  echo "$home"
+}
+J11=$(java11) || { echo "no Java 11"; exit 1; }
+
+# One timed run at nice 10 under caffeinate, with the load average around it.
+timed() {
+  local name=$1; shift
+  local log=$LOGS/$name.log
+  echo "start $(date '+%F %T') load $(sysctl -n vm.loadavg)" > "$log"
+  echo "args $*" >> "$log"
+  caffeinate -i nice -n 10 /usr/bin/time -l "$@" > "$LOGS/$name.out" 2>> "$log"
+  echo "exit $? end $(date '+%F %T') load $(sysctl -n vm.loadavg)" >> "$log"
+}
+
+# Panako as its startup script runs it (resources/defaults/panako), from RUN;
+# an executable, so that /usr/bin/time can run it.
+panako=$RUN/panako
+
+paths_for() {
+  echo "STRATEGY=PANAKO" "PANAKO_LMDB_FOLDER=$DB/$1" "PANAKO_CACHE_FOLDER=$DB/cache"
+}
+
+case $1 in
+  build)
+    cd "$SRC" && JAVA_HOME=$J11 GRADLE_USER_HOME=$P/gradle-home \
+      timed build ./gradlew --no-daemon shadowJar ;;
+  test)
+    cd "$SRC" && JAVA_HOME=$J11 GRADLE_USER_HOME=$P/gradle-home \
+      timed self-check ./gradlew --no-daemon test ;;
+  install)
+    # As `./gradlew install` lays out ~/.panako, but in RUN: the jar and the
+    # documented default configuration, with the strategy and paths changed.
+    mkdir -p "$RUN" "$DB"
+    cp "$SRC/build/libs/panako-2.1-all.jar" "$RUN/panako.jar"
+    sed -e "s|^STRATEGY=.*|STRATEGY=PANAKO|" \
+        -e "s|^PANAKO_LMDB_FOLDER=.*|PANAKO_LMDB_FOLDER=$DB/all|" \
+        -e "s|^PANAKO_CACHE_FOLDER=.*|PANAKO_CACHE_FOLDER=$DB/cache|" \
+        -e "s|^OLAF_LMDB_FOLDER=.*|OLAF_LMDB_FOLDER=$DB/olaf_db|" \
+        -e "s|^OLAF_CACHE_FOLDER=.*|OLAF_CACHE_FOLDER=$DB/olaf_cache|" \
+        "$SRC/resources/defaults/config.properties" > "$RUN/config.properties"
+    cat > "$RUN/panako" <<SCRIPT
+#!/bin/bash
+exec "$J11/bin/java" --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED \\
+  -server -Xms256m -Xmx\${PANAKO_HEAP:-256m} -jar "$RUN/panako.jar" "\$@"
+SCRIPT
+    chmod +x "$RUN/panako"
+    cat "$RUN/panako"
+    diff "$SRC/resources/defaults/config.properties" "$RUN/config.properties" ;;
+  smoke)
+    # Three library files, one of them seed 2026's draw 000; its render at +3%.
+    head -n 3 "$WT/work/s24b/smoke-files.txt" > "$P/smoke-list.txt"
+    timed smoke-store "$panako" store "$P/smoke-list.txt" $(paths_for smoke)
+    timed smoke-query "$panako" query "$M/work/sweep/seed-2026/000-+3.mp3" $(paths_for smoke)
+    timed smoke-stats "$panako" stats $(paths_for smoke) ;;
+  index-all)
+    sed "s|^|$M/corpus/library/|" "$WT/work/s24b/library.txt" > "$P/lists/index-all.txt"
+    timed index-all "$panako" store "$P/lists/index-all.txt" $(paths_for all)
+    timed stats-all "$panako" stats $(paths_for all) ;;
+  index-seed)
+    timed "index-seed-$2" "$panako" store "$P/lists/index-seed-$2.txt" $(paths_for "seed-$2") ;;
+  sweep)
+    timed "sweep-$2" "$panako" query "$M"/work/sweep/seed-"$2"/*.mp3 $(paths_for "seed-$2") ;;
+  dev)
+    # The development mix named by its directory, whole, with `monitor`.
+    case $2 in stakka-skynet-knowledge|razorjack-2003-03-29|nocny-trans-vertical-2002-08-23) ;; *) exit 1 ;; esac
+    audio=$(ls "$M/corpus/sets/$2"/*.{mp3,m4a} 2>/dev/null | head -n 1)
+    timed "monitor-$2" "$panako" monitor "$audio" $(paths_for all) ;;
+  dev-query)
+    case $2 in stakka-skynet-knowledge|razorjack-2003-03-29|nocny-trans-vertical-2002-08-23) ;; *) exit 1 ;; esac
+    audio=$(ls "$M/corpus/sets/$2"/*.{mp3,m4a} 2>/dev/null | head -n 1)
+    timed "query-$2" "$panako" query "$audio" $(paths_for all) ;;
+  mix)
+    timed "mix-$2" "$panako" monitor "$M/work/mixes/seed-2026/mix-$2.mp3" $(paths_for seed-2026) ;;
+  *)
+    echo "unknown stage $1"; exit 1 ;;
+esac
+```
+
+`work/s24b/wait-java11.sh`:
+
+```bash
+#!/bin/bash
+# Waits until a JDK whose version is 11 is installed, or until the given HHMM.
+# `java_home -v 11` alone also returns newer JDKs, so the version is read from the JDK itself.
+deadline=$1
+while true; do
+  home=$(/usr/libexec/java_home -v 11 2>/dev/null)
+  if [ -n "$home" ] && "$home/bin/java" -version 2>&1 | grep -q 'version "11\.'; then
+    echo "java 11 at $home ($(date '+%T'))"; exit 0
+  fi
+  if [ "$(date +%H%M)" -ge "$deadline" ]; then
+    echo "no java 11 by $deadline ($(date '+%T'))"; exit 1
+  fi
+  sleep 120
+done
+```
+
+`work/s24b/run.sh` (the Gunfinger runs of step 4):
+
+```bash
+#!/bin/bash
+# One harness run at nice 10 under caffeinate, timed, with the load average before and after.
+# usage: work/s24b/run.sh <log name> <gunfinger-eval arguments...>
+set -u
+M=/Users/razorjack/Projects/OpenSource/gunfinger
+B=$M/work/bin/s24-start/gunfinger-eval
+W=/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako/work/s24b
+name=$1; shift
+log=$W/logs/$name.log
+{
+  echo "start $(date '+%F %T') load $(sysctl -n vm.loadavg)"
+  echo "args $*"
+} > "$log"
+caffeinate -i nice -n 10 /usr/bin/time -l "$B" --corpus "$M/corpus" --work "$W" --peaks-dir "$W/peaks" \
+  --panels /Users/razorjack/.t3/worktrees/gunfinger/s24b-panako/docs/panels \
+  --verdicts /Users/razorjack/.t3/worktrees/gunfinger/s24b-panako/docs/pair-verdicts.txt "$@" >> "$log" 2>&1
+echo "exit $? end $(date '+%F %T') load $(sysctl -n vm.loadavg)" >> "$log"
+```

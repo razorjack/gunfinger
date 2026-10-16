@@ -3443,3 +3443,39 @@ the session.
   `d71ba5333cff9a34`, as after the index run.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
   (sha256 `d48ffb313396...`, `ee2d5bd9fe0d...`).
+
+## 2026-10-16: session 24b, Panako as an outside benchmark (not run: its build needs Java 11)
+
+Worktree `/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`, branch
+`s24b-panako` from `81e16e0`, run beside session 24; brief
+`docs/brief-24b.md`, checklist `docs/session-24b-checklist.md`. The
+product did not change.
+
+- 19:10 Panako cloned into `work/panako/src-clone/Panako`: `f1248f7`,
+  version 2.1, AGPL-3.0. `GRADLE_USER_HOME=work/panako/gradle-home
+  ./gradlew --no-daemon shadowJar` downloaded Gradle 7.2 and failed:
+  `Unsupported class file major version 65` (Gradle 7.2 runs on Java
+  8-16; the Mac has only Temurin 21). Panako part stopped (our
+  rule). 19:24 the launching agent: wait until 22:00 for Temurin 11,
+  change nothing, install nothing. `java_home -v 11` prints Temurin 21
+  with exit 0, so the wait read the JDK's version
+  (`work/s24b/wait-java11.sh`); no JDK 11 by 22:00.
+- 19:50 pre-registration (brief step 3, experiment 0130): Panako's
+  documented defaults with `STRATEGY=PANAKO`; indexes of the 262 files
+  and per sweep seed; sweeps 2026-2029, the three development mixes with
+  `monitor`, seed 2026's generated mixes; scoring as the harness's;
+  one stricter acceptance chosen on seed 2026's sweep.
+- 19:16-19:31 Gunfinger's side (experiment 0131), `work/bin/s24-start/`
+  of the main checkout with `--work work/s24b`: scans of razorjack and
+  nocny, sweeps 2027-2029, mixes of seed 2026, each identical to its
+  saved report (`scripts/analysis/report_identity.py`). Columns
+  (`scripts/analysis/panako_compare.py gunfinger`): 60/60 per speed and
+  0 wrong on sweeps 2026-2029; 11/11, 7/7, 9/9 and 0 wrong on the
+  development mixes; 106/115 indexed plays and 0 wrong on the generated
+  mixes. `gunfinger stats`: index 39.7 MB, peak store 19.7 MB. A fresh
+  `gunfinger index` of the corpus library: 50.9 s wall, 938 MB, 265
+  files extracted (the working store's 3 skip notes decode now).
+- Ready for the run: `work/panako/run.sh` (stages), the library and
+  per-seed lists in `work/panako/lists/`, the scorer
+  `scripts/analysis/panako_compare.py` (`selfcheck` passes);
+  `scripts/analysis/devscore.py`'s `load_set` takes a corpus root.
