@@ -3556,3 +3556,23 @@ touched.
 - 21:40 step 4a: `docs/panels/shared-material-2-seed-2026-development.json`
   (10 directions, 2 controls; CERT1853's Klute Remix joined at 99.2%),
   committed before the run. 21:41 step 4b's `shared` run started.
+- 21:41-22:05 step 4b (experiment 0129): one `shared` run at NAS scale
+  (24 min, 5.4 GB; the saved NAS index rebuilt, 39,376 -> 40,148
+  files), scored with `shared_outcomes.py` under 0128's clusters. With
+  the played recording left out, 5 of 135 queries wrong confident, all
+  Phantom 2018 over Phantom Force (looped 120 and 240 s, beyond 10-30
+  s); the first panel 106 of 218 (0122's run scores identically under
+  the new clusters). Every other related version stays possible
+  (113-185 hits). `shared_side_by_side.py`.
+- 22:08-22:10 step 4c (experiment 0132): `versions` as built (T =
+  0.121): 4 of 5 negatives rejected (too small to read, under 10), 77
+  of 78 positives kept; the rejected positive's line is 313-327 ms off
+  (a loop point inside the opening window, an inference). `s24-final`
+  beside it: 9 plays' S1 within 0.006, no decision changes.
+- 22:20 `pair` on the two new cluster pairs (`work/s25/listening/`):
+  the old-skool Sonar upload is the corpus original's audio (speed
+  1.0000, every window supported), so no question; APH027 B1 ~ the
+  Mobb Deep upload line up to A's 2:28, a listening question in the
+  notes. 0128 amended with the Sonar result.
+- Notes "Session 25", roadmap (shared material; clusters' check before
+  a search).

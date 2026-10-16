@@ -302,3 +302,8 @@ decides anything about the product.
   `work/shared/shared-material-2-seed-2026-development-f2be9a7f8ccdcf66/`;
   the saved NAS index (39,376 files) was out of date and is rebuilt at
   40,148.
+- **(22:32) The review starts now, not at 02:15.** Steps 1-4 were
+  committed by 22:11 and the notes are written. The prompt sets 02:15 as
+  the latest start, and no further experiment is planned: a new one on
+  the second panel or on new rendered mixes is not in the prompt, so the
+  session ends after the review, its fixes and the wrap-up checks.

@@ -32,17 +32,17 @@ for scope and rules.
 - [x] 4a. The second panel's development half: `pair` joins, passages,
   `docs/panels/shared-material-2-seed-2026-development.json`; committed
   before any search (21:40)
-- [~] 4b. `shared` at NAS scale (started 21:41), scored under the fresh
-  clusters; experiment 0129
-- [~] 4c. Pre-registration (committed 21:17); `versions` as built
+- [x] 4b. `shared` at NAS scale (21:41-22:05), scored under the fresh
+  clusters; experiment 0129 (5 of 135 wrong confident, one direction)
+- [x] 4c. Pre-registration (committed 21:17); `versions` as built
   (T = 0.121) on 4b's wrong confident plays and positive controls;
-  experiment 0132
+  experiment 0132 (4 of 5 rejected, too small to read; 77 of 78 kept)
 
 ## Wrap-up
 
 - [ ] 5. Read-only review by a subagent from 02:15 at the latest; fixes
-- [ ] Notes "Session 25" with the handoff for session 26, status,
-  checklist, roadmap
+- [~] Notes "Session 25" with the handoff for session 26, status,
+  checklist, roadmap (written before the review; final checks to add)
 - [ ] `regress session-25-start` identical with the final build
 - [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
   (`RUSTUP_TOOLCHAIN=1.98.0`)

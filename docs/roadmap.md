@@ -573,7 +573,24 @@ marked as inferences were derived, not measured.
   far off. A continuation needs its own line from the audio, then fresh
   calibration; it needs the reference audio, so not for `--store-only`
   (ADR 0003). Kept in the tree as a harness diagnostic until we
-  decide.
+  decide. *(session 25, experiments 0128, 0129 and 0132)* The second
+  panel's development half (Phantom Force, Star Trails, We R The Ones;
+  rips joined with `pair`, passages cut, written beside the frozen file
+  as `docs/panels/shared-material-2-seed-2026-development.json`): with
+  the played recording left out, 5 of 135 queries are wrong confident,
+  all Phantom 2018 over Phantom Force in one direction (the first panel:
+  106 of 218); the other related versions stop at possible (113-185
+  hits), most likely because their shared passages are weaker. The
+  verifier as built rejects 4 of these 5 (too few to read by the rule
+  written first) and keeps 77 of 78 positive controls; its one false
+  rejection is again a reported line about 320 ms off. This suggests
+  (an inference from two panels) that the version problem is
+  concentrated in a few families with long, dense shared passages
+  (Fire's above all), and leaves a version 2 of the verifier (its own
+  line from the audio) few fresh wrong plays to be evaluated on.
+  The harness's renderer for `versions` and `identifiability` now
+  counts a start on the decoded timeline (`render_samples_as_indexed`),
+  as the peak store was built.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away
@@ -684,7 +701,12 @@ marked as inferences were derived, not measured.
   check before a search now reads those pairs as measured, so it catches
   such a chain once a run has found it. A search that a verdict stops
   keeps its pairs in `duplicate-clusters-stopped.json`, which
-  `--reuse-pairs` takes. *(larger library)*
+  `--reuse-pairs` takes. Once a run has cut a chain with
+  `--cut-sparsest`, the check before the next search stops on the same
+  chain from that run's pairs (session 25), so a rebuild needs
+  `--cut-sparsest` again until the cut joins are judged by ear; at
+  40,126 records (0128) a second upload of Sonar links the original to
+  the Mark System Revision and was cut the same way. *(larger library)*
 - **Clustering precision.** Most of session 6's gain at NAS scale came
   from joining rips the clusters had missed, so a wrong join would now
   count a false identification as correct. Coverage counts the span
