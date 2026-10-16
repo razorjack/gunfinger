@@ -36,6 +36,5 @@ Nothing was written outside `work/`.
 
 **Result.** No Panako count: the build did not run.
 
-**Conclusion.** The comparison waits on our choice between the
-two ways to build (brief, step 2). The protocol above is fixed, so the
-run that follows needs no new decisions.
+**Conclusion.** The comparison waits on our choice of a way to
+build (brief, step 2); the run that follows needs no new decisions.
