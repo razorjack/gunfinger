@@ -44,9 +44,10 @@ const BEYOND_SECONDS: f64 = 10.0;
 /// Drawn tracks are at least this long, as in `mixes::Pools`.
 const DRAWN_MIN_SECONDS: f64 = 150.0;
 /// The files a holder lookup finds with at least this many hits are
-/// listed. Below it a file is at the chance level of the NAS-scale index
-/// (experiment 0042: 18-31 hits), far under the 60 hits that mark a
-/// play.
+/// listed. The 60 hits that mark a play are not far above chance at NAS
+/// scale: unrelated tracks reached 40 and 48 hits in a mix and 66-78 per
+/// excerpt (experiments 0040-0042), so a holder near the mark may be
+/// unrelated.
 pub const LISTED_HOLDER_HITS: u32 = 30;
 
 /// The mixes to render and the audio to search, as

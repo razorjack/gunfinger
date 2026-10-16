@@ -543,7 +543,18 @@ marked as inferences were derived, not measured.
   rejects the 61 marked wrong plays (all Fire's, the densest at 6.01)
   and keeps every rendered true play; it is frozen in the brief for a
   test on real mixes not used so far. The map is also the basis for
-  reporting the ambiguity, our decision. The panel is now
+  reporting the ambiguity, our decision. *(session 23,
+  experiments 0120-0123)* With the NAS clusters rebuilt, the 9 wrong
+  confident answers in the development mixes at NAS scale were newer
+  uploads and are gone; the 87 wrong related plays remain. Reporting the
+  ambiguity as a note on the tracklist line, measured against criteria
+  written first, flags 61 of the 87 but also 15 of 108 true plays of the
+  development mixes (13.9%, against 5%): not worth proposing. The 15
+  are 6 tracks: five name a remix, edit or close version, Omni Trio's
+  another title; in the tracklists 6 of 40 entries carry the note. A
+  second panel
+  is proposed (`docs/panels/shared-material-2-seed-2026.json`, not
+  searched; its recordings need `pair` before a first run). The panel is now
   a required check: anything that adds or changes evidence (the items below, the
   band profile, a minimum span, the FFT lengths' retrieval study) runs
   its development half and may add no wrong confident query there.

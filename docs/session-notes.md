@@ -4701,16 +4701,18 @@ revision, and measured the ambiguity note against criteria written
 before any count. Adopting the note is our decision; nothing in the
 product was changed to try it.
 
-In short: the stale clusters were the whole story behind the 9 wrong
-confident answers in the development mixes at NAS scale; under the rebuilt
-clusters there are none, and every track is still found. The wrong
-confident plays of related versions (Fire, Pyro, Sonar, Dozer) do not
-depend on the clusters and remain. The ambiguity note would mark 70% of
-those wrong plays in the rendered mixes, but also 15 of the 108 true
-plays in the three development mixes (13.9%, against the 5% fixed beforehand), all
-tracks with a remix, edit or close version in the library, so by the
-rule written first it is not worth proposing. Six listening questions
-wait in `work/audition/s23/`.
+In short: the 9 wrong confident answers in the development mixes at NAS scale were
+all newer uploads of the right recording that the old clusters had not
+joined; under the rebuilt clusters there are none, and every track is
+still found. The wrong confident
+plays of related versions (Fire, Pyro, Sonar, Dozer) do not depend on
+the clusters and remain. The ambiguity note would mark 70% of those
+wrong plays in the rendered mixes, but also 15 of the 108 true plays in
+the three development mixes (13.9%, against the 5% fixed beforehand): six tracks,
+five with a remix, edit or close version in the library and one sharing
+a passage with another title. So by the rule written first it is not
+worth proposing; in the printed tracklists 6 of 40 entries would carry
+it. Six listening questions wait in `work/audition/s23/`.
 
 ### The clusters rebuilt (experiment 0120)
 
@@ -4756,9 +4758,10 @@ of tonight's listening file.
 The old reports scored under the new clusters, before any new run:
 
 - The 9 wrong confident answers of the three development mixes at NAS
-  scale (0115, 0119) were all newer uploads the old clusters had not
-  joined: weedsurfer's Phoenix, Trace & Fresh's Mutated on U-PUNK-001
-  and five of the hifi-junglist's Drum&BassArena disc 2 uploads. Under
+  scale (0115, 0119) were 9 detections of 7 newer uploads the old
+  clusters had not joined: weedsurfer's Phoenix, Trace & Fresh's Mutated
+  on U-PUNK-001 and five of the hifi-junglist's Drum&BassArena disc 2
+  uploads. Under
   the new clusters each is the right track; 0 wrong.
 - Session 21's rendered mixes: the 43 "other" confident plays per run
   were the newer uploads, now right, except Kemal - Animation (Silent
@@ -4801,10 +4804,16 @@ flagged, and at least half of the rendered mixes' wrong related plays.
 | True plays in the three development mixes | 15 of 108 (13.9%) | 5% at most | fails |
 | Wrong related plays in the rendered mixes (session 21's run) | 61 of 87 (70%) | half at least | passes |
 
+Criterion 2's count is session 21's run scored under the new clusters,
+since its mixes were not run again, and the same 61 of 87 was known from
+session 21 when the criteria were written. Criterion 1 decides either
+way.
+
 So by the rule written first, the note is not worth proposing: it would
 mark about one true play in seven in the development mixes. The 15 are six tracks
-(counted once per file that played), and each names a real different
-version, never a missed rip:
+(counted once per file that played). Each note names another indexed
+recording, never a missed rip of the same one: five tracks name a remix,
+an edit or a close version, and Omni Trio's names another title:
 
 - Clockwork (3 files): Stakka's remix; Star Trails (3): the Synergy Remix;
   Phantom Force (2): Fracture's Astrophonica Edit (and Phantom 2018); We R
@@ -4813,7 +4822,7 @@ version, never a missed rip:
 - Stab 2 Def (4 files): Mampi Swift - 2000, which was described by ear as the
   same music with another EQ and arrangement (22%).
 - Omni Trio - Artificial Life (Harp Tune): Secret Life (Silent Storm
-  Remix) (4%).
+  Remix), another title (4%).
 
 On the wrong side, the note flags Fire's family only, where a third
 version is indexed; for Dozer, Pyro and Sonar the only other holder of
@@ -4822,8 +4831,24 @@ the wrong play carries no note. In session 20's panel the same split
 holds: 58 of 106 wrong confident queries flagged, all Fire's, and every
 one of the 75 right plays of the positive control is flagged too.
 
-The three tracklists as they would read with the note are still being
-computed at the time of writing; see the end of this section.
+In the three tracklists as `identify` prints them with the NAS
+configuration, 6 of the 40 entries would carry the note, the six tracks
+above, and every entry is a right track. The lines as they would read:
+
+```
+ 3.    9:43  KEMAL & ROB DATA - star trails  (also: Konflict - Star Trails)  (shares this passage with: Kemal & Rob Data - Star Trails (Synergy Remix))
+ 5.   17:32  Stakka & Skynet - Clockwork  (titles disagree: Stakka & Skynet - Clockwork (Remastered))  (shares this passage with: Stakka And Skynet - Clockwork (Stakka Rmx))
+ 4.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)  (shares this passage with: Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit); Digital & Spirit - Phantom 2018)
+ 8.   29:13  Omni Trio - Artificial Life (Harp Tune)  (shares this passage with: Omni Trio - Secret Life (Silent Storm Remix))
+12.   44:33  The Kraft - Stab 2 Def  (also: The Kraft (aka Mampi Swift) - Stab 2 Def)  (shares this passage with: Mampi Swift - 2000)
+14.   50:41  Klute - We R The Ones 3  (titles disagree: Klute - We R The Ones VIP, Klute - We R The Ones (Klute Remix))  (shares this passage with: Klute - We R The Ones (Klute Remix))
+```
+
+The first two are from Stakka & Skynet's mix, the next two from mine
+and the last two from Nocny Trans. In the last line the entry already
+lists the Klute Remix, because the remix's two files have possible
+plays inside the VIP's play (from 52:27), and the note names it again. All
+entries, noted or not, are in `work/s23/after/score/tracklists.txt`.
 
 ### Listening questions
 
@@ -4854,7 +4879,11 @@ Four of the six families are played in the development mixes (the file
 lists which), Stab 2 Def's among them although it falls in the
 validation half; whether that half should stay blind to those mixes is
 our call. Nothing was searched; passages are cut when the development
-half is run.
+half is run. Its recordings come from the duplicate clusters only, and
+the clusters never queried these families, so some rips of a recording
+(for example the vinyl and YouTube copies of the Killa Bees Optical &
+Fierce remix) are listed as unjudged files of the title; before a first
+run, `pair` should join them, as session 20 did for the first panel.
 
 ### What else to know
 
@@ -4862,8 +4891,9 @@ half is run.
   either validation half (no panel run, score or detection). Clustering
   queried 22 files of the shared-material panel's validation half as
   cluster members, as before.
-- The NAS was only read and the peak store only searched; its revision
-  at the end is TODO (`d71ba5333cff9a34` after the index run).
+- The NAS was only read and the peak store only searched; at the end it
+  still holds 39,354 records at revision `d71ba5333cff9a34`, as after
+  the index run.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` hold only
   the answers given by ear.
 - `identify` with the NAS configuration rebuilt its saved index in
@@ -4872,9 +4902,23 @@ half is run.
 - The slow runs: tonight's processes retired about as many CPU cycles
   per run as session 22's but took 3-6 times as long. Changing their
   scheduling priority and restarting one through `launchd` did not help.
-  The `gunfinger` binary is byte-identical to session 22's, so the code
-  is not the cause; I did not find what is.
+  The clusters run used `work/bin/s23-start`, whose `gunfinger` and
+  `gunfinger-eval` are byte-identical to session 22's, and took 2 h 54
+  min with session 18's command, against 26 min then; the later runs'
+  harness adds tonight's `holders` lookups, and their `gunfinger` is the
+  same binary. So the code is not the cause; I did not find what is. From about 10:00
+  another process on the machine (one I did not start) kept
+  the load average between 120 and 200; I left it alone.
 - A review by a separate agent found that my first count of the
-  clusters' margin and of the bounds in 0121 were wrong, and that a
-  holder lookup could silently ignore a misspelt file to leave out; both
-  are fixed (the harness now refuses such a lookup, with a test).
+  clusters' margin and of the bounds in 0121 were wrong; both are fixed.
+  It also found that `holders` silently accepts a file to leave out that
+  is not indexed (a misspelt name would leave nothing out). Tonight's
+  lookups take their left-out files from the runs' own leave-outs and
+  from the copy map, none typed by hand. A check in the harness needs
+  the copy map, because a corpus file without a NAS copy stands for
+  itself, so it is left open.
+- My first attempt at `scripts/check.sh` with rustup's toolchain set no
+  `RUSTUP_TOOLCHAIN`, so rustup began installing `stable` (1.99.1). I
+  uninstalled it; `~/.rustup/toolchains/` holds only 1.98.0 again, but
+  the interrupted install left 136 MB in `~/.rustup/tmp` (files from
+  10:51 tonight), which I did not delete; it can be deleted by hand.

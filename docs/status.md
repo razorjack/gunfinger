@@ -3389,18 +3389,36 @@ the session.
 - 10:05-10:20 step 5 (experiment 0123): criterion 1 fails (15 of 108
   true plays of the development mixes flagged, 13.9% against 5%),
   criterion 2 passes (61 of 87 wrong related plays, 70%, from step 3);
-  not worth proposing by the rule written first. The 15 are 6 tracks,
-  each naming a remix, edit or close version (`pair` 3.7-54.4%);
+  not worth proposing by the rule written first. The 15 are 6 tracks;
+  five name a remix, edit or close version, Omni Trio's another title
+  (`pair` 3.7-54.4%);
   `ambiguity_note.py flagged` added. `identify` of the three mixes done
   (10:04-10:18; it rebuilt the saved index in `~/.cache`, which
   held 38,104 files); the tracklists' holder lookups (101) still ran at
-  11:10. From about 10:30 other processes on the machine
-  kept load averages at 150-200; left alone.
-- 10:51 `check.sh`: the first attempt put a missing `~/.cargo/bin` first
-  on PATH (so Homebrew's toolchain ran); the second, with Homebrew's
-  rustup first but no `RUSTUP_TOOLCHAIN`, began installing rustup's
-  `stable` (1.99.1), and stopping it left a partial toolchain that
-  `rustup toolchain list` completed. `stable` was uninstalled again;
-  `~/.rustup/toolchains/` holds only 1.98.0, as before. The check now
-  runs as AGENTS.md says (`RUSTUP_TOOLCHAIN=1.98.0`), then with
-  Homebrew's, at `nice 19`.
+  11:10. From about 10:00 other processes on the machine
+  kept load averages at 120-200; left alone.
+- 10:51 `check.sh`: the first attempt put `~/.cargo/bin`, which does not
+  exist, first on PATH, so Homebrew's rustc ran instead of rustup's; the
+  second put rustup's proxies (`/opt/homebrew/opt/rustup/bin`) first but
+  set no `RUSTUP_TOOLCHAIN`, so rustup began installing `stable`
+  (1.99.1). I stopped it; a later `rustup toolchain list` finished that
+  partial install. `stable` was uninstalled again, and
+  `~/.rustup/toolchains/` holds only 1.98.0, as before. The interrupted
+  install left 136 MB in `~/.rustup/tmp` (files from 10:51), not removed.
+  The check now runs as AGENTS.md says (`RUSTUP_TOOLCHAIN=1.98.0`), then
+  with Homebrew's 1.98.0, at `nice 19`.
+- 11:12 review pass 2 (read-only subagent). Fixed: the notes no longer
+  claim the harness refuses an unindexed left-out name (a check in
+  `holders` rejected valid corpus files that stand for themselves, so
+  it was reverted; left open); the binaries' identity stated per binary
+  (the clusters run's `work/bin/s23-start` equals session 22's, and
+  took 2 h 54 min against session 18's 26); the 15 plays' wording; "9
+  wrong detections from 7 uploads"; `holder_hits`'s docstring states
+  that old reports assume clusters that only add members, and that the
+  unknown plays are a bound; 0123 trimmed to 40 lines.
+- 11:30 the tracklists' holder lookups ended (72 min, 101 lookups,
+  15 files left out). `ambiguity_note.py tracklists`: 6 of 40 entries
+  noted (Star Trails, Clockwork, Phantom Force, Artificial Life, Stab 2
+  Def, We R The Ones), every entry a right track; 12 of 95 confident
+  plays flagged; every printed line matched the rebuilt one
+  (`work/s23/after/score/tracklists.txt`, data in 0123's JSON).

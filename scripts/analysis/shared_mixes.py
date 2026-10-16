@@ -142,13 +142,16 @@ def plays_of(detections):
 def holder_hits(d, own_of):
     """(c)'s value under the clusters scored with: the hits of the strongest
     file the lookup found outside the file's own recording (`own_of`),
-    whether the report cannot tell it, and that file. A report with `holders` (session 23) lists
-    every file found at 30 hits or more; an older one keeps only `holder`,
-    the strongest outside the own recording of its run, so where that file
-    is now in the own recording a weaker holder may still exist: the value
-    is then unknown and counted as 0, which bounds how many marks the
-    clusters remove. Where that file has fewer than 60 hits, the value is
-    below the mark whatever it is, and is counted as a known 0."""
+    whether the report cannot tell it, and that file. A report with
+    `holders` (session 23) lists every file found at 30 hits or more; an
+    older one keeps only `holder`, the strongest outside the own recording
+    of its run, so where that file is now in the own recording a weaker
+    holder may still exist: the value is then unknown and counted as 0, so
+    the unknown plays bound how many marks the clusters remove. Where that
+    file has fewer than 60 hits, the value is below the mark whatever it
+    is, and is counted as a known 0. For an older report this assumes the
+    scoring clusters only add members to the run's recordings (no split),
+    as 0120 found; a file that left the own recording would be missed."""
     own = own_of(d["asset"])
     holder = d.get("holder")
     if holder and holder["asset"] in own and holder["hits"] < MARKED_HITS:

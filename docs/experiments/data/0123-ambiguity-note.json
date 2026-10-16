@@ -33,7 +33,10 @@
     ]
    ],
    "pair": {
-    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": null,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
+     "coverage": 0.0367,
+     "hits": 98
+    },
     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
      "coverage": 0.0367,
      "hits": 98
@@ -58,7 +61,10 @@
     ]
    ],
    "pair": {
-    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": null,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
+     "coverage": 0.0367,
+     "hits": 98
+    },
     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
      "coverage": 0.0367,
      "hits": 98
@@ -83,7 +89,10 @@
     ]
    ],
    "pair": {
-    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": null,
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
+     "coverage": 0.0368,
+     "hits": 100
+    },
     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
      "coverage": 0.0368,
      "hits": 100
@@ -220,7 +229,10 @@
      "coverage": 0.0908,
      "hits": 141
     },
-    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a": null
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a": {
+     "coverage": 0.1425,
+     "hits": 195
+    }
    }
   },
   {
@@ -245,7 +257,10 @@
      "coverage": 0.1382,
      "hits": 105
     },
-    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": null
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": {
+     "coverage": 0.2699,
+     "hits": 135
+    }
    }
   },
   {
@@ -270,7 +285,10 @@
      "coverage": 0.1152,
      "hits": 108
     },
-    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": null
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": {
+     "coverage": 0.5438,
+     "hits": 125
+    }
    }
   },
   {
@@ -358,7 +376,9 @@
   "panel main case": {
    "queries": 218,
    "wrong confident": 106,
-   "wrong queries with every wrong play flagged": 58
+   "wrong queries with every wrong play flagged": 58,
+   "wrong plays": 312,
+   "wrong plays flagged": 248
   },
   "positive control right plays": {
    "plays": 75,
@@ -374,6 +394,151 @@
    "flagged known": 18,
    "unknown": 33
   },
-  "exploratory (c)+(a1) under 6.276, development mixes rejected": 0
+  "exploratory (c)+(a1) under 6.276, development mixes rejected": 0,
+  "panel plays from confident detections only (08:47)": "the same counts"
+ },
+ "pair measure": "`pair`'s 'peaks, at the fitted speed' search: the strongest alignment's coverage of the shorter file",
+ "tracklists": {
+  "source": "identify --store-only on the three development mixes at the new revision, NAS configuration; holder lookups leave out the 15 corpus files without a NAS copy",
+  "sets": {
+   "stakka-skynet-knowledge": {
+    "entries": 11,
+    "entries noted": 2,
+    "entries without a right file": 0,
+    "flagged confident plays": 4,
+    "noted lines": [
+     " 3.    9:43  KEMAL & ROB DATA - star trails  (also: Konflict - Star Trails)  (shares this passage with: Kemal & Rob Data - Star Trails (Synergy Remix))",
+     " 5.   17:32  Stakka & Skynet - Clockwork  (titles disagree: Stakka & Skynet - Clockwork (Remastered))  (shares this passage with: Stakka And Skynet - Clockwork (Stakka Rmx))"
+    ],
+    "flagged": [
+     {
+      "entry": 3,
+      "file": "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+      "value": 103,
+      "names": [
+       "Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+      ]
+     },
+     {
+      "entry": 3,
+      "file": "a-konflict-star_trails-sour.mp3",
+      "value": 96,
+      "names": [
+       "Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+      ]
+     },
+     {
+      "entry": 5,
+      "file": "103-stakka_and_skynet-clockwork-sour.mp3",
+      "value": 76,
+      "names": [
+       "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+       "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+      ]
+     },
+     {
+      "entry": 5,
+      "file": "Stakka & Skynet - Clockwork (Remastered).m4a",
+      "value": 67,
+      "names": [
+       "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+       "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+      ]
+     }
+    ]
+   },
+   "razorjack-2003-03-29": {
+    "entries": 12,
+    "entries noted": 2,
+    "entries without a right file": 0,
+    "flagged confident plays": 3,
+    "noted lines": [
+     " 4.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)  (shares this passage with: Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit); Digital & Spirit - Phantom 2018)",
+     " 8.   29:13  Omni Trio - Artificial Life (Harp Tune)  (shares this passage with: Omni Trio - Secret Life (Silent Storm Remix))"
+    ],
+    "flagged": [
+     {
+      "entry": 4,
+      "file": "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+      "value": 70,
+      "names": [
+       "Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+       "Digital & Spirit - Phantom 2018.m4a"
+      ]
+     },
+     {
+      "entry": 4,
+      "file": "Digital & Spirit - Phantom Force.m4a",
+      "value": 115,
+      "names": [
+       "Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+       "Digital & Spirit - Phantom 2018.m4a"
+      ]
+     },
+     {
+      "entry": 8,
+      "file": "07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+      "value": 125,
+      "names": [
+       "02 - Omni Trio - Secret Life (Silent Storm Remix).mp3"
+      ]
+     }
+    ]
+   },
+   "nocny-trans-vertical-2002-08-23": {
+    "entries": 17,
+    "entries noted": 2,
+    "entries without a right file": 0,
+    "flagged confident plays": 5,
+    "noted lines": [
+     "12.   44:33  The Kraft - Stab 2 Def  (also: The Kraft (aka Mampi Swift) - Stab 2 Def)  (shares this passage with: Mampi Swift - 2000)",
+     "14.   50:41  Klute - We R The Ones 3  (titles disagree: Klute - We R The Ones VIP, Klute - We R The Ones (Klute Remix))  (shares this passage with: Klute - We R The Ones (Klute Remix))"
+    ],
+    "flagged": [
+     {
+      "entry": 12,
+      "file": "aa-the_kraft-stab_2_def-sour.mp3",
+      "value": 310,
+      "names": [
+       "Mampi Swift - 2000.m4a"
+      ]
+     },
+     {
+      "entry": 12,
+      "file": "The Kraft - Stab 2 Def.m4a",
+      "value": 295,
+      "names": [
+       "Mampi Swift - 2000.m4a"
+      ]
+     },
+     {
+      "entry": 12,
+      "file": "The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+      "value": 319,
+      "names": [
+       "Mampi Swift - 2000.m4a"
+      ]
+     },
+     {
+      "entry": 14,
+      "file": "b-klute-we_r_the_ones_3-sour.mp3",
+      "value": 137,
+      "names": [
+       "Klute - We R The Ones (Klute Remix).opus",
+       "01-klute-we_r_the_ones_(klute_remix).mp3"
+      ]
+     },
+     {
+      "entry": 14,
+      "file": "Klute - We R The Ones VIP.m4a",
+      "value": 123,
+      "names": [
+       "Klute - We R The Ones (Klute Remix).opus",
+       "01-klute-we_r_the_ones_(klute_remix).mp3"
+      ]
+     }
+    ]
+   }
+  }
  }
 }

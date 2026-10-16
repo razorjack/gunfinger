@@ -25,11 +25,17 @@ for scope and rules.
 - [x] 3. Re-scored offline with old and new clusters (the old reproduce
   the published numbers): the development mixes' NAS scans, 0111, 0112,
   0116, 0118; experiment 0121
-- [ ] 4a. The three development mixes at the new revision
-- [ ] 4b. `shared` on the development half at the new revision
-- [ ] 4c. `shared-mixes` s21, then the rips plan; experiment 0122
-- [ ] 5. The ambiguity note: definition, wording and criteria written
-  first; counts; tracklists; experiment 0123
+- [x] 4a. The three development mixes at the new revision (scans and
+  leave-outs, `--verify`)
+- [x] 4b. `shared` on the development half at the new revision, and
+  its holder lookups
+- [-] 4c. `shared-mixes` s21, then the rips plan: shrunk (brief,
+  09:25): the 36 rendered mixes would have ended near noon; the three
+  development mixes ran alone; the rips plan dropped. Experiment 0122
+- [x] 5. The ambiguity note: definition, wording and criteria written
+  first; counts (criterion 1 fails, 2 passes); flagged plays with their
+  categories; the three tracklists (6 of 40 entries noted, all right;
+  the noted lines in the notes); experiment 0123
 - [x] 6a. Questions in `work/audition/s23/` (Sonar upload, Kemal remix,
   borderline pairs): `01-s23-pack.json`, 6 questions, checked on a
   temporary server, never answered
@@ -38,12 +44,14 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] 7. Read-only review by a subagent (from 11:45); fixes
+- [x] 7. Read-only review by a subagent: pass 1 at 09:05 (14 findings,
+  fixed), pass 2 at 11:12 (findings fixed; the `holders` check for
+  unindexed left-out names reverted and left open, see the notes)
 - [ ] Notes "Session 23", status, checklist, roadmap
 - [ ] `regress session-23-start` identical; `scripts/check.sh` green
   with both toolchains
-- [ ] The NAS store's revision at the end equals the one after the
-  index run
+- [x] The NAS store's revision at the end equals the one after the
+  index run (39,354 records, `d71ba5333cff9a34`, 11:37)
 - [ ] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
 - [ ] Commit; the final message
