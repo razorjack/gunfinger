@@ -1,0 +1,1472 @@
+{
+ "store": "d71ba5333cff9a34 (39,354 records)",
+ "clusters": "experiment 0120",
+ "scans": {
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026.json": {
+   "new clusters": {
+    "identified": 0,
+    "referenced": 17,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+      "start_seconds": 2792.1,
+      "end_seconds": 2908.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+      "start_seconds": 3147.6,
+      "end_seconds": 3343.8
+     },
+     {
+      "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+      "start_seconds": 3150.7,
+      "end_seconds": 3339.9
+     }
+    ],
+    "credited": {
+     "1. Drumsound & Simon Bassline Smith - Phoenix": [],
+     "2. Trace & Fresh - Mutated (Version X)": [],
+     "3. Friction & Nu Balance - Final Judgement": [],
+     "4. Dieselboy - The Descent (Phunckateck VIP)": [],
+     "5. Bulletproof - Scarred": [],
+     "6. Dieselboy - Invid (E-Sassin VIP)": [],
+     "7. Kon.Rad - Mistaken Identity": [],
+     "8. Bulletproof - Nephelim (Konflict remix)": [],
+     "9. Bulletproof - Anthrax": [],
+     "10. Cause 4 Concern - Blindside": [],
+     "11. Decoder - Dead Fall": [],
+     "12. The Kraft - Stab 2 Def": [],
+     "13. Future Cut - Horns 2000": [],
+     "14. Klute - We R The Ones (VIP)": [],
+     "15. Sonic - Cannibal": [],
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)": [],
+     "17. ID - ID": [],
+     "18. Mo-Funk - Slipstream": []
+    }
+   },
+   "old clusters": {
+    "identified": 0,
+    "referenced": 17,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+      "start_seconds": 2792.1,
+      "end_seconds": 2908.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+      "start_seconds": 3147.6,
+      "end_seconds": 3343.8
+     },
+     {
+      "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+      "start_seconds": 3150.7,
+      "end_seconds": 3339.9
+     }
+    ],
+    "credited": {
+     "1. Drumsound & Simon Bassline Smith - Phoenix": [],
+     "2. Trace & Fresh - Mutated (Version X)": [],
+     "3. Friction & Nu Balance - Final Judgement": [],
+     "4. Dieselboy - The Descent (Phunckateck VIP)": [],
+     "5. Bulletproof - Scarred": [],
+     "6. Dieselboy - Invid (E-Sassin VIP)": [],
+     "7. Kon.Rad - Mistaken Identity": [],
+     "8. Bulletproof - Nephelim (Konflict remix)": [],
+     "9. Bulletproof - Anthrax": [],
+     "10. Cause 4 Concern - Blindside": [],
+     "11. Decoder - Dead Fall": [],
+     "12. The Kraft - Stab 2 Def": [],
+     "13. Future Cut - Horns 2000": [],
+     "14. Klute - We R The Ones (VIP)": [],
+     "15. Sonic - Cannibal": [],
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)": [],
+     "17. ID - ID": [],
+     "18. Mo-Funk - Slipstream": []
+    }
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "new clusters": {
+    "identified": 17,
+    "referenced": 17,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+      "start_seconds": 2792.1,
+      "end_seconds": 2908.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+      "start_seconds": 3147.6,
+      "end_seconds": 3343.8
+     },
+     {
+      "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+      "start_seconds": 3150.7,
+      "end_seconds": 3339.9
+     }
+    ],
+    "credited": {
+     "1. Drumsound & Simon Bassline Smith - Phoenix": [
+      "extra/[AA]_-_Phoenix.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+      "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a"
+     ],
+     "2. Trace & Fresh - Mutated (Version X)": [
+      "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a"
+     ],
+     "3. Friction & Nu Balance - Final Judgement": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+     ],
+     "4. Dieselboy - The Descent (Phunckateck VIP)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+      "second-library/__youtube_archivists/weedsurfer/Dieselboy - Descent (Phuncatek Remix).m4a"
+     ],
+     "5. Bulletproof - Scarred": [
+      "extra/b-bulletproof-scarred-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a"
+     ],
+     "6. Dieselboy - Invid (E-Sassin VIP)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus"
+     ],
+     "7. Kon.Rad - Mistaken Identity": [
+      "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a"
+     ],
+     "8. Bulletproof - Nephelim (Konflict remix)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+      "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3"
+     ],
+     "9. Bulletproof - Anthrax": [
+      "extra/a-bullet_proof-anthrax-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a"
+     ],
+     "10. Cause 4 Concern - Blindside": [
+      "extra/e-cause_4_concern-blindside-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+     ],
+     "11. Decoder - Dead Fall": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+     ],
+     "12. The Kraft - Stab 2 Def": [
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+      "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3"
+     ],
+     "13. Future Cut - Horns 2000": [
+      "extra/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__youtube_archivists/easy-t-dnb/Future Cut - Horns 2000.m4a"
+     ],
+     "14. Klute - We R The Ones (VIP)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+     ],
+     "15. Sonic - Cannibal": [
+      "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a"
+     ],
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)": [
+      "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+      "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3"
+     ],
+     "17. ID - ID": [],
+     "18. Mo-Funk - Slipstream": [
+      "extra/a-mo_funk-slipstream-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a"
+     ]
+    }
+   },
+   "old clusters": {
+    "identified": 17,
+    "referenced": 17,
+    "wrong": 4,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+      "start_seconds": 2792.1,
+      "end_seconds": 2908.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+      "start_seconds": 3147.6,
+      "end_seconds": 3343.8
+     },
+     {
+      "asset": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+      "start_seconds": 3150.7,
+      "end_seconds": 3339.9
+     }
+    ],
+    "credited": {
+     "1. Drumsound & Simon Bassline Smith - Phoenix": [
+      "extra/[AA]_-_Phoenix.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a"
+     ],
+     "2. Trace & Fresh - Mutated (Version X)": [
+      "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a"
+     ],
+     "3. Friction & Nu Balance - Final Judgement": [
+      "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+      "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus"
+     ],
+     "4. Dieselboy - The Descent (Phunckateck VIP)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus"
+     ],
+     "5. Bulletproof - Scarred": [
+      "extra/b-bulletproof-scarred-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a"
+     ],
+     "6. Dieselboy - Invid (E-Sassin VIP)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus"
+     ],
+     "7. Kon.Rad - Mistaken Identity": [
+      "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a"
+     ],
+     "8. Bulletproof - Nephelim (Konflict remix)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+      "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3"
+     ],
+     "9. Bulletproof - Anthrax": [
+      "extra/a-bullet_proof-anthrax-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+      "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a"
+     ],
+     "10. Cause 4 Concern - Blindside": [
+      "extra/e-cause_4_concern-blindside-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a"
+     ],
+     "11. Decoder - Dead Fall": [
+      "extra/B_-_Decoder_-_Dead_Fall.mp3",
+      "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3"
+     ],
+     "12. The Kraft - Stab 2 Def": [
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+      "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3"
+     ],
+     "13. Future Cut - Horns 2000": [
+      "extra/310-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3"
+     ],
+     "14. Klute - We R The Ones (VIP)": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+     ],
+     "15. Sonic - Cannibal": [
+      "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a"
+     ],
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)": [
+      "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+      "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3"
+     ],
+     "17. ID - ID": [],
+     "18. Mo-Funk - Slipstream": [
+      "extra/a-mo_funk-slipstream-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a"
+     ]
+    }
+   }
+  },
+  "scan-razorjack-2003-03-29-leave-out-12-seed-2026.json": {
+   "new clusters": {
+    "identified": 0,
+    "referenced": 12,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "start_seconds": 691.2,
+      "end_seconds": 816.5
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+      "start_seconds": 751.5,
+      "end_seconds": 795.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+      "start_seconds": 826.1,
+      "end_seconds": 856.5
+     }
+    ],
+    "credited": {
+     "1. Kemal & Rob Data - Konspiracy": [],
+     "2. Future Cut - The Specialist": [],
+     "3. Narcosis - Escape Route": [],
+     "4. Digital & Spirit - Phantom Force": [],
+     "5. Tee Bee - Two Faced": [],
+     "6. Omni Trio - Kinetic": [],
+     "7. Carlito & Addiction - Into Music": [],
+     "8. Omni Trio - Artificial Life (Harp Tune)": [],
+     "9. Total Science - Yvon Is On": [],
+     "10. Marcus Intalex & ST Files - Balderdash": [],
+     "11. Spirit - Out Of Control": [],
+     "12. DJ Hidden - Skektics": []
+    }
+   },
+   "old clusters": {
+    "identified": 0,
+    "referenced": 12,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "start_seconds": 691.2,
+      "end_seconds": 816.5
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+      "start_seconds": 751.5,
+      "end_seconds": 795.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+      "start_seconds": 826.1,
+      "end_seconds": 856.5
+     }
+    ],
+    "credited": {
+     "1. Kemal & Rob Data - Konspiracy": [],
+     "2. Future Cut - The Specialist": [],
+     "3. Narcosis - Escape Route": [],
+     "4. Digital & Spirit - Phantom Force": [],
+     "5. Tee Bee - Two Faced": [],
+     "6. Omni Trio - Kinetic": [],
+     "7. Carlito & Addiction - Into Music": [],
+     "8. Omni Trio - Artificial Life (Harp Tune)": [],
+     "9. Total Science - Yvon Is On": [],
+     "10. Marcus Intalex & ST Files - Balderdash": [],
+     "11. Spirit - Out Of Control": [],
+     "12. DJ Hidden - Skektics": []
+    }
+   }
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "new clusters": {
+    "identified": 12,
+    "referenced": 12,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "start_seconds": 691.2,
+      "end_seconds": 816.5
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+      "start_seconds": 751.5,
+      "end_seconds": 795.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+      "start_seconds": 826.1,
+      "end_seconds": 856.5
+     }
+    ],
+    "credited": {
+     "1. Kemal & Rob Data - Konspiracy": [
+      "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+      "second-library/__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+      "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3"
+     ],
+     "2. Future Cut - The Specialist": [
+      "extra/01-future_cut-the_specialist-trt.mp3",
+      "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus"
+     ],
+     "3. Narcosis - Escape Route": [
+      "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+      "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3"
+     ],
+     "4. Digital & Spirit - Phantom Force": [
+      "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+     ],
+     "5. Tee Bee - Two Faced": [
+      "extra/g-tee_bee-two_faced-sour.mp3",
+      "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus"
+     ],
+     "6. Omni Trio - Kinetic": [
+      "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3"
+     ],
+     "7. Carlito & Addiction - Into Music": [
+      "extra/h-carlito_and_addiction-into_music-sour.mp3",
+      "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus"
+     ],
+     "8. Omni Trio - Artificial Life (Harp Tune)": [
+      "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3"
+     ],
+     "9. Total Science - Yvon Is On": [
+      "extra/c-total_science-yvon_is_on-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+      "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a"
+     ],
+     "10. Marcus Intalex & ST Files - Balderdash": [
+      "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+      "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a"
+     ],
+     "11. Spirit - Out Of Control": [
+      "extra/b-spirit-out_of_control-sour.mp3",
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+      "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus"
+     ],
+     "12. DJ Hidden - Skektics": [
+      "extra/04_-_dj_hidden_-_skektics.mp3",
+      "second-library/04 - dj hidden - skektics.mp3",
+      "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus"
+     ]
+    }
+   },
+   "old clusters": {
+    "identified": 12,
+    "referenced": 12,
+    "wrong": 7,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+      "start_seconds": 691.2,
+      "end_seconds": 816.5
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+      "start_seconds": 751.5,
+      "end_seconds": 795.0
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+      "start_seconds": 826.1,
+      "end_seconds": 856.5
+     }
+    ],
+    "credited": {
+     "1. Kemal & Rob Data - Konspiracy": [
+      "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+      "second-library/__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+      "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3"
+     ],
+     "2. Future Cut - The Specialist": [
+      "extra/01-future_cut-the_specialist-trt.mp3",
+      "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus"
+     ],
+     "3. Narcosis - Escape Route": [
+      "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+      "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3"
+     ],
+     "4. Digital & Spirit - Phantom Force": [
+      "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+     ],
+     "5. Tee Bee - Two Faced": [
+      "extra/g-tee_bee-two_faced-sour.mp3"
+     ],
+     "6. Omni Trio - Kinetic": [
+      "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3"
+     ],
+     "7. Carlito & Addiction - Into Music": [
+      "extra/h-carlito_and_addiction-into_music-sour.mp3"
+     ],
+     "8. Omni Trio - Artificial Life (Harp Tune)": [
+      "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3"
+     ],
+     "9. Total Science - Yvon Is On": [
+      "extra/c-total_science-yvon_is_on-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a"
+     ],
+     "10. Marcus Intalex & ST Files - Balderdash": [
+      "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a"
+     ],
+     "11. Spirit - Out Of Control": [
+      "extra/b-spirit-out_of_control-sour.mp3",
+      "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3"
+     ],
+     "12. DJ Hidden - Skektics": [
+      "extra/04_-_dj_hidden_-_skektics.mp3",
+      "second-library/04 - dj hidden - skektics.mp3",
+      "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus"
+     ]
+    }
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "new clusters": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "start_seconds": 628.9,
+      "end_seconds": 659.5
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     }
+    ],
+    "credited": {
+     "1. Skynet & Stakka - Night Lore": [],
+     "2. Skynet & Stakka - Decoy": [],
+     "3. Kemal & Rob Data - Star Trails": [],
+     "4. Skynet & Stakka - Pathogen": [],
+     "5. Skynet & Stakka - Clockwork": [],
+     "6. Kraken - Side Effects (TeeBee Remix)": [],
+     "7. Kraken - Dominion": [],
+     "8. Kemal & Paul Reset - Kontempt": [],
+     "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": [],
+     "10. Skynet & Stakka - Logistics": [],
+     "11. Stakka & K.Tee - Auto Ignition": []
+    }
+   },
+   "old clusters": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "start_seconds": 628.9,
+      "end_seconds": 659.5
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     }
+    ],
+    "credited": {
+     "1. Skynet & Stakka - Night Lore": [],
+     "2. Skynet & Stakka - Decoy": [],
+     "3. Kemal & Rob Data - Star Trails": [],
+     "4. Skynet & Stakka - Pathogen": [],
+     "5. Skynet & Stakka - Clockwork": [],
+     "6. Kraken - Side Effects (TeeBee Remix)": [],
+     "7. Kraken - Dominion": [],
+     "8. Kemal & Paul Reset - Kontempt": [],
+     "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": [],
+     "10. Skynet & Stakka - Logistics": [],
+     "11. Stakka & K.Tee - Auto Ignition": []
+    }
+   }
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "new clusters": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "start_seconds": 628.9,
+      "end_seconds": 659.5
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     }
+    ],
+    "credited": {
+     "1. Skynet & Stakka - Night Lore": [
+      "Skynet & Stakka - Night Lore.mp3",
+      "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a"
+     ],
+     "2. Skynet & Stakka - Decoy": [
+      "Skynet & Stakka - Decoy.mp3",
+      "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+      "second-library/__youtube_archivists/easy-t-dnb/Stakka & Skynet - Decoy.opus",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a"
+     ],
+     "3. Kemal & Rob Data - Star Trails": [
+      "Kemal & Rob Data - Star Trails.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus"
+     ],
+     "4. Skynet & Stakka - Pathogen": [
+      "Skynet & Stakka - Pathogen.mp3",
+      "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a"
+     ],
+     "5. Skynet & Stakka - Clockwork": [
+      "Skynet & Stakka - Clockwork.mp3",
+      "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a"
+     ],
+     "6. Kraken - Side Effects (TeeBee Remix)": [
+      "Kraken - Side Effects (TeeBee Remix).mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus",
+      "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus"
+     ],
+     "7. Kraken - Dominion": [
+      "Kraken - Dominion.opus",
+      "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+      "second-library/__youtube_archivists/easy-t-dnb/Kraken - Dominion.opus"
+     ],
+     "8. Kemal & Paul Reset - Kontempt": [
+      "Kemal & Paul Reset - Kontempt.mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a"
+     ],
+     "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": [
+      "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+      "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+     ],
+     "10. Skynet & Stakka - Logistics": [
+      "Skynet & Stakka - Logistics.mp3",
+      "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus"
+     ],
+     "11. Stakka & K.Tee - Auto Ignition": [
+      "Stakka & K.Tee - Auto Ignition.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 ： STAKKA & K. TEE - auto ignition ] drum and bass.m4a"
+     ]
+    }
+   },
+   "old clusters": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 2,
+    "possible": 0,
+    "unmatched_possible": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+      "start_seconds": 628.9,
+      "end_seconds": 659.5
+     },
+     {
+      "asset": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     },
+     {
+      "asset": "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+      "start_seconds": 1222.9,
+      "end_seconds": 1240.8
+     }
+    ],
+    "credited": {
+     "1. Skynet & Stakka - Night Lore": [
+      "Skynet & Stakka - Night Lore.mp3",
+      "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a"
+     ],
+     "2. Skynet & Stakka - Decoy": [
+      "Skynet & Stakka - Decoy.mp3",
+      "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a"
+     ],
+     "3. Kemal & Rob Data - Star Trails": [
+      "Kemal & Rob Data - Star Trails.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus"
+     ],
+     "4. Skynet & Stakka - Pathogen": [
+      "Skynet & Stakka - Pathogen.mp3",
+      "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a"
+     ],
+     "5. Skynet & Stakka - Clockwork": [
+      "Skynet & Stakka - Clockwork.mp3",
+      "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a"
+     ],
+     "6. Kraken - Side Effects (TeeBee Remix)": [
+      "Kraken - Side Effects (TeeBee Remix).mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus",
+      "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus"
+     ],
+     "7. Kraken - Dominion": [
+      "Kraken - Dominion.opus",
+      "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+      "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus"
+     ],
+     "8. Kemal & Paul Reset - Kontempt": [
+      "Kemal & Paul Reset - Kontempt.mp3",
+      "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a"
+     ],
+     "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear": [
+      "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+      "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+      "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus"
+     ],
+     "10. Skynet & Stakka - Logistics": [
+      "Skynet & Stakka - Logistics.mp3",
+      "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus"
+     ],
+     "11. Stakka & K.Tee - Auto Ignition": [
+      "Stakka & K.Tee - Auto Ignition.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+      "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 ： STAKKA & K. TEE - auto ignition ] drum and bass.m4a"
+     ]
+    }
+   }
+  }
+ },
+ "shared development half, outcome tables under the new clusters": [
+  "directions with a passage (14 directions, 525 queries)",
+  "  index            kind      n right confide wrong confide possible only       nothing  not rendered  wrong by role",
+  "  everything       alone    42            10             4            14            14             0  related 2, version 2",
+  "  everything       looped   42             8            34             0             0             0  related 23, version 11",
+  "  everything       beyond   42             9            33             0             0             0  related 22, version 11",
+  "  everything       before   22            14             8             0             0             0  related 2, version 6",
+  "  everything       weak     28            13            15             0             0             0  related 9, version 6",
+  "  everything       blend    14             2            12             0             0             0  related 8, version 4",
+  "  everything       break    28             0             0             3            25             0  ",
+  "  played left out  alone    42             0             4            20            18             0  related 2, version 2",
+  "  played left out  looped   42             0            34             2             6             0  related 23, version 11",
+  "  played left out  beyond   42             0            33             3             6             0  related 22, version 11",
+  "  played left out  before   22             0             8             8             6             0  related 2, version 6",
+  "  played left out  weak     28             0            15             9             4             0  related 9, version 6",
+  "  played left out  blend    14             0            12             0             2             0  related 8, version 4",
+  "  played left out  break    28             0             0             2            26             0  ",
+  "  source left out  alone    18             5             1             6             6             0  related 1",
+  "  source left out  looped   18             2            16             0             0             0  related 11, version 5",
+  "  source left out  beyond   18             3            15             0             0             0  related 10, version 5",
+  "  source left out  before    5             5             0             0             0             0  ",
+  "  source left out  weak     12             6             6             0             0             0  related 4, version 2",
+  "  source left out  blend     6             0             6             0             0             0  related 4, version 2",
+  "  source left out  break    12             0             0             0            12             0  ",
+  "controls (2 directions, 80 queries)",
+  "  index            kind      n right confide wrong confide possible only       nothing  not rendered  wrong by role",
+  "  everything       alone     4             0             0             2             2             0  ",
+  "  everything       looped    6             6             0             0             0             0  ",
+  "  everything       beyond    6             6             0             0             0             0  ",
+  "  everything       before    6             5             0             1             0             0  ",
+  "  everything       weak      4             2             0             2             0             0  ",
+  "  everything       blend     2             2             0             0             0             0  ",
+  "  everything       break     4             0             0             2             2             0  ",
+  "  played left out  alone     4             0             0             0             4             0  ",
+  "  played left out  looped    6             0             0             0             6             0  ",
+  "  played left out  beyond    6             0             0             0             6             0  ",
+  "  played left out  before    6             0             0             0             6             0  ",
+  "  played left out  weak      4             0             0             0             4             0  ",
+  "  played left out  blend     2             0             0             0             2             0  ",
+  "  played left out  break     4             0             0             0             4             0  ",
+  "  source left out  alone     2             0             0             1             1             0  ",
+  "  source left out  looped    3             1             0             2             0             0  ",
+  "  source left out  beyond    3             3             0             0             0             0  ",
+  "  source left out  before    3             2             0             1             0             0  ",
+  "  source left out  weak      2             1             0             1             0             0  ",
+  "  source left out  blend     1             1             0             0             0             0  ",
+  "  source left out  break     2             0             0             0             2             0  ",
+  ""
+ ],
+ "development mixes, second sample": [
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Logistics.mp3",
+   "start": 2602.6,
+   "end": 2997.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/AA-Stakka_and_Skynet-Logistics-sour.mp3",
+   "start": 2602.6,
+   "end": 2997.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "start": 2602.6,
+   "end": 2997.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Decoy.mp3",
+   "start": 285.5,
+   "end": 628.2
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+   "start": 2227.2,
+   "end": 2606.9
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+   "start": 2227.2,
+   "end": 2606.9
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+   "start": 2986.9,
+   "end": 3362.0
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "start": 2986.9,
+   "end": 3362.0
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/audio_blueprint-stakka_and_k_tee-abpr011-2000-sour/a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "start": 2986.9,
+   "end": 3362.0
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Kemal & Paul Reset - Kontempt.mp3",
+   "start": 1863.5,
+   "end": 2281.2
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+   "start": 286.2,
+   "end": 605.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR011 ： STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+   "start": 2983.9,
+   "end": 3361.1
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/easy-t-dnb/Stakka & Skynet - Decoy.opus",
+   "start": 276.8,
+   "end": 606.9
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+   "start": 2228.6,
+   "end": 2607.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "start": 1890.2,
+   "end": 2282.6
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Night Lore.mp3",
+   "start": 0.1,
+   "end": 303.9
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+   "start": 0.1,
+   "end": 303.9
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+   "start": 1530.7,
+   "end": 1919.8
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "start": 0.1,
+   "end": 302.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Kraken - Dominion.opus",
+   "start": 1520.3,
+   "end": 1919.8
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+   "start": 276.8,
+   "end": 628.2
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Decoy (Remastered).m4a",
+   "start": 276.1,
+   "end": 605.5
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Clockwork.mp3",
+   "start": 1052.1,
+   "end": 1316.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "start": 1052.1,
+   "end": 1316.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Nightlore.m4a",
+   "start": 0.5,
+   "end": 304.0
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/easy-t-dnb/Kraken - Dominion.opus",
+   "start": 1561.3,
+   "end": 1919.2
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "start": 1060.6,
+   "end": 1317.1
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Kraken - Dominion.opus",
+   "start": 1551.8,
+   "end": 1920.8
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+   "start": 1282.7,
+   "end": 1576.4
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Pathogen.mp3",
+   "start": 862.9,
+   "end": 1085.1
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/A-Stakka_and_Skynet-Pathogen-sour.mp3",
+   "start": 862.9,
+   "end": 1085.1
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "start": 583.5,
+   "end": 799.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Kraken - Side Effects (Teebee Remix).opus",
+   "start": 1262.1,
+   "end": 1576.4
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Kemal & Rob Data - Star Trails.mp3",
+   "start": 585.1,
+   "end": 803.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+   "start": 585.1,
+   "end": 803.7
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus",
+   "start": 1280.1,
+   "end": 1576.4
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "start": 867.2,
+   "end": 1084.9
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/AA-Escape_Route-Narcosis-sour.mp3",
+   "start": 372.9,
+   "end": 708.6
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/AA-Escape_Route-Narcosis-sour.mp3",
+   "start": 372.9,
+   "end": 708.6
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3",
+   "start": 1043.7,
+   "end": 1518.8
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "start": 130.3,
+   "end": 398.0
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/infrared-future_cut-infra011-2000-sour/a-future_cut-sex_drive-sour.mp3",
+   "start": 130.3,
+   "end": 398.0
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/04 - dj hidden - skektics.mp3",
+   "start": 2535.7,
+   "end": 2763.3
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+   "start": 2090.6,
+   "end": 2419.7
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+   "start": 649.0,
+   "end": 906.3
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Marcus Intalex & ST Files - Balderdash.m4a",
+   "start": 2100.8,
+   "end": 2419.7
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+   "start": 1865.7,
+   "end": 2132.8
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/04_-_dj_hidden_-_skektics.mp3",
+   "start": 2535.7,
+   "end": 2763.2
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/industry-kemal_and_rob_data_vs_narcosis-2001-sour/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "start": 1.9,
+   "end": 148.9
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__full_scene/=Industry Recordings=/IND002 - Kemal and Rob Data vs Narcosis - 2001/A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "start": 1.9,
+   "end": 148.9
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+   "start": 2094.3,
+   "end": 2419.7
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+   "start": 881.0,
+   "end": 1204.5
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+   "start": 1864.3,
+   "end": 2133.8
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+   "start": 2347.5,
+   "end": 2535.2
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Total Science - Yvon Is On.m4a",
+   "start": 1864.3,
+   "end": 2133.8
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+   "start": 1753.9,
+   "end": 1958.1
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+   "start": 1447.6,
+   "end": 1772.1
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/[2005] - [SPCC001] - Spirit-Out_Of_Control-(SPCC001)-vinyl-2005-trt/spirit - out_of_control-trt.mp3",
+   "start": 2346.2,
+   "end": 2535.6
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/g-tee_bee-two_faced-sour.mp3",
+   "start": 880.8,
+   "end": 1204.9
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/01-future_cut-the_specialist-trt.mp3",
+   "start": 145.1,
+   "end": 403.2
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/Infrared-INFRA012Future_Cut-The_Specialist-Vinyl-1999-TrT/01-future_cut-the_specialist-trt.mp3",
+   "start": 145.1,
+   "end": 403.2
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "start": 131.2,
+   "end": 379.2
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "start": 715.8,
+   "end": 908.6
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/alien5ive/RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+   "start": 2534.0,
+   "end": 2763.2
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Future Cut - The Specialist.opus",
+   "start": 136.0,
+   "end": 403.9
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/h-carlito_and_addiction-into_music-sour.mp3",
+   "start": 1464.8,
+   "end": 1765.8
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/cryptic-jungle/Kemal + Rob Data - Konspiracy.opus",
+   "start": 1.9,
+   "end": 149.0
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "extra/b-spirit-out_of_control-sour.mp3",
+   "start": 2354.4,
+   "end": 2535.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/[AA]_-_Phoenix.mp3",
+   "start": 0.1,
+   "end": 379.4
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/a-bulletproof-nephelim_(konflict_remix)-sour.mp3",
+   "start": 1902.3,
+   "end": 2198.1
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - Invid (E-Sassin VIP).opus",
+   "start": 1305.1,
+   "end": 1636.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/weedsurfer/Drumsound & Bassline Smith - Phoenix.m4a",
+   "start": 0.3,
+   "end": 382.1
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3",
+   "start": 3041.6,
+   "end": 3366.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "start": 3041.2,
+   "end": 3366.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+   "start": 1900.2,
+   "end": 2194.1
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/a-friction_and_nu_balance-final_judgement-sour.mp3",
+   "start": 574.3,
+   "end": 908.6
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+   "start": 2518.0,
+   "end": 2789.5
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__full_scene/-= Tech Itch Recordings =-/TI032 - Decoder - Two-Nine EP [2002] (Tech Itch Recordings)/B_-_Decoder_-_Dead_Fall.mp3",
+   "start": 2518.0,
+   "end": 2789.5
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Friction & Nu Balance - Final Judgement.opus",
+   "start": 580.8,
+   "end": 918.7
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Kon.Rad - Mistaken Identity.m4a",
+   "start": 1635.8,
+   "end": 1901.5
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Trace & Fresh - Mutated (Version X).m4a",
+   "start": 365.1,
+   "end": 636.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus",
+   "start": 884.1,
+   "end": 1137.2
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/VA Sonix Records Present Underground Drum and Bass WEB/Vol 1/16-aquasky-lords_of_motion_(tech_itch_remix).mp3",
+   "start": 3476.0,
+   "end": 3682.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/the-hifi-junglist/Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+   "start": 361.7,
+   "end": 636.9
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-aftermath_(essential_rewindz)-rhlp03-vinyl-2000-sour/j-future_cut-horns_2000-sour.mp3",
+   "start": 2912.6,
+   "end": 3068.2
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "start": 3463.7,
+   "end": 3683.0
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/310-future_cut-horns_2000-sour.mp3",
+   "start": 2913.8,
+   "end": 3067.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/va-essential_rewindz-mixed_by_grooverider-rhlpcd03-2000-sour/310-future_cut-horns_2000-sour.mp3",
+   "start": 2913.8,
+   "end": 3067.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Trace & Fresh - Mutated (Version X).m4a",
+   "start": 361.1,
+   "end": 636.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/e-cause_4_concern-blindside-sour.mp3",
+   "start": 2287.1,
+   "end": 2559.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "start": 563.7,
+   "end": 904.5
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "start": 2673.0,
+   "end": 2939.7
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "start": 2673.0,
+   "end": 2939.7
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+   "start": 2673.7,
+   "end": 2939.7
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/b-bulletproof-scarred-sour.mp3",
+   "start": 1120.5,
+   "end": 1332.0
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+   "start": 2673.7,
+   "end": 2939.7
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/weedsurfer/Dieselboy - Descent (Phuncatek Remix).m4a",
+   "start": 883.9,
+   "end": 1145.8
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof  -  Scarred.m4a",
+   "start": 1126.5,
+   "end": 1303.6
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+   "start": 2280.3,
+   "end": 2559.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Scarred.m4a",
+   "start": 1117.6,
+   "end": 1304.0
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/butch-french/Sonic - Cannibal.m4a",
+   "start": 3324.5,
+   "end": 3513.3
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/easy-t-dnb/Future Cut - Horns 2000.m4a",
+   "start": 2910.8,
+   "end": 3059.9
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Drumsound & Simon Bassline Smith - Phoenix.m4a",
+   "start": 40.1,
+   "end": 358.9
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/a-mo_funk-slipstream-sour.mp3",
+   "start": 3895.5,
+   "end": 3983.9
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/alien5ive/ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a",
+   "start": 3875.5,
+   "end": 3984.1
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/Bulletproof - Anthrax.m4a",
+   "start": 2181.5,
+   "end": 2406.6
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+   "start": 2170.5,
+   "end": 2414.9
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/michal-slabosz/Bulletproof - Anthrax.m4a",
+   "start": 2171.5,
+   "end": 2405.1
+  }
+ ],
+ "run times (s)": {
+  "scans": "322-576 each",
+  "shared": 6719,
+  "holders (606 lookups)": 1935,
+  "shared-mixes, development mixes": 2430
+ }
+}

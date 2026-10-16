@@ -3382,3 +3382,7 @@ the session.
   (decided before counting). Step 5's panel counts at 08:47 came before
   0122 was written; they are among the counts reported beside the
   criteria and decide nothing.
+- 10:05 step 4c (shrunk) done: the three development mixes alone at the
+  new revision (40 min, 5.5 GB), 108 true plays credited by the new scans
+  (4 more than 0121, through files stored tonight). Experiment 0122
+  written. `identify` of the three mixes started.
