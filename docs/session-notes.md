@@ -4687,3 +4687,194 @@ at some speeds.
   containment rule (recommended: do not adopt), the possible tier's
   threshold, test evaluation 5 and session 18's three manifest
   proposals.
+
+## Session 23
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. The session rebuilt the NAS duplicate clusters on the
+store the index run left (39,354 records, revision `d71ba5333cff9a34`),
+scored sessions 20 and 21's shared-material results again under them,
+ran the development mixes and the shared-material runs again at the new
+revision, and measured the ambiguity note against criteria written
+before any count. Adopting the note is our decision; nothing in the
+product was changed to try it.
+
+In short: the stale clusters were the whole story behind the 9 wrong
+confident answers in the development mixes at NAS scale; under the rebuilt
+clusters there are none, and every track is still found. The wrong
+confident plays of related versions (Fire, Pyro, Sonar, Dozer) do not
+depend on the clusters and remain. The ambiguity note would mark 70% of
+those wrong plays in the rendered mixes, but also 15 of the 108 true
+plays in the three development mixes (13.9%, against the 5% fixed beforehand), all
+tracks with a remix, edit or close version in the library, so by the
+rule written first it is not worth proposing. Six listening questions
+wait in `work/audition/s23/`.
+
+### The clusters rebuilt (experiment 0120)
+
+The full clusters run (session 18's queries, 2 h 54 min) stopped where
+session 10's did: the verdict that the corpus `DJ Trace - Sonar.m4a` and
+the i-witness `Sonar (Mark System Revision)` are different recordings
+contradicts a chain of joins through a newer upload, the-hifi-junglist's
+`Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a`. The upload
+lines up with the original over 100% with 2,858 hits, and with the
+revision over 99% but with only 406 hits (1.1 per second; the median
+join has 17.5). I clustered the run's own pairs again with
+`--cut-sparsest`, which cut the sparse upload ~ revision join, as session
+10 did; this departs from the plan written at the start, which expected
+the stop to end the step. No verdict was written; the pair is question 5
+of tonight's listening file.
+
+| NAS clusters | Session 18 (2026-10-14) | Now |
+|---|--:|--:|
+| Clusters | 271 | 281 |
+| Files in clusters (NAS files) | 886 (632) | 961 (699) |
+| Pairs measured | 2,147 | 2,593 |
+
+- The 17 corpus clusters are the same. 75 files joined their recordings:
+  59 uploads stored between the two runs (the-hifi-junglist's Aphrodite
+  12-inches, the Wormhole tracks, React's Drum&BassArena disc 2 and
+  others), 6 from the index run tonight (easy-t-dnb and weedsurfer), 8
+  corpus files that had no rip in a cluster before (seven Wormhole tracks
+  and Fortran - Splinter, each with its VRS 001 upload) and 2 older NAS
+  files that a new upload joined. No file left a cluster (`1.mp3` was in
+  none), and no cluster split or merged: none of the 17 new `different`
+  verdicts falls inside an old cluster.
+- The margin between joined and not joined narrowed: the weakest joined
+  pair is still Known Unknown's Rollers Edit ~ Drumtrip at 80.3%; the
+  strongest pair left apart without a verdict was 56.4% (a Fire pair)
+  and is now 74.2% (Aphrodite's Stalker 12-inch against V2's album
+  version, question 1 below).
+- Clustering queried 22 files of the shared-material panel's validation
+  half as cluster members (21 of them in session 18's run too), which the
+  rules allow; no panel run touched that half.
+
+### Sessions 20 and 21 scored again (experiment 0121)
+
+The old reports scored under the new clusters, before any new run:
+
+- The 9 wrong confident answers of the three development mixes at NAS
+  scale (0115, 0119) were all newer uploads the old clusters had not
+  joined: weedsurfer's Phoenix, Trace & Fresh's Mutated on U-PUNK-001
+  and five of the hifi-junglist's Drum&BassArena disc 2 uploads. Under
+  the new clusters each is the right track; 0 wrong.
+- Session 21's rendered mixes: the 43 "other" confident plays per run
+  were the newer uploads, now right, except Kemal - Animation (Silent
+  Extent Remix) over a drawn play of the original (question 6). The 87
+  wrong related plays (Fire 67, Pyro 9, Sonar's revision 9, Dozer 2)
+  do not depend on the clusters.
+- Session 20's panel (0111, 106 of 218 queries wrong confident) and the
+  diagnostic (0112) do not change: no recording of the development half
+  gains a file.
+
+### The runs at the new revision (experiment 0122)
+
+All runs were 3 to 6 times slower than in earlier sessions (session 20's
+`shared` took 32 minutes, tonight's 112) for a reason I did not find;
+memory was free and no other process used much CPU. So the
+36 rendered mixes of session 21 were not run again (they would have
+ended near noon), nor the follow-up with other rips; the three
+development mixes ran alone.
+
+- The three development mixes: 40 of 40 tracks, 0 wrong; with every track left out,
+  0 of 40 and 0 wrong. Four tracks are also found through files the
+  index run stored tonight (Decoy, Dominion, Descent's Phuncatek Remix,
+  Horns 2000), and `1.mp3`'s possible play over Cannibal is gone.
+- The panel's development half: every outcome as before, 106 of 218
+  wrong confident.
+- So the library changed little; tonight's differences come from the
+  clusters.
+
+### The ambiguity note (experiment 0123)
+
+The note, defined before any count (the brief, committed at 02:43): a
+confident play gets `(shares this passage with: Artist - Title)` when,
+for each of its confident segments, another indexed file outside its
+own recording holds that part of the file with 60 hits or more. The
+criteria, both required: at most 1 in 20 true plays of the three development mixes
+flagged, and at least half of the rendered mixes' wrong related plays.
+
+| Criterion | Flagged | Required | |
+|---|--:|--:|---|
+| True plays in the three development mixes | 15 of 108 (13.9%) | 5% at most | fails |
+| Wrong related plays in the rendered mixes (session 21's run) | 61 of 87 (70%) | half at least | passes |
+
+So by the rule written first, the note is not worth proposing: it would
+mark about one true play in seven in the development mixes. The 15 are six tracks
+(counted once per file that played), and each names a real different
+version, never a missed rip:
+
+- Clockwork (3 files): Stakka's remix; Star Trails (3): the Synergy Remix;
+  Phantom Force (2): Fracture's Astrophonica Edit (and Phantom 2018); We R
+  The Ones VIP (2): the Klute Remix. `pair` lines them up over 4-54% of
+  the shorter file.
+- Stab 2 Def (4 files): Mampi Swift - 2000, which was described by ear as the
+  same music with another EQ and arrangement (22%).
+- Omni Trio - Artificial Life (Harp Tune): Secret Life (Silent Storm
+  Remix) (4%).
+
+On the wrong side, the note flags Fire's family only, where a third
+version is indexed; for Dozer, Pyro and Sonar the only other holder of
+the passage is the played record itself, which the runs leave out, so
+the wrong play carries no note. In session 20's panel the same split
+holds: 58 of 106 wrong confident queries flagged, all Fire's, and every
+one of the 75 right plays of the positive control is flagged too.
+
+The three tracklists as they would read with the note are still being
+computed at the time of writing; see the end of this section.
+
+### Listening questions
+
+`work/audition/s23/01-s23-pack.json` (pack `work/audition/s23/pack/`):
+
+1. Aphrodite - Stalker, the 12-inch (APH029 B) against V2's 1999 album
+   version: 74% coverage, below the 80% that joins.
+2. Aphrodite - Dark Dark Side (APH-28 B1) against Style From The Dark
+   Side '99 (V2): 63%.
+3. Aphrodite - Tower Bass (Millennium Mix, APH31 B) against the 1997
+   Tower Bass on Lacerba's JumpUpThrowDown: 48%. The corpus file
+   `A. aphrodite - wobble.mp3` is in the Millennium Mix's cluster, so
+   the corpus file's name and the upload's disagree about which side it is.
+4. The PRO 012 A upload against the corpus Sonar.
+5. The same upload against the Mark System Revision (the cut join).
+6. Kemal - Animation (Silent Extent Remix) against the corpus original
+   (session 21's question).
+
+Open it with `gunfinger-eval audition work/audition/s23/01-s23-pack.json`.
+
+### A proposed second shared-material panel
+
+`docs/panels/shared-material-2-seed-2026.json`, drawn from the
+`different` verdicts outside the frozen panel's families, split by seed
+2026 and frozen before any search: development Phantom Force, Star
+Trails, We R The Ones; validation Killa Bees, Stab 2 Def, Tsunami.
+Four of the six families are played in the development mixes (the file
+lists which), Stab 2 Def's among them although it falls in the
+validation half; whether that half should stay blind to those mixes is
+our call. Nothing was searched; passages are cut when the development
+half is run.
+
+### What else to know
+
+- Nothing touched the held-out test set, the candidate mixes of 0065 or
+  either validation half (no panel run, score or detection). Clustering
+  queried 22 files of the shared-material panel's validation half as
+  cluster members, as before.
+- The NAS was only read and the peak store only searched; its revision
+  at the end is TODO (`d71ba5333cff9a34` after the index run).
+  `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` hold only
+  the answers given by ear.
+- `identify` with the NAS configuration rebuilt its saved index in
+  `~/.cache/gunfinger/indexes/` (it held 38,104 files, the store 39,354),
+  as the next `identify` would have.
+- The slow runs: tonight's processes retired about as many CPU cycles
+  per run as session 22's but took 3-6 times as long. Changing their
+  scheduling priority and restarting one through `launchd` did not help.
+  The `gunfinger` binary is byte-identical to session 22's, so the code
+  is not the cause; I did not find what is.
+- A review by a separate agent found that my first count of the
+  clusters' margin and of the bounds in 0121 were wrong, and that a
+  holder lookup could silently ignore a misspelt file to leave out; both
+  are fixed (the harness now refuses such a lookup, with a test).

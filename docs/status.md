@@ -3386,3 +3386,21 @@ the session.
   new revision (40 min, 5.5 GB), 108 true plays credited by the new scans
   (4 more than 0121, through files stored tonight). Experiment 0122
   written. `identify` of the three mixes started.
+- 10:05-10:20 step 5 (experiment 0123): criterion 1 fails (15 of 108
+  true plays of the development mixes flagged, 13.9% against 5%),
+  criterion 2 passes (61 of 87 wrong related plays, 70%, from step 3);
+  not worth proposing by the rule written first. The 15 are 6 tracks,
+  each naming a remix, edit or close version (`pair` 3.7-54.4%);
+  `ambiguity_note.py flagged` added. `identify` of the three mixes done
+  (10:04-10:18; it rebuilt the saved index in `~/.cache`, which
+  held 38,104 files); the tracklists' holder lookups (101) still ran at
+  11:10. From about 10:30 other processes on the machine
+  kept load averages at 150-200; left alone.
+- 10:51 `check.sh`: the first attempt put a missing `~/.cargo/bin` first
+  on PATH (so Homebrew's toolchain ran); the second, with Homebrew's
+  rustup first but no `RUSTUP_TOOLCHAIN`, began installing rustup's
+  `stable` (1.99.1), and stopping it left a partial toolchain that
+  `rustup toolchain list` completed. `stable` was uninstalled again;
+  `~/.rustup/toolchains/` holds only 1.98.0, as before. The check now
+  runs as AGENTS.md says (`RUSTUP_TOOLCHAIN=1.98.0`), then with
+  Homebrew's, at `nice 19`.

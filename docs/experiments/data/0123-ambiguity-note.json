@@ -1,0 +1,379 @@
+{
+ "pre-registration": "docs/brief-23.md (0afceb5, 02:43) and the decisions of 09:25",
+ "criterion 1": {
+  "source": "step 4: shared-mixes of the three development mixes at d71ba5333cff9a34, second sample credited by the new verified scans",
+  "true plays": 108,
+  "flagged": 15,
+  "unknown": 0,
+  "required": "at most 5%"
+ },
+ "criterion 2": {
+  "source": "step 3: session 21 shared-mixes-s21 report (b285da9984422fb5) under the new clusters",
+  "wrong related plays": 87,
+  "flagged": 61,
+  "unknown": 0,
+  "required": "at least half"
+ },
+ "flagged true plays": [
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Skynet & Stakka - Clockwork.mp3",
+   "start": 1052.0795703125,
+   "end": 1316.71722265625,
+   "value": 76,
+   "holder": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "names": [
+    [
+     "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     76
+    ],
+    [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     76
+    ]
+   ],
+   "pair": {
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": null,
+    "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
+     "coverage": 0.0367,
+     "hits": 98
+    }
+   }
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "start": 1052.0795703125,
+   "end": 1316.71722265625,
+   "value": 76,
+   "holder": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "names": [
+    [
+     "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     76
+    ],
+    [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     76
+    ]
+   ],
+   "pair": {
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": null,
+    "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
+     "coverage": 0.0367,
+     "hits": 98
+    }
+   }
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "start": 1060.6465859375,
+   "end": 1317.1446875,
+   "value": 67,
+   "holder": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "names": [
+    [
+     "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     67
+    ],
+    [
+     "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+     67
+    ]
+   ],
+   "pair": {
+    "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": null,
+    "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3": {
+     "coverage": 0.0368,
+     "hits": 100
+    }
+   }
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "start": 583.4537734375,
+   "end": 799.6589453125,
+   "value": 103,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     103
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a": {
+     "coverage": 0.207,
+     "hits": 118
+    }
+   }
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "Kemal & Rob Data - Star Trails.mp3",
+   "start": 585.0673515625,
+   "end": 803.73090625,
+   "value": 96,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     96
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a": {
+     "coverage": 0.1951,
+     "hits": 112
+    }
+   }
+  },
+  {
+   "set": "stakka-skynet-knowledge",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+   "start": 585.0673515625,
+   "end": 803.73090625,
+   "value": 96,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     96
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a": {
+     "coverage": 0.1951,
+     "hits": 112
+    }
+   }
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+   "start": 648.994640625,
+   "end": 906.253328125,
+   "value": 70,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     85
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     70
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": {
+     "coverage": 0.0735,
+     "hits": 98
+    },
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a": {
+     "coverage": 0.1145,
+     "hits": 106
+    }
+   }
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+   "start": 1753.861640625,
+   "end": 1958.100234375,
+   "value": 125,
+   "holder": "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3",
+   "names": [
+    [
+     "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3",
+     125
+    ]
+   ],
+   "pair": {
+    "second-library/[SHADOW 155] - [2001] - Omni Trio - Lucid (The Amalgamation Of Soundz Remix)/02 - Omni Trio - Secret Life (Silent Storm Remix).mp3": {
+     "coverage": 0.0444,
+     "hits": 76
+    }
+   }
+  },
+  {
+   "set": "razorjack-2003-03-29",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "start": 715.785775390625,
+   "end": 908.64866796875,
+   "value": 115,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     115
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     61
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": {
+     "coverage": 0.0908,
+     "hits": 141
+    },
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a": null
+   }
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3",
+   "start": 3041.58476953125,
+   "end": 3366.32923046875,
+   "value": 137,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     137
+    ],
+    [
+     "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     116
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus": {
+     "coverage": 0.1382,
+     "hits": 105
+    },
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": null
+   }
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "start": 3041.2021015625,
+   "end": 3366.332421875,
+   "value": 123,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     123
+    ],
+    [
+     "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     100
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus": {
+     "coverage": 0.1152,
+     "hits": 108
+    },
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": null
+   }
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "start": 2673.00876171875,
+   "end": 2939.749888671875,
+   "value": 310,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     310
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a": {
+     "coverage": 0.2226,
+     "hits": 787
+    }
+   }
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/blade-the_kraft-bld002-2000-sour/aa-the_kraft-stab_2_def-sour.mp3",
+   "start": 2673.00876171875,
+   "end": 2939.749888671875,
+   "value": 310,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     310
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a": {
+     "coverage": 0.2226,
+     "hits": 787
+    }
+   }
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/dfect-dnb/The Kraft - Stab 2 Def.m4a",
+   "start": 2673.679703125,
+   "end": 2939.7499140625,
+   "value": 295,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     295
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a": {
+     "coverage": 0.2224,
+     "hits": 684
+    }
+   }
+  },
+  {
+   "set": "nocny-trans-vertical-2002-08-23",
+   "asset": "second-library/__youtube_archivists/i-witness-dnb/The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+   "start": 2673.68817578125,
+   "end": 2939.7498671875,
+   "value": 319,
+   "holder": "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+   "names": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a",
+     319
+    ]
+   ],
+   "pair": {
+    "second-library/__youtube_archivists/i-witness-dnb/Mampi Swift - 2000.m4a": {
+     "coverage": 0.2194,
+     "hits": 631
+    }
+   }
+  }
+ ],
+ "beside": {
+  "panel main case": {
+   "queries": 218,
+   "wrong confident": 106,
+   "wrong queries with every wrong play flagged": 58
+  },
+  "positive control right plays": {
+   "plays": 75,
+   "flagged": 75
+  },
+  "rendered true plays (step 3)": {
+   "plays": 495,
+   "flagged known": 17,
+   "unknown": 104
+  },
+  "0118 true plays (step 3)": {
+   "plays": 292,
+   "flagged known": 18,
+   "unknown": 33
+  },
+  "exploratory (c)+(a1) under 6.276, development mixes rejected": 0
+ }
+}

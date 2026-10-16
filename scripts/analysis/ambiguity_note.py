@@ -19,6 +19,12 @@ usage:
       the panel's queries by session 20's oracle under CLUSTERS
       (shared_outcomes.py --clusters), and each confident play of the
       main case and the positive control with the note's value.
+  ambiguity_note.py flagged PANEL CLUSTERS REPORT SCORE OUT OUT_PAIRS
+      the flagged true plays of the development mixes (`shared_mixes.py
+      score`'s second sample, SCORE, from the `shared-mixes` REPORT of its
+      runs): each with every file at 60 hits or more outside its own
+      recording over its confident segments, and those (file, holder)
+      pairs as a `pair` list (OUT_PAIRS) for the categories.
   ambiguity_note.py tracklists PANEL CLUSTERS LIBRARY_MAP TAGS HOLDERS OUT SET=REPORT=TRACKLIST...
       the default tracklist `identify` printed for each report
       (TRACKLIST), each entry with the note it would carry (entries
@@ -362,7 +368,45 @@ def tracklists(panel_path, clusters_path, map_path, tags_path, holders_path, out
     dump(out, out_path)
 
 
+def flagged(panel_path, clusters_path, report_path, score_path, out_path, pairs_path):
+    own_of = own_index(clusters_path, load(panel_path))
+    runs = {run["name"]: run for run in load(report_path)["runs"]}
+    out, pairs = [], set()
+    for play in load(score_path)["second"]:
+        values = play["values"]
+        if values["c unknown"] or values["c"] < MARKED_HITS:
+            continue
+        own = own_of(play["asset"])
+        names = {}
+        for d in runs[play["set"]]["detections"]:
+            if (d["asset"] != play["asset"] or d["start_seconds"] < play["start"] - 1e-6
+                    or d["end_seconds"] > play["end"] + 1e-6 or not confident(d)):
+                continue
+            # A report from before session 23 keeps only the strongest holder.
+            for h in d.get("holders", [d["holder"]] if d.get("holder") else []):
+                if h["asset"] not in own and h["hits"] >= MARKED_HITS:
+                    names[h["asset"]] = max(names.get(h["asset"], 0), h["hits"])
+        named = sorted(names.items(), key=lambda item: -item[1])
+        out.append({"set": play["set"], "asset": play["asset"], "start": play["start"],
+                    "end": play["end"], "value": values["c"], "holder": values["c holder"],
+                    "names": named})
+        pairs |= {(play["asset"], name) for name, _ in named}
+    dump(out, out_path)
+    with open(pairs_path, "w", encoding="utf-8") as file:
+        for a, b in sorted(pairs):
+            file.write(f"{a}\t{b}\n")
+    print(f"{len(out)} flagged true plays, {len(pairs)} pairs")
+    for f in out:
+        print(f"  {f['set'][:12]} {f['start'] / 60:5.1f} min  {f['asset'][-55:]}  {f['value']}  "
+              + "; ".join(f"{n[-45:]} {h}" for n, h in f["names"]))
+
+
+def confident(d):
+    rule = 240 if d.get("fitted") else 200
+    return d["hits"] >= rule and d["windows"] >= 3
+
+
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
     {"lookups-shared": lookups_shared, "lookups-identify": lookups_identify,
-     "panel": panel, "tracklists": tracklists}[command](*arguments)
+     "panel": panel, "flagged": flagged, "tracklists": tracklists}[command](*arguments)
