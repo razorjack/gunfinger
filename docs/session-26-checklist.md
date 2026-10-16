@@ -33,8 +33,10 @@ for scope and rules.
   committed before any evaluation run
 - [x] 5b. E1 and E2 against the criteria (E1 9 of 108: fails; E2 45 of
   87: passes); every rejected true play with why; experiment 0134
-- [ ] 5c. Side sets, deciding nothing: the second panel's development
-  half, E2's true drawn plays and positive control
+- [x] 5c. Side sets, deciding nothing: the second panel's development
+  half (0 of 5 rejected, 4 unmeasured; 78 of 78 kept; experiment 0135),
+  E2's true drawn plays (18 of 480) and positive control (0 of 15) in
+  0134
 
 ## Wrap-up
 

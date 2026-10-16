@@ -370,3 +370,22 @@ siblings, the renderer, the mix decoder.
   nothing: version 1's band rules on version 2's lines with T by the
   same rule (0.112) give E1 0 of 108 and E2 36 of 87. No further run on
   E1 or E2.
+
+## Step 5c: the side set (23:49 run; written at 00:02)
+
+- The second panel's development half (`work/s26/runs/panel-2.json`,
+  83 plays, 14 s, no errors), deciding nothing: 0 of 5 wrong plays
+  rejected (4 unmeasured: every knot a stray, as Phantom 2018 repeats
+  the shared material), 78 of 78 positives kept (the Klute Remix rip in
+  the 240 s loop measured 324 ms off and kept). Experiment 0135. E2's
+  drawn plays (18 of 480 rejected) and positive control (0 of 15) are in
+  0134.
+- Coverage (patches tested, version 2 against version 1 on the same
+  plays): calibration 91% and 96%, E1 92%, E2 wrong related 78% (13
+  plays under half), drawn 98%, control 93%; the second panel's wrong
+  plays 2%, its positives 96%.
+- The session is ahead of its plan (step 5 done at about 00:05 against
+  04:45). No further run of the verifier on E1, E2 or the second panel
+  is allowed (step 3), and the prompt plans no other experiment, so the
+  review starts once the notes are drafted, and the session ends after
+  its fixes and the wrap-up checks.
