@@ -159,3 +159,151 @@ GRADLE_USER_HOME=<worktree>/work/panako/gradle-home ./gradlew --no-daemon shadow
   the comparison in 5 are not run. What the session does instead stays
   within the prompt: the pre-registration (step 3), so that a later run
   is mechanical, and Gunfinger's side of the comparison.
+
+## Step 3: the pre-registration (written at 19:50, before any count)
+
+Fixed now, for the run that follows once we decide on step 2.
+Nothing may be added after a Panako count is seen; anything computed
+later and not named here is exploratory and decides nothing. Nothing of
+Panako's goes into the repository or the product.
+
+### Panako's configuration
+
+- The defaults are those of `resources/defaults/config.properties` at
+  `f1248f7` (the file `./gradlew install` copies to `~/.panako`), with
+  one choice the prompt makes: `STRATEGY=PANAKO`, the speed-invariant
+  algorithm (that file's own default is `OLAF`, its Wang-style one).
+  Its acceptance, unchanged: `PANAKO_MIN_HITS_UNFILTERED=10`,
+  `PANAKO_MIN_HITS_FILTERED=5`, `PANAKO_MIN_SEC_WITH_MATCH=0.2`,
+  `PANAKO_MIN_MATCH_DURATION=3`, time and frequency factors within
+  0.8-1.2, `NUMBER_OF_QUERY_RESULTS=1000`.
+- Only paths change: `PANAKO_LMDB_FOLDER` and `PANAKO_CACHE_FOLDER`
+  under `work/panako/` (one LMDB folder per index below; one shared
+  cache of prints), given as `KEY=VALUE` arguments, and Panako's
+  `config.properties`, if it must exist, in a `work/` folder if Panako
+  can be pointed there; otherwise `~/.panako` is recorded and deleted at
+  the end. JVM options as in its startup script
+  (`resources/defaults/panako`: the two `--add-opens`, `-Xms256m
+  -Xmx256m`); `AVAILABLE_PROCESSORS` at its default 1. If a run fails
+  for lack of heap, it is rerun once with `-Xmx2g` and that is written
+  down. Neither changes what is matched.
+- Files are stored and queried by absolute path; a match path is mapped
+  back to the library-relative name by removing the library root. After
+  the first index: 262 distinct identifiers (`panako stats`), or the
+  collisions are listed and their files' answers excluded from every
+  count, for both systems.
+
+### The indexes
+
+- **Library**: the 262 files `gunfinger-eval` indexes by default (the
+  main checkout's `corpus/library`, the default extensions, the peak
+  store's records); the list is written to `work/panako/library.txt`
+  and checked against the clusters file's members before any query.
+- **I-all**: all 262 (step 4a; its time, memory and size are the cost
+  measurements). For the three development mixes.
+- **I-seed-N**, N = 2026-2029: the library minus the seed's held-out
+  recordings (`docs/panels/sweep-seed-N.json`'s `held_out`, each
+  extended to its duplicate cluster, as `Plan::for_seed` does), stored
+  from the cached prints into its own LMDB folder. For the sweep and,
+  for seed 2026, the generated mixes (as `mixes::sweep_index`).
+- **I-stakka-out** (optional, after the rest): the library minus the
+  clusters of every `stakka-skynet-knowledge` reference, the equivalent
+  of Gunfinger's `--leave-out 11` (a run with no right answer: every
+  confident answer in it is wrong).
+- Clusters: `work/reports/duplicate-clusters.json` in the main checkout
+  (the 262-track clusters, 17 clusters of 37 files), the harness's.
+
+### The queries
+
+- **Sweep**, seed 2026 first, then 2027-2029: the 720 renders in the
+  main checkout's `work/sweep/seed-N/` (`NNN-+S.mp3`: draw NNN of the
+  panel, indexed draws first, at S% speed; 30 s; 128 kbit/s MP3), with
+  `panako query`. Truth from the panel: render time t holds file time
+  `start_seconds + (1 + S/100) t` (`render::render_excerpt`).
+- **Development mixes**, each whole, against I-all:
+  `stakka-skynet-knowledge`, `razorjack-2003-03-29`,
+  `nocny-trans-vertical-2002-08-23` (the manifests' `audio` files in the
+  main checkout's `corpus/sets/`), with `panako monitor` at its default
+  step and overlap, the documented mode for long audio. Beside it,
+  deciding nothing: `panako query` on the whole file.
+- **If time allows**: the 12 generated mixes of seed 2026 (the main
+  checkout's `work/mixes/seed-2026/`, truth in `mix-NN.truth.json`)
+  against I-seed-2026, with `monitor`; then I-stakka-out. The `robust`
+  renders only after their conditions and report are named here first.
+
+### What a Panako answer is, and how it is scored
+
+- Panako prints a result only when it passes its acceptance; with the
+  defaults above, **every printed result is a confident answer**.
+  Panako has no possible tier, so Gunfinger's possible plays stay out
+  of the comparison (scored apart, as ADR 0006 does).
+- Its fields (README): query start and stop, match path, match start
+  and stop (seconds in the reference), score (matching fingerprints),
+  time factor, frequency factor, share of seconds with a match. The
+  **time factor is Gunfinger's speed**: the query plays the reference
+  at that ratio, so query time q holds reference time
+  `match_start + time_factor (q - query_start)`, Gunfinger's
+  `track_start + speed (t - start)`. On turntable renders the frequency
+  factor should equal it; it is reported, never used to score. A
+  "No match" line, or a query with no line, is no answer.
+- **Sweep** (`sweep::speed_row`, `devscore.rescore_queries`): an answer
+  is right when its file is in the query's own cluster, wrong
+  otherwise, held-out queries included; recall per speed is the share of
+  the 60 indexed queries with at least one right answer; wrong answers
+  are counted per answer, as the harness counts them. The harness checks
+  neither speed nor start in the sweep. Beside it, deciding nothing,
+  per right answer: the speed error `time_factor - (1 + S/100)` in
+  percentage points (the harness's `mean/max_speed_error_percent`), and
+  the start error `match_start - (start_seconds + (1 + S/100)
+  query_start)` in seconds. A right answer with a start error beyond
+  +-3 s or a speed error beyond +-1 point is listed as "right file,
+  other position" and counted again without it, as a stricter recall.
+- **Development mixes** (`scoring::score`, `devscore.score_scan`):
+  each monitor result is a detection over its span of mix time (its
+  window's offset plus its query start and stop, unless the output
+  already gives mix time: checked on the first result of the first
+  mix, a format check, not a tuning step). A referenced track is
+  identified when a detection of a reference or a cluster member
+  overlaps the window from 90 s before its start to 90 s after the next
+  track's start; every other detection is wrong. References under
+  `second-library/` are set aside, as at 262 tracks. **Boundaries**:
+  per identified track, the earliest start of its credited detections
+  minus the manifest's start, for `stakka-skynet-knowledge` and
+  `nocny-trans-vertical-2002-08-23`, and for `razorjack-2003-03-29`
+  track 4 only (AGENTS.md).
+- **Generated mixes** (`mixes::score`): a detection matches a play when
+  its file is in the play's cluster and it overlaps the play's audible
+  span; a play is found when a detection matches it; detections
+  matching no play are wrong; position error as `position_error_seconds`.
+
+### One change of configuration, chosen on the sweep only
+
+- If Panako's defaults give wrong answers on seed 2026's sweep, one
+  stricter acceptance is chosen there and nowhere else: S* = 1 + the
+  highest score of any wrong answer of seed 2026 (indexed and held-out
+  queries). Every panel is then reported at the defaults and at S*
+  (results with score >= S*), side by side. A filter on the printed
+  score equals raising `PANAKO_MIN_HITS_FILTERED` if the score is the
+  filtered count (unverified: read in the output, not the code). No
+  other knob; nothing is chosen on the development or generated mixes.
+
+### What is compared with Gunfinger
+
+- Gunfinger's answers on the same queries from its saved reports, read
+  only (the main checkout's `work/baselines/session-24-start/` and
+  `work/reports/`), checked in step 4 against the current build where
+  older than today's `regress`. Gunfinger's confident detections only.
+- Per panel, side by side: recall per speed, wrong answers, speed error
+  (and Panako's start error; the sweep reports hold no start for
+  Gunfinger); tracks identified, wrong and boundaries per mix; the
+  generated mixes' plays found and wrong; the queries one system answers
+  rightly and the other does not, by name; every wrong answer with its
+  cause where it can be named (a duplicate rip outside the clusters, a
+  remix or VIP sharing material, an unrelated file).
+- Cost, each run alone at `nice -n 10`, with the load average beside
+  it: wall, user and system CPU and maximum resident memory from
+  `/usr/bin/time -l`; index size as `du -sk` of the LMDB folder and of
+  the cache of prints, apart. Gunfinger's beside them: the peak store's
+  size and `gunfinger stats` for the index; its index and query times
+  from a run on the same machine where one exists. Times are rough
+  and only differences of several times are read.

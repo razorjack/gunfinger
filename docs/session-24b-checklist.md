@@ -18,7 +18,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   `work/panako/`; **build blocked**: its wrapper's Gradle 7.2 cannot
   run on Java 21. What it needs is in the brief; the Panako part stops
   (our rule)
-- [ ] 3. Pre-registration in experiment 0130, for a later run
+- [x] 3. Pre-registration in the brief and experiment 0130, for a later run
 - [-] 4a-d. Panako's index and queries: not run (step 2)
 - [ ] 4. Gunfinger's side: its answers on the comparison's queries from
   the saved reports; check the older saved reports against the current
