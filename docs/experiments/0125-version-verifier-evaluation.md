@@ -25,9 +25,9 @@ to render 8 references (WAV behind an ID3 tag); fixed in
 - Rejected E1 plays (S1 1.0, 0.59, 0.49, 0.48, 0.26; next 0.089): Phantom
   Force (2003 mix); both Kontempt rips, Auto Ignition, Pathogen (Stakka
   & Skynet). 36-98% of their patches have no anchor and about half have
-  the lag pinned at +-48 ms (kept true plays: median 0): the line drifts
-  past the lag window over 3-7 min segments. No bass kill, blend or cut
-  stands out (an inference from the timelines).
+  the lag pinned at +-48 ms (kept true plays: median 0): their lines lie
+  98-193 ms off (0127, exploratory). No bass kill, blend or cut stands
+  out (an inference from the timelines).
 - Positive control: the 3 rejections are the PRO 012 A Sonar upload
   against the corpus original (S1 0.49-0.57, 40% pinned), the pair of
   open listening questions 4-5. Drawn: two Astro-Sine rips (S1 0.12-0.16)
@@ -35,6 +35,6 @@ to render 8 references (WAV behind an ID3 tag); fixed in
 
 **Conclusion.** Not worth pursuing as built, by the rule written first:
 E1 holds (5 of 108), E2 misses by one (43 of 87); each margin is one
-play. It rejects only Fire's wrong plays (their basslines differ), never
-Dozer's, Pyro's or Sonar's; its true-play rejections come from timing
-drift, not DJ processing.
+play. In E2 it rejects only Fire's wrong plays (low bands), none of
+Dozer's, Pyro's or Sonar's; its true-play rejections coincide with lines
+98-193 ms off (0127), not with DJ processing.

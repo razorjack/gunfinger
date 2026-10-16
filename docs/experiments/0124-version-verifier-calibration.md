@@ -26,15 +26,15 @@ queries, 75 positives), `versions` 67 s, no errors; `data/0124-*`.
 
 - **T = 0.1210**: half the negatives, no positive. By family: Dozer 13 of
   16, Fire 144 of 248, Pyro 0 of 32, Sonar 0 of 16 (median S1 0.007 and
-  0: their passages play the same content).
+  0; the same content along the line, an inference).
 - Negatives' low bands (39-246 Hz): 22.8% contradicted, 9.1% killed,
   17.2% masked; mid and high 82-89% supported (the shared drums).
   Positives: 96-99.5% supported in every group. The rejections come from
-  basslines; a patch is contradicted only when the low bands' count
-  reaches half its supported bands.
+  the low bands (basslines, an inference); a patch is contradicted
+  only when the low bands' count reaches half its supported bands.
 - S2 undefined for 230 negatives and 54 positives (every patch held by a
   sibling); S3 median 0 s for both. Neither decides.
 
 **Conclusion.** On clean renders the verifier separates: T = 0.121
 rejects half of the wrong plays and no positive control; Pyro's and
-Sonar's are never contradicted. 0125 tests T on real true plays.
+Sonar's are never rejected. 0125 tests T on real true plays.

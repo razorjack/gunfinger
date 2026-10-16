@@ -579,4 +579,35 @@ mod tests {
         assert!((frequency - 525.0).abs() < 5.0, "{frequency}");
         std::fs::remove_dir_all(&dir).ok();
     }
+
+    #[test]
+    fn a_line_into_the_file_puts_its_onset_where_the_line_says() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-versions-onset-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let file = dir.join("onset.wav");
+        let generated = std::process::Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("aevalsrc=if(gte(t\\,3)\\,sin(2*PI*500*t)\\,0):s=8000:d=8")
+            .arg(&file)
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        // File time 2 s is heard at mix time 20 s, 5% fast; the excerpt
+        // starts at 19 s, file time 0.95 s, and the tone's onset at file
+        // time 3 s falls 1 s + 1 / 1.05 s into it.
+        let line = segment(20.0, 24.0, 2.0, 1.05);
+        let clock = Clock::around(&line);
+
+        let rendered = on_the_mix_clock(&file, &line, &clock).unwrap();
+
+        let onset = ((1.0 + 1.0 / 1.05) * 8000.0_f64).round() as usize;
+        let loud = |samples: &[f32]| samples.iter().any(|x| x.abs() > 0.1);
+        assert!(!loud(&rendered[onset - 2000..onset - 40]));
+        assert!(loud(&rendered[onset + 40..onset + 400]));
+        std::fs::remove_dir_all(&dir).ok();
+    }
 }

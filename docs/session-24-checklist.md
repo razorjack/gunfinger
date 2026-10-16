@@ -36,7 +36,8 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] 8. Read-only review by a subagent from 03:30 at the latest; fixes
+- [x] 8. Read-only review by a subagent from 03:30 at the latest; fixes
+  (19:59-20:12; ten findings, all addressed; four tests added)
 - [~] Notes "Session 24" with the handoff for session 25, status,
   checklist, roadmap (written; the review's fixes and the final checks
   to add)

@@ -477,3 +477,49 @@ Jungle Massive 2), the panel's passages unchanged.
   verifier variant was run on E1 or E2 (it would make them tuning sets);
   this is in the handoff for session 25. `lagprobe.py`'s onset-based
   numbers above are superseded by these.
+
+## Step 8: the review (19:59-20:12) and its fixes (to 20:25)
+
+A read-only subagent reviewed everything since `53d4136`. It found the
+code as designed (step 3 with both amendments), the time arithmetic and
+the T rule right, the scripts building the split as written, and every
+number it checked matching the data; the product diff empty, the
+experiment files at 40 lines, no paths in the docs' JSON, no em dashes.
+Its findings and what was done:
+
+1. The line's role stated as fact: kept plays are as far off (Kraken -
+   Dominion's opus 122 ms, S1 0.027; 89 of 104 plays within 48 ms by
+   the worst excerpt). Fixed in 0125, 0127, the notes, roadmap and
+   status: an inference, with the counterexamples.
+2. Dozer and Pyro described wrongly (13 of 16 Dozer plays rejected on
+   the panel; 18 of 32 Pyro plays have a contradicted patch, so "never
+   rejected", not "never contradicted"); "same content" marked as an
+   inference. Fixed.
+3. The Astro-Sine mechanism: the six lowest bands are contradicted by
+   `r < 0.2` (residuals -1 to -11 dB), not because masking blocked the
+   kill rule. Fixed; a test documents the case. The notes now describe
+   contradiction by both rules (about half of all contradicted bands
+   come from `r < 0.2`: 139,117 against 136,634 on the panel's
+   negatives) and the shelf-shaped kills.
+4. Ad hoc numbers not recorded: 0127's data now holds them (Phantom
+   Force's 8 excerpts, Kontempt's anchors, the uploads' local speeds,
+   the corpus rips, Astro-Sine's bands); Pathogen's drift is 0.27%, not
+   0.2%; the method string says which points the medians use.
+5. "Handled as designed" overstated: now "no rejection traced to a kill
+   or a blend".
+6. The gain model barely tested: added a high cut taken up by the high
+   group's gain (at its -40 dB bound), a mid cut, another record's bass
+   under a bass cut, and a render whose line starts inside the file;
+   the EQ'd-copy test now checks the fitted gains (-16, -10, -7 dB). The
+   first version of the high-cut test expected killed bands; the hats'
+   bands keep the other drums' leakage on the same beat, so the group
+   gain takes the cut, as designed, and the test says so. All 21 pass.
+7. 0125 pointed to drift: now points to 0127.
+8. AGENTS.md deletes a losing experiment: `versions` kept as a harness
+   diagnostic (as the peak verifier), the decision and the deletion list
+   written in the session notes.
+9. `render_excerpt` lacks the ID3-WAV handling: a handoff line (changing
+   it could change `regress`).
+10. Nits: the cost's load (about 30) stated; the patch time's frame
+    convention (about 56 ms) and `track_end_seconds` in the handoff; the
+    amendments' commit order stated in the notes.

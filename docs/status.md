@@ -3482,10 +3482,23 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
   differences under the shared material; attenuation is absorbed; a cut
   to a record whose drums line up reads as contradiction for a true rip.
 - 19:54 exploratory (0127, `version_lines.py`): the five rejected E1
-  plays lie 98-193 ms from their reported lines (95 of 104 plays within
-  48 ms): the line is anchored on the opening window (`refine.rs`), and
-  alien5ive's uploads drift in speed within a play. In E2, Do Drop In's
-  damaged MP3 frames put the store's decode 235 ms from FFmpeg's seek;
-  Astro-Sine's rejections are a bass cut in a blend. No verifier variant
-  was run on E1 or E2.
+  plays lie 98-193 ms from their reported lines (excerpt medians; 95 of
+  104 plays within 48 ms, and some kept plays as far off): the line is
+  anchored on the opening window (`refine.rs`), and alien5ive's uploads
+  drift in speed within a play. In E2, Do Drop In's damaged MP3 frames
+  put the store's decode 235 ms from FFmpeg's seek; Astro-Sine's
+  rejections are another record's bass near the predicted level under a
+  bass cut. No verifier variant was run on E1 or E2.
 - Notes "Session 24" with the handoff for session 25.
+- 19:59-20:12 review by a read-only subagent. It found the code as
+  designed, the time arithmetic and the T rule right and the numbers
+  matching the data. Fixed: the line's role marked as an inference with
+  the kept counterexamples (Dominion 122 ms, S1 0.027; 89 of 104 within
+  48 ms by the worst excerpt); the Astro-Sine mechanism (the `r < 0.2`
+  rule, not masking); 0127's ad hoc measurements recorded in its data;
+  Dozer (13 of 16 rejected on the panel) and Pyro ("never rejected")
+  described as the data say; 0124 and 0125 point to 0127; the notes
+  describe the contradiction and kill rules as built; the decision to
+  keep `versions` in the tree written down. Four tests added and the
+  EQ'd-copy test now checks the fitted gains (21 tests in `versions`,
+  all passing; no code change).

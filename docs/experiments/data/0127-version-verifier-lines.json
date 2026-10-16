@@ -1,5 +1,5 @@
 {
- "method": "scripts/analysis/version_lines.py, 3 excerpts of 25 s per segment, points with >= 50 hits and |offset| < 1 s",
+ "method": "scripts/analysis/version_lines.py: 25 s excerpts, 3 per segment, identified against the reference's record alone; every point is listed; a play's median uses the points with >= 50 hits and |offset| < 1 s (the others are matches elsewhere in the file). Offsets in mix ms, positive: the audio plays later than the reported line says.",
  "summary": {
   "plays": 108,
   "with a local line": 104,
@@ -2608,7 +2608,261 @@
     -8.6,
     -18.4
    ],
-   "contradicted patches": "486-488 s, during the render's bass cut (until 488.5 s)"
+   "contradicted patches": "486-488 s, during the render's bass cut (until 488.5 s): the outgoing record's bass at about the predicted level, its dynamics not the reference's"
+  }
+ },
+ "ad hoc": {
+  "Digital & Spirit - Phantom Force.m4a, 2003-03-29": {
+   "8 excerpts of 25 s from 716-880 s: excerpt line minus reported line, file ms, at t": [
+    [
+     732.0,
+     -141.6
+    ],
+    [
+     742.4,
+     -145.4
+    ],
+    [
+     762.4,
+     -144.1
+    ],
+    [
+     792.2,
+     -143.6
+    ],
+    [
+     822.4,
+     -146.5
+    ],
+    [
+     852.2,
+     -144.9
+    ],
+    [
+     882.4,
+     -145.1
+    ],
+    [
+     892.2,
+     -146.8
+    ]
+   ],
+   "the same in mix ms (divided by speed 1.0596)": [
+    133.6,
+    137.2,
+    136.0,
+    135.5,
+    138.3,
+    136.7,
+    136.9,
+    138.5
+   ],
+   "local speeds": [
+    1.06,
+    1.0596,
+    1.0598,
+    1.0598,
+    1.0595,
+    1.0596,
+    1.0595,
+    1.0595
+   ],
+   "reported segment": {
+    "start": 715.79,
+    "end": 908.65,
+    "track start": 128.9051,
+    "speed": 1.05965
+   },
+   "excerpts from 700 s (215 s), 690 s (100 s) and the whole mix": "the reported segment, 0 ms",
+   "excerpts from 650, 600 and 400 s": "two segments: 653.6-722.8 s at +256 ms from the reported line (file time) and 723.5-908.6 s at -145.7 ms",
+   "version_lines.py, 4 places, 3 found: audio minus line ms": [
+    133.2,
+    136.8,
+    137.9
+   ]
+  },
+  "Kemal & Paul Reset - Kontempt.mp3, Knowledge": {
+   "reported segment": {
+    "start": 1863.55,
+    "end": 2281.17,
+    "track start": 7.5385,
+    "speed": 1.02934
+   },
+   "excerpt start (s): its segment's start and track start minus the reported line's, file ms": [
+    [
+     1700,
+     1863.55,
+     0.0
+    ],
+    [
+     1800,
+     1863.55,
+     0.0
+    ],
+    [
+     1855,
+     1866.04,
+     8.3
+    ],
+    [
+     1880,
+     1881.56,
+     66.6
+    ],
+    [
+     1900,
+     1900.27,
+     129.9
+    ],
+    [
+     0,
+     1863.55,
+     0.0
+    ]
+   ],
+   "version_lines.py, 4 places, 2 found: t, audio minus line ms": [
+    [
+     2006.8,
+     -164.9
+    ],
+    [
+     2137.6,
+     -157.7
+    ]
+   ]
+  },
+  "ABPR011 Auto Ignition (alien5ive upload), Knowledge": {
+   "reported speed": 0.99723,
+   "version_lines.py, 4 places, 4 found: t, local speed, audio minus line ms": [
+    [
+     2996.3,
+     1.00056,
+     -29.1
+    ],
+    [
+     3113.7,
+     0.99845,
+     -250.0
+    ],
+    [
+     3231.0,
+     0.99663,
+     -293.0
+    ],
+    [
+     3348.3,
+     0.99522,
+     -98.4
+    ]
+   ]
+  },
+  "udfr017 Kontempt (alien5ive upload), Knowledge": {
+   "reported speed": 0.98338,
+   "version_lines.py, 4 places, 3 found: t, local speed, audio minus line ms": [
+    [
+     1902.2,
+     0.988,
+     -34.6
+    ],
+    [
+     2025.1,
+     0.98429,
+     -333.5
+    ],
+    [
+     2147.5,
+     0.98247,
+     -293.8
+    ]
+   ]
+  },
+  "ABPR 014 Pathogen (alien5ive upload), Knowledge": {
+   "reported speed": 0.97742,
+   "version_lines.py, 5 places, 3 found: t, local speed, audio minus line ms": [
+    [
+     928.1,
+     0.97834,
+     -82.0
+    ],
+    [
+     976.0,
+     0.97683,
+     -146.7
+    ],
+    [
+     1024.1,
+     0.97572,
+     -94.2
+    ]
+   ]
+  },
+  "Stakka & K.Tee - Auto Ignition.mp3 (corpus), Knowledge, same mix times": {
+   "version_lines.py, 5 places, 5 found: t, local speed, audio minus line ms": [
+    [
+     2999.2,
+     1.01338,
+     1.0
+    ],
+    [
+     3086.7,
+     1.0133,
+     -9.8
+    ],
+    [
+     3174.4,
+     1.01346,
+     -12.2
+    ],
+    [
+     3261.8,
+     1.01337,
+     -11.8
+    ],
+    [
+     3349.1,
+     1.01339,
+     -5.8
+    ]
+   ]
+  },
+  "Skynet & Stakka - Pathogen.mp3 (corpus), Knowledge, same mix times": {
+   "version_lines.py, 5 places, 4 found: t, local speed, audio minus line ms": [
+    [
+     874.8,
+     1.01547,
+     -1.0
+    ],
+    [
+     924.7,
+     1.01553,
+     22.0
+    ],
+    [
+     973.9,
+     1.01557,
+     -8.1
+    ],
+    [
+     1023.3,
+     1.01543,
+     12.1
+    ]
+   ]
+  },
+  "Astro-Sine, seed-2101-dozer-1, the 8 contradicted patches (486.06-487.85 s)": {
+   "bands 0-5": "contradicted by correlation < 0.2 (r -0.27 to 0.26), residuals -1.0 to -11.0 dB",
+   "bands 6-8": "masked (+2 to +16 dB)",
+   "group gains": "-12.8 to -15.6 dB"
+  },
+  "contradicted bands by rule (deficit under -10 dB; correlation under 0.2)": {
+   "calibration negatives": [
+    136634,
+    139117
+   ],
+   "E2 wrong related": [
+    50022,
+    48015
+   ]
   }
  }
 }

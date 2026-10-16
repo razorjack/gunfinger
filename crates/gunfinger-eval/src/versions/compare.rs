@@ -726,6 +726,15 @@ mod tests {
 
         assert_eq!(count(&patches, PatchState::Contradicted), 0);
         assert!(count(&patches, PatchState::Supported) as f64 >= 0.95 * patches.len() as f64);
+        // The fitted gains are the EQ's: -16, -10 and -7 dB.
+        for (group, expected) in [-16.0, -10.0, -7.0].into_iter().enumerate() {
+            let gains = patches
+                .iter()
+                .filter_map(|patch| patch.gains[group])
+                .collect();
+            let gain = median(gains).unwrap();
+            assert!((gain - expected).abs() < 1.0, "group {group}: {gain}");
+        }
     }
 
     #[test]
@@ -740,6 +749,71 @@ mod tests {
         assert_eq!(band_count(&patches, BandState::Contradicted, 0..8), 0);
         assert!(band_count(&patches, BandState::Killed, 0..8) > 0);
         assert!(count(&patches, PatchState::Supported) as f64 >= 0.9 * patches.len() as f64);
+    }
+
+    /// The hi-hats go, but the high bands keep the other drums' leakage
+    /// on the same beat, so they stay anchors and the high group's gain
+    /// takes the cut, down to its bound 40 dB under the play's typical
+    /// gain; the other groups keep theirs.
+    #[test]
+    fn a_high_cut_is_taken_up_by_the_high_groups_gain() {
+        let parts = track('a');
+        let reference = flat(&parts);
+        let mix = render(&parts, [1.0, 1.0, 0.0]);
+
+        let patches = judged(&mix, &reference);
+
+        assert_eq!(count(&patches, PatchState::Contradicted), 0);
+        assert_eq!(band_count(&patches, BandState::Contradicted, 18..20), 0);
+        for patch in &patches {
+            let [low, mid, high] = patch.gains.map(Option::unwrap);
+            assert!(low.abs() < 1.0 && mid.abs() < 1.0, "{low} {mid}");
+            assert!((-40.5..-20.0).contains(&high), "{high}");
+        }
+    }
+
+    #[test]
+    fn a_mid_cut_leaves_the_mid_bands_unobservable_not_contradicted() {
+        let parts = track('a');
+        let reference = flat(&parts);
+        let mix = render(&parts, [1.0, 0.0, 1.0]);
+
+        let patches = judged(&mix, &reference);
+
+        assert_eq!(count(&patches, PatchState::Contradicted), 0);
+        assert!(band_count(&patches, BandState::Killed, 8..18) > 0);
+    }
+
+    /// A limitation found in the rendered mixes (experiment 0127): with
+    /// the incoming record's bass cut, the outgoing record's bass fills
+    /// the low bands at about the level the gain fit predicts, so the
+    /// bands are neither short nor masked, and their dynamics, not the
+    /// reference's, read as contradiction.
+    #[test]
+    fn another_records_bass_under_a_bass_cut_reads_as_contradicted() {
+        let parts = track('a');
+        let reference = flat(&parts);
+        let mut other_bass: Vec<(Part, Group)> = track('b')
+            .into_iter()
+            .filter(|(_, group)| *group == Group::Low)
+            .collect();
+        for (part, _) in &mut other_bass {
+            for hit in &mut part.hits {
+                *hit += 0.11;
+            }
+        }
+        let cut = render(&parts, [0.0, 1.0, 1.0]);
+        let mix: Vec<f32> = cut
+            .iter()
+            .zip(&flat(&other_bass))
+            .map(|(a, b)| a + b)
+            .collect();
+
+        let patches = judged(&mix, &reference);
+
+        let contradicted = band_count(&patches, BandState::Contradicted, 0..8);
+        assert!(contradicted > band_count(&patches, BandState::Killed, 0..8));
+        assert!(count(&patches, PatchState::Contradicted) > 0);
     }
 
     #[test]

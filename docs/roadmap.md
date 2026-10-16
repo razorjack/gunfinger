@@ -564,13 +564,16 @@ marked as inferences were derived, not measured.
   another, supported / contradicted / unobservable patches), threshold
   set on the panel's development half, criteria written first: E1 5 of
   108 true plays rejected (passes at the limit), E2 43 of 87 wrong
-  related plays (fails by one). It rejects only Fire's wrong plays
-  (basslines under shared drums); Pyro's and Sonar's play the same
-  content along the line. Every E1 rejection comes from the line, not
-  DJ processing: the reported line is anchored on the opening window and
-  some uploads drift in speed, 98-193 ms off. A continuation needs its
-  own line from the audio, then fresh calibration; it needs the
-  reference audio, so not for `--store-only` (ADR 0003).
+  related plays (fails by one). In the rendered mixes it rejects only
+  Fire's wrong plays (the low bands under matching drums); Pyro's and
+  Sonar's are never rejected (the same content along the line, an
+  inference). Every rejected E1 play has its reported line 98-193 ms
+  off (anchored on the opening window, or an upload drifting in speed);
+  that this is the cause is an inference, since some kept plays are as
+  far off. A continuation needs its own line from the audio, then fresh
+  calibration; it needs the reference audio, so not for `--store-only`
+  (ADR 0003). Kept in the tree as a harness diagnostic until we
+  decide.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away
