@@ -12,7 +12,8 @@ usage:
       leave-out).
   ambiguity_note.py lookups-identify LIBRARY_MAP OUT SET=REPORT...
       the same for every confident segment of the confident plays of
-      `identify -f json` reports, everything indexed. A NAS file that a
+      `identify -f json` reports, in the index `identify` searched (the
+      corpus files without a NAS copy left out). A NAS file that a
       corpus file stands for is looked up as that corpus file.
   ambiguity_note.py panel PANEL CLUSTERS SHARED_REPORT HOLDERS OUT
       the panel's queries by session 20's oracle under CLUSTERS
@@ -124,6 +125,9 @@ def printed_lines(pairs):
 
 def lookups_identify(map_path, out_path, *pairs):
     named = harness_names(map_path)
+    # `identify` indexed the NAS store alone: the corpus files without a
+    # copy there are left out, so `holders` searches the same files.
+    without_copy = sorted(load(map_path)["without_copy"])
     lookups = []
     for set_name, report in set_reports(pairs):
         for play in report["plays"]:
@@ -139,6 +143,7 @@ def lookups_identify(map_path, out_path, *pairs):
                     "asset": asset,
                     "track_start_seconds": segment["track_start_seconds"],
                     "track_end_seconds": segment["track_end_seconds"],
+                    "left_out": without_copy,
                 })
     dump(lookups, out_path)
     print(f"{len(lookups)} lookups")

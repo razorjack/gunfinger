@@ -174,6 +174,25 @@ finished run may overlap the next heavy run; heavy runs never overlap.
   second, against 2,858 at 100% for upload ~ original), as session 10 did.
   `pair` agrees with the cut (upload ~ revision 56.8%). No verdict is
   written; the cut is a listening question.
+- **(09:25) Step 4c shrinks, before any count of step 5's criteria.**
+  Tonight's runs take 3-6 times as long as before (`shared` 112 min
+  against 32), so session 21's 36 rendered mixes would end near noon.
+  They are stopped and not re-run, and the rips plan is dropped. A plan
+  with only the three development mixes (`work/s23/shared-mixes-dev.json`:
+  session 21's plan without seeds or played files) runs at the new
+  revision for criterion 1. Criterion 2, the rendered true plays and
+  0118's variant come from step 3's re-score of session 21's report
+  (old revision, new clusters), as the pre-registration's fallback says;
+  none of the 87 wrong related plays has an unknown value there.
+- **(09:25) Two readings of the pre-registration, fixed before counting.**
+  The tracklists' lookups leave out the 15 corpus files without a NAS
+  copy, so `holders` searches the index `identify` searched (the NAS
+  store; corpus files stand for their copies). A note may name a file
+  of the entry's own title outside the play's recording: the definition
+  does not exclude it, so such plays count as flagged, and they are
+  listed apart. The panel's plays are formed from detections at least
+  possible, as defined; the count at 08:47 formed them from confident
+  detections only, and both are reported.
 
 ## Step 5's pre-registration: the ambiguity note (written at 02:50, before any count under the fresh clusters)
 
