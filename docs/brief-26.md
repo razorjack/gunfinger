@@ -137,3 +137,170 @@ never overlap.
 - **(23:30) The speed check.** As in sessions 24 and 25, `baseline`
   only copies reports, so `regress session-26-start` with the start's
   binaries is the speed check (above).
+- **(23:31) The merge** (`2eee100`, a merge commit of `3a1420a`): two
+  conflicts, `docs/session-notes.md` and `docs/status.md`, both
+  sections appended at the end on each side; resolved by keeping every
+  section whole in the order the sessions started (24 at 18:40, 24b at
+  19:06, 25 at 20:44). The merged files hold every line of both sides
+  (the merge adds exactly the branch's 1,346 lines, 2 changed). The
+  roadmap and `devscore.py` (a `corpus` parameter with the old default)
+  merged without conflict. 0130 and 0131 keep their numbers, so 24b's
+  status note on renumbering no longer applies. No file under `crates/`,
+  `Cargo.toml` or `Cargo.lock` changed; the release build after the
+  merge is byte-identical to the start's (`work/bin/s26-merge/`).
+  `regress session-26-start` with it (23:30-23:32): identical (720/720
+  sweep queries, all 87, 93 and 79 scan detections, the calibrate line
+  known since session 8), 155.2 s.
+
+## Step 3: version 2's design and pre-registration (written at 23:35, before any run of version 2)
+
+Everything below is fixed before version 2 runs on any calibration,
+evaluation or side-set play. Nothing may be added after a count is seen;
+anything computed later and not named here is exploratory and decides
+nothing. Nothing here changes the product; adopting anything is our
+decision.
+
+### What changes from version 1, and why
+
+Version 1 is `docs/brief-24.md`, step 3 with its two amendments.
+Version 2 changes two things and nothing else.
+
+**1. The line is measured from the audio.** Version 1 compares each
+play along its reported segments' lines. 0127 found that line 98-193 ms
+from the audio for all five rejected E1 plays (the opening-window
+anchor; uploads whose speed drifts within a play), and 0132's rejected
+positive 313-327 ms off where a play opens just before a loop point.
+Version 2 measures each reported segment's line from the reference's
+own hash hits over the segment's body:
+
+- *Hits.* The mix excerpt the segment is compared on (its span and 1 s
+  either side, as version 1 decodes it) is analysed as turntable
+  playback at the segment's reported speed (`Rung::points`), and its
+  hashes are looked up in an index of the reference's peak record alone
+  (from the store, as `held_spans` loads records). Each posting is a hit:
+  a mix time and a file time. Only hits inside the segment's span count.
+- *Knots.* The segment is cut into 10 s windows of mix time from its
+  start (the matcher's window). In each, the densest run of hits whose
+  deviations from the reported line lie within 2 frames (32 ms; the
+  matcher's line span), at any deviation, ties to the smaller absolute
+  deviation, is a *knot* when it holds at least 10 hits (the matcher's
+  `STRONG_LINE_HITS`): its mix time is the mean of its hits' mix times,
+  its file time the reported line there plus the run's mean deviation;
+  it keeps its first and last hit's mix times.
+- *Stretches and jumps.* Knots in time order form stretches: a knot
+  joins the current stretch when its deviation is within `0.02 x dt +
+  2 frames` of the previous knot's (dt: their mix-time distance; 2% is a
+  generous pitch ride, 2 frames the measurement's spread); otherwise the
+  material jumped (a loop, a needle drop, the other alignment of 0127's
+  Phantom Force, 0.4 s away) and a new stretch starts. A stretch of one
+  knot in a segment with more knots is a *stray* and is dropped: one
+  window cannot tell a short jump from a chance or repeated-section
+  alignment. A segment's only knot is kept.
+- *Pieces.* A stretch's line is the fewest straight pieces through its
+  knots that keep every knot within 1 frame (16 ms) of its piece: the
+  chord from the first to the last knot, split at the knot farthest
+  from it while any knot is farther than 1 frame, each part fitted the
+  same way (Ramer-Douglas-Peucker). A piece's speed is its chord's
+  slope; a lone knot's piece takes the reported speed. This follows a
+  speed that drifts (piecewise constant speed, continuous line) without
+  a model of the drift.
+- *Span.* A stretch is tested from its first knot's first hit to its
+  last knot's last hit; the stretch's first piece starts there and its
+  last piece ends there. Between stretches (around a jump) and outside
+  the knots' hits nothing is tested: a line is never extrapolated past
+  the reference's own hits. Between knots of a stretch the pieces
+  interpolate, so stretches where hashes are silent (a blend, a kill)
+  are tested, which is the verifier's purpose.
+- *Comparison.* Each piece is verified exactly as version 1 verifies a
+  segment: the reference rendered at the piece's speed from the store's
+  timeline (`render_samples_as_indexed`), the mix's excerpt (cut from
+  the segment's decoded excerpt), patches wholly inside the piece, one
+  lag within +-48 ms per patch. The typical gains are the play's, over
+  all its pieces.
+- *No measurable line.* A segment without a knot, or with strays only,
+  is not tested. A play with no tested patch has S1 undefined and is
+  *unmeasured*: it decides nothing. It is not rejected, and it is
+  counted apart from the plays kept with an S1, so an unmeasured true
+  play is not claimed as supported and an unmeasured wrong play does not
+  count as rejected.
+- *Held spans* (S2, S3; deciding nothing) are searched over the tested
+  pieces' file span, 10 s wider each side, as version 1 over its
+  segments'.
+
+**2. A band is contradicted only where its EQ group demonstrably passes
+the reference.** In E2's Astro-Sine plays (0127) the incoming record's
+bass was cut while the outgoing record's bass filled the six lowest
+bands near the level the gain fit predicted; their dynamics were not the
+reference's, so `r < 0.2` made them contradicted. Those patches had no
+anchor in the low group: its gain was borrowed (the patch's broadband
+gain plus the play's typical offset of the group), so nothing showed the
+group open. Version 2: when a band's EQ group has no anchor in the patch
+(no band of the group with `r >= 0.6`), a band of that group that is not
+supported is *killed* when its residual is under -10 dB and *masked*
+otherwise, never contradicted. In a group with an anchor every rule is
+version 1's. So another record's material under a cut reads as masked,
+a cut group as killed, and a contradiction needs the reference's own
+material passing the same group of the mixer: a missing bassline under a
+kick that plays is still contradicted.
+
+Reported beside, deciding nothing: each patch's state as version 1's
+band rules would judge it on the same line (`state_v1_rules`), so the
+two changes' shares can be told apart without another run.
+
+Everything else is version 1's: bands, groups, patches, dynamics,
+informative and salient, anchors, folds, gains and bounds, the other
+band rules and their order, the patch rule, silence, S1, S2, S3,
+siblings, the renderer, the mix decoder.
+
+### The split, T and the criteria
+
+- **The plays** are session 24's and 25's files unchanged, siblings
+  included, so version 1 and version 2 are measured on identical plays:
+  calibration `work/s24/plays/calibration.json` (312 negatives, 75
+  positives), E1 `work/s24/plays/e1.json` (108), E2
+  `work/s24/plays/e2.json` (87 wrong related, 480 true drawn, 15
+  positive control), the second panel `work/s25/plays/panel-2.json` (5
+  negatives, 78 positives). The calibration negatives come from 0122's
+  run under 0120's clusters, which score it identically under 0128's.
+- **Calibration**: the first panel's development half only. T by
+  version 1's rule: the negatives' S1 sorted from highest, undefined
+  lowest, T is the `ceil(n/2)`-th; if that is 0 or undefined, the
+  smallest S1 above 0 and "does not reach half". Reported beside: the
+  positives kept at T (under 95%: "does not separate"; E1 and E2 run at
+  T anyway). T is committed before any evaluation run.
+- **Evaluation, a second use, declared now.** E1 and E2 were used for
+  version 1 (session 24: 5 of 108 and 43 of 87), and their failures
+  shaped version 2: the line answers the five E1 rejections that 0127
+  traced on E1's own audio, the group rule answers an E2 drawn play's
+  rejection (Astro-Sine). The criteria are version 1's, both required:
+  **E1**, at most 5 of the 108 true plays rejected (S1 >= T); **E2**, at
+  least 44 of the 87 wrong related plays rejected. Unmeasured plays are
+  not rejected in either set.
+- **What a pass would and would not show.** A pass on this second use is
+  weaker evidence than a pass on session 24's first use would have been:
+  version 2 was designed knowing which E1 plays failed and why, so a
+  pass shows that it removes those failures without losing the wrong
+  plays' rejections, not that it keeps true plays it has never seen. A
+  first use needs real mixes no verifier has seen, with tracklists
+  checked by ear (they cannot be added by a session), and wrong
+  related plays from families never used to design or calibrate.
+- **Beside, deciding nothing**: E2's true drawn plays and positive
+  control rejected at T; the second panel's development half (5
+  negatives, 78 positives) at T; per set, S1 quantiles, unmeasured plays,
+  S1 with version 1's band rules on version 2's line; the measured
+  lines' offsets from the reported ones (median of each play's knots),
+  stretches, strays and pieces; every play whose decision differs from
+  version 1's (session 24's and 25's runs at their T) and, for every E1
+  play still rejected, why, read from its timeline and line (as session
+  24 did), marked as an inference.
+- **One run of version 2 per set.** No variant runs on E1, E2 or the
+  second panel. A defect that stops plays from being read (as session
+  24's render defect) is fixed and every set rerun, both runs reported.
+- **Expected before the data**, written so it cannot be claimed later:
+  the five E1 plays and the second panel's rejected positive have lines
+  off by 98-327 ms and should be kept; Phantom Force's first window may
+  form a stray. The group rule lowers contradiction where a low group
+  has no anchor, in wrong plays too, so T may fall and E2's count may
+  fall with it; Fire's wrong plays keep the kick in the low group, so
+  most of their contradictions should stay. Dozer's, Pyro's and Sonar's
+  wrong plays should stay unrejected (the same content along the line).

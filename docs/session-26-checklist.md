@@ -17,12 +17,12 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 2. Merge `s24b-panako` with a merge commit; notes, status and
+- [x] 2. Merge `s24b-panako` with a merge commit (`2eee100`); notes, status and
   roadmap kept whole and in time order; experiments 0130 and 0131 keep
   their numbers; `docs/brief-24b.md` in CLAUDE.md's list; `regress
-  session-26-start` identical after the merge; worktree, its `work/` and
-  the branch left in place
-- [ ] 3. Version 2's design and pre-registration (the measured line, the
+  session-26-start` identical after the merge (155.2 s); worktree, its
+  `work/` and the branch left in place
+- [x] 3. Version 2's design and pre-registration (the measured line, the
   kill rule in blends, the split, T's rule, the criteria, the second
   use); experiment 0133's first part; committed before any run
 - [ ] 4. Implementation in `gunfinger-eval versions` with unit tests (a
