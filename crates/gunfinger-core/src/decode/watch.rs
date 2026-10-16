@@ -192,7 +192,15 @@ mod tests {
     use super::*;
     use crate::decode::{DecodeError, Decoder, Excerpt, read_all};
 
-    const STALL: Duration = Duration::from_millis(500);
+    /// The stall timeout of runs meant to stall: long enough for what
+    /// comes before the silence (the first bytes read on a thread, the
+    /// child started) on a heavily loaded machine (a load average
+    /// of 250), and short enough to keep the tests quick.
+    const STALL: Duration = Duration::from_secs(2);
+
+    /// The stall timeout of runs meant to finish, which only a real stall
+    /// reaches: under heavy load a stand-in can take seconds to start.
+    const PATIENT: Duration = Duration::from_secs(60);
 
     /// A folder of its own for each test, so tests in parallel never share
     /// a stand-in program; `PATH` is left alone.
@@ -220,9 +228,10 @@ mod tests {
         }
     }
 
-    /// Whether process `pid` still runs, asked for up to 2 s.
+    /// Whether process `pid` still runs, asked for up to 30 s: under heavy
+    /// load a killed child can take seconds to exit and be reaped.
     fn still_runs(pid: &str) -> bool {
-        for _ in 0..200 {
+        for _ in 0..3000 {
             let alive = Command::new("kill")
                 .args(["-0", pid])
                 .stderr(Stdio::null())
@@ -246,7 +255,7 @@ mod tests {
         let hangs = stand_in(
             &dir,
             "ffmpeg",
-            &format!("echo $$ > '{}'\nexec sleep 30", pid.display()),
+            &format!("echo $$ > '{}'\nexec sleep 120", pid.display()),
         );
         let started = Instant::now();
 
@@ -254,8 +263,9 @@ mod tests {
             .decode(&audio, 8000, Excerpt::default())
             .unwrap_err();
 
+        // Stopped, not waited for.
         assert!(
-            started.elapsed() < Duration::from_secs(5),
+            started.elapsed() < Duration::from_secs(60),
             "{:?}",
             started.elapsed()
         );
@@ -273,7 +283,7 @@ mod tests {
         let message = error.to_string();
         assert!(
             message.contains(
-                "on-a-hung-share.mp3 could not be read: nothing came from `ffmpeg` for 0.5 s"
+                "on-a-hung-share.mp3 could not be read: nothing came from `ffmpeg` for 2 s"
             ),
             "{message}"
         );
@@ -290,36 +300,41 @@ mod tests {
         let dir = scratch("slow");
         let audio = dir.join("slow.mp3");
         fs::write(&audio, b"ID3").unwrap();
-        // One sample every 0.2 s for 2.8 s in all: longer than the stall
-        // timeout, never silent for as long.
+        // One sample every 0.1 s, 40 in all: at least 4 s, longer than the
+        // stall timeout, and silent for a thirtieth of it at a time, so
+        // heavy load can stretch each gap thirtyfold.
         let slow = stand_in(
             &dir,
             "ffmpeg",
-            "for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14; do printf '\\000\\000\\200\\077'; sleep 0.2; done",
+            "i=0; while [ $i -lt 40 ]; do printf '\\000\\000\\200\\077'; sleep 0.1; i=$((i + 1)); done",
         );
-        let patient = Decoder {
-            stall: Duration::from_secs(2),
+        let watched = Decoder {
+            stall: Duration::from_secs(3),
             ..decoder(slow.clone(), slow)
         };
+        let started = Instant::now();
 
-        let audio = patient.decode(&audio, 8000, Excerpt::default()).unwrap();
+        let audio = watched.decode(&audio, 8000, Excerpt::default()).unwrap();
 
-        assert_eq!(audio.samples, [1.0; 14]);
+        assert_eq!(audio.samples, [1.0; 40]);
+        assert!(started.elapsed() > watched.stall, "{:?}", started.elapsed());
         let _ = fs::remove_dir_all(&dir);
     }
 
     #[test]
     fn a_child_that_writes_only_diagnostics_is_still_running() {
         let dir = scratch("diagnostics");
-        // Silent on stdout for 2.8 s, more than twice the stall timeout,
-        // while it writes to stderr.
+        // Silent on stdout for at least 4 s, longer than the stall timeout,
+        // while it writes to stderr every 0.1 s.
         let chatty = stand_in(
             &dir,
             "chatty",
-            "for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14; do echo 'damaged frame' >&2; sleep 0.2; done\nprintf done",
+            "i=0; while [ $i -lt 40 ]; do echo 'damaged frame' >&2; sleep 0.1; i=$((i + 1)); done\nprintf done",
         );
+        let stall = Duration::from_secs(3);
+        let started = Instant::now();
 
-        let run = run(&mut Command::new(chatty), Duration::from_secs(1), read_all).unwrap();
+        let run = run(&mut Command::new(chatty), stall, read_all).unwrap();
 
         let Run::Finished {
             output,
@@ -331,7 +346,8 @@ mod tests {
         };
         assert_eq!(output.unwrap(), b"done");
         assert!(status.success());
-        assert_eq!(diagnostics.lines().count(), 14, "{diagnostics}");
+        assert_eq!(diagnostics.lines().count(), 40, "{diagnostics}");
+        assert!(started.elapsed() > stall, "{:?}", started.elapsed());
         let _ = fs::remove_dir_all(&dir);
     }
 
@@ -340,11 +356,15 @@ mod tests {
         let dir = scratch("probe");
         let audio = dir.join("tune.m4a");
         fs::write(&audio, b"....ftyp").unwrap();
-        let hangs = stand_in(&dir, "ffprobe", "exec sleep 30");
+        let hangs = stand_in(&dir, "ffprobe", "exec sleep 120");
         let fails = stand_in(&dir, "fails", "exit 1");
+        let patient = Decoder {
+            stall: PATIENT,
+            ..decoder(fails.clone(), fails)
+        };
 
         let stalled = decoder(hangs.clone(), hangs).probe(&audio);
-        let unreadable = decoder(fails.clone(), fails).probe(&audio);
+        let unreadable = patient.probe(&audio);
 
         assert!(
             matches!(
@@ -363,7 +383,7 @@ mod tests {
     #[test]
     fn a_child_that_closes_its_output_but_does_not_exit_is_stopped() {
         let dir = scratch("lingers");
-        let lingers = stand_in(&dir, "lingers", "exec >&- 2>&-\nexec sleep 30");
+        let lingers = stand_in(&dir, "lingers", "exec >&- 2>&-\nexec sleep 120");
 
         let run = run(&mut Command::new(lingers), STALL, read_all).unwrap();
 
@@ -377,7 +397,7 @@ mod tests {
             thread::sleep(Duration::from_secs(2));
         })
         .unwrap();
-        let quick = within(Duration::from_secs(2), || 42).unwrap();
+        let quick = within(PATIENT, || 42).unwrap();
 
         assert_eq!(slow, None);
         assert_eq!(quick, Some(42));

@@ -252,3 +252,21 @@ decides anything about the product.
   stretch is not known before the run. The passages are shorter than
   the first panel's (15-62 s, 108-195 hits, from `pair` at 21:10), so
   fewer wrong confident queries than 0111's 106 of 218 are expected.
+- **(21:37) Step 3a, the `decode::watch` tests.** The six tests used
+  0.5-1 s stall timeouts both for runs meant to stall and for runs meant
+  to finish; under load a stand-in meant to finish (`exit 1`, or a loop
+  writing every 0.2 s) can miss them. Test code only: runs meant to
+  stall use 2 s (time for the first bytes' thread and the child's start
+  under load); runs meant to finish use 60 s (`PATIENT`); the two tests
+  of silence write every 0.1 s for 40 writes against a 3 s timeout (a
+  thirtyfold margin per gap) and now assert that the run outlasted the
+  timeout, so they still test what they claim; stand-ins sleep 120 s and
+  the killed child is awaited up to 30 s. No defect in the watcher was
+  found. Under load (`work/s25/watch/`): 250 busy loops, 6 rounds (load
+  94-216) and 15 rounds (262-330); 250 loops of which 100 spawn
+  `/usr/bin/true` without pause, 12 rounds (249-276); 10 cycles that
+  fork 250 loops and run both at once (168-222). The old tests failed in
+  1 of 43 rounds (round 1 of the first run, while the loops were being
+  forked: the diagnostics test and the probe test, session 23's
+  failures); the new ones in none. The module takes 5.3 s instead of 3.6
+  s on an idle machine.
