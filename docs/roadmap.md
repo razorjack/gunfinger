@@ -591,7 +591,17 @@ marked as inferences were derived, not measured.
   line from the audio) few fresh wrong plays to be evaluated on.
   The harness's renderer for `versions` and `identifiability` now
   counts a start on the decoded timeline (`render_samples_as_indexed`),
-  as the peak store was built.
+  as the peak store was built. *(session 26, experiments 0133-0135)*
+  Version 2 measures each play's line from the reference's own hits
+  (stretches split at jumps, pieces for drift) and contradicts a band
+  only in an EQ group with an anchor. Criteria as version 1's, on a
+  declared second use: E1 9 of 108 true plays rejected (fails), E2 45 of
+  87 (passes). The line keeps four of version 1's five rejected true
+  plays; the group rule spares the wrong plays as much as the true ones,
+  so T falls to 0.0068 and blends crossing an EQ crossover reject true
+  plays. A version 3 (the line, another treatment of crossover leakage,
+  knots chosen with continuity) needs a first-use set: new real mixes
+  with checked tracklists.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away

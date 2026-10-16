@@ -3650,3 +3650,47 @@ touched.
   records, `fed26c76b8fe89ea`, as at the start; listening files unchanged.
 - About 23:00 end, four and a half hours early: every step done (brief,
   22:19). `s24b-panako` untouched.
+
+## 2026-10-16: session 26, session 24b merged; the version verifier's version 2
+
+Brief `docs/brief-26.md`, checklist `docs/session-26-checklist.md`.
+
+- 23:22 start; `git status` clean at `0aa1dea`. NAS store 40,126
+  records, `fed26c76b8fe89ea`. Start build `work/bin/s26-start/`
+  (byte-identical to `s25-final`); `baseline session-26-start` copies
+  reports (0.24 s), so `regress session-26-start` was the speed check:
+  identical, 153.9 s.
+- 23:30 `s24b-panako` merged (`2eee100`, a merge commit): notes and
+  status conflicted (both appended at the end); every section kept
+  whole in the order the sessions started (24, 24b, 25); 0130 and 0131
+  keep their numbers; `docs/brief-24b.md` in CLAUDE.md's list. No code
+  changed; `regress` after the merge identical (155.2 s). The worktree
+  and branch stay.
+- 23:33 version 2 pre-registered (brief, step 3): each reported
+  segment's line measured from the reference's own hits (10 s windows'
+  densest runs as knots, stretches split at jumps, lone knots dropped as
+  strays, chords within 16 ms for drift, tested only between hits); a
+  band contradicted only in an EQ group with an anchor; T by version 1's
+  rule; E1 and E2 declared a second use, version 1's criteria.
+- 23:41 step 4: `versions/line.rs`, `versions.rs` (pieces compared as
+  version 1 compares segments), `versions/compare.rs` (the group rule;
+  version 1's band rules beside); tests for a line 150 ms off, a
+  drifting copy, a jump, a stray, no line, and another record's bass
+  under a bass cut (now masked, not contradicted); `version_plays.py`
+  (unmeasured plays, `changes`, `data`). Smoke run on two calibration
+  plays.
+- 23:44 calibration (0133): T = 0.00683 (version 1: 0.121); 156 of 312
+  wrong plays rejected, 72 of 75 positives kept. The group rule lowered
+  the wrong plays' S1 as much as the true plays' (median 0.112 to
+  0.007). Committed before evaluation.
+- 23:49 evaluation (0134): E1 9 of 108 true plays rejected (limit 5:
+  fails), E2 45 of 87 wrong related plays (44 required: passes); drawn
+  18 of 480, control 0 of 15. Not worth pursuing as built. The line
+  keeps four of version 1's five rejected true plays; the nine rejected
+  now are blends of four tracks where another record's sound crosses
+  an EQ crossover into an anchored group. Exploratory: version 1's band
+  rules on version 2's lines (T 0.112) give E1 0 of 108, E2 36 of 87.
+- 23:50 side set (0135, deciding nothing): the second panel's wrong
+  plays 0 of 5 rejected (4 unmeasured: Phantom 2018 repeats the shared
+  material, every knot a stray), positives 78 of 78 kept.
+- Notes "Session 26" with the handoff; roadmap.

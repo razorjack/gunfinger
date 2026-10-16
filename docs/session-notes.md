@@ -5666,3 +5666,182 @@ Session 23's six questions in `work/audition/s23/` are still open.
   Scratch data: `work/s25/` (1.8 GB, mostly the clone of the report
   folder), `work/shared/shared-material-2-seed-2026-development-*` (182
   MB of rendered queries).
+
+## Session 26
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. The session merged session 24b's Panako branch into
+`master` and built and measured version 2 of the diagnostic version
+verifier, which measures each play's line from the audio instead of
+taking the reported one.
+
+In short: by the rule written first, version 2 is not worth pursuing as
+built. It rejected 9 of the 108 true plays (the limit was 5) and 45 of
+the 87 wrong related plays in the rendered mixes (44 were required). Its
+measured line works: four of version 1's five rejected true plays are
+now kept (Phantom Force and the three alien5ive uploads), and so is the
+second panel's one false rejection. Its second change, a rule that
+contradicts a band only where its EQ group demonstrably passes the
+record, removed most of the wrong plays' contradictions as well, so the
+threshold fell from 0.121 to 0.0068; at that threshold, blends in which
+another record's sound reaches across an EQ crossover reject nine true
+plays of four tracks. A check made after the counts, deciding nothing:
+the measured line with version 1's band rules would have rejected none
+of the 108 true plays but only 36 of the 87 wrong plays. Neither
+version meets both criteria. No listening question was answered, and
+nothing here needs judging by ear.
+
+### The merge
+
+`s24b-panako` is merged with a merge commit (`2eee100`). Only
+`docs/session-notes.md` and `docs/status.md` conflicted (both sides
+appended at the end); every section is kept whole, in the order the
+sessions started (24, 24b, 25). Experiments 0130 and 0131 keep their
+numbers, so 24b's notes on renumbering no longer apply. CLAUDE.md lists
+`docs/brief-24b.md` among the older briefs. 24b changed no code under
+`crates/`: the build after the merge is byte-identical, and `regress`
+is identical. The worktree, its `work/` (Panako's clone and run
+scripts, kept for a run once a JDK 11-16 is installed) and the branch
+are where 24b left them.
+
+### What version 2 changes (experiment 0133)
+
+Written before any run (`docs/brief-26.md`, step 3); everything else is
+version 1's.
+
+- **The line from the audio.** For each reported segment the mix is
+  analysed at the reported speed against an index of the reference's
+  record alone. In each 10 s window the densest run of hits, at any
+  offset, is a *knot* when it has 10 hits or more. Knots whose offsets
+  follow on (within a 2% pitch ride plus 32 ms) form a *stretch*; a
+  larger step is a jump, a loop or a needle drop, and starts a new one.
+  A lone knot among others is a *stray* and is dropped. Each stretch's
+  line is the fewest straight pieces through its knots that keep every
+  knot within 16 ms, so a drifting upload is followed piece by piece.
+  Lines are tested only between the reference's own hits; a play with no
+  tested patch is *unmeasured* and decides nothing (it is not rejected).
+- **The group rule.** In E2's Astro-Sine plays the outgoing record's
+  bass filled the low bands under a bass cut and read as contradicted.
+  Version 2 contradicts a band only when its EQ group has an anchor in
+  the patch (a band that follows the reference closely); in a group
+  without one, the band is killed or masked.
+- **Calibration**, the first panel's development half, version 1's rule
+  for T (the most lenient value that rejects half of the wrong plays):
+
+| Calibration (0133) | Version 2 | Version 1 (0124) |
+|---|--:|--:|
+| T | 0.0068 | 0.121 |
+| Wrong plays rejected at T | 156 of 312 | 157 of 312 |
+| Positive controls kept | 72 of 75 (96%) | 75 of 75 |
+| Wrong plays' S1: median; max | 0.007; 0.056 | 0.121; 0.785 |
+
+  The measured lines sit a median 3 ms from the reported ones for the
+  wrong plays and 0.2 ms for the positives (at most 44 ms). With version
+  1's band rules on the same lines the wrong plays' S1 has a median of
+  0.112; the group rule took 18,372 contradicted patches away from them,
+  99.4% of them in patches with no anchor in the low group. So the rule
+  meant to spare true plays in blends spared the wrong plays as much.
+
+### The numbers (experiments 0134 and 0135)
+
+| At T | Plays | Version 2 | Version 1 | Required | |
+|---|--:|--:|--:|--:|---|
+| E1: true plays, the three development mixes | 108 | 9 | 5 | 5 at most | fails |
+| E2: wrong related plays, rendered mixes | 87 | 45 | 43 | 44 at least | passes |
+| E2: drawn true plays; positive control | 480; 15 | 18; 0 | 2; 3 | (beside) | |
+| Second panel: wrong plays; positives | 5; 78 | 0 (4 unmeasured); 0 | 4; 1 | (beside) | |
+
+- E2 by family: Fire 37 of 67 (version 1: 43), Pyro 7 of 9 (0), Dozer
+  1 of 2 (0), Sonar 0 of 9 (0). Pyro's seven are rejected for 4-16
+  contradicted patches each among 96-438 supported ones.
+- This was a declared second use of E1 and E2: version 1's counts were
+  known, and version 2 was designed from E1's failures (the lines 0127
+  measured on E1's own audio) and an E2 drawn play's (Astro-Sine). A pass
+  would have shown that version 2 removes those failures without losing
+  the wrong plays' rejections, not that it keeps true plays it has never
+  seen. A first use needs real mixes no verifier has seen, with
+  tracklists checked by ear, which have to be added by hand.
+
+### The rejected true plays (experiment 0134)
+
+| Mix | Track (files) | S1 | Where | Why (an inference from the timelines) |
+|---|---|--:|---|---|
+| Vertical | Bulletproof - Anthrax (3) | 0.037-0.062 | 38:11-38:25 | another record masks the low group; the lowest mid bands are contradicted |
+| Vertical | Future Cut - Horns 2000 (4) | 0.010-0.019 | 48:33-48:46, its mix-in | the lowest low bands contradicted under an anchored band 7 |
+| Knowledge | Kemal & Paul Reset - Kontempt.mp3 | 0.009 | its mix-in and mix-out | as Anthrax; its line follows a 170 ms nudge-in |
+| 2003-03-29 | Spirit - Out of Control | 0.007 | 39:48-40:11 | as Anthrax, 4 patches |
+
+In each, another record covers one EQ group and its sound reaches across
+the crossover into the next group, which still has an anchor, so those
+bands read as contradicted (their dynamics are not the reference's). At
+T = 0.0068 one such patch in 150 rejects a play. Each of these S1 values
+is far below version 1's T. Kontempt.mp3 was rejected by version 1 too,
+then with its reported line 160 ms off; version 2 measures that line
+and rejects the play for the blends.
+
+### What else the session found
+
+- **Related versions that repeat the shared material get no line.** On
+  the second panel, Phantom 2018's densest run lies at another
+  repetition in every 10 s window (offsets from +40 s to -51 s), so every
+  knot is a stray and four of its five wrong plays are unmeasured. A
+  line that prefers the run nearest the previous knot would follow one
+  repetition; that is a design change, not tried.
+- **Dozer's version 1 rejections came with their lines.** On the panel,
+  version 1 rejected 13 of Dozer's 16 wrong plays; with the measured
+  line and version 1's band rules, none.
+- **Coverage.** Version 2 tests 91-98% of version 1's patches on the
+  same plays, 78% for E2's wrong plays (lines broken by jumps and strays)
+  and 2% for the second panel's wrong plays.
+- **Cost.** About as version 1: calibration 74 s, E1 52 s, E2 88 s on
+  the ten cores.
+
+### Decided this session, open to change
+
+- The merged sections are in the order the sessions started.
+- Version 2 ran on session 24's and 25's play lists unchanged, so both
+  versions were measured on the same plays.
+- An unmeasured play is not rejected, in E1 and in E2.
+- Version 2 replaces version 1 in the tree: `versions` now measures the
+  line and applies the group rule, and reports version 1's band rules
+  beside. Version 1 is in git (`0aa1dea`) and its binary in
+  `work/bin/s25-final/`. As after session 24, the command stays as a
+  harness diagnostic until we decide; deleting it means `versions.rs`,
+  `versions/`, its command in `main.rs`, `version_plays.py` and
+  `version_controlled.py`.
+- The exploratory count with version 1's band rules on version 2's
+  lines was computed from the same runs after the counts; no further run
+  touched E1, E2 or the second panel.
+
+### Decisions waiting
+
+- Whether the verifier continues. A version 3 evaluated on E1 and E2
+  would be a third use of them; a first use needs new real mixes with
+  checked tracklists.
+- Still waiting: the six listening questions in `work/audition/s23/`,
+  the two pairs in session 25's notes, and the decisions listed in
+  sessions 21-25.
+
+### Handoff for the next session
+
+1. `master` is committed with `s24b-panako` merged; the branch and its
+   worktree are kept for a Panako run once a JDK 11-16 is installed.
+2. The verifier failed its criteria twice (versions 1 and 2). If we
+   continue, what tonight suggests for a version 3, untested:
+   - keep the measured line (it removed every line failure seen: E1's
+     four, the second panel's loop, PRO 012 A's controls);
+   - replace the group rule: it spared wrong plays as much as true ones.
+     The case it should cover is another record's sound in bands next to
+     a group that record fills (masked, or killed with a borrowed gain),
+     reaching across the crossover;
+   - pick knots with continuity, so that a related version that repeats
+     its material gets a line;
+   - T's rule (the median wrong play) gives a very strict T when S1 is
+     small for every play; with it, one contradicted patch in 150 decides.
+   And a first-use evaluation set.
+3. Still open from sessions 24 and 25: `render_excerpt` does not open a
+   WAV behind an ID3 tag (changing it could change `regress`);
+   `clusters` needs `--cut-sparsest` until the cut Sonar joins are
+   judged; a control passage can overlap another direction's passage.
