@@ -5033,7 +5033,9 @@ Gunfinger misses.
 
 - Nothing touched the held-out test set, the NAS, the validation halves
   or the main checkout; Panako wrote nothing outside `work/` (it never
-  ran). `~/.panako` and `~/.gradle` do not exist.
+  ran). `~/.panako` and `~/.gradle` do not exist, and the Java
+  preferences file is unchanged. No Rust code changed, so
+  `scripts/check.sh` was not run; the new Python scripts were run.
 - The worktree's `work/s24b/` (1.1 GB, copies of renders and of the
   peak store) can be deleted; `work/panako/` holds everything the run
   needs.

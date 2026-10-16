@@ -3486,3 +3486,17 @@ product did not change.
   recall over any right answer; Panako's unit tests not run, they
   download audio; I-stakka-out's list), the scorer and the run script to
   match, times and loads in the brief and 0131.
+- 22:00 no JDK 11 (`wait-java11.sh`: "no java 11 by 2200"); the Panako
+  part written up as blocked. Nothing outside `work/`: no `~/.panako`,
+  no `~/.gradle`, the Java preferences file's digest unchanged. No Rust
+  code changed, so `scripts/check.sh` was not run.
+- For session 25's merge: new files `docs/brief-24b.md`,
+  `docs/session-24b-checklist.md`, experiments 0130 and 0131,
+  `scripts/analysis/panako_compare.py`, `report_identity.py`; changed
+  `scripts/analysis/devscore.py` (`load_set`'s optional corpus root),
+  and appended at the end of `docs/session-notes.md`,
+  `docs/status.md` and the roadmap's "Evaluation" (expect conflicts with
+  session 24's appends: keep both). Renumbering 0130 and 0131 touches
+  their file names and the mentions in the brief, the checklist, these
+  notes and status entries, the roadmap bullet, 0130, 0131 and
+  `panako_compare.py`'s docstring. `CLAUDE.md` was not edited.

@@ -19,20 +19,22 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   run on Java 21. What it needs is in the brief; the Panako part stops
   (our rule)
 - [x] 3. Pre-registration in the brief and experiment 0130, for a later run
-- [~] 4a-d. Panako's index and queries: waiting for Java 11 until 22:00
+- [-] 4a-d. Panako's index and queries: not run; no JDK 11 by 22:00
   (the launching agent's instruction, 19:24); `work/panako/run.sh` ready
 - [x] 4. Gunfinger's side: saved reports identical with the current
   build; columns and cost (0131)
-- [~] 5. Experiment files: 0130 (build, pre-registration), 0131
-  (Gunfinger's side) done; the comparison's waits on Panako
+- [x] 5. Experiment files: 0130 (build, pre-registration, amendments),
+  0131 (Gunfinger's side); the comparison's waits on Panako
 
 ## Wrap-up
 
 - [x] 6. Read-only review by a subagent (21:30-21:45); fixes: the
   pre-registration amended before any count (brief A1-A10), the scorer
   and the run script, times and loads
-- [ ] Notes "Session 24b", status entry, checklist, one roadmap bullet
-- [ ] `scripts/check.sh` only if code changed
-- [ ] Nothing of Panako's outside `work/` (none was written)
-- [ ] Commit on `s24b-panako`; the final message with what
+- [x] Notes "Session 24b", status entry, checklist, one roadmap bullet
+- [-] `scripts/check.sh`: not run; no Rust code changed (it checks only
+  Rust); the Python scripts were run
+- [x] Nothing of Panako's outside `work/` (no `~/.panako`, no
+  `~/.gradle`, the Java preferences file unchanged)
+- [x] Commit on `s24b-panako`; the final message with what
   session 25 needs for the merge

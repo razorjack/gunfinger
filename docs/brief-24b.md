@@ -440,6 +440,19 @@ named parts of step 3; the rest stands.
   `work/panako/` (`lists/library.txt`, `lists/smoke-files.txt`,
   `lists/index-*.txt`, `wait-java11.sh`), so `work/s24b/` can go.
 
+## 22:00: the end of the wait
+
+`work/s24b/wait-java11.sh 2200` ended with "no java 11 by 2200"
+(22:00:22); `java_home -V` lists only Temurin 21. As instructed, the
+Panako part is written up as blocked. Panako wrote nothing outside
+`work/`: no `~/.panako`, no `~/.gradle`, and
+`~/Library/Preferences/com.apple.java.util.prefs.plist` has the digest
+recorded before (`c116f8e2...`). No Rust code changed on the branch
+(`git diff 81e16e0 -- crates Cargo.toml Cargo.lock` is empty), so
+`scripts/check.sh`, which checks only Rust, was not run; the Python
+scripts were run (`panako_compare.py selfcheck`, `plan`, `gunfinger`;
+`report_identity.py` on six reports).
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
