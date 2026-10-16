@@ -129,3 +129,188 @@ step 3 run beside the variant's runs, as the prompt allows.
 - **(00:35) The speed check.** As in sessions 24-26, `baseline` only
   copies reports, so `regress session-27-start` with the start's
   binaries is the speed check (above).
+
+## Step 2: pre-registration (written at 00:37-00:41, committed before any count)
+
+Everything below is fixed before any variant is counted on any panel.
+Nothing may be added after a count is seen; anything computed later and
+not named here is exploratory and decides nothing. Nothing here changes
+the product; adopting a variant is our decision and would need
+a new ADR, which this session does not write.
+
+### Today's rule, and what a variant replaces
+
+`identify` and the harness search with `Matcher::Fitted` (ADR 0008).
+Every detection with 10 first-pass hits or more is measured again at its
+fitted speed (`search/refine.rs`): its hits are the densest run of
+offsets in each 10 s window of query time (windows counted from the
+query's start) that holds at least 3 hits (`MIN_LINE_HITS`); `windows`
+is the number of such windows, `hits` their sum, `start_seconds` and
+`end_seconds` the query times of the first and the last of those hits.
+`Evidence::confidence` (`confidence.rs`, `FITTED_RULE`) makes a
+detection (a play's segment):
+
+- **confident** when `hits >= 240` **and `windows >= 3`** (`MIN_WINDOWS`);
+- **possible** otherwise when `hits >= 60` (`MIN_POSSIBLE_HITS`, ADR 0006;
+  no window condition);
+- **weak** otherwise.
+
+A play is the segments of one asset at least possible with gaps of 90 s
+at most (`plays::group`, ADR 0006); its level is the highest any of its
+segments reaches, with hits and windows never pooled (ADR 0013).
+
+Each variant replaces exactly one condition: `windows >= 3` in the
+confident rule. Everything else stays: 240 hits; the possible tier (60
+hits, no window or span condition); the search and its detections; the
+grouping into plays (it depends only on the possible tier, so plays and
+their segments are identical under every variant); the play level as
+the highest segment level (ADR 0013); no pooling across segments. The
+single pass (`--single-pass`, 200 hits) is not measured. So a variant
+can change a segment only between possible and confident, and only one
+with 240 hits or more.
+
+- **Variant A(S), the minimum span**: confident when `hits >= 240` and
+  `end_seconds - start_seconds >= S`, S = **10 s** (0020), **15 s** and
+  **20 s** (`grid::SPANS`). A(10) only promotes: hits in 3 windows lie
+  more than 10 s apart (the first before the end of the first window,
+  the last at or after the start of the third), so every segment
+  confident today is confident under A(10). A(15) and A(20) can also
+  demote a segment of 3 windows or more whose span is shorter.
+- **Variant B(S), supported time**: confident when `hits >= 240` and
+  `supported_seconds >= S`, S = **10, 15 and 20 s**, where
+  `supported_seconds` is the number of distinct whole seconds after the
+  segment's first hit, `floor(t - start_seconds)`, holding at least one
+  of the hits counted in `hits` (the anchors' query times `t` of each
+  window's densest run). This is `pair`'s supported time (0057:
+  distinct seconds holding a hit of a window's densest run) on the
+  query side, counted from the first hit so that it does not depend on
+  where whole seconds fall either. Gaps without hits do not count, as
+  they do in the span.
+
+Six variants in all. Each is judged on its own by the criteria below.
+
+### The panels, and where each count comes from
+
+Two sources of detections. **M**: master's saved reports, read offline;
+variant A only, since no report holds supported time. **V**: one run of
+each panel with a variant build in a worktree that is never merged
+(branch `s27-span`, `/Users/razorjack/.t3/worktrees/gunfinger/s27-span`),
+whose only change is that every report it writes also holds each
+detection's `supported_seconds` and, in the sweep's, recall's and
+`robust`'s reports, each detection's first and last hit (and `robust`
+keeps its queries' detections); its search is today's. V writes only to
+its own work directory, `work/s27/vwork/` (APFS clones of the render
+caches and the saved NAS index, so nothing is rendered or indexed again),
+never to `work/reports/`. V runs one panel at a time under `screen`.
+
+Before any variant count from a report, today's rule is applied to the
+same report and must reproduce every stored level (each detection's
+`confident` flag or `level`) and the stored score (identified, wrong,
+recalled, outcomes) exactly; a report that fails is not used and the
+failure is reported. Before V's numbers are used, V's detections are
+compared with M's for every report both hold at the same library state
+(asset, first and last hit, track position, speed, windows, hits,
+fitted): they must be identical.
+
+| Panel | M (A only) | V (A and B) |
+|---|---|---|
+| grid, seed 2026, 16 briefs x 6 lengths x 10 offsets | `grid-seed-2026.json` | rerun |
+| sweeps 2026-2029 (262 tracks) | no first/last hit: hits-only bounds | rerun |
+| generated mixes, seeds 2026 and 7 | `mixes-seed-2026.json`, `mixes-seed-7.json` | rerun |
+| `robust`, seed 2026, every condition (the damage) | stale (single pass, 2026-10-06), not used | rerun |
+| development mixes at 262 tracks: Knowledge, its leave-outs 3 and 11; 2003-03-29, its leave-out 3; Vertical | `scan-*.json` in `work/reports/` | rerun (and Vertical's leave-out 3) |
+| development mixes at NAS scale (40,126 records): the three, and every track left out (11, 12, 17) as 0122 | session 23's (39,354 records), beside only | rerun |
+| recall panel, development half, seed 2026 (NAS) | no first/last hit: hits-only bounds | rerun |
+| first shared panel, development half (NAS) | 0122's run (39,354 records; 0129: scores the same under 0128's clusters) | rerun at 40,126 |
+| second shared panel, development half (NAS) | 0129's run (40,126) | rerun |
+
+Where M and V both exist, a new wrong confident answer in either counts.
+"Hits-only bounds": a variant cannot make a detection confident below
+240 hits, so where no false detection reaches 240 hits, no variant can
+add a wrong answer there, whatever its span.
+
+V's runs, in this order (criteria first): grid; second shared panel;
+first shared panel; sweeps; mixes; scans at 262; `robust`; NAS scans;
+recall. If time runs short, the runs not finished are named, and B
+shrinks first (the prompt's order).
+
+### The criteria (both required for a variant to be worth proposing)
+
+1. **No new wrong confident answer on any panel**, the shared panels
+   first. A new wrong answer is a detection, play, track slot or query
+   that is wrong by the panel's own scoring and confident under the
+   variant but not under today's rule; a wrong possible answer that
+   becomes confident counts, also in a query that is already wrong
+   confident today (a second wrong title is a new wrong answer). The
+   panels' scoring: shared, `shared_outcomes.py`'s oracle (a confident
+   detection of a role other than `played`; the blend partner set
+   aside), in all three indexes and the controls; scans, `scoring.rs`
+   (a confident detection outside every slot it could credit);
+   generated mixes and grid, `mixes::score` (a confident detection
+   matching no play); sweeps and recall, a confident detection not
+   `correct`; `robust`, a confident detection of another cluster.
+2. **More brief plays confident on the grid, with fewer level changes
+   caused only by the window grid.** Over the grid's 960 queries, a
+   query is confident when any detection of the brief play's cluster
+   overlapping it is confident (`grid::confident_under`). Required, both
+   strictly: more confident queries than today's rule in total, and
+   fewer *flips* in total, a flip being a (brief, length) pair whose
+   verdict differs between its 10 offsets (`grid::print_summary`).
+
+Reported beside, deciding nothing: per panel, every true segment or play
+whose level changes (promotions and demotions apart), with its windows,
+span and supported time as the cause; the shortest identification under
+each rule (on the grid, the shortest length with any confident query
+and the shortest with all of them; on every panel, the shortest span and
+supported time of a confident true segment); the per-second measures
+below.
+
+### Per-second scoring (step 3), defined now
+
+Scored on detections as reports hold them, at a play level: detections
+are grouped into plays as `plays::group` does, each play takes the
+highest level of its segments under the rule being scored, and a second
+is labelled with a play's file at the play's level when it lies inside
+one of the play's segments (first to last hit), not in the gaps between
+segments. Each whole second of the mix `[k, k+1)` is judged at `k +
+0.5`.
+
+- **Generated mixes** (exact truth: each play's start, end and whether
+  its track is indexed). A label is right when its file is in the
+  cluster of a track playing at that second (during a crossfade both
+  tracks play, so either is right). Seconds while an indexed track
+  plays: *mislabelled* if any confident label there is not right; else
+  *correct* if a confident label is right; else *possible* if a
+  possible label is right; else *unlabelled*. Seconds while no indexed
+  track plays (held-out tracks, silence): *silent* if no confident
+  label, else *mislabelled*; specificity is silent over these seconds.
+  For each indexed play credited by a confident play of its cluster
+  overlapping it, the start error is that play's first segment start
+  minus the truth start, the end error its last segment end minus the
+  truth end (median, mean absolute, 90th percentile of the absolute).
+- **The development mixes**, borders from the manifests (a track starts
+  at its `start`, ends at the next track's start, the last at the end of
+  the file); a track is in the library when it is referenced and not
+  left out. A margin of **M = 30 s** either side of each border, fixed
+  now, is a transition: there both neighbouring tracks are right, and a
+  second there is never counted unlabelled (it is reported apart as
+  "in a margin, unlabelled"). Otherwise the same categories. Beside
+  M = 30 s, M = 15 s and 60 s are reported, deciding nothing. Start and
+  end errors only for Knowledge and Vertical, whose starts were not
+  written from Gunfinger's output, and 2003-03-29's track 4 (AGENTS.md);
+  against approximate starts they measure agreement, not accuracy.
+- The shared-mixes renders (session 21) only if their reports hold each
+  play's truth and time is left; the scoring is the generated mixes'.
+- The existing scoring and every report stay as they are; the
+  per-second scorer is a separate command that reads saved reports.
+
+### Expected before the data, so it cannot be claimed later
+
+A(10) makes the grid's 15 and 20 s plays confident wherever they have
+240 hits (0020: all 160 of each, single pass) and cannot demote; under
+A(15) and A(20) the 15 and 20 s plays mostly drop (0020: 12 and 9 of
+160). B(S) behaves like A(S) on dense plays and is stricter on sparse
+ones. The shared panels' related versions with 240 hits or more in 2
+windows, if any, would be the new wrong answers; 0111 and 0129 list
+possible plays up to 227 hits, and whether any reaches 240 in 2 windows
+is not known.
