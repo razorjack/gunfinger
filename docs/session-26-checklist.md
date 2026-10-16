@@ -31,8 +31,8 @@ for scope and rules.
 - [x] 5a. Calibration: T = 0.00683 by version 1's rule (156 of 312
   negatives rejected, 72 of 75 positives kept); experiment 0133;
   committed before any evaluation run
-- [ ] 5b. E1 and E2 against the criteria; every rejected true play with
-  why; experiment files
+- [x] 5b. E1 and E2 against the criteria (E1 9 of 108: fails; E2 45 of
+  87: passes); every rejected true play with why; experiment 0134
 - [ ] 5c. Side sets, deciding nothing: the second panel's development
   half, E2's true drawn plays and positive control
 

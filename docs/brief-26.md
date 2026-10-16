@@ -350,3 +350,23 @@ siblings, the renderer, the mix decoder.
   had no low anchor), so T fell from 0.121 to 0.0068. The design stays
   as registered; whether E1's true plays survive a T this strict is
   what 0134 measures.
+
+## Step 5b: evaluation (23:45-23:47 runs; written at 23:58)
+
+- E1 (`work/s26/runs/e1.json`, 52 s) and E2 (`e2.json`, 88 s), one run
+  each with `work/bin/s26-v2/`, no errors; one E2 drawn play
+  unmeasured. At T: **E1 9 of 108 rejected (fails, limit 5); E2 45 of
+  87 (passes, 44 required)**. Not worth pursuing as built, by the rule
+  written first. Experiment 0134.
+- Every E1 play still rejected, with why (an inference from the
+  timelines, `work/s26/e1-rejected.txt`): 4 tracks, 9 files: Bulletproof
+  - Anthrax (3 files) and Future Cut - Horns 2000 (4 files) in Vertical,
+  Kontempt.mp3 in Knowledge, Spirit - Out of Control in the 2003 mix.
+  In each, the low group is masked by another record and the bands just
+  across a crossover, in a group that has an anchor, are contradicted
+  by `r < 0.2`; S1 0.007-0.062. Version 1's five: four now kept (the
+  line), Kontempt.mp3 still rejected for the blend, not the line.
+- Exploratory, computed after the counts from the same runs, deciding
+  nothing: version 1's band rules on version 2's lines with T by the
+  same rule (0.112) give E1 0 of 108 and E2 36 of 87. No further run on
+  E1 or E2.
