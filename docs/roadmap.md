@@ -558,6 +558,19 @@ marked as inferences were derived, not measured.
   a required check: anything that adds or changes evidence (the items below, the
   band profile, a minimum span, the FFT lengths' retrieval study) runs
   its development half and may add no wrong confident query there.
+  *(session 24, experiments 0124-0127)* A diagnostic version verifier
+  (`gunfinger-eval versions`, after the GPT Pro report: band dynamics
+  along the fitted line, EQ-group gains fitted on one part and tested on
+  another, supported / contradicted / unobservable patches), threshold
+  set on the panel's development half, criteria written first: E1 5 of
+  108 true plays rejected (passes at the limit), E2 43 of 87 wrong
+  related plays (fails by one). It rejects only Fire's wrong plays
+  (basslines under shared drums); Pyro's and Sonar's play the same
+  content along the line. Every E1 rejection comes from the line, not
+  DJ processing: the reported line is anchored on the opening window and
+  some uploads drift in speed, 98-193 ms off. A continuation needs its
+  own line from the audio, then fresh calibration; it needs the
+  reference audio, so not for `--store-only` (ADR 0003).
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away

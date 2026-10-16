@@ -31,12 +31,15 @@ for scope and rules.
   examples; experiment file(s)
 - [x] 7. If time remains: the controlled test on two calibration
   families; otherwise its plan for session 25
+- [x] Exploratory, after step 6: where the lines are off (0127,
+  `scripts/analysis/version_lines.py`)
 
 ## Wrap-up
 
 - [ ] 8. Read-only review by a subagent from 03:30 at the latest; fixes
-- [ ] Notes "Session 24" with the handoff for session 25, status,
-  checklist, roadmap
+- [~] Notes "Session 24" with the handoff for session 25, status,
+  checklist, roadmap (written; the review's fixes and the final checks
+  to add)
 - [ ] `regress session-24-start` identical with the final build
 - [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
   (`RUSTUP_TOOLCHAIN=1.98.0`)

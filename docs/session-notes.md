@@ -4943,3 +4943,273 @@ run, `pair` should join them, as session 20 did for the first panel.
   uninstalled it; `~/.rustup/toolchains/` holds only 1.98.0 again, but
   the interrupted install left 136 MB in `~/.rustup/tmp` (files from
   10:51 tonight), which I did not delete; it can be deleted by hand.
+
+## Session 24
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. The session built `gunfinger-eval versions`, a
+diagnostic version verifier as the GPT Pro report proposes, chose its
+threshold on the shared panel's development half and measured it
+against two criteria written before any count. A parallel session (24b)
+ran a Panako benchmark in its own worktree on branch `s24b-panako`;
+nothing here touched it, and session 25 merges it.
+
+In short: by the rule written first, the verifier is not worth pursuing
+as built. It rejected 5 of the 108 true plays (the limit was 5) and 43
+of the 87 wrong related plays in the rendered mixes (44 were required).
+It rejects only Fire's wrong plays, where the remixes' basslines differ
+under shared drums. Dozer's, Pyro's and Sonar's wrong plays play the
+same content as the version played along the matched stretch, so
+nothing along the line contradicts them. The five true plays it
+rejected all fail for one reason: the play's reported line lies 98-193
+ms from where the audio is, beyond the 48 ms either way the verifier
+searches. Bass kills and blends in the development mixes were handled as designed.
+No listening question was answered, and nothing here needs judging by ear.
+
+### What the verifier does
+
+For each play, along its fitted line (the segment's start in the mix,
+the track position there and the speed), the verifier renders the
+reference file onto the mix's clock at the fitted speed, as a turntable
+plays it. It cuts both into 20 bands from 39 Hz to 3.9 kHz and compares
+how each band's level moves (its dynamics) in 2 s patches every 0.256 s,
+allowing a lag of up to 48 ms either way per patch.
+
+- A band whose dynamics follow the reference's *supports* the play.
+- Where a band does not, the verifier asks whether a DJ could have done
+  it. It fits one gain per mixer EQ group (low 39-246 Hz, mid, high) on
+  half of the patch's time and tests it on the other half, so a gain
+  cannot explain away every mismatch. A whole EQ group missing (a bass
+  kill) is *killed*; a band drowned by louder material (the other
+  record) is *masked*; both are unobservable. A band where the reference
+  predicts at least ten times the power the mix holds, while the rest of
+  its group is present, is *contradicted*.
+- A patch with no clearly matching band (a cut, a fade) is
+  *unobservable*. Otherwise it is contradicted when its contradicted
+  bands number at least two and at least half its supported bands, and
+  supported when it has three supported bands.
+- S1, the share of contradicted patches among the decided ones, decides:
+  a play is rejected when S1 reaches the threshold T. Two more summaries
+  (the same over passages no other indexed file holds, and the seconds
+  of such passages supported) were reported and decided nothing.
+
+It needs the reference's audio, which the peak store does not hold.
+
+### The numbers (experiments 0124 and 0125)
+
+T was set on the panel's development half alone, before any evaluation
+run: the most lenient value that rejects half of the wrong plays there.
+
+| | Plays | Rejected at T = 0.121 | Required | |
+|---|--:|--:|--:|---|
+| Panel: wrong confident plays | 312 | 157 | (sets T) | |
+| Panel: positive control | 75 | 0 | | |
+| E1: true plays, the three development mixes | 108 | 5 | 5 at most | passes, at the limit |
+| E2: wrong related plays, rendered mixes | 87 | 43 | 44 at least | fails by one |
+| E2: drawn true plays; positive control | 480; 15 | 3; 3 | (beside) | |
+
+- By family, E2: Fire 43 of 67, Dozer 0 of 2, Pyro 0 of 9, Sonar 0 of 9
+  (the panel: Dozer 13 of 16, Fire 144 of 248, Pyro 0 of 32, Sonar 0 of
+  16). The contradictions come from the low bands; on the panel the
+  wrong plays' mid and high bands are 82-89% supported (the shared
+  drums). The 44th wrong play in E2 scored 0.120, just under T.
+- The first evaluation run could not read 8 references: NAS files that
+  are WAV audio behind an ID3 tag, which the core's decoder opens and
+  the harness's renderer did not. I fixed the renderer (with a test) and
+  ran calibration, E1 and E2 again; calibration came out identical play
+  for play, so T stood, and the counts were the same (5 and 43).
+- E2's other rejections: the three positive-control plays are the PRO
+  012 A Sonar upload against the corpus original (the open listening
+  questions 4 and 5; this changes nothing about them). The drawn ones
+  are two Astro-Sine rips and Do Drop In (below).
+
+### The rejected true plays and why (experiment 0127)
+
+None of the five is a bass kill, a blend, a cut or a version
+difference. Each play's line is off:
+
+| Mix | Reference | S1 | Line off by | Why |
+|---|---|--:|--:|---|
+| 2003-03-29 | Digital & Spirit - Phantom Force (i-witness upload) | 1.00 | 137 ms | anchored in the opening window |
+| Knowledge | Kemal & Paul Reset - Kontempt.mp3 (corpus) | 0.59 | 160 ms | anchored in the opening window |
+| Knowledge | ABPR011 Auto Ignition (alien5ive upload) | 0.49 | up to 300 ms | the upload's speed drifts 0.5% |
+| Knowledge | udfr017 Kontempt (alien5ive upload) | 0.48 | up to 350 ms | the upload's speed drifts 0.5% |
+| Knowledge | ABPR 014 Pathogen (alien5ive upload) | 0.26 | 80-150 ms | the upload's speed drifts 0.2% |
+
+How I know (exploratory, after the evaluation): I cut 25 s excerpts of
+the mix inside each play and identified each against the reference's
+record alone, so each excerpt's own line says where the audio lies. For
+95 of the 104 plays with such a line it is within 48 ms of the reported
+line; for each rejected play it is 98-193 ms away.
+
+- **The opening window.** `refine.rs` takes a play's track position from
+  its first 10 s window and its speed from the whole chain. In the 2003
+  mix the record plays at another alignment from 653 to 723 s (the
+  excerpts that start earlier find that stretch as a separate line), and
+  the play's opening window at 715.8 s carries it: the whole play's line
+  sits 137 ms from where its body matches, constant over 8 excerpts. For
+  Kontempt the anchor moves with the excerpt's start, by 130 ms over 37
+  s. My reading, an inference: the record is still being nudged into
+  place when the play opens. In the tracklist this is invisible; it
+  matters only to something that needs the line to the frame.
+- **Uploads that drift.** The three alien5ive uploads change speed by
+  0.2-0.5% within a play against the record the DJs played. The corpus
+  rips of Auto Ignition and Pathogen at the same moments of the
+  Knowledge mix keep one speed and stay within 22 ms, so the drift is in
+  the uploads, not on the turntable. The PRO 012 A Sonar upload drifts
+  the same way in the rendered mixes (0.35% within a play).
+- **A damaged file**, in E2 only: Do Drop In (`extra/A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3`)
+  has damaged MP3 frames before 427 s. Decoded from the start, as the
+  store was built, its audio runs 235 ms ahead of where FFmpeg's seek
+  puts it, which the verifier's renderer uses. The three development mixes and the
+  five references above decode without error.
+- The two Astro-Sine rejections are not timing: the render cut the
+  incoming bass during a blend, the outgoing record covered two of the
+  low bands, so the kill rule did not apply, and 8 of the 65 patches of
+  an 18.5 s play read as contradicted.
+
+With the line that far off, the verifier compares the wrong moments,
+finds no matching band in most patches (36-98% unobservable) and reads
+the rest as contradicted. Whether a corrected line keeps them was not
+tested: rerunning the verifier on the development mixes would make them a tuning
+set.
+
+### Examples from the timelines
+
+Letters per band, lowest first, the gaps between the low, mid and high
+groups: S supported, C contradicted, K killed, M masked, ? undecided, .
+not informative. Shortened from `scripts/analysis/version_plays.py
+timeline` (`work/s24/examples/`).
+
+- Timing, rejected: Phantom Force in the 2003 mix. 733 of 746 patches
+  are unobservable, the lag at its +48 ms limit:
+  ```
+  12:46.0 file 3:02.1 lag +3 contradicted CCCCCCC? ?SCCC?CCC? ?C
+  12:52.1 file 3:08.6 lag +3 unobservable ???????? ?????????? ??
+  ```
+- The bass handled, kept: Future Cut - Horns 2000 in Vertical (S1
+  0.031). While the record comes in, its low bands read as killed,
+  contradicted or not informative, and the mid and high bands carry the
+  patch; from 49:45 every band agrees:
+  ```
+  49:12.8 file 0:58.1 lag +0 supported KKKCMCMM SSSSSSSSSS SS
+  49:41.4 file 1:27.9 lag +0 supported CC...... SSSSSSSSSS SS
+  49:45.6 file 1:32.1 lag +0 supported SSSSSSSS SSSSSSSSSS SS
+  ```
+- A blend handled, kept: Bulletproof - Scarred in Vertical (S1 0.011).
+  The outgoing record covers the low bands:
+  ```
+  18:45.6 file 0:41.5 lag +0 supported MMMMMSMS SSSSSSSSSS SS
+  ```
+- A wrong play rejected: rendered mix fire-4, which plays Fire's Nasty
+  Jungle Remix; the Splash Remix's play over it has S1 0.75. Its
+  bassline is missing where the drums match:
+  ```
+  2:35.7 file 1:15.3 lag -2 contradicted CCCCCC?? CC?SSSSSSS SS
+  ```
+- A wrong play kept: rendered mix sonar-2, which plays the Mark System
+  Revision; the corpus original's play over it has S1 0.006, every band
+  agreeing for three minutes:
+  ```
+  2:09.4 file 0:12.5 lag +0 supported MSSSSSSS SSSSSSSSSS SS
+  ```
+
+### The controlled test (experiment 0126)
+
+The report's own test on two panel families (Dozer, Fire): the shared
+passage followed by 0, 5, 10 or 20 s of the played version's own
+material, audible, 12 dB down, or cut away to another record, each
+identified against the related file alone and against another rip of
+the played recording.
+
+- As built, S1 never changes with the added material: it lies outside
+  the related file's line, so the verifier never looks at it. 12 dB
+  down changes nothing (the gain fit absorbs it).
+- With the line extended over the added material (exploratory), Fire's
+  remix is contradicted only at 20 s; Dozer's bootleg is supported over
+  all 20 s (the material after the panel's passage is shared too). A cut
+  to another record reads as contradiction for the true rip as well
+  (Dozer, 42 of 71 patches), because the other record's drums line up.
+  So extending lines to the music after a play would reject true plays
+  at transitions.
+
+### What it would mean for the product
+
+Nothing to decide now; the verifier failed its rule. If a later version
+passed, these would be ours to decide:
+
+- It needs the reference's audio at `identify` time: it would work only
+  with the library reachable, never with `--store-only` (ADR 0003 stores
+  peaks and tags only). Storing dense features instead (20 bands, one
+  byte each, 62.5 frames a second) would be about 6.7 times the peak
+  store, and changes ADR 0003.
+- Cost: decoding each reference and the mix around each play; tonight
+  the 108 plays of the three development mixes took 96 s on the machine's ten
+  cores.
+- Its reach: along the line it can only see a version that differs
+  under the shared material. On the panel and in the rendered mixes,
+  that is Fire's family; Pyro's and Sonar's wrong plays are never
+  contradicted, and the controlled test shows the distinguishing
+  material lies beyond the play, where a cut looks the same.
+
+### Decided this session, open to change
+
+- The NAS store had 40,126 records at revision `fed26c76b8fe89ea` at the
+  start, not the 39,354 the prompt named (772 records written after
+  session 23's end check, the newest at 17:53); the session took it as
+  found and checked it against that at the end.
+- One calibration run (0122's; 0111's is the same queries), every
+  reference rendered as turntable playback (the reports do not record
+  turntable or key lock; every evaluation mix is a turntable mix).
+- After the render defect, a fix and a full rerun; both runs are
+  reported.
+- No variant of the verifier was run on E1 or E2 after their counts were
+  seen, so neither became a tuning set. The line check (0127) ran
+  `identify` on excerpts of the development mixes and changed nothing in the
+  verifier.
+
+### Decisions waiting
+
+- Whether a later session continues the verifier with its own line (the
+  handoff below). Any evaluation on the three development mixes would then be a
+  second use, which would have to be declared, unless new mixes with
+  checked tracklists are added.
+- Still waiting, as after session 23: the six listening questions in
+  `work/audition/s23/`, the second shared-material panel, and the
+  decisions listed in sessions 21-23.
+
+### Handoff for session 25
+
+1. Merge `s24b-panako` (the launching agent's instruction); `master` is
+   linear and committed.
+2. The `decode::watch` tests that fail under heavy load (session 23):
+   their fix is session 25's. Tonight's results are under "What else to
+   know".
+3. If the verifier continues: give it its own line from the audio. The
+   body's hash hits per stretch, not the opening window (`refine.rs`'s
+   per-stretch measurement already fits local speeds); speeds that
+   drift within a play (the alien5ive and PRO 012 A uploads); the
+   reference decoded from its start as the store was built, or its
+   damaged frames detected (Do Drop In); then calibrate again on the
+   panel before any count on E1 or E2. `scripts/analysis/version_lines.py`
+   measures a line against the excerpts' own.
+4. The kill rule misses a bass cut in a blend (Astro-Sine): the
+   outgoing record's low end masks part of the group.
+5. The harness's `render_samples` (used by `versions` and
+   `identifiability`) seeks by timestamp; for a file with damaged
+   frames that differs from the store's timeline. Worth a check in
+   `identifiability`'s results for such files.
+6. Nothing in the product changes from tonight; the opening-window
+   anchor is a property worth knowing, not a fault in the tracklist.
+
+### What else to know
+
+- Nothing touched the held-out test set, the candidate mixes of 0065 or
+  either validation half; the second panel was not searched. No
+  test-derived version was used to calibrate anything.
+- The NAS was only read (reference audio decoded, records copied into
+  scratch stores under `work/` and `/tmp`), never written.
+- `regress session-24-start` at the start: identical in 153 s, the
+  machine at its usual speed.

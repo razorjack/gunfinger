@@ -3443,3 +3443,49 @@ the session.
   `d71ba5333cff9a34`, as after the index run.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
   (sha256 `d48ffb313396...`, `ee2d5bd9fe0d...`).
+
+## 2026-10-16: session 24, a diagnostic version verifier for shared material
+
+Brief `docs/brief-24.md`, checklist `docs/session-24-checklist.md`. A
+parallel session (24b) ran a Panako benchmark in its own worktree on
+branch `s24b-panako` (heavy runs until 00:30); it was not touched.
+
+- 18:40 start; `git status` clean at `53d4136`. The NAS store held
+  40,126 records, revision `fed26c76b8fe89ea` (772 records after session
+  23's end check; taken as found). Start build `work/bin/s24-start/`
+  (byte-identical to `s23-final`); `baseline` only copies reports, so
+  `regress session-24-start` served as the speed check: identical in
+  153 s (session 22: 153 s).
+- 18:50 the research note `docs/research/2026-10-16-version-verification.md`
+  (the GPT Pro report, unverified; local checks by arithmetic and code
+  reading).
+- 18:56 design and pre-registration in the brief and 0124: the verifier,
+  three summaries, the split (calibration: the panel's development half;
+  E1: 108 true plays of the three development mixes; E2: 87 wrong
+  related plays of the rendered mixes), T's rule and the criteria (E1 at
+  most 5 rejected, E2 at least 44). 19:05 two amendments from the
+  synthetic tests (EQ-shaped kills; masked from +3 dB), before any run.
+- 19:11 `gunfinger-eval versions` (`versions.rs`, `versions/compare.rs`):
+  17 tests (11 in `compare`, most on synthetic signals: the same
+  recording, an EQ'd copy, a bass kill, a blend, another arrangement).
+  Smoke runs on two calibration plays.
+- 19:14 calibration (0124): 387 plays, T = 0.121 rejects 157 of 312
+  wrong plays and keeps 75 of 75 positives; Fire 144 of 248, Dozer 13 of
+  16, Pyro and Sonar none.
+- 19:21 the first evaluation run failed to render 8 references (WAV
+  behind an ID3 tag); `render_samples` now opens them as the core's
+  decoder does (a test fails without it). Everything rerun; calibration
+  identical. 19:28 (0125): E1 5 of 108 rejected (passes at the limit),
+  E2 43 of 87 (fails by one; Fire 43 of 67, the others none); drawn true
+  plays 3 of 480, positive control 3 of 15. Not worth pursuing as built.
+- 19:40 the controlled test (0126): along its line the verifier sees only
+  differences under the shared material; attenuation is absorbed; a cut
+  to a record whose drums line up reads as contradiction for a true rip.
+- 20:05 exploratory (0127, `version_lines.py`): the five rejected E1
+  plays lie 98-193 ms from their reported lines (95 of 104 plays within
+  48 ms): the line is anchored on the opening window (`refine.rs`), and
+  alien5ive's uploads drift in speed within a play. In E2, Do Drop In's
+  damaged MP3 frames put the store's decode 235 ms from FFmpeg's seek;
+  Astro-Sine's rejections are a bass cut in a blend. No verifier variant
+  was run on E1 or E2.
+- Notes "Session 24" with the handoff for session 25.
