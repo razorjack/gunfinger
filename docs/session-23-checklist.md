@@ -50,10 +50,12 @@ for scope and rules.
 - [x] Notes "Session 23", status, checklist, roadmap
 - [x] `regress session-23-start` identical (12:55, 57 min, not a speed
   measurement: the machine had other load; the calibrate line known since session 8)
-- [~] `scripts/check.sh` green with both toolchains: with rustup's
-  1.98.0 green at 12:58 (399 tests, 95 min); Homebrew's pass started
-  then. `gunfinger` in `work/bin/s23-final/` byte-identical to session
-  22's
+- [-] `scripts/check.sh` green with both toolchains: with rustup's
+  1.98.0 green at 12:58 (399 tests, 95 min); with Homebrew's 1.98.0
+  (13:40) 1 of 399 failed, `a_probe_that_writes_nothing_is_an_error`
+  (a 0.5 s stall timeout under heavy load; it passed in the rustup pass),
+  not rerun on request. `gunfinger` in
+  `work/bin/s23-final/` byte-identical to session 22's
 - [x] The NAS store's revision at the end equals the one after the
   index run (39,354 records, `d71ba5333cff9a34`, 11:37)
 - [x] `git diff docs/pair-verdicts.txt` empty and

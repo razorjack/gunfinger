@@ -4926,8 +4926,18 @@ run, `pair` should join them, as session 20 did for the first panel.
   minutes) against session 22's 153 s. `scripts/check.sh` with rustup's
   1.98.0 first on PATH is green (formatting, clippy for macOS and for
   Linux, 399 tests, among them the 3 added tonight for `holders`; 95
-  min, finished 12:58). The run with Homebrew's toolchain was still
-  going at the time of writing; its log is `work/s23/check-brew.log`.
+  min, finished 12:58). The run with Homebrew's 1.98.0 (12:58-13:40,
+  `work/s23/check-brew.log`) failed 1 of the 399 tests,
+  `decode::watch::tests::a_probe_that_writes_nothing_is_an_error`: its
+  stand-in for FFprobe, a shell script that only exits with status 1,
+  was reported as stalled after the test's 0.5 s timeout. The same test
+  passed in the rustup run an hour earlier on the same code, so I take
+  it for the load (about 250) delaying the script's start past the
+  test's short timeout; the code did not change. I did not run it again,
+  since I was asked to start nothing new; `cargo test -p gunfinger-core
+  --lib decode::watch` checks it when the machine is quiet. Homebrew's
+  toolchain has no Linux standard library, so that run skipped the Linux
+  clippy, as in session 22.
 - My first attempt at `scripts/check.sh` with rustup's toolchain set no
   `RUSTUP_TOOLCHAIN`, so rustup began installing `stable` (1.99.1). I
   uninstalled it; `~/.rustup/toolchains/` holds only 1.98.0 again, but

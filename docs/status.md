@@ -3433,7 +3433,13 @@ the session.
   `scripts/check.sh` with rustup's 1.98.0 first
   (`RUSTUP_TOOLCHAIN=1.98.0`, 11:23-12:58, 95 min) green: fmt, clippy
   (macOS and the Linux target), 399 tests (the end-to-end tests alone
-  took 88 min). The Homebrew pass started at 12:58. NAS store at 11:37:
-  39,354 records, `d71ba5333cff9a34`, as after the index run.
+  took 88 min). The Homebrew pass (12:58-13:40, 42 min) failed 1 of 399
+  tests: `decode::watch::tests::a_probe_that_writes_nothing_is_an_error`
+  got `Stalled` (0.5 s) instead of `Ok(None)` from its `exit 1`
+  stand-in, at load ~250; the same code passed it in the rustup pass, so
+  taken as the load delaying the script's start. Not rerun (from the prompt:
+  start nothing new); the Linux clippy skipped (no Linux standard
+  library for Homebrew's toolchain). NAS store at 11:37: 39,354 records,
+  `d71ba5333cff9a34`, as after the index run.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
   (sha256 `d48ffb313396...`, `ee2d5bd9fe0d...`).
