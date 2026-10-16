@@ -58,6 +58,21 @@ impl LibraryMap {
             .collect()
     }
 
+    /// The other library's files that corpus files stand for, named as
+    /// an index of both libraries would name them (`prefix` and their
+    /// path), each with its corpus file.
+    pub fn standing_corpus_files(&self, prefix: &str) -> BTreeMap<String, String> {
+        self.copies
+            .iter()
+            .map(|copies| {
+                (
+                    format!("{prefix}{}", copies.stands_for),
+                    copies.corpus.clone(),
+                )
+            })
+            .collect()
+    }
+
     /// Every copy of a corpus file in the other library.
     pub fn copied(&self) -> BTreeSet<String> {
         self.copies

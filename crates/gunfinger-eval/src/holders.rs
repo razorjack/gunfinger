@@ -51,11 +51,15 @@ pub struct Looked {
 pub struct Options<'a> {
     pub matching: &'a Matching,
     pub padding: &'a Padding,
+    /// The other library's files that corpus files stand for, as the
+    /// index would name them, each with its corpus file (the copy map).
+    pub stood_for: &'a BTreeMap<String, String>,
     pub jobs: usize,
 }
 
 /// Every lookup, in the order given; one index for each set of files
-/// left out.
+/// left out. Refuses lookups that leave out a file the index does not
+/// hold.
 pub fn run(
     lookups: &[Lookup],
     library: &Library,
@@ -64,6 +68,17 @@ pub fn run(
 ) -> Result<Vec<Looked>, String> {
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
+    let indexed = |name: &str| {
+        records
+            .iter()
+            .any(|record| record.header.source.path == name)
+            || options
+                .padding
+                .second
+                .as_ref()
+                .is_some_and(|second| second.holds(name))
+    };
+    refuse_unindexed(lookups, indexed, options.stood_for)?;
     let verifier = Verifier::new(&records, options.padding.second.as_ref());
     let mut looked: Vec<Option<Looked>> = lookups.iter().map(|_| None).collect();
     for (left_out, positions) in by_left_out(lookups) {
@@ -103,6 +118,40 @@ pub fn run(
         }
     }
     Ok(looked.into_iter().flatten().collect())
+}
+
+/// Leaving out a name the index does not hold leaves nothing out, so a
+/// misspelt name would search the whole index. The other library's copy
+/// of a corpus file is such a name: the index holds that audio once,
+/// under the corpus file's name. A corpus file without a copy is indexed
+/// under its own name, like every corpus file.
+fn refuse_unindexed(
+    lookups: &[Lookup],
+    indexed: impl Fn(&str) -> bool,
+    stood_for: &BTreeMap<String, String>,
+) -> Result<(), String> {
+    let unindexed: BTreeSet<&String> = lookups
+        .iter()
+        .flat_map(|lookup| &lookup.left_out)
+        .filter(|name| !indexed(name))
+        .collect();
+    if unindexed.is_empty() {
+        return Ok(());
+    }
+    let reasons: Vec<String> = unindexed
+        .iter()
+        .map(|name| match stood_for.get(*name) {
+            Some(corpus) => format!(
+                "  {name}: the index holds this audio as the corpus file {corpus}; leave that out instead"
+            ),
+            None => format!("  {name}: no indexed file has this name"),
+        })
+        .collect();
+    Err(format!(
+        "{} files to leave out are not in the index, so leaving them out would leave nothing out:\n{}",
+        unindexed.len(),
+        reasons.join("\n")
+    ))
 }
 
 /// The lookups' positions, grouped by the files their index leaves out.
@@ -146,6 +195,53 @@ mod tests {
         assert_eq!(
             groups[&BTreeSet::from([String::from("p.mp3"), String::from("p-rip.mp3")])],
             [1, 3]
+        );
+    }
+
+    #[test]
+    fn a_file_to_leave_out_that_the_index_does_not_hold_is_refused() {
+        let indexed = |name: &str| {
+            [
+                "Corpus - With A Copy.mp3",
+                "Corpus - Without A Copy.mp3",
+                "second-library/nas/Other - Track.m4a",
+            ]
+            .contains(&name)
+        };
+        let stood_for = BTreeMap::from([(
+            String::from("second-library/nas/Corpus - With A Copy.mp3"),
+            String::from("Corpus - With A Copy.mp3"),
+        )]);
+        let leaving_out = |names: &str| {
+            lookups(&format!(
+                r#"[{{"name": "a", "asset": "x.mp3", "track_start_seconds": 0,
+                    "track_end_seconds": 10, "left_out": [{names}]}}]"#
+            ))
+            .unwrap()
+        };
+
+        let indexed_files = leaving_out(
+            r#""Corpus - With A Copy.mp3", "Corpus - Without A Copy.mp3",
+               "second-library/nas/Other - Track.m4a""#,
+        );
+        let misspelt = leaving_out(r#""Corpus - Without A Coppy.mp3""#);
+        let copy = leaving_out(r#""second-library/nas/Corpus - With A Copy.mp3""#);
+
+        assert_eq!(
+            refuse_unindexed(&indexed_files, indexed, &stood_for),
+            Ok(())
+        );
+        let refused = refuse_unindexed(&misspelt, indexed, &stood_for).unwrap_err();
+        assert!(
+            refused.contains("Corpus - Without A Coppy.mp3: no indexed file has this name"),
+            "{refused}"
+        );
+        let refused = refuse_unindexed(&copy, indexed, &stood_for).unwrap_err();
+        assert!(
+            refused.contains(
+                "second-library/nas/Corpus - With A Copy.mp3: the index holds this audio as the corpus file Corpus - With A Copy.mp3; leave that out instead"
+            ),
+            "{refused}"
         );
     }
 

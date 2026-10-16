@@ -140,3 +140,25 @@ Steps shrink from the end: 4c, then 4b. Heavy runs (the clusters run,
 `shared`, `regress`, `check.sh`, the load test of 3a) never overlap;
 builds and unit tests of step 3 run beside the clusters run, which only
 slows it.
+
+## Decisions
+
+- **(20:52) The clusters search runs with `--cut-sparsest` from the
+  start.** Session 23's command (`work/s25/clusters.sh`, `map-library`
+  first: 247 of 262 corpus files have a copy among the 40,126 records)
+  exited 1 in 0.85 s without searching: `clusters` checks the verdicts
+  against the last run's pairs before a search (`main.rs`,
+  `check_verdicts_against_last_run`), and 0120's pairs hold the Sonar
+  chain, so it named the same three chains as session 23's stopped
+  search (the corpus, `full_scene` PRO 012 and dfect rips of Sonar ~
+  the Mark System Revision, each through the-hifi-junglist's PRO 012 A
+  upload; the revision joined at 99% with 406 hits, 1.1 per second).
+  The prompt's instruction for a stop on this chain is 0120's decision,
+  the run's own pairs clustered with `--cut-sparsest`; here no run's
+  own pairs exist yet. So the full search (no `--reuse-pairs`) runs
+  again with `--cut-sparsest`, which passes the pre-check and, at the
+  end, clusters the search's own pairs with each conflicting chain's
+  sparsest join cut: the same procedure in one run. Check afterwards:
+  the cut links are 0120's (PRO 012 A upload ~ revision) and nothing
+  else; any other cut is a finding, listed, and a listening question,
+  never a verdict. The pre-check's output is in `work/s25/precheck/`.

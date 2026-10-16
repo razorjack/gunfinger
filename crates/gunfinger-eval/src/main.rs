@@ -38,7 +38,7 @@ mod tempo;
 mod verifier;
 mod versions;
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::num::NonZeroUsize;
 use std::path::{Path, PathBuf};
@@ -1472,6 +1472,10 @@ fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), St
         || String::from("lookups"),
         |stem| stem.to_string_lossy().into_owned(),
     );
+    let stood_for = match paths.map_file() {
+        Some(map_file) => LibraryMap::load(&map_file)?.standing_corpus_files(SECOND_LIBRARY_PREFIX),
+        None => BTreeMap::new(),
+    };
     let looked = holders::run(
         &lookups,
         &paths.library()?,
@@ -1479,6 +1483,7 @@ fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), St
         &holders::Options {
             matching: &paths.matching,
             padding: &paths.padding(&UNCHANGED_INDEX)?,
+            stood_for: &stood_for,
             jobs,
         },
     )?;
