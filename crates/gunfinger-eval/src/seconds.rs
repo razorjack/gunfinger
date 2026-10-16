@@ -159,6 +159,24 @@ pub fn mix_truth(mix: &PlannedMix, clusters: &Clusters) -> Vec<Truth> {
         .collect()
 }
 
+/// The truth of a mix rendered by `shared-mixes`, searched with `left_out`
+/// out of the index: a play is indexed unless its cluster was held out or
+/// every file of it left out.
+pub fn rendered_truth(
+    mix: &PlannedMix,
+    clusters: &Clusters,
+    left_out: &BTreeSet<String>,
+) -> Vec<Truth> {
+    mix_truth(mix, clusters)
+        .into_iter()
+        .map(|truth| Truth {
+            in_library: truth.in_library
+                && truth.accepted.iter().any(|asset| !left_out.contains(asset)),
+            ..truth
+        })
+        .collect()
+}
+
 /// The truth of a set as its manifest gives it: each track from its start
 /// to the next track's, the last to the end of the mix; indexed when it is
 /// referenced and its files were not left out.
@@ -225,7 +243,7 @@ pub struct Scored {
 }
 
 /// Prints each rule's seconds over `scored`, and its boundary errors.
-pub fn print_summary(title: &str, scored: &[Scored]) {
+pub fn print_summary(title: &str, scored: &[&Scored]) {
     println!("{title}");
     let mut rules: Vec<&str> = Vec::new();
     for scored in scored {
@@ -601,6 +619,49 @@ mod tests {
             Rule::MinSpan(10.0).level(evidence(1, 240), 10.0),
             Confidence::Confident
         );
+    }
+
+    #[test]
+    fn a_rendered_play_whose_files_are_left_out_is_not_indexed() {
+        let play = |asset: &str, held_out| crate::mixes::PlannedPlay {
+            asset: asset.to_owned(),
+            held_out,
+            source_start_seconds: 0.0,
+            speed: 1.0,
+            start_seconds: 0.0,
+            end_seconds: 60.0,
+            fade_in_seconds: 0.0,
+            fade_out_seconds: 0.0,
+            bass_cut_until: None,
+            bass_cut_from: None,
+        };
+        let mix = PlannedMix {
+            name: String::from("m"),
+            seconds: 60.0,
+            plays: vec![
+                play("played", false),
+                play("drawn", false),
+                play("held", true),
+            ],
+        };
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec![String::from("played"), String::from("rip")]],
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+
+        let both_out = BTreeSet::from([String::from("played"), String::from("rip")]);
+        let source_out = BTreeSet::from([String::from("played")]);
+        let indexed = |left_out| {
+            rendered_truth(&mix, &clusters, left_out)
+                .iter()
+                .map(|truth| truth.in_library)
+                .collect::<Vec<bool>>()
+        };
+
+        assert_eq!(indexed(&both_out), [false, true, false]);
+        assert_eq!(indexed(&source_out), [true, true, false]);
     }
 
     #[test]

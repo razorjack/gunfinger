@@ -2095,6 +2095,11 @@ fn score_seconds(
     };
     for (path, report) in loaded {
         let parse = |error: serde_json::Error| format!("{}: {error}", path.display());
+        if report.get("runs").is_some() {
+            let report: shared_mixes::Report = serde_json::from_value(report).map_err(parse)?;
+            score_rendered(paths, path, &report, &clusters, &rules)?;
+            continue;
+        }
         let (scored, name): (Vec<seconds::Scored>, String) =
             match (report.get("mixes").is_some(), &referable) {
                 (true, _) => {
@@ -2178,7 +2183,67 @@ fn score_seconds(
                 .join(format!("{stem}{name}.json")),
             &scored,
         )?;
-        seconds::print_summary(&path.display().to_string(), &scored);
+        seconds::print_summary(
+            &path.display().to_string(),
+            &scored.iter().collect::<Vec<_>>(),
+        );
+    }
+    Ok(())
+}
+
+/// `seconds` on a `shared-mixes` report: each rendered mix under each of
+/// its indexes; the runs on the development mixes, which have no planned
+/// truth, are left out.
+fn score_rendered(
+    paths: &Paths,
+    path: &Path,
+    report: &shared_mixes::Report,
+    clusters: &clusters::Clusters,
+    rules: &[seconds::Rule],
+) -> Result<(), String> {
+    let mut indexes: Vec<&str> = Vec::new();
+    let mut scored: Vec<seconds::Scored> = Vec::new();
+    for run in &report.runs {
+        let Some(rendered) = report
+            .mixes
+            .iter()
+            .find(|rendered| rendered.mix.name == run.name)
+        else {
+            continue;
+        };
+        if !indexes.contains(&run.index.as_str()) {
+            indexes.push(&run.index);
+        }
+        let left_out: BTreeSet<String> = run.left_out.iter().cloned().collect();
+        let truth = seconds::rendered_truth(&rendered.mix, clusters, &left_out);
+        let segments: Vec<seconds::Segment> = run
+            .detections
+            .iter()
+            .map(|measured| seconds::Segment::from(&measured.found))
+            .collect();
+        for &rule in rules {
+            scored.push(seconds::Scored {
+                name: format!("{}: {}", run.index, run.name),
+                rule: rule.name(),
+                score: seconds::score(&truth, &segments, rendered.mix.seconds, 0.0, rule),
+            });
+        }
+    }
+    let stem = path
+        .file_stem()
+        .map(|stem| stem.to_string_lossy().into_owned())
+        .unwrap_or_default();
+    write_json(
+        &paths.work.join("seconds").join(format!("{stem}.json")),
+        &scored,
+    )?;
+    for index in indexes {
+        let prefix = format!("{index}: ");
+        let here: Vec<&seconds::Scored> = scored
+            .iter()
+            .filter(|scored| scored.name.starts_with(&prefix))
+            .collect();
+        seconds::print_summary(&format!("{}, {index}", path.display()), &here);
     }
     Ok(())
 }

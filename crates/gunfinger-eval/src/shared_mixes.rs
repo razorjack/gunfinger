@@ -96,13 +96,13 @@ pub struct Query {
     pub audio: PathBuf,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Report {
     pub mixes: Vec<Rendered>,
     pub runs: Vec<Run>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Rendered {
     pub seed: u64,
     pub played: Played,
@@ -110,7 +110,7 @@ pub struct Rendered {
 }
 
 /// One mix or query searched against one index.
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Run {
     /// The mix's or the query's name.
     pub name: String,
@@ -121,7 +121,7 @@ pub struct Run {
     pub detections: Vec<Measured>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct Measured {
     #[serde(flatten)]
     pub found: MixFound,
@@ -135,11 +135,11 @@ pub struct Measured {
     pub holder: Option<Holder>,
     /// For a confident detection, every file its lookup finds with at
     /// least `LISTED_HOLDER_HITS` hits, its own recording's included.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub holders: Vec<Holder>,
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Holder {
     pub asset: String,
     pub hits: u32,

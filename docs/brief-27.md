@@ -343,7 +343,7 @@ is not known.
   today's rule reproduces every stored level and the published outcomes
   (106 of 218, 5 of 135). A first version without it did not reproduce
   them and was not used.
-- **(00:58) Step 3, per-second scoring** (`gunfinger-eval seconds`,
+- **(00:55) Step 3, per-second scoring** (`gunfinger-eval seconds`,
   `crates/gunfinger-eval/src/seconds.rs`, 10 unit tests): reads saved
   `mixes` and `scan` reports, groups detections with the core's
   `plays::group` (each segment's file mapped to an id), levels each play
@@ -362,3 +362,10 @@ is not known.
   variant build's field, so B's per-second scores come from the variant
   worktree's own `seconds` (master merged into `s27-span`, a
   `--min-supported` rule added there), never from master.
+- **(01:05) The shared-mixes renders**: session 21's report
+  (`work/reports/library-nas-dnb-peaks/shared-mixes-s21.json`, 36
+  rendered mixes, 87 runs, searched at 38,105 records) holds each mix's
+  plan, so `seconds` reads it too (`shared_mixes`'s report structs now
+  also deserialise; the runs on the three development mixes, which have
+  no planned truth, are skipped). Scored under today's clusters (0128),
+  variant A only: B would need a rerun, which the plan does not have.
