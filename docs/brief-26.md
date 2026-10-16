@@ -152,7 +152,7 @@ never overlap.
   sweep queries, all 87, 93 and 79 scan detections, the calibrate line
   known since session 8), 155.2 s.
 
-## Step 3: version 2's design and pre-registration (written at 23:35, before any run of version 2)
+## Step 3: version 2's design and pre-registration (written at 23:31-23:33, committed at 23:33, before any run of version 2)
 
 Everything below is fixed before version 2 runs on any calibration,
 evaluation or side-set play. Nothing may be added after a count is seen;
@@ -307,7 +307,7 @@ siblings, the renderer, the mix decoder.
 
 ## During the session
 
-- **(23:40) Step 4, implementation.** `versions/line.rs` (the measured
+- **(23:33-23:41) Step 4, implementation.** `versions/line.rs` (the measured
   line: hits, knots, stretches and strays, chords), `versions.rs` (each
   reported segment decoded once, its line measured, each piece rendered
   and compared on its part of the excerpt; held spans over the tested
@@ -324,7 +324,7 @@ siblings, the renderer, the mix decoder.
   3 came out of the tests. `version_plays.py`: unmeasured plays, S1
   with version 1's band rules, each play's line, and `changes` (plays
   whose decision differs between two `evaluate` outputs).
-- **(23:44) Smoke run** on session 24's two calibration items
+- **(23:40) Smoke run** on session 24's two calibration items
   (`work/s24/plays/smoke.json`, `work/s26/runs/smoke.json`, 2.9 s): the
   positive control (Fire's original on Jungle Massive 2) has one
   stretch, knots within 0.3 ms of the reported line, S1 0 (108 patches
@@ -335,7 +335,7 @@ siblings, the renderer, the mix decoder.
   lower S1. Seen on calibration data after the pre-registration, the
   design does not change; it is reported with the results.
 
-## Step 5a: the threshold (written at 23:46, after calibration, before any evaluation run)
+## Step 5a: the threshold (written at 23:43, after calibration, committed at 23:44, before any evaluation run)
 
 - Calibration run 23:41-23:42 (`work/s26/runs/calibration.json`, 387
   plays, 74 s, no errors). By the pre-registered rule, **T =
@@ -351,7 +351,7 @@ siblings, the renderer, the mix decoder.
   as registered; whether E1's true plays survive a T this strict is
   what 0134 measures.
 
-## Step 5b: evaluation (23:45-23:47 runs; written at 23:58)
+## Step 5b: evaluation (runs 23:44-23:46; written at 23:47-23:49)
 
 - E1 (`work/s26/runs/e1.json`, 52 s) and E2 (`e2.json`, 88 s), one run
   each with `work/bin/s26-v2/`, no errors; one E2 drawn play
@@ -371,7 +371,7 @@ siblings, the renderer, the mix decoder.
   same rule (0.112) give E1 0 of 108 and E2 36 of 87. No further run on
   E1 or E2.
 
-## Step 5c: the side set (23:49 run; written at 00:02)
+## Step 5c: the side set (run at 23:49; written at 23:50)
 
 - The second panel's development half (`work/s26/runs/panel-2.json`,
   83 plays, 14 s, no errors), deciding nothing: 0 of 5 wrong plays
@@ -384,7 +384,7 @@ siblings, the renderer, the mix decoder.
   plays): calibration 91% and 96%, E1 92%, E2 wrong related 78% (13
   plays under half), drawn 98%, control 93%; the second panel's wrong
   plays 2%, its positives 96%.
-- The session is ahead of its plan (step 5 done at about 00:05 against
+- The session is ahead of its plan (step 5 done at 23:50 against
   04:45). No further run of the verifier on E1, E2 or the second panel
   is allowed (step 3), and the prompt plans no other experiment, so the
   review starts once the notes are drafted, and the session ends after
