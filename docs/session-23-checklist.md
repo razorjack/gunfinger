@@ -8,11 +8,13 @@ for scope and rules.
 
 - [x] The diff was 17 new verdict lines and the status entry;
   committed as `d39fdca`
-- [~] Brief, checklist; `CLAUDE.md` points to them
-- [ ] The index run exited (waited for, never signalled); the
-  store's records and revision; a status line; `doctor`
-- [ ] Release build in `work/bin/s23-start/`; `baseline
-  session-23-start`
+- [x] Brief, checklist; `CLAUDE.md` points to them (`d9b3b6a`)
+- [x] The index run exited (02:23-02:25; waited for, never
+  signalled): 39,354 records, revision `d71ba5333cff9a34`; a status
+  line; `doctor` (27 audio files not indexed yet)
+- [x] Release build in `work/bin/s23-start/` (byte-identical to
+  `s22-final`); `baseline session-23-start` (the same reports as
+  `session-22-start`)
 
 ## Steps
 

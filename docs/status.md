@@ -3254,3 +3254,15 @@ was measured.
   Possible: Muffler - Downfall (1:56, 142), Falcon - The Stand (2:28, 185),
   Sonic - Cannibal (3:27, 180). Nothing found at 0:26-0:56 and
   2:59-3:27. Not checked by ear.
+- The `gunfinger --config ~/.config/gunfinger/nas-dnb.toml
+  index` (pid 40404, started about 01:52 from `target/release/gunfinger`,
+  a build of the same code that is not byte-identical to `s22-final`;
+  `cargo build --release` at 02:38 reproduced `s22-final` exactly)
+  exited between 02:23 and 02:25. The NAS store went from 38,104
+  records (`5fd86c54350c819c`) to 39,354, revision `d71ba5333cff9a34`
+  (`scripts/analysis/store_revision.py`, 02:25; 38,894 at 02:15).
+  `doctor` (read-only, 5 min 23 s over SMB): 41,222 audio files, 618
+  left out by 41 patterns, 39,354 current records (2.78 GB), 1,841
+  passed over (11 failed to decode, 138 too short, 1,692 too long), 27
+  audio files not indexed yet (files added to the NAS since), 39,381 of
+  65,536 assets; both saved NAS indexes out of date.
