@@ -25,6 +25,12 @@ usage:
       the positives kept at T.
   version_plays.py evaluate T VERIFIED... OUT
       plays rejected at T (S1 >= T) by set and label.
+  version_plays.py timeline VERIFIED ID_PART [EVERY]
+      a compact timeline of the plays whose id contains ID_PART: every
+      EVERY-th patch (default 16, about 4 s) with its mix and file time,
+      lag, state, distinctiveness, band letters (lowest band first; S
+      supported, C contradicted, K killed, M masked, ? undecided, .
+      not informative) and the low, mid and high gains.
 
 A play's segments are the product's: one file's detections at least
 possible, joined across gaps of at most 90 s. Nothing here reads audio
@@ -270,7 +276,31 @@ def evaluate(at, *paths):
     dump({"T": at, "summary": summary, "plays": rows}, out_path)
 
 
+def clock(seconds):
+    return f"{int(seconds // 60)}:{seconds % 60:04.1f}"
+
+
+def timeline(verified_path, id_part, every="16"):
+    every = int(every)
+    for v in load(verified_path):
+        if id_part not in v["id"]:
+            continue
+        s = v["summaries"]
+        print(f"== {v['id']}")
+        print(f"   S1 {s['s1']}  S2 {s['s2']}  S3 {s['s3_seconds']} s  supported {s['supported']}  "
+              f"contradicted {s['contradicted']}  unobservable {s['unobservable']}  held {v['held']}")
+        for timeline_ in v["segments"]:
+            segment_ = timeline_["segment"]
+            print(f"   segment {clock(segment_['start_seconds'])}-{clock(segment_['end_seconds'])} "
+                  f"speed {segment_['speed']:.4f}, {len(timeline_['patches'])} patches")
+            for patch in timeline_["patches"][::every]:
+                gains = " ".join("  -  " if g is None else f"{g:5.1f}" for g in patch["gains"])
+                print(f"   {clock(patch['t']):>8} file {clock(patch['file']):>7} lag {patch['lag_frames']:+d} "
+                      f"{patch['state'][:5]:<5} {'d' if patch['distinctive'] else 'h'} "
+                      f"{patch['bands'][:8]} {patch['bands'][8:18]} {patch['bands'][18:]}  {gains}")
+
+
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
     {"calibration": calibration, "e1": e1, "e2": e2, "threshold": threshold,
-     "evaluate": evaluate}[command](*arguments)
+     "evaluate": evaluate, "timeline": timeline}[command](*arguments)

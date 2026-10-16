@@ -1,0 +1,602 @@
+[
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 0,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.14534883720930233,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 0,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1183,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 5,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.17989417989417988,
+  "added material": {
+   "supported": 7,
+   "contradicted": 3,
+   "unobservable": 2
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 5,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1318,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 12,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 5,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.1746031746031746,
+  "added material": {
+   "supported": 7,
+   "contradicted": 3,
+   "unobservable": 2
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 5,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 1312,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 12,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 5,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.15028901734104047,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 12
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 5,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 1183,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 12
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 10,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.17307692307692307,
+  "added material": {
+   "supported": 24,
+   "contradicted": 5,
+   "unobservable": 2
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 10,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1490,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 31,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 10,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.16826923076923078,
+  "added material": {
+   "supported": 24,
+   "contradicted": 5,
+   "unobservable": 2
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 10,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 1485,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 31,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 10,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.19230769230769232,
+  "added material": {
+   "supported": 0,
+   "contradicted": 9,
+   "unobservable": 22
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 10,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 1183,
+  "s1": 0.0,
+  "s1 extended": 0.005376344086021506,
+  "added material": {
+   "supported": 0,
+   "contradicted": 1,
+   "unobservable": 30
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 20,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.13709677419354838,
+  "added material": {
+   "supported": 65,
+   "contradicted": 4,
+   "unobservable": 2
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 20,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1702,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 71,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 20,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.12903225806451613,
+  "added material": {
+   "supported": 65,
+   "contradicted": 4,
+   "unobservable": 2
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 20,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 1699,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 71,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "related",
+  "length": 20,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 249,
+  "s1": 0.11976047904191617,
+  "s1 extended": 0.33783783783783783,
+  "added material": {
+   "supported": 0,
+   "contradicted": 49,
+   "unobservable": 22
+  }
+ },
+ {
+  "direction": "dozer-1",
+  "role": "rip",
+  "length": 20,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 1183,
+  "s1": 0.0,
+  "s1 extended": 0.18502202643171806,
+  "added material": {
+   "supported": 0,
+   "contradicted": 42,
+   "unobservable": 29
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 0,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 506,
+  "s1": 0.07838479809976247,
+  "s1 extended": 0.07801418439716312,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 0,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1594,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 5,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 511,
+  "s1": 0.07801418439716312,
+  "s1 extended": 0.07972665148063782,
+  "added material": {
+   "supported": 5,
+   "contradicted": 3,
+   "unobservable": 3
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 5,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1617,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 11,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 5,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 510,
+  "s1": 0.07801418439716312,
+  "s1 extended": 0.07972665148063782,
+  "added material": {
+   "supported": 5,
+   "contradicted": 3,
+   "unobservable": 3
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 5,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 1613,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 11,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 5,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 506,
+  "s1": 0.07838479809976247,
+  "s1 extended": 0.07962529274004684,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 11
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 5,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 1594,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 11
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 10,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 511,
+  "s1": 0.07801418439716312,
+  "s1 extended": 0.0772626931567329,
+  "added material": {
+   "supported": 19,
+   "contradicted": 3,
+   "unobservable": 9
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 10,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1643,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 31,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 10,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 510,
+  "s1": 0.07801418439716312,
+  "s1 extended": 0.0772626931567329,
+  "added material": {
+   "supported": 19,
+   "contradicted": 3,
+   "unobservable": 9
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 10,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 1639,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 31,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 10,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 506,
+  "s1": 0.07838479809976247,
+  "s1 extended": 0.07962529274004684,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 31
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 10,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 1594,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 31
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 20,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 511,
+  "s1": 0.07801418439716312,
+  "s1 extended": 0.13043478260869565,
+  "added material": {
+   "supported": 26,
+   "contradicted": 26,
+   "unobservable": 18
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 20,
+  "condition": "audible",
+  "confidence": "confident",
+  "hits": 1785,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 70,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 20,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 510,
+  "s1": 0.07801418439716312,
+  "s1 extended": 0.13043478260869565,
+  "added material": {
+   "supported": 26,
+   "contradicted": 26,
+   "unobservable": 18
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 20,
+  "condition": "attenuated",
+  "confidence": "confident",
+  "hits": 1781,
+  "s1": 0.0,
+  "s1 extended": 0.0,
+  "added material": {
+   "supported": 70,
+   "contradicted": 0,
+   "unobservable": 0
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "related",
+  "length": 20,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 506,
+  "s1": 0.07838479809976247,
+  "s1 extended": 0.07962529274004684,
+  "added material": {
+   "supported": 0,
+   "contradicted": 0,
+   "unobservable": 70
+  }
+ },
+ {
+  "direction": "fire-1",
+  "role": "rip",
+  "length": 20,
+  "condition": "cut away",
+  "confidence": "confident",
+  "hits": 1594,
+  "s1": 0.0,
+  "s1 extended": 0.0023148148148148147,
+  "added material": {
+   "supported": 0,
+   "contradicted": 1,
+   "unobservable": 69
+  }
+ }
+]

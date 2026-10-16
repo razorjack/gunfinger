@@ -26,10 +26,10 @@ for scope and rules.
   on a positive control and one of Fire's wrong plays
 - [x] 5. Calibration on the panel's development half; thresholds
   written and committed before step 6
-- [ ] 6. Evaluation: E1 (108 true plays), E2 (87 wrong related plays,
+- [x] 6. Evaluation: E1 (108 true plays), E2 (87 wrong related plays,
   drawn true plays); rejected true plays with causes; timelines of
   examples; experiment file(s)
-- [ ] 7. If time remains: the controlled test on two calibration
+- [x] 7. If time remains: the controlled test on two calibration
   families; otherwise its plan for session 25
 
 ## Wrap-up

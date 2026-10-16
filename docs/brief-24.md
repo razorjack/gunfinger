@@ -412,3 +412,54 @@ any calibration or evaluation play; nothing else changes.
   E1 and E2 without errors; the 8 plays that failed now have S1. At T:
   E1 5 of 108 rejected (passes, at the limit), E2 43 of 87 (fails by
   one); experiment 0125. Not worth pursuing by the rule written first.
+
+## Step 7: the controlled test (written at 19:34, before any query was rendered)
+
+The report's matched test on two calibration families, `dozer-1`
+(played Dozer, the corpus file; related the Notjamie bootleg; the
+played recording's other rip the VRS 001 upload) and `fire-1` (played
+Fire's original mix; related the Rogue Unit Remix; the other rip on
+Jungle Massive 2), the panel's passages unchanged.
+
+- **Queries** (`scripts/analysis/version_controlled.py`, FFmpeg as
+  `shared` uses it, MP3 128 kbps): the played file's passage followed by
+  N = 0, 5, 10 or 20 s of the played file's own material after the
+  passage (the version's distinctive material), in three conditions:
+  *audible* (as is), *attenuated* (-12 dB), *cut away* (replaced by the
+  panel's blend partner, `Skynet & Stakka - Decoy.mp3` from 60 s, at the
+  context's RMS level). N = 0 once: 10 queries per family. No harness
+  command renders such variants, so a script does, with the same
+  filters.
+- **Plays**: each query identified by `gunfinger identify --store-only
+  --saved-index off --playback turntable` against a scratch store
+  holding one record, the related file (the negative: the played
+  recording absent) or the other rip (the positive); the plays as
+  reported.
+- **Verified twice**: *as built* (the play's segments), and,
+  exploratory, with the longest segment's line extended over the whole
+  query, so that the added material is tested.
+- **Expected, written now**: as built, S1 does not change with N (the
+  added material lies outside the related file's line). Extended, the
+  related file's patches over the added material are unobservable in
+  every condition (no anchor where its content does not match), and the
+  rip's are supported when audible or attenuated and unobservable when
+  cut away. If so, the verifier cannot tell an audible version-specific
+  mismatch from a cut: only partial differences inside the shared span
+  (a bassline under shared drums) contradict.
+- Nothing here decides anything; an experiment file (0126) either way.
+- 19:40 step 7 run (`work/s24/controlled/`, 29 s to render and
+  identify, the verifier a few seconds): experiment 0126. As expected,
+  as built S1 does not change with N and attenuation changes nothing;
+  not as expected, a cut to the blend partner is contradicted for
+  Dozer's true rip too (the partner's drums give anchors).
+- 19:35 exploratory, deciding nothing (`work/s24/lagprobe.py`, not
+  committed): onset envelopes of the mix and the reference rendered
+  along each E1 play's line, at the middle of its longest segment, over
+  +-0.5 s. Of 106 plays decoded, 94 align with r >= 0.5; at 14 of them
+  the audio lies more than 48 ms from the line (8 beyond 96 ms, up to
+  348 ms), among them all five rejected plays. For Phantom Force the
+  offset is -140 ms, constant over the play (4 points). The reference's
+  current decode matches its stored peaks (0.3 ms) and FFmpeg's input
+  seeking is exact on the mix and the reference, so the reported line
+  itself is off: the play's line is less precise than the verifier's
+  +-48 ms window assumes.
