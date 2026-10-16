@@ -15,7 +15,8 @@ anything else:
    `docs/brief-15.md`, `docs/brief-16.md`, `docs/brief-17.md`,
    `docs/brief-18.md`, `docs/brief-19.md`, `docs/brief-20.md`,
    `docs/brief-21.md`, `docs/brief-22.md`, `docs/brief-23.md`,
-   `docs/brief-24.md` and `docs/brief-25.md` hold rules that still
+   `docs/brief-24.md`, `docs/brief-24b.md` (session 24b, Panako, run
+   beside session 24) and `docs/brief-25.md` hold rules that still
    apply unless brief 26 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)

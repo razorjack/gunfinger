@@ -3514,6 +3514,63 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged.
   Scratch data in `/tmp` removed; `work/s24/` holds 1.0 GB.
 
+## 2026-10-16: session 24b, Panako as an outside benchmark (not run: its build needs Java 11)
+
+Worktree `/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`, branch
+`s24b-panako` from `81e16e0`, run beside session 24; brief
+`docs/brief-24b.md`, checklist `docs/session-24b-checklist.md`. The
+product did not change.
+
+- 19:07 Panako cloned into `work/panako/src-clone/Panako`: `f1248f7`,
+  version 2.1, AGPL-3.0. `GRADLE_USER_HOME=work/panako/gradle-home
+  ./gradlew --no-daemon shadowJar` downloaded Gradle 7.2 and failed:
+  `Unsupported class file major version 65` (Gradle 7.2 runs on Java
+  8-16; the Mac has only Temurin 21). Panako part stopped (our
+  rule). 19:24 the launching agent: wait until 22:00 for Temurin 11,
+  change nothing, install nothing. `java_home -v 11` prints Temurin 21
+  with exit 0, so the wait read the JDK's version
+  (`work/s24b/wait-java11.sh`); no JDK 11 by 22:00.
+- 19:15 pre-registration (brief step 3, experiment 0130): Panako's
+  documented defaults with `STRATEGY=PANAKO`; indexes of the 262 files
+  and per sweep seed; sweeps 2026-2029, the three development mixes with
+  `monitor`, seed 2026's generated mixes; scoring as the harness's;
+  one stricter acceptance chosen on seed 2026's sweep.
+- 19:16-19:31 Gunfinger's side (experiment 0131), `work/bin/s24-start/`
+  of the main checkout with `--work work/s24b`: scans of razorjack and
+  nocny, sweeps 2027-2029, mixes of seed 2026, each identical to its
+  saved report (`scripts/analysis/report_identity.py`). Columns
+  (`scripts/analysis/panako_compare.py gunfinger`): 60/60 per speed and
+  0 wrong on sweeps 2026-2029; 11/11, 7/7, 9/9 and 0 wrong on the
+  development mixes; 106/115 indexed plays and 0 wrong on the generated
+  mixes. `gunfinger stats`: index 39.7 MB, peak store 19.7 MB. A fresh
+  `gunfinger index` of the corpus library: 50.9 s wall, 938 MB, 265
+  files extracted (the working store's 3 skip notes decode now).
+- Ready for the run: `work/panako/run.sh` (stages), the lists in
+  `work/panako/lists/` (written by `panako_compare.py plan`), the scorer
+  `scripts/analysis/panako_compare.py` (`selfcheck` passes);
+  `scripts/analysis/devscore.py`'s `load_set` takes a corpus root.
+- 21:30-21:45 read-only review (subagent). Fixed: the pre-registration
+  amended before any count (brief A1-A10: speed from the matched spans,
+  as Panako's time factor is 1/(2 - speed); monitor times within their
+  window; byte-identical files stored once, scored as printed; stricter
+  recall over any right answer; Panako's unit tests not run, they
+  download audio; I-stakka-out's list), the scorer and the run script to
+  match, times and loads in the brief and 0131.
+- 22:00 no JDK 11 (`wait-java11.sh`: "no java 11 by 2200"); the Panako
+  part written up as blocked. Nothing outside `work/`: no `~/.panako`,
+  no `~/.gradle`, the Java preferences file's digest unchanged. No Rust
+  code changed, so `scripts/check.sh` was not run.
+- For session 25's merge: new files `docs/brief-24b.md`,
+  `docs/session-24b-checklist.md`, experiments 0130 and 0131,
+  `scripts/analysis/panako_compare.py`, `report_identity.py`; changed
+  `scripts/analysis/devscore.py` (`load_set`'s optional corpus root),
+  and appended at the end of `docs/session-notes.md`,
+  `docs/status.md` and the roadmap's "Evaluation" (expect conflicts with
+  session 24's appends: keep both). Renumbering 0130 and 0131 touches
+  their file names and the mentions in the brief, the checklist, these
+  notes and status entries, the roadmap bullet, 0130, 0131 and
+  `panako_compare.py`'s docstring. `CLAUDE.md` was not edited.
+
 ## 2026-10-16: session 25, three harness fixes, the NAS clusters at 40,126 records, the second shared panel's development half
 
 Brief `docs/brief-25.md`, checklist `docs/session-25-checklist.md`.

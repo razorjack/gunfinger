@@ -57,11 +57,11 @@ def seconds(start):
     return total
 
 
-def load_set(name, nas):
+def load_set(name, nas, corpus=ROOT / "corpus"):
     """The manifest's tracks: label, start, references. Without the NAS,
     `second-library/` references are set aside, as `manifest.rs` does."""
     refuse_test_set(name)
-    with open(ROOT / "corpus" / "sets" / name / "tracklist.toml", "rb") as file:
+    with open(Path(corpus) / "sets" / name / "tracklist.toml", "rb") as file:
         manifest = tomllib.load(file)
     tracks = []
     for track in manifest["track"]:
