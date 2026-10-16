@@ -16,9 +16,8 @@ at `c >= 2, c >= s/2`. S1 (contradicted share) decides; T is the
 `ceil(n/2)`-th highest S1 of the negatives (wrong confident plays, played
 left out); the positives are the positive control's right plays.
 
-**Run.** 387 plays of 0122's report under 0120's clusters (312 negatives
-from 106 queries, 75 positives; `version_plays.py calibration`),
-`versions` in 67 s, 0.6 GB, no errors; `threshold`; `data/0124-*`.
+**Run.** 387 plays of 0122 under 0120's clusters (312 negatives from 106
+queries, 75 positives), `versions` 67 s, no errors; `data/0124-*`.
 
 | S1 | Plays | Median | 95th pct | Max | Rejected at T |
 |---|--:|--:|--:|--:|--:|
