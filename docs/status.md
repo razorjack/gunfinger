@@ -3425,10 +3425,12 @@ the session.
 - Wrap-up, not finished by 13:00 (other processes kept the load at
   150-250). Final build `work/bin/s23-final/` (16 min): `gunfinger`
   byte-identical to `s23-start` and `s22-final`; `gunfinger-eval`
-  differs (tonight's harness). `regress session-23-start` started 11:58
-  under `screen` (`work/s23/regress.sh`, log `work/s23/regress.log`);
-  at 12:40 still running, 35 CPU minutes (session 22's whole run: 22),
-  no report written yet. `scripts/check.sh` with rustup's 1.98.0 first
+  differs (tonight's harness). `regress session-23-start` (11:58-12:55
+  under `screen`, `work/s23/regress.log`) identical: 720/720 sweep
+  queries, all 87, 93 and 79 scan detections, the calibrate line known
+  since session 8; 3,423 s, 3,404 s user (session 22: 153 s, 1,314 s).
+  At 12:51 we let the running checks finish after 13:00.
+  `scripts/check.sh` with rustup's 1.98.0 first
   (`RUSTUP_TOOLCHAIN=1.98.0`), started 11:23: fmt, clippy (macOS and the
   Linux target), `gunfinger`'s 55 unit tests and 13 of 14 end-to-end
   tests passed; the last end-to-end test

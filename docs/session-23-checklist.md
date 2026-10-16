@@ -48,9 +48,10 @@ for scope and rules.
   fixed), pass 2 at 11:12 (findings fixed; the `holders` check for
   unindexed left-out names reverted and left open, see the notes)
 - [x] Notes "Session 23", status, checklist, roadmap
-- [-] `regress session-23-start` identical; `scripts/check.sh` green
-  with both toolchains: not finished by 13:00 (load 150-250 from the
-  other processes). Regress still running at 12:40; check.sh with
+- [x] `regress session-23-start` identical (12:55, 57 min, not a speed
+  measurement: the machine had other load; the calibrate line known since session 8)
+- [~] `scripts/check.sh` green with both toolchains: not finished by
+  13:00 (load 150-250 from other processes); at 12:40 check.sh with
   rustup's 1.98.0 passed fmt, both clippies, 55 unit and 13 of 14
   end-to-end tests, the rest still running; Homebrew's pass not
   started. `gunfinger` in `work/bin/s23-final/` byte-identical to
