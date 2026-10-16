@@ -589,6 +589,26 @@ mod tests {
     }
 
     #[test]
+    fn a_pieces_excerpt_is_cut_from_its_segments_on_the_same_clock() {
+        let outer = Clock::around(&segment(30.0, 40.0, 0.0, 1.0));
+        // Sample n of the segment's excerpt holds n.
+        let samples: Vec<f32> = (0..outer.samples()).map(|n| n as f32).collect();
+        let inner = Clock::around(&segment(35.0, 41.0, 0.0, 1.0));
+
+        let part = outer.cut(&samples, &inner);
+
+        assert_eq!(part.len(), inner.samples());
+        // The piece's excerpt starts 34 s in, 5 s after the segment's.
+        assert_eq!(part[0], 40_000.0);
+        assert_eq!(part[1], 40_001.0);
+        // It reaches past the segment's excerpt, which ends at 41 s, 7 s
+        // in: silent from there.
+        assert_eq!(part[55_999], 95_999.0);
+        assert_eq!(part[56_000], 0.0);
+        assert_eq!(part[inner.samples() - 1], 0.0);
+    }
+
+    #[test]
     fn patches_are_counted_as_measure_steps_through_them() {
         assert_eq!(patch_count(0, 124), 0);
         assert_eq!(patch_count(0, 125), 1);

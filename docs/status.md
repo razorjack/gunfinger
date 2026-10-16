@@ -3681,15 +3681,18 @@ Brief `docs/brief-26.md`, checklist `docs/session-26-checklist.md`.
   plays.
 - 23:44 calibration (0133): T = 0.00683 (version 1: 0.121); 156 of 312
   wrong plays rejected, 72 of 75 positives kept. The group rule lowered
-  the wrong plays' S1 as much as the true plays' (median 0.112 to
-  0.007). Committed before evaluation.
+  the wrong plays' S1 too (median 0.112 by version 1's band rules on the
+  same lines, 0.007 by version 2's; the positives' median is 0 under
+  both). Committed before evaluation.
 - 23:49 evaluation (0134): E1 9 of 108 true plays rejected (limit 5:
   fails), E2 45 of 87 wrong related plays (44 required: passes); drawn
   18 of 480, control 0 of 15. Not worth pursuing as built. The line
   keeps four of version 1's five rejected true plays; the nine rejected
-  now are blends of four tracks where another record's sound crosses
-  an EQ crossover into an anchored group. Exploratory: version 1's band
-  rules on version 2's lines (T 0.112) give E1 0 of 108, E2 36 of 87.
+  now are four tracks at blends and mix-ins (an inference from the
+  timelines: another record's sound in bands of an anchored group).
+  Decisions changed: E1 8 newly rejected, 4 kept; E2 wrong 13 and 11.
+  Exploratory: version 1's band rules on version 2's lines, T re-derived
+  (0.112), give E1 0 of 108, E2 36 of 87.
 - 23:50 side set (0135, deciding nothing): the second panel's wrong
   plays 0 of 5 rejected (4 unmeasured: Phantom 2018 repeats the shared
   material, every knot a stray), positives 78 of 78 kept.

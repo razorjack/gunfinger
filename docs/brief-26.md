@@ -344,10 +344,10 @@ siblings, the renderer, the mix decoder.
   negatives rejected (2 unmeasured), 72 of 75 positives kept (96%: the
   calibration separates by the 95% rule, by one play). Experiment 0133.
   This T is used unchanged for E1, E2 and the side sets.
-- Not expected: the group rule lowered the wrong plays' S1 as much as
-  the true plays' (median 0.112 by version 1's band rules on the same
-  lines, 0.007 by version 2's; 99.4% of the 18,372 patches it changed
-  had no low anchor), so T fell from 0.121 to 0.0068. The design stays
+- Not expected: the group rule lowered the wrong plays' S1 too (median
+  0.112 by version 1's band rules on the same lines, 0.007 by version
+  2's; 99.4% of the 18,372 patches it changed had no low anchor), so T
+  fell from 0.121 to 0.0068. The design stays
   as registered; whether E1's true plays survive a T this strict is
   what 0134 measures.
 
@@ -362,9 +362,13 @@ siblings, the renderer, the mix decoder.
   timelines, `work/s26/e1-rejected.txt`): 4 tracks, 9 files: Bulletproof
   - Anthrax (3 files) and Future Cut - Horns 2000 (4 files) in Vertical,
   Kontempt.mp3 in Knowledge, Spirit - Out of Control in the 2003 mix.
-  In each, the low group is masked by another record and the bands just
-  across a crossover, in a group that has an anchor, are contradicted
-  by `r < 0.2`; S1 0.007-0.062. Version 1's five: four now kept (the
+  In each, another record's sound fills the low group and bands of a
+  group that still has an anchor are contradicted by `r < 0.2` (the
+  lowest mid bands for Anthrax, scattered mid bands for Kontempt and
+  Spirit, the three lowest bands under an anchored band 7 for Horns
+  2000); S1 0.007-0.062. (Commit `c6b7034`'s message calls them all
+  "blends leaking across an EQ crossover", which fits Anthrax only; the
+  review, below, corrected the documents.) Version 1's five: four now kept (the
   line), Kontempt.mp3 still rejected for the blend, not the line.
 - Exploratory, computed after the counts from the same runs, deciding
   nothing: version 1's band rules on version 2's lines with T by the
@@ -389,3 +393,45 @@ siblings, the renderer, the mix decoder.
   is allowed (step 3), and the prompt plans no other experiment, so the
   review starts once the notes are drafted, and the session ends after
   its fixes and the wrap-up checks.
+
+## Step 6: the review (23:53-00:07) and its fixes (to 00:20)
+
+A read-only subagent reviewed everything since `0aa1dea`. It found no
+code defect that changes a number and no broken rule: the merge keeps
+every line of both sides in order; the code matches step 3 point by
+point; every number it recomputed from the runs matches; the order of
+events holds (pre-registration 23:33:19 before the smoke run 23:39:59;
+the implementation's commit 23:41:25 before calibration 23:41:33; T
+23:44:23 before E1 23:44:27; 0134 23:49:21 before the second panel's run
+23:49:25); the listening files are unchanged. Its findings and what was
+done:
+
+1. "Dozer's version 1 rejections came with their lines" was wrong:
+   Dozer's knots lie within 3.5 ms of the reported lines; version 2
+   tests 3,762 of version 1's 5,039 Dozer patches (216 contradicted by
+   version 1's rules against 739). Restated in 0133 and the notes as
+   windows version 2 no longer tests (strays where the related file
+   differs, an inference), with a caveat in the handoff and roadmap.
+2. Not reported: the measured line moves some wrong plays to another
+   passage (a kept stretch 2.7-97 s off in 30 of 312 calibration wrong
+   plays, 15 of 87 E2 wrong plays; 4 of 108 E1 plays, none of the
+   positives). Now in 0133, 0134, the notes and the handoff.
+3. Horns 2000's patches run to 49:00, not 48:46. Fixed.
+4. The crossover explanation was stated as fact and does not fit Horns
+   2000 (its three lowest bands under an anchored band 7) or Kontempt
+   (scattered mid bands). Now an inference everywhere, described per
+   track; commit `c6b7034`'s message is left as it is.
+5. The decisions that changed were not reported: E1 8 newly rejected
+   and 4 kept; E2 wrong 13 and 11 (Pyro 7, Fire 5, Dozer 1 against Fire
+   11); drawn 18 and 3 (five on a single contradicted patch). Now in
+   0134 and the notes; `changes` outputs saved in
+   `work/s26/changes-*.txt`.
+6. Test gaps: added a segment with one knot, two knots across a jump
+   (both strays, no line), other music (no knot) and `Clock::cut`.
+7. Nits: the comment on the mix's speed was backwards (the code is
+   right); line.rs credits 0127 and 0132; "twentyfold" is about
+   eighteenfold; "strays" counts knots; version 1's drawn count is
+   session 25's corrected 2 (0125: 3); the exploratory T (0.112) is
+   named; "as much as the true plays'" reworded; `version_lines.py` is
+   named as staying; `version_plays.py threshold` labels its output by
+   the version of the run it reads.

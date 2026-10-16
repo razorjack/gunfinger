@@ -597,11 +597,13 @@ marked as inferences were derived, not measured.
   only in an EQ group with an anchor. Criteria as version 1's, on a
   declared second use: E1 9 of 108 true plays rejected (fails), E2 45 of
   87 (passes). The line keeps four of version 1's five rejected true
-  plays; the group rule spares the wrong plays as much as the true ones,
-  so T falls to 0.0068 and blends crossing an EQ crossover reject true
-  plays. A version 3 (the line, another treatment of crossover leakage,
-  knots chosen with continuity) needs a first-use set: new real mixes
-  with checked tracklists.
+  plays, but on wrong plays it drops differing stretches as strays and
+  can move to another passage; the group rule removes most of the wrong
+  plays' contradictions, so T falls to 0.0068 and blends reject true
+  plays (an inference from the timelines). A version 3 (the line kept
+  near the reported one, knots chosen with continuity, another
+  treatment of another record's sound) needs a first-use set: new real
+  mixes with checked tracklists.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away

@@ -40,9 +40,9 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] 6. Read-only review by a subagent (from 04:45 at the latest);
-  fixes committed
-- [ ] Notes "Session 26" with the handoff, status, checklist, roadmap
+- [x] 6. Read-only review by a subagent (23:53-00:07, started early as
+  every step was done); fixes committed
+- [x] Notes "Session 26" with the handoff, status, checklist, roadmap
 - [ ] `regress session-26-start` identical with the final build
 - [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
   (`RUSTUP_TOOLCHAIN=1.98.0`)

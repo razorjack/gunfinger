@@ -236,8 +236,10 @@ def line_of(v):
             "pieces": sum(len(line["pieces"]) for line in v["lines"])}
 
 
-def threshold(verified_path, out_path, registration="docs/brief-26.md, step 3"):
+def threshold(verified_path, out_path):
     verified = load(verified_path)
+    version_2 = any("lines" in v for v in verified)
+    registration = "docs/brief-26.md, step 3" if version_2 else "docs/brief-24.md, step 3"
     negatives = [v for v in verified if v["meta"]["label"] == "negative"]
     positives = [v for v in verified if v["meta"]["label"] == "positive"]
     errors = [v["id"] for v in verified if v.get("error")]

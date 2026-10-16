@@ -1,7 +1,7 @@
 //! Version 2's line (`docs/brief-26.md`, step 3): where the reference
 //! plays within a reported segment, measured from the reference's own
-//! hash hits instead of taken from the report. Experiment 0127 found
-//! reported lines 98-327 ms from the audio: the matcher takes a play's
+//! hash hits instead of taken from the report. Experiments 0127 and 0132
+//! found reported lines 98-327 ms from the audio: the matcher takes a play's
 //! track position from its opening window, which can hold another
 //! alignment while the record is mixed in or a loop point, and some
 //! uploads drift in speed within a play.
@@ -98,7 +98,8 @@ fn hits(samples: &[f32], clock_start: f64, segment: &Segment, reference: &Index)
     let points = Rung::Turntable(SpeedRatio(segment.speed)).points(samples, &profile);
     let mut hits = Vec::new();
     for_each_pair(&points, |hash, anchor| {
-        // Points are in reference frames; the mix runs `speed` times slower.
+        // Points are in reference frames; the mix plays `speed` times as
+        // fast, so reference frame f lies at mix frame f / speed.
         let t = clock_start + profile.seconds(points[anchor].frame / segment.speed);
         if !(segment.start_seconds..=segment.end_seconds).contains(&t) {
             return;
@@ -272,7 +273,11 @@ mod tests {
     /// Two tones at pseudo-random frequencies every 50 ms, so that every
     /// stretch of the file is distinct.
     fn reference(seconds: f64) -> Vec<f32> {
-        let mut state: u64 = 26;
+        tones(seconds, 26)
+    }
+
+    fn tones(seconds: f64, seed: u64) -> Vec<f32> {
+        let mut state = seed;
         let mut draw = move || {
             state = state
                 .wrapping_mul(6_364_136_223_846_793_005)
@@ -456,6 +461,47 @@ mod tests {
         let line = measure(&silence, 0.0, &reported, &index_of(&file));
 
         assert!(line.knots.is_empty());
+        assert!(line.pieces.is_empty());
+    }
+
+    #[test]
+    fn a_segment_with_one_knot_keeps_it_at_the_reported_speed() {
+        let file = reference(90.0);
+        let truth = |t: f64| 30.0 + 1.01 * t;
+        let mix = played(&file, 9.0, truth);
+        let reported = segment(0.5, 8.5, truth(0.5) + 0.05, 1.01);
+
+        let line = measure(&mix, 0.0, &reported, &index_of(&file));
+
+        assert_eq!((line.knots.len(), line.stretches, line.strays), (1, 1, 0));
+        assert_eq!(line.pieces.len(), 1);
+        assert!((line.pieces[0].speed - 1.01).abs() < 1e-12);
+        assert!(largest_error(&line.pieces, truth) < 0.016);
+    }
+
+    #[test]
+    fn two_knots_across_a_jump_are_strays_and_leave_no_line() {
+        let file = reference(120.0);
+        // 10 s of the file from 20 s, then 10 s from 80 s.
+        let truth = |t: f64| if t < 10.0 { 20.0 + t } else { 70.0 + t };
+        let mix = played(&file, 20.0, truth);
+        let reported = segment(0.5, 19.5, truth(0.5), 1.0);
+
+        let line = measure(&mix, 0.0, &reported, &index_of(&file));
+
+        assert_eq!((line.knots.len(), line.stretches, line.strays), (2, 0, 2));
+        assert!(line.pieces.is_empty());
+    }
+
+    #[test]
+    fn other_music_gives_no_knot() {
+        let file = reference(90.0);
+        let other = tones(60.0, 7);
+        let reported = segment(1.0, 59.0, 5.0, 1.0);
+
+        let line = measure(&other, 0.0, &reported, &index_of(&file));
+
+        assert!(line.knots.is_empty(), "{}", line.knots.len());
         assert!(line.pieces.is_empty());
     }
 }

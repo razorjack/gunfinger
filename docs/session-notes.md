@@ -5685,12 +5685,14 @@ now kept (Phantom Force and the three alien5ive uploads), and so is the
 second panel's one false rejection. Its second change, a rule that
 contradicts a band only where its EQ group demonstrably passes the
 record, removed most of the wrong plays' contradictions as well, so the
-threshold fell from 0.121 to 0.0068; at that threshold, blends in which
-another record's sound reaches across an EQ crossover reject nine true
-plays of four tracks. A check made after the counts, deciding nothing:
-the measured line with version 1's band rules would have rejected none
-of the 108 true plays but only 36 of the 87 wrong plays. Neither
-version meets both criteria. No listening question was answered, and
+threshold fell from 0.121 to 0.0068. At that threshold one contradicted
+patch in about 150 rejects a play, and nine true plays of four tracks
+are rejected at blends and mix-ins (my reading of their timelines: the
+other record's sound, not a version difference). A check made after
+the counts, deciding nothing: the measured line with version 1's band
+rules, and its threshold re-derived by the same rule (0.112), would
+have rejected none of the 108 true plays but only 36 of the 87 wrong
+plays. Neither version meets both criteria. No listening question was answered, and
 nothing here needs judging by ear.
 
 ### The merge
@@ -5742,7 +5744,17 @@ version 1's.
   1's band rules on the same lines the wrong plays' S1 has a median of
   0.112; the group rule took 18,372 contradicted patches away from them,
   99.4% of them in patches with no anchor in the low group. So the rule
-  meant to spare true plays in blends spared the wrong plays as much.
+  meant to spare true plays in blends spared the wrong plays too.
+- The measured line has two side effects on wrong plays. Where the
+  related file differs from the played one, a window's densest run lies
+  at another offset, its knot becomes a stray and that stretch goes
+  untested (an inference): version 2 tests 3,762 of version 1's 5,039
+  patches of Dozer's wrong plays, although their knots lie within 3.5 ms
+  of the reported lines, and version 1's band rules find 216
+  contradicted patches in them against 739. And because a knot may lie
+  at any offset, 30 of the 312 wrong plays keep a stretch 2.7-97 s from
+  the reported line, a passage the play does not claim (most likely
+  repeated material, an inference); no positive does.
 
 ### The numbers (experiments 0134 and 0135)
 
@@ -5750,17 +5762,24 @@ version 1's.
 |---|--:|--:|--:|--:|---|
 | E1: true plays, the three development mixes | 108 | 9 | 5 | 5 at most | fails |
 | E2: wrong related plays, rendered mixes | 87 | 45 | 43 | 44 at least | passes |
-| E2: drawn true plays; positive control | 480; 15 | 18; 0 | 2; 3 | (beside) | |
+| E2: drawn true plays; positive control | 480; 15 | 18; 0 | 2 (session 25's count; 0125: 3); 3 | (beside) | |
 | Second panel: wrong plays; positives | 5; 78 | 0 (4 unmeasured); 0 | 4; 1 | (beside) | |
 
 - E2 by family: Fire 37 of 67 (version 1: 43), Pyro 7 of 9 (0), Dozer
   1 of 2 (0), Sonar 0 of 9 (0). Pyro's seven are rejected for 4-16
   contradicted patches each among 96-438 supported ones.
+- Many decisions changed beside the totals. E1: 8 plays newly rejected,
+  4 newly kept. E2's wrong plays: 13 newly rejected (Pyro 7, Fire 5,
+  Dozer 1), 11 newly kept (all Fire). E2's drawn true plays: 18 newly
+  rejected, 3 newly kept; five of the 18 on a single contradicted patch
+  (at T one patch rejects any play with up to 146 decided patches).
+  15 of E2's 87 wrong plays and 4 of E1's 108 true plays keep a stretch
+  2.8-129 s from the reported line.
 - This was a declared second use of E1 and E2: version 1's counts were
   known, and version 2 was designed from E1's failures (the lines 0127
   measured on E1's own audio) and an E2 drawn play's (Astro-Sine). A pass
-  would have shown that version 2 removes those failures without losing
-  the wrong plays' rejections, not that it keeps true plays it has never
+  would have shown that version 2 removes those failures while still
+  rejecting enough wrong plays, not that it keeps true plays it has never
   seen. A first use needs real mixes no verifier has seen, with
   tracklists checked by ear, which have to be added by hand.
 
@@ -5768,15 +5787,17 @@ version 1's.
 
 | Mix | Track (files) | S1 | Where | Why (an inference from the timelines) |
 |---|---|--:|---|---|
-| Vertical | Bulletproof - Anthrax (3) | 0.037-0.062 | 38:11-38:25 | another record masks the low group; the lowest mid bands are contradicted |
-| Vertical | Future Cut - Horns 2000 (4) | 0.010-0.019 | 48:33-48:46, its mix-in | the lowest low bands contradicted under an anchored band 7 |
-| Knowledge | Kemal & Paul Reset - Kontempt.mp3 | 0.009 | its mix-in and mix-out | as Anthrax; its line follows a 170 ms nudge-in |
-| 2003-03-29 | Spirit - Out of Control | 0.007 | 39:48-40:11 | as Anthrax, 4 patches |
+| Vertical | Bulletproof - Anthrax (3) | 0.037-0.062 | 38:11-38:25 | another record masks the low group; the lowest mid bands (about 250-490 Hz) are contradicted |
+| Vertical | Future Cut - Horns 2000 (4) | 0.010-0.019 | its mix-in, 48:33-49:00 (most by 48:46) | the three lowest bands (about 40-80 Hz) contradicted, while band 7 (about 195-250 Hz) follows the record |
+| Knowledge | Kemal & Paul Reset - Kontempt.mp3 | 0.009 | its mix-in and mix-out | the low group masked; scattered mid bands contradicted; its line follows a 170 ms nudge-in |
+| 2003-03-29 | Spirit - Out of Control | 0.007 | 39:48-40:11 | the low group masked; a few mid bands contradicted (4 patches) |
 
-In each, another record covers one EQ group and its sound reaches across
-the crossover into the next group, which still has an anchor, so those
-bands read as contradicted (their dynamics are not the reference's). At
-T = 0.0068 one such patch in 150 rejects a play. Each of these S1 values
+In each, another record's sound fills part of the spectrum while bands
+of a group that still has an anchor read as contradicted (their
+dynamics are not the reference's, `r < 0.2`); the group rule spares only
+groups without an anchor. That this is the other record and not a
+version difference is my reading of the timelines, not checked by ear.
+At T = 0.0068 one such patch in about 150 rejects a play. Each of these S1 values
 is far below version 1's T. Kontempt.mp3 was rejected by version 1 too,
 then with its reported line 160 ms off; version 2 measures that line
 and rejects the play for the blends.
@@ -5789,9 +5810,11 @@ and rejects the play for the blends.
   knot is a stray and four of its five wrong plays are unmeasured. A
   line that prefers the run nearest the previous knot would follow one
   repetition; that is a design change, not tried.
-- **Dozer's version 1 rejections came with their lines.** On the panel,
-  version 1 rejected 13 of Dozer's 16 wrong plays; with the measured
-  line and version 1's band rules, none.
+- **Dozer's version 1 rejections came from windows version 2 no longer
+  tests.** On the panel, version 1 rejected 13 of Dozer's 16 wrong
+  plays; with the measured line and version 1's band rules, none. Their
+  lines did not move; the stretches that differ were dropped as strays
+  (above; an inference about the mechanism).
 - **Coverage.** Version 2 tests 91-98% of version 1's patches on the
   same plays, 78% for E2's wrong plays (lines broken by jumps and strays)
   and 2% for the second panel's wrong plays.
@@ -5810,7 +5833,9 @@ and rejects the play for the blends.
   `work/bin/s25-final/`. As after session 24, the command stays as a
   harness diagnostic until we decide; deleting it means `versions.rs`,
   `versions/`, its command in `main.rs`, `version_plays.py` and
-  `version_controlled.py`.
+  `version_controlled.py`; `version_lines.py` (a line checked with
+  `identify` on excerpts) and the renderer's fixes stay, as session 24
+  proposed.
 - The exploratory count with version 1's band rules on version 2's
   lines was computed from the same runs after the counts; no further run
   touched E1, E2 or the second panel.
@@ -5831,13 +5856,19 @@ and rejects the play for the blends.
 2. The verifier failed its criteria twice (versions 1 and 2). If we
    continue, what tonight suggests for a version 3, untested:
    - keep the measured line (it removed every line failure seen: E1's
-     four, the second panel's loop, PRO 012 A's controls);
-   - replace the group rule: it spared wrong plays as much as true ones.
-     The case it should cover is another record's sound in bands next to
-     a group that record fills (masked, or killed with a borrowed gain),
-     reaching across the crossover;
+     four, the second panel's loop, PRO 012 A's controls), but stop it
+     from leaving out or relocating differing material: a knot should
+     stay near the reported line or the previous knot, and a stretch at
+     another offset should be reported apart, since it tests a passage
+     the play does not claim;
+   - replace the group rule: it removed most of the wrong plays'
+     contradictions too, so T fell with them and the true plays gained
+     nothing (9 rejected, against none with the line alone at its own
+     T, the exploratory count).
+     The cases it should cover are another record's sound in the bands of
+     a group that still has an anchor (tonight's nine);
    - pick knots with continuity, so that a related version that repeats
-     its material gets a line;
+     its material gets a line (the second panel's four unmeasured plays);
    - T's rule (the median wrong play) gives a very strict T when S1 is
      small for every play; with it, one contradicted patch in 150 decides.
    And a first-use evaluation set.
