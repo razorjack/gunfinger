@@ -93,7 +93,7 @@ Rules:
   `scan-nocny-trans-vertical-2002-08-23.json` (10-14),
   `mixes-seed-2026.json` (10-08).
 
-## Plan, with times (as written at 19:30, after step 2's result)
+## Plan, with times (as written at 19:12, after step 2's result)
 
 | Step | What | Planned end |
 |---|---|--:|
@@ -105,7 +105,7 @@ Rules:
 | 6 | read-only review by a subagent; fixes | 01:30 |
 | 7 | wrap-up: notes, status, checklist, roadmap bullet; `check.sh` only if code changed; commit; the final message | 02:00 |
 
-## Step 2: Panako's build (19:10-19:25)
+## Step 2: Panako's build (19:07-19:12)
 
 Commands (from the worktree root; nothing of this is committed):
 
@@ -160,7 +160,7 @@ GRADLE_USER_HOME=<worktree>/work/panako/gradle-home ./gradlew --no-daemon shadow
   within the prompt: the pre-registration (step 3), so that a later run
   is mechanical, and Gunfinger's side of the comparison.
 
-## Step 3: the pre-registration (written at 19:50, before any count)
+## Step 3: the pre-registration (written at 19:15, committed 19:16, before any count)
 
 Fixed now, for the run that follows once we decide on step 2.
 Nothing may be added after a Panako count is seen; anything computed
@@ -191,7 +191,7 @@ Panako's goes into the repository or the product.
   back to the library-relative name by removing the library root. After
   the first index: 262 distinct identifiers (`panako stats`), or the
   collisions are listed and their files' answers excluded from every
-  count, for both systems.
+  count, for both systems. *(Amended below, A3.)*
 
 ### The indexes
 
@@ -334,7 +334,7 @@ Panako 2.1 compiles for Java 11 and its wrapper's Gradle 7.2 runs only on Java 1
   scans of `razorjack-2003-03-29` (15 s wall) and
   `nocny-trans-vertical-2002-08-23` (30 s), sweeps 2027 (113 s), 2028
   (152 s), 2029 (166 s) and the 12 mixes of seed 2026 (42 s), load
-  10-37. Every report is identical to the saved one
+  8-37. Every report is identical to the saved one
   (`scripts/analysis/report_identity.py`); the mix renders are
   byte-identical to the main checkout's. Seed 2026's sweep and the
   stakka scans were checked by session 24's `regress` at 18:45.
@@ -379,6 +379,66 @@ Panako 2.1 compiles for Java 11 and its wrapper's Gradle 7.2 runs only on Java 1
   the self-check), `install`, `smoke` (three files, one of them seed
   2026's draw 000, and that draw's render at +3%), `index-all`,
   `index-seed N`, `sweep N`, `dev SET`, `dev-query SET`, `mix NN`.
+
+## Amendments after the review (21:50, before any Panako count)
+
+A read-only review (step 6, 21:30-21:45) read Panako's sources and found
+that parts of step 3 would have mis-scored Panako or left decisions to
+be made after a count. No Panako process has run, so these replace the
+named parts of step 3; the rest stands.
+
+- **A1, speed.** Panako's time factor is not Gunfinger's speed: its
+  matcher fits the slope of match time minus query time against query
+  time and prints 1/(1 - slope) (`PanakoStrategy.java`, `PanakoMatch.java`),
+  which is 1/(2 - speed): 1.087 at +8%, 0.926 at -8%. Its query and
+  match starts and stops are the times of the first and last aligned
+  hits, sorted by query time, so Gunfinger's speed is their spans'
+  ratio, `(match_stop - match_start) / (query_stop - query_start)`, and
+  query time q holds file time `match_start + speed (q - query_start)`.
+  Speed errors use that ratio; the printed time factor is reported
+  beside. The frequency factor is reported as printed: the README's
+  example and the code do not agree on its direction.
+- **A2, monitor.** `monitor` decodes each window from its start, so a
+  result's query start and stop lie within its window; the window is
+  the suffix `-<start>_<stop>` of the printed query path. Mix time =
+  window start + query time when the query stop is at most the window's
+  length plus 1 s, else as printed. The windows are the configuration
+  file's (`MONITOR_STEP_SIZE=10`, `MONITOR_OVERLAP=5`), not the README's
+  25 and 5.
+- **A3, identifiers.** Panako identifies a file by a hash of 64 KB from
+  its middle (`FileUtils.getIdentifier`) and, with
+  `CHECK_DUPLICATE_FILE_NAMES=TRUE`, stores one file per identifier, so
+  byte-identical copies are stored once: the library holds 9 pairs of
+  byte-identical files, each pair inside one duplicate cluster, so
+  Panako will store 253 files. Answers
+  are scored by the path Panako prints; inside one cluster a collision
+  changes nothing. Collisions across clusters are listed with the queries
+  they touch and scored as printed. Nothing is excluded for either
+  system.
+- **A4, stricter recall.** A query counts in position when any of its
+  right answers lies within 3 s and 1 point; every right answer outside
+  them is listed.
+- **A5, empty results.** A line with no match path (or `null`) or a
+  score below 1 is no answer.
+- **A6, self-check.** Panako's unit tests (`./gradlew test`) download
+  test audio from `https://panako.be/releases/Panako-test-dataset/`
+  into the temporary directory and use `~/.panako`; under our
+  rule on downloads they are not run. The `smoke` stage is the
+  self-check. After the build, `~/.panako` is checked (`build.gradle`'s
+  `install` task writes there if Gradle realises it).
+- **A7, working directory.** Panako's stages run from `work/panako/run/`,
+  so its decoder log (`DECODER_PIPE_LOG_FILE=decoder_log.txt`, a
+  relative path) stays there.
+- **A8, generated mixes.** Each found play's position error is reported
+  as `mixes::score` does: the strongest matching detection's file time
+  at its start minus the play's.
+- **A9, I-stakka-out.** `panako_compare.py plan` writes its list (244
+  files: the library without the 18 files of stakka's references'
+  clusters, the same 18 that Gunfinger's `--leave-out 11` run leaves
+  out); `run.sh stakka-out` stores it and runs `monitor` on the mix.
+- **A10, files.** The run's lists and its wait script are in
+  `work/panako/` (`lists/library.txt`, `lists/smoke-files.txt`,
+  `lists/index-*.txt`, `wait-java11.sh`), so `work/s24b/` can go.
 
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
@@ -428,10 +488,13 @@ paths_for() {
 case $1 in
   build)
     cd "$SRC" && JAVA_HOME=$J11 GRADLE_USER_HOME=$P/gradle-home \
-      timed build ./gradlew --no-daemon shadowJar ;;
+      timed build ./gradlew --no-daemon shadowJar
+    # build.gradle's `install` task writes to ~/.panako if it is realised.
+    ls -la ~/.panako >> "$LOGS/build.log" 2>&1 ;;
   test)
-    cd "$SRC" && JAVA_HOME=$J11 GRADLE_USER_HOME=$P/gradle-home \
-      timed self-check ./gradlew --no-daemon test ;;
+    # Panako's unit tests download audio from panako.be and use ~/.panako:
+    # not run without our decision; `smoke` is the self-check.
+    echo "not run: see docs/brief-24b.md"; exit 1 ;;
   install)
     # As `./gradlew install` lays out ~/.panako, but in RUN: the jar and the
     # documented default configuration, with the strategy and paths changed.
@@ -453,35 +516,46 @@ SCRIPT
     diff "$SRC/resources/defaults/config.properties" "$RUN/config.properties" ;;
   smoke)
     # Three library files, one of them seed 2026's draw 000; its render at +3%.
-    head -n 3 "$WT/work/s24b/smoke-files.txt" > "$P/smoke-list.txt"
-    timed smoke-store "$panako" store "$P/smoke-list.txt" $(paths_for smoke)
+    cd "$RUN"
+    timed smoke-store "$panako" store "$P/lists/smoke-files.txt" $(paths_for smoke)
     timed smoke-query "$panako" query "$M/work/sweep/seed-2026/000-+3.mp3" $(paths_for smoke)
     timed smoke-stats "$panako" stats $(paths_for smoke) ;;
   index-all)
-    sed "s|^|$M/corpus/library/|" "$WT/work/s24b/library.txt" > "$P/lists/index-all.txt"
+    cd "$RUN"
     timed index-all "$panako" store "$P/lists/index-all.txt" $(paths_for all)
     timed stats-all "$panako" stats $(paths_for all) ;;
   index-seed)
+    cd "$RUN"
     timed "index-seed-$2" "$panako" store "$P/lists/index-seed-$2.txt" $(paths_for "seed-$2") ;;
   sweep)
+    cd "$RUN"
     timed "sweep-$2" "$panako" query "$M"/work/sweep/seed-"$2"/*.mp3 $(paths_for "seed-$2") ;;
   dev)
     # The development mix named by its directory, whole, with `monitor`.
     case $2 in stakka-skynet-knowledge|razorjack-2003-03-29|nocny-trans-vertical-2002-08-23) ;; *) exit 1 ;; esac
     audio=$(ls "$M/corpus/sets/$2"/*.{mp3,m4a} 2>/dev/null | head -n 1)
+    cd "$RUN"
     timed "monitor-$2" "$panako" monitor "$audio" $(paths_for all) ;;
   dev-query)
     case $2 in stakka-skynet-knowledge|razorjack-2003-03-29|nocny-trans-vertical-2002-08-23) ;; *) exit 1 ;; esac
     audio=$(ls "$M/corpus/sets/$2"/*.{mp3,m4a} 2>/dev/null | head -n 1)
+    cd "$RUN"
     timed "query-$2" "$panako" query "$audio" $(paths_for all) ;;
   mix)
+    cd "$RUN"
     timed "mix-$2" "$panako" monitor "$M/work/mixes/seed-2026/mix-$2.mp3" $(paths_for seed-2026) ;;
+  stakka-out)
+    # The index without stakka's references (Gunfinger's --leave-out 11), then the mix.
+    cd "$RUN"
+    timed index-stakka-out "$panako" store "$P/lists/index-stakka-out.txt" $(paths_for stakka-out)
+    audio=$(ls "$M/corpus/sets/stakka-skynet-knowledge"/*.m4a | head -n 1)
+    timed monitor-stakka-out "$panako" monitor "$audio" $(paths_for stakka-out) ;;
   *)
     echo "unknown stage $1"; exit 1 ;;
 esac
 ```
 
-`work/s24b/wait-java11.sh`:
+`work/panako/wait-java11.sh`:
 
 ```bash
 #!/bin/bash

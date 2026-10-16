@@ -3451,7 +3451,7 @@ Worktree `/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`, branch
 `docs/brief-24b.md`, checklist `docs/session-24b-checklist.md`. The
 product did not change.
 
-- 19:10 Panako cloned into `work/panako/src-clone/Panako`: `f1248f7`,
+- 19:07 Panako cloned into `work/panako/src-clone/Panako`: `f1248f7`,
   version 2.1, AGPL-3.0. `GRADLE_USER_HOME=work/panako/gradle-home
   ./gradlew --no-daemon shadowJar` downloaded Gradle 7.2 and failed:
   `Unsupported class file major version 65` (Gradle 7.2 runs on Java
@@ -3460,7 +3460,7 @@ product did not change.
   change nothing, install nothing. `java_home -v 11` prints Temurin 21
   with exit 0, so the wait read the JDK's version
   (`work/s24b/wait-java11.sh`); no JDK 11 by 22:00.
-- 19:50 pre-registration (brief step 3, experiment 0130): Panako's
+- 19:15 pre-registration (brief step 3, experiment 0130): Panako's
   documented defaults with `STRATEGY=PANAKO`; indexes of the 262 files
   and per sweep seed; sweeps 2026-2029, the three development mixes with
   `monitor`, seed 2026's generated mixes; scoring as the harness's;
@@ -3475,7 +3475,14 @@ product did not change.
   mixes. `gunfinger stats`: index 39.7 MB, peak store 19.7 MB. A fresh
   `gunfinger index` of the corpus library: 50.9 s wall, 938 MB, 265
   files extracted (the working store's 3 skip notes decode now).
-- Ready for the run: `work/panako/run.sh` (stages), the library and
-  per-seed lists in `work/panako/lists/`, the scorer
+- Ready for the run: `work/panako/run.sh` (stages), the lists in
+  `work/panako/lists/` (written by `panako_compare.py plan`), the scorer
   `scripts/analysis/panako_compare.py` (`selfcheck` passes);
   `scripts/analysis/devscore.py`'s `load_set` takes a corpus root.
+- 21:30-21:45 read-only review (subagent). Fixed: the pre-registration
+  amended before any count (brief A1-A10: speed from the matched spans,
+  as Panako's time factor is 1/(2 - speed); monitor times within their
+  window; byte-identical files stored once, scored as printed; stricter
+  recall over any right answer; Panako's unit tests not run, they
+  download audio; I-stakka-out's list), the scorer and the run script to
+  match, times and loads in the brief and 0131.

@@ -28,7 +28,9 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 
 ## Wrap-up
 
-- [ ] 6. Read-only review by a subagent; fixes
+- [x] 6. Read-only review by a subagent (21:30-21:45); fixes: the
+  pre-registration amended before any count (brief A1-A10), the scorer
+  and the run script, times and loads
 - [ ] Notes "Session 24b", status entry, checklist, one roadmap bullet
 - [ ] `scripts/check.sh` only if code changed
 - [ ] Nothing of Panako's outside `work/` (none was written)

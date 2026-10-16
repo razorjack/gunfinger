@@ -16,7 +16,7 @@ sweep and the stakka scans were checked by session 24's `regress` at
 
 | Run (saved report's date) | Wall | Load | Against the saved report |
 |---|--:|--:|---|
-| scan `razorjack-2003-03-29` (10-11) | 15 s | 10-12 | identical |
+| scan `razorjack-2003-03-29` (10-11) | 15 s | 8-12 | identical |
 | scan `nocny-trans-vertical-2002-08-23` (10-14) | 30 s | 10-15 | identical |
 | sweeps 2027, 2028, 2029 (10-08) | 113, 152, 166 s | 14-37 | identical |
 | 12 mixes of seed 2026 (10-08) | 42 s | 17-19 | identical; renders byte-identical |
@@ -27,7 +27,7 @@ sweep and the stakka scans were checked by session 24's `regress` at
 | Development mixes (referenced at 262 tracks) | stakka 11/11, razorjack 7/7, nocny 9/9; 0 wrong |
 | Generated mixes, seed 2026 | 106 of 115 indexed plays, 0 wrong (29 held-out plays) |
 | Index (`gunfinger stats`) | 105,303 s of audio; peak store 19.7 MB; index 39.7 MB, 7.84 M postings |
-| Fresh `gunfinger index` (265 files) | 50.9 s wall, 471 s CPU, 938 MB maximum resident, load 15 |
+| Fresh `gunfinger index` (265 files) | 50.9 s wall, 471 s CPU, 938 MB maximum resident, load 4-14 |
 
 Boundaries (earliest credited start minus the manifest's): stakka -68
 to +0.1 s; nocny -26 to +16 s except track 10, +91 s; razorjack's track

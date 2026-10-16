@@ -20,8 +20,8 @@ Nothing was written outside `work/`.
 
 - Panako's `config.properties` defaults with `STRATEGY=PANAKO`; paths
   under `work/`; one thread; every printed result is a confident answer.
-  Its time factor is Gunfinger's speed (query time q holds reference
-  time `match_start + factor (q - query_start)`).
+  Speed = matched reference span / query span (amended at 21:50, before
+  any count: its time factor is 1/(2 - speed); brief, A1-A10).
 - Indexes: all 262 files (cost measured here); per sweep seed, the
   library minus the panel's held-out recordings; optional, without
   stakka's references (the `--leave-out 11` equivalent).
@@ -36,5 +36,5 @@ Nothing was written outside `work/`.
 
 **Result.** No Panako count: the build did not run.
 
-**Conclusion.** The comparison waits on our choice of a way to
-build (brief, step 2); the run that follows needs no new decisions.
+**Conclusion.** The comparison waits on a JDK of 11-16 (brief, step 2);
+with the amendments the run needs no decision after a count.

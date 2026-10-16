@@ -4955,9 +4955,9 @@ rule the Panako part stopped at the build. At 19:24 the launching agent
 said it would ask for Temurin 11 to be installed (`brew install --cask
 temurin@11`) and told me to wait for it until 22:00 without changing
 the wrapper or installing anything; no JDK 11 appeared by then. The
-comparison is fully prepared, so a later run needs no new decisions:
-the protocol is pre-registered, the run script and the scorer are
-written, and Gunfinger's side is measured.
+comparison is prepared: the protocol is pre-registered (amended once
+after a review read Panako's sources, before any count), the run script
+and the scorer are written, and Gunfinger's side is measured.
 
 ### What Panako is
 
@@ -4994,9 +4994,9 @@ documented default configuration into `work/panako/run/`; it may also
 write a Java Preferences node to
 `~/Library/Preferences/com.apple.java.util.prefs.plist`, whose copy
 from before is in `work/panako/state-before/` for comparison. From the
-README's figure of about 80 seconds of audio per second on one core
-(its algorithm not named), indexing the 262 files would take about 22
-minutes and each sweep seed about 5; the Gabor transform may be slower.
+README's test run of the Panako algorithm (about 80 seconds of audio per
+second on one core, on short WAV files), indexing the 262 files would
+take about 22 minutes and each sweep seed about 5.
 
 ### Gunfinger's side (experiment 0131)
 
@@ -5035,4 +5035,12 @@ Gunfinger misses.
   or the main checkout; Panako wrote nothing outside `work/` (it never
   ran). `~/.panako` and `~/.gradle` do not exist.
 - The worktree's `work/s24b/` (1.1 GB, copies of renders and of the
-  peak store) can be deleted; `work/panako/` is kept for the run.
+  peak store) can be deleted; `work/panako/` holds everything the run
+  needs.
+- Three things in Panako matter for reading its numbers later: its time
+  factor is 1/(2 - speed), not the speed, so the scorer takes the speed
+  from the matched spans; `monitor` prints times within each 10 s window;
+  and it stores byte-identical files once (9 pairs in the library, each
+  inside one cluster), so it will hold 253 files where Gunfinger holds
+  262. Its own unit tests download audio from panako.be, so they were
+  left out.
