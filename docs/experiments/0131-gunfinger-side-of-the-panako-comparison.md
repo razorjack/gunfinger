@@ -29,10 +29,9 @@ sweep and the stakka scans were checked by session 24's `regress` at
 | Index (`gunfinger stats`) | 105,303 s of audio; peak store 19.7 MB; index 39.7 MB, 7.84 M postings |
 | Fresh `gunfinger index` (265 files) | 50.9 s wall, 471 s CPU, 938 MB maximum resident, load 15 |
 
-Boundaries (earliest credited start minus the manifest's): stakka from
--68 to +0.1 s (the manifest's starts are late against the mixing in);
-nocny from -26 to +16 s except track 10, +91 s; razorjack's track 4 is
-on the NAS only, so none is measured there at 262 tracks.
+Boundaries (earliest credited start minus the manifest's): stakka -68
+to +0.1 s; nocny -26 to +16 s except track 10, +91 s; razorjack's track
+4 is on the NAS only, so none is measured there at 262 tracks.
 
 **Conclusions.** Every saved report the comparison reads matches the
 current build, so Panako's answers can be scored against them as they
