@@ -1,8 +1,7 @@
 # 0137: the minimum span (variant A) counted from master's saved reports
 
-**Question.** Session 27, step 4 with source M (0136): variant A(S),
-240 hits over at least S s from the first to the last aligned hit in
-place of 3 windows, on the reports that hold first and last hits.
+**Question.** Session 27, step 4, source M (0136): variant A(S), 240
+hits over S s or more from the first to the last aligned hit.
 
 **Method.** `scripts/analysis/span_rule.py` (grid, mixes, scans,
 shared). Today's rule first reproduced every stored level and score of
@@ -32,8 +31,8 @@ matcher, so seed 7 is V's (0138). Data: `data/0137-m-*.json`.
   A(15) the loop's stays possible. The same rule makes the played file
   confident in 23 of these brief queries (16 everything, 7 source left
   out), and 17 and 15 on shared 2.
-- Mixes: A(10) promotes 8 plays of 20-26 s (among them mix 10's
-  Dominion, 0030's), A(20) demotes 10 of 23-28 s.
+- Mixes: A(10) promotes 8 plays of 20-26 s (mix 10's Dominion among
+  them), A(20) demotes 10 of 23-28 s.
 
 **Conclusion.** Criterion 1 fails for A(10) and A(15) on the first
 shared panel (3 queries newly wrong with the played recording left
