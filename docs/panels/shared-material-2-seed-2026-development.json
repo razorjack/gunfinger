@@ -1,0 +1,487 @@
+{
+ "seed": 2026,
+ "panel": "docs/panels/shared-material-2-seed-2026.json",
+ "half": "development",
+ "status": "session 25, step 4a: the frozen panel's development half with its rips joined and its passages cut, written before any search; the frozen file is unchanged and its validation half stays unsearched",
+ "rule": "`rips` takes the development families. Each recording takes in the current duplicate clusters (CLUSTERS) of its files; two recordings of a family that a cluster links stop the script. The unjudged files of a family's titles are the frozen list and any file whose tags (TAGS, the store's current tags) give the family's titles that no recording, no family of either panel and no test-derived version holds. Each unjudged file is listed against each recording's file that a judged pair names (else its first), for `gunfinger-eval pair`. `join` adds an unjudged file to a recording when one alignment at the fitted speed covers 80% of the shorter file and only one recording is so covered: the clustering rule, as shared_panel.py's `join`. `pairs` writes the judged pairs in both directions for `pair`; `freeze` cuts each direction's passage by shared_panel.py's rule and writes one file: the families with their directions (for shared_outcomes.py, `other_versions` empty: this panel lists none) and the development scenarios with the blend partner (for `gunfinger-eval shared`, which reads only those).",
+ "passage_rule": "the strongest alignment of `pair`'s audio second pass (corpus played files) or stored peaks at the fitted speed, else the key-locked ladder's; below 25 hits a control direction",
+ "families": [
+  {
+   "name": "phantom-force",
+   "recordings": [
+    [
+     "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 65"
+    },
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 69"
+    },
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 75"
+    }
+   ],
+   "unjudged_same_title": [
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Spirit Remix).m4a",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (T-Power & Codeine Remix).m4a"
+   ],
+   "in_development_mixes": [
+    "razorjack-2003-03-29: 4. Digital & Spirit - Phantom Force"
+   ],
+   "half": "development",
+   "added_by_clusters_in_session_25": [],
+   "unjudged_added_in_session_25": [],
+   "joined_in_session_25": [],
+   "other_versions": [],
+   "directions": [
+    {
+     "name": "phantom-force-1",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "played_seconds": 387.1,
+     "related_seconds": 343.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 100.3,
+      "end_seconds": 149.2,
+      "related_start_seconds": 61.3,
+      "related_end_seconds": 110.1,
+      "speed": 0.999,
+      "key_locked": false,
+      "hits": 195,
+      "windows": 3
+     }
+    },
+    {
+     "name": "phantom-force-2",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "played_seconds": 343.1,
+     "related_seconds": 387.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 45.2,
+      "end_seconds": 59.9,
+      "related_start_seconds": 54.9,
+      "related_end_seconds": 69.6,
+      "speed": 1.0008,
+      "key_locked": false,
+      "hits": 122,
+      "windows": 2
+     }
+    },
+    {
+     "name": "phantom-force-3",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "played_seconds": 387.1,
+     "related_seconds": 300.0,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 240.7,
+      "end_seconds": 267.9,
+      "related_start_seconds": 129.4,
+      "related_end_seconds": 156.7,
+      "speed": 0.9991,
+      "key_locked": false,
+      "hits": 141,
+      "windows": 3
+     }
+    },
+    {
+     "name": "phantom-force-4",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "played_seconds": 300.0,
+     "related_seconds": 387.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 45.1,
+      "end_seconds": 68.1,
+      "related_start_seconds": 245.7,
+      "related_end_seconds": 268.6,
+      "speed": 1.0008,
+      "key_locked": false,
+      "hits": 140,
+      "windows": 3
+     }
+    },
+    {
+     "name": "phantom-force-5",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "played_seconds": 387.1,
+     "related_seconds": 394.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": true,
+      "start_seconds": 91.2,
+      "end_seconds": 129.6,
+      "related_start_seconds": 44.5,
+      "related_end_seconds": 80.9,
+      "speed": 0.948,
+      "key_locked": false,
+      "hits": 14,
+      "windows": 2
+     }
+    },
+    {
+     "name": "phantom-force-6",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+     "played_seconds": 394.1,
+     "related_seconds": 387.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": true,
+      "start_seconds": 270.8,
+      "end_seconds": 308.6,
+      "related_start_seconds": 52.1,
+      "related_end_seconds": 91.9,
+      "speed": 1.0543,
+      "key_locked": false,
+      "hits": 14,
+      "windows": 2
+     }
+    }
+   ]
+  },
+  {
+   "name": "star-trails",
+   "recordings": [
+    [
+     "Kemal & Rob Data - Star Trails.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "second-library/audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+      "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 72"
+    }
+   ],
+   "unjudged_same_title": [],
+   "in_development_mixes": [
+    "stakka-skynet-knowledge: 3. Kemal & Rob Data - Star Trails"
+   ],
+   "half": "development",
+   "added_by_clusters_in_session_25": [],
+   "unjudged_added_in_session_25": [],
+   "joined_in_session_25": [],
+   "other_versions": [],
+   "directions": [
+    {
+     "name": "star-trails-1",
+     "played": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "played_seconds": 441.6,
+     "related_seconds": 185.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 110.7,
+      "end_seconds": 149.0,
+      "related_start_seconds": 21.2,
+      "related_end_seconds": 59.3,
+      "speed": 0.9939,
+      "key_locked": false,
+      "hits": 118,
+      "windows": 4
+     }
+    },
+    {
+     "name": "star-trails-2",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+     "related": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "played_seconds": 185.1,
+     "related_seconds": 441.6,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 21.2,
+      "end_seconds": 43.5,
+      "related_start_seconds": 110.7,
+      "related_end_seconds": 133.1,
+      "speed": 1.0059,
+      "key_locked": false,
+      "hits": 109,
+      "windows": 3
+     }
+    }
+   ]
+  },
+  {
+   "name": "we-r-the-ones",
+   "recordings": [
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3"
+    ],
+    [
+     "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+     "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+    ]
+   ],
+   "pairs": [
+    {
+     "files": [
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+      "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus"
+     ],
+     "why": "different: docs/pair-verdicts.txt, line 73"
+    }
+   ],
+   "unjudged_same_title": [
+    "second-library/__full_scene/1999/1999-11/1999-11-13/certificate_18-klute-cert1838-1999-sour/aa-klute-we_r_the_ones-sour.mp3",
+    "second-library/__full_scene/Certificate 18/CERT1838 - Klute - We R The Ones + Drive Down (1999)/AA-Klute-We_R_The_Ones-sour.mp3",
+    "second-library/__full_scene/Certificate 18/CERT18CD012 - VA - Hidden Rooms Vol.3 (2001)/103-Klute-We_R_The_Ones-AVR.mp3",
+    "second-library/__youtube_archivists/butch-french/Klute - We R The Ones.opus",
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones.opus"
+   ],
+   "in_development_mixes": [
+    "nocny-trans-vertical-2002-08-23: 14. Klute - We R The Ones (VIP)"
+   ],
+   "half": "development",
+   "added_by_clusters_in_session_25": [],
+   "unjudged_added_in_session_25": [],
+   "joined_in_session_25": [
+    {
+     "file": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+     "recording": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "coverage": 0.992,
+     "hits": 6910
+    }
+   ],
+   "other_versions": [],
+   "directions": [
+    {
+     "name": "we-r-the-ones-1",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "played_seconds": 448.1,
+     "related_seconds": 429.0,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 380.4,
+      "end_seconds": 429.9,
+      "related_start_seconds": 359.0,
+      "related_end_seconds": 408.4,
+      "speed": 0.9999,
+      "key_locked": false,
+      "hits": 108,
+      "windows": 4
+     }
+    },
+    {
+     "name": "we-r-the-ones-2",
+     "played": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+     "related": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+     "played_seconds": 429.0,
+     "related_seconds": 448.1,
+     "passage": {
+      "search": "peaks, at the fitted speed",
+      "control": false,
+      "start_seconds": 360.5,
+      "end_seconds": 422.6,
+      "related_start_seconds": 382.0,
+      "related_end_seconds": 444.1,
+      "speed": 1.0,
+      "key_locked": false,
+      "hits": 142,
+      "windows": 6
+     }
+    }
+   ]
+  }
+ ],
+ "blend_partner": {
+  "file": "Skynet & Stakka - Decoy.mp3",
+  "start_seconds": 60.0
+ },
+ "scenarios": [
+  {
+   "name": "phantom-force-1",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+   "passage_start_seconds": 100.3,
+   "passage_end_seconds": 149.2,
+   "played_recording": [
+    "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a"
+   ]
+  },
+  {
+   "name": "phantom-force-2",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "passage_start_seconds": 45.2,
+   "passage_end_seconds": 59.9,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom 2018.m4a"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   ]
+  },
+  {
+   "name": "phantom-force-3",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+   "passage_start_seconds": 240.7,
+   "passage_end_seconds": 267.9,
+   "played_recording": [
+    "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+   ]
+  },
+  {
+   "name": "phantom-force-4",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "passage_start_seconds": 45.1,
+   "passage_end_seconds": 68.1,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   ]
+  },
+  {
+   "name": "phantom-force-5",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "passage_start_seconds": 91.2,
+   "passage_end_seconds": 129.6,
+   "played_recording": [
+    "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a"
+   ]
+  },
+  {
+   "name": "phantom-force-6",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a",
+   "passage_start_seconds": 270.8,
+   "passage_end_seconds": 308.6,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Rift feat. Souldrop - Meltdown.m4a"
+   ],
+   "related_recording": [
+    "second-library/__full_scene/1999/1999-11/1999-11-01/phantom_audio-digital_and_spirit-phud1-1999-sour/a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+    "second-library/__youtube_archivists/i-witness-dnb/Digital & Spirit - Phantom Force.m4a"
+   ]
+  },
+  {
+   "name": "star-trails-1",
+   "played": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "passage_start_seconds": 110.7,
+   "passage_end_seconds": 149.0,
+   "played_recording": [
+    "Kemal & Rob Data - Star Trails.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+    "second-library/audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+   ]
+  },
+  {
+   "name": "star-trails-2",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a",
+   "related": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "passage_start_seconds": 21.2,
+   "passage_end_seconds": 43.5,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Kemal & Rob Data - Star Trails (Synergy Remix).m4a"
+   ],
+   "related_recording": [
+    "Kemal & Rob Data - Star Trails.mp3",
+    "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+    "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+    "second-library/audio_blueprint-konflict-abpr013-2000-sour/A-Konflict-Star_Trails-sour.mp3"
+   ]
+  },
+  {
+   "name": "we-r-the-ones-1",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "passage_start_seconds": 380.4,
+   "passage_end_seconds": 429.9,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3"
+   ]
+  },
+  {
+   "name": "we-r-the-ones-2",
+   "played": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+   "related": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+   "passage_start_seconds": 360.5,
+   "passage_end_seconds": 422.6,
+   "played_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3"
+   ],
+   "related_recording": [
+    "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "second-library/commercial_suicide-suicide004-klute-2002-sour/b-klute-we_r_the_ones_3-sour.mp3"
+   ]
+  }
+ ]
+}

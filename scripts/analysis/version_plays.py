@@ -3,13 +3,16 @@ scores of its output against the pre-registration (docs/brief-24.md,
 step 3).
 
 usage:
-  version_plays.py calibration PANEL CLUSTERS SHARED_REPORT HOLDERS OUT
+  version_plays.py calibration PANEL CLUSTERS SHARED_REPORT HOLDERS OUT [QUERIES SET]
       the panel's development half (a `shared` report): the wrong
       confident plays of the `played left out` index (negatives) and the
       right confident plays of the `source left out` index (the positive
       control), by session 20's oracle under CLUSTERS, as
       ambiguity_note.py's `panel` forms them; siblings from HOLDERS
       (`gunfinger-eval holders` output for their confident segments).
+      QUERIES is the run's directory of rendered queries and SET the
+      plays' set name (session 25: the second panel's development half,
+      `panel-2`); by default the first panel's, `calibration`.
   version_plays.py e1 PANEL CLUSTERS CRITERIA DEV_REPORT OUT
       the true plays of the three development mixes (`second` in
       CRITERIA, `shared_mixes.py score` output) with their segments from
@@ -76,7 +79,10 @@ def play_entry(identifier, mix, asset, segments, siblings, meta):
             "siblings": sorted(siblings), "segments": [segment(d) for d in segments], "meta": meta}
 
 
-def calibration(panel_path, clusters_path, report_path, holders_path, out_path):
+def calibration(panel_path, clusters_path, report_path, holders_path, out_path,
+                queries=QUERIES, set_name="calibration"):
+    queries = Path(queries)
+    prefix = "cal" if set_name == "calibration" else set_name
     panel = load(panel_path)
     report = load(report_path)
     holders = ambiguity_note.holders_of(holders_path)
@@ -116,10 +122,10 @@ def calibration(panel_path, clusters_path, report_path, holders_path, out_path):
                 for h in (looked or {}).get("holders", []):
                     if h["hits"] >= SIBLING_HITS and h["asset"] not in own:
                         siblings.add(h["asset"])
-            identifier = f"cal|{result['query']}|{result['index']}|{play['asset']}|{play['start']:.2f}"
-            plays.append(play_entry(identifier, QUERIES / f"{result['query']}.mp3", play["asset"],
+            identifier = f"{prefix}|{result['query']}|{result['index']}|{play['asset']}|{play['start']:.2f}"
+            plays.append(play_entry(identifier, queries / f"{result['query']}.mp3", play["asset"],
                                     play["segments"], siblings,
-                                    {"set": "calibration", "label": label, "role": role,
+                                    {"set": set_name, "label": label, "role": role,
                                      "family": family, "direction": result["scenario"],
                                      "kind": result["kind"], "query": result["query"],
                                      "index": result["index"],
