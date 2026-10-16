@@ -19,7 +19,7 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 2. The research note `docs/research/2026-10-16-version-verification.md`
+- [x] 2. The research note `docs/research/2026-10-16-version-verification.md`
 - [ ] 3. Design and pre-registration in the brief and experiment 0124,
   committed before any run on calibration or evaluation data
 - [ ] 4. The verifier in `gunfinger-eval`, synthetic tests, smoke runs
