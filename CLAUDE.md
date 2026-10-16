@@ -6,16 +6,16 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-22.md` (the current session's brief) and
-   `docs/session-22-checklist.md` (its progress); `docs/brief-2.md`,
+2. `docs/brief-23.md` (the current session's brief) and
+   `docs/session-23-checklist.md` (its progress); `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
    `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
    `docs/brief-12.md`, `docs/brief-13.md`, `docs/brief-14.md`,
    `docs/brief-15.md`, `docs/brief-16.md`, `docs/brief-17.md`,
-   `docs/brief-18.md`, `docs/brief-19.md`, `docs/brief-20.md` and
-   `docs/brief-21.md` hold rules that still apply unless brief 22
-   changes them
+   `docs/brief-18.md`, `docs/brief-19.md`, `docs/brief-20.md`,
+   `docs/brief-21.md` and `docs/brief-22.md` hold rules that still
+   apply unless brief 23 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -23,14 +23,14 @@ anything else:
    (never edit it)
 6. for work on the NAS collection: `docs/brief-nas.md`,
    `docs/nas-checklist.md` and `docs/nas-plan.md` (the code is merged;
-   session 22 reads the NAS, never writes it, and uses the NAS peak store
-   read-only)
+   session 23 reads the NAS, never writes it, uses the NAS peak store
+   read-only and rebuilds the NAS duplicate clusters)
 7. for the listening tool (`gunfinger-eval audition`):
    `docs/adr/0016-listening-tool.md` and `docs/audition-questions.md`
 8. for matching or search-speed work: the proposals in
    `docs/research/2026-10-14-matching-proposals.md` (session 19
    measured proposals 1 and 2, session 20 proposals 3 and 5; session 21
-   tested proposal 5's candidates in rendered mixes; session 22 runs part
+   tested proposal 5's candidates in rendered mixes; session 22 ran part
    1 of proposal 2's retrieval study)
 9. for shared-material work: the panel in `docs/panels/` and the
-   newest experiments on it (sessions 20 and 21)
+   newest experiments on it (sessions 20, 21 and 23)
