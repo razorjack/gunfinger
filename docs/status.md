@@ -3513,3 +3513,46 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
   store at the end: 40,126 records, `fed26c76b8fe89ea`, as at the start.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged.
   Scratch data in `/tmp` removed; `work/s24/` holds 1.0 GB.
+
+## 2026-10-16: session 25, three harness fixes, the NAS clusters at 40,126 records, the second shared panel's development half
+
+Brief `docs/brief-25.md`, checklist `docs/session-25-checklist.md`.
+Session 24b (Panako benchmark, branch `s24b-panako`, own worktree) was
+waiting for Java 11 and was not
+touched.
+
+- 20:44 start; `git status` clean at `6f204d5`. NAS store 40,126
+  records, `fed26c76b8fe89ea`. Start build `work/bin/s25-start/`
+  (byte-identical to `s24-final`); `baseline session-25-start` copies
+  reports (0.00 s), so `regress session-25-start` was the speed check:
+  identical, 153.8 s (session 24: 153 s).
+- 20:52-21:24 step 2 (experiment 0128): `clusters --from-peaks` at the
+  current revision. Without `--cut-sparsest` it stopped in 0.85 s on
+  0120's Sonar chain (the verdicts are checked against the last run's
+  pairs before searching); with it, 32 min. 281 clusters, 2 uploads
+  added (old-skool-jungle-dnb's The Nine and Sonar, from the index
+  run), none gone, nothing split or joined; a second Sonar cut
+  (the old-skool upload ~ the Mark System Revision, 100%, 0.8 hits/s);
+  gap unchanged; 2 new borderline rows, one unjudged (corpus
+  `APH027 ... cool_rock_suff` ~ `Mobb Deep Vs Urban Takover - Cool Rock
+  Shook Ones`, 41%). `work/s25/clusters-new.json`.
+- Step 3b (`holders`): a left-out name the index does not hold is
+  refused before any index is loaded (misspelt, or a NAS copy whose
+  corpus file is not left out with it); copies beside their corpus file
+  and corpus files without a copy pass. Session 23's 707 lookups pass.
+- Step 3c (`render_samples_as_indexed` for `versions` and
+  `identifiability`): renders count the start in samples decoded from
+  the beginning. `render_timeline.py` over 0112 and 0124-0126 (594
+  files): Do Drop In (-235 ms after 429 s) and one Miami position
+  (-26 ms) affected; rerun on their plays, E2's rejected drawn true
+  plays 3 -> 2 of 480, nothing else; 0112 rerun: audio measures move by
+  at most 0.006, every outcome the same.
+- Step 3a (`decode::watch` tests, test code only): 2 s stall for runs
+  meant to stall, 60 s for runs meant to finish, silence tests at a
+  thirtyfold margin. Under 250 busy loops (load 94-330, 43 rounds) the
+  old tests failed in 1 round, the new in none.
+- 21:17 step 4c's pre-registration committed (`2029f83`), before any
+  run on the second panel.
+- 21:40 step 4a: `docs/panels/shared-material-2-seed-2026-development.json`
+  (10 directions, 2 controls; CERT1853's Klute Remix joined at 99.2%),
+  committed before the run. 21:41 step 4b's `shared` run started.
