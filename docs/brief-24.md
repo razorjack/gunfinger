@@ -326,3 +326,55 @@ product.
   DnB's shared breaks carry most of a patch's dynamics, so a related
   version's patches will often be supported in drum-heavy bands, and the
   rejections must come from selective absences (basslines, stabs, pads).
+
+### Amendments from the synthetic tests (written at 19:05, before any run on calibration or evaluation data)
+
+Step 4's unit tests on synthetic tracks (drums shared, bassline and lead
+per arrangement) showed two properties of the design that contradict
+its stated intent. Both are changed now, before the verifier has run on
+any calibration or evaluation play; nothing else changes.
+
+1. **Kills are EQ-shaped, not whole-group.** With the bassline and kick
+   removed (a bass kill), the top low band (156-188 Hz) still holds the
+   snare's spectral leakage, follows the reference's dynamics and so is
+   an anchor; the rule "killed only when the group has no anchor" then
+   made every other low band contradicted (84 of 86 patches). A real
+   DJ low kill leaves the bands near the crossover partly present in the
+   same way. New rule: an informative band with a deficit (`e < -10` dB)
+   and `r < 0.5` is *killed* (unobservable) when the deficit has the
+   shape of a DJ EQ cut of its group: in the low group every informative
+   low band below it also has a deficit (a low shelf); in the high group
+   every informative high band above it does (a high shelf); in the mid
+   group every informative mid band does, except possibly the group's
+   lowest and highest informative bands (a mid cut leaking past the
+   crossovers). Any other deficit is *contradicted* (a notch no DJ EQ
+   makes). The order becomes: supported (`r >= 0.5`); a deficit, killed
+   or contradicted by its shape; masked; `r < 0.2` contradicted;
+   undecided. The patch rule is unchanged.
+2. **Masked from +3 dB, not +6 dB.** In a blend at equal level, bands
+   where the other record held up to three quarters of the power had
+   low correlations and counted as contradicted (S1 0.29). The dynamics
+   test can only speak where the reference is at least half of the
+   band's power, so a band is masked when the mix holds at least twice
+   the reference's predicted power (`e > +3` dB).
+
+## During the session
+
+- **19:10, from the launching agent**: a parallel session (24b) runs a
+  Panako benchmark at 262 tracks in its own git worktree on branch
+  `s24b-panako`, reading `corpus/` and `work/` by absolute path and never
+  writing to this checkout. Its heavy runs (nice 10) end by 00:30, so
+  extra load before then is expected; this session's calibration and
+  evaluation runs after 00:30 have the machine. Its worktree and branch
+  are not touched; session 25 merges them, so `master` stays linear and
+  committed.
+- **19:09, smoke runs** (`work/s24/smoke.json`, two calibration items,
+  3.9 s): a positive-control play of Fire's original (S1 0, 108 patches
+  supported) and the Rogue Unit Remix wrong over the original's passage
+  (S1 0.083: 388 supported, 35 contradicted, 3 unobservable). In the
+  wrong play the low bands are often contradicted (its bassline), but
+  the patch rule keeps most such patches supported because the drum-led
+  mid and high bands agree, the "single shared stem" case the report
+  warns about; its lag sits at -2 to -3 frames (the bound) in most
+  patches. Seen on calibration data after the pre-registration, so the
+  design does not change; it is reported with the results.

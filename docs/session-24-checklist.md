@@ -22,7 +22,7 @@ for scope and rules.
 - [x] 2. The research note `docs/research/2026-10-16-version-verification.md`
 - [x] 3. Design and pre-registration in the brief and experiment 0124,
   committed before any run on calibration or evaluation data
-- [ ] 4. The verifier in `gunfinger-eval`, synthetic tests, smoke runs
+- [x] 4. The verifier in `gunfinger-eval`, synthetic tests, smoke runs
   on a positive control and one of Fire's wrong plays
 - [ ] 5. Calibration on the panel's development half; thresholds
   written and committed before step 6

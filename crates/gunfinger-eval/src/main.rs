@@ -36,6 +36,7 @@ mod sweep;
 mod synthetic;
 mod tempo;
 mod verifier;
+mod versions;
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -296,6 +297,18 @@ enum Command {
         #[arg(long, value_enum)]
         half: Half,
     },
+    /// Session 24's diagnostic version verifier: for each play of a list,
+    /// the reference rendered along the play's fitted lines and compared
+    /// with the mix in 2 s patches (supported, contradicted or
+    /// unobservable; distinctive or held by a sibling), with three
+    /// summaries per play. Decides nothing.
+    Versions {
+        /// JSON: `plays`, as `scripts/analysis/version_plays.py` writes them.
+        plays: PathBuf,
+        /// Where to write the timelines and summaries.
+        #[arg(long)]
+        out: PathBuf,
+    },
     /// With --other-peaks-dir: draw the recall panel for a seed from the
     /// other library's records outside the corpus recordings' clusters
     /// (kept in `panels/recall-seed-<seed>.json`), render its development
@@ -534,6 +547,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::SharedMixes { .. }
             | Command::Holders { .. }
             | Command::Identifiability { .. }
+            | Command::Versions { .. }
     );
     let takes_a_sample = matches!(
         command,
@@ -551,7 +565,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders and identifiability do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability and versions do",
         ));
     }
     match command {
@@ -623,6 +637,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
         Command::SharedMixes { plan } => run_shared_mixes(paths, &plan, jobs),
         Command::Holders { lookups } => run_holders(paths, &lookups, jobs),
         Command::Identifiability { panel, half } => run_identifiability(paths, &panel, half),
+        Command::Versions { plays, out } => run_versions(paths, &plays, &out, jobs),
         Command::PairReview { pack } => {
             let pack = pack.unwrap_or_else(|| paths.work.join("listening"));
             let items = pair_review::items(&pack)?;
@@ -1479,6 +1494,32 @@ fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), St
             .filter(|looked| looked.error.is_some())
             .count()
     );
+    Ok(())
+}
+
+fn run_versions(paths: &Paths, plays_file: &Path, out: &Path, jobs: usize) -> Result<(), String> {
+    let text = fs::read_to_string(plays_file)
+        .map_err(|error| format!("cannot read {}: {error}", plays_file.display()))?;
+    let list: versions::PlayList = serde_json::from_str(&text)
+        .map_err(|error| format!("{}: {error}", plays_file.display()))?;
+    let other = paths.other_store()?;
+    let second_root = second_library_root(other.as_ref())?;
+    let library = paths.library()?;
+    let verified = versions::run(
+        &list.plays,
+        &pair::Sources {
+            library: &library,
+            store: &paths.store()?,
+            other: other.as_ref(),
+        },
+        &shared::Roots {
+            library: &library.root,
+            second: second_root.as_deref(),
+        },
+        jobs,
+    )?;
+    write_json(out, &verified)?;
+    versions::print_summary(&verified);
     Ok(())
 }
 
