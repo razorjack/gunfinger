@@ -463,7 +463,7 @@ Jungle Massive 2), the panel's passages unchanged.
   seeking is exact on the mix and the reference, so the reported line
   itself is off: the play's line is less precise than the verifier's
   +-48 ms window assumes.
-- 20:05 exploratory, deciding nothing (experiment 0127,
+- 19:54 exploratory, deciding nothing (experiment 0127,
   `scripts/analysis/version_lines.py`): the lag probe's finding checked
   with the matcher itself. Mix excerpts identified against the
   reference's record alone put the audio where the reported line says

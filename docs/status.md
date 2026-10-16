@@ -3481,7 +3481,7 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
 - 19:40 the controlled test (0126): along its line the verifier sees only
   differences under the shared material; attenuation is absorbed; a cut
   to a record whose drums line up reads as contradiction for a true rip.
-- 20:05 exploratory (0127, `version_lines.py`): the five rejected E1
+- 19:54 exploratory (0127, `version_lines.py`): the five rejected E1
   plays lie 98-193 ms from their reported lines (95 of 104 plays within
   48 ms): the line is anchored on the opening window (`refine.rs`), and
   alien5ive's uploads drift in speed within a play. In E2, Do Drop In's
