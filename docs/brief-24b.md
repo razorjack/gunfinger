@@ -307,3 +307,19 @@ Panako's goes into the repository or the product.
   size and `gunfinger stats` for the index; its index and query times
   from a run on the same machine where one exists. Times are rough
   and only differences of several times are read.
+
+## 19:24: the launching agent's instruction (verbatim)
+
+```text
+Panako 2.1 compiles for Java 11 and its wrapper's Gradle 7.2 runs only on Java 16 or older, so Eclipse Temurin 11 is being installed (`brew install --cask temurin@11`). Do not change the wrapper, download another Gradle, or install anything yourself. Every few minutes check `/usr/libexec/java_home -v 11`; once it succeeds, build with `JAVA_HOME="$(/usr/libexec/java_home -v 11)" ./gradlew ...` (run Panako itself with the same Java 11 unless its README says otherwise) and record it in the brief. Until then, carry on with the Gunfinger side (checking the saved reports, the scoring script). If Java 11 has not appeared by 22:00, write the Panako part up as blocked, with what it needs, and wrap up.
+```
+
+- **The check.** At 19:25 `/usr/libexec/java_home -v 11` exits 0 and
+  prints Temurin 21's home: it treats the version as a minimum when no
+  11 is installed. So the wait checks the JDK's own version instead
+  (`work/s24b/wait-java11.sh`: `java_home -v 11`, then that JDK's
+  `java -version` must start with `11.`), every 2 minutes, until 22:00.
+- **Runtime.** Panako runs with the same Java 11 (its startup script's
+  options otherwise, as pre-registered). Times: a later start shortens
+  step 4; the order of the pre-registration decides what runs first,
+  and heavy runs still end by 00:30.
