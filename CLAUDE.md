@@ -6,8 +6,8 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-26.md` (the current session's brief) and
-   `docs/session-26-checklist.md` (its progress); `docs/brief-2.md`,
+2. `docs/brief-27.md` (the current session's brief) and
+   `docs/session-27-checklist.md` (its progress); `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
    `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
@@ -16,8 +16,8 @@ anything else:
    `docs/brief-18.md`, `docs/brief-19.md`, `docs/brief-20.md`,
    `docs/brief-21.md`, `docs/brief-22.md`, `docs/brief-23.md`,
    `docs/brief-24.md`, `docs/brief-24b.md` (session 24b, Panako, run
-   beside session 24) and `docs/brief-25.md` hold rules that still
-   apply unless brief 26 changes them
+   beside session 24), `docs/brief-25.md` and `docs/brief-26.md` hold
+   rules that still apply unless brief 27 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -25,7 +25,7 @@ anything else:
    (never edit it)
 6. for work on the NAS collection: `docs/brief-nas.md`,
    `docs/nas-checklist.md` and `docs/nas-plan.md` (the code is merged;
-   session 26 reads the NAS, never writes it, uses the NAS peak store
+   session 27 reads the NAS, never writes it, uses the NAS peak store
    read-only and does not rebuild the NAS duplicate clusters)
 7. for the listening tool (`gunfinger-eval audition`):
    `docs/adr/0016-listening-tool.md` and `docs/audition-questions.md`
@@ -38,3 +38,6 @@ anything else:
    newest experiments on them (sessions 20, 21, 23, 24 and 25); for the
    version verifier, `docs/research/2026-10-16-version-verification.md`
    and its version 2 (session 26, `docs/brief-26.md`)
+10. for the confidence rule's window condition and per-second scoring:
+   the roadmap's "A minimum span instead of 3 windows" and session 27's
+   experiments (0136 and up)
