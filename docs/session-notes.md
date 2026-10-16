@@ -5333,12 +5333,12 @@ no question was answered.
   differ by more than a millisecond: Do Drop In (26 ms at 112 s, 235 ms
   at 429 s) and `extra/a-)eib(-miami-sour.mp3` (26 ms at 296 s); the
   butch-french upload of Pyro - Time Is Broken differs by under 1 ms.
-  Every mix is at 0. One count changes: Do Drop In's drawn true play in E2 is now
-  kept (S1 0.889 to 0), so E2's rejected drawn true plays go from 3 to 2
-  of 480. T, E1, E2's wrong-play count and every calibration decision
-  stand. 0112 again gives the same outcome in all 16 directions; 65 of
-  its report's 488 numbers move, all of them audio measures, by at most
-  0.006.
+  Every mix is at 0. One count changes: Do Drop In's drawn true play in
+  E2 is now kept (S1 0.889 to 0), so E2's rejected drawn true plays go
+  from 3 to 2 of 480. T, E1, E2's wrong-play count and every
+  calibration decision stand. 0112 again gives the same outcome in all
+  16 directions; 65 of its report's 488 numbers move, all of them audio
+  measures, by at most 0.006.
 
 ### The clusters at 40,126 records (experiment 0128)
 
@@ -5489,9 +5489,10 @@ Session 23's six questions in `work/audition/s23/` are still open.
   panel's kind (Decoy from 60 s).
 - 0132's plays were formed as session 24 formed its calibration plays;
   the primary build is this session's, with the step-3c renderer.
-- The session ended at about 23:10, more than four hours before its
-  planned end: every step was done, and a further experiment on the
-  second panel or on new rendered mixes was not in the prompt.
+- The review started at 22:20 instead of 02:15, and the session ended
+  at about 23:00, four and a half hours before its planned end: every
+  step was done, and a further experiment on the second panel or on new
+  rendered mixes was not in the prompt.
 
 ### Handoff for session 26
 
@@ -5534,3 +5535,31 @@ Session 23's six questions in `work/audition/s23/` are still open.
   (`work/indexes/library-nas-dnb-peaks.index`, 4.5 GB) from 39,376 to
   40,148 files; the old index was overwritten. The NAS report folder
   from before the session is cloned in `work/s25/before/`.
+- A review by a separate agent (read-only) recomputed 0129's outcomes,
+  0132's plays and the side-by-side table from the data and got the
+  same numbers; it found no broken rule. It found a defect in this
+  session's `holders` check (copies that stand for two corpus files,
+  above), a wrong explanation of the Phantom Force control, the second
+  panel's passages called sparser when they are shorter, times and
+  counts recorded wrongly, the rebuilt index's path, two inferences
+  stated as facts, and the Sonar cut dropped as a question without a
+  recorded decision. All are fixed; no reported number changed. 0132 now
+  also gives the counts by kind and file and the S1 quantiles, which the
+  pre-registration listed.
+- The final checks (22:46-22:56). The release build in
+  `work/bin/s25-final/` (Homebrew's 1.98.0) gives a `gunfinger`
+  byte-identical to `s25-start` and `s24-final`. `regress
+  session-25-start` with it is identical (720 of 720 sweep queries, all
+  87, 93 and 79 scan detections, the calibrate line known since session
+  8) in 155 s. `scripts/check.sh` with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`) is green: formatting, clippy for macOS and
+  for Linux, 423 tests (421 before tonight; 2 added, for `holders` and
+  the renderer), the six `decode::watch` tests among them, in 6.5
+  minutes.
+- At the end the NAS store holds 40,126 records at revision
+  `fed26c76b8fe89ea`, as at the start. `docs/pair-verdicts.txt` and
+  `work/audition/answers.jsonl` are unchanged (sha256 `d48ffb313396...`,
+  `ee2d5bd9fe0d...`); no manifest and neither frozen panel file changed.
+  Scratch data: `work/s25/` (1.8 GB, mostly the clone of the report
+  folder), `work/shared/shared-material-2-seed-2026-development-*` (182
+  MB of rendered queries).

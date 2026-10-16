@@ -34,19 +34,22 @@ for scope and rules.
   before any search (21:40)
 - [x] 4b. `shared` at NAS scale (21:41-22:05), scored under the fresh
   clusters; experiment 0129 (5 of 135 wrong confident, one direction)
-- [x] 4c. Pre-registration (committed 21:17); `versions` as built
+- [x] 4c. Pre-registration (committed 21:15); `versions` as built
   (T = 0.121) on 4b's wrong confident plays and positive controls;
   experiment 0132 (4 of 5 rejected, too small to read; 77 of 78 kept)
 
 ## Wrap-up
 
-- [ ] 5. Read-only review by a subagent from 02:15 at the latest; fixes
-- [~] Notes "Session 25" with the handoff for session 26, status,
-  checklist, roadmap (written before the review; final checks to add)
-- [ ] `regress session-25-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`)
-- [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
+- [x] 5. Read-only review by a subagent (22:20-22:40, started early as
+  every step was done); fixes committed (`cb23fab`, `f908844`)
+- [x] Notes "Session 25" with the handoff for session 26, status,
+  checklist, roadmap
+- [x] `regress session-25-start` identical with the final build
+  (`work/bin/s25-final/`, after the review's fixes), 154.7 s
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`): 423 tests, 6.5 min
+- [x] The NAS store's revision at the end: 40,126 records,
+  `fed26c76b8fe89ea`, as at the start
+- [x] `git diff docs/pair-verdicts.txt` empty and
   `work/audition/answers.jsonl` unchanged before every commit
-- [ ] Commit; the final message
+- [x] Commit; the final message

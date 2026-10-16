@@ -3551,7 +3551,7 @@ touched.
   meant to stall, 60 s for runs meant to finish, silence tests at a
   thirtyfold margin. Under 250 busy loops (load 94-330, 43 rounds) the
   old tests failed in 1 round, the new in none.
-- 21:17 step 4c's pre-registration committed (`2029f83`), before any
+- 21:15 step 4c's pre-registration committed (`2029f83`), before any
   run on the second panel.
 - 21:40 step 4a: `docs/panels/shared-material-2-seed-2026-development.json`
   (10 directions, 2 controls; CERT1853's Klute Remix joined at 99.2%),
@@ -3570,9 +3570,26 @@ touched.
   (a loop point inside the opening window, an inference). `s24-final`
   beside it: 9 plays' S1 within 0.006, no decision changes.
 - 22:16 `pair` on the two new cluster pairs (`work/s25/listening/`):
-  the old-skool Sonar upload is the corpus original's audio (speed
-  1.0000, every window supported), so no question; APH027 B1 ~ the
-  Mobb Deep upload line up to A's 2:28, a listening question in the
-  notes. 0128 amended with the Sonar result.
+  the old-skool Sonar upload lines up with the corpus original at speed
+  1.0000, every window supported; APH027 B1 ~ the Mobb Deep upload line
+  up to A's 2:28. Both are listening questions in the notes (the Sonar
+  one was first dropped, then restored after the review). 0128 amended
+  with the `pair` result.
 - Notes "Session 25", roadmap (shared material; clusters' check before
   a search).
+- 22:20-22:40 step 5: a read-only review by a subagent (everything since
+  `6f204d5`). No defect changed a number and no rule was broken. Fixed
+  (`cb23fab`, `f908844`): `holders` kept one corpus file per NAS copy
+  although 7 copies stand for two (now a set; test extended); the
+  silent-decode test checks that the stall timeout passed; 0129's
+  control explained wrongly (its passage overlaps another direction's);
+  the second panel's passages are shorter, not sparser; times, counts
+  and the index path in the documents; inferences marked; the new Sonar
+  cut restored as a listening question. Details in the brief at 22:44.
+- 22:46-22:56 final checks with `work/bin/s25-final/` (after the
+  review's fixes; `gunfinger` byte-identical to `s25-start`): `regress
+  session-25-start` identical, 154.7 s; `scripts/check.sh` with rustup's
+  1.98.0 green, 423 tests, 6.5 min. NAS store at the end: 40,126
+  records, `fed26c76b8fe89ea`, as at the start; listening files unchanged.
+- About 23:00 end, four and a half hours early: every step done (brief,
+  22:19). `s24b-panako` untouched.
