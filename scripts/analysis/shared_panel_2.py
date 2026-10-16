@@ -103,7 +103,7 @@ def main():
             left_out.append((number, "a family of the frozen panel"))
         elif any(p.startswith(PREFIX) and p not in recorded for p in (a, b)):
             left_out.append((number, "a file without a current record"))
-        elif any(TEST_DERIVED.search(p) for p in files):
+        elif any(TEST_DERIVED.search(normal(p)) for p in files):
             left_out.append((number, "a test-derived version"))
         else:
             pairs.append((a, b, number))
@@ -132,7 +132,7 @@ def main():
         unjudged = sorted(
             PREFIX + path for path, fields in tags.items()
             if PREFIX + path not in files and PREFIX + path not in frozen
-            and not TEST_DERIVED.search(path)
+            and not TEST_DERIVED.search(normal(path))
             and any(normal(artist) in normal(fields.get("artist") or "")
                     and normal(title) in normal(fields.get("title") or "")
                     for artist, title in words))

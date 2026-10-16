@@ -147,9 +147,14 @@ def holder_hits(d, own_of):
     the strongest outside the own recording of its run, so where that file
     is now in the own recording a weaker holder may still exist: the value
     is then unknown and counted as 0, which bounds how many marks the
-    clusters remove."""
+    clusters remove. Where that file has fewer than 60 hits, the value is
+    below the mark whatever it is, and is counted as a known 0."""
     own = own_of(d["asset"])
     holder = d.get("holder")
+    if holder and holder["asset"] in own and holder["hits"] < MARKED_HITS:
+        # Any weaker holder outside the own recording is below the mark too
+        # (and a session 23 report omits an empty `holders` list).
+        return 0, False, None
     if "holders" in d:
         outside = [h for h in d["holders"] if h["asset"] not in own]
         if outside:
@@ -340,6 +345,11 @@ def score(*arguments):
     print(f"primary sample: {len(true)} true confident plays "
           f"({sum(r['run'] == 'source left out' for r in true)} positive-control), "
           f"{len(wrong)} wrong related; second sample: {len(second)} true plays")
+    unknown = {
+        "true": sum(r["values"]["c unknown"] for r in true),
+        "wrong": sum(r["values"]["c unknown"] for r in wrong),
+        "second": sum(p["values"]["c unknown"] for p in second),
+    }
     decisions = {}
     for name in CANDIDATES:
         low = name in LOW_SUSPICIOUS
@@ -348,6 +358,8 @@ def score(*arguments):
         rejected = sum(not kept(r["values"][name], cut, low) for r in wrong)
         second_kept = sum(kept(p["values"][name], cut, low) for p in second)
         promising = len(wrong) >= MIN_WRONG and rejected >= REJECT * len(wrong)
+        if name.startswith("c") and any(unknown.values()):
+            promising = None
         decisions[name] = {
             "threshold": cut, "low is suspicious": low,
             "true kept": true_kept, "true": len(true),
@@ -360,7 +372,8 @@ def score(*arguments):
         }
         print(f"  {name:<5} threshold {cut:.4g}: keeps {true_kept}/{len(true)} true, rejects "
               f"{rejected}/{len(wrong)} wrong related, keeps {second_kept}/{len(second)} of the second "
-              f"sample -> {'PROMISING' if promising else 'not promising'}")
+              f"sample -> " + ("undetermined: some (c) values unknown" if promising is None
+                               else "PROMISING" if promising else "not promising"))
     marked = {
         "true marked": sum(r["values"]["c"] >= MARKED_HITS for r in true),
         "wrong marked": sum(r["values"]["c"] >= MARKED_HITS for r in wrong),
@@ -368,11 +381,6 @@ def score(*arguments):
     }
     print(f"  (c) at {MARKED_HITS} hits: marks {marked['true marked']}/{len(true)} true, "
           f"{marked['wrong marked']}/{len(wrong)} wrong related, {marked['second marked']}/{len(second)} second")
-    unknown = {
-        "true": sum(r["values"]["c unknown"] for r in true),
-        "wrong": sum(r["values"]["c unknown"] for r in wrong),
-        "second": sum(p["values"]["c unknown"] for p in second),
-    }
     marked["unknown"] = unknown
     if any(unknown.values()):
         print(f"  (c) unknown under these clusters (the run's holder is now in the own recording; "

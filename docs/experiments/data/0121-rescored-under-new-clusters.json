@@ -348,10 +348,10 @@
    "  a1    threshold 9.199: keeps 471/495 true, rejects 81/87 wrong related, keeps 55/104 of the second sample -> PROMISING",
    "  a2    threshold 0.4862: keeps 471/495 true, rejects 79/87 wrong related, keeps 56/104 of the second sample -> PROMISING",
    "  b     threshold 0.003339: keeps 471/495 true, rejects 1/87 wrong related, keeps 102/104 of the second sample -> not promising",
-   "  c     threshold 27: keeps 471/495 true, rejects 64/87 wrong related, keeps 82/104 of the second sample -> PROMISING",
-   "  c+a1  threshold inf: keeps 478/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
-   "  c+a2  threshold inf: keeps 478/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
-   "  c+b   threshold inf: keeps 487/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
+   "  c     threshold 27: keeps 471/495 true, rejects 64/87 wrong related, keeps 82/104 of the second sample -> undetermined: some (c) values unknown",
+   "  c+a1  threshold inf: keeps 478/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> undetermined: some (c) values unknown",
+   "  c+a2  threshold inf: keeps 478/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> undetermined: some (c) values unknown",
+   "  c+b   threshold inf: keeps 487/495 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> undetermined: some (c) values unknown",
    "  (c) at 60 hits: marks 17/495 true, 61/87 wrong related, 16/104 second",
    "  (c) unknown under these clusters (the run's holder is now in the own recording; counted unmarked): 104 true, 0 wrong related, 19 second"
   ]
@@ -411,10 +411,10 @@
    "  a1    threshold 8.488: keeps 278/292 true, rejects 78/87 wrong related, keeps 62/104 of the second sample -> PROMISING",
    "  a2    threshold 0.4457: keeps 278/292 true, rejects 76/87 wrong related, keeps 71/104 of the second sample -> PROMISING",
    "  b     threshold 0.003758: keeps 278/292 true, rejects 1/87 wrong related, keeps 102/104 of the second sample -> not promising",
-   "  c     threshold 161: keeps 279/292 true, rejects 61/87 wrong related, keeps 100/104 of the second sample -> PROMISING",
-   "  c+a1  threshold 19.69: keeps 278/292 true, rejects 61/87 wrong related, keeps 89/104 of the second sample -> PROMISING",
-   "  c+a2  threshold 0.7207: keeps 278/292 true, rejects 61/87 wrong related, keeps 89/104 of the second sample -> PROMISING",
-   "  c+b   threshold inf: keeps 283/292 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> PROMISING",
+   "  c     threshold 161: keeps 279/292 true, rejects 61/87 wrong related, keeps 100/104 of the second sample -> undetermined: some (c) values unknown",
+   "  c+a1  threshold 19.69: keeps 278/292 true, rejects 61/87 wrong related, keeps 89/104 of the second sample -> undetermined: some (c) values unknown",
+   "  c+a2  threshold 0.7207: keeps 278/292 true, rejects 61/87 wrong related, keeps 89/104 of the second sample -> undetermined: some (c) values unknown",
+   "  c+b   threshold inf: keeps 283/292 true, rejects 61/87 wrong related, keeps 88/104 of the second sample -> undetermined: some (c) values unknown",
    "  (c) at 60 hits: marks 18/292 true, 61/87 wrong related, 16/104 second",
    "  (c) unknown under these clusters (the run's holder is now in the own recording; counted unmarked): 33 true, 0 wrong related, 19 second"
   ]

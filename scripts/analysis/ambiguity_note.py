@@ -221,17 +221,22 @@ def panel(panel_path, clusters_path, report_path, holders_path, out_path):
         family, versions, unjudged, control = roles[result["scenario"]]
         outcome, _, _, _ = shared_outcomes.outcome(
             result, versions, unjudged, recordings.get(result["scenario"]))
+        # Plays as defined: one file's detections at least possible,
+        # joined across gaps of at most 90 s; the note takes the confident ones.
         found = [dict(d, role=shared_outcomes.role(
             dict(d, role=shared_outcomes.reroled(d, recordings.get(result["scenario"]))),
             versions, unjudged)) for d in result["detections"]
-            if d["level"] == "confident" and d["role"] != "partner"]
+            if d["level"] != "weak" and d["role"] != "partner"]
         plays = []
         for play in plays_of(found):
+            confident = [d for d in play["segments"] if d["level"] == "confident"]
+            if not confident:
+                continue
             name = lambda d, q=result: key(f"{q['query']}|{q['index']}", d["asset"],
                                            d["track_start_seconds"], d["track_end_seconds"])
-            note = play_note(play["segments"], name, holders, own_of(play["asset"]))
-            plays.append({"asset": play["asset"], "role": play["segments"][0]["role"],
-                          "hits": max(d["hits"] for d in play["segments"]), **note})
+            note = play_note(confident, name, holders, own_of(play["asset"]))
+            plays.append({"asset": play["asset"], "role": confident[0]["role"],
+                          "hits": max(d["hits"] for d in confident), **note})
         rows.append({"direction": result["scenario"], "family": family, "control": control,
                      "query": result["query"], "kind": result["kind"], "index": result["index"],
                      "outcome": outcome, "plays": plays})

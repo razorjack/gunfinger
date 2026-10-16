@@ -3293,8 +3293,9 @@ the session.
   score` under any clusters file (both reproduce 0111, 0116 and 0118
   exactly with the old clusters); `clusters_rebuilt.py`,
   `panel_clusters.py`, `ambiguity_note.py`, `shared_panel_2.py`.
-- 02:50 step 5's pre-registration committed (`0afceb5`, brief and
-  experiment 0123), before any count under the fresh clusters.
+- 02:43 step 5's pre-registration committed (`0afceb5`, brief and
+  experiment 0123; the brief's heading says 02:50), before any count
+  under the fresh clusters.
 - 05:26 step 2's search exited 1 on 0066's Sonar chain, now through
   the-hifi-junglist's `PRO 012 A` upload (the revision, judged different,
   joined at 99% with 406 hits). Its 2,593 pairs were clustered again with
@@ -3302,14 +3303,16 @@ the session.
   upload ~ revision (decision in the brief; no verdict written): 281
   clusters, the 17 corpus groups unchanged, 75 members added (59 newer
   uploads, 6 from tonight's index run), none gone, nothing split or
-  joined; 3 new borderline questions, all Aphrodite 12" ~ V2 album
-  (experiment 0120). The new clusters are in the NAS report folder.
+  joined; 3 new borderline questions, Aphrodite 12"s against V2's 1999
+  album (2) and Lacerba's 1997 compilation (1) (experiment 0120). The new
+  clusters are in the NAS report folder.
 - 05:37 step 3 (experiment 0121): the saved reports under the new
   clusters. The 9 wrong confident answers of the development scans are
   newer uploads, now right; 0116's 43 other plays are right but Kemal's
   remix; the 87 wrong related plays and (c)'s 61 marks on them do not
-  change; (c)'s marks on true plays fall from 79 of 453 to 17-121 of 495
-  (104 unknown offline). `rescore_summary.py` added.
+  change; of the 453 old true plays 17-79 stay marked (62 unknown
+  offline), and the 42 plays now right add 0-42. `rescore_summary.py`
+  added.
 - 05:38 step 4's queue started under `screen` (`work/s23/queue.sh`).
 - 05:45 step 6b, done early so no later count can shape it: a proposed
   second shared-material panel, `docs/panels/shared-material-2-seed-2026.json`
@@ -3360,3 +3363,22 @@ the session.
 - 09:05 review pass 1 started (a read-only subagent, no cargo, on the
   committed code, scripts, 0120, 0121, the panel and the questions);
   pass 2 follows for 0122, 0123 and the notes.
+- 09:23 step 4c shrinks (decision in the brief, before step 5's counts):
+  the 36 rendered mixes would have ended near noon (13 of about 90 runs
+  in 26 min); stopped. `work/s23/queue3.sh` (under `screen`) runs the
+  three development mixes alone (`work/s23/shared-mixes-dev.json`), then
+  `identify` of the three mixes and the holders of their tracklists. The
+  rips plan is dropped; criterion 2 and the rendered plays come from step
+  3's re-score, as the pre-registration's fallback says.
+- 09:28 review pass 1's findings, fixed: `clusters_rebuilt.py`'s gap
+  counted pairs inside one cluster (0120's gap is 56.4% -> 74.2%, not
+  76.6% unchanged); 0121's bound on marks mixed old true plays with the
+  42 now right; `shared_mixes.py score` printed `PROMISING` for (c)
+  candidates with unknown values (now `undetermined`) and counted a
+  holder under 60 hits inside the own recording as unknown (now a known
+  0; no count changes); `ambiguity_note.py panel` formed plays from
+  confident detections only (now from possible ones, as defined; the
+  same counts); the identify lookups leave out the 15 corpus-only files
+  (decided before counting). Step 5's panel counts at 08:47 came before
+  0122 was written; they are among the counts reported beside the
+  criteria and decide nothing.

@@ -799,11 +799,11 @@
     "speed": 0.989206365340169
    },
    {
-    "query": "second-library/Infrared-INFRA011-Future_Cut-2000-sour/a-future_cut-sex_drive-sour.mp3",
-    "found": "second-library/__youtube_archivists/alien5ive/INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
-    "coverage": 0.7659239377443545,
-    "hits": 2773,
-    "speed": 0.9576869172435941
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3",
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "coverage": 0.5636611566310977,
+    "hits": 591,
+    "speed": 0.9997697218881022
    }
   ],
   "new": [
@@ -815,11 +815,11 @@
     "speed": 0.9892056635688248
    },
    {
-    "query": "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
-    "found": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
-    "coverage": 0.98724458698622,
-    "hits": 406,
-    "speed": 0.9684237632366256
+    "query": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+    "found": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "coverage": 0.7423019070179679,
+    "hits": 343,
+    "speed": 1.0015672728705651
    }
   ]
  },

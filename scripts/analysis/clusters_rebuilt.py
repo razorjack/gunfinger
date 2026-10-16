@@ -8,9 +8,9 @@ against the clusters in use before (step 2 of docs/brief-23.md).
 - Members added are dated by their record (the time the store wrote it):
   `newer upload` between the old run and TONIGHT, `tonight` from TONIGHT
   on (the index run), `older` before the old run.
-- The gap: the weakest same-recording pair and the strongest different
-  pair that no verdict decides; borderline pairs (40-80% coverage, not
-  joined), judged or not, new or seen in the old run.
+- The gap: the weakest same-recording pair and the strongest pair left
+  in two clusters, among those no verdict decides; borderline pairs
+  (40-80% coverage, not joined), judged or not, new or seen in the old run.
 
 usage: python3 -I scripts/analysis/clusters_rebuilt.py NEW OLD CLUSTERS_262
        STORE_RECORDS VERDICTS OLD_RUN TONIGHT OUT
@@ -132,8 +132,17 @@ def main():
                          "old_members": len(members)})
 
     def gap(clusters):
+        """The weakest pair the coverage rule joined and the strongest it
+        did not, among pairs no verdict decides; a pair whose files share
+        a cluster through other joins is not a different pair, and a join
+        cut by `--cut-sparsest` (`cut_links`) is reported apart."""
+        cluster = index_of(clusters)
+        apart = lambda p: p["query"] not in cluster or cluster[p["query"]] != cluster.get(p["found"])
         same = [p for p in clusters["pairs"] if p["same_recording"] and p.get("aural_verdict") is None]
-        different = [p for p in clusters["pairs"] if not p["same_recording"] and p.get("aural_verdict") is None]
+        cut = {frozenset((c["query"], c["found"])) for c in clusters.get("cut_links", [])}
+        different = [p for p in clusters["pairs"]
+                     if not p["same_recording"] and p.get("aural_verdict") is None and apart(p)
+                     and frozenset((p["query"], p["found"])) not in cut]
         weakest = min(same, key=lambda p: p["coverage"], default=None)
         strongest = max(different, key=lambda p: p["coverage"], default=None)
         return [{k: p[k] for k in ("query", "found", "coverage", "hits", "speed")} if p else None
