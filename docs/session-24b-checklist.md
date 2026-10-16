@@ -19,11 +19,12 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   run on Java 21. What it needs is in the brief; the Panako part stops
   (our rule)
 - [x] 3. Pre-registration in the brief and experiment 0130, for a later run
-- [-] 4a-d. Panako's index and queries: not run (step 2)
-- [ ] 4. Gunfinger's side: its answers on the comparison's queries from
-  the saved reports; check the older saved reports against the current
-  build (heavy runs end by 00:30)
-- [ ] 5. Experiment files (0130, 0131)
+- [~] 4a-d. Panako's index and queries: waiting for Java 11 until 22:00
+  (the launching agent's instruction, 19:24); `work/panako/run.sh` ready
+- [x] 4. Gunfinger's side: saved reports identical with the current
+  build; columns and cost (0131)
+- [~] 5. Experiment files: 0130 (build, pre-registration), 0131
+  (Gunfinger's side) done; the comparison's waits on Panako
 
 ## Wrap-up
 
