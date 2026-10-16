@@ -323,3 +323,59 @@ Panako 2.1 compiles for Java 11 and its wrapper's Gradle 7.2 runs only on Java 1
   options otherwise, as pre-registered). Times: a later start shortens
   step 4; the order of the pre-registration decides what runs first,
   and heavy runs still end by 00:30.
+
+## Step 4, Gunfinger's side (19:16-19:31)
+
+- **The saved reports match the current build.** `work/bin/s24-start/`
+  in the main checkout (the code of `53d4136`, unchanged on this branch)
+  run from this worktree with `--work work/s24b` (copies of the peak
+  store, the clusters and the renders, with receipts written for the
+  renders made before receipts existed, so nothing was rendered again):
+  scans of `razorjack-2003-03-29` (15 s wall) and
+  `nocny-trans-vertical-2002-08-23` (30 s), sweeps 2027 (113 s), 2028
+  (152 s), 2029 (166 s) and the 12 mixes of seed 2026 (42 s), load
+  10-37. Every report is identical to the saved one
+  (`scripts/analysis/report_identity.py`); the mix renders are
+  byte-identical to the main checkout's. Seed 2026's sweep and the
+  stakka scans were checked by session 24's `regress` at 18:45.
+- **Gunfinger's columns** (`scripts/analysis/panako_compare.py
+  gunfinger`, `work/s24b/gunfinger-columns.json`): sweeps 2026-2029,
+  60/60 at every speed, 0 wrong, speed error at most 0.026 points;
+  stakka 11/11, razorjack 7/7, nocny 9/9 referenced at 262 tracks, 0
+  wrong; generated mixes 106 of 115 indexed plays confident, 0 wrong.
+- **Cost at 262 tracks.** `gunfinger stats`: 105,303 s of audio,
+  peak store 19.7 MB (187 B/s), index 39.7 MB (7.84 M postings, 5.07
+  B each). A fresh `gunfinger index` into `work/s24b/peaks-fresh`: 50.9
+  s wall, 290 s user, 181 s system, 938 MB maximum resident, load about
+  15. It extracted all 265 audio files: the 3 the working store keeps as
+  skip notes (decoded short, "probably damaged", from an earlier run)
+  decoded now. The harness's library stays the store's 262 records.
+
+## Preparing Panako's run (19:30)
+
+- **The library list**: the 262 records' sources
+  (`scripts/analysis/store_records.py`), all present, covering every
+  cluster member and every panel draw; per-seed lists
+  (`panako_compare.py plan`): 209, 209, 207, 210 files, as the saved
+  sweep reports' `indexed_assets`.
+- **Panako's configuration file** is read from beside its jar
+  (`Config.java`); when missing, Panako writes its built-in defaults
+  there. The installed file (`resources/defaults/config.properties`,
+  the pre-registered defaults) differs from the built-in values in
+  `MONITOR_STEP_SIZE` (10 against 25), `PANAKO_MIN_MATCH_DURATION` (3
+  against 5) and the decoder command; three keys exist only built in
+  (`PANAKO_HIT_PART_DIVIDER` 5, `PANAKO_HIT_PART_MAX_SIZE` 250,
+  `PANAKO_USE_GPU_EP_EXTRACTOR` false). The run copies the jar and that
+  file, with the strategy and the paths changed, into `work/panako/run/`,
+  as `./gradlew install` would lay out `~/.panako`.
+- **Outside `work/`**: `Config` also opens a Java Preferences node,
+  which macOS keeps in `~/Library/Preferences/com.apple.java.util.prefs.plist`
+  (an existing file, from 2026-07-25, no Panako key). Its copy and
+  digest are in `work/panako/state-before/`; it is compared after
+  Panako's first run. The default logging configuration writes to
+  `~/.panako/log`; the run does not use it (Java's default logging, to
+  the run's log).
+- `work/panako/run.sh` holds the stages: `build`, `test` (its unit tests,
+  the self-check), `install`, `smoke` (three files, one of them seed
+  2026's draw 000, and that draw's render at +3%), `index-all`,
+  `index-seed N`, `sweep N`, `dev SET`, `dev-query SET`, `mix NN`.
