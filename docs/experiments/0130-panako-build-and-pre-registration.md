@@ -34,7 +34,7 @@ Nothing was written outside `work/`.
   highest score of a wrong answer; every panel reported at both.
 - Gunfinger's side from its saved reports, confident detections only.
 
-**Result.** No Panako count: the build did not run (with Java 11, 0150).
+**Result.** No Panako count: the build did not run; for Java 11 see 0150.
 
 **Conclusion.** The comparison waits on a JDK of 11-16 (brief, step 2);
 with the amendments the run needs no decision after a count.

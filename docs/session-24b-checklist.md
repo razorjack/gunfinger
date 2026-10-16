@@ -55,5 +55,8 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Experiment 0150; 0130 points to it
 - [x] Notes ("The run of 2026-10-17" in "Session 24b"), status entry and
   roadmap bullet updated in place
-- [ ] Read-only review by a subagent; fixes
-- [ ] Commit; the message with what the merge into master needs
+- [x] Read-only review by a subagent (00:54-01:00); fixes: 0130's
+  pointer, the LMDB versions, the README's words quoted, the Node
+  project's LMDB described, the cleanup's JDK recorded, predictions
+  marked, older notes text pointed to the run, the wait script's path
+- [x] Commit; the message with what the merge into master needs

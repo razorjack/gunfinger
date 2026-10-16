@@ -14,23 +14,25 @@ seed 2026's render `000-+3.mp3`, `stats`. Load 44-49 (session 27's runs).
 
 | Step | Outcome |
 |---|---|
-| `./gradlew shadowJar` | built in 17 s; jar 9.5 MB; nothing written outside `work/` |
-| Native code in the jar | JGaborator for macOS arm64; LMDB (0.9.20) only for macOS x86_64, Linux x86_64, Windows x86_64 |
+| `./gradlew shadowJar` | built in 17 s; jar 9.5 MB; no `~/.panako`, `~/.gradle` or `~/.m2` after it |
+| Native code in the jar | JGaborator for macOS arm64; LMDB only for macOS x86_64 (0.9.20), Linux and Windows x86_64 (0.9.29) |
 | `store`, `query`, `stats` | JGaborator loads; each fails creating its LMDB storage, before decoding: `UnsatisfiedLinkError: dlopen(liblmdb.dylib ...)` (no such file on any search path); exit 1 in 0.8-0.9 s |
 
 Panako's other storages cannot stand in: `FILE` answers no queries
 (empty query methods) and `MEM` is empty in every new process, while
 `store` and `query` run as separate commands. No Panako count exists.
 
-Outside `work/`, the runs left two empty Java Preferences nodes
-(`be/panako/util` in `com.apple.java.util.prefs.plist`, and
-`be.panako.util.plist`). Both were removed (through Java's Preferences
-API, then the empty file); the plist's content equals the copy from
-before, its bytes differ (re-serialised).
+Outside `work/`, the runs left an empty Java Preferences node,
+`be/panako/util`, in `com.apple.java.util.prefs.plist` and in a new
+`be.panako.util.plist`; JGaborator's copy of its library in `$TMPDIR`
+was deleted by Panako. The node was removed through Java's Preferences
+API (and the cleanup's own `tool/JShell` node), then the empty file; the
+plist's content equals the copy from before, its bytes differ.
 
 **Conclusion.** By the instruction (native parts failing on arm64), the
 Panako part stops. It needs an arm64 `liblmdb.dylib` passed to its JVM
 as `-Dlmdbjava.native.lib=<path>` (Panako unchanged), or an x86_64 JDK
 under Rosetta 2 with the bundled libraries; either is our
-decision. Then 0130's protocol runs as written; Gunfinger's side is in
-0131.
+decision. 0130's protocol can then run as written if nothing else
+fails (JGaborator has loaded on arm64 but processed no audio yet);
+Gunfinger's side is in 0131.

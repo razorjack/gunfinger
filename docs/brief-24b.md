@@ -507,8 +507,9 @@ Where to write, so that the next merge into master is clean while session 27 app
   realised).
 - **Native code in the jar**: JGaborator for macOS arm64
   (`jni/00_macos_aarch64_libjgaborator.dylib`, and
-  `03_aarch64-macos-gnu`); LMDB (lmdbjava's natives, LMDB 0.9.20) only
-  for macOS x86_64, Linux x86_64 and Windows x86_64. lmdbjava's loader
+  `03_aarch64-macos-gnu`); LMDB (lmdbjava's natives) only
+  for macOS x86_64 (0.9.20), Linux x86_64 and Windows x86_64 (0.9.29;
+  the `pom.properties` of each). lmdbjava's loader
   reads a system property `lmdbjava.native.lib` (strings of
   `org/lmdbjava/Library.class`) and otherwise looks for `lmdb` by name.
 - **Smoke** (`run.sh install`, `run.sh smoke`; the self-check): each of
@@ -522,8 +523,8 @@ Where to write, so that the next merge into master is clean while session 27 app
   `/Library/Java/Extensions`, `/Network/Library/Java/Extensions`,
   `/System/Library/Java/Extensions`, `/usr/lib/java`, `.`,
   `/usr/local/lib`, `/usr/lib`, `/lib` (`work/panako/logs/smoke-*.log`).
-  No `liblmdb` for arm64 exists on the Mac outside an unrelated
-  `node_modules` (not used).
+  No arm64 `liblmdb.dylib` exists on the Mac; an unrelated
+  `node_modules` holds LMDB's sources and a Node addon (not used).
 - **No route around it within the rules.** Panako's other storages are
   pure Java but cannot serve this protocol: `PANAKO_STORAGE=FILE`'s
   query methods are empty (it is the cache of prints), and `MEM` starts
@@ -533,8 +534,12 @@ Where to write, so that the next merge into master is clean while session 27 app
   part stops here. No Panako count exists. What it needs, either:
   1. an arm64 `liblmdb.dylib` (for example Homebrew's `lmdb`), passed
      to Panako's JVM as `-Dlmdbjava.native.lib=<path>` (one option in
-     `run/panako`; Panako unchanged), the route the README's link
-     "Using Java LMDB on Apple Silicon" names (not fetched); or
+     `run/panako`; Panako unchanged; or a `liblmdb.dylib` in
+     `work/panako/run/`, since `.` is on the search path and the stages
+     run from there). The README says "Additional steps are needed to
+     provide the Java lmdb bidge" and links a post, "how to get java
+     lmdb working on Apple M1", which probably describes this route (not
+     fetched); or
   2. an x86_64 JDK 11 under Rosetta 2, which would load the bundled
      x86_64 LMDB and JGaborator (its times would not be native).
 - **State outside `work/`, found and removed.** Panako's `Config` opens a
@@ -542,10 +547,15 @@ Where to write, so that the next merge into master is clean while session 27 app
   `~/Library/Preferences/com.apple.java.util.prefs.plist` and created
   `~/Library/Preferences/be.panako.util.plist` (an empty node). I
   removed the node through Java's own Preferences API (a `jshell`
-  snippet in `work/panako/cleanup/`, after checking that `be`,
+  snippet in `work/panako/cleanup/`, run with Temurin 11's `jshell`,
+  the JDK whose Preferences backend had written the node; a deviation
+  from "Java 11 for Panako's own commands only", made for the cleanup
+  Panako's runs required; the default Java unchanged; after checking that `be`,
   `be/panako` and `be/panako/util` held nothing else); `jshell` itself
   added an empty `tool/JShell` node, removed the same way by a
-  single-file Java program (`RemoveJShellNode.java`). The plist's
+  single-file Java program (`RemoveJShellNode.java`, Temurin 11's
+  `java`). `be.panako.util.plist` is probably the same node's backing
+  file rather than a second node (not checked before deletion). The plist's
   content now equals the copy from before (`plutil -p` identical; its
   XML form's digest `4c842708...` both); its bytes differ (`c116f8e2...`
   before, `2eb54dc8...` after), as the binary serialisation changed.

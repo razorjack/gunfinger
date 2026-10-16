@@ -3529,7 +3529,7 @@ product did not change.
   rule). 19:24 the launching agent: wait until 22:00 for Temurin 11,
   change nothing, install nothing. `java_home -v 11` prints Temurin 21
   with exit 0, so the wait read the JDK's version
-  (`work/s24b/wait-java11.sh`); no JDK 11 by 22:00.
+  (`work/panako/wait-java11.sh`, first in `work/s24b/`); no JDK 11 by 22:00.
 - 19:15 pre-registration (brief step 3, experiment 0130): Panako's
   documented defaults with `STRATEGY=PANAKO`; indexes of the 262 files
   and per sweep seed; sweeps 2026-2029, the three development mixes with
@@ -3580,7 +3580,8 @@ product did not change.
   `-Dlmdbjava.native.lib`, or an x86_64 JDK under Rosetta 2. Outside
   `work/`: empty Java Preferences nodes (`be/panako/util`, and
   `jshell`'s `tool/JShell` from the cleanup) removed through the
-  Preferences API, `be.panako.util.plist` deleted; the prefs plist's
+  Preferences API (Temurin 11's `jshell` and `java`, the only use of
+  Java 11 outside Panako's commands), `be.panako.util.plist` deleted; the prefs plist's
   content equals the copy from before. No `~/.panako`, `~/.gradle`,
   `~/.m2`.
 

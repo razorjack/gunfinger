@@ -5281,8 +5281,9 @@ passed, these would be ours to decide:
 
 ### What changed
 
-Nothing in Gunfinger changed, and Panako did not run. Panako 2.1 cannot
-be built with Java 21: its Gradle wrapper pins Gradle 7.2, which runs
+Nothing in Gunfinger changed, and Panako did not run (on 2026-10-17,
+with Java 11, it built and stopped at its storage: see "The run of
+2026-10-17" below). Panako 2.1 cannot be built with Java 21: its Gradle wrapper pins Gradle 7.2, which runs
 only on Java 8 to 16, and Temurin 21 is the only JDK on the Mac. By our
 rule the Panako part stopped at the build. At 19:24 the launching agent
 said it would ask for Temurin 11 to be installed (`brew install --cask
@@ -5313,13 +5314,14 @@ Gradle 7.2 (295 MB together) are in `work/panako/` of the worktree.
 2. Possibly native code for macOS arm64: LMDB (through
    `org.mlmdbjava:lmdbjava:0.9.1`) and JGaborator 0.7. The README says
    LMDB needs extra steps on Apple Silicon, its 2.1 changelog says Apple
-   M1 is supported; only a build will tell.
+   M1 is supported; only a build will tell. (The build of 2026-10-17
+   told: no arm64 LMDB; below.)
 3. One check: `/usr/libexec/java_home -v 11` exits 0 today and prints
    Temurin 21's path, so it cannot tell whether Java 11 is installed;
-   `work/s24b/wait-java11.sh` reads the JDK's own version instead.
+   `work/panako/wait-java11.sh` reads the JDK's own version instead.
 
-Then `work/panako/run.sh build`, `test` (its unit tests), `install`,
-`smoke`, and the stages in the order of the pre-registration
+Then `work/panako/run.sh build`, `install`, `smoke` (the self-check;
+its unit tests download audio, so `test` refuses to run), and the stages in the order of the pre-registration
 (`docs/brief-24b.md`, step 3; experiment 0130). The script is in the
 worktree's `work/` and, verbatim, at the end of the brief. Panako keeps its
 configuration beside its jar, so the run copies the jar and the
@@ -5400,22 +5402,26 @@ to choose:
 
 1. An arm64 `liblmdb.dylib`, for example from Homebrew's `lmdb`, passed
    to Panako's JVM as `-Dlmdbjava.native.lib=<path>`: one option in
-   `work/panako/run/panako`, Panako itself unchanged. Its README links a
-   post, "Using Java LMDB on Apple Silicon", for this route (I did not
-   fetch it).
+   `work/panako/run/panako`, Panako itself unchanged (or the file placed
+   in `work/panako/run/`, which is on lmdbjava's search path). The README
+   says "Additional steps are needed to provide the Java lmdb bidge" and
+   links a post, "how to get java lmdb working on Apple M1", which
+   probably describes this route (I did not fetch it).
 2. An x86_64 JDK 11 under Rosetta 2, which would use the bundled x86_64
    libraries; its times would not be native.
 
-After either, `run.sh smoke` and then 0130's stages run as written;
-Gunfinger's side (0131) needs nothing more.
+After either, `run.sh smoke` and then 0130's stages can run as written
+if nothing else fails (JGaborator has loaded on arm64 but processed no
+audio yet); Gunfinger's side (0131) needs nothing more.
 
 The three short runs did write outside `work/`: Panako's configuration
 opens a Java Preferences node, which added an empty `be/panako/util`
 node to `~/Library/Preferences/com.apple.java.util.prefs.plist` and
 created an empty `~/Library/Preferences/be.panako.util.plist`. I
 removed the node through Java's Preferences API and then the empty file.
-The removal ran in `jshell`, which added its own empty `tool/JShell`
-node; I removed that too. The plist's content is now the same as my copy
+The removal ran in Temurin 11's `jshell` (the one exception to using
+Java 11 only for Panako's commands), which added its own empty
+`tool/JShell` node; I removed that too. The plist's content is now the same as my copy
 from before (`work/panako/state-before/`); its bytes differ because it
 was written again.
 
