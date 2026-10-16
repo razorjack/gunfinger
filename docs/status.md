@@ -3310,6 +3310,7 @@ the session.
   remix; the 87 wrong related plays and (c)'s 61 marks on them do not
   change; (c)'s marks on true plays fall from 79 of 453 to 17-121 of 495
   (104 unknown offline). `rescore_summary.py` added.
+- 05:38 step 4's queue started under `screen` (`work/s23/queue.sh`).
 - 05:45 step 6b, done early so no later count can shape it: a proposed
   second shared-material panel, `docs/panels/shared-material-2-seed-2026.json`
   (`shared_panel_2.py`), from the `different` verdicts by ear outside the
@@ -3318,4 +3319,12 @@ the session.
   validation killa-bees, stab-2-def, tsunami. Not searched; passages not
   cut. Four families are played in the development mixes (listed in the
   file), Stab 2 Def's among them although it falls in validation.
-- 05:38 step 4's queue started under `screen` (`work/s23/queue.sh`).
+- 05:50 step 6a, while the queue ran: `work/audition/s23/01-s23-pack.json`
+  (6 questions; pack `work/audition/s23/pack/`, texts `plan.toml`):
+  the three Aphrodite borderline pairs of 0120, the Sonar upload against
+  the original and against the revision, and Kemal - Animation (Silent
+  Extent Remix) against the corpus original. A temporary `audition`
+  server (scratch answer log and verdicts file under `/tmp`) served the
+  page and every lane's envelope and audio; nothing was answered, and it
+  was stopped. Descent ~ Scarabeus (41% on 6 hits, unjudged since
+  session 18) is left out.

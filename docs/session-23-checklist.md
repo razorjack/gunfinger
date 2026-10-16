@@ -30,8 +30,9 @@ for scope and rules.
 - [ ] 4c. `shared-mixes` s21, then the rips plan; experiment 0122
 - [ ] 5. The ambiguity note: definition, wording and criteria written
   first; counts; tracklists; experiment 0123
-- [ ] 6a. Questions in `work/audition/s23/` (Sonar upload, Kemal remix,
-  borderline pairs)
+- [x] 6a. Questions in `work/audition/s23/` (Sonar upload, Kemal remix,
+  borderline pairs): `01-s23-pack.json`, 6 questions, checked on a
+  temporary server, never answered
 - [x] 6b. A proposed second panel, drawn and frozen, not searched
   (`docs/panels/shared-material-2-seed-2026.json`, done before step 4)
 
