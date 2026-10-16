@@ -498,6 +498,61 @@ Where to write, so that the next merge into master is clean while session 27 app
 - Results: experiment 0150; the notes' "Session 24b" section, the
   status entry and the roadmap bullet are updated in place.
 
+### 00:48-00:52: the build, the smoke test, and the stop
+
+- **Build** (`run.sh build`, `JAVA_HOME` = Temurin 11, Panako's own
+  wrapper unchanged): `BUILD SUCCESSFUL in 16s` (17.0 s wall);
+  `build/libs/panako-2.1-all.jar`, 9.5 MB. No `~/.panako`, `~/.gradle`
+  or `~/.m2` afterwards (`build.gradle`'s `install` task was not
+  realised).
+- **Native code in the jar**: JGaborator for macOS arm64
+  (`jni/00_macos_aarch64_libjgaborator.dylib`, and
+  `03_aarch64-macos-gnu`); LMDB (lmdbjava's natives, LMDB 0.9.20) only
+  for macOS x86_64, Linux x86_64 and Windows x86_64. lmdbjava's loader
+  reads a system property `lmdbjava.native.lib` (strings of
+  `org/lmdbjava/Library.class`) and otherwise looks for `lmdb` by name.
+- **Smoke** (`run.sh install`, `run.sh smoke`; the self-check): each of
+  `store`, `query` and `stats` loaded JGaborator from the jar ("Native
+  library library /jni/00_macos_aarch64_libjgaborator.dylib loaded!",
+  "Gaborator latency is 12469 samples") and then failed while creating
+  its LMDB storage, before decoding any audio (0.8-0.9 s each, exit 1):
+  `java.lang.UnsatisfiedLinkError: dlopen(liblmdb.dylib, 0x0009): tried:
+  'liblmdb.dylib' (no such file), ... '/usr/lib/liblmdb.dylib' (no such
+  file, not in dyld cache)`, search paths `~/Library/Java/Extensions`,
+  `/Library/Java/Extensions`, `/Network/Library/Java/Extensions`,
+  `/System/Library/Java/Extensions`, `/usr/lib/java`, `.`,
+  `/usr/local/lib`, `/usr/lib`, `/lib` (`work/panako/logs/smoke-*.log`).
+  No `liblmdb` for arm64 exists on the Mac outside an unrelated
+  `node_modules` (not used).
+- **No route around it within the rules.** Panako's other storages are
+  pure Java but cannot serve this protocol: `PANAKO_STORAGE=FILE`'s
+  query methods are empty (it is the cache of prints), and `MEM` starts
+  empty in each process, while `store` and `query` are separate runs of
+  the command line. Both would also change the pre-registered defaults.
+- **Decision (the instruction):** LMDB fails on arm64, so the Panako
+  part stops here. No Panako count exists. What it needs, either:
+  1. an arm64 `liblmdb.dylib` (for example Homebrew's `lmdb`), passed
+     to Panako's JVM as `-Dlmdbjava.native.lib=<path>` (one option in
+     `run/panako`; Panako unchanged), the route the README's link
+     "Using Java LMDB on Apple Silicon" names (not fetched); or
+  2. an x86_64 JDK 11 under Rosetta 2, which would load the bundled
+     x86_64 LMDB and JGaborator (its times would not be native).
+- **State outside `work/`, found and removed.** Panako's `Config` opens a
+  Java Preferences node: the runs added an empty `be/panako/util` node to
+  `~/Library/Preferences/com.apple.java.util.prefs.plist` and created
+  `~/Library/Preferences/be.panako.util.plist` (an empty node). I
+  removed the node through Java's own Preferences API (a `jshell`
+  snippet in `work/panako/cleanup/`, after checking that `be`,
+  `be/panako` and `be/panako/util` held nothing else); `jshell` itself
+  added an empty `tool/JShell` node, removed the same way by a
+  single-file Java program (`RemoveJShellNode.java`). The plist's
+  content now equals the copy from before (`plutil -p` identical; its
+  XML form's digest `4c842708...` both); its bytes differ (`c116f8e2...`
+  before, `2eb54dc8...` after), as the binary serialisation changed.
+  `be.panako.util.plist`, by then an empty dictionary that `defaults`
+  did not know as a domain, was deleted. JGaborator's copies of its
+  library in the temporary folder (`zignativeutils*`) were gone.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
