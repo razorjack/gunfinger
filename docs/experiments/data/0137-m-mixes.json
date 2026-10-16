@@ -1,16 +1,15 @@
 {
  "reports": [
-  "mixes-seed-2026.json",
-  "mixes-seed-7.json"
+  "mixes-seed-2026.json"
  ],
  "problems": [],
  "rules": {
   "3 windows": {
    "plays": {
-    "confident": 126,
+    "confident": 106,
     "wrong confident": 0,
     "wrong possible": 0,
-    "possible": 10
+    "possible": 9
    },
    "changed": [],
    "new_wrong_confident": [],
@@ -18,10 +17,10 @@
   },
   "span 10 s": {
    "plays": {
-    "confident": 134,
+    "confident": 114,
     "wrong confident": 0,
     "wrong possible": 0,
-    "possible": 2
+    "possible": 1
    },
    "changed": [
     {
@@ -86,10 +85,10 @@
   },
   "span 15 s": {
    "plays": {
-    "confident": 131,
+    "confident": 111,
     "wrong confident": 0,
     "wrong possible": 0,
-    "possible": 5
+    "possible": 4
    },
    "changed": [
     {
@@ -133,10 +132,10 @@
   },
   "span 20 s": {
    "plays": {
-    "confident": 116,
+    "confident": 96,
     "wrong confident": 0,
     "wrong possible": 0,
-    "possible": 20
+    "possible": 19
    },
    "changed": [
     {

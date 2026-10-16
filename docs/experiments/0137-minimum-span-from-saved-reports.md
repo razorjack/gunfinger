@@ -7,14 +7,15 @@ place of 3 windows, on the reports that hold first and last hits.
 **Method.** `scripts/analysis/span_rule.py` (grid, mixes, scans,
 shared). Today's rule first reproduced every stored level and score of
 each report (0 problems; shared detections taken as fitted, brief
-00:47). Data: `data/0137-m-*.json`.
+00:47). `mixes-seed-7.json` (2026-10-06) is the single pass, not today's
+matcher, so seed 7 is V's (0138). Data: `data/0137-m-*.json`.
 
 | Panel | Today (3 windows) | A(10) | A(15) | A(20) |
 |---|--:|--:|--:|--:|
 | Grid: confident of 960; flips | 693; 30 | 803; 2 | 644; 2 | 482; 1 |
 | Grid at 10, 15, 20 s (of 160) | 0, 67, 146 | 3, 160, 160 | 0, 4, 160 | 0, 0, 2 |
 | Grid: shortest length, any / all offsets | 15 / 25 s | 10 / 15 s | 15 / 20 s | 20 / 25 s |
-| Mixes 2026 + 7: confident, possible of 136 | 126, 10 | 134, 2 | 131, 5 | 116, 20 |
+| Mixes 2026: confident, possible of 115 | 106, 9 | 114, 1 | 111, 4 | 96, 19 |
 | Scans at 262 (6 reports): levels changed | | 0 | 0 | 0 |
 | Shared 1, played left out: wrong of 218 | 106 | 109 | 109 | 106 |
 | Shared 1: new wrong confident detections | | 8 | 6 | 0 |

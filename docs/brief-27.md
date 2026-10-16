@@ -383,3 +383,15 @@ is not known.
   and B(20) failing criterion 2 on the grid, no variant meets both
   criteria; the remaining runs are counted as planned and decide
   nothing further.
+- **(01:57) A stale report among M's.** `work/reports/mixes-seed-7.json`
+  was written on 2026-10-06 by the single pass (no detection is
+  fitted), before ADR 0008 made the fitted matcher the default. Today's
+  rule reproduced it because `span_rule.py` levels unfitted detections
+  by the single pass's rule, so the reproduction check could not catch
+  it. It is dropped from M: 0137's mixes row now counts seed 2026 alone
+  (115 plays), and seed 7 comes from V (a fresh draw by today's
+  `mixes`, 2 mixes, which differs from the old report's). Every other M
+  report is today's matcher: every scan detection with 10 hits or more
+  is fitted, the grid's are all fitted, and V reproduced the second
+  shared panel's bit for bit. The per-second scores of the generated
+  mixes are taken from V's reports (seed 2026 identical to M's).
