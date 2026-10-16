@@ -13,6 +13,12 @@
 //! selective absence no DJ EQ makes (contradicted); a band where the mix
 //! holds at least twice the power the reference predicts is masked
 //! (unobservable).
+//!
+//! Version 2 (`docs/brief-26.md`, step 3): a band is contradicted only
+//! where its EQ group demonstrably passes the reference, with an anchor
+//! in the patch. A group without one has a borrowed gain, so nothing
+//! shows it open: under a cut, another record's material fills it at any
+//! level (experiment 0127's Astro-Sine plays).
 
 use gunfinger_core::profile::Profile;
 use gunfinger_core::spectrogram::for_each_frame;
@@ -317,6 +323,9 @@ pub struct Judged {
     pub residuals: [Option<f64>; BANDS],
     pub bands: [BandState; BANDS],
     pub state: PatchState,
+    /// The state version 1's band rules give, without the group rule;
+    /// reported beside, deciding nothing.
+    pub version_1_state: PatchState,
 }
 
 /// The patch's band and patch states under gains fitted on each fold
@@ -336,13 +345,23 @@ pub fn judge(patch: &Measured, typical: &Typical) -> Judged {
             .collect();
         median(tested)
     });
-    let bands = std::array::from_fn(|band| {
+    let version_1_bands: [BandState; BANDS] = std::array::from_fn(|band| {
         let Some(correlation) = patch.bands[band].correlation else {
             return BandState::NotInformative;
         };
         band_state(correlation, residuals[band], || cut_by_eq(&residuals, band))
     });
-    let any_anchor = patch.bands.iter().any(Band::is_anchor);
+    let anchored: [bool; GROUPS] = std::array::from_fn(|group| {
+        (0..BANDS).any(|band| group_of(band) == group && patch.bands[band].is_anchor())
+    });
+    let bands = std::array::from_fn(|band| {
+        if anchored[group_of(band)] {
+            version_1_bands[band]
+        } else {
+            without_anchor(version_1_bands[band], residuals[band])
+        }
+    });
+    let any_anchor = anchored.contains(&true);
     Judged {
         first: patch.first,
         lag: patch.lag,
@@ -351,6 +370,7 @@ pub fn judge(patch: &Measured, typical: &Typical) -> Judged {
         residuals,
         bands,
         state: patch_state(&bands, any_anchor),
+        version_1_state: patch_state(&version_1_bands, any_anchor),
     }
 }
 
@@ -391,6 +411,17 @@ fn band_state(
         Some(e) if e > MASKED_DB => BandState::Masked,
         Some(_) if correlation < CONTRADICTED_CORRELATION => BandState::Contradicted,
         _ => BandState::Undecided,
+    }
+}
+
+/// A band of a group with no anchor in the patch, whose gain is
+/// borrowed: unless supported, killed when short of the prediction and
+/// masked otherwise, never contradicted.
+fn without_anchor(state: BandState, residual: Option<f64>) -> BandState {
+    match state {
+        BandState::NotInformative | BandState::Supported => state,
+        _ if residual.is_some_and(|e| e < DEFICIT_DB) => BandState::Killed,
+        _ => BandState::Masked,
     }
 }
 
@@ -784,13 +815,14 @@ mod tests {
         assert!(band_count(&patches, BandState::Killed, 8..18) > 0);
     }
 
-    /// A limitation found in the rendered mixes (experiment 0127): with
-    /// the incoming record's bass cut, the outgoing record's bass fills
-    /// the low bands at about the level the gain fit predicts, so the
-    /// bands are neither short nor masked, and their dynamics, not the
-    /// reference's, read as contradiction.
+    /// Experiment 0127's Astro-Sine plays: with the incoming record's bass
+    /// cut, the outgoing record's bass fills the low bands at about the
+    /// level the borrowed gain predicts, with its own dynamics. Version 1
+    /// read those bands as contradicted; with no anchor in the low group
+    /// they are masked or killed, and the patches stay supported by the
+    /// mid and high groups.
     #[test]
-    fn another_records_bass_under_a_bass_cut_reads_as_contradicted() {
+    fn another_records_bass_under_a_bass_cut_is_masked_not_contradicted() {
         let parts = track('a');
         let reference = flat(&parts);
         let mut other_bass: Vec<(Part, Group)> = track('b')
@@ -811,9 +843,20 @@ mod tests {
 
         let patches = judged(&mix, &reference);
 
-        let contradicted = band_count(&patches, BandState::Contradicted, 0..8);
-        assert!(contradicted > band_count(&patches, BandState::Killed, 0..8));
-        assert!(count(&patches, PatchState::Contradicted) > 0);
+        assert_eq!(band_count(&patches, BandState::Contradicted, 0..8), 0);
+        assert_eq!(count(&patches, PatchState::Contradicted), 0);
+        assert!(
+            band_count(&patches, BandState::Masked, 0..8)
+                + band_count(&patches, BandState::Killed, 0..8)
+                > 0
+        );
+        assert!(count(&patches, PatchState::Supported) as f64 >= 0.9 * patches.len() as f64);
+        // Version 1's band rules on the same patches contradicted some.
+        assert!(
+            patches
+                .iter()
+                .any(|patch| patch.version_1_state == PatchState::Contradicted)
+        );
     }
 
     #[test]

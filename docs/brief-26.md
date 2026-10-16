@@ -304,3 +304,33 @@ siblings, the renderer, the mix decoder.
   fall with it; Fire's wrong plays keep the kick in the low group, so
   most of their contradictions should stay. Dozer's, Pyro's and Sonar's
   wrong plays should stay unrejected (the same content along the line).
+
+## During the session
+
+- **(23:40) Step 4, implementation.** `versions/line.rs` (the measured
+  line: hits, knots, stretches and strays, chords), `versions.rs` (each
+  reported segment decoded once, its line measured, each piece rendered
+  and compared on its part of the excerpt; held spans over the tested
+  pieces), `versions/compare.rs` (the group rule; each patch's state
+  under version 1's band rules beside). Tests: the line 150 ms off, a
+  drifting copy (0.995 to 1.005 in a minute, the report's line up to 75
+  ms off), a jump back, a lone window at another offset (a stray), a
+  segment without the reference; session 24's test of another record's
+  bass under a bass cut now expects masked or killed bands and no
+  contradicted patch, and checks that version 1's band rules contradict
+  some. Every other synthetic test is unchanged and passes, among them
+  the missing bassline under the same kick (contradicted) and another
+  arrangement over the same drums (contradicted). No amendment to step
+  3 came out of the tests. `version_plays.py`: unmeasured plays, S1
+  with version 1's band rules, each play's line, and `changes` (plays
+  whose decision differs between two `evaluate` outputs).
+- **(23:44) Smoke run** on session 24's two calibration items
+  (`work/s24/plays/smoke.json`, `work/s26/runs/smoke.json`, 2.9 s): the
+  positive control (Fire's original on Jungle Massive 2) has one
+  stretch, knots within 0.3 ms of the reported line, S1 0 (108 patches
+  supported). The Rogue Unit Remix's wrong play has its opening window's
+  knot on the reported line and the other 11 knots 23-59 ms from it, in
+  one stretch of 4 pieces; S1 0.005 (version 1: 0.083; version 1's band
+  rules on version 2's line: 0.058). So on this wrong play both changes
+  lower S1. Seen on calibration data after the pre-registration, the
+  design does not change; it is reported with the results.

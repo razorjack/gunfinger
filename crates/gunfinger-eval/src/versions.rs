@@ -1,21 +1,24 @@
-//! Session 24's diagnostic version verifier (`docs/brief-24.md`, step 3;
+//! The diagnostic version verifier (`docs/brief-24.md`, step 3, and
+//! version 2, `docs/brief-26.md`, step 3;
 //! `docs/research/2026-10-16-version-verification.md`): for each play of
 //! a list, does the mix still play the reference's content along the
-//! play's fitted lines where the hashes are silent? Per segment the
-//! reference is rendered at the fitted speed onto the mix's clock and
-//! compared patch by patch (`compare`): supported, contradicted, or
-//! unobservable. Apart from that, each patch is *distinctive* or not: a
-//! patch whose file time lies in a span of the reference that a sibling
-//! (an indexed file outside the reference's recording, named by the
-//! play's run) also holds supports the shared passage, not the exact
-//! title.
+//! play's line where the hashes are silent? Each reported segment's line
+//! is measured from the reference's own hits (`line`), as straight
+//! pieces; along each piece the reference is rendered at the piece's
+//! speed onto the mix's clock and compared patch by patch (`compare`):
+//! supported, contradicted, or unobservable. Apart from that, each patch
+//! is *distinctive* or not: a patch whose file time lies in a span of the
+//! reference that a sibling (an indexed file outside the reference's
+//! recording, named by the play's run) also holds supports the shared
+//! passage, not the exact title.
 //!
 //! It decides nothing and changes no detection: the summaries are read
 //! by `scripts/analysis/version_plays.py`, which applies the threshold.
 
 mod compare;
+mod line;
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 use gunfinger_core::decode::{Excerpt, decode};
@@ -32,10 +35,11 @@ use crate::render::{Playback, render_samples_as_indexed};
 use crate::shared::Roots;
 use crate::shared_mixes::LISTED_HOLDER_HITS;
 use compare::{Judged, PatchState};
+use line::Line;
 
 /// The mix is decoded, and the reference rendered, this far beyond each
-/// end of a segment, so that a patch at the edge has its lag and its
-/// dynamics.
+/// end of a segment or piece, so that a patch at the edge has its lag and
+/// its dynamics.
 const MARGIN_SECONDS: f64 = 1.0;
 /// The siblings are searched over the play's file span widened this much.
 const HELD_MARGIN_SECONDS: f64 = 10.0;
@@ -66,7 +70,7 @@ pub struct Play {
     pub meta: serde_json::Value,
 }
 
-/// One fitted line: file time = `track_start + speed x (t - start)`.
+/// One straight line: file time = `track_start + speed x (t - start)`.
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Segment {
@@ -88,8 +92,11 @@ pub struct Verified {
     pub reference: String,
     pub meta: serde_json::Value,
     pub summaries: Summaries,
+    /// Each reported segment's measured line, in order.
+    pub lines: Vec<Line>,
     /// The reference's spans (file seconds) that the siblings hold.
     pub held: Vec<[f64; 2]>,
+    /// One timeline per piece of the measured lines.
     pub segments: Vec<Timeline>,
     /// Siblings whose peaks were not at hand, and the like.
     pub notes: Vec<String>,
@@ -101,6 +108,9 @@ pub struct Verified {
 pub struct Summaries {
     /// S1: contradicted / (supported + contradicted) patches.
     pub s1: Option<f64>,
+    /// S1 with version 1's band rules on the same patches; deciding
+    /// nothing.
+    pub s1_version_1_rules: Option<f64>,
     /// S2: the same over distinctive patches.
     pub s2: Option<f64>,
     /// S3: supported distinctive patches x the patch step.
@@ -128,6 +138,7 @@ pub struct Patch {
     pub file: f64,
     pub lag_frames: isize,
     pub state: PatchState,
+    pub version_1_state: PatchState,
     pub distinctive: bool,
     /// The low, mid and high groups' gains (dB, mix minus reference).
     pub gains: [Option<f64>; compare::GROUPS],
@@ -154,75 +165,113 @@ pub fn run(
 }
 
 fn verify(play: &Play, records: &Records, sources: &Sources, roots: &Roots) -> Verified {
-    let mut notes = Vec::new();
-    let held = held_spans(play, records, sources, &mut notes);
     let mut verified = Verified {
         id: play.id.clone(),
         reference: play.reference.clone(),
         meta: play.meta.clone(),
         summaries: Summaries::default(),
-        held: held.clone(),
+        lines: Vec::new(),
+        held: Vec::new(),
         segments: Vec::new(),
-        notes,
+        notes: Vec::new(),
         error: None,
     };
-    match timelines(play, &held, roots) {
-        Ok((segments, silent)) => {
+    let reference = match records.record(sources, &play.reference) {
+        Ok(record) => record,
+        Err(error) => {
+            verified.error = Some(format!("no line can be measured: {error}"));
+            return verified;
+        }
+    };
+    match measured(play, &reference, roots) {
+        Ok(Measurement {
+            lines,
+            pieces,
+            silent,
+        }) => {
+            let tested: Vec<Segment> = pieces.iter().map(|piece| piece.line.clone()).collect();
+            let held = held_spans(
+                play,
+                &reference,
+                &tested,
+                records,
+                sources,
+                &mut verified.notes,
+            );
+            let typical = compare::typical(pieces.iter().flat_map(|piece| &piece.patches));
+            let timelines: Vec<Timeline> = pieces
+                .iter()
+                .map(|piece| Timeline {
+                    segment: piece.line.clone(),
+                    patches: piece
+                        .patches
+                        .iter()
+                        .map(|patch| row(&compare::judge(patch, &typical), piece, &held))
+                        .collect(),
+                })
+                .collect();
             verified.summaries = summarise(
-                segments.iter().flat_map(|timeline| &timeline.patches),
+                timelines.iter().flat_map(|timeline| &timeline.patches),
                 silent,
             );
-            verified.segments = segments;
+            verified.lines = lines;
+            verified.held = held;
+            verified.segments = timelines;
         }
         Err(error) => verified.error = Some(error),
     }
     verified
 }
 
-/// Each segment's patches, judged with the gains typical of the whole
-/// play, and the number of patches left out as silent.
-fn timelines(
-    play: &Play,
-    held: &[[f64; 2]],
-    roots: &Roots,
-) -> Result<(Vec<Timeline>, usize), String> {
+/// The play's measured lines, and each piece with its patches.
+struct Measurement {
+    lines: Vec<Line>,
+    pieces: Vec<Piece>,
+    /// Patches left out as silent.
+    silent: usize,
+}
+
+/// One straight piece of a measured line, the excerpt of the mix it is
+/// compared on, and its patches before judging.
+struct Piece {
+    line: Segment,
+    clock: Clock,
+    patches: Vec<compare::Measured>,
+}
+
+/// Each reported segment's line measured on its excerpt of the mix
+/// against the reference's record alone, then each piece compared.
+fn measured(play: &Play, reference: &PeakRecord, roots: &Roots) -> Result<Measurement, String> {
     let profile = Profile::CURRENT;
-    let reference = roots.path(&play.reference)?;
-    let mut measured = Vec::new();
-    let mut silent = 0;
+    let path = roots.path(&play.reference)?;
+    let index = Index::build(std::slice::from_ref(reference))
+        .map_err(|error| format!("{}: {error}", play.reference))?;
+    let mut measurement = Measurement {
+        lines: Vec::new(),
+        pieces: Vec::new(),
+        silent: 0,
+    };
     for segment in &play.segments {
         let clock = Clock::around(segment);
-        let mix = decode(
-            &play.mix,
-            profile.sample_rate,
-            Excerpt {
-                start: Some(Duration::from_secs_f64(clock.start)),
-                duration: Some(Duration::from_secs_f64(clock.seconds)),
-            },
-        )
-        .map_err(|error| format!("{}: {error}", play.mix.display()))?;
-        let mut mix_samples = mix.samples;
-        mix_samples.resize(clock.samples(), 0.0);
-        let rendered = on_the_mix_clock(&reference, segment, &clock)?;
-        let mix_levels = compare::levels(&mix_samples, &profile);
-        let reference_levels = compare::levels(&rendered, &profile);
-        let (first, end) = clock.frames(segment);
-        let patches = compare::measure(&mix_levels, &reference_levels, first, end);
-        silent += patch_count(first, end.min(mix_levels.len())) - patches.len();
-        measured.push((segment, clock, patches));
+        let mix = clock.decode(&play.mix)?;
+        let line = line::measure(&mix, clock.start, segment, &index);
+        for piece in &line.pieces {
+            let around = Clock::around(piece);
+            let mix_levels = compare::levels(&clock.cut(&mix, &around), &profile);
+            let rendered = on_the_mix_clock(&path, piece, &around)?;
+            let reference_levels = compare::levels(&rendered, &profile);
+            let (first, end) = around.frames(piece);
+            let patches = compare::measure(&mix_levels, &reference_levels, first, end);
+            measurement.silent += patch_count(first, end.min(mix_levels.len())) - patches.len();
+            measurement.pieces.push(Piece {
+                line: piece.clone(),
+                clock: around,
+                patches,
+            });
+        }
+        measurement.lines.push(line);
     }
-    let typical = compare::typical(measured.iter().flat_map(|(_, _, patches)| patches));
-    let timelines = measured
-        .into_iter()
-        .map(|(segment, clock, patches)| Timeline {
-            segment: segment.clone(),
-            patches: patches
-                .iter()
-                .map(|patch| row(&compare::judge(patch, &typical), segment, &clock, held))
-                .collect(),
-        })
-        .collect();
-    Ok((timelines, silent))
+    Ok(measurement)
 }
 
 /// How many patches fit in frames `first..end`, as `compare::measure`
@@ -235,8 +284,9 @@ fn patch_count(first: usize, end: usize) -> usize {
     }
 }
 
-/// The excerpt of the mix a segment is compared on: from `MARGIN_SECONDS`
-/// before its start (or the mix's start) to as long after its end.
+/// The excerpt of the mix a segment or piece is compared on: from
+/// `MARGIN_SECONDS` before its start (or the mix's start) to as long
+/// after its end.
 struct Clock {
     start: f64,
     seconds: f64,
@@ -253,6 +303,36 @@ impl Clock {
 
     fn samples(&self) -> usize {
         (self.seconds * f64::from(Profile::CURRENT.sample_rate)).round() as usize
+    }
+
+    /// The mix's samples on this clock, silent past the mix's end.
+    fn decode(&self, mix: &Path) -> Result<Vec<f32>, String> {
+        let decoded = decode(
+            mix,
+            Profile::CURRENT.sample_rate,
+            Excerpt {
+                start: Some(Duration::from_secs_f64(self.start)),
+                duration: Some(Duration::from_secs_f64(self.seconds)),
+            },
+        )
+        .map_err(|error| format!("{}: {error}", mix.display()))?;
+        let mut samples = decoded.samples;
+        samples.resize(self.samples(), 0.0);
+        Ok(samples)
+    }
+
+    /// The part of `samples`, on this clock, that `inner` covers; `inner`
+    /// starts no earlier than this clock. Silent past the end.
+    fn cut(&self, samples: &[f32], inner: &Clock) -> Vec<f32> {
+        let rate = f64::from(Profile::CURRENT.sample_rate);
+        let from = (((inner.start - self.start) * rate).round() as usize).min(samples.len());
+        let mut part: Vec<f32> = samples[from..]
+            .iter()
+            .copied()
+            .take(inner.samples())
+            .collect();
+        part.resize(inner.samples(), 0.0);
+        part
     }
 
     /// The excerpt's frames whose start lies within the segment.
@@ -272,11 +352,7 @@ impl Clock {
 /// The reference along the segment's line for the excerpt's samples,
 /// rendered as turntable playback at the line's speed; silent where the
 /// file has no audio.
-fn on_the_mix_clock(
-    path: &std::path::Path,
-    segment: &Segment,
-    clock: &Clock,
-) -> Result<Vec<f32>, String> {
+fn on_the_mix_clock(path: &Path, segment: &Segment, clock: &Clock) -> Result<Vec<f32>, String> {
     let rate = f64::from(Profile::CURRENT.sample_rate);
     let at_start = segment.file_time(clock.start);
     let lead = if at_start < 0.0 {
@@ -301,14 +377,17 @@ fn on_the_mix_clock(
     Ok(samples)
 }
 
-fn row(judged: &Judged, segment: &Segment, clock: &Clock, held: &[[f64; 2]]) -> Patch {
-    let centre = clock.time(judged.first as f64 + compare::PATCH_FRAMES as f64 / 2.0);
-    let file = segment.file_time(centre);
+fn row(judged: &Judged, piece: &Piece, held: &[[f64; 2]]) -> Patch {
+    let centre = piece
+        .clock
+        .time(judged.first as f64 + compare::PATCH_FRAMES as f64 / 2.0);
+    let file = piece.line.file_time(centre);
     Patch {
         t: rounded(centre),
         file: rounded(file),
         lag_frames: judged.lag,
         state: judged.state,
+        version_1_state: judged.version_1_state,
         distinctive: !held.iter().any(|[from, to]| (*from..=*to).contains(&file)),
         gains: judged.gains.map(|gain| gain.map(rounded)),
         bands: judged.bands.iter().map(|state| state.letter()).collect(),
@@ -321,12 +400,13 @@ fn rounded(value: f64) -> f64 {
     (value * 100.0).round() / 100.0
 }
 
-/// The play's three summaries over its judged patches.
+/// The play's summaries over its judged patches.
 fn summarise<'a>(patches: impl Iterator<Item = &'a Patch>, silent: usize) -> Summaries {
     let mut summaries = Summaries {
         silent,
         ..Summaries::default()
     };
+    let (mut version_1_supported, mut version_1_contradicted) = (0, 0);
     for patch in patches {
         match patch.state {
             PatchState::Supported => {
@@ -339,8 +419,14 @@ fn summarise<'a>(patches: impl Iterator<Item = &'a Patch>, silent: usize) -> Sum
             }
             PatchState::Unobservable => summaries.unobservable += 1,
         }
+        match patch.version_1_state {
+            PatchState::Supported => version_1_supported += 1,
+            PatchState::Contradicted => version_1_contradicted += 1,
+            PatchState::Unobservable => {}
+        }
     }
     summaries.s1 = share(summaries.contradicted, summaries.supported);
+    summaries.s1_version_1_rules = share(version_1_contradicted, version_1_supported);
     summaries.s2 = share(
         summaries.distinctive_contradicted,
         summaries.distinctive_supported,
@@ -358,25 +444,20 @@ fn share(contradicted: usize, supported: usize) -> Option<f64> {
 }
 
 /// The reference's spans that its siblings hold: its stored peaks over
-/// the play's file span, widened, searched on the turntable ladder
-/// against the siblings alone; each detection of at least
+/// the tested pieces' file span, widened, searched on the turntable
+/// ladder against the siblings alone; each detection of at least
 /// `LISTED_HOLDER_HITS` hits holds the span it covers.
 fn held_spans(
     play: &Play,
+    reference: &PeakRecord,
+    tested: &[Segment],
     records: &Records,
     sources: &Sources,
     notes: &mut Vec<String>,
 ) -> Vec<[f64; 2]> {
-    if play.siblings.is_empty() {
+    if play.siblings.is_empty() || tested.is_empty() {
         return Vec::new();
     }
-    let reference = match records.record(sources, &play.reference) {
-        Ok(record) => record,
-        Err(error) => {
-            notes.push(format!("held spans unknown: {error}"));
-            return Vec::new();
-        }
-    };
     let siblings: Vec<PeakRecord> = play
         .siblings
         .iter()
@@ -396,7 +477,7 @@ fn held_spans(
             return Vec::new();
         }
     };
-    let (from, to) = file_span(&play.segments);
+    let (from, to) = file_span(tested);
     let profile = Profile::CURRENT;
     let span =
         profile.frames(from - HELD_MARGIN_SECONDS)..=profile.frames(to + HELD_MARGIN_SECONDS);
@@ -415,7 +496,7 @@ fn held_spans(
     held
 }
 
-/// The earliest and latest file times the play's segments reach.
+/// The earliest and latest file times the segments reach.
 fn file_span(segments: &[Segment]) -> (f64, f64) {
     segments
         .iter()
@@ -435,8 +516,9 @@ pub fn print_summary(verified: &[Verified]) {
         let summaries = &play.summaries;
         let share =
             |value: Option<f64>| value.map_or_else(|| String::from("  -  "), |v| format!("{v:.3}"));
+        let pieces: usize = play.lines.iter().map(|line| line.pieces.len()).sum();
         println!(
-            "{:<60} S1 {}  S2 {}  S3 {:>6.1} s  ({} supported, {} contradicted, {} unobservable){}",
+            "{:<60} S1 {}  S2 {}  S3 {:>6.1} s  ({} supported, {} contradicted, {} unobservable; {} pieces){}",
             play.id,
             share(summaries.s1),
             share(summaries.s2),
@@ -444,6 +526,7 @@ pub fn print_summary(verified: &[Verified]) {
             summaries.supported,
             summaries.contradicted,
             summaries.unobservable,
+            pieces,
             play.error
                 .as_ref()
                 .map_or_else(String::new, |error| format!("  error: {error}"))
@@ -471,6 +554,7 @@ mod tests {
             file: 0.0,
             lag_frames: 0,
             state,
+            version_1_state: state,
             distinctive,
             gains: [None; compare::GROUPS],
             bands: String::new(),

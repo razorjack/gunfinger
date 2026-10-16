@@ -297,11 +297,12 @@ enum Command {
         #[arg(long, value_enum)]
         half: Half,
     },
-    /// Session 24's diagnostic version verifier: for each play of a list,
-    /// the reference rendered along the play's fitted lines and compared
-    /// with the mix in 2 s patches (supported, contradicted or
-    /// unobservable; distinctive or held by a sibling), with three
-    /// summaries per play. Decides nothing.
+    /// The diagnostic version verifier (sessions 24 and 26): for each play
+    /// of a list, each segment's line measured from the reference's own
+    /// hits, the reference rendered along it and compared with the mix in
+    /// 2 s patches (supported, contradicted or unobservable; distinctive
+    /// or held by a sibling), with three summaries per play. Decides
+    /// nothing.
     Versions {
         /// JSON: `plays`, as `scripts/analysis/version_plays.py` writes them.
         plays: PathBuf,

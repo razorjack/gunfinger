@@ -25,9 +25,9 @@ for scope and rules.
 - [x] 3. Version 2's design and pre-registration (the measured line, the
   kill rule in blends, the split, T's rule, the criteria, the second
   use); experiment 0133's first part; committed before any run
-- [ ] 4. Implementation in `gunfinger-eval versions` with unit tests (a
-  drifting copy, a line off by 150 ms, a jump, a blend with a bass cut);
-  smoke runs on calibration items only; committed
+- [x] 4. Implementation in `gunfinger-eval versions` with unit tests (a
+  drifting copy, a line off by 150 ms, a jump, a stray, no line, a blend
+  with a bass cut); smoke run on two calibration items; committed
 - [ ] 5a. Calibration: T by version 1's rule; committed before any
   evaluation run
 - [ ] 5b. E1 and E2 against the criteria; every rejected true play with

@@ -1,6 +1,6 @@
-"""Session 24: the plays `gunfinger-eval versions` verifies, and the
-scores of its output against the pre-registration (docs/brief-24.md,
-step 3).
+"""Sessions 24 and 26: the plays `gunfinger-eval versions` verifies, and
+the scores of its output against the pre-registrations (docs/brief-24.md,
+step 3; version 2, docs/brief-26.md, step 3).
 
 usage:
   version_plays.py calibration PANEL CLUSTERS SHARED_REPORT HOLDERS OUT [QUERIES SET]
@@ -27,7 +27,15 @@ usage:
       T by the pre-registered rule from the calibration's negatives, and
       the positives kept at T.
   version_plays.py evaluate T VERIFIED... OUT
-      plays rejected at T (S1 >= T) by set and label.
+      plays rejected at T (S1 >= T) by set and label; with version 2's
+      output also the unmeasured plays (no tested patch: not rejected,
+      counted apart), the plays version 1's band rules would reject on
+      the same line, and each play's measured line (the median offset
+      of its kept knots from the reported line, stretches, strays,
+      pieces).
+  version_plays.py changes BEFORE AFTER
+      the plays whose decision differs between two `evaluate` outputs
+      (by id), by set and label.
   version_plays.py timeline VERIFIED ID_PART [EVERY]
       a compact timeline of the plays whose id contains ID_PART: every
       EVERY-th patch (default 16, about 4 s) with its mix and file time,
@@ -202,7 +210,30 @@ def s1_order(value):
     return -1.0 if value is None else value
 
 
-def threshold(verified_path, out_path):
+def unmeasured(v):
+    """Version 2: a play with no tested patch decides nothing."""
+    s = v["summaries"]
+    return "lines" in v and s["supported"] + s["contradicted"] + s["unobservable"] == 0
+
+
+def line_of(v):
+    """The median offset (ms) of the play's kept knots from the reported
+    line, and its stretches, strays and pieces; None for version 1."""
+    if "lines" not in v:
+        return None
+    offsets = sorted(k["deviation"] for line in v["lines"] for k in line["knots"]
+                     if k["stretch"] is not None)
+    median = None
+    if offsets:
+        middle = len(offsets) // 2
+        median = offsets[middle] if len(offsets) % 2 else (offsets[middle - 1] + offsets[middle]) / 2
+    return {"offset ms": None if median is None else round(1000 * median, 1),
+            "stretches": sum(line["stretches"] for line in v["lines"]),
+            "strays": sum(line["strays"] for line in v["lines"]),
+            "pieces": sum(len(line["pieces"]) for line in v["lines"])}
+
+
+def threshold(verified_path, out_path, registration="docs/brief-26.md, step 3"):
     verified = load(verified_path)
     negatives = [v for v in verified if v["meta"]["label"] == "negative"]
     positives = [v for v in verified if v["meta"]["label"] == "positive"]
@@ -215,12 +246,14 @@ def threshold(verified_path, out_path):
         at = min(above) if above else math.inf
     rejected = lambda v: v["summaries"]["s1"] is not None and v["summaries"]["s1"] >= at
     result = {
-        "pre-registration": "docs/brief-24.md, step 3",
+        "pre-registration": registration,
         "T": at, "reaches half": reaches_half,
         "negatives": len(negatives), "negatives rejected": sum(map(rejected, negatives)),
         "negatives undefined": sum(v["summaries"]["s1"] is None for v in negatives),
+        "negatives unmeasured": sum(map(unmeasured, negatives)),
         "positives": len(positives), "positives kept": sum(not rejected(v) for v in positives),
         "positives undefined": sum(v["summaries"]["s1"] is None for v in positives),
+        "positives unmeasured": sum(map(unmeasured, positives)),
         "errors": errors,
         "negatives by family": by_group(negatives, "family", rejected),
         "positives by family": by_group(positives, "family", rejected),
@@ -231,6 +264,10 @@ def threshold(verified_path, out_path):
         "s2 positives": quantiles([v["summaries"]["s2"] for v in positives]),
         "s3 negatives": quantiles([v["summaries"]["s3_seconds"] for v in negatives]),
         "s3 positives": quantiles([v["summaries"]["s3_seconds"] for v in positives]),
+        "s1 with version 1's band rules, negatives":
+            quantiles([v["summaries"].get("s1_version_1_rules") for v in negatives]),
+        "s1 with version 1's band rules, positives":
+            quantiles([v["summaries"].get("s1_version_1_rules") for v in positives]),
     }
     dump(result, out_path)
     for name, value in result.items():
@@ -261,25 +298,50 @@ def evaluate(at, *paths):
     for path in verified_paths:
         for v in load(path):
             s = v["summaries"]
+            v1_rules = s.get("s1_version_1_rules")
             rows.append({"id": v["id"], **v["meta"], "s1": s["s1"], "s2": s["s2"],
                          "s3": s["s3_seconds"], "supported": s["supported"],
                          "contradicted": s["contradicted"], "unobservable": s["unobservable"],
                          "silent": s["silent"], "error": v.get("error"),
-                         "rejected": s["s1"] is not None and s["s1"] >= at})
-    counts = defaultdict(lambda: [0, 0, 0])
+                         "rejected": s["s1"] is not None and s["s1"] >= at,
+                         "unmeasured": unmeasured(v), "s1 version 1 rules": v1_rules,
+                         "rejected by version 1 rules": v1_rules is not None and v1_rules >= at,
+                         "line": line_of(v)})
+    counts = defaultdict(lambda: [0, 0, 0, 0, 0])
     for r in rows:
         cell = counts[(r["set"], r["label"])]
         cell[0] += 1
         cell[1] += r["rejected"]
         cell[2] += r["s1"] is None
-    summary = {f"{s} {label}": {"plays": n, "rejected": k, "s1 undefined": u}
-               for (s, label), (n, k, u) in sorted(counts.items())}
+        cell[3] += r["unmeasured"]
+        cell[4] += r["rejected by version 1 rules"]
+    summary = {f"{s} {label}": {"plays": n, "rejected": k, "s1 undefined": u, "unmeasured": m,
+                                "rejected by version 1's band rules on this line": k1}
+               for (s, label), (n, k, u, m, k1) in sorted(counts.items())}
     for name, cell in summary.items():
         print(f"{name}: {cell}")
     for key in sorted({(r["set"], r["label"]) for r in rows}):
         cell = [r for r in rows if (r["set"], r["label"]) == key]
         print(f"  {key}: S1 {quantiles([r['s1'] for r in cell])}")
     dump({"T": at, "summary": summary, "plays": rows}, out_path)
+
+
+def changes(before_path, after_path):
+    before = {r["id"]: r for r in load(before_path)["plays"]}
+    after = {r["id"]: r for r in load(after_path)["plays"]}
+    missing = sorted(set(before) ^ set(after))
+    if missing:
+        print(f"{len(missing)} plays in one file only, e.g. {missing[:3]}")
+    moved = defaultdict(list)
+    for identifier in sorted(set(before) & set(after)):
+        b, a = before[identifier], after[identifier]
+        if b["rejected"] != a["rejected"]:
+            moved[(a["set"], a["label"])].append((identifier, b["s1"], a["s1"], a["rejected"], a.get("line")))
+    for key, plays in sorted(moved.items()):
+        newly = sum(1 for p in plays if p[3])
+        print(f"{key}: {len(plays)} change ({newly} now rejected, {len(plays) - newly} now kept)")
+        for identifier, s1_before, s1_after, now, line in plays:
+            print(f"   {'rejected' if now else 'kept    '} S1 {s1_before} -> {s1_after}  {line}  {identifier}")
 
 
 def clock(seconds):
@@ -309,4 +371,4 @@ def timeline(verified_path, id_part, every="16"):
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
     {"calibration": calibration, "e1": e1, "e2": e2, "threshold": threshold,
-     "evaluate": evaluate, "timeline": timeline}[command](*arguments)
+     "evaluate": evaluate, "changes": changes, "timeline": timeline}[command](*arguments)
