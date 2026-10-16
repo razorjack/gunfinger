@@ -463,3 +463,17 @@ Jungle Massive 2), the panel's passages unchanged.
   seeking is exact on the mix and the reference, so the reported line
   itself is off: the play's line is less precise than the verifier's
   +-48 ms window assumes.
+- 20:05 exploratory, deciding nothing (experiment 0127,
+  `scripts/analysis/version_lines.py`): the lag probe's finding checked
+  with the matcher itself. Mix excerpts identified against the
+  reference's record alone put the audio where the reported line says
+  for 95 of 104 E1 plays (within 48 ms) and 98-193 ms away for all five
+  rejected ones. Three causes: the reported line is anchored on the
+  play's opening window (`refine.rs`), which can carry another alignment
+  while the record is mixed in (Phantom Force, Kontempt.mp3); alien5ive's
+  uploads drift in speed by 0.2-0.5% within a play, so no single line
+  fits; one E2 reference (Do Drop In) has damaged MP3 frames, so the
+  store's sequential decode and FFmpeg's seek differ by 235 ms. No
+  verifier variant was run on E1 or E2 (it would make them tuning sets);
+  this is in the handoff for session 25. `lagprobe.py`'s onset-based
+  numbers above are superseded by these.

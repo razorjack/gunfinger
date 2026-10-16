@@ -1,0 +1,2614 @@
+{
+ "method": "scripts/analysis/version_lines.py, 3 excerpts of 25 s per segment, points with >= 50 hits and |offset| < 1 s",
+ "summary": {
+  "plays": 108,
+  "with a local line": 104,
+  "offset over 24 ms": {
+   "plays": 20,
+   "rejected": 5
+  },
+  "offset over 48 ms": {
+   "plays": 9,
+   "rejected": 5
+  },
+  "offset over 96 ms": {
+   "plays": 6,
+   "rejected": 5
+  },
+  "median S1, offset within 48 ms": 0.0020352781546811396,
+  "median S1, offset over 48 ms": 0.26256983240223464
+ },
+ "e1": [
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Skynet & Stakka - Logistics.mp3",
+   "start": 2602.609119140625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -1.5,
+   "points": [
+    {
+     "t": 2614.9,
+     "hits": 193,
+     "local speed": 1.02235,
+     "audio minus line ms": -1.2
+    },
+    {
+     "t": 2800.1,
+     "hits": 452,
+     "local speed": 1.02216,
+     "audio minus line ms": -1.9
+    },
+    {
+     "t": 2984.8,
+     "hits": 346,
+     "local speed": 1.02224,
+     "audio minus line ms": -1.5
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "AA-Stakka_and_Skynet-Logistics-sour.mp3",
+   "start": 2602.609119140625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -1.5,
+   "points": [
+    {
+     "t": 2614.9,
+     "hits": 193,
+     "local speed": 1.02235,
+     "audio minus line ms": -1.2
+    },
+    {
+     "t": 2800.1,
+     "hits": 452,
+     "local speed": 1.02216,
+     "audio minus line ms": -1.9
+    },
+    {
+     "t": 2984.8,
+     "hits": 346,
+     "local speed": 1.02224,
+     "audio minus line ms": -1.5
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "AUDIO BLUEPRINT [ ABPR012 ： SKYNET & STAKKA - logistics - ] drum and bass.opus",
+   "start": 2602.602642578125,
+   "s1": 0.0462046204620462,
+   "rejected": false,
+   "median offset ms": -5.5,
+   "points": [
+    {
+     "t": 2614.9,
+     "hits": 175,
+     "local speed": 0.99335,
+     "audio minus line ms": -5.5
+    },
+    {
+     "t": 2799.9,
+     "hits": 434,
+     "local speed": 0.99273,
+     "audio minus line ms": -158.7
+    },
+    {
+     "t": 2984.8,
+     "hits": 325,
+     "local speed": 0.99082,
+     "audio minus line ms": 7.5
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Skynet & Stakka - Decoy.mp3",
+   "start": 285.5466953125,
+   "s1": 0.0022624434389140274,
+   "rejected": false,
+   "median offset ms": 10.9,
+   "points": [
+    {
+     "t": 299.0,
+     "hits": 133,
+     "local speed": 1.02824,
+     "audio minus line ms": 10.5
+    },
+    {
+     "t": 456.7,
+     "hits": 375,
+     "local speed": 1.02864,
+     "audio minus line ms": 11.3
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+   "start": 2227.24234765625,
+   "s1": 0.0020325203252032522,
+   "rejected": false,
+   "median offset ms": 1.5,
+   "points": [
+    {
+     "t": 2416.9,
+     "hits": 391,
+     "local speed": 1.00992,
+     "audio minus line ms": 0.7
+    },
+    {
+     "t": 2594.2,
+     "hits": 320,
+     "local speed": 1.01012,
+     "audio minus line ms": 2.3
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+   "start": 2227.24234765625,
+   "s1": 0.0020325203252032522,
+   "rejected": false,
+   "median offset ms": 1.5,
+   "points": [
+    {
+     "t": 2416.9,
+     "hits": 391,
+     "local speed": 1.00992,
+     "audio minus line ms": 0.7
+    },
+    {
+     "t": 2594.2,
+     "hits": 320,
+     "local speed": 1.01012,
+     "audio minus line ms": 2.3
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & K.Tee - Auto Ignition.mp3",
+   "start": 2986.8530390625,
+   "s1": 0.0062413314840499305,
+   "rejected": false,
+   "median offset ms": -5.8,
+   "points": [
+    {
+     "t": 2999.2,
+     "hits": 283,
+     "local speed": 1.01338,
+     "audio minus line ms": 1.0
+    },
+    {
+     "t": 3174.4,
+     "hits": 410,
+     "local speed": 1.01346,
+     "audio minus line ms": -12.2
+    },
+    {
+     "t": 3349.1,
+     "hits": 477,
+     "local speed": 1.01339,
+     "audio minus line ms": -5.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "start": 2986.8530390625,
+   "s1": 0.0062413314840499305,
+   "rejected": false,
+   "median offset ms": -5.8,
+   "points": [
+    {
+     "t": 2999.2,
+     "hits": 283,
+     "local speed": 1.01338,
+     "audio minus line ms": 1.0
+    },
+    {
+     "t": 3174.4,
+     "hits": 410,
+     "local speed": 1.01346,
+     "audio minus line ms": -12.2
+    },
+    {
+     "t": 3349.1,
+     "hits": 477,
+     "local speed": 1.01339,
+     "audio minus line ms": -5.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "a-stakka_and_k_tee-auto_ignition-sour.mp3",
+   "start": 2986.8530390625,
+   "s1": 0.0062413314840499305,
+   "rejected": false,
+   "median offset ms": -5.8,
+   "points": [
+    {
+     "t": 2999.2,
+     "hits": 283,
+     "local speed": 1.01338,
+     "audio minus line ms": 1.0
+    },
+    {
+     "t": 3174.4,
+     "hits": 410,
+     "local speed": 1.01346,
+     "audio minus line ms": -12.2
+    },
+    {
+     "t": 3349.1,
+     "hits": 477,
+     "local speed": 1.01339,
+     "audio minus line ms": -5.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kemal & Paul Reset - Kontempt.mp3",
+   "start": 1863.5479296875,
+   "s1": 0.5918367346938775,
+   "rejected": true,
+   "median offset ms": -163.5,
+   "points": [
+    {
+     "t": 2072.3,
+     "hits": 328,
+     "local speed": 1.02939,
+     "audio minus line ms": -163.5
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "101-stakka_and_skynet-decoy-sour.mp3",
+   "start": 286.224310546875,
+   "s1": 0.0024271844660194173,
+   "rejected": false,
+   "median offset ms": 3.85,
+   "points": [
+    {
+     "t": 298.6,
+     "hits": 125,
+     "local speed": 1.02705,
+     "audio minus line ms": 5.4
+    },
+    {
+     "t": 445.9,
+     "hits": 377,
+     "local speed": 1.02705,
+     "audio minus line ms": 2.3
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "AUDIO BLUEPRINT [ ABPR011 ： STAKKA & K. TEE - auto ignition ] drum and bass.m4a",
+   "start": 2983.946,
+   "s1": 0.49162011173184356,
+   "rejected": true,
+   "median offset ms": -98.4,
+   "points": [
+    {
+     "t": 2996.3,
+     "hits": 151,
+     "local speed": 1.00056,
+     "audio minus line ms": -29.1
+    },
+    {
+     "t": 3172.4,
+     "hits": 391,
+     "local speed": 0.99769,
+     "audio minus line ms": -304.4
+    },
+    {
+     "t": 3348.3,
+     "hits": 397,
+     "local speed": 0.99522,
+     "audio minus line ms": -98.4
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & Skynet - Decoy.opus",
+   "start": 276.75997265625,
+   "s1": 0.004691164972634871,
+   "rejected": false,
+   "median offset ms": 8.8,
+   "points": [
+    {
+     "t": 441.3,
+     "hits": 306,
+     "local speed": 1.01919,
+     "audio minus line ms": 8.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & Skynet feat. Kemal & Rob Data - Biosfear (Remastered).opus",
+   "start": 2228.603685546875,
+   "s1": 0.0020352781546811396,
+   "rejected": false,
+   "median offset ms": 3.35,
+   "points": [
+    {
+     "t": 2418.0,
+     "hits": 304,
+     "local speed": 1.01003,
+     "audio minus line ms": 3.1
+    },
+    {
+     "t": 2594.6,
+     "hits": 233,
+     "local speed": 1.01021,
+     "audio minus line ms": 3.6
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "UNDERFIRE RECORDINGS [ udfr017 ： KEMAL & PAUL RESET - kontempt - ] drum and bass.m4a",
+   "start": 1890.16346875,
+   "s1": 0.4835680751173709,
+   "rejected": true,
+   "median offset ms": -192.85000000000002,
+   "points": [
+    {
+     "t": 1902.2,
+     "hits": 110,
+     "local speed": 0.988,
+     "audio minus line ms": -34.6
+    },
+    {
+     "t": 2086.0,
+     "hits": 287,
+     "local speed": 0.98332,
+     "audio minus line ms": -351.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Skynet & Stakka - Night Lore.mp3",
+   "start": 0.122802734375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -1.6,
+   "points": [
+    {
+     "t": 12.5,
+     "hits": 427,
+     "local speed": 1.02697,
+     "audio minus line ms": -1.8
+    },
+    {
+     "t": 151.9,
+     "hits": 248,
+     "local speed": 1.02679,
+     "audio minus line ms": -1.6
+    },
+    {
+     "t": 290.7,
+     "hits": 84,
+     "local speed": 1.02663,
+     "audio minus line ms": 0.9
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "a-stakka_and_skynet-nightlore-sour.mp3",
+   "start": 0.122802734375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -1.6,
+   "points": [
+    {
+     "t": 12.5,
+     "hits": 427,
+     "local speed": 1.02697,
+     "audio minus line ms": -1.8
+    },
+    {
+     "t": 151.9,
+     "hits": 248,
+     "local speed": 1.02679,
+     "audio minus line ms": -1.6
+    },
+    {
+     "t": 290.7,
+     "hits": 84,
+     "local speed": 1.02663,
+     "audio minus line ms": 0.9
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+   "start": 1530.73065234375,
+   "s1": 0.034354688950789226,
+   "rejected": false,
+   "median offset ms": -37.3,
+   "points": [
+    {
+     "t": 1727.8,
+     "hits": 207,
+     "local speed": 1.016,
+     "audio minus line ms": -37.3
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "UNDERFIRE RECORDINGS [ UDFR 016 ： STAKKA and SKYNET - knight lore - ] drum and bass.m4a",
+   "start": 0.11925,
+   "s1": 0.023131672597864767,
+   "rejected": false,
+   "median offset ms": -10.8,
+   "points": [
+    {
+     "t": 12.5,
+     "hits": 421,
+     "local speed": 0.99876,
+     "audio minus line ms": -10.8
+    },
+    {
+     "t": 151.2,
+     "hits": 276,
+     "local speed": 0.99731,
+     "audio minus line ms": -134.6
+    },
+    {
+     "t": 290.3,
+     "hits": 98,
+     "local speed": 0.99427,
+     "audio minus line ms": 119.7
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kraken - Dominion.opus",
+   "start": 1520.29928515625,
+   "s1": 0.02729044834307992,
+   "rejected": false,
+   "median offset ms": 121.8,
+   "points": [
+    {
+     "t": 1720.3,
+     "hits": 220,
+     "local speed": 1.016,
+     "audio minus line ms": 121.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： STAKKA & SKYNET - decoy - ] techstep.opus",
+   "start": 276.76165625,
+   "s1": 0.0022058823529411764,
+   "rejected": false,
+   "median offset ms": 3.8,
+   "points": [
+    {
+     "t": 452.3,
+     "hits": 269,
+     "local speed": 1.02863,
+     "audio minus line ms": 3.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & Skynet - Decoy (Remastered).m4a",
+   "start": 276.08093359375,
+   "s1": 0.003918495297805642,
+   "rejected": false,
+   "median offset ms": 6.5,
+   "points": [
+    {
+     "t": 440.4,
+     "hits": 284,
+     "local speed": 1.02683,
+     "audio minus line ms": 6.5
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Skynet & Stakka - Clockwork.mp3",
+   "start": 1052.0795703125,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 5.8,
+   "points": [
+    {
+     "t": 1184.2,
+     "hits": 382,
+     "local speed": 1.01394,
+     "audio minus line ms": 5.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "103-stakka_and_skynet-clockwork-sour.mp3",
+   "start": 1052.0795703125,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 5.8,
+   "points": [
+    {
+     "t": 1184.2,
+     "hits": 382,
+     "local speed": 1.01394,
+     "audio minus line ms": 5.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & Skynet - Nightlore.m4a",
+   "start": 0.4840019531250001,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 4.2,
+   "points": [
+    {
+     "t": 12.8,
+     "hits": 328,
+     "local speed": 0.99265,
+     "audio minus line ms": -0.2
+    },
+    {
+     "t": 152.0,
+     "hits": 192,
+     "local speed": 0.99319,
+     "audio minus line ms": 4.2
+    },
+    {
+     "t": 291.8,
+     "hits": 63,
+     "local speed": 0.99221,
+     "audio minus line ms": 14.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kraken - Dominion.opus",
+   "start": 1561.349470703125,
+   "s1": 0.019120458891013385,
+   "rejected": false,
+   "median offset ms": -14.3,
+   "points": [
+    {
+     "t": 1574.3,
+     "hits": 147,
+     "local speed": 0.992,
+     "audio minus line ms": 8.6
+    },
+    {
+     "t": 1740.2,
+     "hits": 204,
+     "local speed": 0.99184,
+     "audio minus line ms": -37.2
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Stakka & Skynet - Clockwork (Remastered).m4a",
+   "start": 1060.6465859375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -0.8,
+   "points": [
+    {
+     "t": 1188.9,
+     "hits": 279,
+     "local speed": 1.014,
+     "audio minus line ms": -0.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kraken - Dominion.opus",
+   "start": 1551.769990234375,
+   "s1": 0.027522935779816515,
+   "rejected": false,
+   "median offset ms": -39.1,
+   "points": [
+    {
+     "t": 1736.1,
+     "hits": 177,
+     "local speed": 0.99201,
+     "audio minus line ms": -39.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kraken - Side Effects (TeeBee Remix).mp3",
+   "start": 1282.65525,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 12.95,
+   "points": [
+    {
+     "t": 1429.4,
+     "hits": 212,
+     "local speed": 1.00318,
+     "audio minus line ms": 17.3
+    },
+    {
+     "t": 1563.7,
+     "hits": 75,
+     "local speed": 1.00339,
+     "audio minus line ms": 8.6
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Skynet & Stakka - Pathogen.mp3",
+   "start": 862.90722265625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -4.55,
+   "points": [
+    {
+     "t": 874.8,
+     "hits": 69,
+     "local speed": 1.01547,
+     "audio minus line ms": -1.0
+    },
+    {
+     "t": 973.9,
+     "hits": 346,
+     "local speed": 1.01557,
+     "audio minus line ms": -8.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "A-Stakka_and_Skynet-Pathogen-sour.mp3",
+   "start": 862.90722265625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -4.55,
+   "points": [
+    {
+     "t": 874.8,
+     "hits": 69,
+     "local speed": 1.01547,
+     "audio minus line ms": -1.0
+    },
+    {
+     "t": 973.9,
+     "hits": 346,
+     "local speed": 1.01557,
+     "audio minus line ms": -8.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+   "start": 583.4537734375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -14.1,
+   "points": [
+    {
+     "t": 596.0,
+     "hits": 92,
+     "local speed": 1.01564,
+     "audio minus line ms": -7.6
+    },
+    {
+     "t": 691.5,
+     "hits": 277,
+     "local speed": 1.01538,
+     "audio minus line ms": -37.8
+    },
+    {
+     "t": 786.9,
+     "hits": 163,
+     "local speed": 1.01409,
+     "audio minus line ms": -14.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kraken - Side Effects (Teebee Remix).opus",
+   "start": 1262.1165,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 11.95,
+   "points": [
+    {
+     "t": 1419.3,
+     "hits": 171,
+     "local speed": 1.00321,
+     "audio minus line ms": 15.1
+    },
+    {
+     "t": 1564.1,
+     "hits": 67,
+     "local speed": 1.00339,
+     "audio minus line ms": 8.8
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "Kemal & Rob Data - Star Trails.mp3",
+   "start": 585.0673515625,
+   "s1": 0.0011806375442739079,
+   "rejected": false,
+   "median offset ms": 2.1,
+   "points": [
+    {
+     "t": 597.4,
+     "hits": 64,
+     "local speed": 1.04493,
+     "audio minus line ms": 2.1
+    },
+    {
+     "t": 694.3,
+     "hits": 228,
+     "local speed": 1.04483,
+     "audio minus line ms": 2.1
+    },
+    {
+     "t": 791.0,
+     "hits": 100,
+     "local speed": 1.044,
+     "audio minus line ms": 5.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "a-konflict-star_trails-sour.mp3",
+   "start": 585.0673515625,
+   "s1": 0.0011806375442739079,
+   "rejected": false,
+   "median offset ms": 2.1,
+   "points": [
+    {
+     "t": 597.4,
+     "hits": 64,
+     "local speed": 1.04493,
+     "audio minus line ms": 2.1
+    },
+    {
+     "t": 694.3,
+     "hits": 228,
+     "local speed": 1.04483,
+     "audio minus line ms": 2.1
+    },
+    {
+     "t": 791.0,
+     "hits": 100,
+     "local speed": 1.044,
+     "audio minus line ms": 5.1
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus",
+   "start": 1280.06975,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 12.0,
+   "points": [
+    {
+     "t": 1428.0,
+     "hits": 97,
+     "local speed": 1.00315,
+     "audio minus line ms": 14.0
+    },
+    {
+     "t": 1564.1,
+     "hits": 60,
+     "local speed": 1.00337,
+     "audio minus line ms": 10.0
+    }
+   ]
+  },
+  {
+   "mix": "stakka-skynet-knowledge",
+   "file": "AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： SKYNET & STAKKA - pathogen - ] drum and bass.m4a",
+   "start": 867.240984375,
+   "s1": 0.26256983240223464,
+   "rejected": true,
+   "median offset ms": -146.7,
+   "points": [
+    {
+     "t": 976.0,
+     "hits": 216,
+     "local speed": 0.97683,
+     "audio minus line ms": -146.7
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "AA-Escape_Route-Narcosis-sour.mp3",
+   "start": 372.92246484375,
+   "s1": 0.003067484662576687,
+   "rejected": false,
+   "median offset ms": -5.800000000000001,
+   "points": [
+    {
+     "t": 385.3,
+     "hits": 79,
+     "local speed": 1.04736,
+     "audio minus line ms": -3.3
+    },
+    {
+     "t": 540.6,
+     "hits": 877,
+     "local speed": 1.04705,
+     "audio minus line ms": -8.3
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "AA-Escape_Route-Narcosis-sour.mp3",
+   "start": 372.92246484375,
+   "s1": 0.003067484662576687,
+   "rejected": false,
+   "median offset ms": -5.800000000000001,
+   "points": [
+    {
+     "t": 385.3,
+     "hits": 79,
+     "local speed": 1.04736,
+     "audio minus line ms": -3.3
+    },
+    {
+     "t": 540.6,
+     "hits": 877,
+     "local speed": 1.04705,
+     "audio minus line ms": -8.3
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "10-Omni_Trio-Kinetic-XTC.mp3",
+   "start": 1043.677349609375,
+   "s1": 0.014845605700712588,
+   "rejected": false,
+   "median offset ms": -1.4500000000000002,
+   "points": [
+    {
+     "t": 1069.2,
+     "hits": 179,
+     "local speed": 1.05908,
+     "audio minus line ms": -13.4
+    },
+    {
+     "t": 1127.9,
+     "hits": 100,
+     "local speed": 1.05911,
+     "audio minus line ms": -1.1
+    },
+    {
+     "t": 1317.1,
+     "hits": 820,
+     "local speed": 1.05904,
+     "audio minus line ms": -1.8
+    },
+    {
+     "t": 1504.6,
+     "hits": 71,
+     "local speed": 1.05892,
+     "audio minus line ms": 0.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "a-future_cut-sex_drive-sour.mp3",
+   "start": 130.26517578125,
+   "s1": 0.000975609756097561,
+   "rejected": false,
+   "median offset ms": 1.6,
+   "points": [
+    {
+     "t": 144.4,
+     "hits": 198,
+     "local speed": 1.048,
+     "audio minus line ms": -0.1
+    },
+    {
+     "t": 234.9,
+     "hits": 850,
+     "local speed": 1.04784,
+     "audio minus line ms": 2.8
+    },
+    {
+     "t": 327.1,
+     "hits": 805,
+     "local speed": 1.04792,
+     "audio minus line ms": 1.6
+    },
+    {
+     "t": 353.5,
+     "hits": 520,
+     "local speed": 1.048,
+     "audio minus line ms": 2635.8
+    },
+    {
+     "t": 369.3,
+     "hits": 146,
+     "local speed": 1.04788,
+     "audio minus line ms": 2637.0
+    },
+    {
+     "t": 384.3,
+     "hits": 74,
+     "local speed": 1.048,
+     "audio minus line ms": 2637.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "a-future_cut-sex_drive-sour.mp3",
+   "start": 130.26517578125,
+   "s1": 0.000975609756097561,
+   "rejected": false,
+   "median offset ms": 1.6,
+   "points": [
+    {
+     "t": 144.4,
+     "hits": 198,
+     "local speed": 1.048,
+     "audio minus line ms": -0.1
+    },
+    {
+     "t": 234.9,
+     "hits": 850,
+     "local speed": 1.04784,
+     "audio minus line ms": 2.8
+    },
+    {
+     "t": 327.1,
+     "hits": 805,
+     "local speed": 1.04792,
+     "audio minus line ms": 1.6
+    },
+    {
+     "t": 353.5,
+     "hits": 520,
+     "local speed": 1.048,
+     "audio minus line ms": 2635.8
+    },
+    {
+     "t": 369.3,
+     "hits": 146,
+     "local speed": 1.04788,
+     "audio minus line ms": 2637.0
+    },
+    {
+     "t": 384.3,
+     "hits": 74,
+     "local speed": 1.048,
+     "audio minus line ms": 2637.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "04 - dj hidden - skektics.mp3",
+   "start": 2535.71008984375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 1.0,
+   "points": [
+    {
+     "t": 2548.2,
+     "hits": 751,
+     "local speed": 1.04314,
+     "audio minus line ms": 1.0
+    },
+    {
+     "t": 2649.3,
+     "hits": 636,
+     "local speed": 1.04307,
+     "audio minus line ms": 1.3
+    },
+    {
+     "t": 2750.7,
+     "hits": 648,
+     "local speed": 1.04315,
+     "audio minus line ms": 0.9
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+   "start": 2090.63058203125,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -1.2000000000000002,
+   "points": [
+    {
+     "t": 2254.9,
+     "hits": 333,
+     "local speed": 1.05647,
+     "audio minus line ms": -1.1
+    },
+    {
+     "t": 2408.5,
+     "hits": 121,
+     "local speed": 1.05624,
+     "audio minus line ms": -1.3
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "a-digital_and_spirit-phantom_force-phud1-1999-sour.mp3",
+   "start": 648.994640625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -8.15,
+   "points": [
+    {
+     "t": 661.2,
+     "hits": 80,
+     "local speed": 1.04523,
+     "audio minus line ms": -14.3
+    },
+    {
+     "t": 685.8,
+     "hits": 136,
+     "local speed": 1.04539,
+     "audio minus line ms": -22.6
+    },
+    {
+     "t": 710.2,
+     "hits": 566,
+     "local speed": 1.0451,
+     "audio minus line ms": -20.3
+    },
+    {
+     "t": 735.9,
+     "hits": 902,
+     "local speed": 1.04534,
+     "audio minus line ms": -0.2
+    },
+    {
+     "t": 814.8,
+     "hits": 943,
+     "local speed": 1.04523,
+     "audio minus line ms": 0.4
+    },
+    {
+     "t": 892.9,
+     "hits": 217,
+     "local speed": 1.04546,
+     "audio minus line ms": -2.0
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Marcus Intalex & ST Files - Balderdash.m4a",
+   "start": 2100.843984375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 3.2,
+   "points": [
+    {
+     "t": 2113.2,
+     "hits": 65,
+     "local speed": 1.05628,
+     "audio minus line ms": 3.0
+    },
+    {
+     "t": 2260.0,
+     "hits": 177,
+     "local speed": 1.056,
+     "audio minus line ms": 3.9
+    },
+    {
+     "t": 2409.1,
+     "hits": 108,
+     "local speed": 1.05623,
+     "audio minus line ms": 3.2
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "c-total_science-yvon_is_on-sour.mp3",
+   "start": 1865.66870703125,
+   "s1": 0.00676328502415459,
+   "rejected": false,
+   "median offset ms": 3.9,
+   "points": [
+    {
+     "t": 1877.8,
+     "hits": 109,
+     "local speed": 1.05834,
+     "audio minus line ms": 1.1
+    },
+    {
+     "t": 1999.1,
+     "hits": 938,
+     "local speed": 1.05815,
+     "audio minus line ms": 3.9
+    },
+    {
+     "t": 2120.7,
+     "hits": 61,
+     "local speed": 1.05828,
+     "audio minus line ms": 4.7
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "04_-_dj_hidden_-_skektics.mp3",
+   "start": 2535.71008984375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 1.3,
+   "points": [
+    {
+     "t": 2548.3,
+     "hits": 584,
+     "local speed": 1.04325,
+     "audio minus line ms": 0.5
+    },
+    {
+     "t": 2649.4,
+     "hits": 415,
+     "local speed": 1.0431,
+     "audio minus line ms": 1.3
+    },
+    {
+     "t": 2750.5,
+     "hits": 399,
+     "local speed": 1.04322,
+     "audio minus line ms": 1.5
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "start": 1.9321875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 12.2,
+   "points": [
+    {
+     "t": 14.3,
+     "hits": 782,
+     "local speed": 1.06669,
+     "audio minus line ms": -1.3
+    },
+    {
+     "t": 75.2,
+     "hits": 917,
+     "local speed": 1.06652,
+     "audio minus line ms": 12.2
+    },
+    {
+     "t": 136.2,
+     "hits": 210,
+     "local speed": 1.06538,
+     "audio minus line ms": 22.4
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "A-Konspiracy-Kemal_and_Rob_Data-sour.mp3",
+   "start": 1.9321875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 12.2,
+   "points": [
+    {
+     "t": 14.3,
+     "hits": 781,
+     "local speed": 1.06669,
+     "audio minus line ms": -1.3
+    },
+    {
+     "t": 75.2,
+     "hits": 917,
+     "local speed": 1.06652,
+     "audio minus line ms": 12.2
+    },
+    {
+     "t": 136.2,
+     "hits": 210,
+     "local speed": 1.06538,
+     "audio minus line ms": 22.4
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+   "start": 2094.270251953125,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 2.9499999999999997,
+   "points": [
+    {
+     "t": 2256.1,
+     "hits": 166,
+     "local speed": 1.056,
+     "audio minus line ms": 9.1
+    },
+    {
+     "t": 2408.6,
+     "hits": 75,
+     "local speed": 1.05864,
+     "audio minus line ms": -3.2
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+   "start": 880.967986328125,
+   "s1": 0.004051863857374392,
+   "rejected": false,
+   "median offset ms": -6.1,
+   "points": [
+    {
+     "t": 990.5,
+     "hits": 605,
+     "local speed": 1.03948,
+     "audio minus line ms": -6.1
+    },
+    {
+     "t": 1087.8,
+     "hits": 221,
+     "local speed": 1.03943,
+     "audio minus line ms": -8.6
+    },
+    {
+     "t": 1113.3,
+     "hits": 324,
+     "local speed": 1.03944,
+     "audio minus line ms": -0.2
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+   "start": 1864.348751953125,
+   "s1": 0.005752636625119847,
+   "rejected": false,
+   "median offset ms": 3.3,
+   "points": [
+    {
+     "t": 1999.0,
+     "hits": 581,
+     "local speed": 1.05636,
+     "audio minus line ms": 3.3
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+   "start": 2347.518703125,
+   "s1": 0.024930747922437674,
+   "rejected": false,
+   "median offset ms": 31.700000000000003,
+   "points": [
+    {
+     "t": 2441.4,
+     "hits": 761,
+     "local speed": 1.0629,
+     "audio minus line ms": 34.7
+    },
+    {
+     "t": 2522.5,
+     "hits": 574,
+     "local speed": 1.0629,
+     "audio minus line ms": 28.7
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Total Science - Yvon Is On.m4a",
+   "start": 1864.348751953125,
+   "s1": 0.006704980842911878,
+   "rejected": false,
+   "median offset ms": -4.8,
+   "points": [
+    {
+     "t": 1876.6,
+     "hits": 62,
+     "local speed": 1.058,
+     "audio minus line ms": -8.5
+    },
+    {
+     "t": 1999.0,
+     "hits": 600,
+     "local speed": 1.05631,
+     "audio minus line ms": -1.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "07-Omni_Trio-Artificial_Life_(Harp_Tune)-XTC.mp3",
+   "start": 1753.861640625,
+   "s1": 0.008849557522123894,
+   "rejected": false,
+   "median offset ms": -13.0,
+   "points": [
+    {
+     "t": 1766.2,
+     "hits": 209,
+     "local speed": 1.07103,
+     "audio minus line ms": -8.4
+    },
+    {
+     "t": 1855.8,
+     "hits": 606,
+     "local speed": 1.06968,
+     "audio minus line ms": -17.6
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+   "start": 1447.63191015625,
+   "s1": 0.08876811594202899,
+   "rejected": false,
+   "median offset ms": -77.4,
+   "points": [
+    {
+     "t": 1505.7,
+     "hits": 212,
+     "local speed": 1.0401,
+     "audio minus line ms": 35.4
+    },
+    {
+     "t": 1550.5,
+     "hits": 585,
+     "local speed": 1.04072,
+     "audio minus line ms": 29.5
+    },
+    {
+     "t": 1619.4,
+     "hits": 409,
+     "local speed": 1.056,
+     "audio minus line ms": -77.4
+    },
+    {
+     "t": 1688.3,
+     "hits": 768,
+     "local speed": 1.0525,
+     "audio minus line ms": -141.9
+    },
+    {
+     "t": 1759.0,
+     "hits": 119,
+     "local speed": 1.05108,
+     "audio minus line ms": -85.8
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "spirit - out_of_control-trt.mp3",
+   "start": 2346.20584375,
+   "s1": 0.02606310013717421,
+   "rejected": false,
+   "median offset ms": 34.75,
+   "points": [
+    {
+     "t": 2440.9,
+     "hits": 651,
+     "local speed": 1.06442,
+     "audio minus line ms": 39.7
+    },
+    {
+     "t": 2523.0,
+     "hits": 420,
+     "local speed": 1.06463,
+     "audio minus line ms": 29.8
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "g-tee_bee-two_faced-sour.mp3",
+   "start": 880.775357421875,
+   "s1": 0.0024271844660194173,
+   "rejected": false,
+   "median offset ms": -6.9,
+   "points": [
+    {
+     "t": 990.5,
+     "hits": 403,
+     "local speed": 1.04125,
+     "audio minus line ms": -6.9
+    },
+    {
+     "t": 1088.0,
+     "hits": 118,
+     "local speed": 1.04116,
+     "audio minus line ms": -10.8
+    },
+    {
+     "t": 1113.3,
+     "hits": 239,
+     "local speed": 1.04145,
+     "audio minus line ms": -1.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "01-future_cut-the_specialist-trt.mp3",
+   "start": 145.05023828125,
+   "s1": 0.040059347181008904,
+   "rejected": false,
+   "median offset ms": 40.7,
+   "points": [
+    {
+     "t": 157.4,
+     "hits": 281,
+     "local speed": 1.04452,
+     "audio minus line ms": 27.4
+    },
+    {
+     "t": 242.3,
+     "hits": 268,
+     "local speed": 1.04803,
+     "audio minus line ms": 89.5
+    },
+    {
+     "t": 327.1,
+     "hits": 235,
+     "local speed": 1.04787,
+     "audio minus line ms": 54.0
+    },
+    {
+     "t": 353.5,
+     "hits": 201,
+     "local speed": 1.048,
+     "audio minus line ms": 0.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "01-future_cut-the_specialist-trt.mp3",
+   "start": 145.05023828125,
+   "s1": 0.040059347181008904,
+   "rejected": false,
+   "median offset ms": 40.7,
+   "points": [
+    {
+     "t": 157.4,
+     "hits": 281,
+     "local speed": 1.04452,
+     "audio minus line ms": 27.4
+    },
+    {
+     "t": 242.3,
+     "hits": 268,
+     "local speed": 1.04803,
+     "audio minus line ms": 89.5
+    },
+    {
+     "t": 327.1,
+     "hits": 235,
+     "local speed": 1.04787,
+     "audio minus line ms": 54.0
+    },
+    {
+     "t": 353.5,
+     "hits": 201,
+     "local speed": 1.048,
+     "audio minus line ms": 0.1
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+   "start": 131.216384765625,
+   "s1": 0.01808066759388039,
+   "rejected": false,
+   "median offset ms": 18.85,
+   "points": [
+    {
+     "t": 143.6,
+     "hits": 95,
+     "local speed": 1.00279,
+     "audio minus line ms": 7.1
+    },
+    {
+     "t": 235.2,
+     "hits": 222,
+     "local speed": 1.0049,
+     "audio minus line ms": 72.6
+    },
+    {
+     "t": 327.1,
+     "hits": 273,
+     "local speed": 1.00318,
+     "audio minus line ms": 82.8
+    },
+    {
+     "t": 353.2,
+     "hits": 164,
+     "local speed": 1.00283,
+     "audio minus line ms": 1.0
+    },
+    {
+     "t": 359.7,
+     "hits": 117,
+     "local speed": 1.00173,
+     "audio minus line ms": 10.0
+    },
+    {
+     "t": 366.8,
+     "hits": 66,
+     "local speed": 1.0,
+     "audio minus line ms": 27.7
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Digital & Spirit - Phantom Force.m4a",
+   "start": 715.785775390625,
+   "s1": 1.0,
+   "rejected": true,
+   "median offset ms": 134.95,
+   "points": [
+    {
+     "t": 732.0,
+     "hits": 293,
+     "local speed": 1.06,
+     "audio minus line ms": 133.2
+    },
+    {
+     "t": 812.1,
+     "hits": 358,
+     "local speed": 1.05973,
+     "audio minus line ms": 136.7
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "RUFF-TECK RECORDS [ RUF 56 ： DJ HIDDEN - skektics - ] drum and bass.opus",
+   "start": 2533.981419921875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -4.5,
+   "points": [
+    {
+     "t": 2546.4,
+     "hits": 340,
+     "local speed": 1.01041,
+     "audio minus line ms": -4.5
+    },
+    {
+     "t": 2649.0,
+     "hits": 146,
+     "local speed": 1.012,
+     "audio minus line ms": 41622.7
+    },
+    {
+     "t": 2750.4,
+     "hits": 183,
+     "local speed": 1.01015,
+     "audio minus line ms": 127566.2
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Future Cut - The Specialist.opus",
+   "start": 135.989130859375,
+   "s1": 0.04375,
+   "rejected": false,
+   "median offset ms": 66.3,
+   "points": [
+    {
+     "t": 148.6,
+     "hits": 105,
+     "local speed": 1.036,
+     "audio minus line ms": 66.3
+    },
+    {
+     "t": 237.5,
+     "hits": 247,
+     "local speed": 1.04219,
+     "audio minus line ms": 68.7
+    },
+    {
+     "t": 326.8,
+     "hits": 255,
+     "local speed": 1.04357,
+     "audio minus line ms": 53.0
+    },
+    {
+     "t": 353.3,
+     "hits": 92,
+     "local speed": 1.04592,
+     "audio minus line ms": 145348.0
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "h-carlito_and_addiction-into_music-sour.mp3",
+   "start": 1464.76874609375,
+   "s1": 0.030303030303030304,
+   "rejected": false,
+   "median offset ms": 18.2,
+   "points": [
+    {
+     "t": 1514.3,
+     "hits": 186,
+     "local speed": 1.04146,
+     "audio minus line ms": 24.5
+    },
+    {
+     "t": 1550.7,
+     "hits": 316,
+     "local speed": 1.04272,
+     "audio minus line ms": 18.2
+    },
+    {
+     "t": 1590.7,
+     "hits": 288,
+     "local speed": 1.068,
+     "audio minus line ms": 214.9
+    },
+    {
+     "t": 1672.1,
+     "hits": 366,
+     "local speed": 1.05426,
+     "audio minus line ms": -89.7
+    },
+    {
+     "t": 1753.2,
+     "hits": 114,
+     "local speed": 1.05442,
+     "audio minus line ms": -40.3
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "Kemal + Rob Data - Konspiracy.opus",
+   "start": 1.9296093750000003,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -0.4,
+   "points": [
+    {
+     "t": 14.3,
+     "hits": 304,
+     "local speed": 1.06591,
+     "audio minus line ms": -0.4
+    },
+    {
+     "t": 75.3,
+     "hits": 301,
+     "local speed": 1.06601,
+     "audio minus line ms": -1.2
+    },
+    {
+     "t": 136.3,
+     "hits": 82,
+     "local speed": 1.06565,
+     "audio minus line ms": 0.9
+    }
+   ]
+  },
+  {
+   "mix": "razorjack-2003-03-29",
+   "file": "b-spirit-out_of_control-sour.mp3",
+   "start": 2354.444296875,
+   "s1": 0.033093525179856115,
+   "rejected": false,
+   "median offset ms": 3.35,
+   "points": [
+    {
+     "t": 2444.8,
+     "hits": 165,
+     "local speed": 1.068,
+     "audio minus line ms": -4.8
+    },
+    {
+     "t": 2522.5,
+     "hits": 141,
+     "local speed": 1.06476,
+     "audio minus line ms": 11.5
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "[AA]_-_Phoenix.mp3",
+   "start": 0.084802734375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -0.2,
+   "points": [
+    {
+     "t": 12.5,
+     "hits": 591,
+     "local speed": 1.04159,
+     "audio minus line ms": -0.2
+    },
+    {
+     "t": 189.5,
+     "hits": 234,
+     "local speed": 1.04154,
+     "audio minus line ms": 3.7
+    },
+    {
+     "t": 366.0,
+     "hits": 77,
+     "local speed": 1.0418,
+     "audio minus line ms": -4.8
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "a-bulletproof-nephelim_(konflict_remix)-sour.mp3",
+   "start": 1902.301421875,
+   "s1": 0.0017421602787456446,
+   "rejected": false,
+   "median offset ms": 2.95,
+   "points": [
+    {
+     "t": 1914.7,
+     "hits": 319,
+     "local speed": 1.02889,
+     "audio minus line ms": 1.7
+    },
+    {
+     "t": 2050.1,
+     "hits": 349,
+     "local speed": 1.02911,
+     "audio minus line ms": 4.2
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Dieselboy - Invid (E-Sassin VIP).opus",
+   "start": 1305.103046875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 1.5,
+   "points": [
+    {
+     "t": 1470.6,
+     "hits": 220,
+     "local speed": 1.03201,
+     "audio minus line ms": 1.5
+    },
+    {
+     "t": 1623.5,
+     "hits": 148,
+     "local speed": 1.03183,
+     "audio minus line ms": 1.5
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Drumsound & Bassline Smith - Phoenix.m4a",
+   "start": 0.271224609375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 3.2,
+   "points": [
+    {
+     "t": 12.7,
+     "hits": 466,
+     "local speed": 1.04138,
+     "audio minus line ms": 1.5
+    },
+    {
+     "t": 190.9,
+     "hits": 142,
+     "local speed": 1.04139,
+     "audio minus line ms": 4.9
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "b-klute-we_r_the_ones_3-sour.mp3",
+   "start": 3041.58476953125,
+   "s1": 0.0015860428231562252,
+   "rejected": false,
+   "median offset ms": 20.4,
+   "points": [
+    {
+     "t": 3203.9,
+     "hits": 289,
+     "local speed": 1.04506,
+     "audio minus line ms": 20.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Klute - We R The Ones VIP.m4a",
+   "start": 3041.2021015625,
+   "s1": 0.0023752969121140144,
+   "rejected": false,
+   "median offset ms": 10.0,
+   "points": [
+    {
+     "t": 3203.7,
+     "hits": 263,
+     "local speed": 1.04285,
+     "audio minus line ms": 10.0
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Bulletproof - The Nephilim (Kemal & Rob Data ⧸ Konflict Remix).opus",
+   "start": 1900.1834453125,
+   "s1": 0.0008764241893076249,
+   "rejected": false,
+   "median offset ms": 1.9,
+   "points": [
+    {
+     "t": 1913.6,
+     "hits": 254,
+     "local speed": 1.02885,
+     "audio minus line ms": 1.4
+    },
+    {
+     "t": 2047.1,
+     "hits": 228,
+     "local speed": 1.02881,
+     "audio minus line ms": 2.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "a-friction_and_nu_balance-final_judgement-sour.mp3",
+   "start": 574.2813359375,
+   "s1": 0.007097791798107256,
+   "rejected": false,
+   "median offset ms": 34.8,
+   "points": [
+    {
+     "t": 741.2,
+     "hits": 246,
+     "local speed": 1.04819,
+     "audio minus line ms": 34.8
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "B_-_Decoder_-_Dead_Fall.mp3",
+   "start": 2518.021625,
+   "s1": 0.003798670465337132,
+   "rejected": false,
+   "median offset ms": 6.2,
+   "points": [
+    {
+     "t": 2530.2,
+     "hits": 64,
+     "local speed": 1.06258,
+     "audio minus line ms": 6.2
+    },
+    {
+     "t": 2653.2,
+     "hits": 256,
+     "local speed": 1.06287,
+     "audio minus line ms": 6.5
+    },
+    {
+     "t": 2776.9,
+     "hits": 163,
+     "local speed": 1.06293,
+     "audio minus line ms": 5.2
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "B_-_Decoder_-_Dead_Fall.mp3",
+   "start": 2518.021625,
+   "s1": 0.003798670465337132,
+   "rejected": false,
+   "median offset ms": 6.2,
+   "points": [
+    {
+     "t": 2530.2,
+     "hits": 64,
+     "local speed": 1.06258,
+     "audio minus line ms": 6.2
+    },
+    {
+     "t": 2653.2,
+     "hits": 256,
+     "local speed": 1.06287,
+     "audio minus line ms": 6.5
+    },
+    {
+     "t": 2776.9,
+     "hits": 163,
+     "local speed": 1.06293,
+     "audio minus line ms": 5.2
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Friction & Nu Balance - Final Judgement.opus",
+   "start": 580.81157421875,
+   "s1": 0.004691164972634871,
+   "rejected": false,
+   "median offset ms": 22.1,
+   "points": [
+    {
+     "t": 749.6,
+     "hits": 226,
+     "local speed": 1.04819,
+     "audio minus line ms": 22.1
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Kon.Rad - Mistaken Identity.m4a",
+   "start": 1635.78469921875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 6.35,
+   "points": [
+    {
+     "t": 1648.1,
+     "hits": 222,
+     "local speed": 1.00777,
+     "audio minus line ms": -1.0
+    },
+    {
+     "t": 1768.7,
+     "hits": 168,
+     "local speed": 1.008,
+     "audio minus line ms": 79913.0
+    },
+    {
+     "t": 1888.8,
+     "hits": 112,
+     "local speed": 1.00569,
+     "audio minus line ms": 13.7
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Trace & Fresh - Mutated (Version X).m4a",
+   "start": 365.103375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -10.549999999999999,
+   "points": [
+    {
+     "t": 500.7,
+     "hits": 229,
+     "local speed": 1.0358,
+     "audio minus line ms": -0.9
+    },
+    {
+     "t": 624.3,
+     "hits": 121,
+     "local speed": 1.03843,
+     "audio minus line ms": -20.2
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Dieselboy - The Descent (Phunckateck VIP).opus",
+   "start": 884.089083984375,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -32.4,
+   "points": [
+    {
+     "t": 1010.6,
+     "hits": 196,
+     "local speed": 1.02595,
+     "audio minus line ms": -32.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "16-aquasky-lords_of_motion_(tech_itch_remix).mp3",
+   "start": 3476.0405625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -17.799999999999997,
+   "points": [
+    {
+     "t": 3579.1,
+     "hits": 129,
+     "local speed": 1.04809,
+     "audio minus line ms": -19.2
+    },
+    {
+     "t": 3669.8,
+     "hits": 64,
+     "local speed": 1.04815,
+     "audio minus line ms": -16.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+   "start": 361.6795,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -9.3,
+   "points": [
+    {
+     "t": 375.8,
+     "hits": 66,
+     "local speed": 1.03653,
+     "audio minus line ms": -10.0
+    },
+    {
+     "t": 499.3,
+     "hits": 186,
+     "local speed": 1.03582,
+     "audio minus line ms": -9.3
+    },
+    {
+     "t": 624.1,
+     "hits": 125,
+     "local speed": 1.03521,
+     "audio minus line ms": 1.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "j-future_cut-horns_2000-sour.mp3",
+   "start": 2912.55778125,
+   "s1": 0.026622296173044926,
+   "rejected": false,
+   "median offset ms": 8.7,
+   "points": [
+    {
+     "t": 2990.0,
+     "hits": 254,
+     "local speed": 1.06261,
+     "audio minus line ms": 8.7
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+   "start": 3463.66980078125,
+   "s1": 0.011049723756906077,
+   "rejected": false,
+   "median offset ms": 77.0,
+   "points": [
+    {
+     "t": 3573.4,
+     "hits": 86,
+     "local speed": 1.04778,
+     "audio minus line ms": 77.0
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "310-future_cut-horns_2000-sour.mp3",
+   "start": 2913.81491796875,
+   "s1": 0.016891891891891893,
+   "rejected": false,
+   "median offset ms": 3.2,
+   "points": [
+    {
+     "t": 2990.5,
+     "hits": 259,
+     "local speed": 1.06095,
+     "audio minus line ms": 3.2
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "310-future_cut-horns_2000-sour.mp3",
+   "start": 2913.81491796875,
+   "s1": 0.016891891891891893,
+   "rejected": false,
+   "median offset ms": 3.2,
+   "points": [
+    {
+     "t": 2990.5,
+     "hits": 259,
+     "local speed": 1.06095,
+     "audio minus line ms": 3.2
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Trace & Fresh - Mutated (Version X).m4a",
+   "start": 361.10890625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 5.9,
+   "points": [
+    {
+     "t": 498.6,
+     "hits": 163,
+     "local speed": 1.03556,
+     "audio minus line ms": 5.2
+    },
+    {
+     "t": 624.1,
+     "hits": 95,
+     "local speed": 1.03572,
+     "audio minus line ms": 6.6
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "e-cause_4_concern-blindside-sour.mp3",
+   "start": 2287.05604296875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 8.2,
+   "points": [
+    {
+     "t": 2296.9,
+     "hits": 63,
+     "local speed": 1.04291,
+     "audio minus line ms": 11.6
+    },
+    {
+     "t": 2307.1,
+     "hits": 68,
+     "local speed": 1.04526,
+     "audio minus line ms": 0.9
+    },
+    {
+     "t": 2464.9,
+     "hits": 344,
+     "local speed": 1.04474,
+     "audio minus line ms": 7.8
+    },
+    {
+     "t": 2546.3,
+     "hits": 61,
+     "local speed": 1.04471,
+     "audio minus line ms": 8.6
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+   "start": 563.66958984375,
+   "s1": 0.04003079291762895,
+   "rejected": false,
+   "median offset ms": 23.4,
+   "points": [
+    {
+     "t": 734.1,
+     "hits": 154,
+     "local speed": 1.02249,
+     "audio minus line ms": 23.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "aa-the_kraft-stab_2_def-sour.mp3",
+   "start": 2673.00876171875,
+   "s1": 0.011734028683181226,
+   "rejected": false,
+   "median offset ms": -3.4,
+   "points": [
+    {
+     "t": 2795.7,
+     "hits": 79,
+     "local speed": 1.04403,
+     "audio minus line ms": -2.2
+    },
+    {
+     "t": 2861.5,
+     "hits": 216,
+     "local speed": 1.04456,
+     "audio minus line ms": -3.4
+    },
+    {
+     "t": 2927.3,
+     "hits": 104,
+     "local speed": 1.04432,
+     "audio minus line ms": -3.8
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "aa-the_kraft-stab_2_def-sour.mp3",
+   "start": 2673.00876171875,
+   "s1": 0.011734028683181226,
+   "rejected": false,
+   "median offset ms": -3.4,
+   "points": [
+    {
+     "t": 2795.7,
+     "hits": 79,
+     "local speed": 1.04403,
+     "audio minus line ms": -2.2
+    },
+    {
+     "t": 2861.5,
+     "hits": 216,
+     "local speed": 1.04456,
+     "audio minus line ms": -3.4
+    },
+    {
+     "t": 2927.3,
+     "hits": 104,
+     "local speed": 1.04432,
+     "audio minus line ms": -3.8
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "The Kraft - Stab 2 Def.m4a",
+   "start": 2673.679703125,
+   "s1": 0.014510278113663845,
+   "rejected": false,
+   "median offset ms": 1.2,
+   "points": [
+    {
+     "t": 2795.8,
+     "hits": 81,
+     "local speed": 1.044,
+     "audio minus line ms": 1.2
+    },
+    {
+     "t": 2861.3,
+     "hits": 204,
+     "local speed": 1.044,
+     "audio minus line ms": 2.9
+    },
+    {
+     "t": 2927.3,
+     "hits": 103,
+     "local speed": 1.04404,
+     "audio minus line ms": 0.9
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "b-bulletproof-scarred-sour.mp3",
+   "start": 1120.4968125,
+   "s1": 0.011264080100125156,
+   "rejected": false,
+   "median offset ms": -41.8,
+   "points": [
+    {
+     "t": 1225.9,
+     "hits": 173,
+     "local speed": 1.03627,
+     "audio minus line ms": -41.8
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "The Kraft (aka Mampi Swift) - Stab 2 Def.m4a",
+   "start": 2673.68817578125,
+   "s1": 0.01527614571092832,
+   "rejected": false,
+   "median offset ms": -1.95,
+   "points": [
+    {
+     "t": 2857.7,
+     "hits": 204,
+     "local speed": 1.04426,
+     "audio minus line ms": -2.5
+    },
+    {
+     "t": 2927.3,
+     "hits": 105,
+     "local speed": 1.0442,
+     "audio minus line ms": -1.4
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Dieselboy - Descent (Phuncatek Remix).m4a",
+   "start": 883.86045703125,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 2.0,
+   "points": [
+    {
+     "t": 1015.0,
+     "hits": 89,
+     "local speed": 1.01663,
+     "audio minus line ms": 2.0
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Bulletproof  -  Scarred.m4a",
+   "start": 1126.5025546875,
+   "s1": 0.023880597014925373,
+   "rejected": false,
+   "median offset ms": 13.55,
+   "points": [
+    {
+     "t": 1214.9,
+     "hits": 170,
+     "local speed": 1.038,
+     "audio minus line ms": -4.6
+    },
+    {
+     "t": 1292.0,
+     "hits": 83,
+     "local speed": 1.032,
+     "audio minus line ms": 31.7
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "RENEGADE HARDWARE [ RH 36 ： CAUSE4CONCERN - blindside - ] drum and bass.m4a",
+   "start": 2280.28550390625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -44.1,
+   "points": [
+    {
+     "t": 2470.5,
+     "hits": 254,
+     "local speed": 1.0063,
+     "audio minus line ms": -44.1
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Bulletproof - Scarred.m4a",
+   "start": 1117.5807109375,
+   "s1": 0.014285714285714285,
+   "rejected": false,
+   "median offset ms": -6.05,
+   "points": [
+    {
+     "t": 1210.7,
+     "hits": 166,
+     "local speed": 1.03644,
+     "audio minus line ms": 10.6
+    },
+    {
+     "t": 1291.2,
+     "hits": 103,
+     "local speed": 1.04,
+     "audio minus line ms": -22.7
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Sonic - Cannibal.m4a",
+   "start": 3324.4580859375,
+   "s1": 0.009589041095890411,
+   "rejected": false,
+   "median offset ms": -27.8,
+   "points": [
+    {
+     "t": 3418.6,
+     "hits": 198,
+     "local speed": 1.05383,
+     "audio minus line ms": -27.8
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Future Cut - Horns 2000.m4a",
+   "start": 2910.81324609375,
+   "s1": 0.03130434782608696,
+   "rejected": false,
+   "median offset ms": 6.5,
+   "points": [
+    {
+     "t": 2985.2,
+     "hits": 182,
+     "local speed": 1.0367,
+     "audio minus line ms": 6.5
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Drumsound & Simon Bassline Smith - Phoenix.m4a",
+   "start": 40.140181640625,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": null,
+   "points": []
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "a-mo_funk-slipstream-sour.mp3",
+   "start": 3895.50636328125,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": 13.1,
+   "points": [
+    {
+     "t": 3939.7,
+     "hits": 172,
+     "local speed": 1.04516,
+     "audio minus line ms": 14.7
+    },
+    {
+     "t": 3971.0,
+     "hits": 257,
+     "local speed": 1.04523,
+     "audio minus line ms": 11.5
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "ARGON RECORDS [ ARG 004 ： MO-FUNK - slipstream - ] drum and bass.m4a",
+   "start": 3875.45846875,
+   "s1": 0.0,
+   "rejected": false,
+   "median offset ms": -14.3,
+   "points": [
+    {
+     "t": 3929.7,
+     "hits": 144,
+     "local speed": 1.01576,
+     "audio minus line ms": -14.6
+    },
+    {
+     "t": 3971.6,
+     "hits": 228,
+     "local speed": 1.01475,
+     "audio minus line ms": -14.0
+    }
+   ]
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Bulletproof - Anthrax.m4a",
+   "start": 2181.4589609375,
+   "s1": 0.048723897911832945,
+   "rejected": false,
+   "median offset ms": null,
+   "points": []
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "a-bullet_proof-anthrax-sour.mp3",
+   "start": 2170.5466796875,
+   "s1": 0.06070287539936102,
+   "rejected": false,
+   "median offset ms": null,
+   "points": []
+  },
+  {
+   "mix": "nocny-trans-vertical-2002-08-23",
+   "file": "Bulletproof - Anthrax.m4a",
+   "start": 2171.4867421875,
+   "s1": 0.05921787709497207,
+   "rejected": false,
+   "median offset ms": null,
+   "points": []
+  }
+ ],
+ "e2 rejected true and control plays": {
+  "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a, seed-2101-sonar-1, source left out": {
+   "audio minus line ms at 111, 224, 337, 449 s": [
+    22.6,
+    179.2,
+    158.6,
+    29.8
+   ],
+   "local speed": [
+    1.00342,
+    1.00559,
+    1.00647,
+    1.00687
+   ],
+   "reported speed": 1.00574
+  },
+  "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a, seed-2102-sonar-1, source left out": {
+   "audio minus line ms at 124, 231, 337, 445 s": [
+    16.2,
+    164.9,
+    145.1,
+    23.5
+   ],
+   "local speed": [
+    1.05576,
+    1.05815,
+    1.0591,
+    1.05952
+   ],
+   "reported speed": 1.05829
+  },
+  "A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3, seed-2101-pyro-2": {
+   "reported line minus render truth, file ms": -233.5,
+   "sequential decode minus timestamp seek at 427 s, ms": -235.1,
+   "decode errors": "damaged MP3 frames before 427 s"
+  },
+  "A-Chris_SU-Astro_Sine-sour.mp3, seed-2101-dozer-1": {
+   "reported line minus render truth, file ms, at 485, 495, 503 s": [
+    3.8,
+    -8.6,
+    -18.4
+   ],
+   "contradicted patches": "486-488 s, during the render's bass cut (until 488.5 s)"
+  }
+ }
+}
