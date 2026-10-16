@@ -9,6 +9,7 @@ mod clusters;
 mod fullest;
 mod grid;
 mod hash_cost;
+mod holders;
 mod identifiability;
 mod library_map;
 mod loss;
@@ -275,6 +276,15 @@ enum Command {
         /// The plan, as `scripts/analysis/shared_mixes.py plan` writes it.
         plan: PathBuf,
     },
+    /// The library's map of shared passages (`shared-mixes`'s holder
+    /// lookup) for a list of files and spans: each searched against the
+    /// index without the files its lookup names, listing every file found
+    /// with 30 hits or more. The report is `holders-<file stem>.json`.
+    Holders {
+        /// JSON: a list of `name`, `asset`, `track_start_seconds`,
+        /// `track_end_seconds` and optionally `left_out`.
+        lookups: PathBuf,
+    },
     /// Proposal 5's diagnostic: for each direction of one half of a
     /// shared-material panel, how closely the related file and the played
     /// recording's other rips reproduce the shared passage, in pair hashes,
@@ -522,6 +532,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Recall { .. }
             | Command::Shared { .. }
             | Command::SharedMixes { .. }
+            | Command::Holders { .. }
             | Command::Identifiability { .. }
     );
     let takes_a_sample = matches!(
@@ -610,6 +621,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
         }
         Command::Shared { plan } => run_shared(paths, &plan, jobs),
         Command::SharedMixes { plan } => run_shared_mixes(paths, &plan, jobs),
+        Command::Holders { lookups } => run_holders(paths, &lookups, jobs),
         Command::Identifiability { panel, half } => run_identifiability(paths, &panel, half),
         Command::PairReview { pack } => {
             let pack = pack.unwrap_or_else(|| paths.work.join("listening"));
@@ -1431,6 +1443,42 @@ fn run_shared_mixes(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), 
     )?;
     write_json(&paths.reports().join(format!("{name}.json")), &report)?;
     shared_mixes::print_summary(&report);
+    Ok(())
+}
+
+/// The holders of each lookup's span; the report is `holders-<file
+/// stem>.json`.
+fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), String> {
+    let text = fs::read_to_string(lookups_file)
+        .map_err(|error| format!("cannot read {}: {error}", lookups_file.display()))?;
+    let lookups: Vec<holders::Lookup> = serde_json::from_str(&text)
+        .map_err(|error| format!("{}: {error}", lookups_file.display()))?;
+    let name = lookups_file.file_stem().map_or_else(
+        || String::from("lookups"),
+        |stem| stem.to_string_lossy().into_owned(),
+    );
+    let looked = holders::run(
+        &lookups,
+        &paths.library()?,
+        &paths.store()?,
+        &holders::Options {
+            matching: &paths.matching,
+            padding: &paths.padding(&UNCHANGED_INDEX)?,
+            jobs,
+        },
+    )?;
+    write_json(
+        &paths.reports().join(format!("holders-{name}.json")),
+        &looked,
+    )?;
+    eprintln!(
+        "{} lookups, {} without peaks at hand",
+        looked.len(),
+        looked
+            .iter()
+            .filter(|looked| looked.error.is_some())
+            .count()
+    );
     Ok(())
 }
 

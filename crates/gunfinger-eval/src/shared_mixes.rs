@@ -9,7 +9,9 @@
 //! Every detection carries the measures of the session's candidates: the
 //! peak verifier's share, the file's own material on each side
 //! (`Verifier::beyond`) and, for a confident detection, the strongest
-//! other indexed file that holds its passage in the library (`holder`).
+//! other indexed file that holds its passage in the library (`holder`),
+//! with every file the lookup finds (`holders`), so the holder can be
+//! taken again under another clusters file (session 23).
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -41,6 +43,11 @@ use crate::verifier::{Beyond, Verifier};
 const BEYOND_SECONDS: f64 = 10.0;
 /// Drawn tracks are at least this long, as in `mixes::Pools`.
 const DRAWN_MIN_SECONDS: f64 = 150.0;
+/// The files a holder lookup finds with at least this many hits are
+/// listed. Below it a file is at the chance level of the NAS-scale index
+/// (experiment 0042: 18-31 hits), far under the 60 hits that mark a
+/// play.
+pub const LISTED_HOLDER_HITS: u32 = 30;
 
 /// The mixes to render and the audio to search, as
 /// `scripts/analysis/shared_mixes.py plan` writes them. Unknown fields are
@@ -125,9 +132,13 @@ pub struct Measured {
     /// not confident.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub holder: Option<Holder>,
+    /// For a confident detection, every file its lookup finds with at
+    /// least `LISTED_HOLDER_HITS` hits, its own recording's included.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub holders: Vec<Holder>,
 }
 
-#[derive(Debug, PartialEq, Serialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct Holder {
     pub asset: String,
     pub hits: u32,
@@ -366,13 +377,25 @@ fn measure(
             .then(|| verifier.verify(index, detection, samples, profile))
             .flatten(),
     );
-    let holder = if level == Confidence::Confident {
-        verifier
-            .peaks(&found.asset)
-            .and_then(|peaks| holder(index, detection, &peaks, &own(&found.asset), profile))
+    let found_holders = if level == Confidence::Confident {
+        verifier.peaks(&found.asset).map(|peaks| {
+            lookup(
+                index,
+                &peaks,
+                detection.track_start_seconds,
+                detection.track_end_seconds,
+                profile,
+            )
+        })
     } else {
         None
     };
+    let (holder, holders) = found_holders.map_or((None, Vec::new()), |found_holders| {
+        (
+            strongest_other(found_holders.iter().cloned(), &own(&found.asset)),
+            listed(found_holders),
+        )
+    });
     Measured {
         beyond: if shown {
             verifier.beyond(index, detection, samples, profile, BEYOND_SECONDS)
@@ -381,43 +404,47 @@ fn measure(
         },
         track_end_seconds: detection.track_end_seconds,
         holder,
+        holders,
         found,
     }
 }
 
 /// A lookup in a map of passages that indexed files share, made from the
-/// files the index holds: the file's stored peaks within the detection's
-/// span in the file, searched as the duplicate search does (rescaled to
-/// each turntable rung), and the strongest file found outside `own`, the
-/// file's own recording.
-fn holder(
+/// files the index holds: the file's stored peaks within a span of the
+/// file (`track_start_seconds` to `track_end_seconds`), searched as the
+/// duplicate search does (rescaled to each turntable rung). Every
+/// detection found, in the search's order.
+pub fn lookup(
     index: &Index,
-    detection: &Detection,
     peaks: &[Peak],
-    own: &BTreeSet<String>,
+    track_start_seconds: f64,
+    track_end_seconds: f64,
     profile: &Profile,
-) -> Option<Holder> {
-    let found = search_peaks(
+) -> Vec<Holder> {
+    search_peaks(
         index,
-        &passage(peaks, detection, profile),
+        &passage(peaks, track_start_seconds, track_end_seconds, profile),
         profile,
         &ladder(),
         1,
-    );
-    strongest_other(
-        found.iter().map(|found| Holder {
-            asset: index.asset(found.asset).path.clone(),
-            hits: found.evidence.hits,
-            windows: found.evidence.windows,
-        }),
-        own,
     )
+    .iter()
+    .map(|found| Holder {
+        asset: index.asset(found.asset).path.clone(),
+        hits: found.evidence.hits,
+        windows: found.evidence.windows,
+    })
+    .collect()
 }
 
-/// The file's peaks within the detection's span in the file.
-fn passage(peaks: &[Peak], detection: &Detection, profile: &Profile) -> Vec<Peak> {
-    let span =
-        profile.frames(detection.track_start_seconds)..=profile.frames(detection.track_end_seconds);
+/// The file's peaks within a span of the file.
+fn passage(
+    peaks: &[Peak],
+    track_start_seconds: f64,
+    track_end_seconds: f64,
+    profile: &Profile,
+) -> Vec<Peak> {
+    let span = profile.frames(track_start_seconds)..=profile.frames(track_end_seconds);
     peaks
         .iter()
         .filter(|peak| span.contains(&peak.frame))
@@ -425,10 +452,31 @@ fn passage(peaks: &[Peak], detection: &Detection, profile: &Profile) -> Vec<Peak
         .collect()
 }
 
+/// The strongest file found outside `own`, the file's own recording.
 fn strongest_other(found: impl Iterator<Item = Holder>, own: &BTreeSet<String>) -> Option<Holder> {
     found
         .filter(|holder| !own.contains(&holder.asset))
         .max_by_key(|holder| holder.hits)
+}
+
+/// Each file found with at least `LISTED_HOLDER_HITS` hits, once, at its
+/// strongest detection; strongest first, then by path.
+pub fn listed(found: Vec<Holder>) -> Vec<Holder> {
+    let mut strongest: BTreeMap<String, Holder> = BTreeMap::new();
+    for holder in found {
+        if holder.hits < LISTED_HOLDER_HITS {
+            continue;
+        }
+        match strongest.get(&holder.asset) {
+            Some(kept) if kept.hits >= holder.hits => {}
+            _ => {
+                strongest.insert(holder.asset.clone(), holder);
+            }
+        }
+    }
+    let mut listed: Vec<Holder> = strongest.into_values().collect();
+    listed.sort_by(|a, b| b.hits.cmp(&a.hits).then_with(|| a.asset.cmp(&b.asset)));
+    listed
 }
 
 pub fn print_summary(report: &Report) {
@@ -458,10 +506,7 @@ pub fn print_summary(report: &Report) {
 
 #[cfg(test)]
 mod tests {
-    use gunfinger_core::confidence::Evidence;
-    use gunfinger_core::index::AssetId;
     use gunfinger_core::library::{Asset, Timestamp};
-    use gunfinger_core::speed::{Playback, SpeedRatio};
     use gunfinger_core::store::RecordHeader;
 
     use super::*;
@@ -573,18 +618,8 @@ mod tests {
     }
 
     #[test]
-    fn the_passage_is_the_files_peaks_within_the_detections_span() {
+    fn the_passage_is_the_files_peaks_within_the_span() {
         let profile = Profile::CURRENT;
-        let detection = Detection {
-            asset: AssetId(0),
-            start_seconds: 100.0,
-            end_seconds: 110.0,
-            track_start_seconds: 10.0,
-            track_end_seconds: 20.0,
-            speed: SpeedRatio(1.0),
-            playback: Playback::Turntable,
-            evidence: Evidence::new(3, 300),
-        };
         let peaks: Vec<Peak> = [5.0, 10.0, 15.0, 20.0, 25.0, 105.0]
             .into_iter()
             .map(|seconds| Peak {
@@ -594,7 +629,7 @@ mod tests {
             })
             .collect();
 
-        let frames: Vec<f64> = passage(&peaks, &detection, &profile)
+        let frames: Vec<f64> = passage(&peaks, 10.0, 20.0, &profile)
             .iter()
             .map(|peak| peak.frame)
             .collect();
@@ -621,6 +656,28 @@ mod tests {
         assert_eq!(
             strongest_other([holder("a.mp3", 50)].into_iter(), &own),
             None
+        );
+    }
+
+    #[test]
+    fn the_listed_holders_are_each_file_once_at_its_strongest_from_30_hits() {
+        let found = vec![
+            holder("remix.mp3", 120),
+            holder("a-rip.mp3", 900),
+            holder("chance.mp3", 29),
+            holder("remix.mp3", 140),
+            holder("vip.mp3", 120),
+            holder("edit.mp3", 30),
+        ];
+
+        assert_eq!(
+            listed(found),
+            vec![
+                holder("a-rip.mp3", 900),
+                holder("remix.mp3", 140),
+                holder("vip.mp3", 120),
+                holder("edit.mp3", 30),
+            ]
         );
     }
 

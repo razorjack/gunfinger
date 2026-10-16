@@ -133,7 +133,9 @@ of two recordings over that passage in audio, peaks and pairs (proposal
 5's diagnostic, `docs/panels/`); `shared_mixes` renders mixes that play
 a panel's played files whole among drawn tracks (`mixes::draw_around`),
 searches them with the played recording indexed and left out, and
-measures each detection for session 21's candidate statistics.
+measures each detection for session 21's candidate statistics;
+`holders` runs its lookup in the library's map of shared passages for
+a list of files and spans.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus
