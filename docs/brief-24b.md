@@ -453,6 +453,51 @@ recorded before (`c116f8e2...`). No Rust code changed on the branch
 scripts were run (`panako_compare.py selfcheck`, `plan`, `gunfinger`;
 `report_identity.py` on six reports).
 
+## The run of 2026-10-17
+
+### 00:48: the launching agent's instruction (verbatim)
+
+```text
+Eclipse Temurin 11 (11.0.32.1, arm64) is now installed at /Library/Java/JavaVirtualMachines/temurin-11.jdk; Temurin 21 stays the default `java`. Please run the Panako part now, as pre-registered in 0130 and prepared in your brief and work/panako/run.sh. Unattended, never stop to ask; conservative choices written down.
+
+What changed since you wrapped up:
+- Session 26 merged your branch into master (merge commit 2eee100). Master has moved on: sessions 26 and 27 committed there, and session 27 is running in the main checkout now (offline recounts of a confidence-rule variant; it may run harness jobs). The main checkout's rules for you are as before: never write there or run git against it.
+- First, in your worktree, bring your branch up to master with `git merge --ff-only master` (your branch is an ancestor of master, so this is a fast-forward; record the commit). Then work on your branch as before.
+
+How to run:
+- Build and run Panako with `JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home` (and that JDK's java) for Panako's own commands only; never change the default Java, never install anything, and do not change Panako's wrapper. If its native parts (LMDB, JGaborator) fail on arm64, record exactly what fails and stop the Panako part.
+- Heavy runs one at a time at `nice -n 10`, in the pre-registered order; plan them to end by about 06:30 and the wrap-up by about 08:00 (soft: finish what is in progress). Panako's state stays under your worktree's work/; compare the Java Preferences plist with your copy from before at the end, as your brief says.
+- Same rules as your brief otherwise (no NAS, no test set, no validation halves, nothing of Panako committed, no product change).
+
+Where to write, so that the next merge into master is clean while session 27 appends at the ends of the shared files:
+- The results go into a new experiment file numbered 0150 (reserved for you; master's sessions number below it), at most 40 lines; 0130 keeps its pre-registration (add only a line pointing to 0150 if needed, within 40 lines).
+- Update in place, not at the end of the files: your "Session 24b" section in docs/session-notes.md (a subsection for the run of 2026-10-17), your existing entry in docs/status.md, and the roadmap's "Panako as an outside benchmark" bullet. Add no new sections at the end of those files. Your brief and checklist: append as you like.
+- Commit on your branch after each step (check `git status`, never `git add -A`, no AI attribution, never push). A read-only review by a subagent before the wrap-up. Last, print what was done, the numbers beside Gunfinger's, and what the merge into master needs.
+```
+
+### State and plan (00:50)
+
+- `git merge --ff-only master`: `3a1420a` -> `6c7728c` (session 27's
+  step 2). My files are unchanged on master; since 3a1420a the product
+  crates changed only in `decode::watch`'s tests (session 25), so
+  Gunfinger's saved reports remain the comparison's side (sessions 26
+  and 27 report `regress` identical).
+- JDKs: Temurin 11.0.32.1 at
+  `/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home`
+  (Panako's build and runs, by that path); Temurin 21 stays the default
+  `java`. `run.sh` takes Java 11 from that path. Load average 42 at
+  00:48 (session 27's runs): times are rough.
+- Order (the pre-registration's; the prompt's step 4 makes 2027-2029
+  and the generated mixes "if time allows", the development mixes not):
+  build; install; `smoke` (the self-check); `index-all` (the cost);
+  `index-seed 2026` and `sweep 2026` (S* from it); the three development
+  mixes (`dev`); seeds 2027, 2028, 2029; the 12 generated mixes; then
+  `stakka-out` and the whole-file queries (`dev-query`, deciding
+  nothing). Heavy runs end by about 06:30; what has not started by then
+  is left out and named.
+- Results: experiment 0150; the notes' "Session 24b" section, the
+  status entry and the roadmap bullet are updated in place.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
