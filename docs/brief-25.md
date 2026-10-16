@@ -199,3 +199,56 @@ slows it.
   under the corpus file's name); a copy without its corpus file and any
   other unindexed name are refused. Emulated on session 23's 606 shared
   and 101 identify lookups with the copy map: none refused.
+
+## Step 4c's pre-registration (written at 21:17, before any `shared` run on the second panel)
+
+Nothing below may change once 4b's run exists; anything computed later
+and not named here is exploratory and decides nothing. Nothing here
+decides anything about the product.
+
+- **The plays**, from 4b's `shared` report on
+  `docs/panels/shared-material-2-seed-2026-development.json`, formed as
+  session 24 formed its calibration plays (`version_plays.py`, its
+  `calibration` logic with this run's queries directory): each query's
+  detections at least possible, joined per file across gaps of at most
+  90 s, a play confident when one of its segments is; roles by session
+  20's oracle (`shared_outcomes.py --clusters`) under step 2's fresh
+  clusters and the development file's recordings; control directions
+  left out. *Negatives*: the confident plays, other than the played
+  recording's, of `played left out` queries whose outcome is wrong
+  confident. *Positives*: the played recording's confident plays of the
+  `source left out` index (the positive control).
+- **Siblings** (for S2 and S3 only): `ambiguity_note.py lookups-shared`
+  on the report, `gunfinger-eval holders` on those lookups, files outside
+  the play's own recording (fresh clusters and the panel's recordings)
+  with 60 hits or more, as session 24.
+- **The verifier**: `gunfinger-eval versions` with this session's build
+  after step 3c. Its code (`versions.rs`, `versions/compare.rs`) is
+  unchanged since session 24; only its renderer now counts the start on
+  the decoded timeline (step 3c). **T = 0.12100456621**, frozen: a play
+  is rejected when S1 >= T; a play with S1 undefined is kept. Run beside
+  it, deciding nothing: `work/bin/s24-final/gunfinger-eval` on the same
+  plays; every play whose S1 differs between the two is listed.
+- **Counted** (the first test of the wrong-play side on families the
+  verifier has never seen): negatives rejected at T, of all negatives,
+  in total, by family (Phantom Force, Star Trails, We R The Ones), by
+  kind of query and by related file; positives kept at T.
+- **Reading, fixed now**: the wrong-play side *holds on new families*
+  when at least half of the negatives are rejected (the calibration's
+  rate by T's construction: 157 of 312) and at least 95% of the
+  positives are kept; otherwise it *does not hold*. With fewer than 10
+  negatives the test is *too small to read*, and the counts are reported
+  as they are. Plays of one query or one direction are not independent;
+  the family is the unit, and three families cannot bound a rate, so the
+  counts by family are reported beside the total.
+- **Reported beside, deciding nothing**: S1 quantiles, S2, S3, the
+  patch states by EQ group for negatives and positives, and for each
+  rejected or kept negative its family and related file.
+- **Expected before the data**, written so it cannot be claimed later:
+  in session 24 the verifier rejected wrong plays only where the low
+  bands disagree under shared drums (Fire's family; Dozer's on the
+  panel), never Pyro's or Sonar's. The new related versions are remixes,
+  an edit and a VIP; whether their basslines differ along the matched
+  stretch is not known before the run. The passages are shorter than
+  the first panel's (15-62 s, 108-195 hits, from `pair` at 21:10), so
+  fewer wrong confident queries than 0111's 106 of 218 are expected.
