@@ -5365,10 +5365,11 @@ Gunfinger misses.
 ### What else to know
 
 - Nothing touched the held-out test set, the NAS, the validation halves
-  or the main checkout; Panako wrote nothing outside `work/` (it never
-  ran). `~/.panako` and `~/.gradle` do not exist, and the Java
-  preferences file is unchanged. No Rust code changed, so
-  `scripts/check.sh` was not run; the new Python scripts were run.
+  or the main checkout; on 2026-10-16 Panako wrote nothing outside
+  `work/` (it never ran; for 2026-10-17 see below). `~/.panako` and
+  `~/.gradle` do not exist, and the Java preferences file was unchanged.
+  No Rust code changed, so `scripts/check.sh` was not run; the new
+  Python scripts were run.
 - The worktree's `work/s24b/` (1.1 GB, copies of renders and of the
   peak store) can be deleted; `work/panako/` holds everything the run
   needs.
@@ -5379,6 +5380,44 @@ Gunfinger misses.
   inside one cluster), so it will hold 253 files where Gunfinger holds
   262. Its own unit tests download audio from panako.be, so they were
   left out.
+
+### The run of 2026-10-17 (experiment 0150)
+
+With Temurin 11 installed, Panako built at once with its own wrapper (17 s),
+and then stopped at its storage: every command failed before decoding
+any audio with `UnsatisfiedLinkError: dlopen(liblmdb.dylib ...)`. Panako
+keeps its index in LMDB through lmdbjava, whose jar carries LMDB only
+for macOS x86_64, Linux x86_64 and Windows x86_64; on an arm64 Mac it
+looks for a system `liblmdb.dylib`, and there is none. The Gabor
+transform's library (JGaborator) loaded fine on arm64. By the launching
+agent's instruction (native parts failing on arm64), the Panako part
+stopped there, so there is still no Panako count and no comparison.
+
+Panako's other storages do not help: its `FILE` storage answers no
+queries and its `MEM` storage is empty in every new process, while
+`store` and `query` are separate commands. Two ways forward, both ours
+to choose:
+
+1. An arm64 `liblmdb.dylib`, for example from Homebrew's `lmdb`, passed
+   to Panako's JVM as `-Dlmdbjava.native.lib=<path>`: one option in
+   `work/panako/run/panako`, Panako itself unchanged. Its README links a
+   post, "Using Java LMDB on Apple Silicon", for this route (I did not
+   fetch it).
+2. An x86_64 JDK 11 under Rosetta 2, which would use the bundled x86_64
+   libraries; its times would not be native.
+
+After either, `run.sh smoke` and then 0130's stages run as written;
+Gunfinger's side (0131) needs nothing more.
+
+The three short runs did write outside `work/`: Panako's configuration
+opens a Java Preferences node, which added an empty `be/panako/util`
+node to `~/Library/Preferences/com.apple.java.util.prefs.plist` and
+created an empty `~/Library/Preferences/be.panako.util.plist`. I
+removed the node through Java's Preferences API and then the empty file.
+The removal ran in `jshell`, which added its own empty `tool/JShell`
+node; I removed that too. The plist's content is now the same as my copy
+from before (`work/panako/state-before/`); its bytes differ because it
+was written again.
 
 ## Session 25
 

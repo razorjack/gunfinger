@@ -38,3 +38,22 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   `~/.gradle`, the Java preferences file unchanged)
 - [x] Commit on `s24b-panako`; the final message with what
   session 25 needs for the merge
+
+## The run of 2026-10-17
+
+- [x] `git merge --ff-only master`: `3a1420a` -> `6c7728c`
+- [x] Instruction, state and order in the brief
+- [x] Build with Temurin 11 (17 s, Panako's wrapper unchanged)
+- [x] `install`, `smoke` (the self-check): JGaborator loads on arm64;
+  LMDB fails (`UnsatisfiedLinkError: dlopen(liblmdb.dylib ...)`) in
+  `store`, `query` and `stats`, before decoding
+- [-] `index-all`, the sweeps, the development and generated mixes,
+  `stakka-out`, `dev-query`: not run; the Panako part stopped (native
+  LMDB missing on arm64, the instruction)
+- [x] State outside `work/`: empty Java Preferences nodes removed,
+  `be.panako.util.plist` deleted; the prefs plist's content as before
+- [x] Experiment 0150; 0130 points to it
+- [x] Notes ("The run of 2026-10-17" in "Session 24b"), status entry and
+  roadmap bullet updated in place
+- [ ] Read-only review by a subagent; fixes
+- [ ] Commit; the message with what the merge into master needs

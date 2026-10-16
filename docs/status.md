@@ -3514,7 +3514,7 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged.
   Scratch data in `/tmp` removed; `work/s24/` holds 1.0 GB.
 
-## 2026-10-16: session 24b, Panako as an outside benchmark (not run: its build needs Java 11)
+## 2026-10-16: session 24b, Panako as an outside benchmark (not run: its build needed Java 11; with it, LMDB has no arm64 library)
 
 Worktree `/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`, branch
 `s24b-panako` from `81e16e0`, run beside session 24; brief
@@ -3570,6 +3570,19 @@ product did not change.
   their file names and the mentions in the brief, the checklist, these
   notes and status entries, the roadmap bullet, 0130, 0131 and
   `panako_compare.py`'s docstring. `CLAUDE.md` was not edited.
+- 2026-10-17 00:48 (the run with Java 11, experiment 0150): branch
+  fast-forwarded to master `6c7728c`. `run.sh build` with Temurin 11:
+  built in 17 s. `install`, `smoke`: JGaborator loads (arm64); `store`,
+  `query` and `stats` each fail creating LMDB storage, before decoding:
+  `UnsatisfiedLinkError: dlopen(liblmdb.dylib ...)` (lmdbjava bundles
+  LMDB for macOS x86_64, Linux x86_64 and Windows x86_64 only). Panako
+  part stopped (the instruction). Needs an arm64 `liblmdb.dylib` via
+  `-Dlmdbjava.native.lib`, or an x86_64 JDK under Rosetta 2. Outside
+  `work/`: empty Java Preferences nodes (`be/panako/util`, and
+  `jshell`'s `tool/JShell` from the cleanup) removed through the
+  Preferences API, `be.panako.util.plist` deleted; the prefs plist's
+  content equals the copy from before. No `~/.panako`, `~/.gradle`,
+  `~/.m2`.
 
 ## 2026-10-16: session 25, three harness fixes, the NAS clusters at 40,126 records, the second shared panel's development half
 

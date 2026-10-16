@@ -891,8 +891,10 @@ marked as inferences were derived, not measured.
   sign-in page; a browser download is needed.
 - **Panako as an outside benchmark.** Pre-registered and prepared in
   session 24b (experiments 0130, 0131; the run script in
-  `docs/brief-24b.md`); not run because Panako 2.1's Gradle 7.2 needs a JDK of
-  11-16 to build. Run it at 262 tracks once one is installed.
+  `docs/brief-24b.md`). With Java 11 it builds, but its LMDB has no
+  macOS arm64 library (experiment 0150). Run it at 262 tracks once an
+  arm64 `liblmdb` is passed as `-Dlmdbjava.native.lib`, or under an
+  x86_64 JDK with Rosetta 2.
 
 ## Engineering
 
