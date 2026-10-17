@@ -892,8 +892,9 @@ marked as inferences were derived, not measured.
 - **Panako as an outside benchmark.** Run in session 24b at 262 tracks
   (experiments 0130, 0131, 0150; Java 11, LMDB built from source): 59% of
   the sweep queries to Gunfinger's 100%, 26/27 development-mix tracks to
-  27, 105 generated-mix plays to 106, 0 wrong at S* = 13; about 3.7 times
-  the index CPU. A NAS-scale run (about 52 h of indexing) was to follow
+  27, 105 generated-mix plays to 106; 14 wrong answers, none at S* = 13
+  (104 plays there); about 4 times the index CPU per second of audio. A
+  NAS-scale run (about 72 h of indexing on one core) was to follow
   only if Panako found what Gunfinger misses; it found 7 plays that
   Gunfinger reports as possible, nothing else.
 

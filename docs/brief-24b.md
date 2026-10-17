@@ -613,9 +613,12 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   matches (785), the same encoded as 128 kbit/s MP3 does not, nor its
   MP3 decoded to WAV. From the lossless cut: -6 dB, AAC 128k, MP3 192k
   and 320k match (355-793); MP3 96k, a 4 ms delay and a 25 ms delay do
-  not, with 737-881 hash matches each. So Panako runs as intended, and
-  its acceptance is sensitive to small time shifts of the query
-  (inference; MP3 encoding shifts by its encoder delay). That is its
+  not, with 507-881 hash matches each. So Panako runs as intended; its
+  acceptance is sensitive to small time shifts of the query (a 4 ms
+  delay loses the match) and to MP3 encoding at 128 kbit/s and below
+  (192k and 320k match), both exploratory. (Corrected after the review:
+  an encoder delay, the same at every bit rate, would not explain why
+  192k matches.) That is its
   behaviour on the pre-registered queries, not a failure: the protocol
   runs as written.
 
@@ -626,11 +629,11 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   command was started without an explicit timeout), while decoding file
   262; 261 files were done. `stats` on the store at 02:57: 252 files,
   99,638 s, 3,255,792 prints (LMDB commits each file, so the store was
-  intact). Resumed at 02:57 with the same command: 260 skipped as
+  intact). Resumed at 02:57 with the same command: 261 skipped as
   stored, 1 fingerprinted (8.0 s wall, 526 MB). Final store: **253
   files** (262 minus the 9 byte-identical copies, stored once),
   99,995.7 s, 3,276,382 prints; `data.mdb` 237.5 MB, the cache of
-  prints 103 MB. Cost from the per-file lines
+  prints 107.6 MB (`du -sk` 105,124 KiB). Cost from the per-file lines
   (`logs/index-all-run1.out`, `index-all.out`): 250 files fingerprinted
   from audio, 99,987 s of audio in 1,728 s of fingerprinting on one
   thread (58 times real time; 28-91 per file as the load varied); 3
@@ -655,14 +658,14 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   the track: draw 015 at -3% and +8% 66 s early, draw 032 at +3% 5.6 s
   early; 336 queries in position.
 
-### 03:04-05:06: development mixes, seeds 2027-2029, generated mixes, leave-out; a hang
+### 03:04-05:01: development mixes, seeds 2027-2029, generated mixes, leave-out; a hang
 
 - `dev` (monitor; 10 s windows every 5 s, times within the window):
   stakka 98 s wall, razorjack 92 s, nocny 141 s; 442-457 MB; no
   exception. Seeds 2027-2029: `index-seed` 14-15 s each from the cached
   prints; `sweep` 274, 243, 242 s wall (276-308 s user, 432-445 MB).
-  The 12 generated mixes (`mix NN`, index I-seed-2026): 10-12 s each;
-  `stakka-out` (index 244 files 18 s, monitor 89 s). No exception in any
+  The 12 generated mixes (`mix NN`, index I-seed-2026): 10-13 s each;
+  `stakka-out` (index 244 files 18 s, monitor 92 s). No exception in any
   of these logs; each ended with exit 0.
 - **The hang.** The chain's next stage, `dev-query stakka-skynet-knowledge`
   (`query` on the whole 56-minute mix, pre-registered "beside it,
@@ -672,13 +675,15 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   `PanakoEventPointProcessor.process`) while fingerprinting the mix,
   under the startup script's `-Xmx256m`. The JVM did not exit: at 05:00
   it had run 1 h 32 min with 12 s of CPU, its FFmpeg blocked on the pipe
-  (the orchestrator's note at 05:03 found it). I stopped my chain, its
+  (the orchestrator's note found it); it was stopped at about 05:00:20
+  (5,563.7 s after its start). I stopped my chain, its
   `run.sh`, the JVM and its FFmpeg (PIDs 37157, 40058, 40071, 40073,
   each checked as mine). The two other whole-file queries had not
   started. For reference: Temurin 11's own default maximum heap on this
   machine is 8 GB (`MaxHeapSize` 8,589,934,592 of 32 GB); Panako's
   startup script sets 256 MB.
-- **Amendment A11 (05:06, before any whole-file query count).** As step
+- **Amendment A11 (05:01, committed in `fb34efd` at 05:01:31, before any
+  whole-file query count).** As step
   3 provides, a run that fails for lack of heap is rerun once with
   `-Xmx2g`. The rerun also passes `-XX:+ExitOnOutOfMemoryError`, so that a
   heap failure ends the JVM instead of hanging (a JVM option; Panako
@@ -687,10 +692,10 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   then razorjack and nocny if it completes. These whole-file queries
   decide nothing.
 
-### 05:03-05:08: the whole-file queries under amendment A11; the cleanup
+### 05:03-05:09: the whole-file queries under amendment A11; the cleanup
 
 - `run.sh dev-query-2g` (`-Xmx2g -XX:+ExitOnOutOfMemoryError`, Panako
-  unchanged), one at a time, each under a 30-minute limit, load 40-83.
+  unchanged), one at a time, each under a 30-minute limit, load 40-84.
   Stakka first (05:03:36): decoded in 19 s, then fingerprinted on one
   core; no exception, exit 0. Then razorjack and nocny. Each prints one
   line, "null" (no match); scored with `panako_compare.py scan`
@@ -772,6 +777,24 @@ from 0131.
 - **Stakka without its references** (I-stakka-out, 244 files): no
   detection at all, so 0 wrong at both; Gunfinger's leave-out run 0
   wrong.
+
+### 05:13-05:25: the read-only review and its fixes
+
+A subagent reviewed `a186e74..HEAD` read-only against the score files
+and logs. It confirmed the sweep, mix and leave-out counts, the play
+lists, the boundaries, the whole-file query table, S* (no right answer
+lost), the order of A11 and the rerun, and the house rules. Fixed:
+A11's time (05:01, its commit; I had written 05:06) and the hang's end
+(about 05:00:20, not 05:03); 22-53 of 60 per speed (not 28-53); 1.5-6
+times the wall time (not 2-6); the index CPU stated per second of audio
+and as Panako's per-file times (about 4 times, not 3.7); the load from
+the logs (3-84, not 8-104); the cache 107.6 MB (it was MiB); Gunfinger's
+sweep memory 153-162 MB; 261 skipped; 507-881 hash matches; the encoder
+delay explanation dropped (192k matches, 128k does not); the whole-file
+query's scope (only stakka ran at 256 MB); "unrelated by title"; the
+notes' older predictions and the NAS estimate (about 72 h at the
+measured rate, about 36 + 16 GB); `work/s24b/` holds 0150's Gunfinger
+column.
 
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 

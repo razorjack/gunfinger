@@ -3592,7 +3592,7 @@ product did not change.
 - 01:32-03:04 `index-all`: stopped at 30 min by the tool's default
   limit on background commands, resumed; 253 files (9 byte-identical
   copies stored once), 1,728 s of fingerprinting on one thread for
-  99,987 s of audio, LMDB 237.5 MB + cache 103 MB. Seed 2026's sweep:
+  99,987 s of audio, LMDB 237.5 MB + cache 107.6 MB. Seed 2026's sweep:
   339/540, 1 wrong (score 12); S* = 13.
 - 03:04-05:08 development mixes (`monitor`) 11/11, 7/7, 8/9 (1 wrong at
   the defaults, 0 at S*); sweeps 2027-2029 309, 291, 341 of 540 (3, 2, 7
@@ -3601,7 +3601,7 @@ product did not change.
   11/11, 7/7, 9/9, 106, 0 wrong. Whole-file `query`: heap failure at
   256 MB and a hung JVM (1.5 h, stopped; amendment A11); at 2 GB no
   match on any mix.
-- 05:08 the Java Preferences node `be/panako/util` (written again by the
+- 05:09 the Java Preferences node `be/panako/util` (written again by the
   runs) removed with Temurin 11's `java`, `be.panako.util.plist`
   deleted; the prefs plist's content as before. No `~/.panako`,
   `~/.gradle`, `~/.m2`. No Rust code changed; `scripts/check.sh` not

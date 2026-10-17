@@ -7,7 +7,7 @@ Panako 2.1's answers (`f1248f7`, strategy `PANAKO`) and costs compare with Gunfi
 `panako_compare.py`). Temurin 11.0.32.1; lmdbjava has no arm64 LMDB, so LMDB
 0.9.29 was built from OpenLDAP's tag (commit `8ad7be25`, the same on the GitHub
 mirror), `libraries/liblmdb` only, passed as `-Dlmdbjava.native.lib`. Runs alone,
-`nice -n 10`, load 8-104. S* = 13: 1 + the highest wrong score on seed 2026's sweep.
+`nice -n 10`, load 3-84. S* = 13: 1 + the highest wrong score on seed 2026's sweep.
 
 | Panel | Panako, defaults | Panako, S* | Gunfinger |
 |---|---|---|---|
@@ -18,22 +18,22 @@ mirror), `libraries/liblmdb` only, passed as `-Dlmdbjava.native.lib`. Runs alone
 | Generated mixes, 115 indexed plays | 105, 0 wrong | 104, 0 wrong | 106, 0 wrong |
 | Stakka mix, its references left out | no detection | none | 0 wrong |
 
-Sweeps: 1,280 of 2,160 (59%; 63% within +-5%), 28-53 of 60 per speed; Gunfinger
+Sweeps: 1,280 of 2,160 (59%; 63% within +-5%), 22-53 of 60 per speed; Gunfinger
 answers every query Panako answers rightly. The 13 wrong answers (scores 6-12, 4
-from held-out queries) name unrelated recordings. Nocny's miss: Anthrax. First
+from held-out queries) name recordings unrelated by title. Nocny's miss: Anthrax. First
 starts minus the manifest's: stakka -59 to +145 s, nocny +1 to +156 s (Gunfinger
 -68 to +0.1 s; -26 to +16 s, +91 s once). Generated mixes: 8 plays only Gunfinger
-finds; 7 only Panako, all possible for Gunfinger. Whole-file `query` of the mixes:
-out of heap at the startup script's 256 MB, and the JVM hung; at 2 GB, no match.
+finds; 7 only Panako, all possible for Gunfinger. Whole-file `query`: stakka ran out
+of heap at the startup script's 256 MB and the JVM hung; at 2 GB (A11), no match on any.
 
 | Cost | Panako (one thread) | Gunfinger |
 |---|---|---|
-| Index of the library | 1,728 s for 99,987 s of audio, about 29 min wall; LMDB 237.5 MB + cache 103 MB | 50.9 s wall, 471 s CPU, 938 MB; index 39.7 MB + peak store 19.7 MB |
-| Sweep of 720 renders | 242-321 s wall, 276-335 s user, 432-445 MB | 113-166 s wall, 839-898 s user, 156 MB |
+| Index of the library | 1,728 s of per-file fingerprinting for 99,987 s of audio, about 29 min wall; LMDB 237.5 MB + cache 107.6 MB | 50.9 s wall, 471 s CPU, 938 MB; index 39.7 MB + peak store 19.7 MB |
+| Sweep of 720 renders | 242-321 s wall, 276-335 s user, 432-445 MB | 113-166 s wall, 839-898 s user, 153-162 MB |
 | Development mix | 92-141 s wall, 100-149 s user, 442-457 MB | 15-30 s wall, 110-161 s user, 220-264 MB |
-| 12 generated mixes | 133 s wall, 156 s user, 392 MB | 42 s wall, 182 s user, 344 MB |
+| 12 generated mixes | 133 s wall, 156 s user, 393 MB | 42 s wall, 182 s user, 344 MB |
 
-**Conclusion.** At 262 tracks Panako finds 59% of the sweep queries (Gunfinger
-all), 26 of 27 development-mix tracks (27) and 105 generated-mix plays (106), no
-wrong answer at S*. Its index takes about 3.7 times the CPU and 5.7 times the disk; its
-queries take 2-6 times the wall time with less CPU.
+**Conclusion.** At 262 tracks Panako finds 59% of the sweep queries (Gunfinger all),
+26 of 27 development-mix tracks (27), 105 generated-mix plays (106); 14 wrong answers,
+none at S* (104 plays there). Per second of audio its index takes about 4 times
+Gunfinger's CPU, and 5.8 times the disk; queries 1.5-6 times the wall, similar or less CPU.
