@@ -411,3 +411,10 @@ is not known.
   rule and failed reproduction (121 problems), so it was not used. Taken
   as fitted, like the shared panels', today's rule reproduces every
   stored level and count of V's `robust` run (0 problems).
+- **(02:22) V's queue finished** at 02:21 with the recall panel's
+  development half (522 of 522 indexed queries confident under every
+  rule, no change). Master's NAS scans and recall report were written
+  by older stores (recall: 33,587 indexed files against V's 40,114), so
+  they are not compared detection by detection; V's own reports are
+  levelled exactly by today's rule. Experiments 0138 (V's counts) and
+  0139 (per-second scoring) close steps 3 and 4.

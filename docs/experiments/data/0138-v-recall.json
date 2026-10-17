@@ -1,0 +1,50 @@
+{
+ "reports": {
+  "recall-seed-2026.json": {
+   "false_detections_over_240": 0,
+   "3 windows": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   },
+   "span 10 s": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   },
+   "span 15 s": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   },
+   "span 20 s": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 10 s": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 15 s": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 20 s": {
+    "indexed": 522,
+    "recalled": 522,
+    "wrong": [],
+    "changed": []
+   }
+  }
+ },
+ "problems": []
+}

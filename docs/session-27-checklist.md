@@ -17,19 +17,23 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 2. Pre-registration: variants A (minimum span) and B (supported
+- [x] 2. Pre-registration: variants A (minimum span) and B (supported
   time), which rule they replace, segment and play level, the possible
   tier; the panels; the criteria; which panel is counted from which
   data; experiment 0136's first part; committed before any count
-- [ ] 3a. The variant build in a worktree, never merged, with its own
+  (`6c7728c`)
+- [x] 3a. The variant build in a worktree, never merged, with its own
   work directory; identity checks against master's reports; its runs
-  queued under `screen`
-- [ ] 3. Per-second scoring in the harness: generated mixes (exact
+  queued under `screen` (worktree `s27-span`, `work/s27/vwork/`; every
+  run finished by 02:21; identical where comparable, 0138)
+- [x] 3. Per-second scoring in the harness: generated mixes (exact
   truth), the development mixes with margins stated in advance; unit
-  tests; today's matcher as the baseline; committed
-- [ ] 4. The counts: every panel under today's rule and each variant;
+  tests; today's matcher as the baseline; committed (`gunfinger-eval
+  seconds`, 11 unit tests; also session 21's rendered mixes; 0139)
+- [x] 4. The counts: every panel under today's rule and each variant;
   changed levels with causes; the shortest identification; experiment
-  files
+  files (0137 from master's reports, 0138 from the variant build; no
+  variant meets both criteria)
 
 ## Wrap-up
 
@@ -39,6 +43,7 @@ for scope and rules.
 - [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
   (`RUSTUP_TOOLCHAIN=1.98.0`)
 - [ ] The NAS store's revision at the end
-- [ ] `git diff docs/pair-verdicts.txt` empty and
-  `work/audition/answers.jsonl` unchanged before every commit
+- [~] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+  changed only by the answers on the listening page (from
+  02:01), never staged
 - [ ] Commit; the final message

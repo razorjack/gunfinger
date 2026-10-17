@@ -1,0 +1,817 @@
+{
+ "reports": {
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json": {
+   "3 windows": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "span 10 s": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "span 15 s": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "span 20 s": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "supported 10 s": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "supported 15 s": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "supported 20 s": {
+    "identified": 6,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "3 windows": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "span 10 s": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "span 15 s": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "span 20 s": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "supported 10 s": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "supported 15 s": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   },
+   "supported 20 s": {
+    "identified": 9,
+    "referenced": 9,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Drumsound & Simon Bassline Smith - Phoenix",
+     " 3. Friction & Nu Balance - Final Judgement",
+     " 5. Bulletproof - Scarred",
+     " 9. Bulletproof - Anthrax",
+     "10. Cause 4 Concern - Blindside",
+     "11. Decoder - Dead Fall",
+     "13. Future Cut - Horns 2000",
+     "16. Aquasky - Lords of Motion (Tech Itch Remix)",
+     "18. Mo-Funk - Slipstream"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 89.41
+   }
+  },
+  "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json": {
+   "3 windows": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   },
+   "span 10 s": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   },
+   "span 15 s": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   },
+   "span 20 s": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   },
+   "supported 10 s": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   },
+   "supported 15 s": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   },
+   "supported 20 s": {
+    "identified": 4,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 81.53
+   }
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "3 windows": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   },
+   "span 10 s": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   },
+   "span 15 s": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   },
+   "span 20 s": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   },
+   "supported 10 s": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   },
+   "supported 15 s": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   },
+   "supported 20 s": {
+    "identified": 7,
+    "referenced": 7,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Future Cut - The Specialist",
+     " 5. Tee Bee - Two Faced",
+     " 7. Carlito & Addiction - Into Music",
+     " 9. Total Science - Yvon Is On",
+     "10. Marcus Intalex & ST Files - Balderdash",
+     "11. Spirit - Out Of Control",
+     "12. DJ Hidden - Skektics"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 61.95
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "3 windows": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   },
+   "span 10 s": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   },
+   "span 15 s": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   },
+   "span 20 s": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   },
+   "supported 10 s": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   },
+   "supported 15 s": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   },
+   "supported 20 s": {
+    "identified": 0,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [],
+    "changed": [],
+    "shortest_confident_true_span": null
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "3 windows": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "span 10 s": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "span 15 s": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "span 20 s": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "supported 10 s": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "supported 15 s": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "supported 20 s": {
+    "identified": 8,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 7. Kraken - Dominion",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   }
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "3 windows": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "span 10 s": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "span 15 s": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "span 20 s": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "supported 10 s": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "supported 15 s": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   },
+   "supported 20 s": {
+    "identified": 11,
+    "referenced": 11,
+    "wrong": 0,
+    "new_wrong": [],
+    "tracks": [
+     " 1. Skynet & Stakka - Night Lore",
+     " 2. Skynet & Stakka - Decoy",
+     " 3. Kemal & Rob Data - Star Trails",
+     " 4. Skynet & Stakka - Pathogen",
+     " 5. Skynet & Stakka - Clockwork",
+     " 6. Kraken - Side Effects (TeeBee Remix)",
+     " 7. Kraken - Dominion",
+     " 8. Kemal & Paul Reset - Kontempt",
+     " 9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear",
+     "10. Skynet & Stakka - Logistics",
+     "11. Stakka & K.Tee - Auto Ignition"
+    ],
+    "changed": [],
+    "shortest_confident_true_span": 218.66
+   }
+  }
+ },
+ "problems": []
+}

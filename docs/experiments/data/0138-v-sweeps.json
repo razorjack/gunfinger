@@ -1,0 +1,185 @@
+{
+ "reports": {
+  "sweep-seed-2026.json": {
+   "false_detections_over_240": 0,
+   "3 windows": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   }
+  },
+  "sweep-seed-2027.json": {
+   "false_detections_over_240": 0,
+   "3 windows": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   }
+  },
+  "sweep-seed-2028.json": {
+   "false_detections_over_240": 0,
+   "3 windows": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   }
+  },
+  "sweep-seed-2029.json": {
+   "false_detections_over_240": 0,
+   "3 windows": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "span 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 10 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 15 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   },
+   "supported 20 s": {
+    "indexed": 540,
+    "recalled": 540,
+    "wrong": [],
+    "changed": []
+   }
+  }
+ },
+ "problems": []
+}

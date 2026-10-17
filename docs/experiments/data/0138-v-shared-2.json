@@ -1,0 +1,1079 @@
+{
+ "report": "shared-material-2-seed-2026-development.json",
+ "problems": [],
+ "rules": {
+  "3 windows": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "possible only": 14,
+     "right confident": 96,
+     "wrong confident": 5
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "possible only": 2,
+     "right confident": 28
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 7,
+     "right confident": 60,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "possible only": 3,
+     "right confident": 12,
+     "wrong confident": 1
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": []
+  },
+  "span 10 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "right confident": 106,
+     "wrong confident": 5,
+     "possible only": 4
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "right confident": 30
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 3,
+     "right confident": 64,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "right confident": 13,
+     "wrong confident": 1,
+     "possible only": 2
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "phantom-force-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-weak-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "span 15 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "right confident": 104,
+     "wrong confident": 5,
+     "possible only": 6
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "right confident": 30
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 3,
+     "right confident": 64,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "right confident": 13,
+     "wrong confident": 1,
+     "possible only": 2
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "phantom-force-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "span 20 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "possible only": 14,
+     "right confident": 96,
+     "wrong confident": 5
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "possible only": 2,
+     "right confident": 28
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 7,
+     "right confident": 60,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "possible only": 3,
+     "right confident": 12,
+     "wrong confident": 1
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": []
+  },
+  "supported 10 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "right confident": 106,
+     "wrong confident": 5,
+     "possible only": 4
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "right confident": 30
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 3,
+     "right confident": 64,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "right confident": 13,
+     "wrong confident": 1,
+     "possible only": 2
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "phantom-force-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-weak-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "supported 15 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "right confident": 106,
+     "wrong confident": 5,
+     "possible only": 4
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "right confident": 30
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 3,
+     "right confident": 64,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "right confident": 13,
+     "wrong confident": 1,
+     "possible only": 2
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "phantom-force-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-weak-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "supported 20 s": {
+   "outcomes": {
+    "everything": {
+     "nothing": 20,
+     "right confident": 104,
+     "wrong confident": 5,
+     "possible only": 6
+    },
+    "everything (control)": {
+     "nothing": 4,
+     "right confident": 30
+    },
+    "played left out": {
+     "nothing": 25,
+     "possible only": 105,
+     "wrong confident": 5
+    },
+    "played left out (control)": {
+     "nothing": 18,
+     "possible only": 15,
+     "wrong confident": 1
+    },
+    "source left out": {
+     "nothing": 13,
+     "possible only": 4,
+     "right confident": 63,
+     "wrong confident": 5
+    },
+    "source left out (control)": {
+     "nothing": 1,
+     "right confident": 13,
+     "wrong confident": 1,
+     "possible only": 2
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "phantom-force-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-2-before-5s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-3-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-4-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-5-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "phantom-force-6-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "star-trails-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-1-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "we-r-the-ones-2-alone-20s",
+     "index": "source left out",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  }
+ }
+}

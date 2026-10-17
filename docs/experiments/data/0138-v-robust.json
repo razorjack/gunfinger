@@ -1,0 +1,5014 @@
+{
+ "report": "robust-seed-2026.json",
+ "problems": [],
+ "problem_count": 0,
+ "false_detections_over_240": 0,
+ "rules": {
+  "3 windows": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 31,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 26,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1941,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": []
+  },
+  "span 10 s": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1991,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 454,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.27,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 446,
+     "windows": 2,
+     "start": 14.98,
+     "span": 14.79,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 490,
+     "windows": 2,
+     "start": 15.12,
+     "span": 14.31,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 443,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.89,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 508,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.69,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 420,
+     "windows": 2,
+     "start": 0.11,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 454,
+     "windows": 2,
+     "start": 15.33,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 368,
+     "windows": 2,
+     "start": 0.17,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 426,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.68,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 397,
+     "windows": 2,
+     "start": 15.19,
+     "span": 14.48,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "hits": 618,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.76,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 8,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "hits": 461,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 11,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 464,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.78,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 382,
+     "windows": 2,
+     "start": 15.01,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 393,
+     "windows": 2,
+     "start": 15.07,
+     "span": 14.71,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 335,
+     "windows": 2,
+     "start": 0.09,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 481,
+     "windows": 2,
+     "start": 15.09,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 362,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.65,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 645,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 434,
+     "windows": 2,
+     "start": 0.05,
+     "span": 14.64,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 442,
+     "windows": 2,
+     "start": 15.27,
+     "span": 14.41,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 404,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.42,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 516,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.73,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 641,
+     "windows": 2,
+     "start": 0.06,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 378,
+     "windows": 2,
+     "start": 15.05,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 15.08,
+     "span": 14.41,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 25,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "hits": 423,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 25,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-bulletproof-scarred-sour.mp3",
+     "hits": 418,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 27,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.29,
+     "span": 14.31,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 30,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 386,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.86,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 364,
+     "windows": 2,
+     "start": 0.13,
+     "span": 14.47,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 610,
+     "windows": 2,
+     "start": 14.95,
+     "span": 14.78,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 370,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.71,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 493,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.58,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 411,
+     "windows": 2,
+     "start": 15.15,
+     "span": 14.5,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "hits": 439,
+     "windows": 2,
+     "start": 0.01,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 34,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 418,
+     "windows": 2,
+     "start": 14.96,
+     "span": 14.56,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 337,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.77,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 614,
+     "windows": 2,
+     "start": 15.04,
+     "span": 14.74,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.67,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 0.34,
+     "span": 14.1,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 0.34,
+     "span": 14.1,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 572,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.67,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 0,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "hits": 443,
+     "windows": 2,
+     "start": 15.13,
+     "span": 14.35,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 2,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 511,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.81,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 497,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 677,
+     "windows": 2,
+     "start": 15.01,
+     "span": 14.7,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 650,
+     "windows": 2,
+     "start": 0.1,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 425,
+     "windows": 2,
+     "start": 15.3,
+     "span": 14.27,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 388,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 476,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 470,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.74,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "hits": 543,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 8,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "hits": 475,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.72,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 10,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "hits": 428,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.81,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 11,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 503,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.69,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 398,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.52,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 466,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.67,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 360,
+     "windows": 2,
+     "start": 0.08,
+     "span": 14.57,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 652,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.82,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.0,
+     "span": 18.49,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 15,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 644,
+     "windows": 2,
+     "start": 15.09,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.93,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 594,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.84,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 402,
+     "windows": 2,
+     "start": 0.15,
+     "span": 14.25,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 479,
+     "windows": 2,
+     "start": 0.05,
+     "span": 14.5,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 348,
+     "windows": 2,
+     "start": 15.11,
+     "span": 14.26,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/[A]_-_Mudslide.mp3",
+     "hits": 461,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 28,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     "hits": 525,
+     "windows": 2,
+     "start": 0.06,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 29,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 552,
+     "windows": 2,
+     "start": 14.97,
+     "span": 14.58,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 424,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.56,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 632,
+     "windows": 2,
+     "start": 0.15,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "hits": 702,
+     "windows": 2,
+     "start": 0.01,
+     "span": 14.8,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 34,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 382,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.59,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 349,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.82,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 645,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.52,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.08,
+     "span": 14.79,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 501,
+     "windows": 2,
+     "start": 15.23,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 501,
+     "windows": 2,
+     "start": 15.23,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.33,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.33,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 265,
+     "windows": 2,
+     "start": 15.11,
+     "span": 14.44,
+     "supported": 15,
+     "condition": "pitch-ride-2pct",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    }
+   ]
+  },
+  "span 15 s": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 34,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 26,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1944,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 572,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.67,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 0,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.0,
+     "span": 18.49,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 15,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.93,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    }
+   ]
+  },
+  "span 20 s": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 31,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 24,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1939,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 401,
+     "windows": 3,
+     "start": 6.3,
+     "span": 18.3,
+     "supported": 19,
+     "condition": "pitch-ride-2pct",
+     "number": 24,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/01. Krot - Great Escape.mp3",
+     "hits": 294,
+     "windows": 3,
+     "start": 6.13,
+     "span": 19.38,
+     "supported": 20,
+     "condition": "pitch-ride-2pct",
+     "number": 36,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    }
+   ]
+  },
+  "supported 10 s": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1991,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 454,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.27,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 446,
+     "windows": 2,
+     "start": 14.98,
+     "span": 14.79,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 490,
+     "windows": 2,
+     "start": 15.12,
+     "span": 14.31,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 443,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.89,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 508,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.69,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 420,
+     "windows": 2,
+     "start": 0.11,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 454,
+     "windows": 2,
+     "start": 15.33,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 368,
+     "windows": 2,
+     "start": 0.17,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 426,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.68,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 397,
+     "windows": 2,
+     "start": 15.19,
+     "span": 14.48,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "hits": 618,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.76,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 8,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "hits": 461,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 11,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 464,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.78,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 382,
+     "windows": 2,
+     "start": 15.01,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 393,
+     "windows": 2,
+     "start": 15.07,
+     "span": 14.71,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 335,
+     "windows": 2,
+     "start": 0.09,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 481,
+     "windows": 2,
+     "start": 15.09,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 362,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.65,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 645,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 434,
+     "windows": 2,
+     "start": 0.05,
+     "span": 14.64,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 442,
+     "windows": 2,
+     "start": 15.27,
+     "span": 14.41,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 404,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.42,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 516,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.73,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 641,
+     "windows": 2,
+     "start": 0.06,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 378,
+     "windows": 2,
+     "start": 15.05,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 15.08,
+     "span": 14.41,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 25,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "hits": 423,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 25,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-bulletproof-scarred-sour.mp3",
+     "hits": 418,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 27,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.29,
+     "span": 14.31,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 30,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 386,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.86,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 364,
+     "windows": 2,
+     "start": 0.13,
+     "span": 14.47,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 610,
+     "windows": 2,
+     "start": 14.95,
+     "span": 14.78,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 370,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.71,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 493,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.58,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 411,
+     "windows": 2,
+     "start": 15.15,
+     "span": 14.5,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "hits": 439,
+     "windows": 2,
+     "start": 0.01,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 34,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 418,
+     "windows": 2,
+     "start": 14.96,
+     "span": 14.56,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 337,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.77,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 614,
+     "windows": 2,
+     "start": 15.04,
+     "span": 14.74,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.67,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 0.34,
+     "span": 14.1,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 0.34,
+     "span": 14.1,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 572,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.67,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 0,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "hits": 443,
+     "windows": 2,
+     "start": 15.13,
+     "span": 14.35,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 2,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 511,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.81,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 497,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 677,
+     "windows": 2,
+     "start": 15.01,
+     "span": 14.7,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 650,
+     "windows": 2,
+     "start": 0.1,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 425,
+     "windows": 2,
+     "start": 15.3,
+     "span": 14.27,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 388,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 476,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 470,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.74,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "hits": 543,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 8,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "hits": 475,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.72,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 10,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "hits": 428,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.81,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 11,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 503,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.69,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 398,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.52,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 466,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.67,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 360,
+     "windows": 2,
+     "start": 0.08,
+     "span": 14.57,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 652,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.82,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.0,
+     "span": 18.49,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 15,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 644,
+     "windows": 2,
+     "start": 15.09,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.93,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 594,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.84,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 402,
+     "windows": 2,
+     "start": 0.15,
+     "span": 14.25,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 479,
+     "windows": 2,
+     "start": 0.05,
+     "span": 14.5,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 348,
+     "windows": 2,
+     "start": 15.11,
+     "span": 14.26,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/[A]_-_Mudslide.mp3",
+     "hits": 461,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 28,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     "hits": 525,
+     "windows": 2,
+     "start": 0.06,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 29,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 552,
+     "windows": 2,
+     "start": 14.97,
+     "span": 14.58,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 424,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.56,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 632,
+     "windows": 2,
+     "start": 0.15,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "hits": 702,
+     "windows": 2,
+     "start": 0.01,
+     "span": 14.8,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 34,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 382,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.59,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 349,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.82,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 645,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.52,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.08,
+     "span": 14.79,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 501,
+     "windows": 2,
+     "start": 15.23,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 501,
+     "windows": 2,
+     "start": 15.23,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.33,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.33,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 265,
+     "windows": 2,
+     "start": 15.11,
+     "span": 14.44,
+     "supported": 15,
+     "condition": "pitch-ride-2pct",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    }
+   ]
+  },
+  "supported 15 s": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1991,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 454,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.27,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 446,
+     "windows": 2,
+     "start": 14.98,
+     "span": 14.79,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 490,
+     "windows": 2,
+     "start": 15.12,
+     "span": 14.31,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 443,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.89,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 508,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.69,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 420,
+     "windows": 2,
+     "start": 0.11,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 454,
+     "windows": 2,
+     "start": 15.33,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 368,
+     "windows": 2,
+     "start": 0.17,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 426,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.68,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 397,
+     "windows": 2,
+     "start": 15.19,
+     "span": 14.48,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "hits": 618,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.76,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 8,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "hits": 461,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.46,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 11,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 464,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.78,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 382,
+     "windows": 2,
+     "start": 15.01,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 393,
+     "windows": 2,
+     "start": 15.07,
+     "span": 14.71,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 335,
+     "windows": 2,
+     "start": 0.09,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 481,
+     "windows": 2,
+     "start": 15.09,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 362,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.65,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 645,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 434,
+     "windows": 2,
+     "start": 0.05,
+     "span": 14.64,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 442,
+     "windows": 2,
+     "start": 15.27,
+     "span": 14.41,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 404,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.42,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 516,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.73,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 641,
+     "windows": 2,
+     "start": 0.06,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 378,
+     "windows": 2,
+     "start": 15.05,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 15.08,
+     "span": 14.41,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 25,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "hits": 423,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 25,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-bulletproof-scarred-sour.mp3",
+     "hits": 418,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 27,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.29,
+     "span": 14.31,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 30,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 386,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.86,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 364,
+     "windows": 2,
+     "start": 0.13,
+     "span": 14.47,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 610,
+     "windows": 2,
+     "start": 14.95,
+     "span": 14.78,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 370,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.71,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 493,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.58,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 411,
+     "windows": 2,
+     "start": 15.15,
+     "span": 14.5,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "hits": 439,
+     "windows": 2,
+     "start": 0.01,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 34,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 418,
+     "windows": 2,
+     "start": 14.96,
+     "span": 14.56,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 337,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.77,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 614,
+     "windows": 2,
+     "start": 15.04,
+     "span": 14.74,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.67,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 0.34,
+     "span": 14.1,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 491,
+     "windows": 2,
+     "start": 0.34,
+     "span": 14.1,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 572,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.67,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 0,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "hits": 443,
+     "windows": 2,
+     "start": 15.13,
+     "span": 14.35,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 2,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 511,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.81,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/A - Hak - Inside (Decoder remix).mp3",
+     "hits": 497,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 3,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 677,
+     "windows": 2,
+     "start": 15.01,
+     "span": 14.7,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "hits": 650,
+     "windows": 2,
+     "start": 0.1,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 4,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 425,
+     "windows": 2,
+     "start": 15.3,
+     "span": 14.27,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "hits": 388,
+     "windows": 2,
+     "start": 0.16,
+     "span": 14.53,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 6,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 476,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a1-skynet-acid_drops-sour.mp3",
+     "hits": 470,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.74,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 7,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-dj_reality-reasons.mp3",
+     "hits": 543,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.62,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 8,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "hits": 475,
+     "windows": 2,
+     "start": 0.04,
+     "span": 14.72,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 10,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3",
+     "hits": 428,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.81,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 11,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 503,
+     "windows": 2,
+     "start": 0.12,
+     "span": 14.69,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3",
+     "hits": 398,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.52,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 12,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 466,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.67,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "hits": 360,
+     "windows": 2,
+     "start": 0.08,
+     "span": 14.57,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 13,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/Cyb Orc - Looter.mp3",
+     "hits": 652,
+     "windows": 2,
+     "start": 0.03,
+     "span": 14.82,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 14,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "hits": 500,
+     "windows": 2,
+     "start": 0.0,
+     "span": 18.49,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 15,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 644,
+     "windows": 2,
+     "start": 15.09,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/06_-_skinnah_-_state_of_violance.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.02,
+     "span": 15.93,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 20,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 594,
+     "windows": 2,
+     "start": 15.02,
+     "span": 14.84,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "hits": 402,
+     "windows": 2,
+     "start": 0.15,
+     "span": 14.25,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 23,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 479,
+     "windows": 2,
+     "start": 0.05,
+     "span": 14.5,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 348,
+     "windows": 2,
+     "start": 15.11,
+     "span": 14.26,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 24,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/[A]_-_Mudslide.mp3",
+     "hits": 461,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.61,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 28,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     "hits": 525,
+     "windows": 2,
+     "start": 0.06,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 29,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 552,
+     "windows": 2,
+     "start": 14.97,
+     "span": 14.58,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-kemal-animation-sour.mp3",
+     "hits": 424,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.56,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 32,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+     "hits": 632,
+     "windows": 2,
+     "start": 0.15,
+     "span": 14.75,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 33,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "hits": 702,
+     "windows": 2,
+     "start": 0.01,
+     "span": 14.8,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 34,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 382,
+     "windows": 2,
+     "start": 14.99,
+     "span": 14.59,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "hits": 349,
+     "windows": 2,
+     "start": 0.0,
+     "span": 14.82,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 35,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 645,
+     "windows": 2,
+     "start": 15.03,
+     "span": 14.52,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     "hits": 478,
+     "windows": 2,
+     "start": 0.08,
+     "span": 14.79,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 37,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 501,
+     "windows": 2,
+     "start": 15.23,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 501,
+     "windows": 2,
+     "start": 15.23,
+     "span": 14.63,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.33,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "hits": 410,
+     "windows": 2,
+     "start": 0.33,
+     "span": 14.54,
+     "supported": 15,
+     "condition": "needle-skip-2s",
+     "number": 39,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    },
+    {
+     "asset": "extra/08-the_green_man-damn_wire_(nphect_and_dizplay_goddamn_wire_remix).mp3",
+     "hits": 265,
+     "windows": 2,
+     "start": 15.11,
+     "span": 14.44,
+     "supported": 15,
+     "condition": "pitch-ride-2pct",
+     "number": 16,
+     "role": "own",
+     "today": "possible",
+     "variant": "confident"
+    }
+   ]
+  },
+  "supported 20 s": {
+   "conditions": {
+    "control": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-boost-12db": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "bass-cut-250hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-2khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "low-pass-800hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "high-pass-1khz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "telephone": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "echo": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "clipping-12db": {
+     "indexed": 80,
+     "confident": 65,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-10db": {
+     "indexed": 80,
+     "confident": 75,
+     "wrong confident": 0
+    },
+    "pink-noise-snr-0db": {
+     "indexed": 80,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "mp3-64k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "mp3-32k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "aac-48k": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "opus-24k": {
+     "indexed": 80,
+     "confident": 79,
+     "wrong confident": 0
+    },
+    "blend--6db": {
+     "indexed": 80,
+     "confident": 72,
+     "wrong confident": 0
+    },
+    "blend-0db": {
+     "indexed": 80,
+     "confident": 30,
+     "wrong confident": 0
+    },
+    "voice-over": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "speech-insert-8s": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "needle-skip-2s": {
+     "indexed": 80,
+     "confident": 12,
+     "wrong confident": 0
+    },
+    "pitch-ride-2pct": {
+     "indexed": 80,
+     "confident": 22,
+     "wrong confident": 0
+    },
+    "wow-0.55hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "wow-0.75hz": {
+     "indexed": 80,
+     "confident": 80,
+     "wrong confident": 0
+    },
+    "broadcast": {
+     "indexed": 80,
+     "confident": 68,
+     "wrong confident": 0
+    },
+    "beatmatched--6db": {
+     "indexed": 80,
+     "confident": 69,
+     "wrong confident": 0
+    },
+    "beatmatched-0db": {
+     "indexed": 80,
+     "confident": 27,
+     "wrong confident": 0
+    },
+    "combined": {
+     "indexed": 80,
+     "confident": 4,
+     "wrong confident": 0
+    },
+    "speed-10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed-16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+10pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+12pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "speed+16pct": {
+     "indexed": 40,
+     "confident": 0,
+     "wrong confident": 0
+    },
+    "key-lock-2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+2pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock-5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+5pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    },
+    "key-lock+8pct": {
+     "indexed": 40,
+     "confident": 40,
+     "wrong confident": 0
+    }
+   },
+   "confident": 1918,
+   "wrong": 0,
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "hits": 247,
+     "windows": 3,
+     "start": 4.47,
+     "span": 25.12,
+     "supported": 18,
+     "condition": "blend-0db",
+     "number": 41,
+     "role": "partner",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 504,
+     "windows": 3,
+     "start": 7.59,
+     "span": 21.92,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 0,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+     "hits": 476,
+     "windows": 3,
+     "start": 5.91,
+     "span": 23.86,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 2,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/aa-cause_4_concern-synergy-sour.mp3",
+     "hits": 572,
+     "windows": 3,
+     "start": 5.91,
+     "span": 23.69,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 5,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/aa-cause_4_concern-abduction-sour.mp3",
+     "hits": 500,
+     "windows": 3,
+     "start": 0.04,
+     "span": 23.83,
+     "supported": 19,
+     "condition": "needle-skip-2s",
+     "number": 9,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3",
+     "hits": 472,
+     "windows": 3,
+     "start": 0.04,
+     "span": 21.98,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 10,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     "hits": 481,
+     "windows": 3,
+     "start": 0.0,
+     "span": 20.95,
+     "supported": 16,
+     "condition": "needle-skip-2s",
+     "number": 15,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "hits": 486,
+     "windows": 3,
+     "start": 5.02,
+     "span": 24.54,
+     "supported": 19,
+     "condition": "needle-skip-2s",
+     "number": 18,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/AA. Gridlok -- Struggle.mp3",
+     "hits": 627,
+     "windows": 3,
+     "start": 0.0,
+     "span": 23.09,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 19,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "Skynet & Stakka - Decoy.mp3",
+     "hits": 522,
+     "windows": 3,
+     "start": 0.05,
+     "span": 22.88,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 22,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "hits": 269,
+     "windows": 3,
+     "start": 5.91,
+     "span": 23.62,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 22,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/Aphro_Dubs-Shy_FX-OND001-2004-sour/a-shy_fx_and_uk_apache-original_nuttah_(aphrodite_mix)-sour.mp3.mp3",
+     "hits": 488,
+     "windows": 3,
+     "start": 0.0,
+     "span": 23.8,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 26,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/[A]_-_Mudslide.mp3",
+     "hits": 459,
+     "windows": 3,
+     "start": 6.68,
+     "span": 23.14,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 28,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     "hits": 734,
+     "windows": 3,
+     "start": 5.98,
+     "span": 23.81,
+     "supported": 19,
+     "condition": "needle-skip-2s",
+     "number": 29,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/01. Krot - Great Escape.mp3",
+     "hits": 572,
+     "windows": 3,
+     "start": 6.46,
+     "span": 23.28,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 36,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3",
+     "hits": 531,
+     "windows": 3,
+     "start": 6.59,
+     "span": 22.75,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 38,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+     "hits": 531,
+     "windows": 3,
+     "start": 6.59,
+     "span": 22.75,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 38,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "hits": 740,
+     "windows": 3,
+     "start": 5.6,
+     "span": 24.17,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 1,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/aa-black_sun_empire-bnegative-sour.mp3",
+     "hits": 636,
+     "windows": 3,
+     "start": 5.24,
+     "span": 24.47,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 17,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/[AA]_-_Phoenix.mp3",
+     "hits": 439,
+     "windows": 3,
+     "start": 0.0,
+     "span": 22.5,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 18,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "hits": 305,
+     "windows": 3,
+     "start": 0.05,
+     "span": 23.41,
+     "supported": 19,
+     "condition": "needle-skip-2s",
+     "number": 22,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/AA-Nu_Balance-Overheads-sour.mp3",
+     "hits": 666,
+     "windows": 3,
+     "start": 5.07,
+     "span": 24.78,
+     "supported": 18,
+     "condition": "needle-skip-2s",
+     "number": 30,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+     "hits": 507,
+     "windows": 3,
+     "start": 5.85,
+     "span": 23.85,
+     "supported": 17,
+     "condition": "needle-skip-2s",
+     "number": 31,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 291,
+     "windows": 3,
+     "start": 6.59,
+     "span": 23.13,
+     "supported": 16,
+     "condition": "pitch-ride-2pct",
+     "number": 0,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/01. Krot - Great Escape.mp3",
+     "hits": 330,
+     "windows": 3,
+     "start": 4.68,
+     "span": 20.39,
+     "supported": 19,
+     "condition": "pitch-ride-2pct",
+     "number": 36,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/09-muffler-downfall_(original_mix).mp3",
+     "hits": 320,
+     "windows": 3,
+     "start": 6.27,
+     "span": 23.15,
+     "supported": 17,
+     "condition": "pitch-ride-2pct",
+     "number": 0,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    },
+    {
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "hits": 401,
+     "windows": 3,
+     "start": 6.3,
+     "span": 18.3,
+     "supported": 19,
+     "condition": "pitch-ride-2pct",
+     "number": 24,
+     "role": "own",
+     "today": "confident",
+     "variant": "possible"
+    }
+   ]
+  }
+ }
+}
