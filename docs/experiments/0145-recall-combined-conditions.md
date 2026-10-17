@@ -25,12 +25,12 @@ the strongest own-cluster detection].
 | other rips, clean | 175 [458] | 37 [233] | 141 [299] |
 | other rips, damaged | 0 (125) [82] | 0 (34) [38] | 0 (73) [54] |
 
-- Why. Damage leaves about a tenth of the hits, other rips about half.
-  Damaged misses: too few hits or never a candidate ((a)+(b)+(c): 217
-  weak, 107 possible, 36 never). (a)+(b), 15 s: 91 too few hits, 49 too
-  few windows, 3 never; 20 s: 29, 8, 2.
-- Wrong possible: only 0144's pairs (other Fire versions on Fire (Original
-  Mix), Tsunami on its remix); strongest 146 hits ((a)+(b), 20 s).
+- Why. Damage leaves a tenth of the hits, other rips half. Damaged misses:
+  too few hits or never a candidate ((a)+(b)+(c): 217 weak, 107 possible,
+  36 never); (a)+(b) 15 s: 91 too few hits, 49 windows, 3 never; 20 s: 29, 8, 2.
+- Wrong possible: only 0144's pairs (with damage, Fire versions on Fire
+  (Original Mix) and Tsunami on its remix; (a)+(b) as (b), with DJ XS's
+  Pang Miaow after his held-out Harder as lead-in); strongest 146 hits.
 
 **Against 0143.** As expected for (a)+(b)+(c) (no confident query); none
 of the declared notable results.
