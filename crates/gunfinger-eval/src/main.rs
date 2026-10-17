@@ -384,21 +384,23 @@ enum Command {
         #[arg(long, default_value_t = 2026)]
         seed: u64,
     },
-    /// Score saved `mixes` or `scan` reports second by second (Sonnleitner
-    /// et al. 2016, section 5): seconds labelled correctly, possibly or
-    /// wrongly, or not at all, while an indexed track plays, and silence
-    /// while none does (specificity); and where each identified track's
-    /// labels start and end. Searches nothing and leaves the reports and
+    /// Score saved `mixes`, `shared-mixes` or `scan` reports second by
+    /// second (Sonnleitner et al. 2016, section 5): seconds labelled
+    /// correctly, possibly or wrongly, or not at all, while an indexed
+    /// track plays, and silence while none does (specificity); and where
+    /// each identified track's labels start and end. Searches nothing and leaves the reports and
     /// their scores as they are. The scores go to `seconds/` (with another
     /// library, `seconds/library-<store directory name>/`)
     Seconds {
-        /// Reports written by `mixes` or `scan` (a scan of the larger
-        /// library with --other-peaks-dir).
+        /// Reports written by `mixes`, `shared-mixes` (each rendered mix
+        /// under each index) or `scan` (a scan of the larger library with
+        /// --other-peaks-dir).
         #[arg(required = true)]
         reports: Vec<PathBuf>,
         /// Seconds either side of each manifest border in which both
         /// neighbouring tracks are right and an unlabelled second is
-        /// counted apart. Scans only: generated mixes have exact truth.
+        /// counted apart. Scans only: generated and rendered mixes have
+        /// exact truth.
         #[arg(long, default_value_t = 30.0)]
         margin: f64,
         /// Also score with this minimum span from the first to the last

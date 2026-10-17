@@ -3717,3 +3717,51 @@ Brief `docs/brief-26.md`, checklist `docs/session-26-checklist.md`.
 - About 00:30 end, five and a half hours early: every step done, and no
   further run on E1, E2 or the second panel allowed (brief, step 5c).
   `s24b-panako` and its worktree kept.
+
+## 2026-10-17: session 27, a minimum span or supported time instead of 3 windows; per-second scoring
+
+Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
+
+- 00:35 start; `git status` clean at `21b0220`. NAS store 40,126
+  records, `fed26c76b8fe89ea`. Start build `work/bin/s27-start/`
+  (byte-identical to `s26-final`); `baseline session-27-start` copies
+  reports (0.21 s), so `regress session-27-start` was the speed check:
+  identical, 154.5 s.
+  Session 24b ran Panako beside it in its own worktree (heavy runs at
+  nice 10; experiment number 0150 reserved for it).
+- 00:41 step 2 pre-registered (0136): A(S), the first to the last
+  aligned hit at least S s apart, and B(S), at least S whole seconds
+  holding hits, in place of `windows >= 3`, S = 10, 15, 20 s, hits and
+  the possible tier unchanged; the panels; criteria (1) no new wrong
+  confident answer on any panel, (2) on the grid strictly more confident
+  queries and strictly fewer flips; data from master's saved reports
+  (M, A only) and a never-merged variant build (V, A and B).
+- 00:49 0137 from M: grid 693 confident and 30 flips today, A(10) 803
+  and 2, A(15) 644 and 2, A(20) 482 and 1; on the first shared panel
+  A(10) and A(15) add wrong confident answers (8 and 6 detections in 3
+  queries, two indexes), A(20) none. 01:55 corrected: M's
+  `mixes-seed-7.json` (2026-10-06) is the single pass and was dropped.
+- 00:44-02:21 V's queue (worktree `s27-span`, `work/s27/vwork/`):
+  grid, both shared panels, sweeps, mixes 2026 and 7, scans at 262 and
+  NAS scale with leave-outs, `robust`, recall. Identical to M's reports
+  where comparable. Shared and `robust` detections keep no `fitted`
+  flag; taken as fitted, today's rule reproduces every stored level.
+- 00:55-02:15 step 3: `gunfinger-eval seconds` (per-second scoring,
+  Sonnleitner et al. 2016, §5; generated and rendered mixes with exact
+  truth, scan reports with a margin around manifest borders; start and
+  end errors; 11 unit tests); outputs per library directory.
+- 02:20 0139: the per-second baseline. Generated mixes 94.2% of indexed
+  seconds correct, 8 s mislabelled, 100% of unindexed seconds silent,
+  edges 2-3 s inside the truth; development mixes 86.8% (262) and 90.7%
+  (NAS) at margin 30 s, every mislabelled second a right track outside
+  its manifest slot; rendered mixes, played file left out, 83.0% and
+  half of the unindexed seconds silent. No variant changes a mislabelled
+  second anywhere.
+- 02:23 0138 from V: no variant meets both criteria. A(10), A(15),
+  B(10), B(15), B(20) add the same 3 wrong queries on the first shared
+  panel; A(20) adds none but loses grid queries. B(10) 947 and 13,
+  B(15) 800 and 0, B(20) 640 and 0. Nothing else changes a wrong count.
+- 02:28 0140: every outcome the variants change on the shared panels
+  (but one under B(20)) is in a query file of 20 s or less, never
+  confident under today's rule; the wrong file is already confident in
+  12-13 other queries of the same scenario.

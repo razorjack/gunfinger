@@ -418,7 +418,7 @@ is not known.
   they are not compared detection by detection; V's own reports are
   levelled exactly by today's rule. Experiments 0138 (V's counts) and
   0139 (per-second scoring) close steps 3 and 4.
-- **(02:40) The shared panels' changes by query length (0140).** Every
+- **(02:28) The shared panels' changes by query length (0140).** Every
   outcome the variants change on both shared panels, but one under
   B(20), is in a query file of 20 s or less, which holds 2 windows and
   so is never confident under today's rule. Whether today's rule would
@@ -430,3 +430,18 @@ is not known.
   the direct test (a harness change in the variant worktree that pads
   the 20 s queries) to a later session. Criterion 1's result stands as
   written.
+- **(02:30) Experiment 0141, pre-registered before its run.** 0140's
+  inference is testable inside the harness, which searches the saved
+  NAS index of the store's vetted records. The variant worktree gains,
+  never merged, an `S27_SHIFTED_ONLY` switch: each scenario of a shared
+  panel's development half is searched with only up to 20 s of its
+  passage after 3, 5 and 7 s of the played file's own material (kind
+  `before`, scenarios whose passage starts at least that far in), in
+  the same three indexes, under `--work work/s27/vshift` so V's reports
+  stay as they are. Readout, per panel and rule: outcomes with the
+  played recording left out and in the everything index, and for the
+  six queries of 0140, whether today's rule names the same related
+  file confidently. Prediction: today's rule names it in most of the
+  shifted queries, and the variants change little against today. It
+  decides nothing about criterion 1, which stands; it shows
+  how much of the protection on the 20 s queries is the file length.
