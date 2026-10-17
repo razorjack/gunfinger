@@ -3793,3 +3793,42 @@ Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
   02:01, left unstaged for the orchestrator; `answers.jsonl` the
   listening page's too. Worktree
   `s27-span` and its branch kept, never merged. Session 28 follows from the root checkout.
+
+## 2026-10-17: after session 27, the listening of session 23's six questions
+
+- The six questions of `work/audition/s23/` were answered on the
+  listening page (02:03-02:06; answer log records 55-60): 1, 2, 3, 5
+  and 6 `different`, 4 `same`. The page added six lines to
+  `docs/pair-verdicts.txt`. The comments by ear, verbatim in
+  `work/audition/s23/listening-comments-2026-10-17.md`:
+  - Aphrodite - Stalker, APH029 B ~ V2's album version: the same
+    arrangement with a slightly different synth sound and a different
+    bass sound, groove and melody; "a lightly altered version",
+    technically different but sharing most of the material.
+  - Dark Dark Side APH-28 B1 ~ Style From The Dark Side '99: the same
+    base and drum loop and the same arrangement; one has a rap or vocal
+    layer and more layering on the drums.
+  - Tower Bass, Millennium Mix APH31 B ~ the 1997 JumpUpThrowDown
+    version: the same piece mixed slightly differently, with a slightly
+    different drum loop.
+  - The hifi-junglist PRO 012 A Sonar upload ~ the corpus Sonar: same.
+  - The same upload ~ the Mark System Revision: hi-hats in one intro and
+    not the other, the same lead sounds, different drum loops, an almost
+    identical arrangement.
+  - Kemal - Animation ~ the Silent Extent Remix: different tracks that
+    share only the original's intro, played over new drum loops.
+- What they imply: the clusters already kept the three Aphrodite pairs
+  apart (74%, 63% and 48% coverage, below the 80% that joins), so the
+  verdicts agree with them; all three are shared material. Verdict 3
+  does not say which side the corpus `A. aphrodite - wobble.mp3` (in the
+  Millennium Mix's cluster) belongs to. The PRO 012 A upload is the
+  corpus Sonar's recording. The cut that `--cut-sparsest` made between
+  that upload and the Mark System Revision agrees with the verdict by ear; the
+  other Sonar cut of 0128 (the old-skool-jungle-dnb upload ~ the Mark
+  System Revision) still has no verdict. Kemal's pair is shared
+  material outside both frozen panels' families, a candidate for a
+  later panel; the frozen panels do not change.
+- A bug was reported in the listening page: holding the left or
+  right arrow while playing stacks the fragments' audio until it is
+  painfully loud; pressing the key repeatedly does not. Session 28
+  fixes it first.
