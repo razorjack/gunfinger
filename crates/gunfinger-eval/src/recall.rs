@@ -16,7 +16,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use gunfinger_core::confidence::Rule;
+use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
@@ -37,6 +37,7 @@ use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::sweep::{
     Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, outcome, render_all, speed_row,
 };
+use crate::verifier::Verifier;
 
 const INDEXED_SOURCES: usize = 60;
 const HELD_OUT_SOURCES: usize = 20;
@@ -734,6 +735,9 @@ pub struct Options<'a> {
     /// Left out of the index besides the held-out recordings
     /// (`own_records`); empty for the usual index.
     pub left_out: &'a BTreeSet<String>,
+    /// Measure every detection the second pass counted with the peak
+    /// verifier; the others have no fitted alignment to verify.
+    pub verify: bool,
     pub jobs: usize,
 }
 
@@ -762,6 +766,9 @@ pub fn run(
     let index = options
         .matching
         .index(options.padding.index(&records, &profile, &excluded)?);
+    let verifier = options
+        .verify
+        .then(|| Verifier::new(&records, options.padding.second.as_ref()));
     drop(records);
     let indexed: BTreeSet<&str> = index
         .assets()
@@ -772,6 +779,7 @@ pub fn run(
         index: &index,
         indexed: &indexed,
         clusters,
+        verifier: verifier.as_ref(),
         options,
     };
     for &(set, excerpts) in sets {
@@ -831,6 +839,7 @@ struct Searcher<'a> {
     /// The names of the index's files.
     indexed: &'a BTreeSet<&'a str>,
     clusters: &'a Clusters,
+    verifier: Option<&'a Verifier<'a>>,
     options: &'a Options<'a>,
 }
 
@@ -855,7 +864,13 @@ impl Searcher<'_> {
             detections: detections
                 .iter()
                 .map(|detection| {
-                    let mut outcome = outcome(self.index, detection, &own_cluster, None);
+                    let verified = self
+                        .verifier
+                        .filter(|_| detection.evidence.pass == Pass::Fitted)
+                        .and_then(|verifier| {
+                            verifier.verify(self.index, detection, samples, &Profile::CURRENT)
+                        });
+                    let mut outcome = outcome(self.index, detection, &own_cluster, verified);
                     outcome.partner = is_partner(&outcome, &partner_cluster);
                     outcome
                 })

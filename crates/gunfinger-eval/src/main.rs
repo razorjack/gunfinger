@@ -131,9 +131,10 @@ struct Paths {
     /// synthetic copies or `memory`.
     #[arg(long, global = true, value_enum, default_value_t = SavedIndexUse::Use)]
     saved_index: SavedIndexUse,
-    /// Measure every detection of sweep, scan, robust, mixes and grid with
-    /// the peak verifier, a diagnostic that leaves detections unchanged.
-    /// Reports go to `reports/verified/` below the usual directory.
+    /// Measure every detection of sweep, scan, robust, mixes and grid, and
+    /// those of recall the second pass counted, with the peak verifier, a
+    /// diagnostic that leaves detections unchanged. Reports go to
+    /// `reports/verified/` below the usual directory.
     #[arg(long, global = true)]
     verify: bool,
 }
@@ -1720,6 +1721,7 @@ fn run_recall(
             ladder: &paths.rungs(),
             matching: &paths.matching,
             left_out: &left_out,
+            verify: paths.verify,
             jobs,
         },
         |report| {

@@ -15,9 +15,16 @@
 //! reference shifted a few seconds away from the alignment, either way,
 //! measures the chance level, including what the track's own repetition
 //! gives.
+//!
+//! On the same alignment it also counts the query's pair hashes against
+//! the record's own pairs in the passage, exact and one quantisation step
+//! away (`pairs`, session 30).
+
+mod pairs;
 
 use std::borrow::Cow;
 use std::collections::HashMap;
+use std::ops::RangeInclusive;
 
 use gunfinger_core::hash::{Point, for_each_pair};
 use gunfinger_core::index::Index;
@@ -29,6 +36,7 @@ use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
 use crate::padding::SecondLibrary;
+use pairs::{Pair, Pairs};
 
 /// How far from its expected place a query peak may lie and still find a
 /// reference peak: half-widths in bins and in frames.
@@ -89,6 +97,9 @@ pub struct Count {
     /// The share of 1 s slices of the detection's span (query time) with a
     /// found peak.
     pub support: f64,
+    /// The pair hashes on the same alignment and shift (`verify` only).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pairs: Option<Pairs>,
 }
 
 /// The reference peaks of indexed assets: the library's records, kept in
@@ -145,12 +156,34 @@ impl<'a> Verifier<'a> {
             offsets,
             window_frames: profile.frames(WINDOW_SECONDS),
         };
+        let query_pairs = analysed.pairs(&aligned);
+        let record_pairs = pairs::of_record(reference);
+        let counted = |shift_seconds: f64| {
+            let shift = profile.frames(shift_seconds);
+            Count {
+                pairs: Some(pairs::count(
+                    &query_pairs,
+                    &record_pairs,
+                    aligned.passage(shift),
+                    shift,
+                    TOLERANCE.frames,
+                )),
+                ..count(
+                    reference,
+                    &query,
+                    &aligned,
+                    TOLERANCE,
+                    shift_seconds,
+                    profile,
+                )
+            }
+        };
         Some(Verification {
             tolerance: format!("{}x{}", TOLERANCE.bins, TOLERANCE.frames),
-            aligned: count(reference, &query, &aligned, TOLERANCE, 0.0, profile),
+            aligned: counted(0.0),
             shifted: CHANCE_SHIFTS_SECONDS
                 .iter()
-                .map(|&shift| count(reference, &query, &aligned, TOLERANCE, shift, profile))
+                .map(|&shift| counted(shift))
                 .collect(),
         })
     }
@@ -409,6 +442,28 @@ impl Analysed {
         self.from_frame + point.frame / self.speed
     }
 
+    /// The pairs whose anchor lies in the line's span, each at the
+    /// reference frame where its window's alignment expects the reference
+    /// anchor: on the line, moved by the window's offset.
+    fn pairs(&self, aligned: &Aligned) -> Vec<Pair> {
+        let line = &aligned.line;
+        let windows = aligned.offsets.len();
+        let mut pairs = Vec::new();
+        for_each_pair(&self.points, |hash, anchor| {
+            let query_frame = self.query_frame(&self.points[anchor]);
+            let from_start = query_frame - line.first;
+            if from_start < 0.0 || query_frame > line.last {
+                return;
+            }
+            let window = ((from_start / aligned.window_frames) as usize).min(windows - 1);
+            pairs.push(Pair {
+                hash,
+                frame: line.reference_at(query_frame) + aligned.offsets[window],
+            });
+        });
+        pairs
+    }
+
     /// The points placed on the line, sorted by frame: where reference
     /// peaks are expected, before each window's offset.
     fn placed(&self, line: &Line) -> Vec<Placed> {
@@ -439,6 +494,14 @@ struct Aligned {
     window_frames: f64,
 }
 
+impl Aligned {
+    /// The reference frames the line's span maps to, moved `shift`.
+    fn passage(&self, shift: f64) -> RangeInclusive<f64> {
+        let line = &self.line;
+        line.reference_at(line.first) + shift..=line.reference_at(line.last) + shift
+    }
+}
+
 /// The reference peaks of the span, `shift_seconds` away from the
 /// alignment, and those with a query peak within `tolerance` of their
 /// expected place: on the line, moved by their window's offset.
@@ -452,7 +515,7 @@ fn count(
 ) -> Count {
     let line = &aligned.line;
     let shift = profile.frames(shift_seconds);
-    let span = line.reference_at(line.first) + shift..=line.reference_at(line.last) + shift;
+    let span = aligned.passage(shift);
     let slice_frames = profile.frames(SLICE_SECONDS);
     let slices = ((line.last - line.first) / slice_frames).ceil().max(1.0) as usize;
     let windows = aligned.offsets.len();
@@ -489,12 +552,14 @@ fn count(
             f64::from(found) / f64::from(reference_peaks)
         },
         support: supported.iter().filter(|&&slice| slice).count() as f64 / slices as f64,
+        pairs: None,
     }
 }
 
 #[cfg(test)]
 mod tests {
     use gunfinger_core::confidence::Evidence;
+    use gunfinger_core::hash::pair_hash;
     use gunfinger_core::index::AssetId;
     use gunfinger_core::speed::SpeedRatio;
 
@@ -605,6 +670,43 @@ mod tests {
 
         assert_eq!(on_the_line.found, 15);
         assert_eq!(per_window.found, 25);
+    }
+
+    #[test]
+    fn query_pairs_in_the_span_are_placed_at_their_windows_offset() {
+        let profile = Profile::CURRENT;
+        let window = profile.frames(WINDOW_SECONDS);
+        let at = |frame: f64, bin: f32| Point { frame, bin };
+        // Query frames are the points' own frames (from frame 0, speed 1).
+        let analysed = Analysed {
+            points: vec![
+                at(5.0, 100.0), // anchors a pair before the span
+                at(10.0, 100.0),
+                at(15.0, 110.0),
+                at(window + 10.0, 100.0),
+                at(window + 15.0, 110.0),
+                at(window + 100.0, 100.0), // after the span
+            ],
+            from_frame: 0.0,
+            speed: 1.0,
+        };
+        let aligned = aligned(8.0, window + 50.0, 1000.0, vec![3.0, -4.0]);
+
+        let pairs = analysed.pairs(&aligned);
+
+        assert_eq!(
+            pairs,
+            [
+                Pair {
+                    hash: pair_hash(at(10.0, 100.0), at(15.0, 110.0)),
+                    frame: 1000.0 + 2.0 + 3.0,
+                },
+                Pair {
+                    hash: pair_hash(at(window + 10.0, 100.0), at(window + 15.0, 110.0)),
+                    frame: 1000.0 + window + 2.0 - 4.0,
+                },
+            ]
+        );
     }
 
     #[test]
