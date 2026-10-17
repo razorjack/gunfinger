@@ -716,6 +716,63 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   copy from before (`plutil -p` identical; XML digest `4c842708...`
   both). No `~/.panako`, `~/.gradle`, `~/.m2`.
 
+### The counts after seed 2026 (scored 03:10-05:00, `work/panako/score-*.json`)
+
+At the defaults; at S* = 13 every count of right answers below is the
+same unless marked, and every wrong answer goes. Gunfinger's columns
+from 0131.
+
+- **Sweeps 2027-2029** (`panako_compare.py sweep`), recalled per speed
+  -8 ... +8%:
+  2027: 29, 31, 36, 36, 45, 40, 32, 32, 28 (309 of 540; 252 of 420
+  within +-5%); 2028: 29, 27, 30, 39, 46, 42, 23, 33, 22 (291; 240);
+  2029: 34, 30, 40, 42, 51, 46, 29, 41, 28 (341; 279). Four seeds:
+  1,280 of 2,160 (59.3%), 1,053 of 1,680 within +-5% (62.7%); in
+  position 336, 308, 290, 341. Maximum speed error 0.22, 0.28, 0.32,
+  0.66 points. Right file, other position: 3, 1, 1 (2028: draw 012 at
+  -8%, Sinthetix's "Cryogenic", 136 s early, score 66), 0. Gunfinger:
+  540 of 540 on each seed, 0 wrong, so every query Panako answers
+  rightly Gunfinger answers too.
+- **Wrong answers**, 13 at the defaults (query: truth -> answer, score),
+  none a version of the query's recording by name: 2026 `018--8`
+  Phoenix -> Kemal "Mechanizm" (12); 2027 `066--8` (held out) The Nine
+  -> Decoder "Dead Fall" (7), `044--5` Dozer -> Aphrodite APH33 a1 (6),
+  `061-+5` (held out) Falcon "China Delight" -> Muffler "Bleak" (6);
+  2028 `075-+0` (held out) Aphrodite aph041 -> Ruffneck "Jawbreaker"
+  (7), `042-+3` Ecco & Sabotage "Hazy Shades" -> Jo_S "Separation" (7);
+  2029 `067--5` (held out) Kraken "Analogue Spikes" -> Clockwork
+  (Stakka remix) (8), `021--3`, `021--1`, `021-+1` Item.code
+  "Protection VIP" -> Muffler "Bleak" or Cause 4 Concern "Nightgasp"
+  (6), `044-+0` Logistics -> Usual Suspects "Killa Bees" (Konflict
+  remix) (6), `035-+5` Balderdash -> Sinthetix "Neurotoxin" (6),
+  `025-+8` Muffler "Bleak" -> Friction & Nu Balance "Movement" (Stakka &
+  Tee remix) (11). At S* = 13: 0 on every seed.
+- **Development mixes** (`monitor`, `panako_compare.py scan`): stakka
+  11/11, razorjack 7/7, nocny 8/9 (missed: 9, Bulletproof "Anthrax").
+  One wrong answer at the defaults: razorjack, Aphrodite "From the
+  East" (APH33 b1) at 12:07, score 6, during track 4 (NAS only); none
+  at S*. Gunfinger 11/11, 7/7, 9/9, 0 wrong. Boundaries (earliest
+  credited start minus the manifest's): stakka +46, -2, -18, -59, +14,
+  +11, -14, +3, +3, +145, +4 s for tracks 1-11; nocny +1, +96, +42,
+  +156, +51, +41, +51, +81 s for tracks 1, 3, 5, 10, 11, 13, 16, 18
+  (Gunfinger: stakka -68 to +0.1 s; nocny -26 to +16 s, track 10 +91 s).
+- **Generated mixes of seed 2026** (`panako_compare.py mixes`): 105 of
+  115 indexed plays (104 at S*: item.code "Kosmic" in mix 02 drops),
+  0 wrong; position error median 0.02 s, at most 44.2 s. Gunfinger 106,
+  0 wrong. Plays only Gunfinger finds (8): Splinter (03; one of its two
+  plays), Terratorial and Skektics (04), Mystery Machine (06), Mudslide
+  (one of two) and Kemal "Animation" (07), Fixation (08), Aphrodite
+  "Siren Bass" (11). Plays only Panako
+  finds (7), each a play Gunfinger reports as possible: item.code
+  "Kosmic" (02), Aphrodite "Fanfare" (03), Friction & Nu Balance
+  "Movement" (04), Silent Witness "Again and Again" (06), Gridlok "Soul
+  Sucker" (07), Bad Company "Pulse" (09), Dominion (10). Neither finds
+  SKC "Eclipse" (10) or the first of Horns 2000's two plays (06), both
+  possible for Gunfinger.
+- **Stakka without its references** (I-stakka-out, 244 files): no
+  detection at all, so 0 wrong at both; Gunfinger's leave-out run 0
+  wrong.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
