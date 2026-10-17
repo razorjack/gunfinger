@@ -1,0 +1,1560 @@
+{
+ "brief_plays": {
+  "report": "v-recall-brief.json",
+  "problems": [],
+  "searched": {
+   "15.0": 522,
+   "20.0": 522
+  },
+  "held_out_or_unobservable": {
+   "15.0": 180,
+   "20.0": 180
+  },
+  "rules": {
+   "3 windows": {
+    "recalled": {
+     "15.0": 228,
+     "20.0": 493
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       64
+      ],
+      "1": [
+       0,
+       39
+      ],
+      "2": [
+       0,
+       49
+      ],
+      "3": [
+       0,
+       44
+      ],
+      "4": [
+       0,
+       63
+      ],
+      "5": [
+       29,
+       53
+      ],
+      "6": [
+       48,
+       48
+      ],
+      "7": [
+       53,
+       54
+      ],
+      "8": [
+       53,
+       53
+      ],
+      "9": [
+       45,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       29,
+       46
+      ],
+      "1": [
+       42,
+       42
+      ],
+      "2": [
+       61,
+       61
+      ],
+      "3": [
+       47,
+       47
+      ],
+      "4": [
+       60,
+       60
+      ],
+      "5": [
+       49,
+       49
+      ],
+      "6": [
+       53,
+       53
+      ],
+      "7": [
+       67,
+       67
+      ],
+      "8": [
+       41,
+       41
+      ],
+      "9": [
+       44,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {}
+   },
+   "span 10 s": {
+    "recalled": {
+     "15.0": 519,
+     "20.0": 522
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       64,
+       64
+      ],
+      "1": [
+       39,
+       39
+      ],
+      "2": [
+       49,
+       49
+      ],
+      "3": [
+       44,
+       44
+      ],
+      "4": [
+       62,
+       63
+      ],
+      "5": [
+       53,
+       53
+      ],
+      "6": [
+       48,
+       48
+      ],
+      "7": [
+       53,
+       54
+      ],
+      "8": [
+       53,
+       53
+      ],
+      "9": [
+       54,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       46,
+       46
+      ],
+      "1": [
+       42,
+       42
+      ],
+      "2": [
+       61,
+       61
+      ],
+      "3": [
+       47,
+       47
+      ],
+      "4": [
+       60,
+       60
+      ],
+      "5": [
+       49,
+       49
+      ],
+      "6": [
+       53,
+       53
+      ],
+      "7": [
+       67,
+       67
+      ],
+      "8": [
+       41,
+       41
+      ],
+      "9": [
+       56,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right possible -> confident": 421
+    }
+   },
+   "span 15 s": {
+    "recalled": {
+     "15.0": 5,
+     "20.0": 522
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       64
+      ],
+      "1": [
+       1,
+       39
+      ],
+      "2": [
+       0,
+       49
+      ],
+      "3": [
+       0,
+       44
+      ],
+      "4": [
+       2,
+       63
+      ],
+      "5": [
+       0,
+       53
+      ],
+      "6": [
+       0,
+       48
+      ],
+      "7": [
+       0,
+       54
+      ],
+      "8": [
+       1,
+       53
+      ],
+      "9": [
+       1,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       46,
+       46
+      ],
+      "1": [
+       42,
+       42
+      ],
+      "2": [
+       61,
+       61
+      ],
+      "3": [
+       47,
+       47
+      ],
+      "4": [
+       60,
+       60
+      ],
+      "5": [
+       49,
+       49
+      ],
+      "6": [
+       53,
+       53
+      ],
+      "7": [
+       67,
+       67
+      ],
+      "8": [
+       41,
+       41
+      ],
+      "9": [
+       56,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 293,
+     "right possible -> confident": 48
+    }
+   },
+   "span 20 s": {
+    "recalled": {
+     "20.0": 9
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       64
+      ],
+      "1": [
+       0,
+       39
+      ],
+      "2": [
+       0,
+       49
+      ],
+      "3": [
+       0,
+       44
+      ],
+      "4": [
+       0,
+       63
+      ],
+      "5": [
+       0,
+       53
+      ],
+      "6": [
+       0,
+       48
+      ],
+      "7": [
+       0,
+       54
+      ],
+      "8": [
+       0,
+       53
+      ],
+      "9": [
+       0,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       0,
+       46
+      ],
+      "1": [
+       1,
+       42
+      ],
+      "2": [
+       1,
+       61
+      ],
+      "3": [
+       1,
+       47
+      ],
+      "4": [
+       1,
+       60
+      ],
+      "5": [
+       1,
+       49
+      ],
+      "6": [
+       1,
+       53
+      ],
+      "7": [
+       1,
+       67
+      ],
+      "8": [
+       2,
+       41
+      ],
+      "9": [
+       0,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 1018
+    }
+   },
+   "supported 10 s": {
+    "recalled": {
+     "15.0": 519,
+     "20.0": 522
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       64,
+       64
+      ],
+      "1": [
+       39,
+       39
+      ],
+      "2": [
+       49,
+       49
+      ],
+      "3": [
+       44,
+       44
+      ],
+      "4": [
+       62,
+       63
+      ],
+      "5": [
+       53,
+       53
+      ],
+      "6": [
+       48,
+       48
+      ],
+      "7": [
+       53,
+       54
+      ],
+      "8": [
+       53,
+       53
+      ],
+      "9": [
+       54,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       46,
+       46
+      ],
+      "1": [
+       42,
+       42
+      ],
+      "2": [
+       61,
+       61
+      ],
+      "3": [
+       47,
+       47
+      ],
+      "4": [
+       60,
+       60
+      ],
+      "5": [
+       49,
+       49
+      ],
+      "6": [
+       53,
+       53
+      ],
+      "7": [
+       67,
+       67
+      ],
+      "8": [
+       41,
+       41
+      ],
+      "9": [
+       56,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right possible -> confident": 421
+    }
+   },
+   "supported 15 s": {
+    "recalled": {
+     "15.0": 504,
+     "20.0": 522
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       63,
+       64
+      ],
+      "1": [
+       39,
+       39
+      ],
+      "2": [
+       47,
+       49
+      ],
+      "3": [
+       42,
+       44
+      ],
+      "4": [
+       62,
+       63
+      ],
+      "5": [
+       51,
+       53
+      ],
+      "6": [
+       45,
+       48
+      ],
+      "7": [
+       53,
+       54
+      ],
+      "8": [
+       50,
+       53
+      ],
+      "9": [
+       52,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       46,
+       46
+      ],
+      "1": [
+       42,
+       42
+      ],
+      "2": [
+       61,
+       61
+      ],
+      "3": [
+       47,
+       47
+      ],
+      "4": [
+       60,
+       60
+      ],
+      "5": [
+       49,
+       49
+      ],
+      "6": [
+       53,
+       53
+      ],
+      "7": [
+       67,
+       67
+      ],
+      "8": [
+       41,
+       41
+      ],
+      "9": [
+       56,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 15,
+     "right possible -> confident": 405
+    }
+   },
+   "supported 20 s": {
+    "recalled": {
+     "20.0": 499
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       64
+      ],
+      "1": [
+       0,
+       39
+      ],
+      "2": [
+       0,
+       49
+      ],
+      "3": [
+       0,
+       44
+      ],
+      "4": [
+       0,
+       63
+      ],
+      "5": [
+       0,
+       53
+      ],
+      "6": [
+       0,
+       48
+      ],
+      "7": [
+       0,
+       54
+      ],
+      "8": [
+       0,
+       53
+      ],
+      "9": [
+       0,
+       55
+      ]
+     },
+     "20.0": {
+      "0": [
+       44,
+       46
+      ],
+      "1": [
+       40,
+       42
+      ],
+      "2": [
+       60,
+       61
+      ],
+      "3": [
+       44,
+       47
+      ],
+      "4": [
+       59,
+       60
+      ],
+      "5": [
+       47,
+       49
+      ],
+      "6": [
+       51,
+       53
+      ],
+      "7": [
+       62,
+       67
+      ],
+      "8": [
+       39,
+       41
+      ],
+      "9": [
+       53,
+       56
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 343,
+     "right possible -> confident": 39
+    }
+   }
+  }
+ },
+ "other_rips_brief_plays": {
+  "report": "v-recall-other-rips-brief.json",
+  "problems": [],
+  "searched": {
+   "15.0": 180,
+   "20.0": 180
+  },
+  "held_out_or_unobservable": {
+   "15.0": 522,
+   "20.0": 522
+  },
+  "rules": {
+   "3 windows": {
+    "recalled": {
+     "15.0": 37,
+     "20.0": 141
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       20
+      ],
+      "1": [
+       0,
+       11
+      ],
+      "2": [
+       0,
+       16
+      ],
+      "3": [
+       0,
+       19
+      ],
+      "4": [
+       0,
+       24
+      ],
+      "5": [
+       2,
+       16
+      ],
+      "6": [
+       10,
+       18
+      ],
+      "7": [
+       7,
+       17
+      ],
+      "8": [
+       12,
+       23
+      ],
+      "9": [
+       6,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       5,
+       15
+      ],
+      "1": [
+       6,
+       8
+      ],
+      "2": [
+       23,
+       25
+      ],
+      "3": [
+       10,
+       13
+      ],
+      "4": [
+       22,
+       24
+      ],
+      "5": [
+       10,
+       15
+      ],
+      "6": [
+       17,
+       23
+      ],
+      "7": [
+       22,
+       25
+      ],
+      "8": [
+       13,
+       14
+      ],
+      "9": [
+       13,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {}
+   },
+   "span 10 s": {
+    "recalled": {
+     "15.0": 86,
+     "20.0": 149
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       9,
+       20
+      ],
+      "1": [
+       5,
+       11
+      ],
+      "2": [
+       8,
+       16
+      ],
+      "3": [
+       10,
+       19
+      ],
+      "4": [
+       11,
+       24
+      ],
+      "5": [
+       6,
+       16
+      ],
+      "6": [
+       10,
+       18
+      ],
+      "7": [
+       7,
+       17
+      ],
+      "8": [
+       12,
+       23
+      ],
+      "9": [
+       8,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       12,
+       15
+      ],
+      "1": [
+       6,
+       8
+      ],
+      "2": [
+       23,
+       25
+      ],
+      "3": [
+       10,
+       13
+      ],
+      "4": [
+       22,
+       24
+      ],
+      "5": [
+       10,
+       15
+      ],
+      "6": [
+       17,
+       23
+      ],
+      "7": [
+       22,
+       25
+      ],
+      "8": [
+       13,
+       14
+      ],
+      "9": [
+       14,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right possible -> confident": 75
+    }
+   },
+   "span 15 s": {
+    "recalled": {
+     "15.0": 3,
+     "20.0": 149
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       20
+      ],
+      "1": [
+       0,
+       11
+      ],
+      "2": [
+       0,
+       16
+      ],
+      "3": [
+       0,
+       19
+      ],
+      "4": [
+       2,
+       24
+      ],
+      "5": [
+       0,
+       16
+      ],
+      "6": [
+       0,
+       18
+      ],
+      "7": [
+       0,
+       17
+      ],
+      "8": [
+       1,
+       23
+      ],
+      "9": [
+       0,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       12,
+       15
+      ],
+      "1": [
+       6,
+       8
+      ],
+      "2": [
+       23,
+       25
+      ],
+      "3": [
+       10,
+       13
+      ],
+      "4": [
+       22,
+       24
+      ],
+      "5": [
+       10,
+       15
+      ],
+      "6": [
+       17,
+       23
+      ],
+      "7": [
+       22,
+       25
+      ],
+      "8": [
+       13,
+       14
+      ],
+      "9": [
+       14,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 44,
+     "right possible -> confident": 15
+    }
+   },
+   "span 20 s": {
+    "recalled": {
+     "20.0": 3
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       20
+      ],
+      "1": [
+       0,
+       11
+      ],
+      "2": [
+       0,
+       16
+      ],
+      "3": [
+       0,
+       19
+      ],
+      "4": [
+       0,
+       24
+      ],
+      "5": [
+       0,
+       16
+      ],
+      "6": [
+       0,
+       18
+      ],
+      "7": [
+       0,
+       17
+      ],
+      "8": [
+       0,
+       23
+      ],
+      "9": [
+       0,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       0,
+       15
+      ],
+      "1": [
+       0,
+       8
+      ],
+      "2": [
+       0,
+       25
+      ],
+      "3": [
+       0,
+       13
+      ],
+      "4": [
+       0,
+       24
+      ],
+      "5": [
+       0,
+       15
+      ],
+      "6": [
+       1,
+       23
+      ],
+      "7": [
+       0,
+       25
+      ],
+      "8": [
+       2,
+       14
+      ],
+      "9": [
+       0,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 239
+    }
+   },
+   "supported 10 s": {
+    "recalled": {
+     "15.0": 86,
+     "20.0": 149
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       9,
+       20
+      ],
+      "1": [
+       5,
+       11
+      ],
+      "2": [
+       8,
+       16
+      ],
+      "3": [
+       10,
+       19
+      ],
+      "4": [
+       11,
+       24
+      ],
+      "5": [
+       6,
+       16
+      ],
+      "6": [
+       10,
+       18
+      ],
+      "7": [
+       7,
+       17
+      ],
+      "8": [
+       12,
+       23
+      ],
+      "9": [
+       8,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       12,
+       15
+      ],
+      "1": [
+       6,
+       8
+      ],
+      "2": [
+       23,
+       25
+      ],
+      "3": [
+       10,
+       13
+      ],
+      "4": [
+       22,
+       24
+      ],
+      "5": [
+       10,
+       15
+      ],
+      "6": [
+       17,
+       23
+      ],
+      "7": [
+       22,
+       25
+      ],
+      "8": [
+       13,
+       14
+      ],
+      "9": [
+       14,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right possible -> confident": 75
+    }
+   },
+   "supported 15 s": {
+    "recalled": {
+     "15.0": 79,
+     "20.0": 149
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       8,
+       20
+      ],
+      "1": [
+       5,
+       11
+      ],
+      "2": [
+       7,
+       16
+      ],
+      "3": [
+       8,
+       19
+      ],
+      "4": [
+       11,
+       24
+      ],
+      "5": [
+       6,
+       16
+      ],
+      "6": [
+       9,
+       18
+      ],
+      "7": [
+       7,
+       17
+      ],
+      "8": [
+       11,
+       23
+      ],
+      "9": [
+       7,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       12,
+       15
+      ],
+      "1": [
+       6,
+       8
+      ],
+      "2": [
+       23,
+       25
+      ],
+      "3": [
+       10,
+       13
+      ],
+      "4": [
+       22,
+       24
+      ],
+      "5": [
+       10,
+       15
+      ],
+      "6": [
+       17,
+       23
+      ],
+      "7": [
+       22,
+       25
+      ],
+      "8": [
+       13,
+       14
+      ],
+      "9": [
+       14,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 4,
+     "right possible -> confident": 69
+    }
+   },
+   "supported 20 s": {
+    "recalled": {
+     "20.0": 134
+    },
+    "recalled_by_position": {
+     "15.0": {
+      "0": [
+       0,
+       20
+      ],
+      "1": [
+       0,
+       11
+      ],
+      "2": [
+       0,
+       16
+      ],
+      "3": [
+       0,
+       19
+      ],
+      "4": [
+       0,
+       24
+      ],
+      "5": [
+       0,
+       16
+      ],
+      "6": [
+       0,
+       18
+      ],
+      "7": [
+       0,
+       17
+      ],
+      "8": [
+       0,
+       23
+      ],
+      "9": [
+       0,
+       16
+      ]
+     },
+     "20.0": {
+      "0": [
+       9,
+       15
+      ],
+      "1": [
+       5,
+       8
+      ],
+      "2": [
+       23,
+       25
+      ],
+      "3": [
+       10,
+       13
+      ],
+      "4": [
+       20,
+       24
+      ],
+      "5": [
+       8,
+       15
+      ],
+      "6": [
+       17,
+       23
+      ],
+      "7": [
+       18,
+       25
+      ],
+      "8": [
+       11,
+       14
+      ],
+      "9": [
+       13,
+       18
+      ]
+     }
+    },
+    "wrong_confident": [],
+    "wrong_possible_only": 112,
+    "held_out_or_unobservable_confident": [],
+    "level_changes": {
+     "right confident -> possible": 66,
+     "right possible -> confident": 9
+    }
+   }
+  }
+ },
+ "panako_only_plays": {
+  "report": "mixes-seed-2026.json",
+  "problems": [],
+  "plays": [
+   {
+    "mix": "mix-02",
+    "file": "08-item.code-kosmic-whoa.mp3",
+    "play_seconds": 22.1,
+    "best": {
+     "asset": "08-item.code-kosmic-whoa.mp3",
+     "hits": 431,
+     "windows": 2,
+     "start": 193.91,
+     "span": 15.31,
+     "supported": 16
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "confident",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "confident",
+     "supported 20 s": "possible"
+    }
+   },
+   {
+    "mix": "mix-03",
+    "file": "a-aphrodite-fanfare-sour.mp3",
+    "play_seconds": 23.0,
+    "best": {
+     "asset": "a-aphrodite-fanfare-sour.mp3",
+     "hits": 336,
+     "windows": 2,
+     "start": 86.76,
+     "span": 13.15,
+     "supported": 14
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "possible",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "possible",
+     "supported 20 s": "possible"
+    }
+   },
+   {
+    "mix": "mix-04",
+    "file": "d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+    "play_seconds": 26.4,
+    "best": {
+     "asset": "d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     "hits": 419,
+     "windows": 2,
+     "start": 291.91,
+     "span": 17.1,
+     "supported": 18
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "confident",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "confident",
+     "supported 20 s": "possible"
+    }
+   },
+   {
+    "mix": "mix-06",
+    "file": "b-silent_witness_and_break-again_and_again-sour.mp3",
+    "play_seconds": 20.1,
+    "best": {
+     "asset": "b-silent_witness_and_break-again_and_again-sour.mp3",
+     "hits": 490,
+     "windows": 2,
+     "start": 225.59,
+     "span": 14.4,
+     "supported": 15
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "possible",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "confident",
+     "supported 20 s": "possible"
+    }
+   },
+   {
+    "mix": "mix-07",
+    "file": "b-gridlok-soul_sucker-sour.mp3",
+    "play_seconds": 26.1,
+    "best": {
+     "asset": "b-gridlok-soul_sucker-sour.mp3",
+     "hits": 587,
+     "windows": 2,
+     "start": 0.03,
+     "span": 19.57,
+     "supported": 20
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "confident",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "confident",
+     "supported 20 s": "confident"
+    }
+   },
+   {
+    "mix": "mix-09",
+    "file": "a-bad_company-pulse.mp3",
+    "play_seconds": 21.0,
+    "best": {
+     "asset": "a-bad_company-pulse.mp3",
+     "hits": 424,
+     "windows": 2,
+     "start": 140.39,
+     "span": 17.42,
+     "supported": 18
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "confident",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "confident",
+     "supported 20 s": "possible"
+    }
+   },
+   {
+    "mix": "mix-10",
+    "file": "Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "play_seconds": 21.5,
+    "best": {
+     "asset": "Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+     "hits": 525,
+     "windows": 2,
+     "start": 382.94,
+     "span": 15.05,
+     "supported": 16
+    },
+    "levels": {
+     "3 windows": "possible",
+     "span 10 s": "confident",
+     "span 15 s": "confident",
+     "span 20 s": "possible",
+     "supported 10 s": "confident",
+     "supported 15 s": "confident",
+     "supported 20 s": "possible"
+    }
+   }
+  ]
+ }
+}

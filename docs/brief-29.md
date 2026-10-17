@@ -232,6 +232,16 @@ window period.
 - **(07:13) Step 5 on master**: `7d7c6e4` cherry-picked as `12d3243`; the
   17 `seconds` tests pass on master.
 
+- **(07:25) Experiment numbers swapped.** The recall runs finished first
+  (07:22), so their experiment is 0147 and the shared panels' is 0148
+  (the plan's table above says the reverse). The shared runs started from
+  the queue at 07:22:07, a second after the recall runs; both were
+  pre-registered together in 0146, and 0147 was written before any
+  shared count existed.
+- **(07:30) Step 4 counted** (0147): no rule makes a wrong or held-out
+  answer confident; A(10) and B(10) 519 of 522 15 s plays (today 228),
+  every 20 s play; all 7 of Panako's plays under A(10) and B(10).
+
 ## Step 3: pre-registration (written at 06:20-06:35, committed before any count)
 
 Everything below is fixed before any silence-led query of this session

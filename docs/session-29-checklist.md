@@ -29,10 +29,10 @@ for scope and rules.
   any count
 - [~] 3b. The runs on both shared panels' development halves, every
   brief passage at every declared offset (`screen`, exit lines checked)
-- [ ] 3c. Counts; experiment 0147; committed
-- [~] 4. Recall (b) and (a)+(b) under every rule, today's levels
-  reproduced first; 0150's 7 Panako-only plays offline; experiment
-  0148; committed
+- [ ] 3c. Counts; experiment 0148; committed
+- [x] 4. Recall (b) and (a)+(b) under every rule, today's detections
+  reproduced first (0 differences); 0150's 7 Panako-only plays offline;
+  experiment 0147
 - [x] 5. `seconds`'s unit-test gaps (manifest truth, generated-mix truth,
   margins beside an unindexed track): six tests, no bug (`12d3243`)
 
