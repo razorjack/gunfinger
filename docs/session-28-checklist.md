@@ -32,7 +32,10 @@ for scope and rules.
 - [x] 4c. The runs at NAS scale under `screen`; experiment files;
   committed (single conditions 0144, combinations 0145, all four pairs
   run; 03:57-05:11)
-- [ ] 5. Session 24b's merge when ready (check from about 08:30; by 10:00)
+- [x] 5. Session 24b's merge when ready: ready at 05:40 (the
+  orchestrating thread's note; checked: tree clean at `bad25f9`, wrap-up
+  commits, no Panako process); diff since the last merge only docs;
+  merged at `31ba92a` (one conflict in the roadmap, resolved as noted)
 
 ## Wrap-up
 
