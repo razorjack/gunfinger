@@ -34,6 +34,7 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use gunfinger_core::confidence::Pass;
 use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
@@ -143,6 +144,8 @@ pub struct SharedFound {
     pub windows: u32,
     pub hits: u32,
     pub level: String,
+    /// Counted by the second pass (`Pass::Fitted`).
+    pub fitted: bool,
     pub verified: Option<Verification>,
 }
 
@@ -299,6 +302,7 @@ pub fn run(
                                     hits: detection.evidence.hits,
                                     level: format!("{:?}", detection.evidence.confidence())
                                         .to_lowercase(),
+                                    fitted: detection.evidence.pass == Pass::Fitted,
                                     verified: verifier.verify(
                                         &index,
                                         detection,
