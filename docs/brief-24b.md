@@ -687,6 +687,35 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   then razorjack and nocny if it completes. These whole-file queries
   decide nothing.
 
+### 05:03-05:08: the whole-file queries under amendment A11; the cleanup
+
+- `run.sh dev-query-2g` (`-Xmx2g -XX:+ExitOnOutOfMemoryError`, Panako
+  unchanged), one at a time, each under a 30-minute limit, load 40-83.
+  Stakka first (05:03:36): decoded in 19 s, then fingerprinted on one
+  core; no exception, exit 0. Then razorjack and nocny. Each prints one
+  line, "null" (no match); scored with `panako_compare.py scan`
+  (`work/panako/score-query-2g-*.json`): 0 identified, 0 wrong.
+
+  | Mix | Prints | Hash matches | Wall | User | Maximum resident |
+  |---|--:|--:|--:|--:|--:|
+  | stakka | 109,140 | 81,105 | 70.8 s | 70.3 s | 2.20 GB |
+  | razorjack | 86,474 | 61,957 | 57.3 s | 56.5 s | 1.84 GB |
+  | nocny | 172,327 | 119,229 | 85.3 s | 88.5 s | 2.25 GB |
+
+  So with `query`, a whole mix gets no answer; `monitor` (10 s windows)
+  is the mode that finds tracks. Why no candidate passes the acceptance
+  on a whole mix was not looked into.
+- **Cleanup.** No Panako process left (`pgrep`), no JGaborator folder in
+  `$TMPDIR`. The runs had added the empty `be/panako/util` node again
+  (in `com.apple.java.util.prefs.plist` and `be.panako.util.plist`,
+  both written at 01:29, the smoke test). Removed by a single-file Java
+  program (`work/panako/cleanup/RemovePanakoNode.java`, Temurin 11's
+  `java`, after checking the three nodes held nothing else; no `jshell`
+  this time, so no `tool/JShell` node); then `be.panako.util.plist`, an
+  empty dictionary by then, deleted. The prefs plist's content equals the
+  copy from before (`plutil -p` identical; XML digest `4c842708...`
+  both). No `~/.panako`, `~/.gradle`, `~/.m2`.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
