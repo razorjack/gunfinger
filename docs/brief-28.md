@@ -362,3 +362,29 @@ detail.
 6. Any wrong possible detection of 200 hits or more (a small margin
    below the confident tier).
 
+## Decisions, continued (after the pre-registration, by time)
+
+- **(03:55) Other rips only, made precise before any count.** As `sweep
+  --other-rips` does, the index leaves out each indexed source's record
+  and the files of its cluster whose peak records are identical to it
+  (the same audio filed again), so that only other rips can answer; a
+  query is observable when its cluster keeps a file in that index.
+  The pre-registration said "the own record"; identical copies are the
+  same rip, so leaving them in would let the source answer for itself.
+  The harness reports how many records this leaves out.
+- **(04:05) The harness** (`recall`, committed before the runs):
+  `--other-rips-only` and `--queries clean,damaged,brief,brief-damaged`,
+  searched in that order against one index, each report written as it
+  finishes (`recall-seed-2026[-other-rips][-damaged][-brief].json` in
+  `work/reports/library-nas-dnb-peaks/`). Damaged excerpts are rendered
+  by `robust::render_combined`, `robust`'s `combined` recipe moved into
+  one function that `robust` also calls: a `robust --only combined` run
+  of the refactored build in a scratch work directory rendered all 100
+  combined and 100 control queries byte-identical to the cached ones and
+  gave the same rows (combined 2 + 2 of 80 confident, 32 + 33 possible).
+  Damaged renders go to `work/recall/seed-2026-damaged/`. `Outcome`
+  gains a `partner` flag (never set by the sweep, so its reports do not
+  change); a partner's detection is neither right nor wrong. 7 new unit
+  tests (report names, partners, brief plays and their samples, the
+  other-rips selection, scoring of unobservable queries and partners).
+

@@ -55,8 +55,9 @@ const PARTNER_RANGE: f64 = 0.1;
 const METRICAL_FACTORS: [f64; 7] = [1.0, 2.0, 0.5, 1.5, 2.0 / 3.0, 4.0 / 3.0, 0.75];
 /// Combined damage: wow at 33 rpm, a beatmatched partner this far below,
 /// broadcast processing and a low-bitrate stream.
+const COMBINED_WOW_HZ: f64 = 0.55;
 const COMBINED_PARTNER_DB: i32 = -6;
-const COMBINED_ENCODING: Encoding = Encoding::Aac(64);
+pub const COMBINED_ENCODING: Encoding = Encoding::Aac(64);
 /// Speech replaces the music for this span in `Insert`, and is laid over it
 /// in `VoiceOver`.
 const INSERT_SPAN: (f64, f64) = (11.0, 19.0);
@@ -225,14 +226,6 @@ impl Condition {
             }
             Condition::Echo => Some("aecho=0.8:0.6:120|250:0.4|0.25"),
             Condition::Broadcast => Some(BROADCAST),
-            _ => None,
-        }
-    }
-
-    /// Applied to the finished query, after any blend.
-    fn final_filter(self) -> Option<&'static str> {
-        match self {
-            Condition::Combined => Some(BROADCAST),
             _ => None,
         }
     }
@@ -524,6 +517,24 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
     let source = library.root.join(&job.draw.asset);
     let start = job.draw.start_seconds;
     let condition = job.condition;
+    if let Some(dir) = job.path.parent() {
+        fs::create_dir_all(dir).map_err(|error| error.to_string())?;
+    }
+    let partner = (
+        library.root.join(&job.partner.asset),
+        job.partner.start_seconds,
+    );
+    let label = format!("{} {:03}", condition.name(), job.number);
+    if condition == Condition::Combined {
+        return render_combined(
+            &source,
+            start,
+            job.speed,
+            (&partner.0, partner.1),
+            &label,
+            &job.path,
+        );
+    }
     let samples = match condition {
         Condition::Ramp => {
             let needed = EXCERPT_SECONDS * (job.speed + RAMP / 2.0) + 1.0;
@@ -531,7 +542,6 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
             ramp(&native, job.speed, job.speed + RAMP)
         }
         Condition::Wow(hz) => wow(&source, start, job.speed, hz)?,
-        Condition::Combined => wow(&source, start, job.speed, 0.55)?,
         Condition::Skip => {
             let longer = render_samples(
                 &source,
@@ -557,8 +567,8 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
         }
         Condition::Blend { partner_db } => {
             let partner = render_samples(
-                &library.root.join(&job.partner.asset),
-                job.partner.start_seconds,
+                &partner.0,
+                partner.1,
                 EXCERPT_SECONDS,
                 Playback::Turntable(job.speed),
                 None,
@@ -566,26 +576,40 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
             mixed(&samples, &partner, f64::from(partner_db))
         }
         Condition::Beatmatched { partner_db } => {
-            let partner = beatmatched_partner(&samples, job, library)?;
+            let partner =
+                beatmatched_partner(&samples, (&partner.0, partner.1), job.speed, &label)?;
             mixed(&samples, &partner, f64::from(partner_db))
-        }
-        Condition::Combined => {
-            let partner = beatmatched_partner(&samples, job, library)?;
-            mixed(&samples, &partner, f64::from(COMBINED_PARTNER_DB))
         }
         Condition::VoiceOver => laid_over(&samples, speech, VOICE_OVER_SPAN),
         Condition::Insert => replaced(&samples, speech, INSERT_SPAN),
         Condition::Clipping => clipped(&samples),
         _ => samples,
     };
-    if let Some(dir) = job.path.parent() {
-        fs::create_dir_all(dir).map_err(|error| error.to_string())?;
-    }
+    encode(&limited(samples), None, condition.encoding(), &job.path)
+}
+
+/// The combined damage, also for other commands' excerpts (`recall`):
+/// `source` from `start` played at `speed` with wow at 33 rpm, a partner
+/// (a file and a start) beatmatched under it at `COMBINED_PARTNER_DB`, then
+/// broadcast processing over both and a low-bitrate stream, written to
+/// `output`. `label` names the query in the message when the partner
+/// cannot be beatmatched.
+pub fn render_combined(
+    source: &Path,
+    start: f64,
+    speed: f64,
+    partner: (&Path, f64),
+    label: &str,
+    output: &Path,
+) -> Result<(), String> {
+    let samples = wow(source, start, speed, COMBINED_WOW_HZ)?;
+    let partner = beatmatched_partner(&samples, partner, speed, label)?;
+    let samples = mixed(&samples, &partner, f64::from(COMBINED_PARTNER_DB));
     encode(
         &limited(samples),
-        condition.final_filter(),
-        condition.encoding(),
-        &job.path,
+        Some(BROADCAST),
+        COMBINED_ENCODING,
+        output,
     )
 }
 
@@ -601,17 +625,21 @@ fn wow(source: &Path, start: f64, speed: f64, hz: f64) -> Result<Vec<f32>, Strin
     }))
 }
 
-/// The partner track at the excerpt's tempo, its beats on the excerpt's,
-/// as a DJ beatmatches the next record. Tempos come from onset envelopes.
-/// When a tempo cannot be found, or matching would take the partner more
-/// than `PARTNER_RANGE` from its native speed, it plays at the excerpt's
-/// speed unmatched, as in `Blend`; stderr says so.
-fn beatmatched_partner(samples: &[f32], job: &Job, library: &Library) -> Result<Vec<f32>, String> {
-    let source = library.root.join(&job.partner.asset);
-    let start = job.partner.start_seconds;
+/// The partner track (a file and a start) at the excerpt's tempo, its
+/// beats on the excerpt's, as a DJ beatmatches the next record. Tempos
+/// come from onset envelopes. When a tempo cannot be found, or matching
+/// would take the partner more than `PARTNER_RANGE` from its native speed,
+/// it plays at the excerpt's `speed` unmatched, as in `Blend`; stderr says
+/// so, naming the query by `label`.
+fn beatmatched_partner(
+    samples: &[f32],
+    (source, start): (&Path, f64),
+    speed: f64,
+    label: &str,
+) -> Result<Vec<f32>, String> {
     let render =
-        |seconds, speed| render_samples(&source, start, seconds, Playback::Turntable(speed), None);
-    let plain = render(EXCERPT_SECONDS, job.speed)?;
+        |seconds, speed| render_samples(source, start, seconds, Playback::Turntable(speed), None);
+    let plain = render(EXCERPT_SECONDS, speed)?;
     let ours = onset_envelope(samples, RENDER_RATE);
     let periods = beat_period(&ours).zip(beat_period(&onset_envelope(&plain, RENDER_RATE)));
     // A period found at a half, two thirds or three quarters of the beat
@@ -619,7 +647,7 @@ fn beatmatched_partner(samples: &[f32], job: &Job, library: &Library) -> Result<
     let partner_speed = periods.and_then(|(ours, theirs)| {
         METRICAL_FACTORS
             .iter()
-            .map(|factor| job.speed * theirs / ours * factor)
+            .map(|factor| speed * theirs / ours * factor)
             .filter(|speed| (speed - 1.0).abs() <= PARTNER_RANGE)
             .min_by(|a, b| (a - 1.0).abs().total_cmp(&(b - 1.0).abs()))
     });
@@ -628,11 +656,7 @@ fn beatmatched_partner(samples: &[f32], job: &Job, library: &Library) -> Result<
             || String::from("no tempo found"),
             |(ours, theirs)| format!("{:.1} and {:.1} bpm", 60.0 / ours, 60.0 / theirs),
         );
-        eprintln!(
-            "{} {:03}: partner not beatmatched ({tempos})",
-            job.condition.name(),
-            job.number
-        );
+        eprintln!("{label}: partner not beatmatched ({tempos})");
         return Ok(plain);
     };
     let longer = render(EXCERPT_SECONDS + period + 0.5, partner_speed)?;

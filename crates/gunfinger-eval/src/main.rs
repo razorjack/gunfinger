@@ -47,8 +47,8 @@ use std::process::ExitCode;
 
 use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::indexing::load_records;
-use gunfinger_core::library::Library;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
+use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
 use gunfinger_core::store::PeakStore;
@@ -321,6 +321,18 @@ enum Command {
         /// Draw the panel and render the excerpts, without searching.
         #[arg(long)]
         prepare: bool,
+        /// Leave each indexed source's record and its identical copies out
+        /// of the index, so that only its recording's other rips can
+        /// answer; a source without one is unobservable, scored like a
+        /// held-out source (`-other-rips` in the report's name).
+        #[arg(long)]
+        other_rips_only: bool,
+        /// The query sets, searched in this order against one index, each
+        /// written as it finishes: the excerpts as rendered (`clean`),
+        /// under `robust`'s combined damage (`damaged`), or their first
+        /// 15 and 20 s between held-out audio (`brief`, `brief-damaged`).
+        #[arg(long, value_enum, value_delimiter = ',', default_value = "clean")]
+        queries: Vec<recall::QuerySet>,
     },
     /// Run the seeded speed sweep.
     Sweep {
@@ -741,7 +753,12 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             Ok(())
         }
         Command::Sweep { seed, other_rips } => run_sweep(paths, seed, other_rips, jobs),
-        Command::Recall { seed, prepare } => run_recall(paths, seed, prepare, jobs),
+        Command::Recall {
+            seed,
+            prepare,
+            other_rips_only,
+            queries,
+        } => run_recall(paths, seed, prepare, other_rips_only, &queries, jobs),
         Command::Scan {
             set,
             leave_out,
@@ -1106,7 +1123,7 @@ impl ExtraQueries {
             );
         }
         if let Some(seed) = self.recall_panel {
-            let panel = recall_panel(paths, other, seed)?;
+            let (panel, _) = recall_panel(paths, other, seed)?;
             files.extend(panel.searched_sources().map(|source| source.asset.clone()));
         }
         Ok(files)
@@ -1629,11 +1646,18 @@ fn second_library_root(other: Option<&PeakStore>) -> Result<Option<PathBuf>, Str
     Ok(Some(PathBuf::from(root)))
 }
 
-fn run_recall(paths: &Paths, seed: u64, prepare: bool, jobs: usize) -> Result<(), String> {
+fn run_recall(
+    paths: &Paths,
+    seed: u64,
+    prepare: bool,
+    other_rips_only: bool,
+    sets: &[recall::QuerySet],
+    jobs: usize,
+) -> Result<(), String> {
     let Some(other) = paths.other_store()? else {
         return Err(String::from("recall needs --other-peaks-dir"));
     };
-    let panel = recall_panel(paths, &other, seed)?;
+    let (panel, assets) = recall_panel(paths, &other, seed)?;
     let root = other
         .library()
         .map_err(|error| error.to_string())?
@@ -1643,42 +1667,78 @@ fn run_recall(paths: &Paths, seed: u64, prepare: bool, jobs: usize) -> Result<()
                 other.dir().display()
             )
         })?;
-    let dir = paths.work.join("recall").join(format!("seed-{seed}"));
-    let rendered = recall::render(&panel, Path::new(&root), &dir, jobs)?;
+    let root = Path::new(&root);
+    let dir = paths.work.join("recall");
+    let clean = recall::render(&panel, root, &dir.join(format!("seed-{seed}")), jobs)?;
+    let damaged = if sets.iter().any(|set| set.damaged()) {
+        recall::render_damaged(
+            &panel,
+            root,
+            &dir.join(format!("seed-{seed}-damaged")),
+            jobs,
+        )?
+    } else {
+        Vec::new()
+    };
     println!(
-        "recall panel seed {seed}: {} development sources, {} excerpts in {}",
+        "recall panel seed {seed}: {} development sources, {} excerpts, {} damaged, in {}",
         panel.development.sources.len(),
-        rendered.len(),
+        clean.len(),
+        damaged.len(),
         dir.display()
     );
     if prepare {
         return Ok(());
     }
-    let report = recall::run(
+    let clusters = paths.clusters()?;
+    let left_out = if other_rips_only {
+        recall::own_records(&panel, &clusters, &other, &assets)
+    } else {
+        BTreeSet::new()
+    };
+    let sets: Vec<(recall::QuerySet, &[recall::Rendered])> = sets
+        .iter()
+        .map(|&set| {
+            (
+                set,
+                if set.damaged() {
+                    &damaged[..]
+                } else {
+                    &clean[..]
+                },
+            )
+        })
+        .collect();
+    recall::run(
         &paths.library()?,
         &paths.store()?,
-        &paths.clusters()?,
-        &rendered,
+        &clusters,
+        &sets,
         &recall::Options {
             seed,
             padding: &paths.padding(&UNCHANGED_INDEX)?,
             ladder: &paths.rungs(),
             matching: &paths.matching,
+            left_out: &left_out,
             jobs,
         },
-    )?;
-    write_json(
-        &paths.reports().join(format!("recall-seed-{seed}.json")),
-        &report,
-    )?;
-    recall::print_summary(&report);
-    Ok(())
+        |report| {
+            let name = report.query_set.report_name(seed, other_rips_only);
+            write_json(&paths.reports().join(name), &report)?;
+            recall::print_summary(&report);
+            Ok(())
+        },
+    )
 }
 
 /// The recall panel of `seed`, drawn the first time from the other
 /// library's records outside the clusters in use and the copies of corpus
 /// files.
-fn recall_panel(paths: &Paths, other: &PeakStore, seed: u64) -> Result<recall::Panel, String> {
+fn recall_panel(
+    paths: &Paths,
+    other: &PeakStore,
+    seed: u64,
+) -> Result<(recall::Panel, Vec<Asset>), String> {
     let Some(map_file) = paths.map_file() else {
         return Err(String::from("the recall panel needs --other-peaks-dir"));
     };
@@ -1696,7 +1756,8 @@ fn recall_panel(paths: &Paths, other: &PeakStore, seed: u64) -> Result<recall::P
     for problem in &problems {
         eprintln!("left out: {problem}");
     }
-    recall::Panel::for_seed(other, &assets, &corpus_recordings, seed, &paths.panels)
+    let panel = recall::Panel::for_seed(other, &assets, &corpus_recordings, seed, &paths.panels)?;
+    Ok((panel, assets))
 }
 
 fn run_scan(

@@ -79,6 +79,11 @@ pub struct Outcome {
     /// Counted by the second pass (`Pass::Fitted`).
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub fitted: bool,
+    /// Whether the asset is in the cluster of a track played beneath the
+    /// excerpt (`recall`'s damaged queries), which is neither right nor
+    /// wrong.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub partner: bool,
     /// The peak verifier's measures, with `--verify`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub verified: Option<Verification>,
@@ -433,6 +438,7 @@ pub fn outcome(
         hits: detection.evidence.hits,
         speed_percent: (detection.speed.0 - 1.0) * 100.0,
         fitted: detection.evidence.pass == Pass::Fitted,
+        partner: false,
         verified,
     }
 }
@@ -456,7 +462,7 @@ pub fn speed_row<'a>(speed_percent: f64, queries: impl IntoIterator<Item = &'a Q
     let wrong_answers = at_speed
         .iter()
         .flat_map(|query| &query.detections)
-        .filter(|outcome| outcome.confident && !outcome.correct)
+        .filter(|outcome| outcome.confident && !outcome.correct && !outcome.partner)
         .count();
     SpeedRow {
         speed_percent,
