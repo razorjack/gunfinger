@@ -39,13 +39,21 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] 6. Read-only review by a subagent (by 09:30); fixes committed
-- [~] Notes "Session 28" with the handoff, status, checklist, roadmap
-  (written at 05:30 before the review; 24b's merge and the checks to add)
-- [ ] `regress session-28-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`)
-- [ ] `target/release/gunfinger-eval` built from the final commit
-- [ ] The NAS store's revision at the end
-- [ ] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
+- [x] 6. Read-only review by a subagent (05:18-05:38); fixes committed
+  (`29b8ba5`, `adec35a`)
+- [x] Notes "Session 28" with the handoff, status, checklist, roadmap
+  (first written at 05:18; 24b's merge, the review and the checks added)
+- [x] `regress session-28-start` identical with the final build
+  (`work/bin/s28-final/`, 330 s)
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`) at `adec35a`: 452 Rust tests, 5 Node tests
+- [x] `target/release/gunfinger-eval` built from the final commit (no
+  Rust change after `adec35a`)
+- [x] The NAS store's revision at the end: 40,126 records,
+  `fed26c76b8fe89ea`, as at the start
+- [x] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged
+  (start digests)
+- [x] The rerun of every condition with the committed code
+  (`work/bin/s28-verify/`, 05:29-06:59): renders and all eight reports
+  byte-identical
 - [ ] Commit; the final message

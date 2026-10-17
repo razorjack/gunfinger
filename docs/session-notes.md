@@ -6487,8 +6487,9 @@ What it means:
   recording's own record (median 458 against 1,085 for the same
   queries).
 - Brief plays are decided by the window grid, as in `grid`'s brief
-  plays at 262 tracks (0138: 42% at 15 s, 91% at 20 s). Hits are ample (1,041 of 1,044 brief queries reach 240
-  for their recording), but 240 hits must fall in 3 windows. A 15 s
+  plays at 262 tracks (0138: 42% at 15 s, 91% at 20 s). Hits are ample
+  (1,041 of 1,044 brief queries reach 240 for their recording), but 240
+  hits must fall in 3 windows. A 15 s
   play was confident in 199 of 210 queries when it started in the last
   4 s of a window, 29 of 53 at 5-6 s, and never when it started in the
   first half; 20 s plays missed only near a window border.
@@ -6497,16 +6498,18 @@ What it means:
   have a possible detection of the right recording. That is close to
   0027's combined row at 262 tracks (4 of 80 confident, 65 possible),
   with fewer confident (1% against 5%).
-- Combined, the costs add up. With damage nothing is confident, and the
-  share that keeps a possible detection falls to 19% (all three, 15 s).
+- Combined, the costs add up. With damage and either other condition
+  nothing is confident, and the share that keeps a possible detection
+  falls to 19% (all three, 15 s).
   Without damage, other rips' brief plays are confident in 21% (15 s)
   and 78% (20 s), against 42% and 96% for the own record's on the same
   recordings: an other rip's brief play has about half the hits (median
   233 at 15 s), so it misses for too few hits more often than for too
   few windows.
 
-The runs used the frozen build `work/bin/s28-recall/` (from `0c0905d`),
-one at a time under `screen` (03:57-05:11); reports are in
+The runs used the frozen build `work/bin/s28-recall/` (`0c0905d`'s
+code, built just before its final formatting; see below), one at a
+time under `screen` (03:57-05:11); reports are in
 `work/s28/reports/`, summaries in the experiments' data files (made by
 `scripts/analysis/recall_conditions.py` and `recall_subsets.py`).
 
@@ -6622,7 +6625,8 @@ threshold S* = 13.
    ((b), 1,404 queries: 1,044 of searched recordings, 360 of held-out
    ones) and `recall-seed-2026-other-rips-brief.json` ((a)+(b), the
    same 1,404 queries in the index without the own records), made by
-   `work/bin/s28-recall/gunfinger-eval`. Each query records the play's
+   `work/bin/s28-recall/gunfinger-eval` (`work/bin/s28-verify/` gives
+   byte-identical reports). Each query records the play's
    length (`brief.seconds`), where it starts in the query
    (`brief.starts_at_seconds`), the lead-in and tail files and the miss
    reason; each detection records its total `hits`, its `windows` (the
@@ -6635,7 +6639,9 @@ threshold S* = 13.
    session 27's supported seconds rebuilds exactly the same queries.
    The variant branch `s27-span` predates tonight's `recall` changes,
    so it would need them merged in first.
-6. Scratch data: `work/s28/` (SIZE_PENDING) and
+6. Scratch data: `work/s28/` (6.5 GB counted file by file, 4.7 GB of it
+   `work/s28/verify/`, whose saved index is an APFS clone that uses
+   little disk) and
    `work/recall/seed-2026-damaged/` (170 MB, tonight's damaged renders
    under the old names, which the new build does not reuse) can be
    deleted.
@@ -6674,6 +6680,28 @@ threshold S* = 13.
   the old schedule reports, so in the real page 71 repeats moved from
   3:24.7 to 1:37.8 rather than the full 5 s each. This was the same
   before the fix; tonight changed only the stacking.
-- PROVENANCE_PENDING
-- (Pending: the final checks, `regress`, `scripts/check.sh`, the store's
-  revision and the listening files at the end.)
+- The runs' binary, `work/bin/s28-recall/`, was copied from a build
+  made at 03:53 with `cargo build --release -p gunfinger-eval`; only
+  unit tests and `cargo fmt` changed before `0c0905d` was committed, and
+  a build of the committed sources differs from it in bytes. So every
+  condition was run again (05:29-06:59) with the workspace build of the
+  committed code (`work/bin/s28-verify/`) in a scratch work directory:
+  the 702 damaged excerpts rendered again byte-identical, and all eight
+  reports came out byte-identical to the runs'. 0144 and 0145 hold for
+  the committed code.
+- The final checks (05:45-06:02). `scripts/check.sh` with rustup's
+  1.98.0 first on PATH (`RUSTUP_TOOLCHAIN=1.98.0`) is green at
+  `adec35a`: formatting, clippy for macOS and for Linux, 452 Rust tests
+  (443 before tonight; 9 added, all for `recall`) and the page's 5 Node
+  tests, in 10 minutes. The release build in `work/bin/s28-final/`
+  (Homebrew's 1.98.0, as the start's) gives a `gunfinger`
+  byte-identical to `work/bin/s28-start/`'s, and `target/release/`
+  holds the same build. `regress session-28-start` with it is identical
+  (720 of 720 sweep queries, all 87, 93 and 79 scan detections, the
+  calibrate line known since session 8) in 330 s. Only documents
+  changed after these checks.
+- At the end the NAS store holds 40,126 records at revision
+  `fed26c76b8fe89ea`, as at the start. `docs/pair-verdicts.txt` (82
+  lines) and `work/audition/answers.jsonl` (60 records) have the
+  digests they had at the start. No manifest and neither frozen panel
+  file changed.

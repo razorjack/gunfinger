@@ -458,3 +458,6 @@ detail.
   before 0144 was committed (04:28:52). All pre-registered runs had been
   queued back to back at 03:55, and no combined result existed before
   04:40, so 0144 was written before any combined count was seen.
+- **(06:59) The rerun with the committed code**: the damaged renders
+  (05:31) and all eight reports (06:16 and 06:59) byte-identical to the
+  runs' of `work/bin/s28-recall/`.

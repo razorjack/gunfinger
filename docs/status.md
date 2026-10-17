@@ -3933,3 +3933,14 @@ Brief `docs/brief-28.md`, checklist `docs/session-28-checklist.md`.
 - 05:45 the review's fixes: damaged renders named by their partner too
   (`29b8ba5`, with two unit tests); prose in the notes, status, roadmap,
   0144, checklist; times in the brief's decisions corrected.
+- 05:45-06:02 the final checks: `scripts/check.sh` with rustup's 1.98.0
+  green at `adec35a` (452 Rust tests, 5 Node tests, 10 min); final build
+  `work/bin/s28-final/` (Homebrew's 1.98.0; `gunfinger` byte-identical
+  to `s28-start`'s), also in `target/release/`; `regress
+  session-28-start` identical, 330 s. NAS store at the end: 40,126
+  records, `fed26c76b8fe89ea`. Listening files unchanged.
+- 06:59 the rerun with the committed code finished: all eight reports
+  byte-identical to the runs' (the damaged renders too), so 0144 and
+  0145 hold for `0c0905d`'s code. Worktree
+  `s27-span` and its branch kept, never merged. Session 29 starts beside
+  this one in its own worktree `s29-span`.
