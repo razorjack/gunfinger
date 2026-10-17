@@ -158,6 +158,18 @@ marked as inferences were derived, not measured.
 
 ## Reports and command line
 
+- **Time without a confident match.** *(2026-10-17, a proposal from an
+  external review)* A tracklist does not say how much of the mix it
+  accounts for: eleven lines over 56 minutes read the same whether the
+  rest is blends or a quarter of an hour of tracks not in the library. A
+  summary could list the long stretches with no confident segment,
+  computed from segments rather than whole play spans (so a gap inside a
+  returning track counts), with a minimum length that leaves transitions
+  out. It would not estimate how many tracks are missing, nor claim that
+  a matched span is fully explained. It fits ADR 0017 (clear output, no
+  review step), but whether it is printed by default or on request is
+  our decision, and either changes the output ADR 0017 describes, so it
+  needs an ADR. The generated mixes' truth and `seconds` would test it.
 - **Possible plays inside a confident play of another recording.**
   *(done on 2026-10-14, our decision, ADR 0019, experiment
   0107)* The default tracklist printed a possible play lying inside a
@@ -456,7 +468,18 @@ marked as inferences were derived, not measured.
   again, so a candidate's evidence does not depend on the filter, but
   whether it becomes a candidate does. The skipped set changes with the
   library; if candidates go missing, try weighting hits by the rarity of
-  their hash instead.
+  their hash instead. *(2026-10-17, a proposal from an external review)*
+  The skipped share is ranked by posting-list length, which counts every
+  copy of a recording, so a collection with many rips of the same
+  releases could move a track's own hashes into the skipped lists
+  without adding new music. Search fixed development queries against
+  indexes padded with exact copies of existing records (the scale proxy
+  of experiment 0012 adds reversed copies), and trace which files become
+  candidates apart from the second pass's counts. At 40,126 records with
+  real duplicate rips, other rips of the recall panel stayed confident
+  (175 of 180, experiment 0144), so this checks stability rather than a
+  known failure; if it fails, rank hashes by the number of distinct
+  files that hold them.
 - **A confidence statistic for shared material.** *(larger library)* If
   identifying and shared-material evidence overlap at scale, raising the
   hit threshold would lose brief plays without resolving the ambiguity.
@@ -690,6 +713,23 @@ marked as inferences were derived, not measured.
      in 238 of 419 shared searches instead of 112. No unrelated candidate
      reaches 240. No rule; a tolerant pass would need a test that
      separates versions.
+     Not measured there *(2026-10-17, a proposal from an external
+     review)*: reference pairs whose two peaks are both in the query but
+     no longer pair, because another peak (from a blend, for example)
+     now comes first in the anchor's target zone (each anchor pairs with
+     its next 2 peaks, ADR 0001). Under combined damage the verifier
+     finds a median 37% of the reference peaks while E keeps 9.6% of the
+     clean exact pairs. First split the reference pairs lost under
+     damage, from step 2's runs: an endpoint gone, both endpoints found
+     but the target displaced, or both found with a changed quantised
+     value (N). Only if displaced targets are a large share, pair the
+     query with more targets (fan-out 3, 5 and 8) in the second pass
+     alone, the index unchanged at fan-out 2 (experiment 0004 changed
+     both), each reference pair counted once. More query pairs also
+     raise chance agreement, so measure unrelated candidates, related
+     versions on the shared panels as in experiment 0151, and CPU. Step
+     2 predicts that related versions gain as much as the played one;
+     if they do, that settles it.
   3. Denser query peaks around candidate passages, the reference store
      unchanged: Qfp analyses queries denser than references, keeping its
      database small (Sonnleitner & Widmer 2016, §IV-B). Experiment 0004
@@ -863,6 +903,19 @@ marked as inferences were derived, not measured.
   too few hits in the second pass, or enough hits in too few windows
   (`recall --other-rips-only --queries clean,damaged,brief,brief-damaged`).
 
+- **Stereo faults before the downmix.** *(2026-10-17, a proposal from
+  an external review)* FFmpeg mixes every file down to mono (`-ac 1` in
+  `decode.rs`) before peaks are picked, and none of `robust`'s 38
+  conditions is a stereo fault: one channel's polarity inverted, which
+  cancels what the channels share (centred bass and kick) in the
+  downmix; one channel silent or noisy; a delay between the channels,
+  which comb-filters the downmix. Old tape and vinyl transfers can have
+  each. Render them from development material, first in queries, and
+  compare today's downmix with left-only and right-only searches as a
+  diagnostic: how much evidence the downmix loses, and whether one
+  channel recovers it without raising related versions. The decoder
+  does not change before that; a fallback would need its own experiment
+  and ADR.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The
@@ -951,6 +1004,27 @@ marked as inferences were derived, not measured.
   most of the shortfall (an inference). Not yet unit-tested: the truth
   built from manifests and generated mixes. The datasets above remain
   to be downloaded.
+- **The printed tracklist.** *(2026-10-17, a proposal from an external
+  review)* The harness scores detections, plays and seconds; nothing
+  scores the entries `identify` prints after grouping files (ADR 0017),
+  choosing each entry's name, flagging disagreeing titles and leaving
+  out possible plays inside a confident play (ADR 0019). Experiments
+  0095 and 0107 checked single changes. ADR 0019 names a cost no stored
+  report could measure: a track found only as possible inside a passage
+  of a stronger track, as in a double drop, leaves the tracklist. Double
+  drops are common in drum & bass, and the generated mixes (`mixes`,
+  `shared_mixes`) only move from one track to the next with fades and
+  bass swaps. Add a double drop, two tracks at about equal level for 30-90 s, and scenarios built
+  with it: an original alone, its remix alone, both together, two
+  unrelated tracks together, a quiet or brief track inside a stronger
+  one, a returning track, several rips of one recording. Use tracks whose
+  tags are right, so that a mislabelled file does not hide a grouping
+  error. `robust`'s blend conditions already count the partner
+  (`partner_confident`) on single excerpts; this measures what the
+  tracklist shows. Score each mix for extra entries, played tracks
+  missing, two tracks merged into one entry, matching files missing from
+  an entry, and disagreeing titles not flagged, beside today's
+  confident-only score, by recording family as well as by query.
 - **Panako as an outside benchmark.** Run in session 24b at 262 tracks
   (experiments 0130, 0131, 0150; Java 11, LMDB built from source): 59% of
   the sweep queries to Gunfinger's 100%, 26/27 development-mix tracks to

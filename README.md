@@ -282,15 +282,20 @@ extended to search a mix at many assumed speeds.
 | Speed sweep: 2,160 excerpts across four seeds, −8% to +8% | 100% recall, 0 wrong |
 | Stakka & Skynet, Knowledge Magazine mix (56 min, 11 tracks) | 11/11, 0 wrong |
 | The same mix with 3 or 11 of its tracks removed from the index | 0 wrong |
-| Held-out test mix: an Essential Mix radio broadcast (1 h 58 min) | 14 of 16 tracks in the library, 0 wrong; the other two shown as possible |
-| A collection of 27,000 tracks, the Stakka & Skynet mix | 11/11, 0 wrong |
+| Held-out test mix: an Essential Mix radio broadcast (1 h 58 min), 262-track library | 14 of 16 tracks in the library, 0 wrong; the other two shown as possible |
+| The held-out test mix against a collection of 33,596 files | 21 of 23 tracks in the library; 2 wrong: an edit of one played track and a VIP of another, each a different recording by ear, named confidently beside the played recordings; 2 shown as possible |
+| The Stakka & Skynet mix, my 2003 mix and DJ Vertical on Nocny Trans (2002), against 32,441-33,723 files | 11/11, 12/12 and 17/17 tracks in the library, 0 wrong |
 
 The margin between the weakest correct identification and the strongest
 false candidate is 6.65× on the 262-track library. At 27,000 tracks,
 unrelated chance reaches 63-70 hits, above the possible tier's 60, so
-possible plays are less reliable in a library that size; confident ones
-are not affected. With the saved index loaded, a 46-minute mix against
-33,000 tracks takes about 90 s and 4.8 GB of memory.
+possible plays are less reliable in a library that size; chance does not
+reach confident ones. The two wrong identifications of the held-out mix
+are other versions that share long passages with the played recordings;
+telling such versions apart is the main open accuracy question
+(`docs/roadmap.md`, "A confidence statistic for shared material").
+With the saved index loaded, a 46-minute mix against 33,000 tracks takes
+about 90 s and 4.8 GB of memory.
 
 Heavy damage (noise at 0 dB SNR, a blend of two tracks at equal level)
 loses evidence but has not produced a false identification.
