@@ -5930,24 +5930,31 @@ it.
 
 In short: by the rule written first, no variant is worth proposing.
 Replacing "in 3 windows" with a minimum span of 10 seconds, or with 10
-or 15 seconds that hold aligned hits, makes the brief plays confident
+or 15 seconds that hold aligned hits, makes most brief plays confident
 that the window grid now leaves possible: on the grid, 803, 947 and 800
-of 960 brief queries are confident against 693 today, and almost no
-level depends on where the windows fall. But on the first
-shared-material panel these, and a span of 15 seconds and 20 supported
-seconds as well, name a related version confidently in three 20-second
-queries of shared passage alone, with the played recording left out and
-beside it. Those three queries are 20-second files that start on the
-window grid, where today's rule can never be confident; with the same
-passage moved 3-7 s off the grid, today's rule names the same wrong
-versions confidently too. A span of 20 seconds adds no wrong answer
-anywhere, but names fewer brief plays than today. In the three development mixes no level and no
-labelled second changes under any variant, at 262 tracks or at NAS
-scale. Answers to session 23's listening
-questions were added tonight; this session's counts do not use those answers.
+of 960 brief queries are confident against 693 today, and the plays
+whose level depends only on where the windows fall drop from 30 to 2,
+13 and 0. But every variant except a 20-second span also names a
+related version confidently in three 20-second queries of shared
+passage alone on the first shared-material panel, with the played
+recording left out and beside it. A span of 20 seconds adds no wrong
+answer anywhere, but names fewer brief plays than today. In the three development
+mixes no level and no labelled second changes under any variant, at 262
+tracks or at NAS scale.
+
+What the three wrong answers mean is the main finding beside the
+criteria. The panel's 20-second queries are files of exactly 20 s, so
+they hold two windows and today's rule can never call anything in them
+confident. With 3, 5 or 7 seconds of silence before the same passages,
+today's rule names the same three wrong versions every time, and a
+fourth that the 20-second file never shows (experiment 0142). So
+today's rule avoids these answers on the panel because of where the
+queries sit on the window grid, not because of the evidence.
 
 Adopting a variant is our decision and would need a new ADR replacing
 the window condition of ADRs 0001 and 0008; this session writes none.
+Answers to session 23's listening questions were added from 02:01; this
+session's counts do not use those answers.
 
 ### Today's rule and the variants (experiment 0136)
 
@@ -5959,8 +5966,8 @@ more) and possible at 60 hits; a play takes its best segment's level
 - A(S): the first and the last aligned hit at least S seconds apart, S =
   10, 15 or 20 s;
 - B(S): at least S whole seconds, counted from the first hit, that hold
-  an aligned hit (the time hits support, as `pair` counts it), S = 10,
-  15 or 20 s.
+  an aligned hit, S = 10, 15 or 20 s (like `pair`'s supported time,
+  which counts whole seconds of the file instead).
 
 The hits, the possible tier and the grouping into plays stay as they
 are, so a variant can only move a segment with 240 hits or more between
@@ -5971,10 +5978,12 @@ behaves like a span of about S - 1 seconds.
 ### The numbers (experiments 0137 and 0138)
 
 A was counted twice, from master's saved reports and from one run of
-each panel with a variant build (worktree `s27-span`, never merged),
-which adds only the supported time to its reports; B from the variant
-build. Where both exist at the same library state the variant build's
-detections are identical to master's.
+each panel with a variant build (worktree `s27-span`, never merged); B
+from the variant build alone. The variant build adds the supported time
+to its reports, the first and last hit to the sweep's and recall's, and
+keeps every `robust` detection of at least the possible tier. Where
+both exist at the same library state its detections are identical to
+master's.
 
 | Panel | Today | A(10) | A(15) | A(20) | B(10) | B(15) | B(20) |
 |---|--:|--:|--:|--:|--:|--:|--:|
@@ -6001,38 +6010,42 @@ alone, from Prizna's Fire (Rogue Unit Remix) named as Demolition Man's
 Fire (Rogue Unit VIP Remix) (642 hits), the reverse (703 hits), and
 Pyro's Ignorance named as Pyro's Time Is Broken (270 hits), each with
 the played recording left out and with everything indexed. A(10) and
-B(10) also make a fourth detection confident: a third segment of the
-VIP Remix in a 240 s loop of the first passage, a file already
+B(10) alone also make a fourth detection confident: a third segment of
+the VIP Remix in a 240 s loop of the first passage, a file already
 confident and wrong in that query.
 
-### What those wrong answers are (experiments 0140 and 0141)
+### What those wrong answers are (experiments 0140-0142)
 
-The shared panels' 20-second queries are files of exactly 20 s that
-start at the window grid's origin, so they hold two windows and today's
-rule cannot call anything in them confident, however many hits it has.
-Every outcome the variants change on either shared panel (all but one
-under B(20)) is in such a file of 20 s or less: under A(10), 40 become
-right confident and these 6 wrong. In each of the 6, the wrong file is
-one today's rule already names confidently in 12-13 longer queries of
-the same scenario (the 30 s alone, the loops, the passage with what
-precedes or follows it).
+These readings decide nothing; criterion 1 fails as written. Every
+outcome the variants change on either shared panel (all but one under
+B(20)) is in a query file of 20 s or less: under A(10), 40 become right
+confident and the 6 above wrong. In each of the 6, the wrong file is one
+today's rule already names confidently in 12-13 longer queries of the
+same scenario (the 30 s alone, the loops, the passage with what precedes
+or follows it).
 
-To see what today's rule does with the same passage when it does not
-start on a window boundary, the variant build searched each short
-passage again after 3, 5 and 7 s of the played file's own material (63
-queries over both panels; written down before the run). Today's rule
-then names the same wrong file confidently in all three shifted queries
-of each of the six, 18 of 18. Over all short passages, what A(10) says
-on the 20 s file equals what today's rule says on the shifted queries in
-74 and 70 of 78 pairs (today's rule on the 20 s file: 29). On the
-shifted queries no variant adds a wrong answer. The differences are
-14-15 s passages that still end inside the second window after a 3 or
-5 s shift, and a few plays that gain from the extra seconds of their own
-material.
+To see what today's rule does with the same passage off the window
+grid, the variant build searched each short passage again after 3, 5
+and 7 s of the played file's own material (0141), and then, because the
+review found that the wrong Fire versions match that material too,
+after 3, 5 and 7 s of digital silence (0142). Both were written down
+before their runs. After silence, today's rule names the same wrong
+file confidently in all three queries of each of the six, 18 of 18,
+with about the same hits (635-709 for the Fire versions, 293-303 for
+Time Is Broken). It also names Pyro's Ignorance for 20 s of Pyro's Time
+Is Broken after 5 s of silence (248 hits), which the 20-second file at
+the grid's origin never shows; A(10) and B(10) add the same answer
+after 3 s. With the played recording left out, today's rule is wrong in
+10 of the 42 silence-led results of the first panel, A(15) and B(15)
+also in 10, A(10) and B(10) in 11, B(20) in 8, A(20) in none; on the
+second panel none is. Over all short passages, A(10)'s outcome on the
+20-second file equals today's rule's after silence in 111 of 117 and 70
+of 78 pairs; today's own on the 20-second file, in 44 and 29.
 
-The criterion stands as written. What the readings above add is that
-the panels' 20 s queries measure a variant against a level that the
-query's length fixes, not against the same passage placed in a mix.
+So the first panel's 20-second files compare a variant with a level
+that their length fixes, not with the same passage placed in a mix. A
+fair test of a span rule places each brief passage at several offsets
+in a longer query, as the grid does.
 
 ### Per-second scoring (experiment 0139)
 
@@ -6053,21 +6066,28 @@ rendered mixes have exact truth.
 |---|--:|--:|--:|--:|
 | Indexed seconds | 4,629 | 7,526 | 10,013 | 8,405 |
 | Correct | 94.2% | 86.8% | 90.7% | 83.0% |
-| Mislabelled seconds | 8 | 346 | 759 | 73 |
-| Unindexed seconds silent | 100% of 1,044 | 94.9% of 2,622 | 100% of 135 | 50.7% of 11,410 |
+| Mislabelled while an indexed track plays | 8 | 346 | 759 | 73 |
+| Unindexed seconds: silent; mislabelled | 1,044: 100%; 0 | 2,622: 94.9%; 133 | 135: 100%; 0 | 11,410: 50.7%; 5,626 |
 | Labels start, end: median error | +2.3, -2.6 s | -12.8, -6.7 s | -10.0, +0.5 s | +1.5, -1.4 s |
 
 - In the generated mixes, labels start and end 2-3 s inside the true
-  play; the 8 mislabelled seconds are labels running past a track's end.
+  play. Of the 8 mislabelled seconds, 7 are labels starting before their
+  track (SKC's Recharger, 6 s early in one mix and 1 s in another) and 1
+  runs past a track's end.
 - In the development mixes every mislabelled second is a confident label of a track
   of the mix outside its manifest slot and margin; none names a wrong
   recording. Knowledge's labels start a median 47 s (NAS 56 s) before
-  the manifest's starts, so there the score measures the manifest's
-  borders more than the matcher; with a margin of 60 s the mislabelled
-  seconds at 262 fall from 346 to 104.
+  the manifest's starts, and the score moves with the margin (at 262,
+  517, 346 and 104 s mislabelled while a track plays at 15, 30 and
+  60 s). My reading is that the manifests' borders account for most of
+  the shortfall; that is an inference, not checked by ear. The 2003-03-29
+  manifest's starts are Gunfinger's own boundaries (AGENTS.md), so its
+  part of the score (1,810 of the 7,526 seconds at 262, and all 133
+  unindexed mislabelled seconds) is partly circular.
 - In session 21's rendered mixes, with the played file left out, a
-  related version is labelled over half of its seconds; that is the
-  shared-material problem in seconds, and no variant changes it.
+  related version is labelled over half of its seconds (5,626 of
+  11,410); that is the shared-material problem in seconds, and no
+  variant changes it.
 - No variant changes a mislabelled second anywhere; they move seconds
   between "possible" and "correct" only (generated mixes 97.1% correct
   under A(10)).
@@ -6075,7 +6095,7 @@ rendered mixes have exact truth.
 ### Decided this session, open to change
 
 - The criteria were applied as written before any count; experiments
-  0140 and 0141 are readings beside them and decide nothing.
+  0140-0142 are readings beside them and decide nothing.
 - `work/reports/mixes-seed-7.json` was written on 2026-10-06 by the
   single pass, before the fitted matcher became the default, so it was
   dropped from master's counts; seed 7 comes from the variant build.
@@ -6087,41 +6107,95 @@ rendered mixes have exact truth.
   labels are plays as `identify` groups them, at the play's level, over
   the spans of its segments; a margin of 30 s for manifests, chosen
   before any score, 15 and 60 s beside; none for generated and rendered
-  mixes. Scores go to `work/seconds/`, another library's to
+  mixes. A track's label start and end come from every confident
+  segment of its plays that overlaps its slot (the pre-registration said
+  the play's first segment). The command's printed medians take the
+  upper middle of an even count; `scripts/analysis/seconds_summary.py`,
+  which the experiments use, averages the two (one rendered median
+  differs by 0.1 s). Scores go to `work/seconds/`, another library's to
   `work/seconds/library-<store directory name>/`.
 - B(S) counts whole seconds after the first hit, so 20 supported seconds
   fit in a span of 19.8 s; this is why B(20) admits the three wrong
   queries that A(20) does not.
 - The variant build stays in the worktree `s27-span` and its branch,
   never merged (it adds `supported_seconds` to core detections and the
-  harness's reports, and the shifted queries of 0141).
+  harness's reports, and the shifted and silence-led queries of 0141 and
+  0142).
 
 ### Decisions waiting
 
 - Whether to pursue a minimum span. If we want brief plays confident
-  regardless of the grid, A(10) or B(15) are the candidates the numbers
-  favour, at the price of the three shared-material queries (0140 and
-  0141 show what kind of price that is). Either needs a new ADR.
+  regardless of the grid, A(10) and B(15) are the candidates the numbers
+  favour. Their price on the panels is three shared passages of 20 s
+  named as a related version; 0142 shows that today's rule names the
+  same versions as soon as those passages sit 3-7 s into a query.
+  Either needs a new ADR, and a shared-material test with brief
+  passages at several offsets would be the fair check first.
 - Still waiting from earlier sessions: the decisions listed in sessions
   21-26 (session 26: whether the verifier continues).
 
 ### Handoff for the next session
 
 1. `master` is committed. The worktree `s27-span` and its branch are
-   kept, never merged; its unit tests do not compile (some test
-   literals lack the new `supported_seconds` field), its binaries made
-   tonight's runs: `work/bin/s27-span/` (0138), `work/bin/s27-span-shift/`
-   (0141), `work/bin/s27-span-seconds/` (B's per-second scores).
-2. If a minimum span is pursued: a fair shared-material test places each
-   brief passage at several offsets in a longer query, as the grid
-   does; the shared panels' 20 s files start at the grid's origin.
-3. Per-second scoring is ready for the roadmap's public DJ-mix datasets
-   (exact or near-exact borders); on the development mixes the manifests' borders
-   decide most of the score.
-4. Scratch data: `work/s27/vwork/` and `work/s27/vshift/` are APFS
+   kept, never merged; its tests compile and pass (443, `3589aa8`). Its
+   binaries made tonight's runs: `work/bin/s27-span/` (0138),
+   `work/bin/s27-span-shift/` (0141), `work/bin/s27-span-silence/`
+   (0142), `work/bin/s27-span-seconds/` (B's per-second scores).
+2. If a minimum span is pursued: build the fair shared-material test
+   (each brief passage at several offsets after silence, as 0142 does at
+   3, 5 and 7 s), and count criterion 1 on it.
+3. Per-second scoring is ready for the roadmap's public DJ-mix datasets,
+   which have exact or nearly exact borders. On the development mixes the manifests'
+   borders seem to account for most of the shortfall (above). Not yet
+   covered by unit tests: `set_truth`, `mix_truth` and a margin beside an
+   unindexed neighbour.
+4. The variant build's queue scripts logged `date`'s exit status instead
+   of the run's; no run failed (every report reproduces and no `.err`
+   shows an error). `work/s27/vsilence.sh` records it correctly.
+5. Scratch data: `work/s27/vwork/`, `vshift/` and `vsilence/` are APFS
    clones of the render caches and the saved NAS index (logically about
-   9 and 5 GB, little on disk); both can be deleted.
+   9.5, 4.8 and 4.8 GB, little on disk); all three can be deleted.
 
 ### What else to know
 
-(to fill)
+- Nothing touched the held-out test set, the candidate mixes of 0065 or
+  any validation half (`recall` searches the panel's development half;
+  the shared runs used the development halves); no test-derived version
+  was used to tune anything. The NAS was only read (played files
+  rendered into shared queries), and the NAS peak store was only read:
+  every search loaded a clone of its saved index. The clusters were not
+  rebuilt.
+- I did not use `identify --store-only` for the offset test: it builds
+  its index from every record in the store, and checking whether the
+  store holds a record of the held-out broadcast would itself mean
+  looking for it. The harness runs of 0141 and 0142 replaced it.
+- Session 24b's Panako runs shared the machine until about 02:20 (load
+  averages of 140-170 during the variant build's queue), so the runs'
+  times say nothing about speed; this session measured none.
+- A review by a separate agent (read-only) recomputed the counts from
+  the runs and found every number right, the criteria applied as
+  pre-registered and no broken rule. It found that 0141's lead-in was
+  matched by the wrong Fire versions (hence 0142), that the per-second
+  tables left out mislabelled seconds where nothing indexed plays, that
+  7 of the generated mixes' 8 mislabelled seconds were early starts, not
+  overruns, inferences stated as fact, the 2003-03-29 caveat, a stale
+  handoff, wording that overclaimed, and the items listed under
+  "Decided" and "Handoff" above. All are fixed or stated here; no code
+  changed.
+- The final checks (02:49-03:00). `scripts/check.sh` with rustup's
+  1.98.0 first on PATH (`RUSTUP_TOOLCHAIN=1.98.0`) is green: formatting,
+  clippy for macOS and for Linux, 443 tests (432 before tonight; 11
+  added, all for `seconds`), in 6.7 minutes. The release build in
+  `work/bin/s27-final/` (Homebrew's 1.98.0, as the start's) gives a
+  `gunfinger` byte-identical to `work/bin/s27-start/`'s; a build with
+  rustup's 1.98.0 differs in bytes from the same sources, so the start
+  and final builds use the same toolchain. `regress session-27-start`
+  with it is identical (720 of 720 sweep queries, all 87, 93 and 79 scan
+  detections, the calibrate line known since session 8) in 167 s. Only
+  documents changed after these checks.
+- At the end the NAS store holds 40,126 records at revision
+  `fed26c76b8fe89ea`, as at the start. `docs/pair-verdicts.txt` has 6
+  more lines than at the start, all from the answers on the listening
+  page, and `work/audition/answers.jsonl` changed with them; this session
+  staged, edited and used neither. No manifest and neither frozen panel
+  file changed.

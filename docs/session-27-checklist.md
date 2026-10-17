@@ -36,18 +36,21 @@ for scope and rules.
   variant meets both criteria)
 
 - [x] Beside the criteria, deciding nothing: 0140 (the shared panels'
-  changes by query length) and 0141 (the short passages shifted off the
-  window grid, pre-registered and run in the variant worktree)
+  changes by query length), 0141 (the short passages after the played
+  file's own material) and 0142 (after silence, pre-registered after the
+  review), both run in the variant worktree
 
 ## Wrap-up
 
-- [ ] 5. Read-only review by a subagent (by 04:15); fixes committed
-- [ ] Notes "Session 27" with the handoff, status, checklist, roadmap
-- [ ] `regress session-27-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`)
-- [ ] The NAS store's revision at the end
-- [~] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+- [x] 5. Read-only review by a subagent (started 02:41); fixes committed
+- [x] Notes "Session 27" with the handoff, status, checklist, roadmap
+- [x] `regress session-27-start` identical with the final build
+  (`work/bin/s27-final/`, 166.6 s)
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`): 443 tests, 6.7 min
+- [x] The NAS store's revision at the end: 40,126 records,
+  `fed26c76b8fe89ea`, unchanged
+- [x] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
   changed only by the answers on the listening page (from
-  02:01), never staged
-- [ ] Commit; the final message
+  02:01; 6 lines in the verdicts), never staged
+- [x] Commit; the final message

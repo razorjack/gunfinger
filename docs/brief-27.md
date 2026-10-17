@@ -473,13 +473,13 @@ is not known.
   checkout. Finish 0142 and the review's fixes, then wrap up as planned;
   no new experiment after 0142; `docs/pair-verdicts.txt` stays unstaged
   (the orchestrator commits the six new lines afterwards).
-- **(03:12) 0142's runs** took 03:01-03:09 (48 and 30 silence-led
+- **(03:10) 0142's runs** took 03:01-03:09 (48 and 30 silence-led
   queries). The prediction held: today's rule names the same wrong file
   in all three silence-led queries of each of 0140's six (18 of 18), and
   also names Pyro's Ignorance for pyro-1 after 5 s, which the 20 s file
   never shows; A(10) and B(10) add pyro-1 after 3 s. Criterion 1's
   result is unchanged.
-- **(03:12) The review's other fixes**: per-second tables give
+- **(03:10) The review's other fixes**: per-second tables give
   mislabelled seconds where nothing indexed plays (0139); 7 of the
   generated mixes' 8 mislabelled seconds are labels starting early;
   0141's conclusion limited to pyro-2; 0137's loop detection named as a

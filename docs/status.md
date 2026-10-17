@@ -3770,4 +3770,26 @@ Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
   short passages after 3, 5 and 7 s of the played file's own material.
   Today's rule names the same wrong file in all three shifted queries
   of each of 0140's six wrong answers (18 of 18); A(10) on the 20 s
-  file agrees with today's rule shifted in 74 and 70 of 78 pairs.
+  file agrees with today's rule shifted in 74 and 70 of 78 pairs. The
+  review found the lead-in matched by the wrong Fire versions, so only
+  pyro-2 tests the offset alone there.
+- 02:40-03:00 notes, roadmap; read-only review by a subagent (started
+  02:41); the variant branch's tests fixed (`3589aa8`, 443 pass);
+  `scripts/check.sh` with rustup's 1.98.0 green, 443 tests, 6.7 min
+  (02:49-02:56); final build `work/bin/s27-final/` (Homebrew's 1.98.0,
+  as the start's; `gunfinger` byte-identical to `s27-start`'s; rustup's
+  build of the same sources differs in bytes); `regress
+  session-27-start` identical, 166.6 s.
+- 03:01-03:09 0142 (pre-registered 03:01 after the review): the short
+  passages after 3, 5 and 7 s of digital silence. Today's rule names
+  the same wrong file in 18 of 18 and adds one the 20 s file never
+  shows (pyro-1 after 5 s); played left out, wrong in 10 of 42 results
+  under today's rule, 11 under A(10) and B(10), 10 under A(15) and
+  B(15). Criterion 1 unchanged.
+- 03:10 the review's fixes (0137, 0139, 0141, brief, notes, status,
+  roadmap); no code changed after the checks. NAS store at the end:
+  40,126 records, `fed26c76b8fe89ea`, as at the start.
+  `docs/pair-verdicts.txt` 6 lines longer, all answers by ear from
+  02:01, left unstaged for the orchestrator; `answers.jsonl` the
+  listening page's too. Worktree
+  `s27-span` and its branch kept, never merged. Session 28 follows from the root checkout.
