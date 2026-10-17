@@ -185,6 +185,24 @@ Steps shrink as step 2 says: (a)'s set first, then 0055's scenarios.
   session 28 named as the same artist; `labels.py` cannot see it. The
   pre-registered labelling stays for the main counts; F without that
   file (and R(r) with it) is reported beside.
+- **(08:33-08:36) Session 29 finished; start build, baseline, merge.**
+  The orchestrating thread's message (08:34): session 29's last commit
+  is `68dae5b`, its thread ended at 08:20, the tree clean; checked at
+  08:33 (`git status` clean, no `work/bin/s29-*`
+  process). Session 29 left experiment 0149 to this
+  session (its commit `2c87dd6`). `cargo build --release` with
+  Homebrew's 1.98.0 found `target/release/` up to date; copied to
+  `work/bin/s30-start/` (`COMMIT` = `68dae5b`), byte-identical to
+  `work/bin/s29-final/` (`gunfinger` and `gunfinger-eval`). `baseline
+  session-30-start`: 0.33 s wall. Then `s30-quant` merged into master
+  as `2f8f4c9` (not a fast-forward, since master had session 29's later
+  commits; no conflict, `CLAUDE.md` merged with session 29's line).
+- **Which code produced the counts.** Every run of this session uses
+  `work/bin/s30-quant/gunfinger-eval`, built in the worktree from
+  `aecdf93` before the merge (R1 started at 08:03, R3 at 08:17).
+  `git diff aecdf93 2f8f4c9 -- crates/` is empty: the merged master has
+  the same code, so the counts are those of master's code at
+  `2f8f4c9`. From here on the work continues in the root checkout.
 
 ## Step 2: pre-registration (written at 07:52-08:00, committed before any count)
 

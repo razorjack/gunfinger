@@ -12,20 +12,23 @@ for scope and rules.
 - [x] Worktree `s30-quant` from master's `36dc022`, its own target
   directory
 - [x] Brief, checklist and `CLAUDE.md` committed on `s30-quant`
-- [ ] Session 29 finished (message, or my own check from 08:50)
-- [ ] Release build of master (Homebrew's 1.98.0) in `work/bin/s30-start/`;
-  `baseline session-30-start` (wall time)
-- [ ] `s30-quant` merged into master
+- [x] Session 29 finished (message at 08:34; checked: `68dae5b`, clean,
+  no `work/bin/s29-*` process)
+- [x] Release build of master (Homebrew's 1.98.0) in `work/bin/s30-start/`
+  (byte-identical to `s29-final`); `baseline session-30-start` (0.33
+  s)
+- [x] `s30-quant` merged into master (`2f8f4c9`, no conflict)
 
 ## Steps
 
 - [x] 2. Pre-registration (brief, experiment 0149), committed before any
   count
-- [ ] 3. The diagnostic in `gunfinger-eval` with unit tests (one step
+- [x] 3. The diagnostic in `gunfinger-eval` with unit tests (one step
   away counts in N, not E; no correspondence twice; nothing outside the
-  passage); committed before the runs
-- [ ] 4. The runs: (c) and clean, (a), both shared panels' development
-  halves (0055's scenarios if cheap); counts; experiment file
+  passage); committed before the runs (`aecdf93`)
+- [~] 4. The runs: (c) and clean, (a), both shared panels' development
+  halves (0055's scenarios if cheap); counts; experiment file (R1 done
+  08:03-08:17)
 
 ## Wrap-up
 
