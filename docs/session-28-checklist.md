@@ -9,13 +9,14 @@ for scope and rules.
 - [x] `git status` clean at `c0b3172`
 - [x] The NAS store at the start: 40,126 records, `fed26c76b8fe89ea`;
   listening files recorded (`work/s28/listening-digests-start.txt`)
-- [~] Brief, checklist; `CLAUDE.md` points to them; committed
-- [ ] Release build in `work/bin/s28-start/`; `baseline
-  session-28-start` (wall time)
+- [x] Brief, checklist; `CLAUDE.md` points to them; committed (`1861afe`)
+- [x] Release build in `work/bin/s28-start/` (byte-identical to
+  `s27-final`); `baseline session-28-start` (copies reports, 0.23
+  s)
 
 ## Steps
 
-- [ ] 2. The held-arrow bug: cause confirmed, every path that starts or
+- [x] 2. The held-arrow bug: cause confirmed, every path that starts or
   reschedules a source, the invariant; minimal fix; a `node --test` test
   that fails before and passes after; `scripts/check.sh` runs it when
   `node` is on PATH; the real page in headless Chrome (own server, /tmp

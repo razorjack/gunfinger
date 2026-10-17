@@ -135,3 +135,61 @@ possible-tier detail. Steps 2, 5 and 7 do not shrink.
 ## Decisions
 
 (by time, as they are made)
+
+- **(03:27) The baseline.** `baseline session-28-start` copies the
+  last `regress`'s reports (0.23 s wall): those of session 27's final
+  check, made with `work/bin/s27-final/`, byte-identical to
+  `work/bin/s28-start/` (Homebrew's 1.98.0). No `regress` ran at the
+  start: session 24b's Panako run shares the machine, so a wall time
+  would say nothing about speed; the final `regress` is the identity
+  check.
+- **(03:30) Step 2, the cause, confirmed by reading.** `cut(when)`
+  calls `source.stop(when)` on an entry still sounding but leaves the
+  entry's `stop` at its old value and keeps it. Web Audio applies only
+  the latest `stop()` call made before a source has stopped, so the
+  next cut, within LEAD (60 ms) and at a later `when`, finds the stale
+  `stop > when` and calls `stop()` again, moving the stop later; the
+  sources started by the previous change are kept the same way. Held
+  keys repeat every 25-35 ms, so each repeat adds a source that keeps
+  sounding until the key is released. Pressed slower than LEAD, the cut
+  source has stopped before the next call, which then changes nothing.
+  Every path that starts or reschedules a source goes through `cut`:
+  `play` (`startAt`), `pause` (`cut(now)`), `seek` (arrows, mouse,
+  marker jumps through `jumpTo`), `switchTo`/`switchBack` (1-9, Tab),
+  `toggleBlend`, `toggleMatching`, `toggleLoop` (`restartHere`), and
+  `open` (a question change pauses first, then drops the entries). The
+  horizon refill (`tick` -> `schedule`) only appends steps after the
+  cursor, back to back. So the fix in `cut` covers every path, also a
+  pause right after a seek and lane keys pressed faster than LEAD.
+  The invariant: at any context time the audible sources are those of
+  the schedule's steps covering that time, at most one per sounding
+  lane (two in the blend); every change ends each earlier source at
+  its `when` or disconnects it before it starts, and no later call
+  moves that stop. `keys.js` needs no change.
+- **(03:40) The test.** `web/tests/player.test.mjs` with a fake
+  AudioContext (`fake-audio.mjs`) that applies `stop()` as the
+  specification does; five tests (held left, held Shift-left down to
+  the start, held marker key, held right in the blend, lane keys every
+  30 ms), each 66 changes 30 ms apart. Before the fix all five fail (66
+  sources audible at once, 124 in the blend; `work/s28/player-test-before-fix.log`),
+  after it all pass. `scripts/check.sh` runs them when Node 22.7 or
+  newer is installed (the page's modules load without a package.json
+  only from 22.7) and prints a "skipped" line otherwise. ADR 0016's "No
+  build step" section gains one dated sentence (the page still needs no
+  Node; Node is an optional tool of the checks), AGENTS.md's invariant and
+  testing line say the same; no decision changes, so no new ADR.
+- **(03:45) The real page.** This session's own server
+  (`--no-open`, a free port, copies of the verdicts file and the answer
+  log in `/tmp/s28-audition/`, deleted afterwards and unchanged before
+  deletion) on `work/audition/s23/01-s23-pack.json`, headless Chrome
+  with its own profile, keys sent over the DevTools protocol
+  (`work/s28/cdp/`, uncommitted). An injected script counts the
+  sources that have started and not fired `ended` and taps the output
+  with an analyser. Held left arrow for 2 s (71 repeats about 30 ms
+  apart) from 3:20 of question 1: start binary, the count rises to 61
+  and the output from -13 to +7 dBFS (`work/s28/page-hold-before-fix.log`);
+  fixed binary, 1 (2 for a moment at some cuts, the `ended` event's
+  delay) and -10 to -22 dBFS (`work/s28/page-hold-after-fix.log`). The
+  held marker key changed little there: the question has 5 markers, so
+  most repeats found none; the unit test covers marker repeats. No
+  question was answered.

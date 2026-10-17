@@ -19,3 +19,12 @@ else
 fi
 
 cargo test --workspace
+
+# The listening page's JavaScript tests (ADR 0016), with Node's own test
+# runner and no packages, when Node 22.7 or newer is installed (it loads the
+# page's modules without a package.json). The page itself needs no Node.
+if node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major > 22 || (major === 22 && minor >= 7) ? 0 : 1)' 2>/dev/null; then
+  node --test crates/gunfinger-eval/src/audition/web/tests/*.test.mjs
+else
+  echo "skipped: the listening page's JavaScript tests, which need Node 22.7 or newer (AGENTS.md, \"The listening tool\")"
+fi

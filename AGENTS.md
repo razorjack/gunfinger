@@ -229,7 +229,10 @@ Invariants:
   same log exits with a message instead of waiting; verdict lines are
   checked and written under the verdicts file's lock, by the server and
   by `pair-review` (ADR 0016, "One writer").
-- No build step, no Node, no new crate.
+- No build step, no new crate, and the page needs no Node. Its
+  JavaScript tests (`web/tests/`: Node's test runner, a fake
+  AudioContext, no npm packages) run in `scripts/check.sh` when Node
+  22.7 or newer is installed, and are skipped with a line otherwise.
 
 Adding a kind of question:
 
@@ -249,7 +252,9 @@ Adding a kind of question:
    shortens the wrong file.
 
 Testing: `cargo test -p gunfinger-eval audition` (the server tests use a
-real socket; the audio tests generate tones with FFmpeg). Trying the
+real socket; the audio tests generate tones with FFmpeg) and `node --test
+crates/gunfinger-eval/src/audition/web/tests/*.test.mjs` (the player's
+schedule under held keys). Trying the
 page: start `audition --no-open` on temporary files as above, open the
 printed URL (a browser, or headless Chrome over the DevTools
 protocol: session 14's client is `work/s14/cdp/cdp.ts`, uncommitted), and

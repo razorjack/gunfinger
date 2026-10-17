@@ -95,7 +95,12 @@ or CDN. The HTTP server is a minimal HTTP/1.1 implementation on
 on every response, one thread per connection in a `thread::scope`; a
 browser opens at most six). A crate such as `tiny_http` would add a
 dependency tree for about 150 lines of request parsing that the tests
-cover. The token's randomness comes from `/dev/urandom`.
+cover. The token's randomness comes from `/dev/urandom`. (Added
+2026-10-17, session 28, after held arrow keys stacked the player's
+sources: the player's tests in `web/tests/` run under Node's own test
+runner with a fake AudioContext and no npm packages. Node is an
+optional tool of `scripts/check.sh`, which skips them without it; the
+page still needs no Node.)
 
 ### Security
 

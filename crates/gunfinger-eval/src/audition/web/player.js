@@ -177,12 +177,19 @@ export class Player {
   }
 
   // Silences every source from context time `when` and ends the clock there.
-  // A source due to stop before `when` keeps its stop time: a later stop()
-  // call would replace it and play the source on.
+  // Web Audio applies only a source's latest stop() call, so a source cut
+  // here records its new stop time, and one due to stop before `when` keeps
+  // its own: a later stop() call would replace it and play the source on.
+  // Changes come faster than LEAD while a key is held, so without this each
+  // cut would move the previous cuts' stops later and the sources would
+  // pile up.
   cut(when) {
-    for (const { source, start, stop } of this.sources) {
-      if (start >= when) source.disconnect();
-      else if (stop > when) source.stop(when);
+    for (const entry of this.sources) {
+      if (entry.start >= when) entry.source.disconnect();
+      else if (entry.stop > when) {
+        entry.source.stop(when);
+        entry.stop = when;
+      }
     }
     this.sources = this.sources.filter(({ start }) => start < when);
     const t = this.at(when);
