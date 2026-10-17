@@ -655,6 +655,38 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   the track: draw 015 at -3% and +8% 66 s early, draw 032 at +3% 5.6 s
   early; 336 queries in position.
 
+### 03:04-05:06: development mixes, seeds 2027-2029, generated mixes, leave-out; a hang
+
+- `dev` (monitor; 10 s windows every 5 s, times within the window):
+  stakka 98 s wall, razorjack 92 s, nocny 141 s; 442-457 MB; no
+  exception. Seeds 2027-2029: `index-seed` 14-15 s each from the cached
+  prints; `sweep` 274, 243, 242 s wall (276-308 s user, 432-445 MB).
+  The 12 generated mixes (`mix NN`, index I-seed-2026): 10-12 s each;
+  `stakka-out` (index 244 files 18 s, monitor 89 s). No exception in any
+  of these logs; each ended with exit 0.
+- **The hang.** The chain's next stage, `dev-query stakka-skynet-knowledge`
+  (`query` on the whole 56-minute mix, pre-registered "beside it,
+  deciding nothing"), started 03:27:36 and threw at 03:27:37
+  `java.lang.OutOfMemoryError: Java heap space` in
+  `JGaborator.gaborTransform` (called from
+  `PanakoEventPointProcessor.process`) while fingerprinting the mix,
+  under the startup script's `-Xmx256m`. The JVM did not exit: at 05:00
+  it had run 1 h 32 min with 12 s of CPU, its FFmpeg blocked on the pipe
+  (the orchestrator's note at 05:03 found it). I stopped my chain, its
+  `run.sh`, the JVM and its FFmpeg (PIDs 37157, 40058, 40071, 40073,
+  each checked as mine). The two other whole-file queries had not
+  started. For reference: Temurin 11's own default maximum heap on this
+  machine is 8 GB (`MaxHeapSize` 8,589,934,592 of 32 GB); Panako's
+  startup script sets 256 MB.
+- **Amendment A11 (05:06, before any whole-file query count).** As step
+  3 provides, a run that fails for lack of heap is rerun once with
+  `-Xmx2g`. The rerun also passes `-XX:+ExitOnOutOfMemoryError`, so that a
+  heap failure ends the JVM instead of hanging (a JVM option; Panako
+  unchanged). Stakka first, alone, under a 30-minute limit; its log
+  checked for `Exception` and `Error`, its CPU against its wall time;
+  then razorjack and nocny if it completes. These whole-file queries
+  decide nothing.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
