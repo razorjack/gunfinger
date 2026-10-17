@@ -225,8 +225,22 @@ possible-tier detail. Steps 2, 5 and 7 do not shrink.
   hold check on the refreshed build gives the same counts
   (`work/s28/page-hold-after-refresh.log`: at most 2 playing for a
   moment, peak -9.2 dBFS).
+- **(03:43) The clusters against the six new verdicts.** 0128's NAS
+  clusters (`work/reports/library-nas-dnb-peaks/duplicate-clusters.json`,
+  at `fed26c76b8fe89ea`) agree with all six: the three Aphrodite pairs
+  and Kemal - Animation ~ the Silent Extent Remix lie in different
+  clusters; the PRO 012 A upload is in the corpus Sonar's cluster, and
+  its join to the Mark System Revision is one of the two cut links. No
+  file of the six pairs' clusters is a recall-panel source (either
+  half). So the clusters are not rebuilt, and no count of step 4
+  depends on the verdicts. The old-skool upload ~ the revision cut
+  still has no verdict; it touches no panel source either.
+- **(03:44) Combined damage today at 262 tracks**: session 27's run of
+  `robust` (`work/s27/vwork/reports/robust-seed-2026.json`, today's
+  matcher): `combined` 4 of 80 confident, 65 of 80 possible or better,
+  no wrong answer, as 0027's skip variant at 240 hits.
 
-## Step 4: pre-registration (written at 03:55-04:05, committed before any count)
+## Step 4: pre-registration (written at 03:41-03:46, committed before any count)
 
 Everything below is fixed before any query of these conditions is
 searched. Nothing may be added after a count is seen; anything computed
@@ -246,7 +260,7 @@ here changes the product.
   40,126 records (`fed26c76b8fe89ea`), every member of the held-out
   sources' clusters left out. Clusters: 0128's NAS clusters, checked
   against the six new verdicts by ear (all six agree, none touches a
-  panel source, so they are not rebuilt; brief, 03:50).
+  panel source, so they are not rebuilt; Decisions, 03:43).
 - The matcher, ladder and rule are `identify`'s defaults (the fitted
   matcher, both ladders, 240 hits in 3 windows confident, 60 hits
   possible).

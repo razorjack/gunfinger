@@ -1,9 +1,9 @@
 # 0143: recall under the hardest conditions combined: pre-registration
 
-**Question.** Session 28, step 4 (the roadmap's "Recall beyond the
-corpus recordings"): at NAS scale, how often does the recall panel's
-development half name its own recording under other rips only, brief
-plays and combined damage, alone and together, and why do misses fail?
+**Question.** Session 28, step 4 (roadmap, "Recall beyond the corpus
+recordings"): at NAS scale, how often does the recall panel's development
+half name its own recording under other rips only, brief plays and
+combined damage, alone and together, and why do misses fail?
 
 **Panel and index.** `docs/panels/recall-seed-2026.json`, development
 half: 58 indexed and 20 held-out sources (2 pruned, as 0074), 9 speeds
@@ -24,14 +24,12 @@ credited apart; broadcast chain; AAC 64 kbps) at the panel's speeds.
 
 **Measures.** Confident and possible recall; wrong confident and
 possible detections with their files; held-out and unobservable queries
-with a confident answer; each miss's reason (never a candidate, too few
-hits after the second pass, 240 hits in too few windows); every
-confident wrong answer checked with `pair` (80% coverage = cluster gap,
-still wrong).
+confident; each miss's reason (never a candidate, too few hits after the
+second pass, 240 hits in too few windows); confident wrong answers
+checked with `pair` (80% coverage: a cluster gap, still wrong).
 
-**Expected.** C 522/522, no wrong; (a) at least 90%; (b) about the
-grid's 42% (15 s) and 91% (20 s); (c) about `robust`'s 5% confident and
-81% possible; (a)+(b)+(c) next to none confident.
+**Expected.** C 522/522, no wrong; (a) at least 90%; (b) about the grid's
+42% (15 s), 91% (20 s); (c) about `robust`'s 5% confident, 81% possible.
 
 **Notable, declared before any count.** Any confident wrong answer
 (apart: under 80% `pair` coverage); any held-out or unobservable query
