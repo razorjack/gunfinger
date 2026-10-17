@@ -419,3 +419,16 @@ detail.
   `recall_conditions.py` now writes file names, and both data files were
   regenerated from it (0144's numbers unchanged). `recall_subsets.py`
   (new) restricts each report to (a)'s 20 observable sources for 0145.
+- **(05:29) The frozen build's sources, checked.** `work/bin/s28-recall/`
+  was copied from `target/release/` at 03:55, where the last build was
+  `cargo build --release -p gunfinger-eval` at 03:53. After it only
+  unit tests were added and `cargo fmt --all` ran before `0c0905d` was
+  committed, so the runs' binary was built from `0c0905d`'s code before
+  formatting. A build of `0c0905d`'s sources differs from it in bytes
+  (with `-p gunfinger-eval` by 1,424 bytes; the workspace build by
+  36 KB, from feature unification across the workspace). To confirm the
+  results belong to the committed code, every condition is run again
+  with the workspace build of HEAD (`work/bin/s28-verify/`, the same
+  Rust sources as `0c0905d`) in a scratch work directory of APFS clones
+  (`work/s28/verify/`, `work/s28/verify.sh`), the damaged excerpts
+  rendered again, and renders and reports compared byte for byte.
