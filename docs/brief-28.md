@@ -226,3 +226,125 @@ possible-tier detail. Steps 2, 5 and 7 do not shrink.
   (`work/s28/page-hold-after-refresh.log`: at most 2 playing for a
   moment, peak -9.2 dBFS).
 
+## Step 4: pre-registration (written at 03:55-04:05, committed before any count)
+
+Everything below is fixed before any query of these conditions is
+searched. Nothing may be added after a count is seen; anything computed
+later and not named here is exploratory and decides nothing. Nothing
+here changes the product.
+
+### The panel and the index
+
+- `docs/panels/recall-seed-2026.json`, development half only: 80
+  sources (60 indexed, 20 held out, one per recording family, a third of
+  each kind); the 2 indexed sources without a record since the
+  prune (Essential Rewindz's Stealth, Soul Survivors' Jupiter Fields)
+  are left out as in 0074, so 58 indexed and 20 held-out sources are
+  searched. The validation half stays unsearched; the frozen file does
+  not change. The panel's 9 speeds: -8, -5, -3, -1, 0, +1, +3, +5, +8%.
+- The index: `recall`'s, the corpus library and the NAS store at
+  40,126 records (`fed26c76b8fe89ea`), every member of the held-out
+  sources' clusters left out. Clusters: 0128's NAS clusters, checked
+  against the six new verdicts by ear (all six agree, none touches a
+  panel source, so they are not rebuilt; brief, 03:50).
+- The matcher, ladder and rule are `identify`'s defaults (the fitted
+  matcher, both ladders, 240 hits in 3 windows confident, 60 hits
+  possible).
+
+### The conditions
+
+- **C, the clean control**: the panel's 30 s excerpts as rendered in
+  session 10 (MP3 128 kbps, the sweep's rendering), as 0068 and 0074.
+- **(a) other rips only**: the same queries; the index also leaves out
+  the own record of each of the 58 indexed sources (one index for all
+  of them; no two development sources share a cluster). A source's
+  cluster mates still in the index count as right. A query is
+  *observable* when its cluster holds at least one other file in this
+  index; by the clusters file that is at most 22 of the 58 indexed
+  sources (198 queries). Unobservable queries are never misses: they
+  are reported apart and scored like held-out queries (any confident
+  detection is a wrong answer).
+- **(b) brief plays** of 15 s and 20 s. Each brief query is, joined by
+  hard cuts in the decoded samples (8 kHz mono, as the search reads
+  them; no second lossy encoding): the last 3 + o s of a held-out
+  source's excerpt at the same speed, then the first L s of the
+  source's own excerpt, then the first 3 s of another held-out source's
+  excerpt. o is drawn uniformly from [0, 10) s for each query with the
+  panel's seed, so the play starts at a uniformly random place on the
+  10 s window grid, 3-13 s into the query. The brief play is the start
+  of the panel's excerpt: from the panel's `start_seconds` (drawn 15-85%
+  into the track, clear of intro and outro), L seconds of query time.
+  For query number n (in the order sources, then speeds, then lengths)
+  the context sources are held-out sources n mod 20 and (n + 7) mod 20
+  of the panel's held-out list, the next one taken when either is the
+  source itself. Held-out sources get the same construction (the null).
+- **(c) damage**: the combined damage of 0027, `robust`'s `combined`
+  condition with its settings unchanged: the excerpt played at the
+  query's speed with wow at 0.55 Hz (33 rpm) of depth 0.2%; a
+  beatmatched partner at -6 dB (another panel source's excerpt, beat-
+  aligned at a tempo within 10% of its own, otherwise at the query's
+  speed unmatched, as `robust` does); FM broadcast processing (two
+  compressors and a limiter, `robust`'s `BROADCAST`) over the mix; AAC
+  64 kbps. The partner of an indexed source is the next searched
+  indexed source in panel order, of a held-out source the next held-out
+  source (both cyclic), so a held-out query holds no indexed audio. The
+  partner's cluster counts as neither right nor wrong (`robust` credits
+  it apart). Rendered from the NAS audio at the panel's 9 speeds.
+- **(a)+(b)+(c)**: brief plays cut from the damaged excerpts, with
+  damaged held-out excerpts as context, searched in (a)'s index.
+- **Pairs, where cheap**, in this order: (a)+(c), (b)+(c), (a)+(b).
+
+Runs, one heavy run at a time, each condition's report written as it
+finishes: R1 (C's index): C, (c), (b); R2 ((a)'s index): (a),
+(a)+(b)+(c), (a)+(c); then, time allowing, R3: (b)+(c); R4: (a)+(b).
+Step 4 shrinks from its end: the pairs first, then the possible-tier
+detail.
+
+### The measures (per condition; per speed, per kind, per brief length)
+
+- Confident recall: indexed (observable) queries with a confident
+  detection of their own cluster. Possible recall: with a detection of
+  their own cluster at the possible level or better (60 hits).
+- Wrong answers: confident detections of a file outside the query's own
+  cluster and its partner's, each listed with its file and hits; wrong
+  possible detections counted and listed the same way.
+- Held-out queries (and, under (a), unobservable ones) with any
+  confident detection: never expected.
+- For every miss of an observable indexed query, its reason (`recall`'s
+  `Miss`): never a candidate (no detection of its own cluster in the
+  search's output at all); too few hits (its strongest own detection
+  under 240 hits after the second pass, told apart by whether it
+  reached 60, the possible tier); enough hits in too few windows (240
+  or more in fewer than 3 windows).
+- Every confident wrong answer is checked afterwards with `pair`
+  (source file against the found file): coverage of 80% or more (the
+  clusters' criterion) marks a cluster gap to check manually; it still
+  counts as wrong (AGENTS.md).
+
+### Expected before the data, so it cannot be claimed later
+
+- C: 522 of 522 (0138's run at 40,126 records); no wrong answer (0074's
+  9 were the DYkast pair, since joined by the verdict by ear).
+- (a): at least 90% of observable queries confident (other rips of the
+  same recording, some of them other masters or vinyl rips).
+- (b): near the grid's rates at 262 tracks over all offsets (0138,
+  today's rule: 15 s 67 of 160 = 42%, 20 s 146 of 160 = 91%); possible
+  recall near 100%.
+- (c): near `robust`'s combined row at 262 tracks today (0138's run: 4
+  of 80 confident, 65 of 80 possible or better, no wrong answer).
+- (a)+(b)+(c): next to no confident query.
+
+### What counts as notable (declared before any count)
+
+1. Any confident wrong answer in any condition; and apart, any whose
+   `pair` coverage is under 80% (not a cluster gap).
+2. Any held-out or unobservable query with a confident answer.
+3. (a): under 90% of observable queries confident, or its misses
+   concentrated in one kind of source.
+4. (b): confident recall more than 10 points below the grid's at the
+   same length (under 32% at 15 s, under 81% at 20 s).
+5. (c): confident recall above 15%, or possible-or-better recall under
+   60%.
+6. Any wrong possible detection of 200 hits or more (a small margin
+   below the confident tier).
+
