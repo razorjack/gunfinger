@@ -49,7 +49,7 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   `store`, `query` and `stats`, before decoding
 - [-] `index-all`, the sweeps, the development and generated mixes,
   `stakka-out`, `dev-query`: not run; the Panako part stopped (native
-  LMDB missing on arm64, the instruction)
+  LMDB missing on arm64, the instruction); run after 01:22, below
 - [x] State outside `work/`: empty Java Preferences nodes removed,
   `be.panako.util.plist` deleted; the prefs plist's content as before
 - [x] Experiment 0150; 0130 points to it
@@ -60,3 +60,27 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
   project's LMDB described, the cleanup's JDK recorded, predictions
   marked, older notes text pointed to the run, the wait script's path
 - [x] Commit; the message with what the merge into master needs
+
+## The run of 2026-10-17, after our approval of LMDB (01:22)
+
+- [x] The instruction recorded verbatim in the brief
+- [x] LMDB 0.9.29 from OpenLDAP's tag (`8ad7be25`, the same on the
+  GitHub mirror), `libraries/liblmdb` only, into `work/lmdb/`; `file`
+  arm64, `mdb_version` exported; nothing installed
+- [x] `smoke` passes; setup checks recorded (exploratory)
+- [x] 4a `index-all` (stopped at 30 min by the tool's limit, resumed;
+  cost from the per-file times)
+- [x] 4b sweep seed 2026 (S* = 13), then seeds 2027-2029
+- [x] 4c the three development mixes with `monitor`; whole-file
+  `query`: heap failure at 256 MB and a hung JVM (stopped), amendment
+  A11 before the rerun at 2 GB: no match on any
+- [x] 4d seed 2026's generated mixes; I-stakka-out
+- [-] 4d `robust`: not run (its conditions were never named, step 3)
+- [x] Every log checked for `Exception`/`Error` and its exit line
+- [x] Java Preferences node removed again, `be.panako.util.plist`
+  deleted; the prefs plist's content as before; no `~/.panako`,
+  `~/.gradle`, `~/.m2`; no Panako process left
+- [x] Experiment 0150 rewritten with the results; 0130's pointer
+- [x] Notes subsection, status entry and roadmap bullet updated in place
+- [ ] Read-only review by a subagent; fixes
+- [ ] Commit; the message with the numbers and what the merge needs

@@ -889,12 +889,13 @@ marked as inferences were derived, not measured.
   only by running them under one protocol. Session 7 could not download
   Mixotic: the three archives are Google Drive files that answer with a
   sign-in page; a browser download is needed.
-- **Panako as an outside benchmark.** Pre-registered and prepared in
-  session 24b (experiments 0130, 0131; the run script in
-  `docs/brief-24b.md`). With Java 11 it builds, but its LMDB has no
-  macOS arm64 library (experiment 0150). Run it at 262 tracks once an
-  arm64 `liblmdb` is passed as `-Dlmdbjava.native.lib`, or under an
-  x86_64 JDK with Rosetta 2.
+- **Panako as an outside benchmark.** Run in session 24b at 262 tracks
+  (experiments 0130, 0131, 0150; Java 11, LMDB built from source): 59% of
+  the sweep queries to Gunfinger's 100%, 26/27 development-mix tracks to
+  27, 105 generated-mix plays to 106, 0 wrong at S* = 13; about 3.7 times
+  the index CPU. A NAS-scale run (about 52 h of indexing) was to follow
+  only if Panako found what Gunfinger misses; it found 7 plays that
+  Gunfinger reports as possible, nothing else.
 
 ## Engineering
 

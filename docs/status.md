@@ -3514,7 +3514,7 @@ branch `s24b-panako` (heavy runs until 00:30); it was not touched.
   `docs/pair-verdicts.txt` and `work/audition/answers.jsonl` unchanged.
   Scratch data in `/tmp` removed; `work/s24/` holds 1.0 GB.
 
-## 2026-10-16: session 24b, Panako as an outside benchmark (not run: its build needed Java 11; with it, LMDB has no arm64 library)
+## 2026-10-16: session 24b, Panako as an outside benchmark (run on 2026-10-17 with Java 11 and LMDB built from source; experiment 0150)
 
 Worktree `/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`, branch
 `s24b-panako` from `81e16e0`, run beside session 24; brief
@@ -3584,6 +3584,28 @@ product did not change.
   Java 11 outside Panako's commands), `be.panako.util.plist` deleted; the prefs plist's
   content equals the copy from before. No `~/.panako`, `~/.gradle`,
   `~/.m2`.
+- 01:22-01:40 (approved): LMDB 0.9.29 cloned from OpenLDAP's
+  tag `LMDB_0.9.29` (commit `8ad7be25`, the same on the GitHub mirror),
+  `libraries/liblmdb` built into `work/lmdb/liblmdb.dylib` (arm64, no
+  install), passed as `-Dlmdbjava.native.lib`. `smoke` passes; setup
+  checks: a 4 ms delay or a 128 kbit/s MP3 encode loses a match.
+- 01:32-03:04 `index-all`: stopped at 30 min by the tool's default
+  limit on background commands, resumed; 253 files (9 byte-identical
+  copies stored once), 1,728 s of fingerprinting on one thread for
+  99,987 s of audio, LMDB 237.5 MB + cache 103 MB. Seed 2026's sweep:
+  339/540, 1 wrong (score 12); S* = 13.
+- 03:04-05:08 development mixes (`monitor`) 11/11, 7/7, 8/9 (1 wrong at
+  the defaults, 0 at S*); sweeps 2027-2029 309, 291, 341 of 540 (3, 2, 7
+  wrong; 0 at S*); generated mixes 105/115 (104 at S*), 0 wrong;
+  stakka without its references: nothing. Gunfinger: 540 per seed,
+  11/11, 7/7, 9/9, 106, 0 wrong. Whole-file `query`: heap failure at
+  256 MB and a hung JVM (1.5 h, stopped; amendment A11); at 2 GB no
+  match on any mix.
+- 05:08 the Java Preferences node `be/panako/util` (written again by the
+  runs) removed with Temurin 11's `java`, `be.panako.util.plist`
+  deleted; the prefs plist's content as before. No `~/.panako`,
+  `~/.gradle`, `~/.m2`. No Rust code changed; `scripts/check.sh` not
+  run.
 
 ## 2026-10-16: session 25, three harness fixes, the NAS clusters at 40,126 records, the second shared panel's development half
 
