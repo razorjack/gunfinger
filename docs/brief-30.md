@@ -131,3 +131,160 @@ Steps shrink as step 2 says: (a)'s set first, then 0055's scenarios.
 ## Decisions
 
 (by time, as they are made)
+
+- **(07:50) The worktree.** `s30-quant` at
+  `/Users/razorjack/.t3/worktrees/gunfinger/s30-quant`, branched from
+  master's `36dc022` (session 29's draft notes; its later commits touch
+  documents only, so the merge should not conflict outside
+  `CLAUDE.md`, `docs/status.md` and `docs/session-notes.md`). Its target
+  directory is its own (`s30-quant/target/`).
+- **(07:55) Where the counts live.** In `verifier.rs`, beside the peaks:
+  each `Count` the verifier makes (aligned and at each chance shift)
+  gains the pair counts, so every command that verifies (`shared`
+  always, the others with `--verify`) reports them. `recall` gains
+  `--verify` (it ignored it before): only detections the second pass
+  counted are measured, since a detection with fewer than 10 first-pass
+  hits keeps the ladder's evidence and has no fitted alignment. The
+  verifier's reports go to `reports/verified/`, never over
+  `reports/library-nas-dnb-peaks/`. The runs use their own work
+  directory, `work/s30/vwork/`, with clones of the saved index, the
+  recall excerpts and the reports the runs read.
+
+## Step 2: pre-registration (written at 07:52-08:00, committed before any count)
+
+Everything below is fixed before the diagnostic is written or any count
+is made. Nothing may be added after a count is seen; anything computed
+later and not named here is exploratory and decides nothing. Nothing
+here proposes a rule; a tolerant second pass would be our
+decision and a new ADR.
+
+### The counts, per detection
+
+On the alignment the verifier rebuilds for the detection (the straight
+line through the detection's first and last aligned hits, each 10 s
+window moved by the mean of its densest 2-frame run of the asset's hash
+hits; `verifier.rs`, unchanged), with the query analysed at the
+detection's speed and playback over its span plus 1 s either side, as
+the verifier does:
+
+- **Query pairs**: the query's pairs (`hash::for_each_pair`, fan-out 2)
+  whose anchor lies within the detection's span. **Reference pairs**:
+  the asset's own record's pairs, formed as the index forms them (anchor
+  frame rounded), whose anchor lies within the aligned reference
+  passage (the span the verifier counts peaks in). Nothing is looked up
+  in the index for E and N, so no tolerant lookup touches other assets.
+- The pair hash's three quantised components (`hash.rs`): the **anchor
+  level** (the anchor's bin in whole bins below the knee at 50 bins,
+  in 2% relative steps above; 8 bits), the **bin delta** (target bin
+  minus anchor bin, rounded to whole bins; 7 bits) and the **frame
+  delta** (target frame minus anchor frame, rounded to whole frames;
+  6 bits).
+- **E**: a query pair and an unused reference pair with the same hash,
+  the reference anchor within ±1 frame of where the window's alignment
+  places the query anchor (a 2-frame span, as the second pass's densest
+  run). Query pairs in anchor order; each takes the nearest such
+  reference pair; each query pair and each reference pair counts once.
+- **N**: then, among the pairs E left unused, a query pair and a
+  reference pair whose hashes differ but whose three components each
+  differ by at most one step (26 neighbouring hashes), at the same
+  ±1 frame, matched the same way. No pair counts in both E and N.
+- **V**: the verifier's reference peaks found (±1 bin, ±1 frame), with
+  the passage's reference peaks P (V/P is 0058's share).
+- **Chance**: E, N and V again with the reference shifted by -6.2,
+  -5.0, +5.0 and +6.2 s (the verifier's shifts); their mean is the chance
+  level. At chance, N/E should be near 26, the number of neighbours.
+- **Check of E**: E is counted on the verifier's analysis, not the
+  second pass's own, so it is compared with the detection's hits: the
+  median E/hits per set is reported; outside 0.8-1.1 it is said, and
+  hits + N is reported beside E + N.
+
+### The runs and the sets
+
+Build: master after the merge (this session's code), Homebrew's 1.98.0,
+`work/bin/s30-quant/`. Each run under `nice -n 10`, one at a time, under
+`screen` with a log and an exit line, `--work work/s30/vwork
+--other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks` (40,126
+records), default matcher and rule, 0128's clusters.
+
+- **R1**: `--verify recall --seed 2026 --queries clean,damaged`: C (the
+  clean 30 s excerpts) and (c) combined damage, 702 queries each.
+- **R2**: `--verify recall --seed 2026 --other-rips-only --queries
+  clean`: (a), 702 queries, 180 observable.
+- **R3, R4**: `shared docs/panels/shared-material-seed-2026-development.json`
+  and `shared docs/panels/shared-material-2-seed-2026-development.json`:
+  the panels' own queries in their 2 or 3 indexes, as sessions 25 and 26.
+- **R5** (if cheap): `shared work/s7/shared-material.json` without the
+  NAS store (262 tracks): 0055's four scenarios.
+
+Only detections the second pass counted are measured (the `fitted`
+flag; at least 10 first-pass hits).
+
+- **T(c)**: in R1's (c) report, for each searched query, its strongest
+  fitted detection of its own cluster (522 queries). **T(a)**: the same
+  in R2 for the 180 observable queries. **T(C)**: the same in R1's clean
+  report, the reference for what damage and other rips lose.
+- **F**: in R1 and R2, every fitted detection outside the own cluster,
+  not the damage partner's, whose file `labels.py` calls unrelated to
+  the source (tags from the NAS store, `store_tags.py`). Named within
+  it: wrong possible detections (60 hits or more), and the strongest
+  fitted detection of each held-out or unobservable query.
+- **R**: in R3 and R4, every fitted detection of the related recording
+  (role `related`, and `shared_outcomes.py`'s `version` files with
+  0128's clusters), every query kind and index; the confident ones (the
+  Fire versions, Time Is Broken, Ignorance) apart. Beside it: **R(r)**,
+  the wrong detections of R1 and R2 that `labels.py` calls related
+  (same name, version or same artist); **P**, the played recording's
+  fitted detections in R3 and R4 (the same queries' true answers); and
+  0055's related and played detections from R5.
+- The blend partner's and damage partner's detections are in no set.
+
+### The measures
+
+- M1: per set, by hit band (10-59, 60-119, 120-239, 240 and more): the
+  median N/E, (E + N)/E, V/E, V/P, and the chance-corrected N (N minus
+  its chance level) over E.
+- M2: what N recovers of the evidence that damage and other rips lose:
+  per source and speed, with T(C)'s E as the reference: the median of
+  E/E(C) and of (E + N)/E(C) for T(c) and for T(a).
+- M3: T(c) and T(a) detections under 240 hits that reach 240 with E + N
+  (also with hits + N, and with chance-corrected N); the same count for
+  F, R(r) and the not-confident R.
+- M4: separation at equal E: within E bands 10-29, 30-59, 60-119 and
+  120-239, the AUC of N/E and of the chance-corrected N/E between T(c)
+  and F, T(a) and F, T(c) and R, P and R; pooled over the bands (pairs
+  only within a band). Beside them the same AUC of V/P (0056's measure).
+
+### Expected, written before any count
+
+- T(C) clean: N/E about 0.1-0.3 (peaks shifted by speed fitting and
+  re-encoding); E/hits near 1.
+- T(c): damage removes peaks and adds the partner's, which changes which
+  targets an anchor pairs with; tolerance recovers only quantisation, so
+  N/E of 0.2-0.6 and (E + N)/E(C) well under 0.5; few of the 517 reach
+  240.
+- F: near chance, N/E far above T's (up to about 26), so tolerance
+  raises unrelated false candidates more than true ones at equal E, and
+  the AUC of raw N/E between T and F below 0.5; chance-corrected, near
+  0.5.
+- R: shared material is the same audio in the passage, so N grows R
+  about as much as P and T at equal E (AUC near 0.5).
+
+### Notable, declared before any count
+
+- **Recall without risk**: T(c)'s median (E + N)/E at least 1.5 while
+  F's and R's chance-corrected (E + N)/E in the same E band is at most
+  1 + half of T(c)'s gain.
+- **A risk for shared material**: R's median (E + N)/E in an E band at
+  least T(c)'s or P's in the same band.
+- **Reaching the rule**: at least 10% of T(c)'s detections under 240
+  reach 240 with E + N; or any F detection, or any not-confident R or
+  R(r) detection, reaches 240 with E + N.
+- **Other rips**: T(a)'s median (E + N)/E(C) at least 0.75.
+- **Separation**: any pooled AUC of chance-corrected N/E at least 0.75
+  or at most 0.25.
+- **The check**: median E/hits outside 0.8-1.1 in any set.
+
+### Shrinks
+
+(a)'s set (R2) first, then 0055's scenarios (R5). (c) (R1) and the
+shared panels (R3, R4) do not shrink.
