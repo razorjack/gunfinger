@@ -389,7 +389,8 @@ enum Command {
     /// wrongly, or not at all, while an indexed track plays, and silence
     /// while none does (specificity); and where each identified track's
     /// labels start and end. Searches nothing and leaves the reports and
-    /// their scores as they are. The scores go to `seconds/`
+    /// their scores as they are. The scores go to `seconds/` (with another
+    /// library, `seconds/library-<store directory name>/`)
     Seconds {
         /// Reports written by `mixes` or `scan` (a scan of the larger
         /// library with --other-peaks-dir).
@@ -1834,6 +1835,16 @@ impl Paths {
         self.library_reports().join("duplicate-clusters.json")
     }
 
+    /// Where `seconds` writes: `seconds/`, or with another library its own
+    /// directory there, as for reports.
+    fn seconds_dir(&self) -> PathBuf {
+        let dir = self.work.join("seconds");
+        match self.other_name() {
+            Some(name) => dir.join(format!("library-{name}")),
+            None => dir,
+        }
+    }
+
     fn clusters(&self) -> Result<Clusters, String> {
         Clusters::load(&self.clusters_file())
     }
@@ -2177,10 +2188,7 @@ fn score_seconds(
             .map(|stem| stem.to_string_lossy().into_owned())
             .unwrap_or_default();
         write_json(
-            &paths
-                .work
-                .join("seconds")
-                .join(format!("{stem}{name}.json")),
+            &paths.seconds_dir().join(format!("{stem}{name}.json")),
             &scored,
         )?;
         seconds::print_summary(
@@ -2233,10 +2241,7 @@ fn score_rendered(
         .file_stem()
         .map(|stem| stem.to_string_lossy().into_owned())
         .unwrap_or_default();
-    write_json(
-        &paths.work.join("seconds").join(format!("{stem}.json")),
-        &scored,
-    )?;
+    write_json(&paths.seconds_dir().join(format!("{stem}.json")), &scored)?;
     for index in indexes {
         let prefix = format!("{index}: ");
         let here: Vec<&seconds::Scored> = scored
