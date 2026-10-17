@@ -35,6 +35,10 @@ for scope and rules.
   files (0137 from master's reports, 0138 from the variant build; no
   variant meets both criteria)
 
+- [x] Beside the criteria, deciding nothing: 0140 (the shared panels'
+  changes by query length) and 0141 (the short passages shifted off the
+  window grid, pre-registered and run in the variant worktree)
+
 ## Wrap-up
 
 - [ ] 5. Read-only review by a subagent (by 04:15); fixes committed

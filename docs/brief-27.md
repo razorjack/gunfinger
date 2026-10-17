@@ -445,3 +445,9 @@ is not known.
   shifted queries, and the variants change little against today. It
   decides nothing about criterion 1, which stands; it shows
   how much of the protection on the 20 s queries is the file length.
+- **(02:40) 0141's runs** took 02:30-02:38 (both panels, 63 shifted
+  queries). The prediction held: for each of 0140's six wrong answers,
+  today's rule names the same related file confidently in all three
+  shifted queries; A(10)'s outcome on the short file equals today's
+  rule's on the shifted queries in 74 and 70 of 78 pairs, today's own in
+  29. Criterion 1's result is unchanged.

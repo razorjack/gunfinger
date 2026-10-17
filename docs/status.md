@@ -3765,3 +3765,9 @@ Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
   (but one under B(20)) is in a query file of 20 s or less, never
   confident under today's rule; the wrong file is already confident in
   12-13 other queries of the same scenario.
+- 02:30-02:38 0141 (pre-registered 02:30; variant worktree, never
+  merged, `S27_SHIFTED_ONLY`, `work/s27/vshift/`): each shared panel's
+  short passages after 3, 5 and 7 s of the played file's own material.
+  Today's rule names the same wrong file in all three shifted queries
+  of each of 0140's six wrong answers (18 of 18); A(10) on the 20 s
+  file agrees with today's rule shifted in 74 and 70 of 78 pairs.

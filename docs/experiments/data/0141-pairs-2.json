@@ -1,0 +1,237 @@
+{
+ "main": "shared-material-2-seed-2026-development.json",
+ "shifted": "shared-material-2-seed-2026-development.json",
+ "reproduction_problems": 0,
+ "pairs": {
+  "3 windows": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 24
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 46
+   }
+  ],
+  "span 10 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 22
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 3
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 2
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 43
+   }
+  ],
+  "span 15 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 24
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 4
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 42
+   }
+  ],
+  "span 20 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 24
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 46
+   }
+  ],
+  "supported 10 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 22
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 3
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 2
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 43
+   }
+  ],
+  "supported 15 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 22
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 3
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 2
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 43
+   }
+  ],
+  "supported 20 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 5
+   },
+   {
+    "short": "nothing",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "nothing",
+    "queries": 2
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 24
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 7
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 39
+   }
+  ]
+ },
+ "wrong": []
+}
