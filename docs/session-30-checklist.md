@@ -26,9 +26,9 @@ for scope and rules.
 - [x] 3. The diagnostic in `gunfinger-eval` with unit tests (one step
   away counts in N, not E; no correspondence twice; nothing outside the
   passage); committed before the runs (`aecdf93`)
-- [~] 4. The runs: (c) and clean, (a), both shared panels' development
-  halves (0055's scenarios if cheap); counts; experiment file (R1 done
-  08:03-08:17)
+- [x] 4. The runs: (c) and clean, (a), both shared panels' development
+  halves, 0055's scenarios (R1-R5, 08:03-09:23, exit 0); counts;
+  experiment 0151
 
 ## Wrap-up
 

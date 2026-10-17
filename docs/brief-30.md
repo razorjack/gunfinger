@@ -203,6 +203,22 @@ Steps shrink as step 2 says: (a)'s set first, then 0055's scenarios.
   `git diff aecdf93 2f8f4c9 -- crates/` is empty: the merged master has
   the same code, so the counts are those of master's code at
   `2f8f4c9`. From here on the work continues in the root checkout.
+- **(09:23) The runs finished**, none shrunk: R1 08:03-08:17, R3
+  08:17-08:51, R4 08:51-09:15, R2 09:15-09:21, R5 09:21-09:23, each exit
+  0; their stderr holds only FFmpeg's "Error reading frame GEOB, skipped"
+  (a tag frame), no error of the runs. R1's and R2's detections equal
+  session 28's reports apart from the verifier's field. R3's report
+  differs from the root's copy of 2026-10-16 08:15 by 1-2 hits on some
+  strong detections and in weak detections of other files; that copy
+  predates the store's and index's present state (an inference from its
+  date), so R1 and R2 are the build check.
+- **(09:20) The second shared panel's roles.** Its frozen file lists each
+  family's recordings, not directions, so `shared_outcomes.roles_of`
+  cannot read it; `quantisation.py` takes a scenario's family by name
+  and counts its other recordings as `version`. The per-search view (a
+  related file confident today, or with E + N at 240 or more in 3
+  windows) and the counts within (c) alone are exploratory: 0149 does
+  not name them.
 
 ## Step 2: pre-registration (written at 07:52-08:00, committed before any count)
 
