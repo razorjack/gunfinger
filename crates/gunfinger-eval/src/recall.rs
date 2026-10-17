@@ -35,7 +35,7 @@ use crate::render::is_complete;
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::sweep::{
-    Draw, EXCERPT_SECONDS, Query, SPEEDS_PERCENT, SpeedRow, outcome, render_all, speed_row,
+    Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, outcome, render_all, speed_row,
 };
 
 const INDEXED_SOURCES: usize = 60;
@@ -400,25 +400,7 @@ pub fn render_damaged(
     jobs: usize,
 ) -> Result<Vec<Rendered>, String> {
     fs::create_dir_all(dir).map_err(|error| format!("cannot create {}: {error}", dir.display()))?;
-    let partners = partners(panel);
-    let mut work = Vec::new();
-    for (number, source) in panel.development.sources.iter().enumerate() {
-        if panel.is_left_out(source) {
-            continue;
-        }
-        for speed_percent in SPEEDS_PERCENT {
-            let name = format!(
-                "{number:03}-{speed_percent:+.0}.{}",
-                COMBINED_ENCODING.extension()
-            );
-            work.push(Rendered {
-                source: source.clone(),
-                speed_percent,
-                path: dir.join(name),
-                partner: partners.get(&source.asset).cloned(),
-            });
-        }
-    }
+    let work = damaged_renders(panel, dir);
     let failures: Vec<String> = map_in_order(&work, jobs, |rendered| {
         let partner = rendered.partner.as_ref()?;
         if is_complete(&rendered.path) {
@@ -453,6 +435,41 @@ pub fn render_damaged(
 
 fn audio_file(root: &Path, asset: &str) -> PathBuf {
     root.join(asset.strip_prefix(SECOND_LIBRARY_PREFIX).unwrap_or(asset))
+}
+
+/// The damaged renders to make or reuse. A render holds its partner's
+/// audio, and the partners change when the searched sources do, so each
+/// file is named by its source's and its partner's numbers in the panel.
+fn damaged_renders(panel: &Panel, dir: &Path) -> Vec<Rendered> {
+    let partners = partners(panel);
+    let numbers: BTreeMap<&str, usize> = panel
+        .development
+        .sources
+        .iter()
+        .enumerate()
+        .map(|(number, source)| (source.asset.as_str(), number))
+        .collect();
+    let mut work = Vec::new();
+    for (number, source) in panel.development.sources.iter().enumerate() {
+        if panel.is_left_out(source) {
+            continue;
+        }
+        let partner = partners.get(&source.asset);
+        let partner_number = partner.map_or(number, |partner| numbers[partner.asset.as_str()]);
+        for speed_percent in SPEEDS_PERCENT {
+            let name = format!(
+                "{number:03}-{partner_number:03}-{speed_percent:+.0}.{}",
+                COMBINED_ENCODING.extension()
+            );
+            work.push(Rendered {
+                source: source.clone(),
+                speed_percent,
+                path: dir.join(name),
+                partner: partner.cloned(),
+            });
+        }
+    }
+    work
 }
 
 /// The source whose excerpt plays beneath each source's under damage: the
@@ -839,15 +856,12 @@ impl Searcher<'_> {
                 .iter()
                 .map(|detection| {
                     let mut outcome = outcome(self.index, detection, &own_cluster, None);
-                    outcome.partner = !outcome.correct && partner_cluster.contains(&outcome.asset);
+                    outcome.partner = is_partner(&outcome, &partner_cluster);
                     outcome
                 })
                 .collect(),
         };
-        let unobservable = !source.held_out
-            && !own_cluster
-                .iter()
-                .any(|member| self.indexed.contains(member.as_str()));
+        let unobservable = is_unobservable(source, &own_cluster, self.indexed);
         RecallQuery {
             kind: source.kind,
             family: source.family.clone(),
@@ -865,6 +879,25 @@ impl Searcher<'_> {
             query,
         }
     }
+}
+
+/// A detection of the partner's cluster, which is neither right nor wrong.
+/// The own cluster comes first: a source beneath itself stays right.
+fn is_partner(outcome: &Outcome, partner_cluster: &BTreeSet<String>) -> bool {
+    !outcome.correct && partner_cluster.contains(&outcome.asset)
+}
+
+/// An indexed source none of whose cluster is in the index: no answer can
+/// be right, so it is scored like a held-out source.
+fn is_unobservable(
+    source: &Source,
+    own_cluster: &BTreeSet<String>,
+    indexed: &BTreeSet<&str>,
+) -> bool {
+    !source.held_out
+        && !own_cluster
+            .iter()
+            .any(|member| indexed.contains(member.as_str()))
 }
 
 fn kind_row(kind: Kind, queries: &[RecallQuery]) -> KindRow {
@@ -971,7 +1004,6 @@ pub fn print_summary(report: &RecallReport) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::sweep::Outcome;
 
     fn candidate(asset: &str, family: &str) -> Candidate {
         Candidate {
@@ -1263,6 +1295,83 @@ mod tests {
         assert_eq!(partner("x.mp3"), "y.mp3", "held out beneath held out");
         assert_eq!(partner("y.mp3"), "x.mp3");
         assert_eq!(partners.len(), 5);
+    }
+
+    #[test]
+    fn a_query_is_unobservable_when_its_cluster_left_the_index_and_partners_are_marked_apart() {
+        let indexed_source = source("own.mp3", false);
+        let held_out_source = source("held.mp3", true);
+        let cluster = |names: &[&str]| -> BTreeSet<String> {
+            names
+                .iter()
+                .map(|name| format!("{SECOND_LIBRARY_PREFIX}{name}"))
+                .collect()
+        };
+        let own = cluster(&["own.mp3", "other-rip.mp3"]);
+        let other_rip = format!("{SECOND_LIBRARY_PREFIX}other-rip.mp3");
+        let with_other_rip = BTreeSet::from([other_rip.as_str()]);
+        let without = BTreeSet::new();
+
+        assert!(!is_unobservable(&indexed_source, &own, &with_other_rip));
+        assert!(is_unobservable(&indexed_source, &own, &without));
+        assert!(
+            !is_unobservable(&held_out_source, &cluster(&["held.mp3"]), &without),
+            "held-out queries are scored as held out, not as unobservable"
+        );
+
+        let partner_cluster = cluster(&["beneath.mp3", "own.mp3"]);
+        let detection = |name: &str, correct: bool| Outcome {
+            asset: format!("{SECOND_LIBRARY_PREFIX}{name}"),
+            correct,
+            confident: true,
+            windows: 3,
+            hits: 300,
+            speed_percent: 0.0,
+            fitted: true,
+            partner: false,
+            verified: None,
+        };
+        assert!(is_partner(
+            &detection("beneath.mp3", false),
+            &partner_cluster
+        ));
+        assert!(!is_partner(&detection("own.mp3", true), &partner_cluster));
+        assert!(!is_partner(
+            &detection("elsewhere.mp3", false),
+            &partner_cluster
+        ));
+    }
+
+    #[test]
+    fn a_damaged_render_is_named_by_its_partner_so_a_new_partner_renders_again() {
+        let mut panel = panel_of(vec![
+            source("a.mp3", false),
+            source("b.mp3", false),
+            source("c.mp3", false),
+        ]);
+        let dir = Path::new("damaged");
+        let name = |renders: &[Rendered]| {
+            renders[0]
+                .path
+                .file_name()
+                .unwrap()
+                .to_string_lossy()
+                .into_owned()
+        };
+
+        let before = damaged_renders(&panel, dir);
+        panel.left_out = vec![panel.development.sources[1].clone()];
+        let after = damaged_renders(&panel, dir);
+
+        assert_eq!(before.len(), 3 * SPEEDS_PERCENT.len());
+        assert_eq!(name(&before), "000-001--8.m4a");
+        assert_eq!(after.len(), 2 * SPEEDS_PERCENT.len());
+        assert_eq!(after[0].partner.as_ref().unwrap().family, "c.mp3");
+        assert_eq!(
+            name(&after),
+            "000-002--8.m4a",
+            "not the render with b beneath it"
+        );
     }
 
     #[test]

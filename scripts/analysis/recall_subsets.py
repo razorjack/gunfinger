@@ -1,5 +1,5 @@
-"""Each C-index report restricted to the queries of (a)'s 20 observable
-sources, so that (a)'s conditions compare with the same queries (with
+"""Each report restricted to the queries of (a)'s 20 observable sources,
+so that conditions in both indexes compare on the same queries (with
 the median of each query's strongest own-cluster detection); and per
 report, the strongest own-cluster detection's hits over its observable
 indexed queries (median, 10th and 90th percentile). Session 28,

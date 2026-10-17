@@ -17,7 +17,6 @@ import sys
 from collections import Counter, defaultdict
 
 POSSIBLE_HITS = 60
-CONFIDENT_HITS = 240
 
 args = sys.argv[1:]
 out = None
