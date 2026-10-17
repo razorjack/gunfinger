@@ -250,6 +250,19 @@ marked as inferences were derived, not measured.
   before the same audio should not change its level), more brief plays
   confident, and no new confident error on the shared-material challenge
   set below, which comes first.
+  *(session 27, experiments 0136-0141)* Measured under today's matcher
+  with the span (A) and the supported time (B) at 10, 15 and 20 s, the
+  hits fixed: no variant meets the criteria written first. A(10), B(10)
+  and B(15) make 803, 947 and 800 of the grid's 960 queries confident
+  (today 693) with 2, 13 and 0 flips (today 30), and change nothing in
+  the sweeps, recall or the development scans at 262 or NAS scale; but
+  they, A(15) and B(20) make three 20 s queries of the first shared
+  panel newly wrong. A(20) adds no wrong answer and names fewer. Those
+  20 s queries start on the grid, so today's rule can never be
+  confident on them; moved 3-7 s off it, today's rule names the same
+  wrong files (0141). Adoption is our decision and needs a new
+  ADR; a fair shared-material test places brief passages at several
+  offsets, as the grid does.
 - **Speed that wanders within a play.** The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
@@ -889,6 +902,15 @@ marked as inferences were derived, not measured.
   only by running them under one protocol. Session 7 could not download
   Mixotic: the three archives are Google Drive files that answer with a
   sign-in page; a browser download is needed.
+  *(session 27, experiment 0139)* Per-second scoring exists:
+  `gunfinger-eval seconds` scores saved `mixes`, `shared-mixes` and
+  `scan` reports (correct, possible, unlabelled, mislabelled, silent
+  where nothing indexed plays; a margin around approximate borders;
+  `--boundaries` for start and end errors). Today's baseline: generated
+  mixes 94.2% of indexed seconds correct, 100% specificity, edges 2-3 s
+  inside the truth; the development mixes 86.8% (262) and 90.7% (NAS)
+  at a 30 s margin, where the manifests' borders decide most of the
+  score. The datasets above remain to be downloaded.
 - **Panako as an outside benchmark.** Pre-registered and prepared in
   session 24b (experiments 0130, 0131; the run script in
   `docs/brief-24b.md`); not run because Panako 2.1's Gradle 7.2 needs a JDK of
