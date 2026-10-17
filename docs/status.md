@@ -3832,3 +3832,53 @@ Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
   right arrow while playing stacks the fragments' audio until it is
   painfully loud; pressing the key repeatedly does not. Session 28
   fixes it first.
+
+## 2026-10-17: session 28, the held-arrow bug, the page's look, recall under the hardest conditions
+
+Brief `docs/brief-28.md`, checklist `docs/session-28-checklist.md`.
+
+- 03:23 start; `git status` clean at `c0b3172`. NAS store 40,126
+  records, `fed26c76b8fe89ea`. Start build `work/bin/s28-start/`
+  (byte-identical to `s27-final`); `baseline session-28-start` copies
+  reports (0.23 s).
+  Session 24b's Panako runs shared the machine (java at nice 10), so no
+  time tonight says anything about speed.
+- 03:30-03:45 step 2, the held-arrow bug: `cut(when)` in
+  `web/player.js` called `stop(when)` on sounding sources but kept
+  their old stored stop time, and Web Audio applies only the latest
+  `stop()` before a source stops; key repeats 25-35 ms apart, inside
+  the 60 ms `LEAD`, so each repeat kept the previous source playing.
+  Fix: a cut source records its new stop time (`f83da1a`). Test under
+  `node --test` (fake AudioContext, five held-key cases): all fail
+  before (66 sources at once, 124 in the blend), all pass after.
+  `scripts/check.sh` runs it with Node 22.7 or newer, else prints a
+  "skipped" line. The real page in headless Chrome, own server on /tmp
+  copies (deleted): left arrow held 2 s, 61 sources and +7 dBFS before,
+  one source and -10 to -22 dBFS after.
+- 03:40 step 3, a light visual refresh (`c7c6dc8`): CSS custom
+  properties, a 12-20 px type scale, queue states, framed choices,
+  tabular times, lane colours, clearer spans, loop, markers and
+  playhead, visible focus; text contrast 5.5:1 or more. Screenshots
+  before and after in `work/s28/screens/`; the step 2 test and the held
+  arrow in the real page again (at most 2 sources).
+- 03:41-03:46 step 4 pre-registered (0143) before any count. 0128's
+  clusters agree with the six verdicts by ear; none touches a recall
+  panel source; no rebuild.
+- 03:55 `recall` gains `--other-rips-only` and `--queries
+  clean,damaged,brief,brief-damaged` (`0c0905d`, 7 unit tests);
+  `robust`'s combined recipe in one function both use (refactor checked
+  byte-identical on 200 renders).
+- 03:57-05:11 the runs, one at a time under `screen` (`s28-queue`,
+  frozen build `work/bin/s28-recall/`), all exit 0. 03:59 screenshot 04
+  retaken on another folder question (the orchestrating thread's note).
+- 04:28 0144, one condition at a time: clean 522/522; other rips only
+  175/180 (20 sources observable, 38 not); brief 15 s 228/522, 20 s
+  493/522 (the window grid); combined damage 5/522 confident, 428
+  possible. No wrong confident answer; no held-out or unobservable
+  query confident; strongest wrong detection 185 hits (Fire, Splash
+  Remix).
+- 05:13 0145, combined: all three 0/360 confident, 107 possible; other
+  rips and damage 0/180, 125; brief and damage 0/1,044, 490; other rips
+  and brief 37/180 (15 s) and 141/180 (20 s). No wrong confident
+  answer. Damage leaves a tenth of the hits, other rips half. 0144's
+  data file regenerated with file names only (AGENTS.md).

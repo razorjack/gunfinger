@@ -809,8 +809,14 @@ marked as inferences were derived, not measured.
   in session 10, experiment 0068: 540/540 at every speed and kind, no
   miss, held-out sources never confident; 30 wrong answers from a
   mixed-disc track and an upload pair the clusters keep apart. The
-  harness reports why a miss failed. Still to do: the validation half,
-  once the rules change, and the hardest conditions combined.)* The four sweep panels draw
+  harness reports why a miss failed. The hardest conditions, alone and
+  combined, at 40,126 records in session 28, experiments 0143-0145:
+  other rips only 175/180 confident; brief plays 228/522 (15 s) and
+  493/522 (20 s), set by the window grid; combined damage 5/522
+  confident, 428 possible, for too few hits; all three together 0/360
+  confident, 107 possible; no wrong confident answer and no held-out
+  query confident in any condition. Still to do: the validation half,
+  once the rules change.)* The four sweep panels draw
   320 excerpts from 208 corpus files (experiment 0025). At NAS scale
   they measure those recordings against 27,000 records, not recall on
   the rest of the collection. A panel drawn from NAS records, split into
@@ -818,13 +824,13 @@ marked as inferences were derived, not measured.
   result is seen, would cover other upload sources, producer
   catalogues, break-heavy tracks, mixed-CD extracts and other masters.
   Its sources need clusters first (`clusters --from-peaks` around them,
-  about 85 minutes a round), or their other copies count as wrong. The
-  hardest conditions have not been combined at this size: other rips
-  only, brief plays and damage together (combined damage at 262 tracks
-  under skip at 240: 4 of 80 confident, 65 possible or better,
-  experiment 0027). The harness should also say why a query failed:
-  never a candidate, too few hits in the second pass, or enough hits in
-  too few windows.
+  about 85 minutes a round), or their other copies count as wrong.
+  *(done in session 28)* The hardest conditions combined at this size:
+  other rips only, brief plays and damage together (combined damage at
+  262 tracks under skip at 240: 4 of 80 confident, 65 possible or
+  better, experiment 0027), with each miss's reason: never a candidate,
+  too few hits in the second pass, or enough hits in too few windows
+  (`recall --other-rips-only --queries clean,damaged,brief,brief-damaged`).
 
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
