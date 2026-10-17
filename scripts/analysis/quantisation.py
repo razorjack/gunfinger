@@ -163,6 +163,9 @@ def reaching(ds):
         e_plus_n=sum(m["E"] + m["N"] >= RULE_HITS for m in under),
         hits_plus_n=sum(m["hits"] + m["N"] >= RULE_HITS for m in under),
         e_plus_excess_n=sum(m["E"] + m["N"] - m["Nc"] >= RULE_HITS for m in under),
+        # Exploratory (not in 0149): of those reaching 240 with E + N, the
+        # ones whose detection spans 3 windows, as the rule also needs.
+        e_plus_n_in_3_windows=sum(m["E"] + m["N"] >= RULE_HITS and m["windows"] >= 3 for m in under),
         examples=sorted(
             ({"file": os.path.basename(m["asset"]), "hits": m["hits"], "E": m["E"], "N": m["N"],
               "Nc": m["Nc"], **({"scenario": m["scenario"], "query": m["query"], "index": m["index"]}
@@ -246,6 +249,12 @@ def main():
     sets["F wrong possible"] = [m for m in false_unrelated if m["hits"] >= 60]
     sets["F strongest on held-out"] = [m for m in false_unrelated if m.get("strongest_on_held_out")]
     sets["R(r)"] = false_related
+    # Breakdowns by condition (exploratory, not in 0149).
+    for condition in ("C", "c", "a"):
+        for name_, ds in (("F", false_unrelated), ("R(r)", false_related)):
+            subset = [m for m in ds if m["condition"] == condition]
+            if subset:
+                sets[f"{name_} in {condition}"] = subset
     if args.also_related:
         given = lambda m: any(part in os.path.basename(m["asset"]) for part in args.also_related)
         sets["F'"] = [m for m in false_unrelated if not given(m)]
