@@ -418,3 +418,15 @@ is not known.
   they are not compared detection by detection; V's own reports are
   levelled exactly by today's rule. Experiments 0138 (V's counts) and
   0139 (per-second scoring) close steps 3 and 4.
+- **(02:40) The shared panels' changes by query length (0140).** Every
+  outcome the variants change on both shared panels, but one under
+  B(20), is in a query file of 20 s or less, which holds 2 windows and
+  so is never confident under today's rule. Whether today's rule would
+  name the same related versions confidently with the passage shifted
+  off the window grid was not tested: `identify --store-only` builds
+  its index from every record in the NAS store, and whether the store
+  holds a record of the held-out test broadcast was not checked, as
+  that would mean looking for it. The conservative option is to leave
+  the direct test (a harness change in the variant worktree that pads
+  the 20 s queries) to a later session. Criterion 1's result stands as
+  written.

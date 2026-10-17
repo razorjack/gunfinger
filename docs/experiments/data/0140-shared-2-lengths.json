@@ -1,0 +1,68 @@
+{
+ "counts": "v-shared-2.json",
+ "rules": {
+  "3 windows": {
+   "changed_by_windows_held": [],
+   "new_wrong_confident": []
+  },
+  "span 10 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 17
+    }
+   ],
+   "new_wrong_confident": []
+  },
+  "span 15 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 15
+    }
+   ],
+   "new_wrong_confident": []
+  },
+  "span 20 s": {
+   "changed_by_windows_held": [],
+   "new_wrong_confident": []
+  },
+  "supported 10 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 17
+    }
+   ],
+   "new_wrong_confident": []
+  },
+  "supported 15 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 17
+    }
+   ],
+   "new_wrong_confident": []
+  },
+  "supported 20 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 14
+    }
+   ],
+   "new_wrong_confident": []
+  }
+ }
+}

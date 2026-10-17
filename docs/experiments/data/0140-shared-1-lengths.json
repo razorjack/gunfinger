@@ -1,0 +1,809 @@
+{
+ "counts": "v-shared-1.json",
+ "rules": {
+  "3 windows": {
+   "changed_by_windows_held": [],
+   "new_wrong_confident": []
+  },
+  "span 10 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 23
+    },
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "wrong confident",
+     "queries": 6
+    }
+   ],
+   "new_wrong_confident": [
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-looped-240s",
+     "index": "everything",
+     "query_seconds": 240.0,
+     "windows_held": 24,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-looped-240s",
+     "index": "played left out",
+     "query_seconds": 240.0,
+     "windows_held": 24,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    }
+   ]
+  },
+  "span 15 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 21
+    },
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "wrong confident",
+     "queries": 6
+    }
+   ],
+   "new_wrong_confident": [
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    }
+   ]
+  },
+  "span 20 s": {
+   "changed_by_windows_held": [],
+   "new_wrong_confident": []
+  },
+  "supported 10 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 23
+    },
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "wrong confident",
+     "queries": 6
+    }
+   ],
+   "new_wrong_confident": [
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-looped-240s",
+     "index": "everything",
+     "query_seconds": 240.0,
+     "windows_held": 24,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-looped-240s",
+     "index": "played left out",
+     "query_seconds": 240.0,
+     "windows_held": 24,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    }
+   ]
+  },
+  "supported 15 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 21
+    },
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "wrong confident",
+     "queries": 6
+    }
+   ],
+   "new_wrong_confident": [
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    }
+   ]
+  },
+  "supported 20 s": {
+   "changed_by_windows_held": [
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "right confident",
+     "queries": 17
+    },
+    {
+     "windows_held": 2,
+     "today": "possible only",
+     "variant": "wrong confident",
+     "queries": 6
+    },
+    {
+     "windows_held": 6,
+     "today": "right confident",
+     "variant": "possible only",
+     "queries": 1
+    }
+   ],
+   "new_wrong_confident": [
+    {
+     "query": "fire-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-2-alone-30s",
+      "fire-2-before-10s",
+      "fire-2-before-20s",
+      "fire-2-before-5s",
+      "fire-2-beyond-10s",
+      "fire-2-beyond-20s",
+      "fire-2-beyond-30s",
+      "fire-2-blend-beyond-20s",
+      "fire-2-looped-120s",
+      "fire-2-looped-240s",
+      "fire-2-looped-60s",
+      "fire-2-weak-alone-30s",
+      "fire-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "fire-6-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "fire-6-alone-30s",
+      "fire-6-before-10s",
+      "fire-6-before-20s",
+      "fire-6-before-5s",
+      "fire-6-beyond-10s",
+      "fire-6-beyond-20s",
+      "fire-6-beyond-30s",
+      "fire-6-blend-beyond-20s",
+      "fire-6-looped-120s",
+      "fire-6-looped-240s",
+      "fire-6-looped-60s",
+      "fire-6-weak-alone-30s",
+      "fire-6-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "everything",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    },
+    {
+     "query": "pyro-2-alone-20s",
+     "index": "played left out",
+     "query_seconds": 20.0,
+     "windows_held": 2,
+     "same_file_confident_today_in": [
+      "pyro-2-alone-30s",
+      "pyro-2-before-10s",
+      "pyro-2-before-5s",
+      "pyro-2-beyond-10s",
+      "pyro-2-beyond-20s",
+      "pyro-2-beyond-30s",
+      "pyro-2-blend-beyond-20s",
+      "pyro-2-looped-120s",
+      "pyro-2-looped-240s",
+      "pyro-2-looped-60s",
+      "pyro-2-weak-alone-30s",
+      "pyro-2-weak-beyond-20s"
+     ]
+    }
+   ]
+  }
+ }
+}
