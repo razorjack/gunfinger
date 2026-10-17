@@ -406,3 +406,8 @@ is not known.
   file now reads "changed only by the listening answers", with the diff's
   line count recorded. No count of this session depends on them: the
   clusters are not rebuilt and nothing is rescored with new verdicts.
+- **(02:10) `robust`'s detections keep no `fitted` flag** either
+  (`RobustFound`); the first count levelled them by the single pass's
+  rule and failed reproduction (121 problems), so it was not used. Taken
+  as fitted, like the shared panels', today's rule reproduces every
+  stored level and count of V's `robust` run (0 problems).

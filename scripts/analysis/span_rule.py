@@ -427,6 +427,10 @@ def queries(out, paths):
 def robust(out, path):
     report = load(path)
     qs = report["queries"]
+    # `RobustFound` keeps no `fitted` flag either (see `shared`).
+    for q in qs:
+        for d in q["found"]:
+            d.setdefault("fitted", True)
     problems = []
     for q in qs:
         own = [d for d in q["found"] if d["role"] == "own"]
