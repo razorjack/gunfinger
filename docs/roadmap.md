@@ -920,10 +920,14 @@ marked as inferences were derived, not measured.
   most of the shortfall (an inference). Not yet unit-tested: the truth
   built from manifests and generated mixes. The datasets above remain
   to be downloaded.
-- **Panako as an outside benchmark.** Pre-registered and prepared in
-  session 24b (experiments 0130, 0131; the run script in
-  `docs/brief-24b.md`); not run because Panako 2.1's Gradle 7.2 needs a JDK of
-  11-16 to build. Run it at 262 tracks once one is installed.
+- **Panako as an outside benchmark.** Run in session 24b at 262 tracks
+  (experiments 0130, 0131, 0150; Java 11, LMDB built from source): 59% of
+  the sweep queries to Gunfinger's 100%, 26/27 development-mix tracks to
+  27, 105 generated-mix plays to 106; 14 wrong answers, none at S* = 13
+  (104 plays there); about 4 times the index CPU per second of audio. A
+  NAS-scale run (about 72 h of indexing on one core) was to follow
+  only if Panako found what Gunfinger misses; it found 7 plays that
+  Gunfinger reports as possible, nothing else.
 
 ## Engineering
 

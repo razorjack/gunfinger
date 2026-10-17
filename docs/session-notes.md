@@ -5281,16 +5281,18 @@ passed, these would be ours to decide:
 
 ### What changed
 
-Nothing in Gunfinger changed, and Panako did not run. Panako 2.1 cannot
-be built with Java 21: its Gradle wrapper pins Gradle 7.2, which runs
+Nothing in Gunfinger changed. Panako ran on 2026-10-17, with
+Temurin 11 and an LMDB library built from source: its numbers beside
+Gunfinger's are in "The run of 2026-10-17" below. On 2026-10-16 it could
+not run. Panako 2.1 cannot be built with Java 21: its Gradle wrapper pins Gradle 7.2, which runs
 only on Java 8 to 16, and Temurin 21 is the only JDK on the Mac. By our
 rule the Panako part stopped at the build. At 19:24 the launching agent
 said it would ask for Temurin 11 to be installed (`brew install --cask
 temurin@11`) and told me to wait for it until 22:00 without changing
-the wrapper or installing anything; no JDK 11 appeared by then. The
-comparison is prepared: the protocol is pre-registered (amended once
-after a review read Panako's sources, before any count), the run script
-and the scorer are written, and Gunfinger's side is measured.
+the wrapper or installing anything; no JDK 11 appeared by then. By
+22:00 the comparison was prepared: the protocol pre-registered (amended
+once after a review read Panako's sources, before any count), the run
+script and the scorer written, and Gunfinger's side measured.
 
 ### What Panako is
 
@@ -5313,13 +5315,14 @@ Gradle 7.2 (295 MB together) are in `work/panako/` of the worktree.
 2. Possibly native code for macOS arm64: LMDB (through
    `org.mlmdbjava:lmdbjava:0.9.1`) and JGaborator 0.7. The README says
    LMDB needs extra steps on Apple Silicon, its 2.1 changelog says Apple
-   M1 is supported; only a build will tell.
+   M1 is supported; only a build will tell. (The build of 2026-10-17
+   told: no arm64 LMDB, so LMDB was built from source; below.)
 3. One check: `/usr/libexec/java_home -v 11` exits 0 today and prints
    Temurin 21's path, so it cannot tell whether Java 11 is installed;
-   `work/s24b/wait-java11.sh` reads the JDK's own version instead.
+   `work/panako/wait-java11.sh` reads the JDK's own version instead.
 
-Then `work/panako/run.sh build`, `test` (its unit tests), `install`,
-`smoke`, and the stages in the order of the pre-registration
+Then `work/panako/run.sh build`, `install`, `smoke` (the self-check;
+its unit tests download audio, so `test` refuses to run), and the stages in the order of the pre-registration
 (`docs/brief-24b.md`, step 3; experiment 0130). The script is in the
 worktree's `work/` and, verbatim, at the end of the brief. Panako keeps its
 configuration beside its jar, so the run copies the jar and the
@@ -5329,7 +5332,9 @@ write a Java Preferences node to
 from before is in `work/panako/state-before/` for comparison. From the
 README's test run of the Panako algorithm (about 80 seconds of audio per
 second on one core, on short WAV files), indexing the 262 files would
-take about 22 minutes and each sweep seed about 5.
+take about 22 minutes and each sweep seed about 5. (Measured on
+2026-10-17: about 29 minutes, at 58 seconds of audio per second, and
+4-5.4 minutes per seed.)
 
 ### Gunfinger's side (experiment 0131)
 
@@ -5355,23 +5360,30 @@ harness's library stays the store's 262 records.
 Panako cannot read Gunfinger's peak store, so it would decode every NAS
 file again: about 4,200 hours of audio at 40,126 records (scaled from
 session 9's 3,433 h at 32,905). At the README's rate that is about 52
-hours on one core; Panako can extract on every core, but its README
-says LMDB writes run on one thread and suggests its cache of prints for
-large stores. Its index size per second of audio comes from the 262-file
-run. Scoring would use 0120's NAS clusters and the NAS scans of the
+hours on one core, at the rate measured here (58 times real time) about
+72; Panako can extract on every core, but its README says LMDB writes
+run on one thread and suggests its cache of prints for large stores.
+The 262-file run stored about 2.4 KB of LMDB and 1.1 KB of cache per
+second of audio, so about 36 GB and 16 GB for 4,200 hours. Scoring
+would use 0120's NAS clusters and the NAS scans of the
 development mixes. Worth it only if the 262-track run shows Panako finding what
-Gunfinger misses.
+Gunfinger misses. It found no sweep query or development-mix track that
+Gunfinger misses; in the generated mixes, 7 plays Gunfinger reports only
+as possible (below).
 
 ### What else to know
 
 - Nothing touched the held-out test set, the NAS, the validation halves
-  or the main checkout; Panako wrote nothing outside `work/` (it never
-  ran). `~/.panako` and `~/.gradle` do not exist, and the Java
-  preferences file is unchanged. No Rust code changed, so
-  `scripts/check.sh` was not run; the new Python scripts were run.
+  or the main checkout; on 2026-10-16 Panako wrote nothing outside
+  `work/` (it never ran; for 2026-10-17 see below). `~/.panako` and
+  `~/.gradle` do not exist, and the Java preferences file was unchanged.
+  No Rust code changed, so `scripts/check.sh` was not run; the new
+  Python scripts were run.
 - The worktree's `work/s24b/` (1.1 GB, copies of renders and of the
-  peak store) can be deleted; `work/panako/` holds everything the run
-  needs.
+  peak store) also holds the source of 0150's Gunfinger column
+  (`gunfinger-columns.json`, `reports/`, `logs/`): keep those three if
+  the numbers should stay checkable; the rest can be deleted.
+  `work/panako/` holds everything Panako's run needs.
 - Three things in Panako matter for reading its numbers later: its time
   factor is 1/(2 - speed), not the speed, so the scorer takes the speed
   from the matched spans; `monitor` prints times within each 10 s window;
@@ -5379,6 +5391,92 @@ Gunfinger misses.
   inside one cluster), so it will hold 253 files where Gunfinger holds
   262. Its own unit tests download audio from panako.be, so they were
   left out.
+
+### The run of 2026-10-17 (experiment 0150)
+
+With Temurin 11 installed, Panako built at once with its own wrapper (17 s)
+and then failed at its storage: it keeps its index in LMDB through
+lmdbjava, whose jar carries LMDB only for macOS x86_64, Linux x86_64 and
+Windows x86_64. With approval (01:22) I built LMDB 0.9.29 from
+OpenLDAP's source (tag `LMDB_0.9.29`, commit `8ad7be25`, the same on the
+GitHub mirror), only `libraries/liblmdb`, into
+`work/lmdb/liblmdb.dylib`, and passed it to Panako's JVM as
+`-Dlmdbjava.native.lib`; nothing was installed and Panako is unchanged.
+The pre-registered protocol then ran in full, at Panako's defaults and
+at S* = 13 (the one stricter acceptance, chosen on seed 2026's sweep:
+1 + the highest score of a wrong answer there).
+
+| Panel | Panako, defaults | Panako, S* | Gunfinger |
+|---|---|---|---|
+| Sweeps 2026-2029, recalled of 540 indexed queries each | 339, 309, 291, 341 | same | 540 each |
+| Wrong answers in the sweeps | 1, 3, 2, 7 | 0 | 0 |
+| The development mixes: stakka, razorjack, nocny | 11/11, 7/7, 8/9; 1 wrong | 0 wrong | 11/11, 7/7, 9/9; 0 wrong |
+| Generated mixes of seed 2026, 115 indexed plays | 105, 0 wrong | 104, 0 wrong | 106, 0 wrong |
+
+- **Sweeps.** Panako recalls 59% of the 2,160 indexed queries (63%
+  within +-5% speed), 22-53 of 60 at each speed, with misses spread over
+  most draws (on seed 2026, 9 of the 60 draws are found at every speed);
+  every query it answers rightly, Gunfinger answers too. Its
+  13 wrong answers at the defaults (scores 6-12, 4 from held-out queries)
+  each name a recording unrelated by title; S* removes all of them and no right
+  answer. Its speed, taken from the matched spans, is off by up to 0.66
+  points (Gunfinger 0.026).
+- **The development mixes**, with `monitor` (10 s windows every 5 s): Panako misses
+  nocny's Bulletproof "Anthrax"; its one wrong answer is Aphrodite's
+  "From the East" (score 6) at 12:07 in razorjack, during track 4, which
+  is on the NAS only. Its first starts are later than Gunfinger's on
+  every track both find: stakka -59 to +145 s and nocny +1 to +156 s
+  from the manifest's starts (Gunfinger -68 to +0.1 s, and -26 to +16 s
+  with track 10 at +91 s). With stakka's references left out, Panako
+  detects nothing. Gunfinger's leave-out run has no wrong detection.
+- **Generated mixes.** 8 plays only Gunfinger finds; 7 plays only Panako
+  finds, and Gunfinger reports each of those 7 as possible: item.code
+  "Kosmic" (mix 02; gone at S*), Aphrodite "Fanfare" (03), Friction & Nu
+  Balance "Movement" (04), Silent Witness "Again and Again" (06), Gridlok
+  "Soul Sucker" (07), Bad Company "Pulse" (09), Dominion (10). This is
+  the only place where Panako is rightly confident and Gunfinger is not.
+- **Whole-file `query`** of the development mixes (pre-registered beside `monitor`,
+  deciding nothing): the first, on stakka, with the 256 MB heap of
+  Panako's startup script, ran out of memory in the Gabor transform at
+  once, and the JVM did not exit; it sat for 1.5 hours until the
+  orchestrator's note and I stopped it at about 05:00. The other two had
+  not started. All three then ran with 2 GB, as step 3 provides for a
+  heap failure, plus a JVM option that ends the JVM on a heap failure
+  (amendment A11, committed before the rerun): no match on any of the
+  three, 57-85 s and 1.8-2.25 GB each.
+
+| Cost | Panako | Gunfinger |
+|---|---|---|
+| Index of the library | 1,728 s on one thread for 99,987 s of audio (about 29 min); 237.5 MB of LMDB + 107.6 MB cache of prints | 50.9 s wall, 471 s CPU; 39.7 MB index + 19.7 MB peak store |
+| Sweep of 720 renders | 4-5.5 min wall, 4.6-5.6 min user CPU, about 440 MB | 2-3 min wall, 14-15 min user CPU, 153-162 MB |
+| One development mix | 92-141 s wall, 100-149 s user CPU, about 450 MB | 15-30 s wall, 110-161 s user CPU, 220-264 MB |
+
+Panako works on one core, so its queries take 1.5-6 times Gunfinger's
+wall time with similar or less CPU. Per second of audio, its index takes
+about 4 times Gunfinger's CPU (Panako's per-file fingerprinting times,
+which undercount its CPU, against Gunfinger's CPU time), and 5.8 times
+the disk. The machine was shared with session 27's runs (1-minute load
+3-84 at the runs' starts and ends), so only differences of several
+times mean anything.
+
+My reading: at 262 tracks Panako gives nothing Gunfinger lacks except
+confidence on those 7 plays, and misses 41% of the sweep queries. The
+setup checks suggest two causes (an inference, not measured on the
+sweep). On the three-file index, a 4 ms delay of a matching clip lost
+the match, so Panako is sensitive to small time shifts; and a matching
+WAV render encoded as MP3 at 128 kbit/s (the sweep's format) or 96
+kbit/s lost it, while 192 and 320 kbit/s kept it.
+
+Two things happened along the way. The index run was stopped at 30
+minutes by my tool's default limit on background commands; LMDB had
+committed each file, so I resumed it and took its cost from the per-file
+times. And the runs wrote outside `work/` again: the empty Java
+Preferences node `be/panako/util` (in
+`~/Library/Preferences/com.apple.java.util.prefs.plist` and a new
+`be.panako.util.plist`). I removed it through Java's Preferences API
+(Temurin 11's `java`, a single-file program in `work/panako/cleanup/`)
+and deleted the empty file; the plist's content equals my copy from
+before. No `~/.panako`, `~/.gradle` or `~/.m2`.
 
 ## Session 25
 

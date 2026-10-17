@@ -453,6 +453,349 @@ recorded before (`c116f8e2...`). No Rust code changed on the branch
 scripts were run (`panako_compare.py selfcheck`, `plan`, `gunfinger`;
 `report_identity.py` on six reports).
 
+## The run of 2026-10-17
+
+### 00:48: the launching agent's instruction (verbatim)
+
+```text
+Eclipse Temurin 11 (11.0.32.1, arm64) is now installed at /Library/Java/JavaVirtualMachines/temurin-11.jdk; Temurin 21 stays the default `java`. Please run the Panako part now, as pre-registered in 0130 and prepared in your brief and work/panako/run.sh. Unattended, never stop to ask; conservative choices written down.
+
+What changed since you wrapped up:
+- Session 26 merged your branch into master (merge commit 2eee100). Master has moved on: sessions 26 and 27 committed there, and session 27 is running in the main checkout now (offline recounts of a confidence-rule variant; it may run harness jobs). The main checkout's rules for you are as before: never write there or run git against it.
+- First, in your worktree, bring your branch up to master with `git merge --ff-only master` (your branch is an ancestor of master, so this is a fast-forward; record the commit). Then work on your branch as before.
+
+How to run:
+- Build and run Panako with `JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home` (and that JDK's java) for Panako's own commands only; never change the default Java, never install anything, and do not change Panako's wrapper. If its native parts (LMDB, JGaborator) fail on arm64, record exactly what fails and stop the Panako part.
+- Heavy runs one at a time at `nice -n 10`, in the pre-registered order; plan them to end by about 06:30 and the wrap-up by about 08:00 (soft: finish what is in progress). Panako's state stays under your worktree's work/; compare the Java Preferences plist with your copy from before at the end, as your brief says.
+- Same rules as your brief otherwise (no NAS, no test set, no validation halves, nothing of Panako committed, no product change).
+
+Where to write, so that the next merge into master is clean while session 27 appends at the ends of the shared files:
+- The results go into a new experiment file numbered 0150 (reserved for you; master's sessions number below it), at most 40 lines; 0130 keeps its pre-registration (add only a line pointing to 0150 if needed, within 40 lines).
+- Update in place, not at the end of the files: your "Session 24b" section in docs/session-notes.md (a subsection for the run of 2026-10-17), your existing entry in docs/status.md, and the roadmap's "Panako as an outside benchmark" bullet. Add no new sections at the end of those files. Your brief and checklist: append as you like.
+- Commit on your branch after each step (check `git status`, never `git add -A`, no AI attribution, never push). A read-only review by a subagent before the wrap-up. Last, print what was done, the numbers beside Gunfinger's, and what the merge into master needs.
+```
+
+### State and plan (00:50)
+
+- `git merge --ff-only master`: `3a1420a` -> `6c7728c` (session 27's
+  step 2). My files are unchanged on master; since 3a1420a the product
+  crates changed only in `decode::watch`'s tests (session 25), so
+  Gunfinger's saved reports remain the comparison's side (sessions 26
+  and 27 report `regress` identical).
+- JDKs: Temurin 11.0.32.1 at
+  `/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home`
+  (Panako's build and runs, by that path); Temurin 21 stays the default
+  `java`. `run.sh` takes Java 11 from that path. Load average 42 at
+  00:48 (session 27's runs): times are rough.
+- Order (the pre-registration's; the prompt's step 4 makes 2027-2029
+  and the generated mixes "if time allows", the development mixes not):
+  build; install; `smoke` (the self-check); `index-all` (the cost);
+  `index-seed 2026` and `sweep 2026` (S* from it); the three development
+  mixes (`dev`); seeds 2027, 2028, 2029; the 12 generated mixes; then
+  `stakka-out` and the whole-file queries (`dev-query`, deciding
+  nothing). Heavy runs end by about 06:30; what has not started by then
+  is left out and named.
+- Results: experiment 0150; the notes' "Session 24b" section, the
+  status entry and the roadmap bullet are updated in place.
+
+### 00:48-00:52: the build, the smoke test, and the stop
+
+- **Build** (`run.sh build`, `JAVA_HOME` = Temurin 11, Panako's own
+  wrapper unchanged): `BUILD SUCCESSFUL in 16s` (17.0 s wall);
+  `build/libs/panako-2.1-all.jar`, 9.5 MB. No `~/.panako`, `~/.gradle`
+  or `~/.m2` afterwards (`build.gradle`'s `install` task was not
+  realised).
+- **Native code in the jar**: JGaborator for macOS arm64
+  (`jni/00_macos_aarch64_libjgaborator.dylib`, and
+  `03_aarch64-macos-gnu`); LMDB (lmdbjava's natives) only
+  for macOS x86_64 (0.9.20), Linux x86_64 and Windows x86_64 (0.9.29;
+  the `pom.properties` of each). lmdbjava's loader
+  reads a system property `lmdbjava.native.lib` (strings of
+  `org/lmdbjava/Library.class`) and otherwise looks for `lmdb` by name.
+- **Smoke** (`run.sh install`, `run.sh smoke`; the self-check): each of
+  `store`, `query` and `stats` loaded JGaborator from the jar ("Native
+  library library /jni/00_macos_aarch64_libjgaborator.dylib loaded!",
+  "Gaborator latency is 12469 samples") and then failed while creating
+  its LMDB storage, before decoding any audio (0.8-0.9 s each, exit 1):
+  `java.lang.UnsatisfiedLinkError: dlopen(liblmdb.dylib, 0x0009): tried:
+  'liblmdb.dylib' (no such file), ... '/usr/lib/liblmdb.dylib' (no such
+  file, not in dyld cache)`, search paths `~/Library/Java/Extensions`,
+  `/Library/Java/Extensions`, `/Network/Library/Java/Extensions`,
+  `/System/Library/Java/Extensions`, `/usr/lib/java`, `.`,
+  `/usr/local/lib`, `/usr/lib`, `/lib` (`work/panako/logs/smoke-*.log`).
+  No arm64 `liblmdb.dylib` exists on the Mac; an unrelated
+  `node_modules` holds LMDB's sources and a Node addon (not used).
+- **No route around it within the rules.** Panako's other storages are
+  pure Java but cannot serve this protocol: `PANAKO_STORAGE=FILE`'s
+  query methods are empty (it is the cache of prints), and `MEM` starts
+  empty in each process, while `store` and `query` are separate runs of
+  the command line. Both would also change the pre-registered defaults.
+- **Decision (the instruction):** LMDB fails on arm64, so the Panako
+  part stops here. No Panako count exists. What it needs, either:
+  1. an arm64 `liblmdb.dylib` (for example Homebrew's `lmdb`), passed
+     to Panako's JVM as `-Dlmdbjava.native.lib=<path>` (one option in
+     `run/panako`; Panako unchanged; or a `liblmdb.dylib` in
+     `work/panako/run/`, since `.` is on the search path and the stages
+     run from there). The README says "Additional steps are needed to
+     provide the Java lmdb bidge" and links a post, "how to get java
+     lmdb working on Apple M1", which probably describes this route (not
+     fetched); or
+  2. an x86_64 JDK 11 under Rosetta 2, which would load the bundled
+     x86_64 LMDB and JGaborator (its times would not be native).
+- **State outside `work/`, found and removed.** Panako's `Config` opens a
+  Java Preferences node: the runs added an empty `be/panako/util` node to
+  `~/Library/Preferences/com.apple.java.util.prefs.plist` and created
+  `~/Library/Preferences/be.panako.util.plist` (an empty node). I
+  removed the node through Java's own Preferences API (a `jshell`
+  snippet in `work/panako/cleanup/`, run with Temurin 11's `jshell`,
+  the JDK whose Preferences backend had written the node; a deviation
+  from "Java 11 for Panako's own commands only", made for the cleanup
+  Panako's runs required; the default Java unchanged; after checking that `be`,
+  `be/panako` and `be/panako/util` held nothing else); `jshell` itself
+  added an empty `tool/JShell` node, removed the same way by a
+  single-file Java program (`RemoveJShellNode.java`, Temurin 11's
+  `java`). `be.panako.util.plist` is probably the same node's backing
+  file rather than a second node (not checked before deletion). The plist's
+  content now equals the copy from before (`plutil -p` identical; its
+  XML form's digest `4c842708...` both); its bytes differ (`c116f8e2...`
+  before, `2eb54dc8...` after), as the binary serialisation changed.
+  `be.panako.util.plist`, by then an empty dictionary that `defaults`
+  did not know as a domain, was deleted. JGaborator's copies of its
+  library in the temporary folder (`zignativeutils*`) were gone.
+
+### 01:22: the launching agent's instruction on LMDB (verbatim)
+
+```text
+We approve building LMDB 0.9.x from source inside your worktree's work/, on one condition: the code comes from the official source. Unattended as before; conservative choices written down.
+
+- Official source: OpenLDAP's repository, https://git.openldap.org/openldap/openldap.git, the tag LMDB_0.9.29 (the version bundled in Panako's jar for the other platforms; if that tag is missing, the newest LMDB_0.9.x tag, and say which). Clone it into a new, empty directory (for example work/lmdb/src), with only that tag if you can (`--depth 1 --branch LMDB_0.9.29`). Record the tag's commit hash, and cross-check it against the tag of the same name in the read-only GitHub mirror https://github.com/LMDB/lmdb (`git ls-remote`, no second clone needed); if the two hashes differ, stop the Panako part and record both.
+- Build only libraries/liblmdb, with the Xcode command-line tools already installed, into an arm64 dynamic library under work/lmdb/ (for example `liblmdb.dylib`). Check it with `file` (arm64) and that it exports `mdb_version`. Install nothing anywhere else: no `make install`, no Homebrew, nothing outside your worktree's work/.
+- Pass it to Panako's JVM only, as `-Dlmdbjava.native.lib=<absolute path to the dylib>`, with JAVA_HOME at Temurin 11 as before; Panako's code and wrapper stay unchanged.
+- Then run 0130's protocol as written (smoke first). Record the LMDB source, tag, commit and build commands in your brief and 0150. If anything else fails, record exactly what and stop the Panako part.
+- Timing as before: heavy runs at nice 10, one at a time, ending by about 06:30; wrap-up by about 08:00. Write in place as before (0150, your notes subsection, your status entry, the roadmap bullet); nothing of LMDB or Panako is committed.
+```
+
+### 01:28-01:40: LMDB built from source; Panako's smoke test passes
+
+- **Source** (our condition): `git clone --depth 1 --branch
+  LMDB_0.9.29 https://git.openldap.org/openldap/openldap.git
+  work/lmdb/src` into a new, empty `work/lmdb/`. The tag is annotated:
+  tag object `c45a3a3b8e8db84574ccab7531938d0427ce4f25`, commit
+  `8ad7be2510414b9506ec9f9e24f24d04d9b04a1a` ("Prepare for release
+  (0.9.29)", 2021-03-16). `git ls-remote` gives the same two hashes for
+  `refs/tags/LMDB_0.9.29` and `^{}` on OpenLDAP's repository and on the
+  GitHub mirror `https://github.com/LMDB/lmdb`.
+- **Build** (Apple clang 21.0.0 of the command-line tools; only
+  `libraries/liblmdb`): `cd work/lmdb/src/libraries/liblmdb && env -u
+  CPPFLAGS -u LDFLAGS -u CFLAGS nice -n 10 make SOEXT=.dylib
+  liblmdb.dylib`, then the file copied to `work/lmdb/liblmdb.dylib`. The
+  Makefile's own flags (`-pthread -O2 -g -fPIC`, `-shared`); a first
+  build had picked up my shell's `CPPFLAGS`/`LDFLAGS` (PostgreSQL's
+  paths, nothing linked from them) and was rebuilt without them. One
+  linker warning (`__TEXT,text_env` has unwind information). `file`:
+  "Mach-O 64-bit dynamically linked shared library arm64"; `nm -gU`:
+  69 `mdb_` symbols, `_mdb_version` among them; links only
+  `libSystem.B.dylib`; sha256 `0d753c29...`. No `make install`; nothing
+  outside `work/`.
+- **Panako's JVM** gets `-Dlmdbjava.native.lib=<worktree>/work/lmdb/liblmdb.dylib`
+  in `work/panako/run/panako` (Temurin 11 as before; Panako unchanged).
+- **Smoke** (01:29): `store` of the three files: 0:06:36, 0:06:12 and
+  0:06:07 of audio fingerprinted at 52-79 times real time, 18.9 s wall,
+  368 MB; `stats`: 43,055 prints, 1,134.9 s of audio. `query` of draw
+  000's render at +3%: no match ("null", score -1), 1,194 prints, 342
+  hash matches.
+- **Checks of the setup** (exploratory, on the three-file index, deciding
+  nothing; `work/panako/check*/`, `logs/smoke-check*.{out,log}`): draw
+  000's renders at -3, 0 and +1% also give no match; a stored file
+  queried whole matches itself (score 10,994, factors 1.000); 30 s WAV
+  cuts at 16 kHz from three places in two stored files match (scores
+  607-784); the harness's render chain for draw 000 at 0% written as WAV
+  matches (785), the same encoded as 128 kbit/s MP3 does not, nor its
+  MP3 decoded to WAV. From the lossless cut: -6 dB, AAC 128k, MP3 192k
+  and 320k match (355-793); MP3 96k, a 4 ms delay and a 25 ms delay do
+  not, with 507-881 hash matches each. So Panako runs as intended; its
+  acceptance is sensitive to small time shifts of the query (a 4 ms
+  delay loses the match) and to MP3 encoding at 128 kbit/s and below
+  (192k and 320k match), both exploratory. (Corrected after the review:
+  an encoder delay, the same at every bit rate, would not explain why
+  192k matches.) That is its
+  behaviour on the pre-registered queries, not a failure: the protocol
+  runs as written.
+
+### 01:32-03:04: the index (4a) and seed 2026's sweep (4b)
+
+- **`index-all`** (01:32:15, load 10-15 at the start): stopped at about
+  02:01 by the tool's 30-minute limit on background commands (the
+  command was started without an explicit timeout), while decoding file
+  262; 261 files were done. `stats` on the store at 02:57: 252 files,
+  99,638 s, 3,255,792 prints (LMDB commits each file, so the store was
+  intact). Resumed at 02:57 with the same command: 261 skipped as
+  stored, 1 fingerprinted (8.0 s wall, 526 MB). Final store: **253
+  files** (262 minus the 9 byte-identical copies, stored once),
+  99,995.7 s, 3,276,382 prints; `data.mdb` 237.5 MB, the cache of
+  prints 107.6 MB (`du -sk` 105,124 KiB). Cost from the per-file lines
+  (`logs/index-all-run1.out`, `index-all.out`): 250 files fingerprinted
+  from audio, 99,987 s of audio in 1,728 s of fingerprinting on one
+  thread (58 times real time; 28-91 per file as the load varied); 3
+  files came from the cache of prints written by the smoke test (their
+  metadata shows a duration of 1 s, a quirk of Panako's cached path).
+  Wall about 28.75 min for 261 files plus 8 s. The first run's maximum
+  memory is unknown (`/usr/bin/time` never printed); the JVM heap is
+  capped at 256 MB.
+- **Every later job** runs in the background with an explicit timeout of
+  2 h and is checked for its own exit line (the orchestrator's note,
+  02:56).
+- **`index-seed 2026`** from the cached prints: 21.8 s wall, 426 MB.
+  **`sweep 2026`**: 720 queries, 321 s wall, 335 s user, 441 MB, load
+  8-85; 380 queries without an answer. Scored
+  (`panako_compare.py sweep`, `work/panako/score-sweep-2026*.json`):
+  recalled 28, 33, 34, 42, 53, 39, 38, 43, 29 of 60 at -8 ... +8%, 339
+  of 540 (282 of 420 within +-5%); 1 wrong answer (query `018--8.mp3`,
+  Phoenix, answered as `extra/aa-kemal-mechanizm-sour.mp3`, score 12).
+  **S* = 13** (1 + the highest wrong score; step 3). At S*: the same
+  339 recalled, 0 wrong. Speed error (span ratio) at most 0.22 points;
+  start error median 0.00-0.06 s. Three right answers lie elsewhere in
+  the track: draw 015 at -3% and +8% 66 s early, draw 032 at +3% 5.6 s
+  early; 336 queries in position.
+
+### 03:04-05:01: development mixes, seeds 2027-2029, generated mixes, leave-out; a hang
+
+- `dev` (monitor; 10 s windows every 5 s, times within the window):
+  stakka 98 s wall, razorjack 92 s, nocny 141 s; 442-457 MB; no
+  exception. Seeds 2027-2029: `index-seed` 14-15 s each from the cached
+  prints; `sweep` 274, 243, 242 s wall (276-308 s user, 432-445 MB).
+  The 12 generated mixes (`mix NN`, index I-seed-2026): 10-13 s each;
+  `stakka-out` (index 244 files 18 s, monitor 92 s). No exception in any
+  of these logs; each ended with exit 0.
+- **The hang.** The chain's next stage, `dev-query stakka-skynet-knowledge`
+  (`query` on the whole 56-minute mix, pre-registered "beside it,
+  deciding nothing"), started 03:27:36 and threw at 03:27:37
+  `java.lang.OutOfMemoryError: Java heap space` in
+  `JGaborator.gaborTransform` (called from
+  `PanakoEventPointProcessor.process`) while fingerprinting the mix,
+  under the startup script's `-Xmx256m`. The JVM did not exit: at 05:00
+  it had run 1 h 32 min with 12 s of CPU, its FFmpeg blocked on the pipe
+  (the orchestrator's note found it); it was stopped at about 05:00:20
+  (5,563.7 s after its start). I stopped my chain, its
+  `run.sh`, the JVM and its FFmpeg (PIDs 37157, 40058, 40071, 40073,
+  each checked as mine). The two other whole-file queries had not
+  started. For reference: Temurin 11's own default maximum heap on this
+  machine is 8 GB (`MaxHeapSize` 8,589,934,592 of 32 GB); Panako's
+  startup script sets 256 MB.
+- **Amendment A11 (05:01, committed in `fb34efd` at 05:01:31, before any
+  whole-file query count).** As step
+  3 provides, a run that fails for lack of heap is rerun once with
+  `-Xmx2g`. The rerun also passes `-XX:+ExitOnOutOfMemoryError`, so that a
+  heap failure ends the JVM instead of hanging (a JVM option; Panako
+  unchanged). Stakka first, alone, under a 30-minute limit; its log
+  checked for `Exception` and `Error`, its CPU against its wall time;
+  then razorjack and nocny if it completes. These whole-file queries
+  decide nothing.
+
+### 05:03-05:09: the whole-file queries under amendment A11; the cleanup
+
+- `run.sh dev-query-2g` (`-Xmx2g -XX:+ExitOnOutOfMemoryError`, Panako
+  unchanged), one at a time, each under a 30-minute limit, load 40-84.
+  Stakka first (05:03:36): decoded in 19 s, then fingerprinted on one
+  core; no exception, exit 0. Then razorjack and nocny. Each prints one
+  line, "null" (no match); scored with `panako_compare.py scan`
+  (`work/panako/score-query-2g-*.json`): 0 identified, 0 wrong.
+
+  | Mix | Prints | Hash matches | Wall | User | Maximum resident |
+  |---|--:|--:|--:|--:|--:|
+  | stakka | 109,140 | 81,105 | 70.8 s | 70.3 s | 2.20 GB |
+  | razorjack | 86,474 | 61,957 | 57.3 s | 56.5 s | 1.84 GB |
+  | nocny | 172,327 | 119,229 | 85.3 s | 88.5 s | 2.25 GB |
+
+  So with `query`, a whole mix gets no answer; `monitor` (10 s windows)
+  is the mode that finds tracks. Why no candidate passes the acceptance
+  on a whole mix was not looked into.
+- **Cleanup.** No Panako process left (`pgrep`), no JGaborator folder in
+  `$TMPDIR`. The runs had added the empty `be/panako/util` node again
+  (in `com.apple.java.util.prefs.plist` and `be.panako.util.plist`,
+  both written at 01:29, the smoke test). Removed by a single-file Java
+  program (`work/panako/cleanup/RemovePanakoNode.java`, Temurin 11's
+  `java`, after checking the three nodes held nothing else; no `jshell`
+  this time, so no `tool/JShell` node); then `be.panako.util.plist`, an
+  empty dictionary by then, deleted. The prefs plist's content equals the
+  copy from before (`plutil -p` identical; XML digest `4c842708...`
+  both). No `~/.panako`, `~/.gradle`, `~/.m2`.
+
+### The counts after seed 2026 (scored 03:10-05:00, `work/panako/score-*.json`)
+
+At the defaults; at S* = 13 every count of right answers below is the
+same unless marked, and every wrong answer goes. Gunfinger's columns
+from 0131.
+
+- **Sweeps 2027-2029** (`panako_compare.py sweep`), recalled per speed
+  -8 ... +8%:
+  2027: 29, 31, 36, 36, 45, 40, 32, 32, 28 (309 of 540; 252 of 420
+  within +-5%); 2028: 29, 27, 30, 39, 46, 42, 23, 33, 22 (291; 240);
+  2029: 34, 30, 40, 42, 51, 46, 29, 41, 28 (341; 279). Four seeds:
+  1,280 of 2,160 (59.3%), 1,053 of 1,680 within +-5% (62.7%); in
+  position 336, 308, 290, 341. Maximum speed error 0.22, 0.28, 0.32,
+  0.66 points. Right file, other position: 3, 1, 1 (2028: draw 012 at
+  -8%, Sinthetix's "Cryogenic", 136 s early, score 66), 0. Gunfinger:
+  540 of 540 on each seed, 0 wrong, so every query Panako answers
+  rightly Gunfinger answers too.
+- **Wrong answers**, 13 at the defaults (query: truth -> answer, score),
+  none a version of the query's recording by name: 2026 `018--8`
+  Phoenix -> Kemal "Mechanizm" (12); 2027 `066--8` (held out) The Nine
+  -> Decoder "Dead Fall" (7), `044--5` Dozer -> Aphrodite APH33 a1 (6),
+  `061-+5` (held out) Falcon "China Delight" -> Muffler "Bleak" (6);
+  2028 `075-+0` (held out) Aphrodite aph041 -> Ruffneck "Jawbreaker"
+  (7), `042-+3` Ecco & Sabotage "Hazy Shades" -> Jo_S "Separation" (7);
+  2029 `067--5` (held out) Kraken "Analogue Spikes" -> Clockwork
+  (Stakka remix) (8), `021--3`, `021--1`, `021-+1` Item.code
+  "Protection VIP" -> Muffler "Bleak" or Cause 4 Concern "Nightgasp"
+  (6), `044-+0` Logistics -> Usual Suspects "Killa Bees" (Konflict
+  remix) (6), `035-+5` Balderdash -> Sinthetix "Neurotoxin" (6),
+  `025-+8` Muffler "Bleak" -> Friction & Nu Balance "Movement" (Stakka &
+  Tee remix) (11). At S* = 13: 0 on every seed.
+- **Development mixes** (`monitor`, `panako_compare.py scan`): stakka
+  11/11, razorjack 7/7, nocny 8/9 (missed: 9, Bulletproof "Anthrax").
+  One wrong answer at the defaults: razorjack, Aphrodite "From the
+  East" (APH33 b1) at 12:07, score 6, during track 4 (NAS only); none
+  at S*. Gunfinger 11/11, 7/7, 9/9, 0 wrong. Boundaries (earliest
+  credited start minus the manifest's): stakka +46, -2, -18, -59, +14,
+  +11, -14, +3, +3, +145, +4 s for tracks 1-11; nocny +1, +96, +42,
+  +156, +51, +41, +51, +81 s for tracks 1, 3, 5, 10, 11, 13, 16, 18
+  (Gunfinger: stakka -68 to +0.1 s; nocny -26 to +16 s, track 10 +91 s).
+- **Generated mixes of seed 2026** (`panako_compare.py mixes`): 105 of
+  115 indexed plays (104 at S*: item.code "Kosmic" in mix 02 drops),
+  0 wrong; position error median 0.02 s, at most 44.2 s. Gunfinger 106,
+  0 wrong. Plays only Gunfinger finds (8): Splinter (03; one of its two
+  plays), Terratorial and Skektics (04), Mystery Machine (06), Mudslide
+  (one of two) and Kemal "Animation" (07), Fixation (08), Aphrodite
+  "Siren Bass" (11). Plays only Panako
+  finds (7), each a play Gunfinger reports as possible: item.code
+  "Kosmic" (02), Aphrodite "Fanfare" (03), Friction & Nu Balance
+  "Movement" (04), Silent Witness "Again and Again" (06), Gridlok "Soul
+  Sucker" (07), Bad Company "Pulse" (09), Dominion (10). Neither finds
+  SKC "Eclipse" (10) or the first of Horns 2000's two plays (06), both
+  possible for Gunfinger.
+- **Stakka without its references** (I-stakka-out, 244 files): no
+  detection at all, so 0 wrong at both; Gunfinger's leave-out run 0
+  wrong.
+
+### 05:13-05:25: the read-only review and its fixes
+
+A subagent reviewed `a186e74..HEAD` read-only against the score files
+and logs. It confirmed the sweep, mix and leave-out counts, the play
+lists, the boundaries, the whole-file query table, S* (no right answer
+lost), the order of A11 and the rerun, and the house rules. Fixed:
+A11's time (05:01, its commit; I had written 05:06) and the hang's end
+(about 05:00:20, not 05:03); 22-53 of 60 per speed (not 28-53); 1.5-6
+times the wall time (not 2-6); the index CPU stated per second of audio
+and as Panako's per-file times (about 4 times, not 3.7); the load from
+the logs (3-84, not 8-104); the cache 107.6 MB (it was MiB); Gunfinger's
+sweep memory 153-162 MB; 261 skipped; 507-881 hash matches; the encoder
+delay explanation dropped (192k matches, 128k does not); the whole-file
+query's scope (only stakka ran at 256 MB); "unrelated by title"; the
+notes' older predictions and the NAS estimate (about 72 h at the
+measured rate, about 36 + 16 GB); `work/s24b/` holds 0150's Gunfinger
+column.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
