@@ -36,5 +36,5 @@ No confident wrong answer; no held-out or unobservable query confident.
 
 **Conclusion.** One hard condition at a time costs no precision. Other
 rips are named almost as well as the source; brief plays behave as on
-the 262-track grid, set by the windows; combined damage leaves nearly
-every query possible and almost none confident, for too few hits.
+the 262-track grid, set by the windows; combined damage leaves 82%
+possible or better and 1% confident, for too few hits.

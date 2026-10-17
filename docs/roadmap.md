@@ -813,10 +813,10 @@ marked as inferences were derived, not measured.
   combined, at 40,126 records in session 28, experiments 0143-0145:
   other rips only 175/180 confident; brief plays 228/522 (15 s) and
   493/522 (20 s), set by the window grid; combined damage 5/522
-  confident, 428 possible, for too few hits; all three together 0/360
-  confident, 107 possible; no wrong confident answer and no held-out
-  query confident in any condition. Still to do: the validation half,
-  once the rules change.)* The four sweep panels draw
+  confident, 428 possible or better, for too few hits; all three
+  together 0/360 confident, 107 possible; no wrong confident answer and
+  no held-out query confident in any condition. Still to do: the
+  validation half, once the rules change.)* The four sweep panels draw
   320 excerpts from 208 corpus files (experiment 0025). At NAS scale
   they measure those recordings against 27,000 records, not recall on
   the rest of the collection. A panel drawn from NAS records, split into

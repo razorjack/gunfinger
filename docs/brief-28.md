@@ -432,3 +432,29 @@ detail.
   Rust sources as `0c0905d`) in a scratch work directory of APFS clones
   (`work/s28/verify/`, `work/s28/verify.sh`), the damaged excerpts
   rendered again, and renders and reports compared byte for byte.
+- **(05:37) Session 24b merged** (`31ba92a`) after the orchestrating
+  thread reported it finished; checked as step 5 says (worktree clean at
+  `bad25f9`, wrap-up commits, no Panako process, seven files under
+  `docs/` since `2eee100`, nothing of Panako's or under `corpus/`). One
+  conflict, in the roadmap: session 27's per-second paragraph kept, the
+  branch's Panako bullet in place of the old one.
+- **(05:45) The review's findings** (read-only agent, started 05:18,
+  report 05:38). No wrong number and no bug in the fix or the scoring.
+  Fixed: the damaged-render cache named by source and speed only, so a
+  changed partner would have reused an old render (now
+  `<source>-<partner>-<speed>`, a unit test; `is_partner` and
+  `is_unobservable` taken out of `Searcher::query` with a test); prose in
+  the notes, status, roadmap, 0144 and the checklist.
+- **Times corrected** (the review compared them with the commits). The
+  Decisions above were not all headed with the time of the work:
+  "(03:40) The test" and "(03:45) The real page" were done before step
+  2's commit at 03:34 (the test logs at 03:30, the page logs at 03:33);
+  step 3 ran from about 03:34 to its commit at 03:40 (before screenshots
+  03:35, after ones 03:39), not about 20 minutes; "(04:05) The harness"
+  was written by 03:55 (`0c0905d`) and "(04:00) Screenshot 04 retaken"
+  by 03:59. The continued Decisions are in the order written. The
+  notes' first draft said "(05:30)" for a commit made at 05:18.
+- **Experiment order.** The queue started (a)+(b)+(c) at 04:27:51, 61 s
+  before 0144 was committed (04:28:52). All pre-registered runs had been
+  queued back to back at 03:55, and no combined result existed before
+  04:40, so 0144 was written before any combined count was seen.

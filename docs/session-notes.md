@@ -6312,27 +6312,28 @@ the session measured recall under the hardest conditions at NAS scale.
   is built from the final commit, so the next `gunfinger-eval
   audition` has the fix.
 - The page has a lighter, more consistent look. Layout, keys, behaviour
-  and text are as before.
+  and wording are as before.
 - Recall at 40,126 records under other rips only, brief plays and
   combined damage, alone and together (experiments 0143-0145). No
   condition produced a wrong confident answer. Other rips and brief
-  plays lower confident recall; combined damage removes it: with
+  plays lower confident recall; combined damage almost removes it: with
   damage, alone or combined with the others, 5 of 2,106 observable
   queries were confident, while 19-82% kept a possible detection of
   the right recording, depending on the combination.
 - The six verdicts of 02:03 agree with the duplicate clusters of 0128,
-  so no cluster and no earlier count changes.
-- Session 24b: not merged when this was written (05:30); its Panako
-  runs were still going. See "Session 24b" below.
+  so no cluster and no right or wrong count changes; one wrong play
+  that sessions 21 and 23 could not classify now has its explanation.
+- Session 24b's branch is merged (`31ba92a`): its Panako run at 262
+  tracks, experiment 0150. See "Session 24b" below.
 
 ### The held-arrow bug, fixed
 
 Holding Left or Right while the page plays stacked every fragment the
 seek passed through, louder with each repeat. The cause was in the
-player (`web/player.js`). Every change (a seek, a marker jump, a lane
-switch, play, pause) cuts the sources that are sounding at a context
-time `when`, 60 ms ahead of now (`LEAD`), and schedules the new sound
-from there. `cut` called `source.stop(when)` but left the stop time it
+player (`web/player.js`). Every change that starts or reschedules
+sound (a seek, a marker jump, a lane switch, play) cuts the sources that
+are sounding at a context time `when`, 60 ms ahead of now (`LEAD`), and
+schedules the new sound from there; a pause cuts at the current time. `cut` called `source.stop(when)` but left the stop time it
 had stored for that source unchanged. Web Audio applies only a source's
 latest `stop()` call made before it has stopped. A held key repeats
 every 25-35 ms, so the next cut came before `when` had passed: it found
@@ -6380,8 +6381,8 @@ How it was checked:
 
 ### The page's look
 
-Layout, keys, behaviour and every piece of text are as before. What
-changed:
+Layout, keys, behaviour and wording are as before; the position line
+above the title is now set in capitals by CSS. What changed:
 
 - One set of CSS custom properties for colours, a type scale of 12-20
   px, spacing and radii; the lanes' canvas reads its colours from the
@@ -6390,8 +6391,8 @@ changed:
   open questions a blue dot; answered ones their answer in green small
   capitals beside a dimmed title.
 - Choices are framed, the chosen one green. Times use tabular figures.
-- Each lane label has a swatch in its lane's colour, and the sounding
-  lane's border takes that colour.
+- Each lane label has a swatch, in its lane's colour while the lane
+  sounds, and the sounding lane's border takes that colour.
 - The canvas: a shaded span also gets a band along its top, which stays
   visible over a loud waveform; the loop has edges; markers that can be
   jumped to carry a small flag (the `join` markers that Up and Down pass
@@ -6425,7 +6426,8 @@ arrows.
 ### Recall under the hardest conditions (experiments 0143-0145)
 
 The recall panel's development half (`docs/panels/recall-seed-2026.json`)
-holds 58 NAS recordings searched for and 20 held out, each played as a
+holds 80 NAS recordings. Two have had no record since the NAS store was
+pruned, which leaves 58 searched for and 20 held out, each played as a
 30 s excerpt at 9 speeds from -8% to +8%: 522 queries of indexed
 recordings and 180 of held-out ones. The index was the corpus plus the
 NAS store, 40,126 records, with the held-out recordings' clusters left
@@ -6466,9 +6468,16 @@ What it means:
   other Fire versions for the Original Mix, Eddy Woo's Tsunami for its
   remix, Congo Natty's Peace for his Revolution, Trend ft. TNT's
   Another Classic for its remix, and in six brief queries DJ XS's Pang
-  Miaow. Those six all start with a lead-in from DJ XS's Harder, a
-  held-out recording, so the lead-in matched, not the play. The
-  combinations add no new pair.
+  Miaow. Those six are six different plays, and all start with more
+  than 10 s of DJ XS's Harder, a held-out recording, as the lead-in, so
+  most likely the lead-in matched, not the play. The reports do not
+  record where in a query a detection lies, and Harder's own 30 s
+  excerpts found Pang Miaow with at most 47 hits; a lead-in of over
+  10 s may be what puts the shared material into two windows (an
+  inference). The combinations add no new pair.
+- Of the results declared notable beforehand, one occurred: under other
+  rips only, 4 of the 5 misses are in one kind of source ("elsewhere"),
+  The Sect's Victim three times and John B's Droogs once.
 - Other rips cost little alone. 175 of 180 queries named another rip of
   the recording confidently. Two misses never found it, both at the
   extreme speeds (Klute's Silent Weapons, the Photek remix, at -8%;
@@ -6477,8 +6486,8 @@ What it means:
   rule needs. Another rip gives less than half the hits of the
   recording's own record (median 458 against 1,085 for the same
   queries).
-- Brief plays are decided by the window grid, as on the 262-track grid
-  of session 27. Hits are ample (1,041 of 1,044 brief queries reach 240
+- Brief plays are decided by the window grid, as in `grid`'s brief
+  plays at 262 tracks (0138: 42% at 15 s, 91% at 20 s). Hits are ample (1,041 of 1,044 brief queries reach 240
   for their recording), but 240 hits must fall in 3 windows. A 15 s
   play was confident in 199 of 210 queries when it started in the last
   4 s of a window, 29 of 53 at 5-6 s, and never when it started in the
@@ -6507,8 +6516,10 @@ one at a time under `screen` (03:57-05:11); reports are in
   Aphrodite pairs (74%, 63% and 48% coverage) and Kemal's pair were kept
   apart, the PRO 012 A upload was in the corpus Sonar's cluster, and
   its link to the Mark System Revision was one of the two joins
-  `--cut-sparsest` cut. So no cluster changes and no count of earlier
-  experiments changes. The frozen panel files do not change.
+  `--cut-sparsest` cut. So no cluster changes, and no earlier
+  experiment's right or wrong totals change. The one wrong play that
+  0116 and 0121 left unclassified (the Kemal pair below) becomes a wrong
+  play from shared material. The frozen panel files do not change.
 - Sonar: the cut confirmed by ear is one of two. The other, the
   old-skool-jungle-dnb upload ~ the Mark System Revision (99.6%, 301
   hits), still has no verdict, so `clusters` still stops on Sonar's
@@ -6536,10 +6547,20 @@ one at a time under `screen` (03:57-05:11); reports are in
 
 ### Session 24b
 
-Not merged when this section was written (05:30): session 24b's Panako
-queries were still running in its worktree, and its branch had no
-wrap-up commit. The merge is checked from 08:30 and done by 10:00 if
-24b is ready; otherwise the orchestrating thread merges it later.
+Merged at 05:37 (`31ba92a`), as soon as the orchestrating thread
+reported that session 24b had finished. Checked first: its worktree was
+clean at `bad25f9` with its wrap-up commits (brief, notes, status,
+roadmap, experiment 0150 and its review's fixes), no Panako process was
+left, and its changes since session 26's merge (`2eee100`) are seven
+files under `docs/`, with nothing of Panako's and nothing under
+`corpus/`. Its notes section ("Session 24b", before session 25) and its
+status entry were updated in place and merged without conflict. The
+roadmap had one conflict: session 27's per-second paragraph stays, and
+the branch's Panako bullet replaces the old one. The results are in
+that section and experiment 0150: at 262 tracks Panako named 59% of the
+sweep queries to Gunfinger's 100%, 26 of 27 development-mix tracks to
+27 and 105 generated-mix plays to 106, with no wrong answer at its
+threshold S* = 13.
 
 ### Decided this session, open to change
 
@@ -6566,6 +6587,14 @@ wrap-up commit. The merge is checked from 08:30 and done by 10:00 if
 - 0144's data file first held library paths; AGENTS.md asks for file
   names only, so both data files were regenerated with file names (no
   number changed).
+- After the runs, damaged renders are named by their source's and their
+  partner's panel numbers (`<source>-<partner>-<speed>.m4a`): a render
+  holds its partner's audio, and the partners change when the searched
+  sources do, so a cache named by source and speed alone could reuse a
+  render with the wrong record beneath it (the review's finding).
+  Tonight every damaged excerpt was rendered fresh, so no result
+  changes; the next `recall --queries damaged` renders them again
+  under the new names (about 2 minutes).
 
 ### Decisions waiting
 
@@ -6576,9 +6605,8 @@ wrap-up commit. The merge is checked from 08:30 and done by 10:00 if
 
 ### Handoff for the next session
 
-1. `master` is committed. Session 24b's branch `s24b-panako`: see
-   "Session 24b" above. Session 27's worktree `s27-span` and its branch
-   are kept, never merged.
+1. `master` is committed, with session 24b's branch merged. Session
+   27's worktree `s27-span` and its branch are kept, never merged.
 2. `recall` now takes `--other-rips-only` and `--queries clean,damaged,
    brief,brief-damaged`; each report goes to
    `work/reports/library-nas-dnb-peaks/recall-seed-2026[-other-rips][-damaged][-brief].json`.
@@ -6589,9 +6617,28 @@ wrap-up commit. The merge is checked from 08:30 and done by 10:00 if
    are the baseline any change would be compared with.
 4. Kemal's family (Animation and the Silent Extent Remix) would suit a
    later shared-material panel.
-5. Scratch data: `work/s28/` (1.7 GB, mostly the report copies and the
-   cloned report folder) and `work/recall/seed-2026-damaged/` (170 MB,
-   the damaged renders, a cache `recall` reuses) can be deleted.
+5. For session 29 (the minimum span's fair test): tonight's brief-play
+   detections are in `work/s28/reports/recall-seed-2026-brief.json`
+   ((b), 1,404 queries: 1,044 of searched recordings, 360 of held-out
+   ones) and `recall-seed-2026-other-rips-brief.json` ((a)+(b), the
+   same 1,404 queries in the index without the own records), made by
+   `work/bin/s28-recall/gunfinger-eval`. Each query records the play's
+   length (`brief.seconds`), where it starts in the query
+   (`brief.starts_at_seconds`), the lead-in and tail files and the miss
+   reason; each detection records its total `hits`, its `windows` (the
+   count of 10 s windows with hits), its level and speed. They carry no
+   hits per window, no aligned-hit times and no supported seconds, so
+   A(S) and B(S) cannot be recounted from them. The queries are not
+   saved as audio: `recall` cuts them in memory from the cached excerpts
+   in `work/recall/seed-2026/` with the panel's seed (`brief_plays` and
+   `brief_samples` in `recall.rs`), so a build that also records
+   session 27's supported seconds rebuilds exactly the same queries.
+   The variant branch `s27-span` predates tonight's `recall` changes,
+   so it would need them merged in first.
+6. Scratch data: `work/s28/` (SIZE_PENDING) and
+   `work/recall/seed-2026-damaged/` (170 MB, tonight's damaged renders
+   under the old names, which the new build does not reuse) can be
+   deleted.
 
 ### What else to know
 
@@ -6606,6 +6653,27 @@ wrap-up commit. The merge is checked from 08:30 and done by 10:00 if
   about speed; this session measured none.
 - The pre-registration expected at most 22 observable sources under
   other rips only; 20 were.
-- (Pending: the read-only review by a separate agent.)
+- A review by a separate agent (read-only) recomputed every number in
+  0144, 0145, these notes, the status entry and the roadmap from the
+  reports and found them right; it ran the new test against the old
+  player (all five fail) and the new one (all pass), recomputed the
+  contrast (lowest 5.54:1) and checked the harness against the
+  pre-registration. It found the damaged-render cache name above (now
+  fixed, with a unit test, and a second test for how queries are marked
+  unobservable and partners), the notable result and the Pang Miaow
+  inference missing or stated too strongly here, overstatements, stale
+  lines, times in the brief's decisions that did not match the commits
+  (corrected there), and the experiment order below. All are fixed or
+  stated here.
+- The (a)+(b)+(c) run started from the queue at 04:27:51, 61 s before
+  0144 was committed at 04:28:52. All pre-registered runs were queued
+  back to back at 03:55, and no result of a combination existed before
+  04:40, so 0144 was written before any combined count was seen.
+- Holding an arrow seeks less far than pressing it repeatedly: a seek
+  that comes within 60 ms of the previous one starts from the position
+  the old schedule reports, so in the real page 71 repeats moved from
+  3:24.7 to 1:37.8 rather than the full 5 s each. This was the same
+  before the fix; tonight changed only the stacking.
+- PROVENANCE_PENDING
 - (Pending: the final checks, `regress`, `scripts/check.sh`, the store's
   revision and the listening files at the end.)

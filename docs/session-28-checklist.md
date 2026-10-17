@@ -19,7 +19,7 @@ for scope and rules.
 - [x] 2. The held-arrow bug: cause confirmed, every path that starts or
   reschedules a source, the invariant; minimal fix; a `node --test` test
   that fails before and passes after; `scripts/check.sh` runs it when
-  `node` is on PATH; the real page in headless Chrome (own server, /tmp
+  Node 22.7 or newer is installed; the real page in headless Chrome (own server, /tmp
   copies, deleted); committed
 - [x] 3. Visual refresh: screenshots before; CSS properties, type scale,
   contrast (WCAG AA), queue states, focus, lanes; screenshots after
@@ -30,8 +30,8 @@ for scope and rules.
 - [x] 4b. Harness changes with unit tests; committed before the runs
   (`0c0905d`)
 - [x] 4c. The runs at NAS scale under `screen`; experiment files;
-  committed (single conditions 0144, combinations 0145, all four pairs
-  run; 03:57-05:11)
+  committed (single conditions 0144, combinations 0145: the three pairs
+  and all three together; 03:57-05:11)
 - [x] 5. Session 24b's merge when ready: ready at 05:40 (the
   orchestrating thread's note; checked: tree clean at `bad25f9`, wrap-up
   commits, no Panako process); diff since the last merge only docs;

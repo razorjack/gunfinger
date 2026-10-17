@@ -3879,7 +3879,7 @@ Brief `docs/brief-28.md`, checklist `docs/session-28-checklist.md`.
   reports (0.23 s).
   Session 24b's Panako runs shared the machine (java at nice 10), so no
   time tonight says anything about speed.
-- 03:30-03:45 step 2, the held-arrow bug: `cut(when)` in
+- 03:27-03:34 step 2, the held-arrow bug: `cut(when)` in
   `web/player.js` called `stop(when)` on sounding sources but kept
   their old stored stop time, and Web Audio applies only the latest
   `stop()` before a source stops; key repeats 25-35 ms apart, inside
@@ -3891,7 +3891,7 @@ Brief `docs/brief-28.md`, checklist `docs/session-28-checklist.md`.
   "skipped" line. The real page in headless Chrome, own server on /tmp
   copies (deleted): left arrow held 2 s, 61 sources and +7 dBFS before,
   one source and -10 to -22 dBFS after.
-- 03:40 step 3, a light visual refresh (`c7c6dc8`): CSS custom
+- 03:34-03:40 step 3, a light visual refresh (`c7c6dc8`): CSS custom
   properties, a 12-20 px type scale, queue states, framed choices,
   tabular times, lane colours, clearer spans, loop, markers and
   playhead, visible focus; text contrast 5.5:1 or more. Screenshots
@@ -3910,11 +3910,26 @@ Brief `docs/brief-28.md`, checklist `docs/session-28-checklist.md`.
 - 04:28 0144, one condition at a time: clean 522/522; other rips only
   175/180 (20 sources observable, 38 not); brief 15 s 228/522, 20 s
   493/522 (the window grid); combined damage 5/522 confident, 428
-  possible. No wrong confident answer; no held-out or unobservable
-  query confident; strongest wrong detection 185 hits (Fire, Splash
-  Remix).
+  possible or better. No wrong confident answer; no held-out or
+  unobservable query confident; strongest wrong detection 185 hits
+  (Fire, Splash Remix).
 - 05:13 0145, combined: all three 0/360 confident, 107 possible; other
   rips and damage 0/180, 125; brief and damage 0/1,044, 490; other rips
   and brief 37/180 (15 s) and 141/180 (20 s). No wrong confident
   answer. Damage leaves a tenth of the hits, other rips half. 0144's
   data file regenerated with file names only (AGENTS.md).
+- 05:18 notes, status entry and roadmap bullet written; the read-only
+  review started (report 05:38). Early `scripts/check.sh` with rustup's
+  1.98.0 green (450 Rust tests, 5 Node tests, 6.7 min).
+- 05:26-05:29 the frozen build `work/bin/s28-recall/` turned out to be
+  built at 03:53 with `-p gunfinger-eval`, before `cargo fmt` and the
+  unit tests of `0c0905d`; a build of `0c0905d`'s sources differs in
+  bytes. Every condition run again from 05:29 with the workspace build
+  of the committed sources (`work/bin/s28-verify/`, scratch work
+  directory `work/s28/verify/`): the 702 damaged renders came out
+  byte-identical.
+- 05:37 session 24b merged (`31ba92a`); one roadmap conflict, resolved
+  as the step says.
+- 05:45 the review's fixes: damaged renders named by their partner too
+  (`29b8ba5`, with two unit tests); prose in the notes, status, roadmap,
+  0144, checklist; times in the brief's decisions corrected.
