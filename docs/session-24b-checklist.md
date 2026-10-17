@@ -84,4 +84,4 @@ Updated as work completes. `[x]` done and committed, `[~]` in progress,
 - [x] Notes subsection, status entry and roadmap bullet updated in place
 - [x] Read-only review by a subagent (05:13-05:23); fixes (brief,
   "05:13-05:25")
-- [ ] Commit; the message with the numbers and what the merge needs
+- [x] Commit; the message with the numbers and what the merge needs
