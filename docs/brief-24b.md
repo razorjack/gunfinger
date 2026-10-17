@@ -619,6 +619,42 @@ We approve building LMDB 0.9.x from source inside your worktree's work/, on one 
   behaviour on the pre-registered queries, not a failure: the protocol
   runs as written.
 
+### 01:32-03:04: the index (4a) and seed 2026's sweep (4b)
+
+- **`index-all`** (01:32:15, load 10-15 at the start): stopped at about
+  02:01 by the tool's 30-minute limit on background commands (the
+  command was started without an explicit timeout), while decoding file
+  262; 261 files were done. `stats` on the store at 02:57: 252 files,
+  99,638 s, 3,255,792 prints (LMDB commits each file, so the store was
+  intact). Resumed at 02:57 with the same command: 260 skipped as
+  stored, 1 fingerprinted (8.0 s wall, 526 MB). Final store: **253
+  files** (262 minus the 9 byte-identical copies, stored once),
+  99,995.7 s, 3,276,382 prints; `data.mdb` 237.5 MB, the cache of
+  prints 103 MB. Cost from the per-file lines
+  (`logs/index-all-run1.out`, `index-all.out`): 250 files fingerprinted
+  from audio, 99,987 s of audio in 1,728 s of fingerprinting on one
+  thread (58 times real time; 28-91 per file as the load varied); 3
+  files came from the cache of prints written by the smoke test (their
+  metadata shows a duration of 1 s, a quirk of Panako's cached path).
+  Wall about 28.75 min for 261 files plus 8 s. The first run's maximum
+  memory is unknown (`/usr/bin/time` never printed); the JVM heap is
+  capped at 256 MB.
+- **Every later job** runs in the background with an explicit timeout of
+  2 h and is checked for its own exit line (the orchestrator's note,
+  02:56).
+- **`index-seed 2026`** from the cached prints: 21.8 s wall, 426 MB.
+  **`sweep 2026`**: 720 queries, 321 s wall, 335 s user, 441 MB, load
+  8-85; 380 queries without an answer. Scored
+  (`panako_compare.py sweep`, `work/panako/score-sweep-2026*.json`):
+  recalled 28, 33, 34, 42, 53, 39, 38, 43, 29 of 60 at -8 ... +8%, 339
+  of 540 (282 of 420 within +-5%); 1 wrong answer (query `018--8.mp3`,
+  Phoenix, answered as `extra/aa-kemal-mechanizm-sour.mp3`, score 12).
+  **S* = 13** (1 + the highest wrong score; step 3). At S*: the same
+  339 recalled, 0 wrong. Speed error (span ratio) at most 0.22 points;
+  start error median 0.00-0.06 s. Three right answers lie elsewhere in
+  the track: draw 015 at -3% and +8% 66 s early, draw 032 at +3% 5.6 s
+  early; 336 queries in position.
+
 ## Appendix: the run scripts (in `work/`, not committed; kept here so they outlive the worktree)
 
 `work/panako/run.sh`:
