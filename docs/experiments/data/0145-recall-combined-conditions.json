@@ -1,0 +1,1782 @@
+{
+ "source": "scripts/analysis/recall_conditions.py and recall_subsets.py on the reports of work/s28/reports/ (recall from 0c0905d, 2026-10-17 04:28-05:11)",
+ "conditions": {
+  "recall-seed-2026-other-rips-damaged-brief.json": {
+   "report": "recall-seed-2026-other-rips-damaged-brief.json",
+   "other_rips_only": true,
+   "query_set": "brief-damaged",
+   "indexed_assets": 40051,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 360,
+    "confident": 0,
+    "possible_or_better": 107,
+    "misses": {
+     "too-few-hits, weak": 217,
+     "too-few-hits, possible": 107,
+     "never-a-candidate": 36
+    }
+   },
+   "unobservable_queries": 684,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 27,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 83,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 82,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 82,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 77,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 77,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 74,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 71,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 67,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 66,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 66,
+     "windows": 2,
+     "brief_seconds": 15.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 9,
+     "misses": {
+      "too-few-hits, weak": 21,
+      "too-few-hits, possible": 9,
+      "never-a-candidate": 10
+     }
+    },
+    "-5": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, weak": 29,
+      "too-few-hits, possible": 11
+     }
+    },
+    "-3": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 26
+     }
+    },
+    "-1": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 25
+     }
+    },
+    "+0": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 13,
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 24
+     }
+    },
+    "+1": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-hits, weak": 27,
+      "too-few-hits, possible": 10,
+      "never-a-candidate": 3
+     }
+    },
+    "+3": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "never-a-candidate": 6,
+      "too-few-hits, weak": 20
+     }
+    },
+    "+5": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 12,
+     "misses": {
+      "too-few-hits, possible": 12,
+      "too-few-hits, weak": 26,
+      "never-a-candidate": 2
+     }
+    },
+    "+8": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 16,
+      "too-few-hits, weak": 19,
+      "never-a-candidate": 5
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 162,
+     "confident": 0,
+     "possible_or_better": 30,
+     "misses": {
+      "too-few-hits, weak": 117,
+      "too-few-hits, possible": 30,
+      "never-a-candidate": 15
+     }
+    },
+    "scene-release": {
+     "indexed": 126,
+     "confident": 0,
+     "possible_or_better": 58,
+     "misses": {
+      "too-few-hits, weak": 55,
+      "too-few-hits, possible": 58,
+      "never-a-candidate": 13
+     }
+    },
+    "youtube-channel": {
+     "indexed": 72,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 8,
+      "too-few-hits, weak": 45,
+      "too-few-hits, possible": 19
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 180,
+     "confident": 0,
+     "possible_or_better": 34,
+     "misses": {
+      "too-few-hits, weak": 121,
+      "too-few-hits, possible": 34,
+      "never-a-candidate": 25
+     }
+    },
+    "20": {
+     "indexed": 180,
+     "confident": 0,
+     "possible_or_better": 73,
+     "misses": {
+      "too-few-hits, possible": 73,
+      "never-a-candidate": 11,
+      "too-few-hits, weak": 96
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 2,
+     "misses": {
+      "never-a-candidate": 6,
+      "too-few-hits, weak": 12,
+      "too-few-hits, possible": 2
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 11,
+     "confident": 0,
+     "possible_or_better": 0,
+     "misses": {
+      "too-few-hits, weak": 10,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 3,
+     "misses": {
+      "too-few-hits, possible": 3,
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 9
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 19,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, possible": 4,
+      "too-few-hits, weak": 11,
+      "never-a-candidate": 4
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, weak": 19,
+      "too-few-hits, possible": 4,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 6,
+     "misses": {
+      "too-few-hits, possible": 6,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 8
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 18,
+     "confident": 0,
+     "possible_or_better": 2,
+     "misses": {
+      "too-few-hits, weak": 15,
+      "never-a-candidate": 1,
+      "too-few-hits, possible": 2
+     }
+    },
+    "15 s from 7-8 s": {
+     "indexed": 17,
+     "confident": 0,
+     "possible_or_better": 3,
+     "misses": {
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 11,
+      "too-few-hits, possible": 3
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 23,
+     "confident": 0,
+     "possible_or_better": 6,
+     "misses": {
+      "too-few-hits, weak": 16,
+      "too-few-hits, possible": 6,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 9-10 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, possible": 4,
+      "too-few-hits, weak": 10,
+      "never-a-candidate": 2
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 15,
+     "confident": 0,
+     "possible_or_better": 5,
+     "misses": {
+      "too-few-hits, possible": 5,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 8
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 8,
+     "confident": 0,
+     "possible_or_better": 1,
+     "misses": {
+      "too-few-hits, weak": 7,
+      "too-few-hits, possible": 1
+     }
+    },
+    "20 s from 2-3 s": {
+     "indexed": 25,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "too-few-hits, weak": 14
+     }
+    },
+    "20 s from 3-4 s": {
+     "indexed": 13,
+     "confident": 0,
+     "possible_or_better": 7,
+     "misses": {
+      "too-few-hits, weak": 6,
+      "too-few-hits, possible": 7
+     }
+    },
+    "20 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 12
+     }
+    },
+    "20 s from 5-6 s": {
+     "indexed": 15,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, weak": 10,
+      "too-few-hits, possible": 4,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 6-7 s": {
+     "indexed": 23,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-hits, possible": 10,
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 12
+     }
+    },
+    "20 s from 7-8 s": {
+     "indexed": 25,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-hits, possible": 10,
+      "too-few-hits, weak": 14,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 8-9 s": {
+     "indexed": 14,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 9,
+      "too-few-hits, possible": 4
+     }
+    },
+    "20 s from 9-10 s": {
+     "indexed": 18,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-hits, possible": 10,
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 4
+     }
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-damaged.json": {
+   "report": "recall-seed-2026-other-rips-damaged.json",
+   "other_rips_only": true,
+   "query_set": "damaged",
+   "indexed_assets": 40051,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 180,
+    "confident": 0,
+    "possible_or_better": 125,
+    "misses": {
+     "too-few-hits, possible": 125,
+     "never-a-candidate": 5,
+     "too-few-hits, weak": 50
+    }
+   },
+   "unobservable_queries": 342,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 180,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 38,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 109,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 104,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 102,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 101,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 101,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 100,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 92,
+     "windows": 3
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 83,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "hits": 80,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 79,
+     "windows": 3
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 12,
+     "misses": {
+      "too-few-hits, possible": 12,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 6
+     }
+    },
+    "-5": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 12,
+     "misses": {
+      "too-few-hits, possible": 12,
+      "too-few-hits, weak": 8
+     }
+    },
+    "-3": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 15,
+      "too-few-hits, weak": 5
+     }
+    },
+    "-1": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-hits, weak": 6
+     }
+    },
+    "+0": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-hits, weak": 6
+     }
+    },
+    "+1": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-hits, weak": 6
+     }
+    },
+    "+3": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 5
+     }
+    },
+    "+5": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 16,
+      "too-few-hits, weak": 3,
+      "never-a-candidate": 1
+     }
+    },
+    "+8": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-hits, weak": 5,
+      "never-a-candidate": 1
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 81,
+     "confident": 0,
+     "possible_or_better": 61,
+     "misses": {
+      "too-few-hits, possible": 61,
+      "too-few-hits, weak": 19,
+      "never-a-candidate": 1
+     }
+    },
+    "scene-release": {
+     "indexed": 63,
+     "confident": 0,
+     "possible_or_better": 45,
+     "misses": {
+      "too-few-hits, possible": 45,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 16
+     }
+    },
+    "youtube-channel": {
+     "indexed": 36,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 15,
+      "too-few-hits, possible": 19
+     }
+    }
+   },
+   "by_length": {},
+   "by_grid_phase": {}
+  },
+  "recall-seed-2026-damaged-brief.json": {
+   "report": "recall-seed-2026-damaged-brief.json",
+   "other_rips_only": false,
+   "query_set": "brief-damaged",
+   "indexed_assets": 40114,
+   "left_out_records": 0,
+   "all": {
+    "indexed": 1044,
+    "confident": 0,
+    "possible_or_better": 490,
+    "misses": {
+     "too-few-hits, weak": 494,
+     "too-few-hits, possible": 490,
+     "never-a-candidate": 60
+    }
+   },
+   "unobservable_queries": 0,
+   "unobservable_sources": 0,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 27,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 83,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 82,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 82,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 77,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 77,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 74,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 71,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 67,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 66,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 66,
+     "windows": 2,
+     "brief_seconds": 15.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 49,
+     "misses": {
+      "too-few-hits, weak": 59,
+      "too-few-hits, possible": 49,
+      "never-a-candidate": 8
+     }
+    },
+    "-5": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 50,
+     "misses": {
+      "too-few-hits, possible": 50,
+      "too-few-hits, weak": 62,
+      "never-a-candidate": 4
+     }
+    },
+    "-3": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 49,
+     "misses": {
+      "too-few-hits, weak": 56,
+      "too-few-hits, possible": 49,
+      "never-a-candidate": 11
+     }
+    },
+    "-1": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 58,
+     "misses": {
+      "too-few-hits, weak": 51,
+      "too-few-hits, possible": 58,
+      "never-a-candidate": 7
+     }
+    },
+    "+0": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 57,
+     "misses": {
+      "too-few-hits, possible": 57,
+      "too-few-hits, weak": 52,
+      "never-a-candidate": 7
+     }
+    },
+    "+1": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 54,
+     "misses": {
+      "too-few-hits, weak": 56,
+      "too-few-hits, possible": 54,
+      "never-a-candidate": 6
+     }
+    },
+    "+3": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 52,
+     "misses": {
+      "too-few-hits, weak": 58,
+      "too-few-hits, possible": 52,
+      "never-a-candidate": 6
+     }
+    },
+    "+5": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 58,
+     "misses": {
+      "too-few-hits, possible": 58,
+      "too-few-hits, weak": 52,
+      "never-a-candidate": 6
+     }
+    },
+    "+8": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 63,
+     "misses": {
+      "too-few-hits, possible": 63,
+      "too-few-hits, weak": 48,
+      "never-a-candidate": 5
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 360,
+     "confident": 0,
+     "possible_or_better": 181,
+     "misses": {
+      "too-few-hits, weak": 164,
+      "too-few-hits, possible": 181,
+      "never-a-candidate": 15
+     }
+    },
+    "scene-release": {
+     "indexed": 324,
+     "confident": 0,
+     "possible_or_better": 152,
+     "misses": {
+      "too-few-hits, weak": 148,
+      "too-few-hits, possible": 152,
+      "never-a-candidate": 24
+     }
+    },
+    "youtube-channel": {
+     "indexed": 360,
+     "confident": 0,
+     "possible_or_better": 157,
+     "misses": {
+      "never-a-candidate": 21,
+      "too-few-hits, weak": 182,
+      "too-few-hits, possible": 157
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 522,
+     "confident": 0,
+     "possible_or_better": 184,
+     "misses": {
+      "too-few-hits, weak": 292,
+      "too-few-hits, possible": 184,
+      "never-a-candidate": 46
+     }
+    },
+    "20": {
+     "indexed": 522,
+     "confident": 0,
+     "possible_or_better": 306,
+     "misses": {
+      "too-few-hits, possible": 306,
+      "too-few-hits, weak": 202,
+      "never-a-candidate": 14
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 64,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, weak": 41,
+      "never-a-candidate": 7,
+      "too-few-hits, possible": 16
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 39,
+     "confident": 0,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, weak": 23,
+      "too-few-hits, possible": 15,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 49,
+     "confident": 0,
+     "possible_or_better": 20,
+     "misses": {
+      "too-few-hits, weak": 23,
+      "too-few-hits, possible": 20,
+      "never-a-candidate": 6
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 44,
+     "confident": 0,
+     "possible_or_better": 17,
+     "misses": {
+      "too-few-hits, possible": 17,
+      "too-few-hits, weak": 23,
+      "never-a-candidate": 4
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 63,
+     "confident": 0,
+     "possible_or_better": 22,
+     "misses": {
+      "too-few-hits, weak": 34,
+      "never-a-candidate": 7,
+      "too-few-hits, possible": 22
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 53,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "too-few-hits, possible": 19,
+      "too-few-hits, weak": 31,
+      "never-a-candidate": 3
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 48,
+     "confident": 0,
+     "possible_or_better": 17,
+     "misses": {
+      "too-few-hits, possible": 17,
+      "too-few-hits, weak": 29,
+      "never-a-candidate": 2
+     }
+    },
+    "15 s from 7-8 s": {
+     "indexed": 54,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, weak": 32,
+      "never-a-candidate": 6,
+      "too-few-hits, possible": 16
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 53,
+     "confident": 0,
+     "possible_or_better": 24,
+     "misses": {
+      "too-few-hits, weak": 26,
+      "too-few-hits, possible": 24,
+      "never-a-candidate": 3
+     }
+    },
+    "15 s from 9-10 s": {
+     "indexed": 55,
+     "confident": 0,
+     "possible_or_better": 18,
+     "misses": {
+      "too-few-hits, possible": 18,
+      "too-few-hits, weak": 30,
+      "never-a-candidate": 7
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 46,
+     "confident": 0,
+     "possible_or_better": 27,
+     "misses": {
+      "too-few-hits, weak": 17,
+      "too-few-hits, possible": 27,
+      "never-a-candidate": 2
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 42,
+     "confident": 0,
+     "possible_or_better": 23,
+     "misses": {
+      "too-few-hits, weak": 16,
+      "too-few-hits, possible": 23,
+      "never-a-candidate": 3
+     }
+    },
+    "20 s from 2-3 s": {
+     "indexed": 61,
+     "confident": 0,
+     "possible_or_better": 33,
+     "misses": {
+      "too-few-hits, possible": 33,
+      "too-few-hits, weak": 26,
+      "never-a-candidate": 2
+     }
+    },
+    "20 s from 3-4 s": {
+     "indexed": 47,
+     "confident": 0,
+     "possible_or_better": 29,
+     "misses": {
+      "too-few-hits, weak": 16,
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 29
+     }
+    },
+    "20 s from 4-5 s": {
+     "indexed": 60,
+     "confident": 0,
+     "possible_or_better": 35,
+     "misses": {
+      "too-few-hits, possible": 35,
+      "too-few-hits, weak": 24,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 5-6 s": {
+     "indexed": 49,
+     "confident": 0,
+     "possible_or_better": 33,
+     "misses": {
+      "too-few-hits, possible": 33,
+      "too-few-hits, weak": 15,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 6-7 s": {
+     "indexed": 53,
+     "confident": 0,
+     "possible_or_better": 30,
+     "misses": {
+      "too-few-hits, possible": 30,
+      "too-few-hits, weak": 22,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 7-8 s": {
+     "indexed": 67,
+     "confident": 0,
+     "possible_or_better": 41,
+     "misses": {
+      "too-few-hits, possible": 41,
+      "too-few-hits, weak": 26
+     }
+    },
+    "20 s from 8-9 s": {
+     "indexed": 41,
+     "confident": 0,
+     "possible_or_better": 21,
+     "misses": {
+      "too-few-hits, weak": 19,
+      "too-few-hits, possible": 21,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 9-10 s": {
+     "indexed": 56,
+     "confident": 0,
+     "possible_or_better": 34,
+     "misses": {
+      "too-few-hits, weak": 21,
+      "too-few-hits, possible": 34,
+      "never-a-candidate": 1
+     }
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-brief.json": {
+   "report": "recall-seed-2026-other-rips-brief.json",
+   "other_rips_only": true,
+   "query_set": "brief",
+   "indexed_assets": 40051,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 360,
+    "confident": 178,
+    "possible_or_better": 355,
+    "misses": {
+     "too-few-windows": 57,
+     "too-few-hits, possible": 120,
+     "never-a-candidate": 5
+    }
+   },
+   "unobservable_queries": 684,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 112,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 146,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 125,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 125,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 119,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 119,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 117,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 116,
+     "windows": 2,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 106,
+     "windows": 3,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "hits": 105,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 104,
+     "windows": 3,
+     "brief_seconds": 20.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 40,
+     "confident": 20,
+     "possible_or_better": 37,
+     "misses": {
+      "never-a-candidate": 3,
+      "too-few-hits, possible": 12,
+      "too-few-windows": 5
+     }
+    },
+    "-5": {
+     "indexed": 40,
+     "confident": 19,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-windows": 6,
+      "too-few-hits, possible": 15
+     }
+    },
+    "-3": {
+     "indexed": 40,
+     "confident": 20,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-windows": 6
+     }
+    },
+    "-1": {
+     "indexed": 40,
+     "confident": 18,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-windows": 8
+     }
+    },
+    "+0": {
+     "indexed": 40,
+     "confident": 24,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-windows": 7,
+      "too-few-hits, possible": 9
+     }
+    },
+    "+1": {
+     "indexed": 40,
+     "confident": 16,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 18,
+      "too-few-windows": 6
+     }
+    },
+    "+3": {
+     "indexed": 40,
+     "confident": 19,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 15,
+      "too-few-windows": 6
+     }
+    },
+    "+5": {
+     "indexed": 40,
+     "confident": 18,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-windows": 8
+     }
+    },
+    "+8": {
+     "indexed": 40,
+     "confident": 24,
+     "possible_or_better": 38,
+     "misses": {
+      "too-few-windows": 5,
+      "too-few-hits, possible": 9,
+      "never-a-candidate": 2
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 162,
+     "confident": 70,
+     "possible_or_better": 159,
+     "misses": {
+      "too-few-hits, possible": 68,
+      "too-few-windows": 21,
+      "never-a-candidate": 3
+     }
+    },
+    "scene-release": {
+     "indexed": 126,
+     "confident": 65,
+     "possible_or_better": 124,
+     "misses": {
+      "too-few-windows": 22,
+      "too-few-hits, possible": 37,
+      "never-a-candidate": 2
+     }
+    },
+    "youtube-channel": {
+     "indexed": 72,
+     "confident": 43,
+     "possible_or_better": 72,
+     "misses": {
+      "too-few-windows": 14,
+      "too-few-hits, possible": 15
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 180,
+     "confident": 37,
+     "possible_or_better": 177,
+     "misses": {
+      "too-few-windows": 49,
+      "too-few-hits, possible": 91,
+      "never-a-candidate": 3
+     }
+    },
+    "20": {
+     "indexed": 180,
+     "confident": 141,
+     "possible_or_better": 178,
+     "misses": {
+      "too-few-windows": 8,
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 29
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 1,
+      "too-few-hits, possible": 10,
+      "too-few-windows": 9
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 11,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-windows": 5,
+      "too-few-hits, possible": 5,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 8,
+      "too-few-windows": 8
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 19,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "too-few-windows": 10,
+      "too-few-hits, possible": 9
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 0,
+     "possible_or_better": 24,
+     "misses": {
+      "too-few-windows": 11,
+      "too-few-hits, possible": 13
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 16,
+     "confident": 2,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 10,
+      "too-few-windows": 4
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 18,
+     "confident": 10,
+     "possible_or_better": 18,
+     "misses": {
+      "too-few-hits, possible": 8
+     }
+    },
+    "15 s from 7-8 s": {
+     "indexed": 17,
+     "confident": 7,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 9,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 23,
+     "confident": 12,
+     "possible_or_better": 23,
+     "misses": {
+      "too-few-hits, possible": 11
+     }
+    },
+    "15 s from 9-10 s": {
+     "indexed": 16,
+     "confident": 6,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 8,
+      "too-few-windows": 2
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 15,
+     "confident": 5,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-windows": 7,
+      "too-few-hits, possible": 3
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 8,
+     "confident": 6,
+     "possible_or_better": 8,
+     "misses": {
+      "too-few-hits, possible": 2
+     }
+    },
+    "20 s from 2-3 s": {
+     "indexed": 25,
+     "confident": 23,
+     "possible_or_better": 25,
+     "misses": {
+      "too-few-hits, possible": 2
+     }
+    },
+    "20 s from 3-4 s": {
+     "indexed": 13,
+     "confident": 10,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 3
+     }
+    },
+    "20 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 22,
+     "possible_or_better": 24,
+     "misses": {
+      "too-few-hits, possible": 2
+     }
+    },
+    "20 s from 5-6 s": {
+     "indexed": 15,
+     "confident": 10,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 5
+     }
+    },
+    "20 s from 6-7 s": {
+     "indexed": 23,
+     "confident": 17,
+     "possible_or_better": 23,
+     "misses": {
+      "too-few-hits, possible": 6
+     }
+    },
+    "20 s from 7-8 s": {
+     "indexed": 25,
+     "confident": 22,
+     "possible_or_better": 25,
+     "misses": {
+      "too-few-hits, possible": 3
+     }
+    },
+    "20 s from 8-9 s": {
+     "indexed": 14,
+     "confident": 13,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 1
+     }
+    },
+    "20 s from 9-10 s": {
+     "indexed": 18,
+     "confident": 13,
+     "possible_or_better": 16,
+     "misses": {
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 2,
+      "too-few-windows": 1
+     }
+    }
+   }
+  }
+ },
+ "same_sources": {
+  "observable_sources": 20,
+  "recall-seed-2026": {
+   "observable_sources_only": {
+    "all": {
+     "queries": 180,
+     "confident": 180,
+     "possible_or_better": 180,
+     "median_strongest_own_hits": 1085.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 522,
+    "median": 1024.5,
+    "p10": 877,
+    "p90": 1188
+   }
+  },
+  "recall-seed-2026-other-rips": {
+   "observable_sources_only": {
+    "all": {
+     "queries": 180,
+     "confident": 175,
+     "possible_or_better": 178,
+     "median_strongest_own_hits": 458.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 180,
+    "median": 458.0,
+    "p10": 364,
+    "p90": 891
+   }
+  },
+  "recall-seed-2026-damaged": {
+   "observable_sources_only": {
+    "all": {
+     "queries": 180,
+     "confident": 5,
+     "possible_or_better": 146,
+     "median_strongest_own_hits": 114.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 522,
+    "median": 96.5,
+    "p10": 43,
+    "p90": 157
+   }
+  },
+  "recall-seed-2026-other-rips-damaged": {
+   "observable_sources_only": {
+    "all": {
+     "queries": 180,
+     "confident": 0,
+     "possible_or_better": 125,
+     "median_strongest_own_hits": 82.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 180,
+    "median": 82.0,
+    "p10": 29,
+    "p90": 134
+   }
+  },
+  "recall-seed-2026-brief": {
+   "observable_sources_only": {
+    "15 s": {
+     "queries": 180,
+     "confident": 75,
+     "possible_or_better": 180,
+     "median_strongest_own_hits": 472.0
+    },
+    "20 s": {
+     "queries": 180,
+     "confident": 173,
+     "possible_or_better": 180,
+     "median_strongest_own_hits": 647.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 1044,
+    "median": 509.0,
+    "p10": 351,
+    "p90": 713
+   }
+  },
+  "recall-seed-2026-other-rips-brief": {
+   "observable_sources_only": {
+    "15 s": {
+     "queries": 180,
+     "confident": 37,
+     "possible_or_better": 177,
+     "median_strongest_own_hits": 233.0
+    },
+    "20 s": {
+     "queries": 180,
+     "confident": 141,
+     "possible_or_better": 178,
+     "median_strongest_own_hits": 299.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 360,
+    "median": 279.5,
+    "p10": 173,
+    "p90": 504
+   }
+  },
+  "recall-seed-2026-damaged-brief": {
+   "observable_sources_only": {
+    "15 s": {
+     "queries": 180,
+     "confident": 0,
+     "possible_or_better": 80,
+     "median_strongest_own_hits": 55.5
+    },
+    "20 s": {
+     "queries": 180,
+     "confident": 0,
+     "possible_or_better": 116,
+     "median_strongest_own_hits": 77.0
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 1044,
+    "median": 58.0,
+    "p10": 15,
+    "p90": 103
+   }
+  },
+  "recall-seed-2026-other-rips-damaged-brief": {
+   "observable_sources_only": {
+    "15 s": {
+     "queries": 180,
+     "confident": 0,
+     "possible_or_better": 34,
+     "median_strongest_own_hits": 37.5
+    },
+    "20 s": {
+     "queries": 180,
+     "confident": 0,
+     "possible_or_better": 73,
+     "median_strongest_own_hits": 53.5
+    }
+   },
+   "strongest_own_hits": {
+    "queries": 360,
+    "median": 45.0,
+    "p10": 6,
+    "p90": 87
+   }
+  }
+ }
+}

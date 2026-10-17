@@ -24,11 +24,14 @@ for scope and rules.
 - [x] 3. Visual refresh: screenshots before; CSS properties, type scale,
   contrast (WCAG AA), queue states, focus, lanes; screenshots after
   (`work/s28/screens/`); the step 2 test again; committed
-- [ ] 4a. Pre-registration (brief, experiment 0143); the clusters checked
-  against the six verdicts; committed before any count
-- [ ] 4b. Harness changes with unit tests; committed before the runs
-- [ ] 4c. The runs at NAS scale under `screen`; experiment files;
-  committed
+- [x] 4a. Pre-registration (brief, experiment 0143); the clusters checked
+  against the six verdicts (all six agree, no rebuild); committed before
+  any count
+- [x] 4b. Harness changes with unit tests; committed before the runs
+  (`0c0905d`)
+- [x] 4c. The runs at NAS scale under `screen`; experiment files;
+  committed (single conditions 0144, combinations 0145, all four pairs
+  run; 03:57-05:11)
 - [ ] 5. Session 24b's merge when ready (check from about 08:30; by 10:00)
 
 ## Wrap-up

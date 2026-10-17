@@ -7,7 +7,8 @@ and where a brief play starts on the 10 s window grid.
 
 A detection is possible or better at 60 hits (both passes' possible
 tier); a partner's detection (damaged queries) is neither right nor
-wrong.
+wrong. Files are named without their folders (AGENTS.md: evaluation JSON
+in docs holds file names only).
 
 usage: recall_conditions.py [--json OUT] REPORT.json...
 """
@@ -23,6 +24,10 @@ out = None
 if args and args[0] == "--json":
     out = args[1]
     args = args[2:]
+
+
+def file_name(path):
+    return path.rsplit("/", 1)[-1]
 
 
 def own(query):
@@ -72,11 +77,11 @@ for path in args:
     for q in queries:
         for d in wrong(q):
             entry = {
-                "query": q["asset"],
+                "query": file_name(q["asset"]),
                 "speed_percent": q["speed_percent"],
                 "held_out": q["held_out"],
                 "unobservable": bool(q.get("unobservable")),
-                "found": d["asset"],
+                "found": file_name(d["asset"]),
                 "hits": d["hits"],
                 "windows": d["windows"],
             }

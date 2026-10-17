@@ -410,3 +410,12 @@ detail.
   on 0074's report first, it gives 0074's numbers (522 of 522, the 9
   DYkast answers).
 
+- **(05:11) The queue finished**: all eight runs exit 0, no error in any
+  `.err`, the last at 05:10:45. Experiments 0144 (single conditions)
+  and 0145 (combinations) written in that order.
+- **(05:20) Data files hold file names only.** AGENTS.md asks that
+  evaluation JSON in `docs/experiments/data/` hold file names only;
+  0144's data file, as first committed, held library-relative NAS paths.
+  `recall_conditions.py` now writes file names, and both data files were
+  regenerated from it (0144's numbers unchanged). `recall_subsets.py`
+  (new) restricts each report to (a)'s 20 observable sources for 0145.
