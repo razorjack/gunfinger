@@ -4057,3 +4057,47 @@ Brief `docs/brief-29.md`, checklist `docs/session-29-checklist.md`.
   review's fixes (466 Rust tests, 5 Node tests). NAS store at the end:
   40,126 records, `fed26c76b8fe89ea`. Listening files unchanged. Scratch:
   only `work/s30/vwork/reports/` (392 MB) kept.
+
+## 2026-10-17: session 31, the history rewritten for wording
+
+- The whole history was rewritten with git-filter-repo in a fresh clone:
+  all 551 commits of `master`, `s24b-panako`, `s27-span`, `s29-span`,
+  `s30-quant` and the tag `poc-freeze-1`. Author and committer names,
+  emails and dates and the parent structure are unchanged. New tips (old
+  in brackets): `master` `4b0f064` (`9a32a38`), `s24b-panako` `bad25f9`
+  (`77b68e1`), `s27-span` `812342d` (`997c6b4`), `s29-span` `583bfe3`
+  (`1bf4086`), `s30-quant` `fafa809` (`7d913ca`), `poc-freeze-1` `45d0ac8`
+  (`407cc93`); `work/probe-tree` detached at `6eaa393` (`0d51ee5`).
+- What changed, in every version and commit message: the text is in the
+  committer's voice (decisions are ours, verdicts by ear, "my" only for the
+  razorjack mixes; the session notes are `docs/session-notes.md`,
+  experiment 0060 is `0060-my-2003-mix.md`, the clusters key is
+  `aural_verdict`); "gate" became the literal wording (`scripts/check.sh`,
+  the checks, a criterion); details of the development machine and its use
+  were removed, keeping a short caveat beside each number it qualifies.
+  Commit hashes cited inside files name the rewritten commits. AGENTS.md
+  now has the wording rule.
+- Untracked files: 19 names under `work/` follow the new wording
+  (`work/listening-decisions/`, `work/sNN/listening-digests-*.txt`,
+  `work/audition/s23/listening-comments-2026-10-17.md`); 137 text files in
+  `work/` and in the `s24b-panako` worktree's `work/` were rewritten with
+  the same table (old clusters reports' key renamed, commit hashes
+  remapped in 33 files). `work/audition/answers.jsonl` is unchanged.
+- Backups, outside the repository, taken first: a bundle of every ref, a
+  mirror clone, a tar of `.git`, and a tar of the untracked files before
+  the change, with their SHA-256 sums.
+- Checks: for 551 of 551 commits the new tree equals the reviewed table
+  applied to the old tree, byte for byte, and so do the messages; no
+  changed experiment line lost a number and no experiment file got longer;
+  `cargo check` passed on the commits that rename an identifier, the tag
+  and the branch tips; `scripts/check.sh` green here with rustup's 1.98.0
+  (466 Rust tests, 5 Node tests). `regress session-30-start` with
+  `work/bin/s31-final/`: 720/720 sweep queries and all 87, 93 and 79 scan
+  detections identical, the calibrate line as in session 30's final
+  `regress`. Release builds with one toolchain at one path: `gunfinger` is
+  byte-identical between the old and the new source; `gunfinger-eval`
+  differs only in its reworded strings.
+- The push is pending: `origin/master` is still the old `9a32a38`; the
+  force-push of `master` and the tag waits for approval. `refs/t3/*` keep
+  the old commits reachable in this repository. The table, scripts and
+  logs of the rewrite are in `work/s31/` (untracked).

@@ -52,6 +52,11 @@ Read, in this order:
 - Each experiment gets `docs/experiments/NNNN-slug.md` (hypothesis, change,
   command, measured result, conclusion; at most 40 lines), written before the
   next experiment starts.
+- Repository text (docs, comments, help text, commit messages) is written in
+  the committer's voice: decisions are ours, verdicts are by ear, and "my"
+  is used only for the razorjack mixes. Details of the development machine
+  and its use stay out, unless they change how a reported number reads; then
+  one short caveat goes beside the number.
 
 ## Platforms
 
