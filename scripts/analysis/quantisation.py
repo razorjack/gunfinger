@@ -102,13 +102,32 @@ def recall_sets(report, condition, tags, stands_for):
     return truth, unrelated, related, (measured_count, unmeasured)
 
 
+def panel_roles(panel, report):
+    """`shared_outcomes.roles_of` for a panel of directions. A panel that
+    lists only each family's recordings (the second panel): a scenario's
+    family is the one whose name begins the scenario's, and its recordings
+    other than the scenario's played and related ones are versions."""
+    if all("directions" in family for family in panel["families"]):
+        return roles_of(panel)
+    roles = {}
+    for scenario in report["scenarios"]:
+        family = next(f for f in panel["families"] if scenario["name"].startswith(f["name"] + "-"))
+        own = {scenario["played"], scenario["related"], *scenario.get("played_recording", []),
+               *scenario.get("related_recording", [])}
+        versions = {path for recording in family["recordings"] if not own & set(recording)
+                    for path in recording}
+        roles[scenario["name"]] = (family["name"], versions, set(family["unjudged_same_title"]), False)
+    return roles
+
+
 def shared_sets(report, panel, cluster_of, tag):
-    roles = roles_of(panel)
+    roles = panel_roles(panel, report)
     recordings = expanded(report, cluster_of)
-    played, related, other = [], [], []
+    played, related, other, searched = [], [], [], []
     for result in report["results"]:
         if result.get("error"):
             continue
+        searched.append((tag, result["query"], result["index"]))
         _, versions, unjudged, _ = roles[result["scenario"]] if result["scenario"] in roles else (None, set(), set(), None)
         for d in result["detections"]:
             if d["role"] == "partner":
@@ -118,13 +137,40 @@ def shared_sets(report, panel, cluster_of, tag):
                          query=result["query"], role=r, source=tag)
             if m is None:
                 continue
+            m["result"] = (tag, result["query"], result["index"])
             if r == "played":
                 played.append(m)
             elif r in ("related", "version"):
                 related.append(m)
             elif r == "other":
                 other.append(m)
-    return played, related, other
+    return played, related, other, searched
+
+
+def per_search(ds, searched):
+    """Exploratory (not in 0149): per shared search and index, whether a
+    related file is confident today, and whether one would be with E + N
+    at 240 or more in 3 windows; the same for the played recording."""
+    searches = {key: dict(index=key[2], related=[False, False], played=[False, False]) for key in searched}
+    for m in ds:
+        entry = searches[m["result"]]
+        side = "played" if m["role"] == "played" else "related" if m["role"] in ("related", "version") else None
+        if side is None:
+            continue
+        tolerant = m["confident"] or (m["E"] + m["N"] >= RULE_HITS and m["windows"] >= 3)
+        entry[side][0] |= m["confident"]
+        entry[side][1] |= tolerant
+    out = {}
+    for entry in searches.values():
+        row = out.setdefault(entry["index"], dict(searches=0, related_today=0, related_tolerant=0,
+                                                  related_new=0, played_today=0, played_tolerant=0))
+        row["searches"] += 1
+        row["related_today"] += entry["related"][0]
+        row["related_tolerant"] += entry["related"][1]
+        row["related_new"] += entry["related"][1] and not entry["related"][0]
+        row["played_today"] += entry["played"][0]
+        row["played_tolerant"] += entry["played"][1]
+    return out
 
 
 def median(values):
@@ -259,14 +305,16 @@ def main():
         given = lambda m: any(part in os.path.basename(m["asset"]) for part in args.also_related)
         sets["F'"] = [m for m in false_unrelated if not given(m)]
         sets["R(r)'"] = false_related + [m for m in false_unrelated if given(m)]
-    played, related, other = [], [], []
+    played, related, other, searched = [], [], [], []
     for report_path, panel_path in args.shared:
-        p, r, o = shared_sets(json.load(open(report_path)), json.load(open(panel_path)), cluster_of,
-                              os.path.basename(report_path))
+        p, r, o, s_ = shared_sets(json.load(open(report_path)), json.load(open(panel_path)), cluster_of,
+                                  os.path.basename(report_path))
         played += p
         related += r
         other += o
+        searched += s_
     sets["P"], sets["R"], sets["F(s)"] = played, related, other
+    searches = per_search(played + related, searched)
     sets["R confident"] = [m for m in related if m["confident"]]
     if args.shared_0055:
         report = json.load(open(args.shared_0055))
@@ -286,6 +334,7 @@ def main():
         m1={name_: dict(all=summary(ds), by_hits=by_band(ds)) for name_, ds in sets.items()},
         m2={c: recovered(truth[c], truth["C"]) for c in ("c", "a") if c in truth and "C" in truth},
         m3={name_: reaching(ds) for name_, ds in sets.items() if name_ != "P"},
+        per_search=searches,
         m4={f"{a}~{b}": separation(sets[a], sets[b]) for a, b in
             (("T(c)", "F"), ("T(a)", "F"), ("T(c)", "R"), ("P", "R"), ("T(C)", "F"))
             if a in sets and b in sets},
@@ -306,6 +355,8 @@ def main():
                   f"{fmt(s['median_excess_n_e']):>6} {fmt(s['median_v_e']):>6} {fmt(s['median_v_p']):>6} "
                   f"{fmt(s['median_e_hits']):>6}")
     print("M2", json.dumps(out["m2"]))
+    for index, row in searches.items():
+        print("per search", index, row)
     for name_, r in out["m3"].items():
         print("M3", name_, {k: v for k, v in r.items() if k != "examples"})
     for pair, block in out["m4"].items():
