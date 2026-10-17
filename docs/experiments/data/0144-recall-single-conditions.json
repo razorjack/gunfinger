@@ -1,0 +1,1032 @@
+{
+ "recall-seed-2026.json": {
+  "report": "recall-seed-2026.json",
+  "other_rips_only": false,
+  "query_set": "clean",
+  "indexed_assets": 40114,
+  "left_out_records": 0,
+  "all": {
+   "indexed": 522,
+   "confident": 522,
+   "possible_or_better": 522,
+   "misses": {}
+  },
+  "unobservable_queries": 0,
+  "unobservable_sources": 0,
+  "unobservable_confident": 0,
+  "held_out_queries": 180,
+  "held_out_confident": 0,
+  "wrong_confident": [],
+  "wrong_possible_count": 69,
+  "wrong_possible_over_200": [],
+  "strongest_wrong_possible": [
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 185,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 184,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -8.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 178,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 178,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 176,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 175,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+    "hits": 120,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 119,
+    "windows": 2
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 117,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 115,
+    "windows": 3
+   }
+  ],
+  "by_speed": {
+   "-8": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "-5": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "-3": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "-1": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "+0": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "+1": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "+3": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "+5": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   },
+   "+8": {
+    "indexed": 58,
+    "confident": 58,
+    "possible_or_better": 58,
+    "misses": {}
+   }
+  },
+  "by_kind": {
+   "elsewhere": {
+    "indexed": 180,
+    "confident": 180,
+    "possible_or_better": 180,
+    "misses": {}
+   },
+   "scene-release": {
+    "indexed": 162,
+    "confident": 162,
+    "possible_or_better": 162,
+    "misses": {}
+   },
+   "youtube-channel": {
+    "indexed": 180,
+    "confident": 180,
+    "possible_or_better": 180,
+    "misses": {}
+   }
+  },
+  "by_length": {},
+  "by_grid_phase": {}
+ },
+ "recall-seed-2026-damaged.json": {
+  "report": "recall-seed-2026-damaged.json",
+  "other_rips_only": false,
+  "query_set": "damaged",
+  "indexed_assets": 40114,
+  "left_out_records": 0,
+  "all": {
+   "indexed": 522,
+   "confident": 5,
+   "possible_or_better": 428,
+   "misses": {
+    "too-few-hits, possible": 423,
+    "never-a-candidate": 6,
+    "too-few-hits, weak": 88
+   }
+  },
+  "unobservable_queries": 0,
+  "unobservable_sources": 0,
+  "unobservable_confident": 0,
+  "held_out_queries": 180,
+  "held_out_confident": 0,
+  "wrong_confident": [],
+  "wrong_possible_count": 38,
+  "wrong_possible_over_200": [],
+  "strongest_wrong_possible": [
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 109,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -8.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 104,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 102,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 101,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 101,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 100,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 92,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__youtube_archivists/butch-french/Eddy Woo - Tsunami (Remix).m4a",
+    "speed_percent": 0.0,
+    "held_out": true,
+    "unobservable": false,
+    "found": "second-library/__youtube_archivists/i-witness-dnb/Eddy Woo - Tsunami.m4a",
+    "hits": 83,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 80,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+    "hits": 79,
+    "windows": 3
+   }
+  ],
+  "by_speed": {
+   "-8": {
+    "indexed": 58,
+    "confident": 1,
+    "possible_or_better": 48,
+    "misses": {
+     "too-few-hits, possible": 47,
+     "never-a-candidate": 2,
+     "too-few-hits, weak": 8
+    }
+   },
+   "-5": {
+    "indexed": 58,
+    "confident": 1,
+    "possible_or_better": 47,
+    "misses": {
+     "too-few-hits, possible": 46,
+     "too-few-hits, weak": 11
+    }
+   },
+   "-3": {
+    "indexed": 58,
+    "confident": 0,
+    "possible_or_better": 48,
+    "misses": {
+     "too-few-hits, possible": 48,
+     "too-few-hits, weak": 10
+    }
+   },
+   "-1": {
+    "indexed": 58,
+    "confident": 0,
+    "possible_or_better": 47,
+    "misses": {
+     "too-few-hits, possible": 47,
+     "too-few-hits, weak": 10,
+     "never-a-candidate": 1
+    }
+   },
+   "+0": {
+    "indexed": 58,
+    "confident": 1,
+    "possible_or_better": 49,
+    "misses": {
+     "too-few-hits, possible": 48,
+     "too-few-hits, weak": 9
+    }
+   },
+   "+1": {
+    "indexed": 58,
+    "confident": 1,
+    "possible_or_better": 48,
+    "misses": {
+     "too-few-hits, possible": 47,
+     "too-few-hits, weak": 9,
+     "never-a-candidate": 1
+    }
+   },
+   "+3": {
+    "indexed": 58,
+    "confident": 0,
+    "possible_or_better": 47,
+    "misses": {
+     "too-few-hits, possible": 47,
+     "too-few-hits, weak": 11
+    }
+   },
+   "+5": {
+    "indexed": 58,
+    "confident": 1,
+    "possible_or_better": 47,
+    "misses": {
+     "too-few-hits, possible": 46,
+     "too-few-hits, weak": 10,
+     "never-a-candidate": 1
+    }
+   },
+   "+8": {
+    "indexed": 58,
+    "confident": 0,
+    "possible_or_better": 47,
+    "misses": {
+     "too-few-hits, possible": 47,
+     "too-few-hits, weak": 10,
+     "never-a-candidate": 1
+    }
+   }
+  },
+  "by_kind": {
+   "elsewhere": {
+    "indexed": 180,
+    "confident": 0,
+    "possible_or_better": 150,
+    "misses": {
+     "too-few-hits, possible": 150,
+     "never-a-candidate": 4,
+     "too-few-hits, weak": 26
+    }
+   },
+   "scene-release": {
+    "indexed": 162,
+    "confident": 5,
+    "possible_or_better": 127,
+    "misses": {
+     "too-few-hits, possible": 122,
+     "never-a-candidate": 2,
+     "too-few-hits, weak": 33
+    }
+   },
+   "youtube-channel": {
+    "indexed": 180,
+    "confident": 0,
+    "possible_or_better": 151,
+    "misses": {
+     "too-few-hits, possible": 151,
+     "too-few-hits, weak": 29
+    }
+   }
+  },
+  "by_length": {},
+  "by_grid_phase": {}
+ },
+ "recall-seed-2026-brief.json": {
+  "report": "recall-seed-2026-brief.json",
+  "other_rips_only": false,
+  "query_set": "brief",
+  "indexed_assets": 40114,
+  "left_out_records": 0,
+  "all": {
+   "indexed": 1044,
+   "confident": 721,
+   "possible_or_better": 1044,
+   "misses": {
+    "too-few-windows": 320,
+    "too-few-hits, possible": 3
+   }
+  },
+  "unobservable_queries": 0,
+  "unobservable_sources": 0,
+  "unobservable_confident": 0,
+  "held_out_queries": 360,
+  "held_out_confident": 0,
+  "wrong_confident": [],
+  "wrong_possible_count": 112,
+  "wrong_possible_over_200": [],
+  "strongest_wrong_possible": [
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 146,
+    "windows": 2,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 125,
+    "windows": 3,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 125,
+    "windows": 3,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 119,
+    "windows": 3,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 119,
+    "windows": 2,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 117,
+    "windows": 3,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 116,
+    "windows": 2,
+    "brief_seconds": 15.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -8.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 106,
+    "windows": 3,
+    "brief_seconds": 15.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 105,
+    "windows": 2,
+    "brief_seconds": 20.0
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -8.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 104,
+    "windows": 3,
+    "brief_seconds": 20.0
+   }
+  ],
+  "by_speed": {
+   "-8": {
+    "indexed": 116,
+    "confident": 88,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 28
+    }
+   },
+   "-5": {
+    "indexed": 116,
+    "confident": 82,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 34
+    }
+   },
+   "-3": {
+    "indexed": 116,
+    "confident": 70,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 46
+    }
+   },
+   "-1": {
+    "indexed": 116,
+    "confident": 81,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 34,
+     "too-few-hits, possible": 1
+    }
+   },
+   "+0": {
+    "indexed": 116,
+    "confident": 85,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 31
+    }
+   },
+   "+1": {
+    "indexed": 116,
+    "confident": 79,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 36,
+     "too-few-hits, possible": 1
+    }
+   },
+   "+3": {
+    "indexed": 116,
+    "confident": 78,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 38
+    }
+   },
+   "+5": {
+    "indexed": 116,
+    "confident": 76,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 39,
+     "too-few-hits, possible": 1
+    }
+   },
+   "+8": {
+    "indexed": 116,
+    "confident": 82,
+    "possible_or_better": 116,
+    "misses": {
+     "too-few-windows": 34
+    }
+   }
+  },
+  "by_kind": {
+   "elsewhere": {
+    "indexed": 360,
+    "confident": 244,
+    "possible_or_better": 360,
+    "misses": {
+     "too-few-windows": 113,
+     "too-few-hits, possible": 3
+    }
+   },
+   "scene-release": {
+    "indexed": 324,
+    "confident": 225,
+    "possible_or_better": 324,
+    "misses": {
+     "too-few-windows": 99
+    }
+   },
+   "youtube-channel": {
+    "indexed": 360,
+    "confident": 252,
+    "possible_or_better": 360,
+    "misses": {
+     "too-few-windows": 108
+    }
+   }
+  },
+  "by_length": {
+   "15": {
+    "indexed": 522,
+    "confident": 228,
+    "possible_or_better": 522,
+    "misses": {
+     "too-few-windows": 291,
+     "too-few-hits, possible": 3
+    }
+   },
+   "20": {
+    "indexed": 522,
+    "confident": 493,
+    "possible_or_better": 522,
+    "misses": {
+     "too-few-windows": 29
+    }
+   }
+  },
+  "by_grid_phase": {
+   "15 s from 0-1 s": {
+    "indexed": 64,
+    "confident": 0,
+    "possible_or_better": 64,
+    "misses": {
+     "too-few-windows": 64
+    }
+   },
+   "15 s from 1-2 s": {
+    "indexed": 39,
+    "confident": 0,
+    "possible_or_better": 39,
+    "misses": {
+     "too-few-windows": 39
+    }
+   },
+   "15 s from 2-3 s": {
+    "indexed": 49,
+    "confident": 0,
+    "possible_or_better": 49,
+    "misses": {
+     "too-few-windows": 49
+    }
+   },
+   "15 s from 3-4 s": {
+    "indexed": 44,
+    "confident": 0,
+    "possible_or_better": 44,
+    "misses": {
+     "too-few-windows": 44
+    }
+   },
+   "15 s from 4-5 s": {
+    "indexed": 63,
+    "confident": 0,
+    "possible_or_better": 63,
+    "misses": {
+     "too-few-windows": 62,
+     "too-few-hits, possible": 1
+    }
+   },
+   "15 s from 5-6 s": {
+    "indexed": 53,
+    "confident": 29,
+    "possible_or_better": 53,
+    "misses": {
+     "too-few-windows": 24
+    }
+   },
+   "15 s from 6-7 s": {
+    "indexed": 48,
+    "confident": 48,
+    "possible_or_better": 48,
+    "misses": {}
+   },
+   "15 s from 7-8 s": {
+    "indexed": 54,
+    "confident": 53,
+    "possible_or_better": 54,
+    "misses": {
+     "too-few-hits, possible": 1
+    }
+   },
+   "15 s from 8-9 s": {
+    "indexed": 53,
+    "confident": 53,
+    "possible_or_better": 53,
+    "misses": {}
+   },
+   "15 s from 9-10 s": {
+    "indexed": 55,
+    "confident": 45,
+    "possible_or_better": 55,
+    "misses": {
+     "too-few-windows": 9,
+     "too-few-hits, possible": 1
+    }
+   },
+   "20 s from 0-1 s": {
+    "indexed": 46,
+    "confident": 29,
+    "possible_or_better": 46,
+    "misses": {
+     "too-few-windows": 17
+    }
+   },
+   "20 s from 1-2 s": {
+    "indexed": 42,
+    "confident": 42,
+    "possible_or_better": 42,
+    "misses": {}
+   },
+   "20 s from 2-3 s": {
+    "indexed": 61,
+    "confident": 61,
+    "possible_or_better": 61,
+    "misses": {}
+   },
+   "20 s from 3-4 s": {
+    "indexed": 47,
+    "confident": 47,
+    "possible_or_better": 47,
+    "misses": {}
+   },
+   "20 s from 4-5 s": {
+    "indexed": 60,
+    "confident": 60,
+    "possible_or_better": 60,
+    "misses": {}
+   },
+   "20 s from 5-6 s": {
+    "indexed": 49,
+    "confident": 49,
+    "possible_or_better": 49,
+    "misses": {}
+   },
+   "20 s from 6-7 s": {
+    "indexed": 53,
+    "confident": 53,
+    "possible_or_better": 53,
+    "misses": {}
+   },
+   "20 s from 7-8 s": {
+    "indexed": 67,
+    "confident": 67,
+    "possible_or_better": 67,
+    "misses": {}
+   },
+   "20 s from 8-9 s": {
+    "indexed": 41,
+    "confident": 41,
+    "possible_or_better": 41,
+    "misses": {}
+   },
+   "20 s from 9-10 s": {
+    "indexed": 56,
+    "confident": 44,
+    "possible_or_better": 56,
+    "misses": {
+     "too-few-windows": 12
+    }
+   }
+  }
+ },
+ "recall-seed-2026-other-rips.json": {
+  "report": "recall-seed-2026-other-rips.json",
+  "other_rips_only": true,
+  "query_set": "clean",
+  "indexed_assets": 40051,
+  "left_out_records": 63,
+  "all": {
+   "indexed": 180,
+   "confident": 175,
+   "possible_or_better": 178,
+   "misses": {
+    "never-a-candidate": 2,
+    "too-few-hits, possible": 3
+   }
+  },
+  "unobservable_queries": 342,
+  "unobservable_sources": 38,
+  "unobservable_confident": 0,
+  "held_out_queries": 180,
+  "held_out_confident": 0,
+  "wrong_confident": [],
+  "wrong_possible_count": 69,
+  "wrong_possible_over_200": [],
+  "strongest_wrong_possible": [
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 185,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 184,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -8.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 178,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 178,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -1.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 176,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+    "hits": 175,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+    "hits": 120,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "hits": 119,
+    "windows": 2
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -3.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 117,
+    "windows": 3
+   },
+   {
+    "query": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "unobservable": false,
+    "found": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+    "hits": 115,
+    "windows": 3
+   }
+  ],
+  "by_speed": {
+   "-8": {
+    "indexed": 20,
+    "confident": 18,
+    "possible_or_better": 19,
+    "misses": {
+     "never-a-candidate": 1,
+     "too-few-hits, possible": 1
+    }
+   },
+   "-5": {
+    "indexed": 20,
+    "confident": 19,
+    "possible_or_better": 20,
+    "misses": {
+     "too-few-hits, possible": 1
+    }
+   },
+   "-3": {
+    "indexed": 20,
+    "confident": 20,
+    "possible_or_better": 20,
+    "misses": {}
+   },
+   "-1": {
+    "indexed": 20,
+    "confident": 20,
+    "possible_or_better": 20,
+    "misses": {}
+   },
+   "+0": {
+    "indexed": 20,
+    "confident": 19,
+    "possible_or_better": 20,
+    "misses": {
+     "too-few-hits, possible": 1
+    }
+   },
+   "+1": {
+    "indexed": 20,
+    "confident": 20,
+    "possible_or_better": 20,
+    "misses": {}
+   },
+   "+3": {
+    "indexed": 20,
+    "confident": 20,
+    "possible_or_better": 20,
+    "misses": {}
+   },
+   "+5": {
+    "indexed": 20,
+    "confident": 20,
+    "possible_or_better": 20,
+    "misses": {}
+   },
+   "+8": {
+    "indexed": 20,
+    "confident": 19,
+    "possible_or_better": 19,
+    "misses": {
+     "never-a-candidate": 1
+    }
+   }
+  },
+  "by_kind": {
+   "elsewhere": {
+    "indexed": 81,
+    "confident": 77,
+    "possible_or_better": 80,
+    "misses": {
+     "too-few-hits, possible": 3,
+     "never-a-candidate": 1
+    }
+   },
+   "scene-release": {
+    "indexed": 63,
+    "confident": 62,
+    "possible_or_better": 62,
+    "misses": {
+     "never-a-candidate": 1
+    }
+   },
+   "youtube-channel": {
+    "indexed": 36,
+    "confident": 36,
+    "possible_or_better": 36,
+    "misses": {}
+   }
+  },
+  "by_length": {},
+  "by_grid_phase": {}
+ }
+}
