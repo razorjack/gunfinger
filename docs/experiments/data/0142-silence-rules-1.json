@@ -1,0 +1,1246 @@
+{
+ "report": "shared-material-seed-2026-development.json",
+ "problems": [],
+ "rules": {
+  "3 windows": {
+   "outcomes": {
+    "everything": {
+     "right confident": 32,
+     "wrong confident": 10
+    },
+    "everything (control)": {
+     "possible only": 3,
+     "right confident": 3
+    },
+    "played left out": {
+     "possible only": 26,
+     "wrong confident": 10,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "right confident": 17,
+     "wrong confident": 1
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": []
+  },
+  "span 10 s": {
+   "outcomes": {
+    "everything": {
+     "right confident": 31,
+     "wrong confident": 11
+    },
+    "everything (control)": {
+     "right confident": 6
+    },
+    "played left out": {
+     "possible only": 25,
+     "wrong confident": 11,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "right confident": 16,
+     "wrong confident": 2
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 250,
+     "windows": 2,
+     "start": 10.1,
+     "span": 12.52,
+     "supported": 13,
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "everything",
+     "role": "related"
+    },
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 250,
+     "windows": 2,
+     "start": 10.1,
+     "span": 12.52,
+     "supported": 13,
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "played left out",
+     "role": "related"
+    },
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 250,
+     "windows": 2,
+     "start": 10.1,
+     "span": 12.52,
+     "supported": 13,
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "role": "related"
+    }
+   ],
+   "changed": [
+    {
+     "query": "playground-shades-1-silence-3s-alone-14s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-1-silence-5s-alone-14s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-3s-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "wrong confident",
+     "played_confident": [
+      true,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "wrong confident",
+     "played_confident": [
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  "span 15 s": {
+   "outcomes": {
+    "everything": {
+     "right confident": 32,
+     "wrong confident": 10
+    },
+    "everything (control)": {
+     "possible only": 3,
+     "right confident": 3
+    },
+    "played left out": {
+     "possible only": 26,
+     "wrong confident": 10,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "right confident": 17,
+     "wrong confident": 1
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "playground-shades-1-silence-7s-alone-14s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-3s-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "span 20 s": {
+   "outcomes": {
+    "everything": {
+     "possible only": 42
+    },
+    "everything (control)": {
+     "possible only": 6
+    },
+    "played left out": {
+     "possible only": 36,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "possible only": 18
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "dozer-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-1-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-1-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-1-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-1-silence-7s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-2-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-2-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "dozer-2-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-1-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-1-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-1-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-1-silence-7s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-2-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-2-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-2-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-2-silence-3s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-2-silence-5s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-2-silence-7s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-3-silence-7s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-4-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-4-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-4-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-5-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-5-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-5-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-5-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-5-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-5-silence-7s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-6-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-6-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-6-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "fire-6-silence-3s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-6-silence-5s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "fire-6-silence-7s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-1-silence-7s-alone-14s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-5s-alone-15s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-7s-alone-15s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-5s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-7s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-3s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-5s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-7s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-1-silence-7s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-2-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-2-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "sonar-2-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "watermelon-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "watermelon-1-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "watermelon-1-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "watermelon-2-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "watermelon-2-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "watermelon-2-silence-7s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    }
+   ]
+  },
+  "supported 10 s": {
+   "outcomes": {
+    "everything": {
+     "right confident": 31,
+     "wrong confident": 11
+    },
+    "everything (control)": {
+     "right confident": 6
+    },
+    "played left out": {
+     "possible only": 25,
+     "wrong confident": 11,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "right confident": 16,
+     "wrong confident": 2
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 250,
+     "windows": 2,
+     "start": 10.1,
+     "span": 12.52,
+     "supported": 13,
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "everything",
+     "role": "related"
+    },
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 250,
+     "windows": 2,
+     "start": 10.1,
+     "span": 12.52,
+     "supported": 13,
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "played left out",
+     "role": "related"
+    },
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 250,
+     "windows": 2,
+     "start": 10.1,
+     "span": 12.52,
+     "supported": 13,
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "role": "related"
+    }
+   ],
+   "changed": [
+    {
+     "query": "playground-shades-1-silence-3s-alone-14s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-1-silence-5s-alone-14s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-3s-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "wrong confident",
+     "played_confident": [
+      true,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "played left out",
+     "today": "possible only",
+     "variant": "wrong confident",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-3s-alone-20s",
+     "index": "source left out",
+     "today": "right confident",
+     "variant": "wrong confident",
+     "played_confident": [
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  "supported 15 s": {
+   "outcomes": {
+    "everything": {
+     "right confident": 32,
+     "wrong confident": 10
+    },
+    "everything (control)": {
+     "possible only": 3,
+     "right confident": 3
+    },
+    "played left out": {
+     "possible only": 26,
+     "wrong confident": 10,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "right confident": 17,
+     "wrong confident": 1
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "playground-shades-1-silence-7s-alone-14s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-3s-alone-15s",
+     "index": "everything",
+     "today": "possible only",
+     "variant": "right confident",
+     "played_confident": [
+      false,
+      true
+     ]
+    }
+   ]
+  },
+  "supported 20 s": {
+   "outcomes": {
+    "everything": {
+     "right confident": 34,
+     "wrong confident": 8
+    },
+    "everything (control)": {
+     "possible only": 6
+    },
+    "played left out": {
+     "possible only": 28,
+     "wrong confident": 8,
+     "nothing": 6
+    },
+    "played left out (control)": {
+     "nothing": 6
+    },
+    "source left out": {
+     "right confident": 17,
+     "possible only": 1
+    },
+    "source left out (control)": {
+     "possible only": 3
+    }
+   },
+   "new_wrong_confident": [],
+   "changed": [
+    {
+     "query": "playground-shades-1-silence-7s-alone-14s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-5s-alone-15s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "playground-shades-2-silence-7s-alone-15s",
+     "index": "everything",
+     "today": "right confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-5s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "right confident",
+     "played_confident": [
+      true,
+      true
+     ]
+    },
+    {
+     "query": "pyro-1-silence-5s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    },
+    {
+     "query": "pyro-1-silence-5s-alone-20s",
+     "index": "source left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      true,
+      false
+     ]
+    },
+    {
+     "query": "pyro-2-silence-3s-alone-20s",
+     "index": "everything",
+     "today": "wrong confident",
+     "variant": "right confident",
+     "played_confident": [
+      true,
+      true
+     ]
+    },
+    {
+     "query": "pyro-2-silence-3s-alone-20s",
+     "index": "played left out",
+     "today": "wrong confident",
+     "variant": "possible only",
+     "played_confident": [
+      false,
+      false
+     ]
+    }
+   ]
+  }
+ }
+}

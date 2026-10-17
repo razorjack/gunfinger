@@ -314,14 +314,9 @@ ones. The shared panels' related versions with 240 hits or more in 2
 windows, if any, would be the new wrong answers; 0111 and 0129 list
 possible plays up to 227 hits, and whether any reaches 240 in 2 windows
 is not known.
-- **(00:49) Session 24b resumed beside this session**, in its own
-  worktree (`/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`,
-  branch `s24b-panako`), to run Panako now that Java 11 is installed
-  (the launching agent's message). It never writes to this checkout;
-  its heavy runs are at nice 10 and end by about 06:30. Experiment 0150
-  is reserved for it; this session numbers from 0136 and skips 0150.
-  Its branch is not merged. Wall times measured tonight run beside its
-  load, so they are not compared with earlier sessions'.
+
+## Decisions, continued (after the pre-registration, by time)
+
 - **(00:43) Step 3a, the variant build**: worktree
   `/Users/razorjack/.t3/worktrees/gunfinger/s27-span`, branch `s27-span`
   at `d6a8f09` (never merged), binaries in `work/bin/s27-span/`.
@@ -333,7 +328,7 @@ is not known.
   in `found`). The worktree's unit tests were not updated (some test
   literals lack the new field), so its `cargo test` does not compile;
   the release build does, and V's identity with M's reports is the
-  check. Its work directory `work/s27/vwork/` holds APFS clones of
+  check. (Fixed at 02:48, `3589aa8`: the tests compile and pass, 443.) Its work directory `work/s27/vwork/` holds APFS clones of
   `work/{grid,mixes,sweep,robust,recall,shared,indexes}` and copies of
   the two clusters files and the library map. The queue
   (`work/s27/vqueue.sh`, `screen` `s27-vqueue`) started at 00:44.
@@ -343,6 +338,14 @@ is not known.
   today's rule reproduces every stored level and the published outcomes
   (106 of 218, 5 of 135). A first version without it did not reproduce
   them and was not used.
+- **(00:49) Session 24b resumed beside this session**, in its own
+  worktree (`/Users/razorjack/.t3/worktrees/gunfinger/s24b-panako`,
+  branch `s24b-panako`), to run Panako now that Java 11 is installed
+  (the launching agent's message). It never writes to this checkout;
+  its heavy runs are at nice 10 and end by about 06:30. Experiment 0150
+  is reserved for it; this session numbers from 0136 and skips 0150.
+  Its branch is not merged. Wall times measured tonight run beside its
+  load, so they are not compared with earlier sessions'.
 - **(00:55) Step 3, per-second scoring** (`gunfinger-eval seconds`,
   `crates/gunfinger-eval/src/seconds.rs`, 10 unit tests): reads saved
   `mixes` and `scan` reports, groups detections with the core's
@@ -451,3 +454,41 @@ is not known.
   shifted queries; A(10)'s outcome on the short file equals today's
   rule's on the shifted queries in 74 and 70 of 78 pairs, today's own in
   29. Criterion 1's result is unchanged.
+- **(03:01) The review's first finding, and experiment 0142,
+  pre-registered before its run.** In 0141 the lead-in is the played
+  file's own material, which the wrong versions of fire-2 and fire-6
+  also match (their detections start at query time 0 and gain hits), so
+  only pyro-2 tests the offset alone. 0142 repeats 0141 with digital
+  silence of 3, 5 and 7 s before up to 20 s of each passage (the
+  roadmap's "silence put before the same audio should not change its
+  level"): worktree switch `S27_SILENCE_ONLY` (kind `silent`), `--work
+  work/s27/vsilence`, both panels' development halves, every scenario
+  (silence needs no material before the passage), the same indexes and
+  readout as 0141. Prediction: today's rule names the same wrong file
+  confidently in all three silence-led queries of each of 0140's six
+  (642, 703 and 270 hits over 19.6-19.8 s reach a third window at these
+  offsets), and on the short `alone` files A(10)'s outcome equals today's
+  rule's on the silence-led queries in nearly every pair.
+- **(03:06) The orchestrating thread**: session 28 waits on a clean root
+  checkout. Finish 0142 and the review's fixes, then wrap up as planned;
+  no new experiment after 0142; `docs/pair-verdicts.txt` stays unstaged
+  (the orchestrator commits the six new lines afterwards).
+- **(03:12) 0142's runs** took 03:01-03:09 (48 and 30 silence-led
+  queries). The prediction held: today's rule names the same wrong file
+  in all three silence-led queries of each of 0140's six (18 of 18), and
+  also names Pyro's Ignorance for pyro-1 after 5 s, which the 20 s file
+  never shows; A(10) and B(10) add pyro-1 after 3 s. Criterion 1's
+  result is unchanged.
+- **(03:12) The review's other fixes**: per-second tables give
+  mislabelled seconds where nothing indexed plays (0139); 7 of the
+  generated mixes' 8 mislabelled seconds are labels starting early;
+  0141's conclusion limited to pyro-2; 0137's loop detection named as a
+  third segment; the development mixes' border reading marked as an
+  inference, with 2003-03-29's own-boundary caveat. Not changed, and
+  said in the notes: `seconds`' boundary uses every confident segment of
+  the track's plays that overlaps its slot, not only the first; its
+  median takes the upper middle of an even count (`seconds_summary.py`,
+  which the experiments use, averages the two); no unit test covers
+  `set_truth`, `mix_truth` or a margin beside an unindexed neighbour.
+  The queue scripts logged `date`'s exit status, not the run's; every
+  report reproduces and no `.err` shows a failure.

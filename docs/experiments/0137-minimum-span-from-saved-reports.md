@@ -26,8 +26,8 @@ matcher, so seed 7 is V's (0138). Data: `data/0137-m-*.json`.
 - Shared 1's new wrong answers under A(10): the 20 s `alone` queries of
   fire-2 and fire-6 (Fire's Rogue Unit VIP and Remix, 642 and 703 hits
   in 2 windows, span 19.8 s) and pyro-2 (Time Is Broken, 270 hits),
-  each in the played-left-out and the everything index, and a second
-  wrong detection in fire-2's 240 s loop (342 hits, span 10.3 s). Under
+  each in the played-left-out and the everything index, and a third
+  segment of the VIP Remix in fire-2's 240 s loop (342 hits, 10.3 s). Under
   A(15) the loop's stays possible. The same rule makes the played file
   confident in 23 of these brief queries (16 everything, 7 source left
   out), and 17 and 15 on shared 2.

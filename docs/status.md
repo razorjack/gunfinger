@@ -3722,7 +3722,7 @@ Brief `docs/brief-26.md`, checklist `docs/session-26-checklist.md`.
 
 Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
 
-- 00:35 start; `git status` clean at `21b0220`. NAS store 40,126
+- 00:29 start; `git status` clean at `21b0220`. NAS store 40,126
   records, `fed26c76b8fe89ea`. Start build `work/bin/s27-start/`
   (byte-identical to `s26-final`); `baseline session-27-start` copies
   reports (0.21 s), so `regress session-27-start` was the speed check:
@@ -3739,7 +3739,7 @@ Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
 - 00:49 0137 from M: grid 693 confident and 30 flips today, A(10) 803
   and 2, A(15) 644 and 2, A(20) 482 and 1; on the first shared panel
   A(10) and A(15) add wrong confident answers (8 and 6 detections in 3
-  queries, two indexes), A(20) none. 01:55 corrected: M's
+  queries, two indexes), A(20) none. 01:55-01:57 corrected: M's
   `mixes-seed-7.json` (2026-10-06) is the single pass and was dropped.
 - 00:44-02:21 V's queue (worktree `s27-span`, `work/s27/vwork/`):
   grid, both shared panels, sweeps, mixes 2026 and 7, scans at 262 and

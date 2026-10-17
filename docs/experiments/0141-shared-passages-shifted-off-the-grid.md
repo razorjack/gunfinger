@@ -4,8 +4,8 @@
 with each short passage placed off the window grid, does today's rule
 give the answers the variants give on the panels' 20 s files (0140)?
 
-**Method.** Variant worktree with `S27_SHIFTED_ONLY` (`25e26fc` on
-`s27-span`, never merged), `--work work/s27/vshift`, both shared panels'
+**Method.** Variant worktree with `S27_SHIFTED_ONLY` (the tree of
+`25e26fc` on `s27-span`, never merged), `--work work/s27/vshift`, both shared panels'
 development halves: up to 20 s of each passage after 3, 5 and 7 s of the
 played file's own material (33 and 30 queries, the 11 and 10 scenarios
 whose passage starts 3 s or more in), the same indexes, 02:30-02:38.
@@ -21,20 +21,20 @@ shifted queries under every rule (0 problems). Data `data/0141-*.json`.
 
 - 0140's six wrong answers (fire-2, fire-6, pyro-2, two indexes each):
   today's rule names the same wrong file confidently in all 3 shifted
-  queries of each, 18 of 18. With the played recording left out, 9 of
-  shared 1's 27 shifted results are wrong confident today; shared 2's 0.
+  queries of each, 18 of 18. But the lead-in is not neutral: fire-2's
+  and fire-6's wrong versions match it too (detections from query time
+  0, 747-817 and 728-786 hits against 642 and 703). Only pyro-2's (from
+  2.1, 4.1, 7.0 s; 289-301 hits) tests the offset alone (review, 03:01).
 - Where A(10) on the short file and today's rule shifted differ: 5
   pairs are 14-15 s passages that after 3 or 5 s still end inside the
   second window (2 windows, possible today); 4 gain from the 3-7 s of
   the played file's own material ahead (`source left out`, 268-426
   hits, right confident today); 3 differ in a detection near 60 hits.
-- On the shifted queries no variant adds a wrong confident detection;
-  A(10) to B(15) make 4 and 2 more right confident (the 14-15 s
-  passages). Not covered: 12 of A(10)'s 29 changes on shared 1, 2 of 17
-  on shared 2 (passages starting within 3 s, `before`, `weak` files).
+- On the shifted queries no variant adds a wrong confident detection.
+  Not covered: 12 of A(10)'s 29 changes on shared 1, 2 of 17 on shared
+  2 (passages starting within 3 s, `before`, `weak` files).
 
-**Conclusion.** Prediction held. Moved 3, 5 or 7 s off the grid, the
-same 20 s of shared material gets from today's rule what the variants
-give it at the grid's origin: the same three wrong titles and most of
-the gains. At these offsets, the variants' failures of criterion 1 are
-answers today's rule already gives. Criterion 1 still fails as written.
+**Conclusion.** The same three wrong titles come back under today's
+rule, but for fire-2 and fire-6 the lead-in adds matching material, so
+this is a clean offset test for pyro-2 only. 0142 repeats it with
+silence. Criterion 1 still fails as written.

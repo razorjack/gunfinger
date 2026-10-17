@@ -1,0 +1,638 @@
+{
+ "main": "shared-material-seed-2026-development.json",
+ "shifted": "shared-material-seed-2026-development.json",
+ "reproduction_problems": 0,
+ "pairs": {
+  "3 windows": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 32
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 52
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 21
+   }
+  ],
+  "span 10 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 29
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 3
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 52
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "wrong confident",
+    "queries": 2
+   },
+   {
+    "short": "wrong confident",
+    "shifted_today": "wrong confident",
+    "queries": 18
+   }
+  ],
+  "span 15 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 31
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 51
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "wrong confident",
+    "queries": 2
+   },
+   {
+    "short": "wrong confident",
+    "shifted_today": "wrong confident",
+    "queries": 18
+   }
+  ],
+  "span 20 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 32
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 52
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 21
+   }
+  ],
+  "supported 10 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 29
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 3
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 52
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "wrong confident",
+    "queries": 2
+   },
+   {
+    "short": "wrong confident",
+    "shifted_today": "wrong confident",
+    "queries": 18
+   }
+  ],
+  "supported 15 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 31
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 1
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "possible only",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 51
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "wrong confident",
+    "queries": 2
+   },
+   {
+    "short": "wrong confident",
+    "shifted_today": "wrong confident",
+    "queries": 18
+   }
+  ],
+  "supported 20 s": [
+   {
+    "short": "nothing",
+    "shifted_today": "nothing",
+    "queries": 12
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "possible only",
+    "queries": 32
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "right confident",
+    "queries": 3
+   },
+   {
+    "short": "possible only",
+    "shifted_today": "wrong confident",
+    "queries": 1
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "right confident",
+    "queries": 49
+   },
+   {
+    "short": "right confident",
+    "shifted_today": "wrong confident",
+    "queries": 2
+   },
+   {
+    "short": "wrong confident",
+    "shifted_today": "wrong confident",
+    "queries": 18
+   }
+  ]
+ },
+ "wrong": [
+  {
+   "rule": "span 10 s",
+   "query": "fire-2-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 15 s",
+   "query": "fire-2-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 10 s",
+   "query": "fire-2-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 15 s",
+   "query": "fire-2-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 20 s",
+   "query": "fire-2-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 10 s",
+   "query": "fire-2-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 15 s",
+   "query": "fire-2-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 10 s",
+   "query": "fire-2-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 15 s",
+   "query": "fire-2-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 20 s",
+   "query": "fire-2-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_3-hfcd44-1995-sour/02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+   "hits": 642,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-2-silence-3s-alone-20s",
+    "fire-2-silence-5s-alone-20s",
+    "fire-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 10 s",
+   "query": "fire-6-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 15 s",
+   "query": "fire-6-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 10 s",
+   "query": "fire-6-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 15 s",
+   "query": "fire-6-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 20 s",
+   "query": "fire-6-alone-20s",
+   "index": "everything",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 10 s",
+   "query": "fire-6-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 15 s",
+   "query": "fire-6-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 10 s",
+   "query": "fire-6-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 15 s",
+   "query": "fire-6-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 20 s",
+   "query": "fire-6-alone-20s",
+   "index": "played left out",
+   "wrong": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "hits": 703,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "fire-6-silence-3s-alone-20s",
+    "fire-6-silence-5s-alone-20s",
+    "fire-6-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 10 s",
+   "query": "pyro-2-alone-20s",
+   "index": "everything",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 15 s",
+   "query": "pyro-2-alone-20s",
+   "index": "everything",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 10 s",
+   "query": "pyro-2-alone-20s",
+   "index": "everything",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 15 s",
+   "query": "pyro-2-alone-20s",
+   "index": "everything",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 20 s",
+   "query": "pyro-2-alone-20s",
+   "index": "everything",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 10 s",
+   "query": "pyro-2-alone-20s",
+   "index": "played left out",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "span 15 s",
+   "query": "pyro-2-alone-20s",
+   "index": "played left out",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 10 s",
+   "query": "pyro-2-alone-20s",
+   "index": "played left out",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 15 s",
+   "query": "pyro-2-alone-20s",
+   "index": "played left out",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  },
+  {
+   "rule": "supported 20 s",
+   "query": "pyro-2-alone-20s",
+   "index": "played left out",
+   "wrong": "extra/A. Pyro -- Time Is Broken.mp3",
+   "hits": 270,
+   "shifted": 3,
+   "named_confidently_today_in": [
+    "pyro-2-silence-3s-alone-20s",
+    "pyro-2-silence-5s-alone-20s",
+    "pyro-2-silence-7s-alone-20s"
+   ]
+  }
+ ]
+}
