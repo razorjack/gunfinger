@@ -33,7 +33,8 @@ for scope and rules.
 ## Wrap-up
 
 - [ ] 5. Read-only review by a subagent; fixes committed
-- [ ] Notes "Session 30", status, checklist, roadmap bullet
+- [~] Notes "Session 30", status, checklist, roadmap bullet (first
+  written at 09:40; the review and checks to add)
 - [ ] `regress session-30-start` identical with the final build
 - [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
   (`RUSTUP_TOOLCHAIN=1.98.0`)

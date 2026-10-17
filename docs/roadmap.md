@@ -676,6 +676,18 @@ marked as inferences were derived, not measured.
      §6). The comparison separates features that land in neighbouring
      bins from features or pairings that are gone; tolerant hashing
      recovers only the first.
+     Done in session 30 (`verifier/pairs.rs`; experiments 0149, 0151),
+     at 40,126 records: under combined damage E keeps 9.6% of the clean
+     exact pairs and E + N 24.3% (about a sixth of the lost pairs sit one
+     step away); 260 of 510 damaged true detections under 240 would
+     reach it with E + N. Related versions gain as much as the played
+     recording (AUC of N/E 0.50 on the shared panels; within the damaged
+     run, related candidates gain more than true ones): 37 related
+     candidates in the recall runs would reach 240, among them the Fire
+     Splash Remix on clean Fire queries, and with the played recording
+     left out a related version would be confident in 238 of 419 shared
+     searches instead of 112. No unrelated candidate comes near 240. No
+     rule; a tolerant pass would need a test that separates versions.
   3. Denser query peaks around candidate passages, the reference store
      unchanged: Qfp analyses queries denser than references, keeping its
      database small (Sonnleitner & Widmer 2016, §IV-B). Experiment 0004

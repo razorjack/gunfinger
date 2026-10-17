@@ -7046,3 +7046,187 @@ today's rule.
   revision `fed26c76b8fe89ea`, as at the start, and
   `docs/pair-verdicts.txt` (82 lines) and `work/audition/answers.jsonl`
   (60 records) have the start's SHA-256 digests.
+
+## Session 30
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. This session measured step 2 of the roadmap's
+"Evidence beyond exact pair hashes": on the alignment the second pass
+fitted, how many of a detection's pairs match only when each part of the
+pair hash may be one step off, as Panako 2.0's near-exact hashing allows
+(Six 2021, §2).
+
+In short: under combined damage, about a sixth of the exact pairs that
+damage removes reappear one step away. Counting them would raise a
+damaged play's evidence about two and a half times, and half of the
+damaged queries that miss today for too few hits would reach 240. But
+related versions gain as much as the played recording. On clean shared
+material a tolerant count would name a related version confidently in
+about twice as many searches as today, and it would make the Fire Splash
+Remix confident on clean queries of the Fire Original Mix. Unrelated
+candidates gain less, and none comes near 240. So a tolerant count
+trades recall under damage for more wrong answers from shared material,
+the kind of wrong answer the rule already struggles with. A tolerant
+second pass would be our decision and a new ADR; this session writes
+none.
+
+### What was counted (experiments 0149 and 0151)
+
+The pair hash has three quantised parts (`hash.rs`): the anchor's
+frequency (whole bins up to bin 50, 2% steps above), the frequency
+difference to the target (whole bins) and the time difference (whole
+frames). For each detection the second pass counted, on the alignment
+the peak verifier rebuilds (the line through the detection's first and
+last hits, each 10 s window moved to its own densest run of hits):
+
+- **E**: query pairs matched to the recording's own pairs with the same
+  hash, the reference anchor within a frame of where the alignment puts
+  it. This is what the second pass counts: E is 0.98-1.00 of the
+  detection's hits for true detections.
+- **N**: then, among the pairs left over, those whose three parts each
+  differ by at most one step. Each pair counts once, in E or in N.
+- **V**: the verifier's reference peaks found (±1 bin, ±1 frame), out of
+  P in the passage.
+- The same counts with the reference shifted ±5 and ±6.2 s measure
+  chance: E 0-0.25 and N 0-2 per detection, so chance is not what N
+  counts.
+
+Only the recording's own pairs in the matched passage were compared;
+nothing was looked up in the index. The criteria, sets and notable
+results were written and committed before any count (0149).
+
+The runs, at 40,126 records: the recall panel's development half clean
+(C), under combined damage (c) and with other rips only (a), as session
+28 ran them (same detections); both shared panels' development halves
+with their own queries and 2 or 3 indexes; and 0055's four
+shared-material scenarios at 262 tracks.
+
+### Combined damage and other rips
+
+| Medians | E | N | N/E | (E+N)/E |
+|---|--:|--:|--:|--:|
+| Clean, own record (522 queries) | 1,022 | 303 | 0.29 | 1.29 |
+| Combined damage (515 with a detection of the recording) | 95 | 149 | 1.48 | 2.48 |
+| Other rips only (178) | 458 | 336 | 0.69 | 1.70 |
+
+- Clean audio already has 29% extra near pairs: re-encoding and the
+  fitted speed move some peaks across a bin or frame border.
+- Damage keeps 9.6% of the clean exact pairs (median, per source and
+  speed); counting near pairs too keeps 24.3% of the clean exact count.
+  Of the exact pairs damage removes, about 16% reappear one step away;
+  the rest are gone (peaks lost or a different target paired), and damage
+  halves the near pairs as well.
+- Of the 510 damaged queries whose recording was found with under 240
+  hits, 260 would reach 240 with E + N (255 of them over 3 windows).
+- Other rips: E is 0.475 of the own record's clean E, E + N 0.851. All
+  three of the misses for too few hits (The Sect's Victim) would reach
+  240.
+
+### Related versions and unrelated candidates
+
+| Medians | Detections | E | N | N/E |
+|---|--:|--:|--:|--:|
+| Unrelated wrong candidates, recall runs | 2,832 | 8 | 6 | 0.83 |
+| Related wrong candidates, recall runs | 383 | 49 | 87 | 1.54 |
+| Played recording, shared panels | 1,066 | 954 | 427 | 0.52 |
+| Related recording, shared panels | 5,184 | 119 | 135 | 1.10 |
+
+- Unrelated candidates: none would reach 240 with E + N. The strongest is
+  Congo Natty's "Peace" for his held-out "Revolution" at 224 (its tags
+  name no artist, so the label script calls it unrelated; session 28 saw
+  the same artist). The next, at 110, is the Fire Splash Remix on DJ
+  Surreal's damaged queries, whose beatmatched partner is the Fire
+  Original Mix.
+- Related candidates in the recall runs: 37 of 383 would reach 240. On
+  the clean queries the Fire Splash Remix (7 queries), the Rogue Unit VIP
+  and the Rogue Unit Remix (1 each) for the Fire Original Mix, and Eddy
+  Woo's Tsunami for its held-out remix (7); the same 16 with other rips
+  only; under damage the Splash Remix 5 times. Today none of them is
+  confident.
+- Shared panels: with the played recording left out, today's rule names
+  a related version confidently in 112 of 419 searches; with E + N at
+  240 or more over 3 windows it would in 238 (first panel 106 to 136,
+  second panel 6 to 102). With everything indexed the played recording
+  is confident in 312 searches today and would be in 315. This per-search
+  count was not pre-registered; it is the plainest form of the result.
+- Separation at equal E: between the played and the related recording on
+  the same shared queries, N/E does not separate them (AUC 0.50). Against
+  damaged true detections the pre-registered comparisons give 0.84
+  (unrelated) and 0.78 (related), but those mix conditions: damage raises
+  N/E for everything. Within the damaged run alone, true detections
+  against unrelated candidates give 0.55, and against related ones 0.35
+  (the related ones gain more).
+- Of the notable results declared first: related versions gain at least
+  as much as the played recording; half of the damaged true detections,
+  and related ones, reach 240; other rips reach 0.85 of the own record.
+  "Recall without risk" did not occur: related candidates, and unrelated
+  ones from 30 exact pairs up, gain more than half of what true ones
+  gain.
+
+### What it means for the roadmap
+
+The tolerance recovers evidence where peaks moved across a quantisation
+border, and damage moves many. That is real evidence for recall, but it
+is not evidence of identity: a related version that shares the passage
+loses its exact pairs to quantisation just as the played recording does,
+and gets them back the same way. A tolerant second pass at today's 240
+would therefore add wrong answers from shared material, also on clean
+audio, while precision comes first (ADR 0017). If tolerance is pursued,
+it needs a test that separates versions, which neither N nor the
+verifier's share gives (0056). Step 3 (denser query peaks) would face
+the same question. These are our decisions; this session proposes no
+rule and writes no ADR.
+
+### Decided this session, open to change
+
+- E and N are counted on the verifier's alignment and analysis, not the
+  second pass's own; E matches the second pass's hits (0.98-1.00 for true
+  detections, 0.82 for unrelated candidates of 8-12 hits).
+- N allows each of the three parts to move one step, all 26 combinations;
+  the anchor's time may differ by a frame, as for E.
+- `recall --verify` measures only the detections the second pass
+  counted; `shared` reports now say which those are (`fitted`).
+- The runs used the worktree's build of `aecdf93` before the merge, since
+  the merged master has the same code (`git diff aecdf93 2f8f4c9 --
+  crates/` is empty).
+- Labels come from the NAS store's tags (`labels.py`), as written in
+  0149; the one pair it misses (Congo Natty) is reported beside, not
+  moved.
+- The second shared panel's file lists recordings, not directions; a
+  scenario's family is taken by name and its other recordings count as
+  versions.
+
+### Decisions waiting
+
+- Whether a tolerant count is worth pursuing given the related versions
+  (above); it would need a new ADR.
+- Still waiting from earlier sessions: the decisions listed in sessions
+  21-29 (session 29: whether to adopt a minimum span).
+
+### Handoff for the next session
+
+1. `master` is committed with `s30-quant` merged (`2f8f4c9`); the
+   worktree `s30-quant` and its branch can be removed.
+2. Every command that verifies now also reports `pairs` in each of the
+   verifier's counts (`query`, `reference`, `exact`, `near`; aligned and at
+   the four shifts). `recall --verify` writes to
+   `reports/<library>/verified/`.
+3. `scripts/analysis/quantisation.py` builds 0149's sets and measures
+   from those reports; tonight's reports are in
+   `work/s30/vwork/reports/` and the counts in `work/s30/counts-all.json`
+   (copied as `docs/experiments/data/0151-quantisation-loss.json`).
+4. Scratch data: `work/s30/vwork/` (the index clone uses little disk;
+   the reports, renders and recall excerpts about 1.5 GB) can be
+   deleted.
+
+### What else to know
+
+- Nothing touched the held-out test set, the candidate mixes of 0065 or
+  any validation half; no test-derived version was used to tune
+  anything. The NAS was only read (the recall panel's and shared panels'
+  audio), and the NAS peak store was only read. The clusters were not
+  rebuilt.
+- REVIEW_PENDING
+- CHECKS_PENDING

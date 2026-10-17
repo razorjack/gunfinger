@@ -4006,3 +4006,39 @@ Brief `docs/brief-29.md`, checklist `docs/session-29-checklist.md`.
   the start); `docs/pair-verdicts.txt` (82 lines) and
   `work/audition/answers.jsonl` (60 records) byte-identical to the
   start. Only documents changed after the final checks.
+
+## 2026-10-17: session 30, what exact hash quantisation loses after fitting
+
+- 07:47 start; session 29 still finishing in the root checkout (master
+  `36dc022`). NAS store 40,126 records, `fed26c76b8fe89ea`; listening files
+  as at session 29's start. Worktree `s30-quant` from `36dc022`.
+- 07:50-07:58 brief, checklist, `CLAUDE.md` and the pre-registration
+  (experiment 0149) committed on `s30-quant` (`1a9efac`) before any code
+  or count.
+- 07:58-08:01 the diagnostic (`aecdf93`): `verifier/pairs.rs` counts, on
+  the verifier's alignment, the query's pairs matched to the record's own
+  pairs in the passage: exact (E) and, among those left, with each hash
+  part one step off (N), each pair once; every `Count` of the verifier
+  carries them (`pairs`), aligned and at the four chance shifts.
+  `recall --verify` measures fitted detections; `shared` reports gain
+  `fitted`. Eight unit tests; clippy clean; 238 harness tests pass.
+- 08:03-09:23 the runs (`work/s30/runs.sh`, `screen` `s30-runs`, `nice`,
+  `--work work/s30/vwork`) from the worktree's build of `aecdf93`
+  (`work/bin/s30-quant/`), before the merge: `recall --verify --queries
+  clean,damaged`, both shared panels' development halves, `recall
+  --verify --other-rips-only`, 0055's scenarios at 262 tracks; all exit
+  0. The recall detections equal session 28's apart from the new field.
+- 08:33-08:36 session 29 finished (`68dae5b`). Start build
+  `work/bin/s30-start/` (byte-identical to `s29-final`); `baseline
+  session-30-start` 0.33 s; `s30-quant` merged (`2f8f4c9`; `git diff
+  aecdf93 2f8f4c9 -- crates/` empty, so the counts are master's code).
+- 0151 (`scripts/analysis/quantisation.py`): median N/E 0.29 clean, 1.48
+  under combined damage, 0.69 with other rips only; E keeps 9.6% of the
+  clean exact pairs under damage, E + N 24.3%; 260 of 510 damaged true
+  detections under 240 would reach 240 with E + N; other rips' E + N is
+  0.85 of the own record's E. Unrelated candidates: N/E 0.83, none near
+  240. Related: N/E 1.54 (recall runs), 1.10 (shared panels; the played
+  recording 0.52, AUC at equal E 0.50); 37 related recall candidates would
+  reach 240 (Fire Splash Remix on clean Fire queries, Eddy Woo's
+  Tsunami); with the played recording left out a related version would
+  be confident in 238 of 419 shared searches instead of 112. No rule.
