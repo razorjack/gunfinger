@@ -1,9 +1,8 @@
 # 0144: recall at NAS scale under one hard condition at a time
 
-**Question.** 0143's single conditions, the recall panel's development
-half at 40,126 records: clean control C, other rips only (a), brief
-plays (b), combined damage (c). How often is the own recording
-confident, what is wrong, and why do misses fail?
+**Question.** 0143's single conditions at 40,126 records: clean C, other
+rips only (a), brief plays (b), combined damage (c). How often is the
+own recording confident, what is wrong, why do misses fail?
 
 **Method.** As pre-registered (0143); `recall` from `0c0905d`, one run
 each, 03:57-04:28 (6-12 min, 5.1 GB); `recall_conditions.py`, data
@@ -31,13 +30,11 @@ own, 5 identical copies): 20 sources (180 queries) observable, 38 not.
 - Strongest wrong detection: Fire (Splash Remix) on the panel's Fire
   (Original Mix), 185 hits in C and (a), possible; none reaches 200.
 
-**Against 0143.** As expected for C, (a), (b), (c), but (c) below
-`robust`'s 5% at 262 tracks. Notable as declared: only (a)'s misses, 4
-of 5 in one kind (2 sources). No confident wrong answer; no held-out or
-unobservable query confident.
+**Against 0143.** As expected ((c) below `robust`'s 5% at 262 tracks).
+Notable as declared: only (a)'s misses, 4 of 5 in one kind (2 sources).
+No confident wrong answer; no held-out or unobservable query confident.
 
 **Conclusion.** One hard condition at a time costs no precision. Other
 rips are named almost as well as the source; brief plays behave as on
-the 262-track grid, set by where the windows fall; combined damage
-leaves nearly every query possible and almost none confident, for too
-few hits, not too few windows.
+the 262-track grid, set by the windows; combined damage leaves nearly
+every query possible and almost none confident, for too few hits.
