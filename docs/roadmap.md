@@ -264,6 +264,22 @@ marked as inferences were derived, not measured.
   more (0142). Adoption is our decision and needs a new ADR; a
   fair shared-material test places brief passages at several offsets,
   as the grid does.
+  *(session 29, experiments 0146-0148)* The fair test: every shared
+  passage of 30 s or less on both panels' development halves after 0-9 s
+  of silence (1,880 searches), against criteria written first (F1: no
+  more wrong answers than today summed over positions; F2: none in a
+  passage today's rule never gets wrong). No variant meets F and the
+  grid criterion together. A(20) and B(20) meet F but name fewer brief
+  plays. A(10) and B(15) fail F1 by 9 and 6 of 168. B(15)'s 6 are all
+  three 20 s passages placed exactly on a window border, where today's
+  rule cannot be confident; it names the same files at 8-9 of their
+  other positions. On session 28's brief plays at NAS scale no rule adds
+  a wrong or held-out answer, and 15 s plays become confident wherever
+  they start: 519 (A(10), B(10)) and 504 (B(15)) of 522, against 228
+  today. We decide whether a wrong answer that today's rule
+  avoids only on the window border counts as new; if it does not, B(15)
+  is the candidate, with a new ADR and the unsearched validation halves
+  as its confirmation.
 - **Speed that wanders within a play.** The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed

@@ -6705,3 +6705,256 @@ threshold S* = 13.
   lines) and `work/audition/answers.jsonl` (60 records) have the
   digests they had at the start. No manifest and neither frozen panel
   file changed.
+
+## Session 29
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports. This session ran the fair test that session 27 asked
+for before we decide on the roadmap's "A minimum span instead of 3
+windows", and counted every rule on session 28's brief plays at NAS
+scale.
+
+In short: by the criteria written before any count, no variant is worth
+proposing, so the evidence supports keeping today's rule. Two variants,
+A(20) and B(20), add no wrong answers once every grid position is counted,
+but they name fewer brief plays than today. A(10) and B(15) name far more
+brief plays and add no wrong answer at NAS scale. On the first shared
+panel they name a related version confidently 9 and 6 times beyond the
+168 times today's rule does, out of 1,120 searches. B(15)'s 6 extra
+answers all come from one position: a 20 s shared passage
+starting exactly on a window border, the one position of ten where today's
+rule cannot call that passage confident. At the other nine positions
+B(15) is wrong exactly where today's rule is. Whether that counts as a new
+wrong answer is our call. If it does not, the evidence favours B(15);
+the reasons are below. Adopting one needs a new ADR replacing the window
+condition of ADRs 0001 and 0008; this session writes none.
+
+### The rules
+
+Today a segment is confident at 240 hits in 3 windows (10 s windows of
+the mix, counted from its start) and possible at 60 hits; a play takes
+its best segment's level (ADRs 0001, 0008, 0013). Each variant replaces
+only "in 3 windows":
+
+- A(S): the first and the last aligned hit at least S seconds apart;
+- B(S): at least S whole seconds, counted from the first hit, that hold
+  an aligned hit;
+
+with S = 10, 15 or 20 s. The hits, the possible tier and the grouping
+into plays stay, so a variant can only move a segment of 240 hits or
+more between possible and confident.
+
+### The fair test on the shared panels (experiments 0146 and 0148)
+
+Session 27 found the variants' only new wrong answers in files of
+exactly 20 s, which hold two windows, so today's rule can never be
+confident in them (0140-0142). This session searched every shared
+passage of 30 s or less on both shared panels' development halves (each
+scenario's first 10, 20 and 30 s of the passage, 75 cuts) after 0, 1, ...,
+9 s of digital silence, so that each cut starts at every second of the
+window grid: 750 queries, each in the same 2 or 3 indexes as before
+(everything, played recording left out, played file alone left out),
+1,880 searches at 40,126 records. The criteria were written and
+committed before any count (0146):
+
+- **F1**: summed over all positions, a variant names a wrong file
+  confidently no more often than today's rule, on each panel;
+- **F2**: no passage is wrong under a variant at any position while
+  today's rule is wrong at none of its ten;
+- beside them, **brief 27's criterion 1 as written**: no search may name
+  a wrong file confidently that today's rule does not name in the same
+  search.
+
+| First panel (the second has no wrong answer under any rule) | Today | A(10) | A(15) | A(20) | B(10) | B(15) | B(20) |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| Wrong answers over the 10 positions | 168 | 177 | 174 | 110 | 201 | 174 | 166 |
+| ... of which at position 0 | 11 | 17 | 17 | 11 | 17 | 17 | 17 |
+| F1; F2 | | fails; holds | fails; holds | holds; holds | fails; fails | fails; holds | holds; holds |
+| Brief 27's criterion 1 (new wrong answers) | | fails (9) | fails (6) | holds | fails (33) | fails (6) | fails (6) |
+| Right confident searches, first; second panel | 388; 287 | 419; 310 | 409; 300 | 200; 150 | 576; 393 | 409; 310 | 399; 289 |
+
+What the wrong answers are:
+
+- Today's rule is already wrong in four scenarios, and in most positions.
+  It names the related Fire version (Rogue Unit VIP Remix for fire-2, Rogue
+  Unit Remix for fire-6) in their 20 s cuts at 9 of 10 positions, Time Is
+  Broken in pyro-2's 20 s cut at 8, Ignorance in pyro-1's 20 s cut at 2,
+  and all four in their 30 s cuts at all 10. It is never wrong on a 10 s
+  cut. All 168 are these.
+- A(15), B(15) and B(20) add only position 0 of fire-2's, fire-6's and
+  pyro-2's 20 s cuts, in the everything and played-left-out indexes (6
+  searches; 697, 795 and 285 hits over 19.6-19.8 s). There the 20 s
+  passage fills exactly two windows. They name the files today's rule
+  names at the other positions of the same cuts.
+- A(10) adds those 6 and pyro-1 after 3 s of silence (Ignorance, 250 hits
+  over 12.5 s, in all 3 indexes), a position where today's rule's hits
+  fall in two windows. Today's rule names Ignorance for that cut at 1
+  and 5 s.
+- B(10) adds those 9 and 24 on 10 s cuts (the two Fire versions with
+  298-358 hits in 10 seconds holding hits), which today's rule can never
+  make confident at any position. So B(10) fails F2.
+- A(20) and B(20) meet F by dropping wrong answers along with right ones:
+  A(20) has none in any 20 s cut and half of today's right answers; B(20)
+  drops pyro-1's 20 s cut and pyro-2's at 3 s and adds position 0.
+
+As a check, the 3, 5 and 7 s positions are session 27's queries of 0142:
+their renders are byte-identical and their detections the same.
+
+### Brief plays at NAS scale (experiment 0147)
+
+Session 28's brief plays of the recall panel's development half (0144):
+15 or 20 s of a recording's excerpt between 3-13 s of one held-out
+recording and 3 s of another, at 9 speeds, at 40,126 records; and the
+same with each recording's own record left out, so that only another rip
+can answer (0145). The variant build rebuilt the same queries from the
+seed and found exactly session 28's detections under today's rule.
+
+| Confident | Today | A(10) | A(15) | A(20) | B(10) | B(15) | B(20) |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| 15 s plays, of 522 | 228 | 519 | 5 | 0 | 519 | 504 | 0 |
+| 20 s plays, of 522 | 493 | 522 | 522 | 9 | 522 | 522 | 499 |
+| 15 s plays starting in the first half of a window, of 259 | 0 | 258 | 3 | 0 | 258 | 253 | 0 |
+| Other rips only, 15 s; 20 s, of 180 | 37; 141 | 86; 149 | 3; 149 | 0; 3 | 86; 149 | 79; 149 | 0; 134 |
+| Generated-mix plays only Panako named (0150), of 7 | 0 | 7 | 5 | 0 | 7 | 6 | 1 |
+
+- No rule names a wrong recording or answers for a held-out one here:
+  the 112 wrong possible detections (at most 146 hits) stay possible
+  under every rule, and none of the 360 held-out and 684 unanswerable
+  queries becomes confident.
+- Today a 15 s play is confident only when it starts in the second half
+  of a 10 s window. Under A(10) and B(10) its position no longer matters:
+  519 of 522, and the 3 misses have under 240 hits. B(15) misses 15 more,
+  plays with 13 or 14 seconds holding hits, 7 of which today's rule
+  names. A(15) names almost no 15 s play, because 15 s of audio spans
+  less than 15 s between its first and last hit; A(20) and B(20) none.
+- Panako's seven plays (session 24b) are 20-26 s generated-mix plays in 2
+  windows with 336-587 hits. A(10) and B(10) name all seven; B(15) all
+  but Aphrodite's Fanfare (14 seconds with hits); A(15) also not Silent
+  Witness & Break's Again and Again (a span of 14.4 s); B(20) only
+  Gridlok's Soul Sucker.
+
+### What each variant would change
+
+With session 27's counts on the grid (0138: 16 brief plays, each at 6
+lengths and 10 positions), the generated mixes, `robust`, the three development
+mixes and the sweeps. No variant changes the results of the three development
+mixes, the sweeps or the recall panel's 30 s queries, at 262 tracks or
+at NAS scale.
+
+- **A(10)**: brief plays of 15 s and more are confident wherever they
+  start (grid 803 of 960 against 693; the level of 2 of the 96 play and
+  length pairs still depends on position, today 30; at NAS scale 519 of
+  522 15 s plays); the shortest
+  identification is 10 s at some positions, 15 s at all (today 15 and
+  25 s), the shortest confident span 11.8 s. New wrong answers: the 6 at
+  position 0 and pyro-1's 12.5 s alignment (9).
+- **A(15)**: fewer brief plays than today (644; 15 s plays almost never),
+  and the 6 at position 0. Nothing in its favour.
+- **A(20)**: no new wrong answer anywhere, but far fewer brief plays
+  (482; no 15 s play, 9 of 522 20 s plays at NAS scale); the shortest
+  identification is 20 s at some positions, 25 s at all.
+- **B(10)**: the most brief plays (947, 147 of 160 10 s grid plays); 13
+  pairs still depend on position; shortest confident evidence 9.3 s.
+  New wrong answers on 10 s passages that today's rule can never name
+  (33 in all).
+- **B(15)**: every 15 s grid play and longer confident at every position
+  (800, no level that depends on position); at NAS scale 504 of 522 15 s
+  plays and all 20 s plays, 6 of Panako's 7; the shortest identification
+  15 s at every position, the shortest confident span 14.3 s (today's
+  shortest too). In `robust` the 2 s needle skip is confident in 80 of 80
+  queries (today 31). New wrong answers: the 6 at position 0, nothing
+  else on any panel.
+- **B(20)**: no position-dependent level (640), but fewer brief plays
+  than today (no 15 s play); the same 6 at position 0, with 8 of today's
+  wrong answers dropped.
+
+### Which variant the evidence favours, and why
+
+By the criteria written first (F and session 27's grid criterion
+together), none: A(20) and B(20) meet F but name fewer brief plays than
+today; A(10) and B(15) name more but fail F1 by 9 and 6 wrong answers in
+1,120 searches; A(15) fails F1 and names fewer; B(10) fails F1 and F2. Keeping today's rule is
+the answer these criteria give, and it costs nothing in precision.
+
+If a variant is judged by whether it is wrong where today's rule is not,
+counting each grid position equally, the case for B(15) is the
+strongest. Its only extra wrong answers are three 20 s passages placed
+exactly on a window border. In the same passages today's rule is wrong
+at 8 or 9 of the 10 positions, and in their 30 s cuts at all 10, with
+the same files. Everywhere else it is wrong exactly where today's rule
+is. In exchange it makes brief plays confident regardless of where they
+fall, at 15 s and up. It is the only variant that both names more brief
+plays and leaves no level depending on the grid. A(10) names 15 more 15 s
+plays at NAS scale but adds a wrong answer from a 12.5 s alignment at a
+position where today's rule names nothing wrong. B(10) adds wrong answers on 10 s
+passages that today's rule never makes.
+
+That reading is mine, not a criterion. The precision rule of ADR 0017
+favours the stricter reading, which keeps today's rule.
+
+### Decided this session, open to change
+
+- The passages are each scenario's `alone` cuts (the first 10, 20 and
+  30 s of the shared passage, no longer than it), after 0-9 s of digital
+  silence in 1 s steps, the grid's spacing (0047). Position 0 is the cut
+  alone.
+- F1 is applied per panel and F2 per passage, where a passage is one cut
+  in one index. A wrong answer is a file named confidently in a search,
+  counted once per search however many segments name it.
+- The recall experiment finished first, so it is 0147 and the shared one
+  0148; both were pre-registered together in 0146 and queued back to
+  back, and 0147 was written before any shared count existed.
+- The variant's recall runs (07:00-07:22) started before the
+  pre-registration was committed (07:10:55): the machine was idle while
+  session 28 wrote its notes. The harness prints only today's counts
+  (session 28's). The variant counts were made after the commit. While
+  locating 0150's seven plays and trying the script, I saw two of their
+  levels (Kosmic, Fanfare) before the commit; the check had already
+  been written down and is offline.
+
+### Decisions waiting
+
+- Whether to adopt a minimum span (above). If we adopt B(15) or A(10),
+  a new ADR replaces the window condition of ADRs 0001 and 0008. The
+  recall panel's validation half and both shared panels' validation
+  halves are unsearched and would be the confirmation runs.
+- Still waiting from earlier sessions: the decisions listed in sessions
+  21-28.
+
+### Handoff for the next session
+
+1. `master` is committed. The variant worktree `s29-span`
+   (branch `s29-span`,
+   never merged) holds `s27-span` merged into master's
+   `adec35a` with session 28's harness, and `S29_OFFSETS_ONLY` (`583bfe3`).
+   Its binaries are in `work/bin/s29-span/`. `s27-span` is unchanged.
+2. `scripts/analysis/span_offsets.py` counts any `S29_OFFSETS_ONLY` shared
+   report under every rule and checks a run against 0142's;
+   `span_recall.py` checks and counts `recall` brief reports, and the
+   Panako plays.
+3. The variant's reports are in `work/s29/counts/` (copies) and
+   `work/s29/vwork/reports/`.
+4. `seconds` now has the tests session 27 left out (the truth from a
+   manifest and from a generated mix, margins beside a track that is not
+   in the library); none exposed a bug.
+5. SCRATCH_PENDING
+
+### What else to know
+
+- Nothing touched the held-out test set, the candidate mixes of 0065 or
+  any validation half; no test-derived version was used to tune
+  anything. The NAS was only read (the shared panels' played files,
+  rendered into queries), and the NAS peak store was only read: every
+  search loaded a clone of the saved index. The clusters were not
+  rebuilt.
+- Session 28 finished in the same checkout at 07:06. Until then this
+  session wrote only under `work/s29/`, in the two worktrees and in
+  `work/bin/s29-span/`. The variant's grid check (06:16-06:30) ran beside
+  session 28's last reproduction run. No time this morning says anything
+  about speed; this session measured none.
+- The variant's grid at 262 tracks is identical to master's (every
+  detection), and today's rule reproduces every stored level.
+- REVIEW_PENDING
+- CHECKS_PENDING

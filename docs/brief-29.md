@@ -245,7 +245,7 @@ window period.
 - **(07:40) Step 3's runs** finished (07:22-07:40, exit 0, no error in
   either log). The build check passed: the 48 + 30 renders of 0142's
   queries are byte-identical and their 117 + 78 results equal 0142's
-  detection for detection. **(07:41-07:50) Counted** (0148): no variant
+  detection for detection. **(07:33-07:41) Counted** (0148): no variant
   meets F and criterion 2 together. A(20) and B(20) meet F (110 and 166
   wrong answers on the first panel against 168) but not criterion 2;
   A(10), A(15) and B(15) fail F1 (177, 174, 174), all of A(15)'s and
