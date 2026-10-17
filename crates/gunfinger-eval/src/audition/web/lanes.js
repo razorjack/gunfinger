@@ -9,16 +9,23 @@ import { clock, fileTime, percent, pieceAt, signedSeconds } from "./timeline.js"
 
 const HEIGHT = 84;
 const MARKER_REACH = 5; // pixels within which a click takes the marker
-const COLOURS = {
-  background: "#16181d",
-  axis: "#5b6270",
-  lane: ["#7aa2f7", "#e0af68", "#9ece6a", "#bb9af7", "#7dcfff", "#f7768e", "#73daca", "#ff9e64", "#c0caf5"],
-  dim: "#3b4252",
-  span: "rgba(158, 206, 106, 0.10)",
-  loop: "rgba(224, 175, 104, 0.16)",
-  playhead: "#f5f5f5",
-  marker: { listen: "#7dcfff", edge: "#ff9e64", join: "#6b7280" },
-};
+const LANE_COLOURS = 9;
+
+// The canvas's colours, from style.css's custom properties.
+function colours() {
+  const style = getComputedStyle(document.documentElement);
+  const read = (name) => style.getPropertyValue(name).trim();
+  return {
+    background: read("--lane-background"),
+    tick: read("--lane-tick"),
+    lane: Array.from({ length: LANE_COLOURS }, (_, index) => read(`--lane-${index + 1}`)),
+    dim: read("--lane-dim"),
+    span: { fill: read("--span-fill"), edge: read("--span-edge") },
+    loop: { fill: read("--loop-fill"), edge: read("--loop-edge") },
+    playhead: read("--playhead"),
+    marker: { listen: read("--marker-listen"), edge: read("--marker-edge"), join: read("--marker-join") },
+  };
+}
 
 export class LanesView {
   constructor(root, tooltip, player, say) {
@@ -29,6 +36,7 @@ export class LanesView {
     this.envelopes = new Map(); // file -> envelope, or null while loading
     this.rows = [];
     this.drag = null;
+    this.colours = colours();
   }
 
   open(question) {
@@ -48,6 +56,7 @@ export class LanesView {
   row(lane, index) {
     const row = document.createElement("div");
     row.className = "lane";
+    row.style.setProperty("--lane-colour", this.colours.lane[index % LANE_COLOURS]);
     const label = document.createElement("div");
     label.className = "lane-label";
     label.textContent = `${index + 1} · ${lane.name}`;
@@ -169,28 +178,37 @@ export class LanesView {
     if (canvas.width !== width) canvas.width = width;
     const height = canvas.height;
     const context = canvas.getContext("2d");
+    const colours = this.colours;
     const { start, end } = this.question.timeline;
     const x = (time) => ((time - start) / (end - start)) * width;
     const timeOf = (pixel) => start + (pixel / width) * (end - start);
-    context.fillStyle = COLOURS.background;
+    const line = Math.max(1, devicePixelRatio);
+    context.fillStyle = colours.background;
     context.fillRect(0, 0, width, height);
 
+    // A span is shaded, with a band along its top that stays visible over a
+    // loud waveform; the loop is shaded between two edges.
     for (const span of this.question.spans) {
       if (!span.lanes.includes(index)) continue;
-      context.fillStyle = COLOURS.span;
+      context.fillStyle = colours.span.fill;
       context.fillRect(x(span.start), 0, x(span.end) - x(span.start), height);
+      context.fillStyle = colours.span.edge;
+      context.fillRect(x(span.start), 0, x(span.end) - x(span.start), 2 * line);
     }
     const loop = this.player.loop;
     if (loop) {
-      context.fillStyle = COLOURS.loop;
+      context.fillStyle = colours.loop.fill;
       context.fillRect(x(loop.start), 0, x(loop.end) - x(loop.start), height);
+      context.fillStyle = colours.loop.edge;
+      context.fillRect(Math.round(x(loop.start)), 0, line, height);
+      context.fillRect(Math.round(x(loop.end)) - line, 0, line, height);
     }
 
     // The waveform: for each pixel column, the extremes of the envelope's
     // buckets over the file time that column plays (dim), and their RMS
     // level (bright), which keeps the shape of a loud master.
     const middle = height / 2;
-    const colour = sounding ? COLOURS.lane[index % COLOURS.lane.length] : COLOURS.dim;
+    const colour = sounding ? colours.lane[index % LANE_COLOURS] : colours.dim;
     const peaks = new Path2D();
     const levels = new Path2D();
     for (const piece of lane.pieces) {
@@ -226,17 +244,36 @@ export class LanesView {
     context.stroke(levels);
 
     // Where the lane moves to another piece.
-    context.fillStyle = COLOURS.axis;
+    context.fillStyle = colours.tick;
     for (const piece of lane.pieces.slice(1)) context.fillRect(Math.round(x(piece.start)), height - 6, 1, 6);
 
+    // Markers one can jump to carry a flag at the top; `join` markers,
+    // which Up and Down pass over, are a plain line.
     for (const marker of this.question.markers) {
-      context.fillStyle = COLOURS.marker[marker.kind] ?? COLOURS.axis;
-      context.fillRect(Math.round(x(marker.at)), 0, Math.max(1, devicePixelRatio), height);
+      const at = Math.round(x(marker.at));
+      context.fillStyle = colours.marker[marker.kind] ?? colours.tick;
+      context.fillRect(at, 0, line, height);
+      if (marker.kind !== "join") triangle(context, at + line / 2, 0, 4 * line, 1);
     }
 
-    context.fillStyle = COLOURS.playhead;
-    context.fillRect(Math.round(x(t)), 0, Math.max(1, devicePixelRatio), height);
+    // The playhead, twice as wide, with a cap at either end.
+    const playhead = Math.round(x(t));
+    context.fillStyle = colours.playhead;
+    context.fillRect(playhead - line / 2, 0, 2 * line, height);
+    triangle(context, playhead + line / 2, 0, 4 * line, 1);
+    triangle(context, playhead + line / 2, height, 4 * line, -1);
   }
+}
+
+// A triangle pointing into the lane from its top (direction 1) or bottom
+// (-1), centred on x.
+function triangle(context, x, y, size, direction) {
+  context.beginPath();
+  context.moveTo(x - size, y);
+  context.lineTo(x + size, y);
+  context.lineTo(x, y + direction * size * 1.2);
+  context.closePath();
+  context.fill();
 }
 
 function button(text, title, action) {

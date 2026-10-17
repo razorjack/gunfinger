@@ -193,3 +193,36 @@ possible-tier detail. Steps 2, 5 and 7 do not shrink.
   held marker key changed little there: the question has 5 markers, so
   most repeats found none; the unit test covers marker repeats. No
   question was answered.
+- **(03:40) Step 3, the visual refresh**, done in about 20 minutes.
+  Screenshots before and after with this session's own server and
+  headless Chrome at 1440 x 900, the same questions and states
+  (`work/audition/s23/01-s23-pack.json` and
+  `work/audition/questions/02-folders.json`; question 7 open, question 1
+  at 2:30 with lane 2, the blend and the loop, the help, a folder
+  question): `work/s28/screens/{before,after}-0{1,2,3,4}-*.png`. For
+  these the answer log was an empty file of this session's in
+  `/tmp/s28-audition/`, so the folder questions show as open beside the
+  pairs answered from the verdicts file; neither listening file was
+  read for writing. Changes: `style.css` holds one set of custom
+  properties (surfaces, text, the canvas's colours, a type scale of
+  12-20 px, spacing, radii); `lanes.js` reads the canvas's colours from
+  it once and gives each lane row its colour (a swatch by the label, the
+  sounding lane's border). Queue: the current question has an accent
+  bar and a bold title, open questions a blue dot, answered ones a
+  green small-caps answer beside a muted title. Choices are chips, the
+  chosen one green. Times use tabular figures. Canvas: a span gets a
+  band along its top, the loop two edges, markers one can jump to a
+  small flag (`join` markers stay plain lines), the playhead is twice as
+  wide with a cap at each end. `:focus-visible` shows an outline.
+  Contrast (WCAG 2, `work/s28/contrast.py`): every text colour on every
+  surface it sits on is 5.5:1 or more. No transition was added, so no
+  `prefers-reduced-motion` rule; no light palette (dark stays, and a
+  second palette was not needed). Two things that read worse were fixed
+  before the commit: the answer as a padded uppercase pill wrapped in
+  the queue's fixed column ("DIFFERE NT"), and the help's keys in 12 px
+  monospace shrank the arrows. Layout, keys, behaviour and every piece
+  of text are as before. The step 2 tests pass again and the real-page
+  hold check on the refreshed build gives the same counts
+  (`work/s28/page-hold-after-refresh.log`: at most 2 playing for a
+  moment, peak -9.2 dBFS).
+

@@ -21,7 +21,7 @@ for scope and rules.
   that fails before and passes after; `scripts/check.sh` runs it when
   `node` is on PATH; the real page in headless Chrome (own server, /tmp
   copies, deleted); committed
-- [ ] 3. Visual refresh: screenshots before; CSS properties, type scale,
+- [x] 3. Visual refresh: screenshots before; CSS properties, type scale,
   contrast (WCAG AA), queue states, focus, lanes; screenshots after
   (`work/s28/screens/`); the step 2 test again; committed
 - [ ] 4a. Pre-registration (brief, experiment 0143); the clusters checked
