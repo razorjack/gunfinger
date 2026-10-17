@@ -149,6 +149,34 @@ Steps shrink as step 2 says: (a)'s set first, then 0055's scenarios.
   `reports/library-nas-dnb-peaks/`. The runs use their own work
   directory, `work/s30/vwork/`, with clones of the saved index, the
   recall excerpts and the reports the runs read.
+- **(08:01) The diagnostic** (`aecdf93` on `s30-quant`):
+  `verifier/pairs.rs` counts E and N; `verify` adds them to its aligned
+  and shifted counts (`Count::pairs`); `recall --verify` measures the
+  detections the second pass counted; `shared` reports gain a `fitted`
+  flag. Eight new unit tests (one step in each component counts in N
+  and not E, two steps in none; no correspondence twice; nothing outside
+  the passage; the ±1 frame and nearest choice; the record's pairs are
+  the index's; query pairs placed at their window's offset; the hash
+  layout). `cargo clippy -D warnings` clean, 238 harness tests pass.
+- **(08:03) The runs start from the worktree's build, before the
+  merge.** Session 29 had committed `2c87dd6` and `18b6a95` (documents
+  only: its brief, notes, checklist) and its root checkout was clean,
+  with no process of its own; no message yet.
+  The pre-registration names "master after the merge" as the build; the
+  merged master's code will be `aecdf93`'s, since session 29 changes no
+  code, so the runs use the worktree's release build (Homebrew's
+  1.98.0) copied to `work/bin/s30-quant/` (`COMMIT` = `aecdf93`), checked
+  after the merge with `git diff aecdf93 master -- crates/` (empty). They
+  write only under `work/s30/`, never the root's `work/reports/`.
+  Queue `work/s30/runs.sh` (`screen` `s30-runs`, log
+  `work/s30/logs/runs.log`): R1, R3, R4, R2, R5.
+- **(08:02) The run directory** `work/s30/vwork/` holds APFS clones of
+  the saved index (`indexes/library-nas-dnb-peaks.index`), the corpus
+  and NAS clusters and the library map (the files only, so that the test
+  set's reports in `work/reports/` are not copied), and the recall
+  excerpts (`recall/seed-2026/`). The damaged renders are made again
+  there. Tags for `labels.py`: `work/s30/nas-tags.json`
+  (`store_tags.py`, 40,126 records).
 
 ## Step 2: pre-registration (written at 07:52-08:00, committed before any count)
 
