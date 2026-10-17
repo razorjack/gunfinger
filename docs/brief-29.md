@@ -96,8 +96,8 @@ Rules for this session:
   `df2f038`, checked at 07:10: `git status` clean on `master`, no process
   from `work/bin/s28-*` (its wrap-up changed only its brief, notes,
   checklist and status since `adec35a`).
-- Experiments 0001-0145 and 0150; this session numbers 0146-0149 (and
-  0151 and up if it needs more). ADRs 0001-0020. Test set: 4 of 5
+- Experiments 0001-0145 and 0150; this session numbers 0146-0148
+  (0149 is session 30's, which started beside this one at 07:58). ADRs 0001-0020. Test set: 4 of 5
   evaluations used (none in this session).
 - The NAS peak store at 06:07: 40,126 records, revision
   `fed26c76b8fe89ea` (`work/s29/store-revision-start.txt`,
@@ -252,6 +252,21 @@ window period.
   B(15)'s extra wrong answers at offset 0 of three 20 s cuts; B(10) fails
   F1 and F2 (201; 10 s cuts). The second panel has no wrong answer under
   any rule. Brief 27's criterion 1 as written holds only for A(20).
+
+- **(07:42-07:51) The final checks**, one after the other (`screen`
+  `s29-final`, `work/s29/final-checks.sh`). The final build
+  `work/bin/s29-final/` (Homebrew's 1.98.0 at `aed8e73`) is
+  byte-identical to `work/bin/s29-start/`. `regress session-29-start`
+  with it is identical (720 of 720 sweep queries, all 87, 93 and 79 scan
+  detections, the calibrate lines as at session 28's check) in 157 s.
+  `scripts/check.sh` with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`) is green at `36dc022`: formatting, clippy
+  for macOS and for Linux, 458 Rust tests (452 + 6 new) and the page's 5
+  Node tests, in 396 s.
+- **(07:45) The read-only review** by a subagent started.
+- **(07:58) Session 30** started beside this one in its own worktree
+  (`s30-quant`, the orchestrating thread's note); it takes experiment
+  0149. This session starts nothing new after it.
 
 ## Step 3: pre-registration (written at 06:20-06:35, committed before any count)
 

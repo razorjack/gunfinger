@@ -39,13 +39,14 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] 6. Read-only review by a subagent (from about 09:45); fixes
+- [~] 6. Read-only review by a subagent (started 07:45); fixes
   committed
 - [~] Notes "Session 29", status, checklist, roadmap bullet (first
-  written at 07:50; the review and checks to add)
-- [ ] `regress session-29-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`), including the Node tests
+  written at 07:44; the review and checks to add)
+- [x] `regress session-29-start` identical with the final build
+  (`work/bin/s29-final/`, byte-identical to the start's; 157 s)
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`) at `36dc022`: 458 Rust tests, 5 Node tests
 - [ ] The NAS store's revision at the end
 - [ ] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
   unchanged (start digests)
