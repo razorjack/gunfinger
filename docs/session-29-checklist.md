@@ -27,9 +27,10 @@ for scope and rules.
   master's grid exactly (06:30)
 - [x] 3a. Pre-registration (brief, experiment 0146); committed before
   any count
-- [~] 3b. The runs on both shared panels' development halves, every
-  brief passage at every declared offset (`screen`, exit lines checked)
-- [ ] 3c. Counts; experiment 0148; committed
+- [x] 3b. The runs on both shared panels' development halves, every
+  brief passage at offsets 0-9 s (`screen`, 07:22-07:40, exit 0; 0142's
+  queries reproduced)
+- [x] 3c. Counts; experiment 0148
 - [x] 4. Recall (b) and (a)+(b) under every rule, today's detections
   reproduced first (0 differences); 0150's 7 Panako-only plays offline;
   experiment 0147

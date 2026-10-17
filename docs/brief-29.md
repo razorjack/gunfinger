@@ -232,15 +232,26 @@ window period.
 - **(07:13) Step 5 on master**: `7d7c6e4` cherry-picked as `12d3243`; the
   17 `seconds` tests pass on master.
 
-- **(07:25) Experiment numbers swapped.** The recall runs finished first
+- **(07:23) Experiment numbers swapped.** The recall runs finished first
   (07:22), so their experiment is 0147 and the shared panels' is 0148
   (the plan's table above says the reverse). The shared runs started from
   the queue at 07:22:07, a second after the recall runs; both were
   pre-registered together in 0146, and 0147 was written before any
   shared count existed.
-- **(07:30) Step 4 counted** (0147): no rule makes a wrong or held-out
+- **(07:13-07:23) Step 4 counted** (0147): no rule makes a wrong or held-out
   answer confident; A(10) and B(10) 519 of 522 15 s plays (today 228),
   every 20 s play; all 7 of Panako's plays under A(10) and B(10).
+
+- **(07:40) Step 3's runs** finished (07:22-07:40, exit 0, no error in
+  either log). The build check passed: the 48 + 30 renders of 0142's
+  queries are byte-identical and their 117 + 78 results equal 0142's
+  detection for detection. **(07:41-07:50) Counted** (0148): no variant
+  meets F and criterion 2 together. A(20) and B(20) meet F (110 and 166
+  wrong answers on the first panel against 168) but not criterion 2;
+  A(10), A(15) and B(15) fail F1 (177, 174, 174), all of A(15)'s and
+  B(15)'s extra wrong answers at offset 0 of three 20 s cuts; B(10) fails
+  F1 and F2 (201; 10 s cuts). The second panel has no wrong answer under
+  any rule. Brief 27's criterion 1 as written holds only for A(20).
 
 ## Step 3: pre-registration (written at 06:20-06:35, committed before any count)
 
