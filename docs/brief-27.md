@@ -395,3 +395,14 @@ is not known.
   is fitted, the grid's are all fitted, and V reproduced the second
   shared panel's bit for bit. The per-second scores of the generated
   mixes are taken from V's reports (seed 2026 identical to M's).
+- **(02:01) The listening files may change during the session**: the six
+  questions of `work/audition/s23/` may be answered (`gunfinger-eval audition
+  work/audition/s23/01-s23-pack.json`, from the
+  main checkout; the launching agent's message). Their `same` and
+  `different` answers append lines to `docs/pair-verdicts.txt` and
+  records to `work/audition/answers.jsonl`. Those are the listening files: this
+  session never commits, reverts, edits or stages either file, and
+  leaves alone every process it did not start. The end check of the verdicts
+  file now reads "changed only by the listening answers", with the diff's
+  line count recorded. No count of this session depends on them: the
+  clusters are not rebuilt and nothing is rescored with new verdicts.
