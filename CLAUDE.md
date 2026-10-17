@@ -42,7 +42,7 @@ anything else:
    and its version 2 (session 26, `docs/brief-26.md`)
 10. for the confidence rule's window condition and per-second scoring:
    the roadmap's "A minimum span instead of 3 windows", session 27's
-   experiments (0136-0142) and session 29's fair test (0146 and up; the
+   experiments (0136-0142) and session 29's fair test (0146-0148; the
    variant worktree `s29-span`, never merged)
 11. for recall beyond the corpus recordings: the roadmap's "Recall
    beyond the corpus recordings", experiments 0027, 0068 and 0074, and

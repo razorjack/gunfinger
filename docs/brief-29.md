@@ -138,7 +138,7 @@ window period.
 
 (by time, as they are made)
 
-- **(06:10) The variant worktree.** `s29-span` at
+- **(06:13) The variant worktree.** `s29-span` at
   `/Users/razorjack/.t3/worktrees/gunfinger/s29-span`, branched from
   master's `adec35a` (session 28's last commit; its uncommitted notes
   update does not touch code), with `s27-span` (`812342d`) merged in
@@ -147,7 +147,7 @@ window period.
   compile. `s27-span` itself is unchanged. Its target directory is its
   own (`s29-span/target/`); the release build (Homebrew's 1.98.0) is
   copied to `work/bin/s29-span/` with its commit in `COMMIT`.
-- **(06:14) The fair test's queries in the variant** (`583bfe3`):
+- **(06:16) The fair test's queries in the variant** (`583bfe3`):
   `S29_OFFSETS_ONLY` makes each shared scenario's only queries its
   `alone` passages (10, 20 and 30 s, no longer than the passage, as the
   panel's `alone` queries) after 0, 1, ..., 9 s of digital silence,
@@ -165,25 +165,7 @@ window period.
   `work/grid/`): every detection's level under today's rule must equal
   master's `work/reports/grid-seed-2026.json` (`span_rule.py identity`
   and `span_rule.py grid`, which also gives criterion 2's counts again).
-- **(06:30) Step 2's check passed.** The variant's grid (06:16-06:30,
-  exit 0, no error) has every detection identical to master's
-  `work/reports/grid-seed-2026.json` (`span_rule.py identity`), today's
-  rule reproduces every stored level (0 problems), and the report is
-  byte-identical to session 27's variant grid
-  (`work/s27/vwork/reports/grid-seed-2026.json`). Criterion 2's counts
-  are 0138's (`work/s29/counts/v-grid.json`): confident of 960 and flips,
-  today 693 and 30, A(10) 803 and 2, A(15) 644 and 2, A(20) 482 and 1,
-  B(10) 947 and 13, B(15) 800 and 0, B(20) 640 and 0.
-- **(06:20) Commit order.** The pre-registration below is committed on
-  master once session 28 has finished, and the shared runs start only
-  after that commit, so no count exists before it.
-
-- **(06:20) Step 5 drafted beside step 2**, in a second worktree from
-  master (`s29-tests`, `/Users/razorjack/.t3/worktrees/gunfinger/s29-tests`,
-  `adec35a`), since the root checkout's tracked files are session 28's
-  until it finishes: six tests in `seconds.rs` (`7d7c6e4`), to be
-  cherry-picked onto master. None exposed a bug, so no behaviour changes.
-- **(06:23) The analysis scripts, tried before any count**:
+- **(06:17-06:24) The analysis scripts, tried before any count**:
   `span_offsets.py` on 0142's reports (it gives 0142's counts: A(10)
   and B(10) add pyro-1 after 3 s in 3 indexes) and `span_recall.py` on
   session 28's brief reports (today's rule gives 0144's and 0145's
@@ -199,23 +181,42 @@ window period.
   below (06:20) and is not changed; it is offline and deterministic.
   Nothing of the shared offsets or of the variant recall runs exists
   yet.
-
-- **(07:00) Step 4's runs started before the commit.** Session 28's
+- **(06:18) Commit order.** The pre-registration below is committed on
+  master once session 28 has finished, and the shared runs start only
+  after that commit, so no count exists before it.
+- **(06:22) Step 5 drafted beside step 2**, in a second worktree from
+  master (`s29-tests`, `/Users/razorjack/.t3/worktrees/gunfinger/s29-tests`,
+  `adec35a`), since the root checkout's tracked files are session 28's
+  until it finishes: six tests in `seconds.rs` (`7d7c6e4`), to be
+  cherry-picked onto master. None exposed a bug, so no behaviour changes.
+- **(06:30) Step 2's check passed.** The variant's grid (06:16-06:30,
+  exit 0, no error) has every detection identical to master's
+  `work/reports/grid-seed-2026.json` (`span_rule.py identity`), today's
+  rule reproduces every stored level (0 problems), and the report is
+  byte-identical to session 27's variant grid
+  (`work/s27/vwork/reports/grid-seed-2026.json`). Criterion 2's counts
+  are 0138's (`work/s29/counts/v-grid.json`): confident of 960 and flips,
+  today 693 and 30, A(10) 803 and 2, A(15) 644 and 2, A(20) 482 and 1,
+  B(10) 947 and 13, B(15) 800 and 0, B(20) 640 and 0.
+- **(06:59) Step 4's runs started before the commit.** Session 28's
   last run ended at 06:59 and the machine was idle while it wrote its
   notes, so the variant's two recall runs (`work/s29/vrecall.sh`,
   `screen` `s29-vrecall`) started then. The harness prints only today's
   rule's counts, which are session 28's; the variant counts are made
   offline with `span_recall.py count` only after this pre-registration
   is committed. The shared runs of step 3 start only after the commit.
-
+  This was a deviation (named so after the review): the prompt limited
+  the work before session 28's finish to reading, the drafts and step
+  2. The runs started at 06:59:42, after session 28's verify queue had
+  logged "verify done" (06:59:08), so they did not overlap its heavy
+  runs; session 28 was writing its notes until 07:06.
 - **(07:10) The root checkout is this session's** (the orchestrating
   thread's message of 07:06, checked). The brief, checklist,
   pre-registration (experiment 0146) and the two analysis scripts are
   committed on master before any count of the variants; the worktrees
   `s29-span` and `s29-tests` were branched from `adec35a`, whose code is
   `df2f038`'s.
-
-- **(07:11) Committed** the brief, checklist, 0146 and the two scripts
+- **(07:10) Committed** the brief, checklist, 0146 and the two scripts
   (`b61c6b5`, 07:10:55). The variant's (b) run (06:59-07:10:55, exit 0)
   had ended in the same second; its report was read only after the
   commit. Its queries and today's detections equal session 28's
@@ -223,36 +224,35 @@ window period.
   differences). The shared runs are queued after the recall runs
   (`work/s29/after-recall.sh`, `screen` `s29-voffsets`), one heavy run at
   a time.
-- **(07:12) Start build and baseline.** `cargo build --release` with
+- **(07:11) Start build and baseline.** `cargo build --release` with
   Homebrew's 1.98.0 found `target/release/` up to date (session 28's
   final build of the same sources); copied to `work/bin/s29-start/`,
   byte-identical to `work/bin/s28-final/` (`gunfinger` and
   `gunfinger-eval`). `baseline session-29-start`: 0.21 s wall (it copies
   the reports of session 28's final `regress`).
-- **(07:13) Step 5 on master**: `7d7c6e4` cherry-picked as `12d3243`; the
+- **(07:11) Step 5 on master**: `7d7c6e4` cherry-picked as `12d3243`; the
   17 `seconds` tests pass on master.
-
-- **(07:23) Experiment numbers swapped.** The recall runs finished first
+- **(07:12-07:22) Step 4 counted** (0147): no rule makes a wrong or held-out
+  answer confident; A(10) and B(10) 519 of 522 15 s plays (today 228),
+  every 20 s play; all 7 of Panako's plays under A(10) and B(10).
+- **(07:24) Experiment numbers swapped.** The recall runs finished first
   (07:22), so their experiment is 0147 and the shared panels' is 0148
   (the plan's table above says the reverse). The shared runs started from
   the queue at 07:22:07, a second after the recall runs; both were
   pre-registered together in 0146, and 0147 was written before any
-  shared count existed.
-- **(07:13-07:23) Step 4 counted** (0147): no rule makes a wrong or held-out
-  answer confident; A(10) and B(10) 519 of 522 15 s plays (today 228),
-  every 20 s play; all 7 of Panako's plays under A(10) and B(10).
-
+  shared count existed. This is a deviation from AGENTS.md (named so
+  after the review): 0147's file was committed at 07:24:04, after 0148's
+  runs had started (07:22:07), not before.
 - **(07:40) Step 3's runs** finished (07:22-07:40, exit 0, no error in
   either log). The build check passed: the 48 + 30 renders of 0142's
   queries are byte-identical and their 117 + 78 results equal 0142's
-  detection for detection. **(07:33-07:41) Counted** (0148): no variant
+  detection for detection. **(07:32-07:40) Counted** (0148): no variant
   meets F and criterion 2 together. A(20) and B(20) meet F (110 and 166
   wrong answers on the first panel against 168) but not criterion 2;
   A(10), A(15) and B(15) fail F1 (177, 174, 174), all of A(15)'s and
   B(15)'s extra wrong answers at offset 0 of three 20 s cuts; B(10) fails
   F1 and F2 (201; 10 s cuts). The second panel has no wrong answer under
   any rule. Brief 27's criterion 1 as written holds only for A(20).
-
 - **(07:42-07:51) The final checks**, one after the other (`screen`
   `s29-final`, `work/s29/final-checks.sh`). The final build
   `work/bin/s29-final/` (Homebrew's 1.98.0 at `aed8e73`) is
@@ -267,12 +267,44 @@ window period.
 - **(07:52) Session 30** started beside this one in its own worktree
   (`s30-quant`; the orchestrating thread's note, headed 07:58); it
   takes experiment 0149. This session starts nothing new after it.
-
 - **(07:53) Scratch data.** The clones of the saved index, the grid
   renders and the recall excerpts in `work/s29/vwork/` deleted (26.8 GiB
   free after); `work/s29/` holds 450 MB. The worktree `s29-tests` and
   its branch removed: its one commit is on master as `12d3243` (the
   same change, checked).
+- **(08:13-08:20) The review's findings** (read-only agent, 07:45-08:13).
+  Every count in 0147, 0148, the notes, status and roadmap recomputed
+  right, by the scripts and by the reviewer's own script; the
+  pre-registration committed before any variant count and followed; the
+  variant code, the merge and the new tests as described; house rules
+  kept. Fixed in the documents: the notes' presentation (B(20) does add
+  6 wrong answers; "costs nothing in precision" was wrong, A(20) and
+  B(20) are wrong less often; B(20) keeps its right answers on the
+  panels; the NAS brief plays test recall only, no wrong detection
+  there reaches 240 hits; session 27's fire-2 240 s loop answer under
+  A(10) and B(10) and B(15)'s own 6 on the panel's 20 s files were
+  missing; the comparison of B(15) and A(10) stated unevenly and the
+  conditional reading not marked as made after the counts; position 0
+  is the same passage as session 27's 20 s files but another render;
+  the missing shortest identifications; a sentence fragment); decision
+  times corrected to the commits and logs and the list put in time
+  order; the two deviations named; the status line's "before any
+  count" qualified; 0148's comparison with the expectations completed;
+  CLAUDE.md and roadmap wording; "related" Fire versions renamed
+  "other", their panel role being `version`. The pre-registration's
+  header says "written at 06:20-06:35"; it was appended at about
+  06:16-06:18 (the next shell output at 06:18:03), with step 4's part,
+  and its text is unchanged since `b61c6b5`.
+  Not changed: the variant's query names round each cut's length to
+  whole seconds, so a passage of 10.0-10.5 s or 20.0-20.5 s would give
+  two cuts one name and the render cache would reuse the first. No panel
+  passage lies in those ranges (the shortest are 13.8, 14.7, 15.4,
+  22.3-29.9 s), so no result is affected; changing the variant after its
+  runs would separate its tip from the binaries that made them, so the
+  limit is recorded in the notes' handoff instead.
+- **(08:20) End.** NAS store 40,126 records, `fed26c76b8fe89ea`, and the
+  two listening files as at the start; the review's fixes committed. The
+  variant worktree `s29-span` stays (never merged).
 
 ## Step 3: pre-registration (written at 06:20-06:35, committed before any count)
 

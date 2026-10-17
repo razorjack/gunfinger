@@ -3953,29 +3953,31 @@ Brief `docs/brief-29.md`, checklist `docs/session-29-checklist.md`.
   theirs until it finished). NAS store 40,126 records,
   `fed26c76b8fe89ea`; listening files as at session 28's end. Brief and
   checklist drafted under `work/s29/`.
-- 06:10-06:16 step 2: worktree `s29-span` (never merged) from master's
+- 06:13-06:16 step 2: worktree `s29-span` (never merged) from master's
   `adec35a` with `s27-span` merged in (`15f3240`, no conflict; two test
   literals fixed); `S29_OFFSETS_ONLY`, each shared scenario's `alone`
   passages after 0-9 s of digital silence, four unit tests (`583bfe3`);
-  release build in `work/bin/s29-span/`. Step 5's tests drafted in a
-  second worktree `s29-tests` (`7d7c6e4`, six tests, no bug).
+  release build in `work/bin/s29-span/`.
 - 06:16-06:30 the variant's grid at 262 tracks: identical to master's
   (today's rule reproduces every level), byte-identical to session 27's
   variant grid; criterion 2's counts are 0138's.
+- 06:22 step 5's tests drafted in a second worktree `s29-tests`
+  (`7d7c6e4`, six tests, no bug).
 - 07:06 session 28 finished (`df2f038`, clean). 07:10:55 brief,
   checklist, pre-registration 0146 and the scripts `span_offsets.py`,
-  `span_recall.py` committed (`b61c6b5`) before any count. Start build
+  `span_recall.py` committed (`b61c6b5`) before any variant count (two
+  Panako levels were seen at 06:23 while trying the script, and the
+  variant's (b) run had ended in the same second, unread). Start build
   `work/bin/s29-start/` (byte-identical to `s28-final`); `baseline
   session-29-start` 0.21 s. Step 5's
   six `seconds` tests cherry-picked (`12d3243`).
 - 06:59-07:22 the variant rebuilt session 28's brief plays (b) and
   (a)+(b): queries and today's detections equal session 28's (0
-  differences). 0147 (`53f7a36`): no rule adds a wrong or held-out
-  confident answer; confident 15 s plays of 522: today 228, A(10) and
+  differences). 0147 (`53f7a36`), recall only (no wrong detection
+  reaches 240 hits): confident 15 s plays of 522: today 228, A(10) and
   B(10) 519, B(15) 504, A(15) 5, A(20) and B(20) 0; 20 s: today 493,
-  A(20) 9, B(20) 499, the others 522. Panako's 7 plays (0150): A(10), B(10) 7, B(15) 6, A(15) 5,
-  B(20) 1, A(20) 0.
-- 07:22 the shared panels' passages at 10 offsets started (`s29-voffsets`).
+  A(20) 9, B(20) 499, the others 522. Panako's 7 plays (0150): A(10),
+  B(10) 7, B(15) 6, A(15) 5, B(20) 1, A(20) 0.
 - 07:22-07:40 the shared runs, exit 0; 0142's queries reproduced (78
   renders byte-identical, 195 results). 0148 (`aed8e73`): on the first
   panel, wrong answers over 10 positions: today 168, A(10) 177, A(15)
@@ -3985,8 +3987,22 @@ Brief `docs/brief-29.md`, checklist `docs/session-29-checklist.md`.
   and B(20)'s new wrong answers are all position 0 of three 20 s cuts
   (fire-2, fire-6, pyro-2), where today's rule is wrong at 8-9 of the
   other 9; A(10) adds pyro-1 after 3 s. No variant is worth proposing by
-  the criteria; B(15) is the candidate if a wrong answer avoided only on
-  the window border does not count as new (our call; notes).
-- 07:42 final build `work/bin/s29-final/` (byte-identical to the start
-  build); `regress session-29-start` and `scripts/check.sh` queued
-  (`screen` `s29-final`).
+  the criteria; in the session's reading after the counts, B(15) is the
+  candidate if a wrong answer avoided only on the window border does
+  not count as new (our call; notes).
+- 07:42-07:51 final build `work/bin/s29-final/` (byte-identical to the
+  start build); `regress session-29-start` identical (157 s);
+  `scripts/check.sh` with rustup's 1.98.0 green at `36dc022` (458 Rust
+  tests, 5 Node tests).
+- 07:45-08:13 read-only review by a subagent: every count right, the
+  pre-registration followed; fixes to the notes' presentation, decision
+  times, two deviations named (step 4's runs started at 06:59:42, before
+  session 28's message; 0147 committed after 0148's runs started), 0148,
+  `CLAUDE.md` and the roadmap wording (fixed 08:13-08:20). Meanwhile
+  session 30 started beside this one at 07:52 in its own worktree
+  (`s30-quant`; it takes 0149), and at 07:53 the scratch clones were
+  deleted and the worktree `s29-tests` removed.
+- 08:19 at the end: NAS store 40,126 records, `fed26c76b8fe89ea` (as at
+  the start); `docs/pair-verdicts.txt` (82 lines) and
+  `work/audition/answers.jsonl` (60 records) byte-identical to the
+  start. Only documents changed after the final checks.
