@@ -6996,7 +6996,7 @@ today's rule.
    render cache would reuse the first file for the second. No panel
    passage lies in those ranges, so no result here is affected. It is
    not fixed in the branch, so that its tip stays the code that made
-   tonight's runs; a later run on another panel should name the cuts
+   this morning's runs; a later run on another panel should name the cuts
    with their exact length.
 
 ### What else to know
