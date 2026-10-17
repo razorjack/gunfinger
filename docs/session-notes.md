@@ -6939,7 +6939,13 @@ favours the stricter reading, which keeps today's rule.
 4. `seconds` now has the tests session 27 left out (the truth from a
    manifest and from a generated mix, margins beside a track that is not
    in the library); none exposed a bug.
-5. SCRATCH_PENDING
+5. Scratch data: `work/s29/` (450 MB: the variant's reports, the 750
+   silence-led renders, logs and counts) can be deleted once we have
+   decided; the clones of the saved index, the grid renders and the
+   recall excerpts were deleted. The second worktree `s29-tests`, which
+   held step 5's tests while session 28 had the root checkout, was
+   removed with its branch after its commit was cherry-picked
+   (`12d3243`). The variant worktree's `target/` holds 1.1 GB.
 
 ### What else to know
 
@@ -6957,4 +6963,13 @@ favours the stricter reading, which keeps today's rule.
 - The variant's grid at 262 tracks is identical to master's (every
   detection), and today's rule reproduces every stored level.
 - REVIEW_PENDING
-- CHECKS_PENDING
+- The final checks (07:42-07:51). The release build in
+  `work/bin/s29-final/` (Homebrew's 1.98.0, as the start's) is
+  byte-identical to `work/bin/s29-start/` and to session 28's final
+  build. `regress session-29-start` with it is identical (720 of 720
+  sweep queries, all 87, 93 and 79 scan detections, the calibrate line
+  known since session 8) in 157 s. `scripts/check.sh` with rustup's
+  1.98.0 first on PATH (`RUSTUP_TOOLCHAIN=1.98.0`) is green at
+  `36dc022`: formatting, clippy for macOS and for Linux, 458 Rust tests
+  (452 before; 6 added, all for `seconds`) and the page's 5 Node tests,
+  in 6.6 minutes. Only documents changed after these checks.

@@ -97,8 +97,8 @@ Rules for this session:
   from `work/bin/s28-*` (its wrap-up changed only its brief, notes,
   checklist and status since `adec35a`).
 - Experiments 0001-0145 and 0150; this session numbers 0146-0148
-  (0149 is session 30's, which started beside this one at 07:58). ADRs 0001-0020. Test set: 4 of 5
-  evaluations used (none in this session).
+  (0149 is session 30's, which started beside this one). ADRs
+  0001-0020. Test set: 4 of 5 evaluations used (none in this session).
 - The NAS peak store at 06:07: 40,126 records, revision
   `fed26c76b8fe89ea` (`work/s29/store-revision-start.txt`,
   `scripts/analysis/store_revision.py`), as the prompt says. The NAS is
@@ -264,9 +264,15 @@ window period.
   for macOS and for Linux, 458 Rust tests (452 + 6 new) and the page's 5
   Node tests, in 396 s.
 - **(07:45) The read-only review** by a subagent started.
-- **(07:58) Session 30** started beside this one in its own worktree
-  (`s30-quant`, the orchestrating thread's note); it takes experiment
-  0149. This session starts nothing new after it.
+- **(07:52) Session 30** started beside this one in its own worktree
+  (`s30-quant`; the orchestrating thread's note, headed 07:58); it
+  takes experiment 0149. This session starts nothing new after it.
+
+- **(07:53) Scratch data.** The clones of the saved index, the grid
+  renders and the recall excerpts in `work/s29/vwork/` deleted (26.8 GiB
+  free after); `work/s29/` holds 450 MB. The worktree `s29-tests` and
+  its branch removed: its one commit is on master as `12d3243` (the
+  same change, checked).
 
 ## Step 3: pre-registration (written at 06:20-06:35, committed before any count)
 
