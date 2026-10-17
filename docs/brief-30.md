@@ -177,6 +177,14 @@ Steps shrink as step 2 says: (a)'s set first, then 0055's scenarios.
   excerpts (`recall/seed-2026/`). The damaged renders are made again
   there. Tags for `labels.py`: `work/s30/nas-tags.json`
   (`store_tags.py`, 40,126 records).
+- **(08:14) One label overridden beside, not instead.** R1's clean set
+  (08:03-08:11, the same detections as session 28's report apart from the
+  new `verified` field) gives E/hits 1.00 for T(C), so the check holds.
+  Its only unrelated wrong possible detections are 8 of Congo Natty's
+  "Peace" (tagged artist "unkown") for his held-out "Revolution", which
+  session 28 named as the same artist; `labels.py` cannot see it. The
+  pre-registered labelling stays for the main counts; F without that
+  file (and R(r) with it) is reported beside.
 
 ## Step 2: pre-registration (written at 07:52-08:00, committed before any count)
 
