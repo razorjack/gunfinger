@@ -665,6 +665,193 @@ mod tests {
     }
 
     #[test]
+    fn a_margin_beside_an_unindexed_track_lets_the_indexed_one_run_on_and_the_rest_is_silent() {
+        let truth = [truth("a", 0.0, 60.0, true), truth("x", 60.0, 120.0, false)];
+        let found = [segment("a", 0.0, 75.0, 8, 1_500)];
+
+        let counted = score(&truth, &found, 120.0, 30.0, Rule::Windows).seconds;
+
+        assert_eq!(
+            counted,
+            Seconds {
+                correct: 75,
+                unlabelled_in_margin: 15,
+                silent: 30,
+                ..Seconds::default()
+            }
+        );
+    }
+
+    #[test]
+    fn a_wrong_label_in_the_margin_beside_an_unindexed_track_counts_while_the_indexed_one_may_play()
+    {
+        let truth = [truth("a", 0.0, 60.0, true), truth("x", 60.0, 120.0, false)];
+        let found = [
+            segment("a", 0.0, 60.0, 6, 1_500),
+            segment("other", 80.0, 100.0, 3, 300),
+        ];
+
+        let counted = score(&truth, &found, 120.0, 30.0, Rule::Windows).seconds;
+
+        assert_eq!(
+            counted,
+            Seconds {
+                correct: 60,
+                unlabelled_in_margin: 20,
+                mislabelled: 10,
+                mislabelled_unindexed: 10,
+                silent: 20,
+                ..Seconds::default()
+            }
+        );
+    }
+
+    #[test]
+    fn a_margin_before_an_indexed_track_that_follows_an_unindexed_one() {
+        let truth = [truth("x", 0.0, 60.0, false), truth("a", 60.0, 120.0, true)];
+        let found = [segment("a", 40.0, 120.0, 8, 1_500)];
+
+        let counted = score(&truth, &found, 120.0, 30.0, Rule::Windows).seconds;
+
+        assert_eq!(
+            counted,
+            Seconds {
+                correct: 80,
+                unlabelled_in_margin: 10,
+                silent: 30,
+                ..Seconds::default()
+            }
+        );
+    }
+
+    #[test]
+    fn a_manifest_track_plays_until_the_next_one_starts_and_the_last_until_the_end() {
+        let track = |position: u32, start: u64, references: &[&str]| crate::manifest::Track {
+            position,
+            artist: String::from("Artist"),
+            title: format!("Track {position}"),
+            start: std::time::Duration::from_secs(start),
+            references: references.iter().map(|&file| file.to_owned()).collect(),
+            set_aside: Vec::new(),
+        };
+        let set = Set {
+            title: String::from("A mix"),
+            audio: std::path::PathBuf::from("mix.mp3"),
+            tracks: vec![
+                track(1, 0, &["a.mp3"]),
+                track(2, 150, &[]),
+                track(3, 300, &["c.mp3", "c vinyl.mp3"]),
+            ],
+        };
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec![String::from("a.mp3"), String::from("a rip.mp3")]],
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+
+        let truth = set_truth(&set, 420.0, &clusters, &BTreeSet::new());
+
+        let spans: Vec<(f64, f64, bool)> = truth
+            .iter()
+            .map(|truth| (truth.start_seconds, truth.end_seconds, truth.in_library))
+            .collect();
+        assert_eq!(
+            spans,
+            [
+                (0.0, 150.0, true),
+                (150.0, 300.0, false),
+                (300.0, 420.0, true)
+            ]
+        );
+        assert_eq!(
+            truth[0].accepted,
+            BTreeSet::from([String::from("a rip.mp3"), String::from("a.mp3")])
+        );
+        assert!(truth[1].accepted.is_empty());
+        assert_eq!(
+            truth[2].accepted,
+            BTreeSet::from([String::from("c vinyl.mp3"), String::from("c.mp3")])
+        );
+    }
+
+    #[test]
+    fn a_manifest_track_is_indexed_while_any_file_of_its_cluster_is() {
+        let set = Set {
+            title: String::from("A mix"),
+            audio: std::path::PathBuf::from("mix.mp3"),
+            tracks: vec![crate::manifest::Track {
+                position: 1,
+                artist: String::from("Artist"),
+                title: String::from("Track"),
+                start: std::time::Duration::from_secs(0),
+                references: vec![String::from("a.mp3")],
+                set_aside: Vec::new(),
+            }],
+        };
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec![String::from("a.mp3"), String::from("a rip.mp3")]],
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+        let indexed = |left_out: &[&str]| {
+            let left_out: BTreeSet<String> = left_out.iter().map(|&file| file.to_owned()).collect();
+            set_truth(&set, 60.0, &clusters, &left_out)[0].in_library
+        };
+
+        assert!(indexed(&[]));
+        assert!(indexed(&["a.mp3"]));
+        assert!(!indexed(&["a.mp3", "a rip.mp3"]));
+    }
+
+    #[test]
+    fn a_generated_mix_is_its_plays_and_a_held_out_play_is_not_indexed() {
+        let play = |asset: &str, held_out, start_seconds, end_seconds| crate::mixes::PlannedPlay {
+            asset: asset.to_owned(),
+            held_out,
+            source_start_seconds: 30.0,
+            speed: 1.02,
+            start_seconds,
+            end_seconds,
+            fade_in_seconds: 4.0,
+            fade_out_seconds: 4.0,
+            bass_cut_until: None,
+            bass_cut_from: None,
+        };
+        let mix = PlannedMix {
+            name: String::from("m"),
+            seconds: 120.0,
+            plays: vec![
+                play("a.mp3", false, 0.0, 64.0),
+                play("held.mp3", true, 60.0, 120.0),
+            ],
+        };
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec![String::from("a.mp3"), String::from("a rip.mp3")]],
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+
+        let truth = mix_truth(&mix, &clusters);
+
+        let spans: Vec<(f64, f64, bool)> = truth
+            .iter()
+            .map(|truth| (truth.start_seconds, truth.end_seconds, truth.in_library))
+            .collect();
+        assert_eq!(spans, [(0.0, 64.0, true), (60.0, 120.0, false)]);
+        assert_eq!(
+            truth[0].accepted,
+            BTreeSet::from([String::from("a rip.mp3"), String::from("a.mp3")])
+        );
+        assert_eq!(
+            truth[1].accepted,
+            BTreeSet::from([String::from("held.mp3")])
+        );
+    }
+
+    #[test]
     fn boundaries_measure_the_confident_labels_against_the_truth() {
         let truth = [truth("a", 10.0, 70.0, true), truth("b", 70.0, 90.0, true)];
         let found = [
