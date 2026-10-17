@@ -1521,6 +1521,85 @@
     }
    }
   },
+  "R not confident": {
+   "all": {
+    "n": 4274,
+    "e_zero": 0,
+    "median_hits": 111.0,
+    "median_E": 107.0,
+    "median_N": 111.5,
+    "median_Ec": 0.0,
+    "median_Nc": 0.25,
+    "median_n_e": 1.112,
+    "median_gain": 2.112,
+    "median_v_e": 2.679,
+    "median_v_p": 0.393,
+    "median_excess_n_e": 1.106,
+    "median_e_hits": 0.98
+   },
+   "by_hits": {
+    "10-59": {
+     "n": 670,
+     "e_zero": 0,
+     "median_hits": 28.0,
+     "median_E": 27.0,
+     "median_N": 31.0,
+     "median_Ec": 0.0,
+     "median_Nc": 0.0,
+     "median_n_e": 1.238,
+     "median_gain": 2.238,
+     "median_v_e": 2.667,
+     "median_v_p": 0.3,
+     "median_excess_n_e": 1.221,
+     "median_e_hits": 0.913
+    },
+    "60-119": {
+     "n": 1808,
+     "e_zero": 0,
+     "median_hits": 98.0,
+     "median_E": 96.0,
+     "median_N": 96.0,
+     "median_Ec": 0.0,
+     "median_Nc": 0.25,
+     "median_n_e": 1.055,
+     "median_gain": 2.055,
+     "median_v_e": 2.618,
+     "median_v_p": 0.41,
+     "median_excess_n_e": 1.053,
+     "median_e_hits": 0.982
+    },
+    "120-239": {
+     "n": 1769,
+     "e_zero": 0,
+     "median_hits": 157,
+     "median_E": 155,
+     "median_N": 172,
+     "median_Ec": 0.0,
+     "median_Nc": 0.75,
+     "median_n_e": 1.126,
+     "median_gain": 2.126,
+     "median_v_e": 2.794,
+     "median_v_p": 0.391,
+     "median_excess_n_e": 1.113,
+     "median_e_hits": 0.984
+    },
+    "240-": {
+     "n": 8,
+     "e_zero": 0,
+     "median_hits": 492.0,
+     "median_E": 491.0,
+     "median_N": 189.5,
+     "median_Ec": 0.0,
+     "median_Nc": 0.0,
+     "median_n_e": 0.383,
+     "median_gain": 1.383,
+     "median_v_e": 0.894,
+     "median_v_p": 0.849,
+     "median_excess_n_e": 0.383,
+     "median_e_hits": 0.998
+    }
+   }
+  },
   "P(0055)": {
    "all": {
     "n": 330,
@@ -1685,13 +1764,17 @@
    "n": 515,
    "median_e_over_clean_e": 0.096,
    "median_e_plus_n_over_clean_e": 0.243,
-   "median_hits_over_clean_hits": 0.097
+   "median_hits_over_clean_hits": 0.097,
+   "median_n_over_exact_lost": 0.162,
+   "median_n_over_clean_n": 0.488
   },
   "a": {
    "n": 178,
    "median_e_over_clean_e": 0.475,
    "median_e_plus_n_over_clean_e": 0.851,
-   "median_hits_over_clean_hits": 0.476
+   "median_hits_over_clean_hits": 0.476,
+   "median_n_over_exact_lost": 0.735,
+   "median_n_over_clean_n": 1.098
   }
  },
  "m3": {
@@ -2511,6 +2594,135 @@
    "e_plus_n_in_3_windows": 0,
    "examples": []
   },
+  "R not confident": {
+   "under_240": 4266,
+   "e_plus_n": 1817,
+   "hits_plus_n": 1844,
+   "e_plus_excess_n": 1805,
+   "e_plus_n_in_3_windows": 1690,
+   "examples": [
+    {
+     "file": "DJ Trace - Sonar (Mark System Revision).opus",
+     "hits": 212,
+     "E": 204,
+     "N": 497,
+     "Nc": 3.25,
+     "scenario": "sonar-1",
+     "query": "sonar-1-looped-120s",
+     "index": "everything"
+    },
+    {
+     "file": "DJ Trace - Sonar (Mark System Revision).opus",
+     "hits": 212,
+     "E": 204,
+     "N": 497,
+     "Nc": 3.25,
+     "scenario": "sonar-1",
+     "query": "sonar-1-looped-120s",
+     "index": "played left out"
+    },
+    {
+     "file": "DJ Trace - Sonar (Mark System Revision).opus",
+     "hits": 212,
+     "E": 204,
+     "N": 497,
+     "Nc": 3.25,
+     "scenario": "sonar-1",
+     "query": "sonar-1-looped-120s",
+     "index": "source left out"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-10s",
+     "index": "everything"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-20s",
+     "index": "everything"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-30s",
+     "index": "everything"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-10s",
+     "index": "played left out"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-20s",
+     "index": "played left out"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-30s",
+     "index": "played left out"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-10s",
+     "index": "source left out"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-20s",
+     "index": "source left out"
+    },
+    {
+     "file": "Klute - We R The Ones VIP.m4a",
+     "hits": 178,
+     "E": 174,
+     "N": 511,
+     "Nc": 0.0,
+     "scenario": "we-r-the-ones-2",
+     "query": "we-r-the-ones-2-beyond-30s",
+     "index": "source left out"
+    }
+   ]
+  },
   "P(0055)": {
    "under_240": 2,
    "e_plus_n": 0,
@@ -2673,6 +2885,60 @@
    "related_new": 86,
    "played_today": 151,
    "played_tolerant": 157
+  }
+ },
+ "per_search_by_report": {
+  "shared-material-2-seed-2026-development.json": {
+   "everything": {
+    "searches": 169,
+    "related_today": 5,
+    "related_tolerant": 102,
+    "related_new": 97,
+    "played_today": 129,
+    "played_tolerant": 132
+   },
+   "played left out": {
+    "searches": 169,
+    "related_today": 6,
+    "related_tolerant": 102,
+    "related_new": 96,
+    "played_today": 0,
+    "played_tolerant": 0
+   },
+   "source left out": {
+    "searches": 102,
+    "related_today": 6,
+    "related_tolerant": 71,
+    "related_new": 65,
+    "played_today": 78,
+    "played_tolerant": 82
+   }
+  },
+  "shared-material-seed-2026-development.json": {
+   "everything": {
+    "searches": 250,
+    "related_today": 106,
+    "related_tolerant": 136,
+    "related_new": 30,
+    "played_today": 183,
+    "played_tolerant": 183
+   },
+   "played left out": {
+    "searches": 250,
+    "related_today": 106,
+    "related_tolerant": 136,
+    "related_new": 30,
+    "played_today": 0,
+    "played_tolerant": 0
+   },
+   "source left out": {
+    "searches": 105,
+    "related_today": 44,
+    "related_tolerant": 65,
+    "related_new": 21,
+    "played_today": 73,
+    "played_tolerant": 75
+   }
   }
  },
  "m4": {
@@ -3179,6 +3445,208 @@
      }
     },
     "pooled": null
+   }
+  },
+  "T(c)~F in c": {
+   "n_e": {
+    "bands": {
+     "10-29": {
+      "n": [
+       23,
+       75
+      ],
+      "auc": 0.574
+     },
+     "30-59": {
+      "n": [
+       68,
+       12
+      ],
+      "auc": 0.572
+     },
+     "60-119": {
+      "n": [
+       250,
+       1
+      ],
+      "auc": 0.288
+     },
+     "120-239": {
+      "n": [
+       171,
+       0
+      ],
+      "auc": null
+     }
+    },
+    "pooled": 0.548
+   },
+   "excess_n_e": {
+    "bands": {
+     "10-29": {
+      "n": [
+       23,
+       75
+      ],
+      "auc": 0.57
+     },
+     "30-59": {
+      "n": [
+       68,
+       12
+      ],
+      "auc": 0.554
+     },
+     "60-119": {
+      "n": [
+       250,
+       1
+      ],
+      "auc": 0.252
+     },
+     "120-239": {
+      "n": [
+       171,
+       0
+      ],
+      "auc": null
+     }
+    },
+    "pooled": 0.537
+   },
+   "v_p": {
+    "bands": {
+     "10-29": {
+      "n": [
+       23,
+       75
+      ],
+      "auc": 0.675
+     },
+     "30-59": {
+      "n": [
+       68,
+       12
+      ],
+      "auc": 0.64
+     },
+     "60-119": {
+      "n": [
+       250,
+       1
+      ],
+      "auc": 1.0
+     },
+     "120-239": {
+      "n": [
+       171,
+       0
+      ],
+      "auc": null
+     }
+    },
+    "pooled": 0.694
+   }
+  },
+  "T(c)~R(r) in c": {
+   "n_e": {
+    "bands": {
+     "10-29": {
+      "n": [
+       23,
+       1
+      ],
+      "auc": 0.522
+     },
+     "30-59": {
+      "n": [
+       68,
+       34
+      ],
+      "auc": 0.213
+     },
+     "60-119": {
+      "n": [
+       250,
+       31
+      ],
+      "auc": 0.389
+     },
+     "120-239": {
+      "n": [
+       171,
+       0
+      ],
+      "auc": null
+     }
+    },
+    "pooled": 0.349
+   },
+   "excess_n_e": {
+    "bands": {
+     "10-29": {
+      "n": [
+       23,
+       1
+      ],
+      "auc": 0.478
+     },
+     "30-59": {
+      "n": [
+       68,
+       34
+      ],
+      "auc": 0.185
+     },
+     "60-119": {
+      "n": [
+       250,
+       31
+      ],
+      "auc": 0.376
+     },
+     "120-239": {
+      "n": [
+       171,
+       0
+      ],
+      "auc": null
+     }
+    },
+    "pooled": 0.332
+   },
+   "v_p": {
+    "bands": {
+     "10-29": {
+      "n": [
+       23,
+       1
+      ],
+      "auc": 1.0
+     },
+     "30-59": {
+      "n": [
+       68,
+       34
+      ],
+      "auc": 0.124
+     },
+     "60-119": {
+      "n": [
+       250,
+       31
+      ],
+      "auc": 0.482
+     },
+     "120-239": {
+      "n": [
+       171,
+       0
+      ],
+      "auc": null
+     }
+    },
+    "pooled": 0.401
    }
   }
  }

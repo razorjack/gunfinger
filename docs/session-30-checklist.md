@@ -32,13 +32,17 @@ for scope and rules.
 
 ## Wrap-up
 
-- [ ] 5. Read-only review by a subagent; fixes committed
-- [~] Notes "Session 30", status, checklist, roadmap bullet (first
-  written at 09:40; the review and checks to add)
-- [ ] `regress session-30-start` identical with the final build
-- [ ] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
-  (`RUSTUP_TOOLCHAIN=1.98.0`)
-- [ ] The NAS store's revision at the end
-- [ ] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
-  unchanged (start digests)
+- [x] 5. Read-only review by a subagent (09:29-09:41); fixes committed
+- [x] Notes "Session 30", status, checklist, roadmap bullet (first
+  written at 09:28; the review's fixes and the checks added)
+- [x] `regress session-30-start` identical with the final build
+  (`work/bin/s30-final/`, `ff47fec`'s code = `aecdf93`'s; 156 s)
+- [x] `scripts/check.sh` green with rustup's 1.98.0 first on PATH
+  (`RUSTUP_TOOLCHAIN=1.98.0`) at `315529c`: 466 Rust tests, 5 Node tests,
+  clippy for macOS and Linux (400 s); again after the review's test
+  fixes, green (385 s)
+- [x] The NAS store's revision at the end: 40,126 records,
+  `fed26c76b8fe89ea` (09:29)
+- [x] `docs/pair-verdicts.txt` and `work/audition/answers.jsonl`
+  unchanged (start digests, 09:29)
 - [ ] Commit; the final message

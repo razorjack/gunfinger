@@ -188,6 +188,10 @@ fn neighbours(hash: PairHash) -> impl Iterator<Item = PairHash> {
 #[cfg(test)]
 mod tests {
     use gunfinger_core::hash::pair_hash;
+    use gunfinger_core::index::Index;
+    use gunfinger_core::library::{Asset, Timestamp};
+    use gunfinger_core::profile::Profile;
+    use gunfinger_core::store::{PeakRecord, RecordHeader};
 
     use super::*;
 
@@ -332,10 +336,11 @@ mod tests {
         assert_eq!(far.exact, 0);
         assert_eq!(near_enough.exact, 1);
         assert_eq!(shifted.exact, 1);
-        // Two query pairs, two reference pairs: each takes its nearest.
+        // The first query pair takes its nearest reference pair, 1000.1, not
+        // the first listed, 1000.9, which leaves 1000.9 for the second.
         let two = count(
-            &[pair(hash, 1000.0), pair(hash, 1002.0)],
-            &[pair(hash, 1001.8), pair(hash, 1000.2)],
+            &[pair(hash, 1000.0), pair(hash, 1001.2)],
+            &[pair(hash, 1000.9), pair(hash, 1000.1)],
             0.0..=2000.0,
             0.0,
             1.0,
@@ -344,25 +349,57 @@ mod tests {
     }
 
     #[test]
-    fn a_records_pairs_are_the_indexs() {
-        let peaks: Vec<Peak> = [(0.0, 30.0), (5.2, 40.0), (9.0, 35.0), (80.0, 30.0)]
-            .iter()
-            .map(|&(frame, bin)| Peak {
-                frame,
-                bin,
-                magnitude: 0.0,
-            })
-            .collect();
+    fn a_records_pairs_are_the_indexs_postings() {
+        let peaks: Vec<Peak> = [
+            (0.0, 30.0),
+            (5.2, 40.0),
+            (9.0, 35.0),
+            (40.6, 60.0),
+            (80.0, 30.0),
+        ]
+        .iter()
+        .map(|&(frame, bin)| Peak {
+            frame,
+            bin,
+            magnitude: 10.0,
+        })
+        .collect();
+        let record = PeakRecord {
+            header: RecordHeader {
+                profile: Profile::CURRENT.id(),
+                source: Asset {
+                    path: String::from("a.mp3"),
+                    size: 1,
+                    modified: Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds: 10.0,
+            },
+            peaks: peaks.clone(),
+        };
+        let index = Index::build(&[record]).unwrap();
 
         let pairs = of_record(&peaks);
 
-        assert_eq!(
-            pairs,
-            [
-                pair(pair_hash(point(0.0, 30.0), point(5.2, 40.0)), 0.0),
-                pair(pair_hash(point(0.0, 30.0), point(9.0, 35.0)), 0.0),
-                pair(pair_hash(point(5.2, 40.0), point(9.0, 35.0)), 5.0),
-            ]
-        );
+        let mut from_index: Vec<(PairHash, u32)> = (0..1 << HASH_BITS)
+            .map(PairHash)
+            .flat_map(|hash| {
+                index
+                    .postings(hash)
+                    .iter()
+                    .map(move |posting| (hash, posting.frame()))
+            })
+            .collect();
+        let mut ours: Vec<(PairHash, u32)> = pairs
+            .iter()
+            .map(|pair| (pair.hash, pair.frame as u32))
+            .collect();
+        from_index.sort_unstable();
+        ours.sort_unstable();
+        // Two from the first anchor (the fan-out), two, one and one after it.
+        assert_eq!(ours.len(), 6);
+        assert_eq!(ours, from_index);
     }
 }

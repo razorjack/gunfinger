@@ -219,6 +219,24 @@ Steps shrink as step 2 says: (a)'s set first, then 0055's scenarios.
   related file confident today, or with E + N at 240 or more in 3
   windows) and the counts within (c) alone are exploratory: 0149 does
   not name them.
+- **(09:29-09:41) The review** (a separate agent, read-only): no error in
+  the counting code, no product change, every sampled number
+  recomputed. Fixed after it: two unit tests rewritten (the nearest
+  choice now fails under a first-in-order rule; the record's pairs are
+  compared with an `Index`'s postings); the within-(c) AUCs, the
+  per-panel split, the derived recovery shares (also for other rips:
+  0.74 of the exact pairs lacking, N 1.10 of the own record's) and the
+  not-confident R set computed by `quantisation.py` and in the data
+  file; 0151, the notes, status and roadmap reworded where they went
+  beyond the data (see the notes' "What else to know").
+- **(09:29-09:36) Final checks** at `ff47fec`/`315529c`: `regress
+  session-30-start` identical with `work/bin/s30-final/` (156 s);
+  `scripts/check.sh` green (466 Rust tests, 5 Node tests, clippy for
+  macOS and Linux). After the review's test-only changes the release
+  binaries are byte-identical to `s30-final`; `scripts/check.sh` ran again
+  (`work/s30/logs/check-after-review.log`).
+- **(09:29) The end state**: NAS store 40,126 records,
+  `fed26c76b8fe89ea`; listening files unchanged.
 
 ## Step 2: pre-registration (written at 07:52-08:00, committed before any count)
 

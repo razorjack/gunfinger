@@ -4036,9 +4036,24 @@ Brief `docs/brief-29.md`, checklist `docs/session-29-checklist.md`.
   under combined damage, 0.69 with other rips only; E keeps 9.6% of the
   clean exact pairs under damage, E + N 24.3%; 260 of 510 damaged true
   detections under 240 would reach 240 with E + N; other rips' E + N is
-  0.85 of the own record's E. Unrelated candidates: N/E 0.83, none near
-  240. Related: N/E 1.54 (recall runs), 1.10 (shared panels; the played
+  0.85 of the own record's E (near pairs about three quarters of the
+  exact pairs an other rip lacks, a sixth under damage). Unrelated
+  candidates: N/E 0.83, none reaches 240 (highest 224, a same-artist file
+  the tags miss). Related: N/E 1.54 (recall runs), 1.10 (shared panels; the played
   recording 0.52, AUC at equal E 0.50); 37 related recall candidates would
-  reach 240 (Fire Splash Remix on clean Fire queries, Eddy Woo's
-  Tsunami); with the played recording left out a related version would
-  be confident in 238 of 419 shared searches instead of 112. No rule.
+  reach 240 (21 distinct; Fire Splash Remix on clean Fire queries, Eddy
+  Woo's Tsunami); exploratory: with the played recording left out a
+  related version would be confident in 238 of 419 shared searches
+  instead of 112. No rule.
+- 09:29-09:41 read-only review by a separate agent: no counting error, no
+  product change, sampled numbers recomputed. Fixed: two unit tests made
+  discriminating; the within-(c) AUCs, per-panel split, derived recovery
+  shares (other rips: near pairs 0.74 of the exact pairs lacking) and the
+  not-confident related set computed by `quantisation.py`; prose that went
+  beyond the data reworded.
+- Final checks: `regress session-30-start` identical with
+  `work/bin/s30-final/` (156 s; binaries unchanged by the test fixes);
+  `scripts/check.sh` green with rustup's 1.98.0 before and after the
+  review's fixes (466 Rust tests, 5 Node tests). NAS store at the end:
+  40,126 records, `fed26c76b8fe89ea`. Listening files unchanged. Scratch:
+  only `work/s30/vwork/reports/` (392 MB) kept.

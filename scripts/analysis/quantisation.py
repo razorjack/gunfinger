@@ -18,7 +18,11 @@ Sets (fitted detections only):
   reports;
 - F: the three recall reports' detections outside the own cluster, not
   the damage partner's, that `labels.py` calls unrelated to the source;
-  R(r): those it calls related (same name, version, same artist);
+  R(r): those it calls related (same name, version, same artist). The
+  clean and other-rips reports search the same excerpts, so most of their
+  false candidates appear in both. "Strongest on held-out" is the
+  strongest wrong detection of a held-out or unobservable query; when it
+  is related, it is in R(r) and the query adds nothing to F's subset;
 - R: the shared reports' detections of the related recording (`related`
   and `version` roles, as `shared_outcomes.py` with the clusters); P: the
   played recording's; F(s): the rest, beside;
@@ -250,16 +254,22 @@ def separation(a, b):
 
 
 def recovered(truth, clean):
-    """M2: per source and speed, E and E + N over the clean own record's E."""
+    """M2: per source and speed, E and E + N over the clean own record's E;
+    derived from the same counts: N over the exact pairs lost (E(C) - E),
+    and N over the clean N."""
     rows = []
     for key, m in truth.items():
         c = clean.get(key)
         if m is None or c is None or c["E"] == 0:
             continue
-        rows.append((m["E"] / c["E"], (m["E"] + m["N"]) / c["E"], m["hits"] / c["hits"]))
+        rows.append((m["E"] / c["E"], (m["E"] + m["N"]) / c["E"], m["hits"] / c["hits"],
+                     m["N"] / (c["E"] - m["E"]) if c["E"] > m["E"] else None,
+                     m["N"] / c["N"] if c["N"] else None))
     return dict(n=len(rows), median_e_over_clean_e=median(r[0] for r in rows),
                 median_e_plus_n_over_clean_e=median(r[1] for r in rows),
-                median_hits_over_clean_hits=median(r[2] for r in rows))
+                median_hits_over_clean_hits=median(r[2] for r in rows),
+                median_n_over_exact_lost=median(r[3] for r in rows if r[3] is not None),
+                median_n_over_clean_n=median(r[4] for r in rows if r[4] is not None))
 
 
 def main():
@@ -316,6 +326,7 @@ def main():
     sets["P"], sets["R"], sets["F(s)"] = played, related, other
     searches = per_search(played + related, searched)
     sets["R confident"] = [m for m in related if m["confident"]]
+    sets["R not confident"] = [m for m in related if not m["confident"]]
     if args.shared_0055:
         report = json.load(open(args.shared_0055))
         p5, r5 = [], []
@@ -335,8 +346,13 @@ def main():
         m2={c: recovered(truth[c], truth["C"]) for c in ("c", "a") if c in truth and "C" in truth},
         m3={name_: reaching(ds) for name_, ds in sets.items() if name_ != "P"},
         per_search=searches,
+        per_search_by_report={tag: per_search([m for m in played + related if m["result"][0] == tag],
+                                              [key for key in searched if key[0] == tag])
+                              for tag in sorted({key[0] for key in searched})},
         m4={f"{a}~{b}": separation(sets[a], sets[b]) for a, b in
-            (("T(c)", "F"), ("T(a)", "F"), ("T(c)", "R"), ("P", "R"), ("T(C)", "F"))
+            (("T(c)", "F"), ("T(a)", "F"), ("T(c)", "R"), ("P", "R"), ("T(C)", "F"),
+             # Within the damaged run alone (exploratory, not in 0149).
+             ("T(c)", "F in c"), ("T(c)", "R(r) in c"))
             if a in sets and b in sets},
     )
     json.dump(out, open(args.out, "w"), indent=1)
@@ -357,6 +373,9 @@ def main():
     print("M2", json.dumps(out["m2"]))
     for index, row in searches.items():
         print("per search", index, row)
+    for tag, block in out["per_search_by_report"].items():
+        for index, row in block.items():
+            print("per search", tag, index, row)
     for name_, r in out["m3"].items():
         print("M3", name_, {k: v for k, v in r.items() if k != "examples"})
     for pair, block in out["m4"].items():
