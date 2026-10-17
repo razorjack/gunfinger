@@ -215,6 +215,23 @@ window period.
   `s29-span` and `s29-tests` were branched from `adec35a`, whose code is
   `df2f038`'s.
 
+- **(07:11) Committed** the brief, checklist, 0146 and the two scripts
+  (`b61c6b5`, 07:10:55). The variant's (b) run (06:59-07:10:55, exit 0)
+  had ended in the same second; its report was read only after the
+  commit. Its queries and today's detections equal session 28's
+  (`span_recall.py same`: 1,404 queries, 21,300 detections, 0
+  differences). The shared runs are queued after the recall runs
+  (`work/s29/after-recall.sh`, `screen` `s29-voffsets`), one heavy run at
+  a time.
+- **(07:12) Start build and baseline.** `cargo build --release` with
+  Homebrew's 1.98.0 found `target/release/` up to date (session 28's
+  final build of the same sources); copied to `work/bin/s29-start/`,
+  byte-identical to `work/bin/s28-final/` (`gunfinger` and
+  `gunfinger-eval`). `baseline session-29-start`: 0.21 s wall (it copies
+  the reports of session 28's final `regress`).
+- **(07:13) Step 5 on master**: `7d7c6e4` cherry-picked as `12d3243`; the
+  17 `seconds` tests pass on master.
+
 ## Step 3: pre-registration (written at 06:20-06:35, committed before any count)
 
 Everything below is fixed before any silence-led query of this session

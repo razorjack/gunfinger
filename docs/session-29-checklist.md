@@ -15,8 +15,9 @@ for scope and rules.
   `git status` clean, no `work/bin/s28-*` process)
 - [x] Brief and checklist in `docs/`; `CLAUDE.md` points to them;
   committed
-- [ ] Release build (Homebrew's 1.98.0) in `work/bin/s29-start/`;
-  `baseline session-29-start` (wall time)
+- [x] Release build (Homebrew's 1.98.0) in `work/bin/s29-start/`
+  (byte-identical to `s28-final`); `baseline session-29-start` (0.21
+  s)
 
 ## Steps
 
@@ -26,14 +27,14 @@ for scope and rules.
   master's grid exactly (06:30)
 - [x] 3a. Pre-registration (brief, experiment 0146); committed before
   any count
-- [ ] 3b. The runs on both shared panels' development halves, every
+- [~] 3b. The runs on both shared panels' development halves, every
   brief passage at every declared offset (`screen`, exit lines checked)
 - [ ] 3c. Counts; experiment 0147; committed
-- [ ] 4. Recall (b) and (a)+(b) under every rule, today's levels
+- [~] 4. Recall (b) and (a)+(b) under every rule, today's levels
   reproduced first; 0150's 7 Panako-only plays offline; experiment
   0148; committed
-- [ ] 5. `seconds`'s unit-test gaps (manifest truth, generated-mix truth,
-  a margin beside an unindexed track); committed
+- [x] 5. `seconds`'s unit-test gaps (manifest truth, generated-mix truth,
+  margins beside an unindexed track): six tests, no bug (`12d3243`)
 
 ## Wrap-up
 
