@@ -387,4 +387,26 @@ detail.
   change); a partner's detection is neither right nor wrong. 7 new unit
   tests (report names, partners, brief plays and their samples, the
   other-rips selection, scoring of unobservable queries and partners).
+- **(04:00) Screenshot 04 retaken** (the orchestrating thread's note,
+  03:52): `before-01` and `before-04` were byte-identical, as were
+  `after-01` and `after-04`, because 01 opens the first open question,
+  the Skynet & Stakka folder question, and 04 reopened that same
+  question. So the folder question's look was checked in 01, but 04 added
+  nothing. 04 now opens another folder question (Hard Leaders - Listen
+  Up, 11 files, 10 boundaries) at 1:35, with the start build for before
+  and the refreshed build for after (`work/s28/screens/{before,after}-04.log`).
+  Looked at: in the before shot the 1 px playhead at 1:35 is hard to
+  find among the boundary markers; in the after shot it is visible.
+  Nothing reads worse, so nothing changed.
+- **(03:58) The runs started** (`work/s28/queue.sh`, `screen`
+  `s28-queue`, frozen binary `work/bin/s28-recall/` from `0c0905d`,
+  logs in `work/s28/runs/`, reports copied to `work/s28/reports/`; the
+  NAS report folder from before cloned in `work/s28/before/`). The
+  damaged excerpts rendered in 2 minutes (03:55-03:57): 702, of which 88
+  play their partner unmatched because no tempo within 10% of its own
+  was found, as `robust` does. Order: C, (c), (b), (a), (a)+(b)+(c),
+  (a)+(c), (b)+(c), (a)+(b), one invocation each.
+  `scripts/analysis/recall_conditions.py` summarises the reports; tried
+  on 0074's report first, it gives 0074's numbers (522 of 522, the 9
+  DYkast answers).
 
