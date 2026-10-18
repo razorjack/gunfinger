@@ -18,11 +18,16 @@ for scope and rules.
   folder; FFmpeg 8.1.2 here, 9.0.2 on the Mac)
 - [x] 2. The corpus copied from the drive (327 files, 1:38); `sha256sum
   -c` all OK; nothing from `corpus/` in `git status`
-- [ ] 3. `cargo build --release`; `scripts/check.sh` (1.98.0 and stable)
-- [ ] 4. Configuration files; `doctor` with each
-- [ ] 5. The corpus from scratch: `index`; records and skips against the
-  Mac's; the 3 damaged files; clusters; `regress session-30-start`;
-  `baseline session-32-linux`; experiment 0152
+- [x] 3. `cargo build --release` (1.98.0, no warning); `scripts/check.sh`
+  green with 1.98.0 and with stable 1.99.1, unchanged: 466 Rust tests, 5
+  Node tests, clippy for Linux and macOS
+- [~] 4. Configuration files; `doctor` with each (the corpus file done;
+  the NAS file waits for the mount)
+- [x] 5. The corpus from scratch: `index` (265 records); records and
+  skips against the Mac's; the 3 damaged files (decoded, accepted by the
+  1% tolerance); clusters (17 of 17 equal); `regress session-30-start`
+  (scores equal, not bit for bit; cause: rustfft's SIMD path);
+  `baseline session-32-linux` (repeats identically); experiment 0152
 - [ ] 8. The listening tool with `--no-open`: page and an audio window
   over HTTP; `xdg-open` present; no answer
 - [ ] 6. The NAS: mount found, type and options, read-only; `doctor`;

@@ -167,3 +167,27 @@ is.
   the Mac in decoded audio is then a difference of FFmpeg's version and
   of the platform together; where it matters, a run with another FFmpeg
   separates the two, and is recorded as a diagnostic.
+- **(18:40) `check.sh` with both toolchains.** Green on the first run with
+  1.98.0 (3:39) and with `stable` 1.99.1 (4:11): formatting, clippy for
+  Linux and for macOS (`aarch64-apple-darwin`), 466 Rust tests, 5 Node
+  tests. The release binaries are built with 1.98.0, the Mac's version,
+  so that the compiler is not a second difference (`work/bin/s32-start/`).
+- **(18:50) Two corpus stores.** `index` from scratch extracted all 265
+  files: the 3 the Mac's store passes over as damaged are accepted by the
+  1% truncation tolerance (`53c6990`), which came after the Mac's skip
+  notes. `work/peaks` keeps all 265: it is the store the CLI and the
+  harness share, as step 4 asks. For the comparison with the Mac's 262
+  tracks, `work/s32/peaks-262` is a copy of it without those 3 records
+  and their tags (this machine's own records; nothing from
+  `mac-reference/`), with its own work directory `work/s32/w262/`.
+  `clusters` and `regress session-30-start` ran on both; `baseline
+  session-32-linux` was saved from the default store (265), so that a
+  later `regress session-32-linux` on this machine needs no option.
+- **(19:10) The cause of the peak differences.** A diagnostic build in a
+  scratch worktree (`work/s32/diag/`, never committed) patched a copy of
+  rustfft so that an environment variable chooses its code path, and
+  indexed the corpus three times. The decoded samples could not be
+  compared with the Mac's here; `scripts/analysis/decoded_digests.py`
+  lists them for a Mac session to compare. No FFmpeg 9.0.2 was installed
+  for a version comparison: building it with its assembly needs `nasm`, a
+  system package, and the comparison would not separate the platform.
