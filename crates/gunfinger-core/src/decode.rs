@@ -30,9 +30,9 @@ use watch::Run;
 pub const STALL: Duration = Duration::from_secs(120);
 
 /// Commands that install FFmpeg, with FFprobe and FFplay, on macOS and on
-/// Linux, for messages that tell the user to install it.
-pub const INSTALL_FFMPEG: &str =
-    "`brew install ffmpeg` on macOS, `sudo apt install ffmpeg` on Debian or Ubuntu";
+/// Linux, for messages that tell the user to install it. On Fedora the
+/// package is RPM Fusion's.
+pub const INSTALL_FFMPEG: &str = "`brew install ffmpeg` on macOS, `sudo apt install ffmpeg` on Debian or Ubuntu, `sudo dnf install ffmpeg` on Fedora with RPM Fusion";
 
 /// The part of a file to decode. The default is the whole file.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -548,7 +548,7 @@ mod tests {
     fn a_missing_ffmpeg_says_how_to_install_it_on_macos_and_linux() {
         assert_eq!(
             DecodeError::FfmpegMissing.to_string(),
-            "`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg` on macOS, `sudo apt install ffmpeg` on Debian or Ubuntu)"
+            "`ffmpeg` was not found on PATH; install FFmpeg (for example `brew install ffmpeg` on macOS, `sudo apt install ffmpeg` on Debian or Ubuntu, `sudo dnf install ffmpeg` on Fedora with RPM Fusion)"
         );
     }
 

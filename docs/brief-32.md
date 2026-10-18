@@ -254,3 +254,10 @@ is.
   commands opened the held-out manifest to count matching lines; the
   output for that file was filtered away and no content was seen
   (recorded in the notes).
+- **(after the session) No transfer; Fedora named.** The user decided
+  that nothing goes to the drive and that the next session runs on the
+  Linux machine, so the bundle and summary stay in `work/s32/drive-out/`.
+  On the user's request the install hints name Fedora
+  (`decode::INSTALL_FFMPEG`, the README, ADR 0020, `memory.rs`'s note on
+  GNU time), with the test of the missing-FFmpeg message changed to
+  match.

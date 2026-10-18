@@ -7453,8 +7453,15 @@ between them with the library mounted.
 - The tracklists at NAS scale were checked against the references and by
   title, since the NAS clusters the harness credits other rips through
   are not rebuilt here.
-- The bundle takes `b97e3da..master`: `origin/master` moved to `ec550fb`
-  by the user's push during the session.
+- Nothing goes to the drive or the Mac. After the session the user
+  decided that the next session runs on the Linux machine and that no
+  files travel between the machines on the drive. The bundle
+  (`b97e3da..master`), the summary and the Linux listings stay in
+  `work/s32/drive-out/` on the Linux machine.
+- The install hints name Fedora too, on the user's request after the
+  session: `sudo dnf install ffmpeg` with RPM Fusion (the build used
+  here; Fedora's own `ffmpeg-free` was not tried) and `sudo dnf install
+  espeak-ng`.
 
 ### Decisions waiting
 
@@ -7465,33 +7472,12 @@ between them with the library mounted.
 - Whether the Mac's corpus store should take the 3 files its old skip
   notes pass over (`index --retry-skipped`), which would change the
   262-track baseline to 265 tracks, as on Linux.
-- `decode::INSTALL_FFMPEG` names `apt` for Linux. On Fedora, FFmpeg with
-  every decoder the corpus needs came from RPM Fusion; the distribution's
-  own `ffmpeg-free` was not tried.
 - Still waiting from earlier sessions: the decisions listed in sessions
   21-30.
 
 ### Handoff for the next session
 
-On the Mac:
-
-1. Fetch the commits: `git fetch <drive>/gunfinger/session-32.bundle
-   master` (they follow `b97e3da`; only documents and scripts).
-2. Separate the causes of the peak differences:
-   `scripts/analysis/decoded_digests.py corpus/library <listing>` (a
-   `store_records.py` listing of `work/peaks`) against
-   `docs/experiments/data/0152-corpus-decoded-linux.tsv` (the two FFmpeg
-   builds' samples); then the drive's `linux-reference/diag/` patch (the
-   FFT path chosen by `GUNFINGER_DIAG_FFT`) in a scratch worktree, the
-   corpus indexed with `scalar` and compared with
-   `linux-reference/records-fft-scalar.tsv`. Equal samples and equal
-   scalar peaks would leave the SIMD path as the whole cause.
-3. A play-by-play comparison of the three mixes at NAS scale, as ADR
-   0020 proposes, needs the Mac's own `identify -f json` reports beside
-   the drive's `linux-reference/nas-reports/`.
-4. `regress session-30-start` still applies there; no code changed.
-
-On the Linux machine:
+The next session runs on the Linux machine:
 
 1. Put `~/.cargo/bin` on `PATH` (`. "$HOME/.cargo/env"`); build with
    `RUSTUP_TOOLCHAIN=1.98.0` for binaries comparable with the Mac's.
@@ -7508,6 +7494,24 @@ On the Linux machine:
 4. Scratch data under `work/s32/` (about 0.7 GB): the store listings,
    reports, logs and the 262-record store; the diagnostic worktree was
    removed, its patches kept in `work/s32/diag/`.
+
+If a session runs on the Mac later, these checks wait for it; the files
+they need are on the Linux machine only (`work/s32/drive-out/`):
+
+1. Separate the causes of the peak differences:
+   `scripts/analysis/decoded_digests.py corpus/library <listing>` (a
+   `store_records.py` listing of `work/peaks`) against
+   `docs/experiments/data/0152-corpus-decoded-linux.tsv` (the two FFmpeg
+   builds' samples); then the `linux-reference/diag/` patch (the FFT path
+   chosen by `GUNFINGER_DIAG_FFT`) in a scratch worktree, the corpus
+   indexed with `scalar` and compared with
+   `linux-reference/records-fft-scalar.tsv`. Equal samples and equal
+   scalar peaks would leave the SIMD path as the whole cause.
+2. A play-by-play comparison of the three mixes at NAS scale, as ADR
+   0020 proposes: the Mac's own `identify -f json` reports beside
+   `linux-reference/nas-reports/`.
+3. `regress session-30-start` still applies there; no detection code
+   changed.
 
 ### What else to know
 

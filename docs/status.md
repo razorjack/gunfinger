@@ -4142,5 +4142,10 @@ notes "Session 32"; experiments 0152 and 0153.
   glob that opened the held-out manifest recorded in the notes.
 - Final checks: `scripts/check.sh` green with 1.98.0; `regress
   session-32-linux` identical with `work/bin/s32-final/` (byte-identical
-  to the start build). The bundle `b97e3da..master` and the summary go to
-  the drive.
+  to the start build). The bundle `b97e3da..master`, the summary and
+  the Linux listings stay in `work/s32/drive-out/`: by the user's
+  decision nothing goes to the drive, and the next session runs on the
+  Linux machine.
+- After the session, on the user's request: the install hints name
+  Fedora (`sudo dnf install ffmpeg` with RPM Fusion, `sudo dnf install
+  espeak-ng`); `scripts/check.sh` green.

@@ -2,7 +2,8 @@
 //! `identify` runs it, on the scale proxy (`synthetic`). The kernel's peak
 //! for the whole run comes from `/usr/bin/time`: `-l` on macOS ("maximum
 //! resident set size", in bytes), `-v` on Linux with GNU time ("Maximum
-//! resident set size (kbytes)"; the `time` package of Debian and Ubuntu).
+//! resident set size (kbytes)"; the `time` package of Debian, Ubuntu and
+//! Fedora).
 //! `--until` stops after a phase, so the peak of each phase can be
 //! measured on its own.
 //!

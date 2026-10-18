@@ -81,8 +81,9 @@ either system; a test per platform under `#[cfg(target_os)]` checks
   speech conditions compare only between runs on one platform.
 - **Install hints** name a command for each platform:
   `gunfinger_core::decode::INSTALL_FFMPEG` (`brew install ffmpeg` on
-  macOS, `sudo apt install ffmpeg` on Debian or Ubuntu) in the core's,
-  the CLI's and the listening tool's messages.
+  macOS, `sudo apt install ffmpeg` on Debian or Ubuntu, `sudo dnf install
+  ffmpeg` on Fedora with RPM Fusion, the build session 32 used) in the
+  core's, the CLI's and the listening tool's messages.
 - **Peak memory:** `/usr/bin/time -l` on macOS ("maximum resident set
   size", in bytes), `/usr/bin/time -v` on Linux (GNU time, "Maximum
   resident set size (kbytes)"). The harness's own `ps -o rss=` reports

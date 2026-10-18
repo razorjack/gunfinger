@@ -55,8 +55,10 @@ for scope and rules.
   session-32-linux` identical with the final build (byte-identical to
   the start build); `docs/pair-verdicts.txt` unchanged; `git status`
   clean after the commit
-- [x] `session-32.bundle` (`b97e3da..master`, verified),
-  `session-32-summary.md` and `linux-reference/` written to
-  `work/s32/drive-out/`, for the drive's `gunfinger/` folder (the drive was
-  unplugged at the end)
+- [-] `session-32.bundle` and `session-32-summary.md` on the drive: not
+  transferred, by the user's decision (the next session runs on the Linux
+  machine); the verified bundle (`b97e3da..master`), the summary and
+  `linux-reference/` stay in `work/s32/drive-out/`
+- [x] After the session: the install hints name Fedora, on the user's
+  request
 - [x] The final message
