@@ -199,3 +199,32 @@ is.
   display name gets 403 by design: the page asks for each piece's
   absolute path, which the server lists. `xdg-open` is present; the
   default browser here is Brave, a Chromium-based browser.
+- **(19:45) The NAS mount is read-write, by the user's decision.**
+  `//swarmhost.local/atlas` on `/mnt/atlas`, `cifs`, SMB 3.1.1, a systemd
+  automount from `/etc/fstab` (idle timeout 600 s), options `rw,
+  iocharset=utf8, soft, nounix, serverino, mapposix, actimeo=1,
+  cache=strict`. Asked whether to remount with `ro`, the user chose to
+  continue on the read-write mount. Every step reads the NAS only.
+- **(19:45) The user runs the NAS `index` themselves**, to watch its
+  speed; this session does everything up to it and continues after it.
+  The command: `work/s32/nas-index-command.txt`.
+- **(19:50) Before the index.** `nas-dnb.toml` written (the Mac's, with
+  `library = "/mnt/atlas/Music/dnb"`). `doctor`: 42,609 audio files after
+  the ignore file (41 patterns, 618 files left out), listed in 1:05,
+  equal to the Mac's 40,683 records and 1,926 skip notes together. The
+  held-out broadcast's file: the ignore file does not list it; Gunfinger's
+  own header probe (`ffprobe ... -show_entries
+  format=duration:format_tags:stream_tags`, run once, only the duration
+  printed) declares 7,091.7 s, above 15:00 × 1.1, so `index` writes a
+  too-long note without decoding, as on the Mac (its note: same size and
+  time). ADR 0020's risks, every path of the Mac's listings looked up on
+  the mount (`work/s32/nas_listing_check.py`, read-only): 42,382 found
+  byte for byte; the other 227 (160 records, 67 skip notes) are
+  decomposed (NFD) on the Mac and listed precomposed (NFC) here, so this
+  machine's store keys them by other bytes (risk 1 holds); sizes equal for
+  all, skip notes' seconds equal for all 1,926, and 36,228 times carry
+  fractions of a second at SMB's 100 ns (risk 2 does not apply to a store
+  made here). `reference_paths.py`: the 114 NAS paths in the verdicts and
+  the three development manifests exist byte for byte. The drive's
+  `mac-reference/` was copied to `work/s32/mac-reference/` (digests
+  equal), so the drive can be unmounted until the bundle is written.

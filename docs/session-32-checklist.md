@@ -21,8 +21,8 @@ for scope and rules.
 - [x] 3. `cargo build --release` (1.98.0, no warning); `scripts/check.sh`
   green with 1.98.0 and with stable 1.99.1, unchanged: 466 Rust tests, 5
   Node tests, clippy for Linux and macOS
-- [~] 4. Configuration files; `doctor` with each (the corpus file done;
-  the NAS file waits for the mount)
+- [x] 4. Configuration files; `doctor` with each (corpus: 265 files;
+  NAS: 42,609 audio files, 618 left out by 41 patterns)
 - [x] 5. The corpus from scratch: `index` (265 records); records and
   skips against the Mac's; the 3 damaged files (decoded, accepted by the
   1% tolerance); clusters (17 of 17 equal); `regress session-30-start`
@@ -31,8 +31,10 @@ for scope and rules.
 - [x] 8. The listening tool with `--no-open` on the Stakka mix's corpus
   report: page, session, audio windows and envelope over HTTP; `Host` and
   token checks; `xdg-open` 1.2.1 present; no answer written
-- [ ] 6. The NAS: mount found, type and options, read-only; `doctor`;
-  the held-out broadcast's file only probed; `index` under `tmux`;
+- [~] 6. The NAS: mount found (cifs, read-write by the user's
+  decision); `doctor`; the held-out broadcast's file only probed (7,091.7 s,
+  too long from the header); paths against the Mac's before the index
+  (227 NFD there, NFC here); `index` under `tmux` (run by the user);
   records and skips against the Mac's (raw and NFC); verdict and
   manifest paths; `stats`; the three development mixes; an experiment
 - [ ] 7. Fixes (each with a test; `scripts/check.sh` green after each)
