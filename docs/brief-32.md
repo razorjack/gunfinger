@@ -228,3 +228,17 @@ is.
   the three development manifests exist byte for byte. The drive's
   `mac-reference/` was copied to `work/s32/mac-reference/` (digests
   equal), so the drive can be unmounted until the bundle is written.
+- **(21:15) The NAS index, run by the user.** It ran in a terminal
+  without the session's wrapper, so there is no log and no `time`
+  output: its summary line gives 3,168.9 s (the records' file times span
+  20:22:53-21:15:36), with 40,683 extracted, 147 too short, 1,768 too
+  long and 11 failed, and it exited with an error for the 11 failures,
+  as designed. The user then ran `index` a second time: 0 extracted,
+  40,683 up to date, 0 tagged, 1,926 passed over, in 27.0 s; it wrote no
+  record. No `prune` and no `--retry-skipped`.
+- **(21:30) Scoring the development mixes against the NAS store.** The
+  NAS duplicate clusters the harness credits other rips through are the
+  Mac's and are not rebuilt here, so each confident play is checked
+  against its slot's references only (corpus references mapped to their
+  NAS copies by identical peak records), and the other confident plays
+  are named and read by title (`work/s32/tracklist_check.py`).

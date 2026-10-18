@@ -31,12 +31,14 @@ for scope and rules.
 - [x] 8. The listening tool with `--no-open` on the Stakka mix's corpus
   report: page, session, audio windows and envelope over HTTP; `Host` and
   token checks; `xdg-open` 1.2.1 present; no answer written
-- [~] 6. The NAS: mount found (cifs, read-write by the user's
+- [x] 6. The NAS: mount found (cifs, read-write by the user's
   decision); `doctor`; the held-out broadcast's file only probed (7,091.7 s,
   too long from the header); paths against the Mac's before the index
-  (227 NFD there, NFC here); `index` under `tmux` (run by the user);
-  records and skips against the Mac's (raw and NFC); verdict and
-  manifest paths; `stats`; the three development mixes; an experiment
+  (227 NFD there, NFC here); `index` (run by the user, 3,168.9 s, the
+  Mac's counts); records and skips against the Mac's (all paths after NFC,
+  durations, sizes, skips and failures equal; peaks as on the corpus);
+  verdict and manifest paths (114 present); `stats`; the three
+  development mixes (11/11, 12/12, 17/17, nothing wrong); experiment 0153
 - [ ] 7. Fixes (each with a test; `scripts/check.sh` green after each)
 
 ## Wrap-up
