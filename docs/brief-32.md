@@ -191,3 +191,11 @@ is.
   lists them for a Mac session to compare. No FFmpeg 9.0.2 was installed
   for a version comparison: building it with its assembly needs `nasm`, a
   system package, and the comparison would not separate the platform.
+- **(19:20) The listening tool.** Questions from the corpus report of the
+  Stakka mix (`work/s32/corpus-reports/stakka-corpus.json`; the NAS was not
+  mounted yet), all files temporary (`/tmp/gf-s32-audition/`, verdicts
+  copied there). Everything answered over HTTP as on the Mac
+  (`work/s32/audition-check.txt`). An audio request by a question's
+  display name gets 403 by design: the page asks for each piece's
+  absolute path, which the server lists. `xdg-open` is present; the
+  default browser here is Brave, a Chromium-based browser.

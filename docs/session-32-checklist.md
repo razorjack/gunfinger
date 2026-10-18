@@ -28,8 +28,9 @@ for scope and rules.
   1% tolerance); clusters (17 of 17 equal); `regress session-30-start`
   (scores equal, not bit for bit; cause: rustfft's SIMD path);
   `baseline session-32-linux` (repeats identically); experiment 0152
-- [ ] 8. The listening tool with `--no-open`: page and an audio window
-  over HTTP; `xdg-open` present; no answer
+- [x] 8. The listening tool with `--no-open` on the Stakka mix's corpus
+  report: page, session, audio windows and envelope over HTTP; `Host` and
+  token checks; `xdg-open` 1.2.1 present; no answer written
 - [ ] 6. The NAS: mount found, type and options, read-only; `doctor`;
   the held-out broadcast's file only probed; `index` under `tmux`;
   records and skips against the Mac's (raw and NFC); verdict and
