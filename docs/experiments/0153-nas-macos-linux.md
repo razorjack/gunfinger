@@ -32,8 +32,8 @@ Nocny's unreferenced slot 17 gets nothing. Times: the README's Mac figure
 like for like; the index read the share over the network.
 
 **Conclusion.** Linux reproduces the Mac's NAS store in every path (after
-NFC), length, skip note and failure, and the three tracklists; peaks differ
-in rare frames, as on the corpus (0152). ADR 0020's first risk holds: the
+NFC), length, skip note and failure, and the three tracklists; peak records
+differ slightly, as on the corpus (0152). ADR 0020's first risk holds: the
 two machines name 160 records with different bytes, so a store moved
 between them with the library mounted would not find those records. The
 second does not: times keep 100 ns on this mount.

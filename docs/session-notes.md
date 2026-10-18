@@ -7296,3 +7296,196 @@ rule and writes no ADR.
   `fed26c76b8fe89ea`, as at the start, and `docs/pair-verdicts.txt` (82
   lines) and `work/audition/answers.jsonl` (60 records) have the start's
   SHA-256 digests. No manifest and no panel file changed.
+
+## Session 32
+
+### What changed
+
+Gunfinger ran on Linux for the first time. The Linux machine (x86-64)
+built it from a fresh clone of GitHub's master (`b97e3da`), indexed the
+corpus and the NAS collection into stores of its own, and compared them
+with the Mac's listings on the drive (`mac-reference/`). Nothing needed
+fixing: the CLI, the harness, `scripts/check.sh` and the listening tool
+ran unchanged. No commit changes code, and there is no `s32-detection`
+branch. The commits add documents, two experiments and four analysis
+scripts.
+
+In short: Linux reproduces the Mac's results. Every corpus cluster and
+every score of the standard evaluation are the same; so are the NAS
+store's paths (after Unicode normalization), lengths, skip notes and
+failures, and the three development mixes' tracklists at NAS scale
+(11/11, 12/12, 17/17, nothing wrong). It does not reproduce them bit for
+bit: most peak records differ slightly, because the FFT library takes
+another code path on each processor, and detections differ by a few
+hits. And the two machines name 160 NAS records with different bytes
+(Unicode forms), so a NAS store cannot move between them with the
+library mounted.
+
+### What ran on Linux unchanged
+
+- The tools: GCC 16.2.1, glibc 2.43, Git 2.55.0, Python 3.14.7, Node
+  24.18.0, tmux 3.7c, `xdg-open` 1.2.1, eSpeak NG 1.52.0, GNU time 1.9.
+  FFmpeg, FFprobe and FFplay 8.1.2 (RPM Fusion's build; the Mac has
+  9.0.2). No Rust was installed: rustup 1.29.1 went into the home folder
+  with rustup's own installer (no `sudo`, no shell file changed), with
+  the toolchains 1.98.0 (the Mac's) and stable 1.99.1, each with rustfmt,
+  clippy and the target `aarch64-apple-darwin`.
+- `cargo build --release` (1.98.0): no warning. `scripts/check.sh` green
+  on the first run with 1.98.0 (3:39) and with 1.99.1 (4:11):
+  formatting, clippy for Linux and for macOS, 466 Rust tests and the
+  page's 5 Node tests. No test failed with "Text file busy" (ADR 0020).
+- `doctor`, `index`, `identify`, `show` and `stats` with both
+  configurations; the harness's `clusters`, `regress`, `baseline` and
+  `questions detections`; `audition --no-open` on temporary files: the
+  page, its scripts, the session, 30 s audio windows (0.11-0.12 s each),
+  an envelope, `404` past the end, `421` for a foreign `Host` and `403`
+  without the token. The Stakka mix against the corpus gives the
+  README's tracklist line for line.
+
+### The corpus (experiment 0152)
+
+- `index` from scratch: 265 records in 20 s, against the Mac's 262. The
+  3 files the Mac's store passes over as damaged decode here to the
+  lengths in the Mac's notes (443.8, 291.0 and 457.9 s), with the same
+  "Header missing" error. The 1% truncation tolerance (`53c6990`,
+  2026-10-08) accepts them; the Mac's skip notes date from session 1's
+  1 s tolerance and stay until the files change. So this is the Mac
+  store's history, not a platform difference.
+- The 262 records on both: same paths, sizes and durations (decoded
+  sample counts); 14 peak counts differ by 1-2; 197 peak digests differ.
+- Clusters: all 17 equal, the 47 pairs with the same verdicts.
+- `regress session-30-start` (the Mac's baseline) on a 262-record copy
+  of the store: sweep 60/60 recalled and 0 wrong at every speed, 136 of
+  720 queries identical, no confident answer changed, hits of confident
+  detections changed by a median 0.66% (at most 3.71%); the scans 11, 8
+  and 0 identified with nothing wrong, 85 of 87, 92 of 93 and 79 of 79
+  detections identical; calibrate 680 -> 690 and 99 -> 100. On the
+  265-record store the 3 extra files add only candidates of 6-8 hits.
+- The cause: a diagnostic build (uncommitted) let an environment
+  variable choose rustfft's code path. On the same decoded samples, AVX
+  (this machine's default) and SSE give different peak digests for 143
+  of 265 files; no path reproduces the Mac's peaks. The Mac's rustfft
+  takes its NEON path, so the FFT alone explains differences at the
+  observed rate. Whether the two FFmpeg builds decode the same samples
+  is still open (handoff, item 2). The sweep's queries are also encoded
+  by FFmpeg, whose encoders differ by version.
+- Search is deterministic on Linux: `regress session-32-linux` repeated
+  with identical results.
+
+### The NAS collection (experiment 0153)
+
+- The mount: `cifs`, SMB 3.1.1, a systemd automount, read-write. Asked
+  whether to remount it read-only, the user chose to continue; every
+  step only read the NAS.
+- `doctor`: 42,609 audio files after the ignore file (41 patterns, 618
+  files left out), the Mac's records and skip notes together.
+  `EM_1999_02_07_-_Ed_Rush_Optical.mp3` is not in the ignore file; its
+  header declares 7,091.7 s, so `index` wrote a too-long note without
+  decoding it, as on the Mac.
+- `index` (run by the user): 3,168.9 s with 32 jobs, 40,683 records,
+  147 too short, 1,768 too long, 11 failed: the Mac's counts.
+- Against the Mac's listings: the same 40,683 records, 160 of them equal
+  only after NFC (decomposed on the Mac, precomposed on Linux); none on
+  one side only, so no file was added since. Durations and sizes equal
+  for all; 1,352 peak counts differ by 1-2 and 25,782 peak digests
+  differ. The 1,926 skip notes have the same reasons, limits, sizes and
+  seconds (67 after NFC); the 11 failures decode to the same lengths with
+  the same FFmpeg errors. No file failed on one platform only.
+- The 114 NAS paths named in `docs/pair-verdicts.txt` and the three
+  development manifests exist on the mount byte for byte; 112 are
+  records, and 2 are files the ignore file leaves out (on both).
+- `stats`: 571.7 M peaks, 1.14 G postings, a 4,571 MB index (4.01 bytes
+  per posting). Building the index took 88.5 s and saving it 11.8 s (4.6
+  GB at peak); loading the saved index 5.9 s (4.5 GB).
+- The development mixes against the NAS store: Stakka 11/11, my 2003 mix
+  12/12, Nocny 17/17 referenced tracks, nothing wrong. Every referenced
+  slot has a confident play of a reference copy (corpus references
+  mapped to their NAS copies by identical peak records); every other
+  confident play is another rip with the slot's title. Two entries carry
+  other titles, both known: INFRA011's "Sex Drive" holds The Specialist
+  (0061) and SUICIDE004's "We R The Ones 3" is the VIP (0100). Searched
+  in 57.8, 45.7 and 79.3 s with 5.1-5.2 GB at peak.
+
+### Commits
+
+- `1ada0a5`: brief, checklist, `CLAUDE.md`'s reading list.
+- `cc5a33a`: experiment 0152; `store_compare.py`, `store_skips.py` (the
+  drive's) and `decoded_digests.py` in `scripts/analysis/`.
+- `9dbca08`: the listening tool's check; `reference_paths.py`.
+- `ec550fb`: the checks before the NAS index.
+- `f3bf931`: experiment 0153.
+- The wrap-up: these notes, status, the checklist, ADR 0020's findings
+  and consequences, the decoded-sample digests as
+  `docs/experiments/data/0152-corpus-decoded-linux.tsv`.
+
+### Decided this session, open to change
+
+- Rust from rustup's installer in the home folder, with
+  `--no-modify-path`; the release binaries built with 1.98.0, the Mac's
+  version, so that the compiler is not a second difference.
+- FFmpeg 8.1.2 as installed; no FFmpeg 9.0.2 was built for a version
+  comparison (it needs `nasm`, a system package, and would not separate
+  the platform).
+- `work/peaks` keeps all 265 corpus records (the store the CLI and the
+  harness share); `baseline session-32-linux` comes from it.
+  `work/s32/peaks-262`, a copy without the 3 records, served only the
+  comparison with the Mac's 262 tracks.
+- The NAS mount stayed read-write, by the user's decision. The user ran
+  the NAS `index` and a second, idle `index` themselves.
+- The tracklists at NAS scale were checked against the references and by
+  title, since the NAS clusters the harness credits other rips through
+  are not rebuilt here.
+
+### Decisions waiting
+
+- Whether files should be identified by a normalized path (a new ADR),
+  so that a NAS store can move between the Mac and Linux with the
+  library mounted. Until then each machine indexes its own.
+- Whether the Mac's corpus store should take the 3 files its old skip
+  notes pass over (`index --retry-skipped`), which would change the
+  262-track baseline to 265 tracks, as on Linux.
+- `decode::INSTALL_FFMPEG` names `apt` for Linux. On Fedora, FFmpeg with
+  every decoder the corpus needs came from RPM Fusion; the distribution's
+  own `ffmpeg-free` was not tried.
+- Still waiting from earlier sessions: the decisions listed in sessions
+  21-30.
+
+### Handoff for the next session
+
+On the Mac:
+
+1. Fetch the commits: `git fetch <drive>/gunfinger/session-32.bundle
+   master` (they follow `b97e3da`; only documents and scripts).
+2. Run `scripts/analysis/decoded_digests.py corpus/library <listing>`
+   (a `store_records.py` listing of `work/peaks`) and compare with
+   `docs/experiments/data/0152-corpus-decoded-linux.tsv`: equal digests
+   mean the two FFmpeg builds decode the same samples and the peak
+   differences come from the FFT and the maths library alone.
+3. `regress session-30-start` still applies there; no code changed.
+
+On the Linux machine:
+
+1. Put `~/.cargo/bin` on `PATH` (`. "$HOME/.cargo/env"`); build with
+   `RUSTUP_TOOLCHAIN=1.98.0` for binaries comparable with the Mac's.
+2. Regressions: `gunfinger-eval baseline <name>` and `regress <name>` on
+   this machine, against `session-32-linux` (the default store,
+   `work/peaks`, 265 records).
+3. The NAS store is `~/.local/share/gunfinger/nas-dnb-peaks` (40,683
+   records, revision `56433d74d0919a08`), its saved index in
+   `~/.cache/gunfinger/indexes/`. NAS-scale harness runs need the
+   library map and NAS clusters (`work/reports/library-nas-dnb-peaks/`),
+   which exist only on the Mac, and `--second-library-root
+   /mnt/atlas/Music/dnb` wherever the harness reads NAS audio.
+
+### What else to know
+
+- Nothing touched the held-out test set: its manifest and reports were
+  not opened, nothing was scanned or identified. Its broadcast's file on
+  the NAS root was probed for its length only, once by the session with
+  Gunfinger's own `ffprobe` arguments and once by `index`. Nothing ran on
+  the candidate mixes of 0065.
+- The NAS was only read. Its `.gunfingerignore` is unchanged.
+- `docs/pair-verdicts.txt` is unchanged (82 lines); this clone has no
+  answer log, and none was written.
+- The times are single runs on a machine not kept idle for measuring;
+  the NAS index read the share over the network.

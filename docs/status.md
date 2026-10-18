@@ -4101,3 +4101,36 @@ Brief `docs/brief-29.md`, checklist `docs/session-29-checklist.md`.
   force-push of `master` and the tag waits for approval. `refs/t3/*` keep
   the old commits reachable in this repository. The table, scripts and
   logs of the rewrite are in `work/s31/` (untracked).
+
+## 2026-10-18: session 32, Gunfinger on the Linux machine
+
+Brief `docs/brief-32.md`, checklist `docs/session-32-checklist.md`;
+notes "Session 32"; experiments 0152 and 0153.
+
+- 18:32 start from a fresh clone of GitHub's master at `b97e3da`. Rust
+  installed with rustup in the home folder (1.98.0 and stable 1.99.1,
+  each with the macOS target); FFmpeg 8.1.2 (the Mac: 9.0.2). The corpus
+  copied from the drive, all 327 SHA-256 sums equal.
+- 18:41-18:48 `cargo build --release` (1.98.0, no warning) and
+  `scripts/check.sh` green on the first run with 1.98.0 and with stable:
+  466 Rust tests, 5 Node tests, clippy for Linux and macOS. No change was
+  needed.
+- 18:50-19:15 the corpus from scratch: 265 records (the Mac's store
+  passes over 3 under session 1's old tolerance); clusters equal;
+  `regress session-30-start` equal in every score, not bit for bit (the
+  FFT's code path differs between the machines); `baseline
+  session-32-linux` saved and repeated identically. Experiment 0152.
+- 19:15-19:20 the listening tool over HTTP with `--no-open`: works.
+- 19:45-20:15 the NAS (`/mnt/atlas/Music/dnb`, `cifs`, read-write by the
+  user's decision): `doctor`, the held-out broadcast's file probed for
+  its length only, the Mac's paths looked up (227 decomposed there,
+  precomposed here).
+- 20:22-21:15 `index` of the NAS, run by the user: 3,168.9 s, the Mac's
+  counts. 21:20-21:30 against the Mac's listings: every path after NFC,
+  duration, size, skip note and failure equal; `stats`; the three
+  development mixes 11/11, 12/12, 17/17 with nothing wrong. Experiment
+  0153. ADR 0020's findings and consequences updated.
+- Stores at the end: corpus `work/peaks` 265 records (revision
+  `526a3b978eb3e411`); NAS `~/.local/share/gunfinger/nas-dnb-peaks`
+  40,683 records (revision `56433d74d0919a08`). `docs/pair-verdicts.txt`
+  unchanged.

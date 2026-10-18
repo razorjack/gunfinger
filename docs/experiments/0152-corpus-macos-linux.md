@@ -31,7 +31,7 @@ samples, AVX (the default here) and SSE give different peak digests for
 more than 65 files. The Mac's rustfft takes its NEON path, so the FFT alone
 explains differences at this rate. Whether FFmpeg decodes the same samples
 on both is open: `decoded_digests.py` lists Linux's
-(`work/s32/corpus-decoded.tsv`) for the Mac to compare. The sweep's
+(`data/0152-corpus-decoded-linux.tsv`) for the Mac to compare. The sweep's
 queries are also encoded by FFmpeg, whose encoders differ by version.
 
 **Conclusion.** Linux reproduces every score and cluster, not bit for bit.

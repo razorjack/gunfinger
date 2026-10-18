@@ -151,14 +151,39 @@ may therefore differ in rare frames, and hit counts by a few, so a
 check: the same `identify --store-only -f json` of a development mix on
 both machines, compared play by play.
 
+### What the Linux machine found (session 32)
+
+Session 32 (2026-10-18) built Gunfinger on the Linux machine from a
+fresh clone, indexed the corpus and the NAS collection there into stores
+of its own, and compared them with the Mac's (experiments 0152, 0153).
+
+1. The first risk holds. The Linux machine's SMB client lists precomposed
+   (NFC) every one of the 227 NAS paths (160 records, 67 skip notes) the
+   Mac's lists decomposed. Every other path is byte for byte the same,
+   and so are the 114 NAS paths in the verdicts and the development
+   manifests.
+2. The second risk does not apply: sizes are equal, the skip notes'
+   seconds are equal, and times keep fractions of a second (100 ns) on
+   the Linux mount.
+3. The third difference occurs. Durations, skip notes and failures are
+   the same; peak records differ (197 of 262 corpus records, 25,782 of
+   40,683 NAS records), their peak counts by at most 2. rustfft's code
+   path alone (AVX on the Linux machine, NEON on the Mac) gives
+   differences at that rate. Clusters, the scores of `regress
+   session-30-start` and the three development tracklists at NAS scale
+   are the same; detections are not bit for bit.
+
 ## Consequences
 
 - The user can build and run `gunfinger` and `gunfinger-eval`, and
-  answer listening questions, on Linux. Nothing has run on Linux yet:
-  the first `scripts/check.sh` there is the first test. Tests that write
+  answer listening questions, on Linux. On the Linux machine (x86-64),
+  session 32 built them from a fresh clone and `scripts/check.sh` passed
+  with no change: formatting, clippy for Linux and for macOS, every Rust
+  test and the page's Node tests. Tests that write
   a stand-in script and run it at once (`decode::watch`'s and
-  `audition::audio`'s tests, `tests/stalls.rs`) may then fail now and
-  then with "Text file busy" (`ETXTBSY`): on Linux a child forked by
+  `audition::audio`'s tests, `tests/stalls.rs`) may still fail now and
+  then with "Text file busy" (`ETXTBSY`), though none did in session
+  32's runs: on Linux a child forked by
   another test thread can hold the script open for writing until it
   runs its own program (rust-lang/rust#114554). macOS has no such
   error. A failure of that kind is a test race, not a platform defect;
@@ -173,12 +198,18 @@ both machines, compared play by play.
 - With the NAS mounted on Linux, the library's path must be the one the
   store names: mount the share at `/Volumes/atlas` (a mount point, not a
   symbolic link: the library's path is compared after links are
-  resolved), or put the Linux path in the copy's `library.txt`.
-- Before any `index` from Linux against the NAS store, the two checks
-  above. If either fails, index from the Mac only until a decision
-  fixes it.
-- Not measured on Linux: speed, and memory with the default `jobs`. The
-  Mac's figures are at 10 workers; the Linux machine defaults to 32, and each
+  resolved), or put the Linux path in the copy's `library.txt`. Even
+  then, the 160 records whose paths differ in Unicode form are not found
+  under the Linux listing's names.
+- A NAS peak store is therefore not shared between the two machines with
+  the library mounted: each indexes its own, as session 32 did on Linux,
+  until a decision (a new ADR) identifies files by a normalized path.
+  Store-only searches with a copied store are not affected.
+- A `regress` baseline is compared only on the machine that made it
+  (`session-32-linux` on the Linux machine).
+- Speed and memory on the Linux machine, with the default 32 workers, at
+  40,683 NAS records (session 32): the three development mixes in 46-79
+  s with 5.1-5.2 GB at peak. The Mac's figures are at 10 workers. Each
   worker keeps its own hit buffers (`search::lines`), so memory grows
   with workers (`--jobs` or `GUNFINGER_JOBS` limits them).
 - A change to platform-specific code is checked by the other platform's
