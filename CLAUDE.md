@@ -6,8 +6,8 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-30.md` (the current session's brief) and
-   `docs/session-30-checklist.md` (its progress); `docs/brief-2.md`,
+2. `docs/brief-32.md` (the current session's brief) and
+   `docs/session-32-checklist.md` (its progress); `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
    `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
@@ -17,8 +17,9 @@ anything else:
    `docs/brief-21.md`, `docs/brief-22.md`, `docs/brief-23.md`,
    `docs/brief-24.md`, `docs/brief-24b.md` (session 24b, Panako, run
    beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
-   `docs/brief-27.md`, `docs/brief-28.md` and `docs/brief-29.md` hold
-   rules that still apply unless brief 30 changes them
+   `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md` and
+   `docs/brief-30.md` hold rules that still apply unless brief 32
+   changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -26,8 +27,8 @@ anything else:
    (never edit it)
 6. for work on the NAS collection: `docs/brief-nas.md`,
    `docs/nas-checklist.md` and `docs/nas-plan.md` (the code is merged;
-   session 30 reads the NAS, never writes it, uses the NAS peak store
-   read-only and rebuilds no cluster)
+   session 32 reads the NAS, never writes it, builds the Linux machine's
+   own NAS peak store from scratch and rebuilds no NAS cluster)
 7. for the listening tool (`gunfinger-eval audition`):
    `docs/adr/0016-listening-tool.md`, `docs/audition-questions.md` and
    every file in `crates/gunfinger-eval/src/audition/web/`
@@ -50,3 +51,5 @@ anything else:
 12. for evidence beyond exact pair hashes: the roadmap's bullet of that
    name, the peak verifier's experiments (0054-0058) and session 30's
    tolerant pair count (0149 and up; `verifier.rs`)
+13. for work on Linux or another platform: `docs/adr/0020-macos-and-linux.md`,
+   AGENTS.md's "Platforms" and session 32's notes
