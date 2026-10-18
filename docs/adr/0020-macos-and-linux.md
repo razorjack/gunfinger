@@ -162,16 +162,19 @@ of its own, and compared them with the Mac's (experiments 0152, 0153).
    Mac's lists decomposed. Every other path is byte for byte the same,
    and so are the 114 NAS paths in the verdicts and the development
    manifests.
-2. The second risk does not apply: sizes are equal, the skip notes'
-   seconds are equal, and times keep fractions of a second (100 ns) on
-   the Linux mount.
+2. The second risk was not tested for a store moved between the
+   machines: sizes and the skip notes' seconds are equal and the Linux
+   mount gives times to 100 ns, but the Mac's nanoseconds were not
+   compared. A store made on Linux is not affected.
 3. The third difference occurs. Durations, skip notes and failures are
    the same; peak records differ (197 of 262 corpus records, 25,782 of
-   40,683 NAS records), their peak counts by at most 2. rustfft's code
-   path alone (AVX on the Linux machine, NEON on the Mac) gives
-   differences at that rate. Clusters, the scores of `regress
-   session-30-start` and the three development tracklists at NAS scale
-   are the same; detections are not bit for bit.
+   40,683 NAS records), their peak counts by at most 2. On the Linux
+   machine, changing only rustfft's code path (AVX, SSE, scalar) changes
+   about half the corpus digests, so the FFT path (NEON on the Mac) can
+   cause differences of this order; whether it is the whole cause is
+   open. Clusters, the scores of `regress session-30-start` and the
+   README's three development scores at NAS scale are the same;
+   detections are not bit for bit.
 
 ## Consequences
 
@@ -209,7 +212,7 @@ of its own, and compared them with the Mac's (experiments 0152, 0153).
   (`session-32-linux` on the Linux machine).
 - Speed and memory on the Linux machine, with the default 32 workers, at
   40,683 NAS records (session 32): the three development mixes in 46-79
-  s with 5.1-5.2 GB at peak. The Mac's figures are at 10 workers. Each
+  s with 4.8-4.9 GiB at peak. The Mac's figures are at 10 workers. Each
   worker keeps its own hit buffers (`search::lines`), so memory grows
   with workers (`--jobs` or `GUNFINGER_JOBS` limits them).
 - A change to platform-specific code is checked by the other platform's

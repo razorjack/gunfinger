@@ -2,7 +2,10 @@
 arguments from decode.rs (mono, 8 kHz, f32le) and prints, one per line as
 tab-separated values: source path, sample count and a digest of the
 samples. Run on two machines, the listings tell whether their FFmpeg builds
-decode the same samples. Reads the library only.
+decode the same samples. Files FFmpeg opens as they are only: decode.rs's
+handling of an MP3 inside a WAV behind an ID3v2 tag (`-skip_initial_bytes`)
+is not reproduced. A decode that fails or writes errors is named on stderr.
+Reads the library only.
 
 usage: decoded_digests.py <library root> <store_records.py listing> [jobs]
 """
@@ -15,7 +18,11 @@ def digest(root, path):
                "-i", os.path.join(root, path),
                "-map", "0:a:0", "-vn", "-sn", "-dn", "-ac", "1", "-ar", "8000",
                "-f", "f32le", "pipe:1"]
-    samples = subprocess.run(command, stdin=subprocess.DEVNULL, capture_output=True).stdout
+    run = subprocess.run(command, stdin=subprocess.DEVNULL, capture_output=True)
+    if run.returncode != 0 or run.stderr.strip():
+        print(f"{path}: exit status {run.returncode}: "
+              f"{' | '.join(run.stderr.decode(errors='replace').split(chr(10)))[:300]}", file=sys.stderr)
+    samples = run.stdout
     return f"{path}\t{len(samples) // 4}\t{hashlib.sha256(samples).hexdigest()[:16]}"
 
 

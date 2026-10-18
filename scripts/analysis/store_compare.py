@@ -1,13 +1,15 @@
 """Compares two peak stores' listings, as written by store_records.py and
 store_skips.py (for example the Mac's and the Linux machine's): paths on
 one side only, raw and after Unicode NFC normalization; for paths on both,
-equal and different durations, peak counts, peak digests and sizes; and
-skip notes that differ, with both sides' messages.
+equal and different durations, peak counts, peak digests and sizes; for
+skip notes on both, equal sizes, seconds, reasons, limits and failure
+messages (without the library root and FFmpeg's addresses); and files
+that failed on one side only, with both sides' messages.
 
 usage: store_compare.py <records A> <skips A> <records B> <skips B>
                         [--names A B] [--json FILE]
 """
-import json, sys, unicodedata
+import json, re, sys, unicodedata
 from collections import Counter
 
 
@@ -108,8 +110,19 @@ summary["on both"]["duration change, B - A"] = dict(sorted(Counter(duration_delt
 # Skip notes, after NFC.
 skeyed_a, _ = by_nfc(skips_a)
 skeyed_b, _ = by_nfc(skips_b)
+
+
+def message(path, detail):
+    """A failure message without what differs by machine: the library
+    root before the path and the addresses FFmpeg prints."""
+    detail = unicodedata.normalize("NFC", detail)
+    detail = detail.split(nfc(path), 1)[-1]
+    return re.sub(r"0x[0-9a-f]+", "0x", detail)
+
+
 reasons = Counter()
 one_side = []
+on_both = Counter()
 for key in sorted(skeyed_a.keys() | skeyed_b.keys()):
     path_a = skeyed_a.get(key) or keyed_a.get(key)
     path_b = skeyed_b.get(key) or keyed_b.get(key)
@@ -120,10 +133,23 @@ for key in sorted(skeyed_a.keys() | skeyed_b.keys()):
     reasons[f"{reason_a} / {reason_b}"] += 1
     if reason_a != reason_b and "failed" in (reason_a, reason_b):
         one_side.append({"path": path_b or path_a, a: left, b: right})
+    if key in skeyed_a and key in skeyed_b:
+        note_a, note_b = skips_a[skeyed_a[key]], skips_b[skeyed_b[key]]
+        on_both["notes"] += 1
+        on_both["paths differ only in normalization"] += skeyed_a[key] != skeyed_b[key]
+        on_both["size equal"] += note_a[0] == note_b[0]
+        on_both["seconds equal"] += note_a[1] == note_b[1]
+        on_both["reason equal"] += note_a[2] == note_b[2]
+        if note_a[2] == note_b[2] == "failed":
+            on_both["failed, message equal"] += (message(skeyed_a[key], note_a[3])
+                                                 == message(skeyed_b[key], note_b[3]))
+        elif note_a[2] == note_b[2]:
+            on_both["limit equal"] += note_a[3] == note_b[3]
 summary["skip notes"] = {a: len(skips_a), b: len(skips_b),
                          f"{a} by reason": dict(Counter(v[2] for v in skips_a.values())),
                          f"{b} by reason": dict(Counter(v[2] for v in skips_b.values())),
-                         f"status {a} / {b}": dict(sorted(reasons.items()))}
+                         f"status {a} / {b}": dict(sorted(reasons.items())),
+                         "on both": dict(on_both)}
 summary["failed on one side only"] = one_side
 
 print(json.dumps(summary, indent=1, ensure_ascii=False))

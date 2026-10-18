@@ -26,7 +26,8 @@ for scope and rules.
 - [x] 5. The corpus from scratch: `index` (265 records); records and
   skips against the Mac's; the 3 damaged files (decoded, accepted by the
   1% tolerance); clusters (17 of 17 equal); `regress session-30-start`
-  (scores equal, not bit for bit; cause: rustfft's SIMD path);
+  (scores equal, not bit for bit; rustfft's code path alone changes
+  about half the peak records on Linux, the whole cause open);
   `baseline session-32-linux` (repeats identically); experiment 0152
 - [x] 8. The listening tool with `--no-open` on the Stakka mix's corpus
   report: page, session, audio windows and envelope over HTTP; `Host` and
@@ -39,15 +40,20 @@ for scope and rules.
   durations, sizes, skips and failures equal; peaks as on the corpus);
   verdict and manifest paths (114 present); `stats`; the three
   development mixes (11/11, 12/12, 17/17, nothing wrong); experiment 0153
-- [ ] 7. Fixes (each with a test; `scripts/check.sh` green after each)
+- [-] 7. Fixes: none needed; nothing failed to build, run or pass on
+  Linux, so no code changed and there is no `s32-detection` branch
 
 ## Wrap-up
 
-- [ ] 9. Read-only review by a subagent; fixes
-- [ ] 10. Notes "Session 32", status, checklist, ADR 0020's
+- [x] 9. Read-only review by a subagent; fixes (claims narrowed to the
+  data, scripts committed and extended, memory in GiB, NFD panel paths,
+  machine details removed; the reviewer's glob over the held-out manifest
+  recorded)
+- [x] 10. Notes "Session 32", status, checklist, ADR 0020's findings and
   consequences
-- [ ] `scripts/check.sh` green; `regress session-32-linux` identical
-  with the final build; `docs/pair-verdicts.txt` unchanged; `git status`
-  clean; commit
+- [x] `scripts/check.sh` green with 1.98.0 (2:58); `regress
+  session-32-linux` identical with the final build (byte-identical to
+  the start build); `docs/pair-verdicts.txt` unchanged; `git status`
+  clean after the commit
 - [ ] `session-32.bundle` and `session-32-summary.md` on the drive
 - [ ] The final message

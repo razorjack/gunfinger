@@ -106,10 +106,8 @@ Rules for this session:
   (equal to `origin/master`), clean. Git identity `Jacek Galanciak
   <jacek.galanciak@gmail.com>`, as First, item 3 requires.
 - The Linux machine: Fedora Linux 44, x86-64, 32 hardware threads (the
-  default `jobs`), 62 GiB of memory, 853 GB free on the disk holding the
-  repository.
-- The drive: `/run/media/razorjack/Ultralisk/gunfinger/` (the user gave
-  the path).
+  default `jobs`).
+- The drive: its `gunfinger/` folder, at the path the user gave.
 - The NAS: not mounted at the start; the user is mounting it. Steps that
   need it wait; the rest go first.
 - Experiments 0001-0151; this session numbers from 0152. ADRs
@@ -183,10 +181,12 @@ is.
   `clusters` and `regress session-30-start` ran on both; `baseline
   session-32-linux` was saved from the default store (265), so that a
   later `regress session-32-linux` on this machine needs no option.
-- **(19:10) The cause of the peak differences.** A diagnostic build in a
-  scratch worktree (`work/s32/diag/`, never committed) patched a copy of
-  rustfft so that an environment variable chooses its code path, and
-  indexed the corpus three times. The decoded samples could not be
+- **(19:10) Looking for the cause of the peak differences.** A
+  diagnostic build in a scratch worktree (`work/s32/diag/`, never
+  committed) patched a copy of rustfft so that an environment variable
+  chooses its code path, and indexed the corpus three times. It shows
+  that the FFT path can cause differences of the observed order; whether
+  it is the whole cause is open. The decoded samples could not be
   compared with the Mac's here; `scripts/analysis/decoded_digests.py`
   lists them for a Mac session to compare. No FFmpeg 9.0.2 was installed
   for a version comparison: building it with its assembly needs `nasm`, a
@@ -197,11 +197,9 @@ is.
   copied there). Everything answered over HTTP as on the Mac
   (`work/s32/audition-check.txt`). An audio request by a question's
   display name gets 403 by design: the page asks for each piece's
-  absolute path, which the server lists. `xdg-open` is present; the
-  default browser here is Brave, a Chromium-based browser.
+  absolute path, which the server lists. `xdg-open` is present.
 - **(19:45) The NAS mount is read-write, by the user's decision.**
-  `//swarmhost.local/atlas` on `/mnt/atlas`, `cifs`, SMB 3.1.1, a systemd
-  automount from `/etc/fstab` (idle timeout 600 s), options `rw,
+  The share on `/mnt/atlas`, `cifs`, SMB 3.1.1, options including `rw,
   iocharset=utf8, soft, nounix, serverino, mapposix, actimeo=1,
   cache=strict`. Asked whether to remount with `ro`, the user chose to
   continue on the read-write mount. Every step reads the NAS only.
@@ -223,8 +221,9 @@ is.
   decomposed (NFD) on the Mac and listed precomposed (NFC) here, so this
   machine's store keys them by other bytes (risk 1 holds); sizes equal for
   all, skip notes' seconds equal for all 1,926, and 36,228 times carry
-  fractions of a second at SMB's 100 ns (risk 2 does not apply to a store
-  made here). `reference_paths.py`: the 114 NAS paths in the verdicts and
+  fractions of a second at SMB's 100 ns (risk 2 does not affect a store
+  made on Linux; for a moved store it was not tested, as the Mac's
+  nanoseconds are not in its listings). `reference_paths.py`: the 114 NAS paths in the verdicts and
   the three development manifests exist byte for byte. The drive's
   `mac-reference/` was copied to `work/s32/mac-reference/` (digests
   equal), so the drive can be unmounted until the bundle is written.
@@ -242,3 +241,16 @@ is.
   against its slot's references only (corpus references mapped to their
   NAS copies by identical peak records), and the other confident plays
   are named and read by title (`work/s32/tracklist_check.py`).
+- **(21:50) The bundle's range.** `origin/master` moved to `ec550fb`
+  during the session by a push the user made (the session pushes
+  nothing). The bundle therefore takes `b97e3da..master`, every commit
+  of the session, so that the Mac can apply it with or without fetching
+  GitHub first.
+- **(22:00) The review** (a separate agent, read-only) recomputed the
+  numbers it sampled (all matched) and found claims beyond the data, two
+  gaps in the scripts, uncommitted scripts behind the numbers, memory in
+  GB from GNU time's KiB, the NFD panel paths and machine details here.
+  All fixed. It also disclosed that a shell glob in one of its `grep -c`
+  commands opened the held-out manifest to count matching lines; the
+  output for that file was filtered away and no content was seen
+  (recorded in the notes).

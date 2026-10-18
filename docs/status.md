@@ -4117,14 +4117,15 @@ notes "Session 32"; experiments 0152 and 0153.
   needed.
 - 18:50-19:15 the corpus from scratch: 265 records (the Mac's store
   passes over 3 under session 1's old tolerance); clusters equal;
-  `regress session-30-start` equal in every score, not bit for bit (the
-  FFT's code path differs between the machines); `baseline
+  `regress session-30-start` equal in every score, not bit for bit
+  (changing only rustfft's code path changes about half the peak records
+  on Linux; whether it is the whole cause is open); `baseline
   session-32-linux` saved and repeated identically. Experiment 0152.
 - 19:15-19:20 the listening tool over HTTP with `--no-open`: works.
 - 19:45-20:15 the NAS (`/mnt/atlas/Music/dnb`, `cifs`, read-write by the
   user's decision): `doctor`, the held-out broadcast's file probed for
   its length only, the Mac's paths looked up (227 decomposed there,
-  precomposed here).
+  precomposed on Linux).
 - 20:22-21:15 `index` of the NAS, run by the user: 3,168.9 s, the Mac's
   counts. 21:20-21:30 against the Mac's listings: every path after NFC,
   duration, size, skip note and failure equal; `stats`; the three
@@ -4134,3 +4135,12 @@ notes "Session 32"; experiments 0152 and 0153.
   `526a3b978eb3e411`); NAS `~/.local/share/gunfinger/nas-dnb-peaks`
   40,683 records (revision `56433d74d0919a08`). `docs/pair-verdicts.txt`
   unchanged.
+- 21:35-22:05 read-only review by a separate agent: every sampled number
+  right; claims narrowed to the data, memory given in GiB, the
+  comparison scripts committed and `store_compare.py` extended (they
+  reproduce every cited number), the NFD panel paths and the reviewer's
+  glob that opened the held-out manifest recorded in the notes.
+- Final checks: `scripts/check.sh` green with 1.98.0; `regress
+  session-32-linux` identical with `work/bin/s32-final/` (byte-identical
+  to the start build). The bundle `b97e3da..master` and the summary go to
+  the drive.
