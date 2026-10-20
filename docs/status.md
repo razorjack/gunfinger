@@ -4149,3 +4149,17 @@ notes "Session 32"; experiments 0152 and 0153.
 - After the session, on the user's request: the install hints name
   Fedora (`sudo dnf install ffmpeg` with RPM Fusion, `sudo dnf install
   espeak-ng`); `scripts/check.sh` green.
+
+## 2026-10-20: unidentified time in tracklists (between sessions)
+
+- Marking the time a tracklist does not account for is worth doing, by
+  our decision; the plan is `docs/research/2026-10-20-unidentified-gaps.md`
+  (step 1: list the stretches without a confident segment; step 2:
+  estimate how many tracks each holds, as a range). The roadmap's "Time
+  without a confident match" now has both steps. Default or on request
+  is still ours to decide, and needs an ADR.
+- Experiment 0154 (`scripts/analysis/gap_count.py`, start times of the
+  three development manifests, no search): a gap's length over the
+  median interval counts its missed tracks within one in every case,
+  exactly for 75% of two-track gaps and 42-48% at three and four.
+- No Rust code changed, so `scripts/check.sh` was not run.

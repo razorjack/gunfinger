@@ -53,3 +53,7 @@ anything else:
    tolerant pair count (0149 and up; `verifier.rs`)
 13. for work on Linux or another platform: `docs/adr/0020-macos-and-linux.md`,
    AGENTS.md's "Platforms" and session 32's notes
+14. for marking time without a confident match in tracklists, and
+   estimating how many tracks a gap holds: the roadmap's "Time without a
+   confident match", `docs/research/2026-10-20-unidentified-gaps.md` and
+   experiment 0154

@@ -176,6 +176,25 @@ an ISMIR 2018 late-breaking demo) was not confirmed.
   Alignment," ISMIR 2020 (cited by Six 2021).
 - D. Schwarz and D. Fourer, "Methods and Datasets for DJ-Mix Reverse
   Engineering," CMMR 2019 (evaluated on UnmixDB).
+- N. Glazyrin, "Towards Automatic Content-Based Separation of DJ Mixes
+  into Single Tracks," ISMIR 2014
+  (<https://archives.ismir.net/ismir2014/paper/000311.pdf>). From the
+  abstract and introduction: splits mixes into tracks from spectral data
+  and the mix's metadata; argues that novelty-based methods suit track
+  boundaries and repetition-based ones do not. Cited in
+  `docs/research/2026-10-20-unidentified-gaps.md`.
+- T. Scarfe, W. M. Koolen and Y. Kalnishkan, "A Long-Range
+  Self-similarity Approach to Segmenting DJ Mixed Music Streams," AIAI
+  2013, Springer IFIP AICT 412, pp. 235-244; the journal version,
+  "Segmentation of Electronic Dance Music," International Journal of
+  Engineering Intelligent Systems, 2014. From the abstracts: dynamic
+  programming over a self-similarity matrix of Fourier features splits
+  DJ-mixed streams into tracks; the journal version evaluates on 640
+  hours of hand-labelled radio shows.
+- J. Foote, "Automatic Audio Segmentation Using a Measure of Audio
+  Novelty," IEEE ICME 2000, pp. 452-455, doi:10.1109/ICME.2000.869637.
+  Novelty from a checkerboard kernel along a self-similarity matrix's
+  diagonal; method 3 of the gap note.
 - T. Kim, J. Kim, H. Kim and J. Nam, "Raveform: A Dataset of Metrical and
   Functional Structure Annotations for EDM Tracks in DJ Mixes,"
   Transactions of the ISMIR 9(1), 2026.

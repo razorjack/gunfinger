@@ -159,17 +159,25 @@ marked as inferences were derived, not measured.
 ## Reports and command line
 
 - **Time without a confident match.** *(2026-10-17, a proposal from an
-  external review)* A tracklist does not say how much of the mix it
-  accounts for: eleven lines over 56 minutes read the same whether the
-  rest is blends or a quarter of an hour of tracks not in the library. A
-  summary could list the long stretches with no confident segment,
-  computed from segments rather than whole play spans (so a gap inside a
-  returning track counts), with a minimum length that leaves transitions
-  out. It would not estimate how many tracks are missing, nor claim that
-  a matched span is fully explained. It fits ADR 0017 (clear output, no
-  review step), but whether it is printed by default or on request is
-  our decision, and either changes the output ADR 0017 describes, so it
-  needs an ADR. The generated mixes' truth and `seconds` would test it.
+  external review; worth doing, our decision, 2026-10-20; the plan is
+  `docs/research/2026-10-20-unidentified-gaps.md`)* A tracklist does not
+  say how much of the mix it accounts for: eleven lines over 56 minutes
+  read the same whether the rest is blends or a quarter of an hour of
+  tracks not in the library. Step 1 lists the long stretches with no
+  confident segment, computed from segments rather than whole play spans
+  (so a gap inside a returning track counts), with a minimum length that
+  leaves transitions out; it does not claim that a matched span is fully
+  explained. Step 2 estimates how many tracks each stretch holds, as a
+  range. Its length over the median interval between the mix's found
+  tracks gives the count within one in every case on the development
+  manifests' start times, exactly for 75% of two-track gaps and 42-48%
+  at three and four (experiment 0154). The stretch searched against
+  itself might narrow the range (a record repeats its own material);
+  novelty segmentation comes only if that fails. It fits ADR 0017 (clear
+  output, no review step), but whether it is printed by default or on
+  request is our decision, and either changes the output ADR 0017
+  describes, so it needs an ADR. The generated mixes' truth, `seconds`
+  and runs with consecutive tracks left out would test both steps.
 - **Possible plays inside a confident play of another recording.**
   *(done on 2026-10-14, our decision, ADR 0019, experiment
   0107)* The default tracklist printed a possible play lying inside a
