@@ -6,9 +6,10 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-34.md` (the current session's brief) and
-   `docs/session-34-checklist.md` (its progress), with its
-   pre-registration `docs/research/2026-10-21-gap-measures.md`;
+2. `docs/brief-35.md` (the current session's brief) and
+   `docs/session-35-checklist.md` (its progress), with its
+   pre-registration `docs/research/2026-10-21-gap-tests.md` and session
+   34's `docs/research/2026-10-21-gap-measures.md`;
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -20,7 +21,8 @@ anything else:
    `docs/brief-24.md`, `docs/brief-24b.md` (session 24b, Panako, run
    beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
    `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
-   `docs/brief-30.md`, `docs/brief-32.md` and `docs/brief-33.md` hold
+   `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md` and
+   `docs/brief-34.md` hold
    rules that still apply unless brief 34 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
@@ -60,4 +62,5 @@ anything else:
    estimating how many tracks a gap holds: the roadmap's "Time without a
    confident match", `docs/research/2026-10-20-unidentified-gaps.md`,
    the pre-registration `docs/research/2026-10-21-gap-measures.md`,
-   experiment 0154 and session 34's (0159 and up)
+   experiment 0154, session 34's (0159-0162) and session 35's (0163 and
+   up)
