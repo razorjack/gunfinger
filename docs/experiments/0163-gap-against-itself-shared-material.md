@@ -32,12 +32,10 @@ plays confident, no wrong confident play. Data `data/0163-shared-material.json`.
 - By how much: a gap holding a merged couple is counted a mean 1.08 records
   low (98 of 111 low); gaps without one, -0.15 (none low). In the control, a
   merged couple (unrelated records) also costs one: 36 of 38 low.
-- Method 1 does not see the material and keeps its control figures (45% and
-  47% exact at k = 2-4), so on the shared mixes it beats method 2 at k = 2-4.
-- Beatmatching alone does not hurt method 2: the control's 74% exact at k =
-  1-4 is near session 34's long mixes (0162: 75%, not beatmatched).
+- Method 1 does not see the material (45% and 47% exact at k = 2-4), so on the
+  shared mixes it beats method 2 there. Beatmatching alone does not hurt method
+  2: the control's 74% exact at k = 1-4 is near 0162's 75% (not beatmatched).
 
-**Conclusion.** Records that share a passage, played back to back at one
-tempo, usually make one stretch: method 2 then counts one record for two.
-In a DJ mix of remixes, VIPs and records on one famous break, method 2
-alone undercounts; it needs method 1's range beside it (0165).
+**Conclusion.** Records sharing a passage, played back to back at one tempo,
+usually make one stretch, and method 2 counts one record for two. In a mix of
+remixes, VIPs and records on one break, method 2 alone undercounts (see 0165).
