@@ -1,0 +1,5653 @@
+{
+ "source": "scripts/analysis/recall_conditions.py and recall_compare.py on the reports of work/reports/library-nas-dnb-peaks/ (recall from work/bin/s33-start, the Linux machine, 2026-10-21 03:57-05:27; panel copy work/s33/panels)",
+ "conditions": {
+  "recall-seed-2026-brief.json": {
+   "report": "recall-seed-2026-brief.json",
+   "other_rips_only": false,
+   "query_set": "brief",
+   "indexed_assets": 40671,
+   "left_out_records": 0,
+   "all": {
+    "indexed": 1044,
+    "confident": 721,
+    "possible_or_better": 1044,
+    "misses": {
+     "too-few-windows": 320,
+     "too-few-hits, possible": 3
+    }
+   },
+   "unobservable_queries": 0,
+   "unobservable_sources": 0,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 107,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 146,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 125,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 121,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 120,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 120,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 118,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 114,
+     "windows": 2,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 108,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 107,
+     "windows": 3,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 103,
+     "windows": 3,
+     "brief_seconds": 20.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 116,
+     "confident": 87,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 29
+     }
+    },
+    "-5": {
+     "indexed": 116,
+     "confident": 81,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 34,
+      "too-few-hits, possible": 1
+     }
+    },
+    "-3": {
+     "indexed": 116,
+     "confident": 71,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 45
+     }
+    },
+    "-1": {
+     "indexed": 116,
+     "confident": 81,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 34,
+      "too-few-hits, possible": 1
+     }
+    },
+    "+0": {
+     "indexed": 116,
+     "confident": 85,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 31
+     }
+    },
+    "+1": {
+     "indexed": 116,
+     "confident": 79,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 36,
+      "too-few-hits, possible": 1
+     }
+    },
+    "+3": {
+     "indexed": 116,
+     "confident": 78,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 38
+     }
+    },
+    "+5": {
+     "indexed": 116,
+     "confident": 77,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 39
+     }
+    },
+    "+8": {
+     "indexed": 116,
+     "confident": 82,
+     "possible_or_better": 116,
+     "misses": {
+      "too-few-windows": 34
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 360,
+     "confident": 244,
+     "possible_or_better": 360,
+     "misses": {
+      "too-few-windows": 113,
+      "too-few-hits, possible": 3
+     }
+    },
+    "scene-release": {
+     "indexed": 324,
+     "confident": 226,
+     "possible_or_better": 324,
+     "misses": {
+      "too-few-windows": 98
+     }
+    },
+    "youtube-channel": {
+     "indexed": 360,
+     "confident": 251,
+     "possible_or_better": 360,
+     "misses": {
+      "too-few-windows": 109
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 522,
+     "confident": 228,
+     "possible_or_better": 522,
+     "misses": {
+      "too-few-windows": 291,
+      "too-few-hits, possible": 3
+     }
+    },
+    "20": {
+     "indexed": 522,
+     "confident": 493,
+     "possible_or_better": 522,
+     "misses": {
+      "too-few-windows": 29
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 64,
+     "confident": 0,
+     "possible_or_better": 64,
+     "misses": {
+      "too-few-windows": 64
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 39,
+     "confident": 0,
+     "possible_or_better": 39,
+     "misses": {
+      "too-few-windows": 39
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 49,
+     "confident": 0,
+     "possible_or_better": 49,
+     "misses": {
+      "too-few-windows": 49
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 44,
+     "confident": 0,
+     "possible_or_better": 44,
+     "misses": {
+      "too-few-windows": 44
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 63,
+     "confident": 0,
+     "possible_or_better": 63,
+     "misses": {
+      "too-few-windows": 62,
+      "too-few-hits, possible": 1
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 53,
+     "confident": 28,
+     "possible_or_better": 53,
+     "misses": {
+      "too-few-windows": 25
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 48,
+     "confident": 48,
+     "possible_or_better": 48,
+     "misses": {}
+    },
+    "15 s from 7-8 s": {
+     "indexed": 54,
+     "confident": 53,
+     "possible_or_better": 54,
+     "misses": {
+      "too-few-hits, possible": 1
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 53,
+     "confident": 53,
+     "possible_or_better": 53,
+     "misses": {}
+    },
+    "15 s from 9-10 s": {
+     "indexed": 55,
+     "confident": 46,
+     "possible_or_better": 55,
+     "misses": {
+      "too-few-windows": 8,
+      "too-few-hits, possible": 1
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 46,
+     "confident": 29,
+     "possible_or_better": 46,
+     "misses": {
+      "too-few-windows": 17
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 42,
+     "confident": 42,
+     "possible_or_better": 42,
+     "misses": {}
+    },
+    "20 s from 2-3 s": {
+     "indexed": 61,
+     "confident": 61,
+     "possible_or_better": 61,
+     "misses": {}
+    },
+    "20 s from 3-4 s": {
+     "indexed": 47,
+     "confident": 47,
+     "possible_or_better": 47,
+     "misses": {}
+    },
+    "20 s from 4-5 s": {
+     "indexed": 60,
+     "confident": 60,
+     "possible_or_better": 60,
+     "misses": {}
+    },
+    "20 s from 5-6 s": {
+     "indexed": 49,
+     "confident": 49,
+     "possible_or_better": 49,
+     "misses": {}
+    },
+    "20 s from 6-7 s": {
+     "indexed": 53,
+     "confident": 53,
+     "possible_or_better": 53,
+     "misses": {}
+    },
+    "20 s from 7-8 s": {
+     "indexed": 67,
+     "confident": 67,
+     "possible_or_better": 67,
+     "misses": {}
+    },
+    "20 s from 8-9 s": {
+     "indexed": 41,
+     "confident": 41,
+     "possible_or_better": 41,
+     "misses": {}
+    },
+    "20 s from 9-10 s": {
+     "indexed": 56,
+     "confident": 44,
+     "possible_or_better": 56,
+     "misses": {
+      "too-few-windows": 12
+     }
+    }
+   }
+  },
+  "recall-seed-2026-damaged-brief.json": {
+   "report": "recall-seed-2026-damaged-brief.json",
+   "other_rips_only": false,
+   "query_set": "brief-damaged",
+   "indexed_assets": 40671,
+   "left_out_records": 0,
+   "all": {
+    "indexed": 1044,
+    "confident": 0,
+    "possible_or_better": 485,
+    "misses": {
+     "too-few-hits, possible": 485,
+     "too-few-hits, weak": 496,
+     "never-a-candidate": 63
+    }
+   },
+   "unobservable_queries": 0,
+   "unobservable_sources": 0,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 27,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 87,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 83,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 79,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 77,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 76,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 76,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 73,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 67,
+     "windows": 2,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 66,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 66,
+     "windows": 2,
+     "brief_seconds": 20.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 51,
+     "misses": {
+      "too-few-hits, possible": 51,
+      "too-few-hits, weak": 58,
+      "never-a-candidate": 7
+     }
+    },
+    "-5": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 49,
+     "misses": {
+      "too-few-hits, weak": 61,
+      "too-few-hits, possible": 49,
+      "never-a-candidate": 6
+     }
+    },
+    "-3": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 50,
+     "misses": {
+      "too-few-hits, weak": 59,
+      "too-few-hits, possible": 50,
+      "never-a-candidate": 7
+     }
+    },
+    "-1": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 50,
+     "misses": {
+      "too-few-hits, weak": 60,
+      "too-few-hits, possible": 50,
+      "never-a-candidate": 6
+     }
+    },
+    "+0": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 53,
+     "misses": {
+      "too-few-hits, weak": 50,
+      "too-few-hits, possible": 53,
+      "never-a-candidate": 13
+     }
+    },
+    "+1": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 61,
+     "misses": {
+      "too-few-hits, possible": 61,
+      "too-few-hits, weak": 50,
+      "never-a-candidate": 5
+     }
+    },
+    "+3": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 55,
+     "misses": {
+      "too-few-hits, weak": 56,
+      "too-few-hits, possible": 55,
+      "never-a-candidate": 5
+     }
+    },
+    "+5": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 54,
+     "misses": {
+      "too-few-hits, weak": 56,
+      "too-few-hits, possible": 54,
+      "never-a-candidate": 6
+     }
+    },
+    "+8": {
+     "indexed": 116,
+     "confident": 0,
+     "possible_or_better": 62,
+     "misses": {
+      "too-few-hits, possible": 62,
+      "too-few-hits, weak": 46,
+      "never-a-candidate": 8
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 360,
+     "confident": 0,
+     "possible_or_better": 180,
+     "misses": {
+      "too-few-hits, weak": 159,
+      "too-few-hits, possible": 180,
+      "never-a-candidate": 21
+     }
+    },
+    "scene-release": {
+     "indexed": 324,
+     "confident": 0,
+     "possible_or_better": 152,
+     "misses": {
+      "too-few-hits, possible": 152,
+      "too-few-hits, weak": 155,
+      "never-a-candidate": 17
+     }
+    },
+    "youtube-channel": {
+     "indexed": 360,
+     "confident": 0,
+     "possible_or_better": 153,
+     "misses": {
+      "never-a-candidate": 25,
+      "too-few-hits, weak": 182,
+      "too-few-hits, possible": 153
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 522,
+     "confident": 0,
+     "possible_or_better": 181,
+     "misses": {
+      "too-few-hits, possible": 181,
+      "too-few-hits, weak": 297,
+      "never-a-candidate": 44
+     }
+    },
+    "20": {
+     "indexed": 522,
+     "confident": 0,
+     "possible_or_better": 304,
+     "misses": {
+      "too-few-hits, possible": 304,
+      "too-few-hits, weak": 199,
+      "never-a-candidate": 19
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 64,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, weak": 42,
+      "never-a-candidate": 6,
+      "too-few-hits, possible": 16
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 39,
+     "confident": 0,
+     "possible_or_better": 17,
+     "misses": {
+      "too-few-hits, possible": 17,
+      "too-few-hits, weak": 21,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 49,
+     "confident": 0,
+     "possible_or_better": 21,
+     "misses": {
+      "too-few-hits, weak": 24,
+      "too-few-hits, possible": 21,
+      "never-a-candidate": 4
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 44,
+     "confident": 0,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 15,
+      "too-few-hits, weak": 25,
+      "never-a-candidate": 4
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 63,
+     "confident": 0,
+     "possible_or_better": 25,
+     "misses": {
+      "too-few-hits, weak": 30,
+      "too-few-hits, possible": 25,
+      "never-a-candidate": 8
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 53,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "too-few-hits, possible": 19,
+      "too-few-hits, weak": 31,
+      "never-a-candidate": 3
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 48,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, weak": 32,
+      "too-few-hits, possible": 16
+     }
+    },
+    "15 s from 7-8 s": {
+     "indexed": 54,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, weak": 32,
+      "never-a-candidate": 6,
+      "too-few-hits, possible": 16
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 53,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "too-few-hits, weak": 30,
+      "too-few-hits, possible": 19,
+      "never-a-candidate": 4
+     }
+    },
+    "15 s from 9-10 s": {
+     "indexed": 55,
+     "confident": 0,
+     "possible_or_better": 17,
+     "misses": {
+      "too-few-hits, weak": 30,
+      "too-few-hits, possible": 17,
+      "never-a-candidate": 8
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 46,
+     "confident": 0,
+     "possible_or_better": 25,
+     "misses": {
+      "too-few-hits, weak": 17,
+      "too-few-hits, possible": 25,
+      "never-a-candidate": 4
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 42,
+     "confident": 0,
+     "possible_or_better": 22,
+     "misses": {
+      "too-few-hits, weak": 17,
+      "never-a-candidate": 3,
+      "too-few-hits, possible": 22
+     }
+    },
+    "20 s from 2-3 s": {
+     "indexed": 61,
+     "confident": 0,
+     "possible_or_better": 35,
+     "misses": {
+      "too-few-hits, possible": 35,
+      "too-few-hits, weak": 25,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 3-4 s": {
+     "indexed": 47,
+     "confident": 0,
+     "possible_or_better": 28,
+     "misses": {
+      "too-few-hits, possible": 28,
+      "too-few-hits, weak": 18,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 4-5 s": {
+     "indexed": 60,
+     "confident": 0,
+     "possible_or_better": 36,
+     "misses": {
+      "too-few-hits, possible": 36,
+      "too-few-hits, weak": 21,
+      "never-a-candidate": 3
+     }
+    },
+    "20 s from 5-6 s": {
+     "indexed": 49,
+     "confident": 0,
+     "possible_or_better": 31,
+     "misses": {
+      "too-few-hits, possible": 31,
+      "too-few-hits, weak": 17,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 6-7 s": {
+     "indexed": 53,
+     "confident": 0,
+     "possible_or_better": 32,
+     "misses": {
+      "too-few-hits, possible": 32,
+      "too-few-hits, weak": 19,
+      "never-a-candidate": 2
+     }
+    },
+    "20 s from 7-8 s": {
+     "indexed": 67,
+     "confident": 0,
+     "possible_or_better": 39,
+     "misses": {
+      "too-few-hits, possible": 39,
+      "too-few-hits, weak": 27,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 8-9 s": {
+     "indexed": 41,
+     "confident": 0,
+     "possible_or_better": 21,
+     "misses": {
+      "too-few-hits, possible": 21,
+      "too-few-hits, weak": 19,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 9-10 s": {
+     "indexed": 56,
+     "confident": 0,
+     "possible_or_better": 35,
+     "misses": {
+      "too-few-hits, weak": 19,
+      "too-few-hits, possible": 35,
+      "never-a-candidate": 2
+     }
+    }
+   }
+  },
+  "recall-seed-2026-damaged.json": {
+   "report": "recall-seed-2026-damaged.json",
+   "other_rips_only": false,
+   "query_set": "damaged",
+   "indexed_assets": 40671,
+   "left_out_records": 0,
+   "all": {
+    "indexed": 522,
+    "confident": 4,
+    "possible_or_better": 426,
+    "misses": {
+     "too-few-hits, possible": 422,
+     "too-few-hits, weak": 87,
+     "never-a-candidate": 9
+    }
+   },
+   "unobservable_queries": 0,
+   "unobservable_sources": 0,
+   "unobservable_confident": 0,
+   "held_out_queries": 180,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 41,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 104,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 103,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 102,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 102,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 101,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 100,
+     "windows": 3
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 83,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 79,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "hits": 79,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 77,
+     "windows": 3
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 58,
+     "confident": 0,
+     "possible_or_better": 47,
+     "misses": {
+      "too-few-hits, possible": 47,
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 8
+     }
+    },
+    "-5": {
+     "indexed": 58,
+     "confident": 1,
+     "possible_or_better": 48,
+     "misses": {
+      "too-few-hits, possible": 47,
+      "too-few-hits, weak": 10
+     }
+    },
+    "-3": {
+     "indexed": 58,
+     "confident": 1,
+     "possible_or_better": 46,
+     "misses": {
+      "too-few-hits, weak": 12,
+      "too-few-hits, possible": 45
+     }
+    },
+    "-1": {
+     "indexed": 58,
+     "confident": 0,
+     "possible_or_better": 47,
+     "misses": {
+      "too-few-hits, possible": 47,
+      "too-few-hits, weak": 9,
+      "never-a-candidate": 2
+     }
+    },
+    "+0": {
+     "indexed": 58,
+     "confident": 0,
+     "possible_or_better": 48,
+     "misses": {
+      "too-few-hits, possible": 48,
+      "too-few-hits, weak": 10
+     }
+    },
+    "+1": {
+     "indexed": 58,
+     "confident": 1,
+     "possible_or_better": 48,
+     "misses": {
+      "too-few-hits, possible": 47,
+      "too-few-hits, weak": 9,
+      "never-a-candidate": 1
+     }
+    },
+    "+3": {
+     "indexed": 58,
+     "confident": 0,
+     "possible_or_better": 49,
+     "misses": {
+      "too-few-hits, possible": 49,
+      "too-few-hits, weak": 8,
+      "never-a-candidate": 1
+     }
+    },
+    "+5": {
+     "indexed": 58,
+     "confident": 1,
+     "possible_or_better": 45,
+     "misses": {
+      "too-few-hits, possible": 44,
+      "too-few-hits, weak": 12,
+      "never-a-candidate": 1
+     }
+    },
+    "+8": {
+     "indexed": 58,
+     "confident": 0,
+     "possible_or_better": 48,
+     "misses": {
+      "too-few-hits, possible": 48,
+      "too-few-hits, weak": 9,
+      "never-a-candidate": 1
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 180,
+     "confident": 0,
+     "possible_or_better": 149,
+     "misses": {
+      "too-few-hits, possible": 149,
+      "never-a-candidate": 6,
+      "too-few-hits, weak": 25
+     }
+    },
+    "scene-release": {
+     "indexed": 162,
+     "confident": 4,
+     "possible_or_better": 127,
+     "misses": {
+      "too-few-hits, possible": 123,
+      "too-few-hits, weak": 33,
+      "never-a-candidate": 2
+     }
+    },
+    "youtube-channel": {
+     "indexed": 180,
+     "confident": 0,
+     "possible_or_better": 150,
+     "misses": {
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 29,
+      "too-few-hits, possible": 150
+     }
+    }
+   },
+   "by_length": {},
+   "by_grid_phase": {}
+  },
+  "recall-seed-2026.json": {
+   "report": "recall-seed-2026.json",
+   "other_rips_only": false,
+   "query_set": "clean",
+   "indexed_assets": 40671,
+   "left_out_records": 0,
+   "all": {
+    "indexed": 522,
+    "confident": 522,
+    "possible_or_better": 522,
+    "misses": {}
+   },
+   "unobservable_queries": 0,
+   "unobservable_sources": 0,
+   "unobservable_confident": 0,
+   "held_out_queries": 180,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 70,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 184,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 184,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 181,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 181,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 179,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 174,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 120,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 118,
+     "windows": 2
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "hits": 116,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 116,
+     "windows": 3
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "-5": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "-3": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "-1": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "+0": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "+1": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "+3": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "+5": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    },
+    "+8": {
+     "indexed": 58,
+     "confident": 58,
+     "possible_or_better": 58,
+     "misses": {}
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 180,
+     "confident": 180,
+     "possible_or_better": 180,
+     "misses": {}
+    },
+    "scene-release": {
+     "indexed": 162,
+     "confident": 162,
+     "possible_or_better": 162,
+     "misses": {}
+    },
+    "youtube-channel": {
+     "indexed": 180,
+     "confident": 180,
+     "possible_or_better": 180,
+     "misses": {}
+    }
+   },
+   "by_length": {},
+   "by_grid_phase": {}
+  },
+  "recall-seed-2026-other-rips-brief.json": {
+   "report": "recall-seed-2026-other-rips-brief.json",
+   "other_rips_only": true,
+   "query_set": "brief",
+   "indexed_assets": 40608,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 360,
+    "confident": 176,
+    "possible_or_better": 356,
+    "misses": {
+     "too-few-windows": 58,
+     "too-few-hits, possible": 122,
+     "never-a-candidate": 4
+    }
+   },
+   "unobservable_queries": 684,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 107,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 146,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 125,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 121,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 120,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 120,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 118,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 114,
+     "windows": 2,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 108,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 107,
+     "windows": 3,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 103,
+     "windows": 3,
+     "brief_seconds": 20.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 40,
+     "confident": 20,
+     "possible_or_better": 38,
+     "misses": {
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 13,
+      "too-few-windows": 5
+     }
+    },
+    "-5": {
+     "indexed": 40,
+     "confident": 18,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-windows": 6,
+      "too-few-hits, possible": 16
+     }
+    },
+    "-3": {
+     "indexed": 40,
+     "confident": 20,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-windows": 7,
+      "too-few-hits, possible": 13
+     }
+    },
+    "-1": {
+     "indexed": 40,
+     "confident": 18,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-windows": 8
+     }
+    },
+    "+0": {
+     "indexed": 40,
+     "confident": 23,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-windows": 6,
+      "too-few-hits, possible": 11
+     }
+    },
+    "+1": {
+     "indexed": 40,
+     "confident": 16,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 17,
+      "too-few-windows": 7
+     }
+    },
+    "+3": {
+     "indexed": 40,
+     "confident": 20,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-windows": 6
+     }
+    },
+    "+5": {
+     "indexed": 40,
+     "confident": 18,
+     "possible_or_better": 40,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-windows": 8
+     }
+    },
+    "+8": {
+     "indexed": 40,
+     "confident": 23,
+     "possible_or_better": 38,
+     "misses": {
+      "too-few-windows": 5,
+      "too-few-hits, possible": 10,
+      "never-a-candidate": 2
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 162,
+     "confident": 69,
+     "possible_or_better": 160,
+     "misses": {
+      "too-few-hits, possible": 71,
+      "too-few-windows": 20,
+      "never-a-candidate": 2
+     }
+    },
+    "scene-release": {
+     "indexed": 126,
+     "confident": 65,
+     "possible_or_better": 124,
+     "misses": {
+      "too-few-windows": 23,
+      "too-few-hits, possible": 36,
+      "never-a-candidate": 2
+     }
+    },
+    "youtube-channel": {
+     "indexed": 72,
+     "confident": 42,
+     "possible_or_better": 72,
+     "misses": {
+      "too-few-windows": 15,
+      "too-few-hits, possible": 15
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 180,
+     "confident": 35,
+     "possible_or_better": 178,
+     "misses": {
+      "too-few-windows": 50,
+      "too-few-hits, possible": 93,
+      "never-a-candidate": 2
+     }
+    },
+    "20": {
+     "indexed": 180,
+     "confident": 141,
+     "possible_or_better": 178,
+     "misses": {
+      "too-few-windows": 8,
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 29
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 1,
+      "too-few-hits, possible": 10,
+      "too-few-windows": 9
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 11,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-windows": 5,
+      "too-few-hits, possible": 6
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 9,
+      "too-few-windows": 7
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 19,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "too-few-windows": 10,
+      "too-few-hits, possible": 9
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 0,
+     "possible_or_better": 24,
+     "misses": {
+      "too-few-windows": 11,
+      "too-few-hits, possible": 13
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 16,
+     "confident": 2,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-windows": 6,
+      "too-few-hits, possible": 8
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 18,
+     "confident": 9,
+     "possible_or_better": 18,
+     "misses": {
+      "too-few-hits, possible": 9
+     }
+    },
+    "15 s from 7-8 s": {
+     "indexed": 17,
+     "confident": 7,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 9,
+      "never-a-candidate": 1
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 23,
+     "confident": 11,
+     "possible_or_better": 23,
+     "misses": {
+      "too-few-hits, possible": 12
+     }
+    },
+    "15 s from 9-10 s": {
+     "indexed": 16,
+     "confident": 6,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 8,
+      "too-few-windows": 2
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 15,
+     "confident": 5,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-windows": 7,
+      "too-few-hits, possible": 3
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 8,
+     "confident": 6,
+     "possible_or_better": 8,
+     "misses": {
+      "too-few-hits, possible": 2
+     }
+    },
+    "20 s from 2-3 s": {
+     "indexed": 25,
+     "confident": 23,
+     "possible_or_better": 25,
+     "misses": {
+      "too-few-hits, possible": 2
+     }
+    },
+    "20 s from 3-4 s": {
+     "indexed": 13,
+     "confident": 11,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 2
+     }
+    },
+    "20 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 21,
+     "possible_or_better": 24,
+     "misses": {
+      "too-few-hits, possible": 3
+     }
+    },
+    "20 s from 5-6 s": {
+     "indexed": 15,
+     "confident": 10,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 5
+     }
+    },
+    "20 s from 6-7 s": {
+     "indexed": 23,
+     "confident": 17,
+     "possible_or_better": 23,
+     "misses": {
+      "too-few-hits, possible": 6
+     }
+    },
+    "20 s from 7-8 s": {
+     "indexed": 25,
+     "confident": 22,
+     "possible_or_better": 25,
+     "misses": {
+      "too-few-hits, possible": 3
+     }
+    },
+    "20 s from 8-9 s": {
+     "indexed": 14,
+     "confident": 13,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 1
+     }
+    },
+    "20 s from 9-10 s": {
+     "indexed": 18,
+     "confident": 13,
+     "possible_or_better": 16,
+     "misses": {
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 2,
+      "too-few-windows": 1
+     }
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-damaged-brief.json": {
+   "report": "recall-seed-2026-other-rips-damaged-brief.json",
+   "other_rips_only": true,
+   "query_set": "brief-damaged",
+   "indexed_assets": 40608,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 360,
+    "confident": 0,
+    "possible_or_better": 107,
+    "misses": {
+     "too-few-hits, possible": 107,
+     "too-few-hits, weak": 221,
+     "never-a-candidate": 32
+    }
+   },
+   "unobservable_queries": 684,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 360,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 26,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 87,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 83,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 79,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 77,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 76,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 76,
+     "windows": 2,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 73,
+     "windows": 3,
+     "brief_seconds": 20.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 71,
+     "windows": 2,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 67,
+     "windows": 2,
+     "brief_seconds": 15.0
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 66,
+     "windows": 3,
+     "brief_seconds": 20.0
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-hits, possible": 10,
+      "never-a-candidate": 8,
+      "too-few-hits, weak": 22
+     }
+    },
+    "-5": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, weak": 28,
+      "too-few-hits, possible": 11,
+      "never-a-candidate": 1
+     }
+    },
+    "-3": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 13,
+      "too-few-hits, weak": 23,
+      "never-a-candidate": 4
+     }
+    },
+    "-1": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 10,
+     "misses": {
+      "too-few-hits, possible": 10,
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 27
+     }
+    },
+    "+0": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 13,
+      "too-few-hits, weak": 22,
+      "never-a-candidate": 5
+     }
+    },
+    "+1": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "too-few-hits, weak": 27,
+      "never-a-candidate": 2
+     }
+    },
+    "+3": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 13,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 25
+     }
+    },
+    "+5": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 12,
+     "misses": {
+      "too-few-hits, possible": 12,
+      "too-few-hits, weak": 25,
+      "never-a-candidate": 3
+     }
+    },
+    "+8": {
+     "indexed": 40,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 22
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 162,
+     "confident": 0,
+     "possible_or_better": 36,
+     "misses": {
+      "too-few-hits, weak": 111,
+      "too-few-hits, possible": 36,
+      "never-a-candidate": 15
+     }
+    },
+    "scene-release": {
+     "indexed": 126,
+     "confident": 0,
+     "possible_or_better": 52,
+     "misses": {
+      "too-few-hits, possible": 52,
+      "too-few-hits, weak": 65,
+      "never-a-candidate": 9
+     }
+    },
+    "youtube-channel": {
+     "indexed": 72,
+     "confident": 0,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 8,
+      "too-few-hits, weak": 45,
+      "too-few-hits, possible": 19
+     }
+    }
+   },
+   "by_length": {
+    "15": {
+     "indexed": 180,
+     "confident": 0,
+     "possible_or_better": 36,
+     "misses": {
+      "too-few-hits, possible": 36,
+      "too-few-hits, weak": 122,
+      "never-a-candidate": 22
+     }
+    },
+    "20": {
+     "indexed": 180,
+     "confident": 0,
+     "possible_or_better": 71,
+     "misses": {
+      "too-few-hits, possible": 71,
+      "never-a-candidate": 10,
+      "too-few-hits, weak": 99
+     }
+    }
+   },
+   "by_grid_phase": {
+    "15 s from 0-1 s": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 3,
+     "misses": {
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 13,
+      "too-few-hits, possible": 3
+     }
+    },
+    "15 s from 1-2 s": {
+     "indexed": 11,
+     "confident": 0,
+     "possible_or_better": 2,
+     "misses": {
+      "too-few-hits, weak": 9,
+      "too-few-hits, possible": 2
+     }
+    },
+    "15 s from 2-3 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, possible": 4,
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 8
+     }
+    },
+    "15 s from 3-4 s": {
+     "indexed": 19,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, possible": 4,
+      "too-few-hits, weak": 13,
+      "never-a-candidate": 2
+     }
+    },
+    "15 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, weak": 18,
+      "too-few-hits, possible": 4,
+      "never-a-candidate": 2
+     }
+    },
+    "15 s from 5-6 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 6,
+     "misses": {
+      "too-few-hits, possible": 6,
+      "too-few-hits, weak": 10
+     }
+    },
+    "15 s from 6-7 s": {
+     "indexed": 18,
+     "confident": 0,
+     "possible_or_better": 2,
+     "misses": {
+      "too-few-hits, possible": 2,
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 13
+     }
+    },
+    "15 s from 7-8 s": {
+     "indexed": 17,
+     "confident": 0,
+     "possible_or_better": 2,
+     "misses": {
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 11,
+      "too-few-hits, possible": 2
+     }
+    },
+    "15 s from 8-9 s": {
+     "indexed": 23,
+     "confident": 0,
+     "possible_or_better": 5,
+     "misses": {
+      "too-few-hits, possible": 5,
+      "too-few-hits, weak": 18
+     }
+    },
+    "15 s from 9-10 s": {
+     "indexed": 16,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, possible": 4,
+      "too-few-hits, weak": 9,
+      "never-a-candidate": 3
+     }
+    },
+    "20 s from 0-1 s": {
+     "indexed": 15,
+     "confident": 0,
+     "possible_or_better": 3,
+     "misses": {
+      "too-few-hits, possible": 3,
+      "too-few-hits, weak": 10,
+      "never-a-candidate": 2
+     }
+    },
+    "20 s from 1-2 s": {
+     "indexed": 8,
+     "confident": 0,
+     "possible_or_better": 1,
+     "misses": {
+      "too-few-hits, weak": 7,
+      "too-few-hits, possible": 1
+     }
+    },
+    "20 s from 2-3 s": {
+     "indexed": 25,
+     "confident": 0,
+     "possible_or_better": 8,
+     "misses": {
+      "too-few-hits, possible": 8,
+      "too-few-hits, weak": 17
+     }
+    },
+    "20 s from 3-4 s": {
+     "indexed": 13,
+     "confident": 0,
+     "possible_or_better": 6,
+     "misses": {
+      "too-few-hits, weak": 7,
+      "too-few-hits, possible": 6
+     }
+    },
+    "20 s from 4-5 s": {
+     "indexed": 24,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "too-few-hits, weak": 12,
+      "never-a-candidate": 1
+     }
+    },
+    "20 s from 5-6 s": {
+     "indexed": 15,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, weak": 9,
+      "too-few-hits, possible": 4,
+      "never-a-candidate": 2
+     }
+    },
+    "20 s from 6-7 s": {
+     "indexed": 23,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 11
+     }
+    },
+    "20 s from 7-8 s": {
+     "indexed": 25,
+     "confident": 0,
+     "possible_or_better": 12,
+     "misses": {
+      "too-few-hits, possible": 12,
+      "too-few-hits, weak": 13
+     }
+    },
+    "20 s from 8-9 s": {
+     "indexed": 14,
+     "confident": 0,
+     "possible_or_better": 4,
+     "misses": {
+      "too-few-hits, weak": 10,
+      "too-few-hits, possible": 4
+     }
+    },
+    "20 s from 9-10 s": {
+     "indexed": 18,
+     "confident": 0,
+     "possible_or_better": 11,
+     "misses": {
+      "too-few-hits, possible": 11,
+      "never-a-candidate": 4,
+      "too-few-hits, weak": 3
+     }
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-damaged.json": {
+   "report": "recall-seed-2026-other-rips-damaged.json",
+   "other_rips_only": true,
+   "query_set": "damaged",
+   "indexed_assets": 40608,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 180,
+    "confident": 0,
+    "possible_or_better": 127,
+    "misses": {
+     "too-few-hits, possible": 127,
+     "never-a-candidate": 6,
+     "too-few-hits, weak": 47
+    }
+   },
+   "unobservable_queries": 342,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 180,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 43,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 104,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 103,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 102,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 102,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 101,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 100,
+     "windows": 3
+    },
+    {
+     "query": "Eddy Woo - Tsunami (Remix).m4a",
+     "speed_percent": 0.0,
+     "held_out": true,
+     "unobservable": false,
+     "found": "Eddy Woo - Tsunami.m4a",
+     "hits": 83,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 79,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "hits": 79,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 77,
+     "windows": 3
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 12,
+     "misses": {
+      "too-few-hits, possible": 12,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 6
+     }
+    },
+    "-5": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-hits, weak": 6
+     }
+    },
+    "-3": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 15,
+      "too-few-hits, weak": 5
+     }
+    },
+    "-1": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 14,
+     "misses": {
+      "too-few-hits, possible": 14,
+      "too-few-hits, weak": 6
+     }
+    },
+    "+0": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 13,
+      "too-few-hits, weak": 7
+     }
+    },
+    "+1": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 15,
+      "too-few-hits, weak": 5
+     }
+    },
+    "+3": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 15,
+     "misses": {
+      "too-few-hits, possible": 15,
+      "never-a-candidate": 1,
+      "too-few-hits, weak": 4
+     }
+    },
+    "+5": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 16,
+     "misses": {
+      "too-few-hits, possible": 16,
+      "too-few-hits, weak": 3,
+      "never-a-candidate": 1
+     }
+    },
+    "+8": {
+     "indexed": 20,
+     "confident": 0,
+     "possible_or_better": 13,
+     "misses": {
+      "too-few-hits, possible": 13,
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 5
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 81,
+     "confident": 0,
+     "possible_or_better": 62,
+     "misses": {
+      "too-few-hits, possible": 62,
+      "too-few-hits, weak": 18,
+      "never-a-candidate": 1
+     }
+    },
+    "scene-release": {
+     "indexed": 63,
+     "confident": 0,
+     "possible_or_better": 45,
+     "misses": {
+      "too-few-hits, possible": 45,
+      "never-a-candidate": 3,
+      "too-few-hits, weak": 15
+     }
+    },
+    "youtube-channel": {
+     "indexed": 36,
+     "confident": 0,
+     "possible_or_better": 20,
+     "misses": {
+      "never-a-candidate": 2,
+      "too-few-hits, weak": 14,
+      "too-few-hits, possible": 20
+     }
+    }
+   },
+   "by_length": {},
+   "by_grid_phase": {}
+  },
+  "recall-seed-2026-other-rips.json": {
+   "report": "recall-seed-2026-other-rips.json",
+   "other_rips_only": true,
+   "query_set": "clean",
+   "indexed_assets": 40608,
+   "left_out_records": 63,
+   "all": {
+    "indexed": 180,
+    "confident": 175,
+    "possible_or_better": 178,
+    "misses": {
+     "never-a-candidate": 2,
+     "too-few-hits, possible": 3
+    }
+   },
+   "unobservable_queries": 342,
+   "unobservable_sources": 38,
+   "unobservable_confident": 0,
+   "held_out_queries": 180,
+   "held_out_confident": 0,
+   "wrong_confident": [],
+   "wrong_possible_count": 70,
+   "wrong_possible_over_200": [],
+   "strongest_wrong_possible": [
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 184,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 184,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 181,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -1.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 181,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 179,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -5.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+     "hits": 174,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3",
+     "hits": 120,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": 0.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+     "hits": 118,
+     "windows": 2
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -8.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+     "hits": 116,
+     "windows": 3
+    },
+    {
+     "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+     "speed_percent": -3.0,
+     "held_out": false,
+     "unobservable": false,
+     "found": "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "hits": 116,
+     "windows": 3
+    }
+   ],
+   "by_speed": {
+    "-8": {
+     "indexed": 20,
+     "confident": 18,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 1,
+      "too-few-hits, possible": 1
+     }
+    },
+    "-5": {
+     "indexed": 20,
+     "confident": 19,
+     "possible_or_better": 20,
+     "misses": {
+      "too-few-hits, possible": 1
+     }
+    },
+    "-3": {
+     "indexed": 20,
+     "confident": 20,
+     "possible_or_better": 20,
+     "misses": {}
+    },
+    "-1": {
+     "indexed": 20,
+     "confident": 20,
+     "possible_or_better": 20,
+     "misses": {}
+    },
+    "+0": {
+     "indexed": 20,
+     "confident": 19,
+     "possible_or_better": 20,
+     "misses": {
+      "too-few-hits, possible": 1
+     }
+    },
+    "+1": {
+     "indexed": 20,
+     "confident": 20,
+     "possible_or_better": 20,
+     "misses": {}
+    },
+    "+3": {
+     "indexed": 20,
+     "confident": 20,
+     "possible_or_better": 20,
+     "misses": {}
+    },
+    "+5": {
+     "indexed": 20,
+     "confident": 20,
+     "possible_or_better": 20,
+     "misses": {}
+    },
+    "+8": {
+     "indexed": 20,
+     "confident": 19,
+     "possible_or_better": 19,
+     "misses": {
+      "never-a-candidate": 1
+     }
+    }
+   },
+   "by_kind": {
+    "elsewhere": {
+     "indexed": 81,
+     "confident": 77,
+     "possible_or_better": 80,
+     "misses": {
+      "too-few-hits, possible": 3,
+      "never-a-candidate": 1
+     }
+    },
+    "scene-release": {
+     "indexed": 63,
+     "confident": 62,
+     "possible_or_better": 62,
+     "misses": {
+      "never-a-candidate": 1
+     }
+    },
+    "youtube-channel": {
+     "indexed": 36,
+     "confident": 36,
+     "possible_or_better": 36,
+     "misses": {}
+    }
+   },
+   "by_length": {},
+   "by_grid_phase": {}
+  }
+ },
+ "against_0144_0145": {
+  "recall-seed-2026-brief.json": {
+   "all": {
+    "mac": [
+     1044,
+     721,
+     1044,
+     {
+      "too-few-windows": 320,
+      "too-few-hits, possible": 3
+     }
+    ],
+    "here": [
+     1044,
+     721,
+     1044,
+     {
+      "too-few-windows": 320,
+      "too-few-hits, possible": 3
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40114,
+     40671
+    ],
+    "left_out_records": [
+     0,
+     0
+    ],
+    "unobservable_queries": [
+     0,
+     0
+    ],
+    "unobservable_sources": [
+     0,
+     0
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     360,
+     360
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     112,
+     107
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 146,
+      "windows": 2,
+      "brief_seconds": 20.0
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 146,
+      "windows": 2,
+      "brief_seconds": 20.0
+     }
+    ]
+   ],
+   "cells_differing": {
+    "by_speed +5": {
+     "mac": [
+      116,
+      76,
+      116,
+      {
+       "too-few-windows": 39,
+       "too-few-hits, possible": 1
+      }
+     ],
+     "here": [
+      116,
+      77,
+      116,
+      {
+       "too-few-windows": 39
+      }
+     ]
+    },
+    "by_speed -3": {
+     "mac": [
+      116,
+      70,
+      116,
+      {
+       "too-few-windows": 46
+      }
+     ],
+     "here": [
+      116,
+      71,
+      116,
+      {
+       "too-few-windows": 45
+      }
+     ]
+    },
+    "by_speed -5": {
+     "mac": [
+      116,
+      82,
+      116,
+      {
+       "too-few-windows": 34
+      }
+     ],
+     "here": [
+      116,
+      81,
+      116,
+      {
+       "too-few-windows": 34,
+       "too-few-hits, possible": 1
+      }
+     ]
+    },
+    "by_speed -8": {
+     "mac": [
+      116,
+      88,
+      116,
+      {
+       "too-few-windows": 28
+      }
+     ],
+     "here": [
+      116,
+      87,
+      116,
+      {
+       "too-few-windows": 29
+      }
+     ]
+    },
+    "by_kind scene-release": {
+     "mac": [
+      324,
+      225,
+      324,
+      {
+       "too-few-windows": 99
+      }
+     ],
+     "here": [
+      324,
+      226,
+      324,
+      {
+       "too-few-windows": 98
+      }
+     ]
+    },
+    "by_kind youtube-channel": {
+     "mac": [
+      360,
+      252,
+      360,
+      {
+       "too-few-windows": 108
+      }
+     ],
+     "here": [
+      360,
+      251,
+      360,
+      {
+       "too-few-windows": 109
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 5-6 s": {
+     "mac": [
+      53,
+      29,
+      53,
+      {
+       "too-few-windows": 24
+      }
+     ],
+     "here": [
+      53,
+      28,
+      53,
+      {
+       "too-few-windows": 25
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 9-10 s": {
+     "mac": [
+      55,
+      45,
+      55,
+      {
+       "too-few-windows": 9,
+       "too-few-hits, possible": 1
+      }
+     ],
+     "here": [
+      55,
+      46,
+      55,
+      {
+       "too-few-windows": 8,
+       "too-few-hits, possible": 1
+      }
+     ]
+    }
+   }
+  },
+  "recall-seed-2026-damaged-brief.json": {
+   "all": {
+    "mac": [
+     1044,
+     0,
+     490,
+     {
+      "too-few-hits, weak": 494,
+      "too-few-hits, possible": 490,
+      "never-a-candidate": 60
+     }
+    ],
+    "here": [
+     1044,
+     0,
+     485,
+     {
+      "too-few-hits, possible": 485,
+      "too-few-hits, weak": 496,
+      "never-a-candidate": 63
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40114,
+     40671
+    ],
+    "left_out_records": [
+     0,
+     0
+    ],
+    "unobservable_queries": [
+     0,
+     0
+    ],
+    "unobservable_sources": [
+     0,
+     0
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     360,
+     360
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     27,
+     27
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": -1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 83,
+      "windows": 3,
+      "brief_seconds": 20.0
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": -3.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 87,
+      "windows": 3,
+      "brief_seconds": 20.0
+     }
+    ]
+   ],
+   "cells_differing": {
+    "by_speed +0": {
+     "mac": [
+      116,
+      0,
+      57,
+      {
+       "too-few-hits, possible": 57,
+       "too-few-hits, weak": 52,
+       "never-a-candidate": 7
+      }
+     ],
+     "here": [
+      116,
+      0,
+      53,
+      {
+       "too-few-hits, weak": 50,
+       "too-few-hits, possible": 53,
+       "never-a-candidate": 13
+      }
+     ]
+    },
+    "by_speed +1": {
+     "mac": [
+      116,
+      0,
+      54,
+      {
+       "too-few-hits, weak": 56,
+       "too-few-hits, possible": 54,
+       "never-a-candidate": 6
+      }
+     ],
+     "here": [
+      116,
+      0,
+      61,
+      {
+       "too-few-hits, possible": 61,
+       "too-few-hits, weak": 50,
+       "never-a-candidate": 5
+      }
+     ]
+    },
+    "by_speed +3": {
+     "mac": [
+      116,
+      0,
+      52,
+      {
+       "too-few-hits, weak": 58,
+       "too-few-hits, possible": 52,
+       "never-a-candidate": 6
+      }
+     ],
+     "here": [
+      116,
+      0,
+      55,
+      {
+       "too-few-hits, weak": 56,
+       "too-few-hits, possible": 55,
+       "never-a-candidate": 5
+      }
+     ]
+    },
+    "by_speed +5": {
+     "mac": [
+      116,
+      0,
+      58,
+      {
+       "too-few-hits, possible": 58,
+       "too-few-hits, weak": 52,
+       "never-a-candidate": 6
+      }
+     ],
+     "here": [
+      116,
+      0,
+      54,
+      {
+       "too-few-hits, weak": 56,
+       "too-few-hits, possible": 54,
+       "never-a-candidate": 6
+      }
+     ]
+    },
+    "by_speed +8": {
+     "mac": [
+      116,
+      0,
+      63,
+      {
+       "too-few-hits, possible": 63,
+       "too-few-hits, weak": 48,
+       "never-a-candidate": 5
+      }
+     ],
+     "here": [
+      116,
+      0,
+      62,
+      {
+       "too-few-hits, possible": 62,
+       "too-few-hits, weak": 46,
+       "never-a-candidate": 8
+      }
+     ]
+    },
+    "by_speed -1": {
+     "mac": [
+      116,
+      0,
+      58,
+      {
+       "too-few-hits, weak": 51,
+       "too-few-hits, possible": 58,
+       "never-a-candidate": 7
+      }
+     ],
+     "here": [
+      116,
+      0,
+      50,
+      {
+       "too-few-hits, weak": 60,
+       "too-few-hits, possible": 50,
+       "never-a-candidate": 6
+      }
+     ]
+    },
+    "by_speed -3": {
+     "mac": [
+      116,
+      0,
+      49,
+      {
+       "too-few-hits, weak": 56,
+       "too-few-hits, possible": 49,
+       "never-a-candidate": 11
+      }
+     ],
+     "here": [
+      116,
+      0,
+      50,
+      {
+       "too-few-hits, weak": 59,
+       "too-few-hits, possible": 50,
+       "never-a-candidate": 7
+      }
+     ]
+    },
+    "by_speed -5": {
+     "mac": [
+      116,
+      0,
+      50,
+      {
+       "too-few-hits, possible": 50,
+       "too-few-hits, weak": 62,
+       "never-a-candidate": 4
+      }
+     ],
+     "here": [
+      116,
+      0,
+      49,
+      {
+       "too-few-hits, weak": 61,
+       "too-few-hits, possible": 49,
+       "never-a-candidate": 6
+      }
+     ]
+    },
+    "by_speed -8": {
+     "mac": [
+      116,
+      0,
+      49,
+      {
+       "too-few-hits, weak": 59,
+       "too-few-hits, possible": 49,
+       "never-a-candidate": 8
+      }
+     ],
+     "here": [
+      116,
+      0,
+      51,
+      {
+       "too-few-hits, possible": 51,
+       "too-few-hits, weak": 58,
+       "never-a-candidate": 7
+      }
+     ]
+    },
+    "by_kind elsewhere": {
+     "mac": [
+      360,
+      0,
+      181,
+      {
+       "too-few-hits, weak": 164,
+       "too-few-hits, possible": 181,
+       "never-a-candidate": 15
+      }
+     ],
+     "here": [
+      360,
+      0,
+      180,
+      {
+       "too-few-hits, weak": 159,
+       "too-few-hits, possible": 180,
+       "never-a-candidate": 21
+      }
+     ]
+    },
+    "by_kind scene-release": {
+     "mac": [
+      324,
+      0,
+      152,
+      {
+       "too-few-hits, weak": 148,
+       "too-few-hits, possible": 152,
+       "never-a-candidate": 24
+      }
+     ],
+     "here": [
+      324,
+      0,
+      152,
+      {
+       "too-few-hits, possible": 152,
+       "too-few-hits, weak": 155,
+       "never-a-candidate": 17
+      }
+     ]
+    },
+    "by_kind youtube-channel": {
+     "mac": [
+      360,
+      0,
+      157,
+      {
+       "never-a-candidate": 21,
+       "too-few-hits, weak": 182,
+       "too-few-hits, possible": 157
+      }
+     ],
+     "here": [
+      360,
+      0,
+      153,
+      {
+       "never-a-candidate": 25,
+       "too-few-hits, weak": 182,
+       "too-few-hits, possible": 153
+      }
+     ]
+    },
+    "by_length 15": {
+     "mac": [
+      522,
+      0,
+      184,
+      {
+       "too-few-hits, weak": 292,
+       "too-few-hits, possible": 184,
+       "never-a-candidate": 46
+      }
+     ],
+     "here": [
+      522,
+      0,
+      181,
+      {
+       "too-few-hits, possible": 181,
+       "too-few-hits, weak": 297,
+       "never-a-candidate": 44
+      }
+     ]
+    },
+    "by_length 20": {
+     "mac": [
+      522,
+      0,
+      306,
+      {
+       "too-few-hits, possible": 306,
+       "too-few-hits, weak": 202,
+       "never-a-candidate": 14
+      }
+     ],
+     "here": [
+      522,
+      0,
+      304,
+      {
+       "too-few-hits, possible": 304,
+       "too-few-hits, weak": 199,
+       "never-a-candidate": 19
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 0-1 s": {
+     "mac": [
+      64,
+      0,
+      16,
+      {
+       "too-few-hits, weak": 41,
+       "never-a-candidate": 7,
+       "too-few-hits, possible": 16
+      }
+     ],
+     "here": [
+      64,
+      0,
+      16,
+      {
+       "too-few-hits, weak": 42,
+       "never-a-candidate": 6,
+       "too-few-hits, possible": 16
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 1-2 s": {
+     "mac": [
+      39,
+      0,
+      15,
+      {
+       "too-few-hits, weak": 23,
+       "too-few-hits, possible": 15,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      39,
+      0,
+      17,
+      {
+       "too-few-hits, possible": 17,
+       "too-few-hits, weak": 21,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 2-3 s": {
+     "mac": [
+      49,
+      0,
+      20,
+      {
+       "too-few-hits, weak": 23,
+       "too-few-hits, possible": 20,
+       "never-a-candidate": 6
+      }
+     ],
+     "here": [
+      49,
+      0,
+      21,
+      {
+       "too-few-hits, weak": 24,
+       "too-few-hits, possible": 21,
+       "never-a-candidate": 4
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 3-4 s": {
+     "mac": [
+      44,
+      0,
+      17,
+      {
+       "too-few-hits, possible": 17,
+       "too-few-hits, weak": 23,
+       "never-a-candidate": 4
+      }
+     ],
+     "here": [
+      44,
+      0,
+      15,
+      {
+       "too-few-hits, possible": 15,
+       "too-few-hits, weak": 25,
+       "never-a-candidate": 4
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 4-5 s": {
+     "mac": [
+      63,
+      0,
+      22,
+      {
+       "too-few-hits, weak": 34,
+       "never-a-candidate": 7,
+       "too-few-hits, possible": 22
+      }
+     ],
+     "here": [
+      63,
+      0,
+      25,
+      {
+       "too-few-hits, weak": 30,
+       "too-few-hits, possible": 25,
+       "never-a-candidate": 8
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 6-7 s": {
+     "mac": [
+      48,
+      0,
+      17,
+      {
+       "too-few-hits, possible": 17,
+       "too-few-hits, weak": 29,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      48,
+      0,
+      16,
+      {
+       "too-few-hits, weak": 32,
+       "too-few-hits, possible": 16
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 8-9 s": {
+     "mac": [
+      53,
+      0,
+      24,
+      {
+       "too-few-hits, weak": 26,
+       "too-few-hits, possible": 24,
+       "never-a-candidate": 3
+      }
+     ],
+     "here": [
+      53,
+      0,
+      19,
+      {
+       "too-few-hits, weak": 30,
+       "too-few-hits, possible": 19,
+       "never-a-candidate": 4
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 9-10 s": {
+     "mac": [
+      55,
+      0,
+      18,
+      {
+       "too-few-hits, possible": 18,
+       "too-few-hits, weak": 30,
+       "never-a-candidate": 7
+      }
+     ],
+     "here": [
+      55,
+      0,
+      17,
+      {
+       "too-few-hits, weak": 30,
+       "too-few-hits, possible": 17,
+       "never-a-candidate": 8
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 0-1 s": {
+     "mac": [
+      46,
+      0,
+      27,
+      {
+       "too-few-hits, weak": 17,
+       "too-few-hits, possible": 27,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      46,
+      0,
+      25,
+      {
+       "too-few-hits, weak": 17,
+       "too-few-hits, possible": 25,
+       "never-a-candidate": 4
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 1-2 s": {
+     "mac": [
+      42,
+      0,
+      23,
+      {
+       "too-few-hits, weak": 16,
+       "too-few-hits, possible": 23,
+       "never-a-candidate": 3
+      }
+     ],
+     "here": [
+      42,
+      0,
+      22,
+      {
+       "too-few-hits, weak": 17,
+       "never-a-candidate": 3,
+       "too-few-hits, possible": 22
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 2-3 s": {
+     "mac": [
+      61,
+      0,
+      33,
+      {
+       "too-few-hits, possible": 33,
+       "too-few-hits, weak": 26,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      61,
+      0,
+      35,
+      {
+       "too-few-hits, possible": 35,
+       "too-few-hits, weak": 25,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 3-4 s": {
+     "mac": [
+      47,
+      0,
+      29,
+      {
+       "too-few-hits, weak": 16,
+       "never-a-candidate": 2,
+       "too-few-hits, possible": 29
+      }
+     ],
+     "here": [
+      47,
+      0,
+      28,
+      {
+       "too-few-hits, possible": 28,
+       "too-few-hits, weak": 18,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 4-5 s": {
+     "mac": [
+      60,
+      0,
+      35,
+      {
+       "too-few-hits, possible": 35,
+       "too-few-hits, weak": 24,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      60,
+      0,
+      36,
+      {
+       "too-few-hits, possible": 36,
+       "too-few-hits, weak": 21,
+       "never-a-candidate": 3
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 5-6 s": {
+     "mac": [
+      49,
+      0,
+      33,
+      {
+       "too-few-hits, possible": 33,
+       "too-few-hits, weak": 15,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      49,
+      0,
+      31,
+      {
+       "too-few-hits, possible": 31,
+       "too-few-hits, weak": 17,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 6-7 s": {
+     "mac": [
+      53,
+      0,
+      30,
+      {
+       "too-few-hits, possible": 30,
+       "too-few-hits, weak": 22,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      53,
+      0,
+      32,
+      {
+       "too-few-hits, possible": 32,
+       "too-few-hits, weak": 19,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 7-8 s": {
+     "mac": [
+      67,
+      0,
+      41,
+      {
+       "too-few-hits, possible": 41,
+       "too-few-hits, weak": 26
+      }
+     ],
+     "here": [
+      67,
+      0,
+      39,
+      {
+       "too-few-hits, possible": 39,
+       "too-few-hits, weak": 27,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 9-10 s": {
+     "mac": [
+      56,
+      0,
+      34,
+      {
+       "too-few-hits, weak": 21,
+       "too-few-hits, possible": 34,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      56,
+      0,
+      35,
+      {
+       "too-few-hits, weak": 19,
+       "too-few-hits, possible": 35,
+       "never-a-candidate": 2
+      }
+     ]
+    }
+   }
+  },
+  "recall-seed-2026-damaged.json": {
+   "all": {
+    "mac": [
+     522,
+     5,
+     428,
+     {
+      "too-few-hits, possible": 423,
+      "never-a-candidate": 6,
+      "too-few-hits, weak": 88
+     }
+    ],
+    "here": [
+     522,
+     4,
+     426,
+     {
+      "too-few-hits, possible": 422,
+      "too-few-hits, weak": 87,
+      "never-a-candidate": 9
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40114,
+     40671
+    ],
+    "left_out_records": [
+     0,
+     0
+    ],
+    "unobservable_queries": [
+     0,
+     0
+    ],
+    "unobservable_sources": [
+     0,
+     0
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     180,
+     180
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     38,
+     41
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 109,
+      "windows": 3
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": -5.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 104,
+      "windows": 3
+     }
+    ]
+   ],
+   "cells_differing": {
+    "by_speed +0": {
+     "mac": [
+      58,
+      1,
+      49,
+      {
+       "too-few-hits, possible": 48,
+       "too-few-hits, weak": 9
+      }
+     ],
+     "here": [
+      58,
+      0,
+      48,
+      {
+       "too-few-hits, possible": 48,
+       "too-few-hits, weak": 10
+      }
+     ]
+    },
+    "by_speed +3": {
+     "mac": [
+      58,
+      0,
+      47,
+      {
+       "too-few-hits, possible": 47,
+       "too-few-hits, weak": 11
+      }
+     ],
+     "here": [
+      58,
+      0,
+      49,
+      {
+       "too-few-hits, possible": 49,
+       "too-few-hits, weak": 8,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_speed +5": {
+     "mac": [
+      58,
+      1,
+      47,
+      {
+       "too-few-hits, possible": 46,
+       "too-few-hits, weak": 10,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      58,
+      1,
+      45,
+      {
+       "too-few-hits, possible": 44,
+       "too-few-hits, weak": 12,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_speed +8": {
+     "mac": [
+      58,
+      0,
+      47,
+      {
+       "too-few-hits, possible": 47,
+       "too-few-hits, weak": 10,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      58,
+      0,
+      48,
+      {
+       "too-few-hits, possible": 48,
+       "too-few-hits, weak": 9,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_speed -1": {
+     "mac": [
+      58,
+      0,
+      47,
+      {
+       "too-few-hits, possible": 47,
+       "too-few-hits, weak": 10,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      58,
+      0,
+      47,
+      {
+       "too-few-hits, possible": 47,
+       "too-few-hits, weak": 9,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_speed -3": {
+     "mac": [
+      58,
+      0,
+      48,
+      {
+       "too-few-hits, possible": 48,
+       "too-few-hits, weak": 10
+      }
+     ],
+     "here": [
+      58,
+      1,
+      46,
+      {
+       "too-few-hits, weak": 12,
+       "too-few-hits, possible": 45
+      }
+     ]
+    },
+    "by_speed -5": {
+     "mac": [
+      58,
+      1,
+      47,
+      {
+       "too-few-hits, possible": 46,
+       "too-few-hits, weak": 11
+      }
+     ],
+     "here": [
+      58,
+      1,
+      48,
+      {
+       "too-few-hits, possible": 47,
+       "too-few-hits, weak": 10
+      }
+     ]
+    },
+    "by_speed -8": {
+     "mac": [
+      58,
+      1,
+      48,
+      {
+       "too-few-hits, possible": 47,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 8
+      }
+     ],
+     "here": [
+      58,
+      0,
+      47,
+      {
+       "too-few-hits, possible": 47,
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 8
+      }
+     ]
+    },
+    "by_kind elsewhere": {
+     "mac": [
+      180,
+      0,
+      150,
+      {
+       "too-few-hits, possible": 150,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 26
+      }
+     ],
+     "here": [
+      180,
+      0,
+      149,
+      {
+       "too-few-hits, possible": 149,
+       "never-a-candidate": 6,
+       "too-few-hits, weak": 25
+      }
+     ]
+    },
+    "by_kind scene-release": {
+     "mac": [
+      162,
+      5,
+      127,
+      {
+       "too-few-hits, possible": 122,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 33
+      }
+     ],
+     "here": [
+      162,
+      4,
+      127,
+      {
+       "too-few-hits, possible": 123,
+       "too-few-hits, weak": 33,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_kind youtube-channel": {
+     "mac": [
+      180,
+      0,
+      151,
+      {
+       "too-few-hits, possible": 151,
+       "too-few-hits, weak": 29
+      }
+     ],
+     "here": [
+      180,
+      0,
+      150,
+      {
+       "never-a-candidate": 1,
+       "too-few-hits, weak": 29,
+       "too-few-hits, possible": 150
+      }
+     ]
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-brief.json": {
+   "all": {
+    "mac": [
+     360,
+     178,
+     355,
+     {
+      "too-few-windows": 57,
+      "too-few-hits, possible": 120,
+      "never-a-candidate": 5
+     }
+    ],
+    "here": [
+     360,
+     176,
+     356,
+     {
+      "too-few-windows": 58,
+      "too-few-hits, possible": 122,
+      "never-a-candidate": 4
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40051,
+     40608
+    ],
+    "left_out_records": [
+     63,
+     63
+    ],
+    "unobservable_queries": [
+     684,
+     684
+    ],
+    "unobservable_sources": [
+     38,
+     38
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     360,
+     360
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     112,
+     107
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 146,
+      "windows": 2,
+      "brief_seconds": 20.0
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 146,
+      "windows": 2,
+      "brief_seconds": 20.0
+     }
+    ]
+   ],
+   "cells_differing": {
+    "by_speed +0": {
+     "mac": [
+      40,
+      24,
+      40,
+      {
+       "too-few-windows": 7,
+       "too-few-hits, possible": 9
+      }
+     ],
+     "here": [
+      40,
+      23,
+      40,
+      {
+       "too-few-windows": 6,
+       "too-few-hits, possible": 11
+      }
+     ]
+    },
+    "by_speed +1": {
+     "mac": [
+      40,
+      16,
+      40,
+      {
+       "too-few-hits, possible": 18,
+       "too-few-windows": 6
+      }
+     ],
+     "here": [
+      40,
+      16,
+      40,
+      {
+       "too-few-hits, possible": 17,
+       "too-few-windows": 7
+      }
+     ]
+    },
+    "by_speed +3": {
+     "mac": [
+      40,
+      19,
+      40,
+      {
+       "too-few-hits, possible": 15,
+       "too-few-windows": 6
+      }
+     ],
+     "here": [
+      40,
+      20,
+      40,
+      {
+       "too-few-hits, possible": 14,
+       "too-few-windows": 6
+      }
+     ]
+    },
+    "by_speed +8": {
+     "mac": [
+      40,
+      24,
+      38,
+      {
+       "too-few-windows": 5,
+       "too-few-hits, possible": 9,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      40,
+      23,
+      38,
+      {
+       "too-few-windows": 5,
+       "too-few-hits, possible": 10,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_speed -3": {
+     "mac": [
+      40,
+      20,
+      40,
+      {
+       "too-few-hits, possible": 14,
+       "too-few-windows": 6
+      }
+     ],
+     "here": [
+      40,
+      20,
+      40,
+      {
+       "too-few-windows": 7,
+       "too-few-hits, possible": 13
+      }
+     ]
+    },
+    "by_speed -5": {
+     "mac": [
+      40,
+      19,
+      40,
+      {
+       "too-few-windows": 6,
+       "too-few-hits, possible": 15
+      }
+     ],
+     "here": [
+      40,
+      18,
+      40,
+      {
+       "too-few-windows": 6,
+       "too-few-hits, possible": 16
+      }
+     ]
+    },
+    "by_speed -8": {
+     "mac": [
+      40,
+      20,
+      37,
+      {
+       "never-a-candidate": 3,
+       "too-few-hits, possible": 12,
+       "too-few-windows": 5
+      }
+     ],
+     "here": [
+      40,
+      20,
+      38,
+      {
+       "never-a-candidate": 2,
+       "too-few-hits, possible": 13,
+       "too-few-windows": 5
+      }
+     ]
+    },
+    "by_kind elsewhere": {
+     "mac": [
+      162,
+      70,
+      159,
+      {
+       "too-few-hits, possible": 68,
+       "too-few-windows": 21,
+       "never-a-candidate": 3
+      }
+     ],
+     "here": [
+      162,
+      69,
+      160,
+      {
+       "too-few-hits, possible": 71,
+       "too-few-windows": 20,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_kind scene-release": {
+     "mac": [
+      126,
+      65,
+      124,
+      {
+       "too-few-windows": 22,
+       "too-few-hits, possible": 37,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      126,
+      65,
+      124,
+      {
+       "too-few-windows": 23,
+       "too-few-hits, possible": 36,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_kind youtube-channel": {
+     "mac": [
+      72,
+      43,
+      72,
+      {
+       "too-few-windows": 14,
+       "too-few-hits, possible": 15
+      }
+     ],
+     "here": [
+      72,
+      42,
+      72,
+      {
+       "too-few-windows": 15,
+       "too-few-hits, possible": 15
+      }
+     ]
+    },
+    "by_length 15": {
+     "mac": [
+      180,
+      37,
+      177,
+      {
+       "too-few-windows": 49,
+       "too-few-hits, possible": 91,
+       "never-a-candidate": 3
+      }
+     ],
+     "here": [
+      180,
+      35,
+      178,
+      {
+       "too-few-windows": 50,
+       "too-few-hits, possible": 93,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 1-2 s": {
+     "mac": [
+      11,
+      0,
+      10,
+      {
+       "too-few-windows": 5,
+       "too-few-hits, possible": 5,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      11,
+      0,
+      11,
+      {
+       "too-few-windows": 5,
+       "too-few-hits, possible": 6
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 2-3 s": {
+     "mac": [
+      16,
+      0,
+      16,
+      {
+       "too-few-hits, possible": 8,
+       "too-few-windows": 8
+      }
+     ],
+     "here": [
+      16,
+      0,
+      16,
+      {
+       "too-few-hits, possible": 9,
+       "too-few-windows": 7
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 5-6 s": {
+     "mac": [
+      16,
+      2,
+      16,
+      {
+       "too-few-hits, possible": 10,
+       "too-few-windows": 4
+      }
+     ],
+     "here": [
+      16,
+      2,
+      16,
+      {
+       "too-few-windows": 6,
+       "too-few-hits, possible": 8
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 6-7 s": {
+     "mac": [
+      18,
+      10,
+      18,
+      {
+       "too-few-hits, possible": 8
+      }
+     ],
+     "here": [
+      18,
+      9,
+      18,
+      {
+       "too-few-hits, possible": 9
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 8-9 s": {
+     "mac": [
+      23,
+      12,
+      23,
+      {
+       "too-few-hits, possible": 11
+      }
+     ],
+     "here": [
+      23,
+      11,
+      23,
+      {
+       "too-few-hits, possible": 12
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 3-4 s": {
+     "mac": [
+      13,
+      10,
+      13,
+      {
+       "too-few-hits, possible": 3
+      }
+     ],
+     "here": [
+      13,
+      11,
+      13,
+      {
+       "too-few-hits, possible": 2
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 4-5 s": {
+     "mac": [
+      24,
+      22,
+      24,
+      {
+       "too-few-hits, possible": 2
+      }
+     ],
+     "here": [
+      24,
+      21,
+      24,
+      {
+       "too-few-hits, possible": 3
+      }
+     ]
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-damaged-brief.json": {
+   "all": {
+    "mac": [
+     360,
+     0,
+     107,
+     {
+      "too-few-hits, weak": 217,
+      "too-few-hits, possible": 107,
+      "never-a-candidate": 36
+     }
+    ],
+    "here": [
+     360,
+     0,
+     107,
+     {
+      "too-few-hits, possible": 107,
+      "too-few-hits, weak": 221,
+      "never-a-candidate": 32
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40051,
+     40608
+    ],
+    "left_out_records": [
+     63,
+     63
+    ],
+    "unobservable_queries": [
+     684,
+     684
+    ],
+    "unobservable_sources": [
+     38,
+     38
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     360,
+     360
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     27,
+     26
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": -1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 83,
+      "windows": 3,
+      "brief_seconds": 20.0
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": -3.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 87,
+      "windows": 3,
+      "brief_seconds": 20.0
+     }
+    ]
+   ],
+   "cells_differing": {
+    "by_speed +0": {
+     "mac": [
+      40,
+      0,
+      13,
+      {
+       "too-few-hits, possible": 13,
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 24
+      }
+     ],
+     "here": [
+      40,
+      0,
+      13,
+      {
+       "too-few-hits, possible": 13,
+       "too-few-hits, weak": 22,
+       "never-a-candidate": 5
+      }
+     ]
+    },
+    "by_speed +1": {
+     "mac": [
+      40,
+      0,
+      10,
+      {
+       "too-few-hits, weak": 27,
+       "too-few-hits, possible": 10,
+       "never-a-candidate": 3
+      }
+     ],
+     "here": [
+      40,
+      0,
+      11,
+      {
+       "too-few-hits, possible": 11,
+       "too-few-hits, weak": 27,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_speed +3": {
+     "mac": [
+      40,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "never-a-candidate": 6,
+       "too-few-hits, weak": 20
+      }
+     ],
+     "here": [
+      40,
+      0,
+      13,
+      {
+       "too-few-hits, possible": 13,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 25
+      }
+     ]
+    },
+    "by_speed +5": {
+     "mac": [
+      40,
+      0,
+      12,
+      {
+       "too-few-hits, possible": 12,
+       "too-few-hits, weak": 26,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      40,
+      0,
+      12,
+      {
+       "too-few-hits, possible": 12,
+       "too-few-hits, weak": 25,
+       "never-a-candidate": 3
+      }
+     ]
+    },
+    "by_speed +8": {
+     "mac": [
+      40,
+      0,
+      16,
+      {
+       "too-few-hits, possible": 16,
+       "too-few-hits, weak": 19,
+       "never-a-candidate": 5
+      }
+     ],
+     "here": [
+      40,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 22
+      }
+     ]
+    },
+    "by_speed -1": {
+     "mac": [
+      40,
+      0,
+      11,
+      {
+       "too-few-hits, possible": 11,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 25
+      }
+     ],
+     "here": [
+      40,
+      0,
+      10,
+      {
+       "too-few-hits, possible": 10,
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 27
+      }
+     ]
+    },
+    "by_speed -3": {
+     "mac": [
+      40,
+      0,
+      11,
+      {
+       "too-few-hits, possible": 11,
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 26
+      }
+     ],
+     "here": [
+      40,
+      0,
+      13,
+      {
+       "too-few-hits, possible": 13,
+       "too-few-hits, weak": 23,
+       "never-a-candidate": 4
+      }
+     ]
+    },
+    "by_speed -5": {
+     "mac": [
+      40,
+      0,
+      11,
+      {
+       "too-few-hits, weak": 29,
+       "too-few-hits, possible": 11
+      }
+     ],
+     "here": [
+      40,
+      0,
+      11,
+      {
+       "too-few-hits, weak": 28,
+       "too-few-hits, possible": 11,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_speed -8": {
+     "mac": [
+      40,
+      0,
+      9,
+      {
+       "too-few-hits, weak": 21,
+       "too-few-hits, possible": 9,
+       "never-a-candidate": 10
+      }
+     ],
+     "here": [
+      40,
+      0,
+      10,
+      {
+       "too-few-hits, possible": 10,
+       "never-a-candidate": 8,
+       "too-few-hits, weak": 22
+      }
+     ]
+    },
+    "by_kind elsewhere": {
+     "mac": [
+      162,
+      0,
+      30,
+      {
+       "too-few-hits, weak": 117,
+       "too-few-hits, possible": 30,
+       "never-a-candidate": 15
+      }
+     ],
+     "here": [
+      162,
+      0,
+      36,
+      {
+       "too-few-hits, weak": 111,
+       "too-few-hits, possible": 36,
+       "never-a-candidate": 15
+      }
+     ]
+    },
+    "by_kind scene-release": {
+     "mac": [
+      126,
+      0,
+      58,
+      {
+       "too-few-hits, weak": 55,
+       "too-few-hits, possible": 58,
+       "never-a-candidate": 13
+      }
+     ],
+     "here": [
+      126,
+      0,
+      52,
+      {
+       "too-few-hits, possible": 52,
+       "too-few-hits, weak": 65,
+       "never-a-candidate": 9
+      }
+     ]
+    },
+    "by_length 15": {
+     "mac": [
+      180,
+      0,
+      34,
+      {
+       "too-few-hits, weak": 121,
+       "too-few-hits, possible": 34,
+       "never-a-candidate": 25
+      }
+     ],
+     "here": [
+      180,
+      0,
+      36,
+      {
+       "too-few-hits, possible": 36,
+       "too-few-hits, weak": 122,
+       "never-a-candidate": 22
+      }
+     ]
+    },
+    "by_length 20": {
+     "mac": [
+      180,
+      0,
+      73,
+      {
+       "too-few-hits, possible": 73,
+       "never-a-candidate": 11,
+       "too-few-hits, weak": 96
+      }
+     ],
+     "here": [
+      180,
+      0,
+      71,
+      {
+       "too-few-hits, possible": 71,
+       "never-a-candidate": 10,
+       "too-few-hits, weak": 99
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 0-1 s": {
+     "mac": [
+      20,
+      0,
+      2,
+      {
+       "never-a-candidate": 6,
+       "too-few-hits, weak": 12,
+       "too-few-hits, possible": 2
+      }
+     ],
+     "here": [
+      20,
+      0,
+      3,
+      {
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 13,
+       "too-few-hits, possible": 3
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 1-2 s": {
+     "mac": [
+      11,
+      0,
+      0,
+      {
+       "too-few-hits, weak": 10,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      11,
+      0,
+      2,
+      {
+       "too-few-hits, weak": 9,
+       "too-few-hits, possible": 2
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 2-3 s": {
+     "mac": [
+      16,
+      0,
+      3,
+      {
+       "too-few-hits, possible": 3,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 9
+      }
+     ],
+     "here": [
+      16,
+      0,
+      4,
+      {
+       "too-few-hits, possible": 4,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 8
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 3-4 s": {
+     "mac": [
+      19,
+      0,
+      4,
+      {
+       "too-few-hits, possible": 4,
+       "too-few-hits, weak": 11,
+       "never-a-candidate": 4
+      }
+     ],
+     "here": [
+      19,
+      0,
+      4,
+      {
+       "too-few-hits, possible": 4,
+       "too-few-hits, weak": 13,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 4-5 s": {
+     "mac": [
+      24,
+      0,
+      4,
+      {
+       "too-few-hits, weak": 19,
+       "too-few-hits, possible": 4,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      24,
+      0,
+      4,
+      {
+       "too-few-hits, weak": 18,
+       "too-few-hits, possible": 4,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 5-6 s": {
+     "mac": [
+      16,
+      0,
+      6,
+      {
+       "too-few-hits, possible": 6,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 8
+      }
+     ],
+     "here": [
+      16,
+      0,
+      6,
+      {
+       "too-few-hits, possible": 6,
+       "too-few-hits, weak": 10
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 6-7 s": {
+     "mac": [
+      18,
+      0,
+      2,
+      {
+       "too-few-hits, weak": 15,
+       "never-a-candidate": 1,
+       "too-few-hits, possible": 2
+      }
+     ],
+     "here": [
+      18,
+      0,
+      2,
+      {
+       "too-few-hits, possible": 2,
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 13
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 7-8 s": {
+     "mac": [
+      17,
+      0,
+      3,
+      {
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 11,
+       "too-few-hits, possible": 3
+      }
+     ],
+     "here": [
+      17,
+      0,
+      2,
+      {
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 11,
+       "too-few-hits, possible": 2
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 8-9 s": {
+     "mac": [
+      23,
+      0,
+      6,
+      {
+       "too-few-hits, weak": 16,
+       "too-few-hits, possible": 6,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      23,
+      0,
+      5,
+      {
+       "too-few-hits, possible": 5,
+       "too-few-hits, weak": 18
+      }
+     ]
+    },
+    "by_grid_phase 15 s from 9-10 s": {
+     "mac": [
+      16,
+      0,
+      4,
+      {
+       "too-few-hits, possible": 4,
+       "too-few-hits, weak": 10,
+       "never-a-candidate": 2
+      }
+     ],
+     "here": [
+      16,
+      0,
+      4,
+      {
+       "too-few-hits, possible": 4,
+       "too-few-hits, weak": 9,
+       "never-a-candidate": 3
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 0-1 s": {
+     "mac": [
+      15,
+      0,
+      5,
+      {
+       "too-few-hits, possible": 5,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 8
+      }
+     ],
+     "here": [
+      15,
+      0,
+      3,
+      {
+       "too-few-hits, possible": 3,
+       "too-few-hits, weak": 10,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 2-3 s": {
+     "mac": [
+      25,
+      0,
+      11,
+      {
+       "too-few-hits, possible": 11,
+       "too-few-hits, weak": 14
+      }
+     ],
+     "here": [
+      25,
+      0,
+      8,
+      {
+       "too-few-hits, possible": 8,
+       "too-few-hits, weak": 17
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 3-4 s": {
+     "mac": [
+      13,
+      0,
+      7,
+      {
+       "too-few-hits, weak": 6,
+       "too-few-hits, possible": 7
+      }
+     ],
+     "here": [
+      13,
+      0,
+      6,
+      {
+       "too-few-hits, weak": 7,
+       "too-few-hits, possible": 6
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 5-6 s": {
+     "mac": [
+      15,
+      0,
+      4,
+      {
+       "too-few-hits, weak": 10,
+       "too-few-hits, possible": 4,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      15,
+      0,
+      4,
+      {
+       "too-few-hits, weak": 9,
+       "too-few-hits, possible": 4,
+       "never-a-candidate": 2
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 6-7 s": {
+     "mac": [
+      23,
+      0,
+      10,
+      {
+       "too-few-hits, possible": 10,
+       "never-a-candidate": 1,
+       "too-few-hits, weak": 12
+      }
+     ],
+     "here": [
+      23,
+      0,
+      11,
+      {
+       "too-few-hits, possible": 11,
+       "never-a-candidate": 1,
+       "too-few-hits, weak": 11
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 7-8 s": {
+     "mac": [
+      25,
+      0,
+      10,
+      {
+       "too-few-hits, possible": 10,
+       "too-few-hits, weak": 14,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      25,
+      0,
+      12,
+      {
+       "too-few-hits, possible": 12,
+       "too-few-hits, weak": 13
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 8-9 s": {
+     "mac": [
+      14,
+      0,
+      4,
+      {
+       "never-a-candidate": 1,
+       "too-few-hits, weak": 9,
+       "too-few-hits, possible": 4
+      }
+     ],
+     "here": [
+      14,
+      0,
+      4,
+      {
+       "too-few-hits, weak": 10,
+       "too-few-hits, possible": 4
+      }
+     ]
+    },
+    "by_grid_phase 20 s from 9-10 s": {
+     "mac": [
+      18,
+      0,
+      10,
+      {
+       "too-few-hits, possible": 10,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 4
+      }
+     ],
+     "here": [
+      18,
+      0,
+      11,
+      {
+       "too-few-hits, possible": 11,
+       "never-a-candidate": 4,
+       "too-few-hits, weak": 3
+      }
+     ]
+    }
+   }
+  },
+  "recall-seed-2026-other-rips-damaged.json": {
+   "all": {
+    "mac": [
+     180,
+     0,
+     125,
+     {
+      "too-few-hits, possible": 125,
+      "never-a-candidate": 5,
+      "too-few-hits, weak": 50
+     }
+    ],
+    "here": [
+     180,
+     0,
+     127,
+     {
+      "too-few-hits, possible": 127,
+      "never-a-candidate": 6,
+      "too-few-hits, weak": 47
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40051,
+     40608
+    ],
+    "left_out_records": [
+     63,
+     63
+    ],
+    "unobservable_queries": [
+     342,
+     342
+    ],
+    "unobservable_sources": [
+     38,
+     38
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     180,
+     180
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     38,
+     43
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 1.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 109,
+      "windows": 3
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": -5.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 104,
+      "windows": 3
+     }
+    ]
+   ],
+   "cells_differing": {
+    "by_speed +0": {
+     "mac": [
+      20,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "too-few-hits, weak": 6
+      }
+     ],
+     "here": [
+      20,
+      0,
+      13,
+      {
+       "too-few-hits, possible": 13,
+       "too-few-hits, weak": 7
+      }
+     ]
+    },
+    "by_speed +1": {
+     "mac": [
+      20,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "too-few-hits, weak": 6
+      }
+     ],
+     "here": [
+      20,
+      0,
+      15,
+      {
+       "too-few-hits, possible": 15,
+       "too-few-hits, weak": 5
+      }
+     ]
+    },
+    "by_speed +3": {
+     "mac": [
+      20,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "never-a-candidate": 1,
+       "too-few-hits, weak": 5
+      }
+     ],
+     "here": [
+      20,
+      0,
+      15,
+      {
+       "too-few-hits, possible": 15,
+       "never-a-candidate": 1,
+       "too-few-hits, weak": 4
+      }
+     ]
+    },
+    "by_speed +8": {
+     "mac": [
+      20,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "too-few-hits, weak": 5,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      20,
+      0,
+      13,
+      {
+       "too-few-hits, possible": 13,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 5
+      }
+     ]
+    },
+    "by_speed -5": {
+     "mac": [
+      20,
+      0,
+      12,
+      {
+       "too-few-hits, possible": 12,
+       "too-few-hits, weak": 8
+      }
+     ],
+     "here": [
+      20,
+      0,
+      14,
+      {
+       "too-few-hits, possible": 14,
+       "too-few-hits, weak": 6
+      }
+     ]
+    },
+    "by_kind elsewhere": {
+     "mac": [
+      81,
+      0,
+      61,
+      {
+       "too-few-hits, possible": 61,
+       "too-few-hits, weak": 19,
+       "never-a-candidate": 1
+      }
+     ],
+     "here": [
+      81,
+      0,
+      62,
+      {
+       "too-few-hits, possible": 62,
+       "too-few-hits, weak": 18,
+       "never-a-candidate": 1
+      }
+     ]
+    },
+    "by_kind scene-release": {
+     "mac": [
+      63,
+      0,
+      45,
+      {
+       "too-few-hits, possible": 45,
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 16
+      }
+     ],
+     "here": [
+      63,
+      0,
+      45,
+      {
+       "too-few-hits, possible": 45,
+       "never-a-candidate": 3,
+       "too-few-hits, weak": 15
+      }
+     ]
+    },
+    "by_kind youtube-channel": {
+     "mac": [
+      36,
+      0,
+      19,
+      {
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 15,
+       "too-few-hits, possible": 19
+      }
+     ],
+     "here": [
+      36,
+      0,
+      20,
+      {
+       "never-a-candidate": 2,
+       "too-few-hits, weak": 14,
+       "too-few-hits, possible": 20
+      }
+     ]
+    }
+   }
+  },
+  "recall-seed-2026-other-rips.json": {
+   "all": {
+    "mac": [
+     180,
+     175,
+     178,
+     {
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 3
+     }
+    ],
+    "here": [
+     180,
+     175,
+     178,
+     {
+      "never-a-candidate": 2,
+      "too-few-hits, possible": 3
+     }
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40051,
+     40608
+    ],
+    "left_out_records": [
+     63,
+     63
+    ],
+    "unobservable_queries": [
+     342,
+     342
+    ],
+    "unobservable_sources": [
+     38,
+     38
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     180,
+     180
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     69,
+     70
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 0.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 185,
+      "windows": 3
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 0.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 184,
+      "windows": 3
+     }
+    ]
+   ],
+   "cells_differing": {}
+  },
+  "recall-seed-2026.json": {
+   "all": {
+    "mac": [
+     522,
+     522,
+     522,
+     {}
+    ],
+    "here": [
+     522,
+     522,
+     522,
+     {}
+    ]
+   },
+   "scalars": {
+    "indexed_assets": [
+     40114,
+     40671
+    ],
+    "left_out_records": [
+     0,
+     0
+    ],
+    "unobservable_queries": [
+     0,
+     0
+    ],
+    "unobservable_sources": [
+     0,
+     0
+    ],
+    "unobservable_confident": [
+     0,
+     0
+    ],
+    "held_out_queries": [
+     180,
+     180
+    ],
+    "held_out_confident": [
+     0,
+     0
+    ],
+    "wrong_possible_count": [
+     69,
+     70
+    ]
+   },
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "wrong_possible_over_200": [
+    0,
+    0
+   ],
+   "strongest_wrong_possible": [
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 0.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 185,
+      "windows": 3
+     }
+    ],
+    [
+     {
+      "query": "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+      "speed_percent": 0.0,
+      "held_out": false,
+      "unobservable": false,
+      "found": "06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3",
+      "hits": 184,
+      "windows": 3
+     }
+    ]
+   ],
+   "cells_differing": {}
+  }
+ }
+}
