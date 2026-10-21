@@ -52,6 +52,44 @@ const LEVEL: f64 = 0.1;
 /// Cuts and the switch to and from a bass cut ramp over this long, so they
 /// do not click.
 const RAMP_SECONDS: f64 = 0.02;
+/// Long mixes: plays of a DJ's length, joined by crossfades of this long
+/// (half of them bass swaps), with a run of each of these many held-out
+/// tracks between indexed ones, in a drawn order, and 1 or 2 indexed
+/// plays between two runs.
+const LONG_PLAY_SECONDS: (f64, f64) = (120.0, 360.0);
+const LONG_CROSSFADE_SECONDS: (f64, f64) = (10.0, 60.0);
+const HELD_OUT_RUNS: [usize; 4] = [1, 2, 3, 4];
+const MOST_INDEXED_BETWEEN_RUNS: usize = 2;
+
+/// What a generated mix plays.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+pub enum MixKind {
+    /// 12 plays of 20-60 s, a returning track, a quarter held out at
+    /// random, joined by bass swaps, crossfades and cuts.
+    Short,
+    /// Plays of 2-6 minutes joined by crossfades of 10-60 s, with runs of
+    /// 1, 2, 3 and 4 held-out tracks between indexed ones.
+    Long,
+}
+
+impl MixKind {
+    /// The report's and the renders' name: `seed-<seed>` for short mixes,
+    /// `long-seed-<seed>` for long ones.
+    pub fn name(self, seed: u64) -> String {
+        match self {
+            MixKind::Short => format!("seed-{seed}"),
+            MixKind::Long => format!("long-seed-{seed}"),
+        }
+    }
+
+    /// The lengths of play `print_summary` counts confident plays by.
+    fn play_lengths(self) -> [(f64, f64); 4] {
+        match self {
+            MixKind::Short => [(20.0, 30.0), (30.0, 40.0), (40.0, 50.0), (50.0, 61.0)],
+            MixKind::Long => [(0.0, 120.0), (120.0, 200.0), (200.0, 280.0), (280.0, 361.0)],
+        }
+    }
+}
 
 /// A track's appearance in a planned mix: which audio plays where, at what
 /// speed, and how it enters and leaves.
@@ -450,6 +488,100 @@ fn drawn_speed(rng: &mut Rng) -> f64 {
     1.0 + (2.0 * rng.unit() - 1.0) * SPEED_RANGE
 }
 
+/// Draws a long mix: an indexed play, then a run of each length of
+/// `HELD_OUT_RUNS` in a drawn order, each followed by 1 or 2 indexed
+/// plays, every track from a cluster of its own, joined by crossfades.
+pub fn draw_long_mix(
+    name: &str,
+    pools: &Pools,
+    clusters: &Clusters,
+    rng: &mut Rng,
+) -> Result<PlannedMix, String> {
+    let too_few = || String::from("the library has too few long tracks for a long generated mix");
+    let mut used: BTreeSet<BTreeSet<String>> = BTreeSet::new();
+    let mut draw = |held_out: bool, rng: &mut Rng| {
+        let pool = if held_out {
+            &pools.held_out
+        } else {
+            &pools.indexed
+        };
+        draw_unused(pool, &mut used, clusters, rng)
+            .map(|record| (record, held_out))
+            .ok_or_else(too_few)
+    };
+    let mut runs = HELD_OUT_RUNS;
+    rng.shuffle(&mut runs);
+    let mut chosen: Vec<(&PeakRecord, bool)> = vec![draw(false, rng)?];
+    for run in runs {
+        for _ in 0..run {
+            chosen.push(draw(true, rng)?);
+        }
+        for _ in 0..=rng.below(MOST_INDEXED_BETWEEN_RUNS) {
+            chosen.push(draw(false, rng)?);
+        }
+    }
+
+    let mut plays: Vec<PlannedPlay> = Vec::new();
+    let mut start = 0.0;
+    for &(record, held_out) in &chosen {
+        let mut play = long_play(record, held_out, start, rng);
+        if let Some(previous) = plays.last_mut() {
+            crossfade(previous, &mut play, rng);
+        }
+        start = play.end_seconds;
+        plays.push(play);
+    }
+    Ok(PlannedMix {
+        name: name.to_owned(),
+        seconds: start,
+        plays,
+    })
+}
+
+/// A play of a DJ's length, shortened to fit the track: from somewhere in
+/// its first half, at a drawn speed.
+fn long_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) -> PlannedPlay {
+    let duration = record.header.duration_seconds;
+    let speed = drawn_speed(rng);
+    let drawn = LONG_PLAY_SECONDS.0 + rng.unit() * (LONG_PLAY_SECONDS.1 - LONG_PLAY_SECONDS.0);
+    let seconds = drawn.min(0.85 * duration / speed);
+    let earliest = 0.05 * duration;
+    let latest = (0.95 * duration - seconds * speed).max(earliest);
+    PlannedPlay {
+        asset: record.header.source.path.clone(),
+        held_out,
+        source_start_seconds: earliest + rng.unit() * (latest - earliest),
+        speed,
+        start_seconds: start,
+        end_seconds: start + seconds,
+        fade_in_seconds: 0.0,
+        fade_out_seconds: 0.0,
+        bass_cut_until: None,
+        bass_cut_from: None,
+    }
+}
+
+/// Moves `next` back over the end of `previous` by a crossfade of
+/// `LONG_CROSSFADE_SECONDS`, at most half the shorter play; half of them
+/// hand the low end over halfway.
+fn crossfade(previous: &mut PlannedPlay, next: &mut PlannedPlay, rng: &mut Rng) {
+    let longest = (previous.end_seconds - previous.start_seconds)
+        .min(next.end_seconds - next.start_seconds)
+        / 2.0;
+    let overlap = (LONG_CROSSFADE_SECONDS.0
+        + rng.unit() * (LONG_CROSSFADE_SECONDS.1 - LONG_CROSSFADE_SECONDS.0))
+        .min(longest);
+    next.start_seconds -= overlap;
+    next.end_seconds -= overlap;
+    previous.fade_out_seconds = overlap;
+    next.fade_in_seconds = overlap;
+    if rng.unit() < 0.5 {
+        let swap = next.start_seconds + overlap / 2.0;
+        next.bass_cut_until = Some(swap);
+        previous.bass_cut_from = Some(swap);
+    }
+}
+
 /// A file to play whole in a mix (`draw_around`), and how long it is.
 pub struct Whole<'a> {
     pub asset: &'a str,
@@ -555,6 +687,7 @@ pub struct MixResult {
 
 pub struct Options<'a> {
     pub seed: u64,
+    pub kind: MixKind,
     /// Where the seed's sweep panel is kept (`Plan::for_seed`).
     pub panels: &'a Path,
     pub count: usize,
@@ -607,12 +740,16 @@ pub fn run(
     let verifier = options.verify.then(|| Verifier::new(&records, None));
     let pools = Pools::new(&records, &held_out);
     let mut rng = Rng::new(options.seed);
-    let dir = work.join("mixes").join(format!("seed-{}", options.seed));
+    let dir = work.join("mixes").join(options.kind.name(options.seed));
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
         .map(|number| {
             let name = format!("mix-{number:02}");
             let path = dir.join(format!("{name}.mp3"));
-            draw_mix(&name, &pools, clusters, &mut rng).map(|mix| (mix, path))
+            let mix = match options.kind {
+                MixKind::Short => draw_mix(&name, &pools, clusters, &mut rng),
+                MixKind::Long => draw_long_mix(&name, &pools, clusters, &mut rng),
+            };
+            mix.map(|mix| (mix, path))
         })
         .collect::<Result<_, _>>()?;
     let searcher = Searcher {
@@ -697,7 +834,7 @@ pub fn search_mix(
     })
 }
 
-pub fn print_summary(report: &MixesReport) {
+pub fn print_summary(report: &MixesReport, kind: MixKind) {
     let plays: Vec<&PlayScore> = report
         .mixes
         .iter()
@@ -740,7 +877,9 @@ pub fn print_summary(report: &MixesReport) {
     println!(
         "wrong: {wrong} confident, {wrong_possible} possible; strongest false candidate {strongest_false} hits"
     );
-    for (low, high) in [(20.0, 30.0), (30.0, 40.0), (40.0, 50.0), (50.0, 61.0)] {
+    let lengths = kind.play_lengths();
+    let longest = lengths[3].1 - 1.0;
+    for (low, high) in lengths {
         let here: Vec<&&&PlayScore> = indexed
             .iter()
             .filter(|play| {
@@ -751,7 +890,7 @@ pub fn print_summary(report: &MixesReport) {
         let confident = here.iter().filter(|play| play.level == "confident").count();
         println!(
             "  plays of {low:.0}-{:.0} s: {confident}/{} confident",
-            high.min(60.0),
+            high.min(longest),
             here.len()
         );
     }
@@ -918,6 +1057,55 @@ mod tests {
             );
         }
         assert!(close(mix.seconds, 423.6283468830277));
+    }
+
+    #[test]
+    fn a_long_mix_has_one_run_of_each_length_of_held_out_tracks_between_indexed_ones() {
+        let records: Vec<PeakRecord> = (0..40)
+            .map(|n| record(&format!("t{n:02}.mp3"), 200.0 + 10.0 * f64::from(n)))
+            .collect();
+        let held_out: BTreeSet<String> = (0..20).map(|n| format!("t{n:02}.mp3")).collect();
+
+        let mix = draw_long_mix(
+            "long",
+            &Pools::new(&records, &held_out),
+            &no_clusters(),
+            &mut Rng::new(2026),
+        )
+        .unwrap();
+
+        let mut runs: Vec<usize> = Vec::new();
+        let mut run = 0;
+        for play in &mix.plays {
+            if play.held_out {
+                run += 1;
+            } else if run > 0 {
+                runs.push(run);
+                run = 0;
+            }
+        }
+        runs.sort_unstable();
+        assert_eq!(runs, [1, 2, 3, 4]);
+        assert!(!mix.plays[0].held_out && !mix.plays.last().unwrap().held_out);
+        let assets: BTreeSet<&str> = mix.plays.iter().map(|play| play.asset.as_str()).collect();
+        assert_eq!(assets.len(), mix.plays.len());
+        for play in &mix.plays {
+            let seconds = play.end_seconds - play.start_seconds;
+            let duration = 200.0 + 10.0 * play.asset[1..3].parse::<f64>().unwrap();
+            assert!(
+                seconds <= 360.0 && seconds <= 0.85 * duration / play.speed + 1e-9,
+                "{play:?}"
+            );
+            assert!(
+                play.source_at(play.end_seconds) <= 0.95 * duration + 1e-9,
+                "{play:?}"
+            );
+        }
+        for pair in mix.plays.windows(2) {
+            let overlap = pair[0].end_seconds - pair[1].start_seconds;
+            assert!((10.0..=60.0).contains(&overlap), "{overlap}");
+            assert!((pair[1].fade_in_seconds - overlap).abs() < 1e-9);
+        }
     }
 
     #[test]

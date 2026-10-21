@@ -132,3 +132,37 @@ Rules for this session:
   18); its runs end at slot 15, so slot 16 stays as an indexed neighbour.
   At 262 tracks the same patterns run, and the slots not indexed there
   join the runs they touch; the truth counts what each gap holds.
+- **(06:32) Both regressions identical with the start build**: corpus
+  68.5 s; NAS scale 11:23, 5.4 GiB at peak (720 of 720 sweep queries,
+  all 4,253, 4,244 and 4,212 scan detections, the calibrate lines).
+- **(06:33) Pre-registration committed** (`e7122b1`) before any gap was
+  counted. Covered time is the segments of confident plays (ADR 0013:
+  a possible segment of a confident play is part of it, as `seconds`
+  labels it); possible plays cover nothing. Range A (n-1 to n+1) is the
+  primary range, range B (the quartiles) is reported beside it.
+- **(06:34) Step 2 built.** `scan --leave-out-slots` (slots validated
+  against the manifest; a slot without a reference, Nocny's 17, is
+  accepted and leaves nothing out) and `gaps`; `seconds` and `gaps`
+  share one report loader, and `seconds` writes byte-identical files
+  and output before and after (checked on two NAS reports). The first
+  look at `gaps` was on a stored session 33 report, after the
+  pre-registration's commit.
+- **(06:35) Run build `work/bin/s34-runs/`** (step 2's code), frozen for
+  step 3's queue (`work/s34/runs.sh`, tmux `s34-runs`): both regressions
+  again, the three plain scans and the 42 designed leave-outs at NAS
+  scale with `--jobs 16`, the same at 262 tracks, then `mixes --count 16`
+  at seeds 2026-2029 and 7. Only seeds with a committed sweep panel run,
+  because `mixes` writes a new panel into `docs/panels/` for any other.
+  `check.sh` ran beside the corpus regression (its 2:37 is slower for
+  that).
+- **(06:46) Step 5a prepared early and queued after step 3.** Long mixes
+  (`mixes --kind long`): an indexed play, then runs of 1, 2, 3 and 4
+  held-out tracks in a drawn order, each followed by 1 or 2 indexed
+  plays; plays of 120-360 s (shortened to 85% of the track at its
+  speed), crossfades of 10-60 s (at most half the shorter play), half of
+  them bass swaps; speeds as the short mixes'. Five seeds with sweep
+  panels, 16 mixes each (80 mixes, 320 runs). Build
+  `work/bin/s34-long/`. The prompt puts step 5 after steps 1-4; its runs
+  only use the machine while steps 3's analysis and 4's experiments are
+  written, so they take nothing from 1-4. Its results are read only
+  after 0159 and 0160 are written.

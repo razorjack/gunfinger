@@ -400,6 +400,11 @@ enum Command {
         seed: u64,
         #[arg(long, default_value_t = 8)]
         count: usize,
+        /// `long`: plays of 2-6 minutes joined by crossfades of 10-60 s,
+        /// with runs of 1-4 held-out tracks between indexed ones (report
+        /// `mixes-long-seed-<seed>.json`).
+        #[arg(long, value_enum, default_value = "short")]
+        kind: mixes::MixKind,
     },
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -826,7 +831,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             }
             regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
         }
-        Command::Mixes { seed, count } => {
+        Command::Mixes { seed, count, kind } => {
             let report = mixes::run(
                 &paths.library()?,
                 &paths.store()?,
@@ -834,6 +839,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.work,
                 &mixes::Options {
                     seed,
+                    kind,
                     panels: &paths.panels,
                     count,
                     ladder_name: paths.ladder.name(),
@@ -844,10 +850,12 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 },
             )?;
             write_json(
-                &paths.reports().join(format!("mixes-seed-{seed}.json")),
+                &paths
+                    .reports()
+                    .join(format!("mixes-{}.json", kind.name(seed))),
                 &report,
             )?;
-            mixes::print_summary(&report);
+            mixes::print_summary(&report, kind);
             Ok(())
         }
         Command::Grid { seed } => {
