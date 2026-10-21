@@ -216,3 +216,12 @@ $HOME/.local/share/gunfinger/nas-dnb-peaks"`; reports in
   45.7-79.3 s here), with any cause marked as an inference unless
   measured; and the wall time of one NAS-scale `scan --leave-out` with
   the saved index (the next session runs about 120 of them).
+- **(03:33-03:57) Step 4.** Run 2 ended at 03:32:50 (52:30); the NAS
+  standard evaluation, `baseline session-33-linux-nas` and its `regress`
+  (identical, 10:55) followed in the same queue
+  (`work/s33/clusters-2-and-baseline.sh`, logs in `work/s33/logs/`).
+  The sweep's 7 wrong answers are one held-out query and 0128's unjudged
+  Cool Rock pair; they count as wrong, and nothing is tuned.
+- **(03:57) Step 5 started** (`work/s33/recall.sh`, tmux `s33-recall`)
+  right after 0155's commit: session 28's eight invocations in its
+  order, one at a time, with the panel copy.
