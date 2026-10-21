@@ -25,7 +25,8 @@ for scope and rules.
 - [x] 5. Pitch rides: `mixes --kind rides`, `self-match --ratios`;
   experiment 0166
 - [x] 6. The proposal `docs/research/2026-10-21-printing-gaps.md`
-- [~] 7. (Ahead) the prototype branch `s35-gaps-output`
+- [x] 7. (Ahead) the prototype branch `s35-gaps-output` (`a010f41`;
+  `check.sh` green there)
 - [ ] 8. Read-only review by a subagent; findings fixed
 
 ## Wrap-up

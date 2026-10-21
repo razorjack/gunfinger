@@ -172,16 +172,18 @@ gap's start, in the tracklist's time column.
 ## Examples from this session's reports
 
 My 2003 mix at 262 tracks (`gunfinger identify`, 2026-10-21; 7 of its 12
-tracks indexed), the recommended option at 60 s:
+tracks indexed), the recommended option at 60 s, as the prototype on the
+branch `s35-gaps-output` prints it with `gunfinger show` (times are cut
+to the second, as the tracklist's are):
 
 ```text
        0:00  no confident match for 2:25
  1.    2:25  Future Cut - The Specialist
-       6:43  no confident match for 7:58
+       6:43  no confident match for 7:57
  2.   14:40  Tee Bee - Two Faced
-      20:05  no confident match for 4:16
+      20:04  no confident match for 4:15
  3.   24:20  Carlito & Addiction - Into Music
-      29:26  no confident match for 1:40
+      29:25  no confident match for 1:39
  4.   31:05  Total Science - Yvon Is On
  5.   34:54  Marcus Intalex & S.T.Files - Balderdash
  6.   39:14  Spirit - Out Of Control
@@ -191,7 +193,7 @@ tracks indexed), the recommended option at 60 s:
 The four gaps hold 1, 2, 1 and 1 tracks not indexed (Konspiracy; Escape
 Route and Phantom Force; Kinetic; Artificial Life). Method 1, method 2
 and the combined estimate all give 1, 2, 1 and 1 here; with the combined
-range the second line would read "no confident match for 7:58 (about 1-3
+range the second line would read "no confident match for 7:57 (about 1-3
 tracks)".
 
 Nocny at 262 tracks has 9 entries and six gaps of 2:04 to 14:28; with
