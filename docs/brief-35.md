@@ -115,3 +115,43 @@ keeps each test small: two new seeds per condition, 16 mixes each.
   sweep panel for a seed without one into the panels directory; the
   global `--panels work/s35/panels` (a copy of `docs/panels/`) keeps the
   new seeds' panels out of `docs/panels/`.
+- **(09:08) Both regressions identical with the start build**: corpus
+  1:09 (720 of 720 sweep queries, all 89, 97 and 83 scan detections,
+  the calibrate lines); NAS scale 11:15, 5.5 GiB (all 4,253, 4,244 and
+  4,212 detections, the calibrate lines).
+- **(09:10) The harness for steps 2, 3 and 5** (`mixes.rs`,
+  `self_match.rs`, `gaps.rs`, `main.rs`; the CLI and the core do not
+  change):
+  - `mixes --kind beatmatched | shared | rides`. Beatmatching follows
+    `robust`'s blends (beat periods from `tempo.rs` on a 30 s native
+    render, the metrical reading nearest native speed within ±8%, else
+    the drawn speed); the beat phase is not aligned, because matching a
+    gap against itself finds a repeat at any lag of 8 s or more, so a
+    shift under one beat changes nothing it measures. The shared kind
+    draws its pairs from the 24 directions of
+    `shared-material-seed-2026.json` that have a passage and are not a
+    control (12 pairs, 9 families), the only panel with passages; the
+    second panel (session 23) has none cut. Every file of the panel's
+    families is out of the index and the draws of both beatmatched
+    kinds, so the control differs only in the runs. `--other-root`
+    names the NAS root for the panel's files under `second-library/`
+    (read, never written).
+  - `self-match --neighbours`: each gap searched against an index of
+    its neighbours' records alone (corpus store, and the NAS store with
+    `--other-peaks-dir`); `--ratios`: repeats at other speed ratios too.
+    At speed 1.0 the blocks are byte-identical to session 34's on the 64
+    gaps of long seed 2026.
+  - The pitch ride's model: the speed moves linearly by 1-3% over 5-15 s
+    and stays there, the plays' positions integrate it (`source_at`),
+    and the audio is read from a native render by interpolation.
+- **(09:12) A scratch seed for the smoke test** (900, shared kind, 2
+  mixes): development data, named in the pre-registration.
+- **(09:15) Development runs in parallel.** `self-match --neighbours` on
+  the NAS listings runs nearly serially (few gaps per report), so the
+  long mixes ran beside it in a second queue (`dev-self-match-2.sh`); a
+  first second queue that would have written the 262-track files the
+  first queue writes later was stopped after 3 minutes.
+- **(09:22) Run build `work/bin/s35-runs/`** after `check.sh` (green,
+  4:11 beside the development runs). The CLI binary is byte-identical to
+  the start build's. The corpus regression opens the test queue and the
+  NAS regression closes it (`work/s35/tests.sh`).
