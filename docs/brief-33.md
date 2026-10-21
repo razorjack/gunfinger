@@ -225,3 +225,11 @@ $HOME/.local/share/gunfinger/nas-dnb-peaks"`; reports in
 - **(03:57) Step 5 started** (`work/s33/recall.sh`, tmux `s33-recall`)
   right after 0155's commit: session 28's eight invocations in its
   order, one at a time, with the panel copy.
+- **(05:27) Step 5 done** (03:57-05:27, eight runs, all exit 0, no error
+  in any log); experiment 0156 committed at 05:28, before step 6's runs.
+- **(05:28) Steps 7 and 8 skipped.** Step 6's scans started at 05:28:17
+  (`work/s33/devscans.sh`, tmux `s33-dev`) and end after 05:30, so by
+  the orchestrating thread's note (03:20) the shared panels and the
+  quantisation-loss runs do not start. Their scripts are ready for a
+  later session: `work/s33/ahead.sh` (both shared panels' development
+  halves) and `work/s33/ahead-8.sh` (`recall --verify`).
