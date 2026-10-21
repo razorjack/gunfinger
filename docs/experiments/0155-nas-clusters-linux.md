@@ -1,11 +1,10 @@
 # 0155: the NAS library map, clusters and baseline on the Linux machine
 
 **Question.** Session 33, steps 2-4: from this machine's NAS store (40,683
-records, `56433d74d0919a08`), do the map and clusters match the Mac's (0036;
-0128 at 40,126), and what baseline follows? `work/bin/s33-start`; session 18's
-command, `--cut-sparsest`, the panel copy with its NFD path in NFC (brief,
-01:25); run 1 without `--recall-panel`, which needs a clusters file first, then
-the full run 2 (brief, 01:24). `clusters_linux.py`; `data/0155-*.json`.
+records), do map and clusters match the Mac's (0036; 0128 at 40,126)? Session
+18's command, `--cut-sparsest`, the panel's NFD path in NFC (brief, 01:25); run
+1 without `--recall-panel` (it needs a clusters file first), then the full run
+2 (brief, 01:24). `work/bin/s33-start`; `clusters_linux.py`; `data/0155-*`.
 
 | | the Mac (0128) | the Linux machine |
 |---|--:|--:|
@@ -25,13 +24,11 @@ the full run 2 (brief, 01:24). `clusters_linux.py`; `data/0155-*.json`.
   PRO 012 A ~ the Revision, so one cut remains (old-skool Sonar ~ the Revision,
   100%, 301 hits), and Stalker leaves the gap (now China Cup ~ a newer upload).
 - Peaks: of the 44 shared borderline pairs, 40 have equal hits, 3 differ by
-  1-2, wobble ~ Tower Bass moves 78 -> 88 hits (44.7% -> 56.4%).
-- New borderline pairs, unjudged, listening questions: ƆƐI3C's China Cup
-  upload ~ five China Cup rips (52-78%, a newer record); corpus Dilusion ~ an
-  upload (73.1%); Hide U ~ its Outrage & Markee Ledge Remix (44.6%, 103 hits).
-- Speed: 4.1 s and 124 s of user CPU per query (run 2), against the Mac's 2.7 s
-  (0128) and 19 s of CPU (session 18). Run 1 (partly before the power profile
-  changed): 4.3 s.
+  1-2, wobble ~ Tower Bass moves 78 -> 88 hits (44.7% -> 56.4%). New ones,
+  unjudged (listening questions): ƆƐI3C's China Cup upload ~ five China Cup
+  rips (52-78%), Dilusion ~ an upload (73.1%), Hide U ~ a remix (44.6%).
+- Speed: 4.1 s and 124 s of user CPU per query (run 2; run 1, partly under
+  the earlier power profile, 4.3 s), the Mac 2.7 s (0128), 19 s CPU (session 18).
 
 **Baseline** `session-33-linux-nas` (0067 at 32,441 beside): Stakka 11/11,
 leave-out 3 8/11, 11 0/11, 0 wrong, 3 possible plays matching no track, as
@@ -41,5 +38,4 @@ query (APH027's Cool Rock Stuff naming the upload 0128 left apart at 41%,
 Index built in 115 s; sweep 9:00; a scan or leave-out 76-77 s; 5.1-5.5 GiB.
 
 **Conclusion.** The clusters reproduce 0128 wherever the inputs match; peaks
-change one borderline pair. Clustering is 1.5 times slower per query than on
-the Mac, while a NAS scan takes 76 s.
+change one borderline pair. Clustering is 1.5 times slower per query here.
