@@ -8,7 +8,11 @@ changes the product yet. The roadmap's entry is "Time without a
 confident match" (Reports and command line); experiment 0154 is the
 first measurement, session 34's (0159-0162) the measurements on
 detection edges, under the pre-registration
-`docs/research/2026-10-21-gap-measures.md`.
+`docs/research/2026-10-21-gap-measures.md`, and session 35's
+(0163-0166) the tests of method 2 where it should fail, under
+`docs/research/2026-10-21-gap-tests.md`. The options for printing gaps,
+with the evidence and a recommendation, are in
+`docs/research/2026-10-21-printing-gaps.md`.
 
 ## The problem
 
@@ -123,3 +127,30 @@ long`, `self-match`); the product is unchanged.
   only), and a
   found track's own repeats inside a gap with no missed track (counted
   as a record).
+
+## Measured in session 35 (2026-10-21)
+
+In the harness only (`mixes --kind shared | beatmatched | rides`,
+`self-match --neighbours | --ratios`); the product is unchanged. Test
+seeds were rendered after the pre-registration's commit.
+
+- **Shared material** (0163). Records of the shared-material panel,
+  beatmatched back to back, make one stretch for 130 of 192 pairs;
+  method 2 is then exact for 25% of gaps at k = 2-4 against 67% in the
+  beatmatched control, and undercounts by about one record per merged
+  pair. Method 1 does not see the material (45% against 47%).
+- **A gap inside a found track** (0164). Searching the gap against its
+  neighbours' records and dropping the stretches they cover brings 8 of
+  12 such development gaps to 0 (registered: 10) and every one of the
+  139 such gaps in the ridden mixes; it failed its registered test, so
+  it is not part of the combined estimate.
+- **The combined estimate** (0165). Method 2's count limited to method
+  1's range B is the best count measured: 64% exact and 2.9% off by two
+  on the test mixes, against 59% and 58% for either method alone; not a
+  count to print (57% exact at k = 2), and as a range of one either side
+  it falls one gap short of 90% at k = 4.
+- **Pitch rides** (0166). A sustained 1-3% change of speed within a play
+  makes the product's search keep one side of it and drop the other in
+  192 of 382 ridden plays, so gaps open inside found tracks; in gaps of
+  missed records only, matching every rung to ±3.2% recovers method 2
+  (25 of 33 exact against 8 at speed 1.0) at 5.4 times its time.

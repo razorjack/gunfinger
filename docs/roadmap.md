@@ -160,8 +160,9 @@ marked as inferences were derived, not measured.
 
 - **Time without a confident match.** *(2026-10-17, a proposal from an
   external review; worth doing, our decision, 2026-10-20; the plan is
-  `docs/research/2026-10-20-unidentified-gaps.md`; measured in session
-  34 in the harness, experiments 0159-0162)* A tracklist does not say
+  `docs/research/2026-10-20-unidentified-gaps.md`; measured in sessions
+  34 and 35 in the harness, experiments 0159-0166; the options for
+  printing it are `docs/research/2026-10-21-printing-gaps.md`)* A tracklist does not say
   how much of the mix it accounts for: eleven lines over 56 minutes read
   the same whether the rest is blends or a quarter of an hour of tracks
   not in the library. Step 1 lists the stretches with no confident
@@ -183,11 +184,22 @@ marked as inferences were derived, not measured.
   fewer than 3 found intervals without a gap (0160, 0161). The stretch
   matched against itself (a record repeats its own material) counted
   the long generated mixes' records exactly for 95/80/69/54%, with
-  settings fixed before that test (0162); records that share a famous
-  break are not in those mixes. Novelty segmentation comes only if that
-  fails. It fits ADR 0017 (clear output, no review step), but whether it
-  is printed by default or on request is our decision, and either
-  changes the output ADR 0017 describes, so it needs an ADR.
+  settings fixed before that test (0162). Records that share a passage,
+  beatmatched back to back, make one stretch for two thirds of the
+  shared-material panel's pairs, and that count then undercounts (0163);
+  limited to the length's range, it is the best count measured (64%
+  exact, 2.9% off by two) but meets no registered bar for printing a
+  count (0165). A gap inside a found track goes to 0 when the gap is
+  searched against its neighbours' records, but not always (0164). A
+  sustained pitch change of 1-3% within a play makes the search drop
+  one side of the play in half of the ridden plays of generated mixes
+  (0166), a question for the search itself. Novelty segmentation comes
+  only if counting stays out of reach. It fits ADR 0017 (clear output,
+  no review step), but whether it is printed by default or on request
+  is our decision, and either changes the output ADR 0017 describes, so
+  it needs an ADR; the proposal recommends printing the length by
+  default and no count yet, and a prototype is on the branch
+  `s35-gaps-output`.
 - **Possible plays inside a confident play of another recording.**
   *(done on 2026-10-14, our decision, ADR 0019, experiment
   0107)* The default tracklist printed a possible play lying inside a

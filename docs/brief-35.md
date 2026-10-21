@@ -183,3 +183,21 @@ keeps each test small: two new seeds per condition, 16 mixes each.
   The change touches only plays with a ride, so the shared and
   beatmatched seeds draw the same either way. The review found nothing
   else wrong in the generator, the speed-ratio repeats or the scripts.
+- **(10:04) A finding outside the registration: pitch rides cost the
+  search, not only method 2.** In the rides mixes 139 of 267 listed gaps
+  hold no missed track; each ridden play keeps a confident segment on
+  one side of its ride only (`ride_coverage.py`: 192 of 382), and the
+  CLI on one rides mix confirms that each side alone is confident while
+  the whole mix keeps one. Reported in 0166 beside R1, which is judged as
+  registered; the gaps of missed records only are reported beside it.
+- **(10:15) An unregistered run**: `self-match --neighbours` on the rides
+  mixes (`rides-neighbours.sh`, beside the NAS regression), as those
+  mixes hold the only test gaps inside found tracks. 0164 reports it as
+  not registered.
+- **(10:28) The proposal's recommendation on the count**: none for now,
+  as no estimate met its registered bar; the conservative option, since
+  a count is the part of a gap line that can be wrong.
+- **(10:30) Step 7 started** after steps 1-6 were committed: the
+  prototype in a worktree at `work/s35/proto` on the branch
+  `s35-gaps-output`, so that master's checkout and its final checks
+  (`work/s35/final.sh`, from 10:30) were not disturbed.

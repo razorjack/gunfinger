@@ -4248,3 +4248,40 @@ pre-registration `docs/research/2026-10-21-gap-measures.md`; notes
   directories (they now live in `work/s34/reports/`; with them there,
   calibrate counts more false candidates). `docs/pair-verdicts.txt`
   unchanged.
+
+## 2026-10-21: session 35, unidentified time in tracklists, continued
+
+Brief `docs/brief-35.md`, checklist `docs/session-35-checklist.md`,
+pre-registration `docs/research/2026-10-21-gap-tests.md`; notes
+"Session 35"; experiments 0163-0166; proposal
+`docs/research/2026-10-21-printing-gaps.md`. The Linux machine,
+`--jobs 16`.
+
+- 08:52 start at `611449d`, clean. Start build `work/bin/s35-start/`
+  (byte-identical to `s34-final`); both regressions identical (1:09;
+  11:15).
+- 09:10-09:22 harness: `mixes --kind beatmatched | shared | rides`,
+  `self-match --neighbours | --ratios`, `gap_tests.py`,
+  `shared_merges.py`; `check.sh` green; run build `work/bin/s35-runs/`.
+- 09:24 pre-registration committed before any test seed; test queue
+  started (corpus regression identical first). 09:41 a review of the
+  harness found that a crossfade moved a play but not its ride; fixed
+  before the rides seeds ran.
+- 09:25-10:05 160 test mixes (10 seeds): every indexed play confident,
+  no wrong confident play. 10:25 the NAS regression with the run build
+  identical (11:03).
+- 0163: records sharing a passage, beatmatched back to back, merge into
+  one stretch (130 of 192 pairs); method 2 exact 25% against 67% at
+  k = 2-4. S1 and S2 fail.
+- 0164: the neighbour discount fails D1 (8 of 12 development gaps to 0);
+  it brings all 139 gaps inside ridden found tracks to 0 (not
+  registered).
+- 0165: method 2 limited to method 1's range B, 64% exact and 2.9% off
+  by two on the test; no printing bar met (one gap short at k = 4 as a
+  range).
+- 0166: a sustained 1-3% pitch ride makes the search drop one side of
+  the play in 192 of 382 ridden plays; every rung to ±3.2% recovers
+  method 2 in gaps of missed records only, at 5.4 times its time.
+- 10:28-10:36 the proposal for printing gaps (recommended: by default,
+  60 s, the edges listed, the length and no count), and a prototype on
+  the branch `s35-gaps-output` (`check.sh` green there).
