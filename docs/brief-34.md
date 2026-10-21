@@ -214,3 +214,10 @@ Rules for this session:
   generator changed: 2 indexed plays first, then each run followed by 2
   or 3, so every mix has at least 5 intervals between consecutive
   indexed plays. Rerun from 07:45, same seeds and count.
+- **(08:10) A check of the single-run interval.** 24 more NAS-scale
+  scans, each leaving out one run only: in each set, k = 1-4 starting at
+  slots 3 and 6 (`work/s34/single-runs.sh`; three of them, Stakka's and
+  my 2003 mix's 6-9 and the like, repeat a designed scan and write the
+  same report). Measured before reading: how often the registered
+  interval on these scans gives the same estimate as the single-run
+  interval of 0160 for the same gap, and M1-M3 on them.
