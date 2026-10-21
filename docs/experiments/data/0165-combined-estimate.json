@@ -1,0 +1,1041 @@
+{
+ "rule": "stretches at 10 hits limited to method 1 range B; 0 stays 0; no estimate keeps the count; no discount (0164)",
+ "summary": {
+  "tests-shared-and-beatmatched": {
+   "method 1": {
+    "1": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 92,
+     "within 1": 96,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 4
+    },
+    "2": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 54,
+     "within 1": 94,
+     "off by 2+": 2,
+     "low": 26,
+     "high": 16
+    },
+    "3": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 42,
+     "within 1": 90,
+     "off by 2+": 6,
+     "low": 35,
+     "high": 19
+    },
+    "4": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 36,
+     "within 1": 83,
+     "off by 2+": 13,
+     "low": 38,
+     "high": 22
+    }
+   },
+   "stretches": {
+    "1": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 94,
+     "within 1": 96,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 2
+    },
+    "2": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 47,
+     "within 1": 95,
+     "off by 2+": 1,
+     "low": 40,
+     "high": 9
+    },
+    "3": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 50,
+     "within 1": 91,
+     "off by 2+": 5,
+     "low": 40,
+     "high": 6
+    },
+    "4": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 35,
+     "within 1": 73,
+     "off by 2+": 23,
+     "low": 56,
+     "high": 5
+    }
+   },
+   "combined without discount": {
+    "1": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 95,
+     "within 1": 96,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 1
+    },
+    "2": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 55,
+     "within 1": 95,
+     "off by 2+": 1,
+     "low": 30,
+     "high": 11
+    },
+    "3": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 56,
+     "within 1": 96,
+     "off by 2+": 0,
+     "low": 32,
+     "high": 8
+    },
+    "4": {
+     "gaps": 96,
+     "estimated": 96,
+     "exact": 41,
+     "within 1": 86,
+     "off by 2+": 10,
+     "low": 49,
+     "high": 6
+    }
+   }
+  },
+  "tests-shared": {
+   "method 1": {
+    "1": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 46,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 2
+    },
+    "2": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 31,
+     "within 1": 47,
+     "off by 2+": 1,
+     "low": 9,
+     "high": 8
+    },
+    "3": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 19,
+     "within 1": 46,
+     "off by 2+": 2,
+     "low": 19,
+     "high": 10
+    },
+    "4": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 15,
+     "within 1": 42,
+     "off by 2+": 6,
+     "low": 24,
+     "high": 9
+    }
+   },
+   "stretches": {
+    "1": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 47,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 1
+    },
+    "2": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 11,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 31,
+     "high": 6
+    },
+    "3": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 15,
+     "within 1": 44,
+     "off by 2+": 4,
+     "low": 31,
+     "high": 2
+    },
+    "4": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 10,
+     "within 1": 28,
+     "off by 2+": 20,
+     "low": 36,
+     "high": 2
+    }
+   },
+   "combined without discount": {
+    "1": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 47,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 1
+    },
+    "2": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 21,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 21,
+     "high": 6
+    },
+    "3": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 23,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 21,
+     "high": 4
+    },
+    "4": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 15,
+     "within 1": 40,
+     "off by 2+": 8,
+     "low": 31,
+     "high": 2
+    }
+   }
+  },
+  "tests-beatmatched": {
+   "method 1": {
+    "1": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 46,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 2
+    },
+    "2": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 23,
+     "within 1": 47,
+     "off by 2+": 1,
+     "low": 17,
+     "high": 8
+    },
+    "3": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 23,
+     "within 1": 44,
+     "off by 2+": 4,
+     "low": 16,
+     "high": 9
+    },
+    "4": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 21,
+     "within 1": 41,
+     "off by 2+": 7,
+     "low": 14,
+     "high": 13
+    }
+   },
+   "stretches": {
+    "1": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 47,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 1
+    },
+    "2": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 36,
+     "within 1": 47,
+     "off by 2+": 1,
+     "low": 9,
+     "high": 3
+    },
+    "3": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 35,
+     "within 1": 47,
+     "off by 2+": 1,
+     "low": 9,
+     "high": 4
+    },
+    "4": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 25,
+     "within 1": 45,
+     "off by 2+": 3,
+     "low": 20,
+     "high": 3
+    }
+   },
+   "combined without discount": {
+    "1": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 48,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 0
+    },
+    "2": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 34,
+     "within 1": 47,
+     "off by 2+": 1,
+     "low": 9,
+     "high": 5
+    },
+    "3": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 33,
+     "within 1": 48,
+     "off by 2+": 0,
+     "low": 11,
+     "high": 4
+    },
+    "4": {
+     "gaps": 48,
+     "estimated": 48,
+     "exact": 26,
+     "within 1": 46,
+     "off by 2+": 2,
+     "low": 18,
+     "high": 4
+    }
+   }
+  },
+  "tests-rides-ratio-1": {
+   "method 1": {
+    "0": {
+     "gaps": 139,
+     "estimated": 91,
+     "exact": 0,
+     "within 1": 88,
+     "off by 2+": 3,
+     "low": 0,
+     "high": 91
+    },
+    "1": {
+     "gaps": 32,
+     "estimated": 23,
+     "exact": 7,
+     "within 1": 18,
+     "off by 2+": 5,
+     "low": 0,
+     "high": 16
+    },
+    "2": {
+     "gaps": 32,
+     "estimated": 23,
+     "exact": 5,
+     "within 1": 11,
+     "off by 2+": 12,
+     "low": 0,
+     "high": 18
+    },
+    "3": {
+     "gaps": 32,
+     "estimated": 23,
+     "exact": 3,
+     "within 1": 9,
+     "off by 2+": 14,
+     "low": 0,
+     "high": 20
+    },
+    "4": {
+     "gaps": 32,
+     "estimated": 23,
+     "exact": 4,
+     "within 1": 11,
+     "off by 2+": 12,
+     "low": 0,
+     "high": 19
+    }
+   },
+   "stretches": {
+    "0": {
+     "gaps": 139,
+     "estimated": 139,
+     "exact": 17,
+     "within 1": 117,
+     "off by 2+": 22,
+     "low": 0,
+     "high": 122
+    },
+    "1": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 9,
+     "within 1": 22,
+     "off by 2+": 10,
+     "low": 0,
+     "high": 23
+    },
+    "2": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 3,
+     "within 1": 15,
+     "off by 2+": 17,
+     "low": 0,
+     "high": 29
+    },
+    "3": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 4,
+     "within 1": 10,
+     "off by 2+": 22,
+     "low": 0,
+     "high": 28
+    },
+    "4": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 2,
+     "within 1": 4,
+     "off by 2+": 28,
+     "low": 1,
+     "high": 29
+    }
+   },
+   "combined without discount": {
+    "0": {
+     "gaps": 139,
+     "estimated": 139,
+     "exact": 17,
+     "within 1": 123,
+     "off by 2+": 16,
+     "low": 0,
+     "high": 122
+    },
+    "1": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 10,
+     "within 1": 24,
+     "off by 2+": 8,
+     "low": 0,
+     "high": 22
+    },
+    "2": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 2,
+     "within 1": 15,
+     "off by 2+": 17,
+     "low": 0,
+     "high": 30
+    },
+    "3": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 1,
+     "within 1": 11,
+     "off by 2+": 21,
+     "low": 0,
+     "high": 31
+    },
+    "4": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 3,
+     "within 1": 6,
+     "off by 2+": 26,
+     "low": 1,
+     "high": 28
+    }
+   }
+  },
+  "tests-long-ratio-1": {
+   "method 1": {
+    "1": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 29,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 3
+    },
+    "2": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 19,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 5,
+     "high": 8
+    },
+    "3": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 22,
+     "within 1": 29,
+     "off by 2+": 3,
+     "low": 5,
+     "high": 5
+    },
+    "4": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 9,
+     "within 1": 27,
+     "off by 2+": 5,
+     "low": 12,
+     "high": 11
+    }
+   },
+   "stretches": {
+    "1": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 29,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 1,
+     "high": 2
+    },
+    "2": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 25,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 6,
+     "high": 1
+    },
+    "3": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 26,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 5,
+     "high": 1
+    },
+    "4": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 19,
+     "within 1": 29,
+     "off by 2+": 3,
+     "low": 12,
+     "high": 1
+    }
+   },
+   "combined without discount": {
+    "1": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 29,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 1,
+     "high": 2
+    },
+    "2": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 27,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 2
+    },
+    "3": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 25,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 5,
+     "high": 2
+    },
+    "4": {
+     "gaps": 32,
+     "estimated": 32,
+     "exact": 19,
+     "within 1": 32,
+     "off by 2+": 0,
+     "low": 10,
+     "high": 3
+    }
+   }
+  },
+  "dev-nas": {
+   "method 1": {
+    "0": {
+     "gaps": 12,
+     "estimated": 8,
+     "exact": 0,
+     "within 1": 8,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 8
+    },
+    "1": {
+     "gaps": 35,
+     "estimated": 2,
+     "exact": 2,
+     "within 1": 2,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 0
+    },
+    "2": {
+     "gaps": 30,
+     "estimated": 6,
+     "exact": 4,
+     "within 1": 6,
+     "off by 2+": 0,
+     "low": 1,
+     "high": 1
+    },
+    "3": {
+     "gaps": 27,
+     "estimated": 14,
+     "exact": 4,
+     "within 1": 14,
+     "off by 2+": 0,
+     "low": 8,
+     "high": 2
+    },
+    "4": {
+     "gaps": 24,
+     "estimated": 12,
+     "exact": 6,
+     "within 1": 11,
+     "off by 2+": 1,
+     "low": 5,
+     "high": 1
+    }
+   },
+   "stretches": {
+    "0": {
+     "gaps": 12,
+     "estimated": 12,
+     "exact": 4,
+     "within 1": 12,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 8
+    },
+    "1": {
+     "gaps": 35,
+     "estimated": 35,
+     "exact": 30,
+     "within 1": 35,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 5
+    },
+    "2": {
+     "gaps": 30,
+     "estimated": 30,
+     "exact": 21,
+     "within 1": 30,
+     "off by 2+": 0,
+     "low": 4,
+     "high": 5
+    },
+    "3": {
+     "gaps": 27,
+     "estimated": 27,
+     "exact": 14,
+     "within 1": 23,
+     "off by 2+": 4,
+     "low": 6,
+     "high": 7
+    },
+    "4": {
+     "gaps": 24,
+     "estimated": 24,
+     "exact": 10,
+     "within 1": 22,
+     "off by 2+": 2,
+     "low": 7,
+     "high": 7
+    }
+   },
+   "combined without discount": {
+    "0": {
+     "gaps": 12,
+     "estimated": 12,
+     "exact": 4,
+     "within 1": 12,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 8
+    },
+    "1": {
+     "gaps": 35,
+     "estimated": 35,
+     "exact": 31,
+     "within 1": 35,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 4
+    },
+    "2": {
+     "gaps": 30,
+     "estimated": 30,
+     "exact": 22,
+     "within 1": 30,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 5
+    },
+    "3": {
+     "gaps": 27,
+     "estimated": 27,
+     "exact": 16,
+     "within 1": 24,
+     "off by 2+": 3,
+     "low": 6,
+     "high": 5
+    },
+    "4": {
+     "gaps": 24,
+     "estimated": 24,
+     "exact": 13,
+     "within 1": 22,
+     "off by 2+": 2,
+     "low": 6,
+     "high": 5
+    }
+   }
+  },
+  "dev-262": {
+   "method 1": {
+    "0": {
+     "gaps": 10,
+     "estimated": 4,
+     "exact": 0,
+     "within 1": 4,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 4
+    },
+    "1": {
+     "gaps": 20,
+     "estimated": 3,
+     "exact": 3,
+     "within 1": 3,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 0
+    },
+    "2": {
+     "gaps": 13,
+     "estimated": 2,
+     "exact": 1,
+     "within 1": 2,
+     "off by 2+": 0,
+     "low": 1,
+     "high": 0
+    },
+    "3": {
+     "gaps": 12,
+     "estimated": 4,
+     "exact": 1,
+     "within 1": 4,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 0
+    },
+    "4": {
+     "gaps": 12,
+     "estimated": 3,
+     "exact": 1,
+     "within 1": 3,
+     "off by 2+": 0,
+     "low": 2,
+     "high": 0
+    },
+    "5": {
+     "gaps": 17,
+     "estimated": 1,
+     "exact": 0,
+     "within 1": 1,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 1
+    }
+   },
+   "stretches": {
+    "0": {
+     "gaps": 10,
+     "estimated": 10,
+     "exact": 2,
+     "within 1": 10,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 8
+    },
+    "1": {
+     "gaps": 20,
+     "estimated": 20,
+     "exact": 17,
+     "within 1": 20,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 3
+    },
+    "2": {
+     "gaps": 13,
+     "estimated": 13,
+     "exact": 8,
+     "within 1": 13,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 2
+    },
+    "3": {
+     "gaps": 12,
+     "estimated": 12,
+     "exact": 6,
+     "within 1": 12,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 3
+    },
+    "4": {
+     "gaps": 12,
+     "estimated": 12,
+     "exact": 7,
+     "within 1": 12,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 2
+    },
+    "5": {
+     "gaps": 17,
+     "estimated": 17,
+     "exact": 4,
+     "within 1": 7,
+     "off by 2+": 10,
+     "low": 0,
+     "high": 13
+    }
+   },
+   "combined without discount": {
+    "0": {
+     "gaps": 10,
+     "estimated": 10,
+     "exact": 2,
+     "within 1": 10,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 8
+    },
+    "1": {
+     "gaps": 20,
+     "estimated": 20,
+     "exact": 17,
+     "within 1": 20,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 3
+    },
+    "2": {
+     "gaps": 13,
+     "estimated": 13,
+     "exact": 7,
+     "within 1": 13,
+     "off by 2+": 0,
+     "low": 4,
+     "high": 2
+    },
+    "3": {
+     "gaps": 12,
+     "estimated": 12,
+     "exact": 7,
+     "within 1": 12,
+     "off by 2+": 0,
+     "low": 4,
+     "high": 1
+    },
+    "4": {
+     "gaps": 12,
+     "estimated": 12,
+     "exact": 9,
+     "within 1": 12,
+     "off by 2+": 0,
+     "low": 3,
+     "high": 0
+    },
+    "5": {
+     "gaps": 17,
+     "estimated": 17,
+     "exact": 3,
+     "within 1": 7,
+     "off by 2+": 10,
+     "low": 0,
+     "high": 14
+    }
+   }
+  },
+  "dev-long": {
+   "method 1": {
+    "1": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 69,
+     "within 1": 80,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 11
+    },
+    "2": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 42,
+     "within 1": 76,
+     "off by 2+": 4,
+     "low": 23,
+     "high": 15
+    },
+    "3": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 31,
+     "within 1": 76,
+     "off by 2+": 4,
+     "low": 25,
+     "high": 24
+    },
+    "4": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 21,
+     "within 1": 64,
+     "off by 2+": 16,
+     "low": 30,
+     "high": 29
+    }
+   },
+   "stretches": {
+    "1": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 76,
+     "within 1": 80,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 4
+    },
+    "2": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 64,
+     "within 1": 79,
+     "off by 2+": 1,
+     "low": 12,
+     "high": 4
+    },
+    "3": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 55,
+     "within 1": 78,
+     "off by 2+": 2,
+     "low": 15,
+     "high": 10
+    },
+    "4": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 43,
+     "within 1": 74,
+     "off by 2+": 6,
+     "low": 29,
+     "high": 8
+    }
+   },
+   "combined without discount": {
+    "1": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 78,
+     "within 1": 80,
+     "off by 2+": 0,
+     "low": 0,
+     "high": 2
+    },
+    "2": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 69,
+     "within 1": 80,
+     "off by 2+": 0,
+     "low": 10,
+     "high": 1
+    },
+    "3": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 60,
+     "within 1": 80,
+     "off by 2+": 0,
+     "low": 12,
+     "high": 8
+    },
+    "4": {
+     "gaps": 80,
+     "estimated": 80,
+     "exact": 48,
+     "within 1": 80,
+     "off by 2+": 0,
+     "low": 23,
+     "high": 9
+    }
+   }
+  }
+ }
+}
