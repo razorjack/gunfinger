@@ -1,0 +1,236 @@
+{
+ "ride_coverage": "mixes-rides-seed-3521.json: 191 indexed plays, own part covered: median 0.74, under half for 4; a side of 30 s or more of a ride without a detection: 93\nmixes-rides-seed-3522.json: 191 indexed plays, own part covered: median 0.71, under half for 4; a side of 30 s or more of a ride without a detection: 99\nmixes-long-seed-3531.json: 194 indexed plays, own part covered: median 1.00, under half for 0; a side of 30 s or more of a ride without a detection: 0\nmixes-long-seed-3532.json: 201 indexed plays, own part covered: median 1.00, under half for 0; a side of 30 s or more of a ride without a detection: 0\nmixes-beatmatched-seed-3511.json: 186 indexed plays, own part covered: median 1.00, under half for 0; a side of 30 s or more of a ride without a detection: 0\n",
+ "by_ratio_set": {
+  "ratio-1 rides": {
+   "no indexed track": {
+    "3": {
+     "gaps": 8,
+     "exact": 2,
+     "within 1": 4
+    },
+    "2": {
+     "gaps": 10,
+     "exact": 0,
+     "within 1": 8
+    },
+    "4": {
+     "gaps": 7,
+     "exact": 2,
+     "within 1": 4
+    },
+    "1": {
+     "gaps": 8,
+     "exact": 4,
+     "within 1": 8
+    }
+   },
+   "with indexed track": {
+    "4": {
+     "gaps": 25,
+     "exact": 0,
+     "within 1": 0
+    },
+    "1": {
+     "gaps": 24,
+     "exact": 5,
+     "within 1": 14
+    },
+    "2": {
+     "gaps": 22,
+     "exact": 3,
+     "within 1": 7
+    },
+    "3": {
+     "gaps": 24,
+     "exact": 2,
+     "within 1": 6
+    }
+   }
+  },
+  "ratio-1 long": {
+   "no indexed track": {
+    "1": {
+     "gaps": 32,
+     "exact": 29,
+     "within 1": 32
+    },
+    "4": {
+     "gaps": 31,
+     "exact": 18,
+     "within 1": 28
+    },
+    "3": {
+     "gaps": 32,
+     "exact": 26,
+     "within 1": 32
+    },
+    "2": {
+     "gaps": 32,
+     "exact": 25,
+     "within 1": 32
+    }
+   },
+   "with indexed track": {
+    "4": {
+     "gaps": 1,
+     "exact": 1,
+     "within 1": 1
+    }
+   }
+  },
+  "ratio-neighbouring rides": {
+   "no indexed track": {
+    "3": {
+     "gaps": 8,
+     "exact": 4,
+     "within 1": 5
+    },
+    "2": {
+     "gaps": 10,
+     "exact": 4,
+     "within 1": 9
+    },
+    "4": {
+     "gaps": 7,
+     "exact": 4,
+     "within 1": 7
+    },
+    "1": {
+     "gaps": 8,
+     "exact": 6,
+     "within 1": 8
+    }
+   },
+   "with indexed track": {
+    "4": {
+     "gaps": 25,
+     "exact": 1,
+     "within 1": 9
+    },
+    "1": {
+     "gaps": 24,
+     "exact": 5,
+     "within 1": 14
+    },
+    "2": {
+     "gaps": 22,
+     "exact": 4,
+     "within 1": 11
+    },
+    "3": {
+     "gaps": 24,
+     "exact": 3,
+     "within 1": 10
+    }
+   }
+  },
+  "ratio-neighbouring long": {
+   "no indexed track": {
+    "1": {
+     "gaps": 32,
+     "exact": 30,
+     "within 1": 32
+    },
+    "4": {
+     "gaps": 31,
+     "exact": 17,
+     "within 1": 28
+    },
+    "3": {
+     "gaps": 32,
+     "exact": 24,
+     "within 1": 32
+    },
+    "2": {
+     "gaps": 32,
+     "exact": 24,
+     "within 1": 32
+    }
+   },
+   "with indexed track": {
+    "4": {
+     "gaps": 1,
+     "exact": 1,
+     "within 1": 1
+    }
+   }
+  },
+  "ratio-every rides": {
+   "no indexed track": {
+    "3": {
+     "gaps": 8,
+     "exact": 4,
+     "within 1": 8
+    },
+    "2": {
+     "gaps": 10,
+     "exact": 9,
+     "within 1": 10
+    },
+    "4": {
+     "gaps": 7,
+     "exact": 5,
+     "within 1": 7
+    },
+    "1": {
+     "gaps": 8,
+     "exact": 7,
+     "within 1": 8
+    }
+   },
+   "with indexed track": {
+    "4": {
+     "gaps": 25,
+     "exact": 7,
+     "within 1": 20
+    },
+    "1": {
+     "gaps": 24,
+     "exact": 5,
+     "within 1": 19
+    },
+    "2": {
+     "gaps": 22,
+     "exact": 7,
+     "within 1": 20
+    },
+    "3": {
+     "gaps": 24,
+     "exact": 5,
+     "within 1": 17
+    }
+   }
+  },
+  "ratio-every long": {
+   "no indexed track": {
+    "1": {
+     "gaps": 32,
+     "exact": 30,
+     "within 1": 32
+    },
+    "4": {
+     "gaps": 31,
+     "exact": 17,
+     "within 1": 28
+    },
+    "3": {
+     "gaps": 32,
+     "exact": 24,
+     "within 1": 32
+    },
+    "2": {
+     "gaps": 32,
+     "exact": 24,
+     "within 1": 32
+    }
+   },
+   "with indexed track": {
+    "4": {
+     "gaps": 1,
+     "exact": 1,
+     "within 1": 1
+    }
+   }
+  }
+ }
+}
