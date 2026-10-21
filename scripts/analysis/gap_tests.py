@@ -174,6 +174,15 @@ def main():
             for k, c in cells.items()
         ]
         print(f"{method:>26}: " + "; ".join(parts))
+    missed = [row for row in found if 1 <= row["truth"] <= 4]
+    mistaken = [row for row in missed if row["discounted"] < row["truth"] <= row["stretches"]]
+    empty = [row for row in found if row["truth"] == 0]
+    print(
+        f"discount: lowers {sum(row['discounted'] < row['stretches'] for row in found)} of {len(found)} counts;"
+        f" below the truth where it was not before in {len(mistaken)} of {len(missed)} gaps holding 1-4 missed tracks;"
+        f" gaps holding none: {len(empty)}, counted 0 by stretches {sum(row['stretches'] == 0 for row in empty)},"
+        f" discounted {sum(row['discounted'] == 0 for row in empty)}, combined {sum(row['combined'] == 0 for row in empty)}"
+    )
     if args.json:
         with open(args.json, "w") as f:
             json.dump({"rules": {"range": args.range, "at_ratios": args.at_ratios},

@@ -155,3 +155,20 @@ keeps each test small: two new seeds per condition, 16 mixes each.
   4:11 beside the development runs). The CLI binary is byte-identical to
   the start build's. The corpus regression opens the test queue and the
   NAS regression closes it (`work/s35/tests.sh`).
+- **(09:24) Pre-registration committed** (`d78370e`) before any test
+  seed: `docs/research/2026-10-21-gap-tests.md`. The discount (10 hits
+  over half a stretch) and range B for the combined estimate were chosen
+  on development data (36 of 45 NAS listings and the long mixes). Test
+  queue `work/s35/tests.sh` (tmux `s35-tests`) started at 09:24: the
+  corpus regression with the run build (identical, 1:17), then 16 mixes
+  per seed, one seed at a time.
+- **(09:28) D1 fails on the development data.** With all 45 NAS listings,
+  the discount brings 8 of the 12 gaps without a missed track to 0
+  (registered: 10). The 4 left are one 43 s gap inside Blindside in
+  Nocny, between a possible segment and the confident one; the search
+  against Blindside's record finds no detection of two windows there,
+  so nothing covers the stretch that Blindside's own repeats make. By
+  the registration, step 4's combined estimate uses the count without
+  the discount; D2 is still measured on the test mixes and reported.
+- **(09:30) Session 34's renders deleted** (`work/mixes/seed-*` and
+  `long-seed-*`, 5.8 GB): every run that read them has ended.
