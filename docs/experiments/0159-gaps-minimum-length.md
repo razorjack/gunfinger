@@ -23,7 +23,7 @@ each report, `gap_scores.py` counts. Data `data/0159-gap-scores.json`.
   three is 30 s.** At 262 tracks all 184 missed tracks are reached at every
   length (97.5% of their seconds). No scan has a wrong identification; every
   kept track is found in every leave-out. The 5% of missed seconds outside
-  gaps is manifest time a neighbour's labels cover (approximate starts, 0139).
+  gaps lie under a neighbour's labels (likely approximate starts; unchecked).
 - A gap with no missed track at NAS scale is time inside a found track that no
   segment covers, with no transition second and no possible play: at 30 s,
   three distinct ones of 34-59 s (Star Trails' end 13:24-14:23; 18:02-18:36 in

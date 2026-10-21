@@ -160,24 +160,34 @@ marked as inferences were derived, not measured.
 
 - **Time without a confident match.** *(2026-10-17, a proposal from an
   external review; worth doing, our decision, 2026-10-20; the plan is
-  `docs/research/2026-10-20-unidentified-gaps.md`)* A tracklist does not
-  say how much of the mix it accounts for: eleven lines over 56 minutes
-  read the same whether the rest is blends or a quarter of an hour of
-  tracks not in the library. Step 1 lists the long stretches with no
-  confident segment, computed from segments rather than whole play spans
-  (so a gap inside a returning track counts), with a minimum length that
-  leaves transitions out; it does not claim that a matched span is fully
-  explained. Step 2 estimates how many tracks each stretch holds, as a
-  range. Its length over the median interval between the mix's found
-  tracks gives the count within one in every case on the development
-  manifests' start times, exactly for 75% of two-track gaps and 42-48%
-  at three and four (experiment 0154). The stretch searched against
-  itself might narrow the range (a record repeats its own material);
-  novelty segmentation comes only if that fails. It fits ADR 0017 (clear
-  output, no review step), but whether it is printed by default or on
-  request is our decision, and either changes the output ADR 0017
-  describes, so it needs an ADR. The generated mixes' truth, `seconds`
-  and runs with consecutive tracks left out would test both steps.
+  `docs/research/2026-10-20-unidentified-gaps.md`; measured in session
+  34 in the harness, experiments 0159-0162)* A tracklist does not say
+  how much of the mix it accounts for: eleven lines over 56 minutes read
+  the same whether the rest is blends or a quarter of an hour of tracks
+  not in the library. Step 1 lists the stretches with no confident
+  segment, computed from segments rather than whole play spans (so a gap
+  inside a returning track counts); it does not claim that a matched
+  span is fully explained. At 30 s, the smallest minimum length meeting
+  the pre-registered criteria, every missed DJ-length track of the
+  development mixes is reached, and about 1 listed gap in 13 of the
+  leave-out scans holds no missed track, always time inside a found
+  track; at 60 s none does, and every missed track is still reached
+  (0159). Step 2 estimates how many tracks each stretch holds. Its
+  length over the median interval between the found entries gives a
+  range (one track either side, or the gap over the intervals'
+  quartiles) that holds the truth for 90-98% of gaps where the mix has
+  enough found intervals without a gap, but not a count: exact
+  100/53/37/42% at k = 1-4 on the development mixes (an interval taken
+  with only the gap's run missing),
+  86/53/39/26% on long generated mixes, and no estimate where a mix has
+  fewer than 3 found intervals without a gap (0160, 0161). The stretch
+  matched against itself (a record repeats its own material) counted
+  the long generated mixes' records exactly for 95/80/69/54%, with
+  settings fixed before that test (0162); records that share a famous
+  break are not in those mixes. Novelty segmentation comes only if that
+  fails. It fits ADR 0017 (clear output, no review step), but whether it
+  is printed by default or on request is our decision, and either
+  changes the output ADR 0017 describes, so it needs an ADR.
 - **Possible plays inside a confident play of another recording.**
   *(done on 2026-10-14, our decision, ADR 0019, experiment
   0107)* The default tracklist printed a possible play lying inside a

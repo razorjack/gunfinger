@@ -108,6 +108,8 @@ fn repeats(points: &[Point], profile: &Profile, cell_frames: f64) -> BTreeMap<(u
     hits
 }
 
+/// The cell `lag` reaches from the middle of `cell`: hits near a cell's edge
+/// may join the cell next to the one their own moments reach.
 fn later_cell(cell: usize, lag: i64, cell_frames: f64) -> usize {
     let earlier = (cell as f64 + 0.5) * cell_frames;
     ((earlier + lag as f64 * LAG_STEP_FRAMES) / cell_frames) as usize

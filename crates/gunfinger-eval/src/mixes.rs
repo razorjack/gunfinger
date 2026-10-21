@@ -558,8 +558,9 @@ pub fn draw_long_mix(
     })
 }
 
-/// A play of a DJ's length, shortened to fit the track: from somewhere in
-/// its first half, at a drawn speed.
+/// A play of a DJ's length, shortened to fit the track: from a drawn place
+/// between 5% of the track and where the play would end at 95% of it, at a
+/// drawn speed.
 fn long_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) -> PlannedPlay {
     let duration = record.header.duration_seconds;
     let speed = drawn_speed(rng);

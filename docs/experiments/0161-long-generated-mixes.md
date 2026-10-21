@@ -24,7 +24,7 @@ of their seconds, and no listed gap at any length lacks a missed track.
 | 1 | 80 | 69 (86%) | 0 / 11 / 0 | 80 | 80 (1.4) |
 | 2 | 80 | 42 (53%) | 23 / 11 / 4 | 76 | 73 (2.2) |
 | 3 | 80 | 31 (39%) | 25 / 20 / 4 | 76 | 74 (2.8) |
-| 4 | 80 | 21 (26%) | 24 / 20 / 16 | 64 | 70 (3.5) |
+| 4 | 80 | 21 (26%) | 24 / 19 / 16 | 64 | 70 (3.5) |
 
 - With the registered interval (every mix has one): M1 holds for range A
   (296/320, 92.5%; 80% at k = 4) and B (297/320; 87.5% at k = 4); M2 holds (no
@@ -35,6 +35,6 @@ of their seconds, and no listed gap at any length lacks a missed track.
   plays of 120-360 s drawn uniformly vary more than a DJ's intervals (0154:
   quartiles 253-352 s for Stakka), which would explain it (not measured).
 
-**Conclusion.** On DJ-length plays any length of 10-60 s reaches every missed
-run and lists nothing else. Method 1 gives a range (A or B hold 92-93%), not a
+**Conclusion.** On DJ-length plays 10-30 s reaches every missed run (45-60 s
+all but one) and lists nothing else. Method 1 gives a range (A or B hold 92-93%), not a
 count: exact 86/53/39/26% at k = 1-4; at k = 4 one gap in five is off by two.

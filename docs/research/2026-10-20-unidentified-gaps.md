@@ -6,7 +6,9 @@ default or on request is still ours to decide, and either changes the
 default output ADR 0017 describes, so it needs an ADR. Nothing here
 changes the product yet. The roadmap's entry is "Time without a
 confident match" (Reports and command line); experiment 0154 is the
-first measurement.
+first measurement, session 34's (0159-0162) the measurements on
+detection edges, under the pre-registration
+`docs/research/2026-10-21-gap-measures.md`.
 
 ## The problem
 
@@ -87,3 +89,37 @@ choose within it.
   missed track.
 - Criteria are written before any count. The held-out test set is not
   used for development.
+
+## Measured in session 34 (2026-10-21)
+
+In the harness only (`gaps`, `scan --leave-out-slots`, `mixes --kind
+long`, `self-match`); the product is unchanged.
+
+- **Step 1** (0159). At 30 s, the smallest minimum length meeting the
+  pre-registered criteria, all 271 missed tracks of the development
+  mixes' slot leave-outs at NAS scale are reached (95% of their
+  seconds); 1 listed gap in 13 holds no missed track, and each such gap
+  is 34-59 s inside a found track, with no possible play in it. At 60 s
+  none is listed and every missed track is still reached. In long
+  generated mixes 10-30 s reaches all 800 held-out plays (799 at
+  45-60 s) and lists nothing else (0161). Held-out plays under 40 s in the short
+  generated mixes are often too short for 30 s.
+- **Method 1** (0160, 0161). A range, not a count: on detection edges
+  the estimate is exact for 100/53/37/42% of development gaps at
+  k = 1-4 (with an interval from a mix where the run is the only gap)
+  and 86/53/39/26% in long generated mixes; one track either side holds
+  the truth for 98% and 92.5%, the quartiles for 90% and 93%. On the
+  development mixes it mostly undercounts (35 of 45 errors), probably
+  because the neighbours' labels reach into the missed tracks, and it
+  needs 3 found intervals without a gap: in a mix missing a third of
+  its tracks most gaps get no estimate. The development figures use an
+  interval from the mix with only the run missing (a deviation from the
+  pre-registration, which 24 single-run scans confirm in 22 of 24).
+- **Method 2, a prototype** (0162). Repeats inside the gap, as 5 s cells
+  joined where 10 hashes recur at one lag, merged into stretches, count
+  the long generated mixes' records exactly for 95/80/69/54% at k = 1-4,
+  with settings fixed on the development gaps first. Not yet measured:
+  records sharing a famous break, pitch changes within a play (speed 1.0
+  only), and a
+  found track's own repeats inside a gap with no missed track (counted
+  as a record).

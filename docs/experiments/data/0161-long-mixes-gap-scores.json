@@ -148,7 +148,409 @@
       "range_b_mean_width": null
      }
     }
-   }
+   },
+   "interval_bias": [
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 211.88823242187505,
+     "truth_median": 209.03373497167695
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 251.15526074218775,
+     "truth_median": 235.8041829950589
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 188.46167968749978,
+     "truth_median": 195.57711515367328
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 155.21945117187488,
+     "truth_median": 135.88105947721033
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 171.02419531249996,
+     "truth_median": 173.07881903050475
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 150.04784765624981,
+     "truth_median": 181.74987721520313
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 131.81946875,
+     "truth_median": 195.7401152873058
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 218.54734765625,
+     "truth_median": 204.79393135697978
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 192.73117578125,
+     "truth_median": 199.74630288533035
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 270.53940234375,
+     "truth_median": 218.8515695770651
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 275.8310332031251,
+     "truth_median": 222.12873720167363
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 303.30423828125004,
+     "truth_median": 225.63357879650425
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 292.63142285156243,
+     "truth_median": 236.28590290748457
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 254.48991406250002,
+     "truth_median": 233.5203448888783
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 247.0756523437501,
+     "truth_median": 158.59262694582094
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 231.121302734375,
+     "truth_median": 216.2485123557567
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 184.27549707031255,
+     "truth_median": 203.17216774633766
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 170.82788867187514,
+     "truth_median": 199.24115311821265
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 199.75725097656277,
+     "truth_median": 187.36794094237962
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 273.0069189453126,
+     "truth_median": 194.3091489841277
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 191.78743847656256,
+     "truth_median": 214.2582676790316
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 252.09712499999978,
+     "truth_median": 229.21172337366224
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 244.16236718749997,
+     "truth_median": 226.8438430318155
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 126.75724414062506,
+     "truth_median": 162.99787847459925
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 231.1814824218759,
+     "truth_median": 216.0237151424485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.1021572265625,
+     "truth_median": 213.40738310935353
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 135.22037109375,
+     "truth_median": 240.3858599403568
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 248.72082421875007,
+     "truth_median": 201.10546110274436
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 274.2792382812504,
+     "truth_median": 210.59773261211444
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 229.1912246093749,
+     "truth_median": 184.42635090840656
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 254.852783203125,
+     "truth_median": 220.61859793357485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.90507031250036,
+     "truth_median": 200.48902246236707
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.53376757812475,
+     "truth_median": 243.497571245779
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 137.59523535156256,
+     "truth_median": 150.16682201583774
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.98520507812498,
+     "truth_median": 224.9802619834386
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 270.5683828125,
+     "truth_median": 221.7158503480431
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 227.16582812499973,
+     "truth_median": 214.8312691728147
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.9296484374995,
+     "truth_median": 227.14563783532537
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 156.91921484375007,
+     "truth_median": 165.7392890194019
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.0472099609375,
+     "truth_median": 199.0043100029868
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 192.45459374999973,
+     "truth_median": 193.5602263323044
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 179.78361718749989,
+     "truth_median": 186.1660440364949
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 182.18247460937505,
+     "truth_median": 194.64108820020226
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.1039687499997,
+     "truth_median": 198.6387778330831
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.7290302734374,
+     "truth_median": 213.15224157928037
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.42171679687476,
+     "truth_median": 234.43281432673507
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 187.92334179687504,
+     "truth_median": 183.56240451401385
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.45024609375002,
+     "truth_median": 182.53881806811614
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 121.5917851562499,
+     "truth_median": 152.32349451152209
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.6302900390624,
+     "truth_median": 230.63860764502022
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 219.59414160156234,
+     "truth_median": 191.99105072094233
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 170.3721113281249,
+     "truth_median": 182.01644109042672
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 260.1759365234375,
+     "truth_median": 243.30299094682596
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 229.033796875,
+     "truth_median": 199.85788558049353
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 168.93183300781243,
+     "truth_median": 192.00781647836766
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 150.44628222656243,
+     "truth_median": 164.6443179467867
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 138.812521484375,
+     "truth_median": 208.8004643042628
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 157.00722753906246,
+     "truth_median": 169.36907250244053
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 208.36052929687503,
+     "truth_median": 169.94092985674706
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.50272851562522,
+     "truth_median": 219.87679807306029
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 183.7255624999998,
+     "truth_median": 195.3366971745072
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 240.96995703125003,
+     "truth_median": 225.94740889613786
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 216.788181640625,
+     "truth_median": 224.99847173047806
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 158.43035937500008,
+     "truth_median": 205.24329128381396
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 270.88479101562496,
+     "truth_median": 228.84452930405314
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 192.02431054687497,
+     "truth_median": 180.92772422884286
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 252.84283203125005,
+     "truth_median": 205.5375875294476
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 167.7553027343751,
+     "truth_median": 193.43500839856853
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 232.9989843750002,
+     "truth_median": 239.05471673670695
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 260.8768710937502,
+     "truth_median": 217.73825386794806
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 173.94007421874994,
+     "truth_median": 169.9022131987815
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.11401562499987,
+     "truth_median": 153.1500713558647
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 119.0789648437501,
+     "truth_median": 170.80461199148885
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 199.57162988281243,
+     "truth_median": 215.13914078172024
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 230.45490136718766,
+     "truth_median": 190.35441657942425
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 163.2641484375,
+     "truth_median": 154.24391002136952
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 272.30978906249993,
+     "truth_median": 250.46832380989918
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 253.54984570312513,
+     "truth_median": 192.01759924688668
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 220.4720410156251,
+     "truth_median": 211.8677228367717
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.5060585937499,
+     "truth_median": 177.3255315304791
+    }
+   ]
   }
  },
  "20": {
@@ -300,7 +702,409 @@
       "range_b_mean_width": null
      }
     }
-   }
+   },
+   "interval_bias": [
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 211.88823242187505,
+     "truth_median": 209.03373497167695
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 251.15526074218775,
+     "truth_median": 235.8041829950589
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 188.46167968749978,
+     "truth_median": 195.57711515367328
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 155.21945117187488,
+     "truth_median": 135.88105947721033
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 171.02419531249996,
+     "truth_median": 173.07881903050475
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 150.04784765624981,
+     "truth_median": 181.74987721520313
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 131.81946875,
+     "truth_median": 195.7401152873058
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 218.54734765625,
+     "truth_median": 204.79393135697978
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 192.73117578125,
+     "truth_median": 199.74630288533035
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 270.53940234375,
+     "truth_median": 218.8515695770651
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 275.8310332031251,
+     "truth_median": 222.12873720167363
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 303.30423828125004,
+     "truth_median": 225.63357879650425
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 292.63142285156243,
+     "truth_median": 236.28590290748457
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 254.48991406250002,
+     "truth_median": 233.5203448888783
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 247.0756523437501,
+     "truth_median": 158.59262694582094
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 231.121302734375,
+     "truth_median": 216.2485123557567
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 184.27549707031255,
+     "truth_median": 203.17216774633766
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 170.82788867187514,
+     "truth_median": 199.24115311821265
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 199.75725097656277,
+     "truth_median": 187.36794094237962
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 273.0069189453126,
+     "truth_median": 194.3091489841277
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 191.78743847656256,
+     "truth_median": 214.2582676790316
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 252.09712499999978,
+     "truth_median": 229.21172337366224
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 244.16236718749997,
+     "truth_median": 226.8438430318155
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 126.75724414062506,
+     "truth_median": 162.99787847459925
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 231.1814824218759,
+     "truth_median": 216.0237151424485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.1021572265625,
+     "truth_median": 213.40738310935353
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 135.22037109375,
+     "truth_median": 240.3858599403568
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 248.72082421875007,
+     "truth_median": 201.10546110274436
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 274.2792382812504,
+     "truth_median": 210.59773261211444
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 229.1912246093749,
+     "truth_median": 184.42635090840656
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 254.852783203125,
+     "truth_median": 220.61859793357485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.90507031250036,
+     "truth_median": 200.48902246236707
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.53376757812475,
+     "truth_median": 243.497571245779
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 137.59523535156256,
+     "truth_median": 150.16682201583774
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.98520507812498,
+     "truth_median": 224.9802619834386
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 270.5683828125,
+     "truth_median": 221.7158503480431
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 227.16582812499973,
+     "truth_median": 214.8312691728147
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.9296484374995,
+     "truth_median": 227.14563783532537
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 156.91921484375007,
+     "truth_median": 165.7392890194019
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.0472099609375,
+     "truth_median": 199.0043100029868
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 192.45459374999973,
+     "truth_median": 193.5602263323044
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 179.78361718749989,
+     "truth_median": 186.1660440364949
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 182.18247460937505,
+     "truth_median": 194.64108820020226
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.1039687499997,
+     "truth_median": 198.6387778330831
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.7290302734374,
+     "truth_median": 213.15224157928037
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.42171679687476,
+     "truth_median": 234.43281432673507
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 187.92334179687504,
+     "truth_median": 183.56240451401385
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.45024609375002,
+     "truth_median": 182.53881806811614
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 121.5917851562499,
+     "truth_median": 152.32349451152209
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.6302900390624,
+     "truth_median": 230.63860764502022
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 219.59414160156234,
+     "truth_median": 191.99105072094233
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 170.3721113281249,
+     "truth_median": 182.01644109042672
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 260.1759365234375,
+     "truth_median": 243.30299094682596
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 229.033796875,
+     "truth_median": 199.85788558049353
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 168.93183300781243,
+     "truth_median": 192.00781647836766
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 150.44628222656243,
+     "truth_median": 164.6443179467867
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 138.812521484375,
+     "truth_median": 208.8004643042628
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 157.00722753906246,
+     "truth_median": 169.36907250244053
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 208.36052929687503,
+     "truth_median": 169.94092985674706
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.50272851562522,
+     "truth_median": 219.87679807306029
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 183.7255624999998,
+     "truth_median": 195.3366971745072
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 240.96995703125003,
+     "truth_median": 225.94740889613786
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 216.788181640625,
+     "truth_median": 224.99847173047806
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 158.43035937500008,
+     "truth_median": 205.24329128381396
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 270.88479101562496,
+     "truth_median": 228.84452930405314
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 192.02431054687497,
+     "truth_median": 180.92772422884286
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 252.84283203125005,
+     "truth_median": 205.5375875294476
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 167.7553027343751,
+     "truth_median": 193.43500839856853
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 232.9989843750002,
+     "truth_median": 239.05471673670695
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 260.8768710937502,
+     "truth_median": 217.73825386794806
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 173.94007421874994,
+     "truth_median": 169.9022131987815
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.11401562499987,
+     "truth_median": 153.1500713558647
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 119.0789648437501,
+     "truth_median": 170.80461199148885
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 199.57162988281243,
+     "truth_median": 215.13914078172024
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 230.45490136718766,
+     "truth_median": 190.35441657942425
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 163.2641484375,
+     "truth_median": 154.24391002136952
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 272.30978906249993,
+     "truth_median": 250.46832380989918
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 253.54984570312513,
+     "truth_median": 192.01759924688668
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 220.4720410156251,
+     "truth_median": 211.8677228367717
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.5060585937499,
+     "truth_median": 177.3255315304791
+    }
+   ]
   }
  },
  "30": {
@@ -452,7 +1256,409 @@
       "range_b_mean_width": null
      }
     }
-   }
+   },
+   "interval_bias": [
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 211.88823242187505,
+     "truth_median": 209.03373497167695
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 251.15526074218775,
+     "truth_median": 235.8041829950589
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 188.46167968749978,
+     "truth_median": 195.57711515367328
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 155.21945117187488,
+     "truth_median": 135.88105947721033
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 171.02419531249996,
+     "truth_median": 173.07881903050475
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 150.04784765624981,
+     "truth_median": 181.74987721520313
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 131.81946875,
+     "truth_median": 195.7401152873058
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 218.54734765625,
+     "truth_median": 204.79393135697978
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 192.73117578125,
+     "truth_median": 199.74630288533035
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 270.53940234375,
+     "truth_median": 218.8515695770651
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 275.8310332031251,
+     "truth_median": 222.12873720167363
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 303.30423828125004,
+     "truth_median": 225.63357879650425
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 292.63142285156243,
+     "truth_median": 236.28590290748457
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 254.48991406250002,
+     "truth_median": 233.5203448888783
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 247.0756523437501,
+     "truth_median": 158.59262694582094
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 231.121302734375,
+     "truth_median": 216.2485123557567
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 184.27549707031255,
+     "truth_median": 203.17216774633766
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 170.82788867187514,
+     "truth_median": 199.24115311821265
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 199.75725097656277,
+     "truth_median": 187.36794094237962
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 273.0069189453126,
+     "truth_median": 194.3091489841277
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 191.78743847656256,
+     "truth_median": 214.2582676790316
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 252.09712499999978,
+     "truth_median": 229.21172337366224
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 244.16236718749997,
+     "truth_median": 226.8438430318155
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 126.75724414062506,
+     "truth_median": 162.99787847459925
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 231.1814824218759,
+     "truth_median": 216.0237151424485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.1021572265625,
+     "truth_median": 213.40738310935353
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 135.22037109375,
+     "truth_median": 240.3858599403568
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 248.72082421875007,
+     "truth_median": 201.10546110274436
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 274.2792382812504,
+     "truth_median": 210.59773261211444
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 229.1912246093749,
+     "truth_median": 184.42635090840656
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 254.852783203125,
+     "truth_median": 220.61859793357485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.90507031250036,
+     "truth_median": 200.48902246236707
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.53376757812475,
+     "truth_median": 243.497571245779
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 137.59523535156256,
+     "truth_median": 150.16682201583774
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.98520507812498,
+     "truth_median": 224.9802619834386
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 270.5683828125,
+     "truth_median": 221.7158503480431
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 227.16582812499973,
+     "truth_median": 214.8312691728147
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.9296484374995,
+     "truth_median": 227.14563783532537
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 156.91921484375007,
+     "truth_median": 165.7392890194019
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.0472099609375,
+     "truth_median": 199.0043100029868
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 192.45459374999973,
+     "truth_median": 193.5602263323044
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 179.78361718749989,
+     "truth_median": 186.1660440364949
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 182.18247460937505,
+     "truth_median": 194.64108820020226
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.1039687499997,
+     "truth_median": 198.6387778330831
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.7290302734374,
+     "truth_median": 213.15224157928037
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.42171679687476,
+     "truth_median": 234.43281432673507
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 187.92334179687504,
+     "truth_median": 183.56240451401385
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.45024609375002,
+     "truth_median": 182.53881806811614
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 121.5917851562499,
+     "truth_median": 152.32349451152209
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.6302900390624,
+     "truth_median": 230.63860764502022
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 219.59414160156234,
+     "truth_median": 191.99105072094233
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 170.3721113281249,
+     "truth_median": 182.01644109042672
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 260.1759365234375,
+     "truth_median": 243.30299094682596
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 229.033796875,
+     "truth_median": 199.85788558049353
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 168.93183300781243,
+     "truth_median": 192.00781647836766
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 150.44628222656243,
+     "truth_median": 164.6443179467867
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 138.812521484375,
+     "truth_median": 208.8004643042628
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 157.00722753906246,
+     "truth_median": 169.36907250244053
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 208.36052929687503,
+     "truth_median": 169.94092985674706
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.50272851562522,
+     "truth_median": 219.87679807306029
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 183.7255624999998,
+     "truth_median": 195.3366971745072
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 240.96995703125003,
+     "truth_median": 225.94740889613786
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 216.788181640625,
+     "truth_median": 224.99847173047806
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 158.43035937500008,
+     "truth_median": 205.24329128381396
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 270.88479101562496,
+     "truth_median": 228.84452930405314
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 192.02431054687497,
+     "truth_median": 180.92772422884286
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 252.84283203125005,
+     "truth_median": 205.5375875294476
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 167.7553027343751,
+     "truth_median": 193.43500839856853
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 232.9989843750002,
+     "truth_median": 239.05471673670695
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 260.8768710937502,
+     "truth_median": 217.73825386794806
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 173.94007421874994,
+     "truth_median": 169.9022131987815
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.11401562499987,
+     "truth_median": 153.1500713558647
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 119.0789648437501,
+     "truth_median": 170.80461199148885
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 199.57162988281243,
+     "truth_median": 215.13914078172024
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 230.45490136718766,
+     "truth_median": 190.35441657942425
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 163.2641484375,
+     "truth_median": 154.24391002136952
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 272.30978906249993,
+     "truth_median": 250.46832380989918
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 253.54984570312513,
+     "truth_median": 192.01759924688668
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 220.4720410156251,
+     "truth_median": 211.8677228367717
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.5060585937499,
+     "truth_median": 177.3255315304791
+    }
+   ]
   }
  },
  "45": {
@@ -604,7 +1810,409 @@
       "range_b_mean_width": null
      }
     }
-   }
+   },
+   "interval_bias": [
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 211.88823242187505,
+     "truth_median": 209.03373497167695
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 251.15526074218775,
+     "truth_median": 235.8041829950589
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 188.46167968749978,
+     "truth_median": 195.57711515367328
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 155.21945117187488,
+     "truth_median": 135.88105947721033
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 171.02419531249996,
+     "truth_median": 173.07881903050475
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 150.04784765624981,
+     "truth_median": 181.74987721520313
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 131.81946875,
+     "truth_median": 195.7401152873058
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 218.54734765625,
+     "truth_median": 204.79393135697978
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 192.73117578125,
+     "truth_median": 199.74630288533035
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 270.53940234375,
+     "truth_median": 218.8515695770651
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 275.8310332031251,
+     "truth_median": 222.12873720167363
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 303.30423828125004,
+     "truth_median": 225.63357879650425
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 292.63142285156243,
+     "truth_median": 236.28590290748457
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 254.48991406250002,
+     "truth_median": 233.5203448888783
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 247.0756523437501,
+     "truth_median": 158.59262694582094
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 231.121302734375,
+     "truth_median": 216.2485123557567
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 184.27549707031255,
+     "truth_median": 203.17216774633766
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 155.77716015624992,
+     "truth_median": 199.24115311821265
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 199.75725097656277,
+     "truth_median": 187.36794094237962
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 273.0069189453126,
+     "truth_median": 194.3091489841277
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 191.78743847656256,
+     "truth_median": 214.2582676790316
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 252.09712499999978,
+     "truth_median": 229.21172337366224
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 244.16236718749997,
+     "truth_median": 226.8438430318155
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 126.75724414062506,
+     "truth_median": 162.99787847459925
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 231.1814824218759,
+     "truth_median": 216.0237151424485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.1021572265625,
+     "truth_median": 213.40738310935353
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 135.22037109375,
+     "truth_median": 240.3858599403568
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 248.72082421875007,
+     "truth_median": 201.10546110274436
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 274.2792382812504,
+     "truth_median": 210.59773261211444
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 229.1912246093749,
+     "truth_median": 184.42635090840656
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 254.852783203125,
+     "truth_median": 220.61859793357485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.90507031250036,
+     "truth_median": 200.48902246236707
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.53376757812475,
+     "truth_median": 243.497571245779
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 137.59523535156256,
+     "truth_median": 150.16682201583774
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.98520507812498,
+     "truth_median": 224.9802619834386
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 270.5683828125,
+     "truth_median": 221.7158503480431
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 227.16582812499973,
+     "truth_median": 214.8312691728147
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.9296484374995,
+     "truth_median": 227.14563783532537
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 156.91921484375007,
+     "truth_median": 165.7392890194019
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.0472099609375,
+     "truth_median": 199.0043100029868
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 192.45459374999973,
+     "truth_median": 193.5602263323044
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 179.78361718749989,
+     "truth_median": 186.1660440364949
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 182.18247460937505,
+     "truth_median": 194.64108820020226
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.1039687499997,
+     "truth_median": 198.6387778330831
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.7290302734374,
+     "truth_median": 213.15224157928037
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.42171679687476,
+     "truth_median": 234.43281432673507
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 187.92334179687504,
+     "truth_median": 183.56240451401385
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.45024609375002,
+     "truth_median": 182.53881806811614
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 121.5917851562499,
+     "truth_median": 152.32349451152209
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.6302900390624,
+     "truth_median": 230.63860764502022
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 219.59414160156234,
+     "truth_median": 191.99105072094233
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 170.3721113281249,
+     "truth_median": 182.01644109042672
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 260.1759365234375,
+     "truth_median": 243.30299094682596
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 229.033796875,
+     "truth_median": 199.85788558049353
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 168.93183300781243,
+     "truth_median": 192.00781647836766
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 150.44628222656243,
+     "truth_median": 164.6443179467867
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 138.812521484375,
+     "truth_median": 208.8004643042628
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 157.00722753906246,
+     "truth_median": 169.36907250244053
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 208.36052929687503,
+     "truth_median": 169.94092985674706
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.50272851562522,
+     "truth_median": 219.87679807306029
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 183.7255624999998,
+     "truth_median": 195.3366971745072
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 240.96995703125003,
+     "truth_median": 225.94740889613786
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 216.788181640625,
+     "truth_median": 224.99847173047806
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 158.43035937500008,
+     "truth_median": 205.24329128381396
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 270.88479101562496,
+     "truth_median": 228.84452930405314
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 192.02431054687497,
+     "truth_median": 180.92772422884286
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 252.84283203125005,
+     "truth_median": 205.5375875294476
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 167.7553027343751,
+     "truth_median": 193.43500839856853
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 232.9989843750002,
+     "truth_median": 239.05471673670695
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 260.8768710937502,
+     "truth_median": 217.73825386794806
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 173.94007421874994,
+     "truth_median": 169.9022131987815
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.11401562499987,
+     "truth_median": 153.1500713558647
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 119.0789648437501,
+     "truth_median": 170.80461199148885
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 199.57162988281243,
+     "truth_median": 215.13914078172024
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 230.45490136718766,
+     "truth_median": 190.35441657942425
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 163.2641484375,
+     "truth_median": 154.24391002136952
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 272.30978906249993,
+     "truth_median": 250.46832380989918
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 253.54984570312513,
+     "truth_median": 192.01759924688668
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 220.4720410156251,
+     "truth_median": 211.8677228367717
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.5060585937499,
+     "truth_median": 177.3255315304791
+    }
+   ]
   }
  },
  "60": {
@@ -756,7 +2364,409 @@
       "range_b_mean_width": null
      }
     }
-   }
+   },
+   "interval_bias": [
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 211.88823242187505,
+     "truth_median": 209.03373497167695
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 251.15526074218775,
+     "truth_median": 235.8041829950589
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 188.46167968749978,
+     "truth_median": 195.57711515367328
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 155.21945117187488,
+     "truth_median": 135.88105947721033
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 171.02419531249996,
+     "truth_median": 173.07881903050475
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 150.04784765624981,
+     "truth_median": 181.74987721520313
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 131.81946875,
+     "truth_median": 195.7401152873058
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 218.54734765625,
+     "truth_median": 204.79393135697978
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 192.73117578125,
+     "truth_median": 199.74630288533035
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 270.53940234375,
+     "truth_median": 218.8515695770651
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 275.8310332031251,
+     "truth_median": 222.12873720167363
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 303.30423828125004,
+     "truth_median": 225.63357879650425
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 292.63142285156243,
+     "truth_median": 236.28590290748457
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 254.48991406250002,
+     "truth_median": 233.5203448888783
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 247.0756523437501,
+     "truth_median": 158.59262694582094
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 231.121302734375,
+     "truth_median": 216.2485123557567
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 184.27549707031255,
+     "truth_median": 203.17216774633766
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 155.77716015624992,
+     "truth_median": 199.24115311821265
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 199.75725097656277,
+     "truth_median": 187.36794094237962
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 273.0069189453126,
+     "truth_median": 194.3091489841277
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 191.78743847656256,
+     "truth_median": 214.2582676790316
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 252.09712499999978,
+     "truth_median": 229.21172337366224
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 244.16236718749997,
+     "truth_median": 226.8438430318155
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 126.75724414062506,
+     "truth_median": 162.99787847459925
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 231.1814824218759,
+     "truth_median": 216.0237151424485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.1021572265625,
+     "truth_median": 213.40738310935353
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 135.22037109375,
+     "truth_median": 240.3858599403568
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 248.72082421875007,
+     "truth_median": 201.10546110274436
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 274.2792382812504,
+     "truth_median": 210.59773261211444
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 229.1912246093749,
+     "truth_median": 184.42635090840656
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 254.852783203125,
+     "truth_median": 220.61859793357485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.90507031250036,
+     "truth_median": 200.48902246236707
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.53376757812475,
+     "truth_median": 243.497571245779
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 137.59523535156256,
+     "truth_median": 150.16682201583774
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.98520507812498,
+     "truth_median": 224.9802619834386
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 270.5683828125,
+     "truth_median": 221.7158503480431
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 227.16582812499973,
+     "truth_median": 214.8312691728147
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.9296484374995,
+     "truth_median": 227.14563783532537
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 156.91921484375007,
+     "truth_median": 165.7392890194019
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.0472099609375,
+     "truth_median": 199.0043100029868
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 192.45459374999973,
+     "truth_median": 193.5602263323044
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 179.78361718749989,
+     "truth_median": 186.1660440364949
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 182.18247460937505,
+     "truth_median": 194.64108820020226
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.1039687499997,
+     "truth_median": 198.6387778330831
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.7290302734374,
+     "truth_median": 213.15224157928037
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.42171679687476,
+     "truth_median": 234.43281432673507
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 187.92334179687504,
+     "truth_median": 183.56240451401385
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.45024609375002,
+     "truth_median": 182.53881806811614
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 121.5917851562499,
+     "truth_median": 152.32349451152209
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.6302900390624,
+     "truth_median": 230.63860764502022
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 219.59414160156234,
+     "truth_median": 191.99105072094233
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 170.3721113281249,
+     "truth_median": 182.01644109042672
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 260.1759365234375,
+     "truth_median": 243.30299094682596
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 229.033796875,
+     "truth_median": 199.85788558049353
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 168.93183300781243,
+     "truth_median": 192.00781647836766
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 150.44628222656243,
+     "truth_median": 164.6443179467867
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 138.812521484375,
+     "truth_median": 208.8004643042628
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 157.00722753906246,
+     "truth_median": 169.36907250244053
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 208.36052929687503,
+     "truth_median": 169.94092985674706
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.50272851562522,
+     "truth_median": 219.87679807306029
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 183.7255624999998,
+     "truth_median": 195.3366971745072
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 240.96995703125003,
+     "truth_median": 225.94740889613786
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 216.788181640625,
+     "truth_median": 224.99847173047806
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 158.43035937500008,
+     "truth_median": 205.24329128381396
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 270.88479101562496,
+     "truth_median": 228.84452930405314
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 192.02431054687497,
+     "truth_median": 180.92772422884286
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 252.84283203125005,
+     "truth_median": 205.5375875294476
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 167.7553027343751,
+     "truth_median": 193.43500839856853
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 232.9989843750002,
+     "truth_median": 239.05471673670695
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 260.8768710937502,
+     "truth_median": 217.73825386794806
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 173.94007421874994,
+     "truth_median": 169.9022131987815
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.11401562499987,
+     "truth_median": 153.1500713558647
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 119.0789648437501,
+     "truth_median": 170.80461199148885
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 199.57162988281243,
+     "truth_median": 215.13914078172024
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 230.45490136718766,
+     "truth_median": 190.35441657942425
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 163.2641484375,
+     "truth_median": 154.24391002136952
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 272.30978906249993,
+     "truth_median": 250.46832380989918
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 253.54984570312513,
+     "truth_median": 192.01759924688668
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 220.4720410156251,
+     "truth_median": 211.8677228367717
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.5060585937499,
+     "truth_median": 177.3255315304791
+    }
+   ]
   }
  },
  "90": {
@@ -908,7 +2918,409 @@
       "range_b_mean_width": null
      }
     }
-   }
+   },
+   "interval_bias": [
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 211.88823242187505,
+     "truth_median": 209.03373497167695
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 251.15526074218775,
+     "truth_median": 235.8041829950589
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 188.46167968749978,
+     "truth_median": 195.57711515367328
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 155.21945117187488,
+     "truth_median": 135.88105947721033
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 171.02419531249996,
+     "truth_median": 173.07881903050475
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 150.04784765624981,
+     "truth_median": 181.74987721520313
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 131.81946875,
+     "truth_median": 195.7401152873058
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 218.54734765625,
+     "truth_median": 204.79393135697978
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 192.73117578125,
+     "truth_median": 199.74630288533035
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 270.53940234375,
+     "truth_median": 218.8515695770651
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 275.8310332031251,
+     "truth_median": 222.12873720167363
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 303.30423828125004,
+     "truth_median": 225.63357879650425
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 292.63142285156243,
+     "truth_median": 236.28590290748457
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 254.48991406250002,
+     "truth_median": 233.5203448888783
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 256.3292265625,
+     "truth_median": 158.59262694582094
+    },
+    {
+     "file": "mixes-long-seed-2026.json",
+     "found_median": 231.121302734375,
+     "truth_median": 216.2485123557567
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 184.27549707031255,
+     "truth_median": 203.17216774633766
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 155.77716015624992,
+     "truth_median": 199.24115311821265
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 214.27362304687495,
+     "truth_median": 187.36794094237962
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 273.0069189453126,
+     "truth_median": 194.3091489841277
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 191.78743847656256,
+     "truth_median": 214.2582676790316
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 252.09712499999978,
+     "truth_median": 229.21172337366224
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 244.16236718749997,
+     "truth_median": 226.8438430318155
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 126.75724414062506,
+     "truth_median": 162.99787847459925
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 231.1814824218759,
+     "truth_median": 216.0237151424485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.1021572265625,
+     "truth_median": 213.40738310935353
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 135.22037109375,
+     "truth_median": 240.3858599403568
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 248.72082421875007,
+     "truth_median": 201.10546110274436
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 274.2792382812504,
+     "truth_median": 210.59773261211444
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 229.1912246093749,
+     "truth_median": 184.42635090840656
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 254.852783203125,
+     "truth_median": 220.61859793357485
+    },
+    {
+     "file": "mixes-long-seed-2027.json",
+     "found_median": 166.90507031250036,
+     "truth_median": 200.48902246236707
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.53376757812475,
+     "truth_median": 243.497571245779
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 137.59523535156256,
+     "truth_median": 150.16682201583774
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.98520507812498,
+     "truth_median": 224.9802619834386
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 270.5683828125,
+     "truth_median": 221.7158503480431
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 227.16582812499973,
+     "truth_median": 214.8312691728147
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.9296484374995,
+     "truth_median": 227.14563783532537
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 156.91921484375007,
+     "truth_median": 165.7392890194019
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 242.0472099609375,
+     "truth_median": 199.0043100029868
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 192.45459374999973,
+     "truth_median": 193.5602263323044
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 179.78361718749989,
+     "truth_median": 186.1660440364949
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 182.18247460937505,
+     "truth_median": 194.64108820020226
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.1039687499997,
+     "truth_median": 198.6387778330831
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 224.7290302734374,
+     "truth_median": 213.15224157928037
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 235.42171679687476,
+     "truth_median": 234.43281432673507
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 187.92334179687504,
+     "truth_median": 183.56240451401385
+    },
+    {
+     "file": "mixes-long-seed-2028.json",
+     "found_median": 199.45024609375002,
+     "truth_median": 182.53881806811614
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 121.5917851562499,
+     "truth_median": 152.32349451152209
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.6302900390624,
+     "truth_median": 230.63860764502022
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 219.59414160156234,
+     "truth_median": 191.99105072094233
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 170.3721113281249,
+     "truth_median": 182.01644109042672
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 260.1759365234375,
+     "truth_median": 243.30299094682596
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 252.3432041015626,
+     "truth_median": 199.85788558049353
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 168.93183300781243,
+     "truth_median": 192.00781647836766
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 150.44628222656243,
+     "truth_median": 164.6443179467867
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 138.812521484375,
+     "truth_median": 208.8004643042628
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 157.00722753906246,
+     "truth_median": 169.36907250244053
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 208.36052929687503,
+     "truth_median": 169.94092985674706
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 223.50272851562522,
+     "truth_median": 219.87679807306029
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 183.7255624999998,
+     "truth_median": 195.3366971745072
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 240.96995703125003,
+     "truth_median": 225.94740889613786
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 216.788181640625,
+     "truth_median": 224.99847173047806
+    },
+    {
+     "file": "mixes-long-seed-2029.json",
+     "found_median": 158.43035937500008,
+     "truth_median": 205.24329128381396
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 270.88479101562496,
+     "truth_median": 228.84452930405314
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 192.02431054687497,
+     "truth_median": 180.92772422884286
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 274.6965156250001,
+     "truth_median": 205.5375875294476
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 167.7553027343751,
+     "truth_median": 193.43500839856853
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 232.9989843750002,
+     "truth_median": 239.05471673670695
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 260.8768710937502,
+     "truth_median": 217.73825386794806
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 173.94007421874994,
+     "truth_median": 169.9022131987815
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.11401562499987,
+     "truth_median": 153.1500713558647
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 119.0789648437501,
+     "truth_median": 170.80461199148885
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 199.57162988281243,
+     "truth_median": 215.13914078172024
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 243.253794921875,
+     "truth_median": 190.35441657942425
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 163.2641484375,
+     "truth_median": 154.24391002136952
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 272.30978906249993,
+     "truth_median": 250.46832380989918
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 253.54984570312513,
+     "truth_median": 192.01759924688668
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 220.4720410156251,
+     "truth_median": 211.8677228367717
+    },
+    {
+     "file": "mixes-long-seed-7.json",
+     "found_median": 143.5060585937499,
+     "truth_median": 177.3255315304791
+    }
+   ]
   }
  }
 }

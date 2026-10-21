@@ -324,6 +324,7 @@ def main():
                 "without_missed_holding_indexed": sum(1 for _, _, g in every_gap if g["indexed_tracks"]),
                 "reached_by_play_length": missed_plays_by_length(mixes, length),
                 "by_truth": summarise(by_truth([("mixes", mixes)], length)),
+                "interval_bias": interval_bias(mixes, length),
             }
         summary[f"{length:.0f}"] = entry
         print_entry(length, entry)
@@ -352,6 +353,16 @@ def print_entry(length, entry):
                 f" ({data['without_missed_holding_indexed']} holding indexed time)"
                 f"; reached by play length {data['reached_by_play_length']}"
             )
+            ratios = [
+                row["found_median"] / row["truth_median"]
+                for row in data["interval_bias"]
+                if row["found_median"] and row["truth_median"]
+            ]
+            if ratios:
+                line += (
+                    f"; found median over the plays' {statistics.median(ratios):.2f}"
+                    f" ({min(ratios):.2f}-{max(ratios):.2f})"
+                )
         print(line)
         for truth, row in data["by_truth"].items():
             print(

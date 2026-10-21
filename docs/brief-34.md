@@ -221,3 +221,22 @@ Rules for this session:
   same report). Measured before reading: how often the registered
   interval on these scans gives the same estimate as the single-run
   interval of 0160 for the same gap, and M1-M3 on them.
+- **(08:30) The single-run check done** (08:08-08:30, 24 scans, all exit
+  0, no wrong identification; 42.8 s-1:07.6 each): the registered
+  interval estimates all 24 gaps and equals the single-run interval in
+  22 (both differences at k = 4 in Stakka); exact 6, 5, 3 and 4 of 6 at
+  k = 1-4, range A holds 23 of 24 (`single_run_check.py`,
+  `work/s34/scores/single-run-check.txt`).
+- **(08:35) The review's corrections** (read-only review by a separate
+  agent, 08:13-08:24). Corrections to entries above: at 07:35, 81 of the
+  115 gaps got no estimate, not 90; at 07:45, `self-match` was scored over
+  46 NAS listings, one of them a trial on a session 33 report, so 0162's
+  NAS row was rescored over the 45 designed ones (k = 3: 27 gaps, 52%
+  exact). The registered comparison of found medians with the manifest's
+  is reported for the plain scans and the generated mixes, not for each
+  leave-out scan. Other fixes: 0161's k = 4 column and reach at 45-60 s,
+  0160's undercount stated with its count (35 of 45) and its cause
+  marked as an inference, 0154's interval reported in 0160, the
+  denominators of 0162's short-mix row, the mixes' interval bias added
+  to `gap_scores.py`, `single_run_check.py`'s counts, two doc comments,
+  and the handoff's file lists.

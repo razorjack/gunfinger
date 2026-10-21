@@ -18,9 +18,9 @@ jobs, 1.1 GiB. Data `data/0162-self-match.json`.
 | Gaps (k = 1 / 2 / 3 / 4 missed) | Method 1 exact | Stretches at 10: exact | within 1 |
 |---|---|---|---|
 | Long mixes, 80 each (the test) | 86 / 53 / 39 / 26% | 95 / 80 / 69 / 54% | 100 / 99 / 98 / 93% |
-| NAS leave-outs, 35 / 30 / 28 / 24 (explored) | 100 / 53 / 37 / 42% (single run) | 86 / 70 / 54 / 42% | 100 / 100 / 86 / 92% |
+| NAS leave-outs, 35 / 30 / 27 / 24 (explored) | 100 / 53 / 37 / 42% (single run) | 86 / 70 / 52 / 42% | 100 / 100 / 85 / 92% |
 | 262 tracks, 20 / 13 / 12 / 12 | | 85 / 62 / 50 / 58% | 100% each |
-| Short mixes, 99 / 28 (20-60 s plays) | 76 / 61% | 81 / 14% | 100 / 75% |
+| Short mixes, 99 / 28 (20-60 s plays) | 76 / 61% of all gaps | 81 / 14% | 100 / 75% |
 
 - On the test the fixed count beats method 1 (registered interval) at every k
   and is within one for 311 of 320 gaps. Blocks as listed (not merged) are
@@ -31,7 +31,7 @@ jobs, 1.1 GiB. Data `data/0162-self-match.json`.
   missed one without comparing the blocks with the found neighbours.
 - Short plays repeat little: two 20-60 s plays give 0.9 stretches on average.
 - The NAS and 262-track rows count a gap once per set by its count and place,
-  which keeps one gap at k = 1 and one at k = 3 that `gap_scores.py` merges.
+  which keeps one gap at k = 1 that `gap_scores.py` merges.
 
 **Conclusion.** Exact landmark repeats inside a gap count the records of
 DJ-length plays better than the gap's length, unchanged from the gaps it was
