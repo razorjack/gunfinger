@@ -7543,3 +7543,226 @@ they need are on the Linux machine only (`work/s32/drive-out/`):
   `regress session-32-linux` identical with the final build
   (`work/bin/s32-final/`, byte-identical to `work/bin/s32-start/`, as no
   code changed).
+
+## Session 33
+
+### What changed
+
+Nothing in Gunfinger changed: no Rust code, so `identify` finds the same
+plays and the final build is the start build. The Linux machine (Fedora
+Linux 44, AMD Ryzen 9 5950X, 16 cores and 32 threads, 64 GB) now has its
+own NAS-scale harness: the library map, the NAS duplicate clusters and a
+NAS baseline, built from its own NAS peak store (40,683 records, revision
+`56433d74d0919a08`). With them it reran the Mac's recall conditions, the
+development scans with leave-outs and the per-second scores. Steps 7 and 8
+(the shared panels, the quantisation loss) were skipped for time.
+
+In short: the Linux machine reproduces the Mac's NAS-scale results. Every
+score of the development scans and leave-outs is the same, per-second
+scores differ by one second, the recall conditions without damage give the
+same counts and those with damage differ by a few queries, and no
+condition gives a wrong confident answer. Every difference in the clusters
+has a named cause other than the platform: the 3 corpus records the Mac's
+store passes over, the 557 records the Mac stored after 0128, and session
+28's six verdicts; peaks moved one borderline pair. NAS-scale searches here
+take about 1.5 times as long per query as on the Mac at the default 32
+jobs, and about 30% less time with `--jobs 16` (0158).
+
+### The library map and the clusters (experiment 0155)
+
+- `map-library` (1.2 s): 250 of 265 corpus files have a NAS copy, the Mac's
+  247 of 262 plus the 3 corpus records the Mac skips (0152), each with a
+  copy; the same 15 files have none.
+- `clusters --from-peaks` needs NAS clusters in use before `--recall-panel`
+  can run: `recall_panel` reads them to list the corpus recordings, which
+  only drawing a new panel needs. On a machine without NAS clusters the
+  command stops at once. Run 1 (01:24-02:10, 45:47) ran the command
+  without `--recall-panel` and wrote a first file; run 2 (02:40-03:32,
+  52:30, 94,387 s user CPU, 7.3 GiB) ran the full command, a full search of
+  its own. No code changed; a later fix could load the clusters only when
+  a panel is drawn.
+- The recall panel names one source in NFD (Coup De Tête); this store has
+  it in NFC. The harness does not refuse it: it would leave the source out
+  as "no record any more" and search 57 sources where the Mac searched 58.
+  `work/s33/panels/` is a copy of `docs/panels/` with only that path in NFC,
+  passed with `--panels` to the clusters run and every `recall` run. With
+  it run 2 searched 373 queries in round 1 (the Mac 370: 3 more corpus
+  files) and left out the same 2 pruned sources.
+- Against 0128: 284 clusters (281), 1,004 files (963), 739 NAS files (701),
+  the 17 corpus groups equal. The 3 extra clusters and 7 NAS files are the
+  3 extra corpus records' clusters (Dropzone, Hide U, Dilusion); 31 NAS
+  members are records the Mac also stored on 2026-10-17, after 0128; the
+  other 701 equal the Mac's count. All 77 members that 0120 and 0128 list
+  as added sit with the same corpus file. The PRO 012 A upload ~ the Mark
+  System Revision now has a verdict (line 81), so one join is cut where
+  0128 cut two (old-skool's Sonar ~ the Revision, 100%, 301 hits). The
+  weakest same pair is 0128's (Known Unknown, 80.3%, 1,390 hits); the
+  strongest unjudged pair left apart is now China Cup ~ ƆƐI3C's upload
+  (78.0%), since Stalker got its verdict. Of 0128's 44 borderline pairs, all
+  are here, 40 with equal hits; wobble ~ Tower Bass moved from 78 to 88 hits
+  (44.7% to 56.4%), the one change peaks alone can explain.
+- 0128's data file holds counts, the corpus groups, the added members, the
+  gap, borderline rows and cut joins, not every cluster's members, so the
+  comparison could go no finer.
+
+### The NAS baseline (0155)
+
+`baseline session-33-linux-nas`, from the standard evaluation at NAS scale
+under the new clusters: Stakka 11/11, leave-out 3 8/11, leave-out 11 0/11,
+0 wrong, 3 possible plays matching no track (as 0067); the sweep at seed
+2026 540/540 with 7 wrong answers, all one held-out query at 7 speeds: the
+corpus `APH027 ... cool_rock_suff` names old-skool's `Mobb Deep Vs Urban
+Takover - Cool Rock Shook Ones` with 257-282 hits. That is 0128's unjudged
+borderline pair (41%), stored before 0128; no NAS sweep on the Mac since
+then is recorded. Under the rules it counts as wrong until judged; nothing
+was tuned. `regress session-33-linux-nas` is identical (10:55);
+`devscore.py --nas` agrees with every stored score.
+
+### Recall under the hardest conditions (experiment 0156)
+
+Session 28's eight invocations, in its order, one at a time (03:57-05:27):
+
+| Condition (15 s; 20 s) | Confident, Mac -> here | Possible+, Mac -> here |
+|---|--:|--:|
+| Clean, 30 s | 522 -> 522 | 522 -> 522 |
+| Other rips only | 175 -> 175 | 178 -> 178 |
+| Brief | 228; 493 -> same | 522; 522 -> same |
+| Combined damage | 5 -> 4 | 428 -> 426 |
+| All three | 0; 0 -> same | 34; 73 -> 36; 71 |
+| Other rips and damage | 0 -> 0 | 125 -> 127 |
+| Brief and damage | 0; 0 -> same | 184; 306 -> 181; 304 |
+| Other rips and brief | 37; 141 -> 35; 141 | 177; 178 -> 178; 178 |
+
+No condition gave a wrong confident answer, no held-out or unobservable
+query was confident, and the strongest wrong detection is the Fire Splash
+Remix on the Fire Original Mix everywhere (184 hits; the Mac 185). Other
+rips only misses the same five queries as 0144. Every query is rendered on
+this machine (libmp3lame and, for damage, the filters and AAC encoder of
+FFmpeg 8.1.3), the peaks differ slightly (0153) and the index holds 557
+more records, so the few-query differences cannot be traced to one cause.
+The Mac's data files hold breakdowns, not queries, so no finer comparison
+was possible. Each run took 7-16 minutes and 5.0-5.4 GiB.
+
+### Development scans, leave-outs and per-second scores (experiment 0157)
+
+All 14 reports have the Mac's scores: Stakka 11/11, 8/11, 0/11; my 2003 mix
+12/12, 9/12, 0/12; Nocny 17/17, 14/17 at seeds 2026-2028, 0/17; nothing
+wrong; the known possible plays matching no track (3 per mix). `seconds`
+equals 0139 everywhere but one second of Nocny: its track 16's label ends
+1.4 s later, so one second within a margin becomes correct. At a 30 s
+margin 90.7% of 10,013 indexed seconds are correct (9,082; the Mac 9,081)
+and all 10,148 seconds of the every-track leave-outs are silent.
+
+### Speed on the Linux machine (0155, 0157, 0158)
+
+| Run, 32 jobs unless stated | The Linux machine | The Mac (10 cores) |
+|---|--:|--:|
+| `regress session-32-linux` (265 tracks) | 68.7 s | 153-156 s (262 tracks) |
+| Saved NAS index for the harness: build; save; load | 115 s; 3.2 s; 2.7 s | 80-118 s build (33,596 records) |
+| Clusters, run 2: per query | 4.1 s, 124 s CPU (762 queries, 52:30) | 2.7 s (0128); 19 s CPU (session 18) |
+| NAS sweep, seed 2026 (index build included) | 9:00 | 1,535-1,584 s (0067) |
+| NAS scan: Stakka; my mix; Nocny | 76 s; 59 s; 106-108 s | Nocny 71-74 s (0100) |
+| NAS leave-out scan, Stakka, `--jobs 16` | 52.4-52.8 s | 107 s (ADR 0014, older matcher) |
+| Clusters sample of 48, 16 against 32 jobs | 146 s against 208 s | |
+| `recall`, one condition | 7:16-15:30 | 6-12 min, under other load |
+| Peak memory, NAS scans and recall | 4.9-5.5 GiB | 4.8-5.1 GB |
+
+Run 1 started under the earlier power profile; from 01:45:52 on, all runs
+used tuned's `throughput-performance` (the user switched it). The Mac's
+times were often taken under other load. With the default 32 jobs, the
+clusters search and a NAS scan take about 1.5 times as long per query here
+as on the Mac. With 16 jobs both take about 30% less time than with 32, at
+a third of the CPU, and give identical reports (0158). Why the second
+thread of each core slows the search is not measured; competition for the
+caches and memory bandwidth while reading the 4.6 GB index at random is an
+inference.
+
+### Decided this session, open to change
+
+- The panel copy in NFC (above), not a change to the committed panel.
+- Run 1 without `--recall-panel`, then the full run, instead of a code
+  change.
+- Each recall condition as one invocation in session 28's order.
+- Steps 7 and 8 skipped: step 6 ended at 05:42, after the 05:30 the
+  orchestrating thread set. Their scripts are `work/s33/ahead.sh` and
+  `work/s33/ahead-8.sh`.
+- Experiment 0158 (workers) was added after step 6, as the orchestrating
+  thread asked for the speed's cause; it changes no default.
+- 0155 was first committed with 45 lines and trimmed to 40 in two later
+  commits.
+
+### Decisions waiting
+
+- Whether the harness should load the NAS clusters only when a recall
+  panel is drawn, so that `clusters --recall-panel` runs on a machine
+  without clusters (a harness change, no detection change).
+- Whether the default number of workers should be the number of cores,
+  not of hardware threads, on machines with two threads per core (0158).
+- New listening questions, none a verdict: ƆƐI3C's China Cup upload
+  against five China Cup rips (52-78%; the strongest unjudged pair left
+  apart, 78.0%), the corpus Gridlok `a-gridlok-dilusion` against
+  `Gridlok - Dilusion.opus` (73.1%, 1,452 hits) and Kosheen's
+  `x1-kosheen-hide_you` against `Hide U (Outrage & Markee Ledge Remix)`
+  (44.6%, 103 hits). Still open from session 25: APH027's Cool Rock Stuff
+  against the Mobb Deep upload (41%), which the NAS sweep now names
+  confidently for a held-out query.
+- Still waiting from earlier sessions: the decisions listed in sessions
+  21-32.
+
+### Handoff for the next session
+
+1. The clusters: `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`
+   (284 clusters, SHA-256 `37bc419d3d25...`), built from the NAS store at
+   revision `56433d74d0919a08` (40,683 records); the map beside it
+   (`library-map.json`, `b556ddb32575...`). Run 1's file is
+   `work/s33/clusters-run1.json`.
+2. Baselines on this machine: `session-32-linux` (corpus, 265 tracks) and
+   `session-33-linux-nas` (NAS scale, `regress` with `--other-peaks-dir`).
+   Build `work/bin/s33-final/` (identical to `s33-start`).
+3. The saved harness index `work/indexes/library-nas-dnb-peaks.index`
+   (4.6 GB) is current; the first run that finds it stale rebuilds it in
+   about 2 minutes.
+4. Commands (with `export PATH="$HOME/.cargo/bin:$PATH"`;
+   `NAS=$HOME/.local/share/gunfinger/nas-dnb-peaks`; zsh does not split a
+   command held in a variable, so run them from `sh` scripts as
+   `work/s33/*.sh` do):
+
+   ```sh
+   E="work/bin/s33-final/gunfinger-eval --other-peaks-dir $NAS --jobs 16"
+   $E scan nocny-trans-vertical-2002-08-23 --leave-out 3 --seed 2027
+   $E seconds --margin 30 --boundaries work/reports/library-nas-dnb-peaks/scan-<set>[-leave-out-<n>-seed-<s>].json
+   $E --panels work/s33/panels recall --queries clean      # and --other-rips-only, damaged, brief, brief-damaged
+   $E regress session-33-linux-nas
+   ```
+
+   A leave-out scan takes about 52 s (Stakka) with `--jobs 16` and 76 s
+   with the default 32; my 2003 mix 59 s and Nocny 106-108 s at 32 jobs
+   (about 30% less at 16, 0158). About 120 leave-out scans: roughly
+   1.5-2.5 hours at 16 jobs, by the mixes' lengths (an estimate). Reports
+   go to `work/reports/library-nas-dnb-peaks/`, `seconds` to
+   `work/seconds/library-nas-dnb-peaks/`. A scan writes over the report of
+   the same set, count and seed.
+5. `recall` must get `--panels work/s33/panels` on this machine, or it
+   searches 57 sources instead of 58.
+6. Did not reproduce exactly: combined damage and its combinations (up to
+   5 queries a condition), (a)+(b) at 15 s (35 against 37), one second of
+   Nocny's per-second score, one borderline pair's hits. Not run: steps 7
+   and 8.
+7. Scratch: `work/s33/` (8 MB: scripts, logs, the panel copy, the scratch
+   work directory of 0158) and `work/recall/` (0.5 GB, the recall
+   excerpts and damaged renders, which `recall --verify` would reuse).
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, no manifest
+  or report of it was opened, and no glob over `corpus/sets/*` was used.
+  `validate` without a set name, which reads every manifest, was not run.
+  Nothing ran on the candidate mixes of 0065 or on the NAS root's
+  broadcast file.
+- The NAS was only read (the recall panel's audio). The NAS store was only
+  read: 40,683 records at revision `56433d74d0919a08` at the start and at
+  the end. No `index` or `prune` with the NAS configuration.
+- FFmpeg here is now 8.1.3 (installed 2026-10-18, after session 32), not
+  8.1.2; `regress session-32-linux` is identical with it.
+- `docs/pair-verdicts.txt` is unchanged; no answer log was written. No
+  manifest and no committed panel changed.

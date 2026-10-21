@@ -4163,3 +4163,39 @@ notes "Session 32"; experiments 0152 and 0153.
   median interval counts its missed tracks within one in every case,
   exactly for 75% of two-track gaps and 42-48% at three and four.
 - No Rust code changed, so `scripts/check.sh` was not run.
+
+## 2026-10-21: session 33, the NAS-scale harness on the Linux machine
+
+Brief `docs/brief-33.md`, checklist `docs/session-33-checklist.md`;
+notes "Session 33"; experiments 0155-0158. The Linux machine: Fedora
+Linux 44, AMD Ryzen 9 5950X (16 cores, 32 threads), 64 GB; tuned's
+`throughput-performance` profile from 01:45:52 (the user's switch).
+
+- 01:15 start at `87529a3`, clean. FFmpeg is now 8.1.3. Start build
+  `work/bin/s33-start/` (1.98.0); `regress session-32-linux` identical,
+  68.7 s (under the earlier power profile).
+- 01:23 step 2: `map-library`, 250 of 265 corpus files with a NAS copy
+  (the Mac's 247 of 262 and the 3 extra corpus records).
+- 01:24-03:32 step 3: `clusters --recall-panel` needs NAS clusters in use
+  first, so run 1 left it out (45:47); run 2, session 18's full command
+  with `--cut-sparsest` and `--panels work/s33/panels` (the recall
+  panel's one NFD path in NFC), 52:30, 94,387 s user, 7.3 GiB: 284
+  clusters, every difference from 0128 explained (0155).
+- 03:33-03:57 step 4: the NAS standard evaluation and `baseline
+  session-33-linux-nas` (Stakka 11/11, 8/11, 0/11, 0 wrong; sweep 2026
+  540/540 with 7 wrong, one held-out query and 0128's unjudged Cool Rock
+  pair); `regress` of it identical (10:55). 0155 committed 03:57.
+- 03:57-05:27 step 5: session 28's eight recall conditions, one at a
+  time: equal counts without damage, within 5 queries with it, no wrong
+  confident answer (0156).
+- 05:28-05:42 step 6: the three development mixes, leave-outs of 3 and of
+  every track, 14 reports with the Mac's scores, nothing wrong; `seconds`
+  90.7% at a 30 s margin, one second from 0139 (0157). A NAS leave-out
+  scan takes 59-108 s at 32 jobs.
+- Steps 7 and 8 skipped (step 6 ended after 05:30, the orchestrating
+  thread's limit).
+- 05:44-05:52 experiment 0158: 16 workers take about 30% less time than
+  32 for a NAS scan (52 s against 76 s) and a clusters sample, with
+  identical results.
+- NAS store at the end: 40,683 records, `56433d74d0919a08`, as at the
+  start. `docs/pair-verdicts.txt` unchanged.

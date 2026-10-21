@@ -215,6 +215,9 @@ of its own, and compared them with the Mac's (experiments 0152, 0153).
   40,683 NAS records (session 32): the three development mixes in 46-79
   s with 4.8-4.9 GiB at peak. The Mac's figures are at 10 workers. Each
   worker keeps its own hit buffers (`search::lines`), so memory grows
-  with workers (`--jobs` or `GUNFINGER_JOBS` limits them).
+  with workers (`--jobs` or `GUNFINGER_JOBS` limits them). The default is
+  one worker per hardware thread; on this machine's 16 cores, 16 workers
+  take about 30% less time than 32 for NAS-scale scans and clustering,
+  with identical results (session 33, experiment 0158).
 - A change to platform-specific code is checked by the other platform's
   clippy pass and tested on both branches; AGENTS.md carries the rule.
