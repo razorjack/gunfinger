@@ -33,7 +33,7 @@ of their seconds, and no listed gap at any length lacks a missed track.
 - The found entries' median is the plays' (ratio 1.02, 0.56-1.56 per mix): no
   indexed play is missed. Errors run both ways here, unlike 0160's undercount:
   plays of 120-360 s drawn uniformly vary more than a DJ's intervals (0154:
-  quartiles 253-352 s in Stakka's mix), so k plays sum further from k medians.
+  quartiles 253-352 s for Stakka), which would explain it (not measured).
 
 **Conclusion.** On DJ-length plays any length of 10-60 s reaches every missed
 run and lists nothing else. Method 1 gives a range (A or B hold 92-93%), not a
