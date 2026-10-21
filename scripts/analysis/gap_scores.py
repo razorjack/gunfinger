@@ -10,7 +10,9 @@ Groups of listings are named on the command line, in order:
 
 A track missed in a set's plain scan (absent, or not in the library at that
 scale) is natural; it counts once, from the plain scan, and not again in
-the leave-outs. In the tables by truth a gap counts once per set and set of
+the leave-outs. Beside the registered interval, the single-run interval
+takes the same mix's plain scan's entries (a deviation, see `plain_interval`).
+In the tables by truth a gap counts once per set and set of
 missed tracks it holds, first in the plain scan, then in the leave-outs'
 order. Gaps holding no missed track count in every scan, and once per set
 with both edges within 5 s (beside it).
@@ -56,21 +58,22 @@ def natural_missed(plain):
 
 
 def reach(groups, length, natural):
-    """Missed tracks, those reached, and their seconds inside listed gaps,
-    natural ones once (from the plain scans)."""
+    """Missed tracks and those a listed gap reaches, natural ones once
+    (from the plain scans); and the seconds of missed tracks inside listed
+    gaps over all their seconds, summed over every scan as it is."""
     total = reached = seconds = seconds_in = 0
     unreached = []
     for group, listings in groups:
         for listing in listings:
             at = at_length(listing, length)
+            seconds_in += sum(gap["missed_seconds"] for gap in at["gaps"])
             for track in listing["tracks"]:
                 if not track["missed"]:
                     continue
-                key = (listing["name"], track["number"])
-                if group != "plain" and key in natural:
+                seconds += track["own_seconds"]
+                if group != "plain" and (listing["name"], track["number"]) in natural:
                     continue
                 total += 1
-                seconds += track["own_seconds"]
                 if any(track["number"] in gap["missed_tracks"] for gap in at["gaps"]):
                     reached += 1
                 else:
@@ -78,14 +81,6 @@ def reach(groups, length, natural):
                         (listing["file"], track["number"],
                          round(track["end_seconds"] - track["start_seconds"]))
                     )
-            seconds_in += sum(
-                gap["missed_seconds"]
-                for gap in at["gaps"]
-                # a natural track's seconds count in the plain scan only
-                if group == "plain" or not any(
-                    (listing["name"], number) in natural for number in gap["missed_tracks"]
-                )
-            )
     return total, reached, seconds, seconds_in, unreached
 
 
@@ -128,10 +123,34 @@ def own_interval_estimate(gap, entry_starts):
     return max(1, round(length / statistics.median(intervals)))
 
 
+def plain_interval(gap, plain_entry_starts):
+    """A deviation from the pre-registration (docs/brief-34.md, 07:35): the
+    interval of the same mix's plain scan, leaving out the intervals the
+    gap overlaps, as if the gap's run were the only one missing. Returns
+    the estimate and range B from those intervals."""
+    if plain_entry_starts is None:
+        return None, None
+    intervals = [
+        b - a
+        for a, b in zip(plain_entry_starts, plain_entry_starts[1:])
+        if not (gap["start_seconds"] < b and a < gap["end_seconds"])
+    ]
+    if len(intervals) < 3:
+        return None, None
+    length = gap["end_seconds"] - gap["start_seconds"]
+    return max(1, round(length / statistics.median(intervals))), quartile_range(gap, intervals)
+
+
 def by_truth(groups, length):
     """Each gap once per set and set of missed tracks it holds."""
     seen = set()
     rows = defaultdict(list)
+    plain_starts = {
+        listing["name"]: listing["entry_starts"]
+        for group, listings in groups
+        if group == "plain"
+        for listing in listings
+    }
     for _, listings in groups:
         for listing in listings:
             at = at_length(listing, length)
@@ -142,8 +161,11 @@ def by_truth(groups, length):
                     if key in seen:
                         continue
                     seen.add(key)
+                single, single_b = plain_interval(gap, plain_starts.get(listing["name"]))
                 rows[min(truth, 5)].append(
                     {
+                        "single_run": single,
+                        "single_run_b": single_b,
                         "file": listing["file"],
                         "length": round(gap["end_seconds"] - gap["start_seconds"], 1),
                         "estimate": gap["estimate"],
@@ -169,6 +191,9 @@ def summarise(rows):
         with_b = [gap for gap in estimated if gap["range_b"]]
         in_b = [gap["range_b"][0] <= truth <= gap["range_b"][1] for gap in with_b]
         own = [gap["own_interval"] - truth for gap in gaps if gap["own_interval"] is not None]
+        single = [gap for gap in gaps if gap["single_run"] is not None]
+        single_errors = [gap["single_run"] - truth for gap in single]
+        single_b = [gap for gap in single if gap["single_run_b"]]
         out[truth] = {
             "gaps": len(gaps),
             "no_estimate": len(gaps) - len(estimated),
@@ -185,6 +210,24 @@ def summarise(rows):
             ),
             "own_interval_exact": own.count(0),
             "own_interval_gaps": len(own),
+            "single_run": {
+                "gaps": len(single),
+                "exact": single_errors.count(0),
+                "off_by_one": sum(1 for e in single_errors if abs(e) == 1),
+                "off_by_two_or_more": sum(1 for e in single_errors if abs(e) >= 2),
+                "errors": dict(sorted(((e, single_errors.count(e)) for e in set(single_errors)))),
+                "range_a_holds": sum(
+                    1 for gap in single if range_a(gap["single_run"])[0] <= truth <= range_a(gap["single_run"])[1]
+                ),
+                "range_b_holds": sum(
+                    1 for gap in single_b if gap["single_run_b"][0] <= truth <= gap["single_run_b"][1]
+                ),
+                "range_b_gaps": len(single_b),
+                "range_b_mean_width": (
+                    statistics.mean(g["single_run_b"][1] - g["single_run_b"][0] + 1 for g in single_b)
+                    if single_b else None
+                ),
+            },
         }
     return out
 
@@ -315,6 +358,15 @@ def print_entry(length, entry):
                 f" (mean width {row['range_b_mean_width'] or 0:.1f}), no estimate {row['no_estimate']};"
                 f" 0154's interval exact {row['own_interval_exact']}/{row['own_interval_gaps']}; errors {row['errors']}"
             )
+            single = row["single_run"]
+            if single["gaps"]:
+                print(
+                    f"      single-run interval: {single['gaps']} gaps, exact {single['exact']},"
+                    f" off by one {single['off_by_one']}, off by 2+ {single['off_by_two_or_more']},"
+                    f" range A holds {single['range_a_holds']}, range B holds"
+                    f" {single['range_b_holds']}/{single['range_b_gaps']}"
+                    f" (mean width {single['range_b_mean_width'] or 0:.1f}); errors {single['errors']}"
+                )
 
 
 if __name__ == "__main__":

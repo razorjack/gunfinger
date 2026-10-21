@@ -179,3 +179,28 @@ Rules for this session:
   short mixes), so the harness finds a mix's render; `work/bin/s34-long/`
   was rebuilt with it before its queue started. It runs only after step
   3's scans, so the scans' times are not shared with it.
+- **(07:31) Step 3's NAS-scale scans done** (06:49-07:30): 45 scans,
+  all exit 0, no wrong identification in any; Stakka 52.9-53.6 s, my
+  2003 mix 42.6-46.1 s, Nocny 65.9-68.9 s at 16 jobs, 4.8-5.0 GiB.
+- **(07:35) A deviation: the single-run interval.** Each designed scan
+  leaves out up to seven runs, so nearly every interval between found
+  entries holds a gap; the registered interval (which skips those)
+  leaves fewer than 3 intervals in most scans, and 90 of the 115 gaps
+  holding 1-4 missed tracks get no estimate. That is the design's
+  density (a third to half of each mix left out), not a property of a
+  mix with one run missing. Beside the registered figures, which are
+  reported as they are, `gap_scores.py` adds the single-run interval:
+  the median of the same mix's plain scan's entry intervals that the
+  gap does not overlap, with the gap's own detection edges, as if its
+  run were the only one missing (the leave-out changes no other track's
+  detections in these scans: every kept track is found in every scan).
+  Criteria M1-M3 are judged on both, and the experiment says which.
+- **(07:45) Self-match on the NAS gaps (5b), explored, then fixed for
+  a test.** `self-match` on the 45 NAS reports (55 s, 0.7 GiB, 8 jobs,
+  beside the 262-track scans). Of the counts compared
+  (`self_match_scores.py`: blocks, blocks spanning 30 s or more, and
+  stretches, where long blocks whose spans overlap are merged), the
+  stretches at 10 hits per cell and lag read best. Chosen after seeing
+  these gaps, so they are fixed now (stretches, 10 hits, blocks of 30 s
+  or more) and tested unchanged on the long generated mixes, whose gaps
+  this session has not looked at.
