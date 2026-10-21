@@ -1,0 +1,1390 @@
+{
+ "source": "work/bin/s33-start on the Linux machine, 2026-10-21; scans 03:41-03:46 (Stakka, step 4) and 05:28-05:40; seconds 05:41; seconds_compare.py against data/0139-seconds.json (the Mac, session 27)",
+ "scans": {
+  "scan-stakka-skynet-knowledge.json": {
+   "score": "11/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 72.4 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:15.79",
+   "peak_kib": 5307688
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "score": "8/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 72.3 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:16.72",
+   "peak_kib": 5311472
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "score": "0/11 referenced tracks identified, 0 wrong identifications; 56:09 of audio scanned in 71.3 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:15.82",
+   "peak_kib": 5338620
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "score": "12/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 55.3 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "0:58.69",
+   "peak_kib": 5299944
+  },
+  "scan-razorjack-2003-03-29-leave-out-3-seed-2026.json": {
+   "score": "9/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 55.0 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "0:59.44",
+   "peak_kib": 5287968
+  },
+  "scan-razorjack-2003-03-29-leave-out-12-seed-2026.json": {
+   "score": "0/12 referenced tracks identified, 0 wrong identifications; 46:10 of audio scanned in 54.5 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "0:58.97",
+   "peak_kib": 5263428
+  },
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "score": "17/17 referenced tracks identified, 0 wrong identifications; 1:06:47 of audio scanned in 102.7 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:46.16",
+   "peak_kib": 5352636
+  },
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2026.json": {
+   "score": "14/17 referenced tracks identified, 0 wrong identifications; 1:06:47 of audio scanned in 102.4 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:46.86",
+   "peak_kib": 5362916
+  },
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2027.json": {
+   "score": "14/17 referenced tracks identified, 0 wrong identifications; 1:06:47 of audio scanned in 103.3 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:47.79",
+   "peak_kib": 5324220
+  },
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-3-seed-2028.json": {
+   "score": "14/17 referenced tracks identified, 0 wrong identifications; 1:06:47 of audio scanned in 102.2 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:46.69",
+   "peak_kib": 5337172
+  },
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026.json": {
+   "score": "0/17 referenced tracks identified, 0 wrong identifications; 1:06:47 of audio scanned in 101.4 s",
+   "possible": "0 more referenced tracks found as possible, 3 possible plays match no track",
+   "wall": "1:45.91",
+   "peak_kib": 5341368
+  }
+ },
+ "seconds_against_0139": {
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026-margin-15.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 4008,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 4008,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026-margin-30.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 4008,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 4008,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23-leave-out-17-seed-2026-margin-60.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 4008,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 4008,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23-margin-15.json": {
+   "seconds": {
+    "mac": {
+     "correct": 3395,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 27,
+     "mislabelled": 397,
+     "silent": 165,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 3396,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 26,
+     "mislabelled": 397,
+     "silent": 165,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": false,
+   "boundaries": {
+    "mac": [
+     [
+      0.08,
+      -2.86
+     ],
+     [
+      -23.89,
+      66.86
+     ],
+     [
+      -6.33,
+      33.74
+     ],
+     [
+      -1.14,
+      25.83
+     ],
+     [
+      -2.42,
+      16.98
+     ],
+     [
+      -9.9,
+      1.27
+     ],
+     [
+      0.78,
+      -3.5
+     ],
+     [
+      -4.82,
+      23.1
+     ],
+     [
+      -4.45,
+      134.92
+     ],
+     [
+      0.29,
+      39.29
+     ],
+     [
+      -1.98,
+      -23.46
+     ],
+     [
+      -36.86,
+      -0.25
+     ],
+     [
+      -29.19,
+      23.16
+     ],
+     [
+      -3.8,
+      31.33
+     ],
+     [
+      -10.54,
+      48.32
+     ],
+     [
+      -1.33,
+      -1.95
+     ],
+     [
+      -4.54,
+      -23.8
+     ]
+    ],
+    "here": [
+     [
+      0.08,
+      -2.86
+     ],
+     [
+      -23.89,
+      66.86
+     ],
+     [
+      -6.33,
+      33.74
+     ],
+     [
+      -1.14,
+      25.83
+     ],
+     [
+      -2.42,
+      16.98
+     ],
+     [
+      -9.9,
+      1.27
+     ],
+     [
+      0.78,
+      -3.5
+     ],
+     [
+      -4.82,
+      23.1
+     ],
+     [
+      -4.45,
+      134.92
+     ],
+     [
+      0.29,
+      39.29
+     ],
+     [
+      -1.98,
+      -23.46
+     ],
+     [
+      -36.86,
+      -0.25
+     ],
+     [
+      -29.19,
+      23.16
+     ],
+     [
+      -3.8,
+      31.33
+     ],
+     [
+      -10.54,
+      48.32
+     ],
+     [
+      -1.33,
+      -0.52
+     ],
+     [
+      -4.54,
+      -23.8
+     ]
+    ]
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23-margin-30.json": {
+   "seconds": {
+    "mac": {
+     "correct": 3552,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 57,
+     "mislabelled": 240,
+     "silent": 135,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 3553,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 56,
+     "mislabelled": 240,
+     "silent": 135,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": false,
+   "boundaries": {
+    "mac": [
+     [
+      0.08,
+      -2.86
+     ],
+     [
+      -23.89,
+      66.86
+     ],
+     [
+      -6.33,
+      33.74
+     ],
+     [
+      -1.14,
+      25.83
+     ],
+     [
+      -2.42,
+      16.98
+     ],
+     [
+      -9.9,
+      1.27
+     ],
+     [
+      0.78,
+      -3.5
+     ],
+     [
+      -4.82,
+      23.1
+     ],
+     [
+      -4.45,
+      134.92
+     ],
+     [
+      0.29,
+      39.29
+     ],
+     [
+      -1.98,
+      -23.46
+     ],
+     [
+      -36.86,
+      -0.25
+     ],
+     [
+      -29.19,
+      23.16
+     ],
+     [
+      -3.8,
+      31.33
+     ],
+     [
+      -10.54,
+      48.32
+     ],
+     [
+      -1.33,
+      -1.95
+     ],
+     [
+      -4.54,
+      -23.8
+     ]
+    ],
+    "here": [
+     [
+      0.08,
+      -2.86
+     ],
+     [
+      -23.89,
+      66.86
+     ],
+     [
+      -6.33,
+      33.74
+     ],
+     [
+      -1.14,
+      25.83
+     ],
+     [
+      -2.42,
+      16.98
+     ],
+     [
+      -9.9,
+      1.27
+     ],
+     [
+      0.78,
+      -3.5
+     ],
+     [
+      -4.82,
+      23.1
+     ],
+     [
+      -4.45,
+      134.92
+     ],
+     [
+      0.29,
+      39.29
+     ],
+     [
+      -1.98,
+      -23.46
+     ],
+     [
+      -36.86,
+      -0.25
+     ],
+     [
+      -29.19,
+      23.16
+     ],
+     [
+      -3.8,
+      31.33
+     ],
+     [
+      -10.54,
+      48.32
+     ],
+     [
+      -1.33,
+      -0.52
+     ],
+     [
+      -4.54,
+      -23.8
+     ]
+    ]
+   }
+  },
+  "scan-nocny-trans-vertical-2002-08-23-margin-60.json": {
+   "seconds": {
+    "mac": {
+     "correct": 3651,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 117,
+     "mislabelled": 141,
+     "silent": 75,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 3652,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 116,
+     "mislabelled": 141,
+     "silent": 75,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": false,
+   "boundaries": {
+    "mac": [
+     [
+      0.08,
+      -2.86
+     ],
+     [
+      -23.89,
+      66.86
+     ],
+     [
+      -6.33,
+      33.74
+     ],
+     [
+      -1.14,
+      25.83
+     ],
+     [
+      -2.42,
+      16.98
+     ],
+     [
+      -9.9,
+      1.27
+     ],
+     [
+      0.78,
+      -3.5
+     ],
+     [
+      -4.82,
+      23.1
+     ],
+     [
+      -4.45,
+      134.92
+     ],
+     [
+      0.29,
+      39.29
+     ],
+     [
+      -1.98,
+      -23.46
+     ],
+     [
+      -36.86,
+      -0.25
+     ],
+     [
+      -29.19,
+      23.16
+     ],
+     [
+      -3.8,
+      31.33
+     ],
+     [
+      -10.54,
+      48.32
+     ],
+     [
+      -1.33,
+      -1.95
+     ],
+     [
+      -4.54,
+      -23.8
+     ]
+    ],
+    "here": [
+     [
+      0.08,
+      -2.86
+     ],
+     [
+      -23.89,
+      66.86
+     ],
+     [
+      -6.33,
+      33.74
+     ],
+     [
+      -1.14,
+      25.83
+     ],
+     [
+      -2.42,
+      16.98
+     ],
+     [
+      -9.9,
+      1.27
+     ],
+     [
+      0.78,
+      -3.5
+     ],
+     [
+      -4.82,
+      23.1
+     ],
+     [
+      -4.45,
+      134.92
+     ],
+     [
+      0.29,
+      39.29
+     ],
+     [
+      -1.98,
+      -23.46
+     ],
+     [
+      -36.86,
+      -0.25
+     ],
+     [
+      -29.19,
+      23.16
+     ],
+     [
+      -3.8,
+      31.33
+     ],
+     [
+      -10.54,
+      48.32
+     ],
+     [
+      -1.33,
+      -0.52
+     ],
+     [
+      -4.54,
+      -23.8
+     ]
+    ]
+   }
+  },
+  "scan-razorjack-2003-03-29-leave-out-12-seed-2026-margin-15.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 2770,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 2770,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-razorjack-2003-03-29-leave-out-12-seed-2026-margin-30.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 2770,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 2770,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-razorjack-2003-03-29-leave-out-12-seed-2026-margin-60.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 2770,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 2770,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-razorjack-2003-03-29-margin-15.json": {
+   "seconds": {
+    "mac": {
+     "correct": 2308,
+     "possible": 0,
+     "unlabelled": 25,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 437,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 2308,
+     "possible": 0,
+     "unlabelled": 25,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 437,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": false,
+   "boundaries": {
+    "mac": [],
+    "here": [
+     [
+      1.93,
+      18.98
+     ],
+     [
+      0.27,
+      31.89
+     ],
+     [
+      0.92,
+      61.55
+     ],
+     [
+      1.99,
+      28.65
+     ],
+     [
+      0.78,
+      57.51
+     ],
+     [
+      0.68,
+      54.78
+     ],
+     [
+      -16.37,
+      19.08
+     ],
+     [
+      0.86,
+      94.1
+     ],
+     [
+      0.35,
+      39.78
+     ],
+     [
+      -3.37,
+      73.75
+     ],
+     [
+      0.21,
+      2.61
+     ],
+     [
+      0.98,
+      -6.86
+     ]
+    ]
+   }
+  },
+  "scan-razorjack-2003-03-29-margin-30.json": {
+   "seconds": {
+    "mac": {
+     "correct": 2436,
+     "possible": 0,
+     "unlabelled": 25,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 309,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 2436,
+     "possible": 0,
+     "unlabelled": 25,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 309,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": false,
+   "boundaries": {
+    "mac": [],
+    "here": [
+     [
+      1.93,
+      18.98
+     ],
+     [
+      0.27,
+      31.89
+     ],
+     [
+      0.92,
+      61.55
+     ],
+     [
+      1.99,
+      28.65
+     ],
+     [
+      0.78,
+      57.51
+     ],
+     [
+      0.68,
+      54.78
+     ],
+     [
+      -16.37,
+      19.08
+     ],
+     [
+      0.86,
+      94.1
+     ],
+     [
+      0.35,
+      39.78
+     ],
+     [
+      -3.37,
+      73.75
+     ],
+     [
+      0.21,
+      2.61
+     ],
+     [
+      0.98,
+      -6.86
+     ]
+    ]
+   }
+  },
+  "scan-razorjack-2003-03-29-margin-60.json": {
+   "seconds": {
+    "mac": {
+     "correct": 2593,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 1,
+     "mislabelled": 152,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 2593,
+     "possible": 0,
+     "unlabelled": 24,
+     "unlabelled_in_margin": 1,
+     "mislabelled": 152,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": false,
+   "boundaries": {
+    "mac": [],
+    "here": [
+     [
+      1.93,
+      18.98
+     ],
+     [
+      0.27,
+      31.89
+     ],
+     [
+      0.92,
+      61.55
+     ],
+     [
+      1.99,
+      28.65
+     ],
+     [
+      0.78,
+      57.51
+     ],
+     [
+      0.68,
+      54.78
+     ],
+     [
+      -16.37,
+      19.08
+     ],
+     [
+      0.86,
+      94.1
+     ],
+     [
+      0.35,
+      39.78
+     ],
+     [
+      -3.37,
+      73.75
+     ],
+     [
+      0.21,
+      2.61
+     ],
+     [
+      0.98,
+      -6.86
+     ]
+    ]
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026-margin-15.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 3370,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 3370,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026-margin-30.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 3370,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 3370,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026-margin-60.json": {
+   "seconds": {
+    "mac": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 3370,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 0,
+     "possible": 0,
+     "unlabelled": 0,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 0,
+     "silent": 3370,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [],
+    "here": []
+   }
+  },
+  "scan-stakka-skynet-knowledge-margin-15.json": {
+   "seconds": {
+    "mac": {
+     "correct": 2972,
+     "possible": 0,
+     "unlabelled": 67,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 331,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 2972,
+     "possible": 0,
+     "unlabelled": 67,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 331,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [
+     [
+      0.12,
+      -0.04
+     ],
+     [
+      -27.92,
+      -20.78
+     ],
+     [
+      -65.55,
+      -127.27
+     ],
+     [
+      -68.09,
+      1.11
+     ],
+     [
+      -31.92,
+      -12.86
+     ],
+     [
+      -67.88,
+      -8.6
+     ],
+     [
+      -64.7,
+      1.81
+     ],
+     [
+      -55.45,
+      -10.42
+     ],
+     [
+      -65.76,
+      -13.31
+     ],
+     [
+      -18.4,
+      3.7
+     ],
+     [
+      -10.05,
+      -7.68
+     ]
+    ],
+    "here": [
+     [
+      0.12,
+      -0.04
+     ],
+     [
+      -27.92,
+      -20.78
+     ],
+     [
+      -65.55,
+      -127.27
+     ],
+     [
+      -68.09,
+      1.11
+     ],
+     [
+      -31.92,
+      -12.86
+     ],
+     [
+      -67.88,
+      -8.6
+     ],
+     [
+      -64.7,
+      1.81
+     ],
+     [
+      -55.45,
+      -10.42
+     ],
+     [
+      -65.76,
+      -13.31
+     ],
+     [
+      -18.4,
+      3.7
+     ],
+     [
+      -10.05,
+      -7.68
+     ]
+    ]
+   }
+  },
+  "scan-stakka-skynet-knowledge-margin-30.json": {
+   "seconds": {
+    "mac": {
+     "correct": 3093,
+     "possible": 0,
+     "unlabelled": 67,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 210,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 3093,
+     "possible": 0,
+     "unlabelled": 67,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 210,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [
+     [
+      0.12,
+      -0.04
+     ],
+     [
+      -27.92,
+      -20.78
+     ],
+     [
+      -65.55,
+      -127.27
+     ],
+     [
+      -68.09,
+      1.11
+     ],
+     [
+      -31.92,
+      -12.86
+     ],
+     [
+      -67.88,
+      -8.6
+     ],
+     [
+      -64.7,
+      1.81
+     ],
+     [
+      -55.45,
+      -10.42
+     ],
+     [
+      -65.76,
+      -13.31
+     ],
+     [
+      -18.4,
+      3.7
+     ],
+     [
+      -10.05,
+      -7.68
+     ]
+    ],
+    "here": [
+     [
+      0.12,
+      -0.04
+     ],
+     [
+      -27.92,
+      -20.78
+     ],
+     [
+      -65.55,
+      -127.27
+     ],
+     [
+      -68.09,
+      1.11
+     ],
+     [
+      -31.92,
+      -12.86
+     ],
+     [
+      -67.88,
+      -8.6
+     ],
+     [
+      -64.7,
+      1.81
+     ],
+     [
+      -55.45,
+      -10.42
+     ],
+     [
+      -65.76,
+      -13.31
+     ],
+     [
+      -18.4,
+      3.7
+     ],
+     [
+      -10.05,
+      -7.68
+     ]
+    ]
+   }
+  },
+  "scan-stakka-skynet-knowledge-margin-60.json": {
+   "seconds": {
+    "mac": {
+     "correct": 3270,
+     "possible": 0,
+     "unlabelled": 67,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 33,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    },
+    "here": {
+     "correct": 3270,
+     "possible": 0,
+     "unlabelled": 67,
+     "unlabelled_in_margin": 0,
+     "mislabelled": 33,
+     "silent": 0,
+     "mislabelled_unindexed": 0
+    }
+   },
+   "boundaries_equal": true,
+   "boundaries": {
+    "mac": [
+     [
+      0.12,
+      -0.04
+     ],
+     [
+      -27.92,
+      -20.78
+     ],
+     [
+      -65.55,
+      -127.27
+     ],
+     [
+      -68.09,
+      1.11
+     ],
+     [
+      -31.92,
+      -12.86
+     ],
+     [
+      -67.88,
+      -8.6
+     ],
+     [
+      -64.7,
+      1.81
+     ],
+     [
+      -55.45,
+      -10.42
+     ],
+     [
+      -65.76,
+      -13.31
+     ],
+     [
+      -18.4,
+      3.7
+     ],
+     [
+      -10.05,
+      -7.68
+     ]
+    ],
+    "here": [
+     [
+      0.12,
+      -0.04
+     ],
+     [
+      -27.92,
+      -20.78
+     ],
+     [
+      -65.55,
+      -127.27
+     ],
+     [
+      -68.09,
+      1.11
+     ],
+     [
+      -31.92,
+      -12.86
+     ],
+     [
+      -67.88,
+      -8.6
+     ],
+     [
+      -64.7,
+      1.81
+     ],
+     [
+      -55.45,
+      -10.42
+     ],
+     [
+      -65.76,
+      -13.31
+     ],
+     [
+      -18.4,
+      3.7
+     ],
+     [
+      -10.05,
+      -7.68
+     ]
+    ]
+   }
+  }
+ }
+}
