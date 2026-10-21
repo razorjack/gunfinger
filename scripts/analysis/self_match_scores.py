@@ -5,10 +5,12 @@ For each threshold (hits per cell and lag) and each number of missed
 tracks a gap holds, three counts are compared with the truth: the blocks
 as listed; blocks spanning at least MIN_BLOCK_SECONDS; and stretches,
 where blocks whose spans overlap are merged (interleaved blocks are taken
-as one record). Gaps holding the same missed tracks in several listings of
-one mix count once, as in gap_scores.py.
+as one record). Gaps holding as many missed tracks at about the same place
+in several scans of one set count once, as in gap_scores.py; with --mixes,
+generated mixes of different seeds (which share names) are told apart by
+file.
 
-usage: python3 -I scripts/analysis/self_match_scores.py LISTING ...
+usage: python3 -I scripts/analysis/self_match_scores.py [--mixes] LISTING ...
 """
 
 import json
@@ -40,10 +42,12 @@ def counts(blocks):
 def main():
     seen = set()
     rows = defaultdict(lambda: defaultdict(list))
-    for path in sys.argv[1:]:
+    mixes = "--mixes" in sys.argv[1:]
+    for path in [arg for arg in sys.argv[1:] if arg != "--mixes"]:
         with open(path) as f:
             for gap in json.load(f):
-                key = (path, gap["mix"], gap["missed_tracks"], round(gap["start_seconds"] / 10))
+                mix = (path, gap["mix"]) if mixes else gap["mix"]
+                key = (mix, gap["missed_tracks"], round(gap["start_seconds"] / 10))
                 if gap["missed_tracks"] and key in seen:
                     continue
                 seen.add(key)
