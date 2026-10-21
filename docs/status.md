@@ -4186,20 +4186,23 @@ Linux 44, AMD Ryzen 9 5950X (16 cores, 32 threads), 64 GB; tuned's
   540/540 with 7 wrong, one held-out query and 0128's unjudged Cool Rock
   pair); `regress` of it identical (10:55). 0155 committed 03:57.
 - 03:57-05:27 step 5: session 28's eight recall conditions, one at a
-  time: equal counts without damage, within 5 queries with it, no wrong
+  time: equal counts for clean, other rips only and brief plays, within 2
+  queries for other rips with brief plays and 5 with damage, no wrong
   confident answer (0156).
-- 05:28-05:42 step 6: the three development mixes, leave-outs of 3 and of
-  every track, 14 reports with the Mac's scores, nothing wrong; `seconds`
+- 05:28-05:41 step 6: the three development mixes, leave-outs of 3 and of
+  every track, 11 reports with the Mac's scores, nothing wrong; `seconds`
   90.7% at a 30 s margin, one second from 0139 (0157). A NAS leave-out
   scan takes 59-108 s at 32 jobs.
 - Steps 7 and 8 skipped (step 6 ended after 05:30, the orchestrating
   thread's limit).
-- 05:44-05:52 experiment 0158: 16 workers take about 30% less time than
+- 05:42-05:53 experiment 0158: 16 workers take about 30% less time than
   32 for a NAS scan (52 s against 76 s) and a clusters sample, with
   identical results.
 - 05:53-05:57 final checks: `scripts/check.sh` green (466 Rust tests, 5
   Node tests, clippy for Linux and macOS); `work/bin/s33-final/`
   byte-identical to the start build; `regress session-32-linux` identical
   (70.2 s).
+- 05:55-06:20 read-only review by a separate agent; its findings fixed
+  (counts, ranges, claims narrowed to the data, script labels, handoff).
 - NAS store at the end: 40,683 records, `56433d74d0919a08`, as at the
   start. `docs/pair-verdicts.txt` unchanged.

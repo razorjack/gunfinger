@@ -28,13 +28,13 @@ eight invocations in session 28's order, one at a time, 03:57-05:27.
   Weapons at -8% and Droogs at +8% never a candidate; Victim 3 times at 201-230
   hits, Mac 202-231). (a)+(b) cells differ by up to 2. With damage, cells
   differ by up to 2 ((c), (a)+(c)) and 6-8 ((b)+(c), (a)+(b)+(c)), totals by up
-  to 5; the partner tempos agree (88 of 702 unmatched on both).
+  to 5; partner tempos agree (88 of 702 unmatched on both, here from the log).
 - Every query is rendered here (MP3 by libmp3lame, damage by the filters and
   AAC encoder of FFmpeg 8.1.3; the Mac's 9.0.2), peaks differ (0153) and the
   index holds 557 more records, so the data cannot separate the causes. The
   Mac's data files hold breakdowns, not queries; only 0144's named misses
   compare query by query.
-- 5.0-5.4 GiB at peak. The Mac's runs (6-12 min) shared its CPU with Panako.
+- 4.9-5.3 GiB at peak. The Mac's runs (6-12 min) shared its CPU with Panako.
 
 **Conclusion.** Session 28's recall results reproduce: the same precision, equal
 counts for C, (a) and (b), and the rest within a few queries.

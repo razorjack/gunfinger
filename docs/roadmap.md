@@ -447,9 +447,9 @@ marked as inferences were derived, not measured.
   1.3-1.4% of CPU and the copying of hits 9.1% (0113): under the note's
   5% stop point, so part boundaries computed once are not pursued.
   *(session 33, 0158)* On the Linux machine (16 cores, 32 hardware
-  threads) a NAS-scale scan and a clustering run take about 30% less time
-  with 16 workers than with the default 32, at a third of the CPU, with
-  identical results. Whether the default should count cores rather than
+  threads) a NAS-scale leave-out scan and a 48-query clusters sample took
+  about 30% less time with 16 workers than with the default 32, with
+  identical results; a full clustering run at 16 workers is not measured. Whether the default should count cores rather than
   hardware threads is our decision.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
@@ -900,7 +900,8 @@ marked as inferences were derived, not measured.
   confident, 428 possible or better, for too few hits; all three
   together 0/360 confident, 107 possible; no wrong confident answer and
   no held-out query confident in any condition. The Linux machine gave
-  the same counts without damage and within 5 queries with it, at 40,683
+  the same counts for clean queries, other rips only and brief plays, and
+  within 2 queries without damage and 5 with it otherwise, at 40,683
   records (session 33, 0156). Still to do: the validation half, once the
   rules change.)* The four sweep panels draw
   320 excerpts from 208 corpus files (experiment 0025). At NAS scale

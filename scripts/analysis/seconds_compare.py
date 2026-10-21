@@ -53,7 +53,11 @@ for key, rules in sorted(mac.items()):
     if not same_bounds:
         for i, (a, b) in enumerate(zip(mb, hb)):
             if a != b:
-                print(f"  track {i + 1}: {a} -> {b}")
+                # The i-th identified track, which is the manifest position
+                # only while no earlier track lacks a boundary.
+                start = h["boundaries"][i]
+                at = f" (starts at {start['start_seconds']} s)" if isinstance(start, dict) else ""
+                print(f"  identified track {i + 1}{at}: {a} -> {b}")
 if len(sys.argv) > 3:
     with open(sys.argv[3], "w", encoding="utf-8") as file:
         json.dump(out, file, indent=1)

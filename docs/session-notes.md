@@ -7559,14 +7559,18 @@ development scans with leave-outs and the per-second scores. Steps 7 and 8
 
 In short: the Linux machine reproduces the Mac's NAS-scale results. Every
 score of the development scans and leave-outs is the same, per-second
-scores differ by one second, the recall conditions without damage give the
-same counts and those with damage differ by a few queries, and no
-condition gives a wrong confident answer. Every difference in the clusters
-has a named cause other than the platform: the 3 corpus records the Mac's
-store passes over, the 557 records the Mac stored after 0128, and session
-28's six verdicts; peaks moved one borderline pair. NAS-scale searches here
-take about 1.5 times as long per query as on the Mac at the default 32
-jobs, and about 30% less time with `--jobs 16` (0158).
+scores differ by one second, and no recall condition gives a wrong
+confident answer. Clean queries, other rips only and brief plays give the
+same counts; other rips with brief plays differ by up to 2 queries, the
+conditions with damage by up to 5. Each difference found in the clusters
+has a named cause: the 3 corpus records the Mac's store passes over, the
+557 records the Mac stored after 0128, and the six verdicts of 2026-10-17;
+besides, four borderline pairs moved by 1-10 hits, from the peaks or the
+larger index (not separated). 0128's data holds counts, not every cluster's
+members, so swapped members cannot be ruled out. Clustering and scans of
+the longest mix take about 1.5 times as long here as on the Mac at the
+default 32 jobs, while the sweep and the 262-track runs are faster; a scan
+and a clusters sample took about 30% less time with `--jobs 16` (0158).
 
 ### The library map and the clusters (experiment 0155)
 
@@ -7599,8 +7603,13 @@ jobs, and about 30% less time with `--jobs 16` (0158).
   weakest same pair is 0128's (Known Unknown, 80.3%, 1,390 hits); the
   strongest unjudged pair left apart is now China Cup ~ ƆƐI3C's upload
   (78.0%), since Stalker got its verdict. Of 0128's 44 borderline pairs, all
-  are here, 40 with equal hits; wobble ~ Tower Bass moved from 78 to 88 hits
-  (44.7% to 56.4%), the one change peaks alone can explain.
+  are here, 40 with equal hits; three moved by 1-2 hits and wobble ~ Tower
+  Bass from 78 to 88 (44.7% to 56.4%). These involve no newer record, but
+  the search sets aside the fullest posting lists of the whole index, so the
+  557 more records may change them as well as the peaks; the data does not
+  separate the two. Borderline counts follow 0128's data (40-80%, not
+  joined); the harness's own summary line says 64, adding 6 Sonar ~
+  Revision rows at 89-99% that verdicts keep apart.
 - 0128's data file holds counts, the corpus groups, the added members, the
   gap, borderline rows and cut joins, not every cluster's members, so the
   comparison could go no finer.
@@ -7641,11 +7650,11 @@ this machine (libmp3lame and, for damage, the filters and AAC encoder of
 FFmpeg 8.1.3), the peaks differ slightly (0153) and the index holds 557
 more records, so the few-query differences cannot be traced to one cause.
 The Mac's data files hold breakdowns, not queries, so no finer comparison
-was possible. Each run took 7-16 minutes and 5.0-5.4 GiB.
+was possible. Each run took 7-16 minutes and 4.9-5.3 GiB.
 
 ### Development scans, leave-outs and per-second scores (experiment 0157)
 
-All 14 reports have the Mac's scores: Stakka 11/11, 8/11, 0/11; my 2003 mix
+All 11 reports have the Mac's scores: Stakka 11/11, 8/11, 0/11; my 2003 mix
 12/12, 9/12, 0/12; Nocny 17/17, 14/17 at seeds 2026-2028, 0/17; nothing
 wrong; the known possible plays matching no track (3 per mix). `seconds`
 equals 0139 everywhere but one second of Nocny: its track 16's label ends
@@ -7657,11 +7666,11 @@ and all 10,148 seconds of the every-track leave-outs are silent.
 
 | Run, 32 jobs unless stated | The Linux machine | The Mac (10 cores) |
 |---|--:|--:|
-| `regress session-32-linux` (265 tracks) | 68.7 s | 153-156 s (262 tracks) |
+| `regress session-32-linux` (265 tracks) | 68.7 s | 153-156 s (262 tracks, `regress session-30-start`) |
 | Saved NAS index for the harness: build; save; load | 115 s; 3.2 s; 2.7 s | 80-118 s build (33,596 records) |
-| Clusters, run 2: per query | 4.1 s, 124 s CPU (762 queries, 52:30) | 2.7 s (0128); 19 s CPU (session 18) |
-| NAS sweep, seed 2026 (index build included) | 9:00 | 1,535-1,584 s (0067) |
-| NAS scan: Stakka; my mix; Nocny | 76 s; 59 s; 106-108 s | Nocny 71-74 s (0100) |
+| Clusters, run 2: per query | 4.1 s (762 queries, 52:30) | 2.7 s (0128, 40,126 records) |
+| NAS sweep, seed 2026 (index build included) | 9:00 | 1,535-1,584 s (0067, 32,441 records, older code) |
+| NAS scan: Stakka; my mix; Nocny | 76 s; 59 s; 106-108 s | Nocny 71-74 s wall, 64-66 s search (session 18, 33,723 records, under other load) |
 | NAS leave-out scan, Stakka, `--jobs 16` | 52.4-52.8 s | 107 s (ADR 0014, older matcher) |
 | Clusters sample of 48, 16 against 32 jobs | 146 s against 208 s | |
 | `recall`, one condition | 7:16-15:30 | 6-12 min, under other load |
@@ -7669,13 +7678,16 @@ and all 10,148 seconds of the every-track leave-outs are silent.
 
 Run 1 started under the earlier power profile; from 01:45:52 on, all runs
 used tuned's `throughput-performance` (the user switched it). The Mac's
-times were often taken under other load. With the default 32 jobs, the
-clusters search and a NAS scan take about 1.5 times as long per query here
-as on the Mac. With 16 jobs both take about 30% less time than with 32, at
-a third of the CPU, and give identical reports (0158). Why the second
-thread of each core slows the search is not measured; competition for the
-caches and memory bandwidth while reading the 4.6 GB index at random is an
-inference.
+times were often taken under other load and at fewer records, and user
+CPU here counts both threads of a core, so CPU time does not compare. With
+the default 32 jobs, clustering and the Nocny scans take about 1.5 times as
+long here as on the Mac; the sweep and the 262-track `regress` are faster.
+With 16 jobs a Stakka leave-out scan and a 48-query clusters sample took
+about 30% less time than with 32, at a third of the user time, with
+identical results (0158); a full clustering run at 16 jobs was not
+measured. Why the second thread of each core slows these runs is not
+measured; competition for the caches and memory bandwidth while reading the
+4.6 GB index at random is an inference.
 
 ### Decided this session, open to change
 
@@ -7683,8 +7695,8 @@ inference.
 - Run 1 without `--recall-panel`, then the full run, instead of a code
   change.
 - Each recall condition as one invocation in session 28's order.
-- Steps 7 and 8 skipped: step 6 ended at 05:42, after the 05:30 the
-  orchestrating thread set. Their scripts are `work/s33/ahead.sh` and
+- Steps 7 and 8 skipped: step 6's scans ended at 05:40 and its `seconds`
+  at 05:41, after the 05:30 the orchestrating thread set. Their scripts are `work/s33/ahead.sh` and
   `work/s33/ahead-8.sh`.
 - Experiment 0158 (workers) was added after step 6, as the orchestrating
   thread asked for the speed's cause; it changes no default.
@@ -7733,6 +7745,11 @@ inference.
    $E seconds --margin 30 --boundaries work/reports/library-nas-dnb-peaks/scan-<set>[-leave-out-<n>-seed-<s>].json
    $E --panels work/s33/panels recall --queries clean      # and --other-rips-only, damaged, brief, brief-damaged
    $E regress session-33-linux-nas
+   # the NAS clusters again (run 2's command; needs a clusters file in use
+   # first, see above):
+   $E --panels work/s33/panels clusters --from-peaks --manifest razorjack-2003-03-29 \
+     --manifest stakka-skynet-knowledge --manifest nocny-trans-vertical-2002-08-23 \
+     --recall-panel 2026 --cut-sparsest
    ```
 
    A leave-out scan takes about 52 s (Stakka) with `--jobs 16` and 76 s
@@ -7762,10 +7779,24 @@ inference.
 - The NAS was only read (the recall panel's audio). The NAS store was only
   read: 40,683 records at revision `56433d74d0919a08` at the start and at
   the end. No `index` or `prune` with the NAS configuration.
+- 0158's two 16-job scans wrote the same log files, so only the second's
+  `time` output is kept; the first's figures (52.4 s, 717 s user) are from
+  the line the script printed. The 88 unbeatmatched partners are counted
+  from `work/s33/logs/recall-c.err`.
 - FFmpeg here is now 8.1.3 (installed 2026-10-18, after session 32), not
   8.1.2; `regress session-32-linux` is identical with it.
 - `docs/pair-verdicts.txt` is unchanged; no answer log was written. No
   manifest and no committed panel changed.
+- A read-only review by a separate agent (05:55-06:15) recomputed the
+  numbers from the logs and reports with the session's scripts and its own
+  (the data files reproduce) and found 11 development reports counted as
+  14, three peak-memory ranges and one median slightly off, "the same
+  counts without damage" untrue for other rips with brief plays, the six
+  verdicts attributed to the wrong session, speed and CPU comparisons
+  broader than the data, the borderline pairs that moved attributed to
+  peaks alone, script labels that could mislead, and the clusters command
+  missing from the handoff. All are fixed above, in 0155-0158, the status
+  entry, the roadmap, ADR 0020 and the brief (06:20).
 - The final checks (05:53-05:57): `scripts/check.sh` with 1.98.0 green in
   2:59 (formatting, clippy for Linux and for macOS, 466 Rust tests, the
   page's 5 Node tests); the final build `work/bin/s33-final/` is

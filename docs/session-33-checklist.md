@@ -25,7 +25,7 @@ for scope and rules.
 - [x] 5. Recall under the hardest conditions (eight runs, 03:57-05:27);
   compared with 0144 and 0145; experiment 0156
 - [x] 6. Development scans with leave-outs at NAS scale; `seconds`;
-  compared with 0067, 0100 and 0139; experiment 0157 (14 reports with the
+  compared with 0067, 0100 and 0139; experiment 0157 (11 reports with the
   Mac's scores; per-second one second from 0139)
 - [-] 7. (Ahead) shared panels at NAS scale: skipped, step 6 did not
   finish before 05:30 (the orchestrating thread's note); script
@@ -38,7 +38,8 @@ for scope and rules.
 
 ## Wrap-up
 
-- [~] 9. Read-only review by a subagent; fixes
+- [x] 9. Read-only review by a subagent; fixes (numbers, claims narrowed,
+  scripts, handoff; brief at 06:20)
 - [x] 10. Notes "Session 33", status, checklist, roadmap, ADR 0020
   (the workers' finding)
 - [x] `scripts/check.sh` green (2:59); `regress session-32-linux`

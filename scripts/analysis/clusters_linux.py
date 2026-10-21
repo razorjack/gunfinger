@@ -11,8 +11,10 @@ members. So the comparison is:
 - every member 0120 and 0128 list as added: is it here, in the cluster of
   the corpus file it joined there?
 - the cut joins, the gap and the borderline rows (40-80% coverage, not
-  joined), matched by their two files (a pair searched from both sides
-  gives two rows and one pair);
+  the same recording, as `clusters_rebuilt.py` made 0128's), matched by
+  their two files (a pair searched from both sides gives two rows and one
+  pair). The harness's own summary line also counts pairs of 80% and
+  more that a verdict or a cut keeps apart;
 - for this machine's members and pairs, whether a file's record is one of
   the 557 the Mac's store wrote after 0128's run (2026-10-17), from the
   Mac's record listing: a difference from 0128 that involves such a file
@@ -35,6 +37,8 @@ import unicodedata
 
 PREFIX = "second-library/"
 BORDERLINE = 0.4
+# Local midnight: the Mac wrote no record between 0128's run (2026-10-16,
+# 21:24) and then, and all 557 later records on 2026-10-17.
 NEW_RECORDS_FROM = datetime.datetime(2026, 10, 17).timestamp()
 
 
@@ -77,13 +81,15 @@ def verdicts_of(path):
 
 def names_only(value):
     """File names without their folders (AGENTS.md: evaluation JSON in
-    docs holds file names only)."""
+    docs holds file names only), the other library's marked `NAS: `, so
+    that a corpus file and its NAS copy of one name stay apart."""
     if isinstance(value, dict):
         return {k: names_only(v) for k, v in value.items()}
     if isinstance(value, list):
         return [names_only(v) for v in value]
     if isinstance(value, str) and "/" in value and not value.startswith("line "):
-        return value.rsplit("/", 1)[-1]
+        name = value.rsplit("/", 1)[-1]
+        return f"NAS: {name}" if value.startswith(PREFIX) else name
     return value
 
 

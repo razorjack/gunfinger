@@ -116,7 +116,7 @@ Rules for this session:
 
 ## The Mac's figures to compare with
 
-From status.md and the experiments; the Mac (M1 Pro, 10 cores) often
+From status.md and the experiments; the Mac (10 cores) often
 shared its CPU with other sessions, so its times are a rough guide.
 
 | Run | The Mac |
@@ -144,7 +144,8 @@ shared its CPU with other sessions, so its times are a rough guide.
 
 Experiments: step 3 (with 2 and 4) 0155, step 5 0156, step 6 0157,
 step 7 0158, step 8 0159, each written before the next experiment
-starts.
+starts. (As it turned out, steps 7 and 8 were skipped and 0158 is the
+workers' measurement; see the decisions at 05:42 and 05:53.)
 
 Commands: `E="work/bin/s33-start/gunfinger-eval --other-peaks-dir
 $HOME/.local/share/gunfinger/nas-dnb-peaks"`; reports in
@@ -233,3 +234,31 @@ $HOME/.local/share/gunfinger/nas-dnb-peaks"`; reports in
   quantisation-loss runs do not start. Their scripts are ready for a
   later session: `work/s33/ahead.sh` (both shared panels' development
   halves) and `work/s33/ahead-8.sh` (`recall --verify`).
+- **(05:42) Experiment 0158, the workers.** After step 6 (scans ended
+  05:40, `seconds` 05:41), the orchestrating thread's question on speed
+  was answered with a short measurement in a scratch work directory: a
+  leave-out scan at 16, 24, 32 and 16 jobs and a 48-query clusters
+  sample at 16 and 32 (05:42-05:53). It changes no default; the number
+  0158, planned for step 7, went to it.
+- **(05:53-05:57) Final checks.** `scripts/check.sh` green (2:59); the
+  final build `work/bin/s33-final/` byte-identical to the start build;
+  `regress session-32-linux` identical (70.2 s); the verdicts digest
+  unchanged.
+- **(06:20) The review's findings** (read-only agent, 05:55-06:15), fixed:
+  11 development reports, not 14; recall peak 4.9-5.3 GiB; 0155's runs
+  5.0-5.5 GiB; my mix's start error median +0.7 s; "same counts without
+  damage" corrected (other rips with brief plays differ by up to 2); the
+  six verdicts are those of 2026-10-17 (session 23's questions), not
+  session 28's; the speed comparison narrowed to clustering and long scans
+  (the sweep and 262-track runs are faster here); the borderline pairs
+  that moved are attributed to the peaks or the larger index (the search
+  sets aside the whole index's fullest lists), not peaks alone; "each
+  difference found" qualified by the data holding counts, not members;
+  user CPU no longer compared across machines; 0158's result stated for
+  what was measured; times of step 6 and 0158; the Mac's hardware out of
+  this brief; the clusters command in the handoff; `clusters_linux.py`
+  marks NAS file names (`NAS: `) and documents the definitions,
+  `seconds_compare.py` labels tracks by order of identification; CLAUDE.md
+  item 13 names session 33's notes. The borderline definition stays
+  0128's data's (`clusters_rebuilt.py`: 40-80%, not joined); the harness's
+  64 is explained beside it.
