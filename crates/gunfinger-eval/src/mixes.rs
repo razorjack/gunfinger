@@ -7,7 +7,7 @@
 //! held-out tracks play in the mixes too and must produce nothing
 //! confident.
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -30,6 +30,7 @@ use crate::rng::Rng;
 use crate::scoring::evidence;
 use crate::shared::Roots;
 use crate::sweep::Plan;
+use crate::tempo::{beat_period, onset_envelope};
 use crate::verifier::{Verification, Verifier};
 
 /// Plays per generated mix, and the length of each, fades included.
@@ -74,6 +75,16 @@ pub enum MixKind {
     /// Plays of 2-6 minutes joined by crossfades of 10-60 s, with runs of
     /// 1, 2, 3 and 4 held-out tracks between indexed ones.
     Long,
+    /// Long mixes whose every play is beatmatched to the one before it.
+    /// The files of the shared-material panel's families are out of the
+    /// index and the draws, so that this is the control of `shared`.
+    Beatmatched,
+    /// Beatmatched long mixes whose held-out runs of 2 or more hold pairs
+    /// of the shared-material panel's records, each played over the
+    /// passage the two share, one after the other.
+    Shared,
+    /// Long mixes whose every play rides the pitch by 1-3% once.
+    Rides,
 }
 
 impl MixKind {
@@ -89,19 +100,28 @@ impl MixKind {
     }
 
     /// The report's and the renders' name: `seed-<seed>` for short mixes,
-    /// `long-seed-<seed>` for long ones.
+    /// `<kind>-seed-<seed>` for the others.
     pub fn name(self, seed: u64) -> String {
         match self {
             MixKind::Short => format!("seed-{seed}"),
             MixKind::Long => format!("long-seed-{seed}"),
+            MixKind::Beatmatched => format!("beatmatched-seed-{seed}"),
+            MixKind::Shared => format!("shared-seed-{seed}"),
+            MixKind::Rides => format!("rides-seed-{seed}"),
         }
+    }
+
+    fn beatmatches(self) -> bool {
+        matches!(self, MixKind::Beatmatched | MixKind::Shared)
     }
 
     /// The lengths of play `print_summary` counts confident plays by.
     fn play_lengths(self) -> [(f64, f64); 4] {
         match self {
             MixKind::Short => [(20.0, 30.0), (30.0, 40.0), (40.0, 50.0), (50.0, 61.0)],
-            MixKind::Long => [(0.0, 120.0), (120.0, 200.0), (200.0, 280.0), (280.0, 361.0)],
+            MixKind::Long | MixKind::Beatmatched | MixKind::Shared | MixKind::Rides => {
+                [(0.0, 120.0), (120.0, 200.0), (200.0, 280.0), (280.0, 361.0)]
+            }
         }
     }
 }
@@ -124,12 +144,36 @@ pub struct PlannedPlay {
     /// after `bass_cut_from` (going out).
     pub bass_cut_until: Option<f64>,
     pub bass_cut_from: Option<f64>,
+    /// A change of speed within the play.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ride: Option<Ride>,
+}
+
+/// A pitch ride: from mix time `start_seconds` the speed moves linearly
+/// from the play's `speed` to `to_speed` over `seconds`, and stays there.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+pub struct Ride {
+    pub start_seconds: f64,
+    pub seconds: f64,
+    pub to_speed: f64,
 }
 
 impl PlannedPlay {
-    /// The position in the track heard at mix time `seconds`.
+    /// The position in the track heard at mix time `seconds`: the speed
+    /// integrated from the play's start.
     pub fn source_at(&self, seconds: f64) -> f64 {
-        self.source_start_seconds + (seconds - self.start_seconds) * self.speed
+        let elapsed = seconds - self.start_seconds;
+        let Some(ride) = self.ride else {
+            return self.source_start_seconds + elapsed * self.speed;
+        };
+        let before = (ride.start_seconds - self.start_seconds).max(0.0);
+        let rising = (elapsed - before).clamp(0.0, ride.seconds);
+        let after = (elapsed - before - ride.seconds).max(0.0);
+        self.source_start_seconds
+            + self.speed * elapsed.min(before)
+            + self.speed * rising
+            + (ride.to_speed - self.speed) * rising * rising / (2.0 * ride.seconds)
+            + ride.to_speed * after
     }
 
     fn is_bass_cut(&self, seconds: f64) -> bool {
@@ -178,14 +222,15 @@ pub fn render(mix: &PlannedMix, roots: &Roots, output: &Path) -> Result<(), Stri
 fn play_audio(play: &PlannedPlay, roots: &Roots) -> Result<Vec<f32>, String> {
     let source = roots.path(&play.asset)?;
     let seconds = play.end_seconds - play.start_seconds;
-    let render = |filter| {
-        render_samples(
+    let render = |filter| match play.ride {
+        None => render_samples(
             &source,
             play.source_start_seconds,
             seconds,
             Playback::Turntable(play.speed),
             filter,
-        )
+        ),
+        Some(_) => ridden(play, &source, filter),
     };
     let full = render(None)?;
     let gain = LEVEL / rms(&full).max(1e-9);
@@ -203,6 +248,34 @@ fn play_audio(play: &PlannedPlay, roots: &Roots) -> Result<Vec<f32>, String> {
             let sample = (1.0 - cut_share) * f64::from(full[index])
                 + cut_share * f64::from(cut.get(index).copied().unwrap_or(0.0));
             (sample * gain * play.fade(at)) as f32
+        })
+        .collect())
+}
+
+/// A play with a pitch ride: the track at native speed, read at the
+/// position `source_at` gives for each output sample, between samples by
+/// linear interpolation.
+fn ridden(play: &PlannedPlay, source: &Path, filter: Option<&str>) -> Result<Vec<f32>, String> {
+    let rate = f64::from(RENDER_RATE);
+    let needed = play.source_at(play.end_seconds) - play.source_start_seconds + 1.0;
+    let native = render_samples(
+        source,
+        play.source_start_seconds,
+        needed,
+        Playback::Turntable(1.0),
+        filter,
+    )?;
+    let length = to_index(play.end_seconds - play.start_seconds);
+    Ok((0..length)
+        .map(|index| {
+            let at = play.start_seconds + index as f64 / rate;
+            let position = (play.source_at(at) - play.source_start_seconds) * rate;
+            let before = position.floor() as usize;
+            let fraction = (position - position.floor()) as f32;
+            match (native.get(before), native.get(before + 1)) {
+                (Some(&a), Some(&b)) => a + (b - a) * fraction,
+                _ => 0.0,
+            }
         })
         .collect())
 }
@@ -496,6 +569,7 @@ fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) ->
         fade_out_seconds: 0.0,
         bass_cut_until: None,
         bass_cut_from: None,
+        ride: None,
     }
 }
 
@@ -503,48 +577,131 @@ fn drawn_speed(rng: &mut Rng) -> f64 {
     1.0 + (2.0 * rng.unit() - 1.0) * SPEED_RANGE
 }
 
+/// What the beatmatched, shared and ridden long mixes draw on besides the
+/// pools: each file's beat period at native speed, and the pairs of
+/// records that share a passage.
+#[derive(Default)]
+pub struct LongExtras {
+    pub periods: BTreeMap<String, f64>,
+    pub pairs: Vec<SharedPair>,
+}
+
+/// Two records of one family of the shared-material panel, in the order
+/// they play, each with its length and the passage the two share.
+#[derive(Debug, Clone)]
+pub struct SharedPair {
+    pub family: String,
+    pub records: [PairRecord; 2],
+}
+
+#[derive(Debug, Clone)]
+pub struct PairRecord {
+    pub asset: String,
+    pub duration_seconds: f64,
+    pub passage: (f64, f64),
+}
+
+/// A track picked for a long mix, before its play is drawn.
+struct Pick<'a> {
+    asset: &'a str,
+    duration_seconds: f64,
+    held_out: bool,
+    /// Where the play must be heard, in the track: a shared passage.
+    passage: Option<(f64, f64)>,
+}
+
+impl<'a> Pick<'a> {
+    fn of(record: &'a PeakRecord, held_out: bool) -> Pick<'a> {
+        Pick {
+            asset: &record.header.source.path,
+            duration_seconds: record.header.duration_seconds,
+            held_out,
+            passage: None,
+        }
+    }
+}
+
 /// Draws a long mix: `INDEXED_FIRST` indexed plays, then a run of each
 /// length of `HELD_OUT_RUNS` in a drawn order, each followed by 2 or 3
 /// indexed plays, every track from a cluster of its own, joined by
-/// crossfades.
+/// crossfades. `kind` adds beatmatching, shared pairs in the runs or pitch
+/// rides; `MixKind::Long` draws exactly what it drew before there were
+/// other long kinds.
 pub fn draw_long_mix(
     name: &str,
+    kind: MixKind,
     pools: &Pools,
+    extras: &LongExtras,
     clusters: &Clusters,
     rng: &mut Rng,
 ) -> Result<PlannedMix, String> {
     let too_few = || String::from("the library has too few long tracks for a long generated mix");
     let mut used: BTreeSet<BTreeSet<String>> = BTreeSet::new();
-    let mut draw = |held_out: bool, rng: &mut Rng| {
+    let mut families: BTreeSet<&str> = BTreeSet::new();
+    let draw = |held_out: bool, used: &mut BTreeSet<BTreeSet<String>>, rng: &mut Rng| {
         let pool = if held_out {
             &pools.held_out
         } else {
             &pools.indexed
         };
-        draw_unused(pool, &mut used, clusters, rng)
-            .map(|record| (record, held_out))
+        draw_unused(pool, used, clusters, rng)
+            .map(|record| Pick::of(record, held_out))
             .ok_or_else(too_few)
     };
     let mut runs = HELD_OUT_RUNS;
     rng.shuffle(&mut runs);
-    let mut chosen: Vec<(&PeakRecord, bool)> = Vec::new();
+    let mut chosen: Vec<Pick> = Vec::new();
     for _ in 0..INDEXED_FIRST {
-        chosen.push(draw(false, rng)?);
+        chosen.push(draw(false, &mut used, rng)?);
     }
     for run in runs {
-        for _ in 0..run {
-            chosen.push(draw(true, rng)?);
+        if kind == MixKind::Shared {
+            let pairs = run / 2;
+            // A single track of an odd run plays before or after its pair.
+            let single_first = run % 2 == 1 && rng.unit() < 0.5;
+            if single_first {
+                chosen.push(draw(true, &mut used, rng)?);
+            }
+            for _ in 0..pairs {
+                let pair = draw_pair(&extras.pairs, &mut families, rng).ok_or_else(too_few)?;
+                for record in &pair.records {
+                    used.insert(clusters.cluster_of(&record.asset));
+                    chosen.push(Pick {
+                        asset: &record.asset,
+                        duration_seconds: record.duration_seconds,
+                        held_out: true,
+                        passage: Some(record.passage),
+                    });
+                }
+            }
+            if run % 2 == 1 && !single_first {
+                chosen.push(draw(true, &mut used, rng)?);
+            }
+        } else {
+            for _ in 0..run {
+                chosen.push(draw(true, &mut used, rng)?);
+            }
         }
         let (fewest, most) = INDEXED_AFTER_RUN;
         for _ in 0..fewest + rng.below(most - fewest + 1) {
-            chosen.push(draw(false, rng)?);
+            chosen.push(draw(false, &mut used, rng)?);
         }
     }
 
     let mut plays: Vec<PlannedPlay> = Vec::new();
     let mut start = 0.0;
-    for &(record, held_out) in &chosen {
-        let mut play = long_play(record, held_out, start, rng);
+    for pick in &chosen {
+        let drawn = drawn_speed(rng);
+        let speed = match plays.last() {
+            Some(previous) if kind.beatmatches() => {
+                beatmatched_speed(previous, pick.asset, &extras.periods).unwrap_or(drawn)
+            }
+            _ => drawn,
+        };
+        let mut play = long_play(pick, start, speed, rng);
+        if kind == MixKind::Rides {
+            ride(&mut play, pick.duration_seconds, rng);
+        }
         if let Some(previous) = plays.last_mut() {
             crossfade(previous, &mut play, rng);
         }
@@ -558,19 +715,69 @@ pub fn draw_long_mix(
     })
 }
 
-/// A play of a DJ's length, shortened to fit the track: from a drawn place
-/// between 5% of the track and where the play would end at 95% of it, at a
-/// drawn speed.
-fn long_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) -> PlannedPlay {
-    let duration = record.header.duration_seconds;
-    let speed = drawn_speed(rng);
+/// A pair of a family not yet in the mix, which it then joins.
+fn draw_pair<'a>(
+    pairs: &'a [SharedPair],
+    families: &mut BTreeSet<&'a str>,
+    rng: &mut Rng,
+) -> Option<&'a SharedPair> {
+    let fresh: Vec<&SharedPair> = pairs
+        .iter()
+        .filter(|pair| !families.contains(pair.family.as_str()))
+        .collect();
+    if fresh.is_empty() {
+        return None;
+    }
+    let chosen = fresh[rng.below(fresh.len())];
+    families.insert(&chosen.family);
+    Some(chosen)
+}
+
+/// A beatmatched play is at most this far from its native speed.
+const BEATMATCH_RANGE: f64 = 0.08;
+/// Ratios between a found beat period and the true one (as `robust`'s).
+const METRICAL_FACTORS: [f64; 7] = [1.0, 2.0, 0.5, 1.5, 2.0 / 3.0, 4.0 / 3.0, 0.75];
+
+/// The speed at which `asset` plays at the tempo `previous` plays at, as
+/// a DJ beatmatches the next record: of the metrical readings of the two
+/// beat periods, the one nearest native speed, if within
+/// `BEATMATCH_RANGE`. `None` when a period is unknown or none is in range;
+/// the play keeps its drawn speed then.
+fn beatmatched_speed(
+    previous: &PlannedPlay,
+    asset: &str,
+    periods: &BTreeMap<String, f64>,
+) -> Option<f64> {
+    let ours = periods.get(asset)?;
+    let theirs = periods.get(&previous.asset)?;
+    let playing = previous.ride.map_or(previous.speed, |ride| ride.to_speed);
+    METRICAL_FACTORS
+        .iter()
+        .map(|factor| playing * ours / theirs * factor)
+        .filter(|speed| (speed - 1.0).abs() <= BEATMATCH_RANGE)
+        .min_by(|a, b| (a - 1.0).abs().total_cmp(&(b - 1.0).abs()))
+}
+
+/// A play of a DJ's length, shortened to fit the track, at `speed`: from a
+/// drawn place between 5% of the track and where the play would end at
+/// 95% of it, or, for a pick with a passage, from a drawn place at which
+/// the play holds the whole passage where it can.
+fn long_play(pick: &Pick, start: f64, speed: f64, rng: &mut Rng) -> PlannedPlay {
+    let duration = pick.duration_seconds;
     let drawn = LONG_PLAY_SECONDS.0 + rng.unit() * (LONG_PLAY_SECONDS.1 - LONG_PLAY_SECONDS.0);
     let seconds = drawn.min(0.85 * duration / speed);
-    let earliest = 0.05 * duration;
-    let latest = (0.95 * duration - seconds * speed).max(earliest);
+    let heard = seconds * speed;
+    let (earliest, latest) = match pick.passage {
+        None => (0.05 * duration, 0.95 * duration - heard),
+        Some((from, to)) => {
+            let latest = from.min(duration - heard);
+            ((to - heard).max(0.0).min(latest), latest)
+        }
+    };
+    let latest = latest.max(earliest);
     PlannedPlay {
-        asset: record.header.source.path.clone(),
-        held_out,
+        asset: pick.asset.to_owned(),
+        held_out: pick.held_out,
         source_start_seconds: earliest + rng.unit() * (latest - earliest),
         speed,
         start_seconds: start,
@@ -579,6 +786,38 @@ fn long_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) -> 
         fade_out_seconds: 0.0,
         bass_cut_until: None,
         bass_cut_from: None,
+        ride: None,
+    }
+}
+
+/// Pitch rides: a change of `RIDE_CHANGE` of the speed, up or down, over
+/// `RIDE_SECONDS`, starting between 30% and 70% into the play. A change
+/// that would take the play more than `RIDE_LIMIT` from native speed goes
+/// the other way.
+const RIDE_CHANGE: (f64, f64) = (0.01, 0.03);
+const RIDE_SECONDS: (f64, f64) = (5.0, 15.0);
+const RIDE_LIMIT: f64 = 0.07;
+
+/// Gives `play` a drawn pitch ride, moving its start in the track back if
+/// the faster end would run past 97% of a track of `duration_seconds`.
+fn ride(play: &mut PlannedPlay, duration_seconds: f64, rng: &mut Rng) {
+    let seconds = play.end_seconds - play.start_seconds;
+    let at = play.start_seconds + (0.3 + 0.4 * rng.unit()) * seconds;
+    let over = RIDE_SECONDS.0 + rng.unit() * (RIDE_SECONDS.1 - RIDE_SECONDS.0);
+    let size = RIDE_CHANGE.0 + rng.unit() * (RIDE_CHANGE.1 - RIDE_CHANGE.0);
+    let up = rng.unit() < 0.5;
+    let mut to_speed = play.speed * if up { 1.0 + size } else { 1.0 - size };
+    if (to_speed - 1.0).abs() > RIDE_LIMIT {
+        to_speed = play.speed * if up { 1.0 - size } else { 1.0 + size };
+    }
+    play.ride = Some(Ride {
+        start_seconds: at,
+        seconds: over.min(play.end_seconds - at),
+        to_speed,
+    });
+    let overrun = play.source_at(play.end_seconds) - 0.97 * duration_seconds;
+    if overrun > 0.0 {
+        play.source_start_seconds = (play.source_start_seconds - overrun).max(0.0);
     }
 }
 
@@ -647,6 +886,7 @@ pub fn draw_around(
                 fade_out_seconds: 0.0,
                 bass_cut_until: None,
                 bass_cut_from: None,
+                ride: None,
             },
             std::cmp::Ordering::Less => drawn_play(drawn[position], false, start, rng),
             std::cmp::Ordering::Greater => drawn_play(drawn[position - 1], false, start, rng),
@@ -712,6 +952,9 @@ pub struct MixResult {
 pub struct Options<'a> {
     pub seed: u64,
     pub kind: MixKind,
+    /// The other library's root, for the shared-material panel's files
+    /// under `second-library/` (beatmatched and shared kinds).
+    pub other_root: Option<&'a Path>,
     /// Where the seed's sweep panel is kept (`Plan::for_seed`).
     pub panels: &'a Path,
     pub count: usize,
@@ -724,7 +967,7 @@ pub struct Options<'a> {
 }
 
 /// The library's records, the sweep's held-out assets for `seed`, and the
-/// index of the rest.
+/// index of the rest less `left_out`.
 pub fn sweep_index(
     library: &Library,
     store: &PeakStore,
@@ -732,16 +975,130 @@ pub fn sweep_index(
     seed: u64,
     panels: &Path,
     matching: &Matching,
+    left_out: &BTreeSet<String>,
 ) -> Result<(Vec<PeakRecord>, BTreeSet<String>, Index), String> {
     let (records, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
     let held_out = Plan::for_seed(&records, clusters, seed, panels)?.held_out;
     let indexed: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !held_out.contains(&record.header.source.path))
+        .filter(|record| !left_out.contains(&record.header.source.path))
         .cloned()
         .collect();
     let index = Index::build(&indexed).map_err(|error| error.to_string())?;
     Ok((records, held_out, matching.index(index)))
+}
+
+/// The shared-material panel the shared kind draws its pairs from, in the
+/// panels directory.
+const SHARED_PANEL: &str = "shared-material-seed-2026.json";
+/// Each record's tempo is read from this long a native render...
+const TEMPO_SECONDS: f64 = 30.0;
+/// ...from this far into the track, or from a shared passage's start.
+const TEMPO_FROM: f64 = 0.4;
+
+/// The files of every family of the shared-material panel (left out of
+/// the index and the draws of both beatmatched kinds), and for the shared
+/// kind each direction with a shared passage as a pair, the played file
+/// first. A pair's lengths come from FFprobe.
+fn shared_pairs(
+    panels: &Path,
+    roots: &Roots,
+    kind: MixKind,
+) -> Result<(BTreeSet<String>, Vec<SharedPair>), String> {
+    let path = panels.join(SHARED_PANEL);
+    let text = fs::read_to_string(&path)
+        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
+    let panel: crate::identifiability::Panel =
+        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+    let files: BTreeSet<String> = panel
+        .families
+        .iter()
+        .flat_map(|family| family.recordings.iter().flatten().cloned())
+        .collect();
+    if kind != MixKind::Shared {
+        return Ok((files, Vec::new()));
+    }
+    let length = |asset: &str| -> Result<f64, String> {
+        let source = roots.path(asset)?;
+        gunfinger_core::decode::probe(&source)
+            .and_then(|probe| probe.length)
+            .map(|length| length.as_secs_f64())
+            .ok_or_else(|| format!("cannot read the length of {}", source.display()))
+    };
+    let mut pairs = Vec::new();
+    for family in &panel.families {
+        for direction in &family.directions {
+            let Some(passage) = &direction.passage else {
+                continue;
+            };
+            let (Some(related_start), Some(related_end)) =
+                (passage.related_start_seconds, passage.related_end_seconds)
+            else {
+                continue;
+            };
+            if passage.control {
+                continue;
+            }
+            pairs.push(SharedPair {
+                family: family.name.clone(),
+                records: [
+                    PairRecord {
+                        asset: direction.played.clone(),
+                        duration_seconds: length(&direction.played)?,
+                        passage: (passage.start_seconds, passage.end_seconds),
+                    },
+                    PairRecord {
+                        asset: direction.related.clone(),
+                        duration_seconds: length(&direction.related)?,
+                        passage: (related_start, related_end),
+                    },
+                ],
+            });
+        }
+    }
+    Ok((files, pairs))
+}
+
+/// The beat period at native speed of every record of the pools and every
+/// pair's files (from its shared passage), where `tempo` finds one.
+fn beat_periods(
+    pools: &Pools,
+    pairs: &[SharedPair],
+    roots: &Roots,
+    jobs: usize,
+) -> BTreeMap<String, f64> {
+    let mut wanted: BTreeMap<String, f64> = pools
+        .indexed
+        .iter()
+        .chain(&pools.held_out)
+        .map(|record| {
+            (
+                record.header.source.path.clone(),
+                TEMPO_FROM * record.header.duration_seconds,
+            )
+        })
+        .collect();
+    for record in pairs.iter().flat_map(|pair| &pair.records) {
+        wanted.insert(record.asset.clone(), record.passage.0);
+    }
+    let wanted: Vec<(String, f64)> = wanted.into_iter().collect();
+    let periods = map_in_order(&wanted, jobs, |(asset, from)| {
+        let samples = render_samples(
+            &roots.path(asset).ok()?,
+            *from,
+            TEMPO_SECONDS,
+            Playback::Turntable(1.0),
+            None,
+        )
+        .ok()?;
+        beat_period(&onset_envelope(&samples, RENDER_RATE))
+    });
+    wanted
+        .into_iter()
+        .zip(periods)
+        .filter_map(|((asset, _), period)| period.map(|period| (asset, period)))
+        .collect()
 }
 
 /// Draws, renders, searches and scores `count` mixes, one per thread.
@@ -752,6 +1109,15 @@ pub fn run(
     work: &Path,
     options: &Options,
 ) -> Result<MixesReport, String> {
+    let roots = Roots {
+        library: &library.root,
+        second: options.other_root,
+    };
+    let (families, pairs) = if options.kind.beatmatches() {
+        shared_pairs(options.panels, &roots, options.kind)?
+    } else {
+        (BTreeSet::new(), Vec::new())
+    };
     let (records, held_out, index) = sweep_index(
         library,
         store,
@@ -759,10 +1125,24 @@ pub fn run(
         options.seed,
         options.panels,
         options.matching,
+        &families,
     )?;
     let index = &index;
     let verifier = options.verify.then(|| Verifier::new(&records, None));
-    let pools = Pools::new(&records, &held_out);
+    let without_families: Vec<PeakRecord> = records
+        .iter()
+        .filter(|record| !families.contains(&record.header.source.path))
+        .cloned()
+        .collect();
+    let pools = Pools::new(&without_families, &held_out);
+    let extras = LongExtras {
+        periods: if options.kind.beatmatches() {
+            beat_periods(&pools, &pairs, &roots, options.jobs)
+        } else {
+            BTreeMap::new()
+        },
+        pairs,
+    };
     let mut rng = Rng::new(options.seed);
     let dir = options.kind.renders(work, options.seed);
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
@@ -771,7 +1151,7 @@ pub fn run(
             let path = dir.join(format!("{name}.mp3"));
             let mix = match options.kind {
                 MixKind::Short => draw_mix(&name, &pools, clusters, &mut rng),
-                MixKind::Long => draw_long_mix(&name, &pools, clusters, &mut rng),
+                kind => draw_long_mix(&name, kind, &pools, &extras, clusters, &mut rng),
             };
             mix.map(|mix| (mix, path))
         })
@@ -783,7 +1163,7 @@ pub fn run(
         verifier: verifier.as_ref(),
     };
     let results = map_in_order(&planned, options.jobs, |(mix, path)| {
-        search_mix(mix, path, library, clusters, &searcher)
+        search_mix(mix, path, &roots, clusters, &searcher)
     });
     Ok(MixesReport {
         seed: options.seed,
@@ -822,7 +1202,7 @@ pub fn render_once(mix: &PlannedMix, roots: &Roots, path: &Path) -> Result<(), S
 pub fn search_mix(
     mix: &PlannedMix,
     path: &Path,
-    library: &Library,
+    roots: &Roots,
     clusters: &Clusters,
     searcher: &Searcher,
 ) -> Result<MixResult, String> {
@@ -832,14 +1212,7 @@ pub fn search_mix(
         matching,
         verifier,
     } = *searcher;
-    render_once(
-        mix,
-        &Roots {
-            library: &library.root,
-            second: None,
-        },
-        path,
-    )?;
+    render_once(mix, roots, path)?;
     let profile = Profile::CURRENT;
     let audio =
         decode(path, profile.sample_rate, Excerpt::default()).map_err(|error| error.to_string())?;
@@ -962,6 +1335,7 @@ mod tests {
             fade_out_seconds: 0.0,
             bass_cut_until: None,
             bass_cut_from: None,
+            ride: None,
         }
     }
 
@@ -1093,7 +1467,9 @@ mod tests {
 
         let mix = draw_long_mix(
             "long",
+            MixKind::Long,
             &Pools::new(&records, &held_out),
+            &LongExtras::default(),
             &no_clusters(),
             &mut Rng::new(2026),
         )
@@ -1137,6 +1513,170 @@ mod tests {
             let overlap = pair[0].end_seconds - pair[1].start_seconds;
             assert!((10.0..=60.0).contains(&overlap), "{overlap}");
             assert!((pair[1].fade_in_seconds - overlap).abs() < 1e-9);
+        }
+    }
+
+    fn pair(family: &str, first: &str, second: &str) -> SharedPair {
+        SharedPair {
+            family: family.to_owned(),
+            records: [
+                PairRecord {
+                    asset: first.to_owned(),
+                    duration_seconds: 400.0,
+                    passage: (300.0, 340.0),
+                },
+                PairRecord {
+                    asset: second.to_owned(),
+                    duration_seconds: 300.0,
+                    passage: (20.0, 60.0),
+                },
+            ],
+        }
+    }
+
+    #[test]
+    fn a_shared_mix_plays_each_pair_back_to_back_over_its_passage_in_the_runs() {
+        let records: Vec<PeakRecord> = (0..40)
+            .map(|n| record(&format!("t{n:02}.mp3"), 200.0 + 10.0 * f64::from(n)))
+            .collect();
+        let held_out: BTreeSet<String> = (0..20).map(|n| format!("t{n:02}.mp3")).collect();
+        let extras = LongExtras {
+            periods: BTreeMap::new(),
+            pairs: vec![
+                pair("a", "a1.mp3", "a2.mp3"),
+                pair("b", "b1.mp3", "b2.mp3"),
+                pair("b", "b1.mp3", "b3.mp3"),
+                pair("c", "c1.mp3", "c2.mp3"),
+                pair("d", "d1.mp3", "d2.mp3"),
+            ],
+        };
+
+        let mix = draw_long_mix(
+            "shared",
+            MixKind::Shared,
+            &Pools::new(&records, &held_out),
+            &extras,
+            &no_clusters(),
+            &mut Rng::new(7),
+        )
+        .unwrap();
+
+        let paired: Vec<&PlannedPlay> = mix
+            .plays
+            .iter()
+            .filter(|play| !play.asset.starts_with('t'))
+            .collect();
+        // Runs of 2 and 3 hold one pair, the run of 4 two.
+        assert_eq!(paired.len(), 8);
+        let families: BTreeSet<char> = paired
+            .iter()
+            .map(|play| play.asset.chars().next().unwrap())
+            .collect();
+        assert_eq!(families.len(), 4);
+        for play in &paired {
+            assert!(play.held_out);
+            let (from, to) = if play.asset.ends_with("1.mp3") {
+                (300.0, 340.0)
+            } else {
+                (20.0, 60.0)
+            };
+            assert!(
+                play.source_start_seconds <= from + 1e-9
+                    && play.source_at(play.end_seconds) >= to - 1e-9,
+                "{play:?}"
+            );
+        }
+        for pair in mix.plays.windows(2) {
+            if pair[0].asset.ends_with("1.mp3") {
+                assert_eq!(pair[1].asset[..1], pair[0].asset[..1]);
+            }
+        }
+        let mut runs: Vec<usize> = Vec::new();
+        let mut run = 0;
+        for play in &mix.plays {
+            if play.held_out {
+                run += 1;
+            } else if run > 0 {
+                runs.push(run);
+                run = 0;
+            }
+        }
+        runs.sort_unstable();
+        assert_eq!(runs, [1, 2, 3, 4]);
+    }
+
+    #[test]
+    fn a_beatmatched_play_takes_the_tempo_of_the_one_before() {
+        let mut previous = play(0.0, 200.0);
+        previous.asset = String::from("a.mp3");
+        previous.speed = 1.02;
+        let periods = BTreeMap::from([
+            (String::from("a.mp3"), 0.35),
+            (String::from("b.mp3"), 0.36),
+            // Twice b's period: read at half the tempo, still b's up to that.
+            (String::from("c.mp3"), 0.72),
+            (String::from("d.mp3"), 0.395),
+        ]);
+
+        let b = beatmatched_speed(&previous, "b.mp3", &periods).unwrap();
+        let c = beatmatched_speed(&previous, "c.mp3", &periods).unwrap();
+
+        assert!((1.02 / 0.35 - b / 0.36).abs() < 1e-9, "{b}");
+        assert!((b - c).abs() < 1e-9, "{c}");
+        assert_eq!(beatmatched_speed(&previous, "d.mp3", &periods), None);
+        assert_eq!(beatmatched_speed(&previous, "e.mp3", &periods), None);
+    }
+
+    #[test]
+    fn a_ride_changes_the_speed_linearly_then_keeps_it() {
+        let mut ridden = play(10.0, 110.0);
+        ridden.speed = 1.0;
+        ridden.source_start_seconds = 0.0;
+        ridden.ride = Some(Ride {
+            start_seconds: 50.0,
+            seconds: 10.0,
+            to_speed: 1.02,
+        });
+
+        assert!((ridden.source_at(50.0) - 40.0).abs() < 1e-9);
+        // Halfway up the ramp: 5 s at an average speed of 1.005.
+        assert!((ridden.source_at(55.0) - 45.025).abs() < 1e-9);
+        assert!((ridden.source_at(60.0) - 50.1).abs() < 1e-9);
+        assert!((ridden.source_at(110.0) - (50.1 + 50.0 * 1.02)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn a_ridden_mix_rides_every_play_by_one_to_three_percent_within_it() {
+        let records: Vec<PeakRecord> = (0..40)
+            .map(|n| record(&format!("t{n:02}.mp3"), 200.0 + 10.0 * f64::from(n)))
+            .collect();
+        let held_out: BTreeSet<String> = (0..20).map(|n| format!("t{n:02}.mp3")).collect();
+
+        let mix = draw_long_mix(
+            "rides",
+            MixKind::Rides,
+            &Pools::new(&records, &held_out),
+            &LongExtras::default(),
+            &no_clusters(),
+            &mut Rng::new(3),
+        )
+        .unwrap();
+
+        for play in &mix.plays {
+            let ride = play.ride.unwrap();
+            let change = (ride.to_speed / play.speed - 1.0).abs();
+            assert!((0.01 - 1e-9..=0.03 + 1e-9).contains(&change), "{play:?}");
+            assert!((ride.to_speed - 1.0).abs() <= RIDE_LIMIT + 1e-9, "{play:?}");
+            assert!(
+                play.start_seconds < ride.start_seconds
+                    && ride.start_seconds + ride.seconds <= play.end_seconds + 1e-9,
+                "{play:?}"
+            );
+            let duration = 200.0 + 10.0 * play.asset[1..3].parse::<f64>().unwrap();
+            assert!(
+                play.source_at(play.end_seconds) <= 0.97 * duration + 1e-9,
+                "{play:?}"
+            );
         }
     }
 

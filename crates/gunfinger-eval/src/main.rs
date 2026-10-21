@@ -50,13 +50,14 @@ use std::time::Duration;
 
 use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
-use gunfinger_core::store::PeakStore;
+use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::Serialize;
 
 use crate::clusters::Clusters;
@@ -409,6 +410,10 @@ enum Command {
         /// `mixes-long-seed-<seed>.json`).
         #[arg(long, value_enum, default_value = "short")]
         kind: mixes::MixKind,
+        /// The other library's root, where the shared kind finds the
+        /// shared-material panel's files under `second-library/`.
+        #[arg(long)]
+        other_root: Option<PathBuf>,
     },
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -480,6 +485,16 @@ enum Command {
         margin: f64,
         #[arg(long, default_value_t = 30.0)]
         min_length: f64,
+        /// Also count the blocks with repeats played at these speed ratios
+        /// to their first hearing (`blocks_at_ratios`), for pitch rides.
+        #[arg(long, value_delimiter = ',')]
+        ratios: Vec<f64>,
+        /// Also search each gap against the records of its neighbours, the
+        /// confident plays that end where it starts or start where it ends
+        /// (`neighbours`), so that blocks of a found track's own material
+        /// can be told apart.
+        #[arg(long)]
+        neighbours: bool,
     },
     /// Attribute where a set's identified plays lose evidence: hits per
     /// window against the reference hashes heard, on the rung, at the
@@ -852,7 +867,12 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             }
             regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
         }
-        Command::Mixes { seed, count, kind } => {
+        Command::Mixes {
+            seed,
+            count,
+            kind,
+            other_root,
+        } => {
             let report = mixes::run(
                 &paths.library()?,
                 &paths.store()?,
@@ -861,6 +881,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &mixes::Options {
                     seed,
                     kind,
+                    other_root: other_root.as_deref(),
                     panels: &paths.panels,
                     count,
                     ladder_name: paths.ladder.name(),
@@ -917,7 +938,19 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             reports,
             margin,
             min_length,
-        } => match_gaps_against_themselves(paths, &reports, margin, min_length, jobs),
+            ratios,
+            neighbours,
+        } => match_gaps_against_themselves(
+            paths,
+            &reports,
+            &SelfMatchOptions {
+                margin,
+                min_length,
+                ratios: &ratios,
+                neighbours,
+            },
+            jobs,
+        ),
         Command::Loss { set } => {
             let report = loss::run(
                 &paths.sets(),
@@ -2512,6 +2545,30 @@ struct SelfMatched {
     indexed_tracks: usize,
     estimate: Option<u32>,
     blocks: Vec<self_match::Blocks>,
+    /// With `--ratios`: the blocks with repeats at those ratios too.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    blocks_at_ratios: Option<Vec<self_match::Blocks>>,
+    /// With `--neighbours`: the gap searched against its neighbours'
+    /// records, in seconds from the gap's start.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    neighbours: Option<Vec<NeighbourMatch>>,
+}
+
+/// A detection of a neighbour's record inside a gap.
+#[derive(Serialize)]
+struct NeighbourMatch {
+    asset: String,
+    start_seconds: f64,
+    end_seconds: f64,
+    windows: u32,
+    hits: u32,
+}
+
+struct SelfMatchOptions<'a> {
+    margin: f64,
+    min_length: f64,
+    ratios: &'a [f64],
+    neighbours: bool,
 }
 
 /// `self-match`: every listed gap of each report, matched against itself,
@@ -2519,14 +2576,20 @@ struct SelfMatched {
 fn match_gaps_against_themselves(
     paths: &Paths,
     reports: &[PathBuf],
-    margin: f64,
-    min_length: f64,
+    options: &SelfMatchOptions,
     jobs: usize,
 ) -> Result<(), String> {
     let clusters = paths.clusters()?;
     let profile = Profile::CURRENT;
-    for (path, kind, judged) in judged_reports(paths, reports, &clusters, margin)? {
-        let mut gaps: Vec<(&Path, String, gaps::Gap)> = Vec::new();
+    let min_length = options.min_length;
+    let records = if options.neighbours {
+        Some(NeighbourRecords::open(paths)?)
+    } else {
+        None
+    };
+    let ladder = paths.rungs();
+    for (path, kind, judged) in judged_reports(paths, reports, &clusters, options.margin)? {
+        let mut gaps: Vec<(&Path, String, gaps::Gap, Vec<String>)> = Vec::new();
         for mix in &judged {
             let Some(audio) = &mix.audio else { continue };
             let listing = gaps::list(
@@ -2538,30 +2601,41 @@ fn match_gaps_against_themselves(
                 &[min_length],
             );
             for gap in listing.at.into_iter().flat_map(|at| at.gaps) {
-                gaps.push((audio, mix.name.clone(), gap));
+                let neighbours = gaps::neighbours(&mix.segments, &gap);
+                gaps.push((audio, mix.name.clone(), gap, neighbours));
             }
         }
-        let matched: Vec<SelfMatched> = map_in_order(&gaps, jobs, |(audio, mix, gap)| {
-            let excerpt = Excerpt {
-                start: Some(Duration::from_secs_f64(gap.start_seconds)),
-                duration: Some(Duration::from_secs_f64(gap.length_seconds())),
-            };
-            let samples = decode(audio, profile.sample_rate, excerpt)
-                .map_err(|error| format!("{}: {error}", audio.display()))?
-                .samples;
-            Ok(SelfMatched {
-                mix: mix.clone(),
-                start_seconds: gap.start_seconds,
-                end_seconds: gap.end_seconds,
-                missed_tracks: gap.missed_tracks.len(),
-                indexed_tracks: gap.indexed_tracks.len(),
-                estimate: gap.estimate,
-                blocks: self_match::blocks(&samples, &profile),
+        let matched: Vec<SelfMatched> =
+            map_in_order(&gaps, jobs, |(audio, mix, gap, neighbours)| {
+                let excerpt = Excerpt {
+                    start: Some(Duration::from_secs_f64(gap.start_seconds)),
+                    duration: Some(Duration::from_secs_f64(gap.length_seconds())),
+                };
+                let samples = decode(audio, profile.sample_rate, excerpt)
+                    .map_err(|error| format!("{}: {error}", audio.display()))?
+                    .samples;
+                let neighbours = match &records {
+                    Some(records) => {
+                        Some(records.search(neighbours, &samples, &paths.matching, &ladder)?)
+                    }
+                    None => None,
+                };
+                Ok(SelfMatched {
+                    mix: mix.clone(),
+                    start_seconds: gap.start_seconds,
+                    end_seconds: gap.end_seconds,
+                    missed_tracks: gap.missed_tracks.len(),
+                    indexed_tracks: gap.indexed_tracks.len(),
+                    estimate: gap.estimate,
+                    blocks: self_match::blocks(&samples, &profile, &[]),
+                    blocks_at_ratios: (!options.ratios.is_empty())
+                        .then(|| self_match::blocks(&samples, &profile, options.ratios)),
+                    neighbours,
+                })
             })
-        })
-        .into_iter()
-        .collect::<Result<_, String>>()?;
-        let name = format!("self-match-{}", judged_name(&path, kind, margin));
+            .into_iter()
+            .collect::<Result<_, String>>()?;
+        let name = format!("self-match-{}", judged_name(&path, kind, options.margin));
         write_json(&paths.gaps_dir().join(name), &matched)?;
         println!(
             "{}: {} gaps of at least {min_length:.0} s",
@@ -2587,6 +2661,79 @@ fn match_gaps_against_themselves(
         }
     }
     Ok(())
+}
+
+/// The peak records a gap's neighbours are searched with: the corpus
+/// library's, and with --other-peaks-dir the other store's.
+struct NeighbourRecords {
+    corpus: BTreeMap<String, PeakRecord>,
+    other: Option<SecondLibrary>,
+}
+
+impl NeighbourRecords {
+    fn open(paths: &Paths) -> Result<NeighbourRecords, String> {
+        let (records, _) = load_records(
+            &paths.library()?,
+            &paths.store()?,
+            &Profile::CURRENT,
+            &BTreeSet::new(),
+        );
+        let other = match paths.other_store()? {
+            Some(store) => Some(SecondLibrary::from_store(store, &BTreeSet::new())?),
+            None => None,
+        };
+        Ok(NeighbourRecords {
+            corpus: records
+                .into_iter()
+                .map(|record| (record.header.source.path.clone(), record))
+                .collect(),
+            other,
+        })
+    }
+
+    fn record(&self, asset: &str) -> Result<PeakRecord, String> {
+        if let Some(record) = self.corpus.get(asset) {
+            return Ok(record.clone());
+        }
+        self.other
+            .as_ref()
+            .and_then(|other| other.record(asset))
+            .unwrap_or_else(|| Err(format!("no peak record of {asset}")))
+            .map(|mut record| {
+                record.header.source.path = asset.to_owned();
+                record
+            })
+    }
+
+    /// `samples` searched against an index of the `assets`' records alone,
+    /// every detection kept.
+    fn search(
+        &self,
+        assets: &[String],
+        samples: &[f32],
+        matching: &Matching,
+        ladder: &[Rung],
+    ) -> Result<Vec<NeighbourMatch>, String> {
+        if assets.is_empty() {
+            return Ok(Vec::new());
+        }
+        let records: Vec<PeakRecord> = assets
+            .iter()
+            .map(|asset| self.record(asset))
+            .collect::<Result<_, _>>()?;
+        let index = matching.index(Index::build(&records).map_err(|error| error.to_string())?);
+        Ok(matching
+            .search(&index, samples, &Profile::CURRENT, ladder, 1)
+            .iter()
+            .map(|detection| NeighbourMatch {
+                asset: index.asset(detection.asset).path.clone(),
+                start_seconds: detection.start_seconds,
+                end_seconds: detection.end_seconds,
+                windows: detection.evidence.windows,
+                hits: detection.evidence.hits,
+            })
+            .collect())
+    }
 }
 
 fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {

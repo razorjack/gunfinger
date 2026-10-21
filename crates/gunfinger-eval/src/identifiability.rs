@@ -73,6 +73,12 @@ pub struct Direction {
 pub struct Passage {
     pub start_seconds: f64,
     pub end_seconds: f64,
+    /// Where the related file holds the passage (read by `mixes --kind
+    /// shared`).
+    #[serde(default)]
+    pub related_start_seconds: Option<f64>,
+    #[serde(default)]
+    pub related_end_seconds: Option<f64>,
     pub control: bool,
 }
 

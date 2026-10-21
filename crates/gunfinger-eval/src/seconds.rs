@@ -635,6 +635,7 @@ mod tests {
             fade_out_seconds: 0.0,
             bass_cut_until: None,
             bass_cut_from: None,
+            ride: None,
         };
         let mix = PlannedMix {
             name: String::from("m"),
@@ -819,6 +820,7 @@ mod tests {
             fade_out_seconds: 4.0,
             bass_cut_until: None,
             bass_cut_from: None,
+            ride: None,
         };
         let mix = PlannedMix {
             name: String::from("m"),

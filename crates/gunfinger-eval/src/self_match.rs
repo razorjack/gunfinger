@@ -39,21 +39,35 @@ pub struct Blocks {
 }
 
 /// The repeats of `samples` (one gap) and the blocks they make at each of
-/// `MIN_HITS`.
-pub fn blocks(samples: &[f32], profile: &Profile) -> Vec<Blocks> {
+/// `MIN_HITS`. Besides repeats at the same speed, each of `ratios` adds
+/// the repeats played that much faster than their first hearing (a pitch
+/// ride between them): the gap's hashes as if it played at the ratio,
+/// matched against its own at speed 1.0.
+pub fn blocks(samples: &[f32], profile: &Profile, ratios: &[f64]) -> Vec<Blocks> {
     let points = points_at_speed(samples, profile, SpeedRatio(1.0));
     let cell_frames = profile.frames(CELL_SECONDS);
     let cells = (profile.frames(samples.len() as f64 / f64::from(profile.sample_rate))
         / cell_frames)
         .ceil() as usize;
-    let repeats = repeats(&points, profile, cell_frames);
+    let mut repeats: Vec<(f64, Hits)> =
+        vec![(1.0, repeats(&points, &points, 1.0, profile, cell_frames))];
+    for &ratio in ratios.iter().filter(|&&ratio| ratio != 1.0) {
+        let faster = points_at_speed(samples, profile, SpeedRatio(ratio));
+        repeats.push((
+            ratio,
+            self::repeats(&points, &faster, ratio, profile, cell_frames),
+        ));
+    }
     MIN_HITS
         .iter()
         .map(|&min_hits| {
             let joins: Vec<(usize, usize)> = repeats
                 .iter()
-                .filter(|&(_, &hits)| hits >= min_hits)
-                .map(|(&(cell, lag), _)| (cell, later_cell(cell, lag, cell_frames)))
+                .flat_map(|(ratio, hits)| {
+                    hits.iter().filter(move |&(_, &hits)| hits >= min_hits).map(
+                        move |(&(cell, lag), _)| (cell, later_cell(cell, lag, cell_frames, *ratio)),
+                    )
+                })
                 .filter(|&(_, later)| later < cells)
                 .collect();
             let groups = groups(cells, &joins);
@@ -77,29 +91,48 @@ pub fn blocks(samples: &[f32], profile: &Profile) -> Vec<Blocks> {
         .collect()
 }
 
+/// Hits per cell of the earlier moment and lag step.
+type Hits = BTreeMap<(usize, i64), u32>;
+
 /// Hits per (cell of the earlier moment, lag step), for every pair of
-/// occurrences of a hash at least `MIN_LAG_SECONDS` apart.
-fn repeats(points: &[Point], profile: &Profile, cell_frames: f64) -> BTreeMap<(usize, i64), u32> {
-    let mut occurrences: BTreeMap<PairHash, Vec<f64>> = BTreeMap::new();
-    for_each_pair(points, |hash, anchor| {
+/// occurrences of a hash at least `MIN_LAG_SECONDS` apart: the earlier in
+/// `points` (the gap at speed 1.0), the later in `later` (the gap as if it
+/// played at `ratio`, whose frames are `ratio` times the gap's). A repeat
+/// played `ratio` times faster keeps one lag in these frames.
+fn repeats(
+    points: &[Point],
+    later: &[Point],
+    ratio: f64,
+    profile: &Profile,
+    cell_frames: f64,
+) -> Hits {
+    let occurrences = |points: &[Point]| {
+        let mut occurrences: BTreeMap<PairHash, Vec<f64>> = BTreeMap::new();
+        for_each_pair(points, |hash, anchor| {
+            occurrences
+                .entry(hash)
+                .or_default()
+                .push(points[anchor].frame);
+        });
         occurrences
-            .entry(hash)
-            .or_default()
-            .push(points[anchor].frame);
-    });
+    };
+    let earlier = occurrences(points);
+    let later = occurrences(later);
     let min_lag = profile.frames(MIN_LAG_SECONDS);
-    let mut hits: BTreeMap<(usize, i64), u32> = BTreeMap::new();
-    for frames in occurrences.values() {
-        if frames.len() > MOST_OCCURRENCES {
+    let mut hits: Hits = BTreeMap::new();
+    for (hash, frames) in &earlier {
+        let Some(laters) = later.get(hash) else {
+            continue;
+        };
+        if frames.len() > MOST_OCCURRENCES || laters.len() > MOST_OCCURRENCES {
             continue;
         }
-        for (place, &earlier) in frames.iter().enumerate() {
-            for &later in &frames[place + 1..] {
-                let lag = later - earlier;
-                if lag >= min_lag {
+        for &earlier in frames {
+            for &later in laters {
+                if later / ratio - earlier >= min_lag {
                     let cell = (earlier / cell_frames) as usize;
                     *hits
-                        .entry((cell, (lag / LAG_STEP_FRAMES).round() as i64))
+                        .entry((cell, ((later - earlier) / LAG_STEP_FRAMES).round() as i64))
                         .or_default() += 1;
                 }
             }
@@ -108,11 +141,12 @@ fn repeats(points: &[Point], profile: &Profile, cell_frames: f64) -> BTreeMap<(u
     hits
 }
 
-/// The cell `lag` reaches from the middle of `cell`: hits near a cell's edge
-/// may join the cell next to the one their own moments reach.
-fn later_cell(cell: usize, lag: i64, cell_frames: f64) -> usize {
+/// The cell `lag` reaches from the middle of `cell`, for a repeat played
+/// `ratio` times faster: hits near a cell's edge may join the cell next to
+/// the one their own moments reach.
+fn later_cell(cell: usize, lag: i64, cell_frames: f64, ratio: f64) -> usize {
     let earlier = (cell as f64 + 0.5) * cell_frames;
-    ((earlier + lag as f64 * LAG_STEP_FRAMES) / cell_frames) as usize
+    ((earlier + lag as f64 * LAG_STEP_FRAMES) / ratio / cell_frames) as usize
 }
 
 /// The groups of cells `joins` connects, each in order, in order of their
@@ -162,7 +196,39 @@ mod tests {
     #[test]
     fn a_lag_reaches_the_cell_its_middle_lands_in() {
         // Cells of 100 frames; a lag of 150 steps of 2 frames from cell 1.
-        assert_eq!(later_cell(1, 150, 100.0), 4);
+        assert_eq!(later_cell(1, 150, 100.0, 1.0), 4);
+    }
+
+    fn beeps(seconds: f64, speed: f64, rate: f64) -> Vec<f32> {
+        (0..(seconds * rate) as usize)
+            .map(|n| {
+                let t = n as f64 / rate * speed;
+                let pitch = 300.0 + 150.0 * ((t * 3.0).floor() % 7.0);
+                ((2.0 * std::f64::consts::PI * pitch * t).sin()
+                    * if (t * 4.0).fract() < 0.5 { 0.5 } else { 0.0 }) as f32
+            })
+            .collect()
+    }
+
+    #[test]
+    fn a_passage_played_again_faster_joins_only_at_its_ratio() {
+        let profile = Profile::CURRENT;
+        let rate = f64::from(profile.sample_rate);
+        let silence = vec![0.0_f32; (12.0 * rate) as usize];
+        // The beeps, a pause, then the same beeps 3% faster.
+        let samples: Vec<f32> = [
+            beeps(12.0, 1.0, rate),
+            silence,
+            beeps(12.0 / 1.03, 1.03, rate),
+        ]
+        .concat();
+
+        let alone = blocks(&samples, &profile, &[]);
+        let at_ratio = blocks(&samples, &profile, &[1.03]);
+
+        assert!(alone[0].spans.is_empty(), "{:?}", alone[0]);
+        assert_eq!(at_ratio[0].spans.len(), 1, "{:?}", at_ratio[0]);
+        assert!(at_ratio[0].spans[0].1 > 24.0, "{:?}", at_ratio[0]);
     }
 
     #[test]
@@ -187,7 +253,7 @@ mod tests {
             .collect();
         let samples: Vec<f32> = [beeps.clone(), noise, beeps].concat();
 
-        let found = blocks(&samples, &profile);
+        let found = blocks(&samples, &profile, &[]);
 
         let at_five = &found[0];
         assert_eq!(at_five.min_hits, 5);

@@ -256,6 +256,29 @@ fn gap(start: f64, end: f64, truth: &[Truth], heard: &[(f64, Heard)], labels: &[
     gap
 }
 
+/// A confident span ends where a gap starts, or starts where it ends,
+/// within this much.
+const NEIGHBOUR_SECONDS: f64 = 0.5;
+
+/// The files of the confident plays whose segments end where `gap` starts
+/// or start where it ends: its neighbours in the tracklist.
+pub fn neighbours(segments: &[Segment], gap: &Gap) -> Vec<String> {
+    let mut assets: Vec<String> = labels(segments, Rule::Windows)
+        .iter()
+        .filter(|label| label.level == Confidence::Confident)
+        .filter(|label| {
+            label.spans.iter().any(|&(start, end)| {
+                (end - gap.start_seconds).abs() <= NEIGHBOUR_SECONDS
+                    || (start - gap.end_seconds).abs() <= NEIGHBOUR_SECONDS
+            })
+        })
+        .map(|label| label.asset.to_owned())
+        .collect();
+    assets.sort();
+    assets.dedup();
+    assets
+}
+
 /// Whether `gap` covers at least `HOLDS_SECONDS` of `track` or half of
 /// it, whichever is less, or lies in it for at least half its length.
 fn holds(gap: &Gap, track: &Truth) -> bool {
@@ -453,6 +476,25 @@ mod tests {
             .iter()
             .map(|gap| (gap.start_seconds, gap.end_seconds))
             .collect()
+    }
+
+    #[test]
+    fn a_gaps_neighbours_are_the_confident_plays_at_its_edges() {
+        let truth = [
+            track("a", 0.0, 300.0, true),
+            track("x", 300.0, 600.0, false),
+            track("b", 600.0, 900.0, true),
+        ];
+        let found = [
+            confident("a", 0.0, 310.0),
+            possible("p", 320.0, 340.0),
+            confident("b", 590.0, 900.0),
+        ];
+        let listing = list("m", &truth, &found, 900.0, 0.0, &[30.0]);
+
+        let neighbours = neighbours(&found, &listing.at[0].gaps[0]);
+
+        assert_eq!(neighbours, ["a", "b"]);
     }
 
     #[test]

@@ -28,6 +28,7 @@ use crate::mixes::{
 };
 use crate::rng::Rng;
 use crate::scoring::evidence;
+use crate::shared::Roots;
 use crate::verifier::Verifier;
 
 const LENGTHS: [f64; 6] = [10.0, 15.0, 20.0, 25.0, 30.0, 40.0];
@@ -110,6 +111,7 @@ pub fn run(
         options.seed,
         options.panels,
         options.matching,
+        &BTreeSet::new(),
     )?;
     let verifier = options.verify.then(|| Verifier::new(&records, None));
     let pools = Pools::new(&records, &held_out);
@@ -137,7 +139,11 @@ pub fn run(
         &planned,
         options.jobs,
         |(number, seconds, offset, mix, path)| {
-            let result = search_mix(mix, path, library, clusters, &searcher)?;
+            let roots = Roots {
+                library: &library.root,
+                second: None,
+            };
+            let result = search_mix(mix, path, &roots, clusters, &searcher)?;
             let brief = &result.score.plays[1];
             let accepted = clusters.cluster_of(&brief.truth.asset);
             Ok(GridQuery {
@@ -230,6 +236,7 @@ fn query(name: &str, brief: &Brief, seconds: f64, offset: u32) -> PlannedMix {
         fade_out_seconds: 0.0,
         bass_cut_until: None,
         bass_cut_from: None,
+        ride: None,
     };
     let end = lead_in + seconds;
     PlannedMix {
