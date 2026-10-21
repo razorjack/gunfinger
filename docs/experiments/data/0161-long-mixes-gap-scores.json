@@ -1,0 +1,914 @@
+{
+ "10": {
+  "mixes": {
+   "missed_tracks": 800,
+   "reached": 800,
+   "missed_seconds": 133112,
+   "missed_seconds_in_gaps": 133111,
+   "gaps": 320,
+   "without_missed": 0,
+   "without_missed_holding_indexed": 0,
+   "reached_by_play_length": {
+    "0-30 s": [
+     0,
+     0
+    ],
+    "30-40 s": [
+     0,
+     0
+    ],
+    "40-50 s": [
+     0,
+     0
+    ],
+    "50-999 s": [
+     800,
+     800
+    ]
+   },
+   "by_truth": {
+    "1": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 69,
+     "off_by_one": 11,
+     "off_by_two_or_more": 0,
+     "errors": {
+      "0": 69,
+      "1": 11
+     },
+     "range_a_holds": 80,
+     "range_b_holds": 80,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 1.375,
+     "own_interval_exact": 79,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "2": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 42,
+     "off_by_one": 34,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 23,
+      "0": 42,
+      "1": 11,
+      "2": 4
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 73,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.1875,
+     "own_interval_exact": 38,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "3": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 31,
+     "off_by_one": 45,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 25,
+      "0": 31,
+      "1": 20,
+      "2": 3,
+      "4": 1
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 74,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.8375,
+     "own_interval_exact": 28,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "4": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 21,
+     "off_by_one": 43,
+     "off_by_two_or_more": 16,
+     "errors": {
+      "-2": 6,
+      "-1": 24,
+      "0": 21,
+      "1": 19,
+      "2": 9,
+      "3": 1
+     },
+     "range_a_holds": 64,
+     "range_b_holds": 70,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 3.4875,
+     "own_interval_exact": 19,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    }
+   }
+  }
+ },
+ "20": {
+  "mixes": {
+   "missed_tracks": 800,
+   "reached": 800,
+   "missed_seconds": 133112,
+   "missed_seconds_in_gaps": 133111,
+   "gaps": 320,
+   "without_missed": 0,
+   "without_missed_holding_indexed": 0,
+   "reached_by_play_length": {
+    "0-30 s": [
+     0,
+     0
+    ],
+    "30-40 s": [
+     0,
+     0
+    ],
+    "40-50 s": [
+     0,
+     0
+    ],
+    "50-999 s": [
+     800,
+     800
+    ]
+   },
+   "by_truth": {
+    "1": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 69,
+     "off_by_one": 11,
+     "off_by_two_or_more": 0,
+     "errors": {
+      "0": 69,
+      "1": 11
+     },
+     "range_a_holds": 80,
+     "range_b_holds": 80,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 1.375,
+     "own_interval_exact": 79,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "2": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 42,
+     "off_by_one": 34,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 23,
+      "0": 42,
+      "1": 11,
+      "2": 4
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 73,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.1875,
+     "own_interval_exact": 38,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "3": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 31,
+     "off_by_one": 45,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 25,
+      "0": 31,
+      "1": 20,
+      "2": 3,
+      "4": 1
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 74,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.8375,
+     "own_interval_exact": 28,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "4": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 21,
+     "off_by_one": 43,
+     "off_by_two_or_more": 16,
+     "errors": {
+      "-2": 6,
+      "-1": 24,
+      "0": 21,
+      "1": 19,
+      "2": 9,
+      "3": 1
+     },
+     "range_a_holds": 64,
+     "range_b_holds": 70,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 3.4875,
+     "own_interval_exact": 19,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    }
+   }
+  }
+ },
+ "30": {
+  "mixes": {
+   "missed_tracks": 800,
+   "reached": 800,
+   "missed_seconds": 133112,
+   "missed_seconds_in_gaps": 133111,
+   "gaps": 320,
+   "without_missed": 0,
+   "without_missed_holding_indexed": 0,
+   "reached_by_play_length": {
+    "0-30 s": [
+     0,
+     0
+    ],
+    "30-40 s": [
+     0,
+     0
+    ],
+    "40-50 s": [
+     0,
+     0
+    ],
+    "50-999 s": [
+     800,
+     800
+    ]
+   },
+   "by_truth": {
+    "1": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 69,
+     "off_by_one": 11,
+     "off_by_two_or_more": 0,
+     "errors": {
+      "0": 69,
+      "1": 11
+     },
+     "range_a_holds": 80,
+     "range_b_holds": 80,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 1.375,
+     "own_interval_exact": 79,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "2": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 42,
+     "off_by_one": 34,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 23,
+      "0": 42,
+      "1": 11,
+      "2": 4
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 73,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.1875,
+     "own_interval_exact": 38,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "3": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 31,
+     "off_by_one": 45,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 25,
+      "0": 31,
+      "1": 20,
+      "2": 3,
+      "4": 1
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 74,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.8375,
+     "own_interval_exact": 28,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "4": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 21,
+     "off_by_one": 43,
+     "off_by_two_or_more": 16,
+     "errors": {
+      "-2": 6,
+      "-1": 24,
+      "0": 21,
+      "1": 19,
+      "2": 9,
+      "3": 1
+     },
+     "range_a_holds": 64,
+     "range_b_holds": 70,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 3.4875,
+     "own_interval_exact": 19,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    }
+   }
+  }
+ },
+ "45": {
+  "mixes": {
+   "missed_tracks": 800,
+   "reached": 799,
+   "missed_seconds": 133112,
+   "missed_seconds_in_gaps": 133100,
+   "gaps": 319,
+   "without_missed": 0,
+   "without_missed_holding_indexed": 0,
+   "reached_by_play_length": {
+    "0-30 s": [
+     0,
+     0
+    ],
+    "30-40 s": [
+     0,
+     0
+    ],
+    "40-50 s": [
+     0,
+     0
+    ],
+    "50-999 s": [
+     800,
+     799
+    ]
+   },
+   "by_truth": {
+    "1": {
+     "gaps": 79,
+     "no_estimate": 0,
+     "exact": 68,
+     "off_by_one": 11,
+     "off_by_two_or_more": 0,
+     "errors": {
+      "0": 68,
+      "1": 11
+     },
+     "range_a_holds": 79,
+     "range_b_holds": 79,
+     "range_b_gaps": 79,
+     "range_b_mean_width": 1.379746835443038,
+     "own_interval_exact": 78,
+     "own_interval_gaps": 79,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "2": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 42,
+     "off_by_one": 34,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 23,
+      "0": 42,
+      "1": 11,
+      "2": 4
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 73,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.1875,
+     "own_interval_exact": 38,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "3": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 31,
+     "off_by_one": 45,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 25,
+      "0": 31,
+      "1": 20,
+      "2": 3,
+      "4": 1
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 74,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.825,
+     "own_interval_exact": 28,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "4": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 21,
+     "off_by_one": 42,
+     "off_by_two_or_more": 17,
+     "errors": {
+      "-2": 6,
+      "-1": 24,
+      "0": 21,
+      "1": 18,
+      "2": 10,
+      "3": 1
+     },
+     "range_a_holds": 63,
+     "range_b_holds": 70,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 3.475,
+     "own_interval_exact": 19,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    }
+   }
+  }
+ },
+ "60": {
+  "mixes": {
+   "missed_tracks": 800,
+   "reached": 799,
+   "missed_seconds": 133112,
+   "missed_seconds_in_gaps": 133100,
+   "gaps": 319,
+   "without_missed": 0,
+   "without_missed_holding_indexed": 0,
+   "reached_by_play_length": {
+    "0-30 s": [
+     0,
+     0
+    ],
+    "30-40 s": [
+     0,
+     0
+    ],
+    "40-50 s": [
+     0,
+     0
+    ],
+    "50-999 s": [
+     800,
+     799
+    ]
+   },
+   "by_truth": {
+    "1": {
+     "gaps": 79,
+     "no_estimate": 0,
+     "exact": 68,
+     "off_by_one": 11,
+     "off_by_two_or_more": 0,
+     "errors": {
+      "0": 68,
+      "1": 11
+     },
+     "range_a_holds": 79,
+     "range_b_holds": 79,
+     "range_b_gaps": 79,
+     "range_b_mean_width": 1.379746835443038,
+     "own_interval_exact": 78,
+     "own_interval_gaps": 79,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "2": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 42,
+     "off_by_one": 34,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 23,
+      "0": 42,
+      "1": 11,
+      "2": 4
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 73,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.1875,
+     "own_interval_exact": 38,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "3": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 31,
+     "off_by_one": 45,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 25,
+      "0": 31,
+      "1": 20,
+      "2": 3,
+      "4": 1
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 74,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.825,
+     "own_interval_exact": 28,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "4": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 21,
+     "off_by_one": 42,
+     "off_by_two_or_more": 17,
+     "errors": {
+      "-2": 6,
+      "-1": 24,
+      "0": 21,
+      "1": 18,
+      "2": 10,
+      "3": 1
+     },
+     "range_a_holds": 63,
+     "range_b_holds": 70,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 3.475,
+     "own_interval_exact": 19,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    }
+   }
+  }
+ },
+ "90": {
+  "mixes": {
+   "missed_tracks": 800,
+   "reached": 794,
+   "missed_seconds": 133112,
+   "missed_seconds_in_gaps": 132771,
+   "gaps": 314,
+   "without_missed": 0,
+   "without_missed_holding_indexed": 0,
+   "reached_by_play_length": {
+    "0-30 s": [
+     0,
+     0
+    ],
+    "30-40 s": [
+     0,
+     0
+    ],
+    "40-50 s": [
+     0,
+     0
+    ],
+    "50-999 s": [
+     800,
+     794
+    ]
+   },
+   "by_truth": {
+    "1": {
+     "gaps": 74,
+     "no_estimate": 0,
+     "exact": 63,
+     "off_by_one": 11,
+     "off_by_two_or_more": 0,
+     "errors": {
+      "0": 63,
+      "1": 11
+     },
+     "range_a_holds": 74,
+     "range_b_holds": 74,
+     "range_b_gaps": 74,
+     "range_b_mean_width": 1.4054054054054055,
+     "own_interval_exact": 73,
+     "own_interval_gaps": 74,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "2": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 43,
+     "off_by_one": 33,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 23,
+      "0": 43,
+      "1": 10,
+      "2": 4
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 73,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.175,
+     "own_interval_exact": 38,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "3": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 31,
+     "off_by_one": 45,
+     "off_by_two_or_more": 4,
+     "errors": {
+      "-1": 25,
+      "0": 31,
+      "1": 20,
+      "2": 3,
+      "4": 1
+     },
+     "range_a_holds": 76,
+     "range_b_holds": 74,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 2.8125,
+     "own_interval_exact": 28,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    },
+    "4": {
+     "gaps": 80,
+     "no_estimate": 0,
+     "exact": 20,
+     "off_by_one": 43,
+     "off_by_two_or_more": 17,
+     "errors": {
+      "-2": 6,
+      "-1": 25,
+      "0": 20,
+      "1": 18,
+      "2": 10,
+      "3": 1
+     },
+     "range_a_holds": 63,
+     "range_b_holds": 70,
+     "range_b_gaps": 80,
+     "range_b_mean_width": 3.475,
+     "own_interval_exact": 19,
+     "own_interval_gaps": 80,
+     "single_run": {
+      "gaps": 0,
+      "exact": 0,
+      "off_by_one": 0,
+      "off_by_two_or_more": 0,
+      "errors": {},
+      "range_a_holds": 0,
+      "range_b_holds": 0,
+      "range_b_gaps": 0,
+      "range_b_mean_width": null
+     }
+    }
+   }
+  }
+ }
+}
