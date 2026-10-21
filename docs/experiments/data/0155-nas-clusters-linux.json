@@ -1,0 +1,1557 @@
+{
+ "counts": {
+  "clusters": [
+   281,
+   284
+  ],
+  "files": [
+   963,
+   1004
+  ],
+  "nas_files": [
+   701,
+   739
+  ],
+  "pairs": [
+   2636,
+   2903
+  ],
+  "pairs_by_verdict": [
+   {
+    "None": 2583,
+    "True": 28,
+    "False": 25
+   },
+   {
+    "None": 2843,
+    "True": 29,
+    "False": 31
+   }
+  ],
+  "nas_members_newer": 31
+ },
+ "corpus": {
+  "mac_groups": 17,
+  "here_groups": 17,
+  "equal": true,
+  "here_only": [],
+  "mac_only": []
+ },
+ "listed_added": [
+  {
+   "listed_in": "0120",
+   "member": "Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "with": "Bad Company - The Nine.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a",
+   "with": "DJ Trace - Sonar.m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Compound (Wormhole, Virus Recordings VRS 001 LP track G) RSD 2023.opus",
+   "with": "Ed Rush & Optical - Compound.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Dozer.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Fixation.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Fixation (Wormhole, Virus Recordings VRS 001 LP track H) RSD 2023.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Glass Eye.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Glass Eye (Wormhole, Virus Recordings VRS 001 LP track E) RSD 2023.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Lithosphere.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Lithosphere (Wormhole, Virus Recordings VRS 001 CD disc 1 track 11) 1998.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Mystery Machine.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Mystery Machine (Wormhole, Virus Recordings VRS 001 LP track A) RSD 2023.opus",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Point Blank.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Point Blank (Wormhole, Virus Recordings VRS 001 LP track F) RSD 2023.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Wormhole.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Wormhole (Wormhole, Virus Recordings VRS 001 LP track I) RSD 2023.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Fibre Optix - Sin (3 The Hardway EP - Renegade Hardware RH018 C) 1998.opus",
+   "with": "Fibre Optix - Sin.m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Fortran - Splinter.mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Splinter (Wormhole, Virus Recordings VRS 001 LP track B) RSD 2023.opus",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Kraken - Dominion.opus",
+   "with": "Kraken - Dominion.opus",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Krust - Warhead (Ram Trilogy Remix).m4a",
+   "with": "Krust - Warhead (Ram Trilogy Remix).m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Krust - Warhead (Ram Trilogy Remix) (Planet V - V Recordings VELP02 H) 1999.m4a",
+   "with": "Krust - Warhead (Ram Trilogy Remix).m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Millennium (Wormhole, Virus Recordings VRS 001 LP track D) RSD 2023.m4a",
+   "with": "Optical - Millennium.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ed Rush & Optical - Slip Thru (Wormhole, Virus Recordings VRS 001 LP track C) RSD 2023.m4a",
+   "with": "Optical - Slip Thru.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Roni Size - Watching Windows (DJ Die Gnarly Instrumental Mix).m4a",
+   "with": "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Reprazent - Watching Windows (Die Gnarly Inst) (Who Say Reload Vol.2, Velocity Press VELOCITY002 C2).m4a",
+   "with": "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Stakka & Skynet - Decoy.opus",
+   "with": "Skynet & Stakka - Decoy.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Krot - Rec.m4a",
+   "with": "04_Rec.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Bad Company - Sentient (Inside The Machine - BC Recordings VDBCRLP001 E) 2000.m4a",
+   "with": "05 - Bad Company - Sentient.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Bad Company - Oxygen (The Drilla Killa) (Inside The Machine - BC Recordings VDBCRLP001 G) 2000.opus",
+   "with": "07 - Bad Company - Oxygen.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Future Cut - Horns 2000.m4a",
+   "with": "310-future_cut-horns_2000-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Prode - Ostmet.m4a",
+   "with": "A. D-Struct -- Merkaba.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Underworld (Aphrodite Recordings APH027 A) 1998.m4a",
+   "with": "01-aphrodite-a1-underworld-utb.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Cool Rock Stuff (Aphrodite Recordings APH027 B) 1998.opus",
+   "with": "02-aphrodite-b1-cool_rock_suff-utb.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Def Jammer (Aphrodite Recordings APH029 A) 1999.m4a",
+   "with": "01-aphrodite-defjammer-bpm.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+   "with": "02-aphrodite-stalker-bpm.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Fanfare (Aphrodite Recordings APH035 A) 2000.opus",
+   "with": "a-aphrodite-fanfare-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Fan Dub Mix (Aphrodite Recordings APH035 B) 2000.opus",
+   "with": "b-aphrodite-fanfare_dubstyle-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite v Schoolly D - Hoochie (Aphrodite Recordings APH36 A) 2000.opus",
+   "with": "a-aphrodite-aphro_vs_schooly_d.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Crater (Aphrodite Recordings APH36 B) 2000.m4a",
+   "with": "b-aphrodite-crater.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Cloud Break (Aphrodite Recordings APH38 A) 2001.m4a",
+   "with": "a-aphrodite-cloud_break-bpm.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Karma Sutra (Aphrodite Recordings APH38 B) 2001.m4a",
+   "with": "aa-aphrodite-karma_sutra-bpm.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Wikki Wikki Plate (Aphrodite Recordings APH-28 A) 1998.m4a",
+   "with": "a-aphrodite-wikki_wikki_plate-lame.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+   "with": "b1-aphrodite-dark_dark_side-lame.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Sweet Mind (Aphrodite Recordings APH-28 B2) 1998.m4a",
+   "with": "b2-aphrodite-sweet_mind-lame.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Clean Decibel (Aphrodite Recordings PROJECT 2 ⧸ APH33 A) 2000.opus",
+   "with": "a1_clean_decibel-drum.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - From The East (Aphrodite Recordings PROJECT 2 ⧸ APH33 B) 2000.m4a",
+   "with": "b1_from_the_east-drum.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Lava Flow (Aphrodite Recordings APH37 A) 2001.m4a",
+   "with": "a-aphrodite-lava_flow-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Acid Life (Aphrodite Recordings APH37 B) 2001.m4a",
+   "with": "aa-aphrodite-acid_life-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus",
+   "with": "a-aphrodite-playground_shades-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Siren Bass (Aphrodite Recordings APH039 B) 2001.m4a",
+   "with": "b-aphrodite-siren_bass-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Drumsound & Bassline Smith - Phoenix.m4a",
+   "with": "[AA]_-_Phoenix.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Bad Company - Miami (Drum&BassArena, React REACTCD201 disc 2 track 2) 2001.m4a",
+   "with": "a-)eib(-miami-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+   "with": "A. aphrodite - wobble.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Bomber Style (Aphrodite Recordings APH30 B) 1999.opus",
+   "with": "B. aphrodite - bomber style.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - Blue Mystique (Aphrodite Recordings APH41 A) 2002.m4a",
+   "with": "a-aphrodite-blue_mystique-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Aphrodite - The Time The Place (Aphrodite Recordings APH41 B) 2002.opus",
+   "with": "b-aphrodite-the_time_the_place-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "SKC - Flex.opus",
+   "with": "b-skc-flex-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001.opus",
+   "with": "b-spirit-out_of_control-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001.m4a",
+   "with": "c-total_science-yvon_is_on-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001.m4a",
+   "with": "d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001.opus",
+   "with": "g-tee_bee-two_faced-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+   "with": "h-carlito_and_addiction-into_music-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Bad Company - Dead Side (Inside The Machine - BC Recordings VDBCRLP001 J) 2000.m4a",
+   "with": "10 - Bad Company - Dead-Side.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "04-perfect_unknown-epic_(original_mix).mp3",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Perfect Unknown  - Epic.m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "John B -  Droogs (Catalyst - Beta Recordings BETA LP 01 D) 1999.m4a",
+   "with": "d-droogs-betalp01-1999-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "John B -  Gollum (Catalyst - Beta Recordings BETA LP 01 F) 1999.opus",
+   "with": "f-gollum-betalp01-1999-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ram Trilogy - Beastman (Chapter Four - RAM Records RAMM 39 A) 2002.m4a",
+   "with": "11-ram_trilogy-beastman-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Mulder - Change Up (Urban Takeover URBTAKE24 B) 2001.opus",
+   "with": "08-mulder-change_up_(original_mix).mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Ram Trilogy - Snake Bite (Molten Beats - RAM Records RAMM LP3 F) 1999.m4a",
+   "with": "f-ram_trilogy-snakebite-sour.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Trace & Fresh - Mutated (Version X) (Breakbeat Punk U-PUNK-001 A) 2002.m4a",
+   "with": "Trace & Fresh - Mutated (Version X).m4a",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Dieselboy - The Descent (Phunckateck VIP).opus",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0120",
+   "member": "Dieselboy - Descent (Phuncatek Remix).m4a",
+   "with": null,
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0128",
+   "member": "Bad Company - The Nine.m4a",
+   "with": "Bad Company - The Nine.mp3",
+   "here": "with the same file",
+   "newer_record": false
+  },
+  {
+   "listed_in": "0128",
+   "member": "Trace - Sonar.m4a",
+   "with": "DJ Trace - Sonar.m4a",
+   "here": "with the same file",
+   "newer_record": false
+  }
+ ],
+ "listed_added_summary": {
+  "with the same file": 77
+ },
+ "cut_links": {
+  "mac": 2,
+  "here": 1,
+  "both": 1,
+  "here_only": [],
+  "mac_only": [
+   [
+    "DJ Trace - Sonar (Mark System Revision).opus",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+   ]
+  ],
+  "here_rows": [
+   {
+    "query": "Trace - Sonar.m4a",
+    "found": "DJ Trace - Sonar (Mark System Revision).opus",
+    "judged_different": [
+     "DJ Trace - Sonar.m4a",
+     "DJ Trace - Sonar (Mark System Revision).opus"
+    ]
+   }
+  ]
+ },
+ "gap": {
+  "mac": [
+   {
+    "query": "c-known_unknown-rollers_edit-sour.mp3",
+    "found": "09-known_unknown-drumtrip-1999-sour-fixed.mp3",
+    "coverage": 0.8030493140485438,
+    "hits": 1390,
+    "speed": 0.9892056635688247
+   },
+   {
+    "query": "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+    "found": "Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "coverage": 0.7423019070179679,
+    "hits": 343,
+    "speed": 1.0015672728705651
+   }
+  ],
+  "here": [
+   {
+    "query": "c-known_unknown-rollers_edit-sour.mp3",
+    "found": "09-known_unknown-drumtrip-1999-sour-fixed.mp3",
+    "coverage": 0.8030493140485438,
+    "hits": 1390,
+    "speed": 0.9892056635688247
+   },
+   {
+    "query": "b-bad_company-china_cup.mp3",
+    "found": "ƆƐI3C - China Cup.opus",
+    "coverage": 0.7803806938559322,
+    "hits": 1671,
+    "speed": 1.0201748985608088
+   }
+  ]
+ },
+ "borderline": [
+  {
+   "files": [
+    "Bad Company - China Cup.mp3",
+    "ƆƐI3C - China Cup.opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.707,
+    "hits": 1598,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": true
+  },
+  {
+   "files": [
+    "Bad Company - The Nine.mp3",
+    "Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "mac": {
+    "coverage": 0.503,
+    "hits": 1800,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.503,
+    "hits": 1800,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Ed Rush & Optical - Dozer.mp3",
+    "Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+   ],
+   "mac": {
+    "coverage": 0.485,
+    "hits": 259,
+    "judged": "different (line 46)"
+   },
+   "here": {
+    "coverage": 0.485,
+    "hits": 259,
+    "judged": "different (line 46)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "01 - Ryme Tyme - T-Minus.mp3",
+    "Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a"
+   ],
+   "mac": {
+    "coverage": 0.583,
+    "hits": 356,
+    "judged": "different (line 45)"
+   },
+   "here": {
+    "coverage": 0.583,
+    "hits": 356,
+    "judged": "different (line 45)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02. Bad Company - China Cup.mp3",
+    "PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   "mac": {
+    "coverage": 0.651,
+    "hits": 2035,
+    "judged": "same (line 25)"
+   },
+   "here": {
+    "coverage": 0.651,
+    "hits": 2035,
+    "judged": "same (line 25)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02. Bad Company - China Cup.mp3",
+    "ƆƐI3C - China Cup.opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.707,
+    "hits": 1598,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": true
+  },
+  {
+   "files": [
+    "A- The_Nine.mp3",
+    "Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "mac": {
+    "coverage": 0.503,
+    "hits": 1742,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.503,
+    "hits": 1742,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "A-Bad_Company-The_Nine-dmz.mp3",
+    "Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "mac": {
+    "coverage": 0.503,
+    "hits": 1800,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.503,
+    "hits": 1800,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "A. Pyro -- Time Is Broken.mp3",
+    "Pyro - Ignorance.m4a"
+   ],
+   "mac": {
+    "coverage": 0.444,
+    "hits": 680,
+    "judged": "different (line 41)"
+   },
+   "here": {
+    "coverage": 0.444,
+    "hits": 680,
+    "judged": "different (line 41)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3",
+    "Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   "mac": {
+    "coverage": 0.406,
+    "hits": 922,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.406,
+    "hits": 920,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02-aphrodite-stalker-bpm.mp3",
+    "Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a"
+   ],
+   "mac": {
+    "coverage": 0.737,
+    "hits": 254,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.737,
+    "hits": 254,
+    "judged": "different (line 77)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "b1-aphrodite-dark_dark_side-lame.mp3",
+    "Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus"
+   ],
+   "mac": {
+    "coverage": 0.614,
+    "hits": 315,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.614,
+    "hits": 315,
+    "judged": "different (line 78)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "A. aphrodite - wobble.mp3",
+    "Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a"
+   ],
+   "mac": {
+    "coverage": 0.447,
+    "hits": 78,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.564,
+    "hits": 88,
+    "judged": "different (line 79)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "b-bad_company-china_cup.mp3",
+    "PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   "mac": {
+    "coverage": 0.66,
+    "hits": 2209,
+    "judged": "same (line 25)"
+   },
+   "here": {
+    "coverage": 0.66,
+    "hits": 2209,
+    "judged": "same (line 25)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "b-bad_company-china_cup.mp3",
+    "ƆƐI3C - China Cup.opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.78,
+    "hits": 1671,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": true
+  },
+  {
+   "files": [
+    "b-stratus-waves-sour.mp3",
+    "11-stratus-waves.mp3"
+   ],
+   "mac": {
+    "coverage": 0.735,
+    "hits": 1740,
+    "judged": "same (line 40)"
+   },
+   "here": {
+    "coverage": 0.735,
+    "hits": 1740,
+    "judged": "same (line 40)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "a-gridlok-dilusion-sour.mp3",
+    "Gridlok - Dilusion.opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.731,
+    "hits": 1452,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02. Bad Company - China Cup.mp3",
+    "PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus"
+   ],
+   "mac": {
+    "coverage": 0.668,
+    "hits": 2112,
+    "judged": "same (line 25)"
+   },
+   "here": {
+    "coverage": 0.668,
+    "hits": 2112,
+    "judged": "same (line 25)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02 Coma.mp3",
+    "Bad Company - Spraycan.opus"
+   ],
+   "mac": {
+    "coverage": 0.595,
+    "hits": 2310,
+    "judged": "same (line 28)"
+   },
+   "here": {
+    "coverage": 0.595,
+    "hits": 2310,
+    "judged": "same (line 28)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3",
+    "Ed Rush, Optical & Fierce - Alien Girl.m4a"
+   ],
+   "mac": {
+    "coverage": 0.717,
+    "hits": 996,
+    "judged": "same (line 34)"
+   },
+   "here": {
+    "coverage": 0.717,
+    "hits": 996,
+    "judged": "same (line 34)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "A-Bad_Company-The_Nine-sour.mp3",
+    "Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "mac": {
+    "coverage": 0.497,
+    "hits": 1906,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.497,
+    "hits": 1906,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "01-future_cut-the_specialist-trt.mp3",
+    "INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a"
+   ],
+   "mac": {
+    "coverage": 0.765,
+    "hits": 2819,
+    "judged": "same (line 27)"
+   },
+   "here": {
+    "coverage": 0.765,
+    "hits": 2819,
+    "judged": "same (line 27)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "a-future_cut-sex_drive-sour.mp3",
+    "INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a"
+   ],
+   "mac": {
+    "coverage": 0.765,
+    "hits": 2857,
+    "judged": "same (line 27)"
+   },
+   "here": {
+    "coverage": 0.765,
+    "hits": 2857,
+    "judged": "same (line 27)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "01-future_cut-the_specialist-trt.mp3",
+    "INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a"
+   ],
+   "mac": {
+    "coverage": 0.765,
+    "hits": 2819,
+    "judged": "same (line 27)"
+   },
+   "here": {
+    "coverage": 0.765,
+    "hits": 2819,
+    "judged": "same (line 27)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "11-stratus-waves.mp3",
+    "b-stratus-waves-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.735,
+    "hits": 1708,
+    "judged": "same (line 40)"
+   },
+   "here": {
+    "coverage": 0.735,
+    "hits": 1708,
+    "judged": "same (line 40)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "x1-kosheen-hide_you-sour.mp3",
+    "Kosheen - Hide U (Outrage & Markee Ledge Remix).opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.446,
+    "hits": 103,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "210-bad_company-the_nine-sour.mp3",
+    "Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "mac": {
+    "coverage": 0.494,
+    "hits": 2139,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.494,
+    "hits": 2139,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "a-future_cut-sex_drive-sour.mp3",
+    "INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a"
+   ],
+   "mac": {
+    "coverage": 0.765,
+    "hits": 2857,
+    "judged": "same (line 27)"
+   },
+   "here": {
+    "coverage": 0.765,
+    "hits": 2857,
+    "judged": "same (line 27)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.537,
+    "hits": 453,
+    "judged": "different (line 44)"
+   },
+   "here": {
+    "coverage": 0.537,
+    "hits": 453,
+    "judged": "different (line 44)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.573,
+    "hits": 602,
+    "judged": "different (line 42)"
+   },
+   "here": {
+    "coverage": 0.573,
+    "hits": 602,
+    "judged": "different (line 42)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+    "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.537,
+    "hits": 474,
+    "judged": "different (line 43)"
+   },
+   "here": {
+    "coverage": 0.537,
+    "hits": 474,
+    "judged": "different (line 43)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+    "108-demolition_man-fire-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.529,
+    "hits": 502,
+    "judged": "different (line 44)"
+   },
+   "here": {
+    "coverage": 0.529,
+    "hits": 502,
+    "judged": "different (line 44)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+    "108-demolition_man-fire-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.564,
+    "hits": 591,
+    "judged": "different (line 42)"
+   },
+   "here": {
+    "coverage": 0.564,
+    "hits": 591,
+    "judged": "different (line 42)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "108-demolition_man-fire-sour.mp3",
+    "02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "mac": {
+    "coverage": 0.528,
+    "hits": 466,
+    "judged": "different (line 43)"
+   },
+   "here": {
+    "coverage": 0.528,
+    "hits": 466,
+    "judged": "different (line 43)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "aa-bad_company-coma-sour.mp3",
+    "Bad Company - Spraycan.opus"
+   ],
+   "mac": {
+    "coverage": 0.585,
+    "hits": 2356,
+    "judged": "same (line 28)"
+   },
+   "here": {
+    "coverage": 0.585,
+    "hits": 2356,
+    "judged": "same (line 28)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Pyro - Ignorance.m4a",
+    "Pyro - Time Is Broken.m4a"
+   ],
+   "mac": {
+    "coverage": 0.415,
+    "hits": 240,
+    "judged": "different (line 41)"
+   },
+   "here": {
+    "coverage": 0.415,
+    "hits": 240,
+    "judged": "different (line 41)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+    "Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "mac": {
+    "coverage": 0.484,
+    "hits": 1555,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.484,
+    "hits": 1555,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus",
+    "Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus"
+   ],
+   "mac": {
+    "coverage": 0.417,
+    "hits": 6,
+    "judged": "different (line 59)"
+   },
+   "here": {
+    "coverage": 0.417,
+    "hits": 6,
+    "judged": "different (line 59)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "Future Cut - The Specialist.opus"
+   ],
+   "mac": {
+    "coverage": 0.765,
+    "hits": 1788,
+    "judged": "same (line 27)"
+   },
+   "here": {
+    "coverage": 0.765,
+    "hits": 1788,
+    "judged": "same (line 27)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+    "ƆƐI3C - China Cup.opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.521,
+    "hits": 1015,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": true
+  },
+  {
+   "files": [
+    "PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+    "07 bad company-china cup.mp3"
+   ],
+   "mac": {
+    "coverage": 0.661,
+    "hits": 2492,
+    "judged": "same (line 25)"
+   },
+   "here": {
+    "coverage": 0.661,
+    "hits": 2492,
+    "judged": "same (line 25)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+    "b-bad_company-china_cup.mp3"
+   ],
+   "mac": {
+    "coverage": 0.661,
+    "hits": 2183,
+    "judged": "same (line 25)"
+   },
+   "here": {
+    "coverage": 0.661,
+    "hits": 2182,
+    "judged": "same (line 25)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Bad Company - The Nine (Evol Intent VIP).m4a",
+    "Bad Company - The Nine.m4a"
+   ],
+   "mac": {
+    "coverage": 0.493,
+    "hits": 1604,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.493,
+    "hits": 1604,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Bad Company - The Nine (Evol Intent VIP).m4a",
+    "ƆƐI3C - The Nine.opus"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.483,
+    "hits": 1781,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": true
+  },
+  {
+   "files": [
+    "Bad Company - The Nine (Evol Intent VIP).m4a",
+    "Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a"
+   ],
+   "mac": {
+    "coverage": 0.475,
+    "hits": 2360,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.475,
+    "hits": 2360,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Bad Company - The Nine (Evol Intent VIP).m4a",
+    "02 bad company-the nine.mp3"
+   ],
+   "mac": {
+    "coverage": 0.499,
+    "hits": 4390,
+    "judged": "different (line 32)"
+   },
+   "here": {
+    "coverage": 0.499,
+    "hits": 4390,
+    "judged": "different (line 32)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Dieselboy - The Descent (Phunckateck VIP).opus",
+    "Frenchi ⧸ Proktah - Scarabeus.opus"
+   ],
+   "mac": {
+    "coverage": 0.407,
+    "hits": 6,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.407,
+    "hits": 6,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "Drumsound & Bassline Smith - Phoenix.m4a"
+   ],
+   "mac": {
+    "coverage": 0.421,
+    "hits": 289,
+    "judged": "same (line 33)"
+   },
+   "here": {
+    "coverage": 0.421,
+    "hits": 289,
+    "judged": "same (line 33)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "ƆƐI3C - China Cup.opus",
+    "07 bad company-china cup.mp3"
+   ],
+   "mac": null,
+   "here": {
+    "coverage": 0.752,
+    "hits": 1806,
+    "judged": null
+   },
+   "here_otherwise": null,
+   "newer_record": true
+  },
+  {
+   "files": [
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+    "Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus"
+   ],
+   "mac": {
+    "coverage": 0.629,
+    "hits": 324,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.629,
+    "hits": 324,
+    "judged": "different (line 78)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus"
+   ],
+   "mac": {
+    "coverage": 0.742,
+    "hits": 343,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.742,
+    "hits": 343,
+    "judged": "different (line 77)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  },
+  {
+   "files": [
+    "Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a",
+    "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus"
+   ],
+   "mac": {
+    "coverage": 0.484,
+    "hits": 174,
+    "judged": null
+   },
+   "here": {
+    "coverage": 0.484,
+    "hits": 176,
+    "judged": "different (line 79)"
+   },
+   "here_otherwise": null,
+   "newer_record": false
+  }
+ ],
+ "borderline_summary": {
+  "mac_rows": 50,
+  "here_rows": 58,
+  "mac": 44,
+  "here": 52,
+  "both": 44,
+  "here_only": 8,
+  "here_only_newer_record": 6,
+  "here_only_unjudged": 7,
+  "mac_only": 0
+ }
+}

@@ -170,3 +170,49 @@ $HOME/.local/share/gunfinger/nas-dnb-peaks"`; reports in
   recall panel (`clusters --recall-panel`, `recall`). Other runs keep
   the default `docs/panels/`; the sweep panels in the copy are
   byte-identical anyway. The committed panel does not change.
+- **(01:23) Step 2, the library map** (`map-library`, 1.2 s, 78 MiB):
+  250 of 265 corpus files have a NAS copy. That is the Mac's 247 of 262
+  (0036, and "247 copies, as before" in 0120 and 0128) plus the 3 corpus
+  records the Mac's store passes over (0152), each with one NAS copy;
+  the same 15 files have none. 55 corpus files have several copies (31
+  in 0036, at 26,890 records), 2 copies differ in size (tags; both from
+  `__full_scene`, indexed after 0036), and for 3 corpus files the copy
+  that stands for them is another identical copy than in 0036 (a newer
+  `__full_scene` folder). The Mac's later maps are not in the
+  repository, so the choice among identical copies cannot be compared
+  with 0128's.
+- **(01:24) A clusters file before `--recall-panel`.** The first run
+  stopped at once: `recall_panel` (main.rs) loads the NAS clusters in
+  use to list the corpus recordings, which it needs only to draw a new
+  panel, and there is none on this machine. The panel exists, so the
+  clusters cannot change it; the requirement is a bootstrap gap of a
+  fresh machine, not a platform difference. No code change: run 1 is
+  the same command without `--recall-panel`, which writes a clusters
+  file; run 2 is the full command. Run 2 searches every query again
+  (`PairSource::Search`); it uses run 1's file only to read the panel
+  and for the verdict check before searching, so its clusters are what
+  the full command gives. Run 1's result is kept as
+  `work/s33/clusters-run1.json`.
+- **(01:45) The power profile.** The user switched the machine to tuned's
+  `throughput-performance` profile at 01:45:52 (the time of
+  `/etc/tuned/active_profile`) and said so at 02:40; the governor is now
+  `performance`. Everything before 01:45:52 ran under the earlier
+  profile: the start build, `regress session-32-linux` (68.7 s) and
+  the first 21 minutes of clusters run 1. Times from run 2 on are under
+  `throughput-performance`.
+- **(02:10) Clusters run 1** (without the recall panel's queries):
+  01:24:24-02:10:11, 45:47 wall, 80,152 s user, 7.25 GiB at peak; 295,
+  337 and 3 queries in three rounds; 255 clusters, the 17 corpus clusters
+  the same, 1 join cut. Its file is `work/s33/clusters-run1.json`. The
+  wait commands of the session timed out, so run 2 started only at
+  02:40.
+- **(03:20) The orchestrating thread's scheduling note.** Steps 7 and 8
+  start only if step 6 has finished before 05:30; otherwise they are
+  skipped, the notes say so, and the session wraps up, because the next
+  session needs the machine, the clusters and the baseline. Two things
+  to record for the next sessions: the per-query rate of the clusters
+  search and of a NAS scan here against the Mac's (session 18: 370
+  queries in 1,554 s on 10 cores; session 32: `identify` at NAS scale in
+  45.7-79.3 s here), with any cause marked as an inference unless
+  measured; and the wall time of one NAS-scale `scan --leave-out` with
+  the saved index (the next session runs about 120 of them).
