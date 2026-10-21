@@ -10,22 +10,22 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s35/listening-digests-start.txt`
-- [~] Start build `work/bin/s35-start/`; `regress session-32-linux` and
-  `regress session-33-linux-nas` identical
+- [x] Start build `work/bin/s35-start/`; `regress session-32-linux` and
+  `regress session-33-linux-nas` identical (1:09; 11:15)
 
 ## Steps
 
-- [ ] 1. Pre-registration (`docs/research/2026-10-21-gap-tests.md`),
+- [x] 1. Pre-registration (`docs/research/2026-10-21-gap-tests.md`),
   committed before any test seed is rendered
-- [ ] 2. Shared material, beatmatched: `mixes --kind shared` beside the
+- [x] 2. Shared material, beatmatched: `mixes --kind shared` beside the
   control `--kind beatmatched`; experiment 0163
-- [ ] 3. A gap inside a found track: `self-match --neighbours`;
+- [x] 3. A gap inside a found track: `self-match --neighbours`;
   experiment 0164
-- [ ] 4. The combined estimate; experiment 0165
-- [ ] 5. Pitch rides: `mixes --kind rides`, `self-match --ratios`;
+- [x] 4. The combined estimate; experiment 0165
+- [x] 5. Pitch rides: `mixes --kind rides`, `self-match --ratios`;
   experiment 0166
-- [ ] 6. The proposal `docs/research/2026-10-21-printing-gaps.md`
-- [ ] 7. (Ahead) the prototype branch `s35-gaps-output`
+- [x] 6. The proposal `docs/research/2026-10-21-printing-gaps.md`
+- [~] 7. (Ahead) the prototype branch `s35-gaps-output`
 - [ ] 8. Read-only review by a subagent; findings fixed
 
 ## Wrap-up
