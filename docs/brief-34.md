@@ -204,3 +204,13 @@ Rules for this session:
   these gaps, so they are fixed now (stretches, 10 hits, blocks of 30 s
   or more) and tested unchanged on the long generated mixes, whose gaps
   this session has not looked at.
+- **(07:44) The first long mixes superseded before any gap was read.**
+  With 1 or 2 indexed plays between runs, most long mixes have fewer
+  than 3 intervals between consecutive indexed plays, so method 1's
+  registered interval would give no estimate there (0160's finding).
+  Only the first seed's summary had been read (104 of 104 indexed plays
+  confident, 2:38, 11 GiB). The queue was stopped, its renders and
+  report deleted (logs kept as `work/s34/logs/superseded-*`), and the
+  generator changed: 2 indexed plays first, then each run followed by 2
+  or 3, so every mix has at least 5 intervals between consecutive
+  indexed plays. Rerun from 07:45, same seeds and count.

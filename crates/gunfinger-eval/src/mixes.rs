@@ -54,12 +54,14 @@ const LEVEL: f64 = 0.1;
 const RAMP_SECONDS: f64 = 0.02;
 /// Long mixes: plays of a DJ's length, joined by crossfades of this long
 /// (half of them bass swaps), with a run of each of these many held-out
-/// tracks between indexed ones, in a drawn order, and 1 or 2 indexed
-/// plays between two runs.
+/// tracks in a drawn order, after 2 indexed plays and each followed by 2
+/// or 3, so that a mix has at least 5 start-to-start intervals between
+/// consecutive indexed plays for method 1's median.
 const LONG_PLAY_SECONDS: (f64, f64) = (120.0, 360.0);
 const LONG_CROSSFADE_SECONDS: (f64, f64) = (10.0, 60.0);
 const HELD_OUT_RUNS: [usize; 4] = [1, 2, 3, 4];
-const MOST_INDEXED_BETWEEN_RUNS: usize = 2;
+const INDEXED_FIRST: usize = 2;
+const INDEXED_AFTER_RUN: (usize, usize) = (2, 3);
 
 /// What a generated mix plays.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, clap::ValueEnum)]
@@ -501,9 +503,10 @@ fn drawn_speed(rng: &mut Rng) -> f64 {
     1.0 + (2.0 * rng.unit() - 1.0) * SPEED_RANGE
 }
 
-/// Draws a long mix: an indexed play, then a run of each length of
-/// `HELD_OUT_RUNS` in a drawn order, each followed by 1 or 2 indexed
-/// plays, every track from a cluster of its own, joined by crossfades.
+/// Draws a long mix: `INDEXED_FIRST` indexed plays, then a run of each
+/// length of `HELD_OUT_RUNS` in a drawn order, each followed by 2 or 3
+/// indexed plays, every track from a cluster of its own, joined by
+/// crossfades.
 pub fn draw_long_mix(
     name: &str,
     pools: &Pools,
@@ -524,12 +527,16 @@ pub fn draw_long_mix(
     };
     let mut runs = HELD_OUT_RUNS;
     rng.shuffle(&mut runs);
-    let mut chosen: Vec<(&PeakRecord, bool)> = vec![draw(false, rng)?];
+    let mut chosen: Vec<(&PeakRecord, bool)> = Vec::new();
+    for _ in 0..INDEXED_FIRST {
+        chosen.push(draw(false, rng)?);
+    }
     for run in runs {
         for _ in 0..run {
             chosen.push(draw(true, rng)?);
         }
-        for _ in 0..=rng.below(MOST_INDEXED_BETWEEN_RUNS) {
+        let (fewest, most) = INDEXED_AFTER_RUN;
+        for _ in 0..fewest + rng.below(most - fewest + 1) {
             chosen.push(draw(false, rng)?);
         }
     }
@@ -1103,7 +1110,14 @@ mod tests {
         }
         runs.sort_unstable();
         assert_eq!(runs, [1, 2, 3, 4]);
-        assert!(!mix.plays[0].held_out && !mix.plays.last().unwrap().held_out);
+        assert!(!mix.plays[0].held_out && !mix.plays[1].held_out);
+        let indexed_pairs = mix
+            .plays
+            .windows(2)
+            .filter(|pair| !pair[0].held_out && !pair[1].held_out)
+            .count();
+        assert!(indexed_pairs >= 5, "{indexed_pairs}");
+        assert!(!mix.plays[mix.plays.len() - 2].held_out && !mix.plays.last().unwrap().held_out);
         let assets: BTreeSet<&str> = mix.plays.iter().map(|play| play.asset.as_str()).collect();
         assert_eq!(assets.len(), mix.plays.len());
         for play in &mix.plays {
