@@ -473,6 +473,25 @@ marked as inferences were derived, not measured.
   about 30% less time with 16 workers than with the default 32, with
   identical results; a full clustering run at 16 workers is not measured. Whether the default should count cores rather than
   hardware threads is our decision.
+  *(2026-10-21, between sessions; `docs/research/2026-10-21-low-bandwidth-search.md`,
+  experiment 0167)* Two design agents read the search for a machine
+  with low memory bandwidth (this one reads 26-27 GiB/s sequentially and
+  9-14 GiB/s at random, with 105 ns latency, perhaps memory at a JEDEC
+  default; `sudo dmidecode -t 17` would tell). The posting reads are
+  about 4 GB/s and not the limit; each hit's 40 bytes of cache traffic
+  in `take_part`, `group_part` and the pre-filter are, once 16 workers
+  per core complex overflow its 32 MiB L3. Two changes in `take_part`,
+  measured with identical reports: finding each part's end by a doubling
+  search from the front of the list, and parts of 1,024 assets. The
+  Stakka scan at NAS scale searches in 38.5 s instead of 76.7 s at 32
+  workers and 45.7 s instead of 49.3 s at 16; a 48-query clusters sample
+  takes 121 s instead of 211 s. With them, 32 workers are faster than
+  16, so the default need not change. Not in master: a session adopts
+  them with tests and the regressions, then narrower hits (4 or 6
+  bytes), grouping without the `part` buffer and reading repeated hashes
+  once, each after a profile with `perf`. Posting compression is not the
+  answer to speed here (3.06-3.12 bytes a posting in a sample), only to
+  memory and disk.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

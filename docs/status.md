@@ -4290,3 +4290,24 @@ pre-registration `docs/research/2026-10-21-gap-tests.md`; notes
   row). Final checks: `check.sh` green (491 Rust tests); both
   regressions with `work/bin/s35-final/` identical (2:57; 11:04);
   `docs/pair-verdicts.txt` unchanged.
+
+## 2026-10-21: the search on a machine with low memory bandwidth (between sessions)
+
+- After session 35, on the user's request: two design agents (GPT-6-Astra
+  and Fable 5.1, one each, high effort, read-only on the repository) read
+  the search for the Linux machine, whose NAS-scale searches were slower
+  than the Mac's at 32 workers. Their reports and scratch measurements are
+  in `work/perf-design/`; the consolidation is
+  `docs/research/2026-10-21-low-bandwidth-search.md`.
+- The machine: two core complexes with a 32 MiB L3 each; a probe reads
+  25.6-27.0 GiB/s sequentially, 9-14 GiB/s at random, 104.6 ns latency
+  (perhaps memory at a JEDEC default; the DIMM speed needs `sudo dmidecode
+  -t 17`). Transparent huge pages `madvise`.
+- Experiment 0167: finding each part's end by a doubling search from the
+  front of the list, with parts of 1,024 assets (`search/lines.rs`,
+  `take_part`; the patch in `work/perf-design/verify/lines.diff`), checked
+  on a clean copy of `f7f2e1a`: the Stakka scan at NAS scale 38.5 s of
+  search instead of 76.7 s at 32 workers, 45.7 s instead of 49.3 s at 16,
+  reports identical apart from `wall_seconds`. Not in master; a session
+  adopts it with tests and the regressions.
+- No Rust code in master changed, so `scripts/check.sh` was not run.

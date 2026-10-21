@@ -40,7 +40,9 @@ anything else:
    `docs/research/2026-10-14-matching-proposals.md` (session 19
    measured proposals 1 and 2, session 20 proposals 3 and 5; session 21
    tested proposal 5's candidates in rendered mixes; session 22 ran part
-   1 of proposal 2's retrieval study)
+   1 of proposal 2's retrieval study); on a machine with low memory
+   bandwidth (the Linux machine), `docs/research/2026-10-21-low-bandwidth-search.md`
+   and experiment 0167
 9. for shared-material work: the panels in `docs/panels/` and the
    newest experiments on them (sessions 20, 21, 23, 24 and 25); for the
    version verifier, `docs/research/2026-10-16-version-verification.md`
