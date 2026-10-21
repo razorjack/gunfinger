@@ -26,9 +26,8 @@ plays confident, no wrong confident play. Data `data/0163-shared-material.json`.
 - S1 fails: pooled over k = 2-4, method 2 is exact for 25% of the shared
   mixes' gaps against 67% in the control (registered: at most 10 points
   below), within one for 83% against 97% (at most 5 below).
-- S2 fails: 130 of 192 panel pairs (68%) are merged (registered: at most
-  20%); other couples merge 11 of 96 times in the shared mixes, 42 of 288 in
-  the control (11% and 15%).
+- S2 fails: 130 of 192 panel pairs (68%) merge (at most 20%); other couples
+  merge 11 of 96 times here, 42 of 288 in the control.
 - By how much: a gap holding a merged couple is counted a mean 1.08 records
   low (98 of 111 low); gaps without one, -0.15 (none low). In the control, a
   merged couple (unrelated records) also costs one: 36 of 38 low.
