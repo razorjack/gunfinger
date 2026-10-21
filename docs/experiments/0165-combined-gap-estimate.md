@@ -26,13 +26,12 @@ keeps method 2's there.
 
 - K1 holds: on the test the combined estimate is exact more often than either
   method (64% against 59% and 58%) and off by two least often (2.9%).
-- As a count it fails (exact 57% at k = 2, registered 90% at each k). As a
-  range n-1 to n+1 it holds the truth for 100, 99, 100 and 90% at k = 1-4 (86
-  of 96 at k = 4; registered at least 90%, so 87) and is off by two for 2.9%
-  pooled (at most 5%): one gap short at k = 4, where 8 of the 10 misses are
-  in the shared mixes.
-- Limiting helps most where method 2 fails: the shared mixes' merged pairs
-  are raised to range B's low end (exact 43% to 55%, off 2+ 12.5% to 4.2%).
+- As a count it fails (57% at k = 2; registered 90% at each k). The range n-1
+  to n+1 holds the truth for 100, 99, 100 and 89.6% at k = 1-4 (86 of 96; 87
+  needed) and 2.9% are off by two (at most 5%): one gap short at k = 4, where
+  8 of the 10 misses are in the shared mixes.
+- Limiting helps most where method 2 fails: on the shared mixes exact rises
+  from 43% to 55% and off by two falls from 12.5% to 4.2%.
 - The rides mixes (0166) defeat all three (12-15% exact): their gaps hold
   found tracks' lost time.
 
