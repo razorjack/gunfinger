@@ -166,3 +166,16 @@ Rules for this session:
   only use the machine while steps 3's analysis and 4's experiments are
   written, so they take nothing from 1-4. Its results are read only
   after 0159 and 0160 are written.
+- **(06:49) Both regressions identical with the run build** (corpus
+  2:37 beside `check.sh`, NAS 11:28, 5.5 GiB); step 3's scans started.
+- **(06:50) Step 5b's prototype written before step 3 ended**
+  (`self-match`, `self_match.rs`): each listed gap of a saved report is
+  decoded from the mix, its pair hashes matched with its own at speed
+  1.0 (lags of 8 s or more, 2-frame lag steps, hashes occurring more
+  than 40 times in the gap left out), cells of 5 s joined where at least
+  5, 10, 20 or 40 hits of one cell recur at one lag, and the groups of
+  joined cells counted as blocks. Thresholds are compared, not chosen.
+  Generated-mix reports now record their kind (`kind`, omitted for
+  short mixes), so the harness finds a mix's render; `work/bin/s34-long/`
+  was rebuilt with it before its queue started. It runs only after step
+  3's scans, so the scans' times are not shared with it.

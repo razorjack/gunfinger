@@ -31,6 +31,7 @@ mod robust;
 mod scan;
 mod scoring;
 mod seconds;
+mod self_match;
 mod shared;
 mod shared_mixes;
 mod survival;
@@ -45,11 +46,14 @@ use std::fs;
 use std::num::NonZeroUsize;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
+use std::time::Duration;
 
 use clap::{Parser, Subcommand, ValueEnum};
+use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
 use gunfinger_core::library::{Asset, Library};
+use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
 use gunfinger_core::store::PeakStore;
@@ -461,6 +465,22 @@ enum Command {
         #[arg(long, value_delimiter = ',', default_values_t = gaps::MIN_LENGTHS)]
         min_length: Vec<f64>,
     },
+    /// A prototype of counting the tracks in a gap by matching the gap
+    /// against itself: each listed gap of saved `mixes` or `scan` reports
+    /// (as `gaps` lists them, at one minimum length) is decoded, its pair
+    /// hashes matched with its own at speed 1.0, and the stretches joined
+    /// by repeats counted as blocks, at several thresholds, beside the
+    /// truth and method 1's estimate. The listing goes to
+    /// `gaps/self-match-<report stem>.json` (with another library, under
+    /// `gaps/library-<store directory name>/`).
+    SelfMatch {
+        #[arg(required = true)]
+        reports: Vec<PathBuf>,
+        #[arg(long, default_value_t = 30.0)]
+        margin: f64,
+        #[arg(long, default_value_t = 30.0)]
+        min_length: f64,
+    },
     /// Attribute where a set's identified plays lose evidence: hits per
     /// window against the reference hashes heard, on the rung, at the
     /// fitted and the best local speed, beside a clean render of the same
@@ -629,6 +649,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Versions { .. }
             | Command::Seconds { .. }
             | Command::Gaps { .. }
+            | Command::SelfMatch { .. }
     );
     let takes_a_sample = matches!(
         command,
@@ -646,7 +667,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability, versions, seconds and gaps do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability, versions, seconds, gaps and self-match do",
         ));
     }
     match command {
@@ -892,6 +913,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             margin,
             min_length,
         } => list_gaps(paths, &reports, margin, &min_length),
+        Command::SelfMatch {
+            reports,
+            margin,
+            min_length,
+        } => match_gaps_against_themselves(paths, &reports, margin, min_length, jobs),
         Command::Loss { set } => {
             let report = loss::run(
                 &paths.sets(),
@@ -2226,6 +2252,9 @@ struct Judged {
     duration_seconds: f64,
     /// `margin` for a scan, whose borders are approximate; 0 for exact truth.
     margin: f64,
+    /// The mix's audio, where the report names it: a set's, or a
+    /// generated mix's render.
+    audio: Option<PathBuf>,
 }
 
 /// Reads `reports`, each with the mixes it holds and their truth.
@@ -2289,6 +2318,7 @@ fn judged(
                         .collect(),
                     duration_seconds: rendered.mix.seconds,
                     margin: 0.0,
+                    audio: None,
                 })
             })
             .collect();
@@ -2311,6 +2341,12 @@ fn judged(
                         .collect(),
                     duration_seconds: result.mix.seconds,
                     margin: 0.0,
+                    audio: Some(
+                        report
+                            .kind
+                            .renders(&paths.work, report.seed)
+                            .join(format!("{}.mp3", result.mix.name)),
+                    ),
                 })
                 .collect();
             Ok((ReportKind::Mixes, judged))
@@ -2333,6 +2369,7 @@ fn judged(
                         .collect(),
                     duration_seconds: report.duration_seconds,
                     margin,
+                    audio: Some(set.audio.clone()),
                 }],
             ))
         }
@@ -2461,6 +2498,93 @@ fn list_gaps(
             &every.iter().collect::<Vec<_>>(),
             min_lengths,
         );
+    }
+    Ok(())
+}
+
+/// One gap matched against itself, beside its truth.
+#[derive(Serialize)]
+struct SelfMatched {
+    mix: String,
+    start_seconds: f64,
+    end_seconds: f64,
+    missed_tracks: usize,
+    indexed_tracks: usize,
+    estimate: Option<u32>,
+    blocks: Vec<self_match::Blocks>,
+}
+
+/// `self-match`: every listed gap of each report, matched against itself,
+/// one gap per worker.
+fn match_gaps_against_themselves(
+    paths: &Paths,
+    reports: &[PathBuf],
+    margin: f64,
+    min_length: f64,
+    jobs: usize,
+) -> Result<(), String> {
+    let clusters = paths.clusters()?;
+    let profile = Profile::CURRENT;
+    for (path, kind, judged) in judged_reports(paths, reports, &clusters, margin)? {
+        let mut gaps: Vec<(&Path, String, gaps::Gap)> = Vec::new();
+        for mix in &judged {
+            let Some(audio) = &mix.audio else { continue };
+            let listing = gaps::list(
+                &mix.name,
+                &mix.truth,
+                &mix.segments,
+                mix.duration_seconds,
+                mix.margin,
+                &[min_length],
+            );
+            for gap in listing.at.into_iter().flat_map(|at| at.gaps) {
+                gaps.push((audio, mix.name.clone(), gap));
+            }
+        }
+        let matched: Vec<SelfMatched> = map_in_order(&gaps, jobs, |(audio, mix, gap)| {
+            let excerpt = Excerpt {
+                start: Some(Duration::from_secs_f64(gap.start_seconds)),
+                duration: Some(Duration::from_secs_f64(gap.length_seconds())),
+            };
+            let samples = decode(audio, profile.sample_rate, excerpt)
+                .map_err(|error| format!("{}: {error}", audio.display()))?
+                .samples;
+            Ok(SelfMatched {
+                mix: mix.clone(),
+                start_seconds: gap.start_seconds,
+                end_seconds: gap.end_seconds,
+                missed_tracks: gap.missed_tracks.len(),
+                indexed_tracks: gap.indexed_tracks.len(),
+                estimate: gap.estimate,
+                blocks: self_match::blocks(&samples, &profile),
+            })
+        })
+        .into_iter()
+        .collect::<Result<_, String>>()?;
+        let name = format!("self-match-{}", judged_name(&path, kind, margin));
+        write_json(&paths.gaps_dir().join(name), &matched)?;
+        println!(
+            "{}: {} gaps of at least {min_length:.0} s",
+            path.display(),
+            matched.len()
+        );
+        for gap in &matched {
+            let counts: Vec<String> = gap
+                .blocks
+                .iter()
+                .map(|blocks| format!("{}@{}", blocks.spans.len(), blocks.min_hits))
+                .collect();
+            println!(
+                "  {} {:.0}-{:.0} s: {} missed, estimate {}, blocks {}",
+                gap.mix,
+                gap.start_seconds,
+                gap.end_seconds,
+                gap.missed_tracks,
+                gap.estimate
+                    .map_or_else(|| String::from("-"), |n| n.to_string()),
+                counts.join(" ")
+            );
+        }
     }
     Ok(())
 }

@@ -62,10 +62,12 @@ const HELD_OUT_RUNS: [usize; 4] = [1, 2, 3, 4];
 const MOST_INDEXED_BETWEEN_RUNS: usize = 2;
 
 /// What a generated mix plays.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, clap::ValueEnum)]
+#[serde(rename_all = "lowercase")]
 pub enum MixKind {
     /// 12 plays of 20-60 s, a returning track, a quarter held out at
     /// random, joined by bass swaps, crossfades and cuts.
+    #[default]
     Short,
     /// Plays of 2-6 minutes joined by crossfades of 10-60 s, with runs of
     /// 1, 2, 3 and 4 held-out tracks between indexed ones.
@@ -73,6 +75,17 @@ pub enum MixKind {
 }
 
 impl MixKind {
+    // serde's `skip_serializing_if` passes a reference.
+    #[allow(clippy::trivially_copy_pass_by_ref)]
+    fn is_short(&self) -> bool {
+        *self == MixKind::Short
+    }
+
+    /// Where the mixes of `seed` are rendered under the work directory.
+    pub fn renders(self, work: &Path, seed: u64) -> PathBuf {
+        work.join("mixes").join(self.name(seed))
+    }
+
     /// The report's and the renders' name: `seed-<seed>` for short mixes,
     /// `long-seed-<seed>` for long ones.
     pub fn name(self, seed: u64) -> String {
@@ -672,6 +685,9 @@ fn join(previous: &mut PlannedPlay, next: &mut PlannedPlay, rng: &mut Rng) {
 #[derive(Serialize, Deserialize)]
 pub struct MixesReport {
     pub seed: u64,
+    /// Reports of short mixes, from before there were kinds, have none.
+    #[serde(default, skip_serializing_if = "MixKind::is_short")]
+    pub kind: MixKind,
     pub ladder: String,
     pub indexed_assets: usize,
     pub mixes: Vec<MixResult>,
@@ -740,7 +756,7 @@ pub fn run(
     let verifier = options.verify.then(|| Verifier::new(&records, None));
     let pools = Pools::new(&records, &held_out);
     let mut rng = Rng::new(options.seed);
-    let dir = work.join("mixes").join(options.kind.name(options.seed));
+    let dir = options.kind.renders(work, options.seed);
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
         .map(|number| {
             let name = format!("mix-{number:02}");
@@ -763,6 +779,7 @@ pub fn run(
     });
     Ok(MixesReport {
         seed: options.seed,
+        kind: options.kind,
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
         mixes: results.into_iter().collect::<Result<_, _>>()?,
