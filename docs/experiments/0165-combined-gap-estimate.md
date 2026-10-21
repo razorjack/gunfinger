@@ -20,21 +20,21 @@ Data `data/0165-combined-estimate.json`.
 | Long control of 0166, 128 | 62%; 6.2% | 77%; 2.3% | 78%; 0 | 91 / 84 / 78 / 59% |
 | Long, development, 320 | 51%; 7.5% | 74%; 2.8% | 80%; 0 | 98 / 86 / 75 / 60% |
 | NAS, development, 116 | 14%*; 0.9% | 65%; 5.2% | 71%; 4.3% | 89 / 73 / 59 / 54% |
+| 262 tracks, development, 57 | 11%*; 0 | 67%; 0 | 70%; 0 | 85 / 54 / 58 / 75% |
 
-\* 82 of 116 NAS gaps have no registered estimate (0160); the combined count
-keeps method 2's there.
+\* 82 of 116 NAS and 45 of 57 262-track gaps have no estimate; the combined
+count keeps method 2's. Gaps with no missed track counted 0: 4 of 12 (NAS), 2
+of 10 (262), 17 of 139 (rides).
 
-- K1 holds: on the test the combined estimate is exact more often than either
-  method (64% against 59% and 58%) and off by two least often (2.9%).
-- As a count it fails (57% at k = 2; registered 90% at each k). The range n-1
+- K1 holds: on the test it is exact most often (64%; 59%, 58%), off 2+ least.
+- As a count it fails at every k from 2 (43-58%; 90% registered). The range n-1
   to n+1 holds the truth for 100, 99, 100 and 89.6% at k = 1-4 (86 of 96; 87
   needed) and 2.9% are off by two (at most 5%): one gap short at k = 4, where
-  8 of the 10 misses are in the shared mixes.
+  8 of the 10 misses are in the shared mixes (the pool is half shared).
 - Limiting helps most where method 2 fails: on the shared mixes exact rises
   from 43% to 55% and off by two falls from 12.5% to 4.2%.
-- The rides mixes (0166) defeat all three (12-15% exact): their gaps hold
-  found tracks' lost time.
+- Rides mixes (0166; their gaps hold found tracks' lost time): all 12-15% exact.
 
 **Conclusion.** The combined estimate is the best count measured, but not a
 count to print. As a range of one either side it falls one gap short at k = 4
-on the test; the shortfall comes from records sharing material.
+on the test, mostly, it seems, from records sharing material.

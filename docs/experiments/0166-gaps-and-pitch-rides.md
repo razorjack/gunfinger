@@ -15,25 +15,23 @@ each; 3:50-4:11 and 14 GiB per seed. `self-match` on their 395 gaps at 1.0
 rung from 0.968 to 1.032 (1:52, 5.4 times); `ride_coverage.py`. Data
 `data/0166-pitch-rides.json`.
 
-- The search, not method 2, is hit first. All 382 ridden indexed plays have a
-  confident play, but 192 have a side of 30 s or more before or after the
-  ride with no detection of 3 windows and 200 hits (control: 0 of 395). The
-  CLI on one rides mix agrees: Figurehead and Sin are each found on one side
-  of the ride only, though each side searched alone is confident (2,130 and
-  3,082 hits). So 139 of the rides mixes' 267 listed gaps at 30 s hold no
-  missed track (up to 263 s; 99 at 60 s); the control lists none.
-- R1: the count drops. Pooled over k = 1-4, method 2 is exact for 18 of 128
-  rides gaps against 99 of 128 in the control; most rides gaps also hold a
-  found track's lost side, whose repeats add stretches (95 of 128).
+- The search loses time first. All 382 ridden indexed plays have a confident
+  play, but 192 have a side of 30 s or more of their ride with no detection
+  of 3 windows and 200 hits; their own parts are covered for a median 0.71-0.74
+  per seed, the control's 1.00. On one rides mix (`logs/ride-cli-check.log`)
+  the CLI finds Figurehead and Sin on one side of their rides only, though
+  each other side alone is confident (2,130 and 3,082 hits). So 139 of 267
+  listed gaps at 30 s hold no missed track (99 at 60 s); the control's none.
+- R1, registered, all gaps: the count drops. Exact at k = 1-4: rides 9/3/4/2
+  of 32, control 29/25/26/19 (18 and 99 of 128); with the neighbouring rungs
+  31 and 96, with every rung 49 and 96. Most rides gaps (95) hold a lost side.
 
-| Gaps holding only missed tracks, k = 1-4 | At 1.0 | 1.0 and 0.996, 1.004 | Every rung to ±3.2% |
+| Not registered: gaps of missed records only | At 1.0 | 0.996, 1.004 too | Every rung to ±3.2% |
 |---|---|---|---|
 | Rides, 33: exact; within 1 | 8; 24 | 18; 29 | 25; 33 |
 | Long control, 127: exact; within 1 | 98; 124 | 95; 124 | 95; 124 |
 
-Every rung to ±3.2% brings these rides gaps to the control's level (76%
-against 77% exact) and costs the control 3 gaps.
-
-**Conclusion.** In about half of the plays, the product's search drops one side
-of a sustained 1-3% pitch change: a gap inside a found track, counted as more
-records. In gaps of missed records only, every rung to ±3.2% recovers method 2.
+**Conclusion.** In half of the plays the search drops one side of a sustained
+1-3% pitch change: a gap inside a found track, counted as more records. In 33
+gaps of missed records only, every rung to ±3.2% brought method 2 near the
+control (25 of 33 against 98 of 127 exact), a small sample (`ride_gaps.py`).

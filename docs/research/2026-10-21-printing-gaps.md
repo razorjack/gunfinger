@@ -20,8 +20,10 @@ close it.
   60 s.
 - A gap's length over the mix's median interval (method 1) gives a range
   that holds the truth for 98% of development gaps but a count that is
-  exact for only 100/53/37/42% at k = 1-4 (0160), and needs 3 clean
-  intervals in the mix.
+  exact for only 100/53/37/42% at k = 1-4, when the interval is taken as
+  if the gap's run were the only one missing (0160). It needs 3 clean
+  intervals in the mix: with the registered interval, 81 of 115
+  development gaps have no estimate.
 - Matching the gap against itself (method 2) counts DJ-length records
   better: 95/80/69/54% exact on the long generated mixes (0162).
   Session 35 tested it where it should fail. Records that share a
@@ -65,8 +67,9 @@ report already implies by leaving it out.
 | 30 s | 271 of 271 | 7.7%; 1 in the three together | every held-out play; none empty |
 | 60 s | 271 of 271 | 0; 0 | 799 of 800; none empty |
 
-Plays shorter than 40 s are often not reached even at 30 s (59 of 101 in
-the short generated mixes, 0159), and a longer minimum cannot reach more;
+Plays shorter than 40 s are often not reached even at 30 s (42 of 101 in
+the short generated mixes are not, 0159), and a longer minimum cannot
+reach more;
 real DJ plays are mostly 2-6 minutes. In
 the ridden generated mixes of 0166, 139 of 267 gaps at 30 s and 99 of 227
 at 60 s lie inside found tracks: the minimum length does not remove
@@ -130,8 +133,8 @@ rides unless every rung to ±3.2% is matched (5.4 times the time).
   typical track length if they want to; nothing is claimed.
 - **A range from the combined estimate** ("about 1-3 tracks", n-1 to
   n+1, at least 1): right for 97% of the test's gaps, but less often
-  where records share material (83% at k = 4), the case DJ mixes of one
-  label or one break are made of.
+  where records share material (83% at k = 4), which we expect to be
+  common in mixes of one label or one break (not measured).
 - **A range from method 1 alone:** needs no decoding, but has no
   estimate in mixes with many gaps, and is right for 95%.
 
@@ -143,8 +146,9 @@ and a gap without a method 1 estimate keeps method 2's count.
 ## 6. JSON, CSV and cue sheet
 
 - **JSON** (an added field; schema version 3 allows those): `gaps`, each with `start_seconds`,
-  `end_seconds`, `possible_plays` (the numbers of the possible plays
-  that overlap it) and, if a count is printed, `tracks` as
+  `end_seconds`, `possible_plays` (the positions, from 1, in `plays` of
+  the possible plays that overlap it; neither array indices nor
+  tracklist numbers, so worth settling in the ADR) and, if a count is printed, `tracks` as
   `{"low": n, "high": m}` or `null`, with `method`.
 - **CSV:** one row per play today. Options: a second file, rows of a
   different kind (`confidence` = `none`, empty asset), or nothing. Rows
@@ -167,7 +171,11 @@ minimum length are not listed. "Unidentified" is avoided: it suggests
 that the other entries are a complete identification.
 
 *Recommendation:* "no confident match for <length>", unnumbered, at the
-gap's start, in the tracklist's time column.
+gap's start, in the tracklist's time column. A report with no entry at
+all keeps its line "no tracks found" without a gap line.
+
+The prototype on the branch `s35-gaps-output` renders the tracklist and
+JSON only; the table (section 1) is not done there.
 
 ## Examples from this session's reports
 
@@ -207,6 +215,10 @@ added fields):
 
 ```json
 "gaps": [
-  { "start_seconds": 403.2, "end_seconds": 881.0, "possible_plays": [] }
+  {
+    "start_seconds": 403.24375390625,
+    "end_seconds": 880.775357421875,
+    "possible_plays": []
+  }
 ]
 ```

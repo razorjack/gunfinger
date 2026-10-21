@@ -201,3 +201,14 @@ keeps each test small: two new seeds per condition, 16 mixes each.
   prototype in a worktree at `work/s35/proto` on the branch
   `s35-gaps-output`, so that master's checkout and its final checks
   (`work/s35/final.sh`, from 10:30) were not disturbed.
+- **(10:46) The experiments' order.** The four experiments' runs came
+  from one pre-registered queue, which finished before 0163 was written
+  (10:12); each experiment file was still written and committed before
+  the next one's results were scored, in step order. The read-only
+  review of the session (a separate agent, 10:37-10:46) found six
+  errors in figures or labels (a reversed reach figure and a rounded
+  time in the proposal, a missing note that 0166's subset is not
+  registered and its all-gaps figures, an overstatement in 0164, a
+  control figure that was 0 by construction) and omissions (0165's
+  262-track row and its gaps without a missed track); all fixed, with
+  `ride_gaps.py` committed for 0166's subset and the CLI check saved.

@@ -8057,3 +8057,224 @@ The 90 scans of step 3 took 06:49-07:37, and the 24 single-run scans
   --no-rerun` gives both calibrate lines identical (18 -> 18, 95 -> 95),
   and the slot reports were then moved to `work/s34/reports/`.
   `docs/pair-verdicts.txt` unchanged.
+
+## Session 35
+
+### What changed
+
+The product did not change: no change to the core, the CLI, a threshold
+or a rule, and `regress session-32-linux` and `regress
+session-33-linux-nas` stay identical. The harness gained:
+
+- `mixes --kind beatmatched | shared | rides` (`mixes.rs`). Beatmatched
+  long mixes play every record at the tempo of the one before (beat
+  periods from `tempo.rs`, the metrical reading nearest native speed
+  within ±8%, as `robust`'s blends); the shared kind puts pairs of the
+  shared-material panel (`shared-material-seed-2026.json`, the 24
+  directions with a passage, 12 pairs in 9 families) into the held-out
+  runs, back to back, each over its side of the passage; the panel's
+  family files are out of the index and draws for both. `--other-root`
+  names the NAS root for the panel's files in the other library. The
+  rides kind gives every play of a long mix one pitch ride of 1-3% over
+  5-15 s (`Ride`; `source_at` integrates it, and the audio is read from a
+  native render). `MixKind::Long` draws what it drew before.
+- `self-match --neighbours` searches each gap against an index of the
+  records of the confident plays at its edges (`gaps::neighbours`);
+  `--ratios` adds repeats at other speed ratios (`self_match::blocks`).
+  At speed 1.0 the blocks are identical to session 34's.
+- Scripts: `gap_tests.py` (method 2's stretches, the discount, the
+  combined estimate, by k), `shared_merges.py` (how often two
+  consecutive held-out records make one stretch).
+- The prototype of printed gaps, on the branch `s35-gaps-output` only
+  (`a010f41`, never merged): `crates/gunfinger/src/gaps.rs`, unnumbered
+  "no confident match for <length>" lines in the tracklist and a `gaps`
+  field in the JSON, for stretches of 60 s or more.
+
+In short: method 2 fails where it was expected to. Records that share a
+passage, beatmatched back to back, make one stretch for 68% of the
+shared-material panel's pairs, and its exact share at k = 2-4 falls from
+67% to 25%. Its count limited to method 1's range B is the best count
+measured (64% exact, 2.9% off by two on the test mixes) but meets no
+registered bar for printing a count. The neighbour discount failed its
+registered test. A sustained pitch ride of 1-3% makes the product's
+search drop one side of the play in half of the ridden plays, which no
+earlier test showed. The proposal recommends printing gaps of 60 s or
+more by default with their length and no count.
+
+### Pre-registration
+
+`docs/research/2026-10-21-gap-tests.md` (`d78370e`) was committed before
+any test seed was rendered. Test seeds: shared 3501-3503, beatmatched
+3511-3513, rides 3521-3522, long 3531-3532, 16 mixes each at 262 tracks.
+The discount (neighbour detections of 10 hits covering half a stretch)
+and range B were chosen on development data: session 34's NAS and
+262-track listings and long mixes, and one scratch seed (900). One bug
+was found by a review of the harness before its seeds ran and fixed (a
+crossfade moved a play but not its ride; brief 09:41).
+
+### Step 2: shared material (experiment 0163)
+
+130 of 192 panel pairs merge into one stretch (S2: at most 20%); other
+consecutive held-out records merge 11 of 96 times, 42 of 288 in the
+control. Method 2 at k = 1-4: 47/11/15/10 of 48 exact in the shared
+mixes, 47/36/35/25 in the control; S1 fails (25% against 67% pooled at
+k = 2-4). A gap with a merged couple is counted a mean 1.08 records low.
+Method 1 is unaffected (45% against 47% at k = 2-4). Beatmatching alone
+changes nothing measurable (74% exact at k = 1-4 against 0162's 75%).
+
+### Step 3: the neighbour discount (experiment 0164)
+
+D1 fails on its own development data: 8 of 12 NAS gaps without a missed
+track go to 0 (registered 10); the 4 left are one 43 s gap inside
+Blindside in Nocny where the search finds nothing of two windows. At 262
+tracks 6 of 10. D2 holds on the test only because the discount lowered
+no count there. Not registered: in the rides mixes, all 139 gaps inside
+found tracks go to 0, and 4 of 128 counts fall below the truth.
+
+### Step 4: the combined estimate (experiment 0165)
+
+K1 holds: 64% exact and 2.9% off by two on the shared and control test
+mixes, against 59% and 7.6% for method 2 and 58% and 5.5% for method 1.
+As a count it fails (57% at k = 2); as a range of one either side it
+holds 100/99/100/89.6% at k = 1-4 (87 of 96 needed at k = 4, 86 found)
+with 2.9% off by two. On the development long mixes 98/86/75/60% exact,
+none off by two.
+
+### Step 5: pitch rides (experiment 0166)
+
+R1: the count drops (18 of 128 exact against 99 of 128). Most of the
+drop is the search, not method 2: 192 of 382 ridden indexed plays have
+a side of 30 s or more with no detection, and 139 of 267 listed gaps
+lie inside found tracks (control: none). By k, 9/3/4/2 of 32 exact
+against the control's 29/25/26/19; every rung to ±3.2% gives 49 of 128. The CLI shows the same on one
+rides mix: each side of a ride is confident searched alone, but the
+whole mix keeps one (`work/s35/logs/ride-cli-check.log`). Not
+registered: in the 33 gaps of missed records only, method 2 is
+exact for 8 at speed 1.0, 18 with the neighbouring rungs (1.7 times the
+time) and 25 with every rung to ±3.2% (5.4 times); the control loses 3
+of 98 with the extra ratios.
+
+### Step 6: the proposal
+
+`docs/research/2026-10-21-printing-gaps.md`, for our decision. Its
+recommendations: print gaps by default in the tracklist, table and
+JSON, not the CSV or cue sheet; 60 s; the mix's start and end listed; a
+possible entry inside a gap keeps its own line and does not split the
+gap; no count yet; the wording "no confident match for <length>". The
+examples are this session's `identify` runs of the three development
+mixes at 262 tracks (`work/s35/identify/`).
+
+### Times on the Linux machine (16 jobs)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; run build; final) | 1:09; 1:17; 2:57 beside the prototype's `check.sh` | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build; final) | 11:15; 11:03; 11:04 | 5.4-5.5 GiB |
+| `mixes --count 16`, shared, beatmatched, rides, long | 3:42-4:11 per seed | 14 GiB |
+| `self-match --neighbours`, 384 test gaps; 45 NAS listings; 45 at 262 tracks | 6:57; 19:21; 34:04 (nearly serial) | 1.7; 1.0; 0.9 GiB |
+| `self-match` on 395 gaps at 1.0; ±1 rung; every rung to ±3.2% | 21 s; 35 s; 1:52 | |
+| `identify` of a development mix at 262 tracks | 19 s | 0.15 GiB |
+
+### Decided this session, open to change
+
+- Beatmatching matches tempo, not beat phase: self-match finds a repeat
+  at any lag of 8 s or more, so a sub-beat shift changes nothing it
+  measures.
+- The shared kind uses the first shared-material panel only (the second
+  has no passages cut); both beatmatched kinds leave the panel's family
+  files out of the index and the draws.
+- The new seeds' sweep panels were written to `work/s35/panels`, not
+  `docs/panels/` (global `--panels`).
+- The rides kind rides every play, indexed ones included, as a DJ would;
+  that is what exposed the search's lost sides.
+- The unregistered neighbour run on the rides mixes was added after the
+  queue, because those mixes held the only test gaps inside found
+  tracks; 0164 marks it as not registered.
+
+### Decisions waiting (ours)
+
+- The proposal's choices (default or on request, 30 or 60 s, edges,
+  possible lines, a count or not, formats, wording), then an ADR.
+- Whether the search's loss of one side of a sustained pitch ride
+  (0166) is worth a session of its own; it affects identification, not
+  only gaps.
+
+### Handoff for the next session
+
+1. Reports: `work/reports/mixes-{shared,beatmatched,rides,long}-seed-35*.json`
+   (renders in `work/mixes/<kind>-seed-35*`, 11 GB; delete when no longer
+   needed), the scratch `mixes-shared-seed-900.json`, and the `identify`
+   reports of the three development mixes at 262 tracks in
+   `work/s35/identify/`. Listings: `work/gaps/` and
+   `work/gaps/library-nas-dnb-peaks/` (`self-match-*` now with
+   `neighbours`; session 34's originals are in `work/s35/s34-listings/`);
+   the ratio runs in `work/s35/listings/ratio-{1,neighbouring,every}/`
+   and the rides neighbour run in `work/s35/listings/rides-neighbours/`.
+   Scores in `work/s35/scores/`, logs in `work/s35/logs/`. Builds
+   `work/bin/s35-start/`, `s35-runs/` (the rides fix from 09:41) and
+   `s35-final/`.
+2. Commands (`sh` scripts: `work/s35/tests.sh`, `analyse-tests.sh`,
+   `analyse-dev.sh`, `dev-self-match*.sh`, `rides-neighbours.sh`,
+   `final.sh`; `E="work/bin/s35-final/gunfinger-eval --panels work/s35/panels --jobs 16"`):
+
+   ```sh
+   $E mixes --kind shared --seed 3501 --count 16 --other-root /mnt/atlas/Music/dnb
+   $E mixes --kind beatmatched --seed 3511 --count 16
+   $E mixes --kind rides --seed 3521 --count 16
+   $E gaps work/reports/mixes-shared-seed-3501.json
+   $E self-match --neighbours work/reports/mixes-shared-seed-3501.json
+   $E self-match --ratios 0.996,1.004 work/reports/mixes-rides-seed-3521.json
+   python3 -I scripts/analysis/gap_tests.py --mixes --range B work/gaps/self-match-mixes-shared-seed-3501.json
+   python3 -I scripts/analysis/shared_merges.py work/reports/mixes-shared-seed-3501.json work/gaps/self-match-mixes-shared-seed-3501.json
+   python3 -I scripts/analysis/ride_coverage.py work/reports/mixes-rides-seed-3521.json
+   ```
+
+3. Trying the prototype: `git worktree add ../gunfinger-gaps
+   s35-gaps-output` (or reuse `work/s35/proto`, where it is checked out),
+   build it, and run `gunfinger show <report>` on a saved report, such as
+   `work/s35/identify/razorjack-2003-03-29.json`; `-f json` adds `gaps`.
+   `scripts/check.sh` is green on the branch (496 tests).
+4. Next, if we continue: (a) the search and sustained pitch rides
+   (0166): why a whole-mix search keeps one side of a ride although each
+   side alone is confident, and how often real mixes ride that far; (b)
+   a guard for records sharing material before any count is printed,
+   for example the library map's shared passages telling which held
+   records could merge (not measured); (c) the neighbour discount with a
+   test below two windows, for gaps like Nocny's inside Blindside.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  explicitly. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file; the Nocny audio searched is the development
+  set's copy in `corpus/sets/`. The NAS and its store were only read
+  (the shared kind reads panel files under the NAS root); no `index`,
+  `prune` or clusters run.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s35/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed.
+- `self-match --neighbours` processes one report at a time with its
+  gaps in parallel, so NAS listings with few gaps each run nearly
+  serially (19 minutes for 45).
+- Session 34's notes (step 1) and its experiment 0159 differ on the
+  short generated mixes: 0159 has 59 of 101 plays under 40 s reached at
+  30 s; the notes say not reached. 0159 is right; this session's
+  proposal uses its figure.
+- A first development queue was stopped twice by hand to avoid writing
+  the same files as a parallel one; its duplicate long-mix step failed at
+  once because session 34's renders had been deleted (brief 09:15 and
+  `work/s35/logs/queue.log`).
+- Two read-only reviews by separate agents: of the harness before the
+  rides seeds ran (09:31-09:40; the ride bug), and of the session's
+  commits and documents (10:37-10:46; six figure or label errors and two
+  omissions, all fixed, brief 10:46). The second found no bug in the
+  prototype; it notes that the prototype leaves the table without gaps
+  and that `possible_plays` holds positions from 1 in `plays`.
+- Final checks (10:30-10:46): `scripts/check.sh` with 1.98.0 green (491
+  Rust tests, the page's Node tests); `work/bin/s35-final/`'s CLI binary
+  is byte-identical to the start build's and its `gunfinger-eval` to the
+  run build's. `regress session-32-linux` (2:57) and `regress
+  session-33-linux-nas` (11:04) with it: every sweep query, scan
+  detection and calibrate line identical. `docs/pair-verdicts.txt`
+  unchanged.

@@ -27,13 +27,14 @@ for scope and rules.
 - [x] 6. The proposal `docs/research/2026-10-21-printing-gaps.md`
 - [x] 7. (Ahead) the prototype branch `s35-gaps-output` (`a010f41`;
   `check.sh` green there)
-- [ ] 8. Read-only review by a subagent; findings fixed
+- [x] 8. Read-only review by a subagent; findings fixed (also one of
+  the harness before the rides seeds, 09:31-09:40)
 
 ## Wrap-up
 
-- [ ] "Session 35" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap's "Time without a confident match",
+- [x] "Session 35" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap's "Time without a confident match",
   the plan, this checklist
-- [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
+- [x] Final checks: `scripts/check.sh` green; `regress session-32-linux`
   and `regress session-33-linux-nas` identical with the final build;
   `docs/pair-verdicts.txt` unchanged; `git status` clean

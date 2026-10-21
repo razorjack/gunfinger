@@ -27,14 +27,14 @@ regression). Data `data/0164-neighbour-discount.json`.
   gap inside Blindside in Nocny, between a possible segment and the confident
   one: the search finds no detection of two windows there, though Blindside's
   repeats make a stretch.
-- D2 holds on the test only because no neighbour detection of 10 hits lies in
-  any of its gaps: there the found plays' segments reach their edges.
+- D2 holds on the test only because the discount lowered no count: one
+  neighbour detection there reaches 10 hits and covers no stretch's half
+  (probably as the found plays' segments reach the gaps' edges; inferred).
 - Where a found track runs on into a gap (a pitch ride's far side, 0166),
   its record covers it (213-6,698 hits): every such rides gap goes to 0.
-- The NAS mistakes: a missed record made no stretch and the found track's tail
-  stood in for it (the 4 in the rides mixes were not examined).
+- The NAS mistakes: a missed record made no stretch, and the found track's
+  tail made one (the 4 in the rides mixes were not examined).
 
-**Conclusion.** The discount removes a found track's own material when the
-search can find that track in the gap, as it does after a pitch ride, but not
-material too weak for two windows; it fails the registered D1 and stays out of
-the combined estimate.
+**Conclusion.** The discount removes a found track's material that the search
+finds in the gap (after a pitch ride), not material too weak for two windows;
+it fails D1 and stays out of the combined estimate.

@@ -4285,3 +4285,8 @@ pre-registration `docs/research/2026-10-21-gap-tests.md`; notes
 - 10:28-10:36 the proposal for printing gaps (recommended: by default,
   60 s, the edges listed, the length and no count), and a prototype on
   the branch `s35-gaps-output` (`check.sh` green there).
+- 10:37-10:46 read-only review by a separate agent; its findings fixed
+  (figures and labels in 0164-0166 and the proposal, 0165's 262-track
+  row). Final checks: `check.sh` green (491 Rust tests); both
+  regressions with `work/bin/s35-final/` identical (2:57; 11:04);
+  `docs/pair-verdicts.txt` unchanged.
