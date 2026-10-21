@@ -31,8 +31,8 @@ regression). Data `data/0164-neighbour-discount.json`.
   any of its gaps: there the found plays' segments reach their edges.
 - Where a found track runs on into a gap (a pitch ride's far side, 0166),
   its record covers it (213-6,698 hits): every such rides gap goes to 0.
-- The mistakes are gaps where a missed record made no stretch of its own and
-  the found track's tail stood in for it: removing the tail exposes the miss.
+- The NAS mistakes: a missed record made no stretch and the found track's tail
+  stood in for it (the 4 in the rides mixes were not examined).
 
 **Conclusion.** The discount removes a found track's own material when the
 search can find that track in the gap, as it does after a pitch ride, but not
