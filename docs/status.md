@@ -4311,3 +4311,10 @@ pre-registration `docs/research/2026-10-21-gap-tests.md`; notes
   reports identical apart from `wall_seconds`. Not in master; a session
   adopts it with tests and the regressions.
 - No Rust code in master changed, so `scripts/check.sh` was not run.
+- Later: `dmidecode -t 17` showed the four DDR4-3600 modules at 2133 MT/s
+  (XMP off); with XMP on (3600 MT/s), experiment 0168: the probe reads
+  40.1-46.2 GiB/s at 81.8 ns; the current code's Stakka search at 32 workers
+  49.7 s instead of 76.7 s, the clusters sample 165 s instead of 211 s; with
+  0167's change, or at 16 workers, the times stay within 2% (37.9 s and 46.4
+  s with the change). Reports identical to the 2133 ones apart from
+  `wall_seconds`.

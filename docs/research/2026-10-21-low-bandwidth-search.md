@@ -27,7 +27,10 @@ here is in the product yet.
   "Configured Memory Speed" and the populated slots (A2 and B2 for two
   channels on this board). If the DIMMs are rated higher than they run,
   XMP in the BIOS raises both bandwidth and, on Zen 3, the Infinity
-  Fabric clock. Its effect on the search is not measured.
+  Fabric clock. *(Later the same day)* The modules (DDR4-3600) did run at
+  2133 MT/s; with XMP on, the probe reads 40-46 GiB/s at 82 ns. The current
+  code's search at 32 workers is then 35% shorter, but with item 1 and 2's
+  change, or at 16 workers, it does not move (experiment 0168).
 - Transparent huge pages are `madvise`, so the 4.6 GB posting array gets
   4 KiB pages. Both agents expect little from huge pages: a scan starts
   only about 612 lists per window and rung, 17 M in a whole search.
