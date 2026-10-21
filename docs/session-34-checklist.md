@@ -21,22 +21,23 @@ for scope and rules.
 - [x] 2. Harness: `scan --leave-out-slots`; `gaps` (listing, truth,
   method 1) with unit tests; `check.sh` green; both regressions identical
   with the run build `work/bin/s34-runs/`
-- [~] 3. Runs: slot leave-outs and plain scans at NAS scale; the same at
-  262 tracks; generated mixes at several seeds; `gaps` on all (queue
-  `work/s34/runs.sh` from 06:35)
-- [ ] 4. Experiments: step 1 (the minimum length) and step 2 (method 1 on
-  detection edges)
-- [~] 5a. (Ahead) long-play generated mixes with runs of held-out tracks
-  (`mixes --kind long`, committed; queued after step 3)
-- [~] 5b. (Ahead) the gap against itself, a prototype (`self-match`,
-  committed; runs after step 3)
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [x] 3. Runs: slot leave-outs and plain scans at NAS scale; the same at
+  262 tracks; generated mixes at five seeds; `gaps` on all (06:49-07:39,
+  `work/s34/runs.sh`); 24 single-run leave-outs (08:08-08:30)
+- [x] 4. Experiments 0159 (30 s meets C1-C3) and 0160 (method 1 a range,
+  not a count; registered interval needs clean intervals)
+- [x] 5a. (Ahead) long generated mixes (`mixes --kind long`, 80 mixes);
+  experiment 0161
+- [x] 5b. (Ahead) the gap against itself, a prototype (`self-match`);
+  experiment 0162
+- [x] 6. Read-only review by a subagent (08:13-08:24); findings fixed
 
 ## Wrap-up
 
-- [ ] "Session 34" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap's "Time without a confident match",
+- [x] "Session 34" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap's "Time without a confident match",
   the plan, this checklist
-- [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
-  and `regress session-33-linux-nas` identical with the final build;
+- [x] Final checks: `scripts/check.sh` green; `regress session-32-linux`
+  and `regress session-33-linux-nas` identical with the final build (the
+  calibrate line once the slot reports are moved out, see the notes);
   `docs/pair-verdicts.txt` unchanged; `git status` clean

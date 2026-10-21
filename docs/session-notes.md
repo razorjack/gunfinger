@@ -7803,3 +7803,257 @@ measured; competition for the caches and memory bandwidth while reading the
   byte-identical to `work/bin/s33-start/`; `regress session-32-linux`
   with it identical in 70.2 s (under `throughput-performance`; 68.7 s at
   the start under the earlier profile).
+
+## Session 34
+
+### What changed
+
+The product did not change: no change to the core, the CLI, a threshold
+or a rule, and `regress session-32-linux` and `regress
+session-33-linux-nas` stay identical. The harness gained four things:
+
+- `scan --leave-out-slots 3,7-8,12-14` leaves runs of named manifest
+  slots out of the index with their whole clusters; the report names
+  the slots (`left_out_slots`) and is written as
+  `scan-<set>-leave-out-slots-3_7-8_12-14.json`.
+- `gaps` lists, for saved `scan`, `mixes` and `shared-mixes` reports,
+  the stretches no segment of a confident play covers at each minimum
+  length (10, 20, 30, 45, 60, 90 s), the missed tracks each holds, and
+  method 1's estimate (the gap over the median interval between the
+  found entries). `seconds` and `gaps` share one report loader;
+  `seconds` writes the same files as before.
+- `mixes --kind long`: plays of 2-6 minutes, crossfades of 10-60 s,
+  one run each of 1-4 held-out tracks between blocks of 2-3 indexed
+  plays (`mixes-long-seed-<seed>.json`). The short mixes draw as before.
+- `self-match`, a prototype of method 2: each listed gap is decoded and
+  matched against itself; groups of 5 s cells joined by repeats are
+  counted at several thresholds.
+
+Scripts: `scripts/analysis/leave_out_design.py` (the leave-out patterns),
+`gap_scores.py` (the pre-registered counts), `self_match_scores.py`.
+
+In short: at 30 s, the smallest minimum length that meets the
+pre-registered criteria, every missed DJ-length track of the development
+mixes is reached and about 1 listed gap in 13 holds no missed track,
+always time inside a found track. The gap's length gives a range that
+holds the truth for 98% of the development gaps, but not a count (exact
+100/53/37/42% at k = 1-4), and only when the mix has 3 found intervals
+without a gap: these figures take the interval with only the gap's run
+missing, a deviation from the pre-registration that 24 single-run scans
+confirmed. Matching the gap against itself counted the records of
+long generated mixes better than the length did, with settings fixed
+before that test.
+
+### Pre-registration and design
+
+`docs/research/2026-10-21-gap-measures.md` was committed (`e7122b1`)
+before any gap was counted: covered time is the segments of confident
+plays (a possible segment of a confident play counts, ADR 0013), a
+possible play does not close a gap, the truth is the manifest's spans
+with a 30 s margin either side of a border (exact play spans for
+generated mixes), a gap holds a track when it covers 30 s of it or half
+of a shorter one, or lies in it for half its length, and criteria C1-C3
+(minimum length) and M1-M3 (method 1 as a range).
+
+The leave-out design (`leave_out_design.py`): every run of 1-4
+consecutive slots with kept neighbours, as intervals [s, s+k], two runs
+sharing a scan only when they do not overlap. The fewest scans is the
+most runs covering one slot, 14 per set, and assigning runs in order of
+their first slot reaches it: 42 scans per scale, each run once (30, 34
+and 50 runs). Nocny's slot 17 has no reference, so its runs end at slot
+15 and slot 17 is a natural one-track gap in every scan.
+
+### Step 1: the minimum length (experiment 0159)
+
+At NAS scale, all 271 missed tracks are reached at 10-60 s (270 at 90 s)
+with 95% of their seconds. Listed gaps without a missed track: in the
+plain scans 3, 2, 1, 1, 0, 0 at 10-90 s; in the leave-outs 18%, 16%,
+7.7%, 2.3%, 0, 0; in the short generated mixes 12%, 2%, 1.5%, then 0.
+30 s is the smallest length meeting C1-C3. Each gap without a missed
+track at 30 s is time inside a found track that no segment covers (the
+end of Star Trails, 59 s; 34 s inside Kinetic; Nocny's 43 s after
+Blindside's tease), with no possible play in it; none lasts 60 s. In the
+short generated mixes, held-out plays under 40 s are often not reached
+at 30 s (59 of 101). No scan identified a wrong track, and every kept
+track was found in every leave-out.
+
+### Step 2, method 1 on detection edges (experiment 0160)
+
+The registered interval leaves out each interval that holds a listed
+gap. The design's scans leave out up to seven runs, so 81 of the 115 NAS
+gaps holding 1-4 missed tracks got no estimate, and M1 fails as
+registered. With the single-run interval (the plain scan's intervals,
+as if the run were the only gap; a deviation recorded in the brief at
+07:35), at 30 s: exact 34/34, 16/30, 10/27, 10/24 at k = 1-4 (0154:
+97/75/48/42%); range A (n-1 to n+1) holds 113/115, range B (quartiles)
+104/115 and is narrower (2.2 tracks wide against 2.6), so B is the
+registered choice; 2 of 115 are off by two. 0154's interval (only the
+gap's own left out) gives exact 34/34, 4/26, 7/25, 6/22. Most errors
+are undercounts (35 of 45): a gap is 0.76-0.92 of k intervals, probably
+because the neighbours' labels reach into the missed tracks. The found entries' median is close to the
+manifest's (every kept track is found). In the short generated mixes
+possible-only plays make no entry, so the found median is 1.14 times
+the plays'.
+
+The single-run check (08:08-08:30): 24 NAS-scale scans that leave out
+one run each (k = 1-4 from slots 3 and 6 of each set). The registered
+interval estimates all 24 gaps and equals the single-run interval in 22
+(the two differences at k = 4 in Stakka); exact 6, 5, 3 and 4 of 6,
+range A holds 23 of 24 (`single_run_check.py`).
+
+### Ahead: long generated mixes (experiment 0161)
+
+80 long mixes (62-90 minutes), 952 of 952 indexed plays confident, no
+wrong confident play. All 800 held-out plays reached at 10-30 s, no
+listed gap without one at any length. Method 1 (registered interval,
+which every long mix can now give): exact 86/53/39/26% at k = 1-4;
+ranges A and B hold 92.5% and 92.8%; M3 fails (24 of 320 off by two or
+more, 16 at k = 4). A first version of the generator, with 1-2 indexed
+plays between runs, was stopped and replaced before any gap was read
+(07:44).
+
+### Ahead: the gap against itself (experiment 0162)
+
+Explored on the NAS gaps (over 46 listings, one of them a trial on a
+session 33 report; rescored over the 45 designed ones), then fixed
+(stretches: blocks spanning 30 s or more, overlapping ones merged, 10
+hits per cell and lag) and tested on the long mixes: exact 95/80/69/54%
+at k = 1-4, within one for 311 of 320 gaps, against method 1's
+86/53/39/26%. On the 45 designed NAS listings (explored) 86/70/52/42%;
+on short plays it fails (two 20-60 s plays give 0.9 stretches). Inside
+a found track it counts that track's own repeats (8 of 12 gaps without
+a missed track give 1 or more at 10 hits, none at 20 hits).
+
+### Times on the Linux machine (16 jobs)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; with the run build beside `check.sh`) | 68.5 s; 2:37 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build) | 11:23; 11:28 | 5.4-5.5 GiB |
+| NAS scan, plain or leave-out: Stakka; my 2003 mix; Nocny | 52.9-53.6 s; 42.6-46.1 s; 65.9-68.9 s | 4.8-5.0 GiB |
+| 262-track scan | 7.9-12.0 s | 0.15-0.19 GiB |
+| `mixes --count 16`, short; long | 21-23 s; 3:26-3:43 | 1.7 GiB; 13.3-14.0 GiB |
+| `gaps`, 45 NAS reports; `self-match`, 320 long-mix gaps | seconds; 21 s | 1.1 GiB |
+
+The 90 scans of step 3 took 06:49-07:37, and the 24 single-run scans
+08:08-08:30 (42.8 s-1:07.6 each).
+
+### Decided this session, open to change
+
+- Covered time includes a confident play's possible segments (ADR 0013,
+  as `seconds` labels them); a possible play covers nothing.
+- The leave-out design packs several runs into each scan (14 scans per
+  set, the fewest possible), which left method 1's registered interval
+  without clean intervals; the single-run interval was added beside it
+  (brief, 07:35) and checked with 24 single-run scans.
+- Only seeds with a committed sweep panel (2026-2029, 7) ran `mixes`,
+  since any other seed writes a new panel into `docs/panels/`.
+- The long mixes' first version (1-2 indexed plays between runs) was
+  replaced before its gaps were read.
+- Step 5's runs started while step 4's experiments were written, on a
+  machine that was otherwise idle; their results were read only after
+  0159 and 0160 were committed.
+- Self-match's reading (stretches, 10 hits, blocks of 30 s) was chosen on
+  the development gaps and fixed before the long mixes were scored.
+
+### Decisions waiting (ours)
+
+- The ADR for printing gaps (see the handoff).
+- Whether a generated-mix report should keep recording its kind (`kind`,
+  omitted for short mixes) once the long mixes have served.
+
+### Handoff for the next session
+
+1. Reports: the plain scans in `work/reports/library-nas-dnb-peaks/` and
+   `work/reports/`; the slot leave-outs moved to `work/s34/reports/nas/`
+   (42 designed and 24 single-run, 64 files, two shared) and
+   `work/s34/reports/262/` (42), because `calibrate`, and so `regress`,
+   reads every `scan-stakka-skynet-knowledge*.json` in the reports
+   directory: with them there, its count of false candidates at 30 hits
+   or more read 18 -> 60 and 95 -> 263 (detections identical). A new slot
+   scan writes into the reports directory; move it out before a
+   `regress`. Generated mixes:
+   `work/reports/mixes-seed-{2026,2027,2028,2029,7}.json` and
+   `mixes-long-seed-*.json`, renders in `work/mixes/` (5.8 GB; delete
+   when no longer needed).
+2. Gap listings: `work/gaps/library-nas-dnb-peaks/` and `work/gaps/`
+   (`<report stem>[-margin-30].json`, `self-match-*.json`); scores in
+   `work/s34/scores/` (`scores-{nas,262,mixes,long}.{txt,json}`,
+   `self-match-*.txt`); logs in `work/s34/logs/`. Builds
+   `work/bin/s34-runs/` (scans), `work/bin/s34-long/` (long mixes,
+   self-match) and `work/bin/s34-final/`.
+3. Commands (`sh` scripts, as zsh does not split a command held in a
+   variable; `NAS=$HOME/.local/share/gunfinger/nas-dnb-peaks`,
+   `E="work/bin/s34-final/gunfinger-eval --jobs 16"`):
+
+   ```sh
+   $E --other-peaks-dir $NAS scan nocny-trans-vertical-2002-08-23 --leave-out-slots 3-5,9
+   # name the reports: a glob also takes session 33's and the single-run ones
+   $E --other-peaks-dir $NAS gaps work/reports/library-nas-dnb-peaks/scan-nocny-trans-vertical-2002-08-23.json
+   $E mixes --kind long --seed 2026 --count 16
+   $E gaps work/reports/mixes-long-seed-2026.json
+   $E self-match work/reports/mixes-long-seed-2026.json   # --min-length 30
+   python3 -I scripts/analysis/gap_scores.py --plain ... --leave-outs ... --mixes ... --json OUT
+   python3 -I scripts/analysis/self_match_scores.py --mixes work/gaps/self-match-mixes-long-seed-*.json
+   ```
+
+   `work/s34/runs.sh`, `analyse.sh`, `long-mixes.sh`, `analyse-long.sh`
+   and `single-runs.sh` hold the exact queues and file lists; scoring a
+   glob of `work/gaps/` mixes kinds and scales (one session 33 trial
+   listing sits beside the NAS ones).
+4. Method 2, next: (a) test the fixed reading on development gaps it
+   has not seen: new leave-out runs, the 262-track natural gaps (already
+   scored here, 85/62/50/58%), other mixes once allowed; (b) measure
+   records that share a famous break, which generated mixes lack: long
+   mixes whose neighbours are drawn to share material (the panels of
+   `docs/panels/` or the library map's shared passages); (c) neighbouring
+   rungs for pitch changes within a play; (d) tell a found track's own repeats from a
+   missed record by matching the gap's blocks against the confident
+   neighbours, so a gap inside a found track can count 0; (e) a combined
+   estimate (self-match within method 1's range), measured against both.
+5. What an ADR for printing gaps would have to decide (ours to draft):
+   default or on request; the minimum length (30 s meets the criteria,
+   60 s lists no gap inside a found track in these mixes); whether the
+   mix's start and end are listed; how a gap and a possible line inside
+   it print together (ADR 0006, 0019); whether a count is printed at
+   all, as a range, from which method, and what prints when there is no
+   estimate (too few clean intervals); the JSON, CSV and cue sheet
+   fields; and the wording, which must not claim that the matched time
+   is fully explained.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, no
+  manifest or report of it was opened, and the three development sets
+  were always named explicitly (no glob over `corpus/sets/*`). Nothing
+  ran on the candidate mixes of 0065 or on the NAS root's broadcast
+  file. The NAS and the NAS store were only read; no `index`, `prune` or
+  clusters run.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s34/listening-digests-start.txt`); no answer log was written; no
+  manifest or committed panel changed.
+- `gap_scores.py` had two counting bugs found while reading its output,
+  both fixed before the experiments that use the affected figures were
+  final: the seconds of a leave-out gap that also held a natural track
+  were dropped (the 262-track share read 54% instead of 97.5%), and
+  generated mixes of different seeds, which share names, were merged in
+  the tables by truth (0160's generated figures were corrected).
+- `seconds` and `gaps` now read every report before writing any, so a
+  bad report among several stops `seconds` before it writes the earlier
+  ones (an error path only; the written files are byte-identical on two
+  NAS scans; the `mixes` and `shared-mixes` paths were compared by
+  reading the code, not by a run).
+- `self-match` decodes the gap with `-ss`; the mix is the only input, as
+  the plan's method 2 asks, and no peak store or index is read.
+- Final checks (08:34-08:52): `scripts/check.sh` with 1.98.0 green in
+  3:12 (formatting, clippy for Linux and for macOS, 485 Rust tests, the
+  page's 5 Node tests). The final build `work/bin/s34-final/`: the CLI
+  binary is byte-identical to the start build's. `regress
+  session-32-linux` (1:10) and `regress session-33-linux-nas` (10:52)
+  with it: every sweep query and scan detection identical; the calibrate
+  line counting false candidates at 30 hits or more differed (18 -> 60,
+  95 -> 263) because calibrate also read this session's Stakka slot
+  leave-outs in the reports directories. With those set aside, `regress
+  --no-rerun` gives both calibrate lines identical (18 -> 18, 95 -> 95),
+  and the slot reports were then moved to `work/s34/reports/`.
+  `docs/pair-verdicts.txt` unchanged.

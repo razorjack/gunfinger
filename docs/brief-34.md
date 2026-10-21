@@ -240,3 +240,12 @@ Rules for this session:
   denominators of 0162's short-mix row, the mixes' interval bias added
   to `gap_scores.py`, `single_run_check.py`'s counts, two doc comments,
   and the handoff's file lists.
+- **(08:52) Final checks.** `check.sh` green; both regressions with
+  `work/bin/s34-final/` identical in every detection, but calibrate's
+  count of false candidates at 30 hits or more read 18 -> 60 and 95 ->
+  263: calibrate reads every `scan-<development set>*.json` in the
+  reports directory, which now held this session's Stakka slot
+  leave-outs. With them set aside, `regress --no-rerun` gave both lines
+  identical. The conservative option taken: no change to calibrate;
+  the slot reports (both scales, all sets) moved to `work/s34/reports/`,
+  and the work scripts' paths updated.

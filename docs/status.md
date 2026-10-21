@@ -4206,3 +4206,45 @@ Linux 44, AMD Ryzen 9 5950X (16 cores, 32 threads), 64 GB; tuned's
   (counts, ranges, claims narrowed to the data, script labels, handoff).
 - NAS store at the end: 40,683 records, `56433d74d0919a08`, as at the
   start. `docs/pair-verdicts.txt` unchanged.
+
+## 2026-10-21: session 34, unidentified time in tracklists, measured
+
+Brief `docs/brief-34.md`, checklist `docs/session-34-checklist.md`,
+pre-registration `docs/research/2026-10-21-gap-measures.md`; notes
+"Session 34"; experiments 0159-0162. The Linux machine, `--jobs 16`.
+
+- 06:17 start at `121643c`, clean. Start build `work/bin/s34-start/`
+  (byte-identical to `s33-final`); `regress session-32-linux` identical
+  (68.5 s), `regress session-33-linux-nas` identical (11:23).
+- 06:33 pre-registration committed before any count; the leave-out
+  design (14 scans per set, the fewest possible) committed before it.
+- 06:34 harness: `scan --leave-out-slots`, `gaps`; later `mixes --kind
+  long` and `self-match`. Both regressions identical with the run build
+  `work/bin/s34-runs/` (06:35-06:49).
+- 06:49-07:39 step 3: 45 NAS-scale scans (each development mix plain
+  and under the 14 patterns), the same 45 at 262 tracks, `mixes --count
+  16` at seeds 2026-2029 and 7. No wrong identification in any scan.
+- 0159: 30 s is the smallest minimum length meeting C1-C3; every missed
+  DJ-length track reached; 7.7% of the leave-outs' listed gaps hold no
+  missed track (all inside a found track), none at 60 s.
+- 0160: method 1 on detection edges meets M1-M3 as a range only with
+  an interval from a mix where the run is the only gap (a deviation);
+  exact 100/53/37/42% at k = 1-4 against 0154's 97/75/48/42%.
+- 07:45-08:03 long generated mixes (80, 62-90 minutes); 0161: every
+  held-out run reached, method 1 exact 86/53/39/26%, ranges hold 93%.
+- 0162: the gap matched against itself, fixed before the test, counts
+  the long mixes' records exactly for 95/80/69/54%.
+- 08:08-08:30 24 single-run leave-outs at NAS scale: the registered
+  interval estimates all 24 gaps, equal to 0160's single-run interval
+  in 22.
+- 08:13-08:24 read-only review by a separate agent; its findings fixed
+  (one stray listing in 0162's NAS row, two figures and two reach
+  claims in 0161, unmarked inferences, a measure not reported, script
+  counts, file lists in the handoff).
+- 08:34-08:52 final checks: `check.sh` green (485 Rust tests, 5 Node
+  tests); `work/bin/s34-final/`'s CLI byte-identical to the start's;
+  both regressions identical in every detection, and in calibrate once
+  this session's slot leave-out reports are out of the reports
+  directories (they now live in `work/s34/reports/`; with them there,
+  calibrate counts more false candidates). `docs/pair-verdicts.txt`
+  unchanged.
