@@ -143,7 +143,11 @@ measures each detection for session 21's candidate statistics;
 a list of files and spans.
 `seconds` scores saved `mixes`, `shared-mixes` and `scan` reports
 second by second (Sonnleitner et al. 2016, §5), under today's rule or a
-minimum span.
+minimum span; `gaps` lists the stretches of the same reports that no
+confident segment covers and estimates how many tracks each holds from
+its length, against the truth (`docs/research/2026-10-21-gap-measures.md`).
+`scan --leave-out-slots` leaves runs of named manifest slots out of the
+index, so that each run leaves a gap of known tracks.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus
