@@ -37,5 +37,4 @@ query (APH027's Cool Rock Stuff naming the upload 0128 left apart at 41%,
 257-282 hits; no Mac NAS sweep since that upload). `regress` identical (10:55).
 Index built in 115 s; sweep 9:00; a scan or leave-out 76-77 s; 5.1-5.5 GiB.
 
-**Conclusion.** The clusters reproduce 0128 wherever the inputs match; peaks
-change one borderline pair. Clustering is 1.5 times slower per query here.
+**Conclusion.** The clusters reproduce 0128 where inputs match; clustering is slower.
