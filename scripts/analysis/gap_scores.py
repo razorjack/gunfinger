@@ -151,13 +151,16 @@ def by_truth(groups, length):
         if group == "plain"
         for listing in listings
     }
-    for _, listings in groups:
+    for group, listings in groups:
         for listing in listings:
             at = at_length(listing, length)
+            # A scan's set is its name; generated mixes of different seeds
+            # share names, so a mix is its file and name.
+            mix = listing["name"] if group != "mixes" else (listing["file"], listing["name"])
             for gap in at["gaps"]:
                 truth = len(gap["missed_tracks"])
                 if truth:
-                    key = (listing["name"], tuple(gap["missed_tracks"]))
+                    key = (mix, tuple(gap["missed_tracks"]))
                     if key in seen:
                         continue
                     seen.add(key)

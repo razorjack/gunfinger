@@ -43,7 +43,7 @@ def main():
     for path in sys.argv[1:]:
         with open(path) as f:
             for gap in json.load(f):
-                key = (gap["mix"], gap["missed_tracks"], round(gap["start_seconds"] / 10))
+                key = (path, gap["mix"], gap["missed_tracks"], round(gap["start_seconds"] / 10))
                 if gap["missed_tracks"] and key in seen:
                     continue
                 seen.add(key)

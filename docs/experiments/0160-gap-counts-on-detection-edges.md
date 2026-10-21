@@ -30,7 +30,7 @@ own edges. Data `data/0159-gap-scores.json`.
   The found median is near the manifest's (307/316, 232/233, 251/235 s):
   every kept track is found, so no short play drops out here.
 - 262 tracks, single run: range A holds 19/19, 13/13, 10/12, 9/11 at k = 1-4.
-- Generated (20-60 s plays, registered): exact 59/68 and 16/25 at k = 1-2.
+- Generated (20-60 s plays, registered): exact 75/89 and 17/26 at k = 1-2.
   Possible-only plays make no entry, so the found median is 1.14 times the
   plays' (0.64-2.21): where short plays are missed, it is too long.
 
