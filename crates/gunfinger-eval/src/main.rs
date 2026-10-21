@@ -7,6 +7,7 @@ mod audition;
 mod calibrate;
 mod clusters;
 mod fullest;
+mod gaps;
 mod grid;
 mod hash_cost;
 mod holders;
@@ -59,7 +60,7 @@ use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
 use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, SavedIndex, SecondLibrary};
-use crate::scan::LeaveOut;
+use crate::scan::{LeaveOut, SlotRun};
 
 #[derive(Parser)]
 #[command(name = "gunfinger-eval")]
@@ -358,6 +359,16 @@ enum Command {
         /// Seed for choosing the tracks to leave out.
         #[arg(long, default_value_t = 2026)]
         seed: u64,
+        /// Leave these manifest slots (with their clusters) out of the
+        /// index instead, as runs of consecutive slots: `3,7-8,12-14`. The
+        /// report is `scan-<set>-leave-out-slots-3_7-8_12-14.json`.
+        #[arg(
+            long,
+            value_delimiter = ',',
+            value_parser = SlotRun::parse,
+            conflicts_with = "leave_out"
+        )]
+        leave_out_slots: Vec<SlotRun>,
         /// A changed index; the report is then named `scale-scan-...` so
         /// that calibrate and regress never read it.
         #[command(flatten)]
@@ -424,6 +435,26 @@ enum Command {
         /// the manifest's approximate starts.
         #[arg(long)]
         boundaries: bool,
+    },
+    /// List the gaps of saved `mixes`, `shared-mixes` or `scan` reports:
+    /// the stretches no segment of a confident play covers, at each minimum
+    /// length, with how many tracks each holds by its length over the
+    /// median interval between the found entries (method 1), against the
+    /// truth: the left-out, held-out or absent tracks each gap holds
+    /// (`docs/research/2026-10-21-gap-measures.md`). Searches nothing. The
+    /// listings go to `gaps/` (with another library,
+    /// `gaps/library-<store directory name>/`); the summary counts every
+    /// gap of every report given.
+    Gaps {
+        #[arg(required = true)]
+        reports: Vec<PathBuf>,
+        /// Seconds either side of each manifest border that count as a
+        /// transition. Scans only: generated and rendered mixes have exact
+        /// truth.
+        #[arg(long, default_value_t = 30.0)]
+        margin: f64,
+        #[arg(long, value_delimiter = ',', default_values_t = gaps::MIN_LENGTHS)]
+        min_length: Vec<f64>,
     },
     /// Attribute where a set's identified plays lose evidence: hits per
     /// window against the reference hashes heard, on the rung, at the
@@ -592,6 +623,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Identifiability { .. }
             | Command::Versions { .. }
             | Command::Seconds { .. }
+            | Command::Gaps { .. }
     );
     let takes_a_sample = matches!(
         command,
@@ -609,7 +641,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability, versions and seconds do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability, versions, seconds and gaps do",
         ));
     }
     match command {
@@ -764,14 +796,16 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             set,
             leave_out,
             seed,
+            leave_out_slots,
             variant,
-        } => run_scan(
-            paths,
-            &set,
-            leave_out.map(|count| LeaveOut { count, seed }).as_ref(),
-            &variant,
-            jobs,
-        ),
+        } => {
+            let leave_out = match leave_out {
+                Some(count) => Some(LeaveOut::Drawn { count, seed }),
+                None if !leave_out_slots.is_empty() => Some(LeaveOut::Slots(leave_out_slots)),
+                None => None,
+            };
+            run_scan(paths, &set, leave_out.as_ref(), &variant, jobs)
+        }
         Command::Calibrate { set } => calibrate::run(&paths.reports(), &set, paths.matching.rule()),
         Command::Robust {
             seed,
@@ -845,6 +879,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             min_span,
             boundaries,
         } => score_seconds(paths, &reports, margin, &min_span, boundaries),
+        Command::Gaps {
+            reports,
+            margin,
+            min_length,
+        } => list_gaps(paths, &reports, margin, &min_length),
         Command::Loss { set } => {
             let report = loss::run(
                 &paths.sets(),
@@ -1076,7 +1115,7 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
         run_scan(
             paths,
             set,
-            Some(&LeaveOut { count, seed }),
+            Some(&LeaveOut::Drawn { count, seed }),
             &UNCHANGED_INDEX,
             jobs,
         )?;
@@ -1790,9 +1829,15 @@ fn run_scan(
     let suffix = variant.suffix();
     let name = match leave_out {
         _ if !suffix.is_empty() => format!("scale-scan-{set}{suffix}.json"),
-        Some(leave_out) => format!(
-            "scan-{set}-leave-out-{}-seed-{}.json",
-            leave_out.count, leave_out.seed
+        Some(LeaveOut::Drawn { count, seed }) => {
+            format!("scan-{set}-leave-out-{count}-seed-{seed}.json")
+        }
+        Some(LeaveOut::Slots(runs)) => format!(
+            "scan-{set}-leave-out-slots-{}.json",
+            runs.iter()
+                .map(|run| run.name())
+                .collect::<Vec<_>>()
+                .join("_")
         ),
         None => format!("scan-{set}.json"),
     };
@@ -1904,6 +1949,15 @@ impl Paths {
     /// directory there, as for reports.
     fn seconds_dir(&self) -> PathBuf {
         let dir = self.work.join("seconds");
+        match self.other_name() {
+            Some(name) => dir.join(format!("library-{name}")),
+            None => dir,
+        }
+    }
+
+    /// Where `gaps` writes, beside `seconds_dir`.
+    fn gaps_dir(&self) -> PathBuf {
+        let dir = self.work.join("gaps");
         match self.other_name() {
             Some(name) => dir.join(format!("library-{name}")),
             None => dir,
@@ -2144,18 +2198,35 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
     Ok(())
 }
 
-/// `seconds`: each report scored under today's rule and each minimum span.
-fn score_seconds(
+/// The kinds of saved report `seconds` and `gaps` read.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum ReportKind {
+    Mixes,
+    Scan,
+    /// `shared-mixes`: rendered mixes, each under several indexes.
+    Rendered,
+}
+
+/// A mix of a saved report with its truth.
+struct Judged {
+    /// The mix's or the set's name; for a rendered mix, `<index>: <mix>`.
+    name: String,
+    /// The index a rendered mix was searched with.
+    index: Option<String>,
+    truth: Vec<seconds::Truth>,
+    segments: Vec<seconds::Segment>,
+    duration_seconds: f64,
+    /// `margin` for a scan, whose borders are approximate; 0 for exact truth.
+    margin: f64,
+}
+
+/// Reads `reports`, each with the mixes it holds and their truth.
+fn judged_reports(
     paths: &Paths,
     reports: &[PathBuf],
+    clusters: &Clusters,
     margin: f64,
-    min_spans: &[f64],
-    boundaries: bool,
-) -> Result<(), String> {
-    let rules: Vec<seconds::Rule> = std::iter::once(seconds::Rule::Windows)
-        .chain(min_spans.iter().map(|&span| seconds::Rule::MinSpan(span)))
-        .collect();
-    let clusters = paths.clusters()?;
+) -> Result<Vec<(PathBuf, ReportKind, Vec<Judged>)>, String> {
     let mut loaded = Vec::new();
     for path in reports {
         let text = fs::read_to_string(path)
@@ -2169,151 +2240,219 @@ fn score_seconds(
     } else {
         None
     };
-    for (path, report) in loaded {
-        let parse = |error: serde_json::Error| format!("{}: {error}", path.display());
-        if report.get("runs").is_some() {
-            let report: shared_mixes::Report = serde_json::from_value(report).map_err(parse)?;
-            score_rendered(paths, path, &report, &clusters, &rules)?;
-            continue;
-        }
-        let (scored, name): (Vec<seconds::Scored>, String) =
-            match (report.get("mixes").is_some(), &referable) {
-                (true, _) => {
-                    let report: mixes::MixesReport =
-                        serde_json::from_value(report).map_err(parse)?;
-                    let scored = report
-                        .mixes
+    loaded
+        .into_iter()
+        .map(|(path, report)| {
+            let (kind, judged) = judged(paths, path, report, clusters, referable.as_ref(), margin)?;
+            Ok((path.clone(), kind, judged))
+        })
+        .collect()
+}
+
+fn judged(
+    paths: &Paths,
+    path: &Path,
+    report: serde_json::Value,
+    clusters: &Clusters,
+    referable: Option<&Referable>,
+    margin: f64,
+) -> Result<(ReportKind, Vec<Judged>), String> {
+    let parse = |error: serde_json::Error| format!("{}: {error}", path.display());
+    if report.get("runs").is_some() {
+        let report: shared_mixes::Report = serde_json::from_value(report).map_err(parse)?;
+        let judged = report
+            .runs
+            .iter()
+            .filter_map(|run| {
+                // Runs on the development mixes have no planned truth.
+                let rendered = report
+                    .mixes
+                    .iter()
+                    .find(|rendered| rendered.mix.name == run.name)?;
+                let left_out: BTreeSet<String> = run.left_out.iter().cloned().collect();
+                Some(Judged {
+                    name: format!("{}: {}", run.index, run.name),
+                    index: Some(run.index.clone()),
+                    truth: seconds::rendered_truth(&rendered.mix, clusters, &left_out),
+                    segments: run
+                        .detections
                         .iter()
-                        .flat_map(|result| {
-                            let truth = seconds::mix_truth(&result.mix, &clusters);
-                            let segments: Vec<seconds::Segment> = result
-                                .detections
-                                .iter()
-                                .map(seconds::Segment::from)
-                                .collect();
-                            rules.iter().map(move |&rule| seconds::Scored {
-                                name: result.mix.name.clone(),
-                                rule: rule.name(),
-                                score: seconds::score(
-                                    &truth,
-                                    &segments,
-                                    result.mix.seconds,
-                                    0.0,
-                                    rule,
-                                ),
-                            })
-                        })
-                        .collect();
-                    (scored, String::new())
-                }
-                (false, Some(referable)) => {
-                    let report: scan::ScanReport = serde_json::from_value(report).map_err(parse)?;
-                    let set = manifest::load_set(&paths.sets(), &report.set, referable)
-                        .map_err(|problems| format!("{}: {}", report.set, problems.join("; ")))?;
-                    let left_out: BTreeSet<String> =
-                        report.left_out_assets.iter().cloned().collect();
-                    let truth =
-                        seconds::set_truth(&set, report.duration_seconds, &clusters, &left_out);
-                    let segments: Vec<seconds::Segment> = report
+                        .map(|measured| seconds::Segment::from(&measured.found))
+                        .collect(),
+                    duration_seconds: rendered.mix.seconds,
+                    margin: 0.0,
+                })
+            })
+            .collect();
+        return Ok((ReportKind::Rendered, judged));
+    }
+    match (report.get("mixes").is_some(), referable) {
+        (true, _) => {
+            let report: mixes::MixesReport = serde_json::from_value(report).map_err(parse)?;
+            let judged = report
+                .mixes
+                .iter()
+                .map(|result| Judged {
+                    name: result.mix.name.clone(),
+                    index: None,
+                    truth: seconds::mix_truth(&result.mix, clusters),
+                    segments: result
                         .detections
                         .iter()
                         .map(seconds::Segment::from)
-                        .collect();
-                    let scored = rules
+                        .collect(),
+                    duration_seconds: result.mix.seconds,
+                    margin: 0.0,
+                })
+                .collect();
+            Ok((ReportKind::Mixes, judged))
+        }
+        (false, Some(referable)) => {
+            let report: scan::ScanReport = serde_json::from_value(report).map_err(parse)?;
+            let set = manifest::load_set(&paths.sets(), &report.set, referable)
+                .map_err(|problems| format!("{}: {}", report.set, problems.join("; ")))?;
+            let left_out: BTreeSet<String> = report.left_out_assets.iter().cloned().collect();
+            Ok((
+                ReportKind::Scan,
+                vec![Judged {
+                    name: report.set.clone(),
+                    index: None,
+                    truth: seconds::set_truth(&set, report.duration_seconds, clusters, &left_out),
+                    segments: report
+                        .detections
                         .iter()
-                        .map(|&rule| {
-                            let mut score = seconds::score(
-                                &truth,
-                                &segments,
-                                report.duration_seconds,
-                                margin,
-                                rule,
-                            );
-                            if !boundaries {
-                                score.boundaries.clear();
-                            }
-                            seconds::Scored {
-                                name: report.set.clone(),
-                                rule: rule.name(),
-                                score,
-                            }
-                        })
-                        .collect();
-                    (scored, format!("-margin-{margin:.0}"))
-                }
-                (false, None) => {
-                    return Err(format!(
-                        "{} is neither a mixes nor a scan report",
-                        path.display()
-                    ));
-                }
-            };
-        let stem = path
-            .file_stem()
-            .map(|stem| stem.to_string_lossy().into_owned())
-            .unwrap_or_default();
-        write_json(
-            &paths.seconds_dir().join(format!("{stem}{name}.json")),
-            &scored,
-        )?;
-        seconds::print_summary(
-            &path.display().to_string(),
-            &scored.iter().collect::<Vec<_>>(),
-        );
+                        .map(seconds::Segment::from)
+                        .collect(),
+                    duration_seconds: report.duration_seconds,
+                    margin,
+                }],
+            ))
+        }
+        (false, None) => Err(format!(
+            "{} is neither a mixes nor a scan report",
+            path.display()
+        )),
     }
-    Ok(())
 }
 
-/// `seconds` on a `shared-mixes` report: each rendered mix under each of
-/// its indexes; the runs on the development mixes, which have no planned
-/// truth, are left out.
-fn score_rendered(
-    paths: &Paths,
-    path: &Path,
-    report: &shared_mixes::Report,
-    clusters: &clusters::Clusters,
-    rules: &[seconds::Rule],
-) -> Result<(), String> {
-    let mut indexes: Vec<&str> = Vec::new();
-    let mut scored: Vec<seconds::Scored> = Vec::new();
-    for run in &report.runs {
-        let Some(rendered) = report
-            .mixes
-            .iter()
-            .find(|rendered| rendered.mix.name == run.name)
-        else {
-            continue;
-        };
-        if !indexes.contains(&run.index.as_str()) {
-            indexes.push(&run.index);
-        }
-        let left_out: BTreeSet<String> = run.left_out.iter().cloned().collect();
-        let truth = seconds::rendered_truth(&rendered.mix, clusters, &left_out);
-        let segments: Vec<seconds::Segment> = run
-            .detections
-            .iter()
-            .map(|measured| seconds::Segment::from(&measured.found))
-            .collect();
-        for &rule in rules {
-            scored.push(seconds::Scored {
-                name: format!("{}: {}", run.index, run.name),
-                rule: rule.name(),
-                score: seconds::score(&truth, &segments, rendered.mix.seconds, 0.0, rule),
-            });
-        }
-    }
+/// The name a report's scores or gaps are written under: its stem, and
+/// for a scan the margin.
+fn judged_name(path: &Path, kind: ReportKind, margin: f64) -> String {
     let stem = path
         .file_stem()
         .map(|stem| stem.to_string_lossy().into_owned())
         .unwrap_or_default();
-    write_json(&paths.seconds_dir().join(format!("{stem}.json")), &scored)?;
-    for index in indexes {
-        let prefix = format!("{index}: ");
-        let here: Vec<&seconds::Scored> = scored
+    match kind {
+        ReportKind::Scan => format!("{stem}-margin-{margin:.0}.json"),
+        ReportKind::Mixes | ReportKind::Rendered => format!("{stem}.json"),
+    }
+}
+
+/// `seconds`: each report scored under today's rule and each minimum span.
+fn score_seconds(
+    paths: &Paths,
+    reports: &[PathBuf],
+    margin: f64,
+    min_spans: &[f64],
+    boundaries: bool,
+) -> Result<(), String> {
+    let rules: Vec<seconds::Rule> = std::iter::once(seconds::Rule::Windows)
+        .chain(min_spans.iter().map(|&span| seconds::Rule::MinSpan(span)))
+        .collect();
+    let clusters = paths.clusters()?;
+    for (path, kind, judged) in judged_reports(paths, reports, &clusters, margin)? {
+        let scored: Vec<seconds::Scored> = judged
             .iter()
-            .filter(|scored| scored.name.starts_with(&prefix))
+            .flat_map(|mix| {
+                rules.iter().map(move |&rule| {
+                    let mut score = seconds::score(
+                        &mix.truth,
+                        &mix.segments,
+                        mix.duration_seconds,
+                        mix.margin,
+                        rule,
+                    );
+                    if kind == ReportKind::Scan && !boundaries {
+                        score.boundaries.clear();
+                    }
+                    seconds::Scored {
+                        name: mix.name.clone(),
+                        rule: rule.name(),
+                        score,
+                    }
+                })
+            })
             .collect();
-        seconds::print_summary(&format!("{}, {index}", path.display()), &here);
+        write_json(
+            &paths.seconds_dir().join(judged_name(&path, kind, margin)),
+            &scored,
+        )?;
+        if kind == ReportKind::Rendered {
+            let mut indexes: Vec<&str> = Vec::new();
+            for index in judged.iter().filter_map(|mix| mix.index.as_deref()) {
+                if !indexes.contains(&index) {
+                    indexes.push(index);
+                }
+            }
+            for index in indexes {
+                let prefix = format!("{index}: ");
+                let here: Vec<&seconds::Scored> = scored
+                    .iter()
+                    .filter(|scored| scored.name.starts_with(&prefix))
+                    .collect();
+                seconds::print_summary(&format!("{}, {index}", path.display()), &here);
+            }
+        } else {
+            seconds::print_summary(
+                &path.display().to_string(),
+                &scored.iter().collect::<Vec<_>>(),
+            );
+        }
+    }
+    Ok(())
+}
+
+/// `gaps`: each report's gaps at each minimum length, and a summary of
+/// all of them.
+fn list_gaps(
+    paths: &Paths,
+    reports: &[PathBuf],
+    margin: f64,
+    min_lengths: &[f64],
+) -> Result<(), String> {
+    let clusters = paths.clusters()?;
+    let mut every: Vec<gaps::Listing> = Vec::new();
+    for (path, kind, judged) in judged_reports(paths, reports, &clusters, margin)? {
+        let listings: Vec<gaps::Listing> = judged
+            .iter()
+            .map(|mix| {
+                gaps::list(
+                    &mix.name,
+                    &mix.truth,
+                    &mix.segments,
+                    mix.duration_seconds,
+                    mix.margin,
+                    min_lengths,
+                )
+            })
+            .collect();
+        write_json(
+            &paths.gaps_dir().join(judged_name(&path, kind, margin)),
+            &listings,
+        )?;
+        gaps::print_summary(
+            &path.display().to_string(),
+            &listings.iter().collect::<Vec<_>>(),
+            min_lengths,
+        );
+        every.extend(listings);
+    }
+    if reports.len() > 1 {
+        gaps::print_summary(
+            &format!("all {} reports", reports.len()),
+            &every.iter().collect::<Vec<_>>(),
+            min_lengths,
+        );
     }
     Ok(())
 }

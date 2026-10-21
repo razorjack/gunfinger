@@ -301,14 +301,15 @@ fn percentile_abs(values: &[f64], share: f64) -> f64 {
 }
 
 /// A play as the scorer labels with it.
-struct Label<'a> {
-    asset: &'a str,
-    level: Confidence,
-    spans: Vec<(f64, f64)>,
+pub struct Label<'a> {
+    pub asset: &'a str,
+    pub level: Confidence,
+    /// Its segments' spans, from the first to the last aligned hit.
+    pub spans: Vec<(f64, f64)>,
 }
 
 impl Label<'_> {
-    fn covers(&self, t: f64) -> bool {
+    pub fn covers(&self, t: f64) -> bool {
         self.spans
             .iter()
             .any(|&(start, end)| start <= t && t <= end)
@@ -397,7 +398,7 @@ fn boundary(truth: &Truth, labels: &[Label]) -> Option<Boundary> {
 
 /// The plays of `segments`, grouped by `plays::group`, each at the highest
 /// level its segments reach under `rule`.
-fn labels(segments: &[Segment], rule: Rule) -> Vec<Label<'_>> {
+pub fn labels(segments: &[Segment], rule: Rule) -> Vec<Label<'_>> {
     let files: Vec<&str> = segments
         .iter()
         .map(|segment| segment.asset.as_str())
