@@ -4197,5 +4197,9 @@ Linux 44, AMD Ryzen 9 5950X (16 cores, 32 threads), 64 GB; tuned's
 - 05:44-05:52 experiment 0158: 16 workers take about 30% less time than
   32 for a NAS scan (52 s against 76 s) and a clusters sample, with
   identical results.
+- 05:53-05:57 final checks: `scripts/check.sh` green (466 Rust tests, 5
+  Node tests, clippy for Linux and macOS); `work/bin/s33-final/`
+  byte-identical to the start build; `regress session-32-linux` identical
+  (70.2 s).
 - NAS store at the end: 40,683 records, `56433d74d0919a08`, as at the
   start. `docs/pair-verdicts.txt` unchanged.

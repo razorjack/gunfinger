@@ -7766,3 +7766,9 @@ inference.
   8.1.2; `regress session-32-linux` is identical with it.
 - `docs/pair-verdicts.txt` is unchanged; no answer log was written. No
   manifest and no committed panel changed.
+- The final checks (05:53-05:57): `scripts/check.sh` with 1.98.0 green in
+  2:59 (formatting, clippy for Linux and for macOS, 466 Rust tests, the
+  page's 5 Node tests); the final build `work/bin/s33-final/` is
+  byte-identical to `work/bin/s33-start/`; `regress session-32-linux`
+  with it identical in 70.2 s (under `throughput-performance`; 68.7 s at
+  the start under the earlier profile).

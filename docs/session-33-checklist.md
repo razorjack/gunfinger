@@ -24,20 +24,24 @@ for scope and rules.
   (10:55); `devscore.py --nas` agrees
 - [x] 5. Recall under the hardest conditions (eight runs, 03:57-05:27);
   compared with 0144 and 0145; experiment 0156
-- [~] 6. Development scans with leave-outs at NAS scale; `seconds`;
-  compared with 0067, 0100 and 0139; experiment 0157
+- [x] 6. Development scans with leave-outs at NAS scale; `seconds`;
+  compared with 0067, 0100 and 0139; experiment 0157 (14 reports with the
+  Mac's scores; per-second one second from 0139)
 - [-] 7. (Ahead) shared panels at NAS scale: skipped, step 6 did not
   finish before 05:30 (the orchestrating thread's note); script
   `work/s33/ahead.sh`
 - [-] 8. (Ahead) `recall --verify`: skipped for the same reason; script
   `work/s33/ahead-8.sh`
 
+- [x] Added: experiment 0158 (16 workers against 32), for the
+  orchestrating thread's question on speed
+
 ## Wrap-up
 
-- [ ] 9. Read-only review by a subagent; fixes
-- [ ] 10. Notes "Session 33", status, checklist, roadmap, ADR 0020 if
-  needed
-- [ ] `scripts/check.sh` green; `regress session-32-linux` identical with
-  the final build; `docs/pair-verdicts.txt` unchanged; `git status`
-  clean
+- [~] 9. Read-only review by a subagent; fixes
+- [x] 10. Notes "Session 33", status, checklist, roadmap, ADR 0020
+  (the workers' finding)
+- [x] `scripts/check.sh` green (2:59); `regress session-32-linux`
+  identical with `work/bin/s33-final/` (70.2 s); `docs/pair-verdicts.txt`
+  unchanged; `git status` clean after the commit
 - [ ] The final message
