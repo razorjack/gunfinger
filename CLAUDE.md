@@ -6,8 +6,10 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-33.md` (the current session's brief) and
-   `docs/session-33-checklist.md` (its progress); `docs/brief-2.md`,
+2. `docs/brief-34.md` (the current session's brief) and
+   `docs/session-34-checklist.md` (its progress), with its
+   pre-registration `docs/research/2026-10-21-gap-measures.md`;
+   `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
    `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
@@ -18,8 +20,8 @@ anything else:
    `docs/brief-24.md`, `docs/brief-24b.md` (session 24b, Panako, run
    beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
    `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
-   `docs/brief-30.md` and `docs/brief-32.md` hold rules that still
-   apply unless brief 33 changes them
+   `docs/brief-30.md`, `docs/brief-32.md` and `docs/brief-33.md` hold
+   rules that still apply unless brief 34 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -27,9 +29,8 @@ anything else:
    (never edit it)
 6. for work on the NAS collection: `docs/brief-nas.md`,
    `docs/nas-checklist.md` and `docs/nas-plan.md` (the code is merged;
-   session 33 reads the NAS, never writes it, and builds the Linux
-   machine's own library map, NAS clusters and NAS baseline from this
-   machine's NAS peak store)
+   session 34 reads the NAS, never writes it, and does not rebuild the
+   NAS clusters session 33 built on the Linux machine)
 7. for the listening tool (`gunfinger-eval audition`):
    `docs/adr/0016-listening-tool.md`, `docs/audition-questions.md` and
    every file in `crates/gunfinger-eval/src/audition/web/`
@@ -57,5 +58,6 @@ anything else:
    33: the NAS-scale harness on the Linux machine, experiments 0155-0158)
 14. for marking time without a confident match in tracklists, and
    estimating how many tracks a gap holds: the roadmap's "Time without a
-   confident match", `docs/research/2026-10-20-unidentified-gaps.md` and
-   experiment 0154
+   confident match", `docs/research/2026-10-20-unidentified-gaps.md`,
+   the pre-registration `docs/research/2026-10-21-gap-measures.md`,
+   experiment 0154 and session 34's (0159 and up)
