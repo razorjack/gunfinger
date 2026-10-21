@@ -110,7 +110,10 @@ def rows(paths, mixes, at_ratios, which_range):
                 spans = stretches(blocks)
                 kept = discounted(spans, gap.get("neighbours"))
                 length = gap["end_seconds"] - gap["start_seconds"]
-                found = intervals.get((gap["mix"], round(gap["start_seconds"], 1)), [])
+                place = (gap["mix"], round(gap["start_seconds"], 1))
+                if place not in intervals:
+                    print(f"warning: {path}: no gaps listing entry for {place}; no range B")
+                found = intervals.get(place, [])
                 bounds = range_a(gap["estimate"]) if which_range == "A" else range_b(length, found)
                 out.append(
                     {
