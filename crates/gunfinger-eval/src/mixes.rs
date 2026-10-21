@@ -833,6 +833,9 @@ fn crossfade(previous: &mut PlannedPlay, next: &mut PlannedPlay, rng: &mut Rng) 
         .min(longest);
     next.start_seconds -= overlap;
     next.end_seconds -= overlap;
+    if let Some(ride) = &mut next.ride {
+        ride.start_seconds -= overlap;
+    }
     previous.fade_out_seconds = overlap;
     next.fade_in_seconds = overlap;
     if rng.unit() < 0.5 {
@@ -1667,8 +1670,10 @@ mod tests {
             let change = (ride.to_speed / play.speed - 1.0).abs();
             assert!((0.01 - 1e-9..=0.03 + 1e-9).contains(&change), "{play:?}");
             assert!((ride.to_speed - 1.0).abs() <= RIDE_LIMIT + 1e-9, "{play:?}");
+            let seconds = play.end_seconds - play.start_seconds;
+            let into = ride.start_seconds - play.start_seconds;
             assert!(
-                play.start_seconds < ride.start_seconds
+                (0.3 * seconds - 1e-9..=0.7 * seconds + 1e-9).contains(&into)
                     && ride.start_seconds + ride.seconds <= play.end_seconds + 1e-9,
                 "{play:?}"
             );

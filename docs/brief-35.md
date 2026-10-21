@@ -172,3 +172,14 @@ keeps each test small: two new seeds per condition, 16 mixes each.
   the discount; D2 is still measured on the test mixes and reported.
 - **(09:30) Session 34's renders deleted** (`work/mixes/seed-*` and
   `long-seed-*`, 5.8 GB): every run that read them has ended.
+- **(09:41) A bug in the rides kind, fixed before its seeds ran.** A
+  read-only review of the harness commit (a separate agent, 09:31-09:40)
+  found that a crossfade moved each play earlier but not its ride, so
+  rides after the first play started up to a crossfade late, some past
+  the play's end: fewer and smaller rides than registered. The ride now
+  moves with its play, and the test checks that it starts 30-70% into
+  the play. The run build's `gunfinger-eval` was replaced at 09:41,
+  while beatmatched seed 3512 ran; seeds 3513 onward use the fixed one.
+  The change touches only plays with a ride, so the shared and
+  beatmatched seeds draw the same either way. The review found nothing
+  else wrong in the generator, the speed-ratio repeats or the scripts.
