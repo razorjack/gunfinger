@@ -1,8 +1,7 @@
 # 0159: gaps without a confident segment, and their minimum length
 
-**Question.** Session 34, step 1 of the plan (`docs/research/2026-10-20-unidentified-gaps.md`):
-which minimum length lists missed tracks' time and leaves blends out, by the
-pre-registered criteria C1-C3 (`docs/research/2026-10-21-gap-measures.md`)?
+**Question.** Session 34, step 1 of the plan: which minimum length lists missed
+tracks' time and leaves blends out, by C1-C3 of `docs/research/2026-10-21-gap-measures.md`?
 
 **Method.** Build `work/bin/s34-runs/`, `--jobs 16`. Each development mix plain
 and in 14 `scan --leave-out-slots` runs leaving every run of 1-4 slots with kept
@@ -36,7 +35,6 @@ each report, `gap_scores.py` counts. Data `data/0159-gap-scores.json`.
   a mix's start, where the first plays were found only as possible.
 
 **Conclusion.** By the registered criteria the minimum length is 30 s: every
-missed DJ-length track is reached, and about 1 gap in 13 of the leave-out scans
-(1 plain mix in 3) holds none, always inside a found track. 60 s would list
-none of those and still reach every missed track here; brief plays need less
-than either. Which one the product uses is the ADR's.
+missed DJ-length track is reached; 1 gap in 13 of the leave-out scans holds none,
+always inside a found track. 60 s lists none of those and still reaches every
+missed track here; brief plays need less. The product's choice is the ADR's.
