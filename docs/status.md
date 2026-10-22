@@ -4475,3 +4475,41 @@ change.
   5:56 with `work/bin/s38-final`): Dilusion is in no development scan
   or sweep query. The recall panels hold it, so their NAS-scale reports
   may credit the upload next time they run.
+
+## 2026-10-23: session 39, the printed tracklist on double drops
+
+Brief `docs/brief-39.md`, checklist `docs/session-39-checklist.md`;
+notes "Session 39"; experiments 0182-0185. The product did not change.
+
+- 00:21 start at `6665077`, clean. Start build `work/bin/s39-start/`
+  (byte-identical to `s38-final`); both regressions identical (1:09;
+  6:02).
+- 00:31 `937ceba`: the pre-registration (scenarios, truth, scores,
+  problems P1-P6) and the tag check: 198 of 245 corpus recordings have
+  tags that agree across their files and with the file names.
+- 00:50 `d671100`: `mixes --kind drops --tagged FILE` (double drops,
+  records inside stronger ones, a shared-material pair apart and
+  together, a returning record, two rips, a held-out record) and
+  `scripts/analysis/tracklist_score.py`; both regressions identical.
+- 0182: the CLI on 32 mixes (seeds 2026 and 2028) at 262 tracks and NAS
+  scale; every printed line checked against the rebuilt entries.
+  Grouping and printing lose nothing the search finds confidently but
+  one merge in 512 plays (`same_recording` by coincidence in a long
+  drop). A record inside its partner found only as possible leaves the
+  tracklist (ADR 0019): 19-25% of unrelated drop partners that leave
+  again, 6 of 8 Clockwork originals inside the remix, 19 of 32 brief
+  records. No confident wrong entry at 262 tracks.
+- 0183: no measure in a report tells a record playing under its partner
+  from shared material; a 40 s bound would print every drop partner and
+  19 of 64 shared-material lines.
+- 0184: the harness's levels agree with the CLI's in all 512 plays;
+  printing leaves out 41 of 43 records the search finds as possible
+  inside a partner.
+- 0185 (`--other-pairs`, three more pairs at NAS scale): whether a
+  record inside its relative is printed depends on the pair; Pyro's
+  near-identical records are one flagged entry. New confident candidate
+  for listening: Digital & Spirit - Crash over the start of the T-Minus
+  vocal mix.
+- Waiting (ours): whether marked plays may stay in the tracklist and
+  whether `same_recording` needs more when titles differ; both need an
+  ADR.

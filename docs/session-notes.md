@@ -8837,3 +8837,207 @@ keeps the same 257 sides on seed 3801.
   `work/s38/listening-digests-start.txt`); no answer log; no manifest or
   committed panel changed (seed 3801's sweep panel went to
   `work/s38/panels`, a copy of `work/s37/panels`).
+
+## Session 39
+
+### What changed
+
+The product did not change: no threshold, rule, default or output, and
+`regress session-32-linux` and `regress session-33-linux-nas` stay
+identical with the new harness code. Added, harness only and tested:
+
+- `mixes --kind drops --tagged FILE` (`crates/gunfinger-eval/src/mixes/drops.rs`):
+  mixes of 12 blocks in a fixed order (`Scenario`): a shared-material
+  pair's played record alone and later its related record alone; a
+  double drop through (both at full level for 30-90 s, the first leaves);
+  a returning record; a record at -9 dB inside a stronger one; two rips
+  of one recording at two times; a pair's two records in a double drop
+  (through or inside, drawn), their passages aligned where the tracks
+  allow; a record for 20-40 s inside a stronger one; a held-out record;
+  a double drop inside (the second leaves, the first plays on). Every
+  play is beatmatched (tempo) to the one it is mixed with. `PlannedPlay`
+  gained `gain_db`, `scenario` and `side`, left out of the JSON when
+  unset, so earlier truth files and reports read and render as before.
+  `--other-pairs` also plays panel pairs whose files only a larger
+  library indexes (marked `held_out` for the harness).
+- Scripts: `tracklist_tags.py` (recordings whose files' tags agree with
+  each other and with their names), `tracklist_score.py` (`store` and
+  `exclude` for the indexes, `score` against the truth with the entries
+  rebuilt as `export::entries` builds them and every printed line
+  checked, `summary`, `detections`), `tracklist_marked.py` (0183).
+
+In short: grouping and printing lose nothing the search finds
+confidently, apart from one merge in 512 plays. What leaves the
+tracklist is ADR 0019's cost: a record inside its partner found only as
+possible is marked as shared material and left out (19-25% of unrelated
+drop partners that leave again; for a record inside its relative it
+depends on the pair). A drop that ends on the second record costs
+nothing. No confident wrong entry at 262 tracks; at NAS scale a known
+related version (Animation's remix) and one new candidate, Digital &
+Spirit - Crash over the start of the T-Minus vocal mix, which needs
+listening.
+
+### Step 1: the pre-registration (brief 39, 00:31, `937ceba`)
+
+198 of 245 recordings of the corpus store have tags that agree across
+their files and with the file names (38 fail on names, 8 on missing
+tags, 1 on disagreeing tags); 9 of them have two files or more. Seeds
+2026 and 2028 (both keep Clockwork and its remix indexed; 2027 and 2029
+hold one out), 16 mixes each. Scores per truth play (today's confident
+score, printed, left out, under another entry, not found, by family)
+and per entry (right, extra related or not, split, merged, files
+missing, titles not flagged), and six problems P1-P6.
+
+### Step 2: the generator
+
+`check.sh` green; both regressions identical (1:14; 6:12). Renders 1:40
+per seed of 16 (7.1-7.5 GiB, 468-480 MB).
+
+### Step 3 and experiment 0182: the tracklist at both scales
+
+The CLI on store-only copies without the held-out files (262 tracks,
+0:55 per seed) and with the NAS configuration and `--exclude-from` the
+NAS files of held-out recordings (3:33-3:38). All 64 tracklists match
+the rebuilt entries. Every record alone and every first of two is
+printed (one exception, a merge); every second record that plays on is
+printed. Inside its partner: unrelated 25 printed, 6 left out, 1 not
+found (NAS 23, 8, 1); Clockwork's original inside its remix never
+confident, 6 of 8 left out; the remix inside the original 11 of 11.
+Quiet records: 4 printed, 10-11 left out, 17-18 not found; brief: 4,
+19, 9. The merge: Swarm's two rips joined Compound's entry (`titles
+disagree:` flagged) because the plays overlap for exactly half of the
+shorter and the tracks would have started 2.2 s apart. At NAS scale two
+splits, both from NAS files tagged otherwise, and the Animation remix
+confident twice. P1 and P3-P6 not met; P2 not met by its letter (both
+sides pooled 5.5-9.4%).
+
+### Experiment 0183: marked plays
+
+Of 105 marked plays at 262 tracks, 41 are records playing and 64 the
+Clockwork pair's shared material. Hits, length and the ratio to the
+partner overlap; a 40 s length bound would print every drop partner
+left out and 19 of 64 shared-material lines here, and 2 of the 5 marked
+plays in the development mixes' NAS-scale reports.
+
+### Step 5 and experiment 0184: the detection level
+
+The harness on the same renders (turntable ladder, as the CLI; `both`
+gives the same rows) agrees with the CLI's levels in all 512 indexed
+plays. Of 43 records inside a partner found as possible, the tracklist
+prints 2 and leaves out 41. `seconds`: 98.6-99.0% correct, specificity
+100%. The quiet record is lost mostly by the search, the brief one
+mostly by printing.
+
+### Experiment 0185: three more pairs at NAS scale
+
+Pyro (Time Is Broken ~ Ignorance, sharing their whole length), T-Minus
+~ its Unreleased Vocal Mix, Watermelon ~ 300 Baud's Monotone remix
+(`--other-pairs`, seeds 2026 and 2028 again, `check.sh` and both
+regressions first). Inside its relative: the vocal mix and Watermelon
+printed every time, T-Minus inside the vocal mix and the Monotone remix
+inside Watermelon left out 5 of 7, Pyro's records always one flagged
+entry (7). Apart, T-Minus and the vocal mix are each printed as a
+confident extra while the other plays (4 + 4). New: Crash.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; step 2; other pairs) | 1:09; 1:14; 1:10 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; step 2; other pairs) | 6:02; 6:12; 5:59 | 5.3 GiB |
+| `mixes --kind drops --count 16`, rendering and searching | 1:37-1:40 | 7.1-7.5 GiB |
+| The same on cached renders, turntable ladder | 0:59-1:00 | 1.5 GiB |
+| `identify --save-dir` of 16 mixes (about 33 min each), 262 tracks; NAS scale | 0:55-0:56; 3:25-3:38 | 0.17; 5.4 GiB |
+| `scripts/check.sh` | 3:58-4:13 | |
+
+### Decided this session, open to change
+
+- One fixed block order per mix, so every scenario occurs once per mix
+  (32 times); the drop variant of the pair is drawn, the unrelated ones
+  are one through and one inside per mix.
+- Both records of two together come from tracks of 240 s or more; the
+  rips are drawn before the other records.
+- Beatmatching matches tempo, not beat phase, as session 35's kinds.
+- `identify -f json` refuses several recordings, so the runs used
+  `--save-dir` (the same JSON report per mix).
+- The NAS-scale runs use the same renders, chosen by their tags at 262
+  tracks; their NAS rips may carry other tags, so the title scores there
+  are reported, not judged.
+- The other pairs (0185) were added after 0182-0184, outside the
+  registered plan, because the pair findings rested on one pair.
+- The scoring script's indexed records come from the searched library,
+  and a play inside another printed entry counts as "under another
+  entry" before "left out"; 0182's summaries are unchanged by both.
+
+### Decisions waiting (ours)
+
+- Whether a marked play (ADR 0019) may stay in the tracklist, for
+  example when it lasts 40 s or more, or as a possible line naming its
+  partner (0183 gives the trade on these mixes); an ADR either way.
+- Whether `same_recording` should need more than a 5 s start and half
+  the shorter play when the two files' titles differ (the Swarm and
+  Compound merge; real drops, where DJs align drops, may line up more
+  often).
+- Whether two records that share their whole length (Pyro) as one
+  flagged entry is the intended reading of ADR 0017.
+
+### Questions for listening (none answered by agents)
+
+- Digital & Spirit - Crash (three files) against the first 56 s of
+  `__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased
+  Vocal Mix).m4a`: shared material or a wrong identification (0185;
+  `work/s39/cli-nas-other/seed-2026/mix-00.json`, 15:44).
+- Techno Funk over Alien Girl and NIL - Infectious over Mystery Machine:
+  possible plays at NAS scale matching no known relation (0182).
+
+### Handoff for the next session
+
+1. Reports: `work/reports/mixes-drops-seed-{2026,2028}.json`,
+   `work/reports/ladder-turntable/` (the same on the turntable ladder),
+   `work/reports/mixes-drops-other-pairs-seed-{2026,2028}.json`; the
+   CLI's reports and printed tracklists in `work/s39/cli-262/`,
+   `cli-nas/` and `cli-nas-other/` (`seed-<seed>/mix-NN.{json,txt}`);
+   scores `work/s39/scores-*.json` and summaries `work/s39/summary-*.txt`,
+   `detections-*.txt`; `seconds` output in `work/seconds/`. Renders in
+   `work/mixes/drops-seed-*` and `drops-other-pairs-seed-*` (1.9 GB).
+2. Builds: `work/bin/s39-start/` (= `s38-final`), `s39-run/` (the drops
+   kind), `s39-run2/` (with `--other-pairs`), `s39-final/` (master).
+3. Indexes: `work/s39/store-{2026,2028}/` (store-only copies of the
+   corpus store without each seed's held-out files),
+   `work/s39/nas-exclude-{2026,2028}.txt`, the tag lists
+   `work/s39/tags-262.json` and `tags-other-pairs.json`.
+4. Commands (`sh` scripts in `work/s39/`: `start.sh`, `step2.sh`,
+   `step3.sh` (its CLI part failed, see brief 00:54), `step3c.sh`,
+   `step5.sh`, `other.sh`, `final.sh`):
+
+   ```sh
+   E="work/bin/s39-final/gunfinger-eval --panels work/s39/panels"
+   $E mixes --kind drops --seed 2026 --count 16 --other-root /mnt/atlas/Music/dnb --tagged work/s39/tags-262.json
+   work/bin/s39-final/gunfinger --peaks-dir work/s39/store-2026 identify --store-only --saved-index off --save-dir work/s39/cli-262/seed-2026 work/mixes/drops-seed-2026/mix-*.mp3
+   python3 -I scripts/analysis/tracklist_score.py score work/reports/mixes-drops-seed-2026.json work/s39/cli-262/seed-2026 work/reports/duplicate-clusters.json work/s39/panels/shared-material-seed-2026.json work/s39/store-2026 work/s39/scores-262-2026.json
+   python3 -I scripts/analysis/tracklist_score.py summary work/s39/scores-262-2026.json work/s39/scores-262-2028.json
+   ```
+
+5. Next, if we continue: the decisions above; drops with aligned drop
+   points (a structural cue such as the first strong onset after a
+   breakdown) to see how often `same_recording` merges two records in
+   drops as DJs play them; more pairs at 262 tracks would need related
+   versions in the corpus.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No development mix was searched;
+  session 35's and 36's saved reports of the three development mixes
+  were read (the entry rebuild check, 0183). Nothing ran on the
+  candidate mixes of 0065 or on the NAS root's broadcast file. The NAS
+  was only listed and read (`identify` with the NAS configuration and
+  `--saved-index off`, FFprobe and decoding of panel files); the NAS
+  store only read; `work/peaks` only read (copied).
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s39/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed (`work/s39/panels` is a copy of
+  `work/s33/panels`).
+- A `show` loop in the shell wrote eight stray files into the
+  repository root from a report name with spaces; they were removed
+  right after the step 2 commit, which did not include them.

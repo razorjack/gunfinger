@@ -359,6 +359,6 @@ NAS scale only if the 262-track work is done by about 03:00.
   order was also changed (a play in another printed entry counts as
   "under another entry" before "left out"); 0182's summaries are
   unchanged by that too.
-- **(01:45) Experiment 0185.** A new confident identification at NAS
+- **(01:37) Experiment 0185.** A new confident identification at NAS
   scale: Digital & Spirit - Crash over the first 56 s of the T-Minus
   vocal mix (P1 by its letter, pending listening).

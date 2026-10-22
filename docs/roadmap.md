@@ -217,7 +217,9 @@ marked as inferences were derived, not measured.
   artist and title), which joins that entry. 7 of the 9 lines leave; the
   two Klute Remix lines line up with the VIP and join its entry under
   `titles disagree:`. Measured on every stored development report: no
-  right play lost.
+  right play lost. The cost ADR 0019 names (a played record found only
+  as possible inside a passage of another) was measured in session 39 on
+  generated double drops: "The printed tracklist" below.
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming
@@ -1123,26 +1125,44 @@ marked as inferences were derived, not measured.
   built from manifests and generated mixes. The datasets above remain
   to be downloaded.
 - **The printed tracklist.** *(2026-10-17, a proposal from an external
-  review)* The harness scores detections, plays and seconds; nothing
-  scores the entries `identify` prints after grouping files (ADR 0017),
-  choosing each entry's name, flagging disagreeing titles and leaving
-  out possible plays inside a confident play (ADR 0019). Experiments
-  0095 and 0107 checked single changes. ADR 0019 names a cost no stored
-  report could measure: a track found only as possible inside a passage
-  of a stronger track, as in a double drop, leaves the tracklist. Double
-  drops are common in drum & bass, and the generated mixes (`mixes`,
-  `shared_mixes`) only move from one track to the next with fades and
-  bass swaps. Add a double drop, two tracks at about equal level for 30-90 s, and scenarios built
-  with it: an original alone, its remix alone, both together, two
-  unrelated tracks together, a quiet or brief track inside a stronger
-  one, a returning track, several rips of one recording. Use tracks whose
-  tags are right, so that a mislabelled file does not hide a grouping
-  error. `robust`'s blend conditions already count the partner
-  (`partner_confident`) on single excerpts; this measures what the
-  tracklist shows. Score each mix for extra entries, played tracks
-  missing, two tracks merged into one entry, matching files missing from
-  an entry, and disagreeing titles not flagged, beside today's
-  confident-only score, by recording family as well as by query.
+  review; measured in session 39, experiments 0182-0185)* The harness
+  scored detections, plays and seconds; nothing scored the entries
+  `identify` prints after grouping files (ADR 0017), choosing each
+  entry's name, flagging disagreeing titles and leaving out possible
+  plays inside a confident play (ADR 0019). Session 39 added
+  `mixes --kind drops` (double drops, a quiet or brief record inside a
+  stronger one, a shared-material pair apart and together, a returning
+  record, two rips of one recording, a held-out record; recordings whose
+  tags agree, `scripts/analysis/tracklist_tags.py`), ran the CLI on 32
+  mixes at 262 tracks and NAS scale (and 32 more with three other pairs
+  at NAS scale) and scored the printed tracklist
+  against the truth (`tracklist_score.py`, which rebuilds the entries
+  and checks every printed line). Grouping and printing lose nothing the
+  search finds confidently, apart from one merge in 512 plays: two
+  unrelated records over a long drop whose tracks would have started
+  2.2 s apart pass `same_recording`. No confident extra entry at 262
+  tracks; at NAS scale two, a known related version. What leaves the
+  tracklist is ADR 0019's cost: a record inside its partner found only
+  as possible. In a double drop where the second record leaves again,
+  19-25% of unrelated partners leave; for a record inside its relative
+  it depends on the pair (Clockwork's original inside its remix 6 of 8,
+  three more pairs at NAS scale 5 of 15, 0185), and two records that
+  share their whole length (Pyro) become one entry under `titles
+  disagree:`. Brief records (20-40 s) leave 19 of 32 times, while the
+  search loses quiet ones (-9 dB) most. A drop through to the second
+  record costs nothing. One new confident identification at NAS scale
+  awaits listening: Digital & Spirit - Crash over the first 56 s of
+  Ryme Tyme - T-Minus (Unreleased Vocal Mix) (0185).
+  The same mark is right on shared material (64 of 105 marked plays at
+  262 tracks), and no measure in the report tells the two apart (0183);
+  a length bound of 40 s would print every drop partner and 19 of 64
+  shared-material lines. Open, ours to decide with an ADR: whether a
+  marked play may stay in the tracklist (for example by length, or
+  marked as possible with its partner named), and whether
+  `same_recording` needs more than a 5 s start and half the shorter
+  play when two files' titles differ. Not measured: real double drops,
+  where DJs align drops and the starts may line up more often than by
+  chance.
 - **Panako as an outside benchmark.** Run in session 24b at 262 tracks
   (experiments 0130, 0131, 0150; Java 11, LMDB built from source): 59% of
   the sweep queries to Gunfinger's 100%, 26/27 development-mix tracks to
