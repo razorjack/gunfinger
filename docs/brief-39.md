@@ -285,3 +285,33 @@ NAS scale only if the 262-track work is done by about 03:00.
   rebuild was checked first against `show` on session 35's three
   development reports at 262 tracks (`work/s35/identify/`): every line
   matches.
+- **(00:54) The CLI step again.** `identify -f json` refuses several
+  recordings ("several recordings can only be printed in the tracklist,
+  human or timeline format"), so both CLI steps failed at once and
+  nothing was searched (the NAS queue was stopped). They run again
+  (`work/s39/step3c.sh`, tmux `s39cli`) with `--save-dir` and the
+  default output: `--save-dir` writes the same JSON report `-f json`
+  prints, one per mix, and the tracklist goes to the log. The harness
+  searched with its default ladder (`both`, `identify`'s default
+  without a configuration), the CLI with the corpus configuration's
+  turntable ladder; step 5 searches the cached renders again with
+  `--ladder turntable` to compare like with like.
+- **(00:54) Renders**: 16 mixes per seed in 1:40 each (7.1-7.5 GiB),
+  468 and 480 MB.
+- **(01:03) Step 3's runs done.** 262 tracks: `identify` 0:55-0:56 per
+  seed (0.17 GiB); NAS scale 3:33-3:38 (5.4 GiB). The scoring script's
+  first NAS pass stopped on one line of seed 2026's mix-04: its line
+  pattern was greedy, so an `also:` list followed by `(possible)`
+  swallowed the mark. The pattern was fixed (the CLI's line was right)
+  and every report scored again from the saved files: all 64 tracklists
+  match their rebuilt entries. Two counts were added to the script after
+  the first look, both from the saved reports: the marked plays split by
+  what was playing, and entries with two names split into titles alike
+  (artists differ, which ADR 0017 does not compare) and titles
+  differing. Neither changes a registered score; P6 is read on the
+  second.
+- **(01:15) Experiment 0182** (both scales, one pre-registered
+  experiment). P1 and P3-P6 not met; P2 not met by its letter (both
+  sides of a scenario pooled: 5.5-9.4%), while the second record inside
+  its partner loses 19-32%. The NAS run started before 0182 was
+  written, as part of the same pre-registered experiment.

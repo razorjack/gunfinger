@@ -11,6 +11,8 @@ docs/brief-39.md (step 1).
     python3 -I scripts/analysis/tracklist_score.py score MIXES.json CLI_DIR \\
         CLUSTERS.json SHARED_PANEL.json STORE OUT.json [EXCLUDED.txt]
     python3 -I scripts/analysis/tracklist_score.py summary OUT.json...
+    # the harness's own detection-level scores of the same mixes
+    python3 -I scripts/analysis/tracklist_score.py detections MIXES.json...
 
 The entries are rebuilt from each JSON report as `export::entries` builds
 them (`same_recording`, `same_tagged_track`, chains joined; the tracklist
@@ -180,7 +182,7 @@ def timecode_seconds(text):
     return seconds
 
 
-LINE = re.compile(r"^ *(\d+)\. +(\S+)  (.*?)(?:  \((also|titles disagree): (.*)\))?( \(possible\))?$")
+LINE = re.compile(r"^ *(\d+)\. +(\S+)  (.*?)(?:  \((also|titles disagree): (.*?)\))?( \(possible\))?$")
 
 
 def check_lines(shown, report_entries, plays, label):
@@ -363,17 +365,33 @@ def score_mix(mix, report, shown, library):
                     names.setdefault(name, set()).add(found["confidence"])
         if len(names) > 1:
             row["titles"] = len(names)
+            # `titles disagree:` compares titles only (ADR 0017); artists not.
+            row["distinct_titles"] = len({title for _, title in names})
+            row["other_title_levels_by_title"] = sorted({
+                level for name, levels in names.items()
+                if name[1] != (compared_name(entry[0]) or (None, None))[1] for level in levels})
             row["titles_flagged"] = titles_disagree(entry)
             row["other_title_levels"] = sorted({level for name, levels in names.items()
                                                if name != compared_name(entry[0])
                                                for level in levels})
         entry_rows.append(row)
 
+    marked = []
+    for found in plays:
+        if "shares_material_with" not in found:
+            continue
+        playing = [play for play in truth if not play["held_out"]
+                   and holds(found, play["recording"]) and overlap(found, play)]
+        marked.append({"asset": found["asset"], "hits": found["hits"],
+                       "playing": [play.get("scenario") for play in playing],
+                       "family_playing": any(
+                           not play["held_out"] and play["family"] == library.family_of(found["asset"])
+                           and overlap(found, play) for play in truth)})
     wrong_confident = [found["asset"] for found in plays if found["confidence"] == "confident"
                        and not any(holds(found, play["recording"]) and overlap(found, play)
                                    for play in truth if not play["held_out"])]
     return {"mix": mix["name"], "truth": truth_rows, "entries": entry_rows,
-            "wrong_confident": wrong_confident,
+            "wrong_confident": wrong_confident, "marked": marked,
             "entries_printed": len(shown_entries)}
 
 
@@ -442,10 +460,50 @@ def summary(*paths):
           f"{sum(not e['titles_flagged'] and 'confident' in e['other_title_levels'] for e in titled)}, "
           f"with possible ones only "
           f"{sum(not e['titles_flagged'] and e['other_title_levels'] == ['possible'] for e in titled)}")
+    unflagged = [e for e in titled if not e["titles_flagged"]]
+    print(f"  of the entries not flagged: artists differ, titles alike "
+          f"{sum(e['distinct_titles'] == 1 for e in unflagged)}; titles differ with a confident "
+          f"other title {sum(e['distinct_titles'] > 1 and 'confident' in e['other_title_levels_by_title'] for e in unflagged)}, "
+          f"with possible ones only "
+          f"{sum(e['distinct_titles'] > 1 and 'confident' not in e['other_title_levels_by_title'] for e in unflagged)}")
+    marked = [play for row in rows for play in row["marked"]]
+    print(f"plays left out as sharing material: {len(marked)}; of a record playing then "
+          f"{sum(bool(m['playing']) for m in marked)} "
+          f"({sorted({s for m in marked for s in m['playing']})}); else of a related version "
+          f"playing {sum(not m['playing'] and m['family_playing'] for m in marked)}, "
+          f"unrelated {sum(not m['playing'] and not m['family_playing'] for m in marked)}")
     print(f"wrong confident plays: {sum(len(row['wrong_confident']) for row in rows)}; "
           f"mixes {len(rows)}")
 
 
+def detections(*paths):
+    """The harness's own scores of the same mixes (`mixes`'s `level` per
+    play: its strongest detection of the play's cluster), by scenario."""
+    plays = [play for path in paths for result in json.load(open(path))["mixes"]
+             for play in result["score"]["plays"] if not play["truth"]["held_out"]]
+    truth = [play["truth"] for play in plays]
+
+    def group(index):
+        play = truth[index]
+        scenario = play.get("scenario") or "-"
+        if play.get("side") == "second":
+            return f"{scenario} second ({'inside' if inside_of(play, truth) else 'through'})"
+        return f"{scenario} {play['side']}" if play.get("side") else scenario
+
+    levels = ["confident", "possible", "weak", "none"]
+    print("| Scenario | Plays | " + " | ".join(level.capitalize() for level in levels) + " |")
+    print("|---|" + "--:|" * (len(levels) + 1))
+    for name in sorted({group(index) for index in range(len(plays))}):
+        here = [plays[index] for index in range(len(plays)) if group(index) == name]
+        print(f"| {name} | {len(here)} | "
+              + " | ".join(str(sum(play["level"] == level for play in here)) for level in levels)
+              + " |")
+    wrong = sum(len(result["score"]["wrong_confident"]) for path in paths
+                for result in json.load(open(path))["mixes"])
+    print(f"wrong confident detections: {wrong}")
+
+
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
-    {"store": store, "exclude": exclude, "score": score, "summary": summary}[command](*arguments)
+    {"store": store, "exclude": exclude, "score": score, "summary": summary,
+     "detections": detections}[command](*arguments)

@@ -20,10 +20,10 @@ for scope and rules.
   before any count (`937ceba`; 198 of 245 recordings qualify)
 - [x] 2. The generator: double drops and the scenario kind, tested,
   `regress` identical (`mixes --kind drops`)
-- [~] 3. The runs: render, CLI `identify -f json` and `show` at 262
+- [x] 3. The runs: render, CLI `identify -f json` and `show` at 262
   tracks (store-only copy without the held-out records); NAS scale if
   time allows; the scoring script
-- [ ] 4. Experiments (0182 and up)
+- [~] 4. Experiments (0182 and up): 0182 written
 - [ ] 5. (Ahead) the same scenarios at the detection level (`mixes`'s
   scores, `seconds`)
 - [ ] 6. Read-only review by a subagent; findings fixed
