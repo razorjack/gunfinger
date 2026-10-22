@@ -115,3 +115,128 @@ NAS scale only if the 262-track work is done by about 03:00.
 
 - **(00:26) Start build and regressions** (`work/s39/start.sh`, tmux
   `s39start`), while the brief and the tag check are written.
+- **(00:31) Step 1, the pre-registration** (committed before any mix of
+  this kind is drawn, rendered or searched).
+
+  *Recordings with fit tags* (`scripts/analysis/tracklist_tags.py
+  work/peaks work/reports/duplicate-clusters.json
+  work/s39/tags-262.json`, reading the store's `.tags` beside each
+  record; no listening). A recording (a duplicate cluster of the
+  262-track clusters file, or a file in none) qualifies when every file
+  has an artist and a title tag, the files' artists and titles compare
+  equal as the CLI compares them (`compared_text`: letters and digits in
+  lower case), and every word of that artist and title is in each
+  file's name. Of 245 recordings, 198 qualify (208 files): 38 fail on a
+  file name without the tagged words, 8 on a missing tag, 1 on files
+  tagged differently. 9 qualifying recordings have two files or more.
+  No two qualifying recordings share a tagged name, so a printed name
+  tells its recording. Every indexed record a mix plays comes from a
+  qualifying recording; held-out records are drawn from every held-out
+  file (they must print nothing, whatever their tags).
+
+  *Seeds and the index.* Seeds 2026 and 2028, 16 mixes each, with each
+  seed's sweep panel (`docs/panels/sweep-seed-<seed>.json`, copied to
+  `work/s39/panels`) holding its clusters out. These two keep both
+  Clockwork records indexed; 2027 and 2029 hold one out. The CLI
+  searches a copy of the corpus store's records and tags without the
+  seed's held-out files (`work/s39/store-<seed>/`, made by copying, so
+  `work/peaks` is only read), with `identify --store-only --saved-index
+  off -f json` and the corpus configuration's other settings
+  (turntable playback); `gunfinger show` prints the tracklist from each
+  saved report.
+
+  *The pairs.* Of the first shared-material panel's directions with a
+  passage (session 35's `--kind shared`), the generator uses those whose
+  two files are both indexed and qualify. At 262 tracks that is
+  Clockwork only (the original and the Stakka remix, both directions):
+  the other families' second records are files of the NAS. So at 262
+  tracks the pair scenarios rest on one pair; NAS scale would widen
+  them and is optional.
+
+  *The scenarios* (`mixes --kind drops`), in this order in every mix,
+  each block joined to the next by `join`'s transitions (bass swap of
+  8-16 s, crossfade of 4-10 s or cut); main plays 100-200 s, lengthened
+  where a drop or overlay needs room; every play beatmatched (tempo, not
+  beat phase, as session 35's kinds) to the play it is mixed with:
+  1. `original`: a pair's played record alone, over its passage.
+  2. `unrelated-drop` (through): A plays; B enters (fade 4-16 s), both
+     at full level for 30-90 s, A leaves (fade 4-16 s), B plays on.
+  3. `returning`, first play of R.
+  4. `quiet`: Q2 at -9 dB for 30-90 s (fades 4-16 s) inside Q1.
+  5. `rips`, first: one file of a recording with two or more files.
+  6. `pair-drop`: a pair's played record A, its related record B
+     entering so that B's passage starts where A's does where the
+     tracks allow; full level 30-90 s; through or inside, drawn.
+  7. `brief`: B2 for 20-40 s in all (fades 2-5 s) at full level inside
+     B1.
+  8. `held-out`: a held-out record alone.
+  9. `unrelated-drop` (inside): as 2, but B leaves after the drop and A
+     plays on.
+  10. `remix`: the pair's related record alone, over its passage.
+  11. `returning`, R again from another place in the track.
+  12. `rips`, second: another file of the same recording.
+  Records of different blocks come from different recordings, apart
+  from the repeats the scenarios make; the pair family's files are in
+  no other block.
+
+  *Truth* (in the report, per play): file, held out or not, mix times
+  of the first and last audible sample, fades, speed, source position,
+  gain in dB, the scenario and the side (`first`: playing when the other
+  comes in; `second`: coming in). The scoring script adds each file's
+  recording (262-track clusters file), family (the panel's for the pair,
+  else the recording), indexed files and tags.
+
+  *Scores* (`scripts/analysis/tracklist_score.py`), from each `identify`
+  JSON and the tracklist `show` prints; the script rebuilds the entries
+  from the JSON as `export::entries` does and checks every printed line
+  (number, start, name, other names, marks) against them. A play
+  overlaps a truth play when their spans intersect, as `mixes`'s
+  scoring. For every truth play of an indexed record:
+  - *today's score*: a confident play of a file of its recording
+    overlapping it (the confident-only score, as the harness counts it);
+  - *printed*: an entry named after its recording (its first play's
+    file) whose plays of that recording overlap it, confident or
+    possible; otherwise *missing*, split into: *left out* (a possible
+    play of its recording overlaps it and carries `shares_material_with`,
+    ADR 0019; the table and JSON still show it), *under another entry*
+    (a play of its recording is in an entry named otherwise), *not found*
+    (no play of its recording overlaps it);
+  - by family as well: printed when an entry named after any recording
+    of its family overlaps it.
+  For every printed entry: *right* (a truth play of its named recording
+  overlaps the named play), else *extra*, split into a related version
+  (same family as a record playing then) and unrelated, confident and
+  possible apart; *split* (a second entry naming the same truth play);
+  *merged* (its plays hold files of two or more recordings each
+  overlapping a truth play of its own; within one family or across
+  families); *files missing* (indexed files of its named recording not
+  among its plays' files and identical copies; split into found in
+  another entry or marked, and not found); *titles not flagged* (its
+  files carry two compared artist-and-title names or more and the line
+  has no `titles disagree:`; whether the other title comes from a
+  confident or a possible play). Wrong confident plays (no truth play of
+  their recording overlapping) are counted beside, as today's score.
+
+  *Problems worth a roadmap entry* (each reported whatever its size):
+  - P1: any confident entry naming a recording that does not play then
+    and is not a related version of one that does.
+  - P2 (ADR 0019's cost): in a scenario, 10% or more of the indexed
+    records played at full level for 30 s or more (drops, both sides)
+    missing from the tracklist while the JSON holds a play of them.
+  - P3: 5% or more of the two-record blocks merged into one entry
+    across families.
+  - P4: 10% or more of a scenario's truth plays split into two entries
+    or more.
+  - P5: 10% or more of the entries of recordings with two indexed files
+    or more missing a file the JSON has a play of over the entry.
+  - P6: any entry holding a confident play of another title without
+    `titles disagree:`; possible plays named under `also:` with another
+    title are reported, and are a problem at 5% of entries or more.
+  The quiet and brief records are reported per scenario but not held to
+  P2 (they are below full level or shorter than 30 s by design).
+
+  *Optional, NAS scale:* the same renders searched with a store-only
+  copy of the NAS store less every file of the held-out recordings
+  (NAS clusters file and library map), scored the same way with the
+  NAS clusters for recordings. Done only if the 262-track work is
+  finished by about 03:00.
