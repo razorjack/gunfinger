@@ -259,7 +259,7 @@ Rules for this session:
   `work/s38/stop-chains` exists. zsh expands `=s38queue`, so the first
   attempt to stop the tmux session by exact name failed; the processes
   were stopped by PID.
-- **(10:20) The shared variant run** (35:27). Against the default run
+- **(10:18) The shared variant run** (35:27). Against the default run
   (`variant_compare.py shared`): confident detections by role identical
   in every query (played 516, other 475, related 430, partner 8), no
   query loses a played or partner detection; 185 weak detections added
@@ -267,3 +267,12 @@ Rules for this session:
   ran beside `check.sh`. S1, S2 and S3 all hold: the variant passes its
   registered criteria (0179). `robust` released (`work/s38/0179-written`)
   after 0179 was committed.
+- **(10:31) Step 3's result** (0180; six runs 10:18-10:30, 35-37 s at
+  262 tracks and 3:12-3:14 at NAS scale). A ride in the middle of a 30 s
+  excerpt costs recall from 2% (43-49 of 80 confident; 3%: 3-8), every
+  miss under 3 windows; 1% in the middle and 2% at 24 s cost nothing;
+  both overlap rules win back 1-3 excerpts and give identical rows.
+- **(10:31) Step 4** written as
+  `docs/research/2026-10-22-pitch-rides-decision.md`; recommendation
+  (ours to decide): adopt `SpansAtSpeed(0.006)` after one confirmation on
+  the second shared panel, which neither threshold nor test has seen.

@@ -354,6 +354,21 @@ marked as inferences were derived, not measured.
   ADR superseding ADR 0008's consequence for overlapping parts, including
   how a play shows its overlapping segments and whether a wrong file's
   extra segment is a new wrong answer.
+  *(session 38, experiments 0179-0180)* The narrower opt-in
+  `--apart-in-speed 0.006` drops an overlapping detection only within
+  0.6% of the stronger one's fitted speed. Under criteria committed
+  first it keeps all 257 lost sides on new seeds, with no new wrong
+  confident detection and no lost right one on the sweep at both scales,
+  the 11 development reports at NAS scale, the generated mixes and the
+  first shared panel, where nothing confident changes (0179). It keeps
+  Star Trails' and Into Music's dropped segments. In the sweep's 30 s
+  excerpts (`robust`, 0180), a ride costs recall from 2% when it lies in
+  the middle: each side spans two windows, so the 3-window rule decides
+  (2% at 15 s: 43-49 of 80 confident; 3%: 3-8), and neither overlap
+  rule helps; 1% in the middle and 2% at 24 s cost nothing.
+  The options, the risk and a recommendation are in
+  `docs/research/2026-10-22-pitch-rides-decision.md`; adopting it is our
+  decision and needs an ADR.
 - **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
