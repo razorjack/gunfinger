@@ -636,6 +636,9 @@ mod tests {
             bass_cut_until: None,
             bass_cut_from: None,
             ride: None,
+            gain_db: 0.0,
+            scenario: None,
+            side: None,
         };
         let mix = PlannedMix {
             name: String::from("m"),
@@ -821,6 +824,9 @@ mod tests {
             bass_cut_until: None,
             bass_cut_from: None,
             ride: None,
+            gain_db: 0.0,
+            scenario: None,
+            side: None,
         };
         let mix = PlannedMix {
             name: String::from("m"),

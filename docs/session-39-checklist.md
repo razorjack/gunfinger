@@ -10,17 +10,17 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s39/listening-digests-start.txt`
-- [~] Start build `work/bin/s39-start/`; `regress session-32-linux` and
-  `regress session-33-linux-nas` identical
+- [x] Start build `work/bin/s39-start/`; `regress session-32-linux` and
+  `regress session-33-linux-nas` identical (1:09; 6:02)
 
 ## Steps
 
-- [ ] 1. Pre-registration (scenarios, truth, scores, what counts as a
+- [x] 1. Pre-registration (scenarios, truth, scores, what counts as a
   problem; the tag check and how many recordings qualify), committed
-  before any count
-- [ ] 2. The generator: double drops and the scenario kind, tested,
-  `regress` identical
-- [ ] 3. The runs: render, CLI `identify -f json` and `show` at 262
+  before any count (`937ceba`; 198 of 245 recordings qualify)
+- [x] 2. The generator: double drops and the scenario kind, tested,
+  `regress` identical (`mixes --kind drops`)
+- [~] 3. The runs: render, CLI `identify -f json` and `show` at 262
   tracks (store-only copy without the held-out records); NAS scale if
   time allows; the scoring script
 - [ ] 4. Experiments (0182 and up)

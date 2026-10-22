@@ -240,3 +240,48 @@ NAS scale only if the 262-track work is done by about 03:00.
   (NAS clusters file and library map), scored the same way with the
   NAS clusters for recordings. Done only if the 262-track work is
   finished by about 03:00.
+- **(00:40) The generator** (`crates/gunfinger-eval/src/mixes/drops.rs`,
+  `mixes --kind drops --tagged FILE`). Decisions taken while writing it,
+  none of which changes a registered score: both records of every
+  two-record block come from tracks of 240 s or more, so that a drop of
+  the longest kind fits; the rips are drawn first, so that the returning
+  record cannot take the only recording with two files; the pair's
+  passages are aligned at the start of the full-level stretch and moved
+  to the track's start or end where they do not fit (the remix's passage
+  lies at 399.5 s of a shorter track than the drop needs after it).
+  `shared_pairs` reads the length of every panel file before the pairs
+  are filtered, so the runs pass `--other-root /mnt/atlas/Music/dnb`
+  (FFprobe on the NAS files only). `PlannedPlay` gains `gain_db`,
+  `scenario` and `side`, left out of the JSON when unset, so earlier
+  truth files and reports read and render as before.
+- **(00:41) Queues.** `work/s39/step2.sh` (tmux `s39step2`):
+  `check.sh`, the run build `work/bin/s39-run/`, both regressions;
+  `work/s39/step3.sh` (tmux `s39step3`) waits for it, then renders and
+  searches seeds 2026 and 2028 with the harness, runs the CLI on the
+  renders (`--peaks-dir work/s39/store-<seed> identify --store-only
+  --saved-index off -f json --save-dir`), `show` on each report, and
+  `tracklist_score.py score`. The store copies hold 212 and 210
+  records (265 in the corpus store, less 53 and 55 held-out files).
+- **(00:43) NAS scale queued** (`work/s39/step3b.sh`, tmux `s39nas`,
+  after step 3): the same renders, `gunfinger --config
+  ~/.config/gunfinger/nas-dnb.toml identify --exclude-from
+  work/s39/nas-exclude-<seed>.txt --saved-index off -f json --save-dir`,
+  so the NAS library is only listed and the NAS store only read, and no
+  saved index is written. The exclude lists hold the NAS files of every
+  NAS cluster that holds a held-out corpus file (120 and 130 files;
+  every held-out file of both seeds is in a NAS cluster). Scored with the
+  NAS clusters for recordings; the recordings were chosen by their tags
+  at 262 tracks, so at NAS scale their other rips may carry other tags,
+  and the title scores there are reported but not read against P6.
+  The NAS scale's indexed files are the store's records less the
+  excluded ones, which also counts files the library's
+  `.gunfingerignore` leaves out; its "files missing" count is read with
+  that caveat.
+- **(00:50) Step 2 checks** (`work/s39/step2.sh`): `check.sh` green
+  (4:13); the run build `work/bin/s39-run/` (its CLI byte-identical to
+  the start build's); `regress session-32-linux` (1:14) and `regress
+  session-33-linux-nas` (6:12) identical, every report identical to its
+  baseline's apart from `wall_seconds`. The scoring script's entry
+  rebuild was checked first against `show` on session 35's three
+  development reports at 262 tracks (`work/s35/identify/`): every line
+  matches.

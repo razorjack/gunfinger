@@ -427,6 +427,12 @@ enum Command {
         /// With `--kind rides`: up, down or either, drawn for each play.
         #[arg(long, value_enum, default_value_t = mixes::RideDirection::Either)]
         ride_direction: mixes::RideDirection,
+        /// With `--kind drops`: JSON whose `assets` lists the files the
+        /// mixes may play as indexed records (as
+        /// `scripts/analysis/tracklist_tags.py` writes it) [default: every
+        /// indexed file].
+        #[arg(long)]
+        tagged: Option<PathBuf>,
     },
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -888,8 +894,10 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             ride_change,
             ride_seconds,
             ride_direction,
+            tagged,
         } => {
             let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
+            let tagged = tagged.map(|path| tagged_assets(kind, &path)).transpose()?;
             let report = mixes::run(
                 &paths.library()?,
                 &paths.store()?,
@@ -907,6 +915,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     verify: paths.verify,
                     jobs,
                     rides,
+                    tagged: tagged.as_ref(),
                 },
             )?;
             write_json(
@@ -2757,6 +2766,22 @@ impl NeighbourRecords {
 
 /// The rides `mixes --kind rides` draws: the default, with the options
 /// given in place of its ranges.
+/// The files `--tagged` lists, for the drops kind only.
+fn tagged_assets(kind: mixes::MixKind, path: &Path) -> Result<BTreeSet<String>, String> {
+    #[derive(serde::Deserialize)]
+    struct Tagged {
+        assets: BTreeSet<String>,
+    }
+    if kind != mixes::MixKind::Drops {
+        return Err(String::from("--tagged applies to --kind drops"));
+    }
+    let text = fs::read_to_string(path)
+        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
+    let tagged: Tagged =
+        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+    Ok(tagged.assets)
+}
+
 fn ride_draw(
     kind: mixes::MixKind,
     change: &[f64],

@@ -237,6 +237,9 @@ fn query(name: &str, brief: &Brief, seconds: f64, offset: u32) -> PlannedMix {
         bass_cut_until: None,
         bass_cut_from: None,
         ride: None,
+        gain_db: 0.0,
+        scenario: None,
+        side: None,
     };
     let end = lead_in + seconds;
     PlannedMix {

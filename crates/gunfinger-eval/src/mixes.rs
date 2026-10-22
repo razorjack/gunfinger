@@ -33,6 +33,8 @@ use crate::sweep::Plan;
 use crate::tempo::{beat_period, onset_envelope};
 use crate::verifier::{Verification, Verifier};
 
+mod drops;
+
 /// Plays per generated mix, and the length of each, fades included.
 const PLAYS_PER_MIX: usize = 12;
 const PLAY_SECONDS: (f64, f64) = (20.0, 60.0);
@@ -85,6 +87,12 @@ pub enum MixKind {
     Shared,
     /// Long mixes whose every play rides the pitch by 1-3% once.
     Rides,
+    /// Mixes of the scenarios of `Scenario` in a fixed order: double
+    /// drops, records inside stronger ones, a pair of the shared-material
+    /// panel apart and together, a returning record, two rips of one
+    /// recording, a held-out record. Every play is beatmatched; the pair's
+    /// files are indexed.
+    Drops,
 }
 
 impl MixKind {
@@ -111,11 +119,19 @@ impl MixKind {
             (MixKind::Shared, _) => format!("shared-seed-{seed}"),
             (MixKind::Rides, None) => format!("rides-seed-{seed}"),
             (MixKind::Rides, Some(label)) => format!("rides-{label}-seed-{seed}"),
+            (MixKind::Drops, _) => format!("drops-seed-{seed}"),
         }
     }
 
     fn beatmatches(self) -> bool {
-        matches!(self, MixKind::Beatmatched | MixKind::Shared)
+        matches!(
+            self,
+            MixKind::Beatmatched | MixKind::Shared | MixKind::Drops
+        )
+    }
+
+    fn plays_pairs(self) -> bool {
+        matches!(self, MixKind::Shared | MixKind::Drops)
     }
 
     /// The lengths of play `print_summary` counts confident plays by.
@@ -125,6 +141,7 @@ impl MixKind {
             MixKind::Long | MixKind::Beatmatched | MixKind::Shared | MixKind::Rides => {
                 [(0.0, 120.0), (120.0, 200.0), (200.0, 280.0), (280.0, 361.0)]
             }
+            MixKind::Drops => [(0.0, 45.0), (45.0, 130.0), (130.0, 250.0), (250.0, 401.0)],
         }
     }
 }
@@ -150,6 +167,56 @@ pub struct PlannedPlay {
     /// A change of speed within the play.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub ride: Option<Ride>,
+    /// The play's level against the others', which are all brought to
+    /// `LEVEL` (the drops kind's quiet record).
+    #[serde(default, skip_serializing_if = "is_zero")]
+    pub gain_db: f64,
+    /// What the play stands for in a mix of the drops kind, and which of
+    /// two records it is.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub scenario: Option<Scenario>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub side: Option<Side>,
+}
+
+// serde's `skip_serializing_if` passes a reference.
+#[allow(clippy::trivially_copy_pass_by_ref)]
+fn is_zero(value: &f64) -> bool {
+    *value == 0.0
+}
+
+/// The situations a mix of the drops kind plays, for scoring the
+/// tracklist `identify` prints.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Scenario {
+    /// A record of a shared-material pair alone, over its passage.
+    Original,
+    /// The pair's related record alone, over its passage.
+    Remix,
+    /// The pair's two records together in a double drop.
+    PairDrop,
+    /// Two records of different recordings together in a double drop.
+    UnrelatedDrop,
+    /// A record at `drops::QUIET_DB` inside a stronger one.
+    Quiet,
+    /// A record for `drops::BRIEF_SECONDS` inside a stronger one.
+    Brief,
+    /// A record played twice, from two places in the track.
+    Returning,
+    /// Two files of one recording, played at two times.
+    Rips,
+    /// A record of a held-out cluster alone.
+    HeldOut,
+}
+
+/// Of two records played together: the one playing when the other comes
+/// in, or the one coming in.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Side {
+    First,
+    Second,
 }
 
 /// A pitch ride: from mix time `start_seconds` the speed moves linearly
@@ -182,6 +249,11 @@ impl PlannedPlay {
     fn is_bass_cut(&self, seconds: f64) -> bool {
         self.bass_cut_until.is_some_and(|until| seconds < until)
             || self.bass_cut_from.is_some_and(|from| seconds >= from)
+    }
+
+    /// The play's gain against `LEVEL`, as a factor.
+    fn gain(&self) -> f64 {
+        10.0_f64.powf(self.gain_db / 20.0)
     }
 
     /// Gain at mix time `seconds`: linear fades in and out.
@@ -236,7 +308,7 @@ fn play_audio(play: &PlannedPlay, roots: &Roots) -> Result<Vec<f32>, String> {
         Some(_) => ridden(play, &source, filter),
     };
     let full = render(None)?;
-    let gain = LEVEL / rms(&full).max(1e-9);
+    let gain = play.gain() * LEVEL / rms(&full).max(1e-9);
     let swapped = play.bass_cut_until.is_some() || play.bass_cut_from.is_some();
     let cut = if swapped {
         render(Some(BASS_CUT))?
@@ -573,6 +645,9 @@ fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) ->
         bass_cut_until: None,
         bass_cut_from: None,
         ride: None,
+        gain_db: 0.0,
+        scenario: None,
+        side: None,
     }
 }
 
@@ -606,6 +681,7 @@ pub struct PairRecord {
 }
 
 /// A track picked for a long mix, before its play is drawn.
+#[derive(Clone)]
 struct Pick<'a> {
     asset: &'a str,
     duration_seconds: f64,
@@ -767,9 +843,15 @@ fn beatmatched_speed(
 /// 95% of it, or, for a pick with a passage, from a drawn place at which
 /// the play holds the whole passage where it can.
 fn long_play(pick: &Pick, start: f64, speed: f64, rng: &mut Rng) -> PlannedPlay {
-    let duration = pick.duration_seconds;
     let drawn = LONG_PLAY_SECONDS.0 + rng.unit() * (LONG_PLAY_SECONDS.1 - LONG_PLAY_SECONDS.0);
-    let seconds = drawn.min(0.85 * duration / speed);
+    let seconds = drawn.min(0.85 * pick.duration_seconds / speed);
+    placed(pick, start, seconds, speed, rng)
+}
+
+/// A play of `seconds` at `speed` from mix time `start`, placed in the
+/// track as `long_play` places it.
+fn placed(pick: &Pick, start: f64, seconds: f64, speed: f64, rng: &mut Rng) -> PlannedPlay {
+    let duration = pick.duration_seconds;
     let heard = seconds * speed;
     let (earliest, latest) = match pick.passage {
         None => (0.05 * duration, 0.95 * duration - heard),
@@ -791,6 +873,9 @@ fn long_play(pick: &Pick, start: f64, speed: f64, rng: &mut Rng) -> PlannedPlay 
         bass_cut_until: None,
         bass_cut_from: None,
         ride: None,
+        gain_db: 0.0,
+        scenario: None,
+        side: None,
     }
 }
 
@@ -959,6 +1044,9 @@ pub fn draw_around(
                 bass_cut_until: None,
                 bass_cut_from: None,
                 ride: None,
+                gain_db: 0.0,
+                scenario: None,
+                side: None,
             },
             std::cmp::Ordering::Less => drawn_play(drawn[position], false, start, rng),
             std::cmp::Ordering::Greater => drawn_play(drawn[position - 1], false, start, rng),
@@ -1041,6 +1129,9 @@ pub struct Options<'a> {
     pub jobs: usize,
     /// How the rides kind draws its rides.
     pub rides: RideDraw,
+    /// The files the drops kind may play as indexed records (all indexed
+    /// files when `None`).
+    pub tagged: Option<&'a BTreeSet<String>>,
 }
 
 impl Options<'_> {
@@ -1102,7 +1193,7 @@ fn shared_pairs(
         .iter()
         .flat_map(|family| family.recordings.iter().flatten().cloned())
         .collect();
-    if kind != MixKind::Shared {
+    if !kind.plays_pairs() {
         return Ok((files, Vec::new()));
     }
     let length = |asset: &str| -> Result<f64, String> {
@@ -1204,6 +1295,14 @@ pub fn run(
     } else {
         (BTreeSet::new(), Vec::new())
     };
+    // The drops kind plays the pair's files as indexed records; the other
+    // kinds that read the panel keep its families out of the index.
+    let none = BTreeSet::new();
+    let left_out = if options.kind == MixKind::Drops {
+        &none
+    } else {
+        &families
+    };
     let (records, held_out, index) = sweep_index(
         library,
         store,
@@ -1211,7 +1310,7 @@ pub fn run(
         options.seed,
         options.panels,
         options.matching,
-        &families,
+        left_out,
     )?;
     let index = &index;
     let verifier = options.verify.then(|| Verifier::new(&records, None));
@@ -1220,7 +1319,17 @@ pub fn run(
         .filter(|record| !families.contains(&record.header.source.path))
         .cloned()
         .collect();
-    let pools = Pools::new(&without_families, &held_out);
+    let mut pools = Pools::new(&without_families, &held_out);
+    let pairs = if options.kind == MixKind::Drops {
+        if let Some(tagged) = options.tagged {
+            pools
+                .indexed
+                .retain(|record| tagged.contains(&record.header.source.path));
+        }
+        drops::playable(pairs, &records, &held_out, options.tagged)
+    } else {
+        pairs
+    };
     let extras = LongExtras {
         periods: if options.kind.beatmatches() {
             beat_periods(&pools, &pairs, &roots, options.jobs)
@@ -1239,6 +1348,7 @@ pub fn run(
             let path = dir.join(format!("{name}.mp3"));
             let mix = match options.kind {
                 MixKind::Short => draw_mix(&name, &pools, clusters, &mut rng),
+                MixKind::Drops => drops::draw(&name, &pools, &extras, clusters, &mut rng),
                 kind => draw_long_mix(&name, kind, &pools, &extras, clusters, &mut rng),
             };
             mix.map(|mix| (mix, path))
@@ -1425,6 +1535,9 @@ mod tests {
             bass_cut_until: None,
             bass_cut_from: None,
             ride: None,
+            gain_db: 0.0,
+            scenario: None,
+            side: None,
         }
     }
 
