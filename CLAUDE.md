@@ -6,9 +6,9 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-36.md` (the current session's brief) and
-   `docs/session-36-checklist.md` (its progress), with
-   `docs/research/2026-10-21-low-bandwidth-search.md`;
+2. `docs/brief-37.md` (the current session's brief) and
+   `docs/session-37-checklist.md` (its progress), with experiment 0166
+   and the roadmap's "Speed that wanders within a play";
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -21,8 +21,8 @@ anything else:
    beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
    `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
    `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
-   `docs/brief-34.md` and `docs/brief-35.md` hold
-   rules that still apply unless brief 36 changes them
+   `docs/brief-34.md`, `docs/brief-35.md` and `docs/brief-36.md` hold
+   rules that still apply unless brief 37 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -41,7 +41,7 @@ anything else:
    tested proposal 5's candidates in rendered mixes; session 22 ran part
    1 of proposal 2's retrieval study); on a machine with low memory
    bandwidth (the Linux machine), `docs/research/2026-10-21-low-bandwidth-search.md`
-   and experiments 0167-0168 and session 36's (0169 and up)
+   and experiments 0167-0174
 9. for shared-material work: the panels in `docs/panels/` and the
    newest experiments on them (sessions 20, 21, 23, 24 and 25); for the
    version verifier, `docs/research/2026-10-16-version-verification.md`
@@ -63,5 +63,7 @@ anything else:
    estimating how many tracks a gap holds: the roadmap's "Time without a
    confident match", `docs/research/2026-10-20-unidentified-gaps.md`,
    the pre-registration `docs/research/2026-10-21-gap-measures.md`,
-   experiment 0154, session 34's (0159-0162) and session 35's (0163 and
-   up)
+   experiment 0154, session 34's (0159-0162) and session 35's (0163-0166)
+15. for plays whose speed changes within them (pitch rides): the
+   roadmap's "Speed that wanders within a play", experiments 0022, 0024,
+   0030, 0032 and 0166, and session 37's (0175 and up)
