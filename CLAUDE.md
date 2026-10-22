@@ -6,9 +6,10 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-38.md` (the current session's brief) and
-   `docs/session-38-checklist.md` (its progress), with experiments 0166
-   and 0175-0178 and the roadmap's "Speed that wanders within a play";
+2. `docs/brief-39.md` (the current session's brief) and
+   `docs/session-39-checklist.md` (its progress), with ADR 0006, 0017
+   and 0019, experiments 0095, 0107 and 0182 and up, and the roadmap's
+   "The printed tracklist";
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -21,8 +22,8 @@ anything else:
    beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
    `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
    `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
-   `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md` and
-   `docs/brief-37.md` hold rules that still apply unless brief 38
+   `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md` and
+   `docs/brief-38.md` hold rules that still apply unless brief 39
    changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
