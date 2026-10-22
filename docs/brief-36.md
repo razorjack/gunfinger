@@ -176,3 +176,6 @@ Rules for this session:
   were written before step 5's count; the A/B's last base run, which had
   failed to start (a run label past the file name limit), was run again
   alone.
+- **(04:08) Step 5 counted, not implemented** (0173): 5.1% of requested
+  postings repeat a hash of the same window, 14.9% within 4 windows; the
+  saving is bounded by taking parts' 6.3% of CPU, so about 1% at most.

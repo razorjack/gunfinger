@@ -20,10 +20,12 @@ for scope and rules.
   and leave-outs, clusters sample, full clusters run); experiment 0169;
   committed only if every comparison is identical (all identical; 0169)
 - [x] 2. Stage timers in a diagnostic build; experiment 0170
-- [ ] 3. Narrower hits: grouped as 4 bytes, raw as 6 bytes; experiments
-- [ ] 4. Grouping without `part` (only if taking and grouping are above
-  about 15%)
-- [ ] 5. Repeated hashes: count first
+- [x] 3. Narrower hits: grouped as 4 bytes, raw as 6 bytes; experiment
+  0171 (both slower, not kept)
+- [x] 4. Grouping without `part` (taking and grouping 35%); experiment
+  0172 (slower, not kept)
+- [x] 5. Repeated hashes: counted, experiment 0173 (below the stop point,
+  not implemented)
 - [ ] 6. (Ahead) `identify` A/B on the development mixes; the worker
   count recommendation
 - [ ] 7. Read-only review by a subagent; findings fixed
