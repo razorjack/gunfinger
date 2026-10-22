@@ -1,0 +1,114 @@
+# Session 36 brief: a faster search on the Linux machine, exactly
+
+Written by the agent for itself on 2026-10-22, so the plan survives
+context compaction. Work autonomously and never stop to ask: where a
+decision is needed, take the conservative option, write it down here and
+continue.
+
+## Read after every compaction
+
+1. `docs/brief.md` (the original brief; never edit it) and `AGENTS.md`.
+2. This file, and `docs/session-36-checklist.md` (progress).
+3. `docs/research/2026-10-21-low-bandwidth-search.md`, experiments
+   0167, 0168 and this session's (0169 and up).
+4. `docs/session-notes.md` ("Session 35"), `docs/status.md` (newest
+   entries), `crates/gunfinger-core/src/search/lines.rs`.
+
+`docs/brief-2.md` to `docs/brief-35.md`, `docs/brief-24b.md` and
+`docs/brief-nas.md` hold rules that still apply unless this brief
+changes them.
+
+## The prompt, verbatim
+
+```text
+Start session 36 of Gunfinger: make the search faster on the Linux machine without changing any detection. `docs/research/2026-10-21-low-bandwidth-search.md` consolidates two design reviews of the search for a machine with low memory bandwidth; experiment 0167 measured its items 1 and 2 (each part's end found by a doubling search from the front of the list, parts of 1,024 assets: the Stakka scan at NAS scale 2.0 times faster at 32 workers, identical reports), and 0168 measured the memory at its rated speed (XMP now on, 3600 MT/s: the change still gives 37.9 s against 49.7 s at 32 workers). This session adopts items 1 and 2 in master with tests and full validation, then measures the next exact proposals.
+
+You run unattended overnight: the user is asleep and cannot answer or listen to anything. Never stop to ask. Where a decision is needed, take the conservative option, write it down in the brief and continue. An orchestrating thread launched you and will read your final message and session notes to plan the next session; no other session runs in this checkout while you run.
+
+The machine: Fedora Linux 44, x86-64, AMD Ryzen 9 5950X (16 cores, 32 threads, two core complexes with a 32 MiB L3 each), 64 GB RAM, DDR4-3600 with XMP on since experiment 0168 (times before 0168 were at 2133 MT/s and do not compare). `perf` is not installed and there is no sudo: measure with timers you add in a diagnostic build (worker-local, aggregated after the run; no atomics or clocks per hit), not with a profiler.
+
+Environment (sessions 33-35's handoffs in docs/session-notes.md; check each):
+- Rust: `export PATH="$HOME/.cargo/bin:$PATH"`; `RUSTUP_TOOLCHAIN=1.98.0` for `scripts/check.sh` and builds. FFmpeg 8.1.3, Python 3, tmux, `/usr/bin/time`. zsh does not split a command held in a variable: run queues from `sh` scripts.
+- NAS store `~/.local/share/gunfinger/nas-dnb-peaks` (40,683 records), reached with `--other-peaks-dir`; NAS clusters `work/reports/library-nas-dnb-peaks/duplicate-clusters.json` (session 33, SHA-256 `37bc419d3d25...`); saved index `work/indexes/library-nas-dnb-peaks.index`. Baselines `session-32-linux` (corpus) and `session-33-linux-nas` (NAS scale). Builds `work/bin/s35-final/` (current master's code). `recall` and `clusters` need `--panels work/s33/panels` on this machine.
+- 0167's patch: `work/perf-design/verify/lines.diff`, its scripts `work/perf-design/verify/ab.sh` and `clusters.sh`; the design reports and their scratch in `work/perf-design/` (`gpt-6-astra.md`, `claude-fable-5-1.md`).
+- `gunfinger-eval regress` prints what changed and returns success either way: read its output; never rely on its exit status.
+- Slot leave-out scans must not sit in a reports directory during `regress` (they change `calibrate`'s counts; session 34).
+
+First:
+1. Read CLAUDE.md, AGENTS.md (every rule applies, including the wording rule, "Index-size rule" and "Optimise only from measurement"), docs/brief.md (never edit it), docs/brief-35.md, docs/session-notes.md ("Session 33" to the end), docs/status.md (newest entries), `docs/research/2026-10-21-low-bandwidth-search.md`, both design reports in `work/perf-design/`, experiments 0096, 0103, 0108, 0113, 0158, 0167 and 0168, the roadmap's "Where search time goes" and "Search memory at scale", and `crates/gunfinger-core/src/search/lines.rs`, `search.rs`, `index.rs` and `parallel.rs`.
+2. Write docs/brief-36.md (this prompt verbatim, the state at the start, the plan and each decision as you take it) and docs/session-36-checklist.md, point CLAUDE.md's reading list at them, and commit. Record the SHA-256 of docs/pair-verdicts.txt in work/s36/listening-digests-start.txt; it must be the same at the end. Experiments number from 0169.
+3. Build `work/bin/s36-start`; `regress session-32-linux` and `regress session-33-linux-nas` identical (read the output). Keep `work/bin/s35-final` as the reference build for timing.
+
+Steps:
+
+1. Items 1 and 2 in master. `front_partition` in `search/lines.rs` (`take_part`), with unit tests against `partition_point` on random sorted lists, empty lists and boundaries at the start, at the end and past it; the part size chosen from measurements at 16 and 32 workers (1,024, 2,048, and if cheap the research note's per-window hit budget), at 3600 MT/s. Validation before committing the change to master, every comparison byte for byte apart from timing fields:
+   - `scripts/check.sh` green (with the macOS clippy pass);
+   - `regress` at both scales identical;
+   - the three development scans at NAS scale and their leave-outs (session 33's seeds; 0157);
+   - the 48-query clusters sample (`clusters --from-peaks --sample 48`);
+   - a full NAS clusters run (session 33's run 2 command with `--cut-sparsest`, in a scratch work directory with the clusters and map copied, never over the shared reports) whose `duplicate-clusters.json` must equal session 33's byte for byte; it is also the session's longest timing (session 33: 52:30 at 32 workers, 2133 MT/s, current code);
+   - the sweep (seed 2026) at both scales, through `regress`.
+   Commit only if every comparison is identical; otherwise find the cause and do not commit the change. Experiment file: the change, its validation and its times (A/B against `s35-final`, interleaved, at 16 and 32 workers).
+
+2. Stage timers on this machine, in a diagnostic build only (never committed to master unless they cost nothing measurable and read well): the split of a NAS-scale scan's CPU between query analysis, taking parts, grouping, the pre-filter, sorting and lines, and the second pass, at 16 and 32 workers, with items 1 and 2 in. This replaces the profile the research note asks for and decides which of steps 3-5 are worth doing.
+
+3. Narrower hits (the research note's item 4): first the grouped hits as 4 bytes (frame and an anchor index relative to the window's first anchor, with a per-window fallback to the wide form when an index does not fit), then raw hits as 6 bytes. Each measured A/B at 16 and 32 workers against step 1's result, kept only above the note's stop point (3% at 16 workers or removing a 32-worker penalty) and only with identical output and the same validation as step 1 (the full clusters run may be replaced by the clusters sample if the full run was identical in step 1 and the change touches only the hit representation).
+
+4. Grouping without the `part` buffer (item 5), only if step 2 shows taking and grouping above about 15% together; same rules.
+
+5. Repeated hashes read once (item 6): first count, on real windows, how many requested posting bytes are repeats of a hash already requested in the window (and within 2-4 adjacent windows); implement only if the count makes the note's stop point reachable.
+
+6. Ahead, only when 1-5 are done: the same A/B for `identify` with the CLI on the three development mixes at NAS scale (the user's real command; reports byte-identical apart from timing), and a measured recommendation on the default worker count (one per hardware thread or per core) after this session's changes. The default itself is our decision: do not change it.
+
+An experiment file (at most 40 lines) for each of steps 1-5 that produced a measurement, written before the next experiment starts. Delete losing code from the tree (AGENTS.md: no dead code); its result lives in the experiment.
+
+7. A read-only review of the session's commits and documents by a subagent (it must not launch further agents); fix what it finds.
+
+8. Wrap-up: a "Session 36" section at the end of docs/session-notes.md with a handoff (what is in master, the new times at 16 and 32 workers, what was dropped and why, what is left of the research note); update docs/status.md, the checklist, the roadmap's "Where search time goes" and the research note. Final checks: `scripts/check.sh` green, `regress session-32-linux` and `regress session-33-linux-nas` identical with the final build, docs/pair-verdicts.txt unchanged, `git status` clean. Commit. Your final message: what changed in master, the measured times, what was kept and dropped, and anything left.
+
+Rules for this session:
+- No push. Commit on master with the configured identity (Jacek Galanciak <jacek.galanciak@gmail.com>). Never rewrite history. Check `git status` before every commit and never use `git add -A`. No AI attribution in any commit: no `Co-Authored-By` line and no mention of an assistant or model.
+- Only exact changes reach master: detections, evidence, boundaries, speeds and ordering bit for bit identical, as shown by the validation above. No threshold, parameter, rule or default changes; no change to postings, `hash::design()` or the saved index format. A change that alters output is not committed.
+- Long runs: every run that may last more than about 20 minutes starts detached under tmux with its own log, `/usr/bin/time -v` and an exit line; check the log's exit line afterwards. Timing runs one at a time on an otherwise idle machine, interleaved A/B, repeated where the ranges overlap.
+- The held-out test set (ed-rush-optical-essential-mix) is out of every step: do not open its manifest or any report of it, do not pass it to any command, do not scan or identify it, and never run test evaluation 5. Never identify, decode or index `EM_1999_02_07_-_Ed_Rush_Optical.mp3` at the NAS root. Run nothing on the candidate mixes of experiment 0065 (among them the mixed CDs it lists and the NAS's `sety/vertical.mp3`). The three development mixes are the only real mixes this session searches; name them explicitly, never glob `corpus/sets/*`.
+- The NAS is read, never written, its `.gunfingerignore` included. Do not run `index` or `prune` with the NAS configuration. Do not replace session 33's clusters file in `work/reports/`.
+- Agents never write verdicts or listening answers: docs/pair-verdicts.txt does not change, and no answer log is written. Manifests and committed panels do not change. Nothing in this session needs listening.
+- AGENTS.md: no SIMD, no `unsafe`, synchronous Rust, an experiment file of at most 40 lines written before the next experiment starts, evaluation JSON in docs holds file names only, cross-platform code (ADR 0020).
+- Repository text follows AGENTS.md's wording rule. The Mac is "the Mac", this machine is "the Linux machine" (its hardware may be named where it explains a time).
+- Leave alone every process this session did not start.
+- Scratch data goes under work/s36/; keep it under about 20 GB. Session 35's renders in `work/mixes/` (11 GB) may be deleted.
+- Prose: no em dashes (spaced en dashes in prose, ASCII in code).
+- Commit after each step that changes tracked files.
+- Time: plan for about 2.5 hours. The user's soft deadline is 11:00, but the orchestrating thread wants to launch more sessions after this one: when steps 1-3 are done and it is past 05:30, skip what is left of 4-6, list it in the handoff and wrap up.
+```
+
+## State at the start of session 36
+
+- 2026-10-22, 02:34. `master` at `e0c6316`, clean. Git identity `Jacek
+  Galanciak <jacek.galanciak@gmail.com>`. Load average 0.04; no tmux
+  server running.
+- `docs/pair-verdicts.txt`: SHA-256 `ad0fc785d26a...`
+  (`work/s36/listening-digests-start.txt`). No answer log in this clone.
+- Experiments 0001-0168; this session numbers from 0169. Test set: 4 of
+  5 evaluations used (none in this session).
+- Session 35's renders in `work/mixes/` (11 GB) deleted at 02:42.
+- `work/reports/library-nas-dnb-peaks/` holds session 33's clusters and
+  map, and the 11 development reports at NAS scale (3 scans, 8
+  leave-outs) that 0157 scored; validation scans run in a scratch work
+  directory (`work/s36/w`, the saved index hard-linked, the clusters and
+  the map copied) and are compared with those.
+
+## Plan
+
+| Step | What | Expected |
+|---|---|---|
+| First | reading; brief, checklist, `CLAUDE.md`; digest; start build; both regressions | 02:34-03:05 |
+| 1 | `front_partition` and tests; part size from A/B (1,024, 2,048, a hit budget) against `s35-final` at 16 and 32 workers | 03:00-03:35 |
+| 1 | validation queue: `check.sh`, both regressions, 11 development scans, clusters sample, full clusters run; experiment 0169; commit | 03:35-04:35 |
+| 2 | stage timers (diagnostic build, not committed); experiment 0170 | beside and after the queue |
+| 3 | grouped hits as 4 bytes, then raw hits as 6 bytes; A/B; experiments | 04:35-05:20 |
+| 4-6 | only if 1-3 are done before 05:30 | |
+| 7 | read-only review by a subagent | |
+| 8 | notes, status, roadmap, research note, checklist; final checks | |
+
+## Decisions
