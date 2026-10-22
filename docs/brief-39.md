@@ -327,3 +327,38 @@ NAS scale only if the 262-track work is done by about 03:00.
   `detections` summary first grouped records across all mixes at once
   (wrong "through" counts); fixed to group within each mix before any
   number was written down.
+- **(01:15) Widening the pairs at NAS scale** (beyond the registered
+  plan, decided after 0182-0184 because their pair findings rest on one
+  pair). Of the first panel's families with passages, three have
+  recordings whose tags agree across the files the panel lists and with
+  their names, the related record being a NAS file: Pyro (Time Is
+  Broken ~ Ignorance), T-Minus (~ Unreleased Vocal Mix) and Watermelon
+  (~ 300 Baud's Mobiuz & Cycom Remix). Clockwork's original does not
+  qualify at NAS scale (a rip tagged "Clockwork (Remastered)"). The
+  drops kind gains `--other-pairs`: pairs whose files are tagged and not
+  held out, whether or not this index holds them; a pair record outside
+  the index is `held_out` in the truth, so the harness's own score stays
+  right. The tagged list for it holds the 262-track list less
+  Clockwork's family, plus the three families' files
+  (`work/s39/tags-other-pairs.json`). Seeds 2026 and 2028 again (their
+  held-out sets), 16 mixes each, reports and renders named
+  `drops-other-pairs-seed-<seed>`, searched by the CLI at NAS scale
+  only, scored as 0182 with the truth's indexed records taken from the
+  NAS index (a recording is indexed when the NAS index holds one of its
+  files). Same scores and criteria as 0182; the pair scenarios are the
+  question.
+- **(01:36) The other pairs' runs** (`work/s39/other.sh`, tmux
+  `s39other`): `check.sh` green (3:58); the build `work/bin/s39-run2/`
+  (its CLI byte-identical to the start build's); both regressions
+  identical (1:10; 5:59); renders 1:37-1:39; the CLI at NAS scale
+  3:25-3:35. Both seeds hold one family's original out (2026 Time Is
+  Broken, 2028 T-Minus), so each plays two families. The scoring script
+  now takes a truth record as indexed when the searched library holds a
+  file of its recording (the other pairs' related files are `held_out`
+  for the harness); 0182's summaries are unchanged by it. The outcome
+  order was also changed (a play in another printed entry counts as
+  "under another entry" before "left out"); 0182's summaries are
+  unchanged by that too.
+- **(01:45) Experiment 0185.** A new confident identification at NAS
+  scale: Digital & Spirit - Crash over the first 56 s of the T-Minus
+  vocal mix (P1 by its letter, pending listening).

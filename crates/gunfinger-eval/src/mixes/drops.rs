@@ -109,25 +109,34 @@ enum Block<'a> {
 }
 
 /// The pairs whose two files are indexed and, with `tagged`, among the
-/// files a mix may play.
+/// files a mix may play; with `other_pairs`, also pairs whose tagged files
+/// the index lacks, each record marked with whether it is indexed. A
+/// held-out file never plays as a pair's record.
 pub(super) fn playable(
     pairs: Vec<SharedPair>,
     records: &[PeakRecord],
     held_out: &BTreeSet<String>,
     tagged: Option<&BTreeSet<String>>,
+    other_pairs: bool,
 ) -> Vec<SharedPair> {
     let indexed: BTreeSet<&str> = records
         .iter()
         .map(|record| record.header.source.path.as_str())
         .filter(|path| !held_out.contains(*path))
-        .filter(|path| tagged.is_none_or(|tagged| tagged.contains(*path)))
         .collect();
+    let allowed = |asset: &str| {
+        !held_out.contains(asset)
+            && tagged.is_none_or(|tagged| tagged.contains(asset))
+            && (other_pairs || indexed.contains(asset))
+    };
     pairs
         .into_iter()
-        .filter(|pair| {
-            pair.records
-                .iter()
-                .all(|record| indexed.contains(record.asset.as_str()))
+        .filter(|pair| pair.records.iter().all(|record| allowed(&record.asset)))
+        .map(|mut pair| {
+            for record in &mut pair.records {
+                record.indexed = indexed.contains(record.asset.as_str());
+            }
+            pair
         })
         .collect()
 }
@@ -285,7 +294,7 @@ fn of_pair(pair: &SharedPair, which: usize) -> Pick<'_> {
     Pick {
         asset: &record.asset,
         duration_seconds: record.duration_seconds,
-        held_out: false,
+        held_out: !record.indexed,
         passage: Some(record.passage),
     }
 }
@@ -451,11 +460,13 @@ mod tests {
                     asset: String::from("original.mp3"),
                     duration_seconds: 420.0,
                     passage: (205.4, 224.1),
+                    indexed: true,
                 },
                 PairRecord {
                     asset: String::from("remix.mp3"),
                     duration_seconds: 520.0,
                     passage: (399.5, 418.2),
+                    indexed: true,
                 },
             ],
         }
@@ -633,11 +644,42 @@ mod tests {
         let records = vec![record("original.mp3", 420.0), record("remix.mp3", 520.0)];
         let none = BTreeSet::new();
 
-        assert_eq!(playable(vec![pair()], &records, &none, None).len(), 1);
+        assert_eq!(
+            playable(vec![pair()], &records, &none, None, false).len(),
+            1
+        );
         let held_out = BTreeSet::from([String::from("remix.mp3")]);
-        assert!(playable(vec![pair()], &records, &held_out, None).is_empty());
+        assert!(playable(vec![pair()], &records, &held_out, None, false).is_empty());
+        assert!(playable(vec![pair()], &records, &held_out, None, true).is_empty());
         let tagged = BTreeSet::from([String::from("original.mp3")]);
-        assert!(playable(vec![pair()], &records, &none, Some(&tagged)).is_empty());
+        assert!(playable(vec![pair()], &records, &none, Some(&tagged), false).is_empty());
+    }
+
+    #[test]
+    fn other_pairs_play_a_file_the_index_lacks_as_a_record_outside_it() {
+        let records = vec![record("original.mp3", 420.0)];
+        let none = BTreeSet::new();
+        let tagged = BTreeSet::from([String::from("original.mp3"), String::from("remix.mp3")]);
+
+        assert!(playable(vec![pair()], &records, &none, Some(&tagged), false).is_empty());
+        let pairs = playable(vec![pair()], &records, &none, Some(&tagged), true);
+        let indexed: Vec<bool> = pairs[0]
+            .records
+            .iter()
+            .map(|record| record.indexed)
+            .collect();
+        assert_eq!(indexed, [true, false]);
+
+        let (library, held_out, clusters, mut extras) = library();
+        extras.pairs = pairs;
+        let pools = Pools::new(&library, &held_out);
+        let mix = draw("mix-00", &pools, &extras, &clusters, &mut Rng::new(3)).unwrap();
+        for play in &mix.plays {
+            assert_eq!(
+                play.held_out,
+                play.asset == "remix.mp3" || held_out.contains(&play.asset)
+            );
+        }
     }
 
     #[test]

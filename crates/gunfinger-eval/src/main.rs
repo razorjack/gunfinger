@@ -433,6 +433,12 @@ enum Command {
         /// indexed file].
         #[arg(long)]
         tagged: Option<PathBuf>,
+        /// With `--kind drops`: also play the panel's pairs whose files
+        /// this index lacks (the other library's, under --other-root), as
+        /// records not in the index, for searching the renders with the
+        /// other library (`mixes-drops-other-pairs-seed-<seed>.json`).
+        #[arg(long, requires = "tagged")]
+        other_pairs: bool,
     },
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -895,6 +901,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             ride_seconds,
             ride_direction,
             tagged,
+            other_pairs,
         } => {
             let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
             let tagged = tagged.map(|path| tagged_assets(kind, &path)).transpose()?;
@@ -916,12 +923,13 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     jobs,
                     rides,
                     tagged: tagged.as_ref(),
+                    other_pairs,
                 },
             )?;
             write_json(
                 &paths.reports().join(format!(
                     "mixes-{}.json",
-                    kind.name(seed, report.rides.as_deref())
+                    kind.name(seed, report.label().as_deref())
                 )),
                 &report,
             )?;
@@ -2405,7 +2413,7 @@ fn judged(
                     audio: Some(
                         report
                             .kind
-                            .renders(&paths.work, report.seed, report.rides.as_deref())
+                            .renders(&paths.work, report.seed, report.label().as_deref())
                             .join(format!("{}.mp3", result.mix.name)),
                     ),
                 })

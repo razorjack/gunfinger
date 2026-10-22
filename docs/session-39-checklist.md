@@ -23,7 +23,7 @@ for scope and rules.
 - [x] 3. The runs: render, CLI `identify -f json` and `show` at 262
   tracks (store-only copy without the held-out records); NAS scale if
   time allows; the scoring script
-- [x] 4. Experiments 0182 (the tracklist on double drops) and 0183 (marked plays)
+- [x] 4. Experiments 0182 (the tracklist on double drops), 0183 (marked plays) and 0185 (three more pairs, NAS scale)
 - [x] 5. (Ahead) the same scenarios at the detection level (`mixes`'s
   scores, `seconds`); experiment 0184
 - [ ] 6. Read-only review by a subagent; findings fixed

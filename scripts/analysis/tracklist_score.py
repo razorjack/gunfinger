@@ -274,6 +274,9 @@ def score_mix(mix, report, shown, library):
     for play in truth:
         play["recording"] = library.recording(play["asset"])
         play["family"] = library.family_of(play["asset"])
+        # Indexed by the library searched, not by the harness's index:
+        # `--other-pairs` plays files only the larger library holds.
+        play["indexed"] = bool(library.indexed_files(play["recording"]))
     entry_of = {}
     for number, entry in enumerate(all_entries):
         for play in entry:
@@ -285,7 +288,7 @@ def score_mix(mix, report, shown, library):
 
     truth_rows = []
     for index, play in enumerate(truth):
-        if play["held_out"]:
+        if not play["indexed"]:
             continue
         recording, family = play["recording"], play["family"]
         own = [found for found in plays if holds(found, recording) and overlap(found, play)]
@@ -299,10 +302,10 @@ def score_mix(mix, report, shown, library):
         if naming:
             outcome = "printed " + ("confident" if naming[0][0]["confidence"] == "confident"
                                     else "possible")
-        elif any("shares_material_with" in found for found in own):
-            outcome = "left out"
         elif any(id(all_entries[entry_of[id(found)]]) in shown_numbers for found in own):
             outcome = "under another entry"
+        elif any("shares_material_with" in found for found in own):
+            outcome = "left out"
         elif own:
             outcome = "found, not printed"
         else:
@@ -327,7 +330,7 @@ def score_mix(mix, report, shown, library):
     for entry in shown_entries:
         recording = named(entry)
         of_named = [found for found in entry if holds(found, recording)]
-        right = [play for play in truth if not play["held_out"] and play["recording"] == recording
+        right = [play for play in truth if play["indexed"] and play["recording"] == recording
                  and any(overlap(found, play) for found in of_named)]
         row = {"start_seconds": min(found["start_seconds"] for found in entry),
                "confidence": entry[0]["confidence"], "name": recording[0], "right": bool(right)}
@@ -338,7 +341,7 @@ def score_mix(mix, report, shown, library):
         recordings = {}
         for found in entry:
             for play in truth:
-                if not play["held_out"] and holds(found, play["recording"]) and overlap(found, play):
+                if play["indexed"] and holds(found, play["recording"]) and overlap(found, play):
                     recordings[play["recording"]] = play["family"]
         if len(recordings) > 1:
             row["merged"] = "within family" if len(set(map(str, recordings.values()))) == 1 \
@@ -380,16 +383,16 @@ def score_mix(mix, report, shown, library):
     for found in plays:
         if "shares_material_with" not in found:
             continue
-        playing = [play for play in truth if not play["held_out"]
+        playing = [play for play in truth if play["indexed"]
                    and holds(found, play["recording"]) and overlap(found, play)]
         marked.append({"asset": found["asset"], "hits": found["hits"],
                        "playing": [play.get("scenario") for play in playing],
                        "family_playing": any(
-                           not play["held_out"] and play["family"] == library.family_of(found["asset"])
+                           play["indexed"] and play["family"] == library.family_of(found["asset"])
                            and overlap(found, play) for play in truth)})
     wrong_confident = [found["asset"] for found in plays if found["confidence"] == "confident"
                        and not any(holds(found, play["recording"]) and overlap(found, play)
-                                   for play in truth if not play["held_out"])]
+                                   for play in truth if play["indexed"])]
     return {"mix": mix["name"], "truth": truth_rows, "entries": entry_rows,
             "wrong_confident": wrong_confident, "marked": marked,
             "entries_printed": len(shown_entries)}

@@ -103,23 +103,25 @@ impl MixKind {
     }
 
     /// Where the mixes of `seed` are rendered under the work directory,
-    /// with rides drawn by `rides` (`RideDraw::label`).
-    pub fn renders(self, work: &Path, seed: u64, rides: Option<&str>) -> PathBuf {
-        work.join("mixes").join(self.name(seed, rides))
+    /// with the label of `MixesReport::label`.
+    pub fn renders(self, work: &Path, seed: u64, label: Option<&str>) -> PathBuf {
+        work.join("mixes").join(self.name(seed, label))
     }
 
     /// The report's and the renders' name: `seed-<seed>` for short mixes,
-    /// `<kind>-seed-<seed>` for the others, and `rides-<label>-seed-<seed>`
-    /// for rides drawn otherwise than by default.
-    pub fn name(self, seed: u64, rides: Option<&str>) -> String {
-        match (self, rides) {
+    /// `<kind>-seed-<seed>` for the others, `rides-<label>-seed-<seed>`
+    /// for rides drawn otherwise than by default and
+    /// `drops-other-pairs-seed-<seed>` for drops with other pairs.
+    pub fn name(self, seed: u64, label: Option<&str>) -> String {
+        match (self, label) {
             (MixKind::Short, _) => format!("seed-{seed}"),
             (MixKind::Long, _) => format!("long-seed-{seed}"),
             (MixKind::Beatmatched, _) => format!("beatmatched-seed-{seed}"),
             (MixKind::Shared, _) => format!("shared-seed-{seed}"),
             (MixKind::Rides, None) => format!("rides-seed-{seed}"),
             (MixKind::Rides, Some(label)) => format!("rides-{label}-seed-{seed}"),
-            (MixKind::Drops, _) => format!("drops-seed-{seed}"),
+            (MixKind::Drops, None) => format!("drops-seed-{seed}"),
+            (MixKind::Drops, Some(label)) => format!("drops-{label}-seed-{seed}"),
         }
     }
 
@@ -678,6 +680,9 @@ pub struct PairRecord {
     pub asset: String,
     pub duration_seconds: f64,
     pub passage: (f64, f64),
+    /// Whether the mixes' index holds the file (the drops kind with
+    /// `Options::other_pairs` plays pairs it does not).
+    pub indexed: bool,
 }
 
 /// A track picked for a long mix, before its play is drawn.
@@ -1099,6 +1104,9 @@ pub struct MixesReport {
     /// `RideDraw::label` of rides drawn otherwise than by default.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rides: Option<String>,
+    /// The drops kind with `Options::other_pairs`.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub other_pairs: bool,
     pub ladder: String,
     pub indexed_assets: usize,
     pub mixes: Vec<MixResult>,
@@ -1132,7 +1140,14 @@ pub struct Options<'a> {
     /// The files the drops kind may play as indexed records (all indexed
     /// files when `None`).
     pub tagged: Option<&'a BTreeSet<String>>,
+    /// The drops kind plays every pair of the panel whose files are tagged
+    /// and not held out, also pairs whose files this index lacks (files of
+    /// the other library, for searching the renders at its scale).
+    pub other_pairs: bool,
 }
+
+/// The label of the drops kind's mixes with other pairs.
+const OTHER_PAIRS: &str = "other-pairs";
 
 impl Options<'_> {
     /// `RideDraw::label` for the rides kind; `None` for the others.
@@ -1140,6 +1155,24 @@ impl Options<'_> {
         (self.kind == MixKind::Rides)
             .then(|| self.rides.label())
             .flatten()
+    }
+
+    /// What tells these mixes' report and renders from the kind's default
+    /// ones: `rides_label`, or `OTHER_PAIRS`.
+    fn label(&self) -> Option<String> {
+        self.rides_label().or_else(|| {
+            (self.kind == MixKind::Drops && self.other_pairs).then(|| OTHER_PAIRS.to_owned())
+        })
+    }
+}
+
+impl MixesReport {
+    /// What tells the report and its renders from the kind's default ones
+    /// (`MixKind::name`).
+    pub fn label(&self) -> Option<String> {
+        self.rides
+            .clone()
+            .or_else(|| self.other_pairs.then(|| OTHER_PAIRS.to_owned()))
     }
 }
 
@@ -1224,11 +1257,13 @@ fn shared_pairs(
                         asset: direction.played.clone(),
                         duration_seconds: length(&direction.played)?,
                         passage: (passage.start_seconds, passage.end_seconds),
+                        indexed: true,
                     },
                     PairRecord {
                         asset: direction.related.clone(),
                         duration_seconds: length(&direction.related)?,
                         passage: (related_start, related_end),
+                        indexed: true,
                     },
                 ],
             });
@@ -1326,7 +1361,13 @@ pub fn run(
                 .indexed
                 .retain(|record| tagged.contains(&record.header.source.path));
         }
-        drops::playable(pairs, &records, &held_out, options.tagged)
+        drops::playable(
+            pairs,
+            &records,
+            &held_out,
+            options.tagged,
+            options.other_pairs,
+        )
     } else {
         pairs
     };
@@ -1341,7 +1382,9 @@ pub fn run(
     };
     let rides = options.rides_label();
     let mut rng = Rng::new(options.seed);
-    let dir = options.kind.renders(work, options.seed, rides.as_deref());
+    let dir = options
+        .kind
+        .renders(work, options.seed, options.label().as_deref());
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
         .map(|number| {
             let name = format!("mix-{number:02}");
@@ -1367,6 +1410,7 @@ pub fn run(
         seed: options.seed,
         kind: options.kind,
         rides,
+        other_pairs: options.kind == MixKind::Drops && options.other_pairs,
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
         mixes: results.into_iter().collect::<Result<_, _>>()?,
@@ -1726,11 +1770,13 @@ mod tests {
                     asset: first.to_owned(),
                     duration_seconds: 400.0,
                     passage: (300.0, 340.0),
+                    indexed: true,
                 },
                 PairRecord {
                     asset: second.to_owned(),
                     duration_seconds: 300.0,
                     passage: (20.0, 60.0),
+                    indexed: true,
                 },
             ],
         }
