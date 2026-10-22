@@ -4318,3 +4318,30 @@ pre-registration `docs/research/2026-10-21-gap-tests.md`; notes
   0167's change, or at 16 workers, the times stay within 2% (37.9 s and 46.4
   s with the change). Reports identical to the 2133 ones apart from
   `wall_seconds`.
+
+## 2026-10-22: session 36, a faster search on the Linux machine, exactly
+
+Brief `docs/brief-36.md`, checklist `docs/session-36-checklist.md`;
+notes "Session 36"; experiments 0169-0174; the research note
+`docs/research/2026-10-21-low-bandwidth-search.md` ("Session 36"). The
+Linux machine at 3600 MT/s.
+
+- 02:34 start at `e0c6316`, clean. Start build `work/bin/s36-start/`
+  (byte-identical to `s35-final`); both regressions identical (1:12;
+  8:16). Session 35's renders deleted (11 GB).
+- 0169 (`3903770`, in master): each part's end found from the front of
+  the list (`front_partition`, tested against `partition_point`), parts
+  of 1,024 assets. The Stakka scan at NAS scale: search 45.3 s instead of
+  47.2 s at 16 workers, 37.9-38.0 s instead of 49.0-49.2 s at 32. Both
+  regressions, the 11 development reports at NAS scale, the clusters
+  sample and the full NAS clustering run (23:02) identical.
+- 0170: timers in a diagnostic build: the pre-filter 43% of the
+  search's CPU at 16 workers, grouping 28%, query analysis 14%, taking
+  parts 6%, sorting and lines 6%, the second pass 2%.
+- 0171, 0172: grouped hits as 4 bytes, raw hits as 6, and grouping from
+  the lists without `part`: 4.5-8% slower at 16 workers; not kept.
+- 0173: repeated hash requests are 5.1% of postings in a window, 14.9%
+  within 4; at most about 1% to gain; not implemented.
+- 0174: `identify` with the NAS configuration: reports identical, CPU
+  3-4% lower at 16 workers and 16-22% at 32; one worker per hardware
+  thread recommended (the default unchanged).

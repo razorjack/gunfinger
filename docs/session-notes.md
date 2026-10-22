@@ -8278,3 +8278,142 @@ mixes at 262 tracks (`work/s35/identify/`).
   session-33-linux-nas` (11:04) with it: every sweep query, scan
   detection and calibrate line identical. `docs/pair-verdicts.txt`
   unchanged.
+
+## Session 36
+
+### What changed
+
+One exact change to the search is in master (`3903770`, experiment 0169):
+`take_part` finds where each part ends in a posting list by doubling from
+the list's front (`front_partition`, with two tests against
+`partition_point`), and a window's hits are grouped 1,024 assets at a time
+instead of 4,096. The same hits reach the pre-filter in the same order, so
+every detection, evidence count, boundary, speed and ordering is
+unchanged: both regressions, the 11 development reports at NAS scale, the
+clusters sample and the full NAS clustering run are byte-identical (apart
+from `wall_seconds`). Nothing else in the product changed. The other
+proposals measured this session were slower or too small and are not in
+the tree.
+
+In short: on the Linux machine at 3600 MT/s the Stakka scan's search
+(NAS scale, 40,683 assets) takes 45.3 s instead of 47.2 s at 16 workers
+and 37.9-38.0 s instead of 49.0-49.2 s at 32; the full NAS clustering run
+takes 23:02 (session 33: 52:30 at 2133 MT/s with the old code); `regress
+session-33-linux-nas` 6:11 instead of 8:16. With the change, 32 workers
+are faster than 16 in the search. In the user's `identify` the CPU time
+falls 3-4% at 16 workers and 16-22% at 32; wall time, which includes
+listing the NAS library, moves within its noise at 16 and falls 1.7-6.3 s
+for two of the three mixes at 32.
+
+### Step 1: items 1 and 2 in master (experiment 0169)
+
+Part sizes measured with the front search, against `s35-final`, two
+interleaved rounds: 1,024 assets 45.3-45.4 s and 37.9-38.0 s (16 and 32
+workers), 2,048 45.5-45.6 s and 38.3-38.8 s, a per-window hit budget
+44.1 s and 37.0-37.1 s. The budget is 2.2-2.7% faster than 1,024, below
+the 3% the design report set for it; the constant 1,024 is kept as the
+simpler code. Validation: `check.sh` green (one rerun after ADR 0020's
+"Text file busy" test race); both regressions identical and every report
+they write identical to its baseline's; the 11 development reports at
+NAS scale (0157's scans and leave-outs) identical to session 33's,
+copied aside before any run; the clusters sample identical to 0168's;
+the full NAS clustering run (session 33's run 2 command, in a scratch
+work directory) byte-identical to session 33's file, SHA-256
+`37bc419d3d25...`.
+
+### Step 2: where the CPU goes (experiment 0170)
+
+Timers in a diagnostic build (per call and per part, summed per worker),
+which cost nothing measurable. Of the search's CPU at 16 and 32 workers:
+the pre-filter 43% and 46%, grouping a part 28% and 24%, query analysis
+14% and 15%, taking parts 6% and 7%, aligning, sorting and lines 6%, the
+second pass 2%, hashing and lookups 0.3%. 49.8 G hits, 1.12 G assets
+filtered, 24.6 M sorted. With 0168 and 0171, this suggests that memory
+traffic limited the search only with the old part size at 32 workers;
+with 1,024-asset parts the work per hit dominates (an inference).
+
+### Steps 3 and 4: narrower hits, no `part` buffer (0171, 0172)
+
+All slower, with identical reports: grouped hits as 4 bytes (frame and an
+anchor relative to the window's first, with an 8-byte fallback) 47.3 s
+against 45.2-45.3 s at 16 workers, raw hits as 6 bytes as well 48.8-49.1
+s, grouping straight from the lists 48.7-48.9 s; at 32 workers 38.4-39.9 s
+against 38.0-38.1 s. By inference the hit buffers already stay in cache
+with 1,024-asset parts, so fewer bytes save nothing, while the narrow
+forms add work per hit. Deleted; sources in `work/s36/lines.rs.*`.
+
+### Step 5: repeated hashes (0173)
+
+Counted, not implemented: 5.1% of requested postings repeat a hash of
+the same window, 10.8% within 2 windows and 14.9% within 4. Each
+occurrence must still be grouped and filtered, so reading it once saves
+at most part of taking parts (6.3% of CPU): about 1%.
+
+### Step 6: `identify` and the number of workers (0174)
+
+`gunfinger --config ~/.config/gunfinger/nas-dnb.toml identify --jobs N -f
+json` on the three development mixes, two rounds: reports byte-identical
+everywhere; user CPU 3-4% lower at 16 workers and 16-22% at 32; wall time
+within its noise at 16 workers (up to 7 s between rounds of one build),
+1.7-6.3 s shorter at 32 for Stakka and Nocny. A cold first run took 8:54,
+nearly all of it waiting for the NAS's directory listing. Recommended:
+keep one worker per hardware thread, since 32 workers are now 16% faster
+than 16 in the search alone and not slower in `identify`; the default is
+unchanged (our decision).
+
+### Times on the Linux machine (3600 MT/s)
+
+| Run | Before (`s35-final`) | Now (`s36-final`) |
+|---|--:|--:|
+| Stakka scan at NAS scale, search, 16 workers | 47.2 s | 45.2-45.4 s |
+| The same, 32 workers | 49.0-49.2 s | 37.9-38.1 s |
+| Clusters sample of 48, 32 workers | 165 s (0168) | 118 s |
+| Full NAS clustering, 32 workers | 52:30 (session 33, 2133 MT/s) | 23:02 |
+| `regress session-33-linux-nas`, 32 workers | 8:16 | 6:11 |
+| `identify` of a development mix at NAS scale, 32 workers | 38.0-54.4 s | 35.7-48.7 s |
+| Peak memory, NAS scans | 4.9-5.1 GiB | 4.8-4.9 GiB |
+
+### Decided this session, open to change
+
+- Parts of 1,024 assets, not the per-window hit budget (2.2-2.7% faster,
+  below its 3% stop point).
+- Step 2's timers ran inside step 1's validation queue, before the full
+  clustering run, and steps 3 and 4 were measured in one A/B (one round:
+  the ranges did not overlap).
+- `identify` was measured with the user's NAS configuration, which lists
+  the NAS library on every run; its wall times carry that noise, so the
+  CPU times are reported beside them.
+- 0169's validation lines were completed two minutes after the chained
+  A/B of steps 3 and 4 had started (brief 03:51).
+
+### Decisions waiting (ours)
+
+- The default worker count: one per hardware thread is recommended now
+  (0174); counting cores would be a platform function (ADR 0020).
+- Whether to try the pre-filter again (43-46% of the CPU here); integer
+  phases lost on the Mac (0108, 13% of its stage against a 20% stop
+  point), and the Linux machine's split differs.
+
+### Handoff for the next session
+
+1. Master's search is 0169's. Builds: `work/bin/s36-start/` (= `s35-final`),
+   `s36-step1/` (validated), `s36-final/` (master; differs from `s36-step1`
+   only in a comment's line shift), and the measured variants
+   `s36-p1024`, `s36-p2048`, `s36-budget`, `s36-narrow4`, `s36-raw6`,
+   `s36-nopart`, `s36-timers`, `s36-repeats` (none in master; sources
+   `work/s36/lines.rs.*`, `budget.diff`, `timers.diff`).
+2. Scripts (`sh`, from the repository root): `work/s36/ab-parts.sh` and
+   `ab-hits.sh` (A/B of builds on the Stakka scan in the scratch work
+   directory `work/s36/w`), `validate.sh <build> <tag>` (both regressions,
+   the 11 development scans compared with `work/s36/ref-reports/`, the
+   clusters sample), `full.sh <build> <tag>` (the full NAS clustering in
+   `work/s36/w-full`, compared with session 33's file), `timers.sh`,
+   `repeats.sh`, `identify-ab.sh`, `final.sh`; `same.py` compares reports
+   apart from `wall_seconds`. Results: `ab-parts.tsv`,
+   `ab-hits-clean.tsv`, `identify-ab*.tsv`, logs in `work/s36/logs/`.
+3. What is left of the research note: item 7 (smaller buffers and sorts;
+   sorting and lines are 6% of the CPU, the second pass 2%) and the
+   pre-filter, now the largest stage. Items 4-6 are measured and dropped;
+   item 8 stays not recommended; item 9 needs a retrieval study.
+4. The search's times on the Linux machine are now at 3600 MT/s (since
+   0168); earlier sessions' times were at 2133 MT/s.

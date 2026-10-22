@@ -26,14 +26,14 @@ for scope and rules.
   0172 (slower, not kept)
 - [x] 5. Repeated hashes: counted, experiment 0173 (below the stop point,
   not implemented)
-- [ ] 6. (Ahead) `identify` A/B on the development mixes; the worker
-  count recommendation
-- [ ] 7. Read-only review by a subagent; findings fixed
+- [x] 6. (Ahead) `identify` A/B on the development mixes; the worker
+  count recommendation (experiment 0174)
+- [~] 7. Read-only review by a subagent; findings fixed
 
 ## Wrap-up
 
-- [ ] "Session 36" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap's "Where search time goes", the
+- [x] "Session 36" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap's "Where search time goes", the
   research note, this checklist
 - [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
   and `regress session-33-linux-nas` identical with the final build;

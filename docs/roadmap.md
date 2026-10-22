@@ -492,6 +492,18 @@ marked as inferences were derived, not measured.
   once, each after a profile with `perf`. Posting compression is not the
   answer to speed here (3.06-3.12 bytes a posting in a sample), only to
   memory and disk.
+  *(session 36, at 3600 MT/s since 0168)* The two changes are in master
+  (0169): the Stakka scan's search 45.3 s instead of 47.2 s at 16 workers
+  and 37.9-38.0 s instead of 49.0-49.2 s at 32, the full NAS clustering
+  run 23:02 (52:30 in session 33 at 2133 MT/s), every report and the
+  clusters file byte-identical. Timers in a diagnostic build replace the
+  profile (0170): the pre-filter is 43% of the search's CPU at 16
+  workers, grouping 28%, query analysis 14%, taking parts 6%, sorting and
+  lines 6%, the second pass 2%. Narrower hits (4 and 6 bytes) and
+  grouping straight from the lists were slower by 4.5-8% at 16 workers
+  (0171, 0172), and repeated hashes are too few to be worth reading once
+  (0173). By inference, what is left is the pre-filter's and the
+  scatter's work per hit, not memory traffic.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

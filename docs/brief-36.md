@@ -179,3 +179,22 @@ Rules for this session:
 - **(04:08) Step 5 counted, not implemented** (0173): 5.1% of requested
   postings repeat a hash of the same window, 14.9% within 4 windows; the
   saving is bounded by taking parts' 6.3% of CPU, so about 1% at most.
+- **(04:05) Step 6 started** at 04:04, with steps 1-5 done before 05:30:
+  `gunfinger --config ~/.config/gunfinger/nas-dnb.toml identify --jobs N
+  -f json <mix>` (the user's command, turntable playback by the
+  configuration) on the three development mixes' audio in
+  `corpus/sets/`, named one by one, `s35-final` against `s36-step1` at 16
+  and 32 jobs (`work/s36/identify-ab.sh`). The CLI only reads the NAS (the
+  library listing) and the store; its saved index in
+  `~/.cache/gunfinger/indexes/` was current and was not rewritten. A
+  warm-up run took 8:54, nearly all of it waiting for the NAS's
+  directory listing (process state `D` in `wait_for_response`); the
+  next run took 45 s, so the warm-up is left out of the comparison.
+- **(04:33) Step 6's result** (0174): reports byte-identical across
+  builds, job counts and two rounds; user CPU 3-4% lower at 16 jobs and
+  16-22% at 32; wall time within its noise at 16 jobs. Recommended: keep
+  one worker per hardware thread; the default is not changed.
+- **(04:34) Final build** `work/bin/s36-final/` from `HEAD`; it differs
+  from `s36-step1` only because the committed comment shifts line
+  numbers. Final checks (`work/s36/final.sh`) started beside the
+  read-only review.

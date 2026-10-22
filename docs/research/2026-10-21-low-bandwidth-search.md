@@ -1,14 +1,16 @@
 # The search on a machine with low memory bandwidth (2026-10-21)
 
-**Status: a plan, with two changes measured.** On the Linux machine (AMD
+**Status: items 1 and 2 in master (session 36, experiment 0169); items 4-6
+measured or counted and dropped (0171-0173).** On the Linux machine (AMD
 Ryzen 9 5950X, 16 cores, 32 hardware threads, 64 GB) the NAS-scale search
 was slower than on the Mac at the default 32 workers (experiments 0155,
 0157, 0158). Two design agents, working independently on one brief
 (`work/perf-design/`: `gpt-6-astra.md` and `claude-fable-5-1.md`, with
 their scratch measurements), read the search path and proposed changes.
 This note consolidates them. Two of the proposals were measured by one
-agent and checked again on a clean copy of master: experiment 0167. Nothing
-here is in the product yet.
+agent and checked again on a clean copy of master: experiment 0167.
+Session 36 adopted them (0169) and measured the rest (below, "Session
+36").
 
 ## What the machine is
 
@@ -66,9 +68,9 @@ reaching the pre-filter (nearly every asset in every window), 24.6 M
 - The query analysis (STFT and peaks, about a quarter of CPU on the Mac's
   profiles) is compute-bound and scales with cores. Sorting and lines are
   3-6%, the second pass 2-3%.
-- Not measured: this machine's split of CPU between taking, grouping, the
-  pre-filter and the analysis. That needs `perf` (`sudo dnf install
-  perf`); both reports give the commands.
+- Not measured here at first: this machine's split of CPU between taking,
+  grouping, the pre-filter and the analysis. Session 36 measured it with
+  timers in a diagnostic build instead of `perf` (0170; below).
 
 ## The proposals, consolidated
 
@@ -146,6 +148,34 @@ none changes postings, `hash::design()` or the saved index.
    stop point (3-5% at 16 workers).
 5. The user, any time: `sudo dmidecode -t 17`, XMP if the DIMMs run below
    their rating, then the same scan again.
+
+## Session 36
+
+All at 3600 MT/s, the Stakka scan at NAS scale, reports identical to
+session 33's apart from `wall_seconds`.
+
+- Items 1 and 2 in master (0169): `front_partition` with tests, parts of
+  1,024 assets. Search 45.3 s instead of 47.2 s at 16 workers, 37.9-38.0 s
+  instead of 49.0-49.2 s at 32; the full NAS clustering run 23:02 (52:30 in
+  session 33 at 2133 MT/s with the old code), its file byte-identical.
+  The per-window hit budget was 2.2-2.7% faster than 1,024, below the 3%
+  set for it, and was not kept.
+- The split (0170), with items 1 and 2 in, at 16 and 32 workers: the
+  pre-filter 43% and 46% of the search's CPU, grouping 28% and 24%,
+  query analysis 14% and 15%, taking parts 6% and 7%, sorting and lines
+  6%, the second pass 2%, lookups 0.3%.
+- Item 4 (0171): grouped hits as 4 bytes 4.5% slower at 16 workers, raw
+  hits as 6 bytes 8% slower; both slower at 32. Dropped.
+- Item 5 (0172): grouping straight from the lists 7.8% slower at 16
+  workers. Dropped.
+- Item 6 (0173): 5.1% of requested postings repeat a hash of the same
+  window, 14.9% within 4 windows; since every occurrence is still grouped
+  and filtered, the saving is at most about 1%. Not implemented.
+- Item 3: see the session notes' "Session 36" for the measured
+  recommendation; the default is unchanged.
+- Left: item 7 (smaller buffers and sorts: sorting and lines are 6%, the
+  second pass 2%), and the pre-filter itself, now the largest stage
+  (integer phases lost on the Mac, 0108; not tried here).
 
 `regress` prints what changed and returns success either way
 (`regress.rs`, `compare`): read its output, do not rely on its exit
