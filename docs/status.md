@@ -4414,3 +4414,64 @@ change.
   under the variant; Stakka +1.7 points, the 2003 mix +0.6.
 - Recommendation (ours to decide): adopt `SpansAtSpeed(0.006)` through
   an ADR after one confirmation on the second shared panel.
+
+## 2026-10-22: after session 38, the listening of the accumulated pack
+
+- The pack `work/listening/` (from session 33's NAS clusters on the
+  Linux machine: one cut join and five borderline pairs, every item
+  without a verdict) was answered on the listening page (21:49-21:56
+  UTC, answer log records 1-6 of `work/audition/answers.jsonl`). The
+  page added six lines to `docs/pair-verdicts.txt`: Dilusion `same`, the
+  other five `different`. The comments by ear, verbatim in
+  `work/audition/listening-comments-2026-10-22.md`:
+  - The old-skool-jungle-dnb upload of Sonar ~ the Mark System
+    Revision: different, no comment. The cut that `--cut-sparsest` made
+    there (0128) agrees.
+  - The corpus China Cup (`extra/b-bad_company-china_cup.mp3`) ~
+    ƆƐI3C's upload: almost identical, but the hi-hats differ for a few
+    bars; technically different.
+  - The Rawkuts Dilusion ~ dfect-dnb's upload: the same recording; one
+    has a needle skip or a cut, so they differ for 1-2 s and the rest
+    is shifted.
+  - Aphrodite - Cool Rock Stuff (APH027 B1) ~ Mobb Deep Vs Urban
+    Takover - Cool Rock Shook Ones: a different mix of the same track,
+    one drum loop replaced by a very similar one.
+  - Kosheen - Hide U ~ the Outrage & Markee Ledge Remix: the same
+    samples and vocals over very different drums.
+  - Dieselboy - The Descent (Phunckateck VIP) ~ Frenchi / Proktah -
+    Scarabeus: completely different; at most the drum rhythm is alike.
+- `clusters --from-peaks --reuse-pairs` with the new verdicts (0.9 s):
+  still 284 clusters; Dilusion's upload joins the Dilusion cluster
+  (three files), and the Sonar chain needs no cut (`cut_links` gone).
+  The clusters file in use is now `d9c85c45…` (was `37bc419d…`; both in
+  `work/listening-2026-10-22/`). Every borderline pair between two
+  clusters has a verdict now, so the pack's selection finds nothing
+  left but controls.
+- What they imply:
+  - Neither coverage nor supported time separates China Cup (78%, 0.90,
+    different) from Dilusion (73%, 0.91, same). Where the other
+    alignments lie does: Dilusion's sit within a few seconds of the
+    main one (offsets +3.9, +6.6 and +5.1 s, as a skip or cut shifts
+    them), so aligned hits continue through the file; China Cup's sit
+    60 and 250 s away (sections repeated elsewhere in the track), and A
+    4:20-5:41 has nothing near the main offset, where by inference the
+    hi-hats differ. Share of the shorter file held by alignments within
+    10 s of the main offset: Dilusion 0.91, China Cup 0.77. Two pairs,
+    so a hypothesis for the version verifier and the join rule, not a
+    rule.
+  - The roadmap names China Cup's upload as most of the false confident
+    detections left at NAS scale. By ear it is a near-identical version:
+    those detections name the right track in a version that differs
+    for a few bars. Whether such a detection counts as wrong is ours to
+    decide; the clusters and the scoring count it as wrong.
+  - Dieselboy ~ Frenchi reached 41% coverage on 6 hits in 2 windows.
+    Coverage on so few hits says little; the pack's borderline
+    selection could require the 30 hits `clusters` uses for related
+    recordings.
+  - Aphrodite's and Kosheen's pairs are shared material that the
+    clusters already keep apart.
+- With the new clusters file, `regress session-33-linux-nas` is identical
+  (720 of 720 sweep queries, all three scans' detections, calibrate;
+  5:56 with `work/bin/s38-final`): Dilusion is in no development scan
+  or sweep query. The recall panels hold it, so their NAS-scale reports
+  may credit the upload next time they run.

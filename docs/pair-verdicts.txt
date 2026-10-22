@@ -80,3 +80,9 @@ different	second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Towe
 same	second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a	DJ Trace - Sonar.m4a
 different	second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a	second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus
 different	extra/a-kemal-animation-sour.mp3	second-library/__youtube_archivists/i-witness-dnb/Kemal - Animation (Silent Extent Remix).opus
+different	second-library/__youtube_archivists/old-skool-jungle-dnb/Trace - Sonar.m4a	second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus
+different	extra/b-bad_company-china_cup.mp3	second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus
+same	extra/rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3	second-library/__youtube_archivists/dfect-dnb/Gridlok - Dilusion.opus
+different	extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3	second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a
+different	second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/moksha-kosheen-moksha05t-2000-sour/x1-kosheen-hide_you-sour.mp3	second-library/__youtube_archivists/i-witness-dnb/Kosheen - Hide U (Outrage & Markee Ledge Remix).opus
+different	second-library/__youtube_archivists/i-witness-dnb/Dieselboy - The Descent (Phunckateck VIP).opus	second-library/__youtube_archivists/i-witness-dnb/Frenchi ⧸ Proktah - Scarabeus.opus

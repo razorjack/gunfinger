@@ -911,7 +911,15 @@ marked as inferences were derived, not measured.
   chain from that run's pairs (session 25), so a rebuild needs
   `--cut-sparsest` again until the cut joins are judged by ear; at
   40,126 records (0128) a second upload of Sonar links the original to
-  the Mark System Revision and was cut the same way. *(larger library)*
+  the Mark System Revision and was cut the same way. *(2026-10-22)* Every
+  borderline pair between two clusters of session 33's NAS run has a
+  verdict now, both Sonar cuts among them (status, "after session 38").
+  China Cup's upload is a near-identical version whose hi-hats differ
+  for a few bars, so its detections name the right track in another
+  version; Dilusion's upload, the same recording with a skip, joins its
+  cluster. Coverage and supported time do not separate the two; how
+  much of the file lies within a few seconds of the main offset might.
+  *(larger library)*
 - **Clustering precision.** Most of session 6's gain at NAS scale came
   from joining rips the clusters had missed, so a wrong join would now
   count a false identification as correct. Coverage counts the span
