@@ -4,7 +4,7 @@
   "3521": {
    "no_detection": {
     "summary": [
-     "work/reports/mixes-rides-seed-3521.json: 191 ridden indexed plays, 329 sides of 30 s or more, 93 lost",
+     "mixes-rides-seed-3521.json: 191 ridden indexed plays, 329 sides of 30 s or more, 93 lost",
      "no-chain      0",
      "first-drop    0",
      "refine-none   0",
@@ -3463,7 +3463,7 @@
    },
    "30s_uncovered": {
     "summary": [
-     "work/reports/mixes-rides-seed-3521.json: 191 ridden indexed plays, 329 sides of 30 s or more, 101 lost",
+     "mixes-rides-seed-3521.json: 191 ridden indexed plays, 329 sides of 30 s or more, 101 lost",
      "no-chain      0",
      "first-drop    0",
      "refine-none   0",
@@ -7220,7 +7220,7 @@
   "3522": {
    "no_detection": {
     "summary": [
-     "work/reports/mixes-rides-seed-3522.json: 191 ridden indexed plays, 327 sides of 30 s or more, 99 lost",
+     "mixes-rides-seed-3522.json: 191 ridden indexed plays, 327 sides of 30 s or more, 99 lost",
      "no-chain      0",
      "first-drop    0",
      "refine-none   0",
@@ -10891,7 +10891,7 @@
    },
    "30s_uncovered": {
     "summary": [
-     "work/reports/mixes-rides-seed-3522.json: 191 ridden indexed plays, 327 sides of 30 s or more, 120 lost",
+     "mixes-rides-seed-3522.json: 191 ridden indexed plays, 327 sides of 30 s or more, 120 lost",
      "no-chain      0",
      "first-drop    0",
      "refine-none   0",
@@ -15337,6 +15337,19 @@
      }
     ]
    }
+  }
+ },
+ "segments_per_ridden_play": {
+  "note": "confident (240 hits, 3 windows) detections of the play's file overlapping it, after the second pass and after the second suppression: (after, final) -> plays",
+  "3521": {
+   "1,1": 2,
+   "2,1": 143,
+   "2,2": 46
+  },
+  "3522": {
+   "1,1": 1,
+   "2,1": 160,
+   "2,2": 30
   }
  }
 }

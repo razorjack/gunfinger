@@ -8451,3 +8451,202 @@ default is unchanged (our decision).
   detection and calibrate line, and each report identical to its
   baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`
   unchanged.
+
+## Session 37
+
+### What changed
+
+The product did not change: no threshold, rule or default, and `regress
+session-32-linux` and `regress session-33-linux-nas` stay identical with
+the new code (the variant off). Added:
+
+- `mixes --kind rides --ride-change A[,B] --ride-seconds A[,B]
+  --ride-direction up|down|either` (`RideDraw` in `mixes.rs`). Every draw
+  takes the same four numbers from the seed's generator, so one seed
+  plans the same files, mix times, speeds and ride starts under every
+  condition (the start in the track, moved back where the faster end
+  would run out, and a few directions, flipped at the ±7% limit, follow
+  the size); non-default draws write
+  `mixes-rides-<label>-seed-<seed>.json` and render to
+  `work/mixes/rides-<label>-seed-<seed>/`. The default draw is session
+  35's (0175's reports equal 0166's).
+- The opt-in `--overlap-by-chains` (harness), `Options::overlap_by_chains`
+  (core, off by default): after the second pass, detections of one asset
+  overlap only where their first-pass chains do, which skips the second
+  `strongest_per_moment`. A test in `search.rs` (a 10 s ride from 1.0 to
+  1.02 in synthetic audio: one confident side by default, two with it).
+- Scripts: `ride_stages.py` (where a lost side is dropped, from a
+  diagnostic trace), `ride_dose.py` (sides lost and time uncovered per
+  condition), `ride_variant.py` (a variant against the default:
+  recovery, wrong and right answers), `ride_candidates.py` (multi-segment
+  plays and dropped confident detections in a scan).
+
+In short: the search loses a side of a ridden play at one rule. A ride
+of 1% or more splits the play into two chains, each confident after the
+second pass; the second pass measures each up to 10 s past its chain,
+both facing ends move into the ramp, and the second
+`strongest_per_moment` drops the weaker side whole. 0.25% rides, and
+0.5% rides over 10 s or more, lose nothing; at 1-2%, and 3% over 2-5 s,
+21-43% of the sides lose 30 s or more (3% over 10-20 s: 4%). In the
+Stakka mix Star Trails loses an 84 s side to this rule at both scales (a
+candidate ride, not checked by ear). Of the existing options only `--single-pass`
+keeps both sides. The variant keeps all of them on new seeds; it names
+no new wrong file anywhere it was run, but on the first shared panel a
+wrong version already confident in two Fire queries gains a second
+segment, so its registered criterion V2 fails by its letter.
+
+### Step 1: where the side is lost (experiment 0175)
+
+On session 35's seeds 3521-3522 (reports equal 0166's), a diagnostic
+build traced each stage. All 192 sides with no confident detection, and
+all 221 with 30 s or more uncovered, are confident after the second pass
+and dropped by the second suppression. The two sides' chains never
+overlap; after the second pass they overlap a median 4.7-5.2 s (up to
+15.8 s), each facing end moved a median 3.6-4.1 s. The generator renders
+pitch and tempo together and continuously; the fitted speeds match the
+rendered ones (median error 0.002%).
+
+### Step 2: how small a ride (experiment 0176)
+
+Seed 3701, 16 mixes per condition, the same 194 ridden plays in every
+condition. Sides of 30 s or more with 30 s or more uncovered (of 248 for
+the drift, 326-347 otherwise): 0% (control) 0; 0.25% 0 and 0; 0.5% over 2-5 s 2, over 10-20 s
+0, over 60 s 0; 1% 133 and 70; 2% 150 and 102; 3% 101 and 14 (short and
+long ramps). Own time uncovered from 5-7 s (control) to 15-33% at 1-2%.
+Up and down alike; no play loses every confident detection; no wrong
+confident detection. 0022's within-play wander (±0.2%) is below the
+smallest ride that costs anything. In the development mixes at NAS
+scale (candidates, nobody listened): Star Trails' slower side (13:13-
+14:37, 306-315 hits, 1.3-1.5% below the kept side) is dropped; the
+manifest has Star Trails until 15:31; it is missing at 262 tracks too.
+Into Music in the 2003 mix plays at 1.040, 1.064 (dropped, 1,392 hits)
+and 1.053. Nocny shows none.
+
+### Step 3: the existing options (experiment 0177)
+
+On 1% over 10-20 s and 3% over 2-5 s: `--extra-rungs 3` changes nothing
+(15% more CPU); `--speed-per-stretch` moves the counts by 1-5 sides
+either way (70 to 75, 101 to 102); `--trim-ends`
+helps the short ramp (101 to 30 sides) and hurts the long one (70 to
+104); `--single-pass` keeps both sides (0 and 8 left) for 11% more CPU at
+262 tracks, but it is the matcher ADR 0008 replaced; the variant leaves
+10 and 6 at no measurable CPU.
+
+### Step 4: the variant (experiment 0178)
+
+Criteria committed before it ran (`8899de4`, brief 05:20). V1: on the
+new seeds 3741-3742 it keeps all 183 sides the default loses (12,606 of
+12,609 s) and 223 of 225 by the partial count. V3 holds everywhere: no
+right answer lost. V2 holds on the test seeds, the sweep at both scales
+(262 tracks identical; at NAS scale 4 queries gain a weak detection), the
+Stakka scans at both scales, the 8 other development reports at NAS
+scale, and the short and long generated mixes of seed 2026. On the first
+shared panel's development half at NAS scale (622 queries, 38:30) no
+query gains a confident file the default lacks, but the variant adds 56
+confident detections: 52 of the played recording and 4 of Fire's Rogue
+Unit remix, a wrong version the default already names confidently
+(4,126 hits) in fire-6's two "beyond" queries (indexed and played left
+out), as a second segment of 366 and 627 hits. The count of wrong
+confident detections rises, so V2 fails by its letter. The default's
+outcome there comes from the same run's trace (`default_final`); 19
+queries matched their trace search only by file and hits. It adds right
+segments elsewhere: Star Trails' slower side, Into Music's middle, part
+of Phantom Force. CPU +0.2% (`regress`, 262 tracks) and +0.4% (NAS
+scale). Not adopted.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; run build; variant) | 1:09; 1:11; 1:10 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build; variant) | 6:05; 5:57; 5:59 | 5.3 GiB |
+| `mixes --kind rides --count 16`, rendering and searching | 3:31-3:40 (4:30 and 5:02 beside `check.sh`) | 13.3-14.4 GiB |
+| The same on cached renders (step 3), default; `--single-pass` | 2:43; 3:02 | 2.5; 3.0 GiB |
+| Development scan at NAS scale (one set) | 0:33-0:52 | 4.9-5.1 GiB |
+| `scripts/check.sh` | 4:52 | |
+
+### Decided this session, open to change
+
+- Step 1 ran on session 35's seeds again (a diagnosis, not a test), so
+  that its counts compare with 0166's.
+- Step 2 used one seed with every condition planning the same plays, and
+  drew directions either way (split in the analysis) instead of
+  rendering up and down apart: 12 renders instead of 23.
+- Lost sides are counted two ways from step 2 on: no confident detection
+  (0166's count) and 30 s or more uncovered, because the kept side's
+  widened end can reach 10 s into a lost side.
+- Step 3 measured two conditions (1% over 10-20 s, 3% over 2-5 s).
+- The variant skips the second suppression rather than clipping the
+  weaker detection: the simplest change that keeps the first-pass
+  evidence as the judge. Its reported segments of one play overlap.
+- The shared panel's default outcome comes from the same run's trace
+  (`default_final`, the default's suppression applied to the same
+  refined list), since no default report of it exists on this machine.
+
+### Decisions waiting (ours)
+
+- Whether to adopt `--overlap-by-chains` (an ADR superseding ADR 0008's
+  consequence for overlapping parts), and whether a play's overlapping
+  segments are shown as measured or clipped at the stronger one's
+  boundary.
+- Whether a wrong file's extra segment, in a query where the default
+  already names that file confidently, is a new wrong answer (V2 as
+  registered says it is).
+- Whether the candidates in the development mixes (Star Trails 13:13-
+  14:37; Into Music around 26:00 in the 2003 mix) are rides by ear.
+
+### Handoff for the next session
+
+1. Reports: `work/reports/mixes-rides-*-seed-3701.json` (step 2's 12
+   conditions), `mixes-rides-seed-374{1,2}.json` and their variant
+   reports under `work/reports/variant-chains/`, step 3's under
+   `variant-stretch/`, `variant-trim/`, `variant-single-pass/`,
+   `extra-rungs-3/`, `variant-chains/`; development scans with the
+   variant in `work/s37/w/reports/library-nas-dnb-peaks/variant-chains/`;
+   the shared run's report under
+   `work/reports/library-nas-dnb-peaks/variant-chains/`. Traces in
+   `work/s37/trace/` (step 1 seeds, step 2 conditions, development scans,
+   the shared run). Renders in `work/mixes/`: step 2's
+   conditions, the test seeds and seed 2026's short and long mixes;
+   delete when no longer needed (16 GB at 07:20).
+2. Builds: `work/bin/s37-start/` (= `s36-final`), `s37-run/` (the
+   variant in, off by default), `s37-final/` (master). Trace builds (never
+   committed; the worktree `work/s37/diag`): `work/s37/target-diag`
+   (step 1), `target-diag2` (with the generator options), `target-diag3`
+   (with the variant, logging `default_final`).
+3. Scripts (`sh`, from the repository root): `work/s37/step1.sh`,
+   `step2.sh`, `step2b.sh`, `step3.sh`, `step4.sh`, `final.sh`;
+   `step3-summary.sh`; `shared_searches.py` and `shared_roles.py` (the
+   shared run's trace split into searches and matched to its report);
+   logs in `work/s37/logs/`.
+4. Next, if we continue: a narrower variant that keeps a dropped
+   detection only when its fitted speed differs from the stronger one's
+   by more than the chain link rule's 0.6% (not measured; the ridden
+   sides differ by 1% or more, while Fire's added segments lie 0.4% and
+   0% from the kept one), with its own registered test on the shared
+   panel and a default shared run for comparison; then the ADR; a `robust` condition
+   with a ride inside a 30 s excerpt (step 5, not done: whether a ride
+   costs recall in the sweep's kind of excerpts at 262 tracks and NAS
+   scale); listening to the two candidates.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  one by one. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file. The NAS and its store were only read; no
+  `index`, `prune` or clusters run.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s37/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed (new seeds' sweep panels went to
+  `work/s37/panels`).
+- A queue fault: step 2b's wait matched its own tmux session by prefix
+  and waited on itself; it was restarted after step 2 had finished (brief
+  06:01). No two runs overlapped.
+- Step 5 (a ride in `robust`) was not done: steps 1-4 took the time.
+- 0175 and 0177 were committed about a minute after the next step's
+  queued runs had started (the queues were chained), against AGENTS.md's
+  order; neither file uses the later step's data (brief 07:40).
+- A read-only review by a separate agent (07:21-07:36) found no code
+  defect and a dozen overstated or wrong figures in the documents; all
+  fixed (brief 07:40).

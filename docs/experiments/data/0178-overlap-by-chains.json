@@ -1,0 +1,97 @@
+{
+ "experiment": "0178",
+ "variant": "--overlap-by-chains",
+ "criteria": "docs/brief-37.md, 05:20",
+ "rides_test_seeds": {
+  "3741": {
+   "lost_no_detection": 87,
+   "kept_by_variant": 87,
+   "missing_seconds": 6175,
+   "recovered_seconds": 6174,
+   "lost_30s_uncovered": 112,
+   "variant_30s_uncovered": 2,
+   "right_plays": [
+    185,
+    185
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ]
+  },
+  "3742": {
+   "lost_no_detection": 96,
+   "kept_by_variant": 96,
+   "missing_seconds": 6434,
+   "recovered_seconds": 6432,
+   "lost_30s_uncovered": 113,
+   "variant_30s_uncovered": 0,
+   "right_plays": [
+    196,
+    196
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ]
+  }
+ },
+ "sweep_2026": {
+  "262_tracks": "720 of 720 identical",
+  "nas_scale": "716 of 720 identical; 4 gain a weak detection (6-15 hits); recall 540 -> 540; wrong 7 -> 7"
+ },
+ "stakka_scans_both_scales": "identified and wrong unchanged; Star Trails' 13:13 side added (306-315 hits); false candidates of 30 hits or more 18 -> 19 at 262 tracks, 95 -> 95 at NAS scale",
+ "other_development_reports_nas": {
+  "reports": 8,
+  "wrong": "0 -> 0",
+  "right": "unchanged",
+  "confident_added": [
+   "Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+   "Digital & Spirit - Phantom Force.m4a"
+  ]
+ },
+ "generated_mixes_2026": {
+  "short": "identical",
+  "long": {
+   "added": 42,
+   "confident_added": 0,
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "right": [
+    191,
+    191
+   ]
+  }
+ },
+ "shared_panel_development_nas": {
+  "queries": 622,
+  "matched_exactly": 603,
+  "matched_by_file_and_hits": 19,
+  "files_newly_confident": 0,
+  "confident_added": 56,
+  "of_played_recording": 52,
+  "of_wrong_version_already_confident": {
+   "count": 4,
+   "file": "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+   "queries": "fire-6 beyond 134.7 and 144.7 s, everything and played left out",
+   "hits": [
+    366,
+    627
+   ],
+   "default_hits": 4126
+  },
+  "default_from": "default_final stage of the same run's trace"
+ },
+ "cpu_user_seconds": {
+  "regress_262": [
+   1777.57,
+   1781.71
+  ],
+  "regress_nas": [
+   10286.71,
+   10324.51
+  ]
+ }
+}

@@ -20,17 +20,18 @@ for scope and rules.
   `strongest_per_moment`, after the second pass's margin)
 - [x] 2. Dose-response on new seeds (size, ramp, direction, drift);
   development scans' split plays as candidates; experiment 0176
-- [~] 3. Existing options (`--speed-per-stretch`, `--extra-rungs`,
+- [x] 3. Existing options (`--speed-per-stretch`, `--extra-rungs`,
   `--trim-ends`, `--single-pass`, others); experiment 0177
-- [~] 4. A candidate variant (if step 1 names a rule), criteria committed
-  before its test seeds (`8899de4`); experiment
-- [ ] 5. (Ahead) a ride inside the sweep's 30 s excerpts
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [x] 4. A candidate variant (if step 1 names a rule), criteria committed
+  before its test seeds (`8899de4`); experiment 0178 (V1 and V3 hold; V2 fails by its letter on the shared panel)
+- [-] 5. (Ahead) a ride inside the sweep's 30 s excerpts (not done:
+  steps 1-4 took the time; brief 07:21)
+- [x] 6. Read-only review by a subagent; findings fixed
 
 ## Wrap-up
 
-- [ ] "Session 37" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap, this checklist
+- [x] "Session 37" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap, this checklist
 - [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
   and `regress session-33-linux-nas` identical with the final build;
   `docs/pair-verdicts.txt` unchanged; `git status` clean

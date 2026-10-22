@@ -170,7 +170,7 @@ pub struct Options {
     /// evidence still counts them.
     pub trim_weak_ends: bool,
     /// After the second pass, a detection overlaps a stronger one of the
-    /// same asset only where their first-pass chains overlap, so that the
+    /// same asset only where their first-pass detections overlap, so that the
     /// two sides of a change of speed within a play are both kept although
     /// the second pass's margin moves their ends into each other's span
     /// (experiment 0175).
@@ -248,8 +248,9 @@ fn detections_and_chains(
     let mut refined = refine::refine(index, samples, profile, &lines, chained, jobs, options);
     refined.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
     if options.overlap_by_chains {
-        // `strongest_per_moment` has already left no two chains of one
-        // asset overlapping.
+        // `strongest_per_moment` has already left no two first-pass
+        // detections of one asset overlapping (with `trim_weak_ends`, as
+        // trimmed).
         return (lines, refined);
     }
     (lines, strongest_per_moment(refined))

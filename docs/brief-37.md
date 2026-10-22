@@ -220,3 +220,58 @@ Read from the code, to be checked by measurement in step 1:
   development run, after its criteria commit). The 2% conditions lose
   more but sit between these two in both counts; two conditions keep
   step 3 to about 25 minutes.
+- **(07:12) Step 4 so far, against the criteria.** V1 on the test seeds:
+  the variant keeps all 183 sides the default loses (87 + 96), 100% of
+  their 12,609 s; by the partial count 223 of 225. V2 and V3: no wrong
+  confident detection on the test seeds; the sweep at 262 tracks
+  identical; at NAS scale 4 of 720 sweep queries gain a weak detection
+  (6-15 hits), recall 540 and wrong answers 7 unchanged; the Stakka scan
+  and its leave-outs gain Star Trails' slower side at both scales, wrong
+  0 and identified unchanged, calibrate's false candidates at 30 hits or
+  more 18 to 19 at 262 tracks (95 at NAS scale; strongest false
+  unchanged); the 8 other development reports at NAS scale: wrong 0,
+  right unchanged, confident additions only Into Music and Phantom Force
+  (right).
+- **(07:20) Step 4's generated mixes.** Short and long mixes of seed 2026
+  were rendered again and searched with the default and the variant
+  (`work/bin/s37-run`): short identical; long, wrong confident 0 -> 0,
+  right 191 -> 191, 42 weak or possible detections added (one mix: a
+  second possible segment of a version already possible there).
+- **(07:21) Step 5 skipped, review started early.** Step 5 (a ride in
+  `robust`) is left for a later session; steps 1-4 fill the time. The
+  read-only review was started at 07:21 on the commits and the
+  uncommitted documents while the shared run (the last step 4 run)
+  finished, to save time; its pending figure was named to it.
+- **(07:40) The review's findings** (a separate agent, read-only,
+  07:21-07:36; it wrote one scratch file in `/tmp`, outside the
+  repository). No code defect. Fixed: "from 1%, 21-43% of the sides" was
+  false for 3% over 10-20 s (4%), now stated per condition; the notes
+  said `--speed-per-stretch` changes nothing (it moves the counts by 1-5
+  sides); the development mixes' rides were stated as fact (candidates);
+  the sides per condition (248 for the drift); 0176's "up to 20 s" (19.5 s,
+  from the traces); 0175's chain overlap is over 191 sides (the 192nd only
+  touches); 0175's segment counts added to its data; directory paths
+  removed from 0175's data; times and memory in the notes' table; "the
+  same plays under every condition" (the files, mix times, speeds and
+  ride starts are the same; the start in the track and a few directions
+  follow the size); 0176's trace build named correctly; 0178 trimmed to
+  40 lines; the variant's code comment (first-pass detections, trimmed
+  with `--trim-ends`). Two corrections to this brief: at 05:10 the
+  default draw's identity rests on the identical reports of 0175, not
+  on a test; and the experiment files 0175 and 0177 were committed one
+  minute after the queued runs of the next step had started (05:13 and
+  06:44; the queues were chained), against AGENTS.md's order; their
+  content used only the earlier step's data. `check.sh` was started at
+  05:18, stopped and restarted at 05:19 for a code edit, and ran beside
+  two renders (4:30 and 5:02 instead of 3:40).
+- **(07:58) The shared run's result** (38:30, 622 queries). The trace's
+  searches were split by stage order (477 with detections) and matched
+  to the report's queries (603 exactly, 19 by file and hits). No query
+  gains a confident file the default lacks; 56 confident detections are
+  added, 52 of the played recording and 4 of Fire's Rogue Unit remix
+  (role `other`, a wrong version the default already names confidently)
+  in fire-6's two "beyond" queries, indexed and played left out. The
+  count of wrong confident detections rises, so V2 fails by its letter;
+  0178 says so. No default shared run was started for a direct
+  comparison: it is past 07:45, and the trace gives the default's list
+  from the same searches.

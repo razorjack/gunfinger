@@ -332,6 +332,28 @@ marked as inferences were derived, not measured.
   (experiment 0032). Wow is too fast for it. Adopt if a real play near
   the 240-hit rule needs it. Under the default matcher (ADR 0008) it is
   one field of `Matcher::Fitted`'s options; rerun the protocol.
+  *(sessions 35 and 37, experiments 0166 and 0175-0178)* A sustained
+  pitch ride costs more than hits: a ride of 1% or more splits the play
+  into two chains, each confident after the second pass, and the second
+  pass's 10 s margin widens both into the ramp, so `strongest_per_moment`
+  drops the weaker side whole (0175). Rides of 0.25%, or 0.5% over 10 s
+  or more, lose nothing; at 1-2%, and 3% over 2-5 s, 21-43% of the sides
+  lose 30 s or more, at 3% over 10-20 s 4% (0176). The development mixes
+  hold candidates: Star Trails' slower side
+  (13:13-14:37 in the Stakka mix, 306-315 hits) is dropped at both
+  scales, and Into Music's middle segment in the 2003 mix (candidates,
+  not checked by ear). Of the existing options only `--single-pass`
+  keeps both sides (0177). The opt-in `--overlap-by-chains` judges the
+  overlap on the first-pass chains: on new seeds it keeps all 183 lost
+  sides at no measurable CPU, with no new wrong confident detection on
+  the sweep, the development scans and leave-outs and the generated
+  mixes; on the first shared panel no query gains a wrong file, but a
+  wrong version already confident in two Fire queries gains a second
+  segment (4 wrong confident detections more), so its registered V2
+  fails by its letter (0178). Adopting it is our decision and needs an
+  ADR superseding ADR 0008's consequence for overlapping parts, including
+  how a play shows its overlapping segments and whether a wrong file's
+  extra segment is a new wrong answer.
 - **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
@@ -381,7 +403,10 @@ marked as inferences were derived, not measured.
   DJ mixes, crediting each answer to its matched interval instead of the
   whole 20 s query raised specificity from 0.56 to 0.80 (Sonnleitner et
   al. 2016, §6). Per-second scoring (Evaluation) would measure how
-  accurate the boundaries are.
+  accurate the boundaries are. The second pass measures up to 10 s past
+  a chain; at a pitch ride that moves both sides' facing ends a median
+  4 s into the ramp, so that one side overlaps the other (experiment
+  0175).
 - **Where search time goes.** Measured on an idle machine (experiment
   0028): at 262 assets 80-88% of search CPU analyses the query on 82
   rungs; at 26,462 assets 77-87% sorts each window's hits by asset and

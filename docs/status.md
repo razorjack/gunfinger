@@ -4349,3 +4349,33 @@ Linux machine at 3600 MT/s.
   (five figures, wording, two code comments). Final checks with
   `work/bin/s36-final/`: `check.sh` green; both regressions identical
   (1:10; 5:56); `docs/pair-verdicts.txt` unchanged.
+
+## 2026-10-22: session 37, lost sides of a pitch ride
+
+Brief `docs/brief-37.md`, checklist `docs/session-37-checklist.md`;
+notes "Session 37"; experiments 0175-0178. The product did not change.
+
+- 04:56 start at `a0b91e4`, clean. Start build `work/bin/s37-start/`
+  (byte-identical to `s36-final`); both regressions identical (1:09;
+  6:05).
+- 0175: every lost side of 0166's seeds (192 without a confident
+  detection, 221 with 30 s or more uncovered) is confident after the
+  second pass and dropped by the second `strongest_per_moment`: the
+  second pass's 10 s margin moves both sides' facing ends into the ramp
+  (overlap median 4.7-5.2 s); the chains never overlap.
+- `mixes --kind rides --ride-change --ride-seconds --ride-direction`
+  (one seed plans the same files, mix times, speeds and ride starts under
+  every condition).
+- 0176: rides of 0.25%, and 0.5% over 10 s or more, lose nothing; at
+  1-2%, and 3% over 2-5 s, 21-43% of the sides lose 30 s or more (3% over
+  10-20 s: 4%). Star Trails' slower side in
+  the Stakka mix (84 s) is dropped at both scales; Into Music's middle
+  segment in the 2003 mix (candidates).
+- 0177: of the existing options only `--single-pass` keeps both sides.
+- 0178: the opt-in `--overlap-by-chains` (criteria committed first)
+  keeps all 183 lost sides on new seeds, with no new wrong confident
+  detection on the sweep at both scales, the development scans and
+  leave-outs and the generated mixes; CPU +0.2-0.4%. On the first shared
+  panel no query gains a wrong file, but a wrong version already
+  confident in two Fire queries gains a second segment (4 detections):
+  V2 fails by its letter. Not adopted (an ADR).

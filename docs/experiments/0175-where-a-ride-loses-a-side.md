@@ -19,7 +19,7 @@ other side). Data `data/0175-where-a-ride-loses-a-side.json`.
 | Lost sides (240 hits in 3 windows); with 30 s or more uncovered | 93 / 99; 101 / 120 |
 | Lost in lines or chains; at the first suppression; in the second pass | 0; 0; 0 |
 | Confident after the second pass, dropped at the second suppression | all, either count |
-| Overlap of the two sides' chains | 0 s in all 192 |
+| Overlap of the two sides' chains | 0 s in all 191 with a stronger neighbour |
 | Overlap after the second pass: median; 90%; max | 4.7-5.2 s; 10.4-10.5 s; 15.8 s |
 | Facing end moved by the second pass: dropped side; kept side (medians) | 3.8-4.0 s; 3.6-4.1 s |
 | Dropped side's fitted speed against its rendered speed: median; max | 0.002%; 0.028% |
@@ -27,7 +27,7 @@ other side). Data `data/0175-where-a-ride-loses-a-side.json`.
 - 379 of the 382 ridden plays split into two chains at the ride, each
   confident after the second pass (1,539-6,863 hits for the dropped
   sides); 303 then lose one (192 a side of 30 s or more), 76 keep both
-  as segments of one play. One dropped side only touches the kept one.
+  as segments of one play. The 192nd dropped side only touches the kept.
 - The generator renders a ride as a turntable would: the native render
   read at the integrated position (`source_at`, continuous, tested), so
   pitch and tempo change together; the fitted speeds match the rendered.
