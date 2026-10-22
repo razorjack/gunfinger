@@ -275,3 +275,7 @@ Read from the code, to be checked by measurement in step 1:
   0178 says so. No default shared run was started for a direct
   comparison: it is past 07:45, and the trace gives the default's list
   from the same searches.
+- **(08:11) Final checks** (`work/s37/final.sh`, build `work/bin/s37-final/`
+  from `c684370`): `check.sh` green (3:21); both regressions identical
+  (1:09; 5:56) and every report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` SHA-256 equal to the start's.

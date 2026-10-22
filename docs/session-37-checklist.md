@@ -32,6 +32,6 @@ for scope and rules.
 
 - [x] "Session 37" in `docs/session-notes.md`, with the handoff
 - [x] `docs/status.md`, the roadmap, this checklist
-- [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
+- [x] Final checks (08:00-08:11, `work/bin/s37-final/` from `c684370`): `scripts/check.sh` green; `regress session-32-linux`
   and `regress session-33-linux-nas` identical with the final build;
   `docs/pair-verdicts.txt` unchanged; `git status` clean

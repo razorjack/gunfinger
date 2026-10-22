@@ -8650,3 +8650,9 @@ scale). Not adopted.
 - A read-only review by a separate agent (07:21-07:36) found no code
   defect and a dozen overstated or wrong figures in the documents; all
   fixed (brief 07:40).
+- Final checks (08:00-08:11) with `work/bin/s37-final/` built from
+  `c684370`: `scripts/check.sh` green (3:21); `regress session-32-linux`
+  (1:09) and `regress session-33-linux-nas` (5:56) identical, every sweep
+  query, scan detection and calibrate line, and each report identical to
+  its baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`
+  unchanged (SHA-256 `ad0fc785d26a...`).

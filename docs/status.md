@@ -4379,3 +4379,8 @@ notes "Session 37"; experiments 0175-0178. The product did not change.
   panel no query gains a wrong file, but a wrong version already
   confident in two Fire queries gains a second segment (4 detections):
   V2 fails by its letter. Not adopted (an ADR).
+- 07:21-07:36 read-only review by a separate agent; its findings fixed
+  (overstated figures, 0178's length, paths in 0175's data, a code
+  comment). Final checks with `work/bin/s37-final/`: `check.sh` green;
+  both regressions identical (1:09; 5:56); `docs/pair-verdicts.txt`
+  unchanged.
