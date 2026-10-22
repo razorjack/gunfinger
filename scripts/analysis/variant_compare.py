@@ -12,8 +12,11 @@ against report, for the criteria of brief 38 (08:26).
       and indexed queries confident on their own cluster in each, queries
       that gain a wrong one or lose a right one, and queries whose
       detections differ
+  answers DEFAULT VARIANT  `mixes` or `scan` reports: each indexed play
+      (or referenced track) confident (identified) by default and not
+      with the variant, and the reverse
 
-usage: python3 -I scripts/analysis/variant_compare.py shared|sweep DEFAULT VARIANT
+usage: python3 -I scripts/analysis/variant_compare.py shared|sweep|answers DEFAULT VARIANT
 """
 
 import collections
@@ -83,9 +86,24 @@ def sweep(default_path, variant_path):
             print("   detections differ:", key)
 
 
+def answers(default_path, variant_path):
+    def right(report):
+        if "mixes" in report:
+            return {
+                (r["mix"]["name"], i)
+                for r in report["mixes"]
+                for i, p in enumerate(r["score"]["plays"])
+                if not p["truth"]["held_out"] and p["level"] == "confident"
+            }
+        return {t["label"] for t in report["score"]["tracks"] if t["identified"]}
+
+    default, variant = (right(json.load(open(p))) for p in (default_path, variant_path))
+    print(f"{variant_path}: right {len(default)} -> {len(variant)}; lost {sorted(default - variant)}; gained {sorted(variant - default)}")
+
+
 def main():
     command, default_path, variant_path = sys.argv[1:4]
-    {"shared": shared, "sweep": sweep}[command](default_path, variant_path)
+    {"shared": shared, "sweep": sweep, "answers": answers}[command](default_path, variant_path)
 
 
 if __name__ == "__main__":

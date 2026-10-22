@@ -1,0 +1,149 @@
+{
+ "experiment": "0179",
+ "variant": "--apart-in-speed 0.006",
+ "rides_seed_3801": {
+  "3pct-2-5s": {
+   "lost_sides": 94,
+   "kept": 94,
+   "partial_lost": 101,
+   "partial_kept": 101,
+   "wrong": [
+    0,
+    0
+   ],
+   "right": [
+    191,
+    191
+   ]
+  },
+  "3pct-10-20s": {
+   "lost_sides": 10,
+   "kept": 10,
+   "partial_lost": 10,
+   "partial_kept": 10,
+   "wrong": [
+    0,
+    0
+   ],
+   "right": [
+    191,
+    191
+   ]
+  },
+  "1-2pct-2-5s": {
+   "lost_sides": 44,
+   "kept": 44,
+   "partial_lost": 143,
+   "partial_kept": 143,
+   "wrong": [
+    0,
+    0
+   ],
+   "right": [
+    191,
+    191
+   ]
+  },
+  "1-2pct-10-20s": {
+   "lost_sides": 109,
+   "kept": 109,
+   "partial_lost": 126,
+   "partial_kept": 122,
+   "wrong": [
+    0,
+    0
+   ],
+   "right": [
+    191,
+    191
+   ]
+  },
+  "lost_seconds": 17487,
+  "recovered_seconds": 17484
+ },
+ "sweep_2026": {
+  "262": "identical",
+  "nas": {
+   "queries_changed": 4,
+   "wrong": [
+    7,
+    7
+   ],
+   "right": [
+    540,
+    540
+   ]
+  }
+ },
+ "calibrate_false_candidates_30_hits": {
+  "262": [
+   18,
+   18
+  ],
+  "nas": [
+   95,
+   95
+  ]
+ },
+ "development_reports_nas": {
+  "wrong": [
+   0,
+   0
+  ],
+  "right_unchanged": true,
+  "confident_added": {
+   "scan-stakka-skynet-knowledge.json": [
+    "Kemal & Rob Data - Star Trails.mp3",
+    "a-konflict-star_trails-sour.mp3",
+    "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus"
+   ],
+   "scan-razorjack-2003-03-29.json": [
+    "Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus"
+   ]
+  }
+ },
+ "mixes_2026": {
+  "short": "identical",
+  "long": {
+   "weak_added": 14,
+   "wrong": [
+    0,
+    0
+   ],
+   "right": [
+    191,
+    191
+   ]
+  }
+ },
+ "shared_development_half_nas": {
+  "queries": 622,
+  "confident_by_role_default": {
+   "played": 516,
+   "other": 475,
+   "related": 430,
+   "partner": 8
+  },
+  "confident_by_role_variant": {
+   "played": 516,
+   "other": 475,
+   "related": 430,
+   "partner": 8
+  },
+  "weak_added": 185
+ },
+ "user_cpu_seconds": {
+  "regress_262": [
+   1749.64,
+   1772.17
+  ],
+  "regress_nas": [
+   10259.98,
+   10344.78
+  ],
+  "shared": [
+   11841.41,
+   11477.89
+  ]
+ }
+}

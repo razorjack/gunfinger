@@ -216,3 +216,54 @@ Rules for this session:
 - **(08:27) `--overlap-by-chains` on seed 3801 last**, after the shared
   variant run, as a comparison only (not a criterion); dropped first if
   time runs short.
+- **(09:02) The default shared run** (start build, 38:31, 6.2 GiB; it
+  ran beside `check.sh` twice, 08:22-08:31). Compared query by query with
+  session 37's `--overlap-by-chains` report (`variant_compare.py shared`):
+  confident detections of role `played` 516 -> 568, `other` 475 -> 479
+  (the Rogue Unit remix's second segment in fire-6's two "beyond"
+  queries, indexed and played left out), `related` 430 and `partner` 8
+  unchanged, no query loses a played or partner detection. So session
+  37's trace-based default (`default_final`) gave the same outcome as a
+  real default run.
+- **(09:27) S1 on seed 3801** (renders 3:32-3:34 and 14.4-15.1 GiB each,
+  variant searches on the cached renders 2:37-2:39). Sides of 30 s or
+  more with no confident detection by default, kept by the variant: 3%
+  over 2-5 s 94 of 94, over 10-20 s 10 of 10; 1-2% over 2-5 s 44 of 44,
+  over 10-20 s 109 of 109: 257 of 257, 100% of their 17,487 s (3 s
+  short). By the partial count 376 of 380 (the four left at 1-2% over
+  10-20 s). Wrong confident 0 -> 0 and right 191 -> 191 in every
+  condition, no play lost or gained (`variant_compare.py answers`). S1
+  holds.
+- **(09:44) S2 and S3 so far** (all but the shared panel). `regress
+  session-32-linux` with the variant: sweep identical, the Stakka scan
+  and leave-out 3 gain Star Trails' 13:13-14:37 side (315 hits),
+  calibrate unchanged (false candidates 18 -> 18). `regress
+  session-33-linux-nas`: 716 of 720 sweep queries identical (the same 4
+  weak additions as 0178), wrong 7 -> 7, right 540 -> 540; Stakka gains
+  the side in three files (306-315 hits); calibrate unchanged (95 ->
+  95). The 8 other development reports at NAS scale: wrong 0 -> 0, right
+  unchanged; the 2003 mix and its leave-out 3 gain Into Music's
+  25:57-26:56 segment (1,392 hits); weak detections otherwise; Phantom
+  Force's 0.005% segment, which 0178 added, stays dropped. Short mixes
+  of seed 2026 identical; long: 14 weak added, wrong 0 -> 0, right 191 ->
+  191. Nothing removed except one possible detection in seed 3801's 1-2%
+  over 10-20 s (no play changes).
+- **(09:42) Queue reordered.** The step 2 queue had reached `robust`
+  (step 3, experiment 0180) before the shared variant run, the last run
+  of 0179, which AGENTS.md's order forbids (an experiment file before
+  the next experiment's runs). Its first `robust` run was stopped after
+  a minute (partial renders deleted; the cache reuses only completed
+  renders) and a new queue (`work/s38/step2b.sh`, tmux `s38shared`) runs
+  the shared variant run, then waits for `work/s38/0179-written` before
+  `robust`; `--overlap-by-chains` on seed 3801 last, skipped if
+  `work/s38/stop-chains` exists. zsh expands `=s38queue`, so the first
+  attempt to stop the tmux session by exact name failed; the processes
+  were stopped by PID.
+- **(10:20) The shared variant run** (35:27). Against the default run
+  (`variant_compare.py shared`): confident detections by role identical
+  in every query (played 516, other 475, related 430, partner 8), no
+  query loses a played or partner detection; 185 weak detections added
+  in 59 queries. User CPU 11,478 s against the default's 11,841 s, which
+  ran beside `check.sh`. S1, S2 and S3 all hold: the variant passes its
+  registered criteria (0179). `robust` released (`work/s38/0179-written`)
+  after 0179 was committed.
