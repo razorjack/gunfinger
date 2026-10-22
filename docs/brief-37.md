@@ -149,15 +149,42 @@ Read from the code, to be checked by measurement in step 1:
   `mixes-rides-<label>-seed-<seed>.json` and render to
   `work/mixes/rides-<label>-seed-<seed>/`. The default draw is unchanged
   (a test; the step 1 reports compare with session 35's).
-- **(05:20) Step 1's answer** (0175): both reports equal session 35's;
+- **(05:13) Step 1's answer** (0175): both reports equal session 35's;
   all 192 lost sides are confident after the second pass and dropped by
   the second `strongest_per_moment`, because the second pass's 10 s
   margin moves both sides' facing ends into the ramp, a median 4.7-5.2 s
   of overlap; the chains never overlap. So step 4 has a rule to vary.
-- **(05:20) Step 2's design.** One new seed, 3701, 16 mixes per
+- **(05:13) Step 2's design.** One new seed, 3701, 16 mixes per
   condition, every condition planning the same plays: a 0% ride (the
   linear-interpolation render without a change, the control), 0.25, 0.5,
   1, 2 and 3% over 2-5 s and over 10-20 s, and a drift of 0.5% over 60 s
   (cut short where the play ends first). Directions drawn either way and
   split in the analysis, which halves the renders (12 instead of 23).
   Runs with the trace build (`work/s37/target-diag2`, logging only).
+- **(05:20) Step 4's variant and criteria, committed before it runs
+  anywhere.** The variant: `--overlap-by-chains` (harness;
+  `Options::overlap_by_chains` in the core, off by default): after the
+  second pass, a detection overlaps a stronger one of the same asset only
+  where their first-pass chains overlap. The first suppression has
+  already left no two chains of one asset overlapping, so the variant
+  skips the second suppression. It cannot remove a detection; it can only
+  keep ones the default drops. Test seeds: rides 3741 and 3742 (default
+  draw, 16 mixes each, never rendered before). Criteria:
+  - V1, recovery: of the sides of 30 s or more that the default loses on
+    the test seeds, the variant covers at least 90% with a confident
+    detection of the play's own file, and at least 90% of their seconds.
+  - V2, no new wrong confident answer: the count of wrong confident
+    detections does not rise, and no confident detection of an asset
+    that is wrong at its time appears that the default lacks, on the
+    sweep (seed 2026) at 262 tracks and at NAS scale, the three
+    development scans and their eight leave-outs at NAS scale, the short
+    and long generated mixes of seed 2026, the first shared-material
+    panel's development half at NAS scale, and the test seeds.
+  - V3, no right answer lost: every confident identification of the
+    default stays (by construction; checked on the same runs).
+  - Reported beside, not criteria: confident segments added to right
+    plays, possible detections added, search time.
+  Where a run gives the default's output only through the trace build's
+  `default_final` stage (the default's suppression applied to the same
+  refined list), that is said, and the trace is checked against a real
+  default report wherever one exists.

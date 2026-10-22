@@ -27,6 +27,11 @@ pub struct Matching {
     /// Detections' boundaries leave out weak windows at either end.
     #[arg(long, global = true)]
     pub trim_ends: bool,
+    /// After the second pass, detections of one asset overlap only where
+    /// their first-pass chains do, so that both sides of a pitch ride are
+    /// kept (experiment 0175).
+    #[arg(long, global = true, conflicts_with = "single_pass")]
+    pub overlap_by_chains: bool,
 }
 
 impl Matching {
@@ -61,6 +66,9 @@ impl Matching {
         if self.trim_ends {
             parts.push(String::from("trim"));
         }
+        if self.overlap_by_chains {
+            parts.push(String::from("chains"));
+        }
         (!parts.is_empty()).then(|| parts.join("-"))
     }
 
@@ -68,6 +76,7 @@ impl Matching {
         Options {
             speed_per_stretch: self.speed_per_stretch,
             trim_weak_ends: self.trim_ends,
+            overlap_by_chains: self.overlap_by_chains,
             ..self.matcher().options()
         }
     }

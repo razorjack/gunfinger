@@ -94,20 +94,23 @@ impl MixKind {
         *self == MixKind::Short
     }
 
-    /// Where the mixes of `seed` are rendered under the work directory.
-    pub fn renders(self, work: &Path, seed: u64) -> PathBuf {
-        work.join("mixes").join(self.name(seed))
+    /// Where the mixes of `seed` are rendered under the work directory,
+    /// with rides drawn by `rides` (`RideDraw::label`).
+    pub fn renders(self, work: &Path, seed: u64, rides: Option<&str>) -> PathBuf {
+        work.join("mixes").join(self.name(seed, rides))
     }
 
     /// The report's and the renders' name: `seed-<seed>` for short mixes,
-    /// `<kind>-seed-<seed>` for the others.
-    pub fn name(self, seed: u64) -> String {
-        match self {
-            MixKind::Short => format!("seed-{seed}"),
-            MixKind::Long => format!("long-seed-{seed}"),
-            MixKind::Beatmatched => format!("beatmatched-seed-{seed}"),
-            MixKind::Shared => format!("shared-seed-{seed}"),
-            MixKind::Rides => format!("rides-seed-{seed}"),
+    /// `<kind>-seed-<seed>` for the others, and `rides-<label>-seed-<seed>`
+    /// for rides drawn otherwise than by default.
+    pub fn name(self, seed: u64, rides: Option<&str>) -> String {
+        match (self, rides) {
+            (MixKind::Short, _) => format!("seed-{seed}"),
+            (MixKind::Long, _) => format!("long-seed-{seed}"),
+            (MixKind::Beatmatched, _) => format!("beatmatched-seed-{seed}"),
+            (MixKind::Shared, _) => format!("shared-seed-{seed}"),
+            (MixKind::Rides, None) => format!("rides-seed-{seed}"),
+            (MixKind::Rides, Some(label)) => format!("rides-{label}-seed-{seed}"),
         }
     }
 
@@ -584,6 +587,7 @@ fn drawn_speed(rng: &mut Rng) -> f64 {
 pub struct LongExtras {
     pub periods: BTreeMap<String, f64>,
     pub pairs: Vec<SharedPair>,
+    pub rides: RideDraw,
 }
 
 /// Two records of one family of the shared-material panel, in the order
@@ -700,7 +704,7 @@ pub fn draw_long_mix(
         };
         let mut play = long_play(pick, start, speed, rng);
         if kind == MixKind::Rides {
-            ride(&mut play, pick.duration_seconds, rng);
+            ride(&mut play, pick.duration_seconds, &extras.rides, rng);
         }
         if let Some(previous) = plays.last_mut() {
             crossfade(previous, &mut play, rng);
@@ -790,22 +794,87 @@ fn long_play(pick: &Pick, start: f64, speed: f64, rng: &mut Rng) -> PlannedPlay 
     }
 }
 
-/// Pitch rides: a change of `RIDE_CHANGE` of the speed, up or down, over
-/// `RIDE_SECONDS`, starting between 30% and 70% into the play. A change
-/// that would take the play more than `RIDE_LIMIT` from native speed goes
-/// the other way.
+/// Pitch rides by default: a change of `RIDE_CHANGE` of the speed, up or
+/// down, over `RIDE_SECONDS`, starting between 30% and 70% into the play. A
+/// change that would take the play more than `RIDE_LIMIT` from native speed
+/// goes the other way.
 const RIDE_CHANGE: (f64, f64) = (0.01, 0.03);
 const RIDE_SECONDS: (f64, f64) = (5.0, 15.0);
 const RIDE_LIMIT: f64 = 0.07;
 
-/// Gives `play` a drawn pitch ride, moving its start in the track back if
-/// the faster end would run past 97% of a track of `duration_seconds`.
-fn ride(play: &mut PlannedPlay, duration_seconds: f64, rng: &mut Rng) {
+/// How the rides kind draws each play's ride: the change of speed and the
+/// ramp's length, each uniform in its range, and the direction.
+/// `RideDraw::default()` is session 35's draw.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct RideDraw {
+    pub change: (f64, f64),
+    pub seconds: (f64, f64),
+    pub direction: RideDirection,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, clap::ValueEnum)]
+pub enum RideDirection {
+    /// Up or down, drawn for each play.
+    #[default]
+    Either,
+    Up,
+    Down,
+}
+
+impl Default for RideDraw {
+    fn default() -> RideDraw {
+        RideDraw {
+            change: RIDE_CHANGE,
+            seconds: RIDE_SECONDS,
+            direction: RideDirection::Either,
+        }
+    }
+}
+
+impl RideDraw {
+    /// A name for the reports and renders of rides drawn otherwise than
+    /// by default, such as `0.5pct-2-5s-up`; `None` for the default.
+    pub fn label(&self) -> Option<String> {
+        if *self == RideDraw::default() {
+            return None;
+        }
+        // Rounded, so that 0.03 reads 3 and not 3.0000000000000004.
+        let number = |value: f64, scale: f64| (value * scale * 1e6).round() / 1e6;
+        let range = |(low, high): (f64, f64), scale: f64| {
+            if low == high {
+                format!("{}", number(low, scale))
+            } else {
+                format!("{}-{}", number(low, scale), number(high, scale))
+            }
+        };
+        let direction = match self.direction {
+            RideDirection::Either => "",
+            RideDirection::Up => "-up",
+            RideDirection::Down => "-down",
+        };
+        Some(format!(
+            "{}pct-{}s{direction}",
+            range(self.change, 100.0),
+            range(self.seconds, 1.0)
+        ))
+    }
+}
+
+/// Gives `play` a pitch ride drawn by `draw`, moving its start in the
+/// track back if the faster end would run past 97% of a track of
+/// `duration_seconds`. Every draw takes the same four numbers from `rng`,
+/// so that one seed plans the same mixes under every `RideDraw`.
+fn ride(play: &mut PlannedPlay, duration_seconds: f64, draw: &RideDraw, rng: &mut Rng) {
     let seconds = play.end_seconds - play.start_seconds;
     let at = play.start_seconds + (0.3 + 0.4 * rng.unit()) * seconds;
-    let over = RIDE_SECONDS.0 + rng.unit() * (RIDE_SECONDS.1 - RIDE_SECONDS.0);
-    let size = RIDE_CHANGE.0 + rng.unit() * (RIDE_CHANGE.1 - RIDE_CHANGE.0);
-    let up = rng.unit() < 0.5;
+    let over = draw.seconds.0 + rng.unit() * (draw.seconds.1 - draw.seconds.0);
+    let size = draw.change.0 + rng.unit() * (draw.change.1 - draw.change.0);
+    let either = rng.unit() < 0.5;
+    let up = match draw.direction {
+        RideDirection::Either => either,
+        RideDirection::Up => true,
+        RideDirection::Down => false,
+    };
     let mut to_speed = play.speed * if up { 1.0 + size } else { 1.0 - size };
     if (to_speed - 1.0).abs() > RIDE_LIMIT {
         to_speed = play.speed * if up { 1.0 - size } else { 1.0 + size };
@@ -939,6 +1008,9 @@ pub struct MixesReport {
     /// Reports of short mixes, from before there were kinds, have none.
     #[serde(default, skip_serializing_if = "MixKind::is_short")]
     pub kind: MixKind,
+    /// `RideDraw::label` of rides drawn otherwise than by default.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub rides: Option<String>,
     pub ladder: String,
     pub indexed_assets: usize,
     pub mixes: Vec<MixResult>,
@@ -967,6 +1039,17 @@ pub struct Options<'a> {
     /// Measure every detection with the peak verifier.
     pub verify: bool,
     pub jobs: usize,
+    /// How the rides kind draws its rides.
+    pub rides: RideDraw,
+}
+
+impl Options<'_> {
+    /// `RideDraw::label` for the rides kind; `None` for the others.
+    pub fn rides_label(&self) -> Option<String> {
+        (self.kind == MixKind::Rides)
+            .then(|| self.rides.label())
+            .flatten()
+    }
 }
 
 /// The library's records, the sweep's held-out assets for `seed`, and the
@@ -1145,9 +1228,11 @@ pub fn run(
             BTreeMap::new()
         },
         pairs,
+        rides: options.rides,
     };
+    let rides = options.rides_label();
     let mut rng = Rng::new(options.seed);
-    let dir = options.kind.renders(work, options.seed);
+    let dir = options.kind.renders(work, options.seed, rides.as_deref());
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
         .map(|number| {
             let name = format!("mix-{number:02}");
@@ -1171,6 +1256,7 @@ pub fn run(
     Ok(MixesReport {
         seed: options.seed,
         kind: options.kind,
+        rides,
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
         mixes: results.into_iter().collect::<Result<_, _>>()?,
@@ -1552,6 +1638,7 @@ mod tests {
                 pair("c", "c1.mp3", "c2.mp3"),
                 pair("d", "d1.mp3", "d2.mp3"),
             ],
+            ..LongExtras::default()
         };
 
         let mix = draw_long_mix(
@@ -1682,6 +1769,59 @@ mod tests {
                 play.source_at(play.end_seconds) <= 0.97 * duration + 1e-9,
                 "{play:?}"
             );
+        }
+    }
+
+    #[test]
+    fn another_ride_draw_plans_the_same_plays_with_other_rides() {
+        let records: Vec<PeakRecord> = (0..40)
+            .map(|n| record(&format!("t{n:02}.mp3"), 200.0 + 10.0 * f64::from(n)))
+            .collect();
+        let held_out: BTreeSet<String> = (0..20).map(|n| format!("t{n:02}.mp3")).collect();
+        let pools = Pools::new(&records, &held_out);
+        let draw = |rides: RideDraw| {
+            let extras = LongExtras {
+                rides,
+                ..LongExtras::default()
+            };
+            draw_long_mix(
+                "rides",
+                MixKind::Rides,
+                &pools,
+                &extras,
+                &no_clusters(),
+                &mut Rng::new(3),
+            )
+            .unwrap()
+        };
+        let small = RideDraw {
+            change: (0.005, 0.005),
+            seconds: (2.0, 5.0),
+            direction: RideDirection::Down,
+        };
+
+        let default = draw(RideDraw::default());
+        let other = draw(small);
+
+        assert_eq!(RideDraw::default().label(), None);
+        assert_eq!(small.label().as_deref(), Some("0.5pct-2-5s-down"));
+        let drift = RideDraw {
+            change: (0.03, 0.03),
+            seconds: (60.0, 60.0),
+            direction: RideDirection::Either,
+        };
+        assert_eq!(drift.label().as_deref(), Some("3pct-60s"));
+        assert_eq!(default.plays.len(), other.plays.len());
+        for (a, b) in default.plays.iter().zip(&other.plays) {
+            assert_eq!(a.asset, b.asset);
+            assert_eq!(
+                (a.speed, a.start_seconds, a.end_seconds),
+                (b.speed, b.start_seconds, b.end_seconds)
+            );
+            let (ride_a, ride_b) = (a.ride.unwrap(), b.ride.unwrap());
+            assert_eq!(ride_a.start_seconds, ride_b.start_seconds);
+            assert!((2.0..=5.0).contains(&ride_b.seconds), "{b:?}");
+            assert!((ride_b.to_speed / b.speed - 0.995).abs() < 1e-9, "{b:?}");
         }
     }
 

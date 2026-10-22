@@ -169,6 +169,12 @@ pub struct Options {
     /// Detections' boundaries leave out weak windows at either end; the
     /// evidence still counts them.
     pub trim_weak_ends: bool,
+    /// After the second pass, a detection overlaps a stronger one of the
+    /// same asset only where their first-pass chains overlap, so that the
+    /// two sides of a change of speed within a play are both kept although
+    /// the second pass's margin moves their ends into each other's span
+    /// (experiment 0175).
+    pub overlap_by_chains: bool,
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of
@@ -241,6 +247,11 @@ fn detections_and_chains(
     }
     let mut refined = refine::refine(index, samples, profile, &lines, chained, jobs, options);
     refined.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
+    if options.overlap_by_chains {
+        // `strongest_per_moment` has already left no two chains of one
+        // asset overlapping.
+        return (lines, refined);
+    }
     (lines, strongest_per_moment(refined))
 }
 
@@ -509,6 +520,7 @@ pub(crate) mod test_audio {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::confidence::Confidence;
 
     fn detection(asset: u32, start_seconds: f64, end_seconds: f64, hits: u32) -> Detection {
         Detection {
@@ -546,6 +558,52 @@ mod tests {
         assert!((best.speed.0 - 1.008).abs() < 0.001, "{:?}", best.speed);
         assert!((best.track_start_seconds - 10.0).abs() < 1.0);
         assert!(best.end_seconds - best.start_seconds > 70.0);
+    }
+
+    #[test]
+    fn both_sides_of_a_change_of_speed_are_kept_when_overlap_is_judged_on_chains() {
+        let profile = Profile::CURRENT;
+        let rate = profile.sample_rate;
+        let reference = test_audio::track(150.0, rate);
+        let index = Index::build(&[test_audio::record("a.wav", &reference)]).unwrap();
+        // 50 s at 1.0, a ride to 1.02 over 10 s, then 50 s at 1.02: the
+        // position in the record is the speed integrated over time.
+        let position = |t: f64| match t {
+            t if t < 50.0 => t,
+            t if t < 60.0 => t + 0.02 * (t - 50.0).powi(2) / 20.0,
+            t => 60.1 + 1.02 * (t - 60.0),
+        };
+        let query: Vec<f32> = (0..110 * rate as usize)
+            .map(|i| {
+                let at = (10.0 + position(i as f64 / f64::from(rate))) * f64::from(rate);
+                let (whole, fraction) = (at.floor() as usize, at.fract() as f32);
+                reference[whole] * (1.0 - fraction) + reference[whole + 1] * fraction
+            })
+            .collect();
+        let ladder: Vec<Rung> = (0..9)
+            .map(|step| Rung::Turntable(SpeedRatio(0.996 + 0.004 * f64::from(step))))
+            .collect();
+        let confident_speeds = |overlap_by_chains| {
+            let options = Options {
+                overlap_by_chains,
+                ..Matcher::Fitted.options()
+            };
+            let mut speeds: Vec<f64> = search_with(&index, &query, &profile, &ladder, 1, options)
+                .iter()
+                .filter(|found| found.evidence.confidence() == Confidence::Confident)
+                .map(|found| found.speed.0)
+                .collect();
+            speeds.sort_by(f64::total_cmp);
+            speeds
+        };
+
+        let by_spans = confident_speeds(false);
+        let by_chains = confident_speeds(true);
+
+        assert_eq!(by_spans.len(), 1, "{by_spans:?}");
+        assert_eq!(by_chains.len(), 2, "{by_chains:?}");
+        assert!((by_chains[0] - 1.0).abs() < 0.001, "{by_chains:?}");
+        assert!((by_chains[1] - 1.02).abs() < 0.001, "{by_chains:?}");
     }
 
     #[test]

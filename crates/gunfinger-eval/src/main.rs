@@ -414,6 +414,19 @@ enum Command {
         /// shared-material panel's files under `second-library/`.
         #[arg(long)]
         other_root: Option<PathBuf>,
+        /// With `--kind rides`: each ride's change of speed, a share drawn
+        /// uniformly between the two values (one value: exactly that)
+        /// [default: 0.01,0.03]. Rides drawn otherwise than by default go
+        /// to `mixes-rides-<label>-seed-<seed>.json`.
+        #[arg(long, value_delimiter = ',', num_args = 1..=2)]
+        ride_change: Vec<f64>,
+        /// With `--kind rides`: the ramp's length in seconds, drawn
+        /// uniformly between the two values [default: 5,15].
+        #[arg(long, value_delimiter = ',', num_args = 1..=2)]
+        ride_seconds: Vec<f64>,
+        /// With `--kind rides`: up, down or either, drawn for each play.
+        #[arg(long, value_enum, default_value_t = mixes::RideDirection::Either)]
+        ride_direction: mixes::RideDirection,
     },
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -872,7 +885,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             count,
             kind,
             other_root,
+            ride_change,
+            ride_seconds,
+            ride_direction,
         } => {
+            let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
             let report = mixes::run(
                 &paths.library()?,
                 &paths.store()?,
@@ -889,12 +906,14 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     matching: &paths.matching,
                     verify: paths.verify,
                     jobs,
+                    rides,
                 },
             )?;
             write_json(
-                &paths
-                    .reports()
-                    .join(format!("mixes-{}.json", kind.name(seed))),
+                &paths.reports().join(format!(
+                    "mixes-{}.json",
+                    kind.name(seed, report.rides.as_deref())
+                )),
                 &report,
             )?;
             mixes::print_summary(&report, kind);
@@ -2377,7 +2396,7 @@ fn judged(
                     audio: Some(
                         report
                             .kind
-                            .renders(&paths.work, report.seed)
+                            .renders(&paths.work, report.seed, report.rides.as_deref())
                             .join(format!("{}.mp3", result.mix.name)),
                     ),
                 })
@@ -2734,6 +2753,46 @@ impl NeighbourRecords {
             })
             .collect())
     }
+}
+
+/// The rides `mixes --kind rides` draws: the default, with the options
+/// given in place of its ranges.
+fn ride_draw(
+    kind: mixes::MixKind,
+    change: &[f64],
+    seconds: &[f64],
+    direction: mixes::RideDirection,
+) -> Result<mixes::RideDraw, String> {
+    let default = mixes::RideDraw::default();
+    let changed = !change.is_empty() || !seconds.is_empty() || direction != default.direction;
+    if changed && kind != mixes::MixKind::Rides {
+        return Err(String::from(
+            "--ride-change, --ride-seconds and --ride-direction apply to --kind rides",
+        ));
+    }
+    let range = |values: &[f64], default: (f64, f64)| match *values {
+        [] => default,
+        [value] => (value, value),
+        [low, high, ..] => (low, high),
+    };
+    let draw = mixes::RideDraw {
+        change: range(change, default.change),
+        seconds: range(seconds, default.seconds),
+        direction,
+    };
+    let (low, high) = draw.change;
+    if !(0.0 <= low && low <= high && high < 0.07) {
+        return Err(String::from(
+            "--ride-change is one share or two in order, from 0 to below 0.07",
+        ));
+    }
+    let (low, high) = draw.seconds;
+    if !(0.0 < low && low <= high) {
+        return Err(String::from(
+            "--ride-seconds is one length or two in order, above 0",
+        ));
+    }
+    Ok(draw)
 }
 
 fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {
