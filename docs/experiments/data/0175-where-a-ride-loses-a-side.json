@@ -1,0 +1,7135 @@
+{
+ "experiment": "0175",
+ "seeds": {
+  "3521": {
+   "summary": [
+    "work/reports/mixes-rides-seed-3521.json: 191 ridden indexed plays, 329 sides of 30 s or more, 93 lost",
+    "no-chain      0",
+    "first-drop    0",
+    "refine-none   0",
+    "refined-weak  0",
+    "second-drop   93",
+    "other         0",
+    "overlap with the stronger side after the second pass (s): n 93, min 0.01, median 4.71, 90% 10.41, max 14.62",
+    "overlap of the two sides' first-pass chains (s): n 93, min 0.0, median 0.0, 90% 0.0, max 0.0",
+    "dropped side's facing end moved by the second pass (s): n 93, min 0.0, median 4.03, 90% 7.11, max 9.77",
+    "stronger side's facing end moved by the second pass (s): n 93, min 0.0, median 3.61, 90% 5.88, max 7.75",
+    "dropped side's fitted speed against its true speed: median 0.0015%, max 0.0284%"
+   ],
+   "lost_sides": [
+    {
+     "mix": "mix-00",
+     "asset": "Fibre Optix - Sin.m4a",
+     "side": "before",
+     "span": [
+      220.7,
+      295.0
+     ],
+     "change": -0.015,
+     "ramp": 9.6,
+     "stage": "second-drop",
+     "truth_speed": 0.96247,
+     "chain": [
+      212.522,
+      299.646,
+      1660,
+      9
+     ],
+     "refined": [
+      212.522,
+      305.689,
+      3347,
+      10
+     ],
+     "dropped_for": [
+      [
+       298.11,
+       467.499,
+       6166
+      ]
+     ],
+     "refined_speed": 0.962436,
+     "overlap": 7.58,
+     "moved": 6.04,
+     "winner_moved": 2.34,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "b-spirit-out_of_control-sour.mp3",
+     "side": "after",
+     "span": [
+      1327.0,
+      1383.8
+     ],
+     "change": 0.0272,
+     "ramp": 13.4,
+     "stage": "second-drop",
+     "truth_speed": 1.05057,
+     "chain": [
+      1320.183,
+      1402.055,
+      2036,
+      9
+     ],
+     "refined": [
+      1317.333,
+      1404.85,
+      3209,
+      10
+     ],
+     "dropped_for": [
+      [
+       1181.225,
+       1322.148,
+       5387
+      ]
+     ],
+     "refined_speed": 1.050494,
+     "overlap": 4.81,
+     "moved": 2.85,
+     "winner_moved": 2.94,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "a1-skynet-acid_drops-sour.mp3",
+     "side": "before",
+     "span": [
+      1415.6,
+      1474.3
+     ],
+     "change": -0.0124,
+     "ramp": 8.4,
+     "stage": "second-drop",
+     "truth_speed": 0.94605,
+     "chain": [
+      1391.098,
+      1479.853,
+      1810,
+      9
+     ],
+     "refined": [
+      1391.098,
+      1487.062,
+      3177,
+      10
+     ],
+     "dropped_for": [
+      [
+       1475.284,
+       1651.335,
+       8208
+      ]
+     ],
+     "refined_speed": 0.946006,
+     "overlap": 11.78,
+     "moved": 7.21,
+     "winner_moved": 4.74,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "h-carlito_and_addiction-into_music-sour.mp3",
+     "side": "after",
+     "span": [
+      4369.2,
+      4462.8
+     ],
+     "change": 0.0206,
+     "ramp": 14.7,
+     "stage": "second-drop",
+     "truth_speed": 0.9986,
+     "chain": [
+      4360.094,
+      4473.467,
+      2680,
+      12
+     ],
+     "refined": [
+      4357.331,
+      4473.423,
+      3954,
+      13
+     ],
+     "dropped_for": [
+      [
+       4181.629,
+       4363.119,
+       6818
+      ]
+     ],
+     "refined_speed": 0.998617,
+     "overlap": 5.79,
+     "moved": 2.76,
+     "winner_moved": 3.26,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "Ed Rush & Optical - Watermelon.mp3",
+     "side": "after",
+     "span": [
+      4684.3,
+      4744.9
+     ],
+     "change": -0.0122,
+     "ramp": 5.3,
+     "stage": "second-drop",
+     "truth_speed": 0.97474,
+     "chain": [
+      4680.011,
+      4769.126,
+      1997,
+      9
+     ],
+     "refined": [
+      4673.689,
+      4769.127,
+      3223,
+      10
+     ],
+     "dropped_for": [
+      [
+       4468.091,
+       4684.101,
+       8737
+      ]
+     ],
+     "refined_speed": 0.974774,
+     "overlap": 10.41,
+     "moved": 6.32,
+     "winner_moved": 4.16,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "01-aphrodite-a1-underworld-utb.mp3",
+     "side": "before",
+     "span": [
+      4779.8,
+      4852.3
+     ],
+     "change": 0.0133,
+     "ramp": 9.1,
+     "stage": "second-drop",
+     "truth_speed": 0.97507,
+     "chain": [
+      4758.409,
+      4859.651,
+      2177,
+      11
+     ],
+     "refined": [
+      4754.746,
+      4868.44,
+      3527,
+      12
+     ],
+     "dropped_for": [
+      [
+       4854.252,
+       5026.423,
+       6355
+      ]
+     ],
+     "refined_speed": 0.97512,
+     "overlap": 14.19,
+     "moved": 8.79,
+     "winner_moved": 5.76,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "Ed Rush & Optical - Bacteria.mp3",
+     "side": "after",
+     "span": [
+      1766.7,
+      1831.0
+     ],
+     "change": 0.0162,
+     "ramp": 7.2,
+     "stage": "second-drop",
+     "truth_speed": 1.01866,
+     "chain": [
+      1760.565,
+      1856.142,
+      1929,
+      10
+     ],
+     "refined": [
+      1757.409,
+      1856.142,
+      2870,
+      11
+     ],
+     "dropped_for": [
+      [
+       1590.943,
+       1764.794,
+       5470
+      ]
+     ],
+     "refined_speed": 1.018637,
+     "overlap": 7.38,
+     "moved": 3.16,
+     "winner_moved": 4.8,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "a-mo_funk-slipstream-sour.mp3",
+     "side": "before",
+     "span": [
+      4220.6,
+      4296.0
+     ],
+     "change": -0.0154,
+     "ramp": 14.2,
+     "stage": "second-drop",
+     "truth_speed": 1.00181,
+     "chain": [
+      4193.335,
+      4299.99,
+      2465,
+      11
+     ],
+     "refined": [
+      4190.294,
+      4305.288,
+      4312,
+      12
+     ],
+     "dropped_for": [
+      [
+       4297.142,
+       4471.177,
+       6996
+      ]
+     ],
+     "refined_speed": 1.001815,
+     "overlap": 8.15,
+     "moved": 5.3,
+     "winner_moved": 3.04,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "Bad Company - China Cup.mp3",
+     "side": "before",
+     "span": [
+      4480.9,
+      4592.6
+     ],
+     "change": -0.0169,
+     "ramp": 7.3,
+     "stage": "second-drop",
+     "truth_speed": 1.03466,
+     "chain": [
+      4470.164,
+      4598.314,
+      2528,
+      13
+     ],
+     "refined": [
+      4468.22,
+      4607.016,
+      4557,
+      15
+     ],
+     "dropped_for": [
+      [
+       4595.342,
+       4769.615,
+       7131
+      ]
+     ],
+     "refined_speed": 1.034642,
+     "overlap": 11.67,
+     "moved": 8.7,
+     "winner_moved": 4.76,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "04_Rec.mp3",
+     "side": "after",
+     "span": [
+      212.4,
+      268.2
+     ],
+     "change": 0.0155,
+     "ramp": 6.9,
+     "stage": "second-drop",
+     "truth_speed": 0.98199,
+     "chain": [
+      210.293,
+      297.142,
+      1736,
+      9
+     ],
+     "refined": [
+      206.823,
+      298.582,
+      3165,
+      10
+     ],
+     "dropped_for": [
+      [
+       0.11,
+       211.842,
+       9153
+      ]
+     ],
+     "refined_speed": 0.981995,
+     "overlap": 5.02,
+     "moved": 3.47,
+     "winner_moved": 2.0,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "06_-_skinnah_-_state_of_violance.mp3",
+     "side": "before",
+     "span": [
+      721.2,
+      827.4
+     ],
+     "change": 0.0262,
+     "ramp": 7.1,
+     "stage": "second-drop",
+     "truth_speed": 0.98869,
+     "chain": [
+      690.892,
+      829.956,
+      4057,
+      14
+     ],
+     "refined": [
+      688.117,
+      832.096,
+      4920,
+      16
+     ],
+     "dropped_for": [
+      [
+       830.645,
+       1009.372,
+       6819
+      ]
+     ],
+     "refined_speed": 0.988684,
+     "overlap": 1.45,
+     "moved": 2.14,
+     "winner_moved": 0.0,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "a-aphrodite-blue_mystique-sour.mp3",
+     "side": "after",
+     "span": [
+      1127.2,
+      1162.9
+     ],
+     "change": 0.0133,
+     "ramp": 11.4,
+     "stage": "second-drop",
+     "truth_speed": 1.04277,
+     "chain": [
+      1120.051,
+      1199.56,
+      1685,
+      8
+     ],
+     "refined": [
+      1115.862,
+      1197.953,
+      2621,
+      9
+     ],
+     "dropped_for": [
+      [
+       1003.072,
+       1124.138,
+       5418
+      ]
+     ],
+     "refined_speed": 1.04271,
+     "overlap": 8.28,
+     "moved": 4.19,
+     "winner_moved": 4.31,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "01 - Ed Rush & Optical - Funktion.mp3",
+     "side": "before",
+     "span": [
+      2608.9,
+      2667.0
+     ],
+     "change": 0.0182,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 1.02905,
+     "chain": [
+      2580.319,
+      2669.775,
+      1628,
+      9
+     ],
+     "refined": [
+      2581.788,
+      2672.995,
+      2695,
+      10
+     ],
+     "dropped_for": [
+      [
+       2668.35,
+       2797.122,
+       3319
+      ]
+     ],
+     "refined_speed": 1.029052,
+     "overlap": 4.64,
+     "moved": 3.22,
+     "winner_moved": 3.94,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "Bad Company - The Nine.mp3",
+     "side": "after",
+     "span": [
+      2913.2,
+      3013.2
+     ],
+     "change": 0.0258,
+     "ramp": 9.8,
+     "stage": "second-drop",
+     "truth_speed": 1.06489,
+     "chain": [
+      2910.116,
+      3041.227,
+      2649,
+      14
+     ],
+     "refined": [
+      2908.099,
+      3041.227,
+      3699,
+      15
+     ],
+     "dropped_for": [
+      [
+       2768.26,
+       2912.451,
+       4046
+      ]
+     ],
+     "refined_speed": 1.064879,
+     "overlap": 4.35,
+     "moved": 2.02,
+     "winner_moved": 4.21,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "b-stakka_and_skynet-global_report-sour.mp3",
+     "side": "before",
+     "span": [
+      3752.9,
+      3784.6
+     ],
+     "change": 0.0233,
+     "ramp": 14.6,
+     "stage": "second-drop",
+     "truth_speed": 0.97796,
+     "chain": [
+      3741.084,
+      3789.998,
+      1041,
+      5
+     ],
+     "refined": [
+      3740.572,
+      3792.468,
+      1869,
+      6
+     ],
+     "dropped_for": [
+      [
+       3788.296,
+       3892.278,
+       4033
+      ]
+     ],
+     "refined_speed": 0.978062,
+     "overlap": 4.17,
+     "moved": 2.47,
+     "winner_moved": 1.73,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "h-carlito_and_addiction-into_music-sour.mp3",
+     "side": "after",
+     "span": [
+      4057.3,
+      4123.4
+     ],
+     "change": 0.0259,
+     "ramp": 13.1,
+     "stage": "second-drop",
+     "truth_speed": 1.05184,
+     "chain": [
+      4050.448,
+      4142.713,
+      2776,
+      10
+     ],
+     "refined": [
+      4047.79,
+      4142.712,
+      3119,
+      11
+     ],
+     "dropped_for": [
+      [
+       3887.595,
+       4052.415,
+       6546
+      ]
+     ],
+     "refined_speed": 1.051785,
+     "overlap": 4.62,
+     "moved": 2.66,
+     "winner_moved": 2.62,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "b-aphrodite-the_time_the_place-sour.mp3",
+     "side": "after",
+     "span": [
+      1292.1,
+      1329.0
+     ],
+     "change": 0.0188,
+     "ramp": 8.5,
+     "stage": "second-drop",
+     "truth_speed": 1.05459,
+     "chain": [
+      1290.024,
+      1357.81,
+      1377,
+      7
+     ],
+     "refined": [
+      1286.563,
+      1357.813,
+      2196,
+      8
+     ],
+     "dropped_for": [
+      [
+       1105.05,
+       1291.843,
+       7544
+      ]
+     ],
+     "refined_speed": 1.054573,
+     "overlap": 5.28,
+     "moved": 3.46,
+     "winner_moved": 3.4,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "Ed Rush & Optical - Gas Mask.m4a",
+     "side": "after",
+     "span": [
+      2405.8,
+      2468.3
+     ],
+     "change": -0.0263,
+     "ramp": 10.3,
+     "stage": "second-drop",
+     "truth_speed": 0.9301,
+     "chain": [
+      2400.085,
+      2475.943,
+      2333,
+      8
+     ],
+     "refined": [
+      2397.945,
+      2475.487,
+      3859,
+      9
+     ],
+     "dropped_for": [
+      [
+       2230.73,
+       2401.775,
+       8015
+      ]
+     ],
+     "refined_speed": 0.930147,
+     "overlap": 3.83,
+     "moved": 2.14,
+     "winner_moved": 1.97,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "a-break-day_one-sour.mp3",
+     "side": "before",
+     "span": [
+      3661.9,
+      3695.1
+     ],
+     "change": 0.0203,
+     "ramp": 13.2,
+     "stage": "second-drop",
+     "truth_speed": 1.00078,
+     "chain": [
+      3635.596,
+      3699.765,
+      1165,
+      7
+     ],
+     "refined": [
+      3631.49,
+      3703.846,
+      2107,
+      8
+     ],
+     "dropped_for": [
+      [
+       3698.032,
+       3807.36,
+       4087
+      ]
+     ],
+     "refined_speed": 1.000778,
+     "overlap": 5.81,
+     "moved": 4.08,
+     "winner_moved": 2.06,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "01-aphrodite-a1-underworld-utb.mp3",
+     "side": "before",
+     "span": [
+      3957.5,
+      4053.6
+     ],
+     "change": -0.0219,
+     "ramp": 5.5,
+     "stage": "second-drop",
+     "truth_speed": 1.04759,
+     "chain": [
+      3932.5,
+      4056.902,
+      3383,
+      13
+     ],
+     "refined": [
+      3932.5,
+      4056.902,
+      4269,
+      13
+     ],
+     "dropped_for": [
+      [
+       4055.314,
+       4206.142,
+       6133
+      ]
+     ],
+     "refined_speed": 1.047591,
+     "overlap": 1.59,
+     "moved": 0.0,
+     "winner_moved": 4.8,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "03. Pieter K - Liquifaction (Stakka Remix).mp3",
+     "side": "after",
+     "span": [
+      150.7,
+      189.6
+     ],
+     "change": -0.0176,
+     "ramp": 14.5,
+     "stage": "second-drop",
+     "truth_speed": 1.00722,
+     "chain": [
+      150.04,
+      213.535,
+      1645,
+      7
+     ],
+     "refined": [
+      143.682,
+      213.749,
+      2421,
+      8
+     ],
+     "dropped_for": [
+      [
+       0.126,
+       143.979,
+       6399
+      ]
+     ],
+     "refined_speed": 1.007215,
+     "overlap": 0.3,
+     "moved": 6.36,
+     "winner_moved": 4.02,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3",
+     "side": "after",
+     "span": [
+      2121.4,
+      2191.6
+     ],
+     "change": 0.0211,
+     "ramp": 8.5,
+     "stage": "second-drop",
+     "truth_speed": 0.96094,
+     "chain": [
+      2120.163,
+      2201.415,
+      1948,
+      9
+     ],
+     "refined": [
+      2116.132,
+      2203.048,
+      2955,
+      10
+     ],
+     "dropped_for": [
+      [
+       1884.798,
+       2117.267,
+       8128
+      ]
+     ],
+     "refined_speed": 0.960909,
+     "overlap": 1.13,
+     "moved": 4.03,
+     "winner_moved": 0.41,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "a-)eib(-miami-sour.mp3",
+     "side": "before",
+     "span": [
+      3417.6,
+      3497.8
+     ],
+     "change": 0.0199,
+     "ramp": 7.5,
+     "stage": "second-drop",
+     "truth_speed": 0.94079,
+     "chain": [
+      3410.408,
+      3499.989,
+      2537,
+      9
+     ],
+     "refined": [
+      3408.028,
+      3503.155,
+      3500,
+      11
+     ],
+     "dropped_for": [
+      [
+       3497.95,
+       3605.576,
+       3917
+      ]
+     ],
+     "refined_speed": 0.940782,
+     "overlap": 5.21,
+     "moved": 3.17,
+     "winner_moved": 3.51,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "a-usual_suspects-bleach-sour.mp3",
+     "side": "before",
+     "span": [
+      3616.7,
+      3675.5
+     ],
+     "change": -0.0149,
+     "ramp": 9.6,
+     "stage": "second-drop",
+     "truth_speed": 0.95633,
+     "chain": [
+      3590.417,
+      3679.857,
+      2416,
+      9
+     ],
+     "refined": [
+      3590.417,
+      3683.859,
+      2937,
+      10
+     ],
+     "dropped_for": [
+      [
+       3676.912,
+       3814.017,
+       5000
+      ]
+     ],
+     "refined_speed": 0.956308,
+     "overlap": 6.95,
+     "moved": 4.0,
+     "winner_moved": 3.27,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "B-Bad_Company-Four_Days-dmz.mp3",
+     "side": "after",
+     "span": [
+      116.8,
+      219.7
+     ],
+     "change": -0.023,
+     "ramp": 5.1,
+     "stage": "second-drop",
+     "truth_speed": 0.97146,
+     "chain": [
+      113.316,
+      244.537,
+      3143,
+      14
+     ],
+     "refined": [
+      113.397,
+      246.649,
+      5201,
+      14
+     ],
+     "dropped_for": [
+      [
+       0.212,
+       115.047,
+       5226
+      ]
+     ],
+     "refined_speed": 0.971459,
+     "overlap": 1.65,
+     "moved": 0.08,
+     "winner_moved": 5.08,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "aa-cause_4_concern-epox-0db.mp3",
+     "side": "before",
+     "span": [
+      270.1,
+      342.2
+     ],
+     "change": 0.0191,
+     "ramp": 13.1,
+     "stage": "second-drop",
+     "truth_speed": 0.9893,
+     "chain": [
+      232.21,
+      349.92,
+      2290,
+      12
+     ],
+     "refined": [
+      232.21,
+      352.812,
+      3990,
+      13
+     ],
+     "dropped_for": [
+      [
+       347.377,
+       528.77,
+       6726
+      ]
+     ],
+     "refined_speed": 0.989332,
+     "overlap": 5.44,
+     "moved": 2.89,
+     "winner_moved": 2.68,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "103-stakka_and_skynet-clockwork-sour.mp3",
+     "side": "before",
+     "span": [
+      980.4,
+      1016.7
+     ],
+     "change": -0.0243,
+     "ramp": 9.1,
+     "stage": "second-drop",
+     "truth_speed": 1.00898,
+     "chain": [
+      969.381,
+      1019.708,
+      1110,
+      6
+     ],
+     "refined": [
+      970.092,
+      1022.392,
+      1862,
+      6
+     ],
+     "dropped_for": [
+      [
+       1021.127,
+       1088.311,
+       2109
+      ]
+     ],
+     "refined_speed": 1.008925,
+     "overlap": 1.27,
+     "moved": 2.68,
+     "winner_moved": 0.94,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "AA. SKC -- Recharger 2007.mp3",
+     "side": "after",
+     "span": [
+      1315.4,
+      1352.4
+     ],
+     "change": -0.0281,
+     "ramp": 7.9,
+     "stage": "second-drop",
+     "truth_speed": 0.94488,
+     "chain": [
+      1310.468,
+      1395.076,
+      2579,
+      9
+     ],
+     "refined": [
+      1311.083,
+      1396.679,
+      4378,
+      9
+     ],
+     "dropped_for": [
+      [
+       1172.115,
+       1311.888,
+       6287
+      ]
+     ],
+     "refined_speed": 0.944902,
+     "overlap": 0.8,
+     "moved": 0.62,
+     "winner_moved": 2.09,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "310-future_cut-horns_2000-sour.mp3",
+     "side": "after",
+     "span": [
+      1821.2,
+      1900.9
+     ],
+     "change": 0.0219,
+     "ramp": 6.6,
+     "stage": "second-drop",
+     "truth_speed": 0.98852,
+     "chain": [
+      1820.125,
+      1912.664,
+      2953,
+      10
+     ],
+     "refined": [
+      1816.919,
+      1914.08,
+      3405,
+      11
+     ],
+     "dropped_for": [
+      [
+       1697.258,
+       1818.388,
+       3718
+      ]
+     ],
+     "refined_speed": 0.988506,
+     "overlap": 1.47,
+     "moved": 3.21,
+     "winner_moved": 0.24,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "4. Illuminati - Melange.mp3",
+     "side": "after",
+     "span": [
+      2804.0,
+      2911.0
+     ],
+     "change": -0.0227,
+     "ramp": 12.1,
+     "stage": "second-drop",
+     "truth_speed": 1.0096,
+     "chain": [
+      2800.232,
+      2925.087,
+      2227,
+      13
+     ],
+     "refined": [
+      2797.582,
+      2929.238,
+      4069,
+      14
+     ],
+     "dropped_for": [
+      [
+       2662.771,
+       2801.437,
+       4813
+      ]
+     ],
+     "refined_speed": 1.0096,
+     "overlap": 3.86,
+     "moved": 2.65,
+     "winner_moved": 1.88,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "a-aphrodite-playground_shades-sour.mp3",
+     "side": "after",
+     "span": [
+      228.3,
+      285.0
+     ],
+     "change": 0.0128,
+     "ramp": 14.2,
+     "stage": "second-drop",
+     "truth_speed": 0.95285,
+     "chain": [
+      220.039,
+      308.659,
+      1946,
+      9
+     ],
+     "refined": [
+      215.891,
+      313.384,
+      2855,
+      11
+     ],
+     "dropped_for": [
+      [
+       0.255,
+       225.454,
+       8568
+      ]
+     ],
+     "refined_speed": 0.952769,
+     "overlap": 9.56,
+     "moved": 4.15,
+     "winner_moved": 5.46,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "g-tee_bee-two_faced-sour.mp3",
+     "side": "after",
+     "span": [
+      399.3,
+      442.1
+     ],
+     "change": 0.0142,
+     "ramp": 14.3,
+     "stage": "second-drop",
+     "truth_speed": 1.01714,
+     "chain": [
+      390.072,
+      449.104,
+      1472,
+      6
+     ],
+     "refined": [
+      385.19,
+      449.117,
+      1993,
+      7
+     ],
+     "dropped_for": [
+      [
+       300.036,
+       394.448,
+       2777
+      ]
+     ],
+     "refined_speed": 1.016939,
+     "overlap": 9.26,
+     "moved": 4.88,
+     "winner_moved": 4.84,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "Cyb Orc - People From South.mp3",
+     "side": "before",
+     "span": [
+      749.9,
+      844.7
+     ],
+     "change": 0.021,
+     "ramp": 12.9,
+     "stage": "second-drop",
+     "truth_speed": 1.02963,
+     "chain": [
+      720.26,
+      849.96,
+      3271,
+      13
+     ],
+     "refined": [
+      720.26,
+      852.553,
+      5151,
+      14
+     ],
+     "dropped_for": [
+      [
+       847.995,
+       1009.936,
+       7272
+      ]
+     ],
+     "refined_speed": 1.029639,
+     "overlap": 4.56,
+     "moved": 2.59,
+     "winner_moved": 2.44,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "203-moving_fusion_and_andy_c-foul_mouth-sour.mp3",
+     "side": "before",
+     "span": [
+      1295.0,
+      1340.8
+     ],
+     "change": -0.0185,
+     "ramp": 14.9,
+     "stage": "second-drop",
+     "truth_speed": 0.97132,
+     "chain": [
+      1260.619,
+      1339.91,
+      1834,
+      8
+     ],
+     "refined": [
+      1260.616,
+      1347.029,
+      3130,
+      9
+     ],
+     "dropped_for": [
+      [
+       1346.38,
+       1509.774,
+       7575
+      ]
+     ],
+     "refined_speed": 0.971299,
+     "overlap": 0.65,
+     "moved": 7.12,
+     "winner_moved": 3.7,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "a-cause_4_concern-relentless-sour.mp3",
+     "side": "after",
+     "span": [
+      2430.7,
+      2470.1
+     ],
+     "change": -0.0148,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 1.03048,
+     "chain": [
+      2421.398,
+      2483.879,
+      1601,
+      7
+     ],
+     "refined": [
+      2415.654,
+      2483.877,
+      2161,
+      8
+     ],
+     "dropped_for": [
+      [
+       2323.297,
+       2426.732,
+       3556
+      ]
+     ],
+     "refined_speed": 1.030713,
+     "overlap": 11.08,
+     "moved": 5.74,
+     "winner_moved": 6.92,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "[A]_-_Mudslide.mp3",
+     "side": "after",
+     "span": [
+      3738.8,
+      3830.2
+     ],
+     "change": 0.0252,
+     "ramp": 5.3,
+     "stage": "second-drop",
+     "truth_speed": 1.00987,
+     "chain": [
+      3740.134,
+      3859.559,
+      1999,
+      12
+     ],
+     "refined": [
+      3735.466,
+      3858.953,
+      3648,
+      13
+     ],
+     "dropped_for": [
+      [
+       3596.349,
+       3736.231,
+       4528
+      ]
+     ],
+     "refined_speed": 1.009871,
+     "overlap": 0.77,
+     "moved": 4.67,
+     "winner_moved": 1.3,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "01 - Ed Rush & Optical - Funktion.mp3",
+     "side": "after",
+     "span": [
+      4514.9,
+      4597.5
+     ],
+     "change": -0.0157,
+     "ramp": 12.5,
+     "stage": "second-drop",
+     "truth_speed": 1.00348,
+     "chain": [
+      4510.103,
+      4616.789,
+      2739,
+      11
+     ],
+     "refined": [
+      4505.413,
+      4624.694,
+      3432,
+      13
+     ],
+     "dropped_for": [
+      [
+       4303.216,
+       4512.782,
+       6377
+      ]
+     ],
+     "refined_speed": 1.003488,
+     "overlap": 7.37,
+     "moved": 4.69,
+     "winner_moved": 2.82,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "Skynet & Stakka - Logistics.mp3",
+     "side": "after",
+     "span": [
+      4715.1,
+      4762.8
+     ],
+     "change": -0.0133,
+     "ramp": 10.3,
+     "stage": "second-drop",
+     "truth_speed": 1.01973,
+     "chain": [
+      4710.135,
+      4784.639,
+      1643,
+      8
+     ],
+     "refined": [
+      4706.051,
+      4787.874,
+      2123,
+      9
+     ],
+     "dropped_for": [
+      [
+       4608.957,
+       4714.143,
+       4059
+      ]
+     ],
+     "refined_speed": 1.019745,
+     "overlap": 8.09,
+     "moved": 4.08,
+     "winner_moved": 4.18,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "Skynet & Stakka - Night Lore.mp3",
+     "side": "before",
+     "span": [
+      0.0,
+      133.0
+     ],
+     "change": -0.0137,
+     "ramp": 6.1,
+     "stage": "second-drop",
+     "truth_speed": 1.01672,
+     "chain": [
+      0.142,
+      139.435,
+      3824,
+      14
+     ],
+     "refined": [
+      0.022,
+      142.769,
+      5691,
+      15
+     ],
+     "dropped_for": [
+      [
+       134.11,
+       310.897,
+       6773
+      ]
+     ],
+     "refined_speed": 1.016704,
+     "overlap": 8.66,
+     "moved": 3.33,
+     "winner_moved": 6.0,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "01 - Ryme Tyme - T-Minus.mp3",
+     "side": "after",
+     "span": [
+      1856.1,
+      1939.3
+     ],
+     "change": 0.0135,
+     "ramp": 7.1,
+     "stage": "second-drop",
+     "truth_speed": 0.95328,
+     "chain": [
+      1850.084,
+      1953.245,
+      2356,
+      11
+     ],
+     "refined": [
+      1843.012,
+      1953.251,
+      4148,
+      12
+     ],
+     "dropped_for": [
+      [
+       1693.364,
+       1854.488,
+       5468
+      ]
+     ],
+     "refined_speed": 0.953267,
+     "overlap": 11.48,
+     "moved": 7.07,
+     "winner_moved": 4.49,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "2. Konflict - Pendulum.mp3",
+     "side": "after",
+     "span": [
+      2158.7,
+      2207.2
+     ],
+     "change": 0.0237,
+     "ramp": 8.1,
+     "stage": "second-drop",
+     "truth_speed": 0.96275,
+     "chain": [
+      2160.058,
+      2234.712,
+      1157,
+      8
+     ],
+     "refined": [
+      2154.065,
+      2235.031,
+      2235,
+      9
+     ],
+     "dropped_for": [
+      [
+       1948.501,
+       2154.884,
+       7371
+      ]
+     ],
+     "refined_speed": 0.962767,
+     "overlap": 0.82,
+     "moved": 5.99,
+     "winner_moved": 5.04,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "Cyb Orc - Endorphine.mp3",
+     "side": "after",
+     "span": [
+      3234.3,
+      3336.4
+     ],
+     "change": -0.0177,
+     "ramp": 8.0,
+     "stage": "second-drop",
+     "truth_speed": 0.95642,
+     "chain": [
+      3230.015,
+      3347.916,
+      3895,
+      12
+     ],
+     "refined": [
+      3227.263,
+      3348.656,
+      4411,
+      13
+     ],
+     "dropped_for": [
+      [
+       3111.278,
+       3231.516,
+       4792
+      ]
+     ],
+     "refined_speed": 0.956409,
+     "overlap": 4.25,
+     "moved": 2.75,
+     "winner_moved": 1.57,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "aa-aphrodite-acid_life-sour.mp3",
+     "side": "after",
+     "span": [
+      3863.4,
+      3910.0
+     ],
+     "change": -0.0266,
+     "ramp": 7.5,
+     "stage": "second-drop",
+     "truth_speed": 0.94339,
+     "chain": [
+      3860.13,
+      3943.56,
+      1894,
+      9
+     ],
+     "refined": [
+      3858.995,
+      3943.608,
+      2248,
+      10
+     ],
+     "dropped_for": [
+      [
+       3721.958,
+       3861.206,
+       4815
+      ]
+     ],
+     "refined_speed": 0.943408,
+     "overlap": 2.21,
+     "moved": 1.14,
+     "winner_moved": 1.31,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "a-gridlok-dilusion-sour.mp3",
+     "side": "after",
+     "span": [
+      4122.8,
+      4248.1
+     ],
+     "change": 0.0204,
+     "ramp": 11.9,
+     "stage": "second-drop",
+     "truth_speed": 1.03905,
+     "chain": [
+      4120.152,
+      4258.306,
+      5367,
+      14
+     ],
+     "refined": [
+      4115.522,
+      4258.307,
+      6571,
+      15
+     ],
+     "dropped_for": [
+      [
+       3923.86,
+       4121.489,
+       8740
+      ]
+     ],
+     "refined_speed": 1.039054,
+     "overlap": 5.97,
+     "moved": 4.63,
+     "winner_moved": 1.73,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "a-gridlok-v_ger-sour.mp3",
+     "side": "before",
+     "span": [
+      4263.4,
+      4309.8
+     ],
+     "change": 0.0198,
+     "ramp": 13.0,
+     "stage": "second-drop",
+     "truth_speed": 1.04812,
+     "chain": [
+      4255.112,
+      4309.893,
+      1919,
+      6
+     ],
+     "refined": [
+      4255.088,
+      4315.724,
+      2440,
+      7
+     ],
+     "dropped_for": [
+      [
+       4315.574,
+       4375.916,
+       2716
+      ]
+     ],
+     "refined_speed": 1.048109,
+     "overlap": 0.15,
+     "moved": 5.83,
+     "winner_moved": 4.42,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "c-cause4concern-time_stopper-sour.mp3",
+     "side": "after",
+     "span": [
+      159.3,
+      214.8
+     ],
+     "change": -0.0297,
+     "ramp": 5.6,
+     "stage": "second-drop",
+     "truth_speed": 1.019,
+     "chain": [
+      160.051,
+      221.907,
+      1840,
+      7
+     ],
+     "refined": [
+      155.961,
+      222.835,
+      2700,
+      8
+     ],
+     "dropped_for": [
+      [
+       0.065,
+       156.4,
+       6620
+      ]
+     ],
+     "refined_speed": 1.019,
+     "overlap": 0.44,
+     "moved": 4.09,
+     "winner_moved": 0.82,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "side": "after",
+     "span": [
+      892.6,
+      980.6
+     ],
+     "change": -0.0173,
+     "ramp": 13.4,
+     "stage": "second-drop",
+     "truth_speed": 1.00412,
+     "chain": [
+      890.004,
+      993.421,
+      3270,
+      11
+     ],
+     "refined": [
+      885.204,
+      993.421,
+      4213,
+      12
+     ],
+     "dropped_for": [
+      [
+       711.568,
+       886.583,
+       6602
+      ]
+     ],
+     "refined_speed": 1.004123,
+     "overlap": 1.38,
+     "moved": 4.8,
+     "winner_moved": 6.69,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "b-skc-eclipse-gdn.mp3",
+     "side": "after",
+     "span": [
+      1177.0,
+      1260.7
+     ],
+     "change": 0.0124,
+     "ramp": 9.6,
+     "stage": "second-drop",
+     "truth_speed": 1.04927,
+     "chain": [
+      1170.13,
+      1268.03,
+      2861,
+      10
+     ],
+     "refined": [
+      1166.303,
+      1268.286,
+      4659,
+      11
+     ],
+     "dropped_for": [
+      [
+       982.167,
+       1174.976,
+       8300
+      ]
+     ],
+     "refined_speed": 1.049221,
+     "overlap": 8.67,
+     "moved": 3.83,
+     "winner_moved": 4.99,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "side": "after",
+     "span": [
+      2045.7,
+      2120.3
+     ],
+     "change": 0.0141,
+     "ramp": 8.7,
+     "stage": "second-drop",
+     "truth_speed": 0.98616,
+     "chain": [
+      2040.336,
+      2125.723,
+      1999,
+      9
+     ],
+     "refined": [
+      2036.185,
+      2128.453,
+      3161,
+      10
+     ],
+     "dropped_for": [
+      [
+       1932.989,
+       2044.448,
+       3689
+      ]
+     ],
+     "refined_speed": 0.986123,
+     "overlap": 8.26,
+     "moved": 4.15,
+     "winner_moved": 4.46,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "02-cause4concern_-_synergy_(black_sun_empire_remix).mp3",
+     "side": "before",
+     "span": [
+      2922.4,
+      2991.7
+     ],
+     "change": -0.0146,
+     "ramp": 8.9,
+     "stage": "second-drop",
+     "truth_speed": 1.01826,
+     "chain": [
+      2892.265,
+      2989.95,
+      2533,
+      10
+     ],
+     "refined": [
+      2892.469,
+      2997.276,
+      4228,
+      11
+     ],
+     "dropped_for": [
+      [
+       2994.144,
+       3097.182,
+       4709
+      ]
+     ],
+     "refined_speed": 1.018268,
+     "overlap": 3.13,
+     "moved": 7.33,
+     "winner_moved": 5.88,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "side": "before",
+     "span": [
+      653.3,
+      685.0
+     ],
+     "change": 0.0169,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 1.03225,
+     "chain": [
+      624.324,
+      689.965,
+      2114,
+      7
+     ],
+     "refined": [
+      621.334,
+      692.621,
+      2369,
+      8
+     ],
+     "dropped_for": [
+      [
+       686.998,
+       784.58,
+       3933
+      ]
+     ],
+     "refined_speed": 1.03227,
+     "overlap": 5.62,
+     "moved": 2.66,
+     "winner_moved": 3.27,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "B-Cause_4_Concern-Peep_Show-sour.mp3",
+     "side": "before",
+     "span": [
+      1468.0,
+      1521.3
+     ],
+     "change": -0.0225,
+     "ramp": 12.4,
+     "stage": "second-drop",
+     "truth_speed": 1.01597,
+     "chain": [
+      1440.51,
+      1528.598,
+      3513,
+      9
+     ],
+     "refined": [
+      1438.651,
+      1531.797,
+      4127,
+      11
+     ],
+     "dropped_for": [
+      [
+       1527.055,
+       1669.512,
+       7904
+      ]
+     ],
+     "refined_speed": 1.015906,
+     "overlap": 4.74,
+     "moved": 3.2,
+     "winner_moved": 2.99,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "A- The_Nine.mp3",
+     "side": "after",
+     "span": [
+      1959.9,
+      2032.7
+     ],
+     "change": -0.0246,
+     "ramp": 5.1,
+     "stage": "second-drop",
+     "truth_speed": 0.97477,
+     "chain": [
+      1960.031,
+      2055.349,
+      1654,
+      10
+     ],
+     "refined": [
+      1956.53,
+      2055.343,
+      3177,
+      11
+     ],
+     "dropped_for": [
+      [
+       1782.611,
+       1957.989,
+       5168
+      ]
+     ],
+     "refined_speed": 0.974783,
+     "overlap": 1.46,
+     "moved": 3.5,
+     "winner_moved": 0.38,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+     "side": "after",
+     "span": [
+      2885.4,
+      2920.5
+     ],
+     "change": -0.0146,
+     "ramp": 13.8,
+     "stage": "second-drop",
+     "truth_speed": 0.99821,
+     "chain": [
+      2880.133,
+      2934.949,
+      1129,
+      6
+     ],
+     "refined": [
+      2875.639,
+      2935.843,
+      2020,
+      7
+     ],
+     "dropped_for": [
+      [
+       2800.661,
+       2883.59,
+       2470
+      ]
+     ],
+     "refined_speed": 0.998282,
+     "overlap": 7.95,
+     "moved": 4.49,
+     "winner_moved": 3.65,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "Cyb Orc - People From South.mp3",
+     "side": "after",
+     "span": [
+      3118.3,
+      3168.6
+     ],
+     "change": 0.0237,
+     "ramp": 13.0,
+     "stage": "second-drop",
+     "truth_speed": 1.04504,
+     "chain": [
+      3110.214,
+      3187.467,
+      2129,
+      8
+     ],
+     "refined": [
+      3107.789,
+      3187.467,
+      3148,
+      9
+     ],
+     "dropped_for": [
+      [
+       2926.408,
+       3112.502,
+       8500
+      ]
+     ],
+     "refined_speed": 1.044926,
+     "overlap": 4.71,
+     "moved": 2.42,
+     "winner_moved": 2.68,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "DJ Trace - Sonar.m4a",
+     "side": "after",
+     "span": [
+      3882.9,
+      3953.7
+     ],
+     "change": 0.0202,
+     "ramp": 14.7,
+     "stage": "second-drop",
+     "truth_speed": 0.98844,
+     "chain": [
+      3880.317,
+      3969.798,
+      2750,
+      9
+     ],
+     "refined": [
+      3875.158,
+      3970.693,
+      3538,
+      11
+     ],
+     "dropped_for": [
+      [
+       3722.049,
+       3875.351,
+       5743
+      ]
+     ],
+     "refined_speed": 0.988437,
+     "overlap": 0.19,
+     "moved": 5.16,
+     "winner_moved": 5.47,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "209-origin_unknown-elevator-sour.mp3",
+     "side": "before",
+     "span": [
+      3982.8,
+      4066.9
+     ],
+     "change": -0.0179,
+     "ramp": 10.6,
+     "stage": "second-drop",
+     "truth_speed": 1.0265,
+     "chain": [
+      3966.786,
+      4069.942,
+      2175,
+      11
+     ],
+     "refined": [
+      3965.158,
+      4074.03,
+      3458,
+      12
+     ],
+     "dropped_for": [
+      [
+       4068.239,
+       4208.196,
+       5296
+      ]
+     ],
+     "refined_speed": 1.026502,
+     "overlap": 5.79,
+     "moved": 4.09,
+     "winner_moved": 2.03,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "side": "before",
+     "span": [
+      361.9,
+      415.2
+     ],
+     "change": -0.0122,
+     "ramp": 14.6,
+     "stage": "second-drop",
+     "truth_speed": 1.04862,
+     "chain": [
+      330.253,
+      419.838,
+      2699,
+      9
+     ],
+     "refined": [
+      330.246,
+      424.873,
+      3450,
+      10
+     ],
+     "dropped_for": [
+      [
+       415.766,
+       554.508,
+       5792
+      ]
+     ],
+     "refined_speed": 1.048614,
+     "overlap": 9.11,
+     "moved": 5.03,
+     "winner_moved": 4.31,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+     "side": "before",
+     "span": [
+      1089.5,
+      1119.7
+     ],
+     "change": 0.0237,
+     "ramp": 14.7,
+     "stage": "second-drop",
+     "truth_speed": 0.94363,
+     "chain": [
+      1071.517,
+      1128.51,
+      1662,
+      6
+     ],
+     "refined": [
+      1070.779,
+      1131.451,
+      1858,
+      7
+     ],
+     "dropped_for": [
+      [
+       1126.151,
+       1214.583,
+       2974
+      ]
+     ],
+     "refined_speed": 0.943898,
+     "overlap": 5.3,
+     "moved": 2.94,
+     "winner_moved": 4.03,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "b-aphrodite-the_time_the_place-sour.mp3",
+     "side": "after",
+     "span": [
+      1608.2,
+      1710.0
+     ],
+     "change": -0.013,
+     "ramp": 12.6,
+     "stage": "second-drop",
+     "truth_speed": 0.95621,
+     "chain": [
+      1600.056,
+      1724.203,
+      4141,
+      13
+     ],
+     "refined": [
+      1596.513,
+      1724.096,
+      4926,
+      14
+     ],
+     "dropped_for": [
+      [
+       1432.367,
+       1604.605,
+       6952
+      ]
+     ],
+     "refined_speed": 0.956248,
+     "overlap": 8.09,
+     "moved": 3.54,
+     "winner_moved": 4.7,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "b-unknown-udfr014-sour.mp3",
+     "side": "before",
+     "span": [
+      2712.6,
+      2794.8
+     ],
+     "change": 0.0283,
+     "ramp": 8.2,
+     "stage": "second-drop",
+     "truth_speed": 0.97326,
+     "chain": [
+      2701.894,
+      2799.638,
+      2453,
+      10
+     ],
+     "refined": [
+      2700.391,
+      2802.304,
+      3926,
+      11
+     ],
+     "dropped_for": [
+      [
+       2797.964,
+       2921.249,
+       5019
+      ]
+     ],
+     "refined_speed": 0.973275,
+     "overlap": 4.34,
+     "moved": 2.67,
+     "winner_moved": 2.11,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "A. D-Struct -- Merkaba.mp3",
+     "side": "after",
+     "span": [
+      4044.7,
+      4171.2
+     ],
+     "change": 0.0118,
+     "ramp": 13.8,
+     "stage": "second-drop",
+     "truth_speed": 0.99768,
+     "chain": [
+      4040.044,
+      4189.37,
+      4213,
+      15
+     ],
+     "refined": [
+      4034.327,
+      4189.37,
+      5087,
+      16
+     ],
+     "dropped_for": [
+      [
+       3880.172,
+       4044.138,
+       7226
+      ]
+     ],
+     "refined_speed": 0.997678,
+     "overlap": 9.81,
+     "moved": 5.72,
+     "winner_moved": 4.41,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+     "side": "after",
+     "span": [
+      4278.2,
+      4346.0
+     ],
+     "change": -0.0152,
+     "ramp": 7.7,
+     "stage": "second-drop",
+     "truth_speed": 1.0372,
+     "chain": [
+      4280.226,
+      4345.647,
+      2256,
+      7
+     ],
+     "refined": [
+      4273.116,
+      4345.669,
+      3173,
+      8
+     ],
+     "dropped_for": [
+      [
+       4182.713,
+       4275.776,
+       3719
+      ]
+     ],
+     "refined_speed": 1.037192,
+     "overlap": 2.66,
+     "moved": 7.11,
+     "winner_moved": 5.78,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "aa-matrix-bad_dreams-sour.mp3",
+     "side": "after",
+     "span": [
+      173.0,
+      211.9
+     ],
+     "change": -0.0219,
+     "ramp": 11.9,
+     "stage": "second-drop",
+     "truth_speed": 1.01042,
+     "chain": [
+      170.081,
+      230.743,
+      1368,
+      7
+     ],
+     "refined": [
+      166.407,
+      233.259,
+      2264,
+      8
+     ],
+     "dropped_for": [
+      [
+       0.166,
+       172.704,
+       7391
+      ]
+     ],
+     "refined_speed": 1.010453,
+     "overlap": 6.3,
+     "moved": 3.67,
+     "winner_moved": 3.07,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "aa-cause_4_concern-psyke-sour.mp3",
+     "side": "after",
+     "span": [
+      363.0,
+      449.8
+     ],
+     "change": 0.0242,
+     "ramp": 6.9,
+     "stage": "second-drop",
+     "truth_speed": 0.96714,
+     "chain": [
+      360.035,
+      479.194,
+      2919,
+      12
+     ],
+     "refined": [
+      357.483,
+      479.193,
+      4436,
+      13
+     ],
+     "dropped_for": [
+      [
+       221.204,
+       359.432,
+       5212
+      ]
+     ],
+     "refined_speed": 0.96714,
+     "overlap": 1.95,
+     "moved": 2.55,
+     "winner_moved": 0.0,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "Cyb Orc - No Peace.mp3",
+     "side": "before",
+     "span": [
+      1725.6,
+      1826.3
+     ],
+     "change": -0.0156,
+     "ramp": 14.0,
+     "stage": "second-drop",
+     "truth_speed": 0.9946,
+     "chain": [
+      1706.632,
+      1829.785,
+      3355,
+      13
+     ],
+     "refined": [
+      1706.633,
+      1835.098,
+      5155,
+      14
+     ],
+     "dropped_for": [
+      [
+       1828.017,
+       1984.889,
+       5224
+      ]
+     ],
+     "refined_speed": 0.994602,
+     "overlap": 7.08,
+     "moved": 5.31,
+     "winner_moved": 2.02,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "DJ Trace - Sonar.m4a",
+     "side": "before",
+     "span": [
+      2839.4,
+      2929.9
+     ],
+     "change": -0.0114,
+     "ramp": 11.7,
+     "stage": "second-drop",
+     "truth_speed": 1.00698,
+     "chain": [
+      2830.649,
+      2939.911,
+      2623,
+      11
+     ],
+     "refined": [
+      2828.121,
+      2947.004,
+      4102,
+      13
+     ],
+     "dropped_for": [
+      [
+       2932.382,
+       3089.236,
+       5506
+      ]
+     ],
+     "refined_speed": 1.006992,
+     "overlap": 14.62,
+     "moved": 7.09,
+     "winner_moved": 7.75,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "side": "before",
+     "span": [
+      3813.4,
+      3849.6
+     ],
+     "change": -0.0196,
+     "ramp": 14.5,
+     "stage": "second-drop",
+     "truth_speed": 1.05784,
+     "chain": [
+      3781.827,
+      3849.969,
+      1298,
+      7
+     ],
+     "refined": [
+      3781.827,
+      3856.22,
+      2447,
+      8
+     ],
+     "dropped_for": [
+      [
+       3855.949,
+       3975.081,
+       2652
+      ]
+     ],
+     "refined_speed": 1.057793,
+     "overlap": 0.27,
+     "moved": 6.25,
+     "winner_moved": 4.16,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+     "side": "before",
+     "span": [
+      3979.7,
+      4063.5
+     ],
+     "change": 0.0139,
+     "ramp": 7.7,
+     "stage": "second-drop",
+     "truth_speed": 1.0041,
+     "chain": [
+      3943.406,
+      4068.577,
+      3439,
+      13
+     ],
+     "refined": [
+      3943.407,
+      4077.612,
+      4087,
+      14
+     ],
+     "dropped_for": [
+      [
+       4065.197,
+       4212.982,
+       6340
+      ]
+     ],
+     "refined_speed": 1.004106,
+     "overlap": 12.41,
+     "moved": 9.03,
+     "winner_moved": 5.06,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "b-kemal_and_rob_data-linear-sour.mp3",
+     "side": "after",
+     "span": [
+      136.2,
+      213.0
+     ],
+     "change": -0.0189,
+     "ramp": 12.4,
+     "stage": "second-drop",
+     "truth_speed": 0.94035,
+     "chain": [
+      130.66,
+      219.146,
+      2707,
+      9
+     ],
+     "refined": [
+      126.251,
+      219.916,
+      3175,
+      10
+     ],
+     "dropped_for": [
+      [
+       0.016,
+       132.385,
+       5104
+      ]
+     ],
+     "refined_speed": 0.940362,
+     "overlap": 6.13,
+     "moved": 4.41,
+     "winner_moved": 2.48,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "b-moth-sugar_crashing_(konflict_rmx)-sour.mp3",
+     "side": "after",
+     "span": [
+      352.4,
+      397.1
+     ],
+     "change": 0.0194,
+     "ramp": 11.1,
+     "stage": "second-drop",
+     "truth_speed": 0.967,
+     "chain": [
+      350.002,
+      419.927,
+      1514,
+      7
+     ],
+     "refined": [
+      346.161,
+      419.928,
+      2418,
+      8
+     ],
+     "dropped_for": [
+      [
+       217.063,
+       347.463,
+       5287
+      ]
+     ],
+     "refined_speed": 0.967034,
+     "overlap": 1.3,
+     "moved": 3.84,
+     "winner_moved": 7.47,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "d-skc-broken-sour.mp3",
+     "side": "after",
+     "span": [
+      2203.8,
+      2294.6
+     ],
+     "change": -0.0193,
+     "ramp": 11.3,
+     "stage": "second-drop",
+     "truth_speed": 0.98137,
+     "chain": [
+      2200.11,
+      2319.951,
+      2911,
+      12
+     ],
+     "refined": [
+      2196.292,
+      2319.951,
+      4415,
+      13
+     ],
+     "dropped_for": [
+      [
+       2033.712,
+       2202.466,
+       6457
+      ]
+     ],
+     "refined_speed": 0.981357,
+     "overlap": 6.17,
+     "moved": 3.82,
+     "winner_moved": 2.61,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "side": "after",
+     "span": [
+      2559.1,
+      2613.4
+     ],
+     "change": 0.0183,
+     "ramp": 10.5,
+     "stage": "second-drop",
+     "truth_speed": 1.04691,
+     "chain": [
+      2560.006,
+      2632.8,
+      1712,
+      8
+     ],
+     "refined": [
+      2553.34,
+      2632.544,
+      2814,
+      9
+     ],
+     "dropped_for": [
+      [
+       2412.01,
+       2554.68,
+       5638
+      ]
+     ],
+     "refined_speed": 1.0469,
+     "overlap": 1.34,
+     "moved": 6.67,
+     "winner_moved": 4.68,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "Illuminati - The Rust.mp3",
+     "side": "after",
+     "span": [
+      3324.3,
+      3381.4
+     ],
+     "change": -0.0178,
+     "ramp": 10.5,
+     "stage": "second-drop",
+     "truth_speed": 0.96658,
+     "chain": [
+      3320.072,
+      3413.253,
+      1916,
+      10
+     ],
+     "refined": [
+      3316.234,
+      3413.548,
+      3095,
+      11
+     ],
+     "dropped_for": [
+      [
+       3110.132,
+       3323.947,
+       8137
+      ]
+     ],
+     "refined_speed": 0.966597,
+     "overlap": 7.71,
+     "moved": 3.84,
+     "winner_moved": 4.64,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+     "side": "before",
+     "span": [
+      240.8,
+      295.6
+     ],
+     "change": -0.0124,
+     "ramp": 10.6,
+     "stage": "second-drop",
+     "truth_speed": 1.00832,
+     "chain": [
+      198.621,
+      299.943,
+      2837,
+      11
+     ],
+     "refined": [
+      198.134,
+      304.8,
+      3450,
+      12
+     ],
+     "dropped_for": [
+      [
+       296.205,
+       494.834,
+       7375
+      ]
+     ],
+     "refined_speed": 1.008312,
+     "overlap": 8.6,
+     "moved": 4.86,
+     "winner_moved": 3.97,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "B-Bad_Company-Four_Days-dmz.mp3",
+     "side": "after",
+     "span": [
+      1257.3,
+      1368.7
+     ],
+     "change": 0.025,
+     "ramp": 6.2,
+     "stage": "second-drop",
+     "truth_speed": 0.97018,
+     "chain": [
+      1260.042,
+      1395.803,
+      2943,
+      14
+     ],
+     "refined": [
+      1253.778,
+      1399.369,
+      5156,
+      15
+     ],
+     "dropped_for": [
+      [
+       1087.844,
+       1254.478,
+       6852
+      ]
+     ],
+     "refined_speed": 0.970176,
+     "overlap": 0.7,
+     "moved": 6.26,
+     "winner_moved": 4.49,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "Ed Rush & Optical - Funktion.mp3",
+     "side": "before",
+     "span": [
+      1411.0,
+      1517.2
+     ],
+     "change": 0.0188,
+     "ramp": 9.8,
+     "stage": "second-drop",
+     "truth_speed": 1.03179,
+     "chain": [
+      1385.888,
+      1519.412,
+      3122,
+      14
+     ],
+     "refined": [
+      1388.227,
+      1522.62,
+      3848,
+      15
+     ],
+     "dropped_for": [
+      [
+       1517.912,
+       1705.862,
+       5825
+      ]
+     ],
+     "refined_speed": 1.031792,
+     "overlap": 4.71,
+     "moved": 3.21,
+     "winner_moved": 2.12,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "B - Aphrodite - Heat Haze.mp3",
+     "side": "before",
+     "span": [
+      2243.6,
+      2311.3
+     ],
+     "change": 0.0151,
+     "ramp": 7.1,
+     "stage": "second-drop",
+     "truth_speed": 0.98435,
+     "chain": [
+      2207.883,
+      2309.834,
+      3076,
+      11
+     ],
+     "refined": [
+      2207.869,
+      2316.323,
+      4077,
+      12
+     ],
+     "dropped_for": [
+      [
+       2313.532,
+       2445.475,
+       5288
+      ]
+     ],
+     "refined_speed": 0.984353,
+     "overlap": 2.79,
+     "moved": 6.49,
+     "winner_moved": 6.55,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "B. falcon - china delight.mp3",
+     "side": "before",
+     "span": [
+      1000.4,
+      1065.7
+     ],
+     "change": 0.0296,
+     "ramp": 8.4,
+     "stage": "second-drop",
+     "truth_speed": 0.9622,
+     "chain": [
+      978.822,
+      1069.475,
+      1712,
+      10
+     ],
+     "refined": [
+      976.933,
+      1069.483,
+      2771,
+      10
+     ],
+     "dropped_for": [
+      [
+       1066.997,
+       1294.643,
+       7399
+      ]
+     ],
+     "refined_speed": 0.96222,
+     "overlap": 2.49,
+     "moved": 0.01,
+     "winner_moved": 3.19,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "DJ Trace - Sonar.m4a",
+     "side": "after",
+     "span": [
+      1375.0,
+      1407.0
+     ],
+     "change": 0.0242,
+     "ramp": 8.3,
+     "stage": "second-drop",
+     "truth_speed": 1.03525,
+     "chain": [
+      1370.027,
+      1428.961,
+      1026,
+      6
+     ],
+     "refined": [
+      1360.254,
+      1434.352,
+      1822,
+      8
+     ],
+     "dropped_for": [
+      [
+       1280.301,
+       1371.515,
+       3036
+      ]
+     ],
+     "refined_speed": 1.035204,
+     "overlap": 11.26,
+     "moved": 9.77,
+     "winner_moved": 1.62,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "b-cause_4_concern-give_it_2_em-sour.mp3",
+     "side": "before",
+     "span": [
+      1442.2,
+      1512.9
+     ],
+     "change": -0.0238,
+     "ramp": 13.5,
+     "stage": "second-drop",
+     "truth_speed": 1.04932,
+     "chain": [
+      1415.691,
+      1519.479,
+      2593,
+      11
+     ],
+     "refined": [
+      1415.694,
+      1521.922,
+      3909,
+      12
+     ],
+     "dropped_for": [
+      [
+       1517.28,
+       1659.54,
+       5062
+      ]
+     ],
+     "refined_speed": 1.049274,
+     "overlap": 4.64,
+     "moved": 2.44,
+     "winner_moved": 3.73,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "c-bad_company-the_fear-sour.mp3",
+     "side": "before",
+     "span": [
+      2216.6,
+      2339.2
+     ],
+     "change": 0.0278,
+     "ramp": 7.6,
+     "stage": "second-drop",
+     "truth_speed": 1.02924,
+     "chain": [
+      2196.266,
+      2339.993,
+      3129,
+      15
+     ],
+     "refined": [
+      2193.582,
+      2342.969,
+      5444,
+      16
+     ],
+     "dropped_for": [
+      [
+       2342.962,
+       2514.308,
+       7115
+      ]
+     ],
+     "refined_speed": 1.029229,
+     "overlap": 0.01,
+     "moved": 2.98,
+     "winner_moved": 0.01,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+     "side": "before",
+     "span": [
+      2516.7,
+      2564.2
+     ],
+     "change": 0.0249,
+     "ramp": 7.2,
+     "stage": "second-drop",
+     "truth_speed": 1.00472,
+     "chain": [
+      2504.136,
+      2568.46,
+      1227,
+      7
+     ],
+     "refined": [
+      2504.12,
+      2568.308,
+      1924,
+      7
+     ],
+     "dropped_for": [
+      [
+       2566.743,
+       2653.623,
+       3090
+      ]
+     ],
+     "refined_speed": 1.004785,
+     "overlap": 1.57,
+     "moved": 0.15,
+     "winner_moved": 3.38,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "Ryme Tyme - Payback Pt. 1.mp3",
+     "side": "before",
+     "span": [
+      2665.2,
+      2743.6
+     ],
+     "change": -0.0177,
+     "ramp": 13.6,
+     "stage": "second-drop",
+     "truth_speed": 0.94786,
+     "chain": [
+      2651.842,
+      2749.675,
+      2889,
+      10
+     ],
+     "refined": [
+      2651.132,
+      2753.524,
+      3645,
+      11
+     ],
+     "dropped_for": [
+      [
+       2746.698,
+       2926.191,
+       7349
+      ]
+     ],
+     "refined_speed": 0.947853,
+     "overlap": 6.83,
+     "moved": 3.85,
+     "winner_moved": 3.65,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+     "side": "after",
+     "span": [
+      3292.7,
+      3347.8
+     ],
+     "change": -0.0236,
+     "ramp": 8.1,
+     "stage": "second-drop",
+     "truth_speed": 0.943,
+     "chain": [
+      3290.024,
+      3357.073,
+      1358,
+      7
+     ],
+     "refined": [
+      3288.049,
+      3357.306,
+      2360,
+      8
+     ],
+     "dropped_for": [
+      [
+       3207.111,
+       3288.591,
+       3137
+      ]
+     ],
+     "refined_speed": 0.943013,
+     "overlap": 0.54,
+     "moved": 1.97,
+     "winner_moved": 0.49,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "aa-stakka_and_k_tee-rubber_bullet-sour.mp3",
+     "side": "before",
+     "span": [
+      4515.6,
+      4577.1
+     ],
+     "change": -0.0242,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 0.99116,
+     "chain": [
+      4490.297,
+      4579.978,
+      2179,
+      9
+     ],
+     "refined": [
+      4490.296,
+      4582.346,
+      3781,
+      10
+     ],
+     "dropped_for": [
+      [
+       4581.745,
+       4754.213,
+       7375
+      ]
+     ],
+     "refined_speed": 0.991168,
+     "overlap": 0.6,
+     "moved": 2.37,
+     "winner_moved": 0.43,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "B - Aphrodite - Heat Haze.mp3",
+     "side": "after",
+     "span": [
+      191.8,
+      269.5
+     ],
+     "change": 0.0176,
+     "ramp": 11.4,
+     "stage": "second-drop",
+     "truth_speed": 1.01719,
+     "chain": [
+      190.022,
+      299.92,
+      2845,
+      11
+     ],
+     "refined": [
+      185.357,
+      306.631,
+      4401,
+      13
+     ],
+     "dropped_for": [
+      [
+       0.0,
+       186.484,
+       7692
+      ]
+     ],
+     "refined_speed": 1.01718,
+     "overlap": 1.13,
+     "moved": 4.66,
+     "winner_moved": 6.49,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "e-cause_4_concern-blindside-sour.mp3",
+     "side": "after",
+     "span": [
+      1232.6,
+      1333.2
+     ],
+     "change": -0.0176,
+     "ramp": 6.0,
+     "stage": "second-drop",
+     "truth_speed": 0.93422,
+     "chain": [
+      1230.009,
+      1378.685,
+      2811,
+      15
+     ],
+     "refined": [
+      1228.486,
+      1378.685,
+      5436,
+      16
+     ],
+     "dropped_for": [
+      [
+       1041.473,
+       1232.229,
+       6689
+      ]
+     ],
+     "refined_speed": 0.934237,
+     "overlap": 3.74,
+     "moved": 1.52,
+     "winner_moved": 3.09,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "Kraken - Side Effects (TeeBee Remix).mp3",
+     "side": "before",
+     "span": [
+      1659.9,
+      1708.0
+     ],
+     "change": 0.0183,
+     "ramp": 12.8,
+     "stage": "second-drop",
+     "truth_speed": 0.95165,
+     "chain": [
+      1634.323,
+      1709.981,
+      2140,
+      8
+     ],
+     "refined": [
+      1634.323,
+      1715.244,
+      2659,
+      9
+     ],
+     "dropped_for": [
+      [
+       1713.386,
+       1877.655,
+       5284
+      ]
+     ],
+     "refined_speed": 0.95166,
+     "overlap": 1.86,
+     "moved": 5.26,
+     "winner_moved": 6.65,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "207-ant_miles-china_town-sour.mp3",
+     "side": "after",
+     "span": [
+      2001.2,
+      2040.5
+     ],
+     "change": -0.0159,
+     "ramp": 11.1,
+     "stage": "second-drop",
+     "truth_speed": 0.93573,
+     "chain": [
+      2000.016,
+      2054.139,
+      1369,
+      6
+     ],
+     "refined": [
+      1994.172,
+      2054.139,
+      1702,
+      7
+     ],
+     "dropped_for": [
+      [
+       1861.383,
+       1996.378,
+       4420
+      ]
+     ],
+     "refined_speed": 0.935743,
+     "overlap": 2.21,
+     "moved": 5.84,
+     "winner_moved": 6.55,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "09-Decoder-Bountyhunter-sour.mp3",
+     "side": "after",
+     "span": [
+      2177.2,
+      2245.7
+     ],
+     "change": 0.0283,
+     "ramp": 13.6,
+     "stage": "second-drop",
+     "truth_speed": 1.04646,
+     "chain": [
+      2180.088,
+      2265.07,
+      1915,
+      9
+     ],
+     "refined": [
+      2172.102,
+      2265.072,
+      3499,
+      10
+     ],
+     "dropped_for": [
+      [
+       2043.431,
+       2172.141,
+       5434
+      ]
+     ],
+     "refined_speed": 1.046443,
+     "overlap": 0.04,
+     "moved": 7.99,
+     "winner_moved": 2.66,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "02. Bad Company - China Cup.mp3",
+     "side": "after",
+     "span": [
+      2816.9,
+      2902.5
+     ],
+     "change": -0.0136,
+     "ramp": 7.9,
+     "stage": "second-drop",
+     "truth_speed": 0.96393,
+     "chain": [
+      2811.116,
+      2923.942,
+      3105,
+      12
+     ],
+     "refined": [
+      2802.845,
+      2923.957,
+      3934,
+      13
+     ],
+     "dropped_for": [
+      [
+       2701.194,
+       2814.338,
+       4186
+      ]
+     ],
+     "refined_speed": 0.963944,
+     "overlap": 11.49,
+     "moved": 8.27,
+     "winner_moved": 4.53,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3",
+     "side": "before",
+     "span": [
+      4554.9,
+      4586.3
+     ],
+     "change": -0.0137,
+     "ramp": 13.9,
+     "stage": "second-drop",
+     "truth_speed": 1.00786,
+     "chain": [
+      4547.765,
+      4589.921,
+      1372,
+      5
+     ],
+     "refined": [
+      4547.761,
+      4595.708,
+      1700,
+      6
+     ],
+     "dropped_for": [
+      [
+       4586.491,
+       4676.514,
+       3118
+      ]
+     ],
+     "refined_speed": 1.007832,
+     "overlap": 9.22,
+     "moved": 5.79,
+     "winner_moved": 3.61,
+     "chains_overlap": 0.0
+    }
+   ]
+  },
+  "3522": {
+   "summary": [
+    "work/reports/mixes-rides-seed-3522.json: 191 ridden indexed plays, 327 sides of 30 s or more, 99 lost",
+    "no-chain      0",
+    "first-drop    0",
+    "refine-none   0",
+    "refined-weak  0",
+    "second-drop   99",
+    "other         0",
+    "overlap with the stronger side after the second pass (s): n 98, min 0.0, median 5.2, 90% 10.47, max 15.79",
+    "overlap of the two sides' first-pass chains (s): n 98, min 0.0, median 0.0, 90% 0.0, max 0.0",
+    "dropped side's facing end moved by the second pass (s): n 98, min 0.0, median 3.8, 90% 7.19, max 9.73",
+    "stronger side's facing end moved by the second pass (s): n 98, min 0.12, median 4.07, 90% 6.25, max 7.86",
+    "dropped side's fitted speed against its true speed: median 0.0024%, max 0.0242%"
+   ],
+   "lost_sides": [
+    {
+     "mix": "mix-00",
+     "asset": "Optical - Millennium.mp3",
+     "side": "after",
+     "span": [
+      112.3,
+      165.9
+     ],
+     "change": -0.0245,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 0.97305,
+     "chain": [
+      110.887,
+      181.644,
+      1542,
+      8
+     ],
+     "refined": [
+      106.565,
+      180.498,
+      2249,
+      9
+     ],
+     "dropped_for": [
+      [
+       0.044,
+       107.044,
+       3975
+      ]
+     ],
+     "refined_speed": 0.973019,
+     "overlap": 0.48,
+     "moved": 4.32,
+     "winner_moved": 1.01,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "a-dj_reality-reasons.mp3",
+     "side": "after",
+     "span": [
+      319.8,
+      416.6
+     ],
+     "change": -0.0159,
+     "ramp": 12.4,
+     "stage": "second-drop",
+     "truth_speed": 1.01673,
+     "chain": [
+      320.002,
+      425.968,
+      3579,
+      11
+     ],
+     "refined": [
+      313.15,
+      425.963,
+      5995,
+      12
+     ],
+     "dropped_for": [
+      [
+       176.223,
+       315.027,
+       6996
+      ]
+     ],
+     "refined_speed": 1.016736,
+     "overlap": 1.88,
+     "moved": 6.85,
+     "winner_moved": 5.25,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "02-aphrodite-b1-cool_rock_suff-utb.mp3",
+     "side": "after",
+     "span": [
+      1350.8,
+      1418.5
+     ],
+     "change": -0.02,
+     "ramp": 13.2,
+     "stage": "second-drop",
+     "truth_speed": 0.93997,
+     "chain": [
+      1350.034,
+      1435.774,
+      2496,
+      9
+     ],
+     "refined": [
+      1344.397,
+      1436.463,
+      3039,
+      10
+     ],
+     "dropped_for": [
+      [
+       1132.185,
+       1344.398,
+       8240
+      ]
+     ],
+     "refined_speed": 0.939968,
+     "overlap": 0.0,
+     "moved": 5.64,
+     "winner_moved": 4.5,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "03-Profound_Noize-Dropzone-sour.mp3",
+     "side": "before",
+     "span": [
+      2354.8,
+      2413.0
+     ],
+     "change": -0.0103,
+     "ramp": 6.5,
+     "stage": "second-drop",
+     "truth_speed": 1.00285,
+     "chain": [
+      2330.257,
+      2419.836,
+      2231,
+      9
+     ],
+     "refined": [
+      2330.12,
+      2427.987,
+      3772,
+      10
+     ],
+     "dropped_for": [
+      [
+       2413.482,
+       2528.549,
+       4670
+      ]
+     ],
+     "refined_speed": 1.002783,
+     "overlap": 14.51,
+     "moved": 8.15,
+     "winner_moved": 6.52,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "b-stratus-waves-sour.mp3",
+     "side": "before",
+     "span": [
+      2532.9,
+      2581.8
+     ],
+     "change": -0.0221,
+     "ramp": 12.2,
+     "stage": "second-drop",
+     "truth_speed": 1.05226,
+     "chain": [
+      2524.172,
+      2579.982,
+      1888,
+      6
+     ],
+     "refined": [
+      2524.172,
+      2587.69,
+      2315,
+      7
+     ],
+     "dropped_for": [
+      [
+       2586.353,
+       2708.91,
+       4095
+      ]
+     ],
+     "refined_speed": 1.052265,
+     "overlap": 1.34,
+     "moved": 7.71,
+     "winner_moved": 4.07,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "Cyb Orc - Simulant.mp3",
+     "side": "before",
+     "span": [
+      3236.0,
+      3306.1
+     ],
+     "change": -0.0163,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 1.00054,
+     "chain": [
+      3220.304,
+      3309.983,
+      2403,
+      9
+     ],
+     "refined": [
+      3220.307,
+      3313.572,
+      2957,
+      10
+     ],
+     "dropped_for": [
+      [
+       3307.543,
+       3484.936,
+       5308
+      ]
+     ],
+     "refined_speed": 1.00053,
+     "overlap": 6.03,
+     "moved": 3.59,
+     "winner_moved": 2.73,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "aa-cause_4_concern-synergy-sour.mp3",
+     "side": "before",
+     "span": [
+      3506.8,
+      3558.7
+     ],
+     "change": -0.0235,
+     "ramp": 6.3,
+     "stage": "second-drop",
+     "truth_speed": 0.97775,
+     "chain": [
+      3472.645,
+      3559.956,
+      1964,
+      9
+     ],
+     "refined": [
+      3472.044,
+      3562.225,
+      3510,
+      10
+     ],
+     "dropped_for": [
+      [
+       3561.066,
+       3712.246,
+       5805
+      ]
+     ],
+     "refined_speed": 0.977744,
+     "overlap": 1.16,
+     "moved": 2.27,
+     "winner_moved": 0.27,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-00",
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "side": "before",
+     "span": [
+      4428.5,
+      4516.4
+     ],
+     "change": 0.0228,
+     "ramp": 9.5,
+     "stage": "second-drop",
+     "truth_speed": 0.95707,
+     "chain": [
+      4416.125,
+      4519.33,
+      2230,
+      11
+     ],
+     "refined": [
+      4414.682,
+      4522.223,
+      3938,
+      12
+     ],
+     "dropped_for": [
+      [
+       4518.529,
+       4722.197,
+       8428
+      ]
+     ],
+     "refined_speed": 0.957073,
+     "overlap": 3.69,
+     "moved": 2.89,
+     "winner_moved": 2.24,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "aa-sinthetix-fallout-sour.mp3",
+     "side": "before",
+     "span": [
+      0.0,
+      72.4
+     ],
+     "change": 0.0165,
+     "ramp": 13.0,
+     "stage": "second-drop",
+     "truth_speed": 0.94102,
+     "chain": [
+      0.0,
+      79.906,
+      2200,
+      8
+     ],
+     "refined": [
+      0.0,
+      82.527,
+      3252,
+      9
+     ],
+     "dropped_for": [
+      [
+       76.199,
+       203.237,
+       4164
+      ]
+     ],
+     "refined_speed": 0.941073,
+     "overlap": 6.33,
+     "moved": 2.62,
+     "winner_moved": 3.81,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "b1_from_the_east-drum.mp3",
+     "side": "after",
+     "span": [
+      343.1,
+      376.2
+     ],
+     "change": 0.0247,
+     "ramp": 6.4,
+     "stage": "second-drop",
+     "truth_speed": 1.03558,
+     "chain": [
+      340.324,
+      399.143,
+      1470,
+      6
+     ],
+     "refined": [
+      338.663,
+      399.139,
+      2087,
+      7
+     ],
+     "dropped_for": [
+      [
+       184.946,
+       341.38,
+       5717
+      ]
+     ],
+     "refined_speed": 1.035552,
+     "overlap": 2.72,
+     "moved": 1.66,
+     "winner_moved": 1.39,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "09-muffler-downfall_(original_mix).mp3",
+     "side": "before",
+     "span": [
+      1299.4,
+      1372.7
+     ],
+     "change": 0.0284,
+     "ramp": 13.6,
+     "stage": "second-drop",
+     "truth_speed": 0.94353,
+     "chain": [
+      1267.841,
+      1379.772,
+      3600,
+      12
+     ],
+     "refined": [
+      1267.826,
+      1381.466,
+      4069,
+      13
+     ],
+     "dropped_for": [
+      [
+       1378.217,
+       1499.823,
+       4244
+      ]
+     ],
+     "refined_speed": 0.943571,
+     "overlap": 3.25,
+     "moved": 1.69,
+     "winner_moved": 1.81,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3",
+     "side": "before",
+     "span": [
+      1956.6,
+      2034.6
+     ],
+     "change": 0.0181,
+     "ramp": 11.1,
+     "stage": "second-drop",
+     "truth_speed": 0.98201,
+     "chain": [
+      1931.446,
+      2039.878,
+      2391,
+      11
+     ],
+     "refined": [
+      1933.375,
+      2043.114,
+      4155,
+      12
+     ],
+     "dropped_for": [
+      [
+       2036.732,
+       2278.115,
+       9788
+      ]
+     ],
+     "refined_speed": 0.982019,
+     "overlap": 6.38,
+     "moved": 3.24,
+     "winner_moved": 3.29,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "k-sta_and_paul_b-come_closer-sour.mp3",
+     "side": "after",
+     "span": [
+      2384.7,
+      2444.2
+     ],
+     "change": -0.0146,
+     "ramp": 10.1,
+     "stage": "second-drop",
+     "truth_speed": 1.03154,
+     "chain": [
+      2380.036,
+      2473.766,
+      2955,
+      10
+     ],
+     "refined": [
+      2375.181,
+      2478.149,
+      3820,
+      11
+     ],
+     "dropped_for": [
+      [
+       2274.712,
+       2383.175,
+       4983
+      ]
+     ],
+     "refined_speed": 1.03155,
+     "overlap": 7.99,
+     "moved": 4.86,
+     "winner_moved": 3.33,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "a-unknown-udfr014-(synthesis_vip)-sour.mp3",
+     "side": "before",
+     "span": [
+      2494.8,
+      2610.4
+     ],
+     "change": 0.0139,
+     "ramp": 12.8,
+     "stage": "second-drop",
+     "truth_speed": 1.00914,
+     "chain": [
+      2461.67,
+      2619.91,
+      4424,
+      16
+     ],
+     "refined": [
+      2463.701,
+      2625.012,
+      6863,
+      17
+     ],
+     "dropped_for": [
+      [
+       2614.275,
+       2778.647,
+       7568
+      ]
+     ],
+     "refined_speed": 1.009173,
+     "overlap": 10.74,
+     "moved": 5.1,
+     "winner_moved": 5.72,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-01",
+     "asset": "B-Cause_4_Concern-Peep_Show-sour.mp3",
+     "side": "before",
+     "span": [
+      4291.7,
+      4332.6
+     ],
+     "change": 0.0106,
+     "ramp": 13.1,
+     "stage": "second-drop",
+     "truth_speed": 1.0543,
+     "chain": [
+      4261.539,
+      4339.857,
+      2383,
+      8
+     ],
+     "refined": [
+      4261.541,
+      4344.463,
+      3640,
+      9
+     ],
+     "dropped_for": [
+      [
+       4335.076,
+       4512.167,
+       9911
+      ]
+     ],
+     "refined_speed": 1.054379,
+     "overlap": 9.39,
+     "moved": 4.61,
+     "winner_moved": 4.96,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "b-spirit-out_of_control-sour.mp3",
+     "side": "after",
+     "span": [
+      81.8,
+      113.6
+     ],
+     "change": 0.0143,
+     "ramp": 14.3,
+     "stage": "second-drop",
+     "truth_speed": 1.0172,
+     "chain": [
+      70.214,
+      157.752,
+      2195,
+      9
+     ],
+     "refined": [
+      66.9,
+      157.746,
+      3096,
+      10
+     ],
+     "dropped_for": [
+      [
+       0.238,
+       76.422,
+       3333
+      ]
+     ],
+     "refined_speed": 1.016954,
+     "overlap": 9.52,
+     "moved": 3.31,
+     "winner_moved": 6.48,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "a-cause_4_concern-skewer-sour.mp3",
+     "side": "before",
+     "span": [
+      166.8,
+      266.3
+     ],
+     "change": -0.0192,
+     "ramp": 12.2,
+     "stage": "second-drop",
+     "truth_speed": 0.98112,
+     "chain": [
+      145.116,
+      269.961,
+      2536,
+      13
+     ],
+     "refined": [
+      144.644,
+      273.717,
+      4630,
+      14
+     ],
+     "dropped_for": [
+      [
+       268.692,
+       416.359,
+       5810
+      ]
+     ],
+     "refined_speed": 0.981112,
+     "overlap": 5.02,
+     "moved": 3.76,
+     "winner_moved": 3.04,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+     "side": "before",
+     "span": [
+      1037.4,
+      1108.1
+     ],
+     "change": -0.0179,
+     "ramp": 14.7,
+     "stage": "second-drop",
+     "truth_speed": 0.951,
+     "chain": [
+      1008.911,
+      1109.815,
+      2310,
+      11
+     ],
+     "refined": [
+      1008.914,
+      1116.297,
+      3514,
+      12
+     ],
+     "dropped_for": [
+      [
+       1113.547,
+       1248.926,
+       4842
+      ]
+     ],
+     "refined_speed": 0.951002,
+     "overlap": 2.75,
+     "moved": 6.48,
+     "winner_moved": 6.48,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "03-verbal-frozen_lake_(dephzac_remix).mp3",
+     "side": "before",
+     "span": [
+      1480.0,
+      1536.0
+     ],
+     "change": 0.0187,
+     "ramp": 10.0,
+     "stage": "second-drop",
+     "truth_speed": 1.00285,
+     "chain": [
+      1467.233,
+      1539.805,
+      1805,
+      8
+     ],
+     "refined": [
+      1465.182,
+      1543.219,
+      3017,
+      9
+     ],
+     "dropped_for": [
+      [
+       1538.016,
+       1666.736,
+       4758
+      ]
+     ],
+     "refined_speed": 1.002877,
+     "overlap": 5.2,
+     "moved": 3.41,
+     "winner_moved": 2.09,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "A - Aphrodite - Ganja Man.mp3",
+     "side": "before",
+     "span": [
+      2518.6,
+      2602.4
+     ],
+     "change": -0.0241,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 1.05202,
+     "chain": [
+      2500.674,
+      2607.221,
+      3553,
+      11
+     ],
+     "refined": [
+      2500.674,
+      2607.221,
+      3935,
+      11
+     ],
+     "dropped_for": [
+      [
+       2606.82,
+       2758.115,
+       5769
+      ]
+     ],
+     "refined_speed": 1.052013,
+     "overlap": 0.4,
+     "moved": 0.0,
+     "winner_moved": 3.3,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "b-stakka_and_k_tee-echo_chamber-atm.mp3",
+     "side": "before",
+     "span": [
+      2978.3,
+      3081.7
+     ],
+     "change": 0.0238,
+     "ramp": 8.9,
+     "stage": "second-drop",
+     "truth_speed": 0.95356,
+     "chain": [
+      2942.476,
+      3079.948,
+      3016,
+      14
+     ],
+     "refined": [
+      2942.476,
+      3086.274,
+      5630,
+      15
+     ],
+     "dropped_for": [
+      [
+       3085.598,
+       3251.905,
+       7580
+      ]
+     ],
+     "refined_speed": 0.953548,
+     "overlap": 0.68,
+     "moved": 6.33,
+     "winner_moved": 4.43,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "side": "before",
+     "span": [
+      4256.8,
+      4332.8
+     ],
+     "change": -0.0159,
+     "ramp": 11.6,
+     "stage": "second-drop",
+     "truth_speed": 0.97014,
+     "chain": [
+      4237.547,
+      4339.782,
+      1727,
+      11
+     ],
+     "refined": [
+      4237.544,
+      4343.351,
+      3378,
+      12
+     ],
+     "dropped_for": [
+      [
+       4334.923,
+       4507.875,
+       5789
+      ]
+     ],
+     "refined_speed": 0.970115,
+     "overlap": 8.43,
+     "moved": 3.57,
+     "winner_moved": 5.19,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-02",
+     "asset": "A. D-Struct -- Merkaba.mp3",
+     "side": "after",
+     "span": [
+      4590.2,
+      4652.3
+     ],
+     "change": 0.0202,
+     "ramp": 13.1,
+     "stage": "second-drop",
+     "truth_speed": 1.01516,
+     "chain": [
+      4590.019,
+      4652.077,
+      2260,
+      7
+     ],
+     "refined": [
+      4582.703,
+      4652.073,
+      3346,
+      8
+     ],
+     "dropped_for": [
+      [
+       4500.202,
+       4584.369,
+       3718
+      ]
+     ],
+     "refined_speed": 1.01516,
+     "overlap": 1.67,
+     "moved": 7.32,
+     "winner_moved": 4.41,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "DJ Trace - Sonar.m4a",
+     "side": "before",
+     "span": [
+      159.0,
+      250.5
+     ],
+     "change": -0.0217,
+     "ramp": 14.9,
+     "stage": "second-drop",
+     "truth_speed": 1.00157,
+     "chain": [
+      151.387,
+      259.98,
+      2155,
+      10
+     ],
+     "refined": [
+      151.348,
+      261.929,
+      3440,
+      12
+     ],
+     "dropped_for": [
+      [
+       256.649,
+       449.83,
+       7676
+      ]
+     ],
+     "refined_speed": 1.001462,
+     "overlap": 5.28,
+     "moved": 1.95,
+     "winner_moved": 3.64,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "108-stakka_and_skynet_feat_shimon-spider_monkey-sour.mp3",
+     "side": "before",
+     "span": [
+      623.4,
+      698.6
+     ],
+     "change": 0.0298,
+     "ramp": 5.8,
+     "stage": "second-drop",
+     "truth_speed": 0.94172,
+     "chain": [
+      602.105,
+      699.979,
+      2079,
+      10
+     ],
+     "refined": [
+      596.142,
+      701.31,
+      3599,
+      12
+     ],
+     "dropped_for": [
+      [
+       701.001,
+       908.11,
+       8862
+      ]
+     ],
+     "refined_speed": 0.941743,
+     "overlap": 0.31,
+     "moved": 1.33,
+     "winner_moved": 0.36,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "a-aphrodite-wikki_wikki_plate-lame.mp3",
+     "side": "before",
+     "span": [
+      918.4,
+      982.8
+     ],
+     "change": 0.0191,
+     "ramp": 8.2,
+     "stage": "second-drop",
+     "truth_speed": 0.95105,
+     "chain": [
+      890.955,
+      989.365,
+      2452,
+      10
+     ],
+     "refined": [
+      883.546,
+      997.278,
+      3482,
+      12
+     ],
+     "dropped_for": [
+      [
+       985.505,
+       1149.711,
+       5929
+      ]
+     ],
+     "refined_speed": 0.951106,
+     "overlap": 11.77,
+     "moved": 7.91,
+     "winner_moved": 4.55,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "a-jo_s-afterburner-sour.mp3",
+     "side": "before",
+     "span": [
+      1165.1,
+      1241.3
+     ],
+     "change": 0.0198,
+     "ramp": 12.2,
+     "stage": "second-drop",
+     "truth_speed": 0.94751,
+     "chain": [
+      1142.776,
+      1249.407,
+      3301,
+      11
+     ],
+     "refined": [
+      1142.483,
+      1251.679,
+      4554,
+      12
+     ],
+     "dropped_for": [
+      [
+       1245.923,
+       1356.644,
+       5070
+      ]
+     ],
+     "refined_speed": 0.947562,
+     "overlap": 5.76,
+     "moved": 2.27,
+     "winner_moved": 4.14,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "e-cause_4_concern-blindside-sour.mp3",
+     "side": "after",
+     "span": [
+      1906.0,
+      1984.0
+     ],
+     "change": 0.0148,
+     "ramp": 6.1,
+     "stage": "second-drop",
+     "truth_speed": 1.05971,
+     "chain": [
+      1900.002,
+      2032.489,
+      3231,
+      14
+     ],
+     "refined": [
+      1896.322,
+      2032.9,
+      4070,
+      15
+     ],
+     "dropped_for": [
+      [
+       1775.039,
+       1904.695,
+       4383
+      ]
+     ],
+     "refined_speed": 1.059677,
+     "overlap": 8.37,
+     "moved": 3.68,
+     "winner_moved": 4.94,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "Cyb Orc - People From South.mp3",
+     "side": "after",
+     "span": [
+      2151.6,
+      2227.9
+     ],
+     "change": 0.0128,
+     "ramp": 14.4,
+     "stage": "second-drop",
+     "truth_speed": 1.00089,
+     "chain": [
+      2140.034,
+      2268.371,
+      3710,
+      13
+     ],
+     "refined": [
+      2131.248,
+      2267.703,
+      5020,
+      14
+     ],
+     "dropped_for": [
+      [
+       2002.641,
+       2146.653,
+       5649
+      ]
+     ],
+     "refined_speed": 1.000794,
+     "overlap": 15.4,
+     "moved": 8.79,
+     "winner_moved": 6.79,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "01 - Ed Rush & Optical - Funktion.mp3",
+     "side": "after",
+     "span": [
+      2352.3,
+      2393.1
+     ],
+     "change": -0.0242,
+     "ramp": 8.3,
+     "stage": "second-drop",
+     "truth_speed": 1.0266,
+     "chain": [
+      2350.167,
+      2417.606,
+      1033,
+      7
+     ],
+     "refined": [
+      2347.513,
+      2417.607,
+      1640,
+      8
+     ],
+     "dropped_for": [
+      [
+       2252.984,
+       2347.959,
+       2615
+      ]
+     ],
+     "refined_speed": 1.026565,
+     "overlap": 0.45,
+     "moved": 2.65,
+     "winner_moved": 0.25,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-03",
+     "asset": "a-aphrodite-aphro_vs_schooly_d.mp3",
+     "side": "after",
+     "span": [
+      3480.0,
+      3530.3
+     ],
+     "change": -0.024,
+     "ramp": 8.7,
+     "stage": "second-drop",
+     "truth_speed": 0.98844,
+     "chain": [
+      3480.017,
+      3569.65,
+      2912,
+      9
+     ],
+     "refined": [
+      3475.254,
+      3574.022,
+      3593,
+      11
+     ],
+     "dropped_for": [
+      [
+       3372.307,
+       3475.364,
+       3833
+      ]
+     ],
+     "refined_speed": 0.988436,
+     "overlap": 0.11,
+     "moved": 4.76,
+     "winner_moved": 5.5,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "a-black_sun_empire-voltage-2000-sour.mp3",
+     "side": "before",
+     "span": [
+      0.0,
+      88.1
+     ],
+     "change": -0.0192,
+     "ramp": 13.7,
+     "stage": "second-drop",
+     "truth_speed": 0.99331,
+     "chain": [
+      0.0,
+      89.767,
+      2308,
+      9
+     ],
+     "refined": [
+      0.0,
+      95.399,
+      4000,
+      10
+     ],
+     "dropped_for": [
+      [
+       95.287,
+       209.544,
+       4182
+      ]
+     ],
+     "refined_speed": 0.993316,
+     "overlap": 0.11,
+     "moved": 5.63,
+     "winner_moved": 4.77,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3",
+     "side": "after",
+     "span": [
+      940.1,
+      1049.8
+     ],
+     "change": 0.0168,
+     "ramp": 14.6,
+     "stage": "second-drop",
+     "truth_speed": 1.0098,
+     "chain": [
+      930.12,
+      1063.312,
+      3307,
+      13
+     ],
+     "refined": [
+      927.983,
+      1069.471,
+      6398,
+      15
+     ],
+     "dropped_for": [
+      [
+       748.463,
+       934.591,
+       9275
+      ]
+     ],
+     "refined_speed": 1.009705,
+     "overlap": 6.61,
+     "moved": 2.14,
+     "winner_moved": 4.61,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "c-bad_company-the_fear-sour.mp3",
+     "side": "after",
+     "span": [
+      2092.7,
+      2156.2
+     ],
+     "change": 0.0173,
+     "ramp": 14.7,
+     "stage": "second-drop",
+     "truth_speed": 1.0124,
+     "chain": [
+      2090.054,
+      2182.401,
+      2909,
+      10
+     ],
+     "refined": [
+      2084.684,
+      2183.77,
+      3596,
+      11
+     ],
+     "dropped_for": [
+      [
+       1901.917,
+       2085.715,
+       8008
+      ]
+     ],
+     "refined_speed": 1.012393,
+     "overlap": 1.03,
+     "moved": 5.37,
+     "winner_moved": 5.75,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "c-total_science-yvon_is_on-sour.mp3",
+     "side": "before",
+     "span": [
+      2768.0,
+      2798.9
+     ],
+     "change": -0.0237,
+     "ramp": 6.1,
+     "stage": "second-drop",
+     "truth_speed": 1.00725,
+     "chain": [
+      2724.157,
+      2799.969,
+      1518,
+      8
+     ],
+     "refined": [
+      2727.714,
+      2802.96,
+      2107,
+      9
+     ],
+     "dropped_for": [
+      [
+       2801.791,
+       2933.805,
+       4553
+      ]
+     ],
+     "refined_speed": 1.007255,
+     "overlap": 1.17,
+     "moved": 2.99,
+     "winner_moved": 0.45,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "Ed Rush & Optical - Sick Note.mp3",
+     "side": "after",
+     "span": [
+      3125.7,
+      3158.0
+     ],
+     "change": -0.0184,
+     "ramp": 7.1,
+     "stage": "second-drop",
+     "truth_speed": 1.0368,
+     "chain": [
+      3121.89,
+      3168.068,
+      1424,
+      5
+     ],
+     "refined": [
+      3116.289,
+      3167.85,
+      1864,
+      6
+     ],
+     "dropped_for": [
+      [
+       3026.52,
+       3123.451,
+       3580
+      ]
+     ],
+     "refined_speed": 1.036821,
+     "overlap": 7.16,
+     "moved": 5.6,
+     "winner_moved": 3.49,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "Ed Rush & Optical - Funktion.mp3",
+     "side": "before",
+     "span": [
+      3920.2,
+      4022.2
+     ],
+     "change": -0.0132,
+     "ramp": 12.6,
+     "stage": "second-drop",
+     "truth_speed": 1.05172,
+     "chain": [
+      3903.372,
+      4029.992,
+      2813,
+      13
+     ],
+     "refined": [
+      3903.562,
+      4032.672,
+      3799,
+      14
+     ],
+     "dropped_for": [
+      [
+       4025.311,
+       4224.217,
+       6282
+      ]
+     ],
+     "refined_speed": 1.05169,
+     "overlap": 7.36,
+     "moved": 2.68,
+     "winner_moved": 4.91,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-04",
+     "asset": "a-ecco_and_sabotage-hazy_shades-sour.mp3",
+     "side": "after",
+     "span": [
+      4334.4,
+      4430.3
+     ],
+     "change": -0.0225,
+     "ramp": 7.1,
+     "stage": "second-drop",
+     "truth_speed": 1.01726,
+     "chain": [
+      4330.243,
+      4466.628,
+      3161,
+      14
+     ],
+     "refined": [
+      4328.316,
+      4475.384,
+      4863,
+      16
+     ],
+     "dropped_for": [
+      [
+       4206.543,
+       4332.017,
+       4994
+      ]
+     ],
+     "refined_speed": 1.017277,
+     "overlap": 3.7,
+     "moved": 1.93,
+     "winner_moved": 2.02,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "310-future_cut-horns_2000-sour.mp3",
+     "side": "after",
+     "span": [
+      149.6,
+      257.2
+     ],
+     "change": 0.0226,
+     "ramp": 9.6,
+     "stage": "second-drop",
+     "truth_speed": 1.03229,
+     "chain": [
+      150.011,
+      268.282,
+      3665,
+      12
+     ],
+     "refined": [
+      144.589,
+      273.851,
+      4387,
+      14
+     ],
+     "dropped_for": [
+      [
+       0.169,
+       144.917,
+       5389
+      ]
+     ],
+     "refined_speed": 1.032285,
+     "overlap": 0.33,
+     "moved": 5.42,
+     "winner_moved": 5.18,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "aa-aphrodite-acid_life-sour.mp3",
+     "side": "before",
+     "span": [
+      806.7,
+      864.3
+     ],
+     "change": -0.0162,
+     "ramp": 9.6,
+     "stage": "second-drop",
+     "truth_speed": 0.9454,
+     "chain": [
+      782.62,
+      869.833,
+      1821,
+      9
+     ],
+     "refined": [
+      780.417,
+      873.236,
+      3232,
+      10
+     ],
+     "dropped_for": [
+      [
+       866.593,
+       999.452,
+       4719
+      ]
+     ],
+     "refined_speed": 0.945357,
+     "overlap": 6.64,
+     "moved": 3.4,
+     "winner_moved": 3.68,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "Ed Rush & Optical - Fixation.mp3",
+     "side": "after",
+     "span": [
+      2251.3,
+      2384.7
+     ],
+     "change": -0.011,
+     "ramp": 14.5,
+     "stage": "second-drop",
+     "truth_speed": 1.00503,
+     "chain": [
+      2240.258,
+      2395.838,
+      3273,
+      16
+     ],
+     "refined": [
+      2233.799,
+      2396.564,
+      5913,
+      17
+     ],
+     "dropped_for": [
+      [
+       2051.693,
+       2246.944,
+       6585
+      ]
+     ],
+     "refined_speed": 1.005077,
+     "overlap": 13.14,
+     "moved": 6.46,
+     "winner_moved": 6.97,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-05",
+     "asset": "[A]_-_Tribal_Warfare.mp3",
+     "side": "after",
+     "span": [
+      3793.5,
+      3903.4
+     ],
+     "change": 0.0277,
+     "ramp": 7.2,
+     "stage": "second-drop",
+     "truth_speed": 1.04154,
+     "chain": [
+      3790.355,
+      3917.03,
+      2908,
+      13
+     ],
+     "refined": [
+      3788.897,
+      3918.502,
+      4887,
+      14
+     ],
+     "dropped_for": [
+      [
+       3611.536,
+       3792.066,
+       5950
+      ]
+     ],
+     "refined_speed": 1.041531,
+     "overlap": 3.17,
+     "moved": 1.46,
+     "winner_moved": 2.98,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "Cyb Orc - People From South.mp3",
+     "side": "before",
+     "span": [
+      0.0,
+      134.1
+     ],
+     "change": 0.0193,
+     "ramp": 6.1,
+     "stage": "second-drop",
+     "truth_speed": 0.94675,
+     "chain": [
+      0.067,
+      138.607,
+      3769,
+      14
+     ],
+     "refined": [
+      0.065,
+      144.429,
+      6043,
+      15
+     ],
+     "dropped_for": [
+      [
+       136.158,
+       319.495,
+       8173
+      ]
+     ],
+     "refined_speed": 0.946763,
+     "overlap": 8.27,
+     "moved": 5.82,
+     "winner_moved": 4.07,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "2. Phace - Fraxion.mp3",
+     "side": "after",
+     "span": [
+      2899.1,
+      2970.8
+     ],
+     "change": -0.0164,
+     "ramp": 8.9,
+     "stage": "second-drop",
+     "truth_speed": 0.94699,
+     "chain": [
+      2890.442,
+      2993.203,
+      2092,
+      11
+     ],
+     "refined": [
+      2881.892,
+      2993.202,
+      3596,
+      12
+     ],
+     "dropped_for": [
+      [
+       2688.076,
+       2895.675,
+       7821
+      ]
+     ],
+     "refined_speed": 0.947078,
+     "overlap": 13.78,
+     "moved": 8.55,
+     "winner_moved": 5.73,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "AA-Amir-Bulletproof-sour.mp3",
+     "side": "before",
+     "span": [
+      3585.9,
+      3653.3
+     ],
+     "change": -0.0135,
+     "ramp": 10.9,
+     "stage": "second-drop",
+     "truth_speed": 1.04145,
+     "chain": [
+      3561.179,
+      3659.649,
+      2130,
+      10
+     ],
+     "refined": [
+      3553.734,
+      3663.463,
+      3500,
+      12
+     ],
+     "dropped_for": [
+      [
+       3655.813,
+       3850.733,
+       7105
+      ]
+     ],
+     "refined_speed": 1.041411,
+     "overlap": 7.65,
+     "moved": 3.81,
+     "winner_moved": 4.23,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-06",
+     "asset": "a-cause_4_concern-skewer-sour.mp3",
+     "side": "after",
+     "span": [
+      4041.9,
+      4140.6
+     ],
+     "change": 0.0204,
+     "ramp": 13.2,
+     "stage": "second-drop",
+     "truth_speed": 1.03399,
+     "chain": [
+      4040.002,
+      4156.245,
+      2502,
+      12
+     ],
+     "refined": [
+      4035.291,
+      4158.055,
+      4641,
+      13
+     ],
+     "dropped_for": [
+      [
+       3840.86,
+       4035.346,
+       6443
+      ]
+     ],
+     "refined_speed": 1.033988,
+     "overlap": 0.05,
+     "moved": 4.71,
+     "winner_moved": 5.36,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "aa-black_sun_empire-bnegative-sour.mp3",
+     "side": "after",
+     "span": [
+      175.8,
+      243.0
+     ],
+     "change": 0.0218,
+     "ramp": 10.4,
+     "stage": "second-drop",
+     "truth_speed": 1.01362,
+     "chain": [
+      170.308,
+      286.096,
+      2081,
+      12
+     ],
+     "refined": [
+      168.727,
+      287.39,
+      3793,
+      13
+     ],
+     "dropped_for": [
+      [
+       0.025,
+       172.324,
+       7764
+      ]
+     ],
+     "refined_speed": 1.013598,
+     "overlap": 3.6,
+     "moved": 1.58,
+     "winner_moved": 2.98,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "[AA]_-_Supersonic.mp3",
+     "side": "before",
+     "span": [
+      1140.5,
+      1202.0
+     ],
+     "change": -0.0155,
+     "ramp": 8.6,
+     "stage": "second-drop",
+     "truth_speed": 0.99309,
+     "chain": [
+      1111.467,
+      1209.549,
+      1577,
+      10
+     ],
+     "refined": [
+      1104.618,
+      1218.742,
+      2682,
+      12
+     ],
+     "dropped_for": [
+      [
+       1205.243,
+       1323.757,
+       3829
+      ]
+     ],
+     "refined_speed": 0.993031,
+     "overlap": 13.5,
+     "moved": 9.19,
+     "winner_moved": 4.79,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "Ed Rush & Optical - Glass Eye.mp3",
+     "side": "after",
+     "span": [
+      1472.2,
+      1514.7
+     ],
+     "change": -0.0234,
+     "ramp": 5.4,
+     "stage": "second-drop",
+     "truth_speed": 0.95082,
+     "chain": [
+      1470.004,
+      1556.156,
+      1020,
+      9
+     ],
+     "refined": [
+      1468.372,
+      1556.156,
+      1539,
+      10
+     ],
+     "dropped_for": [
+      [
+       1314.031,
+       1469.51,
+       5074
+      ]
+     ],
+     "refined_speed": 0.950836,
+     "overlap": 1.14,
+     "moved": 1.63,
+     "winner_moved": 0.12,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "2.Kemal - Bleed.mp3",
+     "side": "before",
+     "span": [
+      1824.3,
+      1862.5
+     ],
+     "change": 0.0185,
+     "ramp": 10.9,
+     "stage": "second-drop",
+     "truth_speed": 0.94931,
+     "chain": [
+      1800.427,
+      1859.992,
+      1292,
+      6
+     ],
+     "refined": [
+      1800.428,
+      1868.538,
+      2564,
+      7
+     ],
+     "dropped_for": [
+      [
+       1866.047,
+       2009.666,
+       6103
+      ]
+     ],
+     "refined_speed": 0.949291,
+     "overlap": 2.49,
+     "moved": 8.55,
+     "winner_moved": 3.97,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "a-aphrodite-fanfare-sour.mp3",
+     "side": "after",
+     "span": [
+      2144.5,
+      2218.9
+     ],
+     "change": -0.0137,
+     "ramp": 8.8,
+     "stage": "second-drop",
+     "truth_speed": 1.04072,
+     "chain": [
+      2140.055,
+      2248.955,
+      2083,
+      11
+     ],
+     "refined": [
+      2136.248,
+      2249.101,
+      3466,
+      12
+     ],
+     "dropped_for": [
+      [
+       2001.25,
+       2143.925,
+       4596
+      ]
+     ],
+     "refined_speed": 1.040749,
+     "overlap": 7.68,
+     "moved": 3.81,
+     "winner_moved": 4.06,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-07",
+     "asset": "Ed Rush & Optical - Mystery Machine.mp3",
+     "side": "after",
+     "span": [
+      2915.5,
+      2945.9
+     ],
+     "change": 0.0214,
+     "ramp": 9.8,
+     "stage": "second-drop",
+     "truth_speed": 1.02217,
+     "chain": [
+      2910.497,
+      2989.138,
+      792,
+      8
+     ],
+     "refined": [
+      2907.299,
+      2989.494,
+      2089,
+      9
+     ],
+     "dropped_for": [
+      [
+       2842.092,
+       2913.282,
+       2542
+      ]
+     ],
+     "refined_speed": 1.02212,
+     "overlap": 5.98,
+     "moved": 3.2,
+     "winner_moved": 3.74,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+     "side": "before",
+     "span": [
+      224.3,
+      256.4
+     ],
+     "change": 0.0158,
+     "ramp": 13.9,
+     "stage": "second-drop",
+     "truth_speed": 0.98532,
+     "chain": [
+      193.547,
+      259.698,
+      1310,
+      7
+     ],
+     "refined": [
+      200.94,
+      264.243,
+      2393,
+      7
+     ],
+     "dropped_for": [
+      [
+       257.196,
+       407.257,
+       6136
+      ]
+     ],
+     "refined_speed": 0.985302,
+     "overlap": 7.05,
+     "moved": 4.55,
+     "winner_moved": 2.83,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+     "side": "after",
+     "span": [
+      1385.0,
+      1463.8
+     ],
+     "change": -0.0258,
+     "ramp": 12.1,
+     "stage": "second-drop",
+     "truth_speed": 1.00387,
+     "chain": [
+      1380.347,
+      1473.073,
+      3657,
+      10
+     ],
+     "refined": [
+      1377.247,
+      1474.094,
+      4676,
+      11
+     ],
+     "dropped_for": [
+      [
+       1164.849,
+       1381.009,
+       10056
+      ]
+     ],
+     "refined_speed": 1.003881,
+     "overlap": 3.76,
+     "moved": 3.1,
+     "winner_moved": 2.12,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "side": "before",
+     "span": [
+      2150.2,
+      2185.1
+     ],
+     "change": -0.0113,
+     "ramp": 5.4,
+     "stage": "second-drop",
+     "truth_speed": 1.04419,
+     "chain": [
+      2120.465,
+      2189.813,
+      1236,
+      7
+     ],
+     "refined": [
+      2114.015,
+      2194.068,
+      1539,
+      9
+     ],
+     "dropped_for": [
+      [
+       2185.602,
+       2357.141,
+       6002
+      ]
+     ],
+     "refined_speed": 1.044135,
+     "overlap": 8.47,
+     "moved": 4.26,
+     "winner_moved": 4.54,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "10-muffler-nutcracker_(original_mix).mp3",
+     "side": "after",
+     "span": [
+      2536.6,
+      2602.5
+     ],
+     "change": 0.0187,
+     "ramp": 14.4,
+     "stage": "second-drop",
+     "truth_speed": 0.98573,
+     "chain": [
+      2530.086,
+      2618.488,
+      1984,
+      9
+     ],
+     "refined": [
+      2526.655,
+      2622.953,
+      3307,
+      11
+     ],
+     "dropped_for": [
+      [
+       2348.938,
+       2532.418,
+       5634
+      ]
+     ],
+     "refined_speed": 0.985695,
+     "overlap": 5.76,
+     "moved": 3.43,
+     "winner_moved": 2.56,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-08",
+     "asset": "05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+     "side": "before",
+     "span": [
+      3063.2,
+      3128.8
+     ],
+     "change": -0.0249,
+     "ramp": 6.8,
+     "stage": "second-drop",
+     "truth_speed": 0.99853,
+     "chain": [
+      3033.316,
+      3129.887,
+      2570,
+      10
+     ],
+     "refined": [
+      3034.701,
+      3132.834,
+      4138,
+      11
+     ],
+     "dropped_for": [
+      [
+       3131.812,
+       3301.939,
+       6601
+      ]
+     ],
+     "refined_speed": 0.998541,
+     "overlap": 1.02,
+     "moved": 2.95,
+     "winner_moved": 1.0,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+     "side": "after",
+     "span": [
+      1378.3,
+      1414.6
+     ],
+     "change": 0.017,
+     "ramp": 7.2,
+     "stage": "second-drop",
+     "truth_speed": 0.97097,
+     "chain": [
+      1380.011,
+      1457.173,
+      1132,
+      8
+     ],
+     "refined": [
+      1373.133,
+      1452.135,
+      1981,
+      9
+     ],
+     "dropped_for": [
+      [
+       1160.163,
+       1375.932,
+       8970
+      ]
+     ],
+     "refined_speed": 0.970935,
+     "overlap": 2.8,
+     "moved": 6.88,
+     "winner_moved": 5.99,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "B. falcon - china delight.mp3",
+     "side": "after",
+     "span": [
+      2367.6,
+      2421.1
+     ],
+     "change": -0.0139,
+     "ramp": 14.8,
+     "stage": "second-drop",
+     "truth_speed": 0.93598,
+     "chain": [
+      2360.197,
+      2445.76,
+      1954,
+      9
+     ],
+     "refined": [
+      2355.813,
+      2448.701,
+      2303,
+      10
+     ],
+     "dropped_for": [
+      [
+       2275.053,
+       2364.613,
+       2929
+      ]
+     ],
+     "refined_speed": 0.936013,
+     "overlap": 8.8,
+     "moved": 4.38,
+     "winner_moved": 4.78,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "Skynet & Stakka - Pathogen.mp3",
+     "side": "after",
+     "span": [
+      2806.9,
+      2882.7
+     ],
+     "change": 0.0269,
+     "ramp": 5.3,
+     "stage": "second-drop",
+     "truth_speed": 0.96701,
+     "chain": [
+      2802.737,
+      2914.857,
+      2639,
+      12
+     ],
+     "refined": [
+      2803.475,
+      2914.486,
+      3855,
+      12
+     ],
+     "dropped_for": [
+      [
+       2670.338,
+       2804.629,
+       4822
+      ]
+     ],
+     "refined_speed": 0.967002,
+     "overlap": 1.15,
+     "moved": 0.74,
+     "winner_moved": 4.69,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+     "side": "before",
+     "span": [
+      2928.3,
+      2974.8
+     ],
+     "change": -0.0176,
+     "ramp": 12.7,
+     "stage": "second-drop",
+     "truth_speed": 1.02955,
+     "chain": [
+      2901.711,
+      2979.917,
+      1639,
+      8
+     ],
+     "refined": [
+      2895.347,
+      2984.218,
+      2701,
+      10
+     ],
+     "dropped_for": [
+      [
+       2977.831,
+       3085.678,
+       3284
+      ]
+     ],
+     "refined_speed": 1.029505,
+     "overlap": 6.39,
+     "moved": 4.3,
+     "winner_moved": 2.32,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-09",
+     "asset": "Bad Company - The Nine.mp3",
+     "side": "before",
+     "span": [
+      3484.4,
+      3559.7
+     ],
+     "change": 0.0164,
+     "ramp": 11.2,
+     "stage": "second-drop",
+     "truth_speed": 0.98249,
+     "chain": [
+      3446.837,
+      3569.447,
+      1740,
+      13
+     ],
+     "refined": [
+      3446.819,
+      3571.668,
+      3521,
+      14
+     ],
+     "dropped_for": [
+      [
+       3564.486,
+       3742.061,
+       5673
+      ]
+     ],
+     "refined_speed": 0.982601,
+     "overlap": 7.18,
+     "moved": 2.22,
+     "winner_moved": 5.81,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "09-muffler-downfall_(original_mix).mp3",
+     "side": "before",
+     "span": [
+      320.1,
+      414.9
+     ],
+     "change": -0.0169,
+     "ramp": 13.7,
+     "stage": "second-drop",
+     "truth_speed": 1.02355,
+     "chain": [
+      302.437,
+      419.684,
+      4071,
+      12
+     ],
+     "refined": [
+      302.437,
+      424.545,
+      4688,
+      13
+     ],
+     "dropped_for": [
+      [
+       417.024,
+       607.917,
+       7553
+      ]
+     ],
+     "refined_speed": 1.023547,
+     "overlap": 7.52,
+     "moved": 4.86,
+     "winner_moved": 3.0,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "c-cause4concern-time_stopper-sour.mp3",
+     "side": "before",
+     "span": [
+      1489.9,
+      1566.7
+     ],
+     "change": -0.0237,
+     "ramp": 6.8,
+     "stage": "second-drop",
+     "truth_speed": 0.99941,
+     "chain": [
+      1460.072,
+      1569.611,
+      3059,
+      11
+     ],
+     "refined": [
+      1460.074,
+      1574.054,
+      3667,
+      12
+     ],
+     "dropped_for": [
+      [
+       1567.954,
+       1714.142,
+       5575
+      ]
+     ],
+     "refined_speed": 0.999414,
+     "overlap": 6.1,
+     "moved": 4.44,
+     "winner_moved": 2.09,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "b-skc-eclipse-gdn.mp3",
+     "side": "before",
+     "span": [
+      1719.2,
+      1852.0
+     ],
+     "change": 0.0198,
+     "ramp": 8.7,
+     "stage": "second-drop",
+     "truth_speed": 1.00799,
+     "chain": [
+      1713.533,
+      1849.969,
+      4960,
+      14
+     ],
+     "refined": [
+      1713.534,
+      1856.747,
+      6401,
+      15
+     ],
+     "dropped_for": [
+      [
+       1854.956,
+       2004.6,
+       6801
+      ]
+     ],
+     "refined_speed": 1.007991,
+     "overlap": 1.79,
+     "moved": 6.78,
+     "winner_moved": 5.14,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "k-sta_and_paul_b-come_closer-sour.mp3",
+     "side": "after",
+     "span": [
+      2216.3,
+      2272.0
+     ],
+     "change": 0.0177,
+     "ramp": 11.0,
+     "stage": "second-drop",
+     "truth_speed": 0.95997,
+     "chain": [
+      2210.279,
+      2297.328,
+      2819,
+      9
+     ],
+     "refined": [
+      2207.666,
+      2297.294,
+      3215,
+      10
+     ],
+     "dropped_for": [
+      [
+       2004.367,
+       2213.026,
+       9075
+      ]
+     ],
+     "refined_speed": 0.959939,
+     "overlap": 5.36,
+     "moved": 2.61,
+     "winner_moved": 3.37,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "Bad Company - The Pulse.mp3",
+     "side": "after",
+     "span": [
+      2837.1,
+      2874.3
+     ],
+     "change": -0.0271,
+     "ramp": 12.7,
+     "stage": "second-drop",
+     "truth_speed": 0.95698,
+     "chain": [
+      2830.179,
+      2909.252,
+      1428,
+      8
+     ],
+     "refined": [
+      2827.763,
+      2909.939,
+      2650,
+      9
+     ],
+     "dropped_for": [
+      [
+       2665.505,
+       2831.966,
+       6619
+      ]
+     ],
+     "refined_speed": 0.957067,
+     "overlap": 4.2,
+     "moved": 2.42,
+     "winner_moved": 2.57,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "02-cause4concern_-_synergy_(black_sun_empire_remix).mp3",
+     "side": "before",
+     "span": [
+      3060.6,
+      3111.6
+     ],
+     "change": -0.0243,
+     "ramp": 7.5,
+     "stage": "second-drop",
+     "truth_speed": 1.02552,
+     "chain": [
+      3041.904,
+      3109.822,
+      1998,
+      7
+     ],
+     "refined": [
+      3041.904,
+      3115.817,
+      3136,
+      8
+     ],
+     "dropped_for": [
+      [
+       3114.865,
+       3248.831,
+       6739
+      ]
+     ],
+     "refined_speed": 1.025496,
+     "overlap": 0.95,
+     "moved": 5.99,
+     "winner_moved": 5.23,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "aa-aphrodite-acid_life-sour.mp3",
+     "side": "after",
+     "span": [
+      3906.6,
+      3975.2
+     ],
+     "change": -0.0217,
+     "ramp": 6.2,
+     "stage": "second-drop",
+     "truth_speed": 1.0362,
+     "chain": [
+      3905.618,
+      3999.409,
+      2836,
+      10
+     ],
+     "refined": [
+      3902.998,
+      3999.408,
+      3284,
+      10
+     ],
+     "dropped_for": [
+      [
+       3751.87,
+       3904.479,
+       6150
+      ]
+     ],
+     "refined_speed": 1.036199,
+     "overlap": 1.48,
+     "moved": 2.62,
+     "winner_moved": 0.3,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-10",
+     "asset": "A-Stakka_and_Skynet-Pathogen-sour.mp3",
+     "side": "before",
+     "span": [
+      4307.8,
+      4403.5
+     ],
+     "change": 0.0178,
+     "ramp": 12.1,
+     "stage": "second-drop",
+     "truth_speed": 1.02316,
+     "chain": [
+      4300.562,
+      4409.89,
+      3308,
+      11
+     ],
+     "refined": [
+      4300.561,
+      4413.937,
+      4516,
+      12
+     ],
+     "dropped_for": [
+      [
+       4407.546,
+       4581.252,
+       6757
+      ]
+     ],
+     "refined_speed": 1.023185,
+     "overlap": 6.39,
+     "moved": 4.05,
+     "winner_moved": 2.76,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "01-aphrodite-defjammer-bpm.mp3",
+     "side": "before",
+     "span": [
+      0.0,
+      57.7
+     ],
+     "change": 0.0233,
+     "ramp": 11.9,
+     "stage": "second-drop",
+     "truth_speed": 0.96265,
+     "chain": [
+      0.0,
+      59.683,
+      1383,
+      6
+     ],
+     "refined": [
+      0.0,
+      63.932,
+      2624,
+      7
+     ],
+     "dropped_for": [
+      [
+       63.574,
+       170.727,
+       3280
+      ]
+     ],
+     "refined_speed": 0.962653,
+     "overlap": 0.36,
+     "moved": 4.25,
+     "winner_moved": 6.58,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "2. Konflict - Pendulum.mp3",
+     "side": "after",
+     "span": [
+      316.8,
+      429.7
+     ],
+     "change": -0.01,
+     "ramp": 8.3,
+     "stage": "second-drop",
+     "truth_speed": 0.95557,
+     "chain": [
+      310.203,
+      454.3,
+      3439,
+      15
+     ],
+     "refined": [
+      304.826,
+      454.301,
+      4656,
+      16
+     ],
+     "dropped_for": [
+      [
+       144.406,
+       316.115,
+       5397
+      ]
+     ],
+     "refined_speed": 0.955586,
+     "overlap": 11.29,
+     "moved": 5.38,
+     "winner_moved": 6.13,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "Skynet & Stakka - Night Lore.mp3",
+     "side": "after",
+     "span": [
+      859.1,
+      934.9
+     ],
+     "change": 0.0231,
+     "ramp": 10.1,
+     "stage": "second-drop",
+     "truth_speed": 1.00321,
+     "chain": [
+      860.161,
+      967.777,
+      2400,
+      11
+     ],
+     "refined": [
+      854.164,
+      967.843,
+      3657,
+      12
+     ],
+     "dropped_for": [],
+     "refined_speed": 1.003213
+    },
+    {
+     "mix": "mix-11",
+     "asset": "aa-sinthetix-fallout-sour.mp3",
+     "side": "after",
+     "span": [
+      1085.4,
+      1140.9
+     ],
+     "change": -0.0258,
+     "ramp": 7.7,
+     "stage": "second-drop",
+     "truth_speed": 1.00397,
+     "chain": [
+      1082.122,
+      1149.711,
+      2207,
+      7
+     ],
+     "refined": [
+      1081.429,
+      1149.711,
+      2675,
+      7
+     ],
+     "dropped_for": [
+      [
+       951.825,
+       1082.161,
+       4459
+      ]
+     ],
+     "refined_speed": 1.003989,
+     "overlap": 0.73,
+     "moved": 0.69,
+     "winner_moved": 2.34,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "c-cause4concern-time_stopper-sour.mp3",
+     "side": "after",
+     "span": [
+      2088.7,
+      2135.5
+     ],
+     "change": 0.0121,
+     "ramp": 12.2,
+     "stage": "second-drop",
+     "truth_speed": 0.98044,
+     "chain": [
+      2080.398,
+      2157.338,
+      2195,
+      8
+     ],
+     "refined": [
+      2076.715,
+      2157.338,
+      2457,
+      9
+     ],
+     "dropped_for": [
+      [
+       1871.903,
+       2085.429,
+       6935
+      ]
+     ],
+     "refined_speed": 0.980354,
+     "overlap": 8.71,
+     "moved": 3.68,
+     "winner_moved": 5.64,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "b2-aphrodite-sweet_mind-lame.mp3",
+     "side": "before",
+     "span": [
+      2543.4,
+      2611.7
+     ],
+     "change": 0.0162,
+     "ramp": 9.7,
+     "stage": "second-drop",
+     "truth_speed": 1.01669,
+     "chain": [
+      2516.962,
+      2619.071,
+      2236,
+      11
+     ],
+     "refined": [
+      2516.959,
+      2624.719,
+      3357,
+      12
+     ],
+     "dropped_for": [
+      [
+       2615.623,
+       2759.4,
+       6406
+      ]
+     ],
+     "refined_speed": 1.016726,
+     "overlap": 9.1,
+     "moved": 5.65,
+     "winner_moved": 4.46,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-11",
+     "asset": "a-extreme_force-everytime_(original_mix)-sour.mp3",
+     "side": "before",
+     "span": [
+      3671.2,
+      3703.2
+     ],
+     "change": 0.0208,
+     "ramp": 9.4,
+     "stage": "second-drop",
+     "truth_speed": 0.94561,
+     "chain": [
+      3656.946,
+      3709.401,
+      1137,
+      6
+     ],
+     "refined": [
+      3658.052,
+      3711.369,
+      1873,
+      7
+     ],
+     "dropped_for": [
+      [
+       3706.52,
+       3789.522,
+       2565
+      ]
+     ],
+     "refined_speed": 0.945741,
+     "overlap": 4.85,
+     "moved": 1.97,
+     "winner_moved": 3.51,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "A-Bad_Company-The_Nine-dmz.mp3",
+     "side": "after",
+     "span": [
+      298.0,
+      367.0
+     ],
+     "change": -0.0102,
+     "ramp": 12.4,
+     "stage": "second-drop",
+     "truth_speed": 0.9316,
+     "chain": [
+      290.008,
+      377.7,
+      2114,
+      9
+     ],
+     "refined": [
+      285.458,
+      381.923,
+      2938,
+      11
+     ],
+     "dropped_for": [
+      [
+       97.633,
+       295.927,
+       5456
+      ]
+     ],
+     "refined_speed": 0.931625,
+     "overlap": 10.47,
+     "moved": 4.55,
+     "winner_moved": 6.25,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "B - Aphrodite - Heat Haze.mp3",
+     "side": "before",
+     "span": [
+      997.0,
+      1054.2
+     ],
+     "change": -0.0162,
+     "ramp": 8.4,
+     "stage": "second-drop",
+     "truth_speed": 0.95948,
+     "chain": [
+      974.151,
+      1059.818,
+      2550,
+      9
+     ],
+     "refined": [
+      974.151,
+      1063.721,
+      2955,
+      10
+     ],
+     "dropped_for": [
+      [
+       1055.808,
+       1209.234,
+       6622
+      ]
+     ],
+     "refined_speed": 0.959452,
+     "overlap": 7.91,
+     "moved": 3.9,
+     "winner_moved": 4.29,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "Ed Rush & Optical - Dozer.mp3",
+     "side": "before",
+     "span": [
+      1684.0,
+      1760.2
+     ],
+     "change": -0.0132,
+     "ramp": 14.0,
+     "stage": "second-drop",
+     "truth_speed": 1.05864,
+     "chain": [
+      1673.011,
+      1769.962,
+      2114,
+      10
+     ],
+     "refined": [
+      1673.329,
+      1773.903,
+      3509,
+      11
+     ],
+     "dropped_for": [
+      [
+       1765.055,
+       1875.781,
+       3665
+      ]
+     ],
+     "refined_speed": 1.058565,
+     "overlap": 8.85,
+     "moved": 3.94,
+     "winner_moved": 4.95,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "B_-_Decoder_-_Dead_Fall.mp3",
+     "side": "before",
+     "span": [
+      2157.0,
+      2234.9
+     ],
+     "change": -0.0161,
+     "ramp": 8.9,
+     "stage": "second-drop",
+     "truth_speed": 1.01557,
+     "chain": [
+      2145.954,
+      2239.745,
+      2831,
+      10
+     ],
+     "refined": [
+      2145.954,
+      2242.832,
+      3432,
+      11
+     ],
+     "dropped_for": [
+      [
+       2237.101,
+       2420.635,
+       7746
+      ]
+     ],
+     "refined_speed": 1.015567,
+     "overlap": 5.73,
+     "moved": 3.09,
+     "winner_moved": 2.9,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+     "side": "before",
+     "span": [
+      2427.2,
+      2468.0
+     ],
+     "change": 0.016,
+     "ramp": 6.0,
+     "stage": "second-drop",
+     "truth_speed": 0.96205,
+     "chain": [
+      2416.788,
+      2469.936,
+      1382,
+      6
+     ],
+     "refined": [
+      2414.463,
+      2473.194,
+      2415,
+      7
+     ],
+     "dropped_for": [
+      [
+       2468.235,
+       2534.388,
+       2673
+      ]
+     ],
+     "refined_speed": 0.962078,
+     "overlap": 4.96,
+     "moved": 3.26,
+     "winner_moved": 2.13,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-12",
+     "asset": "09-Decoder-Bountyhunter-sour.mp3",
+     "side": "after",
+     "span": [
+      3934.0,
+      3973.9
+     ],
+     "change": -0.0149,
+     "ramp": 9.5,
+     "stage": "second-drop",
+     "truth_speed": 1.00189,
+     "chain": [
+      3930.134,
+      4005.835,
+      1571,
+      8
+     ],
+     "refined": [
+      3926.654,
+      4006.129,
+      3186,
+      9
+     ],
+     "dropped_for": [
+      [
+       3760.158,
+       3933.358,
+       8199
+      ]
+     ],
+     "refined_speed": 1.001921,
+     "overlap": 6.7,
+     "moved": 3.48,
+     "winner_moved": 3.56,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "03-aquasky-structure.mp3",
+     "side": "before",
+     "span": [
+      0.0,
+      83.1
+     ],
+     "change": 0.0261,
+     "ramp": 12.6,
+     "stage": "second-drop",
+     "truth_speed": 0.94012,
+     "chain": [
+      0.156,
+      88.381,
+      2991,
+      9
+     ],
+     "refined": [
+      0.156,
+      91.993,
+      3663,
+      10
+     ],
+     "dropped_for": [
+      [
+       87.975,
+       227.963,
+       4706
+      ]
+     ],
+     "refined_speed": 0.94013,
+     "overlap": 4.02,
+     "moved": 3.61,
+     "winner_moved": 2.15,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "b-spinor-mutant_storm-sour.mp3",
+     "side": "before",
+     "span": [
+      1140.3,
+      1180.7
+     ],
+     "change": -0.0142,
+     "ramp": 10.3,
+     "stage": "second-drop",
+     "truth_speed": 1.01841,
+     "chain": [
+      1118.177,
+      1189.771,
+      1427,
+      8
+     ],
+     "refined": [
+      1118.178,
+      1199.501,
+      2155,
+      9
+     ],
+     "dropped_for": [
+      [
+       1183.707,
+       1267.126,
+       2891
+      ]
+     ],
+     "refined_speed": 1.018224,
+     "overlap": 15.79,
+     "moved": 9.73,
+     "winner_moved": 6.3,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "A. ASC -- The Pursuit.mp3",
+     "side": "before",
+     "span": [
+      1274.6,
+      1372.1
+     ],
+     "change": 0.0243,
+     "ramp": 7.5,
+     "stage": "second-drop",
+     "truth_speed": 0.95265,
+     "chain": [
+      1261.434,
+      1375.609,
+      2969,
+      12
+     ],
+     "refined": [
+      1257.663,
+      1375.621,
+      4176,
+      13
+     ],
+     "dropped_for": [
+      [
+       1375.58,
+       1584.551,
+       7697
+      ]
+     ],
+     "refined_speed": 0.952652,
+     "overlap": 0.04,
+     "moved": 0.01,
+     "winner_moved": 4.44,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "A- The_Nine.mp3",
+     "side": "before",
+     "span": [
+      1595.9,
+      1675.6
+     ],
+     "change": 0.0187,
+     "ramp": 6.5,
+     "stage": "second-drop",
+     "truth_speed": 0.9662,
+     "chain": [
+      1565.895,
+      1679.335,
+      1392,
+      12
+     ],
+     "refined": [
+      1571.409,
+      1680.466,
+      3029,
+      12
+     ],
+     "dropped_for": [
+      [
+       1677.061,
+       1805.513,
+       4549
+      ]
+     ],
+     "refined_speed": 0.966228,
+     "overlap": 3.4,
+     "moved": 1.13,
+     "winner_moved": 2.95,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "b-aphrodite-the_time_the_place-sour.mp3",
+     "side": "after",
+     "span": [
+      2526.1,
+      2618.4
+     ],
+     "change": 0.0264,
+     "ramp": 5.3,
+     "stage": "second-drop",
+     "truth_speed": 0.97671,
+     "chain": [
+      2523.173,
+      2622.53,
+      2962,
+      11
+     ],
+     "refined": [
+      2523.173,
+      2622.53,
+      3847,
+      11
+     ],
+     "dropped_for": [
+      [
+       2330.771,
+       2523.838,
+       7427
+      ]
+     ],
+     "refined_speed": 0.976693,
+     "overlap": 0.67,
+     "moved": 0.0,
+     "winner_moved": 3.84,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+     "side": "before",
+     "span": [
+      2628.8,
+      2700.5
+     ],
+     "change": -0.0257,
+     "ramp": 7.7,
+     "stage": "second-drop",
+     "truth_speed": 1.05604,
+     "chain": [
+      2622.39,
+      2699.847,
+      2904,
+      8
+     ],
+     "refined": [
+      2620.394,
+      2704.544,
+      3477,
+      9
+     ],
+     "dropped_for": [
+      [
+       2704.264,
+       2782.344,
+       3788
+      ]
+     ],
+     "refined_speed": 1.056039,
+     "overlap": 0.28,
+     "moved": 4.7,
+     "winner_moved": 5.75,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-13",
+     "asset": "b-stratus-waves-sour.mp3",
+     "side": "before",
+     "span": [
+      3454.1,
+      3551.1
+     ],
+     "change": 0.0205,
+     "ramp": 12.3,
+     "stage": "second-drop",
+     "truth_speed": 0.94669,
+     "chain": [
+      3441.848,
+      3559.9,
+      2888,
+      12
+     ],
+     "refined": [
+      3441.844,
+      3556.966,
+      3971,
+      12
+     ],
+     "dropped_for": [
+      [
+       3556.229,
+       3727.713,
+       5737
+      ]
+     ],
+     "refined_speed": 0.946759,
+     "overlap": 0.74,
+     "moved": 2.93,
+     "winner_moved": 3.9,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "d-shimon-mutationz_iv-sour.mp3",
+     "side": "after",
+     "span": [
+      847.5,
+      887.2
+     ],
+     "change": -0.0209,
+     "ramp": 8.2,
+     "stage": "second-drop",
+     "truth_speed": 0.96172,
+     "chain": [
+      841.127,
+      905.008,
+      1302,
+      7
+     ],
+     "refined": [
+      835.638,
+      909.366,
+      2097,
+      8
+     ],
+     "dropped_for": [
+      [
+       770.129,
+       843.911,
+       2603
+      ]
+     ],
+     "refined_speed": 0.961792,
+     "overlap": 8.27,
+     "moved": 5.49,
+     "winner_moved": 4.04,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "A. Pyro -- Time Is Broken.mp3",
+     "side": "before",
+     "span": [
+      1542.5,
+      1646.1
+     ],
+     "change": 0.0226,
+     "ramp": 5.6,
+     "stage": "second-drop",
+     "truth_speed": 1.03099,
+     "chain": [
+      1530.086,
+      1649.567,
+      3364,
+      12
+     ],
+     "refined": [
+      1522.84,
+      1652.386,
+      5764,
+      14
+     ],
+     "dropped_for": [
+      [
+       1647.649,
+       1801.45,
+       6379
+      ]
+     ],
+     "refined_speed": 1.031004,
+     "overlap": 4.74,
+     "moved": 2.82,
+     "winner_moved": 2.42,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "aa-aphrodite-acid_life-sour.mp3",
+     "side": "after",
+     "span": [
+      2696.9,
+      2736.1
+     ],
+     "change": -0.0125,
+     "ramp": 10.1,
+     "stage": "second-drop",
+     "truth_speed": 1.04645,
+     "chain": [
+      2690.067,
+      2758.325,
+      1372,
+      7
+     ],
+     "refined": [
+      2686.421,
+      2758.326,
+      1983,
+      8
+     ],
+     "dropped_for": [
+      [
+       2581.425,
+       2694.17,
+       4247
+      ]
+     ],
+     "refined_speed": 1.046522,
+     "overlap": 7.75,
+     "moved": 3.65,
+     "winner_moved": 4.23,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-14",
+     "asset": "d. falcon - the stand.mp3",
+     "side": "after",
+     "span": [
+      2988.5,
+      3038.2
+     ],
+     "change": 0.0198,
+     "ramp": 9.6,
+     "stage": "second-drop",
+     "truth_speed": 0.97248,
+     "chain": [
+      2990.021,
+      3060.95,
+      2371,
+      8
+     ],
+     "refined": [
+      2983.281,
+      3069.408,
+      2859,
+      9
+     ],
+     "dropped_for": [
+      [
+       2743.91,
+       2984.445,
+       9778
+      ]
+     ],
+     "refined_speed": 0.972472,
+     "overlap": 1.16,
+     "moved": 6.74,
+     "winner_moved": 4.5,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "Ed Rush & Optical - Funktion.mp3",
+     "side": "after",
+     "span": [
+      146.3,
+      258.6
+     ],
+     "change": -0.0249,
+     "ramp": 7.4,
+     "stage": "second-drop",
+     "truth_speed": 0.98775,
+     "chain": [
+      141.109,
+      292.829,
+      3319,
+      16
+     ],
+     "refined": [
+      142.431,
+      292.829,
+      4592,
+      16
+     ],
+     "dropped_for": [
+      [
+       0.0,
+       143.41,
+       5157
+      ]
+     ],
+     "refined_speed": 0.987768,
+     "overlap": 0.98,
+     "moved": 1.32,
+     "winner_moved": 3.62,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "aa-jl-hymn_(dom_and_roland_remix)-sour.mp3",
+     "side": "after",
+     "span": [
+      1878.6,
+      1929.5
+     ],
+     "change": -0.0155,
+     "ramp": 6.9,
+     "stage": "second-drop",
+     "truth_speed": 0.94186,
+     "chain": [
+      1880.19,
+      1949.894,
+      1338,
+      7
+     ],
+     "refined": [
+      1872.999,
+      1952.787,
+      2881,
+      9
+     ],
+     "dropped_for": [
+      [
+       1717.551,
+       1876.615,
+       5501
+      ]
+     ],
+     "refined_speed": 0.941817,
+     "overlap": 3.62,
+     "moved": 7.19,
+     "winner_moved": 6.71,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "aa-sinthetix-fallout-sour.mp3",
+     "side": "after",
+     "span": [
+      2853.1,
+      2926.8
+     ],
+     "change": 0.0189,
+     "ramp": 11.7,
+     "stage": "second-drop",
+     "truth_speed": 1.06831,
+     "chain": [
+      2850.138,
+      2933.348,
+      2644,
+      9
+     ],
+     "refined": [
+      2846.134,
+      2933.348,
+      3143,
+      10
+     ],
+     "dropped_for": [
+      [
+       2714.035,
+       2847.747,
+       5101
+      ]
+     ],
+     "refined_speed": 1.068299,
+     "overlap": 1.61,
+     "moved": 4.0,
+     "winner_moved": 7.86,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+     "side": "before",
+     "span": [
+      3349.5,
+      3455.0
+     ],
+     "change": -0.0124,
+     "ramp": 11.0,
+     "stage": "second-drop",
+     "truth_speed": 1.04988,
+     "chain": [
+      3328.161,
+      3459.987,
+      3246,
+      14
+     ],
+     "refined": [
+      3325.916,
+      3463.568,
+      5667,
+      15
+     ],
+     "dropped_for": [
+      [
+       3455.658,
+       3615.809,
+       6909
+      ]
+     ],
+     "refined_speed": 1.049878,
+     "overlap": 7.91,
+     "moved": 3.58,
+     "winner_moved": 4.35,
+     "chains_overlap": 0.0
+    },
+    {
+     "mix": "mix-15",
+     "asset": "Ed Rush & Optical - Watermelon.mp3",
+     "side": "before",
+     "span": [
+      3624.6,
+      3664.2
+     ],
+     "change": 0.0115,
+     "ramp": 10.9,
+     "stage": "second-drop",
+     "truth_speed": 1.01181,
+     "chain": [
+      3602.464,
+      3669.959,
+      1857,
+      7
+     ],
+     "refined": [
+      3602.448,
+      3673.762,
+      2383,
+      8
+     ],
+     "dropped_for": [
+      [
+       3665.63,
+       3807.411,
+       5727
+      ]
+     ],
+     "refined_speed": 1.011839,
+     "overlap": 8.13,
+     "moved": 3.8,
+     "winner_moved": 4.62,
+     "chains_overlap": 0.0
+    }
+   ]
+  }
+ }
+}

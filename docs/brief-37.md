@@ -122,3 +122,42 @@ Read from the code, to be checked by measurement in step 1:
 
 ## Decisions
 
+- **(05:06) Start build and regressions.** `work/bin/s37-start/` is
+  byte-identical to `s36-final/` (no code changed since). `regress
+  session-32-linux` identical (1:09; 720 of 720 sweep queries, 89, 97 and
+  83 scan detections, the calibrate lines) and `regress
+  session-33-linux-nas` identical (6:05 at the default 32 workers; 720
+  sweep queries, 4,253, 4,244 and 4,212 detections, the calibrate lines);
+  every report they write is identical to its baseline's apart from
+  `wall_seconds`.
+- **(05:06) Step 1 on session 35's seeds.** Step 1 is a diagnosis, not a
+  test against criteria, so it renders session 35's rides seeds 3521 and
+  3522 again (with `--panels work/s37/panels`, a copy of
+  `work/s35/panels`) and checks that the reports equal session 35's
+  (copied to `work/s37/s35-reports/` first, since the run writes over
+  them). The diagnostic build (`work/s37/diag`, a worktree; never
+  committed) only appends, with `GUNFINGER_TRACE_DIR`, each stage's
+  detections of 30 hits or more: the chains before the first overlap
+  suppression (with their lines), after it, after the second pass, and
+  after the second suppression.
+- **(05:10) Step 2's generator options.** `mixes --kind rides
+  --ride-change A[,B] --ride-seconds A[,B] --ride-direction up|down|either`.
+  Every draw takes the same four numbers from the seed's generator as
+  session 35's, so one seed plans the same plays, speeds, crossfades and
+  ride starts under every condition; only the size, ramp and direction
+  differ (a controlled comparison). Non-default draws write
+  `mixes-rides-<label>-seed-<seed>.json` and render to
+  `work/mixes/rides-<label>-seed-<seed>/`. The default draw is unchanged
+  (a test; the step 1 reports compare with session 35's).
+- **(05:20) Step 1's answer** (0175): both reports equal session 35's;
+  all 192 lost sides are confident after the second pass and dropped by
+  the second `strongest_per_moment`, because the second pass's 10 s
+  margin moves both sides' facing ends into the ramp, a median 4.7-5.2 s
+  of overlap; the chains never overlap. So step 4 has a rule to vary.
+- **(05:20) Step 2's design.** One new seed, 3701, 16 mixes per
+  condition, every condition planning the same plays: a 0% ride (the
+  linear-interpolation render without a change, the control), 0.25, 0.5,
+  1, 2 and 3% over 2-5 s and over 10-20 s, and a drift of 0.5% over 60 s
+  (cut short where the play ends first). Directions drawn either way and
+  split in the analysis, which halves the renders (12 instead of 23).
+  Runs with the trace build (`work/s37/target-diag2`, logging only).
