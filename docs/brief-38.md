@@ -105,3 +105,101 @@ Rules for this session:
   it runs with the start build right after both regressions
   (`work/s38/start.sh`, tmux `s38start`), while the variant is written.
   No other heavy job runs beside it.
+- **(08:22) Start build and regressions.** `work/bin/s38-start/` is
+  byte-identical to `s37-final/`. `regress session-32-linux` identical
+  (1:09) and `regress session-33-linux-nas` identical (6:42, beside the
+  variant's first build); every report they write is identical to its
+  baseline's apart from `wall_seconds`. The default shared run started at
+  08:22 (start build).
+- **(08:40) Step 1, the pre-registration** (committed with the variant's
+  code, before it runs on any test data).
+
+  *The rule* (`--apart-in-speed 0.006` in the harness;
+  `Options::second_overlap = SecondOverlap::SpansAtSpeed(0.006)` in the
+  core; off by default). Only the second suppression changes, the
+  `strongest_per_moment` after the second pass: a detection is dropped
+  for overlapping a stronger kept detection of the same asset only when
+  their spans, as the second pass measured them, overlap and their fitted
+  speeds (the second pass's `Detection::speed`; for a key-locked
+  detection, the tempo) differ by at most 0.6% of the stronger one's:
+  `|weaker / stronger - 1| <= 0.006`. The first suppression, on the
+  first-pass chains, is unchanged, and so is `--single-pass`. Unlike
+  `--overlap-by-chains`, a detection the variant keeps can itself drop a
+  weaker one at its speed that the default keeps, so the variant's list
+  is not a superset of the default's; S3 checks what that costs.
+  `--overlap-by-chains` becomes `SecondOverlap::Chains` (same behaviour).
+
+  *The threshold, from development data only.* Session 37's traces, all
+  seen by session 37: seeds 3521-3522 (0175), seed 3701's conditions
+  (0176), the three development scans at NAS scale, and the first shared
+  panel's development half (all its queries, Fire's among them). For each
+  detection confident after the second pass and dropped by the default's
+  second suppression, the speed difference to the stronger overlapping
+  kept one (`work/s38/dev/speed_gaps.py`, `shared_gaps.py`, `edges.py`):
+  rides of 1%: 0.90% at least (seed 3701, 10-20 s), 0.95% (2-5 s), 0.98%
+  (seeds 3521-3522, 1-3%); 2%: 1.66%; 3%: 2.87%, apart from one 308-hit
+  repeat at 0.00%; 0.5% over 2-5 s: four at 0.50%; the shared panel: 59,
+  all at 0-0.005% or 0.378-0.400% (one rung step), Fire's Rogue Unit
+  segments among them at 0.00% (627 hits) and 0.40% (366 hits); the
+  development scans: Star Trails 1.34%, Into Music 1.05%, Phantom Force
+  0.005%. 0.6% lies between the largest difference outside a ride
+  (0.40%) and the smallest of a 1% ride (0.90%), and equals 1.5 rung
+  steps, the chain link rule's limit (ADR 0008) and the second pass's
+  `RUNG_REACH`. It leaves the sides of 0.5% rides dropped (0176: 2 sides
+  of 30 s or more at 0.5% over 2-5 s). The shared panel is not new data
+  for this threshold: it is the same development half session 37 ran, so
+  its result below tests the rule on queries whose differences were read
+  to choose it.
+
+  *Test data.* Rides seed 3801 (never rendered), 16 mixes per condition,
+  four conditions: `--ride-change 0.03 --ride-seconds 2,5`, `0.03` over
+  `10,20`, `--ride-change 0.01,0.02` over `2,5` and over `10,20`; each
+  searched by default and with the variant. The other runs below, by
+  default (existing reports where they exist; the shared panel's in a
+  separate run, 08:22) and with the variant.
+
+  *Criteria.*
+  - S1, recovery: of the sides of 30 s or more that the default loses on
+    seed 3801 (no confident detection of the play's own file, 240 hits in
+    3 windows; `ride_variant.py recovery`), the variant keeps at least
+    90% over the four conditions together, and covers at least 90% of
+    their seconds; in each condition at least 75% of the sides. The
+    partial count (30 s or more uncovered) is reported beside.
+  - S2, no new wrong confident detection: in every run below, the count
+    of wrong confident detections does not rise, and no confident
+    detection wrong at its time appears that the default's run lacks; a
+    wrong file's added segment counts as wrong even where the default
+    already names that file confidently there (the reading under which
+    0178's V2 failed). Wrong is: in the sweep a wrong answer, in a scan
+    a wrong identification or a confident detection matching no slot's
+    files, in generated mixes a confident detection of a file not
+    playing then, in the shared panel a confident detection of role
+    `other`. Runs: the sweep (seed 2026) at 262 tracks and at NAS scale
+    (`regress` with the variant), the three development scans and their
+    eight leave-outs at NAS scale (Stakka's three in `regress`), the
+    short and long generated mixes of seed 2026 at 262 tracks, the first
+    shared panel's development half at NAS scale (a default run and a
+    variant run, both reports compared query by query), and seed 3801.
+  - S3, no right answer lost: in the same runs, every confident
+    identification of the default stays: sweep queries confident on
+    their cluster, scan tracks identified, generated and rides mixes'
+    indexed plays with a confident detection, and shared queries with a
+    confident detection of the played recording (and of the partner,
+    for blends).
+  - Beside, not criteria: user CPU (`regress` at both scales against the
+    start build's, seed 3801's searches, the shared runs, with what ran
+    beside), right segments added, possible detections added, calibrate's
+    false candidates; Star Trails (13:13-14:37) and Into Music's middle
+    segment under the variant, as candidates nobody has listened to;
+    `--overlap-by-chains` on seed 3801 if time allows.
+  - The variant passes when S1, S2 and S3 all hold. Adoption stays our
+    decision and needs an ADR.
+- **(08:40) Step 3's design** (written before its runs). `robust` gains
+  four ride conditions, run only when named in `--only` (the default
+  `robust` run is unchanged): the speed rises by 1%, 2% or 3% over 3 s
+  centred 15 s into the 30 s excerpt (`ride-1pct-at-15s` and so on: each
+  side spans two 10 s windows), and by 2% centred at 24 s
+  (`ride-2pct-at-24s`: the side before spans three). Rides go up from
+  the base speeds 0.95 and 1.03, as the existing 2% ramp over the whole
+  excerpt (`pitch-ride-2pct`, run beside). At 262 tracks and NAS scale,
+  under the default, `--overlap-by-chains` and `--apart-in-speed 0.006`.

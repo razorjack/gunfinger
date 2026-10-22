@@ -169,12 +169,27 @@ pub struct Options {
     /// Detections' boundaries leave out weak windows at either end; the
     /// evidence still counts them.
     pub trim_weak_ends: bool,
-    /// After the second pass, a detection overlaps a stronger one of the
-    /// same asset only where their first-pass detections overlap, so that the
-    /// two sides of a change of speed within a play are both kept although
-    /// the second pass's margin moves their ends into each other's span
-    /// (experiment 0175).
-    pub overlap_by_chains: bool,
+    /// Which detections of one asset overlap after the second pass.
+    pub second_overlap: SecondOverlap,
+}
+
+/// After the second pass, which detection of an asset overlaps a stronger
+/// one of the same asset and is dropped. The second pass's margin can move
+/// the facing ends of a play's two sides, split at a change of speed, into
+/// each other's span (experiment 0175); the opt-in variants keep both.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub enum SecondOverlap {
+    /// Their spans overlap, as the second pass measured them.
+    #[default]
+    Spans,
+    /// Their first-pass detections overlap, which the first suppression has
+    /// already ruled out (with `trim_weak_ends`, as trimmed): the second
+    /// suppression is skipped (experiment 0178).
+    Chains,
+    /// Their spans overlap and their fitted speeds differ by at most this
+    /// share of the stronger one's (experiment 0179). Repeats and versions
+    /// at one speed are dropped as by default.
+    SpansAtSpeed(f64),
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of
@@ -247,13 +262,12 @@ fn detections_and_chains(
     }
     let mut refined = refine::refine(index, samples, profile, &lines, chained, jobs, options);
     refined.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
-    if options.overlap_by_chains {
-        // `strongest_per_moment` has already left no two first-pass
-        // detections of one asset overlapping (with `trim_weak_ends`, as
-        // trimmed).
-        return (lines, refined);
-    }
-    (lines, strongest_per_moment(refined))
+    let kept = match options.second_overlap {
+        SecondOverlap::Spans => strongest_per_moment(refined, None),
+        SecondOverlap::Chains => refined,
+        SecondOverlap::SpansAtSpeed(share) => strongest_per_moment(refined, Some(share)),
+    };
+    (lines, kept)
 }
 
 /// Searches the stored peaks of a library file instead of audio, without
@@ -428,21 +442,27 @@ fn lines_and_detections(
     let lines = lines::on_ladder(index, query, profile, ladder, jobs, progress);
     let mut detections = chains::detections(&lines, profile, options.links, options.trim_weak_ends);
     detections.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
-    let detections = strongest_per_moment(detections);
+    let detections = strongest_per_moment(detections, None);
     (lines, detections)
 }
 
 /// A record plays once at any moment. Repeated sections make weaker,
 /// parallel alignments of the same asset; drop every detection that
-/// overlaps a stronger one of the same asset. `detections` are sorted
-/// strongest first.
-fn strongest_per_moment(detections: Vec<(Detection, Vec<usize>)>) -> Vec<(Detection, Vec<usize>)> {
+/// overlaps a stronger one of the same asset. With `speed_share`, only one
+/// whose speed differs from the stronger one's by at most that share of
+/// it. `detections` are sorted strongest first.
+fn strongest_per_moment(
+    detections: Vec<(Detection, Vec<usize>)>,
+    speed_share: Option<f64>,
+) -> Vec<(Detection, Vec<usize>)> {
     let mut kept: Vec<(Detection, Vec<usize>)> = Vec::new();
     for (detection, chain) in detections {
         let overlaps_stronger = kept.iter().any(|(stronger, _)| {
             stronger.asset == detection.asset
                 && stronger.start_seconds < detection.end_seconds
                 && detection.start_seconds < stronger.end_seconds
+                && speed_share
+                    .is_none_or(|share| (detection.speed.0 / stronger.speed.0 - 1.0).abs() <= share)
         });
         if !overlaps_stronger {
             kept.push((detection, chain));
@@ -562,7 +582,7 @@ mod tests {
     }
 
     #[test]
-    fn both_sides_of_a_change_of_speed_are_kept_when_overlap_is_judged_on_chains() {
+    fn both_sides_of_a_change_of_speed_are_kept_by_the_opt_in_overlap_rules() {
         let profile = Profile::CURRENT;
         let rate = profile.sample_rate;
         let reference = test_audio::track(150.0, rate);
@@ -584,9 +604,9 @@ mod tests {
         let ladder: Vec<Rung> = (0..9)
             .map(|step| Rung::Turntable(SpeedRatio(0.996 + 0.004 * f64::from(step))))
             .collect();
-        let confident_speeds = |overlap_by_chains| {
+        let confident_speeds = |second_overlap| {
             let options = Options {
-                overlap_by_chains,
+                second_overlap,
                 ..Matcher::Fitted.options()
             };
             let mut speeds: Vec<f64> = search_with(&index, &query, &profile, &ladder, 1, options)
@@ -598,13 +618,18 @@ mod tests {
             speeds
         };
 
-        let by_spans = confident_speeds(false);
-        let by_chains = confident_speeds(true);
+        let by_spans = confident_speeds(SecondOverlap::Spans);
+        let by_chains = confident_speeds(SecondOverlap::Chains);
+        let apart_in_speed = confident_speeds(SecondOverlap::SpansAtSpeed(0.006));
+        let within_speed = confident_speeds(SecondOverlap::SpansAtSpeed(0.03));
 
         assert_eq!(by_spans.len(), 1, "{by_spans:?}");
-        assert_eq!(by_chains.len(), 2, "{by_chains:?}");
-        assert!((by_chains[0] - 1.0).abs() < 0.001, "{by_chains:?}");
-        assert!((by_chains[1] - 1.02).abs() < 0.001, "{by_chains:?}");
+        assert_eq!(within_speed, by_spans);
+        for both in [&by_chains, &apart_in_speed] {
+            assert_eq!(both.len(), 2, "{both:?}");
+            assert!((both[0] - 1.0).abs() < 0.001, "{both:?}");
+            assert!((both[1] - 1.02).abs() < 0.001, "{both:?}");
+        }
     }
 
     #[test]
@@ -621,6 +646,7 @@ mod tests {
                 .into_iter()
                 .map(|found| (found, Vec::new()))
                 .collect(),
+            None,
         );
 
         let spans: Vec<(u32, f64)> = kept
@@ -628,5 +654,30 @@ mod tests {
             .map(|(found, _)| (found.asset.0, found.start_seconds))
             .collect();
         assert_eq!(spans, [(1, 100.0), (2, 350.0), (1, 600.0)]);
+    }
+
+    #[test]
+    fn with_a_speed_share_an_overlapping_detection_at_another_speed_is_kept() {
+        let at_speed = |start, end, hits, speed| Detection {
+            speed: SpeedRatio(speed),
+            ..detection(1, start, end, hits)
+        };
+        let strongest_first = vec![
+            at_speed(100.0, 400.0, 900, 1.0),
+            at_speed(390.0, 500.0, 300, 1.004), // a repeat one rung away
+            at_speed(380.0, 600.0, 250, 1.012), // after a ride: kept
+            at_speed(590.0, 650.0, 100, 1.013), // overlaps the kept side
+        ];
+
+        let kept = strongest_per_moment(
+            strongest_first
+                .into_iter()
+                .map(|found| (found, Vec::new()))
+                .collect(),
+            Some(0.006),
+        );
+
+        let starts: Vec<f64> = kept.iter().map(|(found, _)| found.start_seconds).collect();
+        assert_eq!(starts, [100.0, 380.0]);
     }
 }

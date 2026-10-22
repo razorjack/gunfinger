@@ -43,6 +43,10 @@ const BASE_SPEEDS: [f64; 2] = [0.95, 1.03];
 const SKIP_SECONDS: f64 = 2.0;
 /// The pitch ride: speed rises by this much over the excerpt.
 const RAMP: f64 = 0.02;
+/// A ride inside the excerpt (`Condition::Ride`) changes the speed over
+/// this long, as the short ramps that lose a side of a long play do
+/// (experiment 0176).
+const RIDE_SECONDS: f64 = 3.0;
 /// Wow: the speed swings by this much either way once per revolution. A
 /// worn deck's; a well-kept Technics 1200 stays near 0.01%.
 const WOW_DEPTH: f64 = 0.002;
@@ -88,6 +92,12 @@ enum Condition {
     Insert,
     Skip,
     Ramp,
+    /// The speed rises by `change` over `RIDE_SECONDS` centred `at` seconds
+    /// into the excerpt, and holds there.
+    Ride {
+        change: f64,
+        at: f64,
+    },
     /// Speed modulated once per revolution, at this many revolutions per
     /// second: 0.55 at 33 rpm, 0.75 at 45 rpm.
     Wow(f64),
@@ -145,6 +155,27 @@ const CONDITIONS: [Condition; 38] = [
     Condition::KeyLock(1.08),
 ];
 
+/// Rides inside the excerpt, run only when named in `--only`: in the
+/// middle, both sides span two windows; late, the side before spans three.
+const RIDES_INSIDE: [Condition; 4] = [
+    Condition::Ride {
+        change: 0.01,
+        at: 15.0,
+    },
+    Condition::Ride {
+        change: 0.02,
+        at: 15.0,
+    },
+    Condition::Ride {
+        change: 0.03,
+        at: 15.0,
+    },
+    Condition::Ride {
+        change: 0.02,
+        at: 24.0,
+    },
+];
+
 /// Speeds just past the ladder's ends, run only when named in `--only`.
 const LADDER_EDGE: [Condition; 10] = [
     Condition::Speed(0.918),
@@ -183,6 +214,9 @@ impl Condition {
             Condition::Insert => "speech-insert-8s".into(),
             Condition::Skip => "needle-skip-2s".into(),
             Condition::Ramp => "pitch-ride-2pct".into(),
+            Condition::Ride { change, at } => {
+                format!("ride-{:.0}pct-at-{at:.0}s", change * 100.0)
+            }
             Condition::Wow(hz) => format!("wow-{hz:.2}hz"),
             Condition::Broadcast => "broadcast".into(),
             Condition::Beatmatched { partner_db } => format!("beatmatched-{partner_db}db"),
@@ -397,8 +431,9 @@ pub fn run(
             *condition == Condition::Control || only.is_empty() || only.contains(&condition.name())
         })
         .chain(
-            LADDER_EDGE
+            RIDES_INSIDE
                 .into_iter()
+                .chain(LADDER_EDGE)
                 .filter(|condition| only.contains(&condition.name())),
         )
         .collect();
@@ -540,6 +575,11 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
             let needed = EXCERPT_SECONDS * (job.speed + RAMP / 2.0) + 1.0;
             let native = render_samples(&source, start, needed, Playback::Turntable(1.0), None)?;
             ramp(&native, job.speed, job.speed + RAMP)
+        }
+        Condition::Ride { change, at } => {
+            let needed = EXCERPT_SECONDS * (job.speed + change) + 1.0;
+            let native = render_samples(&source, start, needed, Playback::Turntable(1.0), None)?;
+            ride(&native, job.speed, change, at)
         }
         Condition::Wow(hz) => wow(&source, start, job.speed, hz)?,
         Condition::Skip => {
@@ -783,6 +823,18 @@ fn ramp(native: &[f32], from: f64, to: f64) -> Vec<f32> {
     })
 }
 
+/// Speed `from` until `RIDE_SECONDS / 2` before `at`, rising linearly by
+/// `change` until as long after it, then held: source time is the speed
+/// integrated over output time.
+fn ride(native: &[f32], from: f64, change: f64, at: f64) -> Vec<f32> {
+    let begins = at - RIDE_SECONDS / 2.0;
+    resampled(native, |t| {
+        let rising = (t - begins).clamp(0.0, RIDE_SECONDS);
+        let after = (t - begins - RIDE_SECONDS).max(0.0);
+        from * t + change * rising * rising / (2.0 * RIDE_SECONDS) + change * after
+    })
+}
+
 /// An excerpt of native-speed audio whose output time `t` (seconds) holds
 /// source time `source_time(t)`. Linear interpolation is enough here: the
 /// analysis band ends at 4 kHz, far below the 44.1 kHz rate.
@@ -926,6 +978,45 @@ mod tests {
 
         let at_ten = seconds_to_index(10.0);
         assert!((f64::from(played[at_ten]) - 10.3).abs() < 1e-3);
+    }
+
+    #[test]
+    fn a_ride_inside_holds_one_speed_before_it_and_another_after_it() {
+        let rate = f64::from(RENDER_RATE);
+        let native: Vec<f32> = (0..seconds_to_index(40.0))
+            .map(|index| (index as f64 / rate) as f32)
+            .collect();
+        let source_at = |played: &[f32], seconds: f64| f64::from(played[seconds_to_index(seconds)]);
+
+        let played = ride(&native, 1.03, 0.02, 15.0);
+
+        // Before 13.5 s at 1.03; from 16.5 s at 1.05, 0.03 s further on
+        // for the ramp's mean excess of 0.01 over 3 s.
+        assert!((source_at(&played, 10.0) - 10.3).abs() < 1e-3);
+        assert!((source_at(&played, 15.0) - (15.45 + 0.02 * 1.5 * 1.5 / 6.0)).abs() < 1e-3);
+        assert!((source_at(&played, 20.0) - (20.6 + 0.03 + 0.02 * 3.5)).abs() < 1e-3);
+        let speed_after = (source_at(&played, 29.0) - source_at(&played, 19.0)) / 10.0;
+        assert!((speed_after - 1.05).abs() < 1e-4, "{speed_after}");
+    }
+
+    #[test]
+    fn rides_inside_run_only_when_named() {
+        let names: Vec<String> = RIDES_INSIDE.iter().map(|ride| ride.name()).collect();
+
+        assert_eq!(
+            names,
+            [
+                "ride-1pct-at-15s",
+                "ride-2pct-at-15s",
+                "ride-3pct-at-15s",
+                "ride-2pct-at-24s"
+            ]
+        );
+        assert!(
+            CONDITIONS
+                .iter()
+                .all(|condition| !matches!(condition, Condition::Ride { .. }))
+        );
     }
 
     #[test]
