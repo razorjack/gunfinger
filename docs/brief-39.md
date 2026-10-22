@@ -315,3 +315,8 @@ NAS scale only if the 262-track work is done by about 03:00.
   sides of a scenario pooled: 5.5-9.4%), while the second record inside
   its partner loses 19-32%. The NAS run started before 0182 was
   written, as part of the same pre-registered experiment.
+- **(01:25) Experiment 0183** (exploratory, saved reports only): no
+  measure in a report separates a record playing under its partner from
+  shared material; a length bound of 40 s would print every left-out
+  drop partner and 19 of 64 shared-material lines at 262 tracks, and 2
+  of 5 marked plays of the development mixes' NAS-scale reports.
