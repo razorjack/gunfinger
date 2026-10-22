@@ -1,5 +1,5 @@
 """2026-10-22 (session 38): a matching variant against the default, report
-against report, for the criteria of brief 38 (08:40).
+against report, for the criteria of brief 38 (08:26).
 
   shared DEFAULT VARIANT   `shared` reports: per query (scenario, kind,
       length, index), confident detections by role; wrong are those of
@@ -8,9 +8,10 @@ against report, for the criteria of brief 38 (08:40).
       segment of a file the default already names), and every query whose
       confident detection of the played recording (or, in a blend, the
       partner) the variant loses
-  sweep DEFAULT VARIANT    `sweep` reports: wrong answers and confident
-      queries on their own cluster in each, queries that gain a wrong
-      answer or lose a right one
+  sweep DEFAULT VARIANT    `sweep` reports: wrong confident detections
+      and indexed queries confident on their own cluster in each, queries
+      that gain a wrong one or lose a right one, and queries whose
+      detections differ
 
 usage: python3 -I scripts/analysis/variant_compare.py shared|sweep DEFAULT VARIANT
 """
@@ -62,19 +63,24 @@ def shared(default_path, variant_path):
 
 def sweep(default_path, variant_path):
     default, variant = (json.load(open(p)) for p in (default_path, variant_path))
-    queries = lambda r: {(q["asset"], q["speed"]): q for q in r["queries"]}
+    queries = lambda r: {(q["asset"], q["speed_percent"], q["start_seconds"]): q for q in r["queries"]}
     dq, vq = queries(default), queries(variant)
-    wrong = lambda q: q.get("wrong_confident", 0)
-    right = lambda q: bool(q.get("confident")) and not q.get("held_out")
+    wrong = lambda q: sum(1 for d in q["detections"] if d["confident"] and not d["correct"])
+    right = lambda q: not q["held_out"] and any(d["confident"] and d["correct"] for d in q["detections"])
     print(
-        f"queries {len(dq)} and {len(vq)}; wrong answers {sum(map(wrong, dq.values()))} ->"
+        f"queries {len(dq)} and {len(vq)}; wrong confident detections {sum(map(wrong, dq.values()))} ->"
         f" {sum(map(wrong, vq.values()))}; right {sum(map(right, dq.values()))} -> {sum(map(right, vq.values()))}"
     )
-    for key in sorted(dq):
-        if key in vq and wrong(vq[key]) > wrong(dq[key]):
-            print("   gains a wrong answer:", key)
-        if key in vq and right(dq[key]) and not right(vq[key]):
+    for key in sorted(dq, key=str):
+        if key not in vq:
+            print("   query in the default only:", key)
+            continue
+        if wrong(vq[key]) > wrong(dq[key]):
+            print("   gains a wrong confident detection:", key)
+        if right(dq[key]) and not right(vq[key]):
             print("   loses a right answer:", key)
+        if vq[key]["detections"] != dq[key]["detections"]:
+            print("   detections differ:", key)
 
 
 def main():

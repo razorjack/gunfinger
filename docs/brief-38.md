@@ -111,7 +111,7 @@ Rules for this session:
   variant's first build); every report they write is identical to its
   baseline's apart from `wall_seconds`. The default shared run started at
   08:22 (start build).
-- **(08:40) Step 1, the pre-registration** (committed with the variant's
+- **(08:26) Step 1, the pre-registration** (committed with the variant's
   code, before it runs on any test data).
 
   *The rule* (`--apart-in-speed 0.006` in the harness;
@@ -194,7 +194,7 @@ Rules for this session:
     `--overlap-by-chains` on seed 3801 if time allows.
   - The variant passes when S1, S2 and S3 all hold. Adoption stays our
     decision and needs an ADR.
-- **(08:40) Step 3's design** (written before its runs). `robust` gains
+- **(08:26) Step 3's design** (written before its runs). `robust` gains
   four ride conditions, run only when named in `--only` (the default
   `robust` run is unchanged): the speed rises by 1%, 2% or 3% over 3 s
   centred 15 s into the 30 s excerpt (`ride-1pct-at-15s` and so on: each
@@ -203,3 +203,16 @@ Rules for this session:
   the base speeds 0.95 and 1.03, as the existing 2% ramp over the whole
   excerpt (`pitch-ride-2pct`, run beside). At 262 tracks and NAS scale,
   under the default, `--overlap-by-chains` and `--apart-in-speed 0.006`.
+- **(08:27) Committed before any variant run** (`393469d`, the variant,
+  the `robust` conditions and the criteria above; its message says
+  08:40, the time planned, and the entries were dated 08:40 there: both
+  were written at 08:20-08:26). Checks before the commit: `check.sh`
+  green on the variant's code (4:44, beside the NAS regression's end and
+  the default shared run), then clippy and `robust`'s tests on the
+  added conditions; `check.sh` again on the commit (tmux `s38chk2`). Run
+  build `work/bin/s38-run/` from `393469d`. The step 2 queue
+  (`work/s38/step2.sh`, tmux `s38queue`) waits for `s38start` by exact
+  name (`=s38start`).
+- **(08:27) `--overlap-by-chains` on seed 3801 last**, after the shared
+  variant run, as a comparison only (not a criterion); dropped first if
+  time runs short.
