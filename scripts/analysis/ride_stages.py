@@ -17,7 +17,11 @@ furthest stage a detection of that file covering the side reached:
                 suppression (overlapping a stronger detection of the file)
   other         confident in the final list, yet not covering the side
 
-usage: python3 -I scripts/analysis/ride_stages.py REPORT TRACE_DIR [--min-side 30] [--rows]
+With --partial, a side counts as lost when 30 s or more of it has no
+confident detection of the file, even where the other side's detection
+reaches into it.
+
+usage: python3 -I scripts/analysis/ride_stages.py REPORT TRACE_DIR [--min-side 30] [--rows] [--partial]
 """
 
 import collections
@@ -59,11 +63,19 @@ def trace_of(mix, traces):
     return traces[samples]
 
 
-def classify(asset, side, stages):
+def classify(asset, side, other_side, stages):
     """The furthest stage a detection of `asset` overlapping `side` reached,
     and the evidence for it."""
+    # A chain belongs to the side it overlaps more than the other side; the
+    # other side's chain may reach a few seconds in.
+    belongs = {
+        d["id"]
+        for d in stages["chains"]
+        if d["asset"] == asset
+        and overlap(side, (d["start"], d["end"])) > max(0.0, overlap(other_side, (d["start"], d["end"])))
+    }
     ids = {
-        stage: {d["id"]: d for d in stages[stage] if d["asset"] == asset and overlap(side, (d["start"], d["end"])) > 0}
+        stage: {d["id"]: d for d in stages[stage] if d["id"] in belongs and d["asset"] == asset}
         for stage in ("chains", "first_kept", "refined", "final")
     }
     if not ids["chains"]:
@@ -101,7 +113,8 @@ def stronger_overlapping(asset, detection, stage_list):
 
 
 def main():
-    args = [arg for arg in sys.argv[1:] if arg != "--rows"]
+    args = [arg for arg in sys.argv[1:] if arg not in ("--rows", "--partial")]
+    partial = "--partial" in sys.argv
     min_side = 30.0
     if "--min-side" in args:
         i = args.index("--min-side")
@@ -125,16 +138,25 @@ def main():
                 continue
             plays += 1
             found = [d for d in result["detections"] if d["asset"] == play["asset"] and confident(d)]
-            for name, side in (
-                ("before", (own[0], min(own[1], ride["start_seconds"]))),
-                ("after", (max(own[0], ride["start_seconds"] + ride["seconds"]), own[1])),
-            ):
+            before = (own[0], min(own[1], ride["start_seconds"]))
+            after = (max(own[0], ride["start_seconds"] + ride["seconds"]), own[1])
+            for name, side, other_side in (("before", before, after), ("after", after, before)):
                 if side[1] - side[0] < min_side:
                     continue
                 sides += 1
-                if any(overlap(side, (d["start_seconds"], d["end_seconds"])) > 0 for d in found):
+                untouched = not any(overlap(side, (d["start_seconds"], d["end_seconds"])) > 0 for d in found)
+                if partial:
+                    seen = sorted((max(side[0], d["start_seconds"]), min(side[1], d["end_seconds"])) for d in found)
+                    covered, reached = 0.0, side[0]
+                    for a, b in seen:
+                        a = max(a, reached)
+                        if b > a:
+                            covered, reached = covered + b - a, b
+                    if side[1] - side[0] - covered < min_side:
+                        continue
+                elif not untouched:
                     continue
-                label, evidence = classify(play["asset"], side, stages)
+                label, evidence = classify(play["asset"], side, other_side, stages)
                 counts[label] += 1
                 row = {
                     "mix": mix["name"],

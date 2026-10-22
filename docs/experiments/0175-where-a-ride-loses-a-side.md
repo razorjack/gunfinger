@@ -10,15 +10,15 @@ committed) wrote each mix's detections of 30 hits or more at four stages:
 the chains, after the first `strongest_per_moment`, after the second pass
 (`refine`) and after the second `strongest_per_moment`.
 `scripts/analysis/ride_stages.py` names, for each lost side, the furthest
-stage a detection of its file covering it reached. Data
-`data/0175-where-a-ride-loses-a-side.json`.
+stage the side's own chain reached (the chain overlapping it more than the
+other side). Data `data/0175-where-a-ride-loses-a-side.json`.
 
 | Seeds 3521 / 3522 | |
 |---|--:|
 | Ridden indexed plays; sides of 30 s or more | 191 / 191; 329 / 327 |
-| Lost sides (240 hits in 3 windows) | 93 / 99 |
+| Lost sides (240 hits in 3 windows); with 30 s or more uncovered | 93 / 99; 101 / 120 |
 | Lost in lines or chains; at the first suppression; in the second pass | 0; 0; 0 |
-| Confident after the second pass, dropped at the second suppression | 93 / 99 |
+| Confident after the second pass, dropped at the second suppression | all, either count |
 | Overlap of the two sides' chains | 0 s in all 192 |
 | Overlap after the second pass: median; 90%; max | 4.7-5.2 s; 10.4-10.5 s; 15.8 s |
 | Facing end moved by the second pass: dropped side; kept side (medians) | 3.8-4.0 s; 3.6-4.1 s |
