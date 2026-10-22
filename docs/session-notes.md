@@ -8656,3 +8656,164 @@ scale). Not adopted.
   query, scan detection and calibrate line, and each report identical to
   its baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`
   unchanged (SHA-256 `ad0fc785d26a...`).
+
+## Session 38
+
+### What changed
+
+The product did not change: no threshold, rule or default. Added, all
+opt-in or harness-only, tested, and `regress` identical with them off:
+
+- `--apart-in-speed SHARE` (harness), `SecondOverlap::SpansAtSpeed` in
+  the core: after the second pass, a detection overlaps a stronger one of
+  the same asset only where their spans overlap and their fitted speeds
+  differ by at most SHARE. `Options::overlap_by_chains` became
+  `Options::second_overlap` (`Spans` by default, `Chains` for
+  `--overlap-by-chains`, same behaviour). Tests in `search.rs` (the
+  synthetic ride, and a unit test of the rule) and `matching.rs`.
+- `robust` conditions run only when named in `--only`: `ride-1pct-at-15s`,
+  `ride-2pct-at-15s`, `ride-3pct-at-15s` (a ride over 3 s in the middle of
+  the 30 s excerpt) and `ride-2pct-at-24s` (`RIDES_INSIDE`).
+- Scripts: `variant_compare.py` (`shared`, `sweep` and `answers`: a
+  variant's report against the default's), `robust_rides.py`.
+- `docs/research/2026-10-22-pitch-rides-decision.md`: what an ADR would
+  decide, with a recommendation.
+
+In short: the narrower variant `--apart-in-speed 0.006`, with its
+threshold and criteria committed before it ran, passes them: it keeps
+every side the default drops on new rides seeds and changes no confident
+detection elsewhere, the first shared panel included, where 0178's
+variant added a wrong version's segments. A ride in the middle of a
+30 s excerpt costs recall from 2%, but there the 3-window rule decides
+and neither overlap rule helps. Recommended (ours to decide): adopt the
+variant through an ADR after one confirmation on the second shared panel.
+
+### Step 1: the pre-registration (brief 08:26, `393469d`)
+
+The threshold came from session 37's traces only (seen by session 37):
+the dropped sides of rides differ from the kept side by the ride (1%:
+0.90% at least; 0.5%: 0.50%), every other dropped detection by 0-0.40%
+(the shared panel, Fire's Rogue Unit segments at 0.00% and 0.40%, the
+development scans). 0.6% lies between and equals 1.5 rung steps, the
+chain link rule's limit. Criteria: S1 at least 90% of the sides the
+default loses on seed 3801 (four conditions), and of their seconds; S2
+no rise in wrong confident detections and no new one, a wrong file's
+added segment counting; S3 no right answer lost.
+
+### Step 2: the variant against its criteria (experiment 0179)
+
+S1: 257 of 257 sides kept (3% over 2-5 s 94, over 10-20 s 10; 1-2% over
+2-5 s 44, over 10-20 s 109), 100% of their 17,487 s; by the partial count
+376 of 380. S2 and S3 hold on seed 3801, the sweep at both scales (262
+tracks identical; NAS 4 queries gain a weak detection, wrong 7, right
+540), the 11 development reports at NAS scale (wrong 0, right unchanged),
+the short and long mixes of seed 2026 and the first shared panel's
+development half, where a real default run (38:31) and the variant
+(35:27) agree on every confident detection in all 622 queries (played
+516, other 475, related 430, partner 8). The default run also confirmed
+session 37's trace-based comparison for `--overlap-by-chains` (56 added:
+52 played, 4 Rogue Unit). Calibrate's false candidates unchanged at both
+scales. CPU within the default's own spread. Candidates nobody has
+listened to, both kept: Star Trails at 13:13-14:37 (306-315 hits) and
+Into Music at 25:57-26:56 in the 2003 mix (1,392 hits); Phantom Force's
+0.005% segment, which 0178 added, stays dropped. The variant's list is
+not a superset of the default's: one possible detection was dropped on
+seed 3801, no play changed.
+
+### Step 3: a ride inside `robust`'s excerpts (experiment 0180)
+
+Confident of 80 indexed excerpts (262 tracks; NAS scale): control 80;
+80. 1% at 15 s 80; 80. 2% at 15 s 43; 48 (variants 43; 49). 3% at 15 s
+3; 5 (variants 6; 8). 2% at 24 s 80; 80. The existing 2% ramp over the
+whole excerpt, beside: 24; 46 under every matcher. Every miss has its
+best detection under 3 windows: the window condition decides, not the
+overlap rule.
+
+### Step 4: what an ADR would decide
+
+In `docs/research/2026-10-22-pitch-rides-decision.md`: the rule today,
+0176's dose-response, the candidates, each option's evidence, the
+shared-material risk (a wrong file gains a segment under
+`SpansAtSpeed` only where it is found on both sides of a ride), the
+questions for an ADR, and the recommendation.
+
+### Step 5: per-second scores (experiment 0181)
+
+Correct seconds on seed 3801 from 63.7-92.8% to 95.6-96.8%, the 90th
+percentile of start errors from about 110 s to about 20 s; the Stakka
+scan 91.8% to 93.5%, the 2003 mix 87.9% to 88.5%, Nocny unchanged;
+mislabelled seconds and specificity unchanged. `--overlap-by-chains`
+keeps the same 257 sides on seed 3801.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; variant) | 1:09; 1:10 | 0.4 GiB |
+| `regress session-33-linux-nas` (start, beside a build; variant) | 6:42; 5:59 | 5.3 GiB |
+| `mixes --kind rides --count 16`, rendering and searching; cached | 3:32-3:34; 2:37-2:39 | 14.4-15.1; 2.5 GiB |
+| Development scan at NAS scale | 0:34-0:52 | 4.9-5.1 GiB |
+| `shared`, first panel's development half, NAS scale (default, beside `check.sh`; variant) | 38:31; 35:27 | 6.2 GiB |
+| `robust --only` five rides (262 tracks; NAS scale) | 0:35-0:37; 3:12-3:14 | 0.6; 4.9 GiB |
+| `scripts/check.sh` | 4:11-4:44 | |
+
+### Decided this session, open to change
+
+- The default shared run ran first, in the start queue, beside the
+  variant's first `check.sh` runs; its CPU is not compared.
+- The variant applies to the second suppression only, as one predicate
+  in `strongest_per_moment`; a kept side may drop a weaker detection at
+  its own speed that the default keeps (S3 measured it: no play lost).
+- `--overlap-by-chains` became `SecondOverlap::Chains`, so the two rules
+  cannot be combined.
+- The `robust` rides go up only, over 3 s, at two positions; they are
+  opt-in so `robust`'s default run is unchanged.
+- The queue was reordered at 09:42 so that 0179's last run and file came
+  before 0180's runs (brief 09:42).
+
+### Decisions waiting (ours)
+
+- Whether to adopt `SpansAtSpeed(0.006)` (the research note recommends
+  it after a confirmation on the second shared panel), how a play shows
+  overlapping segments, and whether to record the 0.6% in
+  `docs/calibration.md` beside the ladder's step.
+- Whether the two candidates (Star Trails 13:13-14:37, Into Music
+  25:57-26:56) are rides by ear.
+- Whether a ride in a short play is worth the window condition's work
+  (0180; the roadmap's "A minimum span instead of 3 windows").
+
+### Handoff for the next session
+
+1. Reports: seed 3801's rides under `work/reports/mixes-rides-*-seed-3801.json`
+   and `variant-apart-0.006/`, `variant-chains/`; the development scans
+   with the variant in
+   `work/reports/library-nas-dnb-peaks/variant-apart-0.006/`; the shared
+   reports (default and variant) in `work/reports/library-nas-dnb-peaks/`
+   and its `variant-apart-0.006/`; `robust` reports in `work/reports/`,
+   `work/reports/library-nas-dnb-peaks/` and their `variant-*` folders;
+   `seconds` outputs in `work/s38/seconds/`.
+2. Builds: `work/bin/s38-start/` (= `s37-final`), `s38-run/` (from
+   `393469d`, the variant and `robust` rides), `s38-final/` (master).
+3. Scripts (`sh`, from the repository root): `work/s38/start.sh`,
+   `step2.sh` (stopped at 09:42), `step2b.sh`, `final.sh`, `check.sh`,
+   `check2.sh`; development analyses `work/s38/dev/*.py`; logs in
+   `work/s38/logs/`.
+4. Renders in `work/mixes/`: session 37's (seed 3701, 3741-3742, 2026)
+   and seed 3801's four conditions; `work/robust/seed-2026/` has the
+   ride conditions.
+5. Next, if we continue: the second shared panel's development half at
+   NAS scale with the default and `--apart-in-speed 0.006` (S2 and S3 as
+   in brief 38; about 40 minutes each); then the ADR; listening to the
+   two candidates.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  one by one. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file. The NAS and its store were only read; no
+  `index`, `prune` or clusters run.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s38/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed (seed 3801's sweep panel went to
+  `work/s38/panels`, a copy of `work/s37/panels`).

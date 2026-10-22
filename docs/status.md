@@ -4384,3 +4384,33 @@ notes "Session 37"; experiments 0175-0178. The product did not change.
   comment). Final checks with `work/bin/s37-final/`: `check.sh` green;
   both regressions identical (1:09; 5:56); `docs/pair-verdicts.txt`
   unchanged.
+
+## 2026-10-22: session 38, a narrower variant for pitch rides
+
+Brief `docs/brief-38.md`, checklist `docs/session-38-checklist.md`;
+notes "Session 38"; experiments 0179-0181; the decision note
+`docs/research/2026-10-22-pitch-rides-decision.md`. The product did not
+change.
+
+- 08:12 start at `f7e4819`, clean. Start build `work/bin/s38-start/`
+  (byte-identical to `s37-final`); both regressions identical (1:09;
+  6:42). A default run of the first shared panel's development half
+  (38:31) as the variant's comparison.
+- 08:27 `393469d`: the opt-in `--apart-in-speed SHARE`
+  (`SecondOverlap::SpansAtSpeed`), the `robust` rides inside excerpts,
+  and the pre-registration: threshold 0.6% from session 37's development
+  traces, criteria S1-S3, committed before any variant run.
+- 0179: `--apart-in-speed 0.006` passes S1-S3: all 257 lost sides kept
+  on new seed 3801; no new wrong confident detection and no lost right
+  one on the sweep at both scales, the 11 development reports at NAS
+  scale, the generated mixes and the first shared panel, where nothing
+  confident changes (0178's variant added a wrong version's segments
+  there). Star Trails' and Into Music's dropped segments kept
+  (candidates).
+- 0180: a ride in the middle of a 30 s excerpt costs recall from 2%
+  (43-49 of 80; 3%: 3-8), decided by the 3-window rule; neither overlap
+  rule helps.
+- 0181: per-second correct labels on seed 3801 from 64-93% to 96-97%
+  under the variant; Stakka +1.7 points, the 2003 mix +0.6.
+- Recommendation (ours to decide): adopt `SpansAtSpeed(0.006)` through
+  an ADR after one confirmation on the second shared panel.
