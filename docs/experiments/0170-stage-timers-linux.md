@@ -35,6 +35,6 @@ hits at 16 jobs, about 5.8 ns of CPU a hit, reading each grouped hit and
 its anchor's point. Taking and grouping are 35% at 16 jobs and 31% at 32,
 above the 15% that step 4 requires, so grouping straight from the lists is
 measured. Narrower grouped hits (step 3) reduce what both grouping and the
-pre-filter read. Query analysis is 14%, less than the Mac's 25-30% (0103):
-the per-hit stages cost more here. The second pass, lookups, sorting and
+pre-filter read. Query analysis is 14-15%, less than the Mac's 25-30%
+(0103): by inference, the per-hit stages cost more here. The second pass, lookups, sorting and
 lines leave little to gain.

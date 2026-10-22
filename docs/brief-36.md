@@ -132,7 +132,7 @@ Rules for this session:
   session 33's apart from `wall_seconds`. Search time at 16 and 32 jobs:
   `s35-final` 47.2 and 49.0-49.2 s; 1,024 45.3-45.4 and 37.9-38.0 s;
   2,048 45.5-45.6 and 38.3-38.8 s; the hit budget 44.1 and 37.0-37.1 s.
-  The budget beats 1,024 by 2.7% and 2.2%, below the 3% the design report
+  The budget beats 1,024 by 2.7% and 2.3%, below the 3% the design report
   set for adopting it, so the constant 1,024 is kept (the simpler code).
 - **(03:03) `check.sh` failed once** in
   `decode::watch::tests::a_child_that_writes_only_diagnostics_is_still_running`
@@ -168,7 +168,7 @@ Rules for this session:
   while step 1's queue ran; its validation lines were completed at 03:50,
   two minutes after the chained A/B of steps 3 and 4 had started, with
   only step 1's results in it.
-- **(04:05) Steps 3 and 4 lose; nothing kept.** Grouped hits as 4 bytes
+- **(04:03) Steps 3 and 4 lose; nothing kept.** Grouped hits as 4 bytes
   47.3 s against 45.2-45.3 s at 16 jobs, raw hits as 6 bytes 48.8-49.1 s,
   grouping from the lists 48.7-48.9 s; all slower at 32 jobs too, with
   identical reports (0171, 0172). The ranges do not overlap, so no second
@@ -176,7 +176,7 @@ Rules for this session:
   were written before step 5's count; the A/B's last base run, which had
   failed to start (a run label past the file name limit), was run again
   alone.
-- **(04:08) Step 5 counted, not implemented** (0173): 5.1% of requested
+- **(04:04) Step 5 counted, not implemented** (0173): 5.1% of requested
   postings repeat a hash of the same window, 14.9% within 4 windows; the
   saving is bounded by taking parts' 6.3% of CPU, so about 1% at most.
 - **(04:05) Step 6 started** at 04:04, with steps 1-5 done before 05:30:
@@ -198,3 +198,14 @@ Rules for this session:
   from `s36-step1` only because the committed comment shifts line
   numbers. Final checks (`work/s36/final.sh`) started beside the
   read-only review.
+- **(04:47) The review's findings** (a separate agent, read-only,
+  04:35-04:44): the code correct and no losing code left; five figures
+  wrong in the documents (0169's 2,048 CPU range; the hit budget's 2.3%,
+  not 2.2%; narrow hits 4.4% and 8.2% slower, not 4.5% and 8%;
+  `identify` 1.8-6.2 s, not 1.7-6.3 s; 7.3 s between rounds, not 7 s),
+  and wording: 0169's two tests, an unmarked inference in 0170, "16%
+  faster" for 16% less time, the times table's column label, a code
+  comment that held only after its loop, and the part size's comment
+  citing 0096 and stating an inference as fact. All fixed. The edited
+  comments change the binaries (a build ID), so `s36-final` was rebuilt
+  from the new `HEAD` and the final checks run again.

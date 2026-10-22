@@ -25,13 +25,13 @@ the 4.6 GB index, decoding and both passes.
 Every report byte-identical across builds, job counts and rounds.
 
 **Result.** User CPU falls 3-4% at 16 jobs and 16-22% at 32. Wall times
-move by up to 7 s between rounds of the same build, from the stages around
+move by up to 7.3 s between rounds of the same build, from the stages around
 the search (the NAS listing above all), so at 16 jobs the change is within
 that noise; at 32 jobs 0169 is faster for Stakka and Nocny in both
-rounds, by 1.7-6.3 s.
+rounds, by 1.8-6.2 s.
 
 **Workers.** With 0169, the search alone (0169's scans) takes 37.9-38.0 s
-at 32 jobs against 45.3 s at 16, and the full clustering run 23:02 at 32 (16
+at 32 jobs against 45.3-45.4 s at 16, and the full clustering run 23:02 at 32 (16
 not measured). In `identify` the two counts are within the noise (32: 35.7-
 48.7 s; 16: 42.2-54.4 s), with 1.7 times the CPU time at 32. Recommended:
 keep one worker per hardware thread; counting cores would make the search

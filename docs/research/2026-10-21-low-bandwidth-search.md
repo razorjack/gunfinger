@@ -158,21 +158,22 @@ session 33's apart from `wall_seconds`.
   1,024 assets. Search 45.3 s instead of 47.2 s at 16 workers, 37.9-38.0 s
   instead of 49.0-49.2 s at 32; the full NAS clustering run 23:02 (52:30 in
   session 33 at 2133 MT/s with the old code), its file byte-identical.
-  The per-window hit budget was 2.2-2.7% faster than 1,024, below the 3%
+  The per-window hit budget was 2.3-2.7% faster than 1,024, below the 3%
   set for it, and was not kept.
 - The split (0170), with items 1 and 2 in, at 16 and 32 workers: the
   pre-filter 43% and 46% of the search's CPU, grouping 28% and 24%,
   query analysis 14% and 15%, taking parts 6% and 7%, sorting and lines
   6%, the second pass 2%, lookups 0.3%.
-- Item 4 (0171): grouped hits as 4 bytes 4.5% slower at 16 workers, raw
-  hits as 6 bytes 8% slower; both slower at 32. Dropped.
+- Item 4 (0171): grouped hits as 4 bytes 4.4% slower at 16 workers, raw
+  hits as 6 bytes 8.2% slower; both slower at 32. Dropped.
 - Item 5 (0172): grouping straight from the lists 7.8% slower at 16
   workers. Dropped.
 - Item 6 (0173): 5.1% of requested postings repeat a hash of the same
   window, 14.9% within 4 windows; since every occurrence is still grouped
   and filtered, the saving is at most about 1%. Not implemented.
-- Item 3: see the session notes' "Session 36" for the measured
-  recommendation; the default is unchanged.
+- Item 3 (0174): keep one worker per hardware thread. With items 1 and
+  2, 32 workers take 16% less search time than 16, and `identify` is not
+  slower at 32; the default is unchanged (our decision).
 - Left: item 7 (smaller buffers and sorts: sorting and lines are 6%, the
   second pass 2%), and the pre-filter itself, now the largest stage
   (integer phases lost on the Mac, 0108; not tried here).

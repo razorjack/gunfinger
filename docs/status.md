@@ -4339,7 +4339,7 @@ Linux machine at 3600 MT/s.
   search's CPU at 16 workers, grouping 28%, query analysis 14%, taking
   parts 6%, sorting and lines 6%, the second pass 2%.
 - 0171, 0172: grouped hits as 4 bytes, raw hits as 6, and grouping from
-  the lists without `part`: 4.5-8% slower at 16 workers; not kept.
+  the lists without `part`: 4.4-8.2% slower at 16 workers; not kept.
 - 0173: repeated hash requests are 5.1% of postings in a window, 14.9%
   within 4; at most about 1% to gain; not implemented.
 - 0174: `identify` with the NAS configuration: reports identical, CPU

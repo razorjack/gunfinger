@@ -6,9 +6,9 @@ note's items 1 and 2) with tests and the part size measured at 3600 MT/s.
 **Change** (`search/lines.rs`). `front_partition` finds a part's end in
 each posting list by doubling from the front, then `partition_point`
 between the last two probes; `ASSETS_PER_PART` 4,096 to 1,024. Same
-slices, so the same hits in the same order. Two tests compare it with
-`partition_point` (2,000 random sorted lists; empty lists; ends before the
-first asset, at the last, past it; runs of one asset).
+slices, so the same hits in the same order. One test compares it with
+`partition_point` on 2,000 random sorted lists, one checks fixed cases
+(empty lists; ends before the first asset, at the last, past it; runs).
 
 **Part size** (`work/s36/ab-parts.sh`): the Stakka scan at NAS scale
 (40,683 assets), interleaved, two rounds, otherwise idle.
@@ -17,12 +17,12 @@ first asset, at the last, past it; runs of one asset).
 |---|--:|--:|--:|--:|
 | `s35-final` (4,096, binary search) | 47.2, 47.2 s | 703 s | 49.0, 49.2 s | 1,441-1,446 s |
 | 1,024 | 45.4, 45.3 s | 674-675 s | 37.9, 38.0 s | 1,095-1,099 s |
-| 2,048 | 45.6, 45.5 s | 675-677 s | 38.3, 38.8 s | 1,111-1,119 s |
+| 2,048 | 45.6, 45.5 s | 674-677 s | 38.3, 38.8 s | 1,111-1,119 s |
 | hit budget | 44.1, 44.1 s | 655 s | 37.0, 37.1 s | 1,072-1,073 s |
 
 The hit budget sizes each window's parts (the next power of two of its
 hits times 16 bytes over 1.5 MiB; 256-4,096 assets; `work/s36/budget.diff`):
-2.7% faster than 1,024 at 16 jobs, 2.2% at 32, below the design report's
+2.7% faster than 1,024 at 16 jobs, 2.3% at 32, below the design report's
 3% stop point, so 1,024 is kept. Reports identical to session 33's apart
 from `wall_seconds`; peak memory 4.82-4.93 GiB (4.87-5.10 GiB before).
 

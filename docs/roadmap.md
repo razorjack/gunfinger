@@ -500,7 +500,7 @@ marked as inferences were derived, not measured.
   profile (0170): the pre-filter is 43% of the search's CPU at 16
   workers, grouping 28%, query analysis 14%, taking parts 6%, sorting and
   lines 6%, the second pass 2%. Narrower hits (4 and 6 bytes) and
-  grouping straight from the lists were slower by 4.5-8% at 16 workers
+  grouping straight from the lists were slower by 4.4-8.2% at 16 workers
   (0171, 0172), and repeated hashes are too few to be worth reading once
   (0173). By inference, what is left is the pre-filter's and the
   scatter's work per hit, not memory traffic.

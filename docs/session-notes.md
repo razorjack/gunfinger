@@ -8302,7 +8302,7 @@ takes 23:02 (session 33: 52:30 at 2133 MT/s with the old code); `regress
 session-33-linux-nas` 6:11 instead of 8:16. With the change, 32 workers
 are faster than 16 in the search. In the user's `identify` the CPU time
 falls 3-4% at 16 workers and 16-22% at 32; wall time, which includes
-listing the NAS library, moves within its noise at 16 and falls 1.7-6.3 s
+listing the NAS library, moves within its noise at 16 and falls 1.8-6.2 s
 for two of the three mixes at 32.
 
 ### Step 1: items 1 and 2 in master (experiment 0169)
@@ -8310,7 +8310,7 @@ for two of the three mixes at 32.
 Part sizes measured with the front search, against `s35-final`, two
 interleaved rounds: 1,024 assets 45.3-45.4 s and 37.9-38.0 s (16 and 32
 workers), 2,048 45.5-45.6 s and 38.3-38.8 s, a per-window hit budget
-44.1 s and 37.0-37.1 s. The budget is 2.2-2.7% faster than 1,024, below
+44.1 s and 37.0-37.1 s. The budget is 2.3-2.7% faster than 1,024, below
 the 3% the design report set for it; the constant 1,024 is kept as the
 simpler code. Validation: `check.sh` green (one rerun after ADR 0020's
 "Text file busy" test race); both regressions identical and every report
@@ -8354,28 +8354,28 @@ at most part of taking parts (6.3% of CPU): about 1%.
 `gunfinger --config ~/.config/gunfinger/nas-dnb.toml identify --jobs N -f
 json` on the three development mixes, two rounds: reports byte-identical
 everywhere; user CPU 3-4% lower at 16 workers and 16-22% at 32; wall time
-within its noise at 16 workers (up to 7 s between rounds of one build),
-1.7-6.3 s shorter at 32 for Stakka and Nocny. A cold first run took 8:54,
+within its noise at 16 workers (up to 7.3 s between rounds of one build),
+1.8-6.2 s shorter at 32 for Stakka and Nocny. A cold first run took 8:54,
 nearly all of it waiting for the NAS's directory listing. Recommended:
-keep one worker per hardware thread, since 32 workers are now 16% faster
-than 16 in the search alone and not slower in `identify`; the default is
-unchanged (our decision).
+keep one worker per hardware thread, since 32 workers now take 16% less
+time than 16 in the search alone and are not slower in `identify`; the
+default is unchanged (our decision).
 
 ### Times on the Linux machine (3600 MT/s)
 
-| Run | Before (`s35-final`) | Now (`s36-final`) |
+| Run | Before (`s35-final`) | Now (0169's build) |
 |---|--:|--:|
 | Stakka scan at NAS scale, search, 16 workers | 47.2 s | 45.2-45.4 s |
 | The same, 32 workers | 49.0-49.2 s | 37.9-38.1 s |
 | Clusters sample of 48, 32 workers | 165 s (0168) | 118 s |
 | Full NAS clustering, 32 workers | 52:30 (session 33, 2133 MT/s) | 23:02 |
-| `regress session-33-linux-nas`, 32 workers | 8:16 | 6:11 |
+| `regress session-33-linux-nas`, 32 workers (one run each) | 8:16 | 6:11, 5:55 (final) |
 | `identify` of a development mix at NAS scale, 32 workers | 38.0-54.4 s | 35.7-48.7 s |
 | Peak memory, NAS scans | 4.9-5.1 GiB | 4.8-4.9 GiB |
 
 ### Decided this session, open to change
 
-- Parts of 1,024 assets, not the per-window hit budget (2.2-2.7% faster,
+- Parts of 1,024 assets, not the per-window hit budget (2.3-2.7% faster,
   below its 3% stop point).
 - Step 2's timers ran inside step 1's validation queue, before the full
   clustering run, and steps 3 and 4 were measured in one A/B (one round:

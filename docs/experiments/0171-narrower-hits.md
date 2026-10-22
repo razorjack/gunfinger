@@ -30,8 +30,8 @@ memory unchanged (4.8-4.9 GiB). The last base run at 32 jobs failed to start
 (the script's run label grew past the file name limit) and was run again
 alone at once.
 
-**Conclusion.** Both lose: 4.5% and 8% more search time at 16 jobs, 1-4%
-at 32, with more CPU; no second round, as the ranges do not overlap.
+**Conclusion.** Both lose: 4.4% and 8.2% more search time at 16 jobs,
+1.5% and 3.5% at 32, with more CPU; no second round, as the ranges do not overlap.
 By inference, with parts of 1,024 assets the hit buffers already stay in
 cache, so halving their bytes saves no memory traffic, while the narrow
 form adds work per hit (rebuilding the anchor's position, two arrays).

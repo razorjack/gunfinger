@@ -27,9 +27,9 @@ const MAX_LINES_PER_ASSET: usize = 3;
 /// Lines from neighbouring rungs predicting reference times this close are
 /// the same alignment.
 const SAME_LINE_FRAMES: f64 = 4.0;
-/// A window's hits are grouped by asset this many assets at a time, so that
-/// a worker's hits stay in its share of the cache with two workers per core
-/// (experiments 0096, 0169).
+/// A window's hits are grouped by asset this many assets at a time. Smaller
+/// parts were faster with two workers per core, by inference because each
+/// worker's hits then stay in its share of the cache (experiments 0167-0169).
 const ASSETS_PER_PART: usize = 1024;
 /// Offsets are counted in buckets this wide (`OffsetSlots`), so that a
 /// line's offsets lie in one bucket or two neighbouring ones.
@@ -241,8 +241,8 @@ fn front_partition(postings: &[Posting], end: usize) -> usize {
     if postings.first().is_none_or(|first| !before(first)) {
         return 0;
     }
-    // `postings[known]` is before `end`; the boundary lies after it and at
-    // or before `beyond`.
+    // When the loop ends, `postings[known]` is before `end` and the boundary
+    // lies after it, at or before `beyond`.
     let mut known = 0;
     let mut beyond = 1;
     while beyond < postings.len() && before(&postings[beyond]) {
