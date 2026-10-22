@@ -10,16 +10,16 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s36/listening-digests-start.txt`
-- [ ] Start build `work/bin/s36-start/`; `regress session-32-linux` and
-  `regress session-33-linux-nas` identical
+- [x] Start build `work/bin/s36-start/`; `regress session-32-linux` and
+  `regress session-33-linux-nas` identical (1:12; 8:16)
 
 ## Steps
 
-- [ ] 1. `front_partition` and its tests; the part size from A/B at 16
+- [x] 1. `front_partition` and its tests; the part size from A/B at 16
   and 32 workers; the validation (check, regressions, development scans
   and leave-outs, clusters sample, full clusters run); experiment 0169;
-  committed only if every comparison is identical
-- [ ] 2. Stage timers in a diagnostic build; experiment
+  committed only if every comparison is identical (all identical; 0169)
+- [x] 2. Stage timers in a diagnostic build; experiment 0170
 - [ ] 3. Narrower hits: grouped as 4 bytes, raw as 6 bytes; experiments
 - [ ] 4. Grouping without `part` (only if taking and grouping are above
   about 15%)

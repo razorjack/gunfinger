@@ -91,7 +91,7 @@ Rules for this session:
   (`work/s36/listening-digests-start.txt`). No answer log in this clone.
 - Experiments 0001-0168; this session numbers from 0169. Test set: 4 of
   5 evaluations used (none in this session).
-- Session 35's renders in `work/mixes/` (11 GB) deleted at 02:42.
+- Session 35's renders in `work/mixes/` (11 GB) deleted at 02:35.
 - `work/reports/library-nas-dnb-peaks/` holds session 33's clusters and
   map, and the 11 development reports at NAS scale (3 scans, 8
   leave-outs) that 0157 scored; validation scans run in a scratch work
@@ -112,3 +112,55 @@ Rules for this session:
 | 8 | notes, status, roadmap, research note, checklist; final checks | |
 
 ## Decisions
+
+- **(02:46) Start build and regressions.** `work/bin/s36-start/` is
+  byte-identical to `s35-final/` (no code changed since). `regress
+  session-32-linux` identical (1:12; 720 of 720 sweep queries, 89, 97 and
+  83 scan detections, the calibrate lines) and `regress
+  session-33-linux-nas` identical (8:16 at the default 32 workers; 720
+  sweep queries, 4,253, 4,244 and 4,212 detections, the calibrate lines).
+- **(02:46) The reference reports** for the development scans at NAS
+  scale are copied to `work/s36/ref-reports/` before any run, so that a
+  regression writing over `work/reports/` cannot change what the
+  validation compares with.
+- **(02:47) Part-size candidates**: constants 1,024 and 2,048 with the
+  front search, and a per-window hit budget (parts per window the next
+  power of two of the window's hits times 16 bytes over 1.5 MiB, from 256
+  to 4,096 assets; `work/s36/budget.diff`), each against `s35-final`,
+  interleaved, two rounds at 16 and 32 workers (`work/s36/ab-parts.sh`).
+- **(03:00) Parts of 1,024 assets.** All 16 A/B reports are identical to
+  session 33's apart from `wall_seconds`. Search time at 16 and 32 jobs:
+  `s35-final` 47.2 and 49.0-49.2 s; 1,024 45.3-45.4 and 37.9-38.0 s;
+  2,048 45.5-45.6 and 38.3-38.8 s; the hit budget 44.1 and 37.0-37.1 s.
+  The budget beats 1,024 by 2.7% and 2.2%, below the 3% the design report
+  set for adopting it, so the constant 1,024 is kept (the simpler code).
+- **(03:03) `check.sh` failed once** in
+  `decode::watch::tests::a_child_that_writes_only_diagnostics_is_still_running`
+  with "Text file busy": the test race ADR 0020 describes (a stand-in
+  script held open by a child forked by another test thread). The rerun
+  was green (179 s; clippy for Linux and macOS, every test).
+- **(03:06) Variants built before the timed runs**, so that nothing
+  compiles while a run is timed: grouped hits as 4 bytes
+  (`s36-narrow4`), raw hits as 6 bytes on top of it (`s36-raw6`),
+  grouping straight from the lists on top of it (`s36-nopart`, step 4,
+  run only if step 2 allows), the stage timers (`s36-timers`) and the
+  repeated-hash count (`s36-repeats`). Their sources are in
+  `work/s36/lines.rs.*` and `work/s36/timers.diff`.
+- **(03:14) Both regressions identical with `s36-step1`** (corpus 1:16,
+  NAS scale 6:11 against 8:16 with the start build), and every report
+  they write is identical to its baseline's apart from `wall_seconds`,
+  the sweeps included.
+- **(03:27) Step 2's timers ran inside step 1's queue**, after the
+  development scans and before the full clusters run, so that the full
+  run was the last timed run of step 1. Taking and grouping are 35% of the
+  CPU at 16 jobs (31% at 32), above 15%: step 4 is measured. Experiment
+  0170.
+- **(03:27) Steps 3 and 4 in one A/B** (`work/s36/queue-step3.sh`, started
+  after the full clusters run): `s36-step1` against `s36-narrow4`,
+  `s36-raw6` and `s36-nopart`, one round at 16 and 32 jobs, each
+  candidate twice between two base runs; then step 5's count. A second
+  round only where ranges overlap.
+- **(03:50) Step 1 committed.** The full NAS clusters run is
+  byte-identical to session 33's (23:02 at 32 jobs; session 33 52:30 at
+  2133 MT/s with the old code). Every comparison of the validation was
+  identical (0169).

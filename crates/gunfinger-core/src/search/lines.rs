@@ -27,8 +27,10 @@ const MAX_LINES_PER_ASSET: usize = 3;
 /// Lines from neighbouring rungs predicting reference times this close are
 /// the same alignment.
 const SAME_LINE_FRAMES: f64 = 4.0;
-/// A window's hits are grouped by asset this many assets at a time.
-const ASSETS_PER_PART: usize = 4096;
+/// A window's hits are grouped by asset this many assets at a time, so that
+/// a worker's hits stay in its share of the cache with two workers per core
+/// (experiments 0096, 0169).
+const ASSETS_PER_PART: usize = 1024;
 /// Offsets are counted in buckets this wide (`OffsetSlots`), so that a
 /// line's offsets lie in one bucket or two neighbouring ones.
 const OFFSET_BUCKET_FRAMES: f64 = 2.0 * LINE_SPAN_FRAMES;
@@ -194,7 +196,7 @@ impl<'i> WindowHits<'i> {
     fn take_part(&mut self, end: usize) {
         self.part.clear();
         for (postings, anchor) in &mut self.lists {
-            let taken = postings.partition_point(|posting| (posting.asset().0 as usize) < end);
+            let taken = front_partition(postings, end);
             let (part, rest) = postings.split_at(taken);
             self.part.extend(part.iter().map(|&posting| Hit {
                 posting,
@@ -225,6 +227,30 @@ impl<'i> WindowHits<'i> {
             *slot += 1;
         }
     }
+}
+
+/// How many postings at the front of `postings`, ordered by asset, belong
+/// to assets before `end`: `partition_point`, searched from the front.
+///
+/// A part takes a short run off the front of each list. A binary search
+/// over the whole remainder reads about 7 cache lines far from that run,
+/// one after another, for every list and part; doubling from the front
+/// reads only near it, which lets parts be small (experiment 0167).
+fn front_partition(postings: &[Posting], end: usize) -> usize {
+    let before = |posting: &Posting| (posting.asset().0 as usize) < end;
+    if postings.first().is_none_or(|first| !before(first)) {
+        return 0;
+    }
+    // `postings[known]` is before `end`; the boundary lies after it and at
+    // or before `beyond`.
+    let mut known = 0;
+    let mut beyond = 1;
+    while beyond < postings.len() && before(&postings[beyond]) {
+        known = beyond;
+        beyond *= 2;
+    }
+    let beyond = beyond.min(postings.len());
+    known + 1 + postings[known + 1..beyond].partition_point(before)
 }
 
 /// Query windows searched on every rung before their lines are merged.
@@ -720,6 +746,62 @@ pub(super) mod tests {
             );
             assert!(window_hits.lists.is_empty());
             assert!(window_hits.ends.iter().all(|&end| end == 0));
+        }
+    }
+
+    fn postings_of(assets: &[u32]) -> Vec<Posting> {
+        assets
+            .iter()
+            .map(|&asset| Posting::new(AssetId(asset), asset % 7))
+            .collect()
+    }
+
+    #[test]
+    fn a_part_ends_where_a_binary_search_ends_it() {
+        let mut state = 2031_u64;
+        let mut next = move || {
+            state ^= state << 13;
+            state ^= state >> 7;
+            state ^= state << 17;
+            state
+        };
+        for _ in 0..2_000 {
+            let len = (next() % 300) as usize;
+            let spread = 1 + next() % 2_000;
+            let mut assets: Vec<u32> = (0..len).map(|_| (next() % spread) as u32).collect();
+            assets.sort_unstable();
+            let postings = postings_of(&assets);
+            for end in (0..=spread as usize + 1).step_by(1 + spread as usize / 97) {
+                let expected =
+                    postings.partition_point(|posting| (posting.asset().0 as usize) < end);
+
+                assert_eq!(
+                    front_partition(&postings, end),
+                    expected,
+                    "{assets:?} {end}"
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn a_part_ends_at_the_start_at_the_end_and_past_it() {
+        let postings = postings_of(&[3, 3, 5, 8, 8, 8, 13]);
+
+        assert_eq!(front_partition(&[], 0), 0);
+        assert_eq!(front_partition(&[], 10), 0);
+        assert_eq!(front_partition(&postings, 0), 0);
+        assert_eq!(front_partition(&postings, 3), 0);
+        assert_eq!(front_partition(&postings, 4), 2);
+        assert_eq!(front_partition(&postings, 8), 3);
+        assert_eq!(front_partition(&postings, 13), 6);
+        assert_eq!(front_partition(&postings, 14), 7);
+        assert_eq!(front_partition(&postings, 1 << 16), 7);
+        for len in 1..=17 {
+            let same = postings_of(&vec![4; len]);
+
+            assert_eq!(front_partition(&same, 4), 0, "{len}");
+            assert_eq!(front_partition(&same, 5), len, "{len}");
         }
     }
 
