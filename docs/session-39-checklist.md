@@ -24,8 +24,8 @@ for scope and rules.
   tracks (store-only copy without the held-out records); NAS scale if
   time allows; the scoring script
 - [x] 4. Experiments 0182 (the tracklist on double drops) and 0183 (marked plays)
-- [ ] 5. (Ahead) the same scenarios at the detection level (`mixes`'s
-  scores, `seconds`)
+- [x] 5. (Ahead) the same scenarios at the detection level (`mixes`'s
+  scores, `seconds`); experiment 0184
 - [ ] 6. Read-only review by a subagent; findings fixed
 
 ## Wrap-up

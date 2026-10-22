@@ -479,25 +479,27 @@ def summary(*paths):
 def detections(*paths):
     """The harness's own scores of the same mixes (`mixes`'s `level` per
     play: its strongest detection of the play's cluster), by scenario."""
-    plays = [play for path in paths for result in json.load(open(path))["mixes"]
-             for play in result["score"]["plays"] if not play["truth"]["held_out"]]
-    truth = [play["truth"] for play in plays]
-
-    def group(index):
-        play = truth[index]
-        scenario = play.get("scenario") or "-"
-        if play.get("side") == "second":
-            return f"{scenario} second ({'inside' if inside_of(play, truth) else 'through'})"
-        return f"{scenario} {play['side']}" if play.get("side") else scenario
-
+    rows = []
+    for path in paths:
+        for result in json.load(open(path))["mixes"]:
+            truth = [play["truth"] for play in result["score"]["plays"]]
+            for play in result["score"]["plays"]:
+                if play["truth"]["held_out"]:
+                    continue
+                own = play["truth"]
+                scenario = own.get("scenario") or "-"
+                if own.get("side") == "second":
+                    group = f"{scenario} second ({'inside' if inside_of(own, truth) else 'through'})"
+                else:
+                    group = f"{scenario} {own['side']}" if own.get("side") else scenario
+                rows.append((group, play["level"]))
     levels = ["confident", "possible", "weak", "none"]
     print("| Scenario | Plays | " + " | ".join(level.capitalize() for level in levels) + " |")
     print("|---|" + "--:|" * (len(levels) + 1))
-    for name in sorted({group(index) for index in range(len(plays))}):
-        here = [plays[index] for index in range(len(plays)) if group(index) == name]
+    for name in sorted({group for group, _ in rows}):
+        here = [level for group, level in rows if group == name]
         print(f"| {name} | {len(here)} | "
-              + " | ".join(str(sum(play["level"] == level for play in here)) for level in levels)
-              + " |")
+              + " | ".join(str(here.count(level)) for level in levels) + " |")
     wrong = sum(len(result["score"]["wrong_confident"]) for path in paths
                 for result in json.load(open(path))["mixes"])
     print(f"wrong confident detections: {wrong}")

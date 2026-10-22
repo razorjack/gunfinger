@@ -310,13 +310,20 @@ NAS scale only if the 262-track work is done by about 03:00.
   (artists differ, which ADR 0017 does not compare) and titles
   differing. Neither changes a registered score; P6 is read on the
   second.
-- **(01:15) Experiment 0182** (both scales, one pre-registered
+- **(01:06) Experiment 0182** (both scales, one pre-registered
   experiment). P1 and P3-P6 not met; P2 not met by its letter (both
   sides of a scenario pooled: 5.5-9.4%), while the second record inside
   its partner loses 19-32%. The NAS run started before 0182 was
   written, as part of the same pre-registered experiment.
-- **(01:25) Experiment 0183** (exploratory, saved reports only): no
+- **(01:07) Experiment 0183** (exploratory, saved reports only): no
   measure in a report separates a record playing under its partner from
   shared material; a length bound of 40 s would print every left-out
   drop partner and 19 of 64 shared-material lines at 262 tracks, and 2
   of 5 marked plays of the development mixes' NAS-scale reports.
+- **(01:12) Step 5, experiment 0184.** The harness on the cached renders
+  with `--ladder turntable` (0:59-1:00 per seed) gives the same row per
+  scenario as with `both`, and every indexed play's level agrees with
+  the CLI's report (512 of 512). `seconds` on both reports. The
+  `detections` summary first grouped records across all mixes at once
+  (wrong "through" counts); fixed to group within each mix before any
+  number was written down.
