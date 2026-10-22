@@ -4345,3 +4345,7 @@ Linux machine at 3600 MT/s.
 - 0174: `identify` with the NAS configuration: reports identical, CPU
   3-4% lower at 16 workers and 16-22% at 32; one worker per hardware
   thread recommended (the default unchanged).
+- 04:35-04:44 read-only review by a separate agent; its findings fixed
+  (five figures, wording, two code comments). Final checks with
+  `work/bin/s36-final/`: `check.sh` green; both regressions identical
+  (1:10; 5:56); `docs/pair-verdicts.txt` unchanged.

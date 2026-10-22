@@ -198,7 +198,7 @@ Rules for this session:
   from `s36-step1` only because the committed comment shifts line
   numbers. Final checks (`work/s36/final.sh`) started beside the
   read-only review.
-- **(04:47) The review's findings** (a separate agent, read-only,
+- **(04:45) The review's findings** (a separate agent, read-only,
   04:35-04:44): the code correct and no losing code left; five figures
   wrong in the documents (0169's 2,048 CPU range; the hit budget's 2.3%,
   not 2.2%; narrow hits 4.4% and 8.2% slower, not 4.5% and 8%;
@@ -206,6 +206,7 @@ Rules for this session:
   and wording: 0169's two tests, an unmarked inference in 0170, "16%
   faster" for 16% less time, the times table's column label, a code
   comment that held only after its loop, and the part size's comment
-  citing 0096 and stating an inference as fact. All fixed. The edited
-  comments change the binaries (a build ID), so `s36-final` was rebuilt
-  from the new `HEAD` and the final checks run again.
+  citing 0096 and stating an inference as fact. All fixed. The binaries
+  built after the comment edits are not byte-identical to `s36-final`'s,
+  so `s36-final` was rebuilt from the new `HEAD` and the final checks run
+  again with it.

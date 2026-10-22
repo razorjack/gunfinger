@@ -28,13 +28,13 @@ for scope and rules.
   not implemented)
 - [x] 6. (Ahead) `identify` A/B on the development mixes; the worker
   count recommendation (experiment 0174)
-- [~] 7. Read-only review by a subagent; findings fixed
+- [x] 7. Read-only review by a subagent; findings fixed
 
 ## Wrap-up
 
 - [x] "Session 36" in `docs/session-notes.md`, with the handoff
 - [x] `docs/status.md`, the roadmap's "Where search time goes", the
   research note, this checklist
-- [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
+- [x] Final checks (04:45-04:55, rebuilt `work/bin/s36-final/`): `scripts/check.sh` green; `regress session-32-linux`
   and `regress session-33-linux-nas` identical with the final build;
   `docs/pair-verdicts.txt` unchanged; `git status` clean

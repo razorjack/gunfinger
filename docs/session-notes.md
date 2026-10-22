@@ -8417,3 +8417,37 @@ default is unchanged (our decision).
    item 8 stays not recommended; item 9 needs a retrieval study.
 4. The search's times on the Linux machine are now at 3600 MT/s (since
    0168); earlier sessions' times were at 2133 MT/s.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  one by one; Nocny's audio is the development set's copy in
+  `corpus/sets/`. Nothing ran on the candidate mixes of 0065 or on the
+  NAS root's broadcast file.
+- The NAS was only read (the library listing of `identify`), and the
+  NAS store only searched; no `index`, `prune` or rebuild of session
+  33's clusters file, which validation runs compared with from scratch
+  work directories. The CLI's saved NAS index in
+  `~/.cache/gunfinger/indexes/` was current and was not rewritten.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s36/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed. `work/s36/panels` is a copy of `work/s33/panels`
+  for the full clustering run.
+- Session 35's renders in `work/mixes/` (11 GB) were deleted. Scratch:
+  `work/s36/` (scripts, logs, reports, the two scratch work directories
+  with the saved index hard-linked, so it takes little space).
+- `check.sh` failed once with ADR 0020's "Text file busy" test race in
+  `decode::watch`'s tests; the rerun was green.
+- A read-only review by a separate agent (04:35-04:44) found the code
+  correct and no losing code left, five wrong figures in the documents
+  and some wording; all fixed (brief 04:45). The fixed comments in
+  `search/lines.rs` changed the binaries, so the final build was made
+  again and the final checks run with it.
+- Final checks (04:45-04:55) with `work/bin/s36-final/` built from
+  `a1fcc3c`: `scripts/check.sh` green (3:03; clippy for Linux and macOS,
+  every test); `regress session-32-linux` (1:10) and `regress
+  session-33-linux-nas` (5:56) identical, every sweep query, scan
+  detection and calibrate line, and each report identical to its
+  baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`
+  unchanged.
