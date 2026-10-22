@@ -188,3 +188,24 @@ Read from the code, to be checked by measurement in step 1:
   `default_final` stage (the default's suppression applied to the same
   refined list), that is said, and the trace is checked against a real
   default report wherever one exists.
+- **(05:24) `check.sh` green** with the generator options and the
+  variant (4:52; the variant's test, a 10 s ride from 1.0 to 1.02 in
+  synthetic audio, keeps one confident side by default and two with the
+  variant). Committed (`8899de4`) with the criteria above, before any
+  variant run. Run build `work/bin/s37-run/` (its CLI binary differs
+  from the start build's because the core's `Options` gained a field);
+  step 3's queue starts with both regressions on it.
+- **(05:40) Lost sides counted two ways.** At 0.5% over 2-5 s some sides
+  lose most of their time while the kept side's widened end still reaches
+  about 10 s into them, so 0166's count (a side with no confident
+  detection at all) misses them. Both counts are reported from now on:
+  no detection, and 30 s or more uncovered. `ride_stages.py` attributes
+  each chain to the side it overlaps more (its first version took the
+  other side's chain where it reached a few seconds in); on seeds 3521
+  and 3522 every lost side, by either count, is dropped at the second
+  suppression (0175 updated, `98cb1ab`).
+- **(06:01) A queue fault, fixed.** Step 2b's wait (`tmux has-session -t
+  s37step2`) matched its own session `s37step2b` by prefix and waited on
+  itself; it was restarted at 06:01 without the wait, after step 2 had
+  finished at 05:59. Step 3 had not started (its wait names `s37step2b`
+  exactly enough). No run overlapped another.
