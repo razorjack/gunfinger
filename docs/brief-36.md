@@ -164,3 +164,15 @@ Rules for this session:
   byte-identical to session 33's (23:02 at 32 jobs; session 33 52:30 at
   2133 MT/s with the old code). Every comparison of the validation was
   identical (0169).
+- **(03:51) 0169's last lines and the step 3 A/B.** 0169 was written
+  while step 1's queue ran; its validation lines were completed at 03:50,
+  two minutes after the chained A/B of steps 3 and 4 had started, with
+  only step 1's results in it.
+- **(04:05) Steps 3 and 4 lose; nothing kept.** Grouped hits as 4 bytes
+  47.3 s against 45.2-45.3 s at 16 jobs, raw hits as 6 bytes 48.8-49.1 s,
+  grouping from the lists 48.7-48.9 s; all slower at 32 jobs too, with
+  identical reports (0171, 0172). The ranges do not overlap, so no second
+  round. The queue was stopped after the A/B so that the experiment files
+  were written before step 5's count; the A/B's last base run, which had
+  failed to start (a run label past the file name limit), was run again
+  alone.
