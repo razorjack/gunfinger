@@ -1,8 +1,8 @@
 """Session 39 (experiment 0183): marked plays (shares_material_with) in the drops mixes' reports, split by truth, with their hits, length and hits against the partner. Run from the repository root."""
-import json, sys, statistics
+import json, os, sys, statistics
 sys.path.insert(0, 'scripts/analysis')
 import tracklist_score as t
-NAS = '/home/razorjack/.local/share/gunfinger/nas-dnb-peaks'
+NAS = os.path.expanduser('~/.local/share/gunfinger/nas-dnb-peaks')
 for scale, clusters, store in (('262', 'work/reports/duplicate-clusters.json', None),
                                ('nas', 'work/reports/library-nas-dnb-peaks/duplicate-clusters.json', NAS)):
     groups = {}

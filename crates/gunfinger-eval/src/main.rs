@@ -2772,8 +2772,6 @@ impl NeighbourRecords {
     }
 }
 
-/// The rides `mixes --kind rides` draws: the default, with the options
-/// given in place of its ranges.
 /// The files `--tagged` lists, for the drops kind only.
 fn tagged_assets(kind: mixes::MixKind, path: &Path) -> Result<BTreeSet<String>, String> {
     #[derive(serde::Deserialize)]
@@ -2790,6 +2788,8 @@ fn tagged_assets(kind: mixes::MixKind, path: &Path) -> Result<BTreeSet<String>, 
     Ok(tagged.assets)
 }
 
+/// The rides `mixes --kind rides` draws: the default, with the options
+/// given in place of its ranges.
 fn ride_draw(
     kind: mixes::MixKind,
     change: &[f64],

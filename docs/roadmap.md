@@ -1141,13 +1141,15 @@ marked as inferences were derived, not measured.
   search finds confidently, apart from one merge in 512 plays: two
   unrelated records over a long drop whose tracks would have started
   2.2 s apart pass `same_recording`. No confident extra entry at 262
-  tracks; at NAS scale two, a known related version. What leaves the
+  tracks; at NAS scale Animation's remix (a related version by verdict)
+  and, with other pairs, T-Minus and its vocal mix printed for each
+  other. What leaves the
   tracklist is ADR 0019's cost: a record inside its partner found only
   as possible. In a double drop where the second record leaves again,
   19-25% of unrelated partners leave; for a record inside its relative
   it depends on the pair (Clockwork's original inside its remix 6 of 8,
   three more pairs at NAS scale 5 of 15, 0185), and two records that
-  share their whole length (Pyro) become one entry under `titles
+  share at least 188 s (Pyro) become one entry under `titles
   disagree:`. Brief records (20-40 s) leave 19 of 32 times, while the
   search loses quiet ones (-9 dB) most. A drop through to the second
   record costs nothing. One new confident identification at NAS scale

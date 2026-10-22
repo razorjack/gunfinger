@@ -8855,7 +8855,8 @@ identical with the new harness code. Added, harness only and tested:
   (through or inside, drawn), their passages aligned where the tracks
   allow; a record for 20-40 s inside a stronger one; a held-out record;
   a double drop inside (the second leaves, the first plays on). Every
-  play is beatmatched (tempo) to the one it is mixed with. `PlannedPlay`
+  play is beatmatched (tempo) to the one it is mixed with where both
+  tempos are known, else at a drawn speed. `PlannedPlay`
   gained `gain_db`, `scenario` and `side`, left out of the JSON when
   unset, so earlier truth files and reports read and render as before.
   `--other-pairs` also plays panel pairs whose files only a larger
@@ -8872,10 +8873,12 @@ tracklist is ADR 0019's cost: a record inside its partner found only as
 possible is marked as shared material and left out (19-25% of unrelated
 drop partners that leave again; for a record inside its relative it
 depends on the pair). A drop that ends on the second record costs
-nothing. No confident wrong entry at 262 tracks; at NAS scale a known
-related version (Animation's remix) and one new candidate, Digital &
-Spirit - Crash over the start of the T-Minus vocal mix, which needs
-listening.
+nothing. No confident wrong entry at 262 tracks. At NAS scale:
+Animation's remix (outside the panel's families, so a confident extra
+by P1's letter, though by a `different` verdict and 0038 a related
+version), T-Minus and its vocal mix printed for each other (0185), and
+one new candidate, Digital & Spirit - Crash over the start of the
+T-Minus vocal mix, which needs listening.
 
 ### Step 1: the pre-registration (brief 39, 00:31, `937ceba`)
 
@@ -8891,7 +8894,7 @@ missing, titles not flagged), and six problems P1-P6.
 ### Step 2: the generator
 
 `check.sh` green; both regressions identical (1:14; 6:12). Renders 1:40
-per seed of 16 (7.1-7.5 GiB, 468-480 MB).
+per seed of 16 (6.8-7.1 GiB, 468-480 MB).
 
 ### Step 3 and experiment 0182: the tracklist at both scales
 
@@ -8908,7 +8911,9 @@ Quiet records: 4 printed, 10-11 left out, 17-18 not found; brief: 4,
 disagree:` flagged) because the plays overlap for exactly half of the
 shorter and the tracks would have started 2.2 s apart. At NAS scale two
 splits, both from NAS files tagged otherwise, and the Animation remix
-confident twice. P1 and P3-P6 not met; P2 not met by its letter (both
+confident twice. P1 met by its letter at NAS scale only through
+Animation's remix (no panel family; a related version by verdict); P3
+1 of 64 unrelated drops; P4-P6 not met; P2 not met by its letter (both
 sides pooled 5.5-9.4%).
 
 ### Experiment 0183: marked plays
@@ -8930,7 +8935,8 @@ mostly by printing.
 
 ### Experiment 0185: three more pairs at NAS scale
 
-Pyro (Time Is Broken ~ Ignorance, sharing their whole length), T-Minus
+Pyro (Time Is Broken ~ Ignorance, sharing at least 188 s at speed 1.0
+by the panel), T-Minus
 ~ its Unreleased Vocal Mix, Watermelon ~ 300 Baud's Monotone remix
 (`--other-pairs`, seeds 2026 and 2028 again, `check.sh` and both
 regressions first). Inside its relative: the vocal mix and Watermelon
@@ -8945,9 +8951,9 @@ confident extra while the other plays (4 + 4). New: Crash.
 |---|--:|--:|
 | `regress session-32-linux` (start; step 2; other pairs) | 1:09; 1:14; 1:10 | 0.4 GiB |
 | `regress session-33-linux-nas` (start; step 2; other pairs) | 6:02; 6:12; 5:59 | 5.3 GiB |
-| `mixes --kind drops --count 16`, rendering and searching | 1:37-1:40 | 7.1-7.5 GiB |
+| `mixes --kind drops --count 16`, rendering and searching | 1:37-1:40 | 6.8-7.1 GiB |
 | The same on cached renders, turntable ladder | 0:59-1:00 | 1.5 GiB |
-| `identify --save-dir` of 16 mixes (about 33 min each), 262 tracks; NAS scale | 0:55-0:56; 3:25-3:38 | 0.17; 5.4 GiB |
+| `identify --save-dir` of 16 mixes (28-36 min each), 262 tracks; NAS scale | 0:55-0:56; 3:25-3:38 | 0.16; 5.2-5.3 GiB |
 | `scripts/check.sh` | 3:58-4:13 | |
 
 ### Decided this session, open to change
@@ -8955,8 +8961,9 @@ confident extra while the other plays (4 + 4). New: Crash.
 - One fixed block order per mix, so every scenario occurs once per mix
   (32 times); the drop variant of the pair is drawn, the unrelated ones
   are one through and one inside per mix.
-- Both records of two together come from tracks of 240 s or more; the
-  rips are drawn before the other records.
+- Both records of two together come from tracks of 240 s or more,
+  apart from the pair's records (all 285 s or more here); the rips are
+  drawn before the other records.
 - Beatmatching matches tempo, not beat phase, as session 35's kinds.
 - `identify -f json` refuses several recordings, so the runs used
   `--save-dir` (the same JSON report per mix).
@@ -8978,7 +8985,7 @@ confident extra while the other plays (4 + 4). New: Crash.
   the shorter play when the two files' titles differ (the Swarm and
   Compound merge; real drops, where DJs align drops, may line up more
   often).
-- Whether two records that share their whole length (Pyro) as one
+- Whether printing two records that share at least 188 s (Pyro) as one
   flagged entry is the intended reading of ADR 0017.
 
 ### Questions for listening (none answered by agents)
@@ -8986,7 +8993,7 @@ confident extra while the other plays (4 + 4). New: Crash.
 - Digital & Spirit - Crash (three files) against the first 56 s of
   `__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased
   Vocal Mix).m4a`: shared material or a wrong identification (0185;
-  `work/s39/cli-nas-other/seed-2026/mix-00.json`, 15:44).
+  `work/s39/cli-nas-other/seed-2026/mix-00.json`, 15:43).
 - Techno Funk over Alien Girl and NIL - Infectious over Mystery Machine:
   possible plays at NAS scale matching no known relation (0182).
 

@@ -4498,7 +4498,9 @@ notes "Session 39"; experiments 0182-0185. The product did not change.
   drop). A record inside its partner found only as possible leaves the
   tracklist (ADR 0019): 19-25% of unrelated drop partners that leave
   again, 6 of 8 Clockwork originals inside the remix, 19 of 32 brief
-  records. No confident wrong entry at 262 tracks.
+  records. No confident wrong entry at 262 tracks; at NAS scale
+  Animation's remix, a related version by verdict but in no panel
+  family, so P1 is met by its letter.
 - 0183: no measure in a report tells a record playing under its partner
   from shared material; a 40 s bound would print every drop partner and
   19 of 64 shared-material lines.
@@ -4507,7 +4509,7 @@ notes "Session 39"; experiments 0182-0185. The product did not change.
   inside a partner.
 - 0185 (`--other-pairs`, three more pairs at NAS scale): whether a
   record inside its relative is printed depends on the pair; Pyro's
-  near-identical records are one flagged entry. New confident candidate
+  records, which share at least 188 s, are one flagged entry. New confident candidate
   for listening: Digital & Spirit - Crash over the start of the T-Minus
   vocal mix.
 - Waiting (ours): whether marked plays may stay in the tracklist and

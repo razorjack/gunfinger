@@ -90,8 +90,9 @@ pub enum MixKind {
     /// Mixes of the scenarios of `Scenario` in a fixed order: double
     /// drops, records inside stronger ones, a pair of the shared-material
     /// panel apart and together, a returning record, two rips of one
-    /// recording, a held-out record. Every play is beatmatched; the pair's
-    /// files are indexed.
+    /// recording, a held-out record. Every play is beatmatched where both
+    /// tempos are known; the pair's files are indexed (with
+    /// `Options::other_pairs`, where the index holds them).
     Drops,
 }
 
@@ -173,8 +174,8 @@ pub struct PlannedPlay {
     /// `LEVEL` (the drops kind's quiet record).
     #[serde(default, skip_serializing_if = "is_zero")]
     pub gain_db: f64,
-    /// What the play stands for in a mix of the drops kind, and which of
-    /// two records it is.
+    /// The play's scenario in a mix of the drops kind, and which of two
+    /// records it is.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scenario: Option<Scenario>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1208,9 +1209,10 @@ const TEMPO_SECONDS: f64 = 30.0;
 const TEMPO_FROM: f64 = 0.4;
 
 /// The files of every family of the shared-material panel (left out of
-/// the index and the draws of both beatmatched kinds), and for the shared
-/// kind each direction with a shared passage as a pair, the played file
-/// first. A pair's lengths come from FFprobe.
+/// the draws of the kinds that read the panel, and out of the index of
+/// all but the drops kind), and for the shared and drops kinds each
+/// direction with a shared passage as a pair, the played file first. A
+/// pair's lengths come from FFprobe.
 fn shared_pairs(
     panels: &Path,
     roots: &Roots,

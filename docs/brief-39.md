@@ -243,7 +243,8 @@ NAS scale only if the 262-track work is done by about 03:00.
 - **(00:40) The generator** (`crates/gunfinger-eval/src/mixes/drops.rs`,
   `mixes --kind drops --tagged FILE`). Decisions taken while writing it,
   none of which changes a registered score: both records of every
-  two-record block come from tracks of 240 s or more, so that a drop of
+  two-record block come from tracks of 240 s or more (a pair's records
+  excepted; all are 285 s or more), so that a drop of
   the longest kind fits; the rips are drawn first, so that the returning
   record cannot take the only recording with two files; the pair's
   passages are aligned at the start of the full-level stretch and moved
@@ -296,10 +297,10 @@ NAS scale only if the 262-track work is done by about 03:00.
   without a configuration), the CLI with the corpus configuration's
   turntable ladder; step 5 searches the cached renders again with
   `--ladder turntable` to compare like with like.
-- **(00:54) Renders**: 16 mixes per seed in 1:40 each (7.1-7.5 GiB),
+- **(00:54) Renders**: 16 mixes per seed in 1:40 each (6.8-7.1 GiB),
   468 and 480 MB.
 - **(01:03) Step 3's runs done.** 262 tracks: `identify` 0:55-0:56 per
-  seed (0.17 GiB); NAS scale 3:33-3:38 (5.4 GiB). The scoring script's
+  seed (0.16 GiB); NAS scale 3:33-3:38 (5.2 GiB). The scoring script's
   first NAS pass stopped on one line of seed 2026's mix-04: its line
   pattern was greedy, so an `also:` list followed by `(possible)`
   swallowed the mark. The pattern was fixed (the CLI's line was right)
@@ -362,3 +363,24 @@ NAS scale only if the 262-track work is done by about 03:00.
 - **(01:37) Experiment 0185.** A new confident identification at NAS
   scale: Digital & Spirit - Crash over the first 56 s of the T-Minus
   vocal mix (P1 by its letter, pending listening).
+- **(01:55) The review's findings** (a separate agent, read-only,
+  01:40-01:52). No defect in the scorer or the drop geometry (checked on
+  all 640 two-record blocks of the four truth files). Fixed: `ride_draw`'s
+  doc comment had moved onto `tagged_assets`; stale docs of
+  `MixKind::Drops` and `shared_pairs`; a closure shadowing `together`;
+  dead `Library.names`; a hard-coded home path in
+  `tracklist_marked.py`. In the documents: P3 counts blocks (1 of 64
+  unrelated drops, not 1 of 128); P1 read by its letter (Animation's
+  remix is in no panel family, so P1 is met at NAS scale, as 0185
+  already read it for Crash); P5 counts files with a play over the entry
+  (0 | 4 of 406; 2 of 343), not every missing file; peak memory
+  converted from KiB (6.8-7.1 GiB renders, 0.16 and 5.2-5.3 GiB
+  `identify`); quiet records under a 40 s bound (1 and 2 would be
+  printed); Pyro shares at least 188 s by the panel, not "the whole
+  length"; 0185's other scenarios are the same records as 0182's, not
+  a repeat; Crash at 15:43; the mixes last 28-36 min; beatmatching
+  falls back to a drawn speed. Kept: the outcome "found, not printed",
+  which cannot occur, as a check of the rebuild. Process point: the
+  0185 runs used the build of 01:18 from the working tree, committed
+  unchanged in its Rust sources at 01:37 (`a3b69a8`); the final build
+  differs from it in help text only (doc comments of `MixKind`).

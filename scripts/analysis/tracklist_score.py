@@ -226,12 +226,10 @@ class Library:
                 for path in recording:
                     self.family[path] = family["name"]
         self.indexed = set()
-        self.names = {}
         for name in os.listdir(store_copy):
             if name.endswith(".tags"):
-                asset, artist, title = tracklist_tags.tags_of(os.path.join(store_copy, name))
+                asset = tracklist_tags.tags_of(os.path.join(store_copy, name))[0]
                 self.indexed.add(self.prefix + asset)
-                self.names[asset] = (compared(artist), compared(title))
 
         if excluded:
             self.indexed -= {self.prefix + line.strip() for line in open(excluded) if line.strip()}

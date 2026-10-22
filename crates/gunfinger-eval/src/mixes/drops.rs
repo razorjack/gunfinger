@@ -237,7 +237,7 @@ fn draw_blocks<'a>(
     } else {
         Side::Second
     };
-    let together = |scenario, (first, second), overlay| Block::Together {
+    let two_records = |scenario, (first, second), overlay| Block::Together {
         scenario,
         first,
         second,
@@ -245,22 +245,22 @@ fn draw_blocks<'a>(
     };
     Ok(vec![
         Block::Alone(of_pair(apart, 0), Scenario::Original),
-        together(
+        two_records(
             Scenario::UnrelatedDrop,
             unrelated_through,
             Overlay::drop(Side::Second, rng),
         ),
         Block::Alone(returning.clone(), Scenario::Returning),
-        together(Scenario::Quiet, quiet, Overlay::quiet(rng)),
+        two_records(Scenario::Quiet, quiet, Overlay::quiet(rng)),
         Block::Alone(rips.0, Scenario::Rips),
-        together(
+        two_records(
             Scenario::PairDrop,
             (of_pair(paired, 0), of_pair(paired, 1)),
             Overlay::drop(pair_stays, rng),
         ),
-        together(Scenario::Brief, brief, Overlay::brief(rng)),
+        two_records(Scenario::Brief, brief, Overlay::brief(rng)),
         Block::Alone(held_out, Scenario::HeldOut),
-        together(
+        two_records(
             Scenario::UnrelatedDrop,
             unrelated_inside,
             Overlay::drop(Side::First, rng),

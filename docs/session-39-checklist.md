@@ -20,7 +20,7 @@ for scope and rules.
   before any count (`937ceba`; 198 of 245 recordings qualify)
 - [x] 2. The generator: double drops and the scenario kind, tested,
   `regress` identical (`mixes --kind drops`)
-- [x] 3. The runs: render, CLI `identify -f json` and `show` at 262
+- [x] 3. The runs: render, CLI `identify --save-dir` (JSON reports) and `show` at 262
   tracks (store-only copy without the held-out records); NAS scale if
   time allows; the scoring script
 - [x] 4. Experiments 0182 (the tracklist on double drops), 0183 (marked plays) and 0185 (three more pairs, NAS scale)
