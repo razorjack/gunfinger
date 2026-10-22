@@ -209,3 +209,14 @@ Read from the code, to be checked by measurement in step 1:
   itself; it was restarted at 06:01 without the wait, after step 2 had
   finished at 05:59. Step 3 had not started (its wait names `s37step2b`
   exactly enough). No run overlapped another.
+- **(06:10) Regressions with the run build** (`s37-run`, the variant
+  off): `regress session-32-linux` (1:11) and `regress
+  session-33-linux-nas` (5:57) identical, every report identical to its
+  baseline's apart from `wall_seconds`.
+- **(06:10) Step 3's design.** Two of step 2's conditions, 1% over 10-20 s
+  and 3% over 2-5 s (renders reused): the default again (for search
+  time on cached renders), `--speed-per-stretch`, `--trim-ends`,
+  `--single-pass`, `--extra-rungs 3`, and the variant (step 4's
+  development run, after its criteria commit). The 2% conditions lose
+  more but sit between these two in both counts; two conditions keep
+  step 3 to about 25 minutes.

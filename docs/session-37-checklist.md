@@ -10,19 +10,20 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s37/listening-digests-start.txt`
-- [ ] Start build `work/bin/s37-start/`; `regress session-32-linux` and
-  `regress session-33-linux-nas` identical
+- [x] Start build `work/bin/s37-start/`; `regress session-32-linux` and
+  `regress session-33-linux-nas` identical (1:09; 6:05)
 
 ## Steps
 
-- [ ] 1. Where the side is lost: the stage and rule, counts over all lost
-  sides, the generator's ride checked; experiment 0175
-- [ ] 2. Dose-response on new seeds (size, ramp, direction, drift);
+- [x] 1. Where the side is lost: the stage and rule, counts over all lost
+  sides, the generator's ride checked; experiment 0175 (the second
+  `strongest_per_moment`, after the second pass's margin)
+- [x] 2. Dose-response on new seeds (size, ramp, direction, drift);
   development scans' split plays as candidates; experiment 0176
-- [ ] 3. Existing options (`--speed-per-stretch`, `--extra-rungs`,
+- [~] 3. Existing options (`--speed-per-stretch`, `--extra-rungs`,
   `--trim-ends`, `--single-pass`, others); experiment 0177
-- [ ] 4. A candidate variant (if step 1 names a rule), criteria committed
-  before its test seeds; experiment
+- [~] 4. A candidate variant (if step 1 names a rule), criteria committed
+  before its test seeds (`8899de4`); experiment
 - [ ] 5. (Ahead) a ride inside the sweep's 30 s excerpts
 - [ ] 6. Read-only review by a subagent; findings fixed
 
