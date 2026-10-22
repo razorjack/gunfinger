@@ -6,9 +6,9 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-37.md` (the current session's brief) and
-   `docs/session-37-checklist.md` (its progress), with experiment 0166
-   and the roadmap's "Speed that wanders within a play";
+2. `docs/brief-38.md` (the current session's brief) and
+   `docs/session-38-checklist.md` (its progress), with experiments 0166
+   and 0175-0178 and the roadmap's "Speed that wanders within a play";
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -21,8 +21,9 @@ anything else:
    beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
    `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
    `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
-   `docs/brief-34.md`, `docs/brief-35.md` and `docs/brief-36.md` hold
-   rules that still apply unless brief 37 changes them
+   `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md` and
+   `docs/brief-37.md` hold rules that still apply unless brief 38
+   changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -66,4 +67,5 @@ anything else:
    experiment 0154, session 34's (0159-0162) and session 35's (0163-0166)
 15. for plays whose speed changes within them (pitch rides): the
    roadmap's "Speed that wanders within a play", experiments 0022, 0024,
-   0030, 0032 and 0166, and session 37's (0175 and up)
+   0030, 0032 and 0166, session 37's (0175-0178) and session 38's (0179
+   and up)
