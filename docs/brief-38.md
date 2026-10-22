@@ -138,7 +138,7 @@ Rules for this session:
   kept one (`work/s38/dev/speed_gaps.py`, `shared_gaps.py`, `edges.py`):
   rides of 1%: 0.90% at least (seed 3701, 10-20 s), 0.95% (2-5 s), 0.98%
   (seeds 3521-3522, 1-3%); 2%: 1.66%; 3%: 2.87%, apart from one 308-hit
-  repeat at 0.00%; 0.5% over 2-5 s: four at 0.50%; the shared panel: 59,
+  repeat at 0.00%; 0.5% over 2-5 s: four at 0.50%; the shared panel: 56,
   all at 0-0.005% or 0.378-0.400% (one rung step), Fire's Rogue Unit
   segments among them at 0.00% (627 hits) and 0.40% (366 hits); the
   development scans: Star Trails 1.34%, Into Music 1.05%, Phantom Force
@@ -225,7 +225,7 @@ Rules for this session:
   unchanged, no query loses a played or partner detection. So session
   37's trace-based default (`default_final`) gave the same outcome as a
   real default run.
-- **(09:27) S1 on seed 3801** (renders 3:32-3:34 and 14.4-15.1 GiB each,
+- **(09:27) S1 on seed 3801** (renders 3:32-3:34 and 13.7-14.4 GiB each,
   variant searches on the cached renders 2:37-2:39). Sides of 30 s or
   more with no confident detection by default, kept by the variant: 3%
   over 2-5 s 94 of 94, over 10-20 s 10 of 10; 1-2% over 2-5 s 44 of 44,
@@ -281,3 +281,27 @@ Rules for this session:
   `--overlap-by-chains` on seed 3801 (10:30-10:40) keeps the same 257
   sides. No run started after 10:41 except the final checks
   (`work/s38/final.sh`, tmux `s38final`, from `36af66f`).
+- **(10:52) Final checks** (`work/s38/final.sh`, from `36af66f`; the
+  final build is byte-identical to `s38-run`): `check.sh` green (3:47);
+  `regress session-32-linux` (1:10) and `regress session-33-linux-nas`
+  (5:58) identical, every report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` SHA-256 equal to the start's.
+  The later commits change documents only.
+- **(10:55) The review's findings** (a separate agent, read-only,
+  10:42-10:51; scratch scripts in `/tmp` only). No code defect; default
+  behaviour bit-identical to `f7e4819`. Fixed: render memory 13.7-14.4
+  GiB (not 14.4-15.1); the shared panel's dropped detections in the
+  pre-registration above are 56, not 59 (59 is the queries with weak
+  additions; the ranges were right; corrected in place, the criteria
+  unchanged); CPU at NAS scale is 0.6% above the highest of four default
+  runs, not within their spread; the shared default's CPU is compared in
+  0179 with its caveat; "neither overlap rule helps" in the notes,
+  roadmap and status (they win back 1-3 excerpts); the variant also drops
+  a weak 18-hit Star Trails detection (09:44 named only the possible
+  one); the shared panel's caveat (development data) added to the
+  roadmap, status and notes; the research note's "confirms" (now
+  "consistent with") and an argument marked as one; side counts 248-347;
+  `check.sh` 3:47-4:44. Process points kept in the notes: 0181's
+  `--overlap-by-chains` runs started 39 s before 0180's file, and the
+  `robust --only` runs replaced the earlier `robust-seed-2026.json`
+  reports at both scales.

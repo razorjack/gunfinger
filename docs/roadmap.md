@@ -360,12 +360,13 @@ marked as inferences were derived, not measured.
   first it keeps all 257 lost sides on new seeds, with no new wrong
   confident detection and no lost right one on the sweep at both scales,
   the 11 development reports at NAS scale, the generated mixes and the
-  first shared panel, where nothing confident changes (0179). It keeps
+  first shared panel, where nothing confident changes (0179; that panel
+  was also the threshold's development data). It keeps
   Star Trails' and Into Music's dropped segments. In the sweep's 30 s
   excerpts (`robust`, 0180), a ride costs recall from 2% when it lies in
   the middle: each side spans two windows, so the 3-window rule decides
-  (2% at 15 s: 43-49 of 80 confident; 3%: 3-8), and neither overlap
-  rule helps; 1% in the middle and 2% at 24 s cost nothing.
+  (2% at 15 s: 43-49 of 80 confident; 3%: 3-8), and the overlap rules
+  win back 1-3 excerpts; 1% in the middle and 2% at 24 s cost nothing.
   The options, the risk and a recommendation are in
   `docs/research/2026-10-22-pitch-rides-decision.md`; adopting it is our
   decision and needs an ADR.

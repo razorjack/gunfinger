@@ -22,10 +22,10 @@ ride (1%: 0.90% at least), the shared panel's by 0-0.40%.
 | Generated mixes 2026: short; long | identical; 14 weak added, wrong 0 -> 0, right 191 -> 191 |
 | First shared panel, development half, NAS scale (622 queries; a real default run) | confident detections by role identical in every query (played 516, other 475, related 430, partner 8); 185 weak added |
 | Calibrate, false candidates at 30 hits+ (262 tracks; NAS) | 18 -> 18; 95 -> 95 (0178: 18 -> 19) |
-| User CPU: `regress` 262 tracks; NAS scale; shared | +1.3%; +0.8%; -3.1% (the default's own runs vary by 1.5% and 0.4%; the default shared run had `check.sh` beside it) |
+| User CPU: `regress` 262 tracks; NAS scale; shared | +1.3%; +0.8%; -3.1% (defaults: 1,750-1,778 s; 10,220-10,287 s, the variant 0.6% above; `check.sh` ran beside the default shared run) |
 
-- Unlike 0178 the list is not a superset of the default's: one possible
-  detection is dropped in seed 3801 (1-2% over 10-20 s); no play changes.
+- Not a superset of the default's list: one possible detection dropped
+  in seed 3801, a weak Star Trails one in Stakka; no play changes.
 - Phantom Force's 0.005% segment (2003 mix), which 0178 added, stays
   dropped. Candidates nobody has listened to: Star Trails' slower side,
   Into Music's middle at 1.064 (between 1.040 and 1.053).

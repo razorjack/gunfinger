@@ -24,12 +24,12 @@ for scope and rules.
   default and both variants; experiment 0180
 - [x] 4. What an ADR would decide (`docs/research/`)
 - [x] 5. (Ahead) per-second scores under the variant; experiment 0181
-- [~] 6. Read-only review by a subagent; findings fixed
+- [x] 6. Read-only review by a subagent; findings fixed (no code defect)
 
 ## Wrap-up
 
 - [x] "Session 38" in `docs/session-notes.md`, with the handoff
 - [x] `docs/status.md`, the roadmap, this checklist
-- [~] Final checks: `scripts/check.sh` green; `regress session-32-linux`
+- [x] Final checks (10:41-10:52, `work/bin/s38-final/` from `36af66f`): `scripts/check.sh` green; `regress session-32-linux`
   and `regress session-33-linux-nas` identical with the final build;
   `docs/pair-verdicts.txt` unchanged; `git status` clean

@@ -4405,11 +4405,11 @@ change.
   one on the sweep at both scales, the 11 development reports at NAS
   scale, the generated mixes and the first shared panel, where nothing
   confident changes (0178's variant added a wrong version's segments
-  there). Star Trails' and Into Music's dropped segments kept
+  there; the panel was also the threshold's development data). Star Trails' and Into Music's dropped segments kept
   (candidates).
 - 0180: a ride in the middle of a 30 s excerpt costs recall from 2%
-  (43-49 of 80; 3%: 3-8), decided by the 3-window rule; neither overlap
-  rule helps.
+  (43-49 of 80; 3%: 3-8), decided by the 3-window rule; the overlap
+  rules win back 1-3 excerpts.
 - 0181: per-second correct labels on seed 3801 from 64-93% to 96-97%
   under the variant; Stakka +1.7 points, the 2003 mix +0.6.
 - Recommendation (ours to decide): adopt `SpansAtSpeed(0.006)` through

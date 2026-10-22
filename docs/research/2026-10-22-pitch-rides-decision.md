@@ -34,7 +34,7 @@ track.
 
 0176's dose-response (seed 3701, the same 194 ridden plays under every
 condition; sides of 30 s or more with 30 s or more uncovered, of
-326-347):
+248 for the drift to 347):
 
 | Ride | 2-5 s ramp | 10-20 s ramp |
 |---|--:|--:|
@@ -98,7 +98,9 @@ Each is reachable from the harness today and changes nothing by default.
    the first shared panel changes no confident detection in any of its
    622 queries. It keeps Star Trails' and Into Music's dropped segments.
    Calibrate's false candidates are unchanged at both scales (0178: 18
-   to 19 at 262 tracks). CPU within the default's own spread.
+   to 19 at 262 tracks). User CPU +1.3% at 262 tracks, within the
+   default's own runs, and +0.8% at NAS scale, 0.6% above the highest of
+   four default runs.
 
 Not measured: clipping the weaker side's span at the stronger one's
 boundary instead of dropping it, and a second pass without its margin
@@ -115,13 +117,15 @@ keeps every second alignment of such a file; on the shared panel the
 default dropped them because their spans overlapped the stronger one at
 the same speed or one rung away, and the variant kept them as extra
 segments. `--apart-in-speed 0.006` keeps a second alignment only at a
-speed more than 0.6% away from every stronger overlapping one. A file
-playing at one speed cannot give that; a wrong file can only gain a
+speed more than 0.6% away from every stronger overlapping one. By
+argument, a file playing at one speed does not give that (every
+development trace has such second alignments at 0-0.40%); a wrong file can only gain a
 segment where it is itself found on both sides of a ride. That needs a
 version sharing the ridden passage and confident on both sides, which no
 run has shown, and the default would already name that file wrongly on
 the stronger side. The shared panel was also the threshold's development
-data, so its clean result confirms the rule on data it was chosen from;
+data, so its clean result is consistent with the rule on data it was chosen
+from, not a confirmation;
 the second shared panel (`shared-material-2-seed-2026-development.json`)
 has not been run with either variant.
 
@@ -156,7 +160,7 @@ It is the only option measured that keeps the sides of 1-3% rides (all
 257 that today's rule drops on seed 3801's four conditions) while
 leaving every confident detection of the first shared panel, the sweep
 and the development scans as it was, apart from the two candidates; it is one
-predicate in `strongest_per_moment` and costs no measurable CPU. Do not
+predicate in `strongest_per_moment`, and its CPU cost is under 1%. Do not
 adopt `--overlap-by-chains`: it keeps the same sides but also a wrong
 version's extra segments.
 

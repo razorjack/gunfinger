@@ -8683,9 +8683,10 @@ In short: the narrower variant `--apart-in-speed 0.006`, with its
 threshold and criteria committed before it ran, passes them: it keeps
 every side the default drops on new rides seeds and changes no confident
 detection elsewhere, the first shared panel included, where 0178's
-variant added a wrong version's segments. A ride in the middle of a
+variant added a wrong version's segments (that panel was also the
+threshold's development data). A ride in the middle of a
 30 s excerpt costs recall from 2%, but there the 3-window rule decides
-and neither overlap rule helps. Recommended (ours to decide): adopt the
+and the overlap rules win back only 1-3 excerpts of 80. Recommended (ours to decide): adopt the
 variant through an ADR after one confirmation on the second shared panel.
 
 ### Step 1: the pre-registration (brief 08:26, `393469d`)
@@ -8713,12 +8714,16 @@ development half, where a real default run (38:31) and the variant
 516, other 475, related 430, partner 8). The default run also confirmed
 session 37's trace-based comparison for `--overlap-by-chains` (56 added:
 52 played, 4 Rogue Unit). Calibrate's false candidates unchanged at both
-scales. CPU within the default's own spread. Candidates nobody has
+scales. User CPU +1.3% at 262 tracks (within the default's own runs,
+1,750-1,778 s) and +0.8% at NAS scale (0.6% above the highest of four
+default runs, 10,220-10,287 s). Candidates nobody has
 listened to, both kept: Star Trails at 13:13-14:37 (306-315 hits) and
 Into Music at 25:57-26:56 in the 2003 mix (1,392 hits); Phantom Force's
 0.005% segment, which 0178 added, stays dropped. The variant's list is
 not a superset of the default's: one possible detection was dropped on
-seed 3801, no play changed.
+seed 3801, and a weak 18-hit Star Trails detection at 14:31-14:54 in
+the Stakka scan and its leave-out 3 (one file at 262 tracks, three at
+NAS scale); no play changed.
 
 ### Step 3: a ride inside `robust`'s excerpts (experiment 0180)
 
@@ -8751,16 +8756,18 @@ keeps the same 257 sides on seed 3801.
 |---|--:|--:|
 | `regress session-32-linux` (start; variant) | 1:09; 1:10 | 0.4 GiB |
 | `regress session-33-linux-nas` (start, beside a build; variant) | 6:42; 5:59 | 5.3 GiB |
-| `mixes --kind rides --count 16`, rendering and searching; cached | 3:32-3:34; 2:37-2:39 | 14.4-15.1; 2.5 GiB |
+| `mixes --kind rides --count 16`, rendering and searching; cached | 3:32-3:34; 2:37-2:39 | 13.7-14.4; 2.5 GiB |
 | Development scan at NAS scale | 0:34-0:52 | 4.9-5.1 GiB |
 | `shared`, first panel's development half, NAS scale (default, beside `check.sh`; variant) | 38:31; 35:27 | 6.2 GiB |
 | `robust --only` five rides (262 tracks; NAS scale) | 0:35-0:37; 3:12-3:14 | 0.6; 4.9 GiB |
-| `scripts/check.sh` | 4:11-4:44 | |
+| `scripts/check.sh` | 3:47-4:44 | |
 
 ### Decided this session, open to change
 
 - The default shared run ran first, in the start queue, beside the
-  variant's first `check.sh` runs; its CPU is not compared.
+  variant's first `check.sh` runs, so its CPU (0179: the variant 3.1%
+  lower) is not a clean comparison; the start NAS regression also
+  overlapped `check.sh` for a minute.
 - The variant applies to the second suppression only, as one predicate
   in `strongest_per_moment`; a kept side may drop a weaker detection at
   its own speed that the default keeps (S3 measured it: no play lost).
@@ -8807,6 +8814,19 @@ keeps the same 257 sides on seed 3801.
    two candidates.
 
 ### What else to know
+
+- The read-only review (10:42-10:51) found no code defect; its document
+  findings were fixed (brief 10:55). Two process points stand: 0181's
+  `--overlap-by-chains` runs started 39 s before 0180's file was written
+  (no wait in `step2b.sh` between `robust` and them), and the `robust
+  --only` runs replaced `work/reports/robust-seed-2026.json` and the
+  NAS-scale copy with reports of six conditions (not `regress`
+  baselines).
+- Final checks (10:41-10:52) with `work/bin/s38-final/` (byte-identical
+  to `s38-run`): `scripts/check.sh` green (3:47); `regress
+  session-32-linux` (1:10) and `regress session-33-linux-nas` (5:58)
+  identical, every report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` unchanged.
 
 - The held-out test set was not touched: no command named it, and no
   manifest or report of it was opened. The development sets were named
