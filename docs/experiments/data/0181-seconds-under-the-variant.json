@@ -1,0 +1,57 @@
+{
+ "experiment": "0181",
+ "correct_share": {
+  "rides-3pct-2-5s-seed-3801": [
+   0.737,
+   0.962
+  ],
+  "rides-3pct-10-20s-seed-3801": [
+   0.928,
+   0.956
+  ],
+  "rides-1-2pct-2-5s-seed-3801": [
+   0.637,
+   0.968
+  ],
+  "rides-1-2pct-10-20s-seed-3801": [
+   0.656,
+   0.96
+  ],
+  "scan-stakka-skynet-knowledge": [
+   0.918,
+   0.935
+  ],
+  "scan-razorjack-2003-03-29": [
+   0.879,
+   0.885
+  ],
+  "scan-nocny-trans-vertical-2002-08-23": [
+   0.917,
+   0.917
+  ]
+ },
+ "start_error_p90_seconds": {
+  "rides-3pct-2-5s-seed-3801": [
+   109.2,
+   19.9
+  ],
+  "rides-3pct-10-20s-seed-3801": [
+   23.3,
+   19.9
+  ],
+  "rides-1-2pct-2-5s-seed-3801": [
+   110.2,
+   20.5
+  ],
+  "rides-1-2pct-10-20s-seed-3801": [
+   112.8,
+   21.0
+  ]
+ },
+ "overlap_by_chains_seed_3801": {
+  "sides_kept": 257,
+  "of": 257,
+  "wrong": 0,
+  "right_each": 191
+ }
+}

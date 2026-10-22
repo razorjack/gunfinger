@@ -276,3 +276,8 @@ Rules for this session:
   `docs/research/2026-10-22-pitch-rides-decision.md`; recommendation
   (ours to decide): adopt `SpansAtSpeed(0.006)` after one confirmation on
   the second shared panel, which neither threshold nor test has seen.
+- **(10:41) Step 5** (0181): `seconds` on saved reports only (no
+  search), beside the last `--overlap-by-chains` comparison runs (light).
+  `--overlap-by-chains` on seed 3801 (10:30-10:40) keeps the same 257
+  sides. No run started after 10:41 except the final checks
+  (`work/s38/final.sh`, tmux `s38final`, from `36af66f`).
