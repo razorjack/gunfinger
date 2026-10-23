@@ -178,6 +178,30 @@ session 33's apart from `wall_seconds`.
   second pass 2%), and the pre-filter itself, now the largest stage
   (integer phases lost on the Mac, 0108; not tried here).
 
+## Session 41
+
+The pre-filter, the largest stage after session 36 (not an item of this
+note; proposal 1 of the matching proposals), measured and changed. All
+at 3600 MT/s, the Stakka scan at NAS scale, reports identical to the
+start build's apart from `wall_seconds`.
+
+- The split within the filter (0189): loads 14-15%, the slot arithmetic
+  with its `floor` call 37-46%, the `touched` list 16-27%, counting and
+  the test 23-24%; 44 hits a filtered asset, the early exit sparing
+  1.4% of them.
+- In master (0190-0192): integer offsets in the grouped hits (C4). The
+  search 26.7 s instead of 37.6-37.9 s at 32 workers, 32.5 s instead of
+  45.4-45.6 s at 16; `regress session-33-linux-nas` 4:12 instead of
+  6:06; the full NAS clustering 14:36 instead of 23:02, its file
+  byte-identical to the start build's run.
+- Dropped: stamps (C3) and one fill (C5) as clearings, each 5-8%
+  faster alone but not faster than re-reading on integer slots (0191),
+  and counting a part's assets while taking it (G1, 0.1-2.6% slower).
+- Left (0193): grouping a part 40% of the first pass's CPU at 16 workers
+  and 35% at 32, the pre-filter and query analysis 20-22% each, taking
+  parts 10-11%, sorting and lines 9%. Items 4 and 5 of this note, the
+  forms of grouping measured so far, were slower.
+
 `regress` prints what changed and returns success either way
 (`regress.rs`, `compare`): read its output, do not rely on its exit
 status.

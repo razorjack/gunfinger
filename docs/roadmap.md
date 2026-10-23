@@ -547,6 +547,21 @@ marked as inferences were derived, not measured.
   (0171, 0172), and repeated hashes are too few to be worth reading once
   (0173). By inference, what is left is the pre-filter's and the
   scatter's work per hit, not memory traffic.
+  *(session 41)* Within the pre-filter, the slot arithmetic (a call to
+  `floor` per hit on x86-64) was 37-46% of its time and the `touched`
+  list 16-27% (0189). Each grouped hit now holds its integer offset,
+  its frame minus its anchor's phase `floor(frame) mod 2^16`, so the
+  filter reads only the grouped hit and counts without floating point,
+  and it clears its counts by reading the hits again (0190, 0191; exact
+  by the argument in `OffsetSlots::may_form_line`, tested against
+  `densest_clusters` and the old filter). The Stakka scan's search at
+  NAS scale takes 26.7 s instead of 37.6-37.9 s at 32 workers and 32.5 s
+  instead of 45.4-45.6 s at 16, the clusters sample 1:21 instead of
+  1:57, `identify` of the Stakka mix at NAS scale 19.8 s instead of
+  25.2 s, every report identical (0192). Counting assets while taking a
+  part was not faster (0190). Grouping a part is now the largest
+  stage, 40% of the first pass's CPU at 16 workers and 35% at 32; the
+  pre-filter and query analysis 20-22% each (0193).
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

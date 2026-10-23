@@ -9282,3 +9282,152 @@ copies as judged, and the pack was built again.
   ways), a judged pair in the first pack through an identical copy, a
   contradiction between 0186 and 0187, wrong run times and inferences
   stated as facts; all fixed (brief, "03:05-03:13").
+
+## Session 41
+
+### What changed
+
+One exact change to the search is in master (`7269498`, experiments
+0189-0192): the pre-filter (`OffsetSlots::may_form_line`) counts
+integer offsets that `take_part` stores in the grouped hits, instead of
+`f64` offsets turned into slots per hit, and clears its counts by
+reading the hits again instead of keeping a `touched` list. Each point
+of a searched block gets a phase, `floor(frame) mod 2^16` (`Phases`); a
+grouped hit (`Hit`) keeps its posting's asset and, in the frame bits,
+the frame minus its anchor's phase modulo 2^16, from which `Hit::slot`
+folds the slot in integers and `Hit::frame` gives the frame back
+exactly for the 2% of assets that are sorted. The integer offsets lie
+within one frame of the offsets, so a cluster's three offsets still lie
+in one slot or two neighbouring ones (the argument is in the method's
+documentation); a block with a point 2^31 frames or more from frame 0
+sorts every asset. The filter may pass other assets without a line than
+before; they are sorted and give none. Nothing else changed: lines,
+detections, evidence, boundaries, speeds and orderings are identical in
+every report compared.
+
+In short: on the Linux machine the Stakka scan's search at NAS scale
+takes 26.7 s instead of 37.6-37.9 s at 32 workers (29-30% less) and
+32.5 s instead of 45.4-45.6 s at 16 (28-29%), with 31-32% less CPU;
+`identify` of the Stakka mix through the CLI at NAS scale 19.8 s
+instead of 25.1-25.2 s; the clusters sample 1:21 instead of 1:57;
+`regress session-33-linux-nas` 4:12 instead of 6:06; the full NAS clustering 14:36 instead of 23:02, byte-identical to the start build's own run.
+
+### Step 1: where the pre-filter's time went (experiment 0189)
+
+A diagnostic build (`work/s41/diag.diff`) timed seven passes per part,
+each adding a piece of the filter. At 16 (32) workers: loads 14% (15%),
+the slot arithmetic 37% (46%), the `touched` list and its clearing 27%
+(16%), counting and the test 23% (24%). On the baseline x86-64 target
+`f64::floor` is an indirect call (no SSE4.1 `roundsd`); on the Mac it is
+one instruction, by inference why 0108's integer phases saved only 13%
+there. A filtered asset holds 44 hits on average and nearly all are
+read: the early exit spares 1.4% of hits, and a passing asset passes
+late in its hits. So a cheap first test cannot help.
+
+### Steps 2 and 3: the candidates (0190, 0191)
+
+Pre-registered (brief 41, 03:57, `b2c019f`) before any timing; the stop
+point a cut of 3% or more at 32 workers against the start build in
+every pair. One round, A B B A at 32 and 16 workers (search time, cut
+at 32 workers):
+
+| Candidate | 32 workers | Cut |
+|---|--:|--:|
+| Start | 37.60, 38.05 s | |
+| C1 integer slots from per-point phases | 30.76, 30.85 s | 18.2-18.9% |
+| C2 integer offsets in the grouped hit | 29.13, 29.28 s | 22.5-23.0% |
+| C3 stamps instead of `touched` | 35.85, 35.92 s | 4.6-5.6% |
+| C4 C2, cleared by re-reading the hits | 27.14, 27.38 s | 27.8-28.0% |
+| C5 one 4 KiB fill instead of `touched` | 35.32, 35.35 s | 6.1-7.1% |
+| G1 counting assets while taking a part | 38.59, 38.39 s | -2.6, -0.9% |
+
+C1-C5 passed; by the registered rule the combination was C4. An
+exploratory round (0191, its rule set before it ran) found one fill on
+integer slots 0.7-0.9% faster than C4 at 32 workers and slower at 16,
+and stamps slower than both: C4 was kept. G1 was dropped; no other
+grouping candidate was tried.
+
+### Step 4 and 5: adoption and its times (0192)
+
+`scripts/check.sh` green; both regressions identical, each report too
+apart from `wall_seconds`; the 11 development scans at NAS scale and the
+11 at corpus scale (262 tracks) and the clusters sample byte-identical
+to the start build's (`work/s41/validate.sh`); the full NAS clustering
+(session 33's run 2 command) in scratch copies with the start build
+(23:02) and the adopted build (14:36), byte-identical (SHA-256
+`be08df5b1948...`). The clusters file in use was written by earlier
+builds and the listening's verdicts: its clusters are the same as the
+runs', its pair entries are not, so it was not the reference.
+
+| Run (Linux machine, 3600 MT/s, 32 workers unless stated) | Start (`s41-start` = `s40-final`) | Now (`7269498`) |
+|---|--:|--:|
+| Stakka scan at NAS scale, search | 37.64, 37.92 s | 26.66, 26.69 s |
+| The same, user CPU | 1,088, 1,096 s | 747, 748 s |
+| The same, 16 workers | 45.63, 45.41 s | 32.51, 32.53 s |
+| Clusters sample of 48 | 1:56, 1:58 | 1:22, 1:21 |
+| `identify` of the Stakka mix (NAS configuration) | 25.1, 25.2 s | 19.8, 19.8 s |
+| `identify`'s user CPU | 595, 597 s | 427, 427 s |
+| `regress session-33-linux-nas` | 6:06 | 4:12 |
+| `regress session-32-linux` | 1:09 | 1:09 |
+| Full NAS clustering (scratch copies) | 23:02 | 14:36 |
+
+### What the search's CPU goes to now (0193)
+
+With 0193's timers (exploratory, 16 and 32 workers) the first pass,
+96-97% of the scan's CPU, now goes to grouping a part by asset 40% and
+35%, the pre-filter 20% and 22% (93 s instead of 288 s at 16 workers,
+1.9 ns a hit instead of 5.8), query analysis 20% and 22%, taking parts
+10% and 11% (about 5 s more than before for the integer offsets),
+aligning, sorting and lines 9%, phases, hashing and lookups under 1%.
+
+### Decided this session, open to change
+
+- Candidates were tested with the core crate's tests before timing;
+  `scripts/check.sh` ran in full for the adopted code (a scaling down
+  under the time box, brief 41).
+- The 262-track scans were read as the 11 development scans at corpus
+  scale, against the start build's reports.
+- The fill (0.7-0.9% faster than C4 at 32 workers, slower at 16) was not
+  taken: below the 3% rule set before its round.
+- Grouping: only G1 was tried.
+
+### Handoff for the next session
+
+1. Master's search is 0192's. Builds: `work/bin/s41-start/` (=
+   `s40-final`), `s41-adopt/` (validated), `s41-final/` (master at the
+   end), the candidates `s41-c1` to `s41-c5`, `s41-c2fill`,
+   `s41-c2stamp`, `s41-g1`, and the diagnostics `s41-diag`,
+   `s41-timers` (sources `work/s41/lines.rs.*`, `diag.diff`).
+2. Scripts (`sh`, from the repository root): `work/s41/ab.sh <tag>
+   <base> <builds...>` (A B ... B A on the Stakka scan in the scratch
+   work directory `work/s41/w`; `ab.py` summarises), `validate.sh`,
+   `devscans.sh` and `corpusscans.sh` (11 scans at each scale against
+   the start build's reports in `work/s41/dev-start/` and
+   `corpus-start/`), `timing.sh`, `full.sh`, `diag.sh`.
+3. What is left: grouping a part (40% of the first pass's CPU at 16
+   workers, 35% at 32) is the largest stage; narrower hits (0171),
+   grouping from the lists (0172) and counting while taking (G1, 0190)
+   were all slower, so it needs another idea. Query analysis (20-22%)
+   and the pre-filter (20-22%) follow; the filter's remaining cost is
+   its loads, counts and the re-read. The fill (C2 with one fill, 0191)
+   was within 1% of C4.
+4. All times are on the Linux machine at 3600 MT/s. On the Mac the
+   saving should be smaller, since its `floor` is one instruction (0108
+   measured 13% of the stage there with phases alone); not measured.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  one by one. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file.
+- The NAS was only read (the library listing of `identify`); the NAS
+  store only searched; no `index` or `prune`. The full clustering run
+  wrote only its scratch directory; the clusters file in use is
+  unchanged (SHA-256 `d9c85c4586ad...`).
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s41/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed. `work/s41/panels` is a copy of
+  `work/s33/panels`.
+- The read-only review: pending.
+- Final checks: pending.

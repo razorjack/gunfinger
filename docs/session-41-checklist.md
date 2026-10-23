@@ -26,13 +26,13 @@ for scope and rules.
 - [x] 4. Adoption: tests; the 11 development scans at NAS scale; the
   262-track scans; the clusters sample; both regressions; the full NAS
   clustering into a scratch copy if time allows
-- [~] 5. Experiments (0189 and up)
+- [x] 5. Experiments 0189-0193
 - [ ] 6. Read-only review by a subagent; findings fixed
 
 ## Wrap-up
 
-- [ ] "Session 41" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap's speed bullet, the low-bandwidth
+- [~] "Session 41" in `docs/session-notes.md`, with the handoff
+- [~] `docs/status.md`, the roadmap's speed bullet, the low-bandwidth
   note, this checklist
 - [ ] Final checks: `scripts/check.sh` green; both regressions identical
   with the final build; `docs/pair-verdicts.txt` and the clusters file

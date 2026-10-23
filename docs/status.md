@@ -4559,3 +4559,35 @@ join rule and the clusters file did not change.
   both regressions identical (1:09; 5:58, after moving the two new NAS
   sweeps out of the reports directory, since calibrate reads every sweep
   there); `docs/pair-verdicts.txt` and the clusters file unchanged.
+
+## 2026-10-23: session 41, a cheaper pre-filter, exactly
+
+Brief `docs/brief-41.md`, checklist `docs/session-41-checklist.md`;
+notes "Session 41"; experiments 0189-0193. One exact change to the
+search; every report compared is identical.
+
+- 03:28 start at `1b0db5f`, clean. Start build `work/bin/s41-start/`
+  (byte-identical to `s40-final`); both regressions identical (1:09;
+  6:06); the start build's 11 development scans at NAS scale, the
+  clusters sample and (later) the 11 at corpus scale kept as references.
+- 0189: within the pre-filter, the slot arithmetic (an indirect call to
+  `floor` per hit on x86-64) was 37-46% of its time, the `touched` list
+  16-27%, loads 14-15%, counting and the test 23-24%; 44 hits a filtered
+  asset, nearly all read.
+- `b2c019f`: pre-registration of six candidates, the timing protocol
+  and the stop point (3% at 32 workers in every pair), before timing.
+- 0190: integer slots (C1) 18%, integer offsets in the grouped hit (C2)
+  23%, C2 cleared by re-reading (C4) 28%, stamps (C3) 5%, one fill (C5)
+  6-7%; counting assets while taking a part (G1) slower. 0191: on
+  integer slots a fill or stamps are not 3% faster than C4.
+- `7269498`: C4 in master. `scripts/check.sh` green; both regressions
+  identical (1:09; 4:12); the 22 development scans and the clusters
+  sample identical; the full NAS clustering 14:36 instead of 23:02, byte-identical to the start build's run in a scratch copy.
+- 0192: the Stakka scan's search at NAS scale 26.7 s instead of
+  37.6-37.9 s at 32 workers, 32.5 s instead of 45.4-45.6 s at 16; CPU
+  31-32% less; the clusters sample 1:21 instead of 1:57; `identify` of
+  the Stakka mix at NAS scale 19.8 s instead of 25.2 s.
+- 0193 (timers): grouping a part is now the largest stage (40% of the
+  first pass's CPU at 16 workers, 35% at 32), the pre-filter and query
+  analysis 20-22% each, taking parts 10-11%, sorting and lines 9%.
+- Final checks: pending.
