@@ -292,3 +292,9 @@ Rules for this session:
   06:27-06:32 while the runs went on) is in the same commit as the
   `robust` harness; experiments 0194-0196 ran with `work/bin/s42-run/`,
   built before it. `scripts/check.sh` green (`work/s42/logs/check-1.log`).
+- **(07:01) Step 5b changed before its search ran:** the CLI merges the
+  plays of files with the same audio into one play, which would hide a
+  faulted copy's hits behind the unchanged copy's. So each copy gets its
+  own scratch library and store (`work/s42/ref/library/<copy>`,
+  `work/s42/ref/peaks-<copy>`), and each query is searched against each
+  of the five stores alone.
