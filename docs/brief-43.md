@@ -124,3 +124,106 @@ Rules for this session:
   `work/s43/corpus-start/` as the references for every later build,
   and each compared with session 41's start reports. Session 43's
   scripts are session 41's with the paths changed.
+- **(07:49) Start checks.** `regress session-32-linux` (1:08) and
+  `regress session-33-linux-nas` (4:20) identical with
+  `work/bin/s43-start/`, each report identical to its baseline's apart
+  from `wall_seconds`; the 11 development scans at both scales and the
+  clusters sample identical to session 41's start reports.
+- **(07:49) Step 1, the diagnostic build** (`work/s43/diag.diff`, never
+  committed): per part, timers around taking, the count pass, the
+  prefix sum, the scatter and the rest; counts from `ends` (hits per
+  part and asset, list runs, cache lines written, hits beyond rooms of
+  32-128). Builds at parts of 256, 512, 1,024 and 2,048 assets; the
+  Stakka scan at NAS scale at 32 then 16 jobs (`work/s43/diag.sh`,
+  summary `work/s43/diag.py`). Parts of 256 were added to the three the
+  prompt names, as the smallest that keeps each part's places in L1.
+- **(07:56) Step 1 result** (experiment 0199): the scatter is 4.0-4.4 ns
+  a hit at 32 workers at every part size, 27.6% of the first pass at
+  1,024 assets (34.0% at 16 jobs); the count pass 7%, the prefix sum
+  0.1%. 1,024 assets has the lowest first-pass CPU at both job counts.
+- **(08:00) Step 2, the pre-registration** (committed before any
+  candidate is timed; the candidates' code and tests were written
+  during the start runs and step 1, and have not been timed).
+
+  *The candidates.* Each changes only how a part's hits are taken and
+  grouped; `may_form_line`, aligning, sorting, `densest_clusters`,
+  `line_of`, `distinct` and everything after them are unchanged.
+  Sources `work/s43/lines.rs.<name>` (generators in `work/s43/py/`),
+  builds `work/bin/s43-<name>/`.
+
+  - **C1, rooms: hits taken straight into a room per asset.** Each asset
+    of a part has room for 120 hits (`ROOM_HITS`) in a fixed array
+    (`Rooms`); `take_part` reads each list's run and puts each hit in
+    its asset's room after the hits taken before it, and the hits beyond
+    a room go to an overflow vector in the order they are taken. No
+    `part` buffer, no count pass over the part, no prefix sum, no
+    scatter: each hit is written once instead of twice and read once (by
+    the filter) instead of three times (0199: taking, count pass and
+    scatter). The overflow (with 120, between the 2.6% of hits a room of
+    96 and the 1.1% a room of 128 leave, 0199; 120 hits are 15 cache
+    lines, so rooms do not start 1 KiB apart) is grouped by today's
+    counting sort; an asset with more hits than its room gets them
+    gathered (room, then its overflow) into one buffer. *Order:* the
+    room holds an asset's first 120 hits in the order taken, the
+    overflow the rest in the order taken, and the counting sort of the
+    overflow is stable, so each asset's hits are in the order they were
+    taken, as today. *Tests:* the comparison-sort test (four windows,
+    three parts, an empty middle part, 5,000 hits on the index's last
+    asset, so rooms overflow heavily), now also checking that counts,
+    overflow and its ends are empty after each window; a new test of an
+    asset's hits in taken order for the part's first asset (121 hits),
+    second (120), a middle one (367), last (119) and the one before it
+    (2), against the hits filtered by asset from the lists in list
+    order; the blocks test; the rest of the core's tests.
+  - **C2, C1 with parts of 512 assets.** Rooms change what a part costs
+    (no `part` buffer, half the rooms' memory), so the part size is
+    tried again with them; a part size alone is not a candidate, since
+    1,024 assets had the lowest first-pass CPU at both job counts in
+    0199. `front_partition` gives each list's run of the new part, so
+    each asset gets the same hits in the same order, and assets are
+    still visited in order. *Tests:* C1's (the tests use
+    `ASSETS_PER_PART` for their parts).
+  - **C3, the scatter through a line of hits per asset** (the usual
+    write-combining of a radix sort's scatter). `group_part` counts and
+    sums as today, then writes each hit into its asset's block of 8
+    staged hits (64 bytes); when a block's last position is written,
+    the block is copied into `grouped` (a whole cache line: blocks start
+    where `grouped`'s address is a multiple of 64), and after the
+    scatter each asset's partial block is copied. Only the asset's own
+    positions are copied (from its start, if the block starts before
+    it). *Order:* every hit is written to the same position as today.
+    *Tests:* the comparison-sort test; a new test that `grouped` equals
+    a stable sort of the part by asset, on every part of a window of
+    100,000 hits over 3,000 assets.
+
+  Considered and not made candidates: counts in a narrower type (the
+  1,025 counters are 4 KiB and stay in L1; a part can hold more than
+  65,535 hits, so `u16` needs a fallback); filtering straight from the
+  counts (0189: assets with fewer than 3 hits hold 0.02% of the hits,
+  and no other count proves that no line can form); fusing the filter's
+  counting into the scatter (it needs a count per slot per asset, 4 MiB
+  for a part); counting while taking without rooms (G1, 0190).
+
+  *Timing protocol.* `work/s43/ab.sh` (session 41's): `gunfinger-eval
+  --other-peaks-dir <NAS store> --work work/s43/w --jobs N scan
+  stakka-skynet-knowledge` (saved index), the search time the report's
+  `wall_seconds`; for N = 32 then 16, the start build, each candidate,
+  the candidates in reverse order, the start build (A B ... B A);
+  nothing else running. Every report is compared with the start
+  build's (`work/s43/dev-start/`) apart from `wall_seconds`.
+
+  *Stop point.* A candidate is kept only if its search time at 32
+  workers is at least 3% below the start build's in every pair (the
+  forward half's runs and the reversed half's), with byte-identical
+  reports apart from `wall_seconds`. 16 workers are reported, not
+  decided on. The three are alternatives (C1 and C2 remove the scatter
+  C3 changes, and C2 is C1 at another part size), so there is no
+  combination: of those that pass, the one with the lowest mean search
+  time at 32 workers is adopted; another that passes replaces it only if
+  it is faster in both pairs at 32 workers and not slower at 16 in both.
+  A second round is run if a candidate's cuts straddle 3%.
+- **(08:00) Candidates built** (`work/s43/build-candidates.sh`): the
+  core crate's 152 tests green for each of C1, C2 and C3 (rustfmt and
+  clippy run only for the code adopted, as in session 41); builds
+  `work/bin/s43-c1/`, `s43-c2/`, `s43-c3/`. Round 1 next:
+  `work/s43/ab.sh r1 s43-start s43-c1 s43-c2 s43-c3`.

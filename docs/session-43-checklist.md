@@ -11,15 +11,15 @@ for scope and rules.
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s43/listening-digests-start.txt` (and the clusters file's in
   `work/s43/clusters-digest-start.txt`)
-- [~] Start build `work/bin/s43-start/`; `regress session-32-linux` and
+- [x] Start build `work/bin/s43-start/`; `regress session-32-linux` and
   `regress session-33-linux-nas` identical
 
 ## Steps
 
-- [ ] 1. Diagnostic build: count pass, prefix sum and scatter apart;
+- [x] 1. Diagnostic build: count pass, prefix sum and scatter apart;
   hits per part and per asset; cache lines the scatter writes; parts of
   512, 1,024 and 2,048; experiment 0199
-- [ ] 2. Pre-registration (at least three candidates, exactness
+- [x] 2. Pre-registration (at least three candidates, exactness
   arguments, tests, timing protocol, stop point), committed before any
   candidate is timed
 - [ ] 3. Candidates, each tested and timed; the combination of those

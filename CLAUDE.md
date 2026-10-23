@@ -26,8 +26,7 @@ anything else:
    `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md`,
    `docs/brief-38.md`, `docs/brief-39.md`, `docs/brief-40.md`,
    `docs/brief-41.md` and `docs/brief-42.md` hold rules that still apply
-   unless brief 43
-   changes them
+   unless brief 43 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
