@@ -23,7 +23,7 @@ for scope and rules.
   timing protocol, stop point), committed before any candidate is timed
 - [x] 3. Candidates, each tested and timed; their combination; grouping
   if time allows
-- [~] 4. Adoption: tests; the 11 development scans at NAS scale; the
+- [x] 4. Adoption: tests; the 11 development scans at NAS scale; the
   262-track scans; the clusters sample; both regressions; the full NAS
   clustering into a scratch copy if time allows
 - [~] 5. Experiments (0189 and up)

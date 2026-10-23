@@ -268,3 +268,24 @@ compare every random set's pass or fail with today's filter.
   identical to the start build's. Committed to master; then the timing
   runs (`work/s41/timing.sh`) and the full NAS clustering into a scratch
   copy (`work/s41/full.sh`).
+- **(05:05) Step 5, the adopted build's times** (`work/s41/timing.sh`,
+  experiment 0192): the search 26.66-26.69 s against 37.64-37.92 s at 32
+  workers and 32.51-32.53 s against 45.41-45.63 s at 16; the clusters
+  sample 1:21-1:22 against 1:56-1:58; `identify` of the Stakka mix with
+  the NAS configuration 19.8 s against 25.1-25.2 s; every report
+  identical.
+- **(05:20) The full NAS clustering** with the adopted build (14:36)
+  differs from the clusters file in use in its pair list (the clusters,
+  `duplicates`, are identical; 1,963 of 2,903 pair entries differ, by
+  their fields), so that file is not a reference: it was written by
+  earlier builds and the listening's verdicts. Decided: run the start
+  build's full clustering into its own scratch copy (`work/s41/full.sh
+  s41-start start`) and compare the two runs byte for byte.
+- **(05:43) Full clustering compared.** The start build's run (23:02)
+  and the adopted build's (14:36) write byte-identical files (SHA-256
+  `be08df5b1948...`, in `work/s41/w-full-*`); the file in use is not
+  touched.
+- **(05:44) Experiment 0193** (exploratory, no decision): stage timers
+  on the adopted code (`work/s41/timers.diff`, never committed), the
+  Stakka scan at 32, 16, 16, 32 jobs, for the handoff's split of what
+  is left.
