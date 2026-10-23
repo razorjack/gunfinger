@@ -221,7 +221,7 @@ build's apart from `wall_seconds`.
 - Dropped: rooms per asset filled while taking (1.9-2.6% at 32 workers,
   slower at 16), rooms with parts of 512, a staged cache line per asset
   (15-17% slower; 0200), ranks kept by the count pass (no change at 32
-  workers, 3.4-4.3% faster at 16; 0202), and ranks with C5 (1.9-2.8% at
+  workers, 3.4-4.3% faster at 16; 0202), and ranks with the pairs of slots (1.9-2.8% at
   32 workers, 6.2-6.8% at 16; 0203).
 - In master (0203, 0204): the pre-filter counts pairs of neighbouring
   slots in one 16-bit word. The search 26.0 s instead of 27.2 s at 32

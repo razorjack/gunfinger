@@ -27,8 +27,8 @@ Every report identical to the start build's apart from `wall_seconds`.
 User CPU at 32 jobs: start 752-761 s, C5 719-723 s, C6 736-737 s; at 16
 jobs start 474-475 s, C5 458 s, C6 440-442 s.
 
-**Conclusion.** C5 passes the stop point (4.1-4.4% at 32 workers) and
-is adopted (0204). C6 misses it at 32 workers, though it is the fastest
-at 16: as in 0202, ranks add work that the second thread of a core does
-not hide. With fewer loads per hit, the filter's share of the search
-falls (0205).
+**Conclusion.** C5 passes the stop point (4.1-4.4% at 32 workers) and is
+adopted (0204). C6 misses it at 32 workers, though it is the fastest at
+16: as in 0202, by inference, ranks add work that the second thread of a
+core does not hide. With fewer loads per hit, the filter's share of the
+search falls (0205).

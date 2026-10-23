@@ -29,7 +29,7 @@ User CPU at 32 jobs: start 750-763 s, C1 733-741 s, C2 745-749 s, C3
 
 **Conclusion.** None passes the stop point; all three are dropped. C1
 removes the count pass (53 s of CPU at 32 jobs, 0199), the `part`
-buffer and two of three reads per hit, yet saves only 10-22 s of CPU
+buffer and two of three reads per hit, yet saves only 18-22 s of CPU
 at 32 jobs and costs 14 s at 16: by inference, writing each hit to its
 asset's place costs about the same whether it is done from `part` or
 from the lists, so that write, not the passes around it, is what

@@ -4645,9 +4645,8 @@ is identical.
 - 07:33 start at `0137d16`, clean. Start build `work/bin/s43-start/`
   (byte-identical to `s42-final`); both regressions identical (1:08;
   4:20, beside compiles); the start build's 11 development scans at NAS
-  scale, the 11 at
-  corpus scale and the clusters sample kept as references (identical
-  to session 41's).
+  scale, the 11 at corpus scale and the clusters sample kept as
+  references (identical to session 41's).
 - 0199: within grouping, the scatter is 27.6% of the first pass's CPU
   at 32 workers (34.0% at 16), about 4 ns a hit at parts of 256 to
   2,048 assets; the count pass 7%, the prefix sum 0.1%; 1,024 assets
@@ -4677,4 +4676,7 @@ is identical.
   first pass's CPU at 16 workers, 36% at 32), then query analysis
   20-24%, the pre-filter 16-19% (72 s instead of 93 s at 16 workers),
   taking parts 11-12%, sorting and lines 10%.
-- FINALSTATUS
+- A read-only review found the code correct; its document points and two
+  comments were fixed. Final checks with `work/bin/s43-final/`:
+  `scripts/check.sh` green; both regressions identical (1:09; 4:06);
+  `docs/pair-verdicts.txt` and the clusters file unchanged.

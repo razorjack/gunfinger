@@ -539,8 +539,9 @@ struct OffsetSlots {
 /// Adds one to both bytes of a word.
 const BOTH: u16 = 0x0101;
 /// Added to a word of two counts, sets a byte's high bit when its count
-/// has reached `MIN_LINE_HITS`; counts stay below it, so no carry crosses
-/// into the other byte.
+/// has reached `MIN_LINE_HITS`. A count is at most `MIN_LINE_HITS` (the
+/// filter stops there), so a byte's sum is at most 0x80 and no carry
+/// crosses into the other byte.
 const REACHED: u16 = (0x80 - MIN_LINE_HITS as u16) * BOTH;
 const HIGH_BITS: u16 = 0x8080;
 
@@ -566,9 +567,9 @@ impl OffsetSlots {
     /// neighbours slot 0) and only adds counts.
     ///
     /// A hit adds to the two pairs that hold its slot with one 16-bit
-    /// word, and the test of both is one addition and a mask: a slot
-    /// counted alone and its neighbours read apart cost two more loads per
-    /// hit (experiment 0203). The counted pairs are found again from the
+    /// word, and the test of both is one addition and a mask: counting
+    /// each slot alone and reading its neighbours apart cost two more loads
+    /// per hit (experiment 0203). The counted pairs are found again from the
     /// hits to clear them, which costs less than keeping a list of them
     /// (experiment 0190).
     fn may_form_line(&mut self, hits: &[Hit]) -> bool {
@@ -1090,6 +1091,7 @@ pub(super) mod tests {
             .map(|(anchor, offset)| Hit::taken(Posting::new(AssetId(3), offset), anchor, 0))
             .collect();
         assert!(!slots.may_form_line(&apart));
+        assert!(slots.pairs.iter().all(|&count| count == 0));
     }
 
     #[test]

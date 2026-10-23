@@ -26,13 +26,12 @@ copies) byte-identical to the start build's own run (SHA-256
 | Clusters sample of 48, 32 workers | 1:23.0, 1:23.4 | 1:20.1, 1:19.4 (-4%) |
 | Its user CPU | 1,677, 1,672 s | 1,593, 1,591 s (-5%) |
 | `identify` of the Stakka mix, NAS configuration, 32 workers | 20.0, 20.0 s | 19.7, 19.7 s (-1.6%) |
-| Its user CPU | 427, 427 s | 416, 416 s (-2.6%) |
-| Full NAS clustering (one run each) | 15:03 | 14:12 (-5.6%) |
+| Its user CPU | 427, 427 s | 416, 416 s (-2.7%) |
+| Full NAS clustering (one run each) | 15:03 | 14:12 (-5.7%) |
 | Its user CPU | 26,314 s | 24,790 s (-5.8%) |
 
 A B B A each (`work/s43/timing.sh`; `identify` after a warm-up run);
-data `data/0204-*.tsv`. Every report and `identify`'s output identical
-to the start build's.
+data `data/0204-*.tsv`. Every report and output identical to the start's.
 
 **Conclusion.** Adopted. Counting pairs of slots takes 4.2-4.3% off the
 search's wall time at 32 workers and 3.0-3.1% at 16, and 1.6% off a

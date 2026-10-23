@@ -27,8 +27,8 @@ on average; by inference, tracks holding a hash at several frames).
 | A cursor held while the asset repeats (a branch) | 1.61 | 3.28 | 4.89 | 5.09 |
 | Ranks: the count pass keeps each hit's rank, the scatter writes to start + rank | 1.97 | 2.00 | 1.98 | 1.98 |
 
-Random order without repeats: today's 1.45 ns. Run to run, the same
-case varies by up to 0.4 ns (1.55-1.93 for today's without repeats).
+Random order without repeats: today's 1.45 ns. Across this session's
+runs (earlier outputs not kept) one case's best of 5 moved by up to 0.4 ns.
 
 **Conclusion.** Repeats cost the scatter about 0.7 ns a hit: by
 inference, a hit of the same asset as the one before reads the cursor

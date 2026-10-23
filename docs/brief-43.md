@@ -125,7 +125,8 @@ Rules for this session:
   and each compared with session 41's start reports. Session 43's
   scripts are session 41's with the paths changed.
 - **(07:49) Start checks.** `regress session-32-linux` (1:08) and
-  `regress session-33-linux-nas` (4:20) identical with
+  `regress session-33-linux-nas` (4:20, beside the diagnostic builds'
+  compiles) identical with
   `work/bin/s43-start/`, each report identical to its baseline's apart
   from `wall_seconds`; the 11 development scans at both scales and the
   clusters sample identical to session 41's start reports.
@@ -227,7 +228,7 @@ Rules for this session:
   clippy run only for the code adopted, as in session 41); builds
   `work/bin/s43-c1/`, `s43-c2/`, `s43-c3/`. Round 1 next:
   `work/s43/ab.sh r1 s43-start s43-c1 s43-c2 s43-c3`.
-- **(08:08) Round 1** (experiment 0200): no candidate passes the stop
+- **(08:09) Round 1** (experiment 0200): no candidate passes the stop
   point at 32 workers (C1 1.9-2.6%, C2 0.5-1.6%, C3 -15 to -17%); all
   three are slower at 16 workers. All three are dropped. Decided now:
   before any further candidate, a single-threaded microbenchmark of the
@@ -352,3 +353,27 @@ Rules for this session:
 - **(09:40) Experiment 0205** (exploratory): the pre-filter 72 s of CPU
   instead of 93 s at 16 workers; grouping 43% of the first pass at 16
   workers and 36% at 32. Wrap-up documents drafted; next the review.
+- **(09:38) A fourth round, reconsidered** when the full clusterings
+  ended: not started. A further adoption would need its own validation,
+  timings and full clusterings (about an hour), past the 10:30 limit
+  for new rounds. The adopted build's `scripts/check.sh` and build
+  (08:38) started just after 0203 was written (08:38) and before it was
+  committed (08:39).
+- **(09:53) The review** (a read-only subagent, 09:42-09:49) found the
+  code correct and these points, all fixed: placeholders not yet filled
+  in the notes and status; figures (0199's asset shares, now over
+  assets with a hit, and 65.4% for 65.5%; 0200's CPU saving 18-22 s;
+  0202's CPU range; 0204's `identify` CPU -2.7% and full clustering
+  -5.7%; 0205's analysis 3-4 s); the samples' and full runs' times
+  now in `data/0204-samples-and-full.tsv`; 0201's run-to-run spread
+  stated as not kept; inferences marked in 0203 and the handoff; the
+  checklist's combination marked not done; wrapping; a term the
+  low-bandwidth note did not define; in `lines.rs` the `REACHED` and
+  `may_form_line` comments and a missing clearing assertion in the
+  wrap test. The source changed, so the final build and checks run
+  again (`work/s43/final.sh`).
+- **(10:03) Final checks** with `work/bin/s43-final/` (`work/s43/final.sh`,
+  run again after the review's fixes): `scripts/check.sh` green (3:52);
+  both regressions identical (1:09; 4:06), each report identical to its
+  baseline's apart from `wall_seconds`; the verdicts file and the
+  clusters file unchanged.

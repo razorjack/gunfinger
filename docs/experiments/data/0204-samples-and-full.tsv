@@ -1,0 +1,7 @@
+run	build	elapsed	user_seconds
+sample-s43-start-a	s43-start	1:23.02	1677.39
+sample-s43-adopt-a	s43-adopt	1:20.09	1593.16
+sample-s43-adopt-b	s43-adopt	1:19.37	1591.19
+sample-s43-start-b	s43-start	1:23.35	1672.38
+clusters-full-start	start	15:03.25	26314.43
+clusters-full-adopt	adopt	14:11.68	24789.78

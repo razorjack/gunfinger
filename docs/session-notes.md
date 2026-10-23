@@ -9791,16 +9791,20 @@ scatter (0199).
    summarises), `validate.sh`, `devscans.sh`, `corpusscans.sh`,
    `timing.sh`, `full.sh`, `diag.sh`, `timers.sh`, `build-candidates.sh`.
    References: `work/s43/dev-start/`, `corpus-start/`.
-3. What is left: grouping's scatter (about 28% of the first pass at 32
-   workers, 34% at 16). Its cost per hit does not depend on the part
-   size or on where it writes from (rooms, 0200); repeated assets slow
-   it with one thread a core, and ranks (C4) cut 3.4-4.3% at 16 workers
-   but not at 32, where the second thread fills those waits. If a
+3. What is left: grouping's scatter (0199, before C5: about 28% of the
+   first pass at 32 workers, 34% at 16). Its cost per hit does not
+   depend on the part size (0199) and, by inference from rooms (0200),
+   hardly on where it writes from; repeated assets slow it with one
+   thread a core, and ranks (C4) cut 3.4-4.3% at 16 workers but not at
+   32, where, by inference, the second thread fills those waits. If a
    machine runs one worker per core, C4 or C6 is worth taking again
-   (`work/s43/lines.rs.c4`, `.c6`; 0202, 0203). The filter's left
-   costs are its slot loads, the 16-bit counts and the re-read that
-   clears them; query analysis (20-24%) is compute and must stay
+   (`work/s43/lines.rs.c4`, `.c6`; 0202, 0203). What the filter still
+   costs is not split; by inference, its word load and store per hit,
+   the wrap test and the second pass that clears. Query analysis
+   (20-24%) is, by inference, bound by computation, and must stay
    bit-identical.
+5. `work/s43/ab.sh` writes no `start` line per run to `queue.log`; the
+   runs' start times are known from their logs.
 4. All times are on the Linux machine at 3600 MT/s; the Mac was not
    measured.
 
@@ -9818,5 +9822,23 @@ scatter (0199).
   `work/s43/listening-digests-start.txt`); no answer log; no manifest or
   committed panel changed. `work/s43/panels` is a copy of
   `work/s33/panels`.
-- REVIEW
-- FINAL
+- A read-only review by a separate agent (09:42-09:49) found the code
+  correct (the pairs give the old answer for every asset, the wrap
+  pair, no carry, the clearing on both paths, the bounds) and points in
+  the documents: three placeholders not yet filled, six figures off by
+  rounding or arithmetic (0199's asset shares now over assets with a
+  hit, 0200's CPU saving, 0202's CPU range, 0204's two cuts, 0205's
+  analysis), uncited data (0204's samples and full runs now in
+  `data/0204-samples-and-full.tsv`), inferences not marked (0203, the
+  handoff), the checklist's combination, wrapping, and two comments
+  and a missing assertion in the new tests. All fixed (brief 43,
+  09:53); the comments change the source, so the final build was made
+  again.
+- Final checks (09:53-10:03) with `work/bin/s43-final/` built from the
+  tree after the review's fixes: `scripts/check.sh` green (3:52);
+  `regress session-32-linux` (1:09) and `regress session-33-linux-nas`
+  (4:06) identical, every sweep query, scan detection and calibrate
+  line, and each report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file
+  unchanged. The same checks had passed before the review's fixes
+  (09:42-09:51).

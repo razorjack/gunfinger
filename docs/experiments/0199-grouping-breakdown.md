@@ -26,15 +26,15 @@ count pass 1.07 (0.66) ns, the scatter 4.16 (3.18) ns, 27.6% (34.0%) of
 the first pass; query analysis 163 (90) s. **Counts**: 1,105,360 parts
 of 45,060 hits on average (98.8% hold 16,384 or more; at most 82,303);
 607 list runs a part, 74 hits a run; 1,017 assets with a hit a part, 44
-hits each (fewer than 8: 1.9% of assets; 8-15 4.6%, 16-31 26.4%, 32-63
-51.1%, 64-127 14.9%, 128 or more 1.1%; at most 5,678). The scatter's
-writes touch 6,522 cache lines a part summed per asset (5,633 if
-packed). A room of 32, 64, 96 or 128 hits an asset leaves 35.1%,
-8.4%, 2.6% or 1.1% of hits beyond it (65.5%, 15.4%, 3.5%, 1.1% of assets).
+hits each (of those: fewer than 8 hits 1.2%, 8-15 4.6%, 16-31 26.6%,
+32-63 51.4%, 64-127 15.0%, 128 or more 1.1%; at most 5,678). The
+scatter's writes touch 6,522 cache lines a part summed per asset (5,633
+if packed). Rooms of 32, 64, 96, 128 hits an asset leave 35.1%, 8.4%,
+2.6%, 1.1% of hits beyond (in 65.4%, 15.4%, 3.5%, 1.1% of those assets).
 
 **Conclusion.** The scatter is the cost, about 4 ns a hit at 32 workers
 whatever the part size; at 256 assets its places (16 KiB of lines) fit
 in L1 and it is no cheaper, so by inference the number of places is not
 what limits it. Smaller parts make taking dearer (more, shorter runs);
 1,024 assets has the lowest first-pass CPU at both job counts, so a part
-size alone is not a candidate. Candidates: brief 43's pre-registration.
+size alone is not a candidate (brief 43's pre-registration).

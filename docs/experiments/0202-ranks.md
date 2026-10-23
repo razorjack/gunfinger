@@ -22,7 +22,7 @@ C4, C4, start, twice, at 32 then 16 jobs, otherwise idle. Data
 | C4, round 2 | 27.16, 27.17 (-0.1%, -0.1%) | 31.37, 31.36 (3.7%, 4.3%) |
 
 Every report identical to the start build's apart from `wall_seconds`.
-User CPU: 32 jobs 751-763 s for both builds; 16 jobs start 473-475 s,
+User CPU: 32 jobs 751-764 s for both builds; 16 jobs start 473-475 s,
 C4 455 s.
 
 **Conclusion.** C4 misses the stop point at 32 workers (no change) and
