@@ -120,3 +120,99 @@ Rules for this session:
   `s41-final`; `regress session-32-linux` and `regress
   session-33-linux-nas`; each report compared with its baseline's apart
   from `wall_seconds` (`work/s42/same.py`, session 41's).
+- **(06:35) Step 1, the pre-registration** (committed before any fault
+  is searched; the harness is written after it and tested on fixtures
+  only).
+
+  *Excerpts.* `robust`'s own, seed 2026 (`docs/panels/sweep-seed-2026.json`):
+  the 40 indexed and 10 held-out draws, each at the two base speeds
+  0.95 and 1.03 (80 indexed and 20 held-out queries a row), played as a
+  turntable plays them. For the stereo conditions the excerpt is
+  rendered with both channels kept (FFmpeg `-ac 2` after the playback
+  filter, as the sweep's `render_excerpt` does; a one-channel source
+  becomes two identical channels), the fault is applied in the harness
+  to the samples at 44.1 kHz, and the result is encoded as a stereo MP3
+  at 128 kbit/s (libmp3lame's default joint stereo), the encoding of
+  most `robust` conditions. The core then decodes it as it decodes any
+  file, with `-ac 1`.
+
+  *Faults*, run only when named in `--only` (so `robust`'s default run
+  and its report are unchanged), always on the right channel, the left
+  kept as rendered:
+
+  | Condition | Fault |
+  |---|---|
+  | `stereo-control` | none: the stereo render, the control for every fault |
+  | `stereo-inverted` | right channel's polarity inverted (x -1) |
+  | `stereo-silent` | right channel zero |
+  | `stereo-noise-snr-10db`, `-0db`, `--10db` | pink noise (`robust`'s generator, seeded per excerpt) added to the right channel at 10, 0 and -10 dB below the right channel's RMS |
+  | `stereo-delay-0.2ms`, `-1ms`, `-5ms` | right channel delayed by the nearest whole number of samples at 44.1 kHz (9, 44 and 220 or 221 samples; the exact count recorded with the harness), zeros before it, length kept |
+
+  `robust`'s mono `control` runs beside them as always, so each run also
+  checks the mono control against earlier reports.
+
+  *Channel choices* (query side, a diagnostic, harness only:
+  `robust --query-channels`): `downmix` (the default, the core's
+  `decode` unchanged, so a run without the flag is today's); `left`
+  (the clean channel); `right` (the faulted one); `louder` (the channel
+  with the higher RMS over the query); `side` ((L - R) / 2, which is the
+  original downmix again when one channel is inverted). The four
+  channel choices decode the query with FFmpeg as two channels at the
+  profile's 8 kHz (`-ac 2 -ar 8000`) and pick in the harness. A fifth,
+  `either` (search left and right, keep both runs' detections), is not
+  searched again: it is the union of the left and right runs per query
+  (confident if either is; a wrong answer if either has one). Choices
+  that know which channel is faulted (`left`, `right`) are diagnostics
+  only; a fallback could use only `louder`, `side` (triggered) or
+  `either`.
+
+  *Near mono.* For every stereo query the report keeps the side-to-mid
+  energy ratio of the query as decoded (both channels at 8 kHz, S =
+  (L - R) / 2, M = (L + R) / 2, 10 log10 of the sums of squares over
+  the 30 s). An excerpt's width is its `stereo-control` ratio (the mean
+  in dB of its two speeds). Groups: mono at -40 dB or less (identical
+  channels give minus infinity), nearly mono above -40 and up to -20 dB,
+  stereo above -20 dB, the last split at -10 dB in the tables. Mono and
+  nearly mono excerpts are counted apart from the stereo ones in every
+  fault row. For the corpus as a whole, a seeded sample of 100 corpus
+  library files (seed 2026, drawn from the corpus store's records) is
+  decoded whole in the same way (`gunfinger-eval stereo-width`, corpus
+  only). The NAS store keeps one peak list per file, picked from the
+  downmix, and no per-channel measure, so its sources' width is not
+  measured; NAS files are not decoded for it.
+
+  *A trigger.* The share of queries whose side is louder than their mid
+  (ratio above 0 dB), per fault, on the stereo control and in the corpus
+  sample: how often a decoder could tell an inverted channel before the
+  search.
+
+  *Scales.* 262 tracks (the corpus store) and NAS scale
+  (`--other-peaks-dir`, the saved index), each with the five channel
+  choices, in a scratch work directory `work/s42/w` (copies of the
+  corpus and NAS clusters files and the library map, the saved index
+  hard-linked), so no report in `work/reports/` is replaced.
+
+  *Scores*, per fault, choice and scale: of the 80 indexed queries,
+  confident and possible or better (each split by width group); the
+  median hit retention, best own-cluster hits against the same query's
+  `stereo-control` under `downmix`; wrong confident and wrong possible
+  detections over all 100 queries, the strongest wrong hits, and held-out
+  queries confident. For the stereo conditions the report lists each
+  wrong detection's asset, level and hits, so that related versions
+  (remixes, VIPs, other masters) raised by a fault or a choice can be
+  read by name.
+
+  *What would count.* A fault is worth its own roadmap entry when, under
+  today's downmix, it loses 8 or more of the 80 confident excerpts of
+  `stereo-control` (10%) at either scale, or gives a wrong confident
+  answer that `stereo-control` does not give at the same scale. A
+  channel-choice fallback is worth its own experiment (and later an ADR)
+  when, for at least one such fault, a choice a decoder could make
+  without knowing the faulted channel (`louder`, `either`, or `side`
+  behind the trigger) wins back at least half of the downmix's loss at
+  both scales, while on `stereo-control` it stays within 1 of 80 of the
+  downmix's confident count and adds no wrong confident answer at either
+  scale; for `side`, also only if the trigger fires on no
+  `stereo-control` query and on at most 1 of the 100 sampled corpus
+  files. Otherwise the result is recorded and the roadmap's bullet says
+  what it cost.
