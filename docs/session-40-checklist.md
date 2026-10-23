@@ -19,11 +19,11 @@ for scope and rules.
 - [x] 1. Pre-registration (populations with sizes and seeds, measures
   defined exactly, scores, what counts as worth a roadmap entry),
   committed before any measure is computed beyond the two source pairs
-- [ ] 2. `pair` reports supported seconds; `pair_offsets.py` with unit
+- [~] 2. `pair` reports supported seconds; `pair_offsets.py` with unit
   tests; `listening_pack.py select --min-hits`, tested; `regress`
   identical
-- [ ] 3. The runs: `pair` on each population at NAS scale
-- [ ] 4. Experiments (measures against the scores; the pairs every
+- [x] 3. The runs: `pair` on each population at NAS scale (31-50 s each)
+- [x] 4. Experiments 0186 (scores) and 0187 (the pairs the measures get wrong; near-identical against damaged) (measures against the scores; the pairs every
   measure gets wrong; near-identical versions against damaged copies)
 - [ ] 5a. (Ahead) the false confident detections left at NAS scale
 - [ ] 5b. (Ahead) a listening pack of the strongest disagreements in

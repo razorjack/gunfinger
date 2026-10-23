@@ -147,7 +147,8 @@ Rules for this session:
   one population (d) pair had such a file).
   - (a) *judged*: every verdict line whose two files have records, in
     the line's order (first file the query): 62 of 64, 23 `same` and 39
-    `different` (21 and 38 without the source pairs). Two have none:
+    `different` (22 and 38 without the source pairs; written as 21 at
+    first, corrected at 02:35 before any score was read against it). Two have none:
     `second-library/1.mp3` (left out of the NAS library by
     `.gunfingerignore` after session 22) and the "Synthesis (Remix)"
     track of Underfire UDFRCD003, Dangerous Drums 2, a mixed CD the
@@ -232,3 +233,73 @@ Rules for this session:
   the bar is reported as found after the run, not as confirmed. The
   (c) and (d) pairs placed on the same side are reported whatever their
   number, and the source pairs' sides are reported, not counted.
+- **(02:20) Step 2, the harness and scripts.** `pair` reports, for each
+  alignment at the fitted speed, the seconds of the shorter file it
+  supports (`supported_seconds`, beside `supported`, which is unchanged)
+  and searches its pairs one per worker thread (`--jobs`, output in the
+  listed order); a unit test (`pair::tests`) checks that a stretch the
+  query replaces holds no supported second. `pair_offsets.py` computes
+  the measures and scores; `listening_pack.py select --min-hits`
+  (default 30) leaves out borderline pairs on fewer hits. Both scripts
+  have unit tests on fixtures (`scripts/analysis/test_*.py`, Python's
+  `unittest`), which `scripts/check.sh` now runs when Python 3 is
+  installed (skipped with a line otherwise).
+- **(02:22) Step 3, the runs** (`work/s40/pairs.sh`, tmux `s40pairs`):
+  `pair` on populations a-d with `work/bin/s40-run`, 31-50 s each
+  (32 jobs), reports `work/reports/library-nas-dnb-peaks/pairs-s40-{a,b,c,d}.json`
+  (own stems; `pairs-pairs.json` untouched).
+- **(02:25) Experiment 0186** (pre-registered scores). `near_10` meets
+  the registered bar by one pair (leave-one-out 6 against 9 and 7, no
+  (b) join below its threshold); `longest_gap`, `far_jumps` and
+  `hits_per_second` do not.
+- **(02:27) Experiment 0187** (exploratory, chosen after 0186): the
+  pairs the measures get wrong; within 14 hard judged pairs every
+  measure is at chance. An exploratory variant, the near-offset share
+  over the spans of every search's alignments (ladders and audio, which
+  follow drift; `work/s40/explore/any_search.py`), does worse (AUC 0.94,
+  9 leave-one-out errors, two (b) joins below its threshold).
+- **(02:28) Step 5a.** The NAS-scale reports hold 7 false confident
+  detections, all in `sweep-seed-2026.json` (calibrate's "false
+  accepted" 7), all one pair: Aphrodite's Cool Rock Stuff (APH027 B1, a
+  held-out query) found as the Mobb Deep / Urban Takover upload (judged
+  different on 2026-10-22). The 11 development scans at NAS scale
+  (`work/reports/library-nas-dnb-peaks/scan-*.json`, the full scans and
+  their leave-outs) hold no wrong confident detection. No other NAS-scale
+  sweep report exists; no new sweep runs (decision: the saved reports
+  answer the question, and another seed would add a run outside the
+  plan). `pair` on the 26 pairs behind the sweep's false candidates of
+  30 hits or more (`work/s40/pairs/s40-false.txt`, tmux `s40false`).
+- **(02:30) `check.sh` failed one test**,
+  `decode::watch::tests::a_probe_that_writes_nothing_is_an_error`
+  (`Ok(None)` where `Stalled` was expected), while the 5a `pair` run
+  used all 32 threads beside it; sessions 23 and 36 saw this test fail
+  under load and pass on a rerun, and the code it tests did not change.
+  Every other test, fmt and clippy passed. Rerun queued after the sweeps
+  (`work/s40/check2.sh`, tmux `s40check2`).
+- **(02:31) Two NAS-scale sweeps added to step 5a** (decision: seed
+  2026, the only saved NAS sweep, has no China Cup query, so it cannot
+  check the roadmap's claim): seeds 2027 (China Cup indexed) and 2028
+  (China Cup held out), `--panels work/s40/panels` (a copy of
+  `work/s33/panels`; both panels equal `docs/panels/`'s), after the
+  step 2 regressions (`work/s40/sweeps.sh`, tmux `s40sweeps`). Their
+  reports go to `work/reports/library-nas-dnb-peaks/sweep-seed-{2027,2028}.json`;
+  `regress` reads only its named reports.
+- **(02:32) Step 5b's selection, fixed before its pairs are measured.**
+  `listening_pack.py select` gains `--disagreements N --measures FILE`
+  (tested): the N joins without a verdict that hold the least of the
+  shorter file near the main offset (`near_10`, 0186's best measure) and
+  the N pairs between clusters no verdict touches, with 30 hits or more,
+  that hold the most, one per pair of clusters. The candidates: every
+  join without a verdict (identical copies left out) and every pair kept
+  apart at 20% coverage or more between unjudged clusters, less the
+  populations' pairs, mixed-CD candidate folders and files without
+  records left out: 1,837 pairs (`work/s40/pack_pairs.py`,
+  `work/s40/pairs/s40-pack.txt`), measured with `pair` beside the
+  sweeps (`work/s40/packpairs.sh`, tmux `s40packpairs`). The pack: N = 6,
+  `--controls 2 --seed 2026 --map` the library map, the measures of the
+  populations and of these pairs, rendered into `work/s40/pack/`. The
+  `check.sh` rerun waits for both runs (tmux `s40check2`, restarted).
+- **(02:37) Step 2's regressions** with `work/bin/s40-run`: `regress
+  session-32-linux` (1:09) and `regress session-33-linux-nas` (5:56)
+  identical, every report identical to its baseline's apart from
+  `wall_seconds`; its CLI is byte-identical to the start build's.

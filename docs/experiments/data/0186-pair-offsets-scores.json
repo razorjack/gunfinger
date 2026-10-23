@@ -1,0 +1,516 @@
+{
+ "counts": {
+  "judged same ~ judged different": [
+   22,
+   38
+  ],
+  "the same with the source pairs": [
+   23,
+   39
+  ],
+  "presumed same (b) ~ judged different": [
+   100,
+   38
+  ],
+  "presumed same (b) ~ panel different (c)": [
+   100,
+   51
+  ],
+  "presumed same (b) ~ presumed different (d)": [
+   100,
+   60
+  ],
+  "all same ~ all different": [
+   122,
+   149
+  ]
+ },
+ "measures": {
+  "coverage": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.895933014354067,
+    "the same with the source pairs": 0.887402452619844,
+    "presumed same (b) ~ judged different": 0.9889473684210527,
+    "presumed same (b) ~ panel different (c)": 1.0,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9908680822972824
+   },
+   "threshold": 0.5786463683653509,
+   "errors": 8,
+   "wrong": [
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "loo_errors": 9,
+   "loo_wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "presumed_same_below": [],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 0.7805760063559323,
+     "judged": "judged different",
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0.730702454567194,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "supported": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.9354066985645934,
+    "the same with the source pairs": 0.9297658862876255,
+    "presumed same (b) ~ judged different": 0.9931578947368421,
+    "presumed same (b) ~ panel different (c)": 0.9986274509803922,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9926284519749148
+   },
+   "threshold": 0.7409396083792161,
+   "errors": 6,
+   "wrong": [
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "loo_errors": 7,
+   "loo_wrong": [
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3",
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+   ],
+   "presumed_same_below": [],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+    "A-Bad_Company-The_Nine-dmz.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "A- The_Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "210-bad_company-the_nine-sour.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 0.903072033898305,
+     "judged": "judged different",
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0.9063084528004385,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "hits_per_second": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.8325358851674641,
+    "the same with the source pairs": 0.8171683389074693,
+    "presumed same (b) ~ judged different": 0.9294736842105263,
+    "presumed same (b) ~ panel different (c)": 0.9747058823529412,
+    "presumed same (b) ~ presumed different (d)": 0.999,
+    "all same ~ all different": 0.9597865551765871
+   },
+   "threshold": 8.378617653651773,
+   "errors": 12,
+   "wrong": [
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a",
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus",
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   "loo_errors": 16,
+   "loo_wrong": [
+    "01-future_cut-the_specialist-trt.mp3 ~ INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a",
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "D-Sinthetix-Cryogenic-sour.mp3 ~ DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus",
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a",
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a",
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3",
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus",
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   "presumed_same_below": [
+    "Chris.Su - Audiophile.opus ~ DSCI4 RECORDINGS [ DSCI4 005 ： CHRIS SU - audiophile - ] drum and bass.m4a",
+    "Future Cut - Horns 2000.m4a ~ 310-future_cut-horns_2000-sour.mp3",
+    "AA-Stakka_and_Skynet-Molecular-sour.mp3 ~ AUDIO BLUEPRINT RECORDINGS [ ABPR 014 ： STAKKA + SKYNET - molecular - ] drum and bass.m4a",
+    "Sonic - Change.m4a ~ FUZE RECORDINGS [ FUZE 29 ： SONIC - cannibal - ] drum and bass.m4a",
+    "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3",
+    "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a ~ Roni Size - Watching Windows (DJ Die Gnarly Instrumental Mix).m4a",
+    "Ed Rush & Optical - Funktion.m4a ~ 01 - Ed Rush & Optical - Funktion.mp3",
+    "Ed Rush & Optical - Funktion.m4a ~ 01 - Ed Rush & Optical - Funktion.mp3",
+    "Kraken - Dominion.opus ~ Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "Kraken - Side Effects (Teebee Remix).opus ~ UNDERFIRE RECORDINGS [ UDFRLPS04, Clockwork Sampler EP ： Kraken - side effects, TeeBee Remix - ].opus"
+   ],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+    "210-bad_company-the_nine-sour.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+    "The Kraft - Stab 2 Def.m4a ~ Mampi Swift - 2000.m4a",
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 8.257248319419633,
+     "judged": "judged different",
+     "says_same": false
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 4.336654066659245,
+     "judged": "judged same",
+     "says_same": false
+    }
+   }
+  },
+  "near_2": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.9521531100478469,
+    "the same with the source pairs": 0.9498327759197325,
+    "presumed same (b) ~ judged different": 0.9994736842105263,
+    "presumed same (b) ~ panel different (c)": 0.9998039215686274,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9959841566729013
+   },
+   "threshold": 0.551937334948746,
+   "errors": 4,
+   "wrong": [
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+   ],
+   "loo_errors": 6,
+   "loo_wrong": [
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "presumed_same_below": [],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 0.7653601694915254,
+     "judged": "judged different",
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0.9063084528004385,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "near_5": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.9521531100478469,
+    "the same with the source pairs": 0.9498327759197325,
+    "presumed same (b) ~ judged different": 0.9994736842105263,
+    "presumed same (b) ~ panel different (c)": 0.9998039215686274,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9959841566729013
+   },
+   "threshold": 0.551937334948746,
+   "errors": 4,
+   "wrong": [
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+   ],
+   "loo_errors": 6,
+   "loo_wrong": [
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "presumed_same_below": [],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 0.7653601694915254,
+     "judged": "judged different",
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0.9063084528004385,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "near_10": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.9521531100478469,
+    "the same with the source pairs": 0.9498327759197325,
+    "presumed same (b) ~ judged different": 0.9994736842105263,
+    "presumed same (b) ~ panel different (c)": 0.9998039215686274,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9959841566729013
+   },
+   "threshold": 0.551937334948746,
+   "errors": 4,
+   "wrong": [
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+   ],
+   "loo_errors": 6,
+   "loo_wrong": [
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+   ],
+   "presumed_same_below": [],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 0.7653601694915254,
+     "judged": "judged different",
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0.9063084528004385,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "near_20": {
+   "higher_is_same": true,
+   "auc": {
+    "judged same ~ judged different": 0.9545454545454546,
+    "the same with the source pairs": 0.9520624303232998,
+    "presumed same (b) ~ judged different": 0.9992105263157894,
+    "presumed same (b) ~ panel different (c)": 0.9998039215686274,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9961491913301793
+   },
+   "threshold": 0.70483935674834,
+   "errors": 5,
+   "wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+   ],
+   "loo_errors": 8,
+   "loo_wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3"
+   ],
+   "presumed_same_below": [],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+   ],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 0.7653601694915254,
+     "judged": "judged different",
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0.9063084528004385,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "longest_gap": {
+   "higher_is_same": false,
+   "auc": {
+    "judged same ~ judged different": 0.8923444976076556,
+    "the same with the source pairs": 0.89520624303233,
+    "presumed same (b) ~ judged different": 0.9936842105263158,
+    "presumed same (b) ~ panel different (c)": 0.9992156862745099,
+    "presumed same (b) ~ presumed different (d)": 1.0,
+    "all same ~ all different": 0.9856419848168115
+   },
+   "threshold": 50.5,
+   "errors": 5,
+   "wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3"
+   ],
+   "loo_errors": 7,
+   "loo_wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+   ],
+   "presumed_same_below": [
+    "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a",
+    "Ram Trilogy - Beastman (Chapter Four - RAM Records RAMM 39 A) 2002.m4a ~ 11-ram_trilogy-beastman-sour.mp3"
+   ],
+   "panel_different_above": [],
+   "presumed_different_above": [],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 81.0,
+     "judged": "judged different",
+     "says_same": false
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 10.0,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  },
+  "far_jumps": {
+   "higher_is_same": false,
+   "auc": {
+    "judged same ~ judged different": 0.7948564593301436,
+    "the same with the source pairs": 0.8032329988851727,
+    "presumed same (b) ~ judged different": 0.9280263157894737,
+    "presumed same (b) ~ panel different (c)": 0.9527450980392157,
+    "presumed same (b) ~ presumed different (d)": 0.90625,
+    "all same ~ all different": 0.9077731323577951
+   },
+   "threshold": 0.5,
+   "errors": 10,
+   "wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus",
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a",
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus"
+   ],
+   "loo_errors": 10,
+   "loo_wrong": [
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a",
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus",
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a",
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus"
+   ],
+   "presumed_same_below": [
+    "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3",
+    "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a",
+    "A_-_Decoder_-_Hord_39.mp3 ~ 02-decoder-hord_39-sour.mp3",
+    "f-ram_trilogy-snakebite-sour.mp3 ~ 105-ram_trilogy-snake_bite-sour.mp3",
+    "Ram Trilogy - Beastman (Chapter Four - RAM Records RAMM 39 A) 2002.m4a ~ 11-ram_trilogy-beastman-sour.mp3"
+   ],
+   "panel_different_above": [
+    "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+    "Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus ~ Critikal • 03 • Interlude.opus",
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus",
+    "Digital & Spirit - Phantom 2018.m4a ~ Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a"
+   ],
+   "presumed_different_above": [
+    "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ DJ Dazee & Substance - Propaganda.m4a",
+    "RUFF-TECK RECORDS [ RUF 56 ： DJ RUFFNECK - jawbreaker - ] drum and bass.m4a ~ 02_-_skinnah_-_figurehead.mp3",
+    "IBS Faction - Protection VIP.opus ~ Item Code - Protection.opus",
+    "1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3 ~ b-unknown-unknown-sour.mp3",
+    "2. Konflict - Pendulum.mp3 ~ a-deeper_realms-volume_1-sour.mp3",
+    "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ 08-dazee_and_felony-propaganda-1999-sour-fixed.mp3",
+    "b-aphrodite-fanfare_dubstyle-sour.mp3 ~ a-aphrodite-fanfare-sour.mp3",
+    "Ed Rush & Optical - Mystery Machine.mp3 ~ NIL - Infectious.m4a",
+    "c-dj_ink-ice_age_(digital_and_spirit_remix)-sour.mp3 ~ Loxy & Dylan - Badself.m4a"
+   ],
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "value": 3,
+     "judged": "judged different",
+     "says_same": false
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "value": 0,
+     "judged": "judged same",
+     "says_same": true
+    }
+   }
+  }
+ }
+}
