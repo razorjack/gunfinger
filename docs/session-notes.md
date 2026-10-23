@@ -9842,3 +9842,151 @@ scatter (0199).
   `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file
   unchanged. The same checks had passed before the review's fixes
   (09:42-09:51).
+
+## Session 44
+
+### What changed
+
+Nothing in Gunfinger changed: `identify` finds the same plays and prints
+the same reports, and the CLI binary is byte-identical to the start
+build's. The harness's pair count (`verifier/pairs.rs`, behind
+`--verify`) now follows each reference pair to its two peaks and says
+why the exact count lost it, and counts the exact pairs the query would
+add if each anchor were paired with 3, 5 or 8 targets instead of 2, the
+record and the index unchanged. This session measured the open part of
+step 2 of the roadmap's "Evidence beyond exact pair hashes".
+
+In short: under combined damage, reference pairs are lost because their
+peaks are lost. 88% of the lost pairs have an endpoint missing in the
+query; a displaced target is 4.5% and a changed quantised value 6.3%.
+Displaced targets are few against what damage removes but equal 0.89 of
+the exact pairs that remain, so the fan-out step ran. Pairing the query
+with 5 targets adds a median 30% to a damaged true detection's exact
+pairs, but only 21 of 507 damaged true detections under 240 would reach
+it, and related versions on the shared panels gain more than the played
+recording at equal evidence (AUC 0.24-0.27). Step 2's prediction holds;
+no rule follows.
+
+### The split (experiments 0206, 0207)
+
+On the verifier's alignment, each reference pair in the passage (the
+record's pairs at fan-out 2, as the index holds them) gets session 30's
+status (exact, near or unmatched) and a kind from its peaks, each peak
+found as the verifier finds peaks (±1 frame, ±1 bin at its place on
+the alignment): an endpoint gone (anchor, target, both); both found and
+the query pairs them (the target among the query anchor's first two
+targets) with the same hash, a near hash or a far one; both found and
+the target displaced (rank 3, 4-5, 6-8, 9 or later in the anchor's
+zone); both found and outside the zone. Lost means not in E.
+
+| Set (pooled) | n | E of the reference pairs | Endpoint gone | Displaced | Changed value |
+|---|--:|--:|--:|--:|--:|
+| Clean, own record | 522 | 0.460 | 0.550 | 0.171 | 0.242 |
+| Combined damage | 511 | 0.048 | 0.883 | 0.045 | 0.063 |
+| Other rips only | 178 | 0.248 | 0.681 | 0.108 | 0.183 |
+| Played recording, shared panels | 1,297 | 0.311 | 0.689 | 0.102 | 0.186 |
+| Related recordings, shared panels | 5,356 | 0.075 | 0.883 | 0.040 | 0.070 |
+| Unrelated candidates | 2,926 | 0.008 | 0.993 | 0.003 | 0.004 |
+
+The last three columns are shares of the lost pairs.
+
+- Under damage an endpoint is gone for 84% of all reference pairs (30% on
+  clean audio): the anchor alone, the target alone and both account for
+  22%, 22% and 44% of the lost pairs. Damage also changes the pairs that
+  keep both peaks (70% of the reference pairs on clean audio, 16% under
+  damage): among them the exact share falls from 0.65 to 0.30, while
+  displaced pairs rise from 0.13 to 0.27 and changed ones from 0.19 to
+  0.38.
+- Displaced targets sit just past the fan-out: 55% at rank 3, 37% at 4-5,
+  8% at 6-8.
+- N recovers the changed values: 93% of the damaged changed pairs
+  are in N, and 79% of N is such a pair (21% of N has an endpoint gone, a
+  near hash from other peaks).
+- On clean audio 17% of the lost pairs are displaced (expected under
+  5%): re-encoding and the fitted speed add or move enough peaks that an
+  extra query peak comes first in the anchor's zone (an inference; not
+  followed peak by peak).
+
+### The fan-outs (experiment 0208)
+
+| Median gain over E | Fan-out 3 | 5 | 8 |
+|---|--:|--:|--:|
+| Clean, own record | 0.11 | 0.14 | 0.14 |
+| Combined damage | 0.18 | 0.30 | 0.32 |
+| Played recording, shared panels | 0.12 | 0.16 | 0.16 |
+| Related recordings, shared panels | 0.16 | 0.23 | 0.24 |
+| Unrelated candidates | 0.00 | 0.09 | 0.10 |
+
+- Related versions gain more than the played recording in every band of
+  E, at every fan-out (pooled AUC of the gain, played against related,
+  0.24-0.27). By inference, a related version's own material adds peaks
+  to the shared passage, as damage does to the played recording; they
+  take the first two targets, and the wider fan-out finds the shared
+  pairs behind them.
+- Damaged true detections under 240 that would reach 240 over 3 windows:
+  12, 21 and 23 of 507; related recordings on the shared panels 233, 384
+  and 401 of 4,428; unrelated candidates and related wrong candidates in
+  the recall runs none. With the played recording left out, a related
+  file would be confident in 124-129 of 419 shared searches instead of
+  114.
+- CPU (an estimate, not timed): the second pass's lookups grow 1.5, 2.4
+  and 3.6 times; the second pass is at most 3-4% of a scan's CPU (0205),
+  so at most about 2%, 6% and 11% more.
+- The registered criterion for a later experiment on the rules is not
+  met: (a) fails on its 10% clause, (b) fails, (c) holds.
+
+### What it means for the roadmap
+
+The external review's question is answered: displaced targets exist,
+mostly one to three ranks past the fan-out, but under damage they are
+a small part of the loss, and a wider query fan-out raises related
+versions at least as much as the played recording. Neither a tolerant
+count (session 30) nor a wider fan-out separates versions. The loss
+under damage is peaks: for step 3 (denser query peaks) the question is
+whether the reference peaks the query misses are still present as weaker
+maxima in the damaged audio, or gone. Step 3 would most likely raise
+related versions too, as the pair counts here suggest, since shared
+material holds the same peaks; it needs the same three-way measurement
+(played, related, unrelated).
+
+### Decided this session, open to change
+
+- The split and the fan-out counts are part of `--verify`'s pair count,
+  with no flag of their own, as session 30's N; the fan-out counts were
+  made in the same runs as the split and opened only after 0207 was
+  written.
+- The registered share was reached through its second clause (displaced
+  pairs at ranks 3-8 against E), not through the share of the lost
+  pairs.
+- 0055's scenario file is on the Mac only, so session 30's R5 was not run;
+  at 262 tracks `robust --only combined` stood in (T(0), W(0): its
+  combined queries only, since the run also holds the control). T(0)
+  agrees with the NAS-scale damaged set: endpoint gone 0.875, displaced
+  0.049, changed value 0.066 of the lost pairs.
+- The shared panels' roles come from the full panel files.
+
+### Questions for us
+
+- Whether step 3 (denser query peaks) is still worth a session, given
+  that both tolerant hashing and a wider fan-out raise related versions
+  as much as the played recording. A first measure would be cheap: for
+  the reference peaks the verifier misses under damage, whether a local
+  maximum exists in the query at a lower threshold.
+- Nothing needs listening.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s44-start/` (= `s43-final`), `s44-harness/` (the
+   harness at `816fd57`, which ran every count) and `s44-final/` (the
+   same binaries).
+2. Scripts (`sh`, from the repository root): `work/s44/runs.sh` (the
+   NAS-scale runs), `check.sh` (the counts check and regressions),
+   `analyse.sh <out.json> [--fan-outs]` (the analysis), `final.sh`.
+   Reports: `work/s44/w/reports/library-nas-dnb-peaks/` (`verified/` for
+   recall), `work/s44/w0/reports/verified/` (262 tracks). `work/s44/w/`
+   holds hard links to the saved index and to session 33's renders; it
+   can be deleted.
+3. `lost_pairs.py` uses `quantisation.py`'s set builders; the shared
+   panels' roles need the full panel files.
+4. R3 took 27 minutes and R4 20, mostly reading NAS store records for the
+   verifier (iowait near 20%, about 5 cores busy).

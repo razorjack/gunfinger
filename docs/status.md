@@ -4680,3 +4680,30 @@ is identical.
   comments were fixed. Final checks with `work/bin/s43-final/`:
   `scripts/check.sh` green; both regressions identical (1:09; 4:06);
   `docs/pair-verdicts.txt` and the clusters file unchanged.
+
+## 2026-10-23: session 44, why reference pairs are lost under damage
+
+Brief `docs/brief-44.md`, checklist `docs/session-44-checklist.md`;
+notes "Session 44"; experiments 0206-0208. Nothing in Gunfinger changed;
+the harness's pair count (`--verify`) gained the split and the query
+fan-out counts.
+
+- 10:05 start at `76b6859`, clean. Start build `work/bin/s44-start/`
+  (byte-identical to `s43-final`); both regressions identical (1:08;
+  4:05).
+- `d685f25`, 0206: pre-registration of the split of lost reference pairs
+  (endpoint gone, displaced target, changed value), the share that opens
+  the fan-out step, the fan-outs 3, 5 and 8 and the criterion.
+- `816fd57`: the split and the fan-out counts in `verifier/pairs.rs`,
+  tested; session 30's counts unchanged on `robust --only combined`;
+  both regressions identical.
+- 0207: under combined damage 88% of the lost reference pairs have an
+  endpoint missing in the query, 4.5% a displaced target (mostly rank 3
+  to 5), 6.3% a changed value (93% of them in N); on clean audio 55%,
+  17% and 24%. Displaced pairs equal 0.89 of the damaged E, which opened
+  the fan-out step.
+- 0208: fan-outs 3, 5 and 8 add a median 18%, 30% and 32% to damaged
+  true detections' E, and 21 of 507 under 240 would reach it at fan-out
+  5; related versions on the shared panels gain more than the played
+  recording in every band of E (AUC 0.24-0.27); no unrelated candidate
+  reaches 240. Not worth an experiment on the rules.

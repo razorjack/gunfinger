@@ -873,6 +873,16 @@ marked as inferences were derived, not measured.
      versions on the shared panels as in experiment 0151, and CPU. Step
      2 predicts that related versions gain as much as the played one;
      if they do, that settles it.
+     Done in session 44 (experiments 0206-0208): under combined damage
+     88% of the lost reference pairs have an endpoint missing in the
+     query, 4.5% a displaced target (mostly at ranks 3-5) and 6.3% a
+     changed value (N); on clean audio 55%, 17% and 24%. Query fan-outs
+     3, 5 and 8 (the index at 2) add a median 18%, 30% and 32% to damaged
+     true detections' exact pairs, and 21 of 507 under 240 would reach
+     it at fan-out 5, but related versions on the shared panels gain more
+     than the played recording in every band of E (AUC 0.24-0.27); no
+     unrelated candidate reaches 240. Settled: no rule. The loss under
+     damage is peaks, which is step 3's question.
   3. Denser query peaks around candidate passages, the reference store
      unchanged: Qfp analyses queries denser than references, keeping its
      database small (Sonnleitner & Widmer 2016, §IV-B). Experiment 0004

@@ -103,11 +103,14 @@ def split_summary(ds):
 
 
 def robust_sets(report):
-    """T(0): per query its strongest detection of its own recording; W(0):
-    the other detections with 10 hits or more that are not the blend
-    partner, unlabelled."""
+    """Under combined damage only (`--only combined` also runs the
+    control): T(0), per query its strongest detection of its own
+    recording; W(0), the other detections with 10 hits or more (those the
+    second pass measures) that are not the blend partner, unlabelled."""
     truth, wrong = [], []
     for q in report["queries"]:
+        if q["condition"] != "combined":
+            continue
         own = []
         for d in q.get("verified") or []:
             v = d.get("verified")

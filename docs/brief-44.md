@@ -137,8 +137,9 @@ Rules for this session:
   build (`work/bin/s44-harness/`): the reports are identical apart from
   the new `split` and `fan_outs` fields and the search times
   (`work/s44/same_counts.py`). One look at the first detection's new
-  fields (one combined-damage excerpt at 1,437 hits, its exact pairs all
-  "paired, same hash") checked their shape; no set was tallied.
+  fields (a control excerpt at 1,437 hits, its exact pairs all "paired,
+  same hash"; first written here, wrongly, as a combined-damage excerpt)
+  checked their shape; no set was tallied.
 - **(10:19) The runs start** (`work/s44/runs.sh`, tmux `s44runs`,
   scratch work directory `work/s44/w`) while the harness build's
   regressions run (tmux `s44check`): results are deterministic, and no
@@ -168,8 +169,27 @@ Rules for this session:
   reach it, not 10%); (b) not met (related versions gain more than the
   played recording in every E band, pooled AUC 0.24-0.27); (c) met. No
   experiment on the rules follows. The per-search count uses the "played
-  left out" index, as registered; with everything indexed the script
-  prints the same numbers (114 today), which was not looked into.
+  left out" index, as registered; with everything indexed it gives the
+  same numbers (114 today) because the related and version detections
+  in the shared reports are the same in both indexes (the review
+  checked: only weak detections of other files differ).
+- **(11:40) The review** (a read-only agent, 11:22-11:29) found the code
+  correct and these points, all fixed: T(0) and W(0) mixed the control
+  and combined queries of `robust --only combined` (which also runs the
+  control); `lost_pairs.py` now keeps the combined queries only, and
+  0207's T(0) row is 80 detections (0.875 endpoint gone, as T(c)), its
+  fan-out counts in 0208 unchanged; 0207's sentence on the pairs that
+  keep both peaks contradicted its data (now the shares among them);
+  every expectation in 0207 is marked wrong; "chance agreements" marked
+  as probable; 0208's CPU estimate (2%, 6%, 11%) and its AUCs said to be
+  pooled over E 10-239, as in 0149; the per-search note above; the first
+  detection's condition; the split test now covers ranks 5 and 9 and the
+  fan-out test a near hash at an extra fan-out; `CLAUDE.md`'s line
+  width. Two choices of the analysis not in 0206 are recorded here: W(0)
+  counts detections with 10 hits or more (those the second pass
+  measures), and S3's AUCs are pooled over the E bands 10-239 only, as
+  in 0149 (in the band of 240 and more R's median gain is also above
+  P's).
 
 ## Step 1: pre-registration (written at 10:09-10:12, committed before any count)
 

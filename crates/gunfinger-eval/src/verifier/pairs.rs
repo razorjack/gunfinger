@@ -635,7 +635,8 @@ mod tests {
             pair(third, 1050.0),       // too far from its reference pair
             pair(fourth_near, 1200.0), // near at fan-out 2, exact here
         ];
-        let to_five = vec![pair(third, 1100.0)];
+        // A near hash at an extra fan-out counts for nothing.
+        let to_five = vec![pair(third, 1100.0), pair(packed([12, 64, 10]), 1000.0)];
 
         let matched = count(
             &query,
@@ -658,7 +659,7 @@ mod tests {
                 // Each fan-out starts again from the exact count's pairs.
                 FanOut {
                     fan_out: 5,
-                    query: 3,
+                    query: 4,
                     extra: 1,
                 },
             ]
@@ -771,7 +772,10 @@ mod tests {
                 with_target(99), // its target gone
                 with_target(4),  // third
                 with_target(5),  // fourth
+                with_target(6),  // fifth
                 with_target(7),  // sixth
+                with_target(9),  // eighth
+                with_target(10), // ninth
                 with_target(11), // tenth
                 with_target(14), // outside the zone
             ],
@@ -780,6 +784,9 @@ mod tests {
                 Status::Unmatched,
                 Status::Unmatched,
                 Status::Near,
+                Status::Near,
+                Status::Unmatched,
+                Status::Unmatched,
                 Status::Unmatched,
                 Status::Unmatched,
                 Status::Unmatched,
@@ -798,7 +805,7 @@ mod tests {
         assert_eq!(
             split.near,
             Kinds {
-                displaced_4_5: 1,
+                displaced_4_5: 2,
                 ..Kinds::default()
             }
         );
@@ -807,8 +814,8 @@ mod tests {
             Kinds {
                 target_gone: 1,
                 displaced_3: 1,
-                displaced_6_8: 1,
-                displaced_later: 1,
+                displaced_6_8: 2,
+                displaced_later: 2,
                 outside_zone: 1,
                 ..Kinds::default()
             }

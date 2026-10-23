@@ -24,7 +24,7 @@ for scope and rules.
 - [x] 3. The runs at 262 tracks and at NAS scale
 - [x] 4. Experiments (0207, 0208): the split; the fan-outs only if the registered
   share is reached, otherwise what the lost pairs mean for step 3
-- [ ] 5. Read-only review by a subagent; findings fixed
+- [x] 5. Read-only review by a subagent; findings fixed
 - [ ] 6. Wrap-up: notes "Session 44", status, checklist, roadmap's
   bullet; final checks (`scripts/check.sh`, both regressions, verdicts
   and clusters digests, `git status` clean)
