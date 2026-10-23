@@ -269,14 +269,14 @@ Rules for this session:
   is at least 3% below the start build's in every pair, with
   byte-identical reports apart from `wall_seconds`; 16 workers
   reported, not decided on.
-- **(08:28) Round 2** (experiment 0202): C4 cuts the search 3.4-4.3%
+- **(08:26) Round 2** (experiment 0202): C4 cuts the search 3.4-4.3%
   at 16 workers in all four pairs but changes nothing at 32 (-0.1% to
   0.6%): it misses the stop point and is dropped. By inference, at 32
   workers the second thread of each core fills the waits that ranks
   remove, so only fewer operations per hit help there; that points at
   the pre-filter, the stage with the most work per hit after the
   scatter.
-- **(08:36) Round 3, pre-registered** (committed before C5 and C6 are
+- **(08:29) Round 3, pre-registered** (committed before C5 and C6 are
   timed; written after 0202, only tested).
 
   - **C5, pairs of slots in one word.** `OffsetSlots` keeps, instead of
@@ -316,3 +316,18 @@ Rules for this session:
   in both pairs and not slower than C5 by more than 1% at 32 workers in
   either pair; otherwise C5. A second round is run if a candidate's
   cuts straddle 3%.
+- **(08:38) Round 3** (experiment 0203): C5 cuts the search 4.1% and
+  4.4% at 32 workers (3.1-3.3% at 16) and passes; C6 misses the stop
+  point at 32 workers (1.9-2.8%), though it is fastest at 16 (6.2-6.8%).
+  By the registered rule C5 is adopted. Step 4 starts with its source
+  formatted (`work/s43/lines.rs.adopt`), `scripts/check.sh` and the
+  adopted build `work/bin/s43-adopt/`, then the validation queue
+  (`work/s43/validate.sh s43-adopt adopt`: both regressions, the 11
+  development scans at NAS scale with the clusters sample, the 11 at
+  corpus scale, each against the start build's reports), then the
+  timings (`work/s43/timing.sh`), then the full NAS clustering with the
+  start build and the adopted build into scratch copies
+  (`work/s43/full.sh`), compared with each other as in session 41.
+  Decided: no fourth round. The time box favours the adoption checks,
+  and the ideas left (C6's ranks, a fill for the clearing) were either
+  measured slower at 32 workers or below 1% in session 41.
