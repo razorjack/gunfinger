@@ -25,7 +25,7 @@ for scope and rules.
 - [x] 3. The runs: `pair` on each population at NAS scale (31-50 s each)
 - [x] 4. Experiments 0186 (scores) and 0187 (the pairs the measures get wrong; near-identical against damaged) (measures against the scores; the pairs every
   measure gets wrong; near-identical versions against damaged copies)
-- [ ] 5a. (Ahead) the false confident detections left at NAS scale
+- [x] 5a. (Ahead) the false confident detections left at NAS scale (0188; sweeps 2027 and 2028 at NAS scale)
 - [ ] 5b. (Ahead) a listening pack of the strongest disagreements in
   `work/s40/pack/`
 - [ ] 6. Read-only review by a subagent; findings fixed

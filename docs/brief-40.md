@@ -303,3 +303,18 @@ Rules for this session:
   session-32-linux` (1:09) and `regress session-33-linux-nas` (5:56)
   identical, every report identical to its baseline's apart from
   `wall_seconds`; its CLI is byte-identical to the start build's.
+- **(02:54) The sweeps** (8:34 and 8:19 beside the pack's `pair` run):
+  every speed 60 of 60 at both seeds. Wrong confident: seed 2027 11, all
+  the two corpus copies `Bad Company - China Cup.mp3` and `extra/02. Bad
+  Company - China Cup.mp3` (indexed) found as ƆƐI3C's upload; seed 2028
+  7, all `extra/b-bad_company-china_cup.mp3` (held out) found as the
+  same upload. With seed 2026's 7 (Cool Rock), 25 false confident
+  detections over three NAS sweeps, 18 of them China Cup ~ ƆƐI3C. The
+  58 pairs behind seeds 2027 and 2028's false candidates of 30 hits or
+  more (47 not measured yet) go to `pair`
+  (`work/s40/pairs/s40-false-2.txt`, tmux `s40false2`); the `check.sh`
+  rerun waits for it too.
+- **(02:58) Experiment 0188** (step 5a): 18 of the 25 false confident
+  detections over the three NAS sweeps are China Cup's three corpus
+  rips found as ƆƐI3C's upload, the only false candidate pairs (of 84)
+  above `near_10`'s threshold; the other 7 are Cool Rock (0.37).
