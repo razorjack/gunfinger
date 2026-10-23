@@ -340,3 +340,12 @@ Rules for this session:
   scale, the 11 at corpus scale and the clusters sample identical to
   the start build's. Committed to master; the timings and the full
   clusterings follow in the same queue.
+- **(09:38) Step 5, the adopted build's times** (experiment 0204): the
+  search 26.01-26.02 s against 27.18 s at 32 workers and 31.60-31.65 s
+  against 32.59-32.63 s at 16; the clusters sample 1:19-1:20 against
+  1:23; `identify` of the Stakka mix 19.7 s against 20.0 s; the full
+  NAS clustering 14:12 against 15:03, the two files byte-identical
+  (SHA-256 `be08df5b1948...`, as session 41's runs); every report
+  identical. Next: experiment 0205, the stage timers of session 41 on
+  master's code (`work/s43/timers.diff`, never committed), for the
+  handoff.
