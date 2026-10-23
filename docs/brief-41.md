@@ -143,12 +143,12 @@ Rules for this session:
   everything after it run unchanged, so the reports stay identical. The
   Stakka scan at NAS scale at 32 then 16 jobs (`work/s41/diag.sh`,
   summary `work/s41/diag.py`).
-- **(04:00) Step 1 result** (experiment 0189): of today's filter at 16
+- **(03:56) Step 1 result** (experiment 0189): of today's filter at 16
   (32) jobs, loads 14% (15%), the slot arithmetic with its `floor` call
   37% (46%), the `touched` list and clearing 27% (16%), counting and the
   test 23% (24%); 44 hits a filtered asset on average, the early exit
   sparing 1.4% of them.
-- **(04:05) Step 2, the pre-registration** (committed before any
+- **(03:57) Step 2, the pre-registration** (committed before any
   candidate is timed; the candidates' code and tests were written
   during the start runs and step 1, and have only been tested).
 
@@ -233,3 +233,15 @@ compare every random set's pass or fail with today's filter.
   combination timed against the start build the same way; it is
   adopted if it passes the same stop point. A second round is run if a
   candidate's cuts straddle 3%.
+- **(04:20) Step 3, round 1** (experiment 0190): C1-C5 pass the stop
+  point at 32 workers in both pairs (C4 by 27.8-28.0%, the least C3 by
+  4.6%); G1 is slower and dropped. By the pre-registered rule the
+  combination is C4. Decided now, before timing: an exploratory round
+  (0191) times C2 with one fill (`s41-c2fill`) and C2 with stamps
+  (`s41-c2stamp`) against the start build and C4; one of them replaces
+  C4 only if it is 3% faster than C4 in every pair at 32 workers.
+  Otherwise C4 is adopted. The round also repeats C4 against the start
+  build.
+- **(04:20) Script fix.** `work/s41/ab.sh` set the shell variable
+  `round` inside its run function, which garbled round 1's half labels;
+  runs pair by position in `ab.py`, and the function now uses `half`.
