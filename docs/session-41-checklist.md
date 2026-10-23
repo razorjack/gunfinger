@@ -27,13 +27,14 @@ for scope and rules.
   262-track scans; the clusters sample; both regressions; the full NAS
   clustering into a scratch copy if time allows
 - [x] 5. Experiments 0189-0193
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [x] 6. Read-only review by a subagent; findings fixed (brief 06:00)
 
 ## Wrap-up
 
-- [~] "Session 41" in `docs/session-notes.md`, with the handoff
-- [~] `docs/status.md`, the roadmap's speed bullet, the low-bandwidth
+- [x] "Session 41" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap's speed bullet, the low-bandwidth
   note, this checklist
-- [ ] Final checks: `scripts/check.sh` green; both regressions identical
-  with the final build; `docs/pair-verdicts.txt` and the clusters file
-  unchanged; `git status` clean
+- [x] Final checks: `scripts/check.sh` green; both regressions identical
+  with the final build `work/bin/s41-final` (1:08; 4:11);
+  `docs/pair-verdicts.txt` and the clusters file unchanged; `git status`
+  clean

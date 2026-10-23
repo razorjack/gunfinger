@@ -4593,4 +4593,7 @@ search; every report compared is identical.
 - 0193 (timers): grouping a part is now the largest stage (40% of the
   first pass's CPU at 16 workers, 35% at 32), the pre-filter and query
   analysis 20-22% each, taking parts 10-11%, sorting and lines 9%.
-- Final checks: pending.
+- Final checks with `work/bin/s41-final/`: `scripts/check.sh` green
+  (after one rerun for the `decode::watch` race); both regressions
+  identical (1:08; 4:11); `docs/pair-verdicts.txt` and the clusters
+  file unchanged.

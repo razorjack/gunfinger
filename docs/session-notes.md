@@ -9434,5 +9434,18 @@ aligning, sorting and lines 9%, phases, hashing and lookups under 1%.
   `work/s41/listening-digests-start.txt`); no answer log; no manifest or
   committed panel changed. `work/s41/panels` is a copy of
   `work/s33/panels`.
-- The read-only review: pending.
-- Final checks: pending.
+- A read-only review by a separate agent (05:47-05:55) found the code
+  correct (the exactness argument, the guard, the round trip, the
+  clearing on every path) and 14 points in the documents: four wrong
+  figures, two claims that were inferences, a pass missing from 0189's
+  table, the tests' description in the roadmap, wrapping and the
+  handoff's sources. All fixed (brief 06:00), with two comments in
+  `lines.rs`, so the final build was made again.
+- Final checks (05:56-06:10) with `work/bin/s41-final/` built from
+  `7dbaa8a`: `scripts/check.sh` failed once with ADR 0020's "Text file
+  busy" race in `decode::watch`'s tests, then green on the idle machine
+  (3:44); `regress session-32-linux` (1:08) and `regress
+  session-33-linux-nas` (4:11) identical, every sweep query, scan
+  detection and calibrate line, and each report identical to its
+  baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt` and the
+  clusters file in use unchanged.

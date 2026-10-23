@@ -303,3 +303,8 @@ Rules for this session:
   (the phases are per block and rung; only the off-speed random sets
   have fractional anchors) are fixed too, which changes the source but
   not the code, so the final build is made again.
+- **(06:10) Final checks** with `work/bin/s41-final/` (`work/s41/final.sh`):
+  `scripts/check.sh` failed once on the `decode::watch` "Text file busy"
+  race (every thread busy with its own tests), and was green when
+  run again on the idle machine; both regressions identical (1:08;
+  4:11); the verdicts file and the clusters file unchanged.
