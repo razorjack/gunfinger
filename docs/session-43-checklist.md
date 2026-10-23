@@ -22,7 +22,7 @@ for scope and rules.
 - [x] 2. Pre-registration (at least three candidates, exactness
   arguments, tests, timing protocol, stop point), committed before any
   candidate is timed
-- [ ] 3. Candidates, each tested and timed; the combination of those
+- [~] 3. Candidates, each tested and timed; the combination of those
   that pass
 - [ ] 4. Adoption: tests; the 11 development scans at NAS scale and at
   262 tracks; the clusters sample; both regressions; the full NAS

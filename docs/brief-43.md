@@ -227,3 +227,12 @@ Rules for this session:
   clippy run only for the code adopted, as in session 41); builds
   `work/bin/s43-c1/`, `s43-c2/`, `s43-c3/`. Round 1 next:
   `work/s43/ab.sh r1 s43-start s43-c1 s43-c2 s43-c3`.
+- **(08:12) Round 1** (experiment 0200): no candidate passes the stop
+  point at 32 workers (C1 1.9-2.6%, C2 0.5-1.6%, C3 -15 to -17%); all
+  three are slower at 16 workers. All three are dropped. Decided now:
+  before any further candidate, a single-threaded microbenchmark of the
+  scatter alone on synthetic parts shaped as 0199 counted them
+  (`work/s43/bench/`, never committed; experiment 0201), to find what a
+  scattered write costs and why, then a second pre-registration (round
+  2) if it points to a candidate. Exploratory; it decides nothing by
+  itself.
