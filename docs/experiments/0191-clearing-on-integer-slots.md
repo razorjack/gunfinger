@@ -26,6 +26,6 @@ User CPU at 32 jobs: start 1,087-1,099 s, C4 759-763 s, fill 753-756 s,
 stamps 787-788 s.
 
 **Conclusion.** The fill is 0.7-0.9% faster than C4 at 32 workers and
-0.3-1.0% slower at 16; stamps are slower than both. Neither meets the
+0.3-0.9% slower at 16; stamps are slower than both. Neither meets the
 3% rule, so C4 is adopted as pre-registered. C4 repeats 0190's cut
 (28.0-28.3% at 32 workers, 27.7-27.8% at 16).

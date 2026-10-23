@@ -8,8 +8,8 @@ anything else:
 1. `docs/brief.md` (the brief; never edit it)
 2. `docs/brief-41.md` (the current session's brief) and
    `docs/session-41-checklist.md` (its progress), with experiments
-   0108, 0169-0173 and 0189 and up, the roadmap's speed bullet ("Where
-   search time goes"), `docs/research/2026-10-21-low-bandwidth-search.md`
+   0096, 0103, 0108, 0113, 0167-0174 and 0189 and up, the roadmap's
+   speed bullet ("Where search time goes"), `docs/research/2026-10-21-low-bandwidth-search.md`
    and the code of `crates/gunfinger-core/src/search/lines.rs`;
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,

@@ -4581,12 +4581,15 @@ search; every report compared is identical.
   6-7%; counting assets while taking a part (G1) slower. 0191: on
   integer slots a fill or stamps are not 3% faster than C4.
 - `7269498`: C4 in master. `scripts/check.sh` green; both regressions
-  identical (1:09; 4:12); the 22 development scans and the clusters
-  sample identical; the full NAS clustering 14:36 instead of 23:02, byte-identical to the start build's run in a scratch copy.
+  identical (1:09; 4:12); the 11 development scans at NAS scale, the
+  11 at corpus scale and the clusters sample identical; the full NAS
+  clustering 14:36 instead of 23:02, byte-identical to the start
+  build's run in a scratch copy.
 - 0192: the Stakka scan's search at NAS scale 26.7 s instead of
   37.6-37.9 s at 32 workers, 32.5 s instead of 45.4-45.6 s at 16; CPU
-  31-32% less; the clusters sample 1:21 instead of 1:57; `identify` of
-  the Stakka mix at NAS scale 19.8 s instead of 25.2 s.
+  31-32% less at 32 workers, 30% at 16; the clusters sample 1:21
+  instead of 1:57; `identify` of the Stakka mix at NAS scale 19.8 s
+  instead of 25.1-25.2 s.
 - 0193 (timers): grouping a part is now the largest stage (40% of the
   first pass's CPU at 16 workers, 35% at 32), the pre-filter and query
   analysis 20-22% each, taking parts 10-11%, sorting and lines 9%.

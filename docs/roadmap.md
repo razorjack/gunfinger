@@ -554,11 +554,12 @@ marked as inferences were derived, not measured.
   filter reads only the grouped hit and counts without floating point,
   and it clears its counts by reading the hits again (0190, 0191; exact
   by the argument in `OffsetSlots::may_form_line`, tested against
-  `densest_clusters` and the old filter). The Stakka scan's search at
+  `densest_clusters`, and agreeing with the old filter on at least 90%
+  of random sets). The Stakka scan's search at
   NAS scale takes 26.7 s instead of 37.6-37.9 s at 32 workers and 32.5 s
   instead of 45.4-45.6 s at 16, the clusters sample 1:21 instead of
   1:57, `identify` of the Stakka mix at NAS scale 19.8 s instead of
-  25.2 s, every report identical (0192). Counting assets while taking a
+  25.1-25.2 s, every report identical (0192). Counting assets while taking a
   part was not faster (0190). Grouping a part is now the largest
   stage, 40% of the first pass's CPU at 16 workers and 35% at 32; the
   pre-filter and query analysis 20-22% each (0193).

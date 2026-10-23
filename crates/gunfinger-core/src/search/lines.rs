@@ -151,7 +151,7 @@ struct WindowHits<'i> {
     /// A counter for each asset of a part and one more, all zero between
     /// parts (see `group_part`).
     ends: Vec<u32>,
-    /// The phases of the points of the block being searched.
+    /// The phases of the points of the block and rung being searched.
     phases: Phases,
     slots: OffsetSlots,
 }
@@ -1096,7 +1096,8 @@ pub(super) mod tests {
         for _ in 0..sets {
             // Offsets over spans from a few frames to a whole track, from
             // reference frames anywhere in a posting's range and anchor
-            // frames with a fraction, some of them at a rung's speed.
+            // frames at a rung's speed: whole frames at speed 1, frames
+            // with a fraction at the other two.
             let spread = [6, 12, 40, 70_000][(next() % 4) as usize];
             let base = (next() % 200_000) as f64 - 100_000.0;
             let speed = [1.0, 1.0123, 0.9375][(next() % 3) as usize];

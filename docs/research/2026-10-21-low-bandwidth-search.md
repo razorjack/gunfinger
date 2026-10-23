@@ -195,7 +195,8 @@ start build's apart from `wall_seconds`.
   6:06; the full NAS clustering 14:36 instead of 23:02, its file
   byte-identical to the start build's run.
 - Dropped: stamps (C3) and one fill (C5) as clearings, each 5-8%
-  faster alone but not faster than re-reading on integer slots (0191),
+  faster alone but on integer slots not 3% faster than re-reading (the
+  fill 0.7-0.9% faster at 32 workers, slower at 16; 0191),
   and counting a part's assets while taking it (G1, 0.1-2.6% slower).
 - Left (0193): grouping a part 40% of the first pass's CPU at 16 workers
   and 35% at 32, the pre-filter and query analysis 20-22% each, taking

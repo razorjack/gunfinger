@@ -9297,20 +9297,22 @@ grouped hit (`Hit`) keeps its posting's asset and, in the frame bits,
 the frame minus its anchor's phase modulo 2^16, from which `Hit::slot`
 folds the slot in integers and `Hit::frame` gives the frame back
 exactly for the 2% of assets that are sorted. The integer offsets lie
-within one frame of the offsets, so a cluster's three offsets still lie
+within one frame of the offsets, so a cluster's offsets still lie
 in one slot or two neighbouring ones (the argument is in the method's
 documentation); a block with a point 2^31 frames or more from frame 0
-sorts every asset. The filter may pass other assets without a line than
-before; they are sorted and give none. Nothing else changed: lines,
+sorts every asset. The filter may pass some assets the old one
+rejected; those hold no cluster, so sorting them gives no line. Nothing else changed: lines,
 detections, evidence, boundaries, speeds and orderings are identical in
 every report compared.
 
 In short: on the Linux machine the Stakka scan's search at NAS scale
 takes 26.7 s instead of 37.6-37.9 s at 32 workers (29-30% less) and
-32.5 s instead of 45.4-45.6 s at 16 (28-29%), with 31-32% less CPU;
+32.5 s instead of 45.4-45.6 s at 16 (28-29%), with 31-32% less CPU at 32 workers and 30% at 16;
 `identify` of the Stakka mix through the CLI at NAS scale 19.8 s
 instead of 25.1-25.2 s; the clusters sample 1:21 instead of 1:57;
-`regress session-33-linux-nas` 4:12 instead of 6:06; the full NAS clustering 14:36 instead of 23:02, byte-identical to the start build's own run.
+`regress session-33-linux-nas` 4:12 instead of 6:06; the full NAS
+clustering 14:36 instead of 23:02, byte-identical to the start build's
+own run.
 
 ### Step 1: where the pre-filter's time went (experiment 0189)
 
@@ -9347,7 +9349,7 @@ integer slots 0.7-0.9% faster than C4 at 32 workers and slower at 16,
 and stamps slower than both: C4 was kept. G1 was dropped; no other
 grouping candidate was tried.
 
-### Step 4 and 5: adoption and its times (0192)
+### Steps 4 and 5: adoption and its times (0192)
 
 `scripts/check.sh` green; both regressions identical, each report too
 apart from `wall_seconds`; the 11 development scans at NAS scale and the
@@ -9377,7 +9379,8 @@ With 0193's timers (exploratory, 16 and 32 workers) the first pass,
 96-97% of the scan's CPU, now goes to grouping a part by asset 40% and
 35%, the pre-filter 20% and 22% (93 s instead of 288 s at 16 workers,
 1.9 ns a hit instead of 5.8), query analysis 20% and 22%, taking parts
-10% and 11% (about 5 s more than before for the integer offsets),
+10% and 11% (by inference from 0170's timers, about 5 s more for the
+integer offsets),
 aligning, sorting and lines 9%, phases, hashing and lookups under 1%.
 
 ### Decided this session, open to change
@@ -9397,13 +9400,15 @@ aligning, sorting and lines 9%, phases, hashing and lookups under 1%.
    `s40-final`), `s41-adopt/` (validated), `s41-final/` (master at the
    end), the candidates `s41-c1` to `s41-c5`, `s41-c2fill`,
    `s41-c2stamp`, `s41-g1`, and the diagnostics `s41-diag`,
-   `s41-timers` (sources `work/s41/lines.rs.*`, `diag.diff`).
+   `s41-timers` (sources `work/s41/lines.rs.*`: `lines.rs.adopt` is
+   `7269498`, `lines.rs.final` its draft before rustfmt and the clippy
+   fix; `diag.diff`, `timers.diff`).
 2. Scripts (`sh`, from the repository root): `work/s41/ab.sh <tag>
    <base> <builds...>` (A B ... B A on the Stakka scan in the scratch
    work directory `work/s41/w`; `ab.py` summarises), `validate.sh`,
    `devscans.sh` and `corpusscans.sh` (11 scans at each scale against
    the start build's reports in `work/s41/dev-start/` and
-   `corpus-start/`), `timing.sh`, `full.sh`, `diag.sh`.
+   `corpus-start/`), `timing.sh`, `full.sh`, `diag.sh`, `timers.sh`.
 3. What is left: grouping a part (40% of the first pass's CPU at 16
    workers, 35% at 32) is the largest stage; narrower hits (0171),
    grouping from the lists (0172) and counting while taking (G1, 0190)

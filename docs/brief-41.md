@@ -197,8 +197,8 @@ Rules for this session:
 
   *Tests* (each candidate: the core crate's tests green before it is
   timed; `scripts/check.sh`, with fmt and clippy, for the code adopted,
-  a scaling down under the time box): the existing grouping test against a comparison sort (four
-  windows, three parts, an empty middle part, every hit on the last
+  a scaling down under the time box): the existing grouping test
+  against a comparison sort (four windows, three parts, an empty middle part, every hit on the last
   asset; mixed hits on anchors a quarter frame apart); the blocks
   test; and for C1, C2 and C4 the filter tests rewritten on hits with
   reference and anchor frames: no line from scattered hits; a line
@@ -211,9 +211,9 @@ Rules for this session:
   the tests) agrees on at least 90% of sets; the phases themselves
   (fractions, negative frames, beyond 2^16, the 2^31 guard, NaN); and a
   window with a point beyond 2^31 frames giving the comparison sort's
-  lines. For C3 and C5 the existing filter tests run unchanged (the random
-test wraps C3's stamp hundreds of times); before adoption they also
-compare every random set's pass or fail with today's filter.
+    lines. For C3 and C5 the existing filter tests run unchanged (the
+  random test wraps C3's stamp hundreds of times); before adoption they
+  also compare every random set's pass or fail with today's filter.
 
   *Timing protocol.* `work/s41/ab.sh`: `gunfinger-eval --other-peaks-dir
   <NAS store> --work work/s41/w --jobs N scan stakka-skynet-knowledge`
@@ -264,7 +264,8 @@ compare every random set's pass or fail with today's filter.
   session-32-linux` (1:09) and `regress session-33-linux-nas` (4:12
   instead of 6:06) identical, each report identical to its baseline's
   apart from `wall_seconds`; the 11 development scans at NAS scale, the
-  11 at corpus scale and the clusters sample (1:22 instead of 2:00)
+  11 at corpus scale and the clusters sample (1:22; the start build's
+  2:00 ran beside compiles, 0192 times both)
   identical to the start build's. Committed to master; then the timing
   runs (`work/s41/timing.sh`) and the full NAS clustering into a scratch
   copy (`work/s41/full.sh`).
@@ -289,3 +290,16 @@ compare every random set's pass or fail with today's filter.
   on the adopted code (`work/s41/timers.diff`, never committed), the
   Stakka scan at 32, 16, 16, 32 jobs, for the handoff's split of what
   is left.
+- **(06:00) The review** (a read-only subagent, 05:47-05:55) found the
+  code correct and 14 points in the documents: wrong figures (0189's
+  share of assets under 17 hits, 6.6%; the CPU cut at 16 workers, 30%;
+  the fill against re-reading in the low-bandwidth note; 0191's range
+  at 16 workers), claims stated too strongly (the `floor` call alone
+  against the slot arithmetic; 0193's comparisons with session 36's
+  timer build, an inference), a pass missing from 0189's table, the
+  roadmap's description of the tests, wrapping, and the handoff's
+  sources (`lines.rs.final` is the draft before rustfmt; master's code
+  is `lines.rs.adopt`). All fixed; the comments it noted in `lines.rs`
+  (the phases are per block and rung; only the off-speed random sets
+  have fractional anchors) are fixed too, which changes the source but
+  not the code, so the final build is made again.
