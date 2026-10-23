@@ -1074,18 +1074,33 @@ marked as inferences were derived, not measured.
   (`recall --other-rips-only --queries clean,damaged,brief,brief-damaged`).
 
 - **Stereo faults before the downmix.** *(2026-10-17, a proposal from
-  an external review)* FFmpeg mixes every file down to mono (`-ac 1` in
-  `decode.rs`) before peaks are picked, and none of `robust`'s 38
-  conditions is a stereo fault: one channel's polarity inverted, which
-  cancels what the channels share (centred bass and kick) in the
-  downmix; one channel silent or noisy; a delay between the channels,
-  which comb-filters the downmix. Old tape and vinyl transfers can have
-  each. Render them from development material, first in queries, and
-  compare today's downmix with left-only and right-only searches as a
-  diagnostic: how much evidence the downmix loses, and whether one
-  channel recovers it without raising related versions. The decoder
-  does not change before that; a fallback would need its own experiment
-  and ADR.
+  an external review; measured in session 42, experiments 0194-0198)*
+  FFmpeg mixes every file down to mono (`-ac 1` in `decode.rs`, each
+  channel at 1/sqrt(2)) before peaks are picked. On `robust`'s 80
+  indexed excerpts rendered in stereo (opt-in conditions `stereo-*`),
+  at 262 tracks and at NAS scale alike, the downmix loses every excerpt
+  when one channel's polarity is inverted (the downmix keeps only the
+  side, 10-20 dB below the mid in most sources), 51 under noise at 0 dB
+  in one channel, all under noise at -10 dB, 43 when one channel is 5
+  ms late and 10 when it is 1 ms late; a silent channel costs 2, noise
+  at 10 dB and a 0.2 ms delay nothing. No fault raised a wrong confident
+  answer. The same faults in the indexed rip instead of the query cost
+  about as much (0197: inverted, 0 of 20 confident), and over the
+  second half of generated mixes an inverted channel leaves 1 of 100
+  plays there confident, a 5 ms delay 37 and noise at 0 dB 39 (0198). As a query-side
+  diagnostic (`robust --query-channels`), one channel wins back 75-77
+  of 80 under each fault but loses 2-3 clean excerpts and keeps 61-64%
+  of the hits; the side signal wins back every inverted excerpt and
+  nothing else; a side-louder-than-mid trigger fires on one clean
+  held-out excerpt and on 91% of 5 ms delays, so it does not single out
+  inversion. No choice met the pre-registered bar for a fallback
+  (0195). About a third of the corpus's sources are mono or nearly mono
+  (0196); the store keeps no per-channel measure, so how many NAS rips
+  carry a fault is not known. Still open (ours): whether any fallback
+  (searching the downmix and both channels, three searches a query,
+  won back 77-78 of 80 in an exploratory union) is worth its own
+  experiment and an ADR, and whether a per-file check of the channels
+  at indexing time is worth its cost.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The

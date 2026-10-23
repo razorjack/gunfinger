@@ -9449,3 +9449,203 @@ aligning, sorting and lines 9%, phases, hashing and lookups under 1%.
   detection and calibrate line, and each report identical to its
   baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt` and the
   clusters file in use unchanged.
+
+## Session 42
+
+### What changed
+
+The decoder, the product and every default are unchanged; `regress
+session-32-linux` and `regress session-33-linux-nas` stay identical.
+Added, harness only and tested (`b99f59e`):
+
+- `robust`'s nine stereo conditions, run only when named in `--only`
+  (`stereo-control`, `stereo-inverted`, `stereo-silent`,
+  `stereo-noise-snr-10db`, `-0db`, `--10db`, `stereo-delay-0.2ms`,
+  `-1ms`, `-5ms`): the excerpt rendered with both channels
+  (`render::render_stereo_samples`), the right channel faulted in the
+  harness, encoded as a stereo MP3 at 128 kbit/s (`encode_stereo`). Each
+  stereo query's report keeps its side-to-mid ratio and its wrong
+  detections by name (`QueryResult::stereo`, absent elsewhere, so the
+  default report is unchanged).
+- `robust --query-channels downmix|left|right|louder|side`
+  (`stereo::QueryChannels`): `downmix`, the default, is the core's
+  `decode`; the others decode two channels and pick. Report
+  `robust-seed-<seed>-channels-<choice>.json`.
+- `gunfinger-eval stereo-width` (corpus only): a seeded sample of
+  library files, each decoded whole as two channels.
+- `mixes --stereo-fault <condition>` (short mixes only): stereo renders
+  with the right channel faulted over the second half, in their own
+  render directory and report; the mono path renders byte for byte as
+  before (checked on the 16 mixes of seed 2026).
+- `scripts/analysis/robust_stereo.py` (with `test_robust_stereo.py`).
+
+FFmpeg's `-ac 1` adds the two channels at 1/sqrt(2) each (measured in
+`stereo`'s decoding test).
+
+In short: an inverted channel costs everything (0 of 80 excerpts
+confident at both scales, 0 of 20 when the rip carries it, 1 of 100
+plays in a faulted half mix); noise at 0 dB in one channel and a 5 ms
+delay cost about half; a 1 ms delay costs 10 of 80; a silent channel 2.
+No fault raises a wrong confident answer. No channel choice meets the
+pre-registered bar for a fallback.
+
+### Step 1: the pre-registration (brief 42, 06:16, `e129851`)
+
+Faults on the right channel of `robust`'s excerpts (seed 2026, 40
+indexed and 10 held-out draws at speeds 0.95 and 1.03), against a
+stereo control; channel choices `downmix`, `left`, `right`, `louder`,
+`side`, and `either` as the union of `left` and `right`; widths mono
+(-40 dB or less), nearly mono (to -20 dB), narrow, wide; a trigger (side
+louder than mid). A fault is worth its own roadmap entry when it loses 8
+or more of 80 confident excerpts at either scale or raises a wrong
+confident answer; a fallback is worth an experiment when a choice made
+without knowing the faulted channel wins back half the loss at both
+scales while staying within 1 of 80 on the clean control and adding no
+wrong confident answer (the side only behind a trigger that fires on no
+clean query and on at most 1 of 100 sampled corpus files).
+
+### Steps 2-4: experiments 0194-0196
+
+| Fault, confident of 80 (both scales) | Downmix | Left | Right | Louder | Side | Either |
+|---|--:|--:|--:|--:|--:|--:|
+| None (`stereo-control`) | 80 | 77 | 78 | 77 | 0 | 78 |
+| Inverted | 0 | 75 | 77 | 76 | 80 | 77 |
+| Silent | 78 | 78 | 0 | 78 | 78 | 78 |
+| Noise 10, 0, -10 dB | 80, 29, 0 | 74, 76, 75 | 53, 0, 0 | 62, 2, 0 | 0, 0, 0 | 74, 76, 75 |
+| Delay 0.2, 1, 5 ms | 80, 70, 37 | 75, 76, 75 | 76, 78 (77), 76 | 75, 76, 75 | 78, 69, 41 | 76, 78 (77), 76 |
+
+(In brackets where NAS scale differs.) Wrong confident answers: none at
+262 tracks; at NAS scale only the held-out Cool Rock Stuff excerpt as
+the Mobb Deep / Urban Takover upload (session 40's pair), in the
+control as in the mono `control`, and in more fault rows when one
+channel is searched. One possible answer is raised whenever only the
+left channel is heard: Cause 4 Concern - Abduction as Cause 4 Concern's
+remix of Phuture Assassins' Future Sound (60-68 hits).
+
+- 0194: the faults worth a roadmap entry by the registered bar: inverted
+  (80 lost), noise at 0 dB (51) and -10 dB (80), 5 ms (43) and 1 ms (10).
+- 0195: no fallback qualifies: `louder` loses 3 clean excerpts and
+  `either` 2 (bar 1); the side wins back every inverted excerpt but
+  finds nothing in clean audio, and its trigger fires on 2 clean queries
+  (one held-out excerpt, a wide passage) and on 91 of 100 queries
+  delayed by 5 ms. Exploratory: the downmix with both channels (three
+  searches) keeps all 80 clean excerpts and wins back 77-78 under each
+  fault but noise at -10 dB (75).
+- 0196: of 100 sampled corpus files (seed 2026, of 265) 5 are mono, 29
+  nearly mono, 62 narrow and 4 wide (median -17.7 dB); none has its
+  side louder than its mid. The NAS store keeps one peak list per file
+  from the downmix, so its sources' width cannot be measured from it.
+
+### Step 5: ahead (0197, 0198)
+
+- 0197: the fault in the indexed rip, each copy in its own scratch
+  store: unchanged 20 of 20 confident, inverted 0, silent 19, 1 ms 18,
+  5 ms 4 (hits 0.20 of the unchanged copy's, as in the query).
+- 0198: 24 short mixes (seeds 2026-2028) at 262 tracks, the fault over
+  the second half: confident plays in that half 95/100 (control), 1/100
+  (inverted), 37/100 (5 ms), 39/100 (noise at 0 dB); correct seconds
+  94.1%, 48.1%, 77.3%, 75.2%; no wrong confident play.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; run build; mix build) | 1:08; 1:08; 1:08 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build) | 4:13; 4:12 | 5.3 GiB |
+| `stereo-width`, 100 files | 0:05 | 1.8 GiB |
+| `robust`, 11 conditions, 1,100 queries, 262 tracks (first run renders) | 1:36; 1:04-1:08 | 1.2; 0.3 GiB |
+| The same at NAS scale | 3:32-3:57 | 5.0 GiB |
+| `mixes`, 8 stereo mixes, 262 tracks | 0:23-0:26 | 3.5-3.7 GiB |
+| `scripts/check.sh` | 3:58 | |
+
+### Decided this session, open to change
+
+- The fault is always on the right channel; `left` is the clean channel
+  and `right` the faulted one. By symmetry a fault on the left would
+  swap them (an inference, not measured).
+- Faults are applied in the harness at 44.1 kHz, after the playback and
+  before encoding; queries are stereo MP3s at 128 kbit/s like most
+  `robust` conditions. The reverse case (0197) used FFmpeg filters on
+  whole files.
+- An excerpt's width is its `stereo-control` ratio over 30 s; the
+  corpus sample measures whole files.
+- The two unions with the downmix were added while summarising and are
+  labelled exploratory; they decide nothing.
+- Step 5b gave each faulted copy its own store, because the CLI merges
+  same-audio plays.
+
+### Questions for us
+
+- Whether a decoder fallback is worth its own experiment and an ADR.
+  The measured case for one: an inverted channel, in the mix or in the
+  rip, loses everything it covers, and nothing in today's output says
+  why. Against it: no single choice was free on clean audio (one
+  channel loses 2-3 of 80 and a third of the hits), the obvious trigger
+  (side louder than mid) also fires on 5 ms delays and on one wide
+  clean passage, and searching the downmix and both channels triples
+  the search. How often such faults occur in the mixes and the NAS rips
+  is not known.
+- Whether a per-file check of the two channels while indexing (one
+  ratio per record) is worth adding to the store, so that rips with an
+  inverted channel could at least be listed; it would change the record
+  format.
+
+### Questions for listening (none answered by agents)
+
+- Cause 4 Concern - Abduction (excerpt 9 at +3%) against the SUBBASS
+  AUDIO upload of Phuture Assassins - Future Sound (Cause 4 Concern
+  remix): do they share material in the left channel?
+- The held-out David Carbone - Innocence (Cause 4 Concern remix) excerpt
+  whose side is louder than its mid over 30 s: a wide passage or a
+  channel fault in the rip?
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s42-start/` (= `s41-final`), `s42-run/` (the
+   `robust` harness, used for 0194-0196), `s42-mix/` (master at
+   `b99f59e` and after, used for 0197-0198), `s42-final/` (master at
+   the end).
+2. Reports: `work/s42/corpus/` and `work/s42/nas/` (the ten `robust`
+   reports and `summary.json`/`.txt`), `work/s42/w/reports/stereo-width-seed-2026.json`,
+   `work/s42/ref/` (0197's copies, stores and reports), `work/s42/mixes/`
+   (0198's reports and summary; `seconds` scores in `work/seconds/`).
+   Renders: `work/s42/w/robust/seed-2026/stereo-*` (466 MB),
+   `work/mixes/stereo-*-seed-202[678]/` (597 MB).
+3. Scripts (`sh`, from the repository root): `work/s42/runs.sh` (both
+   regressions, the width sample, the ten `robust` runs), `ref.sh` and
+   `step5b.sh`, `mixes.sh`, `final.sh`; Python `matrix.py`, `ref.py`,
+   `mixes.py`.
+4. Commands:
+
+   ```sh
+   N=~/.local/share/gunfinger/nas-dnb-peaks; W=work/s42/w
+   ONLY=stereo-control,stereo-inverted,stereo-silent,stereo-noise-snr-10db,stereo-noise-snr-0db,stereo-noise-snr--10db,stereo-delay-0.2ms,stereo-delay-1ms,stereo-delay-5ms
+   work/bin/s42-final/gunfinger-eval --work $W robust --seed 2026 --only $ONLY --query-channels left
+   work/bin/s42-final/gunfinger-eval --other-peaks-dir $N --work $W robust --seed 2026 --only $ONLY
+   work/bin/s42-final/gunfinger-eval --work $W stereo-width --seed 2026 --sample 100
+   work/bin/s42-final/gunfinger-eval mixes --seed 2026 --count 8 --stereo-fault stereo-inverted
+   python3 -I scripts/analysis/robust_stereo.py OUT.json downmix=R.json left=R-left.json right=R-right.json louder=R-louder.json side=R-side.json
+   ```
+
+5. Next, if we continue: the questions for us above; a fallback, if
+   wanted, needs its own pre-registration (which trigger, which search,
+   its cost) and an ADR.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No development mix was searched;
+  only `robust`'s excerpts of corpus files and generated mixes. Nothing
+  ran on the candidate mixes of 0065 or on the NAS root's broadcast
+  file. No NAS audio file was decoded; the NAS store was only searched;
+  `work/peaks` only read. 0197's
+  scratch stores are under `work/s42/ref/`.
+- `docs/pair-verdicts.txt` and the clusters file are unchanged (SHA-256
+  in `work/s42/listening-digests-start.txt` and
+  `work/s42/clusters-digest-start.txt`); no answer log; no manifest or
+  committed panel changed.
+- `robust` and `stereo-width` ran in the scratch work directory
+  `work/s42/w` (copies of both clusters files and the library map, the
+  saved NAS index hard-linked), so no report in `work/reports/` was
+  replaced; `mixes` wrote four new report names there, moved to
+  `work/s42/mixes/` after each run.

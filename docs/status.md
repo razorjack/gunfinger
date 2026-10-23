@@ -4597,3 +4597,35 @@ search; every report compared is identical.
   (after one rerun for the `decode::watch` race); both regressions
   identical (1:08; 4:11); `docs/pair-verdicts.txt` and the clusters
   file unchanged.
+
+## 2026-10-23: session 42, stereo faults before the downmix, measured
+
+Brief `docs/brief-42.md`, checklist `docs/session-42-checklist.md`;
+notes "Session 42"; experiments 0194-0198. Harness only; the decoder,
+the product and every default are unchanged.
+
+- 06:11 start at `e032cac`, clean. Start build `work/bin/s42-start/`
+  (byte-identical to `s41-final`); both regressions identical (1:08;
+  4:13).
+- `e129851`: the pre-registration (faults and levels, channel choices,
+  width groups, scores, the bars for a roadmap entry and for a fallback
+  experiment), committed before any fault was searched.
+- `b99f59e`: `robust`'s nine opt-in `stereo-*` conditions, `robust
+  --query-channels downmix|left|right|louder|side`, `stereo-width`,
+  `mixes --stereo-fault`; `scripts/check.sh` green; both regressions
+  identical with the run build (1:08; 4:12).
+- 0194: under today's downmix, at 262 tracks and at NAS scale alike, an
+  inverted channel loses all 80 excerpts, noise at 0 dB in one channel
+  51 and at -10 dB 80, a 5 ms delay 43, a 1 ms delay 10, a silent
+  channel 2; no wrong confident answer is raised.
+- 0195: one channel wins back 75-77 of 80 under each fault but loses 2-3
+  clean excerpts; the side wins back every inverted excerpt and nothing
+  else; no choice meets the bar for a fallback. Exploratory: the
+  downmix with both channels keeps the clean 80 and wins back 77-78.
+- 0196: 34 of 100 sampled corpus files are mono or nearly mono; the NAS
+  store holds nothing per channel.
+- 0197: the fault in the indexed rip costs about as much (inverted 0 of
+  20 confident). 0198: over the second half of 24 generated mixes, an
+  inverted channel leaves 1 of 100 plays there confident.
+- Waiting (ours): whether a decoder fallback is worth an experiment and
+  an ADR, and whether a per-file channel check belongs in the store.
