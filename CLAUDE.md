@@ -24,7 +24,7 @@ anything else:
    `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
    `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
    `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md`,
-   `docs/brief-38.md`, `docs/brief-39.md` and `docs/brief-40.md` hold rules that still apply unless brief 40
+   `docs/brief-38.md`, `docs/brief-39.md` and `docs/brief-40.md` hold rules that still apply unless brief 41
    changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
