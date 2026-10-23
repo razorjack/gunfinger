@@ -11,15 +11,15 @@ for scope and rules.
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s41/listening-digests-start.txt` (and the clusters file's in
   `work/s41/clusters-digest-start.txt`)
-- [~] Start build `work/bin/s41-start/`; `regress session-32-linux` and
+- [x] Start build `work/bin/s41-start/`; `regress session-32-linux` and
   `regress session-33-linux-nas` identical; the start build's reference
   reports (11 development scans at NAS scale, the clusters sample)
 
 ## Steps
 
-- [ ] 1. Diagnostic build: where the pre-filter's time per hit goes;
+- [x] 1. Diagnostic build: where the pre-filter's time per hit goes;
   hits per filtered asset; where a passing asset passes (experiment 0189)
-- [ ] 2. Pre-registration (candidates with exactness arguments and tests,
+- [x] 2. Pre-registration (candidates with exactness arguments and tests,
   timing protocol, stop point), committed before any candidate is timed
 - [ ] 3. Candidates, each tested and timed; their combination; grouping
   if time allows

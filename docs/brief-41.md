@@ -127,3 +127,109 @@ Rules for this session:
   for every later build (`work/s41/devscans.sh`). Session 36's
   references were made with the clusters file before the listening of
   2026-10-22, so they are not reused.
+- **(03:51) Start checks.** `regress session-32-linux` (1:09) and
+  `regress session-33-linux-nas` (6:06) identical with
+  `work/bin/s41-start/`, every report identical to its baseline's apart
+  from `wall_seconds`. The 11 development scans and the clusters sample
+  ran beside compiles (not timing runs).
+- **(03:52) Step 1, the diagnostic build** (`work/s41/diag.diff`, never
+  committed): per part, after grouping, seven passes over the part's
+  assets with 3 hits or more, each timed, in an order rotating by part
+  (hit loads alone; with the anchor's point and the offset; with the
+  slot; today's filter; today's filter without the early exit; today's
+  filter clearing its 4 KiB of counts with one fill instead of the
+  `touched` list; the fill alone), then the counts (hits per filtered
+  asset, the hit at which a passing asset passes). The real filter and
+  everything after it run unchanged, so the reports stay identical. The
+  Stakka scan at NAS scale at 32 then 16 jobs (`work/s41/diag.sh`,
+  summary `work/s41/diag.py`).
+- **(04:00) Step 1 result** (experiment 0189): of today's filter at 16
+  (32) jobs, loads 14% (15%), the slot arithmetic with its `floor` call
+  37% (46%), the `touched` list and clearing 27% (16%), counting and the
+  test 23% (24%); 44 hits a filtered asset on average, the early exit
+  sparing 1.4% of them.
+- **(04:05) Step 2, the pre-registration** (committed before any
+  candidate is timed; the candidates' code and tests were written
+  during the start runs and step 1, and have only been tested).
+
+  *The candidates.* Each keeps `densest_clusters`, sorting, `line_of`,
+  `distinct` and everything after them unchanged; sources in
+  `work/s41/lines.rs.<name>`, builds in `work/bin/s41-<name>/`.
+
+  - **C1, integer slots from per-point phases** (proposal 1, 0108). Once
+    per block and rung, each point's phase `floor(frame) mod 2^16`
+    (`u16`); a hit's slot is `((frame - phase) mod 2^16) / 4 mod 4096`
+    in integers. No `floor` call, `f64` subtraction or cast per hit; the
+    filter loads 2 bytes per anchor instead of the 16-byte point.
+    Exactness: the integer offset exceeds the offset by less than one
+    frame; a cluster's computed offsets differ by at most 2, so with
+    every point within 2^31 frames of frame 0 (computed offsets then err
+    by less than 2^-20 frames) the integer offsets differ by at most 3
+    and lie in one bucket or two neighbouring ones; folding modulo 2^16
+    folds whole buckets (2^16 = 4 x 4,096 x 4). When a point lies
+    farther out, no asset is filtered (all are sorted). The filter may
+    pass other assets without a line than today's; those are sorted and
+    give no line, so lines are unchanged.
+  - **C2, integer offsets in the grouped hit** (a tighter layout for the
+    filter's reads). As C1, but `take_part` stores each hit's integer
+    offset in its posting's 16 frame bits (the phase loaded once per
+    posting list), so the filter reads only the grouped hit, 4 of its 8
+    bytes; the hits of the 2% of assets that pass get their frames back
+    by adding the phase (exact modulo 2^16). Exactness: C1's, and the
+    inverse is exact.
+  - **C3, generation stamps instead of the `touched` list.** Slots as
+    `u16`, an 8-bit stamp of the asset in the high byte and its count in
+    the low byte; a slot with another stamp counts zero; all slots are
+    cleared once every 255 assets. Exactness: the same slots and counts
+    as today, so the same pass or fail for every asset.
+  - **C4, C2 with clearing by re-reading the hits.** No `touched`
+    list: after the test, the counted hits' slots (cheap with C2) are
+    computed again and zeroed. Exactness: C2's.
+  - **C5, one fill instead of the `touched` list** (from 0189's pass).
+    After the test, all 4,096 counts are zeroed with one fill (4 KiB)
+    instead of zeroing the touched slots. Exactness: the same slots and
+    counts as today.
+  - **G1 (grouping), counting the part's assets while taking it.**
+    `take_part` adds each taken posting to its asset's counter, from the
+    short list run it has just read, and `group_part` drops its first
+    pass over the part. Exactness: the same counts, so the same grouped
+    order.
+
+  *Tests* (each candidate: the core crate's tests green before it is
+  timed; `scripts/check.sh`, with fmt and clippy, for the code adopted,
+  a scaling down under the time box): the existing grouping test against a comparison sort (four
+  windows, three parts, an empty middle part, every hit on the last
+  asset; mixed hits on anchors a quarter frame apart); the blocks
+  test; and for C1, C2 and C4 the filter tests rewritten on hits with
+  reference and anchor frames: no line from scattered hits; a line
+  wherever its offsets fall (bucket edges, negative offsets, the wrap at
+  bucket -1 and 4,096, equal offsets, a span of exactly 2 frames,
+  anchors with and without a fraction); the cluster of offsets 4, 3 and
+  2 - 2^-52; 200,000 random sets (reference frames over the whole
+  16-bit range, anchors at rung speeds 1, 1.0123 and 0.9375) where
+  every set with a cluster passes, and today's `f64` filter (kept in
+  the tests) agrees on at least 90% of sets; the phases themselves
+  (fractions, negative frames, beyond 2^16, the 2^31 guard, NaN); and a
+  window with a point beyond 2^31 frames giving the comparison sort's
+  lines. For C3 and C5 the existing filter tests run unchanged (the random
+test wraps C3's stamp hundreds of times); before adoption they also
+compare every random set's pass or fail with today's filter.
+
+  *Timing protocol.* `work/s41/ab.sh`: `gunfinger-eval --other-peaks-dir
+  <NAS store> --work work/s41/w --jobs N scan stakka-skynet-knowledge`
+  (saved index), the search time being the report's `wall_seconds`; for
+  N = 32 then 16, the start build, each candidate, the candidates in
+  reverse order, the start build (A B ... B A); nothing else running.
+  Every report is compared with the start build's
+  (`work/s41/dev-start/`) apart from `wall_seconds`.
+
+  *Stop point.* A candidate is kept only if its search time at 32
+  workers is at least 3% below the start build's in every pair (the
+  forward half's runs and the reversed half's), with byte-identical
+  reports apart from `wall_seconds`. 16 workers are reported, not
+  decided on. The candidates that pass are combined (C2 or C4 replaces
+  C1, which it contains; of the clearings C3, C4 and C5 only one, the
+  fastest that passes) and the
+  combination timed against the start build the same way; it is
+  adopted if it passes the same stop point. A second round is run if a
+  candidate's cuts straddle 3%.
