@@ -25,7 +25,7 @@ for scope and rules.
   NAS scale
 - [x] 4. Experiments 0194-0196 (cost of each fault to the downmix;
   channel choices; near-mono sources)
-- [~] 5. Ahead: (a) a fault over a stretch of generated mixes; (b) a
+- [x] 5. Ahead: (a) a fault over a stretch of generated mixes; (b) a
   fault in the indexed reference (store-only scratch copy)
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 42", status, roadmap bullet; final

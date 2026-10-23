@@ -298,3 +298,11 @@ Rules for this session:
   own scratch library and store (`work/s42/ref/library/<copy>`,
   `work/s42/ref/peaks-<copy>`), and each query is searched against each
   of the five stores alone.
+- **(07:12) Step 5a ran** (`work/s42/mixes.sh`, 07:02-07:08): the mono
+  check identical (16 of 16 MP3s), 12 stereo runs and `seconds`;
+  experiment 0198. The scratch check's renders (`work/s42/mcheck/mixes`,
+  a copy of `work/mixes/seed-2026`) were deleted; the stereo mixes'
+  renders (`work/mixes/stereo-*-seed-202[678]/`, 597 MB) and `robust`'s
+  stereo renders (`work/s42/w/robust/`, 466 MB) are kept for later
+  listening. `mixes` wrote its reports into `work/reports/`; they were
+  moved to `work/s42/mixes/` at once, so no report there changed.

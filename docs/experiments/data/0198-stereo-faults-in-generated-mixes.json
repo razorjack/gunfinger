@@ -1,0 +1,98 @@
+{
+ "stereo-control": {
+  "plays": {
+   "first": [
+    91,
+    99
+   ],
+   "across": [
+    23,
+    24
+   ],
+   "second": [
+    95,
+    100
+   ]
+  },
+  "wrong_confident": 0,
+  "seconds": {
+   "correct": 7269,
+   "possible": 195,
+   "unlabelled": 256,
+   "mislabelled": 1,
+   "indexed": 7721
+  }
+ },
+ "stereo-inverted": {
+  "plays": {
+   "first": [
+    91,
+    99
+   ],
+   "across": [
+    16,
+    24
+   ],
+   "second": [
+    1,
+    100
+   ]
+  },
+  "wrong_confident": 0,
+  "seconds": {
+   "correct": 3712,
+   "possible": 305,
+   "unlabelled": 3703,
+   "mislabelled": 1,
+   "indexed": 7721
+  }
+ },
+ "stereo-delay-5ms": {
+  "plays": {
+   "first": [
+    91,
+    99
+   ],
+   "across": [
+    21,
+    24
+   ],
+   "second": [
+    37,
+    100
+   ]
+  },
+  "wrong_confident": 0,
+  "seconds": {
+   "correct": 5969,
+   "possible": 1428,
+   "unlabelled": 323,
+   "mislabelled": 1,
+   "indexed": 7721
+  }
+ },
+ "stereo-noise-snr-0db": {
+  "plays": {
+   "first": [
+    91,
+    99
+   ],
+   "across": [
+    20,
+    24
+   ],
+   "second": [
+    39,
+    100
+   ]
+  },
+  "wrong_confident": 0,
+  "seconds": {
+   "correct": 5803,
+   "possible": 1485,
+   "unlabelled": 429,
+   "mislabelled": 4,
+   "indexed": 7721
+  }
+ }
+}
