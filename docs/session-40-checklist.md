@@ -7,16 +7,16 @@ for scope and rules.
 ## First
 
 - [x] Reading (First, item 1)
-- [~] Brief, checklist and `CLAUDE.md` committed
+- [x] Brief, checklist and `CLAUDE.md` committed (`3a037dd`)
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s40/listening-digests-start.txt` (and the clusters file's in
   `work/s40/clusters-digest-start.txt`)
-- [~] Start build `work/bin/s40-start/`; `regress session-32-linux` and
-  `regress session-33-linux-nas` identical
+- [x] Start build `work/bin/s40-start/`; `regress session-32-linux` and
+  `regress session-33-linux-nas` identical (1:10; 6:15)
 
 ## Steps
 
-- [ ] 1. Pre-registration (populations with sizes and seeds, measures
+- [x] 1. Pre-registration (populations with sizes and seeds, measures
   defined exactly, scores, what counts as worth a roadmap entry),
   committed before any measure is computed beyond the two source pairs
 - [ ] 2. `pair` reports supported seconds; `pair_offsets.py` with unit

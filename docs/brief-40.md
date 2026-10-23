@@ -119,3 +119,116 @@ Rules for this session:
 
 - **(02:10) Start build and regressions** (`work/s40/start.sh`, tmux
   `s40start`), while the brief is written.
+- **(02:17) Start checks.** `regress session-32-linux` (1:10) and
+  `regress session-33-linux-nas` (6:15) identical with
+  `work/bin/s40-start/`; every report identical to its baseline's apart
+  from `wall_seconds` (`work/s40/same.py`).
+- **(02:15) The source pairs measured** (allowed before the
+  pre-registration): `pair work/s40/pairs/s40-source.txt` with the run
+  build (`work/bin/s40-run/`, the `pair` change below), 45 s for the two
+  pairs. Its alignments at the fitted speed reproduce both sheets.
+- **(02:20) Step 1, the pre-registration** (committed before `pair` runs
+  on any population pair; only the two source pairs have been measured).
+
+  *The source pairs.* China Cup (`extra/b-bad_company-china_cup.mp3`)
+  against ƆƐI3C's upload (judged different) and Dilusion
+  (`extra/rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3`)
+  against dfect-dnb's upload (judged same) are where the hypothesis
+  came from. They are reported apart: every score below leaves them out,
+  and one comparison repeats the judged pairs' scores with them in.
+
+  *The populations* (`scripts/analysis/pair_offsets.py populations`,
+  from the NAS clusters file, `docs/pair-verdicts.txt`, the `.tags`
+  beside every record of both stores, the library map and both shared
+  panels; pair files `work/s40/populations/s40-{a,b,c,d}.txt`, labels in
+  `populations.json`). Every population leaves out pairs with a file in
+  one of the 33 folders experiment 0065 lists as mixed-CD candidates
+  (joined boundaries 0.75 or more; decision: nothing runs on them, and
+  one population (d) pair had such a file).
+  - (a) *judged*: every verdict line whose two files have records, in
+    the line's order (first file the query): 62 of 64, 23 `same` and 39
+    `different` (21 and 38 without the source pairs). Two have none:
+    `second-library/1.mp3` (left out of the NAS library by
+    `.gunfingerignore` after session 22) and the "Synthesis (Remix)"
+    track of Underfire UDFRCD003, Dangerous Drums 2, a mixed CD the
+    `.gunfingerignore` lists (experiments 0065, 0066).
+  - (b) *presumed same*: 100 joins drawn with seed 4001 from the 1,177
+    clusters pairs joined at 80% coverage or more without a verdict,
+    neither file named in any verdict, identical copies (library map)
+    left out. Labelled "presumed same", never "judged". They were
+    chosen by coverage, so coverage cannot misplace them; they test the
+    other measures.
+  - (c) *panel different*: for each family of
+    `docs/panels/shared-material-seed-2026.json` and
+    `shared-material-2-seed-2026.json`, every two of its recordings, at
+    most 4 file pairs (seed 4002) among their files' cross pairs that no
+    verdict names (those are in (a)): 51 pairs in 16 families (The
+    Nine 12, Phantom Force 6, Fire 5, Clockwork 4, Fractles 4, Stab 2
+    Def 3, Star Trails 3, two each for Night Gasp, Playground Shades,
+    Pyro, T-Minus and Watermelon, one each for Dozer, Mind Overload,
+    Tsunami and We R The Ones). Labelled different by the panels'
+    construction.
+  - (d) *presumed different*: among the clusters pairs not joined and
+    without a verdict, whose two clusters no verdict touches (a verdict
+    naming a file of each), not in (c), whose two files both have artist
+    and title tags and differ in both the compared artist and the
+    compared title (letters and digits in lower case, as session 39's
+    `tracklist_tags.py`): the strongest pair of each two clusters, the 60
+    with the most hits (of 702). Presumed different; a mistagged copy
+    would be label noise.
+  In all, 273 pairs; 82 of them have a corpus query, which `pair` also
+  searches by decoded audio.
+
+  *The measures*, all from one `pair` report per pair. F is the search
+  "peaks, at the fitted speed" (its alignments strongest first), L the
+  search "peaks, turntable ladder"; S the shorter file's length in
+  seconds; an alignment's span in the shorter file is its query span
+  when the query is the shorter file, else its found span; the main
+  alignment M is F's first; an alignment's offset is `pair`'s
+  `offset_seconds` (where the query's start falls in the found file).
+  `pair` now also reports, for each alignment of F, the seconds of the
+  shorter file counted in `supported` (`supported_seconds`).
+  1. `coverage`: the largest span in the shorter file of an alignment of
+     L or F, over S (as the clusters measure a candidate and its refit).
+  2. `supported`: the sum of F's `supported` (today's supported time, as
+     the sheets print it).
+  3. `hits_per_second`: M's hits over M's query span in seconds (as
+     `Pair::hits_per_second`).
+  4. `near_T` for T = 2, 5, 10, 20 s: the number of distinct seconds in
+     the union of `supported_seconds` of F's alignments whose offset is
+     within T s of M's, over S. T = 10 is the hypothesis's; the other
+     three are reported beside it.
+  5. `longest_gap`: the longest run of whole seconds 0 to ceil(S)-1 of
+     the shorter file, its ends included, holding no second of
+     `near_10`'s union, in seconds.
+  6. `far_jumps`: F's alignments ordered by the start of their span in
+     the shorter file; the number of consecutive two whose offsets
+     differ by more than 10 s.
+  Higher means the same recording for 1-4, lower for 5-6. A pair whose F
+  is empty has 0 for 2-4, S for 5 and the most possible far jumps (it is
+  placed beyond every other pair) for 6.
+
+  *The scores* (`pair_offsets.py scores`), for each measure:
+  - the AUC (the share of same/different pairs ordered correctly, ties
+    half) for: judged same against judged different (the primary
+    comparison); the same with the source pairs; (b) against judged
+    different; (b) against (c); (b) against (d); (a) same and (b)
+    against (a) different, (c) and (d);
+  - on the judged pairs: the best threshold's errors (candidates the
+    midpoints between consecutive distinct values and one beyond each
+    end; ties broken by the lower median candidate), the errors with
+    leave-one-out cross-validation (the threshold refitted without each
+    pair, then applied to it), and the judged pairs it gets wrong, by
+    name, both ways;
+  - at the threshold fitted on all judged pairs: the (b) joins on the
+    different side and the (c) and (d) pairs on the same side, by
+    name, and the side each source pair falls on.
+
+  *Worth a roadmap entry*: a measure of 3-6 whose leave-one-out errors
+  on the judged pairs are fewer than both coverage's and supported
+  time's, and whose threshold fitted on all judged pairs places no (b)
+  join on the different side. `near_10`, `longest_gap` and `far_jumps`
+  are the registered candidates; a `near_T` with another T that meets
+  the bar is reported as found after the run, not as confirmed. The
+  (c) and (d) pairs placed on the same side are reported whatever their
+  number, and the source pairs' sides are reported, not counted.
