@@ -9054,3 +9054,197 @@ confident extra while the other plays (4 + 4). New: Crash.
   `gunfinger` is byte-identical to the start build's; `gunfinger-eval`
   differs from the build that ran 0185 in help text only (the review's
   doc fixes).
+
+## Session 40
+
+### What changed
+
+The product, the clusters' join rule and the clusters file did not
+change, and `regress session-32-linux` and `regress session-33-linux-nas`
+stay identical with the new harness code. Added, harness only and
+tested:
+
+- `pair` reports, for each alignment at the fitted speed, the seconds of
+  the shorter file it supports (`supported_seconds`, beside the
+  unchanged `supported` share), and searches its pairs one per worker
+  thread (`--jobs`; the report keeps the listed order). Test
+  `pair::tests::supported_seconds_leave_out_a_stretch_the_query_replaces`.
+- `scripts/analysis/pair_offsets.py`: `populations` (the four labelled
+  populations, pair files and labels), `measures` (nine measures per
+  `pair` report) and `scores` (AUC per comparison, best threshold with
+  leave-one-out errors, the pairs each measure gets wrong).
+- `listening_pack.py select --min-hits N` (default 30) leaves out
+  borderline pairs on fewer hits; `--disagreements N --measures FILE`
+  picks the N joins holding the least near the main offset and the N
+  apart pairs holding the most; sheets print the near-offset share when
+  an item has it.
+- Python unit tests on fixtures (`scripts/analysis/test_pair_offsets.py`,
+  `test_listening_pack.py`, Python's `unittest`), run by
+  `scripts/check.sh` when Python 3 is installed.
+
+In short: the share of the shorter file held by alignments near the
+main offset (`near_10`) orders the 60 judged pairs slightly better than
+coverage and supported time (AUC 0.95 against 0.90 and 0.94; 6
+leave-one-out errors against 9 and 7), which meets the registered bar by
+one pair. It does not separate the two pairs it came from at the
+threshold the judged pairs fit, and on the 14 hardest judged pairs
+(drifting or edited uploads of one recording against versions differing
+in one layer) every measure is at chance. 18 of the 25 false confident
+detections over three NAS sweeps are China Cup's near-identical upload.
+
+### Step 1: the pre-registration (brief 02:20, `dd7ed06`)
+
+Populations: (a) 62 of 64 verdicts have records (`1.mp3` is left out of
+the NAS library; the Synthesis (Remix) track sits on Dangerous Drums 2,
+a mixed CD the `.gunfingerignore` lists), 60 without the two source
+pairs (22 same, 38 different); (b) 100 joins at 80% or more that no
+verdict touches, seed 4001; (c) 51 cross-version pairs of 16 panel
+families, at most 4 per two recordings, seed 4002; (d) the 60 strongest
+apart pairs whose files differ in both compared artist and title.
+Pairs with a file in one of experiment 0065's 33 mixed-CD candidate
+folders are left out everywhere (one (d) pair had one). Measures:
+coverage, supported time, hits per second, `near_T` (T = 2, 5, 10, 20),
+`longest_gap`, `far_jumps`. Bar: leave-one-out errors on the judged
+pairs fewer than both coverage's and supported time's, and no (b) join
+below the threshold.
+
+### Steps 2-4 and experiments 0186-0187
+
+`pair` on the four populations took 31-50 s each (32 jobs). 0186:
+`near_10` meets the bar (6 errors against 9 and 7, no (b) join below
+0.552); `longest_gap` ties supported time and puts two (b) joins below
+its threshold; `far_jumps` and `hits_per_second` do worse. All measures
+separate (b) from (a)'s different, (c) and (d) almost perfectly. 0187:
+Fractles ~ the CITRUS 003 upload (same; the upload drifts from 0.9688
+to 0.9657, and one rung at the fitted speed keeps 68 s near the main
+offset) is wrong under every measure; Mind Overload's RAMM 23 rip ~ the
+Molten Beats track, We Enter ~ its full instrumental and Sonar's Mark
+System Revision ~ the PRO012 rip (all different) under 6-7 of 9. An
+exploratory variant over every search's spans, which follow drift, does
+worse (AUC 0.94).
+
+### Step 5a and experiment 0188
+
+The saved NAS-scale reports hold 7 false confident detections, all
+Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload in sweep 2026;
+the 11 development scans at NAS scale none. Seed 2026 has no China Cup
+query, so seeds 2027 and 2028 ran at NAS scale: 11 and 7 false
+confident, all China Cup's three corpus rips found as ƆƐI3C's upload.
+Of the 84 pairs behind false candidates of 30 hits or more, only China
+Cup's three lie above `near_10`'s threshold (0.77).
+
+### Step 5b: the pack
+
+`work/s40/pack/`: 12 disagreements and 2 control joins, from 1,837 more
+pairs measured (22:51). No join without a verdict lies below `near_10`'s
+threshold (lowest 0.63) and no apart pair above it (highest 0.30), so the
+pack holds the pairs nearest the threshold on each side.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; step 2) | 1:10; 1:09 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; step 2) | 6:15; 5:56 | 5.3 GiB |
+| `pair`, the two source pairs | 0:45 | 0.15 GiB |
+| `pair`, populations a-d (60-100 pairs each) | 0:31-0:50 | 0.6-0.8 GiB |
+| `pair`, the pack's 1,837 pairs (beside the sweeps) | 22:51 | 1.5 GiB |
+| `sweep --seed 2027` and `2028` at NAS scale (beside `pair`) | 8:34; 8:19 | 5.2 GiB |
+| `listening_pack.py render`, 14 items | 2:01 | |
+| `scripts/check.sh` (beside `pair`, failed; again) | 4:01; 3:47 | |
+
+### Decided this session, open to change
+
+- The two source pairs are left out of every score and reported apart;
+  one comparison repeats the judged scores with them.
+- Pairs with a file in one of experiment 0065's mixed-CD candidate
+  folders (joined boundaries 0.75 or more) are left out of every
+  population.
+- "No verdict touches" means: for (b) neither file is named in any
+  verdict; for (d) and the pack's apart pairs no verdict names a file of
+  each of the two clusters.
+- (d) takes the strongest pair of each two clusters, by hits.
+- The measures use the fitted-speed search only (one rung), as the
+  sheets do; that is why drifting uploads fail (0187).
+- Two NAS-scale sweeps (2027, 2028) were added to step 5a because the
+  saved sweep has no China Cup query.
+- The pack holds the 6 joins and 6 apart pairs nearest the threshold,
+  though none crosses it.
+
+### Decisions waiting (ours)
+
+- Whether the join rule should use the near-offset share (alone, or
+  beside coverage), with an ADR. The evidence: one pair better than
+  supported time on 60 judged pairs, no help on the hard ones, and no
+  join or apart pair without a verdict that it would change at 0186's
+  threshold.
+- Whether a confident detection of a near-identical version (China Cup
+  ~ ƆƐI3C, 18 of 25 false confident detections at NAS scale) counts as
+  wrong in the sweep and calibrate; today it does.
+- Whether a near-offset measure should follow drift (the ladder's
+  chains or the audio second pass instead of one rung) before any rule
+  is built on it.
+
+### Questions for listening (none answered by agents)
+
+- The pack `work/s40/pack/` (README in the order to listen): six joins
+  holding the least near the main offset (lowest Pyro - Time Is Broken's
+  two rips, 0.63-0.78 of the file) and six apart pairs holding the most
+  (0.16-0.30), and two control joins.
+- Session 39's: Digital & Spirit - Crash over the first 56 s of the
+  T-Minus vocal mix; Techno Funk over Alien Girl and NIL - Infectious
+  over Mystery Machine.
+
+### Handoff for the next session
+
+1. Reports: `work/reports/library-nas-dnb-peaks/pairs-s40-{source,a,b,c,d,false,false-2,pack}.json`
+   (`pairs-pairs.json`, the 2026-10-22 pack's, untouched),
+   `sweep-seed-2027.json` and `sweep-seed-2028.json` there (NAS scale;
+   not `regress` baselines).
+2. Measures and scores: `work/s40/measures.json`,
+   `measures-source.json`, `measures-pack.json`, `scores.json`,
+   `false/measures-all.json` and `false/candidates-all.json`; the
+   populations in `work/s40/populations/` (`populations.json`, pair
+   files).
+3. Builds: `work/bin/s40-start/` (= `s39-final`), `s40-run/` (the
+   `pair` change), `s40-final/` (master).
+4. Commands (`sh` scripts in `work/s40/`: `start.sh`, `pairs.sh`,
+   `step2.sh`, `sweeps.sh`, `packpairs.sh`, `check2.sh`, `final.sh`):
+
+   ```sh
+   N=~/.local/share/gunfinger/nas-dnb-peaks; R=work/reports/library-nas-dnb-peaks
+   python3 -I scripts/analysis/pair_offsets.py populations $R/duplicate-clusters.json docs/pair-verdicts.txt $N work/peaks $R/library-map.json docs/experiments/data/0065-nas-candidates.json work/s40/populations docs/panels/shared-material-seed-2026.json docs/panels/shared-material-2-seed-2026.json
+   work/bin/s40-final/gunfinger-eval --other-peaks-dir $N pair work/s40/populations/s40-a.txt
+   python3 -I scripts/analysis/pair_offsets.py measures work/s40/measures.json $R/pairs-s40-a.json $R/pairs-s40-b.json $R/pairs-s40-c.json $R/pairs-s40-d.json
+   python3 -I scripts/analysis/pair_offsets.py scores work/s40/populations/populations.json work/s40/measures.json work/s40/scores.json
+   python3 -I scripts/analysis/listening_pack.py select $R/duplicate-clusters.json docs/pair-verdicts.txt work/listening/store-paths.txt work/s40/pack/pairs.txt work/s40/pack/items.json --controls 2 --seed 2026 --map $R/library-map.json --disagreements 6 --measures work/s40/measures-for-pack.json
+   ```
+
+5. Next, if we continue: the decisions above; a near-offset share that
+   follows drift (alignments of the ladder's chains, or the audio
+   second pass, with their own supported seconds), measured on the same
+   populations against the same bar, as a second use of the judged
+   pairs; the pack's verdicts.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched (the sweeps
+  search excerpts of library files). Nothing ran on the candidate mixes
+  of 0065 or on files of its mixed-CD candidate folders, nor on the NAS
+  root's broadcast file. The NAS was only read (records, tags and, for
+  the pack's clips, FFmpeg decoding); the NAS store only read;
+  `work/peaks` only read.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s40/listening-digests-start.txt`), and so is the clusters file
+  (`work/s40/clusters-digest-start.txt`); no answer log; no manifest or
+  committed panel changed (`work/s40/panels` is a copy of
+  `work/s33/panels`).
+- The first `check.sh` failed one load-sensitive test
+  (`decode::watch::tests::a_probe_that_writes_nothing_is_an_error`)
+  while `pair` used every thread beside it; the rerun on a quiet machine
+  was green.
+- The experiments were committed before the `pair` code that produced
+  them (`71f227e`, `1e5af33` before `f00f2a0`), because the code commit
+  waited for `check.sh`'s rerun; the code ran unchanged as
+  `work/bin/s40-run`.

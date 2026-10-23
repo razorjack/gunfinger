@@ -4515,3 +4515,42 @@ notes "Session 39"; experiments 0182-0185. The product did not change.
 - Waiting (ours): whether marked plays may stay in the tracklist and
   whether `same_recording` needs more when titles differ; both need an
   ADR.
+
+## 2026-10-23: session 40, where two recordings stop lining up, measured on every judged pair
+
+Brief `docs/brief-40.md`, checklist `docs/session-40-checklist.md`;
+notes "Session 40"; experiments 0186-0188. The product, the clusters'
+join rule and the clusters file did not change.
+
+- 02:10 start at `5c02814`, clean. Start build `work/bin/s40-start/`
+  (byte-identical to `s39-final`); both regressions identical (1:10;
+  6:15).
+- `dd7ed06`: the pre-registration (four populations with sizes and
+  seeds, nine measures, the scores, the bar), committed before any
+  population pair was measured; only the two source pairs (China Cup ~
+  ƆƐI3C, Dilusion ~ dfect-dnb) had been.
+- `pair` reports each alignment's supported seconds and runs its pairs
+  in parallel; `scripts/analysis/pair_offsets.py` (populations,
+  measures, scores) and `listening_pack.py select --min-hits` (default
+  30) and `--disagreements`; Python unit tests, run by
+  `scripts/check.sh`. Both regressions identical with the run build
+  (1:09; 5:56).
+- 0186: on 60 judged pairs `near_10` (the share of the shorter file
+  holding hits of alignments within 10 s of the main offset) has AUC
+  0.952 against coverage 0.896 and supported time 0.935, and 6
+  leave-one-out errors against 9 and 7: the registered bar, by one pair.
+  The longest stretch without a near hit ties supported time; far offset
+  jumps and hits per second do worse. At its threshold China Cup and
+  Dilusion both fall on the same side.
+- 0187: wrong under every measure: Fractles ~ the CITRUS 003 upload
+  (judged same; a drifting upload). On the 14 hardest judged pairs
+  every measure is at chance (AUC 0.40-0.56).
+- 0188: NAS sweeps of seeds 2027 and 2028 (8:34; 8:19): 11 and 7 false
+  confident, all China Cup ~ ƆƐI3C; with seed 2026's 7 (Cool Rock), 18
+  of 25 are the near-identical version, the only false candidate pairs
+  above `near_10`'s threshold.
+- The pack `work/s40/pack/` (12 disagreements nearest `near_10`'s
+  threshold, 2 controls) waits for listening; no unjudged join lies
+  below the threshold and no apart pair above it.
+- Waiting (ours): whether to change the join rule (an ADR) and whether
+  a detection of a near-identical version counts as wrong.
