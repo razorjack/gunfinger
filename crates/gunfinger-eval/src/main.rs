@@ -839,6 +839,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     other: other.as_ref(),
                 },
                 &listed,
+                jobs,
             )?;
             let stem = pairs.file_stem().map_or_else(
                 || String::from("pairs"),

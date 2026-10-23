@@ -318,3 +318,22 @@ Rules for this session:
   detections over the three NAS sweeps are China Cup's three corpus
   rips found as ƆƐI3C's upload, the only false candidate pairs (of 84)
   above `near_10`'s threshold; the other 7 are Cool Rock (0.37).
+- **(03:01) Step 5b, the pack** (`work/s40/pack/`, 14 items: 12
+  disagreements, 2 control joins; README, sheets with a `near_10` line,
+  clips rendered by FFmpeg from the corpus and NAS files in 2:01). The
+  pack's `pair` run took 22:51 (1,837 pairs). Over every measured join
+  without a verdict (1,298) `near_10` is 0.63 at the lowest (5th
+  percentile 0.95, 14 below 0.8), and over the 639 apart pairs 0.30 at
+  the highest: none crosses 0186's threshold (0.552) either way, so the
+  pack holds the pairs nearest it, for the user to judge later; no
+  agent listens. The joins: Pyro - Time Is Broken (two rips, 6:00-6:42
+  apart), Alien Girl's PRO014 rip ~ an upload, Known Unknown - Drumtrip
+  ~ its "Rollers Edit", Fallout (Rob F & Impulse upload ~ the Sinthetix
+  rip), The Stand's "HD Audio & Speed Up" upload, Phoenix's upload ~
+  the corpus rip; apart: Konflict - Pendulum ~ the Konflict remix of
+  Paragliders, Drumtrip ~ DJ Dazee & Substance - Propaganda, Bacteria ~
+  Space Cake, two Tower Bass files, We R The Ones VIP ~ the Klute
+  remix, Wikki Wikki Plate ~ Defjammer.
+- **(03:04) `check.sh` green on the rerun** (3:47, on a quiet machine):
+  fmt, clippy, every Rust test (275 in the harness, the new `pair` test
+  among them), the page's 5 Node tests and the 14 Python tests.

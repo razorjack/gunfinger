@@ -28,3 +28,11 @@ if node -e 'const [major, minor] = process.versions.node.split(".").map(Number);
 else
   echo "skipped: the listening page's JavaScript tests, which need Node 22.7 or newer (AGENTS.md, \"The listening tool\")"
 fi
+
+# The analysis scripts' tests (`scripts/analysis/test_*.py`), with Python's
+# own unittest and no packages, when Python 3 is installed.
+if command -v python3 >/dev/null 2>&1; then
+  python3 -B -m unittest discover -s scripts/analysis -p 'test_*.py'
+else
+  echo "skipped: the analysis scripts' tests, which need Python 3"
+fi

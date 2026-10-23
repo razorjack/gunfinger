@@ -4,6 +4,7 @@
 //! stored peaks on several ladders and at the fitted speed, and, for a
 //! corpus file, by its decoded audio. Every alignment is listed, so a cut
 //! or an edit shows as alignments at one speed with different offsets.
+//! Pairs are searched one per worker thread, each search on one thread.
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -12,6 +13,7 @@ use gunfinger_core::hash::{Point, for_each_pair};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::{Asset, Library};
+use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Matcher, search, search_peaks, search_with};
@@ -57,6 +59,10 @@ pub struct Alignment {
     /// the span from the first hit to the last, gaps included.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub supported: Option<f64>,
+    /// For the search at the fitted speed: the seconds of the shorter file,
+    /// counted from its start, that `supported` counts, in order.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub supported_seconds: Option<Vec<u64>>,
 }
 
 /// Where the files' records and audio come from.
@@ -66,13 +72,19 @@ pub struct Sources<'a> {
     pub other: Option<&'a PeakStore>,
 }
 
-/// Each pair of `pairs` (query, found) searched alone.
-pub fn run(sources: &Sources, pairs: &[(String, String)]) -> Result<Vec<PairReport>, String> {
+/// Each pair of `pairs` (query, found) searched alone, `jobs` pairs at a
+/// time.
+pub fn run(
+    sources: &Sources,
+    pairs: &[(String, String)],
+    jobs: usize,
+) -> Result<Vec<PairReport>, String> {
     let records = Records::load(sources)?;
-    pairs
-        .iter()
-        .map(|(query, found)| run_pair(sources, &records, query, found))
-        .collect()
+    map_in_order(pairs, jobs, |(query, found)| {
+        run_pair(sources, &records, query, found)
+    })
+    .into_iter()
+    .collect()
 }
 
 fn run_pair(
@@ -112,7 +124,8 @@ fn run_pair(
         for (alignment, detection) in search.alignments.iter_mut().zip(peaks(&fitted)) {
             let seconds =
                 supported_seconds(&index, &query_record.peaks, &detection, query_is_shorter);
-            alignment.supported = Some(seconds as f64 / shorter);
+            alignment.supported = Some(seconds.len() as f64 / shorter);
+            alignment.supported_seconds = Some(seconds.into_iter().collect());
         }
         searches.push(search);
     }
@@ -219,6 +232,7 @@ fn named(name: &str, detections: &[Detection], shorter: f64) -> Search {
                 offset_seconds: detection.track_start_seconds
                     - detection.speed.0 * detection.start_seconds,
                 supported: None,
+                supported_seconds: None,
             })
             .collect(),
     }
@@ -243,7 +257,7 @@ fn supported_seconds(
     query_peaks: &[Peak],
     detection: &Detection,
     query_is_shorter: bool,
-) -> usize {
+) -> BTreeSet<u64> {
     let profile = Profile::CURRENT;
     let speed = detection.speed.0;
     let first = profile.frames(detection.start_seconds);
@@ -251,7 +265,7 @@ fn supported_seconds(
     let reference = profile.frames(detection.track_start_seconds);
     let slope = (profile.frames(detection.track_end_seconds) - reference) / (last - first);
     if !(last > first && slope.is_finite()) {
-        return 0;
+        return BTreeSet::new();
     }
     // Rescaled as the stored-peak search rescales them for a rung.
     let points: Vec<Point> = query_peaks
@@ -307,7 +321,7 @@ fn supported_seconds(
             ));
         }
     }
-    seconds.len()
+    seconds
 }
 
 pub fn print_summary(reports: &[PairReport]) {
@@ -348,5 +362,76 @@ fn print_pair(report: &PairReport) {
                 alignment.offset_seconds
             );
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use gunfinger_core::library::Timestamp;
+    use gunfinger_core::store::RecordHeader;
+
+    use super::*;
+    use crate::rng::Rng;
+
+    fn random_peaks(rng: &mut Rng, seconds: std::ops::Range<f64>) -> Vec<Peak> {
+        let profile = Profile::CURRENT;
+        let (first, last) = (profile.frames(seconds.start), profile.frames(seconds.end));
+        let bins = (profile.max_bin - profile.min_bin) as f64;
+        let mut peaks: Vec<Peak> = (0..((last - first) / 2.0) as usize)
+            .map(|_| Peak {
+                frame: (first + rng.unit() * (last - first)).floor(),
+                bin: (profile.min_bin as f64 + rng.unit() * bins).floor() as f32,
+                magnitude: 10.0,
+            })
+            .collect();
+        peaks.sort_by(|a, b| a.frame.total_cmp(&b.frame).then(a.bin.total_cmp(&b.bin)));
+        peaks
+    }
+
+    fn record(peaks: Vec<Peak>) -> PeakRecord {
+        PeakRecord {
+            header: RecordHeader {
+                profile: Profile::CURRENT.id(),
+                source: Asset {
+                    path: String::from("found.mp3"),
+                    size: 1,
+                    modified: Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds: 60.0,
+            },
+            peaks,
+        }
+    }
+
+    #[test]
+    fn supported_seconds_leave_out_a_stretch_the_query_replaces() {
+        let mut rng = Rng::new(40);
+        let found = record(random_peaks(&mut rng, 0.0..60.0));
+        let profile = Profile::CURRENT;
+        let middle = profile.frames(20.0)..profile.frames(40.0);
+        let mut query: Vec<Peak> = found
+            .peaks
+            .iter()
+            .filter(|peak| !middle.contains(&peak.frame))
+            .copied()
+            .collect();
+        query.extend(random_peaks(&mut rng, 20.0..40.0));
+        query.sort_by(|a, b| a.frame.total_cmp(&b.frame).then(a.bin.total_cmp(&b.bin)));
+        let index = Index::build(std::slice::from_ref(&found)).unwrap();
+        let rung = [Rung::Turntable(gunfinger_core::speed::SpeedRatio(1.0))];
+
+        let detections = search_peaks(&index, &query, &profile, &rung, 1);
+        let seconds: BTreeSet<u64> = detections
+            .iter()
+            .flat_map(|detection| supported_seconds(&index, &query, detection, true))
+            .collect();
+
+        assert!(!detections.is_empty());
+        assert!(seconds.iter().all(|second| !(21..39).contains(second)));
+        assert!(seconds.range(..20).count() >= 15);
+        assert!(seconds.range(40..).count() >= 15);
     }
 }

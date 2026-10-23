@@ -3,10 +3,14 @@ pairs of library files to judge by ear, each with a sheet and short clips.
 
 `select` chooses the items from a clusters report and the verdicts by ear:
 every join `clusters --cut-sparsest` cut (`cut_links`: the sparsest link of
-a chain between two files judged different), every borderline pair (40-80% coverage) between two clusters not yet
+a chain between two files judged different), every borderline pair (40-80% coverage,
+with `--min-hits` hits or more) between two clusters not yet
 judged by ear, every sparse join (under a tenth of the median join's hits per
-second) not yet judged by ear, and `--controls` joins drawn with
-`--seed` among the rest. A pair counts as judged when a verdict names a
+second) not yet judged by ear, with `--disagreements N` and `--measures`
+(a `pair_offsets.py measures` file) the N joins without a verdict that
+hold the least of the shorter file near the main offset (`near_10`) and
+the N pairs between unjudged clusters that hold the most, one per pair
+of clusters, and `--controls` joins drawn with `--seed` among the rest. A pair counts as judged when a verdict names a
 file of one cluster and a file of the other. Each pair of clusters is one
 item, represented by its strongest pair; the others are listed with it.
 Files without a current record (pruned) are left out. It writes the pairs
@@ -23,7 +27,8 @@ under the corpus library and the NAS library.
 
 usage:
   listening_pack.py select CLUSTERS VERDICTS STORE_PATHS OUT_PAIRS OUT_ITEMS
-                    [--seed N] [--controls N] [--map MAP] [--known ITEMS...]
+                    [--seed N] [--controls N] [--min-hits N] [--map MAP]
+                    [--disagreements N --measures MEASURES] [--known ITEMS...]
   listening_pack.py render ITEMS PAIRS_REPORT OUT [--corpus DIR] [--nas DIR]
   listening_pack.py readme OUT
   listening_pack.py candidates CANDIDATES PAIRS_REPORT OUT_ITEMS
@@ -37,6 +42,11 @@ list of pairs (`query`, `found`, `why`) and their `pair` report: pairs of
 versions no verdict covers, for the shared-material panel (session 20).
 The clusters' fields are the report's strongest alignment at the fitted
 speed, or zero where there is none.
+
+--min-hits (default 30, the hits `clusters` keeps a related recording
+for) leaves out borderline pairs on fewer hits: coverage on a handful of
+hits says little (2026-10-22: Dieselboy - The Descent ~ Frenchi / Proktah
+- Scarabeus, 41% on 6 hits, completely different by ear).
 
 STORE_PATHS is a text file of the NAS store's record paths, one per line.
 With --map (library-map.json), joins of identical copies are not drawn as
@@ -55,14 +65,18 @@ import sys
 
 PREFIX = "second-library/"
 BORDERLINE = 0.4
+MIN_HITS = 30
 SPARSE_SHARE = 0.1
 CLIP_SECONDS = 8.0
-ORDER = {"cut join": 0, "borderline": 1, "sparse join": 2, "control join": 3, "candidate": 4}
+ORDER = {"cut join": 0, "borderline": 1, "sparse join": 2, "disagreement": 3, "control join": 4,
+         "candidate": 5}
 KIND_TEXTS = {
     "cut join": "cut joins (joined, but cut by `clusters --cut-sparsest` because the join "
                 "chained two files you judged different; the harness's guess at the wrong link)",
     "borderline": "borderline pairs (one alignment covers 40-80% of the shorter file)",
     "sparse join": "sparse joins (joined on little evidence)",
+    "disagreement": "disagreements (joined but holding little of the shorter file near one "
+                    "offset, or apart but holding most of it)",
     "control join": "control joins (joined, drawn by seed, to hear what the same recording "
                     "sounds like here)",
     "candidate": "candidates (versions no verdict covers, for the shared-material panel)",
@@ -103,6 +117,7 @@ def select(arguments):
             ]
             identical.update(tuple(sorted((a, b))) for a in files for b in files if a != b)
     controls = int(option(options, "--controls", "10"))
+    min_hits = int(option(options, "--min-hits", str(MIN_HITS)))
     known = set()
     if "--known" in options:
         for path in options[options.index("--known") + 1:]:
@@ -133,7 +148,10 @@ def select(arguments):
 
     densities = sorted(hits_per_second(p) for p in clusters["pairs"] if p["same_recording"])
     median = densities[len(densities) // 2] if densities else 0.0
-    borderline = [p for p in pairs if p["coverage"] >= BORDERLINE and not p["same_recording"]]
+    borderline = [
+        p for p in pairs
+        if p["coverage"] >= BORDERLINE and not p["same_recording"] and p["hits"] >= min_hits
+    ]
     sparse = [
         p for p in pairs
         if p["same_recording"] and p.get("aural_verdict") is None
@@ -151,6 +169,12 @@ def select(arguments):
         for group, members in groups.items():
             members.sort(key=lambda p: (-p["coverage"], -p["hits"]))
             items.append(item(kind, group, members))
+    if "--disagreements" in options:
+        taken = {pair_key(p) for i in items for p in i["pairs"]}
+        items += disagreements(
+            [p for p in pairs if pair_key(p) not in taken and pair_key(p) not in identical],
+            load(option(options, "--measures", "")),
+            int(option(options, "--disagreements", "0")), key, unjudged, min_hits)
     taken = {pair_key(p) for i in items for p in i["pairs"]}
     joins = sorted(
         (p for p in pairs if p["same_recording"] and p.get("aural_verdict") is None
@@ -172,6 +196,32 @@ def select(arguments):
         json.dump(items, file, indent=1)
     counts = collections.Counter(i["kind"] for i in items)
     print(f"median join {median:.1f} hits/s; items: {dict(counts)}")
+
+
+def disagreements(pairs, measures, count, key, unjudged, min_hits):
+    """The joins holding the least near the main offset and the pairs kept
+    apart holding the most, `count` of each, one per pair of clusters."""
+    near = {pair_key(m): m["near_10"] for m in measures}
+    measured = [p for p in pairs if pair_key(p) in near]
+    joined = sorted((p for p in measured if p["same_recording"] and p.get("aural_verdict") is None),
+                    key=lambda p: (near[pair_key(p)], p["query"], p["found"]))
+    apart = sorted((p for p in measured if not p["same_recording"] and unjudged(p)
+                    and p["hits"] >= min_hits),
+                   key=lambda p: (-near[pair_key(p)], p["query"], p["found"]))
+    chosen = []
+    for candidates in (joined, apart):
+        groups = set()
+        for pair in candidates:
+            group = tuple(sorted((key(pair["query"]), key(pair["found"]))))
+            if group in groups:
+                continue
+            groups.add(group)
+            entry = item("disagreement", group, [pair])
+            entry["pairs"][0]["near_10"] = near[pair_key(pair)]
+            chosen.append(entry)
+            if len(groups) == count:
+                break
+    return chosen
 
 
 def item(kind, group, members):
@@ -354,6 +404,10 @@ def describe(entry, report, files):
     lines.append(
         f"Supported time at the fitted speed: {supported:.2f} of the shorter file "
         "(seconds holding an aligned hit, summed over the alignments)")
+    if "near_10" in first:
+        lines.append(
+            f"Near the main offset: {first['near_10']:.2f} of the shorter file holds a hit of an "
+            "alignment within 10 s of alignment 1's offset (`pair_offsets.py`)")
     lines += ["", "Alignments at the fitted speed (B time = offset + speed x A time):"]
     for number, a in enumerate(alignments, 1):
         lines.append(
