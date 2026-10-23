@@ -16,7 +16,7 @@ CLI's merging of same-audio plays cannot hide a copy. The store holds
 10 files, so this measures evidence, not wrong answers.
 
 **Command.** `sh work/s42/step5b.sh` (also `regress session-32-linux`
-with the run build, identical); `work/s42/ref.py`. Data:
+with the mix build, identical); `work/s42/ref.py`. Data:
 `data/0197-a-fault-in-the-reference.json`.
 
 | Copy indexed (20 clean queries) | Confident | Possible | Median hits vs unchanged copy | The same fault in the query (0194, of 80) |
@@ -29,9 +29,11 @@ with the run build, identical); `work/s42/ref.py`. Data:
 
 No query had a confident play of another file of the store.
 
-**Conclusion.** An inverted or silent channel costs the same in the rip
-as in the query: an inverted one leaves nothing to match. Delays keep
-the same share of hits (0.37 and 0.20 against 0.30 and 0.20) but fewer
-confident queries here (5 ms: 4 of 20 against 37 of 80); the reason is
-not measured. A rip with an inverted channel would be missed in every
-mix, and its peak record, picked from the downmix, does not show it.
+**Conclusion.** An inverted channel leaves nothing to match in the rip
+as in the query, and a silent one costs little in both (hits 0.80
+against 0.66). Delays keep a similar share of hits (0.37 and 0.20
+against 0.30 and 0.20) but fewer confident queries here (5 ms: 4 of 20
+against 37 of 80); the reason is not measured. By inference from these
+10 files and clean excerpts, a rip with an inverted channel would be
+missed in mixes, and its record, picked from the downmix, does not
+show it.

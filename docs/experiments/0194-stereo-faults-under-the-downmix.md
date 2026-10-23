@@ -34,7 +34,7 @@ a Cause 4 Concern excerpt as a remix by Cause 4 Concern, 68 hits).
 
 **Conclusion.** An inverted channel loses every excerpt: the downmix
 keeps only the side, 10-20 dB below the mid in most sources (0196) and,
-by inference, unlike the indexed downmix. Noise at 0 dB (64%), a delay of 5 ms
-(54%) and of 1 ms (13%) also cross the pre-registered bar of 8 of 80;
-a silent channel (2), noise at 10 dB and a delay of 0.2 ms do not. No
+by inference, unlike the indexed downmix. Noise at -10 dB (all) and 0
+dB (64%), and delays of 5 ms (54%) and 1 ms (13%) also cross the bar of
+8 of 80; a silent channel (2), noise at 10 dB and 0.2 ms do not. No
 fault raised a wrong confident answer, at either scale.

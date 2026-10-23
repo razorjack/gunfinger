@@ -46,40 +46,38 @@ impl QueryChannels {
 
     /// The samples searched for the file at `path`, at `sample_rate`.
     pub fn decode(self, path: &Path, sample_rate: u32) -> Result<Vec<f32>, String> {
-        if self == QueryChannels::Downmix {
-            return decode(path, sample_rate, Excerpt::default())
-                .map(|audio| audio.samples)
-                .map_err(|error| error.to_string());
-        }
-        decode_stereo(path, sample_rate).map(|stereo| self.pick(stereo))
-    }
-
-    fn pick(self, stereo: Stereo) -> Vec<f32> {
-        match self {
-            // FFmpeg's `-ac 1` adds the two channels at 1/sqrt(2) each.
-            QueryChannels::Downmix => stereo
-                .left
-                .iter()
-                .zip(&stereo.right)
-                .map(|(&left, &right)| (left + right) * std::f32::consts::FRAC_1_SQRT_2)
-                .collect(),
-            QueryChannels::Left => stereo.left,
-            QueryChannels::Right => stereo.right,
-            QueryChannels::Louder => {
-                if mean_square(&stereo.right) > mean_square(&stereo.left) {
-                    stereo.right
-                } else {
-                    stereo.left
-                }
+        let stereo = || decode_stereo(path, sample_rate);
+        Ok(match self {
+            QueryChannels::Downmix => {
+                decode(path, sample_rate, Excerpt::default())
+                    .map_err(|error| error.to_string())?
+                    .samples
             }
-            QueryChannels::Side => stereo
-                .left
-                .iter()
-                .zip(&stereo.right)
-                .map(|(&left, &right)| (left - right) / 2.0)
-                .collect(),
-        }
+            QueryChannels::Left => stereo()?.left,
+            QueryChannels::Right => stereo()?.right,
+            QueryChannels::Louder => louder(stereo()?),
+            QueryChannels::Side => side(&stereo()?),
+        })
     }
+}
+
+/// The channel with the higher RMS.
+fn louder(stereo: Stereo) -> Vec<f32> {
+    if mean_square(&stereo.right) > mean_square(&stereo.left) {
+        stereo.right
+    } else {
+        stereo.left
+    }
+}
+
+/// (L - R) / 2.
+fn side(stereo: &Stereo) -> Vec<f32> {
+    stereo
+        .left
+        .iter()
+        .zip(&stereo.right)
+        .map(|(&left, &right)| (left - right) / 2.0)
+        .collect()
 }
 
 /// Both channels of `path` at `sample_rate`, as the core decodes one (the
@@ -265,23 +263,17 @@ mod tests {
     }
 
     #[test]
-    fn each_choice_picks_its_channel_or_mix() {
-        let query = stereo(&[0.5, 0.2], &[0.1, -0.2]);
-
-        assert_eq!(QueryChannels::Left.pick(query.clone()), [0.5, 0.2]);
-        assert_eq!(QueryChannels::Right.pick(query.clone()), [0.1, -0.2]);
-        assert_eq!(QueryChannels::Louder.pick(query.clone()), [0.5, 0.2]);
-        assert_eq!(QueryChannels::Side.pick(query.clone()), [0.2, 0.2]);
-        let downmix = QueryChannels::Downmix.pick(query);
-        assert!((downmix[0] - 0.6 * std::f32::consts::FRAC_1_SQRT_2).abs() < 1e-7);
-        assert!(downmix[1].abs() < 1e-7);
+    fn the_louder_channel_is_the_one_with_more_energy() {
+        assert_eq!(louder(stereo(&[0.5, 0.2], &[0.1, -0.2])), [0.5, 0.2]);
+        assert_eq!(
+            louder(stereo(&[0.1, -0.1, 0.1], &[0.0, 0.0, 0.4])),
+            [0.0, 0.0, 0.4]
+        );
     }
 
     #[test]
-    fn the_louder_channel_is_the_one_with_more_energy() {
-        let query = stereo(&[0.1, -0.1, 0.1], &[0.0, 0.0, 0.4]);
-
-        assert_eq!(QueryChannels::Louder.pick(query), [0.0, 0.0, 0.4]);
+    fn the_side_is_half_the_difference_of_the_channels() {
+        assert_eq!(side(&stereo(&[0.5, 0.2], &[0.1, -0.2])), [0.2, 0.2]);
     }
 
     #[test]
@@ -290,7 +282,7 @@ mod tests {
         let right = [0.1, 0.2, -0.05];
         let inverted: Vec<f32> = right.iter().map(|x| -x).collect();
 
-        let side = QueryChannels::Side.pick(stereo(&left, &inverted));
+        let side = side(&stereo(&left, &inverted));
 
         for ((a, l), r) in side.iter().zip(&left).zip(&right) {
             assert!((a - (l + r) / 2.0).abs() < 1e-7);

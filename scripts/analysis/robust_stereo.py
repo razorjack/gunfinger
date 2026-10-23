@@ -11,6 +11,8 @@ strongest wrong hits, held-out queries with a confident detection, and
 wrong detections a fault or choice raises (an asset on a query that
 `stereo-control` under `downmix` does not detect at that level); and the
 share of queries whose side is louder than their mid (the trigger).
+Single choices count wrong detections; unions count the distinct wrong
+assets of a query (one asset found by two choices counts once).
 `either` is the union of the `left` and `right` reports, query by query;
 two exploratory unions follow, not pre-registered: `downmix+side` and
 `downmix+either` (the downmix searched first and the other choices

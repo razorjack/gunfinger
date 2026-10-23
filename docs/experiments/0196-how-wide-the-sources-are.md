@@ -1,8 +1,7 @@
 # 0196: how many corpus sources are mono or nearly mono
 
-**Question.** Session 42, step 4: how many of the corpus's and the NAS
-store's sources are mono or nearly mono (brief 42's pre-registration),
-the sources whose channels carry nearly the same audio?
+**Question.** How many of the corpus's and the NAS store's sources are
+mono or nearly mono (brief 42's pre-registration)?
 
 **Change.** Harness only: `gunfinger-eval stereo-width` (corpus only)
 decodes a seeded sample of the library files with a current peak record
@@ -36,5 +35,6 @@ collection, so the sample is the nearest estimate, by inference only.
 **Conclusion.** About a third of the corpus's sources are mono or nearly
 mono (34 of 100 files, 17 of 50 excerpts); almost all the rest are
 narrow, the side 10-20 dB below the mid. No sampled file has its side
-louder than its mid; over 30 s one held-out excerpt has, so a test on
-whole files and a test on short stretches differ.
+louder than its mid; over 30 s one held-out excerpt has, so (by
+inference from one excerpt) a test on short stretches can fire where a
+test on whole files does not.

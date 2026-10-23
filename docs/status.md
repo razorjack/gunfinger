@@ -4613,19 +4613,21 @@ the product and every default are unchanged.
 - `b99f59e`: `robust`'s nine opt-in `stereo-*` conditions, `robust
   --query-channels downmix|left|right|louder|side`, `stereo-width`,
   `mixes --stereo-fault`; `scripts/check.sh` green; both regressions
-  identical with the run build (1:08; 4:12).
+  identical with the run build (1:08; 4:12, `robust` harness only) and
+  `regress session-32-linux` with the mix build (`b99f59e`, 1:08).
 - 0194: under today's downmix, at 262 tracks and at NAS scale alike, an
   inverted channel loses all 80 excerpts, noise at 0 dB in one channel
   51 and at -10 dB 80, a 5 ms delay 43, a 1 ms delay 10, a silent
   channel 2; no wrong confident answer is raised.
-- 0195: one channel wins back 75-77 of 80 under each fault but loses 2-3
-  clean excerpts; the side wins back every inverted excerpt and nothing
+- 0195: the clean channel keeps 75-76 of 80 under each fault that
+  crosses the bar but loses 2-3 clean excerpts; the side wins back every inverted excerpt and nothing
   else; no choice meets the bar for a fallback. Exploratory: the
   downmix with both channels keeps the clean 80 and wins back 77-78.
 - 0196: 34 of 100 sampled corpus files are mono or nearly mono; the NAS
   store holds nothing per channel.
-- 0197: the fault in the indexed rip costs about as much (inverted 0 of
-  20 confident). 0198: over the second half of 24 generated mixes, an
+- 0197: an inverted or silent channel in the indexed rip costs about as
+  much (inverted 0 of 20 confident); delays leave fewer queries
+  confident there. 0198: over the second half of 24 generated mixes, an
   inverted channel leaves 1 of 100 plays there confident.
 - Waiting (ours): whether a decoder fallback is worth an experiment and
   an ADR, and whether a per-file channel check belongs in the store.

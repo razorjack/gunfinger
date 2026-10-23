@@ -306,3 +306,36 @@ Rules for this session:
   stereo renders (`work/s42/w/robust/`, 466 MB) are kept for later
   listening. `mixes` wrote its reports into `work/reports/`; they were
   moved to `work/s42/mixes/` at once, so no report there changed.
+- **(07:12) A check of `robust`'s default report.** `robust --seed 2026
+  --only control` with `work/bin/s42-mix/` in a scratch work directory
+  (`work/s42/wr`, rendering afresh): its 100 queries and 2 rows are
+  identical to those of `work/reports/robust-seed-2026.json`
+  (2026-10-22) apart from search times, and its report has the same
+  top-level fields. The scratch renders were deleted.
+- **(07:21) The review** (a read-only subagent, 07:12-07:20) found every
+  confident count of 0194-0198 matching the data, the default reports
+  and the mono render path unchanged, and no slice that can panic. Its
+  findings, all fixed: a wrong query count in the notes' times (10
+  conditions, 1,000 queries); 0197 named the run build where the mix
+  build ran; noise at -10 dB missing from 0194's and the notes' list of
+  faults that cross the bar; the Cause 4 Concern possible answer
+  described as "whenever only the left channel is heard" (it is raised
+  in the clean control under left, louder and their unions, and under
+  `stereo-silent` with every choice); the reverse case's "about as much"
+  limited to the inverted and silent copies; two inferences marked as
+  such (0196, 0197); "one channel wins back 75-77" replaced by the clean
+  channel's 75-76 under the faults that cross the bar; one figurative
+  phrase (0198); in the code, `QueryChannels::pick`'s downmix arm, which
+  only tests reached (the choices now pick in `decode`, with `louder`
+  and `side` as tested functions), the `--only` filter tested through
+  a new `robust::chosen`, `MixKind::name`'s comment, a comment on the
+  fixed noise seed of `mixes --stereo-fault` (kept, since 0198's
+  renders used it), and `robust_stereo.py`'s docstring on how unions
+  count wrong answers. Status now says which build each regression
+  used.
+- **(07:21) Departures from the pre-registration, recorded on the
+  review's note:** the width split is reported for confident counts
+  only, not for possible or better (possible or better is 80 of 80 in
+  most rows), and the stereo group is not split at -10 dB in the fault
+  tables (only 5 of the 50 excerpts are wide; 0196 gives the split for
+  the excerpts themselves).

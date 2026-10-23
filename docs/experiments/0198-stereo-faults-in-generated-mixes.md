@@ -30,8 +30,8 @@ byte-identical to `work/mixes/seed-2026/`.
 Mislabelled seconds stay at 0.0-0.1% (noise: 4 seconds in one seed,
 against 1 in its control); specificity 99.2-100% in every report.
 
-**Conclusion.** Yes. An inverted channel silences the search for as long
-as it lasts: 1 of 100 plays in the faulted half is confident, and
+**Conclusion.** Yes. With an inverted channel the search finds almost
+nothing while it lasts: 1 of 100 plays in the faulted half is confident, and
 nearly every second there is unlabelled. A 5 ms delay or noise at 0 dB
 keeps about 2 in 5 plays confident and most of the rest possible, as on
 the excerpts (0194: 37 and 29 of 80). Nothing is found wrongly.

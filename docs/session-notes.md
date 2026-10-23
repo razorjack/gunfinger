@@ -9484,8 +9484,9 @@ FFmpeg's `-ac 1` adds the two channels at 1/sqrt(2) each (measured in
 
 In short: an inverted channel costs everything (0 of 80 excerpts
 confident at both scales, 0 of 20 when the rip carries it, 1 of 100
-plays in a faulted half mix); noise at 0 dB in one channel and a 5 ms
-delay cost about half; a 1 ms delay costs 10 of 80; a silent channel 2.
+plays in a faulted half mix); noise at -10 dB in one channel costs
+everything, noise at 0 dB and a 5 ms delay about half; a 1 ms delay
+costs 10 of 80; a silent channel 2.
 No fault raises a wrong confident answer. No channel choice meets the
 pre-registered bar for a fallback.
 
@@ -9518,9 +9519,11 @@ clean query and on at most 1 of 100 sampled corpus files).
 262 tracks; at NAS scale only the held-out Cool Rock Stuff excerpt as
 the Mobb Deep / Urban Takover upload (session 40's pair), in the
 control as in the mono `control`, and in more fault rows when one
-channel is searched. One possible answer is raised whenever only the
-left channel is heard: Cause 4 Concern - Abduction as Cause 4 Concern's
-remix of Phuture Assassins' Future Sound (60-68 hits).
+channel is searched. One possible answer is raised at NAS scale:
+Cause 4 Concern - Abduction as Cause 4 Concern's remix of Phuture
+Assassins' Future Sound (60-68 hits), in `stereo-control` under left,
+louder and the unions with them, and in `stereo-silent` under every
+choice.
 
 - 0194: the faults worth a roadmap entry by the registered bar: inverted
   (80 lost), noise at 0 dB (51) and -10 dB (80), 5 ms (43) and 1 ms (10).
@@ -9553,7 +9556,7 @@ remix of Phuture Assassins' Future Sound (60-68 hits).
 | `regress session-32-linux` (start; run build; mix build) | 1:08; 1:08; 1:08 | 0.4 GiB |
 | `regress session-33-linux-nas` (start; run build) | 4:13; 4:12 | 5.3 GiB |
 | `stereo-width`, 100 files | 0:05 | 1.8 GiB |
-| `robust`, 11 conditions, 1,100 queries, 262 tracks (first run renders) | 1:36; 1:04-1:08 | 1.2; 0.3 GiB |
+| `robust`, 10 conditions, 1,000 queries, 262 tracks (first run renders) | 1:36; 1:04-1:08 | 1.2; 0.3 GiB |
 | The same at NAS scale | 3:32-3:57 | 5.0 GiB |
 | `mixes`, 8 stereo mixes, 262 tracks | 0:23-0:26 | 3.5-3.7 GiB |
 | `scripts/check.sh` | 3:58 | |

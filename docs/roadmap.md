@@ -1084,12 +1084,14 @@ marked as inferences were derived, not measured.
   in one channel, all under noise at -10 dB, 43 when one channel is 5
   ms late and 10 when it is 1 ms late; a silent channel costs 2, noise
   at 10 dB and a 0.2 ms delay nothing. No fault raised a wrong confident
-  answer. The same faults in the indexed rip instead of the query cost
-  about as much (0197: inverted, 0 of 20 confident), and over the
+  answer. An inverted or silent channel in the indexed rip instead of
+  the query costs about as much (0197: inverted, 0 of 20 confident;
+  delays there left fewer queries confident), and over the
   second half of generated mixes an inverted channel leaves 1 of 100
   plays there confident, a 5 ms delay 37 and noise at 0 dB 39 (0198). As a query-side
-  diagnostic (`robust --query-channels`), one channel wins back 75-77
-  of 80 under each fault but loses 2-3 clean excerpts and keeps 61-64%
+  diagnostic (`robust --query-channels`), the clean channel keeps 75-76
+  of 80 under each fault that crosses the bar but loses 2-3 clean
+  excerpts and keeps 61-64%
   of the hits; the side signal wins back every inverted excerpt and
   nothing else; a side-louder-than-mid trigger fires on one clean
   held-out excerpt and on 91% of 5 ms delays, so it does not single out

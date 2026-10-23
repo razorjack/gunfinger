@@ -112,7 +112,8 @@ impl MixKind {
         work.join("mixes").join(self.name(seed, label))
     }
 
-    /// The report's and the renders' name: `seed-<seed>` for short mixes,
+    /// The report's and the renders' name: `seed-<seed>` for short mixes
+    /// (`<stereo fault>-seed-<seed>` with `Options::stereo_fault`),
     /// `<kind>-seed-<seed>` for the others, `rides-<label>-seed-<seed>`
     /// for rides drawn otherwise than by default and
     /// `drops-other-pairs-seed-<seed>` for drops with other pairs.
@@ -306,6 +307,8 @@ pub fn render(
             right: right[half..].to_vec(),
         },
         fault,
+        // One noise sequence for every mix and seed: experiment 0198's
+        // renders were made with it.
         &mut Rng::new(0),
     );
     let right = right[..half].iter().chain(&later.right).copied().collect();

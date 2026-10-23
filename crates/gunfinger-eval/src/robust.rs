@@ -502,19 +502,7 @@ pub fn run(
 
     let dir = work.join("robust").join(format!("seed-{seed}"));
     let speech = speech_samples(&dir)?;
-    let conditions: Vec<Condition> = CONDITIONS
-        .into_iter()
-        .filter(|condition| {
-            *condition == Condition::Control || only.is_empty() || only.contains(&condition.name())
-        })
-        .chain(
-            RIDES_INSIDE
-                .into_iter()
-                .chain(LADDER_EDGE)
-                .chain(STEREO_FAULTS)
-                .filter(|condition| only.contains(&condition.name())),
-        )
-        .collect();
+    let conditions = chosen(only);
     let mut work_items = Vec::new();
     for &condition in &conditions {
         for speed in condition.speeds() {
@@ -642,6 +630,24 @@ pub fn run(
         rows,
         queries,
     })
+}
+
+/// The conditions `--only` names (all of `CONDITIONS` when it names none),
+/// always with the control; the opt-in ones only when named.
+fn chosen(only: &[String]) -> Vec<Condition> {
+    CONDITIONS
+        .into_iter()
+        .filter(|condition| {
+            *condition == Condition::Control || only.is_empty() || only.contains(&condition.name())
+        })
+        .chain(
+            RIDES_INSIDE
+                .into_iter()
+                .chain(LADDER_EDGE)
+                .chain(STEREO_FAULTS)
+                .filter(|condition| only.contains(&condition.name())),
+        )
+        .collect()
 }
 
 fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Result<(), String> {
@@ -1199,9 +1205,13 @@ mod tests {
             ]
         );
         assert!(
-            CONDITIONS
+            chosen(&[])
                 .iter()
                 .all(|condition| !matches!(condition, Condition::Stereo(_)))
+        );
+        assert_eq!(
+            chosen(&[String::from("stereo-inverted")]),
+            [Condition::Control, Condition::Stereo(Fault::Inverted)]
         );
     }
 
