@@ -258,3 +258,13 @@ compare every random set's pass or fail with today's filter.
   the start build's reports as references (`work/s41/corpusscans.sh`).
   Grouping (G1) failed its stop point; no other grouping candidate is
   tried, since the session's time box favours the adoption checks.
+- **(04:51) Step 4, validation of the adopted build** `work/bin/s41-adopt/`
+  (`work/s41/validate.sh`): `scripts/check.sh` green (4:00, after one
+  clippy fix: `is_multiple_of` in a const assertion); `regress
+  session-32-linux` (1:09) and `regress session-33-linux-nas` (4:12
+  instead of 6:06) identical, each report identical to its baseline's
+  apart from `wall_seconds`; the 11 development scans at NAS scale, the
+  11 at corpus scale and the clusters sample (1:22 instead of 2:00)
+  identical to the start build's. Committed to master; then the timing
+  runs (`work/s41/timing.sh`) and the full NAS clustering into a scratch
+  copy (`work/s41/full.sh`).

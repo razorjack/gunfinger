@@ -10,7 +10,7 @@ use std::sync::{Mutex, MutexGuard, PoisonError};
 
 use super::{KeyLockPeaks, Query};
 use crate::hash::{MAX_DELTA_FRAMES, Point, for_each_pair};
-use crate::index::{AssetId, Index, Posting};
+use crate::index::{AssetId, Index, MAX_FRAMES, Posting};
 use crate::parallel::map_in_order_with;
 use crate::profile::Profile;
 use crate::speed::{Playback, Rung};
@@ -40,6 +40,12 @@ const OFFSET_SLOTS: usize = 4096;
 const _: () = assert!(2 * MIN_LINE_HITS <= u8::MAX as usize);
 // A slot is kept as a `u16`.
 const _: () = assert!(OFFSET_SLOTS <= 1 << 16);
+// Integer offsets are a posting's 16-bit frame minus a phase, modulo 2^16,
+// which folds whole buckets of whole frames into the slots (`Hit::slot`).
+const _: () = assert!(MAX_FRAMES == 1 << 16);
+const _: () = assert!(OFFSET_BUCKET_FRAMES as usize as f64 == OFFSET_BUCKET_FRAMES);
+const _: () =
+    assert!((MAX_FRAMES as usize).is_multiple_of(OFFSET_BUCKET_FRAMES as usize * OFFSET_SLOTS));
 
 pub(super) fn design() -> String {
     format!(
@@ -73,14 +79,45 @@ impl Line {
     }
 }
 
-/// A posting a query hash hit, as found: 8 bytes. A window hits up to 2
-/// million postings at 33,596 assets (experiment 0086), held one part at a
-/// time.
+/// A posting a query hash hit, as taken from its list: 8 bytes. A window
+/// hits up to 2 million postings at 33,596 assets (experiment 0086), held
+/// one part at a time.
 #[derive(Clone, Copy)]
 struct Hit {
-    posting: Posting,
+    /// The posting, its frame replaced by the hit's integer offset: the
+    /// frame minus the anchor's phase (`Phases`), modulo 2^16. The
+    /// pre-filter reads nothing else (experiment 0190).
+    shifted: Posting,
     /// The anchor's position among the rung's points.
     anchor: u32,
+}
+
+impl Hit {
+    fn taken(posting: Posting, anchor: u32, phase: u16) -> Hit {
+        let offset = (posting.frame() as u16).wrapping_sub(phase);
+        Hit {
+            shifted: Posting::new(posting.asset(), u32::from(offset)),
+            anchor,
+        }
+    }
+
+    fn asset(self) -> AssetId {
+        self.shifted.asset()
+    }
+
+    /// The posting's frame, given back exactly from the integer offset.
+    fn frame(self, phases: &[u16]) -> u32 {
+        let offset = self.shifted.frame() as u16;
+        u32::from(offset.wrapping_add(phases[self.anchor as usize]))
+    }
+
+    /// The slot of the integer offset: buckets of `OFFSET_BUCKET_FRAMES`
+    /// folded into `OFFSET_SLOTS` slots. The offset is kept modulo 2^16, a
+    /// multiple of the 4 x 4,096 frames the slots cover, so it folds like
+    /// the buckets.
+    fn slot(self) -> usize {
+        self.shifted.frame() as usize / OFFSET_BUCKET_FRAMES as usize % OFFSET_SLOTS
+    }
 }
 
 /// A hit of an asset whose hits may form a line, with its alignment.
@@ -114,6 +151,8 @@ struct WindowHits<'i> {
     /// A counter for each asset of a part and one more, all zero between
     /// parts (see `group_part`).
     ends: Vec<u32>,
+    /// The phases of the points of the block being searched.
+    phases: Phases,
     slots: OffsetSlots,
 }
 
@@ -126,6 +165,7 @@ impl<'i> WindowHits<'i> {
             grouped: Vec::new(),
             aligned: Vec::new(),
             ends: vec![0; ASSETS_PER_PART + 1],
+            phases: Phases::default(),
             slots: OffsetSlots::new(),
         }
     }
@@ -159,16 +199,19 @@ impl<'i> WindowHits<'i> {
             for asset in first..end {
                 let same_asset = &self.grouped[start..self.ends[asset - first] as usize];
                 start = self.ends[asset - first] as usize;
-                let offsets = same_asset.iter().map(|&hit| offset_of(hit, points));
-                if same_asset.len() < MIN_LINE_HITS || !self.slots.may_form_line(offsets) {
+                if same_asset.len() < MIN_LINE_HITS
+                    || (self.phases.exact && !self.slots.may_form_line(same_asset))
+                {
                     continue;
                 }
                 self.aligned.clear();
-                self.aligned
-                    .extend(same_asset.iter().map(|&hit| AlignedHit {
-                        offset: offset_of(hit, points),
-                        query_frame: points[hit.anchor as usize].frame / speed.0,
-                    }));
+                self.aligned.extend(same_asset.iter().map(|&hit| {
+                    let anchor = points[hit.anchor as usize].frame;
+                    AlignedHit {
+                        offset: f64::from(hit.frame(&self.phases.of_points)) - anchor,
+                        query_frame: anchor / speed.0,
+                    }
+                }));
                 self.aligned
                     .sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
                 for cluster in densest_clusters(&self.aligned) {
@@ -188,7 +231,7 @@ impl<'i> WindowHits<'i> {
 
     /// Takes off the front of every list the hits of assets before `end`,
     /// list by list, so that each asset's hits keep the order they were
-    /// found in.
+    /// found in, each with its integer offset (`Hit::taken`).
     ///
     /// Grouping all of a window's hits by asset at once wrote each to one of
     /// as many places as there are assets, nearly every write a cache miss
@@ -198,10 +241,11 @@ impl<'i> WindowHits<'i> {
         for (postings, anchor) in &mut self.lists {
             let taken = front_partition(postings, end);
             let (part, rest) = postings.split_at(taken);
-            self.part.extend(part.iter().map(|&posting| Hit {
-                posting,
-                anchor: *anchor,
-            }));
+            let phase = self.phases.of_points[*anchor as usize];
+            self.part.extend(
+                part.iter()
+                    .map(|&posting| Hit::taken(posting, *anchor, phase)),
+            );
             *postings = rest;
         }
     }
@@ -213,7 +257,7 @@ impl<'i> WindowHits<'i> {
     fn group_part(&mut self, first: usize) {
         let ends = &mut self.ends;
         for hit in &self.part {
-            ends[hit.posting.asset().0 as usize - first + 1] += 1;
+            ends[hit.asset().0 as usize - first + 1] += 1;
         }
         for asset in 1..ends.len() {
             ends[asset] += ends[asset - 1];
@@ -222,7 +266,7 @@ impl<'i> WindowHits<'i> {
             self.grouped.resize(self.part.len(), self.part[0]);
         }
         for &hit in &self.part {
-            let slot = &mut ends[hit.posting.asset().0 as usize - first];
+            let slot = &mut ends[hit.asset().0 as usize - first];
             self.grouped[*slot as usize] = hit;
             *slot += 1;
         }
@@ -411,6 +455,7 @@ fn in_windows<'i>(
         f64::from(windows.start) * window_frames..f64::from(windows.end) * window_frames + reach,
         cached,
     );
+    hits.phases.find(&points);
     let mut lines = Vec::new();
     let mut window = 0;
     for_each_pair(&points, |hash, anchor| {
@@ -434,11 +479,6 @@ fn in_windows<'i>(
     lines
 }
 
-/// Reference frame minus the anchor's frame at the rung's speed.
-fn offset_of(hit: Hit, points: &[Point]) -> f64 {
-    f64::from(hit.posting.frame()) - points[hit.anchor as usize].frame
-}
-
 /// The line of one asset's hits in a cluster.
 fn line_of(asset: AssetId, members: &[AlignedHit], window: u32, rung: Rung) -> Line {
     let query_frames = members.iter().map(|hit| hit.query_frame);
@@ -454,49 +494,85 @@ fn line_of(asset: AssetId, members: &[AlignedHit], window: u32, rung: Rung) -> L
     }
 }
 
+/// Points this far from frame 0 or farther leave too little of a frame
+/// for the integer offsets' rounding (see `OffsetSlots::may_form_line`).
+const MAX_PHASE_FRAMES: f64 = (1_u64 << 31) as f64;
+
+/// Each point's frame rounded down, modulo 2^16: its phase. A hit's
+/// reference frame minus its anchor's phase is its integer offset, from
+/// which the pre-filter finds its slot without floating point. Slots of
+/// `f64` offsets, with a call to `floor` per hit on x86-64, were 37-46% of
+/// the filter's time on the Linux machine (experiment 0189).
+#[derive(Default)]
+struct Phases {
+    of_points: Vec<u16>,
+    /// Whether every point lies within `MAX_PHASE_FRAMES` of frame 0. When
+    /// one does not (no query of a few hours comes near), every asset is
+    /// sorted.
+    exact: bool,
+}
+
+impl Phases {
+    fn find(&mut self, points: &[Point]) {
+        self.exact = points
+            .iter()
+            .all(|point| point.frame.abs() < MAX_PHASE_FRAMES);
+        self.of_points.clear();
+        // Within `MAX_PHASE_FRAMES` the cast to `i64` is exact, and the
+        // cast to `u16` keeps the low 16 bits: the floor modulo 2^16.
+        self.of_points
+            .extend(points.iter().map(|point| point.frame.floor() as i64 as u16));
+    }
+}
+
 /// Counts of one asset's offsets in buckets of `OFFSET_BUCKET_FRAMES`
 /// folded into `OFFSET_SLOTS` slots, all zero between assets.
 struct OffsetSlots {
     counts: Box<[u8; OFFSET_SLOTS]>,
-    /// The slots counted for the asset, to clear afterwards.
-    touched: Vec<u16>,
 }
 
 impl OffsetSlots {
     fn new() -> OffsetSlots {
         OffsetSlots {
             counts: Box::new([0; OFFSET_SLOTS]),
-            touched: Vec::new(),
         }
     }
 
-    /// Whether one asset's hits, given by their offsets in any order, may
-    /// hold a cluster for `densest_clusters`: false only when no 3 of them
+    /// Whether one asset's hits, in any order, may hold a cluster for
+    /// `densest_clusters`: false only when no 3 of their integer offsets
     /// lie in one slot or two neighbouring slots.
     ///
-    /// A cluster's offsets differ by at most `LINE_SPAN_FRAMES` as computed,
-    /// so by less than `OFFSET_BUCKET_FRAMES`, and their buckets by at most
-    /// one. Folding buckets into slots keeps neighbours neighbours (slot
-    /// `OFFSET_SLOTS - 1` neighbours slot 0) and only adds counts.
-    fn may_form_line(&mut self, offsets: impl Iterator<Item = f64>) -> bool {
+    /// A hit's integer offset, reference frame minus its anchor's frame
+    /// rounded down, exceeds its offset by less than a frame. A cluster's
+    /// offsets differ by at most `LINE_SPAN_FRAMES` as computed; with
+    /// points within `MAX_PHASE_FRAMES` of frame 0 they err by less than
+    /// 2^-20 frames, so the true offsets differ by less than 2.001 and the
+    /// integer offsets by less than 3.001, at most 3. Buckets of
+    /// `OFFSET_BUCKET_FRAMES` then differ by at most one. Folding buckets
+    /// into slots keeps neighbours neighbours (slot `OFFSET_SLOTS - 1`
+    /// neighbours slot 0) and only adds counts.
+    ///
+    /// The counted slots are found again from the hits to clear them,
+    /// which costs less than keeping a list of them (experiment 0190).
+    fn may_form_line(&mut self, hits: &[Hit]) -> bool {
         let counts = &mut self.counts;
         let mut may = false;
-        for offset in offsets {
-            let slot = (offset / OFFSET_BUCKET_FRAMES).floor() as i64 as usize % OFFSET_SLOTS;
-            self.touched.push(slot as u16);
+        let mut counted = hits.len();
+        for (i, &hit) in hits.iter().enumerate() {
+            let slot = hit.slot();
             counts[slot] += 1;
             let here = counts[slot];
             let next = counts[(slot + 1) % OFFSET_SLOTS];
             let previous = counts[(slot + OFFSET_SLOTS - 1) % OFFSET_SLOTS];
             if usize::from(here + next.max(previous)) >= MIN_LINE_HITS {
                 may = true;
+                counted = i + 1;
                 break;
             }
         }
-        for &slot in &self.touched {
-            counts[usize::from(slot)] = 0;
+        for &hit in &hits[..counted] {
+            counts[hit.slot()] = 0;
         }
-        self.touched.clear();
         may
     }
 }
@@ -567,15 +643,18 @@ pub(super) mod tests {
     use crate::search::test_audio;
     use crate::speed::SpeedRatio;
 
+    /// A posting a query hash hit, as found in its list.
+    #[derive(Clone, Copy)]
+    struct Found {
+        posting: Posting,
+        anchor: u32,
+    }
+
     fn hit(offset: f64) -> AlignedHit {
         AlignedHit {
             offset,
             query_frame: 0.0,
         }
-    }
-
-    fn offsets(hits: &[AlignedHit]) -> impl Iterator<Item = f64> + '_ {
-        hits.iter().map(|hit| hit.offset)
     }
 
     /// A line in `window` (625 frames each) whose hits span 400 frames.
@@ -596,7 +675,7 @@ pub(super) mod tests {
     /// The lines of a window's hits as the search found them up to
     /// session 12: one comparison sort by asset and offset.
     fn lines_by_comparison_sort(
-        hits: &[Hit],
+        hits: &[Found],
         points: &[Point],
         window: u32,
         rung: Rung,
@@ -633,7 +712,7 @@ pub(super) mod tests {
     /// anchors a quarter frame apart, so that equal offsets with different
     /// query frames meet at cluster edges. Every seventh asset also plays
     /// along a line.
-    fn mixed_hits(assets: u32, count: usize, seed: u64) -> (Vec<Hit>, Vec<Point>) {
+    fn mixed_hits(assets: u32, count: usize, seed: u64) -> (Vec<Found>, Vec<Point>) {
         let mut state = seed;
         let mut next = move || {
             state ^= state << 13;
@@ -656,7 +735,7 @@ pub(super) mod tests {
                 } else {
                     (next() % 4000) as u32
                 };
-                Hit {
+                Found {
                     posting: Posting::new(AssetId(asset), frame),
                     anchor,
                 }
@@ -668,7 +747,7 @@ pub(super) mod tests {
     /// The hits as posting lists, as the search finds them: anchor by
     /// anchor, each anchor's hits cut into lists of 1 to 60 postings ordered
     /// by asset (as the index holds them).
-    fn as_lists(mut hits: Vec<Hit>, seed: u64) -> Vec<(Vec<Posting>, u32)> {
+    fn as_lists(mut hits: Vec<Found>, seed: u64) -> Vec<(Vec<Posting>, u32)> {
         let mut state = seed;
         hits.sort_by_key(|hit| hit.anchor);
         let mut lists = Vec::new();
@@ -710,7 +789,7 @@ pub(super) mod tests {
             (
                 last_asset
                     .into_iter()
-                    .map(|hit| Hit {
+                    .map(|hit| Found {
                         posting: Posting::new(AssetId(8999), hit.posting.frame()),
                         ..hit
                     })
@@ -725,10 +804,10 @@ pub(super) mod tests {
         // A hash whose posting list is empty.
         windows[1].0.insert(3, (Vec::new(), 17));
         for (window, (lists, points)) in (7..).zip(&windows) {
-            let found: Vec<Hit> = lists
+            let found: Vec<Found> = lists
                 .iter()
                 .flat_map(|(postings, anchor)| {
-                    postings.iter().map(|&posting| Hit {
+                    postings.iter().map(|&posting| Found {
                         posting,
                         anchor: *anchor,
                     })
@@ -739,6 +818,7 @@ pub(super) mod tests {
             for (postings, anchor) in lists {
                 window_hits.find(postings, *anchor);
             }
+            window_hits.phases.find(points);
 
             assert!(
                 window_hits.lines(window, rung, points) == expected,
@@ -826,12 +906,138 @@ pub(super) mod tests {
         assert!(densest_clusters(&hits).is_empty());
     }
 
+    /// Hits at the given reference frames and anchor frames, one anchor
+    /// each, with the points and their phases.
+    fn hits_at(frames: &[(u32, f64)]) -> (Vec<Found>, Vec<Point>, Phases) {
+        let points: Vec<Point> = frames
+            .iter()
+            .map(|&(_, frame)| Point { frame, bin: 100.0 })
+            .collect();
+        let hits = frames
+            .iter()
+            .zip(0..)
+            .map(|(&(reference, _), anchor)| Found {
+                posting: Posting::new(AssetId(0), reference),
+                anchor,
+            })
+            .collect();
+        let mut phases = Phases::default();
+        phases.find(&points);
+        (hits, points, phases)
+    }
+
+    /// Hits whose offsets as computed are `offsets`, at reference frames
+    /// near the middle of a posting's range.
+    fn hits_with_offsets(offsets: &[f64]) -> (Vec<Found>, Vec<Point>, Phases) {
+        let frames: Vec<(u32, f64)> = offsets
+            .iter()
+            .zip(0..)
+            .map(|(&offset, i)| (30_000 + 7 * i, f64::from(30_000 + 7 * i) - offset))
+            .collect();
+        hits_at(&frames)
+    }
+
+    fn may_form_line(slots: &mut OffsetSlots, hits: &[Found], phases: &Phases) -> bool {
+        assert!(phases.exact);
+        let taken: Vec<Hit> = hits
+            .iter()
+            .map(|found| {
+                Hit::taken(
+                    found.posting,
+                    found.anchor,
+                    phases.of_points[found.anchor as usize],
+                )
+            })
+            .collect();
+        slots.may_form_line(&taken)
+    }
+
+    /// The hits as `lines` aligns them, sorted by offset.
+    fn aligned(hits: &[Found], points: &[Point]) -> Vec<AlignedHit> {
+        let mut aligned: Vec<AlignedHit> = hits
+            .iter()
+            .map(
+                |found| hit(f64::from(found.posting.frame()) - points[found.anchor as usize].frame),
+            )
+            .collect();
+        aligned.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
+        aligned
+    }
+
+    /// The pre-filter up to session 40: slots of offsets in `f64`.
+    fn may_form_line_in_floats(offsets: impl Iterator<Item = f64>) -> bool {
+        let mut counts = vec![0_u8; OFFSET_SLOTS];
+        for offset in offsets {
+            let slot = (offset / OFFSET_BUCKET_FRAMES).floor() as i64 as usize % OFFSET_SLOTS;
+            counts[slot] += 1;
+            let here = counts[slot];
+            let next = counts[(slot + 1) % OFFSET_SLOTS];
+            let previous = counts[(slot + OFFSET_SLOTS - 1) % OFFSET_SLOTS];
+            if usize::from(here + next.max(previous)) >= MIN_LINE_HITS {
+                return true;
+            }
+        }
+        false
+    }
+
+    #[test]
+    fn a_phase_is_the_frame_rounded_down_modulo_2_16() {
+        let points: Vec<Point> = [
+            0.0, 0.25, 0.999, 1.0, -0.25, -1.0, 65_535.75, 65_536.5, 200_001.9,
+        ]
+        .into_iter()
+        .map(|frame| Point { frame, bin: 0.0 })
+        .collect();
+        let mut phases = Phases::default();
+
+        phases.find(&points);
+
+        assert!(phases.exact);
+        assert_eq!(
+            phases.of_points,
+            [0, 0, 0, 1, 65_535, 65_535, 65_535, 0, 3_393]
+        );
+        phases.find(&[Point {
+            frame: MAX_PHASE_FRAMES,
+            bin: 0.0,
+        }]);
+        assert!(!phases.exact);
+        phases.find(&[Point {
+            frame: f64::NAN,
+            bin: 0.0,
+        }]);
+        assert!(!phases.exact);
+    }
+
+    #[test]
+    fn a_taken_hit_gives_back_its_posting() {
+        let phases = [0, 1, 4, 30_000, u16::MAX];
+        for frame in [0, 1, 3, 4, 29_999, 30_000, 65_534, MAX_FRAMES - 1] {
+            for (anchor, &phase) in (0..).zip(&phases) {
+                let posting = Posting::new(AssetId(4_321), frame);
+                let hit = Hit::taken(posting, anchor, phase);
+
+                assert_eq!(hit.asset(), AssetId(4_321));
+                assert_eq!(hit.anchor, anchor);
+                assert_eq!(hit.frame(&phases), frame, "{frame} {phase}");
+                assert_eq!(
+                    hit.slot(),
+                    (i64::from(frame) - i64::from(phase))
+                        .div_euclid(4)
+                        .rem_euclid(4_096) as usize,
+                    "{frame} {phase}"
+                );
+            }
+        }
+    }
+
     #[test]
     fn hits_with_no_three_in_neighbouring_slots_cannot_form_a_line() {
         let mut slots = OffsetSlots::new();
-        let scattered = [hit(15.0), hit(0.0), hit(10.0), hit(5.0), hit(-7.0)];
+        let (hits, points, phases) = hits_with_offsets(&[15.0, 0.0, 10.0, 5.0, -7.0]);
 
-        assert!(!slots.may_form_line(offsets(&scattered)));
+        assert!(densest_clusters(&aligned(&hits, &points)).is_empty());
+        assert!(!may_form_line(&mut slots, &hits, &phases));
         assert!(slots.counts.iter().all(|&count| count == 0));
     }
 
@@ -839,34 +1045,40 @@ pub(super) mod tests {
     fn a_line_is_sorted_wherever_its_offsets_fall() {
         let mut slots = OffsetSlots::new();
         // Bucket edges, negative offsets, the slots' wrap (bucket -1 is slot
-        // 4095, bucket 4096 slot 0) and a span of exactly 2 frames.
-        for first in [0.0, 2.0, 3.75, -0.5, -4.0, -6.25, 16_382.5, -16_385.0] {
-            let hits = [
-                hit(first + 300.0),
-                hit(first + 2.0),
-                hit(first - 50.0),
-                hit(first + 0.75),
-                hit(first),
-            ];
-            let mut sorted = hits.to_vec();
-            sorted.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
+        // 4095, bucket 4096 slot 0), equal offsets and a span of exactly 2
+        // frames, from anchors with and without a fraction.
+        for first in [
+            0.0, 2.0, 3.75, -0.5, -4.0, -6.25, 16_382.5, -16_385.0, 0.999,
+        ] {
+            let (hits, points, phases) = hits_with_offsets(&[
+                first + 300.0,
+                first + 2.0,
+                first - 50.0,
+                first + 0.75,
+                first,
+                first + 2.0,
+            ]);
 
-            assert_eq!(densest_clusters(&sorted).len(), 1, "{first}");
-            assert!(slots.may_form_line(offsets(&hits)), "{first}");
+            assert_eq!(
+                densest_clusters(&aligned(&hits, &points)).len(),
+                1,
+                "{first}"
+            );
+            assert!(may_form_line(&mut slots, &hits, &phases), "{first}");
             assert!(slots.counts.iter().all(|&count| count == 0));
         }
     }
 
     #[test]
     fn a_line_spanning_more_than_two_frames_once_rounded_is_sorted() {
-        // 4 - (2 - 2^-52) rounds to 2, so these hits are a cluster; buckets
-        // of 2 frames would put them in three.
-        let hits = [hit(4.0), hit(3.0), hit(2.0 - f64::EPSILON)];
-        let mut sorted = hits.to_vec();
-        sorted.reverse();
+        // Offsets 4, 3 and 2 - 2^-52: 4 - (2 - 2^-52) rounds to 2, so these
+        // hits are a cluster; buckets of 2 frames would put them in three.
+        let (hits, points, phases) = hits_at(&[(4, 0.0), (3, 0.0), (2, f64::EPSILON)]);
+        let aligned = aligned(&hits, &points);
 
-        assert_eq!(densest_clusters(&sorted), vec![0..3]);
-        assert!(OffsetSlots::new().may_form_line(offsets(&hits)));
+        assert_eq!(aligned[0].offset, 2.0 - f64::EPSILON);
+        assert_eq!(densest_clusters(&aligned), vec![0..3]);
+        assert!(may_form_line(&mut OffsetSlots::new(), &hits, &phases));
     }
 
     #[test]
@@ -879,33 +1091,59 @@ pub(super) mod tests {
             state
         };
         let mut slots = OffsetSlots::new();
-        let (mut with_lines, mut skipped) = (0, 0);
-        for _ in 0..100_000 {
-            // Whole reference frames minus anchor frames with a fraction,
-            // over spans from a few frames to a whole track.
+        let (mut with_lines, mut skipped, mut as_in_floats) = (0, 0, 0);
+        let sets = 200_000;
+        for _ in 0..sets {
+            // Offsets over spans from a few frames to a whole track, from
+            // reference frames anywhere in a posting's range and anchor
+            // frames with a fraction, some of them at a rung's speed.
             let spread = [6, 12, 40, 70_000][(next() % 4) as usize];
             let base = (next() % 200_000) as f64 - 100_000.0;
-            let mut hits: Vec<AlignedHit> = (0..3 + next() % 10)
-                .map(|_| hit(base + (next() % spread) as f64 - (next() % 64) as f64 / 64.0))
+            let speed = [1.0, 1.0123, 0.9375][(next() % 3) as usize];
+            let frames: Vec<(u32, f64)> = (0..3 + next() % 10)
+                .map(|_| {
+                    let reference = (next() % u64::from(MAX_FRAMES)) as u32;
+                    let offset = base + (next() % spread) as f64 - (next() % 64) as f64 / 64.0;
+                    let anchor = ((f64::from(reference) - offset) / speed).round() * speed;
+                    (reference, anchor)
+                })
                 .collect();
-            let may = slots.may_form_line(offsets(&hits));
+            let (hits, points, phases) = hits_at(&frames);
+            let may = may_form_line(&mut slots, &hits, &phases);
             assert!(slots.counts.iter().all(|&count| count == 0));
-            hits.sort_unstable_by(|a, b| a.offset.total_cmp(&b.offset));
-            if !densest_clusters(&hits).is_empty() {
-                assert!(
-                    may,
-                    "{:?}",
-                    hits.iter().map(|hit| hit.offset).collect::<Vec<_>>()
-                );
+            let aligned = aligned(&hits, &points);
+            if may == may_form_line_in_floats(aligned.iter().map(|hit| hit.offset)) {
+                as_in_floats += 1;
+            }
+            if !densest_clusters(&aligned).is_empty() {
+                assert!(may, "{frames:?}");
                 with_lines += 1;
             } else if !may {
                 skipped += 1;
             }
         }
         assert!(
-            with_lines > 10_000 && skipped > 10_000,
-            "{with_lines} {skipped}"
+            with_lines > 20_000 && skipped > 20_000 && as_in_floats > sets * 9 / 10,
+            "{with_lines} {skipped} {as_in_floats}"
         );
+    }
+
+    #[test]
+    fn points_too_far_out_for_phases_leave_every_asset_to_be_sorted() {
+        let rung = Rung::Turntable(SpeedRatio(1.0));
+        let (hits, mut points) = mixed_hits(300, 20_000, 2032);
+        points[1999].frame = MAX_PHASE_FRAMES + 0.5;
+        let expected = lines_by_comparison_sort(&hits, &points, 3, rung);
+        let lists = as_lists(hits, 2033);
+        let mut window_hits = WindowHits::new(300);
+        for (postings, anchor) in &lists {
+            window_hits.find(postings, *anchor);
+        }
+        window_hits.phases.find(&points);
+
+        assert!(!window_hits.phases.exact);
+        assert!(!expected.is_empty());
+        assert!(window_hits.lines(3, rung, &points) == expected);
     }
 
     #[test]

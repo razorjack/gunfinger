@@ -21,12 +21,12 @@ for scope and rules.
   hits per filtered asset; where a passing asset passes (experiment 0189)
 - [x] 2. Pre-registration (candidates with exactness arguments and tests,
   timing protocol, stop point), committed before any candidate is timed
-- [ ] 3. Candidates, each tested and timed; their combination; grouping
+- [x] 3. Candidates, each tested and timed; their combination; grouping
   if time allows
-- [ ] 4. Adoption: tests; the 11 development scans at NAS scale; the
+- [~] 4. Adoption: tests; the 11 development scans at NAS scale; the
   262-track scans; the clusters sample; both regressions; the full NAS
   clustering into a scratch copy if time allows
-- [ ] 5. Experiments (0189 and up)
+- [~] 5. Experiments (0189 and up)
 - [ ] 6. Read-only review by a subagent; findings fixed
 
 ## Wrap-up
