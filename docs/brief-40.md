@@ -1,0 +1,121 @@
+# Session 40 brief: where two recordings stop lining up, as evidence for same or different
+
+Written by the agent for itself on 2026-10-23, so the plan survives
+context compaction. Work autonomously and never stop to ask: where a
+decision is needed, take the conservative option, write it down here and
+continue.
+
+## Read after every compaction
+
+1. `docs/brief.md` (the original brief; never edit it) and `AGENTS.md`.
+2. This file, and `docs/session-40-checklist.md` (progress).
+3. `docs/status.md` ("after session 38" and the newest entries); the
+   roadmap's "The verdicts by ear on borderline pairs", "Clustering
+   precision" and the version verifier's bullets; experiments 0048,
+   0049, 0057, 0058 and this session's (0186 and up);
+   `docs/research/2026-10-16-version-verification.md`.
+4. `docs/session-notes.md` ("Session 38" to the end),
+   `docs/pair-verdicts.txt` (read only),
+   `work/audition/listening-comments-2026-10-22.md`, the code of
+   `crates/gunfinger-eval/src/pair.rs` and `clusters.rs`, and
+   `scripts/analysis/listening_pack.py` and `pair_offsets.py`.
+
+`docs/brief-2.md` to `docs/brief-39.md`, `docs/brief-24b.md` and
+`docs/brief-nas.md` hold rules that still apply unless this brief
+changes them.
+
+## The prompt, verbatim
+
+```text
+Start session 40 of Gunfinger: where two recordings stop lining up, as evidence for same or different, measured on every pair judged by ear. The listening of 2026-10-22 (docs/status.md, "after session 38"; the roadmap's "The verdicts by ear on borderline pairs") gave two pairs that neither coverage nor supported time separates: China Cup against ƆƐI3C's upload (78% coverage, supported 0.90, judged different: almost identical, but the hi-hats differ for a few bars) and Dilusion against dfect-dnb's upload (73%, 0.91, judged same: one copy has a needle skip or cut that shifts the rest by a few seconds). Their sheets (`work/listening/borderline-*/sheet.txt`) show a difference in where the other alignments lie: Dilusion's sit within a few seconds of the main offset, China Cup's 60 and 250 s away, leaving 4:20-5:41 with nothing near the main offset. The share of the shorter file held by alignments within 10 s of the main offset is 0.91 against 0.77. This came from two pairs. This session measures such offset-aware measures on every judged pair, and on larger labelled populations, against coverage and supported time. It is a measurement session: the clusters' join rule, the product and the clusters file do not change.
+
+You run unattended: the user is asleep and cannot answer or listen to anything. Never stop to ask. Where a decision is needed, take the conservative option, write it down in the brief and continue. An orchestrating thread launched you and will read your final message and session notes; no other session runs in this checkout while you run.
+
+The machine: Fedora Linux 44, x86-64, AMD Ryzen 9 5950X (16 cores, 32 threads), 64 GB RAM, DDR4-3600; default jobs (32).
+
+Time box: started about 02:10; aim to finish within about 3 hours, because another session may follow you tonight. If a step would run past that, scale it down, record the decision in the brief and continue.
+
+Environment (sessions 33-39's handoffs in docs/session-notes.md; check each):
+- Rust: `export PATH="$HOME/.cargo/bin:$PATH"`; `RUSTUP_TOOLCHAIN=1.98.0` for `scripts/check.sh` and builds. FFmpeg 8.1.3, Python 3, tmux, `/usr/bin/time`. zsh does not split a command held in a variable: run queues from `sh` scripts.
+- Corpus configuration `~/.config/gunfinger/config.toml` (store `work/peaks`, never written by a session). NAS store `~/.local/share/gunfinger/nas-dnb-peaks` (40,683 records), library `/mnt/atlas/Music/dnb` (read only), reached with `--other-peaks-dir`; saved index `work/indexes/library-nas-dnb-peaks.index`.
+- NAS clusters `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`: since the listening of 2026-10-22 (docs/status.md, "after session 38") SHA-256 `d9c85c4586ad...`, 284 clusters, Dilusion's upload joined to its cluster; `regress session-33-linux-nas` is identical with it. Baselines `session-32-linux` and `session-33-linux-nas`. Session 39 ended at `5c02814` (its final harness build is in `work/bin/s39-run2/` or the newest `work/bin/s39-*`; your own start build is what counts). `recall`, `shared` and `clusters` need `--panels work/s33/panels`.
+- Session 38's opt-in `--apart-in-speed` and session 37's `--overlap-by-chains` are variants, not defaults; their adoption waits for an ADR (ours).
+- `gunfinger-eval regress` prints what changed and returns success either way: read its output. Slot leave-out scans must not sit in a reports directory during `regress`.
+- `pair` writes `reports/.../pairs-<file stem>.json`: give your pair files stems of their own so that `work/reports/library-nas-dnb-peaks/pairs-pairs.json` (the 2026-10-22 pack's report) is not overwritten.
+- Renders from earlier sessions sit in `work/mixes/`; leave them. This session needs no renders.
+- The listening pack of 2026-10-22 and its pairs report: `work/listening/` (`pairs.json`, `items.json`, `store-paths.txt`, each item's `sheet.txt`) and `work/reports/library-nas-dnb-peaks/pairs-pairs.json`; the clusters file before that listening's verdicts: `work/listening-2026-10-22/duplicate-clusters-before.json`.
+
+First:
+1. Read CLAUDE.md, AGENTS.md (every rule applies, including the wording rule), docs/brief.md (never edit it), docs/brief-39.md, docs/session-notes.md ("Session 38" and "Session 39"), docs/status.md (newest entries, including "after session 38"), the roadmap's "The verdicts by ear on borderline pairs", "Clustering precision" and the version verifier's bullets, experiments 0048, 0049, 0057 and 0058, `docs/research/2026-10-16-version-verification.md`, docs/pair-verdicts.txt (read only) and its comments in docs/status.md's listening entries, `work/audition/listening-comments-2026-10-22.md`, the code of `pair.rs`, `pair_review.rs`, `clusters.rs` (the join rule, coverage, supported time, sparse joins) and `versions.rs`, and `scripts/analysis/listening_pack.py`.
+2. Write docs/brief-40.md (this prompt verbatim, the state at the start, the plan and each decision as you take it) and docs/session-40-checklist.md, point CLAUDE.md's reading list at them, and commit. Record the SHA-256 of docs/pair-verdicts.txt in work/s40/listening-digests-start.txt; it must be the same at the end. Experiments number from 0186.
+3. Build `work/bin/s40-start`; `regress session-32-linux` and `regress session-33-linux-nas` identical.
+
+Steps:
+
+1. Pre-registration, committed before any measure is computed on anything but the two pairs above (say that those two are the hypothesis's source and are reported apart):
+   - The labelled populations: (a) every verdict by ear in docs/pair-verdicts.txt whose two files still have records (say how many do not, and why); (b) a seeded sample of the clusters' joins that no verdict touches (coverage of 80% or more, presumed the same recording; label them "presumed", never "judged"); (c) pairs of different recordings that share material from the frozen panels in `docs/panels/` (original against remix or VIP, labelled by the panels' construction); (d) the strongest pairs between files of different artist and title tags among the clusters' "related" pairs, as a population of presumed-different pairs. Fix sample sizes and seeds before running.
+   - The measures, each computed from the same `pair` alignments: coverage and supported time (today's), hits per second of aligned span, the share of the shorter file held by alignments within T s of the main alignment's offset (T = 2, 5, 10, 20), the longest stretch of the shorter file with no aligned hit near the main offset, and the number of offset jumps between consecutive alignments. Define each exactly.
+   - The scores: for each measure and population pair, how well it orders same above different (the share of same/different pairs ordered correctly, that is the AUC), the best threshold's errors with leave-one-out cross-validation on the judged pairs, and the judged pairs each measure gets wrong, listed by name. What would count as a measure worth a roadmap entry (for example: on the judged pairs, fewer errors than coverage and supported time at their best thresholds, and no presumed-same join of population (b) placed below the threshold).
+2. The harness or a script, tested: compute the measures from `pair` reports (`scripts/analysis/`, with unit tests on fixtures, or in `pair.rs` if the alignments it reports are not enough; harness only, `regress` identical). Also, in `listening_pack.py select`, a minimum of hits for a borderline pair (`--min-hits`, default 30, the floor `clusters` uses for related recordings), tested: the 2026-10-22 pack held Dieselboy - The Descent ~ Frenchi / Proktah - Scarabeus at 41% coverage on 6 hits, completely different by ear.
+3. The runs: `gunfinger-eval --other-peaks-dir ... pair` on each population (NAS scale), under tmux if long. Never write the NAS store, the clusters file or docs/pair-verdicts.txt.
+4. Experiments (at most 40 lines each, written before the next starts): the measures against the pre-registered scores on each population; the judged pairs every measure gets wrong, and what their sheets show; whether the offset-aware measures separate near-identical versions (China Cup's kind) from damaged copies of one recording (Dilusion's kind).
+5. Ahead, only when 1-4 are done, in this order:
+   a. The false confident detections left at NAS scale (calibrate's "false accepted" in `regress session-33-linux-nas`, and the wrong confident detections in the development scans and the sweep at NAS scale): which recordings they pair, the measures for each pair, and how many are near-identical versions by the measures (the roadmap says China Cup's upload accounts for most of them; check). Whether such a detection counts as wrong is ours to decide; report the numbers.
+   b. A listening pack of the pairs whose measures disagree most with the clusters' decision (joined but low on the best measure, or apart but high), built with `listening_pack.py select/render` into `work/s40/pack/`, for the user to judge later. Do not listen, do not write verdicts.
+6. A read-only review of the session's commits and documents by a subagent (it must not launch further agents); fix what it finds.
+7. Wrap-up: a "Session 40" section at the end of docs/session-notes.md with a handoff and the questions it leaves for us (a change to the join rule or to how detections of near-identical versions are scored is ours, with an ADR); update docs/status.md, the checklist and the roadmap's bullets above. Final checks: `scripts/check.sh` green, `regress session-32-linux` and `regress session-33-linux-nas` identical with the final build, docs/pair-verdicts.txt unchanged, the clusters file's SHA-256 unchanged, `git status` clean. Commit. Your final message: what was built, each measure's scores in a few lines, the pairs every measure gets wrong, the pack's path, and anything left.
+
+Rules for this session:
+- No push. Commit on master with the configured identity (Jacek Galanciak <jacek.galanciak@gmail.com>). Never rewrite history. Check `git status` before every commit and never use `git add -A`. No AI attribution in any commit: no `Co-Authored-By` line and no mention of an assistant or model.
+- The product's behaviour does not change: no threshold, parameter, rule, default or output change; variants are opt-in, tested, and keep `regress` identical when off. Harness additions are tested and keep `regress` identical.
+- Long runs: every run that may last more than about 20 minutes starts detached under tmux with its own log, `/usr/bin/time -v` and an exit line; check the log's exit line afterwards. Give tmux sessions names that are not prefixes of each other.
+- The held-out test set (ed-rush-optical-essential-mix) is out of every step: do not open its manifest or any report of it, do not pass it to any command, do not scan or identify it, and never run test evaluation 5. Never identify, decode or index `EM_1999_02_07_-_Ed_Rush_Optical.mp3` at the NAS root. Run nothing on the candidate mixes of experiment 0065 (among them the mixed CDs it lists and the NAS's `sety/vertical.mp3`). The three development mixes and generated mixes are the only mixes this session searches; name the development sets explicitly, never glob `corpus/sets/*`.
+- The NAS is read, never written, its `.gunfingerignore` included. Do not run `index` or `prune` with the NAS configuration, and do not rebuild or replace the NAS clusters. Never write to `work/peaks`.
+- Agents never write verdicts or listening answers: docs/pair-verdicts.txt does not change, and no answer log is written. Manifests and committed panels do not change. Nothing in this session needs listening; list questions for later.
+- AGENTS.md: no SIMD, no `unsafe`, an experiment file of at most 40 lines written before the next experiment starts (its runs included), evaluation JSON in docs holds file names only, no filename-, set- or tag-derived logic outside the harness's manifests.
+- Repository text follows AGENTS.md's wording rule. The Mac is "the Mac", this machine is "the Linux machine" (its hardware may be named where it explains a time).
+- Leave alone every process this session did not start (a `systemd-inhibit` the user runs among them).
+- Scratch data goes under work/s40/ (your session number).
+- Prose: no em dashes (spaced en dashes in prose, ASCII in code).
+- Commit after each step that changes tracked files.
+- Time: the user's soft deadline is 11:00. Start no new run after about 10:30; finish what is running, then do the review and wrap-up, and list what is left in the handoff.
+```
+
+## State at the start of session 40
+
+- 2026-10-23, 02:10. `master` at `5c02814`, clean. Git identity `Jacek
+  Galanciak <jacek.galanciak@gmail.com>`. No tmux server running.
+- `docs/pair-verdicts.txt`: SHA-256 `f4b1867956ba...`
+  (`work/s40/listening-digests-start.txt`), 64 verdict lines (24 `same`,
+  40 `different`). The NAS clusters file: SHA-256 `d9c85c4586ad...`
+  (`work/s40/clusters-digest-start.txt`), 284 clusters, 2,903 pairs
+  (1,685 joined, 30 of them by a `same` verdict; 1,218 apart, 37 of them
+  by a `different` verdict).
+- Experiments 0001-0185; this session numbers from 0186. Test set: 4 of
+  5 evaluations used (none in this session).
+- The start build `work/bin/s40-start/` is byte-identical to
+  `s39-final` (cargo had nothing to rebuild).
+- `pair` searches its pairs one after another, and for a corpus query
+  also searches the decoded audio on both ladders. It reports each
+  alignment's supported share at the fitted speed, not which seconds
+  hold the hits, so the near-offset share (a union over alignments) and
+  the longest stretch without a near hit cannot be computed exactly from
+  today's report.
+- No Python unit tests run in `scripts/check.sh` today.
+
+## Plan
+
+| Step | What | Expected |
+|---|---|---|
+| First | reading; digests; brief; start build and both regressions (tmux `s40start`) | 02:10-02:30 |
+| 1 | the pre-registration in this brief (populations, measures, scores, criteria); commit | 02:30-02:50 |
+| 2 | `pair` reports each alignment's supported seconds and runs its pairs in parallel; `pair_offsets.py` with unit tests; `listening_pack.py select --min-hits`; check.sh runs the Python tests; both regressions identical | 02:50-03:30 |
+| 3 | the populations' pair files and `pair` runs (tmux) | 03:30-04:00 |
+| 4 | experiments 0186-0188 | 04:00-04:30 |
+| 5 | false confident detections at NAS scale; the listening pack | 04:30-04:50 |
+| 6-7 | review, notes, final checks | 04:50-05:20 |
+
+## Decisions
+
+- **(02:10) Start build and regressions** (`work/s40/start.sh`, tmux
+  `s40start`), while the brief is written.
