@@ -120,7 +120,7 @@ Rules for this session:
   `s41-final`; `regress session-32-linux` and `regress
   session-33-linux-nas`; each report compared with its baseline's apart
   from `wall_seconds` (`work/s42/same.py`, session 41's).
-- **(06:35) Step 1, the pre-registration** (committed before any fault
+- **(06:16) Step 1, the pre-registration** (committed before any fault
   is searched; the harness is written after it and tested on fixtures
   only).
 
@@ -216,3 +216,79 @@ Rules for this session:
   `stereo-control` query and on at most 1 of the 100 sampled corpus
   files. Otherwise the result is recorded and the roadmap's bullet says
   what it cost.
+- **(06:19) Start checks.** The start build `work/bin/s42-start/` is
+  byte-identical to `s41-final`; `regress session-32-linux` (1:08) and
+  `regress session-33-linux-nas` (4:13) identical, every report identical
+  to its baseline's apart from `wall_seconds`.
+- **(06:21) Step 2, the harness** (`work/bin/s42-run/`, tested on
+  fixtures before any fault was searched): `robust`'s nine stereo
+  conditions (`STEREO_FAULTS`, run only when named in `--only`); a
+  stereo render path (`render::render_stereo_samples`, `Stereo`,
+  `encode_stereo`; the mono path's arguments and WAV bytes unchanged);
+  `robust --query-channels downmix|left|right|louder|side`
+  (`stereo::QueryChannels`; the report `robust-seed-<seed>-channels-<choice>.json`);
+  per stereo query the side-to-mid ratio and the wrong detections
+  (`QueryResult::stereo`, absent from other conditions' queries, so
+  default reports are unchanged); `gunfinger-eval stereo-width` (corpus
+  only). The delays are 9, 44 and 221 samples (5 ms is 220.5 samples,
+  rounded up). FFmpeg's `-ac 1` adds the two channels at 1/sqrt(2) each
+  (measured in the decoding test). Both regressions with the run build
+  identical (1:08; 4:12), every report identical. The run queue is
+  `work/s42/runs.sh` (tmux `s42runs`); the scratch work directory
+  `work/s42/w`; `scripts/analysis/robust_stereo.py` summarises.
+- **(06:33) The trigger at 262 tracks.** The side is louder than the mid
+  in 2 of 100 `stereo-control` queries (one held-out excerpt, a wide
+  passage, +0.3 and +0.7 dB), in 98 of 100 inverted queries, and in 91
+  of 100 queries delayed by 5 ms (the comb's notches in the mid start at
+  100 Hz, where bass-heavy music holds much of its energy). By the
+  pre-registered rule the trigger already fails ("fires on no
+  `stereo-control` query"); it is reported as measured.
+- **(06:34) Step 5's design**, written before any of its runs (they
+  start once experiments 0194-0196 are written).
+
+  *(a) A fault over a stretch of generated mixes.* `mixes --stereo-fault
+  <condition>` (harness, tested; short mixes only, refused for the other
+  kinds so that no earlier render directory is reused): each play
+  rendered in both channels (an FFmpeg `pan` per channel after the
+  playback filter, one gain for the two), the right channel under the
+  fault from half the mix's length to its end, encoded as a stereo MP3
+  at 128 kbit/s into `work/mixes/<condition>-seed-<seed>/`, the report
+  `mixes-<condition>-seed-<seed>.json`. The default, mono path renders as
+  before (checked: `mixes --seed 2026 --count 16` in a scratch work
+  directory, its MP3s compared byte for byte with `work/mixes/seed-2026/`).
+  Runs: the short kind, seeds 2026, 2027 and 2028, 8 mixes each, at 262
+  tracks; `stereo-control` against `stereo-inverted`,
+  `stereo-delay-5ms` and `stereo-noise-snr-0db` (the three faults that
+  cost most in 0194 apart from noise at -10 dB, which leaves nothing).
+  Scores: plays confident and wrong confident (`mixes`), and `seconds`
+  (correct, possible, mislabelled and unlabelled seconds), each fault
+  against `stereo-control` of the same seeds; the first halves are the
+  same audio, so the difference comes from the faulted half.
+
+  *(b) A fault in the indexed reference.* The first 10 indexed draws'
+  corpus files, decoded whole and encoded again as stereo MP3s at 128
+  kbit/s, unchanged and under four faults of the right channel by
+  FFmpeg filters (polarity inverted, silent, delayed by 44 and 221
+  samples at 44.1 kHz), in a scratch library `work/s42/ref/library` and
+  store `work/s42/ref/peaks` (`gunfinger index`; `work/peaks` and the
+  NAS store untouched). The clean `stereo-control` queries of those
+  draws (20: two speeds) are searched with the CLI against that store
+  alone (`identify --saved-index off --format json`), so every query
+  meets its file's five copies; scores: each copy's confident count and
+  its hits against the unchanged copy's. The index is tiny, so this
+  measures evidence, not wrong answers (`work/s42/ref.sh`).
+- **(06:52) Steps 3 and 4.** All runs finished (`work/s42/logs/queue.log`;
+  every exit status 0): the corpus width sample (5 s), robust at 262
+  tracks (1:04-1:36 per choice) and at NAS scale (3:32-3:57). Summaries
+  `work/s42/corpus/summary.*` and `work/s42/nas/summary.*`;
+  `work/s42/matrix.py`. Experiments 0194 (faults under the downmix), 0195
+  (channel choices) and 0196 (source width). Decided while summarising:
+  `robust_stereo.py` also reports two unions, `downmix+side` and
+  `downmix+either`, labelled exploratory in 0195 and deciding nothing.
+  By the pre-registered rules: inverted, noise at 0 and -10 dB and
+  delays of 1 and 5 ms are faults worth a roadmap entry; no channel
+  choice is worth a fallback experiment.
+- **(06:58) Step 5a's harness** (`mixes --stereo-fault`, written
+  06:27-06:32 while the runs went on) is in the same commit as the
+  `robust` harness; experiments 0194-0196 ran with `work/bin/s42-run/`,
+  built before it. `scripts/check.sh` green (`work/s42/logs/check-1.log`).

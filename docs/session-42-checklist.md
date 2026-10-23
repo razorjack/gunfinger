@@ -11,21 +11,21 @@ for scope and rules.
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s42/listening-digests-start.txt` (and the clusters file's in
   `work/s42/clusters-digest-start.txt`)
-- [~] Start build `work/bin/s42-start/`; `regress session-32-linux` and
+- [x] Start build `work/bin/s42-start/`; `regress session-32-linux` and
   `regress session-33-linux-nas` identical
 
 ## Steps
 
-- [ ] 1. Pre-registration (faults and levels, how they are applied,
+- [x] 1. Pre-registration (faults and levels, how they are applied,
   near-mono sources, channel choices, scores, what would count),
   committed before any fault is searched
-- [ ] 2. Harness: stereo faults as opt-in `robust` conditions, a
+- [x] 2. Harness: stereo faults as opt-in `robust` conditions, a
   harness-only `--query-channels`; tests; `regress` identical
-- [ ] 3. Runs: every fault and channel choice at 262 tracks, then at
+- [x] 3. Runs: every fault and channel choice at 262 tracks, then at
   NAS scale
-- [ ] 4. Experiments 0194 and up (cost of each fault to the downmix;
+- [x] 4. Experiments 0194-0196 (cost of each fault to the downmix;
   channel choices; near-mono sources)
-- [ ] 5. Ahead: (a) a fault over a stretch of generated mixes; (b) a
+- [~] 5. Ahead: (a) a fault over a stretch of generated mixes; (b) a
   fault in the indexed reference (store-only scratch copy)
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 42", status, roadmap bullet; final

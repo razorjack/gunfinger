@@ -34,6 +34,7 @@ mod seconds;
 mod self_match;
 mod shared;
 mod shared_mixes;
+mod stereo;
 mod survival;
 mod sweep;
 mod synthetic;
@@ -394,8 +395,22 @@ enum Command {
         /// Run only these conditions (and the control), by name.
         #[arg(long, value_delimiter = ',')]
         only: Vec<String>,
+        /// What is searched of each query: the core's downmix, or, as a
+        /// diagnostic for the stereo faults, one channel, the louder one or
+        /// the side signal (report `robust-seed-<seed>-channels-<choice>.json`).
+        #[arg(long, value_enum, default_value = "downmix")]
+        query_channels: stereo::QueryChannels,
         #[command(flatten)]
         variant: IndexVariant,
+    },
+    /// How wide a seeded sample of library files is: each decoded whole as
+    /// two channels, the side's energy against the mid's (report
+    /// `stereo-width-seed-<seed>.json`). Corpus only.
+    StereoWidth {
+        #[arg(long, default_value_t = 2026)]
+        seed: u64,
+        #[arg(long, default_value_t = 100)]
+        sample: usize,
     },
     /// Render seeded mixes of library tracks with exact truth (speeds,
     /// bass swaps, crossfades, cuts, plays of 20-60 s, a returning track,
@@ -439,6 +454,13 @@ enum Command {
         /// other library (`mixes-drops-other-pairs-seed-<seed>.json`).
         #[arg(long, requires = "tagged")]
         other_pairs: bool,
+        /// Short mixes only: render them in stereo with the right channel
+        /// under this `robust` stereo fault (such as `stereo-inverted`) over
+        /// the second half of each mix, into their own renders and report
+        /// (`mixes-<fault>-seed-<seed>.json`); `stereo-control` is the same
+        /// mixes in stereo without a fault.
+        #[arg(long)]
+        stereo_fault: Option<String>,
     },
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -877,8 +899,21 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
         Command::Robust {
             seed,
             only,
+            query_channels,
             variant,
-        } => run_robust(paths, seed, &only, &variant, jobs),
+        } => run_robust(paths, seed, &only, query_channels, &variant, jobs),
+        Command::StereoWidth { seed, sample } => {
+            let report =
+                stereo::sample_widths(&paths.library()?, &paths.store()?, seed, sample, jobs)?;
+            write_json(
+                &paths
+                    .reports()
+                    .join(format!("stereo-width-seed-{seed}.json")),
+                &report,
+            )?;
+            stereo::print_widths(&report);
+            Ok(())
+        }
         Command::Baseline { name, set, seed } => {
             regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
         }
@@ -903,8 +938,15 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             ride_direction,
             tagged,
             other_pairs,
+            stereo_fault,
         } => {
             let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
+            let stereo_fault = stereo_fault
+                .map(|name| match kind {
+                    mixes::MixKind::Short => robust::stereo_fault(&name),
+                    _ => Err(String::from("--stereo-fault applies to short mixes only")),
+                })
+                .transpose()?;
             let tagged = tagged.map(|path| tagged_assets(kind, &path)).transpose()?;
             let report = mixes::run(
                 &paths.library()?,
@@ -925,6 +967,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     rides,
                     tagged: tagged.as_ref(),
                     other_pairs,
+                    stereo_fault,
                 },
             )?;
             write_json(
@@ -1177,6 +1220,7 @@ fn run_robust(
     paths: &Paths,
     seed: u64,
     only: &[String],
+    query_channels: stereo::QueryChannels,
     variant: &IndexVariant,
     jobs: usize,
 ) -> Result<(), String> {
@@ -1197,14 +1241,19 @@ fn run_robust(
             padding: &padding,
             matching: &paths.matching,
             verify: paths.verify,
+            query_channels,
             jobs,
         },
     )?;
     let suffix = variant.suffix();
+    let channels = match query_channels {
+        stereo::QueryChannels::Downmix => String::new(),
+        choice => format!("-channels-{}", choice.name()),
+    };
     write_json(
         &paths
             .reports()
-            .join(format!("robust-seed-{seed}{suffix}.json")),
+            .join(format!("robust-seed-{seed}{suffix}{channels}.json")),
         &report,
     )?;
     robust::print_summary(&report);

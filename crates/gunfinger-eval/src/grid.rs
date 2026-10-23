@@ -134,6 +134,7 @@ pub fn run(
         ladder: options.ladder,
         matching: options.matching,
         verifier: verifier.as_ref(),
+        fault: None,
     };
     let queries = map_in_order(
         &planned,

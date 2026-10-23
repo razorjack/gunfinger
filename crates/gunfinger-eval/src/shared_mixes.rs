@@ -177,7 +177,7 @@ pub fn run(
     let rendered = draw(plan, &records, second, clusters)?;
     fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     for result in map_in_order(&rendered, options.jobs, |rendered| {
-        render_once(&rendered.mix, roots, &mix_path(dir, &rendered.mix))
+        render_once(&rendered.mix, roots, None, &mix_path(dir, &rendered.mix))
     }) {
         result?;
     }

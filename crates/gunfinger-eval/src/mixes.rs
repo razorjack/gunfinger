@@ -25,8 +25,11 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::matching::Matching;
-use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
+use crate::render::{
+    Encoding, Playback, RENDER_RATE, Stereo, encode, encode_stereo, limited, render_samples, rms,
+};
 use crate::rng::Rng;
+use crate::robust::{Fault, faulted};
 use crate::scoring::evidence;
 use crate::shared::Roots;
 use crate::sweep::Plan;
@@ -115,7 +118,8 @@ impl MixKind {
     /// `drops-other-pairs-seed-<seed>` for drops with other pairs.
     pub fn name(self, seed: u64, label: Option<&str>) -> String {
         match (self, label) {
-            (MixKind::Short, _) => format!("seed-{seed}"),
+            (MixKind::Short, Some(label)) => format!("{label}-seed-{seed}"),
+            (MixKind::Short, None) => format!("seed-{seed}"),
             (MixKind::Long, _) => format!("long-seed-{seed}"),
             (MixKind::Beatmatched, _) => format!("beatmatched-seed-{seed}"),
             (MixKind::Shared, _) => format!("shared-seed-{seed}"),
@@ -278,29 +282,77 @@ pub struct PlannedMix {
 }
 
 /// Renders `mix` as a 128 kbit/s MP3: each play at its speed and level,
-/// faded and bass-cut as planned, summed.
-pub fn render(mix: &PlannedMix, roots: &Roots, output: &Path) -> Result<(), String> {
-    let mut samples = vec![0.0_f32; to_index(mix.seconds)];
-    for play in &mix.plays {
-        let first = to_index(play.start_seconds);
-        for (offset, sample) in play_audio(play, roots)?.into_iter().enumerate() {
-            if let Some(slot) = samples.get_mut(first + offset) {
-                *slot += sample;
-            }
-        }
-    }
+/// faded and bass-cut as planned, summed. With a stereo fault, both
+/// channels are kept and the right one is faulted from half the mix's
+/// length to its end (brief 42, step 5a).
+pub fn render(
+    mix: &PlannedMix,
+    roots: &Roots,
+    fault: Option<Fault>,
+    output: &Path,
+) -> Result<(), String> {
     if let Some(dir) = output.parent() {
         fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     }
-    encode(&limited(samples), None, Encoding::Mp3(128), output)
+    let Some(fault) = fault else {
+        let [samples] = summed(mix, roots, [None])?;
+        return encode(&limited(samples), None, Encoding::Mp3(128), output);
+    };
+    let [left, right] = summed(mix, roots, [Some(LEFT), Some(RIGHT)])?;
+    let half = to_index(mix.seconds / 2.0).min(right.len());
+    let later = faulted(
+        Stereo {
+            left: left[half..].to_vec(),
+            right: right[half..].to_vec(),
+        },
+        fault,
+        &mut Rng::new(0),
+    );
+    let right = right[..half].iter().chain(&later.right).copied().collect();
+    encode_stereo(
+        &Stereo { left, right }.limited(),
+        Encoding::Mp3(128),
+        output,
+    )
 }
 
-/// One play's audio as it sounds in the mix. Where the bass is cut, the
-/// high-passed render takes over through a short ramp.
-fn play_audio(play: &PlannedPlay, roots: &Roots) -> Result<Vec<f32>, String> {
+/// FFmpeg filters taking one channel of a source, a one-channel source
+/// giving its only channel to both.
+const LEFT: &str = "aformat=channel_layouts=stereo,pan=mono|c0=c0";
+const RIGHT: &str = "aformat=channel_layouts=stereo,pan=mono|c0=c1";
+
+/// The mix's plays summed, in each of `channels` (`None`: FFmpeg's
+/// downmix).
+fn summed<const N: usize>(
+    mix: &PlannedMix,
+    roots: &Roots,
+    channels: [Option<&str>; N],
+) -> Result<[Vec<f32>; N], String> {
+    let mut sums: [Vec<f32>; N] = std::array::from_fn(|_| vec![0.0_f32; to_index(mix.seconds)]);
+    for play in &mix.plays {
+        let first = to_index(play.start_seconds);
+        for (sum, audio) in sums.iter_mut().zip(play_audio(play, roots, channels)?) {
+            for (offset, sample) in audio.into_iter().enumerate() {
+                if let Some(slot) = sum.get_mut(first + offset) {
+                    *slot += sample;
+                }
+            }
+        }
+    }
+    Ok(sums)
+}
+
+/// One play's audio as it sounds in the mix, in each of `channels`, at
+/// one gain for all of them. Where the bass is cut, the high-passed render
+/// takes over through a short ramp.
+fn play_audio<const N: usize>(
+    play: &PlannedPlay,
+    roots: &Roots,
+    channels: [Option<&str>; N],
+) -> Result<[Vec<f32>; N], String> {
     let source = roots.path(&play.asset)?;
     let seconds = play.end_seconds - play.start_seconds;
-    let render = |filter| match play.ride {
+    let render = |filter: Option<&str>| match play.ride {
         None => render_samples(
             &source,
             play.source_start_seconds,
@@ -310,24 +362,36 @@ fn play_audio(play: &PlannedPlay, roots: &Roots) -> Result<Vec<f32>, String> {
         ),
         Some(_) => ridden(play, &source, filter),
     };
-    let full = render(None)?;
-    let gain = play.gain() * LEVEL / rms(&full).max(1e-9);
-    let swapped = play.bass_cut_until.is_some() || play.bass_cut_from.is_some();
-    let cut = if swapped {
-        render(Some(BASS_CUT))?
-    } else {
-        Vec::new()
+    let with = |channel: Option<&str>, filter: Option<&str>| match (channel, filter) {
+        (None, filter) => filter.map(str::to_owned),
+        (Some(channel), None) => Some(channel.to_owned()),
+        (Some(channel), Some(filter)) => Some(format!("{channel},{filter}")),
     };
+    let swapped = play.bass_cut_until.is_some() || play.bass_cut_from.is_some();
+    let mut fulls = Vec::with_capacity(N);
+    let mut cuts = Vec::with_capacity(N);
+    for channel in channels {
+        fulls.push(render(with(channel, None).as_deref())?);
+        cuts.push(if swapped {
+            render(with(channel, Some(BASS_CUT)).as_deref())?
+        } else {
+            Vec::new()
+        });
+    }
+    let gain = play.gain() * LEVEL / rms(&fulls.concat()).max(1e-9);
     let rate = f64::from(RENDER_RATE);
-    Ok((0..full.len())
-        .map(|index| {
-            let at = play.start_seconds + index as f64 / rate;
-            let cut_share = if swapped { cut_share(play, at) } else { 0.0 };
-            let sample = (1.0 - cut_share) * f64::from(full[index])
-                + cut_share * f64::from(cut.get(index).copied().unwrap_or(0.0));
-            (sample * gain * play.fade(at)) as f32
-        })
-        .collect())
+    Ok(std::array::from_fn(|channel| {
+        let (full, cut) = (&fulls[channel], &cuts[channel]);
+        (0..full.len())
+            .map(|index| {
+                let at = play.start_seconds + index as f64 / rate;
+                let cut_share = if swapped { cut_share(play, at) } else { 0.0 };
+                let sample = (1.0 - cut_share) * f64::from(full[index])
+                    + cut_share * f64::from(cut.get(index).copied().unwrap_or(0.0));
+                (sample * gain * play.fade(at)) as f32
+            })
+            .collect()
+    }))
 }
 
 /// A play with a pitch ride: the track at native speed, read at the
@@ -1108,6 +1172,9 @@ pub struct MixesReport {
     /// The drops kind with `Options::other_pairs`.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub other_pairs: bool,
+    /// `Options::stereo_fault`'s name.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stereo_fault: Option<String>,
     pub ladder: String,
     pub indexed_assets: usize,
     pub mixes: Vec<MixResult>,
@@ -1145,6 +1212,9 @@ pub struct Options<'a> {
     /// and not held out, also pairs whose files this index lacks (files of
     /// the other library, for searching the renders at its scale).
     pub other_pairs: bool,
+    /// Short mixes only: rendered in stereo, the right channel under this
+    /// fault over the mix's second half (`render`).
+    pub stereo_fault: Option<Fault>,
 }
 
 /// The label of the drops kind's mixes with other pairs.
@@ -1159,11 +1229,13 @@ impl Options<'_> {
     }
 
     /// What tells these mixes' report and renders from the kind's default
-    /// ones: `rides_label`, or `OTHER_PAIRS`.
+    /// ones: `rides_label`, `OTHER_PAIRS`, or the stereo fault's name.
     fn label(&self) -> Option<String> {
-        self.rides_label().or_else(|| {
-            (self.kind == MixKind::Drops && self.other_pairs).then(|| OTHER_PAIRS.to_owned())
-        })
+        self.rides_label()
+            .or_else(|| {
+                (self.kind == MixKind::Drops && self.other_pairs).then(|| OTHER_PAIRS.to_owned())
+            })
+            .or_else(|| self.stereo_fault.map(Fault::name))
     }
 }
 
@@ -1174,6 +1246,7 @@ impl MixesReport {
         self.rides
             .clone()
             .or_else(|| self.other_pairs.then(|| OTHER_PAIRS.to_owned()))
+            .or_else(|| self.stereo_fault.clone())
     }
 }
 
@@ -1404,6 +1477,7 @@ pub fn run(
         ladder: options.ladder,
         matching: options.matching,
         verifier: verifier.as_ref(),
+        fault: options.stereo_fault,
     };
     let results = map_in_order(&planned, options.jobs, |(mix, path)| {
         search_mix(mix, path, &roots, clusters, &searcher)
@@ -1413,6 +1487,7 @@ pub fn run(
         kind: options.kind,
         rides,
         other_pairs: options.kind == MixKind::Drops && options.other_pairs,
+        stereo_fault: options.stereo_fault.map(Fault::name),
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
         mixes: results.into_iter().collect::<Result<_, _>>()?,
@@ -1426,17 +1501,24 @@ pub struct Searcher<'a> {
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
     pub verifier: Option<&'a Verifier<'a>>,
+    /// The stereo fault the mixes are rendered with (`render`).
+    pub fault: Option<Fault>,
 }
 
 /// Renders `mix` to `path` unless an earlier run left it there with the
 /// same plan (`<path stem>.truth.json`).
-pub fn render_once(mix: &PlannedMix, roots: &Roots, path: &Path) -> Result<(), String> {
+pub fn render_once(
+    mix: &PlannedMix,
+    roots: &Roots,
+    fault: Option<Fault>,
+    path: &Path,
+) -> Result<(), String> {
     let truth_path = path.with_extension("truth.json");
     let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
     let rendered = crate::render::is_complete(path)
         && fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan);
     if !rendered {
-        render(mix, roots, path)?;
+        render(mix, roots, fault, path)?;
         fs::write(&truth_path, &plan).map_err(|error| error.to_string())?;
     }
     Ok(())
@@ -1456,8 +1538,9 @@ pub fn search_mix(
         ladder,
         matching,
         verifier,
+        fault,
     } = *searcher;
-    render_once(mix, roots, path)?;
+    render_once(mix, roots, fault, path)?;
     let profile = Profile::CURRENT;
     let audio =
         decode(path, profile.sample_rate, Excerpt::default()).map_err(|error| error.to_string())?;
@@ -1567,6 +1650,65 @@ pub fn print_summary(report: &MixesReport, kind: MixKind) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_stereo_fault_takes_the_second_half_of_the_mix_and_its_own_name() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-mixes-stereo-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let generated = std::process::Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("aevalsrc=0.5*sin(440*2*PI*t)|0.5*sin(440*2*PI*t):s=44100:d=30")
+            .arg(dir.join("a.mp3"))
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        let roots = Roots {
+            library: &dir,
+            second: None,
+        };
+        let mut tone = play(0.0, 8.0);
+        tone.source_start_seconds = 1.0;
+        let mix = PlannedMix {
+            name: String::from("mix-00"),
+            seconds: 8.0,
+            plays: vec![tone],
+        };
+        let rms_between = |samples: &[f32], from: f64, to: f64| {
+            rms(&samples[(from * 8_000.0) as usize..(to * 8_000.0) as usize])
+        };
+
+        render(&mix, &roots, None, &dir.join("mono.mp3")).unwrap();
+        let unchanged = crate::robust::stereo_fault("stereo-control").unwrap();
+        render(&mix, &roots, Some(unchanged), &dir.join("stereo.mp3")).unwrap();
+        let inverted = crate::robust::stereo_fault("stereo-inverted").unwrap();
+        render(&mix, &roots, Some(inverted), &dir.join("inverted.mp3")).unwrap();
+
+        let decoded = |name: &str| {
+            decode(&dir.join(name), 8_000, Excerpt::default())
+                .unwrap()
+                .samples
+        };
+        let (mono, stereo, faulted) = (
+            decoded("mono.mp3"),
+            decoded("stereo.mp3"),
+            decoded("inverted.mp3"),
+        );
+        let level = rms_between(&mono, 1.0, 7.0);
+        // Two equal channels at 1/sqrt(2) each: the mono level times sqrt(2).
+        assert!((rms_between(&stereo, 1.0, 7.0) / level - 2_f64.sqrt()).abs() < 0.05);
+        assert!((rms_between(&faulted, 1.0, 3.5) / level - 2_f64.sqrt()).abs() < 0.05);
+        assert!(rms_between(&faulted, 4.5, 7.0) < 0.05 * level);
+        assert_eq!(
+            MixKind::Short.name(2026, Some(&inverted.name())),
+            "stereo-inverted-seed-2026"
+        );
+        assert!(crate::robust::stereo_fault("inverted").is_err());
+        fs::remove_dir_all(&dir).ok();
+    }
 
     fn play(start_seconds: f64, end_seconds: f64) -> PlannedPlay {
         PlannedPlay {

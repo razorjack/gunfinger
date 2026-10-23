@@ -146,6 +146,9 @@ second by second (Sonnleitner et al. 2016, §5), under today's rule or a
 minimum span; `gaps` lists the stretches of the same reports that no
 confident segment covers and estimates how many tracks each holds from
 its length, against the truth (`docs/research/2026-10-21-gap-measures.md`).
+`stereo` decodes a query's two channels for `robust`'s stereo faults
+(`--query-channels`, a diagnostic) and measures how wide a source is
+(`stereo-width`).
 `scan --leave-out-slots` leaves runs of named manifest slots out of the
 index, so that each run leaves a gap of known tracks.
 `padding` adds records to the index for scale experiments, including a

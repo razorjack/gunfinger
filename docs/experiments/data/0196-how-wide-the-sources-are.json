@@ -1,0 +1,560 @@
+{
+ "sample": {
+  "seed": 2026,
+  "population": 265,
+  "files": [
+   {
+    "file": "Bad Company - The Pulse.mp3",
+    "side_to_mid_db": -16.56,
+    "width": "narrow"
+   },
+   {
+    "file": "DJ Trace - Sonar.m4a",
+    "side_to_mid_db": -17.14,
+    "width": "narrow"
+   },
+   {
+    "file": "Ed Rush & Optical - Bacteria.mp3",
+    "side_to_mid_db": -18.54,
+    "width": "narrow"
+   },
+   {
+    "file": "Ed Rush & Optical - Dozer.mp3",
+    "side_to_mid_db": -22.57,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "Ed Rush & Optical - Glass Eye.mp3",
+    "side_to_mid_db": -17.33,
+    "width": "narrow"
+   },
+   {
+    "file": "Ed Rush & Optical - Lithosphere.mp3",
+    "side_to_mid_db": -8.16,
+    "width": "wide"
+   },
+   {
+    "file": "Ed Rush & Optical - Mystery Machine.mp3",
+    "side_to_mid_db": -16.13,
+    "width": "narrow"
+   },
+   {
+    "file": "Ed Rush & Optical - Sick Note.mp3",
+    "side_to_mid_db": -16.88,
+    "width": "narrow"
+   },
+   {
+    "file": "Kemal & Rob Data - Star Trails.mp3",
+    "side_to_mid_db": -15.19,
+    "width": "narrow"
+   },
+   {
+    "file": "Kraken - Side Effects (TeeBee Remix).mp3",
+    "side_to_mid_db": -13.35,
+    "width": "narrow"
+   },
+   {
+    "file": "Optical - Millennium.mp3",
+    "side_to_mid_db": -14.99,
+    "width": "narrow"
+   },
+   {
+    "file": "Skynet & Stakka - Clockwork.mp3",
+    "side_to_mid_db": -19.39,
+    "width": "narrow"
+   },
+   {
+    "file": "Skynet & Stakka - Night Lore.mp3",
+    "side_to_mid_db": -35.05,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "Skynet & Stakka - Pathogen.mp3",
+    "side_to_mid_db": -14.76,
+    "width": "narrow"
+   },
+   {
+    "file": "01 - Aquasky - Spectre.mp3",
+    "side_to_mid_db": -16.5,
+    "width": "narrow"
+   },
+   {
+    "file": "01 - Ed Rush & Optical - Funktion.mp3",
+    "side_to_mid_db": -20.67,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "01-future_cut-the_specialist-trt.mp3",
+    "side_to_mid_db": -21.79,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "02. Bad Company - China Cup.mp3",
+    "side_to_mid_db": -12.74,
+    "width": "narrow"
+   },
+   {
+    "file": "03-Profound_Noize-Dropzone-sour.mp3",
+    "side_to_mid_db": -59.47,
+    "width": "mono"
+   },
+   {
+    "file": "03_-_dj_ruffneck_-_jawbreaker.mp3",
+    "side_to_mid_db": -15.3,
+    "width": "narrow"
+   },
+   {
+    "file": "05 - Bad Company - Sentient.mp3",
+    "side_to_mid_db": -24.07,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "07 - Bad Company - Oxygen.mp3",
+    "side_to_mid_db": -25.34,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+    "side_to_mid_db": -15.7,
+    "width": "narrow"
+   },
+   {
+    "file": "1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3",
+    "side_to_mid_db": -18.33,
+    "width": "narrow"
+   },
+   {
+    "file": "2. SKC - Recharger (Black Sun Empire Remix).mp3",
+    "side_to_mid_db": -15.97,
+    "width": "narrow"
+   },
+   {
+    "file": "207-ant_miles-china_town-sour.mp3",
+    "side_to_mid_db": -15.11,
+    "width": "narrow"
+   },
+   {
+    "file": "A- The_Nine.mp3",
+    "side_to_mid_db": -15.54,
+    "width": "narrow"
+   },
+   {
+    "file": "A-Chris_SU-Astro_Sine-sour.mp3",
+    "side_to_mid_db": -14.51,
+    "width": "narrow"
+   },
+   {
+    "file": "A-Konflict-RoadBlock-sour.mp3",
+    "side_to_mid_db": -19.97,
+    "width": "narrow"
+   },
+   {
+    "file": "A-Matrix_and_Fierce-Tearaway-sour.mp3",
+    "side_to_mid_db": -12.9,
+    "width": "narrow"
+   },
+   {
+    "file": "A-Stakka_and_Skynet-Pathogen-sour.mp3",
+    "side_to_mid_db": -14.76,
+    "width": "narrow"
+   },
+   {
+    "file": "A. ASC -- The Pursuit.mp3",
+    "side_to_mid_db": -7.5,
+    "width": "wide"
+   },
+   {
+    "file": "AA-Amir-Bulletproof-sour.mp3",
+    "side_to_mid_db": -55.86,
+    "width": "mono"
+   },
+   {
+    "file": "AA-Nu_Balance-Overheads-sour.mp3",
+    "side_to_mid_db": -22.86,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "AA-Stakka_and_Skynet-Logistics-sour.mp3",
+    "side_to_mid_db": -34.84,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "AA. Pyro -- Spaced.mp3",
+    "side_to_mid_db": -101.45,
+    "width": "mono"
+   },
+   {
+    "file": "AA. SKC -- Recharger 2007.mp3",
+    "side_to_mid_db": -19.86,
+    "width": "narrow"
+   },
+   {
+    "file": "02-aphrodite-b1-cool_rock_suff-utb.mp3",
+    "side_to_mid_db": -15.93,
+    "width": "narrow"
+   },
+   {
+    "file": "01-aphrodite-defjammer-bpm.mp3",
+    "side_to_mid_db": -37.98,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "b-aphrodite-crater.mp3",
+    "side_to_mid_db": -12.56,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-aphrodite-karma_sutra-bpm.mp3",
+    "side_to_mid_db": -12.08,
+    "width": "narrow"
+   },
+   {
+    "file": "b1-aphrodite-dark_dark_side-lame.mp3",
+    "side_to_mid_db": -19.41,
+    "width": "narrow"
+   },
+   {
+    "file": "a1_clean_decibel-drum.mp3",
+    "side_to_mid_db": -21.28,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "b1_from_the_east-drum.mp3",
+    "side_to_mid_db": -20.52,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "aa-aphrodite-acid_life-sour.mp3",
+    "side_to_mid_db": -18.6,
+    "width": "narrow"
+   },
+   {
+    "file": "b-aphrodite-siren_bass-sour.mp3",
+    "side_to_mid_db": -20.18,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "A_-_Dreazz_&_Falcon_-_Do_Drop_In!.mp3",
+    "side_to_mid_db": -16.62,
+    "width": "narrow"
+   },
+   {
+    "file": "b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "side_to_mid_db": -24.82,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "B-Bad_Company-Four_Days-dmz.mp3",
+    "side_to_mid_db": -17.98,
+    "width": "narrow"
+   },
+   {
+    "file": "B-Cause_4_Concern-Peep_Show-sour.mp3",
+    "side_to_mid_db": -14.23,
+    "width": "narrow"
+   },
+   {
+    "file": "B. falcon - china delight.mp3",
+    "side_to_mid_db": -21.38,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "B_-_Decoder_-_Dead_Fall.mp3",
+    "side_to_mid_db": -21.21,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "Cyb Orc - Agressor.mp3",
+    "side_to_mid_db": -11.93,
+    "width": "narrow"
+   },
+   {
+    "file": "Cyb Orc - Endorphine.mp3",
+    "side_to_mid_db": -104.5,
+    "width": "mono"
+   },
+   {
+    "file": "Cyb Orc - Simulant.mp3",
+    "side_to_mid_db": -12.28,
+    "width": "narrow"
+   },
+   {
+    "file": "D-Sinthetix-Cryogenic-sour.mp3",
+    "side_to_mid_db": -15.9,
+    "width": "narrow"
+   },
+   {
+    "file": "Kraken+Arkane - Dominion+Neuro - A - Dominion.mp3",
+    "side_to_mid_db": -16.61,
+    "width": "narrow"
+   },
+   {
+    "file": "[AA]_-_Supersonic.mp3",
+    "side_to_mid_db": -20.48,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "[A]_-_Mudslide.mp3",
+    "side_to_mid_db": -21.71,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "a-)eib(-miami-sour.mp3",
+    "side_to_mid_db": -20.51,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "a-bad_company-pulse.mp3",
+    "side_to_mid_db": -16.52,
+    "width": "narrow"
+   },
+   {
+    "file": "a-break-day_one-sour.mp3",
+    "side_to_mid_db": -14.55,
+    "width": "narrow"
+   },
+   {
+    "file": "a-cause_4_concern-relentless-sour.mp3",
+    "side_to_mid_db": -26.89,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "a-cause_4_concern-skewer-sour.mp3",
+    "side_to_mid_db": -16.53,
+    "width": "narrow"
+   },
+   {
+    "file": "a-dj_friction_and_nu_balance_final_judgement-rfl.mp3",
+    "side_to_mid_db": -27.22,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "a-rascal_and_klone-snake_eyes-sour.mp3",
+    "side_to_mid_db": -21.64,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "side_to_mid_db": -29.86,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "a1-skynet-acid_drops-sour.mp3",
+    "side_to_mid_db": -17.54,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-cause_4_concern-abduction-sour.mp3",
+    "side_to_mid_db": -17.28,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-cause_4_concern-epox-0db.mp3",
+    "side_to_mid_db": -16.2,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-cause_4_concern-psyke-sour.mp3",
+    "side_to_mid_db": -10.84,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-cause_4_concern-synergy-sour.mp3",
+    "side_to_mid_db": -12.94,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-matrix-bad_dreams-sour.mp3",
+    "side_to_mid_db": -19.74,
+    "width": "narrow"
+   },
+   {
+    "file": "aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "side_to_mid_db": -21.23,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "aa-sinthetix-fallout-sour.mp3",
+    "side_to_mid_db": -9.53,
+    "width": "wide"
+   },
+   {
+    "file": "aa-stakka_and_k_tee-terratorial-sour.mp3",
+    "side_to_mid_db": -19.67,
+    "width": "narrow"
+   },
+   {
+    "file": "B. aphrodite - bomber style.mp3",
+    "side_to_mid_db": -38.15,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "A - Aphrodite - Ganja Man.mp3",
+    "side_to_mid_db": -20.8,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "b-bulletproof-scarred-sour.mp3",
+    "side_to_mid_db": -14.56,
+    "width": "narrow"
+   },
+   {
+    "file": "b-cause_4_concern-sarin-sour.mp3",
+    "side_to_mid_db": -19.33,
+    "width": "narrow"
+   },
+   {
+    "file": "b-david_carbone-innocence_(cause_4_concern_remix)-sour.mp3",
+    "side_to_mid_db": -9.22,
+    "width": "wide"
+   },
+   {
+    "file": "b-kemal_and_rob_data-linear-sour.mp3",
+    "side_to_mid_db": -51.8,
+    "width": "mono"
+   },
+   {
+    "file": "b-silent_witness_and_break-again_and_again-sour.mp3",
+    "side_to_mid_db": -26.78,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "b-skc-eclipse-gdn.mp3",
+    "side_to_mid_db": -16.73,
+    "width": "narrow"
+   },
+   {
+    "file": "b-skc-flex-sour.mp3",
+    "side_to_mid_db": -15.83,
+    "width": "narrow"
+   },
+   {
+    "file": "b-skc-recharger_(black_sun_empire_remix)-sour.mp3",
+    "side_to_mid_db": -15.97,
+    "width": "narrow"
+   },
+   {
+    "file": "b-spirit-out_of_control-sour.mp3",
+    "side_to_mid_db": -17.28,
+    "width": "narrow"
+   },
+   {
+    "file": "b-stakka_and_k_tee-echo_chamber-atm.mp3",
+    "side_to_mid_db": -15.45,
+    "width": "narrow"
+   },
+   {
+    "file": "b-stakka_and_skynet-global_report-sour.mp3",
+    "side_to_mid_db": -28.59,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "b-subwave-digital_symphony-sour.mp3",
+    "side_to_mid_db": -18.88,
+    "width": "narrow"
+   },
+   {
+    "file": "d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+    "side_to_mid_db": -28.53,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "d-marcus_intalex_and_s_t_files-balderdash-sour.mp3",
+    "side_to_mid_db": -16.9,
+    "width": "narrow"
+   },
+   {
+    "file": "d-skc-broken-sour.mp3",
+    "side_to_mid_db": -17.81,
+    "width": "narrow"
+   },
+   {
+    "file": "d. falcon - the stand.mp3",
+    "side_to_mid_db": -19.9,
+    "width": "narrow"
+   },
+   {
+    "file": "e-cause_4_concern-blindside-sour.mp3",
+    "side_to_mid_db": -12.42,
+    "width": "narrow"
+   },
+   {
+    "file": "e-chris_su_and_skc-blackout-sour.mp3",
+    "side_to_mid_db": -18.88,
+    "width": "narrow"
+   },
+   {
+    "file": "g-tee_bee-two_faced-sour.mp3",
+    "side_to_mid_db": -18.2,
+    "width": "narrow"
+   },
+   {
+    "file": "k-sta_and_paul_b-come_closer-sour.mp3",
+    "side_to_mid_db": -14.66,
+    "width": "narrow"
+   },
+   {
+    "file": "b-gridlok-soul_sucker-sour.mp3",
+    "side_to_mid_db": -21.43,
+    "width": "nearly-mono"
+   },
+   {
+    "file": "106-stakka_and_skynet-timelines-sour.mp3",
+    "side_to_mid_db": -11.47,
+    "width": "narrow"
+   }
+  ]
+ },
+ "excerpts": {
+  "0": -17.61,
+  "1": -17.75,
+  "2": -25.15,
+  "3": -15.98,
+  "4": -24.45,
+  "5": -15.43,
+  "6": -13.02,
+  "7": -15.74,
+  "8": -28.41,
+  "9": -23.44,
+  "10": -12.25,
+  "11": -6.51,
+  "12": -18.19,
+  "13": -12.51,
+  "14": -2.28,
+  "15": -28.57,
+  "16": -15.29,
+  "17": -12.83,
+  "18": -16.66,
+  "19": -6.8,
+  "20": -14.5,
+  "21": -16.83,
+  "22": -17.56,
+  "23": -20.98,
+  "24": -20.86,
+  "25": -15.83,
+  "26": -22.66,
+  "27": -14.36,
+  "28": -23.54,
+  "29": -11.76,
+  "30": -22.75,
+  "31": -37.76,
+  "32": -19.51,
+  "33": -20.8,
+  "34": -57.56,
+  "35": -5.83,
+  "36": -22.22,
+  "37": -22.73,
+  "38": -18.35,
+  "39": -21.63,
+  "40": -15.05,
+  "41": -15.48,
+  "42": -10.65,
+  "43": -18.36,
+  "44": -19.99,
+  "45": -40.3,
+  "46": -17.32,
+  "47": -18.47,
+  "48": -16.12,
+  "49": 0.48
+ }
+}

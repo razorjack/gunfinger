@@ -13,7 +13,6 @@ use std::process::{Command, Stdio};
 use std::time::Instant;
 
 use gunfinger_core::confidence::Confidence;
-use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
@@ -26,8 +25,12 @@ use crate::clusters::Clusters;
 use crate::matching::Matching;
 use crate::padding::Padding;
 use crate::platform::Platform;
-use crate::render::{Encoding, Playback, RENDER_RATE, encode, limited, render_samples, rms};
+use crate::render::{
+    Encoding, Playback, RENDER_RATE, Stereo, encode, encode_stereo, limited, render_samples,
+    render_stereo_samples, rms,
+};
 use crate::rng::Rng;
+use crate::stereo::{QueryChannels, decode_stereo, side_to_mid_db};
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
 use crate::verifier::{Verification, Verifier};
@@ -112,6 +115,31 @@ enum Condition {
     Combined,
     Speed(f64),
     KeyLock(f64),
+    /// The excerpt with both channels kept, the right one under this fault,
+    /// encoded in stereo; the core's decoding mixes the two down.
+    Stereo(Fault),
+}
+
+/// A fault of one channel, as old tape and vinyl transfers can carry. It is
+/// applied to the right channel; the left stays as rendered.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Fault {
+    /// No fault: the control for the others.
+    Unchanged,
+    /// Polarity inverted: the downmix keeps only what the channels do not
+    /// share.
+    Inverted,
+    Silent,
+    /// Pink noise this far below the channel's RMS level.
+    Noise {
+        snr_db: i32,
+    },
+    /// The channel this many milliseconds late (to the nearest sample): the
+    /// downmix is comb-filtered, with notches at odd multiples of
+    /// 1 / (2 x delay).
+    Delay {
+        milliseconds: f64,
+    },
 }
 
 const CONDITIONS: [Condition; 38] = [
@@ -176,6 +204,20 @@ const RIDES_INSIDE: [Condition; 4] = [
     },
 ];
 
+/// Stereo faults, run only when named in `--only` (brief 42's
+/// pre-registration).
+const STEREO_FAULTS: [Condition; 9] = [
+    Condition::Stereo(Fault::Unchanged),
+    Condition::Stereo(Fault::Inverted),
+    Condition::Stereo(Fault::Silent),
+    Condition::Stereo(Fault::Noise { snr_db: 10 }),
+    Condition::Stereo(Fault::Noise { snr_db: 0 }),
+    Condition::Stereo(Fault::Noise { snr_db: -10 }),
+    Condition::Stereo(Fault::Delay { milliseconds: 0.2 }),
+    Condition::Stereo(Fault::Delay { milliseconds: 1.0 }),
+    Condition::Stereo(Fault::Delay { milliseconds: 5.0 }),
+];
+
 /// Speeds just past the ladder's ends, run only when named in `--only`.
 const LADDER_EDGE: [Condition; 10] = [
     Condition::Speed(0.918),
@@ -230,6 +272,13 @@ impl Condition {
                 }
             }
             Condition::KeyLock(tempo) => format!("key-lock{:+.0}pct", (tempo - 1.0) * 100.0),
+            Condition::Stereo(fault) => match fault {
+                Fault::Unchanged => "stereo-control".into(),
+                Fault::Inverted => "stereo-inverted".into(),
+                Fault::Silent => "stereo-silent".into(),
+                Fault::Noise { snr_db } => format!("stereo-noise-snr-{snr_db}db"),
+                Fault::Delay { milliseconds } => format!("stereo-delay-{milliseconds}ms"),
+            },
         }
     }
 
@@ -305,6 +354,10 @@ pub struct RobustReport {
     /// Assets in the index, synthetic copies and a second library included.
     #[serde(default)]
     pub indexed_assets: usize,
+    /// What was searched of each query when not the core's downmix
+    /// (`stereo::QueryChannels`).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub query_channels: Option<String>,
     pub rows: Vec<Row>,
     pub queries: Vec<QueryResult>,
 }
@@ -335,6 +388,27 @@ pub struct QueryResult {
     /// With `--verify`: every detection, measured by the peak verifier.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub verified: Vec<RobustFound>,
+    /// For the stereo conditions: the query's width and its wrong
+    /// detections.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stereo: Option<StereoQuery>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct StereoQuery {
+    /// `stereo::side_to_mid_db` of the query as decoded in two channels.
+    pub side_to_mid_db: f64,
+    /// Detections of anything but the excerpt's cluster, at the confident
+    /// and possible levels.
+    pub wrong: Vec<WrongFound>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct WrongFound {
+    pub asset: String,
+    pub level: String,
+    pub hits: u32,
+    pub windows: u32,
 }
 
 /// A detection of a robust query with the peak verifier's measures.
@@ -383,6 +457,8 @@ pub struct Options<'a> {
     pub matching: &'a Matching,
     /// Measure every detection with the peak verifier.
     pub verify: bool,
+    /// What is searched of each query.
+    pub query_channels: QueryChannels,
     pub jobs: usize,
 }
 
@@ -402,6 +478,7 @@ pub fn run(
         padding,
         matching,
         verify,
+        query_channels,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
@@ -434,6 +511,7 @@ pub fn run(
             RIDES_INSIDE
                 .into_iter()
                 .chain(LADDER_EDGE)
+                .chain(STEREO_FAULTS)
                 .filter(|condition| only.contains(&condition.name())),
         )
         .collect();
@@ -461,10 +539,9 @@ pub fn run(
         if !crate::render::is_complete(&job.path) {
             render_query(job, library, &speech, seed)?;
         }
-        let audio = decode(&job.path, profile.sample_rate, Excerpt::default())
-            .map_err(|error| error.to_string())?;
+        let samples = query_channels.decode(&job.path, profile.sample_rate)?;
         let started = Instant::now();
-        let detections = matching.search(&index, &audio.samples, &profile, ladder, 1);
+        let detections = matching.search(&index, &samples, &profile, ladder, 1);
         let search_seconds = started.elapsed().as_secs_f64();
         let own = clusters.cluster_of(&job.draw.asset);
         let partner = if job.condition.has_partner() {
@@ -489,7 +566,9 @@ pub fn run(
             strongest_wrong_hits: 0,
             search_seconds,
             verified: Vec::new(),
+            stereo: None,
         };
+        let mut wrong = Vec::new();
         for detection in &detections {
             let asset = &index.asset(detection.asset).path;
             let level = detection.evidence.confidence();
@@ -508,7 +587,7 @@ pub fn run(
                     hits: detection.evidence.hits,
                     level: format!("{level:?}").to_lowercase(),
                     speed: detection.speed.0,
-                    verified: verifier.verify(&index, detection, &audio.samples, &profile),
+                    verified: verifier.verify(&index, detection, &samples, &profile),
                 });
             }
             if own.contains(asset) {
@@ -524,12 +603,27 @@ pub fn run(
             } else {
                 result.strongest_wrong_hits =
                     result.strongest_wrong_hits.max(detection.evidence.hits);
+                if level >= Confidence::Possible {
+                    wrong.push(WrongFound {
+                        asset: asset.clone(),
+                        level: format!("{level:?}").to_lowercase(),
+                        hits: detection.evidence.hits,
+                        windows: detection.evidence.windows,
+                    });
+                }
                 match level {
                     Confidence::Confident => result.wrong_confident += 1,
                     Confidence::Possible => result.wrong_possible += 1,
                     Confidence::Weak => {}
                 }
             }
+        }
+        if matches!(job.condition, Condition::Stereo(_)) {
+            let stereo = decode_stereo(&job.path, profile.sample_rate)?;
+            result.stereo = Some(StereoQuery {
+                side_to_mid_db: side_to_mid_db(&stereo),
+                wrong,
+            });
         }
         Ok(result)
     });
@@ -543,6 +637,8 @@ pub fn run(
         synthetic_copies: padding.copies,
         second_library_assets: padding.second_assets(),
         indexed_assets: index.assets().len(),
+        query_channels: (query_channels != QueryChannels::Downmix)
+            .then(|| query_channels.name().to_owned()),
         rows,
         queries,
     })
@@ -560,6 +656,20 @@ fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Resu
         job.partner.start_seconds,
     );
     let label = format!("{} {:03}", condition.name(), job.number);
+    if let Condition::Stereo(fault) = condition {
+        let stereo = render_stereo_samples(
+            &source,
+            start,
+            EXCERPT_SECONDS,
+            condition.playback(job.speed),
+        )?;
+        let mut rng = Rng::new(seed ^ ((job.number as u64) << 8));
+        return encode_stereo(
+            &faulted(stereo, fault, &mut rng).limited(),
+            condition.encoding(),
+            &job.path,
+        );
+    }
     if condition == Condition::Combined {
         return render_combined(
             &source,
@@ -740,6 +850,57 @@ fn speech_synthesis(platform: Platform, dir: &Path) -> (Command, PathBuf) {
 
 fn seconds_to_index(seconds: f64) -> usize {
     (seconds * f64::from(RENDER_RATE)) as usize
+}
+
+/// The stereo fault of the `robust` condition `name` (such as
+/// `stereo-inverted`), for other commands' renders (`mixes`).
+pub fn stereo_fault(name: &str) -> Result<Fault, String> {
+    STEREO_FAULTS
+        .into_iter()
+        .find_map(|condition| match condition {
+            Condition::Stereo(fault) if condition.name() == name => Some(fault),
+            _ => None,
+        })
+        .ok_or_else(|| {
+            let names: Vec<String> = STEREO_FAULTS.iter().map(|fault| fault.name()).collect();
+            format!(
+                "no stereo fault named {name}; the faults are {}",
+                names.join(", ")
+            )
+        })
+}
+
+impl Fault {
+    /// Its `robust` condition's name.
+    pub fn name(self) -> String {
+        Condition::Stereo(self).name()
+    }
+}
+
+/// `stereo` with `fault` applied to its right channel.
+pub fn faulted(stereo: Stereo, fault: Fault, rng: &mut Rng) -> Stereo {
+    let Stereo { left, right } = stereo;
+    let right = match fault {
+        Fault::Unchanged => right,
+        Fault::Inverted => right.iter().map(|&x| -x).collect(),
+        Fault::Silent => vec![0.0; right.len()],
+        Fault::Noise { snr_db } => with_noise(&right, f64::from(snr_db), rng),
+        Fault::Delay { milliseconds } => delayed(&right, delay_samples(milliseconds)),
+    };
+    Stereo { left, right }
+}
+
+/// `milliseconds` at `RENDER_RATE`, to the nearest sample.
+fn delay_samples(milliseconds: f64) -> usize {
+    (milliseconds * f64::from(RENDER_RATE) / 1000.0).round() as usize
+}
+
+/// `samples` `by` samples late, silence before them, the length kept.
+fn delayed(samples: &[f32], by: usize) -> Vec<f32> {
+    std::iter::repeat_n(0.0, by.min(samples.len()))
+        .chain(samples.iter().copied())
+        .take(samples.len())
+        .collect()
 }
 
 /// Pink noise (Paul Kellet's economy filter over white noise) at `snr_db`
@@ -1017,6 +1178,109 @@ mod tests {
                 .iter()
                 .all(|condition| !matches!(condition, Condition::Ride { .. }))
         );
+    }
+
+    #[test]
+    fn stereo_faults_run_only_when_named() {
+        let names: Vec<String> = STEREO_FAULTS.iter().map(|fault| fault.name()).collect();
+
+        assert_eq!(
+            names,
+            [
+                "stereo-control",
+                "stereo-inverted",
+                "stereo-silent",
+                "stereo-noise-snr-10db",
+                "stereo-noise-snr-0db",
+                "stereo-noise-snr--10db",
+                "stereo-delay-0.2ms",
+                "stereo-delay-1ms",
+                "stereo-delay-5ms"
+            ]
+        );
+        assert!(
+            CONDITIONS
+                .iter()
+                .all(|condition| !matches!(condition, Condition::Stereo(_)))
+        );
+    }
+
+    #[test]
+    fn a_fault_changes_the_right_channel_only() {
+        let left: Vec<f32> = (0..44_100)
+            .map(|index| (index as f32 * 0.05).sin() * 0.5)
+            .collect();
+        let right: Vec<f32> = (0..44_100)
+            .map(|index| (index as f32 * 0.03).cos() * 0.4)
+            .collect();
+        let source = Stereo {
+            left: left.clone(),
+            right: right.clone(),
+        };
+        let fault = |fault| faulted(source.clone(), fault, &mut Rng::new(1));
+
+        let inverted = fault(Fault::Inverted);
+        let silent = fault(Fault::Silent);
+        let noisy = fault(Fault::Noise { snr_db: 0 });
+        let late = fault(Fault::Delay { milliseconds: 1.0 });
+
+        assert_eq!(fault(Fault::Unchanged), source);
+        for stereo in [&inverted, &silent, &noisy, &late] {
+            assert_eq!(stereo.left, left);
+            assert_eq!(stereo.right.len(), right.len());
+        }
+        assert!(inverted.right.iter().zip(&right).all(|(a, b)| *a == -b));
+        assert!(silent.right.iter().all(|&x| x == 0.0));
+        let noise: Vec<f32> = noisy.right.iter().zip(&right).map(|(a, b)| a - b).collect();
+        let snr = 20.0 * (rms(&right) / rms(&noise)).log10();
+        assert!(snr.abs() < 0.01, "{snr}");
+        assert!(late.right[..44].iter().all(|&x| x == 0.0));
+        assert_eq!(late.right[44..], right[..right.len() - 44]);
+    }
+
+    #[test]
+    fn delays_round_to_the_nearest_sample() {
+        assert_eq!(delay_samples(0.2), 9);
+        assert_eq!(delay_samples(1.0), 44);
+        assert_eq!(delay_samples(5.0), 221);
+        assert_eq!(delayed(&[1.0, 2.0, 3.0], 5), [0.0, 0.0, 0.0]);
+    }
+
+    #[test]
+    fn an_inverted_channel_survives_the_stereo_render_and_cancels_in_the_downmix() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-robust-stereo-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let source = dir.join("tone.wav");
+        let generated = Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("aevalsrc=0.5*sin(440*2*PI*t)|0.5*sin(440*2*PI*t):s=44100:d=4")
+            .arg(&source)
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        let output = dir.join("inverted.wav");
+
+        let stereo = render_stereo_samples(&source, 1.0, 2.0, Playback::Turntable(1.0)).unwrap();
+        let inverted = faulted(stereo, Fault::Inverted, &mut Rng::new(1)).limited();
+        encode_stereo(&inverted, Encoding::Lossless, &output).unwrap();
+
+        let decoded = decode_stereo(&output, 8_000).unwrap();
+        let downmix = QueryChannels::Downmix.decode(&output, 8_000).unwrap();
+        let side = QueryChannels::Side.decode(&output, 8_000).unwrap();
+        assert!((15_900..=16_100).contains(&decoded.left.len()));
+        assert!(rms(&decoded.left) > 0.3, "{}", rms(&decoded.left));
+        assert!(
+            side_to_mid_db(&decoded) > 60.0,
+            "{}",
+            side_to_mid_db(&decoded)
+        );
+        assert!(rms(&downmix) < 1e-3, "{}", rms(&downmix));
+        assert!(rms(&side) > 0.3, "{}", rms(&side));
+        fs::remove_dir_all(&dir).ok();
     }
 
     #[test]

@@ -196,6 +196,62 @@ pub fn render_samples_as_indexed(
     render_mono(source, None, &from_start, seconds)
 }
 
+/// Like `render_samples` without a filter, but with both channels kept:
+/// a one-channel source gives two identical channels.
+pub fn render_stereo_samples(
+    source: &Path,
+    start: f64,
+    seconds: f64,
+    playback: Playback,
+) -> Result<Stereo, String> {
+    render_pcm(source, Some(start), &playback.filter(), seconds, 2)
+        .map(|samples| Stereo::split(&samples))
+}
+
+/// Two channels of equal length.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Stereo {
+    pub left: Vec<f32>,
+    pub right: Vec<f32>,
+}
+
+impl Stereo {
+    /// From samples interleaved left, right; a trailing half frame is
+    /// dropped.
+    pub fn split(interleaved: &[f32]) -> Stereo {
+        let (frames, _) = interleaved.as_chunks::<2>();
+        Stereo {
+            left: frames.iter().map(|frame| frame[0]).collect(),
+            right: frames.iter().map(|frame| frame[1]).collect(),
+        }
+    }
+
+    fn interleaved(&self) -> Vec<f32> {
+        self.left
+            .iter()
+            .zip(&self.right)
+            .flat_map(|(&left, &right)| [left, right])
+            .collect()
+    }
+
+    /// `limited` over both channels: one gain for the two.
+    pub fn limited(self) -> Stereo {
+        let peak = self
+            .left
+            .iter()
+            .chain(&self.right)
+            .fold(0.0_f32, |peak, &x| peak.max(x.abs()));
+        if peak <= 0.99 {
+            return self;
+        }
+        let scale = |channel: Vec<f32>| channel.iter().map(|&x| x * 0.99 / peak).collect();
+        Stereo {
+            left: scale(self.left),
+            right: scale(self.right),
+        }
+    }
+}
+
 fn chain(playback: Playback, filter: Option<&str>) -> String {
     let mut chain = playback.filter();
     if let Some(filter) = filter {
@@ -213,6 +269,17 @@ fn render_mono(
     chain: &str,
     seconds: f64,
 ) -> Result<Vec<f32>, String> {
+    render_pcm(source, seek, chain, seconds, 1)
+}
+
+/// As `render_mono`, with this many channels, interleaved.
+fn render_pcm(
+    source: &Path,
+    seek: Option<f64>,
+    chain: &str,
+    seconds: f64,
+    channels: u8,
+) -> Result<Vec<f32>, String> {
     let mut command = Command::new("ffmpeg");
     command.args(["-nostdin", "-v", "error"]);
     if let Some(start) = seek {
@@ -223,7 +290,9 @@ fn render_mono(
         .args(Container::of(source).input_args())
         .arg("-i")
         .arg(source)
-        .args(["-map", "0:a:0", "-ac", "1", "-af", chain, "-t"])
+        .args(["-map", "0:a:0", "-ac"])
+        .arg(channels.to_string())
+        .args(["-af", chain, "-t"])
         .arg(format!("{seconds:.3}"))
         .args(["-f", "f32le", "pipe:1"])
         .stdin(Stdio::null())
@@ -253,9 +322,24 @@ pub fn encode(
     encoding: Encoding,
     output: &Path,
 ) -> Result<(), String> {
+    encode_pcm(samples, 1, filter, encoding, output)
+}
+
+/// Encodes two channels at `RENDER_RATE` into `output`.
+pub fn encode_stereo(stereo: &Stereo, encoding: Encoding, output: &Path) -> Result<(), String> {
+    encode_pcm(&stereo.interleaved(), 2, None, encoding, output)
+}
+
+fn encode_pcm(
+    samples: &[f32],
+    channels: u16,
+    filter: Option<&str>,
+    encoding: Encoding,
+    output: &Path,
+) -> Result<(), String> {
     let rendered = RenderFile::new(output);
     let input = RenderFile::new(&output.with_extension("wav"));
-    write_wav(&input.temporary, samples)?;
+    write_wav(&input.temporary, samples, channels)?;
     let mut command = Command::new("ffmpeg");
     command
         .args(["-nostdin", "-v", "error", "-y", "-i"])
@@ -279,8 +363,9 @@ pub fn encode(
     }
 }
 
-/// 16-bit mono PCM WAV at `RENDER_RATE`.
-fn write_wav(path: &Path, samples: &[f32]) -> Result<(), String> {
+/// 16-bit PCM WAV at `RENDER_RATE`, `samples` interleaved over
+/// `channels`.
+fn write_wav(path: &Path, samples: &[f32], channels: u16) -> Result<(), String> {
     let data_bytes = u32::try_from(samples.len() * 2).map_err(|error| error.to_string())?;
     let mut bytes = Vec::with_capacity(44 + samples.len() * 2);
     bytes.extend(b"RIFF");
@@ -288,10 +373,10 @@ fn write_wav(path: &Path, samples: &[f32]) -> Result<(), String> {
     bytes.extend(b"WAVEfmt ");
     bytes.extend(16_u32.to_le_bytes());
     bytes.extend(1_u16.to_le_bytes()); // PCM
-    bytes.extend(1_u16.to_le_bytes()); // mono
+    bytes.extend(channels.to_le_bytes());
     bytes.extend(RENDER_RATE.to_le_bytes());
-    bytes.extend((RENDER_RATE * 2).to_le_bytes());
-    bytes.extend(2_u16.to_le_bytes());
+    bytes.extend((RENDER_RATE * 2 * u32::from(channels)).to_le_bytes());
+    bytes.extend((2 * channels).to_le_bytes());
     bytes.extend(16_u16.to_le_bytes());
     bytes.extend(b"data");
     bytes.extend(data_bytes.to_le_bytes());
