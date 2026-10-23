@@ -236,3 +236,36 @@ Rules for this session:
   scattered write costs and why, then a second pre-registration (round
   2) if it points to a candidate. Exploratory; it decides nothing by
   itself.
+- **(08:27) The microbenchmark** (experiment 0201): 40.3% of real hits
+  have the asset of the hit before them in `part` (a count in a second
+  diagnostic build); on synthetic parts with such repeats, today's
+  count and scatter cost 2.36 ns a hit on one core against 1.66 without
+  repeats, and a scatter to start plus rank 1.98 at every repeat rate;
+  places in another order and branches on runs lose.
+- **(08:28) Round 2, pre-registered** (committed before C4 is timed;
+  its code and tests were written after 0201 and have only been
+  tested).
+
+  - **C4, ranks.** `group_part`'s count pass keeps each hit's rank
+    among the part's hits of its asset (`ranks`, a `u32` per hit, the
+    count before the hit's own); after the prefix sum, `starts[i]` is
+    where the part's `i`th asset's hits start, and the scatter writes
+    each hit to `starts[asset] + rank` without changing `starts`. The
+    per-asset loop reads `grouped[starts[i]..starts[i + 1]]`. *Order:*
+    a hit's rank is the number of hits of its asset taken before it, so
+    `starts[asset] + rank` is the place today's scatter gives it: the
+    same `grouped`, hit for hit. *Tests:* the comparison-sort test (now
+    checking that `starts` is all zero after each window); a new test
+    that, on every part of a window of 3,000 assets whose lists hold
+    runs of three postings of every fifth asset, `grouped` equals a
+    stable sort of `part` by asset and each asset's slice holds only
+    its hits; the rest of the core's tests.
+
+  *Timing protocol.* As round 1, with two rounds (`ROUNDS="1 2"
+  work/s43/ab.sh r2 s43-start s43-c4`): start, C4, C4, start, twice, at
+  32 then 16 jobs: four pairs at each job count.
+
+  *Stop point.* As round 1: kept only if its search time at 32 workers
+  is at least 3% below the start build's in every pair, with
+  byte-identical reports apart from `wall_seconds`; 16 workers
+  reported, not decided on.

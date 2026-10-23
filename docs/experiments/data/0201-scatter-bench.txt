@@ -1,0 +1,72 @@
+== runs of 74, no repeats (44918 hits)
+count + prefix                           0.40 ns/hit
+count + prefix + scatter                 1.66 ns/hit
+count + prefix + two-way scatter         2.08 ns/hit
+scatter, places by * 643 mod 1024        1.61 ns/hit
+scatter, places bit-reversed             3.03 ns/hit
+scatter, places descending               1.67 ns/hit
+runs: count + scatter by chunk_by        3.97 ns/hit
+held: count + scatter, cursor held       1.61 ns/hit
+today's count + held scatter             1.40 ns/hit
+ranked: count with ranks + scatter       1.97 ns/hit
+sequential copy                          0.12 ns/hit
+== runs of 74, 20% repeats (44918 hits)
+count + prefix                           0.44 ns/hit
+count + prefix + scatter                 2.43 ns/hit
+count + prefix + two-way scatter         2.60 ns/hit
+scatter, places by * 643 mod 1024        2.62 ns/hit
+scatter, places bit-reversed             3.32 ns/hit
+scatter, places descending               2.49 ns/hit
+runs: count + scatter by chunk_by        5.26 ns/hit
+held: count + scatter, cursor held       3.28 ns/hit
+today's count + held scatter             2.22 ns/hit
+ranked: count with ranks + scatter       2.00 ns/hit
+sequential copy                          0.13 ns/hit
+== runs of 74, 50% repeats (44918 hits)
+count + prefix                           0.49 ns/hit
+count + prefix + scatter                 2.35 ns/hit
+count + prefix + two-way scatter         2.61 ns/hit
+scatter, places by * 643 mod 1024        2.56 ns/hit
+scatter, places bit-reversed             3.30 ns/hit
+scatter, places descending               2.45 ns/hit
+runs: count + scatter by chunk_by        6.87 ns/hit
+held: count + scatter, cursor held       5.09 ns/hit
+today's count + held scatter             3.09 ns/hit
+ranked: count with ranks + scatter       1.98 ns/hit
+sequential copy                          0.13 ns/hit
+== runs of 74, 40% repeats (44918 hits)
+count + prefix                           0.47 ns/hit
+count + prefix + scatter                 2.36 ns/hit
+count + prefix + two-way scatter         2.60 ns/hit
+scatter, places by * 643 mod 1024        2.58 ns/hit
+scatter, places bit-reversed             3.30 ns/hit
+scatter, places descending               2.46 ns/hit
+runs: count + scatter by chunk_by        6.61 ns/hit
+held: count + scatter, cursor held       4.89 ns/hit
+today's count + held scatter             3.06 ns/hit
+ranked: count with ranks + scatter       1.98 ns/hit
+sequential copy                          0.13 ns/hit
+== random order, no repeats (44918 hits)
+count + prefix                           0.38 ns/hit
+count + prefix + scatter                 1.45 ns/hit
+count + prefix + two-way scatter         2.08 ns/hit
+scatter, places by * 643 mod 1024        1.48 ns/hit
+scatter, places bit-reversed             3.05 ns/hit
+scatter, places descending               1.37 ns/hit
+runs: count + scatter by chunk_by        3.73 ns/hit
+held: count + scatter, cursor held       1.33 ns/hit
+today's count + held scatter             1.26 ns/hit
+ranked: count with ranks + scatter       1.93 ns/hit
+sequential copy                          0.13 ns/hit
+== one run of 45k sorted (45000 hits)
+count + prefix                           0.95 ns/hit
+count + prefix + scatter                 2.00 ns/hit
+count + prefix + two-way scatter         2.26 ns/hit
+scatter, places by * 643 mod 1024        2.22 ns/hit
+scatter, places bit-reversed             3.30 ns/hit
+scatter, places descending               2.08 ns/hit
+runs: count + scatter by chunk_by        0.85 ns/hit
+held: count + scatter, cursor held       0.89 ns/hit
+today's count + held scatter             1.51 ns/hit
+ranked: count with ranks + scatter       2.28 ns/hit
+sequential copy                          0.12 ns/hit
