@@ -1,7 +1,7 @@
 # 0200: the grouping candidates timed against the start build
 
 **Question.** Session 43, step 3: do the candidates pre-registered in
-brief 43 (08:00, `c11f284`) cut the Stakka scan's search at 32 workers
+brief 43 (07:59, `c11f284`) cut the Stakka scan's search at 32 workers
 by 3% in every pair?
 
 **Change** (sources `work/s43/lines.rs.<name>`, generators in

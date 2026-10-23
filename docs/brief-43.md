@@ -137,11 +137,11 @@ Rules for this session:
   Stakka scan at NAS scale at 32 then 16 jobs (`work/s43/diag.sh`,
   summary `work/s43/diag.py`). Parts of 256 were added to the three the
   prompt names, as the smallest that keeps each part's places in L1.
-- **(07:56) Step 1 result** (experiment 0199): the scatter is 4.0-4.4 ns
+- **(07:54) Step 1 result** (experiment 0199): the scatter is 4.0-4.4 ns
   a hit at 32 workers at every part size, 27.6% of the first pass at
   1,024 assets (34.0% at 16 jobs); the count pass 7%, the prefix sum
   0.1%. 1,024 assets has the lowest first-pass CPU at both job counts.
-- **(08:00) Step 2, the pre-registration** (committed before any
+- **(07:59) Step 2, the pre-registration** (committed before any
   candidate is timed; the candidates' code and tests were written
   during the start runs and step 1, and have not been timed).
 
@@ -222,12 +222,12 @@ Rules for this session:
   time at 32 workers is adopted; another that passes replaces it only if
   it is faster in both pairs at 32 workers and not slower at 16 in both.
   A second round is run if a candidate's cuts straddle 3%.
-- **(08:00) Candidates built** (`work/s43/build-candidates.sh`): the
+- **(07:59) Candidates built** (`work/s43/build-candidates.sh`): the
   core crate's 152 tests green for each of C1, C2 and C3 (rustfmt and
   clippy run only for the code adopted, as in session 41); builds
   `work/bin/s43-c1/`, `s43-c2/`, `s43-c3/`. Round 1 next:
   `work/s43/ab.sh r1 s43-start s43-c1 s43-c2 s43-c3`.
-- **(08:12) Round 1** (experiment 0200): no candidate passes the stop
+- **(08:08) Round 1** (experiment 0200): no candidate passes the stop
   point at 32 workers (C1 1.9-2.6%, C2 0.5-1.6%, C3 -15 to -17%); all
   three are slower at 16 workers. All three are dropped. Decided now:
   before any further candidate, a single-threaded microbenchmark of the
@@ -236,13 +236,13 @@ Rules for this session:
   scattered write costs and why, then a second pre-registration (round
   2) if it points to a candidate. Exploratory; it decides nothing by
   itself.
-- **(08:27) The microbenchmark** (experiment 0201): 40.3% of real hits
+- **(08:15) The microbenchmark** (experiment 0201): 40.3% of real hits
   have the asset of the hit before them in `part` (a count in a second
   diagnostic build); on synthetic parts with such repeats, today's
   count and scatter cost 2.36 ns a hit on one core against 1.66 without
   repeats, and a scatter to start plus rank 1.98 at every repeat rate;
   places in another order and branches on runs lose.
-- **(08:28) Round 2, pre-registered** (committed before C4 is timed;
+- **(08:17) Round 2, pre-registered** (committed before C4 is timed;
   its code and tests were written after 0201 and have only been
   tested).
 
@@ -269,3 +269,50 @@ Rules for this session:
   is at least 3% below the start build's in every pair, with
   byte-identical reports apart from `wall_seconds`; 16 workers
   reported, not decided on.
+- **(08:28) Round 2** (experiment 0202): C4 cuts the search 3.4-4.3%
+  at 16 workers in all four pairs but changes nothing at 32 (-0.1% to
+  0.6%): it misses the stop point and is dropped. By inference, at 32
+  workers the second thread of each core fills the waits that ranks
+  remove, so only fewer operations per hit help there; that points at
+  the pre-filter, the stage with the most work per hit after the
+  scatter.
+- **(08:36) Round 3, pre-registered** (committed before C5 and C6 are
+  timed; written after 0202, only tested).
+
+  - **C5, pairs of slots in one word.** `OffsetSlots` keeps, instead of
+    a count per slot, a count per pair of neighbouring slots (4,097
+    bytes: byte `k` counts slots `k - 1` and `k`; bytes 0 and 4,096
+    both count the pair of slot 4,095 and slot 0). A hit in slot `s`
+    adds one to bytes `s` and `s + 1` as one 16-bit word (one load and
+    one store instead of a load and store and two more loads), adds one
+    to the other wrap byte when `s` is 0 or 4,095, and the asset may
+    form a line when either byte has reached 3 (the word plus `0x7D7D`,
+    masked with `0x8080`; counts stay at most 3, so no carry crosses
+    bytes). Clearing zeroes the two bytes of each counted hit and both
+    wrap bytes. *Exactness:* today's filter passes an asset when, at
+    some hit, its slot's count plus the larger neighbour's reaches 3,
+    which is when some pair of neighbouring slots holds 3 of the asset's
+    hits (the pair reaches 3 at a hit in one of its slots, and that
+    hit's test reads it); C5 passes exactly then, the pair of the wrap
+    included. So every asset gets the same answer, and lines are
+    unchanged. *Tests:* the filter tests as they are (no line from
+    scattered hits; lines wherever their offsets fall, the wrap
+    included; offsets 4, 3, 2 - 2^-52; 200,000 random sets against
+    `densest_clusters`); a new test that C5 and today's filter (kept
+    in the tests) agree on each of 300,000 random sets, many of them
+    near the wrap, and that the pairs are all zero after each; a new
+    test of lines across the wrap in both orders and of three hits that
+    are not neighbours; the grouping and blocks tests.
+  - **C6, C5 with C4's ranks** (C4 cut 3.4-4.3% at 16 workers; the two
+    change different stages). *Exactness and tests:* C4's and C5's.
+
+  *Timing protocol.* As round 1 (`work/s43/ab.sh r3 s43-start s43-c5
+  s43-c6`: start, C5, C6, C6, C5, start, at 32 then 16 jobs).
+
+  *Stop point.* As before: a candidate is kept only if its search time
+  at 32 workers is at least 3% below the start build's in every pair,
+  with byte-identical reports apart from `wall_seconds`. If both pass,
+  C6 is adopted instead of C5 when it is faster than C5 at 16 workers
+  in both pairs and not slower than C5 by more than 1% at 32 workers in
+  either pair; otherwise C5. A second round is run if a candidate's
+  cuts straddle 3%.
