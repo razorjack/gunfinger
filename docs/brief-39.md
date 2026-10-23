@@ -384,3 +384,7 @@ NAS scale only if the 262-track work is done by about 03:00.
   0185 runs used the build of 01:18 from the working tree, committed
   unchanged in its Rust sources at 01:37 (`a3b69a8`); the final build
   differs from it in help text only (doc comments of `MixKind`).
+- **(02:05) Final checks** with `work/bin/s39-final` (built from
+  `0dac935`): `scripts/check.sh` green; both regressions identical
+  (1:10; 6:02); `docs/pair-verdicts.txt` at its start digest. The CLI is
+  byte-identical to `work/bin/s39-start`'s.

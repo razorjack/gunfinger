@@ -9048,3 +9048,9 @@ confident extra while the other plays (4 + 4). New: Crash.
 - A `show` loop in the shell wrote eight stray files into the
   repository root from a report name with spaces; they were removed
   right after the step 2 commit, which did not include them.
+- Final checks (01:53-02:05, `work/bin/s39-final`): `scripts/check.sh`
+  green; `regress session-32-linux` and `regress session-33-linux-nas`
+  identical (1:10; 6:02); `docs/pair-verdicts.txt` unchanged. The final
+  `gunfinger` is byte-identical to the start build's; `gunfinger-eval`
+  differs from the build that ran 0185 in help text only (the review's
+  doc fixes).

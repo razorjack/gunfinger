@@ -26,12 +26,13 @@ for scope and rules.
 - [x] 4. Experiments 0182 (the tracklist on double drops), 0183 (marked plays) and 0185 (three more pairs, NAS scale)
 - [x] 5. (Ahead) the same scenarios at the detection level (`mixes`'s
   scores, `seconds`); experiment 0184
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [x] 6. Read-only review by a subagent; findings fixed (`0dac935`)
 
 ## Wrap-up
 
-- [ ] "Session 39" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap, this checklist
-- [ ] Final checks: `scripts/check.sh` green; `regress session-32-linux`
-  and `regress session-33-linux-nas` identical with the final build;
-  `docs/pair-verdicts.txt` unchanged; `git status` clean
+- [x] "Session 39" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap, this checklist
+- [x] Final checks: `scripts/check.sh` green; `regress session-32-linux`
+  and `regress session-33-linux-nas` identical with the final build
+  `work/bin/s39-final` (1:10; 6:02); `docs/pair-verdicts.txt` unchanged;
+  `git status` clean
