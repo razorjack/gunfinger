@@ -190,6 +190,10 @@ Rules for this session:
   measures), and S3's AUCs are pooled over the E bands 10-239 only, as
   in 0149 (in the band of 240 and more R's median gain is also above
   P's).
+- **(11:40) Final checks** with `work/bin/s44-final/` (the tree after
+  the review's fixes, which changed only tests): `scripts/check.sh` green
+  (3:53); both regressions identical (1:09; 4:06); verdicts and clusters
+  digests unchanged.
 
 ## Step 1: pre-registration (written at 10:09-10:12, committed before any count)
 

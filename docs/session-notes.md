@@ -9990,3 +9990,35 @@ material holds the same peaks; it needs the same three-way measurement
    panels' roles need the full panel files.
 4. R3 took 27 minutes and R4 20, mostly reading NAS store records for the
    verifier (iowait near 20%, about 5 cores busy).
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched; the runs
+  searched recall excerpts, the shared panels' queries and `robust`'s
+  excerpts. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file.
+- The NAS was only read (the second shared panel's audio for its
+  renders); the NAS store only read (tags for `labels.py`, records for
+  the verifier). No `index` or `prune`; the clusters file in use is
+  unchanged (SHA-256 `d9c85c4586ad...`).
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s44/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed.
+- A read-only review by a separate agent (11:22-11:29) found the code
+  correct (the split's rules, the found peaks, E and N unchanged, the
+  fan-out matching) and recomputed the experiments' numbers from the
+  data files. It found T(0) and W(0) mixing `robust`'s control and
+  combined queries, a sentence in 0207 that its data contradicted,
+  expectations not all marked wrong, the CPU estimate rounded down, an
+  unmarked inference, the AUCs' pooling range not stated, two analysis
+  choices not recorded, and tests weak at ranks 5 and 9 and for near
+  hashes at an extra fan-out. All fixed (brief 44, 11:40).
+- Final checks (11:31-11:40) with `work/bin/s44-final/`, built from the
+  tree after the review's fixes: `scripts/check.sh` green (3:53, 527 Rust
+  tests and the page's 5 Node tests); `regress session-32-linux` (1:09)
+  and `regress session-33-linux-nas` (4:06) identical, every sweep
+  query, scan detection and calibrate line, and each report identical
+  to its baseline's apart from `wall_seconds`; the verdicts file and the
+  clusters file unchanged. The same checks had passed with the build
+  before the review's test changes (11:21-11:30).

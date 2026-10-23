@@ -4707,3 +4707,9 @@ fan-out counts.
   5; related versions on the shared panels gain more than the played
   recording in every band of E (AUC 0.24-0.27); no unrelated candidate
   reaches 240. Not worth an experiment on the rules.
+- A read-only review found the code correct; T(0) at 262 tracks now
+  counts combined queries only (it agrees with the NAS-scale damaged
+  set), and its other points were fixed. Final checks with
+  `work/bin/s44-final/`: `scripts/check.sh` green; both regressions
+  identical (1:09; 4:06); `docs/pair-verdicts.txt` and the clusters file
+  unchanged.
