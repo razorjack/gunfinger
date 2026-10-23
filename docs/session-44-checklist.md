@@ -16,7 +16,7 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Pre-registration (populations, the split and how each kind is
+- [x] 1. Pre-registration (populations, the split and how each kind is
   decided, the displaced share that opens the fan-out step, the
   fan-outs, the scores and the criterion), committed before any count
 - [ ] 2. The harness, tested: the split in `verifier/pairs.rs`, the

@@ -116,3 +116,152 @@ Rules for this session:
   `regress session-32-linux` and `regress session-33-linux-nas`, each
   report compared with its baseline apart from `wall_seconds`
   (`work/s44/same.py`, session 43's).
+
+## Step 1: pre-registration (written at 10:20-10:35, committed before any count)
+
+Everything below is fixed before the diagnostic is written or any count
+is made. Anything computed later and not named here is exploratory and
+decides nothing. Nothing here proposes a rule.
+
+### Where it is counted
+
+On the verifier's alignment for each fitted detection (`verifier.rs`,
+unchanged: the line through the detection's first and last aligned
+hits, each 10 s window moved by the mean of its densest 2-frame run of
+the asset's hash hits; the query analysed at the detection's speed and
+playback over its span plus 1 s either side), with session 30's pair
+count unchanged (`verifier/pairs.rs`): reference pairs are the record's
+own pairs (fan-out 2, as the index forms them) whose anchor lies in the
+aligned passage; E and N as in 0149. Nothing is looked up in the index.
+The split is counted at the alignment only (shift 0); the fan-out
+counts also at the verifier's four chance shifts.
+
+### The split, per reference pair
+
+Each reference pair (anchor peak a, target peak b of the record) gets a
+status from session 30's matching (exact, near or unmatched) and a kind
+from its peaks. A reference peak is *found* where the verifier finds it:
+a query peak whose place on the alignment (the line, moved by the
+window's offset, the window taken at the reference peak's own frame,
+the last window beyond the span) lies within ±1 frame and ±1 bin
+(`TOLERANCE`). Every such query peak is a candidate for it.
+
+1. **Endpoint gone**: a or b has no candidate. Counted apart as anchor
+   gone, target gone, both gone.
+2. Both found. For each candidate pair (qa for a, qb for b): the rank
+   of qb among qa's targets in the query (`hash::targets`, the target
+   zone, nearest in time first; rank 1 is the first target), or none
+   when qb is not in qa's zone. The pair's kind is the best over the
+   candidate pairs, in this order:
+   - **paired**: some rank is 1 or 2, so the query forms the pair. Then
+     the query pair's hash against the reference pair's: **same hash**,
+     **near** (each component at most one step away, as N), or **far**
+     (some component two steps or more). Near and far are the prompt's
+     *changed quantised value*.
+   - **displaced**: both in qa's zone, but qb's best rank is 3 or more:
+     counted by rank as 3, 4-5, 6-8 and 9 or later (what fan-outs 3, 5
+     and 8 reach).
+   - **outside the zone**: no candidate qb lies in a candidate qa's zone
+     (qb at or before qa's frame, more than 63 frames after it, or more
+     than 63 bins away).
+3. *Lost* means not counted in E: the reference pairs in the passage
+   minus E. The split reports each kind for exact, near and unmatched
+   pairs apart; the lost pairs are the near and unmatched ones. Exact
+   pairs whose kind is not "paired, same hash" are reported as a check.
+   Lost pairs of kind "paired, same hash" (the query forms the pair with
+   the same hash but E did not take it: its anchor more than a frame
+   off, or the query pair taken by another reference pair) are a
+   residual, reported apart.
+
+The target of a pair at the passage's end can lie up to 63 frames
+beyond it, about 1 s, the edge of the query's analysis margin; such a
+target may count as gone (reported, not corrected).
+
+### The fan-outs
+
+Fan-outs 3, 5 and 8, on the verifier's analysis only (the second
+pass's stand-in: E is 0.98-1.00 of a true detection's hits, 0151); the
+index, the record's pairs and the core stay at fan-out 2. For fan-out F:
+the query's fan-out 2 pairs are matched first, exactly as for E; then
+the extra pairs (each anchor's targets 3 to F, anchors in the span, in
+anchor order) are matched with the same hash against the reference
+pairs E left, with the same ±1 frame and nearest-first rule; each
+reference pair counts once. **G(F)** is the number of extra
+correspondences; E + G(F) is the exact count at fan-out F. No near
+matching at extra fan-outs. Chance: G(F) at the four shifts.
+
+### The populations
+
+Build: this session's harness on master (`work/bin/s44-*`), default
+matcher and rule, the NAS clusters in use, `--panels` a copy of
+`work/s33/panels`, scratch work directory `work/s44/w` (the saved index
+and session 33's recall renders hard-linked). Runs one at a time, under
+tmux with logs:
+
+- R1c `--verify recall --queries damaged`, R1C `--verify recall
+  --queries clean` (702 queries each), R2 `--verify recall
+  --other-rips-only --queries clean`, R3 and R4 `shared` on both shared
+  panels' development halves (40,683 records); R0 `--verify robust
+  --only combined` at 262 tracks (80 excerpts). 0055's scenario file is
+  not on the Linux machine, so session 30's R5 is not run.
+- Sets as 0151's (`quantisation.py`'s builders, fitted detections):
+  T(c), T(C), T(a) (per observable query its strongest own-cluster
+  detection), F (unrelated wrong candidates in R1c, R1C, R2, by
+  `labels.py` with the NAS store's tags), R(r) (related wrong candidates
+  there), P (the played recording on the shared panels), R (related
+  recordings and versions there; confident ones also apart). At 262
+  tracks: T(0) the excerpt's own recording under combined damage, and
+  W(0) the other wrong detections that are not the blend partner,
+  unlabelled.
+
+### The share that opens the fan-out step
+
+In T(c), pooled over its detections: the displaced pairs at ranks 3-8
+(those fan-out 8 can reach) are at least **15% of the lost pairs**, or
+equal at least **25% of T(c)'s E**. If neither holds, the fan-out
+counts (made in the same runs, to fit the time box) are not analysed:
+the experiment says what the lost pairs are and what that means for
+step 3, and the G(F) medians appear on one line marked exploratory.
+
+### The scores (only if the share is reached)
+
+- S1: per set, the median and pooled G(F)/E, by E band (10-29, 30-59,
+  60-119, 120-239, 240 and more), and G(F)'s chance level.
+- S2: detections under 240 hits that reach 240 with hits + G(F) over 3
+  windows or more: T(c), T(a), F, R(r), R not confident; per shared
+  search with the played recording left out, a related file confident
+  today and with hits + G(F).
+- S3: separation at equal E: AUC of G(F)/E within the E bands, pooled,
+  for P~R, T(c)~R(r) and T(c)~F.
+- S4: CPU: the query's pairs at fan-out F over those at 2 (the second
+  pass looks up each query pair once), with the second pass's share of
+  a scan's CPU (0205: the first pass is 96-97%); an estimate, not a
+  timing.
+
+### The criterion for a later experiment on the rules
+
+A fan-out is worth an experiment on the rules only if all hold, at the
+smallest F that meets (a):
+
+- (a) T(c)'s median G(F)/E is at least 0.25, and at least 10% of T(c)'s
+  detections under 240 reach 240 with hits + G(F) over 3 windows;
+- (b) related versions gain at most half as much as the played
+  recording: in every E band where P and R have 10 detections or more,
+  R's median G(F)/E is at most half of P's, and the pooled AUC of
+  G(F)/E for P~R is at least 0.75;
+- (c) no F detection reaches 240 with hits + G(F).
+
+If R gains as much as P in some band (step 2's prediction), that
+settles it for the fan-out: no experiment on the rules.
+
+### Expected, written before any count
+
+Endpoint gone is most of the lost pairs under damage (the verifier finds
+a median 37% of the peaks, so most pairs lose an endpoint): 60-80%;
+displaced 5-15%; changed value 10-25%. On clean audio displaced under
+5%. If the share is reached: T(c)'s G(8)/E 0.1-0.4, and R gaining about
+as much as P.
+
+### Shrinks
+
+R2 first, then R4. R1c, R1C, R3 and R0 do not shrink.
