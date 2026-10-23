@@ -155,6 +155,12 @@ Rules for this session:
   and `regress session-33-linux-nas` (8:25, both beside the runs)
   identical with `work/bin/s44-harness/`, every report identical to its
   baseline's apart from `wall_seconds`.
+- **(11:00) The shared panels' roles** come from the full panel files
+  (`docs/panels/shared-material-seed-2026.json`,
+  `shared-material-2-seed-2026.json`), which hold the families
+  `quantisation.py` reads; the development files are what the runs
+  searched. R3 took 26:41, mostly waiting on reads of the NAS store's
+  records for the verifier; no shrink was needed.
 
 ## Step 1: pre-registration (written at 10:09-10:12, committed before any count)
 
