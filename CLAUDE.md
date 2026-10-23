@@ -6,11 +6,11 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-43.md` (the current session's brief) and
-   `docs/session-43-checklist.md` (its progress), with experiments
-   0096, 0103, 0113, 0167-0174, 0189-0193 and 0199 and up,
-   `docs/research/2026-10-21-low-bandwidth-search.md`, the roadmap's
-   speed bullet, and the code of `crates/gunfinger-core/src/search/lines.rs`;
+2. `docs/brief-44.md` (the current session's brief) and
+   `docs/session-44-checklist.md` (its progress), with experiments
+   0004, 0027, 0054-0059, 0149, 0151 and 0206 and up, the roadmap's
+   "Evidence beyond exact pair hashes", and the code of
+   `crates/gunfinger-eval/src/verifier.rs` and `verifier/pairs.rs`;
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -25,8 +25,8 @@ anything else:
    `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
    `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md`,
    `docs/brief-38.md`, `docs/brief-39.md`, `docs/brief-40.md`,
-   `docs/brief-41.md` and `docs/brief-42.md` hold rules that still apply
-   unless brief 43 changes them
+   `docs/brief-41.md`, `docs/brief-42.md` and `docs/brief-43.md` hold rules that still apply
+   unless brief 44 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
