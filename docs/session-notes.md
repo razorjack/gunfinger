@@ -9652,3 +9652,18 @@ choice.
   saved NAS index hard-linked), so no report in `work/reports/` was
   replaced; `mixes` wrote four new report names there, moved to
   `work/s42/mixes/` after each run.
+- A read-only review by a separate agent (07:12-07:20) found every
+  confident count matching the data and the default paths unchanged,
+  and wrong figures, wording and two unrecorded departures from the
+  pre-registration; all fixed (brief 42, 07:21), with small code
+  changes (the channel choices pick in `decode`; `robust::chosen` tests
+  the `--only` filter).
+- `robust --only control` with the mix build, rendering afresh in a
+  scratch work directory, gave queries and rows identical to
+  `work/reports/robust-seed-2026.json` apart from search times.
+- Final checks (07:21-07:31) with `work/bin/s42-final/` built from
+  `986c3f0`: `scripts/check.sh` green (3:48); `regress
+  session-32-linux` (1:08) and `regress session-33-linux-nas` (4:15)
+  identical, each report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file
+  unchanged.

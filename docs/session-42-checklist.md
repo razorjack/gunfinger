@@ -27,7 +27,7 @@ for scope and rules.
   channel choices; near-mono sources)
 - [x] 5. Ahead: (a) a fault over a stretch of generated mixes; (b) a
   fault in the indexed reference (store-only scratch copy)
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 42", status, roadmap bullet; final
+- [x] 6. Read-only review by a subagent; findings fixed (brief 07:21)
+- [x] 7. Wrap-up: notes "Session 42", status, roadmap bullet; final
   checks (`scripts/check.sh`, both regressions, verdicts and clusters
   digests, `git status` clean)

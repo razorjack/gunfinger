@@ -4631,3 +4631,6 @@ the product and every default are unchanged.
   inverted channel leaves 1 of 100 plays there confident.
 - Waiting (ours): whether a decoder fallback is worth an experiment and
   an ADR, and whether a per-file channel check belongs in the store.
+- Final checks with `work/bin/s42-final/`: `scripts/check.sh` green;
+  both regressions identical (1:08; 4:15); `docs/pair-verdicts.txt` and
+  the clusters file unchanged.

@@ -339,3 +339,9 @@ Rules for this session:
   most rows), and the stereo group is not split at -10 dB in the fault
   tables (only 5 of the 50 excerpts are wide; 0196 gives the split for
   the excerpts themselves).
+- **(07:31) Final checks** with `work/bin/s42-final/` (built from
+  `986c3f0`; `work/s42/final.sh`): `scripts/check.sh` green (3:48);
+  `regress session-32-linux` (1:08) and `regress session-33-linux-nas`
+  (4:15) identical, each report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file at
+  their start digests.
