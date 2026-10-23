@@ -21,8 +21,8 @@ for scope and rules.
   fan-outs, the scores and the criterion), committed before any count
 - [x] 2. The harness, tested: the split in `verifier/pairs.rs`, the
   query fan-outs; `regress` identical
-- [~] 3. The runs at 262 tracks and at NAS scale
-- [ ] 4. Experiments: the split; the fan-outs only if the registered
+- [x] 3. The runs at 262 tracks and at NAS scale
+- [x] 4. Experiments (0207, 0208): the split; the fan-outs only if the registered
   share is reached, otherwise what the lost pairs mean for step 3
 - [ ] 5. Read-only review by a subagent; findings fixed
 - [ ] 6. Wrap-up: notes "Session 44", status, checklist, roadmap's

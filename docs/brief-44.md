@@ -161,6 +161,15 @@ Rules for this session:
   `quantisation.py` reads; the development files are what the runs
   searched. R3 took 26:41, mostly waiting on reads of the NAS store's
   records for the verifier; no shrink was needed.
+- **(11:25) Experiment 0207** (the split) written and committed before
+  the fan-out counts were opened (`lost_pairs.py --fan-outs`).
+- **(11:30) Experiment 0208** (the fan-outs): criterion (a) not met at any
+  fan-out (median G/E 0.30 at fan-out 5, but 4.1% of T(c) under 240
+  reach it, not 10%); (b) not met (related versions gain more than the
+  played recording in every E band, pooled AUC 0.24-0.27); (c) met. No
+  experiment on the rules follows. The per-search count uses the "played
+  left out" index, as registered; with everything indexed the script
+  prints the same numbers (114 today), which was not looked into.
 
 ## Step 1: pre-registration (written at 10:09-10:12, committed before any count)
 
