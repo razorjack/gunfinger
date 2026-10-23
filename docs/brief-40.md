@@ -337,3 +337,46 @@ Rules for this session:
 - **(03:04) `check.sh` green on the rerun** (3:47, on a quiet machine):
   fmt, clippy, every Rust test (275 in the harness, the new `pair` test
   among them), the page's 5 Node tests and the 14 Python tests.
+- **(03:05-03:13) The read-only review** (a separate agent; it changed
+  nothing). Its findings, and what was done (03:15-03:30):
+  - The clusters file lists 313 of its 2,590 pairs in both directions,
+    so several counts were list entries: (b) holds 98 distinct joins
+    (Klute's Silent Weapons remix rips and Slip Thru drawn both ways,
+    scored twice; scored once, the (b) AUCs move by 0.001 at most and
+    nothing else changes, `work/s40/scores-distinct.json`); the pack's
+    1,837 entries are 1,595 pairs; its joins without a verdict 1,055
+    (lowest 0.63, 9 below 0.8, not 1,298 and 14) and its apart pairs 638
+    (not 639); 0188's 84 rows are 73 distinct pairs. Corrected in the
+    experiments, notes, status and roadmap; the figures earlier in this
+    brief stand as first written. `populations` now draws each join
+    once (a later draw differs from this session's).
+  - The first pack held the Phoenix join whose TECH012 file is an
+    identical copy of `extra/[AA]_-_Phoenix.mp3`, judged `same` against
+    the same upload. `--disagreements` now counts identical copies of
+    judged files as judged (tested); the pack was selected and rendered
+    again (Noisia, Phace & Stu - Dead Air, 0.81, takes Phoenix's place;
+    the second control join changed with the set it is drawn from).
+    Kept: We R The Ones VIP ~ the CERT1853 Klute remix, whose verdict is
+    on another file of the remix (no copy, no cluster).
+  - 0187's last sentence contradicted 0186 (China Cup falls on the same
+    side); rewritten. "At chance" on the 14 hard pairs now says they
+    were chosen from the measures' errors, so near chance by that choice,
+    and gives coverage's 0.06, in 0187, the notes, status and roadmap.
+  - The population runs took 0:31-0:52 and 0.6-1.1 GiB (not 31-50 s and
+    0.6-0.8 GiB). Inferences now say so (why drifting uploads fail; 0188's
+    "near-identical version" now "placed with the same recordings").
+  - The 02:35 correction above: the populations file and scores always
+    held 22 judged `same` pairs; only this brief's text said 21.
+  - Minor, recorded rather than changed: with no fitted alignment
+    `longest_gap` is ceil(S), not S as registered (one judged pair, the
+    Night Gasp ~ Dark Soldier VIP pair, has none); `near_T` can exceed 1
+    slightly (1.002 at most) because whole seconds are counted over S;
+    (d) leaves out every cross pair of the panels' recordings, not only
+    the pairs drawn into (c). Removed: `finite()`, a no-op (scores
+    byte-identical without it). The tie test now has a tie.
+- **(03:16) The final NAS regression changed calibrate** (false accepted
+  7 -> 25, false candidates 95 -> 318) while the sweep and the scans were
+  identical: calibrate reads every `sweep-seed-*.json` in the reports
+  directory, and the two new NAS sweeps sat there. They were moved to
+  `work/s40/sweeps-nas/` and the regression run again (03:16-03:22,
+  5:58): identical, calibrate included. The 25 confirm 0188's count.

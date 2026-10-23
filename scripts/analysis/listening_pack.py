@@ -7,7 +7,8 @@ a chain between two files judged different), every borderline pair (40-80% cover
 with `--min-hits` hits or more) between two clusters not yet
 judged by ear, every sparse join (under a tenth of the median join's hits per
 second) not yet judged by ear, with `--disagreements N` and `--measures`
-(a `pair_offsets.py measures` file) the N joins without a verdict that
+(a `pair_offsets.py measures` file) the N joins without a verdict (an
+identical copy of a judged file counts as that file, with `--map`) that
 hold the least of the shorter file near the main offset (`near_10`) and
 the N pairs between unjudged clusters that hold the most, one per pair
 of clusters, and `--controls` joins drawn with `--seed` among the rest. A pair counts as judged when a verdict names a
@@ -171,8 +172,18 @@ def select(arguments):
             items.append(item(kind, group, members))
     if "--disagreements" in options:
         taken = {pair_key(p) for i in items for p in i["pairs"]}
+        # A pair of identical copies of two judged files is judged too.
+        copies = collections.defaultdict(set)
+        for a, b in identical:
+            copies[a].add(b)
+        judged_files = {
+            pair_key({"query": a2, "found": b2})
+            for (a, b) in verdicts_of(verdicts_file)
+            for a2 in copies[a] | {a} for b2 in copies[b] | {b}
+        }
         items += disagreements(
-            [p for p in pairs if pair_key(p) not in taken and pair_key(p) not in identical],
+            [p for p in pairs if pair_key(p) not in taken and pair_key(p) not in identical
+             and pair_key(p) not in judged_files],
             load(option(options, "--measures", "")),
             int(option(options, "--disagreements", "0")), key, unjudged, min_hits)
     taken = {pair_key(p) for i in items for p in i["pairs"]}

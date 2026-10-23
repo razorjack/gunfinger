@@ -11,7 +11,7 @@ development scans at NAS scale: 7 false confident, all in sweep 2026
 sweeps of seeds 2027 (China Cup indexed) and 2028 (held out) ran at NAS
 scale (`work/bin/s40-run`; 8:34, 8:19; 60/60 at every speed); then
 `pair` on each pair behind a false candidate of 30 hits or more: 84
-pairs, 294 detections. Data: `data/0188-false-detections-measures.json`.
+rows of seed and pair (73 distinct pairs), 294 detections. Data: `data/0188-*.json`.
 
 | Seed | Query (held out?) | Found | Confident | `near_10` | Gap (s) | Coverage |
 |---|---|---|--:|--:|--:|--:|
@@ -26,12 +26,12 @@ ear ("almost identical, but the hi-hats differ for a few bars"). The
 other 7 are Cool Rock, judged a different mix sharing material.
 
 **By the measures.** At 0186's threshold (`near_10` 0.552) only China
-Cup's three pairs fall on the same side, of all 84 pairs; the next are
+Cup's three pairs fall on the same side, of all 73; the next are
 The Nine ~ its Evol Intent VIP (0.49, 114-219 hits, never confident),
-Pyro ~ Ignorance (0.42) and Cool Rock (0.37): by the measure the 18
-are a near-identical version and the 7 a related one. Since it does
-not tell China Cup's kind from the same recording (0187), that says
-only that the file is held near one offset as same recordings are.
+Pyro ~ Ignorance (0.42) and Cool Rock (0.37): the measure places the
+18 with the same recordings and the 7 with different ones. Since it
+does not tell China Cup's kind from the same recording (0187), that
+says only that the file is held near one offset as same recordings are.
 
 **Conclusions.** The roadmap's statement holds at seeds 2027 and 2028
 for ƆƐI3C's upload (the Prototype upload of 0049 was joined by a

@@ -9089,7 +9089,8 @@ leave-one-out errors against 9 and 7), which meets the registered bar by
 one pair. It does not separate the two pairs it came from at the
 threshold the judged pairs fit, and on the 14 hardest judged pairs
 (drifting or edited uploads of one recording against versions differing
-in one layer) every measure is at chance. 18 of the 25 false confident
+in one layer, chosen from the measures' errors) the AUCs are 0.40-0.56
+(coverage 0.06), near chance by that choice. 18 of the 25 false confident
 detections over three NAS sweeps are China Cup's near-identical upload.
 
 ### Step 1: the pre-registration (brief 02:20, `dd7ed06`)
@@ -9097,7 +9098,9 @@ detections over three NAS sweeps are China Cup's near-identical upload.
 Populations: (a) 62 of 64 verdicts have records (`1.mp3` is left out of
 the NAS library; the Synthesis (Remix) track sits on Dangerous Drums 2,
 a mixed CD the `.gunfingerignore` lists), 60 without the two source
-pairs (22 same, 38 different); (b) 100 joins at 80% or more that no
+pairs (22 same, 38 different); (b) 100 joins drawn (98 distinct pairs:
+the clusters file lists 313 of its 2,590 pairs in both directions, and
+two were drawn both ways) at 80% or more that no
 verdict touches, seed 4001; (c) 51 cross-version pairs of 16 panel
 families, at most 4 per two recordings, seed 4002; (d) the 60 strongest
 apart pairs whose files differ in both compared artist and title.
@@ -9110,11 +9113,13 @@ below the threshold.
 
 ### Steps 2-4 and experiments 0186-0187
 
-`pair` on the four populations took 31-50 s each (32 jobs). 0186:
+`pair` on the four populations took 31-52 s each (32 jobs). 0186:
 `near_10` meets the bar (6 errors against 9 and 7, no (b) join below
 0.552); `longest_gap` ties supported time and puts two (b) joins below
-its threshold; `far_jumps` and `hits_per_second` do worse. All measures
-separate (b) from (a)'s different, (c) and (d) almost perfectly. 0187:
+its threshold; `far_jumps` and `hits_per_second` do worse. Coverage,
+supported time and `near_T` separate (b) from (a)'s different, (c) and
+(d) almost perfectly (AUC 0.99-1.00); counting (b)'s 98 distinct pairs
+once moves its AUCs by 0.001 at most. 0187:
 Fractles ~ the CITRUS 003 upload (same; the upload drifts from 0.9688
 to 0.9657, and one rung at the fitted speed keeps 68 s near the main
 offset) is wrong under every measure; Mind Overload's RAMM 23 rip ~ the
@@ -9130,28 +9135,33 @@ Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload in sweep 2026;
 the 11 development scans at NAS scale none. Seed 2026 has no China Cup
 query, so seeds 2027 and 2028 ran at NAS scale: 11 and 7 false
 confident, all China Cup's three corpus rips found as ƆƐI3C's upload.
-Of the 84 pairs behind false candidates of 30 hits or more, only China
+Of the 73 distinct pairs behind false candidates of 30 hits or more
+(84 rows of seed and pair), only China
 Cup's three lie above `near_10`'s threshold (0.77).
 
 ### Step 5b: the pack
 
 `work/s40/pack/`: 12 disagreements and 2 control joins, from 1,837 more
-pairs measured (22:51). No join without a verdict lies below `near_10`'s
-threshold (lowest 0.63) and no apart pair above it (highest 0.30), so the
-pack holds the pairs nearest the threshold on each side.
+entries measured (1,595 distinct pairs; 22:51). No join without a verdict
+lies below `near_10`'s threshold (1,055 distinct joins, lowest 0.63, 9
+below 0.8) and no apart pair above it (638, highest 0.30), so the pack
+holds the pairs nearest the threshold on each side. The review found
+that the first pack held the Phoenix join whose TECH012 file is an
+identical copy of a judged file; `--disagreements` now counts such
+copies as judged, and the pack was built again.
 
 ### Times on the Linux machine (32 workers)
 
 | Run | Time | Peak memory |
 |---|--:|--:|
-| `regress session-32-linux` (start; step 2) | 1:10; 1:09 | 0.4 GiB |
-| `regress session-33-linux-nas` (start; step 2) | 6:15; 5:56 | 5.3 GiB |
+| `regress session-32-linux` (start; step 2; final) | 1:10; 1:09; 1:09 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; step 2; final, again) | 6:15; 5:56; 5:56, 5:58 | 5.3 GiB |
 | `pair`, the two source pairs | 0:45 | 0.15 GiB |
-| `pair`, populations a-d (60-100 pairs each) | 0:31-0:50 | 0.6-0.8 GiB |
-| `pair`, the pack's 1,837 pairs (beside the sweeps) | 22:51 | 1.5 GiB |
-| `sweep --seed 2027` and `2028` at NAS scale (beside `pair`) | 8:34; 8:19 | 5.2 GiB |
+| `pair`, populations a-d (51-100 pairs each) | 0:31-0:52 | 0.6-1.1 GiB |
+| `pair`, the pack's 1,837 entries (beside the sweeps) | 22:51 | 1.5 GiB |
+| `sweep --seed 2027` and `2028` at NAS scale (beside `pair`) | 8:34; 8:19 | 5.2; 4.9 GiB |
 | `listening_pack.py render`, 14 items | 2:01 | |
-| `scripts/check.sh` (beside `pair`, failed; again) | 4:01; 3:47 | |
+| `scripts/check.sh` (beside `pair`, failed; again; final; after the review) | 4:01; 3:47; 3:45; 3:45 | |
 
 ### Decided this session, open to change
 
@@ -9165,7 +9175,8 @@ pack holds the pairs nearest the threshold on each side.
   each of the two clusters.
 - (d) takes the strongest pair of each two clusters, by hits.
 - The measures use the fitted-speed search only (one rung), as the
-  sheets do; that is why drifting uploads fail (0187).
+  sheets do; by inference from their alignments, that is why drifting
+  uploads fail (0187).
 - Two NAS-scale sweeps (2027, 2028) were added to step 5a because the
   saved sweep has no China Cup query.
 - The pack holds the 6 joins and 6 apart pairs nearest the threshold,
@@ -9188,9 +9199,12 @@ pack holds the pairs nearest the threshold on each side.
 ### Questions for listening (none answered by agents)
 
 - The pack `work/s40/pack/` (README in the order to listen): six joins
-  holding the least near the main offset (lowest Pyro - Time Is Broken's
-  two rips, 0.63-0.78 of the file) and six apart pairs holding the most
-  (0.16-0.30), and two control joins.
+  holding the least near the main offset (0.68-0.81 of the file;
+  lowest Alien Girl's upload ~ the PRO014 rip) and six apart pairs
+  holding the most (0.16-0.30), and two control joins. We R The Ones
+  VIP ~ the CERT1853 Klute remix is in it although a verdict judged the
+  VIP against another file of the remix (not an identical copy, and in
+  no cluster with it).
 - Session 39's: Digital & Spirit - Crash over the first 56 s of the
   T-Minus vocal mix; Techno Funk over Alien Girl and NIL - Infectious
   over Mystery Machine.
@@ -9199,8 +9213,8 @@ pack holds the pairs nearest the threshold on each side.
 
 1. Reports: `work/reports/library-nas-dnb-peaks/pairs-s40-{source,a,b,c,d,false,false-2,pack}.json`
    (`pairs-pairs.json`, the 2026-10-22 pack's, untouched),
-   `sweep-seed-2027.json` and `sweep-seed-2028.json` there (NAS scale;
-   not `regress` baselines).
+   NAS-scale sweeps of seeds 2027 and 2028 in `work/s40/sweeps-nas/`
+   (moved out of the reports directory, see below).
 2. Measures and scores: `work/s40/measures.json`,
    `measures-source.json`, `measures-pack.json`, `scores.json`,
    `false/measures-all.json` and `false/candidates-all.json`; the
@@ -9248,3 +9262,23 @@ pack holds the pairs nearest the threshold on each side.
   them (`71f227e`, `1e5af33` before `f00f2a0`), because the code commit
   waited for `check.sh`'s rerun; the code ran unchanged as
   `work/bin/s40-run`.
+- `calibrate` (in `regress`) reads every `sweep-seed-*.json` in the
+  reports directory: with the two new NAS sweeps there, the final NAS
+  regression's calibrate lines changed (false accepted 7 -> 25) while
+  every report was identical. With the sweeps moved to
+  `work/s40/sweeps-nas/` it is identical. Keep extra sweeps out of
+  `work/reports/library-nas-dnb-peaks/` before `regress`, as with slot
+  leave-out scans.
+- Final checks (03:05-03:26) with `work/bin/s40-final/` (built from
+  `c583a34`; its `gunfinger-eval` is byte-identical to `s40-run`, its
+  `gunfinger` to the start build's): `scripts/check.sh` green, after
+  the review's script fixes too; `regress session-32-linux` and
+  `regress session-33-linux-nas` identical (the second once the extra
+  sweeps had moved), every report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file at their
+  start digests.
+- The read-only review (03:05-03:13) found counts of list entries where
+  distinct pairs were meant (the clusters file lists 313 pairs both
+  ways), a judged pair in the first pack through an identical copy, a
+  contradiction between 0186 and 0187, wrong run times and inferences
+  stated as facts; all fixed (brief, "03:05-03:13").

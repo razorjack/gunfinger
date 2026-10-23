@@ -54,18 +54,21 @@ MEASURES = [
 
 
 class Select(unittest.TestCase):
-    def select(self, *options, clusters=BORDERLINE):
+    def select(self, *options, clusters=BORDERLINE, verdicts="# none yet\n", library_map=None):
         folder = tempfile.mkdtemp()
         store = "".join(f"{p[len('second-library/'):]}\n" for p in (
             pair_["found"] for pair_ in clusters["pairs"]))
         files = {
             "clusters": json.dumps(clusters),
-            "verdicts": "# none yet\n",
+            "verdicts": verdicts,
             "store": store,
         }
         with open(os.path.join(folder, "measures"), "w") as file:
             json.dump(MEASURES, file)
-        options = [os.path.join(folder, "measures") if o == "MEASURES" else o for o in options]
+        with open(os.path.join(folder, "map"), "w") as file:
+            json.dump(library_map or {"copies": []}, file)
+        named = {"MEASURES": "measures", "MAP": "map"}
+        options = [os.path.join(folder, named[o]) if o in named else o for o in options]
         for name, text in files.items():
             with open(os.path.join(folder, name), "w") as file:
                 file.write(text)
@@ -102,6 +105,16 @@ class Select(unittest.TestCase):
             ("disagreement", "d.mp3", "second-library/d2.opus"),
             ("disagreement", "d.mp3", "second-library/e2.opus"),
         ])
+
+    def test_a_join_of_a_judged_files_identical_copy_is_no_disagreement(self):
+        # d2.opus is an identical copy of the corpus file d2.mp3, and a
+        # verdict judged d.mp3 ~ d2.mp3: the join d.mp3 ~ d2.opus is judged.
+        library_map = {"copies": [{"corpus": "d2.mp3", "stands_for": "d2.opus"}]}
+        chosen = self.select("--disagreements", "1", "--measures", "MEASURES",
+                             "--map", "MAP", clusters=DISAGREEING,
+                             verdicts="same\td.mp3\td2.mp3\n", library_map=library_map)
+
+        self.assertEqual(chosen[0], ("disagreement", "e.mp3", "second-library/e.opus"))
 
     def test_without_the_option_no_disagreement_is_chosen(self):
         self.assertEqual(self.select(clusters=DISAGREEING), [])

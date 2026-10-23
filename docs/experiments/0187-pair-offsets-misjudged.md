@@ -34,7 +34,7 @@ System Revision ~ the PRO012 rip (one offset each, end to end).
 the rest by more than T (Alien Girl); a version differing in one layer
 keeps it. Every search's spans, which follow drift, do worse (AUC 0.94).
 
-**Conclusions.** Within these 14 (8 same, 6 different) every measure
-orders same above different at chance (AUC 0.40-0.56; coverage 0.06):
-none helps where a verdict by ear is needed. The two source pairs
-happen to lie on the near-offset share's right sides.
+**Conclusions.** Within these 14 (8 same, 6 different), chosen from the
+measures' errors, the AUCs are 0.40-0.56 (coverage 0.06): near chance by
+that choice, so they show where the measures fail, not how often.
+Dilusion (0.91) lies above China Cup (0.77), both above 0.552.

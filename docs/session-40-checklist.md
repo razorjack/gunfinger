@@ -22,18 +22,20 @@ for scope and rules.
 - [x] 2. `pair` reports supported seconds; `pair_offsets.py` with unit
   tests; `listening_pack.py select --min-hits`, tested; `regress`
   identical
-- [x] 3. The runs: `pair` on each population at NAS scale (31-50 s each)
-- [x] 4. Experiments 0186 (scores) and 0187 (the pairs the measures get wrong; near-identical against damaged) (measures against the scores; the pairs every
-  measure gets wrong; near-identical versions against damaged copies)
+- [x] 3. The runs: `pair` on each population at NAS scale (31-52 s each)
+- [x] 4. Experiments 0186 (the measures against the pre-registered
+  scores) and 0187 (the pairs the measures get wrong; near-identical
+  versions against damaged copies)
 - [x] 5a. (Ahead) the false confident detections left at NAS scale (0188; sweeps 2027 and 2028 at NAS scale)
 - [x] 5b. (Ahead) a listening pack of the strongest disagreements in
   `work/s40/pack/`
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [x] 6. Read-only review by a subagent; findings fixed (brief 03:05)
 
 ## Wrap-up
 
-- [ ] "Session 40" in `docs/session-notes.md`, with the handoff
-- [ ] `docs/status.md`, the roadmap, this checklist
-- [ ] Final checks: `scripts/check.sh` green; both regressions identical
-  with the final build; `docs/pair-verdicts.txt` and the clusters file
-  unchanged; `git status` clean
+- [x] "Session 40" in `docs/session-notes.md`, with the handoff
+- [x] `docs/status.md`, the roadmap, this checklist
+- [x] Final checks: `scripts/check.sh` green; both regressions identical
+  with the final build `work/bin/s40-final` (1:09; 5:58);
+  `docs/pair-verdicts.txt` and the clusters file unchanged; `git status`
+  clean

@@ -9,7 +9,8 @@ pair's label:
   `judged different`);
 - b: a seeded sample of the clusters' joins at 80% coverage or more that
   no verdict touches (neither file named in a verdict), identical copies
-  (the library map) left out (`presumed same`);
+  (the library map) left out, each pair once (`presumed same`; session
+  40's draw, made before that fix, holds two pairs in both directions);
 - c: files of two different recordings of one family of the shared
   panels, at most PER_RECORDING_PAIR file pairs per two recordings,
   seeded, pairs a verdict names left out (`panel different`);
@@ -175,10 +176,6 @@ def auc(same, different, higher_is_same):
     return right / (len(same) * len(different))
 
 
-def finite(value):
-    return min(value, NO_ALIGNMENT_JUMPS)
-
-
 def says_same(value, threshold, higher_is_same):
     return value >= threshold if higher_is_same else value <= threshold
 
@@ -187,13 +184,13 @@ def best_threshold(labelled, higher_is_same):
     """The threshold with the fewest errors on (value, is_same) pairs:
     candidates are the midpoints between consecutive distinct values and
     one beyond each end; among ties the lower median candidate."""
-    values = sorted({finite(v) for v, _ in labelled})
+    values = sorted({v for v, _ in labelled})
     candidates = [values[0] - 1.0] + [
         (a + b) / 2 for a, b in zip(values, values[1:])] + [values[-1] + 1.0]
 
     def errors(threshold):
         return sum(1 for v, same in labelled
-                   if says_same(finite(v), threshold, higher_is_same) != same)
+                   if says_same(v, threshold, higher_is_same) != same)
 
     counts = [errors(c) for c in candidates]
     fewest = min(counts)
@@ -207,7 +204,7 @@ def leave_one_out(labelled, higher_is_same):
     wrong = []
     for i, (value, same) in enumerate(labelled):
         threshold, _ = best_threshold(labelled[:i] + labelled[i + 1:], higher_is_same)
-        if says_same(finite(value), threshold, higher_is_same) != same:
+        if says_same(value, threshold, higher_is_same) != same:
             wrong.append(i)
     return wrong
 
@@ -250,11 +247,11 @@ def scores(populations_file, measures_file, out):
         threshold, errors = best_threshold(labelled, higher)
         loo = leave_one_out(labelled, higher)
         wrong = [name_of(r) for r, (v, s) in zip(judged, labelled)
-                 if says_same(finite(v), threshold, higher) != s]
+                 if says_same(v, threshold, higher) != s]
 
         def placed(group_rows, as_same):
             return [name_of(r) for r in group_rows
-                    if says_same(finite(r[measure]), threshold, higher) != as_same]
+                    if says_same(r[measure], threshold, higher) != as_same]
 
         result["measures"][measure] = {
             "higher_is_same": higher,
@@ -269,7 +266,7 @@ def scores(populations_file, measures_file, out):
             "panel_different_above": placed(panel, False),
             "presumed_different_above": placed(presumed_different, False),
             "source_pairs": {name_of(r): {"value": r[measure], "judged": r["label"],
-                                          "says_same": says_same(finite(r[measure]),
+                                          "says_same": says_same(r[measure],
                                                                  threshold, higher)}
                              for r in sources},
         }
@@ -362,6 +359,8 @@ def populations(arguments):
          and p["found"] not in named and key(p["query"], p["found"]) not in identical
          and p["query"] in recorded and p["found"] in recorded),
         key=lambda p: (p["query"], p["found"]))
+    # The clusters file lists many pairs in both directions: draw each once.
+    joins = list({key(p["query"], p["found"]): p for p in joins}.values())
     for p in random.Random(SEED_B).sample(joins, min(SIZE_B, len(joins))):
         chosen.append(entry("b", "presumed same", p["query"], p["found"]))
     verdict_pairs = {key(a, b) for _, a, b in verdicts}

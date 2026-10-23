@@ -7,10 +7,10 @@ supported time? The hypothesis came from China Cup ~ ƆƐI3C (different)
 and Dilusion ~ dfect-dnb (same), left out of every score here.
 
 **Command.** `gunfinger-eval --other-peaks-dir <NAS store> pair
-work/s40/populations/s40-{a,b,c,d}.txt` (`work/bin/s40-run`; 31-50 s
-each), `pair_offsets.py measures`, `scores`. (a) 60 judged pairs (22 same,
-38 different), (b) 100 presumed-same joins, (c) 51 panel pairs, (d) 60
-presumed different. Data: `data/0186-pair-offsets-scores.json`.
+work/s40/populations/s40-{a,b,c,d}.txt` (`work/bin/s40-run`; 31-52 s
+each), `pair_offsets.py measures`, `scores`. (a) 60 judged pairs, (b) 100
+joins drawn, 98 distinct (counted once, the (b) AUCs move by 0.001 at
+most), (c) 51 panel pairs, (d) 60 presumed different. Data: `data/0186-*.json`.
 
 | Measure | AUC (a) | (b) ~ (a) diff. | (b) ~ (c) | (b) ~ (d) | Threshold | Errors | LOO | (b) below | (c) above | (d) above |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
@@ -37,4 +37,4 @@ them in, the judged AUCs move by at most 0.016.
 
 **Conclusions.** The near-offset share orders the judged pairs slightly
 better than coverage or supported time (AUC 0.95 against 0.90 and 0.94),
-by one or two pairs; all three separate the presumed populations.
+by one or two pairs; these three separate the presumed populations.

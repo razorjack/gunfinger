@@ -770,7 +770,8 @@ marked as inferences were derived, not measured.
   library files, where the alignments of two files lie (their offsets,
   the longest stretch without a hit near the main one) does not tell a
   near-identical version from a damaged copy of one recording either
-  (AUC 0.40-0.56 on the 14 hardest judged pairs).
+  (AUC 0.40-0.56 on 14 hard judged pairs chosen from the measures'
+  errors, so near chance by that choice).
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away
@@ -932,8 +933,8 @@ marked as inferences were derived, not measured.
   time 0.94) and 6 leave-one-out errors (9 and 7), the registered bar by
   one pair. On the 14 hardest judged pairs (uploads of one recording
   that drift in speed or are edited, against versions that differ in one
-  layer, such as China Cup's hi-hats or We Enter's instrumental) every
-  measure is at chance. ƆƐI3C's China Cup gives 18 of the 25 false
+  layer, such as China Cup's hi-hats or We Enter's instrumental), chosen
+  from the measures' errors, the AUCs are 0.40-0.56 (coverage 0.06). ƆƐI3C's China Cup gives 18 of the 25 false
   confident detections over the NAS sweeps of seeds 2026-2028, the
   other 7 Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload;
   whether a detection of a near-identical version counts as wrong is
@@ -963,14 +964,16 @@ marked as inferences were derived, not measured.
   effect: with 430,000 added tracks, a copy of a played song among them
   counted as a false positive (Sonnleitner et al. 2016, §6).
   *(session 40, experiments 0186 and 0187)* `pair` reports which
-  seconds each alignment at the fitted speed supports. 100 joins drawn
+  seconds each alignment at the fitted speed supports. 98 joins drawn
   without a verdict, the shared panels' cross-version pairs and 60
   strongest apart pairs of different tags are separated almost
   perfectly by coverage, supported time and the near-offset share alike
-  (AUC 0.99-1.00); over all 1,298 joins without a verdict the near-offset
-  share is 0.63 or more and over 639 apart pairs 0.30 or less. All three
-  fail on uploads whose speed drifts (one rung at the fitted speed
-  follows one speed) and on edits that move the rest by more than 10 s.
+  (AUC 0.99-1.00); over all 1,055 joins without a verdict the near-offset
+  share is 0.63 or more and over 638 apart pairs 0.30 or less (the
+  clusters file lists 313 of its 2,590 pairs in both directions). All
+  three fail on uploads whose speed drifts and on edits that move the
+  rest by more than 10 s; for supported time and the near-offset share,
+  by inference, because one rung at the fitted speed follows one speed.
   A join rule on the near-offset share would rest on one pair more than
   supported time gets right; a change is ours, with an ADR.
 - **The possible tier at NAS scale.** Matches between recordings of

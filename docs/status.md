@@ -4544,7 +4544,8 @@ join rule and the clusters file did not change.
   Dilusion both fall on the same side.
 - 0187: wrong under every measure: Fractles ~ the CITRUS 003 upload
   (judged same; a drifting upload). On the 14 hardest judged pairs
-  every measure is at chance (AUC 0.40-0.56).
+  the AUCs are 0.40-0.56 (coverage 0.06), near chance as expected of
+  pairs chosen from the measures' errors.
 - 0188: NAS sweeps of seeds 2027 and 2028 (8:34; 8:19): 11 and 7 false
   confident, all China Cup ~ ƆƐI3C; with seed 2026's 7 (Cool Rock), 18
   of 25 are the near-identical version, the only false candidate pairs
@@ -4554,3 +4555,7 @@ join rule and the clusters file did not change.
   below the threshold and no apart pair above it.
 - Waiting (ours): whether to change the join rule (an ADR) and whether
   a detection of a near-identical version counts as wrong.
+- Final checks with `work/bin/s40-final/`: `scripts/check.sh` green;
+  both regressions identical (1:09; 5:58, after moving the two new NAS
+  sweeps out of the reports directory, since calibrate reads every sweep
+  there); `docs/pair-verdicts.txt` and the clusters file unchanged.

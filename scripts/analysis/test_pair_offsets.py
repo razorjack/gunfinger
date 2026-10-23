@@ -95,12 +95,20 @@ class Scores(unittest.TestCase):
         self.assertEqual(pair_offsets.auc([3, 2], [1, 2], True), 0.875)
         self.assertEqual(pair_offsets.auc([0], [5], False), 1.0)
 
-    def test_the_best_threshold_takes_the_lower_median_of_ties(self):
+    def test_the_best_threshold_separates_the_labels(self):
         labelled = [(1.0, False), (2.0, False), (5.0, True), (6.0, True)]
 
         threshold, errors = pair_offsets.best_threshold(labelled, True)
 
         self.assertEqual((threshold, errors), (3.5, 0))
+
+    def test_the_best_threshold_takes_the_lower_median_of_ties(self):
+        # 1.5 and 3.5 both leave one error; of two the lower is the median.
+        labelled = [(1.0, False), (2.0, True), (3.0, False), (4.0, True)]
+
+        threshold, errors = pair_offsets.best_threshold(labelled, True)
+
+        self.assertEqual((threshold, errors), (1.5, 1))
 
     def test_leave_one_out_misjudges_a_pair_among_the_others(self):
         apart = [(1.0, False), (2.0, False), (3.0, False), (7.0, True), (8.0, True),
