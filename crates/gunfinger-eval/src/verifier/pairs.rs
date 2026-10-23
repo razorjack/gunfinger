@@ -8,11 +8,17 @@
 //! A pair whose peaks fell into neighbouring bins or frames is recovered
 //! that way; one whose peak is gone, or whose anchor now pairs with
 //! another target, is not.
+//!
+//! Session 44 (experiment 0206) follows each reference pair to its peaks
+//! (`split`): an endpoint gone, the target displaced beyond the query
+//! anchor's first two targets, or the pair formed with a changed value. It
+//! also pairs the query with more targets than the index does
+//! (`QUERY_FAN_OUTS`), the record's pairs unchanged.
 
 use std::collections::HashMap;
-use std::ops::RangeInclusive;
+use std::ops::{Range, RangeInclusive};
 
-use gunfinger_core::hash::{HASH_BITS, PairHash, Point, for_each_pair};
+use gunfinger_core::hash::{FAN_OUT, HASH_BITS, PairHash, Point, pair_hash, targets};
 use gunfinger_core::peaks::Peak;
 use serde::{Deserialize, Serialize};
 
@@ -21,6 +27,10 @@ use serde::{Deserialize, Serialize};
 const DELTA_FRAME_BITS: u32 = 6;
 const DELTA_BIN_BITS: u32 = 7;
 const ANCHOR_BITS: u32 = HASH_BITS - DELTA_BIN_BITS - DELTA_FRAME_BITS;
+
+/// The query fan-outs counted beside the index's `FAN_OUT` (experiment
+/// 0206).
+pub const QUERY_FAN_OUTS: [usize; 3] = [3, 5, 8];
 
 /// The query's pairs in the detection's span and the record's in the
 /// passage, and how many of them correspond.
@@ -33,109 +43,351 @@ pub struct Pairs {
     /// Among the pairs `exact` left, with a hash one step away in at least
     /// one component and at most one step in each.
     pub near: u32,
+    /// Why each reference pair was matched or lost (at the alignment only).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub split: Option<Split>,
+    /// The exact count with the query paired with more targets, one entry
+    /// per `QUERY_FAN_OUTS`.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fan_outs: Vec<FanOut>,
 }
 
-/// A pair hash and the reference frame of its anchor: for a record's pair,
-/// where it lies (rounded, as the index stores it); for a query pair, where
-/// the alignment expects the reference anchor.
+/// The query paired with each anchor's first `fan_out` targets.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct FanOut {
+    pub fan_out: u32,
+    /// The query's pairs at this fan-out, those at `FAN_OUT` included.
+    pub query: u32,
+    /// Reference pairs `exact` left that the extra pairs match with the
+    /// same hash.
+    pub extra: u32,
+}
+
+/// A pair hash, the reference frame of its anchor and the points it was
+/// formed from: for a record's pair, where it lies (rounded, as the index
+/// stores it) and its peaks; for a query pair, where the alignment expects
+/// the reference anchor and the query's points.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Pair {
     pub hash: PairHash,
     pub frame: f64,
+    pub anchor: usize,
+    pub target: usize,
 }
 
 /// The record's pairs, formed as the index forms them.
 pub fn of_record(peaks: &[Peak]) -> Vec<Pair> {
     let points: Vec<Point> = peaks.iter().map(Point::from).collect();
     let mut pairs = Vec::new();
-    for_each_pair(&points, |hash, anchor| {
-        pairs.push(Pair {
-            hash,
-            frame: points[anchor].frame.round(),
-        });
-    });
+    for anchor in 0..points.len() {
+        for target in targets(&points, anchor).take(FAN_OUT) {
+            pairs.push(Pair {
+                hash: pair_hash(points[anchor], points[target]),
+                frame: points[anchor].frame.round(),
+                anchor,
+                target,
+            });
+        }
+    }
     pairs
+}
+
+/// The pairs of `points` with each anchor's targets of the given ranks
+/// (0 is the first target), in anchor order: `0..FAN_OUT` are the index's
+/// pairs. `place(anchor)` gives the pair's frame, or `None` to leave the
+/// anchor out.
+pub fn with_targets(
+    points: &[Point],
+    ranks: Range<usize>,
+    place: impl Fn(usize) -> Option<f64>,
+) -> Vec<Pair> {
+    let mut pairs = Vec::new();
+    for anchor in 0..points.len() {
+        let Some(frame) = place(anchor) else {
+            continue;
+        };
+        for target in targets(points, anchor).skip(ranks.start).take(ranks.len()) {
+            pairs.push(Pair {
+                hash: pair_hash(points[anchor], points[target]),
+                frame,
+                anchor,
+                target,
+            });
+        }
+    }
+    pairs
+}
+
+/// How a reference pair in the passage was matched.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Status {
+    Exact,
+    Near,
+    Unmatched,
+}
+
+/// The reference pairs in the passage, each with its status, and the
+/// counts.
+pub struct Matched {
+    pub pairs: Pairs,
+    pub reference: Vec<Pair>,
+    pub status: Vec<Status>,
 }
 
 /// The query pairs, moved `shift` reference frames, against the record's
 /// pairs whose anchor lies in `passage`. A correspondence's anchors lie
-/// within `frames` of each other.
+/// within `frames` of each other. `extra` holds, for each fan-out, the
+/// query's pairs beyond `FAN_OUT`.
 pub fn count(
     query: &[Pair],
+    extra: &[(usize, Vec<Pair>)],
     record: &[Pair],
     passage: RangeInclusive<f64>,
     shift: f64,
     frames: f64,
-) -> Pairs {
+) -> Matched {
     let reference: Vec<Pair> = record
         .iter()
         .filter(|pair| passage.contains(&pair.frame))
         .copied()
         .collect();
-    let query: Vec<Pair> = query
+    let shifted = |pairs: &[Pair]| -> Vec<Pair> {
+        pairs
+            .iter()
+            .map(|pair| Pair {
+                frame: pair.frame + shift,
+                ..*pair
+            })
+            .collect()
+    };
+    let query = shifted(query);
+    let by_hash = by_hash(&reference);
+    let mut status = vec![Status::Unmatched; reference.len()];
+    let unmatched = take(&query, &by_hash, &reference, &mut status, frames);
+    let after_exact = status.clone();
+    take_near(&unmatched, &by_hash, &reference, &mut status, frames);
+    let fan_outs = extra
         .iter()
-        .map(|pair| Pair {
-            hash: pair.hash,
-            frame: pair.frame + shift,
+        .map(|(fan_out, pairs)| {
+            let mut status = after_exact.clone();
+            let extra = shifted(pairs);
+            let left = take(&extra, &by_hash, &reference, &mut status, frames);
+            FanOut {
+                fan_out: *fan_out as u32,
+                query: (query.len() + extra.len()) as u32,
+                extra: (extra.len() - left.len()) as u32,
+            }
         })
         .collect();
-    let (exact, near) = correspondences(&query, &reference, frames);
-    Pairs {
-        query: query.len() as u32,
-        reference: reference.len() as u32,
-        exact,
-        near,
+    let counted = |wanted| status.iter().filter(|&&s| s == wanted).count() as u32;
+    Matched {
+        pairs: Pairs {
+            query: query.len() as u32,
+            reference: reference.len() as u32,
+            exact: counted(Status::Exact),
+            near: counted(Status::Near),
+            split: None,
+            fan_outs,
+        },
+        reference,
+        status,
     }
 }
 
-/// Exact correspondences, then near ones among the pairs left. Query pairs
-/// take, in order, the nearest reference pair not yet taken; each pair
-/// counts once.
-fn correspondences(query: &[Pair], reference: &[Pair], frames: f64) -> (u32, u32) {
+fn by_hash(reference: &[Pair]) -> HashMap<PairHash, Vec<usize>> {
     let mut by_hash: HashMap<PairHash, Vec<usize>> = HashMap::new();
     for (at, pair) in reference.iter().enumerate() {
         by_hash.entry(pair.hash).or_default().push(at);
     }
-    let mut taken = vec![false; reference.len()];
+    by_hash
+}
+
+/// Query pairs take, in order, the nearest reference pair with the same
+/// hash that is still unmatched, and mark it exact. Returns the query
+/// pairs that took none.
+fn take<'q>(
+    query: &'q [Pair],
+    by_hash: &HashMap<PairHash, Vec<usize>>,
+    reference: &[Pair],
+    status: &mut [Status],
+    frames: f64,
+) -> Vec<&'q Pair> {
     let mut unmatched = Vec::new();
-    let mut exact = 0;
     for pair in query {
         let candidates = by_hash.get(&pair.hash).into_iter().flatten();
-        match nearest(candidates, reference, &taken, pair.frame, frames) {
-            Some(at) => {
-                taken[at] = true;
-                exact += 1;
-            }
+        match nearest(candidates, reference, status, pair.frame, frames) {
+            Some(at) => status[at] = Status::Exact,
             None => unmatched.push(pair),
         }
     }
-    let mut near = 0;
-    for pair in unmatched {
-        let candidates = neighbours(pair.hash).filter_map(|hash| by_hash.get(&hash));
-        if let Some(at) = nearest(candidates.flatten(), reference, &taken, pair.frame, frames) {
-            taken[at] = true;
-            near += 1;
-        }
-    }
-    (exact, near)
+    unmatched
 }
 
-/// The reference pair among `candidates`, not taken, whose anchor lies
-/// nearest `frame` and within `frames` of it; the earliest on a tie.
+/// Then near correspondences among the pairs left, the same way.
+fn take_near(
+    unmatched: &[&Pair],
+    by_hash: &HashMap<PairHash, Vec<usize>>,
+    reference: &[Pair],
+    status: &mut [Status],
+    frames: f64,
+) {
+    for pair in unmatched {
+        let candidates = neighbours(pair.hash).filter_map(|hash| by_hash.get(&hash));
+        if let Some(at) = nearest(candidates.flatten(), reference, status, pair.frame, frames) {
+            status[at] = Status::Near;
+        }
+    }
+}
+
+/// The reference pair among `candidates`, not yet matched, whose anchor
+/// lies nearest `frame` and within `frames` of it; the earliest on a tie.
 fn nearest<'a>(
     candidates: impl Iterator<Item = &'a usize>,
     reference: &[Pair],
-    taken: &[bool],
+    status: &[Status],
     frame: f64,
     frames: f64,
 ) -> Option<usize> {
     candidates
         .copied()
-        .filter(|&at| !taken[at])
+        .filter(|&at| status[at] == Status::Unmatched)
         .map(|at| (at, (reference[at].frame - frame).abs()))
         .filter(|&(_, distance)| distance <= frames)
         .min_by(|a, b| a.1.total_cmp(&b.1).then(a.0.cmp(&b.0)))
         .map(|(at, _)| at)
+}
+
+/// The reference pairs of each status by kind (experiment 0206): the
+/// pairs lost from the exact count are the `near` and `unmatched` ones.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct Split {
+    pub exact: Kinds,
+    pub near: Kinds,
+    pub unmatched: Kinds,
+}
+
+/// Reference pairs by what became of their two peaks in the query.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct Kinds {
+    pub anchor_gone: u32,
+    pub target_gone: u32,
+    pub both_gone: u32,
+    /// Both found and the query pairs them (the target is among the query
+    /// anchor's first `FAN_OUT`): with the same hash, one step away in each
+    /// component at most, or further.
+    pub paired_same: u32,
+    pub paired_near: u32,
+    pub paired_far: u32,
+    /// Both found, the target in the anchor's zone but later in it: third,
+    /// fourth or fifth, sixth to eighth, ninth or later.
+    pub displaced_3: u32,
+    pub displaced_4_5: u32,
+    pub displaced_6_8: u32,
+    pub displaced_later: u32,
+    /// Both found, the target outside the anchor's zone.
+    pub outside_zone: u32,
+}
+
+/// What became of a reference pair's peaks.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+enum Kind {
+    // In order of preference among candidate peaks: the kind nearest to a
+    // pair the query forms with the same hash comes first.
+    PairedSame,
+    PairedNear,
+    PairedFar,
+    /// The target's rank among the anchor's targets, 1 for the first.
+    Displaced(usize),
+    OutsideZone,
+    AnchorGone,
+    TargetGone,
+    BothGone,
+}
+
+impl Kinds {
+    fn add(&mut self, kind: Kind) {
+        let counter = match kind {
+            Kind::AnchorGone => &mut self.anchor_gone,
+            Kind::TargetGone => &mut self.target_gone,
+            Kind::BothGone => &mut self.both_gone,
+            Kind::PairedSame => &mut self.paired_same,
+            Kind::PairedNear => &mut self.paired_near,
+            Kind::PairedFar => &mut self.paired_far,
+            Kind::Displaced(..=3) => &mut self.displaced_3,
+            Kind::Displaced(4..=5) => &mut self.displaced_4_5,
+            Kind::Displaced(6..=8) => &mut self.displaced_6_8,
+            Kind::Displaced(_) => &mut self.displaced_later,
+            Kind::OutsideZone => &mut self.outside_zone,
+        };
+        *counter += 1;
+    }
+}
+
+/// Each reference pair's kind, by its status. `found(peak)` lists the
+/// query points (indexes into `query`) that find the record's peak
+/// `peak`, as the verifier finds peaks.
+pub fn split(matched: &Matched, query: &[Point], found: impl Fn(usize) -> Vec<usize>) -> Split {
+    let mut split = Split::default();
+    for (pair, status) in matched.reference.iter().zip(&matched.status) {
+        let kind = kind(pair, query, &found(pair.anchor), &found(pair.target));
+        match status {
+            Status::Exact => split.exact.add(kind),
+            Status::Near => split.near.add(kind),
+            Status::Unmatched => split.unmatched.add(kind),
+        }
+    }
+    split
+}
+
+/// The best kind over the candidate query points for the reference pair's
+/// anchor and target.
+fn kind(pair: &Pair, query: &[Point], anchors: &[usize], targets_found: &[usize]) -> Kind {
+    match (anchors.is_empty(), targets_found.is_empty()) {
+        (true, true) => return Kind::BothGone,
+        (true, false) => return Kind::AnchorGone,
+        (false, true) => return Kind::TargetGone,
+        (false, false) => {}
+    }
+    let mut best = Kind::OutsideZone;
+    for &anchor in anchors {
+        for &target in targets_found {
+            let rank = targets(query, anchor).position(|at| at == target);
+            let kind = match rank {
+                None => Kind::OutsideZone,
+                Some(rank) if rank < FAN_OUT => {
+                    match value(pair_hash(query[anchor], query[target]), pair.hash) {
+                        Value::Same => Kind::PairedSame,
+                        Value::Near => Kind::PairedNear,
+                        Value::Far => Kind::PairedFar,
+                    }
+                }
+                Some(rank) => Kind::Displaced(rank + 1),
+            };
+            best = best.min(kind);
+        }
+    }
+    best
+}
+
+enum Value {
+    Same,
+    Near,
+    Far,
+}
+
+fn value(query: PairHash, reference: PairHash) -> Value {
+    if query == reference {
+        return Value::Same;
+    }
+    let steps = components(query)
+        .into_iter()
+        .zip(components(reference))
+        .map(|(a, b)| a.abs_diff(b));
+    if steps.max().unwrap_or(0) <= 1 {
+        Value::Near
+    } else {
+        Value::Far
+    }
 }
 
 /// A pair hash's quantised components: the anchor level, the bin delta
@@ -187,7 +439,7 @@ fn neighbours(hash: PairHash) -> impl Iterator<Item = PairHash> {
 
 #[cfg(test)]
 mod tests {
-    use gunfinger_core::hash::pair_hash;
+    use gunfinger_core::hash::for_each_pair;
     use gunfinger_core::index::Index;
     use gunfinger_core::library::{Asset, Timestamp};
     use gunfinger_core::profile::Profile;
@@ -200,7 +452,23 @@ mod tests {
     }
 
     fn pair(hash: PairHash, frame: f64) -> Pair {
-        Pair { hash, frame }
+        Pair {
+            hash,
+            frame,
+            anchor: 0,
+            target: 0,
+        }
+    }
+
+    /// Session 30's counts: no extra fan-outs.
+    fn counts(
+        query: &[Pair],
+        record: &[Pair],
+        passage: RangeInclusive<f64>,
+        shift: f64,
+        frames: f64,
+    ) -> Pairs {
+        count(query, &[], record, passage, shift, frames).pairs
     }
 
     #[test]
@@ -225,7 +493,7 @@ mod tests {
 
         for reference in moved {
             assert_ne!(reference, query);
-            let counted = count(
+            let counted = counts(
                 &[pair(query, 1000.0)],
                 &[pair(reference, 1000.0)],
                 0.0..=2000.0,
@@ -235,7 +503,7 @@ mod tests {
             assert_eq!((counted.exact, counted.near), (0, 1), "{reference:?}");
         }
         let two_steps = pair_hash(anchor, point(1014.0, 40.0));
-        let counted = count(
+        let counted = counts(
             &[pair(query, 1000.0)],
             &[pair(two_steps, 1000.0)],
             0.0..=2000.0,
@@ -265,7 +533,7 @@ mod tests {
         let near = packed([41, 63, 10]);
         // Two query pairs, one reference pair with the same hash: one exact,
         // and the second query pair cannot take it again as near.
-        let counted = count(
+        let counted = counts(
             &[pair(hash, 500.0), pair(hash, 500.5)],
             &[pair(hash, 500.0)],
             0.0..=1000.0,
@@ -275,7 +543,7 @@ mod tests {
         assert_eq!((counted.exact, counted.near), (1, 0));
         // One query pair, an exact and a near reference pair: it counts once,
         // as exact.
-        let counted = count(
+        let counted = counts(
             &[pair(hash, 500.0)],
             &[pair(near, 500.0), pair(hash, 500.0)],
             0.0..=1000.0,
@@ -284,7 +552,7 @@ mod tests {
         );
         assert_eq!((counted.exact, counted.near), (1, 0));
         // A reference pair taken as exact is not taken again as near.
-        let counted = count(
+        let counted = counts(
             &[pair(hash, 500.0), pair(near, 500.0)],
             &[pair(hash, 500.0)],
             0.0..=1000.0,
@@ -301,9 +569,9 @@ mod tests {
         let query = [pair(hash, 1000.0), pair(near, 1300.0)];
         let reference = [pair(hash, 1000.0), pair(near, 1300.0)];
 
-        let inside = count(&query, &reference, 900.0..=1400.0, 0.0, 1.0);
-        let without_second = count(&query, &reference, 900.0..=1200.0, 0.0, 1.0);
-        let without_first = count(&query, &reference, 1100.0..=1400.0, 0.0, 1.0);
+        let inside = counts(&query, &reference, 900.0..=1400.0, 0.0, 1.0);
+        let without_second = counts(&query, &reference, 900.0..=1200.0, 0.0, 1.0);
+        let without_first = counts(&query, &reference, 1100.0..=1400.0, 0.0, 1.0);
 
         assert_eq!((inside.exact, inside.reference), (2, 2));
         assert_eq!(
@@ -329,16 +597,16 @@ mod tests {
         let hash = packed([40, 63, 10]);
         let query = [pair(hash, 1000.0)];
 
-        let far = count(&query, &[pair(hash, 1001.5)], 0.0..=2000.0, 0.0, 1.0);
-        let near_enough = count(&query, &[pair(hash, 1001.0)], 0.0..=2000.0, 0.0, 1.0);
-        let shifted = count(&query, &[pair(hash, 1300.0)], 0.0..=2000.0, 300.0, 1.0);
+        let far = counts(&query, &[pair(hash, 1001.5)], 0.0..=2000.0, 0.0, 1.0);
+        let near_enough = counts(&query, &[pair(hash, 1001.0)], 0.0..=2000.0, 0.0, 1.0);
+        let shifted = counts(&query, &[pair(hash, 1300.0)], 0.0..=2000.0, 300.0, 1.0);
 
         assert_eq!(far.exact, 0);
         assert_eq!(near_enough.exact, 1);
         assert_eq!(shifted.exact, 1);
         // The first query pair takes its nearest reference pair, 1000.1, not
         // the first listed, 1000.9, which leaves 1000.9 for the second.
-        let two = count(
+        let two = counts(
             &[pair(hash, 1000.0), pair(hash, 1001.2)],
             &[pair(hash, 1000.9), pair(hash, 1000.1)],
             0.0..=2000.0,
@@ -346,6 +614,205 @@ mod tests {
             1.0,
         );
         assert_eq!(two.exact, 2);
+    }
+
+    #[test]
+    fn extra_fan_outs_match_only_the_reference_pairs_the_exact_count_left() {
+        let [first, second, third, fourth] = [10, 11, 12, 13].map(|level| packed([level, 63, 10]));
+        let fourth_near = packed([14, 63, 10]);
+        let reference = [
+            pair(first, 1000.0),
+            pair(second, 1000.0),
+            pair(third, 1100.0),
+            pair(fourth_near, 1200.0),
+        ];
+        // At fan-out 2 the first pair is exact and the fourth near.
+        let query = [pair(first, 1000.0), pair(fourth, 1200.0)];
+        let to_three = vec![
+            pair(first, 1000.5),       // its reference pair is exact already
+            pair(second, 1000.0),      // new
+            pair(second, 1000.2),      // the same reference pair: once
+            pair(third, 1050.0),       // too far from its reference pair
+            pair(fourth_near, 1200.0), // near at fan-out 2, exact here
+        ];
+        let to_five = vec![pair(third, 1100.0)];
+
+        let matched = count(
+            &query,
+            &[(3, to_three), (5, to_five)],
+            &reference,
+            0.0..=2000.0,
+            0.0,
+            1.0,
+        );
+
+        assert_eq!((matched.pairs.exact, matched.pairs.near), (1, 1));
+        assert_eq!(
+            matched.pairs.fan_outs,
+            [
+                FanOut {
+                    fan_out: 3,
+                    query: 7,
+                    extra: 2,
+                },
+                // Each fan-out starts again from the exact count's pairs.
+                FanOut {
+                    fan_out: 5,
+                    query: 3,
+                    extra: 1,
+                },
+            ]
+        );
+        assert_eq!(
+            matched.status,
+            [
+                Status::Exact,
+                Status::Unmatched,
+                Status::Unmatched,
+                Status::Near
+            ]
+        );
+    }
+
+    #[test]
+    fn pairs_with_later_targets_follow_the_index_pairs() {
+        let points: Vec<Point> = (0..8)
+            .map(|at| point(f64::from(at) * 2.0, 30.0 + f64::from(at) as f32))
+            .collect();
+        let everywhere = |anchor: usize| Some(anchor as f64);
+
+        let first_two = with_targets(&points, 0..FAN_OUT, everywhere);
+        let third_to_fifth = with_targets(&points, FAN_OUT..5, everywhere);
+        let none_from_the_first = with_targets(&points, 0..FAN_OUT, |anchor| {
+            (anchor > 0).then_some(anchor as f64)
+        });
+
+        let mut from_hashing = Vec::new();
+        for_each_pair(&points, |hash, anchor| from_hashing.push((hash, anchor)));
+        let ours: Vec<(PairHash, usize)> = first_two
+            .iter()
+            .map(|pair| (pair.hash, pair.anchor))
+            .collect();
+        assert_eq!(ours, from_hashing);
+        let from_first: Vec<usize> = third_to_fifth
+            .iter()
+            .filter(|pair| pair.anchor == 0)
+            .map(|pair| pair.target)
+            .collect();
+        assert_eq!(from_first, [3, 4, 5]);
+        assert_eq!(third_to_fifth[0].hash, pair_hash(points[0], points[3]));
+        assert!(none_from_the_first.iter().all(|pair| pair.anchor > 0));
+        assert_eq!(none_from_the_first.len(), first_two.len() - FAN_OUT);
+    }
+
+    /// An anchor at frame 100 and twelve later points 4 frames apart, then
+    /// one outside its zone.
+    fn zone() -> Vec<Point> {
+        let mut points = vec![point(100.0, 50.0)];
+        points.extend((1..=12).map(|at| point(100.0 + 4.0 * f64::from(at), 55.0)));
+        points.push(point(200.0, 50.0));
+        points
+    }
+
+    fn reference_pair(hash: PairHash) -> Pair {
+        Pair {
+            hash,
+            frame: 100.0,
+            anchor: 0,
+            target: 1,
+        }
+    }
+
+    #[test]
+    fn a_reference_pair_is_gone_paired_displaced_or_outside_the_zone() {
+        let query = zone();
+        let formed = reference_pair(pair_hash(query[0], query[1]));
+        let a_bin_up = reference_pair(pair_hash(query[0], point(104.0, 56.0)));
+        let two_frames_on = reference_pair(pair_hash(query[0], point(106.0, 55.0)));
+
+        assert_eq!(kind(&formed, &query, &[], &[1]), Kind::AnchorGone);
+        assert_eq!(kind(&formed, &query, &[0], &[]), Kind::TargetGone);
+        assert_eq!(kind(&formed, &query, &[], &[]), Kind::BothGone);
+        assert_eq!(kind(&formed, &query, &[0], &[1]), Kind::PairedSame);
+        assert_eq!(kind(&formed, &query, &[0], &[2]), Kind::PairedFar);
+        assert_eq!(kind(&a_bin_up, &query, &[0], &[1]), Kind::PairedNear);
+        assert_eq!(kind(&two_frames_on, &query, &[0], &[1]), Kind::PairedFar);
+        assert_eq!(kind(&formed, &query, &[0], &[3]), Kind::Displaced(3));
+        assert_eq!(kind(&formed, &query, &[0], &[8]), Kind::Displaced(8));
+        assert_eq!(kind(&formed, &query, &[0], &[13]), Kind::OutsideZone);
+        // A target before its anchor is outside the zone too.
+        assert_eq!(kind(&formed, &query, &[3], &[1]), Kind::OutsideZone);
+        // Of several candidates, the kind nearest a formed pair counts.
+        assert_eq!(kind(&formed, &query, &[0], &[13, 5, 1]), Kind::PairedSame);
+        assert_eq!(kind(&formed, &query, &[0], &[9, 4]), Kind::Displaced(4));
+    }
+
+    #[test]
+    fn the_split_counts_each_reference_pair_once_by_its_status() {
+        let query = zone();
+        let hash = pair_hash(query[0], query[1]);
+        // Record peaks 0 and 1 are found at the query's points 0 and 1;
+        // the record's peak n + 1 at the query's point n for the rest.
+        let found = |peak: usize| match peak {
+            0 | 1 => vec![peak],
+            99 => Vec::new(),
+            _ => vec![peak - 1],
+        };
+        let with_target = |target: usize| Pair {
+            hash,
+            frame: 100.0,
+            anchor: 0,
+            target,
+        };
+        let matched = Matched {
+            pairs: counts(&[], &[], 0.0..=1.0, 0.0, 1.0),
+            reference: vec![
+                with_target(1),  // formed
+                with_target(99), // its target gone
+                with_target(4),  // third
+                with_target(5),  // fourth
+                with_target(7),  // sixth
+                with_target(11), // tenth
+                with_target(14), // outside the zone
+            ],
+            status: vec![
+                Status::Exact,
+                Status::Unmatched,
+                Status::Unmatched,
+                Status::Near,
+                Status::Unmatched,
+                Status::Unmatched,
+                Status::Unmatched,
+            ],
+        };
+
+        let split = split(&matched, &query, found);
+
+        assert_eq!(
+            split.exact,
+            Kinds {
+                paired_same: 1,
+                ..Kinds::default()
+            }
+        );
+        assert_eq!(
+            split.near,
+            Kinds {
+                displaced_4_5: 1,
+                ..Kinds::default()
+            }
+        );
+        assert_eq!(
+            split.unmatched,
+            Kinds {
+                target_gone: 1,
+                displaced_3: 1,
+                displaced_6_8: 1,
+                displaced_later: 1,
+                outside_zone: 1,
+                ..Kinds::default()
+            }
+        );
     }
 
     #[test]

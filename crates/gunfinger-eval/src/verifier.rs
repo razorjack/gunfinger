@@ -24,9 +24,9 @@ mod pairs;
 
 use std::borrow::Cow;
 use std::collections::HashMap;
-use std::ops::RangeInclusive;
+use std::ops::{Range, RangeInclusive};
 
-use gunfinger_core::hash::{Point, for_each_pair};
+use gunfinger_core::hash::{FAN_OUT, Point, for_each_pair};
 use gunfinger_core::index::Index;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
@@ -36,7 +36,7 @@ use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
 use crate::padding::SecondLibrary;
-use pairs::{Pair, Pairs};
+use pairs::{Pair, Pairs, QUERY_FAN_OUTS};
 
 /// How far from its expected place a query peak may lie and still find a
 /// reference peak: half-widths in bins and in frames.
@@ -156,18 +156,37 @@ impl<'a> Verifier<'a> {
             offsets,
             window_frames: profile.frames(WINDOW_SECONDS),
         };
-        let query_pairs = analysed.pairs(&aligned);
+        let query_pairs = analysed.pairs(&aligned, 0..FAN_OUT);
+        let extra_pairs: Vec<(usize, Vec<Pair>)> = QUERY_FAN_OUTS
+            .iter()
+            .map(|&fan_out| (fan_out, analysed.pairs(&aligned, FAN_OUT..fan_out)))
+            .collect();
         let record_pairs = pairs::of_record(reference);
         let counted = |shift_seconds: f64| {
             let shift = profile.frames(shift_seconds);
+            let matched = pairs::count(
+                &query_pairs,
+                &extra_pairs,
+                &record_pairs,
+                aligned.passage(shift),
+                shift,
+                TOLERANCE.frames,
+            );
+            // The split follows reference pairs to their peaks at the
+            // alignment only.
+            let split = (shift_seconds == 0.0).then(|| {
+                pairs::split(&matched, &analysed.points, |peak| {
+                    let peak = &reference[peak];
+                    finding(&query, &aligned, peak.frame, peak.bin, 0.0, TOLERANCE)
+                        .map(|placed| placed.point)
+                        .collect()
+                })
+            });
             Count {
-                pairs: Some(pairs::count(
-                    &query_pairs,
-                    &record_pairs,
-                    aligned.passage(shift),
-                    shift,
-                    TOLERANCE.frames,
-                )),
+                pairs: Some(Pairs {
+                    split,
+                    ..matched.pairs
+                }),
                 ..count(
                     reference,
                     &query,
@@ -442,26 +461,23 @@ impl Analysed {
         self.from_frame + point.frame / self.speed
     }
 
-    /// The pairs whose anchor lies in the line's span, each at the
-    /// reference frame where its window's alignment expects the reference
-    /// anchor: on the line, moved by the window's offset.
-    fn pairs(&self, aligned: &Aligned) -> Vec<Pair> {
+    /// The pairs with each anchor's targets of the given ranks (0 is the
+    /// first; `0..FAN_OUT` are the pairs the index forms) whose anchor lies
+    /// in the line's span, each at the reference frame where its window's
+    /// alignment expects the reference anchor: on the line, moved by the
+    /// window's offset.
+    fn pairs(&self, aligned: &Aligned, ranks: Range<usize>) -> Vec<Pair> {
         let line = &aligned.line;
         let windows = aligned.offsets.len();
-        let mut pairs = Vec::new();
-        for_each_pair(&self.points, |hash, anchor| {
+        pairs::with_targets(&self.points, ranks, |anchor| {
             let query_frame = self.query_frame(&self.points[anchor]);
             let from_start = query_frame - line.first;
             if from_start < 0.0 || query_frame > line.last {
-                return;
+                return None;
             }
             let window = ((from_start / aligned.window_frames) as usize).min(windows - 1);
-            pairs.push(Pair {
-                hash,
-                frame: line.reference_at(query_frame) + aligned.offsets[window],
-            });
-        });
-        pairs
+            Some(line.reference_at(query_frame) + aligned.offsets[window])
+        })
     }
 
     /// The points placed on the line, sorted by frame: where reference
@@ -470,9 +486,11 @@ impl Analysed {
         let mut placed: Vec<Placed> = self
             .points
             .iter()
-            .map(|point| Placed {
+            .enumerate()
+            .map(|(at, point)| Placed {
                 reference_frame: line.reference_at(self.query_frame(point)),
                 bin: point.bin,
+                point: at,
             })
             .collect();
         placed.sort_by(|a, b| a.reference_frame.total_cmp(&b.reference_frame));
@@ -480,11 +498,12 @@ impl Analysed {
     }
 }
 
-/// A query peak on the line: the reference frame it aligns with, and its
-/// bin.
+/// A query peak on the line: the reference frame it aligns with, its bin
+/// and its index in `Analysed::points`.
 struct Placed {
     reference_frame: f64,
     bin: f32,
+    point: usize,
 }
 
 /// The line and each window's offset from it.
@@ -500,6 +519,32 @@ impl Aligned {
         let line = &self.line;
         line.reference_at(line.first) + shift..=line.reference_at(line.last) + shift
     }
+}
+
+/// The query peaks that find a reference peak at `frame` and `bin`,
+/// `shift` reference frames away from the alignment: within `tolerance` of
+/// its expected place, on the line moved by its window's offset.
+fn finding<'q>(
+    query: &'q [Placed],
+    aligned: &Aligned,
+    frame: f64,
+    bin: f32,
+    shift: f64,
+    tolerance: Tolerance,
+) -> impl Iterator<Item = &'q Placed> {
+    let line = &aligned.line;
+    let on_line = frame - shift;
+    let from_start = line.query_at(on_line) - line.first;
+    let window = ((from_start / aligned.window_frames) as usize).min(aligned.offsets.len() - 1);
+    // A window's hits lie `offset` reference frames from the line
+    // (reference minus line), so its query peaks lie as far before the
+    // reference peaks they find.
+    let expected = on_line - aligned.offsets[window];
+    let first = query.partition_point(|point| point.reference_frame < expected - tolerance.frames);
+    query[first..]
+        .iter()
+        .take_while(move |point| point.reference_frame <= expected + tolerance.frames)
+        .filter(move |point| (point.bin - bin).abs() <= tolerance.bins)
 }
 
 /// The reference peaks of the span, `shift_seconds` away from the
@@ -518,27 +563,17 @@ fn count(
     let span = aligned.passage(shift);
     let slice_frames = profile.frames(SLICE_SECONDS);
     let slices = ((line.last - line.first) / slice_frames).ceil().max(1.0) as usize;
-    let windows = aligned.offsets.len();
     let mut supported = vec![false; slices];
     let mut reference_peaks = 0;
     let mut found = 0;
     for peak in reference.iter().filter(|peak| span.contains(&peak.frame)) {
         reference_peaks += 1;
-        let on_line = peak.frame - shift;
-        let from_start = line.query_at(on_line) - line.first;
-        let window = ((from_start / aligned.window_frames) as usize).min(windows - 1);
-        // A window's hits lie `offset` reference frames from the line
-        // (reference minus line), so its query peaks lie as far before the
-        // reference peaks they find.
-        let expected = on_line - aligned.offsets[window];
-        let first =
-            query.partition_point(|point| point.reference_frame < expected - tolerance.frames);
-        let is_found = query[first..]
-            .iter()
-            .take_while(|point| point.reference_frame <= expected + tolerance.frames)
-            .any(|point| (point.bin - peak.bin).abs() <= tolerance.bins);
+        let is_found = finding(query, aligned, peak.frame, peak.bin, shift, tolerance)
+            .next()
+            .is_some();
         if is_found {
             found += 1;
+            let from_start = line.query_at(peak.frame - shift) - line.first;
             supported[((from_start / slice_frames) as usize).min(slices - 1)] = true;
         }
     }
@@ -577,6 +612,7 @@ mod tests {
         Placed {
             reference_frame,
             bin,
+            point: 0,
         }
     }
 
@@ -624,6 +660,45 @@ mod tests {
         // 100 frames is 1.6 s, two slices; both found peaks lie in the
         // first.
         assert!((counted.support - 0.5).abs() < 1e-9);
+    }
+
+    #[test]
+    fn the_query_points_finding_a_reference_peak_are_those_near_its_place() {
+        let profile = Profile::CURRENT;
+        let window = profile.frames(WINDOW_SECONDS);
+        // The second window's hits lie 5 frames before the line.
+        let line = aligned(0.0, 2.0 * window, 1000.0, vec![0.0, -5.0]);
+        let query = [
+            Placed {
+                reference_frame: 1009.5,
+                bin: 100.5,
+                point: 7,
+            },
+            Placed {
+                reference_frame: 1010.5,
+                bin: 99.5,
+                point: 8,
+            },
+            Placed {
+                reference_frame: 1012.0, // too late
+                bin: 100.0,
+                point: 9,
+            },
+            Placed {
+                reference_frame: 1000.0 + window + 25.0,
+                bin: 100.0,
+                point: 10,
+            },
+        ];
+        let found = |frame: f64| -> Vec<usize> {
+            finding(&query, &line, frame, 100.0, 0.0, TOLERANCE)
+                .map(|placed| placed.point)
+                .collect()
+        };
+
+        assert_eq!(found(1010.0), [7, 8]);
+        assert_eq!(found(1000.0 + window + 20.0), [10]);
+        assert_eq!(found(1000.0 + window + 25.0), Vec::<usize>::new());
     }
 
     #[test]
@@ -692,7 +767,7 @@ mod tests {
         };
         let aligned = aligned(8.0, window + 50.0, 1000.0, vec![3.0, -4.0]);
 
-        let pairs = analysed.pairs(&aligned);
+        let pairs = analysed.pairs(&aligned, 0..FAN_OUT);
 
         assert_eq!(
             pairs,
@@ -700,10 +775,14 @@ mod tests {
                 Pair {
                     hash: pair_hash(at(10.0, 100.0), at(15.0, 110.0)),
                     frame: 1000.0 + 2.0 + 3.0,
+                    anchor: 1,
+                    target: 2,
                 },
                 Pair {
                     hash: pair_hash(at(window + 10.0, 100.0), at(window + 15.0, 110.0)),
                     frame: 1000.0 + window + 2.0 - 4.0,
+                    anchor: 3,
+                    target: 4,
                 },
             ]
         );

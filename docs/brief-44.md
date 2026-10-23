@@ -116,8 +116,47 @@ Rules for this session:
   `regress session-32-linux` and `regress session-33-linux-nas`, each
   report compared with its baseline apart from `wall_seconds`
   (`work/s44/same.py`, session 43's).
+- **(10:13) Start checks.** `regress session-32-linux` (1:08) and
+  `regress session-33-linux-nas` (4:05) identical with
+  `work/bin/s44-start/`, each report identical to its baseline's apart
+  from `wall_seconds`.
+- **(10:13) The pre-registration's times.** Its heading said 10:20-10:35;
+  it was written at 10:09-10:12 and committed at 10:12 (`d685f25`),
+  before the harness code and any count.
+- **(10:17) The harness** (`verifier/pairs.rs`, `verifier.rs`): the split
+  and the fan-out counts are part of `--verify`'s pair count, as session
+  30's N is, with no flag of their own: `--verify` is already an opt-in
+  diagnostic of the harness, the CLI binary is byte-identical to the
+  start build's, and nothing outside `--verify` changes. The fan-out
+  counts are made in the same runs as the split (to fit the time box)
+  and are analysed only if the registered share is reached
+  (`scripts/analysis/lost_pairs.py` prints them only with
+  `--fan-outs`).
+- **(10:19) Session 30's counts unchanged.** `--verify robust --only
+  combined` at 262 tracks with the start build and with the harness
+  build (`work/bin/s44-harness/`): the reports are identical apart from
+  the new `split` and `fan_outs` fields and the search times
+  (`work/s44/same_counts.py`). One look at the first detection's new
+  fields (one combined-damage excerpt at 1,437 hits, its exact pairs all
+  "paired, same hash") checked their shape; no set was tallied.
+- **(10:19) The runs start** (`work/s44/runs.sh`, tmux `s44runs`,
+  scratch work directory `work/s44/w`) while the harness build's
+  regressions run (tmux `s44check`): results are deterministic, and no
+  time from this session is reported as a speed.
+- **(10:26) The registered share is reached** on R1c alone (T(c) needs
+  only that report; `lost_pairs.py` run with R1c in place of the clean
+  report too, split only): in T(c) (511 detections) the displaced pairs
+  at ranks 3-8 are 4.5% of the lost pairs, under the 15%, but equal 89%
+  of T(c)'s E, over the 25%. The fan-out counts are therefore analysed
+  once every run has finished, against the registered criterion.
+- **(10:29) Harness checks.** `cargo test -p gunfinger-eval` (290
+  tests, 5 new for the split and fan-outs, one for the verifier's found
+  peaks), clippy and formatting clean; `regress session-32-linux` (1:54)
+  and `regress session-33-linux-nas` (8:25, both beside the runs)
+  identical with `work/bin/s44-harness/`, every report identical to its
+  baseline's apart from `wall_seconds`.
 
-## Step 1: pre-registration (written at 10:20-10:35, committed before any count)
+## Step 1: pre-registration (written at 10:09-10:12, committed before any count)
 
 Everything below is fixed before the diagnostic is written or any count
 is made. Anything computed later and not named here is exploratory and
