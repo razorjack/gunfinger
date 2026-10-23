@@ -36,8 +36,9 @@ const ASSETS_PER_PART: usize = 1024;
 const OFFSET_BUCKET_FRAMES: f64 = 2.0 * LINE_SPAN_FRAMES;
 /// The buckets are folded into this many slots.
 const OFFSET_SLOTS: usize = 4096;
-// A slot's count stops at `MIN_LINE_HITS`, and two slots' counts are added.
-const _: () = assert!(2 * MIN_LINE_HITS <= u8::MAX as usize);
+// A pair's count stops at `MIN_LINE_HITS`, below the high bit of its byte
+// (`OffsetSlots::may_form_line`).
+const _: () = assert!(MIN_LINE_HITS < 0x80);
 // A slot is kept as a `u16`.
 const _: () = assert!(OFFSET_SLOTS <= 1 << 16);
 // Integer offsets are a posting's 16-bit frame minus a phase, modulo 2^16,
@@ -525,16 +526,28 @@ impl Phases {
     }
 }
 
-/// Counts of one asset's offsets in buckets of `OFFSET_BUCKET_FRAMES`
-/// folded into `OFFSET_SLOTS` slots, all zero between assets.
+/// Counts of one asset's offsets in pairs of neighbouring slots, the
+/// slots being buckets of `OFFSET_BUCKET_FRAMES` folded into
+/// `OFFSET_SLOTS`: byte `k` counts the hits in slots `k - 1` and `k`, so
+/// that a hit in slot `s` adds to bytes `s` and `s + 1`, one 16-bit word.
+/// Byte 0 and byte `OFFSET_SLOTS` both count the pair of the last slot and
+/// slot 0. All zero between assets.
 struct OffsetSlots {
-    counts: Box<[u8; OFFSET_SLOTS]>,
+    pairs: Box<[u8; OFFSET_SLOTS + 1]>,
 }
+
+/// Adds one to both bytes of a word.
+const BOTH: u16 = 0x0101;
+/// Added to a word of two counts, sets a byte's high bit when its count
+/// has reached `MIN_LINE_HITS`; counts stay below it, so no carry crosses
+/// into the other byte.
+const REACHED: u16 = (0x80 - MIN_LINE_HITS as u16) * BOTH;
+const HIGH_BITS: u16 = 0x8080;
 
 impl OffsetSlots {
     fn new() -> OffsetSlots {
         OffsetSlots {
-            counts: Box::new([0; OFFSET_SLOTS]),
+            pairs: Box::new([0; OFFSET_SLOTS + 1]),
         }
     }
 
@@ -552,27 +565,38 @@ impl OffsetSlots {
     /// into slots keeps neighbours neighbours (slot `OFFSET_SLOTS - 1`
     /// neighbours slot 0) and only adds counts.
     ///
-    /// The counted slots are found again from the hits to clear them,
-    /// which costs less than keeping a list of them (experiment 0190).
+    /// A hit adds to the two pairs that hold its slot with one 16-bit
+    /// word, and the test of both is one addition and a mask: a slot
+    /// counted alone and its neighbours read apart cost two more loads per
+    /// hit (experiment 0203). The counted pairs are found again from the
+    /// hits to clear them, which costs less than keeping a list of them
+    /// (experiment 0190).
     fn may_form_line(&mut self, hits: &[Hit]) -> bool {
-        let counts = &mut self.counts;
+        let pairs = &mut self.pairs;
         let mut may = false;
         let mut counted = hits.len();
         for (i, &hit) in hits.iter().enumerate() {
             let slot = hit.slot();
-            counts[slot] += 1;
-            let here = counts[slot];
-            let next = counts[(slot + 1) % OFFSET_SLOTS];
-            let previous = counts[(slot + OFFSET_SLOTS - 1) % OFFSET_SLOTS];
-            if usize::from(here + next.max(previous)) >= MIN_LINE_HITS {
+            let word = u16::from_le_bytes([pairs[slot], pairs[slot + 1]]) + BOTH;
+            pairs[slot..slot + 2].copy_from_slice(&word.to_le_bytes());
+            if slot == 0 {
+                pairs[OFFSET_SLOTS] += 1;
+            } else if slot == OFFSET_SLOTS - 1 {
+                pairs[0] += 1;
+            }
+            if (word + REACHED) & HIGH_BITS != 0 {
                 may = true;
                 counted = i + 1;
                 break;
             }
         }
         for &hit in &hits[..counted] {
-            counts[hit.slot()] = 0;
+            let slot = hit.slot();
+            pairs[slot] = 0;
+            pairs[slot + 1] = 0;
         }
+        pairs[0] = 0;
+        pairs[OFFSET_SLOTS] = 0;
         may
     }
 }
@@ -980,6 +1004,94 @@ pub(super) mod tests {
         false
     }
 
+    /// The pre-filter up to session 42: each slot counted alone, its
+    /// neighbours read apart.
+    fn may_form_line_by_neighbours(hits: &[Hit]) -> bool {
+        let mut counts = vec![0_u8; OFFSET_SLOTS];
+        for &hit in hits {
+            let slot = hit.slot();
+            counts[slot] += 1;
+            let here = counts[slot];
+            let next = counts[(slot + 1) % OFFSET_SLOTS];
+            let previous = counts[(slot + OFFSET_SLOTS - 1) % OFFSET_SLOTS];
+            if usize::from(here + next.max(previous)) >= MIN_LINE_HITS {
+                return true;
+            }
+        }
+        false
+    }
+
+    #[test]
+    fn pairs_of_slots_pass_the_assets_neighbouring_slots_passed() {
+        let mut state = 2037_u64;
+        let mut next = move || {
+            state ^= state << 13;
+            state ^= state >> 7;
+            state ^= state << 17;
+            state
+        };
+        let mut slots = OffsetSlots::new();
+        let (mut passed, mut failed) = (0, 0);
+        for _ in 0..300_000 {
+            // Offsets anywhere, or within a few slots of a point that is
+            // often the slots' wrap (offsets 0 and 2^16 - 1 are slots 0
+            // and 4095 at phase 0).
+            let around = [
+                0,
+                1,
+                4,
+                16_380,
+                16_383,
+                65_532,
+                65_535,
+                (next() % 65_536) as u32,
+            ][(next() % 8) as usize];
+            let spread = [12, 40, 65_536][(next() % 3) as usize];
+            let hits: Vec<Hit> = (0..=next() % 12)
+                .map(|anchor| {
+                    let offset = (around + (next() % spread) as u32) % 65_536;
+                    Hit::taken(Posting::new(AssetId(3), offset), anchor as u32, 0)
+                })
+                .collect();
+
+            let may = slots.may_form_line(&hits);
+
+            assert_eq!(may, may_form_line_by_neighbours(&hits), "{around} {spread}");
+            assert!(slots.pairs.iter().all(|&count| count == 0));
+            if may {
+                passed += 1;
+            } else {
+                failed += 1;
+            }
+        }
+        assert!(passed > 50_000 && failed > 50_000, "{passed} {failed}");
+    }
+
+    #[test]
+    fn a_line_across_the_slots_wrap_is_sorted() {
+        let mut slots = OffsetSlots::new();
+        // Slots 4095 and 0, in either order and with a third hit in each.
+        for offsets in [
+            [65_535, 0, 1],
+            [0, 65_535, 65_534],
+            [65_533, 65_532, 3],
+            [2, 1, 65_534],
+        ] {
+            let hits: Vec<Hit> = (0..)
+                .zip(offsets)
+                .map(|(anchor, offset)| Hit::taken(Posting::new(AssetId(3), offset), anchor, 0))
+                .collect();
+
+            assert!(slots.may_form_line(&hits), "{offsets:?}");
+            assert!(slots.pairs.iter().all(|&count| count == 0));
+        }
+        let apart: Vec<Hit> = (0..)
+            .zip([65_535, 0, 8])
+            .map(|(anchor, offset)| Hit::taken(Posting::new(AssetId(3), offset), anchor, 0))
+            .collect();
+        assert!(!slots.may_form_line(&apart));
+    }
+
     #[test]
     fn a_phase_is_the_frame_rounded_down_modulo_2_16() {
         let points: Vec<Point> = [
@@ -1038,7 +1150,7 @@ pub(super) mod tests {
 
         assert!(densest_clusters(&aligned(&hits, &points)).is_empty());
         assert!(!may_form_line(&mut slots, &hits, &phases));
-        assert!(slots.counts.iter().all(|&count| count == 0));
+        assert!(slots.pairs.iter().all(|&count| count == 0));
     }
 
     #[test]
@@ -1065,7 +1177,7 @@ pub(super) mod tests {
                 "{first}"
             );
             assert!(may_form_line(&mut slots, &hits, &phases), "{first}");
-            assert!(slots.counts.iter().all(|&count| count == 0));
+            assert!(slots.pairs.iter().all(|&count| count == 0));
         }
     }
 
@@ -1111,7 +1223,7 @@ pub(super) mod tests {
                 .collect();
             let (hits, points, phases) = hits_at(&frames);
             let may = may_form_line(&mut slots, &hits, &phases);
-            assert!(slots.counts.iter().all(|&count| count == 0));
+            assert!(slots.pairs.iter().all(|&count| count == 0));
             let aligned = aligned(&hits, &points);
             if may == may_form_line_in_floats(aligned.iter().map(|hit| hit.offset)) {
                 as_in_floats += 1;

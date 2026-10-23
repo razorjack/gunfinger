@@ -331,3 +331,12 @@ Rules for this session:
   Decided: no fourth round. The time box favours the adoption checks,
   and the ideas left (C6's ranks, a fill for the clearing) were either
   measured slower at 32 workers or below 1% in session 41.
+- **(08:58) Step 4, validation of the adopted build**
+  `work/bin/s43-adopt/` (`work/s43/validate.sh`): `scripts/check.sh`
+  green (3:54, after one clippy fix in the new test: `0..=n` for
+  `0..1 + n`); `regress session-32-linux` (1:13) and `regress
+  session-33-linux-nas` (4:05) identical, each report identical to its
+  baseline's apart from `wall_seconds`; the 11 development scans at NAS
+  scale, the 11 at corpus scale and the clusters sample identical to
+  the start build's. Committed to master; the timings and the full
+  clusterings follow in the same queue.
