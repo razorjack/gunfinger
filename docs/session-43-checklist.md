@@ -22,13 +22,13 @@ for scope and rules.
 - [x] 2. Pre-registration (at least three candidates, exactness
   arguments, tests, timing protocol, stop point), committed before any
   candidate is timed
-- [~] 3. Candidates, each tested and timed; the combination of those
+- [x] 3. Candidates, each tested and timed; the combination of those
   that pass
-- [ ] 4. Adoption: tests; the 11 development scans at NAS scale and at
+- [x] 4. Adoption: tests; the 11 development scans at NAS scale and at
   262 tracks; the clusters sample; both regressions; the full NAS
   clustering into a scratch copy if time allows
-- [ ] 5. Experiments (0199 and up)
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 43", status, roadmap's speed bullet,
+- [x] 5. Experiments (0199-0205)
+- [~] 6. Read-only review by a subagent; findings fixed
+- [~] 7. Wrap-up: notes "Session 43", status, roadmap's speed bullet,
   low-bandwidth note; final checks (`scripts/check.sh`, both
   regressions, verdicts and clusters digests, `git status` clean)

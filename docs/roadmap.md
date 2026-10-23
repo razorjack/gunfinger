@@ -563,6 +563,19 @@ marked as inferences were derived, not measured.
   part was not faster (0190). Grouping a part is now the largest
   stage, 40% of the first pass's CPU at 16 workers and 35% at 32; the
   pre-filter and query analysis 20-22% each (0193).
+  *(session 43)* Grouping's scatter costs about 4 ns a hit at 32
+  workers whatever the part size (0199); 40% of hits have the asset of
+  the hit before them, and in a microbenchmark such repeats make the
+  scatter about 0.7 ns a hit dearer (0201). Taking hits straight into
+  a room per asset, a staged cache line per asset, and ranks kept by
+  the count pass all missed the 3% stop point at 32 workers (0200,
+  0202; ranks cut 3.4-4.3% at 16 workers, where, by inference, no
+  second thread fills the waits they remove). In master: the
+  pre-filter counts each pair of neighbouring slots in a byte and adds
+  a hit to its two pairs with one 16-bit word, exact by the argument in
+  brief 43 and tested against the old filter (0203); the search 26.0 s
+  instead of 27.2 s at 32 workers and 31.6 s instead of 32.6 s at 16,
+  every report identical (0204). Where the CPU goes now: 0205.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

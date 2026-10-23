@@ -349,3 +349,6 @@ Rules for this session:
   identical. Next: experiment 0205, the stage timers of session 41 on
   master's code (`work/s43/timers.diff`, never committed), for the
   handoff.
+- **(09:40) Experiment 0205** (exploratory): the pre-filter 72 s of CPU
+  instead of 93 s at 16 workers; grouping 43% of the first pass at 16
+  workers and 36% at 32. Wrap-up documents drafted; next the review.

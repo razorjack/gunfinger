@@ -203,6 +203,36 @@ start build's apart from `wall_seconds`.
   parts 10-11%, sorting and lines 9%. Items 4 and 5 of this note, the
   forms of grouping measured so far, were slower.
 
+## Session 43
+
+Grouping first, then the pre-filter, measured and changed. All at 3600
+MT/s, the Stakka scan at NAS scale, reports identical to the start
+build's apart from `wall_seconds`.
+
+- The split within grouping (0199): at 1,024 assets the scatter is
+  27.6% of the first pass's CPU at 32 workers (34.0% at 16), about 4
+  ns a hit at parts of 256 to 2,048 assets alike; the count pass 7%,
+  the prefix sum 0.1%. Smaller parts make taking dearer; 1,024 stays
+  the fastest size.
+- Why (0201, a microbenchmark): 40.3% of hits have the asset of the hit
+  before them in a part, and such repeats make the scatter about 0.7
+  ns a hit dearer on one core, by inference because each waits on the
+  cursor the hit before has just moved.
+- Dropped: rooms per asset filled while taking (1.9-2.6% at 32 workers,
+  slower at 16), rooms with parts of 512, a staged cache line per asset
+  (15-17% slower; 0200), ranks kept by the count pass (no change at 32
+  workers, 3.4-4.3% faster at 16; 0202), and ranks with C5 (1.9-2.8% at
+  32 workers, 6.2-6.8% at 16; 0203).
+- In master (0203, 0204): the pre-filter counts pairs of neighbouring
+  slots in one 16-bit word. The search 26.0 s instead of 27.2 s at 32
+  workers, 31.6 s instead of 32.6 s at 16; the clusters sample 1:20
+  instead of 1:23; the full NAS clustering 14:12 instead of 15:03, its
+  file byte-identical to the start build's run.
+- Left (0205): grouping a part 43% of the first pass's CPU at 16
+  workers and 36% at 32 (about four fifths of it the scatter), query
+  analysis 20-24%, the pre-filter 16-19%, taking parts 11-12%, sorting
+  and lines 10%.
+
 `regress` prints what changed and returns success either way
 (`regress.rs`, `compare`): read its output, do not rely on its exit
 status.

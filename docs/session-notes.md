@@ -9667,3 +9667,156 @@ choice.
   identical, each report identical to its baseline's apart from
   `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file
   unchanged.
+
+## Session 43
+
+### What changed
+
+One exact change to the search is in master (`fd86305`, experiment
+0203): the pre-filter (`OffsetSlots::may_form_line`) counts each pair of
+neighbouring slots in a byte (4,097 bytes; the pair of slot 4,095 and
+slot 0 in both byte 0 and byte 4,096), so a hit adds to its two pairs
+with one 16-bit word, and the test of both is an addition and a mask.
+Before, a hit added to its slot's count and read both neighbours' counts
+apart. An asset passes exactly when some pair of neighbouring slots
+holds 3 of its hits, as before, so every asset gets the same answer;
+a test checks the two filters agree on 300,000 random sets, many near
+the wrap. Grouping is unchanged: none of the four grouping candidates
+passed the stop point. Lines, detections, evidence, boundaries, speeds
+and orderings are identical in every report compared.
+
+In short: on the Linux machine the Stakka scan's search at NAS scale
+takes 26.0 s instead of 27.2 s at 32 workers (4.2-4.3% less) and 31.6 s
+instead of 32.6 s at 16 (3.0-3.1%), with 4.6-4.8% less CPU at 32 workers;
+the clusters sample 1:20 instead of 1:23; `identify` of the Stakka mix
+through the CLI at NAS scale 19.7 s instead of 20.0 s; the full NAS
+clustering 14:12 instead of 15:03, byte-identical to the start build's
+own run.
+
+### Step 1: where grouping's time goes (experiment 0199)
+
+Timers per part in a diagnostic build (`work/s43/diag.diff`): at 1,024
+assets and 32 (16) workers, the scatter is 27.6% (34.0%) of the first
+pass's CPU, about 4.2 (3.2) ns a hit; the count pass 7%, about 1 ns a
+hit; the prefix sum 0.1%; taking parts 11% (10%). The scatter costs the
+same at parts of 256, 512 and 2,048 assets, and smaller parts make taking
+dearer: 1,024 has the lowest first-pass CPU at both counts. A part holds
+45,060 hits on average, 44 per asset, in 607 list runs of 74.
+
+### Steps 2 and 3: the candidates (0200-0203)
+
+Three rounds, each pre-registered before it was timed (brief 43:
+07:59 `c11f284`, 08:17 `3e2db3c`, 08:29 `1336fde`); the stop point a cut
+of 3% at 32 workers against the start build in every pair.
+
+| Candidate | 32 workers | 16 workers |
+|---|--:|--:|
+| C1 rooms: hits taken straight into a room of 120 per asset | 1.9%, 2.6% | -2.8%, -3.2% |
+| C2 rooms with parts of 512 | 0.5%, 1.6% | -3.9%, -3.9% |
+| C3 the scatter through a staged cache line per asset | -17.0%, -15.2% | -19.7%, -19.6% |
+| C4 ranks: the count pass keeps each hit's rank, the scatter writes start + rank | -0.1% to 0.6% (4 pairs) | 3.4-4.3% |
+| C5 pairs of slots in the pre-filter | 4.1%, 4.4% | 3.1%, 3.3% |
+| C6 C5 with C4's ranks | 1.9%, 2.8% | 6.2%, 6.8% |
+
+Between rounds 1 and 2, 0201 measured why the scatter is slow: 40.3% of
+hits have the asset of the hit before them in a part (a hash repeating in
+a track, by inference), and in a microbenchmark such repeats make the
+scatter about 0.7 ns a hit dearer, by inference because each such hit
+reads the cursor the hit before has just written. Ranks remove that wait
+and help at 16 workers, but at 32 workers the second thread of each core
+fills it (an inference from C4's times), so only fewer operations per hit
+help there; that led to C5.
+
+### Steps 4 and 5: adoption and its times (0204)
+
+`scripts/check.sh` green (after one clippy fix in the new test); both
+regressions identical (1:13; 4:05), each report too apart from
+`wall_seconds`; the 11 development scans at NAS scale and the 11 at
+corpus scale (262 tracks) and the clusters sample byte-identical to the
+start build's (`work/s43/validate.sh`); the full NAS clustering (session
+33's run 2 command) in scratch copies with the start build (15:03) and
+the adopted build (14:12), byte-identical (SHA-256 `be08df5b1948...`, the
+same file as session 41's two runs). The clusters file in use was not
+the reference (session 41: its pair entries come from earlier builds and
+the listening).
+
+| Run (Linux machine, 3600 MT/s, 32 workers unless stated) | Start (`s43-start` = `s42-final`) | Now (`fd86305`) |
+|---|--:|--:|
+| Stakka scan at NAS scale, search | 27.18, 27.18 s | 26.02, 26.01 s |
+| The same, user CPU | 762, 764 s | 727, 727 s |
+| The same, 16 workers | 32.59, 32.63 s | 31.60, 31.65 s |
+| Clusters sample of 48 | 1:23.0, 1:23.4 | 1:20.1, 1:19.4 |
+| Its user CPU | 1,677, 1,672 s | 1,593, 1,591 s |
+| `identify` of the Stakka mix (NAS configuration) | 20.0, 20.0 s | 19.7, 19.7 s |
+| `identify`'s user CPU | 427, 427 s | 416, 416 s |
+| `regress session-33-linux-nas` | 4:20 (beside compiles) | 4:05 |
+| `regress session-32-linux` | 1:08 | 1:13 |
+| Full NAS clustering (scratch copies) | 15:03 | 14:12 |
+
+### Where the search's CPU goes now (0205)
+
+With 0193's timers on master's code (exploratory, 16 and 32 workers)
+the first pass, 96-97% of the scan's CPU, goes to grouping a part by
+asset 43% and 36%, query analysis 20% and 24%, the pre-filter 16% and
+19% (72 s instead of 93 s at 16 workers, 1.45 ns a hit instead of 1.9),
+taking parts 11% and 12%, aligning, sorting and lines 10%, phases,
+hashing and lookups under 1%. Of grouping, about four fifths is the
+scatter (0199).
+
+### Decided this session, open to change
+
+- Parts of 256 assets were measured in step 1 beside the three sizes the
+  prompt named. A part size alone was not made a candidate: 1,024 had
+  the lowest first-pass CPU at both job counts (0199).
+- After round 1, a microbenchmark (0201, exploratory) chose the next
+  candidates; rounds 2 and 3 were pre-registered then, each before its
+  timing.
+- C6 (fastest at 16 workers, 6.2-6.8%) was not adopted: it missed the
+  stop point at 32 workers, which is the default on this machine.
+- No fourth round: the time box favoured the adoption checks.
+- Candidates were tested with the core crate's tests before timing;
+  `scripts/check.sh` ran in full for the adopted code, as in session 41.
+
+### Handoff for the next session
+
+1. Master's search is 0203's. Builds: `work/bin/s43-start/` (=
+   `s42-final`), `s43-adopt/` (validated, master at `fd86305`),
+   `s43-final/` (master at the end), the candidates `s43-c1` to
+   `s43-c6`, and the diagnostics `s43-diag-256` to `-2048`, `s43-diag2`,
+   `s43-timers` (sources `work/s43/lines.rs.*`, generators in
+   `work/s43/py/`; `lines.rs.adopt` is master's file; `diag.diff`,
+   `timers.diff`). The microbenchmark: `work/s43/bench/scatter.rs`.
+2. Scripts (`sh`, from the repository root): `work/s43/ab.sh <tag>
+   <base> <builds...>` (`ROUNDS="1 2"` for more pairs; `ab.py`
+   summarises), `validate.sh`, `devscans.sh`, `corpusscans.sh`,
+   `timing.sh`, `full.sh`, `diag.sh`, `timers.sh`, `build-candidates.sh`.
+   References: `work/s43/dev-start/`, `corpus-start/`.
+3. What is left: grouping's scatter (about 28% of the first pass at 32
+   workers, 34% at 16). Its cost per hit does not depend on the part
+   size or on where it writes from (rooms, 0200); repeated assets slow
+   it with one thread a core, and ranks (C4) cut 3.4-4.3% at 16 workers
+   but not at 32, where the second thread fills those waits. If a
+   machine runs one worker per core, C4 or C6 is worth taking again
+   (`work/s43/lines.rs.c4`, `.c6`; 0202, 0203). The filter's left
+   costs are its slot loads, the 16-bit counts and the re-read that
+   clears them; query analysis (20-24%) is compute and must stay
+   bit-identical.
+4. All times are on the Linux machine at 3600 MT/s; the Mac was not
+   measured.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  one by one. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file.
+- The NAS was only read (the library listing of `identify`); the NAS
+  store only searched; no `index` or `prune`. The full clustering runs
+  wrote only their scratch directories; the clusters file in use is
+  unchanged (SHA-256 `d9c85c4586ad...`).
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s43/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed. `work/s43/panels` is a copy of
+  `work/s33/panels`.
+- REVIEW
+- FINAL

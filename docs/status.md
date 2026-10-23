@@ -4634,3 +4634,47 @@ the product and every default are unchanged.
 - Final checks with `work/bin/s42-final/`: `scripts/check.sh` green;
   both regressions identical (1:08; 4:15); `docs/pair-verdicts.txt` and
   the clusters file unchanged.
+
+## 2026-10-23: session 43, a cheaper grouping step, exact
+
+Brief `docs/brief-43.md`, checklist `docs/session-43-checklist.md`;
+notes "Session 43"; experiments 0199-0205. One exact change to the
+search, in the pre-filter; grouping is unchanged; every report compared
+is identical.
+
+- 07:33 start at `0137d16`, clean. Start build `work/bin/s43-start/`
+  (byte-identical to `s42-final`); both regressions identical (1:08;
+  4:20, beside compiles); the start build's 11 development scans at NAS
+  scale, the 11 at
+  corpus scale and the clusters sample kept as references (identical
+  to session 41's).
+- 0199: within grouping, the scatter is 27.6% of the first pass's CPU
+  at 32 workers (34.0% at 16), about 4 ns a hit at parts of 256 to
+  2,048 assets; the count pass 7%, the prefix sum 0.1%; 1,024 assets
+  is still the fastest part size.
+- `c11f284`: pre-registration of three grouping candidates, the timing
+  protocol and the stop point (3% at 32 workers in every pair). 0200:
+  rooms per asset (C1) 1.9-2.6%, rooms with parts of 512 (C2) 0.5-1.6%,
+  a staged cache line per asset (C3) 15-17% slower; all slower at 16
+  workers. Dropped.
+- 0201 (exploratory): 40.3% of hits have the asset of the hit before
+  them; in a microbenchmark such repeats make the scatter about 0.7 ns
+  a hit dearer, and ranks remove that.
+- `3e2db3c`, 0202: ranks in the count pass (C4) change nothing at 32
+  workers and cut 3.4-4.3% at 16. Dropped.
+- `1336fde`, 0203: the pre-filter counting pairs of slots in one word
+  (C5) 4.1-4.4% at 32 workers, 3.1-3.3% at 16; C5 with ranks (C6)
+  1.9-2.8% at 32, 6.2-6.8% at 16. C5 adopted.
+- `fd86305`: C5 in master. `scripts/check.sh` green; both regressions
+  identical (1:13; 4:05); the 11 development scans at both scales and
+  the clusters sample identical. 0204: the Stakka scan's search at NAS
+  scale 26.0 s instead of 27.2 s at 32 workers, 31.6 s instead of
+  32.6 s at 16; CPU 4.6-4.8% less at 32 workers; the clusters sample
+  1:20 instead of 1:23; `identify` of the Stakka mix at NAS scale
+  19.7 s instead of 20.0 s; the full NAS clustering 14:12 instead of
+  15:03, byte-identical to the start build's run in a scratch copy.
+- 0205 (timers): grouping a part is still the largest stage (43% of the
+  first pass's CPU at 16 workers, 36% at 32), then query analysis
+  20-24%, the pre-filter 16-19% (72 s instead of 93 s at 16 workers),
+  taking parts 11-12%, sorting and lines 10%.
+- FINALSTATUS
