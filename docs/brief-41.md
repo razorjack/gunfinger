@@ -245,3 +245,16 @@ compare every random set's pass or fail with today's filter.
 - **(04:20) Script fix.** `work/s41/ab.sh` set the shell variable
   `round` inside its run function, which garbled round 1's half labels;
   runs pair by position in `ab.py`, and the function now uses `half`.
+- **(04:30) Round 2** (experiment 0191): on integer slots one fill is
+  0.7-0.9% faster than C4 at 32 workers and slower at 16, stamps slower
+  than both; neither meets the 3% rule, so C4 is adopted. Step 4 starts
+  with its source tidied (`work/s41/lines.rs.final`: `Hit::taken`,
+  `frame` and `slot`; a test-only `Found` for hits as found in a list;
+  a test of the round trip and the slot), then `scripts/check.sh`, and
+  the validation queue `work/s41/validate.sh`.
+- **(04:30) The 262-track scans** are read as the 11 development scans
+  at corpus scale (the corpus store, no `--other-peaks-dir`), in the
+  scratch work directory `work/s41/wc` (corpus clusters copied), with
+  the start build's reports as references (`work/s41/corpusscans.sh`).
+  Grouping (G1) failed its stop point; no other grouping candidate is
+  tried, since the session's time box favours the adoption checks.
