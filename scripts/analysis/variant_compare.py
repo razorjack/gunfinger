@@ -14,9 +14,17 @@ against report, for the criteria of brief 38 (08:26).
       detections differ
   answers DEFAULT VARIANT  `mixes` or `scan` reports: each indexed play
       (or referenced track) confident (identified) by default and not
-      with the variant, and the reverse
+      with the variant, and the reverse; for `mixes`, also the wrong
+      confident detections in each and every one the variant adds (by
+      mix and file, counting an added segment of a file the default
+      already names)
+  tracklists DEFAULT VARIANT  `tracklist_score.py score` outputs of the
+      same mixes (session 45): wrong confident plays added (by mix and
+      file), truth plays confident by default and not with the variant,
+      truth plays printed by default and not with the variant, and the
+      printed entries each has that the other lacks
 
-usage: python3 -I scripts/analysis/variant_compare.py shared|sweep|answers DEFAULT VARIANT
+usage: python3 -I scripts/analysis/variant_compare.py shared|sweep|answers|tracklists DEFAULT VARIANT
 """
 
 import collections
@@ -97,13 +105,59 @@ def answers(default_path, variant_path):
             }
         return {t["label"] for t in report["score"]["tracks"] if t["identified"]}
 
-    default, variant = (right(json.load(open(p))) for p in (default_path, variant_path))
+    reports = [json.load(open(p)) for p in (default_path, variant_path)]
+    default, variant = (right(report) for report in reports)
     print(f"{variant_path}: right {len(default)} -> {len(variant)}; lost {sorted(default - variant)}; gained {sorted(variant - default)}")
+    if "mixes" in reports[0]:
+        wrong = [
+            {r["mix"]["name"]: r["score"]["wrong_confident"] for r in report["mixes"]}
+            for report in reports
+        ]
+        print(f"  wrong confident detections {sum(map(len, wrong[0].values()))} -> {sum(map(len, wrong[1].values()))}")
+        for mix in sorted(wrong[1]):
+            before = collections.Counter(x["asset"] for x in wrong[0].get(mix, []))
+            after = collections.Counter(x["asset"] for x in wrong[1][mix])
+            for asset in sorted(after):
+                if after[asset] > before[asset]:
+                    print("    added wrong:", mix, asset, before[asset], "->", after[asset],
+                          [(round(x["start_seconds"], 1), round(x["end_seconds"], 1), x["hits"])
+                           for x in wrong[1][mix] if x["asset"] == asset])
+
+
+def tracklists(default_path, variant_path):
+    rows = [{row["mix"]: row for row in json.load(open(p))["rows"]} for p in (default_path, variant_path)]
+    d_rows, v_rows = rows
+    count = lambda rs, f: sum(f(row) for row in rs.values())  # noqa: E731
+    print(f"mixes {len(d_rows)} and {len(v_rows)}; entries printed "
+          f"{count(d_rows, lambda r: r['entries_printed'])} -> {count(v_rows, lambda r: r['entries_printed'])}; "
+          f"wrong confident plays {count(d_rows, lambda r: len(r['wrong_confident']))} -> "
+          f"{count(v_rows, lambda r: len(r['wrong_confident']))}")
+    entry = lambda e: (int(e["start_seconds"]), e["name"], e["confidence"], e.get("extra"), e.get("merged"))  # noqa: E731
+    for mix in sorted(d_rows):
+        d, v = d_rows[mix], v_rows[mix]
+        before = collections.Counter(d["wrong_confident"])
+        after = collections.Counter(v["wrong_confident"])
+        for asset in sorted(after):
+            if after[asset] > before[asset]:
+                print("  added wrong:", mix, asset, before[asset], "->", after[asset])
+        for dt, vt in zip(d["truth"], v["truth"]):
+            if dt["today_confident"] and not vt["today_confident"]:
+                print("  lost confident:", mix, dt["play"], dt["scenario"], dt["side"], dt["asset"])
+            if dt["outcome"].startswith("printed") and not vt["outcome"].startswith("printed"):
+                print("  lost printed:", mix, dt["play"], dt["scenario"], dt["side"], dt["asset"], dt["outcome"], "->", vt["outcome"])
+            elif dt["outcome"] != vt["outcome"]:
+                print("  outcome changed:", mix, dt["play"], dt["scenario"], dt["side"], dt["asset"], dt["outcome"], "->", vt["outcome"])
+        d_entries = collections.Counter(map(entry, d["entries"]))
+        v_entries = collections.Counter(map(entry, v["entries"]))
+        for e in sorted((v_entries - d_entries).elements(), key=str):
+            print("  entry only with the variant:", mix, e)
+        for e in sorted((d_entries - v_entries).elements(), key=str):
+            print("  entry only by default:", mix, e)
 
 
 def main():
     command, default_path, variant_path = sys.argv[1:4]
-    {"shared": shared, "sweep": sweep, "answers": answers}[command](default_path, variant_path)
+    {"shared": shared, "sweep": sweep, "answers": answers, "tracklists": tracklists}[command](default_path, variant_path)
 
 
 if __name__ == "__main__":

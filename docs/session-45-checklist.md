@@ -11,16 +11,16 @@ for scope and rules.
 - [x] `docs/pair-verdicts.txt` digest in
   `work/s45/listening-digests-start.txt` (and the clusters file's in
   `work/s45/clusters-digest-start.txt`)
-- [~] Start build `work/bin/s45-start/`; `regress session-32-linux` and
+- [x] Start build `work/bin/s45-start/`; `regress session-32-linux` and
   `regress session-33-linux-nas` identical
 
 ## Steps
 
-- [ ] 1. Pre-registration (S2 and S3 word for word, applied to the
+- [x] 1. Pre-registration (S2 and S3 word for word, applied to the
   second shared panel's development half and the drop mixes; what
   confirms and what fails the variant; the validation half unseen),
   committed before any variant run on the new data
-- [ ] 2. The runs in scratch work directories under tmux: the panel
+- [~] 2. The runs in scratch work directories under tmux: the panel
   (default, variant), then the drops (262 tracks; NAS scale if time
   allows), with the tracklists
 - [ ] 3. Experiments: the panel (0209); the drops and their tracklists

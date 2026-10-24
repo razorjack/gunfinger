@@ -253,3 +253,10 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   `docs/panels/shared-material-2-seed-2026.json`) is not opened,
   rendered or searched in this session. The first panel is not run
   again.
+- **(21:22) Start checks done.** `work/bin/s45-start/` is
+  byte-identical to `s44-final`. `regress session-32-linux` (1:07) and
+  `regress session-33-linux-nas` (4:12) identical: 720 of 720 sweep
+  queries, every scan detection and calibrate line, and each report
+  identical to its baseline's apart from `wall_seconds`. The diagnostic
+  build took 0:59. Run P started at 21:21 (tmux `s45panel`,
+  `work/s45/panel.sh`, scratch work directory `work/s45/w`).
