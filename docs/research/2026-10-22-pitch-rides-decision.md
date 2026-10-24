@@ -201,16 +201,17 @@ variant and its 0.6% are session 38's, unchanged.
   confirmed on data its threshold has not seen, by the registered
   reading.
 
-Two findings change the argument above, not the result:
+Two findings add to the argument above; neither changes the result:
 
-1. **The 0.6% separates by evidence on new data, not by speed alone.**
-   On the development traces every dropped detection outside a ride lay
-   at 0-0.40% from its stronger one, and rides at 0.90% or more. On the
-   second panel and the drops, the default drops weak detections at
-   0.60-0.90% too (41 on the panel, 14 of the 20 on the drops), and the
-   variant keeps them. All are weak or possible (at most 61 hits), far
-   below the 240-hit rule, so no level changes; but the gap between 0.40%
-   and 0.90% is not empty on new data.
+1. **The 0.6% does not separate weak alignments by speed.** Session 38
+   measured the speed differences only for detections confident after
+   the second pass (0-0.40% outside rides, 0.90% and up for 1% rides).
+   On session 45's data no such detection is dropped at more than 0.6%,
+   since the variant adds no confident one. The weak and possible
+   detections it keeps lie at every difference from 0.60% up, the
+   smallest it can keep (41 under 0.9% on the panel, 14 of the 20 on the
+   drops); at most 61 hits, they stay far below the 240-hit rule.
+
 2. **A related version gains segments without a ride.** On the drops, 19
    of the 20 detections the variant adds belong to the Clockwork pair's
    file that is not playing while its related version plays, at

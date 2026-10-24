@@ -333,7 +333,7 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   the references to "brief 45, 21:30" in 0209, 0210 and the decision
   note, now say 21:20 and 22:27; the order of the commits is unchanged
   (the pre-registration before every variant run).
-- **(22:33) Step 5, registered before its runs.** Steps 1-4 are done
+- **(22:30) Step 5, registered before its runs.** Steps 1-4 are done
   and there is time before 23:30. Run B: `mixes --kind beatmatched`,
   session 35's test seeds 3511, 3512 and 3513 (16 long mixes each, every
   record at the tempo of the one before, crossfades with two records at
@@ -350,3 +350,12 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   file plays then (`work/s45/drops_beside.py`); the default against
   session 35's reports of the same seeds. If time runs short, seed 3513
   is dropped. The renders are deleted afterwards.
+- **(22:36) A comparison corrected in the decision note.** Its first
+  "Session 45" finding compared the weak detections the variant keeps
+  (0.60-0.90%) with session 38's development differences (0-0.40%), but
+  session 38 measured those only for detections confident after the
+  second pass. Restated: on this session's data no detection confident
+  after the second pass is dropped at more than 0.6% (the variant adds
+  no confident one); the weak and possible ones it keeps lie from 0.60%
+  up and stay far below 240 hits. The roadmap's sentence follows it. Step
+  5's stamp corrected to 22:30 (written then, committed at 22:30).

@@ -372,6 +372,19 @@ marked as inferences were derived, not measured.
   The options, the risk and a recommendation are in
   `docs/research/2026-10-22-pitch-rides-decision.md`; adopting it is our
   decision and needs an ADR.
+  *(session 45, experiments 0209-0210)* The confirmation on data the
+  threshold had not seen, under criteria committed first: on the second
+  shared panel's development half at NAS scale no confident detection
+  changes in any of 440 query and index pairs; on session 39's double
+  drops (seeds 2026 and 2028) no wrong confident detection is added and
+  no right play lost, and the CLI's reports and printed tracklists are
+  identical to the default's at 262 tracks and at NAS scale. The variant
+  is confirmed by the registered reading. What it changes there is weak
+  or possible, at speed differences from 0.60% up; on the drops a
+  related version gains weak second alignments 0.61-1.51% apart without
+  any ride, so against shared material the variant relies on the
+  240-hit rule's margin, not on its speed condition (the decision note's
+  "Session 45").
 - **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
