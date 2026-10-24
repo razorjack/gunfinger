@@ -1,0 +1,81 @@
+{
+ "experiment": "0209",
+ "variant": "--apart-in-speed 0.006",
+ "panel": "shared-material-2-seed-2026-development.json",
+ "scenarios": 10,
+ "queries": 169,
+ "query_index_pairs": 440,
+ "index_pairs": {
+  "everything": 169,
+  "played left out": 169,
+  "source left out": 102
+ },
+ "confident_by_role": {
+  "played": [
+   545,
+   545
+  ],
+  "related": [
+   12,
+   12
+  ],
+  "other": [
+   3,
+   3
+  ],
+  "partner": [
+   0,
+   0
+  ]
+ },
+ "queries_with_confident_played": [
+  208,
+  208
+ ],
+ "S2": {
+  "other_segments_added": 0
+ },
+ "S3": {
+  "queries_losing_played_or_partner": 0
+ },
+ "confident_added": 0,
+ "confident_removed": 0,
+ "other_confident_default": {
+  "scenario": "phantom-force-5",
+  "kind": "before",
+  "seconds": 50,
+  "file": "Digital & Spirit - Phantom 2018.m4a",
+  "start": 0.4,
+  "end": 47.9,
+  "hits": 262,
+  "speed": 1.0,
+  "indexes": 3
+ },
+ "beside": {
+  "added": {
+   "weak other": 60,
+   "weak related": 14,
+   "weak played": 7,
+   "possible played": 2
+  },
+  "added_in_queries": 53,
+  "removed": {
+   "weak related": 2
+  },
+  "added_speed_gap_percent": {
+   "min": 0.602,
+   "max": 12.12,
+   "under_0.9": 41,
+   "max_hits": 61
+  }
+ },
+ "user_cpu_seconds": [
+  5140.16,
+  5144.78
+ ],
+ "wall": [
+  "18:37.77",
+  "18:36.29"
+ ],
+ "default_equals_session_44": "440 of 440 queries, same detections"
+}

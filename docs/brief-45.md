@@ -260,3 +260,21 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   identical to its baseline's apart from `wall_seconds`. The diagnostic
   build took 0:59. Run P started at 21:21 (tmux `s45panel`,
   `work/s45/panel.sh`, scratch work directory `work/s45/w`).
+- **(21:24) Queues.** Run P reads only session 44's renders (no file in
+  the render directory is newer than the queue's start). The drops
+  queue (`work/s45/drops.sh`, tmux `s45drops`) waits for `s45panel` to
+  end and for `work/s45/0209-written`, so 0209 is written before the
+  drops' runs start. Its inputs are copies, not links, of session 39's
+  renders (`work/s45/w0/mixes/`; the diagnostic build's work directory
+  `work/s45/wd` links to those copies), so a render the harness would
+  redo cannot touch `work/mixes/`. The copy (950 MB) ran at 21:23 beside
+  P's default run for a few seconds. `variant_compare.py shared` also
+  lists, beside the criteria, each confident detection added or removed
+  and an added one's speed difference to the nearest-speed stronger
+  overlapping detection of its file (checked on a two-query fixture in
+  `/tmp`).
+- **(22:05) Run P and 0209.** Default 18:38, variant 18:36 (21:21-21:59);
+  the default's detections equal session 44's run of the panel in all
+  440 query and index pairs (`work/s45/same_detections.py`). S2 and S3
+  hold: no confident detection changes in any pair. 0209 written and
+  committed before the drops' runs (`work/s45/0209-written`).

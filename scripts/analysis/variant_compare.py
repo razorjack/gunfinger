@@ -42,6 +42,10 @@ def shared(default_path, variant_path):
     d_queries, v_queries = by_key(default), by_key(variant)
     totals = collections.Counter()
     added_wrong, lost_right = [], []
+    # Beside the criteria: each confident detection one report has and the
+    # other lacks; for an added one, its speed difference (%) to the
+    # nearest-speed stronger overlapping detection of its file.
+    added_confident, removed_confident = [], []
     for key in sorted(set(d_queries) | set(v_queries), key=str):
         d, v = d_queries.get(key), v_queries.get(key)
         if d is None or v is None:
@@ -61,6 +65,21 @@ def shared(default_path, variant_path):
         for role in ("played", "partner"):
             if any(x["role"] == role for x in dc) and not any(x["role"] == role for x in vc):
                 lost_right.append((key, role))
+        ident = lambda x: (x["asset"], x["start_seconds"], x["end_seconds"], x["hits"])  # noqa: E731
+        d_ids = {ident(x) for x in d["detections"]}
+        v_ids = {ident(x) for x in v["detections"]}
+        for x in vc:
+            if ident(x) not in d_ids:
+                stronger = [y for y in v["detections"] if y["asset"] == x["asset"] and y["hits"] > x["hits"]
+                            and y["start_seconds"] < x["end_seconds"] and x["start_seconds"] < y["end_seconds"]]
+                gap = min((abs(x["speed"] / y["speed"] - 1) for y in stronger), default=None)
+                added_confident.append((key, x["role"], x["asset"], round(x["start_seconds"], 1),
+                                        round(x["end_seconds"], 1), x["hits"],
+                                        None if gap is None else round(100 * gap, 3)))
+        for x in dc:
+            if ident(x) not in v_ids:
+                removed_confident.append((key, x["role"], x["asset"], round(x["start_seconds"], 1),
+                                          round(x["end_seconds"], 1), x["hits"]))
     print(f"queries {len(d_queries)} and {len(v_queries)}")
     for role in sorted({r for r, _ in totals}):
         print(f"  confident detections, role {role}: default {totals[(role, 'default')]}, variant {totals[(role, 'variant')]}")
@@ -70,6 +89,11 @@ def shared(default_path, variant_path):
     print(f"  queries losing a confident played or partner detection: {len(lost_right)}")
     for row in lost_right:
         print("    lost right:", row)
+    print(f"  confident detections added: {len(added_confident)}; removed: {len(removed_confident)}")
+    for row in added_confident:
+        print("    added confident (query, role, file, start, end, hits, speed gap %):", row)
+    for row in removed_confident:
+        print("    removed confident:", row)
 
 
 def sweep(default_path, variant_path):
