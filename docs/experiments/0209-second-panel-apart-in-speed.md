@@ -1,6 +1,6 @@
 # 0209: the pitch-ride variant on the second shared panel
 
-**Question.** Session 45, run P (brief 45, 21:30): does `--apart-in-speed
+**Question.** Session 45, run P (brief 45, 21:20): does `--apart-in-speed
 0.006` keep brief 38's S2 and S3 on shared-material queries its threshold
 has not seen? (Its traces included the first panel, 0179.)
 

@@ -167,7 +167,7 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   NAS-scale numbers are not compared with tonight's. The renders are
   local; `mixes` probes the lengths of the first shared panel's pair
   files (`shared_pairs`, FFprobe, some on the NAS), a few header reads.
-- **(21:30) Step 1, the pre-registration** (committed before any
+- **(21:20) Step 1, the pre-registration** (committed before any
   variant run on the second panel or the drops; no variant has run on
   either before).
 
@@ -309,7 +309,7 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   585-804 s one (1,540 hits, 1.045), as master's harness variant does
   (0179); the default drops it. Both print the same tracklist, since the
   segment joins Star Trails' play.
-- **(22:37) D3, the CLI check and 0210.** D3 (2:37-2:43 per run on the
+- **(22:27) D3, the CLI check and 0210.** D3 (2:37-2:43 per run on the
   NAS store's records; no NAS audio read): the 32 reports are
   byte-identical between the builds, as at 262 tracks; T, S2 and S3 hold
   (entries 230 -> 230 per seed, wrong confident plays 0 -> 0 and 2 -> 2,
@@ -326,4 +326,10 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   across a ride) holds on these data only at the confident level.
   Experiment 0210 written; the confirmation's registered runs are done:
   S2, S3 and T hold in P, D1, D2 and D3, so the variant is confirmed by
-  brief 45's registered reading (21:30).
+  brief 45's registered reading (21:20).
+- **(22:31) Two stamps corrected.** The pre-registration was written at
+  21:19-21:20 and committed at 21:20 (`3bb80ef`), not at 21:30 as first
+  stamped; the D3 entry was written at 22:27, not 22:37. Both stamps, and
+  the references to "brief 45, 21:30" in 0209, 0210 and the decision
+  note, now say 21:20 and 22:27; the order of the commits is unchanged
+  (the pre-registration before every variant run).

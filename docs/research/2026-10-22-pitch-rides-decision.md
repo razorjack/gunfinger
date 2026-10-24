@@ -178,7 +178,7 @@ question for the window condition.
 ## Session 45: the confirmation on data the threshold has not seen
 
 Criteria S2 and S3 of brief 38, word for word, with a tracklist criterion
-T, were committed before any run (brief 45, 21:30, `3bb80ef`); the
+T, were committed before any run (brief 45, 21:20, `3bb80ef`); the
 variant and its 0.6% are session 38's, unchanged.
 
 - **The second shared panel** (0209): its development half at NAS

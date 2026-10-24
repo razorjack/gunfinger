@@ -1,6 +1,6 @@
 # 0210: the pitch-ride variant on double drops, and their tracklists
 
-**Question.** Session 45, runs D1-D3 and T (brief 45, 21:30): with two
+**Question.** Session 45, runs D1-D3 and T (brief 45, 21:20): with two
 records at once, often at different speeds, does `--apart-in-speed 0.006`
 keep a wrong file's extra segment, or change the printed tracklist?
 
