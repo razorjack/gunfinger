@@ -5,10 +5,11 @@
 //! spectrum as a whole (Wang 2003), and they are the stored source of truth
 //! from which hashes and the index are derived.
 
+use std::cmp::Ordering;
 use std::ops::Range;
 
 use crate::profile::Profile;
-use crate::spectrogram::for_each_frame;
+use crate::spectrogram::{decibels, for_each_power_frame};
 
 /// Positions are refined between frames and bins and kept to 1/64: finer
 /// than the interpolation is accurate, coarse enough for small fixed-point
@@ -56,22 +57,35 @@ pub fn extract_peaks_in(samples: &[f32], profile: &Profile, frames: Range<usize>
         .saturating_add(profile.fft_size)
         .min(samples.len());
     let mut picker = PeakPicker::new(profile, first, frames);
-    for_each_frame(&samples[start..end], profile, |frame| picker.push(frame));
+    for_each_power_frame(&samples[start..end], profile, |frame| picker.push(frame));
     picker.finish()
 }
 
 /// Streams frames through a ring buffer just tall enough to hold one
 /// neighbourhood, so memory stays constant however long the audio is.
+///
+/// Peaks are defined on levels in decibels, but the ring holds powers: since
+/// `decibels` never decreases as power grows, a point with no more power than
+/// another has no higher level, and the loudest power of a set has its
+/// loudest level. Comparing powers settles every test but one: for a bin
+/// that passes them all (about 0.6 a frame), the level of the loudest other
+/// point may still round to the bin's, which its level decides. Levels are
+/// otherwise taken only to refine the peaks, so the peaks are those picked
+/// on levels, to the bit (experiment 0213).
 struct PeakPicker<'p> {
     profile: &'p Profile,
-    /// Frame `n` lives at `rows[n % rows.len()]`.
+    /// The lowest power whose level reaches the profile's floor.
+    floor_power: f32,
+    /// Frame `n`'s powers live at `rows[n % rows.len()]`.
     rows: Vec<Vec<f32>>,
     /// The number of the next frame to be pushed.
     received: usize,
     /// Peaks are picked in these frames only.
     wanted: Range<usize>,
-    /// The bins of the frame being picked that pass the four nearest
-    /// neighbours, in the first places (see `pick`).
+    /// Whether each bin from `min_bin` of the frame being picked passes the
+    /// four nearest neighbours, then the bins that do, in the first places
+    /// (see `pick`).
+    passes: Vec<bool>,
     candidates: Vec<usize>,
     /// Stands for the frame before the first and after the last.
     silence: Vec<f32>,
@@ -87,11 +101,13 @@ impl<'p> PeakPicker<'p> {
         let bins = profile.fft_size / 2 + 1;
         PeakPicker {
             profile,
-            rows: vec![vec![f32::NEG_INFINITY; bins]; height],
+            floor_power: floor_power(profile.floor_db),
+            rows: vec![vec![0.0; bins]; height],
             received: first,
             wanted,
+            passes: vec![false; bins],
             candidates: vec![0; bins],
-            silence: vec![f32::NEG_INFINITY; bins],
+            silence: vec![0.0; bins],
             peaks: Vec::new(),
         }
     }
@@ -134,53 +150,69 @@ impl<'p> PeakPicker<'p> {
         // The four nearest neighbours reject most bins cheaply, before the
         // whole neighbourhood is scanned. Their outcome changes from bin to
         // bin, so they are evaluated without branches (experiment 0097); a
-        // missing frame counts as silence, which rejects nothing a finite
-        // floor does not.
+        // missing frame counts as silence (no power, a level of -inf), which
+        // rejects nothing a finite floor does not. A bin with no more power
+        // than a neighbour has no higher level; one below `floor_power` is
+        // below the floor. The test of every bin is one loop over slices of
+        // the same length with no running count, which the compiler can turn
+        // into tests of several bins at once; the bins that pass are
+        // gathered after it.
         let (above, below) = (
             before.unwrap_or(&self.silence),
             after.unwrap_or(&self.silence),
         );
+        let (first, end) = (profile.min_bin, profile.max_bin);
+        let values = &row[first..end];
+        let count = values.len();
+        let (lower, higher) = (&row[first - 1..][..count], &row[first + 1..][..count]);
+        let (above, below) = (&above[first..][..count], &below[first..][..count]);
+        let passes = &mut self.passes[..count];
+        for offset in 0..count {
+            let value = values[offset];
+            passes[offset] = !((value < self.floor_power)
+                | (value <= lower[offset])
+                | (value <= higher[offset])
+                | (value <= above[offset])
+                | (value <= below[offset]));
+        }
         let mut candidates = 0;
-        for bin in profile.min_bin..profile.max_bin {
-            let value = row[bin];
-            let rejected = (value < profile.floor_db)
-                | (value <= row[bin - 1])
-                | (value <= row[bin + 1])
-                | (value <= above[bin])
-                | (value <= below[bin]);
-            self.candidates[candidates] = bin;
-            candidates += usize::from(!rejected);
+        for (offset, &passed) in passes.iter().enumerate() {
+            self.candidates[candidates] = first + offset;
+            candidates += usize::from(passed);
         }
         for &bin in &self.candidates[..candidates] {
-            let value = row[bin];
-            if !self.dominates_neighbourhood(centre, bin) {
+            let Some(level) = self.peak_level(centre, bin) else {
                 continue;
-            }
+            };
             // Without refinement, the time difference of two peaks jitters by
             // a whole frame whenever the query's frame grid is offset from
             // the reference's (experiment 0001).
             let frame_offset = match (before, after) {
-                (Some(before), Some(after)) => vertex_offset(before[bin], value, after[bin]),
+                (Some(before), Some(after)) => {
+                    vertex_offset(decibels(before[bin]), level, decibels(after[bin]))
+                }
                 _ => 0.0,
             }
             .clamp(-MAX_FRAME_OFFSET, MAX_FRAME_OFFSET);
-            let bin_offset = vertex_offset(row[bin - 1], value, row[bin + 1]);
+            let bin_offset = vertex_offset(decibels(row[bin - 1]), level, decibels(row[bin + 1]));
             self.peaks.push(Peak {
                 frame: centre as f64 + f64::from(quantise(frame_offset, FRAME_STEPS)),
                 bin: bin as f32 + quantise(bin_offset, BIN_STEPS),
-                magnitude: quantise(value, MAGNITUDE_STEPS_PER_DB),
+                magnitude: quantise(level, MAGNITUDE_STEPS_PER_DB),
             });
         }
     }
 
-    /// True when `(centre, bin)` is strictly louder than every other point in
-    /// its neighbourhood that exists (frames before the start or after the end
-    /// do not).
+    /// The level of `(centre, bin)` when it is strictly louder than every
+    /// other point in its neighbourhood that exists (frames before the start
+    /// or after the end do not) and than its four nearest neighbours.
     ///
     /// Frames are tried nearest first, where a louder point is likeliest, and
     /// each frame's bins are compared without branches; the answer does not
-    /// depend on the order.
-    fn dominates_neighbourhood(&self, centre: usize, bin: usize) -> bool {
+    /// depend on the order. A point with at least the power is at least as
+    /// loud; when none has, only the loudest of the others can match the
+    /// level.
+    fn peak_level(&self, centre: usize, bin: usize) -> Option<f32> {
         let profile = self.profile;
         let row = &self.rows[centre % self.rows.len()];
         let value = row[bin];
@@ -193,7 +225,7 @@ impl<'p> PeakPicker<'p> {
                 .fold(false, |found, &other| found | (other >= value))
         };
         if louder_or_equal(&row[first_bin..bin]) || louder_or_equal(&row[bin + 1..=last_bin]) {
-            return false;
+            return None;
         }
         let first_frame = centre.saturating_sub(profile.neighbourhood_frames);
         let last_frame = (centre + profile.neighbourhood_frames).min(self.received - 1);
@@ -203,11 +235,41 @@ impl<'p> PeakPicker<'p> {
                 if (first_frame..=last_frame).contains(&frame)
                     && louder_or_equal(&self.rows[frame % self.rows.len()][first_bin..=last_bin])
                 {
-                    return false;
+                    return None;
                 }
             }
         }
-        true
+        // `max` passes over NaN as the comparisons on levels did.
+        let loudest_of = |others: &[f32]| {
+            others
+                .iter()
+                .fold(0.0_f32, |loudest, &other| loudest.max(other))
+        };
+        let mut loudest =
+            loudest_of(&row[first_bin..bin]).max(loudest_of(&row[bin + 1..=last_bin]));
+        for frame in first_frame..=last_frame {
+            if frame != centre {
+                loudest = loudest.max(loudest_of(
+                    &self.rows[frame % self.rows.len()][first_bin..=last_bin],
+                ));
+            }
+        }
+        // The four nearest neighbours, which a neighbourhood narrower than a
+        // bin or a frame either way would leave out.
+        loudest = loudest.max(row[bin - 1]).max(row[bin + 1]);
+        let nearest_frames = [centre.checked_sub(1), Some(centre + 1)];
+        for frame in nearest_frames.into_iter().flatten() {
+            if frame < self.received {
+                loudest = loudest.max(self.rows[frame % self.rows.len()][bin]);
+            }
+        }
+        // Strictly louder: the loudest other level is lower, or the two do
+        // not compare (a NaN level, which nothing reaches).
+        let level = decibels(value);
+        decibels(loudest)
+            .partial_cmp(&level)
+            .is_none_or(Ordering::is_lt)
+            .then_some(level)
     }
 }
 
@@ -223,6 +285,24 @@ fn vertex_offset(left: f32, middle: f32, right: f32) -> f32 {
     0.5 * (left - right) / curvature
 }
 
+/// The lowest power whose level in decibels reaches `floor_db`. Since
+/// `decibels` never decreases as power grows, a power is below the floor
+/// exactly when it is below this one. Non-negative floats are ordered as
+/// their bit patterns, so the search halves a range of patterns.
+fn floor_power(floor_db: f32) -> f32 {
+    let mut below = 0_u32;
+    let mut reaches = f32::INFINITY.to_bits();
+    while reaches - below > 1 {
+        let middle = below + (reaches - below) / 2;
+        if decibels(f32::from_bits(middle)) < floor_db {
+            below = middle;
+        } else {
+            reaches = middle;
+        }
+    }
+    f32::from_bits(reaches)
+}
+
 fn quantise(value: f32, steps_per_unit: f32) -> f32 {
     (value * steps_per_unit).round() / steps_per_unit
 }
@@ -232,6 +312,7 @@ mod tests {
     use std::f32::consts::PI;
 
     use super::*;
+    use crate::spectrogram::for_each_frame;
 
     fn tone(frequency: f32, seconds: f32, profile: &Profile) -> Vec<f32> {
         let rate = profile.sample_rate as f32;
@@ -400,6 +481,56 @@ mod tests {
         assert!(peaks_by_definition(&chord, &profile).len() > 100);
         assert!(peaks_by_definition(&chord, &spread).len() > 100);
         assert!(peaks_by_definition(&repeating, &profile).is_empty());
+    }
+
+    /// Two powers whose levels round to the same decibels: the louder power
+    /// is no peak, as on levels, whether the other is a nearest neighbour or
+    /// farther away in the neighbourhood.
+    #[test]
+    fn powers_with_the_same_level_tie_as_their_levels_do() {
+        let profile = Profile::CURRENT;
+        let bins = profile.fft_size / 2 + 1;
+        let quiet = 1.0_f32;
+        let loud = 1000.0_f32;
+        let louder = f32::from_bits(loud.to_bits() + 1);
+        assert!(louder > loud);
+        assert_eq!(decibels(louder), decibels(loud));
+        let frames = 2 * profile.neighbourhood_frames + 1;
+        let centre = profile.neighbourhood_frames;
+        let bin = 100;
+
+        for (frame, other_bin) in [
+            (centre, bin + 1),
+            (centre + 1, bin),
+            (centre + 5, bin - 7),
+            (centre, bin),
+        ] {
+            let mut picker = PeakPicker::new(&profile, 0, centre..centre + 1);
+            for row_frame in 0..frames {
+                let mut row = vec![quiet; bins];
+                if row_frame == centre {
+                    row[bin] = louder;
+                }
+                if row_frame == frame && (frame, other_bin) != (centre, bin) {
+                    row[other_bin] = loud;
+                }
+                picker.push(&row);
+            }
+            let peaks = picker.finish();
+
+            let alone = (frame, other_bin) == (centre, bin);
+            assert_eq!(peaks.len(), usize::from(alone), "{frame} {other_bin}");
+        }
+    }
+
+    #[test]
+    fn the_floor_power_is_the_lowest_power_whose_level_reaches_the_floor() {
+        for floor_db in [-10.0, 0.0, -200.0, 35.5] {
+            let power = floor_power(floor_db);
+
+            assert!(decibels(power) >= floor_db);
+            assert!(decibels(f32::from_bits(power.to_bits() - 1)) < floor_db);
+        }
     }
 
     #[test]

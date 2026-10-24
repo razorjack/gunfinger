@@ -283,3 +283,18 @@ Rules for this session:
   the clusters sample A B B A, and `identify` of the Stakka mix through
   the CLI with the corpus configuration and `--playback both`, warm-up
   then A B B A).
+- **(00:25) Validation of `s46-adopt` passed**: `regress session-32-linux`
+  (0:52) and `regress session-33-linux-nas` (4:02) identical, each
+  report identical to its baseline's apart from `wall_seconds`; the 11
+  development scans at NAS scale and at 262 tracks and the clusters
+  sample identical to the start build's; the four files' stored peaks
+  identical between the builds and also to their records in
+  `work/peaks` (read only); every timing run's report identical.
+- **(00:27) Clippy's two findings fixed before the commit**: the final
+  level comparison `!(a >= b)` is written as
+  `a.partial_cmp(&b).is_none_or(Ordering::is_lt)` (the same predicate,
+  NaN included), and a closure in the new test is a path. The code
+  changed after `s46-adopt` was validated, so the final build
+  (`work/bin/s46-final/`) runs the 11 development scans at both scales,
+  the clusters sample and both regressions again
+  (`work/s46/validate.sh s46-final final`).

@@ -13,13 +13,24 @@ use crate::profile::Profile;
 /// Frames are produced one at a time so that a two-hour mix never needs its
 /// whole spectrogram in memory.
 pub fn for_each_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(&[f32])) {
+    let mut power_db = Vec::new();
+    for_each_power_frame(samples, profile, |power| {
+        power_db.clear();
+        power_db.extend(power.iter().map(|&power| decibels(power)));
+        visit(&power_db);
+    });
+}
+
+/// Like `for_each_frame`, with each bin's power before it is turned into
+/// decibels: `decibels` of each value is what `for_each_frame` gives.
+pub fn for_each_power_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(&[f32])) {
     let size = profile.fft_size;
     let window = hann(size);
     let fft = RealFftPlanner::<f32>::new().plan_fft_forward(size);
     let mut frame = fft.make_input_vec();
     let mut spectrum = fft.make_output_vec();
     let mut scratch = fft.make_scratch_vec();
-    let mut power_db = vec![0.0; spectrum.len()];
+    let mut powers = vec![0.0; spectrum.len()];
 
     let mut start = 0;
     while start + size <= samples.len() {
@@ -28,13 +39,21 @@ pub fn for_each_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(
         }
         let transformed = fft.process_with_scratch(&mut frame, &mut spectrum, &mut scratch);
         debug_assert!(transformed.is_ok(), "buffers come from the plan");
-        for (power, bin) in power_db.iter_mut().zip(&spectrum) {
+        for (power, bin) in powers.iter_mut().zip(&spectrum) {
             // The tiny offset keeps digital silence finite (-200 dB).
-            *power = 10.0 * (bin.norm_sqr() + 1e-20).log10();
+            *power = bin.norm_sqr() + 1e-20;
         }
-        visit(&power_db);
+        visit(&powers);
         start += profile.hop;
     }
+}
+
+/// A bin's power in decibels. It never decreases as power grows
+/// (`decibels_never_decrease_as_power_grows`), so comparing powers gives
+/// the order of their levels, apart from powers whose levels round to the
+/// same decibels.
+pub fn decibels(power: f32) -> f32 {
+    10.0 * power.log10()
 }
 
 /// The periodic Hann window, `w[n] = 0.5 - 0.5 cos(2πn / N)`.
@@ -73,6 +92,42 @@ mod tests {
 
         assert!(!loudest.is_empty());
         assert!(loudest.iter().all(|&index| index == bin));
+    }
+
+    /// Every non-negative power, infinity included, checked on the machine
+    /// running the tests, since the logarithm comes from the platform's
+    /// maths library. The peak picker's exactness rests on this.
+    #[test]
+    fn decibels_never_decrease_as_power_grows() {
+        let last = f32::INFINITY.to_bits();
+        let threads = std::thread::available_parallelism().map_or(4, std::num::NonZero::get) as u32;
+        let share = last / threads + 1;
+        let decreases: u32 = std::thread::scope(|scope| {
+            let workers: Vec<_> = (0..threads)
+                .map(|thread| {
+                    scope.spawn(move || {
+                        let first = thread * share;
+                        let end = (first + share).min(last);
+                        let mut decreases = 0;
+                        let mut previous = decibels(f32::from_bits(first));
+                        for bits in first + 1..=end {
+                            let level = decibels(f32::from_bits(bits));
+                            decreases += u32::from(level < previous);
+                            previous = level;
+                        }
+                        decreases
+                    })
+                })
+                .collect();
+            workers
+                .into_iter()
+                .map(|worker| worker.join().unwrap())
+                .sum()
+        });
+
+        assert_eq!(decreases, 0);
+        assert_eq!(decibels(0.0), f32::NEG_INFINITY);
+        assert_eq!(decibels(f32::INFINITY), f32::INFINITY);
     }
 
     #[test]
