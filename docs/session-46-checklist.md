@@ -22,9 +22,9 @@ for scope and rules.
 - [x] 2. Pre-registration (at least three candidates, exactness
   arguments and tests, timing protocol, stop point), committed before
   any candidate is timed
-- [ ] 3. Candidates, each tested and timed; the combination of those
+- [x] 3. Candidates, each tested and timed; the combination of those
   that pass
-- [ ] 4. Adoption in master: tests, 11 development scans at both
+- [~] 4. Adoption in master: tests, 11 development scans at both
   scales, clusters sample, both regressions; stored peaks of a few
   corpus files in a scratch store if `index` code changed
 - [~] 5. Experiments: 0212 (breakdown and `x86-64-v2`), each candidate,

@@ -264,3 +264,22 @@ Rules for this session:
   both pass, C4 is adopted when its smallest cut at 32 workers is the
   larger; otherwise the one that passes with the larger smallest cut.
   C2b's own round finishes first and is judged on its own.
+- **(23:44) Round 2** (`ab-r2.tsv`): C2b 2.6% and 2.1% at 32 workers,
+  3.8% and 3.9% at 16; it misses the stop point.
+- **(23:58) Round 3** (`ab-r3.tsv`, four pairs a job count): C2c
+  2.4-3.2% at 32 workers (fails), 4.4-5.1% at 16; C4 7.2-7.8% at 32
+  workers and 8.4-8.7% at 16, CPU 8.5-9.3% less. Every report
+  identical. **C4 passes and is adopted** (experiment 0213, covering
+  rounds 1-3 under the one pre-registration and its addenda, written
+  before any adoption run finished).
+- **(23:59) Adoption.** `work/s46/c4.diff` applied to master's tree,
+  built as `work/bin/s46-adopt/`; `work/s46/adopt.sh` (tmux
+  `s46adopt`): both regressions with each report compared, the 11
+  development scans at both scales and the clusters sample against the
+  start build's references (`validate.sh`), the stored peaks of four
+  corpus library files indexed into scratch stores by the start and
+  adopted builds and compared byte for byte (`indexcheck.sh`; the code
+  `index` runs changed), then the times (`timing.sh`: `ab.sh final`,
+  the clusters sample A B B A, and `identify` of the Stakka mix through
+  the CLI with the corpus configuration and `--playback both`, warm-up
+  then A B B A).
