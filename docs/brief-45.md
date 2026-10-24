@@ -350,7 +350,7 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   file plays then (`work/s45/drops_beside.py`); the default against
   session 35's reports of the same seeds. If time runs short, seed 3513
   is dropped. The renders are deleted afterwards.
-- **(22:36) A comparison corrected in the decision note.** Its first
+- **(22:31) A comparison corrected in the decision note.** Its first
   "Session 45" finding compared the weak detections the variant keeps
   (0.60-0.90%) with session 38's development differences (0-0.40%), but
   session 38 measured those only for detections confident after the
