@@ -228,3 +228,15 @@ Rules for this session:
     CLI with the corpus configuration and `--playback both`
     (`timing.sh`: warm-up, then A B B A), whose JSON reports must be
     byte-identical.
+- **(23:36) Pre-registration, addendum: C2b**, written while round 1
+  ran and registered before it is timed. C2 folds each row of the
+  neighbourhood with `max` to keep the loudest power, which the
+  compiler may not vectorise as it does the old fold of comparisons.
+  C2b is C2 with the neighbourhood test's early exits on the old fold
+  of comparisons (`other >= value` on powers), and the loudest other
+  point found by a second scan of the neighbourhood only for bins that
+  pass it (0.61 peaks a frame and the rare ties). Same exactness
+  argument and tests as C2. It is timed in a round of its own (start,
+  C2b, C2b, start at 32 and 16 jobs) against the same stop point. If
+  C2 and C2b both pass, the combination with C3 uses the one with the
+  larger smallest cut at 32 workers.
