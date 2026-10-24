@@ -1,0 +1,105 @@
+{
+ "experiment": "0210",
+ "variant": "--apart-in-speed 0.006",
+ "mixes": "mixes --kind drops, seeds 2026 and 2028, 16 each (session 39's renders)",
+ "D1_harness_262_ladder_both": {
+  "2026": {
+   "right": [
+    221,
+    221
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "added": 11,
+   "removed": 0,
+   "added_max_hits": 28
+  },
+  "2028": {
+   "right": [
+    220,
+    220
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "added": 9,
+   "removed": 0,
+   "added_max_hits": 44
+  },
+  "added_of_a_file_not_playing": 19,
+  "added_speed_gap_percent": [
+   0.61,
+   1.51
+  ]
+ },
+ "harness_262_ladder_turntable": {
+  "2026": {
+   "right": [
+    221,
+    221
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "added": 11,
+   "added_max_hits": 28
+  },
+  "2028": {
+   "right": [
+    220,
+    220
+   ],
+   "wrong_confident": [
+    0,
+    0
+   ],
+   "added": 7,
+   "added_max_hits": 20
+  }
+ },
+ "D2_cli_262": {
+  "reports_identical_between_builds": "32 of 32",
+  "entries_printed": [
+   445,
+   445
+  ],
+  "wrong_confident_plays": [
+   0,
+   0
+  ]
+ },
+ "D3_cli_nas_store_only": {
+  "reports_identical_between_builds": "32 of 32",
+  "entries_printed": [
+   460,
+   460
+  ],
+  "wrong_confident_plays": [
+   2,
+   2
+  ],
+  "wrong_confident_files": "Kemal - Animation (Silent Extent Remix), as session 39"
+ },
+ "default_plays_equal_session_39": "64 of 64 CLI reports",
+ "diagnostic_cli_check": {
+  "segments_found_in_matching_harness_report": {
+   "2026": "321 of 321",
+   "2028": "317 of 317"
+  },
+  "stakka_positive_control": {
+   "file": "Kemal & Rob Data - Star Trails.mp3",
+   "segment": [
+    793,
+    877
+   ],
+   "hits": 315,
+   "speed": 1.031,
+   "default": "dropped",
+   "variant": "kept"
+  }
+ }
+}

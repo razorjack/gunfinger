@@ -273,8 +273,57 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   and an added one's speed difference to the nearest-speed stronger
   overlapping detection of its file (checked on a two-query fixture in
   `/tmp`).
-- **(22:05) Run P and 0209.** Default 18:38, variant 18:36 (21:21-21:59);
+- **(22:01) Run P and 0209.** Default 18:38, variant 18:36 (21:21-21:59);
   the default's detections equal session 44's run of the panel in all
   440 query and index pairs (`work/s45/same_detections.py`). S2 and S3
   hold: no confident detection changes in any pair. 0209 written and
   committed before the drops' runs (`work/s45/0209-written`).
+- **(22:10) D1, and the diagnostic build's check replaced.** D1 at 262
+  tracks (1:15-1:25 per run, no render redone): S2 and S3 hold on both
+  seeds (wrong confident detections 0 -> 0; right plays 221 -> 221 and
+  220 -> 220, none lost or gained). The check registered at 21:18 cannot
+  work: the harness's `Matching::options` sets `second_overlap` itself
+  (`Spans` without `--apart-in-speed`), overriding `Matcher::Fitted`'s,
+  so the diagnostic build's harness gives master's default report (it
+  lacks the 11 and 9 weak Clockwork-family detections that master's
+  variant adds). The CLI takes `matcher.options()` unchanged
+  (`identify.rs`), so the patch reaches only the CLI, as intended. The
+  check is now on the CLI itself (`work/s45/check_cli.py`, queue
+  `work/s45/turntable.sh`, tmux `s45tt`, after the drops queue): master's
+  harness on the CLI's ladder (`--ladder turntable`), by default and with
+  the variant, at 262 tracks; every segment of each CLI report must be a
+  detection (file or same-audio file, start, end, hits) of the harness
+  report with the same matcher, and each segment only one CLI build
+  reports must be in that build's harness report only. The D2-D3 results
+  are read only if it passes.
+- **(22:15) D2 at 262 tracks, and a positive control for the diagnostic
+  CLI.** The CLI's 64 reports of D2 (both seeds, both builds) are
+  byte-identical between the builds, so T, S2 and S3 hold there
+  trivially (entries 222 -> 222 and 223 -> 223, wrong confident plays 0
+  -> 0), and the reports alone cannot show that the diagnostic CLI runs
+  the variant. Positive control (`work/s45/stakka.sh`, 14-15 s each): the
+  Stakka development mix with both builds on the corpus store's own
+  records (`--store-only --saved-index off`; `work/peaks` unwritten, no
+  file newer than the session's start): the diagnostic CLI keeps Star
+  Trails' 793-877 s segment (315 hits, speed 1.031) beside the kept
+  585-804 s one (1,540 hits, 1.045), as master's harness variant does
+  (0179); the default drops it. Both print the same tracklist, since the
+  segment joins Star Trails' play.
+- **(22:37) D3, the CLI check and 0210.** D3 (2:37-2:43 per run on the
+  NAS store's records; no NAS audio read): the 32 reports are
+  byte-identical between the builds, as at 262 tracks; T, S2 and S3 hold
+  (entries 230 -> 230 per seed, wrong confident plays 0 -> 0 and 2 -> 2,
+  the two being session 39's Animation remix). The store-only index gives
+  the same `library_revision` as session 39's NAS configuration, and the
+  default's plays equal session 39's in all 64 CLI reports (262 tracks
+  and NAS scale). The CLI check (22:23-22:28) passes: every segment of
+  the 64 CLI reports at 262 tracks is a detection of the turntable
+  harness report with its matcher, and the turntable variant adds only
+  weak detections (at most 28 hits), which no CLI report holds. D1's
+  added detections are weak second alignments of the Clockwork file not
+  playing, 0.61-1.51% from a stronger one of the same file, without a
+  ride: the decision note's argument (a wrong file gains a segment only
+  across a ride) holds on these data only at the confident level.
+  Experiment 0210 written; the confirmation's registered runs are done:
+  S2, S3 and T hold in P, D1, D2 and D3, so the variant is confirmed by
+  brief 45's registered reading (21:30).

@@ -20,10 +20,10 @@ for scope and rules.
   second shared panel's development half and the drop mixes; what
   confirms and what fails the variant; the validation half unseen),
   committed before any variant run on the new data
-- [~] 2. The runs in scratch work directories under tmux: the panel
+- [x] 2. The runs in scratch work directories under tmux: the panel
   (default, variant), then the drops (262 tracks; NAS scale if time
   allows), with the tracklists
-- [ ] 3. Experiments: the panel (0209); the drops and their tracklists
+- [x] 3. Experiments: the panel (0209); the drops and their tracklists
   (0210)
 - [ ] 4. The decision note's "Session 45"
 - [ ] 5. Ahead: the variant on session 35's `beatmatched` mixes
