@@ -25,7 +25,7 @@ for scope and rules.
   allows), with the tracklists
 - [x] 3. Experiments: the panel (0209); the drops and their tracklists
   (0210)
-- [ ] 4. The decision note's "Session 45"
+- [x] 4. The decision note's "Session 45"
 - [ ] 5. Ahead: the variant on session 35's `beatmatched` mixes
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 45", status, checklist, roadmap's

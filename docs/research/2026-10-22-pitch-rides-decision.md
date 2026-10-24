@@ -1,10 +1,11 @@
 # Pitch rides and the second overlap rule: what an ADR would decide (2026-10-22)
 
-**Status: the evidence and a recommendation.** Nothing here changes the
-product. Whether to change how the search judges overlap after the
-second pass is our decision and needs an ADR that supersedes ADR 0008's
-consequence for overlapping parts. Experiments 0166 and 0175-0178
-(sessions 35 and 37) and 0179-0180 (session 38); the roadmap's "Speed
+**Status: the evidence and a recommendation** (session 45 added its
+confirmation at the end). Nothing here changes the product. Whether to
+change how the search judges overlap after the second pass is our
+decision and needs an ADR that supersedes ADR 0008's consequence for
+overlapping parts. Experiments 0166 and 0175-0178 (sessions 35 and 37),
+0179-0180 (session 38) and 0209-0210 (session 45); the roadmap's "Speed
 that wanders within a play".
 
 ## The rule today
@@ -173,3 +174,66 @@ kept segments are real rides; adoption does not depend on it, since
 the generated rides measure the mechanism and the scans score neither
 segment as wrong (the manifest has Star Trails until 15:31). Rides inside short plays are a separate
 question for the window condition.
+
+## Session 45: the confirmation on data the threshold has not seen
+
+Criteria S2 and S3 of brief 38, word for word, with a tracklist criterion
+T, were committed before any run (brief 45, 21:30, `3bb80ef`); the
+variant and its 0.6% are session 38's, unchanged.
+
+- **The second shared panel** (0209): its development half at NAS
+  scale, a default run and a variant run, 440 query and index pairs over
+  10 scenarios. No confident detection changes in any pair (played 545,
+  related 12, other 3, partner 0, in both runs). The variant adds 83
+  weak or possible detections (at most 61 hits) whose speeds differ from
+  the stronger overlapping detection of their file by 0.60-12.1%, 41 of
+  them under 0.9%. User CPU 5,140 s and 5,145 s. The validation half was
+  not opened.
+- **Double drops** (0210): session 39's mixes, seeds 2026 and 2028. In
+  the harness at 262 tracks, wrong confident detections 0 -> 0 and right
+  plays 221 -> 221 and 220 -> 220. The CLI's reports and printed
+  tracklists, from a diagnostic build whose `Matcher::Fitted` uses the
+  variant (never committed; checked against the harness and on the
+  Stakka mix's Star Trails side), are byte-identical to the default's in
+  all 64 reports at 262 tracks and at NAS scale: no tracklist line, level
+  or wrong play changes.
+- So S2, S3 and T hold on every registered run: the variant is
+  confirmed on data its threshold has not seen, by the registered
+  reading.
+
+Two findings change the argument above, not the result:
+
+1. **The 0.6% separates by evidence on new data, not by speed alone.**
+   On the development traces every dropped detection outside a ride lay
+   at 0-0.40% from its stronger one, and rides at 0.90% or more. On the
+   second panel and the drops, the default drops weak detections at
+   0.60-0.90% too (41 on the panel, 14 of the 20 on the drops), and the
+   variant keeps them. All are weak or possible (at most 61 hits), far
+   below the 240-hit rule, so no level changes; but the gap between 0.40%
+   and 0.90% is not empty on new data.
+2. **A related version gains segments without a ride.** On the drops, 19
+   of the 20 detections the variant adds belong to the Clockwork pair's
+   file that is not playing while its related version plays, at
+   0.61-1.51% from a stronger alignment of the same file (7-44 hits).
+   The section "The shared-material risk" argues that a wrong file gains
+   a segment only where it is found on both sides of a ride; on these
+   data that holds only at the confident level. A related version whose
+   second alignment reaches 240 hits at another speed would (by
+   inference) become a new wrong confident segment under the variant
+   where the default drops it. None did in any run (sessions 38 and 45),
+   but the protection is the confidence rule's margin, not the rule's
+   speed condition.
+
+For an ADR, these add:
+
+- The evidence base: S1-S3 on seeds 3801 (rides), the sweep at both
+  scales, the 11 development reports at NAS scale, the generated mixes,
+  both shared panels' development halves (the second unseen by the
+  threshold) and the double drops at both scales, with their tracklists.
+- The residual risk, stated as above: a related version's second
+  alignment at more than 0.6% that is itself confident. A check worth
+  keeping beside any adoption: the count of confident segments a file
+  gains under the variant on the shared panels and drops (0 so far).
+- The recommendation above is unchanged (ours to decide): adopt
+  `SpansAtSpeed(0.006)` through an ADR. The second panel's validation
+  half stays unseen for a later test, should a rule change need one.
