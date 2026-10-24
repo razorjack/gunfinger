@@ -240,3 +240,27 @@ Rules for this session:
   C2b, C2b, start at 32 and 16 jobs) against the same stop point. If
   C2 and C2b both pass, the combination with C3 uses the one with the
   larger smallest cut at 32 workers.
+- **(23:40) Round 1** (`work/s46/ab-r1.tsv`; every report identical to
+  the start build's apart from `wall_seconds`): at 32 workers C1 -1.1%
+  and -0.2%, C2 -0.9% and -0.5% (CPU 0.2-1.3% more), C3 1.7% and 2.5%;
+  at 16 workers C1 0.0% and 0.1%, C2 2.4% and 1.9%, C3 2.9% and 3.0%.
+  None passes the stop point, so no combination of round 1's
+  candidates is timed under the registered rule.
+- **(23:45) Pre-registration, addendum 2: C2c and C4**, registered
+  before either is timed, while C2b's round runs. C2's added CPU at 32
+  workers points at its two logarithms per candidate (17.6 a frame) and
+  its `max` fold. **C2c** is C2b without the four-neighbour test on
+  levels: the neighbourhood holds the four nearest neighbours, so the
+  final comparison of the bin's level with that of the loudest other
+  point (now also taking the four nearest, for a neighbourhood
+  narrower than a bin or a frame) decides it, and levels are taken
+  only for bins that pass every test on powers (about 0.6 a frame)
+  and for refinement. Exactness: as C2's, since a peak on levels is a
+  bin at or above the floor and strictly louder than every point of its
+  neighbourhood and its four nearest neighbours; tests as C2's.
+  **C4** is C2c with C3's four-neighbour loop. Both are timed in one
+  round (start, C2c, C4, C4, C2c, start, twice, at 32 and 16 jobs),
+  each against the stop point (3% at 32 workers in every pair). If
+  both pass, C4 is adopted when its smallest cut at 32 workers is the
+  larger; otherwise the one that passes with the larger smallest cut.
+  C2b's own round finishes first and is judged on its own.
