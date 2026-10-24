@@ -1,0 +1,15 @@
+# Session 46 (experiment 0212): analysis timers of the diagnostic build (work/s46/diag.diff), Stakka scan at NAS scale. Seconds summed over workers; counts. diag-32 ran beside a compile and was repeated idle as diag-32b.
+diag-16 turntable setup=0.045205 window=1.168560 fft=33.324001 logpow=18.003864 copy=0.426590 cands=12.734708 dominate=8.016868 refine_push=0.226442 points=0.006267 kl_filter=0.000000 analyses=1189.000000 frames=8739136.000000 candidates=153219519.000000 dominate_calls=153219519.000000 peaks=5297561.000000 kl_hits=0.000000 kl_misses=0.000000 wanted_frames=8711584.000000 dom_rows=283397151.000000 spare=0.000000
+diag-16 keylocked setup=0.011935 window=0.590883 fft=4.530392 logpow=9.305256 copy=0.211103 cands=6.535189 dominate=4.155228 refine_push=0.118047 points=0.000000 kl_filter=0.031315 analyses=609.000000 frames=4452674.000000 candidates=79081370.000000 dominate_calls=79081370.000000 peaks=2738041.000000 kl_hits=580.000000 kl_misses=609.000000 wanted_frames=4438562.000000 dom_rows=146418759.000000 spare=0.000000
+diag-32b turntable setup=0.069296 window=2.040947 fft=58.964871 logpow=35.462335 copy=0.746078 cands=22.260367 dominate=13.799096 refine_push=0.382114 points=0.008413 kl_filter=0.000000 analyses=1189.000000 frames=8739136.000000 candidates=153219519.000000 dominate_calls=153219519.000000 peaks=5297561.000000 kl_hits=0.000000 kl_misses=0.000000 wanted_frames=8711584.000000 dom_rows=283397151.000000 spare=0.000000
+diag-32b keylocked setup=0.018134 window=1.021582 fft=7.433330 logpow=17.820636 copy=0.359652 cands=11.228538 dominate=6.909737 refine_push=0.188956 points=0.000000 kl_filter=0.056822 analyses=609.000000 frames=4452674.000000 candidates=79081370.000000 dominate_calls=79081370.000000 peaks=2738041.000000 kl_hits=580.000000 kl_misses=609.000000 wanted_frames=4438562.000000 dom_rows=146418759.000000 spare=0.000000
+
+# x86-64-v2 build against the start build (ab.sh): build, jobs, half, exit, search seconds, elapsed, user CPU s, max RSS KB
+s46-start	32	1a	0	26.323467554	0:29.62	727.51	5146792
+s46-v2	32	1a	0	26.836768853	0:30.13	734.21	5153540
+s46-v2	32	1b	0	26.611864179	0:29.91	735.36	5159248
+s46-start	32	1b	0	26.410985751	0:29.73	729.35	5143352
+s46-start	16	1a	0	31.73855249	0:35.02	461.10	5057784
+s46-v2	16	1a	0	32.23304789	0:35.58	465.93	5068544
+s46-v2	16	1b	0	31.892852801	0:35.22	463.40	5065432
+s46-start	16	1b	0	31.966729515	0:35.32	461.01	5083632

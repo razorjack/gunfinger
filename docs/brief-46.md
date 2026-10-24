@@ -152,3 +152,79 @@ Rules for this session:
   directory `work/s46/target-v2`); timed against the start build with
   `ab.sh` (A B B A at 32 and 16 jobs), its reports compared byte for
   byte apart from `wall_seconds`.
+- **(23:28) Step 1 done** (experiment 0212). `diag-32` ran beside a
+  compile of C1's tests; it was repeated idle as `diag-32b` (the same
+  shares), which 0212 uses. The `x86-64-v2` build is not faster (0.8-1.9%
+  slower at 32 jobs), with byte-identical reports.
+- **(23:30) Step 2, the pre-registration** (before any candidate is
+  timed; C1-C3 were written and passed the core crate's tests in
+  scratch worktrees under `work/s46/`, and C2's binaries were built,
+  before this entry, none of them timed). From 0212: at 32 workers the
+  first pass's analysis splits FFT 37-38%, log power 27-30%, the
+  four-neighbour test 18-19%, the neighbourhood test 12% (timers
+  included), windowing 2%, the row copy 0.6%, plans and windows 0.05%;
+  17.6 candidates and 0.61 peaks a frame.
+  - **C1, rounding without a library call in the analysis.**
+    `quantise` (three `f32::round` a peak) through `rounded`: values
+    under 2^22 in magnitude truncated to `i32` and back (exact), the
+    fraction compared with one half, the sign copied so that values
+    rounding to zero keep it; larger values, infinities and NaN go to
+    `round`. The STFT frame of a peak (the key-locked filter, the
+    stored peaks' search) as `(frame + 0.5) as usize`: a refined frame
+    is a multiple of 1/64 within 31/64 of its STFT frame, so the sum is
+    exact and truncating it rounds. Test: `rounded` equals `round` bit
+    for bit on the halves, negatives, signed zeros, 2^22 and 2^23
+    neighbours, large values, infinities, every 1/128 in +-1,000 and a
+    million random bit patterns; NaN gives NaN. Expected small (about
+    two calls a frame); timed because the prompt names it.
+  - **C2, the peak test on powers.** The STFT gives each bin's power
+    (`|X|^2 + 1e-20`, the same operations); `decibels(p) = 10 log10 p`
+    is applied only where a level is needed. Exactness: if `decibels`
+    never decreases as power grows (monotone), then a power no greater
+    than another has no greater level, the loudest power of a set has
+    the loudest level, and a power below the lowest power whose level
+    reaches the floor (`floor_power`, found by halving bit patterns) is
+    exactly a level below it. So the four-neighbour test on powers
+    rejects only bins the test on levels rejects; each bin it passes
+    (17.6 a frame) is tested again on levels against the loudest
+    neighbour; the neighbourhood test stops at any point with at least
+    the power and otherwise compares the level of the loudest other
+    point with the bin's; refinement and magnitudes use the levels of
+    the same powers. NaN: `max` passes over NaN as the comparisons on
+    levels did, and a NaN bin passes both tests in both forms. Tests:
+    every non-negative `f32` (infinity included) on the machine
+    running the tests has a level no lower than the one before
+    (`decibels_never_decrease_as_power_grows`; monotonicity is the
+    platform maths library's, so the test runs everywhere); a tie in
+    decibels between different powers, as a nearest neighbour and
+    farther away, gives no peak; `floor_power` is the boundary; the
+    existing tests against the definition on levels. About 38
+    logarithms a frame instead of 513-557.
+  - **C3, the four-neighbour test as one loop over equal slices.** The
+    same predicate per bin written into a `bool` per bin over slices of
+    the same length (no running count or bounds checks, so the compiler
+    can test several bins at once), then the passing bins gathered in
+    bin order as before. Exact: the same comparisons per bin, the same
+    candidates in the same order. Tests: the existing ones against the
+    definition and on stretches.
+  - **Not candidates**, from 0212: per-worker plans, windows and
+    buffers (0.05% of the analysis); reusing analyses: the edges of
+    blocks repeat about 1% of frames, and the one analysis two
+    playbacks repeat per block (turntable at 1.0 and key-locked at hop
+    128) is 1 of 62, at most about 0.4% of the search; the row copy
+    (0.6% of the analysis). None can reach 3%.
+  - **Timing protocol and stop point.** One round with `ab.sh`: the
+    start build, C1, C2, C3, C3, C2, C1, the start build, at 32 then 16
+    jobs, the machine otherwise idle; each report compared with the
+    start build's reference apart from `wall_seconds` (a different
+    report drops the candidate). A candidate passes if it cuts the
+    scan's search time (`wall_seconds`) at 32 workers by at least 3%
+    against the start build in both pairs. The combination of those
+    that pass (C2 with C3 if both pass) is timed in a second round
+    (start, combination, combination, start, twice, at 32 and 16 jobs)
+    and must pass the same rule; if it does not, the single candidate
+    with the larger smallest cut is adopted if it passed. The adopted
+    build is also timed with `identify` of the Stakka mix through the
+    CLI with the corpus configuration and `--playback both`
+    (`timing.sh`: warm-up, then A B B A), whose JSON reports must be
+    byte-identical.
