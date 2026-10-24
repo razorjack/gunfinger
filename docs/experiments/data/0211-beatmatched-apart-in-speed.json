@@ -1,0 +1,59 @@
+{
+ "experiment": "0211",
+ "variant": "--apart-in-speed 0.006",
+ "mixes": "mixes --kind beatmatched, seeds 3511-3513, 16 each, 262 tracks",
+ "right": {
+  "3511": [
+   186,
+   186
+  ],
+  "3512": [
+   195,
+   195
+  ],
+  "3513": [
+   188,
+   188
+  ]
+ },
+ "wrong_confident": {
+  "3511": [
+   0,
+   0
+  ],
+  "3512": [
+   0,
+   0
+  ],
+  "3513": [
+   0,
+   0
+  ]
+ },
+ "added": {
+  "3511": 12,
+  "3512": 5,
+  "3513": 4
+ },
+ "removed": 0,
+ "added_max_hits": 27,
+ "added_of_a_file_playing": 0,
+ "added_speed_gap_percent": [
+  0.6,
+  2.49
+ ],
+ "added_under_0.9_percent": 12,
+ "default_equals_session_35": "48 of 48 mixes, same detections",
+ "times": {
+  "default_with_render": [
+   "3:28",
+   "3:24",
+   "3:30"
+  ],
+  "variant_cached": [
+   "2:36",
+   "2:31",
+   "2:39"
+  ]
+ }
+}
