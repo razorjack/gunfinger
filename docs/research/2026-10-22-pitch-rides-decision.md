@@ -5,7 +5,7 @@ confirmation at the end). Nothing here changes the product. Whether to
 change how the search judges overlap after the second pass is our
 decision and needs an ADR that supersedes ADR 0008's consequence for
 overlapping parts. Experiments 0166 and 0175-0178 (sessions 35 and 37),
-0179-0180 (session 38) and 0209-0210 (session 45); the roadmap's "Speed
+0179-0180 (session 38) and 0209-0211 (session 45); the roadmap's "Speed
 that wanders within a play".
 
 ## The rule today
@@ -197,6 +197,10 @@ variant and its 0.6% are session 38's, unchanged.
   Stakka mix's Star Trails side), are byte-identical to the default's in
   all 64 reports at 262 tracks and at NAS scale: no tracklist line, level
   or wrong play changes.
+- **Beatmatched long mixes** (0211, step 5, registered before its
+  runs): session 35's seeds 3511-3513 at 262 tracks. Right plays 186,
+  195 and 188 and wrong confident detections 0 unchanged; 21 weak
+  detections added (at most 27 hits), none of a file playing then.
 - So S2, S3 and T hold on every registered run: the variant is
   confirmed on data its threshold has not seen, by the registered
   reading.
@@ -230,7 +234,8 @@ For an ADR, these add:
 - The evidence base: S1-S3 on seeds 3801 (rides), the sweep at both
   scales, the 11 development reports at NAS scale, the generated mixes,
   both shared panels' development halves (the second unseen by the
-  threshold) and the double drops at both scales, with their tracklists.
+  threshold), the double drops at both scales, with their tracklists,
+  and three beatmatched seeds.
 - The residual risk, stated as above: a related version's second
   alignment at more than 0.6% that is itself confident. A check worth
   keeping beside any adoption: the count of confident segments a file

@@ -372,7 +372,7 @@ marked as inferences were derived, not measured.
   The options, the risk and a recommendation are in
   `docs/research/2026-10-22-pitch-rides-decision.md`; adopting it is our
   decision and needs an ADR.
-  *(session 45, experiments 0209-0210)* The confirmation on data the
+  *(session 45, experiments 0209-0211)* The confirmation on data the
   threshold had not seen, under criteria committed first: on the second
   shared panel's development half at NAS scale no confident detection
   changes in any of 440 query and index pairs; on session 39's double

@@ -359,7 +359,7 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   no confident one); the weak and possible ones it keeps lie from 0.60%
   up and stay far below 240 hits. The roadmap's sentence follows it. Step
   5's stamp corrected to 22:30 (written then, committed at 22:30).
-- **(22:52) Run B and 0211.** Six runs 22:30-22:48 (default with
+- **(22:49) Run B and 0211.** Six runs 22:30-22:48 (default with
   rendering 3:24-3:30, variant 2:31-2:39); the default's detections equal
   session 35's reports in all 48 mixes. S2 and S3 hold on all three
   seeds (right 186, 195, 188 unchanged; wrong confident 0 -> 0); the
