@@ -164,6 +164,8 @@ def tracklists(default_path, variant_path):
         for asset in sorted(after):
             if after[asset] > before[asset]:
                 print("  added wrong:", mix, asset, before[asset], "->", after[asset])
+        if len(d["truth"]) != len(v["truth"]):
+            raise SystemExit(f"{mix}: the two scores hold different truth plays")
         for dt, vt in zip(d["truth"], v["truth"]):
             if dt["today_confident"] and not vt["today_confident"]:
                 print("  lost confident:", mix, dt["play"], dt["scenario"], dt["side"], dt["asset"])

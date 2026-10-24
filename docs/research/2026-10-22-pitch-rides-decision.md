@@ -178,7 +178,8 @@ question for the window condition.
 ## Session 45: the confirmation on data the threshold has not seen
 
 Criteria S2 and S3 of brief 38, word for word, with a tracklist criterion
-T, were committed before any run (brief 45, 21:20, `3bb80ef`); the
+T, were committed before any variant run (brief 45, 21:20, `3bb80ef`;
+the beatmatched run was registered at 22:30, before its runs); the
 variant and its 0.6% are session 38's, unchanged.
 
 - **The second shared panel** (0209): its development half at NAS
@@ -193,8 +194,8 @@ variant and its 0.6% are session 38's, unchanged.
   the harness at 262 tracks, wrong confident detections 0 -> 0 and right
   plays 221 -> 221 and 220 -> 220. The CLI's reports and printed
   tracklists, from a diagnostic build whose `Matcher::Fitted` uses the
-  variant (never committed; checked against the harness and on the
-  Stakka mix's Star Trails side), are byte-identical to the default's in
+  variant (never committed; a one-line diff, shown to run the variant
+  by the Stakka mix's Star Trails side), are byte-identical to the default's in
   all 64 reports at 262 tracks and at NAS scale: no tracklist line, level
   or wrong play changes.
 - **Beatmatched long mixes** (0211, step 5, registered before its
@@ -203,7 +204,9 @@ variant and its 0.6% are session 38's, unchanged.
   detections added (at most 27 hits), none of a file playing then.
 - So S2, S3 and T hold on every registered run: the variant is
   confirmed on data its threshold has not seen, by the registered
-  reading.
+  reading. It is a confirmation that the variant does no harm there:
+  none of these mixes or queries holds a ride, so recovery (S1) rests on
+  session 38's seed 3801.
 
 Two findings add to the argument above; neither changes the result:
 
@@ -212,9 +215,9 @@ Two findings add to the argument above; neither changes the result:
    the second pass (0-0.40% outside rides, 0.90% and up for 1% rides).
    On session 45's data no such detection is dropped at more than 0.6%,
    since the variant adds no confident one. The weak and possible
-   detections it keeps lie at every difference from 0.60% up, the
-   smallest it can keep (41 under 0.9% on the panel, 14 of the 20 on the
-   drops); at most 61 hits, they stay far below the 240-hit rule.
+   detections it keeps lie at 0.60-12.1%, 0.60% being the smallest it
+   can keep (41 under 0.9% on the panel, 14 of the 20 on the drops); at
+   most 61 hits, they stay far below the 240-hit rule.
 
 2. **A related version gains segments without a ride.** On the drops, 19
    of the 20 detections the variant adds belong to the Clockwork pair's

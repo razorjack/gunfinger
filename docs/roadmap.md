@@ -378,8 +378,10 @@ marked as inferences were derived, not measured.
   changes in any of 440 query and index pairs; on session 39's double
   drops (seeds 2026 and 2028) no wrong confident detection is added and
   no right play lost, and the CLI's reports and printed tracklists are
-  identical to the default's at 262 tracks and at NAS scale. The variant
-  is confirmed by the registered reading. What it changes there is weak
+  identical to the default's at 262 tracks and at NAS scale; on three
+  beatmatched seeds nothing confident changes either. The variant is
+  confirmed by the registered reading (a no-harm confirmation: no ride
+  in this data, so recovery rests on session 38's seeds). What it changes there is weak
   or possible, at speed differences from 0.60% up; on the drops a
   related version gains weak second alignments 0.61-1.51% apart without
   any ride, so against shared material the variant relies on the

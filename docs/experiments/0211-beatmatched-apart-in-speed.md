@@ -19,11 +19,12 @@ session 35's reports of the same seeds in all 48 mixes.
 | Detections added; removed | 12; 0 | 5; 0 | 4; 0 |
 
 - All 21 added detections are weak (at most 27 hits) and of files not
-  playing then (Aphrodite records 10 of them), 0.60-2.49% in speed from
-  a stronger detection of the same file (12 under 0.9%). None is of a
-  played record; these mixes hold no ride.
-- Times: default with rendering 3:24-3:30 (14-15 GiB), variant on the
-  cached renders 2:31-2:39 (2.8 GiB).
+  playing then (13 with Aphrodite in the file name). 19 lie 0.60-2.49%
+  in speed from a stronger overlapping detection of the same file (12
+  under 0.9%); 2 overlap none. None is of a played record; these mixes
+  hold no ride.
+- Times: default with rendering 3:24-3:30 (13.4-14.6 GiB), variant on
+  the cached renders 2:31-2:39 (2.6-2.7 GiB).
 
 **Conclusion.** S2 and S3 hold on all three seeds: nothing confident
 changes. As on the panel and the drops (0209, 0210), what the variant

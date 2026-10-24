@@ -101,7 +101,7 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
 - Experiments 0001-0208; this session numbers from 0209. Test set: 4 of
   5 evaluations used (none in this session).
 - The second shared panel's development half (10 scenarios, 169
-  queries, each searched against three indexes) was rendered by
+  queries, 440 query and index pairs over three indexes) was rendered by
   session 44 (`work/s44/w/shared/shared-material-2-seed-2026-development-f2be9a7f8ccdcf66/`,
   169 renders, each with its `.complete` marker; 177 MB). Neither
   overlap variant has run on this panel: its default report exists
@@ -320,14 +320,15 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   the 64 CLI reports at 262 tracks is a detection of the turntable
   harness report with its matcher, and the turntable variant adds only
   weak detections (at most 28 hits), which no CLI report holds. D1's
-  added detections are weak second alignments of the Clockwork file not
-  playing, 0.61-1.51% from a stronger one of the same file, without a
+  added detections are weak, 19 of the 20 second alignments of the
+  Clockwork file not playing, 0.61-1.51% from a stronger one of the same
+  file (the 20th is of a file playing, 19 hits, 0.98%), without a
   ride: the decision note's argument (a wrong file gains a segment only
   across a ride) holds on these data only at the confident level.
   Experiment 0210 written; the confirmation's registered runs are done:
   S2, S3 and T hold in P, D1, D2 and D3, so the variant is confirmed by
   brief 45's registered reading (21:20).
-- **(22:31) Two stamps corrected.** The pre-registration was written at
+- **(22:29) Two stamps corrected.** The pre-registration was written at
   21:19-21:20 and committed at 21:20 (`3bb80ef`), not at 21:30 as first
   stamped; the D3 entry was written at 22:27, not 22:37. Both stamps, and
   the references to "brief 45, 21:30" in 0209, 0210 and the decision
@@ -366,3 +367,37 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   variant adds 21 weak detections (at most 27 hits), none of a file
   playing then. 0211 written. Renders (1.1 GB per seed) deleted after the
   review, if it needs none. The review and the final checks follow.
+- **(23:00) Final checks and the review.** `work/s45/final.sh` (tmux
+  `s45final`, 22:49-22:58): `scripts/check.sh` green (3:48); the final
+  build `work/bin/s45-final/` is byte-identical to `s45-start` (no Rust
+  change this session); `regress session-32-linux` (1:09) and `regress
+  session-33-linux-nas` (4:07) identical, every report identical to its
+  baseline's apart from `wall_seconds`; the verdicts file and the
+  clusters file unchanged. The read-only review (a separate agent,
+  22:50-22:59, no files written) recomputed every criterion count and
+  found none wrong. Fixed from its findings: the CLI segment check shows
+  consistency only (the default's segments are in the variant's harness
+  report too, since the variant adds only weak detections), so the
+  evidence that the diagnostic CLI runs the variant is its one-line diff
+  and the Stakka control (0210, decision note); 0211's Aphrodite count
+  (13 by file name, over all seeds), its speed gaps (19 of 21; 2 overlap
+  no stronger detection) and memory (13.4-14.6 and 2.6-2.7 GiB, from
+  KiB); 0209's CPU remark marked as an inference; the decision note's
+  "every difference from 0.60%" (a range, 0.60-12.1%) and "before any
+  run" (before any variant run; B registered at 22:30); the decision
+  note and roadmap now say the confirmation is one of no harm, since
+  none of the new data holds a ride (S1 rests on seed 3801); the
+  roadmap states the beatmatched result; the 22:27 entry's "not
+  playing" (19 of 20); the start state's "three indexes" (440 pairs);
+  the "(22:31) Two stamps" entry's own stamp (written and committed at
+  22:29). Recorded, not changed: D2's result was read at 22:15, before
+  the CLI check it was to wait for (22:23-22:27), which did not change
+  it; stamps were set ahead of the clock five times (21:30, 22:33, 22:36,
+  22:37, 22:52), each corrected; the "(22:29)" entry sits before the
+  "(22:30)" one because of that correction; the S2 quote at 21:20 leaves
+  out brief 38's closing "Runs:" sentence, which lists session 38's
+  runs, not this session's; the diagnostic diff also reaches the
+  harness's `pair` and `identifiability`, which call
+  `Matcher::Fitted.options()` directly, but neither ran with that build;
+  `variant_compare.py tracklists` now refuses truth lists of different
+  lengths instead of truncating them.

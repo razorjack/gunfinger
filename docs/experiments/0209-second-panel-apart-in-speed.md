@@ -30,8 +30,8 @@ played left out 169, source left out 102). `variant_compare.py shared`;
   (weak: 60 `other`, 14 `related`, 7 `played`; possible: 2 `played`, 61
   hits) and drops 2 weak `related` ones. Their speed differences to the
   stronger overlapping detection of their file are 0.60-12.1% (41 under
-  0.9%; at most 61 hits). Both runs mostly waited on the NAS store's
-  records on the local disk (467% CPU).
+  0.9%; at most 61 hits). Both runs used 467% CPU; by inference they
+  mostly waited on reading the NAS store's records from the local disk.
 
 **Conclusion.** S2 and S3 hold on the second panel's development half:
 nothing confident changes in any query, as on the first panel (0179).

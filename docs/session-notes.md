@@ -10022,3 +10022,196 @@ material holds the same peaks; it needs the same three-way measurement
   to its baseline's apart from `wall_seconds`; the verdicts file and the
   clusters file unchanged. The same checks had passed with the build
   before the review's test changes (11:21-11:30).
+
+## Session 45
+
+### What changed
+
+Nothing in Gunfinger changed: no threshold, rule, default or output; the
+final build is byte-identical to the start build. Added, harness
+only: `variant_compare.py answers` also compares a `mixes` report's wrong
+confident detections by mix and file, `shared` lists each confident
+detection added or removed with its speed gap, and a new `tracklists`
+command compares two `tracklist_score.py score` outputs. This session
+ran the confirmation the pitch-rides decision note asked for, and
+updated that note.
+
+In short: `--apart-in-speed 0.006` passes S2 and S3 of brief 38, and a
+tracklist criterion T, on data its threshold had not seen. On the second
+shared panel's development half at NAS scale no confident detection
+changes in any of 440 query and index pairs; on session 39's double
+drops nothing confident changes in the harness at 262 tracks, and the
+CLI's reports and printed tracklists are byte-identical to the default's
+at 262 tracks and at NAS scale. On three beatmatched seeds nothing
+confident changes either. What the variant does change is weak or
+possible, and on the drops it includes weak second alignments of a
+related version 0.61-1.51% apart without any ride: against shared
+material the variant relies on the 240-hit rule's margin, not on its
+speed condition. It is a confirmation of no harm: none of this data
+holds a ride, so recovery (S1) rests on session 38's seed 3801. Adoption
+is ours, with an ADR; the decision note's "Session 45" holds what an ADR
+would add.
+
+### Step 1: the pre-registration (brief 21:20, `3bb80ef`)
+
+S2 and S3 quoted from brief 38; runs P (the second panel's development
+half, NAS scale), D1 (drops, harness, 262 tracks), D2 and D3 (the CLI's
+reports and tracklists at 262 tracks and NAS scale); T: no confident
+extra entry added and no truth play printed by default left unprinted.
+Confirmed when S2, S3 and T hold on every run made; any violation
+fails it. The validation half stays unseen; nothing is tuned.
+
+### Run P: the second shared panel (experiment 0209)
+
+10 scenarios, 169 queries, 440 query and index pairs, on session 44's
+renders (no NAS audio read). Confident played 545, related 12, other 3,
+partner 0, the same in both runs; no `other` segment added, no played
+detection lost. The three `other` ones are Phantom 2018 in
+phantom-force-5's 50 s "before" query, in both. Beside: 83 weak or
+possible detections added (at most 61 hits, 0.60-12.1% from the stronger
+detection of their file, 41 under 0.9%), 2 weak removed. User CPU 5,140
+s and 5,145 s; the default's detections equal session 44's run of the
+panel.
+
+### Runs D1-D3: double drops and their tracklists (experiment 0210)
+
+- D1 (harness, 262 tracks, ladder `both` and, for the check, `turntable`):
+  right plays 221 -> 221 and 220 -> 220, wrong confident 0 -> 0; 20 weak
+  detections added (7-44 hits), 19 of them second alignments of the
+  Clockwork pair's file not playing while its related version plays,
+  0.61-1.51% from a stronger alignment of the same file.
+- D2 and D3: the CLI has no variant, so the tracklists under it come from
+  a diagnostic build (master's tree with `Matcher::Fitted`'s
+  `second_overlap` set to `SpansAtSpeed(0.006)`, never committed;
+  `work/s45/variant-cli.diff`). All 64 reports are byte-identical
+  between the builds; T, S2 and S3 hold (entries 222, 223, 230, 230;
+  wrong confident plays at NAS scale 2 -> 2, session 39's Animation
+  remix). NAS scale used the NAS store's own records (`--store-only`,
+  `--exclude-from`), not a listing of the NAS; the default's plays equal
+  session 39's in all 64 reports.
+- The diagnostic CLI runs the variant: its diff is one line, and on the
+  Stakka development mix it keeps Star Trails' 793-877 s side (315 hits),
+  which the default drops (the printed line is the same). Its segments at
+  262 tracks are all in the turntable harness report with the variant,
+  which shows consistency only, since the default's are too.
+
+### Step 5, run B: beatmatched long mixes (experiment 0211)
+
+Registered before its runs (brief 22:30). Session 35's seeds 3511-3513,
+rendered again from the seeds (corpus files only), 262 tracks: right
+plays 186, 195 and 188 and wrong confident detections 0, unchanged; 21
+weak detections added (at most 27 hits), none of a file playing then,
+0.60-2.49% from a stronger detection of the same file. The default's
+detections equal session 35's reports in all 48 mixes.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start) | 1:07 | 0.4 GiB |
+| `regress session-33-linux-nas` (start) | 4:12 | 5.4 GiB |
+| `shared`, second panel's development half, NAS scale (default; variant) | 18:38; 18:36 | 5.7 GiB |
+| `mixes --kind drops --count 16`, cached renders (`both`; `turntable`) | 1:14-1:25; 0:59-1:00 | 1.5 GiB |
+| `identify --save-dir` of 16 drop mixes, 262 tracks; NAS store's records | 0:54-0:55; 2:37-2:43 | 0.17; 5.2 GiB |
+| `mixes --kind beatmatched --count 16` (rendering and searching; cached) | 3:24-3:30; 2:31-2:39 | 13.4-14.6; 2.6-2.7 GiB |
+| The diagnostic build (`cargo build --release`, from scratch) | 0:59 | |
+
+The `shared` runs read the NAS store's records from the local disk and
+used 467% CPU.
+
+### Decided this session, open to change
+
+- The tracklists under the variant come from a diagnostic build, not a
+  CLI option, so that the product does not change (brief 21:18).
+- The registered check of the diagnostic build (its harness against
+  master's variant) could not work, because the harness sets
+  `second_overlap` itself; it was replaced by a check on the CLI's own
+  segments, which shows consistency only, and a positive control on the
+  Stakka mix, which with the one-line diff is the evidence (brief
+  22:10-22:15, 23:00). D2's result was read before that check ran; the
+  check did not change it.
+- NAS scale for the drops used the NAS store's own records instead of
+  the NAS configuration, which lists the NAS over a slow link tonight;
+  it gives the same `library_revision` and the same plays as session 39.
+- The drops ran on copies of session 39's renders; the panel on hard
+  links to session 44's renders, which `shared` never rewrites.
+- The variant's weak detections were compared at first with session 38's
+  confident-only speed differences; corrected in the decision note
+  (brief 22:31).
+
+### Decisions waiting (ours)
+
+- Whether to adopt `SecondOverlap::SpansAtSpeed(0.006)` through an ADR
+  superseding ADR 0008's consequence for overlapping parts. The
+  registered confirmation holds; the residual risk is a related
+  version's second alignment more than 0.6% apart that reaches 240 hits
+  on its own (none in any run of sessions 38 and 45).
+- How a play shows its overlapping segments, and whether the 0.6% goes
+  into `docs/calibration.md` beside the ladder's step (the decision
+  note's questions 1-5).
+
+### Questions for listening (none answered by agents)
+
+- Unchanged from earlier sessions: Star Trails at 13:13-14:37 in the
+  Stakka mix and Into Music at 25:57-26:56 in the 2003 mix (rides or
+  not), session 39's three questions, session 40's pack.
+
+### Handoff for the next session
+
+1. Reports: the panel's in `work/s45/w/reports/library-nas-dnb-peaks/`
+   and its `variant-apart-0.006/`; the drops' in `work/s45/w0/reports/`
+   (and `ladder-turntable/`, each with `variant-apart-0.006/`); the CLI's
+   reports and printed tracklists in `work/s45/cli-{262,nas}-{default,variant}/seed-*/`,
+   their scores `work/s45/scores-*.json` and comparisons
+   `work/s45/tracklists-*.txt`, `check-cli-262-*.txt`, `d1-compare.txt`,
+   `d1-beside.txt`, `panel-compare.txt`, `panel-beside.txt`;
+   the beatmatched reports in `work/s45/w5/reports/` (renders deleted).
+2. Builds: `work/bin/s45-start/` (= `s44-final`), the diagnostic
+   `work/bin/s45-variant-cli/` (never committed; its source in
+   `work/s45/variant-src/`, its diff `work/s45/variant-cli.diff`), and
+   `s45-final/`.
+3. Scripts (`sh`, from the repository root): `work/s45/start.sh`,
+   `variant-build.sh`, `panel.sh`, `drops.sh`, `turntable.sh`,
+   `stakka.sh`, `beatmatched.sh`, `final.sh`; analyses
+   `work/s45/panel_beside.py`, `drops_beside.py`, `check_cli.py`,
+   `same_detections.py`; logs in `work/s45/logs/`.
+4. `work/s45/w/` holds hard links to the saved index and to session 44's
+   renders of the second panel; `work/s45/w0/mixes/` copies of session
+   39's drop renders (950 MB); both can be deleted.
+5. Next, if we continue: the ADR (ours); a test on the second panel's
+   validation half only if a rule change needs one.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The searched mixes were generated
+  mixes and the Stakka development mix (the positive control). Nothing
+  ran on the candidate mixes of 0065 or on the NAS root's broadcast
+  file; the NAS store holds no record of it.
+- The NAS was read only for FFprobe header reads of the first panel's
+  pair files, some on the NAS (`mixes --kind drops`); no NAS audio was
+  decoded.
+  The NAS store and `work/peaks` were only read. No `index` or `prune`;
+  the clusters file is unchanged.
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s45/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed (`work/s45/panels` is a copy of
+  `work/s33/panels`).
+- A read-only review by a separate agent (22:50-22:59) recomputed every
+  criterion count and found none wrong. It found the CLI segment check
+  unable to tell the builds apart, 0211's Aphrodite count, speed gaps and
+  memory wrong, an unmarked inference, imprecise phrases in the decision
+  note, the missing no-harm caveat (no ride in the new data), the
+  roadmap without the beatmatched result, stamps set ahead of the clock
+  (each corrected), and a truncating `zip` in `variant_compare.py
+  tracklists`. All fixed or recorded (brief 23:00).
+- Final checks (22:49-22:58) with `work/bin/s45-final/`, byte-identical
+  to `s45-start` (no Rust change this session): `scripts/check.sh` green
+  (3:48); `regress session-32-linux` (1:09) and `regress
+  session-33-linux-nas` (4:07) identical, every sweep query, scan
+  detection and calibrate line, and each report identical to its
+  baseline's apart from `wall_seconds`; the verdicts file and the
+  clusters file unchanged. The later commits change documents and an
+  analysis script only.
+- Stamps in the brief were set ahead of the clock five times and
+  corrected each time; commit times in `git log` are the reference.

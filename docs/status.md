@@ -4713,3 +4713,36 @@ fan-out counts.
   `work/bin/s44-final/`: `scripts/check.sh` green; both regressions
   identical (1:09; 4:06); `docs/pair-verdicts.txt` and the clusters file
   unchanged.
+
+## 2026-10-24: session 45, the pitch-ride variant on data its threshold has not seen
+
+Brief `docs/brief-45.md`, checklist `docs/session-45-checklist.md`;
+notes "Session 45"; experiments 0209-0211; the decision note's
+"Session 45". The product did not change.
+
+- 21:11 start at `3c1ecd9`, clean. Start build `work/bin/s45-start/`
+  (byte-identical to `s44-final`); both regressions identical (1:07;
+  4:12).
+- 21:20 `3bb80ef`: the pre-registration: brief 38's S2 and S3 quoted, a
+  tracklist criterion T, the runs (the second shared panel's development
+  half at NAS scale; session 39's double drops at 262 tracks and NAS
+  scale, with the CLI's tracklists), what confirms and what fails.
+- 0209: on the second panel (440 query and index pairs) no confident
+  detection changes; 83 weak or possible ones added. S2 and S3 hold.
+- 0210: on the drops (seeds 2026 and 2028) nothing confident changes in
+  the harness; the CLI's 64 reports and tracklists, from a diagnostic
+  build with the variant (never committed), are byte-identical to the
+  default's at 262 tracks and NAS scale. S2, S3 and T hold. The weak
+  detections it adds include a related version's second alignments
+  0.61-1.51% apart without a ride.
+- 0211 (step 5): on session 35's beatmatched seeds 3511-3513 nothing
+  confident changes; 21 weak detections added. S2 and S3 hold.
+- The variant is confirmed by the registered reading, as doing no harm
+  (no ride in this data; recovery rests on seed 3801); the decision note
+  adds that against shared material it relies on the 240-hit rule's
+  margin. Adoption waits for an ADR (ours).
+- A read-only review recomputed every criterion count (none wrong); its
+  wording and precision findings were fixed. Final checks with
+  `work/bin/s45-final/` (= `s45-start`): `scripts/check.sh` green; both
+  regressions identical (1:09; 4:07); `docs/pair-verdicts.txt` and the
+  clusters file unchanged.
