@@ -6,15 +6,13 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-45.md` (the current session's brief) and
-   `docs/session-45-checklist.md` (its progress), with
-   `docs/brief-38.md` (criteria S1-S3), the decision note
-   `docs/research/2026-10-22-pitch-rides-decision.md`, experiments
-   0175-0185 and 0209 and up, the roadmap's "Speed that wanders within
-   a play" and "The printed tracklist", and the code of
-   `crates/gunfinger-core/src/search.rs` (`strongest_per_moment`,
-   `SecondOverlap`), `crates/gunfinger-eval/src/shared.rs` and
-   `mixes/drops.rs`;
+2. `docs/brief-46.md` (the current session's brief) and
+   `docs/session-46-checklist.md` (its progress), with experiments
+   0097, 0109, 0189-0193, 0199-0205 and 0212 and up,
+   `docs/research/2026-10-21-low-bandwidth-search.md`, the roadmap's
+   speed bullet, and the code of `crates/gunfinger-core/src/spectrogram.rs`,
+   `peaks.rs`, `speed.rs`, `search.rs` (`points_near`, `KeyLockPeaks`)
+   and `search/lines.rs` (`in_blocks`);
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -29,9 +27,9 @@ anything else:
    `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
    `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md`,
    `docs/brief-38.md`, `docs/brief-39.md`, `docs/brief-40.md`,
-   `docs/brief-41.md`, `docs/brief-42.md`, `docs/brief-43.md` and
-   `docs/brief-44.md` hold rules that still apply unless brief 45
-   changes them
+   `docs/brief-41.md`, `docs/brief-42.md`, `docs/brief-43.md`,
+   `docs/brief-44.md` and `docs/brief-45.md` hold rules that still
+   apply unless brief 46 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
