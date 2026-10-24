@@ -10215,3 +10215,215 @@ used 467% CPU.
   analysis script only.
 - Stamps in the brief were set ahead of the clock five times and
   corrected each time; commit times in `git log` are the reference.
+
+## Session 46
+
+### What changed
+
+One exact change to the query analysis is in master (`245212a`,
+experiments 0212-0214): the peak picker compares powers instead of
+levels in decibels. `spectrogram::for_each_power_frame` gives each
+bin's power (`|X|^2 + 1e-20`, the same operations as before), and
+`decibels(p) = 10 log10 p` is taken only where a level is needed. Since
+`decibels` never decreases as power grows, a bin with no more power
+than another has no higher level, the loudest power of a set has its
+loudest level, and a power below `floor_power` (the lowest power whose
+level reaches the floor) is exactly a level below the floor. So the
+four-neighbour test and the neighbourhood test run on powers, and for a
+bin that passes them all (about 0.6 a frame) one comparison of its
+level with that of the loudest other point settles a tie in decibels;
+refinement and magnitudes use the levels of the same powers. The
+four-neighbour test is also one loop over slices of the same length,
+then the passing bins are gathered. About 4 logarithms a frame are
+taken instead of 475-557 (the commit message's "513-557" has the
+wrong lower end: turntable FFTs of 948 samples have 475 bins). The peaks are the same to the bit:
+`decibels_never_decrease_as_power_grows` checks every non-negative
+`f32` on the machine running the tests (monotonicity belongs to the
+platform's maths library, so it runs on every platform; 4 s in a debug
+build), a test makes two different powers round to the same decibels
+as a nearest neighbour and farther away, and the tests against the
+definition on levels pass. Lines, detections, evidence, boundaries,
+speeds and orderings are identical in every report compared, and
+`index` stores the same peaks (four corpus files checked).
+
+In short: on the Linux machine the Stakka scan's search at NAS scale
+takes 24.1-24.3 s instead of 26.1-26.2 s at 32 workers (7.2-7.5% less)
+and 29.1 s instead of 31.8 s at 16 (8.6-8.7%), with 9.0-9.2% less CPU
+at 32 workers; `identify` of the Stakka mix through the CLI at 262
+tracks with both ladders 6.5-6.7 s instead of 8.5 s (34% less CPU);
+`regress session-32-linux` 0:52 instead of 1:08 (single runs). The clusters sample
+searches stored peaks and does not analyse audio: 1:19-1:20 either way.
+
+### Step 1: where the analysis's time goes (experiment 0212)
+
+Timers in a diagnostic build (`work/s46/diag.diff`): at 32 workers the
+first pass's analysis split FFT 37%, log power 30%, the four-neighbour
+test 19%, the neighbourhood test 12% (timers included), windowing 2%,
+the row copy under 1%, plans 0.05%. The FFT was 44% of the turntable
+analysis (0109 measured 75% on one thread, with `identify` and older
+code; the thread count barely moves it here: 45% at 16 workers). A frame has 17.6 candidates and 0.61 peaks.
+Repeated analysis is small: block edges about 1% of frames, the
+neighbourhoods' edges 0.3%, and key-locked rungs already reuse their
+hop's analysis (609 made, 580 reused).
+
+The `x86-64-v2` build (SSE4.1, `roundss`/`roundsd`) gave byte-identical
+reports and was not faster: 0.8-1.9% slower at 32 workers, 1.6% slower
+and 0.2% faster at 16. By inference (v2 changes more than rounding,
+so it bounds only the net effect), the rounding calls left since
+session 41 removed the pre-filter's `floor` (about two `round` calls a
+frame in the analysis, a few in hashing) cost nothing measurable. For a
+platform decision (ADR 0020): a v2 release target would buy no speed
+for the search as it is.
+
+### Steps 2 and 3: the candidates (0213)
+
+Pre-registered (brief 46, 23:30 `59452fd`; addenda 23:31 `2aeb90c` and
+23:41 `f743ce0`), each before it was timed (rounds started 23:30:16,
+23:39:57 and 23:46:07); the stop point a cut of 3%
+at 32 workers against the start build in every pair.
+
+| Candidate | 32 workers | 16 workers |
+|---|--:|--:|
+| C1 `round` without the library call | -1.1%, -0.2% | 0.0%, 0.1% |
+| C2 the peak test on powers, a `max` fold | -0.9%, -0.5% | 2.4%, 1.9% |
+| C2b C2 with the old fold of comparisons | 2.6%, 2.1% | 3.8%, 3.9% |
+| C2c decibels only for bins that pass on powers | 2.4-3.2% | 4.4-5.1% |
+| C3 the four-neighbour test over equal slices | 1.7%, 2.5% | 2.9%, 3.0% |
+| C4 C2c with C3 | 7.2-7.8% | 8.4-8.7% |
+
+C2 saved the logarithms but its `max` fold over every neighbourhood
+cost more at 32 workers (C2b against C2); C2c then took levels only for
+the bins that pass every test on powers. Neither C2c nor C3 passed
+alone; together (C4) they cut more than the sum of their cuts, by
+inference because after C2c the four-neighbour loop is most of what is
+left of the picking.
+
+### Steps 4 and 5: adoption and its times (0214)
+
+Validation of `s46-adopt` (C4 in master's tree): both regressions
+identical (0:52; 4:02), each report too apart from `wall_seconds`; the
+11 development scans at NAS scale and the 11 at corpus scale (262
+tracks) and the clusters sample byte-identical to the start build's;
+the stored peaks of four corpus library files indexed into scratch
+stores byte-identical between the builds and to those files' records
+in `work/peaks` (read only). Clippy then asked for two rewrites (the
+last level comparison through `partial_cmp`, the same predicate; a
+closure in a test), so the final build ran the same validation again
+(below).
+
+| Run (Linux machine, 3600 MT/s, 32 workers unless stated) | Start (`s46-start` = `s45-final`) | Now (`s46-adopt`; `245212a` adds two clippy rewrites) |
+|---|--:|--:|
+| Stakka scan at NAS scale, search | 26.20, 26.08 s | 24.32, 24.12 s |
+| The same, user CPU | 724, 729 s | 659, 662 s |
+| The same, 16 workers | 31.83, 31.84 s | 29.10, 29.06 s |
+| `identify` of the Stakka mix (corpus configuration, both ladders) | 8.47, 8.50 s | 6.50, 6.66 s |
+| `identify`'s user CPU | 179, 179 s | 119, 118 s |
+| Clusters sample of 48 | 1:20.4, 1:19.8 | 1:18.6, 1:19.4 |
+| `regress session-32-linux` (single runs) | 1:08 | 0:52 |
+| `regress session-33-linux-nas` (single runs) | 4:21 | 4:02 |
+
+### Where the search's CPU goes now (0214)
+
+With session 41's stage timers on the adopted code (exploratory, 16 and
+32 workers), the first pass goes to grouping a part by asset 46% and
+40%, the pre-filter 18% and 21%, query analysis 13% and 15% (54 s
+instead of 91 s at 16 workers, 99 s instead of 167 s at 32), taking
+parts 12% and 13%, aligning, sorting and lines 10.5%. Within the
+analysis the FFT is now the largest part, by inference from 0212's
+split with the logarithms and the four-neighbour loop made cheaper (not
+measured again).
+
+### Decided this session, open to change
+
+- Rounds 1-3 form one experiment (0213) under one pre-registration and
+  two addenda, each addendum committed before its candidates were
+  timed; 0213 was written after round 3 and before any adoption run
+  finished.
+- C2b was registered while round 1 ran, C2c and C4 after its results;
+  each before it was timed. The rule for the combination in the first
+  registration (only candidates that pass) would have timed no
+  combination, so C4 was registered as a candidate of its own.
+- The adopted code changed after its validation (two clippy rewrites,
+  one a different form of the same comparison), so the validation ran
+  again on the final build instead of resting on the earlier one.
+- `diag-32` ran beside a compile; it was repeated on the idle machine
+  (`diag-32b`), which 0212 uses.
+- Monotonicity of `decibels` is a property of the platform's maths
+  library (`log10f`); the test checks it over every non-negative `f32`
+  wherever the tests run, so the Mac's library is checked when its tests
+  run. It has not been run on the Mac yet.
+
+### Handoff for the next session
+
+1. Master's analysis is 0213's C4. Builds: `work/bin/s46-start/` (=
+   `s45-final`), `s46-adopt/` (validated), `s46-final/` (master after
+   the clippy rewrites, validated again), the candidates `s46-c1`,
+   `-c2`, `-c2b`, `-c2c`, `-c3`, `-c4`, `s46-final2/` (the final
+   tree, used for the final checks), the diagnostics `s46-diag`
+   (`work/s46/diag.diff`, `diag.rs`), `s46-timers` (`timers.diff`) and
+   `s46-v2`. Candidate diffs `work/s46/c*.diff` (the scratch worktrees
+   they were made in were removed at the end).
+2. Scripts (`sh`, from the repository root): `work/s46/ab.sh`,
+   `ab.py`, `validate.sh`, `devscans.sh`, `corpusscans.sh`,
+   `timing.sh` (`identify` with the corpus configuration and
+   `--playback both`), `indexcheck.sh` (stored peaks in scratch
+   stores), `diag.sh`, `diag.py`, `timers.sh`. References:
+   `work/s46/dev-start/`, `corpus-start/`.
+3. What is left: grouping's scatter (session 43's handoff) is now
+   about three times the analysis. Within the analysis the FFT is the
+   largest part and stays fixed unless the FFT lengths change (0109's
+   retrieval study, our decision); windowing and the row copy were
+   2.3% of it in 0212, before the change. The neighbourhood test on powers keeps its old fold;
+   whether it, or the gathering of candidates, can be cheaper was not
+   measured after C4.
+4. The Mac has not run the monotonicity test or been timed; its
+   `log10f` is Apple's, so `scripts/check.sh` there is the first check.
+   A profile with `min_bin > max_bin` (none exists) now panics when
+   slicing in `pick`, where the old loop found no peaks; not changed.
+5. All times are on the Linux machine at 3600 MT/s.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The development sets were named
+  one by one. Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file.
+- NAS-scale runs read the NAS store's records and the saved index, both
+  local; no command named a path on the NAS, and `identify` used the
+  corpus configuration (the slow link tonight). No `index` or `prune`
+  with the NAS configuration; `index` ran only on
+  copies of four corpus files into scratch stores under `work/s46/`.
+  The clusters file in use is unchanged (SHA-256 `d9c85c4586ad...`).
+- `docs/pair-verdicts.txt` is unchanged (SHA-256 in
+  `work/s46/listening-digests-start.txt`); no answer log; no manifest or
+  committed panel changed. `work/s46/panels` is a copy of
+  `work/s33/panels`.
+- A read-only review by a separate agent (00:34-00:42) found no input,
+  profile or edge where the new picker gives other peaks than the old
+  (NaN, infinities, silence rows, missing frames, the floor's
+  bisection, narrow neighbourhoods, the overlapping ranges of the
+  monotonicity test). It found 21 points: a field comment covering two
+  fields; the four-neighbour terms of the final comparison untested
+  (now a case with a neighbourhood one bin wide, which fails when they
+  are removed); magnitudes not compared with the definition (now
+  asserted to the bit); the lower end of "513-557"; the
+  pre-registration's stamps, written from a misread clock (23:30,
+  23:31 and 23:41 by the commits, each before its round started); C2b's
+  timing in "Decided"; an unsupported cause for 0109's FFT share; the
+  signs of the `x86-64-v2` cuts at 16 workers and inferences not marked;
+  wording in the low-bandwidth note; the adoption table's build; 0213's
+  sum (4.2-5.7%); 0212's plan shares; block edges as an estimate;
+  regress times as single runs and in 0214's data; 0214's inference and
+  the stored-peaks check; 0205's ranges; the handoff's windowing share;
+  "four files checked". All fixed (brief 46, 00:44); the invalid-profile
+  panic it noted is listed in the handoff. The fixes change only
+  comments and tests, so the final build was made again.
+- Final checks (00:44-00:53) with `work/bin/s46-final2/`, built from the
+  tree after the review's fixes: `scripts/check.sh` green (3:46);
+  `regress session-32-linux` (0:51) and `regress session-33-linux-nas`
+  (3:47) identical, every sweep query, scan detection and calibrate
+  line, and each report identical to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt` and the clusters file
+  unchanged. `s46-final` (before the review's comment and test fixes)
+  had passed the full validation (00:29-00:42): both regressions, the
+  11 development scans at both scales and the clusters sample.

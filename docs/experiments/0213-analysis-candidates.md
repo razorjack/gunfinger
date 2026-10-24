@@ -1,8 +1,8 @@
 # 0213: cheaper query analysis, the candidates
 
 **Question.** Which exact changes to the analysis cut the Stakka scan's
-search at NAS scale by 3% or more at 32 workers in every pair (brief
-46's pre-registration, 23:29, and its addenda, 23:36 and 23:45)?
+search at NAS scale by 3% at 32 workers in every pair (brief 46's
+pre-registration, 23:30, addenda 23:31 and 23:41)?
 
 **Candidates** (`work/s46/c*.diff`), all with the same peaks to the bit:
 C1, `round` without the library call (refinement, magnitudes, the STFT
@@ -17,9 +17,8 @@ every non-negative `f32` on the machine running the tests.
 
 **Method.** `ab.sh`, otherwise idle: round 1 start, C1, C2, C3, C3, C2,
 C1, start; round 2 start, C2b, C2b, start; round 3 start, C2c, C4, C4,
-C2c, start, twice; each at 32 then 16 jobs. Every report identical to
-the start build's apart from `wall_seconds`. Data
-`data/0213-candidate-rounds.tsv`.
+C2c, start, twice; each at 32 then 16 jobs. Every report identical
+apart from `wall_seconds`. Data `data/0213-candidate-rounds.tsv`.
 
 | Candidate | Cut at 32 workers | At 16 | CPU at 32 |
 |---|--:|--:|--:|
@@ -30,11 +29,12 @@ the start build's apart from `wall_seconds`. Data
 | C3 four-neighbour loop | 1.7%, 2.5% | 2.9%, 3.0% | 1.1%, 2.4% |
 | C4 = C2c with C3 | 7.2-7.8% (4 pairs) | 8.4-8.7% | 8.5-9.3% |
 
-Search at 32 workers, round 3: start 25.98-26.12 s, C4 24.03-24.20 s;
-at 16, 31.77-32.03 s and 29.09-29.28 s.
+Round 3: start 25.98-26.12 s, C4 24.03-24.20 s at 32 workers; at 16,
+31.77-32.03 s and 29.09-29.28 s.
 
 **Conclusion.** Only C4 passes; it is adopted. Together the two halves
-save more than the sum of their cuts alone (4.1-5.7%). By inference, after C2c the four-neighbour loop is the larger share of
+save more than their cuts alone add up to (4.2-5.7%, C3 from round 1,
+C2c from round 3). By inference, after C2c the four-neighbour loop is the larger share of
 the picking, and C3 makes it cheaper. C2's `max` fold cost more than
 the logarithms it saved at 32 workers (C2 against C2b). Rounding
 costs nothing measurable, as 0212 predicted.

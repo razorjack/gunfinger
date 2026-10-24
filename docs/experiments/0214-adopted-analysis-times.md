@@ -20,20 +20,21 @@ stage timers on the adopted code (`work/s46/timers.diff`), 32, 16, 16,
 | Clusters sample of 48 (stored peaks, no analysis) | 1:20.4, 1:19.8 | 1:18.6, 1:19.4 |
 | `identify`, corpus configuration, both ladders | 8.47, 8.50 s | 6.50, 6.66 s |
 | Its user CPU | 179.3, 179.2 s | 118.6, 117.9 s |
-| `regress session-32-linux` (validation) | 1:08 | 0:52 |
-| `regress session-33-linux-nas` (validation) | 4:21 | 4:02 |
+| `regress session-32-linux` (one run each, unpaired) | 1:08 | 0:52 |
+| `regress session-33-linux-nas` (one run each, unpaired) | 4:21 | 4:02 |
 
 | Share of the first pass's CPU | 16 jobs (0205) | 32 jobs (0205) |
 |---|--:|--:|
 | CPU in the first pass | 410-412 s (446 s) | 664-668 s (707-712 s) |
-| Query analysis | 13.1% (20.4%) | 14.9% (23.6%) |
-| Grouping a part | 45.9% (42.6%) | 40.2% (35.6%) |
-| The pre-filter | 18.3% (16.2%) | 20.7% (18.6%) |
+| Query analysis | 13.1% (20.4%) | 14.9% (23.5-23.6%) |
+| Grouping a part | 45.9% (42.6-42.7%) | 40.2% (35.6%) |
+| The pre-filter | 18.3% (16.2%) | 20.7% (18.6-18.7%) |
 | Taking parts | 11.6-11.7% (10.5-10.7%) | 13.1-13.2% (11.8%) |
 | Aligning, sorting, lines | 10.5% (9.7%) | 10.5% (9.9%) |
 
 **Conclusion.** The search is 7.2-7.5% shorter at 32 workers and
-8.6-8.7% at 16; `identify` at 262 tracks, where analysis is most of
-the work, takes 22-23% less time and 34% less CPU. The analysis's CPU
+8.6-8.7% at 16; `identify` at 262 tracks, where by inference (0028)
+analysis is most of the work, takes 22-23% less time and 34% less
+CPU. Stored peaks of four files: identical (`work/s46/indexcheck.txt`). The analysis's CPU
 fell from 91 s to 54 s at 16 workers and from 167 s to 99 s at 32.
 Grouping (40-46%) now costs about three times the analysis.

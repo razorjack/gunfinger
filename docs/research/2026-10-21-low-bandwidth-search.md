@@ -233,6 +233,30 @@ build's apart from `wall_seconds`.
   analysis 20-24%, the pre-filter 16-19%, taking parts 11-12%, sorting
   and lines 10%.
 
+## Session 46
+
+Query analysis, the second-largest share of the first pass after
+session 43 (20-24%, 0205), measured and changed (not an item of this
+note). All at 3600 MT/s, the Stakka scan at NAS
+scale, reports identical to the start build's apart from
+`wall_seconds`.
+
+- The split within the analysis (0212): at 32 workers the FFT 37%, log
+  power 30%, the four-neighbour test 19%, the neighbourhood test 12%;
+  block edges repeat about 1% of frames (the code's estimate). An
+  `x86-64-v2` build (inline SSE4.1 rounding instead of library calls)
+  was 0.8-1.9% slower at 32 workers.
+- In master (0213, 0214): the peak picker compares powers and takes
+  about 4 logarithms a frame instead of 475-557, with the four-neighbour
+  test as one loop over equal slices. The search 24.1-24.3 s instead
+  of 26.1-26.2 s at 32 workers, 29.1 s instead of 31.8 s at 16.
+- Dropped: rounding without library calls (no change), the powers with
+  a `max` fold (slower at 32 workers), and each half of the adopted
+  change alone (1.7-3.2% at 32 workers).
+- Left (0214): grouping a part 46% of the first pass's CPU at 16
+  workers and 40% at 32, the pre-filter 18-21%, query analysis 13-15%,
+  taking parts 12-13%, sorting and lines 10.5%.
+
 `regress` prints what changed and returns success either way
 (`regress.rs`, `compare`): read its output, do not rely on its exit
 status.

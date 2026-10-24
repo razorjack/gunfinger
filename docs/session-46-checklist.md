@@ -24,12 +24,12 @@ for scope and rules.
   any candidate is timed
 - [x] 3. Candidates, each tested and timed; the combination of those
   that pass
-- [~] 4. Adoption in master: tests, 11 development scans at both
+- [x] 4. Adoption in master: tests, 11 development scans at both
   scales, clusters sample, both regressions; stored peaks of a few
   corpus files in a scratch store if `index` code changed
-- [~] 5. Experiments: 0212 (breakdown and `x86-64-v2`), each candidate,
-  the adopted combination's times
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 46", status, checklist, roadmap's speed
+- [x] 5. Experiments: 0212 (breakdown and `x86-64-v2`), 0213 (the candidates),
+  0214 (the adopted change's times)
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 46", status, checklist, roadmap's speed
   bullet, low-bandwidth note; final checks (`scripts/check.sh`, both
   regressions, verdicts and clusters digests, `git status` clean)

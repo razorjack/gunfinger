@@ -228,7 +228,7 @@ Rules for this session:
     CLI with the corpus configuration and `--playback both`
     (`timing.sh`: warm-up, then A B B A), whose JSON reports must be
     byte-identical.
-- **(23:36) Pre-registration, addendum: C2b**, written while round 1
+- **(23:31) Pre-registration, addendum: C2b**, written while round 1
   ran and registered before it is timed. C2 folds each row of the
   neighbourhood with `max` to keep the loudest power, which the
   compiler may not vectorise as it does the old fold of comparisons.
@@ -246,7 +246,7 @@ Rules for this session:
   at 16 workers C1 0.0% and 0.1%, C2 2.4% and 1.9%, C3 2.9% and 3.0%.
   None passes the stop point, so no combination of round 1's
   candidates is timed under the registered rule.
-- **(23:45) Pre-registration, addendum 2: C2c and C4**, registered
+- **(23:41) Pre-registration, addendum 2: C2c and C4**, registered
   before either is timed, while C2b's round runs. C2's added CPU at 32
   workers points at its two logarithms per candidate (17.6 a frame) and
   its `max` fold. **C2c** is C2b without the four-neighbour test on
@@ -298,3 +298,23 @@ Rules for this session:
   (`work/bin/s46-final/`) runs the 11 development scans at both scales,
   the clusters sample and both regressions again
   (`work/s46/validate.sh s46-final final`).
+- **(00:44) Review** (a separate read-only agent, 00:34-00:42): no case
+  where the new picker gives other peaks; 21 findings, all fixed: the
+  `passes` and `candidates` comments, a test case with a neighbourhood
+  one bin wide (checked to fail when the four-neighbour terms are
+  removed), magnitudes asserted against the definition, and the
+  documents' figures and wording. The stamps of the pre-registration's
+  addenda were written from a misread clock: the commits are at 23:30
+  (`59452fd`), 23:31 (`2aeb90c`, C2b) and 23:41 (`f743ce0`, C2c and C4),
+  and the rounds started at 23:30:16, 23:39:57 and 23:46:07, so each
+  registration still preceded its timing; the two addenda's stamps above
+  are corrected. The validation of `s46-final` (00:29-00:42) passed:
+  both regressions identical (0:51; 3:47), the 11 development scans at
+  both scales and the clusters sample identical. The fixes change
+  comments and tests only; the final checks use a build of the final
+  tree (`work/bin/s46-final2/`).
+- **(00:54) Final checks** with `work/bin/s46-final2/`: `scripts/check.sh`
+  green; both regressions identical (0:51; 3:47), each report too;
+  `docs/pair-verdicts.txt` and the clusters file unchanged. The scratch
+  worktrees under `work/s46/wt*` are removed (their diffs are
+  `work/s46/c*.diff`, `diag.diff`, `timers.diff`).

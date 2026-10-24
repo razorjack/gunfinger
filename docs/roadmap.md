@@ -591,6 +591,20 @@ marked as inferences were derived, not measured.
   brief 43 and tested against the old filter (0203); the search 26.0 s
   instead of 27.2 s at 32 workers and 31.6 s instead of 32.6 s at 16,
   every report identical (0204). Where the CPU goes now: 0205.
+  *(session 46)* Query analysis at 32 workers split FFT 37%, log power
+  30%, the four-neighbour test 19% and the neighbourhood test 12%; plans,
+  reused analyses and rounding were each under 1%, and an `x86-64-v2`
+  build was not faster (0212). In master: the peak picker compares
+  powers, which order as their levels do since `decibels` never
+  decreases as power grows (tested over every non-negative `f32` where
+  the tests run), takes levels only for bins that pass every test on
+  powers and for refinement, and tests the four nearest neighbours in
+  one loop over equal slices (0213's C4; neither half passed the 3%
+  stop point alone). The search 24.1-24.3 s instead of 26.1-26.2 s at
+  32 workers and 29.1 s instead of 31.8 s at 16; `identify` at 262
+  tracks with both ladders 6.5-6.7 s instead of 8.5 s; every report and
+  the stored peaks identical (0214). The analysis is now 13-15% of the
+  first pass; grouping 40-46%.
 - **Behaviour at scale.** *(larger library)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,

@@ -4746,3 +4746,33 @@ notes "Session 45"; experiments 0209-0211; the decision note's
   `work/bin/s45-final/` (= `s45-start`): `scripts/check.sh` green; both
   regressions identical (1:09; 4:07); `docs/pair-verdicts.txt` and the
   clusters file unchanged.
+
+## 2026-10-25: session 46, cheaper query analysis, exact
+
+Brief `docs/brief-46.md`, checklist `docs/session-46-checklist.md`;
+notes "Session 46"; experiments 0212-0214. Detections, reports and
+stored peaks are unchanged; the analysis is faster.
+
+- 23:03 start at `867ac8d`, clean. Start build `work/bin/s46-start/`
+  (byte-identical to `s45-final`); both regressions identical (1:08;
+  4:21).
+- 0212: at 32 workers the analysis splits FFT 37%, log power 30%, the
+  four-neighbour test 19%, the neighbourhood test 12%; plans, reused
+  analyses and rounding each under 1%. The `x86-64-v2` build gives
+  identical reports and is 0.8-1.9% slower at 32 workers.
+- 23:30 `59452fd`: the pre-registration (C1-C3, the stop point a 3% cut
+  at 32 workers in every pair); addenda `2aeb90c` (C2b) and `f743ce0`
+  (C2c, C4), each before its timing.
+- 0213: only C4 passes (7.2-7.8% at 32 workers, 8.4-8.7% at 16): the
+  peak test on powers, decibels only for bins that pass every test on
+  powers, and the four-neighbour test as one loop over equal slices.
+- `245212a`: C4 in master. Validation: both regressions identical,
+  the 11 development scans at both scales and the clusters sample
+  identical, four files' stored peaks identical in scratch stores.
+- 0214: the search 24.1-24.3 s instead of 26.1-26.2 s at 32 workers and
+  29.1 s instead of 31.8 s at 16; `identify` at 262 tracks with both
+  ladders 6.5-6.7 s instead of 8.5 s. The analysis is now 13-15% of the
+  first pass's CPU, grouping 40-46%.
+- A read-only review found the picker exact on every input and profile
+  it examined; its 21 points (two test gaps, comments, figures, stamps)
+  were fixed.

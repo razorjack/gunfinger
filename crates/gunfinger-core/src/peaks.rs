@@ -82,10 +82,11 @@ struct PeakPicker<'p> {
     received: usize,
     /// Peaks are picked in these frames only.
     wanted: Range<usize>,
-    /// Whether each bin from `min_bin` of the frame being picked passes the
-    /// four nearest neighbours, then the bins that do, in the first places
-    /// (see `pick`).
+    /// Whether each bin from `min_bin` of the frame being picked reaches the
+    /// floor and has more power than its four nearest neighbours (see
+    /// `pick`).
     passes: Vec<bool>,
+    /// The bins that pass, in the first places.
     candidates: Vec<usize>,
     /// Stands for the frame before the first and after the last.
     silence: Vec<f32>,
@@ -396,10 +397,11 @@ mod tests {
         }
     }
 
-    /// The peaks' STFT frames and bins by the definition: louder than the
-    /// floor and strictly louder than every other point of the neighbourhood
-    /// that exists, over the whole spectrogram at once.
-    fn peaks_by_definition(samples: &[f32], profile: &Profile) -> Vec<(usize, usize)> {
+    /// The peaks' STFT frames, bins and levels by the definition on levels in
+    /// decibels: louder than the floor and strictly louder than every other
+    /// point of the neighbourhood that exists, over the whole spectrogram at
+    /// once.
+    fn peaks_by_definition(samples: &[f32], profile: &Profile) -> Vec<(usize, usize, f32)> {
         let mut spectrogram: Vec<Vec<f32>> = Vec::new();
         for_each_frame(samples, profile, |frame| spectrogram.push(frame.to_vec()));
         let mut peaks = Vec::new();
@@ -419,7 +421,7 @@ mod tests {
                     }
                 }
                 if value >= profile.floor_db && others_quieter {
-                    peaks.push((centre, bin));
+                    peaks.push((centre, bin, value));
                 }
             }
         }
@@ -472,10 +474,15 @@ mod tests {
             let expected = peaks_by_definition(samples, profile);
             assert_eq!(found.len(), expected.len());
             // A refined frame rounds to its STFT frame; a refined bin may lie
-            // half a bin from its STFT bin.
-            for (peak, &(frame, bin)) in found.iter().zip(&expected) {
+            // half a bin from its STFT bin. The magnitude is the level, to the
+            // bit once quantised.
+            for (peak, &(frame, bin, level)) in found.iter().zip(&expected) {
                 assert_eq!(peak.frame.round() as usize, frame);
                 assert!((peak.bin - bin as f32).abs() <= 0.5, "{peak:?} {bin}");
+                assert_eq!(
+                    peak.magnitude.to_bits(),
+                    quantise(level, MAGNITUDE_STEPS_PER_DB).to_bits()
+                );
             }
         }
         assert!(peaks_by_definition(&chord, &profile).len() > 100);
@@ -499,13 +506,20 @@ mod tests {
         let centre = profile.neighbourhood_frames;
         let bin = 100;
 
-        for (frame, other_bin) in [
-            (centre, bin + 1),
-            (centre + 1, bin),
-            (centre + 5, bin - 7),
-            (centre, bin),
+        // A neighbourhood one bin wide leaves the nearest bins either side to
+        // the four-neighbour terms of the final comparison.
+        let narrow = Profile {
+            neighbourhood_bins: 0,
+            ..profile
+        };
+        for (frame, other_bin, profile) in [
+            (centre, bin + 1, &profile),
+            (centre + 1, bin, &profile),
+            (centre + 5, bin - 7, &profile),
+            (centre, bin - 1, &narrow),
+            (centre, bin, &profile),
         ] {
-            let mut picker = PeakPicker::new(&profile, 0, centre..centre + 1);
+            let mut picker = PeakPicker::new(profile, 0, centre..centre + 1);
             for row_frame in 0..frames {
                 let mut row = vec![quiet; bins];
                 if row_frame == centre {
