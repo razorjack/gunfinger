@@ -333,3 +333,20 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   the references to "brief 45, 21:30" in 0209, 0210 and the decision
   note, now say 21:20 and 22:27; the order of the commits is unchanged
   (the pre-registration before every variant run).
+- **(22:33) Step 5, registered before its runs.** Steps 1-4 are done
+  and there is time before 23:30. Run B: `mixes --kind beatmatched`,
+  session 35's test seeds 3511, 3512 and 3513 (16 long mixes each, every
+  record at the tempo of the one before, crossfades with two records at
+  once; corpus files only, so no NAS read: the kind reads only the
+  panel's family names, not its files), at 262 tracks, start build, by
+  default (rendering into `work/s45/w5/mixes/`) and with
+  `--apart-in-speed 0.006` on the same renders. No variant has run on
+  these seeds. Criteria S2 and S3 as quoted at 21:20, read for generated
+  mixes: wrong is a confident detection in a mix's `wrong_confident`,
+  compared by mix and file (a file's added segment counted), right an
+  indexed play with a confident detection; `variant_compare.py answers`.
+  The variant holds on B when both hold on all three seeds. Beside:
+  detections added and removed, their hits and speed gaps, whether their
+  file plays then (`work/s45/drops_beside.py`); the default against
+  session 35's reports of the same seeds. If time runs short, seed 3513
+  is dropped. The renders are deleted afterwards.
