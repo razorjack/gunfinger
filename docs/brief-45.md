@@ -167,3 +167,89 @@ Tonight the Linux machine is on a slow Wi-Fi link, not Ethernet. The NAS at `/mn
   NAS-scale numbers are not compared with tonight's. The renders are
   local; `mixes` probes the lengths of the first shared panel's pair
   files (`shared_pairs`, FFprobe, some on the NAS), a few header reads.
+- **(21:30) Step 1, the pre-registration** (committed before any
+  variant run on the second panel or the drops; no variant has run on
+  either before).
+
+  *The variant* is session 38's, unchanged: `--apart-in-speed 0.006`
+  (`SecondOverlap::SpansAtSpeed(0.006)`), threshold and rule as in brief
+  38 (08:26). Nothing is tuned this session.
+
+  *Criteria, word for word from brief 38 (08:26):*
+
+  > - S2, no new wrong confident detection: in every run below, the count
+  >   of wrong confident detections does not rise, and no confident
+  >   detection wrong at its time appears that the default's run lacks; a
+  >   wrong file's added segment counts as wrong even where the default
+  >   already names that file confidently there (the reading under which
+  >   0178's V2 failed). Wrong is: in the sweep a wrong answer, in a scan
+  >   a wrong identification or a confident detection matching no slot's
+  >   files, in generated mixes a confident detection of a file not
+  >   playing then, in the shared panel a confident detection of role
+  >   `other`.
+  > - S3, no right answer lost: in the same runs, every confident
+  >   identification of the default stays: sweep queries confident on
+  >   their cluster, scan tracks identified, generated and rides mixes'
+  >   indexed plays with a confident detection, and shared queries with a
+  >   confident detection of the played recording (and of the partner,
+  >   for blends).
+
+  *Runs* (each a default run and a variant run of the same build and
+  inputs, in scratch work directories):
+  - P: the second shared panel's development half
+    (`docs/panels/shared-material-2-seed-2026-development.json`) at NAS
+    scale, `shared` with `--other-peaks-dir` the NAS store, start build,
+    by default and with `--apart-in-speed 0.006`. Compared query by
+    query (scenario, kind, length, index) with `variant_compare.py
+    shared`: S2 holds when the confident detections of role `other` do
+    not rise in total and no query gains one by file (a file's added
+    segment counted); S3 holds when no query loses its confident
+    detection of the played recording (or, in a blend, of the partner).
+  - D1: session 39's drop mixes (seeds 2026 and 2028, 16 each, its
+    renders), `mixes --kind drops --tagged work/s39/tags-262.json` at
+    262 tracks, the harness's default ladder (`both`). Wrong: a
+    confident detection in a mix's `wrong_confident` (matching no play
+    of its cluster over the play's span: a file not playing then),
+    compared by mix and file, a file's added segment counted. Right: an
+    indexed play whose level is confident (`variant_compare.py
+    answers`).
+  - D2 and D3: the CLI's reports and printed tracklists of the same
+    mixes at 262 tracks (store-only copies as session 39) and, if time
+    allows, at NAS scale (the NAS store's records, brief 21:18), from
+    the start build and from the diagnostic build (21:18).
+    `tracklist_score.py score` on each; wrong: a confident play in the
+    score's `wrong_confident` (no indexed recording of its file playing
+    then), compared by mix and file; right: a truth play
+    `today_confident` by default. Seed 2028 at NAS scale is dropped
+    first if time runs short, then D3.
+
+  *The tracklist, T* (step 1's "extra entries, entries lost"): from the
+  same scores, the variant's printed entries against the default's, mix
+  by mix. T holds when the variant prints no confident extra entry
+  (`extra` related or unrelated) the default does not, and no truth play
+  printed by default (as itself) is printed no more (left out, under
+  another entry, not found). Possible extra entries, merges, splits and
+  marked plays are reported beside: possible plays never count as wrong
+  (ADR 0006).
+
+  *What confirms, what fails.* The variant is confirmed on data its
+  threshold has not seen when S2 and S3 hold in P, D1 and each of D2-D3
+  that runs, and T holds in each tracklist run. Any one violation fails
+  the confirmation: the experiment names each case (query or mix, file,
+  span, speed, hits) and the decision note records the failure; no
+  threshold is retuned this session. If a run cannot be made, the
+  confirmation rests on the runs made, and the note says which.
+
+  *Beside, not criteria:* confident detections of roles `related` and
+  `partner` added or lost in P (by query and file); weak and possible
+  detections added; right segments added (in D1, plays whose confident
+  seconds grow); for each confident detection the variant adds, the
+  speed difference to the stronger overlapping detection of the same
+  file (how close the new data comes to 0.6%); user CPU of P's two runs
+  (no NAS reads; nothing heavy beside); D1's diagnostic-build check
+  (21:18).
+
+  *Unseen:* the second panel's validation half (the rest of
+  `docs/panels/shared-material-2-seed-2026.json`) is not opened,
+  rendered or searched in this session. The first panel is not run
+  again.
