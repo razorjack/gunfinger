@@ -230,3 +230,27 @@ alignments are looked at in step 1, so Falcon is declared seen).
   ten verdicts' values are computed. By the registered bar the chosen
   measure already fails its third condition (no (b) join below its
   threshold); the test is still run and scored as registered.
+- **(04:15) Step 4, experiments 0220 and 0221** (`work/s49/step4.sh
+  test`, `work/s49/scores.json`). `drift_0.8_20` orders the ten without
+  a fault (AUC 1.000) but its threshold (0.843, fitted on (a)) puts Pyro
+  - Time Is Broken (0.827) and Alien Girl ~ PRO014 (0.801), both judged
+  same, below it; pooled leave-one-out errors 4 against `near_10`'s 6 and
+  supported time's 9. By the registered bar it is not better (two errors
+  on the ten against 0 and 1, and a (b) join below). Exploratory, found
+  after the test (`work/s49/explore-candidates-test.json`): the six
+  candidates with 4 leave-one-out errors and no (b) join below
+  (`drift_0.8_10` first) make no error on the ten. On the ten, coverage
+  and `near_10` make no error, supported time one (Falcon, 0.732 against
+  0.741). 0220 and 0221 were each committed at 44 lines first and cut to
+  40 in the next commit.
+- **(04:18) Step 5** (`scripts/analysis/cluster_speeds.py`, with tests;
+  `work/s49/cluster-speeds.json`), from the clusters file alone, the
+  chained pair speeds as `relative_speed.py` computes them: of 284
+  clusters 75, 12, 1 and 1 span more than 2, 4, 6 and 8%. With a deck at
+  ±5% and the ladder at ±8%, 50 clusters hold a pair of copies of which
+  one, indexed alone, would miss a play of the other; 38 copies (35
+  uploads of one channel) have no other copy in reach at one extreme.
+  The stored peaks were used only through step 1's `pair` (the Speed Up
+  upload against the vinyl rip: 6 hits). The script was run before
+  steps 1-4 were finished (04:09), read-only; its result was written up
+  only after them.

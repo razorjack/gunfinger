@@ -15,16 +15,16 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. The Falcon pair diagnosed (exploratory); experiment 0219
-- [ ] 2. Pre-registration of a drift-following near-offset measure,
+- [x] 1. The Falcon pair diagnosed (exploratory); experiment 0219
+- [x] 2. Pre-registration of a drift-following near-offset measure,
   committed before it is computed on any judged pair outside session
   40's development pairs
-- [ ] 3. The harness addition, tested; `regress` identical; `pair` on the
+- [x] 3. The harness addition, tested; `regress` identical; `pair` on the
   populations and the ten new verdicts
-- [ ] 4. Experiments: the measure against the registered scores;
+- [x] 4. Experiments: the measure against the registered scores;
   `near_10`, supported time and coverage on the ten new verdicts
-- [ ] 5. The NAS clusters' speed spans; the roadmap's "The edge of the
+- [x] 5. The NAS clusters' speed spans; the roadmap's "The edge of the
   ladder"
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [~] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 49", status, checklist, roadmap; final
   checks
