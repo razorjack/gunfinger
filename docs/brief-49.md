@@ -126,3 +126,94 @@ alignments are looked at in step 1, so Falcon is declared seen).
   session-32-linux` (0:50) and `regress session-33-linux-nas` (3:46)
   identical: every report identical to its baseline's apart from
   `wall_seconds` (`work/s49/same.py`).
+- **(04:01) Harness, `pair --fine-rungs`** (opt-in; `pair::FineRungs`):
+  beside the four searches of stored peaks, the query is searched on 20
+  more rungs, the fitted speed times 1 + k × 0.1% for k = ±1 to ±10
+  (`peaks, fine rung -1.0%` to `+1.0%`), each alignment with its
+  supported seconds as at the fitted speed. Step 0.1%: every speed within
+  1% is within 0.05% of a rung, where about 90% of hashes survive
+  (experiment 0001). Without the option the report is unchanged: `pair`
+  on session 40's source pairs gives a report identical to
+  `pairs-s40-source.json`. A unit test builds a query whose last third
+  plays 0.8% off and checks that the fine rungs hold it and the fitted
+  speed does not. Run build `work/bin/s49-run/`.
+- **(04:02) `--speed-per-stretch` in step 1, replaced.** It is an option
+  of the second pass on decoded audio (`search/refine.rs`), and `pair`
+  decodes only a corpus query; both Falcon files are NAS uploads. The
+  fine rungs on stored peaks give the same information (which speed each
+  stretch lines up at), so step 1 uses them, with an envelope lag measured
+  on the decoded audio as a second, independent reading.
+- **(04:04) Step 1, experiment 0219** (exploratory). The CITRUS 003
+  upload's speed drifts (1.031 to 1.038 times the vinyl rip's over the
+  track); the Speed Up upload is about 1.116 times the vinyl rip
+  throughout. A ends with 4-6 s of silence that moves no fit and no
+  placement. Falcon's per-rung alignments were read here, so Falcon is
+  declared seen: the test scores are given with and without it.
+- **(04:08) Three of the ten verdicts sit in session 40's presumed
+  populations:** Dead Air ~ the RH 66 upload and Pyro - Time Is Broken's
+  two rips in (b), Known Unknown - Drumtrip ~ Propaganda in (d). They
+  were never judged pairs there, but the parameter choice below reads
+  (b). Decision (conservative): the choice and the development scores
+  use (b) and (d) without these three pairs, so nothing chosen saw the
+  ten.
+- **(04:10) Step 2, the pre-registration** (committed before the new
+  measure is computed on any pair; only Falcon's per-rung alignments
+  have been read, in step 1).
+
+  *Data.* Development: session 40's populations (`work/s40/populations/`;
+  (a) 60 judged pairs without the two source pairs, 22 same and 38
+  different; (b) 98 presumed same less the two above; (c) 51 panel
+  different; (d) 60 presumed different less the one above), searched
+  again with `pair --fine-rungs` (`work/bin/s49-run`; stems
+  `s49-{a,b,c,d}`). Test: the ten verdicts of 2026-10-25 (`git show
+  dc4f7dc -- docs/pair-verdicts.txt`, `work/s49/new-verdicts.txt`), 6
+  same and 4 different, in the verdict lines' order (first file the
+  query), stem `s49-new`. Known before this registration: the status
+  ("after session 46") says each of the ten lies on its verdict's side
+  of `near_10`'s threshold (0.552), and the ten were picked by session
+  40 as the pairs nearest that threshold, so they are not a random
+  sample of judged pairs, and `near_10` makes no error on them.
+
+  *The measure.* From one `pair --fine-rungs` report: F the search
+  "peaks, at the fitted speed", M its first alignment (speed s_M, offset
+  o_M: found time = o_M + s_M × query time), S the shorter file's length.
+  For a width W, R(W) is F's alignments and those of every search
+  "peaks, fine rung x%" with |x| ≤ W. An alignment a of R(W) (speed s_a,
+  offset o_a, query span [q0, q1]) is *near* when its line stays within
+  T s of M's over its span: |(o_a + s_a q) - (o_M + s_M q)| ≤ T at q =
+  q0 and q = q1. `drift_W_T` is the number of distinct seconds in the
+  union of the near alignments' `supported_seconds`, over S. With F empty
+  it is 0. `drift_0_T` (F only, nearness by line) is reported beside it
+  as the measure without fine rungs; it differs from `near_T` only in
+  comparing lines instead of offsets at query time 0.
+
+  *Parameters, chosen on the development populations only*: W in {0.2,
+  0.4, 0.6, 0.8, 1.0}% and T in {2, 5, 10, 20} s. The chosen pair (W, T)
+  has (1) the fewest leave-one-out errors on (a); among ties (2) the
+  fewest (b) joins below the threshold fitted on all of (a); then (3)
+  the highest AUC on (a); then (4) T = 10 s before the others, then the
+  smaller W, then the smaller T. Its threshold is the one fitted on all
+  of (a) (session 40's `best_threshold`), fixed before the test pairs'
+  values are computed. Every other (W, T) is reported as found, not as
+  confirmed.
+
+  *Scores* (`scripts/analysis/drift_offsets.py`), for `coverage`,
+  `supported`, `near_10`, `drift_0_10` and the chosen `drift_W_T`:
+  - development, as 0186: AUC (a); AUC (b) ~ (a) different, (b) ~ (c),
+    (b) ~ (d); the threshold fitted on (a), its errors and leave-one-out
+    errors; (b) below, (c) and (d) above it, by name; the source pairs'
+    sides;
+  - test, the ten apart: AUC (6 same against 4 different), the errors
+    at the threshold fitted on (a) and the pairs it gets wrong, with and
+    without Falcon;
+  - pooled, (a) and the ten (28 same, 42 different): AUC, the errors at
+    the best threshold, leave-one-out errors and the pairs wrong.
+
+  *Better than `near_10` and supported time* (worth a roadmap entry; a
+  join rule stays ours, with an ADR): on the ten, at the thresholds
+  fitted on (a), no more errors than either; pooled, fewer leave-one-out
+  errors than both; and no (b) join below its threshold. Since `near_10`
+  makes no error on the ten, the ten can at best tie it there; the
+  pooled leave-one-out errors decide. The drift pairs of (a) (Phoenix,
+  Fractles, Coma ~ Spraycan) and Falcon are listed with every measure's
+  values as an exploratory reading.

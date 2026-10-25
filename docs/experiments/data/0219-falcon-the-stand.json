@@ -1,0 +1,1826 @@
+{
+ "note": "Session 49, experiment 0219: per-rung alignments (stored peaks; B time = offset + speed x A time), the first three of each search",
+ "pairs": [
+  {
+   "query": "Falcon - The Stand (HD Audio & Speed Up).m4a",
+   "found": "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a",
+   "query_seconds": 485.111375,
+   "found_seconds": 514.066625,
+   "searches": [
+    {
+     "name": "peaks, ladder within 2%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, turntable ladder",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 468.9438,
+       "speed": 1.0779,
+       "offset_seconds": 0.143,
+       "hits": 1423,
+       "supported": null
+      }
+     ]
+    },
+    {
+     "name": "peaks, key-locked ladder",
+     "alignments": [
+      {
+       "query_start_seconds": 250.6353,
+       "query_end_seconds": 268.45,
+       "speed": 1.08,
+       "offset_seconds": 0.3361,
+       "hits": 12,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 34.7668,
+       "query_end_seconds": 47.8107,
+       "speed": 1.076,
+       "offset_seconds": -9.3696,
+       "hits": 8,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 172.8713,
+       "query_end_seconds": 189.718,
+       "speed": 1.07,
+       "offset_seconds": 306.2271,
+       "hits": 8,
+       "supported": null
+      }
+     ]
+    },
+    {
+     "name": "peaks, at the fitted speed",
+     "alignments": [
+      {
+       "query_start_seconds": 30.3182,
+       "query_end_seconds": 458.037,
+       "speed": 1.0779,
+       "offset_seconds": 0.3653,
+       "hits": 990,
+       "supported": 0.7153
+      },
+      {
+       "query_start_seconds": 7.0068,
+       "query_end_seconds": 19.9825,
+       "speed": 1.0779,
+       "offset_seconds": 221.5891,
+       "hits": 26,
+       "supported": 0.0165
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -1.0%",
+     "alignments": [
+      {
+       "query_start_seconds": 320.623,
+       "query_end_seconds": 378.99,
+       "speed": 1.0736,
+       "offset_seconds": 2.1566,
+       "hits": 86,
+       "supported": 0.1072
+      },
+      {
+       "query_start_seconds": 434.8965,
+       "query_end_seconds": 455.4767,
+       "speed": 1.0671,
+       "offset_seconds": 10.644,
+       "hits": 46,
+       "supported": 0.033
+      },
+      {
+       "query_start_seconds": 165.0983,
+       "query_end_seconds": 184.31,
+       "speed": 1.074,
+       "offset_seconds": 302.7357,
+       "hits": 34,
+       "supported": 0.035
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.9%",
+     "alignments": [
+      {
+       "query_start_seconds": 303.7727,
+       "query_end_seconds": 406.4165,
+       "speed": 1.074,
+       "offset_seconds": 2.0089,
+       "hits": 117,
+       "supported": 0.1876
+      },
+      {
+       "query_start_seconds": 452.0398,
+       "query_end_seconds": 464.4925,
+       "speed": 1.0682,
+       "offset_seconds": 4.7152,
+       "hits": 42,
+       "supported": 0.0247
+      },
+      {
+       "query_start_seconds": 260.6755,
+       "query_end_seconds": 276.2298,
+       "speed": 1.0682,
+       "offset_seconds": 3.4064,
+       "hits": 41,
+       "supported": 0.0309
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.8%",
+     "alignments": [
+      {
+       "query_start_seconds": 300.4488,
+       "query_end_seconds": 468.4192,
+       "speed": 1.0744,
+       "offset_seconds": 1.8969,
+       "hits": 225,
+       "supported": 0.3051
+      },
+      {
+       "query_start_seconds": 250.6445,
+       "query_end_seconds": 276.2298,
+       "speed": 1.0771,
+       "offset_seconds": 1.1034,
+       "hits": 68,
+       "supported": 0.0557
+      },
+      {
+       "query_start_seconds": 53.3105,
+       "query_end_seconds": 77.2295,
+       "speed": 1.0693,
+       "offset_seconds": 336.3362,
+       "hits": 28,
+       "supported": 0.0371
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.7%",
+     "alignments": [
+      {
+       "query_start_seconds": 300.4488,
+       "query_end_seconds": 469.6742,
+       "speed": 1.0744,
+       "offset_seconds": 1.8961,
+       "hits": 304,
+       "supported": 0.3051
+      },
+      {
+       "query_start_seconds": 250.6445,
+       "query_end_seconds": 276.2298,
+       "speed": 1.0773,
+       "offset_seconds": 1.046,
+       "hits": 82,
+       "supported": 0.0536
+      },
+      {
+       "query_start_seconds": 162.176,
+       "query_end_seconds": 187.7908,
+       "speed": 1.074,
+       "offset_seconds": 302.7371,
+       "hits": 44,
+       "supported": 0.0454
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.6%",
+     "alignments": [
+      {
+       "query_start_seconds": 250.6445,
+       "query_end_seconds": 469.6742,
+       "speed": 1.0749,
+       "offset_seconds": 1.6571,
+       "hits": 444,
+       "supported": 0.402
+      },
+      {
+       "query_start_seconds": 162.176,
+       "query_end_seconds": 187.7908,
+       "speed": 1.0741,
+       "offset_seconds": 302.7151,
+       "hits": 49,
+       "supported": 0.0454
+      },
+      {
+       "query_start_seconds": 217.1883,
+       "query_end_seconds": 239.3698,
+       "speed": 1.0782,
+       "offset_seconds": -0.5844,
+       "hits": 35,
+       "supported": 0.033
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.5%",
+     "alignments": [
+      {
+       "query_start_seconds": 220.534,
+       "query_end_seconds": 468.3755,
+       "speed": 1.0749,
+       "offset_seconds": 1.5598,
+       "hits": 592,
+       "supported": 0.4288
+      },
+      {
+       "query_start_seconds": 162.7603,
+       "query_end_seconds": 185.5025,
+       "speed": 1.0793,
+       "offset_seconds": 22.9645,
+       "hits": 54,
+       "supported": 0.0474
+      },
+      {
+       "query_start_seconds": 21.2428,
+       "query_end_seconds": 69.845,
+       "speed": 1.0734,
+       "offset_seconds": 324.9751,
+       "hits": 48,
+       "supported": 0.0639
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.4%",
+     "alignments": [
+      {
+       "query_start_seconds": 170.0112,
+       "query_end_seconds": 468.3755,
+       "speed": 1.0755,
+       "offset_seconds": 1.2105,
+       "hits": 640,
+       "supported": 0.5174
+      },
+      {
+       "query_start_seconds": 110.67,
+       "query_end_seconds": 129.771,
+       "speed": 1.0736,
+       "offset_seconds": 224.7828,
+       "hits": 29,
+       "supported": 0.0289
+      },
+      {
+       "query_start_seconds": 92.7608,
+       "query_end_seconds": 103.5495,
+       "speed": 1.0736,
+       "offset_seconds": -10.1974,
+       "hits": 27,
+       "supported": 0.0165
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.3%",
+     "alignments": [
+      {
+       "query_start_seconds": 170.0112,
+       "query_end_seconds": 468.9438,
+       "speed": 1.0755,
+       "offset_seconds": 1.2067,
+       "hits": 798,
+       "supported": 0.5174
+      },
+      {
+       "query_start_seconds": 30.3182,
+       "query_end_seconds": 54.9835,
+       "speed": 1.0823,
+       "offset_seconds": 0.2305,
+       "hits": 62,
+       "supported": 0.0515
+      },
+      {
+       "query_start_seconds": 92.5217,
+       "query_end_seconds": 116.096,
+       "speed": 1.0805,
+       "offset_seconds": 0.3582,
+       "hits": 54,
+       "supported": 0.0454
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.2%",
+     "alignments": [
+      {
+       "query_start_seconds": 170.0112,
+       "query_end_seconds": 468.9438,
+       "speed": 1.0757,
+       "offset_seconds": 1.1762,
+       "hits": 709,
+       "supported": 0.5174
+      },
+      {
+       "query_start_seconds": 80.1202,
+       "query_end_seconds": 137.8843,
+       "speed": 1.0804,
+       "offset_seconds": 0.3772,
+       "hits": 103,
+       "supported": 0.1072
+      },
+      {
+       "query_start_seconds": 30.3182,
+       "query_end_seconds": 56.2383,
+       "speed": 1.0821,
+       "offset_seconds": 0.2369,
+       "hits": 67,
+       "supported": 0.0557
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.1%",
+     "alignments": [
+      {
+       "query_start_seconds": 30.3182,
+       "query_end_seconds": 468.9438,
+       "speed": 1.0775,
+       "offset_seconds": 0.3751,
+       "hits": 995,
+       "supported": 0.74
+      },
+      {
+       "query_start_seconds": 7.0068,
+       "query_end_seconds": 19.9825,
+       "speed": 1.0768,
+       "offset_seconds": 221.5979,
+       "hits": 21,
+       "supported": 0.0144
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.1%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 408.1028,
+       "speed": 1.0786,
+       "offset_seconds": 0.1427,
+       "hits": 958,
+       "supported": 0.6617
+      },
+      {
+       "query_start_seconds": 410.0523,
+       "query_end_seconds": 449.1692,
+       "speed": 1.0746,
+       "offset_seconds": 7.3642,
+       "hits": 68,
+       "supported": 0.0721
+      },
+      {
+       "query_start_seconds": 451.2878,
+       "query_end_seconds": 476.3462,
+       "speed": 1.079,
+       "offset_seconds": -301.437,
+       "hits": 40,
+       "supported": 0.0495
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.2%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 398.386,
+       "speed": 1.079,
+       "offset_seconds": 0.1425,
+       "hits": 946,
+       "supported": 0.6473
+      },
+      {
+       "query_start_seconds": 442.1195,
+       "query_end_seconds": 469.0253,
+       "speed": 1.0798,
+       "offset_seconds": -290.615,
+       "hits": 72,
+       "supported": 0.0515
+      },
+      {
+       "query_start_seconds": 400.974,
+       "query_end_seconds": 419.3712,
+       "speed": 1.0801,
+       "offset_seconds": -234.7391,
+       "hits": 43,
+       "supported": 0.0289
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.3%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 318.9792,
+       "speed": 1.0799,
+       "offset_seconds": 0.1422,
+       "hits": 856,
+       "supported": 0.5504
+      },
+      {
+       "query_start_seconds": 390.2835,
+       "query_end_seconds": 469.0253,
+       "speed": 1.0804,
+       "offset_seconds": -290.8775,
+       "hits": 85,
+       "supported": 0.1257
+      },
+      {
+       "query_start_seconds": 321.2747,
+       "query_end_seconds": 359.175,
+       "speed": 1.0811,
+       "offset_seconds": -179.1146,
+       "hits": 33,
+       "supported": 0.0433
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.4%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 289.7638,
+       "speed": 1.0802,
+       "offset_seconds": 0.1425,
+       "hits": 817,
+       "supported": 0.4927
+      },
+      {
+       "query_start_seconds": 390.2835,
+       "query_end_seconds": 469.0253,
+       "speed": 1.0804,
+       "offset_seconds": -290.8824,
+       "hits": 82,
+       "supported": 0.1257
+      },
+      {
+       "query_start_seconds": 290.99,
+       "query_end_seconds": 319.9845,
+       "speed": 1.0822,
+       "offset_seconds": -3.25,
+       "hits": 30,
+       "supported": 0.0495
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.5%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 287.8933,
+       "speed": 1.0802,
+       "offset_seconds": 0.1421,
+       "hits": 670,
+       "supported": 0.4885
+      },
+      {
+       "query_start_seconds": 390.2835,
+       "query_end_seconds": 469.0253,
+       "speed": 1.0804,
+       "offset_seconds": -290.8975,
+       "hits": 77,
+       "supported": 0.1257
+      },
+      {
+       "query_start_seconds": 353.0205,
+       "query_end_seconds": 388.6748,
+       "speed": 1.0833,
+       "offset_seconds": -359.2234,
+       "hits": 30,
+       "supported": 0.0454
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.6%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 189.9663,
+       "speed": 1.081,
+       "offset_seconds": 0.1411,
+       "hits": 510,
+       "supported": 0.3339
+      },
+      {
+       "query_start_seconds": 253.2347,
+       "query_end_seconds": 276.2278,
+       "speed": 1.0763,
+       "offset_seconds": 1.2689,
+       "hits": 71,
+       "supported": 0.0495
+      },
+      {
+       "query_start_seconds": 390.2835,
+       "query_end_seconds": 449.8963,
+       "speed": 1.0805,
+       "offset_seconds": -290.9372,
+       "hits": 47,
+       "supported": 0.0928
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.7%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 189.9663,
+       "speed": 1.0811,
+       "offset_seconds": 0.1422,
+       "hits": 380,
+       "supported": 0.3339
+      },
+      {
+       "query_start_seconds": 253.2308,
+       "query_end_seconds": 265.2398,
+       "speed": 1.0854,
+       "offset_seconds": -1.0586,
+       "hits": 46,
+       "supported": 0.0268
+      },
+      {
+       "query_start_seconds": 353.0205,
+       "query_end_seconds": 388.6748,
+       "speed": 1.0824,
+       "offset_seconds": -358.9153,
+       "hits": 39,
+       "supported": 0.0495
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.8%",
+     "alignments": [
+      {
+       "query_start_seconds": 95.4317,
+       "query_end_seconds": 189.7268,
+       "speed": 1.0805,
+       "offset_seconds": 0.3275,
+       "hits": 182,
+       "supported": 0.1732
+      },
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 59.3852,
+       "speed": 1.0835,
+       "offset_seconds": 0.1412,
+       "hits": 136,
+       "supported": 0.0969
+      },
+      {
+       "query_start_seconds": 248.6848,
+       "query_end_seconds": 265.2398,
+       "speed": 1.0865,
+       "offset_seconds": -1.2695,
+       "hits": 49,
+       "supported": 0.035
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.9%",
+     "alignments": [
+      {
+       "query_start_seconds": 95.4317,
+       "query_end_seconds": 188.096,
+       "speed": 1.0805,
+       "offset_seconds": 0.3298,
+       "hits": 158,
+       "supported": 0.1711
+      },
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 57.197,
+       "speed": 1.0833,
+       "offset_seconds": 0.1412,
+       "hits": 122,
+       "supported": 0.0928
+      },
+      {
+       "query_start_seconds": 75.6718,
+       "query_end_seconds": 83.452,
+       "speed": 1.0876,
+       "offset_seconds": -33.861,
+       "hits": 31,
+       "supported": 0.0186
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +1.0%",
+     "alignments": [
+      {
+       "query_start_seconds": 95.764,
+       "query_end_seconds": 189.9663,
+       "speed": 1.0805,
+       "offset_seconds": 0.3236,
+       "hits": 133,
+       "supported": 0.1711
+      },
+      {
+       "query_start_seconds": 0.4637,
+       "query_end_seconds": 55.588,
+       "speed": 1.0835,
+       "offset_seconds": 0.1397,
+       "hits": 85,
+       "supported": 0.0886
+      },
+      {
+       "query_start_seconds": 440.827,
+       "query_end_seconds": 465.795,
+       "speed": 1.0822,
+       "offset_seconds": -428.9752,
+       "hits": 32,
+       "supported": 0.0433
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "query": "Falcon - The Stand (HD Audio & Speed Up).m4a",
+   "found": "d. falcon - the stand.mp3",
+   "query_seconds": 485.111375,
+   "found_seconds": 538.7755,
+   "searches": [
+    {
+     "name": "peaks, ladder within 2%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, turntable ladder",
+     "alignments": [
+      {
+       "query_start_seconds": 64.5605,
+       "query_end_seconds": 80.8545,
+       "speed": 1.054,
+       "offset_seconds": 41.3812,
+       "hits": 6,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 93.6065,
+       "query_end_seconds": 103.5355,
+       "speed": 0.998,
+       "offset_seconds": 405.8604,
+       "hits": 6,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 313.8095,
+       "query_end_seconds": 347.4455,
+       "speed": 1.04,
+       "offset_seconds": -232.387,
+       "hits": 6,
+       "supported": null
+      }
+     ]
+    },
+    {
+     "name": "peaks, key-locked ladder",
+     "alignments": []
+    },
+    {
+     "name": "peaks, at the fitted speed",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -1.0%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.9%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.8%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.7%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.6%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.5%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.4%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.3%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.2%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung -0.1%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.1%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.2%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.3%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.4%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.5%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.6%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.7%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.8%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +0.9%",
+     "alignments": []
+    },
+    {
+     "name": "peaks, fine rung +1.0%",
+     "alignments": []
+    }
+   ]
+  },
+  {
+   "query": "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a",
+   "found": "d. falcon - the stand.mp3",
+   "query_seconds": 514.066625,
+   "found_seconds": 538.7755,
+   "searches": [
+    {
+     "name": "peaks, ladder within 2%",
+     "alignments": [
+      {
+       "query_start_seconds": 44.502,
+       "query_end_seconds": 54.3528,
+       "speed": 1.02,
+       "offset_seconds": 29.0045,
+       "hits": 40,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 72.9963,
+       "query_end_seconds": 82.1273,
+       "speed": 1.0182,
+       "offset_seconds": 9.1879,
+       "hits": 20,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 96.1175,
+       "query_end_seconds": 104.8713,
+       "speed": 1.02,
+       "offset_seconds": 6.437,
+       "hits": 19,
+       "supported": null
+      }
+     ]
+    },
+    {
+     "name": "peaks, turntable ladder",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 509.5317,
+       "speed": 1.0345,
+       "offset_seconds": -0.3442,
+       "hits": 2088,
+       "supported": null
+      }
+     ]
+    },
+    {
+     "name": "peaks, key-locked ladder",
+     "alignments": [
+      {
+       "query_start_seconds": 390.203,
+       "query_end_seconds": 424.9203,
+       "speed": 1.0382,
+       "offset_seconds": -311.4957,
+       "hits": 20,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 172.4327,
+       "query_end_seconds": 198.618,
+       "speed": 1.0317,
+       "offset_seconds": -0.4504,
+       "hits": 18,
+       "supported": null
+      },
+      {
+       "query_start_seconds": 50.1257,
+       "query_end_seconds": 75.3755,
+       "speed": 1.0305,
+       "offset_seconds": 42.9432,
+       "hits": 17,
+       "supported": null
+      }
+     ]
+    },
+    {
+     "name": "peaks, at the fitted speed",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 419.002,
+       "speed": 1.0336,
+       "offset_seconds": -0.3445,
+       "hits": 1541,
+       "supported": 0.7022
+      },
+      {
+       "query_start_seconds": 460.1832,
+       "query_end_seconds": 509.9728,
+       "speed": 1.0378,
+       "offset_seconds": -2.0465,
+       "hits": 152,
+       "supported": 0.0836
+      },
+      {
+       "query_start_seconds": 420.4692,
+       "query_end_seconds": 459.1438,
+       "speed": 1.0345,
+       "offset_seconds": -26.6449,
+       "hits": 53,
+       "supported": 0.0584
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -1.0%",
+     "alignments": [
+      {
+       "query_start_seconds": 43.103,
+       "query_end_seconds": 66.2788,
+       "speed": 1.0298,
+       "offset_seconds": 22.7836,
+       "hits": 89,
+       "supported": 0.0447
+      },
+      {
+       "query_start_seconds": 111.5105,
+       "query_end_seconds": 156.1987,
+       "speed": 1.032,
+       "offset_seconds": -0.4906,
+       "hits": 82,
+       "supported": 0.0875
+      },
+      {
+       "query_start_seconds": 163.5832,
+       "query_end_seconds": 194.143,
+       "speed": 1.0314,
+       "offset_seconds": -0.3845,
+       "hits": 80,
+       "supported": 0.0622
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.9%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 95.427,
+       "speed": 1.0304,
+       "offset_seconds": -0.3378,
+       "hits": 214,
+       "supported": 0.1517
+      },
+      {
+       "query_start_seconds": 163.5832,
+       "query_end_seconds": 238.665,
+       "speed": 1.0324,
+       "offset_seconds": -0.5476,
+       "hits": 180,
+       "supported": 0.142
+      },
+      {
+       "query_start_seconds": 111.5105,
+       "query_end_seconds": 148.8918,
+       "speed": 1.032,
+       "offset_seconds": -0.4885,
+       "hits": 88,
+       "supported": 0.0739
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.8%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 255.4452,
+       "speed": 1.0317,
+       "offset_seconds": -0.3385,
+       "hits": 609,
+       "supported": 0.4416
+      },
+      {
+       "query_start_seconds": 294.7652,
+       "query_end_seconds": 309.005,
+       "speed": 1.0262,
+       "offset_seconds": 1.4318,
+       "hits": 31,
+       "supported": 0.0292
+      },
+      {
+       "query_start_seconds": 315.3428,
+       "query_end_seconds": 325.105,
+       "speed": 1.0262,
+       "offset_seconds": 10.3004,
+       "hits": 25,
+       "supported": 0.0156
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.7%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 258.8503,
+       "speed": 1.0317,
+       "offset_seconds": -0.3401,
+       "hits": 746,
+       "supported": 0.4416
+      },
+      {
+       "query_start_seconds": 291.9717,
+       "query_end_seconds": 324.3587,
+       "speed": 1.0354,
+       "offset_seconds": -1.2905,
+       "hits": 49,
+       "supported": 0.0642
+      },
+      {
+       "query_start_seconds": 416.9905,
+       "query_end_seconds": 424.9203,
+       "speed": 1.0272,
+       "offset_seconds": -32.3014,
+       "hits": 27,
+       "supported": 0.0136
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.6%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 278.02,
+       "speed": 1.0319,
+       "offset_seconds": -0.343,
+       "hits": 885,
+       "supported": 0.4727
+      },
+      {
+       "query_start_seconds": 291.1465,
+       "query_end_seconds": 325.51,
+       "speed": 1.0354,
+       "offset_seconds": -1.2692,
+       "hits": 61,
+       "supported": 0.0661
+      },
+      {
+       "query_start_seconds": 476.8922,
+       "query_end_seconds": 505.394,
+       "speed": 1.0381,
+       "offset_seconds": -7.9758,
+       "hits": 45,
+       "supported": 0.0525
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.5%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 309.4192,
+       "speed": 1.0322,
+       "offset_seconds": -0.3403,
+       "hits": 1050,
+       "supported": 0.535
+      },
+      {
+       "query_start_seconds": 310.3915,
+       "query_end_seconds": 349.8885,
+       "speed": 1.0366,
+       "offset_seconds": -7.425,
+       "hits": 63,
+       "supported": 0.0642
+      },
+      {
+       "query_start_seconds": 404.457,
+       "query_end_seconds": 428.245,
+       "speed": 1.037,
+       "offset_seconds": -13.2829,
+       "hits": 51,
+       "supported": 0.0447
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.4%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 347.7755,
+       "speed": 1.0325,
+       "offset_seconds": -0.3408,
+       "hits": 1199,
+       "supported": 0.5875
+      },
+      {
+       "query_start_seconds": 404.1098,
+       "query_end_seconds": 454.6103,
+       "speed": 1.0374,
+       "offset_seconds": -13.4334,
+       "hits": 109,
+       "supported": 0.0856
+      },
+      {
+       "query_start_seconds": 460.8322,
+       "query_end_seconds": 499.7995,
+       "speed": 1.0376,
+       "offset_seconds": -1.9487,
+       "hits": 61,
+       "supported": 0.0681
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.3%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 396.7332,
+       "speed": 1.0331,
+       "offset_seconds": -0.3418,
+       "hits": 1397,
+       "supported": 0.6594
+      },
+      {
+       "query_start_seconds": 402.225,
+       "query_end_seconds": 455.0097,
+       "speed": 1.0373,
+       "offset_seconds": -13.3867,
+       "hits": 131,
+       "supported": 0.0953
+      },
+      {
+       "query_start_seconds": 460.8322,
+       "query_end_seconds": 508.4865,
+       "speed": 1.0379,
+       "offset_seconds": -2.0853,
+       "hits": 68,
+       "supported": 0.0817
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.2%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 419.002,
+       "speed": 1.0334,
+       "offset_seconds": -0.342,
+       "hits": 1542,
+       "supported": 0.7003
+      },
+      {
+       "query_start_seconds": 460.8322,
+       "query_end_seconds": 508.4865,
+       "speed": 1.0377,
+       "offset_seconds": -2.0243,
+       "hits": 90,
+       "supported": 0.0817
+      },
+      {
+       "query_start_seconds": 420.1395,
+       "query_end_seconds": 439.671,
+       "speed": 1.0324,
+       "offset_seconds": -5.5466,
+       "hits": 48,
+       "supported": 0.0331
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung -0.1%",
+     "alignments": [
+      {
+       "query_start_seconds": 0.598,
+       "query_end_seconds": 419.002,
+       "speed": 1.0335,
+       "offset_seconds": -0.3427,
+       "hits": 1611,
+       "supported": 0.7022
+      },
+      {
+       "query_start_seconds": 460.8322,
+       "query_end_seconds": 508.4865,
+       "speed": 1.0377,
+       "offset_seconds": -2.0196,
+       "hits": 85,
+       "supported": 0.0817
+      },
+      {
+       "query_start_seconds": 421.5342,
+       "query_end_seconds": 449.6637,
+       "speed": 1.0334,
+       "offset_seconds": -34.8829,
+       "hits": 44,
+       "supported": 0.0486
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.1%",
+     "alignments": [
+      {
+       "query_start_seconds": 22.1842,
+       "query_end_seconds": 419.437,
+       "speed": 1.034,
+       "offset_seconds": -0.4917,
+       "hits": 1446,
+       "supported": 0.6886
+      },
+      {
+       "query_start_seconds": 460.1832,
+       "query_end_seconds": 509.9728,
+       "speed": 1.0378,
+       "offset_seconds": -2.0559,
+       "hits": 165,
+       "supported": 0.0836
+      },
+      {
+       "query_start_seconds": 420.1395,
+       "query_end_seconds": 459.1438,
+       "speed": 1.0355,
+       "offset_seconds": -27.0859,
+       "hits": 58,
+       "supported": 0.0603
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.2%",
+     "alignments": [
+      {
+       "query_start_seconds": 180.3955,
+       "query_end_seconds": 419.7828,
+       "speed": 1.0358,
+       "offset_seconds": -1.2252,
+       "hits": 942,
+       "supported": 0.4046
+      },
+      {
+       "query_start_seconds": 26.0138,
+       "query_end_seconds": 149.5955,
+       "speed": 1.0315,
+       "offset_seconds": -0.4325,
+       "hits": 358,
+       "supported": 0.2373
+      },
+      {
+       "query_start_seconds": 460.579,
+       "query_end_seconds": 509.9727,
+       "speed": 1.0377,
+       "offset_seconds": -2.0305,
+       "hits": 169,
+       "supported": 0.0836
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.3%",
+     "alignments": [
+      {
+       "query_start_seconds": 26.0138,
+       "query_end_seconds": 419.7828,
+       "speed": 1.0342,
+       "offset_seconds": -0.5046,
+       "hits": 1208,
+       "supported": 0.6867
+      },
+      {
+       "query_start_seconds": 460.579,
+       "query_end_seconds": 509.9728,
+       "speed": 1.0377,
+       "offset_seconds": -2.007,
+       "hits": 178,
+       "supported": 0.0836
+      },
+      {
+       "query_start_seconds": 9.8488,
+       "query_end_seconds": 12.6892,
+       "speed": 1.0376,
+       "offset_seconds": 230.8103,
+       "hits": 9,
+       "supported": 0.0078
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.4%",
+     "alignments": [
+      {
+       "query_start_seconds": 183.98,
+       "query_end_seconds": 409.7,
+       "speed": 1.0359,
+       "offset_seconds": -1.2514,
+       "hits": 778,
+       "supported": 0.391
+      },
+      {
+       "query_start_seconds": 52.9308,
+       "query_end_seconds": 148.9727,
+       "speed": 1.0317,
+       "offset_seconds": -0.4942,
+       "hits": 196,
+       "supported": 0.1867
+      },
+      {
+       "query_start_seconds": 460.244,
+       "query_end_seconds": 509.5317,
+       "speed": 1.0377,
+       "offset_seconds": -2.0213,
+       "hits": 167,
+       "supported": 0.0836
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.5%",
+     "alignments": [
+      {
+       "query_start_seconds": 186.4358,
+       "query_end_seconds": 509.5317,
+       "speed": 1.0366,
+       "offset_seconds": -1.3949,
+       "hits": 936,
+       "supported": 0.5466
+      },
+      {
+       "query_start_seconds": 114.5853,
+       "query_end_seconds": 145.8313,
+       "speed": 1.0319,
+       "offset_seconds": -0.5215,
+       "hits": 82,
+       "supported": 0.0622
+      },
+      {
+       "query_start_seconds": 46.697,
+       "query_end_seconds": 63.5303,
+       "speed": 1.0396,
+       "offset_seconds": 22.2816,
+       "hits": 62,
+       "supported": 0.035
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.6%",
+     "alignments": [
+      {
+       "query_start_seconds": 186.7785,
+       "query_end_seconds": 399.9438,
+       "speed": 1.0358,
+       "offset_seconds": -1.2371,
+       "hits": 590,
+       "supported": 0.356
+      },
+      {
+       "query_start_seconds": 431.2763,
+       "query_end_seconds": 509.5317,
+       "speed": 1.0375,
+       "offset_seconds": -1.9575,
+       "hits": 183,
+       "supported": 0.1362
+      },
+      {
+       "query_start_seconds": 400.6357,
+       "query_end_seconds": 419.8868,
+       "speed": 1.0407,
+       "offset_seconds": -14.7729,
+       "hits": 90,
+       "supported": 0.0389
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.7%",
+     "alignments": [
+      {
+       "query_start_seconds": 232.569,
+       "query_end_seconds": 399.2468,
+       "speed": 1.0368,
+       "offset_seconds": -1.6347,
+       "hits": 378,
+       "supported": 0.284
+      },
+      {
+       "query_start_seconds": 431.2763,
+       "query_end_seconds": 509.5318,
+       "speed": 1.0376,
+       "offset_seconds": -1.9765,
+       "hits": 175,
+       "supported": 0.1362
+      },
+      {
+       "query_start_seconds": 186.4358,
+       "query_end_seconds": 208.8467,
+       "speed": 1.032,
+       "offset_seconds": -0.5388,
+       "hits": 65,
+       "supported": 0.0428
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.8%",
+     "alignments": [
+      {
+       "query_start_seconds": 254.281,
+       "query_end_seconds": 419.7828,
+       "speed": 1.0371,
+       "offset_seconds": -1.7554,
+       "hits": 353,
+       "supported": 0.2996
+      },
+      {
+       "query_start_seconds": 460.579,
+       "query_end_seconds": 509.5317,
+       "speed": 1.0377,
+       "offset_seconds": -2.0274,
+       "hits": 108,
+       "supported": 0.0836
+      },
+      {
+       "query_start_seconds": 204.986,
+       "query_end_seconds": 226.004,
+       "speed": 1.0333,
+       "offset_seconds": -0.7914,
+       "hits": 44,
+       "supported": 0.0389
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +0.9%",
+     "alignments": [
+      {
+       "query_start_seconds": 343.855,
+       "query_end_seconds": 396.719,
+       "speed": 1.0386,
+       "offset_seconds": -2.3858,
+       "hits": 154,
+       "supported": 0.1031
+      },
+      {
+       "query_start_seconds": 269.9965,
+       "query_end_seconds": 317.2418,
+       "speed": 1.0357,
+       "offset_seconds": -1.4053,
+       "hits": 100,
+       "supported": 0.0934
+      },
+      {
+       "query_start_seconds": 442.171,
+       "query_end_seconds": 509.5305,
+       "speed": 1.0377,
+       "offset_seconds": -2.0441,
+       "hits": 90,
+       "supported": 0.1148
+      }
+     ]
+    },
+    {
+     "name": "peaks, fine rung +1.0%",
+     "alignments": [
+      {
+       "query_start_seconds": 341.0745,
+       "query_end_seconds": 396.719,
+       "speed": 1.0387,
+       "offset_seconds": -2.4176,
+       "hits": 133,
+       "supported": 0.1089
+      },
+      {
+       "query_start_seconds": 482.1288,
+       "query_end_seconds": 506.4942,
+       "speed": 1.0378,
+       "offset_seconds": -2.0854,
+       "hits": 49,
+       "supported": 0.0428
+      },
+      {
+       "query_start_seconds": 314.3185,
+       "query_end_seconds": 334.0852,
+       "speed": 1.0369,
+       "offset_seconds": -7.5649,
+       "hits": 40,
+       "supported": 0.035
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "envelope_lags_against_alignment_1": {
+  "speed": 1.0779,
+  "offset": 0.4,
+  "window_seconds": 10,
+  "rows": [
+   {
+    "a_seconds": 0.0,
+    "lag_seconds": -0.2,
+    "corr": 0.459,
+    "second_lag": -0.49,
+    "second_corr": 0.157
+   },
+   {
+    "a_seconds": 10.0,
+    "lag_seconds": -0.8,
+    "corr": 0.114,
+    "second_lag": -1.57,
+    "second_corr": 0.106
+   },
+   {
+    "a_seconds": 20.0,
+    "lag_seconds": -2.87,
+    "corr": 0.405,
+    "second_lag": -1.47,
+    "second_corr": 0.374
+   },
+   {
+    "a_seconds": 30.0,
+    "lag_seconds": -0.04,
+    "corr": 0.391,
+    "second_lag": 1.36,
+    "second_corr": 0.359
+   },
+   {
+    "a_seconds": 40.0,
+    "lag_seconds": -2.79,
+    "corr": 0.371,
+    "second_lag": 0.01,
+    "second_corr": 0.354
+   },
+   {
+    "a_seconds": 50.0,
+    "lag_seconds": 0.05,
+    "corr": 0.368,
+    "second_lag": 2.86,
+    "second_corr": 0.341
+   },
+   {
+    "a_seconds": 60.0,
+    "lag_seconds": 0.1,
+    "corr": 0.411,
+    "second_lag": -1.3,
+    "second_corr": 0.375
+   },
+   {
+    "a_seconds": 70.0,
+    "lag_seconds": -2.68,
+    "corr": 0.429,
+    "second_lag": -1.28,
+    "second_corr": 0.42
+   },
+   {
+    "a_seconds": 80.0,
+    "lag_seconds": 0.16,
+    "corr": 0.523,
+    "second_lag": 2.96,
+    "second_corr": 0.494
+   },
+   {
+    "a_seconds": 90.0,
+    "lag_seconds": 0.18,
+    "corr": 0.531,
+    "second_lag": 1.58,
+    "second_corr": 0.519
+   },
+   {
+    "a_seconds": 100.0,
+    "lag_seconds": 0.21,
+    "corr": 0.472,
+    "second_lag": 1.61,
+    "second_corr": 0.469
+   },
+   {
+    "a_seconds": 110.0,
+    "lag_seconds": -2.56,
+    "corr": 0.438,
+    "second_lag": -1.17,
+    "second_corr": 0.399
+   },
+   {
+    "a_seconds": 120.0,
+    "lag_seconds": -2.54,
+    "corr": 0.461,
+    "second_lag": -1.14,
+    "second_corr": 0.422
+   },
+   {
+    "a_seconds": 130.0,
+    "lag_seconds": 0.29,
+    "corr": 0.564,
+    "second_lag": -2.51,
+    "second_corr": 0.55
+   },
+   {
+    "a_seconds": 140.0,
+    "lag_seconds": 0.32,
+    "corr": 0.555,
+    "second_lag": 1.72,
+    "second_corr": 0.516
+   },
+   {
+    "a_seconds": 150.0,
+    "lag_seconds": -2.47,
+    "corr": 0.529,
+    "second_lag": 0.33,
+    "second_corr": 0.515
+   },
+   {
+    "a_seconds": 160.0,
+    "lag_seconds": 0.37,
+    "corr": 0.466,
+    "second_lag": 1.77,
+    "second_corr": 0.402
+   },
+   {
+    "a_seconds": 170.0,
+    "lag_seconds": -2.41,
+    "corr": 0.53,
+    "second_lag": 0.4,
+    "second_corr": 0.476
+   },
+   {
+    "a_seconds": 180.0,
+    "lag_seconds": 0.42,
+    "corr": 0.641,
+    "second_lag": -2.38,
+    "second_corr": 0.625
+   },
+   {
+    "a_seconds": 190.0,
+    "lag_seconds": 0.44,
+    "corr": 0.679,
+    "second_lag": -2.36,
+    "second_corr": 0.663
+   },
+   {
+    "a_seconds": 200.0,
+    "lag_seconds": 0.46,
+    "corr": 0.615,
+    "second_lag": -2.34,
+    "second_corr": 0.534
+   },
+   {
+    "a_seconds": 210.0,
+    "lag_seconds": 0.47,
+    "corr": 0.254,
+    "second_lag": -2.42,
+    "second_corr": 0.23
+   },
+   {
+    "a_seconds": 220.0,
+    "lag_seconds": 0.48,
+    "corr": 0.322,
+    "second_lag": -2.32,
+    "second_corr": 0.271
+   },
+   {
+    "a_seconds": 230.0,
+    "lag_seconds": 0.48,
+    "corr": 0.259,
+    "second_lag": -2.31,
+    "second_corr": 0.223
+   },
+   {
+    "a_seconds": 240.0,
+    "lag_seconds": 0.47,
+    "corr": 0.584,
+    "second_lag": 1.17,
+    "second_corr": 0.578
+   },
+   {
+    "a_seconds": 250.0,
+    "lag_seconds": -0.93,
+    "corr": 0.678,
+    "second_lag": 0.47,
+    "second_corr": 0.664
+   },
+   {
+    "a_seconds": 260.0,
+    "lag_seconds": 1.85,
+    "corr": 0.744,
+    "second_lag": -0.94,
+    "second_corr": 0.733
+   },
+   {
+    "a_seconds": 270.0,
+    "lag_seconds": 1.84,
+    "corr": 0.703,
+    "second_lag": -0.95,
+    "second_corr": 0.687
+   },
+   {
+    "a_seconds": 280.0,
+    "lag_seconds": 1.83,
+    "corr": 0.804,
+    "second_lag": -0.96,
+    "second_corr": 0.786
+   },
+   {
+    "a_seconds": 290.0,
+    "lag_seconds": -0.97,
+    "corr": 0.664,
+    "second_lag": -2.37,
+    "second_corr": 0.659
+   },
+   {
+    "a_seconds": 300.0,
+    "lag_seconds": 0.4,
+    "corr": 0.537,
+    "second_lag": -0.99,
+    "second_corr": 0.528
+   },
+   {
+    "a_seconds": 310.0,
+    "lag_seconds": 0.38,
+    "corr": 0.622,
+    "second_lag": -2.41,
+    "second_corr": 0.554
+   },
+   {
+    "a_seconds": 320.0,
+    "lag_seconds": -2.43,
+    "corr": 0.401,
+    "second_lag": 0.36,
+    "second_corr": 0.389
+   },
+   {
+    "a_seconds": 330.0,
+    "lag_seconds": 0.31,
+    "corr": 0.33,
+    "second_lag": 1.7,
+    "second_corr": 0.297
+   },
+   {
+    "a_seconds": 340.0,
+    "lag_seconds": 0.27,
+    "corr": 0.368,
+    "second_lag": -2.51,
+    "second_corr": 0.327
+   },
+   {
+    "a_seconds": 350.0,
+    "lag_seconds": 0.21,
+    "corr": 0.425,
+    "second_lag": -1.18,
+    "second_corr": 0.404
+   },
+   {
+    "a_seconds": 360.0,
+    "lag_seconds": 1.57,
+    "corr": 0.36,
+    "second_lag": 0.17,
+    "second_corr": 0.343
+   },
+   {
+    "a_seconds": 370.0,
+    "lag_seconds": 2.92,
+    "corr": 0.438,
+    "second_lag": 1.53,
+    "second_corr": 0.423
+   },
+   {
+    "a_seconds": 380.0,
+    "lag_seconds": 2.89,
+    "corr": 0.456,
+    "second_lag": -2.68,
+    "second_corr": 0.452
+   },
+   {
+    "a_seconds": 390.0,
+    "lag_seconds": 0.07,
+    "corr": 0.492,
+    "second_lag": -1.32,
+    "second_corr": 0.482
+   },
+   {
+    "a_seconds": 400.0,
+    "lag_seconds": 0.04,
+    "corr": 0.547,
+    "second_lag": -2.74,
+    "second_corr": 0.492
+   },
+   {
+    "a_seconds": 410.0,
+    "lag_seconds": 0.02,
+    "corr": 0.55,
+    "second_lag": 2.8,
+    "second_corr": 0.547
+   },
+   {
+    "a_seconds": 420.0,
+    "lag_seconds": -2.79,
+    "corr": 0.459,
+    "second_lag": -0.01,
+    "second_corr": 0.437
+   },
+   {
+    "a_seconds": 430.0,
+    "lag_seconds": -0.04,
+    "corr": 0.467,
+    "second_lag": -2.84,
+    "second_corr": 0.429
+   },
+   {
+    "a_seconds": 440.0,
+    "lag_seconds": -0.08,
+    "corr": 0.479,
+    "second_lag": -2.87,
+    "second_corr": 0.455
+   },
+   {
+    "a_seconds": 450.0,
+    "lag_seconds": -2.9,
+    "corr": 0.463,
+    "second_lag": -0.11,
+    "second_corr": 0.457
+   },
+   {
+    "a_seconds": 460.0,
+    "lag_seconds": -0.14,
+    "corr": 0.392,
+    "second_lag": -2.93,
+    "second_corr": 0.383
+   },
+   {
+    "a_seconds": 470.0,
+    "lag_seconds": -0.18,
+    "corr": 0.519,
+    "second_lag": -2.97,
+    "second_corr": 0.455
+   }
+  ]
+ },
+ "silence": {
+  "A (HD Audio & Speed Up)": {
+   "seconds": 485.111,
+   "leading": 0.0,
+   "trailing_below_-60dB": 4.18,
+   "trailing_below_-45dB": 5.91
+  },
+  "B (CITRUS 003 upload)": {
+   "seconds": 514.067,
+   "leading": 0.0,
+   "trailing_below_-60dB": 0.0,
+   "trailing_below_-45dB": 0.0
+  }
+ }
+}
