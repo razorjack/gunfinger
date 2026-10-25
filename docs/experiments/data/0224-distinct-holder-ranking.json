@@ -1,0 +1,1022 @@
+{
+ "262-sweep-seed-2026-exact-9-panel-262-rank-clusters-trace": {
+  "cut": 122,
+  "lists_set_aside": 5407,
+  "postings_set_aside": 0.142,
+  "assets": 815,
+  "moved": {
+   "in": 1280,
+   "out": 1586,
+   "kept": 4127
+  },
+  "set_aside_share": {
+   "copies": 0.1423,
+   "originals": 0.1423,
+   "rest": 0.1411
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.983,
+  "ratio_median": 1.027,
+  "ratio_median_copied": 1.027,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     1.0
+    ],
+    "before": 601,
+    "after": 591
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     -3.0
+    ],
+    "before": 675,
+    "after": 664
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     5.0
+    ],
+    "before": 680,
+    "after": 670
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -5.0
+    ],
+    "before": 572,
+    "after": 565
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     1.0
+    ],
+    "before": 702,
+    "after": 694
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 10.0,
+  "candidates_median_before": 1.0,
+  "wrong_candidate_files_median": 0.0,
+  "wrong_candidate_files_median_before": 0.0,
+  "wrong_possible_files": 8,
+  "wrong_possible_files_before": 9,
+  "wrong_possible": 80,
+  "wrong_possible_before": 9
+ },
+ "262-sweep-seed-2026-exact-9-panel-262-rank-files-trace": {
+  "cut": 168,
+  "lists_set_aside": 5706,
+  "postings_set_aside": 0.1494,
+  "assets": 815,
+  "moved": {
+   "in": 1692,
+   "out": 1699,
+   "kept": 4014
+  },
+  "set_aside_share": {
+   "copies": 0.1518,
+   "originals": 0.1518,
+   "rest": 0.1381
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.972,
+  "ratio_median": 1.019,
+  "ratio_median_copied": 1.019,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -3.0
+    ],
+    "before": 569,
+    "after": 553
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     1.0
+    ],
+    "before": 601,
+    "after": 587
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -5.0
+    ],
+    "before": 572,
+    "after": 559
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     5.0
+    ],
+    "before": 680,
+    "after": 667
+   },
+   {
+    "query": [
+     "extra/a1-skynet-acid_drops-sour.mp3",
+     221.72958556250663,
+     1.0
+    ],
+    "before": 645,
+    "after": 633
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 10.0,
+  "candidates_median_before": 1.0,
+  "wrong_candidate_files_median": 0.0,
+  "wrong_candidate_files_median_before": 0.0,
+  "wrong_possible_files": 8,
+  "wrong_possible_files_before": 9,
+  "wrong_possible": 80,
+  "wrong_possible_before": 9
+ },
+ "262-sweep-seed-2026-exact-99-panel-262-rank-clusters-trace": {
+  "cut": 602,
+  "lists_set_aside": 5407,
+  "postings_set_aside": 0.1422,
+  "assets": 6845,
+  "moved": {
+   "in": 1280,
+   "out": 1586,
+   "kept": 4127
+  },
+  "set_aside_share": {
+   "copies": 0.1423,
+   "originals": 0.1423,
+   "rest": 0.1411
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.983,
+  "ratio_median": 1.027,
+  "ratio_median_copied": 1.027,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     1.0
+    ],
+    "before": 601,
+    "after": 591
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     -3.0
+    ],
+    "before": 675,
+    "after": 664
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     5.0
+    ],
+    "before": 680,
+    "after": 670
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -5.0
+    ],
+    "before": 572,
+    "after": 565
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     1.0
+    ],
+    "before": 702,
+    "after": 694
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 100.0,
+  "candidates_median_before": 1.0,
+  "wrong_candidate_files_median": 0.0,
+  "wrong_candidate_files_median_before": 0.0,
+  "wrong_possible_files": 8,
+  "wrong_possible_files_before": 9,
+  "wrong_possible": 800,
+  "wrong_possible_before": 9
+ },
+ "262-sweep-seed-2026-exact-99-panel-262-rank-files-trace": {
+  "cut": 1409,
+  "lists_set_aside": 5710,
+  "postings_set_aside": 0.1514,
+  "assets": 6845,
+  "moved": {
+   "in": 1763,
+   "out": 1766,
+   "kept": 3947
+  },
+  "set_aside_share": {
+   "copies": 0.1517,
+   "originals": 0.1517,
+   "rest": 0.1362
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.972,
+  "ratio_median": 1.02,
+  "ratio_median_copied": 1.02,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -3.0
+    ],
+    "before": 569,
+    "after": 553
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     1.0
+    ],
+    "before": 601,
+    "after": 586
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -5.0
+    ],
+    "before": 572,
+    "after": 558
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -1.0
+    ],
+    "before": 617,
+    "after": 605
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     5.0
+    ],
+    "before": 680,
+    "after": 668
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 100.0,
+  "candidates_median_before": 1.0,
+  "wrong_candidate_files_median": 0.0,
+  "wrong_candidate_files_median_before": 0.0,
+  "wrong_possible_files": 7,
+  "wrong_possible_files_before": 9,
+  "wrong_possible": 700,
+  "wrong_possible_before": 9
+ },
+ "262-sweep-seed-2026-rank-clusters-trace": {
+  "cut": 49,
+  "lists_set_aside": 5407,
+  "postings_set_aside": 0.1415,
+  "assets": 212,
+  "moved": {
+   "in": 1280,
+   "out": 1586,
+   "kept": 4127
+  },
+  "set_aside_share": {
+   "copies": null,
+   "originals": null,
+   "rest": 0.1415
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.983,
+  "ratio_median": 1.027,
+  "ratio_median_copied": null,
+  "ratio_median_not_copied": 1.027,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     1.0
+    ],
+    "before": 601,
+    "after": 591
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     -3.0
+    ],
+    "before": 675,
+    "after": 664
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     5.0
+    ],
+    "before": 680,
+    "after": 670
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -5.0
+    ],
+    "before": 572,
+    "after": 565
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     1.0
+    ],
+    "before": 702,
+    "after": 694
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 1.0,
+  "candidates_median_before": 1.0,
+  "wrong_candidate_files_median": 0.0,
+  "wrong_candidate_files_median_before": 0.0,
+  "wrong_possible_files": 8,
+  "wrong_possible_files_before": 9,
+  "wrong_possible": 8,
+  "wrong_possible_before": 9
+ },
+ "262-sweep-seed-2026-rank-files-trace": {
+  "cut": 49,
+  "lists_set_aside": 5586,
+  "postings_set_aside": 0.1442,
+  "assets": 212,
+  "moved": {
+   "in": 1391,
+   "out": 1518,
+   "kept": 4195
+  },
+  "set_aside_share": {
+   "copies": null,
+   "originals": null,
+   "rest": 0.1442
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.978,
+  "ratio_median": 1.026,
+  "ratio_median_copied": null,
+  "ratio_median_not_copied": 1.026,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     1.0
+    ],
+    "before": 601,
+    "after": 588
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     -3.0
+    ],
+    "before": 675,
+    "after": 663
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     5.0
+    ],
+    "before": 680,
+    "after": 669
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     -5.0
+    ],
+    "before": 572,
+    "after": 563
+   },
+   {
+    "query": [
+     "extra/[AA]_-_Phoenix.mp3",
+     60.87582344089366,
+     1.0
+    ],
+    "before": 702,
+    "after": 694
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 1.0,
+  "candidates_median_before": 1.0,
+  "wrong_candidate_files_median": 0.0,
+  "wrong_candidate_files_median_before": 0.0,
+  "wrong_possible_files": 9,
+  "wrong_possible_files_before": 9,
+  "wrong_possible": 9,
+  "wrong_possible_before": 9
+ },
+ "nas-sweep-seed-2026-exact-6-share-nas-rank-clusters-trace": {
+  "cut": 12410,
+  "lists_set_aside": 10861,
+  "postings_set_aside": 0.184,
+  "assets": 64940,
+  "moved": {
+   "in": 1193,
+   "out": 1195,
+   "kept": 9668
+  },
+  "set_aside_share": {
+   "copies": 0.1837,
+   "originals": 0.1837,
+   "rest": 0.1842
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.979,
+  "ratio_median": 1.011,
+  "ratio_median_copied": 1.018,
+  "ratio_median_not_copied": 1.011,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -3.0
+    ],
+    "before": 749,
+    "after": 733
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -5.0
+    ],
+    "before": 750,
+    "after": 735
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -1.0
+    ],
+    "before": 768,
+    "after": 755
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -3.0
+    ],
+    "before": 684,
+    "after": 673
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     3.0
+    ],
+    "before": 788,
+    "after": 776
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 4.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 24,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 24,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-exact-6-share-nas-rank-files-trace": {
+  "cut": 12381,
+  "lists_set_aside": 10863,
+  "postings_set_aside": 0.184,
+  "assets": 64940,
+  "moved": {
+   "in": 1203,
+   "out": 1203,
+   "kept": 9660
+  },
+  "set_aside_share": {
+   "copies": 0.1838,
+   "originals": 0.1838,
+   "rest": 0.1841
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.983,
+  "ratio_median": 1.011,
+  "ratio_median_copied": 1.018,
+  "ratio_median_not_copied": 1.011,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -5.0
+    ],
+    "before": 750,
+    "after": 737
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -3.0
+    ],
+    "before": 684,
+    "after": 673
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -3.0
+    ],
+    "before": 749,
+    "after": 738
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -1.0
+    ],
+    "before": 661,
+    "after": 652
+   },
+   {
+    "query": [
+     "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+     121.53884680994516,
+     3.0
+    ],
+    "before": 597,
+    "after": 589
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 4.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 24,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 24,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-exact-9-panel-nas-rank-clusters-trace": {
+  "cut": 7858,
+  "lists_set_aside": 10861,
+  "postings_set_aside": 0.1846,
+  "assets": 41993,
+  "moved": {
+   "in": 1193,
+   "out": 1195,
+   "kept": 9668
+  },
+  "set_aside_share": {
+   "copies": 0.1973,
+   "originals": 0.1973,
+   "rest": 0.1841
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.979,
+  "ratio_median": 1.011,
+  "ratio_median_copied": 1.011,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -3.0
+    ],
+    "before": 749,
+    "after": 733
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -5.0
+    ],
+    "before": 750,
+    "after": 735
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -1.0
+    ],
+    "before": 768,
+    "after": 755
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -3.0
+    ],
+    "before": 684,
+    "after": 673
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     3.0
+    ],
+    "before": 788,
+    "after": 776
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 22.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 24,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 168,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-exact-9-panel-nas-rank-files-trace": {
+  "cut": 7999,
+  "lists_set_aside": 10862,
+  "postings_set_aside": 0.1846,
+  "assets": 41993,
+  "moved": {
+   "in": 1186,
+   "out": 1187,
+   "kept": 9676
+  },
+  "set_aside_share": {
+   "copies": 0.198,
+   "originals": 0.198,
+   "rest": 0.184
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.981,
+  "ratio_median": 1.01,
+  "ratio_median_copied": 1.01,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -3.0
+    ],
+    "before": 749,
+    "after": 735
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -3.0
+    ],
+    "before": 684,
+    "after": 672
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -5.0
+    ],
+    "before": 750,
+    "after": 737
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -1.0
+    ],
+    "before": 768,
+    "after": 756
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -1.0
+    ],
+    "before": 661,
+    "after": 651
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 22.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 25,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 169,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-rank-clusters-trace": {
+  "cut": 7696,
+  "lists_set_aside": 10861,
+  "postings_set_aside": 0.1841,
+  "assets": 40580,
+  "moved": {
+   "in": 1193,
+   "out": 1195,
+   "kept": 9668
+  },
+  "set_aside_share": {
+   "copies": null,
+   "originals": null,
+   "rest": 0.1841
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.979,
+  "ratio_median": 1.011,
+  "ratio_median_copied": null,
+  "ratio_median_not_copied": 1.011,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -3.0
+    ],
+    "before": 749,
+    "after": 733
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -5.0
+    ],
+    "before": 750,
+    "after": 735
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -1.0
+    ],
+    "before": 768,
+    "after": 755
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -3.0
+    ],
+    "before": 684,
+    "after": 673
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     3.0
+    ],
+    "before": 788,
+    "after": 776
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 3.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 24,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 24,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-rank-files-trace": {
+  "cut": 7696,
+  "lists_set_aside": 10860,
+  "postings_set_aside": 0.1841,
+  "assets": 40580,
+  "moved": {
+   "in": 1190,
+   "out": 1193,
+   "kept": 9670
+  },
+  "set_aside_share": {
+   "copies": null,
+   "originals": null,
+   "rest": 0.1841
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.98,
+  "ratio_median": 1.011,
+  "ratio_median_copied": null,
+  "ratio_median_not_copied": 1.011,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -3.0
+    ],
+    "before": 749,
+    "after": 734
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -5.0
+    ],
+    "before": 750,
+    "after": 735
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     -1.0
+    ],
+    "before": 768,
+    "after": 755
+   },
+   {
+    "query": [
+     "extra/a-bullet_proof-anthrax-sour.mp3",
+     223.01841097512016,
+     -3.0
+    ],
+    "before": 684,
+    "after": 673
+   },
+   {
+    "query": [
+     "extra/rawkuts-jo_s-rkt335-2001-sour/b-jo_s-separation-sour.mp3",
+     268.90688328512033,
+     3.0
+    ],
+    "before": 788,
+    "after": 776
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 3.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 24,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 24,
+  "wrong_possible_before": 26
+ }
+}

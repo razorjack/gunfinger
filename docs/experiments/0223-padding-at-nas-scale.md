@@ -32,8 +32,8 @@ instead of 363 (still confident). Every other own second-pass count is
 within 0.7% of level 0.
 **Against the registration.** Stable. The panel moves few lists (1.4%),
 as declared; the share selection, against the declaration, raises the
-cut by 60% but moves 2%: the fullest lists are held by many files, about
-a tenth of each list's copied.
+cut by 60% but moves 2%: each of the fullest lists is held by many
+files, and about a tenth of them are copied.
 **Conclusion.** At 40,580 files the set aside follows the library's
 proportions, not its copies: only many copies of the same recordings
 shift it, and then by a few percent of its lists. Through the chain's
