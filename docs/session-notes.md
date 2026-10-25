@@ -10775,3 +10775,150 @@ by `pair` (the Monotone remix and Watermelon) would be printed.
   `regress session-33-linux-nas` (3:44) identical, every report
   identical to its baseline apart from `wall_seconds`; the digests
   unchanged.
+
+## Session 49
+
+### What changed
+
+The product did not change: no threshold, rule, default or output, and
+the CLI binary is byte-identical to the start build's. Added, harness
+only and tested:
+
+- `pair --fine-rungs` (`pair::FineRungs`): beside its four searches of
+  stored peaks, `pair` searches 20 more rungs, the fitted speed times
+  1 + k × 0.1% for k = ±1 to ±10 (`peaks, fine rung -1.0%` to `+1.0%`),
+  each alignment with its supported seconds. Without the option the
+  report is unchanged (session 40's source pairs give an identical
+  report), and with it the other searches are unchanged (the populations'
+  reports less the fine rungs equal session 40's).
+- `scripts/analysis/drift_offsets.py` (`measures`, `choose`, `scores`)
+  and `cluster_speeds.py`, each with tests.
+
+In short: the Falcon - The Stand pair the listening judged `same` parts
+over time because one upload's speed drifts, not because of trailing
+silence, which moves no fit or placement. A near-offset share gathered
+over rungs near the fitted speed orders the 60 judged pairs it was
+chosen on better than any earlier measure but did not carry its
+threshold to the ten new verdicts; `near_10` stays the best measure
+by the registered scores.
+
+### Experiments 0219-0221
+
+- 0219 (exploratory): A, the "HD Audio & Speed Up" upload, ends with
+  4.2 s of silence (5.9 s below -45 dB) and 3 s of music B lacks; B, the
+  CITRUS 003 upload, has none. Against alignment 1, B wanders from -0.2 s
+  to +0.48 s and back (envelope lags and the fine rungs agree: about
+  1.083 at the start, 1.075 at the end). Against the vinyl rip B runs
+  1.031 to 1.038 times its speed, while A is about 1.116 throughout:
+  B's digitisation drifts. A's first 30 s hold no alignment at the
+  fitted speed because the files run 0.5% from it there. File length
+  enters only as the shares' denominator and a lane's clip; the page
+  plays B at the alignment's speed, not the length ratio.
+- 0220: the registered choice `drift_0.8_20` (rungs within 0.8%, lines
+  within 20 s) has AUC 0.989 on the 60 judged pairs (a) it was chosen
+  on and 3 leave-one-out errors (`near_10` 0.952 and 6, supported time
+  0.935 and 7; the best earlier AUC is `near_20`'s 0.955), one presumed
+  join below its threshold; on the ten it orders every
+  pair right but its threshold (0.843) puts two same pairs (Pyro, Alien
+  Girl) below; pooled leave-one-out errors 4 (6, 9). Not better by the
+  registered bar. Found after the test: `drift_0.8_10` (4 leave-one-out
+  errors, no presumed join below) makes no error on the ten.
+- 0221: on the ten, coverage and `near_10` at session 40's thresholds
+  make no error; supported time misses Falcon by 0.009.
+- Step 5 (roadmap, "The edge of the ladder"): of 284 NAS clusters 75,
+  12, 1 and 1 span more than 2, 4, 6 and 8% in speed (Falcon - The Stand,
+  11.5%). With a deck at ±5%, 50 clusters hold two copies of which one,
+  indexed alone, would miss a play of the other; 38 copies (35 uploads of
+  one channel, 3-5% fast) have no other copy in reach at one extreme,
+  and each of their clusters holds a rip that has.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; run build) | 0:50; 0:51 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build) | 3:46; 3:45 | 5.3 GiB |
+| `pair --fine-rungs`, populations a-d (62, 100, 51, 60 pairs) | 0:19-0:40 | 0.6-1.1 GiB |
+| `pair --fine-rungs`, the ten verdicts | 0:13 | 0.3 GiB |
+| `scripts/check.sh` | 3:55 | |
+
+### Decided this session, open to change
+
+- `--speed-per-stretch` was not run on the Falcon pair: it works on
+  decoded audio in the second pass, and `pair` decodes only corpus
+  queries. The fine rungs on stored peaks, and an onset-envelope lag on
+  the decoded audio, gave the per-stretch speeds instead.
+- The three verdicts of 2026-10-25 that sat in session 40's presumed
+  populations (Dead Air and Pyro in (b), Drumtrip ~ Propaganda in (d))
+  were left out of them for the parameter choice.
+- Falcon was looked at in step 1 before the registration, so the test
+  scores are also given without it (the same errors).
+
+### Questions this leaves for us
+
+- Whether to give the drift-following share a second registered test,
+  with `drift_0.8_10` (or the order of the choice changed to put "no
+  presumed join below" first) on judged pairs not yet seen; ten pairs
+  chosen near `near_10`'s threshold cannot separate the measures, and
+  the pooled leave-one-out margin is two pairs.
+- Whether a join rule should read evidence from several rungs at all:
+  the fine rungs lift versions that share most of a track (the Sonar
+  revision pairs) as well as drifting copies.
+- Whether the listening page should offer a placement that follows
+  drift (the fine rungs' alignments as pieces), so that copies like
+  Falcon's do not sound as if they part; today it plays one speed.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: items 4, 5, 7 and 9 of session 40's pack
+  (`work/s47/questions/05-pack-s40.json`), session 39's questions, Star
+  Trails, Into Music.
+
+### Handoff for the next session
+
+1. Data: `pair --fine-rungs` reports
+   `work/reports/library-nas-dnb-peaks/pairs-s49-{a,b,c,d,new,falcon,falcon-third,source-default}.json`;
+   measures `work/s49/measures-{dev,new}.json`, the choice
+   `work/s49/choice.json`, the scores `work/s49/scores.json` (copied to
+   `docs/experiments/data/0220-*.json`), the exploratory table
+   `work/s49/explore-candidates-test.json`; the cluster spans
+   `work/s49/cluster-speeds.json`; Falcon's silence and envelope lags in
+   `work/s49/falcon/`.
+2. Builds: `work/bin/s49-start/` (= `s48-final`), `s49-run/` (the runs),
+   `s49-final/` (master).
+3. Scripts: `work/s49/start.sh`, `step3a.sh`, `step3b.sh`, `step4.sh`,
+   `final.sh`. For example:
+
+   ```sh
+   work/bin/s49-final/gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks pair --fine-rungs work/s49/pairs/s49-new.txt
+   python3 -I scripts/analysis/drift_offsets.py measures work/s49/measures-new.json work/reports/library-nas-dnb-peaks/pairs-s49-new.json
+   python3 -I scripts/analysis/cluster_speeds.py work/reports/library-nas-dnb-peaks/duplicate-clusters.json work/s49/cluster-speeds.json
+   ```
+
+### What else to know
+
+- The held-out test set was not touched; no mix was searched; nothing
+  ran on the candidate mixes of 0065 or on the NAS root's broadcast
+  file. The NAS store was only read (`pair --other-peaks-dir`); two NAS
+  files were decoded (read) for step 1; `work/peaks` was only read.
+- `docs/pair-verdicts.txt`, the clusters file and the answer log are at
+  their start digests (`work/s49/listening-digests-start.txt`); no answer
+  log was written; no manifest or committed panel changed.
+- A read-only review by a separate agent (04:17-04:25) found no defect
+  in `pair --fine-rungs`, the measure's code, the choice's order or the
+  commit order, and ten points in the documents and the script; all
+  taken: the source pairs' sides added to the scores (both fall on the
+  same side under every measure, as in 0186), the AUC of 0220 marked as
+  the choice's own data (best earlier `near_20` 0.955), experiment 0001's
+  figure cited as measured (0.1% off keeps about 70%), the four Sonar
+  revision pairs (0.36-0.66 to 0.56-0.77), 0220's "before the test
+  pairs' measures were computed" (`pair` on the ten ran at 04:13, just
+  before the choice was committed), 0219's lag rows on a neighbouring
+  bar set aside, the brief's time stamps (some were later than their
+  commits) and the brief's list wrap.
+- Final checks with `work/bin/s49-final/` (built from the final commit;
+  its `gunfinger` byte-identical to the start build's, its
+  `gunfinger-eval` to the run build's): `scripts/check.sh` green;
+  `regress session-32-linux` (0:50) and `regress session-33-linux-nas`
+  (3:45) identical, every report identical to its baseline apart from
+  `wall_seconds`; the digests unchanged.

@@ -1062,8 +1062,9 @@ marked as inferences were derived, not measured.
   with the 60 earlier judged pairs, leave-one-out errors 9, 9 and 6. A
   near-offset share over rungs within 0.8% of the fitted speed and lines
   within 20 s of the main one (`drift_0.8_20`, chosen on session 40's
-  populations) orders the judged pairs best (AUC 0.99, pooled
-  leave-one-out errors 4) but by the registered bar is not better: its
+  populations) orders those populations' judged pairs best (AUC 0.99,
+  in-sample; pooled with the ten, leave-one-out errors 4) but by the
+  registered bar is not better: its
   threshold puts two same pairs of the ten and one presumed join below
   it. Found after the test, not confirmed: the same share with lines
   within 10 s makes no error on the ten. More judged pairs would decide.
@@ -1105,7 +1106,7 @@ marked as inferences were derived, not measured.
   near the fitted speed (`pair --fine-rungs`, `drift_offsets.py`) lifts
   the drifting same pairs (Fractles 0.12 to 0.65, Coma ~ Spraycan 0.55 to
   0.97) but also versions sharing most of a track (the Sonar revision
-  pairs to 0.66-0.77); the registered variant fails its bar on the ten
+  pairs to 0.56-0.77); the registered variant fails its bar on the ten
   verdicts of 2026-10-25. No join rule changes.
 - **The possible tier at NAS scale.** Matches between recordings of
   different artists and titles reach 63-70 hits over the NAS sweeps

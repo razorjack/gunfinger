@@ -15,7 +15,7 @@ highest AUC on (a), then T = 10 s first, the smaller W, the smaller T.
 Pairs named in the test verdicts are left out of every population.
 
 `scores` gives the registered scores: on the development populations as
-session 40's `scores`, on the test verdicts apart (also without the pairs
+session 40's `scores` (the two source pairs' sides among them), on the test verdicts apart (also without the pairs
 of SEEN, a pair file), and pooled with the judged pairs (a).
 
 usage:
@@ -196,6 +196,9 @@ def scores(populations_file, measures_file, verdicts_file, test_measures, choice
     unseen = [r for r in test if key(r["query"], r["found"]) not in seen]
     judged = groups["a same"] + groups["a different"]
     pooled = judged + test
+    labels = {key(p["query"], p["found"]): p["label"] for p in load(populations_file)["pairs"]}
+    sources = [{**r, "label": labels[key(r["query"], r["found"])]} for r in load(measures_file)
+               if key(r["query"], r["found"]) in SOURCE_KEYS]
     result = {"chosen": chosen, "counts": {
         "a": [len(groups["a same"]), len(groups["a different"])],
         "b": len(groups["b"]), "c": len(groups["c"]), "d": len(groups["d"]),
@@ -241,6 +244,9 @@ def scores(populations_file, measures_file, verdicts_file, test_measures, choice
                 "loo_wrong": [name_of(pooled[i]) for i in pooled_loo],
             },
             "judged_values": {name_of(r): [r["label"], r[measure]] for r in judged},
+            "source_pairs": {name_of(r): {"judged": r["label"], "value": r[measure],
+                                          "says_same": says_same(r[measure], threshold, True)}
+                             for r in sources},
         }
     with open(out, "w") as file:
         json.dump(result, file, indent=1, ensure_ascii=False)

@@ -25,6 +25,6 @@ for scope and rules.
   `near_10`, supported time and coverage on the ten new verdicts
 - [x] 5. The NAS clusters' speed spans; the roadmap's "The edge of the
   ladder"
-- [~] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 49", status, checklist, roadmap; final
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 49", status, checklist, roadmap; final
   checks

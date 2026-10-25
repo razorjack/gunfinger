@@ -340,6 +340,18 @@
      "judged different",
      0.40183154065618015
     ]
+   },
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "judged": "judged different",
+     "value": 0.7805760063559323,
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "judged": "judged same",
+     "value": 0.730702454567194,
+     "says_same": true
+    }
    }
   },
   "supported": {
@@ -671,6 +683,18 @@
      "judged different",
      0.0638342013011538
     ]
+   },
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "judged": "judged different",
+     "value": 0.903072033898305,
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "judged": "judged same",
+     "value": 0.9063084528004385,
+     "says_same": true
+    }
    }
   },
   "near_10": {
@@ -992,6 +1016,18 @@
      "judged different",
      0.0638342013011538
     ]
+   },
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "judged": "judged different",
+     "value": 0.7653601694915254,
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "judged": "judged same",
+     "value": 0.9063084528004385,
+     "says_same": true
+    }
    }
   },
   "drift_0_10": {
@@ -1313,6 +1349,18 @@
      "judged different",
      0.0638342013011538
     ]
+   },
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "judged": "judged different",
+     "value": 0.7653601694915254,
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "judged": "judged same",
+     "value": 0.9063084528004385,
+     "says_same": true
+    }
    }
   },
   "drift_0.8_20": {
@@ -1632,6 +1680,18 @@
      "judged different",
      0.0957513019517307
     ]
+   },
+   "source_pairs": {
+    "b-bad_company-china_cup.mp3 ~ ƆƐI3C - China Cup.opus": {
+     "judged": "judged different",
+     "value": 0.8501059322033898,
+     "says_same": true
+    },
+    "a-gridlok-dilusion-sour.mp3 ~ Gridlok - Dilusion.opus": {
+     "judged": "judged same",
+     "value": 0.9674569749170946,
+     "says_same": true
+    }
    }
   }
  }

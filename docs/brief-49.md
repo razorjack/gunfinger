@@ -131,8 +131,8 @@ alignments are looked at in step 1, so Falcon is declared seen).
   more rungs, the fitted speed times 1 + k × 0.1% for k = ±1 to ±10
   (`peaks, fine rung -1.0%` to `+1.0%`), each alignment with its
   supported seconds as at the fitted speed. Step 0.1%: every speed within
-  1% is within 0.05% of a rung, where about 90% of hashes survive
-  (experiment 0001). Without the option the report is unchanged: `pair`
+  1% is within 0.05% of a rung (experiment 0001 measured 0.1% off to
+  keep about 70% of the hashes kept at the exact speed). Without the option the report is unchanged: `pair`
   on session 40's source pairs gives a report identical to
   `pairs-s40-source.json`. A unit test builds a query whose last third
   plays 0.8% off and checks that the fine rungs hold it and the fitted
@@ -149,14 +149,14 @@ alignments are looked at in step 1, so Falcon is declared seen).
   throughout. A ends with 4-6 s of silence that moves no fit and no
   placement. Falcon's per-rung alignments were read here, so Falcon is
   declared seen: the test scores are given with and without it.
-- **(04:08) Three of the ten verdicts sit in session 40's presumed
+- **(04:05) Three of the ten verdicts sit in session 40's presumed
   populations:** Dead Air ~ the RH 66 upload and Pyro - Time Is Broken's
   two rips in (b), Known Unknown - Drumtrip ~ Propaganda in (d). They
   were never judged pairs there, but the parameter choice below reads
   (b). Decision (conservative): the choice and the development scores
   use (b) and (d) without these three pairs, so nothing chosen saw the
   ten.
-- **(04:10) Step 2, the pre-registration** (committed before the new
+- **(04:06) Step 2, the pre-registration** (committed before the new
   measure is computed on any pair; only Falcon's per-rung alignments
   have been read, in step 1).
 
@@ -221,7 +221,7 @@ alignments are looked at in step 1, so Falcon is declared seen).
   after `check.sh`): `pair --fine-rungs` on populations a-d (0:26, 0:40,
   0:19, 0:22) and on the ten verdicts (0:13). Without their fine-rung
   searches the four population reports are identical to session 40's.
-- **(04:14) The registered choice** (`work/s49/step4.sh dev`,
+- **(04:13) The registered choice** (`work/s49/step4.sh dev`,
   `work/s49/choice.json`), from the development populations only:
   `drift_0.8_20` (W 0.8%, T 20 s), 3 leave-one-out errors on (a), AUC
   (a) 0.989, threshold 0.8427 fitted on (a), and one (b) join below it.
@@ -230,10 +230,10 @@ alignments are looked at in step 1, so Falcon is declared seen).
   ten verdicts' values are computed. By the registered bar the chosen
   measure already fails its third condition (no (b) join below its
   threshold); the test is still run and scored as registered.
-- **(04:15) Step 4, experiments 0220 and 0221** (`work/s49/step4.sh
+- **(04:14) Step 4, experiments 0220 and 0221** (`work/s49/step4.sh
   test`, `work/s49/scores.json`). `drift_0.8_20` orders the ten without
-  a fault (AUC 1.000) but its threshold (0.843, fitted on (a)) puts Pyro
-  - Time Is Broken (0.827) and Alien Girl ~ PRO014 (0.801), both judged
+  a fault (AUC 1.000) but its threshold (0.843, fitted on (a)) puts
+  Pyro - Time Is Broken (0.827) and Alien Girl ~ PRO014 (0.801), both judged
   same, below it; pooled leave-one-out errors 4 against `near_10`'s 6 and
   supported time's 9. By the registered bar it is not better (two errors
   on the ten against 0 and 1, and a (b) join below). Exploratory, found
@@ -243,7 +243,7 @@ alignments are looked at in step 1, so Falcon is declared seen).
   and `near_10` make no error, supported time one (Falcon, 0.732 against
   0.741). 0220 and 0221 were each committed at 44 lines first and cut to
   40 in the next commit.
-- **(04:18) Step 5** (`scripts/analysis/cluster_speeds.py`, with tests;
+- **(04:16) Step 5** (`scripts/analysis/cluster_speeds.py`, with tests;
   `work/s49/cluster-speeds.json`), from the clusters file alone, the
   chained pair speeds as `relative_speed.py` computes them: of 284
   clusters 75, 12, 1 and 1 span more than 2, 4, 6 and 8%. With a deck at
@@ -254,3 +254,30 @@ alignments are looked at in step 1, so Falcon is declared seen).
   upload against the vinyl rip: 6 hits). The script was run before
   steps 1-4 were finished (04:09), read-only; its result was written up
   only after them.
+- **(04:27) The review's findings** (a separate agent, read-only,
+  04:17-04:25). No defect in `pair --fine-rungs`, `drift_of`, the
+  choice's order or the commits' order. Taken: the registered "source
+  pairs' sides" were missing from the scores (added; both fall on the
+  same side under every measure, so China Cup is wrong everywhere); 0220
+  and the roadmap now say the AUC on (a) is the choice's own data and
+  give the best earlier AUC, `near_20`'s 0.955; the code comment and
+  this brief cited "about 90% at 0.05%" from experiment 0001, which
+  measured 0.1% (about 70% of the hashes kept at the exact speed), now
+  cited as measured; four Sonar revision pairs, not three (0.36-0.66 to
+  0.56-0.77); 0220 said the choice was fixed before the test pairs were
+  measured, but `pair` on the ten ran at 04:13:02-04:13:16, before the
+  choice's commit (04:13:37); only their measures came after (04:13:40):
+  now worded so; 0219's lag rows on a neighbouring bar's correlation peak
+  are said to be set aside; the stamps of the decisions written at
+  04:05-04:16 were later than their commits and are corrected; the list
+  wrap at "Pyro - Time Is Broken"; 0220's line lengths and the (b) join
+  attributed to `drift_0.8_20`. Not taken (optional): tests of
+  `development()`'s leave-out and of the rungs' sign in the Rust test.
+- **(04:26) Final checks** with `work/bin/s49-final/` (built from
+  `074695d`; `gunfinger` byte-identical to the start build's,
+  `gunfinger-eval` to the run build's): `scripts/check.sh` green (3:40);
+  `regress session-32-linux` (0:50) and `regress session-33-linux-nas`
+  (3:45) identical; the verdicts file, the clusters file and the answer
+  log at their start digests. After the review only a code comment
+  changed: the rebuild is compared with this build and `check.sh` run
+  again (`work/s49/final2.sh`).

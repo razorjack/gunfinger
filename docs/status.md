@@ -4912,3 +4912,47 @@ option and a script.
 - The decision left for us: whether R1's plays stay in the tracklist as
   possible lines (an ADR superseding part of ADR 0019; `identify` would
   need the pair evidence or a stored map of related files).
+
+## 2026-10-25: session 49, copies of one recording that drift
+
+Brief `docs/brief-49.md`, checklist `docs/session-49-checklist.md`;
+notes "Session 49"; experiments 0219-0221. Gunfinger itself is unchanged
+(the CLI binary is byte-identical to the start build's); the harness
+gained an opt-in option and two scripts.
+
+- 03:51 start at `12d347d`, clean. Start build `work/bin/s49-start/`;
+  both regressions identical (0:50; 3:46).
+- 0219 (exploratory): Falcon - The Stand's "HD Audio & Speed Up" upload
+  and the CITRUS 003 upload are one recording at one offset end to end;
+  they part by up to 0.5 s on the listening page because the CITRUS 003
+  upload's speed drifts (1.031 to 1.038 times the vinyl rip's), which one
+  fitted speed cannot follow. The Speed Up upload's 4-6 s of trailing
+  silence moves no fit and no placement: speed and offset come from hits,
+  and length is only the denominator of the shares.
+- `8bd6c66`: `pair --fine-rungs` (rungs 0.1% apart within 1% of the
+  fitted speed) and `scripts/analysis/drift_offsets.py`. `check.sh`
+  green; both regressions identical.
+- 0220: the drift-following near-offset share chosen on session 40's
+  populations (`drift_0.8_20`) orders their judged pairs best (AUC 0.989,
+  3 leave-one-out errors against `near_10`'s 0.952 and 6; in-sample), but on the
+  ten verdicts of 2026-10-25 its threshold puts two same pairs below
+  it, and one presumed join lies below it: not better by the registered
+  bar. Found after the test, not confirmed: the runner-up with lines
+  within 10 s makes no error on the ten.
+- 0221: on the ten, coverage and `near_10` at session 40's thresholds
+  make no error; supported time one (Falcon).
+- Step 5: of 284 NAS clusters 75, 12, 1 and 1 span more than 2, 4, 6 and
+  8% in speed; at a deck's ±5%, 50 clusters hold a copy that, indexed
+  alone, would miss a play of another (roadmap, "The edge of the
+  ladder").
+- A read-only review found no defect in the code or the order of the
+  registration; ten points in the documents and the script were fixed
+  (among them the source pairs' sides, the in-sample AUC and a citation
+  of experiment 0001).
+- Final checks with `work/bin/s49-final/`: `scripts/check.sh` green;
+  both regressions identical (0:50; 3:45); the verdicts file, the
+  clusters file and the answer log at their start digests.
+- Left for us: whether to test the drift-following share again on
+  judged pairs not yet seen (with lines within 10 s, or the choice's
+  order changed); whether the listening page should place lanes by the
+  fine rungs so that drifting copies do not sound as if they part.

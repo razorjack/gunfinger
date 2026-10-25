@@ -84,9 +84,10 @@ pub enum FineRungs {
     Around,
 }
 
-/// The fine rungs are this far apart, relative to the fitted speed: at
-/// 0.05% from a rung about 90% of hashes survive (experiment 0001), so
-/// every speed within their reach is that close to one of them.
+/// The fine rungs are this far apart, relative to the fitted speed, so
+/// every speed within their reach is at most 0.05% from one of them;
+/// experiment 0001 measured 0.1% off to keep about 70% of the hashes kept
+/// at the exact speed (51.8% against 72.9%, resampled).
 const FINE_STEP: f64 = 0.001;
 /// The fine rungs reach this many steps either side of the fitted speed:
 /// 1%, two and a half steps of the ladder.
