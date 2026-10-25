@@ -345,3 +345,8 @@ goes first, then the aligned drops at NAS scale.
   first line. F1c (the clusters file's pairs) is false for every play
   at 262 tracks because that file lists duplicates only; it is used in
   no verdict.
+- **(03:51) Final checks** with `work/bin/s48-final/` (built from
+  `f285532`): `scripts/check.sh` green (3:40); both regressions
+  identical (0:50; 3:44); `docs/pair-verdicts.txt`, the clusters file
+  and the answer log at their start digests; the final `gunfinger`
+  byte-identical to the start build's.

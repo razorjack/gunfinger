@@ -10748,3 +10748,30 @@ by `pair` (the Monotone remix and Watermelon) would be printed.
    with a test on related versions beyond Clockwork (the second shared
    panel's families played inside each other); drops of the same rank
    for the merge measure.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No development mix was searched;
+  session 36's saved reports of the three development mixes were read
+  (0218). Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file. The NAS store was only read (`identify
+  --store-only --saved-index off`, `pair` and `--other-peaks-dir`); the
+  NAS library was not listed; `work/peaks` was only read (copied).
+- `docs/pair-verdicts.txt`, the clusters file and the answer log are at
+  their start digests (`work/s48/listening-digests-start.txt`); no
+  answer log was written; no manifest or committed panel changed (the
+  new seeds' panels are in `work/s48/panels/`).
+- The renders of this session (the test seeds' tempo-only and
+  other-pairs mixes, all aligned mixes) are kept in `work/s48/w/mixes/`
+  (about 3.7 GB) for the handoff; delete them when no longer needed.
+- A read-only review by a separate agent (03:37-03:44) found no defect
+  in the drop line-up or the features' definitions, and six in the
+  numbers, the rules' bars and the script; all fixed (brief 48, 03:52,
+  `f285532`).
+- Final checks (03:42-03:50) with `work/bin/s48-final/` (built from
+  `f285532`; its `gunfinger` byte-identical to the start build's):
+  `scripts/check.sh` green (3:40); `regress session-32-linux` (0:50) and
+  `regress session-33-linux-nas` (3:44) identical, every report
+  identical to its baseline apart from `wall_seconds`; the digests
+  unchanged.

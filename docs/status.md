@@ -4901,3 +4901,14 @@ option and a script.
 - 0217: lining up the drops merges 3 of 128 unrelated double drops at
   262 tracks and 4 at NAS scale (tempo-only: 1 and 0), under the 5% bar;
   a merge needs the two drops at about one place in their tracks too.
+- R5 (the speed ratio against the alignment's, bar from the development
+  seeds) is "promising, more data first" (prints 80-85%, lets in 2 and
+  0 shared plays).
+- A read-only review found six defects in numbers, bars and the script;
+  all fixed (`f285532`).
+- Final checks with `work/bin/s48-final/`: `scripts/check.sh` green;
+  both regressions identical (0:50; 3:44); the verdicts file, the
+  clusters file and the answer log at their start digests.
+- The decision left for us: whether R1's plays stay in the tracklist as
+  possible lines (an ADR superseding part of ADR 0019; `identify` would
+  need the pair evidence or a stored map of related files).

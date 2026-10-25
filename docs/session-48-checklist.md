@@ -23,6 +23,6 @@ for scope and rules.
 - [x] 4. Experiments: features on the development seeds; the rule on the
   test seeds; the aligned merges
 - [x] 5. The development mixes' NAS-scale reports
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 48", status, checklist, roadmap; final
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 48", status, checklist, roadmap; final
   checks
