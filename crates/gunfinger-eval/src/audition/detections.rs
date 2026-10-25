@@ -227,9 +227,9 @@ fn question(
             reference: Some(0),
         },
         lanes: vec![
-            Lane {
-                name: String::from("mix"),
-                pieces: vec![Piece {
+            Lane::new(
+                "mix",
+                vec![Piece {
                     file: mix.clone(),
                     start: timeline.0,
                     end: timeline.1,
@@ -237,11 +237,8 @@ fn question(
                     speed: 1.0,
                     label: None,
                 }],
-            },
-            Lane {
-                name: String::from("track"),
-                pieces: track_lane,
-            },
+            ),
+            Lane::new("track", track_lane),
         ],
         markers,
         spans,

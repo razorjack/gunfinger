@@ -19,6 +19,7 @@
     <section id="transport" class="muted">
       <span id="clock"></span>
       <span id="modes"></span>
+      <button id="placement" type="button" title="Place the aligned lanes another way (O)" hidden></button>
     </section>
     <section id="lanes" aria-label="Lanes"></section>
     <div id="tooltip" hidden></div>
@@ -34,7 +35,12 @@
         timeline: switching lanes keeps the musical moment. Speed matching plays
         each lane at its placement's speed (pitch and tempo together, like a
         turntable); without it a lane plays at its own speed and the playhead
-        follows that lane.</p>
+        follows that lane. O places the aligned lanes by every alignment (the
+        default: where the main alignment ends, the strongest other one takes
+        over), by the main alignment throughout (one offset and speed, so two
+        rips of one recording play the same moment end to end), or from their
+        files' starts at the main alignment's speed; markers and shading still
+        show the alignments. Each question opens placed by every alignment.</p>
       <p class="muted" id="help-files"></p>
       <p class="muted">Press ? or Escape to close.</p>
     </div>

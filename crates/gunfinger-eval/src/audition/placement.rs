@@ -13,12 +13,21 @@
 //! A lane follows only alignments with the hits of a possible play
 //! ([`followed`]): weaker ones are chance alignments or a repeated section
 //! minutes away, and following one makes the lane start in the wrong place.
+//!
+//! Following several alignments can also mislead: where the main
+//! alignment ends, a weaker one covering the next stretch (an outro
+//! matched to an earlier section that repeats it) takes over, and two rips
+//! of one recording play different parts of the arrangement. So an
+//! aligned lane ([`aligned_lane`]) also holds two other placements the
+//! listener can switch to: the main alignment throughout ([`throughout`])
+//! and the file from its start at the main alignment's speed
+//! ([`from_start`]).
 
 use std::path::Path;
 
 use gunfinger_core::confidence::FITTED_RULE;
 
-use crate::audition::schema::Piece;
+use crate::audition::schema::{Lane, Piece};
 
 /// A placement of one file on the timeline, over the span it covers, in
 /// timeline seconds.
@@ -60,6 +69,79 @@ pub fn followed(alignments: &[Alignment]) -> Vec<Alignment> {
         .filter(|alignment| alignment.hits >= FITTED_RULE.min_possible_hits)
         .cloned()
         .collect()
+}
+
+/// The main alignment: the one with the most hits, the first of equals.
+pub fn main(alignments: &[Alignment]) -> Option<&Alignment> {
+    alignments.iter().reduce(|best, alignment| {
+        if alignment.hits > best.hits {
+            alignment
+        } else {
+            best
+        }
+    })
+}
+
+/// A lane that plays `file` (`file_seconds` long) on the timeline by
+/// `alignments`, strongest first: its pieces follow every alignment
+/// ([`tile`]); its other placements are the main alignment throughout and
+/// the file from its start. No alignments, no pieces and no other
+/// placements.
+pub fn aligned_lane(
+    name: &str,
+    file: &Path,
+    file_seconds: f64,
+    timeline: (f64, f64),
+    alignments: &[Alignment],
+) -> Lane {
+    let main = main(alignments);
+    let other = |pieces: Vec<Piece>| Some(pieces).filter(|pieces| !pieces.is_empty());
+    Lane {
+        name: name.to_owned(),
+        pieces: tile(file, file_seconds, timeline, alignments),
+        main: main.and_then(|main| other(throughout(file, file_seconds, timeline, main))),
+        from_start: main
+            .and_then(|main| other(from_start(file, file_seconds, timeline, main.speed))),
+    }
+}
+
+/// `file` at one alignment's offset and speed over the whole timeline
+/// `[start, end)`, clipped to the file.
+pub fn throughout(
+    file: &Path,
+    file_seconds: f64,
+    (start, end): (f64, f64),
+    alignment: &Alignment,
+) -> Vec<Piece> {
+    let piece = Piece {
+        file: file.to_path_buf(),
+        start,
+        end,
+        offset: alignment.offset,
+        speed: alignment.speed,
+        label: Some(format!("{}, throughout", alignment.label)),
+    };
+    clip_to_file(piece, file_seconds).into_iter().collect()
+}
+
+/// `file` from its start at the timeline's start, at `speed`, clipped to
+/// the file: file time `speed × (t - start)`.
+pub fn from_start(
+    file: &Path,
+    file_seconds: f64,
+    (start, end): (f64, f64),
+    speed: f64,
+) -> Vec<Piece> {
+    let piece = Piece {
+        file: file.to_path_buf(),
+        start,
+        end,
+        // From 0, not -speed × start: a timeline from 0 gives offset 0, not -0.
+        offset: 0.0 - speed * start,
+        speed,
+        label: Some(String::from("from the file's start")),
+    };
+    clip_to_file(piece, file_seconds).into_iter().collect()
 }
 
 impl Piece {
@@ -251,6 +333,88 @@ mod tests {
                 (181.2, 514.1, -1.3, "alignment 1"),
             ]
         );
+    }
+
+    #[test]
+    fn an_aligned_lane_can_also_play_its_main_alignment_throughout_or_from_its_start() {
+        // Two rips of one recording: where the main alignment ends at A
+        // 5:20, a repeat of B's section at 1:12 covers the outro.
+        let alignments = [
+            Alignment {
+                hits: 3298,
+                speed: 0.9594,
+                ..alignment(0.0, 319.9, 0.44, "alignment 1")
+            },
+            Alignment {
+                hits: 361,
+                speed: 0.9601,
+                ..alignment(320.3, 377.8, -235.23, "alignment 2")
+            },
+        ];
+
+        let lane = aligned_lane("B", Path::new("/b.m4a"), 375.7, (0.0, 387.5), &alignments);
+
+        assert_eq!(lane.name, "B");
+        assert_eq!(
+            spans(&lane.pieces),
+            [
+                (0.0, 320.3, 0.44, "alignment 1"),
+                (320.3, 387.5, -235.23, "alignment 2"),
+            ]
+        );
+        assert_eq!(
+            spans(lane.main.as_deref().unwrap()),
+            [(0.0, 387.5, 0.44, "alignment 1, throughout")]
+        );
+        assert_eq!(
+            spans(lane.from_start.as_deref().unwrap()),
+            [(0.0, 387.5, 0.0, "from the file's start")]
+        );
+        assert_eq!(lane.from_start.unwrap()[0].speed, 0.9594);
+    }
+
+    #[test]
+    fn the_main_alignment_has_the_most_hits_and_is_clipped_to_the_file() {
+        let alignments = [
+            Alignment {
+                hits: 75,
+                ..alignment(68.4, 88.3, -59.6, "alignment 2")
+            },
+            Alignment {
+                hits: 118,
+                ..alignment(90.5, 209.2, -81.8, "alignment 1")
+            },
+        ];
+
+        let lane = aligned_lane("B", Path::new("/b.opus"), 358.7, (0.0, 469.0), &alignments);
+
+        assert_eq!(main(&alignments).unwrap().label, "alignment 1");
+        // B starts at A 81.8 and ends at A 440.5 under alignment 1.
+        assert_eq!(
+            spans(lane.main.as_deref().unwrap()),
+            [(81.8, 440.5, -81.8, "alignment 1, throughout")]
+        );
+        // From its start, B ends at A 358.7.
+        assert_eq!(
+            spans(lane.from_start.as_deref().unwrap()),
+            [(0.0, 358.7, 0.0, "from the file's start")]
+        );
+    }
+
+    #[test]
+    fn from_its_start_means_at_the_timelines_start() {
+        let pieces = from_start(Path::new("/b.mp3"), 1000.0, (693.0, 900.0), 1.066);
+
+        assert_eq!(pieces[0].file_time(693.0), 0.0);
+        assert!((pieces[0].file_time(900.0) - 1.066 * 207.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn a_lane_with_no_alignment_has_no_other_placements() {
+        let lane = aligned_lane("B", Path::new("/b.mp3"), 100.0, (0.0, 100.0), &[]);
+
+        assert!(lane.pieces.is_empty());
+        assert_eq!((lane.main, lane.from_start), (None, None));
     }
 
     #[test]

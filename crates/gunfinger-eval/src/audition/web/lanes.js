@@ -5,7 +5,7 @@
 // to jump to it.
 
 import * as api from "./api.js";
-import { clock, fileTime, percent, pieceAt, signedSeconds } from "./timeline.js";
+import { PLACEMENT_WORDS, PLACEMENTS, clock, fileTime, percent, pieceAt, signedSeconds } from "./timeline.js";
 
 const HEIGHT = 84;
 const MARKER_REACH = 5; // pixels within which a click takes the marker
@@ -43,7 +43,8 @@ export class LanesView {
     this.question = question;
     this.root.replaceChildren();
     this.rows = question.lanes.map((lane, index) => this.row(lane, index));
-    for (const file of new Set(question.lanes.flatMap((lane) => lane.pieces.map((piece) => piece.file)))) {
+    const pieces = question.lanes.flatMap((lane) => PLACEMENTS.flatMap((placement) => lane[placement] ?? []));
+    for (const file of new Set(pieces.map((piece) => piece.file))) {
       if (this.envelopes.has(file)) continue;
       this.envelopes.set(file, null);
       api
@@ -155,8 +156,10 @@ export class LanesView {
     const player = this.player;
     const t = this.drag ? this.drag.t : player.now();
     const sounding = new Set(player.sounding().map(({ lane }) => lane));
-    this.question.lanes.forEach((lane, index) => {
-      const { row, canvas, path, placement } = this.rows[index];
+    player.lanes.forEach((lane, index) => {
+      const { row, label, canvas, path, placement } = this.rows[index];
+      const placed = lane.placed === "pieces" ? "" : ` · ${PLACEMENT_WORDS[lane.placed].lane}`;
+      label.textContent = `${index + 1} · ${lane.name}${placed}`;
       this.drawLane(canvas, lane, index, t, sounding.has(index));
       row.classList.toggle("current", index === player.lane);
       row.classList.toggle("sounding", sounding.has(index));

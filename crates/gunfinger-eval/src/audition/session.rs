@@ -20,7 +20,7 @@ pub struct Session {
     book: Mutex<AnswerBook>,
 }
 
-/// Every file a lane of a loaded question plays.
+/// Every file a lane of a loaded question plays, in any placement.
 #[derive(Debug, Default)]
 pub struct Listed(BTreeSet<PathBuf>);
 
@@ -31,7 +31,7 @@ impl Listed {
                 .into_iter()
                 .flat_map(|file| &file.questions)
                 .flat_map(|question| &question.lanes)
-                .flat_map(|lane| &lane.pieces)
+                .flat_map(|lane| lane.placements().flat_map(|(_, pieces)| pieces))
                 .map(|piece| piece.file.clone())
                 .collect(),
         )

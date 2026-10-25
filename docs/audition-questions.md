@@ -86,7 +86,12 @@ where it ends (markers less than 0.5 s apart joined). Answers (`shared`,
 | Field | Type | Meaning |
 |---|---|---|
 | `name` | string | A short label: `A`, `B`, `original`, `CD`. |
-| `pieces` | array | What the lane plays where. In timeline order, not overlapping, inside the timeline. Gaps are silent. |
+| `pieces` | array | What the lane plays where. In timeline order, not overlapping, inside the timeline. Gaps are silent. For a lane placed by alignments: every alignment it follows. |
+| `main` | array of pieces, optional | The lane at its main alignment (the one with the most hits) over the whole timeline, clipped to the file: one offset and speed. Under the rules of `pieces`. |
+| `from_start` | array of pieces, optional | The lane's file from its start at the timeline's start, at the main alignment's speed, clipped to the file: no offset. Under the rules of `pieces`. |
+
+`main` and `from_start` are the lane's other placements (below); the
+reference lane has neither. Files without them load as before.
 
 ### A piece: the placement rule
 
@@ -116,6 +121,36 @@ chance alignments and repeats of a section minutes away, and following
 one starts the lane in the wrong place: 8 hits once put lane B of a pack
 item 3:50 into its file for the first 33 s of A.
 
+### Other placements: the `O` key
+
+Following every alignment can also mislead. Where the main alignment
+ends, the strongest other alignment covering the next stretch takes
+over, and it can be a section repeated minutes away: in session 40's
+pack, lane B of two rips of one recording (Dead Air, Alien Girl, both
+judged `same`) played its section from minutes earlier against the
+last minute or two of A. So `placement::aligned_lane` gives a lane
+placed by alignments two other placements, `main` and `from_start`, and
+the page's `O` key (or the button beside the transport line) goes from
+`pieces` to `main` to `from_start` and back, passing over a placement no
+lane of the question has:
+
+| Placement | What the aligned lanes play |
+|---|---|
+| `pieces` (the default) | every alignment, as the producer tiled them |
+| `main` | the main alignment's offset and speed throughout, so two rips of one recording play the same moment end to end |
+| `from_start` | the file from its start at the main alignment's speed |
+
+Lanes without the placement keep their pieces; the reference lane plays
+its own time in every placement, so the playhead's time does not move.
+Every question opens with `pieces`, as it opens with speed matching on.
+The placement in force shows on the button, in each re-placed lane's
+label and in its info line (the piece's offset, speed and label);
+markers and shading still show the alignments. An answer's record is
+the same in every placement. `questions pack` writes both for lane B and
+the plan's extra lanes, `questions shared` for lane B; `questions
+detections` and `questions folders` write neither, nor `questions pack`
+for a lane B with no alignment to follow.
+
 ### A marker
 
 | Field | Type | Meaning |
@@ -136,7 +171,7 @@ item 3:50 into its file for the first 33 s of A.
 
 | Field | Type | Meaning |
 |---|---|---|
-| `key` | one lowercase letter | The key that answers. Not a control key of the page: `b j k l m z` (and Space, Tab, digits and arrows, which are not letters). Unique in the question. |
+| `key` | one lowercase letter | The key that answers. Not a control key of the page: `b j k l m o z` (and Space, Tab, digits and arrows, which are not letters). Unique in the question. |
 | `label` | string | Shown in the legend. |
 | `value` | string | Written to the log, and what the effect acts on. Unique in the question. |
 
@@ -201,7 +236,11 @@ Generic file names. A pair (the listening pack's kind):
       {"name": "B", "pieces": [
         {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 9.4, "end": 40.2, "offset": -9.4, "speed": 0.9984, "label": "alignment 3"},
         {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 40.2, "end": 334.6, "offset": -21.99, "speed": 0.9984, "label": "alignment 1"},
-        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 334.6, "end": 420.5, "offset": -66.6, "speed": 0.9984, "label": "alignment 2"}]}
+        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 334.6, "end": 420.5, "offset": -66.6, "speed": 0.9984, "label": "alignment 2"}],
+       "main": [
+        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 22.03, "end": 374.79, "offset": -21.99, "speed": 0.9984, "label": "alignment 1, throughout"}],
+       "from_start": [
+        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 0.0, "end": 352.76, "offset": 0.0, "speed": 0.9984, "label": "from the file's start"}]}
     ],
     "markers": [
       {"at": 40.2, "label": "alignment 1 starts", "kind": "edge"},

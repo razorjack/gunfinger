@@ -17,7 +17,7 @@ pub const SCHEMA_VERSION: u32 = 1;
 /// Letters the page uses for its controls; a choice cannot take them.
 /// Space, Tab, the digits and the arrows are controls too, but no choice
 /// key can be one, as choice keys are letters.
-pub const CONTROL_KEYS: [char; 6] = ['b', 'j', 'k', 'l', 'm', 'z'];
+pub const CONTROL_KEYS: [char; 7] = ['b', 'j', 'k', 'l', 'm', 'o', 'z'];
 
 /// Lanes are switched with the keys 1 to 9.
 const MAX_LANES: usize = 9;
@@ -132,8 +132,41 @@ pub struct Timeline {
 #[serde(deny_unknown_fields)]
 pub struct Lane {
     pub name: String,
-    /// In timeline order, not overlapping; gaps are silent.
+    /// In timeline order, not overlapping; gaps are silent. What the lane
+    /// plays by default: for an aligned lane, every alignment followed.
     pub pieces: Vec<Piece>,
+    /// The lane at its main alignment (the most hits) over the whole
+    /// timeline, which the page's `O` key switches to: two rips of one
+    /// recording then play the same moment end to end.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub main: Option<Vec<Piece>>,
+    /// The lane's file from its start at the timeline's start, at the main
+    /// alignment's speed: the lane with no offset.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub from_start: Option<Vec<Piece>>,
+}
+
+impl Lane {
+    /// A lane with one placement.
+    pub fn new(name: &str, pieces: Vec<Piece>) -> Lane {
+        Lane {
+            name: name.to_owned(),
+            pieces,
+            main: None,
+            from_start: None,
+        }
+    }
+
+    /// Each placement the page can play, by its field's name.
+    pub fn placements(&self) -> impl Iterator<Item = (&'static str, &[Piece])> {
+        [
+            ("pieces", Some(&self.pieces)),
+            ("main", self.main.as_ref()),
+            ("from_start", self.from_start.as_ref()),
+        ]
+        .into_iter()
+        .filter_map(|(name, pieces)| pieces.map(|pieces| (name, pieces.as_slice())))
+    }
 }
 
 /// A span of one file placed on the timeline: file time =
@@ -334,16 +367,29 @@ fn check_timeline(question: &Question) -> Result<(), String> {
                 lane.name
             ));
         }
+        if lane.placements().count() > 1 {
+            return Err(format!(
+                "the reference lane ({}) has one placement: no `main` or `from_start`",
+                lane.name
+            ));
+        }
     }
     Ok(())
 }
 
 fn check_lane(lane: &Lane, timeline: &Timeline) -> Result<(), String> {
-    if lane.pieces.is_empty() {
+    for (name, pieces) in lane.placements() {
+        check_pieces(pieces, timeline).map_err(|error| format!("{name}: {error}"))?;
+    }
+    Ok(())
+}
+
+fn check_pieces(pieces: &[Piece], timeline: &Timeline) -> Result<(), String> {
+    if pieces.is_empty() {
         return Err(String::from("no pieces"));
     }
     let mut previous_end = timeline.start;
-    for piece in &lane.pieces {
+    for piece in pieces {
         let finite = [piece.start, piece.end, piece.offset, piece.speed]
             .iter()
             .all(|value| value.is_finite());
@@ -474,16 +520,15 @@ pub(crate) mod tests {
                 reference: Some(0),
             },
             lanes: vec![
-                Lane {
-                    name: String::from("A"),
-                    pieces: vec![piece("/music/a.mp3", 0.0, 100.0, 0.0, 1.0)],
-                },
+                Lane::new("A", vec![piece("/music/a.mp3", 0.0, 100.0, 0.0, 1.0)]),
                 Lane {
                     name: String::from("B"),
                     pieces: vec![
                         piece("/music/b.opus", 2.0, 60.0, -2.0, 1.01),
                         piece("/music/b.opus", 60.0, 100.0, -10.0, 1.01),
                     ],
+                    main: Some(vec![piece("/music/b.opus", 1.99, 100.0, -2.0, 1.01)]),
+                    from_start: Some(vec![piece("/music/b.opus", 0.0, 100.0, 0.0, 1.01)]),
                 },
             ],
             markers: vec![Marker {
@@ -608,6 +653,41 @@ pub(crate) mod tests {
         let error = error_of(|question| question.timeline.reference = Some(1));
 
         assert!(error.contains("offset 0, speed 1"), "{error}");
+    }
+
+    #[test]
+    fn the_reference_lane_has_one_placement() {
+        let error = error_of(|question| {
+            question.lanes[0].main = Some(question.lanes[0].pieces.clone());
+        });
+
+        assert!(error.contains("one placement"), "{error}");
+    }
+
+    #[test]
+    fn other_placements_follow_the_rules_of_pieces() {
+        let empty = error_of(|question| question.lanes[1].main = Some(Vec::new()));
+        let early = error_of(|question| {
+            question.lanes[1].from_start.as_mut().unwrap()[0].offset = -1.0;
+        });
+
+        assert!(empty.contains("main: no pieces"), "{empty}");
+        assert!(early.contains("from_start: piece"), "{early}");
+        assert!(early.contains("before its file"), "{early}");
+    }
+
+    #[test]
+    fn a_lane_without_other_placements_still_loads() {
+        let mut question = pair_question();
+        question.lanes[1].main = None;
+        question.lanes[1].from_start = None;
+        let text = serde_json::to_string(&file_of(question)).unwrap();
+
+        let back: QuestionFile = serde_json::from_str(&text).unwrap();
+
+        assert!(!text.contains("from_start"));
+        check(&back).unwrap();
+        assert_eq!(back.questions[0].lanes[1].main, None);
     }
 
     #[test]

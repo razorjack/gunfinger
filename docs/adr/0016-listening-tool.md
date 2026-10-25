@@ -136,6 +136,14 @@ documents every field. The principles:
   a possible play (60, `FITTED_RULE.min_possible_hits`); weaker ones are
   chance alignments or repeated sections (added 2026-10-12, after a chance
   alignment of 8 hits started a pack item's lane B 3:50 into its file).
+  A lane placed by alignments also holds two other placements, computed
+  by the producers too: its main alignment throughout (`main`) and its
+  file from its start at that alignment's speed (`from_start`); the
+  page's `O` key picks one of the three lists per question, and the
+  page still only evaluates the formula (added 2026-10-25, session 47,
+  after two rips of one recording played different parts of the
+  arrangement where a repeated section's alignment took over from the
+  main one).
 - **Stable ids.** A question's id is its kind and a 64-bit FNV-1a digest
   of its kind and its files (with a distinguishing part where one kind
   can ask twice about the same files), so making the questions again
@@ -213,6 +221,12 @@ documents every field. The principles:
 - The listener answers with one key per question and can hear any moment of
   either file, switch at the same musical moment, loop, blend and match
   speed. `pair-review` and `listen.zsh` remain for a terminal.
+- Following every alignment is the default; with `O` the listener hears
+  an aligned lane at its main alignment throughout or from its file's
+  start instead (session 47), so a repeated section's alignment cannot
+  make two rips of one recording sound like two arrangements. Question
+  files made before session 47 lack the two lane fields and load with
+  one placement; files with them do not load in older builds.
 - A new kind of question is a producer (Rust, tested on fixtures) plus a
   `questions` subcommand; a new place to write answers is a new variant
   of `Effect`. AGENTS.md lists the steps.

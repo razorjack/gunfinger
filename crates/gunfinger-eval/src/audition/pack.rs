@@ -160,9 +160,9 @@ fn question(
         .collect();
 
     let mut lanes = vec![
-        Lane {
-            name: String::from("A"),
-            pieces: vec![Piece {
+        Lane::new(
+            "A",
+            vec![Piece {
                 file: sheet.a.0.clone(),
                 start: 0.0,
                 end: a_seconds,
@@ -170,11 +170,8 @@ fn question(
                 speed: 1.0,
                 label: None,
             }],
-        },
-        Lane {
-            name: String::from("B"),
-            pieces: b_pieces(&sheet.b.0, b_seconds, timeline, &followed),
-        },
+        ),
+        b_lane(&sheet.b.0, b_seconds, timeline, &followed),
     ];
     let mut spans = spans_of(&followed, 1);
     let mut details = vec![sheet.kind.clone()];
@@ -201,10 +198,13 @@ fn question(
     for extra in planned.map_or(&[][..], |planned| &planned.extra_lanes) {
         let (alignments, seconds, from) = extra_alignments(a_name, &extra.file, reports)?;
         let lane = lanes.len();
-        lanes.push(Lane {
-            name: extra.name.clone(),
-            pieces: placement::tile(&libraries.path(&extra.file), seconds, timeline, &alignments),
-        });
+        lanes.push(placement::aligned_lane(
+            &extra.name,
+            &libraries.path(&extra.file),
+            seconds,
+            timeline,
+            &alignments,
+        ));
         spans.extend(spans_of(&alignments, lane));
         details.push(format!(
             "Lane {} ({}): {}, placed on A by {} alignments of {}",
@@ -263,14 +263,10 @@ fn question(
     })
 }
 
-/// Lane B by the alignments it follows, or from its start when there are
-/// none.
-fn b_pieces(
-    file: &Path,
-    seconds: f64,
-    timeline: (f64, f64),
-    alignments: &[Alignment],
-) -> Vec<Piece> {
+/// Lane B by the alignments it follows, with the main one throughout and
+/// from its start as its other placements, or from its start alone when
+/// there are none.
+fn b_lane(file: &Path, seconds: f64, timeline: (f64, f64), alignments: &[Alignment]) -> Lane {
     if alignments.is_empty() {
         let unaligned = Piece {
             file: file.to_path_buf(),
@@ -280,11 +276,14 @@ fn b_pieces(
             speed: 1.0,
             label: Some(String::from("not aligned")),
         };
-        return placement::clip_to_file(unaligned, seconds)
-            .into_iter()
-            .collect();
+        return Lane::new(
+            "B",
+            placement::clip_to_file(unaligned, seconds)
+                .into_iter()
+                .collect(),
+        );
     }
-    placement::tile(file, seconds, timeline, alignments)
+    placement::aligned_lane("B", file, seconds, timeline, alignments)
 }
 
 /// The report's alignments, if each rounds to the sheet's.
@@ -770,6 +769,27 @@ To record a verdict, a line in docs/pair-verdicts.txt (tabs between the fields):
         assert_eq!(b.len(), 2);
         assert!((b[0].0 - 22.0 / 0.9984).abs() < 1e-9 && b[0].1 == 334.6 && b[0].2 == -22.0);
         assert!(b[1].0 == 334.6 && (b[1].1 - (352.2 + 66.6) / 0.9984).abs() < 1e-9);
+        // Its other placements: alignment 1 (the most hits) throughout,
+        // from where B starts until it ends, and B from its start.
+        let [main] = &edit.lanes[1].main.as_deref().unwrap() else {
+            panic!("one piece expected");
+        };
+        assert_eq!((main.offset, main.speed), (-22.0, 0.9984));
+        assert!((main.start - 22.0 / 0.9984).abs() < 1e-9);
+        assert!((main.end - (352.2 + 22.0) / 0.9984).abs() < 1e-9);
+        assert_eq!(
+            main.label.as_deref(),
+            Some("alignment 1: 3324 hits, throughout")
+        );
+        let [from_start] = &edit.lanes[1].from_start.as_deref().unwrap() else {
+            panic!("one piece expected");
+        };
+        assert_eq!(
+            (from_start.start, from_start.offset, from_start.speed),
+            (0.0, 0.0, 0.9984)
+        );
+        assert!((from_start.end - 352.2 / 0.9984).abs() < 1e-9);
+        assert_eq!(edit.lanes[0].main, None);
         let markers: Vec<(f64, MarkerKind)> = edit
             .markers
             .iter()

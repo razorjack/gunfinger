@@ -1,6 +1,6 @@
 // The page's keys. Control keys are fixed here; answers take their keys from
 // the question's choices, which the schema check keeps off the control keys
-// (schema::CONTROL_KEYS: b j k l m z). Keys with Cmd, Ctrl or Alt are left to
+// (schema::CONTROL_KEYS: b j k l m o z). Keys with Cmd, Ctrl or Alt are left to
 // the browser, so Cmd-Z, Cmd-C and Cmd-R work as usual.
 
 export const CONTROLS = [
@@ -11,6 +11,7 @@ export const CONTROLS = [
   ["↑ ↓", "previous or next marker, from 2 s before it"],
   ["L", "loop 8 s around the moment (seeking moves the loop)"],
   ["M", "speed matching on or off"],
+  ["O", "place the lanes by every alignment, the main alignment throughout, or from their files' starts"],
   ["B", "this lane and the one before together, lower lane left"],
   ["J K", "next or previous question"],
   ["Z", "undo the latest answer, then the one before"],
@@ -59,6 +60,8 @@ function named(event) {
       return { name: "loop" };
     case "m":
       return { name: "matching" };
+    case "o":
+      return { name: "placement" };
     case "b":
       return { name: "blend" };
     case "j":

@@ -73,14 +73,14 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
         .collect();
     let (a, b) = (libraries.path(&report.query), libraries.path(&report.found));
     let timeline = (0.0, report.query_seconds);
-    let b_pieces = placement::tile(&b, report.found_seconds, timeline, &alignments);
-    if b_pieces.is_empty() {
+    let b_lane = placement::aligned_lane("B", &b, report.found_seconds, timeline, &alignments);
+    if b_lane.pieces.is_empty() {
         return Err(String::from("lane B has no audio on A's timeline"));
     }
     let lanes = vec![
-        Lane {
-            name: String::from("A"),
-            pieces: vec![Piece {
+        Lane::new(
+            "A",
+            vec![Piece {
                 file: a.clone(),
                 start: timeline.0,
                 end: timeline.1,
@@ -88,11 +88,8 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
                 speed: 1.0,
                 label: None,
             }],
-        },
-        Lane {
-            name: String::from("B"),
-            pieces: b_pieces,
-        },
+        ),
+        b_lane,
     ];
 
     let mut markers = Vec::new();
@@ -316,6 +313,13 @@ mod tests {
         assert_eq!((b[0].offset, b[0].speed), (-73.3, 0.9587));
         assert_eq!((b[1].start, b[1].end), (158.0, 400.0));
         assert_eq!((b[1].offset, b[1].speed), (-113.8, 0.9585));
+        // The 60-hit alignment is the main one: B can also play it
+        // throughout, or from its start at its speed.
+        let main = &question.lanes[1].main.as_deref().unwrap()[0];
+        assert_eq!((main.offset, main.speed), (-73.3, 0.9587));
+        let from_start = &question.lanes[1].from_start.as_deref().unwrap()[0];
+        assert_eq!((from_start.start, from_start.offset), (0.0, 0.0));
+        assert_eq!(from_start.speed, 0.9587);
         assert_eq!(question.spans.len(), 2);
         assert_eq!(question.markers.len(), 4);
         assert!(

@@ -183,10 +183,7 @@ fn question(
             end: at,
             reference: None,
         },
-        lanes: vec![Lane {
-            name: String::from("CD"),
-            pieces,
-        }],
+        lanes: vec![Lane::new("CD", pieces)],
         markers,
         spans: Vec::new(),
         choices: vec![

@@ -138,10 +138,12 @@ class FakeSource extends FakeNode {
   }
 }
 
-// Every window of every file is loaded and full.
+// Every window of every file is loaded and full. A buffer names its file and
+// window, and `wanted` holds the windows the player last asked to keep.
 export class FakeWindows {
   constructor(seconds = 30) {
     this.seconds = seconds;
+    this.wanted = [];
   }
 
   index(fileSeconds) {
@@ -150,7 +152,7 @@ export class FakeWindows {
 
   buffer(file, k) {
     if (k < 0) return undefined;
-    return { duration: this.seconds, length: this.seconds * 44100, numberOfChannels: 2 };
+    return { duration: this.seconds, length: this.seconds * 44100, numberOfChannels: 2, file, k };
   }
 
   settled() {
@@ -161,7 +163,9 @@ export class FakeWindows {
     return Promise.resolve(null);
   }
 
-  want() {}
+  want(windows) {
+    this.wanted = windows;
+  }
 
   stats() {
     return {};

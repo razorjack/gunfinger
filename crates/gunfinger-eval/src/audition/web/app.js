@@ -10,7 +10,7 @@ import * as keys from "./keys.js";
 import { LanesView } from "./lanes.js";
 import { Player } from "./player.js";
 import { Queue, source } from "./queue.js";
-import { clock, percent } from "./timeline.js";
+import { PLACEMENT_WORDS, clock, percent, placementsOf } from "./timeline.js";
 import { Windows } from "./windows.js";
 
 const element = (id) => document.getElementById(id);
@@ -51,6 +51,11 @@ async function start() {
   drawLegend();
   open(questions().find((question) => !question.state) ?? questions()[0]);
   document.addEventListener("keydown", onKey);
+  element("placement").addEventListener("click", (event) => {
+    event.currentTarget.blur();
+    context.resume();
+    nextPlacement();
+  });
   requestAnimationFrame(frame);
 }
 
@@ -127,6 +132,10 @@ function frame() {
     player.loop ? `loop ${clock(player.loop.start)}–${clock(player.loop.end)}` : null,
   ];
   element("modes").textContent = modes.filter(Boolean).join(" · ");
+  const placement = element("placement");
+  placement.hidden = placementsOf(current).length < 2;
+  const placed = `O · ${PLACEMENT_WORDS[player.placement].lanes}`;
+  if (placement.textContent !== placed) placement.textContent = placed;
   requestAnimationFrame(frame);
 }
 
@@ -196,6 +205,12 @@ async function undo() {
   }
 }
 
+// O, or a click on the placement button.
+function nextPlacement() {
+  if (player.nextPlacement()) say(`lanes ${PLACEMENT_WORDS[player.placement].lanes}`);
+  else say("one placement only: no lane of this question has another");
+}
+
 function onKey(event) {
   const help = element("help");
   const wanted = keys.action(event);
@@ -228,6 +243,8 @@ function onKey(event) {
       return player.toggleLoop();
     case "matching":
       return player.toggleMatching();
+    case "placement":
+      return nextPlacement();
     case "blend":
       if (!player.toggleBlend()) say("one lane only: nothing to play beside it");
       return;

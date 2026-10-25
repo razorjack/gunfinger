@@ -5,6 +5,36 @@
 //
 // The producers compute the pieces (Rust, audition::placement); the page only
 // evaluates this formula and its inverse.
+//
+// A lane may hold other placements beside its `pieces` (which follow every
+// alignment): `main`, its main alignment throughout, and `from_start`, its
+// file from its start at that alignment's speed. The producers compute them
+// too; the page picks one list per lane (key O).
+
+export const PLACEMENTS = ["pieces", "main", "from_start"];
+
+// How the page names each placement: for the lanes together, and in a
+// re-placed lane's label.
+export const PLACEMENT_WORDS = {
+  pieces: { lanes: "placed by every alignment", lane: "" },
+  main: { lanes: "placed by the main alignment throughout", lane: "main alignment throughout" },
+  from_start: { lanes: "placed from the files' starts", lane: "from its start" },
+};
+
+// The placements some lane of the question has, in the order O goes through
+// them; always `pieces` first.
+export function placementsOf(question) {
+  return PLACEMENTS.filter((name) => question.lanes.some((lane) => lane[name]));
+}
+
+// The question's lanes under one placement. A lane without it keeps its
+// pieces; `placed` says which list a lane plays.
+export function placedLanes(question, placement) {
+  return question.lanes.map((lane) => {
+    const placed = lane[placement] ? placement : "pieces";
+    return { name: lane.name, pieces: lane[placed], placed };
+  });
+}
 
 export function fileTime(piece, t) {
   return piece.offset + piece.speed * t;

@@ -235,3 +235,45 @@ command to load it or to replace the user's copy.
 with `os.path.abspath` before writing sheets (safer than `questions
 pack` resolving against the repository root, which would guess the
 directory render ran from). Its default paths are already absolute.
+
+## Decisions after the design
+
+- **(02:07) Start regressions identical** (`regress session-32-linux`
+  0:50, `regress session-33-linux-nas` 3:45; all 8 reports identical
+  to their baselines apart from `wall_seconds`).
+- **(02:20) A visible control beside the key**: a button after the
+  transport line ("O · placed by every alignment"), hidden on
+  questions with one placement; a click does what `O` does. The
+  transport line itself is unchanged.
+- **(02:25) `Lane::new`** for lanes with one placement, so the
+  producers that write neither field (detections, folders, lane A)
+  name only what they set.
+- **(02:31) Wording**: the scratch check showed "placed by from the
+  file's start"; the page now names the lanes' placement ("placed by
+  every alignment", "placed by the main alignment throughout", "placed
+  from the files' starts") apart from a re-placed lane's label ("main
+  alignment throughout", "from its start").
+- **(02:30) The check by hand** (`work/s47/cdp/check.mjs`, uncommitted:
+  headless Chrome over the DevTools protocol with Node's own
+  WebSocket, against a scratch server on `work/s47/questions/05-pack-s40.json`
+  with `--answers` and `--verdicts` on copies in `work/s47/scratch/`;
+  results in `work/s47/cdp/check.json` and two screenshots). Item 1
+  (Dead Air), lane 2 from A 5:38, playing:
+
+  | State | A (playhead) | B, page | B, from the pieces | Rate | Windows fetched for B |
+  |---|--:|--:|--:|--:|---|
+  | every alignment | 340.448 | 91.626 | 91.626 (alignment 2) | 0.96008 | 2, 3, 4, and 10 for the marker before |
+  | main alignment | 343.449 | 329.952 | 329.952 | 0.95942 | 11, 12 |
+  | from the start | 346.450 | 332.390 | 332.390 | 0.95942 | none (11 held) |
+  | from the start, `M` off | 349.576 | 335.389 | 335.389 | 1 | 12 |
+  | every alignment again | 352.580 | 103.274 | 103.274 | 0.96008 | none (held) |
+
+  Each state was read 3 s after the key: the playhead moved 3.00 s per
+  3 s with matching on and 3.13 s (3 / 0.9594) with it off, so the
+  playhead follows B's own clock then. The lane label, its info line
+  (file time, offset, speed, piece label) and the button showed each
+  state; the clock stayed A's time. No answer was sent.
+- **(02:33) Step 4** done as designed: `library_roots` in
+  `listening_pack.py`, two tests in `test_listening_pack.py`.
+- **(02:35) `scripts/check.sh` green** (3:57) after `cargo fmt`; the
+  first run stopped at the format check.

@@ -22,8 +22,14 @@
 // playhead waits there in silence and the schedule resumes once it loads.
 // A piece that starts a hair before its file (the schema allows 1 ms of
 // rounding) plays from the file's start.
+//
+// Placements. `this.lanes` are the question's lanes under the placement in
+// force (timeline.js, placedLanes); the schedule, the clock, the windows
+// wanted and the file times all read them, so a change of placement is one
+// more change of the kind above. The reference lane has one placement, so
+// the playhead's time is the same in every placement.
 
-import { clamp, fileTime, pieceAt, pieceFrom, timelineTime } from "./timeline.js";
+import { clamp, fileTime, pieceAt, pieceFrom, placedLanes, placementsOf, timelineTime } from "./timeline.js";
 
 const LEAD = 0.06; // seconds from a decision to the sound it changes
 const HORIZON = 4; // seconds of audio scheduled ahead of the playhead
@@ -52,6 +58,8 @@ export class Player {
     this.previous = question.lanes.length > 1 ? 1 : null;
     this.blend = false;
     this.matching = true;
+    this.placement = "pieces";
+    this.lanes = placedLanes(question, this.placement);
     this.loop = null;
     this.position = question.timeline.start;
     this.sources = [];
@@ -127,7 +135,7 @@ export class Player {
   }
 
   switchTo(lane) {
-    if (lane >= this.question.lanes.length) return;
+    if (lane >= this.lanes.length) return;
     if (lane !== this.lane) [this.previous, this.lane] = [this.lane, lane];
     this.blend = false;
     this.restartHere();
@@ -147,6 +155,16 @@ export class Player {
   toggleMatching() {
     this.matching = !this.matching;
     this.restartHere();
+  }
+
+  // The next placement the question's lanes have; false when they have one.
+  nextPlacement() {
+    const offered = placementsOf(this.question);
+    if (offered.length < 2) return false;
+    this.placement = offered[(offered.indexOf(this.placement) + 1) % offered.length];
+    this.lanes = placedLanes(this.question, this.placement);
+    this.restartHere();
+    return true;
   }
 
   toggleLoop() {
@@ -201,7 +219,8 @@ export class Player {
   // ---- the schedule -------------------------------------------------------
 
   schedule() {
-    const { timeline, lanes } = this.question;
+    const { timeline } = this.question;
+    const lanes = this.lanes;
     const seconds = this.windows.seconds;
     for (;;) {
       if (this.loop && this.cursor.t >= this.loop.end - SHORTEST_STEP) this.cursor.t = this.loop.start;
@@ -304,7 +323,7 @@ export class Player {
   // ---- windows worth having soon -----------------------------------------
 
   prefetch() {
-    const { lanes } = this.question;
+    const lanes = this.lanes;
     const t = this.now();
     const wanted = [];
     const add = (lane, at) => {
@@ -348,7 +367,7 @@ export class Player {
 
   // What each lane plays at the playhead.
   fileTimes(t = this.now()) {
-    return this.question.lanes.map((lane) => {
+    return this.lanes.map((lane) => {
       const piece = pieceAt(lane, t);
       return piece ? { file: piece.file, seconds: fileTime(piece, t), piece } : null;
     });
@@ -362,6 +381,7 @@ export class Player {
       playing: this.playing,
       position: this.now(),
       matching: this.matching,
+      placement: this.placement,
       blend: this.blend,
       loop: this.loop,
       sounding: this.sounding(),
