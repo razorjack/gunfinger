@@ -1,0 +1,17 @@
+# 0217: double drops lined up in beat phase, and entries that merge
+
+**Question.** Session 48 (brief 48, 02:43, the merge measure): session 39's double drops matched tempo, not beat phase, and one of 64 unrelated drops at 262 tracks was printed as one entry, because `same_recording` joins two plays over most of one passage whose tracks would have started within 5 s. DJs line drops up. With the two records' drops at one mix time, on the beat, how often are two different records one entry?
+**Change.** `mixes --kind drops --aligned-drops` (harness): in both unrelated double drops of every mix, each record's strongest drop it can play then (the largest rise of loudness over 8 s, moved to the beat whose next 16 beats hold the most onsets) is placed at the same mix time; records, overlays and speeds are those of the tempo-only mixes of the same seed.
+**Method.** Seeds 2026 and 2028 (development) and 2032 and 2034 (test), 16 mixes each (renders 1:13-2:02); the CLI at 262 tracks (store-only copies, 0:43-1:03) and NAS scale (the NAS store less the held-out recordings, 2:19-2:24); `marked_features.py merges`, against the same seeds' tempo-only mixes (session 39's reports for 2026 and 2028, 0216's for 2032 and 2034).
+
+| Unrelated double drops (4 seeds) | Blocks | Drops lined up | Tracks would have started within 5 s (truth) | One printed entry, 262 \| NAS |
+|---|--:|--:|--:|--:|
+| Tempo-only | 128 | 0 | 1 | 1 \| 0 |
+| Aligned drops | 128 | 127 | 3 | 3 \| 4 |
+
+- The merges, aligned: Aphrodite - Sweet Mind with Cyb Orc - Agressor (truth 4.4 s apart), Aquasky - Spectre with an Isolation file found only as possible (0.0 s), Aphrodite - Blue Mystique with Bulletproof - Scarred (2.3 s); at NAS scale also Decoder - Hord 39 with Cause 4 Concern - Synergy (10.7 s apart by the truth): a Hord 39 upload with a 12 s longer lead-in is tagged as the other rips (`same_tagged_track`) and lines up with Synergy, so the chain joins them. Every merged entry names the second record under `titles disagree:`, except Spectre at 262 tracks, where the possible Isolation play's title is listed under `also:` (only confident plays' titles are compared).
+- Lined up, the two drops still lie at different places in their tracks: the first record's drop 56-378 s into its file (it must come after the solo time and the fade in), the second's often near its start (11-23 s in several blocks, the music coming in after a quiet intro). The truth's start difference has a median of 120-122 s aligned, 104-105 s tempo-only (seeds 2026 and 2028).
+- One block of 128 had no window for a drop (seed 2028) and kept the tempo-only placement.
+
+**Criteria (brief 48).** A roadmap entry at 5% or more of the aligned blocks merged: 2.3% at 262 tracks and 3.1% at NAS scale, so not met; against 0.8% and 0% tempo-only.
+**What it shows.** Lining up drops in beat phase merges two records only when their drops also lie at about the same place in their tracks (within 5 s at the played speeds); with each record's strongest drop that happens in 3 of 127 blocks here, and a rip with another lead-in can add a merge by a chain of tags. The merged entries still print the other title in 6 of 7 cases. **Does not show** drops of the same rank (first on first), where tracks with equal intros would line up far more often; that model is not measured. Data: the reports `work/s48/w/reports/ladder-turntable/mixes-drops-aligned-drops-seed-*.json` and the CLI's `work/s48/cli-{262,nas}-aligned/` (not copied).

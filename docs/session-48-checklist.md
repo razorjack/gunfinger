@@ -19,8 +19,8 @@ for scope and rules.
   new mixes
 - [x] 2. `mixes --kind drops --aligned-drops` (drop points in beat
   phase), tested; the features script; `regress` identical
-- [~] 3. Runs: development seeds, test seeds, 262 tracks and NAS scale
-- [ ] 4. Experiments: features on the development seeds; the rule on the
+- [x] 3. Runs: development seeds, test seeds, 262 tracks and NAS scale
+- [x] 4. Experiments: features on the development seeds; the rule on the
   test seeds; the aligned merges
 - [ ] 5. The development mixes' NAS-scale reports
 - [ ] 6. Read-only review by a subagent; findings fixed

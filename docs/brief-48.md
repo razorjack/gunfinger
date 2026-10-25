@@ -314,3 +314,11 @@ goes first, then the aligned drops at NAS scale.
   are rarely at one place in their tracks. A model in which DJs line up
   drops of the same rank (both first drops) is not measured; noted for
   the handoff.
+- **(03:36) Steps 3 and 4 done.** Test queue (`work/s48/test.sh 2032
+  2034`, tmux `s48test`) 03:02-03:19; aligned drops for the test seeds
+  03:19-03:23; the aligned renders at NAS scale (`aligned-nas.sh`, tmux
+  `s48alnas`) 03:22-03:32. The test queue's `tracklist_score.py score`
+  lines failed (they need `show`'s printed tracklists, which the queue
+  did not write); the registered scores do not use them, so they were
+  not run again. Experiments 0215 (development), 0216 (test seeds) and
+  0217 (aligned merges) written in that order.
