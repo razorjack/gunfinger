@@ -4956,3 +4956,35 @@ gained an opt-in option and two scripts.
   judged pairs not yet seen (with lines within 10 s, or the choice's
   order changed); whether the listening page should place lanes by the
   fine rungs so that drifting copies do not sound as if they part.
+
+## 2026-10-25: session 50, the fullest-list filter under copies of records
+
+Brief `docs/brief-50.md`, checklist `docs/session-50-checklist.md`;
+notes "Session 50"; experiments 0222-0225. Gunfinger's behaviour is
+unchanged (both regressions identical); the core gained an opt-in
+ranking the CLI never calls, the harness options for exact copies, a
+first-pass candidate trace and shared hashes.
+
+- 04:39 start at `4f135b7`, clean. Start build `work/bin/s50-start/`;
+  both regressions identical (0:51; 3:45).
+- 04:48 pre-registration (`29eaa57`): exact copies (K = 1, 3, 9; 99 as
+  stress) of the sweep's own recordings (panel) or a seeded tenth of the
+  files (share), the sweep of seed 2026 traced, criteria U1-U3.
+- `65d2f4e`: `sweep --exact-copies --copied --trace-candidates
+  --rank-fullest-by`, `Index::skipping_most_held`; `check.sh` green,
+  both regressions identical.
+- 0222 (262 tracks): stable; copies move a quarter of the lists set
+  aside and cost the copied recordings up to 23% of their first-pass
+  hits (28% at 99 copies); no candidate or answer moves.
+- 0223 (NAS scale): stable; 1.4-2% of the lists move; the 65,536-asset
+  limit capped the share selection at K = 6. One second-pass count
+  falls through a shorter first-pass chain (Siren Bass, other rips, 363
+  → 298 hits, still confident).
+- 0224: ranking by distinct files or recordings costs nothing here and
+  keeps the first pass within 3% under any padding; not worth an ADR,
+  since the default shows no failure.
+- 0225: the drum-loop pairs' shared hashes are set aside less often than
+  random pairs' (median 28.8% against 42.4%) and copies do not move them.
+- Left for us: whether to rank by distinct files at all (no failure asks
+  for it); a famous break held by many records; whether the second pass
+  should measure beyond the first-pass chain's span.

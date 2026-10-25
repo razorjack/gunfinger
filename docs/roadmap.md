@@ -637,7 +637,8 @@ marked as inferences were derived, not measured.
   tracks with both ladders 6.5-6.7 s instead of 8.5 s; every report and
   the stored peaks identical (0214). The analysis is now 13-15% of the
   first pass; grouping 40-46%.
-- **Behaviour at scale.** *(larger library)* The confidence rule (240
+- **Behaviour at scale.** *(larger library; session 50: copies of
+  records do not move candidates or answers, 0222-0224)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
   3,200, 9,200 and 27,000 assets of the NAS collection (experiments
@@ -679,7 +680,34 @@ marked as inferences were derived, not measured.
   (175 of 180, experiment 0144), so this checks stability rather than a
   known failure; if it fails, rank hashes by the number of distinct
   files that hold them.
-- **A confidence statistic for shared material.** *(larger library)* If
+  *(session 50, experiments 0222-0225)* Measured with exact copies added
+  to the index (`sweep --exact-copies --copied --trace-candidates`): the
+  filter is stable. At 262 tracks, nine copies of every file of the
+  sweep's own recordings (a third of the index) move 27% of the lists
+  set aside towards them and cost a query's first pass up to 23% of its
+  own hits (99 copies: 28%), but no query stops being a candidate or
+  loses its confident answer, and the second pass's counts do not move.
+  At NAS scale (40,580 files) the set aside follows the library's
+  proportions: nine copies of the queries' 157 files move 1.4% of the
+  lists, six copies of a random tenth of the library raise the cut by
+  60% and move 2%. The one effect seen is through the chain's span:
+  when a rip's first-pass chain loses a window, the second pass measures
+  less (Siren Bass, other rips only: 298 hits instead of 363, still
+  confident). Ranking by distinct files or by recordings (clusters)
+  costs nothing at level 0 and keeps a query's first pass within 3% of
+  today's under any padding (recordings: unchanged by copies by
+  construction), but with no failure to remove it is not worth an ADR.
+  The drum-loop pairs judged `different` (Wikki Wikki Plate ~
+  Defjammer, the Klute VIP ~ remix, the Aphrodite family) share
+  1,793-3,850 hashes, of which 24-35% are set aside, against a median
+  42% for random pairs: the filter keeps most of what a shared loop
+  brings (0225). Still open: a famous break held by many records, and a
+  real collection's duplicates beyond exact copies; the 65,536-asset
+  limit capped the padding at NAS scale (ADR 0010).
+- **A confidence statistic for shared material.** *(larger library;
+  session 50: the first pass's filter does not hide the drum-loop
+  pairs' shared hashes more than chance ones, 0225, so their evidence
+  reaches the second pass as before)* If
   identifying and shared-material evidence overlap at scale, raising the
   hit threshold would lose brief plays without resolving the ambiguity.
   It has started: the second pass measures the passage the Clockwork remix
@@ -1172,7 +1200,10 @@ marked as inferences were derived, not measured.
   no held-out query confident in any condition. The Linux machine gave
   the same counts for clean queries, other rips only and brief plays, and
   within 2 queries without damage and 5 with it otherwise, at 40,683
-  records (session 33, 0156). Still to do: the validation half, once the
+  records (session 33, 0156). Session 50 searched the sweep panel's
+  other-rips form with exact copies of the rips (0223): 408 of 423
+  confident at level 0 and padded alike; the recall panel itself was not
+  searched padded. Still to do: the validation half, once the
   rules change.)* The four sweep panels draw
   320 excerpts from 208 corpus files (experiment 0025). At NAS scale
   they measure those recordings against 27,000 records, not recall on

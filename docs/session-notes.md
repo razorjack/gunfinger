@@ -10923,3 +10923,137 @@ by the registered scores.
   `regress session-32-linux` (0:50) and `regress session-33-linux-nas`
   (3:45) identical, every report identical to its baseline apart from
   `wall_seconds`; the digests unchanged.
+
+## Session 50
+
+### What changed
+
+The product did not change: no threshold, rule, default or output. The
+core gained one opt-in method the CLI never calls
+(`Index::skipping_most_held`), and `scanned_postings` now asks a
+`SetAside` value (lists longer than a length, as before, or a set of
+hashes), so the CLI binary is not byte-identical to the start build's;
+both regressions are identical and the NAS-scale development scan
+searches in 24.7 s as before. `search::MIN_HITS_TO_REFINE` is public.
+Added, harness only and tested:
+
+- `sweep --exact-copies K --copied FILE` (`padding::ExactCopies`):
+  exact copies of the listed records, built into the index in memory
+  after every other record (`padding-copy/<i>/<path>`), counted as
+  their original in scoring; a left-out file has no copies.
+- `sweep --trace-candidates`: each query's first-pass candidates (the
+  detections of 10 hits or more the second pass measures, from the same
+  search with the second pass off, `Matching::first_pass`) and the
+  report's `set_aside` (the census of the searched index and its
+  set-aside hashes).
+- `sweep --rank-fullest-by files|clusters` (`fullest::Ranking`): the
+  same 1% of lists, ranked by distinct files or recordings.
+- `fullest --shared-by PAIRS` (with `--exact-copies`/`--copied`): the
+  distinct hashes two files share and how many are set aside.
+- `scripts/analysis/filter_padding.py` (`copied`, `compare`) with tests.
+
+In short: the fullest-list filter is stable under copies. Up to ten
+files of every recording the sweep plays, or six copies of a random
+tenth of the NAS library, no query stops being a candidate or loses its
+confident answer, and no wrong answer appears. At 262 tracks copies move
+a quarter of the lists set aside and cost the copied recordings up to
+23% of their first-pass hits; at NAS scale the set aside follows the
+library's proportions and moves by 1-2%. Ranking by distinct holders
+would make the first pass insensitive to copies at no cost, but there
+is no failure for it to remove.
+
+### Experiments 0222-0225
+
+| Experiment | Result |
+|---|---|
+| 0222, 262 tracks | panel (67 files) K = 1, 3, 9, 99 and share (26 files) K = 1, 3, 9: 540/540 confident, no lost candidate, the second pass's own counts unchanged; own first-pass hits at least 0.768 of level 0 at K = 9 (0.717 at 99); the cut 101 → 410 postings (3,620 at 99), 27% of the set changed at panel 9 |
+| 0223, NAS scale | panel (157 indexed files) K = 9 and share (4,070 files) K = 3 and 6 (K = 9 exceeds 65,536 assets): 540/540 and 408/423 (other rips) as at level 0; 1.4-2.0% of the lists moved; the share selection raises the cut 60% but leaves copied and uncopied files at 18.7% set aside; Siren Bass (other rips, +3%) 363 → 298 second-pass hits through a shorter first-pass chain |
+| 0224, ranking | files or recordings: 14.2-14.4% set aside at 262 tracks, 18.4% at NAS scale; 540/540; first pass within 3% of level 0 under every padding (postings ranking: down to 0.717); recordings unchanged by copies by construction; not worth an ADR (no U1-U3 to remove) |
+| 0225, drum-loop pairs | the 7 related pairs share 1,793-3,850 hashes, 23.6-35.1% set aside (median 28.8%), against 42.4% for 20 random pairs; copies move them by at most 0.2 points at NAS scale |
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; run build) | 0:51; 0:51 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build) | 3:45; 3:52 | 5.3; 5.4 GiB |
+| `sweep --trace-candidates`, 262 tracks (K = 99) | 0:52-1:06 (2:48-3:13) | 0.24-0.53 (1.4-1.9) GiB |
+| the same, NAS scale: level 0 (saved index); panel 9; share 6 | 4:50-5:04; 6:58-7:17; 9:54-10:22 | 4.9; 5.1; 7.6-7.8 GiB |
+| the same, other rips: level 0; panel 9; share 6 | 2:52; 4:50; 7:05 | 4.9; 4.9; 7.6 GiB |
+| `fullest --shared-by`, NAS level 0; padded | 0:06; 2:01-3:02 | 4.4; 4.5-6.9 GiB |
+| `scripts/check.sh` | 4:00 | |
+
+A padded NAS run builds its index from the stores (the saved index
+holds no copies); its trace searches the first pass a second time.
+
+### Decided this session, open to change
+
+- Padding and the trace are `sweep` options only: the recall panel's
+  other-rips queries and the shared panels were not searched padded;
+  the sweep's `--other-rips` form stood for the other-rips condition.
+- The share selection at NAS scale used K = 6 and 3 instead of 9 (the
+  65,536-asset limit, ADR 0010).
+- Wrong candidates and wrong possible answers are counted by distinct
+  original file: counted by detection, K copies of a related record give
+  K entries.
+- Step 5 added a control (20 seeded random pairs) after the first
+  readings; exploratory.
+
+### Questions this leaves for us
+
+- Whether to keep ranking the fullest lists by postings. The evidence
+  here does not ask for a change: nothing failed. Ranking by distinct
+  files is open to the product (a count per list at build or load
+  time), costs nothing measured here and makes the first pass
+  insensitive to repeats within a file and to copies of a recording;
+  it changes about 11% of the lists set aside at NAS scale, so its
+  adoption would need the full protocol and an ADR.
+- Whether a famous break held by many different records behaves like
+  these two-file families; no such family was built or measured.
+- Whether the first-pass chain's span should bound the second pass
+  (Siren Bass loses 18% of its second-pass hits when its first-pass
+  chain loses a window).
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: items 4, 5, 7 and 9 of session 40's pack
+  (`work/s47/questions/05-pack-s40.json`), session 39's questions, Star
+  Trails, Into Music.
+
+### Handoff for the next session
+
+1. Data: traced sweep reports `work/s50/w262/reports/` and
+   `work/s50/wnas/reports/library-nas-dnb-peaks/`
+   (`sweep-seed-2026[-other-rips][-exact-<K>-<list>][-rank-<ranking>]-trace.json`);
+   comparisons `work/s50/compare/` (copied to
+   `docs/experiments/data/0222-*.json` to `0224-*.json`); the copied
+   lists `work/s50/copied/`; the case-study reports
+   `work/s50/{w262,wnas,wctl}/reports/**/fullest-0.01*.json` and pairs
+   `work/s50/case/`; the level-0 census `work/s50/w0/`.
+2. Builds: `work/bin/s50-start/` (= `s49-final`), `s50-run/` (the
+   sweeps), `s50-case/` (`fullest --shared-by`), `s50-final/` (master).
+3. Scripts: `work/s50/start.sh`, `step2.sh`, `step3-262.sh`,
+   `step3-nas.sh`, `step3-nas2.sh`, `step5.sh`, `step5b.sh`,
+   `compare.sh`, `table.py`, `answers_min.py`, `final.sh`. For example:
+
+   ```sh
+   E="work/bin/s50-final/gunfinger-eval --work work/s50/wnas --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks"
+   $E sweep --trace-candidates --exact-copies 9 --copied work/s50/copied/panel-nas.txt
+   $E sweep --trace-candidates --rank-fullest-by files
+   python3 -I scripts/analysis/filter_padding.py compare BASE.json PADDED.json work/s50/copied/panel-nas.txt
+   ```
+
+   A scratch work directory needs the clusters files and the library map
+   copied into its `reports/`, and links to `work/sweep/` and the saved
+   index.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched. Nothing ran
+  on the candidate mixes of 0065 or on the NAS root's broadcast file.
+  The NAS store was only read (`--other-peaks-dir`); `work/peaks` was
+  only read. No renders were made (the sweep's are reused).
+- `docs/pair-verdicts.txt`, the clusters file and the answer log are at
+  their start digests (`work/s50/listening-digests-start.txt`); no
+  answer log was written; no manifest or committed panel changed.

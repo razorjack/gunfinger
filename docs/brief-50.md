@@ -277,7 +277,7 @@ Rules for this session:
   original file; both counts are reported, the per-file one as the
   measure (the registered count read literally would double at K = 1 by
   construction).
-- **(05:27) For step 5, `fullest --shared-by PAIRS`** (harness,
+- **(05:24) For step 5, `fullest --shared-by PAIRS`** (harness,
   tested): for each pair of index paths, the distinct hashes both files
   hold and how many of them lie in lists set aside; `fullest` also takes
   `--exact-copies`/`--copied` (the same `Copies` options as `sweep`).
@@ -295,7 +295,7 @@ Rules for this session:
   (`work/s50/step3-nas2.sh`, queued after `step3-nas.sh`, whose K = 9
   other-rips run of the share fails the same way). The panel selection
   keeps K = 9.
-- **(06:58) Step 4, experiments 0222-0224.** The runs of all three ran
+- **(06:57) Step 4, experiments 0222-0224.** The runs of all three ran
   from one registration in two queues (`step3-262.sh`, 05:04-05:24;
   `step3-nas.sh` and `step3-nas2.sh`, 05:24-06:57), the ranking runs
   among them; each experiment was written after its queue, 0222 before
@@ -304,14 +304,14 @@ Rules for this session:
   their results were read only after 0224's commit. Results: stable at
   every level and scale (no U1, U2 or U3); the distinct-holder ranking
   is not worth an ADR (condition 1 fails, 2 and 3 hold).
-- **(07:01) Step 5, a control added** (exploratory, decided after the
+- **(06:59) Step 5, a control added** (exploratory, decided after the
   first readings): the hashes any two files share are mostly common
   ones, so the share set aside of a related pair's shared hashes means
   little without unrelated pairs beside it. 20 seeded random pairs of
   the NAS index's files (`random.Random(2026)`,
   `work/s50/case/control-pairs.txt`) at level 0, in their own scratch
   work directory (`work/s50/step5b.sh`).
-- **(07:08) Step 5, experiment 0225** (`work/s50/step5.sh`,
+- **(07:03) Step 5, experiment 0225** (`work/s50/step5.sh`,
   `step5b.sh`; build `work/bin/s50-case/`, the run build plus `fullest
   --shared-by`). The related pairs' shared hashes are set aside more
   often than their own postings and less often than random pairs'
