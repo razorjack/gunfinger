@@ -1,0 +1,1638 @@
+{
+ "chosen": "drift_0.8_20",
+ "counts": {
+  "a": [
+   22,
+   38
+  ],
+  "b": 96,
+  "c": 51,
+  "d": 59,
+  "test": [
+   6,
+   4
+  ],
+  "test without seen": 9
+ },
+ "measures": {
+  "coverage": {
+   "development": {
+    "auc_a": 0.895933014354067,
+    "auc_b_a_different": 0.9898574561403509,
+    "auc_b_c": 1.0,
+    "auc_b_d": 1.0,
+    "threshold": 0.5786463683653509,
+    "errors": 8,
+    "loo_errors": 9,
+    "loo_wrong": [
+     "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+     "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+     "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+    ],
+    "b_below": [],
+    "c_above": [
+     "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+    ],
+    "d_above": []
+   },
+   "test": {
+    "auc": 1.0,
+    "errors": 0,
+    "wrong": [],
+    "auc_without_seen": 1.0,
+    "errors_without_seen": 0,
+    "values": {
+     "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a": [
+      "judged same",
+      0.9882227325817575
+     ],
+     "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3": [
+      "judged same",
+      0.9776396247746896
+     ],
+     "Ed Rush, Optical & Fierce  - Alien Girl.m4a ~ aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3": [
+      "judged same",
+      0.74050363806581
+     ],
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a": [
+      "judged same",
+      0.9657163780173161
+     ],
+     "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ DJ Dazee & Substance - Propaganda.m4a": [
+      "judged different",
+      0.2322647910184539
+     ],
+     "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ a - aphrodite - tower bass.mp3": [
+      "judged different",
+      0.3312349812101045
+     ],
+     "Klute - We R The Ones VIP.m4a ~ 01-klute-we_r_the_ones_(klute_remix).mp3": [
+      "judged different",
+      0.5422190201606121
+     ],
+     "a-aphrodite-wikki_wikki_plate-lame.mp3 ~ 01-aphrodite-defjammer-bpm.mp3": [
+      "judged different",
+      0.2096962063588205
+     ],
+     "[A]_-_Mudslide.mp3 ~ Futuretech - Mudslide.m4a": [
+      "judged same",
+      0.9956497164772316
+     ],
+     "1210 RECs [ 1210 005 ： CAUSE4CONCERN - psyke - ] drum and bass.m4a ~ aa-cause_4_concern-psyke-sour.mp3": [
+      "judged same",
+      0.9934720849424457
+     ]
+    }
+   },
+   "pooled": {
+    "auc": 0.9149659863945578,
+    "threshold": 0.5786463683653509,
+    "errors": 8,
+    "loo_errors": 9,
+    "loo_wrong": [
+     "02 Coma.mp3 ~ Bad Company - Spraycan.opus",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+     "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+     "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+    ]
+   },
+   "judged_values": {
+    "Bad Company - China Cup.mp3 ~ PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus": [
+     "judged same",
+     0.6675642910560025
+    ],
+    "01-future_cut-the_specialist-trt.mp3 ~ INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a": [
+     "judged same",
+     0.7651739232017587
+    ],
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus": [
+     "judged same",
+     0.5846615245741091
+    ],
+    "DJ Trace - Sonar.m4a ~ Trace - Sonar.m4a": [
+     "judged same",
+     0.9834228016532609
+    ],
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a": [
+     "judged same",
+     0.8701717270730709
+    ],
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a": [
+     "judged same",
+     0.7301203891546104
+    ],
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus": [
+     "judged same",
+     0.2590811196716354
+    ],
+    "DJ Trace - Sonar.m4a ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged same",
+     0.9979439853919015
+    ],
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a": [
+     "judged same",
+     0.43758055135228724
+    ],
+    "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3": [
+     "judged same",
+     0.7365151570648912
+    ],
+    "A - Bad Company - 4 Days.mp3 ~ a-bad_company-4_days-sour.mp3": [
+     "judged same",
+     0.9958673247154286
+    ],
+    "Muffler ‎- Nutcracker (Extended Mix).m4a ~ 10-muffler-nutcracker_(original_mix).mp3": [
+     "judged same",
+     0.9675803942583381
+    ],
+    "AA. SKC -- Recharger (Black Sun Empire remix).mp3 ~ b-skc-recharger_(black_sun_empire_remix)-sour.mp3": [
+     "judged same",
+     0.9947568359799456
+    ],
+    "k-sta_and_paul_b-come_closer-sour.mp3 ~ Sta & Paul B - Come Closer.m4a": [
+     "judged same",
+     0.987829438270621
+    ],
+    "Chris.Su - Astro-Sine.opus ~ Chris.SU - Astrosine.m4a": [
+     "judged same",
+     0.991546310413024
+    ],
+    "02 bad company-the nine.mp3 ~ A-Bad_Company-The_Nine-sour.mp3": [
+     "judged same",
+     0.9974847560975612
+    ],
+    "Stakka & Skynet - Nightlore.m4a ~ a-stakka_and_skynet-nightlore-sour.mp3": [
+     "judged same",
+     0.9698146034032354
+    ],
+    "D-Sinthetix-Cryogenic-sour.mp3 ~ DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus": [
+     "judged same",
+     0.9953651727881941
+    ],
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": [
+     "judged same",
+     0.9979774231587119
+    ],
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a": [
+     "judged same",
+     0.6416162496446836
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a": [
+     "judged same",
+     0.9814791235059598
+    ],
+    "DJ Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.2716816804843108
+    ],
+    "Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.4637954819087112
+    ],
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a": [
+     "judged different",
+     0.5032158019093044
+    ],
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged different",
+     0.9887507237072383
+    ],
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3": [
+     "judged different",
+     0.7931768301669282
+    ],
+    "A. Pyro -- Time Is Broken.mp3 ~ Pyro - Ignorance.m4a": [
+     "judged different",
+     0.43148588451654096
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3": [
+     "judged different",
+     0.5726312121565925
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.5373444749003193
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3": [
+     "judged different",
+     0.5365979665208535
+    ],
+    "01 - Ryme Tyme - T-Minus.mp3 ~ Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a": [
+     "judged different",
+     0.3523118004268055
+    ],
+    "Ed Rush & Optical - Dozer.mp3 ~ Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus": [
+     "judged different",
+     0.3982526423905102
+    ],
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus": [
+     "judged different",
+     0.5717819714082191
+    ],
+    "IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus ~ Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus": [
+     "judged different",
+     0.41744865669857134
+    ],
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus": [
+     "judged different",
+     0.9460743861907048
+    ],
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a": [
+     "judged different",
+     0.27961990933808
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3": [
+     "judged different",
+     0.31306165832541355
+    ],
+    "209-usual_suspects-killa_bees-sour.mp3 ~ 08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3": [
+     "judged different",
+     0.13446589686022284
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3": [
+     "judged different",
+     0.257797050142496
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom 2018.m4a": [
+     "judged different",
+     0.255504598585911
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3": [
+     "judged different",
+     0.37359901126961476
+    ],
+    "02 bad company-the nine.mp3 ~ Bad Company - The Nine (ChaseR Bootleg).opus": [
+     "judged different",
+     0.16394816877256832
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": [
+     "judged different",
+     0.30549413913706663
+    ],
+    "108-demolition_man-fire-sour.mp3 ~ 01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3": [
+     "judged different",
+     0.2710342035060976
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3": [
+     "judged different",
+     0.07511664949616735
+    ],
+    "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus ~ Kemal & Rob Data - Star Trails (Synergy Remix).m4a": [
+     "judged different",
+     0.20572972036000078
+    ],
+    "Klute - We R The Ones VIP.m4a ~ Klute - We R The Ones (Klute Remix).opus": [
+     "judged different",
+     0.3207783012758012
+    ],
+    "Eddy Woo - Tsunami.m4a ~ Eddy Woo - Tsunami (Remix).m4a": [
+     "judged different",
+     0.15526580107632365
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a": [
+     "judged different",
+     0.0992426241186742
+    ],
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.49633937498179265
+    ],
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": [
+     "judged different",
+     0.7422778251665718
+    ],
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": [
+     "judged different",
+     0.6100903157352404
+    ],
+    "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": [
+     "judged different",
+     0.4840559872103913
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.9872421329491823
+    ],
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus": [
+     "judged different",
+     0.1397099215271233
+    ],
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a": [
+     "judged different",
+     0.405828940677095
+    ],
+    "x1-kosheen-hide_you-sour.mp3 ~ Kosheen - Hide U (Outrage & Markee Ledge Remix).opus": [
+     "judged different",
+     0.44594015411976384
+    ],
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus": [
+     "judged different",
+     0.40183154065618015
+    ]
+   }
+  },
+  "supported": {
+   "development": {
+    "auc_a": 0.9354066985645934,
+    "auc_b_a_different": 0.9947916666666666,
+    "auc_b_c": 0.9995915032679739,
+    "auc_b_d": 1.0,
+    "threshold": 0.7409396083792161,
+    "errors": 6,
+    "loo_errors": 7,
+    "loo_wrong": [
+     "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3",
+     "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3"
+    ],
+    "b_below": [],
+    "c_above": [
+     "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+     "A-Bad_Company-The_Nine-dmz.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+     "A- The_Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+     "BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+     "210-bad_company-the_nine-sour.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a"
+    ],
+    "d_above": []
+   },
+   "test": {
+    "auc": 1.0,
+    "errors": 1,
+    "wrong": [
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a"
+    ],
+    "auc_without_seen": 1.0,
+    "errors_without_seen": 0,
+    "values": {
+     "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a": [
+      "judged same",
+      0.9528907958534611
+     ],
+     "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3": [
+      "judged same",
+      0.789465444672562
+     ],
+     "Ed Rush, Optical & Fierce  - Alien Girl.m4a ~ aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3": [
+      "judged same",
+      0.9050658216226621
+     ],
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a": [
+      "judged same",
+      0.731790715070328
+     ],
+     "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ DJ Dazee & Substance - Propaganda.m4a": [
+      "judged different",
+      0.22249907826904275
+     ],
+     "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ a - aphrodite - tower bass.mp3": [
+      "judged different",
+      0.3623973701101619
+     ],
+     "Klute - We R The Ones VIP.m4a ~ 01-klute-we_r_the_ones_(klute_remix).mp3": [
+      "judged different",
+      0.49593803830063665
+     ],
+     "a-aphrodite-wikki_wikki_plate-lame.mp3 ~ 01-aphrodite-defjammer-bpm.mp3": [
+      "judged different",
+      0.2848011470226588
+     ],
+     "[A]_-_Mudslide.mp3 ~ Futuretech - Mudslide.m4a": [
+      "judged same",
+      0.9979055803390203
+     ],
+     "1210 RECs [ 1210 005 ： CAUSE4CONCERN - psyke - ] drum and bass.m4a ~ aa-cause_4_concern-psyke-sour.mp3": [
+      "judged same",
+      0.9868040720482916
+     ]
+    }
+   },
+   "pooled": {
+    "auc": 0.9430272108843537,
+    "threshold": 0.7293311908990927,
+    "errors": 7,
+    "loo_errors": 9,
+    "loo_wrong": [
+     "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a",
+     "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3",
+     "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a"
+    ]
+   },
+   "judged_values": {
+    "Bad Company - China Cup.mp3 ~ PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus": [
+     "judged same",
+     0.9758359952119695
+    ],
+    "01-future_cut-the_specialist-trt.mp3 ~ INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a": [
+     "judged same",
+     0.9828105906313646
+    ],
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus": [
+     "judged same",
+     0.7583755699179422
+    ],
+    "DJ Trace - Sonar.m4a ~ Trace - Sonar.m4a": [
+     "judged same",
+     0.9863358703333139
+    ],
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a": [
+     "judged same",
+     0.6278460908515628
+    ],
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a": [
+     "judged same",
+     0.8126638136559505
+    ],
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus": [
+     "judged same",
+     0.4832796904854086
+    ],
+    "DJ Trace - Sonar.m4a ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged same",
+     0.9954222232124648
+    ],
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a": [
+     "judged same",
+     0.8559629033969046
+    ],
+    "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3": [
+     "judged same",
+     0.7466534429176399
+    ],
+    "A - Bad Company - 4 Days.mp3 ~ a-bad_company-4_days-sour.mp3": [
+     "judged same",
+     0.9962804742011755
+    ],
+    "Muffler ‎- Nutcracker (Extended Mix).m4a ~ 10-muffler-nutcracker_(original_mix).mp3": [
+     "judged same",
+     0.965910801714909
+    ],
+    "AA. SKC -- Recharger (Black Sun Empire remix).mp3 ~ b-skc-recharger_(black_sun_empire_remix)-sour.mp3": [
+     "judged same",
+     0.9938729839553443
+    ],
+    "k-sta_and_paul_b-come_closer-sour.mp3 ~ Sta & Paul B - Come Closer.m4a": [
+     "judged same",
+     0.9910314551065648
+    ],
+    "Chris.Su - Astro-Sine.opus ~ Chris.SU - Astrosine.m4a": [
+     "judged same",
+     0.9921009495265387
+    ],
+    "02 bad company-the nine.mp3 ~ A-Bad_Company-The_Nine-sour.mp3": [
+     "judged same",
+     0.9979992378048781
+    ],
+    "Stakka & Skynet - Nightlore.m4a ~ a-stakka_and_skynet-nightlore-sour.mp3": [
+     "judged same",
+     0.9708078347885558
+    ],
+    "D-Sinthetix-Cryogenic-sour.mp3 ~ DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus": [
+     "judged same",
+     0.9725618520211684
+    ],
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": [
+     "judged same",
+     0.9774164816854224
+    ],
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a": [
+     "judged same",
+     0.836467452054488
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a": [
+     "judged same",
+     0.9755267101104831
+    ],
+    "DJ Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.39065327882399703
+    ],
+    "Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.5320563979781857
+    ],
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a": [
+     "judged different",
+     0.9421701927072854
+    ],
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged different",
+     0.6553881855310718
+    ],
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3": [
+     "judged different",
+     0.985283568941278
+    ],
+    "A. Pyro -- Time Is Broken.mp3 ~ Pyro - Ignorance.m4a": [
+     "judged different",
+     0.5102328109575943
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3": [
+     "judged different",
+     0.5855916623362325
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.66302527057904
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3": [
+     "judged different",
+     0.6485064690335136
+    ],
+    "01 - Ryme Tyme - T-Minus.mp3 ~ Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a": [
+     "judged different",
+     0.5078584528442481
+    ],
+    "Ed Rush & Optical - Dozer.mp3 ~ Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus": [
+     "judged different",
+     0.3377996071390569
+    ],
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus": [
+     "judged different",
+     0.07615167509887819
+    ],
+    "IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus ~ Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus": [
+     "judged different",
+     0
+    ],
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus": [
+     "judged different",
+     0.8742494129742073
+    ],
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a": [
+     "judged different",
+     0.7352257738407924
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3": [
+     "judged different",
+     0.6146292654272854
+    ],
+    "209-usual_suspects-killa_bees-sour.mp3 ~ 08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3": [
+     "judged different",
+     0.4143192120823521
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3": [
+     "judged different",
+     0.4404036468809682
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom 2018.m4a": [
+     "judged different",
+     0.4342780946412925
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3": [
+     "judged different",
+     0.4694412499720211
+    ],
+    "02 bad company-the nine.mp3 ~ Bad Company - The Nine (ChaseR Bootleg).opus": [
+     "judged different",
+     0.10809712310316572
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": [
+     "judged different",
+     0.12997909502888286
+    ],
+    "108-demolition_man-fire-sour.mp3 ~ 01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3": [
+     "judged different",
+     0.4573170731707317
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3": [
+     "judged different",
+     0.1355088144249133
+    ],
+    "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus ~ Kemal & Rob Data - Star Trails (Synergy Remix).m4a": [
+     "judged different",
+     0.31877030303439613
+    ],
+    "Klute - We R The Ones VIP.m4a ~ Klute - We R The Ones (Klute Remix).opus": [
+     "judged different",
+     0.5640848131818695
+    ],
+    "Eddy Woo - Tsunami.m4a ~ Eddy Woo - Tsunami (Remix).m4a": [
+     "judged different",
+     0.1780093877700875
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a": [
+     "judged different",
+     0.01808427465750483
+    ],
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.9033001604136491
+    ],
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": [
+     "judged different",
+     0.7268716667278574
+    ],
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": [
+     "judged different",
+     0.35963057523038033
+    ],
+    "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": [
+     "judged different",
+     0.5397868531998281
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.6119324087872401
+    ],
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus": [
+     "judged different",
+     0.3199856006479708
+    ],
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a": [
+     "judged different",
+     0.5901157123577305
+    ],
+    "x1-kosheen-hide_you-sour.mp3 ~ Kosheen - Hide U (Outrage & Markee Ledge Remix).opus": [
+     "judged different",
+     0.35445975669136065
+    ],
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus": [
+     "judged different",
+     0.0638342013011538
+    ]
+   }
+  },
+  "near_10": {
+   "development": {
+    "auc_a": 0.9521531100478469,
+    "auc_b_a_different": 1.0,
+    "auc_b_c": 1.0,
+    "auc_b_d": 1.0,
+    "threshold": 0.551937334948746,
+    "errors": 4,
+    "loo_errors": 6,
+    "loo_wrong": [
+     "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+    ],
+    "b_below": [],
+    "c_above": [
+     "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+    ],
+    "d_above": []
+   },
+   "test": {
+    "auc": 1.0,
+    "errors": 0,
+    "wrong": [],
+    "auc_without_seen": 1.0,
+    "errors_without_seen": 0,
+    "values": {
+     "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a": [
+      "judged same",
+      0.814482076902679
+     ],
+     "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3": [
+      "judged same",
+      0.7581552004079278
+     ],
+     "Ed Rush, Optical & Fierce  - Alien Girl.m4a ~ aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3": [
+      "judged same",
+      0.6776147250892183
+     ],
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a": [
+      "judged same",
+      0.7152996567025459
+     ],
+     "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ DJ Dazee & Substance - Propaganda.m4a": [
+      "judged different",
+      0.22249907826904275
+     ],
+     "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ a - aphrodite - tower bass.mp3": [
+      "judged different",
+      0.16447265258845808
+     ],
+     "Klute - We R The Ones VIP.m4a ~ 01-klute-we_r_the_ones_(klute_remix).mp3": [
+      "judged different",
+      0.30085340712076536
+     ],
+     "a-aphrodite-wikki_wikki_plate-lame.mp3 ~ 01-aphrodite-defjammer-bpm.mp3": [
+      "judged different",
+      0.16194575026778638
+     ],
+     "[A]_-_Mudslide.mp3 ~ Futuretech - Mudslide.m4a": [
+      "judged same",
+      0.9979055803390203
+     ],
+     "1210 RECs [ 1210 005 ： CAUSE4CONCERN - psyke - ] drum and bass.m4a ~ aa-cause_4_concern-psyke-sour.mp3": [
+      "judged same",
+      0.9868040720482916
+     ]
+    }
+   },
+   "pooled": {
+    "auc": 0.9574829931972789,
+    "threshold": 0.551937334948746,
+    "errors": 4,
+    "loo_errors": 6,
+    "loo_wrong": [
+     "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+    ]
+   },
+   "judged_values": {
+    "Bad Company - China Cup.mp3 ~ PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus": [
+     "judged same",
+     0.9758359952119695
+    ],
+    "01-future_cut-the_specialist-trt.mp3 ~ INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a": [
+     "judged same",
+     0.9828105906313646
+    ],
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus": [
+     "judged same",
+     0.5531986177826085
+    ],
+    "DJ Trace - Sonar.m4a ~ Trace - Sonar.m4a": [
+     "judged same",
+     0.9863358703333139
+    ],
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a": [
+     "judged same",
+     0.6154380653406624
+    ],
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a": [
+     "judged same",
+     0.5520427655447128
+    ],
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus": [
+     "judged same",
+     0.11677762037751509
+    ],
+    "DJ Trace - Sonar.m4a ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged same",
+     0.9954222232124648
+    ],
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a": [
+     "judged same",
+     0.8023128068876969
+    ],
+    "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3": [
+     "judged same",
+     0.7466534429176399
+    ],
+    "A - Bad Company - 4 Days.mp3 ~ a-bad_company-4_days-sour.mp3": [
+     "judged same",
+     0.9962804742011755
+    ],
+    "Muffler ‎- Nutcracker (Extended Mix).m4a ~ 10-muffler-nutcracker_(original_mix).mp3": [
+     "judged same",
+     0.965910801714909
+    ],
+    "AA. SKC -- Recharger (Black Sun Empire remix).mp3 ~ b-skc-recharger_(black_sun_empire_remix)-sour.mp3": [
+     "judged same",
+     0.9938729839553443
+    ],
+    "k-sta_and_paul_b-come_closer-sour.mp3 ~ Sta & Paul B - Come Closer.m4a": [
+     "judged same",
+     0.9910314551065648
+    ],
+    "Chris.Su - Astro-Sine.opus ~ Chris.SU - Astrosine.m4a": [
+     "judged same",
+     0.9921009495265387
+    ],
+    "02 bad company-the nine.mp3 ~ A-Bad_Company-The_Nine-sour.mp3": [
+     "judged same",
+     0.9979992378048781
+    ],
+    "Stakka & Skynet - Nightlore.m4a ~ a-stakka_and_skynet-nightlore-sour.mp3": [
+     "judged same",
+     0.9708078347885558
+    ],
+    "D-Sinthetix-Cryogenic-sour.mp3 ~ DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus": [
+     "judged same",
+     0.9725618520211684
+    ],
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": [
+     "judged same",
+     0.9774164816854224
+    ],
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a": [
+     "judged same",
+     0.7975619891682327
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a": [
+     "judged same",
+     0.9755267101104831
+    ],
+    "DJ Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.36333486771742385
+    ],
+    "Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.4881754579387477
+    ],
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a": [
+     "judged different",
+     0.48635718177159126
+    ],
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged different",
+     0.6553881855310718
+    ],
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3": [
+     "judged different",
+     0.7410922521431514
+    ],
+    "A. Pyro -- Time Is Broken.mp3 ~ Pyro - Ignorance.m4a": [
+     "judged different",
+     0.4205973171407197
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3": [
+     "judged different",
+     0.5178372551237758
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.4404036468809682
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3": [
+     "judged different",
+     0.4210452448202663
+    ],
+    "01 - Ryme Tyme - T-Minus.mp3 ~ Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a": [
+     "judged different",
+     0.3117200158837109
+    ],
+    "Ed Rush & Optical - Dozer.mp3 ~ Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus": [
+     "judged different",
+     0.13511984285562276
+    ],
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus": [
+     "judged different",
+     0.07615167509887819
+    ],
+    "IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus ~ Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus": [
+     "judged different",
+     0.0
+    ],
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus": [
+     "judged different",
+     0.8255375688495448
+    ],
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a": [
+     "judged different",
+     0.1893763356862647
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3": [
+     "judged different",
+     0.5129976546086004
+    ],
+    "209-usual_suspects-killa_bees-sour.mp3 ~ 08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3": [
+     "judged different",
+     0.1144015734854256
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3": [
+     "judged different",
+     0.21778202318289636
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom 2018.m4a": [
+     "judged different",
+     0.13990166807236268
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3": [
+     "judged different",
+     0.23230082472842278
+    ],
+    "02 bad company-the nine.mp3 ~ Bad Company - The Nine (ChaseR Bootleg).opus": [
+     "judged different",
+     0.09512546833078583
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": [
+     "judged different",
+     0.05999035155179209
+    ],
+    "108-demolition_man-fire-sour.mp3 ~ 01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3": [
+     "judged different",
+     0.15720274390243905
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3": [
+     "judged different",
+     0.058075206182105696
+    ],
+    "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus ~ Kemal & Rob Data - Star Trails (Synergy Remix).m4a": [
+     "judged different",
+     0.1296692758106018
+    ],
+    "Klute - We R The Ones VIP.m4a ~ Klute - We R The Ones (Klute Remix).opus": [
+     "judged different",
+     0.13519388084524145
+    ],
+    "Eddy Woo - Tsunami.m4a ~ Eddy Woo - Tsunami (Remix).m4a": [
+     "judged different",
+     0.050435993201524795
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a": [
+     "judged different",
+     0.01808427465750483
+    ],
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.4765687053216838
+    ],
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": [
+     "judged different",
+     0.14537433334557148
+    ],
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": [
+     "judged different",
+     0.22955143099811512
+    ],
+    "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": [
+     "judged different",
+     0.2300228067612904
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.5518319043527791
+    ],
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus": [
+     "judged different",
+     0.07666321682190967
+    ],
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a": [
+     "judged different",
+     0.37333851189978867
+    ],
+    "x1-kosheen-hide_you-sour.mp3 ~ Kosheen - Hide U (Outrage & Markee Ledge Remix).opus": [
+     "judged different",
+     0.2014823880140366
+    ],
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus": [
+     "judged different",
+     0.0638342013011538
+    ]
+   }
+  },
+  "drift_0_10": {
+   "development": {
+    "auc_a": 0.9521531100478469,
+    "auc_b_a_different": 1.0,
+    "auc_b_c": 1.0,
+    "auc_b_d": 1.0,
+    "threshold": 0.551937334948746,
+    "errors": 4,
+    "loo_errors": 6,
+    "loo_wrong": [
+     "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+    ],
+    "b_below": [],
+    "c_above": [
+     "111-ram_trilogy-mind_overload-sour.mp3 ~ Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+    ],
+    "d_above": []
+   },
+   "test": {
+    "auc": 1.0,
+    "errors": 0,
+    "wrong": [],
+    "auc_without_seen": 1.0,
+    "errors_without_seen": 0,
+    "values": {
+     "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a": [
+      "judged same",
+      0.814482076902679
+     ],
+     "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3": [
+      "judged same",
+      0.7581552004079278
+     ],
+     "Ed Rush, Optical & Fierce  - Alien Girl.m4a ~ aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3": [
+      "judged same",
+      0.6776147250892183
+     ],
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a": [
+      "judged same",
+      0.7152996567025459
+     ],
+     "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ DJ Dazee & Substance - Propaganda.m4a": [
+      "judged different",
+      0.22249907826904275
+     ],
+     "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ a - aphrodite - tower bass.mp3": [
+      "judged different",
+      0.16447265258845808
+     ],
+     "Klute - We R The Ones VIP.m4a ~ 01-klute-we_r_the_ones_(klute_remix).mp3": [
+      "judged different",
+      0.30085340712076536
+     ],
+     "a-aphrodite-wikki_wikki_plate-lame.mp3 ~ 01-aphrodite-defjammer-bpm.mp3": [
+      "judged different",
+      0.16194575026778638
+     ],
+     "[A]_-_Mudslide.mp3 ~ Futuretech - Mudslide.m4a": [
+      "judged same",
+      0.9979055803390203
+     ],
+     "1210 RECs [ 1210 005 ： CAUSE4CONCERN - psyke - ] drum and bass.m4a ~ aa-cause_4_concern-psyke-sour.mp3": [
+      "judged same",
+      0.9868040720482916
+     ]
+    }
+   },
+   "pooled": {
+    "auc": 0.9574829931972789,
+    "threshold": 0.551937334948746,
+    "errors": 4,
+    "loo_errors": 6,
+    "loo_wrong": [
+     "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a",
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+     "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus"
+    ]
+   },
+   "judged_values": {
+    "Bad Company - China Cup.mp3 ~ PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus": [
+     "judged same",
+     0.9758359952119695
+    ],
+    "01-future_cut-the_specialist-trt.mp3 ~ INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a": [
+     "judged same",
+     0.9828105906313646
+    ],
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus": [
+     "judged same",
+     0.5531986177826085
+    ],
+    "DJ Trace - Sonar.m4a ~ Trace - Sonar.m4a": [
+     "judged same",
+     0.9863358703333139
+    ],
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a": [
+     "judged same",
+     0.6154380653406624
+    ],
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a": [
+     "judged same",
+     0.5520427655447128
+    ],
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus": [
+     "judged same",
+     0.11677762037751509
+    ],
+    "DJ Trace - Sonar.m4a ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged same",
+     0.9954222232124648
+    ],
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a": [
+     "judged same",
+     0.8023128068876969
+    ],
+    "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3": [
+     "judged same",
+     0.7466534429176399
+    ],
+    "A - Bad Company - 4 Days.mp3 ~ a-bad_company-4_days-sour.mp3": [
+     "judged same",
+     0.9962804742011755
+    ],
+    "Muffler ‎- Nutcracker (Extended Mix).m4a ~ 10-muffler-nutcracker_(original_mix).mp3": [
+     "judged same",
+     0.965910801714909
+    ],
+    "AA. SKC -- Recharger (Black Sun Empire remix).mp3 ~ b-skc-recharger_(black_sun_empire_remix)-sour.mp3": [
+     "judged same",
+     0.9938729839553443
+    ],
+    "k-sta_and_paul_b-come_closer-sour.mp3 ~ Sta & Paul B - Come Closer.m4a": [
+     "judged same",
+     0.9910314551065648
+    ],
+    "Chris.Su - Astro-Sine.opus ~ Chris.SU - Astrosine.m4a": [
+     "judged same",
+     0.9921009495265387
+    ],
+    "02 bad company-the nine.mp3 ~ A-Bad_Company-The_Nine-sour.mp3": [
+     "judged same",
+     0.9979992378048781
+    ],
+    "Stakka & Skynet - Nightlore.m4a ~ a-stakka_and_skynet-nightlore-sour.mp3": [
+     "judged same",
+     0.9708078347885558
+    ],
+    "D-Sinthetix-Cryogenic-sour.mp3 ~ DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus": [
+     "judged same",
+     0.9725618520211684
+    ],
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": [
+     "judged same",
+     0.9774164816854224
+    ],
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a": [
+     "judged same",
+     0.7975619891682327
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a": [
+     "judged same",
+     0.9755267101104831
+    ],
+    "DJ Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.36333486771742385
+    ],
+    "Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.4881754579387477
+    ],
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a": [
+     "judged different",
+     0.48635718177159126
+    ],
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged different",
+     0.6553881855310718
+    ],
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3": [
+     "judged different",
+     0.7410922521431514
+    ],
+    "A. Pyro -- Time Is Broken.mp3 ~ Pyro - Ignorance.m4a": [
+     "judged different",
+     0.4205973171407197
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3": [
+     "judged different",
+     0.5178372551237758
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.4404036468809682
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3": [
+     "judged different",
+     0.4210452448202663
+    ],
+    "01 - Ryme Tyme - T-Minus.mp3 ~ Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a": [
+     "judged different",
+     0.3117200158837109
+    ],
+    "Ed Rush & Optical - Dozer.mp3 ~ Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus": [
+     "judged different",
+     0.13511984285562276
+    ],
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus": [
+     "judged different",
+     0.07615167509887819
+    ],
+    "IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus ~ Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus": [
+     "judged different",
+     0.0
+    ],
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus": [
+     "judged different",
+     0.8255375688495448
+    ],
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a": [
+     "judged different",
+     0.1893763356862647
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3": [
+     "judged different",
+     0.5129976546086004
+    ],
+    "209-usual_suspects-killa_bees-sour.mp3 ~ 08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3": [
+     "judged different",
+     0.1144015734854256
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3": [
+     "judged different",
+     0.21778202318289636
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom 2018.m4a": [
+     "judged different",
+     0.13990166807236268
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3": [
+     "judged different",
+     0.23230082472842278
+    ],
+    "02 bad company-the nine.mp3 ~ Bad Company - The Nine (ChaseR Bootleg).opus": [
+     "judged different",
+     0.09512546833078583
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": [
+     "judged different",
+     0.05999035155179209
+    ],
+    "108-demolition_man-fire-sour.mp3 ~ 01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3": [
+     "judged different",
+     0.15720274390243905
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3": [
+     "judged different",
+     0.058075206182105696
+    ],
+    "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus ~ Kemal & Rob Data - Star Trails (Synergy Remix).m4a": [
+     "judged different",
+     0.1296692758106018
+    ],
+    "Klute - We R The Ones VIP.m4a ~ Klute - We R The Ones (Klute Remix).opus": [
+     "judged different",
+     0.13519388084524145
+    ],
+    "Eddy Woo - Tsunami.m4a ~ Eddy Woo - Tsunami (Remix).m4a": [
+     "judged different",
+     0.050435993201524795
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a": [
+     "judged different",
+     0.01808427465750483
+    ],
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.4765687053216838
+    ],
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": [
+     "judged different",
+     0.14537433334557148
+    ],
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": [
+     "judged different",
+     0.22955143099811512
+    ],
+    "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": [
+     "judged different",
+     0.2300228067612904
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.5518319043527791
+    ],
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus": [
+     "judged different",
+     0.07666321682190967
+    ],
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a": [
+     "judged different",
+     0.37333851189978867
+    ],
+    "x1-kosheen-hide_you-sour.mp3 ~ Kosheen - Hide U (Outrage & Markee Ledge Remix).opus": [
+     "judged different",
+     0.2014823880140366
+    ],
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus": [
+     "judged different",
+     0.0638342013011538
+    ]
+   }
+  },
+  "drift_0.8_20": {
+   "development": {
+    "auc_a": 0.9892344497607656,
+    "auc_b_a_different": 0.9991776315789473,
+    "auc_b_c": 0.9997957516339869,
+    "auc_b_d": 1.0,
+    "threshold": 0.8427392000549353,
+    "errors": 2,
+    "loo_errors": 3,
+    "loo_wrong": [
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+    ],
+    "b_below": [
+     "Ram Trilogy - Beastman (Chapter Four - RAM Records RAMM 39 A) 2002.m4a ~ 11-ram_trilogy-beastman-sour.mp3"
+    ],
+    "c_above": [],
+    "d_above": []
+   },
+   "test": {
+    "auc": 1.0,
+    "errors": 2,
+    "wrong": [
+     "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3",
+     "Ed Rush, Optical & Fierce  - Alien Girl.m4a ~ aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3"
+    ],
+    "auc_without_seen": 1.0,
+    "errors_without_seen": 2,
+    "values": {
+     "2. Noisia, Phace & Stu C4C - Dead Air.mp3 ~ RENEGADE HARDWARE [ RH 66 ： NOISIA & PHACE & STU - dead air - ] drum and bass.m4a": [
+      "judged same",
+      0.9874929755911567
+     ],
+     "Pyro - Time Is Broken.m4a ~ A. Pyro -- Time Is Broken.mp3": [
+      "judged same",
+      0.8274850269939035
+     ],
+     "Ed Rush, Optical & Fierce  - Alien Girl.m4a ~ aa-ed_rush_optical_&_fierce-alien_girl-pro014-1998-wvr.mp3": [
+      "judged same",
+      0.800817402378167
+     ],
+     "Falcon - The Stand (HD Audio & Speed Up).m4a ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a": [
+      "judged same",
+      0.8905171518602301
+     ],
+     "09-known_unknown-drumtrip-1999-sour-fixed.mp3 ~ DJ Dazee & Substance - Propaganda.m4a": [
+      "judged different",
+      0.23390928741104494
+     ],
+     "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ a - aphrodite - tower bass.mp3": [
+      "judged different",
+      0.2927055681659
+     ],
+     "Klute - We R The Ones VIP.m4a ~ 01-klute-we_r_the_ones_(klute_remix).mp3": [
+      "judged different",
+      0.45598094516740995
+     ],
+     "a-aphrodite-wikki_wikki_plate-lame.mp3 ~ 01-aphrodite-defjammer-bpm.mp3": [
+      "judged different",
+      0.27642464269846295
+     ],
+     "[A]_-_Mudslide.mp3 ~ Futuretech - Mudslide.m4a": [
+      "judged same",
+      0.9979055803390203
+     ],
+     "1210 RECs [ 1210 005 ： CAUSE4CONCERN - psyke - ] drum and bass.m4a ~ aa-cause_4_concern-psyke-sour.mp3": [
+      "judged same",
+      0.9893805839857545
+     ]
+    }
+   },
+   "pooled": {
+    "auc": 0.9880952380952381,
+    "threshold": 0.7843180985713013,
+    "errors": 3,
+    "loo_errors": 4,
+    "loo_wrong": [
+     "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus",
+     "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3",
+     "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3",
+     "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus"
+    ]
+   },
+   "judged_values": {
+    "Bad Company - China Cup.mp3 ~ PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus": [
+     "judged same",
+     0.9811977314493979
+    ],
+    "01-future_cut-the_specialist-trt.mp3 ~ INFRARED RECORDS [ INFRA 012 ： FUTURE CUT - the specialist - ] drum and bass.m4a": [
+     "judged same",
+     0.985417515274949
+    ],
+    "02 Coma.mp3 ~ Bad Company - Spraycan.opus": [
+     "judged same",
+     0.9713440518812
+    ],
+    "DJ Trace - Sonar.m4a ~ Trace - Sonar.m4a": [
+     "judged same",
+     0.9863358703333139
+    ],
+    "[AA]_-_Phoenix.mp3 ~ Drumsound & Simon Bassline Smith - Phoenix.m4a": [
+     "judged same",
+     0.8685617857630316
+    ],
+    "Ed Rush, Optical & Fierce - Alien Girl.mp3 ~ Ed Rush, Optical & Fierce - Alien Girl.m4a": [
+     "judged same",
+     0.9500821844782396
+    ],
+    "a. falcon - fractles.mp3 ~ CITRUS RECORDINGS [ CITRUS 003 ： FALCON - fractles - ] drum and bass.opus": [
+     "judged same",
+     0.6521580953390458
+    ],
+    "DJ Trace - Sonar.m4a ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged same",
+     0.9981644331937662
+    ],
+    "DYkast • Punishment.m4a ~ Dykast - Punishment.m4a": [
+     "judged same",
+     0.8535242626464861
+    ],
+    "INCIDENT RECORDS [ INCIDENT 002 ： STRATUS - waves - ] drum and bass.m4a ~ 11-stratus-waves.mp3": [
+     "judged same",
+     0.8847138908533545
+    ],
+    "A - Bad Company - 4 Days.mp3 ~ a-bad_company-4_days-sour.mp3": [
+     "judged same",
+     0.9962804742011755
+    ],
+    "Muffler ‎- Nutcracker (Extended Mix).m4a ~ 10-muffler-nutcracker_(original_mix).mp3": [
+     "judged same",
+     0.965910801714909
+    ],
+    "AA. SKC -- Recharger (Black Sun Empire remix).mp3 ~ b-skc-recharger_(black_sun_empire_remix)-sour.mp3": [
+     "judged same",
+     0.9965092518172948
+    ],
+    "k-sta_and_paul_b-come_closer-sour.mp3 ~ Sta & Paul B - Come Closer.m4a": [
+     "judged same",
+     0.9910314551065648
+    ],
+    "Chris.Su - Astro-Sine.opus ~ Chris.SU - Astrosine.m4a": [
+     "judged same",
+     0.9947048890266084
+    ],
+    "02 bad company-the nine.mp3 ~ A-Bad_Company-The_Nine-sour.mp3": [
+     "judged same",
+     0.9979992378048781
+    ],
+    "Stakka & Skynet - Nightlore.m4a ~ a-stakka_and_skynet-nightlore-sour.mp3": [
+     "judged same",
+     0.9708078347885558
+    ],
+    "D-Sinthetix-Cryogenic-sour.mp3 ~ DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus": [
+     "judged same",
+     0.9928235572716094
+    ],
+    "Friction & Nu Balance - Movement (Stakka & K-Tee Remix).m4a ~ d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": [
+     "judged same",
+     0.9882166638034934
+    ],
+    "CITRUS RECORDINGS [ CITRUS 003 ： FALCON - the stand - ] drum and bass.m4a ~ Falcon - The Stand.m4a": [
+     "judged same",
+     0.9259500166928751
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar.m4a": [
+     "judged same",
+     0.9809312902218985
+    ],
+    "DJ Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.5572955865740937
+    ],
+    "Trace - Sonar.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.655471541839105
+    ],
+    "Bad Company - The Nine.mp3 ~ Bad Company - The Nine (Evol Intent VIP).m4a": [
+     "judged different",
+     0.5356977654295788
+    ],
+    "DJ Trace - Sonar (Mark System Revision).opus ~ a-trace-sonar-pro012-sour.mp3": [
+     "judged different",
+     0.7678187947644356
+    ],
+    "01-ram_trilogy-mind_overload.mp3 ~ 111-ram_trilogy-mind_overload-sour.mp3": [
+     "judged different",
+     0.8319541374633845
+    ],
+    "A. Pyro -- Time Is Broken.mp3 ~ Pyro - Ignorance.m4a": [
+     "judged different",
+     0.5975699587791645
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3": [
+     "judged different",
+     0.5178372551237758
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.682383672639742
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3": [
+     "judged different",
+     0.4404036468809682
+    ],
+    "01 - Ryme Tyme - T-Minus.mp3 ~ Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a": [
+     "judged different",
+     0.43080406689546563
+    ],
+    "Ed Rush & Optical - Dozer.mp3 ~ Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus": [
+     "judged different",
+     0.3242876228534946
+    ],
+    "a-aphrodite-playground_shades-sour.mp3 ~ Critikal • 03 • Interlude.opus": [
+     "judged different",
+     0.17134126897247592
+    ],
+    "IDIOMA RECORDINGS [ IDIOMA 002 ： CAUSE 4 CONCERN - night gasp - ] drum and bass.opus ~ Ray Keith - Dark Soldier (Mr Explicit VIP Remix).opus": [
+     "judged different",
+     0.0
+    ],
+    "Ryme Tyme - We Enter (Optical RMX).m4a ~ Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus": [
+     "judged different",
+     0.9050147882108364
+    ],
+    "aa-the_kraft-stab_2_def-sour.mp3 ~ Mampi Swift - 2000.m4a": [
+     "judged different",
+     0.2673548268511972
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 06-prizna_feat_demolition_man-fire_(splash_remix)-sour.mp3": [
+     "judged different",
+     0.6146292654272854
+    ],
+    "209-usual_suspects-killa_bees-sour.mp3 ~ 08-usual_suspects-killa_bees_(optical_and_fierce_remix)-sour.mp3": [
+     "judged different",
+     0.22261927813380114
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3": [
+     "judged different",
+     0.21778202318289636
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom 2018.m4a": [
+     "judged different",
+     0.18362093934497603
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3": [
+     "judged different",
+     0.2661780283346511
+    ],
+    "02 bad company-the nine.mp3 ~ Bad Company - The Nine (ChaseR Bootleg).opus": [
+     "judged different",
+     0.09512546833078583
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Digital & Spirit - Phantom Force (Fracture's Astrophonica Edit).m4a": [
+     "judged different",
+     0.11664790579515129
+    ],
+    "108-demolition_man-fire-sour.mp3 ~ 01-prizna_feat_demolition_man-fire_(urban_shakedown_ed)-sour.mp3": [
+     "judged different",
+     0.2572408536585366
+    ],
+    "02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 ~ 07-prizna_feat_demolition_man-fire_(smokey_joe_remix)-sour.mp3": [
+     "judged different",
+     0.058075206182105696
+    ],
+    "AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus ~ Kemal & Rob Data - Star Trails (Synergy Remix).m4a": [
+     "judged different",
+     0.15668370827114386
+    ],
+    "Klute - We R The Ones VIP.m4a ~ Klute - We R The Ones (Klute Remix).opus": [
+     "judged different",
+     0.4335527902968088
+    ],
+    "Eddy Woo - Tsunami.m4a ~ Eddy Woo - Tsunami (Remix).m4a": [
+     "judged different",
+     0.08010422449653938
+    ],
+    "Digital & Spirit - Phantom Force.m4a ~ Rift feat. Souldrop - Meltdown.m4a": [
+     "judged different",
+     0.023251210273934782
+    ],
+    "04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3 ~ 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3": [
+     "judged different",
+     0.5139466429939727
+    ],
+    "Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus ~ Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": [
+     "judged different",
+     0.27888137417313713
+    ],
+    "Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a ~ Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": [
+     "judged different",
+     0.44124886180748796
+    ],
+    "Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus ~ Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": [
+     "judged different",
+     0.26682645584309683
+    ],
+    "Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a ~ DJ Trace - Sonar (Mark System Revision).opus": [
+     "judged different",
+     0.7020831654389318
+    ],
+    "a-kemal-animation-sour.mp3 ~ Kemal - Animation (Silent Extent Remix).opus": [
+     "judged different",
+     0.07666321682190967
+    ],
+    "02-aphrodite-b1-cool_rock_suff-utb.mp3 ~ Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a": [
+     "judged different",
+     0.4305436064650789
+    ],
+    "x1-kosheen-hide_you-sour.mp3 ~ Kosheen - Hide U (Outrage & Markee Ledge Remix).opus": [
+     "judged different",
+     0.2238693200155962
+    ],
+    "Dieselboy - The Descent (Phunckateck VIP).opus ~ Frenchi ⧸ Proktah - Scarabeus.opus": [
+     "judged different",
+     0.0957513019517307
+    ]
+   }
+  }
+ }
+}
