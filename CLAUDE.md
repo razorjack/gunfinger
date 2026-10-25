@@ -6,11 +6,11 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-49.md` (the current session's brief) and
-   `docs/session-49-checklist.md` (its progress), with `docs/brief-40.md`,
-   experiments 0186-0188 and this session's (0219 and up),
-   `crates/gunfinger-eval/src/pair.rs` and
-   `scripts/analysis/pair_offsets.py`; `docs/brief-2.md`,
+2. `docs/brief-50.md` (the current session's brief) and
+   `docs/session-50-checklist.md` (its progress), with ADR 0014,
+   experiments 0012, 0013, 0017 and this session's (0222 and up),
+   `crates/gunfinger-core/src/index.rs`, `crates/gunfinger-eval/src/padding.rs`
+   and `crates/gunfinger-eval/src/sweep.rs`; `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
    `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
@@ -26,8 +26,8 @@ anything else:
    `docs/brief-38.md`, `docs/brief-39.md`, `docs/brief-40.md`,
    `docs/brief-41.md`, `docs/brief-42.md`, `docs/brief-43.md`,
    `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md`,
-   `docs/brief-47.md` and `docs/brief-48.md` hold
-   rules that still apply unless brief 49 changes them
+   `docs/brief-47.md`, `docs/brief-48.md` and `docs/brief-49.md` hold
+   rules that still apply unless brief 50 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
