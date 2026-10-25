@@ -302,3 +302,15 @@ goes first, then the aligned drops at NAS scale.
   262 tracks and 0.003386 at NAS scale; R5 takes the larger, F5 >
   0.00344, so that it lets in no development shared play at either
   scale. Both are now fixed in `marked_features.py` (`RULES`).
+- **(03:12) Aligned drops, development seeds** (`work/s48/aligned.sh
+  2026 2028`, renders 2:02 and 1:28, the CLI 1:03 per seed at 262
+  tracks): 63 of 64 unrelated drops lined up (one block had no window);
+  none merged, and in none would the tracks have started within 5 s
+  (the least difference 10.7 s; median 120 s, against 104-105 s
+  tempo-only). Observed: the first record's drop lies 56-378 s into its
+  file (it must be at least the solo time and the fade in), while the
+  second's strongest rise often lies near its start (11-23 s in several
+  blocks: the music coming in after a quiet intro), so the two records
+  are rarely at one place in their tracks. A model in which DJs line up
+  drops of the same rank (both first drops) is not measured; noted for
+  the handoff.
