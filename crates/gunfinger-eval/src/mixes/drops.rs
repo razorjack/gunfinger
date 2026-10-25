@@ -6,10 +6,13 @@
 //! and together; a record returns; two rips of one recording play at two
 //! times; a held-out record plays alone. Blocks are joined by `join`'s
 //! transitions, and every play is beatmatched (tempo, not beat phase) to
-//! the play it is mixed with.
+//! the play it is mixed with. With `Options::aligned_drops`, the two
+//! records of each unrelated double drop also reach their drops at one
+//! mix time, on the beat (`line_up_drops`).
 
 use std::collections::{BTreeMap, BTreeSet};
 
+use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::store::PeakRecord;
 
 use super::{
@@ -17,7 +20,10 @@ use super::{
     beatmatched_speed, draw_unused, drawn_speed, join, placed,
 };
 use crate::clusters::Clusters;
+use crate::render::{Playback, RENDER_RATE, render_samples};
 use crate::rng::Rng;
+use crate::shared::Roots;
+use crate::tempo::Structure;
 
 /// A play alone, and the first record of two, lasts this long, or longer
 /// where the second needs room.
@@ -39,6 +45,8 @@ const SOLO_SECONDS: f64 = 30.0;
 /// Both records of two together are at least this long, so that a play
 /// with a drop of the longest kind fits in the track.
 const TOGETHER_MIN_SECONDS: f64 = 240.0;
+/// A play ends before this share of its track (`in_track`).
+const TRACK_END: f64 = 0.97;
 
 /// How the second of two records joins the first: its fades, how long both
 /// play between them, its level, and which record plays on.
@@ -169,8 +177,13 @@ pub(super) fn draw(
                 second,
                 overlay,
             } => {
-                let (first, second) =
+                let mut plays_of_two =
                     together((first, second), overlay, previous, &extras.periods, rng);
+                if *scenario == Scenario::UnrelatedDrop {
+                    let (outer, inner) = &mut plays_of_two;
+                    line_up_drops((outer, inner), (first, second), overlay, &extras.structures);
+                }
+                let (first, second) = plays_of_two;
                 for (mut play, side) in [(first, Side::First), (second, Side::Second)] {
                     play.scenario = Some(*scenario);
                     play.side = Some(side);
@@ -418,7 +431,105 @@ fn together(
 /// `start` moved into the track, so that `heard` seconds of it from there
 /// end before 97% of a track of `duration`.
 fn in_track(start: f64, duration: f64, heard: f64) -> f64 {
-    start.min(0.97 * duration - heard).max(0.0)
+    start.min(TRACK_END * duration - heard).max(0.0)
+}
+
+/// The structure of every record two together may play (the indexed
+/// records of `TOGETHER_MIN_SECONDS` or more with a beat period), from its
+/// whole audio at native speed.
+pub(super) fn structures(
+    pools: &Pools,
+    periods: &BTreeMap<String, f64>,
+    roots: &Roots,
+    jobs: usize,
+) -> BTreeMap<String, Structure> {
+    let wanted: Vec<(String, f64, f64)> = pools
+        .indexed
+        .iter()
+        .filter(|record| record.header.duration_seconds >= TOGETHER_MIN_SECONDS)
+        .filter_map(|record| {
+            let path = &record.header.source.path;
+            let period = *periods.get(path)?;
+            Some((path.clone(), record.header.duration_seconds, period))
+        })
+        .collect();
+    let found = map_in_order(&wanted, jobs, |(asset, duration, period)| {
+        let samples = render_samples(
+            &roots.path(asset).ok()?,
+            0.0,
+            *duration,
+            Playback::Turntable(1.0),
+            None,
+        )
+        .ok()?;
+        Some(Structure::of(&samples, RENDER_RATE, *period))
+    });
+    wanted
+        .into_iter()
+        .zip(found)
+        .filter_map(|((asset, _, _), structure)| structure.map(|structure| (asset, structure)))
+        .collect()
+}
+
+/// Moves two records of a double drop so that each reaches, at one mix
+/// time, the strongest drop it can play then (`Structure::drop_within`),
+/// as a DJ lines drops up: the first keeps its span in the mix and moves
+/// in its track, and the moment both reach full level moves as little as
+/// it must within the overlay's room; the second moves with that moment
+/// and in its track. Both are beatmatched, so the drops' beats stay in
+/// phase. Where either has no structure or no drop fits, nothing moves.
+fn line_up_drops(
+    (outer, inner): (&mut PlannedPlay, &mut PlannedPlay),
+    (first, second): (&Pick, &Pick),
+    overlay: &Overlay,
+    structures: &BTreeMap<String, Structure>,
+) {
+    let (Some(outer_structure), Some(inner_structure)) =
+        (structures.get(first.asset), structures.get(second.asset))
+    else {
+        return;
+    };
+    let drawn_full = inner.start_seconds + overlay.fade_in;
+    // The mix times at which both may reach full level.
+    let (earliest, latest) = match overlay.stays {
+        Side::First => (
+            outer.start_seconds + SOLO_SECONDS + overlay.fade_in,
+            outer.end_seconds - SOLO_SECONDS - overlay.fade_out - overlay.seconds,
+        ),
+        Side::Second => (drawn_full, drawn_full),
+    };
+    if latest < earliest {
+        return;
+    }
+    let outer_heard = (outer.end_seconds - outer.start_seconds) * outer.speed;
+    let latest_source = TRACK_END * first.duration_seconds - outer_heard;
+    let Some(outer_drop) = outer_structure.drop_within(
+        (earliest - outer.start_seconds) * outer.speed,
+        latest_source + (latest - outer.start_seconds) * outer.speed,
+    ) else {
+        return;
+    };
+    // The drawn moment where the first's source start allows it, else the
+    // nearest that does.
+    let full = drawn_full
+        .min(outer.start_seconds + outer_drop / outer.speed)
+        .max(outer.start_seconds + (outer_drop - latest_source) / outer.speed)
+        .clamp(earliest, latest);
+    let inner_heard = (inner.end_seconds - inner.start_seconds) * inner.speed;
+    let entering = overlay.fade_in * inner.speed;
+    let Some(inner_drop) = inner_structure.drop_within(
+        entering,
+        TRACK_END * second.duration_seconds - inner_heard + entering,
+    ) else {
+        return;
+    };
+    outer.source_start_seconds = outer_drop - (full - outer.start_seconds) * outer.speed;
+    let shift = full - drawn_full;
+    inner.start_seconds += shift;
+    inner.end_seconds += shift;
+    inner.source_start_seconds = inner_drop - entering;
+    outer.drop_seconds = Some(full);
+    inner.drop_seconds = Some(full);
 }
 
 fn within((low, high): (f64, f64), rng: &mut Rng) -> f64 {
@@ -495,6 +606,7 @@ mod tests {
             .collect();
         let extras = LongExtras {
             periods,
+            structures: BTreeMap::new(),
             pairs: vec![pair()],
             rides: super::super::RideDraw::default(),
         };
@@ -640,6 +752,73 @@ mod tests {
     }
 
     #[test]
+    fn aligned_drops_meet_on_the_beat_and_change_nothing_else() {
+        let (records, held_out, clusters, plain) = library();
+        // A drop every 29 beats, so that every window holds one.
+        let drops: Vec<f64> = (1..40).map(|n| f64::from(n) * 29.0 * 0.35).collect();
+        let mut extras = library().3;
+        extras.structures = records
+            .iter()
+            .map(|record| {
+                let seconds = record.header.duration_seconds;
+                let path = record.header.source.path.clone();
+                (path, Structure::with_drops(&drops, seconds, 0.35))
+            })
+            .collect();
+        let pools = Pools::new(&records, &held_out);
+        let mut lined_up = 0;
+        for seed in 0..20 {
+            let before = draw("mix-00", &pools, &plain, &clusters, &mut Rng::new(seed)).unwrap();
+            let after = draw("mix-00", &pools, &extras, &clusters, &mut Rng::new(seed)).unwrap();
+            let plays = &after.plays;
+
+            for (index, (old, new)) in before.plays.iter().zip(plays).enumerate() {
+                if [1, 2, 12, 13].contains(&index) {
+                    assert_eq!((&old.asset, old.speed), (&new.asset, new.speed));
+                } else {
+                    assert_eq!(old, new);
+                }
+            }
+            for (outer, inner) in [(1, 2), (12, 13)] {
+                let (outer, inner) = (&plays[outer], &plays[inner]);
+                let Some(at) = inner.drop_seconds else {
+                    assert_eq!(outer.drop_seconds, None);
+                    continue;
+                };
+                lined_up += 1;
+                assert_eq!(outer.drop_seconds, Some(at));
+                assert!((inner.start_seconds + inner.fade_in_seconds - at).abs() < 1e-9);
+                for play in [outer, inner] {
+                    // On a beat of the record's own grid, within a beat of a
+                    // drop: the rise is found to half a second, and every
+                    // beat here is as strong.
+                    let source = play.source_at(at);
+                    let drop = drops
+                        .iter()
+                        .map(|drop| (drop - source).abs())
+                        .fold(f64::INFINITY, f64::min);
+                    assert!(drop <= 0.36, "{source}");
+                    let beats = source / 0.35;
+                    assert!((beats - beats.round()).abs() * 0.35 < 0.011, "{source}");
+                    let duration = records
+                        .iter()
+                        .find(|record| record.header.source.path == play.asset)
+                        .unwrap()
+                        .header
+                        .duration_seconds;
+                    assert!(play.source_start_seconds >= 0.0);
+                    assert!(play.source_at(play.end_seconds) <= TRACK_END * duration + 1e-9);
+                }
+                let both = full_level_overlap(outer, inner);
+                assert!((30.0..=90.0).contains(&both), "{both}");
+            }
+            assert!(inside(&plays[12], &plays[13]));
+            assert!(plays[2].end_seconds > plays[1].end_seconds + SOLO_SECONDS);
+        }
+        assert!(lined_up >= 20, "{lined_up} of 40 drops lined up");
+    }
+
+    #[test]
     fn pairs_play_only_when_both_files_are_indexed_and_tagged() {
         let records = vec![record("original.mp3", 420.0), record("remix.mp3", 520.0)];
         let none = BTreeSet::new();
@@ -699,6 +878,7 @@ mod tests {
             gain_db: 0.0,
             scenario: None,
             side: None,
+            drop_seconds: None,
         };
         let plain = serde_json::to_string(&play).unwrap();
         assert!(

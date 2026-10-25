@@ -454,6 +454,13 @@ enum Command {
         /// other library (`mixes-drops-other-pairs-seed-<seed>.json`).
         #[arg(long, requires = "tagged")]
         other_pairs: bool,
+        /// With `--kind drops`: line up the drops of the two records of
+        /// each unrelated double drop, in beat phase: each record's
+        /// strongest drop it can play then (the largest rise of loudness,
+        /// moved to the beat) at the same mix time
+        /// (`mixes-drops-aligned-drops-seed-<seed>.json`).
+        #[arg(long, conflicts_with = "other_pairs")]
+        aligned_drops: bool,
         /// Short mixes only: render them in stereo with the right channel
         /// under this `robust` stereo fault (such as `stereo-inverted`) over
         /// the second half of each mix, into their own renders and report
@@ -938,8 +945,12 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             ride_direction,
             tagged,
             other_pairs,
+            aligned_drops,
             stereo_fault,
         } => {
+            if aligned_drops && kind != mixes::MixKind::Drops {
+                return Err(String::from("--aligned-drops applies to --kind drops only"));
+            }
             let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
             let stereo_fault = stereo_fault
                 .map(|name| match kind {
@@ -967,6 +978,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     rides,
                     tagged: tagged.as_ref(),
                     other_pairs,
+                    aligned_drops,
                     stereo_fault,
                 },
             )?;

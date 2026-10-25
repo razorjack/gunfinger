@@ -132,7 +132,7 @@ goes first, then the aligned drops at NAS scale.
   `regress session-33-linux-nas` (3:45) identical: every report
   identical to its baseline's apart from `wall_seconds`
   (`work/s48/same.py`).
-- **(02:58) Step 1, the pre-registration** (committed before any
+- **(02:43) Step 1, the pre-registration** (committed before any
   feature is computed on new mixes, and before any of session 39's
   marked plays is measured by these features).
 
@@ -249,3 +249,38 @@ goes first, then the aligned drops at NAS scale.
   play, entering with its fade, fits in its track. Where a window is
   empty or a record has no beat period, the block keeps session 39's
   placement and its plays carry no drop time.
+- **(02:52) Step 2, the harness.** `mixes --kind drops --aligned-drops`
+  (`tempo::Structure`, `drops::line_up_drops`, `drops::structures`):
+  for the two unrelated double drops of a mix only (the pair drop keeps
+  its passages aligned, the quiet and brief records are not drops); the
+  report and renders are labelled `aligned-drops`; the option conflicts
+  with `--other-pairs`. Plays gain `drop_seconds` (left out of the JSON
+  when unset), so the default's truth files and reports are unchanged
+  and session 39's renders stay valid. The draw consumes the same random
+  numbers with and without the option, so the records, overlays and
+  speeds of every block are the same as the tempo-only mixes of the
+  same seed (a test checks it). Decisions while writing it: the onset
+  envelope sees an onset up to one STFT window early (23 ms at the
+  render rate), alike for every record, so it cancels between two
+  records; the rise is found to half a second and the snap looks within
+  half a beat, so on music with equally strong beats the drop can land
+  one beat from the rise's true beat (the test allows one beat); the
+  drop is still on a beat, so the two records stay in beat phase. The
+  structures are computed only with the option, from each long record's
+  whole audio at native speed. Features: `scripts/analysis/marked_features.py`
+  (`pairs`, `features`, `summary`, `known` for step 5, `merges`), with
+  `test_marked_features.py`. The merge command gives session 39's
+  tempo-only drops 0 of 32 (2026) and 1 of 32 (2028) at 262 tracks, as
+  0182 found.
+- **(02:52) NAS scale through the store.** The CLI at NAS scale reads
+  the NAS store's own records (`--peaks-dir` the NAS store,
+  `identify --store-only --saved-index off --exclude-from`), as session
+  45 did, instead of listing the NAS library; session 45 found its plays
+  equal to session 39's in all 64 reports. Nothing is written to the NAS
+  store and no saved index is written.
+- **(02:58) Step 2 checks.** `scripts/check.sh` green (3:50; the first
+  run stopped at `cargo fmt --check` and was run again after `cargo
+  fmt`); `regress session-32-linux` (0:50) and `regress
+  session-33-linux-nas` (3:45) identical with the run build
+  `work/bin/s48-run/` (its `gunfinger` byte-identical to the start
+  build's).

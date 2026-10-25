@@ -639,6 +639,7 @@ mod tests {
             gain_db: 0.0,
             scenario: None,
             side: None,
+            drop_seconds: None,
         };
         let mix = PlannedMix {
             name: String::from("m"),
@@ -827,6 +828,7 @@ mod tests {
             gain_db: 0.0,
             scenario: None,
             side: None,
+            drop_seconds: None,
         };
         let mix = PlannedMix {
             name: String::from("m"),

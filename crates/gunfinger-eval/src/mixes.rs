@@ -33,7 +33,7 @@ use crate::robust::{Fault, faulted};
 use crate::scoring::evidence;
 use crate::shared::Roots;
 use crate::sweep::Plan;
-use crate::tempo::{beat_period, onset_envelope};
+use crate::tempo::{Structure, beat_period, onset_envelope};
 use crate::verifier::{Verification, Verifier};
 
 mod drops;
@@ -116,7 +116,8 @@ impl MixKind {
     /// (`<stereo fault>-seed-<seed>` with `Options::stereo_fault`),
     /// `<kind>-seed-<seed>` for the others, `rides-<label>-seed-<seed>`
     /// for rides drawn otherwise than by default and
-    /// `drops-other-pairs-seed-<seed>` for drops with other pairs.
+    /// `drops-other-pairs-seed-<seed>` for drops with other pairs
+    /// (`drops-aligned-drops-seed-<seed>` with drops lined up).
     pub fn name(self, seed: u64, label: Option<&str>) -> String {
         match (self, label) {
             (MixKind::Short, Some(label)) => format!("{label}-seed-{seed}"),
@@ -185,6 +186,10 @@ pub struct PlannedPlay {
     pub scenario: Option<Scenario>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub side: Option<Side>,
+    /// With `Options::aligned_drops`: the mix time at which the record's
+    /// drop plays, with its partner's.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub drop_seconds: Option<f64>,
 }
 
 // serde's `skip_serializing_if` passes a reference.
@@ -718,6 +723,7 @@ fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) ->
         gain_db: 0.0,
         scenario: None,
         side: None,
+        drop_seconds: None,
     }
 }
 
@@ -731,6 +737,9 @@ fn drawn_speed(rng: &mut Rng) -> f64 {
 #[derive(Default)]
 pub struct LongExtras {
     pub periods: BTreeMap<String, f64>,
+    /// With `Options::aligned_drops`: the drops kind's long records'
+    /// structures, for lining up their drops.
+    pub structures: BTreeMap<String, Structure>,
     pub pairs: Vec<SharedPair>,
     pub rides: RideDraw,
 }
@@ -949,6 +958,7 @@ fn placed(pick: &Pick, start: f64, seconds: f64, speed: f64, rng: &mut Rng) -> P
         gain_db: 0.0,
         scenario: None,
         side: None,
+        drop_seconds: None,
     }
 }
 
@@ -1120,6 +1130,7 @@ pub fn draw_around(
                 gain_db: 0.0,
                 scenario: None,
                 side: None,
+                drop_seconds: None,
             },
             std::cmp::Ordering::Less => drawn_play(drawn[position], false, start, rng),
             std::cmp::Ordering::Greater => drawn_play(drawn[position - 1], false, start, rng),
@@ -1175,6 +1186,9 @@ pub struct MixesReport {
     /// The drops kind with `Options::other_pairs`.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub other_pairs: bool,
+    /// The drops kind with `Options::aligned_drops`.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub aligned_drops: bool,
     /// `Options::stereo_fault`'s name.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub stereo_fault: Option<String>,
@@ -1215,6 +1229,9 @@ pub struct Options<'a> {
     /// and not held out, also pairs whose files this index lacks (files of
     /// the other library, for searching the renders at its scale).
     pub other_pairs: bool,
+    /// The drops kind lines up the drops of the two records of each
+    /// unrelated double drop, in beat phase (`drops::line_up_drops`).
+    pub aligned_drops: bool,
     /// Short mixes only: rendered in stereo, the right channel under this
     /// fault over the mix's second half (`render`).
     pub stereo_fault: Option<Fault>,
@@ -1222,6 +1239,8 @@ pub struct Options<'a> {
 
 /// The label of the drops kind's mixes with other pairs.
 const OTHER_PAIRS: &str = "other-pairs";
+/// The label of the drops kind's mixes with drops lined up.
+const ALIGNED_DROPS: &str = "aligned-drops";
 
 impl Options<'_> {
     /// `RideDraw::label` for the rides kind; `None` for the others.
@@ -1232,11 +1251,16 @@ impl Options<'_> {
     }
 
     /// What tells these mixes' report and renders from the kind's default
-    /// ones: `rides_label`, `OTHER_PAIRS`, or the stereo fault's name.
+    /// ones: `rides_label`, `OTHER_PAIRS`, `ALIGNED_DROPS`, or the stereo
+    /// fault's name.
     fn label(&self) -> Option<String> {
         self.rides_label()
             .or_else(|| {
                 (self.kind == MixKind::Drops && self.other_pairs).then(|| OTHER_PAIRS.to_owned())
+            })
+            .or_else(|| {
+                (self.kind == MixKind::Drops && self.aligned_drops)
+                    .then(|| ALIGNED_DROPS.to_owned())
             })
             .or_else(|| self.stereo_fault.map(Fault::name))
     }
@@ -1249,6 +1273,7 @@ impl MixesReport {
         self.rides
             .clone()
             .or_else(|| self.other_pairs.then(|| OTHER_PAIRS.to_owned()))
+            .or_else(|| self.aligned_drops.then(|| ALIGNED_DROPS.to_owned()))
             .or_else(|| self.stereo_fault.clone())
     }
 }
@@ -1449,12 +1474,19 @@ pub fn run(
     } else {
         pairs
     };
+    let periods = if options.kind.beatmatches() {
+        beat_periods(&pools, &pairs, &roots, options.jobs)
+    } else {
+        BTreeMap::new()
+    };
+    let structures = if options.kind == MixKind::Drops && options.aligned_drops {
+        drops::structures(&pools, &periods, &roots, options.jobs)
+    } else {
+        BTreeMap::new()
+    };
     let extras = LongExtras {
-        periods: if options.kind.beatmatches() {
-            beat_periods(&pools, &pairs, &roots, options.jobs)
-        } else {
-            BTreeMap::new()
-        },
+        periods,
+        structures,
         pairs,
         rides: options.rides,
     };
@@ -1490,6 +1522,7 @@ pub fn run(
         kind: options.kind,
         rides,
         other_pairs: options.kind == MixKind::Drops && options.other_pairs,
+        aligned_drops: options.kind == MixKind::Drops && options.aligned_drops,
         stereo_fault: options.stereo_fault.map(Fault::name),
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
@@ -1729,6 +1762,7 @@ mod tests {
             gain_db: 0.0,
             scenario: None,
             side: None,
+            drop_seconds: None,
         }
     }
 
@@ -1937,6 +1971,7 @@ mod tests {
         let held_out: BTreeSet<String> = (0..20).map(|n| format!("t{n:02}.mp3")).collect();
         let extras = LongExtras {
             periods: BTreeMap::new(),
+            structures: BTreeMap::new(),
             pairs: vec![
                 pair("a", "a1.mp3", "a2.mp3"),
                 pair("b", "b1.mp3", "b2.mp3"),

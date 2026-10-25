@@ -15,9 +15,9 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Pre-registration committed before any feature is computed on
+- [x] 1. Pre-registration committed before any feature is computed on
   new mixes
-- [ ] 2. `mixes --kind drops --aligned-drops` (drop points in beat
+- [x] 2. `mixes --kind drops --aligned-drops` (drop points in beat
   phase), tested; the features script; `regress` identical
 - [ ] 3. Runs: development seeds, test seeds, 262 tracks and NAS scale
 - [ ] 4. Experiments: features on the development seeds; the rule on the
