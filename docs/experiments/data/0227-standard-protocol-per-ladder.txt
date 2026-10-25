@@ -1,0 +1,175 @@
+== 262 k=0
+compared with baseline work/s51/w262/baselines/session-32-linux
+sweep-seed-2026.json: 720 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0
+calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19
+identifying detections: 559 (0 below the rule)
+false candidates: 406 (0 accepted by the rule)
+weakest identifying: 690 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at +0%: extra/A. SKC & Cord -- Swarm.mp3)
+strongest false:     100 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at +1%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)
+margin: 6.90x in hits; the threshold is 2.40x the strongest false and 2.88x below the weakest identifying
+strongest on audio not in the index: 19 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -1%: extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3); the threshold is 3.16x that
+false candidates at 30 hits or more: 18 (12 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 28 hits, 2 windows (scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 at 1131 s)
+== 262 k=1
+compared with baseline work/s51/w262/baselines/session-32-linux
+sweep-seed-2026.json: 699 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0
+calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19
+identifying detections: 559 (0 below the rule)
+false candidates: 423 (0 accepted by the rule)
+weakest identifying: 690 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at +0%: extra/A. SKC & Cord -- Swarm.mp3)
+strongest false:     100 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at +1%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)
+margin: 6.90x in hits; the threshold is 2.40x the strongest false and 2.88x below the weakest identifying
+strongest on audio not in the index: 19 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -1%: extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3); the threshold is 3.16x that
+false candidates at 30 hits or more: 18 (12 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 28 hits, 2 windows (scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 at 1131 s)
+== 262 k=2
+compared with baseline work/s51/w262/baselines/session-32-linux
+sweep-seed-2026.json: 694 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0
+calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19
+identifying detections: 559 (0 below the rule)
+false candidates: 429 (0 accepted by the rule)
+weakest identifying: 690 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at +0%: extra/A. SKC & Cord -- Swarm.mp3)
+strongest false:     100 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at +1%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)
+margin: 6.90x in hits; the threshold is 2.40x the strongest false and 2.88x below the weakest identifying
+strongest on audio not in the index: 19 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -1%: extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3); the threshold is 3.16x that
+false candidates at 30 hits or more: 18 (12 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 28 hits, 2 windows (scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 at 1131 s)
+== 262 k=3
+compared with baseline work/s51/w262/baselines/session-32-linux
+sweep-seed-2026.json: 689 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0
+calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19
+identifying detections: 559 (0 below the rule)
+false candidates: 437 (0 accepted by the rule)
+weakest identifying: 690 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at +0%: extra/A. SKC & Cord -- Swarm.mp3)
+strongest false:     100 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at +1%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)
+margin: 6.90x in hits; the threshold is 2.40x the strongest false and 2.88x below the weakest identifying
+strongest on audio not in the index: 19 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -1%: extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3); the threshold is 3.16x that
+false candidates at 30 hits or more: 18 (12 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 28 hits, 2 windows (scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 at 1131 s)
+== 262 k=5
+compared with baseline work/s51/w262/baselines/session-32-linux
+sweep-seed-2026.json: 681 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1
+calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0
+calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19
+identifying detections: 559 (0 below the rule)
+false candidates: 451 (0 accepted by the rule)
+weakest identifying: 690 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at +0%: extra/A. SKC & Cord -- Swarm.mp3)
+strongest false:     100 hits, 2 windows (sweep Skynet & Stakka - Clockwork.mp3 at +1%: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3)
+margin: 6.90x in hits; the threshold is 2.40x the strongest false and 2.88x below the weakest identifying
+strongest on audio not in the index: 19 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -1%: extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3); the threshold is 3.16x that
+false candidates at 30 hits or more: 18 (12 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 28 hits, 2 windows (scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 at 1131 s)
+== nas k=0
+compared with baseline work/s51/wnas/baselines/session-33-linux-nas
+sweep-seed-2026.json: 720 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 7
+calibrate: false candidates at 30 hits or more 95 -> 95, strongest on audio not in the index 282 -> 282
+identifying detections: 559 (0 below the rule)
+false candidates: 31500 (7 accepted by the rule)
+weakest identifying: 704 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at -5%: second-library/[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3)
+strongest false:     282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a)
+margin: 2.50x in hits; the threshold is 0.85x the strongest false and 2.93x below the weakest identifying
+strongest on audio not in the index: 282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a); the threshold is 0.21x that
+false candidates at 30 hits or more: 95 (42 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 29 hits, 3 windows (scan-stakka-skynet-knowledge.json: second-library/bulletproof-12_inch_armour_ep-cyan006-2002-sour/d-bulletproof_concord_dawn_and_optiv-scorched_earth-sour.mp3 at 44 s)
+== nas k=1
+compared with baseline work/s51/wnas/baselines/session-33-linux-nas
+sweep-seed-2026.json: 422 of 720 queries with identical detections
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4253 -> 4271: 2 changed, 1 removed, 19 added
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4244 -> 4262: 2 changed, 1 removed, 19 added
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4212 -> 4230: 2 changed, 1 removed, 19 added
+calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 7
+calibrate: false candidates at 30 hits or more 95 -> 97, strongest on audio not in the index 282 -> 282
+identifying detections: 559 (0 below the rule)
+false candidates: 32462 (7 accepted by the rule)
+weakest identifying: 704 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at -5%: second-library/[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3)
+strongest false:     282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a)
+margin: 2.50x in hits; the threshold is 0.85x the strongest false and 2.93x below the weakest identifying
+strongest on audio not in the index: 282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a); the threshold is 0.21x that
+false candidates at 30 hits or more: 97 (43 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 29 hits, 3 windows (scan-stakka-skynet-knowledge.json: second-library/bulletproof-12_inch_armour_ep-cyan006-2002-sour/d-bulletproof_concord_dawn_and_optiv-scorched_earth-sour.mp3 at 44 s)
+== nas k=2
+compared with baseline work/s51/wnas/baselines/session-33-linux-nas
+sweep-seed-2026.json: 366 of 720 queries with identical detections
+  +5%: recalled 60 -> 60, wrong 0 -> 1, max speed error 0.014% -> 0.014%
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4253 -> 4310: 2 changed, 1 removed, 58 added
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4244 -> 4301: 2 changed, 1 removed, 58 added
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4212 -> 4269: 2 changed, 1 removed, 58 added
+calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 8
+calibrate: false candidates at 30 hits or more 95 -> 98, strongest on audio not in the index 282 -> 282
+identifying detections: 559 (0 below the rule)
+false candidates: 33135 (8 accepted by the rule)
+weakest identifying: 704 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at -5%: second-library/[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3)
+strongest false:     282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a)
+margin: 2.50x in hits; the threshold is 0.85x the strongest false and 2.93x below the weakest identifying
+strongest on audio not in the index: 282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a); the threshold is 0.21x that
+false candidates at 30 hits or more: 98 (44 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 29 hits, 3 windows (scan-stakka-skynet-knowledge.json: second-library/bulletproof-12_inch_armour_ep-cyan006-2002-sour/d-bulletproof_concord_dawn_and_optiv-scorched_earth-sour.mp3 at 44 s)
+== nas k=3
+compared with baseline work/s51/wnas/baselines/session-33-linux-nas
+sweep-seed-2026.json: 325 of 720 queries with identical detections
+  +5%: recalled 60 -> 60, wrong 0 -> 1, max speed error 0.014% -> 0.014%
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4253 -> 4335: 2 changed, 4 removed, 86 added
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4244 -> 4326: 2 changed, 4 removed, 86 added
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4212 -> 4294: 2 changed, 4 removed, 86 added
+calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 8
+calibrate: false candidates at 30 hits or more 95 -> 98, strongest on audio not in the index 282 -> 282
+identifying detections: 559 (0 below the rule)
+false candidates: 33822 (8 accepted by the rule)
+weakest identifying: 704 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at -5%: second-library/[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3)
+strongest false:     282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a)
+margin: 2.50x in hits; the threshold is 0.85x the strongest false and 2.93x below the weakest identifying
+strongest on audio not in the index: 282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a); the threshold is 0.21x that
+false candidates at 30 hits or more: 98 (44 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 29 hits, 3 windows (scan-stakka-skynet-knowledge.json: second-library/bulletproof-12_inch_armour_ep-cyan006-2002-sour/d-bulletproof_concord_dawn_and_optiv-scorched_earth-sour.mp3 at 44 s)
+== nas k=5
+compared with baseline work/s51/wnas/baselines/session-33-linux-nas
+sweep-seed-2026.json: 273 of 720 queries with identical detections
+  +5%: recalled 60 -> 60, wrong 0 -> 1, max speed error 0.014% -> 0.014%
+scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4253 -> 4367: 2 changed, 4 removed, 118 added
+scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4244 -> 4358: 2 changed, 4 removed, 118 added
+scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3
+  detections 4212 -> 4326: 2 changed, 4 removed, 118 added
+calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 8
+calibrate: false candidates at 30 hits or more 95 -> 98, strongest on audio not in the index 282 -> 282
+identifying detections: 559 (0 below the rule)
+false candidates: 34811 (8 accepted by the rule)
+weakest identifying: 704 hits, 3 windows (sweep extra/A. SKC & Cord -- Swarm.mp3 at -5%: second-library/[NERVE 015] - [2004] - SKC & Cord  Stare -- Swarm # Underdog/A. SKC & Cord -- Swarm.mp3)
+strongest false:     282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a)
+margin: 2.50x in hits; the threshold is 0.85x the strongest false and 2.93x below the weakest identifying
+strongest on audio not in the index: 282 hits, 3 windows (sweep extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 at -5%: second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a); the threshold is 0.21x that
+false candidates at 30 hits or more: 98 (44 shown as possible); each must be a remix or version of the played recording
+strongest false candidate under 30 hits: 29 hits, 3 windows (scan-stakka-skynet-knowledge.json: second-library/bulletproof-12_inch_armour_ep-cyan006-2002-sour/d-bulletproof_concord_dawn_and_optiv-scorched_earth-sour.mp3 at 44 s)

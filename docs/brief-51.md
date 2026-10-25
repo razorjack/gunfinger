@@ -260,9 +260,18 @@ Rules for this session:
   first file only (`clusters_and_pairs`, tested); later files add pairs.
   No registered definition changes. With it, L0 at NAS scale recalls 1 of
   79 other-rips queries in 9.2-9.6% and none beyond.
-- **(08:55) Experiment 0226** (queue 3a, 07:57-08:50, every run exit 0):
+- **(08:53) Experiment 0226** (queue 3a, 07:57-08:50, every run exit 0):
   R_k = 8.4, 8.8, 9.2, 9.6 and 10.4% for k = 0, 1, 2, 3, 5; G1 holds for
   every k; G2's gain holds (+33 to +75 points), its second clause fails
   by one query for every L_k (Siren Bass's upload near -8%) and holds for
   T_k; no new wrong confident answer in C1 or C2. Queue 3b starts after
   this commit.
+- **(09:24) Experiment 0227** (queue 3b, 08:53-09:18, every run exit 0):
+  W fails for L2, L3 and L5 (and T2, T3, T5): one new wrong confident
+  answer at NAS scale, the held-out Cool Rock Stuff excerpt at +5%
+  against a bootleg that holds it, which the default already answers
+  wrongly at 7 other speeds. W holds for L1 and T1. Calibrate and the
+  development scans' plays are unchanged under every ladder. With 0226,
+  no wider ladder passes (G2's second clause, and W for k >= 2); T1 is
+  the only candidate left, pending its estimated CPU (0228). Queue 3c
+  starts after this commit, on the idle machine.
