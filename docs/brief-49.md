@@ -281,3 +281,11 @@ alignments are looked at in step 1, so Falcon is declared seen).
   log at their start digests. After the review only a code comment
   changed: the rebuild is compared with this build and `check.sh` run
   again (`work/s49/final2.sh`).
+- **(04:38) Final checks again.** The comment changed after the review
+  moved line numbers that `gunfinger-eval` embeds, so its rebuild is not
+  byte-identical to the first final build (`gunfinger` is). The final
+  build `work/bin/s49-final/` is now the rebuild of `a9cc7e1`:
+  `scripts/check.sh` green (3:46); `regress session-32-linux` (0:50) and
+  `regress session-33-linux-nas` (3:45) identical, every report
+  identical to its baseline apart from `wall_seconds`; the verdicts
+  file, the clusters file and the answer log at their start digests.

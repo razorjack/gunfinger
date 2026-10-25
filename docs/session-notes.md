@@ -10916,9 +10916,10 @@ by the registered scores.
   before the choice was committed), 0219's lag rows on a neighbouring
   bar set aside, the brief's time stamps (some were later than their
   commits) and the brief's list wrap.
-- Final checks with `work/bin/s49-final/` (built from the final commit;
-  its `gunfinger` byte-identical to the start build's, its
-  `gunfinger-eval` to the run build's): `scripts/check.sh` green;
+- Final checks with `work/bin/s49-final/` (built from `a9cc7e1`; its
+  `gunfinger` byte-identical to the start build's; its `gunfinger-eval`
+  differs from the run build's only by a comment's line numbers):
+  `scripts/check.sh` green;
   `regress session-32-linux` (0:50) and `regress session-33-linux-nas`
   (3:45) identical, every report identical to its baseline apart from
   `wall_seconds`; the digests unchanged.
