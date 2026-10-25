@@ -331,3 +331,10 @@ Rules for this session:
   inferred from L1's runs; the stamp of step 2's harness (07:48) is
   earlier than its commit (07:52), and `check.sh` ran on the working
   tree from 07:48, before that commit, on the code committed.
+- **(10:37) Final checks** (`work/s51/final.sh`, tmux `s51final`, build
+  `work/bin/s51-final/` from `3d28e70`, byte-identical to the run
+  build): `scripts/check.sh` green (3:41); `regress session-32-linux`
+  (0:50) and `regress session-33-linux-nas` (3:46) identical, every
+  report identical to its baseline's apart from `wall_seconds`; the
+  verdicts file, the clusters file and the answer log at their start
+  digests.

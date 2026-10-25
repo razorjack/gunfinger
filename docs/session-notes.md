@@ -11070,3 +11070,144 @@ holds no copies); its trace searches the first pass a second time.
   `regress session-32-linux` (0:51) and `regress session-33-linux-nas`
   (3:52) identical, every report identical to its baseline apart from
   `wall_seconds`; the digests unchanged.
+
+## Session 51
+
+### What changed
+
+The product did not change: no threshold, rule, default or output, and
+the CLI binary is byte-identical to the start build's. Added, harness
+only and tested:
+
+- `sweep --speeds edge` (`sweep::Speeds`): the excerpts played at 18
+  speeds at and past the ladder's ends (±8.4, ±8.8, ±9.2, ±9.6, ±10.0,
+  ±10.4, ±10.8, ±11.2, ±12.0%) instead of the sweep's 9; `-edge` in the
+  report's name. Renders of speeds that are not whole percents are named
+  to a tenth (`000-+8.4.mp3`); the sweep's and `recall`'s names are
+  unchanged.
+- `scripts/analysis/ladder_edge.py` (`recall`, `uncovered`) with tests:
+  recall and wrong answers by played and relative speed per ladder, new
+  wrong answers against the default, the targeted estimate, and the
+  share of a scan no confident detection covers.
+- `cluster_speeds.py` takes the ladder's reach as a fourth argument
+  (default 0.08, output unchanged).
+
+In short: each extra rung pair moves the ladder's reach by 0.4% and
+costs 4.3-5.3% more search CPU, at both scales and against the copies
+the NAS library holds; calibrate and the development scans do not move.
+By the registered criteria no wider ladder is worth an ADR (one rip near
+-8% loses its confident answer under every wider ladder; from two extra
+rung pairs a known bootleg is reached at one more speed). A targeted
+search with one extra rung pair passes, by estimate, as a variant to
+build and measure.
+
+### Experiments 0226-0230
+
+| Experiment | Result |
+|---|---|
+| 0226, recall by relative speed (seed 2026) | reach R_k = 8.4, 8.8, 9.2, 9.6, 10.4% for k = 0, 1, 2, 3, 5 (≥ 95% at both signs, 262 tracks), the same steps at NAS scale and against other copies only; other copies in [8.4%, R_k + 0.4%): 62% → 96% (L1) to 21% → 96% (L5); within 8.4% every L_k loses one query (Siren Bass's upload near -8%, fitted 0.1% off: 305 → 214 hits); no new wrong confident answer; wrong possible answers 24 → 29-47 (other copies) |
+| 0227, standard protocol and calibrate | development scans keep their plays; calibrate unchanged at both scales (262: 690, 100, 6.90×; NAS: 704, 282, 2.50×); false candidates +3-11%; L2-L5 add one wrong confident answer at NAS scale (a held-out excerpt against a bootleg judged a different mix, which L0 answers wrongly at 7 other speeds) |
+| 0228, CPU (Stakka scan, A B B A) | process CPU at NAS scale ×1.046, ×1.094, ×1.141, ×1.229 (rungs ×1.049-1.244); at 262 tracks ×1.043-1.255; T_k estimated ×1.001-1.005 (2.0% of the mix without a confident detection) |
+| 0229, the NAS clusters | copies alone for a deck at ±5%: 38 (session 49, at 8.0%) → 29, 19, 7, 3, 1; for ±8%: 88 → 57 at L5 |
+| 0230, seeds 2027 and 2028 (other copies) | gains hold (L1 +35 and +27 points); no loss within 8.4%; seed 2027 adds 1 (L3) and 5 (L5) wrong confident answers, all China Cup against ƆƐI3C's upload (judged different); T1 none |
+
+Registered verdict: no wider ladder passes (G2's within-reach clause
+for every L_k; W for L2-L5); C holds for L1-L3 and fails for L5. T1 (the
+targeted estimate with one extra rung pair) passes G1, G2, W and its
+cost bound. The decision note,
+`docs/research/2026-10-25-ladder-edge-decision.md`, recommends keeping
+the default and, if the copies at risk matter, building T1 as an opt-in
+variant to measure on mixes before any ADR.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; run build) | 0:50; 0:50 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; run build) | 3:52; 3:45 | 5.3 GiB |
+| `sweep --speeds edge`, 262 tracks, L0-L5 | 0:59-1:10 (1:34 with renders) | 0.2 GiB |
+| the same, NAS scale | 4:27-5:34 | 4.9-5.0 GiB |
+| `sweep --other-rips`, NAS, 9 speeds; edge speeds (three seeds) | 1:26-2:01; 2:40-3:47 | 4.9-5.1 GiB |
+| `regress` with L0-L5: 262 tracks; NAS scale | 0:51-1:00; 3:47-4:34 | 0.4; 5.3-5.5 GiB |
+| Stakka scan, L0 to L5: 262 tracks; NAS scale | 7.3-8.3 s; 27.3-32.1 s | |
+| `scripts/check.sh` | 3:54 | |
+
+### Decided this session, open to change
+
+- The targeted ladder T_k was estimated from the wide-ladder runs (each
+  query keeps the default's answers when it has anything confident),
+  not built; its cost from the share of the Stakka mix without a
+  confident detection.
+- Extra rungs extend both ladders (turntable and key-locked), as
+  `--extra-rungs` does and as `identify` searches both.
+- L1 was added to seeds 2027 and 2028 after 0226-0229 (exploratory).
+- The runs went in four queues so that each experiment was written
+  before the next one's runs started.
+
+### Questions this leaves for us
+
+- Whether the copies at risk (29 for a deck at ±5% today, most of them
+  one channel's uploads 3-5% fast) are worth a session to build and
+  measure the targeted search (T1, or T2/T3 against the registered bar).
+- Whether a wrong answer from a version judged different that the
+  default already gives at other speeds should count against a wider
+  ladder as a new failure (the registration said yes).
+- Whether the second pass's fitted speed near the ladder's end should be
+  looked at first (Siren Bass, here and in session 50).
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: items 4, 5, 7 and 9 of session 40's pack
+  (`work/s47/questions/05-pack-s40.json`), session 39's questions, Star
+  Trails, Into Music.
+
+### Handoff for the next session
+
+1. Data: summaries `work/s51/summary/` (`c1-262.json`, `c1-nas.json`,
+   `c2-nas.json`, `c2-nas-2027.json`, `c2-nas-2028.json`, `c4-cpu.json`,
+   `c5-clusters.json`, `0227.txt`; copied to
+   `docs/experiments/data/0226-*` to `0230-*`); the sweep reports in
+   `work/s51/w262e/reports/` and
+   `work/s51/wnase/reports/library-nas-dnb-peaks/` (`extra-rungs-N/`
+   for each ladder); the standard protocol's reports in `work/s51/w262/`
+   and `work/s51/wnas/`; the timing runs' scan reports `work/s51/cpu/`.
+2. Renders: `work/s51/renders/seed-2026..2028/` (2.0 GB of edge renders,
+   links to the sweep's own renders); kept for a targeted-search test.
+3. Builds: `work/bin/s51-start/` (= `s50-final`), `s51-run/` (the runs),
+   `s51-final/` (master).
+4. Scripts: `work/s51/setup.sh` (scratch directories), `start.sh`,
+   `step2.sh`, `step3a.sh`-`step3d.sh`, `summary-0226.sh`,
+   `summary-0227.sh`, `summary-0230.sh`, `table0226.py`,
+   `table0230.py`, `cpu.py`, `cpu-copy.sh`, `reach.py`, `final.sh`. For
+   example:
+
+   ```sh
+   E="work/bin/s51-final/gunfinger-eval --work work/s51/wnase --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks"
+   $E --extra-rungs 3 sweep --other-rips --speeds edge
+   python3 -I scripts/analysis/ladder_edge.py recall OUT.json CLUSTERS,CORPUS_CLUSTERS MAP docs/panels L0=A.json+B.json L3=C.json+D.json
+   python3 -I scripts/analysis/cluster_speeds.py work/reports/library-nas-dnb-peaks/duplicate-clusters.json OUT.json 0.05 0.096
+   ```
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The only mix searched was the
+  Stakka development mix. Nothing ran on the candidate mixes of 0065 or
+  on the NAS root's broadcast file. The NAS store was only read
+  (`--other-peaks-dir`); `work/peaks` was only read.
+- `docs/pair-verdicts.txt`, the clusters file and the answer log are at
+  their start digests (`work/s51/listening-digests-start.txt`); no answer
+  log was written; no manifest or committed panel changed.
+- A read-only review by a separate agent (10:10-10:24) found no defect
+  in the harness or the scripts and confirmed the numbers and the order
+  of commits and runs; its points in the documents were all taken (brief
+  51, 10:27; `3d28e70`): among them the upload behind seed 2027's wrong
+  answers (ƆƐI3C's, not the Prototype upload, which is judged the same
+  recording; 0059 used the same mistaken name), the bootleg's speed
+  direction, and four deviations recorded in the brief.
+- Final checks with `work/bin/s51-final/` (the Rust code last changed
+  in `f85505a`; byte-identical to the run build, its `gunfinger` to the
+  start build's): `scripts/check.sh` green (3:41); `regress
+  session-32-linux` (0:50) and `regress session-33-linux-nas` (3:46)
+  identical, every report identical to its baseline apart from
+  `wall_seconds`; the digests unchanged.

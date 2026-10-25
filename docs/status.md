@@ -5021,6 +5021,12 @@ and a reach argument for `cluster_speeds.py`.
 - 0230: seeds 2027 and 2028 confirm the gains and no loss within 8.4%;
   China Cup against ƆƐI3C's upload (judged different) gains wrong
   answers under L3 and L5.
+- A read-only review found no defect in the code; its points in the
+  documents were fixed (among them the upload behind seed 2027's wrong
+  answers, ƆƐI3C's, and the bootleg's speed direction).
+- Final checks with `work/bin/s51-final/`: `scripts/check.sh` green;
+  both regressions identical (0:50; 3:46); the verdicts file, the
+  clusters file and the answer log at their start digests.
 - Left for us: no wider ladder passes the registration; T1 (extra
   rungs only where nothing is confident, one pair) passes by estimate,
   as a variant to build and measure; whether to spend a session on it.

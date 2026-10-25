@@ -23,6 +23,6 @@ for scope and rules.
 - [x] 4. Experiments 0226-0230: recall by relative speed; wrong answers and
   calibrate; CPU; the real clusters
 - [x] 5. Decision note `docs/research/2026-10-25-ladder-edge-decision.md`
-- [~] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 51", status, checklist, roadmap; final
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 51", status, checklist, roadmap; final
   checks
