@@ -35,6 +35,6 @@ the share selection gain first-pass hits (median 1.023 at K = 9).
 stress level does not break it. Expected as declared, except the cut,
 which rises with K (4.1 times at K = 9) while about 5,700 lists stay set
 aside, so 27% of the set changes at panel 9 and 33% at 99.
-**Conclusion.** At 262 tracks, ten files of a recording move a quarter
-of the set aside towards it and cost its first pass up to 23% of its
-hits; candidates and answers do not move.
+**Conclusion.** At 262 tracks, nine copies of the queries' 67 files move
+a quarter of the set aside towards them and cost a query's first pass up
+to 23% of its hits; candidates and answers do not move.

@@ -11,9 +11,11 @@
 //! of postings, a variant for measuring the filter (session 50).
 
 use std::collections::{BTreeSet, HashMap};
+use std::fs;
+use std::path::Path;
 
 use gunfinger_core::hash::{HASH_BITS, PairHash};
-use gunfinger_core::index::Index;
+use gunfinger_core::index::{AssetId, Index};
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
@@ -110,6 +112,19 @@ pub struct FullestReport {
     pub skipped_postings: usize,
     /// Every asset, the most skipped share first.
     pub assets: Vec<AssetPostings>,
+    /// With `--shared-by`: the hashes each pair of files holds.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pairs: Vec<SharedHashes>,
+}
+
+/// The distinct hashes two files both hold, and how many of them are in
+/// lists set aside.
+#[derive(Serialize, Deserialize)]
+pub struct SharedHashes {
+    pub a: String,
+    pub b: String,
+    pub shared: usize,
+    pub set_aside: usize,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -132,12 +147,68 @@ pub fn run(
     store: &PeakStore,
     padding: &Padding,
     share: f64,
+    pairs: &[(String, String)],
 ) -> Result<FullestReport, String> {
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let index = padding.index(&records, &profile, &BTreeSet::new())?;
     drop(records);
-    Ok(census(&index.skipping_fullest(share), share))
+    let index = index.skipping_fullest(share);
+    let pairs = pairs
+        .iter()
+        .map(|(a, b)| shared_hashes(&index, a, b))
+        .collect::<Result<Vec<SharedHashes>, String>>()?;
+    Ok(FullestReport {
+        pairs,
+        ..census(&index, share)
+    })
+}
+
+/// Pairs of index paths, two per line separated by a tab.
+pub fn read_pairs(file: &Path) -> Result<Vec<(String, String)>, String> {
+    let text = fs::read_to_string(file)
+        .map_err(|error| format!("cannot read {}: {error}", file.display()))?;
+    text.lines()
+        .filter(|line| !line.is_empty())
+        .map(|line| {
+            line.split_once('\t')
+                .map(|(a, b)| (a.to_owned(), b.to_owned()))
+                .ok_or_else(|| {
+                    format!(
+                        "{}: not two paths separated by a tab: {line}",
+                        file.display()
+                    )
+                })
+        })
+        .collect()
+}
+
+fn shared_hashes(index: &Index, a: &str, b: &str) -> Result<SharedHashes, String> {
+    let asset = |path: &str| {
+        index
+            .assets()
+            .iter()
+            .position(|asset| asset.path == path)
+            .map(|position| AssetId(position as u32))
+            .ok_or_else(|| format!("{path} is not in the index"))
+    };
+    let (first, second) = (asset(a)?, asset(b)?);
+    let mut pair = SharedHashes {
+        a: a.to_owned(),
+        b: b.to_owned(),
+        shared: 0,
+        set_aside: 0,
+    };
+    for hash in (0..1u32 << HASH_BITS).map(PairHash) {
+        if index.postings_for_asset(hash, first).is_empty()
+            || index.postings_for_asset(hash, second).is_empty()
+        {
+            continue;
+        }
+        pair.shared += 1;
+        pair.set_aside += usize::from(index.scanned_postings(hash).is_empty());
+    }
+    Ok(pair)
 }
 
 /// Counts each asset's postings, and those in lists the index leaves out
@@ -161,6 +232,7 @@ pub fn census(index: &Index, share: f64) -> FullestReport {
         postings: index.posting_count(),
         skipped_postings: 0,
         assets: Vec::new(),
+        pairs: Vec::new(),
     };
     for hash in 0..1u32 << HASH_BITS {
         let list = index.postings(PairHash(hash));
@@ -310,6 +382,33 @@ mod tests {
 
         assert_eq!(set_aside_hashes(&by_files), [common_hash]);
         assert_eq!(set_aside_hashes(&by_recordings), [other_hash]);
+    }
+
+    #[test]
+    fn a_pair_counts_the_hashes_both_files_hold_and_those_set_aside() {
+        // a.mp3 and b.mp3 share two hashes, one of which four more files
+        // hold; c.mp3 shares none with a.mp3.
+        let common = [100.0, 120.0];
+        let mut records = vec![
+            record("a.mp3", &[100.0, 120.0, 0.0, 300.0, 340.0]),
+            record("b.mp3", &[300.0, 340.0, 0.0, 100.0, 120.0]),
+            record("c.mp3", &[200.0, 230.0]),
+        ];
+        records.extend((0..4).map(|copy| record(&format!("common-{copy}.mp3"), &common)));
+        let index = Index::build(&records).unwrap();
+        let lists = index
+            .posting_lists()
+            .filter(|list| !list.is_empty())
+            .count();
+        let index = index.skipping_fullest(1.0 / lists as f64);
+        assert_eq!(set_aside_hashes(&index).len(), 1);
+
+        let pair = shared_hashes(&index, "a.mp3", "b.mp3").unwrap();
+        let none = shared_hashes(&index, "a.mp3", "c.mp3").unwrap();
+
+        assert_eq!((pair.shared, pair.set_aside), (2, 1));
+        assert_eq!((none.shared, none.set_aside), (0, 0));
+        assert!(shared_hashes(&index, "a.mp3", "missing.mp3").is_err());
     }
 
     #[test]

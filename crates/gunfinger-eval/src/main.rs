@@ -602,6 +602,12 @@ enum Command {
         /// The share of non-empty lists, as for `--skip-fullest`.
         #[arg(long, default_value_t = 0.01)]
         share: f64,
+        #[command(flatten)]
+        copies: Copies,
+        /// Pairs of files, two index paths per line separated by a tab:
+        /// count the hashes both hold and those set aside (session 50).
+        #[arg(long)]
+        shared_by: Option<PathBuf>,
     },
     /// Rerun the standard evaluation and report what changed against a
     /// saved baseline.
@@ -1077,18 +1083,32 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             loss::print_summary(&report);
             Ok(())
         }
-        Command::Fullest { share } => {
+        Command::Fullest {
+            share,
+            copies,
+            shared_by,
+        } => {
             if !(share > 0.0 && share < 1.0) {
                 return Err(String::from("--share is a share above 0 and below 1"));
             }
+            let pairs = match &shared_by {
+                Some(file) => fullest::read_pairs(file)?,
+                None => Vec::new(),
+            };
             let report = fullest::run(
                 &paths.library()?,
                 &paths.store()?,
-                &paths.padding(&UNCHANGED_INDEX)?,
+                &Padding {
+                    exact: copies.exact()?,
+                    ..paths.padding(&UNCHANGED_INDEX)?
+                },
                 share,
+                &pairs,
             )?;
             write_json(
-                &paths.base_reports().join(format!("fullest-{share}.json")),
+                &paths
+                    .base_reports()
+                    .join(format!("fullest-{share}{}.json", copies.suffix())),
                 &report,
             )?;
             fullest::print_summary(&report);
@@ -1633,6 +1653,13 @@ struct FilterStudy {
     /// report's name ends in `-rank-<ranking>`.
     #[arg(long, value_enum)]
     rank_fullest_by: Option<fullest::Ranking>,
+    #[command(flatten)]
+    copies: Copies,
+}
+
+/// Exact copies of chosen records added to the index (session 50).
+#[derive(clap::Args)]
+struct Copies {
     /// Add this many exact copies of each record the file `--copied`
     /// names to the index, in memory (`padding-copy/<i>/<path>`, counted
     /// as their original); the report's name ends in
@@ -1648,11 +1675,13 @@ struct FilterStudy {
 const NO_FILTER_STUDY: FilterStudy = FilterStudy {
     trace_candidates: false,
     rank_fullest_by: None,
-    exact_copies: None,
-    copied: None,
+    copies: Copies {
+        exact_copies: None,
+        copied: None,
+    },
 };
 
-impl FilterStudy {
+impl Copies {
     fn exact(&self) -> Result<Option<ExactCopies>, String> {
         let (Some(count), Some(file)) = (self.exact_copies, &self.copied) else {
             return Ok(None);
@@ -1670,13 +1699,19 @@ impl FilterStudy {
     }
 
     fn suffix(&self) -> String {
-        let mut suffix = String::new();
-        if let (Some(count), Some(file)) = (self.exact_copies, &self.copied) {
-            let stem = file
-                .file_stem()
-                .map_or_else(String::new, |stem| stem.to_string_lossy().into_owned());
-            suffix.push_str(&format!("-exact-{count}-{stem}"));
-        }
+        let (Some(count), Some(file)) = (self.exact_copies, &self.copied) else {
+            return String::new();
+        };
+        let stem = file
+            .file_stem()
+            .map_or_else(String::new, |stem| stem.to_string_lossy().into_owned());
+        format!("-exact-{count}-{stem}")
+    }
+}
+
+impl FilterStudy {
+    fn suffix(&self) -> String {
+        let mut suffix = self.copies.suffix();
         if let Some(ranking) = self.rank_fullest_by {
             suffix.push_str(&format!("-rank-{}", ranking.name()));
         }
@@ -1701,7 +1736,7 @@ fn run_sweep(
         ));
     }
     let padding = Padding {
-        exact: filter.exact()?,
+        exact: filter.copies.exact()?,
         ..paths.padding(&UNCHANGED_INDEX)?
     };
     let map = match (other_rips, paths.map_file()) {

@@ -277,3 +277,12 @@ Rules for this session:
   original file; both counts are reported, the per-file one as the
   measure (the registered count read literally would double at K = 1 by
   construction).
+- **(05:27) For step 5, `fullest --shared-by PAIRS`** (harness,
+  tested): for each pair of index paths, the distinct hashes both files
+  hold and how many of them lie in lists set aside; `fullest` also takes
+  `--exact-copies`/`--copied` (the same `Copies` options as `sweep`).
+  Built ahead of time while the NAS runs go; used only after steps 1-4.
+  The pairs (`work/s50/case/pairs.txt`) are the seven verdict lines of
+  the Aphrodite family and the Klute VIP, without the two pairs judged
+  against unrelated tracks; Defjammer's NAS file is one a corpus file
+  stands for, so its corpus path is used.
