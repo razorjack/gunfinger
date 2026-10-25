@@ -1,0 +1,481 @@
+{
+ "262 fullest-0.01-exact-9-panel-262": {
+  "cut": 416,
+  "pairs": [
+   {
+    "a": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "b": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "shared": 2227,
+    "set_aside": 544
+   }
+  ],
+  "files": {
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3": {
+    "postings": 28390,
+    "skipped": 4961
+   },
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3": {
+    "postings": 25344,
+    "skipped": 3843
+   }
+  }
+ },
+ "262 fullest-0.01-exact-9-share-262": {
+  "cut": 252,
+  "pairs": [
+   {
+    "a": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "b": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "shared": 2227,
+    "set_aside": 536
+   }
+  ],
+  "files": {
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3": {
+    "postings": 28390,
+    "skipped": 5181
+   },
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3": {
+    "postings": 25344,
+    "skipped": 3980
+   }
+  }
+ },
+ "262 fullest-0.01": {
+  "cut": 119,
+  "pairs": [
+   {
+    "a": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "b": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "shared": 2227,
+    "set_aside": 605
+   }
+  ],
+  "files": {
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3": {
+    "postings": 28390,
+    "skipped": 6082
+   },
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3": {
+    "postings": 25344,
+    "skipped": 4520
+   }
+  }
+ },
+ "nas fullest-0.01-exact-6-share-nas": {
+  "cut": 15861,
+  "pairs": [
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "b": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "shared": 3791,
+    "set_aside": 1095
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "shared": 3517,
+    "set_aside": 823
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+    "shared": 2877,
+    "set_aside": 815
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a",
+    "shared": 2804,
+    "set_aside": 863
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+    "b": "second-library/a - aphrodite - tower bass.mp3",
+    "shared": 1793,
+    "set_aside": 567
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "b": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "shared": 3850,
+    "set_aside": 1093
+   },
+   {
+    "a": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "b": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "shared": 2227,
+    "set_aside": 782
+   }
+  ],
+  "files": {
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3": {
+    "postings": 28390,
+    "skipped": 7174
+   },
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3": {
+    "postings": 25344,
+    "skipped": 6279
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": {
+    "postings": 27962,
+    "skipped": 5778
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": {
+    "postings": 21981,
+    "skipped": 4422
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus": {
+    "postings": 31752,
+    "skipped": 6166
+   },
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus": {
+    "postings": 33215,
+    "skipped": 6264
+   },
+   "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": {
+    "postings": 33024,
+    "skipped": 6148
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus": {
+    "postings": 25037,
+    "skipped": 4572
+   },
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a": {
+    "postings": 37211,
+    "skipped": 6776
+   },
+   "second-library/a - aphrodite - tower bass.mp3": {
+    "postings": 23271,
+    "skipped": 4158
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a": {
+    "postings": 27678,
+    "skipped": 4871
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": {
+    "postings": 24166,
+    "skipped": 4211
+   }
+  }
+ },
+ "nas fullest-0.01-exact-9-panel-nas": {
+  "cut": 10346,
+  "pairs": [
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "b": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "shared": 3791,
+    "set_aside": 1092
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "shared": 3517,
+    "set_aside": 827
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+    "shared": 2877,
+    "set_aside": 812
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a",
+    "shared": 2804,
+    "set_aside": 867
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+    "b": "second-library/a - aphrodite - tower bass.mp3",
+    "shared": 1793,
+    "set_aside": 569
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "b": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "shared": 3850,
+    "set_aside": 1092
+   },
+   {
+    "a": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "b": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "shared": 2227,
+    "set_aside": 783
+   }
+  ],
+  "files": {
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3": {
+    "postings": 28390,
+    "skipped": 7211
+   },
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3": {
+    "postings": 25344,
+    "skipped": 6270
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": {
+    "postings": 27962,
+    "skipped": 5772
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": {
+    "postings": 21981,
+    "skipped": 4449
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus": {
+    "postings": 31752,
+    "skipped": 6148
+   },
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus": {
+    "postings": 33215,
+    "skipped": 6323
+   },
+   "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": {
+    "postings": 33024,
+    "skipped": 6176
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus": {
+    "postings": 25037,
+    "skipped": 4570
+   },
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a": {
+    "postings": 37211,
+    "skipped": 6754
+   },
+   "second-library/a - aphrodite - tower bass.mp3": {
+    "postings": 23271,
+    "skipped": 4194
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a": {
+    "postings": 27678,
+    "skipped": 4870
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": {
+    "postings": 24166,
+    "skipped": 4243
+   }
+  }
+ },
+ "nas fullest-0.01": {
+  "cut": 9939,
+  "pairs": [
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "b": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus",
+    "shared": 3791,
+    "set_aside": 1093
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a",
+    "shared": 3517,
+    "set_aside": 829
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus",
+    "shared": 2877,
+    "set_aside": 817
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+    "b": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a",
+    "shared": 2804,
+    "set_aside": 863
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+    "b": "second-library/a - aphrodite - tower bass.mp3",
+    "shared": 1793,
+    "set_aside": 567
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+    "b": "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3",
+    "shared": 3850,
+    "set_aside": 1091
+   },
+   {
+    "a": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+    "b": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+    "shared": 2227,
+    "set_aside": 781
+   }
+  ],
+  "files": {
+   "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3": {
+    "postings": 28390,
+    "skipped": 7180
+   },
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3": {
+    "postings": 25344,
+    "skipped": 6288
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus": {
+    "postings": 27962,
+    "skipped": 5790
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a": {
+    "postings": 21981,
+    "skipped": 4408
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus": {
+    "postings": 31752,
+    "skipped": 6134
+   },
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus": {
+    "postings": 33215,
+    "skipped": 6281
+   },
+   "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3": {
+    "postings": 33024,
+    "skipped": 6175
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus": {
+    "postings": 25037,
+    "skipped": 4577
+   },
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a": {
+    "postings": 37211,
+    "skipped": 6769
+   },
+   "second-library/a - aphrodite - tower bass.mp3": {
+    "postings": 23271,
+    "skipped": 4161
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a": {
+    "postings": 27678,
+    "skipped": 4884
+   },
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a": {
+    "postings": 24166,
+    "skipped": 4229
+   }
+  }
+ },
+ "nas control, level 0": {
+  "cut": 9939,
+  "pairs": [
+   {
+    "a": "second-library/__youtube_archivists/3zb-gangstep-dnb/Sage - Agent Orange.opus",
+    "b": "second-library/__youtube_archivists/error-bat/MZE - Blut.m4a",
+    "shared": 749,
+    "set_aside": 287
+   },
+   {
+    "a": "second-library/__youtube_archivists/rootzdnb/Raiden - Tricorn (Lakker Remix).m4a",
+    "b": "second-library/__youtube_archivists/rootzdnb/Tyrone - Belk.m4a",
+    "shared": 2010,
+    "set_aside": 533
+   },
+   {
+    "a": "second-library/__youtube_archivists/3zb-gangstep-dnb/Illfingas - Deadline.opus",
+    "b": "second-library/__youtube_archivists/cryptic-jungle/Unknown Soldier - Homage To Catatonia.m4a",
+    "shared": 866,
+    "set_aside": 377
+   },
+   {
+    "a": "second-library/__youtube_archivists/weedsurfer/Bulletproof & Concord Dawn - Escape.m4a",
+    "b": "second-library/__youtube_archivists/unxplored-dnb/DJ Red - Energize.opus",
+    "shared": 675,
+    "set_aside": 255
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Total Science - Vendetta.m4a",
+    "b": "second-library/__youtube_archivists/unxplored-dnb/Kingsize - Rocks Tha Joint.m4a",
+    "shared": 1002,
+    "set_aside": 451
+   },
+   {
+    "a": "second-library/__youtube_archivists/unxplored-dnb/Am\u00f6r - Omega Land.opus",
+    "b": "second-library/__youtube_archivists/rootzdnb/JuJu - Mojohand.m4a",
+    "shared": 334,
+    "set_aside": 111
+   },
+   {
+    "a": "second-library/__youtube_archivists/unxplored-dnb/Skari - One Love (Jungle Mix).m4a",
+    "b": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Nocturnal - My Devycez (Drum'n'Bass) (Drum'n'Bass).opus",
+    "shared": 1833,
+    "set_aside": 785
+   },
+   {
+    "a": "second-library/__youtube_archivists/dfect-dnb/DJ SS - Intro (Tango Remix).m4a",
+    "b": "extra/a-break-day_one-sour.mp3",
+    "shared": 449,
+    "set_aside": 161
+   },
+   {
+    "a": "second-library/infrared-j_majik-infra015-2000-sour/a-j_majik-the_lizard-sour.mp3",
+    "b": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/va-audio_blueprint_presents_voyager-abprlp01-1998-sour/e-stakka_and_k_tee-jagged_edge-sour.mp3",
+    "shared": 1184,
+    "set_aside": 460
+   },
+   {
+    "a": "second-library/__youtube_archivists/3zb-gangstep-dnb/NDE - Hoodz (Pimpz Score).opus",
+    "b": "second-library/__youtube_archivists/dfect-dnb/Pyro & Phono - Available Technology.m4a",
+    "shared": 1578,
+    "set_aside": 661
+   },
+   {
+    "a": "second-library/__youtube_archivists/3zb-gangstep-dnb/Enemy - Akira.m4a",
+    "b": "second-library/__youtube_archivists/klaudia-kowol/Kamikaze - Nn.m4a",
+    "shared": 545,
+    "set_aside": 234
+   },
+   {
+    "a": "second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/17-Black Sun Empire-Transmission (Mindscape Remix).m4a",
+    "b": "second-library/__youtube_archivists/rootzdnb/Jem One - Scorpion.m4a",
+    "shared": 598,
+    "set_aside": 233
+   },
+   {
+    "a": "second-library/__youtube_archivists/easy-t-dnb/Capone - You & Me.opus",
+    "b": "second-library/__youtube_archivists/cryptic-jungle/Atomic Dog - Break It Down.m4a",
+    "shared": 857,
+    "set_aside": 398
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Perpetuum - Claustrophobia (Mutt Remix).opus",
+    "b": "second-library/__youtube_archivists/dfect-dnb/Fonetick Lee - Carbocation.m4a",
+    "shared": 770,
+    "set_aside": 339
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Chroma ft. LKP - Falling Down.m4a",
+    "b": "second-library/__youtube_archivists/i-witness-dnb/Danny C - Sphere.m4a",
+    "shared": 1106,
+    "set_aside": 502
+   },
+   {
+    "a": "second-library/__youtube_archivists/i-witness-dnb/Jaydan & Upfront - Commando.m4a",
+    "b": "second-library/__youtube_archivists/rootzdnb/dgoHn - Rayon.opus",
+    "shared": 820,
+    "set_aside": 321
+   },
+   {
+    "a": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/talkin_loud-krust_remixes_part_2-tlxx51_2-1999-sour/aa-krust-coded_language_(roni_size_distorted_remix)-sour.mp3",
+    "b": "second-library/__youtube_archivists/i-witness-dnb/Black Sun Empire - Unfamiliar.m4a",
+    "shared": 1411,
+    "set_aside": 671
+   },
+   {
+    "a": "second-library/__youtube_archivists/3zb-gangstep-dnb/Critikal \u2022 09 \u2022 Actin' Like You Roughless.opus",
+    "b": "second-library/__youtube_archivists/unxplored-dnb/DJ Sappo - Move On.m4a",
+    "shared": 954,
+    "set_aside": 422
+   },
+   {
+    "a": "second-library/__youtube_archivists/the-hifi-junglist/Pro-Active - Cactus (Killa Bites .03 - Moving Shadow ASHADOW 25 LP3 D) 2000.opus",
+    "b": "second-library/__youtube_archivists/dfect-dnb/SPY - The Way (DJ Red Remix).m4a",
+    "shared": 1136,
+    "set_aside": 567
+   },
+   {
+    "a": "second-library/__youtube_archivists/dfect-dnb/Q Project - Twist.m4a",
+    "b": "second-library/__youtube_archivists/old-skool-jungle-dnb/Cowboy Ranger \u2013 Gangster Jungle \u29f8\u29f8 Old Skool Jungle & Drum N Bass.m4a",
+    "shared": 429,
+    "set_aside": 167
+   }
+  ]
+ }
+}

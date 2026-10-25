@@ -304,3 +304,16 @@ Rules for this session:
   their results were read only after 0224's commit. Results: stable at
   every level and scale (no U1, U2 or U3); the distinct-holder ranking
   is not worth an ADR (condition 1 fails, 2 and 3 hold).
+- **(07:01) Step 5, a control added** (exploratory, decided after the
+  first readings): the hashes any two files share are mostly common
+  ones, so the share set aside of a related pair's shared hashes means
+  little without unrelated pairs beside it. 20 seeded random pairs of
+  the NAS index's files (`random.Random(2026)`,
+  `work/s50/case/control-pairs.txt`) at level 0, in their own scratch
+  work directory (`work/s50/step5b.sh`).
+- **(07:08) Step 5, experiment 0225** (`work/s50/step5.sh`,
+  `step5b.sh`; build `work/bin/s50-case/`, the run build plus `fullest
+  --shared-by`). The related pairs' shared hashes are set aside more
+  often than their own postings and less often than random pairs'
+  (median 28.8% against 42.4%); copies move them by at most 0.2 points
+  at NAS scale.
