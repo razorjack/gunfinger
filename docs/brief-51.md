@@ -282,9 +282,13 @@ Rules for this session:
   exited (the report is overwritten by the next run of the same ladder);
   it stopped at the queue's last line before copying run 10's, which
   was copied by hand at 09:27 (still the current file).
-- **(09:33) Experiment 0229** (no runs): at a deck of ±5%, the copies
+- **(09:27) Experiment 0229** (no runs): at a deck of ±5%, the copies
   alone fall from session 49's 38 (at 8.0%) to 29, 19, 7, 3 and 1 at R_0
   to R_5; L2 brings 82% of the 38 back, L3 92%. Preference: no wider
   ladder passes; T1 passes (G1, G2, W, its estimated CPU) and brings 19
   of 38 back (50%), so it is the only ladder the registration lets us
   propose, as one to build and measure.
+- **(09:29) Seeds 2027 and 2028** (registered for L0, L3 and L5 if time
+  allowed; queue 3d, tmux `s51seeds`): C2 at both speed sets. L1 is
+  added, decided after 0226-0229 (T1 is the one ladder left), so its
+  result there is reported as exploratory. Experiment 0230.
