@@ -1,0 +1,5152 @@
+{
+ "2027": {
+  "default": "L0",
+  "ladders": {
+   "L0": {
+    "queries": 1458,
+    "confident": 735,
+    "possible": 853,
+    "wrong_confident": 15,
+    "wrong_possible": 34,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 261,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 0,
+      "possible": 0,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 2,
+      "possible": 3,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 5,
+      "possible": 16,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 31,
+      "possible": 42,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 40,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 40,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 22,
+      "possible": 39,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 21,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 18,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 18,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 18,
+      "possible": 21,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 15,
+      "possible": 19,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 13,
+      "possible": 16,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 71,
+      "possible": 91
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 27,
+      "possible": 55
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 23,
+      "possible": 27
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 20,
+      "possible": 25
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 20,
+      "possible": 25
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 20,
+      "possible": 23
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 29,
+      "possible": 37
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 70,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 18,
+      "possible": 52
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 1,
+      "possible": 6
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "L1": {
+    "queries": 1458,
+    "confident": 810,
+    "possible": 924,
+    "wrong_confident": 15,
+    "wrong_possible": 43,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 261,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 0,
+      "possible": 0,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 2,
+      "possible": 3,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 6,
+      "possible": 12,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 32,
+      "possible": 41,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 40,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 39,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 22,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 21,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 19,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 18,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 17,
+      "possible": 21,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 15,
+      "possible": 18,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 71,
+      "possible": 90
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 28,
+      "possible": 49
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 23,
+      "possible": 27
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 21,
+      "possible": 26
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 20,
+      "possible": 25
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 33,
+      "possible": 41
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 79,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 67,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 18,
+      "possible": 48
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 0,
+      "possible": 4
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "T(L1)": {
+    "queries": 1458,
+    "confident": 809,
+    "possible": 924,
+    "wrong_confident": 15,
+    "wrong_possible": 37,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 261,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 0,
+      "possible": 0,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 2,
+      "possible": 3,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 6,
+      "possible": 12,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 31,
+      "possible": 41,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 40,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 39,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 22,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 21,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 19,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 18,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 17,
+      "possible": 21,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 15,
+      "possible": 18,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 70,
+      "possible": 90
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 28,
+      "possible": 49
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 23,
+      "possible": 27
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 21,
+      "possible": 26
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 20,
+      "possible": 25
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 33,
+      "possible": 41
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 79,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 66,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 18,
+      "possible": 48
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 0,
+      "possible": 4
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "L3": {
+    "queries": 1458,
+    "confident": 955,
+    "possible": 1081,
+    "wrong_confident": 16,
+    "wrong_possible": 51,
+    "held_out_confident": 0,
+    "new_wrong_confident": [
+     [
+      "extra/02. Bad Company - China Cup.mp3",
+      -11.2,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ]
+    ],
+    "strongest_wrong": 261,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 2,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 5,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 31,
+      "possible": 42,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 40,
+      "possible": 46,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 43,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 24,
+      "possible": 42,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 20,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 18,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 18,
+      "possible": 21,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 88,
+      "possible": 98
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 74,
+      "possible": 91
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 29,
+      "possible": 55
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 22,
+      "possible": 27
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 38,
+      "possible": 48
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 79,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 73,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 72,
+      "possible": 78
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 66,
+      "possible": 76
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 19,
+      "possible": 48
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 0,
+      "possible": 7
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "T(L3)": {
+    "queries": 1458,
+    "confident": 952,
+    "possible": 1079,
+    "wrong_confident": 16,
+    "wrong_possible": 42,
+    "held_out_confident": 0,
+    "new_wrong_confident": [
+     [
+      "extra/02. Bad Company - China Cup.mp3",
+      -11.2,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ]
+    ],
+    "strongest_wrong": 261,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 2,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 5,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 30,
+      "possible": 41,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 40,
+      "possible": 43,
+      "wrong_confident": 1,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 40,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 40,
+      "possible": 46,
+      "wrong_confident": 1,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 43,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 24,
+      "possible": 42,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 20,
+      "possible": 24,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 18,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 18,
+      "possible": 21,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 88,
+      "possible": 98
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 87,
+      "possible": 95
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 73,
+      "possible": 90
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 29,
+      "possible": 55
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 22,
+      "possible": 27
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 38,
+      "possible": 48
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 79,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 72,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 71,
+      "possible": 77
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 65,
+      "possible": 75
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 19,
+      "possible": 48
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 0,
+      "possible": 7
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "L5": {
+    "queries": 1458,
+    "confident": 1101,
+    "possible": 1230,
+    "wrong_confident": 20,
+    "wrong_possible": 62,
+    "held_out_confident": 0,
+    "new_wrong_confident": [
+     [
+      "Bad Company - China Cup.mp3",
+      8.0,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ],
+     [
+      "Bad Company - China Cup.mp3",
+      8.4,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ],
+     [
+      "extra/02. Bad Company - China Cup.mp3",
+      -11.2,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ],
+     [
+      "extra/02. Bad Company - China Cup.mp3",
+      8.0,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ],
+     [
+      "extra/02. Bad Company - China Cup.mp3",
+      8.4,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ]
+    ],
+    "strongest_wrong": 273,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 3,
+      "possible": 11,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 32,
+      "possible": 40,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 41,
+      "possible": 45,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 42,
+      "possible": 45,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 45,
+      "possible": 48,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 48,
+      "possible": 53,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 42,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 23,
+      "possible": 42,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 19,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 95,
+      "possible": 102
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 92,
+      "possible": 101
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 90,
+      "possible": 97
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 89,
+      "possible": 97
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 89,
+      "possible": 96
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 74,
+      "possible": 89
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 46,
+      "possible": 78
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 78,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 79,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 73,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 72,
+      "possible": 78
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 72,
+      "possible": 76
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 68,
+      "possible": 73
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 70,
+      "possible": 76
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 20,
+      "possible": 50
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 5
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "T(L5)": {
+    "queries": 1458,
+    "confident": 1098,
+    "possible": 1228,
+    "wrong_confident": 16,
+    "wrong_possible": 53,
+    "held_out_confident": 0,
+    "new_wrong_confident": [
+     [
+      "extra/02. Bad Company - China Cup.mp3",
+      -11.2,
+      "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+     ]
+    ],
+    "strongest_wrong": 261,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 54,
+      "confident": 1,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 54,
+      "confident": 3,
+      "possible": 11,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 54,
+      "confident": 32,
+      "possible": 40,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 54,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 54,
+      "confident": 40,
+      "possible": 43,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 54,
+      "confident": 40,
+      "possible": 43,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 54,
+      "confident": 40,
+      "possible": 45,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 54,
+      "confident": 42,
+      "possible": 45,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 54,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 1,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 54,
+      "confident": 45,
+      "possible": 48,
+      "wrong_confident": 1,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 54,
+      "confident": 49,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 4
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 1,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 2,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 54,
+      "confident": 50,
+      "possible": 54,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 54,
+      "confident": 48,
+      "possible": 53,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 3
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 54,
+      "confident": 48,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 54,
+      "confident": 47,
+      "possible": 52,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 54,
+      "confident": 42,
+      "possible": 49,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 54,
+      "confident": 23,
+      "possible": 42,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 54,
+      "confident": 19,
+      "possible": 23,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 378,
+      "confident": 349,
+      "possible": 378
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 108,
+      "confident": 95,
+      "possible": 102
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 108,
+      "confident": 92,
+      "possible": 101
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 108,
+      "confident": 90,
+      "possible": 97
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 108,
+      "confident": 88,
+      "possible": 97
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 108,
+      "confident": 88,
+      "possible": 95
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 108,
+      "confident": 88,
+      "possible": 95
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 108,
+      "confident": 88,
+      "possible": 96
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 108,
+      "confident": 74,
+      "possible": 89
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 216,
+      "confident": 46,
+      "possible": 78
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 623,
+      "confident": 569,
+      "possible": 623
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 78,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 87,
+      "confident": 79,
+      "possible": 87
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 72,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 78,
+      "confident": 71,
+      "possible": 77
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 76,
+      "confident": 71,
+      "possible": 75
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 68,
+      "possible": 73
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 77,
+      "confident": 70,
+      "possible": 76
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 78,
+      "confident": 20,
+      "possible": 50
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 133,
+      "confident": 0,
+      "possible": 5
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 71,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   }
+  }
+ },
+ "2028": {
+  "default": "L0",
+  "ladders": {
+   "L0": {
+    "queries": 1296,
+    "confident": 643,
+    "possible": 738,
+    "wrong_confident": 0,
+    "wrong_possible": 24,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 228,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 0,
+      "possible": 0,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 2,
+      "possible": 2,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 11,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 31,
+      "possible": 38,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 43,
+      "possible": 47,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 17,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 13,
+      "possible": 15,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 9,
+      "possible": 11,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 307,
+      "possible": 335
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 70,
+      "possible": 84
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 20,
+      "possible": 48
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 16,
+      "possible": 18
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 15,
+      "possible": 17
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 15,
+      "possible": 16
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 15,
+      "possible": 16
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 23,
+      "possible": 26
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 76,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 73,
+      "possible": 83
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 28,
+      "possible": 58
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 0,
+      "possible": 7
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "L1": {
+    "queries": 1296,
+    "confident": 712,
+    "possible": 813,
+    "wrong_confident": 0,
+    "wrong_possible": 28,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 234,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 1,
+      "possible": 1,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 5,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 31,
+      "possible": 38,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 43,
+      "possible": 47,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 38,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 16,
+      "possible": 33,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 13,
+      "possible": 15,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 10,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 307,
+      "possible": 335
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 69,
+      "possible": 84
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 21,
+      "possible": 46
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 16,
+      "possible": 18
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 15,
+      "possible": 17
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 15,
+      "possible": 16
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 26,
+      "possible": 30
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 76,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 77,
+      "possible": 84
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 67,
+      "possible": 76
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 24,
+      "possible": 54
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 2,
+      "possible": 9
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "T(L1)": {
+    "queries": 1296,
+    "confident": 712,
+    "possible": 813,
+    "wrong_confident": 0,
+    "wrong_possible": 24,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 228,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 1,
+      "possible": 1,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 5,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 31,
+      "possible": 38,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 43,
+      "possible": 47,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 38,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 16,
+      "possible": 33,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 13,
+      "possible": 15,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 10,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 307,
+      "possible": 335
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 69,
+      "possible": 84
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 21,
+      "possible": 46
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 16,
+      "possible": 18
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 15,
+      "possible": 17
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 15,
+      "possible": 16
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 26,
+      "possible": 30
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 76,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 77,
+      "possible": 84
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 67,
+      "possible": 76
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 24,
+      "possible": 54
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 2,
+      "possible": 9
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "L3": {
+    "queries": 1296,
+    "confident": 845,
+    "possible": 957,
+    "wrong_confident": 0,
+    "wrong_possible": 36,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 231,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 3,
+      "possible": 9,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 31,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 36,
+      "possible": 45,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 16,
+      "possible": 34,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 13,
+      "possible": 15,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 308,
+      "possible": 336
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 67,
+      "possible": 82
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 19,
+      "possible": 43
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 16,
+      "possible": 18
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 30,
+      "possible": 33
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 76,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 77,
+      "possible": 84
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 70,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 69,
+      "possible": 76
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 65,
+      "possible": 74
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 22,
+      "possible": 50
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 0,
+      "possible": 6
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "T(L3)": {
+    "queries": 1296,
+    "confident": 845,
+    "possible": 957,
+    "wrong_confident": 0,
+    "wrong_possible": 27,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 228,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 3,
+      "possible": 9,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 31,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 36,
+      "possible": 45,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 16,
+      "possible": 34,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 13,
+      "possible": 15,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 12,
+      "possible": 13,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 308,
+      "possible": 336
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 67,
+      "possible": 82
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 19,
+      "possible": 43
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 16,
+      "possible": 18
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 30,
+      "possible": 33
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 76,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 77,
+      "possible": 84
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 70,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 69,
+      "possible": 76
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 65,
+      "possible": 74
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 22,
+      "possible": 50
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 0,
+      "possible": 6
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 0
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "L5": {
+    "queries": 1296,
+    "confident": 981,
+    "possible": 1102,
+    "wrong_confident": 0,
+    "wrong_possible": 44,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 232,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 7,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 32,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 43,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 37,
+      "possible": 45,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 16,
+      "possible": 34,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 308,
+      "possible": 336
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 84,
+      "possible": 92
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 69,
+      "possible": 82
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 34,
+      "possible": 58
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 77,
+      "possible": 84
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 70,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 69,
+      "possible": 76
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 68,
+      "possible": 75
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 66,
+      "possible": 73
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 64,
+      "possible": 71
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 24,
+      "possible": 49
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 7
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   },
+   "T(L5)": {
+    "queries": 1296,
+    "confident": 981,
+    "possible": 1102,
+    "wrong_confident": 0,
+    "wrong_possible": 31,
+    "held_out_confident": 0,
+    "new_wrong_confident": [],
+    "strongest_wrong": 228,
+    "by_speed": [
+     {
+      "speed_percent": -12.0,
+      "queries": 48,
+      "confident": 3,
+      "possible": 3,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -11.2,
+      "queries": 48,
+      "confident": 3,
+      "possible": 7,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.8,
+      "queries": 48,
+      "confident": 32,
+      "possible": 37,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -10.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -10.0,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -9.6,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -9.2,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -8.8,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": -8.4,
+      "queries": 48,
+      "confident": 39,
+      "possible": 43,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": -8.0,
+      "queries": 48,
+      "confident": 41,
+      "possible": 44,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": -1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 0.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 1.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 3.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 5.0,
+      "queries": 48,
+      "confident": 44,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.0,
+      "queries": 48,
+      "confident": 43,
+      "possible": 48,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 8.8,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 2
+     },
+     {
+      "speed_percent": 9.2,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 1
+     },
+     {
+      "speed_percent": 9.6,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.0,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.4,
+      "queries": 48,
+      "confident": 42,
+      "possible": 46,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 10.8,
+      "queries": 48,
+      "confident": 37,
+      "possible": 45,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 11.2,
+      "queries": 48,
+      "confident": 16,
+      "possible": 34,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     },
+     {
+      "speed_percent": 12.0,
+      "queries": 48,
+      "confident": 12,
+      "possible": 14,
+      "wrong_confident": 0,
+      "wrong_possible": 0
+     }
+    ],
+    "by_played_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 336,
+      "confident": 308,
+      "possible": 336
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 96,
+      "confident": 84,
+      "possible": 92
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 96,
+      "confident": 81,
+      "possible": 89
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 96,
+      "confident": 69,
+      "possible": 82
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 192,
+      "confident": 34,
+      "possible": 58
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 0,
+      "confident": 0,
+      "possible": 0
+     }
+    ],
+    "by_relative_speed_bin": [
+     {
+      "bin": "0-8",
+      "queries": 505,
+      "confident": 466,
+      "possible": 505
+     },
+     {
+      "bin": "8-8.4",
+      "queries": 85,
+      "confident": 77,
+      "possible": 85
+     },
+     {
+      "bin": "8.4-8.8",
+      "queries": 84,
+      "confident": 77,
+      "possible": 84
+     },
+     {
+      "bin": "8.8-9.2",
+      "queries": 77,
+      "confident": 70,
+      "possible": 77
+     },
+     {
+      "bin": "9.2-9.6",
+      "queries": 76,
+      "confident": 69,
+      "possible": 76
+     },
+     {
+      "bin": "9.6-10.0",
+      "queries": 75,
+      "confident": 68,
+      "possible": 75
+     },
+     {
+      "bin": "10.0-10.4",
+      "queries": 73,
+      "confident": 66,
+      "possible": 73
+     },
+     {
+      "bin": "10.4-10.8",
+      "queries": 73,
+      "confident": 64,
+      "possible": 71
+     },
+     {
+      "bin": "10.8-11.2",
+      "queries": 76,
+      "confident": 24,
+      "possible": 49
+     },
+     {
+      "bin": "11.2-12.4",
+      "queries": 125,
+      "confident": 0,
+      "possible": 7
+     },
+     {
+      "bin": "12.4-100",
+      "queries": 47,
+      "confident": 0,
+      "possible": 0
+     }
+    ]
+   }
+  }
+ }
+}

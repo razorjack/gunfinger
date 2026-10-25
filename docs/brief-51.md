@@ -297,3 +297,11 @@ Rules for this session:
   its commit at 09:27. Both now give the commit's time, here and in the
   experiments that cite the registration; the registration's text is
   unchanged since `8efe293`.
+- **(10:12) Experiment 0230** (queue 3d, 09:28-10:08, every run exit 0):
+  on seeds 2027 and 2028 no wider ladder loses a query within 8.4%; the
+  gains hold (L1 +35 and +27 points, L3 +63 and +58, L5 +74 and +68);
+  seed 2027 adds 1 (L3) and 5 (L5) new wrong confident answers, all
+  China Cup against its Prototype upload (judged different by ear); T1
+  adds none. Both pairs behind new wrong answers (this and 0227's
+  bootleg) are `different` in the verdicts file, so they are real wrong
+  answers.
