@@ -10649,13 +10649,18 @@ five marked plays let in.
 | R1 F1 < 60 | 35/35, 110/110; 25/25, 101/101 | 0/64, 0/102; 0/69, 0/117 | 0 |
 | R2 F2 > 10 s or none | all | 3, 6; 7, 21 | 2 |
 | R3 F3 >= 60 | all | 10, 12; 15, 22 | 1 |
-| R5 F5 > 0.00344 (bar from dev) | test 20/25, 86/101 | test 2, 0 | 0 |
+| R5 F5 > 0.00344 (bar from dev) | test 20/25, 86/101 | test 2, 0 (dev 1, 0) | 0 |
 
 - R1 prints 0-3 of 6-19 pair drops (a record inside its relative; the
   exception is the Monotone remix inside Watermelon, whose files share
   13 hits by `pair`), and 4 of 29-31 "other" plays at NAS scale
   (possible plays matching no known relation, among them NIL -
   Infectious over Mystery Machine).
+- R5 is "promising, more data first" by the registered criterion (at
+  least 80% printed, at most 2 shared let in per scale). Its bar and
+  R4's were rounded the wrong way (0.00344 and 0.172 against the exact
+  0.0034421 and 0.171746), so each lets in 1 development shared play at
+  262 tracks; with the exact bars the test results are the same.
 - F4 reads the wrong way: shared material shares more of the marked
   file's peaks than a record under a partner does.
 - 0217: aligned, 127 of 128 drops lined up; 3 of 128 one entry at 262

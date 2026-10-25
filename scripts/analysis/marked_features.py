@@ -179,9 +179,11 @@ def run(mixes_path, cli_dir, clusters, panel, store_copy, pairs_path, out,
             partner = plays[play["shares_material_with"]["play"] - 1]
             key = library.key(play["asset"])
             keyed = dict(play, asset=key, same_audio=[library.key(x) for x in play.get("same_audio", [])])
-            playing = [tp for tp in mix["plays"] if t.holds(keyed, tp["recording"]) and t.overlap(keyed, tp)]
+            # As `tracklist_marked.py`: held-out truth plays label nothing.
+            truths = [tp for tp in mix["plays"] if not tp["held_out"]]
+            playing = [tp for tp in truths if t.holds(keyed, tp["recording"]) and t.overlap(keyed, tp)]
             related = any(tp["family"] == library.family_of(key) and t.overlap(keyed, tp)
-                          for tp in mix["plays"])
+                          for tp in truths)
             if playing:
                 label, scenario = "playing", playing[0].get("scenario", "-")
             else:
@@ -205,12 +207,15 @@ def run(mixes_path, cli_dir, clusters, panel, store_copy, pairs_path, out,
     print(out, sorted(counts.items()))
 
 
-def auc(playing, shared, direction):
+def auc(playing, shared, direction, missing_prints=False):
     """The chance that a playing value lies on the playing side of a shared
-    one, ties half; a missing value is the playing side's end."""
+    one, ties half. A missing value is the playing side's end with
+    `missing_prints` (F2), else the play is left out (not measured)."""
     end = float("inf")
     def value(v):
         return end if v is None else direction * v
+    playing = [v for v in playing if v is not None or missing_prints]
+    shared = [v for v in shared if v is not None or missing_prints]
     pairs = [(value(a), value(b)) for a in playing for b in shared]
     if not pairs:
         return None
@@ -219,7 +224,7 @@ def auc(playing, shared, direction):
 
 def best_threshold(rows, feature, direction):
     """The threshold printing the most playing plays while letting in no
-    shared one (`>= threshold` on the direction's side)."""
+    shared one (strictly beyond it on the direction's side)."""
     # F2 has no value without a near alignment, which reads as playing (R2);
     # the other features lack one only where they were not measured.
     def value(r):
@@ -261,8 +266,9 @@ def summary(*paths):
             above = auc([r[name] for r in playing], [r[name] for r in shared], 1)
             print(f"  AUC {name}: higher reads playing {above}")
             continue
-        print(f"  AUC {name}: all playing {auc([r[name] for r in playing], [r[name] for r in shared], direction)},"
-              f" unrelated scenarios {auc([r[name] for r in unrelated], [r[name] for r in shared], direction)}")
+        prints = name == "F2"
+        print(f"  AUC {name}: all playing {auc([r[name] for r in playing], [r[name] for r in shared], direction, prints)},"
+              f" unrelated scenarios {auc([r[name] for r in unrelated], [r[name] for r in shared], direction, prints)}")
     for name in ("F1", "F2", "F3", "F4", "F4x", "F5"):
         for direction in ((-1,) if name == "F1" else (1,) if DIRECTION[name] else (1, -1)):
             bar, printed = best_threshold(rows, name, direction)

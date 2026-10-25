@@ -64,8 +64,10 @@ class Features(unittest.TestCase):
         self.assertAlmostEqual(m.outside((0.0, 10.0), [(2.0, 5.0), (4.0, 6.0), (9.0, 12.0)]), 5.0)
         self.assertAlmostEqual(m.outside((10.0, 0.0), []), 10.0)
 
-    def test_auc_counts_ties_half_and_missing_values_as_the_playing_end(self):
-        self.assertEqual(m.auc([3, None], [1, 3], 1), (1 + 0.5 + 1 + 1) / 4)
+    def test_auc_counts_ties_half_and_missing_values_only_where_they_print(self):
+        self.assertEqual(m.auc([3, None], [1, 3], 1, missing_prints=True), (1 + 0.5 + 1 + 1) / 4)
+        self.assertEqual(m.auc([3, None], [1, 3], 1), (1 + 0.5) / 2)
+        self.assertIsNone(m.auc([None], [None], 1))
         self.assertEqual(m.auc([1], [2], -1), 1.0)
 
 

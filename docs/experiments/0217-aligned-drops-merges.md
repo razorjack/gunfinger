@@ -10,7 +10,7 @@
 | Aligned drops | 128 | 127 | 3 | 3 \| 4 |
 
 - The merges, aligned: Aphrodite - Sweet Mind with Cyb Orc - Agressor (truth 4.4 s apart), Aquasky - Spectre with an Isolation file found only as possible (0.0 s), Aphrodite - Blue Mystique with Bulletproof - Scarred (2.3 s); at NAS scale also Decoder - Hord 39 with Cause 4 Concern - Synergy (10.7 s apart by the truth): a Hord 39 upload with a 12 s longer lead-in is tagged as the other rips (`same_tagged_track`) and lines up with Synergy, so the chain joins them. Every merged entry names the second record under `titles disagree:`, except Spectre at 262 tracks, where the possible Isolation play's title is listed under `also:` (only confident plays' titles are compared).
-- Lined up, the two drops still lie at different places in their tracks: the first record's drop 56-378 s into its file (it must come after the solo time and the fade in), the second's often near its start (11-23 s in several blocks, the music coming in after a quiet intro). The truth's start difference has a median of 120-122 s aligned, 104-105 s tempo-only (seeds 2026 and 2028).
+- Lined up, the two drops still lie at different places in their tracks: the first record's drop 38-378 s into its file (it must come after the solo time and the fade in), the second's within 25 s of its start in 26 of 127 blocks (8-25 s: the music coming in after a quiet intro). The truth's start difference has a median of 116.9 and 120.6 s aligned, 103.4 and 96.8 s tempo-only (seeds 2026 and 2028).
 - One block of 128 had no window for a drop (seed 2028) and kept the tempo-only placement.
 
 **Criteria (brief 48).** A roadmap entry at 5% or more of the aligned blocks merged: 2.3% at 262 tracks and 3.1% at NAS scale, so not met; against 0.8% and 0% tempo-only.

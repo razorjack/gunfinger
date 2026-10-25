@@ -1,6 +1,6 @@
 # Session 48 brief: telling a record playing from shared material
 
-Written by the agent for itself on 2026-10-25, so the plan survives
+Written on 2026-10-25, so the plan survives
 context compaction. Work autonomously and never stop to ask: where a
 decision is needed, take the conservative option, write it down here and
 continue.
@@ -306,10 +306,10 @@ goes first, then the aligned drops at NAS scale.
   2026 2028`, renders 2:02 and 1:28, the CLI 1:03 per seed at 262
   tracks): 63 of 64 unrelated drops lined up (one block had no window);
   none merged, and in none would the tracks have started within 5 s
-  (the least difference 10.7 s; median 120 s, against 104-105 s
-  tempo-only). Observed: the first record's drop lies 56-378 s into its
+  (the least difference 10.7 s; medians 116.9 and 120.6 s, against
+  103.4 and 96.8 s tempo-only). Observed: the first record's drop lies 44-378 s into its
   file (it must be at least the solo time and the fade in), while the
-  second's strongest rise often lies near its start (11-23 s in several
+  second's strongest rise often lies near its start (8-25 s in 13 of 63
   blocks: the music coming in after a quiet intro), so the two records
   are rarely at one place in their tracks. A model in which DJs line up
   drops of the same rank (both first drops) is not measured; noted for
@@ -327,3 +327,21 @@ goes first, then the aligned drops at NAS scale.
   reports; the `s35-final` ones mark the same plays): R1 leaves all
   five out; R2 prints two and R3 one. The pair searches ran at 02:59
   (before 0216 was written) but were read only now.
+- **(03:52) The review's findings** (a separate agent, read-only,
+  03:37-03:44). No defect in `line_up_drops`, the feature definitions,
+  the pre-registration's order or the seed choice. Fixed: R4's and R5's
+  bars (03:05) were rounded the wrong way (0.172 and 0.00344 against the
+  exact development extremes 0.171746 and 0.0034421), so each lets in 1
+  of 64 development shared plays at 262 tracks; the bars stay as they
+  were fixed before the test seeds, and with the exact bars the test
+  results are the same; 0216 now gives R5's registered reading
+  ("promising, more data first"); numbers corrected (the test seeds'
+  pair counts 27 and 99; 0217's drop positions and medians; 0215's NAS
+  ranges); R1-R3 at their development-optimal bars added to 0215 and
+  0216; `marked_features.py`'s AUC leaves out unmeasured values (only
+  F2's missing value counts as printed), the classes skip held-out truth
+  plays as `tracklist_marked.py` does (no label changes: the development
+  features computed again are identical), and a docstring; this brief's
+  first line. F1c (the clusters file's pairs) is false for every play
+  at 262 tracks because that file lists duplicates only; it is used in
+  no verdict.
