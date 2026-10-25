@@ -127,3 +127,106 @@ Rules for this session:
   rebuild). `regress session-32-linux` (0:51) and `regress
   session-33-linux-nas` (3:45, 5.5 GB peak) identical: every report
   identical to its baseline's apart from `wall_seconds`.
+- **(04:47) Level-0 census** (`fullest`, no padding; not a padded
+  search; `work/s50/census/`). 262 tracks: 6,029 of 605,333 non-empty
+  lists set aside (119 postings or more), 16.3% of 7.93 M postings. NAS
+  scale (the saved index, 40,705 assets): 10,865 of 1,086,463 lists
+  (9,939 postings or more), 18.7% of 1.14 billion postings. A record
+  holds about 30,000 postings, so at NAS scale copies of one recording
+  move only lists already near the cut; a seeded share of the library
+  copied several times moves the cut itself.
+- **(04:50) Step 1, the pre-registration** (committed before any padded
+  search).
+
+  *Padding.* Exact copies of chosen records, made in memory as the index
+  is built and appended after every other record, named
+  `padding-copy/<i>/<path as indexed>` (i = 1..K); never written to any
+  store. A chosen record is copied only when the run indexes it (a
+  held-out or left-out file has no copies). In scoring, a copy counts as
+  its original's file (the prefix is stripped before the cluster
+  lookup). Two selections, each a list of index paths drawn by a script
+  before any padded search (`work/s50/copied/`):
+  - *panel*: every indexed file of the clusters of the sweep panel's 60
+    indexed sources (seed 2026), from the clusters file of the scale
+    (corpus clusters at 262 tracks; NAS clusters at NAS scale): the
+    queries' own recordings, the worst case for these queries;
+  - *share*: a seeded 10% of the files of the level-0 index
+    (`random.Random(2026).sample` of the sorted paths of `fullest`'s
+    report): a collection with many copies of some records, mostly not
+    the queries'.
+
+  Levels K = 1, 3 and 9 extra copies (realistic: up to ten files of one
+  recording); K = 99 of the panel selection at 262 tracks as a stress
+  level, reported as the point where it breaks, not as instability.
+  Order: 262 tracks, panel then share, K = 1, 3, 9, then 99; NAS scale,
+  K = 9 of both selections first, then K = 3 where K = 9 changes
+  anything, then K = 1 if time allows.
+
+  *Queries.* The sweep panel of seed 2026 (`docs/panels/`): 60 indexed
+  and 20 held-out 30 s excerpts at 9 speeds (540 and 180 queries), at
+  both scales; at NAS scale also `sweep --other-rips` (each source and
+  its identical copies left out, its other rips found), the other-rips
+  form of the same panel. The recall panel's other-rips queries
+  (`recall --other-rips-only`, clean condition) and the shared panels'
+  development halves only where time allows, with answers but no
+  first-pass trace.
+
+  *Trace* (opt-in, sweep only). For each query: every first-pass
+  detection of at least 10 hits (`MIN_HITS_TO_REFINE`: the ones the
+  second pass measures) with its file, hits, windows and whether it is
+  in the own cluster; the answers after the second pass as today
+  (confident, possible: 60 hits or more). For each run, the census of
+  the searched index (`fullest::census`: lists, lists set aside, the
+  cut, postings set aside, per file) and the hashes set aside, so that
+  a script lists the hashes that move into and out of the set at each
+  level. The first pass is run a second time with the second pass off
+  (the same index, matcher options and ladder), so the default search
+  is not touched.
+
+  *The ranking variant* (opt-in, sweep only): the same share (1% of the
+  non-empty lists, ties at the cut kept), ranked by the number of
+  distinct holders of each list instead of its postings. R-files: each
+  file holds itself (a copy is a file of its own). R-clusters: a file
+  holds its cluster from the scale's clusters file, a file in no cluster
+  itself, and a copy its original's. R-clusters is unchanged by exact
+  copies by construction; R-files is unchanged by repeats within a file
+  (a looped drum pattern). Runs: level 0 at both scales, panel K = 9 at
+  both scales, the stress level at 262 tracks.
+
+  *Measures, per query, against level 0:* whether the own cluster is a
+  first-pass candidate (an own-cluster first-pass detection of 10 hits
+  or more), its best first-pass hits h, and the ratio h_K / h_0;
+  whether it is confident, and its best second-pass hits; wrong
+  confident answers and held-out queries confident; wrong possible
+  answers. Per run: the cut, the lists moved in and out, the share of
+  postings set aside for copied files, their originals and the rest;
+  first-pass candidates per query (median); wall time and peak memory.
+
+  *Criteria.* The filter is **unstable** if at a realistic level (K <=
+  9), under either selection and at either scale: (U1) a query confident
+  at level 0 has no confident own-cluster answer; or (U2) a query whose
+  own cluster is a first-pass candidate at level 0 is not one; or (U3) a
+  wrong confident answer appears, or a held-out query becomes confident.
+  Otherwise **stable**, with the smallest h_K / h_0 reported. Notable,
+  declared now: h_K / h_0 below 0.5 for any query at K <= 9; a median
+  number of first-pass candidates per query that doubles.
+
+  The distinct-holder ranking is **worth an ADR** (a proposal; adoption
+  ours) only if (1) the default shows U1, U2 or U3 at a realistic level
+  and the variant removes them; (2) at level 0 the variant keeps the
+  sweep at 540/540 confident and no wrong confident answer at both
+  scales, with the median own-cluster second-pass hits within 1% of the
+  default's; and (3) it sets aside at least 15% of the postings at NAS
+  scale (the default 18.7%: the lookups the filter saves). Without
+  U1-U3 under the default, it is not worth an ADR on this evidence,
+  whatever it does; its results are reported as found. R-clusters needs
+  clusters the product does not have, so only R-files could become a
+  product rule as it stands.
+
+  *Expected, declared now.* At 262 tracks the panel selection at K = 9
+  takes much of the set aside for the queries' own recordings; their
+  first-pass hits fall, but they stay candidates and confident because
+  most of a record's hashes are rare (0013: dropping the fullest 1%
+  costs 17% of own hits). At NAS scale K <= 9 of the panel moves few
+  lists; the share selection at K = 9 raises the cut and moves many,
+  towards the copied files and away from the rest.
