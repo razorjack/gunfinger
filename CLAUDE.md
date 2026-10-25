@@ -6,13 +6,12 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-47.md` (the current session's brief) and
-   `docs/session-47-checklist.md` (its progress), with ADR 0016,
-   `docs/audition-questions.md`, the code of
-   `crates/gunfinger-eval/src/audition/` (`placement.rs`, `pack.rs`,
-   `shared.rs`, `schema.rs`, `session.rs`) and every file in its
-   `web/` (and `web/tests/`), and `scripts/analysis/listening_pack.py`;
-   `docs/brief-2.md`,
+2. `docs/brief-48.md` (the current session's brief) and
+   `docs/session-48-checklist.md` (its progress), with ADR 0019,
+   experiments 0182-0185 and this session's (0215 and up),
+   `crates/gunfinger-eval/src/mixes/drops.rs`, `tempo.rs`, `pair.rs`
+   and the scripts `tracklist_score.py`, `tracklist_marked.py` and
+   `marked_features.py`; `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
    `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
@@ -27,8 +26,9 @@ anything else:
    `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md`,
    `docs/brief-38.md`, `docs/brief-39.md`, `docs/brief-40.md`,
    `docs/brief-41.md`, `docs/brief-42.md`, `docs/brief-43.md`,
-   `docs/brief-44.md`, `docs/brief-45.md` and `docs/brief-46.md` hold
-   rules that still apply unless brief 47 changes them
+   `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md` and
+   `docs/brief-47.md` hold
+   rules that still apply unless brief 48 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
