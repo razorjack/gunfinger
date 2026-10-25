@@ -10764,7 +10764,7 @@ by `pair` (the Monotone remix and Watermelon) would be printed.
   new seeds' panels are in `work/s48/panels/`).
 - The renders of this session (the test seeds' tempo-only and
   other-pairs mixes, all aligned mixes) are kept in `work/s48/w/mixes/`
-  (about 3.7 GB) for the handoff; delete them when no longer needed.
+  (3.8 GB) for the handoff; delete them when no longer needed.
 - A read-only review by a separate agent (03:37-03:44) found no defect
   in the drop line-up or the features' definitions, and six in the
   numbers, the rules' bars and the script; all fixed (brief 48, 03:52,
