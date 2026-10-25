@@ -107,7 +107,10 @@ def compare(base, padded, copied=frozenset()):
     held_out = [r for r in rows if r["held_out"]]
     ratios = [r["after"]["candidate"] / r["before"]["candidate"]
               for r in indexed if r["before"]["candidate"] and r["after"]["candidate"]]
-    lowest = sorted(indexed, key=lambda r: (r["after"]["candidate"] or 0) / (r["before"]["candidate"] or 1))
+    measured = [r for r in indexed if r["before"]["candidate"] and r["after"]["candidate"]]
+    lowest = sorted(measured, key=lambda r: r["after"]["candidate"] / r["before"]["candidate"])
+    answer_ratios = [r["after"]["answer_hits"] / r["before"]["answer_hits"]
+                     for r in indexed if r["after"]["answer_hits"] and r["before"]["answer_hits"]]
     census = census_of(padded)
     return {
         "cut": census["shortest_skipped"],
@@ -122,6 +125,7 @@ def compare(base, padded, copied=frozenset()):
         "u3_wrong_confident": sum(r["after"]["wrong_confident"] for r in rows),
         "u3_wrong_confident_before": sum(r["before"]["wrong_confident"] for r in rows),
         "u3_held_out_confident": sum(1 for r in held_out if r["after"]["wrong_confident"]),
+        "u3_held_out_confident_before": sum(1 for r in held_out if r["before"]["wrong_confident"]),
         "confident": sum(1 for r in indexed if r["after"]["confident"]),
         "confident_before": sum(1 for r in indexed if r["before"]["confident"]),
         "indexed": len(indexed),
@@ -132,9 +136,9 @@ def compare(base, padded, copied=frozenset()):
         "ratio_below_half": sum(1 for x in ratios if x < 0.5),
         "lowest": [{"query": r["query"], "before": r["before"]["candidate"], "after": r["after"]["candidate"]}
                    for r in lowest[:5]],
-        "answer_hits_median_ratio": round(statistics.median(
-            r["after"]["answer_hits"] / r["before"]["answer_hits"]
-            for r in indexed if r["after"]["answer_hits"] and r["before"]["answer_hits"]), 4),
+        "answer_hits_median_ratio": round(statistics.median(answer_ratios), 4) if answer_ratios else None,
+        "answer_hits_ratio_range": [round(min(answer_ratios), 4), round(max(answer_ratios), 4)]
+        if answer_ratios else None,
         "candidates_median": statistics.median(r["after"]["candidates"] for r in rows),
         "candidates_median_before": statistics.median(r["before"]["candidates"] for r in rows),
         "wrong_candidate_files_median": statistics.median(r["after"]["wrong_candidate_files"] for r in rows),

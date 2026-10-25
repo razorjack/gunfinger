@@ -10955,19 +10955,20 @@ Added, harness only and tested:
 In short: the fullest-list filter is stable under copies. Up to ten
 files of every recording the sweep plays, or six copies of a random
 tenth of the NAS library, no query stops being a candidate or loses its
-confident answer, and no wrong answer appears. At 262 tracks copies move
+confident answer, and no new wrong answer appears. At 262 tracks copies move
 a quarter of the lists set aside and cost the copied recordings up to
 23% of their first-pass hits; at NAS scale the set aside follows the
-library's proportions and moves by 1-2%. Ranking by distinct holders
-would make the first pass insensitive to copies at no cost, but there
-is no failure for it to remove.
+library's proportions and moves by 1-2%. Ranking by distinct files or
+recordings keeps the first pass within 3% under copies at no measured
+cost (by recordings it is unchanged by them), but there is no failure
+for it to remove.
 
 ### Experiments 0222-0225
 
 | Experiment | Result |
 |---|---|
-| 0222, 262 tracks | panel (67 files) K = 1, 3, 9, 99 and share (26 files) K = 1, 3, 9: 540/540 confident, no lost candidate, the second pass's own counts unchanged; own first-pass hits at least 0.768 of level 0 at K = 9 (0.717 at 99); the cut 101 → 410 postings (3,620 at 99), 27% of the set changed at panel 9 |
-| 0223, NAS scale | panel (157 indexed files) K = 9 and share (4,070 files) K = 3 and 6 (K = 9 exceeds 65,536 assets): 540/540 and 408/423 (other rips) as at level 0; 1.4-2.0% of the lists moved; the share selection raises the cut 60% but leaves copied and uncopied files at 18.7% set aside; Siren Bass (other rips, +3%) 363 → 298 second-pass hits through a shorter first-pass chain |
+| 0222, 262 tracks | panel (67 files) K = 1, 3, 9, 99 and share (26 files) K = 1, 3, 9: 540/540 confident, no lost candidate, the second pass's own counts 0.995-1.009 of level 0; own first-pass hits at least 0.768 of level 0 at K = 9 (0.717 at 99); the cut 101 → 410 postings (3,620 at 99), 27% of the set changed at panel 9 |
+| 0223, NAS scale | panel (157 indexed files) K = 9 and share (4,070 files) K = 3 and 6 (K = 9 exceeds 65,536 assets): 540/540 and 408/423 (other rips) as at level 0; 0.9-2.0% of the lists moved; the share selection raises the cut 60% but leaves copied and uncopied files at 18.7% set aside; Siren Bass (other rips, +3%) 363 → 298 second-pass hits through a shorter first-pass chain, also when only other files are copied |
 | 0224, ranking | files or recordings: 14.2-14.4% set aside at 262 tracks, 18.4% at NAS scale; 540/540; first pass within 3% of level 0 under every padding (postings ranking: down to 0.717); recordings unchanged by copies by construction; not worth an ADR (no U1-U3 to remove) |
 | 0225, drum-loop pairs | the 7 related pairs share 1,793-3,850 hashes, 23.6-35.1% set aside (median 28.8%), against 42.4% for 20 random pairs; copies move them by at most 0.2 points at NAS scale |
 
@@ -11005,14 +11006,16 @@ holds no copies); its trace searches the first pass a second time.
   here does not ask for a change: nothing failed. Ranking by distinct
   files is open to the product (a count per list at build or load
   time), costs nothing measured here and makes the first pass
-  insensitive to repeats within a file and to copies of a recording;
+  insensitive to repeats within a file and keeps the first pass within
+  3% under copies (only ranking by recordings is unchanged by them);
   it changes about 11% of the lists set aside at NAS scale, so its
   adoption would need the full protocol and an ADR.
 - Whether a famous break held by many different records behaves like
   these two-file families; no such family was built or measured.
 - Whether the first-pass chain's span should bound the second pass
   (Siren Bass loses 18% of its second-pass hits when its first-pass
-  chain loses a window).
+  chain loses a window; in the share selection its rip is not copied, so
+  lists moved by other files' copies are enough).
 
 ### Questions for listening (none answered by agents)
 

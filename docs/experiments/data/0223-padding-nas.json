@@ -19,6 +19,7 @@
   "u3_wrong_confident": 7,
   "u3_wrong_confident_before": 7,
   "u3_held_out_confident": 7,
+  "u3_held_out_confident_before": 7,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -75,6 +76,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9961,
+   1.0021
+  ],
   "candidates_median": 4.0,
   "candidates_median_before": 3.0,
   "wrong_candidate_files_median": 1.0,
@@ -104,6 +109,7 @@
   "u3_wrong_confident": 7,
   "u3_wrong_confident_before": 7,
   "u3_held_out_confident": 7,
+  "u3_held_out_confident_before": 7,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -160,6 +166,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.993,
+   1.004
+  ],
   "candidates_median": 4.0,
   "candidates_median_before": 3.0,
   "wrong_candidate_files_median": 1.0,
@@ -189,6 +199,7 @@
   "u3_wrong_confident": 7,
   "u3_wrong_confident_before": 7,
   "u3_held_out_confident": 7,
+  "u3_held_out_confident_before": 7,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -245,6 +256,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.993,
+   1.0119
+  ],
   "candidates_median": 22.0,
   "candidates_median_before": 3.0,
   "wrong_candidate_files_median": 1.0,
@@ -274,6 +289,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 408,
   "confident_before": 408,
   "indexed": 423,
@@ -285,51 +301,55 @@
   "lowest": [
    {
     "query": [
-     "extra/aa-cause_4_concern-synergy-sour.mp3",
-     267.8777551943323,
-     -8.0
+     "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+     206.9381427420971,
+     3.0
     ],
-    "before": null,
-    "after": null
+    "before": 235,
+    "after": 193
    },
    {
     "query": [
-     "extra/aa-cause_4_concern-abduction-sour.mp3",
-     174.61490962492178,
+     "Stakka & K.Tee - Auto Ignition.mp3",
+     181.00310216667472,
      -8.0
     ],
-    "before": null,
-    "after": null
+    "before": 13,
+    "after": 12
    },
    {
     "query": [
-     "extra/b-stakka_and_skynet-global_report-sour.mp3",
-     306.7728000687982,
-     -8.0
+     "Skynet & Stakka - Decoy.mp3",
+     297.14894449904114,
+     -5.0
     ],
-    "before": null,
-    "after": null
+    "before": 363,
+    "after": 347
    },
    {
     "query": [
-     "extra/e-cause_4_concern-blindside-sour.mp3",
-     88.09229644278508,
-     -8.0
-    ],
-    "before": null,
-    "after": null
-   },
-   {
-    "query": [
-     "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
-     259.6460426397232,
+     "Skynet & Stakka - Decoy.mp3",
+     297.14894449904114,
      8.0
     ],
-    "before": null,
-    "after": null
+    "before": 407,
+    "after": 392
+   },
+   {
+    "query": [
+     "Kraken - Dominion.opus",
+     77.02819739607945,
+     5.0
+    ],
+    "before": 313,
+    "after": 302
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.8209,
+   1.0063
+  ],
   "candidates_median": 20,
   "candidates_median_before": 3,
   "wrong_candidate_files_median": 1,
@@ -359,6 +379,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 408,
   "confident_before": 408,
   "indexed": 423,
@@ -370,51 +391,55 @@
   "lowest": [
    {
     "query": [
-     "extra/aa-cause_4_concern-synergy-sour.mp3",
-     267.8777551943323,
-     -8.0
+     "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+     206.9381427420971,
+     3.0
     ],
-    "before": null,
-    "after": null
+    "before": 235,
+    "after": 193
    },
    {
     "query": [
-     "extra/aa-cause_4_concern-abduction-sour.mp3",
-     174.61490962492178,
-     -8.0
+     "extra/a-dj_reality-reasons.mp3",
+     223.50136621337364,
+     1.0
     ],
-    "before": null,
-    "after": null
+    "before": 640,
+    "after": 633
    },
    {
     "query": [
-     "extra/b-stakka_and_skynet-global_report-sour.mp3",
-     306.7728000687982,
-     -8.0
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     111.34900809621932,
+     0.0
     ],
-    "before": null,
-    "after": null
+    "before": 406,
+    "after": 402
    },
    {
     "query": [
-     "extra/e-cause_4_concern-blindside-sour.mp3",
-     88.09229644278508,
-     -8.0
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     111.34900809621932,
+     5.0
     ],
-    "before": null,
-    "after": null
+    "before": 413,
+    "after": 409
    },
    {
     "query": [
-     "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
-     259.6460426397232,
-     8.0
+     "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     211.9102489946506,
+     -3.0
     ],
-    "before": null,
-    "after": null
+    "before": 714,
+    "after": 708
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.8209,
+   1.0095
+  ],
   "candidates_median": 4,
   "candidates_median_before": 3,
   "wrong_candidate_files_median": 1,

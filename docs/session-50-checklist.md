@@ -23,6 +23,6 @@ for scope and rules.
 - [x] 4. Experiments: the skipped lists, candidates and answers under
   padding; the distinct-holder ranking against the default
 - [x] 5. The drum-loop pairs and the Aphrodite family (ahead, if time)
-- [~] 6. Read-only review by a subagent; findings fixed
-- [~] 7. Wrap-up: notes "Session 50", status, checklist, roadmap; final
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 50", status, checklist, roadmap; final
   checks

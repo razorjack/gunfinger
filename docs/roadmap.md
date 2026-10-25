@@ -686,20 +686,21 @@ marked as inferences were derived, not measured.
   sweep's own recordings (a third of the index) move 27% of the lists
   set aside towards them and cost a query's first pass up to 23% of its
   own hits (99 copies: 28%), but no query stops being a candidate or
-  loses its confident answer, and the second pass's counts do not move.
+  loses its confident answer, and the second pass's counts stay within
+  1% (0.995-1.009 of today's).
   At NAS scale (40,580 files) the set aside follows the library's
-  proportions: nine copies of the queries' 157 files move 1.4% of the
-  lists, six copies of a random tenth of the library raise the cut by
-  60% and move 2%. The one effect seen is through the chain's span:
+  proportions: nine copies of the queries' 157 files move 0.9-1.4% of
+  the lists, six copies of a random tenth of the library raise the cut
+  by 60% and move 2%. The one effect seen is through the chain's span:
   when a rip's first-pass chain loses a window, the second pass measures
   less (Siren Bass, other rips only: 298 hits instead of 363, still
-  confident). Ranking by distinct files or by recordings (clusters)
+  confident; also when only other files are copied). Ranking by distinct files or by recordings (clusters)
   costs nothing at level 0 and keeps a query's first pass within 3% of
   today's under any padding (recordings: unchanged by copies by
   construction), but with no failure to remove it is not worth an ADR.
   The drum-loop pairs judged `different` (Wikki Wikki Plate ~
   Defjammer, the Klute VIP ~ remix, the Aphrodite family) share
-  1,793-3,850 hashes, of which 24-35% are set aside, against a median
+  1,793-3,850 hashes, of which 23-35% are set aside, against a median
   42% for random pairs: the filter keeps most of what a shared loop
   brings (0225). Still open: a famous break held by many records, and a
   real collection's duplicates beyond exact copies; the 65,536-asset

@@ -1,14 +1,13 @@
 # 0223: exact copies at NAS scale: the lists set aside, candidates, answers
 
-**Question** (registered in `docs/brief-50.md`, 04:48). As 0222, against
-the corpus and the NAS store (40,580 indexed files, 1.14 billion
-postings), where the fullest 1% of lists start at 9,913 postings.
+**Question** (registered in `docs/brief-50.md`, 04:48). As 0222, at NAS
+scale: 40,580 files; the fullest 1% of lists start at 9,913 postings.
 **Method.** `sweep --trace-candidates` (seed 2026) and its other-rips form
 (423 queries of 47 sources; each source and its identical copies left
 out), with *panel* (219 files of the queries' clusters, 157 indexed) at
 K = 9 and *share* (4,070 files, a seeded tenth) at K = 6 and 3: K = 9
-stopped at the 65,536-asset limit (brief, 05:41). 4:50-9:54 a run, at
-most 8.0 GB. Data `data/0223-padding-nas.json`.
+stopped at the 65,536-asset limit (brief, 05:41). 2:52-9:54 a run, at
+most 7.6 GiB; data `data/0223-padding-nas.json`.
 
 | Queries, selection, K | Cut | Lists in/out | Set aside: copied, rest | Own first pass, min; median | Confident |
 |---|--:|--:|--:|--:|--:|
@@ -24,17 +23,18 @@ No U1, U2 or U3 in any run: no query loses its candidate or its
 confident answer; the 7 wrong confident answers are the held-out
 Aphrodite - Cool Rock Stuff against the Mobb Deep vs Urban Takeover
 blend, at level 0 with the same hits. Wrong possible answers by file:
-26 → 26-27 (sweep), 21 → 21-22 (other rips). One query moves: Siren
-Bass at +3% (other rips, its rip copied in both selections) keeps a
-2-window first-pass chain of 193 hits instead of 3 windows of 235, and
-the second pass, which measures the chain's span, counts 298 hits
-instead of 363 (still confident). Every other own second-pass count is
-within 0.7% of level 0.
-**Against the registration.** Stable. The panel moves few lists (1.4%),
-as declared; the share selection, against the declaration, raises the
-cut by 60% but moves 2%: each of the fullest lists is held by many
-files, and about a tenth of them are copied.
+26 → 26-27 (sweep), 21 → 21-22 (other rips). Candidates per query
+(median), by detection: 3 → 22 (panel) and 3 → 20 (other rips), each
+own copy a candidate; by distinct wrong file 1 → 1. One query moves:
+Siren Bass at +3% (other rips) keeps a 2-window first-pass chain of 193
+hits instead of 3 windows of 235 in both selections, though only the
+panel copies its rip: lists moved by other files' copies suffice. The
+second pass measures the chain's span: 298 hits instead of 363 (still
+confident). Every other own second-pass count is 0.974-1.012 of level 0.
+**Against the registration.** Stable. The panel moves few lists
+(0.9-1.4%), as declared; the share selection, against the declaration,
+raises the cut by 60% but moves 1.2-2.0%: each of the fullest lists is
+held by many files, and about a tenth of them are copied.
 **Conclusion.** At 40,580 files the set aside follows the library's
-proportions, not its copies: only many copies of the same recordings
-shift it, and then by a few percent of its lists. Through the chain's
-span, a shift can still lower a second-pass count (Siren Bass, 18%).
+proportions; copies shift it by a few percent of its lists, and through
+the chain's span that can lower a second-pass count (Siren Bass, 18%).

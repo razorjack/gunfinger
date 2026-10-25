@@ -317,3 +317,34 @@ Rules for this session:
   often than their own postings and less often than random pairs'
   (median 28.8% against 42.4%); copies move them by at most 0.2 points
   at NAS scale.
+- **(07:14) Final checks, first round** (`work/s50/final.sh`, build
+  `work/bin/s50-final/` from `95763f7`): both regressions identical
+  (0:51; 3:53), the digests unchanged; `scripts/check.sh` failed only in
+  the load-sensitive `decode::watch` test (the machine carried a load
+  of about 20 from processes this session did not start).
+- **(07:20) The review's findings** (a separate agent, read-only,
+  07:05-07:14). No defect in the code. Taken: 0223 said Siren Bass's
+  rip was copied in both selections, but only the panel copies it (the
+  same drop in the share selection comes from other files' copies); the
+  second-pass ranges were stated as "unchanged" or "within 0.7%" (now
+  0.995-1.009 at 262 tracks, 0.974-1.012 at NAS scale, 0.991-1.012 for
+  the rankings); lists moved at NAS scale 0.9-2.0%, not 1.4-2.0%; 0224's
+  condition (2) is read as "no new wrong confident answer" (the 7 at
+  NAS scale are the default's, held out), now said; the registered
+  "candidates per query doubles" is reported by detection (it doubles
+  through the copies themselves) beside the count by distinct file;
+  R-files is not unchanged by copies (only R-clusters is); the rankings
+  set aside fewer lists at 262 tracks (ties at the cut kept), now said;
+  `filter_padding.py`'s `lowest` skipped queries with no candidate, and
+  an empty answer list raised (fixed, the data files regenerated); time
+  and memory ranges and the roadmap's 23-35%; the doc comment of
+  `without_assets`. Recorded as deviations: the ranking runs of 0224
+  ran before 0222 and 0223 were written (one registration, two queues;
+  0222 was written before the NAS runs reported, 0223 before the share
+  rankings did), and five stamps of this brief were first written later
+  than their commits and corrected in later commits (04:50, 05:27,
+  06:58, 07:01, 07:08; the registration's text is unchanged since
+  `29eaa57`). Not taken: tests of the copy-prefix stripping in
+  `outcome`, the trace, report naming and the clap wiring;
+  `--exact-copies 0` is accepted and two `--copied` files with one stem
+  share a report name.

@@ -1,5 +1,5 @@
 {
- "sweep-seed-2026-exact-1-panel-262-trace": {
+ "262-sweep-seed-2026-exact-1-panel-262-trace": {
   "cut": 134,
   "lists_set_aside": 5669,
   "postings_set_aside": 0.1613,
@@ -19,6 +19,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -75,6 +76,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9951,
+   1.0048
+  ],
   "candidates_median": 2.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,
@@ -84,7 +89,7 @@
   "wrong_possible": 14,
   "wrong_possible_before": 9
  },
- "sweep-seed-2026-exact-1-share-262-trace": {
+ "262-sweep-seed-2026-exact-1-share-262-trace": {
   "cut": 111,
   "lists_set_aside": 5711,
   "postings_set_aside": 0.1605,
@@ -104,6 +109,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -160,6 +166,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9956,
+   1.0025
+  ],
   "candidates_median": 1.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,
@@ -169,7 +179,7 @@
   "wrong_possible": 7,
   "wrong_possible_before": 9
  },
- "sweep-seed-2026-exact-3-panel-262-trace": {
+ "262-sweep-seed-2026-exact-3-panel-262-trace": {
   "cut": 201,
   "lists_set_aside": 5689,
   "postings_set_aside": 0.1661,
@@ -189,6 +199,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -245,6 +256,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9956,
+   1.008
+  ],
   "candidates_median": 4.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,
@@ -254,7 +269,7 @@
   "wrong_possible": 32,
   "wrong_possible_before": 9
  },
- "sweep-seed-2026-exact-3-share-262-trace": {
+ "262-sweep-seed-2026-exact-3-share-262-trace": {
   "cut": 132,
   "lists_set_aside": 5722,
   "postings_set_aside": 0.1636,
@@ -274,6 +289,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -330,6 +346,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9956,
+   1.0059
+  ],
   "candidates_median": 1.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,
@@ -339,7 +359,7 @@
   "wrong_possible": 7,
   "wrong_possible_before": 9
  },
- "sweep-seed-2026-exact-9-panel-262-trace": {
+ "262-sweep-seed-2026-exact-9-panel-262-trace": {
   "cut": 410,
   "lists_set_aside": 5722,
   "postings_set_aside": 0.1743,
@@ -359,6 +379,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -415,6 +436,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9958,
+   1.008
+  ],
   "candidates_median": 10.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,
@@ -424,7 +449,7 @@
   "wrong_possible": 80,
   "wrong_possible_before": 9
  },
- "sweep-seed-2026-exact-9-share-262-trace": {
+ "262-sweep-seed-2026-exact-9-share-262-trace": {
   "cut": 202,
   "lists_set_aside": 5694,
   "postings_set_aside": 0.1763,
@@ -444,6 +469,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -500,6 +526,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9956,
+   1.0089
+  ],
   "candidates_median": 1.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,
@@ -509,7 +539,7 @@
   "wrong_possible": 9,
   "wrong_possible_before": 9
  },
- "sweep-seed-2026-exact-99-panel-262-trace": {
+ "262-sweep-seed-2026-exact-99-panel-262-trace": {
   "cut": 3620,
   "lists_set_aside": 5722,
   "postings_set_aside": 0.1835,
@@ -529,6 +559,7 @@
   "u3_wrong_confident": 0,
   "u3_wrong_confident_before": 0,
   "u3_held_out_confident": 0,
+  "u3_held_out_confident_before": 0,
   "confident": 540,
   "confident_before": 540,
   "indexed": 540,
@@ -585,6 +616,10 @@
    }
   ],
   "answer_hits_median_ratio": 1.0,
+  "answer_hits_ratio_range": [
+   0.9961,
+   1.008
+  ],
   "candidates_median": 100.0,
   "candidates_median_before": 1.0,
   "wrong_candidate_files_median": 0.0,

@@ -4976,7 +4976,7 @@ first-pass candidate trace and shared hashes.
 - 0222 (262 tracks): stable; copies move a quarter of the lists set
   aside and cost the copied recordings up to 23% of their first-pass
   hits (28% at 99 copies); no candidate or answer moves.
-- 0223 (NAS scale): stable; 1.4-2% of the lists move; the 65,536-asset
+- 0223 (NAS scale): stable; 0.9-2% of the lists move; the 65,536-asset
   limit capped the share selection at K = 6. One second-pass count
   falls through a shorter first-pass chain (Siren Bass, other rips, 363
   → 298 hits, still confident).
@@ -4984,7 +4984,8 @@ first-pass candidate trace and shared hashes.
   keeps the first pass within 3% under any padding; not worth an ADR,
   since the default shows no failure.
 - 0225: the drum-loop pairs' shared hashes are set aside less often than
-  random pairs' (median 28.8% against 42.4%) and copies do not move them.
+  random pairs' (median 28.8% against 42.4%); copies do not move them at
+  NAS scale (at 262 tracks 27.2% → 24.1-24.4%).
 - Left for us: whether to rank by distinct files at all (no failure asks
   for it); a famous break held by many records; whether the second pass
   should measure beyond the first-pass chain's span.

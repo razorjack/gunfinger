@@ -273,7 +273,8 @@ impl Index {
     /// asset's in the order its record gives them, so this is the index
     /// built from the other records in the same order, posting for posting
     /// (ADR 0014). Call it on an index as built: lists `skipping_fullest`
-    /// set aside would stay set aside by their old lengths.
+    /// or `skipping_most_held` set aside would stay set aside by their old
+    /// lengths or holders.
     pub fn without_assets(mut self, left_out: &BTreeSet<String>) -> Index {
         let mut kept = 0;
         let renumbered: Vec<Option<AssetId>> = self
