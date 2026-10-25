@@ -269,3 +269,11 @@ Rules for this session:
   build's this time (the core's `scanned_postings` matches on
   `SetAside`); the NAS-scale development scan searched in 24.7 s, as
   before (about 24 s).
+- **(05:11) Counting copies once** (after the first padded results at
+  262 tracks): the registered "first-pass candidates per query" and
+  "wrong possible answers" count each copy as a detection, so K copies
+  of a related record give K entries. `filter_padding.py` now also
+  counts wrong candidates and wrong possible answers by distinct
+  original file; both counts are reported, the per-file one as the
+  measure (the registered count read literally would double at K = 1 by
+  construction).

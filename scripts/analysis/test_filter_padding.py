@@ -68,6 +68,13 @@ class FilterPaddingTest(unittest.TestCase):
         self.assertEqual(result["set_aside_share"], {"copies": 0.4, "originals": 0.1, "rest": 0.2})
         self.assertEqual(result["confident"], 1)
 
+    def test_copies_of_one_wrong_file_count_once(self):
+        detections = [("x.mp3", False, False, 80), ("padding-copy/1/x.mp3", False, False, 80)]
+        row = filter_padding.own(query("a.mp3", [("x.mp3", False, 20), ("padding-copy/1/x.mp3", False, 20)],
+                                       detections))
+        self.assertEqual((row["wrong_possible"], row["wrong_possible_files"]), (2, 1))
+        self.assertEqual(row["wrong_candidate_files"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

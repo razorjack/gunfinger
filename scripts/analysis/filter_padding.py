@@ -65,6 +65,12 @@ def own(query):
             1 for d in query["detections"]
             if not d["correct"] and not d["confident"] and d["hits"] >= POSSIBLE_HITS
         ),
+        # Copies of one file count once.
+        "wrong_candidate_files": len({original(c["asset"]) for c in query["candidates"] if not c["correct"]}),
+        "wrong_possible_files": len({
+            original(d["asset"]) for d in query["detections"]
+            if not d["correct"] and not d["confident"] and d["hits"] >= POSSIBLE_HITS
+        }),
     }
 
 
@@ -131,6 +137,11 @@ def compare(base, padded, copied=frozenset()):
             for r in indexed if r["after"]["answer_hits"] and r["before"]["answer_hits"]), 4),
         "candidates_median": statistics.median(r["after"]["candidates"] for r in rows),
         "candidates_median_before": statistics.median(r["before"]["candidates"] for r in rows),
+        "wrong_candidate_files_median": statistics.median(r["after"]["wrong_candidate_files"] for r in rows),
+        "wrong_candidate_files_median_before": statistics.median(
+            r["before"]["wrong_candidate_files"] for r in rows),
+        "wrong_possible_files": sum(r["after"]["wrong_possible_files"] for r in rows),
+        "wrong_possible_files_before": sum(r["before"]["wrong_possible_files"] for r in rows),
         "wrong_possible": sum(r["after"]["wrong_possible"] for r in rows),
         "wrong_possible_before": sum(r["before"]["wrong_possible"] for r in rows),
     }
