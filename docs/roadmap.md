@@ -394,6 +394,14 @@ marked as inferences were derived, not measured.
   any ride, so against shared material the variant relies on the
   240-hit rule's margin, not on its speed condition (the decision note's
   "Session 45").
+  *(session 49, experiments 0219 and 0220)* Copies of one recording drift
+  against each other as well: the CITRUS 003 upload of Falcon - The Stand
+  speeds up by 0.7% over the track against the vinyl rip, so against
+  another upload one fitted speed leaves its first 30 s without an
+  alignment and the two files part by up to 0.5 s on the listening page
+  (the listening's "they diverge over time"; trailing silence moves no
+  fit). `pair --fine-rungs` searches rungs 0.1% apart within 1% of the
+  fitted speed and follows such a copy.
 - **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
@@ -418,6 +426,23 @@ marked as inferences were derived, not measured.
   remaining copy's offset add up past 9%, so the choice depends on how
   far the decks go beyond about ±5%. Replay speed also changes
   by accident when analogue media is digitised (Six & Leman 2014, §1).
+  *(session 49, the clusters file of 2026-10-25, no new run;
+  `scripts/analysis/cluster_speeds.py`)* Of 284 NAS clusters, 75 span
+  more than 2% in speed, 12 more than 4%, 1 more than 6% and 8%: Falcon -
+  The Stand at 11.5%, its "Speed Up" upload about 11.6% fast against the
+  vinyl rips (`pair` finds 6 hits between them: beyond the ladder; the
+  two join only through the CITRUS 003 upload, 7.8% from the one and
+  3.5% from the other). With a
+  deck at ±5% and the ladder at ±8%, 50 clusters (each spanning 2.9% or
+  more) hold two copies of which one, indexed alone, would miss a play
+  of the other at a deck extreme. 38 copies have no other copy within
+  the ladder when played at one extreme (36 at +5%, 2 at -5%); 35 of them
+  are uploads of one channel that runs 3-5% fast against the vinyl rips.
+  Each of those clusters also holds a rip outside the upload folders
+  that, played at either extreme, has another copy within reach. Copies differ
+  in speed within a file too: the CITRUS 003 upload of The Stand runs
+  3.1% fast against the vinyl rip at its start and 3.8% at its end
+  (experiment 0219).
 - **Peaks across frequency bands.** Anchors at 2-4 kHz are 64% of the
   postings the development mix's plays look up and 21% of their true
   hits. A profile whose peak neighbourhoods widen with frequency (variant
@@ -1029,6 +1054,19 @@ marked as inferences were derived, not measured.
   borderline pairs on few hits, and `--disagreements` picks the joins
   and apart pairs nearest `near_10`'s threshold: 12 wait in
   `work/s40/pack/`, though none crosses it.
+  *(2026-10-25; session 49, experiments 0220 and 0221)* Ten of the pack
+  were judged (status, "after session 46"). On these pairs, which no
+  measure was fitted on, coverage and `near_10` at session 40's
+  thresholds put every pair on its verdict's side and supported time
+  misses one (Falcon - The Stand's drifting upload, 0.009 below); pooled
+  with the 60 earlier judged pairs, leave-one-out errors 9, 9 and 6. A
+  near-offset share over rungs within 0.8% of the fitted speed and lines
+  within 20 s of the main one (`drift_0.8_20`, chosen on session 40's
+  populations) orders the judged pairs best (AUC 0.99, pooled
+  leave-one-out errors 4) but by the registered bar is not better: its
+  threshold puts two same pairs of the ten and one presumed join below
+  it. Found after the test, not confirmed: the same share with lines
+  within 10 s makes no error on the ten. More judged pairs would decide.
   *(larger library)*
 - **Clustering precision.** Most of session 6's gain at NAS scale came
   from joining rips the clusters had missed, so a wrong join would now
@@ -1063,6 +1101,12 @@ marked as inferences were derived, not measured.
   by inference, because one rung at the fitted speed follows one speed.
   A join rule on the near-offset share would rest on one pair more than
   supported time gets right; a change is ours, with an ADR.
+  *(session 49, experiment 0220)* Gathering hits over rungs 0.1% apart
+  near the fitted speed (`pair --fine-rungs`, `drift_offsets.py`) lifts
+  the drifting same pairs (Fractles 0.12 to 0.65, Coma ~ Spraycan 0.55 to
+  0.97) but also versions sharing most of a track (the Sonar revision
+  pairs to 0.66-0.77); the registered variant fails its bar on the ten
+  verdicts of 2026-10-25. No join rule changes.
 - **The possible tier at NAS scale.** Matches between recordings of
   different artists and titles reach 63-70 hits over the NAS sweeps
   (experiments 0040, 0041, 0051), above the tier of 60; on nested

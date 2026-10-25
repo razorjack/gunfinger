@@ -6,9 +6,9 @@ measures at their thresholds fitted on the 60 earlier judged pairs (a)
 put each pair on its verdict's side?
 
 **Data.** `pairs-s49-new.json`, `drift_offsets.py scores` (values in
-`data/0220-drift-offsets-scores.json`). The pack chose these pairs as the joins with the least `near_10` and the
-apart pairs with the most, plus two control joins: they lie near the
-threshold by construction, not at random.
+`data/0220-drift-offsets-scores.json`). The pack chose these pairs as
+the joins with the least `near_10` and the apart pairs with the most,
+plus two control joins: near the threshold by design, not at random.
 
 | Pair (verdict) | Coverage | Supported | `near_10` |
 |---|--:|--:|--:|
