@@ -120,5 +120,25 @@ class Select(unittest.TestCase):
         self.assertEqual(self.select(clusters=DISAGREEING), [])
 
 
+class Render(unittest.TestCase):
+    def test_relative_library_roots_become_absolute(self):
+        # `questions pack` refuses a sheet whose paths are not absolute, as
+        # render wrote them from `--corpus corpus/library` (2026-10-22 and
+        # 2026-10-25).
+        here = os.getcwd()
+        corpus, nas = listening_pack.library_roots(["--corpus", "corpus/library", "--nas", "../nas/dnb"])
+
+        self.assertEqual(corpus, os.path.join(here, "corpus", "library"))
+        self.assertEqual(nas, os.path.join(os.path.dirname(here), "nas", "dnb"))
+        for name in ("Artist - Title.m4a", "second-library/label/b.opus"):
+            self.assertTrue(os.path.isabs(listening_pack.full_path(name, corpus, nas)), name)
+
+    def test_absolute_library_roots_stay_as_given(self):
+        corpus, nas = listening_pack.library_roots(["--nas", "/mnt/atlas/Music/dnb"])
+
+        self.assertEqual(nas, "/mnt/atlas/Music/dnb")
+        self.assertTrue(os.path.isabs(corpus))
+
+
 if __name__ == "__main__":
     unittest.main()

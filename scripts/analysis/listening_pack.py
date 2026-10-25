@@ -24,7 +24,9 @@ first file then the same 8 s of the second at the first file's speed
 (`*-a-then-b.mp3`), and the two aligned as a stereo clip, the first file
 left and the second right (`*-stereo.mp3`). Then OUT/README.md lists the
 items in the order to listen. Clips are rendered by FFmpeg from the files
-under the corpus library and the NAS library.
+under the corpus library and the NAS library. The sheets name the files
+by absolute paths, as `gunfinger-eval questions pack` needs: a relative
+--corpus or --nas is taken from the current directory.
 
 usage:
   listening_pack.py select CLUSTERS VERDICTS STORE_PATHS OUT_PAIRS OUT_ITEMS
@@ -345,9 +347,7 @@ MAX_PLACES = 4
 def render(arguments):
     items_file, report_file, out = arguments[:3]
     options = arguments[3:]
-    corpus = option(options, "--corpus", os.path.expanduser(
-        "~/Projects/OpenSource/gunfinger/corpus/library"))
-    nas = option(options, "--nas", "/Volumes/atlas/Music/dnb")
+    corpus, nas = library_roots(options)
     items = load(items_file)
     reports = {(r["query"], r["found"]): r for r in load(report_file)}
     os.makedirs(out, exist_ok=True)
@@ -369,6 +369,14 @@ def render(arguments):
         entry["clips"] = [clip["name"] for clip in clips]
     with open(os.path.join(out, f"items-{os.path.basename(items_file)}"), "w") as file:
         json.dump(items, file, indent=1)
+
+
+def library_roots(options):
+    """The corpus library and the NAS library, as absolute paths."""
+    corpus = option(options, "--corpus", os.path.expanduser(
+        "~/Projects/OpenSource/gunfinger/corpus/library"))
+    nas = option(options, "--nas", "/Volumes/atlas/Music/dnb")
+    return os.path.abspath(corpus), os.path.abspath(nas)
 
 
 def folder_name(entry):
