@@ -245,3 +245,9 @@ Rules for this session:
   answers of those runs), 3b (C3 and calibrate; 0227), 3c (C4 alone on
   the idle machine; 0228); C5 has no runs (0229, after 0226 gives the
   reaches). Seeds 2027 and 2028 of C2 only if time is left after 0229.
+- **(07:57) Step 2's checks** (`work/s51/step2.sh`, tmux `s51run`):
+  `scripts/check.sh` green (3:54); run build `work/bin/s51-run/`, its
+  `gunfinger` byte-identical to the start build's; `regress
+  session-32-linux` (0:50) and `regress session-33-linux-nas` (3:45)
+  identical, every report identical to its baseline's apart from
+  `wall_seconds`. Queue 3a started at 07:57 in the same tmux session.
