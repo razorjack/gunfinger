@@ -132,3 +132,120 @@ goes first, then the aligned drops at NAS scale.
   `regress session-33-linux-nas` (3:45) identical: every report
   identical to its baseline's apart from `wall_seconds`
   (`work/s48/same.py`).
+- **(02:58) Step 1, the pre-registration** (committed before any
+  feature is computed on new mixes, and before any of session 39's
+  marked plays is measured by these features).
+
+  *Marked plays and their classes.* A marked play M is a play of a CLI
+  report (`identify --save-dir`) with `shares_material_with`; its
+  partner P is the play that names (`plays[play - 1]`). Classes, from
+  the mix's truth as `tracklist_marked.py` labels them: *playing* (a
+  truth play of M's recording overlaps M; split by the truth play's
+  scenario: unrelated drop, quiet, brief, pair drop), *shared* (no
+  such play, but a truth play of M's family overlaps M: a related
+  version playing), *other* (neither; reported apart, in no rule's
+  score). Counts are plays, as in 0183.
+
+  *The library's evidence.* For each (M's file, P's file), `gunfinger-eval
+  pair` with M's file as the query and P's as the found file (at NAS
+  scale both as `second-library/<path>` with `--other-peaks-dir`),
+  search "peaks, turntable ladder" (stored peaks, 0.92-1.08; the same
+  search at both scales). Its alignments map M's file time q to P's
+  file time `offset_seconds + speed × q`. An alignment *counts* when
+  it has at least 60 hits (`MIN_POSSIBLE_HITS`, what a search would
+  call possible). The shared spans of M's file are the counting
+  alignments' query spans.
+
+  *Features* (t: the midpoint of M's strongest segment, in mix time;
+  m: M's file time at t, linear within that segment; p: P's file time
+  at t, from P's segment holding t, else the nearest segment
+  extrapolated at its own rate):
+  - F1, shares at all: the strongest alignment's hits (0 when none).
+    Beside it, F1c: whether the clusters file (262-track or NAS, by
+    scale) lists the two files as a pair, either way (yes or no).
+  - F2, where M falls through the alignment: the least `|offset +
+    speed × m - p|` over the counting alignments whose query span,
+    widened by 10 s on each side, holds m; none when no alignment
+    qualifies.
+  - F3, evidence outside the shared spans: for each of M's segments,
+    its hits times the share of its file span (track start to end)
+    outside the shared spans, summed (apportioned hits); beside it the
+    file seconds outside.
+  - F4, the peak verifier's share: the harness (`mixes --kind drops
+    --verify --ladder turntable` on the same renders, 262 tracks only,
+    since `mixes` indexes the corpus store only) detection of M's file
+    overlapping M's strongest segment most; F4 is its
+    `verified.aligned.share`, beside it the mean `shifted` share
+    (chance) and their difference.
+  - F5, the speed relation: r = P's speed / M's speed (each play's
+    `speed_percent`, the strongest segment's); with F2's alignment,
+    `|r / speed - 1|`, else `|r - 1|`.
+
+  *Rules, fixed now* (a marked play the rule calls *playing* would be
+  printed): R1: F1 < 60 (no counting alignment). R2: F2 > 10 s or none.
+  R3: F3 >= 60 apportioned hits. F4 and F5 have no threshold chosen in
+  advance: theirs is set on the development seeds as the value that
+  prints the most playing plays while letting in no shared one, and is
+  then fixed for the test seeds. R1-R3 are reported with their
+  development-optimal thresholds too, but judged at the fixed ones.
+
+  *Data.* Development: session 39's renders and CLI reports, seeds
+  2026 and 2028 (`cli-262`, `cli-nas`, `cli-nas-other`). Test: the first
+  two seeds from 2030 up whose sweep panel keeps both Clockwork records
+  indexed (needed for the pair at 262 tracks), drawn into
+  `work/s48/panels/`; rendered with `mixes --kind drops --tagged
+  work/s39/tags-262.json` (and `--other-pairs --tagged
+  work/s39/tags-other-pairs.json` for NAS scale), searched by the CLI
+  as session 39 did: 262 tracks with a store-only copy less the seed's
+  held-out files, NAS scale with the NAS configuration, `--saved-index
+  off` and `--exclude-from` the NAS files of every NAS cluster holding a
+  held-out corpus file (`tracklist_score.py store` and `exclude`). No
+  feature or threshold is changed after the test seeds are measured.
+
+  *Scores*, per scale and seed group (development, test): per feature
+  the class ranges (min, median, max) by scenario; the separation as the
+  AUC of playing against shared (the chance that a random playing play
+  is on the rule's printing side of a random shared play, ties counted
+  half); per rule the share of playing plays printed (by scenario) and
+  the share of shared plays let in.
+
+  *Worth an ADR proposal:* a rule whose threshold was fixed before the
+  test seeds that on the test seeds, at every scale searched, prints at
+  least 80% of the playing marked plays of the unrelated scenarios
+  (unrelated drop inside, quiet, brief) and lets in no shared play, and
+  in step 5 lets in none of the development mixes' five marked plays at
+  NAS scale (shared material by 0102 and 0107). A rule meeting the print
+  bar while letting in at most 2 shared plays per scale is "promising,
+  more data first". Pair drops (a record under its relative) are
+  reported, not held to the bar: the pair drop aligns the two passages,
+  so the evidence there may be the same relation of audio (0183).
+
+  *The merge measure.* `mixes --kind drops --aligned-drops` (step 2):
+  in both unrelated drops of a mix, each record's strongest drop it can
+  play at that moment (the largest rise of loudness, snapped to the
+  beat) is placed at the same mix time, so the drops coincide in beat
+  phase; everything else (records, overlays, speeds, the other blocks)
+  is drawn as without the option. Seeds 2026 and 2028 and the two test
+  seeds, the CLI at 262 tracks (NAS scale if time allows). Scores: per
+  aligned unrelated drop block, whether both records' plays are in one
+  printed entry (`tracklist_score.py`'s merged across families),
+  against the same seeds' tempo-only drops (session 39: 1 of 64 at 262
+  tracks); beside it the share of blocks whose drops were placed and
+  the share whose tracks would have started within 5 s by the truth
+  (`start - source_start / speed`, what `same_recording` compares).
+  Worth a roadmap entry (session 39's P3 bar): 5% or more of the
+  aligned blocks merged.
+
+  *The drop point* (harness, fixed now, not tuned on any feature): each
+  record's audio at native speed, mono at the render rate; loudness in
+  dB per 0.5 s frame (RMS); the rise at t is the mean loudness over
+  [t, t + 8 s) less that over [t - 8 s, t). Within a window of file
+  times, the drop is the t of the largest rise, moved to the beat: the
+  position within half a beat period of t at which the onset envelope
+  summed over the 16 beats from there is largest (the beat period of
+  `beat_periods`). The first record's window is the file times it can
+  be at when both reach full level (its play's start, length and speed,
+  the overlay's solo time and fades); the second's those from which its
+  play, entering with its fade, fits in its track. Where a window is
+  empty or a record has no beat period, the block keeps session 39's
+  placement and its plays carry no drop time.
