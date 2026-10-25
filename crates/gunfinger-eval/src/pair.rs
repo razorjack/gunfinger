@@ -5,6 +5,9 @@
 //! corpus file, by its decoded audio. Every alignment is listed, so a cut
 //! or an edit shows as alignments at one speed with different offsets.
 //! Pairs are searched one per worker thread, each search on one thread.
+//! With `FineRungs::Around`, the query is also searched on rungs a tenth of
+//! a percent apart around the fitted speed, so that a stretch whose speed
+//! differs from the fitted one keeps its hashes (a copy whose speed drifts).
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -17,7 +20,7 @@ use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Matcher, search, search_peaks, search_with};
-use gunfinger_core::speed::{Playback, Rung, key_lock_ladder, ladder};
+use gunfinger_core::speed::{Playback, Rung, SpeedRatio, key_lock_ladder, ladder};
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
@@ -72,16 +75,34 @@ pub struct Sources<'a> {
     pub other: Option<&'a PeakStore>,
 }
 
+/// Whether `pair` also searches the rungs around the fitted speed.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum FineRungs {
+    Off,
+    /// `FINE_RUNGS` rungs either side of the fitted speed, `FINE_STEP`
+    /// apart, each a search of its own (`peaks, fine rung +0.3%`).
+    Around,
+}
+
+/// The fine rungs are this far apart, relative to the fitted speed: at
+/// 0.05% from a rung about 90% of hashes survive (experiment 0001), so
+/// every speed within their reach is that close to one of them.
+const FINE_STEP: f64 = 0.001;
+/// The fine rungs reach this many steps either side of the fitted speed:
+/// 1%, two and a half steps of the ladder.
+const FINE_RUNGS: i32 = 10;
+
 /// Each pair of `pairs` (query, found) searched alone, `jobs` pairs at a
 /// time.
 pub fn run(
     sources: &Sources,
     pairs: &[(String, String)],
     jobs: usize,
+    fine_rungs: FineRungs,
 ) -> Result<Vec<PairReport>, String> {
     let records = Records::load(sources)?;
     map_in_order(pairs, jobs, |(query, found)| {
-        run_pair(sources, &records, query, found)
+        run_pair(sources, &records, query, found, fine_rungs)
     })
     .into_iter()
     .collect()
@@ -92,6 +113,7 @@ fn run_pair(
     records: &Records,
     query: &str,
     found: &str,
+    fine_rungs: FineRungs,
 ) -> Result<PairReport, String> {
     let profile = Profile::CURRENT;
     let query_record = records.record(sources, query)?;
@@ -102,33 +124,15 @@ fn run_pair(
         .header
         .duration_seconds
         .min(found_record.header.duration_seconds);
-    let peaks = |rungs: &[Rung]| search_peaks(&index, &query_record.peaks, &profile, rungs, 1);
-    let mut searches = vec![
-        named(
-            "peaks, ladder within 2%",
-            &peaks(&within_two_percent()),
-            shorter,
-        ),
-        named("peaks, turntable ladder", &peaks(&ladder()), shorter),
-        named(
-            "peaks, key-locked ladder",
-            &peaks(&key_lock_ladder()),
-            shorter,
-        ),
-    ];
-    if let Some(best) = peaks(&ladder()).first() {
-        let fitted = [Rung::Turntable(best.speed)];
-        let mut search = named("peaks, at the fitted speed", &peaks(&fitted), shorter);
-        let query_is_shorter =
-            query_record.header.duration_seconds <= found_record.header.duration_seconds;
-        for (alignment, detection) in search.alignments.iter_mut().zip(peaks(&fitted)) {
-            let seconds =
-                supported_seconds(&index, &query_record.peaks, &detection, query_is_shorter);
-            alignment.supported = Some(seconds.len() as f64 / shorter);
-            alignment.supported_seconds = Some(seconds.into_iter().collect());
-        }
-        searches.push(search);
-    }
+    let query_is_shorter =
+        query_record.header.duration_seconds <= found_record.header.duration_seconds;
+    let mut searches = peak_searches(
+        &index,
+        &query_record.peaks,
+        shorter,
+        query_is_shorter,
+        fine_rungs,
+    );
     if !query.starts_with(SECOND_LIBRARY_PREFIX) {
         let audio = decode(
             &sources.library.root.join(query),
@@ -156,6 +160,56 @@ fn run_pair(
         found_seconds: found_record.header.duration_seconds,
         searches,
     })
+}
+
+/// The searches of the query's stored peaks: on three ladders, at the
+/// turntable ladder's fitted speed and, with `FineRungs::Around`, on the
+/// fine rungs around it; the last two with each alignment's supported
+/// seconds.
+fn peak_searches(
+    index: &Index,
+    query_peaks: &[Peak],
+    shorter: f64,
+    query_is_shorter: bool,
+    fine_rungs: FineRungs,
+) -> Vec<Search> {
+    let profile = Profile::CURRENT;
+    let peaks = |rungs: &[Rung]| search_peaks(index, query_peaks, &profile, rungs, 1);
+    let mut searches = vec![
+        named(
+            "peaks, ladder within 2%",
+            &peaks(&within_two_percent()),
+            shorter,
+        ),
+        named("peaks, turntable ladder", &peaks(&ladder()), shorter),
+        named(
+            "peaks, key-locked ladder",
+            &peaks(&key_lock_ladder()),
+            shorter,
+        ),
+    ];
+    let Some(best) = peaks(&ladder()).first().map(|best| best.speed.0) else {
+        return searches;
+    };
+    let supported = |name: &str, speed: f64| {
+        let detections = peaks(&[Rung::Turntable(SpeedRatio(speed))]);
+        let mut search = named(name, &detections, shorter);
+        for (alignment, detection) in search.alignments.iter_mut().zip(&detections) {
+            let seconds = supported_seconds(index, query_peaks, detection, query_is_shorter);
+            alignment.supported = Some(seconds.len() as f64 / shorter);
+            alignment.supported_seconds = Some(seconds.into_iter().collect());
+        }
+        search
+    };
+    searches.push(supported("peaks, at the fitted speed", best));
+    if fine_rungs == FineRungs::Around {
+        for step in (-FINE_RUNGS..=FINE_RUNGS).filter(|&step| step != 0) {
+            let relative = FINE_STEP * f64::from(step);
+            let name = format!("peaks, fine rung {:+.1}%", 100.0 * relative);
+            searches.push(supported(&name, best * (1.0 + relative)));
+        }
+    }
+    searches
 }
 
 /// The turntable rungs from 0.98 to 1.02: the clustering ladder before
@@ -433,5 +487,67 @@ mod tests {
         assert!(seconds.iter().all(|second| !(21..39).contains(second)));
         assert!(seconds.range(..20).count() >= 15);
         assert!(seconds.range(40..).count() >= 15);
+    }
+
+    /// The query's peaks where the found file plays at `speed` times the
+    /// query's speed: the inverse of the stored-peak search's rescaling.
+    fn at_speed(peaks: &[Peak], speed: f64) -> Vec<Peak> {
+        peaks
+            .iter()
+            .map(|peak| Peak {
+                frame: (peak.frame / speed).floor(),
+                bin: (f64::from(peak.bin) * speed) as f32,
+                magnitude: peak.magnitude,
+            })
+            .collect()
+    }
+
+    fn held_from(searches: &[Search], name: impl Fn(&str) -> bool) -> BTreeSet<u64> {
+        searches
+            .iter()
+            .filter(|search| name(&search.name))
+            .flat_map(|search| &search.alignments)
+            .flat_map(|alignment| alignment.supported_seconds.clone().unwrap_or_default())
+            .collect()
+    }
+
+    #[test]
+    fn fine_rungs_keep_a_stretch_whose_speed_drifts_from_the_fitted_one() {
+        let mut rng = Rng::new(49);
+        let found = record(random_peaks(&mut rng, 0.0..120.0));
+        let profile = Profile::CURRENT;
+        let turn = profile.frames(80.0);
+        // The first 80 s at the found file's speed; from there the found file
+        // plays 0.8% faster than the query, two steps of the ladder.
+        let (before, after): (Vec<Peak>, Vec<Peak>) =
+            found.peaks.iter().partition(|peak| peak.frame < turn);
+        let mut query = before;
+        let from_turn: Vec<Peak> = after
+            .iter()
+            .map(|peak| Peak {
+                frame: peak.frame - turn,
+                ..*peak
+            })
+            .collect();
+        query.extend(at_speed(&from_turn, 1.008).into_iter().map(|peak| Peak {
+            frame: peak.frame + turn,
+            ..peak
+        }));
+        query.sort_by(|a, b| a.frame.total_cmp(&b.frame).then(a.bin.total_cmp(&b.bin)));
+        let index = Index::build(std::slice::from_ref(&found)).unwrap();
+
+        let off = peak_searches(&index, &query, 120.0, true, FineRungs::Off);
+        let around = peak_searches(&index, &query, 120.0, true, FineRungs::Around);
+
+        let names: Vec<&str> = around.iter().map(|search| search.name.as_str()).collect();
+        assert_eq!(off.len(), 4);
+        assert_eq!(around.len(), 4 + 2 * FINE_RUNGS as usize);
+        assert_eq!(names[4], "peaks, fine rung -1.0%");
+        assert_eq!(names[around.len() - 1], "peaks, fine rung +1.0%");
+        let fitted = held_from(&around, |name| name == "peaks, at the fitted speed");
+        let fine = held_from(&around, |name| name.starts_with("peaks, fine rung"));
+        assert!(fitted.range(..80).count() >= 75);
+        assert!(fitted.range(82..).count() <= 25);
+        assert!(fine.range(82..).count() >= 35);
     }
 }

@@ -257,6 +257,12 @@ enum Command {
         /// corpus library paths or `second-library/<path>` with
         /// --other-peaks-dir. The report is `pairs-<file stem>.json`.
         pairs: PathBuf,
+        /// Also search, with supported seconds, the rungs 0.1% apart
+        /// within 1% of the fitted speed (`peaks, fine rung -1.0%` to
+        /// `+1.0%`): a copy whose speed drifts loses its hashes away from
+        /// the fitted speed.
+        #[arg(long)]
+        fine_rungs: bool,
     },
     /// Search queries cut from a passage two different recordings share
     /// (alone, looped, with the played file's own material before or
@@ -848,7 +854,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             port,
         }),
         Command::Questions { source } => make_questions(paths, source),
-        Command::Pair { pairs } => {
+        Command::Pair { pairs, fine_rungs } => {
             let text = fs::read_to_string(&pairs)
                 .map_err(|error| format!("cannot read {}: {error}", pairs.display()))?;
             let listed: Vec<(String, String)> = text
@@ -869,6 +875,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 },
                 &listed,
                 jobs,
+                if fine_rungs {
+                    pair::FineRungs::Around
+                } else {
+                    pair::FineRungs::Off
+                },
             )?;
             let stem = pairs.file_stem().map_or_else(
                 || String::from("pairs"),
