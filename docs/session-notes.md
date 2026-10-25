@@ -10598,3 +10598,148 @@ No answer was sent.
   baseline apart from `wall_seconds`; `work/s47/questions/05-pack-s40.json`
   made again with the final build, the same as the user's file apart
   from the two fields and `made_by`.
+
+## Session 48
+
+### What changed
+
+The product did not change: no threshold, rule, default or output, and
+the final CLI binary is byte-identical to the start build's. Added,
+harness only and tested:
+
+- `mixes --kind drops --aligned-drops`: in both unrelated double drops
+  of a mix, each record's strongest drop it can play then (the largest
+  rise of loudness over 8 s, moved to the beat whose next 16 beats hold
+  the most onsets; `tempo::Structure`) is placed at one mix time, on the
+  beat (`drops::line_up_drops`). Records, overlays, speeds and the other
+  blocks are those of the tempo-only mixes of the same seed; plays carry
+  `drop_seconds`, left out of the JSON when unset; report and renders
+  labelled `aligned-drops`.
+- `scripts/analysis/marked_features.py` (`pairs`, `features`,
+  `summary`, `known`, `merges`) with `test_marked_features.py`.
+
+In short: whether the marked play's file and its partner's share any
+alignment a search would call possible (60 hits or more, by `pair` on
+stored peaks) tells a record playing under an unrelated partner from
+shared material completely, on fresh seeds at both scales and in the
+development mixes' reports. It does not tell a record inside its
+relative from shared material; position and evidence outside the shared
+spans do that better but let shared material in. Lining up drops merges
+few entries.
+
+### Step 1: the pre-registration (brief 48, 02:43, `d7b17e9`)
+
+Features F1 (the pair's strongest alignment), F2 (where the marked
+file time maps through the nearest alignment against the partner's
+file time), F3 (hits outside the shared spans), F4 (the peak verifier's
+share), F5 (the speed ratio against the alignment's); rules R1 F1 < 60,
+R2 F2 > 10 s or none, R3 F3 >= 60 fixed in advance, F4 and F5's bars
+from the development seeds (brief 03:05: R4 F4 < 0.172, R5 F5 >
+0.00344); classes playing, shared and other as 0183; development seeds
+2026 and 2028 (session 39's reports), test seeds the first two from
+2030 up keeping both Clockwork records (2032, 2034). Worth an ADR
+proposal: at least 80% of the unrelated playing records printed with no
+shared play let in, at every scale, and none of the development mixes'
+five marked plays let in.
+
+### Experiments 0215-0218
+
+| Rule | Unrelated playing printed (dev; test), 262 \| NAS | Shared let in (dev; test) | Development mixes' 5 |
+|---|--|--|--|
+| R1 F1 < 60 | 35/35, 110/110; 25/25, 101/101 | 0/64, 0/102; 0/69, 0/117 | 0 |
+| R2 F2 > 10 s or none | all | 3, 6; 7, 21 | 2 |
+| R3 F3 >= 60 | all | 10, 12; 15, 22 | 1 |
+| R5 F5 > 0.00344 (bar from dev) | test 20/25, 86/101 | test 2, 0 | 0 |
+
+- R1 prints 0-3 of 6-19 pair drops (a record inside its relative; the
+  exception is the Monotone remix inside Watermelon, whose files share
+  13 hits by `pair`), and 4 of 29-31 "other" plays at NAS scale
+  (possible plays matching no known relation, among them NIL -
+  Infectious over Mystery Machine).
+- F4 reads the wrong way: shared material shares more of the marked
+  file's peaks than a record under a partner does.
+- 0217: aligned, 127 of 128 drops lined up; 3 of 128 one entry at 262
+  tracks, 4 at NAS scale (tempo-only 1 and 0); 6 of the 7 merged
+  entries flag `titles disagree:`. One NAS merge is a chain: a Hord 39
+  upload with a 12 s longer lead-in, tagged as the other rips, lines up
+  with Synergy.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; step 2) | 0:51; 0:50 | 0.4 GiB |
+| `regress session-33-linux-nas` (start; step 2) | 3:45; 3:45 | 5.3 GiB |
+| `mixes --kind drops --count 16`, rendering and searching (`--verify`) | 1:04-2:02 | 6.8-7.2 GiB |
+| `mixes --verify` on cached renders, 262 tracks | 1:13-1:15 | 1.5 GiB |
+| `identify --save-dir`, 16 mixes, 262 tracks; NAS store | 0:42-1:03; 2:19-2:24 | 0.17; 5.1-5.3 GiB |
+| `pair`, 34-37 corpus pairs (audio searched too); 110-117 NAS pairs (peaks only) | 0:26-0:55; 0:02-0:03 | 1.0; 0.7 GiB |
+| `scripts/check.sh` | 3:50 | |
+
+### Decided this session, open to change
+
+- The features read `pair`'s "peaks, turntable ladder" search at both
+  scales, so 262 tracks and NAS scale use the same evidence.
+- The CLI at NAS scale read the NAS store's own records (`--peaks-dir`
+  the NAS store, `--store-only --saved-index off --exclude-from`), as
+  session 45 did, not a listing of the NAS.
+- Aligned drops apply to the unrelated double drops only; each record
+  takes its strongest drop within the file times it can be at, and the
+  snap can land one beat from the rise's true beat.
+
+### The decision this leaves for us
+
+Whether a marked play (ADR 0019) whose file shares no possible
+alignment with its partner's file by the library's own evidence (R1)
+stays in the tracklist, as a possible line. On these data it would print
+every left-out record under an unrelated partner (brief and quiet ones
+included) and no shared material, and leave records inside their
+relatives out as today. What it would need, if adopted: the pair search
+(or a stored map of related files) available to `identify`, which today
+sees no `pair` evidence; an ADR superseding ADR 0019's decision 2 for
+that case; a check of its cost per marked play. The shared class here
+is narrow (Clockwork in the generated mixes, four families in the
+development mixes); a related version whose files share under 60 hits
+by `pair` (the Monotone remix and Watermelon) would be printed.
+
+### Questions for listening (none answered by agents)
+
+- NIL - Infectious over Ed Rush & Optical - Mystery Machine (seed 2032,
+  mix-07, `work/s48/cli-nas/seed-2032/mix-07.json`, plays 9 and 31; the
+  two files share 41 hits by `pair`): R1 would print it as possible.
+  Also session 39's (Techno Funk over Alien Girl, the same NIL play,
+  Crash over the T-Minus vocal mix) and the pending ones (items 4, 5, 7
+  and 9 of session 40's pack, Star Trails, Into Music).
+
+### Handoff for the next session
+
+1. Data: features `work/s48/features-{dev,test}-*.json` (copied to
+   `docs/experiments/data/0215-*.json`, `0216-*.json`), summaries
+   `work/s48/summary-*.txt`, `work/s48/known.txt`; pair reports
+   `work/s48/w/reports/pairs-pairs-*.json` and
+   `work/s48/w/reports/library-nas-dnb-peaks/pairs-pairs-*.json`;
+   harness reports `work/s48/w/reports/ladder-turntable/` (`verified/`
+   for the verifier runs); the CLI's reports `work/s48/cli-262/`,
+   `cli-nas/`, `cli-nas-other/`, `cli-262-aligned/`, `cli-nas-aligned/`;
+   renders `work/s48/w/mixes/` (the development seeds' tempo-only
+   renders are links to session 39's in `work/mixes/`); store copies
+   `work/s48/store-{2032,2034}/`, exclude lists
+   `work/s48/nas-exclude-{2032,2034}.txt`; panels for seeds 2030-2035 in
+   `work/s48/panels/`.
+2. Builds: `work/bin/s48-start/` (= `s47-final`), `s48-run/` (the
+   runs), `s48-final/` (master).
+3. Scripts: `work/s48/start.sh`, `step2.sh`, `check2.sh`, `dev.sh`,
+   `test.sh`, `aligned.sh`, `aligned-nas.sh`, `final.sh`. For example:
+
+   ```sh
+   E="work/bin/s48-final/gunfinger-eval --work work/s48/w --panels work/s48/panels"
+   $E --ladder turntable mixes --kind drops --aligned-drops --seed 2032 --count 16 --other-root /mnt/atlas/Music/dnb --tagged work/s39/tags-262.json
+   python3 -I scripts/analysis/marked_features.py pairs work/s48/pairs-test-262.txt work/s48/cli-262/seed-2032
+   $E pair work/s48/pairs-test-262.txt
+   python3 -I scripts/analysis/marked_features.py summary work/s48/features-test-262-2032.json work/s48/features-test-262-2034.json
+   ```
+
+4. Next, if we continue: an ADR proposal for R1 (the decision above),
+   with a test on related versions beyond Clockwork (the second shared
+   panel's families played inside each other); drops of the same rank
+   for the merge measure.

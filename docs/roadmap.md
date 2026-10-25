@@ -219,7 +219,14 @@ marked as inferences were derived, not measured.
   `titles disagree:`. Measured on every stored development report: no
   right play lost. The cost ADR 0019 names (a played record found only
   as possible inside a passage of another) was measured in session 39 on
-  generated double drops: "The printed tracklist" below.
+  generated double drops: "The printed tracklist" below. Session 48
+  (experiments 0215-0218) measured features from the library's own
+  evidence: whether the marked play's file and its partner's share any
+  alignment of 60 hits or more by `pair` (R1) prints every record
+  playing under an unrelated partner and lets in no shared material, on
+  fresh seeds at both scales and in the development mixes' reports.
+  Whether the tracklist prints such plays is ours to decide, with an
+  ADR.
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming
@@ -830,6 +837,18 @@ marked as inferences were derived, not measured.
   near-identical version from a damaged copy of one recording either
   (AUC 0.40-0.56 on 14 hard judged pairs chosen from the measures'
   errors, so near chance by that choice).
+  *(session 48, experiments 0215-0218)* On the marked plays of
+  generated double drops, evidence outside passages the library shows
+  to be shared was measured: files that share no alignment of 60 hits
+  or more by `pair` (F1) separate a record playing under an unrelated
+  partner from shared material completely (AUC 1.00 at both scales on
+  development and test seeds; at most 17 hits against at least 93);
+  where the marked play falls through the alignment (F2) and its hits
+  outside the shared spans (F3) separate a record inside its relative
+  too, but let in 3-22 shared plays (a related version found elsewhere
+  in the other file); the peak verifier's share reads the wrong way.
+  The shared class rests on one relation (Clockwork) in the generated
+  mixes and five plays of four families in the development mixes.
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away
@@ -1281,9 +1300,13 @@ marked as inferences were derived, not measured.
   marked play may stay in the tracklist (for example by length, or
   marked as possible with its partner named), and whether
   `same_recording` needs more than a 5 s start and half the shorter
-  play when two files' titles differ. Not measured: real double drops,
-  where DJs align drops and the starts may line up more often than by
-  chance.
+  play when two files' titles differ. Session 48 (0217) lined the drops
+  up in beat phase (`mixes --kind drops --aligned-drops`, each record's
+  strongest drop it can play then): 3 of 128 unrelated drops became one
+  entry at 262 tracks and 4 at NAS scale (tempo-only 1 and 0), 6 of the
+  7 under `titles disagree:`; a merge needs the two drops at about one
+  place in their tracks. Not measured: drops of the same rank (first on
+  first), and real double drops.
 - **Panako as an outside benchmark.** Run in session 24b at 262 tracks
   (experiments 0130, 0131, 0150; Java 11, LMDB built from source): 59% of
   the sweep queries to Gunfinger's 100%, 26/27 development-mix tracks to

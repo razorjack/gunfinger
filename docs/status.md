@@ -4863,3 +4863,41 @@ and the pack script changed.
   answer log and the clusters file at their start digests.
 - Next listening (pending items 4, 5, 7 and 9 of session 40's pack):
   `work/bin/s47-final/gunfinger-eval audition work/s47/questions/05-pack-s40.json`.
+
+## 2026-10-25: session 48, telling a record playing from shared material
+
+Brief `docs/brief-48.md`, checklist `docs/session-48-checklist.md`;
+notes "Session 48"; experiments 0215-0218. Gunfinger itself is
+unchanged (no threshold, rule, default or output; the CLI binary is
+byte-identical to the start build's); the harness gained an opt-in
+option and a script.
+
+- 02:35 start at `28615bf`, clean. Start build `work/bin/s48-start/`;
+  both regressions identical (0:51; 3:45).
+- `d7b17e9`: pre-registration (features F1-F5 of marked plays, rules
+  R1-R3 fixed in advance, R4-R5 set on the development seeds, test
+  seeds chosen by rule, criteria; the aligned-drops merge measure).
+- `fc3bbf6`: `mixes --kind drops --aligned-drops` (each unrelated
+  double drop's two records reach their strongest drop at one mix time,
+  on the beat; `tempo::Structure`, `drops::line_up_drops`), and
+  `scripts/analysis/marked_features.py` with its tests. `check.sh`
+  green; both regressions identical.
+- 0215 (development, seeds 2026 and 2028) and 0216 (test, seeds 2032
+  and 2034): R1, "the marked play's file and its partner's share no
+  alignment of 60 hits or more by `pair`", prints every marked play of
+  a record playing under an unrelated partner (35 and 110 on the
+  development seeds, 25 and 101 on the test seeds, 262 tracks and NAS
+  scale) and lets in none of the shared-material plays (64, 102; 69,
+  117), with a wide margin (at most 17 hits against at least 93). It
+  prints almost no record inside its relative (0-3 of 6-19). R2
+  (position through the alignment) and R3 (hits outside the shared
+  spans) print those but let in 3-22 shared plays; F4 (the peak
+  verifier's share) reads the wrong way. Caveat: the shared class is
+  one relation, Clockwork's.
+- 0218: R1 leaves out all five marked plays of the development mixes'
+  NAS-scale reports (shared material by 0102 and 0107; files sharing
+  90-831 hits). By the registered criterion R1 is worth an ADR
+  proposal; the decision is ours.
+- 0217: lining up the drops merges 3 of 128 unrelated double drops at
+  262 tracks and 4 at NAS scale (tempo-only: 1 and 0), under the 5% bar;
+  a merge needs the two drops at about one place in their tracks too.
