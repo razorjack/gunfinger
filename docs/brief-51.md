@@ -122,3 +122,100 @@ Rules for this session:
   session 50's with the paths changed). The start build is
   byte-identical to `work/bin/s50-final/` (cargo had nothing to
   rebuild).
+- **(07:50) Step 1, the pre-registration** (committed before any run).
+
+  *Ladders.* L0, the default (82 rungs); L1, L2, L3 and L5, today's
+  `--extra-rungs 1, 2, 3, 5` (86, 90, 94, 102 rungs; the turntable and
+  key-locked ladders both extended, as `identify` searches both). A
+  targeted ladder T_k (the extra rungs searched only where the default
+  finds no confident line) is not built: it is estimated from the runs
+  (below), and a proposal could only be to build and measure it.
+
+  *Conditions.* The sweep panel of seed 2026 (`docs/panels/`, 60
+  indexed and 20 held-out 30 s excerpts), the default matcher, every
+  ladder:
+  - C1, the full index: the sweep's index (held-out recordings out,
+    every other file in, the excerpt's source among them) with the
+    excerpts played at the edge speeds ±8.4, ±8.8, ±9.2, ±9.6, ±10.0,
+    ±10.4, ±10.8, ±11.2 and ±12.0% (18 speeds, 1,440 queries; a new
+    harness option, `sweep --speeds edge`), at 262 tracks and at NAS
+    scale. The relative speed is the played speed at 262 tracks; at NAS
+    scale it is also given to the nearest indexed copy of the recording
+    (the clusters' pair speeds, as `relative_speed.py` computes them).
+  - C2, other copies only (NAS scale): `sweep --other-rips`, at the
+    sweep's 9 speeds and at the edge speeds (423 and 846 queries for
+    seed 2026, from 47 excerpts): the source and its identical copies
+    left out, so that only the copies the library holds can answer.
+    Relative speed to the nearest remaining copy, as in 0059. If time
+    allows after every other run: seeds 2027 and 2028 for L0, L3 and L5.
+  - C3, the standard protocol: `regress session-32-linux` and `regress
+    session-33-linux-nas` with each ladder in scratch work directories
+    (the sweep's 9 speeds, the Stakka development scan and its
+    leave-outs 3 and 11), what changes against the default, and
+    `calibrate` on those reports per ladder and scale. C1's and C2's
+    reports sit in other scratch directories, so calibrate reads only
+    C3's.
+  - C4, the cost: the Stakka development scan at both scales in the
+    palindromic order L0, L1, L2, L3, L5, L5, L3, L2, L1, L0 (A B B A
+    generalised), alone in its queue on the otherwise idle machine:
+    the scan report's `wall_seconds` (decode and search on 32 workers)
+    and the process's user + system CPU (`/usr/bin/time`; at NAS scale
+    it includes loading the saved index, the same for every ladder).
+  - C5, the real clusters: `cluster_speeds.py` with the ladder's reach
+    as a parameter, on the NAS clusters file: copies with no other copy
+    within reach (`alone`) and clusters holding a copy beyond reach of
+    another, for a deck at ±5% and ±8%, at each ladder's measured reach
+    R_k and at its nominal end (8 + 0.4k%); session 49's figures used
+    8.0%.
+
+  *Scores.* Per ladder: confident recall (an own-cluster confident
+  detection) and possible-or-better recall (own-cluster hits of 60 or
+  more, `MIN_POSSIBLE_HITS`) by played speed (C1) and by |relative
+  speed| bin: [0, 8), [8, 8.4), [8.4, 8.8), [8.8, 9.2), [9.2, 9.6),
+  [9.6, 10.0), [10.0, 10.4), [10.4, 10.8), [10.8, 11.2), [11.2, 12.4),
+  12.4 and above (C1 at NAS scale, C2); wrong confident answers (any
+  confident detection outside the own cluster, held-out queries
+  included) and wrong possible answers, with which are new against L0
+  (the same query and file not confident under L0); C3's changes and
+  calibrate's weakest identifying, strongest false candidate, margin
+  and possible-tier figures; C4's medians and ranges and the ratios to
+  L0; C5's counts. The measured reach R_k: the largest edge speed at
+  which C1 at 262 tracks keeps at least 57 of 60 (95%) confident at
+  both signs, at it and at every edge speed below it (R_0 = 8.0 if 8.4
+  already fails).
+
+  *The targeted estimate T_k* (derived, not run): for each query, L0's
+  answers if L0 has any confident detection, otherwise L_k's. Its cost
+  on the Stakka scan: CPU_0 + u × (CPU_k - CPU_0), with u the share of
+  the mix's time that no confident detection of the default scan covers;
+  an estimate, since a real targeted search also pays for finding the
+  uncovered windows and searches them at every extra rung.
+
+  *Criteria.* A wider ladder L_k is worth an ADR proposal (adoption
+  ours) only if all hold:
+  - (G1) R_k > R_0;
+  - (G2) in C2 (both speed sets of seed 2026 pooled), the queries with
+    |relative speed| in (R_0, R_k + 0.4]: L_k's confident recall is at
+    least 30 points above L0's, and within R_0 L_k recalls no fewer
+    queries than L0;
+  - (W) no new wrong confident answer in any run at either scale (C1,
+    C2, C3); calibrate's strongest false candidate at each scale at most
+    10% above L0's and its weakest identifying not lower; the
+    development scans (C3) keep the same confident plays;
+  - (C) on the NAS-scale Stakka scan, the median `wall_seconds` and
+    the median process CPU each within +15% of L0's.
+
+  Among the ladders that pass, the recommendation is the smallest k
+  whose reach brings at least 80% of session 49's 38 copies alone (deck
+  ±5%) back into reach; if none does, the passing ladder that brings
+  back most, with its cost stated. T_k is worth a proposal to build and
+  measure if, with the same k, it meets G1, G2 and W and its estimated
+  CPU is within +5% of L0's. If nothing passes, the recommendation is
+  no change, with the criterion that failed.
+
+  *Expected, declared now.* R_k about 8.4 + 0.4k% (0033: recall holds
+  0.4-0.6% past the last rung); CPU about +5% per extra rung pair (4
+  rungs per k), so L3 about +15% and L5 about +24%, against the bound
+  of 15%; at NAS scale some new wrong answers where extra rungs reach
+  copies or versions at other speeds (0059: China Cup's Prototype
+  upload, 16 wrong to 18 with L3).
