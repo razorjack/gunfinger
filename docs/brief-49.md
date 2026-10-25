@@ -217,3 +217,16 @@ alignments are looked at in step 1, so Falcon is declared seen).
   pooled leave-one-out errors decide. The drift pairs of (a) (Phoenix,
   Fractles, Coma ~ Spraycan) and Falcon are listed with every measure's
   values as an exploratory reading.
+- **(04:13) Step 3, the runs** (`work/s49/step3b.sh`, tmux `s49pairs`,
+  after `check.sh`): `pair --fine-rungs` on populations a-d (0:26, 0:40,
+  0:19, 0:22) and on the ten verdicts (0:13). Without their fine-rung
+  searches the four population reports are identical to session 40's.
+- **(04:14) The registered choice** (`work/s49/step4.sh dev`,
+  `work/s49/choice.json`), from the development populations only:
+  `drift_0.8_20` (W 0.8%, T 20 s), 3 leave-one-out errors on (a), AUC
+  (a) 0.989, threshold 0.8427 fitted on (a), and one (b) join below it.
+  Next by the order: `drift_0.8_10` and five others with 4 errors and no
+  (b) join below. The choice and its threshold are fixed now, before the
+  ten verdicts' values are computed. By the registered bar the chosen
+  measure already fails its third condition (no (b) join below its
+  threshold); the test is still run and scored as registered.
