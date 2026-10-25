@@ -5030,3 +5030,43 @@ and a reach argument for `cluster_speeds.py`.
 - Left for us: no wider ladder passes the registration; T1 (extra
   rungs only where nothing is confident, one pair) passes by estimate,
   as a variant to build and measure; whether to spend a session on it.
+
+## 2026-10-25: after session 51, the rest of session 40's pack
+
+- Items 4, 5, 7 and 9 of session 40's pack
+  (`work/s47/questions/05-pack-s40.json`) were heard on the listening
+  page. It added two lines to `docs/pair-verdicts.txt`:
+  - `same`: Rob F & Impulse - Fallout (the i-witness-dnb upload) ~
+    Sinthetix - Fallout (SLR001).
+  - `different`: Konflict - Pendulum ~ Paragliders - Share Of
+    Bitterness (Konflict Remix). By ear they share a lot of material,
+    the main sample and a similar drum loop among it.
+- Items 4 and 9 have no verdict: each pair holds a file that should not
+  be in the library. Comments verbatim in
+  `work/audition/listening-comments-2026-10-25b.md`.
+  - Item 4: `knowledge-the_lowdown_vol_7-track_fix-1999-sour/` is a
+    scene release that fixes tracks of a mixed CD (The Lowdown Vol 7,
+    mixed by Marky, already ignored), so its tracks are mixed too.
+  - Item 9: `Optical & Ryme Tyme - Space Cake [CUT].m4a` is cut from a
+    mix: it opens with Bacteria, then blends into Space Cake.
+- Both added to the NAS `.gunfingerignore` at the user's request (lines
+  57-65, with comments; the old file in `work/listening-2026-10-25b/`).
+  `doctor` with the NAS configuration: the folder pattern leaves out 3
+  audio files, the file pattern 1; 43 patterns leave out 622 files.
+- Not pruned: the NAS store still holds the 4 files' peak records
+  (40,679 current records), so `--other-peaks-dir` runs and the saved
+  index still search them until `gunfinger --config
+  ~/.config/gunfinger/nas-dnb.toml prune --yes`, which would also change
+  the NAS-scale baselines.
+- `clusters --from-peaks --reuse-pairs` with the new verdicts and the
+  ignore file: the same 284 clusters; 26 pair entries holding the 4
+  ignored files left out (2,903 to 2,877), the Known Unknown cluster
+  without the track-fix Drumtrip (Rollers Edit and Chaos Edit stay
+  together), and both new verdicts on their pair entries, each agreeing
+  with the clusters' decision. Clusters file `ac53014b8a87...` (was
+  `fdf7428a6322...`; both in `work/listening-2026-10-25b/`).
+- The i-witness-dnb channel holds 58 files named `[CUT]` (one more
+  under error-bat); whether they are all cuts from mixes is for the
+  user to judge.
+- With the new clusters file, `regress session-33-linux-nas` is identical
+  (3:50 with `work/bin/s51-final`).
