@@ -266,7 +266,7 @@ Rules for this session:
   by one query for every L_k (Siren Bass's upload near -8%) and holds for
   T_k; no new wrong confident answer in C1 or C2. Queue 3b starts after
   this commit.
-- **(09:24) Experiment 0227** (queue 3b, 08:53-09:18, every run exit 0):
+- **(09:19) Experiment 0227** (queue 3b, 08:53-09:18, every run exit 0):
   W fails for L2, L3 and L5 (and T2, T3, T5): one new wrong confident
   answer at NAS scale, the held-out Cool Rock Stuff excerpt at +5%
   against a bootleg that holds it, which the default already answers
@@ -275,3 +275,10 @@ Rules for this session:
   no wider ladder passes (G2's second clause, and W for k >= 2); T1 is
   the only candidate left, pending its estimated CPU (0228). Queue 3c
   starts after this commit, on the idle machine.
+- **(09:29) Experiment 0228** (queue 3c, 09:20-09:26, every run exit 0):
+  CPU follows the rungs (NAS scale ×1.046, ×1.094, ×1.141, ×1.229 for
+  L1, L2, L3, L5); C holds for L1-L3, fails for L5; T_k's estimate is
+  ×1.001-1.005. `work/s51/cpu-copy.sh` copied each scan report as its run
+  exited (the report is overwritten by the next run of the same ladder);
+  it stopped at the queue's last line before copying run 10's, which
+  was copied by hand at 09:27 (still the current file).

@@ -1,0 +1,256 @@
+{
+ "262": {
+  "L0": {
+   "runs": [
+    {
+     "cpu": 119.06,
+     "process_wall": 7.34,
+     "search_wall": 6.487169591
+    },
+    {
+     "cpu": 119.76,
+     "process_wall": 7.33,
+     "search_wall": 6.469845621
+    }
+   ],
+   "median": {
+    "cpu": 119.41,
+    "process_wall": 7.335,
+    "search_wall": 6.478507606
+   },
+   "ratio": {
+    "cpu": 1.0,
+    "process_wall": 1.0,
+    "search_wall": 1.0
+   },
+   "targeted_cpu_ratio": 1.0
+  },
+  "L1": {
+   "runs": [
+    {
+     "cpu": 124.25,
+     "process_wall": 7.5,
+     "search_wall": 6.615042688
+    },
+    {
+     "cpu": 124.93,
+     "process_wall": 7.54,
+     "search_wall": 6.67174345
+    }
+   ],
+   "median": {
+    "cpu": 124.59,
+    "process_wall": 7.52,
+    "search_wall": 6.643393069
+   },
+   "ratio": {
+    "cpu": 1.0433799514278537,
+    "process_wall": 1.0252215405589638,
+    "search_wall": 1.0254511490960192
+   },
+   "targeted_cpu_ratio": 1.0008632610334143
+  },
+  "L2": {
+   "runs": [
+    {
+     "cpu": 131.8,
+     "process_wall": 7.72,
+     "search_wall": 6.855691716
+    },
+    {
+     "cpu": 132.29999999999998,
+     "process_wall": 7.75,
+     "search_wall": 6.890096168
+    }
+   ],
+   "median": {
+    "cpu": 132.05,
+    "process_wall": 7.734999999999999,
+    "search_wall": 6.872893942
+   },
+   "ratio": {
+    "cpu": 1.105853781090361,
+    "process_wall": 1.0545330606680299,
+    "search_wall": 1.0608761091265437
+   },
+   "targeted_cpu_ratio": 1.0021064902436982
+  },
+  "L3": {
+   "runs": [
+    {
+     "cpu": 138.25,
+     "process_wall": 7.92,
+     "search_wall": 7.055208215
+    },
+    {
+     "cpu": 138.47,
+     "process_wall": 7.91,
+     "search_wall": 7.035562682
+    }
+   ],
+   "median": {
+    "cpu": 138.36,
+    "process_wall": 7.915,
+    "search_wall": 7.0453854485
+   },
+   "ratio": {
+    "cpu": 1.158696926555565,
+    "process_wall": 1.0790729379686435,
+    "search_wall": 1.0875013007586798
+   },
+   "targeted_cpu_ratio": 1.0031580688384558
+  },
+  "L5": {
+   "runs": [
+    {
+     "cpu": 149.80999999999997,
+     "process_wall": 8.3,
+     "search_wall": 7.438294678
+    },
+    {
+     "cpu": 149.95999999999998,
+     "process_wall": 8.33,
+     "search_wall": 7.463089655
+    }
+   ],
+   "median": {
+    "cpu": 149.885,
+    "process_wall": 8.315000000000001,
+    "search_wall": 7.4506921665
+   },
+   "ratio": {
+    "cpu": 1.2552131312285404,
+    "process_wall": 1.1336059986366738,
+    "search_wall": 1.1500630422351625
+   },
+   "targeted_cpu_ratio": 1.005078741311448
+  }
+ },
+ "nas": {
+  "L0": {
+   "runs": [
+    {
+     "cpu": 663.93,
+     "process_wall": 27.15,
+     "search_wall": 23.895747668
+    },
+    {
+     "cpu": 670.46,
+     "process_wall": 27.36,
+     "search_wall": 24.063885487
+    }
+   ],
+   "median": {
+    "cpu": 667.1949999999999,
+    "process_wall": 27.255,
+    "search_wall": 23.9798165775
+   },
+   "ratio": {
+    "cpu": 1.0,
+    "process_wall": 1.0,
+    "search_wall": 1.0
+   },
+   "targeted_cpu_ratio": 1.0
+  },
+  "L1": {
+   "runs": [
+    {
+     "cpu": 696.5,
+     "process_wall": 28.47,
+     "search_wall": 25.190325777
+    },
+    {
+     "cpu": 699.3000000000001,
+     "process_wall": 28.27,
+     "search_wall": 25.003327171
+    }
+   ],
+   "median": {
+    "cpu": 697.9000000000001,
+    "process_wall": 28.369999999999997,
+    "search_wall": 25.096826474
+   },
+   "ratio": {
+    "cpu": 1.0460210283350446,
+    "process_wall": 1.040909924784443,
+    "search_wall": 1.0465812527335208
+   },
+   "targeted_cpu_ratio": 1.0009158184638673
+  },
+  "L2": {
+   "runs": [
+    {
+     "cpu": 728.67,
+     "process_wall": 29.21,
+     "search_wall": 25.915481836
+    },
+    {
+     "cpu": 730.8699999999999,
+     "process_wall": 29.29,
+     "search_wall": 26.001123697
+    }
+   ],
+   "median": {
+    "cpu": 729.77,
+    "process_wall": 29.25,
+    "search_wall": 25.9583027665
+   },
+   "ratio": {
+    "cpu": 1.0937881728729981,
+    "process_wall": 1.0731975784259769,
+    "search_wall": 1.0825063103633743
+   },
+   "targeted_cpu_ratio": 1.0018663846401727
+  },
+  "L3": {
+   "runs": [
+    {
+     "cpu": 760.62,
+     "process_wall": 30.23,
+     "search_wall": 26.923042472
+    },
+    {
+     "cpu": 762.25,
+     "process_wall": 30.37,
+     "search_wall": 27.085710932
+    }
+   ],
+   "median": {
+    "cpu": 761.435,
+    "process_wall": 30.3,
+    "search_wall": 27.004376702000002
+   },
+   "ratio": {
+    "cpu": 1.1412480609117275,
+    "process_wall": 1.111722619702807,
+    "search_wall": 1.1261294103199235
+   },
+   "targeted_cpu_ratio": 1.0028108364121433
+  },
+  "L5": {
+   "runs": [
+    {
+     "cpu": 819.54,
+     "process_wall": 32.13,
+     "search_wall": 28.833800273
+    },
+    {
+     "cpu": 819.8100000000001,
+     "process_wall": 32.13,
+     "search_wall": 28.840726389
+    }
+   ],
+   "median": {
+    "cpu": 819.675,
+    "process_wall": 32.13,
+    "search_wall": 28.837263331000003
+   },
+   "ratio": {
+    "cpu": 1.228538882935274,
+    "process_wall": 1.1788662630709963,
+    "search_wall": 1.2025639661505039
+   },
+   "targeted_cpu_ratio": 1.004547923770412
+  }
+ }
+}
