@@ -10427,3 +10427,174 @@ measured again).
   unchanged. `s46-final` (before the review's comment and test fixes)
   had passed the full validation (00:29-00:42): both regressions, the
   11 development scans at both scales and the clusters sample.
+
+## Session 47
+
+### What changed
+
+The listening page can play an aligned lane without following every
+alignment. Gunfinger itself did not change: the CLI binary is
+byte-identical to the start build's, and both regressions are
+identical.
+
+- **`O` (or the button after the transport line)** goes through up to
+  three placements of the aligned lanes, and back:
+  - *placed by every alignment* (the default, as before): where the
+    main alignment ends, the strongest other alignment covering the
+    next stretch takes over;
+  - *placed by the main alignment throughout*: one offset and speed,
+    those of the alignment with the most hits, over the whole
+    timeline, so two rips of one recording play the same moment end to
+    end;
+  - *placed from the files' starts*: the lane's file from its start at
+    the main alignment's speed, with no offset.
+
+  Every question opens with the first, as it opens with speed matching
+  on; the button names the placement in force, a re-placed lane's label
+  says "main alignment throughout" or "from its start", and its info
+  line shows the playing piece's offset, speed and label. Lane A (the
+  reference) never moves, so the playhead's time is A's in every
+  placement. Markers and shading still show the alignments. An
+  answer's record is the same in every placement. On a question with
+  one placement (folders, detections, a pair with no alignment) the
+  button is hidden and `O` says so.
+- **The question format** gained two optional lane fields, `main` and
+  `from_start` (lists of pieces under the rules of `pieces`;
+  `docs/audition-questions.md`, "Other placements"). The producers
+  compute them (`placement::aligned_lane`, `throughout`, `from_start`,
+  `main`), so the page still only evaluates `offset + speed × t` and
+  picks a list. `questions pack` writes them for lane B and the plan's
+  extra lanes, `questions shared` for lane B. Files without them load
+  as before; files with them do not load in older builds.
+  `schema::CONTROL_KEYS` gained `o` (no producer or loaded file uses it
+  for an answer).
+- **`listening_pack.py render`** resolves `--corpus` and `--nas` to
+  absolute paths, so `questions pack` accepts the sheets of a render
+  run with `--corpus corpus/library` (it refused them on 2026-10-22 and
+  2026-10-25).
+
+### Why two rips were placed minutes apart (brief 47, 02:04)
+
+In session 40's pack (`work/audition/questions/05-pack-s40.json`) lane B
+has a piece more than 10 s from the main alignment's offset in 5 of 14
+questions: Dead Air (alignment 2 at -235.2 s against +0.4 s, A
+5:20-6:27; answered `same`), Alien Girl (alignments 4-7 at -175.5 to
+-340.7 s against -0.2 s, A 4:50-7:02; `same`), Fallout (-11.9 s at A
+2:10-2:30 and -300.3 s at A 6:30-6:52; no answer yet), Tower Bass
+(-59.6 s against -81.8 s, A 0:59-1:30; `different`) and the Klute VIP
+(-132.4 s and -21.9 s against +0.4 s, A 5:10-7:28; `different`). None is
+90 s away. `placement::tile` lets each moment follow the strongest
+alignment covering it; in the two `same` pairs the main alignment ends
+although B under it still has audio to A's end, and an alignment of the
+outro against a section of B that repeats it (361 and 155-233 hits, above
+the 60 of a possible play) takes over. Why the `pair` search's main
+alignment ends there was not settled; by inference the repeated
+material matches at both offsets and the repeat's line is the denser in
+those windows.
+
+### Checked by hand
+
+Headless Chrome over the DevTools protocol (`work/s47/cdp/check.mjs`,
+uncommitted; Node's own WebSocket) against a scratch server on the
+question file made again, with `--answers` and `--verdicts` on copies in
+`work/s47/scratch/`. Dead Air, lane 2, playing from A 5:38: in each
+placement the page's file time for B equalled the one computed from the
+question's pieces (91.6 s under alignment 2, 330.0 s under the main
+alignment, 332.4 s from the start), the sources played at the piece's
+speed (0.9601, 0.9594; 1 with `M` off, when the playhead moved 3.13 s in
+3 s, B's own clock), and the windows fetched for B were those of the
+new file times (11 and 12 after the first `O`). Brief 47's table has
+the numbers; `work/s47/cdp/check.json` and two screenshots the rest.
+No answer was sent.
+
+### Decided this session, open to change
+
+- The placement applies per question and resets when a question opens
+  (conservative: no placement carries into the next pair unnoticed).
+  For the session instead, keep `this.placement` across
+  `Player.open`.
+- The main alignment is the one with the most hits, the first of
+  equals; the pack's sheets list alignments by hits, so it is always
+  alignment 1 there.
+- "From the start" means file time 0 at the timeline's start; for a
+  pair that is A's start.
+- `questions detections` and `folders` write no other placements.
+- The user's `work/audition/questions/05-pack-s40.json` is left alone;
+  the file made again is `work/s47/questions/05-pack-s40.json`, the
+  same apart from the two fields and `made_by`'s `--out`.
+
+### Questions for listening (none answered by agents)
+
+- Session 40's pack items 4 (Known Unknown's Rollers Edit), 5
+  (Fallout), 7 (Konflict - Pendulum ~ the Paragliders remix) and 9
+  (Bacteria ~ Space Cake); session 39's three questions, Star Trails,
+  Into Music (unchanged).
+- Worth hearing with `O`: Dead Air and Alien Girl, answered `same` while
+  lane B jumped, to confirm the verdicts under the main alignment
+  throughout (an answer again with the same verdict is logged without a
+  second verdict line; another answer is refused while the verdict
+  stands).
+
+### Handoff for the next session
+
+1. The next listening, with the pending items, from the repository
+   (stop a running `audition` on the same answer log first; a second
+   one says so and exits):
+
+   ```sh
+   work/bin/s47-final/gunfinger-eval audition work/s47/questions/05-pack-s40.json
+   ```
+
+   It loads session 40's pack only and opens item 4, the first without
+   an answer. To have the new file in the default queue instead, copy
+   it over the old one (the ids are the same, so the answers stay
+   attached), or make it again in place:
+
+   ```sh
+   work/bin/s47-final/gunfinger-eval questions pack --pack work/listening-s40 --pair-report work/s40/pack/pairs-report.json --second-library-root /mnt/atlas/Music/dnb --out work/audition/questions/05-pack-s40.json
+   ```
+
+   `01-pack.json` (2026-10-22) can be made again the same way from its
+   pack, if wanted; without it, it plays with one placement.
+2. Builds: `work/bin/s47-start/` (`dc4f7dc`), `s47-run/` (the change,
+   used for the check by hand), `s47-final/` (master). Scripts:
+   `work/s47/start.sh`, `final.sh`, `run.sh`, `same.py`,
+   `compare-questions.py`; the check `work/s47/cdp/check.mjs`
+   (`node check.mjs URL DEVTOOLS_PORT OUTDIR`, Chrome started with
+   `--headless=new --remote-debugging-port=PORT
+   --autoplay-policy=no-user-gesture-required`).
+3. If the cause in the pair search matters later (a measure of where
+   two recordings stop lining up, session 40's 0186-0187): the main
+   alignment's end in Dead Air (A 5:19.9) and Alien Girl (A 4:49.8)
+   while both files go on.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched; the only
+  searches were those of `regress`. Nothing ran on the candidate mixes
+  of 0065 or on the NAS root's broadcast file. The NAS was only read
+  (the page's windows of the Dead Air pair's two files, decoded by the
+  scratch server); the NAS store and `work/peaks` only read.
+- `docs/pair-verdicts.txt`, `work/audition/answers.jsonl` and the
+  clusters file are at their start digests
+  (`work/s47/listening-digests-start.txt`). The scratch server answered
+  into copies in `work/s47/scratch/`, and no answer was sent: both
+  copies are unchanged too. No manifest or committed panel changed. The
+  user's question files in `work/audition/questions/` are untouched.
+- A read-only review by a separate agent (02:18-02:25) found no defect
+  in the page or the Rust code and three in the documents (README's key
+  table without `O`; item 11's far-piece span; the pair example's pieces
+  outside its clipped file), and suggested tests; all taken (brief 47,
+  02:25, `2c40547`).
+- The brief's time stamps from 02:07 on were first written ahead of
+  the clock and corrected from the files' and commits' times (brief 47,
+  02:26).
+- Final checks (02:25-02:34) with `work/bin/s47-final/` (built from
+  `2c40547`; its `gunfinger` byte-identical to the start build's):
+  `scripts/check.sh` green (3:47; Node 14 tests, the Python tests
+  included); `regress session-32-linux` (0:50) and `regress
+  session-33-linux-nas` (3:45) identical, every report identical to its
+  baseline apart from `wall_seconds`; `work/s47/questions/05-pack-s40.json`
+  made again with the final build, the same as the user's file apart
+  from the two fields and `made_by`.

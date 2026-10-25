@@ -4831,3 +4831,35 @@ stored peaks are unchanged; the analysis is faster.
   their material.
 - With the new clusters file, `regress session-33-linux-nas` is identical
   (4:07 with `work/bin/s45-final`).
+
+## 2026-10-25: session 47, lane alignment that can be turned off
+
+Brief `docs/brief-47.md`, checklist `docs/session-47-checklist.md`;
+notes "Session 47". No experiment. Gunfinger itself is unchanged (the
+CLI binary is byte-identical to the start build's); the listening page
+and the pack script changed.
+
+- 02:00 start at `dc4f7dc`, clean. Start build `work/bin/s47-start/`;
+  both regressions identical (0:50; 3:45).
+- Step 1: in session 40's pack, 5 of 14 questions placed lane B more
+  than 10 s from its main alignment somewhere; two of them were
+  answered `same` (Dead Air, Alien Girl), where the outro followed an
+  alignment to a section of B that repeats it, minutes earlier.
+- `a2d4f5f`: `O` (or the button after the transport line) places the
+  aligned lanes by every alignment (the default), by the main alignment
+  throughout, or from their files' starts at its speed; per question.
+  Lanes gain the optional `main` and `from_start`, written by
+  `questions pack` and `questions shared`. Checked in headless Chrome
+  against a scratch server: B's file times, rates, windows and the
+  playhead right in each placement, with `M` on and off.
+- `e4bb17d`: `listening_pack.py render` writes absolute paths for a
+  relative `--corpus` or `--nas`.
+- Session 40's question file made again with the new fields:
+  `work/s47/questions/05-pack-s40.json` (the user's copy untouched).
+- A read-only review found three documentation defects and suggested
+  tests; all taken (`2c40547`).
+- Final checks with `work/bin/s47-final/`: `scripts/check.sh` green;
+  both regressions identical (0:50; 3:45); the verdicts file, the
+  answer log and the clusters file at their start digests.
+- Next listening (pending items 4, 5, 7 and 9 of session 40's pack):
+  `work/bin/s47-final/gunfinger-eval audition work/s47/questions/05-pack-s40.json`.

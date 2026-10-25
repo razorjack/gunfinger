@@ -25,6 +25,6 @@ for scope and rules.
   with a test
 - [x] 5. ADR 0016, `docs/audition-questions.md`, the page's help
 - [x] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 47", status, checklist; final checks
+- [x] 7. Wrap-up: notes "Session 47", status, checklist; final checks
   (`scripts/check.sh`, both regressions, verdicts, answer log and
   clusters digests, `git status` clean)

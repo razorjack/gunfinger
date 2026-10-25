@@ -115,7 +115,7 @@ Rules for this session:
 - **(02:02) Start build and regressions** (`work/s47/start.sh`, tmux
   `s47start`, logs in `work/s47/logs/`; `run.sh` and `same.py` are
   session 46's with the paths changed).
-- **(02:10) Step 1: the far pieces of session 40's pack.** In
+- **(02:04) Step 1: the far pieces of session 40's pack.** In
   `05-pack-s40.json` lane B has a piece whose offset lies more than
   10 s from the main alignment's (the one with the most hits) in 5 of
   the 14 questions:
@@ -150,7 +150,7 @@ Rules for this session:
 
 ## Step 2: the design
 
-(The decisions at 02:20 and 02:31 below change two details: the state
+(The decisions at 02:09 and 02:12 below change two details: the state
 shows on a button after the transport line, not in it, and a lane's
 label reads "2 · B · main alignment throughout".)
 
@@ -245,14 +245,14 @@ directory render ran from). Its default paths are already absolute.
 - **(02:07) Start regressions identical** (`regress session-32-linux`
   0:50, `regress session-33-linux-nas` 3:45; all 8 reports identical
   to their baselines apart from `wall_seconds`).
-- **(02:20) A visible control beside the key**: a button after the
+- **(02:07) `Lane::new`** for lanes with one placement, so the
+  producers that write neither field (detections, folders, lane A)
+  name only what they set.
+- **(02:09) A visible control beside the key**: a button after the
   transport line ("O · placed by every alignment"), hidden on
   questions with one placement; a click does what `O` does. The
   transport line itself is unchanged.
-- **(02:25) `Lane::new`** for lanes with one placement, so the
-  producers that write neither field (detections, folders, lane A)
-  name only what they set.
-- **(02:30) The check by hand** (`work/s47/cdp/check.mjs`, uncommitted:
+- **(02:11) The check by hand** (`work/s47/cdp/check.mjs`, uncommitted:
   headless Chrome over the DevTools protocol with Node's own
   WebSocket, against a scratch server on `work/s47/questions/05-pack-s40.json`
   with `--answers` and `--verdicts` on copies in `work/s47/scratch/`;
@@ -272,16 +272,16 @@ directory render ran from). Its default paths are already absolute.
   playhead follows B's own clock then. The lane label, its info line
   (file time, offset, speed, piece label) and the button showed each
   state; the clock stayed A's time. No answer was sent.
-- **(02:31) Wording**: the scratch check showed "placed by from the
+- **(02:12) Wording**: the scratch check showed "placed by from the
   file's start"; the page now names the lanes' placement ("placed by
   every alignment", "placed by the main alignment throughout", "placed
   from the files' starts") apart from a re-placed lane's label ("main
   alignment throughout", "from its start").
-- **(02:33) Step 4** done as designed: `library_roots` in
+- **(02:13) Step 4** done as designed: `library_roots` in
   `listening_pack.py`, two tests in `test_listening_pack.py`.
-- **(02:35) `scripts/check.sh` green** (3:57) after `cargo fmt`; the
+- **(02:16) `scripts/check.sh` green** (3:57) after `cargo fmt`; the
   first run stopped at the format check.
-- **(02:47) The review** (a read-only agent, 02:38-02:45) found no
+- **(02:25) The review** (a read-only agent, 02:18-02:25) found no
   defect in the page or the Rust code and three in the documents:
   README's key table lacked `O`; item 11's far piece is A 5:10-6:10,
   not alignment 3's own span 5:10-5:40; the pair example in
@@ -294,3 +294,6 @@ directory render ran from). Its default paths are already absolute.
   `main`, an extra lane's placements, a lane without the placement
   beside one with it, a change while paused and in the blend, and the
   control letters read from `schema.rs`; the `Listed` test committed.
+- **(02:26) Time stamps corrected**: the entries from 02:07 on were
+  first written with times 2-22 minutes ahead of the clock; they now
+  follow the files' and commits' times.
