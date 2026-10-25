@@ -4776,3 +4776,58 @@ stored peaks are unchanged; the analysis is faster.
 - A read-only review found the picker exact on every input and profile
   it examined; its 21 points (two test gaps, comments, figures, stamps)
   were fixed.
+
+## 2026-10-25: after session 46, the listening of session 40's pack
+
+- Session 40's pack (`work/listening-s40/`, the same 14 items as
+  `work/s40/pack/` rendered with absolute paths; question file
+  `work/audition/questions/05-pack-s40.json`) was answered on the
+  listening page (00:29-00:49 UTC, answer log records 7-22). The first
+  two answers (Dead Air, Pyro) were taken back with three undos at the
+  user's request (records 10-12) and answered again. The page added ten
+  lines to `docs/pair-verdicts.txt`; items 4 (Known Unknown's Rollers
+  Edit), 5 (Fallout), 7 (Konflict - Pendulum ~ the Paragliders remix)
+  and 9 (Bacteria ~ Space Cake) have no answer yet.
+  - `same`: Dead Air ~ the RH 66 upload, Pyro - Time Is Broken's two
+    rips, Alien Girl ~ the PRO014 rip, Falcon - The Stand (HD Audio &
+    Speed Up) ~ the CITRUS 003 upload, and both control joins (Mudslide,
+    Psyke).
+  - `different`: Known Unknown - Drumtrip ~ DJ Dazee & Substance -
+    Propaganda, the two Tower Bass mixes, Klute - We R The Ones VIP ~
+    the Klute Remix, Wikki Wikki Plate ~ Defjammer.
+- The comments by ear, verbatim in
+  `work/audition/listening-comments-2026-10-25.md`:
+  - Falcon - The Stand: the same recording in two rips; one has a longer
+    silence at its end, and the user's reading is that speed matching
+    over the whole file is why the two drift apart, and that cut at the
+    music's end they would match. The harness fits speed from aligned
+    hits, not from file lengths, so whether trailing silence can move
+    the fit is to check (session 40's 0187 put this pair among the
+    drifting uploads every measure gets wrong).
+  - Tower Bass (Millennium Mix) ~ `a - aphrodite - tower bass.mp3`: the
+    same tune in another mix, with a slightly different bass and
+    different hi-hats.
+  - We R The Ones VIP ~ the Klute Remix: the same main drum loop and
+    details, a different feel and a different lead melody.
+  - Wikki Wikki Plate ~ Defjammer: Aphrodite used one drum loop for two
+    different tracks; the loop dominates both, the bass, melody and
+    details differ.
+  - The listening tool: lanes are aligned at the pair's fitted offset by
+    default; for two rips of one recording it sometimes aligns them 90 s
+    apart, so the lanes play different parts of the arrangement (one
+    without hi-hats, one with) and a true `same` sounds like an
+    arrangement mismatch. Wanted: a way to turn the alignment offset
+    off.
+- `clusters --from-peaks --reuse-pairs` with the new verdicts: the same
+  284 clusters, no cut; only 12 pair entries gain `aural_verdict`
+  (clusters file `fdf7428a6322...`, was `d9c85c4586ad...`; both in
+  `work/listening-2026-10-25/`). Every verdict agrees with the clusters'
+  decision, and with session 40's `near_10` threshold (no item lay
+  across it).
+- What they imply: two more pairs where one drum loop dominates
+  different recordings (Wikki Wikki ~ Defjammer, the Klute VIP ~ remix),
+  the case of the roadmap's "The filter and famous breaks"; the Aphrodite
+  family now holds four judged pairs of different mixes sharing most of
+  their material.
+- With the new clusters file, `regress session-33-linux-nas` is identical
+  (4:07 with `work/bin/s45-final`).
