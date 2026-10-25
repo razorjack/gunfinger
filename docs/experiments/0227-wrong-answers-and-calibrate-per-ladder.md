@@ -1,6 +1,6 @@
 # 0227: wrong answers and calibrate per ladder, at 262 tracks and NAS scale
 
-**Question** (`docs/brief-51.md`, 07:50, C3, criterion W). What do 1-5
+**Question** (`docs/brief-51.md`, 07:43, C3, criterion W). What do 1-5
 extra rungs change in the standard protocol? **Method.** `regress session-32-linux` and `regress session-33-linux-nas`
 with `--extra-rungs k` (k = 0, 1, 2, 3, 5) in scratch work directories
 (the sweep of seed 2026 at its 9 speeds, the Stakka scan and leave-outs

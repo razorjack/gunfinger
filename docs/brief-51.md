@@ -124,7 +124,7 @@ Rules for this session:
   rebuild). `regress session-32-linux` (0:50) and `regress
   session-33-linux-nas` (3:52, 5.3 GiB peak) identical: every report
   identical to its baseline's apart from `wall_seconds`.
-- **(07:50) Step 1, the pre-registration** (committed before any run).
+- **(07:43) Step 1, the pre-registration** (committed before any run).
 
   *Ladders.* L0, the default (82 rungs); L1, L2, L3 and L5, today's
   `--extra-rungs 1, 2, 3, 5` (86, 90, 94, 102 rungs; the turntable and
@@ -275,7 +275,7 @@ Rules for this session:
   no wider ladder passes (G2's second clause, and W for k >= 2); T1 is
   the only candidate left, pending its estimated CPU (0228). Queue 3c
   starts after this commit, on the idle machine.
-- **(09:29) Experiment 0228** (queue 3c, 09:20-09:26, every run exit 0):
+- **(09:27) Experiment 0228** (queue 3c, 09:20-09:26, every run exit 0):
   CPU follows the rungs (NAS scale ×1.046, ×1.094, ×1.141, ×1.229 for
   L1, L2, L3, L5); C holds for L1-L3, fails for L5; T_k's estimate is
   ×1.001-1.005. `work/s51/cpu-copy.sh` copied each scan report as its run
@@ -288,7 +288,12 @@ Rules for this session:
   ladder passes; T1 passes (G1, G2, W, its estimated CPU) and brings 19
   of 38 back (50%), so it is the only ladder the registration lets us
   propose, as one to build and measure.
-- **(09:29) Seeds 2027 and 2028** (registered for L0, L3 and L5 if time
+- **(09:28) Seeds 2027 and 2028** (registered for L0, L3 and L5 if time
   allowed; queue 3d, tmux `s51seeds`): C2 at both speed sets. L1 is
   added, decided after 0226-0229 (T1 is the one ladder left), so its
   result there is reported as exploratory. Experiment 0230.
+- **(09:30) Stamps corrected.** The pre-registration's stamp was written
+  as 07:50 and its commit (`8efe293`) is at 07:43; 0228's as 09:29 and
+  its commit at 09:27. Both now give the commit's time, here and in the
+  experiments that cite the registration; the registration's text is
+  unchanged since `8efe293`.

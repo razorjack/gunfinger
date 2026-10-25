@@ -1,6 +1,6 @@
 # 0228: search cost per ladder on the Stakka scan
 
-**Question** (`docs/brief-51.md`, 07:50, C4 and criterion C). What do 1-5
+**Question** (`docs/brief-51.md`, 07:43, C4 and criterion C). What do 1-5
 extra rungs cost today, after sessions 36-46 made the search cheaper?
 **Method.** `scan stakka-skynet-knowledge --extra-rungs k` (the
 default matcher, 32 workers) at 262 tracks and NAS scale (the saved

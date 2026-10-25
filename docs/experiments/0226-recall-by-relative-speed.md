@@ -1,6 +1,6 @@
 # 0226: recall by relative speed for ladders with 0-5 extra rungs
 
-**Question** (`docs/brief-51.md`, 07:50). How far does each ladder reach
+**Question** (`docs/brief-51.md`, 07:43). How far does each ladder reach
 against the full index and against only the other copies the NAS library
 holds, and what does it add in wrong answers? **Method.** Seed 2026's sweep panel, default matcher, `--extra-rungs k`
 for L0 (82 rungs), L1, L2, L3, L5 (86-102). C1 `sweep --speeds edge`

@@ -1,6 +1,6 @@
 # 0229: the NAS clusters' copies each ladder brings into reach
 
-**Question** (`docs/brief-51.md`, 07:50, C5). Session 49 counted, with
+**Question** (`docs/brief-51.md`, 07:43, C5). Session 49 counted, with
 the ladder taken as ±8.0%, the NAS clusters' copies that a play at a
 deck's extreme leaves with no other copy in reach. How many does each
 ladder's measured reach bring back?
