@@ -18,11 +18,11 @@ for scope and rules.
 - [x] 1. Pre-registration (conditions, ladders, scores, criteria),
   committed before any run
 - [x] 2. The harness, tested, only if needed; `regress` identical
-- [~] 3. The runs: 262 tracks and NAS scale; CPU in palindromic order on
+- [x] 3. The runs: 262 tracks and NAS scale; CPU in palindromic order on
   the idle machine
-- [ ] 4. Experiments: recall by relative speed; wrong answers and
+- [x] 4. Experiments 0226-0230: recall by relative speed; wrong answers and
   calibrate; CPU; the real clusters
-- [ ] 5. Decision note `docs/research/2026-10-25-ladder-edge-decision.md`
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [x] 5. Decision note `docs/research/2026-10-25-ladder-edge-decision.md`
+- [~] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 51", status, checklist, roadmap; final
   checks

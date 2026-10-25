@@ -4989,3 +4989,38 @@ first-pass candidate trace and shared hashes.
 - Left for us: whether to rank by distinct files at all (no failure asks
   for it); a famous break held by many records; whether the second pass
   should measure beyond the first-pass chain's span.
+
+## 2026-10-25: session 51, the edge of the ladder, measured for a decision
+
+Brief `docs/brief-51.md`, checklist `docs/session-51-checklist.md`;
+notes "Session 51"; experiments 0226-0230; the decision note
+`docs/research/2026-10-25-ladder-edge-decision.md`. Gunfinger itself is
+unchanged (the CLI binary is byte-identical to the start build's); the
+harness gained `sweep --speeds edge` and the scripts `ladder_edge.py`
+and a reach argument for `cluster_speeds.py`.
+
+- 07:36 start at `af5e7e5`, clean. Start build `work/bin/s51-start/`;
+  both regressions identical (0:50; 3:52).
+- 07:43 pre-registration (`8efe293`): ladders L0 (82 rungs) and
+  `--extra-rungs` 1, 2, 3, 5; C1 the full index at 18 edge speeds, C2
+  other copies only, C3 the standard protocol and calibrate, C4 CPU in
+  palindromic order, C5 the clusters; criteria G1, G2, W, C and the
+  targeted estimate T_k.
+- `f85505a`: `sweep --speeds edge`, `ladder_edge.py`; `check.sh` green,
+  both regressions identical.
+- 0226: each extra rung pair moves the reach 0.4% (8.4 to 10.4%) at
+  both scales and against other copies; within 8.4% every wider ladder
+  loses one query (Siren Bass, its fit pulled 0.1% off).
+- 0227: calibrate and the development scans unchanged; from two extra
+  rung pairs one new wrong confident answer at NAS scale (a bootleg
+  judged a different mix, reached at one more speed).
+- 0228: CPU follows the rungs: ×1.046 to ×1.229 at NAS scale; three
+  pairs +14%, as in 0033.
+- 0229: for a deck at ±5%, copies with no other copy in reach fall from
+  29 at today's reach to 19, 7, 3, 1.
+- 0230: seeds 2027 and 2028 confirm the gains and no loss within 8.4%;
+  China Cup's Prototype upload (judged different) gains wrong answers
+  under L3 and L5.
+- Left for us: no wider ladder passes the registration; T1 (extra
+  rungs only where nothing is confident, one pair) passes by estimate,
+  as a variant to build and measure; whether to spend a session on it.
