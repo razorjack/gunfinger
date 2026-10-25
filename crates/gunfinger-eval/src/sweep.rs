@@ -32,6 +32,13 @@ use crate::rng::Rng;
 use crate::verifier::{Verification, Verifier};
 
 pub const SPEEDS_PERCENT: [f64; 9] = [-8.0, -5.0, -3.0, -1.0, 0.0, 1.0, 3.0, 5.0, 8.0];
+/// Speeds at and past the ladder's ends, a rung (0.4%) apart up to 11.2%:
+/// the ends of the ladders with 1, 2, 3 and 5 extra rungs among them
+/// (session 51).
+pub const EDGE_SPEEDS_PERCENT: [f64; 18] = [
+    -12.0, -11.2, -10.8, -10.4, -10.0, -9.6, -9.2, -8.8, -8.4, 8.4, 8.8, 9.2, 9.6, 10.0, 10.4,
+    10.8, 11.2, 12.0,
+];
 const HELD_OUT_SHARE: f64 = 0.2;
 const INDEXED_EXCERPTS: usize = 60;
 const HELD_OUT_EXCERPTS: usize = 20;
@@ -228,7 +235,26 @@ pub struct Options<'a> {
     /// Set the fullest lists aside ranked by distinct holders instead of
     /// postings; `None` for the matcher's own index.
     pub ranking: Option<Ranking>,
+    pub speeds: Speeds,
     pub jobs: usize,
+}
+
+/// The speeds the excerpts are played at.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum)]
+pub enum Speeds {
+    /// The sweep's own, within the ladder (`SPEEDS_PERCENT`).
+    Sweep,
+    /// At and past the ladder's ends (`EDGE_SPEEDS_PERCENT`).
+    Edge,
+}
+
+impl Speeds {
+    pub fn percents(self) -> &'static [f64] {
+        match self {
+            Speeds::Sweep => &SPEEDS_PERCENT,
+            Speeds::Edge => &EDGE_SPEEDS_PERCENT,
+        }
+    }
 }
 
 /// Whether the sweep keeps the first pass's candidates (session 50).
@@ -255,8 +281,10 @@ pub fn run(
         other_rips,
         trace,
         ranking,
+        speeds,
         jobs,
     } = *options;
+    let speeds = speeds.percents();
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
@@ -274,10 +302,10 @@ pub fn run(
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let source = |draw: &Draw| library.root.join(&draw.asset);
     let renders: Vec<(&Draw, f64, PathBuf)> =
-        render_all(source, draws.iter().enumerate(), &dir, jobs)?
+        render_all(source, draws.iter().enumerate(), speeds, &dir, jobs)?
             .into_iter()
             .enumerate()
-            .filter(|(render, _)| searched_draws.contains(&(render / SPEEDS_PERCENT.len())))
+            .filter(|(render, _)| searched_draws.contains(&(render / speeds.len())))
             .map(|(_, render)| render)
             .collect();
 
@@ -321,7 +349,7 @@ pub fn run(
         seed,
         held_out_clusters: clusters_held_out(clusters, &held_out),
         indexed_assets: index.assets().len(),
-        per_speed: SPEEDS_PERCENT
+        per_speed: speeds
             .iter()
             .map(|&speed| speed_row(speed, &queries))
             .collect(),
@@ -440,19 +468,24 @@ fn draw_excerpts(records: &[PeakRecord], held_out: &BTreeSet<String>, rng: &mut 
     draws
 }
 
-/// Renders every excerpt at every speed on `jobs` threads, from the file
-/// `source` gives each draw, reusing files from an earlier run with the
-/// same seed.
+/// Renders every excerpt at every speed of `speeds` on `jobs` threads,
+/// from the file `source` gives each draw, reusing files from an earlier
+/// run with the same seed.
 pub fn render_all<'d>(
     source: impl Fn(&Draw) -> PathBuf + Sync,
     draws: impl Iterator<Item = (usize, &'d Draw)>,
+    speeds: &[f64],
     dir: &Path,
     jobs: usize,
 ) -> Result<Vec<(&'d Draw, f64, PathBuf)>, String> {
     let work: Vec<(&Draw, f64, PathBuf)> = draws
         .flat_map(|(number, draw)| {
-            SPEEDS_PERCENT.iter().map(move |&speed| {
-                let name = format!("{number:03}-{speed:+.0}.{}", Encoding::Mp3(128).extension());
+            speeds.iter().map(move |&speed| {
+                let name = format!(
+                    "{number:03}-{}.{}",
+                    speed_name(speed),
+                    Encoding::Mp3(128).extension()
+                );
                 (draw, speed, dir.join(name))
             })
         })
@@ -478,6 +511,16 @@ pub fn render_all<'d>(
     match failures.first() {
         Some(failure) => Err(failure.clone()),
         None => Ok(work),
+    }
+}
+
+/// A speed in a render's name: whole percents as the sweep has always
+/// named them (`+3`), others to a tenth (`+8.4`).
+fn speed_name(speed_percent: f64) -> String {
+    if speed_percent.fract() == 0.0 {
+        format!("{speed_percent:+.0}")
+    } else {
+        format!("{speed_percent:+.1}")
     }
 }
 
@@ -554,8 +597,8 @@ pub fn print_summary(report: &SweepReport) {
     );
     for row in &report.per_speed {
         println!(
-            "{:>+6.0}% {:>4}/{:<3} {:>7.1}% {:>6} {:>11.3}% {:>10.3}%",
-            row.speed_percent,
+            "{:>6}% {:>4}/{:<3} {:>7.1}% {:>6} {:>11.3}% {:>10.3}%",
+            speed_name(row.speed_percent),
             row.recalled,
             row.indexed_excerpts,
             row.recall * 100.0,
@@ -606,6 +649,33 @@ mod tests {
             same_size: true,
             also: also.iter().map(|path| (*path).to_owned()).collect(),
         }
+    }
+
+    #[test]
+    fn renders_keep_whole_speeds_names_and_name_others_to_a_tenth() {
+        assert_eq!(speed_name(-8.0), "-8");
+        assert_eq!(speed_name(0.0), "+0");
+        assert_eq!(speed_name(3.0), "+3");
+        assert_eq!(speed_name(-10.0), "-10");
+        assert_eq!(speed_name(8.4), "+8.4");
+        assert_eq!(speed_name(-11.2), "-11.2");
+    }
+
+    #[test]
+    fn edge_speeds_are_symmetric_and_hold_the_ends_of_wider_ladders() {
+        let edge = Speeds::Edge.percents();
+        let names: BTreeSet<String> = edge.iter().map(|&speed| speed_name(speed)).collect();
+
+        assert_eq!(names.len(), edge.len());
+        for &speed in edge {
+            assert!(edge.contains(&-speed));
+            assert!(speed.abs() > 8.0);
+        }
+        // With 1, 2, 3 and 5 extra rungs the turntable ladder ends here.
+        for end in [8.4, 8.8, 9.2, 10.0] {
+            assert!(edge.contains(&end));
+        }
+        assert_eq!(Speeds::Sweep.percents(), &SPEEDS_PERCENT);
     }
 
     #[test]

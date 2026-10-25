@@ -40,6 +40,14 @@ class Speeds(unittest.TestCase):
         self.assertEqual(row["alone"], [("d.m4a", 1.05)])
         self.assertIn("a.mp3", row["copies_beyond_for_some_play"])
 
+    def test_a_wider_reach_brings_copies_back(self):
+        # At +5% the 4% upload is 1.05 * 0.96 / 0.89 - 1 = 13.3% from the
+        # fast one: still beyond 12%, within 14%.
+        self.assertEqual(cluster_speeds.summary(CLUSTER, 0.05, 0.12)["copies_alone"],
+                         [("d.m4a", 1.05)])
+        self.assertEqual(cluster_speeds.summary(CLUSTER, 0.05, 0.14)["copies_alone"], [])
+        self.assertEqual(cluster_speeds.summary(CLUSTER, 0.05, 0.14)["ladder"], 0.14)
+
 
 if __name__ == "__main__":
     unittest.main()

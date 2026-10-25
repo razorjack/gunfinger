@@ -121,7 +121,9 @@ Rules for this session:
   `s51start`, logs in `work/s51/logs/`; `run.sh` and `same.py` are
   session 50's with the paths changed). The start build is
   byte-identical to `work/bin/s50-final/` (cargo had nothing to
-  rebuild).
+  rebuild). `regress session-32-linux` (0:50) and `regress
+  session-33-linux-nas` (3:52, 5.3 GiB peak) identical: every report
+  identical to its baseline's apart from `wall_seconds`.
 - **(07:50) Step 1, the pre-registration** (committed before any run).
 
   *Ladders.* L0, the default (82 rungs); L1, L2, L3 and L5, today's
@@ -219,3 +221,27 @@ Rules for this session:
   of 15%; at NAS scale some new wrong answers where extra rungs reach
   copies or versions at other speeds (0059: China Cup's Prototype
   upload, 16 wrong to 18 with L3).
+- **(07:48) Step 2, the harness** (harness and scripts only):
+  - `sweep --speeds edge` (`sweep::Speeds`): the excerpts played at the
+    18 edge speeds (`EDGE_SPEEDS_PERCENT`) instead of the sweep's 9;
+    `-edge` in the report's name. `render_all` takes the speeds; a
+    render of a speed that is not a whole percent is named to a tenth
+    (`000-+8.4.mp3`), whole ones as before, so the sweep's and
+    `recall`'s renders keep their names.
+  - `scripts/analysis/ladder_edge.py` (`recall`, `uncovered`) with tests:
+    the registered scores, the targeted estimate and the share of a scan
+    no confident detection covers. Relative speeds are rounded to 1e-6
+    so that a speed played on a bin's edge falls in its bin (found by
+    the tests: 1 - 0.084 is not exactly 0.916).
+  - `cluster_speeds.py` takes the reach as a fourth argument (default
+    0.08, the output unchanged: the same JSON as session 49's).
+  - Scratch work directories (`work/s51/setup.sh`): `w262` and `wnas`
+    (C3, C4), `w262e` and `wnase` (C1, C2); their `sweep/` links to
+    `work/s51/renders/`, which holds links to the sweep's renders of
+    seeds 2026-2028 and the edge renders, made there.
+- **(07:48) The order of runs and experiments.** To keep each experiment
+  written before the next one's runs start, the runs go in three queues:
+  3a (C1, C2; experiment 0226, recall by relative speed with the wrong
+  answers of those runs), 3b (C3 and calibrate; 0227), 3c (C4 alone on
+  the idle machine; 0228); C5 has no runs (0229, after 0226 gives the
+  reaches). Seeds 2027 and 2028 of C2 only if time is left after 0229.

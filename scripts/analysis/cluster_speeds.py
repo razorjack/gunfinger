@@ -7,9 +7,10 @@ Each file's time relative to one member comes from the clusters' joins
 through the cluster where two files were not compared directly, as
 `relative_speed.py` does. A copy X played at speed d is searched against
 copy Y at d times Y's time over X's; it is beyond the ladder when that is
-more than LADDER from 1.
+more than the ladder's reach from 1 (LADDER, or REACH; session 51 gives
+each wider ladder's measured reach).
 
-usage: cluster_speeds.py CLUSTERS OUT.json [DECK]
+usage: cluster_speeds.py CLUSTERS OUT.json [DECK] [REACH]
 """
 
 import collections
@@ -39,9 +40,9 @@ def times_in(members, pairs):
     return times
 
 
-def beyond(times, deck):
+def beyond(times, deck, reach=LADDER):
     """(played, searched, relative speed) for each two copies that a play
-    at 1 - deck or 1 + deck puts beyond the ladder."""
+    at 1 - deck or 1 + deck puts beyond the ladder's reach."""
     out = []
     for played, t_played in sorted(times.items()):
         for searched, t_searched in sorted(times.items()):
@@ -49,31 +50,31 @@ def beyond(times, deck):
                 continue
             for d in (1.0 - deck, 1.0 + deck):
                 relative = d * t_searched / t_played
-                if abs(relative - 1.0) > LADDER:
+                if abs(relative - 1.0) > reach:
                     out.append((played, searched, relative))
     return out
 
 
-def alone(times, deck):
+def alone(times, deck, reach=LADDER):
     """(copy, deck speed) for each copy that, played at 1 - deck or
-    1 + deck, has no other copy within the ladder: found only if that
-    copy itself is indexed."""
+    1 + deck, has no other copy within the ladder's reach: found only if
+    that copy itself is indexed."""
     out = []
     for played, t_played in sorted(times.items()):
         for d in (1.0 - deck, 1.0 + deck):
             others = [abs(d * t / t_played - 1.0) for searched, t in times.items()
                       if searched != played]
-            if others and min(others) > LADDER:
+            if others and min(others) > reach:
                 out.append((played, d))
     return out
 
 
-def summary(clusters, deck):
+def summary(clusters, deck, reach=LADDER):
     rows = []
     for members in clusters["duplicates"]:
         times = times_in(set(members), clusters["pairs"])
         span = max(times.values()) / min(times.values()) - 1.0 if len(times) > 1 else 0.0
-        out = beyond(times, deck)
+        out = beyond(times, deck, reach)
         # A copy every other copy can reach at either extreme stays found
         # even when it is not the one played; these copies cannot.
         unreachable = sorted({searched for _, searched, _ in out})
@@ -82,10 +83,10 @@ def summary(clusters, deck):
                      "copies_beyond_for_some_play": unreachable,
                      "played_copies_out_of_reach_of_some_copy": sorted(
                          {played for played, _, _ in out}),
-                     "alone": alone(times, deck)})
+                     "alone": alone(times, deck, reach)})
     rows.sort(key=lambda r: -r["span"])
     return {
-        "clusters": len(rows), "deck": deck, "ladder": LADDER,
+        "clusters": len(rows), "deck": deck, "ladder": reach,
         "span_over": {f"{s:g}": sum(r["span"] > s for r in rows) for s in SPANS},
         "clusters_with_a_copy_beyond": sum(bool(r["copies_beyond_for_some_play"])
                                            for r in rows),
@@ -100,8 +101,9 @@ def summary(clusters, deck):
 def main():
     clusters_file, out = sys.argv[1], sys.argv[2]
     deck = float(sys.argv[3]) if len(sys.argv) > 3 else 0.05
+    reach = float(sys.argv[4]) if len(sys.argv) > 4 else LADDER
     with open(clusters_file) as file:
-        result = summary(json.load(file), deck)
+        result = summary(json.load(file), deck, reach)
     with open(out, "w") as file:
         json.dump(result, file, indent=1, ensure_ascii=False)
     print({k: v for k, v in result.items() if k != "rows"})

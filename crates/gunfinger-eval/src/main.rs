@@ -359,6 +359,11 @@ enum Command {
         /// (`sweep-seed-<seed>-other-rips.json`).
         #[arg(long)]
         other_rips: bool,
+        /// The speeds played: the sweep's own, within the ladder, or
+        /// `edge`, ±8.4% to ±12% (session 51; `-edge` in the report's
+        /// name).
+        #[arg(long, value_enum, default_value_t = sweep::Speeds::Sweep)]
+        speeds: sweep::Speeds,
         #[command(flatten)]
         filter: FilterStudy,
     },
@@ -903,8 +908,9 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
         Command::Sweep {
             seed,
             other_rips,
+            speeds,
             filter,
-        } => run_sweep(paths, seed, other_rips, &filter, jobs),
+        } => run_sweep(paths, seed, other_rips, speeds, &filter, jobs),
         Command::Recall {
             seed,
             prepare,
@@ -1312,7 +1318,14 @@ fn run_robust(
 
 /// The sweep, the development scan and its leave-outs.
 fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> Result<(), String> {
-    run_sweep(paths, seed, false, &NO_FILTER_STUDY, jobs)?;
+    run_sweep(
+        paths,
+        seed,
+        false,
+        sweep::Speeds::Sweep,
+        &NO_FILTER_STUDY,
+        jobs,
+    )?;
     run_scan(paths, set, None, &UNCHANGED_INDEX, jobs)?;
     for count in regress::LEAVE_OUTS {
         run_scan(
@@ -1726,6 +1739,7 @@ fn run_sweep(
     paths: &Paths,
     seed: u64,
     other_rips: bool,
+    speeds: sweep::Speeds,
     filter: &FilterStudy,
     jobs: usize,
 ) -> Result<(), String> {
@@ -1763,11 +1777,19 @@ fn run_sweep(
                 sweep::Trace::Off
             },
             ranking: filter.rank_fullest_by,
+            speeds,
             jobs,
         },
     )?;
     let other_rips = if other_rips { "-other-rips" } else { "" };
-    let name = format!("sweep-seed-{seed}{other_rips}{}.json", filter.suffix());
+    let edge = match speeds {
+        sweep::Speeds::Sweep => "",
+        sweep::Speeds::Edge => "-edge",
+    };
+    let name = format!(
+        "sweep-seed-{seed}{other_rips}{edge}{}.json",
+        filter.suffix()
+    );
     write_json(&paths.reports().join(name), &report)?;
     sweep::print_summary(&report);
     Ok(())

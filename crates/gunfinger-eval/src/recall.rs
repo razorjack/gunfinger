@@ -371,7 +371,13 @@ pub fn render(
         .iter()
         .enumerate()
         .filter(|(number, _)| !panel.is_left_out(&panel.development.sources[*number]));
-    let rendered = render_all(|draw| audio_file(root, &draw.asset), selected, dir, jobs)?;
+    let rendered = render_all(
+        |draw| audio_file(root, &draw.asset),
+        selected,
+        &SPEEDS_PERCENT,
+        dir,
+        jobs,
+    )?;
     Ok(rendered
         .into_iter()
         .filter_map(|(draw, speed_percent, path)| {
