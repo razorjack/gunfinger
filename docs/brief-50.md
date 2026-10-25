@@ -286,3 +286,12 @@ Rules for this session:
   the Aphrodite family and the Klute VIP, without the two pairs judged
   against unrelated tracks; Defjammer's NAS file is one a corpus file
   stands for, so its corpus path is used.
+- **(05:41) The share selection at NAS scale, scaled down.** `sweep
+  --exact-copies 9 --copied share-nas.txt` stopped at the index's limit
+  of 65,536 assets (ADR 0010): 40,580 indexed files and 36,630 copies.
+  Decision (conservative, keeping the registered selection): K = 6, the
+  largest that fits (65,000 assets), and K = 3 at NAS scale for the
+  share selection; its other-rips form and the rankings at K = 6
+  (`work/s50/step3-nas2.sh`, queued after `step3-nas.sh`, whose K = 9
+  other-rips run of the share fails the same way). The panel selection
+  keeps K = 9.

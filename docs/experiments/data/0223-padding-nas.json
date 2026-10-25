@@ -1,0 +1,427 @@
+{
+ "nas-sweep-seed-2026-exact-3-share-nas-trace": {
+  "cut": 12857,
+  "lists_set_aside": 10863,
+  "postings_set_aside": 0.1872,
+  "assets": 52760,
+  "moved": {
+   "in": 131,
+   "out": 131,
+   "kept": 10732
+  },
+  "set_aside_share": {
+   "copies": 0.1871,
+   "originals": 0.1871,
+   "rest": 0.1872
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.99,
+  "ratio_median": 1.0,
+  "ratio_median_copied": 1.0,
+  "ratio_median_not_copied": 1.0,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     211.9102489946506,
+     1.0
+    ],
+    "before": 706,
+    "after": 699
+   },
+   {
+    "query": [
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     111.34900809621932,
+     -5.0
+    ],
+    "before": 641,
+    "after": 635
+   },
+   {
+    "query": [
+     "Stakka & K.Tee - Auto Ignition.mp3",
+     181.00310216667472,
+     5.0
+    ],
+    "before": 546,
+    "after": 541
+   },
+   {
+    "query": [
+     "extra/k-sta_and_paul_b-come_closer-sour.mp3",
+     211.9102489946506,
+     -1.0
+    ],
+    "before": 779,
+    "after": 772
+   },
+   {
+    "query": [
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     111.34900809621932,
+     0.0
+    ],
+    "before": 797,
+    "after": 790
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 4.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 27,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 30,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-exact-6-share-nas-trace": {
+  "cut": 15821,
+  "lists_set_aside": 10864,
+  "postings_set_aside": 0.1872,
+  "assets": 64940,
+  "moved": {
+   "in": 216,
+   "out": 215,
+   "kept": 10648
+  },
+  "set_aside_share": {
+   "copies": 0.1872,
+   "originals": 0.1872,
+   "rest": 0.1871
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.987,
+  "ratio_median": 1.0,
+  "ratio_median_copied": 1.0,
+  "ratio_median_not_copied": 1.0,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/a-dj_reality-reasons.mp3",
+     223.50136621337364,
+     5.0
+    ],
+    "before": 741,
+    "after": 731
+   },
+   {
+    "query": [
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     111.34900809621932,
+     -5.0
+    ],
+    "before": 641,
+    "after": 633
+   },
+   {
+    "query": [
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     111.34900809621932,
+     0.0
+    ],
+    "before": 797,
+    "after": 788
+   },
+   {
+    "query": [
+     "extra/a-dj_reality-reasons.mp3",
+     223.50136621337364,
+     1.0
+    ],
+    "before": 692,
+    "after": 685
+   },
+   {
+    "query": [
+     "extra/a-dj_reality-reasons.mp3",
+     223.50136621337364,
+     0.0
+    ],
+    "before": 1226,
+    "after": 1214
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 4.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 27,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 33,
+  "wrong_possible_before": 26
+ },
+ "nas-sweep-seed-2026-exact-9-panel-nas-trace": {
+  "cut": 10317,
+  "lists_set_aside": 10860,
+  "postings_set_aside": 0.1878,
+  "assets": 41993,
+  "moved": {
+   "in": 152,
+   "out": 155,
+   "kept": 10708
+  },
+  "set_aside_share": {
+   "copies": 0.2038,
+   "originals": 0.2038,
+   "rest": 0.1871
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 7,
+  "u3_wrong_confident_before": 7,
+  "u3_held_out_confident": 7,
+  "confident": 540,
+  "confident_before": 540,
+  "indexed": 540,
+  "ratio_min": 0.954,
+  "ratio_median": 0.998,
+  "ratio_median_copied": 0.998,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+     88.93035523660382,
+     3.0
+    ],
+    "before": 560,
+    "after": 534
+   },
+   {
+    "query": [
+     "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+     88.93035523660382,
+     5.0
+    ],
+    "before": 560,
+    "after": 536
+   },
+   {
+    "query": [
+     "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+     88.93035523660382,
+     1.0
+    ],
+    "before": 549,
+    "after": 527
+   },
+   {
+    "query": [
+     "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+     88.93035523660382,
+     -1.0
+    ],
+    "before": 525,
+    "after": 504
+   },
+   {
+    "query": [
+     "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+     88.93035523660382,
+     -3.0
+    ],
+    "before": 485,
+    "after": 466
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 22.0,
+  "candidates_median_before": 3.0,
+  "wrong_candidate_files_median": 1.0,
+  "wrong_candidate_files_median_before": 1.0,
+  "wrong_possible_files": 26,
+  "wrong_possible_files_before": 26,
+  "wrong_possible": 188,
+  "wrong_possible_before": 26
+ },
+ "nasor-panel-9": {
+  "cut": 10136,
+  "lists_set_aside": 10863,
+  "postings_set_aside": 0.1875,
+  "assets": 41423,
+  "moved": {
+   "in": 96,
+   "out": 95,
+   "kept": 10767
+  },
+  "set_aside_share": {
+   "copies": 0.2021,
+   "originals": 0.2021,
+   "rest": 0.1871
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 408,
+  "confident_before": 408,
+  "indexed": 423,
+  "ratio_min": 0.821,
+  "ratio_median": 0.999,
+  "ratio_median_copied": 0.999,
+  "ratio_median_not_copied": null,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/aa-cause_4_concern-synergy-sour.mp3",
+     267.8777551943323,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/aa-cause_4_concern-abduction-sour.mp3",
+     174.61490962492178,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     306.7728000687982,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/e-cause_4_concern-blindside-sour.mp3",
+     88.09229644278508,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     259.6460426397232,
+     8.0
+    ],
+    "before": null,
+    "after": null
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 20,
+  "candidates_median_before": 3,
+  "wrong_candidate_files_median": 1,
+  "wrong_candidate_files_median_before": 1,
+  "wrong_possible_files": 21,
+  "wrong_possible_files_before": 21,
+  "wrong_possible": 183,
+  "wrong_possible_before": 21
+ },
+ "nasor-share-6": {
+  "cut": 15793,
+  "lists_set_aside": 10863,
+  "postings_set_aside": 0.1871,
+  "assets": 64853,
+  "moved": {
+   "in": 218,
+   "out": 217,
+   "kept": 10645
+  },
+  "set_aside_share": {
+   "copies": 0.1872,
+   "originals": 0.1872,
+   "rest": 0.1871
+  },
+  "u1_lost_confident": [],
+  "u2_lost_candidate": [],
+  "u3_wrong_confident": 0,
+  "u3_wrong_confident_before": 0,
+  "u3_held_out_confident": 0,
+  "confident": 408,
+  "confident_before": 408,
+  "indexed": 423,
+  "ratio_min": 0.821,
+  "ratio_median": 1.0,
+  "ratio_median_copied": 1.0,
+  "ratio_median_not_copied": 1.0,
+  "ratio_below_half": 0,
+  "lowest": [
+   {
+    "query": [
+     "extra/aa-cause_4_concern-synergy-sour.mp3",
+     267.8777551943323,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/aa-cause_4_concern-abduction-sour.mp3",
+     174.61490962492178,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/b-stakka_and_skynet-global_report-sour.mp3",
+     306.7728000687982,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/e-cause_4_concern-blindside-sour.mp3",
+     88.09229644278508,
+     -8.0
+    ],
+    "before": null,
+    "after": null
+   },
+   {
+    "query": [
+     "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+     259.6460426397232,
+     8.0
+    ],
+    "before": null,
+    "after": null
+   }
+  ],
+  "answer_hits_median_ratio": 1.0,
+  "candidates_median": 4,
+  "candidates_median_before": 3,
+  "wrong_candidate_files_median": 1,
+  "wrong_candidate_files_median_before": 1,
+  "wrong_possible_files": 22,
+  "wrong_possible_files_before": 21,
+  "wrong_possible": 28,
+  "wrong_possible_before": 21
+ }
+}
