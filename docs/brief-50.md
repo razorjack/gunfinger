@@ -320,8 +320,11 @@ Rules for this session:
 - **(07:14) Final checks, first round** (`work/s50/final.sh`, build
   `work/bin/s50-final/` from `95763f7`): both regressions identical
   (0:51; 3:53), the digests unchanged; `scripts/check.sh` failed only in
-  the load-sensitive `decode::watch` test (the machine carried a load
-  of about 20 from processes this session did not start).
+  the load-sensitive `decode::watch` test. What loaded the machine is
+  not known: at 07:14 `ps` showed no other process using notable CPU
+  (the load average of about 20 then followed this session's own
+  regressions), so the earlier reading that other processes loaded it
+  is not supported.
 - **(07:20) The review's findings** (a separate agent, read-only,
   07:05-07:14). No defect in the code. Taken: 0223 said Siren Bass's
   rip was copied in both selections, but only the panel copies it (the
@@ -348,3 +351,12 @@ Rules for this session:
   `outcome`, the trace, report naming and the clap wiring;
   `--exact-copies 0` is accepted and two `--copied` files with one stem
   share a report name.
+- **(07:34) Final checks, second round** (`work/s50/final.sh`, tmux
+  `s50final3`, build `work/bin/s50-final/` rebuilt from `13f44db`; the
+  machine idle, load 0.2 at the start): `scripts/check.sh` green (3:44);
+  `regress session-32-linux` (0:51) and `regress session-33-linux-nas`
+  (3:52) identical, every report identical to its baseline's apart from
+  `wall_seconds`; the verdicts file, the clusters file and the answer
+  log at their start digests. The review's fixes were committed in
+  `13f44db` by a helper agent given the exact commands, while this
+  session's shell safety check returned no verdict.

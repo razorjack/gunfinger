@@ -11060,3 +11060,12 @@ holds no copies); its trace searches the first pass a second time.
 - `docs/pair-verdicts.txt`, the clusters file and the answer log are at
   their start digests (`work/s50/listening-digests-start.txt`); no
   answer log was written; no manifest or committed panel changed.
+- A read-only review by a separate agent (07:05-07:14) found no defect
+  in the code and points in the documents and `filter_padding.py`; all
+  but four small items taken (brief 50, 07:20; `13f44db`).
+- Final checks with `work/bin/s50-final/` (built from `13f44db`):
+  `scripts/check.sh` green (3:44, on an idle machine; a first run during
+  the session's own load failed only in `decode::watch`);
+  `regress session-32-linux` (0:51) and `regress session-33-linux-nas`
+  (3:52) identical, every report identical to its baseline apart from
+  `wall_seconds`; the digests unchanged.
