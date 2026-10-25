@@ -12,8 +12,9 @@ of the ladder".
 `identify` searches 82 rungs: turntable speeds 0.92-1.08, 0.4% apart,
 and the same ratios under key lock. A play is found when the mix's
 speed relative to an indexed copy of the record lies within about 8.4%:
-recall is complete there and gone by 9.2% (0226, at both scales and
-against the copies the NAS library holds). The limit is relative to the
+recall is complete there against the full index (552 of 562 against
+other copies only, the misses weak copies) and gone by 9.2% (0226, at
+both scales and against the copies the NAS library holds). The limit is relative to the
 copy, not the deck's pitch: copies of one recording differ in speed by
 up to 11.6% in the NAS clusters, and one YouTube channel's uploads run
 3-5% fast against the vinyl rips. For a deck at ±5%, 29 copies have no
@@ -58,26 +59,29 @@ Two single cases decide the registered criteria:
 - **A fit pulled off by the outer rung.** One other-rips query (Siren
   Bass's upload played at -8%, relative -8.05%) is confident under L0
   at a fitted -8.09% with 305 hits and not under any wider ladder, which
-  fits it at -8.18% with 214 (rule 240). Once the -8.4% rung exists, the
-  chain's fitted speed moves off the true one and the second pass counts
-  fewer hits. The registration asked that no ladder lose a query within
+  fits it at -8.18% with 214 (rule 240), identically under L1-L5. By
+  inference, not measured: the -8.4% rung pulls the chain's fitted speed
+  off the true one, and the second pass counts fewer hits. The
+  registration asked that no ladder lose a query within
   8.4%, so every L_k fails there; T_k keeps L0's answer.
 - **A known bootleg reached at one more speed.** The default already
   answers a held-out excerpt (Aphrodite - Cool Rock Stuff) confidently
-  with a YouTube bootleg that holds it, about 4.5% fast, at 7 of the 9
-  sweep speeds. At +5% that pair is 9.7% apart, so L2 and up add an 8th
+  with a YouTube bootleg that holds it at 7 of the 9 sweep speeds; the
+  bootleg runs about 4.3% slow. At +5% that pair is 9.7% apart, so L2 and up add an 8th
   (0227). By ear the bootleg is a different mix of the same track
   (`docs/pair-verdicts.txt`), so this is a real wrong answer. T2 and up
   inherit it, because the default has nothing confident on that query.
-  Seed 2027 shows the same pattern (0230): China Cup against its
-  Prototype upload, also judged different, which the default answers
-  wrongly 15 times, gains 1 more under L3 and 5 under L5.
+  Seed 2027 shows the same pattern (0230): China Cup against ƆƐI3C's
+  upload, judged different (the hi-hats differ for a few bars), which
+  the default answers wrongly 15 times; L3 adds 1 answer, L5 5 (L3's
+  among them).
 
 ## Risks
 
 - Wider reach also reaches versions, remixes and bootlegs that run at
   other speeds: false candidates below the rule rise by 3-11% and
-  wrong possible answers by about a fifth per rung pair. Possible plays
+  wrong possible answers by about 5 per rung pair (24, 29, 34, 38, 47
+  against other copies, seed 2026). Possible plays
   are printed, so the user sees more of them in fast or slow passages.
 - A targeted search depends on what "no confident line" means at the
   window level, which the estimate does not settle: in a real mix it
@@ -88,7 +92,7 @@ Two single cases decide the registered criteria:
   within 8.4%, one rung pair gains 27-35 points there against 33). The
   NAS library is as it is today, and one channel's fast uploads make up
   most of the copies at risk.
-- Every new wrong confident answer seen (two pairs, 7 answers) is a
+- Every new wrong confident answer seen (two pairs, 6 answers) is a
   version judged different by ear that the default already answers
   wrongly at other speeds: wider reach adds speeds at which known
   confusions happen, not new confusions. That is still a wrong answer

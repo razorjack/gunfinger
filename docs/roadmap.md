@@ -438,27 +438,29 @@ marked as inferences were derived, not measured.
   of the other at a deck extreme. 38 copies have no other copy within
   the ladder when played at one extreme (36 at +5%, 2 at -5%); 35 of them
   are uploads of one channel that runs 3-5% fast against the vinyl rips.
-  *(session 51, experiments 0226-0230; the decision note
-  `docs/research/2026-10-25-ladder-edge-decision.md`)* Measured today
-  with `--extra-rungs` 1, 2, 3 and 5 (86-102 rungs against 82): each
-  rung pair moves the reach by 0.4% (8.4, 8.8, 9.2, 9.6, 10.4%), the
-  same against the full index and against only the other copies the NAS
-  library holds, and costs about 4.7% more search CPU (Stakka scan at
-  NAS scale ×1.046 to ×1.229; three pairs +14%, as in 0033). Calibrate
-  and the development scans do not move. Two single cases decide the
-  registered criteria: one rip near -8% loses its confident answer under
-  every wider ladder (its fitted speed moves off by 0.1%), and from two
-  extra rungs a known bootleg that holds a held-out recording is reached
-  at one more speed. For a deck at ±5%, the copies with no other copy in
-  reach fall from 29 at today's reach to 19, 7, 3 and 1. A targeted
-  search (extra rungs only where nothing is confident; 2% of the Stakka
-  mix) is estimated at under 1% more CPU; with one extra rung pair it
-  passes the registration, as a variant to build and measure.
   Each of those clusters also holds a rip outside the upload folders
   that, played at either extreme, has another copy within reach. Copies differ
   in speed within a file too: the CITRUS 003 upload of The Stand runs
   3.1% fast against the vinyl rip at its start and 3.8% at its end
   (experiment 0219).
+  *(session 51, experiments 0226-0230; the decision note
+  `docs/research/2026-10-25-ladder-edge-decision.md`)* Measured today
+  with `--extra-rungs` 1, 2, 3 and 5 (86-102 rungs against 82): each
+  rung pair moves the reach by 0.4% (8.4, 8.8, 9.2, 9.6, 10.4%), the
+  same against the full index and against only the other copies the NAS
+  library holds, and costs 4.3-5.3% more search CPU (Stakka scan at NAS
+  scale ×1.046 to ×1.229; three pairs +14%, as in 0033). Calibrate
+  and the development scans do not move. Two single cases decide the
+  registered criteria: one rip near -8% loses its confident answer under
+  every wider ladder (fitted 0.1% further off; that the outer rung moves
+  the fit is inferred), and from two extra rungs a bootleg judged a
+  different mix of a held-out recording is reached at one more speed
+  (seed 2027: China Cup against ƆƐI3C's upload, judged different). For
+  a deck at ±5%, the copies with no other copy in reach fall from 29 at
+  today's reach to 19, 7, 3 and 1. A targeted
+  search (extra rungs only where nothing is confident; 2% of the Stakka
+  mix) is estimated at under 1% more CPU; with one extra rung pair it
+  passes the registration, as a variant to build and measure.
 - **Peaks across frequency bands.** Anchors at 2-4 kHz are 64% of the
   postings the development mix's plays look up and 21% of their true
   hits. A profile whose peak neighbourhoods widen with frequency (variant

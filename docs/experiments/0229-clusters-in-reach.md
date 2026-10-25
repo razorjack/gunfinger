@@ -23,7 +23,8 @@ reach as its fourth argument: each ladder's measured reach R_k from 0226
 copy of its recording within reach, so it is found only if it is itself
 indexed. Each set is a subset of the one above. At ±8% with an 8.0%
 reach every copy is "alone" by rounding (554), so session 49 gave no
-figure there.
+figure there. At each ladder's nominal end (8 + 0.4k%) the counts equal
+the row above (R_k is the nominal end plus 0.4%).
 - Deck ±5%: of session 49's 38, L0's true reach already holds 9, L1 19,
   L2 31 (82%), L3 35 (92%), L5 37 (97%). Of the 29 left at L0, 26 are
   uploads of the one channel that runs 3-5% fast. At L3 three remain

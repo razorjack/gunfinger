@@ -5019,8 +5019,8 @@ and a reach argument for `cluster_speeds.py`.
 - 0229: for a deck at ±5%, copies with no other copy in reach fall from
   29 at today's reach to 19, 7, 3, 1.
 - 0230: seeds 2027 and 2028 confirm the gains and no loss within 8.4%;
-  China Cup's Prototype upload (judged different) gains wrong answers
-  under L3 and L5.
+  China Cup against ƆƐI3C's upload (judged different) gains wrong
+  answers under L3 and L5.
 - Left for us: no wider ladder passes the registration; T1 (extra
   rungs only where nothing is confident, one pair) passes by estimate,
   as a variant to build and measure; whether to spend a session on it.

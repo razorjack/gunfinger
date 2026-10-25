@@ -19,7 +19,7 @@ cell the median of two runs [range]; `data/0228-cpu-per-ladder.json`.
 | L3 (94) | 138.4 (×1.159) | 7.0 (×1.088) | 761.4 (×1.141) | 27.0 (×1.126) | ×1.146 |
 | L5 (102) | 149.9 (×1.255) | 7.5 (×1.150) | 819.7 (×1.229) | 28.8 (×1.203) | ×1.244 |
 
-Ranges within each pair: at most 0.6% of the median. CPU follows the
+Ranges within each pair: at most 1.0% of the median. CPU follows the
 number of rungs at both scales (the index's load at NAS scale is small
 beside the search); the wall time grows a little less.
 **The targeted estimate.** The default NAS-scale scan leaves 2.0% of the
@@ -31,6 +31,6 @@ within +15%) holds for L1, L2 and L3 and fails for L5 (+22.9%, +20.3%).
 T_k's estimate is within +5% for every k. 0033's +14% for L3 holds
 today (+14.1% at NAS scale): the search is cheaper, and the extra rungs
 cost the same share of it.
-**Conclusion.** Each extra rung pair costs about 4.7% more search CPU at
+**Conclusion.** Each extra rung pair costs 4.3-5.3% more search CPU at
 both scales; a targeted search would cost almost nothing on a mix whose
 time is nearly all confidently covered.

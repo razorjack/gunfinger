@@ -1,12 +1,11 @@
 # 0227: wrong answers and calibrate per ladder, at 262 tracks and NAS scale
 
-**Question** (`docs/brief-51.md`, 07:43, C3, criterion W). What do 1-5
-extra rungs change in the standard protocol? **Method.** `regress session-32-linux` and `regress session-33-linux-nas`
-with `--extra-rungs k` (k = 0, 1, 2, 3, 5) in scratch work directories
-(the sweep of seed 2026 at its 9 speeds, the Stakka scan and leave-outs
-3 and 11), then `calibrate` on each ladder's reports; queue 3b,
-08:53-09:18, every run exit 0. The regress and calibrate lines:
-`data/0227-standard-protocol-per-ladder.txt`.
+**Question** (`docs/brief-51.md`, 07:43, C3, W). What do 1-5 extra rungs
+change in the standard protocol? **Method.** `regress session-32-linux`
+and `regress session-33-linux-nas` with `--extra-rungs k` (k = 0, 1, 2,
+3, 5) in scratch work directories (the sweep of seed 2026, the Stakka
+scan, leave-outs 3 and 11), then `calibrate` per ladder; queue 3b,
+08:53-09:18, exit 0; `data/0227-standard-protocol-per-ladder.txt`.
 
 | Ladder | Sweep queries changed (262; NAS) | Scan detections (NAS) | False candidates (262; NAS) | ≥ 30 hits (NAS) | Confident false (NAS) |
 |---|--:|--:|--:|--:|--:|
@@ -28,13 +27,14 @@ identified (559 identifying, none below the rule).
 **The new wrong answer.** The default's 7 confident false answers at NAS
 scale are one held-out excerpt (Aphrodite - Cool Rock Stuff) against a
 YouTube bootleg that holds it ("Mobb Deep Vs Urban Takover - Cool Rock
-Shook Ones"), at -8% to +3%, the bootleg running about 4.5% fast. At +5%
-it lies at about +9.7%: L2, L3 and L5 reach it (268-278 hits), L0 and L1
-do not. T_k takes L_k's answer there (L0 has nothing confident).
+Shook Ones"), at -8% to +3%: the bootleg runs about 4.3% slow, so the
+excerpt meets it about 4.5% above its played speed. At +5% that is
++9.7%: L2, L3 and L5 reach it (268-278 hits), L0 and L1 do not; T_k
+takes L_k's answer there (L0 has nothing confident). By ear the bootleg
+is a different mix of the same track (`docs/pair-verdicts.txt`).
 **Against the registration.** W fails for L2, L3, L5 and T2, T3, T5
-(one new wrong confident answer, the same pair at one more speed); it
-holds for L1 and T1. The strongest false and the weakest identifying do
-not move at either scale, and the development scans keep their plays.
+(the same pair at one more speed); it holds for L1, and for T1 by
+inference from L1's runs (T_k's scans were not run).
 **Conclusion.** Wider ladders add false candidates below the rule
-(+3-11% at both scales) and reach one more speed of a known bootleg
-pair; nothing else measured changes.
+(+3-11%) and reach one more speed of a pair judged different; calibrate
+and the development scans' plays do not move.

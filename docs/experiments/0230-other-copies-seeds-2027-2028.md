@@ -24,8 +24,9 @@ exploratory), queue 3d, 09:28-10:08, every run exit 0;
   L1 at seed 2028 falls short of G2's 30 points.
 - Within 8.4% no wider ladder loses a query on either seed (L5 gains
   one): seed 2026's Siren Bass query is the only loss in 2,031 queries.
-- Seed 2027's wrong confident answers are all China Cup against its
-  Prototype upload on YouTube, a different version by ear (verdicts);
+- Seed 2027's wrong confident answers are all China Cup against ƆƐI3C's
+  upload, judged different by ear (`pair-verdicts.txt` line 84: the
+  hi-hats differ for a few bars; 0059 called it the Prototype upload);
   L0 has 15 of them; L3 adds one more (a corpus rip played at -11.2%),
   L5 four more (two corpus files at +8.0% and +8.4%). Strongest wrong
   261 hits (L5 273). T1: no new wrong; T3 and T5: the same 1 as L3.

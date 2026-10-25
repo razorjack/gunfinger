@@ -292,7 +292,7 @@ Rules for this session:
   allowed; queue 3d, tmux `s51seeds`): C2 at both speed sets. L1 is
   added, decided after 0226-0229 (T1 is the one ladder left), so its
   result there is reported as exploratory. Experiment 0230.
-- **(09:30) Stamps corrected.** The pre-registration's stamp was written
+- **(09:29) Stamps corrected.** The pre-registration's stamp was written
   as 07:50 and its commit (`8efe293`) is at 07:43; 0228's as 09:29 and
   its commit at 09:27. Both now give the commit's time, here and in the
   experiments that cite the registration; the registration's text is
@@ -301,7 +301,33 @@ Rules for this session:
   on seeds 2027 and 2028 no wider ladder loses a query within 8.4%; the
   gains hold (L1 +35 and +27 points, L3 +63 and +58, L5 +74 and +68);
   seed 2027 adds 1 (L3) and 5 (L5) new wrong confident answers, all
-  China Cup against its Prototype upload (judged different by ear); T1
+  China Cup against ƆƐI3C's upload (judged different by ear; 0059's
+  "Prototype upload" was this one, and the Prototype upload is judged
+  the same recording); T1
   adds none. Both pairs behind new wrong answers (this and 0227's
   bootleg) are `different` in the verdicts file, so they are real wrong
   answers.
+- **(10:27) The review's findings** (a separate agent, read-only,
+  10:10-10:24). No defect in the harness or the scripts; every number
+  checked matches the data; each experiment was committed before the
+  next queue started. Taken: the upload behind seed 2027's wrong answers
+  is ƆƐI3C's, not the Prototype upload (0230, the note, status,
+  roadmap, this brief's 10:09 entry); the bootleg runs about 4.3% slow
+  against the Aphrodite excerpt, not 4.5% fast (0227, the note); the
+  roadmap paragraph moved after session 49's text it had split; 0226's
+  legend (cells are confident of the bin's queries; possible recall is
+  in the data file), its NAS-scale reach (R_2 9.6% there) and a note on
+  the ~90 queries at bin edges; 0228's ranges (at most 1.0%) and the
+  cost per rung pair (4.3-5.3%); the note's count of new wrong answers
+  (6), the growth of wrong possible answers (about 5 per pair), the
+  full-index wording of "recall is complete", and the Siren Bass
+  mechanism marked as inferred; 0229's nominal-end figures (equal to
+  the row above); 0226 and 0227 rewrapped to 40 lines without joined
+  lines. Recorded as deviations, none changing a result: G2 was
+  computed over [8.4, R_k + 0.4) and the registered (8.4, R_k + 0.4]
+  gives the same counts; at 262 tracks the relative speed is to the
+  nearest corpus copy, not the played speed (R_k uses the played speed,
+  as registered); T1's W for the development scans and calibrate is
+  inferred from L1's runs; the stamp of step 2's harness (07:48) is
+  earlier than its commit (07:52), and `check.sh` ran on the working
+  tree from 07:48, before that commit, on the code committed.
