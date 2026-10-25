@@ -53,6 +53,25 @@ class RelativeSpeed(unittest.TestCase):
         self.assertAlmostEqual(relative, 100 * (0.96 * 0.95 - 1))
 
 
+class ClustersFiles(unittest.TestCase):
+    def test_only_the_first_file_names_the_recordings(self):
+        import json
+        import os
+        import tempfile
+        nas = {"duplicates": [sorted(CLUSTER)], "pairs": PAIRS[:2]}
+        corpus = {"duplicates": [["a.mp3"]], "pairs": [pair("a.mp3", "c.mp3", 1.0)]}
+        with tempfile.TemporaryDirectory() as dir:
+            paths = [os.path.join(dir, name) for name in ("nas.json", "corpus.json")]
+            for path, clusters in zip(paths, (nas, corpus)):
+                with open(path, "w") as file:
+                    json.dump(clusters, file)
+
+            cluster_of, pairs = ladder_edge.clusters_and_pairs(paths)
+
+        self.assertEqual(cluster_of["a.mp3"], CLUSTER)
+        self.assertEqual(len(pairs), 3)
+
+
 class Scores(unittest.TestCase):
     def rows(self, queries):
         report = {"queries": queries}

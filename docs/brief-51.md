@@ -251,3 +251,12 @@ Rules for this session:
   session-32-linux` (0:50) and `regress session-33-linux-nas` (3:45)
   identical, every report identical to its baseline's apart from
   `wall_seconds`. Queue 3a started at 07:57 in the same tmux session.
+- **(08:13) A fix in `ladder_edge.py`, after reading L0's NAS-scale
+  results.** `recall` took the recordings from every clusters file
+  given, so the corpus clusters (read second, for their pair speeds)
+  replaced the NAS clusters for corpus files, and the relative speeds of
+  other-rips queries were computed without the larger library's copies
+  (3 queries recalled at "10-11%"). The recordings now come from the
+  first file only (`clusters_and_pairs`, tested); later files add pairs.
+  No registered definition changes. With it, L0 at NAS scale recalls 1 of
+  79 other-rips queries in 9.2-9.6% and none beyond.

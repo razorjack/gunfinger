@@ -173,15 +173,25 @@ def summary(rows, default_rows):
     }
 
 
-def recall(out, cluster_files, map_file, panels, labelled):
+def clusters_and_pairs(paths):
+    """The recordings of the first clusters file (the scale's own) and the
+    pairs of every file: the corpus clusters' pairs add speeds between
+    corpus files, but their smaller clusters must not stand for the
+    larger library's."""
     cluster_of, pairs = {}, []
-    for path in cluster_files.split(","):
+    for number, path in enumerate(paths):
         with open(path) as file:
             clusters = json.load(file)
         pairs += clusters["pairs"]
-        for members in clusters["duplicates"]:
-            for member in members:
-                cluster_of[member] = set(members)
+        if number == 0:
+            for members in clusters["duplicates"]:
+                for member in members:
+                    cluster_of[member] = set(members)
+    return cluster_of, pairs
+
+
+def recall(out, cluster_files, map_file, panels, labelled):
+    cluster_of, pairs = clusters_and_pairs(cluster_files.split(","))
     edges = joins(pairs)
     library_map = None
     if map_file != "-":
