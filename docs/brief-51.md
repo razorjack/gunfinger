@@ -260,3 +260,9 @@ Rules for this session:
   first file only (`clusters_and_pairs`, tested); later files add pairs.
   No registered definition changes. With it, L0 at NAS scale recalls 1 of
   79 other-rips queries in 9.2-9.6% and none beyond.
+- **(08:55) Experiment 0226** (queue 3a, 07:57-08:50, every run exit 0):
+  R_k = 8.4, 8.8, 9.2, 9.6 and 10.4% for k = 0, 1, 2, 3, 5; G1 holds for
+  every k; G2's gain holds (+33 to +75 points), its second clause fails
+  by one query for every L_k (Siren Bass's upload near -8%) and holds for
+  T_k; no new wrong confident answer in C1 or C2. Queue 3b starts after
+  this commit.
