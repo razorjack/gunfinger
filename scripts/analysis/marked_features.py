@@ -43,6 +43,10 @@ RULES = {
     "R1 F1 < 60": lambda f: f["F1"] < COUNTING_HITS,
     "R2 F2 > 10 s or none": lambda f: f["F2"] is None or f["F2"] > 10.0,
     "R3 F3 >= 60": lambda f: f["F3"] >= COUNTING_HITS,
+    # Set on the development seeds (brief 48, 03:05): the bar that lets in
+    # no shared play there at either scale; F4 at 262 tracks only.
+    "R4 F4 < 0.172": lambda f: f["F4"] is not None and f["F4"] < 0.172,
+    "R5 F5 > 0.00344": lambda f: f["F5"] > 0.00344,
 }
 # Which side of each feature reads as a record playing: lower (-1) or
 # higher (+1); a feature without a value counts as the playing side's end.
@@ -216,10 +220,16 @@ def auc(playing, shared, direction):
 def best_threshold(rows, feature, direction):
     """The threshold printing the most playing plays while letting in no
     shared one (`>= threshold` on the direction's side)."""
-    shared = [direction * r[feature] for r in rows if r["class"] == "shared" and r[feature] is not None]
+    # F2 has no value without a near alignment, which reads as playing (R2);
+    # the other features lack one only where they were not measured.
+    def value(r):
+        if r[feature] is None:
+            return float("inf") if feature == "F2" else None
+        return direction * r[feature]
+    shared = [value(r) for r in rows if r["class"] == "shared" and value(r) is not None]
     bar = max(shared, default=float("-inf"))
-    printed = sum(1 for r in rows if r["class"] == "playing" and r[feature] is not None
-                  and direction * r[feature] > bar)
+    printed = sum(1 for r in rows if r["class"] == "playing" and value(r) is not None
+                  and value(r) > bar)
     return direction * bar, printed
 
 

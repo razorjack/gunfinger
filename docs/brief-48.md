@@ -284,3 +284,21 @@ goes first, then the aligned drops at NAS scale.
   session-33-linux-nas` (3:45) identical with the run build
   `work/bin/s48-run/` (its `gunfinger` byte-identical to the start
   build's).
+- **(03:03) Test seeds 2032 and 2034**, by the registered rule: the
+  sweep panels drawn into `work/s48/panels/` (`mixes --count 0` with a
+  scratch work directory) hold the Clockwork original out for 2030 and
+  2031, the remix for 2033; 2032 and 2034 keep both. Development
+  features were computed first (`work/s48/features-dev-*.json`,
+  summaries `work/s48/summary-dev-*.txt`); no feature, rule or
+  threshold changed after them. One reporting fix before the test
+  seeds: the development-optimal threshold of F2 now counts a play
+  without a near alignment as printed, as R2 does (the first summary
+  skipped those plays).
+- **(03:05) F4 and F5 thresholds, from the development seeds** (the
+  registered way: the most playing plays printed with no shared play let
+  in). F4 reads the wrong way round (AUC 0.14 for "higher is playing" at
+  262 tracks: shared material scores higher), and its best bar prints 2
+  of 41: R4 is F4 < 0.172 (262 tracks only). F5's bar is 0.003442 at
+  262 tracks and 0.003386 at NAS scale; R5 takes the larger, F5 >
+  0.00344, so that it lets in no development shared play at either
+  scale. Both are now fixed in `marked_features.py` (`RULES`).

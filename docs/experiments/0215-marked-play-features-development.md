@@ -1,0 +1,19 @@
+# 0215: features of marked plays on the development seeds
+
+**Question.** Session 48 (brief 48, pre-registration 02:43): do features from the library's own evidence tell a record playing under a partner from shared material, among the plays ADR 0019 leaves out of the tracklist (`shares_material_with`)? Development data, where thresholds may be set.
+**Method.** Session 39's CLI reports of seeds 2026 and 2028 (`work/s39/cli-262`, `cli-nas`, `cli-nas-other`), labelled by the truth as 0183. `gunfinger-eval pair` for every (marked file, partner file), stored peaks on the turntable ladder (37 pairs at 262 tracks, 0:55; 110 at NAS scale, 0:03); the peak verifier from `mixes --verify --ladder turntable` on the cached renders (262 tracks, 1:13-1:15 per seed). F1: the pair's strongest alignment's hits; F2: the marked file time's distance from the partner's through the nearest alignment of 60 hits or more; F3: hits outside those alignments' spans; F4: the verifier's share; F5: the speed ratio's distance from the alignment's. `scripts/analysis/marked_features.py`.
+
+| Marked plays, 262 tracks \| NAS (other pairs included) | n | F1 hits | F2 s | F3 hits | F5 |
+|---|--:|--:|--:|--:|--:|
+| Playing: brief, quiet, unrelated drop | 35 \| 110 | 0-11 \| 0-14 | none | 60-233 | 0.0003-0.067 |
+| Playing: pair drop (a record inside its relative) | 6 \| 18 | 112 \| 13-349 | none or 74-104 \| none, 0.02-74 | 71-187 \| 29-189 | 0.001-0.002 \| to 0.13 |
+| Shared (a related version playing) | 64 \| 102 | 112-120 \| 93-9,160 | 0.0001-0.011 (61), none 3 \| 0.0001-155 | 0-107 \| 0-140 | 0.0001-0.0034 |
+| Other (NAS: no known relation) | 0 \| 29 | 29-267 | | | |
+
+- Separation (AUC, playing in unrelated scenarios against shared, 262 \| NAS): F1 1.00 \| 1.00, F2 0.98 \| 1.00, F3 0.97 \| 0.95, F5 0.92 \| 0.94. F4 reads the wrong way (0.14: shared material shares more peaks); its best bar prints 2 of 41.
+- R1 (F1 < 60, "the two files share no possible alignment"): prints 35 of 35 \| 110 of 110 unrelated playing records and lets in 0 of 64 \| 0 of 102 shared plays. Margin: the playing records' pairs reach at most 14 hits, the shared ones at least 93. It prints 0 of 6 \| 3 of 18 pair drops (the Monotone remix inside Watermelon, whose pair search finds 13 hits) and 4 of 29 "other" plays at NAS scale (Techno Funk over Alien Girl, NIL - Infectious and a T.S.T. Art remix over Mystery Machine, a Kridian upload over the T-Minus vocal mix; 61-73 hits, files sharing 29-57 hits).
+- R2 (F2 > 10 s or none): prints all 35 \| 110 and 6 of 6 \| 16 of 18 pair drops, but lets in 3 \| 6 shared plays: the Clockwork original found where the remix plays elsewhere (42-61 s at 262 tracks), off every alignment. R3 (F3 >= 60) lets in 10 \| 12.
+- Thresholds set here (brief 03:05): R4 F4 < 0.172, R5 F5 > 0.00344 (prints 31 of 41 \| 99 of 128 playing).
+- The pair drop: the Clockwork original inside its remix is off the alignment (F2 none or 74-104 s) with 71-187 hits outside the shared spans, so F2 and F3 call it playing where F1 cannot (the files share material).
+
+**What it shows.** On these mixes the library's own evidence separates the unrelated cases completely: a record under an unrelated partner shares no alignment with the partner's file, while shared material comes from files whose pair search finds 93 hits or more. A record inside its relative needs where it falls (F2) and what lies outside the shared spans (F3), and those let a few shared plays in. **Does not show** the test seeds (0216) or real mixes. Data `data/0215-marked-features-development.json`.
