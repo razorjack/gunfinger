@@ -121,7 +121,7 @@ pub fn load(path: &Path, expected: &Provenance) -> Result<Index, Unusable> {
         assets,
         offsets,
         postings,
-        longest_scanned: u32::MAX,
+        set_aside: super::SetAside::NONE,
     })
 }
 

@@ -65,7 +65,7 @@ use crate::clusters::Clusters;
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, SavedIndex, SecondLibrary};
+use crate::padding::{ExactCopies, Padding, SECOND_LIBRARY_PREFIX, SavedIndex, SecondLibrary};
 use crate::scan::{LeaveOut, SlotRun};
 
 #[derive(Parser)]
@@ -359,6 +359,8 @@ enum Command {
         /// (`sweep-seed-<seed>-other-rips.json`).
         #[arg(long)]
         other_rips: bool,
+        #[command(flatten)]
+        filter: FilterStudy,
     },
     /// Search a set's audio and score it against its manifest.
     Scan {
@@ -892,7 +894,11 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             pair::print_summary(&reports);
             Ok(())
         }
-        Command::Sweep { seed, other_rips } => run_sweep(paths, seed, other_rips, jobs),
+        Command::Sweep {
+            seed,
+            other_rips,
+            filter,
+        } => run_sweep(paths, seed, other_rips, &filter, jobs),
         Command::Recall {
             seed,
             prepare,
@@ -1213,6 +1219,7 @@ impl IndexVariant {
             copies: self.synthetic_copies,
             second,
             saved: None,
+            exact: None,
         })
     }
 
@@ -1285,7 +1292,7 @@ fn run_robust(
 
 /// The sweep, the development scan and its leave-outs.
 fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> Result<(), String> {
-    run_sweep(paths, seed, false, jobs)?;
+    run_sweep(paths, seed, false, &NO_FILTER_STUDY, jobs)?;
     run_scan(paths, set, None, &UNCHANGED_INDEX, jobs)?;
     for count in regress::LEAVE_OUTS {
         run_scan(
@@ -1612,8 +1619,91 @@ fn check_verdicts_against_last_run(
         })
 }
 
-fn run_sweep(paths: &Paths, seed: u64, other_rips: bool, jobs: usize) -> Result<(), String> {
+/// Sweep options for measuring the fullest-list filter (session 50). Each
+/// adds to the report's name, so no default report is written over.
+#[derive(clap::Args)]
+struct FilterStudy {
+    /// Keep each query's first-pass candidates (detections of at least
+    /// 10 hits, which the second pass measures again) and the lists the
+    /// searched index sets aside; the report's name ends in `-trace`.
+    #[arg(long)]
+    trace_candidates: bool,
+    /// Set the fullest lists aside ranked by distinct files or recordings
+    /// holding them instead of postings (default matcher only); the
+    /// report's name ends in `-rank-<ranking>`.
+    #[arg(long, value_enum)]
+    rank_fullest_by: Option<fullest::Ranking>,
+    /// Add this many exact copies of each record the file `--copied`
+    /// names to the index, in memory (`padding-copy/<i>/<path>`, counted
+    /// as their original); the report's name ends in
+    /// `-exact-<count>-<file stem>`.
+    #[arg(long, requires = "copied")]
+    exact_copies: Option<usize>,
+    /// The paths of the records to copy, one per line, as the index names
+    /// them (`second-library/<path>` for the other library's).
+    #[arg(long, requires = "exact_copies")]
+    copied: Option<PathBuf>,
+}
+
+const NO_FILTER_STUDY: FilterStudy = FilterStudy {
+    trace_candidates: false,
+    rank_fullest_by: None,
+    exact_copies: None,
+    copied: None,
+};
+
+impl FilterStudy {
+    fn exact(&self) -> Result<Option<ExactCopies>, String> {
+        let (Some(count), Some(file)) = (self.exact_copies, &self.copied) else {
+            return Ok(None);
+        };
+        let text = fs::read_to_string(file)
+            .map_err(|error| format!("cannot read {}: {error}", file.display()))?;
+        Ok(Some(ExactCopies {
+            count,
+            chosen: text
+                .lines()
+                .filter(|line| !line.is_empty())
+                .map(str::to_owned)
+                .collect(),
+        }))
+    }
+
+    fn suffix(&self) -> String {
+        let mut suffix = String::new();
+        if let (Some(count), Some(file)) = (self.exact_copies, &self.copied) {
+            let stem = file
+                .file_stem()
+                .map_or_else(String::new, |stem| stem.to_string_lossy().into_owned());
+            suffix.push_str(&format!("-exact-{count}-{stem}"));
+        }
+        if let Some(ranking) = self.rank_fullest_by {
+            suffix.push_str(&format!("-rank-{}", ranking.name()));
+        }
+        if self.trace_candidates {
+            suffix.push_str("-trace");
+        }
+        suffix
+    }
+}
+
+fn run_sweep(
+    paths: &Paths,
+    seed: u64,
+    other_rips: bool,
+    filter: &FilterStudy,
+    jobs: usize,
+) -> Result<(), String> {
     paths.check_panel(seed)?;
+    if filter.rank_fullest_by.is_some() && paths.matching.name().is_some() {
+        return Err(String::from(
+            "--rank-fullest-by ranks the default matcher's lists; it takes no other matching option",
+        ));
+    }
+    let padding = Padding {
+        exact: filter.exact()?,
+        ..paths.padding(&UNCHANGED_INDEX)?
+    };
     let map = match (other_rips, paths.map_file()) {
         (false, _) => None,
         (true, Some(map_file)) => Some(LibraryMap::load(&map_file)?),
@@ -1627,19 +1717,22 @@ fn run_sweep(paths: &Paths, seed: u64, other_rips: bool, jobs: usize) -> Result<
         &sweep::Options {
             seed,
             panels: &paths.panels,
-            padding: &paths.padding(&UNCHANGED_INDEX)?,
+            padding: &padding,
             ladder: &paths.rungs(),
             matching: &paths.matching,
             verify: paths.verify,
             other_rips: map.as_ref(),
+            trace: if filter.trace_candidates {
+                sweep::Trace::Candidates
+            } else {
+                sweep::Trace::Off
+            },
+            ranking: filter.rank_fullest_by,
             jobs,
         },
     )?;
-    let name = if other_rips {
-        format!("sweep-seed-{seed}-other-rips.json")
-    } else {
-        format!("sweep-seed-{seed}.json")
-    };
+    let other_rips = if other_rips { "-other-rips" } else { "" };
+    let name = format!("sweep-seed-{seed}{other_rips}{}.json", filter.suffix());
     write_json(&paths.reports().join(name), &report)?;
     sweep::print_summary(&report);
     Ok(())

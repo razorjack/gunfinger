@@ -88,6 +88,7 @@ pub struct Trace {
 pub const WINDOW_SECONDS: f64 = lines::WINDOW_SECONDS;
 
 pub use chains::{Links, STRONG_LINE_HITS};
+pub use refine::MIN_HITS_TO_REFINE;
 
 /// The two matchers (ADR 0008). Both look for candidates on the speed
 /// ladder; they differ in which posting lists that search scans, which

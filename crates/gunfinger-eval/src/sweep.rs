@@ -17,15 +17,16 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::Detection;
+use gunfinger_core::search::{Detection, MIN_HITS_TO_REFINE, SKIPPED_SHARE};
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::fullest::{self, FullestReport, Ranking};
 use crate::library_map::LibraryMap;
 use crate::matching::Matching;
-use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
+use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, original_path};
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
 use crate::verifier::{Verification, Verifier};
@@ -43,6 +44,28 @@ pub struct SweepReport {
     pub indexed_assets: usize,
     pub per_speed: Vec<SpeedRow>,
     pub queries: Vec<Query>,
+    /// With the candidate trace: the lists the searched index set aside.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub set_aside: Option<SetAside>,
+}
+
+/// The lists an index leaves out of the search for candidates.
+#[derive(Serialize, Deserialize)]
+pub struct SetAside {
+    pub census: FullestReport,
+    /// Their hashes, in order.
+    pub hashes: Vec<u32>,
+}
+
+/// A first-pass detection the second pass measures again (at least
+/// `MIN_HITS_TO_REFINE` hits), with its first-pass evidence.
+#[derive(Serialize, Deserialize)]
+pub struct Candidate {
+    pub asset: String,
+    /// Whether the asset is in the excerpt's own cluster.
+    pub correct: bool,
+    pub hits: u32,
+    pub windows: u32,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -65,6 +88,10 @@ pub struct Query {
     pub speed_percent: f64,
     /// Every detection with at least two windows, strongest first.
     pub detections: Vec<Outcome>,
+    /// With the candidate trace: the first pass's candidates, strongest
+    /// first.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub candidates: Option<Vec<Candidate>>,
 }
 
 #[derive(PartialEq, Serialize, Deserialize)]
@@ -196,7 +223,19 @@ pub struct Options<'a> {
     /// excerpt's source, with each such source and its identical copies
     /// left out of the index.
     pub other_rips: Option<&'a LibraryMap>,
+    /// Keep each query's first-pass candidates and the lists set aside.
+    pub trace: Trace,
+    /// Set the fullest lists aside ranked by distinct holders instead of
+    /// postings; `None` for the matcher's own index.
+    pub ranking: Option<Ranking>,
     pub jobs: usize,
+}
+
+/// Whether the sweep keeps the first pass's candidates (session 50).
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum Trace {
+    Off,
+    Candidates,
 }
 
 pub fn run(
@@ -214,6 +253,8 @@ pub fn run(
         matching,
         verify,
         other_rips,
+        trace,
+        ranking,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
@@ -224,7 +265,11 @@ pub fn run(
         Some(map) => other_rips_only(&draws, clusters, map, &held_out),
         None => ((0..draws.len()).collect(), held_out.clone()),
     };
-    let index = matching.index(padding.index(&records, &profile, &excluded)?);
+    let built = padding.index(&records, &profile, &excluded)?;
+    let index = match ranking {
+        Some(ranking) => ranking.index(built, clusters),
+        None => matching.index(built),
+    };
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let source = |draw: &Draw| library.root.join(&draw.asset);
@@ -243,6 +288,14 @@ pub fn run(
                 .map_err(|error| error.to_string())?;
             let own_cluster = clusters.cluster_of(&draw.asset);
             let detections = matching.search(&index, &audio.samples, &profile, ladder, 1);
+            let candidates = (trace == Trace::Candidates).then(|| {
+                matching
+                    .first_pass(&index, &audio.samples, &profile, ladder, 1)
+                    .iter()
+                    .filter(|detection| detection.evidence.hits >= MIN_HITS_TO_REFINE)
+                    .map(|detection| candidate(&index, detection, &own_cluster))
+                    .collect()
+            });
             Ok(Query {
                 asset: draw.asset.clone(),
                 held_out: draw.held_out,
@@ -257,6 +310,7 @@ pub fn run(
                         outcome(&index, detection, &own_cluster, verified)
                     })
                     .collect(),
+                candidates,
             })
         });
     let queries = searched
@@ -272,6 +326,10 @@ pub fn run(
             .map(|&speed| speed_row(speed, &queries))
             .collect(),
         queries,
+        set_aside: (trace == Trace::Candidates).then(|| SetAside {
+            census: fullest::census(&index, SKIPPED_SHARE),
+            hashes: fullest::set_aside_hashes(&index),
+        }),
     })
 }
 
@@ -432,7 +490,7 @@ pub fn outcome(
     let asset = &index.asset(detection.asset).path;
     Outcome {
         asset: asset.clone(),
-        correct: own_cluster.contains(asset),
+        correct: own_cluster.contains(original_path(asset)),
         confident: detection.evidence.is_confident(),
         windows: detection.evidence.windows,
         hits: detection.evidence.hits,
@@ -440,6 +498,16 @@ pub fn outcome(
         fitted: detection.evidence.pass == Pass::Fitted,
         partner: false,
         verified,
+    }
+}
+
+fn candidate(index: &Index, detection: &Detection, own_cluster: &BTreeSet<String>) -> Candidate {
+    let asset = &index.asset(detection.asset).path;
+    Candidate {
+        asset: asset.clone(),
+        correct: own_cluster.contains(original_path(asset)),
+        hits: detection.evidence.hits,
+        windows: detection.evidence.windows,
     }
 }
 

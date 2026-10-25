@@ -875,6 +875,7 @@ impl Searcher<'_> {
                     outcome
                 })
                 .collect(),
+            candidates: None,
         };
         let unobservable = is_unobservable(source, &own_cluster, self.indexed);
         RecallQuery {
@@ -1196,6 +1197,7 @@ mod tests {
                     verified: None,
                 })
                 .collect(),
+            candidates: None,
         }
     }
 
@@ -1560,6 +1562,7 @@ mod tests {
                         verified: None,
                     })
                     .collect(),
+                candidates: None,
             },
         }
     }

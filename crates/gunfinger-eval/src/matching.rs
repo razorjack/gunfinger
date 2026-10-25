@@ -121,6 +121,23 @@ impl Matching {
         search_with(index, samples, profile, ladder, jobs, self.options())
     }
 
+    /// The first pass alone: the detections the second pass would measure
+    /// again, with their first-pass evidence.
+    pub fn first_pass(
+        &self,
+        index: &Index,
+        samples: &[f32],
+        profile: &Profile,
+        ladder: &[Rung],
+        jobs: usize,
+    ) -> Vec<Detection> {
+        let options = Options {
+            second_pass: false,
+            ..self.options()
+        };
+        search_with(index, samples, profile, ladder, jobs, options)
+    }
+
     /// The thresholds its confident detections meet.
     pub fn rule(&self) -> Rule {
         self.pass().rule()

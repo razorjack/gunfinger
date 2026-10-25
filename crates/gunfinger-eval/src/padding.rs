@@ -1,6 +1,7 @@
 //! A larger index for scale experiments: the library's records, then the
 //! current records of a second library (a larger real library, when one
-//! exists), then reversed copies of the library's records (`synthetic`).
+//! exists), then reversed copies of the library's records (`synthetic`),
+//! then exact copies of chosen records (`ExactCopies`).
 //! The second library is either scanned (`--second-library`) or known from
 //! its store alone (`--other-peaks-dir`, less the copies corpus files
 //! stand for).
@@ -38,6 +39,34 @@ pub struct Padding {
     /// Where the index of the library and the whole second library is
     /// saved. Used only with a second library and no copies.
     pub saved: Option<SavedIndex>,
+    pub exact: Option<ExactCopies>,
+}
+
+/// Exact copies of chosen records, as a library holding many files of the
+/// same recordings would have: they add postings but no new hash, so they
+/// move only the ranking of the posting lists (session 50).
+pub struct ExactCopies {
+    /// Copies of each chosen record.
+    pub count: usize,
+    /// The paths of the records copied, as the index names them (the
+    /// second library's with their prefix). A record the run leaves out is
+    /// not copied.
+    pub chosen: BTreeSet<String>,
+}
+
+/// In the index, copy `i` of a record is named `padding-copy/<i>/<path>`.
+const COPY_PREFIX: &str = "padding-copy/";
+
+fn copy_path(copy: usize, path: &str) -> String {
+    format!("{COPY_PREFIX}{copy}/{path}")
+}
+
+/// The path of the record an exact copy was made from; any other path as
+/// it is.
+pub fn original_path(path: &str) -> &str {
+    path.strip_prefix(COPY_PREFIX)
+        .and_then(|rest| rest.split_once('/'))
+        .map_or(path, |(_, original)| original)
 }
 
 /// The saved index of the library and the whole second library (ADR
@@ -182,9 +211,19 @@ impl SecondLibrary {
         profile: &'a Profile,
         excluded: &'a BTreeSet<String>,
     ) -> impl Iterator<Item = Result<PeakRecord, String>> + 'a {
+        self.records_where(profile, move |path| !excluded.contains(path))
+    }
+
+    /// Its records whose prefixed path `wanted` accepts, one at a time,
+    /// their paths prefixed.
+    fn records_where<'a>(
+        &'a self,
+        profile: &'a Profile,
+        wanted: impl Fn(&str) -> bool + 'a,
+    ) -> impl Iterator<Item = Result<PeakRecord, String>> + 'a {
         self.assets
             .iter()
-            .filter(|asset| !excluded.contains(&format!("{SECOND_LIBRARY_PREFIX}{}", asset.path)))
+            .filter(move |asset| wanted(&format!("{SECOND_LIBRARY_PREFIX}{}", asset.path)))
             .map(move |asset| {
                 let mut record = self
                     .store
@@ -219,7 +258,7 @@ impl Padding {
         excluded: &BTreeSet<String>,
     ) -> Result<Index, String> {
         match (&self.saved, &self.second) {
-            (Some(saved), Some(second)) if self.copies == 0 => Ok(self
+            (Some(saved), Some(second)) if self.copies == 0 && self.exact.is_none() => Ok(self
                 .whole_index(saved, second, records, profile)?
                 .without_assets(excluded)),
             _ => self.build(records, profile, excluded),
@@ -318,6 +357,9 @@ impl Padding {
         for copy in synthetic::copies(&indexed, self.copies, profile) {
             counting.count(&copy).map_err(|error| error.to_string())?;
         }
+        for copy in self.exact_copies(&indexed, profile, excluded) {
+            counting.count(&copy?).map_err(|error| error.to_string())?;
+        }
         let mut filling = counting.into_filling();
         for record in &indexed {
             filling.fill(record).map_err(|error| error.to_string())?;
@@ -330,7 +372,42 @@ impl Padding {
         for copy in synthetic::copies(&indexed, self.copies, profile) {
             filling.fill(&copy).map_err(|error| error.to_string())?;
         }
+        for copy in self.exact_copies(&indexed, profile, excluded) {
+            filling.fill(&copy?).map_err(|error| error.to_string())?;
+        }
         filling.finish().map_err(|error| error.to_string())
+    }
+
+    /// The exact copies of the chosen records the index holds, each
+    /// record's copies together: the library's records first, then the
+    /// second library's, read from its store one at a time.
+    fn exact_copies<'a>(
+        &'a self,
+        indexed: &'a [&'a PeakRecord],
+        profile: &'a Profile,
+        excluded: &'a BTreeSet<String>,
+    ) -> impl Iterator<Item = Result<PeakRecord, String>> + 'a {
+        let (count, chosen) = match &self.exact {
+            Some(exact) => (exact.count, Some(&exact.chosen)),
+            None => (0, None),
+        };
+        let is_chosen = move |path: &str| chosen.is_some_and(|chosen| chosen.contains(path));
+        let library = indexed
+            .iter()
+            .filter(move |record| is_chosen(&record.header.source.path))
+            .map(|&record| Ok(record.clone()));
+        let second = self.second.iter().flat_map(move |second| {
+            second.records_where(profile, move |path| {
+                is_chosen(path) && !excluded.contains(path)
+            })
+        });
+        library.chain(second).flat_map(move |record| {
+            (1..=count).map(move |copy| {
+                let mut record = record.clone()?;
+                record.header.source.path = copy_path(copy, &record.header.source.path);
+                Ok(record)
+            })
+        })
     }
 }
 
@@ -382,6 +459,7 @@ mod tests {
             copies: 1,
             second: Some(SecondLibrary::open(&root, &dir.join("peaks")).unwrap()),
             saved: None,
+            exact: None,
         };
         let index = padding
             .index(
@@ -446,6 +524,66 @@ mod tests {
 
     fn excluded(paths: &[&str]) -> BTreeSet<String> {
         paths.iter().map(|path| (*path).to_owned()).collect()
+    }
+
+    #[test]
+    fn exact_copies_follow_every_record_of_the_chosen_files_the_index_holds() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-exact-{}", std::process::id()));
+        let files: &[(&str, &[f32])] = &[
+            ("b.mp3", &[100.0, 120.0, 90.0]),
+            ("c.mp3", &[150.0, 130.0, 160.0]),
+        ];
+        let padding = Padding {
+            second: Some(second_library(&dir, files)),
+            exact: Some(ExactCopies {
+                count: 2,
+                chosen: excluded(&["a.mp3", "d.mp3", "second-library/c.mp3"]),
+            }),
+            ..Padding::default()
+        };
+
+        let index = padding
+            .index(&corpus(), &Profile::CURRENT, &excluded(&["d.mp3"]))
+            .unwrap();
+        fs::remove_dir_all(&dir).unwrap();
+
+        let paths: Vec<&str> = index
+            .assets()
+            .iter()
+            .map(|asset| asset.path.as_str())
+            .collect();
+        assert_eq!(
+            paths,
+            [
+                "a.mp3",
+                "second-library/b.mp3",
+                "second-library/c.mp3",
+                "padding-copy/1/a.mp3",
+                "padding-copy/2/a.mp3",
+                "padding-copy/1/second-library/c.mp3",
+                "padding-copy/2/second-library/c.mp3",
+            ]
+        );
+        let postings_of = |asset: u32| {
+            index
+                .posting_lists()
+                .map(|list| {
+                    list.iter()
+                        .filter(|posting| posting.asset() == AssetId(asset))
+                        .count()
+                })
+                .collect::<Vec<usize>>()
+        };
+        assert_eq!(postings_of(0), postings_of(3));
+        assert_eq!(postings_of(2), postings_of(6));
+        assert_eq!(
+            original_path("padding-copy/2/second-library/c.mp3"),
+            "second-library/c.mp3"
+        );
+        assert_eq!(
+            original_path("second-library/c.mp3"),
+            "second-library/c.mp3"
+        );
     }
 
     #[test]

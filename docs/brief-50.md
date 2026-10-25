@@ -135,7 +135,7 @@ Rules for this session:
   holds about 30,000 postings, so at NAS scale copies of one recording
   move only lists already near the cut; a seeded share of the library
   copied several times moves the cut itself.
-- **(04:50) Step 1, the pre-registration** (committed before any padded
+- **(04:48) Step 1, the pre-registration** (committed before any padded
   search).
 
   *Padding.* Exact copies of chosen records, made in memory as the index
@@ -230,3 +230,42 @@ Rules for this session:
   costs 17% of own hits). At NAS scale K <= 9 of the panel moves few
   lists; the share selection at K = 9 raises the cut and moves many,
   towards the copied files and away from the rest.
+- **(04:56) Step 2, the harness** (`sweep` options, harness only; the
+  core gains one opt-in method):
+  - `Index::skipping_most_held(share, holder)` (core): the same cut as
+    `skipping_fullest` (`kept_at_cut`, shared by both), on the number of
+    distinct holders of each list; the lists set aside are kept as one
+    bit per hash. `scanned_postings` asks a `SetAside` value (lists
+    longer than a length, as before, or those hashes). The matchers and
+    the CLI do not call it. `search::MIN_HITS_TO_REFINE` is now public
+    for the trace.
+  - `sweep --exact-copies K --copied FILE` (`padding::ExactCopies`):
+    the copies are built into the index after every other record, so a
+    padded run builds its index from the stores instead of loading the
+    saved one; `sweep::outcome` strips `padding-copy/<i>/` before the
+    cluster lookup.
+  - `sweep --trace-candidates`: each query's first-pass candidates
+    (`Matching::first_pass`: the same search with the second pass off),
+    and the report's `set_aside` (`fullest::census` of the searched index
+    and its set-aside hashes).
+  - `sweep --rank-fullest-by files|clusters` (`fullest::Ranking`).
+  - Each option adds to the report's name (`-exact-<K>-<list>`,
+    `-rank-<ranking>`, `-trace`); the runs use scratch work directories
+    (`work/s50/w262`, `work/s50/wnas`) whose `sweep/` links to
+    `work/sweep/` (the renders are reused, none rendered).
+  - Decision (conservative, for time): padding and the trace are sweep
+    options only, so the recall panel's other-rips queries are not
+    searched padded; the sweep's `--other-rips` form at NAS scale stands
+    for the other-rips condition. If time is left after step 4, the
+    recall panel is the first addition.
+  - `scripts/analysis/filter_padding.py` (`copied`, `compare`) with
+    tests. The lists (`work/s50/copied/`): panel 67 files at 262 tracks,
+    219 at NAS scale; share 26 of 265 and 4,070 of 40,705.
+- **(05:04) Step 2's checks** (`work/s50/step2.sh`, tmux `s50harness`):
+  `scripts/check.sh` green (4:00); run build `work/bin/s50-run/`;
+  `regress session-32-linux` (0:51) and `regress session-33-linux-nas`
+  (3:52) identical, every report identical to its baseline's apart from
+  `wall_seconds`. The CLI binary is not byte-identical to the start
+  build's this time (the core's `scanned_postings` matches on
+  `SetAside`); the NAS-scale development scan searched in 24.7 s, as
+  before (about 24 s).

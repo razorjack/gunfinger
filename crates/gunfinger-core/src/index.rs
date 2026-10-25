@@ -83,8 +83,28 @@ pub struct Index {
     assets: Vec<IndexedAsset>,
     offsets: Vec<u32>,
     postings: Vec<Posting>,
-    /// Lists longer than this are left out of `scanned_postings`.
-    longest_scanned: u32,
+    /// The lists `scanned_postings` leaves out.
+    set_aside: SetAside,
+}
+
+/// Which posting lists the search for candidates leaves out.
+#[derive(Debug, PartialEq)]
+enum SetAside {
+    /// Lists longer than this (`u32::MAX`: none).
+    Longer(u32),
+    /// The lists of these hashes, one bit per hash (`skipping_most_held`).
+    Hashes(Vec<u64>),
+}
+
+impl SetAside {
+    const NONE: SetAside = SetAside::Longer(u32::MAX);
+
+    fn holds(&self, hash: PairHash, list: &[Posting]) -> bool {
+        match self {
+            SetAside::Longer(longest) => list.len() as u32 > *longest,
+            SetAside::Hashes(bits) => (bits[(hash.0 >> 6) as usize] >> (hash.0 & 63)) & 1 == 1,
+        }
+    }
 }
 
 impl Index {
@@ -136,7 +156,7 @@ impl Index {
     /// `postings`.
     pub fn scanned_postings(&self, hash: PairHash) -> &[Posting] {
         let list = self.postings(hash);
-        if list.len() as u32 > self.longest_scanned {
+        if self.set_aside.holds(hash, list) {
             &[]
         } else {
             list
@@ -183,7 +203,7 @@ impl Index {
             assets: self.assets,
             offsets,
             postings,
-            longest_scanned: u32::MAX,
+            set_aside: SetAside::NONE,
         }
     }
 
@@ -191,29 +211,60 @@ impl Index {
     /// leaves them out, `postings` still returns them.
     pub fn skipping_fullest(self, share: f64) -> Index {
         match self.longest_kept(share) {
-            Some(longest_scanned) => Index {
-                longest_scanned,
+            Some(longest) => Index {
+                set_aside: SetAside::Longer(longest),
                 ..self
             },
             None => self,
         }
     }
 
+    /// Like `skipping_fullest`, but ranks the lists by how many distinct
+    /// holders their postings name instead of by their length: `holder`
+    /// gives each asset's (the file itself, or the recording it belongs
+    /// to). A file that repeats a hash, or copies of one recording, then
+    /// count once. For measuring the filter's ranking (session 50); the
+    /// matchers rank by length.
+    pub fn skipping_most_held(self, share: f64, holder: impl Fn(AssetId) -> u32) -> Index {
+        let holders: Vec<u32> = (0..self.assets.len() as u32)
+            .map(|asset| holder(AssetId(asset)))
+            .collect();
+        let mut last_list =
+            vec![u32::MAX; holders.iter().max().map_or(0, |&most| most as usize + 1)];
+        let held_by: Vec<u32> = self
+            .posting_lists()
+            .enumerate()
+            .map(|(list, postings)| {
+                let mut distinct = 0;
+                for posting in postings {
+                    let holder = holders[posting.asset().0 as usize] as usize;
+                    if last_list[holder] != list as u32 {
+                        last_list[holder] = list as u32;
+                        distinct += 1;
+                    }
+                }
+                distinct
+            })
+            .collect();
+        let Some(most_kept) = kept_at_cut(held_by.iter().copied(), share) else {
+            return self;
+        };
+        let mut bits = vec![0_u64; held_by.len().div_ceil(64)];
+        for (hash, &held) in held_by.iter().enumerate() {
+            if held > most_kept {
+                bits[hash >> 6] |= 1 << (hash & 63);
+            }
+        }
+        Index {
+            set_aside: SetAside::Hashes(bits),
+            ..self
+        }
+    }
+
     /// The longest list kept when the `share` of fullest non-empty lists
     /// is set aside; `None` when that share rounds to no list.
     fn longest_kept(&self, share: f64) -> Option<u32> {
-        let mut lengths: Vec<u32> = self
-            .offsets
-            .windows(2)
-            .map(|pair| pair[1] - pair[0])
-            .filter(|&length| length > 0)
-            .collect();
-        let dropped = (share * lengths.len() as f64).round() as usize;
-        if dropped == 0 {
-            return None;
-        }
-        lengths.sort_unstable_by(|a, b| b.cmp(a));
-        Some(lengths.get(dropped).copied().unwrap_or(0))
+        kept_at_cut(self.offsets.windows(2).map(|pair| pair[1] - pair[0]), share)
     }
 
     /// The index as built without the assets whose paths `left_out` names:
@@ -263,6 +314,19 @@ impl Index {
     pub fn size_bytes(&self) -> usize {
         size_of_val(self.offsets.as_slice()) + size_of_val(self.postings.as_slice())
     }
+}
+
+/// The largest value kept when the `share` of the non-zero `values` with
+/// the largest values is set aside (ties at the cut are kept); `None`
+/// when that share rounds to none.
+fn kept_at_cut(values: impl Iterator<Item = u32>, share: f64) -> Option<u32> {
+    let mut values: Vec<u32> = values.filter(|&value| value > 0).collect();
+    let dropped = (share * values.len() as f64).round() as usize;
+    if dropped == 0 {
+        return None;
+    }
+    values.sort_unstable_by(|a, b| b.cmp(a));
+    Some(values.get(dropped).copied().unwrap_or(0))
 }
 
 /// The first pass of a build: the assets in order, and the number of
@@ -396,7 +460,7 @@ impl Filling {
             assets: self.assets,
             offsets: self.offsets,
             postings: self.postings,
-            longest_scanned: u32::MAX,
+            set_aside: SetAside::NONE,
         })
     }
 }
@@ -529,7 +593,7 @@ mod tests {
         assert_eq!(filtered.assets(), built.assets());
         assert_eq!(filtered.offsets, built.offsets);
         assert_eq!(filtered.postings, built.postings);
-        assert_eq!(filtered.longest_scanned, u32::MAX);
+        assert_eq!(filtered.set_aside, SetAside::NONE);
         assert_eq!(filtered.postings.iter().map(|p| p.asset().0).max(), Some(2));
     }
 
@@ -670,6 +734,84 @@ mod tests {
         assert!(skipping.scanned_postings(common).is_empty());
         assert_eq!(skipping.postings(common).len(), 2);
         assert_eq!(skipping.scanned_postings(rare).len(), 1);
+    }
+
+    #[test]
+    fn ranking_by_holders_sets_aside_the_list_most_files_hold() {
+        // One file repeats a hash four times (a loop); three files hold
+        // another once each. By length the loop's list is the fullest, by
+        // files the other.
+        let looped = [
+            (10.0, 100.0),
+            (20.0, 110.0),
+            (110.0, 100.0),
+            (120.0, 110.0),
+            (210.0, 100.0),
+            (220.0, 110.0),
+            (310.0, 100.0),
+            (320.0, 110.0),
+        ];
+        let shared = [(10.0, 300.0), (20.0, 320.0)];
+        let records = [
+            record("loop.mp3", &looped),
+            record("a.mp3", &shared),
+            record("b.mp3", &shared),
+            record("c.mp3", &shared),
+        ];
+        let loop_hash = hashes_of(&[(10.0, 100.0), (20.0, 110.0)])[0];
+        let shared_hash = hashes_of(&shared)[0];
+        let lists = |index: &Index| {
+            index
+                .posting_lists()
+                .filter(|list| !list.is_empty())
+                .count()
+        };
+        let index = Index::build(&records).unwrap();
+        let share = 1.0 / lists(&index) as f64;
+        assert_eq!(index.postings(loop_hash).len(), 4);
+        assert_eq!(index.postings(shared_hash).len(), 3);
+
+        let by_length = Index::build(&records).unwrap().skipping_fullest(share);
+        let by_files = index.skipping_most_held(share, |asset| asset.0);
+
+        assert!(by_length.scanned_postings(loop_hash).is_empty());
+        assert_eq!(by_length.scanned_postings(shared_hash).len(), 3);
+        assert_eq!(by_files.scanned_postings(loop_hash).len(), 4);
+        assert!(by_files.scanned_postings(shared_hash).is_empty());
+        assert_eq!(by_files.postings(shared_hash).len(), 3);
+    }
+
+    #[test]
+    fn copies_given_one_holder_count_once() {
+        // a.mp3 and two copies hold one hash, b.mp3 and c.mp3 another: by
+        // files the first list is held most, by recording the second.
+        let first = [(10.0, 100.0), (20.0, 110.0)];
+        let second = [(10.0, 300.0), (20.0, 320.0)];
+        let records = [
+            record("a.mp3", &first),
+            record("copy-1/a.mp3", &first),
+            record("copy-2/a.mp3", &first),
+            record("b.mp3", &second),
+            record("c.mp3", &second),
+        ];
+        let share = 1.0 / 2.0;
+        let recording = |asset: AssetId| if asset.0 < 3 { 0 } else { asset.0 };
+
+        let by_files = Index::build(&records)
+            .unwrap()
+            .skipping_most_held(share, |asset| asset.0);
+        let by_recording = Index::build(&records)
+            .unwrap()
+            .skipping_most_held(share, recording);
+
+        assert!(by_files.scanned_postings(hashes_of(&first)[0]).is_empty());
+        assert_eq!(by_files.scanned_postings(hashes_of(&second)[0]).len(), 2);
+        assert_eq!(by_recording.scanned_postings(hashes_of(&first)[0]).len(), 3);
+        assert!(
+            by_recording
+                .scanned_postings(hashes_of(&second)[0])
+                .is_empty()
+        );
     }
 
     #[test]

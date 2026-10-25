@@ -28,7 +28,7 @@ use crate::speed::{self, Playback, Rung, SpeedRatio};
 
 /// Candidates with fewer first-pass hits are left as they are: weak either
 /// way, and most of a query's candidates.
-const MIN_HITS_TO_REFINE: u32 = 10;
+pub const MIN_HITS_TO_REFINE: u32 = 10;
 /// The span analysed reaches this far beyond the candidate's first and last
 /// hit, where the ladder may have seen too few hits for a line.
 const MARGIN_SECONDS: f64 = WINDOW_SECONDS;
