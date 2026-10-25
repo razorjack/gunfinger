@@ -5,9 +5,8 @@
 measures at their thresholds fitted on the 60 earlier judged pairs (a)
 put each pair on its verdict's side?
 
-**Data.** `pairs-s49-new.json` (the verdict lines' order, first file the
-query), `drift_offsets.py scores`; values in `data/0220-drift-offsets-scores.json`.
-The pack chose these pairs as the joins with the least `near_10` and the
+**Data.** `pairs-s49-new.json`, `drift_offsets.py scores` (values in
+`data/0220-drift-offsets-scores.json`). The pack chose these pairs as the joins with the least `near_10` and the
 apart pairs with the most, plus two control joins: they lie near the
 threshold by construction, not at random.
 
@@ -28,15 +27,12 @@ threshold by construction, not at random.
 **Result.** All three order the ten without a fault (AUC 1.000). At its
 threshold, coverage and `near_10` put every pair on its verdict's side;
 supported time puts Falcon, the drifting pair of 0219, 0.009 below its
-own and calls it different. Pooled with (a) (28 same, 42 different):
-leave-one-out errors 9 (coverage), 9 (supported time), 6 (`near_10`);
-AUC 0.915, 0.943, 0.957.
+own. Pooled with (a) (28 same, 42 different): leave-one-out errors 9,
+9 and 6 (coverage, supported, `near_10`); AUC 0.915, 0.943, 0.957.
 
-**Margins.** The nearest pairs to `near_10`'s threshold are Alien Girl
-(0.678, same; session 47 found its outro aligned to a section of the
-other file that repeats it) and We R The Ones VIP (0.301, different): the gap
-between the ten's groups (0.30-0.68) holds the threshold. Coverage's
-margin on the different side is 0.04 (the Klute VIP at 0.542).
+**Margins.** `near_10`'s nearest pairs: Alien Girl (0.678, same) and We
+R The Ones VIP (0.301, different). Coverage's: the VIP at 0.542, 0.04
+below its threshold.
 
 **Conclusions.** A first test on unseen judged pairs agrees with session
 40: `near_10` and coverage make no error, supported time one, on a
