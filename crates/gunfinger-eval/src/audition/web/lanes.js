@@ -70,13 +70,13 @@ export class LanesView {
     const reveal = button("reveal", "Show the file in its folder", () =>
       api.reveal(path.textContent).catch((error) => this.say(error.message)),
     );
-    const placement = document.createElement("span");
-    placement.className = "muted";
-    info.append(path, copy, reveal, placement);
+    const words = document.createElement("span");
+    words.className = "muted";
+    info.append(path, copy, reveal, words);
     row.append(label, canvas, info);
     this.root.append(row);
     this.listen(canvas);
-    return { row, label, canvas, path, placement };
+    return { row, label, canvas, path, words };
   }
 
   async copy(text) {
@@ -157,15 +157,16 @@ export class LanesView {
     const t = this.drag ? this.drag.t : player.now();
     const sounding = new Set(player.sounding().map(({ lane }) => lane));
     player.lanes.forEach((lane, index) => {
-      const { row, label, canvas, path, placement } = this.rows[index];
+      const { row, label, canvas, path, words } = this.rows[index];
       const placed = lane.placed === "pieces" ? "" : ` · ${PLACEMENT_WORDS[lane.placed].lane}`;
-      label.textContent = `${index + 1} · ${lane.name}${placed}`;
+      const named = `${index + 1} · ${lane.name}${placed}`;
+      if (label.textContent !== named) label.textContent = named;
       this.drawLane(canvas, lane, index, t, sounding.has(index));
       row.classList.toggle("current", index === player.lane);
       row.classList.toggle("sounding", sounding.has(index));
       const piece = pieceAt(lane, t) ?? lane.pieces.find((candidate) => candidate.start > t) ?? lane.pieces.at(-1);
       if (path.textContent !== piece.file) path.textContent = piece.file;
-      placement.textContent = this.words(piece, t);
+      words.textContent = this.words(piece, t);
     });
   }
 

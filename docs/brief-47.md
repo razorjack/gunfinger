@@ -126,7 +126,7 @@ Rules for this session:
   | 3. Alien Girl ~ the PRO014 rip | 1: -0.2 s, 1,495 hits | alignments 6, 7, 4, 5 at -175.5, -198.1, -220.5, -340.7 s (155-233 hits), A 4:50-7:02 | `same` |
   | 5. Fallout ~ the Sinthetix file | 1: -0.6 s, 987 hits | alignment 3 at -11.9 s (107 hits), A 2:10-2:30; alignment 4 at -300.3 s (99 hits), A 6:30-6:52 | none yet |
   | 10. Tower Bass, two mixes | 1: -81.8 s, 118 hits | alignment 2 at -59.6 s (75 hits), A 0:59-1:30 | `different` |
-  | 11. We R The Ones VIP ~ the Klute Remix | 1: +0.4 s, 125 hits | alignment 3 at -132.4 s (64 hits), A 5:10-5:40; alignment 2 at -21.9 s (77 hits), A 6:10-7:28 | `different` |
+  | 11. We R The Ones VIP ~ the Klute Remix | 1: +0.4 s, 125 hits | alignment 3 at -132.4 s (64 hits), A 5:10-6:10; alignment 2 at -21.9 s (77 hits), A 6:10-7:28 | `different` |
 
   Two of them were answered `same` (Dead Air and Alien Girl): in both
   the last minute or two of A plays against a section of B heard
@@ -149,6 +149,10 @@ Rules for this session:
   page change does not depend on it.
 
 ## Step 2: the design
+
+(The decisions at 02:20 and 02:31 below change two details: the state
+shows on a button after the transport line, not in it, and a lane's
+label reads "2 · B · main alignment throughout".)
 
 **What the listener gets.** A new control key `O` (for "offset")
 cycles the placement of the aligned lanes through up to three states,
@@ -248,11 +252,6 @@ directory render ran from). Its default paths are already absolute.
 - **(02:25) `Lane::new`** for lanes with one placement, so the
   producers that write neither field (detections, folders, lane A)
   name only what they set.
-- **(02:31) Wording**: the scratch check showed "placed by from the
-  file's start"; the page now names the lanes' placement ("placed by
-  every alignment", "placed by the main alignment throughout", "placed
-  from the files' starts") apart from a re-placed lane's label ("main
-  alignment throughout", "from its start").
 - **(02:30) The check by hand** (`work/s47/cdp/check.mjs`, uncommitted:
   headless Chrome over the DevTools protocol with Node's own
   WebSocket, against a scratch server on `work/s47/questions/05-pack-s40.json`
@@ -273,7 +272,25 @@ directory render ran from). Its default paths are already absolute.
   playhead follows B's own clock then. The lane label, its info line
   (file time, offset, speed, piece label) and the button showed each
   state; the clock stayed A's time. No answer was sent.
+- **(02:31) Wording**: the scratch check showed "placed by from the
+  file's start"; the page now names the lanes' placement ("placed by
+  every alignment", "placed by the main alignment throughout", "placed
+  from the files' starts") apart from a re-placed lane's label ("main
+  alignment throughout", "from its start").
 - **(02:33) Step 4** done as designed: `library_roots` in
   `listening_pack.py`, two tests in `test_listening_pack.py`.
 - **(02:35) `scripts/check.sh` green** (3:57) after `cargo fmt`; the
   first run stopped at the format check.
+- **(02:47) The review** (a read-only agent, 02:38-02:45) found no
+  defect in the page or the Rust code and three in the documents:
+  README's key table lacked `O`; item 11's far piece is A 5:10-6:10,
+  not alignment 3's own span 5:10-5:40; the pair example in
+  `docs/audition-questions.md` had pieces outside its clipped file
+  (start 9.4 is 15 ms before B's start, which `schema::check` refuses;
+  end 420.5 past B's end at 419.47). Its suggestions taken: the `shared`
+  example says it leaves the fields out; the lane label is written only
+  when it changes and the info span is named `words`; these decisions
+  in time order; tests for `from_start`'s offset sign, the tie in
+  `main`, an extra lane's placements, a lane without the placement
+  beside one with it, a change while paused and in the blend, and the
+  control letters read from `schema.rs`; the `Listed` test committed.

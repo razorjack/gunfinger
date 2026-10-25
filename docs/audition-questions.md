@@ -234,9 +234,9 @@ Generic file names. A pair (the listening pack's kind):
       {"name": "A", "pieces": [
         {"file": "/Volumes/nas/music/album/01-artist-title.mp3", "start": 0.0, "end": 420.5, "offset": 0.0, "speed": 1.0}]},
       {"name": "B", "pieces": [
-        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 9.4, "end": 40.2, "offset": -9.4, "speed": 0.9984, "label": "alignment 3"},
+        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 9.415, "end": 40.2, "offset": -9.4, "speed": 0.9984, "label": "alignment 3"},
         {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 40.2, "end": 334.6, "offset": -21.99, "speed": 0.9984, "label": "alignment 1"},
-        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 334.6, "end": 420.5, "offset": -66.6, "speed": 0.9984, "label": "alignment 2"}],
+        {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 334.6, "end": 419.47, "offset": -66.6, "speed": 0.9984, "label": "alignment 2"}],
        "main": [
         {"file": "/Volumes/nas/music/compilation/111-artist-title.mp3", "start": 22.03, "end": 374.79, "offset": -21.99, "speed": 0.9984, "label": "alignment 1, throughout"}],
        "from_start": [
@@ -319,7 +319,8 @@ A detection (is it right?), the mix as the reference lane:
 ```
 
 Shared material (two different recordings), A as the reference lane and
-B following each alignment:
+B following each alignment (`questions shared` also writes lane B's
+`main` and `from_start`, left out here; see the pair example):
 
 ```json
 {

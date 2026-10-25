@@ -370,7 +370,20 @@ mod tests {
             spans(lane.from_start.as_deref().unwrap()),
             [(0.0, 387.5, 0.0, "from the file's start")]
         );
-        assert_eq!(lane.from_start.unwrap()[0].speed, 0.9594);
+        let from_start = &lane.from_start.unwrap()[0];
+        assert_eq!(from_start.speed, 0.9594);
+        assert!(from_start.offset.is_sign_positive(), "offset -0");
+    }
+
+    #[test]
+    fn of_equally_strong_alignments_the_first_is_the_main_one() {
+        let alignments = [
+            alignment(0.0, 10.0, 1.0, "first"),
+            alignment(20.0, 30.0, 2.0, "second"),
+        ];
+
+        assert_eq!(main(&alignments).unwrap().label, "first");
+        assert_eq!(main(&[]), None);
     }
 
     #[test]

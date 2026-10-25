@@ -5,6 +5,7 @@
 // without speed matching follow the placement in force.
 
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
 import * as keys from "../keys.js";
@@ -172,7 +173,56 @@ test("without speed matching the playhead follows lane B's own clock in the new 
 test("the control letters are the server's (schema::CONTROL_KEYS), O among them", () => {
   const press = (key) => keys.action({ key, metaKey: false, ctrlKey: false, altKey: false, shiftKey: false, repeat: false });
   const controls = [..."abcdefghijklmnopqrstuvwxyz"].filter((key) => press(key).name !== "choice");
+  const schema = readFileSync(new URL("../../schema.rs", import.meta.url), "utf8");
+  const declared = schema.match(/pub const CONTROL_KEYS: \[char; \d+\] = \[([^\]]*)\]/)[1].match(/[a-z]/g);
 
-  assert.deepEqual(controls, [..."bjklmoz"]);
+  assert.deepEqual(controls, declared);
+  assert.ok(controls.includes("o"));
   assert.equal(press("O").name, "placement");
+});
+
+test("under a placement, a lane without it keeps its pieces", (t) => {
+  const { player } = setUp(t);
+  const mixed = question();
+  mixed.lanes.push({ name: "C", pieces: [{ file: "/music/c.mp3", start: 10, end: 300, offset: -10, speed: 1 }] });
+  player.open(mixed);
+
+  placementKey(player);
+
+  assert.deepEqual(player.lanes.map((lane) => lane.placed), ["pieces", "main", "pieces"]);
+  close(player.fileTimes(100)[2].seconds, 90, "lane C");
+});
+
+test("a change of placement while paused keeps the position and re-places the file times", (t) => {
+  const { context, player } = setUp(t);
+  player.seek(350);
+
+  placementKey(player);
+
+  assert.ok(!player.playing);
+  assert.equal(player.now(), 350);
+  assert.equal(context.sources.length, 0);
+  close(player.fileTimes()[1].seconds, 0.44 + 0.9594 * 350, "B under the main alignment");
+});
+
+test("in the blend a change of placement re-places lane B beside A", (t) => {
+  const { context, player } = setUp(t);
+  player.switchTo(1);
+  player.toggleBlend();
+  player.seek(350);
+  player.play();
+  context.advance(0.5);
+  t.mock.timers.tick(50);
+  const sources = context.sources.length;
+
+  placementKey(player);
+  t.mock.timers.tick(50);
+
+  const fresh = scheduled(context, sources);
+  const a = fresh.find((source) => source.file === "/music/a.opus");
+  const b = fresh.find((source) => source.file === B);
+  const moment = player.at(b.at);
+  close(a.seconds, moment, "A");
+  close(b.seconds, 0.44 + 0.9594 * moment, "B under the main alignment");
+  assert.deepEqual([a.rate, b.rate], [1, 0.9594]);
 });

@@ -399,7 +399,9 @@ candidate tracks in the others, placed where and at the speed Gunfinger
 found them. Switching lanes keeps the musical moment, so you can jump
 from the mix to the track mid-bar and hear whether it is the same
 pressing. Speed matching plays each lane at its placed speed; `B` plays
-two lanes together.
+two lanes together. A lane placed by several alignments (an edit, a
+section matched where it repeats) follows each of them by default; `O`
+places it by its main alignment throughout, or from its file's start.
 
 | Key | Action |
 |---|---|
@@ -410,6 +412,7 @@ two lanes together.
 | Up, Down | previous or next marker |
 | L | loop 8 s around the moment |
 | M | speed matching on or off |
+| O | place the aligned lanes by every alignment, the main alignment throughout, or from their files' starts |
 | B | this lane and the one played before together |
 | J, K | next or previous question |
 | Z | undo the latest answer |

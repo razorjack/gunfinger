@@ -929,6 +929,13 @@ To record a verdict, a line in docs/pair-verdicts.txt (tabs between the fields):
         let original = lane.pieces[0].file_time(at);
         assert!((0.7 + 0.995 * original - at).abs() < 1e-9);
         assert!(question.spans.iter().any(|span| span.lanes == [0, 2]));
+        // Inverted, its one alignment is its main one, throughout.
+        let main = &lane.main.as_deref().unwrap()[0];
+        assert_eq!(
+            (main.offset, main.speed),
+            (lane.pieces[0].offset, lane.pieces[0].speed)
+        );
+        assert_eq!(lane.from_start.as_deref().unwrap()[0].speed, main.speed);
 
         let missing = questions(
             &pack(&dir),

@@ -157,3 +157,29 @@ impl Session {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::audition::schema::SCHEMA_VERSION;
+    use crate::audition::schema::tests::{pair_question, piece};
+
+    #[test]
+    fn the_files_of_every_placement_are_listed() {
+        let mut question = pair_question();
+        question.lanes[1].main = Some(vec![piece("/music/b-main.opus", 2.0, 100.0, -2.0, 1.01)]);
+        let file = QuestionFile {
+            schema_version: SCHEMA_VERSION,
+            title: String::from("test"),
+            made_by: String::from("test"),
+            questions: vec![question],
+        };
+
+        let listed = Listed::of([&file]);
+
+        assert!(listed.get("/music/a.mp3").is_some());
+        assert!(listed.get("/music/b.opus").is_some());
+        assert!(listed.get("/music/b-main.opus").is_some());
+        assert!(listed.get("/music/c.opus").is_none());
+    }
+}
