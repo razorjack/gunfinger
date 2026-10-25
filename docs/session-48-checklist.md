@@ -22,7 +22,7 @@ for scope and rules.
 - [x] 3. Runs: development seeds, test seeds, 262 tracks and NAS scale
 - [x] 4. Experiments: features on the development seeds; the rule on the
   test seeds; the aligned merges
-- [ ] 5. The development mixes' NAS-scale reports
+- [x] 5. The development mixes' NAS-scale reports
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 48", status, checklist, roadmap; final
   checks

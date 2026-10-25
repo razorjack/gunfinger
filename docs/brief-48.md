@@ -322,3 +322,8 @@ goes first, then the aligned drops at NAS scale.
   did not write); the registered scores do not use them, so they were
   not run again. Experiments 0215 (development), 0216 (test seeds) and
   0217 (aligned merges) written in that order.
+- **(03:39) Step 5, experiment 0218.** The five marked plays of the
+  development mixes' NAS-scale reports (session 36's `id-*-s36-step1-32`
+  reports; the `s35-final` ones mark the same plays): R1 leaves all
+  five out; R2 prints two and R3 one. The pair searches ran at 02:59
+  (before 0216 was written) but were read only now.
