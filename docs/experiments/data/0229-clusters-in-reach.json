@@ -1,0 +1,172 @@
+{
+ "L0": {
+  "reach_percent": 8.4,
+  "nominal_percent": 8.0,
+  "at_reach_deck_0.05": {
+   "copies_alone": 29,
+   "clusters_with_a_copy_beyond": 37,
+   "copies_beyond_for_some_play": 129
+  },
+  "at_reach_deck_0.08": {
+   "copies_alone": 88,
+   "clusters_with_a_copy_beyond": 93,
+   "copies_beyond_for_some_play": 402
+  },
+  "at_nominal_deck_0.05": {
+   "copies_alone": 38,
+   "clusters_with_a_copy_beyond": 50,
+   "copies_beyond_for_some_play": 189
+  },
+  "at_nominal_deck_0.08": {
+   "copies_alone": 554,
+   "clusters_with_a_copy_beyond": 284,
+   "copies_beyond_for_some_play": 1005
+  },
+  "session_49_deck_0.05": {
+   "copies_alone": 38,
+   "clusters_with_a_copy_beyond": 50,
+   "copies_beyond_for_some_play": 189
+  },
+  "session_49_deck_0.08": {
+   "copies_alone": 554,
+   "clusters_with_a_copy_beyond": 284,
+   "copies_beyond_for_some_play": 1005
+  }
+ },
+ "L1": {
+  "reach_percent": 8.8,
+  "nominal_percent": 8.4,
+  "at_reach_deck_0.05": {
+   "copies_alone": 19,
+   "clusters_with_a_copy_beyond": 23,
+   "copies_beyond_for_some_play": 78
+  },
+  "at_reach_deck_0.08": {
+   "copies_alone": 78,
+   "clusters_with_a_copy_beyond": 88,
+   "copies_beyond_for_some_play": 375
+  },
+  "at_nominal_deck_0.05": {
+   "copies_alone": 29,
+   "clusters_with_a_copy_beyond": 37,
+   "copies_beyond_for_some_play": 129
+  },
+  "at_nominal_deck_0.08": {
+   "copies_alone": 88,
+   "clusters_with_a_copy_beyond": 93,
+   "copies_beyond_for_some_play": 402
+  },
+  "session_49_deck_0.05": {
+   "copies_alone": 38,
+   "clusters_with_a_copy_beyond": 50,
+   "copies_beyond_for_some_play": 189
+  },
+  "session_49_deck_0.08": {
+   "copies_alone": 554,
+   "clusters_with_a_copy_beyond": 284,
+   "copies_beyond_for_some_play": 1005
+  }
+ },
+ "L2": {
+  "reach_percent": 9.2,
+  "nominal_percent": 8.8,
+  "at_reach_deck_0.05": {
+   "copies_alone": 7,
+   "clusters_with_a_copy_beyond": 12,
+   "copies_beyond_for_some_play": 41
+  },
+  "at_reach_deck_0.08": {
+   "copies_alone": 74,
+   "clusters_with_a_copy_beyond": 82,
+   "copies_beyond_for_some_play": 357
+  },
+  "at_nominal_deck_0.05": {
+   "copies_alone": 19,
+   "clusters_with_a_copy_beyond": 23,
+   "copies_beyond_for_some_play": 78
+  },
+  "at_nominal_deck_0.08": {
+   "copies_alone": 78,
+   "clusters_with_a_copy_beyond": 88,
+   "copies_beyond_for_some_play": 375
+  },
+  "session_49_deck_0.05": {
+   "copies_alone": 38,
+   "clusters_with_a_copy_beyond": 50,
+   "copies_beyond_for_some_play": 189
+  },
+  "session_49_deck_0.08": {
+   "copies_alone": 554,
+   "clusters_with_a_copy_beyond": 284,
+   "copies_beyond_for_some_play": 1005
+  }
+ },
+ "L3": {
+  "reach_percent": 9.6,
+  "nominal_percent": 9.2,
+  "at_reach_deck_0.05": {
+   "copies_alone": 3,
+   "clusters_with_a_copy_beyond": 6,
+   "copies_beyond_for_some_play": 22
+  },
+  "at_reach_deck_0.08": {
+   "copies_alone": 69,
+   "clusters_with_a_copy_beyond": 79,
+   "copies_beyond_for_some_play": 340
+  },
+  "at_nominal_deck_0.05": {
+   "copies_alone": 7,
+   "clusters_with_a_copy_beyond": 12,
+   "copies_beyond_for_some_play": 41
+  },
+  "at_nominal_deck_0.08": {
+   "copies_alone": 74,
+   "clusters_with_a_copy_beyond": 82,
+   "copies_beyond_for_some_play": 357
+  },
+  "session_49_deck_0.05": {
+   "copies_alone": 38,
+   "clusters_with_a_copy_beyond": 50,
+   "copies_beyond_for_some_play": 189
+  },
+  "session_49_deck_0.08": {
+   "copies_alone": 554,
+   "clusters_with_a_copy_beyond": 284,
+   "copies_beyond_for_some_play": 1005
+  }
+ },
+ "L5": {
+  "reach_percent": 10.4,
+  "nominal_percent": 10.0,
+  "at_reach_deck_0.05": {
+   "copies_alone": 1,
+   "clusters_with_a_copy_beyond": 1,
+   "copies_beyond_for_some_play": 6
+  },
+  "at_reach_deck_0.08": {
+   "copies_alone": 57,
+   "clusters_with_a_copy_beyond": 70,
+   "copies_beyond_for_some_play": 289
+  },
+  "at_nominal_deck_0.05": {
+   "copies_alone": 1,
+   "clusters_with_a_copy_beyond": 3,
+   "copies_beyond_for_some_play": 13
+  },
+  "at_nominal_deck_0.08": {
+   "copies_alone": 63,
+   "clusters_with_a_copy_beyond": 76,
+   "copies_beyond_for_some_play": 323
+  },
+  "session_49_deck_0.05": {
+   "copies_alone": 38,
+   "clusters_with_a_copy_beyond": 50,
+   "copies_beyond_for_some_play": 189
+  },
+  "session_49_deck_0.08": {
+   "copies_alone": 554,
+   "clusters_with_a_copy_beyond": 284,
+   "copies_beyond_for_some_play": 1005
+  }
+ }
+}
