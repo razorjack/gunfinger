@@ -5132,8 +5132,10 @@ and a reach argument for `cluster_speeds.py`.
 ## 2026-10-27: session 52, the five ignored NAS files pruned; new NAS-scale baseline
 
 Brief `docs/brief-52.md`, checklist `docs/session-52-checklist.md`;
-notes "Session 52"; experiment 0231. Gunfinger and the harness are
-unchanged (the final build is byte-identical to `s51-final`).
+notes "Session 52"; experiment 0231. Gunfinger is unchanged (the CLI
+binary is byte-identical to `s51-final`'s); the harness's
+`identifiability` lists a file with no current record instead of
+stopping (the review's finding).
 
 - 01:35 start at `2fafdbf`, clean. Start build `work/bin/s52-start/`;
   `regress session-32-linux` and `regress session-33-linux-nas`
@@ -5162,6 +5164,17 @@ unchanged (the final build is byte-identical to `s51-final`).
   (and session 33's copies). `shared-mixes` on a one-mix plan cut from
   `shared-mixes-s21.json` runs without error, its indexes as designed;
   `shared-material-seed-2026.json` names it in the validation half,
-  which stays unsearched (by the code a run would not fail, but would
-  search the upload's queries against indexes that no longer hold it).
-  No harness change.
+  which stays unsearched (by the code a `shared` run would not fail, but
+  its two T-Minus directions would search indexes that no longer hold
+  the upload). `identifiability` on that half would have stopped at the
+  upload; the harness now lists such a file in `without_record` and goes
+  on (tested; found by the review).
+- Final checks with `work/bin/s52-final/` (`d57ae16`): `scripts/check.sh`
+  green; `regress session-32-linux` and `regress session-52-linux-nas`
+  identical (0:50; 3:57); the verdicts file and the answer log at their
+  start digests.
+- For the next sessions: NAS store 40,678 records, revision
+  `1fc6fe50293ad330`; clusters file `ce293fe6165e...`; baselines
+  `session-32-linux` and `session-52-linux-nas`. Older NAS-scale reports
+  outside the baseline predate the prune (notes, "Session 52",
+  handoff 6).

@@ -26,5 +26,5 @@ for scope and rules.
   identical; experiment 0231
 - [x] 5. The places that name the NAS baseline, the record count and the
   clusters digest
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 52", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 52", status, checklist; final checks

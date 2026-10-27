@@ -28,10 +28,10 @@ compares every query and detection; `data/0231-prune-five-ignored.json`.
   (the track-fix Kraken). No confident or possible detection changes.
 - The clusters lose one pair entry, the corpus T-Minus against the vocal
   mix upload (356 hits, 58% coverage, judged different by ear); the
-  clusters themselves are unchanged. File `ce293fe6165e...` (was
-  `ac53014b8a87...`).
-- None of the five was in a scan report, a cluster, the library map, a
-  sweep or recall panel, or the corpus store. The T-Minus upload is in
+  clusters are unchanged. File `ce293fe6165e...` (was `ac53014b8a87...`).
+- None of the five was in the baseline's scan reports, a cluster, the
+  library map, a sweep or recall panel, or the corpus store (older
+  NAS-scale reports outside the baseline do name some). The upload is in
   three committed panels (shared material, validation half; two
   `shared-mixes` plans, as an excluded file and a recording).
 **Conclusion.** The prune changes nothing that is scored: every

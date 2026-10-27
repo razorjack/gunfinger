@@ -175,7 +175,7 @@ Rules for this session:
   file, the same two the baseline held (step 1): query 301 (Yvon Is On
   at 0%) the Space Cake upload, query 428 (The Reprise at +1%) the
   track-fix Kraken, 7 hits in 2 windows each; no candidate takes their
-  place. `indexed_assets` 40,580 → 40,575. Calibrate is unchanged
+  place. `indexed_assets` 40,580 to 40,575. Calibrate is unchanged
   (weakest identifying 704, strongest false 282, 7 false accepted, 95
   false candidates at 30 hits or more). Every difference traces to the
   five files (`work/s52/diff.py`, output `work/s52/diff-pruned.txt`;
@@ -241,3 +241,52 @@ Rules for this session:
 - **(01:51) Final checks started early** (`work/s52/final.sh`, tmux
   `s52final`): no code changes after step 4, so the review's fixes can
   only touch documents.
+- **(01:59) Final checks, first run** (`work/s52/final.sh`, tmux
+  `s52final`): `scripts/check.sh` green (3:42); `regress
+  session-32-linux` (0:51) and `regress session-52-linux-nas` (3:47,
+  the saved index loaded) identical; the verdicts file and the answer
+  log at their start digests; the clusters file `ce293fe6165e...`.
+- **(02:05) The review's findings** (a separate agent, read-only,
+  01:51-02:04). Every number checked matches the evidence, and the rules
+  were followed. Taken:
+  1. Direction `t-minus-1` also names the upload (as its related file),
+     so a `shared` run would silently lose that direction's test of a
+     wrong related detection, besides `t-minus-2`'s case: added to the
+     notes, status and the question for later.
+  2. A panel run that would now fail: `identifiability --half
+     validation` on `shared-material-seed-2026.json` loads the record of
+     every compared file and stops at `t-minus-1` ("no current record of
+     ... in the other store"). Not run (validation half). The prompt asks
+     for the smallest tested fix in that case, so the harness changes
+     (decided at 02:05): `identifiability::with_records` lists a file
+     without a current record (`pair::Records::holds`) in the
+     direction's `without_record`, on stderr and in the summary, and
+     compares the others; without `--other-peaks-dir` a
+     `second-library/` file still reaches `record`, which says the run
+     needs the flag. `without_record` is left out of the JSON when
+     empty. Two unit tests. The CLI does not change.
+  3. 0231 said none of the five was in a scan report; true of the
+     baseline's, not of older NAS-scale reports outside it (the
+     Vertical scans, the recall reports, the shared-material
+     development report, the `pairs-s40-*`/`pairs-s49-*` lists): 0231
+     corrected, the handoff lists them.
+  4. Suggestions taken: the final runs in the notes' times table; a
+     line on `mixes` (draws unchanged; 0185's `drops --other-pairs`
+     mixes play the upload, so scoring them again changes); "to"
+     instead of an arrow here.
+- **(02:06) Final checks again with the fix** (`work/s52/final2.sh`,
+  tmux `s52fin2`): the earlier final build moved to `work/bin/s52-run`;
+  the new `work/bin/s52-final` (`gunfinger` byte-identical to the start
+  build's); `scripts/check.sh`; both regressions; then `baseline
+  session-52-linux-nas` saved again with the new build (the first copy
+  kept in `work/s52/baseline-first/`), so the baseline is the final
+  build's.
+- **(02:15) Final checks** (`work/s52/final2.sh`, every run exit 0):
+  `scripts/check.sh` green (3:47); `work/bin/s52-final` built from the
+  fix (`gunfinger` byte-identical to the start build's, `gunfinger-eval`
+  not); `regress session-32-linux` (0:50) and `regress
+  session-52-linux-nas` (3:57) identical, every report identical to its
+  baseline's apart from `wall_seconds`; `baseline session-52-linux-nas`
+  saved again from those reports, identical to the first copy; the
+  verdicts file and the answer log at their start digests; the clusters
+  file `ce293fe6165e...`. The harness fix is committed as `d57ae16`.

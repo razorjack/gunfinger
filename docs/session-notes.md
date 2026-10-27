@@ -11216,8 +11216,10 @@ variant to measure on mixes before any ADR.
 
 ### What changed
 
-The product and the harness did not change: the final build is
-byte-identical to `s51-final`. The NAS store lost the peak records and
+The product did not change: the CLI binary is byte-identical to
+`s51-final`'s. One harness fix, after the review:
+`identifiability` lists a panel file with no current peak record in the
+direction's `without_record` instead of stopping the run (below). The NAS store lost the peak records and
 tag notes of the five files that the NAS `.gunfingerignore` has left out
 since 2026-10-25 and 2026-10-27 (approved by the user on 2026-10-27):
 the three tracks of `knowledge-the_lowdown_vol_7-track_fix-1999-sour/`,
@@ -11249,8 +11251,8 @@ upload (356 hits, `different` by ear).
 ### Panel entries that name a pruned file
 
 Only the T-Minus upload is named: in `shared-material-seed-2026.json`
-(family `t-minus`, validation half: a recording, and the played file of
-direction `t-minus-2`) and in `shared-mixes-s21.json` and
+(family `t-minus`, validation half: a recording, the related file of
+direction `t-minus-1` and the played file of `t-minus-2`) and in `shared-mixes-s21.json` and
 `shared-mixes-s21-rips.json` (an `exclude` and a `recordings` entry),
 in `docs/panels/` and `work/s33/panels/` alike. No sweep or recall panel
 names any of the five.
@@ -11262,11 +11264,28 @@ names any of the five.
   full plans run as before, less the upload's detections.
 - `shared`: not run (the validation half stays unsearched). By the code
   a run would not fail and keeps its query count: queries are rendered
-  from the NAS audio, still there. Direction `t-minus-2` would search
-  its queries against indexes that no longer hold the played file, and
-  its "everything" and "played left out" indexes would be the same. The
-  harness does not report that. No fix was made, since a run neither
-  fails nor changes its query count.
+  from the NAS audio, still there, and a left-out file the index does
+  not hold is passed over. But both directions change without a word:
+  `t-minus-1` can no longer find its related file, so its test of a
+  wrong related detection is empty, and `t-minus-2` searches its queries
+  against indexes that no longer hold the played file (its "everything"
+  and "played left out" indexes are the same). No fix, since a run
+  neither fails nor changes its query count; a question below.
+- `identifiability --half validation` (found by the review, not run):
+  it stopped at `t-minus-1` with "no current record of ... in the other
+  store", because it loads the record of every compared file. Fixed in
+  the harness (`identifiability::with_records`, `pair::Records::holds`,
+  tested): a file with no current record is listed in the direction's
+  `without_record` (and on stderr and in the summary) instead of
+  compared, and the run goes on. Without `--other-peaks-dir` the run
+  still stops with the message that asks for it. The field is left out
+  of the JSON when empty, so other reports do not change.
+- `mixes --kind shared|beatmatched|drops` read the same panel; their
+  draws do not change (lengths from FFprobe on the NAS audio, the
+  families left out of a corpus-only index). Experiment 0185's `drops
+  --other-pairs` mixes play the vocal mix upload, so scoring them again
+  at NAS scale would no longer find its plays (0215's Kridian case is
+  affected the same way).
 
 ### Times on the Linux machine (32 workers)
 
@@ -11279,22 +11298,27 @@ names any of the five.
 | `clusters --from-peaks --reuse-pairs` | 0.2 s | |
 | `regress session-33-linux-nas` on the pruned store (the saved index built again in 112 s) | 5:38 | 5.4 GiB |
 | `shared-mixes`, one mix, NAS scale | 1:10 | 4.8 GiB |
+| `scripts/check.sh` (before the fix; after) | 3:42; 3:47 | |
+| `regress session-32-linux`, final (before the fix; after) | 0:51; 0:50 | 0.4 GiB |
+| `regress session-52-linux-nas`, final, the saved index loaded (before the fix; after) | 3:47; 3:57 | 5.3 GiB |
 
 ### Decided this session, open to change
 
 - `doctor` and `prune` without `--yes` ran beside the start regressions
   (all only read; no timing compared).
-- `baseline session-52-linux-nas` copies the reports of step 3's run
-  (made with the byte-identical start build); the final regression ran
-  them again with the saved index loaded.
+- `baseline session-52-linux-nas` first copied the reports of step 3's
+  run (made with the start build); after the review's fix it was saved
+  again from the final build's `regress` (identical; the first copy in
+  `work/s52/baseline-first/`).
 - The shared-material panel's validation half stayed unsearched, so its
   T-Minus direction was checked by the code only.
 
 ### Questions this leaves for us
 
 - Whether `shared` (and `shared-mixes`) should report a panel file that
-  the indexed store no longer holds, before the validation half is
-  searched: direction `t-minus-2` plays the pruned upload.
+  the indexed store no longer holds, as `identifiability` now does,
+  before the validation half is searched: directions `t-minus-1` and
+  `t-minus-2` name the pruned upload.
 - Whether the T-Minus family stays in the shared-material panel at all,
   since its related file is now outside the library (the panel is
   frozen; a change would be a new panel).
@@ -11318,9 +11342,40 @@ names any of the five.
 3. The NAS clusters file `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`:
    SHA-256 `ce293fe6165e31009ef0b0411e77836aced21716b00771ad07bef7099c2a177a`,
    284 clusters, 2,876 pair entries.
-4. Builds: `work/bin/s52-start/`, `s52-final/` (both = `s51-final`).
+4. Builds: `work/bin/s52-start/` and `s52-run/` (both = `s51-final`;
+   every run of steps 1-4), `s52-final/` (master: the `gunfinger`
+   binary the same, `gunfinger-eval` with the identifiability fix).
 5. Data: `work/s52/` (listings and logs in `logs/`, `where-before.tsv`,
    `diff-pruned.txt`, `pruned-reports/`, the clusters file before and
    after, the shared-mixes check in `wsm/`); scripts `run.sh`,
    `start.sh`, `step1-list.sh`, `step2.sh`, `step3.sh`, `step3b.sh`,
-   `step4.sh`, `final.sh`, `where.py`, `diff.py`, `same.py`.
+   `step4.sh`, `final.sh`, `final2.sh`, `where.py`, `diff.py`, `same.py`.
+6. NAS-scale reports in `work/reports/library-nas-dnb-peaks/` outside
+   the baseline predate the prune and name pruned files: the Vertical
+   scans (the track-fix Propaganda, 6-7 hits), the recall reports (the
+   track-fix Drumtrip, confident and correct in 8 Known Unknown queries),
+   `shared-material-seed-2026-development.json` (Drumtrip, weak) and
+   the `pairs-s40-*` and `pairs-s49-*` lists. They change when run again;
+   `pair` on those lists stops at a pruned file.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The only mix searched was the
+  Stakka development mix (and one mix rendered for the `shared-mixes`
+  check). Nothing ran on the candidate mixes of 0065 or on the NAS
+  root's broadcast file. The NAS was only read; `prune --yes` ran once
+  with the NAS configuration, after the listing of exactly the five
+  files; `work/peaks` was only read.
+- `docs/pair-verdicts.txt` and the answer log are at their start
+  digests (`work/s52/listening-digests-start.txt`); no answer log was
+  written; no manifest or committed panel changed. The clusters file
+  changed only by the dropped pair entry.
+- A read-only review by a separate agent (01:51-02:04) confirmed every
+  number and found three errors in what the documents said about the
+  harness; all were fixed (brief 52, 02:05), one of them in the harness.
+- Final checks with `work/bin/s52-final/` (`d57ae16`; `gunfinger`
+  byte-identical to `s51-final`'s): `scripts/check.sh` green (3:47);
+  `regress session-32-linux` (0:50) and `regress session-52-linux-nas`
+  (3:57) identical, every report identical to its baseline's apart
+  from `wall_seconds`; the verdicts file and the answer log unchanged.
