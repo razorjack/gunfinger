@@ -228,10 +228,34 @@ Rules for this session:
   the old one plus its gap lines (10 lines at 262 tracks, 1 at NAS
   scale); `tracklist_score.check_lines` passes on the four reports with
   gap lines (`work/s55/checklines.py`).
-- **(04:37-04:59) The leave-outs** (45 scans, about 20-35 s each, 0
+- **(04:37-04:59) The leave-outs** (45 scans, 23-35 s each, 0
   wrong identifications): 45 s and 60 s list the same 128 leave-out
   gaps, none without a missed track; 30 s adds 12, 8 of them inside
   found tracks (Blindside 43 s, Kinetic 34 s). Experiment 0234 (40
   lines) holds the tables. Counted per scan, repeats included; the
   pre-registration's deduplicated counting was not repeated (not needed
   for the question).
+- **(05:02-05:10) The read-only review** (a separate agent, no further
+  agents) found no correctness bug; it confirmed the definition, the
+  ordering, JSON, the harness's unchanged listings, the ADR's figures
+  against 0159, every number of 0234 and the commits' attribution. Its
+  findings, all fixed:
+  1. No CLI test used an excerpt's start (`query.start_seconds` 0 in
+     the fixture): `an_excerpt_has_its_own_edges` added (10:00-14:00).
+  2. The overlap test proved nothing (it removed a play that covers
+     nothing): replaced by `nested_confident_plays_cover_the_outer_one`,
+     which fails if coverage follows the last span's end.
+  3. CLAUDE.md still said "unless brief 54 changes them".
+  4. README said `possible_plays` lists plays "inside" a gap: now
+     "overlapping it", as the code and the ADR.
+  5. README explained a found track's uncovered time as its end only:
+     now "time inside a found track that no confident segment covers".
+  6. ADR 0023's items did not map to the note's sections 1-7: the
+     mapping is stated, and item 11 says the count is part 2's.
+  7. ADR 0023's item 9: "45 s or more".
+  8. 0234 noted some found tracks' tails in gaps and not others: The
+     Specialist's first 15 s and Slipstream's first 16 s added (every
+     overlap of 6 s or more is now named).
+  9. AGENTS.md's added line rewrapped.
+  10. The ADR 0019 test's impossible fixture is now explained in a
+      comment.

@@ -5245,3 +5245,31 @@ notes "Session 54"; ADR 0022; experiment 0233.
   identical (0:50; 3:45); the verdicts file, the answer log and the NAS
   clusters file at their start digests. The review's eleven findings
   are fixed (brief 54, 03:42-03:50).
+
+## 2026-10-27: session 55, the time without a confident match, printed (ADR 0023, part 1)
+
+Brief `docs/brief-55.md`, checklist `docs/session-55-checklist.md`;
+notes "Session 55"; ADR 0023; experiment 0234.
+
+- 04:08 start at `61ac357`, clean. Start build `work/bin/s55-start/`
+  (= `s54-final`); `regress session-54-linux` and `regress
+  session-54-linux-nas` identical (0:50; 3:49).
+- Our decision of 2026-10-27, part 1, in the product: `identify` and
+  `show` list each stretch of 45 s or more that no segment of a
+  confident play covers, the mix's start and end included, as an
+  unnumbered `ID - ID (<length> without a confident match)` line in the
+  tracklist, a row in the table and `gaps` in JSON (schema version 3).
+  Possible lines stay; ADR 0019's left-out plays stay out; CSV, the cue
+  sheet and the timeline do not change; no option changes the length.
+  The covered time is computed once, in the core (`gaps::uncovered`),
+  for the CLI and the harness.
+- 0234: before and after, every report's plays are identical and each
+  tracklist gains only gap lines. Every printed line marks a track not
+  in the library at that scale (10 lines at 262 tracks in the 2003 mix
+  and Nocny, 1 at NAS scale: Nocny's slot 17, "ID - ID" in its
+  manifest); none in Stakka. In 42 NAS-scale slot leave-outs with
+  today's search, 45 s and 60 s list the same 128 gaps, none without a
+  missed track; 30 s adds 8 inside found tracks.
+- Baselines stay `session-54-linux` and `session-54-linux-nas`.
+- Next: part 2, the estimate of how many tracks a gap holds (notes,
+  "Session 55", handoff).

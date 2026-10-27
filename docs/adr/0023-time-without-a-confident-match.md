@@ -33,7 +33,9 @@ measured gaps in the harness (experiments 0159-0166;
 
 `docs/research/2026-10-21-printing-gaps.md` set out the choices; our
 decision of 2026-10-27 is its section "Decision". This record answers
-its sections 1-7 for part 1.
+its sections 1-7 for part 1: section 1 in item 1 below, 2 in item 2, 3
+in 3, 4 in 4, 5 (a count) in item 11, 6 in items 7 and 8, and 7 (the
+wording) in items 5, 6 and 9.
 
 ## Decision
 
@@ -105,10 +107,15 @@ its sections 1-7 for part 1.
    not read as a track.
 9. **Nothing found.** A tracklist without any entry still prints `no
    tracks found` and no gap line. The table and JSON list the gaps as
-   they are: one over the whole part searched, when it lasts 45 s.
+   they are: one over the whole part searched, when it lasts 45 s or
+   more.
 10. **One definition.** The covered time and the stretches it leaves
     are computed once, in the core (`gunfinger_core::gaps`), for the
     CLI and for the harness's `gaps` listings.
+11. **No estimate yet.** Part 1 prints no count of the tracks a gap
+    holds; our decision asks for one, and part 2 proposes which estimate
+    and in what form (experiments 0160-0165) and adds it to the line and
+    to JSON as `tracks`.
 
 ## Consequences
 

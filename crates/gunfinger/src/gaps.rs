@@ -107,6 +107,28 @@ mod tests {
     }
 
     #[test]
+    fn an_excerpt_has_its_own_edges() {
+        // The fixture's mix searched from 10:00 (`--start 10:00`) for 4:00:
+        // times are the recording's, and nothing before 10:00 is a gap.
+        let mut report = four_minutes();
+        report.query.start_seconds = 600.0;
+        for play in &mut report.plays {
+            play.start_seconds += 600.0;
+            play.end_seconds += 600.0;
+            for segment in &mut play.segments {
+                segment.start_seconds += 600.0;
+                segment.end_seconds += 600.0;
+            }
+        }
+        report.plays.drain(..2);
+
+        assert_eq!(
+            gaps(&report),
+            [gap(600.0, 696.0, vec![1]), gap(740.0, 840.0, Vec::new())]
+        );
+    }
+
+    #[test]
     fn a_gap_of_exactly_45_seconds_is_listed_and_a_shorter_one_is_not() {
         let mut report = four_minutes();
         report.query.duration_seconds = 185.0;
@@ -132,6 +154,8 @@ mod tests {
 
     #[test]
     fn a_play_the_tracklist_leaves_out_covers_nothing_and_is_named_in_the_gap() {
+        // A mark that cannot occur in a report read back (a.wav ends before
+        // insert.wav starts); it shows that `gaps` ignores the mark.
         let mut report = four_minutes();
         report.plays[1].confidence = Level::Possible;
         report.plays[1].segments[0].confidence = Level::Possible;
@@ -144,13 +168,14 @@ mod tests {
     }
 
     #[test]
-    fn overlapping_confident_plays_cover_their_union() {
-        // a.wav (0:00-0:41) and b.wav (0:38-1:21) overlap; c.wav's segments
-        // leave 1 s between them.
+    fn nested_confident_plays_cover_the_outer_one() {
+        // a.wav now plays 0:00-2:30, over b.wav and c.wav: coverage reaches
+        // 2:30, not c.wav's end at 2:20.
         let mut report = four_minutes();
-        report.plays.remove(2);
+        report.plays[0].end_seconds = 150.0;
+        report.plays[0].segments[0].end_seconds = 150.0;
 
-        assert_eq!(gaps(&report), [gap(140.0, 240.0, Vec::new())]);
+        assert_eq!(gaps(&report), [gap(150.0, 240.0, Vec::new())]);
     }
 
     #[test]

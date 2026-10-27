@@ -11723,3 +11723,147 @@ hits or more), strongest false 282 (Cool Rock) and weakest identifying
   its baseline's apart from `wall_seconds`; the digests unchanged. At
   262 tracks each run warns that ƆƐI3C's upload is not indexed, as
   designed; at NAS scale it is silent.
+
+## Session 55
+
+### What changed
+
+`identify` and `show` print the time without a confident match, part 1
+of our decision of 2026-10-27 (ADR 0023; the printing note's
+"Decision"). The search, the detections, the entries, CSV, the cue
+sheet and the timeline do not change; `regress` is identical at both
+scales.
+
+- The tracklist (the default) gets an unnumbered line at the start of
+  each stretch of 45 s or more that no segment of a confident play
+  covers, the mix's start and end included:
+  `      6:43  ID - ID (7:57 without a confident match)`. A gap line comes
+  before an entry starting at the same moment; possible entries inside a
+  gap keep their lines; a possible play ADR 0019 leaves out stays out. A
+  tracklist without any entry still prints `no tracks found`.
+- The table (`--format human`) gets a row per gap, in time order among
+  the plays: the span, and the same words in the asset column.
+- JSON gets `gaps` (always written): `start_seconds`, `end_seconds`,
+  `possible_plays` (positions from 1 in `plays` of the possible plays
+  with a segment overlapping the gap). Schema version 3 (added field).
+  The gaps are derived from the plays whenever a report is rendered, so
+  `show` lists them for older reports; a saved report's own `gaps` are
+  passed over when read.
+- No option changes the 45 s (`MIN_GAP_SECONDS` in the CLI's `gaps.rs`)
+  or turns gaps off (ADR 0023, decision 2).
+- One definition: `gunfinger_core::gaps::uncovered(covered, start, end,
+  min_seconds)`, called by the CLI and by the harness's `gaps::list`
+  (whose listings stay byte-identical, `work/s55/gapsame.sh`).
+- `tracklist_score.py` passes over gap lines (`GAP_LINE`, tested in
+  `test_tracklist_score.py`). README describes the lines with the 2003
+  mix's tracklist at 262 tracks; AGENTS.md names the modules.
+
+### Experiment 0234
+
+Every gap line the development mixes print is a track not in the
+library at that scale: at 262 tracks 4 lines in the 2003 mix
+(Konspiracy at the mix's start; Escape Route and Phantom Force;
+Kinetic; Artificial Life) and 6 in Nocny (Mutated; The Descent VIP;
+Invid, Mistaken Identity and Nephelim in one 14:27 line; Stab 2 Def;
+We R The Ones VIP and Cannibal; slot 17, which the manifest itself names
+"ID - ID"); at NAS scale only Nocny's slot 17 (3:10). Stakka prints none
+at either scale. No line is a found track's uncovered time, an intro or
+an outro, and no gap holds a possible play. All gaps last 1:39 or more,
+so 30, 45 and 60 s print the same lines. In session 34's 42 NAS-scale
+slot leave-outs, run again with today's search, 45 s and 60 s list the
+same 128 gaps (none without a missed track, every missed track
+reached); 30 s adds 12, 8 of them inside found tracks (43 s in
+Blindside, 34 s in Kinetic). Where 45 s lists more than 60 s is brief
+plays (0159's generated mixes).
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux` (start; run build) | 0:50; 0:51 | 0.4 GiB |
+| `regress session-54-linux-nas` (start; run build) | 3:49; 3:59 | 5.3-5.4 GiB |
+| `identify --store-only`, a development mix, 262 tracks; NAS scale | 0:04-0:06; 0:13-0:19 | 0.2; 4.9 GiB |
+| `scan`, NAS scale, 45 development scans (plain and leave-outs) | 0:23-0:35 each, 22 min | 5.1 GiB |
+| `gaps` on 45 scan reports; on 6 saved reports | 0.5 s; 0.04 s | |
+| `scripts/check.sh` (stopped at fmt; `decode::watch` under load; green) | 0:00; 4:13; 4:19 | |
+
+### Decided this session, open to change
+
+- Unnumbered "ID - ID" lines: a number would count the gap as one
+  track. The length follows in brackets, cut to the second.
+- No command-line option for the length or for turning gaps off.
+- The timeline does not change (its bars already show uncovered time).
+- The table's gap row is plain, not dimmed; the other columns stay
+  empty.
+- `possible_plays` counts a possible play by its segments (as the
+  harness counts), not by its whole span (as the prototype did).
+- JSON always writes `gaps`, empty when there is none; part 2's
+  estimate is reserved as `tracks` on each gap and not written now.
+- The table and JSON list a gap over the whole searched part when
+  nothing was found; only the tracklist keeps `no tracks found` alone.
+- Gaps are computed at render time and never stored or read back.
+
+### Questions this leaves for us
+
+- Whether 45 s is right once real mixes are read (on the development
+  mixes 45 s and 60 s print the same lines).
+- Part 2: which estimate, in what form, and the wording on the line (the
+  combined estimate of 0165 is the best measured; none met its
+  registered bar for a count).
+
+### Questions for listening (none answered by agents)
+
+- None new. Session 53's (Star Trails at 13:13-14:37 in the Stakka mix,
+  Into Music at 25:57-26:56 in the 2003 mix) and the earlier sessions'
+  remain.
+
+### Handoff for part 2 (the estimate)
+
+1. Where it goes: the CLI's `gaps.rs` (`Gap` gains `tracks`, and
+   `Gap::label` adds the estimate after the length, for example `ID - ID
+   (7:57 without a confident match; about 1-3 tracks)`, wording ours to
+   decide); `output.rs`'s `WithGaps` writes it into JSON as `tracks` on
+   each gap (an added field; schema version 3 allows it); the table's
+   gap row uses the same label. Unit tests beside `gaps.rs`'s.
+2. Method 1 (0160) needs only the plays: the entry starts
+   (`export::entries`, or the harness's `entry_starts`), the median of
+   the start-to-start intervals without a listed gap, and at least 3
+   such intervals; it can be derived at render time as the gaps are,
+   and `show` keeps working on saved reports.
+3. Method 2 (self-match, 0162) and the combined estimate (0165) need
+   the gap's audio: the mix decoded again for each gap, pair hashes
+   matched against the gap's own at speed 1.0 (about 0.05 s of wall time
+   per gap at 16 jobs; every rung to ±3.2% for pitch rides costs 5.4
+   times as much, 0166). It runs in `identify` while the audio is at
+   hand, so its result must be stored in the report and read back by
+   `show` (unlike the gaps themselves, which are derived on render), or
+   `show` must decode the mix again. The harness's
+   `self_match::blocks(samples, profile, ratios)` is the measured code;
+   moving it into the core would let the CLI and the harness share it as
+   they now share `gaps::uncovered`.
+4. A gap with no missed track gets no 0 from either method; at 45 s none
+   was listed in the development mixes (0234), so the estimate's errors
+   there come from the count itself.
+
+### What else to know
+
+- Data: `work/s55/` (logs in `logs/`; the CLI's reports and printed
+  tracklists in `cli-before/` and `cli-after/`; the leave-out scans and
+  their listings in `wleave/`; the gap listing comparison in
+  `wgaps-start/` and `wgaps-dev/`); scripts `run.sh`, `start.sh`,
+  `cli.sh`, `step3.sh`, `leave.sh`, `gapsame.sh`, `check.sh`,
+  `beforeafter.py`, `gaplines.py`, `thresholds.py`, `leavecount.py`,
+  `checklines.py`. Builds `work/bin/s55-start/` (= `s54-final`),
+  `s55-dev/` (before `cargo fmt`; the listing comparison), `s55-run/`
+  (the code commit `012ad23`: step 3) and `s55-final/` (master).
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The three development mixes were
+  named explicitly; nothing ran on the candidate mixes of 0065 or on the
+  NAS root's broadcast file. No command was given the NAS configuration
+  or library; NAS-scale runs used the NAS peak store on the local disk
+  (the CLI's `--store-only`, the harness's `--other-peaks-dir`), and
+  nothing was written to the NAS or to `work/peaks`. The leave-out
+  scans ran in a scratch work directory, so `work/reports/` holds no
+  leave-out report.
+- Baselines stay `session-54-linux` and `session-54-linux-nas`: the
+  harness's detections did not change, so no new baseline was recorded.

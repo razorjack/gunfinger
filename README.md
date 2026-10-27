@@ -136,10 +136,10 @@ the 262-track library, where 7 of its 12 tracks are indexed:
 ```
 
 The line says only that nothing confident was found there: the stretch
-may hold one track, several, or the end of a found track that matched
-too weakly. A possible match inside it keeps its own line. Shorter
-stretches are not listed, so the other lines do not account for every
-second of the mix.
+may hold one track, several, or time inside a found track that no
+confident segment covers. A possible match inside it keeps its own
+line. Shorter stretches are not listed, so the other lines do not
+account for every second of the mix.
 
 The tracklist lists tracks, not files. Plays of several library files over
 the same stretch of the mix are one entry when the files line up with each
@@ -163,7 +163,7 @@ shows it, marked `shares material with`, and JSON keeps it.
 - `json`: the whole report, including each file's tags and the stretches
   without a confident match (`gaps`: `start_seconds`, `end_seconds` and
   `possible_plays`, the positions from 1 in `plays` of the possible
-  plays inside). Fields may be added without a change of
+  plays overlapping it). Fields may be added without a change of
   `schema_version`.
 - `csv`: one row per play, times in seconds.
 - `cue`: a cue sheet of the confident tracks, for players and splitters.

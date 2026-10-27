@@ -11,7 +11,7 @@ counted as it is, repeats included (`leavecount.py`; 0159 counted repeats once).
 
 | Scale, mix | Gap line | Plays there (manifest) | Kind |
 |---|---|---|---|
-| 262, 2003 | 0:00 (2:25) | 1 Konspiracy | missed, the mix's start |
+| 262, 2003 | 0:00 (2:25) | 1 Konspiracy; The Specialist's first 15 s | missed, the mix's start |
 | 262, 2003 | 6:43 (7:57) | 3 Escape Route, 4 Phantom Force | 2 missed |
 | 262, 2003 | 20:04 (4:15) | 6 Kinetic | missed |
 | 262, 2003 | 29:25 (1:39) | 8 Artificial Life | missed |
@@ -20,7 +20,7 @@ counted as it is, repeats included (`leavecount.py`; 0159 counted repeats once).
 | 262, Nocny | 21:42 (14:27) | 6 Invid, 7 Mistaken Identity, 8 Nephelim; Scarred's last 12 s | 3 missed |
 | 262, Nocny | 46:29 (2:04) | 12 Stab 2 Def; Dead Fall's last 23 s | missed |
 | 262, Nocny | 51:07 (6:36) | 14 We R The Ones (VIP), 15 Cannibal | 2 missed |
-| 262, Nocny | 1:01:23 (3:32) | 17, "ID - ID" in the manifest (no reference) | missed |
+| 262, Nocny | 1:01:23 (3:32) | 17, "ID - ID" in the manifest (no reference); Slipstream's first 16 s | missed |
 | NAS, Nocny | 1:01:24 (3:10) | 17, the same | missed |
 
 Stakka at both scales and the 2003 mix at NAS scale print none; no line is a found track's own time,
