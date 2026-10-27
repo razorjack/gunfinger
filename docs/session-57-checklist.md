@@ -32,8 +32,8 @@ for scope and rules.
 - [x] 4. Findings, if any: described, reproduced by the smallest
   command, first in the handoff (no product change)
 - [x] 5. Roadmap bullets whose numbers changed; `docs/calibration.md`
-- [ ] 6. Read-only review by a separate agent; findings fixed
-- [ ] 7. Notes ("Session 57"), status, checklist; final checks
+- [x] 6. Read-only review by a separate agent; findings fixed
+- [x] 7. Notes ("Session 57"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
   verdicts file and the clusters file's digest unchanged, `git status`
   clean)

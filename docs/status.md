@@ -5325,7 +5325,7 @@ notes "Session 57"; pre-registration
   moved, which old binaries reproduce on today's store), ADR 0021's
   (kept sides of rides; weak and possible detections; `robust` +3 and
   +4 confident), ADR 0022's (NAS sweeps 2027-2028: 11 and 7 wrong ->
-  same-title credits) or ADR 0023-0024's (465 gap lines in the drops'
+  same-title credits) or ADR 0023-0024's (337 gap lines in the drops'
   tracklists, each over a missed track).
 - ADR 0021's residual risk: no detection of a recording not playing,
   kept more than 0.6% apart, reached 240 hits; the strongest has 67
@@ -5338,3 +5338,8 @@ notes "Session 57"; pre-registration
 - Not run: `shared-mixes`, full `robust`, mixes with deleted renders,
   seed 3701's ride dose, NAS-scale generated mixes.
 - Baselines stay `session-54-linux` and `session-54-linux-nas`.
+- Final checks with `work/bin/s57-final/` (= the start build):
+  `scripts/check.sh` green (4:29); both regressions identical (0:52;
+  4:00); the verdicts file, the NAS clusters file and the answer log at
+  their start digests. A read-only review found no missed regression
+  and eight points on numbers and wording, all fixed.

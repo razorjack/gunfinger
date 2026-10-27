@@ -43,7 +43,7 @@ of a play, and the 90 s scoring tolerance.
 | `calibrate`, possible tier | false candidates ≥ 30 hits: only the Stakka remix of Clockwork; strongest unrelated 28; audio not in the index 19 |
 | `calibrate` over sweep seeds 2026-2029, default matcher (ADR 0008) | weakest identifying 658 (Illuminati - Melange at -3%), strongest false 99, margin 6.65×; audio not in the index 22 (experiment 0047). On the Linux machine with the Stakka scans (session 57): 675, 100, 6.75×; 21 (experiment 0239) |
 | The same, `--single-pass` | weakest identifying 403 (Fibre Optix - Sin at -3%), strongest false 97, margin 4.15×; audio not in the index 28 (experiment 0025) |
-| `mixes --count 12`; `grid`, default matcher | 106 confident, 9 possible, 0 wrong; confident at 10, 15, 20 s: 0, 67, 146 of 160, 0 wrong (single pass: 107 and 8; 8, 76, 148; experiment 0047). `grid` on the Linux machine: 0, 65, 144, as with session 32's first build there, so the machine's hits (session 32) and not a rule move it (experiment 0239) |
+| `mixes --count 12`; `grid`, default matcher | 106 confident, 9 possible, 0 wrong; confident at 10, 15, 20 s: 0, 67, 146 of 160, 0 wrong (single pass: 107 and 8; 8, 76, 148; experiment 0047). `grid` on the Linux machine: 0, 65, 144, as with session 32's first build there, so the Linux machine's store and peaks (session 32) and not a rule move it (experiment 0239) |
 | Query time, development mix | turntable alone 22 s, of which 2.6 s lookups, lines and chains (experiment 0005); both playbacks 261 CPU seconds against 166 for turntable alone (experiment 0018) |
 | `gunfinger stats` | 74.4 postings/s, 5.07 bytes per posting, buckets p99 55 |
 

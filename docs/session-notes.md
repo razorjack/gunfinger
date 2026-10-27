@@ -12031,8 +12031,12 @@ statistic for shared material" and "Behaviour at scale" and two rows of
 `docs/calibration.md` carry the new numbers.
 
 In short: no finding. Every difference is the prune's, ADR 0021's, ADR
-0022's or a gap line, and each "other" difference was traced with an old
-binary on today's store or today's build under `--overlap-by-spans`.
+0022's or a gap line. Differences outside those definitions were traced
+with an old binary on today's store or today's build under
+`--overlap-by-spans` (all but one weak recall candidate, and the drops
+seeds other than 2032, inferred alike); detections of unpruned files that
+old binaries reproduce on today's store are attributed to the prune,
+which widens the pre-registered definition (brief 57, 10:15).
 ADR 0021's residual risk did not occur: the strongest detection kept
 more than 0.6% apart of a recording not playing has 67 hits (the
 Clockwork remix, possible).
@@ -12042,7 +12046,7 @@ Clockwork remix, possible).
 | Group (experiment) | Before -> after | Explained by |
 |---|---|---|
 | Shared panels' development halves, NAS scale (0236) | confident detections by role identical in all 622 and 440 queries; 185 and 83 weak or possible added | ADR 0021 (each equals its session 38 or 45 variant run); 24 and 3 weak detections of pruned files gone |
-| Drops of sessions 39 and 48: harness at 262 tracks, CLI at both scales (0237) | harness scores identical in 12 reports; CLI tracklists identical apart from 465 gap lines (each over a missed track); at NAS scale the T-Minus vocal mix upload's 38 entries gone | the prune (the upload; 20 re-measured segments, which session 48's binary on today's store reproduces), ADR 0021, ADR 0023-0024 |
+| Drops of sessions 39 and 48: harness at 262 tracks, CLI at both scales (0237) | harness scores identical in 12 reports; CLI tracklists identical apart from 337 gap lines (each over a missed track); at NAS scale the T-Minus vocal mix upload's 38 entries gone | the prune (the upload; 20 re-measured segments, which session 48's binary on today's store reproduces), ADR 0021, ADR 0023-0024 |
 | `recall`, the 2003 mix and Nocny at NAS scale (0238) | recall identical except other rips only 175 -> 174 of 180 and, with brief plays, 176 -> 171 of 360; scans identical in every score | the prune: the 6 excerpts' only identifying rip was the pruned Drumtrip copy; it also moves one confident right detection (455 -> 503 hits), reproduced by session 33's binary on today's store |
 | Sweeps 2027-2029, calibrate, `robust`, `grid` (0239) | NAS wrong answers 11 -> 0 and 7 -> 0 (same-title credits); 2029 540/540, 0 wrong at both scales; robust's rides +3 and +4 confident; `grid` 0, 65, 144 of 160 under both rules | ADR 0022, ADR 0021, the prune (session 40's binary on today's store reproduces every move); `grid`'s difference from the Mac's 0047 is the machine's (session 32's build gives the same) |
 | Short, long and ridden mixes at 262 tracks (0240) | right plays and wrong confident unchanged; the rides keep both sides (911 confident detections added); one wrong possible added (8 -> 9) | ADR 0021 (each equals its session 38 variant run) |
@@ -12100,10 +12104,16 @@ runs'.
 
 - The prune moves detections of files it did not touch: confident
   detections re-measured by a hit or two (and one by 48 hits, recall's
-  brief query 911) and weak 6-hit candidates. Old binaries reproduce
-  each move on today's store, so the store's content moves them; how
-  (by inference, through which posting lists the first pass sets aside)
-  was not traced.
+  brief query 911) and weak 6-hit candidates. This is outside the
+  pre-registered definition of the prune; old binaries reproduce each
+  traced move on today's store, so we attribute them to the store's
+  content, but how (by inference, through which posting lists the first
+  pass sets aside) was not traced. Open item; the smallest reproduction
+  is `work/s57/trace-brief33.sh` (session 33's binary, recall's brief
+  queries on today's store) against the old report
+  `work/reports/library-nas-dnb-peaks/recall-seed-2026-brief.json`,
+  query 911 (Organikismness - Echos at +1%: 455 hits at +1.147% before,
+  503 at +0.933% now).
 - The recall panel's other-rips-only form lost 6 excerpts whose only
   identifying rip was the pruned track-fix Drumtrip copy. Whether that
   copy was a rip of Known Unknown - Rollers Edit or a different
@@ -12128,8 +12138,23 @@ runs'.
   shared and beatmatched seeds 3501-3513 were run by session 56 after
   every change.
 
+### Handoff for the next session
+
+1. No finding. Open item, first: the prune moves detections of files it
+   did not touch (above, "Questions this leaves for us"); reproduce with
+   `sh work/s57/trace-brief33.sh` and query 911 of the brief recall
+   report. Nothing in the product depends on it.
+2. Baselines stay `session-54-linux` and `session-54-linux-nas`; the
+   saved reports outside `regress` named in the pre-registration now have
+   current counterparts in `work/s57/w*/reports/` (compare with those).
+3. Not run (above): `shared-mixes`, full `robust`, mixes with deleted
+   renders, seed 3701's ride dose.
+
 ### What else to know
 
+- A read-only review by a separate agent (10:00-10:15) found no missed
+  regression and eight points on numbers and wording, all fixed (brief
+  57, 10:15).
 - Data: `work/s57/` (logs in `logs/`, comparison outputs in `out/`;
   scratch work directories `wshared`, `wdrops`, `wrecall`, `wscans`,
   `wsweeps`, `wrobust`, `wmixes` and the traces' `wsweeps40`,
@@ -12155,3 +12180,10 @@ runs'.
   Nothing was written to the NAS or to `work/peaks`, and `work/reports/`
   received only `regress`'s own reports.
 - Baselines stay `session-54-linux` and `session-54-linux-nas`.
+- Final checks (10:01-10:11) with `work/bin/s57-final/`:
+  `scripts/check.sh` green (4:29); `regress session-54-linux` (0:52)
+  and `regress session-54-linux-nas` (4:00) identical, every report
+  identical to its baseline's apart from `wall_seconds`;
+  `docs/pair-verdicts.txt`, the answer log and the NAS clusters file at
+  their start digests (`work/s57/listening-digests-end.txt`); no answer
+  log written, no manifest or panel changed.

@@ -20,12 +20,12 @@ session 33's binary on today's store, clean and brief; `--overlap-by-spans`, bri
   was the pruned track-fix Drumtrip copy (434 hits at +6.8% in the first);
   no other rip reaches the rule. The prune's.
 - ADR 0021: 6 weak added over the 8. No same-title credit; held-out: 0.
-- The prune also moves detections of files never pruned: weak 6-hit
-  candidates (2 in clean, 1 in other rips), a refit, and in brief query
-  911 (Organikismness - Echos at +1%) a confident right one, 455 hits at
-  +1.147% -> 503 at +0.933%. Session 33's binary on today's store gives
-  those of clean and brief, `--overlap-by-spans` today's brief report; the
-  other rips' weak one was not traced (inferred alike).
+- Outside the pre-registered prune, attributed by trace (mechanism not
+  traced), the store's change moves unpruned files' detections: weak 6-hit
+  ones (2 in clean, 1 in other rips), a refit, and brief query 911's
+  confident right one (Echos at +1%), 455 hits at +1.147% -> 503 at
+  +0.933%. Session 33's binary on today's store gives those of clean and
+  brief, `--overlap-by-spans` today's brief; other rips' not traced.
 
 | Scan, NAS scale | Identified (of tracks) | Wrong | Differences |
 |---|--:|--:|---|

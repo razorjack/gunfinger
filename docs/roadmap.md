@@ -369,11 +369,13 @@ marked as inferences were derived, not measured.
   `--overlap-by-spans`. What stays open below: wander within one side
   (`--speed-per-stretch`) and rides inside short plays, a question for
   the window condition. Session 57 ran the protocol again under it
-  (0236-0240): the detections it keeps more than 0.6% apart are weak or
-  possible everywhere, at most 61 hits in the shared panels (a related
-  version: 55) and 109 in the drops, so a related version's second
-  alignment has not reached 240 hits; `robust`'s rides gain 3 and 4
-  confident excerpts.)* The second pass analyses a play at
+  (0236-0240): the detections it keeps more than 0.6% apart of a
+  recording not playing are weak or possible everywhere (at most 55 hits
+  for a related version in the shared panels, 44 in the drops, 67 in the
+  ridden mixes), so a related version's second alignment has not reached
+  240 hits; the confident ones it keeps are of the recording playing (the
+  other sides of rides, Into Music in the 2003 mix), and `robust`'s rides
+  gain 3 and 4 confident excerpts.)* The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
   varies by ±0.2% in the development mix (experiment 0022). The opt-in
@@ -1286,7 +1288,7 @@ marked as inferences were derived, not measured.
   within 2 queries without damage and 5 with it otherwise, at 40,683
   records (session 33, 0156). After session 52's prune (40,678 records,
   session 57, 0238) the counts are the same, except other rips only:
-  174/180, and 171/360 with brief plays (from 176): those 6 excerpts of
+  174/180 (from 175), and 171/360 with brief plays (from 176): those 6 excerpts of
   Known Unknown - Rollers Edit were identified only through the pruned
   track-fix copy. Session 50 searched the sweep panel's
   other-rips form with exact copies of the rips (0223): 408 of 423

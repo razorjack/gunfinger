@@ -23,7 +23,7 @@ not searched.
 | Removed, a pruned file's (weak) | 24 (Drumtrip, at most 6 hits) | 3 (the T-Minus vocal mix upload, 6) |
 | Against the old `--apart-in-speed 0.006` report | only the 24 pruned | only the 3 pruned |
 
-- The residual risk: panel 1 keeps 185 (183 `other`, 2 `related`; at
+- The residual risk: panel 1 keeps 185 new (194 in all; 183 `other`, 2 `related`; at
   most 24 hits), panel 2 keeps 83 (60 `other`, 14 `related`, 9 `played`;
   at most 61, the two possible ones of Phantom Force in its own break),
   0.60-14.2% in speed from the overlapping detection of their file. The

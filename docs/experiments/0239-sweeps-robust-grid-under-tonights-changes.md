@@ -18,11 +18,11 @@ its variant. Traces (brief 57): session 40's binary on today's store; today's
 - Against session 54's start build the NAS reports change only by ADR
   0022's credits (every detection identical); they equal session 54's run.
 - Against session 40: ADR 0021 adds 8 and 4 weak; the prune removes 5 and
-  17 detections of pruned files and moves others: 9 confident refits, 2
-  confident 2 hits lower, 26 weak (2027); 1 weak (2028). Session 40's
-  binary on today's store gives every move, and today's `--overlap-by-spans`
-  equals it: no code change since session 40 moves these sweeps.
-- 2029: ADR 0021 adds 1 weak (262) and 5 weak (NAS); nothing else differs.
+  17 pruned files' detections and, outside its pre-registered definition
+  (attributed by trace; mechanism not traced), moves 9 confident refits, 2
+  confident 2 hits lower, 26 weak (2027) and 1 weak (2028). Session 40's
+  binary on today's store gives every move; today's `--overlap-by-spans`
+  equals it. 2029: ADR 0021 adds 1 weak (262), 5 (NAS); nothing else.
 - Calibrate, seeds 2026-2029 and the Stakka scans: at 262 tracks weakest
   identifying 675, strongest false 100, margin 6.75x, 0 accepted, 49 false
   at 30 hits or more, audio not in the index 21; at NAS scale 675, 282

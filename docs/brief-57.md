@@ -194,3 +194,34 @@ Rules for this session:
 - **(10:05) Group 5 done** (0240): ADR 0021 alone; every report with a
   session 38 variant equals it. All five groups ran; what was not run is
   listed in the pre-registration and in 0240.
+- **(10:11) Final checks** with `work/bin/s57-final/` (`cmp`-equal to
+  the start build): `scripts/check.sh` green (4:29); `regress
+  session-54-linux` (0:52) and `regress session-54-linux-nas` (4:00)
+  identical, every report equal to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt`, the NAS clusters file and
+  the answer log at their start digests
+  (`work/s57/listening-digests-end.txt`). The scratch directories'
+  render copies were deleted (`work/mixes/` untouched).
+- **(10:15) The review** (a read-only agent, 10:00-10:15): no missed
+  wrong answer, lost identification or level change; eight points, all
+  taken. Recorded here, as it asked:
+  - *A widened attribution.* The pre-registration's prune covers pruned
+    files' detections and what follows from their absence. Detections of
+    files never pruned that an older binary reproduces on today's store
+    (0237's re-measured segments, 0238's query 911 and refit, 0239's
+    refits and hit changes) are attributed to the prune by that trace,
+    outside the pre-registered definition, with the mechanism not
+    traced; the experiments now say so, and the notes list query 911 as
+    an open item with its reproduction.
+  - *Timing.* 0236, 0237 and 0238 were first committed at 41, 44 and 41
+    lines and trimmed to 40 seconds to minutes after the next group's
+    runs had started (07:29, 08:12, 09:11); 0236's China Cup sentence
+    (07:30) and this brief's 08:58 entry also came after runs had
+    started. The content of each experiment was written before.
+  - Corrected: 0237's NAS gap lines (209, 205 holding), its speed bound
+    and the scope of its trace; the roadmap's pitch-ride sentence (the
+    weak-or-possible claim holds for recordings not playing; the
+    confident kept ones are of the recording playing); 0236's 185 new
+    (194 in all); the roadmap's 174/180 (from 175); the notes' gap-line
+    total (337, not 465); `docs/calibration.md`'s grid note (the Linux
+    machine's store and peaks); CLAUDE.md's "brief 57".
