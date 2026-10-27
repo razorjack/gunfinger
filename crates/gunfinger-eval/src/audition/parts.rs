@@ -8,11 +8,9 @@
 //! file leaves out (ADR 0009), and nothing reads the answers (ADR 0017).
 
 use std::collections::BTreeMap;
-use std::fs;
 use std::path::Path;
-use std::time::Duration;
 
-use gunfinger_core::timecode::format_timecode;
+use gunfinger_core::timecode::format_seconds;
 
 use crate::audition::names::Libraries;
 use crate::audition::placement::{self, Alignment};
@@ -20,15 +18,14 @@ use crate::audition::schema::{
     Choice, Effect, Lane, Marker, MarkerKind, Piece, Question, QuestionFile, QuestionId,
     SCHEMA_VERSION, Span, Timeline,
 };
+use crate::files::{read_json, stem};
 use crate::parts::{Candidate, Part, Report, Role};
 
 /// Lanes after A: the page switches lanes with the keys 1 to 9.
 const MAX_PART_LANES: usize = 8;
 
 pub fn load(path: &Path) -> Result<Report, String> {
-    let text = fs::read_to_string(path)
-        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-    serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
+    read_json(path)
 }
 
 /// One question per file of `files`, in that order, each a candidate of
@@ -119,7 +116,7 @@ fn question(
     let mut spans = Vec::new();
     let mut details = vec![format!(
         "A is the file ({}). Each other lane plays a recording at the alignment of its part of A, before and after it too; the shading shows where it lines up.",
-        timecode(candidate.seconds)
+        format_seconds(candidate.seconds)
     )];
     let mut files = vec![candidate.file.clone()];
     let laned = laned(candidate);
@@ -148,12 +145,12 @@ fn question(
         let line = format!(
             "{name}: {} over A {}-{} ({}), from {} {}-{}, {} hits, played at {:+.2}%",
             stem(&file),
-            timecode(part.start_seconds),
-            timecode(part.end_seconds),
+            format_seconds(part.start_seconds),
+            format_seconds(part.end_seconds),
             role(part.role),
             name,
-            timecode(part.found_start_seconds),
-            timecode(part.found_end_seconds),
+            format_seconds(part.found_start_seconds),
+            format_seconds(part.found_end_seconds),
             part.hits,
             (part.speed - 1.0) * 100.0,
         );
@@ -202,9 +199,9 @@ fn question(
         markers,
         spans,
         choices: vec![
-            choice('w', "one recording throughout", "one"),
-            choice('c', "it changes record: more than one recording", "several"),
-            choice('u', "unsure", "unsure"),
+            Choice::new('w', "one recording throughout", "one"),
+            Choice::new('c', "it changes record: more than one recording", "several"),
+            Choice::new('u', "unsure", "unsure"),
         ],
         effect: Effect::Log,
     })
@@ -217,25 +214,6 @@ fn role(role: Role) -> &'static str {
         Role::Elsewhere => "a second part",
         Role::Other => "another part",
     }
-}
-
-fn timecode(seconds: f64) -> String {
-    format_timecode(Duration::from_secs_f64(seconds.max(0.0)))
-}
-
-fn choice(key: char, label: &str, value: &str) -> Choice {
-    Choice {
-        key,
-        label: label.to_owned(),
-        value: value.to_owned(),
-    }
-}
-
-fn stem(path: &Path) -> String {
-    path.file_stem().map_or_else(
-        || path.display().to_string(),
-        |stem| stem.to_string_lossy().into_owned(),
-    )
 }
 
 #[cfg(test)]

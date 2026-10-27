@@ -6,6 +6,7 @@
 mod audition;
 mod calibrate;
 mod clusters;
+mod files;
 mod fullest;
 mod gaps;
 mod grid;
@@ -65,10 +66,13 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::Serialize;
 
 use crate::clusters::Clusters;
+use crate::files::{read_json, read_lines, read_text, stem_or, write_json};
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::{ExactCopies, Padding, SECOND_LIBRARY_PREFIX, SavedIndex, SecondLibrary};
+use crate::padding::{
+    ExactCopies, Padding, SECOND_LIBRARY_PREFIX, SavedIndex, SecondLibrary, current_sources,
+};
 use crate::scan::{LeaveOut, SlotRun};
 
 #[derive(Parser)]
@@ -829,12 +833,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) else {
                 return Err(String::from("map-library needs --other-peaks-dir"));
             };
-            let (other_assets, problems) = other
-                .current_sources(&Profile::CURRENT, jobs)
-                .map_err(|error| error.to_string())?;
-            for problem in &problems {
-                eprintln!("left out: {problem}");
-            }
+            let other_assets = current_sources(&other, jobs)?;
             let map =
                 library_map::build(&paths.library()?, &paths.store()?, &other, &other_assets)?;
             write_json(&map_file, &map)?;
@@ -923,9 +922,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             out,
         } => run_parts(paths, &queries, leave_out.as_deref(), whole, &out, jobs),
         Command::Pair { pairs, fine_rungs } => {
-            let text = fs::read_to_string(&pairs)
-                .map_err(|error| format!("cannot read {}: {error}", pairs.display()))?;
-            let listed: Vec<(String, String)> = text
+            let listed: Vec<(String, String)> = read_text(&pairs)?
                 .lines()
                 .filter(|line| !line.trim().is_empty() && !line.starts_with('#'))
                 .map(|line| {
@@ -949,10 +946,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                     pair::FineRungs::Off
                 },
             )?;
-            let stem = pairs.file_stem().map_or_else(
-                || String::from("pairs"),
-                |stem| stem.to_string_lossy().into_owned(),
-            );
+            let stem = stem_or(&pairs, "pairs");
             write_json(
                 &paths.base_reports().join(format!("pairs-{stem}.json")),
                 &reports,
@@ -1560,12 +1554,7 @@ fn find_clusters_around(
     let map = LibraryMap::load(map_file)?;
     let corpus = paths.corpus_clusters()?;
     let profile = Profile::CURRENT;
-    let (other_assets, problems) = other
-        .current_sources(&profile, jobs)
-        .map_err(|error| error.to_string())?;
-    for problem in &problems {
-        eprintln!("left out: {problem}");
-    }
+    let other_assets = current_sources(other, jobs)?;
     let library = paths.library()?;
     let searched =
         clusters::Searched::corpus(&library).with_other(&other_assets, other_ignore_file(other)?);
@@ -1797,15 +1786,9 @@ impl Copies {
         let (Some(count), Some(file)) = (self.exact_copies, &self.copied) else {
             return Ok(None);
         };
-        let text = fs::read_to_string(file)
-            .map_err(|error| format!("cannot read {}: {error}", file.display()))?;
         Ok(Some(ExactCopies {
             count,
-            chosen: text
-                .lines()
-                .filter(|line| !line.is_empty())
-                .map(str::to_owned)
-                .collect(),
+            chosen: read_lines(file)?.into_iter().collect(),
         }))
     }
 
@@ -1898,14 +1881,8 @@ fn run_sweep(
 /// key>/` (`shared::render_key`); the report is `<plan name>.json`, with
 /// `shared-` put first when the name does not start with it.
 fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String> {
-    let text = fs::read_to_string(plan_file)
-        .map_err(|error| format!("cannot read {}: {error}", plan_file.display()))?;
-    let plan: shared::Plan =
-        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", plan_file.display()))?;
-    let name = plan_file.file_stem().map_or_else(
-        || String::from("shared-material"),
-        |stem| stem.to_string_lossy().into_owned(),
-    );
+    let plan: shared::Plan = read_json(plan_file)?;
+    let name = stem_or(plan_file, "shared-material");
     let second_root = second_library_root(paths.other_store()?.as_ref())?;
     let library = paths.library()?;
     let renders = paths
@@ -1947,14 +1924,8 @@ fn run_shared(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String
 /// (each kept while its truth file matches); the report is `<plan
 /// name>.json`.
 fn run_shared_mixes(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), String> {
-    let text = fs::read_to_string(plan_file)
-        .map_err(|error| format!("cannot read {}: {error}", plan_file.display()))?;
-    let plan: shared_mixes::Plan =
-        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", plan_file.display()))?;
-    let name = plan_file.file_stem().map_or_else(
-        || String::from("shared-mixes"),
-        |stem| stem.to_string_lossy().into_owned(),
-    );
+    let plan: shared_mixes::Plan = read_json(plan_file)?;
+    let name = stem_or(plan_file, "shared-mixes");
     let second_root = second_library_root(paths.other_store()?.as_ref())?;
     let library = paths.library()?;
     let report = shared_mixes::run(
@@ -1991,23 +1962,12 @@ fn run_parts(
     let Some(other) = paths.other_store()? else {
         return Err(String::from("parts needs --other-peaks-dir"));
     };
-    let lines = |path: &Path| -> Result<Vec<String>, String> {
-        let text = fs::read_to_string(path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        Ok(text
-            .lines()
-            .filter(|line| !line.is_empty())
-            .map(String::from)
-            .collect())
-    };
-    let queries = lines(queries_file)?;
-    let leave_out = leave_out_file.map(lines).transpose()?.unwrap_or_default();
-    let (assets, problems) = other
-        .current_sources(&Profile::CURRENT, jobs)
-        .map_err(|error| error.to_string())?;
-    for problem in &problems {
-        eprintln!("left out: {problem}");
-    }
+    let queries = read_lines(queries_file)?;
+    let leave_out = leave_out_file
+        .map(read_lines)
+        .transpose()?
+        .unwrap_or_default();
+    let assets = current_sources(&other, jobs)?;
     let ignore = other_ignore_file(&other)?.map(|file| file.patterns);
     let left_out = parts::left_out(
         &queries,
@@ -2038,14 +1998,8 @@ fn run_parts(
 /// The holders of each lookup's span; the report is `holders-<file
 /// stem>.json`.
 fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), String> {
-    let text = fs::read_to_string(lookups_file)
-        .map_err(|error| format!("cannot read {}: {error}", lookups_file.display()))?;
-    let lookups: Vec<holders::Lookup> = serde_json::from_str(&text)
-        .map_err(|error| format!("{}: {error}", lookups_file.display()))?;
-    let name = lookups_file.file_stem().map_or_else(
-        || String::from("lookups"),
-        |stem| stem.to_string_lossy().into_owned(),
-    );
+    let lookups: Vec<holders::Lookup> = read_json(lookups_file)?;
+    let name = stem_or(lookups_file, "lookups");
     let stood_for = match paths.map_file() {
         Some(map_file) => LibraryMap::load(&map_file)?.standing_corpus_files(SECOND_LIBRARY_PREFIX),
         None => BTreeMap::new(),
@@ -2077,10 +2031,7 @@ fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), St
 }
 
 fn run_versions(paths: &Paths, plays_file: &Path, out: &Path, jobs: usize) -> Result<(), String> {
-    let text = fs::read_to_string(plays_file)
-        .map_err(|error| format!("cannot read {}: {error}", plays_file.display()))?;
-    let list: versions::PlayList = serde_json::from_str(&text)
-        .map_err(|error| format!("{}: {error}", plays_file.display()))?;
+    let list: versions::PlayList = read_json(plays_file)?;
     let other = paths.other_store()?;
     let second_root = second_library_root(other.as_ref())?;
     let library = paths.library()?;
@@ -2119,10 +2070,7 @@ impl Half {
 }
 
 fn run_identifiability(paths: &Paths, panel_file: &Path, half: Half) -> Result<(), String> {
-    let text = fs::read_to_string(panel_file)
-        .map_err(|error| format!("cannot read {}: {error}", panel_file.display()))?;
-    let panel: identifiability::Panel = serde_json::from_str(&text)
-        .map_err(|error| format!("{}: {error}", panel_file.display()))?;
+    let panel: identifiability::Panel = read_json(panel_file)?;
     let other = paths.other_store()?;
     let second_root = second_library_root(other.as_ref())?;
     let library = paths.library()?;
@@ -2288,12 +2236,7 @@ fn recall_panel(
             .into_iter()
             .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
     );
-    let (assets, problems) = other
-        .current_sources(&Profile::CURRENT, available_parallelism())
-        .map_err(|error| error.to_string())?;
-    for problem in &problems {
-        eprintln!("left out: {problem}");
-    }
+    let assets = current_sources(other, available_parallelism())?;
     let panel = recall::Panel::for_seed(other, &assets, &corpus_recordings, seed, &paths.panels)?;
     Ok((panel, assets))
 }
@@ -2378,12 +2321,7 @@ impl Paths {
         let Some(store) = self.other_store()? else {
             return Ok(referable);
         };
-        let (assets, problems) = store
-            .current_sources(&Profile::CURRENT, available_parallelism())
-            .map_err(|error| error.to_string())?;
-        for problem in &problems {
-            eprintln!("left out: {problem}");
-        }
+        let assets = current_sources(&store, available_parallelism())?;
         Ok(referable.with_other(&assets, store.dir()))
     }
 
@@ -2659,10 +2597,7 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
                         .map(|envelope| envelope.duration_seconds)
                 },
             )?;
-            let name = report.file_stem().map_or_else(
-                || String::from("report"),
-                |stem| stem.to_string_lossy().into_owned(),
-            );
+            let name = stem_or(&report, "report");
             (
                 file,
                 out.unwrap_or_else(|| questions_dir.join(format!("03-detections-{name}.json"))),
@@ -2676,10 +2611,7 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
                 .map(|(_, report)| report)
                 .collect();
             let file = audition::shared::questions(&reports, &libraries(&roots)?)?;
-            let name = report.file_stem().map_or_else(
-                || String::from("report"),
-                |stem| stem.to_string_lossy().into_owned(),
-            );
+            let name = stem_or(&report, "report");
             (
                 file,
                 out.unwrap_or_else(|| questions_dir.join(format!("04-shared-{name}.json"))),
@@ -2695,23 +2627,9 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
                 .iter()
                 .map(|report| audition::parts::load(report))
                 .collect::<Result<Vec<_>, String>>()?;
-            let files = files
-                .map(|path| {
-                    fs::read_to_string(&path)
-                        .map_err(|error| format!("cannot read {}: {error}", path.display()))
-                        .map(|text| {
-                            text.lines()
-                                .filter(|line| !line.is_empty())
-                                .map(String::from)
-                                .collect::<Vec<_>>()
-                        })
-                })
-                .transpose()?;
+            let files = files.map(|path| read_lines(&path)).transpose()?;
             let file = audition::parts::questions(&loaded, files.as_deref(), &libraries(&roots)?)?;
-            let name = reports[0].file_stem().map_or_else(
-                || String::from("report"),
-                |stem| stem.to_string_lossy().into_owned(),
-            );
+            let name = stem_or(&reports[0], "report");
             (
                 file,
                 out.unwrap_or_else(|| questions_dir.join(format!("06-parts-{name}.json"))),
@@ -2766,10 +2684,7 @@ fn judged_reports(
 ) -> Result<Vec<(PathBuf, ReportKind, Vec<Judged>)>, String> {
     let mut loaded = Vec::new();
     for path in reports {
-        let text = fs::read_to_string(path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        let report: serde_json::Value =
-            serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+        let report: serde_json::Value = read_json(path)?;
         loaded.push((path, report));
     }
     let referable = if loaded.iter().any(|(_, report)| report.get("set").is_some()) {
@@ -3281,10 +3196,7 @@ fn tagged_assets(kind: mixes::MixKind, path: &Path) -> Result<BTreeSet<String>, 
     if kind != mixes::MixKind::Drops {
         return Err(String::from("--tagged applies to --kind drops"));
     }
-    let text = fs::read_to_string(path)
-        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-    let tagged: Tagged =
-        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+    let tagged: Tagged = read_json(path)?;
     Ok(tagged.assets)
 }
 
@@ -3326,15 +3238,6 @@ fn ride_draw(
         ));
     }
     Ok(draw)
-}
-
-fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {
-    if let Some(dir) = path.parent() {
-        fs::create_dir_all(dir)
-            .map_err(|error| format!("cannot create {}: {error}", dir.display()))?;
-    }
-    let text = serde_json::to_string_pretty(value).map_err(|error| error.to_string())?;
-    fs::write(path, text).map_err(|error| format!("cannot write {}: {error}", path.display()))
 }
 
 #[cfg(test)]

@@ -16,7 +16,6 @@
 //! the sheet's two files, as `pair-review` writes it; the sheet's other
 //! pairs between the same two clusters judge the question too.
 
-use std::fs;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::FITTED_RULE;
@@ -29,6 +28,7 @@ use crate::audition::schema::{
     Choice, Effect, Lane, Marker, MarkerKind, Piece, Question, QuestionFile, QuestionId,
     SCHEMA_VERSION, Span, Timeline,
 };
+use crate::files::{read_json, read_text, read_toml, stem};
 use crate::pair::PairReport;
 use crate::pair_review;
 
@@ -62,9 +62,7 @@ pub struct ExtraLane {
 
 impl Plan {
     pub fn load(path: &Path) -> Result<Plan, String> {
-        let text = fs::read_to_string(path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        toml::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
+        read_toml(path)
     }
 
     fn item(&self, number: usize) -> Option<&PlannedItem> {
@@ -83,10 +81,7 @@ impl Reports {
         let reports = paths
             .iter()
             .map(|path| {
-                let text = fs::read_to_string(path)
-                    .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-                let reports: Vec<PairReport> = serde_json::from_str(&text)
-                    .map_err(|error| format!("{}: {error}", path.display()))?;
+                let reports: Vec<PairReport> = read_json(path)?;
                 Ok(reports.into_iter().map(|report| (path.clone(), report)))
             })
             .collect::<Result<Vec<_>, String>>()?;
@@ -136,9 +131,7 @@ fn question(
     libraries: &Libraries,
 ) -> Result<Question, String> {
     let sheet_path = item.folder.join("sheet.txt");
-    let text = fs::read_to_string(&sheet_path)
-        .map_err(|error| format!("cannot read {}: {error}", sheet_path.display()))?;
-    let sheet = Sheet::parse(&text)?;
+    let sheet = Sheet::parse(&read_text(&sheet_path)?)?;
     let (a_name, b_name) = (&item.pair.0, &item.pair.1);
     let report = reports.of(a_name, b_name);
     let a_seconds = report.map_or(sheet.a.1, |(_, report)| report.query_seconds);
@@ -249,9 +242,9 @@ fn question(
         markers: markers(&sheet, a_seconds, &ignored),
         spans,
         choices: vec![
-            choice('s', "same recording", "same"),
-            choice('d', "different recordings", "different"),
-            choice('u', "unsure", "unsure"),
+            Choice::new('s', "same recording", "same"),
+            Choice::new('d', "different recordings", "different"),
+            Choice::new('u', "unsure", "unsure"),
         ],
         effect: Effect::PairVerdict {
             related: item
@@ -420,21 +413,6 @@ fn markers(sheet: &Sheet, a_seconds: f64, ignored: &[&Alignment]) -> Vec<Marker>
     markers
 }
 
-fn choice(key: char, label: &str, value: &str) -> Choice {
-    Choice {
-        key,
-        label: label.to_owned(),
-        value: value.to_owned(),
-    }
-}
-
-fn stem(path: &Path) -> String {
-    path.file_stem().map_or_else(
-        || path.display().to_string(),
-        |stem| stem.to_string_lossy().into_owned(),
-    )
-}
-
 /// What a pack sheet says, as `listening_pack.py` writes it.
 #[derive(Debug, PartialEq)]
 struct Sheet {
@@ -574,6 +552,8 @@ fn clip(line: &str) -> Option<(f64, String)> {
 
 #[cfg(test)]
 mod tests {
+    use std::fs;
+
     use super::*;
 
     fn scratch(test: &str) -> PathBuf {

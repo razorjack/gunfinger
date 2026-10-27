@@ -54,6 +54,18 @@ pub struct ExactCopies {
     pub chosen: BTreeSet<String>,
 }
 
+/// The sources of the current records of `store`, printing each record
+/// left out.
+pub fn current_sources(store: &PeakStore, jobs: usize) -> Result<Vec<Asset>, String> {
+    let (assets, problems) = store
+        .current_sources(&Profile::CURRENT, jobs)
+        .map_err(|error| error.to_string())?;
+    for problem in &problems {
+        eprintln!("left out: {problem}");
+    }
+    Ok(assets)
+}
+
 /// In the index, copy `i` of a record is named `padding-copy/<i>/<path>`.
 const COPY_PREFIX: &str = "padding-copy/";
 
@@ -144,12 +156,7 @@ impl SecondLibrary {
         store: PeakStore,
         without: &BTreeSet<String>,
     ) -> Result<SecondLibrary, String> {
-        let (assets, problems) = store
-            .current_sources(&Profile::CURRENT, crate::available_parallelism())
-            .map_err(|error| error.to_string())?;
-        for problem in &problems {
-            eprintln!("left out: {problem}");
-        }
+        let assets = current_sources(&store, crate::available_parallelism())?;
         Ok(SecondLibrary {
             store,
             assets: assets

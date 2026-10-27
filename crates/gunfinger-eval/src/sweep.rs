@@ -23,6 +23,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::files::{read_json, write_json};
 use crate::fullest::{self, FullestReport, Ranking};
 use crate::library_map::LibraryMap;
 use crate::matching::Matching;
@@ -215,16 +216,9 @@ impl Plan {
                 held_out: plan.held_out,
                 draws: plan.draws,
             };
-            fs::create_dir_all(panels)
-                .map_err(|error| format!("cannot create {}: {error}", panels.display()))?;
-            let text = serde_json::to_string_pretty(&panel).map_err(|error| error.to_string())?;
-            fs::write(&path, text)
-                .map_err(|error| format!("cannot write {}: {error}", path.display()))?;
+            write_json(&path, &panel)?;
         }
-        let text = fs::read_to_string(&path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        let panel: Panel =
-            serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+        let panel: Panel = read_json(&path)?;
         let present: BTreeSet<&str> = records
             .iter()
             .map(|record| record.header.source.path.as_str())

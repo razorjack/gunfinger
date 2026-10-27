@@ -3,7 +3,7 @@
 
 use std::collections::BTreeSet;
 use std::path::Path;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 use gunfinger_core::confidence::Pass;
 use gunfinger_core::decode::{Excerpt, decode};
@@ -15,7 +15,7 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
-use gunfinger_core::timecode::format_timecode;
+use gunfinger_core::timecode::format_seconds;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
@@ -265,7 +265,7 @@ pub fn print_summary(report: &ScanReport) {
         score.referenced,
         score.wrong,
         score.same_title,
-        timecode(report.duration_seconds),
+        format_seconds(report.duration_seconds),
         report.wall_seconds
     );
     println!(
@@ -298,8 +298,8 @@ pub fn print_summary(report: &ScanReport) {
                     found.hits,
                     found.windows,
                     (found.speed - 1.0) * 100.0,
-                    timecode(found.start_seconds),
-                    timecode(found.end_seconds),
+                    format_seconds(found.start_seconds),
+                    format_seconds(found.end_seconds),
                 )
             });
         println!("  {mark:<8} {}{evidence}", track.label);
@@ -314,8 +314,8 @@ pub fn print_summary(report: &ScanReport) {
         println!(
             "  WRONG  {} {}-{} {:+.2}% {} hits/{} windows",
             wrong.asset,
-            timecode(wrong.start_seconds),
-            timecode(wrong.end_seconds),
+            format_seconds(wrong.start_seconds),
+            format_seconds(wrong.end_seconds),
             (wrong.speed - 1.0) * 100.0,
             wrong.hits,
             wrong.windows
@@ -325,20 +325,18 @@ pub fn print_summary(report: &ScanReport) {
         println!(
             "  POSSIBLE, NO TRACK  {} {}-{} {} hits in {} segments",
             play.asset,
-            timecode(play.start_seconds),
-            timecode(play.end_seconds),
+            format_seconds(play.start_seconds),
+            format_seconds(play.end_seconds),
             play.hits(),
             play.segments.len()
         );
     }
 }
 
-fn timecode(seconds: f64) -> String {
-    format_timecode(Duration::from_secs_f64(seconds))
-}
-
 #[cfg(test)]
 mod tests {
+    use std::time::Duration;
+
     use super::*;
 
     fn set_of(references: &[&[&str]]) -> Set {

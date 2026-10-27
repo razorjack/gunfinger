@@ -29,6 +29,7 @@ use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::files::{read_json, write_json};
 use crate::fullest::{self, SetAsideLike};
 use crate::matching::Matching;
 use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
@@ -132,16 +133,9 @@ impl Panel {
         if !path.exists() {
             let candidates = candidates(other, assets, corpus_recordings);
             let panel = draw(&candidates, assets.len(), seed);
-            fs::create_dir_all(panels)
-                .map_err(|error| format!("cannot create {}: {error}", panels.display()))?;
-            let text = serde_json::to_string_pretty(&panel).map_err(|error| error.to_string())?;
-            fs::write(&path, text)
-                .map_err(|error| format!("cannot write {}: {error}", path.display()))?;
+            write_json(&path, &panel)?;
         }
-        let text = fs::read_to_string(&path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        let mut panel: Panel =
-            serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+        let mut panel: Panel = read_json(&path)?;
         let present: BTreeSet<String> = assets
             .iter()
             .map(|asset| format!("{SECOND_LIBRARY_PREFIX}{}", asset.path))

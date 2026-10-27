@@ -8,7 +8,8 @@ use std::path::Path;
 
 use gunfinger_core::confidence::Pass;
 
-use crate::calibrate::{Calibration, Sample, read};
+use crate::calibrate::{Calibration, Sample};
+use crate::files::read_json;
 use crate::scan::ScanReport;
 use crate::scoring::Found;
 use crate::sweep::SweepReport;
@@ -54,14 +55,14 @@ pub fn compare(baseline: &Path, reports: &Path, set: &str, seed: u64) -> Result<
     let (sweep_name, scan_names) = names.split_first().ok_or("no reports")?;
     compare_sweeps(
         sweep_name,
-        &read(&baseline.join(sweep_name))?,
-        &read(&reports.join(sweep_name))?,
+        &read_json(&baseline.join(sweep_name))?,
+        &read_json(&reports.join(sweep_name))?,
     );
     for name in scan_names {
         compare_scans(
             name,
-            &read(&baseline.join(name))?,
-            &read(&reports.join(name))?,
+            &read_json(&baseline.join(name))?,
+            &read_json(&reports.join(name))?,
         );
     }
     compare_calibrations(

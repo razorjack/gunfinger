@@ -13,7 +13,6 @@
 //! saved in a file, sets aside (session 59).
 
 use std::collections::{BTreeSet, HashMap};
-use std::fs;
 use std::path::Path;
 
 use gunfinger_core::hash::{HASH_BITS, PairHash};
@@ -26,6 +25,7 @@ use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::files::read_lines;
 use crate::padding::{Padding, original_path};
 
 /// What the lists set aside are ranked by, instead of their postings.
@@ -283,10 +283,8 @@ pub fn run(
 
 /// Pairs of index paths, two per line separated by a tab.
 pub fn read_pairs(file: &Path) -> Result<Vec<(String, String)>, String> {
-    let text = fs::read_to_string(file)
-        .map_err(|error| format!("cannot read {}: {error}", file.display()))?;
-    text.lines()
-        .filter(|line| !line.is_empty())
+    read_lines(file)?
+        .iter()
         .map(|line| {
             line.split_once('\t')
                 .map(|(a, b)| (a.to_owned(), b.to_owned()))
@@ -409,6 +407,7 @@ pub fn print_summary(report: &FullestReport) {
 
 #[cfg(test)]
 mod tests {
+    use std::fs;
     use std::time::Duration;
 
     use gunfinger_core::indexing::TrackLength;

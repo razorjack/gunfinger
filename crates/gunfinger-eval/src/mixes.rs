@@ -24,6 +24,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::files::read_json;
 use crate::matching::Matching;
 use crate::render::{
     Encoding, Playback, RENDER_RATE, Stereo, encode, encode_stereo, limited, render_samples, rms,
@@ -1354,10 +1355,7 @@ fn shared_pairs(
     kind: MixKind,
 ) -> Result<(BTreeSet<String>, Vec<SharedPair>), String> {
     let path = panels.join(SHARED_PANEL);
-    let text = fs::read_to_string(&path)
-        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-    let panel: crate::identifiability::Panel =
-        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+    let panel: crate::identifiability::Panel = read_json(&path)?;
     let files: BTreeSet<String> = panel
         .families
         .iter()

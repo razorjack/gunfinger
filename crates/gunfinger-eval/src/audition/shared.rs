@@ -10,11 +10,9 @@
 //! are measured against (ADR 0006); the product reads none (ADR 0017).
 
 use std::collections::BTreeSet;
-use std::path::Path;
-use std::time::Duration;
 
 use gunfinger_core::confidence::FITTED_RULE;
-use gunfinger_core::timecode::format_timecode;
+use gunfinger_core::timecode::format_seconds;
 
 use crate::audition::names::Libraries;
 use crate::audition::placement::{self, Alignment};
@@ -22,6 +20,7 @@ use crate::audition::schema::{
     Choice, Effect, Lane, Marker, MarkerKind, Piece, Question, QuestionFile, QuestionId,
     SCHEMA_VERSION, Span, Timeline,
 };
+use crate::files::stem;
 use crate::pair::{PairReport, Search};
 
 /// `pair`'s searches of the audio, as a mix is searched, are named so.
@@ -106,10 +105,10 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
         };
         let line = format!(
             "alignment {position}: A {}-{} ~ B {}-{}, {} hits in {} windows, B played at {:+.2}% ({playback})",
-            timecode(alignment.query_start_seconds),
-            timecode(alignment.query_end_seconds),
-            timecode(alignment.found_start_seconds),
-            timecode(alignment.found_end_seconds),
+            format_seconds(alignment.query_start_seconds),
+            format_seconds(alignment.query_end_seconds),
+            format_seconds(alignment.found_start_seconds),
+            format_seconds(alignment.found_end_seconds),
             alignment.hits,
             alignment.windows,
             (alignment.speed - 1.0) * 100.0,
@@ -162,9 +161,9 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
         markers: one_per_moment(markers),
         spans,
         choices: vec![
-            choice('s', "shared material (a break, loop or sample)", "shared"),
-            choice('c', "chance", "chance"),
-            choice('u', "unsure", "unsure"),
+            Choice::new('s', "shared material (a break, loop or sample)", "shared"),
+            Choice::new('c', "chance", "chance"),
+            Choice::new('u', "unsure", "unsure"),
         ],
         effect: Effect::Log,
     })
@@ -197,25 +196,6 @@ fn strongest_audio_search(report: &PairReport) -> Option<&Search> {
         .iter()
         .filter(|search| search.name.starts_with(AUDIO_SEARCH) && !search.alignments.is_empty())
         .max_by_key(|search| search.alignments[0].hits)
-}
-
-fn timecode(seconds: f64) -> String {
-    format_timecode(Duration::from_secs_f64(seconds.max(0.0)))
-}
-
-fn choice(key: char, label: &str, value: &str) -> Choice {
-    Choice {
-        key,
-        label: label.to_owned(),
-        value: value.to_owned(),
-    }
-}
-
-fn stem(path: &Path) -> String {
-    path.file_stem().map_or_else(
-        || path.display().to_string(),
-        |stem| stem.to_string_lossy().into_owned(),
-    )
 }
 
 #[cfg(test)]

@@ -25,6 +25,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::Serialize;
 
 use crate::clusters::Clusters;
+use crate::files::write_json;
 use crate::sweep::{Draw, Plan};
 
 #[derive(Clone, Copy, Debug)]
@@ -224,8 +225,7 @@ pub fn run(
     let path = work
         .join("reports")
         .join(format!("hash-cost-seed-{seed}.json"));
-    let json = serde_json::to_string_pretty(&report).map_err(|error| error.to_string())?;
-    fs::write(&path, json).map_err(|error| format!("{}: {error}", path.display()))
+    write_json(&path, &report)
 }
 
 /// The robustness harness's rendering of excerpt `number` at `speed`, in

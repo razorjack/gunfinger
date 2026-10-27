@@ -7,10 +7,11 @@
 //! `folders`, `detections`, `shared`) turn evidence into these.
 
 use std::collections::BTreeSet;
-use std::fs;
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
+
+use crate::files::{read_json, write_text};
 
 pub const SCHEMA_VERSION: u32 = 1;
 
@@ -222,6 +223,16 @@ pub struct Choice {
     pub value: String,
 }
 
+impl Choice {
+    pub fn new(key: char, label: &str, value: &str) -> Choice {
+        Choice {
+            key,
+            label: label.to_owned(),
+            value: value.to_owned(),
+        }
+    }
+}
+
 /// Where an answer is written besides the answer log.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type", rename_all = "snake_case", deny_unknown_fields)]
@@ -242,10 +253,7 @@ pub const PAIR_VALUES: [&str; 3] = ["same", "different", "unsure"];
 
 /// Reads and checks a question file.
 pub fn load(path: &Path) -> Result<QuestionFile, String> {
-    let text = fs::read_to_string(path)
-        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-    let file: QuestionFile =
-        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))?;
+    let file: QuestionFile = read_json(path)?;
     check(&file).map_err(|error| format!("{}: {error}", path.display()))?;
     Ok(file)
 }
@@ -253,13 +261,8 @@ pub fn load(path: &Path) -> Result<QuestionFile, String> {
 /// Checks a question file, then writes it as pretty JSON.
 pub fn save(path: &Path, file: &QuestionFile) -> Result<(), String> {
     check(file)?;
-    if let Some(dir) = path.parent() {
-        fs::create_dir_all(dir)
-            .map_err(|error| format!("cannot create {}: {error}", dir.display()))?;
-    }
     let text = serde_json::to_string_pretty(file).map_err(|error| error.to_string())?;
-    fs::write(path, text + "\n")
-        .map_err(|error| format!("cannot write {}: {error}", path.display()))
+    write_text(path, &(text + "\n"))
 }
 
 /// Every rule of the reference that the types do not already enforce.

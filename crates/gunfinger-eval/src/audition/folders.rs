@@ -8,7 +8,6 @@
 //! crossfade between otherwise separate tracks) has its own answer;
 //! session 14's folders held three.
 
-use std::fs;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::library::Library;
@@ -19,6 +18,7 @@ use crate::audition::schema::{
     Choice, Effect, Lane, Marker, MarkerKind, Piece, Question, QuestionFile, QuestionId,
     SCHEMA_VERSION, Timeline,
 };
+use crate::files::read_toml;
 
 /// The folders to ask about.
 #[derive(Debug, Deserialize)]
@@ -51,9 +51,7 @@ pub struct PlannedFolder {
 
 impl Plan {
     pub fn load(path: &Path) -> Result<Plan, String> {
-        let text = fs::read_to_string(path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        toml::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
+        read_toml(path)
     }
 }
 
@@ -187,10 +185,10 @@ fn question(
         markers,
         spans: Vec::new(),
         choices: vec![
-            choice('y', "mixed CD", "mixed"),
-            choice('c', "continuous: short crossfades", "continuous"),
-            choice('n', "separate tracks", "separate"),
-            choice('u', "unsure", "unsure"),
+            Choice::new('y', "mixed CD", "mixed"),
+            Choice::new('c', "continuous: short crossfades", "continuous"),
+            Choice::new('n', "separate tracks", "separate"),
+            Choice::new('u', "unsure", "unsure"),
         ],
         effect: Effect::Log,
     })
@@ -219,16 +217,10 @@ fn tracks(folder: &PlannedFolder) -> Result<Vec<PathBuf>, String> {
         .collect())
 }
 
-fn choice(key: char, label: &str, value: &str) -> Choice {
-    Choice {
-        key,
-        label: label.to_owned(),
-        value: value.to_owned(),
-    }
-}
-
 #[cfg(test)]
 mod tests {
+    use std::fs;
+
     use super::*;
     use crate::audition::audio::Envelopes;
     use crate::audition::audio::tests::tone;

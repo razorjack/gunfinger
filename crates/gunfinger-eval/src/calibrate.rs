@@ -15,8 +15,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::{Evidence, Rule};
-use serde::de::DeserializeOwned;
 
+use crate::files::read_json;
 use crate::scan::ScanReport;
 use crate::scoring::{Found, evidence};
 use crate::sweep::SweepReport;
@@ -61,14 +61,14 @@ impl Calibration {
             same_title_credits: 0,
         };
         for path in report_files(reports, "sweep-seed-")? {
-            calibration.add_sweep(&read(&path)?);
+            calibration.add_sweep(&read_json(&path)?);
         }
         for path in report_files(reports, &format!("scan-{development_set}"))? {
             let name = path
                 .file_name()
                 .map(|name| name.to_string_lossy().into_owned())
                 .unwrap_or_default();
-            calibration.add_scan(&name, &read(&path)?);
+            calibration.add_scan(&name, &read_json(&path)?);
         }
         Ok(calibration)
     }
@@ -277,12 +277,6 @@ fn report_files(dir: &Path, prefix: &str) -> Result<Vec<PathBuf>, String> {
         .collect();
     paths.sort();
     Ok(paths)
-}
-
-pub fn read<T: DeserializeOwned>(path: &Path) -> Result<T, String> {
-    let text = fs::read_to_string(path)
-        .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-    serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
 }
 
 #[cfg(test)]

@@ -6,9 +6,9 @@
 //! go to the answer log only, as evaluation ground truth: the product
 //! reads no answers and reports are never edited (ADR 0017).
 
-use std::fs;
 use std::path::{Path, PathBuf};
 
+use gunfinger_core::timecode::format_seconds;
 use serde::Deserialize;
 
 use crate::audition::names::Libraries;
@@ -17,6 +17,7 @@ use crate::audition::schema::{
     Choice, Effect, Lane, Marker, MarkerKind, Piece, Question, QuestionFile, QuestionId,
     SCHEMA_VERSION, Span, Timeline,
 };
+use crate::files::read_json;
 
 /// Seconds of the mix shown before and after a play.
 const MARGIN_SECONDS: f64 = 30.0;
@@ -74,9 +75,7 @@ pub struct Tags {
 
 impl Report {
     pub fn load(path: &Path) -> Result<Report, String> {
-        let text = fs::read_to_string(path)
-            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
-        serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
+        read_json(path)
     }
 }
 
@@ -199,8 +198,8 @@ fn question(
         ),
         format!(
             "Mix {}–{}",
-            clock(play.start_seconds),
-            clock(play.end_seconds)
+            format_seconds(play.start_seconds),
+            format_seconds(play.end_seconds)
         ),
     ];
     if play.playback != "turntable" {
@@ -215,7 +214,7 @@ fn question(
         kind: String::from("detection"),
         title: format!(
             "Play {number} at {}: {name} ({})",
-            clock(play.start_seconds),
+            format_seconds(play.start_seconds),
             play.confidence
         ),
         text: String::from("Is this the track playing in the mix here?"),
@@ -243,20 +242,12 @@ fn question(
         markers,
         spans,
         choices: vec![
-            choice('y', "right", "confirmed"),
-            choice('n', "wrong", "wrong"),
-            choice('u', "unsure", "unsure"),
+            Choice::new('y', "right", "confirmed"),
+            Choice::new('n', "wrong", "wrong"),
+            Choice::new('u', "unsure", "unsure"),
         ],
         effect: Effect::Log,
     })
-}
-
-fn choice(key: char, label: &str, value: &str) -> Choice {
-    Choice {
-        key,
-        label: label.to_owned(),
-        value: value.to_owned(),
-    }
 }
 
 fn file_name(path: &Path) -> String {
@@ -264,17 +255,6 @@ fn file_name(path: &Path) -> String {
         || path.display().to_string(),
         |name| name.to_string_lossy().into_owned(),
     )
-}
-
-/// `M:SS` or `H:MM:SS`.
-fn clock(seconds: f64) -> String {
-    let whole = seconds.max(0.0) as u64;
-    let (hours, minutes, rest) = (whole / 3600, whole / 60 % 60, whole % 60);
-    if hours > 0 {
-        format!("{hours}:{minutes:02}:{rest:02}")
-    } else {
-        format!("{minutes}:{rest:02}")
-    }
 }
 
 #[cfg(test)]

@@ -14,6 +14,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 use crate::clusters::{Verdicts, VerdictsWriter};
+use crate::files::read_text;
 
 const KEYS: &str =
     "s same, d different, Enter or n next clip, p previous clip, r replay, k skip the item, q quit";
@@ -53,8 +54,7 @@ pub struct Outcome {
 /// The pack's items in the README's order.
 pub fn items(pack: &Path) -> Result<Vec<Item>, String> {
     let readme = pack.join("README.md");
-    let text = fs::read_to_string(&readme)
-        .map_err(|error| format!("cannot read {}: {error}", readme.display()))?;
+    let text = read_text(&readme)?;
     let mut items = Vec::new();
     for line in text.lines() {
         let Some((number, folder)) = listed_item(line) else {
@@ -81,8 +81,7 @@ fn listed_item(line: &str) -> Option<(usize, &str)> {
 
 fn item(number: usize, folder: &Path) -> Result<Item, String> {
     let sheet_path = folder.join("sheet.txt");
-    let sheet = fs::read_to_string(&sheet_path)
-        .map_err(|error| format!("cannot read {}: {error}", sheet_path.display()))?;
+    let sheet = read_text(&sheet_path)?;
     let lines: Vec<&str> = sheet.lines().collect();
     let pair = lines
         .iter()
