@@ -325,3 +325,7 @@ user.
      listed in the ADR as unchanged.
   10. The checklist and CLAUDE.md were behind: updated.
   11. "The user" for our judgments: "we/our" now.
+- **(04:06) Final checks** (`work/s54/final.sh`, `work/bin/s54-final`):
+  `scripts/check.sh` green; both regressions against the session-54
+  baselines identical; digests unchanged. Done at 04:07, within the
+  time box.

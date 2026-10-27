@@ -5240,3 +5240,8 @@ notes "Session 54"; ADR 0022; experiment 0233.
   to session 53's).
 - Questions for us: whether Cool Rock Stuff, Tower Bass's mixes or the
   Stalker versions carry one title (notes, "Session 54").
+- Final checks with `work/bin/s54-final/` (`ab3c3d0`): `scripts/check.sh`
+  green; `regress session-54-linux` and `regress session-54-linux-nas`
+  identical (0:50; 3:45); the verdicts file, the answer log and the NAS
+  clusters file at their start digests. The review's eleven findings
+  are fixed (brief 54, 03:42-03:50).

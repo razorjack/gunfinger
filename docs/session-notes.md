@@ -11716,3 +11716,10 @@ hits or more), strongest false 282 (Cool Rock) and weakest identifying
   6 ƆƐI3C detections below the rule, `robust` described as crediting,
   `grid` without a count, two missing tests, silent misspelt names and
   calibrate's stored confidence flag.
+- Final checks (03:58-04:06) with `work/bin/s54-final/` (`ab3c3d0`; its
+  `gunfinger` byte-identical to the start build's): `scripts/check.sh`
+  green (3:42); `regress session-54-linux` (0:50) and `regress
+  session-54-linux-nas` (3:45) identical, every report identical to
+  its baseline's apart from `wall_seconds`; the digests unchanged. At
+  262 tracks each run warns that ƆƐI3C's upload is not indexed, as
+  designed; at NAS scale it is silent.

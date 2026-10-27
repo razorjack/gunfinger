@@ -30,4 +30,4 @@ for scope and rules.
 - [x] 6. `docs/calibration.md` and the roadmap's bullets on China Cup's
   wrong answers
 - [x] 7. Read-only review by a subagent; findings fixed
-- [~] 8. Wrap-up: notes "Session 54", status, checklist; final checks
+- [x] 8. Wrap-up: notes "Session 54", status, checklist; final checks
