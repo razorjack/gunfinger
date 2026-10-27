@@ -10,7 +10,7 @@ development mixes at both scales, start and final builds.
 
 | Before -> after | 262 tracks | NAS scale |
 |---|--:|--:|
-| Sweep 2026: queries with other detections | 0 of 720 | 4 (one weak each, 6-15 hits) |
+| Sweep 2026: queries whose detections changed | 0 of 720 | 4 (one weak each, 6-15 hits) |
 | Stakka scan; leave-outs 3, 11: identified, wrong | 11, 8, 0; 0, unchanged | 11, 8, 0; 0, unchanged |
 | Stakka scan: confident added; weak added, removed | 1; 3, 1 | 3; 3, 3 |
 | 2003 mix; Nocny: identified, wrong; confident added; weak added | | 12/12, 17/17, 0; 1, 0; 12, 5 |

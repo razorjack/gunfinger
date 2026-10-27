@@ -4,8 +4,8 @@
 
 Accepted (2026-10-27), our decision. Supersedes ADR 0008's consequence
 for overlapping parts: after the second pass, a detection whose measured
-span overlaps a stronger one of the same asset is no longer dropped at
-any speed, only when their fitted speeds are within 0.6%. ADR 0008's
+span overlaps a stronger one of the same asset is dropped only when their
+fitted speeds are within 0.6%, no longer at any speed. ADR 0008's
 matcher, its confidence rule (240 hits in 3 windows), its split
 consequence and its needle-skip consequence stand. `--single-pass` and
 ADR 0006 (plays, the possible tier) are unchanged.
@@ -22,7 +22,7 @@ after the second pass, but the second pass measures each chain up to
 spans overlap (median 4.7-5.2 s, experiment 0175). The second
 suppression (`strongest_per_moment` on the measured spans) then dropped
 the weaker side whole. The play stays found; it loses time, 30 s or more
-in 21-43% of 1-2% rides (0176), and a printed gap would fall inside a
+in 21-43% of the sides of 1-2% rides (0176), and a printed gap would fall inside a
 track that was playing. In the development mixes this drops Star Trails'
 slower side (13:13-14:37 in the Stakka mix) and Into Music's middle
 segment in the 2003 mix; nobody has listened to either.
@@ -45,12 +45,13 @@ the shared-material risk and the questions this ADR answers.
    moves.
 2. **The share.** 0.6% is 1.5 steps of the speed ladder (0.4% steps),
    the chain link rule's limit (`chains::NEARBY_SPEEDS`, a step and
-   rounding): two
-   alignments a chain could join are one alignment here too. It lies
-   between the largest difference measured outside a ride, 0.40%
-   (repeats and versions within one play's alignment, on the same rung
-   or the next, in every development trace), and the smallest of a 1%
-   ride, 0.90% (0179). `SAME_SPEED_SHARE` is defined as
+   rounding): two alignments a chain could join are one alignment here
+   too. It lies between the largest difference measured outside a ride
+   among the confident detections the old rule dropped, 0.40% (repeats
+   and versions within one play's alignment, on the same rung or the
+   next, in every development trace of session 37), and the smallest of
+   a 1% ride, 0.90% (0179). Weak alignments outside rides lie further
+   apart (0.61-1.51% for a related version in 0210). `SAME_SPEED_SHARE` is defined as
    `NEARBY_SPEEDS`, so a ladder with another step moves it with the
    step; measure it again then.
 3. **Overlapping segments are shown as measured.** The two sides of a
@@ -93,7 +94,7 @@ the shared-material risk and the questions this ADR answers.
   first shared panel; calibrate's false candidates unchanged (18 at
   262 tracks, 95 at NAS scale); user CPU +1.3% and +0.8%.
 - 0180: in 30 s excerpts a ride in the middle costs recall through the
-  3-window rule, which neither overlap rule changes.
+  3-window rule; the overlap rules win back 1-3 excerpts.
 - 0209-0211 (session 45, criteria committed first, data the threshold
   had not seen): the second shared panel, double drops (the CLI's 64
   reports and printed tracklists byte-identical at 262 tracks and NAS

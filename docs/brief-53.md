@@ -173,7 +173,7 @@ Rules for this session:
   where segments do not overlap. Clipping for display was not taken:
   it changes the measured spans that scoring and the JSON report use,
   and the decision note recommends showing them as measured.
-- **(02:35) Step 1, ADR 0021** (`docs/adr/0021-second-suppression-keeps-another-speed.md`),
+- **(02:25) Step 1, ADR 0021** (`docs/adr/0021-second-suppression-keeps-another-speed.md`),
   accepted on 2026-10-27 as our decision, answering the decision note's
   questions 1-5: the rule, the share and what it rests on, segments as
   measured (with the play's end fixed), a wrong file's added confident
@@ -247,10 +247,61 @@ Rules for this session:
   rule's (not traced; by inference code layout). Each run's report
   equals its baseline's, and the `--overlap-by-spans` report equals
   session 52's baseline exactly: the opt-in reproduces the old rule.
-- **(02:50) Experiment 0232** and its data file
+- **(02:45) Experiment 0232** and its data file
   (`work/s53/data0232.py`, file names only).
-- **(02:50) Step 5**: `docs/calibration.md` (a row in "Changes since
+- **(02:45) Step 5**: `docs/calibration.md` (a row in "Changes since
   `poc-freeze-1`", and the share among the choices that do not depend
   on the library), the roadmap's "Speed that wanders within a play"
   (done for pitch rides; wander within a side and rides in short plays
   stay open) and the decision note's status line.
+- **(02:45) Step 6 and the final checks started together**: the review
+  is read-only, so the final checks (`work/s53/final.sh`, tmux
+  `s53final`) ran beside it; a code fix from the review would mean
+  running them again.
+- **(02:54) Final checks** (every run exit 0): `scripts/check.sh` green
+  (3:43); the build identical to `work/bin/s53-final`; `regress
+  session-53-linux` (0:51) and `regress session-53-linux-nas` (3:47)
+  identical, every report identical to its baseline's apart from
+  `wall_seconds`; the verdicts file, the answer log and the NAS clusters
+  file at their start digests.
+- **(03:00) The review's findings** (a separate agent, read-only,
+  02:45-02:55). The code change, the plays fix, the tests, every number
+  checked and the rules hold. Taken:
+  1. `--format timeline` drew a play's segments in order of start, so a
+     possible segment at another speed inside a confident one would
+     paint `▒` over its `█`; impossible before ADR 0021, not seen in the
+     development mixes (their inner segments are confident). Fixed:
+     segments are drawn weakest first (`Level` gains `Ord`, in its
+     declared order), tested. The CLI's other output (`passages`, table,
+     export, `listen`, `review`) and the harness's scoring were checked
+     by the review and do not assume disjoint segments.
+  2. ADR 0021 said neither overlap rule changes recall in 30 s excerpts;
+     0180 has them win back 1-3 excerpts. Corrected.
+  3. ADR 0021's "21-43% of 1-2% rides" counts sides: corrected.
+  4. The 0.40% applies to the confident detections the old rule dropped
+     in session 37's traces; weak alignments outside rides lie further
+     apart. Qualified in ADR 0021, `docs/calibration.md` and
+     `SAME_SPEED_SHARE`'s doc comment.
+  5. Times in this brief: step 1's entry at 02:25 (the ADR's commit),
+     experiment 0232 and step 5 at 02:45.
+  Suggestions taken: ADR 0021's status sentence reworded, "more than
+  0.6%" in the calibration row, `last_to_end`'s doc comment,
+  `overlap_changes.py`'s docstring on the sweep mode, "queries whose
+  detections changed" in 0232 and the notes, and a handoff item on
+  variant reports and `pair`/`identifiability`, which also use the new
+  rule.
+- **(03:00) Final checks again** (`work/s53/final2.sh`, tmux
+  `s53fin2`): the earlier final build moved to `work/bin/s53-final1`;
+  `scripts/check.sh`; the new `work/bin/s53-final`; both regressions
+  against the new baselines; digests.
+- **(03:07) Final checks with the fix** (`work/s53/final2.sh`, every run
+  exit 0): `scripts/check.sh` green (3:47); the new `work/bin/s53-final`
+  (neither binary byte-identical to `s53-final1`'s, since the CLI
+  changed); `regress session-53-linux` (0:51) and `regress
+  session-53-linux-nas` (3:47) identical, every report identical to its
+  baseline's apart from `wall_seconds`; the CLI's printed tracklists and
+  `show` of the three mixes at both scales identical to step 3's; the
+  verdicts file, the answer log and the NAS clusters file at their start
+  digests. Both baselines were then saved again from these reports with
+  the final build, identical to the first copies (kept in
+  `work/s53/baseline-first/`).

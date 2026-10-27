@@ -29,5 +29,5 @@ for scope and rules.
   experiment 0232 with CPU A B B A
 - [x] 5. `docs/calibration.md`, the roadmap's "Speed that wanders within
   a play", the decision note's status line
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 53", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 53", status, checklist; final checks

@@ -11379,3 +11379,165 @@ names any of the five.
   `regress session-32-linux` (0:50) and `regress session-52-linux-nas`
   (3:57) identical, every report identical to its baseline's apart
   from `wall_seconds`; the verdicts file and the answer log unchanged.
+
+## Session 53
+
+### What changed
+
+Gunfinger changed as we decided on 2026-10-27 (ADR 0021): the default
+matcher's second suppression is `SecondOverlap::SpansAtSpeed(0.006)`.
+After the second pass, a detection whose measured span overlaps a
+stronger one of the same file is dropped only when their fitted speeds
+are within 0.6% (`search::SAME_SPEED_SHARE`, defined as the chain link
+rule's limit, 1.5 ladder steps), so both sides of a pitch ride are kept.
+`identify`, `explain` and every harness command with the default
+matcher use it; `--single-pass` is unchanged. Two changes follow from
+it:
+
+- A play ends where its segment that ends last ends (`plays.rs`).
+  Overlapping segments of one file were impossible before; a weaker one
+  at another speed can now lie inside a stronger one, and the play would
+  have ended early, its saved report rejected by `Report::validate` when
+  read (`show`, `review`, `listen`, `--save-dir`).
+- `search::design` is `lines-chains-v2`, so `identify --save-dir`
+  searches again instead of reusing a report made under the old rule.
+- `--format timeline` draws a play's segments weakest first, so a
+  possible segment inside a confident one does not cover its mark (the
+  review's finding; tested).
+
+The harness keeps the old rule as `--overlap-by-spans` (reports in
+`variant-spans/`); `--apart-in-speed SHARE` stays to vary the share and
+refuses 0.006, the default. ADR 0008's status names what ADR 0021
+supersedes; README, `docs/calibration.md`, the roadmap and the decision
+note are updated.
+
+In short: Star Trails' slower side in the Stakka mix and Into Music's
+middle segment in the 2003 mix are kept; otherwise only weak detections
+change. Calibrate, every identification and the printed tracklists of
+the three development mixes are as before. `session-53-linux` and
+`session-53-linux-nas` are the baselines from now on.
+
+### Experiment 0232
+
+| Before -> after | 262 tracks | NAS scale |
+|---|--:|--:|
+| Sweep 2026 queries whose detections changed | 0 of 720 | 4, one weak detection each |
+| Stakka, leave-outs 3 and 11: identified, wrong | 11, 8, 0; 0 | 11, 8, 0; 0 |
+| 2003 mix, Nocny (NAS scale only): identified, wrong | | 12/12, 17/17; 0 |
+| Confident detections added | Star Trails' side (scan, leave-out 3) | the same on its 3 files; Into Music's middle |
+| Calibrate | unchanged (690, 100, 18) | unchanged (704, 282, 7, 95) |
+| CLI's printed tracklists, 3 mixes | identical | identical |
+
+The added weak detections (6-20 hits) each lie 0.61-5.8% in speed from
+a stronger overlapping one of their file; the removed ones are weak
+Star Trails detections (9-18 hits) within 0.22-0.52% of the newly kept
+side. User CPU: the rule costs +0.2% with one binary (the final build
+with `--overlap-by-spans` against its default, A B B A on the Stakka scan
+at NAS scale); the start build used 5% more than the final build, a
+difference between the binaries, not the rule's (not traced).
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; changed build) | 0:50; 0:51 | 0.4 GiB |
+| `regress session-52-linux-nas` (start; changed build) | 3:58; 3:46 | 5.4 GiB |
+| `scan` of the 2003 mix; Nocny, NAS scale (start; changed build) | 0:24, 0:34; 0:22, 0:33 | 5.0 GiB |
+| `identify --store-only`, a development mix, 262 tracks; NAS scale (the first with the CLI's saved NAS index built again, 0:33) | 0:04-0:06; 0:13-0:19 | 0.2; 4.9 GiB |
+| `scan stakka-skynet-knowledge`, NAS scale, for CPU | 0:27-0:29 | 5.0 GiB |
+| `scripts/check.sh` | 3:58 | |
+| `scripts/check.sh`, final (before the review's fix; after) | 3:43; 3:47 | |
+| `regress session-53-linux`; `regress session-53-linux-nas`, final (both times) | 0:51; 3:47 | 0.4; 5.4 GiB |
+
+### Decided this session, open to change
+
+- How a play shows two overlapping segments: as measured, with the
+  play's end at its segment that ends last (ADR 0021, decision 3).
+  Clipping was not taken; it would change the spans that scoring and the
+  JSON report use.
+- A wrong file's added confident segment counts as a wrong answer, also
+  where the default already names that file (the conservative reading,
+  0178's V2; ADR 0021, decision 4).
+- The share is defined as `chains::NEARBY_SPEEDS` (equal to 0.006 in
+  f64; a test pins it), so it moves with the ladder's step.
+- `search::design`'s version went to `lines-chains-v2`.
+- The old rule is the harness's `--overlap-by-spans`; `--apart-in-speed`
+  stays to vary the share and refuses the default's 0.006. The CLI has
+  no option for either.
+- The other two development mixes were scanned at NAS scale only, in
+  scratch work directories, since `regress` runs only the Stakka scans.
+- The CPU comparison added a same-binary A B B A after the first one
+  showed a 5% difference between the builds.
+
+### Questions this leaves for us
+
+- Whether to count, when the shared panels or the drops run again, the
+  confident segments a file gains against `--overlap-by-spans` (the
+  residual risk of ADR 0021: a related version's second alignment more
+  than 0.6% apart that reaches 240 hits on its own; none so far).
+- Why the start build (`s52-final`'s binary) uses 5% more user CPU than
+  the final build on the same scan, with identical reports (not traced).
+
+### Questions for listening (none answered by agents)
+
+- Star Trails at 13:13-14:37 in the Stakka mix and Into Music at
+  25:57-26:56 in the 2003 mix: real pitch rides or not. Both segments
+  are now kept by default, so listening checks the new default's two
+  changes in the development mixes. Session 39's and session 40's
+  remaining questions as before.
+
+### Handoff for the next session
+
+1. Baselines: `session-53-linux` (262 tracks) and `session-53-linux-nas`
+   (NAS scale); compare with these, not `session-32-linux` or
+   `session-52-linux-nas`, which hold the old second suppression.
+2. Builds: `work/bin/s53-start/` (= `s52-final`); `s53-run/` and
+   `s53-final1/` (identical, the code commit `3264ccb`: every run of
+   steps 3 and 4); `s53-final/` (master, with the review's timeline
+   fix; the same reports).
+3. The NAS store (40,678 records, revision `1fc6fe50293ad330`) and the
+   clusters file (`ce293fe6165e...`) did not change. The CLI's saved
+   index of the NAS store (`~/.cache/gunfinger/indexes/`) was built
+   again for 40,678 records by the first `identify --store-only`.
+4. Reports made under the old rule outside the baselines (older scans,
+   panels, mixes) differ from what the default gives now; run them
+   again, or with `--overlap-by-spans` to compare like with like.
+5. Data: `work/s53/` (logs in `logs/`; the CLI's reports and printed
+   tracklists in `cli-before/` and `cli-after/`; the 2003 and Nocny
+   scans in `wdev-start/` and `wdev-run/`, the latter also holding the
+   `--overlap-by-spans` Stakka scan in `variant-spans/`); scripts
+   `run.sh`, `start.sh`, `before.sh`, `cli.sh`, `devscans.sh`,
+   `step3.sh`, `step4.sh`, `cpu2.sh`, `check.sh`, `final.sh`,
+   `data0232.py`, `same.py`; `scripts/analysis/overlap_changes.py`
+   lists what a change of the second suppression adds or removes.
+6. Variants: `work/reports/variant-apart-0.006/` (both scales) holds
+   reports equal to the default's, which the option no longer makes
+   (it refuses 0.006); `variant-trim/`, `variant-stretch/` and the other
+   variant reports were made under the old second suppression, while
+   those variants now inherit the new one (harness reports do not
+   record `search::design`). `pair` and `identifiability` call
+   `Matcher::Fitted.options()` and also use the new rule; no `regress`
+   covers them, and nothing was run with them this session.
+7. The remaining decisions of 2026-10-27, each with its own ADR: gaps
+   printed by default, and a near-identical version's confident
+   detection counted as right; the minimum span stays undecided.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The mixes searched were the
+  three development mixes. Nothing ran on the candidate mixes of 0065
+  or on the NAS root's broadcast file. No command was given the NAS
+  configuration or library; NAS-scale runs used the NAS peak store on
+  the local disk, and nothing was written to the NAS or to `work/peaks`.
+- `docs/pair-verdicts.txt`, the answer log and the NAS clusters file
+  are at their start digests (`work/s53/listening-digests-start.txt`);
+  no answer log was written; no manifest or committed panel changed.
+- A read-only review by a separate agent (02:45-02:55) confirmed the
+  code, the tests and every number, and found a display bug
+  (`--format timeline`, fixed and tested) and four inaccuracies in the
+  documents (corrected; brief 53, 03:00).
+- Final checks with `work/bin/s53-final/`: `scripts/check.sh` green;
+  `regress session-53-linux` and `regress session-53-linux-nas`
+  identical; the CLI's printed tracklists unchanged; both baselines
+  saved again from this build (identical).

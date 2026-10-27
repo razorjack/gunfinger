@@ -5178,3 +5178,33 @@ stopping (the review's finding).
   `session-32-linux` and `session-52-linux-nas`. Older NAS-scale reports
   outside the baseline predate the prune (notes, "Session 52",
   handoff 6).
+
+## 2026-10-27: session 53, the second suppression keeps a detection at another speed (ADR 0021)
+
+Brief `docs/brief-53.md`, checklist `docs/session-53-checklist.md`;
+notes "Session 53"; ADR 0021; experiment 0232.
+
+- 02:17 start at `3414a03`, clean. Start build `work/bin/s53-start/`
+  (= `s52-final`); `regress session-32-linux` and `regress
+  session-52-linux-nas` identical (0:50; 3:58).
+- Our decision of 2026-10-27, implemented: `Matcher::Fitted`'s second
+  suppression is `SecondOverlap::SpansAtSpeed(0.006)`
+  (`search::SAME_SPEED_SHARE`, the chain link rule's 1.5 ladder steps),
+  so both sides of a pitch ride are kept. ADR 0021 supersedes ADR
+  0008's consequence for overlapping parts; the split and needle-skip
+  consequences stand. A play now ends with its segment that ends last
+  (a weaker segment at another speed can lie inside a stronger one);
+  `search::design` is `lines-chains-v2`, so saved CLI reports are
+  searched again; `--format timeline` draws segments weakest first. The harness keeps the old rule as `--overlap-by-spans`;
+  `--apart-in-speed` varies the share and refuses the default 0.006.
+- 0232: at both scales the Stakka scan and leave-out 3 keep Star
+  Trails' 793-877 s side (315 hits, 1.34% slower than the kept side);
+  at NAS scale the 2003 mix keeps Into Music's middle segment (1,392
+  hits, 1.05%). Everything else that changes is weak (6-20 hits added,
+  each 0.61-5.8% from a stronger detection of its file; 9-18-hit Star
+  Trails detections removed). Identified and wrong counts, calibrate
+  (690, 100, 18 at 262 tracks; 704, 282, 7, 95 at NAS scale) and the
+  printed tracklists of the three development mixes at both scales are
+  unchanged. CPU: +0.2% with one binary.
+- New baselines `session-53-linux` (262 tracks) and
+  `session-53-linux-nas` (NAS scale); build `work/bin/s53-final/`.
