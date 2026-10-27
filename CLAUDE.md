@@ -6,12 +6,11 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-56.md` (the current session's brief) and
-   `docs/session-56-checklist.md` (its progress), with ADR 0006, ADR
-   0017, ADR 0019, ADR 0023, this session's ADR (0024),
-   `docs/research/2026-10-21-printing-gaps.md` (section 5 and
-   "Decision"), the roadmap's "Time without a confident match",
-   experiments 0160-0166 and 0234 and this session's (0235 and up);
+2. `docs/brief-57.md` (the current session's brief) and
+   `docs/session-57-checklist.md` (its progress), with ADR 0021, ADR
+   0022, ADR 0023, ADR 0024, `docs/calibration.md`, the
+   pre-registration `docs/research/2026-10-27-rerun-under-tonights-changes.md`,
+   experiments 0231-0235 and this session's (0236 and up);
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -30,7 +29,7 @@ anything else:
    `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md`,
    `docs/brief-47.md`, `docs/brief-48.md`, `docs/brief-49.md`,
    `docs/brief-50.md`, `docs/brief-51.md`, `docs/brief-52.md`,
-   `docs/brief-53.md`, `docs/brief-54.md` and `docs/brief-55.md` hold
+   `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md` and `docs/brief-56.md` hold
    rules that still apply unless brief 56 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
