@@ -8,6 +8,9 @@ judged to carry the same title as the truth, and such credits are
 counted apart. ADR 0004's clusters, sweep, development set, calibration,
 pass bar and the held-out evaluation's rules (freeze, at most five
 evaluations, the ledger) do not change. The product does not change.
+By our decision this also changes the scoring of `docs/brief.md`,
+section 7.6 (a [FIXED] item, "any other confident detection is a wrong
+identification"); the brief itself is not edited.
 
 ## Context
 
@@ -95,4 +98,7 @@ recording that may carry the same title.
   another mix (Tower Bass, Cool Rock Stuff, the Stalker versions) are
   questions for us, not entries.
 - The product, the clusters file, the verdicts and the held-out test set
-  are unchanged.
+  are unchanged. A later test evaluation is scored by the same code, so
+  a same-title credit would count as right there too, listed apart; the
+  first-run result and the ledger's earlier evaluations stay as
+  recorded. No test evaluation ran for this ADR.

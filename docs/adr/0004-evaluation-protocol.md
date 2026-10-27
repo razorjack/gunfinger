@@ -2,7 +2,9 @@
 
 ## Status
 
-Accepted.
+Accepted. Decision 5 (scoring) amended by ADR 0022 (2026-10-27): a
+confident detection of a file judged to carry the truth's title
+(`docs/same-titles.txt`) is right, and such credits are counted apart.
 
 ## Context
 

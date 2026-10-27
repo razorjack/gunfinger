@@ -254,3 +254,38 @@ user.
   title comes first. Robust keeps its own-cluster counts (`confident`,
   `best_hits`: how a transform damages the recording's evidence) and
   counts confident same-title detections apart.
+- **(03:28) The harness change** committed (`91d5e80`) after
+  `scripts/check.sh` was green (3:57; the first run stopped at clippy's
+  `trivially_copy_pass_by_ref` on four helpers, now one,
+  `titles::no_credits`). ADR 0004's status line names the amendment;
+  AGENTS.md names `titles` and the rule. ADR 0022 also states that it
+  changes `docs/brief.md` section 7.6 by our decision (the brief is not
+  edited) and that a later test evaluation would be scored by the same
+  code (found while writing the docs, 03:31).
+- **(03:33) Step 4: `regress` with the changed build** (`work/bin/s54-run`,
+  `work/s54/step4.sh`, tmux `s54step4`): `regress session-53-linux`
+  (0:51) and `regress session-53-linux-nas` (3:53) identical, every
+  report identical to its baseline's apart from `wall_seconds`, and
+  calibrate unchanged: 690, 100, 0 missed, 0 false accepted at 262
+  tracks; 704, 282 (Cool Rock Stuff ~ the Mobb Deep / Urban Takover
+  upload), 0 missed, 7 false accepted (the same pair) at NAS scale;
+  0 same-title credits. As expected: seed 2026's panel draws no China
+  Cup excerpt and no development mix plays China Cup, so no detection of
+  the baselines can change. The `gunfinger` binary is byte-identical to
+  the start build's.
+- **(03:40) The changed build's sweeps of seeds 2027 and 2028**
+  (`work/s54/wseeds-run`): at 262 tracks identical to the start build's;
+  at NAS scale 16 (seed 2027) and 8 (seed 2028) detections of ƆƐI3C's
+  upload gain `same_title` and nothing else differs
+  (`work/s54/sweepdiff.py`); wrong 11 -> 0 and 7 -> 0, recall 540 each
+  as before. Calibrate over seeds 2026-2028 and the Stakka scans
+  (`work/s54/calib.sh`, the seed 2026 sweep and scans copied from the
+  session-53 baselines): at NAS scale false accepted 25 -> 7, false
+  candidates 130,663 -> 130,639, at 30 hits or more 308 -> 284,
+  strongest false 282 and weakest identifying 675 unchanged, 18
+  same-title credits; at 262 tracks unchanged.
+- **(03:40) Baselines** `session-54-linux` and `session-54-linux-nas`
+  saved from the reports of step 4's regressions (`work/bin/s54-run`,
+  the harness commit), identical to the session-53 baselines
+  (`work/s54/step5.sh`). The final checks run `regress` against them
+  with the final build.

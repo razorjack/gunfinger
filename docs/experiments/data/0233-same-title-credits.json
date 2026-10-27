@@ -1,0 +1,122 @@
+{
+ "seeds": [
+  {
+   "scale": "262 tracks",
+   "seed": 2026,
+   "recalled_before": 540,
+   "recalled_after": 540,
+   "wrong_before": 0,
+   "wrong_after": 0,
+   "same_title_after": 0,
+   "confident_not_own_cluster_after": {}
+  },
+  {
+   "scale": "262 tracks",
+   "seed": 2027,
+   "recalled_before": 540,
+   "recalled_after": 540,
+   "wrong_before": 0,
+   "wrong_after": 0,
+   "same_title_after": 0,
+   "confident_not_own_cluster_after": {}
+  },
+  {
+   "scale": "262 tracks",
+   "seed": 2028,
+   "recalled_before": 540,
+   "recalled_after": 540,
+   "wrong_before": 0,
+   "wrong_after": 0,
+   "same_title_after": 0,
+   "confident_not_own_cluster_after": {}
+  },
+  {
+   "scale": "NAS scale",
+   "seed": 2026,
+   "recalled_before": 540,
+   "recalled_after": 540,
+   "wrong_before": 7,
+   "wrong_after": 7,
+   "same_title_after": 0,
+   "confident_not_own_cluster_after": {
+    "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3 -> second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a": 7
+   }
+  },
+  {
+   "scale": "NAS scale",
+   "seed": 2027,
+   "recalled_before": 540,
+   "recalled_after": 540,
+   "wrong_before": 11,
+   "wrong_after": 0,
+   "same_title_after": 11,
+   "confident_not_own_cluster_after": {
+    "Bad Company - China Cup.mp3 -> second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus (same title)": 4,
+    "extra/02. Bad Company - China Cup.mp3 -> second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus (same title)": 7
+   }
+  },
+  {
+   "scale": "NAS scale",
+   "seed": 2028,
+   "recalled_before": 540,
+   "recalled_after": 540,
+   "wrong_before": 7,
+   "wrong_after": 0,
+   "same_title_after": 7,
+   "confident_not_own_cluster_after": {
+    "extra/b-bad_company-china_cup.mp3 -> second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus (same title)": 7
+   }
+  }
+ ],
+ "calibrate_seeds_2026_2028_and_stakka_scans": {
+  "262 tracks": {
+   "before": {
+    "weakest_identifying": 675,
+    "strongest_false": 100,
+    "false_candidates": 1496,
+    "false_accepted": 0,
+    "at_30_hits_or_more": 19
+   },
+   "after": {
+    "weakest_identifying": 675,
+    "strongest_false": 100,
+    "false_candidates": 1496,
+    "false_accepted": 0,
+    "at_30_hits_or_more": 19,
+    "same_title_credits": 0
+   }
+  },
+  "NAS scale": {
+   "before": {
+    "weakest_identifying": 675,
+    "strongest_false": 282,
+    "false_candidates": 130663,
+    "false_accepted": 25,
+    "at_30_hits_or_more": 308
+   },
+   "after": {
+    "weakest_identifying": 675,
+    "strongest_false": 282,
+    "false_candidates": 130639,
+    "false_accepted": 7,
+    "at_30_hits_or_more": 284,
+    "same_title_credits": 18
+   }
+  }
+ },
+ "calibrate_baselines_seed_2026": {
+  "262 tracks": {
+   "weakest_identifying": 690,
+   "strongest_false": 100,
+   "false_accepted": 0,
+   "same_title_credits": 0
+  },
+  "NAS scale": {
+   "weakest_identifying": 704,
+   "strongest_false": 282,
+   "false_accepted": 7,
+   "same_title_credits": 0
+  },
+  "note": "identical before and after"
+ }
+}
