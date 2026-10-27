@@ -177,3 +177,11 @@ Rules for this session:
   scans change only by ADR 0021's segments and one pruned weak detection.
   `diffs.py` and `counts.py` now key sweep and recall queries by their
   position too (two brief queries share asset, start and speed).
+- **(09:11) Group 4 started** in three queues (tmux `s57g4a` sweeps and
+  calibrate, `s57g4b` robust and grid, `s57g4c` session 40's binary).
+- **(09:30) A trace for `grid`** (a deviation): today's build gives 0,
+  65, 144 of 160 confident at 10, 15 and 20 s under both second
+  suppressions (the reports are identical), where `docs/calibration.md`
+  quotes 0047's 0, 67, 146 and session 27's 0137-0138 (the Mac) repeat
+  them. Session 32's start build, the first on the Linux machine
+  (`trace-grid.sh`, tmux `s57trg`), tells the machine from later code.
