@@ -17,6 +17,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
+use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
@@ -574,56 +575,19 @@ pub fn run(
         let mut wrong = Vec::new();
         for detection in &detections {
             let asset = &index.asset(detection.asset).path;
-            let level = detection.evidence.confidence();
+            let role = Role::of(asset, &own, &own_title, &partner);
             if let Some(verifier) = &verifier {
-                let role = if own.contains(asset) {
-                    "own"
-                } else if own_title.contains(asset) {
-                    "same-title"
-                } else if partner.contains(asset) {
-                    "partner"
-                } else {
-                    "other"
-                };
                 result.verified.push(RobustFound {
                     asset: asset.clone(),
-                    role: role.to_owned(),
+                    role: role.name().to_owned(),
                     windows: detection.evidence.windows,
                     hits: detection.evidence.hits,
-                    level: format!("{level:?}").to_lowercase(),
+                    level: format!("{:?}", detection.evidence.confidence()).to_lowercase(),
                     speed: detection.speed.0,
                     verified: verifier.verify(&index, detection, &samples, &profile),
                 });
             }
-            if own.contains(asset) {
-                if detection.evidence.hits > result.best_hits {
-                    result.best_hits = detection.evidence.hits;
-                    result.best_windows = detection.evidence.windows;
-                    result.best_speed = detection.speed.0;
-                }
-                result.confident |= level == Confidence::Confident;
-                result.possible |= level >= Confidence::Possible;
-            } else if own_title.contains(asset) {
-                result.same_title += usize::from(level == Confidence::Confident);
-            } else if partner.contains(asset) {
-                result.partner_confident |= level == Confidence::Confident;
-            } else {
-                result.strongest_wrong_hits =
-                    result.strongest_wrong_hits.max(detection.evidence.hits);
-                if level >= Confidence::Possible {
-                    wrong.push(WrongFound {
-                        asset: asset.clone(),
-                        level: format!("{level:?}").to_lowercase(),
-                        hits: detection.evidence.hits,
-                        windows: detection.evidence.windows,
-                    });
-                }
-                match level {
-                    Confidence::Confident => result.wrong_confident += 1,
-                    Confidence::Possible => result.wrong_possible += 1,
-                    Confidence::Weak => {}
-                }
-            }
+            wrong.extend(count(&mut result, role, asset, detection));
         }
         if matches!(job.condition, Condition::Stereo(_)) {
             let stereo = decode_stereo(&job.path, profile.sample_rate)?;
@@ -649,6 +613,92 @@ pub fn run(
         rows,
         queries,
     })
+}
+
+/// What a detected file is to a query: the excerpt's own recording, a file
+/// judged to carry its title (ADR 0022), the recording played beneath it,
+/// or anything else.
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Role {
+    Own,
+    SameTitle,
+    Partner,
+    Other,
+}
+
+impl Role {
+    fn of(
+        asset: &str,
+        own: &BTreeSet<String>,
+        own_title: &BTreeSet<String>,
+        partner: &BTreeSet<String>,
+    ) -> Role {
+        if own.contains(asset) {
+            Role::Own
+        } else if own_title.contains(asset) {
+            Role::SameTitle
+        } else if partner.contains(asset) {
+            Role::Partner
+        } else {
+            Role::Other
+        }
+    }
+
+    fn name(self) -> &'static str {
+        match self {
+            Role::Own => "own",
+            Role::SameTitle => "same-title",
+            Role::Partner => "partner",
+            Role::Other => "other",
+        }
+    }
+}
+
+/// Counts one detection of `asset` in the query's result by its role: the
+/// own recording's best detection and levels, a confident same-title
+/// detection apart from them (`robust` credits only the recording), the
+/// partner's, or a wrong one, returned when possible or confident.
+fn count(
+    result: &mut QueryResult,
+    role: Role,
+    asset: &str,
+    detection: &Detection,
+) -> Option<WrongFound> {
+    let level = detection.evidence.confidence();
+    match role {
+        Role::Own => {
+            if detection.evidence.hits > result.best_hits {
+                result.best_hits = detection.evidence.hits;
+                result.best_windows = detection.evidence.windows;
+                result.best_speed = detection.speed.0;
+            }
+            result.confident |= level == Confidence::Confident;
+            result.possible |= level >= Confidence::Possible;
+            None
+        }
+        Role::SameTitle => {
+            result.same_title += usize::from(level == Confidence::Confident);
+            None
+        }
+        Role::Partner => {
+            result.partner_confident |= level == Confidence::Confident;
+            None
+        }
+        Role::Other => {
+            result.strongest_wrong_hits = result.strongest_wrong_hits.max(detection.evidence.hits);
+            match level {
+                Confidence::Confident => result.wrong_confident += 1,
+                Confidence::Possible => result.wrong_possible += 1,
+                Confidence::Weak => {}
+            }
+            (level >= Confidence::Possible).then(|| WrongFound {
+                asset: asset.to_owned(),
+                level: format!("{level:?}").to_lowercase(),
+                hits: detection.evidence.hits,
+                windows: detection.evidence.windows,
+            })
+        }
+    }
 }
 
 /// The conditions `--only` names (all of `CONDITIONS` when it names none),
@@ -1142,7 +1192,113 @@ pub fn print_summary(report: &RobustReport) {
 
 #[cfg(test)]
 mod tests {
+    use gunfinger_core::confidence::Evidence;
+    use gunfinger_core::index::AssetId;
+    use gunfinger_core::speed::{self, SpeedRatio};
+
     use super::*;
+
+    fn empty_result() -> QueryResult {
+        QueryResult {
+            condition: String::from("control"),
+            speed: 0.0,
+            number: 0,
+            asset: String::from("own.mp3"),
+            held_out: false,
+            best_hits: 0,
+            best_windows: 0,
+            best_speed: 0.0,
+            confident: false,
+            possible: false,
+            partner_confident: false,
+            wrong_confident: 0,
+            wrong_possible: 0,
+            strongest_wrong_hits: 0,
+            same_title: 0,
+            search_seconds: 0.0,
+            verified: Vec::new(),
+            stereo: None,
+        }
+    }
+
+    fn confident_detection() -> Detection {
+        Detection {
+            asset: AssetId(0),
+            start_seconds: 0.0,
+            end_seconds: 30.0,
+            track_start_seconds: 60.0,
+            track_end_seconds: 90.0,
+            speed: SpeedRatio(1.01),
+            playback: speed::Playback::Turntable,
+            evidence: Evidence::new(3, 600),
+        }
+    }
+
+    fn files(paths: &[&str]) -> BTreeSet<String> {
+        paths.iter().map(|&path| path.to_owned()).collect()
+    }
+
+    #[test]
+    fn a_file_is_the_queries_own_its_titles_its_partners_or_other() {
+        let own = files(&["own.mp3"]);
+        let own_title = files(&["version.mp3"]);
+        let partner = files(&["partner.mp3"]);
+        let role = |asset| Role::of(asset, &own, &own_title, &partner);
+
+        assert_eq!(role("own.mp3"), Role::Own);
+        assert_eq!(role("version.mp3"), Role::SameTitle);
+        assert_eq!(role("partner.mp3"), Role::Partner);
+        assert_eq!(role("unrelated.mp3"), Role::Other);
+    }
+
+    #[test]
+    fn a_confident_same_title_detection_is_counted_apart_and_not_wrong() {
+        let mut result = empty_result();
+
+        let wrong = count(
+            &mut result,
+            Role::SameTitle,
+            "version.mp3",
+            &confident_detection(),
+        );
+
+        assert!(wrong.is_none());
+        assert_eq!(result.same_title, 1);
+        assert!(!result.confident && !result.possible);
+        assert_eq!((result.best_hits, result.wrong_confident), (0, 0));
+        assert_eq!(result.strongest_wrong_hits, 0);
+    }
+
+    #[test]
+    fn a_confident_detection_of_another_title_is_wrong() {
+        let mut result = empty_result();
+
+        let wrong = count(
+            &mut result,
+            Role::Other,
+            "unrelated.mp3",
+            &confident_detection(),
+        )
+        .unwrap();
+
+        assert_eq!((wrong.asset.as_str(), wrong.hits), ("unrelated.mp3", 600));
+        assert_eq!(wrong.level, "confident");
+        assert_eq!((result.wrong_confident, result.same_title), (1, 0));
+        assert_eq!(result.strongest_wrong_hits, 600);
+    }
+
+    #[test]
+    fn the_own_recordings_detection_sets_the_best_and_the_levels() {
+        let mut result = empty_result();
+
+        let wrong = count(&mut result, Role::Own, "own.mp3", &confident_detection());
+
+        assert!(wrong.is_none());
+        assert!(result.confident && result.possible);
+        assert_eq!((result.best_hits, result.best_windows), (600, 3));
+        assert_eq!(result.best_speed, 1.01);
+        assert_eq!(result.same_title, 0);
+    }
 
     #[test]
     fn a_skip_drops_the_skipped_span() {

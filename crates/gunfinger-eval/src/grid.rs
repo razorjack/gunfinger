@@ -155,28 +155,17 @@ pub fn run(
             };
             let result = search_mix(mix, path, &roots, clusters, options.same_titles, &searcher)?;
             let brief = &result.score.plays[1];
-            let cluster = clusters.cluster_of(&brief.truth.asset);
-            let accepted: BTreeSet<String> = options
-                .same_titles
-                .credited(clusters, &cluster)
-                .into_iter()
-                .chain(cluster)
-                .collect();
             Ok(GridQuery {
                 brief: *number,
                 seconds: *seconds,
                 offset_seconds: *offset,
                 level: brief.level.clone(),
-                matching: result
-                    .detections
-                    .iter()
-                    .filter(|found| {
-                        accepted.contains(&found.asset)
-                            && found.start_seconds < brief.truth.end_seconds
-                            && brief.truth.start_seconds < found.end_seconds
-                    })
-                    .cloned()
-                    .collect(),
+                matching: matching_the_play(
+                    &result.detections,
+                    &brief.truth,
+                    clusters,
+                    options.same_titles,
+                ),
                 wrong_confident: result.score.wrong_confident.len(),
                 same_title: result.score.same_title,
                 strongest_false_hits: result
@@ -378,6 +367,31 @@ pub fn print_summary(report: &GridReport) {
     }
 }
 
+/// The detections that overlap `play` and name its title: its
+/// recording's files, or those judged to carry the same title (ADR 0022).
+fn matching_the_play(
+    detections: &[MixFound],
+    play: &PlannedPlay,
+    clusters: &Clusters,
+    titles: &SameTitles,
+) -> Vec<MixFound> {
+    let cluster = clusters.cluster_of(&play.asset);
+    let accepted: BTreeSet<String> = titles
+        .credited(clusters, &cluster)
+        .into_iter()
+        .chain(cluster)
+        .collect();
+    detections
+        .iter()
+        .filter(|found| {
+            accepted.contains(&found.asset)
+                && found.start_seconds < play.end_seconds
+                && play.start_seconds < found.end_seconds
+        })
+        .cloned()
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -392,6 +406,58 @@ mod tests {
             after: String::from("c.mp3"),
             after_starts_at_seconds: 30.0,
         }
+    }
+
+    fn found(asset: &str, start_seconds: f64, end_seconds: f64) -> MixFound {
+        MixFound {
+            asset: asset.to_owned(),
+            start_seconds,
+            end_seconds,
+            track_start_seconds: 60.0,
+            speed: 1.03,
+            windows: 3,
+            hits: 300,
+            fitted: true,
+            verified: None,
+        }
+    }
+
+    #[test]
+    fn a_detection_of_a_file_with_the_plays_title_matches_it() {
+        let mix = query("q", &brief(), 20.0, 0);
+        let play = &mix.plays[1];
+        let (start, end) = (play.start_seconds, play.end_seconds);
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec![String::from("a.mp3"), String::from("a-rip.mp3")]],
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+        let titles = SameTitles::parse("same-title\ta.mp3\ta-version.opus\n").unwrap();
+        let detections = [
+            found("a-rip.mp3", start, end),
+            found("a-version.opus", start + 2.0, end),
+            found("a-version.opus", end + 5.0, end + 30.0),
+            found("unrelated.opus", start, end),
+        ];
+
+        let matching = matching_the_play(&detections, play, &clusters, &titles);
+        let unjudged = matching_the_play(&detections, play, &clusters, &SameTitles::default());
+
+        let names = |found: &[MixFound]| -> Vec<(String, f64)> {
+            found
+                .iter()
+                .map(|found| (found.asset.clone(), found.start_seconds))
+                .collect()
+        };
+        assert_eq!(
+            names(&matching),
+            [
+                (String::from("a-rip.mp3"), start),
+                (String::from("a-version.opus"), start + 2.0),
+            ]
+        );
+        assert_eq!(names(&unjudged), [(String::from("a-rip.mp3"), start)]);
     }
 
     #[test]
