@@ -34,7 +34,6 @@ not searched.
   tie as overlapping (first read as "other", corrected).
 - ADR 0022 does not apply: `shared` scores by cluster alone, and no China
   Cup file is in either development half.
-
 **Conclusion.** Every difference is explained: each panel is its variant
 run of session 38 or 45 less the pruned files' weak detections. No
 confident detection changes in any query, and ADR 0021's residual risk
