@@ -145,3 +145,18 @@ Rules for this session:
   counting is now `Role::of` and `count`, `grid`'s match of detections
   against the brief play `matching_the_play`, unchanged in behaviour;
   five tests cover the same-title branches.
+- **(13:00) Clean queries done** (`work/s59/compare.py`, by position;
+  the pruned files' detections set aside): with the old index's lists set
+  aside, today's postings give the old clean report (session 33's)
+  exactly, 0 of 702 queries different; with today's lists, the three
+  moves session 57 found (two weak 6-hit candidates and Echos at -8%
+  refitted by 0.000003%). The one list that moved (hash 1,286,800) holds
+  9,930 postings in both indexes and none of a pruned file: recall's
+  index (the held-out clusters left out) set aside lists longer than
+  9,930 before the prune and longer than 9,929 after it.
+- **(13:02) The whole index's cut** (`work/s59/py/cut.py`, reading the
+  offsets tables of both saved files): 1,086,463 lists, 10,865 set
+  aside, longest kept 9,938, in both; no list crosses it. The prune moves
+  nothing in runs of the whole index (the development scan, the
+  regressions); the moves are in indexes less some files, whose cut is
+  their own (recall's, a sweep's).
