@@ -26,8 +26,8 @@ for scope and rules.
 - [x] 4. Experiment 0241: candidates by kind, the `[CUT]` uploads, the
   check against the known cases
 - [x] 5. The listening pack (at most 20 questions) and its command
-- [ ] 6. Read-only review by a separate agent; findings fixed
-- [ ] 7. Notes ("Session 58"), status, checklist; final checks
+- [x] 6. Read-only review by a separate agent; findings fixed
+- [x] 7. Notes ("Session 58"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
   verdicts file and the clusters file's digest unchanged, `git status`
   clean)

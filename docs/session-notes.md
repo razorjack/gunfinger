@@ -12256,6 +12256,7 @@ questions is ready; only the user's ear can tell the two apart.
 | `parts`, tier 3 (6,088 files) | 34:25 | 6.6 GiB |
 | `parts`, tier 4, two chunks of 1,600 files | 9:08; 8:50 | 5.9 GiB |
 | `regress session-54-linux`; `-nas` (the run's build) | 0:51; 4:02 | 0.4; 5.3 GiB |
+| `scripts/check.sh`; `regress session-54-linux`; `-nas` (final) | 4:44; 0:51; 3:47 | 1.3; 0.4; 5.3 GiB |
 
 ### Decided this session, open to change
 
@@ -12347,3 +12348,10 @@ questions is ready; only the user's ear can tell the two apart.
   read (FFprobe on the five pruned files for their lengths, the ignore
   file, the audio for the pack's check); nothing was written to the NAS
   or to `work/peaks`.
+- Final checks (12:27-12:36) with `work/bin/s58-final/`:
+  `scripts/check.sh` green (4:44); `regress session-54-linux` (0:51) and
+  `regress session-54-linux-nas` (3:47) identical, every report equal to
+  its baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`, the
+  answer log and the NAS clusters file at their start digests
+  (`work/s58/listening-digests-end.txt`); no answer log written, no
+  manifest or panel changed.

@@ -5366,3 +5366,8 @@ experiment 0241. Gunfinger is unchanged; the harness gains `parts` and
 - The pack for the user: `gunfinger-eval audition
   work/s58/questions/06-parts-s58.json` (20 questions). Nothing was
   ignored or pruned; an ignore entry is the user's to write.
+- Final checks with `work/bin/s58-final/`: `scripts/check.sh` green
+  (4:44); both regressions identical (0:51; 3:47); the verdicts file, the
+  NAS clusters file and the answer log at their start digests. A
+  read-only review confirmed the counts and found eleven points, all
+  fixed or recorded.

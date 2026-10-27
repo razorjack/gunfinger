@@ -262,3 +262,11 @@ Rules for this session:
     timing run used an earlier build of the same `parts.rs` without
     `questions parts`. The final build differs from it by the review's
     fixes, which do not touch the search.
+- **(12:36) Final checks** with `work/bin/s58-final/` (`work/s58/final.sh`):
+  `gunfinger` byte-identical to `s57-final`'s; `gunfinger-eval` differs
+  from `s58-run`'s by the review's fixes. `scripts/check.sh` green
+  (4:44); `regress session-54-linux` (0:51) and `regress
+  session-54-linux-nas` (3:47) identical, every report equal to its
+  baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`, the NAS
+  clusters file and the answer log at their start digests
+  (`work/s58/listening-digests-end.txt`).
