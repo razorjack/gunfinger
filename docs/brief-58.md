@@ -177,3 +177,16 @@ Rules for this session:
 - **(10:41) `questions parts` checked** on tier 1's report: the file it
   writes loads in `audition` on temporary files (`/tmp/s58q/`, the
   verdicts file copied there); `docs/pair-verdicts.txt` unchanged.
+- **(11:16) Tier 2 done** (37:11, 6.7 GB peak): 62 candidates of 6,293
+  files, 56 worth the ear; with tier 1, 65 and 59. Reading the strongest
+  shows that most are another version of the same tune: an edit, VIP,
+  remix or bootleg that shares a long passage with the original, which
+  starts inside the original and so passes the pre-registered rule for
+  an edge part (Bad Company - Blind's Tinted Edit, 8,419 hits over its
+  last 177 s). The pre-registered rules, report, kinds and pack rule stay
+  as they are (no change after seeing the results). The experiment adds
+  one split marked post hoc, for reading only (`tally.py`): whether the
+  strongest edge part's file name shares a word of five or more letters
+  with the candidate's. It is crude (a Book Of The Bad track named
+  `02.mp3` counts as different; Vaccine and Questions share
+  "counterstrike") and decides nothing.
