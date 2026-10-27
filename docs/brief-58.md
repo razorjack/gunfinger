@@ -209,3 +209,18 @@ Rules for this session:
   part has a different name (`work/s58/different-name-files.txt`, by
   `tally.py`) goes to the handoff, ready for a later pack with
   `questions parts ... --files`.
+- **(12:08) The main run done**: tier 4's first two chunks (3,200 files,
+  9:08 and 8:50) ran before the 90 minutes were spent, so tier 4 is cut
+  after `__youtube_archivists/3zb-gangstep-dnb/Xenophobe Of NTX - Void of
+  Sense.opus`; 25,036 uploads were not searched. In all 15,627 files,
+  205 candidates, 186 worth the ear (experiment 0241).
+- **(12:10) `[CUT]` counts**: the `i-witness-dnb` folder lists 54 audio
+  files named `[CUT]` today (and one `.jpg`), not 58: the ignored Space
+  Cake file, 46 with a peak record and 7 with a skip note.
+- **(12:10) The pack** (step 5): `tally.py` wrote
+  `work/s58/pack-files.txt` by the pre-registered rule (20 candidates);
+  `questions parts` wrote `work/s58/questions/06-parts-s58.json` (20
+  questions, 2-9 lanes), which loads in `audition` on temporary files.
+- **(12:13) `regress session-54-linux-nas` identical** with
+  `work/bin/s58-run/` (4:02, 5.6 GB), every report equal to its
+  baseline's apart from `wall_seconds`.

@@ -21,11 +21,11 @@ for scope and rules.
 - [x] 2. The harness: a report of candidate files with their parts,
   sorted by strength, and a `questions` pack; unit tests on fixtures;
   `regress` identical
-- [~] 3. The run at NAS scale (tmux, log), leaving out 0065's candidate
+- [x] 3. The run at NAS scale (tmux, log), leaving out 0065's candidate
   mixes and what the ignore file leaves out
-- [ ] 4. Experiment 0241: candidates by kind, the `[CUT]` uploads, the
+- [x] 4. Experiment 0241: candidates by kind, the `[CUT]` uploads, the
   check against the known cases
-- [ ] 5. The listening pack (at most 20 questions) and its command
+- [x] 5. The listening pack (at most 20 questions) and its command
 - [ ] 6. Read-only review by a separate agent; findings fixed
 - [ ] 7. Notes ("Session 58"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
