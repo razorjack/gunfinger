@@ -74,6 +74,14 @@ pub struct Candidate {
     pub correct: bool,
     pub hits: u32,
     pub windows: u32,
+    /// The chain's speed and span, where the second pass starts (session
+    /// 59; absent from earlier traces).
+    #[serde(default)]
+    pub speed_percent: f64,
+    #[serde(default)]
+    pub start_seconds: f64,
+    #[serde(default)]
+    pub end_seconds: f64,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -576,13 +584,20 @@ pub fn outcome(
     }
 }
 
-fn candidate(index: &Index, detection: &Detection, own_cluster: &BTreeSet<String>) -> Candidate {
+pub fn candidate(
+    index: &Index,
+    detection: &Detection,
+    own_cluster: &BTreeSet<String>,
+) -> Candidate {
     let asset = &index.asset(detection.asset).path;
     Candidate {
         asset: asset.clone(),
         correct: own_cluster.contains(original_path(asset)),
         hits: detection.evidence.hits,
         windows: detection.evidence.windows,
+        speed_percent: (detection.speed.0 - 1.0) * 100.0,
+        start_seconds: detection.start_seconds,
+        end_seconds: detection.end_seconds,
     }
 }
 

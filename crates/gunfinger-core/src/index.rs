@@ -261,6 +261,20 @@ impl Index {
         }
     }
 
+    /// Like `skipping_fullest`, but sets aside the lists of `hashes`
+    /// whatever their length: those another index set aside, for
+    /// measuring what moving lists across the cut changes (session 59).
+    pub fn skipping_hashes(self, hashes: &[PairHash]) -> Index {
+        let mut bits = vec![0_u64; (self.offsets.len() - 1).div_ceil(64)];
+        for hash in hashes {
+            bits[(hash.0 >> 6) as usize] |= 1 << (hash.0 & 63);
+        }
+        Index {
+            set_aside: SetAside::Hashes(bits),
+            ..self
+        }
+    }
+
     /// The longest list kept when the `share` of fullest non-empty lists
     /// is set aside; `None` when that share rounds to no list.
     fn longest_kept(&self, share: f64) -> Option<u32> {
@@ -735,6 +749,26 @@ mod tests {
         assert!(skipping.scanned_postings(common).is_empty());
         assert_eq!(skipping.postings(common).len(), 2);
         assert_eq!(skipping.scanned_postings(rare).len(), 1);
+    }
+
+    #[test]
+    fn skipping_given_hashes_sets_aside_their_lists_only() {
+        let first = [(10.0, 100.0), (20.0, 110.0)];
+        let second = [
+            (500.2, 100.0),
+            (509.8, 110.0),
+            (900.0, 300.0),
+            (920.0, 300.0),
+        ];
+        let index = Index::build(&[record("a.mp3", &first), record("b.mp3", &second)]).unwrap();
+        let common = hashes_of(&first)[0];
+        let rare = *hashes_of(&second).last().unwrap();
+
+        let skipping = index.skipping_hashes(&[rare]);
+
+        assert!(skipping.scanned_postings(rare).is_empty());
+        assert_eq!(skipping.postings(rare).len(), 1);
+        assert_eq!(skipping.scanned_postings(common).len(), 2);
     }
 
     #[test]

@@ -9,13 +9,15 @@
 //!
 //! `Ranking` sets the same share aside ranked by distinct holders instead
 //! of postings, a variant for measuring the filter (session 50).
+//! `setting_aside_like` searches an index with the lists another index,
+//! saved in a file, sets aside (session 59).
 
 use std::collections::{BTreeSet, HashMap};
 use std::fs;
 use std::path::Path;
 
 use gunfinger_core::hash::{HASH_BITS, PairHash};
-use gunfinger_core::index::{AssetId, Index};
+use gunfinger_core::index::{AssetId, Index, saved};
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::profile::Profile;
@@ -87,6 +89,121 @@ fn recordings(index: &Index, clusters: &Clusters) -> Vec<u32> {
             *numbers.entry(recording).or_insert(next)
         })
         .collect()
+}
+
+/// How the lists an index sets aside differ from those of another index,
+/// saved in a file, with the same files left out: "here" is the index
+/// searched, "there" the saved one. Session 52's prune moved detections
+/// of files it did not touch (session 57); this traces whether the lists
+/// set aside moved them.
+#[derive(Clone, Serialize, Deserialize)]
+pub struct SetAsideLike {
+    /// The saved index, only read.
+    pub file: String,
+    /// The files it holds that the index searched does not.
+    pub only_there: Vec<String>,
+    /// Whether, with those files left out as well, its postings are the
+    /// searched index's, posting for posting (`Index::without_assets`).
+    pub same_postings_without_them: bool,
+    pub lists_here: usize,
+    pub lists_there: usize,
+    /// The shortest list each sets aside.
+    pub shortest_here: usize,
+    pub shortest_there: usize,
+    pub set_aside_here_only: Vec<MovedList>,
+    pub set_aside_there_only: Vec<MovedList>,
+}
+
+/// A list set aside by one of the two indexes only, with its postings in
+/// each, and those there of the files only there.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct MovedList {
+    pub hash: u32,
+    pub here: usize,
+    pub there: usize,
+    pub there_of_files_only_there: usize,
+}
+
+/// `index` (as built, less `left_out`), searched with the lists set aside
+/// that the index saved at `saved` sets aside with `left_out` left out of
+/// it too, by the same `share`: its own postings, the other index's cut.
+/// The file is only read; both indexes are in memory at once.
+pub fn setting_aside_like(
+    index: Index,
+    saved: &Path,
+    left_out: &BTreeSet<String>,
+    share: f64,
+) -> Result<(Index, SetAsideLike), String> {
+    let unusable = |error: saved::Unusable| {
+        format!(
+            "cannot load {} for --set-aside-like: {error}",
+            saved.display()
+        )
+    };
+    let here = index.skipping_fullest(share);
+    let here_hashes = set_aside_hashes(&here);
+    let there = saved::load(saved, &saved::provenance(saved).map_err(unusable)?)
+        .map_err(unusable)?
+        .without_assets(left_out);
+    let here_paths: BTreeSet<&str> = here
+        .assets()
+        .iter()
+        .map(|asset| asset.path.as_str())
+        .collect();
+    let only_there: BTreeSet<String> = there
+        .assets()
+        .iter()
+        .filter(|asset| !here_paths.contains(asset.path.as_str()))
+        .map(|asset| asset.path.clone())
+        .collect();
+    let only_there_ids: BTreeSet<AssetId> = (0..there.assets().len() as u32)
+        .map(AssetId)
+        .filter(|&asset| only_there.contains(&there.asset(asset).path))
+        .collect();
+    let there = there.skipping_fullest(share);
+    let there_hashes = set_aside_hashes(&there);
+    let moved = |hashes: &[u32], elsewhere: &[u32]| -> Vec<MovedList> {
+        hashes
+            .iter()
+            .filter(|hash| elsewhere.binary_search(hash).is_err())
+            .map(|&hash| {
+                let there_list = there.postings(PairHash(hash));
+                MovedList {
+                    hash,
+                    here: here.postings(PairHash(hash)).len(),
+                    there: there_list.len(),
+                    there_of_files_only_there: there_list
+                        .iter()
+                        .filter(|posting| only_there_ids.contains(&posting.asset()))
+                        .count(),
+                }
+            })
+            .collect()
+    };
+    let shortest = |index: &Index, hashes: &[u32]| {
+        hashes
+            .iter()
+            .map(|&hash| index.postings(PairHash(hash)).len())
+            .min()
+            .unwrap_or(0)
+    };
+    let mut like = SetAsideLike {
+        file: saved.display().to_string(),
+        only_there: only_there.iter().cloned().collect(),
+        same_postings_without_them: false,
+        lists_here: here_hashes.len(),
+        lists_there: there_hashes.len(),
+        shortest_here: shortest(&here, &here_hashes),
+        shortest_there: shortest(&there, &there_hashes),
+        set_aside_here_only: moved(&here_hashes, &there_hashes),
+        set_aside_there_only: moved(&there_hashes, &here_hashes),
+    };
+    let there = there.without_assets(&only_there);
+    like.same_postings_without_them =
+        there.assets() == here.assets() && there.posting_lists().eq(here.posting_lists());
+    drop(there);
+    let hashes: Vec<PairHash> = there_hashes.into_iter().map(PairHash).collect();
+    Ok((here.skipping_hashes(&hashes), like))
 }
 
 /// The hashes whose lists `index` leaves out of the search for
@@ -292,6 +409,9 @@ pub fn print_summary(report: &FullestReport) {
 
 #[cfg(test)]
 mod tests {
+    use std::time::Duration;
+
+    use gunfinger_core::indexing::TrackLength;
     use gunfinger_core::library::{Asset, Timestamp};
     use gunfinger_core::peaks::Peak;
     use gunfinger_core::store::{PeakRecord, RecordHeader};
@@ -382,6 +502,70 @@ mod tests {
 
         assert_eq!(set_aside_hashes(&by_files), [common_hash]);
         assert_eq!(set_aside_hashes(&by_recordings), [other_hash]);
+    }
+
+    #[test]
+    fn a_saved_index_with_one_file_more_lends_its_lists_set_aside() {
+        // Before "gone.mp3" was removed, the list c.mp3, d.mp3 and it share
+        // was the fullest of two and set aside; without it both lists hold
+        // two postings, a tie at the cut, and neither is set aside.
+        let ab = [100.0, 120.0];
+        let cd = [300.0, 340.0];
+        let before = [
+            record("a.mp3", &ab),
+            record("b.mp3", &ab),
+            record("c.mp3", &cd),
+            record("gone.mp3", &cd),
+            record("d.mp3", &cd),
+        ];
+        let dir = std::env::temp_dir().join(format!("gunfinger-like-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let file = dir.join("before.index");
+        let provenance = saved::Provenance {
+            profile: Profile::CURRENT.id(),
+            hash_design: String::from("design"),
+            track_length: TrackLength {
+                min: Duration::ZERO,
+                max: Duration::from_secs(600),
+            },
+            sources: before
+                .iter()
+                .map(|record| record.header.source.clone())
+                .collect(),
+        };
+        saved::save(&file, &provenance, &Index::build(&before).unwrap()).unwrap();
+        let after: Vec<PeakRecord> = before
+            .iter()
+            .filter(|record| record.header.source.path != "gone.mp3")
+            .cloned()
+            .collect();
+        let index = Index::build(&after).unwrap();
+        let cd_hash = (0..1u32 << HASH_BITS)
+            .find(|&hash| {
+                index.postings(PairHash(hash)).len() == 2
+                    && index.postings(PairHash(hash))[0].asset() == AssetId(2)
+            })
+            .unwrap();
+        assert!(set_aside_hashes(&Index::build(&after).unwrap().skipping_fullest(0.5)).is_empty());
+
+        let (searched, like) = setting_aside_like(index, &file, &BTreeSet::new(), 0.5).unwrap();
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert_eq!(like.only_there, ["gone.mp3"]);
+        assert!(like.same_postings_without_them);
+        assert_eq!((like.lists_here, like.lists_there), (0, 1));
+        assert!(like.set_aside_here_only.is_empty());
+        assert_eq!(
+            like.set_aside_there_only,
+            [MovedList {
+                hash: cd_hash,
+                here: 2,
+                there: 3,
+                there_of_files_only_there: 1,
+            }]
+        );
+        assert_eq!(set_aside_hashes(&searched), [cd_hash]);
+        assert_eq!(searched.postings(PairHash(cd_hash)).len(), 2);
     }
 
     #[test]

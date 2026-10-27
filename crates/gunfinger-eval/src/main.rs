@@ -376,6 +376,8 @@ enum Command {
         /// 15 and 20 s between held-out audio (`brief`, `brief-damaged`).
         #[arg(long, value_enum, value_delimiter = ',', default_value = "clean")]
         queries: Vec<recall::QuerySet>,
+        #[command(flatten)]
+        study: RecallStudy,
     },
     /// Run the seeded speed sweep.
     Sweep {
@@ -969,7 +971,16 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             prepare,
             other_rips_only,
             queries,
-        } => run_recall(paths, seed, prepare, other_rips_only, &queries, jobs),
+            study,
+        } => run_recall(
+            paths,
+            seed,
+            prepare,
+            other_rips_only,
+            &queries,
+            &study,
+            jobs,
+        ),
         Command::Scan {
             set,
             leave_out,
@@ -1726,6 +1737,37 @@ struct FilterStudy {
     copies: Copies,
 }
 
+/// Recall options for tracing what moves its detections (session 59). Each
+/// adds to the report's name, so no default report is written over.
+#[derive(clap::Args)]
+struct RecallStudy {
+    /// Keep each query's first-pass candidates (detections of at least
+    /// 10 hits, which the second pass measures again) with their speed
+    /// and span; the report's name ends in `-trace`.
+    #[arg(long)]
+    trace_candidates: bool,
+    /// Search the index with the lists set aside that the harness's index
+    /// saved in this file sets aside with the same files left out, and
+    /// record how the two differ: for comparing with an index of an
+    /// earlier store. The file is only read. Default matcher only; the
+    /// report's name ends in `-set-aside-like`.
+    #[arg(long, value_name = "FILE")]
+    set_aside_like: Option<PathBuf>,
+}
+
+impl RecallStudy {
+    fn suffix(&self) -> String {
+        let mut suffix = String::new();
+        if self.set_aside_like.is_some() {
+            suffix.push_str("-set-aside-like");
+        }
+        if self.trace_candidates {
+            suffix.push_str("-trace");
+        }
+        suffix
+    }
+}
+
 /// Exact copies of chosen records added to the index (session 50).
 #[derive(clap::Args)]
 struct Copies {
@@ -2130,11 +2172,19 @@ fn run_recall(
     prepare: bool,
     other_rips_only: bool,
     sets: &[recall::QuerySet],
+    study: &RecallStudy,
     jobs: usize,
 ) -> Result<(), String> {
     let Some(other) = paths.other_store()? else {
         return Err(String::from("recall needs --other-peaks-dir"));
     };
+    if study.set_aside_like.is_some()
+        && (paths.matching.single_pass || paths.matching.drop_fullest > 0.0)
+    {
+        return Err(String::from(
+            "--set-aside-like sets aside the default matcher's lists; it takes neither --single-pass nor --drop-fullest",
+        ));
+    }
     let (panel, assets) = recall_panel(paths, &other, seed)?;
     let root = other
         .library()
@@ -2200,10 +2250,18 @@ fn run_recall(
             matching: &paths.matching,
             left_out: &left_out,
             verify: paths.verify,
+            trace: if study.trace_candidates {
+                sweep::Trace::Candidates
+            } else {
+                sweep::Trace::Off
+            },
+            set_aside_like: study.set_aside_like.as_deref(),
             jobs,
         },
         |report| {
-            let name = report.query_set.report_name(seed, other_rips_only);
+            let name = report
+                .query_set
+                .report_name(seed, other_rips_only, &study.suffix());
             write_json(&paths.reports().join(name), &report)?;
             recall::print_summary(&report);
             Ok(())

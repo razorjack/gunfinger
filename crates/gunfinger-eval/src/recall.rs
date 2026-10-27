@@ -23,19 +23,21 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::WINDOW_SECONDS;
+use gunfinger_core::search::{MIN_HITS_TO_REFINE, SKIPPED_SHARE, WINDOW_SECONDS};
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::fullest::{self, SetAsideLike};
 use crate::matching::Matching;
 use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
 use crate::render::is_complete;
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::sweep::{
-    Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, outcome, render_all, speed_row,
+    Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, Trace, candidate, outcome,
+    render_all, speed_row,
 };
 use crate::titles::SameTitles;
 use crate::verifier::Verifier;
@@ -313,8 +315,9 @@ impl QuerySet {
     }
 
     /// `recall-seed-<seed>.json` for the clean excerpts in the usual index,
-    /// with `-other-rips`, `-damaged` and `-brief` added as they apply.
-    pub fn report_name(self, seed: u64, other_rips_only: bool) -> String {
+    /// with `-other-rips`, `-damaged` and `-brief` added as they apply,
+    /// then `suffix`.
+    pub fn report_name(self, seed: u64, other_rips_only: bool, suffix: &str) -> String {
         let mut name = format!("recall-seed-{seed}");
         if other_rips_only {
             name.push_str("-other-rips");
@@ -325,7 +328,7 @@ impl QuerySet {
         if self.brief() {
             name.push_str("-brief");
         }
-        name + ".json"
+        name + suffix + ".json"
     }
 }
 
@@ -688,6 +691,10 @@ pub struct RecallReport {
     /// Recall per kind of source, over every speed.
     pub per_kind: Vec<KindRow>,
     pub queries: Vec<RecallQuery>,
+    /// With `--set-aside-like`: how the lists set aside differ from the
+    /// saved index's.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub set_aside_like: Option<SetAsideLike>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -747,6 +754,11 @@ pub struct Options<'a> {
     /// Measure every detection the second pass counted with the peak
     /// verifier; the others have no fitted alignment to verify.
     pub verify: bool,
+    /// Keep each query's first-pass candidates (session 59).
+    pub trace: Trace,
+    /// Search with the lists set aside that the index saved in this file
+    /// sets aside (`fullest::setting_aside_like`, session 59).
+    pub set_aside_like: Option<&'a Path>,
     pub jobs: usize,
 }
 
@@ -772,9 +784,25 @@ pub fn run(
         .collect();
     let excluded: BTreeSet<String> = held_out.union(options.left_out).cloned().collect();
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let index = options
-        .matching
-        .index(options.padding.index(&records, &profile, &excluded)?);
+    let built = options.padding.index(&records, &profile, &excluded)?;
+    let (index, set_aside_like) = match options.set_aside_like {
+        Some(saved) => {
+            let (index, like) =
+                fullest::setting_aside_like(built, saved, &excluded, SKIPPED_SHARE)?;
+            eprintln!(
+                "set aside like {}: {} lists there, {} here; {} only there, {} only here; {} files only there; same postings without them: {}",
+                like.file,
+                like.lists_there,
+                like.lists_here,
+                like.set_aside_there_only.len(),
+                like.set_aside_here_only.len(),
+                like.only_there.len(),
+                like.same_postings_without_them
+            );
+            (index, Some(like))
+        }
+        None => (options.matching.index(built), None),
+    };
     options.same_titles.warn_outside(&index, &excluded);
     let verifier = options
         .verify
@@ -838,6 +866,7 @@ pub fn run(
                 .collect(),
             per_kind: KINDS.iter().map(|&kind| kind_row(kind, &queries)).collect(),
             queries,
+            set_aside_like: set_aside_like.clone(),
         })?;
     }
     Ok(())
@@ -888,7 +917,14 @@ impl Searcher<'_> {
                     outcome
                 })
                 .collect(),
-            candidates: None,
+            candidates: (self.options.trace == Trace::Candidates).then(|| {
+                matching
+                    .first_pass(self.index, samples, &Profile::CURRENT, ladder, 1)
+                    .iter()
+                    .filter(|detection| detection.evidence.hits >= MIN_HITS_TO_REFINE)
+                    .map(|detection| candidate(self.index, detection, &own_cluster))
+                    .collect()
+            }),
         };
         let unobservable = is_unobservable(source, &own_cluster, self.indexed);
         RecallQuery {
@@ -1292,16 +1328,16 @@ mod tests {
     #[test]
     fn report_names_say_the_index_and_the_queries() {
         assert_eq!(
-            QuerySet::Clean.report_name(2026, false),
+            QuerySet::Clean.report_name(2026, false, ""),
             "recall-seed-2026.json"
         );
         assert_eq!(
-            QuerySet::BriefDamaged.report_name(2026, true),
+            QuerySet::BriefDamaged.report_name(2026, true, ""),
             "recall-seed-2026-other-rips-damaged-brief.json"
         );
         assert_eq!(
-            QuerySet::Brief.report_name(7, false),
-            "recall-seed-7-brief.json"
+            QuerySet::Brief.report_name(7, false, "-set-aside-like-trace"),
+            "recall-seed-7-brief-set-aside-like-trace.json"
         );
         assert!(QuerySet::Damaged.damaged() && !QuerySet::Damaged.brief());
     }

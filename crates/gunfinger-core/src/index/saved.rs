@@ -133,6 +133,50 @@ pub fn examine(path: &Path, expected: &Provenance) -> Result<(), Unusable> {
     read_layout(&mut open(path)?, expected).map(|_| ())
 }
 
+/// What the index saved at `path` was built from, read from its header
+/// alone, so that a file built from records the store no longer holds can
+/// be loaded for comparison (`load(path, &provenance(path)?)`; a
+/// diagnostic of the harness, session 59). Searches use `load` with the
+/// provenance a build would use now.
+pub fn provenance(path: &Path) -> Result<Provenance, Unusable> {
+    read_provenance(&mut open(path)?).map_err(HeaderError::into_unusable)
+}
+
+fn read_provenance(input: &mut Digesting<impl Read>) -> Result<Provenance, HeaderError> {
+    if &input.array::<8>()? != MAGIC {
+        return Err(HeaderError::Unreadable(String::from(
+            "it is not a saved index",
+        )));
+    }
+    let format = u32::from_le_bytes(input.array()?);
+    if format != FORMAT {
+        return Err(HeaderError::Stale(format!(
+            "it has format {format}, this version reads {FORMAT}"
+        )));
+    }
+    let profile = read_text(input)?;
+    let hash_design = read_text(input)?;
+    if u32::from_le_bytes(input.array()?) != FRAME_BITS {
+        return Err(stale("its postings split frame and asset bits differently"));
+    }
+    let track_length = TrackLength {
+        min: read_length(input)?,
+        max: read_length(input)?,
+    };
+    let count = u32::from_le_bytes(input.array()?) as usize;
+    let mut sources = Vec::with_capacity(count);
+    for _ in 0..count {
+        sources.push(read_source(input)?);
+        input.array::<8>()?;
+    }
+    Ok(Provenance {
+        profile,
+        hash_design,
+        track_length,
+        sources,
+    })
+}
+
 fn open(path: &Path) -> Result<Digesting<BufReader<File>>, Unusable> {
     let file = match File::open(path) {
         Ok(file) => file,
@@ -666,6 +710,21 @@ mod tests {
             load(&path, &provenance),
             Err(Unusable::Unreadable(_))
         ));
+    }
+
+    #[test]
+    fn a_saved_index_loads_by_the_provenance_its_header_names() {
+        let dir = scratch("provenance");
+        let path = dir.join("library.index");
+        let (built_from, index) = library();
+        save(&path, &built_from, &index).unwrap();
+
+        let named = provenance(&path).unwrap();
+
+        assert_eq!(named, built_from);
+        assert!(same(&load(&path, &named).unwrap(), &index));
+        fs::write(&path, b"not an index").unwrap();
+        assert!(matches!(provenance(&path), Err(Unusable::Unreadable(_))));
     }
 
     #[test]
