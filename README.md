@@ -116,6 +116,31 @@ gunfinger identify ~/Mixes/*.m4a --save-dir ~/Mixes/reports
 
 A recording in which nothing is found prints `no tracks found`.
 
+A stretch of 45 s or more where no confident match was found gets an
+unnumbered line at its start, `ID - ID`, the usual name in DJ tracklists
+for a track nobody has identified, with its length. My 2003 mix against
+the 262-track library, where 7 of its 12 tracks are indexed:
+
+```text
+       0:00  ID - ID (2:25 without a confident match)
+ 1.    2:25  Future Cut - The Specialist
+       6:43  ID - ID (7:57 without a confident match)
+ 2.   14:40  Tee Bee - Two Faced
+      20:04  ID - ID (4:15 without a confident match)
+ 3.   24:20  Carlito & Addiction - Into Music
+      29:25  ID - ID (1:39 without a confident match)
+ 4.   31:05  Total Science - Yvon Is On
+ 5.   34:54  Marcus Intalex & S.T.Files - Balderdash
+ 6.   39:14  Spirit - Out Of Control
+ 7.   42:15  DJ Hidden - Skektics
+```
+
+The line says only that nothing confident was found there: the stretch
+may hold one track, several, or the end of a found track that matched
+too weakly. A possible match inside it keeps its own line. Shorter
+stretches are not listed, so the other lines do not account for every
+second of the mix.
+
 The tracklist lists tracks, not files. Plays of several library files over
 the same stretch of the mix are one entry when the files line up with each
 other (rips, masters, uploads sped up by a few percent) or when their tags
@@ -132,12 +157,17 @@ shows it, marked `shares material with`, and JSON keeps it.
 
 - `human`: a table of every play: the span in the mix, the part of the
   track heard, speed, confidence (`confident` or `possible`), hits and
-  file path. Plays found with key lock end with `(key lock)`.
+  file path. Plays found with key lock end with `(key lock)`. Each
+  stretch without a confident match is a row of its own.
 - `timeline`: each play as a bar across the recording.
-- `json`: the whole report, including each file's tags. Fields may be
-  added without a change of `schema_version`.
+- `json`: the whole report, including each file's tags and the stretches
+  without a confident match (`gaps`: `start_seconds`, `end_seconds` and
+  `possible_plays`, the positions from 1 in `plays` of the possible
+  plays inside). Fields may be added without a change of
+  `schema_version`.
 - `csv`: one row per play, times in seconds.
 - `cue`: a cue sheet of the confident tracks, for players and splitters.
+  CSV and the cue sheet have no rows for gaps.
 
 ### Other commands
 

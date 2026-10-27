@@ -7,9 +7,11 @@
 //! Covered time is the segments of confident plays, grouped as `seconds`
 //! groups them (ADR 0013), so a gap between two segments of a returning
 //! track counts. Possible plays cover nothing (ADR 0006); each gap counts
-//! the ones it meets.
+//! the ones it meets. The stretches are the core's `gaps::uncovered`, which
+//! the CLI prints (ADR 0023).
 
 use gunfinger_core::confidence::Confidence;
+use gunfinger_core::gaps::uncovered;
 use serde::Serialize;
 
 use crate::seconds::{Label, Rule, Segment, Truth, labels};
@@ -131,15 +133,14 @@ pub fn list(
             own_seconds: count(&heard, |_, at| at == Heard::Alone(number)),
         })
         .collect();
-    let stretches = uncovered(&labels, duration_seconds);
+    let covered = covered(&labels);
     let entry_starts = entry_starts(&labels);
     let at = min_lengths
         .iter()
         .map(|&min_length| {
-            let mut gaps: Vec<Gap> = stretches
-                .iter()
-                .filter(|(start, end)| end - start >= min_length)
-                .map(|&(start, end)| gap(start, end, truth, &heard, &labels))
+            let mut gaps: Vec<Gap> = uncovered(&covered, 0.0, duration_seconds, min_length)
+                .into_iter()
+                .map(|(start, end)| gap(start, end, truth, &heard, &labels))
                 .collect();
             let intervals = intervals_without_gaps(&entry_starts, &gaps);
             let median = (intervals.len() >= MIN_INTERVALS).then(|| median(&intervals));
@@ -191,27 +192,13 @@ fn count(heard: &[(f64, Heard)], keep: impl Fn(f64, Heard) -> bool) -> u32 {
         .count() as u32
 }
 
-/// The stretches of `0..duration_seconds` that no segment of a confident
-/// play covers, in order.
-fn uncovered(labels: &[Label], duration_seconds: f64) -> Vec<(f64, f64)> {
-    let mut covered: Vec<(f64, f64)> = labels
+/// The segments of confident plays: the time they cover.
+fn covered(labels: &[Label]) -> Vec<(f64, f64)> {
+    labels
         .iter()
         .filter(|label| label.level == Confidence::Confident)
         .flat_map(|label| label.spans.iter().copied())
-        .collect();
-    covered.sort_by(|a, b| a.0.total_cmp(&b.0));
-    let mut stretches = Vec::new();
-    let mut reached = 0.0_f64;
-    for (start, end) in covered {
-        if start > reached {
-            stretches.push((reached, start.min(duration_seconds)));
-        }
-        reached = reached.max(end);
-    }
-    if reached < duration_seconds {
-        stretches.push((reached, duration_seconds));
-    }
-    stretches
+        .collect()
 }
 
 /// The gap from `start` to `end`, judged by the truth.

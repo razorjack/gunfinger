@@ -9,6 +9,7 @@
 //! lead-in, an edit; ADR 0017). Such plays are one entry, named after the
 //! strongest, with the other names the tags give.
 
+use crate::gaps::gaps;
 use crate::names::TrackName;
 use crate::report::{FoundPlay, Level, Playback, Report};
 use crate::table::timecode;
@@ -178,8 +179,11 @@ fn first_plays(plays: &[FoundPlay]) -> Vec<usize> {
 /// of another recording (`shares_material_with`) is left out: it is
 /// material the two recordings share, not a track that was played, and the
 /// table and JSON keep it (ADR 0019). Such a play is never grouped, so it
-/// is an entry of its own. As the default output it says when nothing was found, so that
-/// an empty result does not look like a run that printed nothing.
+/// is an entry of its own. Each gap (`gaps`) gets an unnumbered "ID - ID"
+/// line at its start, before an entry starting at the same moment: a number
+/// would count it as one track (ADR 0023). As the default output it says
+/// when nothing was found, so that an empty result does not look like a run
+/// that printed nothing.
 pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
     let entries: Vec<Entry> = entries(report)
         .into_iter()
@@ -194,7 +198,15 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
     if entries.is_empty() {
         return String::from("no tracks found\n");
     }
-    let mut lines = Vec::new();
+    let mut lines: Vec<(f64, String)> = gaps(report)
+        .iter()
+        .map(|gap| {
+            (
+                gap.start_seconds,
+                format!("    {:>7}  {}", timecode(gap.start_seconds), gap.label()),
+            )
+        })
+        .collect();
     for (number, entry) in entries.iter().enumerate() {
         let mark = match entry.confidence() {
             Level::Confident => "",
@@ -208,13 +220,19 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
         } else {
             format!("  (also: {})", others.join(", "))
         };
-        lines.push(format!(
-            "{:>2}. {:>7}  {}{also}{mark}",
-            number + 1,
-            timecode(entry.start_seconds()),
-            name(entry.asset()).full()
+        lines.push((
+            entry.start_seconds(),
+            format!(
+                "{:>2}. {:>7}  {}{also}{mark}",
+                number + 1,
+                timecode(entry.start_seconds()),
+                name(entry.asset()).full()
+            ),
         ));
     }
+    // A stable sort keeps a gap before an entry starting with it.
+    lines.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let mut lines: Vec<String> = lines.into_iter().map(|(_, line)| line).collect();
     lines.push(String::new());
     lines.join("\n")
 }
@@ -323,8 +341,64 @@ mod tests {
     fn a_recording_without_plays_says_no_tracks_were_found() {
         let mut report = report();
         report.plays.clear();
+        // Ten minutes without a confident match: still no gap line.
+        report.query.duration_seconds = 600.0;
 
         assert_eq!(tracklist(&report, names), "no tracks found\n");
+    }
+
+    #[test]
+    fn unnumbered_id_lines_mark_gaps_at_the_start_between_entries_and_at_the_end() {
+        let mut report = report();
+        // a.wav is gone and b.wav only possible: nothing confident covers
+        // 0:00-1:36 (b.wav and insert.wav inside) or 2:20-4:00.
+        report.plays.remove(0);
+        report.plays[0].confidence = Level::Possible;
+        report.plays[0].segments[0].confidence = Level::Possible;
+        report.query.duration_seconds = 240.0;
+
+        let tracklist = tracklist(&report, names);
+
+        assert_eq!(
+            tracklist,
+            "       0:00  ID - ID (1:36 without a confident match)\n 1.    0:38  b (possible)\n 2.    1:24  insert (possible)\n 3.    1:36  c\n       2:20  ID - ID (1:40 without a confident match)\n"
+        );
+    }
+
+    #[test]
+    fn a_gap_line_comes_before_an_entry_starting_with_it() {
+        let mut report = report();
+        // Without c.wav nothing confident follows b.wav's end at 1:21,
+        // where insert.wav, possible, now starts.
+        report.plays.truncate(3);
+        report.plays[2].start_seconds = 81.0;
+        report.plays[2].segments[0].start_seconds = 81.0;
+
+        let tracklist = tracklist(&report, names);
+
+        assert!(
+            tracklist.ends_with(
+                "       1:21  ID - ID (1:09 without a confident match)\n 3.    1:21  insert (possible)\n"
+            ),
+            "{tracklist}"
+        );
+    }
+
+    #[test]
+    fn a_play_left_out_of_the_tracklist_stays_out_of_a_gap() {
+        let mut report = report();
+        report.plays.remove(3);
+        report.plays[2].shares_material_with = Some(SharedWith {
+            play: 2,
+            asset: String::from("b.wav"),
+        });
+
+        let tracklist = tracklist(&report, names);
+
+        assert_eq!(
+            tracklist,
+            " 1.    0:00  Artist A - Track \"A\"\n 2.    0:38  b\n       1:21  ID - ID (1:09 without a confident match)\n"
+        );
     }
 
     #[test]

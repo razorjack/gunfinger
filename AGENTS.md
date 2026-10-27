@@ -102,7 +102,8 @@ ADR 0018) → `spectrogram` → `peaks` →
 `store` (the peak store, source of truth) → `hash` → `index` → `speed` (the
 ladders of turntable and key-locked rungs) → `search` (`lines` per window,
 `chains` across windows) → `confidence` → `plays` (segments of one asset
-grouped, same-audio plays merged). `profile` holds the front-end
+grouped, same-audio plays merged) → `gaps` (the stretches no confident
+play covers, which the CLI prints and the harness lists; ADR 0023). `profile` holds the front-end
 parameters; changing one invalidates every peak record. Around it:
 `library` finds the audio files, leaving out what the
 `.gunfingerignore` at the root lists (`library::ignore`, a subset of
@@ -116,7 +117,9 @@ formats times.
 In the CLI, `identify` searches and builds a `report` (the JSON report),
 `explain` shows the evidence at one moment of a mix, and `show`, `listen`
 and `review` read a saved report. Reports render through `output`
-(`table`, `timeline`, `export`). `config` resolves
+(`table`, `timeline`, `export`), and `gaps` adds the stretches of 45 s
+or more without a confident match to the tracklist, the table and JSON
+(ADR 0023). `config` resolves
 flags, environment and the configuration file; `console` and `style` own
 messages and colour; `catalog` loads the index from the peak store, for
 the library's files or, without a library, the store's own records;

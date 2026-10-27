@@ -4,6 +4,7 @@ use std::time::Duration;
 
 use gunfinger_core::timecode::format_timecode;
 
+use crate::gaps::{Gap, gaps};
 use crate::report::{FoundPlay, Level, Playback, Report};
 use crate::style::Style;
 
@@ -12,12 +13,18 @@ const ASSET_COLUMN: usize = 62;
 
 /// One row per play; assets with the same audio and a play's segments are
 /// listed underneath. `in track` is the part of the track that was heard.
+/// Each gap is a row in time order, before a play starting with it (ADR
+/// 0023).
 pub fn table(report: &Report, style: Style) -> String {
     let mut lines = vec![style.bold(&format!(
         "{:<19} {:<13} {:>7}  {:<10} {:>6}  asset",
         "time", "in track", "speed", "confidence", "hits"
     ))];
+    let mut gaps = gaps(report).into_iter().peekable();
     for play in &report.plays {
+        while let Some(gap) = gaps.next_if(|gap| gap.start_seconds <= play.start_seconds) {
+            lines.push(gap_row(&gap));
+        }
         lines.push(row(
             &span(play.start_seconds, play.end_seconds),
             &span(play.track_start_seconds, play.track_end_seconds),
@@ -49,8 +56,18 @@ pub fn table(report: &Report, style: Style) -> String {
             }
         }
     }
+    lines.extend(gaps.map(|gap| gap_row(&gap)));
     lines.push(String::new());
     lines.join("\n")
+}
+
+/// The gap's span, and its words in the asset column.
+fn gap_row(gap: &Gap) -> String {
+    format!(
+        "{:<ASSET_COLUMN$}{}",
+        span(gap.start_seconds, gap.end_seconds),
+        gap.label()
+    )
 }
 
 /// A key-locked play's speed is its tempo; the name says so.
@@ -232,6 +249,45 @@ time                in track        speed  confidence   hits  asset
   1:36-1:51         0:20-0:35      +6.00%  confident     400
   1:52-2:20         0:41-1:10      +6.00%  confident     400
 "
+        );
+    }
+
+    #[test]
+    fn gaps_are_rows_in_time_order_among_the_plays() {
+        let mut report = report();
+        report.plays.remove(1);
+        report.query.duration_seconds = 240.0;
+
+        let table = table(&report, Style::for_stdout(ColorChoice::Never));
+
+        assert_eq!(
+            table,
+            "\
+time                in track        speed  confidence   hits  asset
+0:00-0:41           0:10-0:52      +3.00%  confident     853  a.wav
+                                                              also copy-of-a.wav
+0:41-1:36                                                     ID - ID (0:55 without a confident match)
+1:24-1:34           0:00-0:10      +0.00%  possible       75  insert.wav
+1:36-2:20           0:20-1:10      +6.00%  confident     800  c.wav
+  1:36-1:51         0:20-0:35      +6.00%  confident     400
+  1:52-2:20         0:41-1:10      +6.00%  confident     400
+2:20-4:00                                                     ID - ID (1:40 without a confident match)
+"
+        );
+    }
+
+    #[test]
+    fn a_table_without_plays_has_one_gap_over_the_recording() {
+        let mut report = report();
+        report.plays.clear();
+
+        let table = table(&report, Style::for_stdout(ColorChoice::Never));
+
+        assert!(
+            table.ends_with(
+                "\n0:00-2:30                                                     ID - ID (2:30 without a confident match)\n"
+            ),
+            "{table}"
         );
     }
 

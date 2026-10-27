@@ -18,7 +18,8 @@ The entries are rebuilt from each JSON report as `export::entries` builds
 them (`same_recording`, `same_tagged_track`, chains joined; the tracklist
 leaves out a possible entry whose plays all carry `shares_material_with`),
 and every line `show` printed is checked against them: number, start,
-name, other names and marks. A mismatch stops the script.
+name, other names and marks; the unnumbered "ID - ID" lines of gaps (ADR
+0023) are passed over. A mismatch stops the script.
 """
 import json
 import os
@@ -183,10 +184,13 @@ def timecode_seconds(text):
 
 
 LINE = re.compile(r"^ *(\d+)\. +(\S+)  (.*?)(?:  \((also|titles disagree): (.*?)\))?( \(possible\))?$")
+# An unnumbered gap line (ADR 0023), which names no entry.
+GAP_LINE = re.compile(r"^ +\S+  ID - ID \(\S+ without a confident match\)$")
 
 
 def check_lines(shown, report_entries, plays, label):
-    lines = [line for line in shown.splitlines() if line]
+    """Checks every entry line; gap lines are passed over."""
+    lines = [line for line in shown.splitlines() if line and not GAP_LINE.match(line)]
     if lines == ["no tracks found"]:
         lines = []
     if len(lines) != len(report_entries):

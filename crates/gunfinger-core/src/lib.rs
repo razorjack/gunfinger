@@ -2,6 +2,7 @@
 
 pub mod confidence;
 pub mod decode;
+pub mod gaps;
 pub mod hash;
 pub mod index;
 pub mod indexing;

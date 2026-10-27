@@ -6,6 +6,7 @@ mod console;
 mod doctor;
 mod explain;
 mod export;
+mod gaps;
 mod identify;
 mod index;
 mod listen;

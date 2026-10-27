@@ -838,6 +838,84 @@ fn identify_prints_one_tracklist_entry_per_track_by_default() {
 }
 
 #[test]
+fn a_minute_without_a_confident_match_is_an_id_line_in_the_tracklist_table_and_json() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("gaps");
+    let library = dir.join("library");
+    let first = Track::random(1, 60.0);
+    let unknown = Track::random(2, 70.0);
+    let last = Track::random(3, 60.0);
+    for (name, track) in [("first.wav", &first), ("last.wav", &last)] {
+        write_wav(&library.join(name), &track.play(0.0, track.seconds, 1.0));
+    }
+    // A minute of a track that is not in the library between two that are.
+    let mut mix = Mix::new(150.0);
+    mix.add(0.0, &first.play(5.0, 45.0, 1.0), 0.5);
+    mix.add(45.0, &unknown.play(5.0, 60.0, 1.0), 0.5);
+    mix.add(105.0, &last.play(5.0, 45.0, 1.0), 0.5);
+    let recording = dir.join("mix.wav");
+    write_wav(&recording, mix.samples());
+    let library_arg = library.to_str().unwrap();
+    let recording_arg = recording.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+    let identify = |format: &str| {
+        let output = gunfinger(
+            &dir,
+            &[
+                "identify",
+                recording_arg,
+                "--library",
+                library_arg,
+                "--format",
+                format,
+            ],
+        );
+        String::from_utf8_lossy(&output.stdout).into_owned()
+    };
+
+    let tracklist = identify("tracklist");
+    let table = identify("human");
+    let json = identify("json");
+    let csv = identify("csv");
+    let cue = identify("cue");
+    let saved = dir.join("mix.json");
+    std::fs::write(&saved, &json).unwrap();
+    let shown = gunfinger(&dir, &["show", saved.to_str().unwrap()]);
+
+    let lines: Vec<&str> = tracklist.lines().collect();
+    assert_eq!(lines.len(), 3, "{tracklist}");
+    assert!(lines[0].starts_with(" 1.    0:00  first"), "{tracklist}");
+    assert!(
+        lines[1].starts_with("       0:4")
+            && lines[1].contains("  ID - ID (")
+            && lines[1].ends_with(" without a confident match)"),
+        "an unnumbered line at the gap: {tracklist}"
+    );
+    assert!(lines[2].starts_with(" 2.    1:4"), "{tracklist}");
+    assert!(lines[2].ends_with("  last"), "{tracklist}");
+    assert_eq!(String::from_utf8_lossy(&shown.stdout), tracklist);
+    let report: Value = serde_json::from_str(&json).unwrap();
+    let gaps = report["gaps"].as_array().unwrap();
+    assert_eq!(gaps.len(), 1, "{report}");
+    let (start, end) = (
+        seconds(&gaps[0], "start_seconds"),
+        seconds(&gaps[0], "end_seconds"),
+    );
+    assert!(
+        (40.0..55.0).contains(&start) && (95.0..110.0).contains(&end) && end - start >= 45.0,
+        "{report}"
+    );
+    assert_eq!(gaps[0]["possible_plays"], serde_json::json!([]));
+    assert_eq!(table.matches("ID - ID (").count(), 1, "{table}");
+    assert!(
+        !csv.contains("ID - ID") && !cue.contains("ID - ID"),
+        "{csv}{cue}"
+    );
+}
+
+#[test]
 fn a_peak_store_holds_the_records_of_one_library() {
     if !ffmpeg_available() {
         return;
