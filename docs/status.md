@@ -5277,3 +5277,29 @@ notes "Session 55"; ADR 0023; experiment 0234.
   green; both regressions identical (0:51; 3:58); the verdicts file and
   the NAS clusters file at their start digests. The review's ten
   findings (tests and wording) are fixed.
+
+## 2026-10-27: session 56, each gap line estimates the tracks it holds (ADR 0024, part 2)
+
+Brief `docs/brief-56.md`, checklist `docs/session-56-checklist.md`;
+notes "Session 56"; ADR 0024; experiment 0235.
+
+- 05:27 start at `786d3fe`, clean. Start build `work/bin/s56-start/`
+  (= `s55-final`); `regress session-54-linux` and `regress
+  session-54-linux-nas` identical (0:50; 3:58).
+- Our decision of 2026-10-27, part 2, in the product: each gap line
+  ends with `; about L-H tracks`, the combined estimate of 0165 (the gap
+  matched against itself, limited to its length's range) as n-1 to n+1,
+  at least 1; none for a count of 0 or a report saved before the change.
+  JSON gains `tracks` on each gap and `gap_repeats` in the report;
+  `identify` matches each gap from the samples it already holds. The
+  core holds the code (`repeats`, `gaps`), which the harness's
+  `self-match` also runs.
+- 0235: on the development mixes every printed range holds (9 of 11
+  counts exact); the product's code reproduces 0165 exactly on its 384
+  test gaps (exact 99/57/58/43%, range 100/99/100/89.6%, 2.9% off by
+  two). `identify` takes 0.3-0.5 s more at NAS scale.
+- Baselines stay `session-54-linux` and `session-54-linux-nas`.
+- Final checks with `work/bin/s56-final/` (`4d145e9`): `scripts/check.sh`
+  green; both regressions identical (0:51; 3:59); the verdicts file and
+  the NAS clusters file at their start digests. The review's eleven
+  findings (tests and wording) are fixed.

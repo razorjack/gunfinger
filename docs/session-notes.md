@@ -11878,3 +11878,140 @@ plays (0159's generated mixes).
   `docs/pair-verdicts.txt`, the answer log and the NAS clusters file
   at their start digests; no answer log written, no manifest or panel
   changed.
+
+## Session 56
+
+### What changed
+
+Each gap line now estimates how many tracks the gap holds, part 2 of our
+decision of 2026-10-27 (ADR 0024, amending ADR 0023; the printing note's
+"Decision", item 5). The search, the detections, the entries, the gaps
+themselves, CSV, the cue sheet and the timeline do not change; `regress`
+is identical at both scales.
+
+- The estimate is 0165's combined one: method 2's count (the gap matched
+  against itself at speed 1.0; blocks at 10 hits spanning 30 s or more,
+  overlapping ones merged) limited to method 1's range B (the gap over the
+  quartiles of the mix's clean intervals between entries); 0 stays 0; a
+  mix with fewer than 3 clean intervals keeps method 2's count.
+- Printed always as a range one either side, at least 1:
+  `ID - ID (7:57 without a confident match; about 1-3 tracks)`, in the
+  tracklist and the table's gap row. A count of 0 prints no estimate.
+  Never a single number: on the test, a printed 1 held one track for 95
+  of 125 gaps.
+- JSON: `tracks` on each gap (`null`, or `low`, `high`, `method`:
+  `repeats-within-length` or `repeats`); the report gains `gap_repeats`,
+  the repeated stretches in recording time, from which the estimate is
+  derived whenever the report is rendered, so `show` prints it. A report
+  saved before this change shows no estimate; `identify --save-dir` does
+  not search it again on that account.
+- `identify` matches each gap from the samples it already holds (no
+  second decode): `gunfinger_core::repeats` (the harness's
+  `self_match.rs`, moved; `records_in_gaps` runs one gap per worker).
+  Method 1's entries, clean intervals and median moved from the harness
+  to `gunfinger_core::gaps` beside `length_range` and `estimate`; the
+  harness's listings are unchanged and its `self-match` writes the
+  product's `tracks` beside the blocks.
+- `tracklist_score.py` passes over gap lines with an estimate (tested).
+  README's example shows the 2003 mix with its estimates; AGENTS.md
+  names `repeats`.
+
+### Experiment 0235
+
+On the development mixes every printed range holds the missed tracks:
+the 2003 mix at 262 tracks 1-2, 1-3, 1-2, 1-2 (holding 1, 2, 1, 1, all
+exact); Nocny at 262 tracks 1-2, 1-3, 2-4, 1-2, 1-3, 1-3 (holding 1, 1,
+3, 1, 2, 1; The Descent VIP and slot 17 counted 2 each; one clean
+interval, so method 2 alone); Nocny at NAS scale 1-2 for slot 17 (exact).
+Stakka prints no gap. The CLI and the harness's `self-match` agree on
+all 10 gaps at 262 tracks. On 0163's six test seeds, rendered again, the
+product's code gives 0165's numbers exactly for all 384 gaps: exact
+99/57/58/43% at k = 1-4, the range holds 100/99/100/89.6%, 2.9% off by
+two (shared material only: 98/44/48/31%, 100/100/100/83.3%, 4.2%), at 30
+and at 45 s, on session 35's and today's reports.
+
+Cost: the gap matching takes under 0.05 s on the development mixes and
+0.7 s for a 67-minute gap; `identify` at NAS scale takes 0.3-0.5 s more
+(12.8 -> 13.1 s, 18.1 -> 18.6 s), most of it in the unchanged search.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux` (start; core-loop build) | 0:50; 0:51 | 0.4 GiB |
+| `regress session-54-linux-nas` (start; core-loop build) | 3:58; 4:00 | 5.3-5.6 GiB |
+| `identify --store-only`, NAS scale, the 2003 mix; Nocny (start; first build; core-loop build) | 12.8; 13.4; 13.1 s / 18.1; 19.1; 18.6 s | 4.9-5.0 GiB |
+| `identify`, Nocny with nothing found (one 67-minute gap; start; first build) | 6.6; 7.1 s | 158; 200 MB |
+| `mixes --count 16`, shared and beatmatched, 16 jobs | 2:33-5:46 per seed | 14-15 GiB |
+| `self-match`, 384 test gaps, 16 jobs | 0:22-0:23 | 1.2 GiB |
+| `scripts/check.sh` (beside the renders; final) | 6:16; 4:38 | |
+
+### Decided this session, open to change
+
+- Always a range, never "about 1 track": exactness at k = 1 says how
+  often a gap of one track is counted 1, not how often a printed 1 is
+  right (76% on the test).
+- A count of 0 prints nothing, and JSON's `tracks` is `null`.
+- Speed 1.0 only; the neighbouring rungs of 0166 stay out.
+- Method 1's intervals use the gaps listed at 45 s (0165 used 30 s; on
+  the test seeds both give the same figures).
+- Old reports print no estimate and are not searched again for it.
+- The per-gap loop lives in the core (`repeats::records_in_gaps`): with it
+  in the CLI crate the unchanged search ran 4-6% slower, and a build
+  without the call searched as fast as the start build; in the core the
+  cost halves. That this is a compile effect is an inference, not
+  examined in the machine code; the release profile was not changed.
+
+### Questions this leaves for us
+
+- Whether the line should say anything when the count is 0 (today it
+  prints the length alone, as a gap without repeats).
+- Whether the remaining 2-3% of search time is worth examining (a
+  profile setting such as LTO or one codegen unit would change every
+  timing, so it needs its own measurement).
+- The limits ADR 0024 names: records sharing a passage (83% at k = 4),
+  pitch rides (0166) and a gap holding no missed track, which still gets
+  at least `about 1-2 tracks` when the found track repeats there.
+
+### Questions for listening (none answered by agents)
+
+- None new. Session 53's (Star Trails at 13:13-14:37 in the Stakka mix,
+  Into Music at 25:57-26:56 in the 2003 mix) and the earlier sessions'
+  remain.
+
+### What else to know
+
+- Data: `work/s56/` (logs in `logs/`; the CLI's reports and tracklists in
+  `cli-before/`, `cli-after/` and `cli-core/`; the listing comparison in
+  `wgaps-start/` and `wgaps-dev/`; the test seeds' reports and listings
+  in `wmix/` (`s35-reports/`, `reports/`, `listings-s35/`,
+  `listings-today/`, `listings-45/`; renders deleted at the end); the
+  one-file noise library in `tiny/`); scripts `run.sh`, `start.sh`,
+  `cli.sh`, `renders.sh`, `gapsame.sh`, `samelistings.py`, `seeds.sh`,
+  `reproduce.py`, `timing.sh`, `layout.sh`, `layout2.sh`, `step4.sh`,
+  `beforeafter.py`, `gaplines.py`, `gapsvs.sh`, `check.sh`, `final.sh`.
+  Builds `work/bin/s56-start/` (= `s55-final`), `s56-dev/` (the harness
+  for the listing comparison), `s56-run/` (`ce50a95`), `s56-noop/` (the
+  call removed, never committed), `s56-core/` (`74ba54d`) and
+  `s56-final/`.
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The three development mixes were
+  named explicitly; nothing ran on the candidate mixes of 0065 or on the
+  NAS root's broadcast file. No command was given the NAS configuration
+  or library; NAS-scale runs used the NAS peak store on the local disk,
+  and the shared seeds read panel files under the NAS root (read only).
+  Nothing was written to the NAS or to `work/peaks`; the test seeds ran
+  in a scratch work directory, so `work/reports/` and `work/gaps/` hold
+  nothing new.
+- Baselines stay `session-54-linux` and `session-54-linux-nas`.
+- A read-only review by a separate agent found no correctness bug and
+  eleven points on tests and wording, all fixed (brief 56, 06:23-06:31).
+- Final checks (06:33-06:43) with `work/bin/s56-final/` (`4d145e9`):
+  `scripts/check.sh` green (4:38); `regress session-54-linux` (0:51)
+  and `regress session-54-linux-nas` (3:59) identical, every report
+  identical to its baseline's apart from `wall_seconds`; the final
+  build's `show` prints the core-loop build's tracklists byte for byte;
+  `docs/pair-verdicts.txt`, the answer log and the NAS clusters file at
+  their start digests (`work/s56/listening-digests-end.txt`); no answer
+  log written, no manifest or panel changed. Done at 06:43, within the
+  time box.

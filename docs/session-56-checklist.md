@@ -29,8 +29,8 @@ for scope and rules.
   0235
 - [x] 5. The roadmap's "Time without a confident match", the printing
   note's status line, README's example
-- [~] 6. Read-only review by a separate agent; findings fixed
-- [ ] 7. Notes ("Session 56"), status, checklist; final checks
+- [x] 6. Read-only review by a separate agent; findings fixed
+- [x] 7. Notes ("Session 56"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
   verdicts file and the clusters file's digest unchanged, `git status`
   clean)
