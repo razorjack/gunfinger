@@ -3835,7 +3835,7 @@ Brief `docs/brief-27.md`, checklist `docs/session-27-checklist.md`.
 - The six questions of `work/audition/s23/` were answered on the
   listening page (02:03-02:06; answer log records 55-60): 1, 2, 3, 5
   and 6 `different`, 4 `same`. The page added six lines to
-  `docs/pair-verdicts.txt`. The comments by ear, verbatim in
+  `docs/pair-verdicts.txt`. The comments by ear, edited, in
   `work/audition/s23/listening-comments-2026-10-17.md`:
   - Aphrodite - Stalker, APH029 B ~ V2's album version: the same
     arrangement with a slightly different synth sound and a different
@@ -4422,7 +4422,7 @@ change.
   without a verdict) was answered on the listening page (21:49-21:56
   UTC, answer log records 1-6 of `work/audition/answers.jsonl`). The
   page added six lines to `docs/pair-verdicts.txt`: Dilusion `same`, the
-  other five `different`. The comments by ear, verbatim in
+  other five `different`. The comments by ear, edited, in
   `work/audition/listening-comments-2026-10-22.md`:
   - The old-skool-jungle-dnb upload of Sonar ~ the Mark System
     Revision: different, no comment. The cut that `--cut-sparsest` made
@@ -4795,7 +4795,7 @@ stored peaks are unchanged; the analysis is faster.
   - `different`: Known Unknown - Drumtrip ~ DJ Dazee & Substance -
     Propaganda, the two Tower Bass mixes, Klute - We R The Ones VIP ~
     the Klute Remix, Wikki Wikki Plate ~ Defjammer.
-- The comments by ear, verbatim in
+- The comments by ear, edited, in
   `work/audition/listening-comments-2026-10-25.md`:
   - Falcon - The Stand: the same recording in two rips; one has a longer
     silence at its end, and the user's reading is that speed matching
@@ -5042,7 +5042,7 @@ and a reach argument for `cluster_speeds.py`.
     Bitterness (Konflict Remix). By ear they share a lot of material,
     the main sample and a similar drum loop among it.
 - Items 4 and 9 have no verdict: each pair holds a file that should not
-  be in the library. Comments verbatim in
+  be in the library. Comments, edited, in
   `work/audition/listening-comments-2026-10-25b.md`.
   - Item 4: `knowledge-the_lowdown_vol_7-track_fix-1999-sour/` is a
     scene release that fixes tracks of a mixed CD (The Lowdown Vol 7,
@@ -5076,13 +5076,14 @@ and a reach argument for `cluster_speeds.py`.
 - Session 39's three questions, built as detection questions from its
   saved reports (`work/listening-s39/`; the page's context line says
   what the generated mix plays there), were answered on the listening
-  page (answer log records 25-27, all `confirmed`). Comments verbatim in
+  page (answer log records 25-27, all `confirmed`). Comments, edited, in
   `work/audition/listening-comments-2026-10-27.md`.
   - NIL - Infectious over the end of Mystery Machine (seed 2026,
     drops mix-05, 29:22, possible): shared material, the same drum loop.
   - Ray Keith - Techno Funk over Alien Girl (mix-04, 20:09, possible):
-    by the comment unsure (perhaps the same drum loop, produced, mixed
-    and EQ'd very differently), though the log records `confirmed`.
+    shared material, most likely the same drum loop EQ'd very
+    differently (the user's reading after a second thought; the log
+    records `confirmed`).
   - Digital & Spirit - Crash over the T-Minus vocal mix (other pairs
     mix-00, 15:44, confident): right. The mix played the vocal mix's
     upload from its start, and the upload opens with Crash: Crash's
@@ -5092,8 +5093,8 @@ and a reach argument for `cluster_speeds.py`.
     (`__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased
     Vocal Mix).m4a`) holds part of another record, as the Space Cake
     `[CUT]` file did. 0185's confident extra is a right answer, so P1 is
-    met there by the Animation remix alone. Whether to ignore the upload
-    is the user's call; it is in three committed panels.
+    met there by the Animation remix alone. The user asked for the
+    upload to be ignored (see the next entry).
 - Decisions (ours, 2026-10-27; each is implemented with an ADR):
   1. `--apart-in-speed 0.006` becomes the default (decision note
      `docs/research/2026-10-22-pitch-rides-decision.md`, "Decision").
@@ -5110,3 +5111,20 @@ and a reach argument for `cluster_speeds.py`.
 - The roadmap's bullets carry the decisions ("Time without a confident
   match", "A minimum span instead of 3 windows", "Speed that wanders
   within a play", "The verdicts by ear on borderline pairs").
+
+## 2026-10-27: the T-Minus vocal mix upload ignored on the NAS
+
+- At the user's request, `/__youtube_archivists/cryptic-jungle/Ryme Tyme
+  - T-Minus (Unreleased Vocal Mix).m4a` is added to the NAS
+  `.gunfingerignore` (lines 67-69, with a comment; the file before in
+  `work/listening-2026-10-25b/gunfingerignore-before-2026-10-27`): it
+  opens with 56 s of Digital & Spirit - Crash, then blends into T-Minus.
+- The upload is in three committed panels (`docs/panels/`:
+  `shared-material-seed-2026.json`, `shared-mixes-s21.json`,
+  `shared-mixes-s21-rips.json`) and in session 33's sweep panels; the
+  panels do not change. The NAS store is not pruned yet: the next
+  session prunes the five ignored files' records (approved by the user
+  on 2026-10-27) and records new NAS-scale baselines.
+- Comment files under `work/audition/` now hold the user's comments
+  edited, not verbatim; the quotes in briefs 47 and 49 are edited the
+  same way.
