@@ -3,8 +3,10 @@
 //! A referenced track is identified when a confident detection of one of its
 //! references, or of an asset in the same duplicate cluster, overlaps its
 //! window: from `TOLERANCE` before its start to `TOLERANCE` after the next
-//! track's start. Every other confident detection is a wrong identification,
-//! including any in a slot marked absent.
+//! track's start. A file judged to carry a reference's title
+//! (`docs/same-titles.txt`, ADR 0022) is accepted too, and its credits are
+//! counted apart. Every other confident detection is a wrong
+//! identification, including any in a slot marked absent.
 //!
 //! Possible plays are scored separately and never change the identified and
 //! wrong counts (ADR 0006): a referenced track that is not identified but has
@@ -18,6 +20,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::manifest::{Set, Track};
+use crate::titles::SameTitles;
 use crate::verifier::Verification;
 
 /// Manifest start times are approximate and neighbouring tracks overlap.
@@ -87,6 +90,10 @@ pub struct Score {
     pub referenced: usize,
     pub identified: usize,
     pub wrong: usize,
+    /// Confident detections credited to a track through a file judged to
+    /// carry its title: right, and counted apart.
+    #[serde(default, skip_serializing_if = "crate::titles::no_credits")]
+    pub same_title: usize,
     /// Referenced tracks not identified but found as possible.
     pub possible: usize,
     pub tracks: Vec<TrackScore>,
@@ -116,6 +123,10 @@ pub struct TrackScore {
     /// Credited detections of an asset that is not itself a reference but
     /// shares a duplicate cluster with one: listed to confirm manually.
     pub credited_through_cluster: Vec<String>,
+    /// Credited detections of an asset outside the references' clusters
+    /// that is judged to carry their title.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub credited_through_title: Vec<String>,
     /// The strongest detection of a reference or a cluster member inside the
     /// window, confident or not: the evidence for a miss.
     pub strongest_candidate: Option<Found>,
@@ -126,18 +137,26 @@ struct Slot<'a> {
     track: &'a Track,
     start_seconds: f64,
     end_seconds: f64,
+    /// The references' clusters.
     accepted: BTreeSet<String>,
+    /// The files judged to carry their title, outside those clusters.
+    by_title: BTreeSet<String>,
 }
 
 impl Slot<'_> {
     fn covers(&self, asset: &str, start_seconds: f64, end_seconds: f64) -> bool {
         start_seconds < self.end_seconds
             && self.start_seconds < end_seconds
-            && self.accepted.contains(asset)
+            && (self.accepted.contains(asset) || self.by_title.contains(asset))
     }
 }
 
-fn slots<'a>(set: &'a Set, duration_seconds: f64, clusters: &Clusters) -> Vec<Slot<'a>> {
+fn slots<'a>(
+    set: &'a Set,
+    duration_seconds: f64,
+    clusters: &Clusters,
+    titles: &SameTitles,
+) -> Vec<Slot<'a>> {
     set.tracks
         .iter()
         .enumerate()
@@ -146,15 +165,17 @@ fn slots<'a>(set: &'a Set, duration_seconds: f64, clusters: &Clusters) -> Vec<Sl
                 .tracks
                 .get(position + 1)
                 .map_or(duration_seconds, |next| next.start.as_secs_f64());
+            let accepted: BTreeSet<String> = track
+                .references
+                .iter()
+                .flat_map(|reference| clusters.cluster_of(reference))
+                .collect();
             Slot {
                 track,
                 start_seconds: track.start.as_secs_f64() - TOLERANCE_SECONDS,
                 end_seconds: next_start + TOLERANCE_SECONDS,
-                accepted: track
-                    .references
-                    .iter()
-                    .flat_map(|reference| clusters.cluster_of(reference))
-                    .collect(),
+                by_title: titles.credited(clusters, &accepted),
+                accepted,
             }
         })
         .collect()
@@ -166,8 +187,9 @@ pub fn score(
     found: &[Found],
     plays: &[FoundPlay],
     clusters: &Clusters,
+    titles: &SameTitles,
 ) -> Score {
-    let slots = slots(set, duration_seconds, clusters);
+    let slots = slots(set, duration_seconds, clusters, titles);
     let tracks: Vec<TrackScore> = slots
         .iter()
         .map(|slot| score_track(slot, found, plays))
@@ -206,6 +228,16 @@ pub fn score(
         referenced: tracks.iter().filter(|track| track.referenced).count(),
         identified: tracks.iter().filter(|track| track.identified).count(),
         wrong: wrong_identifications.len(),
+        same_title: tracks
+            .iter()
+            .map(|track| {
+                track
+                    .credited
+                    .iter()
+                    .filter(|detection| track.credited_through_title.contains(&detection.asset))
+                    .count()
+            })
+            .sum(),
         possible: tracks.iter().filter(|track| track.possible).count(),
         tracks,
         wrong_identifications,
@@ -238,6 +270,12 @@ fn score_track(slot: &Slot, found: &[Found], plays: &[FoundPlay]) -> TrackScore 
     let through_cluster: BTreeSet<String> = credited
         .iter()
         .filter(|detection| !track.references.contains(&detection.asset))
+        .filter(|detection| slot.accepted.contains(&detection.asset))
+        .map(|detection| detection.asset.clone())
+        .collect();
+    let through_title: BTreeSet<String> = credited
+        .iter()
+        .filter(|detection| !slot.accepted.contains(&detection.asset))
         .map(|detection| detection.asset.clone())
         .collect();
     let mut strongest_candidate: Option<&Found> = None;
@@ -261,6 +299,7 @@ fn score_track(slot: &Slot, found: &[Found], plays: &[FoundPlay]) -> TrackScore 
         possible,
         credited,
         credited_through_cluster: through_cluster.into_iter().collect(),
+        credited_through_title: through_title.into_iter().collect(),
         strongest_candidate: strongest_candidate.cloned(),
     }
 }
@@ -340,7 +379,14 @@ mod tests {
             found("c.mp3", 610.0, 900.0, true),
         ];
 
-        let score = score(&set(), 900.0, &detections, &[], &clusters());
+        let score = score(
+            &set(),
+            900.0,
+            &detections,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
 
         assert_eq!((score.referenced, score.identified, score.wrong), (2, 2, 0));
     }
@@ -365,8 +411,22 @@ mod tests {
             upload.to_owned(),
         ]);
 
-        let corpus_only = score(&set(), 900.0, &detections, &[], &clusters());
-        let with_other = score(&with_other, 900.0, &detections, &[], &other_clusters);
+        let corpus_only = score(
+            &set(),
+            900.0,
+            &detections,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
+        let with_other = score(
+            &with_other,
+            900.0,
+            &detections,
+            &[],
+            &other_clusters,
+            &SameTitles::default(),
+        );
 
         assert_eq!(
             (
@@ -393,8 +453,26 @@ mod tests {
         let late = [found("a.mp3", 385.0, 500.0, true)];
         let too_late = [found("a.mp3", 391.0, 500.0, true)];
 
-        assert_eq!(score(&set(), 900.0, &late, &[], &clusters()).identified, 1);
-        let missed = score(&set(), 900.0, &too_late, &[], &clusters());
+        assert_eq!(
+            score(
+                &set(),
+                900.0,
+                &late,
+                &[],
+                &clusters(),
+                &SameTitles::default()
+            )
+            .identified,
+            1
+        );
+        let missed = score(
+            &set(),
+            900.0,
+            &too_late,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
         assert_eq!((missed.identified, missed.wrong), (0, 1));
     }
 
@@ -402,7 +480,14 @@ mod tests {
     fn a_cluster_member_is_credited_and_listed_separately() {
         let detections = [found("c-rip.mp3", 620.0, 800.0, true)];
 
-        let score = score(&set(), 900.0, &detections, &[], &clusters());
+        let score = score(
+            &set(),
+            900.0,
+            &detections,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
 
         assert_eq!(score.identified, 1);
         assert_eq!(score.tracks[2].credited_through_cluster, ["c-rip.mp3"]);
@@ -415,7 +500,14 @@ mod tests {
             found("y.mp3", 320.0, 500.0, false),
         ];
 
-        let score = score(&set(), 900.0, &detections, &[], &clusters());
+        let score = score(
+            &set(),
+            900.0,
+            &detections,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
 
         assert_eq!(score.wrong, 1);
         assert_eq!(score.wrong_identifications[0].asset, "x.mp3");
@@ -426,7 +518,14 @@ mod tests {
     fn a_weak_detection_is_evidence_but_not_an_identification() {
         let detections = [found("a.mp3", 10.0, 100.0, false)];
 
-        let score = score(&set(), 900.0, &detections, &[], &clusters());
+        let score = score(
+            &set(),
+            900.0,
+            &detections,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
 
         assert_eq!(score.identified, 0);
         assert!(score.tracks[0].strongest_candidate.is_some());
@@ -439,11 +538,60 @@ mod tests {
             possible_play("x.mp3", 320.0, 400.0),
         ];
 
-        let score = score(&set(), 900.0, &[], &plays, &clusters());
+        let score = score(
+            &set(),
+            900.0,
+            &[],
+            &plays,
+            &clusters(),
+            &SameTitles::default(),
+        );
 
         assert_eq!((score.identified, score.wrong, score.possible), (0, 0, 1));
         assert!(score.tracks[0].possible);
         assert_eq!(score.unmatched_possible.len(), 1);
         assert_eq!(score.unmatched_possible[0].asset, "x.mp3");
+    }
+
+    #[test]
+    fn a_file_judged_to_carry_the_title_is_credited_and_counted_apart() {
+        // c.mp3's cluster holds c-rip.mp3; the version is judged against the
+        // rip, and an unjudged version of the same track stays wrong.
+        let titles = SameTitles::parse("same-title\tc-rip.mp3\tc-version.opus\n").unwrap();
+        let detections = [
+            found("c-version.opus", 610.0, 900.0, true),
+            found("c-other-version.opus", 620.0, 890.0, true),
+        ];
+
+        let score = score(&set(), 900.0, &detections, &[], &clusters(), &titles);
+
+        assert_eq!((score.identified, score.wrong, score.same_title), (1, 1, 1));
+        let track = &score.tracks[2];
+        assert!(track.identified);
+        assert_eq!(track.credited_through_title, ["c-version.opus"]);
+        assert!(track.credited_through_cluster.is_empty());
+        assert_eq!(score.wrong_identifications[0].asset, "c-other-version.opus");
+        assert!(
+            score
+                .false_candidates
+                .iter()
+                .all(|found| found.asset != "c-version.opus")
+        );
+    }
+
+    #[test]
+    fn without_judgments_a_version_is_wrong() {
+        let detections = [found("c-version.opus", 610.0, 900.0, true)];
+
+        let score = score(
+            &set(),
+            900.0,
+            &detections,
+            &[],
+            &clusters(),
+            &SameTitles::default(),
+        );
+
+        assert_eq!((score.identified, score.wrong, score.same_title), (0, 1, 0));
     }
 }

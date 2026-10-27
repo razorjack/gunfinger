@@ -37,6 +37,7 @@ use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::sweep::{
     Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, outcome, render_all, speed_row,
 };
+use crate::titles::SameTitles;
 use crate::verifier::Verifier;
 
 const INDEXED_SOURCES: usize = 60;
@@ -652,14 +653,14 @@ impl Miss {
             || query
                 .detections
                 .iter()
-                .any(|outcome| outcome.correct && outcome.confident)
+                .any(|outcome| outcome.is_right() && outcome.confident)
         {
             return None;
         }
         let strongest = query
             .detections
             .iter()
-            .filter(|outcome| outcome.correct)
+            .filter(|outcome| outcome.is_right())
             .max_by_key(|outcome| outcome.hits);
         Some(match strongest {
             None => Miss::NeverACandidate,
@@ -735,6 +736,8 @@ pub struct Brief {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// The files credited to another recording's title (ADR 0022).
+    pub same_titles: &'a SameTitles,
     pub padding: &'a Padding,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
@@ -855,11 +858,17 @@ impl Searcher<'_> {
             ladder, matching, ..
         } = *self.options;
         let source = &excerpt.source;
+        let titles = self.options.same_titles;
         let own_cluster = self.clusters.cluster_of(&source.asset);
+        let own_title = titles.credited(self.clusters, &own_cluster);
         let partner_cluster = excerpt
             .partner
             .as_ref()
-            .map(|partner| self.clusters.cluster_of(&partner.asset))
+            .map(|partner| {
+                let cluster = self.clusters.cluster_of(&partner.asset);
+                let title = titles.credited(self.clusters, &cluster);
+                cluster.into_iter().chain(title).collect()
+            })
             .unwrap_or_default();
         let detections = matching.search(self.index, samples, &Profile::CURRENT, ladder, 1);
         let query = Query {
@@ -876,7 +885,8 @@ impl Searcher<'_> {
                         .and_then(|verifier| {
                             verifier.verify(self.index, detection, samples, &Profile::CURRENT)
                         });
-                    let mut outcome = outcome(self.index, detection, &own_cluster, verified);
+                    let mut outcome =
+                        outcome(self.index, detection, &own_cluster, &own_title, verified);
                     outcome.partner = is_partner(&outcome, &partner_cluster);
                     outcome
                 })
@@ -903,10 +913,11 @@ impl Searcher<'_> {
     }
 }
 
-/// A detection of the partner's cluster, which is neither right nor wrong.
-/// The own cluster comes first: a source beneath itself stays right.
+/// A detection of the partner's cluster or of a file judged to carry its
+/// title, which is neither right nor wrong. The own title comes first: a
+/// source beneath itself stays right.
 fn is_partner(outcome: &Outcome, partner_cluster: &BTreeSet<String>) -> bool {
-    !outcome.correct && partner_cluster.contains(&outcome.asset)
+    !outcome.is_right() && partner_cluster.contains(&outcome.asset)
 }
 
 /// An indexed source none of whose cluster is in the index: no answer can
@@ -948,7 +959,7 @@ fn kind_row(kind: Kind, queries: &[RecallQuery]) -> KindRow {
                 query
                     .detections
                     .iter()
-                    .any(|outcome| outcome.correct && outcome.confident)
+                    .any(|outcome| outcome.is_right() && outcome.confident)
             })
             .count(),
         wrong_answers: indexed.iter().map(|query| confident_wrong(query)).sum(),
@@ -969,7 +980,7 @@ fn confident_wrong(query: &Query) -> usize {
     query
         .detections
         .iter()
-        .filter(|outcome| outcome.confident && !outcome.correct && !outcome.partner)
+        .filter(|outcome| outcome.is_wrong())
         .count()
 }
 
@@ -988,17 +999,18 @@ pub fn print_summary(report: &RecallReport) {
         report.left_out_records
     );
     println!(
-        "{:>7} {:>8} {:>8} {:>6}",
-        "speed", "recalled", "recall", "wrong"
+        "{:>7} {:>8} {:>8} {:>6} {:>6}",
+        "speed", "recalled", "recall", "wrong", "title"
     );
     for row in &report.per_speed {
         println!(
-            "{:>+6.0}% {:>4}/{:<3} {:>7.1}% {:>6}",
+            "{:>+6.0}% {:>4}/{:<3} {:>7.1}% {:>6} {:>6}",
             row.speed_percent,
             row.recalled,
             row.indexed_excerpts,
             row.recall * 100.0,
-            row.wrong_answers
+            row.wrong_answers,
+            row.same_title
         );
     }
     for row in &report.per_kind {
@@ -1194,6 +1206,7 @@ mod tests {
                 .map(|&(correct, confident, hits, windows)| Outcome {
                     asset: String::new(),
                     correct,
+                    same_title: false,
                     confident,
                     windows,
                     hits,
@@ -1346,6 +1359,7 @@ mod tests {
         let detection = |name: &str, correct: bool| Outcome {
             asset: format!("{SECOND_LIBRARY_PREFIX}{name}"),
             correct,
+            same_title: false,
             confident: true,
             windows: 3,
             hits: 300,
@@ -1559,6 +1573,7 @@ mod tests {
                     .map(|&(correct, partner, confident)| Outcome {
                         asset: String::new(),
                         correct,
+                        same_title: false,
                         confident,
                         windows: 3,
                         hits: 300,

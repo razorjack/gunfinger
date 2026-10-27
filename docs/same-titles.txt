@@ -1,0 +1,21 @@
+# Judgments that two library files carry the same track title although
+# they are different recordings: a near-identical version that the
+# verdicts by ear (docs/pair-verdicts.txt) keep out of the recording's
+# duplicate cluster (ADR 0022). The harness's scoring reads this file: a
+# confident detection of a file of one cluster, where the truth is the
+# other, names the right title, and every report counts such credits
+# apart. Clusters, verdicts and the product do not read it.
+#
+# One judgment per line: `same-title`, then the two files, separated by
+# tabs. Files are named as in the verdicts file: corpus library paths, or
+# second-library/<path under the NAS library root>. The order of the two
+# files does not matter. A judgment relates the two files' clusters and
+# is not followed through chains: each pair of recordings needs its own.
+# Lines starting with # and empty lines are ignored.
+#
+# Written by hand only, by the user.
+
+# 2026-10-27, our decision (docs/status.md, "session 39's listening
+# questions, and four decisions", decision 4): judged different by ear on
+# 2026-10-22 because the hi-hats differ for a few bars; the same title.
+same-title	extra/b-bad_company-china_cup.mp3	second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus

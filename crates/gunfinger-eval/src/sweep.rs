@@ -29,6 +29,7 @@ use crate::matching::Matching;
 use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, original_path};
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
+use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
 
 pub const SPEEDS_PERCENT: [f64; 9] = [-8.0, -5.0, -3.0, -1.0, 0.0, 1.0, 3.0, 5.0, 8.0];
@@ -82,6 +83,10 @@ pub struct SpeedRow {
     pub recalled: usize,
     pub recall: f64,
     pub wrong_answers: usize,
+    /// Confident detections of a file judged to carry the excerpt's title
+    /// (ADR 0022): right, and counted apart.
+    #[serde(default, skip_serializing_if = "crate::titles::no_credits")]
+    pub same_title: usize,
     pub mean_speed_error_percent: f64,
     pub max_speed_error_percent: f64,
 }
@@ -106,6 +111,10 @@ pub struct Outcome {
     pub asset: String,
     /// Whether the asset is in the excerpt's own cluster.
     pub correct: bool,
+    /// Whether the asset is outside that cluster but judged to carry its
+    /// title (`docs/same-titles.txt`, ADR 0022): right, counted apart.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub same_title: bool,
     pub confident: bool,
     pub windows: u32,
     pub hits: u32,
@@ -121,6 +130,20 @@ pub struct Outcome {
     /// The peak verifier's measures, with `--verify`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub verified: Option<Verification>,
+}
+
+impl Outcome {
+    /// Whether the detection names the excerpt's title: its own cluster,
+    /// or a file judged to carry the same title.
+    pub fn is_right(&self) -> bool {
+        self.correct || self.same_title
+    }
+
+    /// A confident detection that names another title, other than a
+    /// damaged query's partner.
+    pub fn is_wrong(&self) -> bool {
+        self.confident && !self.is_right() && !self.partner
+    }
 }
 
 /// An excerpt to render: which asset, from where.
@@ -217,6 +240,8 @@ impl Plan {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// The files credited to another recording's title (ADR 0022).
+    pub same_titles: &'a SameTitles,
     /// Where the seed's panel is kept (`Plan::for_seed`).
     pub panels: &'a Path,
     /// What is added to the index: another library's records.
@@ -273,6 +298,7 @@ pub fn run(
 ) -> Result<SweepReport, String> {
     let Options {
         seed,
+        same_titles,
         panels,
         padding,
         ladder,
@@ -315,6 +341,7 @@ pub fn run(
             let audio = decode(path, profile.sample_rate, Excerpt::default())
                 .map_err(|error| error.to_string())?;
             let own_cluster = clusters.cluster_of(&draw.asset);
+            let own_title = same_titles.credited(clusters, &own_cluster);
             let detections = matching.search(&index, &audio.samples, &profile, ladder, 1);
             let candidates = (trace == Trace::Candidates).then(|| {
                 matching
@@ -335,7 +362,7 @@ pub fn run(
                         let verified = verifier.as_ref().and_then(|verifier| {
                             verifier.verify(&index, detection, &audio.samples, &profile)
                         });
-                        outcome(&index, detection, &own_cluster, verified)
+                        outcome(&index, detection, &own_cluster, &own_title, verified)
                     })
                     .collect(),
                 candidates,
@@ -524,16 +551,20 @@ fn speed_name(speed_percent: f64) -> String {
     }
 }
 
+/// `own_title` holds the files outside `own_cluster` judged to carry its
+/// title.
 pub fn outcome(
     index: &Index,
     detection: &Detection,
     own_cluster: &BTreeSet<String>,
+    own_title: &BTreeSet<String>,
     verified: Option<Verification>,
 ) -> Outcome {
     let asset = &index.asset(detection.asset).path;
     Outcome {
         asset: asset.clone(),
         correct: own_cluster.contains(original_path(asset)),
+        same_title: own_title.contains(original_path(asset)),
         confident: detection.evidence.is_confident(),
         windows: detection.evidence.windows,
         hits: detection.evidence.hits,
@@ -562,18 +593,23 @@ pub fn speed_row<'a>(speed_percent: f64, queries: impl IntoIterator<Item = &'a Q
     let indexed: Vec<&&Query> = at_speed.iter().filter(|query| !query.held_out).collect();
     let mut errors = Vec::new();
     for query in &indexed {
-        let best_correct = query
+        let best_right = query
             .detections
             .iter()
-            .find(|outcome| outcome.correct && outcome.confident);
-        if let Some(outcome) = best_correct {
+            .find(|outcome| outcome.is_right() && outcome.confident);
+        if let Some(outcome) = best_right {
             errors.push((outcome.speed_percent - speed_percent).abs());
         }
     }
     let wrong_answers = at_speed
         .iter()
         .flat_map(|query| &query.detections)
-        .filter(|outcome| outcome.confident && !outcome.correct && !outcome.partner)
+        .filter(|outcome| outcome.is_wrong())
+        .count();
+    let same_title = at_speed
+        .iter()
+        .flat_map(|query| &query.detections)
+        .filter(|outcome| outcome.confident && outcome.same_title)
         .count();
     SpeedRow {
         speed_percent,
@@ -581,6 +617,7 @@ pub fn speed_row<'a>(speed_percent: f64, queries: impl IntoIterator<Item = &'a Q
         recalled: errors.len(),
         recall: errors.len() as f64 / indexed.len().max(1) as f64,
         wrong_answers,
+        same_title,
         mean_speed_error_percent: errors.iter().sum::<f64>() / errors.len().max(1) as f64,
         max_speed_error_percent: errors.iter().copied().fold(0.0, f64::max),
     }
@@ -592,17 +629,18 @@ pub fn print_summary(report: &SweepReport) {
         report.seed, report.indexed_assets, report.held_out_clusters
     );
     println!(
-        "{:>7} {:>8} {:>8} {:>6} {:>12} {:>11}",
-        "speed", "recalled", "recall", "wrong", "mean error", "max error"
+        "{:>7} {:>8} {:>8} {:>6} {:>6} {:>12} {:>11}",
+        "speed", "recalled", "recall", "wrong", "title", "mean error", "max error"
     );
     for row in &report.per_speed {
         println!(
-            "{:>6}% {:>4}/{:<3} {:>7.1}% {:>6} {:>11.3}% {:>10.3}%",
+            "{:>6}% {:>4}/{:<3} {:>7.1}% {:>6} {:>6} {:>11.3}% {:>10.3}%",
             speed_name(row.speed_percent),
             row.recalled,
             row.indexed_excerpts,
             row.recall * 100.0,
             row.wrong_answers,
+            row.same_title,
             row.mean_speed_error_percent,
             row.max_speed_error_percent
         );
@@ -763,5 +801,52 @@ mod tests {
             removed.is_err() == first.draws.iter().any(|draw| draw.asset == "00.mp3"),
             "a panel whose excerpt's asset is gone is an error"
         );
+    }
+
+    fn query(held_out: bool, detections: Vec<Outcome>) -> Query {
+        Query {
+            asset: "own.mp3".to_owned(),
+            held_out,
+            start_seconds: 60.0,
+            speed_percent: 3.0,
+            detections,
+            candidates: None,
+        }
+    }
+
+    fn confident(asset: &str, correct: bool, same_title: bool) -> Outcome {
+        Outcome {
+            asset: asset.to_owned(),
+            correct,
+            same_title,
+            confident: true,
+            windows: 10,
+            hits: 600,
+            speed_percent: 3.0,
+            fitted: true,
+            partner: false,
+            verified: None,
+        }
+    }
+
+    #[test]
+    fn a_same_title_detection_is_right_and_counted_apart() {
+        let queries = [
+            // Found only as a version judged to carry its title.
+            query(false, vec![confident("version.opus", false, true)]),
+            // Held out, found as that version and as an unjudged file.
+            query(
+                true,
+                vec![
+                    confident("version.opus", false, true),
+                    confident("other.opus", false, false),
+                ],
+            ),
+        ];
+
+        let row = speed_row(3.0, &queries);
+
+        assert_eq!((row.indexed_excerpts, row.recalled), (1, 1));
+        assert_eq!((row.wrong_answers, row.same_title), (1, 2));
     }
 }

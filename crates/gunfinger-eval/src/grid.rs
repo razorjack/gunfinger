@@ -29,6 +29,7 @@ use crate::mixes::{
 use crate::rng::Rng;
 use crate::scoring::evidence;
 use crate::shared::Roots;
+use crate::titles::SameTitles;
 use crate::verifier::Verifier;
 
 const LENGTHS: [f64; 6] = [10.0, 15.0, 20.0, 25.0, 30.0, 40.0];
@@ -87,6 +88,8 @@ pub struct GridQuery {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// The files credited to another recording's title (ADR 0022).
+    pub same_titles: &'a SameTitles,
     /// Where the seed's sweep panel is kept (`Plan::for_seed`).
     pub panels: &'a Path,
     pub ladder_name: &'a str,
@@ -144,9 +147,15 @@ pub fn run(
                 library: &library.root,
                 second: None,
             };
-            let result = search_mix(mix, path, &roots, clusters, &searcher)?;
+            let result = search_mix(mix, path, &roots, clusters, options.same_titles, &searcher)?;
             let brief = &result.score.plays[1];
-            let accepted = clusters.cluster_of(&brief.truth.asset);
+            let cluster = clusters.cluster_of(&brief.truth.asset);
+            let accepted: BTreeSet<String> = options
+                .same_titles
+                .credited(clusters, &cluster)
+                .into_iter()
+                .chain(cluster)
+                .collect();
             Ok(GridQuery {
                 brief: *number,
                 seconds: *seconds,

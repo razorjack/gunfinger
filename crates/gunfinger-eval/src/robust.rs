@@ -33,6 +33,7 @@ use crate::rng::Rng;
 use crate::stereo::{QueryChannels, decode_stereo, side_to_mid_db};
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
+use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
 
 /// Excerpts per condition and speed: the sweep's first indexed and
@@ -381,6 +382,10 @@ pub struct QueryResult {
     pub wrong_confident: usize,
     pub wrong_possible: usize,
     pub strongest_wrong_hits: u32,
+    /// Confident detections of a file judged to carry the excerpt's title
+    /// (ADR 0022): not the own cluster's and not wrong, counted apart.
+    #[serde(default, skip_serializing_if = "crate::titles::no_credits")]
+    pub same_title: usize,
     /// Wall time of the search on one thread, other queries running
     /// alongside.
     #[serde(default)]
@@ -436,6 +441,8 @@ pub struct Row {
     pub wrong_confident: usize,
     pub wrong_possible: usize,
     pub strongest_wrong_hits: u32,
+    #[serde(default, skip_serializing_if = "crate::titles::no_credits")]
+    pub same_title: usize,
     /// Median over indexed excerpts of the best hits against the control's
     /// best hits for the same excerpt (mean of the two base speeds).
     pub median_hit_retention: f64,
@@ -459,6 +466,8 @@ pub struct Options<'a> {
     pub verify: bool,
     /// What is searched of each query.
     pub query_channels: QueryChannels,
+    /// The files credited to another recording's title (ADR 0022).
+    pub same_titles: &'a SameTitles,
     pub jobs: usize,
 }
 
@@ -479,6 +488,7 @@ pub fn run(
         matching,
         verify,
         query_channels,
+        same_titles,
         jobs,
     } = *options;
     let profile = Profile::CURRENT;
@@ -532,8 +542,11 @@ pub fn run(
         let detections = matching.search(&index, &samples, &profile, ladder, 1);
         let search_seconds = started.elapsed().as_secs_f64();
         let own = clusters.cluster_of(&job.draw.asset);
+        let own_title = same_titles.credited(clusters, &own);
         let partner = if job.condition.has_partner() {
-            clusters.cluster_of(&job.partner.asset)
+            let cluster = clusters.cluster_of(&job.partner.asset);
+            let title = same_titles.credited(clusters, &cluster);
+            cluster.into_iter().chain(title).collect()
         } else {
             BTreeSet::new()
         };
@@ -552,6 +565,7 @@ pub fn run(
             wrong_confident: 0,
             wrong_possible: 0,
             strongest_wrong_hits: 0,
+            same_title: 0,
             search_seconds,
             verified: Vec::new(),
             stereo: None,
@@ -563,6 +577,8 @@ pub fn run(
             if let Some(verifier) = &verifier {
                 let role = if own.contains(asset) {
                     "own"
+                } else if own_title.contains(asset) {
+                    "same-title"
                 } else if partner.contains(asset) {
                     "partner"
                 } else {
@@ -586,6 +602,8 @@ pub fn run(
                 }
                 result.confident |= level == Confidence::Confident;
                 result.possible |= level >= Confidence::Possible;
+            } else if own_title.contains(asset) {
+                result.same_title += usize::from(level == Confidence::Confident);
             } else if partner.contains(asset) {
                 result.partner_confident |= level == Confidence::Confident;
             } else {
@@ -1071,6 +1089,7 @@ fn summarise(conditions: &[Condition], queries: &[QueryResult]) -> Vec<Row> {
                     .map(|query| query.strongest_wrong_hits)
                     .max()
                     .unwrap_or(0),
+                same_title: here.iter().map(|query| query.same_title).sum(),
                 median_hit_retention: retention.get(retention.len() / 2).copied().unwrap_or(0.0),
                 median_search_seconds: seconds.get(seconds.len() / 2).copied().unwrap_or(0.0),
             });
@@ -1114,6 +1133,10 @@ pub fn print_summary(report: &RobustReport) {
             row.median_search_seconds
         );
     }
+    println!(
+        "same-title credits (ADR 0022): {}",
+        report.rows.iter().map(|row| row.same_title).sum::<usize>()
+    );
 }
 
 #[cfg(test)]

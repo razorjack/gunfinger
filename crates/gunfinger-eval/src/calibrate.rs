@@ -4,7 +4,9 @@
 //! against the false candidates. Test-set reports are never read.
 //!
 //! Confidence is recomputed from the stored evidence with the current rule,
-//! so reports written under an earlier rule can be re-examined.
+//! so reports written under an earlier rule can be re-examined. A
+//! detection of a file judged to carry the truth's title (ADR 0022) is
+//! right: never a false candidate, and counted apart.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -34,6 +36,9 @@ pub struct Calibration {
     /// Every detection on a held-out sweep excerpt: audio whose recording is
     /// not in the index at all.
     pub not_indexed: Vec<Sample>,
+    /// Confident detections credited through a file judged to carry the
+    /// truth's title, in the sweep and the scans.
+    pub same_title_credits: usize,
 }
 
 /// `rule` is the one the reports' matcher applies.
@@ -50,6 +55,7 @@ impl Calibration {
             identifying: Vec::new(),
             false_candidates: Vec::new(),
             not_indexed: Vec::new(),
+            same_title_credits: 0,
         };
         for path in report_files(reports, "sweep-seed-")? {
             calibration.add_sweep(&read(&path)?);
@@ -79,7 +85,10 @@ impl Calibration {
                         source: sample.source.clone(),
                     });
                 }
-                if !outcome.correct {
+                if outcome.same_title && outcome.confident {
+                    self.same_title_credits += 1;
+                }
+                if !outcome.is_right() {
                     self.false_candidates.push(sample);
                 } else if best
                     .as_ref()
@@ -98,6 +107,7 @@ impl Calibration {
     }
 
     fn add_scan(&mut self, name: &str, scan: &ScanReport) {
+        self.same_title_credits += scan.score.same_title;
         for track in &scan.score.tracks {
             let left_out = scan.left_out_tracks.contains(&track.label);
             if !track.referenced || left_out {
@@ -179,6 +189,10 @@ impl Calibration {
             "false candidates: {} ({} accepted by the rule)",
             self.false_candidates.len(),
             self.accepted_false()
+        );
+        println!(
+            "same-title credits: {} (right, counted apart; ADR 0022)",
+            self.same_title_credits
         );
         println!("weakest identifying: {}", describe(weakest));
         println!("strongest false:     {}", describe(strongest));
@@ -266,4 +280,61 @@ pub fn read<T: DeserializeOwned>(path: &Path) -> Result<T, String> {
     let text = fs::read_to_string(path)
         .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
     serde_json::from_str(&text).map_err(|error| format!("{}: {error}", path.display()))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::sweep::{Outcome, Query};
+
+    fn outcome(asset: &str, correct: bool, same_title: bool, hits: u32) -> Outcome {
+        Outcome {
+            asset: asset.to_owned(),
+            correct,
+            same_title,
+            confident: hits >= 240,
+            windows: 10,
+            hits,
+            speed_percent: 0.0,
+            fitted: true,
+            partner: false,
+            verified: None,
+        }
+    }
+
+    #[test]
+    fn a_same_title_detection_is_no_false_candidate() {
+        let sweep = SweepReport {
+            seed: 1,
+            held_out_clusters: 0,
+            indexed_assets: 3,
+            per_speed: Vec::new(),
+            queries: vec![Query {
+                asset: "own.mp3".to_owned(),
+                held_out: false,
+                start_seconds: 0.0,
+                speed_percent: 0.0,
+                detections: vec![
+                    outcome("version.opus", false, true, 300),
+                    outcome("own.mp3", true, false, 280),
+                    outcome("other.opus", false, false, 50),
+                ],
+                candidates: None,
+            }],
+            set_aside: None,
+        };
+        let mut calibration = Calibration {
+            identifying: Vec::new(),
+            false_candidates: Vec::new(),
+            not_indexed: Vec::new(),
+            same_title_credits: 0,
+        };
+
+        calibration.add_sweep(&sweep);
+
+        assert_eq!(calibration.same_title_credits, 1);
+        assert_eq!(calibration.false_candidates.len(), 1);
+        assert_eq!(calibration.strongest_false().unwrap().evidence.hits, 50);
+        assert_eq!(calibration.identifying[0].evidence.hits, 300);
+    }
 }

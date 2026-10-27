@@ -85,15 +85,18 @@ fn compare_sweeps(name: &str, before: &SweepReport, after: &SweepReport) {
     for (a, b) in before.per_speed.iter().zip(&after.per_speed) {
         if a.recalled != b.recalled
             || a.wrong_answers != b.wrong_answers
+            || a.same_title != b.same_title
             || (a.max_speed_error_percent - b.max_speed_error_percent).abs() > 1e-9
         {
             println!(
-                "  {:+.0}%: recalled {} -> {}, wrong {} -> {}, max speed error {:.3}% -> {:.3}%",
+                "  {:+.0}%: recalled {} -> {}, wrong {} -> {}, same-title {} -> {}, max speed error {:.3}% -> {:.3}%",
                 a.speed_percent,
                 a.recalled,
                 b.recalled,
                 a.wrong_answers,
                 b.wrong_answers,
+                a.same_title,
+                b.same_title,
                 a.max_speed_error_percent,
                 b.max_speed_error_percent
             );
@@ -104,11 +107,13 @@ fn compare_sweeps(name: &str, before: &SweepReport, after: &SweepReport) {
 fn compare_scans(name: &str, before: &ScanReport, after: &ScanReport) {
     let (a, b) = (&before.score, &after.score);
     println!(
-        "{name}: identified {} -> {}, wrong {} -> {}, possible {} -> {}, unmatched possible plays {} -> {}",
+        "{name}: identified {} -> {}, wrong {} -> {}, same-title {} -> {}, possible {} -> {}, unmatched possible plays {} -> {}",
         a.identified,
         b.identified,
         a.wrong,
         b.wrong,
+        a.same_title,
+        b.same_title,
         a.possible,
         b.possible,
         a.unmatched_possible.len(),
@@ -217,6 +222,10 @@ fn compare_calibrations(before: &Calibration, after: &Calibration) {
         after.near_possible(rule).len(),
         hits(before.strongest_not_indexed()),
         hits(after.strongest_not_indexed())
+    );
+    println!(
+        "calibrate: same-title credits {} -> {}",
+        before.same_title_credits, after.same_title_credits
     );
 }
 

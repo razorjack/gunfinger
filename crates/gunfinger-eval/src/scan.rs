@@ -24,6 +24,7 @@ use crate::matching::Matching;
 use crate::padding::Padding;
 use crate::rng::Rng;
 use crate::scoring::{Found, FoundPlay, Score, score};
+use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
 
 /// Which tracks to leave out of the index, each with its whole cluster.
@@ -102,6 +103,8 @@ pub struct Options<'a> {
     pub padding: &'a Padding,
     pub matching: &'a Matching,
     pub ladder: &'a [Rung],
+    /// The files credited to another recording's title (ADR 0022).
+    pub same_titles: &'a SameTitles,
     /// Measure every detection with the peak verifier.
     pub verify: bool,
     pub jobs: usize,
@@ -121,6 +124,7 @@ pub fn run(
         padding,
         matching,
         ladder,
+        same_titles,
         verify,
         jobs,
     } = *options;
@@ -179,7 +183,14 @@ pub fn run(
             _ => Vec::new(),
         },
         left_out_assets: left_out_assets.into_iter().collect(),
-        score: score(&set, duration_seconds, &detections, &plays, clusters),
+        score: score(
+            &set,
+            duration_seconds,
+            &detections,
+            &plays,
+            clusters,
+            same_titles,
+        ),
         detections,
         plays,
     })
@@ -247,11 +258,12 @@ fn named_slots<'a>(set: &'a Set, runs: &[SlotRun]) -> Result<Vec<&'a Track>, Str
 pub fn print_summary(report: &ScanReport) {
     let score = &report.score;
     println!(
-        "{}: {}/{} referenced tracks identified, {} wrong identifications; {} of audio scanned in {:.1} s",
+        "{}: {}/{} referenced tracks identified, {} wrong identifications, {} same-title credits; {} of audio scanned in {:.1} s",
         report.set,
         score.identified,
         score.referenced,
         score.wrong,
+        score.same_title,
         timecode(report.duration_seconds),
         report.wall_seconds
     );
@@ -292,6 +304,9 @@ pub fn print_summary(report: &ScanReport) {
         println!("  {mark:<8} {}{evidence}", track.label);
         for asset in &track.credited_through_cluster {
             println!("           credited through cluster: {asset}");
+        }
+        for asset in &track.credited_through_title {
+            println!("           credited through the same title: {asset}");
         }
     }
     for wrong in &score.wrong_identifications {

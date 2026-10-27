@@ -210,3 +210,47 @@ other `different` pair whose titles agree. Each is a question for the
 user.
 
 ## Decisions
+
+- **(03:10) Start build and regressions** (`work/s54/start.sh`, tmux
+  `s54start`, logs in `work/s54/logs/`; `run.sh` and `same.py` are
+  session 53's with the paths changed). Cargo had nothing to rebuild:
+  the start build is byte-identical to `work/bin/s53-final/`. `regress
+  session-53-linux` (0:51) and `regress session-53-linux-nas` (3:46,
+  5.3 GiB peak) identical, every report identical to its baseline's
+  apart from `wall_seconds`.
+- **(03:21) The start build's sweeps of seeds 2027 and 2028**
+  (`work/s54/seeds.sh`, in the scratch work directory
+  `work/s54/wseeds-start` with copies of both clusters files and the
+  library map and a link to the saved NAS index, so that calibrate's
+  reports directories hold seed 2026 alone): at 262 tracks 0 wrong
+  answers each (0:48); at NAS scale (2:26 each) seed 2027 has 11 wrong
+  (`Bad Company - China Cup.mp3` 4, `extra/02. Bad Company - China
+  Cup.mp3` 7, indexed) and seed 2028 7 (`extra/b-bad_company-china_cup.mp3`,
+  held out), every one ƆƐI3C's upload, as in 0188.
+- **(03:20) Held-out excerpts and left-out slots.** A same-title
+  detection on a held-out sweep excerpt or in a left-out scan slot is
+  right too, counted apart: a hold-out removes a recording, and the
+  version stays indexed with the title. Leaving the judged files out as
+  well would change what the harness searches, not how it scores, which
+  this session does not do. No development set plays China Cup, so no
+  scan or leave-out of the three development mixes is affected.
+- **(03:25) Reports.** The counts and the `same_title` flags are written
+  only when not zero or true (`titles::no_credits`), so reports without
+  a same-title credit read byte for byte as before and `regress` shows
+  exactly the detections that change. `correct` keeps its meaning (the
+  own cluster); `Outcome::is_right` and `Outcome::is_wrong` hold the
+  rule for the sweep, `recall` and calibrate.
+- **(03:25) Calibrate's identifying detections** take the strongest
+  right detection of a sweep query, a same-title one included, as a
+  scan's strongest candidate in a track's window already does after the
+  change; `not_indexed` (the possible tier's null) keeps every
+  detection on a held-out excerpt.
+- **(03:25) The harness option** `--same-titles FILE` (default
+  `docs/same-titles.txt`), beside `--verdicts`. Errors read
+  `<file>, line N: ...`, as `Verdicts::on`'s messages do.
+- **(03:25) Recall and robust partners.** A damaged query's partner
+  (recall) and a blend's second track (robust) accept the files judged
+  to carry the partner's title, so neither counts as wrong; the own
+  title comes first. Robust keeps its own-cluster counts (`confident`,
+  `best_hits`: how a transform damages the recording's evidence) and
+  counts confident same-title detections apart.

@@ -39,6 +39,7 @@ mod survival;
 mod sweep;
 mod synthetic;
 mod tempo;
+mod titles;
 mod verifier;
 mod versions;
 
@@ -102,6 +103,11 @@ struct Paths {
     /// different), which `clusters` follows over its coverage rule.
     #[arg(long, default_value = "docs/pair-verdicts.txt")]
     verdicts: PathBuf,
+    /// The judgments that two files carry the same track title although
+    /// they are different recordings (ADR 0022): scoring credits either
+    /// for the other's title, and counts such credits apart.
+    #[arg(long, default_value = "docs/same-titles.txt")]
+    same_titles: PathBuf,
     /// Rungs searched by sweep, scan, robust and regress; the default is
     /// `identify`'s. Reports of other ladders go to `reports/ladder-<name>/`,
     /// so that calibrate and regress read one ladder at a time.
@@ -994,6 +1000,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.clusters()?,
                 &paths.work,
                 &mixes::Options {
+                    same_titles: &paths.same_titles()?,
                     seed,
                     kind,
                     other_root: other_root.as_deref(),
@@ -1028,6 +1035,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
                 &paths.clusters()?,
                 &paths.work,
                 &grid::Options {
+                    same_titles: &paths.same_titles()?,
                     seed,
                     panels: &paths.panels,
                     ladder_name: paths.ladder.name(),
@@ -1289,6 +1297,7 @@ fn run_robust(
         &paths.clusters()?,
         &paths.work,
         &robust::Options {
+            same_titles: &paths.same_titles()?,
             seed,
             panels: &paths.panels,
             only,
@@ -1764,6 +1773,7 @@ fn run_sweep(
         &paths.clusters()?,
         &paths.work,
         &sweep::Options {
+            same_titles: &paths.same_titles()?,
             seed,
             panels: &paths.panels,
             padding: &padding,
@@ -2081,6 +2091,7 @@ fn run_recall(
         &clusters,
         &sets,
         &recall::Options {
+            same_titles: &paths.same_titles()?,
             seed,
             padding: &paths.padding(&UNCHANGED_INDEX)?,
             ladder: &paths.rungs(),
@@ -2143,6 +2154,7 @@ fn run_scan(
         &paths.store()?,
         &paths.clusters()?,
         &scan::Options {
+            same_titles: &paths.same_titles()?,
             referable: &paths.referable(&library)?,
             leave_out,
             padding: &padding,
@@ -2296,6 +2308,10 @@ impl Paths {
 
     fn verdicts(&self) -> Result<clusters::Verdicts, String> {
         clusters::Verdicts::load(&self.verdicts)
+    }
+
+    fn same_titles(&self) -> Result<titles::SameTitles, String> {
+        titles::SameTitles::load(&self.same_titles)
     }
 
     /// The corpus clusters, also when another library is given.

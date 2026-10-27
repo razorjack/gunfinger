@@ -34,6 +34,7 @@ use crate::scoring::evidence;
 use crate::shared::Roots;
 use crate::sweep::Plan;
 use crate::tempo::{Structure, beat_period, onset_envelope};
+use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
 
 mod drops;
@@ -524,23 +525,53 @@ pub struct MixScore {
     pub wrong_possible: Vec<MixFound>,
     /// The strongest detections that match no play, at any level.
     pub false_candidates: Vec<MixFound>,
+    /// Confident detections that match a play only through a file judged
+    /// to carry its title (ADR 0022): right, and counted apart.
+    #[serde(default, skip_serializing_if = "crate::titles::no_credits")]
+    pub same_title: usize,
 }
 
 /// False candidates kept per mix.
 const FALSE_CANDIDATES_KEPT: usize = 5;
 
 /// Scores detections (two windows or more) against the truth. A detection
-/// matches a play when its asset shares the play's cluster and it overlaps
-/// the play's audible span.
-pub fn score(mix: &PlannedMix, found: &[MixFound], clusters: &Clusters) -> MixScore {
+/// matches a play when its asset shares the play's cluster, or is judged to
+/// carry its title, and it overlaps the play's audible span.
+pub fn score(
+    mix: &PlannedMix,
+    found: &[MixFound],
+    clusters: &Clusters,
+    titles: &SameTitles,
+) -> MixScore {
     let accepted: Vec<BTreeSet<String>> = mix
         .plays
         .iter()
         .map(|play| clusters.cluster_of(&play.asset))
         .collect();
-    let matches = |detection: &MixFound, play: usize| {
-        accepted[play].contains(&detection.asset) && detection.overlaps(&mix.plays[play])
+    let by_title: Vec<BTreeSet<String>> = accepted
+        .iter()
+        .map(|cluster| titles.credited(clusters, cluster))
+        .collect();
+    let overlaps = |detection: &MixFound, play: usize| detection.overlaps(&mix.plays[play]);
+    let of_cluster = |detection: &MixFound, play: usize| {
+        accepted[play].contains(&detection.asset) && overlaps(detection, play)
     };
+    let of_title = |detection: &MixFound, play: usize| {
+        by_title[play].contains(&detection.asset) && overlaps(detection, play)
+    };
+    let matches = |detection: &MixFound, play: usize| {
+        of_cluster(detection, play) || of_title(detection, play)
+    };
+    let through_title_only = |detection: &MixFound| {
+        let mut plays = 0..mix.plays.len();
+        !plays.clone().any(|play| of_cluster(detection, play))
+            && plays.any(|play| of_title(detection, play))
+    };
+    let same_title = found
+        .iter()
+        .filter(|detection| detection.confidence() == Confidence::Confident)
+        .filter(|detection| through_title_only(detection))
+        .count();
     let plays = (0..mix.plays.len())
         .map(|play| {
             let matching: Vec<&MixFound> = found
@@ -571,6 +602,7 @@ pub fn score(mix: &PlannedMix, found: &[MixFound], clusters: &Clusters) -> MixSc
             .take(FALSE_CANDIDATES_KEPT)
             .map(|detection| (*detection).clone())
             .collect(),
+        same_title,
     }
 }
 
@@ -1207,6 +1239,8 @@ pub struct MixResult {
 
 pub struct Options<'a> {
     pub seed: u64,
+    /// The files credited to another recording's title (ADR 0022).
+    pub same_titles: &'a SameTitles,
     pub kind: MixKind,
     /// The other library's root, for the shared-material panel's files
     /// under `second-library/` (beatmatched and shared kinds).
@@ -1515,7 +1549,7 @@ pub fn run(
         fault: options.stereo_fault,
     };
     let results = map_in_order(&planned, options.jobs, |(mix, path)| {
-        search_mix(mix, path, &roots, clusters, &searcher)
+        search_mix(mix, path, &roots, clusters, options.same_titles, &searcher)
     });
     Ok(MixesReport {
         seed: options.seed,
@@ -1567,6 +1601,7 @@ pub fn search_mix(
     path: &Path,
     roots: &Roots,
     clusters: &Clusters,
+    titles: &SameTitles,
     searcher: &Searcher,
 ) -> Result<MixResult, String> {
     let Searcher {
@@ -1591,7 +1626,7 @@ pub fn search_mix(
         .collect();
     Ok(MixResult {
         mix: mix.clone(),
-        score: score(mix, &detections, clusters),
+        score: score(mix, &detections, clusters, titles),
         detections,
     })
 }
@@ -1636,9 +1671,15 @@ pub fn print_summary(report: &MixesReport, kind: MixKind) {
         .map(|found| found.hits)
         .max()
         .unwrap_or(0);
+    let same_title: usize = report
+        .mixes
+        .iter()
+        .map(|result| result.score.same_title)
+        .sum();
     println!(
         "wrong: {wrong} confident, {wrong_possible} possible; strongest false candidate {strongest_false} hits"
     );
+    println!("same-title credits (ADR 0022): {same_title} confident");
     let lengths = kind.play_lengths();
     let longest = lengths[3].1 - 1.0;
     for (low, high) in lengths {
@@ -2267,7 +2308,7 @@ mod tests {
             found("c.mp3", 60.0, 95.0, 250),
         ];
 
-        let score = score(&mix, &found, &clusters);
+        let score = score(&mix, &found, &clusters, &SameTitles::default());
 
         assert_eq!(score.plays[0].level, "confident");
         assert_eq!(score.plays[0].start_late_seconds, Some(2.0));
@@ -2276,5 +2317,32 @@ mod tests {
         assert_eq!(score.plays[1].level, "none");
         assert_eq!(score.wrong_confident, [found[2].clone()]);
         assert_eq!(score.false_candidates.len(), 2);
+    }
+
+    #[test]
+    fn a_detection_of_a_file_judged_to_carry_the_plays_title_matches_it() {
+        let mix = PlannedMix {
+            name: String::from("mix"),
+            seconds: 100.0,
+            plays: vec![
+                play(10.0, 50.0),
+                PlannedPlay {
+                    asset: String::from("b.mp3"),
+                    ..play(45.0, 100.0)
+                },
+            ],
+        };
+        let clusters = no_clusters();
+        let titles = SameTitles::parse("same-title\tb.mp3\tb-version.opus\n").unwrap();
+        let found = [
+            found("b-version.opus", 60.0, 95.0, 400),
+            found("c.mp3", 60.0, 95.0, 250),
+        ];
+
+        let score = score(&mix, &found, &clusters, &titles);
+
+        assert_eq!(score.plays[1].level, "confident");
+        assert_eq!(score.same_title, 1);
+        assert_eq!(score.wrong_confident, [found[1].clone()]);
     }
 }
