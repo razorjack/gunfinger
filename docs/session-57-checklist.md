@@ -19,7 +19,7 @@ for scope and rules.
   and as a finding), committed before the runs
 - [ ] 2. The runs, in scratch work directories, under tmux with logs
   - [x] the shared panels' development halves (both panels, NAS scale)
-  - [ ] the drops mixes of sessions 39 and 48 (262 tracks, NAS scale)
+  - [x] the drops mixes of sessions 39 and 48 (262 tracks, NAS scale)
   - [ ] `recall`
   - [ ] the other development scans at NAS scale
   - [ ] the sweeps of seeds 2027-2029 at NAS scale

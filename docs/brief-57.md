@@ -144,3 +144,11 @@ Rules for this session:
   risk at most 61 hits (a related version: 55). `diffs.py` and
   `residual.py` now count an overlapping detection of equal hits (the
   old rule ranked one of the two first).
+- **(08:10) Group 2 done** (0237): harness scores identical in all 12
+  reports; the CLI's tracklists change only by gap lines and, at NAS
+  scale, the pruned T-Minus vocal mix upload's entries. An added trace
+  (a deviation): session 48's CLI binary (`work/bin/s48-run`) on today's
+  pruned store, seed 2032 at NAS scale, gives today's re-measured
+  segments, so the prune moves them (`work/s57/trace-cli.sh`). Session
+  39's NAS other pairs were made with the NAS configuration; today's use
+  `--peaks-dir --store-only` (no NAS listing, as sessions 45 and 48 did).
