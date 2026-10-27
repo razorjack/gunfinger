@@ -109,3 +109,6 @@ Rules for this session:
   session 56's with the paths changed). The build was a no-op: master
   is `s56-final`'s code, and both binaries `cmp` equal to
   `work/bin/s56-final/`.
+- **(06:50) Start checks.** `regress session-54-linux` (0:51) and
+  `regress session-54-linux-nas` (3:59, 5.6 GB peak) identical: every
+  report equals its baseline's apart from `wall_seconds` (`same.py`).

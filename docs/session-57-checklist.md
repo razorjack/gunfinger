@@ -10,7 +10,7 @@ for scope and rules.
 - [~] Brief, checklist and `CLAUDE.md` committed
 - [x] Digests of `docs/pair-verdicts.txt` and the NAS clusters file in
   `work/s57/listening-digests-start.txt`
-- [~] Start build `work/bin/s57-start/`; `regress session-54-linux` and
+- [x] Start build `work/bin/s57-start/`; `regress session-54-linux` and
   `regress session-54-linux-nas` identical
 
 ## Steps
