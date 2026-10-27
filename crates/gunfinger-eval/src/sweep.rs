@@ -17,7 +17,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, MIN_HITS_TO_REFINE, SKIPPED_SHARE};
+use gunfinger_core::search::{self, Detection, MIN_HITS_TO_REFINE, SKIPPED_SHARE};
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
@@ -81,6 +81,20 @@ pub struct Candidate {
     #[serde(default)]
     pub start_seconds: f64,
     #[serde(default)]
+    pub end_seconds: f64,
+    /// The chain's lines, in window order (session 59).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub lines: Vec<CandidateLine>,
+}
+
+/// One line of a candidate's chain: its window, the rung it was found on
+/// and its hits.
+#[derive(Serialize, Deserialize)]
+pub struct CandidateLine {
+    pub window: u32,
+    pub speed_percent: f64,
+    pub hits: u32,
+    pub start_seconds: f64,
     pub end_seconds: f64,
 }
 
@@ -353,12 +367,8 @@ pub fn run(
             let own_title = same_titles.credited(clusters, &own_cluster);
             let detections = matching.search(&index, &audio.samples, &profile, ladder, 1);
             let candidates = (trace == Trace::Candidates).then(|| {
-                matching
-                    .first_pass(&index, &audio.samples, &profile, ladder, 1)
-                    .iter()
-                    .filter(|detection| detection.evidence.hits >= MIN_HITS_TO_REFINE)
-                    .map(|detection| candidate(&index, detection, &own_cluster))
-                    .collect()
+                let first = matching.first_pass(&index, &audio.samples, &profile, ladder, 1);
+                candidates(&index, &first, &own_cluster)
             });
             Ok(Query {
                 asset: draw.asset.clone(),
@@ -584,21 +594,44 @@ pub fn outcome(
     }
 }
 
-pub fn candidate(
+/// The first pass's candidates (at least `MIN_HITS_TO_REFINE` hits),
+/// strongest first, each with its chain's lines.
+pub fn candidates(
     index: &Index,
-    detection: &Detection,
+    first: &search::Trace,
     own_cluster: &BTreeSet<String>,
-) -> Candidate {
-    let asset = &index.asset(detection.asset).path;
-    Candidate {
-        asset: asset.clone(),
-        correct: own_cluster.contains(original_path(asset)),
-        hits: detection.evidence.hits,
-        windows: detection.evidence.windows,
-        speed_percent: (detection.speed.0 - 1.0) * 100.0,
-        start_seconds: detection.start_seconds,
-        end_seconds: detection.end_seconds,
-    }
+) -> Vec<Candidate> {
+    first
+        .detections
+        .iter()
+        .zip(&first.chains)
+        .filter(|(detection, _)| detection.evidence.hits >= MIN_HITS_TO_REFINE)
+        .map(|(detection, chain)| {
+            let asset = &index.asset(detection.asset).path;
+            Candidate {
+                asset: asset.clone(),
+                correct: own_cluster.contains(original_path(asset)),
+                hits: detection.evidence.hits,
+                windows: detection.evidence.windows,
+                speed_percent: (detection.speed.0 - 1.0) * 100.0,
+                start_seconds: detection.start_seconds,
+                end_seconds: detection.end_seconds,
+                lines: chain
+                    .iter()
+                    .map(|&line| {
+                        let line = &first.lines[line];
+                        CandidateLine {
+                            window: line.window,
+                            speed_percent: (line.speed.0 - 1.0) * 100.0,
+                            hits: line.hits,
+                            start_seconds: line.start_seconds,
+                            end_seconds: line.end_seconds,
+                        }
+                    })
+                    .collect(),
+            }
+        })
+        .collect()
 }
 
 pub fn speed_row<'a>(speed_percent: f64, queries: impl IntoIterator<Item = &'a Query>) -> SpeedRow {
@@ -864,6 +897,61 @@ mod tests {
 
         assert_eq!((row.indexed_excerpts, row.recalled), (1, 1));
         assert_eq!((row.wrong_answers, row.same_title), (1, 2));
+    }
+
+    #[test]
+    fn a_candidate_keeps_its_first_pass_speed_span_and_chain() {
+        use gunfinger_core::confidence::Evidence;
+        use gunfinger_core::index::AssetId;
+        use gunfinger_core::search::WindowLine;
+        use gunfinger_core::speed::{Playback, SpeedRatio};
+
+        let index = Index::build(&[record("own.mp3"), record("other.mp3")]).unwrap();
+        let detection = |asset: u32, hits: u32, speed: f64| Detection {
+            asset: AssetId(asset),
+            start_seconds: 3.0,
+            end_seconds: 23.0,
+            track_start_seconds: 60.0,
+            track_end_seconds: 80.0,
+            speed: SpeedRatio(speed),
+            playback: Playback::Turntable,
+            evidence: Evidence::new(3, hits),
+        };
+        let line = |window: u32, speed: f64, hits: u32| WindowLine {
+            asset: AssetId(0),
+            window,
+            start_seconds: f64::from(window) * 10.0,
+            end_seconds: f64::from(window) * 10.0 + 9.0,
+            track_seconds: 60.0,
+            speed: SpeedRatio(speed),
+            playback: Playback::Turntable,
+            hits,
+        };
+        let first = search::Trace {
+            detections: vec![detection(0, 370, 1.01147), detection(1, 9, 1.0)],
+            lines: vec![
+                line(0, 1.008, 100),
+                line(1, 1.012, 150),
+                line(2, 1.012, 120),
+            ],
+            chains: vec![vec![0, 1, 2], vec![]],
+        };
+
+        let found = candidates(&index, &first, &BTreeSet::from([String::from("own.mp3")]));
+
+        assert_eq!(found.len(), 1, "fewer than 10 hits is no candidate");
+        let own = &found[0];
+        assert!(own.correct);
+        assert_eq!((own.hits, own.windows), (370, 3));
+        assert!((own.speed_percent - 1.147).abs() < 1e-9);
+        assert_eq!((own.start_seconds, own.end_seconds), (3.0, 23.0));
+        let chain: Vec<(u32, u32)> = own
+            .lines
+            .iter()
+            .map(|line| (line.window, line.hits))
+            .collect();
+        assert_eq!(chain, [(0, 100), (1, 150), (2, 120)]);
+        assert!((own.lines[0].speed_percent - 0.8).abs() < 1e-9);
     }
 
     #[test]

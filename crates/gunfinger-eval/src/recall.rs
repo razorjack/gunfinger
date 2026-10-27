@@ -23,7 +23,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{MIN_HITS_TO_REFINE, SKIPPED_SHARE, WINDOW_SECONDS};
+use gunfinger_core::search::{SKIPPED_SHARE, WINDOW_SECONDS};
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
@@ -36,8 +36,8 @@ use crate::render::is_complete;
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::sweep::{
-    Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, Trace, candidate, outcome,
-    render_all, speed_row,
+    Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, Trace, outcome, render_all,
+    speed_row,
 };
 use crate::titles::SameTitles;
 use crate::verifier::Verifier;
@@ -918,12 +918,8 @@ impl Searcher<'_> {
                 })
                 .collect(),
             candidates: (self.options.trace == Trace::Candidates).then(|| {
-                matching
-                    .first_pass(self.index, samples, &Profile::CURRENT, ladder, 1)
-                    .iter()
-                    .filter(|detection| detection.evidence.hits >= MIN_HITS_TO_REFINE)
-                    .map(|detection| candidate(self.index, detection, &own_cluster))
-                    .collect()
+                let first = matching.first_pass(self.index, samples, &Profile::CURRENT, ladder, 1);
+                crate::sweep::candidates(self.index, &first, &own_cluster)
             }),
         };
         let unobservable = is_unobservable(source, &own_cluster, self.indexed);

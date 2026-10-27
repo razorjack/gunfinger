@@ -7,7 +7,7 @@ use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{
-    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, search_with,
+    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, Trace, search_with, trace_with,
 };
 use gunfinger_core::speed::Rung;
 
@@ -141,7 +141,7 @@ impl Matching {
     }
 
     /// The first pass alone: the detections the second pass would measure
-    /// again, with their first-pass evidence.
+    /// again, with their first-pass evidence and each one's chain of lines.
     pub fn first_pass(
         &self,
         index: &Index,
@@ -149,12 +149,12 @@ impl Matching {
         profile: &Profile,
         ladder: &[Rung],
         jobs: usize,
-    ) -> Vec<Detection> {
+    ) -> Trace {
         let options = Options {
             second_pass: false,
             ..self.options()
         };
-        search_with(index, samples, profile, ladder, jobs, options)
+        trace_with(index, samples, profile, ladder, jobs, options, |_, _| {})
     }
 
     /// The thresholds its confident detections meet.
