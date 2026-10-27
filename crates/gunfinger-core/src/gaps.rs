@@ -140,6 +140,16 @@ pub enum Method {
     Repeats,
 }
 
+impl Method {
+    /// The name JSON reports give the method.
+    pub fn name(self) -> &'static str {
+        match self {
+            Method::RepeatsWithinLength => "repeats-within-length",
+            Method::Repeats => "repeats",
+        }
+    }
+}
+
 /// The combined count: `records` (method 2) raised to the low end of
 /// `length_range` or lowered to its high end; 0 stays 0 and, with no
 /// range, the records stand alone.
@@ -158,7 +168,7 @@ pub fn estimate(records: usize, length_range: Option<(u32, u32)>) -> Option<Esti
     let count = combined(records, length_range);
     (count > 0).then(|| Estimate {
         low: (count - 1).max(1),
-        high: count + 1,
+        high: count.saturating_add(1),
         method: match length_range {
             Some(_) => Method::RepeatsWithinLength,
             None => Method::Repeats,

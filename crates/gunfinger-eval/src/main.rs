@@ -51,7 +51,7 @@ use std::time::Duration;
 
 use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::decode::{Excerpt, decode};
-use gunfinger_core::gaps::{Estimate, Method, estimate, length_range};
+use gunfinger_core::gaps::{Estimate, estimate, length_range};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
@@ -2879,10 +2879,7 @@ impl From<Estimate> for TracksAt {
         TracksAt {
             low: estimate.low,
             high: estimate.high,
-            method: match estimate.method {
-                Method::RepeatsWithinLength => "repeats-within-length",
-                Method::Repeats => "repeats",
-            },
+            method: estimate.method.name(),
         }
     }
 }
@@ -3149,4 +3146,40 @@ fn write_json(path: &Path, value: &impl Serialize) -> Result<(), String> {
     }
     let text = serde_json::to_string_pretty(value).map_err(|error| error.to_string())?;
     fs::write(path, text).map_err(|error| format!("cannot write {}: {error}", path.display()))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use gunfinger_core::gaps::Method;
+
+    #[test]
+    fn self_match_lists_the_blocks_at_each_threshold_in_order() {
+        let profile = Profile::CURRENT;
+        let silence = vec![0.0_f32; 40 * profile.sample_rate as usize];
+
+        let blocks = BlocksAt::each(&Repeats::find(&silence, &profile, &[]));
+
+        let thresholds: Vec<u32> = blocks.iter().map(|blocks| blocks.min_hits).collect();
+        assert_eq!(thresholds, MIN_HITS);
+        assert!(
+            blocks
+                .iter()
+                .all(|blocks| blocks.spans.is_empty() && blocks.cells == 8)
+        );
+    }
+
+    #[test]
+    fn self_match_writes_the_estimate_as_a_report_does() {
+        let tracks = TracksAt::from(Estimate {
+            low: 1,
+            high: 3,
+            method: Method::RepeatsWithinLength,
+        });
+
+        assert_eq!(
+            serde_json::to_value(&tracks).ok(),
+            Some(serde_json::json!({ "low": 1, "high": 3, "method": "repeats-within-length" }))
+        );
+    }
 }

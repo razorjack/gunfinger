@@ -129,7 +129,7 @@ Rules for this session:
   `identify --store-only` of the three development mixes at 262 tracks
   and at NAS scale gives the "before" reports, tracklists and wall times
   (`work/s56/cli-before/`).
-- **(05:40) Step 1: the estimate and its form** (taken before the code;
+- **(05:32) Step 1: the estimate and its form** (taken before the code;
   conservative where the prompt leaves a choice):
   1. *Which estimate.* The combined one of experiment 0165, as measured:
      method 2's count (the stretches: blocks of the gap matched against
@@ -193,6 +193,10 @@ Rules for this session:
      at 30 s; the harness's `self-match` (whose `--min-length` stays 30
      by default) writes the product's estimate beside its blocks, so the
      test seeds reproduce 0165 through the same code.
+- **(05:33) ADR 0024 committed** (`6b6de3c`) before any code; ADR 0023's
+  status line says ADR 0024 amends it. Added while writing: the printed
+  range read the other way on the test (125 of 125 gaps counted 1, 88 of
+  97 counted 2, 106 of 106 counted 3, 49 of 50 counted 4).
 - **(05:36) Start results.** The start build is byte-identical to
   `s55-final`. `regress session-54-linux` (0:50) and `regress
   session-54-linux-nas` (3:58) identical, every report identical to its
@@ -202,10 +206,6 @@ Rules for this session:
   build in `work/s56/wmix` (tmux `s56renders`, `renders.sh`), session
   35's reports copied beside today's (`wmix/s35-reports/`); work/reports
   is untouched.
-- **(05:33) ADR 0024 committed** (`6b6de3c`) before any code; ADR 0023's
-  status line says ADR 0024 amends it. Added while writing: the printed
-  range read the other way on the test (125 of 125 gaps counted 1, 88 of
-  97 counted 2, 106 of 106 counted 3, 49 of 50 counted 4).
 - **(05:36-05:51) The code** (`ce50a95`):
   1. `gunfinger_core::repeats` is the harness's `self_match.rs`, moved
      (`git mv`): `Repeats::find(samples, profile, ratios)` builds the hits
@@ -280,3 +280,30 @@ Rules for this session:
   (done, with both ADRs), the printing note's status line ("decided and
   implemented") and README's example (the 2003 mix at 262 tracks with
   its estimates) updated.
+- **(06:23-06:31) The read-only review** (a separate agent, no further
+  agents) found no correctness bug: it confirmed the stretches, Python's
+  quartiles and rounding, the limiting, the harness's unchanged listings,
+  the slicing, the assignment of stretches to gaps, the figures against
+  the data and the commits' attribution. Its findings, all fixed:
+  1. Two CLI tests had range B one count wide, so method 2 barely
+     mattered: added `within_a_wider_range_the_repeats_decide` (range 2-3,
+     stretches 1, 2 and 3) and `each_gap_counts_only_the_stretches_inside_it`
+     (three gaps, no range, counts 1, 2 and 3).
+  2. The validation of `gap_repeats` was untested: three cases added.
+  3. The harness wrote the method names by hand, untested:
+     `gaps::Method::name` in the core, used by the harness, a CLI test
+     that serde's names equal it, and harness tests of `BlocksAt::each`
+     and `TracksAt`.
+  4. ADR 0024 stated the compile effect as fact: marked inferred.
+  5. ADR 0024's sentence on a count of 1 read backwards: reworded.
+  6. ADR 0024's method 2 row label implied the no-range path was tested:
+     "what a gap without a range gets, all 384 test gaps of 0163".
+  7. ADR 0024's "measured by the code that prints it": the core's code on
+     the harness's gaps, the CLI's gaps compared on 10 development gaps.
+  8. ADR 0024's 0.05 s per gap did not match 320 gaps in 21 s: the total
+     given instead.
+  9. `estimate`'s `count + 1` could overflow on a crafted report:
+     `saturating_add`.
+  10. ADR 0023's status line rewrapped.
+  11. The brief's step 1 time (05:40, written at about 05:32) corrected
+      and the entries put in time order.

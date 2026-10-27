@@ -758,9 +758,18 @@ mod tests {
     #[test]
     fn malformed_report_ranges_and_empty_segments_are_rejected() {
         assert!(report().validate().is_ok());
-        for case in 0..7 {
+        for case in 0..10 {
             let mut report = report();
+            let stretch = |start_seconds, end_seconds| {
+                Some(vec![Stretch {
+                    start_seconds,
+                    end_seconds,
+                }])
+            };
             match case {
+                7 => report.gap_repeats = stretch(-1.0, 40.0),
+                8 => report.gap_repeats = stretch(10.0, f64::NAN),
+                9 => report.gap_repeats = stretch(50.0, 40.0),
                 0 => report.plays[0].segments.clear(),
                 1 => report.plays[0].end_seconds = -1.0,
                 2 => report.plays[0].segments[0].end_seconds = -1.0,

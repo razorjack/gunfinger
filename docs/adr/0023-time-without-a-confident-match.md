@@ -6,9 +6,10 @@ Accepted (2026-10-27), our decision. Amends ADR 0017's default output:
 the tracklist, the table and the JSON report list each stretch of 45 s
 or more that no confident play covers. Part 1 of the decision; part 2
 (an estimate of how many tracks a gap holds) amends this record: ADR
-0024 (2026-10-27) adds the estimate to items 5, 6, 7 and 11. The search, the detections, the confidence rule
-(ADR 0013), the possible tier (ADR 0006), the entry rule (ADR 0017),
-ADR 0019's marked plays, CSV and the cue sheet do not change.
+0024 (2026-10-27) adds the estimate to items 5, 6, 7 and 11. The
+search, the detections, the confidence rule (ADR 0013), the possible
+tier (ADR 0006), the entry rule (ADR 0017), ADR 0019's marked plays,
+CSV and the cue sheet do not change.
 
 ## Context
 

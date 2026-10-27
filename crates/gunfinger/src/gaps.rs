@@ -476,6 +476,79 @@ mod tests {
     }
 
     #[test]
+    fn within_a_wider_range_the_repeats_decide() {
+        // Clean intervals of 180, 200, 250 and 300 s: a gap of 600 s gives
+        // 2 to 3 tracks by its length.
+        let plays = [
+            (0.0, 175.0),
+            (180.0, 375.0),
+            (380.0, 625.0),
+            (630.0, 925.0),
+            (930.0, 1_125.0),
+            (1_725.0, 1_920.0),
+        ];
+        let around = |repeats: &[(f64, f64)]| mix(&plays, 1_920.0, Some(repeats));
+        let two = around(&[(1_150.0, 1_300.0), (1_400.0, 1_600.0)]);
+        let three = around(&[(1_150.0, 1_300.0), (1_400.0, 1_500.0), (1_550.0, 1_700.0)]);
+        let one = around(&[(1_150.0, 1_600.0)]);
+
+        assert_eq!(
+            tracks(&two),
+            [Some((1, 3, TracksMethod::RepeatsWithinLength))]
+        );
+        assert_eq!(
+            tracks(&three),
+            [Some((2, 4, TracksMethod::RepeatsWithinLength))]
+        );
+        assert_eq!(
+            tracks(&one),
+            [Some((1, 3, TracksMethod::RepeatsWithinLength))]
+        );
+    }
+
+    #[test]
+    fn each_gap_counts_only_the_stretches_inside_it() {
+        // No clean interval: the repeats alone, 1, 2 and 3 records.
+        let report = mix(
+            &[(100.0, 295.0), (800.0, 995.0)],
+            1_500.0,
+            Some(&[
+                (10.0, 50.0),
+                (300.0, 340.0),
+                (400.0, 450.0),
+                (1_000.0, 1_100.0),
+                (1_150.0, 1_250.0),
+                (1_300.0, 1_450.0),
+            ]),
+        );
+
+        assert_eq!(
+            tracks(&report),
+            [
+                Some((1, 2, TracksMethod::Repeats)),
+                Some((1, 3, TracksMethod::Repeats)),
+                Some((2, 4, TracksMethod::Repeats))
+            ]
+        );
+    }
+
+    #[test]
+    fn the_methods_are_named_in_json_as_the_core_names_them() {
+        for (method, named) in [
+            (
+                TracksMethod::RepeatsWithinLength,
+                Method::RepeatsWithinLength,
+            ),
+            (TracksMethod::Repeats, Method::Repeats),
+        ] {
+            assert_eq!(
+                serde_json::to_value(&method).ok(),
+                Some(serde_json::Value::from(named.name()))
+            );
+        }
+    }
+
+    #[test]
     fn a_gap_without_a_repeated_stretch_has_no_estimate() {
         let report = entries_around_a_gap(2, &[]);
 
