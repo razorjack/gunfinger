@@ -6,10 +6,11 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-52.md` (the current session's brief) and
-   `docs/session-52-checklist.md` (its progress), with ADR 0009, the
-   roadmap's "Library ignore file", the `/1.mp3` entry in
-   `docs/status.md` and this session's experiment (0231 and up);
+2. `docs/brief-53.md` (the current session's brief) and
+   `docs/session-53-checklist.md` (its progress), with the decision
+   note `docs/research/2026-10-22-pitch-rides-decision.md`, ADR 0008,
+   ADR 0021, the roadmap's "Speed that wanders within a play" and this
+   session's experiment (0232 and up);
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -27,8 +28,8 @@ anything else:
    `docs/brief-41.md`, `docs/brief-42.md`, `docs/brief-43.md`,
    `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md`,
    `docs/brief-47.md`, `docs/brief-48.md`, `docs/brief-49.md`,
-   `docs/brief-50.md` and `docs/brief-51.md` hold rules that still
-   apply unless brief 52 changes them
+   `docs/brief-50.md`, `docs/brief-51.md` and `docs/brief-52.md` hold
+   rules that still apply unless brief 53 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
