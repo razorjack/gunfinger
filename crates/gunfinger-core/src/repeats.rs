@@ -17,6 +17,7 @@
 use std::collections::BTreeMap;
 
 use crate::hash::{PairHash, Point, for_each_pair};
+use crate::parallel::map_in_order;
 use crate::profile::Profile;
 use crate::speed::{SpeedRatio, points_at_speed};
 
@@ -57,6 +58,31 @@ pub struct Repeats {
 /// start.
 pub fn records(samples: &[f32], profile: &Profile) -> Vec<(f64, f64)> {
     stretches(&Repeats::find(samples, profile, &[]).blocks(RECORD_HITS))
+}
+
+/// The records of each of `gaps` (start and end in seconds of `samples`,
+/// which start at `start_seconds`), one gap per worker, as `records`
+/// finds them, in the samples' time and in order.
+pub fn records_in_gaps(
+    samples: &[f32],
+    start_seconds: f64,
+    gaps: &[(f64, f64)],
+    profile: &Profile,
+    jobs: usize,
+) -> Vec<(f64, f64)> {
+    let rate = f64::from(profile.sample_rate);
+    let sample = |seconds: f64| {
+        (((seconds - start_seconds) * rate).round().max(0.0) as usize).min(samples.len())
+    };
+    map_in_order(gaps, jobs, |&(start, end)| {
+        records(&samples[sample(start)..sample(end)], profile)
+            .into_iter()
+            .map(|(from, to)| (start + from, start + to))
+            .collect::<Vec<_>>()
+    })
+    .into_iter()
+    .flatten()
+    .collect()
 }
 
 /// The blocks spanning `MIN_STRETCH_SECONDS` or more, those whose spans

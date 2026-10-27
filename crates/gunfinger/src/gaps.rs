@@ -10,7 +10,6 @@
 use gunfinger_core::gaps::{
     Estimate, Method, clean_intervals, entry_starts, estimate, length_range, uncovered,
 };
-use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::repeats;
 use serde::Serialize;
@@ -118,28 +117,25 @@ pub fn gaps(report: &Report) -> Vec<Gap> {
 
 /// The repeated stretches of each gap of `report`, found in `samples`, the
 /// decoded audio of the searched part at the profile's rate, one gap per
-/// worker (`repeats::records`, ADR 0024).
+/// worker (`repeats::records_in_gaps`, ADR 0024).
 pub fn find_repeats(
     report: &Report,
     samples: &[f32],
     profile: &Profile,
     jobs: usize,
 ) -> Vec<Stretch> {
-    let offset = report.query.start_seconds;
-    let rate = f64::from(profile.sample_rate);
-    let sample =
-        |seconds: f64| (((seconds - offset) * rate).round().max(0.0) as usize).min(samples.len());
-    map_in_order(&uncovered_spans(report), jobs, |&(start, end)| {
-        repeats::records(&samples[sample(start)..sample(end)], profile)
-            .into_iter()
-            .map(|(from, to)| Stretch {
-                start_seconds: start + from,
-                end_seconds: start + to,
-            })
-            .collect::<Vec<_>>()
-    })
+    repeats::records_in_gaps(
+        samples,
+        report.query.start_seconds,
+        &uncovered_spans(report),
+        profile,
+        jobs,
+    )
     .into_iter()
-    .flatten()
+    .map(|(start_seconds, end_seconds)| Stretch {
+        start_seconds,
+        end_seconds,
+    })
     .collect()
 }
 
