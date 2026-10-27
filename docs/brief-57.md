@@ -139,3 +139,8 @@ Rules for this session:
   2028 again on today's store (`--saved-index off`, so the saved index
   is never written by an old binary): what it shares with today's
   `--overlap-by-spans` run is the prune's.
+- **(07:30) Group 1 done** (0236): both panels are their variant runs
+  less the pruned files' weak detections; no confident change, residual
+  risk at most 61 hits (a related version: 55). `diffs.py` and
+  `residual.py` now count an overlapping detection of equal hits (the
+  old rule ranked one of the two first).

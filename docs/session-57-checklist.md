@@ -18,7 +18,7 @@ for scope and rules.
 - [ ] 1. Pre-registration (runs, old reports, what counts as explained
   and as a finding), committed before the runs
 - [ ] 2. The runs, in scratch work directories, under tmux with logs
-  - [ ] the shared panels' development halves (both panels, NAS scale)
+  - [x] the shared panels' development halves (both panels, NAS scale)
   - [ ] the drops mixes of sessions 39 and 48 (262 tracks, NAS scale)
   - [ ] `recall`
   - [ ] the other development scans at NAS scale
