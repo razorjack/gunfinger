@@ -271,9 +271,12 @@ extended to search a mix at many assumed speeds.
    was calibrated against the strongest false alignment measured, then
    frozen. From 60 hits a detection is possible: the track, or one sharing
    material with it, probably plays there.
-6. **Plays and tracks.** Detections of one file with gaps of up to 90 s
-   are one play, so a needle skip or a radio insert does not split a
-   record. Plays of files that hold the same recording become one
+6. **Plays and tracks.** Of two detections of one file that overlap at
+   the same speed (within 0.6%), the weaker is dropped: a repeated
+   section, not a second play. Detections of one file with gaps of up to
+   90 s are one play, so a needle skip, a radio insert or a pitch ride,
+   whose two sides are each measured at their own speed, does not split
+   a record. Plays of files that hold the same recording become one
    tracklist entry.
 
 ### Results

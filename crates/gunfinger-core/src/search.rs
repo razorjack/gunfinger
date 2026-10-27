@@ -46,7 +46,7 @@ pub struct Detection {
 /// changes in a way these numbers do not show.
 pub fn design(matcher: Matcher) -> String {
     format!(
-        "lines-chains-v1 {} {} {} {}",
+        "lines-chains-v2 {} {} {} {}",
         matcher.name(),
         lines::design(),
         chains::design(),
@@ -99,7 +99,10 @@ pub enum Matcher {
     /// the fullest `SKIPPED_SHARE` of posting lists set aside, chains join
     /// only lines from nearby rungs and cross an empty window only on a
     /// strong line, and each candidate is measured again at its fitted
-    /// speed in every list (`Pass::Fitted`, 240 hits in 3 windows).
+    /// speed in every list (`Pass::Fitted`, 240 hits in 3 windows). Of
+    /// the measured detections of one asset that overlap, the weaker is
+    /// dropped only at the same speed (`SecondOverlap::SpansAtSpeed`,
+    /// ADR 0021).
     #[default]
     Fitted,
     /// The matcher before session 6: one pass over the ladder with every
@@ -177,11 +180,11 @@ pub struct Options {
 /// After the second pass, which detection of an asset overlaps a stronger
 /// one of the same asset and is dropped. The second pass's margin can move
 /// the facing ends of a play's two sides, split at a change of speed, into
-/// each other's span (experiment 0175); the opt-in variants keep both.
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
+/// each other's span (experiment 0175); the default keeps both (ADR 0021).
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SecondOverlap {
-    /// Their spans overlap, as the second pass measured them.
-    #[default]
+    /// Their spans overlap, as the second pass measured them: the default
+    /// before ADR 0021, which drops one side of a pitch ride.
     Spans,
     /// Their first-pass detections overlap, which the first suppression has
     /// already ruled out (with `trim_weak_ends`, as trimmed): the second
@@ -189,8 +192,22 @@ pub enum SecondOverlap {
     Chains,
     /// Their spans overlap and their fitted speeds differ by at most this
     /// share of the stronger one's (experiment 0179). Repeats and versions
-    /// at one speed are dropped as by default.
+    /// at one speed are dropped; the sides of a pitch ride are kept.
     SpansAtSpeed(f64),
+}
+
+/// Within this share of the stronger one's speed, two overlapping
+/// detections of one asset are one alignment (ADR 0021): the chain link
+/// rule's limit, 1.5 steps of the ladder. Repeats and versions within a
+/// play lie at most 0.40% apart, the sides of a 1% ride at least 0.90%
+/// (experiment 0179).
+pub const SAME_SPEED_SHARE: f64 = chains::NEARBY_SPEEDS;
+
+impl Default for SecondOverlap {
+    /// The default matcher's rule (ADR 0021).
+    fn default() -> SecondOverlap {
+        SecondOverlap::SpansAtSpeed(SAME_SPEED_SHARE)
+    }
 }
 
 /// Searches `samples` (mono, at the profile's rate) for the assets of
@@ -583,7 +600,7 @@ mod tests {
     }
 
     #[test]
-    fn both_sides_of_a_change_of_speed_are_kept_by_the_opt_in_overlap_rules() {
+    fn both_sides_of_a_change_of_speed_are_kept_by_default() {
         let profile = Profile::CURRENT;
         let rate = profile.sample_rate;
         let reference = test_audio::track(150.0, rate);
@@ -619,14 +636,14 @@ mod tests {
             speeds
         };
 
+        let by_default = confident_speeds(Matcher::Fitted.options().second_overlap);
         let by_spans = confident_speeds(SecondOverlap::Spans);
         let by_chains = confident_speeds(SecondOverlap::Chains);
-        let apart_in_speed = confident_speeds(SecondOverlap::SpansAtSpeed(0.006));
         let within_speed = confident_speeds(SecondOverlap::SpansAtSpeed(0.03));
 
         assert_eq!(by_spans.len(), 1, "{by_spans:?}");
         assert_eq!(within_speed, by_spans);
-        for both in [&by_chains, &apart_in_speed] {
+        for both in [&by_default, &by_chains] {
             assert_eq!(both.len(), 2, "{both:?}");
             assert!((both[0] - 1.0).abs() < 0.001, "{both:?}");
             assert!((both[1] - 1.02).abs() < 0.001, "{both:?}");
@@ -680,5 +697,50 @@ mod tests {
 
         let starts: Vec<f64> = kept.iter().map(|(found, _)| found.start_seconds).collect();
         assert_eq!(starts, [100.0, 380.0]);
+    }
+
+    #[test]
+    fn the_default_matcher_drops_an_overlapping_detection_only_within_0_6_percent() {
+        assert_eq!(
+            Matcher::Fitted.options().second_overlap,
+            SecondOverlap::SpansAtSpeed(0.006)
+        );
+        assert_eq!(SAME_SPEED_SHARE, 0.006);
+        // Speeds as shares of the stronger one's, which plays at 1.05.
+        let kept_beside_the_stronger = |share_apart: f64| {
+            let at_speed = |hits, speed| Detection {
+                speed: SpeedRatio(speed),
+                ..detection(1, 100.0, 400.0, hits)
+            };
+            let strongest_first = vec![
+                (at_speed(900, 1.05), Vec::new()),
+                (at_speed(300, 1.05 * (1.0 + share_apart)), Vec::new()),
+            ];
+            strongest_per_moment(strongest_first, Some(SAME_SPEED_SHARE)).len() == 2
+        };
+
+        for within in [0.0, 0.005_999, -0.005_999] {
+            assert!(!kept_beside_the_stronger(within), "{within}");
+        }
+        for apart in [0.006_001, -0.006_001, 0.009] {
+            assert!(kept_beside_the_stronger(apart), "{apart}");
+        }
+    }
+
+    #[test]
+    fn a_detection_exactly_the_share_apart_is_dropped() {
+        // "At most" the share: binary fractions keep the arithmetic exact.
+        let at_speed = |hits, speed| Detection {
+            speed: SpeedRatio(speed),
+            ..detection(1, 100.0, 400.0, hits)
+        };
+        let strongest_first = vec![
+            (at_speed(900, 1.0), Vec::new()),
+            (at_speed(300, 1.0 + 1.0 / 128.0), Vec::new()),
+        ];
+
+        let kept = strongest_per_moment(strongest_first, Some(1.0 / 128.0));
+
+        assert_eq!(kept.len(), 1);
     }
 }

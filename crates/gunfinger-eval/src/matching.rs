@@ -6,7 +6,9 @@
 use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{Detection, Matcher, Options, SecondOverlap, search_with};
+use gunfinger_core::search::{
+    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, search_with,
+};
 use gunfinger_core::speed::Rung;
 
 #[derive(clap::Args, Clone, Copy, Debug, PartialEq)]
@@ -27,15 +29,20 @@ pub struct Matching {
     /// Detections' boundaries leave out weak windows at either end.
     #[arg(long, global = true)]
     pub trim_ends: bool,
+    /// After the second pass, a detection that overlaps a stronger one of
+    /// the same asset is dropped whatever their speeds: the default before
+    /// ADR 0021, which drops one side of a pitch ride (experiment 0175).
+    #[arg(long, global = true, conflicts_with = "single_pass")]
+    pub overlap_by_spans: bool,
     /// After the second pass, detections of one asset overlap only where
     /// their first-pass chains do, so that both sides of a pitch ride are
-    /// kept (experiment 0175).
-    #[arg(long, global = true, conflicts_with = "single_pass")]
+    /// kept (experiment 0178).
+    #[arg(long, global = true, conflicts_with_all = ["single_pass", "overlap_by_spans"])]
     pub overlap_by_chains: bool,
     /// After the second pass, detections of one asset whose fitted speeds
-    /// differ by more than this share (0.006 is 0.6%) do not overlap, so
-    /// that both sides of a pitch ride are kept (experiment 0179).
-    #[arg(long, global = true, value_name = "SHARE", conflicts_with_all = ["single_pass", "overlap_by_chains"])]
+    /// differ by more than this share do not overlap. The default is 0.006
+    /// (0.6%, ADR 0021); this measures another.
+    #[arg(long, global = true, value_name = "SHARE", conflicts_with_all = ["single_pass", "overlap_by_spans", "overlap_by_chains"])]
     pub apart_in_speed: Option<f64>,
 }
 
@@ -49,6 +56,11 @@ impl Matching {
             .is_some_and(|share| !(share > 0.0 && share < 1.0))
         {
             return Err(String::from("--apart-in-speed is a share between 0 and 1"));
+        }
+        if self.apart_in_speed == Some(SAME_SPEED_SHARE) {
+            return Err(format!(
+                "--apart-in-speed {SAME_SPEED_SHARE} is the default; leave the option out"
+            ));
         }
         Ok(())
     }
@@ -76,6 +88,9 @@ impl Matching {
         if self.trim_ends {
             parts.push(String::from("trim"));
         }
+        if self.overlap_by_spans {
+            parts.push(String::from("spans"));
+        }
         if self.overlap_by_chains {
             parts.push(String::from("chains"));
         }
@@ -86,19 +101,23 @@ impl Matching {
     }
 
     pub fn options(&self) -> Options {
+        let matcher = self.matcher().options();
         Options {
             speed_per_stretch: self.speed_per_stretch,
             trim_weak_ends: self.trim_ends,
-            second_overlap: self.second_overlap(),
-            ..self.matcher().options()
+            second_overlap: self.second_overlap().unwrap_or(matcher.second_overlap),
+            ..matcher
         }
     }
 
-    fn second_overlap(&self) -> SecondOverlap {
-        match (self.overlap_by_chains, self.apart_in_speed) {
-            (true, _) => SecondOverlap::Chains,
-            (false, Some(share)) => SecondOverlap::SpansAtSpeed(share),
-            (false, None) => SecondOverlap::Spans,
+    /// The opt-in second suppression, if one is chosen.
+    fn second_overlap(&self) -> Option<SecondOverlap> {
+        if self.overlap_by_spans {
+            Some(SecondOverlap::Spans)
+        } else if self.overlap_by_chains {
+            Some(SecondOverlap::Chains)
+        } else {
+            self.apart_in_speed.map(SecondOverlap::SpansAtSpeed)
         }
     }
 
@@ -157,35 +176,51 @@ mod tests {
         drop_fullest: 0.0,
         speed_per_stretch: false,
         trim_ends: false,
+        overlap_by_spans: false,
         overlap_by_chains: false,
         apart_in_speed: None,
     };
 
     #[test]
-    fn the_default_judges_overlap_on_spans_and_writes_the_default_reports() {
+    fn the_default_judges_overlap_at_one_speed_and_writes_the_default_reports() {
         assert_eq!(DEFAULT.options(), Matcher::Fitted.options());
-        assert_eq!(DEFAULT.options().second_overlap, SecondOverlap::Spans);
+        assert_eq!(
+            DEFAULT.options().second_overlap,
+            SecondOverlap::SpansAtSpeed(0.006)
+        );
         assert_eq!(DEFAULT.name(), None);
     }
 
     #[test]
-    fn apart_in_speed_judges_overlap_at_one_speed_in_its_own_reports() {
+    fn overlap_by_spans_measures_the_rule_before_adr_0021_in_its_own_reports() {
+        let spans = Matching {
+            overlap_by_spans: true,
+            ..DEFAULT
+        };
+
+        assert_eq!(spans.check(), Ok(()));
+        assert_eq!(spans.options().second_overlap, SecondOverlap::Spans);
+        assert_eq!(spans.name().as_deref(), Some("spans"));
+    }
+
+    #[test]
+    fn apart_in_speed_judges_overlap_at_another_share_in_its_own_reports() {
         let apart = Matching {
-            apart_in_speed: Some(0.006),
+            apart_in_speed: Some(0.004),
             ..DEFAULT
         };
 
         assert_eq!(apart.check(), Ok(()));
         assert_eq!(
             apart.options().second_overlap,
-            SecondOverlap::SpansAtSpeed(0.006)
+            SecondOverlap::SpansAtSpeed(0.004)
         );
-        assert_eq!(apart.name().as_deref(), Some("apart-0.006"));
+        assert_eq!(apart.name().as_deref(), Some("apart-0.004"));
     }
 
     #[test]
-    fn apart_in_speed_is_a_share_between_0_and_1() {
-        for share in [0.0, 1.0, -0.006, 6.0] {
+    fn apart_in_speed_is_a_share_between_0_and_1_other_than_the_default() {
+        for share in [0.0, 1.0, -0.006, 6.0, 0.006] {
             let apart = Matching {
                 apart_in_speed: Some(share),
                 ..DEFAULT

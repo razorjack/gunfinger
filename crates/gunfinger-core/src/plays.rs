@@ -21,7 +21,9 @@ const MAX_GAP_SECONDS: f64 = 90.0;
 #[derive(Debug, Clone, PartialEq)]
 pub struct Play {
     pub asset: AssetId,
-    /// In order of query time; never empty.
+    /// In order of start; never empty. A weaker segment at another speed
+    /// can overlap a stronger one (ADR 0021), so the last to start need
+    /// not end last.
     segments: Vec<Detection>,
 }
 
@@ -35,7 +37,7 @@ impl Play {
     }
 
     pub fn end_seconds(&self) -> f64 {
-        self.segments[self.segments.len() - 1].end_seconds
+        self.last_to_end().end_seconds
     }
 
     /// Position in the track where the play's first segment starts.
@@ -43,9 +45,9 @@ impl Play {
         self.segments[0].track_start_seconds
     }
 
-    /// Position in the track where the play's last segment ends.
+    /// Position in the track where the segment that ends last ends.
     pub fn track_end_seconds(&self) -> f64 {
-        self.segments[self.segments.len() - 1].track_end_seconds
+        self.last_to_end().track_end_seconds
     }
 
     /// The highest confidence reached by any segment. Segments are not
@@ -84,6 +86,19 @@ impl Play {
                 .sum(),
             pass: self.strongest().evidence.pass,
         }
+    }
+
+    /// Of segments that end together, the last.
+    fn last_to_end(&self) -> &Detection {
+        self.segments
+            .iter()
+            .fold(&self.segments[0], |last, segment| {
+                if segment.end_seconds >= last.end_seconds {
+                    segment
+                } else {
+                    last
+                }
+            })
     }
 
     fn strongest(&self) -> &Detection {
@@ -238,6 +253,22 @@ mod tests {
     }
 
     #[test]
+    fn a_play_ends_with_the_segment_that_ends_last() {
+        // A possible segment at another speed inside a confident one (ADR
+        // 0021), then a return 80 s after the confident one ends.
+        let confident = detection(1, 100.0, 400.0, 900);
+        let inside = detection(1, 200.0, 250.0, MIN_POSSIBLE_HITS);
+        let returning = detection(1, 480.0, 520.0, MIN_POSSIBLE_HITS);
+
+        let plays = group(&[confident.clone(), inside, returning]);
+
+        assert_eq!(spans(&plays), [(1, 100.0, 520.0, 3)]);
+        let one = group(&[confident, detection(1, 200.0, 250.0, MIN_POSSIBLE_HITS)]);
+        assert_eq!(spans(&one), [(1, 100.0, 400.0, 2)]);
+        assert_eq!(one[0].track_end_seconds(), 300.0);
+    }
+
+    #[test]
     fn a_long_gap_or_another_asset_starts_a_new_play() {
         let detections = [
             detection(1, 0.0, 300.0, MIN_HITS),
@@ -313,9 +344,13 @@ mod tests {
             let grouped: usize = plays.iter().map(|play| play.segments().len()).sum();
             prop_assert_eq!(grouped, kept);
             for play in &plays {
-                for pair in play.segments().windows(2) {
-                    prop_assert!(pair.iter().all(|segment| segment.asset == play.asset));
-                    prop_assert!(pair[1].start_seconds - pair[0].end_seconds <= MAX_GAP_SECONDS);
+                let mut latest_end = play.start_seconds();
+                for segment in play.segments() {
+                    prop_assert_eq!(segment.asset, play.asset);
+                    prop_assert!(segment.start_seconds - latest_end <= MAX_GAP_SECONDS);
+                    prop_assert!(segment.start_seconds >= play.start_seconds());
+                    prop_assert!(segment.end_seconds <= play.end_seconds());
+                    latest_end = latest_end.max(segment.end_seconds);
                 }
             }
             for pair in plays.windows(2) {

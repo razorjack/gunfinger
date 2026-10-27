@@ -21,7 +21,7 @@ const LINK_TOLERANCE_SLOPE: f64 = 0.004;
 const MIN_FIT_FRAMES: f64 = 1000.0;
 /// With `Links::nearby_rungs`: the largest difference of speed between
 /// linked lines, one step of the ladder (and rounding).
-const NEARBY_SPEEDS: f64 = 1.5 * STEP;
+pub(super) const NEARBY_SPEEDS: f64 = 1.5 * STEP;
 /// With `Links::strong_across_gaps`: the fewest hits of each line linked
 /// across an empty window.
 pub const STRONG_LINE_HITS: u32 = 10;
