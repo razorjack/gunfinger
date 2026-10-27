@@ -117,3 +117,67 @@ Rules for this session:
   `s53start`, logs in `work/s53/logs/`; `run.sh` and `same.py` are
   session 52's with the paths changed). Cargo had nothing to rebuild:
   the start build is byte-identical to `work/bin/s52-final/`.
+- **(02:22) Both start regressions identical** (`work/bin/s53-start`):
+  `regress session-32-linux` (0:50) and `regress session-52-linux-nas`
+  (3:58, 5.4 GiB peak), every report identical to its baseline's apart
+  from `wall_seconds`.
+- **(02:22) The runs before the change** (`work/s53/before.sh`, tmux
+  `s53before`, `work/bin/s53-start`): the CLI's `identify` on the three
+  development mixes (`work/s53/cli.sh`), at 262 tracks with the corpus
+  store's own records (`--peaks-dir work/peaks --store-only --saved-index
+  off`, as session 45's Stakka control) and at NAS scale with the NAS
+  store's own records (`--peaks-dir` the NAS store, `--store-only`; the
+  CLI's saved index of that store is built again once, since session
+  52's prune); the printed output and `show` of each saved report kept
+  in `work/s53/cli-before/`. Then the harness's scans of the other two
+  development mixes at NAS scale (`work/s53/devscans.sh`), which
+  `regress` does not run, in the scratch work directory
+  `work/s53/wdev-start` (copies of both clusters files and the library
+  map, a link to the saved index), so the reports in `work/reports/`
+  stay as they are.
+- **(02:25) The share as a constant.** `search::SAME_SPEED_SHARE` is
+  the chain link rule's limit, `chains::NEARBY_SPEEDS` (1.5 ×
+  `speed::STEP`), so a ladder with another step moves both together, as
+  the decision note says; in f64, 1.5 × 0.004 equals 0.006 exactly, so
+  the default is the measured variant bit for bit (a unit test pins it).
+- **(02:25) The matching design's version.** CLI reports record
+  `search::design` as `search.matching`, and `identify --save-dir`
+  reuses a saved report only when it is equal. The string does not name
+  the second suppression, so a report saved under the old rule would be
+  reused and keep the dropped side. The version goes from
+  `lines-chains-v1` to `lines-chains-v2`, as its doc comment asks for a
+  change the numbers do not show. The harness's reports do not record
+  it, so `regress` is not affected; the CLI's JSON reports differ in
+  that field, which step 3's comparison allows for.
+- **(02:25) The old rule as an opt-in variant**: `--overlap-by-spans`,
+  beside the existing `--overlap-by-chains` (reports in
+  `variant-spans/`). `--apart-in-speed SHARE` stays, to vary the share
+  (for example when the ladder's step changes, as the calibration
+  register asks); it now refuses the default's own share with a message,
+  so that no variant directory holds the default's reports. Both stay
+  harness options; the CLI keeps only `--single-pass`.
+- **(02:30) How a play shows two overlapping segments: as measured,
+  with one fix the code needs.** Until now both suppressions left no
+  two detections of one asset overlapping, so a play's segments, in
+  order of start, also ended in order. `Play::end_seconds` and
+  `track_end_seconds` take the last segment's, and the CLI's report
+  check (`Report::validate`, run whenever a saved report is read by
+  `show`, `review`, `listen` or `identify --save-dir`) rejects a segment
+  that ends after its play. Under the new rule a weaker segment at
+  another speed can lie wholly inside a stronger one (sessions 38 and
+  45 kept weak and possible ones at 0.60-12.1% from a stronger one of
+  their file; possible ones take part in plays); its play would then
+  end early, and its saved report could not be read. So a play ends
+  where its segment that ends last ends (`plays.rs`, tested); for
+  disjoint segments that is the last one, as before, so nothing changes
+  where segments do not overlap. Clipping for display was not taken:
+  it changes the measured spans that scoring and the JSON report use,
+  and the decision note recommends showing them as measured.
+- **(02:35) Step 1, ADR 0021** (`docs/adr/0021-second-suppression-keeps-another-speed.md`),
+  accepted on 2026-10-27 as our decision, answering the decision note's
+  questions 1-5: the rule, the share and what it rests on, segments as
+  measured (with the play's end fixed), a wrong file's added confident
+  segment counted as wrong (the conservative reading, 0178's V2), ADR
+  0008's split and needle-skip consequences standing. ADR 0008's status
+  gains a paragraph naming what ADR 0021 supersedes; its text is not
+  rewritten. Committed before the code change.

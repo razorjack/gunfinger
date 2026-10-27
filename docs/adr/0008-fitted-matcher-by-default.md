@@ -7,6 +7,12 @@ of ADR 0001 (one pass over the speed ladder, 200 hits in 3 windows), which
 stays available as `--single-pass`. ADR 0006 (plays, the possible tier of
 60 hits) is unchanged.
 
+The consequence for overlapping parts is superseded by ADR 0021
+(2026-10-27): after the second pass, a part whose measured span overlaps
+a stronger part of the same asset is dropped only when their fitted
+speeds are within 0.6%, so both sides of a pitch ride are kept. The
+split and needle-skip consequences below stand.
+
 ## Context
 
 Sessions 3 and 4 measured an opt-in package against the default matcher

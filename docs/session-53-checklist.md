@@ -10,12 +10,12 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] Digests of `docs/pair-verdicts.txt` and the NAS clusters file in
   `work/s53/listening-digests-start.txt`
-- [~] Start build `work/bin/s53-start/`; `regress session-32-linux` and
+- [x] Start build `work/bin/s53-start/`; `regress session-32-linux` and
   `regress session-52-linux-nas` identical
 
 ## Steps
 
-- [ ] 1. ADR 0021 (accepted 2026-10-27), ADR 0008 marked; committed
+- [x] 1. ADR 0021 (accepted 2026-10-27), ADR 0008 marked; committed
   before the code change
 - [ ] 2. The default matcher uses `SpansAtSpeed(0.006)`; the old rule an
   opt-in harness variant; `--apart-in-speed` decided; tests (the
