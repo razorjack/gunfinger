@@ -157,6 +157,9 @@ confident segment covers and estimates how many tracks each holds from
 its length, against the truth (`docs/research/2026-10-21-gap-measures.md`);
 `self-match` matches each listed gap against itself with the core's
 `repeats` and writes the product's estimate beside its blocks.
+`parts` lists the other library's files whose start or end lines up
+with a recording other than the rest (a cut from a mix, a mixed CD's
+track), with every part, for `questions parts` to ask by ear.
 `stereo` decodes a query's two channels for `robust`'s stereo faults
 (`--query-channels`, a diagnostic) and measures how wide a source is
 (`stereo-width`).

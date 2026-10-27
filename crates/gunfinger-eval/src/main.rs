@@ -21,6 +21,7 @@ mod mixes;
 mod padding;
 mod pair;
 mod pair_review;
+mod parts;
 mod platform;
 mod recall;
 mod regress;
@@ -270,6 +271,27 @@ enum Command {
         /// the fitted speed.
         #[arg(long)]
         fine_rungs: bool,
+    },
+    /// List the other library's files whose start or end lines up with a
+    /// recording other than the rest of the file, with every part of each
+    /// (`docs/research/2026-10-27-files-holding-several-recordings.md`):
+    /// files that may hold more than one recording, for the ear. Needs
+    /// --other-peaks-dir; the other library's ignore file is read when its
+    /// root can be reached.
+    Parts {
+        /// The files to search, one store path of the other library per
+        /// line, in order.
+        queries: PathBuf,
+        /// Store paths of files or folders to leave out of the queries,
+        /// one per line; they stay in the index.
+        #[arg(long)]
+        leave_out: Option<PathBuf>,
+        /// Search each file whole, not its first and last 60 s.
+        #[arg(long)]
+        whole: bool,
+        /// The report.
+        #[arg(long)]
+        out: PathBuf,
     },
     /// Search queries cut from a passage two different recordings share
     /// (alone, looped, with the played file's own material before or
@@ -689,6 +711,21 @@ enum QuestionSource {
         #[arg(long)]
         out: Option<PathBuf>,
     },
+    /// The candidates of `parts` reports, each asked "is this file one
+    /// recording throughout, or does it change record?"; written to
+    /// <work>/audition/questions/06-parts-<first report name>.json.
+    Parts {
+        #[arg(required = true)]
+        reports: Vec<PathBuf>,
+        /// The candidates to ask, one file per line (`second-library/<path>`),
+        /// in order [default: every candidate worth the ear].
+        #[arg(long)]
+        files: Option<PathBuf>,
+        #[command(flatten)]
+        roots: SecondLibraryRoot,
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
 }
 
 /// Where the files named `second-library/<path>` are.
@@ -737,6 +774,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             | Command::Memory { .. }
             | Command::Fullest { .. }
             | Command::Pair { .. }
+            | Command::Parts { .. }
             | Command::PairReview { .. }
             | Command::Recall { .. }
             | Command::Shared { .. }
@@ -764,7 +802,7 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
     }
     if paths.other_peaks_dir.is_some() && !takes_other_library {
         return Err(String::from(
-            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, pair-review, recall, shared, shared-mixes, holders, identifiability, versions, seconds, gaps and self-match do",
+            "this command does not take --other-peaks-dir; validate, map-library, clusters --from-peaks, sweep, scan, calibrate, robust, baseline, regress, memory, fullest, pair, parts, pair-review, recall, shared, shared-mixes, holders, identifiability, versions, seconds, gaps and self-match do",
         ));
     }
     match command {
@@ -876,6 +914,12 @@ fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
             port,
         }),
         Command::Questions { source } => make_questions(paths, source),
+        Command::Parts {
+            queries,
+            leave_out,
+            whole,
+            out,
+        } => run_parts(paths, &queries, leave_out.as_deref(), whole, &out, jobs),
         Command::Pair { pairs, fine_rungs } => {
             let text = fs::read_to_string(&pairs)
                 .map_err(|error| format!("cannot read {}: {error}", pairs.display()))?;
@@ -1896,6 +1940,61 @@ fn run_shared_mixes(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), 
 
 /// The holders of each lookup's span; the report is `holders-<file
 /// stem>.json`.
+fn run_parts(
+    paths: &Paths,
+    queries_file: &Path,
+    leave_out_file: Option<&Path>,
+    whole: bool,
+    out: &Path,
+    jobs: usize,
+) -> Result<(), String> {
+    let Some(other) = paths.other_store()? else {
+        return Err(String::from("parts needs --other-peaks-dir"));
+    };
+    let lines = |path: &Path| -> Result<Vec<String>, String> {
+        let text = fs::read_to_string(path)
+            .map_err(|error| format!("cannot read {}: {error}", path.display()))?;
+        Ok(text
+            .lines()
+            .filter(|line| !line.is_empty())
+            .map(String::from)
+            .collect())
+    };
+    let queries = lines(queries_file)?;
+    let leave_out = leave_out_file.map(lines).transpose()?.unwrap_or_default();
+    let (assets, problems) = other
+        .current_sources(&Profile::CURRENT, jobs)
+        .map_err(|error| error.to_string())?;
+    for problem in &problems {
+        eprintln!("left out: {problem}");
+    }
+    let ignore = other_ignore_file(&other)?.map(|file| file.patterns);
+    let left_out = parts::left_out(
+        &queries,
+        &assets,
+        ignore.as_deref().unwrap_or(&[]),
+        &leave_out,
+    );
+    let searched = if whole {
+        parts::Searched::Whole
+    } else {
+        parts::Searched::Ends
+    };
+    let report = parts::find(
+        &other,
+        &assets,
+        &paths.clusters()?,
+        &queries,
+        left_out,
+        searched,
+        jobs,
+    )?;
+    write_json(out, &report)?;
+    parts::print_summary(&report);
+    println!("wrote {}", out.display());
+    Ok(())
+}
+
 fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), String> {
     let text = fs::read_to_string(lookups_file)
         .map_err(|error| format!("cannot read {}: {error}", lookups_file.display()))?;
@@ -2526,6 +2625,38 @@ fn make_questions(paths: &Paths, source: QuestionSource) -> Result<(), String> {
             (
                 file,
                 out.unwrap_or_else(|| questions_dir.join(format!("04-shared-{name}.json"))),
+            )
+        }
+        QuestionSource::Parts {
+            reports,
+            files,
+            roots,
+            out,
+        } => {
+            let loaded = reports
+                .iter()
+                .map(|report| audition::parts::load(report))
+                .collect::<Result<Vec<_>, String>>()?;
+            let files = files
+                .map(|path| {
+                    fs::read_to_string(&path)
+                        .map_err(|error| format!("cannot read {}: {error}", path.display()))
+                        .map(|text| {
+                            text.lines()
+                                .filter(|line| !line.is_empty())
+                                .map(String::from)
+                                .collect::<Vec<_>>()
+                        })
+                })
+                .transpose()?;
+            let file = audition::parts::questions(&loaded, files.as_deref(), &libraries(&roots)?)?;
+            let name = reports[0].file_stem().map_or_else(
+                || String::from("report"),
+                |stem| stem.to_string_lossy().into_owned(),
+            );
+            (
+                file,
+                out.unwrap_or_else(|| questions_dir.join(format!("06-parts-{name}.json"))),
             )
         }
     };

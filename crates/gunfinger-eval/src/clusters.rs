@@ -45,7 +45,7 @@ use serde::{Deserialize, Serialize};
 use crate::padding::SECOND_LIBRARY_PREFIX;
 
 /// The alignment must cover this share of the shorter file.
-const MIN_COVERAGE: f64 = 0.8;
+pub(crate) const MIN_COVERAGE: f64 = 0.8;
 /// Pairs above this coverage but below `MIN_COVERAGE` are reported for review.
 const REPORTED_COVERAGE: f64 = 0.2;
 /// In another library, pairs with this many hits are kept whatever their
@@ -54,13 +54,13 @@ const RELATED_HITS: u32 = 30;
 /// Pairs from this coverage up to `MIN_COVERAGE` are listed to judge by ear.
 const BORDERLINE_COVERAGE: f64 = 0.4;
 /// The other library was indexed with its own track length range.
-const ANY_LENGTH: TrackLength = TrackLength {
+pub(crate) const ANY_LENGTH: TrackLength = TrackLength {
     min: Duration::ZERO,
     max: Duration::from_secs(24 * 3600),
 };
 /// Candidates with fewer hits and less coverage are not measured again:
 /// chance alignments, most of every query's candidates.
-const MIN_HITS_TO_MEASURE: u32 = RELATED_HITS;
+pub(crate) const MIN_HITS_TO_MEASURE: u32 = RELATED_HITS;
 /// Joins with fewer hits per second of aligned span than this share of
 /// the median join are listed to judge by ear. Coverage counts the
 /// span from the first to the last hit, however little evidence lies in

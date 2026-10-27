@@ -5,7 +5,7 @@
 //! - `schema`: the question file, its check and stable ids.
 //! - `placement`: where lanes play on a question's timeline.
 //! - `names`: harness names (`second-library/...`) and absolute paths.
-//! - `pack`, `folders`, `detections`, `shared`: the producers, which turn
+//! - `pack`, `folders`, `detections`, `shared`, `parts`: the producers, which turn
 //!   evidence into question files and know nothing of HTTP or the page.
 //! - `answers` and `effects`: the answer log, undo, and what an answer
 //!   writes elsewhere (the pair verdicts file).
@@ -27,6 +27,7 @@ pub mod folders;
 mod http;
 pub mod names;
 pub mod pack;
+pub mod parts;
 pub mod placement;
 pub mod schema;
 pub mod server;

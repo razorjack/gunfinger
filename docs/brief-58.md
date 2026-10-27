@@ -134,3 +134,26 @@ Rules for this session:
   ignore file's files have no record (session 52's prune), and the
   harness also reads the NAS `.gunfingerignore` (read only) and leaves
   out any record it matches.
+- **(10:45) The pre-registration** committed at `6f183aa` before any
+  search: `docs/research/2026-10-27-files-holding-several-recordings.md`.
+- **(10:35) The harness** (`gunfinger-eval parts`, `parts.rs`;
+  `questions parts`, `audition/parts.rs`): the queries are a list of
+  store paths given in a file (`work/s58/tiers.py` writes the tiers), so
+  the harness derives nothing from names; `--leave-out` takes the 0065
+  list (`work/s58/leave-out-0065.txt`: its 33 folders and 1,423 long
+  files), and the NAS ignore file is read where the store names its
+  library. The pack's choice by kind is made outside the harness, by a
+  script that writes the `--files` list, for the same reason.
+- **(10:35) Timing** (the first 64 files of tier 2, output not read):
+  the index of 40,678 records built in about 23 s; the 64 files took 38 s
+  of wall time, most of them in the first 15 s and the rest in two whole
+  searches of files with an edge part: about 0.3 s per file on 32
+  threads. So tiers 1-3 take about 65 minutes and all of tier 4 would
+  take about 2.4 hours more. Tier 4 runs in path-order chunks of 1,600
+  files, none started after the 90 minutes of the budget
+  (`work/s58/main-run.sh`).
+- **(10:38) `regress session-54-linux` identical** with the run's build
+  `work/bin/s58-run/` (0:51); the NAS regress runs after the main run,
+  so that it does not share the machine with it.
+- **(10:38) The main run started** (tmux `s58main`, logs
+  `work/s58/logs/tier-*.{log,err}`, reports `work/s58/out/tier-*.json`).

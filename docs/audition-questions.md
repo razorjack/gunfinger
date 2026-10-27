@@ -22,6 +22,7 @@ gunfinger-eval questions pack       # work/audition/questions/01-pack.json
 gunfinger-eval questions folders PLAN.toml   # 02-folders.json
 gunfinger-eval questions detections REPORT.json   # 03-detections-<report stem>.json
 gunfinger-eval questions shared PAIRS.json   # 04-shared-<report stem>.json
+gunfinger-eval questions parts PARTS.json... [--files LIST]   # 06-parts-<first report stem>.json
 ```
 
 `questions detections` reads a saved `gunfinger identify -f json` report
@@ -38,6 +39,19 @@ strongest first, also those below the hits of a possible play; at each
 alignment a span, a `listen` marker where it starts and an `edge` marker
 where it ends (markers less than 0.5 s apart joined). Answers (`shared`,
 `chance`, `unsure`) go to the answer log only.
+
+`questions parts` reads `parts` reports (`gunfinger-eval parts`, files
+whose start or end lines up with a recording other than the rest) and
+asks of each candidate whether the file is one recording throughout or
+changes record: the file whole as the reference lane A, then one lane per
+recording of its edge parts and second parts (the strongest file of each
+duplicate cluster, at most eight, in file order), each placed by its
+part's single alignment over the whole timeline, so that it plays before
+and after the part too; at each part a span, a `listen` marker where it
+starts lining up and an `edge` marker where it stops. Without `--files`
+it asks every candidate worth the ear, in the reports' order; `--files`
+names the candidates to ask, in order. Answers (`one`, `several`,
+`unsure`) go to the answer log only; the user writes any ignore entry.
 
 ## The file
 
@@ -62,7 +76,7 @@ where it ends (markers less than 0.5 s apart joined). Answers (`shared`,
 | Field | Type | Meaning |
 |---|---|---|
 | `id` | string | `<kind>-<16 hex digits>`: `QuestionId::derive(kind, parts)`, FNV-1a 64 over the kind and the sorted parts. The parts are the question's `files`, plus a distinguishing part where one kind can ask twice about the same files (a detection's start second). Making the questions again gives the same ids, so answers stay attached. Unique across the loaded files. |
-| `kind` | string | Lowercase letters and hyphens: `pair`, `folder`, `detection`, `shared`. Shown in the queue and written to the log; the page does nothing else with it. |
+| `kind` | string | Lowercase letters and hyphens: `pair`, `folder`, `detection`, `shared`, `parts`. Shown in the queue and written to the log; the page does nothing else with it. |
 | `title` | string | One line for the queue. |
 | `text` | string | The question, as the listener reads it. |
 | `details` | array of strings | Evidence lines shown under the text (coverage, hits, what the markers mean). May be empty. |
@@ -147,9 +161,10 @@ The placement in force shows on the button, in each re-placed lane's
 label and in its info line (the piece's offset, speed and label);
 markers and shading still show the alignments. An answer's record is
 the same in every placement. `questions pack` writes both for lane B and
-the plan's extra lanes, `questions shared` for lane B; `questions
-detections` and `questions folders` write neither, nor `questions pack`
-for a lane B with no alignment to follow.
+the plan's extra lanes, `questions shared` for lane B, `questions parts`
+for every lane after A; `questions detections` and `questions folders`
+write neither, nor `questions pack` for a lane B with no alignment to
+follow.
 
 ### A marker
 
@@ -343,6 +358,38 @@ B following each alignment (`questions shared` also writes lane B's
   "choices": [
     {"key": "s", "label": "shared material (a break, loop or sample)", "value": "shared"},
     {"key": "c", "label": "chance", "value": "chance"},
+    {"key": "u", "label": "unsure", "value": "unsure"}
+  ],
+  "effect": {"type": "log"}
+}
+```
+
+A file that may hold two recordings (`questions parts`; lane B's `main`
+and `from_start` left out): another record lines up with its first 64 s,
+from 2:40 into that record, and lane B plays that record at the part's
+alignment until the record ends:
+
+```json
+{
+  "id": "parts-0123456789abcdef",
+  "kind": "parts",
+  "title": "1. Artist - Tune [CUT]",
+  "text": "Is A one recording throughout, or does it change record, so that it holds more than one recording (a cut from a mix, a mixed CD's track, an upload that opens with another record)?",
+  "details": ["A is the file (5:00). Each other lane plays a recording at the alignment of its part of A, before and after it too; the shading shows where it lines up.", "B: Other - Record over A 0:01-1:05 (an edge part at A's start), from B 2:40-3:46, 149 hits, played at +3.00%"],
+  "files": ["second-library/uploads/Artist - Tune [CUT].m4a", "second-library/label/Other - Record.mp3"],
+  "timeline": {"start": 0.0, "end": 300.0, "reference": 0},
+  "lanes": [
+    {"name": "A", "pieces": [{"file": "/Volumes/nas/music/uploads/Artist - Tune [CUT].m4a", "start": 0.0, "end": 300.0, "offset": 0.0, "speed": 1.0}]},
+    {"name": "B", "pieces": [{"file": "/Volumes/nas/music/label/Other - Record.mp3", "start": 0.0, "end": 253.43, "offset": 158.97, "speed": 1.03, "label": "B's part"}]}
+  ],
+  "markers": [
+    {"at": 1.0, "label": "B starts lining up", "kind": "listen"},
+    {"at": 65.0, "label": "B stops lining up", "kind": "edge"}
+  ],
+  "spans": [{"start": 1.0, "end": 65.0, "lanes": [0, 1], "label": "B: Other - Record over A 0:01-1:05 (an edge part at A's start), from B 2:40-3:46, 149 hits, played at +3.00%"}],
+  "choices": [
+    {"key": "w", "label": "one recording throughout", "value": "one"},
+    {"key": "c", "label": "it changes record: more than one recording", "value": "several"},
     {"key": "u", "label": "unsure", "value": "unsure"}
   ],
   "effect": {"type": "log"}
