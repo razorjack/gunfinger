@@ -259,3 +259,10 @@ Rules for this session:
   9. AGENTS.md's added line rewrapped.
   10. The ADR 0019 test's impossible fixture is now explained in a
       comment.
+- **(05:16-05:26) Final checks** (`work/s55/final.sh`, `work/bin/s55-final`,
+  `4b18a9c`): `scripts/check.sh` green (4:21); `regress session-54-linux`
+  (0:51) and `regress session-54-linux-nas` (3:58) identical, every
+  report identical to its baseline's apart from `wall_seconds`; the
+  verdicts file, the NAS clusters file and the answer log at their start
+  digests (`work/s55/listening-digests-end.txt`). Done at 05:26, within
+  the time box.

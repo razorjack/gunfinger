@@ -5273,3 +5273,7 @@ notes "Session 55"; ADR 0023; experiment 0234.
 - Baselines stay `session-54-linux` and `session-54-linux-nas`.
 - Next: part 2, the estimate of how many tracks a gap holds (notes,
   "Session 55", handoff).
+- Final checks with `work/bin/s55-final/` (`4b18a9c`): `scripts/check.sh`
+  green; both regressions identical (0:51; 3:58); the verdicts file and
+  the NAS clusters file at their start digests. The review's ten
+  findings (tests and wording) are fixed.

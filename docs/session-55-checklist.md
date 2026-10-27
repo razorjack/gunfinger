@@ -27,7 +27,7 @@ for scope and rules.
 - [x] 4. The roadmap's "Time without a confident match", the printing
   note's status line, README's example
 - [x] 5. Read-only review by a separate agent; findings fixed
-- [~] 6. Notes ("Session 55", with part 2's handoff), status, checklist;
+- [x] 6. Notes ("Session 55", with part 2's handoff), status, checklist;
   final checks (`scripts/check.sh`, both regressions with the final
   build, the verdicts file and the clusters file's digest unchanged,
   `git status` clean)

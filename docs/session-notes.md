@@ -11867,3 +11867,14 @@ plays (0159's generated mixes).
   leave-out report.
 - Baselines stay `session-54-linux` and `session-54-linux-nas`: the
   harness's detections did not change, so no new baseline was recorded.
+- A read-only review by a separate agent (05:02-05:10) found no
+  correctness bug and ten points on tests and wording, all fixed (brief
+  55, 05:02-05:10): among them a test of an excerpt's edges and one of
+  nested coverage that fails under a wrong union.
+- Final checks (05:16-05:26) with `work/bin/s55-final/` (`4b18a9c`):
+  `scripts/check.sh` green (4:21); `regress session-54-linux` (0:51)
+  and `regress session-54-linux-nas` (3:58) identical, every report
+  identical to its baseline's apart from `wall_seconds`;
+  `docs/pair-verdicts.txt`, the answer log and the NAS clusters file
+  at their start digests; no answer log written, no manifest or panel
+  changed.
