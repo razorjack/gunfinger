@@ -181,3 +181,53 @@ Rules for this session:
   0008's split and needle-skip consequences standing. ADR 0008's status
   gains a paragraph naming what ADR 0021 supersedes; its text is not
   rewritten. Committed before the code change.
+- **(02:28) Step 2, the change** (uncommitted until `scripts/check.sh`
+  is green): `SecondOverlap`'s default is `SpansAtSpeed(SAME_SPEED_SHARE)`,
+  which `Matcher::Fitted` takes, so `identify`, `explain` and every
+  harness search with the default matcher use it; `--single-pass` has
+  no second pass and is unchanged. The harness gains `--overlap-by-spans`;
+  `--apart-in-speed 0.006` is refused as the default. Tests: the
+  predicate both sides of 0.6% (0.5999% dropped, 0.6001% kept, either
+  direction) and exactly at a share (binary fractions, dropped); the
+  ride test now asserts both sides kept by the default matcher and one
+  by `Spans`; a play containing a segment keeps its end; the property
+  test of `plays::group` checks each segment against the latest end
+  before it and lies inside its play. README's "How it works" item 6.
+- **(02:35) Step 3, the differences** (`work/s53/step3.sh`, tmux
+  `s53step3`, `work/bin/s53-run` = the working tree;
+  `scripts/analysis/overlap_changes.py` lists each detection added or
+  removed beside the stronger overlapping one of its file). Every
+  difference is of the expected kind; nothing to stop on.
+  - `regress session-32-linux` (0:51): the sweep identical; the Stakka
+    scan and leave-out 3 each gain Star Trails' 793.4-877.3 s side
+    (confident, 315 hits, 1.34% slower than the kept 585.1-803.7 s side)
+    and 3 weak detections (6 hits, 0.68-0.78% from a stronger one of
+    their file), and lose one weak Star Trails detection (18 hits,
+    871.8-894.1 s), now within 0.22% of the kept side; leave-out 11
+    identical. Identified 11, 8, 0 and wrong 0 unchanged; calibrate
+    unchanged (690, 100, 18 false candidates at 30 hits or more, 19).
+  - `regress session-52-linux-nas` (3:46): 716 of 720 sweep queries
+    identical, the other 4 each gain one weak detection (6-15 hits) of
+    a file not playing, 0.75-2.0% from another of that file; the Stakka
+    scan and leave-out 3 gain the slower side on all three files of
+    Star Trails' recording (306-315 hits, 1.34-1.47% apart) and 3 weak
+    (6-7 hits, 0.68-1.39%), and lose 3 weak Star Trails detections
+    (9-18 hits, within 0.22-0.52% of the kept side); leave-out 11 gains
+    2 weak. Identified 11, 8, 0, wrong 0; calibrate unchanged (704, 282,
+    7 false accepted, 95).
+  - The other development scans at NAS scale (`work/s53/wdev-start`
+    against `wdev-run`): the 2003 mix 12/12, 0 wrong, both builds; it
+    gains Into Music's 1,556.9-1,616.4 s segment (confident, 1,392 hits,
+    1.05% from the stronger 1,604.9-1,772.1 s one) and 12 weak (6-20
+    hits, 0.69-5.8% apart). Nocny 17/17, 0 wrong, both builds; 5 weak
+    added (6-20 hits, 0.61-1.51%). Nothing removed in either.
+  - The CLI (`work/s53/cli-before/` against `cli-after/`): the printed
+    tracklists and `show` of all six reports identical line by line. The
+    JSON reports differ in `search.matching` (v1 to v2) and in three
+    plays: Star Trails' play gains its 793-877 s segment (at 262 tracks;
+    at NAS scale on two files, ending at 877.3 and 879.0 s instead of
+    803.7 and 799.7 s), and Into Music's play in the 2003 mix at NAS
+    scale gains its middle segment (its span unchanged). No play is
+    added, removed or changes level.
+- **(02:39) `scripts/check.sh` green** (3:58) on the changed tree;
+  steps 2 and 3 committed.

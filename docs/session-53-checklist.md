@@ -17,11 +17,11 @@ for scope and rules.
 
 - [x] 1. ADR 0021 (accepted 2026-10-27), ADR 0008 marked; committed
   before the code change
-- [ ] 2. The default matcher uses `SpansAtSpeed(0.006)`; the old rule an
+- [x] 2. The default matcher uses `SpansAtSpeed(0.006)`; the old rule an
   opt-in harness variant; `--apart-in-speed` decided; tests (the
   predicate at the boundary, a ride's second side kept); help, README
   and docs; `scripts/check.sh` green
-- [ ] 3. `regress` at both scales with the changed build; every
+- [x] 3. `regress` at both scales with the changed build; every
   difference explained; the CLI's `identify` on the three development
   mixes at 262 tracks and NAS scale, before and after, compared line by
   line
