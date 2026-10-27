@@ -20,10 +20,10 @@ Old: `work/reports/` (sessions 37 and 38) and session 38's
 - Every report with a session 38 variant equals it detection for
   detection; no play changes level, and no other difference appears.
 - The confident additions are the other sides of rides: 927 of the 983
-  kept detections are of the recording playing then. Of the 56 others, the strongest has 67 hits: the
-  Clockwork remix possible over the original's shared passage (3801, 1-2%
-  10-20 s, mix-11), the one wrong possible added; the other 55 are weak
-  (at most 44). One possible detection is dropped there, overlapping
+  kept detections are of the recording playing then. Of the 56 others,
+  the strongest has 67 hits: the Clockwork remix possible over the
+  original's shared passage (3801, 1-2% 10-20 s, mix-11), the one wrong
+  possible added; the other 55 are weak (at most 44). One possible detection is dropped there, overlapping
   within 0.6% a newly kept side (0179 found the same). None reaches 240.
 - ADR 0022: ƆƐI3C's upload is not indexed at 262 tracks, so no credit
   (China Cup plays in four rides 3741 mixes, confident through its own
