@@ -160,3 +160,12 @@ Rules for this session:
   session 33's harness binary (`work/bin/s33-start`) runs the same
   queries on today's store (`--saved-index off`, tmux `s57trr`), so that
   what it shares with today's build is the prune's.
+- **(08:58) Two more traces for group 3** (deviations): recall's brief
+  query 911 (Organikismness - Echos at +1%) changes one confident right
+  detection, 455 hits at +1.147% -> 503 at +0.933%. Today's build with
+  `--overlap-by-spans` (`trace-brief.sh`) gives today's report exactly,
+  so ADR 0021 did not cause it; session 33's binary on today's store
+  (`trace-brief33.sh`, tmux `s57trc`) tells the prune from later code.
+  The clean queries' trace (`trace-recall.sh`): session 33's binary on
+  today's store moves the same two weak candidates, so the prune moves
+  them.
