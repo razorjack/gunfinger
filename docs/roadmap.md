@@ -368,7 +368,12 @@ marked as inferences were derived, not measured.
   sides of a ride are kept; the old rule is the harness's
   `--overlap-by-spans`. What stays open below: wander within one side
   (`--speed-per-stretch`) and rides inside short plays, a question for
-  the window condition.)* The second pass analyses a play at
+  the window condition. Session 57 ran the protocol again under it
+  (0236-0240): the detections it keeps more than 0.6% apart are weak or
+  possible everywhere, at most 61 hits in the shared panels (a related
+  version: 55) and 109 in the drops, so a related version's second
+  alignment has not reached 240 hits; `robust`'s rides gain 3 and 4
+  confident excerpts.)* The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
   varies by ±0.2% in the development mix (experiment 0022). The opt-in
@@ -698,7 +703,10 @@ marked as inferences were derived, not measured.
   the stored peaks identical (0214). The analysis is now 13-15% of the
   first pass; grouping 40-46%.
 - **Behaviour at scale.** *(larger library; session 50: copies of
-  records do not move candidates or answers, 0222-0224)* The confidence rule (240
+  records do not move candidates or answers, 0222-0224; session 57:
+  calibrate over seeds 2026-2029 and the Stakka scans at 40,678 records,
+  weakest identifying 675, strongest false 282, 7 accepted, all Cool Rock
+  Stuff, 365 false candidates at 30 hits or more, 0239)* The confidence rule (240
   hits in 3 windows for the default matcher, 200 for `--single-pass`) and the possible tier
   (60 hits) were calibrated against 262 tracks. Measured since at 1,200,
   3,200, 9,200 and 27,000 assets of the NAS collection (experiments
@@ -768,7 +776,9 @@ marked as inferences were derived, not measured.
 - **A confidence statistic for shared material.** *(larger library;
   session 50: the first pass's filter does not hide the drum-loop
   pairs' shared hashes more than chance ones, 0225, so their evidence
-  reaches the second pass as before)* If
+  reaches the second pass as before; session 57: both panels' development
+  halves give the same confident detections by role under ADR 0021 and
+  the prune, 0236)* If
   identifying and shared-material evidence overlap at scale, raising the
   hit threshold would lose brief plays without resolving the ambiguity.
   It has started: the second pass measures the passage the Clockwork remix
@@ -1274,7 +1284,11 @@ marked as inferences were derived, not measured.
   no held-out query confident in any condition. The Linux machine gave
   the same counts for clean queries, other rips only and brief plays, and
   within 2 queries without damage and 5 with it otherwise, at 40,683
-  records (session 33, 0156). Session 50 searched the sweep panel's
+  records (session 33, 0156). After session 52's prune (40,678 records,
+  session 57, 0238) the counts are the same, except other rips only:
+  174/180, and 171/360 with brief plays (from 176): those 6 excerpts of
+  Known Unknown - Rollers Edit were identified only through the pruned
+  track-fix copy. Session 50 searched the sweep panel's
   other-rips form with exact copies of the rips (0223): 408 of 423
   confident at level 0 and padded alike; the recall panel itself was not
   searched padded. Still to do: the validation half, once the

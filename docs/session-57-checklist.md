@@ -7,7 +7,7 @@ for scope and rules.
 ## First
 
 - [x] Reading (First, item 1)
-- [~] Brief, checklist and `CLAUDE.md` committed
+- [x] Brief, checklist and `CLAUDE.md` committed
 - [x] Digests of `docs/pair-verdicts.txt` and the NAS clusters file in
   `work/s57/listening-digests-start.txt`
 - [x] Start build `work/bin/s57-start/`; `regress session-54-linux` and
@@ -15,9 +15,9 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Pre-registration (runs, old reports, what counts as explained
+- [x] 1. Pre-registration (runs, old reports, what counts as explained
   and as a finding), committed before the runs
-- [ ] 2. The runs, in scratch work directories, under tmux with logs
+- [x] 2. The runs, in scratch work directories, under tmux with logs
   - [x] the shared panels' development halves (both panels, NAS scale)
   - [x] the drops mixes of sessions 39 and 48 (262 tracks, NAS scale)
   - [x] `recall`
@@ -25,13 +25,13 @@ for scope and rules.
   - [x] the sweeps of seeds 2027-2029 at NAS scale
   - [x] `robust`
   - [x] `grid`
-  - [ ] the long and ridden generated mixes
-- [ ] 3. Experiments from 0236, one per group (shared panels; drops;
+  - [x] the long and ridden generated mixes
+- [x] 3. Experiments from 0236, one per group (shared panels; drops;
   recall and scans; sweeps, robust and grid; long and ridden mixes),
   with ADR 0021's residual risk counted for the shared panels and drops
-- [ ] 4. Findings, if any: described, reproduced by the smallest
+- [x] 4. Findings, if any: described, reproduced by the smallest
   command, first in the handoff (no product change)
-- [ ] 5. Roadmap bullets whose numbers changed; `docs/calibration.md`
+- [x] 5. Roadmap bullets whose numbers changed; `docs/calibration.md`
 - [ ] 6. Read-only review by a separate agent; findings fixed
 - [ ] 7. Notes ("Session 57"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the

@@ -191,3 +191,6 @@ Rules for this session:
   2028 at NAS scale. `grid` gives 0, 65, 144 of 160 under both rules and
   with session 32's build: a machine difference against the Mac's 0047,
   noted in `docs/calibration.md` with calibrate over seeds 2026-2029.
+- **(10:05) Group 5 done** (0240): ADR 0021 alone; every report with a
+  session 38 variant equals it. All five groups ran; what was not run is
+  listed in the pre-registration and in 0240.
