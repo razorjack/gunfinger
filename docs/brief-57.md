@@ -152,3 +152,11 @@ Rules for this session:
   segments, so the prune moves them (`work/s57/trace-cli.sh`). Session
   39's NAS other pairs were made with the NAS configuration; today's use
   `--peaks-dir --store-only` (no NAS listing, as sessions 45 and 48 did).
+- **(08:12) Group 3 started**: recall in two queues (tmux `s57rca`,
+  `s57rcb`; the second runs the scans first), scratch `work/s57/wrecall`
+  and `wscans`.
+- **(08:24) An added trace for group 3** (a deviation): recall's clean
+  queries move two weak 6-hit candidates of files that were never pruned;
+  session 33's harness binary (`work/bin/s33-start`) runs the same
+  queries on today's store (`--saved-index off`, tmux `s57trr`), so that
+  what it shares with today's build is the prune's.
