@@ -1,0 +1,1277 @@
+{
+ "baselines": [
+  "session-32-linux -> session-53-linux",
+  "session-52-linux-nas -> session-53-linux-nas"
+ ],
+ "262": {
+  "sweep-seed-2026": {
+   "queries": 720,
+   "changed": []
+  },
+  "scan-stakka-skynet-knowledge": {
+   "detections": [
+    89,
+    92
+   ],
+   "added": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 793.4100234375,
+     "end_seconds": 877.2655078125,
+     "speed": 1.0309751663433357,
+     "windows": 9,
+     "hits": 315,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 585.0673515625,
+        "end_seconds": 803.73090625,
+        "speed": 1.0449316858201403,
+        "windows": 23,
+        "hits": 1540,
+        "confident": true
+       },
+       "speed_gap_percent": -1.336
+      }
+     ]
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "start_seconds": 1298.39013671875,
+     "end_seconds": 1309.72412109375,
+     "speed": 1.022,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Skynet & Stakka - Clockwork.mp3",
+        "start_seconds": 1052.0795703125,
+        "end_seconds": 1301.4955859375,
+        "speed": 1.014053804405405,
+        "windows": 26,
+        "hits": 3083,
+        "confident": true
+       },
+       "speed_gap_percent": 0.784
+      }
+     ]
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "start_seconds": 277.84521484375,
+     "end_seconds": 287.571044921875,
+     "speed": 1.02,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+        "start_seconds": 286.224310546875,
+        "end_seconds": 605.7030703125,
+        "speed": 1.0269856903069952,
+        "windows": 33,
+        "hits": 4248,
+        "confident": true
+       },
+       "speed_gap_percent": -0.68
+      }
+     ]
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "start_seconds": 1298.39013671875,
+     "end_seconds": 1309.72412109375,
+     "speed": 1.022,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+        "start_seconds": 1052.0795703125,
+        "end_seconds": 1301.4955859375,
+        "speed": 1.014053804405405,
+        "windows": 26,
+        "hits": 3083,
+        "confident": true
+       },
+       "speed_gap_percent": 0.784
+      }
+     ]
+    }
+   ],
+   "removed": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 871.7971015625,
+     "end_seconds": 894.0526796875,
+     "speed": 1.0332000000000001,
+     "windows": 3,
+     "hits": 18,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 793.4100234375,
+        "end_seconds": 877.2655078125,
+        "speed": 1.0309751663433357,
+        "windows": 9,
+        "hits": 315,
+        "confident": true
+       },
+       "speed_gap_percent": 0.216
+      }
+     ]
+    }
+   ]
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026": {
+   "detections": [
+    97,
+    100
+   ],
+   "added": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 793.4100234375,
+     "end_seconds": 877.2655078125,
+     "speed": 1.030969482520898,
+     "windows": 9,
+     "hits": 315,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 585.0673515625,
+        "end_seconds": 803.73090625,
+        "speed": 1.044931565132965,
+        "windows": 23,
+        "hits": 1540,
+        "confident": true
+       },
+       "speed_gap_percent": -1.336
+      }
+     ]
+    },
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "start_seconds": 1298.39013671875,
+     "end_seconds": 1309.72412109375,
+     "speed": 1.022,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Skynet & Stakka - Clockwork.mp3",
+        "start_seconds": 1052.0795703125,
+        "end_seconds": 1301.4955859375,
+        "speed": 1.0140538795524534,
+        "windows": 26,
+        "hits": 3083,
+        "confident": true
+       },
+       "speed_gap_percent": 0.784
+      }
+     ]
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "start_seconds": 277.84521484375,
+     "end_seconds": 287.571044921875,
+     "speed": 1.02,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+        "start_seconds": 286.224310546875,
+        "end_seconds": 605.7030703125,
+        "speed": 1.0269858236472444,
+        "windows": 33,
+        "hits": 4248,
+        "confident": true
+       },
+       "speed_gap_percent": -0.68
+      }
+     ]
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "start_seconds": 1298.39013671875,
+     "end_seconds": 1309.72412109375,
+     "speed": 1.022,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+        "start_seconds": 1052.0795703125,
+        "end_seconds": 1301.4955859375,
+        "speed": 1.0140538795524534,
+        "windows": 26,
+        "hits": 3083,
+        "confident": true
+       },
+       "speed_gap_percent": 0.784
+      }
+     ]
+    }
+   ],
+   "removed": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 871.7971015625,
+     "end_seconds": 894.0526796875,
+     "speed": 1.0332000000000001,
+     "windows": 3,
+     "hits": 18,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 793.4100234375,
+        "end_seconds": 877.2655078125,
+        "speed": 1.030969482520898,
+        "windows": 9,
+        "hits": 315,
+        "confident": true
+       },
+       "speed_gap_percent": 0.216
+      }
+     ]
+    }
+   ]
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026": {
+   "detections": [
+    83,
+    83
+   ],
+   "added": [],
+   "removed": []
+  }
+ },
+ "nas": {
+  "sweep-seed-2026": {
+   "queries": 720,
+   "changed": [
+    {
+     "query": 218,
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "speed_percent": -3.0,
+     "added": [
+      {
+       "asset": "second-library/__youtube_archivists/unxplored-dnb/Prisoner - Mr. Fix It.opus",
+       "correct": false,
+       "confident": false,
+       "windows": 2,
+       "hits": 13,
+       "speed_percent": 4.0000000000000036,
+       "fitted": true
+      }
+     ],
+     "removed": []
+    },
+    {
+     "query": 221,
+     "asset": "extra/B_-_Decoder_-_Dead_Fall.mp3",
+     "speed_percent": 1.0,
+     "added": [
+      {
+       "asset": "second-library/__youtube_archivists/old-skool-jungle-dnb/Tom & Tom - Down Force (S'Touch Mix).m4a",
+       "correct": false,
+       "confident": false,
+       "windows": 2,
+       "hits": 9,
+       "speed_percent": 3.799999999999981,
+       "fitted": true
+      }
+     ],
+     "removed": []
+    },
+    {
+     "query": 438,
+     "asset": "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+     "speed_percent": 3.0,
+     "added": [
+      {
+       "asset": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Lava Flow (Aphrodite Recordings APH37 A) 2001.m4a",
+       "correct": false,
+       "confident": false,
+       "windows": 2,
+       "hits": 15,
+       "speed_percent": 2.400000000000002,
+       "fitted": true
+      }
+     ],
+     "removed": []
+    },
+    {
+     "query": 608,
+     "asset": "extra/07-item.code-magnetics-whoa.mp3",
+     "speed_percent": 1.0,
+     "added": [
+      {
+       "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/crunk_vynil-the_nomadz_feat_ninja_ford-crunk002-2000-sour/a-the_nomadz_feat_ninja_ford-overboard.mp3",
+       "correct": false,
+       "confident": false,
+       "windows": 2,
+       "hits": 6,
+       "speed_percent": 0.40000000000000036
+      }
+     ],
+     "removed": []
+    }
+   ]
+  },
+  "scan-stakka-skynet-knowledge": {
+   "detections": [
+    4253,
+    4256
+   ],
+   "added": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 793.4100234375,
+     "end_seconds": 877.2655078125,
+     "speed": 1.030945446221077,
+     "windows": 9,
+     "hits": 315,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 585.0673515625,
+        "end_seconds": 803.73090625,
+        "speed": 1.044929594631857,
+        "windows": 23,
+        "hits": 1539,
+        "confident": true
+       },
+       "speed_gap_percent": -1.338
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "start_seconds": 793.4100234375,
+     "end_seconds": 877.2655078125,
+     "speed": 1.030945446221077,
+     "windows": 9,
+     "hits": 315,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+        "start_seconds": 585.0673515625,
+        "end_seconds": 803.73090625,
+        "speed": 1.044929594631857,
+        "windows": 23,
+        "hits": 1539,
+        "confident": true
+       },
+       "speed_gap_percent": -1.338
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "start_seconds": 792.07825,
+     "end_seconds": 878.994,
+     "speed": 1.0001769660317352,
+     "windows": 9,
+     "hits": 306,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+        "start_seconds": 583.4537734375,
+        "end_seconds": 799.6589453125,
+        "speed": 1.0150855376606887,
+        "windows": 22,
+        "hits": 1764,
+        "confident": true
+       },
+       "speed_gap_percent": -1.469
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Usual Suspects - Shrapnel.opus",
+     "start_seconds": 1564.9227734375,
+     "end_seconds": 1574.50855078125,
+     "speed": 1.0102857142857142,
+     "windows": 2,
+     "hits": 7,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Usual Suspects - Shrapnel.opus",
+        "start_seconds": 1540.28635546875,
+        "end_seconds": 1566.620583984375,
+        "speed": 1.02,
+        "windows": 3,
+        "hits": 13,
+        "confident": false
+       },
+       "speed_gap_percent": -0.952
+      }
+     ]
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "start_seconds": 277.84521484375,
+     "end_seconds": 287.571044921875,
+     "speed": 1.02,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+        "start_seconds": 286.224310546875,
+        "end_seconds": 605.7030703125,
+        "speed": 1.0269876887923495,
+        "windows": 33,
+        "hits": 4248,
+        "confident": true
+       },
+       "speed_gap_percent": -0.68
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/unxplored-dnb/Intersidereal - Solar Chase.opus",
+     "start_seconds": 1537.5480859375,
+     "end_seconds": 1541.99192578125,
+     "speed": 0.9899999999999999,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Intersidereal - Solar Chase.opus",
+        "start_seconds": 1540.286466796875,
+        "end_seconds": 1575.35955078125,
+        "speed": 1.004,
+        "windows": 4,
+        "hits": 19,
+        "confident": false
+       },
+       "speed_gap_percent": -1.394
+      }
+     ]
+    }
+   ],
+   "removed": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 871.7971015625,
+     "end_seconds": 894.0526796875,
+     "speed": 1.0332000000000001,
+     "windows": 3,
+     "hits": 18,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 793.4100234375,
+        "end_seconds": 877.2655078125,
+        "speed": 1.030945446221077,
+        "windows": 9,
+        "hits": 315,
+        "confident": true
+       },
+       "speed_gap_percent": 0.219
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "start_seconds": 871.7971015625,
+     "end_seconds": 894.0526796875,
+     "speed": 1.0332000000000001,
+     "windows": 3,
+     "hits": 18,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+        "start_seconds": 793.4100234375,
+        "end_seconds": 877.2655078125,
+        "speed": 1.030945446221077,
+        "windows": 9,
+        "hits": 315,
+        "confident": true
+       },
+       "speed_gap_percent": 0.219
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "start_seconds": 870.09337109375,
+     "end_seconds": 888.14225390625,
+     "speed": 1.0053333333333334,
+     "windows": 2,
+     "hits": 9,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+        "start_seconds": 792.07825,
+        "end_seconds": 878.994,
+        "speed": 1.0001769660317352,
+        "windows": 9,
+        "hits": 306,
+        "confident": true
+       },
+       "speed_gap_percent": 0.516
+      }
+     ]
+    }
+   ]
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026": {
+   "detections": [
+    4244,
+    4247
+   ],
+   "added": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 793.4100234375,
+     "end_seconds": 877.2655078125,
+     "speed": 1.030945446221077,
+     "windows": 9,
+     "hits": 315,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 585.0673515625,
+        "end_seconds": 803.73090625,
+        "speed": 1.044929594631857,
+        "windows": 23,
+        "hits": 1539,
+        "confident": true
+       },
+       "speed_gap_percent": -1.338
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "start_seconds": 793.4100234375,
+     "end_seconds": 877.2655078125,
+     "speed": 1.030945446221077,
+     "windows": 9,
+     "hits": 315,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+        "start_seconds": 585.0673515625,
+        "end_seconds": 803.73090625,
+        "speed": 1.044929594631857,
+        "windows": 23,
+        "hits": 1539,
+        "confident": true
+       },
+       "speed_gap_percent": -1.338
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "start_seconds": 792.07825,
+     "end_seconds": 878.994,
+     "speed": 1.0001769660317352,
+     "windows": 9,
+     "hits": 306,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+        "start_seconds": 583.4537734375,
+        "end_seconds": 799.6589453125,
+        "speed": 1.0150855376606887,
+        "windows": 22,
+        "hits": 1764,
+        "confident": true
+       },
+       "speed_gap_percent": -1.469
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Usual Suspects - Shrapnel.opus",
+     "start_seconds": 1564.9227734375,
+     "end_seconds": 1574.50855078125,
+     "speed": 1.0102857142857142,
+     "windows": 2,
+     "hits": 7,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Usual Suspects - Shrapnel.opus",
+        "start_seconds": 1540.28635546875,
+        "end_seconds": 1566.620583984375,
+        "speed": 1.02,
+        "windows": 3,
+        "hits": 13,
+        "confident": false
+       },
+       "speed_gap_percent": -0.952
+      }
+     ]
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+     "start_seconds": 277.84521484375,
+     "end_seconds": 287.571044921875,
+     "speed": 1.02,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/101-stakka_and_skynet-decoy-sour.mp3",
+        "start_seconds": 286.224310546875,
+        "end_seconds": 605.7030703125,
+        "speed": 1.0269876887923495,
+        "windows": 33,
+        "hits": 4248,
+        "confident": true
+       },
+       "speed_gap_percent": -0.68
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/unxplored-dnb/Intersidereal - Solar Chase.opus",
+     "start_seconds": 1537.5480859375,
+     "end_seconds": 1541.99192578125,
+     "speed": 0.9899999999999999,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Intersidereal - Solar Chase.opus",
+        "start_seconds": 1540.286466796875,
+        "end_seconds": 1575.35955078125,
+        "speed": 1.004,
+        "windows": 4,
+        "hits": 19,
+        "confident": false
+       },
+       "speed_gap_percent": -1.394
+      }
+     ]
+    }
+   ],
+   "removed": [
+    {
+     "asset": "Kemal & Rob Data - Star Trails.mp3",
+     "start_seconds": 871.7971015625,
+     "end_seconds": 894.0526796875,
+     "speed": 1.0332000000000001,
+     "windows": 3,
+     "hits": 18,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "Kemal & Rob Data - Star Trails.mp3",
+        "start_seconds": 793.4100234375,
+        "end_seconds": 877.2655078125,
+        "speed": 1.030945446221077,
+        "windows": 9,
+        "hits": 315,
+        "confident": true
+       },
+       "speed_gap_percent": 0.219
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+     "start_seconds": 871.7971015625,
+     "end_seconds": 894.0526796875,
+     "speed": 1.0332000000000001,
+     "windows": 3,
+     "hits": 18,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/audio_blueprint-konflict-abpr013-2000-sour/a-konflict-star_trails-sour.mp3",
+        "start_seconds": 793.4100234375,
+        "end_seconds": 877.2655078125,
+        "speed": 1.030945446221077,
+        "windows": 9,
+        "hits": 315,
+        "confident": true
+       },
+       "speed_gap_percent": 0.219
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+     "start_seconds": 870.09337109375,
+     "end_seconds": 888.14225390625,
+     "speed": 1.0053333333333334,
+     "windows": 2,
+     "hits": 9,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/alien5ive/AUDIO BLUEPRINT [ ABPR013 ： KEMAL & ROB DATA - star trails - ] drum and bass.opus",
+        "start_seconds": 792.07825,
+        "end_seconds": 878.994,
+        "speed": 1.0001769660317352,
+        "windows": 9,
+        "hits": 306,
+        "confident": true
+       },
+       "speed_gap_percent": 0.516
+      }
+     ]
+    }
+   ]
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026": {
+   "detections": [
+    4212,
+    4214
+   ],
+   "added": [
+    {
+     "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Usual Suspects - Shrapnel.opus",
+     "start_seconds": 1564.9227734375,
+     "end_seconds": 1574.50855078125,
+     "speed": 1.0102857142857142,
+     "windows": 2,
+     "hits": 7,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Usual Suspects - Shrapnel.opus",
+        "start_seconds": 1540.28635546875,
+        "end_seconds": 1566.620583984375,
+        "speed": 1.02,
+        "windows": 3,
+        "hits": 13,
+        "confident": false
+       },
+       "speed_gap_percent": -0.952
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/unxplored-dnb/Intersidereal - Solar Chase.opus",
+     "start_seconds": 1537.5480859375,
+     "end_seconds": 1541.99192578125,
+     "speed": 0.9899999999999999,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Intersidereal - Solar Chase.opus",
+        "start_seconds": 1540.286466796875,
+        "end_seconds": 1575.35955078125,
+        "speed": 1.004,
+        "windows": 4,
+        "hits": 19,
+        "confident": false
+       },
+       "speed_gap_percent": -1.394
+      }
+     ]
+    }
+   ],
+   "removed": []
+  },
+  "scan-razorjack-2003-03-29": {
+   "detections": [
+    4984,
+    4997
+   ],
+   "added": [
+    {
+     "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+     "start_seconds": 1556.88096875,
+     "end_seconds": 1616.40565625,
+     "speed": 1.0641733549802335,
+     "windows": 7,
+     "hits": 1392,
+     "confident": true,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/the-hifi-junglist/Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001.opus",
+        "start_seconds": 1604.8610703125,
+        "end_seconds": 1772.07851171875,
+        "speed": 1.053157655864146,
+        "windows": 18,
+        "hits": 3164,
+        "confident": true
+       },
+       "speed_gap_percent": 1.046
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Digital & Spirit - Phantom Force.m4a",
+     "start_seconds": 654.278126953125,
+     "end_seconds": 675.3460703125,
+     "speed": 1.0536666666666668,
+     "windows": 3,
+     "hits": 20,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/sicknote-classic-dnb/Digital & Spirit - Phantom Force.m4a",
+        "start_seconds": 662.838439453125,
+        "end_seconds": 722.806228515625,
+        "speed": 1.0614319392859486,
+        "windows": 7,
+        "hits": 365,
+        "confident": true
+       },
+       "speed_gap_percent": -0.732
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/butch-french/Danny C - The System.m4a",
+     "start_seconds": 802.255248046875,
+     "end_seconds": 812.8049296875,
+     "speed": 1.008,
+     "windows": 2,
+     "hits": 16,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/butch-french/Danny C - The System.m4a",
+        "start_seconds": 772.608859375,
+        "end_seconds": 808.86068359375,
+        "speed": 1.016,
+        "windows": 4,
+        "hits": 34,
+        "confident": false
+       },
+       "speed_gap_percent": -0.787
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Budoka - Pleasure Ride (Isotop + Kaiza Remix).m4a",
+     "start_seconds": 193.4870625,
+     "end_seconds": 217.6091796875,
+     "speed": 1.0344000000000002,
+     "windows": 3,
+     "hits": 11,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Budoka - Pleasure Ride (Isotop + Kaiza Remix).m4a",
+        "start_seconds": 214.970986328125,
+        "end_seconds": 246.61633984375,
+        "speed": 1.0416,
+        "windows": 4,
+        "hits": 15,
+        "confident": false
+       },
+       "speed_gap_percent": -0.691
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Norman Beats - N⧸Z Crusade (Drum'n'Bass) (Drum'n'Bass).m4a",
+     "start_seconds": 514.925947265625,
+     "end_seconds": 525.967025390625,
+     "speed": 0.9600000000000002,
+     "windows": 2,
+     "hits": 9,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Norman Beats - N⧸Z Crusade (Drum'n'Bass) (Drum'n'Bass).m4a",
+        "start_seconds": 525.4664375,
+        "end_seconds": 557.591421875,
+        "speed": 0.9680000000000002,
+        "windows": 4,
+        "hits": 23,
+        "confident": false
+       },
+       "speed_gap_percent": -0.826
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/cryptic-jungle/Nomadz ft. Capleton - We Nuh Care (Unreleased Dubplate).m4a",
+     "start_seconds": 1530.2538671875002,
+     "end_seconds": 1546.33603515625,
+     "speed": 0.986,
+     "windows": 2,
+     "hits": 8,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/cryptic-jungle/Nomadz ft. Capleton - We Nuh Care (Unreleased Dubplate).m4a",
+        "start_seconds": 1541.06648046875,
+        "end_seconds": 1563.4456171875,
+        "speed": 1.0465,
+        "windows": 3,
+        "hits": 23,
+        "confident": false
+       },
+       "speed_gap_percent": -5.781
+      },
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/cryptic-jungle/Nomadz ft. Capleton - We Nuh Care (Unreleased Dubplate).m4a",
+        "start_seconds": 1502.837177734375,
+        "end_seconds": 1534.2048203125,
+        "speed": 1.044,
+        "windows": 4,
+        "hits": 21,
+        "confident": false
+       },
+       "speed_gap_percent": -5.556
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/dfect-dnb/Twisted Anger - Sound Boy.m4a",
+     "start_seconds": 804.24585546875,
+     "end_seconds": 810.19550390625,
+     "speed": 1.0105,
+     "windows": 2,
+     "hits": 8,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Twisted Anger - Sound Boy.m4a",
+        "start_seconds": 782.49039453125,
+        "end_seconds": 808.860755859375,
+        "speed": 1.02,
+        "windows": 3,
+        "hits": 21,
+        "confident": false
+       },
+       "speed_gap_percent": -0.931
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Politix - All Krew (Drum'n'Bass) (Drum'n'Bass).m4a",
+     "start_seconds": 706.97295703125,
+     "end_seconds": 717.53579296875,
+     "speed": 1.0135,
+     "windows": 2,
+     "hits": 8,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Politix - All Krew (Drum'n'Bass) (Drum'n'Bass).m4a",
+        "start_seconds": 696.1755,
+        "end_seconds": 714.893,
+        "speed": 0.99675,
+        "windows": 3,
+        "hits": 18,
+        "confident": false
+       },
+       "speed_gap_percent": 1.68
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Styles of Beyond - Subculture (Sinthetix Remix).m4a",
+     "start_seconds": 814.7893359375,
+     "end_seconds": 823.70334375,
+     "speed": 1.012,
+     "windows": 2,
+     "hits": 7,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Styles of Beyond - Subculture (Sinthetix Remix).m4a",
+        "start_seconds": 791.567529296875,
+        "end_seconds": 817.420556640625,
+        "speed": 1.024,
+        "windows": 3,
+        "hits": 22,
+        "confident": false
+       },
+       "speed_gap_percent": -1.172
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/dfect-dnb/Danny C - The System.m4a",
+     "start_seconds": 729.49576171875,
+     "end_seconds": 738.9875859375,
+     "speed": 0.9902857142857143,
+     "windows": 2,
+     "hits": 7,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Danny C - The System.m4a",
+        "start_seconds": 736.3545,
+        "end_seconds": 763.39575,
+        "speed": 1.0025714285714284,
+        "windows": 4,
+        "hits": 22,
+        "confident": false
+       },
+       "speed_gap_percent": -1.225
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Random - Rolling 303 (Infiltrata & Detox Remix).m4a",
+     "start_seconds": 1530.2524218750002,
+     "end_seconds": 1548.9727910156253,
+     "speed": 0.9942857142857143,
+     "windows": 2,
+     "hits": 7,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Random - Rolling 303 (Infiltrata & Detox Remix).m4a",
+        "start_seconds": 1545.0187109375,
+        "end_seconds": 1563.445712890625,
+        "speed": 1.028,
+        "windows": 3,
+        "hits": 16,
+        "confident": false
+       },
+       "speed_gap_percent": -3.28
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Phobia - Creep.m4a",
+     "start_seconds": 816.76078125,
+     "end_seconds": 824.671171875,
+     "speed": 1.064,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/i-witness-dnb/Phobia - Creep.m4a",
+        "start_seconds": 782.49069921875,
+        "end_seconds": 816.76078515625,
+        "speed": 1.0523772204850381,
+        "windows": 4,
+        "hits": 18,
+        "confident": false
+       },
+       "speed_gap_percent": 1.104
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Ewun - Sleeper Cell (Drum'n'Bass) (Drum'n'Bass).m4a",
+     "start_seconds": 517.5195,
+     "end_seconds": 526.29444921875,
+     "speed": 1.002,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) Ewun - Sleeper Cell (Drum'n'Bass) (Drum'n'Bass).m4a",
+        "start_seconds": 524.65046484375,
+        "end_seconds": 557.59060546875,
+        "speed": 1.012,
+        "windows": 4,
+        "hits": 25,
+        "confident": false
+       },
+       "speed_gap_percent": -0.988
+      }
+     ]
+    }
+   ],
+   "removed": []
+  },
+  "scan-nocny-trans-vertical-2002-08-23": {
+   "detections": [
+    4157,
+    4162
+   ],
+   "added": [
+    {
+     "asset": "second-library/__youtube_archivists/dfect-dnb/Jon Tetly - Shape Shifter.m4a",
+     "start_seconds": 2621.1376328125,
+     "end_seconds": 2638.41321875,
+     "speed": 1.06,
+     "windows": 2,
+     "hits": 20,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Jon Tetly - Shape Shifter.m4a",
+        "start_seconds": 2590.77730859375,
+        "end_seconds": 2621.14121875,
+        "speed": 1.0535384615384618,
+        "windows": 4,
+        "hits": 24,
+        "confident": false
+       },
+       "speed_gap_percent": 0.613
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/unxplored-dnb/Trend - Old Skool.m4a",
+     "start_seconds": 2615.799923828125,
+     "end_seconds": 2632.44900390625,
+     "speed": 1.0538181818181818,
+     "windows": 3,
+     "hits": 14,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Trend - Old Skool.m4a",
+        "start_seconds": 2592.271578125,
+        "end_seconds": 2622.707515625,
+        "speed": 1.06280807313437,
+        "windows": 4,
+        "hits": 32,
+        "confident": false
+       },
+       "speed_gap_percent": -0.846
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/abstract-math/Ian Morrison Vs. DJ Tron - Cannibal DJ.opus",
+     "start_seconds": 523.1315625,
+     "end_seconds": 535.13953125,
+     "speed": 1.064,
+     "windows": 2,
+     "hits": 9,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/abstract-math/Ian Morrison Vs. DJ Tron - Cannibal DJ.opus",
+        "start_seconds": 533.152125,
+        "end_seconds": 557.373630859375,
+        "speed": 1.0544942067268248,
+        "windows": 3,
+        "hits": 10,
+        "confident": false
+       },
+       "speed_gap_percent": 0.901
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/dfect-dnb/Flux & Rinse - Killa (E-Sassin Remix).m4a",
+     "start_seconds": 445.2550546875,
+     "end_seconds": 456.741361328125,
+     "speed": 1.004,
+     "windows": 2,
+     "hits": 9,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/dfect-dnb/Flux & Rinse - Killa (E-Sassin Remix).m4a",
+        "start_seconds": 416.407796875,
+        "end_seconds": 445.25515234375,
+        "speed": 1.0183333333333333,
+        "windows": 3,
+        "hits": 12,
+        "confident": false
+       },
+       "speed_gap_percent": -1.408
+      }
+     ]
+    },
+    {
+     "asset": "second-library/__youtube_archivists/unxplored-dnb/Scyence Lab - Enemy.opus",
+     "start_seconds": 2605.165896484375,
+     "end_seconds": 2612.073939453125,
+     "speed": 1.078,
+     "windows": 2,
+     "hits": 6,
+     "confident": false,
+     "beside": [
+      {
+       "stronger": {
+        "asset": "second-library/__youtube_archivists/unxplored-dnb/Scyence Lab - Enemy.opus",
+        "start_seconds": 2590.521953125,
+        "end_seconds": 2608.078060546875,
+        "speed": 1.062,
+        "windows": 2,
+        "hits": 16,
+        "confident": false
+       },
+       "speed_gap_percent": 1.507
+      }
+     ]
+    }
+   ],
+   "removed": []
+  }
+ }
+}

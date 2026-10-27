@@ -231,3 +231,26 @@ Rules for this session:
     added, removed or changes level.
 - **(02:39) `scripts/check.sh` green** (3:58) on the changed tree;
   steps 2 and 3 committed.
+- **(02:41) Step 4, baselines** (`work/s53/step4.sh`, tmux `s53step4`):
+  the final build `work/bin/s53-final` (`3f02901`) is byte-identical to
+  `s53-run` (no code changed after step 3's build), so `baseline
+  session-53-linux` and `baseline session-53-linux-nas` copy the reports
+  of step 3's regressions, made by the same binary; the final
+  regressions (step 7) run them again.
+- **(02:44) CPU.** A B B A on the Stakka scan at NAS scale (idle; the
+  start build in `wdev-start`, the final in `wdev-run`): the final build
+  used about 5% less user CPU than the start build (659-661 s against
+  693-701 s). A predicate cannot account for that, so a second A B B A
+  ran with one binary (`work/s53/cpu2.sh`, the final build with
+  `--overlap-by-spans` against its default): +0.2%, within the runs'
+  spread. The difference between the builds is the binaries', not the
+  rule's (not traced; by inference code layout). Each run's report
+  equals its baseline's, and the `--overlap-by-spans` report equals
+  session 52's baseline exactly: the opt-in reproduces the old rule.
+- **(02:50) Experiment 0232** and its data file
+  (`work/s53/data0232.py`, file names only).
+- **(02:50) Step 5**: `docs/calibration.md` (a row in "Changes since
+  `poc-freeze-1`", and the share among the choices that do not depend
+  on the library), the roadmap's "Speed that wanders within a play"
+  (done for pitch rides; wander within a side and rides in short plays
+  stay open) and the decision note's status line.

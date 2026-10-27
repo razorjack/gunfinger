@@ -22,8 +22,13 @@ moves.
 
 Not library-dependent: the speed ladder (0.4% steps, experiment 0001), the
 3-window minimum (a 30 s excerpt spans 3 windows; a 15-20 s play only at
-some places on the window grid, experiment 0020), chain linking, the 90 s
-gap between segments of a play, and the 90 s scoring tolerance.
+some places on the window grid, experiment 0020), chain linking, the
+second suppression's share (0.6%, the chain link rule's 1.5 steps of the
+ladder: overlapping detections within it are one alignment; repeats and
+versions lie at most 0.40% apart, the sides of a 1% ride at least 0.90%;
+ADR 0021, experiment 0179; a ladder with another step moves it, so
+measure it again with `--apart-in-speed`), the 90 s gap between segments
+of a play, and the 90 s scoring tolerance.
 
 ## Baseline to compare against
 
@@ -186,6 +191,7 @@ Overload's Molten Beats edit and The Nine's VIP) is not an input here.
 | The opt-in second pass's rule set from its own calibration: `FITTED_RULE` 240 hits in 3 windows, possible 60 (experiment 0026) | default unchanged (`regress session-3-start`: identical); applies only to `--second-pass` in the harness | set `FITTED_RULE.min_hits` back to `MIN_HITS` |
 | The fitted matcher by default, our decision of session 6 (`search::Matcher::Fitted`: the fullest 1% of posting lists skipped for candidates, the link rules, the second pass, `FITTED_RULE`; ADR 0008, experiment 0047) | the candidate baseline reproduced exactly; sweeps 540/540 for seeds 2026-2029, development 11/11, leave-outs 0 wrong; margin 4.15× → 6.65×; true plays 0.84-1.16 times the hits; development detections matching no track 6,096 → 69; mix 10's Dominion and the grid's 10 s plays confident → possible; Star Trails split where its speed changes | `Matcher::default()` back to `SinglePass` (or `--single-pass`); the single pass's reports are in `work/reports/variant-single-pass/` |
 | Store fixes (session 6): MP3 in WAV behind an ID3v2 tag, hidden folders skipped, truncation tolerance of the larger of 1 s and 1% | none: `regress session-6-start` identical; three corpus files would now pass the tolerance and were not indexed | revert commit 53c6990 |
+| The second suppression keeps a detection at another speed, our decision of 2026-10-27 (`search::SAME_SPEED_SHARE` 0.006 in `SecondOverlap::SpansAtSpeed`, the default of `Matcher::Fitted`; ADR 0021, experiments 0179, 0209-0211 and 0232) | both sides of a pitch ride of 1% or more kept (all 257 sides the old rule dropped on rides seed 3801); Star Trails' slower side (Stakka mix, 315 hits) and Into Music's middle (2003 mix, 1,392 hits) kept; weak detections 0.6% or more from a stronger one of their file kept; no confident detection lost or added elsewhere; calibrate unchanged at both scales; the printed tracklists of the three development mixes unchanged | `--overlap-by-spans` in the harness; in the core, `SecondOverlap::default()` back to `Spans` and `search::design` back to `lines-chains-v1` |
 ## Measured, not adopted
 
 | Candidate | Evidence | To adopt |

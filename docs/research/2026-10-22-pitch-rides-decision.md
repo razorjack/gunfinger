@@ -1,7 +1,10 @@
 # Pitch rides and the second overlap rule: what an ADR would decide (2026-10-22)
 
-**Status: the evidence and a recommendation** (session 45 added its
-confirmation at the end). Nothing here changes the product. Whether to
+**Status: decided and implemented.** Our decision of 2026-10-27 (at the
+end) is ADR 0021, implemented in session 53 (experiment 0232): the
+default matcher's second suppression is `SpansAtSpeed(0.006)`. The
+text below is the evidence and recommendation as written before it
+(session 45 added its confirmation at the end). Whether to
 change how the search judges overlap after the second pass is our
 decision and needs an ADR that supersedes ADR 0008's consequence for
 overlapping parts. Experiments 0166 and 0175-0178 (sessions 35 and 37),

@@ -25,9 +25,9 @@ for scope and rules.
   difference explained; the CLI's `identify` on the three development
   mixes at 262 tracks and NAS scale, before and after, compared line by
   line
-- [ ] 4. Baselines `session-53-linux` and `session-53-linux-nas`;
+- [x] 4. Baselines `session-53-linux` and `session-53-linux-nas`;
   experiment 0232 with CPU A B B A
-- [ ] 5. `docs/calibration.md`, the roadmap's "Speed that wanders within
+- [x] 5. `docs/calibration.md`, the roadmap's "Speed that wanders within
   a play", the decision note's status line
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 53", status, checklist; final checks

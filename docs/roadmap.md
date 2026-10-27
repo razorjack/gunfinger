@@ -344,10 +344,15 @@ marked as inferences were derived, not measured.
   does not, B(15) is the candidate in the session's reading after the
   counts, with a new ADR and the unsearched validation halves as its
   confirmation.
-- **Speed that wanders within a play.** *(our decision, 2026-10-27:
-  `--apart-in-speed 0.006` becomes the default, with an ADR superseding
-  ADR 0008's consequence for overlapping parts. DJs speed a set up while
-  a track plays, because the set is continuous.)* The second pass analyses a play at
+- **Speed that wanders within a play.** *(done for pitch rides, session
+  53: ADR 0021, experiment 0232. Our decision of 2026-10-27, since DJs
+  speed a set up while a track plays, because the set is continuous:
+  the default matcher's second suppression drops an overlapping detection
+  of the same file only within 0.6% of the stronger one's speed, so both
+  sides of a ride are kept; the old rule is the harness's
+  `--overlap-by-spans`. What stays open below: wander within one side
+  (`--speed-per-stretch`) and rides inside short plays, a question for
+  the window condition.)* The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
   varies by ±0.2% in the development mix (experiment 0022). The opt-in
@@ -409,6 +414,11 @@ marked as inferences were derived, not measured.
   any ride, so against shared material the variant relies on the
   240-hit rule's margin, not on its speed condition (the decision note's
   "Session 45").
+  *(session 53, experiment 0232)* Adopted as the default (ADR 0021).
+  In the standard evaluation and the three development scans it keeps
+  Star Trails' slower side and Into Music's middle segment and adds or
+  removes only weak detections; calibrate and the printed tracklists
+  of the three development mixes do not change.
   *(session 49, experiments 0219 and 0220)* Copies of one recording drift
   against each other as well: the CITRUS 003 upload of Falcon - The Stand
   speeds up by 0.7% over the track against the vinyl rip, so against
