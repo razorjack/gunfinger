@@ -1,0 +1,122 @@
+{
+ "baselines": [
+  "session-33-linux-nas",
+  "session-52-linux-nas"
+ ],
+ "sweep": {
+  "queries": 720,
+  "indexed_assets": [
+   40580,
+   40575
+  ],
+  "changed": [
+   {
+    "query": 301,
+    "asset": "extra/c-total_science-yvon_is_on-sour.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "detections_before": 61,
+    "detections_after": 60,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Optical & Ryme Tyme - Space Cake [CUT].m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": -0.8000000000000007
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 428,
+    "asset": "extra/a-rascal_and_klone-the_reprise-sour.mp3",
+    "speed_percent": 1.0,
+    "held_out": false,
+    "detections_before": 44,
+    "detections_after": 43,
+    "gone": [
+     {
+      "asset": "second-library/__full_scene/1999/1999-11/1999-11-10/knowledge-the_lowdown_vol_7-track_fix-1999-sour/06-kraken-side_effects-1999-sour-fixed.mp3",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": 1.4285714285714235
+     }
+    ],
+    "new": []
+   }
+  ]
+ },
+ "scans": {
+  "scan-stakka-skynet-knowledge.json": {
+   "identical": true,
+   "detections": 4253,
+   "score": {
+    "referenced": 11,
+    "identified": 11,
+    "wrong": 0,
+    "possible": 0
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "identical": true,
+   "detections": 4244,
+   "score": {
+    "referenced": 11,
+    "identified": 8,
+    "wrong": 0,
+    "possible": 0
+   }
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "identical": true,
+   "detections": 4212,
+   "score": {
+    "referenced": 11,
+    "identified": 0,
+    "wrong": 0,
+    "possible": 0
+   }
+  }
+ },
+ "calibrate": {
+  "weakest_identifying": 704,
+  "strongest_false": 282,
+  "false_accepted": 7,
+  "false_candidates_30_hits": 95,
+  "strongest_not_indexed": 282,
+  "changed": false
+ },
+ "clusters": {
+  "before": "ac53014b8a87aa3004c2d805bb050d92e25c547c181a44d8265eb6347416e72b",
+  "after": "ce293fe6165e31009ef0b0411e77836aced21716b00771ad07bef7099c2a177a",
+  "clusters": [
+   284,
+   284
+  ],
+  "pairs": [
+   2877,
+   2876
+  ],
+  "pair_dropped": {
+   "query": "extra/01 - Ryme Tyme - T-Minus.mp3",
+   "found": "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a",
+   "hits": 356,
+   "coverage": 0.583,
+   "aural_verdict": "different"
+  }
+ },
+ "store": {
+  "records": [
+   40683,
+   40678
+  ],
+  "revision": [
+   "56433d74d0919a08",
+   "1fc6fe50293ad330"
+  ]
+ }
+}

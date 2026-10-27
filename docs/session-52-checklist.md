@@ -19,10 +19,10 @@ for scope and rules.
   where the five files appear today
 - [x] 2. `prune --yes`; `doctor` (40,678 records, none ignored); revision
   before and after; `clusters --from-peaks --reuse-pairs`
-- [~] 3. The standard evaluation at NAS scale on the pruned store; every
+- [x] 3. The standard evaluation at NAS scale on the pruned store; every
   difference traced to the five files; panel entries that name a pruned
   file
-- [ ] 4. `baseline session-52-linux-nas`; `regress session-32-linux`
+- [x] 4. `baseline session-52-linux-nas`; `regress session-32-linux`
   identical; experiment 0231
 - [ ] 5. The places that name the NAS baseline, the record count and the
   clusters digest

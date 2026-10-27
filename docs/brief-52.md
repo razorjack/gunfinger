@@ -165,3 +165,67 @@ Rules for this session:
   ignored file and add nothing, as the run says: lines 26, 45, 67 and
   93 (the mixed CD's Synthesis (Remix), the T-Minus upload, `/1.mp3`,
   the track-fix Drumtrip).
+- **(01:47) Step 3, the standard evaluation on the pruned store**
+  (`work/s52/step3.sh`, tmux `s52eval`, `work/bin/s52-start`): `regress
+  session-33-linux-nas` (5:38 with the saved index built again, 112 s;
+  5.4 GiB peak). The three Stakka scans (11/11, 8/11, 0/11 identified,
+  0 wrong) are identical to the baseline's, every detection included.
+  The sweep has the same 720 queries; 718 have identical detections. The
+  two that differ each lose one sub-threshold candidate of a pruned
+  file, the same two the baseline held (step 1): query 301 (Yvon Is On
+  at 0%) the Space Cake upload, query 428 (The Reprise at +1%) the
+  track-fix Kraken, 7 hits in 2 windows each; no candidate takes their
+  place. `indexed_assets` 40,580 → 40,575. Calibrate is unchanged
+  (weakest identifying 704, strongest false 282, 7 false accepted, 95
+  false candidates at 30 hits or more). Every difference traces to the
+  five files (`work/s52/diff.py`, output `work/s52/diff-pruned.txt`;
+  the reports copied to `work/s52/pruned-reports/`). Nothing to stop on.
+- **(01:47) Panel entries that name a pruned file, by the code.** Only
+  the T-Minus upload is named, in three panels (step 1).
+  - `shared` (`shared-material-seed-2026.json`): the upload's family is
+    in the validation half, which stays unsearched (briefs 20-30), so
+    the panel is not run. By the code, a run would not fail: the queries
+    are rendered from the NAS audio, which is still there, and each
+    direction keeps its "everything" and "played left out" indexes
+    (`shared::indexes`), so the query count is the same. Direction
+    `t-minus-2`, which plays the upload, would search queries whose
+    played file no index holds any more: both indexes are then the same
+    and the played file cannot be found. The harness does not say so.
+    Not fixed (neither a failure nor a changed query count, the two
+    cases the prompt asks to fix); a question for the session that
+    searches the validation half.
+  - `shared-mixes` (`shared-mixes-s21.json`, `-rips.json`): the upload is
+    an `exclude` entry and a `recordings` entry, never a played file. The
+    drawn tracks come from the corpus records alone (`drawn_pool`), so
+    the draw is unchanged; `recordings` only widens a file's own
+    recording. Checked by a run of a one-mix plan cut from the panel
+    (next entry).
+  - `recall` and the sweep panels name none of the five; `library-map.json`
+    (the corpus files' NAS copies) names none, so it stays as it is.
+- **(01:47) The `shared-mixes` check** (`work/s52/step3b.sh`, tmux
+  `s52mix`, scratch work directory `work/s52/wsm` with copies of both
+  clusters files and the library map and a link to the saved index):
+  `work/s52/shared-mixes-s21-check.json` is `docs/panels/shared-mixes-s21.json`
+  with seed 2101 alone, its first played file (`dozer-1`, development
+  half) alone and no queries; its 93 `exclude` and 27 `recordings`
+  entries as they are.
+- **(01:48) Step 4 started beside the check** (`work/s52/step4.sh`, tmux
+  `s52base`): the final build `work/bin/s52-final`, `baseline
+  session-52-linux-nas`, then `regress session-32-linux`. No timing is
+  compared, so the two queues may share the machine.
+- **(01:49) The `shared-mixes` check's result** (1:10, exit 0; report
+  `work/s52/wsm/reports/library-nas-dnb-peaks/shared-mixes-s21-check.json`):
+  the mix rendered and was searched under its three indexes
+  (everything, source left out, played left out: 20, 19 and 17
+  confident), as the panel's design gives; no error and no warning. So
+  neither `shared-mixes` plan fails or changes its query count on the
+  pruned upload, and no harness fix is needed.
+- **(01:49) Step 4.** The final build `work/bin/s52-final` is
+  byte-identical to `s52-start` (cargo had nothing to rebuild; no code
+  changed this session). `baseline session-52-linux-nas` copies the
+  current reports, which step 3 made with the identical build, so it
+  is that run (0.0 s; every report identical to
+  `work/s52/pruned-reports/`). The final `regress session-52-linux-nas`
+  (step 7) runs it again with the saved index loaded instead of built.
+  `regress session-32-linux` identical (0:59 with the shared-mixes check
+  beside it). Experiment 0231.
