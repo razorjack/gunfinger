@@ -33,9 +33,8 @@ session 33's binary on today's store, clean and brief; `--overlap-by-spans`, bri
 | Nocny; leave-out 3 (2026-2028); 17 | 17/17; 14/17 each; 0/17 | 0 | 5 weak added; 1 weak pruned (Propaganda, 7 hits) |
 | 262 tracks: 2003 mix; Nocny | 7/7; 9/9 | 0 | none; 1 weak added |
 
-Against session 38's `--apart-in-speed 0.006` reports the NAS scans differ
-only by the Propaganda detection; Into Music's segment (the track playing,
-its middle at 1.064) is ADR 0021's intended change (0232).
+Against session 38's `--apart-in-speed 0.006` reports the NAS scans differ only
+by Propaganda; Into Music's segment is ADR 0021's intended change (0232).
 **Conclusion.** Explained: recall lost 6 excerpts whose only identifying rip
 was pruned; the store's change moved one confident right detection (455 ->
 503 hits). Scans: no identification or level changes. No finding.
