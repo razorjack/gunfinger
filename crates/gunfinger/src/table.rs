@@ -230,6 +230,7 @@ pub mod tests {
                     ..play("c.wav", 96.0, 140.0, 20.0, 1.06, Level::Confident, 800)
                 },
             ],
+            gap_repeats: None,
         }
     }
 
@@ -273,6 +274,28 @@ time                in track        speed  confidence   hits  asset
   1:52-2:20         0:41-1:10      +6.00%  confident     400
 2:20-4:00                                                     ID - ID (1:40 without a confident match)
 "
+        );
+    }
+
+    #[test]
+    fn a_gap_row_gives_the_estimate_where_the_gap_repeats() {
+        let mut report = report();
+        report.plays.remove(1);
+        report.query.duration_seconds = 240.0;
+        report.gap_repeats = Some(vec![crate::report::Stretch {
+            start_seconds: 150.0,
+            end_seconds: 230.0,
+        }]);
+
+        let table = table(&report, Style::for_stdout(ColorChoice::Never));
+
+        assert!(
+            table.contains(
+                "\n0:41-1:36                                                     ID - ID (0:55 without a confident match)\n"
+            ) && table.ends_with(
+                "\n2:20-4:00                                                     ID - ID (1:40 without a confident match; about 1-2 tracks)\n"
+            ),
+            "{table}"
         );
     }
 

@@ -39,6 +39,19 @@ pub struct Report {
     /// Every confident or possible play, in order of start time. Plays of
     /// assets with the same audio are one play.
     pub plays: Vec<FoundPlay>,
+    /// The stretches of repeated material in each gap of 45 s or more,
+    /// matched against itself while the audio was at hand: the records
+    /// they count give the gap's estimate (ADR 0024). Absent in reports
+    /// written before it was recorded, which print no estimate.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub gap_repeats: Option<Vec<Stretch>>,
+}
+
+/// A stretch of the recording, in its own time.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Stretch {
+    pub start_seconds: f64,
+    pub end_seconds: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -310,6 +323,7 @@ impl Report {
             library: absolute(&catalog.root),
             search: Some(SearchSettings::current(catalog.matcher, &catalog.revision)),
             plays,
+            gap_repeats: None,
         }
     }
 
@@ -359,6 +373,14 @@ impl Report {
                 {
                     return Err(invalid());
                 }
+            }
+        }
+        for stretch in self.gap_repeats.iter().flatten() {
+            if !time(stretch.start_seconds)
+                || !time(stretch.end_seconds)
+                || stretch.start_seconds > stretch.end_seconds
+            {
+                return Err("gap repeats need ordered nonnegative times".into());
             }
         }
         Ok(())

@@ -184,8 +184,11 @@ def timecode_seconds(text):
 
 
 LINE = re.compile(r"^ *(\d+)\. +(\S+)  (.*?)(?:  \((also|titles disagree): (.*?)\))?( \(possible\))?$")
-# An unnumbered gap line (ADR 0023), which names no entry.
-GAP_LINE = re.compile(r"^ +\S+  ID - ID \(\S+ without a confident match\)$")
+# An unnumbered gap line (ADR 0023), with its estimate (ADR 0024) or not; it
+# names no entry.
+GAP_LINE = re.compile(
+    r"^ +\S+  ID - ID \(\S+ without a confident match(; about \d+-\d+ tracks)?\)$"
+)
 
 
 def check_lines(shown, report_entries, plays, label):

@@ -7,11 +7,12 @@
 //! Covered time is the segments of confident plays, grouped as `seconds`
 //! groups them (ADR 0013), so a gap between two segments of a returning
 //! track counts. Possible plays cover nothing (ADR 0006); each gap counts
-//! the ones it meets. The stretches are the core's `gaps::uncovered`, which
-//! the CLI prints (ADR 0023).
+//! the ones it meets. The stretches, the entries, their clean intervals
+//! and the median are the core's (`gunfinger_core::gaps`), which the CLI
+//! prints from (ADR 0023, ADR 0024).
 
 use gunfinger_core::confidence::Confidence;
-use gunfinger_core::gaps::uncovered;
+use gunfinger_core::gaps::{MIN_INTERVALS, clean_intervals, median, uncovered};
 use serde::Serialize;
 
 use crate::seconds::{Label, Rule, Segment, Truth, labels};
@@ -21,11 +22,6 @@ pub const MIN_LENGTHS: [f64; 6] = [10.0, 20.0, 30.0, 45.0, 60.0, 90.0];
 /// A gap holds a track when it covers this much of it, or half of a
 /// shorter track.
 const HOLDS_SECONDS: f64 = 30.0;
-/// Two confident plays are one entry when they overlap for this share of
-/// the shorter: the CLI's `SAME_PASSAGE_OVERLAP`.
-const SAME_PASSAGE_OVERLAP: f64 = 0.5;
-/// Fewer intervals than this give no estimate.
-const MIN_INTERVALS: usize = 3;
 
 /// The gaps of one mix at each minimum length, against its truth.
 #[derive(Debug, Serialize)]
@@ -278,9 +274,9 @@ fn holds(gap: &Gap, track: &Truth) -> bool {
 
 /// Where the tracklist's entries start: the confident plays in order,
 /// one that overlaps the entry before it for most of the shorter of the
-/// two joining that entry.
+/// two joining that entry (`gunfinger_core::gaps::entry_starts`).
 fn entry_starts(labels: &[Label]) -> Vec<f64> {
-    let mut plays: Vec<(f64, f64)> = labels
+    let plays: Vec<(f64, f64)> = labels
         .iter()
         .filter(|label| label.level == Confidence::Confident)
         .filter_map(|label| {
@@ -289,44 +285,17 @@ fn entry_starts(labels: &[Label]) -> Vec<f64> {
             Some((start, end))
         })
         .collect();
-    plays.sort_by(|a, b| a.0.total_cmp(&b.0));
-    let mut entries: Vec<(f64, f64)> = Vec::new();
-    for (start, end) in plays {
-        match entries.last_mut() {
-            Some(last) if over_same_passage(*last, (start, end)) => last.1 = last.1.max(end),
-            _ => entries.push((start, end)),
-        }
-    }
-    entries.into_iter().map(|(start, _)| start).collect()
-}
-
-fn over_same_passage(a: (f64, f64), b: (f64, f64)) -> bool {
-    let overlap = a.1.min(b.1) - a.0.max(b.0);
-    let shorter = (a.1 - a.0).min(b.1 - b.0);
-    overlap >= SAME_PASSAGE_OVERLAP * shorter
+    gunfinger_core::gaps::entry_starts(&plays)
 }
 
 /// The intervals between consecutive entry starts that no listed gap
 /// overlaps: those hold time the tracklist does not account for.
 fn intervals_without_gaps(entry_starts: &[f64], gaps: &[Gap]) -> Vec<f64> {
-    entry_starts
-        .windows(2)
-        .filter(|pair| !gaps.iter().any(|gap| gap.overlaps(pair[0], pair[1])))
-        .map(|pair| pair[1] - pair[0])
-        .collect()
-}
-
-/// The median, the mean of the middle two for an even count (as Python's
-/// `statistics.median`, which experiment 0154 used).
-fn median(values: &[f64]) -> f64 {
-    let mut sorted = values.to_vec();
-    sorted.sort_by(f64::total_cmp);
-    let middle = sorted.len() / 2;
-    if sorted.len().is_multiple_of(2) {
-        (sorted[middle - 1] + sorted[middle]) / 2.0
-    } else {
-        sorted[middle]
-    }
+    let spans: Vec<(f64, f64)> = gaps
+        .iter()
+        .map(|gap| (gap.start_seconds, gap.end_seconds))
+        .collect();
+    clean_intervals(entry_starts, &spans)
 }
 
 fn estimate(length_seconds: f64, interval_seconds: f64) -> u32 {

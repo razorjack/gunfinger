@@ -1,7 +1,8 @@
-//! `gunfinger identify`: find library tracks inside recordings. Several
-//! recordings share one index build; `--save-dir` keeps a JSON report of
-//! each, and recordings already reported there with the same settings are
-//! passed over.
+//! `gunfinger identify`: find library tracks inside recordings, and match
+//! each gap without a confident match against itself for its estimate of
+//! tracks (ADR 0024). Several recordings share one index build;
+//! `--save-dir` keeps a JSON report of each, and recordings already
+//! reported there with the same settings are passed over.
 
 use std::collections::BTreeMap;
 use std::fs::{self, File};
@@ -18,6 +19,7 @@ use miette::{IntoDiagnostic, WrapErr, miette};
 
 use crate::catalog::{Catalog, Indexable, Source, absolute};
 use crate::console::Console;
+use crate::gaps;
 use crate::output::{ReportFormat, render};
 use crate::playback::PlaybackChoice;
 use crate::report::{QuerySource, Report, SearchSettings};
@@ -345,6 +347,15 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path, decoded: De
         &detections,
     );
     report.query.source = Some(source);
+    // Each gap's repeats come from the samples already decoded, so the
+    // estimate needs no second decode (ADR 0024).
+    let matching = Instant::now();
+    let repeats = gaps::find_repeats(&report, &audio.samples, &profile, request.jobs);
+    request.console.detail(format_args!(
+        "matched the gaps against themselves in {:.1} s",
+        matching.elapsed().as_secs_f64()
+    ));
+    report.gap_repeats = Some(repeats);
     report
 }
 

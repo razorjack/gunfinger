@@ -26,6 +26,13 @@ class CheckLines(unittest.TestCase):
 
         tracklist_score.check_lines(shown, ENTRIES, PLAYS, "mix")
 
+    def test_gap_lines_with_an_estimate_are_passed_over(self):
+        shown = (" 1.    0:00  Artist - one\n"
+                 "       2:00  ID - ID (3:20 without a confident match; about 1-2 tracks)\n"
+                 " 2.    3:20  Artist - two (possible)\n")
+
+        tracklist_score.check_lines(shown, ENTRIES, PLAYS, "mix")
+
     def test_a_missing_entry_line_still_stops_the_check(self):
         shown = (" 1.    0:00  Artist - one\n"
                  "       2:00  ID - ID (3:20 without a confident match)\n")

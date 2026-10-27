@@ -20,16 +20,19 @@ pub enum ReportFormat {
     /// A numbered list of the tracks with their start times, named from
     /// the files' tags, with the other names their files give; an
     /// unnumbered "ID - ID" line marks each stretch of 45 s or more without
-    /// a confident match.
+    /// a confident match, with an estimate of how many tracks it holds
+    /// ("about 1-3 tracks") where its audio repeats itself.
     Tracklist,
     /// A table of every play: its time, the part of the track heard, speed,
     /// confidence, hits and file path, with its segments; and a row for
-    /// each stretch of 45 s or more without a confident match.
+    /// each stretch of 45 s or more without a confident match, with its
+    /// estimate.
     Human,
     /// Each play as a bar across the recording.
     Timeline,
     /// The whole report, with a `schema_version` and the stretches without
-    /// a confident match (`gaps`); `gunfinger show` reads it.
+    /// a confident match (`gaps`, each with its estimate as `tracks`);
+    /// `gunfinger show` reads it.
     Json,
     /// One row per play, for spreadsheets.
     Csv,
@@ -97,7 +100,7 @@ struct WithGaps<'a> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::report::{Level, PlayTags};
+    use crate::report::{Level, PlayTags, Stretch};
     use crate::style::ColorChoice;
     use crate::table::tests::report;
 
@@ -149,12 +152,44 @@ mod tests {
         assert_eq!(
             value["gaps"],
             serde_json::json!([
-                { "start_seconds": 41.0, "end_seconds": 96.0, "possible_plays": [2, 3] },
-                { "start_seconds": 140.0, "end_seconds": 240.0, "possible_plays": [] }
+                { "start_seconds": 41.0, "end_seconds": 96.0, "possible_plays": [2, 3], "tracks": null },
+                { "start_seconds": 140.0, "end_seconds": 240.0, "possible_plays": [], "tracks": null }
             ])
         );
+        assert!(value.get("gap_repeats").is_none());
         let read: Result<Report, _> = serde_json::from_str(&json);
         assert!(read.is_ok_and(|read| read.plays.len() == 4));
+    }
+
+    #[test]
+    fn the_json_report_keeps_the_gaps_repeats_and_gives_each_gap_its_estimate() {
+        let mut report = report();
+        // 1:41 after c.wav, one repeated stretch in it; the mix has two
+        // intervals between entries, too few for a range of its length.
+        report.query.duration_seconds = 241.0;
+        report.gap_repeats = Some(vec![Stretch {
+            start_seconds: 150.0,
+            end_seconds: 195.0,
+        }]);
+
+        let json = render(
+            &report,
+            ReportFormat::Json,
+            Style::for_stdout(ColorChoice::Never),
+        )
+        .unwrap_or_default();
+        let value: serde_json::Value = serde_json::from_str(&json).unwrap_or_default();
+
+        assert_eq!(
+            value["gaps"][0]["tracks"],
+            serde_json::json!({ "low": 1, "high": 2, "method": "repeats" })
+        );
+        assert_eq!(
+            value["gap_repeats"],
+            serde_json::json!([{ "start_seconds": 150.0, "end_seconds": 195.0 }])
+        );
+        let read: Result<Report, _> = serde_json::from_str(&json);
+        assert!(read.is_ok_and(|read| read.gap_repeats == report.gap_repeats));
     }
 
     #[test]

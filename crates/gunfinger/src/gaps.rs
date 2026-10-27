@@ -2,11 +2,20 @@
 //! part of a recording, at least `MIN_GAP_SECONDS` long, that no segment of
 //! a confident play covers (`gunfinger_core::gaps`). Derived from the plays
 //! whenever a report is rendered, never read from a saved one. A gap says
-//! only that nothing confident was found there; it counts no tracks.
+//! only that nothing confident was found there. Its estimate of how many
+//! tracks it holds (ADR 0024) is derived at the same time, from the
+//! repeats `identify` found in it (`Report::gap_repeats`) and the mix's
+//! intervals between entries.
 
+use gunfinger_core::gaps::{
+    Estimate, Method, clean_intervals, entry_starts, estimate, length_range, uncovered,
+};
+use gunfinger_core::parallel::map_in_order;
+use gunfinger_core::profile::Profile;
+use gunfinger_core::repeats;
 use serde::Serialize;
 
-use crate::report::{FoundPlay, Level, Report};
+use crate::report::{FoundPlay, Level, Report, Stretch};
 use crate::table::timecode;
 
 /// Shorter stretches are mostly blends and a found track's own uncovered
@@ -22,33 +31,64 @@ pub struct Gap {
     /// with a segment overlapping the gap. They identify nothing, so they
     /// neither close nor split it (ADR 0006).
     pub possible_plays: Vec<usize>,
+    /// How many tracks it holds, as a range; none without a repeated
+    /// stretch or in a report without `gap_repeats`.
+    pub tracks: Option<Tracks>,
+}
+
+#[derive(Debug, PartialEq, Serialize)]
+pub struct Tracks {
+    pub low: u32,
+    pub high: u32,
+    pub method: TracksMethod,
+}
+
+#[derive(Debug, PartialEq, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum TracksMethod {
+    /// The records the gap's repeats count, limited to the range its length
+    /// gives over the mix's intervals between entries.
+    RepeatsWithinLength,
+    /// The records alone: the mix has too few intervals without a gap.
+    Repeats,
+}
+
+impl From<Estimate> for Tracks {
+    fn from(estimate: Estimate) -> Tracks {
+        Tracks {
+            low: estimate.low,
+            high: estimate.high,
+            method: match estimate.method {
+                Method::RepeatsWithinLength => TracksMethod::RepeatsWithinLength,
+                Method::Repeats => TracksMethod::Repeats,
+            },
+        }
+    }
 }
 
 impl Gap {
-    /// "ID - ID (2:25 without a confident match)": the name DJ tracklists
-    /// give a track nobody has identified, and how long nothing confident
-    /// was found.
+    /// "ID - ID (7:57 without a confident match; about 1-3 tracks)": the
+    /// name DJ tracklists give a track nobody has identified, how long
+    /// nothing confident was found, and the estimate, always a range.
     pub fn label(&self) -> String {
-        format!(
-            "ID - ID ({} without a confident match)",
-            timecode(self.end_seconds - self.start_seconds)
-        )
+        let length = timecode(self.end_seconds - self.start_seconds);
+        match &self.tracks {
+            Some(tracks) => format!(
+                "ID - ID ({length} without a confident match; about {}-{} tracks)",
+                tracks.low, tracks.high
+            ),
+            None => format!("ID - ID ({length} without a confident match)"),
+        }
     }
 }
 
 /// The report's gaps, in order.
 pub fn gaps(report: &Report) -> Vec<Gap> {
-    let covered: Vec<(f64, f64)> = report
-        .plays
+    let spans = uncovered_spans(report);
+    let intervals = clean_intervals(&entry_starts(&confident_plays(report)), &spans);
+    spans
         .iter()
-        .filter(|play| play.confidence == Level::Confident)
-        .flat_map(spans)
-        .collect();
-    let start = report.query.start_seconds;
-    let end = start + report.query.duration_seconds;
-    gunfinger_core::gaps::uncovered(&covered, start, end, MIN_GAP_SECONDS)
-        .into_iter()
-        .map(|(start_seconds, end_seconds)| Gap {
+        .map(|&(start_seconds, end_seconds)| Gap {
             start_seconds,
             end_seconds,
             possible_plays: report
@@ -57,15 +97,76 @@ pub fn gaps(report: &Report) -> Vec<Gap> {
                 .zip(1..)
                 .filter(|(play, _)| play.confidence != Level::Confident)
                 .filter(|(play, _)| {
-                    spans(play).any(|(from, to)| from < end_seconds && start_seconds < to)
+                    segment_spans(play).any(|(from, to)| from < end_seconds && start_seconds < to)
                 })
                 .map(|(_, position)| position)
                 .collect(),
+            tracks: report.gap_repeats.as_ref().and_then(|stretches| {
+                let records = stretches
+                    .iter()
+                    .filter(|stretch| {
+                        let middle = (stretch.start_seconds + stretch.end_seconds) / 2.0;
+                        start_seconds <= middle && middle < end_seconds
+                    })
+                    .count();
+                let range = length_range(end_seconds - start_seconds, &intervals);
+                estimate(records, range).map(Tracks::from)
+            }),
         })
         .collect()
 }
 
-fn spans(play: &FoundPlay) -> impl Iterator<Item = (f64, f64)> + '_ {
+/// The repeated stretches of each gap of `report`, found in `samples`, the
+/// decoded audio of the searched part at the profile's rate, one gap per
+/// worker (`repeats::records`, ADR 0024).
+pub fn find_repeats(
+    report: &Report,
+    samples: &[f32],
+    profile: &Profile,
+    jobs: usize,
+) -> Vec<Stretch> {
+    let offset = report.query.start_seconds;
+    let rate = f64::from(profile.sample_rate);
+    let sample =
+        |seconds: f64| (((seconds - offset) * rate).round().max(0.0) as usize).min(samples.len());
+    map_in_order(&uncovered_spans(report), jobs, |&(start, end)| {
+        repeats::records(&samples[sample(start)..sample(end)], profile)
+            .into_iter()
+            .map(|(from, to)| Stretch {
+                start_seconds: start + from,
+                end_seconds: start + to,
+            })
+            .collect::<Vec<_>>()
+    })
+    .into_iter()
+    .flatten()
+    .collect()
+}
+
+fn uncovered_spans(report: &Report) -> Vec<(f64, f64)> {
+    let covered: Vec<(f64, f64)> = report
+        .plays
+        .iter()
+        .filter(|play| play.confidence == Level::Confident)
+        .flat_map(segment_spans)
+        .collect();
+    let start = report.query.start_seconds;
+    let end = start + report.query.duration_seconds;
+    uncovered(&covered, start, end, MIN_GAP_SECONDS)
+}
+
+/// Each confident play from its first to its last segment: method 1's
+/// entries are made from these (`gunfinger_core::gaps::entry_starts`).
+fn confident_plays(report: &Report) -> Vec<(f64, f64)> {
+    report
+        .plays
+        .iter()
+        .filter(|play| play.confidence == Level::Confident)
+        .map(|play| (play.start_seconds, play.end_seconds))
+        .collect()
+}
+
+fn segment_spans(play: &FoundPlay) -> impl Iterator<Item = (f64, f64)> + '_ {
     play.segments
         .iter()
         .map(|segment| (segment.start_seconds, segment.end_seconds))
@@ -90,6 +191,7 @@ mod tests {
             start_seconds,
             end_seconds,
             possible_plays,
+            tracks: None,
         }
     }
 
@@ -215,5 +317,226 @@ mod tests {
             gap(403.2, 880.8, Vec::new()).label(),
             "ID - ID (7:57 without a confident match)"
         );
+    }
+
+    #[test]
+    fn the_label_gives_the_estimate_as_a_range() {
+        let gap = Gap {
+            tracks: Some(Tracks {
+                low: 1,
+                high: 3,
+                method: TracksMethod::RepeatsWithinLength,
+            }),
+            ..gap(403.2, 880.8, Vec::new())
+        };
+
+        assert_eq!(
+            gap.label(),
+            "ID - ID (7:57 without a confident match; about 1-3 tracks)"
+        );
+    }
+
+    /// A recording of `duration_seconds` with a confident play over each of
+    /// `plays`, and `repeats` found in its gaps.
+    fn mix(plays: &[(f64, f64)], duration_seconds: f64, repeats: Option<&[(f64, f64)]>) -> Report {
+        let mut report = report();
+        let one_segment = report.plays[1].clone();
+        report.plays = plays
+            .iter()
+            .map(|&(start, end)| {
+                let mut play = one_segment.clone();
+                (play.start_seconds, play.end_seconds) = (start, end);
+                (play.segments[0].start_seconds, play.segments[0].end_seconds) = (start, end);
+                play
+            })
+            .collect();
+        report.query.duration_seconds = duration_seconds;
+        report.gap_repeats = repeats.map(|repeats| {
+            repeats
+                .iter()
+                .map(|&(start_seconds, end_seconds)| Stretch {
+                    start_seconds,
+                    end_seconds,
+                })
+                .collect()
+        });
+        report
+    }
+
+    /// Entries every 200 s from 0:00 to 10:00, then a gap of `tracks`
+    /// tracks' length (and 5 s of the last entry's end), then one more
+    /// entry: three clean intervals of 200 s.
+    fn entries_around_a_gap(tracks: u32, repeats: &[(f64, f64)]) -> Report {
+        let next = 800.0 + 200.0 * f64::from(tracks);
+        mix(
+            &[
+                (0.0, 195.0),
+                (200.0, 395.0),
+                (400.0, 595.0),
+                (600.0, 795.0),
+                (next, next + 195.0),
+            ],
+            next + 195.0,
+            Some(repeats),
+        )
+    }
+
+    fn tracks(report: &Report) -> Vec<Option<(u32, u32, TracksMethod)>> {
+        gaps(report)
+            .into_iter()
+            .map(|gap| {
+                gap.tracks
+                    .map(|tracks| (tracks.low, tracks.high, tracks.method))
+            })
+            .collect()
+    }
+
+    #[test]
+    fn each_count_is_printed_one_either_side_at_least_one() {
+        // One repeated stretch per track, in a gap as long as that many
+        // intervals: both methods agree.
+        let stretches = [
+            (820.0, 900.0),
+            (1_020.0, 1_100.0),
+            (1_220.0, 1_300.0),
+            (1_420.0, 1_500.0),
+        ];
+        for (tracks_held, expected) in [(1, (1, 2)), (2, (1, 3)), (3, (2, 4)), (4, (3, 5))] {
+            let report = entries_around_a_gap(tracks_held, &stretches[..tracks_held as usize]);
+
+            assert_eq!(
+                tracks(&report),
+                [Some((
+                    expected.0,
+                    expected.1,
+                    TracksMethod::RepeatsWithinLength
+                ))],
+                "{tracks_held} tracks"
+            );
+        }
+    }
+
+    #[test]
+    fn the_length_limits_the_repeats_where_the_two_disagree() {
+        // Three tracks' length: one long stretch (records sharing a
+        // passage) is raised to 3, six stretches are lowered to 3.
+        let merged = entries_around_a_gap(3, &[(820.0, 1_350.0)]);
+        let split = entries_around_a_gap(
+            3,
+            &[
+                (800.0, 840.0),
+                (850.0, 890.0),
+                (900.0, 940.0),
+                (1_000.0, 1_040.0),
+                (1_100.0, 1_140.0),
+                (1_200.0, 1_240.0),
+            ],
+        );
+
+        assert_eq!(
+            tracks(&merged),
+            [Some((2, 4, TracksMethod::RepeatsWithinLength))]
+        );
+        assert_eq!(
+            tracks(&split),
+            [Some((2, 4, TracksMethod::RepeatsWithinLength))]
+        );
+    }
+
+    #[test]
+    fn without_three_clean_intervals_the_repeats_stand_alone() {
+        // The only interval holds the gap.
+        let report = mix(
+            &[(0.0, 195.0), (800.0, 995.0)],
+            995.0,
+            Some(&[(220.0, 300.0), (420.0, 500.0)]),
+        );
+
+        assert_eq!(tracks(&report), [Some((1, 3, TracksMethod::Repeats))]);
+    }
+
+    #[test]
+    fn gaps_at_the_start_and_the_end_get_estimates_from_the_stretches_inside_them() {
+        let report = mix(
+            &[
+                (100.0, 295.0),
+                (300.0, 495.0),
+                (500.0, 695.0),
+                (700.0, 895.0),
+            ],
+            1_100.0,
+            Some(&[(10.0, 50.0), (900.0, 960.0), (1_000.0, 1_090.0)]),
+        );
+
+        // 100 s and 205 s over intervals of 200 s: 1 track each; the end's
+        // two stretches are lowered to 1.
+        assert_eq!(
+            tracks(&report),
+            [
+                Some((1, 2, TracksMethod::RepeatsWithinLength)),
+                Some((1, 2, TracksMethod::RepeatsWithinLength))
+            ]
+        );
+    }
+
+    #[test]
+    fn a_gap_without_a_repeated_stretch_has_no_estimate() {
+        let report = entries_around_a_gap(2, &[]);
+
+        assert_eq!(tracks(&report), [None]);
+        assert_eq!(
+            gaps(&report)[0].label(),
+            "ID - ID (6:45 without a confident match)"
+        );
+    }
+
+    #[test]
+    fn a_report_saved_without_gap_repeats_has_no_estimate() {
+        let mut report = entries_around_a_gap(2, &[(820.0, 900.0)]);
+        report.gap_repeats = None;
+
+        assert_eq!(tracks(&report), [None]);
+    }
+
+    /// Beeps of a fixed pattern for `seconds`.
+    fn beeps(seconds: f64, rate: f64) -> Vec<f32> {
+        (0..(seconds * rate) as usize)
+            .map(|n| {
+                let t = n as f64 / rate;
+                let pitch = 300.0 + 150.0 * ((t * 3.0).floor() % 7.0);
+                ((2.0 * std::f64::consts::PI * pitch * t).sin()
+                    * if (t * 4.0).fract() < 0.5 { 0.5 } else { 0.0 }) as f32
+            })
+            .collect()
+    }
+
+    #[test]
+    fn repeats_are_found_in_the_gaps_slice_of_the_samples_in_the_recordings_time() {
+        // `--start 10:00 --duration 2:00`, nothing found: one gap. Its
+        // audio is 20 s of silence, then a passage of 12 s played three
+        // times.
+        let profile = Profile::CURRENT;
+        let rate = f64::from(profile.sample_rate);
+        let mut report = mix(&[], 120.0, None);
+        report.query.start_seconds = 600.0;
+        let samples: Vec<f32> = [
+            vec![0.0; (20.0 * rate) as usize],
+            beeps(12.0, rate),
+            beeps(12.0, rate),
+            beeps(12.0, rate),
+            vec![0.0; (64.0 * rate) as usize],
+        ]
+        .concat();
+
+        let found = find_repeats(&report, &samples, &profile, 2);
+
+        assert_eq!(found.len(), 1, "{found:?}");
+        assert!(
+            (615.0..625.0).contains(&found[0].start_seconds)
+                && (650.0..660.0).contains(&found[0].end_seconds),
+            "{found:?}"
+        );
+        report.gap_repeats = Some(found);
+        assert_eq!(tracks(&report), [Some((1, 2, TracksMethod::Repeats))]);
     }
 }

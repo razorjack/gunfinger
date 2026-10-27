@@ -31,7 +31,6 @@ mod robust;
 mod scan;
 mod scoring;
 mod seconds;
-mod self_match;
 mod shared;
 mod shared_mixes;
 mod stereo;
@@ -52,12 +51,14 @@ use std::time::Duration;
 
 use clap::{Parser, Subcommand, ValueEnum};
 use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::gaps::{Estimate, Method, estimate, length_range};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
+use gunfinger_core::repeats::{self, RECORD_HITS, Repeats};
 use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_extra_rungs};
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::Serialize;
@@ -543,12 +544,14 @@ enum Command {
         #[arg(long, value_delimiter = ',', default_values_t = gaps::MIN_LENGTHS)]
         min_length: Vec<f64>,
     },
-    /// A prototype of counting the tracks in a gap by matching the gap
-    /// against itself: each listed gap of saved `mixes` or `scan` reports
-    /// (as `gaps` lists them, at one minimum length) is decoded, its pair
-    /// hashes matched with its own at speed 1.0, and the stretches joined
-    /// by repeats counted as blocks, at several thresholds, beside the
-    /// truth and method 1's estimate. The listing goes to
+    /// Counting the tracks in a gap by matching the gap against itself:
+    /// each listed gap of saved `mixes` or `scan` reports (as `gaps` lists
+    /// them, at one minimum length) is decoded, its pair hashes matched
+    /// with its own at speed 1.0, and the stretches joined by repeats
+    /// counted as blocks, at several thresholds, beside the truth, method
+    /// 1's estimate and the estimate `identify` prints (`tracks`, ADR 0024,
+    /// from the gaps and intervals at this minimum length). The listing
+    /// goes to
     /// `gaps/self-match-<report stem>.json` (with another library, under
     /// `gaps/library-<store directory name>/`).
     SelfMatch {
@@ -2819,14 +2822,69 @@ struct SelfMatched {
     missed_tracks: usize,
     indexed_tracks: usize,
     estimate: Option<u32>,
-    blocks: Vec<self_match::Blocks>,
+    blocks: Vec<BlocksAt>,
     /// With `--ratios`: the blocks with repeats at those ratios too.
     #[serde(skip_serializing_if = "Option::is_none")]
-    blocks_at_ratios: Option<Vec<self_match::Blocks>>,
+    blocks_at_ratios: Option<Vec<BlocksAt>>,
+    /// The product's estimate (ADR 0024) from this gap's repeats at speed
+    /// 1.0 and the listing's clean intervals, by the code `identify` uses.
+    tracks: Option<TracksAt>,
     /// With `--neighbours`: the gap searched against its neighbours'
     /// records, in seconds from the gap's start.
     #[serde(skip_serializing_if = "Option::is_none")]
     neighbours: Option<Vec<NeighbourMatch>>,
+}
+
+/// The thresholds compared, in hits per cell and lag.
+const MIN_HITS: [u32; 4] = [5, 10, 20, 40];
+
+/// A gap's blocks at one threshold (`repeats::Blocks`).
+#[derive(Serialize)]
+struct BlocksAt {
+    min_hits: u32,
+    /// Each block's first and last cell, in seconds from the gap's start.
+    spans: Vec<(f64, f64)>,
+    /// Cells in a block, of all cells.
+    cells_in_blocks: usize,
+    cells: usize,
+}
+
+impl BlocksAt {
+    fn each(repeats: &Repeats) -> Vec<BlocksAt> {
+        MIN_HITS
+            .iter()
+            .map(|&min_hits| {
+                let blocks = repeats.blocks(min_hits);
+                BlocksAt {
+                    min_hits: blocks.min_hits,
+                    spans: blocks.spans,
+                    cells_in_blocks: blocks.cells_in_blocks,
+                    cells: blocks.cells,
+                }
+            })
+            .collect()
+    }
+}
+
+/// The product's estimate of a gap, as its JSON report writes it.
+#[derive(Serialize)]
+struct TracksAt {
+    low: u32,
+    high: u32,
+    method: &'static str,
+}
+
+impl From<Estimate> for TracksAt {
+    fn from(estimate: Estimate) -> TracksAt {
+        TracksAt {
+            low: estimate.low,
+            high: estimate.high,
+            method: match estimate.method {
+                Method::RepeatsWithinLength => "repeats-within-length",
+                Method::Repeats => "repeats",
+            },
+        }
+    }
 }
 
 /// A detection of a neighbour's record inside a gap.
@@ -2846,6 +2904,10 @@ struct SelfMatchOptions<'a> {
     neighbours: bool,
 }
 
+/// A gap to match: the mix's audio and name, the gap, its neighbours'
+/// files and the mix's clean intervals.
+type ListedGap<'a> = (&'a Path, String, gaps::Gap, Vec<String>, Vec<f64>);
+
 /// `self-match`: every listed gap of each report, matched against itself,
 /// one gap per worker.
 fn match_gaps_against_themselves(
@@ -2864,7 +2926,7 @@ fn match_gaps_against_themselves(
     };
     let ladder = paths.rungs();
     for (path, kind, judged) in judged_reports(paths, reports, &clusters, options.margin)? {
-        let mut gaps: Vec<(&Path, String, gaps::Gap, Vec<String>)> = Vec::new();
+        let mut gaps: Vec<ListedGap> = Vec::new();
         for mix in &judged {
             let Some(audio) = &mix.audio else { continue };
             let listing = gaps::list(
@@ -2875,13 +2937,21 @@ fn match_gaps_against_themselves(
                 mix.margin,
                 &[min_length],
             );
-            for gap in listing.at.into_iter().flat_map(|at| at.gaps) {
-                let neighbours = gaps::neighbours(&mix.segments, &gap);
-                gaps.push((audio, mix.name.clone(), gap, neighbours));
+            for at in listing.at {
+                for gap in at.gaps {
+                    let neighbours = gaps::neighbours(&mix.segments, &gap);
+                    gaps.push((
+                        audio,
+                        mix.name.clone(),
+                        gap,
+                        neighbours,
+                        at.intervals.clone(),
+                    ));
+                }
             }
         }
         let matched: Vec<SelfMatched> =
-            map_in_order(&gaps, jobs, |(audio, mix, gap, neighbours)| {
+            map_in_order(&gaps, jobs, |(audio, mix, gap, neighbours, intervals)| {
                 let excerpt = Excerpt {
                     start: Some(Duration::from_secs_f64(gap.start_seconds)),
                     duration: Some(Duration::from_secs_f64(gap.length_seconds())),
@@ -2895,6 +2965,8 @@ fn match_gaps_against_themselves(
                     }
                     None => None,
                 };
+                let at_one = Repeats::find(&samples, &profile, &[]);
+                let records = repeats::stretches(&at_one.blocks(RECORD_HITS)).len();
                 Ok(SelfMatched {
                     mix: mix.clone(),
                     start_seconds: gap.start_seconds,
@@ -2902,9 +2974,12 @@ fn match_gaps_against_themselves(
                     missed_tracks: gap.missed_tracks.len(),
                     indexed_tracks: gap.indexed_tracks.len(),
                     estimate: gap.estimate,
-                    blocks: self_match::blocks(&samples, &profile, &[]),
-                    blocks_at_ratios: (!options.ratios.is_empty())
-                        .then(|| self_match::blocks(&samples, &profile, options.ratios)),
+                    blocks: BlocksAt::each(&at_one),
+                    blocks_at_ratios: (!options.ratios.is_empty()).then(|| {
+                        BlocksAt::each(&Repeats::find(&samples, &profile, options.ratios))
+                    }),
+                    tracks: estimate(records, length_range(gap.length_seconds(), intervals))
+                        .map(TracksAt::from),
                     neighbours,
                 })
             })

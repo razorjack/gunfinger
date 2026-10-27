@@ -11,6 +11,7 @@ pub mod parallel;
 pub mod peaks;
 pub mod plays;
 pub mod profile;
+pub mod repeats;
 pub mod search;
 pub mod spectrogram;
 pub mod speed;

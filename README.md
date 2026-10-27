@@ -141,6 +141,17 @@ confident segment covers. A possible match inside it keeps its own
 line. Shorter stretches are not listed, so the other lines do not
 account for every second of the mix.
 
+Where the stretch's audio repeats itself, the line ends with an estimate
+of how many tracks it holds, always a range: `about 1-3 tracks`. A
+record repeats its own material, so `identify` matches each stretch
+against itself and counts the long runs of repeats as records, kept
+within the range the stretch's length gives over the mix's usual time
+between tracks. It is an estimate, not a count: on generated mixes the
+range held the number of tracks for about 97% of the stretches, less
+often where records share a passage (a remix and its original, two
+records on one break), which tend to be counted as one. A stretch
+without such repeats gets no estimate; the estimate is never 0.
+
 The tracklist lists tracks, not files. Plays of several library files over
 the same stretch of the mix are one entry when the files line up with each
 other (rips, masters, uploads sped up by a few percent) or when their tags
@@ -158,13 +169,17 @@ shows it, marked `shares material with`, and JSON keeps it.
 - `human`: a table of every play: the span in the mix, the part of the
   track heard, speed, confidence (`confident` or `possible`), hits and
   file path. Plays found with key lock end with `(key lock)`. Each
-  stretch without a confident match is a row of its own.
+  stretch without a confident match is a row of its own, with its
+  estimate.
 - `timeline`: each play as a bar across the recording.
 - `json`: the whole report, including each file's tags and the stretches
-  without a confident match (`gaps`: `start_seconds`, `end_seconds` and
+  without a confident match (`gaps`: `start_seconds`, `end_seconds`,
   `possible_plays`, the positions from 1 in `plays` of the possible
-  plays overlapping it). Fields may be added without a change of
-  `schema_version`.
+  plays overlapping it, and `tracks`, the estimate as `low`, `high` and
+  `method`, or `null`). `gap_repeats` holds the repeated stretches the
+  estimate comes from, so `gunfinger show` prints it without decoding
+  the recording again; a report saved before the estimate existed shows
+  none. Fields may be added without a change of `schema_version`.
 - `csv`: one row per play, times in seconds.
 - `cue`: a cue sheet of the confident tracks, for players and splitters.
   CSV and the cue sheet have no rows for gaps.

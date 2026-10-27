@@ -1,9 +1,11 @@
-//! The gap against itself: a measured prototype of method 2 of step 2 in
-//! `docs/research/2026-10-20-unidentified-gaps.md`. A drum & bass record
-//! repeats its own material, so the gap's pair hashes, matched against the
-//! gap's own at speed 1.0, line up at lags where one record plays again
-//! what it played before. Stretches of the gap joined by such repeats form
-//! blocks; the number of blocks is a count of the records in it.
+//! A gap matched against itself: method 2 of
+//! `docs/research/2026-10-20-unidentified-gaps.md`, measured in experiments
+//! 0162-0166, and the count of records it gives the CLI's gap lines (ADR
+//! 0024). A drum & bass record repeats its own material, so the gap's pair
+//! hashes, matched against the gap's own at speed 1.0, line up at lags
+//! where one record plays again what it played before. Stretches of the
+//! gap joined by such repeats form blocks; the long ones, merged where
+//! they overlap, are counted as records.
 //!
 //! The gap is cut into cells of `CELL_SECONDS`. A repeat is a lag (in
 //! frames, `LAG_STEP_FRAMES` wide) at which at least `min_hits` hashes of
@@ -14,21 +16,23 @@
 
 use std::collections::BTreeMap;
 
-use gunfinger_core::hash::{PairHash, Point, for_each_pair};
-use gunfinger_core::profile::Profile;
-use gunfinger_core::speed::{SpeedRatio, points_at_speed};
-use serde::Serialize;
+use crate::hash::{PairHash, Point, for_each_pair};
+use crate::profile::Profile;
+use crate::speed::{SpeedRatio, points_at_speed};
 
 pub const CELL_SECONDS: f64 = 5.0;
 /// Shorter lags are the record's own beat and the diagonal.
 const MIN_LAG_SECONDS: f64 = 8.0;
 const LAG_STEP_FRAMES: f64 = 2.0;
 const MOST_OCCURRENCES: usize = 40;
-/// The thresholds compared, in hits per cell and lag.
-pub const MIN_HITS: [u32; 4] = [5, 10, 20, 40];
+/// The hits per cell and lag that join cells into a record's blocks, and
+/// the shortest block taken as a record: the reading chosen on the
+/// development gaps and fixed before experiment 0162's test.
+pub const RECORD_HITS: u32 = 10;
+pub const MIN_STRETCH_SECONDS: f64 = 30.0;
 
-/// The blocks of one gap at each threshold.
-#[derive(Debug, Serialize, PartialEq)]
+/// The blocks of one gap at one threshold.
+#[derive(Debug, PartialEq)]
 pub struct Blocks {
     pub min_hits: u32,
     /// Each block's first and last cell, in seconds from the gap's start.
@@ -38,57 +42,104 @@ pub struct Blocks {
     pub cells: usize,
 }
 
-/// The repeats of `samples` (one gap) and the blocks they make at each of
-/// `MIN_HITS`. Besides repeats at the same speed, each of `ratios` adds
-/// the repeats played that much faster than their first hearing (a pitch
-/// ride between them): the gap's hashes as if it played at the ratio,
-/// matched against its own at speed 1.0.
-pub fn blocks(samples: &[f32], profile: &Profile, ratios: &[f64]) -> Vec<Blocks> {
-    let points = points_at_speed(samples, profile, SpeedRatio(1.0));
-    let cell_frames = profile.frames(CELL_SECONDS);
-    let cells = (profile.frames(samples.len() as f64 / f64::from(profile.sample_rate))
-        / cell_frames)
-        .ceil() as usize;
-    let mut repeats: Vec<(f64, Hits)> =
-        vec![(1.0, repeats(&points, &points, 1.0, profile, cell_frames))];
-    for &ratio in ratios.iter().filter(|&&ratio| ratio != 1.0) {
-        let faster = points_at_speed(samples, profile, SpeedRatio(ratio));
-        repeats.push((
-            ratio,
-            self::repeats(&points, &faster, ratio, profile, cell_frames),
-        ));
-    }
-    MIN_HITS
+/// The repeats found in one gap, from which blocks are read at any
+/// threshold.
+pub struct Repeats {
+    cells: usize,
+    cell_frames: f64,
+    /// Hits per (cell, lag step), for each speed ratio of the repeat to its
+    /// first hearing.
+    by_ratio: Vec<(f64, Hits)>,
+}
+
+/// The records `samples` (one gap) holds by its repeats: the stretches of
+/// its blocks at `RECORD_HITS`, at speed 1.0 only, in seconds from its
+/// start.
+pub fn records(samples: &[f32], profile: &Profile) -> Vec<(f64, f64)> {
+    stretches(&Repeats::find(samples, profile, &[]).blocks(RECORD_HITS))
+}
+
+/// The blocks spanning `MIN_STRETCH_SECONDS` or more, those whose spans
+/// overlap merged: one record's repeats can form several blocks that
+/// overlap in time (0162).
+pub fn stretches(blocks: &Blocks) -> Vec<(f64, f64)> {
+    let mut long: Vec<(f64, f64)> = blocks
+        .spans
         .iter()
-        .map(|&min_hits| {
-            let joins: Vec<(usize, usize)> = repeats
+        .copied()
+        .filter(|(start, end)| end - start >= MIN_STRETCH_SECONDS)
+        .collect();
+    long.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.total_cmp(&b.1)));
+    let mut merged: Vec<(f64, f64)> = Vec::new();
+    for (start, end) in long {
+        match merged.last_mut() {
+            Some(last) if start < last.1 => last.1 = last.1.max(end),
+            _ => merged.push((start, end)),
+        }
+    }
+    merged
+}
+
+impl Repeats {
+    /// The repeats of `samples` (one gap). Besides repeats at the same
+    /// speed, each of `ratios` adds the repeats played that much faster
+    /// than their first hearing (a pitch ride between them): the gap's
+    /// hashes as if it played at the ratio, matched against its own at
+    /// speed 1.0.
+    pub fn find(samples: &[f32], profile: &Profile, ratios: &[f64]) -> Repeats {
+        let points = points_at_speed(samples, profile, SpeedRatio(1.0));
+        let cell_frames = profile.frames(CELL_SECONDS);
+        let cells = (profile.frames(samples.len() as f64 / f64::from(profile.sample_rate))
+            / cell_frames)
+            .ceil() as usize;
+        let mut by_ratio: Vec<(f64, Hits)> =
+            vec![(1.0, repeats(&points, &points, 1.0, profile, cell_frames))];
+        for &ratio in ratios.iter().filter(|&&ratio| ratio != 1.0) {
+            let faster = points_at_speed(samples, profile, SpeedRatio(ratio));
+            by_ratio.push((
+                ratio,
+                repeats(&points, &faster, ratio, profile, cell_frames),
+            ));
+        }
+        Repeats {
+            cells,
+            cell_frames,
+            by_ratio,
+        }
+    }
+
+    /// The blocks that repeats of at least `min_hits` hits make.
+    pub fn blocks(&self, min_hits: u32) -> Blocks {
+        let joins: Vec<(usize, usize)> = self
+            .by_ratio
+            .iter()
+            .flat_map(|(ratio, hits)| {
+                hits.iter().filter(move |&(_, &hits)| hits >= min_hits).map(
+                    move |(&(cell, lag), _)| {
+                        (cell, later_cell(cell, lag, self.cell_frames, *ratio))
+                    },
+                )
+            })
+            .filter(|&(_, later)| later < self.cells)
+            .collect();
+        let groups = groups(self.cells, &joins);
+        Blocks {
+            min_hits,
+            spans: groups
                 .iter()
-                .flat_map(|(ratio, hits)| {
-                    hits.iter().filter(move |&(_, &hits)| hits >= min_hits).map(
-                        move |(&(cell, lag), _)| (cell, later_cell(cell, lag, cell_frames, *ratio)),
+                .map(|group| {
+                    let first = group.first().copied().unwrap_or(0);
+                    let last = group.last().copied().unwrap_or(0);
+                    (
+                        first as f64 * CELL_SECONDS,
+                        (last + 1) as f64 * CELL_SECONDS,
                     )
                 })
-                .filter(|&(_, later)| later < cells)
-                .collect();
-            let groups = groups(cells, &joins);
-            Blocks {
-                min_hits,
-                spans: groups
-                    .iter()
-                    .map(|group| {
-                        let first = group.first().copied().unwrap_or(0);
-                        let last = group.last().copied().unwrap_or(0);
-                        (
-                            first as f64 * CELL_SECONDS,
-                            (last + 1) as f64 * CELL_SECONDS,
-                        )
-                    })
-                    .collect(),
-                cells_in_blocks: groups.iter().map(Vec::len).sum(),
-                cells,
-            }
-        })
-        .collect()
+                .collect(),
+            cells_in_blocks: groups.iter().map(Vec::len).sum(),
+            cells: self.cells,
+        }
+    }
 }
 
 /// Hits per cell of the earlier moment and lag step.
@@ -194,6 +245,28 @@ mod tests {
     }
 
     #[test]
+    fn stretches_are_long_blocks_with_overlapping_ones_merged() {
+        let blocks = Blocks {
+            min_hits: RECORD_HITS,
+            spans: vec![
+                (0.0, 40.0),
+                (20.0, 70.0),
+                (70.0, 100.0),
+                (100.0, 125.0),
+                (130.0, 160.0),
+            ],
+            cells_in_blocks: 0,
+            cells: 32,
+        };
+
+        // 100-125 s is too short; 70-100 s only touches 20-70 s.
+        assert_eq!(
+            stretches(&blocks),
+            [(0.0, 70.0), (70.0, 100.0), (130.0, 160.0)]
+        );
+    }
+
+    #[test]
     fn a_lag_reaches_the_cell_its_middle_lands_in() {
         // Cells of 100 frames; a lag of 150 steps of 2 frames from cell 1.
         assert_eq!(later_cell(1, 150, 100.0, 1.0), 4);
@@ -223,12 +296,12 @@ mod tests {
         ]
         .concat();
 
-        let alone = blocks(&samples, &profile, &[]);
-        let at_ratio = blocks(&samples, &profile, &[1.03]);
+        let alone = Repeats::find(&samples, &profile, &[]).blocks(5);
+        let at_ratio = Repeats::find(&samples, &profile, &[1.03]).blocks(5);
 
-        assert!(alone[0].spans.is_empty(), "{:?}", alone[0]);
-        assert_eq!(at_ratio[0].spans.len(), 1, "{:?}", at_ratio[0]);
-        assert!(at_ratio[0].spans[0].1 > 24.0, "{:?}", at_ratio[0]);
+        assert!(alone.spans.is_empty(), "{alone:?}");
+        assert_eq!(at_ratio.spans.len(), 1, "{at_ratio:?}");
+        assert!(at_ratio.spans[0].1 > 24.0, "{at_ratio:?}");
     }
 
     #[test]
@@ -253,14 +326,15 @@ mod tests {
             .collect();
         let samples: Vec<f32> = [beeps.clone(), noise, beeps].concat();
 
-        let found = blocks(&samples, &profile, &[]);
+        let at_five = Repeats::find(&samples, &profile, &[]).blocks(5);
 
-        let at_five = &found[0];
         assert_eq!(at_five.min_hits, 5);
         assert_eq!(at_five.spans.len(), 1, "{at_five:?}");
         assert!(
             at_five.spans[0].0 < 12.0 && at_five.spans[0].1 > 24.0,
             "{at_five:?}"
         );
+        // The block spans more than 30 s at the records' threshold too.
+        assert_eq!(records(&samples, &profile).len(), 1);
     }
 }

@@ -303,7 +303,7 @@ fn cue_time(frame: u64) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::report::{OtherTitle, PlayTags, SharedWith};
+    use crate::report::{OtherTitle, PlayTags, SharedWith, Stretch};
     use crate::table::tests::report;
 
     fn names(asset: &str) -> TrackName {
@@ -362,6 +362,32 @@ mod tests {
         assert_eq!(
             tracklist,
             "       0:00  ID - ID (1:36 without a confident match)\n 1.    0:38  b (possible)\n 2.    1:24  insert (possible)\n 3.    1:36  c\n       2:20  ID - ID (1:40 without a confident match)\n"
+        );
+    }
+
+    #[test]
+    fn a_gap_line_with_repeats_in_it_gives_the_estimate() {
+        let mut report = report();
+        // Two stretches repeat in the 1:40 after c.wav, one in the 1:36
+        // before it; the mix has too few intervals for a range of length.
+        report.plays.remove(0);
+        report.plays[0].confidence = Level::Possible;
+        report.plays[0].segments[0].confidence = Level::Possible;
+        report.query.duration_seconds = 240.0;
+        report.gap_repeats = Some(
+            [(10.0, 50.0), (150.0, 185.0), (190.0, 235.0)]
+                .map(|(start_seconds, end_seconds)| Stretch {
+                    start_seconds,
+                    end_seconds,
+                })
+                .to_vec(),
+        );
+
+        let tracklist = tracklist(&report, names);
+
+        assert_eq!(
+            tracklist,
+            "       0:00  ID - ID (1:36 without a confident match; about 1-2 tracks)\n 1.    0:38  b (possible)\n 2.    1:24  insert (possible)\n 3.    1:36  c\n       2:20  ID - ID (1:40 without a confident match; about 1-3 tracks)\n"
         );
     }
 

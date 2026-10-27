@@ -916,6 +916,71 @@ fn a_minute_without_a_confident_match_is_an_id_line_in_the_tracklist_table_and_j
 }
 
 #[test]
+fn a_gap_whose_audio_repeats_itself_gets_an_estimate_of_its_tracks() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("gap-estimate");
+    let library = dir.join("library");
+    let first = Track::random(1, 60.0);
+    let unknown = Track::random(2, 30.0);
+    let last = Track::random(3, 60.0);
+    for (name, track) in [("first.wav", &first), ("last.wav", &last)] {
+        write_wav(&library.join(name), &track.play(0.0, track.seconds, 1.0));
+    }
+    // A minute of a record not in the library that plays one 20 s passage
+    // three times, as a record repeats its own material.
+    let mut mix = Mix::new(150.0);
+    mix.add(0.0, &first.play(5.0, 45.0, 1.0), 0.5);
+    for at in [45.0, 65.0, 85.0] {
+        mix.add(at, &unknown.play(5.0, 20.0, 1.0), 0.5);
+    }
+    mix.add(105.0, &last.play(5.0, 45.0, 1.0), 0.5);
+    let recording = dir.join("mix.wav");
+    write_wav(&recording, mix.samples());
+    let library_arg = library.to_str().unwrap();
+    let saved = dir.join("reports");
+    gunfinger(&dir, &["index", library_arg]);
+
+    let output = gunfinger(
+        &dir,
+        &[
+            "identify",
+            recording.to_str().unwrap(),
+            "--library",
+            library_arg,
+            "--save-dir",
+            saved.to_str().unwrap(),
+        ],
+    );
+    let tracklist = String::from_utf8_lossy(&output.stdout).into_owned();
+    let report_path = saved.join("mix.json");
+    let shown = gunfinger(
+        &dir,
+        &["show", report_path.to_str().unwrap(), "--format", "json"],
+    );
+
+    let lines: Vec<&str> = tracklist.lines().collect();
+    assert_eq!(lines.len(), 3, "{tracklist}");
+    assert!(
+        lines[1].contains("  ID - ID (")
+            && lines[1].ends_with(" without a confident match; about 1-2 tracks)"),
+        "one record, too few intervals for a range of length: {tracklist}"
+    );
+    let report: Value = serde_json::from_str(&String::from_utf8_lossy(&shown.stdout)).unwrap();
+    assert_eq!(
+        report["gaps"][0]["tracks"],
+        serde_json::json!({ "low": 1, "high": 2, "method": "repeats" }),
+        "{report}"
+    );
+    assert_eq!(
+        report["gap_repeats"].as_array().map(Vec::len),
+        Some(1),
+        "{report}"
+    );
+}
+
+#[test]
 fn a_peak_store_holds_the_records_of_one_library() {
     if !ffmpeg_available() {
         return;
