@@ -9,10 +9,11 @@
 //! lead-in, an edit; ADR 0017). Such plays are one entry, named after the
 //! strongest, with the other names the tags give.
 
+use gunfinger_core::timecode::format_seconds;
+
 use crate::gaps::gaps;
 use crate::names::TrackName;
 use crate::report::{FoundPlay, Level, Playback, Report};
-use crate::table::timecode;
 
 /// Cue sheet times count frames of 1/75 s.
 const CUE_FRAMES_PER_SECOND: f64 = 75.0;
@@ -203,7 +204,11 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
         .map(|gap| {
             (
                 gap.start_seconds,
-                format!("    {:>7}  {}", timecode(gap.start_seconds), gap.label()),
+                format!(
+                    "    {:>7}  {}",
+                    format_seconds(gap.start_seconds),
+                    gap.label()
+                ),
             )
         })
         .collect();
@@ -225,7 +230,7 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
             format!(
                 "{:>2}. {:>7}  {}{also}{mark}",
                 number + 1,
-                timecode(entry.start_seconds()),
+                format_seconds(entry.start_seconds()),
                 name(entry.asset()).full()
             ),
         ));

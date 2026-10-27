@@ -1,8 +1,6 @@
 //! `--format human`: a table with one row per play.
 
-use std::time::Duration;
-
-use gunfinger_core::timecode::format_timecode;
+use gunfinger_core::timecode::format_seconds;
 
 use crate::gaps::{Gap, gaps};
 use crate::report::{FoundPlay, Level, Playback, Report};
@@ -142,11 +140,11 @@ fn row(time: &str, track: &str, speed: f64, confidence: &str, hits: u32, asset: 
 }
 
 pub fn span(start_seconds: f64, end_seconds: f64) -> String {
-    format!("{}-{}", timecode(start_seconds), timecode(end_seconds))
-}
-
-pub fn timecode(seconds: f64) -> String {
-    format_timecode(Duration::from_secs_f64(seconds.max(0.0)))
+    format!(
+        "{}-{}",
+        format_seconds(start_seconds),
+        format_seconds(end_seconds)
+    )
 }
 
 #[cfg(test)]

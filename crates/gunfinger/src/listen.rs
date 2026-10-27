@@ -6,11 +6,12 @@ use std::path::PathBuf;
 use std::process::{Command, Stdio};
 
 use gunfinger_core::decode::{Container, INSTALL_FFMPEG};
+use gunfinger_core::timecode::format_seconds;
 use miette::miette;
 
 use crate::console::Console;
 use crate::report::{FoundPlay, Playback, Report, Segment};
-use crate::table::{named, span, timecode};
+use crate::table::{named, span};
 
 /// Rate the speed change is applied at; any common rate works.
 const PLAYBACK_RATE: f64 = 48_000.0;
@@ -56,13 +57,13 @@ pub fn clips(report: &Report, at: f64) -> miette::Result<Vec<Clip>> {
                 format!("found nearby:\n{}", nearby.join("\n"))
             },
             "nothing was found playing at {}",
-            timecode(at)
+            format_seconds(at)
         ));
     }
     playing.sort_by_key(|play| std::cmp::Reverse(play.hits));
 
     let mut clips = vec![Clip {
-        label: format!("the recording at {}", timecode(at)),
+        label: format!("the recording at {}", format_seconds(at)),
         path: report.query.path.clone(),
         start_seconds: at,
         speed: 1.0,
@@ -75,7 +76,7 @@ pub fn clips(report: &Report, at: f64) -> miette::Result<Vec<Clip>> {
             label: format!(
                 "{} at {}, {:+.2}%",
                 named(&play.asset, segment.playback),
-                timecode(in_track),
+                format_seconds(in_track),
                 (segment.speed - 1.0) * 100.0
             ),
             path: report.library.join(&play.asset),

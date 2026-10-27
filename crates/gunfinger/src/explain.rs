@@ -13,6 +13,7 @@ use gunfinger_core::index::{AssetId, Index};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, Matcher, Trace, WINDOW_SECONDS, WindowLine, trace_with};
 use gunfinger_core::speed::Playback;
+use gunfinger_core::timecode::format_seconds;
 use miette::{IntoDiagnostic, WrapErr};
 
 use crate::catalog::{Catalog, Indexable, Source};
@@ -20,7 +21,7 @@ use crate::console::Console;
 use crate::playback::PlaybackChoice;
 use crate::report::Level;
 use crate::style::Style;
-use crate::table::{named, span, timecode};
+use crate::table::{named, span};
 
 pub struct Request<'a> {
     pub audio: &'a Path,
@@ -75,7 +76,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
     println!(
         "searched {} around {}; hits count only this stretch",
         span(offset, offset + audio.duration().as_secs_f64()),
-        timecode(request.at.as_secs_f64())
+        format_seconds(request.at.as_secs_f64())
     );
     let rule = request.matcher.pass().rule();
     println!(
@@ -244,7 +245,7 @@ fn window_line(line: &WindowLine, taken_by: Option<usize>, offset: f64) -> Strin
         line.hits,
         (line.speed.0 - 1.0) * 100.0,
         playback,
-        timecode(line.track_seconds),
+        format_seconds(line.track_seconds),
         taken_by.map_or_else(|| String::from("-"), |rank| format!("#{rank}"))
     )
 }

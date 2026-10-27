@@ -63,6 +63,12 @@ pub fn format_timecode(time: Duration) -> String {
     }
 }
 
+/// Formats a time in seconds as `format_timecode` does; a negative time
+/// as `0:00`.
+pub fn format_seconds(seconds: f64) -> String {
+    format_timecode(Duration::from_secs_f64(seconds.max(0.0)))
+}
+
 #[cfg(test)]
 mod tests {
     use proptest::prelude::*;

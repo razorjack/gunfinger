@@ -12,10 +12,10 @@ use gunfinger_core::gaps::{
 };
 use gunfinger_core::profile::Profile;
 use gunfinger_core::repeats;
+use gunfinger_core::timecode::format_seconds;
 use serde::Serialize;
 
 use crate::report::{FoundPlay, Level, Report, Stretch};
-use crate::table::timecode;
 
 /// Shorter stretches are mostly blends and a found track's own uncovered
 /// time (experiment 0159); 45 s is our first choice, to revisit once real
@@ -70,7 +70,7 @@ impl Gap {
     /// name DJ tracklists give a track nobody has identified, how long
     /// nothing confident was found, and the estimate, always a range.
     pub fn label(&self) -> String {
-        let length = timecode(self.end_seconds - self.start_seconds);
+        let length = format_seconds(self.end_seconds - self.start_seconds);
         match &self.tracks {
             Some(tracks) => format!(
                 "ID - ID ({length} without a confident match; about {}-{} tracks)",

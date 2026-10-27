@@ -16,6 +16,7 @@ use gunfinger_core::library::ignore::IGNORE_FILE;
 use gunfinger_core::library::{Asset, Library, ScanError};
 use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakStore, Stored};
+use gunfinger_core::timecode::format_seconds;
 use miette::miette;
 
 use crate::catalog::{absolute, list, store_records, vanished_entries};
@@ -23,7 +24,6 @@ use crate::config::{self, Settings};
 use crate::console::Console;
 use crate::style::Style;
 use crate::survey::{Absence, counted, counted_kinds, survey};
-use crate::table::timecode;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Status {
@@ -523,8 +523,8 @@ fn check_library(
         },
         format!(
             "longest track {}; the index addresses {}",
-            timecode(longest),
-            timecode(addressable)
+            format_seconds(longest),
+            format_seconds(addressable)
         ),
     );
 

@@ -1,10 +1,11 @@
 //! `--format timeline`: each play as a bar across the searched recording.
 
+use gunfinger_core::timecode::format_seconds;
 use std::path::Path;
 
 use crate::report::{FoundPlay, Level, Report};
 use crate::style::Style;
-use crate::table::{named, shared_material, timecode};
+use crate::table::{named, shared_material};
 
 /// Columns of the bar; at 56 minutes, one column is about 53 seconds.
 const BAR_COLUMNS: usize = 64;
@@ -28,7 +29,7 @@ pub fn timeline(report: &Report, style: Style) -> String {
         };
         lines.push(format!(
             "{:>TIME_COLUMN$} │{bar}│ {}{}",
-            timecode(play.start_seconds),
+            format_seconds(play.start_seconds),
             named(file_name(&play.asset), play.playback),
             shared_material(play, |asset| file_name(asset).to_owned())
         ));
@@ -79,7 +80,7 @@ fn axis(report: &Report) -> String {
     for quarter in 0..=4_u32 {
         let seconds =
             report.query.start_seconds + report.query.duration_seconds * f64::from(quarter) / 4.0;
-        let label: Vec<char> = timecode(seconds).chars().collect();
+        let label: Vec<char> = format_seconds(seconds).chars().collect();
         let at = (quarter as usize * BAR_COLUMNS / 4 + 1).min(axis.len() - label.len());
         axis[at..at + label.len()].copy_from_slice(&label);
     }
