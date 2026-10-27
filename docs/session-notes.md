@@ -12015,3 +12015,143 @@ Cost: the gap matching takes under 0.05 s on the development mixes and
   their start digests (`work/s56/listening-digests-end.txt`); no answer
   log written, no manifest or panel changed. Done at 06:43, within the
   time box.
+
+## Session 57
+
+### What changed
+
+Nothing in the product or the harness: the session reran the saved
+evaluations outside `regress` under tonight's changes (session 52's
+prune, ADR 0021, ADR 0022, ADR 0023-0024) and compared each with its old
+report, as the pre-registration
+`docs/research/2026-10-27-rerun-under-tonights-changes.md` fixed before
+any run. Experiments 0236-0240; the roadmap's "Speed that wanders
+within a play", "Recall beyond the corpus recordings", "A confidence
+statistic for shared material" and "Behaviour at scale" and two rows of
+`docs/calibration.md` carry the new numbers.
+
+In short: no finding. Every difference is the prune's, ADR 0021's, ADR
+0022's or a gap line, and each "other" difference was traced with an old
+binary on today's store or today's build under `--overlap-by-spans`.
+ADR 0021's residual risk did not occur: the strongest detection kept
+more than 0.6% apart of a recording not playing has 67 hits (the
+Clockwork remix, possible).
+
+### What each group of runs showed
+
+| Group (experiment) | Before -> after | Explained by |
+|---|---|---|
+| Shared panels' development halves, NAS scale (0236) | confident detections by role identical in all 622 and 440 queries; 185 and 83 weak or possible added | ADR 0021 (each equals its session 38 or 45 variant run); 24 and 3 weak detections of pruned files gone |
+| Drops of sessions 39 and 48: harness at 262 tracks, CLI at both scales (0237) | harness scores identical in 12 reports; CLI tracklists identical apart from 465 gap lines (each over a missed track); at NAS scale the T-Minus vocal mix upload's 38 entries gone | the prune (the upload; 20 re-measured segments, which session 48's binary on today's store reproduces), ADR 0021, ADR 0023-0024 |
+| `recall`, the 2003 mix and Nocny at NAS scale (0238) | recall identical except other rips only 175 -> 174 of 180 and, with brief plays, 176 -> 171 of 360; scans identical in every score | the prune: the 6 excerpts' only identifying rip was the pruned Drumtrip copy; it also moves one confident right detection (455 -> 503 hits), reproduced by session 33's binary on today's store |
+| Sweeps 2027-2029, calibrate, `robust`, `grid` (0239) | NAS wrong answers 11 -> 0 and 7 -> 0 (same-title credits); 2029 540/540, 0 wrong at both scales; robust's rides +3 and +4 confident; `grid` 0, 65, 144 of 160 under both rules | ADR 0022, ADR 0021, the prune (session 40's binary on today's store reproduces every move); `grid`'s difference from the Mac's 0047 is the machine's (session 32's build gives the same) |
+| Short, long and ridden mixes at 262 tracks (0240) | right plays and wrong confident unchanged; the rides keep both sides (911 confident detections added); one wrong possible added (8 -> 9) | ADR 0021 (each equals its session 38 variant run) |
+
+### ADR 0021's residual risk, counted
+
+| Runs | Kept more than 0.6% apart | Of a recording not playing, at most | Of any, at most |
+|---|--:|--:|--:|
+| Shared panels (0236) | 268 | 55 hits (a related version, role `related`) | 61 (possible, the played file) |
+| Drops (0237) | 66 | 44 | 109 (the played T-Minus at its own speed) |
+| Generated mixes (0240) | 983 | 67 (the Clockwork remix, possible) | 7,537 (a side of a ride) |
+
+None of a recording not playing reached 60 hits outside the Clockwork
+pair, and none reached 240.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `-nas` (start) | 0:51; 3:59 | 0.4; 5.6 GiB |
+| `shared`, panels 1 and 2, at once | 25:59; 19:07 | 6.6; 5.9 GiB |
+| `mixes --kind drops` (12 reports, cached renders) | 1:25-1:53 each | 1.5-2.8 GiB |
+| `identify`, 16 drops mixes: 262 tracks; NAS scale (two queues at once) | 1:33-1:52; 2:25-3:39 | 0.2; 5.5 GiB |
+| `recall`, 8 conditions (two queues at once) | 3:59-18:23 | 5.0-5.5 GiB |
+| `scan`, NAS scale, 8 reports; 262 tracks, 2 | 0:49-1:30; 0:20-0:28 | 5.3; 0.2 GiB |
+| `sweep`, 262 tracks; NAS scale (three queues at once) | 0:47-2:11; 2:31-7:54 | 0.2; 5.4 GiB |
+| `robust --only` five rides: 262 tracks; NAS scale | 0:50; 4:26 | 0.2; 5.1 GiB |
+| `grid` (today's; `--overlap-by-spans`; session 32's build) | 6:32; 4:35; 6:44 | 1.4 GiB |
+| `mixes`, short; long and rides (cached renders) | 0:16; 1:42-2:58 | 0.5; 2.6 GiB |
+| Old binaries on today's store: session 40's sweeps; session 33's recall clean, brief; session 48's `identify` | 13:51-18:05; 23:50, 12:15; 2:23 | 5.1-5.5 GiB |
+
+Wall times ran beside other queues and are not comparable with the old
+runs'.
+
+### Decided this session, open to change
+
+- Old reports: the newest default report before tonight's changes, and
+  session 38's or 45's `--apart-in-speed 0.006` report where one exists
+  (the variant ADR 0021 adopted) as a second comparison.
+- Session 48's turntable `--verify` reruns of the drops seeds 2026 and
+  2028 were not run again: they play session 39's mixes, which ran.
+- Session 39's NAS-scale other pairs had used the NAS configuration;
+  they ran with `--peaks-dir --store-only`, as sessions 45 and 48 did.
+- Four traces were added during the runs (brief 57): session 40's and
+  session 33's harness binaries and session 48's CLI binary on today's
+  store with `--saved-index off`, and `grid` with session 32's build.
+  What an old binary on today's store shares with today's build is the
+  prune's effect.
+- `diffs.py` counts an overlapping detection of equal hits as the
+  stronger one's partner (the old rule ranked one of a tie first), and
+  keys sweep and recall queries by their position (two brief queries
+  share asset, start and speed).
+
+### Questions this leaves for us
+
+- The prune moves detections of files it did not touch: confident
+  detections re-measured by a hit or two (and one by 48 hits, recall's
+  brief query 911) and weak 6-hit candidates. Old binaries reproduce
+  each move on today's store, so the store's content moves them; how
+  (by inference, through which posting lists the first pass sets aside)
+  was not traced.
+- The recall panel's other-rips-only form lost 6 excerpts whose only
+  identifying rip was the pruned track-fix Drumtrip copy. Whether that
+  copy was a rip of Known Unknown - Rollers Edit or a different
+  recording that the clusters join is for us to judge; the panel and
+  the clusters stay as they are.
+- `docs/calibration.md`'s baseline rows are the Mac's (0047); the Linux
+  machine's figures are now noted beside them.
+
+### Questions for listening (none answered by agents)
+
+- None new. Session 53's (Star Trails at 13:13-14:37 in the Stakka mix,
+  Into Music at 25:57-26:56 in the 2003 mix) and the earlier sessions'
+  remain.
+
+### What was not run
+
+- `shared-mixes` (no full report on this machine; session 21 ran it on
+  the Mac), `robust` without `--only` (no saved full report here), the
+  generated mixes whose renders were deleted (plain and long 2027-2029
+  and 7, long 3531-3532, rides 3521-3522), seed 3701's ride dose (made
+  by trace builds), and NAS-scale generated mixes (none saved). The
+  shared and beatmatched seeds 3501-3513 were run by session 56 after
+  every change.
+
+### What else to know
+
+- Data: `work/s57/` (logs in `logs/`, comparison outputs in `out/`;
+  scratch work directories `wshared`, `wdrops`, `wrecall`, `wscans`,
+  `wsweeps`, `wrobust`, `wmixes` and the traces' `wsweeps40`,
+  `wrecall33`, `wgrid32`; the CLI's reports in `cli/`, the old ones
+  copied to `cli-old/`, session 48's binary's in `cli-s48bin/`). The
+  reflink copies of the renders were deleted at the end; the reports
+  stay. Scripts: `run.sh`, `same.py`, `scratch.sh`, `start.sh`,
+  `shared.sh`, `drops-setup.sh`, `drops-harness.sh`, `drops-nas.sh`,
+  `recall.sh`, `scans.sh`, `group3-setup.sh`, `group4.sh`,
+  `group4-setup.sh`, `group5.sh`, `group5-setup.sh`, `trace-*.sh`,
+  `compare-*.sh`, `final.sh`, `diffs.py`, `residual.py`,
+  `residual_mixes.py`, `mixes_score.py`, `cli_compare.py`, `counts.py`,
+  `grid_counts.py`.
+- Builds: `work/bin/s57-start/` and `s57-final/`, both `cmp`-equal to
+  `s56-final`.
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The mixes searched were the
+  three development mixes (named explicitly) and generated mixes.
+  Nothing ran on the candidate mixes of 0065 or on the NAS root's
+  broadcast file. No command was given the NAS configuration or
+  library; NAS-scale runs used the NAS peak store on the local disk and
+  read NAS audio only to render (`--other-root`, recall's sources).
+  Nothing was written to the NAS or to `work/peaks`, and `work/reports/`
+  received only `regress`'s own reports.
+- Baselines stay `session-54-linux` and `session-54-linux-nas`.

@@ -5303,3 +5303,38 @@ notes "Session 56"; ADR 0024; experiment 0235.
   green; both regressions identical (0:51; 3:59); the verdicts file and
   the NAS clusters file at their start digests. The review's eleven
   findings (tests and wording) are fixed.
+
+## 2026-10-27: session 57, the evaluation protocol again under tonight's changes
+
+Brief `docs/brief-57.md`, checklist `docs/session-57-checklist.md`;
+notes "Session 57"; pre-registration
+`docs/research/2026-10-27-rerun-under-tonights-changes.md`; experiments
+0236-0240. Gunfinger and the harness are unchanged.
+
+- 06:44 start at `0b14fcb`, clean. Start build `work/bin/s57-start/`
+  (= `s56-final`); both regressions identical (0:51; 3:59).
+- Reran outside `regress`: both shared panels' development halves (NAS
+  scale), the drops of sessions 39 and 48 (harness at 262 tracks, the
+  CLI at both scales), `recall`'s 8 conditions, the 2003 mix's and
+  Nocny's scans and leave-outs, the sweeps of seeds 2027-2029 with
+  calibrate, `robust`'s five rides, `grid`, and the short, long and
+  ridden mixes with saved renders.
+- No finding. Every difference is the prune's (the T-Minus vocal mix
+  upload's and track-fix Drumtrip's detections; 6 other-rips recall
+  excerpts identified only through that copy; detections of other files
+  moved, which old binaries reproduce on today's store), ADR 0021's
+  (kept sides of rides; weak and possible detections; `robust` +3 and
+  +4 confident), ADR 0022's (NAS sweeps 2027-2028: 11 and 7 wrong ->
+  same-title credits) or ADR 0023-0024's (465 gap lines in the drops'
+  tracklists, each over a missed track).
+- ADR 0021's residual risk: no detection of a recording not playing,
+  kept more than 0.6% apart, reached 240 hits; the strongest has 67
+  (the Clockwork remix, possible), a related version's strongest in the
+  shared panels 55.
+- Calibrate over seeds 2026-2029 and the Stakka scans: 675, 100, 6.75x
+  at 262 tracks; 675, 282, 7 accepted (all Cool Rock Stuff) at NAS
+  scale. `grid` 0, 65, 144 of 160 on the Linux machine (the Mac's 0047:
+  0, 67, 146; session 32's build gives the Linux figures).
+- Not run: `shared-mixes`, full `robust`, mixes with deleted renders,
+  seed 3701's ride dose, NAS-scale generated mixes.
+- Baselines stay `session-54-linux` and `session-54-linux-nas`.
