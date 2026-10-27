@@ -5070,3 +5070,43 @@ and a reach argument for `cluster_speeds.py`.
   user to judge.
 - With the new clusters file, `regress session-33-linux-nas` is identical
   (3:50 with `work/bin/s51-final`).
+
+## 2026-10-27: session 39's listening questions, and four decisions
+
+- Session 39's three questions, built as detection questions from its
+  saved reports (`work/listening-s39/`; the page's context line says
+  what the generated mix plays there), were answered on the listening
+  page (answer log records 25-27, all `confirmed`). Comments verbatim in
+  `work/audition/listening-comments-2026-10-27.md`.
+  - NIL - Infectious over the end of Mystery Machine (seed 2026,
+    drops mix-05, 29:22, possible): shared material, the same drum loop.
+  - Ray Keith - Techno Funk over Alien Girl (mix-04, 20:09, possible):
+    by the comment unsure (perhaps the same drum loop, produced, mixed
+    and EQ'd very differently), though the log records `confirmed`.
+  - Digital & Spirit - Crash over the T-Minus vocal mix (other pairs
+    mix-00, 15:44, confident): right. The mix played the vocal mix's
+    upload from its start, and the upload opens with Crash: Crash's
+    2:51-3:47 (all three Crash files, 172-228 s of the track) is the
+    upload's first 56 s, which then blends into T-Minus. The two
+    recordings share no material; the upload
+    (`__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased
+    Vocal Mix).m4a`) holds part of another record, as the Space Cake
+    `[CUT]` file did. 0185's confident extra is a right answer, so P1 is
+    met there by the Animation remix alone. Whether to ignore the upload
+    is the user's call; it is in three committed panels.
+- Decisions (ours, 2026-10-27; each is implemented with an ADR):
+  1. `--apart-in-speed 0.006` becomes the default (decision note
+     `docs/research/2026-10-22-pitch-rides-decision.md`, "Decision").
+  2. Gaps are printed by default: 45 s or more at first, the mix's start
+     and end included, possible lines kept inside a gap, named "ID -
+     ID", with an estimate of how many tracks a gap holds; JSON gains
+     the gaps, CSV and the cue sheet do not change
+     (`docs/research/2026-10-21-printing-gaps.md`, "Decision").
+  3. The minimum span stays undecided; we come back to it later.
+  4. A confident detection of a near-identical version (China Cup
+     against ƆƐI3C's upload) counts as right in the sweep and calibrate:
+     Gunfinger identifies track titles, and a version whose hi-hats
+     differ for a few bars carries the same title.
+- The roadmap's bullets carry the decisions ("Time without a confident
+  match", "A minimum span instead of 3 windows", "Speed that wanders
+  within a play", "The verdicts by ear on borderline pairs").

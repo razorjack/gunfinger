@@ -222,3 +222,19 @@ added fields):
   }
 ]
 ```
+
+## Decision (2026-10-27)
+
+Ours, for the ADR that brings the change:
+
+1. By default, in every format that lists entries in time order.
+2. 45 s at first (not 60 s), to be revisited once real mixes show how
+   the gap lines read.
+3. The mix's start and end are listed, with the same minimum length.
+4. A possible line inside a gap stays listed, in time order.
+5. Print an estimate of how many tracks the gap holds; which estimate
+   and its form (a range, "about n") are for the implementing session to
+   propose from 0160-0165, the combined estimate being the best measured.
+6. JSON gains the gaps; CSV and the cue sheet do not change.
+7. A gap is named "ID - ID", the usual name in DJ tracklists for a track
+   nobody has identified, instead of "no confident match".

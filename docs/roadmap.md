@@ -162,7 +162,12 @@ marked as inferences were derived, not measured.
   external review; worth doing, our decision, 2026-10-20; the plan is
   `docs/research/2026-10-20-unidentified-gaps.md`; measured in sessions
   34 and 35 in the harness, experiments 0159-0166; the options for
-  printing it are `docs/research/2026-10-21-printing-gaps.md`)* A tracklist does not say
+  printing it are `docs/research/2026-10-21-printing-gaps.md`; how to
+  print it, our decision, 2026-10-27: by default, gaps of 45 s or more
+  to begin with, the mix's start and end included, possible lines kept
+  inside a gap, named "ID - ID", with an estimate of how many tracks the
+  gap holds; JSON gains the gaps, CSV and the cue sheet do not change;
+  an ADR comes with the change)* A tracklist does not say
   how much of the mix it accounts for: eleven lines over 56 minutes read
   the same whether the rest is blends or a quarter of an hour of tracks
   not in the library. Step 1 lists the stretches with no confident
@@ -281,7 +286,9 @@ marked as inferences were derived, not measured.
 
 ## Matching
 
-- **A minimum span instead of 3 windows.** Whether a 15-20 s play is
+- **A minimum span instead of 3 windows.** *(undecided, 2026-10-27: we
+  come back to it later; session 29's question below stays open)*
+  Whether a 15-20 s play is
   confident depends on where the 10 s windows fall: 76 of 160 grid
   positions at 15 s, 148 at 20 s; 200 hits over at least 10 s between the
   first and last hit makes all of them confident and changes nothing in
@@ -332,7 +339,10 @@ marked as inferences were derived, not measured.
   does not, B(15) is the candidate in the session's reading after the
   counts, with a new ADR and the unsearched validation halves as its
   confirmation.
-- **Speed that wanders within a play.** The second pass analyses a play at
+- **Speed that wanders within a play.** *(our decision, 2026-10-27:
+  `--apart-in-speed 0.006` becomes the default, with an ADR superseding
+  ADR 0008's consequence for overlapping parts. DJs speed a set up while
+  a track plays, because the set is continuous.)* The second pass analyses a play at
   one fitted speed; Star Trails plays 0.1-0.3% above it in many windows
   and loses 15% of its hits (experiment 0024), and within-play speed
   varies by ±0.2% in the development mix (experiment 0022). The opt-in
@@ -1097,7 +1107,10 @@ marked as inferences were derived, not measured.
   confident detections over the NAS sweeps of seeds 2026-2028, the
   other 7 Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload;
   whether a detection of a near-identical version counts as wrong is
-  ours. `listening_pack.py select --min-hits` (default 30) leaves out
+  ours. *(Our decision, 2026-10-27: it counts as right. Gunfinger
+  identifies track titles; China Cup found as another China Cup whose
+  hi-hats differ for a few bars is a correct identification. The sweep
+  and calibrate change their scoring with an ADR.)* `listening_pack.py select --min-hits` (default 30) leaves out
   borderline pairs on few hits, and `--disagreements` picks the joins
   and apart pairs nearest `near_10`'s threshold: 12 wait in
   `work/s40/pack/`, though none crosses it.

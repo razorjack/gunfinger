@@ -246,3 +246,10 @@ For an ADR, these add:
 - The recommendation above is unchanged (ours to decide): adopt
   `SpansAtSpeed(0.006)` through an ADR. The second panel's validation
   half stays unseen for a later test, should a rule change need one.
+
+## Decision (2026-10-27)
+
+Ours: adopt `SpansAtSpeed(0.006)` as the default, through an ADR that
+supersedes ADR 0008's consequence for overlapping parts. DJs speed a set
+up while a track is audible, because the set is continuous. How a play
+shows its two segments (questions 1-5 above) is settled with the ADR.
