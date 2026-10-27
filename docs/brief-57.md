@@ -169,3 +169,11 @@ Rules for this session:
   The clean queries' trace (`trace-recall.sh`): session 33's binary on
   today's store moves the same two weak candidates, so the prune moves
   them.
+- **(09:12) Group 3 done** (0238): recall lost 6 excerpts of other rips
+  only (Known Unknown - Rollers Edit), whose only identifying rip was
+  the pruned Drumtrip copy; session 33's binary on today's store
+  reproduces every other moved detection of clean and brief, including
+  brief query 911's confident right detection (455 -> 503 hits). The
+  scans change only by ADR 0021's segments and one pruned weak detection.
+  `diffs.py` and `counts.py` now key sweep and recall queries by their
+  position too (two brief queries share asset, start and speed).
