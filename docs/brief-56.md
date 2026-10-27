@@ -193,3 +193,90 @@ Rules for this session:
      at 30 s; the harness's `self-match` (whose `--min-length` stays 30
      by default) writes the product's estimate beside its blocks, so the
      test seeds reproduce 0165 through the same code.
+- **(05:36) Start results.** The start build is byte-identical to
+  `s55-final`. `regress session-54-linux` (0:50) and `regress
+  session-54-linux-nas` (3:58) identical, every report identical to its
+  baseline's. The "before" CLI runs took 4-6 s at 262 tracks and
+  13-18 s at NAS scale. The six test seeds of 0163 (shared 3501-3503,
+  beatmatched 3511-3513) are rendered and searched again with the start
+  build in `work/s56/wmix` (tmux `s56renders`, `renders.sh`), session
+  35's reports copied beside today's (`wmix/s35-reports/`); work/reports
+  is untouched.
+- **(05:33) ADR 0024 committed** (`6b6de3c`) before any code; ADR 0023's
+  status line says ADR 0024 amends it. Added while writing: the printed
+  range read the other way on the test (125 of 125 gaps counted 1, 88 of
+  97 counted 2, 106 of 106 counted 3, 49 of 50 counted 4).
+- **(05:36-05:51) The code** (`ce50a95`):
+  1. `gunfinger_core::repeats` is the harness's `self_match.rs`, moved
+     (`git mv`): `Repeats::find(samples, profile, ratios)` builds the hits
+     once and `blocks(min_hits)` reads one threshold (the harness reads
+     its four; the CLI only `RECORD_HITS` 10); `stretches` (blocks of
+     `MIN_STRETCH_SECONDS` 30 or more, overlapping ones merged, as
+     `gap_tests.py`) and `records` (both at speed 1.0) are new. The core
+     has no serde, so the harness serializes its own `BlocksAt`.
+  2. `gunfinger_core::gaps` gains `entry_starts`, `clean_intervals`,
+     `median` (moved from the harness's `gaps.rs`, which now calls them),
+     `length_range` (range B: Python's exclusive quartiles and its
+     half-to-even rounding, both tested against values Python gives),
+     `combined` and `estimate`.
+  3. The harness's gap listings of six saved reports are byte-identical
+     with the start build and the changed one, and its self-match
+     listings (three 262-track scans, `mixes-long-seed-2026`, with
+     `--ratios 0.996,1.004`) identical but for the added `tracks`
+     (`work/s56/gapsame.sh`, `samelistings.py`).
+  4. The CLI: `Report::gap_repeats` (optional, absent in older reports,
+     validated on read); `identify` calls `gaps::find_repeats` on the
+     samples it holds, one gap per worker (`--jobs`), and logs the time
+     at `--verbose`; `gaps::gaps` derives `tracks` per gap (a stretch
+     belongs to the gap holding its middle). The intervals use the
+     confident plays' spans (`FoundPlay::start_seconds..end_seconds`), as
+     the harness's labels do.
+  5. `tracklist_score.py`'s `GAP_LINE` also takes `; about L-H tracks`
+     (tested).
+  6. `scripts/check.sh` green on the first run (6:16, beside the renders).
+- **(05:52-05:54) The development mixes** with the run build
+  (`work/s56/cli-after/`, `beforeafter.py`): every report's plays and
+  gaps identical to the start build's, every tracklist the old one but
+  for `; about L-H tracks` on its gap lines (4 at 262 tracks in the 2003
+  mix, 6 in Nocny; 1 at NAS scale in Nocny; Stakka none). Against the
+  manifest (`gapsvs.sh`): every range holds the number of missed tracks,
+  and the count is exact for 9 of 11 (Nocny at 262 tracks counts 2 for
+  The Descent VIP and for slot 17, each one track). The CLI (the gap's
+  slice of the samples) and the harness's `self-match` (each gap decoded
+  with `-ss`) find the same stretches and estimates for all 10 gaps at
+  262 tracks.
+- **(05:57-06:03) The test seeds through the product's code**
+  (`seeds.sh`, `reproduce.py`): the re-rendered audio gives session 35's
+  blocks for all 384 test gaps; the product's `tracks` equals
+  `gap_tests.py`'s combined estimate for every gap, on session 35's
+  reports and on today's (whose gaps are the same); exact 99/57/58/43%
+  at k = 1-4, the range holds 100/99/100/89.6%, 2.9% off by two: 0165's
+  numbers.
+- **(05:57-06:12) Wall time** at NAS scale, three runs of each build
+  alternately (`timing.sh`, `layout.sh`, `layout2.sh`). The gap matching
+  takes under 0.05 s on the development mixes (0 or 1 gap) and 0.7 s for
+  the worst case (nothing found, Nocny's 67 minutes as one gap; peak
+  memory 200 against 158 MB). But the run build's search itself, whose
+  code did not change, took 0.6-1.0 s longer (4-6%: 11.4 -> 11.9 s for the
+  2003 mix, 17.2 -> 18.1 s for Nocny), and a build without only the call
+  to the gap matching (`s56-noop`, not committed) searched as fast as the
+  start build. The search is generic over its progress callback, so it is
+  compiled inside the CLI crate (16 codegen units, no LTO), and the code
+  added there changed how it was compiled (an inference; not examined in
+  the machine code). Moving the per-gap loop into the core
+  (`repeats::records_in_gaps`, `74ba54d`) halved it: the search takes
+  0.3-0.5 s (2-3%) longer than the start build's. Left at that: changing
+  the release profile would change every timing, and the rest is a
+  compile effect, not work done.
+- **(06:14-06:21) Step 4 with the core-loop build** (`step4.sh`,
+  `work/bin/s56-core/`): its reports and tracklists identical to the run
+  build's; `regress session-54-linux` (0:51) and `regress
+  session-54-linux-nas` (4:00) identical, every report identical to its
+  baseline's; the test seeds at the product's 45 s give the same figures
+  as at 30 s; shared material only: exact 98/44/48/31%, the range holds
+  100/100/100/83.3%, 4.2% off by two (0165's). Experiment 0235 written
+  (40 lines). ADR 0024's run-time paragraph gains 0235's figure.
+- **(06:21) Step 5.** The roadmap's "Time without a confident match"
+  (done, with both ADRs), the printing note's status line ("decided and
+  implemented") and README's example (the 2003 mix at 262 tracks with
+  its estimates) updated.

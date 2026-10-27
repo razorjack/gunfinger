@@ -100,8 +100,11 @@ counted 4, 5 of 5 counted 5 and 0 of 1 counted 6
 (`work/s35/scores/tests-shared-and-beatmatched.json`).
 
 Run time: method 2 took about 0.05 s of wall time per gap at 16 jobs on
-the Linux machine (320 gaps in 21 s, 0162), from audio already decoded;
-experiment 0235 measures what it adds to `identify`.
+the Linux machine (320 gaps in 21 s, 0162), from audio already decoded.
+In `identify` (experiment 0235, NAS scale, 32 workers) the matching takes
+under 0.05 s for the development mixes and 0.7 s for one 67-minute gap,
+and the run takes 0.3-0.5 s longer, most of it in the unchanged search,
+compiled differently beside the new code.
 
 ## What the estimate does not claim
 

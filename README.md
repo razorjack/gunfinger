@@ -118,17 +118,19 @@ A recording in which nothing is found prints `no tracks found`.
 
 A stretch of 45 s or more where no confident match was found gets an
 unnumbered line at its start, `ID - ID`, the usual name in DJ tracklists
-for a track nobody has identified, with its length. My 2003 mix against
-the 262-track library, where 7 of its 12 tracks are indexed:
+for a track nobody has identified, with its length and an estimate of
+how many tracks it holds. My 2003 mix against the 262-track library,
+where 7 of its 12 tracks are indexed (the four stretches hold 1, 2, 1
+and 1 of the others):
 
 ```text
-       0:00  ID - ID (2:25 without a confident match)
+       0:00  ID - ID (2:25 without a confident match; about 1-2 tracks)
  1.    2:25  Future Cut - The Specialist
-       6:43  ID - ID (7:57 without a confident match)
+       6:43  ID - ID (7:57 without a confident match; about 1-3 tracks)
  2.   14:40  Tee Bee - Two Faced
-      20:04  ID - ID (4:15 without a confident match)
+      20:04  ID - ID (4:15 without a confident match; about 1-2 tracks)
  3.   24:20  Carlito & Addiction - Into Music
-      29:25  ID - ID (1:39 without a confident match)
+      29:25  ID - ID (1:39 without a confident match; about 1-2 tracks)
  4.   31:05  Total Science - Yvon Is On
  5.   34:54  Marcus Intalex & S.T.Files - Balderdash
  6.   39:14  Spirit - Out Of Control
