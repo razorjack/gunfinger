@@ -1484,6 +1484,9 @@ pub fn run(
         options.matching,
         left_out,
     )?;
+    options
+        .same_titles
+        .warn_outside(&index, &held_out.union(left_out).cloned().collect());
     let index = &index;
     let verifier = options.verify.then(|| Verifier::new(&records, None));
     let without_families: Vec<PeakRecord> = records

@@ -131,8 +131,8 @@ The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 the time their hits support), `recall` (a panel drawn from the larger
 library's records, beyond the corpus recordings), `survival` and `hash_cost` (hash
 measurements without a search) on top of `manifest` and `scoring`;
-`titles` reads the user's judgments that two files carry the same
-track title (`docs/same-titles.txt`, ADR 0022), which scoring follows.
+`titles` reads our judgments that two files carry the same track title
+(`docs/same-titles.txt`, ADR 0022), which scoring follows.
 `verifier` is a peak verifier after Qfp, a diagnostic behind `--verify`
 that leaves detections unchanged; `shared` searches queries cut from a
 passage two recordings share, and `identifiability` compares the files
@@ -295,9 +295,12 @@ the best. `gunfinger stats` reports the measurements.
   identify a track or count as wrong (ADR 0006).
 - Duplicate clusters come from library audio alone, never from set results.
 - A confident detection of a file that `docs/same-titles.txt` judges to
-  carry the truth's title is right, and every report counts such credits
-  apart (ADR 0022). The file holds the user's judgments, written by
-  hand; agents never add entries, and it never joins clusters.
+  carry the truth's title is right, and the reports count such credits
+  apart (ADR 0022: the sweep, `recall`, scans, generated mixes, `grid`
+  and calibrate; `robust` counts them apart without crediting them;
+  `seconds` and `loss` keep the cluster alone). The file holds our
+  judgments, written by hand; agents never add entries, and it never
+  joins clusters.
 - The sweep must clear its diagnostic bar (≥95% recall within ±5%, zero wrong
   answers) before any set is scanned.
 - `stakka-skynet-knowledge` and `razorjack-2003-03-29` (my own

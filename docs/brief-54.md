@@ -190,9 +190,11 @@ counts it apart:
   judgment.
 - Thresholds: the confident rule (240 hits) and the possible tier rest
   on false candidates that are not versions of the played recording;
-  ƆƐI3C's detections lie above the rule (261-273 hits in 0230), so they
-  only ever counted as "accepted" false candidates. No threshold of
-  `docs/calibration.md` moves, and none changes in this session.
+  the strongest false candidate and the weakest identifying detection do
+  not involve ƆƐI3C's upload. No threshold of `docs/calibration.md`
+  moves, and none changes in this session. (Corrected after the review:
+  this said the upload's detections all lay above the rule; 6 of the 24
+  that leave the false candidates lie below it, 0233.)
 - Not changed, with the reason: `seconds` (time scored second by
   second, a diagnostic of spans) and `loss` (searches the corpus library
   alone and picks identified plays to measure) keep the cluster alone;
@@ -289,3 +291,37 @@ user.
   the harness commit), identical to the session-53 baselines
   (`work/s54/step5.sh`). The final checks run `regress` against them
   with the final build.
+- **(03:42-03:50) The read-only review** (a separate agent, no further
+  agents) confirmed every number of 0233, the rules (one entry, the
+  verdicts file unchanged, no change outside the harness, no AI
+  attribution) and the asset naming, and found:
+  1. ADR 0022 and `docs/calibration.md` counted 0059's 16 (18) wrong
+     answers as ƆƐI3C's; 0059's data names the PRO 001 upload, joined
+     into China Cup's cluster by the `same` verdict of 2026-10-09
+     (0230's remark is mistaken, and so was the prompt's count).
+     Corrected.
+  2. The ADR and this brief said every ƆƐI3C detection lay above the
+     rule; 6 of 24 lie below. Corrected.
+  3. The ADR grouped `robust` with the scorers that credit; the roadmap
+     and AGENTS.md said "every scorer". Qualified.
+  4. `grid` carried no same-title count: `GridQuery.same_title` and a
+     summary line added.
+  5. No test of `sweep::outcome` setting the flag (with a padding copy)
+     or of recall's partner title: both added (`partner_files`
+     extracted). Robust's and grid's branches stay inline in their runs,
+     without a unit test.
+  6. A misspelt judged file would credit nothing silently: every scoring
+     run now warns of a judged file it neither indexes nor leaves out
+     (`SameTitles::warn_outside`); the committed-file test checks the
+     China Cup entry instead of the count of entries.
+  7. Calibrate's credit count used the stored `confident` flag: it uses
+     the recomputed evidence now; its module comment says it reads the
+     judgments from the reports.
+  8. Possible plays of a judged file now count toward the track:
+     documented in the ADR (not counted apart).
+  9. The scan's count could count one detection twice (also found
+     before the review; fixed: distinct detections, as in mixes); a
+     stale doc comment; the analysis scripts that read `correct` are
+     listed in the ADR as unchanged.
+  10. The checklist and CLAUDE.md were behind: updated.
+  11. "The user" for our judgments: "we/our" now.

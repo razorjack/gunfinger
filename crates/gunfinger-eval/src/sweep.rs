@@ -324,6 +324,7 @@ pub fn run(
         Some(ranking) => ranking.index(built, clusters),
         None => matching.index(built),
     };
+    same_titles.warn_outside(&index, &excluded);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
     fs::create_dir_all(&dir).map_err(|error| error.to_string())?;
     let source = |draw: &Draw| library.root.join(&draw.asset);
@@ -848,5 +849,41 @@ mod tests {
 
         assert_eq!((row.indexed_excerpts, row.recalled), (1, 1));
         assert_eq!((row.wrong_answers, row.same_title), (1, 2));
+    }
+
+    #[test]
+    fn an_outcome_is_same_title_for_a_judged_file_and_its_padding_copies() {
+        use gunfinger_core::confidence::Evidence;
+        use gunfinger_core::index::AssetId;
+        use gunfinger_core::speed::{Playback, SpeedRatio};
+
+        let records = [
+            record("own.mp3"),
+            record("second-library/version.opus"),
+            record("padding-copy/1/second-library/version.opus"),
+            record("second-library/other.opus"),
+        ];
+        let index = Index::build(&records).unwrap();
+        let own_cluster = BTreeSet::from(["own.mp3".to_owned()]);
+        let own_title = BTreeSet::from(["second-library/version.opus".to_owned()]);
+        let judged = |asset: u32| {
+            let detection = Detection {
+                asset: AssetId(asset),
+                start_seconds: 0.0,
+                end_seconds: 30.0,
+                track_start_seconds: 60.0,
+                track_end_seconds: 90.0,
+                speed: SpeedRatio(1.0),
+                playback: Playback::Turntable,
+                evidence: Evidence::new(10, 600),
+            };
+            let outcome = outcome(&index, &detection, &own_cluster, &own_title, None);
+            (outcome.correct, outcome.same_title, outcome.is_wrong())
+        };
+
+        assert_eq!(judged(0), (true, false, false));
+        assert_eq!(judged(1), (false, true, false));
+        assert_eq!(judged(2), (false, true, false));
+        assert_eq!(judged(3), (false, false, true));
     }
 }

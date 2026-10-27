@@ -8,7 +8,7 @@ anything else:
 1. `docs/brief.md` (the brief; never edit it)
 2. `docs/brief-54.md` (the current session's brief) and
    `docs/session-54-checklist.md` (its progress), with ADR 0004, ADR
-   0022 (once written), `docs/same-titles.txt`, the roadmap's "The
+   0022, `docs/same-titles.txt`, the roadmap's "The
    verdicts by ear on borderline pairs" and this session's experiment
    (0233 and up);
    `docs/brief-2.md`,

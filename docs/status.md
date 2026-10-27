@@ -5208,3 +5208,35 @@ notes "Session 53"; ADR 0021; experiment 0232.
   unchanged. CPU: +0.2% with one binary.
 - New baselines `session-53-linux` (262 tracks) and
   `session-53-linux-nas` (NAS scale); build `work/bin/s53-final/`.
+
+## 2026-10-27: session 54, a confident detection of a near-identical version is right (ADR 0022)
+
+Brief `docs/brief-54.md`, checklist `docs/session-54-checklist.md`;
+notes "Session 54"; ADR 0022; experiment 0233.
+
+- 03:07 start at `081a109`, clean. Start build `work/bin/s54-start/`
+  (= `s53-final`); `regress session-53-linux` and `regress
+  session-53-linux-nas` identical (0:51; 3:46).
+- Our decision of 2026-10-27, implemented in the harness: Gunfinger
+  identifies titles, so a confident detection of a file judged to carry
+  the truth's title is right, and every report counts such credits
+  apart. `docs/same-titles.txt` holds our judgments (written by hand;
+  one entry, China Cup `extra/b-bad_company-china_cup.mp3` against
+  ƆƐI3C's upload), read as a relation between the two files' clusters
+  by scoring only (`titles::SameTitles`, option `--same-titles`). The
+  sweep, `recall`, the scan, generated mixes, `grid` and calibrate
+  follow it, `robust` counts such detections apart without crediting
+  them, and `seconds`, `loss` and the shared-material and clustering
+  commands keep the cluster alone. Clusters, verdicts, searches and the
+  product are unchanged.
+- 0233: `regress` identical at both scales (the baselines hold no China
+  Cup query). NAS sweeps of seeds 2027 and 2028: wrong 11 -> 0 and 7 ->
+  0, 11 and 7 same-title credits, recall unchanged; over seeds
+  2026-2028 the wrong confident answers fall from 25 to 7 (all Cool Rock
+  Stuff ~ the Mobb Deep / Urban Takover upload). Calibrate over those
+  seeds and the Stakka scans: false accepted 25 -> 7, strongest false
+  282 and weakest identifying 675 unchanged; no threshold moves.
+- New baselines `session-54-linux` and `session-54-linux-nas` (identical
+  to session 53's).
+- Questions for us: whether Cool Rock Stuff, Tower Bass's mixes or the
+  Stalker versions carry one title (notes, "Session 54").

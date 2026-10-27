@@ -76,10 +76,15 @@ pub struct GridQuery {
     /// The brief play's level under the frozen rule: `confident`,
     /// `possible`, `weak` or `none`.
     pub level: String,
-    /// Detections of the brief play's cluster that overlap it.
+    /// Detections of the brief play's cluster, or of a file judged to
+    /// carry its title, that overlap it.
     pub matching: Vec<MixFound>,
     /// Confident detections that match no play.
     pub wrong_confident: usize,
+    /// Confident detections that match a play only through a file judged
+    /// to carry its title (ADR 0022).
+    #[serde(default, skip_serializing_if = "crate::titles::no_credits")]
+    pub same_title: usize,
     pub strongest_false_hits: u32,
     /// With `--verify`: every detection that matches no play.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -116,6 +121,7 @@ pub fn run(
         options.matching,
         &BTreeSet::new(),
     )?;
+    options.same_titles.warn_outside(&index, &held_out);
     let verifier = options.verify.then(|| Verifier::new(&records, None));
     let pools = Pools::new(&records, &held_out);
     let briefs = draw_briefs(&pools, clusters, &mut Rng::new(options.seed))
@@ -172,6 +178,7 @@ pub fn run(
                     .cloned()
                     .collect(),
                 wrong_confident: result.score.wrong_confident.len(),
+                same_title: result.score.same_title,
                 strongest_false_hits: result
                     .score
                     .false_candidates
@@ -320,7 +327,9 @@ pub fn print_summary(report: &GridReport) {
         .map(|query| query.strongest_false_hits)
         .max()
         .unwrap_or(0);
+    let same_title: usize = report.queries.iter().map(|query| query.same_title).sum();
     println!("wrong confident: {wrong}; strongest false candidate {strongest_false} hits");
+    println!("same-title credits (ADR 0022): {same_title} confident");
     let rules: Vec<(String, Option<f64>)> = std::iter::once((String::from("3 windows"), None))
         .chain(
             SPANS

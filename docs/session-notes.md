@@ -11541,3 +11541,178 @@ difference between the binaries, not the rule's (not traced).
   `regress session-53-linux` and `regress session-53-linux-nas`
   identical; the CLI's printed tracklists unchanged; both baselines
   saved again from this build (identical).
+
+## Session 54
+
+### What changed
+
+The harness scores as we decided on 2026-10-27 (ADR 0022): a confident
+detection of a file judged to carry the truth's title is right, and
+every report counts such credits apart. Gunfinger itself, the clusters,
+the verdicts and every search are unchanged (the `gunfinger` binary is
+byte-identical to the start build's).
+
+- `docs/same-titles.txt` holds our same-title judgments, one per line:
+  `same-title` and two files, tab-separated, named as in the clusters
+  files. It has one entry, our decision of 2026-10-27:
+  `extra/b-bad_company-china_cup.mp3` against ƆƐI3C's upload (the pair
+  of `docs/pair-verdicts.txt` line 84). A judgment relates the two
+  files' clusters (so all three corpus China Cup rips and the Prototype
+  upload are credited), is not followed through chains, and is read by
+  scoring only. `titles::SameTitles` parses it; errors name the file and
+  the line; a missing file holds no judgments; every scoring run warns
+  of a judged file it neither indexes nor leaves out (at 262 tracks,
+  ƆƐI3C's upload). Harness option `--same-titles FILE`.
+- Scoring: the sweep and `recall` (`Outcome.same_title`,
+  `Outcome::is_right`, `is_wrong`; `SpeedRow.same_title` and a `title`
+  column), the scan (`credited_through_title` per track,
+  `Score.same_title`, the count on the summary line), generated mixes,
+  `grid` and the drops (`MixScore.same_title`, `GridQuery.same_title`),
+  `robust` (its own
+  counts stay the recording's; `same_title` apart) and calibrate (no
+  false candidate; may identify; `same-title credits` line; `regress`
+  prints it and the per-speed and per-scan counts). The counts and flags
+  are written only when not zero, so earlier reports read the same.
+- Unchanged, by design: `seconds`, `loss`, and the commands that measure
+  shared material or decide recordings (`shared`, `shared-mixes`,
+  `identifiability`, `holders`, `related`, `pair`, `clusters`); the
+  possible tier's null on held-out excerpts keeps every detection.
+- ADR 0004's status names the amendment; ADR 0022 records that it
+  changes the brief's section 7.6 by our decision and that a later test
+  evaluation would be scored by the same code. AGENTS.md names `titles`
+  and the rule; `docs/calibration.md` and the roadmap's China Cup
+  bullets are marked.
+
+In short: the baselines hold no China Cup query, so `regress` is
+identical at both scales; over the NAS sweeps of seeds 2026-2028 the
+wrong confident answers fall from 25 to 7 (all Cool Rock Stuff), and
+calibrate's false accepted from 25 to 7, with no threshold moving.
+
+### Experiment 0233
+
+| Scale, seed | Recalled | Wrong confident, before -> after | Same-title credits |
+|---|--:|--:|--:|
+| 262 tracks, 2026-2028 | 540 each | 0 -> 0 | 0 |
+| NAS, 2026 | 540 | 7 -> 7 (Cool Rock Stuff) | 0 |
+| NAS, 2027 (China Cup indexed) | 540 | 11 -> 0 | 11 |
+| NAS, 2028 (China Cup held out) | 540 | 7 -> 0 | 7 |
+
+Calibrate over seeds 2026-2028 and the Stakka scans at NAS scale: false
+accepted 25 -> 7, false candidates 130,663 -> 130,639 (308 -> 284 at 30
+hits or more), strongest false 282 (Cool Rock) and weakest identifying
+675 unchanged; at 262 tracks nothing changes. In the baselines (seed
+2026) calibrate is unchanged: 690, 100, 0 false accepted at 262 tracks;
+704, 282, 7 at NAS scale.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-53-linux` (start; changed build) | 0:51; 0:51 | 0.4 GiB |
+| `regress session-53-linux-nas` (start; changed build) | 3:46; 3:53 | 5.3-5.4 GiB |
+| `sweep --seed 2027`, `2028`, 262 tracks (each build) | 0:48 | 0.25 GiB |
+| `sweep --seed 2027`, `2028`, NAS scale (each build) | 2:26-2:31 | 5.0-5.2 GiB |
+| `calibrate`, seeds 2026-2028, NAS scale | 0.1 s | 0.08 GiB |
+| `scripts/check.sh` (stopped at clippy; green) | 0:04; 3:57 | |
+
+### Decided this session, open to change
+
+- The relation is a committed file of judgments between files, read as
+  a relation between their clusters, and not followed through chains
+  (A ~ B and B ~ C do not credit C for A).
+- A same-title detection counts toward recall of an indexed sweep
+  excerpt, and may be calibrate's identifying detection of a query, as
+  a scan's strongest candidate in a track's window may be.
+- On a held-out excerpt or in a left-out scan slot it is right too
+  (the hold-out removes a recording; the version stays indexed with the
+  title). Leaving judged files out with their partners would change
+  what the harness searches.
+- `not_indexed` (calibrate's possible-tier null on held-out excerpts)
+  keeps every detection, a same-title one included.
+- `robust` keeps its own-cluster counts and counts same-title ones
+  apart; `recall`'s and `robust`'s partners accept the partner's
+  same-title files.
+- `seconds` and `loss` keep the cluster alone (see the handoff).
+- Counts and flags are written only when not zero or true.
+
+### Questions this leaves for us
+
+- Same-title judgments are ours to write; none was added beyond China
+  Cup. The judged `different` pairs we described as the same tune in
+  another mix are the candidates:
+  - Aphrodite - Cool Rock Stuff (APH027 B1) ~ Mobb Deep Vs Urban
+    Takover - Cool Rock Shook Ones (2026-10-22: a different mix, one
+    drum loop replaced by a similar one). Its detections are the 7 wrong
+    confident answers left at NAS scale (seed 2026) and calibrate's
+    strongest false (282).
+  - Aphrodite - Tower Bass (Millennium Mix) (APH31 B) ~ `a - aphrodite -
+    tower bass.mp3` (2026-10-25: the same tune in another mix, a
+    slightly different bass and hi-hats), and the Millennium Mix ~ the
+    JumpUpThrowDown version (Lacerba CERBAL6 D2), judged different
+    earlier with no comment recorded in `work/audition/`.
+  - Aphrodite - Stalker (APH029 B) ~ Stalker (Album Version), judged
+    different, named in session 54's prompt as a candidate.
+  Remixes and VIPs among the judged pairs (Sonar's Mark System
+  Revision, the Hide U remix, We R The Ones VIP, Fire's Rogue Unit VIP)
+  are hard negatives by the brief and are not proposed.
+- Whether `seconds` and `loss` should follow the judgments as well.
+- Whether a hold-out or leave-out should also leave out the files judged
+  to carry the recording's title, so that the null keeps meaning "this
+  title is not in the index".
+
+### Questions for listening (none answered by agents)
+
+- None new. Session 53's (Star Trails at 13:13-14:37 in the Stakka mix,
+  Into Music at 25:57-26:56 in the 2003 mix) and the earlier sessions'
+  remain.
+
+### Handoff for the next session
+
+1. Baselines: `session-54-linux` (262 tracks) and `session-54-linux-nas`
+   (NAS scale), identical to session 53's; compare with these.
+2. The file: `docs/same-titles.txt`, ours, written by hand; one entry
+   (China Cup ~ ƆƐI3C's upload). Agents never add entries; the
+   candidates are listed under "Questions this leaves for us". After a
+   new entry, run the sweeps and scans whose reports should credit it;
+   saved reports keep the scoring they were written with (calibrate and
+   `regress` read the stored `correct` and `same_title` flags of
+   sweep reports, and the stored score of scans).
+3. Builds: `work/bin/s54-start/` (= `s53-final`); `s54-run/` (the
+   harness commit `91d5e80`: step 4's regressions, the seed sweeps and
+   the baselines); `s54-final/` (master).
+4. Data: `work/s54/` (logs in `logs/`; the seed 2027 and 2028 sweeps of
+   both builds at both scales in `wseeds-start/` and `wseeds-run/`,
+   with copies of the session-53 baseline reports for calibrate);
+   scripts `run.sh`, `start.sh`, `seeds.sh`, `step4.sh`, `step5.sh`,
+   `calib.sh`, `check.sh`, `final.sh`, `sweepdiff.py`, `data0233.py`,
+   `same.py`.
+5. Left for later: `seconds` and `loss` score by cluster alone;
+   hold-outs and leave-outs remove recordings, not titles (questions
+   above). Saved reports of `mixes`, `grid`, `robust` and `recall`
+   were written before the change and were not run again.
+
+### What else to know
+
+- Experiment 0059's 16 (18 with extra rungs) wrong answers were China
+  Cup's Prototype upload (PRO 001, its data), which the `same` verdict
+  of 2026-10-09 joined into China Cup's cluster; experiment 0230's
+  remark that 0059 meant ƆƐI3C's upload is mistaken (0230 stays as
+  written; ADR 0022 and `docs/calibration.md` say it correctly).
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched (the sweeps
+  search excerpts of library files; `regress` scans the Stakka mix).
+  Nothing ran on the candidate mixes of 0065 or on the NAS root's
+  broadcast file. No command was given the NAS configuration or
+  library; NAS-scale runs used the NAS peak store on the local disk,
+  and nothing was written to the NAS or to `work/peaks`.
+- `docs/pair-verdicts.txt`, the answer log and the NAS clusters file
+  are at their start digests (`work/s54/listening-digests-start.txt`,
+  `-end.txt`); no answer log was written; no manifest or committed
+  panel changed. `docs/same-titles.txt` holds exactly the one entry of
+  our decision.
+- A read-only review by a separate agent (03:42-03:50) confirmed every
+  number of 0233 and the rules, and found eleven points, all fixed
+  (brief 54, 03:42-03:50): among them the 0059 attribution above, the
+  6 ƆƐI3C detections below the rule, `robust` described as crediting,
+  `grid` without a count, two missing tests, silent misspelt names and
+  calibrate's stored confidence flag.

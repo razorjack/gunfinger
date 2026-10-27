@@ -496,6 +496,7 @@ pub fn run(
     let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     let plan = Plan::for_seed(&records, clusters, seed, panels)?;
     let index = matching.index(padding.index(&records, &profile, &plan.held_out)?);
+    same_titles.warn_outside(&index, &plan.held_out);
     drop(records);
     let draws: Vec<&Draw> = plan
         .draws

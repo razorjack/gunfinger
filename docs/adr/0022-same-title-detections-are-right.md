@@ -23,10 +23,11 @@ because we judged the upload `different` by ear on 2026-10-22
 (`docs/pair-verdicts.txt` line 84): it is almost identical, but its
 hi-hats differ for a few bars. These detections are 18 of the 25 false
 confident detections over the NAS-scale sweeps of seeds 2026-2028
-(experiment 0188), every wrong confident answer of seed 2027 in
-experiment 0230, and 16 in experiment 0059 (18 with three extra rungs;
-0059 calls the upload China Cup's Prototype upload). The title named is
-right.
+(experiment 0188) and every wrong confident answer of seed 2027 in
+experiment 0230. The title named is right. (Experiment 0059's wrong
+answers were China Cup's Prototype upload, PRO 001, which a `same`
+verdict joined into China Cup's cluster on 2026-10-09; 0230's remark
+that 0059 meant ƆƐI3C's upload is mistaken.)
 
 Joining the upload into China Cup's cluster would answer the scoring
 question with the wrong tool: a cluster is one recording, and the
@@ -41,8 +42,8 @@ recording that may carry the same title.
 2. **The file and its owner.** `docs/same-titles.txt` holds the
    judgments, one per line: `same-title` and two files, separated by
    tabs, named as in the clusters files (corpus library paths, or
-   `second-library/<path>` for the NAS library). The user owns it and
-   writes it by hand; agents never add entries, and code never derives
+   `second-library/<path>` for the NAS library). The judgments are ours,
+   written by hand; agents never add entries, and code never derives
    one from file names or tags. Its first entry is our decision of
    2026-10-27 (`docs/status.md`, "session 39's listening questions, and
    four decisions"): `extra/b-bad_company-china_cup.mp3` against
@@ -68,8 +69,17 @@ recording that may carry the same title.
    - Scan: a track's window also accepts the files credited to its
      references by title; a confident one identifies the track and is
      listed in `credited_through_title`; `Score.same_title` counts them.
-   - Generated mixes (`mixes`, `grid`, the drops) and `robust`: the
-     same, each with its own count.
+   - Generated mixes (`mixes`, `grid`, the drops): the same per play,
+     each with its own count.
+   - `robust`: a same-title detection is neither right nor wrong and is
+     counted apart; its own counts (`confident`, `best_hits`) stay the
+     recording's, since they measure how a transform damages its
+     evidence.
+   - The possible tier: a possible play of a judged file in the truth's
+     window counts toward the track's `possible` (scan) or the play's
+     level (mixes) and is no unmatched or wrong possible play. These
+     are not counted apart; possible plays never identify a track (ADR
+     0006).
    - Calibrate: a same-title detection is not a false candidate, and in
      the sweep it may identify a query, as it may identify a track in a
      scan. Calibrate prints the confident same-title credits. The
@@ -77,11 +87,18 @@ recording that may carry the same title.
      not in the index, keep every detection.
    - `seconds`, `loss`, and the commands that measure shared material
      or decide recordings (`shared`, `shared-mixes`, `identifiability`,
-     `holders`, `related`, `pair`, `clusters`) keep the cluster alone.
+     `holders`, `related`, `pair`, `clusters`) keep the cluster alone,
+     and so do the summary scripts in `scripts/analysis/` that read
+     `correct` (for example `nas_calibrate.py`, `listening_list.py`).
+   - A run warns of a judged file that it neither indexes nor leaves
+     out, so that a misspelt name does not credit nothing unnoticed.
 5. **No threshold moves.** The confident rule and the possible tier rest
    on false candidates that are not versions of the played recording.
-   ƆƐI3C's detections lay above the rule (261-273 hits, 0230), counted
-   only as false candidates the rule accepted.
+   Over the NAS sweeps of seeds 2026-2028, 24 detections of ƆƐI3C's
+   upload leave the false candidates: 18 confident (241-273 hits) and 6
+   below the rule (200-235). The strongest false candidate (282, Cool
+   Rock Stuff) and the weakest identifying detection (675) stay
+   (experiment 0233).
 
 ## Consequences
 
@@ -93,7 +110,7 @@ recording that may carry the same title.
   counts those detections as wrong.
 - A judgment is a claim about titles, so a wrong entry hides a wrong
   answer behind a credit. The credits are counted in every report so
-  they can be checked, and the file stays the user's.
+  they can be checked, and the file stays ours.
 - Other judged `different` pairs that we described as the same tune in
   another mix (Tower Bass, Cool Rock Stuff, the Stalker versions) are
   questions for us, not entries.

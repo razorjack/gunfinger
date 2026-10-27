@@ -1128,8 +1128,10 @@ marked as inferences were derived, not measured.
   hi-hats differ for a few bars is a correct identification. The sweep
   and calibrate change their scoring with an ADR.)* *(Done in session
   54: ADR 0022; `docs/same-titles.txt` holds our same-title judgments,
-  apart from the clusters, and every scorer counts a confident detection
-  of a judged file as right and lists it apart. Over the NAS sweeps of
+  apart from the clusters; the sweep, `recall`, scans, generated mixes,
+  `grid` and calibrate count a confident detection of a judged file as
+  right and list it apart (`robust` lists it apart; `seconds` and `loss`
+  keep the cluster alone). Over the NAS sweeps of
   seeds 2026-2028 the wrong confident answers fall from 25 to 7, all
   Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload; calibrate's
   false accepted 25 -> 7, no threshold moves (experiment 0233). Whether

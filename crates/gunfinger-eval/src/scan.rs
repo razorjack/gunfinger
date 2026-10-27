@@ -136,6 +136,7 @@ pub fn run(
     };
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let index = matching.index(padding.index(&records, &profile, &left_out_assets)?);
+    same_titles.warn_outside(&index, &left_out_assets);
     let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
     drop(records);
 

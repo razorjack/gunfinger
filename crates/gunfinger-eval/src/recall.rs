@@ -775,6 +775,7 @@ pub fn run(
     let index = options
         .matching
         .index(options.padding.index(&records, &profile, &excluded)?);
+    options.same_titles.warn_outside(&index, &excluded);
     let verifier = options
         .verify
         .then(|| Verifier::new(&records, options.padding.second.as_ref()));
@@ -864,11 +865,7 @@ impl Searcher<'_> {
         let partner_cluster = excerpt
             .partner
             .as_ref()
-            .map(|partner| {
-                let cluster = self.clusters.cluster_of(&partner.asset);
-                let title = titles.credited(self.clusters, &cluster);
-                cluster.into_iter().chain(title).collect()
-            })
+            .map(|partner| partner_files(self.clusters, titles, &partner.asset))
             .unwrap_or_default();
         let detections = matching.search(self.index, samples, &Profile::CURRENT, ladder, 1);
         let query = Query {
@@ -911,6 +908,13 @@ impl Searcher<'_> {
             query,
         }
     }
+}
+
+/// The partner's cluster and the files judged to carry its title.
+fn partner_files(clusters: &Clusters, titles: &SameTitles, partner: &str) -> BTreeSet<String> {
+    let cluster = clusters.cluster_of(partner);
+    let title = titles.credited(clusters, &cluster);
+    cluster.into_iter().chain(title).collect()
 }
 
 /// A detection of the partner's cluster or of a file judged to carry its
@@ -1377,6 +1381,37 @@ mod tests {
             &detection("elsewhere.mp3", false),
             &partner_cluster
         ));
+    }
+
+    #[test]
+    fn a_file_judged_to_carry_the_partners_title_is_the_partner() {
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: vec![vec!["beneath.mp3".to_owned(), "beneath-rip.mp3".to_owned()]],
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+        let titles = SameTitles::parse("same-title\tbeneath-rip.mp3\tversion.opus\n").unwrap();
+        let partner = partner_files(&clusters, &titles, "beneath.mp3");
+        assert_eq!(
+            partner,
+            BTreeSet::from(["beneath.mp3", "beneath-rip.mp3", "version.opus"].map(String::from))
+        );
+        let detection = |asset: &str, same_title: bool| Outcome {
+            asset: asset.to_owned(),
+            correct: false,
+            same_title,
+            confident: true,
+            windows: 3,
+            hits: 300,
+            speed_percent: 0.0,
+            fitted: true,
+            partner: false,
+            verified: None,
+        };
+        assert!(is_partner(&detection("version.opus", false), &partner));
+        // The own title comes first: a version of the source stays right.
+        assert!(!is_partner(&detection("version.opus", true), &partner));
     }
 
     #[test]

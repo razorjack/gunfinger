@@ -6,7 +6,10 @@
 //! Confidence is recomputed from the stored evidence with the current rule,
 //! so reports written under an earlier rule can be re-examined. A
 //! detection of a file judged to carry the truth's title (ADR 0022) is
-//! right: never a false candidate, and counted apart.
+//! right: never a false candidate, and counted apart. Calibrate reads
+//! that judgment from the reports (the sweep's `same_title` flags, the
+//! scans' scores), not from `docs/same-titles.txt`, so a report keeps the
+//! judgments it was written with.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -85,7 +88,7 @@ impl Calibration {
                         source: sample.source.clone(),
                     });
                 }
-                if outcome.same_title && outcome.confident {
+                if outcome.same_title && sample.evidence.is_confident() {
                     self.same_title_credits += 1;
                 }
                 if !outcome.is_right() {

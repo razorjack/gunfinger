@@ -1,9 +1,9 @@
 //! The judgments that two library files carry the same track title
 //! although they are different recordings (ADR 0022): a near-identical
 //! version, which the verdicts by ear keep out of the recording's
-//! cluster. Read from a plain text file (`docs/same-titles.txt`), written
-//! by hand by the user: one judgment per line, `same-title` and the two
-//! files, separated by tabs; `#` starts a comment line.
+//! cluster. Read from a plain text file (`docs/same-titles.txt`), our
+//! judgments written by hand: one judgment per line, `same-title` and the
+//! two files, separated by tabs; `#` starts a comment line.
 //!
 //! A judgment relates the two files' duplicate clusters, for scoring
 //! only: a detection of a file of one, where the truth is the other,
@@ -11,7 +11,9 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+
+use gunfinger_core::index::Index;
 
 use crate::clusters::Clusters;
 
@@ -19,17 +21,22 @@ const KEYWORD: &str = "same-title";
 
 #[derive(Debug, Default)]
 pub struct SameTitles {
-    /// Pairs of files in path order.
-    pairs: BTreeSet<(String, String)>,
+    /// The file they were read from, for messages.
+    file: PathBuf,
+    /// Pairs of files in path order, with their line in the file.
+    pairs: BTreeMap<(String, String), usize>,
 }
 
 impl SameTitles {
     /// The judgments in `path`; none when the file does not exist.
     pub fn load(path: &Path) -> Result<SameTitles, String> {
         match fs::read_to_string(path) {
-            Ok(text) => {
-                SameTitles::parse(&text).map_err(|error| format!("{}, {error}", path.display()))
-            }
+            Ok(text) => SameTitles::parse(&text)
+                .map(|titles| SameTitles {
+                    file: path.to_owned(),
+                    ..titles
+                })
+                .map_err(|error| format!("{}, {error}", path.display())),
             Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(SameTitles::default()),
             Err(error) => Err(format!("cannot read {}: {error}", path.display())),
         }
@@ -63,7 +70,8 @@ impl SameTitles {
             }
         }
         Ok(SameTitles {
-            pairs: lines.into_keys().collect(),
+            file: PathBuf::new(),
+            pairs: lines,
         })
     }
 
@@ -72,7 +80,7 @@ impl SameTitles {
     /// one of its members.
     pub fn credited(&self, clusters: &Clusters, recording: &BTreeSet<String>) -> BTreeSet<String> {
         self.pairs
-            .iter()
+            .keys()
             .filter_map(|(a, b)| {
                 if recording.contains(a) {
                     Some(b)
@@ -85,6 +93,27 @@ impl SameTitles {
             .flat_map(|partner| clusters.cluster_of(partner))
             .filter(|file| !recording.contains(file))
             .collect()
+    }
+
+    /// Warns of every judged file that is neither in `index` nor left out
+    /// of it by the run (`left_out`), so that a misspelt name, which would
+    /// credit nothing, does not pass unnoticed.
+    pub fn warn_outside(&self, index: &Index, left_out: &BTreeSet<String>) {
+        let indexed: BTreeSet<&str> = index
+            .assets()
+            .iter()
+            .map(|asset| asset.path.as_str())
+            .collect();
+        for ((a, b), line) in &self.pairs {
+            for file in [a, b] {
+                if !indexed.contains(file.as_str()) && !left_out.contains(file) {
+                    eprintln!(
+                        "{}, line {line}: {file} is not a file this run indexes; the judgment adds nothing",
+                        self.file.display()
+                    );
+                }
+            }
+        }
     }
 }
 
@@ -174,10 +203,13 @@ mod tests {
     }
 
     #[test]
-    fn the_committed_file_holds_one_judgment() {
+    fn the_committed_file_parses_and_holds_the_china_cup_judgment() {
         let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../docs/same-titles.txt");
         let titles = SameTitles::load(&path).unwrap();
-        assert_eq!(titles.pairs.len(), 1);
+        assert!(titles.pairs.contains_key(&ordered(
+            "extra/b-bad_company-china_cup.mp3",
+            "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+        )));
     }
 
     #[test]

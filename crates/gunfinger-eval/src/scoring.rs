@@ -127,8 +127,9 @@ pub struct TrackScore {
     /// that is judged to carry their title.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub credited_through_title: Vec<String>,
-    /// The strongest detection of a reference or a cluster member inside the
-    /// window, confident or not: the evidence for a miss.
+    /// The strongest detection of a reference, a cluster member or a file
+    /// judged to carry their title inside the window, confident or not: the
+    /// evidence for a miss.
     pub strongest_candidate: Option<Found>,
 }
 
@@ -145,9 +146,20 @@ struct Slot<'a> {
 
 impl Slot<'_> {
     fn covers(&self, asset: &str, start_seconds: f64, end_seconds: f64) -> bool {
-        start_seconds < self.end_seconds
-            && self.start_seconds < end_seconds
-            && (self.accepted.contains(asset) || self.by_title.contains(asset))
+        self.covers_recording(asset, start_seconds, end_seconds)
+            || self.covers_title(asset, start_seconds, end_seconds)
+    }
+
+    fn covers_recording(&self, asset: &str, start_seconds: f64, end_seconds: f64) -> bool {
+        self.overlaps(start_seconds, end_seconds) && self.accepted.contains(asset)
+    }
+
+    fn covers_title(&self, asset: &str, start_seconds: f64, end_seconds: f64) -> bool {
+        self.overlaps(start_seconds, end_seconds) && self.by_title.contains(asset)
+    }
+
+    fn overlaps(&self, start_seconds: f64, end_seconds: f64) -> bool {
+        start_seconds < self.end_seconds && self.start_seconds < end_seconds
     }
 }
 
@@ -228,16 +240,12 @@ pub fn score(
         referenced: tracks.iter().filter(|track| track.referenced).count(),
         identified: tracks.iter().filter(|track| track.identified).count(),
         wrong: wrong_identifications.len(),
-        same_title: tracks
+        same_title: found
             .iter()
-            .map(|track| {
-                track
-                    .credited
-                    .iter()
-                    .filter(|detection| track.credited_through_title.contains(&detection.asset))
-                    .count()
+            .filter(|detection| {
+                detection.confident && credited_through_title_only(&slots, detection)
             })
-            .sum(),
+            .count(),
         possible: tracks.iter().filter(|track| track.possible).count(),
         tracks,
         wrong_identifications,
@@ -248,6 +256,23 @@ pub fn score(
             .collect(),
         unmatched_possible,
     }
+}
+
+/// Whether a detection is credited to some track only through a file
+/// judged to carry its title, so that each such detection counts once.
+fn credited_through_title_only(slots: &[Slot], detection: &Found) -> bool {
+    let Found {
+        asset,
+        start_seconds,
+        end_seconds,
+        ..
+    } = detection;
+    !slots
+        .iter()
+        .any(|slot| slot.covers_recording(asset, *start_seconds, *end_seconds))
+        && slots
+            .iter()
+            .any(|slot| slot.covers_title(asset, *start_seconds, *end_seconds))
 }
 
 fn score_track(slot: &Slot, found: &[Found], plays: &[FoundPlay]) -> TrackScore {
