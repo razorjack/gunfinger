@@ -160,3 +160,21 @@ Rules for this session:
   nothing in runs of the whole index (the development scan, the
   regressions); the moves are in indexes less some files, whose cut is
   their own (recall's, a sweep's).
+- **(13:20) Brief queries done** (both runs 29:20-29:27 at once, 5.8 and
+  9.1 GiB peak): with the old index's lists set aside, today's postings
+  give the old brief report exactly, 0 of 1,404 queries different (the
+  pruned files' 27 detections set aside); with today's lists, only
+  queries 910 and 911 (Echos at +1%) differ, and the run equals session
+  57's `--overlap-by-spans` report. Query 911's first-pass candidate:
+  370 hits at +1.147% with the old lists, 369 at +0.933% with today's
+  (3 windows, 3.13-22.81 s both); the second pass measures 455 and 503
+  hits at those speeds. One hit fewer in the first pass moves the
+  chain's speed by 0.21%. The same list moved in recall's brief index
+  (hash 1,286,800).
+- **(13:27) The chain's lines added to the trace** (committed at
+  `e5a6702`, tested): `Matching::first_pass` returns the core's trace and
+  each candidate keeps its chain's lines, to see which line moves the
+  speed. The brief queries run again in both conditions (tmux
+  `s59lines`, build `work/bin/s59-run2/`; the first run's reports moved
+  to `variant-spans/run1/`). Clean queries are not run again: their
+  three moves are small and the brief query is the one in question.
