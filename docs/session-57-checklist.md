@@ -22,9 +22,9 @@ for scope and rules.
   - [x] the drops mixes of sessions 39 and 48 (262 tracks, NAS scale)
   - [x] `recall`
   - [x] the other development scans at NAS scale
-  - [ ] the sweeps of seeds 2027-2029 at NAS scale
-  - [ ] `robust`
-  - [ ] `grid`
+  - [x] the sweeps of seeds 2027-2029 at NAS scale
+  - [x] `robust`
+  - [x] `grid`
   - [ ] the long and ridden generated mixes
 - [ ] 3. Experiments from 0236, one per group (shared panels; drops;
   recall and scans; sweeps, robust and grid; long and ridden mixes),

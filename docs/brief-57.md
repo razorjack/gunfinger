@@ -185,3 +185,9 @@ Rules for this session:
   quotes 0047's 0, 67, 146 and session 27's 0137-0138 (the Mac) repeat
   them. Session 32's start build, the first on the Linux machine
   (`trace-grid.sh`, tmux `s57trg`), tells the machine from later code.
+- **(09:50) Group 4 done** (0239): every difference is the prune's, ADR
+  0021's or ADR 0022's; session 40's binary on today's store and today's
+  `--overlap-by-spans` agree detection for detection on seeds 2027 and
+  2028 at NAS scale. `grid` gives 0, 65, 144 of 160 under both rules and
+  with session 32's build: a machine difference against the Mac's 0047,
+  noted in `docs/calibration.md` with calibrate over seeds 2026-2029.
