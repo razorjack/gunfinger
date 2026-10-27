@@ -134,7 +134,7 @@ Rules for this session:
   ignore file's files have no record (session 52's prune), and the
   harness also reads the NAS `.gunfingerignore` (read only) and leaves
   out any record it matches.
-- **(10:45) The pre-registration** committed at `6f183aa` before any
+- **(10:29) The pre-registration** committed at `6f183aa` before any
   search: `docs/research/2026-10-27-files-holding-several-recordings.md`.
 - **(10:35) The harness** (`gunfinger-eval parts`, `parts.rs`;
   `questions parts`, `audition/parts.rs`): the queries are a list of
@@ -157,3 +157,23 @@ Rules for this session:
   so that it does not share the machine with it.
 - **(10:38) The main run started** (tmux `s58main`, logs
   `work/s58/logs/tier-*.{log,err}`, reports `work/s58/out/tier-*.json`).
+- **(10:40) The check against the known cases** (`work/s58/known.py`,
+  output `work/s58/known-cases.txt`): the pre-registration's rules,
+  re-implemented in Python, on the five pruned files' saved pairs, with
+  their lengths read by FFprobe from the NAS audio (`work/s58/pruned-durations.tsv`;
+  read only, nothing decoded). As expected: the Space Cake `[CUT]` file
+  is a candidate worth the ear (Bacteria over 0:01-1:05 from 2:40 in,
+  three files, 118-149 hits); the track-fix Drumtrip is one with a second
+  part (the 3zb Propaganda upload over 0:01-0:40, 207 hits; Known
+  Unknown over 0:07-2:55); the T-Minus vocal mix upload is not a
+  candidate from the saved pairs (only the corpus T-Minus over
+  1:08-3:54 is saved); the Kraken has no saved pair; the track-fix
+  Propaganda is not a candidate (its part ends 25 s before its end, not
+  within 15 s).
+- **(10:40) The pack leaves out the controls** (a conservative choice
+  the pre-registration did not fix): a candidate among Listen Up's tracks
+  or the unmixed discs is counted, not asked again, since the user has
+  judged those releases.
+- **(10:41) `questions parts` checked** on tier 1's report: the file it
+  writes loads in `audition` on temporary files (`/tmp/s58q/`, the
+  verdicts file copied there); `docs/pair-verdicts.txt` unchanged.
