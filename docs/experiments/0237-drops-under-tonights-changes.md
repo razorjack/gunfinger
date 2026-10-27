@@ -5,14 +5,12 @@ the prune and ADR 0021-0024 change in the double drops, in the harness's
 scores and the CLI's tracklists at both scales; does a related version's
 second alignment more than 0.6% apart reach 240 hits?
 **Method.** Build `s57-start`, `work/s57/wdrops` on reflink copies of the
-renders (none rendered again). Harness at 262 tracks with the old runs'
-flags: drops 2026, 2028 and their other pairs (ladder `both`); 2032, 2034
-(turntable, `--verify`) and their other pairs; aligned drops 2026-2034 (12
-reports, 192 mixes). CLI (`--saved-index off`): 262 tracks on the store
-copies (drops, aligned; 8 x 16 mixes); NAS scale `--store-only
---exclude-from`, also the other pairs (12 x 16). Old: sessions 39, 45, 48
-(39's NAS other pairs used the NAS configuration). Scripts
-`work/s57/{mixes_score,diffs,residual_mixes,cli_compare}.py`.
+renders (none rendered again). Harness at 262 tracks, the old flags: drops
+2026, 2028, their other pairs (ladder `both`); 2032, 2034 (turntable,
+`--verify`), their other pairs; aligned drops 2026-2034 (12 reports). CLI
+(`--saved-index off`): 262 tracks, store copies (drops, aligned; 8 x 16
+mixes); NAS `--store-only --exclude-from`, also other pairs (12 x 16).
+Old: sessions 39, 45, 48. `work/s57/{mixes_score,diffs,residual_mixes,cli_compare}.py`.
 
 | Old -> today | Harness, 262 | CLI 262 | CLI NAS |
 |---|--:|--:|--:|
@@ -36,9 +34,7 @@ copies (drops, aligned; 8 x 16 mixes); NAS scale `--store-only
 - Re-measured segments: session 48's own binary on today's pruned store
   gives today's segments in seed 2032 (16 reports), apart from ADR 0021's
   added possible Funktion segment: the store's change moves them, not the
-  code (mechanism not traced).
-- ADR 0022: ƆƐI3C's upload is not indexed at 262 tracks, and no NAS-scale
-  tracklist of these mixes names China Cup.
+  code (mechanism not traced). ADR 0022: no tracklist names China Cup.
 **Conclusion.** Every difference is explained: the prune (the upload's
 plays; re-measured segments, levels unchanged), ADR 0021 (weak and possible
 detections), ADR 0023-0024 (gap lines over missed tracks). No finding.
