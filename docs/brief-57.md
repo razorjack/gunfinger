@@ -112,3 +112,30 @@ Rules for this session:
 - **(06:50) Start checks.** `regress session-54-linux` (0:51) and
   `regress session-54-linux-nas` (3:59, 5.6 GB peak) identical: every
   report equals its baseline's apart from `wall_seconds` (`same.py`).
+- **(06:55) The inventory** (a read-only agent, 06:49-06:57; checked
+  against the scripts of sessions 33-48): the old report and command of
+  each run are in the pre-registration, committed at `7a47656` before
+  any run. No `grid` report and no full `robust` report exist on this
+  machine, no sweep of seed 2029, and no full `shared-mixes` report;
+  the renders of several mixes were deleted. Those runs are listed as
+  not run or, for `grid` and seed 2029, compared within today's build
+  against `--overlap-by-spans`.
+- **(06:59) Group 1 started**: both panels in parallel (tmux `s57sh1`,
+  `s57sh2`), scratch `work/s57/wshared/` with reflink copies of the
+  renders (btrfs: the copies share the old renders' blocks, so they add
+  nothing to the disk's use).
+- **(07:05) Scripts**: `diffs.py` sorts every detection in one report and
+  not the other into the pre-registration's causes (`prune`, `apart`,
+  `displaced`, `other`), and pairs the same detection at a fitted speed
+  less than 0.01% apart as `refit`; `residual.py` counts ADR 0021's
+  residual risk; `mixes_score.py` and `cli_compare.py` compare scores,
+  CLI reports and printed tracklists (gap lines set aside).
+- **(07:08) An added run for group 4** (a deviation, recorded here):
+  session 40's NAS sweep of seed 2027 differs from session 54's start
+  build (after the prune and ADR 0021) in 9 confident detections'
+  fitted speeds (under 0.01%) and 2 confident detections' hits (by 2),
+  and indexes 5 fewer assets (the prune). To tell the prune from code
+  changes, `work/bin/s40-final/gunfinger-eval` sweeps seeds 2027 and
+  2028 again on today's store (`--saved-index off`, so the saved index
+  is never written by an old binary): what it shares with today's
+  `--overlap-by-spans` run is the prune's.
