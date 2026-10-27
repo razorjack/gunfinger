@@ -32,8 +32,8 @@ not searched.
 - Three of panel 1's additions (DJ Alibi - Free Spirit, 12 hits) overlap
   one of equal hits that the old rule ranked first; `diffs.py` counts a
   tie as overlapping (first read as "other", corrected).
-- ADR 0022 does not apply: `shared` scores by cluster alone, and no China
-  Cup file is in either development half.
+- ADR 0022 does not apply: `shared` scores by cluster alone (neither
+  half names a China Cup file; its 8 and 6 detections are unchanged).
 **Conclusion.** Every difference is explained: each panel is its variant
 run of session 38 or 45 less the pruned files' weak detections. No
 confident detection changes in any query, and ADR 0021's residual risk
