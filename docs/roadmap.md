@@ -480,7 +480,8 @@ marked as inferences were derived, not measured.
   every wider ladder (fitted 0.1% further off; that the outer rung moves
   the fit is inferred), and from two extra rungs a bootleg judged a
   different mix of a held-out recording is reached at one more speed
-  (seed 2027: China Cup against ƆƐI3C's upload, judged different). For
+  (seed 2027: China Cup against ƆƐI3C's upload, judged different; a
+  same-title credit since ADR 0022, experiment 0233). For
   a deck at ±5%, the copies with no other copy in reach fall from 29 at
   today's reach to 19, 7, 3 and 1. A targeted
   search (extra rungs only where nothing is confident; 2% of the Stakka
@@ -1125,7 +1126,15 @@ marked as inferences were derived, not measured.
   ours. *(Our decision, 2026-10-27: it counts as right. Gunfinger
   identifies track titles; China Cup found as another China Cup whose
   hi-hats differ for a few bars is a correct identification. The sweep
-  and calibrate change their scoring with an ADR.)* `listening_pack.py select --min-hits` (default 30) leaves out
+  and calibrate change their scoring with an ADR.)* *(Done in session
+  54: ADR 0022; `docs/same-titles.txt` holds our same-title judgments,
+  apart from the clusters, and every scorer counts a confident detection
+  of a judged file as right and lists it apart. Over the NAS sweeps of
+  seeds 2026-2028 the wrong confident answers fall from 25 to 7, all
+  Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload; calibrate's
+  false accepted 25 -> 7, no threshold moves (experiment 0233). Whether
+  other pairs judged different carry one title, among them Cool Rock,
+  Tower Bass's two mixes and the Stalker versions, is for us to judge.)* `listening_pack.py select --min-hits` (default 30) leaves out
   borderline pairs on few hits, and `--disagreements` picks the joins
   and apart pairs nearest `near_10`'s threshold: 12 wait in
   `work/s40/pack/`, though none crosses it.
