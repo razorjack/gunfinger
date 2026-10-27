@@ -36,6 +36,7 @@ use gunfinger_core::speed::{self, Rung, key_lock_ladder, ladder};
 use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
+use crate::padding::SECOND_LIBRARY_PREFIX;
 use crate::pair::{Records, Sources};
 use crate::render::{Playback, render_samples_as_indexed};
 use crate::shared::Roots;
@@ -97,6 +98,10 @@ pub struct Measured {
     pub passage_end_seconds: f64,
     pub control: bool,
     pub files: Vec<Compared>,
+    /// Files of the direction with no current peak record (pruned since
+    /// the panel was drawn), listed instead of compared.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub without_record: Vec<String>,
 }
 
 #[derive(Serialize)]
@@ -158,6 +163,15 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
                     .filter(|file| **file != direction.played)
                     .map(|file| (file.clone(), "rip")),
             );
+            // Without the other store, its files go on to `record`, which
+            // says that the run needs --other-peaks-dir.
+            let (files, without_record) = with_records(files, &|file| {
+                records.holds(file)
+                    || (sources.other.is_none() && file.starts_with(SECOND_LIBRARY_PREFIX))
+            });
+            for file in &without_record {
+                eprintln!("  {file}: no current peak record; not compared");
+            }
             let passage_audio = decode(
                 &roots.path(&direction.played)?,
                 Profile::CURRENT.sample_rate,
@@ -188,6 +202,7 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
                 passage_end_seconds: passage.end_seconds,
                 control: passage.control,
                 files: compared,
+                without_record,
             });
         }
     }
@@ -195,6 +210,17 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
         half: half.to_owned(),
         directions,
     })
+}
+
+/// The files with a current record, and apart the names of those
+/// without one, so that a file pruned since the panel was drawn is
+/// reported instead of stopping the run.
+fn with_records(
+    files: Vec<(String, &'static str)>,
+    holds: &dyn Fn(&str) -> bool,
+) -> (Vec<(String, &'static str)>, Vec<String>) {
+    let (kept, missing): (Vec<_>, Vec<_>) = files.into_iter().partition(|(file, _)| holds(file));
+    (kept, missing.into_iter().map(|(file, _)| file).collect())
 }
 
 /// X's strongest detection in the passage, with its peaks and audio
@@ -431,12 +457,37 @@ pub fn print_summary(report: &Report) {
                 }
             }
         }
+        for file in &direction.without_record {
+            println!("  no record   {file}");
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_file_without_a_record_is_listed_apart_and_the_others_kept_in_order() {
+        let files = vec![
+            (String::from("second-library/pruned.m4a"), "related"),
+            (String::from("related-rip.mp3"), "related rip"),
+            (String::from("rip.mp3"), "rip"),
+        ];
+        let (kept, without_record) =
+            with_records(files, &|file| file != "second-library/pruned.m4a");
+        assert_eq!(
+            kept,
+            vec![
+                (String::from("related-rip.mp3"), "related rip"),
+                (String::from("rip.mp3"), "rip"),
+            ]
+        );
+        assert_eq!(
+            without_record,
+            vec![String::from("second-library/pruned.m4a")]
+        );
+    }
 
     #[test]
     fn a_median_of_an_even_count_is_the_middle_pairs_mean() {

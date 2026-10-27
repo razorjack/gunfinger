@@ -244,6 +244,18 @@ impl Records {
         Ok(Records { corpus, other })
     }
 
+    /// Whether either store has a current record of `path`: a file pruned
+    /// since a panel named it has none.
+    pub(crate) fn holds(&self, path: &str) -> bool {
+        match path.strip_prefix(SECOND_LIBRARY_PREFIX) {
+            None => self
+                .corpus
+                .iter()
+                .any(|record| record.header.source.path == path),
+            Some(other_path) => self.other.iter().any(|asset| asset.path == other_path),
+        }
+    }
+
     /// A corpus file's record, or with the prefix one of the other
     /// library's.
     pub(crate) fn record(&self, sources: &Sources, path: &str) -> Result<PeakRecord, String> {
@@ -459,6 +471,25 @@ mod tests {
             },
             peaks,
         }
+    }
+
+    #[test]
+    fn records_hold_corpus_files_and_the_other_librarys_by_their_prefixed_names() {
+        let records = Records {
+            corpus: vec![record(Vec::new())],
+            other: vec![Asset {
+                path: String::from("kept.m4a"),
+                size: 1,
+                modified: Timestamp {
+                    seconds: 0,
+                    nanos: 0,
+                },
+            }],
+        };
+        assert!(records.holds("found.mp3"));
+        assert!(records.holds("second-library/kept.m4a"));
+        assert!(!records.holds("kept.m4a"));
+        assert!(!records.holds("second-library/pruned.m4a"));
     }
 
     #[test]
