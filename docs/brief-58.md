@@ -190,3 +190,22 @@ Rules for this session:
   with the candidate's. It is crude (a Book Of The Bad track named
   `02.mp3` counts as different; Vaccine and Questions share
   "counterstrike") and decides nothing.
+- **(11:51) Tier 3 done** (34:25, 6.9 GB peak): 117 candidates of 6,088
+  files, 106 worth the ear. Two long records among them are mixes or
+  radio segments indexed as tracks (`sety/Weekenders_1_-_Nocny_Trans.mp3`,
+  12 min, not the Nocny development mix, whose audio is `vertical.mp3`;
+  the Virus on Kiss FM show of 3 May 2000, 15 min); neither is on
+  0065's lists. Seven candidates are controls: five tracks of Ray Keith
+  presents Vintage Dread 2000's first disc (whose second disc the ignore
+  file leaves out), one of 21st Century Grooves' and one of Inside The
+  Machine's. Their edge parts are other records (Vintage Dread's Sing
+  ← Londons Most Wanted, Chopper ← LTJ Bukem - Horizons), so the first
+  disc may be mixed too. They stay out of the pack, as decided at 10:40,
+  and go to the handoff as a question for the user.
+- **(11:51) The pack keeps the pre-registered rule**, although most of
+  its strongest candidates are other versions of one tune: the pack is
+  part of the measurement, and the user's answers show how often the
+  signal is right. The post-hoc list of candidates whose strongest edge
+  part has a different name (`work/s58/different-name-files.txt`, by
+  `tally.py`) goes to the handoff, ready for a later pack with
+  `questions parts ... --files`.
