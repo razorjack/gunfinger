@@ -112,3 +112,36 @@ Rules for this session:
   `s59start`, logs in `work/s59/logs/`; `run.sh` and `same.py` are
   session 58's with the paths changed). The build was a no-op: both
   binaries `cmp` equal to `work/bin/s58-final/`.
+- **(12:44) Start checks.** `regress session-54-linux` (0:50) and
+  `regress session-54-linux-nas` (3:47, 5.4 GiB peak) identical: every
+  report equals its baseline's apart from `wall_seconds` (`same.py`).
+- **(12:46) The "before" index is the pre-prune saved file**, read in
+  memory and never written: `work/s36/w/indexes/library-nas-dnb-peaks.index`
+  (one of the 14 links). Runs never get `--work work/s36/w`, so no
+  harness run can replace it. No peak record is rebuilt: the old file
+  holds the five records' postings exactly as the old runs searched them.
+- **(12:48) The harness for the trace** (committed at `b900171`, tested):
+  `recall --set-aside-like FILE` loads the saved file by the provenance
+  its own header names (`saved::provenance`, new in the core, a reader
+  only), leaves out the run's held-out files, sets aside its fullest 1%
+  of lists, and searches today's postings with those lists set aside
+  instead of today's (`Index::skipping_hashes`); it also records
+  whether the old index less the files only it holds has today's
+  postings, and every list set aside by one index only.
+  `--trace-candidates` keeps each query's first-pass candidates with
+  their speed and span. Both are opt-in and add to the report's name.
+- **(12:49) The runs** (tmux `s59like`, `s59today`; scratch work
+  directory `work/s59/wrecall` with the renders as reflink copies):
+  recall's clean and brief queries with `--overlap-by-spans`, the rule
+  the old reports (session 33's, before ADR 0021) were made with, once
+  with the old index's lists set aside and once with today's. If the
+  first reproduces the old reports except the pruned files' own
+  detections, the lists set aside alone carry the change.
+- **(12:50) The two indexes.** The old index less the five pruned files
+  has today's postings, posting for posting (so neither the asset
+  numbering nor anything else in the store differs). The lists set
+  aside differ by one: the old index sets aside 10,863, today's 10,864.
+- **(12:54) Step 3** (committed at `0672e5b`): `robust`'s per-detection
+  counting is now `Role::of` and `count`, `grid`'s match of detections
+  against the brief play `matching_the_play`, unchanged in behaviour;
+  five tests cover the same-title branches.
