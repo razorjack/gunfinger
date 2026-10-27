@@ -124,6 +124,8 @@ Rules for this session:
   `s58start`, logs in `work/s58/logs/`; `run.sh` and `same.py` are
   session 57's with the paths changed). The build was a no-op: both
   binaries `cmp` equal to `work/bin/s57-final/`.
+- **(10:29) The pre-registration** committed at `6f183aa` before any
+  search: `docs/research/2026-10-27-files-holding-several-recordings.md`.
 - **(10:33) Experiment 0065's candidate mixes are left out of the
   queries**: the 15 records of its two unignored mixed-CD folders are
   not searched as queries (a leave-out list,
@@ -134,8 +136,6 @@ Rules for this session:
   ignore file's files have no record (session 52's prune), and the
   harness also reads the NAS `.gunfingerignore` (read only) and leaves
   out any record it matches.
-- **(10:29) The pre-registration** committed at `6f183aa` before any
-  search: `docs/research/2026-10-27-files-holding-several-recordings.md`.
 - **(10:35) The harness** (`gunfinger-eval parts`, `parts.rs`;
   `questions parts`, `audition/parts.rs`): the queries are a list of
   store paths given in a file (`work/s58/tiers.py` writes the tiers), so
@@ -177,7 +177,7 @@ Rules for this session:
 - **(10:41) `questions parts` checked** on tier 1's report: the file it
   writes loads in `audition` on temporary files (`/tmp/s58q/`, the
   verdicts file copied there); `docs/pair-verdicts.txt` unchanged.
-- **(11:16) Tier 2 done** (37:11, 6.7 GB peak): 62 candidates of 6,293
+- **(11:16) Tier 2 done** (37:11, 6.4 GiB peak): 62 candidates of 6,293
   files, 56 worth the ear; with tier 1, 65 and 59. Reading the strongest
   shows that most are another version of the same tune: an edit, VIP,
   remix or bootleg that shares a long passage with the original, which
@@ -190,7 +190,7 @@ Rules for this session:
   with the candidate's. It is crude (a Book Of The Bad track named
   `02.mp3` counts as different; Vaccine and Questions share
   "counterstrike") and decides nothing.
-- **(11:51) Tier 3 done** (34:25, 6.9 GB peak): 117 candidates of 6,088
+- **(11:51) Tier 3 done** (34:25, 6.6 GiB peak): 117 candidates of 6,088
   files, 106 worth the ear. Two long records among them are mixes or
   radio segments indexed as tracks (`sety/Weekenders_1_-_Nocny_Trans.mp3`,
   12 min, not the Nocny development mix, whose audio is `vertical.mp3`;
@@ -199,8 +199,8 @@ Rules for this session:
   presents Vintage Dread 2000's first disc (whose second disc the ignore
   file leaves out), one of 21st Century Grooves' and one of Inside The
   Machine's. Their edge parts are other records (Vintage Dread's Sing
-  ← Londons Most Wanted, Chopper ← LTJ Bukem - Horizons), so the first
-  disc may be mixed too. They stay out of the pack, as decided at 10:40,
+  opens with Londons Most Wanted, Chopper with LTJ Bukem - Horizons), so
+  the first disc may be mixed too. They stay out of the pack, as decided at 10:40,
   and go to the handoff as a question for the user.
 - **(11:51) The pack keeps the pre-registered rule**, although most of
   its strongest candidates are other versions of one tune: the pack is
@@ -222,5 +222,43 @@ Rules for this session:
   `questions parts` wrote `work/s58/questions/06-parts-s58.json` (20
   questions, 2-9 lanes), which loads in `audition` on temporary files.
 - **(12:13) `regress session-54-linux-nas` identical** with
-  `work/bin/s58-run/` (4:02, 5.6 GB), every report equal to its
+  `work/bin/s58-run/` (4:02, 5.3 GiB), every report equal to its
   baseline's apart from `wall_seconds`.
+- **(12:15) The review** (a read-only agent, 12:14-12:24): the counts
+  in 0241 and this brief match the reports and logs; eleven points, all
+  taken except the optional ADR 0016 list (ADR 0016's producer list
+  predates `shared` too and is left as written). Recorded here, as it
+  asked:
+  - *Differences from the pre-registration's wording, without effect on
+    this run.* An edge part is never also counted as a second part
+    (`Part::elsewhere_of` asks only parts that are not edge parts; with
+    the written rule, a mixed CD's track with edge parts at both ends of
+    different recordings would be worth the ear; all 17 such candidates
+    are worth the ear anyway). The pack leaves out candidates with an
+    edge or second part in a 0065 folder, where the pre-registration
+    says any part (one candidate either way). Lanes are given to edge
+    and second parts only, at most eight.
+  - *Second parts that are copies.* The NAS clusters hold only the
+    corpus recordings' rips (739 NAS files), so "B's duplicate cluster"
+    is nearly always B alone, and a full copy of the file counts as a
+    second part: in 41 of the 133 candidates with a second part it is
+    the only one, and 20 of the 186 worth the ear are worth it only so.
+    0241 and the notes say so; the code stays as run.
+  - *Near-duplicate parts* (one alignment found at neighbouring rungs)
+    stay in the reports: 56 in 36 candidates, without effect on roles,
+    strength or lanes. The question's line on parts without a lane now
+    counts every one of them (`audition/parts.rs`); the pack was written
+    again with that line (the same ids).
+  - Fixed: `run_holders`' doc comment had moved onto `run_parts`;
+    0241's wrapped line that read as a list item, its unheard
+    conclusions hedged and the pack's exclusions stated; CLAUDE.md's
+    "brief 58"; this brief's order and arrows. The analysis scripts are
+    committed as `scripts/analysis/parts_tiers.py`, `parts_known.py`,
+    `parts_tally.py` (which also writes 0241's data) and
+    `store_paths.py`; they read and write `work/s58/` as the session's
+    copies did, with the same output.
+  - The run's binary `work/bin/s58-run/` was built at 10:37 from the code
+    committed at 10:39 (the documentation changed in between); the
+    timing run used an earlier build of the same `parts.rs` without
+    `questions parts`. The final build differs from it by the review's
+    fixes, which do not touch the search.

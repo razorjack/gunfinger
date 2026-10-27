@@ -1938,8 +1938,6 @@ fn run_shared_mixes(paths: &Paths, plan_file: &Path, jobs: usize) -> Result<(), 
     Ok(())
 }
 
-/// The holders of each lookup's span; the report is `holders-<file
-/// stem>.json`.
 fn run_parts(
     paths: &Paths,
     queries_file: &Path,
@@ -1995,6 +1993,8 @@ fn run_parts(
     Ok(())
 }
 
+/// The holders of each lookup's span; the report is `holders-<file
+/// stem>.json`.
 fn run_holders(paths: &Paths, lookups_file: &Path, jobs: usize) -> Result<(), String> {
     let text = fs::read_to_string(lookups_file)
         .map_err(|error| format!("cannot read {}: {error}", lookups_file.display()))?;

@@ -122,7 +122,9 @@ fn question(
         timecode(candidate.seconds)
     )];
     let mut files = vec![candidate.file.clone()];
-    for (part, name) in laned(candidate).into_iter().zip('B'..) {
+    let laned = laned(candidate);
+    let unlaned = candidate.parts.len() - laned.len();
+    for (part, name) in laned.into_iter().zip('B'..) {
         let name = name.to_string();
         let file = libraries.path(&part.found);
         let alignment = Alignment {
@@ -175,14 +177,9 @@ fn question(
         files.push(part.found.clone());
         lanes.push(lane);
     }
-    let others = candidate
-        .parts
-        .iter()
-        .filter(|part| part.role == Role::Other)
-        .count();
-    if others > 0 {
+    if unlaned > 0 {
         details.push(format!(
-            "{others} weaker or overlapping parts have no lane (the report lists them)"
+            "{unlaned} other parts (weaker, overlapping, or another file of a laned recording) have no lane; the report lists them"
         ));
     }
     markers.sort_by(|x, y| x.at.total_cmp(&y.at));
@@ -345,11 +342,12 @@ mod tests {
                 .windows(2)
                 .all(|pair| pair[0].at <= pair[1].at)
         );
+        // The weak part and the second copy of Space Cake have no lane.
         assert!(
             question
                 .details
                 .iter()
-                .any(|line| line.contains("1 weaker"))
+                .any(|line| line.starts_with("2 other parts"))
         );
         assert!(question.details[1].starts_with("B: Bacteria over A 0:01-1:05"));
     }

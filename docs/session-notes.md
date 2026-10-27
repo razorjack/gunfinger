@@ -4887,6 +4887,12 @@ run, `pair` should join them, as session 20 did for the first panel.
 
 ### What else to know
 
+- A read-only review by a separate agent (12:14-12:24) confirmed every
+  count and found eleven points: two slips in the code's documentation
+  and the question's count of parts without a lane (fixed), three
+  differences from the pre-registration's wording (recorded), overstated
+  conclusions in 0241 (hedged), and the analysis scripts (committed).
+
 - Nothing touched the held-out test set, the candidate mixes of 0065 or
   either validation half (no panel run, score or detection). Clustering
   queried 22 files of the shared-material panel's validation half as
@@ -12187,3 +12193,157 @@ runs'.
   `docs/pair-verdicts.txt`, the answer log and the NAS clusters file at
   their start digests (`work/s57/listening-digests-end.txt`); no answer
   log written, no manifest or panel changed.
+
+## Session 58
+
+### What changed
+
+The product did not change: the `gunfinger` binary is byte-identical to
+`s57-final`'s. The harness gained `gunfinger-eval parts`
+(`parts.rs`), which lists the other library's files whose start or end
+lines up inside another recording while the rest of the file is a
+different one, with every part of each, and `questions parts`
+(`audition/parts.rs`), which asks of each candidate whether the file is
+one recording throughout or changes record (`docs/audition-questions.md`).
+The rules and thresholds were pre-registered
+(`docs/research/2026-10-27-files-holding-several-recordings.md`) before
+any search. Experiment 0241. Nothing was ignored, pruned or written to
+the NAS.
+
+In short: 15,627 of the NAS store's 40,678 files searched (all `[CUT]`
+uploads, the whole `i-witness-dnb` channel, every release folder and
+3,200 other uploads), 205 candidates, 186 worth the ear. The signal finds
+transitions (cuts, mixes indexed as tracks, a disc that seems mixed), but
+most strong candidates are another version of the same tune (an edit,
+VIP, remix or bootleg that starts inside the original). The pack of 20
+questions is ready; only the user's ear can tell the two apart.
+
+### Experiment 0241
+
+| Kind (a guess by folder and parts) | Candidates | Worth the ear | Edge file shares a title word (post hoc) |
+|---|--:|--:|--:|
+| Cut from a mix | 12 | 12 | 5 |
+| A mixed CD's track | 117 | 106 | 67 |
+| An upload opening with another record | 37 | 31 | 29 |
+| Other (an upload ending with another record) | 39 | 37 | 27 |
+
+- `[CUT]` uploads: 54 audio files in the channel today (the ignored
+  Space Cake file, 46 with a record, 7 with a skip note). 3 of the 46
+  are candidates: Spider (Optiv & BTK Remix) opens with 28 s of Nero -
+  Satisfy (Audio Bootleg); Break - Wine ends with 41 s of All Thieves -
+  Stars (Zero T Remix); Planet Dust (DC Breaks Remix) lines up with the
+  original over 0:11-0:47, more likely shared material.
+- Known cases, from saved pairs (the pruned files have no record): the
+  Space Cake cut and the track-fix Drumtrip come out worth the ear; the
+  T-Minus vocal mix upload does not (only its T-Minus part is in a saved
+  pair), nor the Kraken (no saved pair) or the track-fix Propaganda (its
+  part ends 25 s before its end, the rule allows 15 s).
+- Controls: no track of Hard Leaders - Listen Up; 7 tracks of the unmixed
+  discs, 5 of them Ray Keith presents Vintage Dread 2000's first disc,
+  whose edge parts are other records.
+- Long records among the candidates: `sety/Weekenders_1_-_Nocny_Trans.mp3`
+  (12 min) and the Virus on Kiss FM show of 3 May 2000 (15 min), mixes
+  indexed as tracks.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `-nas` (start) | 0:51; 3:59 | 0.4; 5.3 GiB |
+| `parts`, timing sample of 64 files (index built in about 23 s) | 1:02 | 5.0 GiB |
+| `parts`, tier 1 (46 files whole) | 0:48 | 5.1 GiB |
+| `parts`, tier 2 (6,293 files) | 37:11 | 6.4 GiB |
+| `parts`, tier 3 (6,088 files) | 34:25 | 6.6 GiB |
+| `parts`, tier 4, two chunks of 1,600 files | 9:08; 8:50 | 5.9 GiB |
+| `regress session-54-linux`; `-nas` (the run's build) | 0:51; 4:02 | 0.4; 5.3 GiB |
+
+### Decided this session, open to change
+
+- The queries were tiers in a fixed order (the `[CUT]` files whole, then
+  the first and last 60 s of `i-witness-dnb`, release folders, other
+  uploads) under a 90-minute budget; tier 4 was cut after 3,200 files.
+- Experiment 0065's candidate mixes were left out of the queries (the
+  15 records of its two unignored mixed-CD folders); a candidate with a
+  part in a 0065 folder (one) is kept out of the pack.
+- The pack keeps the pre-registered rule, although 14 of its 20 are
+  likely versions of one tune; the controls are left out of it.
+- The name split in 0241 is post hoc and crude, for reading only.
+- Three differences from the pre-registration's wording, without effect
+  on this run (brief 58, 12:15): an edge part is never also a second
+  part; the pack leaves out candidates with an edge or second part in a
+  0065 folder; lanes go to edge and second parts only, at most eight.
+
+### Questions this leaves for us
+
+- Whether the signal needs a rule against versions of one tune: an edit
+  or VIP that starts inside the original passes the "inside the found
+  file" rule, and hits do not tell it from a transition. The pack's
+  answers would show how often it is wrong.
+- Whether a copy of the file itself should count as a second part. The
+  NAS clusters hold only the corpus recordings' rips, so most files have
+  no cluster and a full copy counts: in 41 of the 133 candidates with a
+  second part it is the only one (20 are worth the ear only so).
+- Whether to search the 25,036 uploads not searched (about 2.2 hours at
+  the measured rate), and the 7 `[CUT]` files with a skip note (no
+  record, so `parts` cannot search them).
+
+### Questions for listening (none answered by agents)
+
+- The pack: `work/s58/questions/06-parts-s58.json`, 20 questions, each
+  "is A one recording throughout, or does it change record?" (below).
+- Ray Keith presents Vintage Dread 2000's first disc: 5 tracks have an
+  edge part of another record (Sing opens with Londons Most Wanted -
+  Girls Dem Want It, Chopper with LTJ Bukem - Horizons, Chasing Shadows
+  with Volcov - Oblique Strategies). The ignore file leaves out its second disc only;
+  whether the first is mixed too is for the user.
+- The 65 candidates worth the ear whose strongest edge part has another
+  name (`work/s58/different-name-files.txt`), for a later pack.
+- Pending from before: Star Trails, Into Music.
+
+### Handoff for the next session
+
+1. The pack, for the user (Linux, the NAS at `/mnt/atlas/Music/dnb`):
+
+   ```sh
+   work/bin/s58-final/gunfinger-eval audition work/s58/questions/06-parts-s58.json
+   ```
+
+   On the Mac, make it again with the Mac's NAS root first (the same
+   question ids):
+
+   ```sh
+   gunfinger-eval questions parts work/s58/out/tier-1.json work/s58/out/tier-2.json \
+     work/s58/out/tier-3.json work/s58/out/tier-4-00.json work/s58/out/tier-4-01.json \
+     --files work/s58/pack-files.txt --out work/s58/questions/06-parts-s58.json
+   ```
+
+   Each answer goes to the answer log only. `several` (it changes
+   record): the user may add the file to the NAS `.gunfingerignore`, by
+   hand, with a comment, as for the Space Cake file; a later session
+   then prunes it with the user's approval and records new NAS-scale
+   baselines. `one` or `unsure`: nothing changes.
+2. A later pack from the post-hoc list: the same command with `--files
+   work/s58/different-name-files.txt` (65 candidates; at most 20 per
+   pack by the rule of this session, so cut the list first).
+3. Baselines stay `session-54-linux` and `session-54-linux-nas`; the
+   store, the clusters file and the verdicts file are as at the start.
+
+### What else to know
+
+- Scripts: `scripts/analysis/parts_tiers.py`, `parts_known.py`,
+  `parts_tally.py` (also writes 0241's data) and `store_paths.py`.
+- Data: `work/s58/` (`store-paths.tsv` and `store_paths.py`, the tier
+  lists and `tiers.py`, `leave-out-0065.txt`, `known.py` and
+  `known-cases.txt`, `pruned-durations.tsv`, `tally.py` and `tally.txt`,
+  `pack-files.txt`, `different-name-files.txt`, reports in `out/`,
+  questions in `questions/`, logs in `logs/`; scripts `run.sh`,
+  `same.py`, `start.sh`, `timing.sh`, `main-run.sh`, `regress-run.sh`,
+  `regress-nas.sh`, `final.sh`).
+- Builds: `work/bin/s58-start/` (= `s57-final`), `s58-run/` (every
+  search), `s58-final/`.
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched; the queries
+  were library records, without 0065's candidates. The NAS was only
+  read (FFprobe on the five pruned files for their lengths, the ignore
+  file, the audio for the pack's check); nothing was written to the NAS
+  or to `work/peaks`.

@@ -146,7 +146,10 @@ impl Part {
         }
     }
 
-    /// Whether the part is a second part beside `edge`, an edge part.
+    /// Whether the part is a second part beside `edge`, an edge part. Only
+    /// a part that is not an edge part itself is asked: an edge part keeps
+    /// its role (session 58's run; brief 58 records the difference from the
+    /// pre-registration's wording).
     fn elsewhere_of(&self, edge: &Part) -> bool {
         let play = self.seconds() >= MIN_PART_SECONDS && self.hits >= MIN_PART_HITS;
         let other_recording = self.found != edge.found && self.cluster != edge.cluster;

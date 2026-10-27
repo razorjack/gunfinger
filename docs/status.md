@@ -5343,3 +5343,26 @@ notes "Session 57"; pre-registration
   4:00); the verdicts file, the NAS clusters file and the answer log at
   their start digests. A read-only review found no missed regression
   and eight points on numbers and wording, all fixed.
+
+## 2026-10-27: session 58, library files that may hold more than one recording
+
+Brief `docs/brief-58.md`, checklist `docs/session-58-checklist.md`;
+notes "Session 58"; pre-registration
+`docs/research/2026-10-27-files-holding-several-recordings.md`;
+experiment 0241. Gunfinger is unchanged; the harness gains `parts` and
+`questions parts`.
+
+- 10:20 start at `89329ba`, clean. Start build `work/bin/s58-start/`
+  (= `s57-final`); both regressions identical (0:51; 3:59).
+- `parts` searched 15,627 NAS records (the 46 `[CUT]` records whole; the
+  first and last 60 s of all `i-witness-dnb` and release-folder records
+  and of 3,200 other uploads) in 90 minutes: 205 candidates, 186 worth
+  the ear. Most strong ones are another version of the same tune; the
+  transitions found include two `[CUT]` uploads, two mixes indexed as
+  tracks and Vintage Dread 2000's first disc.
+- Known cases from saved pairs: the Space Cake cut and the track-fix
+  Drumtrip found; the T-Minus upload, Kraken and track-fix Propaganda
+  not (no saved pair at the edge).
+- The pack for the user: `gunfinger-eval audition
+  work/s58/questions/06-parts-s58.json` (20 questions). Nothing was
+  ignored or pruned; an ignore entry is the user's to write.
