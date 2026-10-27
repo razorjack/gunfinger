@@ -115,3 +115,53 @@ Rules for this session:
   library and the store, and the regressions only read the store, so
   running them together changes no result (no timing is compared). Outputs `work/s52/logs/doctor-before.log` and
   `prune-list.log`.
+- **(01:38) Both start regressions identical** (`work/bin/s52-start`):
+  `regress session-32-linux` (0:51) and `regress session-33-linux-nas`
+  (3:47, 5.3 GiB peak), every report identical to its baseline's apart
+  from `wall_seconds`.
+- **(01:41) Step 1, the listings.** `doctor` (30 s): 44 patterns leave
+  out 623 audio files, lines 61, 65 and 69 leave out 3, 1 and 1; 40,678
+  current records; one warning, 5 peak records and 5 tag notes of 5
+  files that the ignore file leaves out; no record of a gone file, no
+  temporary file. `prune` without `--yes` lists exactly those 10 files:
+  the three tracks of `knowledge-the_lowdown_vol_7-track_fix-1999-sour/`
+  (06 Kraken - Side Effects, 08 Dazee & Felony - Propaganda, 09 Known
+  Unknown - Drumtrip), the Space Cake `[CUT]` upload and the T-Minus
+  vocal mix upload, nothing else. So the prune goes ahead.
+
+  Where the five files appear (`work/s52/where.py`, output
+  `work/s52/where-before.tsv`):
+  - the NAS clusters file: one pair entry, the corpus T-Minus against
+    the vocal mix upload (356 hits, 58% coverage, `different` by ear,
+    verdicts line 45); no cluster holds any of the five (the other four
+    files' 26 pair entries left in the reuse run after session 51);
+  - session 33's panels and `docs/panels/` (the same in both): the
+    T-Minus upload in `shared-material-seed-2026.json` (family 9,
+    `t-minus`, half `validation`: a recording of it and a direction's
+    played file), `shared-mixes-s21.json` and `shared-mixes-s21-rips.json`
+    (an `exclude` entry and a `recordings` entry); no sweep or recall
+    panel names any of the five;
+  - the baseline `session-33-linux-nas`: two sub-threshold candidates
+    in `sweep-seed-2026.json` (query 301, Yvon Is On at 0%: the Space
+    Cake upload, 7 hits in 2 windows; query 428, The Reprise at +1%:
+    the track-fix Kraken, 7 hits in 2 windows); none in the three scan
+    reports;
+  - the corpus store (`work/peaks`, 265 records, read only): none.
+- **(01:41) Step 2, the prune** (`work/s52/step2.sh`, tmux `s52prune`,
+  `work/bin/s52-start`). `prune --yes` deleted the 10 files (0.2 MB).
+  `doctor` after it: 40,678 current records, no warning of ignored
+  records. The store went from 40,683 records, revision
+  `56433d74d0919a08`, to 40,678, revision `1fc6fe50293ad330`
+  (`scripts/analysis/store_revision.py`); 40,678 tag notes and 1,926
+  skip notes. Both saved NAS indexes (the CLI's in `~/.cache`, the
+  harness's in `work/indexes/`) are out of date and are built again by
+  the next search.
+- **(01:41) `clusters --from-peaks --reuse-pairs`** (with `--panels
+  work/s33/panels`, 0.2 s): 2,876 pairs of 2,877 clustered again, 1
+  dropped (the T-Minus vocal mix pair); the same 284 clusters
+  (`duplicates` and the criterion unchanged, the other pair entries in
+  the same order). The clusters file is now `ce293fe6165e...` (was
+  `ac53014b8a87...`; both in `work/s52/`). Four verdict lines name an
+  ignored file and add nothing, as the run says: lines 26, 45, 67 and
+  93 (the mixed CD's Synthesis (Remix), the T-Minus upload, `/1.mp3`,
+  the track-fix Drumtrip).
