@@ -171,10 +171,31 @@ Rules for this session:
   hits at those speeds. One hit fewer in the first pass moves the
   chain's speed by 0.21%. The same list moved in recall's brief index
   (hash 1,286,800).
-- **(13:27) The chain's lines added to the trace** (committed at
+- **(13:22) The chain's lines added to the trace** (committed at
   `e5a6702`, tested): `Matching::first_pass` returns the core's trace and
   each candidate keeps its chain's lines, to see which line moves the
   speed. The brief queries run again in both conditions (tmux
   `s59lines`, build `work/bin/s59-run2/`; the first run's reports moved
   to `variant-spans/run1/`). Clean queries are not run again: their
   three moves are small and the brief query is the one in question.
+- **(13:41) The line trace done** (18:44-18:57, both at once): the
+  reports equal the first run's query for query. Query 911's window 1
+  (10-20 s) is the +1.2% rung's line of 198 hits with the old lists and
+  the +0.8% rung's line of 197 with today's; the chain's speed is the
+  hit-weighted mean of its three lines' rungs (+1.147%, +0.933%). By
+  inference the moved list cost the +1.2% line one hit and `distinct`
+  kept the other view at a tie.
+- **(13:43) The judgment: expected, not a defect.** The lists set aside
+  are a share of the index each run searches (ADR 0014); one list at a
+  tie moved, and a play between two rungs makes a short chain's speed
+  hinge on one hit. Both detections are confident and right. Recorded in
+  ADR 0014's consequences (a dated note; the decision does not change)
+  and the roadmap's "The filter and famous breaks", whose sentence that
+  a candidate's evidence does not depend on the filter it corrects.
+  Experiment 0242. The analysis scripts are committed in
+  `scripts/analysis/` (`recall_by_position.py`, `chain_lines.py`,
+  `saved_index_cut.py`).
+- **(13:43) The CLI binary is not byte-identical** to `s58-final`'s: the
+  core gained `Index::skipping_hashes` and `saved::provenance`, which
+  the CLI never calls. The final checks compare the CLI's JSON report of
+  the Stakka mix from both builds.

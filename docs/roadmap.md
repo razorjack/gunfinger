@@ -775,6 +775,22 @@ marked as inferences were derived, not measured.
   brings (0225). Still open: a famous break held by many records, and a
   real collection's duplicates beyond exact copies; the 65,536-asset
   limit capped the padding at NAS scale (ADR 0010).
+  *(session 59, experiment 0242)* A candidate's evidence does depend on
+  the filter through the speed and span the second pass starts from, and
+  so on the rest of the library (ADR 0014). Session 52's prune of five
+  files moved one list in recall's index, a 9,930-posting list at a tie
+  at the cut that holds no pruned posting. That cost one line one hit
+  in recall's brief query 911 (Echos at +1%). The query plays between
+  two rungs, so its middle window has two near-equal lines, at +1.2% and
+  +0.8%; the other one was kept, and the chain's speed, a hit-weighted
+  mean of three lines, moved from +1.147% to +0.933%. The second pass,
+  which measures at that speed, counts 455 hits before and 503 after;
+  both detections are confident and right. With the old index's lists
+  set aside, today's postings give the old recall reports exactly. This
+  is expected under ADR 0014, not a defect. Not measured: how often a
+  short chain's speed hinges on one hit, and whether fitting the speed
+  in the second pass, or weighing both rungs' lines, would make it
+  steadier.
 - **A confidence statistic for shared material.** *(larger library;
   session 50: the first pass's filter does not hide the drum-loop
   pairs' shared hashes more than chance ones, 0225, so their evidence

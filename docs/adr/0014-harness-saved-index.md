@@ -82,3 +82,14 @@ that, on the index the run searches, as before.
   current, so a limit the whole index passes and the smaller one did not
   (65,536 assets, 4.29 billion postings, a record past 17:28) stops it.
   None is near: the development scan indexes every file.
+- *(2026-10-27, session 59, experiment 0242)* The lists set aside are the
+  fullest 1% of the index each run searches, after its files are left
+  out, so a detection's first-pass chain, and the speed and span the
+  second pass starts from, depend on every other file in that index.
+  Removing or adding unrelated files can move a list across the cut, most
+  easily at a tie, and change a detection's fitted speed and hits. This
+  is expected, not a defect. Session 52's prune moved one list in
+  recall's index (none in the whole index), which moved recall's brief
+  query 911 (Echos at +1%) from 455 hits at +1.147% to 503 at +0.933%.
+  Searching today's postings with the old index's lists set aside
+  (`recall --set-aside-like`) gives the old reports exactly.
