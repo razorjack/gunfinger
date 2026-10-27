@@ -1,7 +1,11 @@
 # Printing the time without a confident match: options (2026-10-21)
 
-**Status: proposal** for our decision (session 35). It is not an ADR:
-the choices below are ours to make. Each lists the options and the
+**Status: decided** (2026-10-27, "Decision" at the end); part 1 (the
+gap lines, without an estimate) is implemented by ADR 0023 in session
+55, with an unnumbered "ID - ID (<length> without a confident match)"
+line; part 2 (the estimate) is open. Written as a proposal for our
+decision (session 35); it is not an ADR: the choices below were ours to
+make. Each lists the options and the
 evidence measured so far, then a recommendation, marked as such. The
 measures are the harness's (`gaps`, `self-match`): nothing here is in the
 product yet. Definitions are those of

@@ -172,7 +172,11 @@ marked as inferences were derived, not measured.
   to begin with, the mix's start and end included, possible lines kept
   inside a gap, named "ID - ID", with an estimate of how many tracks the
   gap holds; JSON gains the gaps, CSV and the cue sheet do not change;
-  an ADR comes with the change)* A tracklist does not say
+  an ADR comes with the change; part 1 done in session 55, ADR 0023,
+  experiment 0234: the tracklist, the table and JSON list gaps of 45 s
+  or more as unnumbered "ID - ID (<length> without a confident match)"
+  lines, rows and a `gaps` field; part 2, the estimate of the tracks a
+  gap holds, is next)* A tracklist does not say
   how much of the mix it accounts for: eleven lines over 56 minutes read
   the same whether the rest is blends or a quarter of an hour of tracks
   not in the library. Step 1 lists the stretches with no confident
@@ -207,9 +211,13 @@ marked as inferences were derived, not measured.
   only if counting stays out of reach. It fits ADR 0017 (clear output,
   no review step), but whether it is printed by default or on request
   is our decision, and either changes the output ADR 0017 describes, so
-  it needs an ADR; the proposal recommends printing the length by
+  it needs an ADR; the proposal recommended printing the length by
   default and no count yet, and a prototype is on the branch
-  `s35-gaps-output`.
+  `s35-gaps-output`. Since ADR 0023 the product prints the gaps by
+  default; the covered time is computed once, in the core
+  (`gaps::uncovered`), for the CLI and the harness. Part 2 is open: which
+  estimate to print and in what form (0160-0165; the combined estimate
+  is the best measured), on the line and as `tracks` on each JSON gap.
 - **Possible plays inside a confident play of another recording.**
   *(done on 2026-10-14, our decision, ADR 0019, experiment
   0107)* The default tracklist printed a possible play lying inside a

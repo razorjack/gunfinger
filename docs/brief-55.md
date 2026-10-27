@@ -180,3 +180,58 @@ Rules for this session:
      plays (a play is as confident as its strongest segment, ADR 0013),
      and possible plays cover nothing. The harness's listings must stay
      identical (checked on saved listings before and after).
+- **(04:16) Start results.** The start build is byte-identical to
+  `s54-final`. `regress session-54-linux` (0:50) and `regress
+  session-54-linux-nas` (3:49) identical, every report identical to its
+  baseline's apart from `wall_seconds`. The "before" CLI runs took 4-6 s
+  at 262 tracks and 13-19 s at NAS scale.
+- **(04:17) ADR 0023 committed** (`4a02727`) before any code; its
+  choices are those of 04:15. One correction while writing it: 0159's
+  count at 45 s is one gap without a missed track in the plain NAS
+  scans (Star Trails' end, before ADR 0021 kept that side), not none.
+- **(04:18-04:30) The code.** `gunfinger_core::gaps::uncovered(covered,
+  start, end, min_seconds)` is the one definition; the harness's
+  `gaps::list` calls it once per minimum length (it computed the
+  stretches once and filtered them before; the same arithmetic), and
+  its listings of six saved reports (the three 262-track scans, a long,
+  a ridden and a beatmatched mix report) are byte-identical with the
+  start and the changed build (`work/s55/gapsame.sh`). The CLI's
+  `gaps` module derives the gaps from the report at render time and
+  `output::render` writes them into JSON through a flattened wrapper
+  (the prototype's way), so `Report` itself, its reading and every
+  other format are untouched; a saved report's own `gaps` are passed
+  over when it is read. Possible plays are counted per gap by their
+  segments (the harness's way), not by their whole span (the
+  prototype's). The table's gap row is plain text, not dimmed.
+- **(04:20) `tracklist_score.py`** passes over lines matching the gap
+  line exactly (unnumbered, `ID - ID (<length> without a confident
+  match)`); a numbered "ID - ID" line is still checked as an entry.
+  Tested in `test_tracklist_score.py`.
+- **(04:26-04:31) `scripts/check.sh`**: the first run stopped at
+  `cargo fmt`; the second failed only `decode::watch` (load-sensitive;
+  the load average was 42 from the regressions and the debug test
+  build), which passed alone; the third was green (4:19). Code
+  committed (`012ad23`).
+- **(04:31) Step 3 queue** (`work/s55/step3.sh`, tmux `s55runs`): the
+  run build `work/bin/s55-run/` (the code commit), both regressions,
+  the CLI's "after" reports, then `leave.sh`: session 34's 45 NAS-scale
+  development scans (3 plain, 42 designed slot leave-outs) with today's
+  search, in the scratch work directory `work/s55/wleave`, and the
+  harness's gap listings at 30, 45 and 60 s. Added to the prompt's
+  step 3 because the plain tracklists alone cannot say what 45 s lists
+  that 60 s would not (on them the three lengths list the same lines);
+  0159's leave-out numbers predate ADR 0021. About 20 minutes; if it
+  runs late, the experiment reports what finished.
+- **(04:37) Step 3 results.** Run build regressions identical (0:51;
+  3:59; calibrate unchanged at both scales). The CLI's "after" reports:
+  every report's plays identical to the "before" ones, every tracklist
+  the old one plus its gap lines (10 lines at 262 tracks, 1 at NAS
+  scale); `tracklist_score.check_lines` passes on the four reports with
+  gap lines (`work/s55/checklines.py`).
+- **(04:37-04:59) The leave-outs** (45 scans, about 20-35 s each, 0
+  wrong identifications): 45 s and 60 s list the same 128 leave-out
+  gaps, none without a missed track; 30 s adds 12, 8 of them inside
+  found tracks (Blindside 43 s, Kinetic 34 s). Experiment 0234 (40
+  lines) holds the tables. Counted per scan, repeats included; the
+  pre-registration's deduplicated counting was not repeated (not needed
+  for the question).
