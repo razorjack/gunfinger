@@ -6,8 +6,9 @@
       report that keeps the stronger one, and their speed difference as a
       share of the stronger one's speed
   sweep BEFORE AFTER   `sweep` reports: per query, each detection in one
-      and not the other, with the speed difference to the strongest
-      detection of its file in the same query
+      and not the other, with the speed difference to each other
+      detection of its file in the same query (sweep reports hold no
+      times). "possible" is read from 60 hits, ignoring windows
 
 A detection added by ADR 0021 overlaps a stronger one of its file more
 than 0.6% away in speed; one removed overlaps, within 0.6%, a stronger

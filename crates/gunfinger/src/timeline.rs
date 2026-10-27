@@ -54,7 +54,11 @@ fn bar(play: &FoundPlay, scale: &Scale) -> Vec<char> {
     for cell in &mut bar[scale.column(play.start_seconds)..=scale.column(play.end_seconds)] {
         *cell = '─';
     }
-    for segment in &play.segments {
+    // Weakest first: a weaker segment at another speed can lie inside a
+    // stronger one (ADR 0021) and must not cover its mark.
+    let mut segments: Vec<_> = play.segments.iter().collect();
+    segments.sort_by_key(|segment| segment.confidence);
+    for segment in segments {
         let mark = match segment.confidence {
             Level::Confident => '█',
             Level::Possible => '▒',
@@ -93,6 +97,7 @@ fn file_name(asset: &str) -> &str {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::report::Segment;
     use crate::style::ColorChoice;
     use crate::table::tests::report;
 
@@ -109,5 +114,35 @@ mod tests {
             "",
         ];
         assert_eq!(timeline, expected.join("\n"));
+    }
+
+    #[test]
+    fn a_possible_segment_inside_a_confident_one_does_not_cover_it() {
+        let mut report = report();
+        let play = &mut report.plays[0];
+        let inside = Segment {
+            start_seconds: 10.0,
+            end_seconds: 20.0,
+            confidence: Level::Possible,
+            ..play.segments[0].clone()
+        };
+        let after = Segment {
+            start_seconds: 45.0,
+            end_seconds: 55.0,
+            ..inside.clone()
+        };
+        play.segments.extend([inside, after]);
+        play.end_seconds = 55.0;
+        let scale = Scale {
+            from: 0.0,
+            seconds: 150.0,
+        };
+
+        let bar: String = bar(play, &scale).into_iter().collect();
+
+        assert_eq!(
+            bar,
+            format!("{}─{}{}", "█".repeat(18), "▒".repeat(5), " ".repeat(40))
+        );
     }
 }

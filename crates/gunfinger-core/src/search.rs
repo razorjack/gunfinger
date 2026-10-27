@@ -198,9 +198,9 @@ pub enum SecondOverlap {
 
 /// Within this share of the stronger one's speed, two overlapping
 /// detections of one asset are one alignment (ADR 0021): the chain link
-/// rule's limit, 1.5 steps of the ladder. Repeats and versions within a
-/// play lie at most 0.40% apart, the sides of a 1% ride at least 0.90%
-/// (experiment 0179).
+/// rule's limit, 1.5 steps of the ladder. The confident repeats and
+/// versions within a play that the old rule dropped lie at most 0.40%
+/// apart, the sides of a 1% ride at least 0.90% (experiment 0179).
 pub const SAME_SPEED_SHARE: f64 = chains::NEARBY_SPEEDS;
 
 impl Default for SecondOverlap {

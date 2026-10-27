@@ -88,7 +88,7 @@ impl Play {
         }
     }
 
-    /// Of segments that end together, the last.
+    /// The segment that ends last; of several, the last to start.
     fn last_to_end(&self) -> &Detection {
         self.segments
             .iter()
