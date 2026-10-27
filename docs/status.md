@@ -5128,3 +5128,40 @@ and a reach argument for `cluster_speeds.py`.
 - Comment files under `work/audition/` now hold the user's comments
   edited, not verbatim; the quotes in briefs 47 and 49 are edited the
   same way.
+
+## 2026-10-27: session 52, the five ignored NAS files pruned; new NAS-scale baseline
+
+Brief `docs/brief-52.md`, checklist `docs/session-52-checklist.md`;
+notes "Session 52"; experiment 0231. Gunfinger and the harness are
+unchanged (the final build is byte-identical to `s51-final`).
+
+- 01:35 start at `2fafdbf`, clean. Start build `work/bin/s52-start/`;
+  `regress session-32-linux` and `regress session-33-linux-nas`
+  identical before the prune (0:51; 3:47).
+- `doctor` and `prune` (without `--yes`) with the NAS configuration
+  listed exactly the five files the ignore file's lines 61, 65 and 69
+  leave out (5 peak records, 5 tag notes), nothing gone and no
+  temporary file. `prune --yes` deleted them: the NAS store went from
+  40,683 records, revision `56433d74d0919a08`, to 40,678, revision
+  `1fc6fe50293ad330` (`scripts/analysis/store_revision.py`); `doctor`
+  then reports no records of ignored files. The CLI's saved NAS index
+  (`~/.cache/gunfinger/indexes/`) is out of date and is built again by
+  the next `identify` with the NAS configuration; the harness's
+  (`work/indexes/library-nas-dnb-peaks.index`) was built again.
+- `clusters --from-peaks --reuse-pairs`: the same 284 clusters; one pair
+  entry dropped (the corpus T-Minus against the vocal mix upload, judged
+  different), 2,877 to 2,876. Clusters file `ce293fe6165e...` (was
+  `ac53014b8a87...`; both in `work/s52/`).
+- 0231: the standard evaluation at NAS scale on the pruned store against
+  `session-33-linux-nas`: the Stakka scan and its leave-outs identical;
+  718 of 720 sweep queries identical, the other two each lose one 7-hit
+  candidate of a pruned file; 40,580 to 40,575 indexed assets; calibrate
+  unchanged (704, 282, 7 false accepted). New baseline
+  `session-52-linux-nas`; `session-32-linux` stays (identical).
+- Panels: only the T-Minus upload is named, in three committed panels
+  (and session 33's copies). `shared-mixes` on a one-mix plan cut from
+  `shared-mixes-s21.json` runs without error, its indexes as designed;
+  `shared-material-seed-2026.json` names it in the validation half,
+  which stays unsearched (by the code a run would not fail, but would
+  search the upload's queries against indexes that no longer hold it).
+  No harness change.

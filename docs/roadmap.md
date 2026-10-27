@@ -141,7 +141,12 @@ marked as inferences were derived, not measured.
   (experiment 0063). `scripts/analysis/folder_edges.py` scores each
   folder's track boundaries from the peak records; 33 folders have at
   least 75% joined boundaries, 30 of them new (experiment 0065,
-  `work/s9/mixed-cd-candidates.tsv`), a listening list.
+  `work/s9/mixed-cd-candidates.tsv`), a listening list. Session 52
+  pruned the five files added to the ignore file on 2026-10-25 and
+  2026-10-27 (a track-fix release of a mixed CD, two uploads that hold
+  part of another record): the NAS store holds 40,678 records, and the
+  NAS-scale baseline is `session-52-linux-nas` (experiment 0231: no
+  scored result changed).
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit if detections need to be
   stored; report edits and the Track/AudioAsset model, the other reasons

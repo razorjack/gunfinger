@@ -24,7 +24,7 @@ for scope and rules.
   file
 - [x] 4. `baseline session-52-linux-nas`; `regress session-32-linux`
   identical; experiment 0231
-- [ ] 5. The places that name the NAS baseline, the record count and the
+- [x] 5. The places that name the NAS baseline, the record count and the
   clusters digest
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 52", status, checklist; final checks

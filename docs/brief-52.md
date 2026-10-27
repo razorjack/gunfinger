@@ -229,3 +229,15 @@ Rules for this session:
   (step 7) runs it again with the saved index loaded instead of built.
   `regress session-32-linux` identical (0:59 with the shared-mixes check
   beside it). Experiment 0231.
+- **(01:51) Step 5.** The places that name the NAS baseline, the
+  store's record count or the clusters digest for the next sessions:
+  `docs/status.md` (a session 52 entry), the session notes' handoff
+  ("Session 52") and the roadmap's "Library ignore file" (one sentence).
+  `docs/calibration.md` does not change: no calibrate number moved.
+  Older mentions of 40,683 records or `session-33-linux-nas` (ADR 0020,
+  the roadmap's recall bullet, the low-bandwidth note, briefs,
+  experiments, older status entries) record what was measured then and
+  stay as written.
+- **(01:51) Final checks started early** (`work/s52/final.sh`, tmux
+  `s52final`): no code changes after step 4, so the review's fixes can
+  only touch documents.

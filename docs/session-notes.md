@@ -11211,3 +11211,116 @@ variant to measure on mixes before any ADR.
   session-32-linux` (0:50) and `regress session-33-linux-nas` (3:46)
   identical, every report identical to its baseline apart from
   `wall_seconds`; the digests unchanged.
+
+## Session 52
+
+### What changed
+
+The product and the harness did not change: the final build is
+byte-identical to `s51-final`. The NAS store lost the peak records and
+tag notes of the five files that the NAS `.gunfingerignore` has left out
+since 2026-10-25 and 2026-10-27 (approved by the user on 2026-10-27):
+the three tracks of `knowledge-the_lowdown_vol_7-track_fix-1999-sour/`,
+`__youtube_archivists/i-witness-dnb/Optical & Ryme Tyme - Space Cake
+[CUT].m4a` and `__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus
+(Unreleased Vocal Mix).m4a`. Store-only runs and the harness's
+`--other-peaks-dir` no longer search them.
+
+In short: the prune changed nothing that is scored. Two sub-threshold
+sweep candidates (7 hits each) and one clusters pair entry, all of
+pruned files, are gone; the scans, calibrate and the clusters are as
+before. `session-52-linux-nas` is the NAS-scale baseline from now on.
+
+### Experiment 0231
+
+| | Before (session 33's baseline) | After |
+|---|--:|--:|
+| NAS store records, revision | 40,683, `56433d74d0919a08` | 40,678, `1fc6fe50293ad330` |
+| Sweep 2026: indexed assets; queries with identical detections | 40,580 | 40,575; 718 of 720 |
+| Stakka scan; leave-outs 3, 11 | 11/11; 8/11; 0/11, 0 wrong | identical |
+| Calibrate: weakest identifying, strongest false, false accepted | 704, 282, 7 | the same |
+| Clusters; pair entries; file | 284; 2,877; `ac53014b8a87...` | 284; 2,876; `ce293fe6165e...` |
+
+The two sweep queries (Yvon Is On at 0%, The Reprise at +1%) each lose
+one candidate, the Space Cake upload and the track-fix Kraken, and
+gain none. The pair entry is the corpus T-Minus against the vocal mix
+upload (356 hits, `different` by ear).
+
+### Panel entries that name a pruned file
+
+Only the T-Minus upload is named: in `shared-material-seed-2026.json`
+(family `t-minus`, validation half: a recording, and the played file of
+direction `t-minus-2`) and in `shared-mixes-s21.json` and
+`shared-mixes-s21-rips.json` (an `exclude` and a `recordings` entry),
+in `docs/panels/` and `work/s33/panels/` alike. No sweep or recall panel
+names any of the five.
+
+- `shared-mixes`: a one-mix plan cut from `shared-mixes-s21.json` (seed
+  2101, `dozer-1`, the 93 `exclude` and 27 `recordings` entries kept)
+  ran without error under its three indexes. The draw comes from the
+  corpus records alone, and the upload is never a played file, so the
+  full plans run as before, less the upload's detections.
+- `shared`: not run (the validation half stays unsearched). By the code
+  a run would not fail and keeps its query count: queries are rendered
+  from the NAS audio, still there. Direction `t-minus-2` would search
+  its queries against indexes that no longer hold the played file, and
+  its "everything" and "played left out" indexes would be the same. The
+  harness does not report that. No fix was made, since a run neither
+  fails nor changes its query count.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-32-linux` (start; after) | 0:51; 0:59 | 0.4 GiB |
+| `regress session-33-linux-nas` (start) | 3:47 | 5.3 GiB |
+| `doctor` with the NAS configuration (before; after the prune) | 0:30; 0:04 | |
+| `prune`; `prune --yes` | 0:05; 0:04 | |
+| `clusters --from-peaks --reuse-pairs` | 0.2 s | |
+| `regress session-33-linux-nas` on the pruned store (the saved index built again in 112 s) | 5:38 | 5.4 GiB |
+| `shared-mixes`, one mix, NAS scale | 1:10 | 4.8 GiB |
+
+### Decided this session, open to change
+
+- `doctor` and `prune` without `--yes` ran beside the start regressions
+  (all only read; no timing compared).
+- `baseline session-52-linux-nas` copies the reports of step 3's run
+  (made with the byte-identical start build); the final regression ran
+  them again with the saved index loaded.
+- The shared-material panel's validation half stayed unsearched, so its
+  T-Minus direction was checked by the code only.
+
+### Questions this leaves for us
+
+- Whether `shared` (and `shared-mixes`) should report a panel file that
+  the indexed store no longer holds, before the validation half is
+  searched: direction `t-minus-2` plays the pruned upload.
+- Whether the T-Minus family stays in the shared-material panel at all,
+  since its related file is now outside the library (the panel is
+  frozen; a change would be a new panel).
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: Star Trails, Into Music; the 58 `[CUT]` files of
+  the i-witness-dnb channel (whether they are cuts from mixes is for the
+  user to judge).
+
+### Handoff for the next session
+
+1. Baselines: `session-32-linux` (262 tracks, unchanged) and
+   `session-52-linux-nas` (NAS scale, the pruned store); compare NAS-scale
+   runs with `session-52-linux-nas`, not `session-33-linux-nas`.
+2. The NAS store: 40,678 records, revision `1fc6fe50293ad330`; no
+   records of ignored files. The harness's saved index
+   `work/indexes/library-nas-dnb-peaks.index` is current for it; the
+   CLI's in `~/.cache/gunfinger/indexes/` is built again by the next
+   `identify` with the NAS configuration.
+3. The NAS clusters file `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`:
+   SHA-256 `ce293fe6165e31009ef0b0411e77836aced21716b00771ad07bef7099c2a177a`,
+   284 clusters, 2,876 pair entries.
+4. Builds: `work/bin/s52-start/`, `s52-final/` (both = `s51-final`).
+5. Data: `work/s52/` (listings and logs in `logs/`, `where-before.tsv`,
+   `diff-pruned.txt`, `pruned-reports/`, the clusters file before and
+   after, the shared-mixes check in `wsm/`); scripts `run.sh`,
+   `start.sh`, `step1-list.sh`, `step2.sh`, `step3.sh`, `step3b.sh`,
+   `step4.sh`, `final.sh`, `where.py`, `diff.py`, `same.py`.
