@@ -18,7 +18,7 @@ for path in sys.argv[1:]:
         offsets = array("I"); offsets.frombytes(f.read(4 * OFFSETS))
     lengths = [offsets[i + 1] - offsets[i] for i in range(OFFSETS - 1)]
     values = sorted((v for v in lengths if v > 0), reverse=True)
-    dropped = round(0.01 * len(values))
+    dropped = int(0.01 * len(values) + 0.5)  # as Rust's f64::round
     kept = values[dropped]
     aside = sum(1 for v in values if v > kept)
     near = {v: values.count(v) for v in range(kept - 2, kept + 3)}

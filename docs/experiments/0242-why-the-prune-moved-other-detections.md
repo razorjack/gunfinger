@@ -21,16 +21,16 @@ reports' rule); `scripts/analysis/recall_by_position.py`, `chain_lines.py`,
 | Query 911, second pass | 455 hits | 503 hits |
 
 Pruned files' 19 and 27 detections set aside; the old index less the five is today's.
-- One list moved: hash 1,286,800, 9,930 postings in both indexes and none
-  of a pruned file. By inference (lists only shrink, the count of lists is
-  the same), another list of 9,930 at the cut lost a pruned posting, the
-  cut fell from 9,930 to 9,929 and the tie partner crossed it. The whole
-  index's cut does not move (1,086,463 lists, 10,865 set aside, longest
-  kept 9,938, before and after): scans and `regress` are untouched.
+- One list moved into the set aside: hash 1,286,800, 9,930 postings in
+  both and none of a pruned file. By inference (lists only shrink), a list
+  of 9,930 or more fell below 9,930, the cut fell to 9,929 and it crossed.
+  The whole index's cut does not move (1,086,463 lists, 10,865 set aside,
+  longest kept 9,938, both): runs that leave files out (recall, sweeps,
+  leave-out scans) have cuts of their own, measured here for recall only.
 - Query 911's window 1 (10-20 s): the old chain kept the +1.2% rung's line
   (198 hits), today's the +0.8% rung's view of the same alignment (197);
-  by inference the moved list cost the first a hit and `distinct`, which
-  keeps the strongest view, kept the other at a tie. The chain is short, so
+  by inference the moved list cost the first a hit; `distinct` keeps the
+  strongest view, at a tie the lower rung (sorted stably). The chain is short, so
   its speed is the hit-weighted mean of its rungs: (123x1.2 + 198x1.2 +
   49x0.8)/370 = +1.147%; (123x1.2 + 197x0.8 + 49x0.8)/369 = +0.933%. The
   second pass measures there (truth +1%): 455 and 503 hits. Query 910's

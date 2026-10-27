@@ -92,4 +92,6 @@ that, on the index the run searches, as before.
   recall's index (none in the whole index), which moved recall's brief
   query 911 (Echos at +1%) from 455 hits at +1.147% to 503 at +0.933%.
   Searching today's postings with the old index's lists set aside
-  (`recall --set-aside-like`) gives the old reports exactly.
+  (`recall --set-aside-like`, with `--overlap-by-spans`, the old
+  reports' rule) gives the old reports exactly, the pruned files' own
+  detections set aside.

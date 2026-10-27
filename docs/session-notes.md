@@ -12355,3 +12355,135 @@ questions is ready; only the user's ear can tell the two apart.
   answer log and the NAS clusters file at their start digests
   (`work/s58/listening-digests-end.txt`); no answer log written, no
   manifest or panel changed.
+
+## Session 59
+
+### What changed
+
+The product did not change. The core gained two functions that only the
+harness calls: `Index::skipping_hashes` (set aside given lists) and
+`saved::provenance` (read a saved index's header), so the CLI binary is
+not byte-identical to `s58-final`'s; its JSON report of the Stakka mix
+is (final checks). The harness gained `recall --set-aside-like FILE`
+(`fullest::setting_aside_like`), which searches today's postings with
+the lists a saved index of an earlier store sets aside and records how
+the two sets differ, and `recall --trace-candidates`, whose candidates
+(also `sweep`'s) now keep their speed, span and chain of lines.
+`robust`'s and `grid`'s same-title branches are now small functions
+(`Role::of` and `count`; `matching_the_play`) with unit tests (session
+54's handoff). Experiment 0242; a dated note in ADR 0014's
+consequences; the roadmap's "The filter and famous breaks".
+
+In short: the prune moved one posting list across the cut of the fullest
+1% in recall's index, at a tie, and that one list moved query 911.
+Expected under ADR 0014, not a defect.
+
+### Experiment 0242
+
+The pre-prune saved index (2026-10-21) survives as hard links in older
+work directories (`work/s36/w/indexes/library-nas-dnb-peaks.index`), so
+the old postings were read in memory; nothing was written to it or to a
+store.
+
+| Recall's index, held-out files left out | Old index's lists set aside | Today's |
+|---|--:|--:|
+| Lists set aside; shortest | 10,863; 9,931 postings | 10,864; 9,930 |
+| Clean queries unlike the old report (of 702) | 0 | 3 (session 57's moves) |
+| Brief queries unlike the old report (of 1,404) | 0 | 2 (910, 911) |
+| Query 911: first pass; second pass | 370 hits at +1.147%; 455 | 369 at +0.933%; 503 |
+
+- The old index less the five pruned files has today's postings, posting
+  for posting: the asset numbering and the rest of the store are not a
+  cause.
+- The moved list (hash 1,286,800) holds 9,930 postings in both indexes
+  and none of a pruned file. By inference, a list tied with it at the
+  cut lost a pruned posting, so the cut fell by one and it crossed. The
+  whole index's cut does not move (1,086,463 lists, 10,865 set aside,
+  longest kept 9,938, before and after), so runs of the whole index
+  (the development scan) do not move; runs that leave files out (recall,
+  sweeps, the leave-out scans of `regress`) have cuts of their own,
+  measured this session for recall only.
+- Query 911 plays between the +0.8% and +1.2% rungs. Its middle window's
+  line is the +1.2% rung's (198 hits) before and the +0.8% rung's (197)
+  after: `distinct` keeps the strongest view of an alignment, and by
+  inference the moved list cost the +1.2% line one hit and the +0.8%
+  line, tied, was kept (at a tie the lower rung). The chain is
+  short, so its speed is the hit-weighted mean of its lines' rungs:
+  +1.147% before, +0.933% after. The second pass measures at that speed:
+  455 and 503 hits. Query 910 loses one hit the same way (386 hits at
+  +1.0565% and +1.056%).
+
+### Decided this session, open to change
+
+- The judgment: a detection's hits and fitted speed depending on the
+  rest of the library is expected under ADR 0014 (the lists set aside are
+  a share of the index each run searches). No ADR changes; ADR 0014 has a
+  dated note under its consequences.
+- The traced runs used `--overlap-by-spans`, the rule of the old
+  reports (session 33's); session 57 showed today's default differs from
+  it only by ADR 0021's kept detections.
+- Clean queries were not traced again with the chain's lines: their three
+  moves are a refit and two weak candidates.
+- The traces of other moves session 57 attributed to the prune (sweeps
+  of seeds 2027-2028 at NAS scale, the CLI's re-measured drops segments,
+  recall's other-rips weak candidate) were not run; by the same
+  mechanism they need a list set aside by one of their indexes only.
+
+### Questions this leaves for us
+
+- How often a short chain's speed hinges on one hit (a play between two
+  rungs whose views of a window are nearly equal), and whether fitting
+  the speed in the second pass, or weighing both rungs' lines, would
+  steady it. Not measured; nothing in the product depends on it.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: Star Trails, Into Music, session 58's pack.
+
+### Handoff for the next session
+
+1. No finding. The open item of session 57 is closed by 0242; reproduce
+   with `sh work/s59/trace-lines.sh` (both conditions; the pre-prune
+   index is read from `work/s36/w/indexes/`; keep one of its links).
+2. Baselines stay `session-54-linux` and `session-54-linux-nas`.
+3. `recall --set-aside-like FILE --trace-candidates` works with any saved
+   index of the harness; the report records `set_aside_like` and each
+   candidate's chain.
+
+### What else to know
+
+- Scripts: `scripts/analysis/recall_by_position.py`, `chain_lines.py`,
+  `saved_index_cut.py`. Data: `work/s59/` (logs in `logs/`, the scratch
+  work directory `wrecall/` with the reports, `pruned.txt`, `cli/`;
+  scripts `run.sh`, `same.py`, `start.sh`, `scratch.sh`,
+  `trace-setup.sh`, `trace-like.sh`, `trace-today.sh`, `trace-lines.sh`,
+  `final.sh`, `compare.py`, `chain_lines.py`, `py/cut.py`).
+- Builds: `work/bin/s59-start/` (= `s58-final`), `s59-run/` (the first
+  traced runs), `s59-run2/` (the line trace), `s59-final/`.
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched except the
+  Stakka development mix (`regress`, and the CLI's report in the final
+  checks); recall searched its excerpts of library files. Nothing ran on
+  the candidate mixes of 0065 or on the NAS root's broadcast file. The
+  NAS was only read (recall's renders were reflink copies of earlier
+  ones); nothing was written to the NAS, to `work/peaks` or to the NAS
+  store.
+- A read-only review by a separate agent (13:44-13:52) confirmed every
+  number, the comparisons, the refactors' behaviour and the judgment, and
+  found six points on wording, all fixed (brief 59, 13:55): the claim
+  that `regress` is untouched (its leave-out scans and sweep leave files
+  out, so they have cuts of their own, not measured), two inferences in
+  the roadmap marked, the conditions of "the old reports exactly", two
+  memory figures, the checklist, one sentence. Left as notes:
+  `--trace-candidates`'s help text does not name the chain's lines, and
+  0242 gives the method instead of a literal command (the commands are
+  in `work/s59/trace-*.sh`).
+- Final checks (13:43-13:53) with `work/bin/s59-final/` (the same
+  binaries as `s59-run2/`): `scripts/check.sh` green (4:50); `regress
+  session-54-linux` (0:52) and `regress session-54-linux-nas` (3:49)
+  identical, every report equal to its baseline's apart from
+  `wall_seconds`; the CLI's JSON report of the Stakka mix
+  (`--saved-index off`) identical from `s58-final` and `s59-final`;
+  `docs/pair-verdicts.txt`, the answer log and the NAS clusters file at
+  their start digests (`work/s59/listening-digests-end.txt`); no answer
+  log written, no manifest or panel changed.

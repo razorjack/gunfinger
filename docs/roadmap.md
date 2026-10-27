@@ -778,15 +778,19 @@ marked as inferences were derived, not measured.
   *(session 59, experiment 0242)* A candidate's evidence does depend on
   the filter through the speed and span the second pass starts from, and
   so on the rest of the library (ADR 0014). Session 52's prune of five
-  files moved one list in recall's index, a 9,930-posting list at a tie
-  at the cut that holds no pruned posting. That cost one line one hit
-  in recall's brief query 911 (Echos at +1%). The query plays between
-  two rungs, so its middle window has two near-equal lines, at +1.2% and
-  +0.8%; the other one was kept, and the chain's speed, a hit-weighted
+  files moved one list into the set aside of recall's index, a
+  9,930-posting list that holds no pruned posting; by inference it was at
+  a tie at the cut, and its move cost one line one hit in recall's brief
+  query 911 (Echos at +1%). The query plays between two rungs, so its
+  middle window has two near-equal lines, at +1.2% and +0.8%; the +1.2%
+  line lost the hit, `distinct` kept the +0.8% line at a tie (by
+  inference), and the chain's speed, a hit-weighted
   mean of three lines, moved from +1.147% to +0.933%. The second pass,
   which measures at that speed, counts 455 hits before and 503 after;
   both detections are confident and right. With the old index's lists
-  set aside, today's postings give the old recall reports exactly. This
+  set aside, today's postings give the old recall reports exactly
+  (with `--overlap-by-spans`, the pruned files' own detections set
+  aside). This
   is expected under ADR 0014, not a defect. Not measured: how often a
   short chain's speed hinges on one hit, and whether fitting the speed
   in the second pass, or weighing both rungs' lines, would make it

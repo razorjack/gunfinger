@@ -5371,3 +5371,31 @@ experiment 0241. Gunfinger is unchanged; the harness gains `parts` and
   NAS clusters file and the answer log at their start digests. A
   read-only review confirmed the counts and found eleven points, all
   fixed or recorded.
+
+## 2026-10-27: session 59, why the prune moved detections of files it did not touch
+
+Brief `docs/brief-59.md`, checklist `docs/session-59-checklist.md`;
+notes "Session 59"; experiment 0242. Gunfinger's behaviour is unchanged
+(the core gains two functions only the harness calls); the harness gains
+`recall --set-aside-like` and `--trace-candidates`, and tests of
+`robust`'s and `grid`'s same-title branches.
+
+- 12:38 start at `2d6d549`, clean. Start build `work/bin/s59-start/`
+  (= `s58-final`); both regressions identical (0:50; 3:47).
+- The cause: the first pass's lists set aside are the fullest 1% of the
+  index each run searches. Session 52's prune moved one list (9,930
+  postings, none of a pruned file) into the set aside of recall's index;
+  in brief query 911 (Echos at +1%) that cost the +1.2% rung's line one
+  hit, the +0.8% rung's line was kept instead, and the chain's speed
+  moved from +1.147% to +0.933%, where the second pass counts 503 hits
+  instead of 455. Today's postings with the old index's lists set aside
+  give the old recall reports exactly (0 of 702 clean and 1,404 brief
+  queries different). The whole index's cut did not move.
+- The judgment: expected under ADR 0014, not a defect (a dated note in
+  ADR 0014; the roadmap's "The filter and famous breaks").
+- Final checks with `work/bin/s59-final/`: `scripts/check.sh` green
+  (4:50); both regressions identical (0:52; 3:49); the CLI's Stakka
+  report identical to `s58-final`'s; the verdicts file, the NAS clusters
+  file and the answer log at their start digests. A read-only review
+  confirmed the numbers and found six wording points, all fixed.
+

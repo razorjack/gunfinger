@@ -157,11 +157,11 @@ Rules for this session:
 - **(13:02) The whole index's cut** (`work/s59/py/cut.py`, reading the
   offsets tables of both saved files): 1,086,463 lists, 10,865 set
   aside, longest kept 9,938, in both; no list crosses it. The prune moves
-  nothing in runs of the whole index (the development scan, the
-  regressions); the moves are in indexes less some files, whose cut is
-  their own (recall's, a sweep's).
-- **(13:20) Brief queries done** (both runs 29:20-29:27 at once, 5.8 and
-  9.1 GiB peak): with the old index's lists set aside, today's postings
+  nothing in runs of the whole index (the development scan); runs that
+  leave files out (recall, sweeps, the leave-out scans of `regress`)
+  have cuts of their own, measured this session for recall only.
+- **(13:20) Brief queries done** (both runs 29:20-29:27 at once, 5.6 and
+  8.7 GiB peak): with the old index's lists set aside, today's postings
   give the old brief report exactly, 0 of 1,404 queries different (the
   pruned files' 27 detections set aside); with today's lists, only
   queries 910 and 911 (Echos at +1%) differ, and the run equals session
@@ -169,7 +169,7 @@ Rules for this session:
   370 hits at +1.147% with the old lists, 369 at +0.933% with today's
   (3 windows, 3.13-22.81 s both); the second pass measures 455 and 503
   hits at those speeds. One hit fewer in the first pass moves the
-  chain's speed by 0.21%. The same list moved in recall's brief index
+  chain's speed by 0.21 percentage points. The same list moved in recall's brief index
   (hash 1,286,800).
 - **(13:22) The chain's lines added to the trace** (committed at
   `e5a6702`, tested): `Matching::first_pass` returns the core's trace and
@@ -191,7 +191,7 @@ Rules for this session:
   hinge on one hit. Both detections are confident and right. Recorded in
   ADR 0014's consequences (a dated note; the decision does not change)
   and the roadmap's "The filter and famous breaks", whose sentence that
-  a candidate's evidence does not depend on the filter it corrects.
+  a candidate's evidence does not depend on the filter it now qualifies.
   Experiment 0242. The analysis scripts are committed in
   `scripts/analysis/` (`recall_by_position.py`, `chain_lines.py`,
   `saved_index_cut.py`).
@@ -199,3 +199,20 @@ Rules for this session:
   core gained `Index::skipping_hashes` and `saved::provenance`, which
   the CLI never calls. The final checks compare the CLI's JSON report of
   the Stakka mix from both builds.
+- **(13:53) Final checks** with `work/bin/s59-final/` (`cmp`-equal to
+  `s59-run2/`): `scripts/check.sh` green (4:50); `regress
+  session-54-linux` (0:52) and `regress session-54-linux-nas` (3:49)
+  identical, 16 of 16 reports equal to their baselines' apart from
+  `wall_seconds`; the CLI's JSON report of the Stakka mix identical from
+  `s58-final` and `s59-final`; the digests unchanged.
+- **(13:55) The review** (a read-only agent, 13:44-13:52): no code
+  defect; numbers, comparisons and the judgment confirmed. Fixed: 0242,
+  the notes and this brief no longer say `regress` is untouched (its
+  leave-out scans and sweep set their own cut; only recall's was
+  measured); the roadmap marks the two ties as inferences; ADR 0014 and
+  the roadmap give the conditions of "the old reports exactly"; the
+  memory figures (5.6 and 8.7 GiB); the checklist; one sentence of this
+  brief; `saved_index_cut.py` rounds as Rust does (no effect at 1,086,463
+  lists). Left as notes: the help text of `--trace-candidates` does not
+  name the chain's lines (a rebuild for a help string was not worth the
+  checks again), and 0242 points to `work/s59/trace-*.sh` for commands.
